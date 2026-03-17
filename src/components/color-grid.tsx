@@ -3,9 +3,11 @@ import type { ColorRecord } from "@/src/types/color";
 
 interface ColorGridProps {
   colors: readonly ColorRecord[];
+  selectedColorId?: string | null;
+  onSelectColor?: (colorId: string) => void;
 }
 
-export function ColorGrid({ colors }: ColorGridProps) {
+export function ColorGrid({ colors, selectedColorId, onSelectColor }: ColorGridProps) {
   if (colors.length === 0) {
     return (
       <section className="glass-panel rounded-[1.75rem] px-6 py-12 text-center">
@@ -30,7 +32,12 @@ export function ColorGrid({ colors }: ColorGridProps) {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         {colors.map((color) => (
-          <ColorCard key={color.id} color={color} />
+          <ColorCard
+            key={color.id}
+            color={color}
+            isSelected={selectedColorId === color.id}
+            onSelect={onSelectColor}
+          />
         ))}
       </div>
     </section>

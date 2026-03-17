@@ -5,9 +5,11 @@ import type { ColorRecord } from "@/src/types/color";
 
 interface ColorCardProps {
   color: ColorRecord;
+  isSelected?: boolean;
+  onSelect?: (colorId: string) => void;
 }
 
-export function ColorCard({ color }: ColorCardProps) {
+export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProps) {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -28,8 +30,27 @@ export function ColorCard({ color }: ColorCardProps) {
     }
   };
 
+  const handleSelect = () => {
+    onSelect?.(color.id);
+  };
+
   return (
-    <article className="group overflow-hidden rounded-[1.6rem] border border-black/6 bg-white/90 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.11)]">
+    <article
+      role="button"
+      tabIndex={0}
+      onClick={handleSelect}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          handleSelect();
+        }
+      }}
+      className={`group overflow-hidden rounded-[1.6rem] border bg-white/90 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.11)] focus:outline-none focus:ring-4 focus:ring-neutral-900/10 ${
+        isSelected ? "border-neutral-950/14 ring-2 ring-neutral-900/6" : "border-black/6"
+      }`}
+      aria-label={`Select ${color.name}`}
+      aria-pressed={isSelected}
+    >
       <div className="relative">
         <div
           className="swatch-shadow h-36 w-full border-b border-black/6 sm:h-40"
@@ -59,7 +80,10 @@ export function ColorCard({ color }: ColorCardProps) {
 
           <button
             type="button"
-            onClick={handleCopy}
+            onClick={(event) => {
+              event.stopPropagation();
+              void handleCopy();
+            }}
             className="rounded-full border border-black/8 bg-neutral-950 px-3 py-1.5 text-xs font-medium tracking-[0.08em] text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
             aria-label={`Copy ${color.hex} to clipboard`}
           >
@@ -73,7 +97,10 @@ export function ColorCard({ color }: ColorCardProps) {
             <dd>
               <button
                 type="button"
-                onClick={handleCopy}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  void handleCopy();
+                }}
                 className="font-medium text-neutral-950 transition hover:text-neutral-600 focus:outline-none"
                 aria-label={`Copy hex value ${color.hex}`}
               >

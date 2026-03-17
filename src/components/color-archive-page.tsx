@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ColorGrid } from "@/src/components/color-grid";
 import { FamilyOverview } from "@/src/components/family-overview";
 import { FilterToolbar } from "@/src/components/filter-toolbar";
 import { HeroSection } from "@/src/components/hero-section";
+import { SelectedColorPanel } from "@/src/components/selected-color-panel";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
@@ -16,6 +17,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortOption>("hue");
   const [activeFamily, setActiveFamily] = useState<ColorFamily | "All">("All");
+  const [selectedColorId, setSelectedColorId] = useState<string | null>(colors[0]?.id ?? null);
 
   const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
 
@@ -38,6 +40,42 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
 
     return sortColors(filtered, sortBy);
   }, [activeFamily, searchResults, sortBy]);
+
+  useEffect(() => {
+    if (visibleColors.length === 0) {
+      setSelectedColorId(null);
+      return;
+    }
+
+    const hasSelectedColor = visibleColors.some((color) => color.id === selectedColorId);
+
+    if (!hasSelectedColor) {
+      setSelectedColorId(visibleColors[0].id);
+    }
+  }, [selectedColorId, visibleColors]);
+
+  const selectedColor = useMemo(
+    () => visibleColors.find((color) => color.id === selectedColorId) ?? visibleColors[0] ?? null,
+    [selectedColorId, visibleColors],
+  );
+
+  const nearbyColors = useMemo(() => {
+    if (!selectedColor) {
+      return [];
+    }
+
+    const related = sortColors(
+      searchResults.filter((color) => color.family === selectedColor.family),
+      "hue",
+    );
+    const selectedIndex = related.findIndex((color) => color.id === selectedColor.id);
+
+    if (selectedIndex === -1) {
+      return related.slice(0, 4);
+    }
+
+    return related.slice(Math.max(0, selectedIndex - 1), selectedIndex + 3);
+  }, [searchResults, selectedColor]);
 
   const handleReset = () => {
     setSearchQuery("");
@@ -74,7 +112,17 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
           onFamilySelect={setActiveFamily}
         />
 
-        <ColorGrid colors={visibleColors} />
+        <SelectedColorPanel
+          color={selectedColor}
+          nearbyColors={nearbyColors}
+          onSelectColor={setSelectedColorId}
+        />
+
+        <ColorGrid
+          colors={visibleColors}
+          selectedColorId={selectedColorId}
+          onSelectColor={setSelectedColorId}
+        />
 
         <footer className="px-1 pb-4">
           <div className="flex flex-col gap-3 rounded-[1.75rem] border border-black/6 bg-white/66 px-5 py-5 text-sm text-neutral-500 shadow-[0_18px_48px_rgba(15,23,42,0.04)] sm:flex-row sm:items-center sm:justify-between sm:px-6">
