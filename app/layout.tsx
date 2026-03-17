@@ -8,6 +8,7 @@ const siteDescription =
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://colorarchive.me"),
+  category: "design",
   title: {
     default: siteTitle,
     template: `%s · ${siteTitle}`,
@@ -40,6 +41,9 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  other: {
+    "theme-color": "#f6f4ef",
   },
 };
 

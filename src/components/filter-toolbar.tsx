@@ -3,8 +3,11 @@ import type { ColorFamily, SortOption } from "@/src/types/color";
 
 interface FilterToolbarProps {
   activeFamily: ColorFamily | "All";
+  familyCounts: Record<ColorFamily, number>;
   searchQuery: string;
   sortBy: SortOption;
+  totalColors: number;
+  visibleColors: number;
   onFamilyChange: (family: ColorFamily | "All") => void;
   onSearchChange: (value: string) => void;
   onSortChange: (value: SortOption) => void;
@@ -13,8 +16,11 @@ interface FilterToolbarProps {
 
 export function FilterToolbar({
   activeFamily,
+  familyCounts,
   searchQuery,
   sortBy,
+  totalColors,
+  visibleColors,
   onFamilyChange,
   onSearchChange,
   onSortChange,
@@ -23,18 +29,47 @@ export function FilterToolbar({
   const hasActiveFilters = activeFamily !== "All" || searchQuery.length > 0 || sortBy !== "hue";
 
   return (
-    <section className="glass-panel sticky top-4 z-10 rounded-[1.75rem] p-4 sm:p-5">
+    <section id="archive" className="glass-panel sticky top-4 z-10 rounded-[1.75rem] p-4 sm:p-5">
       <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              Archive controls
+            </div>
+            <div className="mt-1 text-sm text-neutral-600">
+              {visibleColors === totalColors
+                ? `Showing all ${totalColors} colors`
+                : `Showing ${visibleColors} of ${totalColors} colors`}
+            </div>
+          </div>
+          <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">
+            Search, sort, and narrow by family
+          </div>
+        </div>
+
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
           <label className="relative flex-1">
             <span className="sr-only">Search colors by name or hex</span>
+            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">
+              ⌕
+            </span>
             <input
               type="search"
               value={searchQuery}
               onChange={(event) => onSearchChange(event.target.value)}
               placeholder="Search by color name or hex value"
-              className="w-full rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+              className="w-full rounded-2xl border border-black/8 bg-white/85 px-11 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
             />
+            {searchQuery.length > 0 ? (
+              <button
+                type="button"
+                onClick={() => onSearchChange("")}
+                className="absolute right-3 top-1/2 rounded-full px-2 py-1 text-xs font-medium text-neutral-500 transition hover:bg-neutral-900/5 hover:text-neutral-900"
+                aria-label="Clear search"
+              >
+                Clear
+              </button>
+            ) : null}
           </label>
 
           <label className="flex min-w-[12rem] flex-col gap-2">
@@ -93,6 +128,9 @@ export function FilterToolbar({
                 aria-pressed={isActive}
               >
                 {family}
+                <span className={`ml-2 text-xs ${isActive ? "text-white/70" : "text-neutral-400"}`}>
+                  {familyCounts[family]}
+                </span>
               </button>
             );
           })}

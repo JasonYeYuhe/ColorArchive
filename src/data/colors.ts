@@ -41,15 +41,17 @@ const hueCatalog = [
 ] as const;
 
 const toneCatalog = [
-  { suffix: "Mist", saturation: 24, lightness: 94 },
-  { suffix: "Pearl", saturation: 30, lightness: 88 },
-  { suffix: "Bloom", saturation: 40, lightness: 80 },
-  { suffix: "Silk", saturation: 50, lightness: 70 },
+  { suffix: "Whisper", saturation: 20, lightness: 96 },
+  { suffix: "Mist", saturation: 24, lightness: 92 },
+  { suffix: "Pearl", saturation: 30, lightness: 86 },
+  { suffix: "Bloom", saturation: 40, lightness: 78 },
+  { suffix: "Silk", saturation: 52, lightness: 69 },
   { suffix: "Tone", saturation: 62, lightness: 60 },
   { suffix: "Core", saturation: 74, lightness: 52 },
-  { suffix: "Velvet", saturation: 58, lightness: 44 },
-  { suffix: "Dusk", saturation: 46, lightness: 32 },
-  { suffix: "Nocturne", saturation: 34, lightness: 22 },
+  { suffix: "Velvet", saturation: 60, lightness: 44 },
+  { suffix: "Dusk", saturation: 48, lightness: 35 },
+  { suffix: "Shadow", saturation: 40, lightness: 27 },
+  { suffix: "Nocturne", saturation: 32, lightness: 20 },
 ] as const;
 
 function createColorId(name: string): string {

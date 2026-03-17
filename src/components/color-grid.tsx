@@ -18,13 +18,21 @@ export function ColorGrid({ colors }: ColorGridProps) {
   }
 
   return (
-    <section
-      className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
-      aria-label="Color archive"
-    >
-      {colors.map((color) => (
-        <ColorCard key={color.id} color={color} />
-      ))}
+    <section className="space-y-4" aria-label="Color archive">
+      <div className="flex items-center justify-between px-1">
+        <div>
+          <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">Archive</h2>
+          <p className="mt-1 text-sm text-neutral-500">
+            Curated swatches arranged for fast scanning and comparison.
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+        {colors.map((color) => (
+          <ColorCard key={color.id} color={color} />
+        ))}
+      </div>
     </section>
   );
 }

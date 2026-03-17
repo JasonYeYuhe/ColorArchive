@@ -29,12 +29,22 @@ export function ColorCard({ color }: ColorCardProps) {
   };
 
   return (
-    <article className="group overflow-hidden rounded-[1.6rem] border border-black/6 bg-white/86 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.11)]">
-      <div
-        className="swatch-shadow h-36 w-full border-b border-black/6 sm:h-40"
-        style={{ backgroundColor: color.hex }}
-        aria-hidden="true"
-      />
+    <article className="group overflow-hidden rounded-[1.6rem] border border-black/6 bg-white/90 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.11)]">
+      <div className="relative">
+        <div
+          className="swatch-shadow h-36 w-full border-b border-black/6 sm:h-40"
+          style={{ backgroundColor: color.hex }}
+          aria-hidden="true"
+        />
+        <div className="pointer-events-none absolute inset-x-4 top-4 flex items-start justify-between gap-3">
+          <div className="rounded-full border border-white/30 bg-white/18 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-white/92 backdrop-blur-md">
+            {color.family}
+          </div>
+          <div className="rounded-full border border-white/30 bg-black/18 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-white backdrop-blur-md">
+            H {color.hue}
+          </div>
+        </div>
+      </div>
 
       <div className="space-y-4 p-4">
         <div className="flex items-start justify-between gap-3">
@@ -43,7 +53,7 @@ export function ColorCard({ color }: ColorCardProps) {
               {color.name}
             </div>
             <div className="mt-1 text-xs uppercase tracking-[0.16em] text-neutral-400">
-              {color.family}
+              {color.hsl}
             </div>
           </div>
 
@@ -76,6 +86,18 @@ export function ColorCard({ color }: ColorCardProps) {
             <dd className="font-medium text-neutral-950">{color.rgb}</dd>
           </div>
         </dl>
+
+        <div className="flex flex-wrap gap-2 pt-1">
+          <span className="rounded-full border border-black/6 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-500">
+            Sat {color.saturation}%
+          </span>
+          <span className="rounded-full border border-black/6 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-500">
+            Light {color.lightness}%
+          </span>
+          <span className="rounded-full border border-black/6 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-500">
+            {color.family}
+          </span>
+        </div>
       </div>
     </article>
   );

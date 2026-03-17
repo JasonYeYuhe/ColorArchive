@@ -13,7 +13,7 @@ ColorArchive is a polished, single-page visual archive of colors built with Next
 ## Architecture
 
 - `app/` contains the single exported route, metadata, and global styles.
-- `src/data/colors.ts` generates a local dataset of 324 colors with name, hex, rgb, hsl, hue, saturation, lightness, and family.
+- `src/data/colors.ts` generates a local dataset of 396 colors with name, hex, rgb, hsl, hue, saturation, lightness, and family.
 - `src/components/` contains reusable UI building blocks for the hero, filters, grid, and cards.
 - `src/lib/color-utils.ts` contains pure utility functions for color conversion, sorting, and filtering.
 - `.github/workflows/deploy-pages.yml` builds and deploys the static `out/` directory to GitHub Pages.
