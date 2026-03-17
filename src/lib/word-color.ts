@@ -52,13 +52,42 @@ export function generateColorFromWord(token: string): GeneratedWordColor | null 
   const family = getColorFamily(hue);
 
   const variants = [
-    { label: "Mist", saturation: Math.max(18, saturation - 22), lightness: Math.min(95, lightness + 28) },
-    { label: "Base", saturation, lightness },
-    { label: "Deep", saturation: Math.min(88, saturation + 10), lightness: Math.max(14, lightness - 18) },
-  ].map(({ label, saturation: variantSaturation, lightness: variantLightness }) => ({
-    label,
-    hex: rgbToHex(hslToRgb(hue, variantSaturation, variantLightness)),
-  }));
+    {
+      label: "Mist",
+      hue,
+      saturation: Math.max(18, saturation - 24),
+      lightness: Math.min(95, lightness + 30),
+    },
+    {
+      label: "Glow",
+      hue,
+      saturation: Math.max(24, saturation - 10),
+      lightness: Math.min(90, lightness + 14),
+    },
+    { label: "Base", hue, saturation, lightness },
+    {
+      label: "Deep",
+      hue,
+      saturation: Math.min(88, saturation + 10),
+      lightness: Math.max(14, lightness - 18),
+    },
+    {
+      label: "Accent",
+      hue: (hue + 32) % 360,
+      saturation: Math.min(88, saturation + 8),
+      lightness: Math.max(22, Math.min(72, lightness)),
+    },
+  ].map(
+    ({
+      label,
+      hue: variantHue,
+      saturation: variantSaturation,
+      lightness: variantLightness,
+    }) => ({
+      label,
+      hex: rgbToHex(hslToRgb(variantHue, variantSaturation, variantLightness)),
+    }),
+  );
 
   return {
     family,

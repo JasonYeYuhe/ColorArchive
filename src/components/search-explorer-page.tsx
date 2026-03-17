@@ -14,6 +14,37 @@ interface SearchExplorerPageProps {
 }
 
 const SEARCH_PROMPTS = ["moss", "rose", "#7F", "azure", "velvet"] as const;
+type HueBand = "all" | "warm" | "fresh" | "cool" | "violet";
+type ToneBand = "all" | "light" | "mid" | "dark";
+
+function matchesHueBand(color: ColorRecord, hueBand: HueBand) {
+  if (hueBand === "all") {
+    return true;
+  }
+  if (hueBand === "warm") {
+    return color.hue < 70 || color.hue >= 330;
+  }
+  if (hueBand === "fresh") {
+    return color.hue >= 70 && color.hue < 170;
+  }
+  if (hueBand === "cool") {
+    return color.hue >= 170 && color.hue < 250;
+  }
+  return color.hue >= 250 && color.hue < 330;
+}
+
+function matchesToneBand(color: ColorRecord, toneBand: ToneBand) {
+  if (toneBand === "all") {
+    return true;
+  }
+  if (toneBand === "light") {
+    return color.lightness >= 72;
+  }
+  if (toneBand === "mid") {
+    return color.lightness >= 38 && color.lightness < 72;
+  }
+  return color.lightness < 38;
+}
 
 export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
   const router = useRouter();
@@ -22,6 +53,8 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
   const initialQuery = searchParams.get("q") ?? "";
   const initialSort = (searchParams.get("sort") as SortOption | null) ?? "name";
   const initialFamily = (searchParams.get("family") as ColorFamily | null) ?? "All";
+  const initialHueBand = (searchParams.get("hueBand") as HueBand | null) ?? "all";
+  const initialToneBand = (searchParams.get("tone") as ToneBand | null) ?? "all";
 
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [sortBy, setSortBy] = useState<SortOption>(
@@ -31,6 +64,19 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
   );
   const [activeFamily, setActiveFamily] = useState<ColorFamily | "All">(
     initialFamily === "All" || COLOR_FAMILIES.includes(initialFamily) ? initialFamily : "All",
+  );
+  const [hueBand, setHueBand] = useState<HueBand>(
+    initialHueBand === "warm" ||
+      initialHueBand === "fresh" ||
+      initialHueBand === "cool" ||
+      initialHueBand === "violet"
+      ? initialHueBand
+      : "all",
+  );
+  const [toneBand, setToneBand] = useState<ToneBand>(
+    initialToneBand === "light" || initialToneBand === "mid" || initialToneBand === "dark"
+      ? initialToneBand
+      : "all",
   );
   const [selectedColorId, setSelectedColorId] = useState<string | null>(colors[0]?.id ?? null);
 
@@ -53,8 +99,13 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
         ? searchResults
         : searchResults.filter((color) => color.family === activeFamily);
 
-    return sortColors(filtered, sortBy);
-  }, [activeFamily, searchResults, sortBy]);
+    return sortColors(
+      filtered.filter(
+        (color) => matchesHueBand(color, hueBand) && matchesToneBand(color, toneBand),
+      ),
+      sortBy,
+    );
+  }, [activeFamily, hueBand, searchResults, sortBy, toneBand]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -71,9 +122,17 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
       params.set("family", activeFamily);
     }
 
+    if (hueBand !== "all") {
+      params.set("hueBand", hueBand);
+    }
+
+    if (toneBand !== "all") {
+      params.set("tone", toneBand);
+    }
+
     const queryString = params.toString();
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
-  }, [activeFamily, pathname, router, searchQuery, sortBy]);
+  }, [activeFamily, hueBand, pathname, router, searchQuery, sortBy, toneBand]);
 
   useEffect(() => {
     if (visibleColors.length === 0) {
@@ -113,6 +172,8 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
     setSearchQuery("");
     setSortBy("name");
     setActiveFamily("All");
+    setHueBand("all");
+    setToneBand("all");
   };
 
   return (
@@ -152,10 +213,66 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
                   searchQuery.trim()
                     ? `/search?q=${encodeURIComponent(searchQuery.trim())}${
                         activeFamily !== "All" ? `&family=${encodeURIComponent(activeFamily)}` : ""
-                      }${sortBy !== "name" ? `&sort=${encodeURIComponent(sortBy)}` : ""}`
-                    : "/search"
+                      }${sortBy !== "name" ? `&sort=${encodeURIComponent(sortBy)}` : ""}${
+                        hueBand !== "all" ? `&hueBand=${encodeURIComponent(hueBand)}` : ""
+                      }${toneBand !== "all" ? `&tone=${encodeURIComponent(toneBand)}` : ""}`
+                    : `/search${hueBand !== "all" || toneBand !== "all" ? `?${new URLSearchParams({
+                        ...(hueBand !== "all" ? { hueBand } : {}),
+                        ...(toneBand !== "all" ? { tone: toneBand } : {}),
+                      }).toString()}` : ""}`
                 }
               />
+            </div>
+          </div>
+        </section>
+
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/78 p-4 shadow-[0_18px_48px_rgba(15,23,42,0.04)] sm:p-5">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <label className="flex flex-col gap-2">
+              <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Hue band
+              </span>
+              <select
+                value={hueBand}
+                onChange={(event) => setHueBand(event.target.value as HueBand)}
+                className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+              >
+                <option value="all">All hues</option>
+                <option value="warm">Warm</option>
+                <option value="fresh">Fresh</option>
+                <option value="cool">Cool</option>
+                <option value="violet">Violet / Pink</option>
+              </select>
+            </label>
+
+            <label className="flex flex-col gap-2">
+              <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Tone
+              </span>
+              <select
+                value={toneBand}
+                onChange={(event) => setToneBand(event.target.value as ToneBand)}
+                className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+              >
+                <option value="all">All tones</option>
+                <option value="light">Light</option>
+                <option value="mid">Mid</option>
+                <option value="dark">Dark</option>
+              </select>
+            </label>
+
+            <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Current query</div>
+              <div className="mt-2 text-sm font-medium text-neutral-950">
+                {searchQuery.trim().length > 0 ? searchQuery.trim() : "No keyword"}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Current lens</div>
+              <div className="mt-2 text-sm font-medium text-neutral-950">
+                {hueBand === "all" ? "All hues" : hueBand} · {toneBand === "all" ? "All tones" : toneBand}
+              </div>
             </div>
           </div>
         </section>

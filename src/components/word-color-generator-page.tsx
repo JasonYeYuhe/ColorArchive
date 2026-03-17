@@ -132,7 +132,7 @@ export function WordColorGeneratorPage() {
                     Generated palette
                   </h2>
                   <p className="mt-1 text-sm text-neutral-500">
-                    Three tonal steps around the same hue signature.
+                    Five linked colors around the same generated signature.
                   </p>
                 </div>
                 <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
@@ -140,7 +140,7 @@ export function WordColorGeneratorPage() {
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
                 {generated.variants.map((variant) => (
                   <div
                     key={variant.label}
