@@ -1,0 +1,50 @@
+import Link from "next/link";
+
+interface SiteHeaderProps {
+  currentPath: "/" | "/word-to-color";
+}
+
+export function SiteHeader({ currentPath }: SiteHeaderProps) {
+  return (
+    <header className="px-4 pt-4 sm:px-6 sm:pt-6">
+      <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between rounded-[1.5rem] border border-black/6 bg-white/72 px-4 py-3 shadow-[0_18px_48px_rgba(15,23,42,0.05)] backdrop-blur-xl sm:px-5">
+        <Link href="/" className="flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-neutral-950 text-sm font-semibold text-white">
+            CA
+          </span>
+          <span>
+            <span className="block text-base font-semibold tracking-[-0.03em] text-neutral-950">
+              ColorArchive
+            </span>
+            <span className="block text-xs uppercase tracking-[0.18em] text-neutral-400">
+              Archive and generator
+            </span>
+          </span>
+        </Link>
+
+        <nav className="flex items-center gap-2">
+          <Link
+            href="/"
+            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            Archive
+          </Link>
+          <Link
+            href="/word-to-color"
+            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/word-to-color"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            Word → Color
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+}

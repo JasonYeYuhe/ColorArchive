@@ -1,6 +1,6 @@
 # ColorArchive
 
-ColorArchive is a polished, single-page visual archive of colors built with Next.js, TypeScript, Tailwind CSS, and the App Router. It is configured for static export and GitHub Pages deployment.
+ColorArchive is a polished static color project built with Next.js, TypeScript, Tailwind CSS, and the App Router. It includes a primary archive page plus a lightweight `Word → Color` generator route, and it is configured for static export and GitHub Pages deployment.
 
 ## Stack
 
@@ -13,9 +13,11 @@ ColorArchive is a polished, single-page visual archive of colors built with Next
 ## Architecture
 
 - `app/` contains the single exported route, metadata, and global styles.
-- `src/data/colors.ts` generates a local dataset of 396 colors with name, hex, rgb, hsl, hue, saturation, lightness, and family.
+- `src/data/colors.ts` generates a local dataset of 504 colors with name, hex, rgb, hsl, hue, saturation, lightness, and family.
 - `src/components/` contains reusable UI building blocks for the hero, filters, grid, and cards.
+- `app/word-to-color/page.tsx` adds a second static route that deterministically maps any word or phrase to a color.
 - `src/lib/color-utils.ts` contains pure utility functions for color conversion, sorting, and filtering.
+- `src/lib/word-color.ts` contains the local deterministic word-to-color generator.
 - `.github/workflows/deploy-pages.yml` builds and deploys the static `out/` directory to GitHub Pages.
 - `public/CNAME` ensures GitHub Pages serves the site on `colorarchive.me`.
 
