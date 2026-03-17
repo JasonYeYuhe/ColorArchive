@@ -29,7 +29,10 @@ export function FilterToolbar({
   const hasActiveFilters = activeFamily !== "All" || searchQuery.length > 0 || sortBy !== "hue";
 
   return (
-    <section id="archive" className="glass-panel sticky top-4 z-10 rounded-[1.75rem] p-4 sm:p-5">
+    <section
+      id="archive"
+      className="glass-panel rounded-[1.75rem] p-4 sm:p-5 lg:sticky lg:top-4 lg:z-10"
+    >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -98,42 +101,44 @@ export function FilterToolbar({
           </button>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => onFamilyChange("All")}
-            className={`rounded-full px-3 py-1.5 text-sm transition ${
-              activeFamily === "All"
-                ? "bg-neutral-950 text-white"
-                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
-            }`}
-            aria-pressed={activeFamily === "All"}
-          >
-            All families
-          </button>
+        <div className="-mx-1 overflow-x-auto pb-1 sm:mx-0 sm:overflow-visible">
+          <div className="flex min-w-max gap-2 px-1 sm:min-w-0 sm:flex-wrap sm:px-0">
+            <button
+              type="button"
+              onClick={() => onFamilyChange("All")}
+              className={`shrink-0 rounded-full px-3 py-1.5 text-sm transition ${
+                activeFamily === "All"
+                  ? "bg-neutral-950 text-white"
+                  : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+              }`}
+              aria-pressed={activeFamily === "All"}
+            >
+              All families
+            </button>
 
-          {COLOR_FAMILIES.map((family) => {
-            const isActive = activeFamily === family;
+            {COLOR_FAMILIES.map((family) => {
+              const isActive = activeFamily === family;
 
-            return (
-              <button
-                key={family}
-                type="button"
-                onClick={() => onFamilyChange(family)}
-                className={`rounded-full px-3 py-1.5 text-sm transition ${
-                  isActive
-                    ? "bg-neutral-950 text-white"
-                    : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
-                }`}
-                aria-pressed={isActive}
-              >
-                {family}
-                <span className={`ml-2 text-xs ${isActive ? "text-white/70" : "text-neutral-400"}`}>
-                  {familyCounts[family]}
-                </span>
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={family}
+                  type="button"
+                  onClick={() => onFamilyChange(family)}
+                  className={`shrink-0 rounded-full px-3 py-1.5 text-sm transition ${
+                    isActive
+                      ? "bg-neutral-950 text-white"
+                      : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+                  }`}
+                  aria-pressed={isActive}
+                >
+                  {family}
+                  <span className={`ml-2 text-xs ${isActive ? "text-white/70" : "text-neutral-400"}`}>
+                    {familyCounts[family]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

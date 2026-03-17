@@ -54,6 +54,12 @@ export function HeroSection({
           >
             Try word → color
           </Link>
+          <Link
+            href="/search"
+            className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+          >
+            Open search page
+          </Link>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">

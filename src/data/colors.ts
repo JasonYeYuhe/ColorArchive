@@ -40,22 +40,41 @@ const hueCatalog = [
   { hue: 350, root: "Merlot" },
 ] as const;
 
-const toneCatalog = [
-  { suffix: "Veil", saturation: 18, lightness: 98 },
-  { suffix: "Whisper", saturation: 20, lightness: 96 },
-  { suffix: "Mist", saturation: 24, lightness: 92 },
-  { suffix: "Pearl", saturation: 30, lightness: 86 },
-  { suffix: "Bloom", saturation: 40, lightness: 78 },
-  { suffix: "Silk", saturation: 52, lightness: 69 },
-  { suffix: "Tone", saturation: 62, lightness: 60 },
-  { suffix: "Radiant", saturation: 68, lightness: 56 },
-  { suffix: "Core", saturation: 74, lightness: 52 },
-  { suffix: "Velvet", saturation: 60, lightness: 44 },
-  { suffix: "Dusk", saturation: 48, lightness: 35 },
-  { suffix: "Shadow", saturation: 40, lightness: 27 },
-  { suffix: "Nocturne", saturation: 32, lightness: 20 },
-  { suffix: "Ink", saturation: 26, lightness: 14 },
+const lightBands = [
+  { label: "Veil", lightness: 98 },
+  { label: "Whisper", lightness: 94 },
+  { label: "Mist", lightness: 90 },
+  { label: "Pearl", lightness: 84 },
+  { label: "Bloom", lightness: 76 },
+  { label: "Silk", lightness: 68 },
+  { label: "Tone", lightness: 60 },
+  { label: "Radiant", lightness: 54 },
+  { label: "Core", lightness: 48 },
+  { label: "Velvet", lightness: 42 },
+  { label: "Dusk", lightness: 34 },
+  { label: "Shadow", lightness: 28 },
+  { label: "Nocturne", lightness: 20 },
+  { label: "Ink", lightness: 14 },
 ] as const;
+
+const chromaBands = [
+  { label: "Muted", saturation: 18 },
+  { label: "Soft", saturation: 34 },
+  { label: "Clear", saturation: 54 },
+  { label: "Vivid", saturation: 74 },
+] as const;
+
+const toneCatalog = lightBands.flatMap(({ label: lightLabel, lightness }) =>
+  chromaBands.map(({ label: chromaLabel, saturation }) => ({
+    suffix: `${lightLabel} ${chromaLabel}`,
+    saturation,
+    lightness,
+  })),
+) as ReadonlyArray<{
+  suffix: string;
+  saturation: number;
+  lightness: number;
+}>;
 
 function createColorId(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
