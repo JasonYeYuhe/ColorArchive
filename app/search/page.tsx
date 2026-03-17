@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { SearchExplorerPage } from "@/src/components/search-explorer-page";
 import { SiteHeader } from "@/src/components/site-header";
@@ -12,7 +13,9 @@ export default function SearchPage() {
   return (
     <>
       <SiteHeader currentPath="/search" />
-      <SearchExplorerPage colors={colors} />
+      <Suspense fallback={<main className="px-4 py-8 text-sm text-neutral-500">Loading search…</main>}>
+        <SearchExplorerPage colors={colors} />
+      </Suspense>
     </>
   );
 }

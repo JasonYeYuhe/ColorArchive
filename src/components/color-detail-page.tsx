@@ -1,0 +1,172 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { ShareLinkButton } from "@/src/components/share-link-button";
+import type { ColorRecord } from "@/src/types/color";
+
+interface ColorDetailPageProps {
+  color: ColorRecord;
+  relatedColors: readonly ColorRecord[];
+}
+
+function CopyButton({ value, label }: { value: string; label: string }) {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!copied) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => setCopied(false), 1400);
+    return () => window.clearTimeout(timeoutId);
+  }, [copied]);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+    >
+      {copied ? `${label} copied` : `Copy ${label}`}
+    </button>
+  );
+}
+
+export function ColorDetailPage({ color, relatedColors }: ColorDetailPageProps) {
+  return (
+    <main className="px-4 py-4 sm:px-6 sm:py-6">
+      <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
+        <section className="overflow-hidden rounded-[2rem] border border-black/6 bg-white/78 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
+          <div
+            className="relative h-72 border-b border-black/6 sm:h-80"
+            style={{ backgroundColor: color.hex }}
+            aria-hidden="true"
+          >
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.14),transparent_45%,rgba(17,24,39,0.08))]" />
+            <div className="absolute left-6 top-6 rounded-full border border-white/30 bg-white/18 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-white/92 backdrop-blur-md">
+              Color detail
+            </div>
+            <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <div className="text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
+                  {color.name}
+                </div>
+                <div className="mt-3 text-sm uppercase tracking-[0.22em] text-white/75">
+                  {color.family} · Hue {color.hue}
+                </div>
+              </div>
+              <div className="rounded-2xl border border-white/24 bg-black/16 px-4 py-3 text-right text-white backdrop-blur-md">
+                <div className="text-xs uppercase tracking-[0.16em] text-white/70">Hex</div>
+                <div className="mt-1 text-2xl font-semibold tracking-[0.04em]">{color.hex}</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-6 p-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(22rem,0.8fr)]">
+            <div className="space-y-5">
+              <div className="grid gap-3 sm:grid-cols-3">
+                <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">RGB</div>
+                  <div className="mt-1 font-medium text-neutral-950">{color.rgb}</div>
+                </div>
+                <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">HSL</div>
+                  <div className="mt-1 font-medium text-neutral-950">{color.hsl}</div>
+                </div>
+                <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Metrics</div>
+                  <div className="mt-1 font-medium text-neutral-950">
+                    S {color.saturation}% · L {color.lightness}%
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <CopyButton label="hex" value={color.hex} />
+                <CopyButton label="rgb" value={color.rgb} />
+                <CopyButton label="hsl" value={color.hsl} />
+                <ShareLinkButton href={`/colors/${color.id}/`} />
+              </div>
+
+              <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Archive context
+                </div>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
+                  This entry lives in the {color.family.toLowerCase()} family and sits at hue{" "}
+                  {color.hue} with {color.saturation}% saturation and {color.lightness}% lightness.
+                  Use it as a stable reference point inside the broader ColorArchive system.
+                </p>
+              </div>
+            </div>
+
+            <aside className="rounded-[1.8rem] border border-black/6 bg-white/78 p-5 shadow-[0_20px_56px_rgba(15,23,42,0.05)]">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                    Related colors
+                  </div>
+                  <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
+                    More from {color.family}
+                  </h2>
+                </div>
+                <Link
+                  href="/search"
+                  className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                >
+                  Search
+                </Link>
+              </div>
+
+              <div className="mt-5 space-y-3">
+                {relatedColors.map((relatedColor) => (
+                  <Link
+                    key={relatedColor.id}
+                    href={`/colors/${relatedColor.id}/`}
+                    className={`flex items-center gap-3 rounded-2xl border px-3 py-3 text-left transition ${
+                      relatedColor.id === color.id
+                        ? "border-neutral-950/12 bg-neutral-950 text-white"
+                        : "border-black/6 bg-white hover:bg-neutral-50"
+                    }`}
+                  >
+                    <span
+                      className="h-11 w-11 rounded-2xl border border-black/6 shadow-sm"
+                      style={{ backgroundColor: relatedColor.hex }}
+                      aria-hidden="true"
+                    />
+                    <span className="min-w-0 flex-1">
+                      <span
+                        className={`block truncate font-medium ${
+                          relatedColor.id === color.id ? "text-white" : "text-neutral-950"
+                        }`}
+                      >
+                        {relatedColor.name}
+                      </span>
+                      <span
+                        className={`mt-1 block text-sm ${
+                          relatedColor.id === color.id ? "text-white/70" : "text-neutral-500"
+                        }`}
+                      >
+                        {relatedColor.hex} · {relatedColor.hsl}
+                      </span>
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}

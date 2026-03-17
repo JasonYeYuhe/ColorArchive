@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ColorGrid } from "@/src/components/color-grid";
 import { FilterToolbar } from "@/src/components/filter-toolbar";
 import { SelectedColorPanel } from "@/src/components/selected-color-panel";
+import { ShareLinkButton } from "@/src/components/share-link-button";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
@@ -14,9 +16,22 @@ interface SearchExplorerPageProps {
 const SEARCH_PROMPTS = ["moss", "rose", "#7F", "azure", "velvet"] as const;
 
 export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState<SortOption>("name");
-  const [activeFamily, setActiveFamily] = useState<ColorFamily | "All">("All");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") ?? "";
+  const initialSort = (searchParams.get("sort") as SortOption | null) ?? "name";
+  const initialFamily = (searchParams.get("family") as ColorFamily | null) ?? "All";
+
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
+  const [sortBy, setSortBy] = useState<SortOption>(
+    initialSort === "hue" || initialSort === "lightness" || initialSort === "name"
+      ? initialSort
+      : "name",
+  );
+  const [activeFamily, setActiveFamily] = useState<ColorFamily | "All">(
+    initialFamily === "All" || COLOR_FAMILIES.includes(initialFamily) ? initialFamily : "All",
+  );
   const [selectedColorId, setSelectedColorId] = useState<string | null>(colors[0]?.id ?? null);
 
   const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
@@ -40,6 +55,25 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
 
     return sortColors(filtered, sortBy);
   }, [activeFamily, searchResults, sortBy]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (searchQuery.trim()) {
+      params.set("q", searchQuery.trim());
+    }
+
+    if (sortBy !== "name") {
+      params.set("sort", sortBy);
+    }
+
+    if (activeFamily !== "All") {
+      params.set("family", activeFamily);
+    }
+
+    const queryString = params.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
+  }, [activeFamily, pathname, router, searchQuery, sortBy]);
 
   useEffect(() => {
     if (visibleColors.length === 0) {
@@ -113,6 +147,15 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
                   {prompt}
                 </button>
               ))}
+              <ShareLinkButton
+                href={
+                  searchQuery.trim()
+                    ? `/search?q=${encodeURIComponent(searchQuery.trim())}${
+                        activeFamily !== "All" ? `&family=${encodeURIComponent(activeFamily)}` : ""
+                      }${sortBy !== "name" ? `&sort=${encodeURIComponent(sortBy)}` : ""}`
+                    : "/search"
+                }
+              />
             </div>
           </div>
         </section>

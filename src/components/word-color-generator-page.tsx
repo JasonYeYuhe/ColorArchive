@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ShareLinkButton } from "@/src/components/share-link-button";
 import { generateColorFromWord } from "@/src/lib/word-color";
 
 const PROMPT_SUGGESTIONS = [
@@ -12,8 +14,18 @@ const PROMPT_SUGGESTIONS = [
 ] as const;
 
 export function WordColorGeneratorPage() {
-  const [input, setInput] = useState("quiet luxury");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const initialWord = searchParams.get("q") ?? "quiet luxury";
+  const [input, setInput] = useState(initialWord);
   const generated = useMemo(() => generateColorFromWord(input), [input]);
+
+  useEffect(() => {
+    const trimmed = input.trim();
+    const href = trimmed.length > 0 ? `${pathname}?q=${encodeURIComponent(trimmed)}` : pathname;
+    router.replace(href, { scroll: false });
+  }, [input, pathname, router]);
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -62,6 +74,13 @@ export function WordColorGeneratorPage() {
                       {suggestion}
                     </button>
                   ))}
+                  <ShareLinkButton
+                    href={
+                      input.trim().length > 0
+                        ? `/word-to-color?q=${encodeURIComponent(input.trim())}`
+                        : "/word-to-color"
+                    }
+                  />
                 </div>
               </div>
 

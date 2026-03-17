@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { WordColorGeneratorPage } from "@/src/components/word-color-generator-page";
@@ -12,7 +13,9 @@ export default function WordToColorPage() {
   return (
     <>
       <SiteHeader currentPath="/word-to-color" />
-      <WordColorGeneratorPage />
+      <Suspense fallback={<main className="px-4 py-8 text-sm text-neutral-500">Loading generator…</main>}>
+        <WordColorGeneratorPage />
+      </Suspense>
     </>
   );
 }

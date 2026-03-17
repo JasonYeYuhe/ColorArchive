@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -124,6 +125,16 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
           <span className="rounded-full border border-black/6 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-500">
             {color.family}
           </span>
+        </div>
+
+        <div className="flex justify-end pt-1">
+          <Link
+            href={`/colors/${color.id}/`}
+            onClick={(event) => event.stopPropagation()}
+            className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+          >
+            Open detail
+          </Link>
         </div>
       </div>
     </article>

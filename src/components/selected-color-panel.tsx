@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ShareLinkButton } from "@/src/components/share-link-button";
 import type { ColorRecord } from "@/src/types/color";
 
 interface SelectedColorPanelProps {
@@ -105,6 +107,13 @@ export function SelectedColorPanel({
             <CopyAction label="hex" value={color.hex} />
             <CopyAction label="rgb" value={color.rgb} />
             <CopyAction label="hsl" value={color.hsl} />
+            <ShareLinkButton href={`/colors/${color.id}/`} />
+            <Link
+              href={`/colors/${color.id}/`}
+              className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+            >
+              Open detail
+            </Link>
           </div>
         </div>
       </div>
