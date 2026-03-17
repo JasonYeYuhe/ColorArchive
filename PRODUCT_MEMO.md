@@ -25,6 +25,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 主页面仍然是颜色档案馆
 - 新增独立搜索页，用于快速查找颜色
 - 新增 All Colors 页面，用高密度方式一次性查看完整档案
+- 新增 Spectrum Explorer 页面，用颜色矩阵而不是卡片来浏览档案
 - 新增实验性工具页面，例如“输入一个词，生成一个颜色”
 - 新增颜色详情页，用于承接更完整的颜色信息和后续 SEO 可能性
 - 整体仍保持 GitHub Pages 兼容、纯静态、无后端
@@ -62,8 +63,9 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 7. 基础品牌样式（Logo / 页头 / 页脚）
 8. 一个独立搜索页
 9. 一个 All Colors 页面
-10. 一个轻量实验页：输入词语生成颜色
-11. 颜色详情页，可单独访问和分享
+10. 一个 Spectrum Explorer 页面
+11. 一个轻量实验页：输入词语生成颜色
+12. 颜色详情页，可单独访问和分享
 
 ## 颜色排序规则
 
@@ -140,6 +142,10 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - `All Colors`
 - 在一个页面中查看当前完整档案
 - 用更高密度的方式展示全部颜色，适合快速扫视
+
+- `Spectrum Explorer`
+- 用 hue × lightness 矩阵来浏览颜色系统
+- 更适合作为项目辨识度功能，而不是普通网格
 
 - `Search`
 - 面向快速查找颜色
@@ -244,6 +250,10 @@ Codex 当前方向：
 - 增加独立搜索页
 - 增加实验性颜色工具页
 - 增加颜色详情页体系
+- 增加更有辨识度的 spectrum 浏览体验
+- 记录可用 credits：
+  - Azure credit: 200 USD（GitHub Student Developer Pack）
+  - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
 
 ## 路线图
 

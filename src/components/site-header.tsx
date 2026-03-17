@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 interface SiteHeaderProps {
-  currentPath: "/" | "/all-colors" | "/search" | "/word-to-color" | "/colors";
+  currentPath: "/" | "/all-colors" | "/search" | "/spectrum" | "/word-to-color" | "/colors";
 }
 
 export function SiteHeader({ currentPath }: SiteHeaderProps) {
@@ -52,6 +52,16 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
             }`}
           >
             Search
+          </Link>
+          <Link
+            href="/spectrum"
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/spectrum"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            Spectrum
           </Link>
           <Link
             href="/word-to-color"

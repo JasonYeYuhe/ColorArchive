@@ -1,0 +1,198 @@
+"use client";
+
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import type { ColorRecord } from "@/src/types/color";
+
+interface SpectrumExplorerPageProps {
+  colors: readonly ColorRecord[];
+}
+
+function uniqueSorted(values: readonly number[]) {
+  return [...new Set(values)].sort((left, right) => left - right);
+}
+
+export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
+  const saturationBands = useMemo(
+    () =>
+      uniqueSorted(colors.map((color) => color.saturation)).map((saturation) => ({
+        saturation,
+        label:
+          saturation <= 18
+            ? "Muted"
+            : saturation <= 34
+              ? "Soft"
+              : saturation <= 54
+                ? "Clear"
+                : "Vivid",
+      })),
+    [colors],
+  );
+
+  const lightnessBands = useMemo(() => uniqueSorted(colors.map((color) => color.lightness)).reverse(), [colors]);
+  const hueBands = useMemo(() => uniqueSorted(colors.map((color) => color.hue)), [colors]);
+  const [activeSaturation, setActiveSaturation] = useState<number>(saturationBands[2]?.saturation ?? 54);
+
+  const spectrumRows = useMemo(
+    () =>
+      lightnessBands.map((lightness) => ({
+        lightness,
+        colors: hueBands.map((hue) =>
+          colors.find(
+            (color) =>
+              color.hue === hue &&
+              color.lightness === lightness &&
+              color.saturation === activeSaturation,
+          ) ?? null,
+        ),
+      })),
+    [activeSaturation, colors, hueBands, lightnessBands],
+  );
+
+  const activeBandLabel =
+    saturationBands.find((band) => band.saturation === activeSaturation)?.label ?? "Active";
+
+  return (
+    <main className="px-4 py-4 sm:px-6 sm:py-6">
+      <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
+        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
+          <div className="pointer-events-none absolute left-0 top-8 h-56 w-56 rounded-full bg-fuchsia-200/25 blur-3xl" />
+          <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-sky-200/28 blur-3xl" />
+          <div className="relative mx-auto max-w-4xl">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
+              <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
+              Spectrum explorer
+            </div>
+
+            <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+              Browse the archive as a spectrum
+            </h1>
+
+            <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
+              Instead of cards, this view arranges the archive as a hue-by-lightness matrix. Switch
+              saturation bands to see how the spectrum tightens or opens across the full set.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
+                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Mode</div>
+                <div className="mt-1 text-lg font-semibold text-neutral-950">Matrix view</div>
+              </div>
+              <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
+                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Hue columns</div>
+                <div className="mt-1 text-lg font-semibold text-neutral-950">{hueBands.length}</div>
+              </div>
+              <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
+                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Light rows</div>
+                <div className="mt-1 text-lg font-semibold text-neutral-950">{lightnessBands.length}</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/78 p-4 shadow-[0_18px_48px_rgba(15,23,42,0.04)] sm:p-5">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Saturation band
+              </div>
+              <div className="mt-1 text-sm text-neutral-600">
+                Current band: {activeBandLabel} ({activeSaturation}%)
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {saturationBands.map((band) => {
+                const isActive = band.saturation === activeSaturation;
+
+                return (
+                  <button
+                    key={band.saturation}
+                    type="button"
+                    onClick={() => setActiveSaturation(band.saturation)}
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                      isActive
+                        ? "bg-neutral-950 text-white"
+                        : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50"
+                    }`}
+                  >
+                    {band.label}
+                    <span className={`ml-2 text-xs ${isActive ? "text-white/70" : "text-neutral-400"}`}>
+                      {band.saturation}%
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="space-y-4">
+          <div className="flex items-center justify-between px-1">
+            <div>
+              <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
+                Hue × Lightness matrix
+              </h2>
+              <p className="mt-1 text-sm text-neutral-500">
+                Each tile opens the corresponding archive detail page.
+              </p>
+            </div>
+            <Link
+              href="/all-colors"
+              className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+            >
+              Dense archive
+            </Link>
+          </div>
+
+          <div className="overflow-x-auto rounded-[1.75rem] border border-black/6 bg-white/78 p-3 shadow-[0_18px_48px_rgba(15,23,42,0.04)] sm:p-4">
+            <div
+              className="grid gap-1.5"
+              style={{
+                gridTemplateColumns: `4rem repeat(${hueBands.length}, minmax(2.75rem, 1fr))`,
+              }}
+            >
+              <div />
+              {hueBands.map((hue) => (
+                <div
+                  key={`hue-${hue}`}
+                  className="text-center text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-400"
+                >
+                  {hue}
+                </div>
+              ))}
+
+              {spectrumRows.map((row) => (
+                <div key={`row-${row.lightness}`} className="contents">
+                  <div className="flex items-center justify-center rounded-xl bg-neutral-50 px-2 text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500">
+                    L {row.lightness}
+                  </div>
+                  {row.colors.map((color, index) =>
+                    color ? (
+                      <Link
+                        key={`${row.lightness}-${color.id}`}
+                        href={`/colors/${color.id}/`}
+                        className="group overflow-hidden rounded-xl border border-black/6 bg-white"
+                        aria-label={`Open ${color.name}`}
+                      >
+                        <div
+                          className="h-14 transition duration-200 group-hover:scale-[1.03]"
+                          style={{ backgroundColor: color.hex }}
+                        />
+                      </Link>
+                    ) : (
+                      <div
+                        key={`${row.lightness}-empty-${hueBands[index]}`}
+                        className="h-14 rounded-xl border border-dashed border-black/6 bg-neutral-50/60"
+                      />
+                    ),
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
