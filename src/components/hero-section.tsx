@@ -103,6 +103,18 @@ export function HeroSection({
             Support the project
           </Link>
           <Link
+            href="/about"
+            className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+          >
+            About ColorArchive
+          </Link>
+          <Link
+            href="/updates"
+            className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+          >
+            View updates
+          </Link>
+          <Link
             href="/packs"
             className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
           >

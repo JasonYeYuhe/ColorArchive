@@ -38,6 +38,8 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增 Pack detail 页面，用单个商品页承接更完整的产品信息
 - 新增 Product Examples 页面，用公开产品示例承接 Lemon / Stripe 等支付平台审核
 - 新增 Free Sample Pack 页面，用现有下载资产承接免费层和 lead magnet
+- 新增 About 页面，用解释项目来源、静态约束和结构判断
+- 新增 Updates 页面，用公开记录路由和产品层迭代
 - 新增 Waitlist 页面，用静态方式承接预热期兴趣流量
 - 新增 Thanks 页面，用作支付完成后的静态回跳页面
 - 新增 Cancel 页面，用作支付取消后的静态回跳页面
@@ -93,6 +95,8 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 23. 一个 Cancel 页面，用于支付取消后的静态落地页
 24. 一个 Collection detail 页面，用于展示单个专题 palette 的设计语境
 25. 一个 Free Sample Pack 页面，用于在结账未上线前提供免费样例下载
+26. 一个 About 页面，用于解释项目本身和技术约束
+27. 一个 Updates 页面，用于公开记录迭代历史
 
 ## 颜色排序规则
 
@@ -217,6 +221,16 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
   - 赞助支持
   - 定制色板服务
   - 后续 affiliate 入口
+
+- `About`
+- 用于回答“这个项目是什么、为什么这样做、为什么是静态站”
+- 是信任层，不是营销页
+
+- `Updates`
+- 用于公开记录变化，而不是只把迭代留在 git 里
+- 作用是：
+  - 给 waitlist / 早期用户一个持续更新面
+  - 给支付平台或合作方一个“项目在持续维护”的公开信号
 
 - `Packs`
 - 把 collection 进一步产品化

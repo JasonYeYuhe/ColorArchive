@@ -18,6 +18,8 @@ ColorArchive is a polished static color project built with Next.js, TypeScript, 
 - `app/all-colors/page.tsx` renders the full 2016-color archive in a denser single-page layout.
 - `app/collections/page.tsx` renders reusable curated palette sets for shareable editorial content.
 - `app/collections/[slug]/page.tsx` renders editorial collection detail pages with collection-specific framing and export context.
+- `app/about/page.tsx` explains the project’s purpose, static constraints, and route structure.
+- `app/updates/page.tsx` exposes a static changelog for major archive and product-layer changes.
 - `app/favorites/page.tsx` renders a local-only saved color shelf backed by browser storage.
 - `app/recent/page.tsx` renders a local-only recently viewed trail backed by browser storage.
 - `app/packs/page.tsx` renders productized palette pack offers that can later point to off-site checkout.
@@ -143,6 +145,8 @@ GitHub documents the current records here:
 - The `All Colors` route supports shareable search, family, sort, and density state for dense archive browsing.
 - The `Collections` route packages the archive into reusable thematic sets with copyable palette exports.
 - Collection detail routes turn each set into a standalone editorial reference rather than a single aggregate list item.
+- The `About` route gives the project a clearer trust layer by explaining why it is static and how the route groups fit together.
+- The `Updates` route gives the site a visible shipping history rather than hiding all changes inside git alone.
 - The `Favorites` route stores saved colors in `localStorage` and now exports a saved palette or CSS variables without backend state.
 - The home archive now surfaces a local Recent / Favorites hub so users can continue browsing without digging through navigation.
 - The `Recent` route stores recently viewed colors in `localStorage`, making it easier to resume browsing without an account.

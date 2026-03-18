@@ -5,6 +5,7 @@ interface SiteHeaderProps {
   currentPath:
     | "/"
     | "/all-colors"
+    | "/about"
     | "/collections"
     | "/favorites"
     | "/packs"
@@ -13,6 +14,7 @@ interface SiteHeaderProps {
     | "/spectrum"
     | "/support"
     | "/surprise"
+    | "/updates"
     | "/word-to-color"
     | "/colors";
 }
@@ -132,6 +134,26 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
             }`}
           >
             Support
+          </Link>
+          <Link
+            href="/about"
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/about"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            About
+          </Link>
+          <Link
+            href="/updates"
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/updates"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            Updates
           </Link>
           <Link
             href="/packs"

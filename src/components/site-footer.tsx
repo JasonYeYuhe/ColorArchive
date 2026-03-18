@@ -27,6 +27,12 @@ export function SiteFooter() {
             <Link href="/favorites" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
               Favorites
             </Link>
+            <Link href="/about" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
+              About
+            </Link>
+            <Link href="/updates" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
+              Updates
+            </Link>
             <Link href="/packs" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
               Packs
             </Link>
