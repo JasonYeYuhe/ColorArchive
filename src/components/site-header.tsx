@@ -5,8 +5,12 @@ interface SiteHeaderProps {
   currentPath:
     | "/"
     | "/all-colors"
+    | "/collections"
+    | "/favorites"
+    | "/packs"
     | "/search"
     | "/spectrum"
+    | "/support"
     | "/surprise"
     | "/word-to-color"
     | "/colors";
@@ -59,6 +63,26 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
             Search
           </Link>
           <Link
+            href="/collections"
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/collections"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            Collections
+          </Link>
+          <Link
+            href="/favorites"
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/favorites"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            Favorites
+          </Link>
+          <Link
             href="/spectrum"
             className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
               currentPath === "/spectrum"
@@ -87,6 +111,26 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
             }`}
           >
             Surprise
+          </Link>
+          <Link
+            href="/support"
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/support"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            Support
+          </Link>
+          <Link
+            href="/packs"
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/packs"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            Packs
           </Link>
         </nav>
       </div>

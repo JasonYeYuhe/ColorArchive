@@ -13,6 +13,38 @@ const PROMPT_SUGGESTIONS = [
   "electric plum",
 ] as const;
 
+function CopyButton({ value, label }: { value: string; label: string }) {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!copied) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => setCopied(false), 1400);
+    return () => window.clearTimeout(timeoutId);
+  }, [copied]);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+    >
+      {copied ? `${label} copied` : `Copy ${label}`}
+    </button>
+  );
+}
+
 export function WordColorGeneratorPage() {
   const router = useRouter();
   const pathname = usePathname();
@@ -20,6 +52,27 @@ export function WordColorGeneratorPage() {
   const initialWord = searchParams.get("q") ?? "quiet luxury";
   const [input, setInput] = useState(initialWord);
   const generated = useMemo(() => generateColorFromWord(input), [input]);
+  const paletteExport = useMemo(() => {
+    if (!generated) {
+      return "";
+    }
+
+    return generated.variants
+      .map((variant) => `${variant.label}: ${variant.hex}`)
+      .join("\n");
+  }, [generated]);
+  const cssVariableExport = useMemo(() => {
+    if (!generated) {
+      return "";
+    }
+
+    return generated.variants
+      .map((variant) => {
+        const slug = variant.label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        return `--${generated.token.replace(/[^a-z0-9]+/g, "-")}-${slug}: ${variant.hex};`;
+      })
+      .join("\n");
+  }, [generated]);
 
   useEffect(() => {
     const trimmed = input.trim();
@@ -116,6 +169,14 @@ export function WordColorGeneratorPage() {
                         <div className="mt-1 font-medium text-neutral-950">{generated.hsl}</div>
                       </div>
                     </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      <CopyButton label="hex" value={generated.hex} />
+                      <CopyButton label="rgb" value={generated.rgb} />
+                      <CopyButton label="hsl" value={generated.hsl} />
+                      <CopyButton label="palette" value={paletteExport} />
+                      <CopyButton label="CSS vars" value={cssVariableExport} />
+                    </div>
                   </div>
                 </div>
               ) : null}
@@ -160,21 +221,44 @@ export function WordColorGeneratorPage() {
               </div>
             </div>
 
-            <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                How it works
+            <div className="space-y-4">
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  How it works
+                </div>
+                <div className="mt-3 space-y-3 text-sm leading-6 text-neutral-600">
+                  <p>
+                    The input string is normalized and hashed locally in the browser.
+                  </p>
+                  <p>
+                    That hash is mapped into stable hue, saturation, and lightness values.
+                  </p>
+                  <p>
+                    The same word always returns the same color, making it useful as a lightweight
+                    visual signature.
+                  </p>
+                </div>
               </div>
-              <div className="mt-3 space-y-3 text-sm leading-6 text-neutral-600">
-                <p>
-                  The input string is normalized and hashed locally in the browser.
-                </p>
-                <p>
-                  That hash is mapped into stable hue, saturation, and lightness values.
-                </p>
-                <p>
-                  The same word always returns the same color, making it useful as a lightweight
-                  visual signature.
-                </p>
+
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                      Export pack
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-neutral-600">
+                      Copy this generated palette as plain text or CSS variables and drop it into a
+                      design doc, prompt, or codebase.
+                    </p>
+                  </div>
+                  <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+                    Static
+                  </div>
+                </div>
+
+                <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
+                  {paletteExport}
+                </pre>
               </div>
             </div>
           </section>

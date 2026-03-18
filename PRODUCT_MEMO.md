@@ -25,10 +25,14 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 主页面仍然是颜色档案馆
 - 新增独立搜索页，用于快速查找颜色
 - 新增 All Colors 页面，用高密度方式一次性查看完整档案
+- 新增 Collections 页面，用可分享的成套 palette 承接内容价值
+- 新增 Favorites 页面，用浏览器本地收藏承接回访需求
 - 新增 Spectrum Explorer 页面，用颜色矩阵而不是卡片来浏览档案
 - 新增 Surprise 页面，用随机发现强化探索感
 - 新增实验性工具页面，例如“输入一个词，生成一个颜色”
 - 新增颜色详情页，用于承接更完整的颜色信息和后续 SEO 可能性
+- 新增 Support 页面，用来承接后续商业化入口和支持方式
+- 新增 Packs 页面，用产品化 palette 承接实际销售路径
 - 整体仍保持 GitHub Pages 兼容、纯静态、无后端
 
 ## 当前已确定事项
@@ -65,10 +69,14 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 7. 基础品牌样式（Logo / 页头 / 页脚）
 8. 一个独立搜索页
 9. 一个 All Colors 页面
-10. 一个 Spectrum Explorer 页面
-11. 一个 Surprise 页面
-12. 一个轻量实验页：输入词语生成颜色
-13. 颜色详情页，可单独访问和分享
+10. 一个 Collections 页面
+11. 一个 Favorites 页面
+12. 一个 Spectrum Explorer 页面
+13. 一个 Surprise 页面
+14. 一个轻量实验页：输入词语生成颜色
+15. 颜色详情页，可单独访问和分享
+16. 一个 Support 页面承接未来盈利路径
+17. 一个 Packs 页面承接实际销售产品
 
 ## 颜色排序规则
 
@@ -151,6 +159,15 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 用 hue × lightness 矩阵来浏览颜色系统
 - 更适合作为项目辨识度功能，而不是普通网格
 
+- `Collections`
+- 用少量高质量成套 palette 承接“审美、场景、内容分享”
+- 比单纯颜色列表更接近可售卖、可传播的产品资产
+
+- `Favorites`
+- 使用浏览器本地存储
+- 不引入账户系统也能形成个人工作集
+- 目标是提高回访价值
+
 - `Surprise`
 - 随机进入一个颜色并继续分支探索
 - 更偏“发现 / 玩味”体验
@@ -165,6 +182,19 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 用户输入任意词语 / 短语
 - 本地算法生成一个稳定颜色
 - 输出 HEX / RGB / HSL 和简单 palette
+- 适合作为未来的分享入口或 lead magnet
+
+- `Support`
+- 不做复杂支付系统
+- 先承接：
+  - 数字商品
+  - 赞助支持
+  - 定制色板服务
+  - 后续 affiliate 入口
+
+- `Packs`
+- 把 collection 进一步产品化
+- 面向未来接 Lemon Squeezy / Stripe Payment Links 之类的静态友好结账方式
 
 ### 详情页
 
@@ -177,6 +207,9 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
   - 明暗 companion
   - complementary 对照色
   - analogous 相邻色
+- 详情页还应支持 palette 导出，例如：
+  - 复制推荐 palette
+  - 复制 CSS variables
 
 ### 底部
 
@@ -229,6 +262,9 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - Affiliate
 - 高级功能，例如导出调色板、收藏、API、高级筛选
 - SEO 长尾颜色页面
+- 数字商品：palette packs / brand kits / token packs
+- 定制服务：品牌色板策划 / campaign palette
+- 赞助支持：支持公开维护这个 archive
 
 ### 当前阶段重点
 
@@ -265,6 +301,8 @@ Codex 当前方向：
 - 维持 2016 色的本地档案规模
 - 强化 Search 作为多维过滤入口
 - 强化详情页作为继续探索颜色关系的入口
+- 强化 Collections 作为可传播、可售卖的内容层
+- 强化 Support 作为未来商业化入口
 - 继续增加具辨识度的实验页（Spectrum / Surprise / Word → Color）
 - 记录可用 credits：
   - Azure credit: 200 USD（GitHub Student Developer Pack）

@@ -61,6 +61,18 @@ export function HeroSection({
             Open search page
           </Link>
           <Link
+            href="/collections"
+            className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+          >
+            Browse collections
+          </Link>
+          <Link
+            href="/favorites"
+            className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+          >
+            Open favorites
+          </Link>
+          <Link
             href="/all-colors"
             className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
           >
@@ -77,6 +89,18 @@ export function HeroSection({
             className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
           >
             Surprise me
+          </Link>
+          <Link
+            href="/support"
+            className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+          >
+            Support the project
+          </Link>
+          <Link
+            href="/packs"
+            className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+          >
+            View palette packs
           </Link>
         </div>
 

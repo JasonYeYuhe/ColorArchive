@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -107,6 +108,7 @@ export function SelectedColorPanel({
             <CopyAction label="hex" value={color.hex} />
             <CopyAction label="rgb" value={color.rgb} />
             <CopyAction label="hsl" value={color.hsl} />
+            <FavoriteButton colorId={color.id} />
             <ShareLinkButton href={`/colors/${color.id}/`} />
             <Link
               href={`/colors/${color.id}/`}

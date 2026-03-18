@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FavoriteButton } from "@/src/components/favorite-button";
 import type { ColorRecord } from "@/src/types/color";
 
 interface ColorCardProps {
@@ -90,6 +91,10 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
           >
             {copied ? "Copied" : "Copy"}
           </button>
+        </div>
+
+        <div className="flex justify-start">
+          <FavoriteButton colorId={color.id} />
         </div>
 
         <dl className="space-y-2 text-sm text-neutral-600">

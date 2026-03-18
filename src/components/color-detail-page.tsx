@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -13,6 +14,11 @@ interface ColorDetailPageProps {
   complementaryColor: ColorRecord | null;
   lighterCompanion: ColorRecord | null;
   darkerCompanion: ColorRecord | null;
+}
+
+interface PaletteEntry {
+  label: string;
+  value: ColorRecord;
 }
 
 function CopyButton({ value, label }: { value: string; label: string }) {
@@ -77,6 +83,23 @@ function RecommendationLink({
   );
 }
 
+function buildPaletteExport(entries: readonly PaletteEntry[]) {
+  return entries.map((entry) => `${entry.label}: ${entry.value.name} ${entry.value.hex}`).join("\n");
+}
+
+function buildCssVariableExport(entries: readonly PaletteEntry[]) {
+  return entries
+    .map((entry) => {
+      const slug = entry.label
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+
+      return `--colorarchive-${slug}: ${entry.value.hex};`;
+    })
+    .join("\n");
+}
+
 export function ColorDetailPage({
   color,
   relatedColors,
@@ -126,6 +149,9 @@ export function ColorDetailPage({
       items.push(item);
       return items;
     }, []);
+  const exportPalette = [{ label: "Base", value: color }, ...paletteMoves];
+  const paletteExport = buildPaletteExport(exportPalette);
+  const cssVariableExport = buildCssVariableExport(exportPalette);
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -179,6 +205,9 @@ export function ColorDetailPage({
                 <CopyButton label="hex" value={color.hex} />
                 <CopyButton label="rgb" value={color.rgb} />
                 <CopyButton label="hsl" value={color.hsl} />
+                <CopyButton label="palette" value={paletteExport} />
+                <CopyButton label="CSS vars" value={cssVariableExport} />
+                <FavoriteButton colorId={color.id} />
                 <ShareLinkButton href={`/colors/${color.id}/`} />
               </div>
 
@@ -206,6 +235,15 @@ export function ColorDetailPage({
                   {paletteMoves.map((item) => (
                     <RecommendationLink key={item.value.id} color={item.value} eyebrow={item.label} />
                   ))}
+                </div>
+
+                <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                  <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+                    Export preview
+                  </div>
+                  <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
+                    {paletteExport}
+                  </pre>
                 </div>
               </div>
 
