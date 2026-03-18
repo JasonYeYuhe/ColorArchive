@@ -1,9 +1,14 @@
-Creator Bundle Preview
+ColorArchive — Creator Bundle
 
-Use cases:
-- Social palette cards
-- Wallpaper backgrounds
-- Prompt-ready color descriptions
+USAGE NOTES
 
-Prompt framing sample:
-"Soft coastal blue, orchid bloom pink, and bright violet accents on a calm neutral base."
+These palettes are optimized for visual content:
+- Social media graphics and story cards
+- Background and wallpaper color sets
+- Prompt-friendly color descriptions for AI tools
+
+Each color includes hex, HSL, and RGB values.
+Use the JSON export in design tools or automation scripts.
+
+Collections included: Modern Seaside, Orchid Bloom
+Formats: JSON data, text notes

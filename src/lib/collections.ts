@@ -150,6 +150,66 @@ export const collections: ColorCollection[] = [
       useCases: ["Campaign art direction", "Beauty brands", "Social launches"],
     },
   ),
+  createCollection(
+    "forest-terrain",
+    "Forest Terrain",
+    "Deep greens, moss, earthy browns, and stone for outdoor, editorial, and natural brand work.",
+    "A palette rooted in organic outdoor materials — bark, moss, amber soil, and limestone. Use it when the brand needs to feel grounded, natural, and tactile.",
+    ["Natural", "Organic", "Outdoor"],
+    [
+      "moss-tone-muted",
+      "leaf-dusk-soft",
+      "olive-silk-muted",
+      "amber-velvet-soft",
+      "honey-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "A natural palette for outdoor gear, environmental brands, editorial spreads, and any project that needs to feel rooted in the physical world.",
+      promptWords: ["forest floor", "bark texture", "mossy stone", "amber soil", "late autumn"],
+      useCases: ["Outdoor brands", "Environmental campaigns", "Editorial layout"],
+    },
+  ),
+  createCollection(
+    "nordic-frost",
+    "Nordic Frost",
+    "Ice blue, pale grey, and soft lavender for minimal UI, SaaS products, and clean landing pages.",
+    "A cool, restrained palette that feels precise and airy. Works for technical products, productivity tools, and any interface that needs to feel focused and uncluttered.",
+    ["Minimal", "Clean", "UI"],
+    [
+      "azure-mist-muted",
+      "cerulean-whisper-soft",
+      "sapphire-pearl-muted",
+      "iris-veil-muted",
+      "cobalt-bloom-soft",
+    ],
+    {
+      editorialNote:
+        "Precision and restraint. A palette for interfaces that need to communicate clarity, focus, and intentional minimalism.",
+      promptWords: ["ice fog", "pale horizon", "nordic glass", "silent white", "cool precision"],
+      useCases: ["SaaS UI", "Tech landing pages", "Minimal dashboards"],
+    },
+  ),
+  createCollection(
+    "candy-pop",
+    "Candy Pop",
+    "Coral, lemon, mint, lavender, and sky — saturated accents for social, D2C, and campaign work.",
+    "Bright, playful, and deliberately high-energy. Built for maximum visual impact on social media, e-commerce surfaces, and campaign landing pages.",
+    ["Vibrant", "Playful", "Campaign"],
+    [
+      "coral-radiant-vivid",
+      "citrine-tone-vivid",
+      "mint-core-clear",
+      "peony-core-vivid",
+      "azure-bloom-clear",
+    ],
+    {
+      editorialNote:
+        "For when the work needs to pop. Use this palette on social surfaces, product launches, and anywhere that needs energy and immediacy.",
+      promptWords: ["candy gloss", "pop art", "social launch", "neon highlight", "playful brand"],
+      useCases: ["Social media", "D2C brands", "Campaign pages"],
+    },
+  ),
 ];
 
 export function getCollectionById(id: string) {

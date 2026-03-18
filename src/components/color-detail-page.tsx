@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { addRecentColor, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
+import { getWcagContrast, getTonalStrip } from "@/src/lib/color-utils";
 import type { ColorRecord } from "@/src/types/color";
 
 interface ColorDetailPageProps {
@@ -205,22 +206,51 @@ export function ColorDetailPage({
 
           <div className="grid gap-6 p-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(22rem,0.8fr)]">
             <div className="space-y-5">
-              <div className="grid gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">RGB</div>
-                  <div className="mt-1 font-medium text-neutral-950">{color.rgb}</div>
-                </div>
-                <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">HSL</div>
-                  <div className="mt-1 font-medium text-neutral-950">{color.hsl}</div>
-                </div>
-                <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Metrics</div>
-                  <div className="mt-1 font-medium text-neutral-950">
-                    S {color.saturation}% · L {color.lightness}%
+              {(() => {
+                const wcag = getWcagContrast(color.hue, color.saturation, color.lightness);
+                const gradeColors = {
+                  "AA": "text-emerald-700 bg-emerald-50 border-emerald-200",
+                  "AA Large": "text-amber-700 bg-amber-50 border-amber-200",
+                  "Fail": "text-red-600 bg-red-50 border-red-200",
+                } as const;
+                return (
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+                      <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">RGB</div>
+                      <div className="mt-1 font-medium text-neutral-950">{color.rgb}</div>
+                    </div>
+                    <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+                      <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">HSL</div>
+                      <div className="mt-1 font-medium text-neutral-950">{color.hsl}</div>
+                    </div>
+                    <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+                      <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Metrics</div>
+                      <div className="mt-1 font-medium text-neutral-950">
+                        S {color.saturation}% · L {color.lightness}%
+                      </div>
+                    </div>
+                    <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+                      <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Contrast (WCAG)</div>
+                      <div className="mt-2 space-y-1.5">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-xs text-neutral-500">on white</span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-semibold text-neutral-950">{wcag.vsWhite}:1</span>
+                            <span className={`rounded-full border px-1.5 py-0.5 text-[10px] font-semibold ${gradeColors[wcag.whiteGrade]}`}>{wcag.whiteGrade}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-xs text-neutral-500">on black</span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-semibold text-neutral-950">{wcag.vsBlack}:1</span>
+                            <span className={`rounded-full border px-1.5 py-0.5 text-[10px] font-semibold ${gradeColors[wcag.blackGrade]}`}>{wcag.blackGrade}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                );
+              })()}
 
               <div className="flex flex-wrap gap-2">
                 <CopyButton label="hex" value={color.hex} />
@@ -248,6 +278,41 @@ export function ColorDetailPage({
                   Use it as a stable reference point inside the broader ColorArchive system.
                 </p>
               </div>
+
+              {(() => {
+                const tonalStrip = getTonalStrip(allColors, color);
+                if (tonalStrip.length < 2) return null;
+                return (
+                  <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+                    <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                      Tonal strip
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-neutral-500">
+                      All lightness levels at this hue and saturation. Click any to navigate.
+                    </p>
+                    <div className="mt-4 flex gap-1.5 overflow-x-auto pb-1">
+                      {tonalStrip.map((entry) => (
+                        <Link
+                          key={entry.id}
+                          href={`/colors/${entry.id}/`}
+                          title={`${entry.name} ${entry.hex}`}
+                          className={`relative flex-shrink-0 rounded-xl border transition hover:-translate-y-0.5 ${
+                            entry.id === color.id
+                              ? "border-neutral-950/20 ring-2 ring-neutral-900/14"
+                              : "border-black/8 hover:border-black/14"
+                          }`}
+                          style={{ backgroundColor: entry.hex, width: "2.75rem", height: "3.5rem" }}
+                          aria-label={entry.name}
+                        >
+                          {entry.id === color.id && (
+                            <span className="absolute -bottom-2 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-neutral-900" />
+                          )}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
 
               <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">

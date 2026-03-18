@@ -76,6 +76,23 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
   const activeBandLabel =
     saturationBands.find((band) => band.saturation === activeSaturation)?.label ?? "Active";
 
+  const LIGHTNESS_NAMES: Record<number, string> = {
+    98: "Veil", 94: "Whisper", 90: "Mist", 84: "Pearl",
+    76: "Bloom", 68: "Silk", 60: "Tone", 54: "Radiant",
+    48: "Core", 42: "Velvet", 34: "Dusk", 28: "Shadow",
+    20: "Nocturne", 14: "Ink",
+  };
+
+  const hueNames = useMemo(() => {
+    const map = new Map<number, string>();
+    colors.forEach((c) => {
+      if (!map.has(c.hue)) {
+        map.set(c.hue, c.name.split(" ")[0]);
+      }
+    });
+    return map;
+  }, [colors]);
+
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
@@ -174,23 +191,27 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
             <div
               className="grid gap-1.5"
               style={{
-                gridTemplateColumns: `4rem repeat(${hueBands.length}, minmax(2.75rem, 1fr))`,
+                gridTemplateColumns: `5rem repeat(${hueBands.length}, minmax(2.75rem, 1fr))`,
               }}
             >
               <div />
               {hueBands.map((hue) => (
                 <div
                   key={`hue-${hue}`}
-                  className="text-center text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-400"
+                  className="overflow-hidden text-center text-[9px] font-medium uppercase tracking-[0.12em] text-neutral-400 truncate px-0.5"
+                  title={`${hueNames.get(hue) ?? ""} (${hue}°)`}
                 >
-                  {hue}
+                  {hueNames.get(hue) ?? hue}
                 </div>
               ))}
 
               {spectrumRows.map((row) => (
                 <div key={`row-${row.lightness}`} className="contents">
-                  <div className="flex items-center justify-center rounded-xl bg-neutral-50 px-2 text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500">
-                    L {row.lightness}
+                  <div className="flex flex-col items-center justify-center rounded-xl bg-neutral-50 px-1 py-1 text-center">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.1em] text-neutral-600 leading-tight">
+                      {LIGHTNESS_NAMES[row.lightness] ?? `L${row.lightness}`}
+                    </span>
+                    <span className="text-[9px] text-neutral-400 leading-tight">{row.lightness}</span>
                   </div>
                   {row.colors.map((color, index) =>
                     color ? (
@@ -198,7 +219,7 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
                         key={`${row.lightness}-${color.id}`}
                         type="button"
                         onClick={() => setSelectedColorId(color.id)}
-                        className={`group overflow-hidden rounded-xl border bg-white transition ${
+                        className={`group relative overflow-visible rounded-xl border bg-white transition ${
                           color.id === selectedColorId
                             ? "border-neutral-950/18 ring-2 ring-neutral-900/10"
                             : "border-black/6 hover:border-neutral-950/12"
@@ -206,14 +227,18 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
                         aria-label={`Inspect ${color.name}`}
                       >
                         <div
-                          className="h-14 transition duration-200 group-hover:scale-[1.03]"
+                          className="h-16 overflow-hidden rounded-[0.6rem] transition duration-200 group-hover:scale-[1.03]"
                           style={{ backgroundColor: color.hex }}
                         />
+                        <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 hidden -translate-x-1/2 whitespace-nowrap rounded-lg border border-black/8 bg-white px-2.5 py-1.5 text-center shadow-lg group-hover:block">
+                          <div className="text-[11px] font-semibold text-neutral-950">{color.name}</div>
+                          <div className="text-[10px] text-neutral-500">{color.hex}</div>
+                        </div>
                       </button>
                     ) : (
                       <div
                         key={`${row.lightness}-empty-${hueBands[index]}`}
-                        className="h-14 rounded-xl border border-dashed border-black/6 bg-neutral-50/60"
+                        className="h-16 rounded-xl border border-dashed border-black/6 bg-neutral-50/60"
                       />
                     ),
                   )}

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { SiteFooter } from "@/src/components/site-footer";
+import { PaletteBuilderTray } from "@/src/components/palette-builder-tray";
 import "./globals.css";
 
 const siteTitle = "ColorArchive";
@@ -67,6 +68,7 @@ export default function RootLayout({
       <body>
         {children}
         <SiteFooter />
+        <PaletteBuilderTray />
       </body>
     </html>
   );

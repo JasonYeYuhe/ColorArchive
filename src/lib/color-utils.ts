@@ -233,6 +233,51 @@ export function getAnalogousColors(
     .slice(0, limit);
 }
 
+export interface WcagContrastData {
+  vsWhite: number;
+  vsBlack: number;
+  whiteGrade: "AA" | "AA Large" | "Fail";
+  blackGrade: "AA" | "AA Large" | "Fail";
+}
+
+function getRelativeLuminance(r: number, g: number, b: number): number {
+  const toLinear = (c: number) => {
+    const sRGB = c / 255;
+    return sRGB <= 0.04045 ? sRGB / 12.92 : Math.pow((sRGB + 0.055) / 1.055, 2.4);
+  };
+  return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+}
+
+function wcagGrade(ratio: number): "AA" | "AA Large" | "Fail" {
+  if (ratio >= 4.5) return "AA";
+  if (ratio >= 3) return "AA Large";
+  return "Fail";
+}
+
+export function getWcagContrast(hue: number, saturation: number, lightness: number): WcagContrastData {
+  const { r, g, b } = hslToRgb(hue, saturation, lightness);
+  const colorLum = getRelativeLuminance(r, g, b);
+  const vsWhite = (1 + 0.05) / (colorLum + 0.05);
+  const vsBlack = (colorLum + 0.05) / (0 + 0.05);
+  return {
+    vsWhite: Math.round(vsWhite * 10) / 10,
+    vsBlack: Math.round(vsBlack * 10) / 10,
+    whiteGrade: wcagGrade(vsWhite),
+    blackGrade: wcagGrade(vsBlack),
+  };
+}
+
+export function getTonalStrip(
+  colors: readonly ColorRecord[],
+  baseColor: ColorRecord,
+): ColorRecord[] {
+  return [...colors]
+    .filter(
+      (color) => color.hue === baseColor.hue && color.saturation === baseColor.saturation,
+    )
+    .sort((a, b) => a.lightness - b.lightness);
+}
+
 export function getToneCompanion(
   colors: readonly ColorRecord[],
   baseColor: ColorRecord,

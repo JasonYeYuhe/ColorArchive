@@ -1,14 +1,128 @@
-{
-  "pack": "Palette Pack Vol. 1",
-  "collections": [
-    {
-      "name": "Quiet Luxury",
-      "colors": ["#ead7d7", "#efcfbe", "#d3c89a", "#7f8b62", "#52363d"]
-    },
-    {
-      "name": "Modern Seaside",
-      "colors": ["#d4e7dd", "#86cab8", "#57a9da", "#227ff0", "#534f96"]
-    }
-  ],
-  "formats": ["CSS variables", "Tailwind tokens", "PNG boards", "Usage notes"]
-}
+[
+  {
+    "id": "quiet-luxury",
+    "title": "Quiet Luxury",
+    "summary": "Soft neutrals and muted warm surfaces for editorial, beauty, and premium product work.",
+    "tags": [
+      "Editorial",
+      "Neutral",
+      "Luxury"
+    ],
+    "palette": [
+      {
+        "id": "blush-whisper-muted",
+        "name": "Blush Whisper Muted",
+        "hex": "#F2EDF0",
+        "hsl": "hsl(330, 18%, 94%)"
+      },
+      {
+        "id": "apricot-pearl-soft",
+        "name": "Apricot Pearl Soft",
+        "hex": "#E4DBC8",
+        "hsl": "hsl(40, 34%, 84%)"
+      },
+      {
+        "id": "honey-bloom-muted",
+        "name": "Honey Bloom Muted",
+        "hex": "#C9CDB7",
+        "hsl": "hsl(70, 18%, 76%)"
+      },
+      {
+        "id": "olive-tone-muted",
+        "name": "Olive Tone Muted",
+        "hex": "#9FAB87",
+        "hsl": "hsl(80, 18%, 60%)"
+      },
+      {
+        "id": "merlot-ink-muted",
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F",
+        "hsl": "hsl(350, 18%, 14%)"
+      }
+    ]
+  },
+  {
+    "id": "modern-seaside",
+    "title": "Modern Seaside",
+    "summary": "Clear coastal blues and seafoam accents with enough structure for UI and brand systems.",
+    "tags": [
+      "Coastal",
+      "Fresh",
+      "UI"
+    ],
+    "palette": [
+      {
+        "id": "seafoam-whisper-soft",
+        "name": "Seafoam Whisper Soft",
+        "hex": "#EAF5EE",
+        "hsl": "hsl(140, 34%, 94%)"
+      },
+      {
+        "id": "lagoon-bloom-clear",
+        "name": "Lagoon Bloom Clear",
+        "hex": "#A1E3D8",
+        "hsl": "hsl(170, 54%, 76%)"
+      },
+      {
+        "id": "cerulean-silk-clear",
+        "name": "Cerulean Silk Clear",
+        "hex": "#81CBD9",
+        "hsl": "hsl(190, 54%, 68%)"
+      },
+      {
+        "id": "azure-core-vivid",
+        "name": "Azure Core Vivid",
+        "hex": "#2099D5",
+        "hsl": "hsl(200, 74%, 48%)"
+      },
+      {
+        "id": "indigo-nocturne-soft",
+        "name": "Indigo Nocturne Soft",
+        "hex": "#222744",
+        "hsl": "hsl(230, 34%, 20%)"
+      }
+    ]
+  },
+  {
+    "id": "editorial-warmth",
+    "title": "Editorial Warmth",
+    "summary": "Paper-like warm colors for publishing, writing, storytelling, and thoughtful landing pages.",
+    "tags": [
+      "Warm",
+      "Publishing",
+      "Storytelling"
+    ],
+    "palette": [
+      {
+        "id": "apricot-whisper-soft",
+        "name": "Apricot Whisper Soft",
+        "hex": "#F5F1EA",
+        "hsl": "hsl(40, 34%, 94%)"
+      },
+      {
+        "id": "amber-silk-soft",
+        "name": "Amber Silk Soft",
+        "hex": "#C9C092",
+        "hsl": "hsl(50, 34%, 68%)"
+      },
+      {
+        "id": "citrine-tone-muted",
+        "name": "Citrine Tone Muted",
+        "hex": "#ABAB87",
+        "hsl": "hsl(60, 18%, 60%)"
+      },
+      {
+        "id": "garnet-velvet-soft",
+        "name": "Garnet Velvet Soft",
+        "hex": "#90475F",
+        "hsl": "hsl(340, 34%, 42%)"
+      },
+      {
+        "id": "olive-dusk-muted",
+        "name": "Olive Dusk Muted",
+        "hex": "#5C6647",
+        "hsl": "hsl(80, 18%, 34%)"
+      }
+    ]
+  }
+]

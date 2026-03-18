@@ -1,4 +1,10 @@
 import Link from "next/link";
+import { colors } from "@/src/data/colors";
+
+// Fixed hue-spanning strip: Tone (L=60) at Clear (S=54), one per hue across the spectrum
+const HERO_STRIP = colors
+  .filter((c) => c.lightness === 60 && c.saturation === 54)
+  .sort((a, b) => a.hue - b.hue);
 
 interface HeroSectionProps {
   activeFamily: string;
@@ -35,7 +41,18 @@ export function HeroSection({
           precision, and copy production-ready hex values in one click.
         </p>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-neutral-500">
+        <div className="mt-5 flex overflow-hidden rounded-2xl border border-black/6 shadow-sm">
+          {HERO_STRIP.map((c) => (
+            <div
+              key={c.id}
+              className="h-3 flex-1"
+              style={{ backgroundColor: c.hex }}
+              title={c.name}
+            />
+          ))}
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-neutral-500">
           <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5">
             {searchSummary}
           </span>

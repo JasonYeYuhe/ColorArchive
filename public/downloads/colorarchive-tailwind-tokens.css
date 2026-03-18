@@ -1,0 +1,59 @@
+/* Tailwind CSS v4 — add to your @theme block */
+@theme {
+
+  /* Quiet Luxury */
+  --color-quiet-luxury-1: #F2EDF0;
+  --color-quiet-luxury-2: #E4DBC8;
+  --color-quiet-luxury-3: #C9CDB7;
+  --color-quiet-luxury-4: #9FAB87;
+  --color-quiet-luxury-5: #2A1D1F;
+
+  /* Modern Seaside */
+  --color-modern-seaside-1: #EAF5EE;
+  --color-modern-seaside-2: #A1E3D8;
+  --color-modern-seaside-3: #81CBD9;
+  --color-modern-seaside-4: #2099D5;
+  --color-modern-seaside-5: #222744;
+
+  /* Nocturne Tech */
+  --color-nocturne-tech-1: #1D1F2A;
+  --color-nocturne-tech-2: #372886;
+  --color-nocturne-tech-3: #205CD5;
+  --color-nocturne-tech-4: #E133E1;
+  --color-nocturne-tech-5: #ADD7D7;
+
+  /* Editorial Warmth */
+  --color-editorial-warmth-1: #F5F1EA;
+  --color-editorial-warmth-2: #C9C092;
+  --color-editorial-warmth-3: #ABAB87;
+  --color-editorial-warmth-4: #90475F;
+  --color-editorial-warmth-5: #5C6647;
+
+  /* Orchid Bloom */
+  --color-orchid-bloom-1: #B7A1E3;
+  --color-orchid-bloom-2: #8A4AC9;
+  --color-orchid-bloom-3: #EF95E0;
+  --color-orchid-bloom-4: #A45188;
+  --color-orchid-bloom-5: #EDF2EE;
+
+  /* Forest Terrain */
+  --color-forest-terrain-1: #93AB87;
+  --color-forest-terrain-2: #437439;
+  --color-forest-terrain-3: #B2BC9F;
+  --color-forest-terrain-4: #908347;
+  --color-forest-terrain-5: #50543B;
+
+  /* Nordic Frost */
+  --color-nordic-frost-1: #E1E7EA;
+  --color-nordic-frost-2: #EAF3F5;
+  --color-nordic-frost-3: #CFD6DE;
+  --color-nordic-frost-4: #F9F9FB;
+  --color-nordic-frost-5: #ADBBD7;
+
+  /* Candy Pop */
+  --color-candy-pop-1: #E18A33;
+  --color-candy-pop-2: #E4E44E;
+  --color-candy-pop-3: #38BC4E;
+  --color-candy-pop-4: #D520B7;
+  --color-candy-pop-5: #A1CDE3;
+}

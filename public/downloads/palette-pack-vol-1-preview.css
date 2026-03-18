@@ -1,13 +1,23 @@
 :root {
-  --quiet-luxury-1: #ead7d7;
-  --quiet-luxury-2: #efcfbe;
-  --quiet-luxury-3: #d3c89a;
-  --quiet-luxury-4: #7f8b62;
-  --quiet-luxury-5: #52363d;
 
-  --modern-seaside-1: #d4e7dd;
-  --modern-seaside-2: #86cab8;
-  --modern-seaside-3: #57a9da;
-  --modern-seaside-4: #227ff0;
-  --modern-seaside-5: #534f96;
+  /* Quiet Luxury */
+  --quiet-luxury-1: #F2EDF0; /* Blush Whisper Muted */
+  --quiet-luxury-2: #E4DBC8; /* Apricot Pearl Soft */
+  --quiet-luxury-3: #C9CDB7; /* Honey Bloom Muted */
+  --quiet-luxury-4: #9FAB87; /* Olive Tone Muted */
+  --quiet-luxury-5: #2A1D1F; /* Merlot Ink Muted */
+
+  /* Modern Seaside */
+  --modern-seaside-1: #EAF5EE; /* Seafoam Whisper Soft */
+  --modern-seaside-2: #A1E3D8; /* Lagoon Bloom Clear */
+  --modern-seaside-3: #81CBD9; /* Cerulean Silk Clear */
+  --modern-seaside-4: #2099D5; /* Azure Core Vivid */
+  --modern-seaside-5: #222744; /* Indigo Nocturne Soft */
+
+  /* Editorial Warmth */
+  --editorial-warmth-1: #F5F1EA; /* Apricot Whisper Soft */
+  --editorial-warmth-2: #C9C092; /* Amber Silk Soft */
+  --editorial-warmth-3: #ABAB87; /* Citrine Tone Muted */
+  --editorial-warmth-4: #90475F; /* Garnet Velvet Soft */
+  --editorial-warmth-5: #5C6647; /* Olive Dusk Muted */
 }

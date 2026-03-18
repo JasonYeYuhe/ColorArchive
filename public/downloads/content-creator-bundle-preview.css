@@ -1,0 +1,16 @@
+:root {
+
+  /* Modern Seaside */
+  --modern-seaside-1: #EAF5EE; /* Seafoam Whisper Soft */
+  --modern-seaside-2: #A1E3D8; /* Lagoon Bloom Clear */
+  --modern-seaside-3: #81CBD9; /* Cerulean Silk Clear */
+  --modern-seaside-4: #2099D5; /* Azure Core Vivid */
+  --modern-seaside-5: #222744; /* Indigo Nocturne Soft */
+
+  /* Orchid Bloom */
+  --orchid-bloom-1: #B7A1E3; /* Orchid Bloom Clear */
+  --orchid-bloom-2: #8A4AC9; /* Plum Radiant Clear */
+  --orchid-bloom-3: #EF95E0; /* Peony Bloom Vivid */
+  --orchid-bloom-4: #A45188; /* Rose Core Soft */
+  --orchid-bloom-5: #EDF2EE; /* Mint Whisper Muted */
+}

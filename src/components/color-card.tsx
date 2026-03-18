@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
+import { addToPalette, getPaletteIds, subscribeToPalette, MAX_SIZE } from "@/src/lib/palette-builder";
 import type { ColorRecord } from "@/src/types/color";
 
 interface ColorCardProps {
@@ -13,6 +14,18 @@ interface ColorCardProps {
 
 export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProps) {
   const [copied, setCopied] = useState(false);
+  const [inPalette, setInPalette] = useState(false);
+  const [paletteSize, setPaletteSize] = useState(0);
+
+  useEffect(() => {
+    const update = (ids: string[]) => {
+      setInPalette(ids.includes(color.id));
+      setPaletteSize(ids.length);
+    };
+    const initial = getPaletteIds();
+    update(initial);
+    return subscribeToPalette(update);
+  }, [color.id]);
 
   useEffect(() => {
     if (!copied) {
@@ -93,8 +106,27 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
           </button>
         </div>
 
-        <div className="flex justify-start">
+        <div className="flex items-center gap-2">
           <FavoriteButton colorId={color.id} />
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              addToPalette(color.id);
+            }}
+            disabled={inPalette || paletteSize >= MAX_SIZE}
+            title={inPalette ? "Already in palette" : paletteSize >= MAX_SIZE ? `Palette full (${MAX_SIZE})` : "Add to palette"}
+            className={`rounded-full border px-3 py-1.5 text-xs font-medium transition focus:outline-none focus:ring-4 focus:ring-neutral-900/10 ${
+              inPalette
+                ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                : paletteSize >= MAX_SIZE
+                  ? "cursor-not-allowed border-black/8 bg-neutral-50 text-neutral-300"
+                  : "border-black/8 bg-white text-neutral-600 hover:border-neutral-950/10 hover:bg-neutral-950 hover:text-white"
+            }`}
+            aria-label={inPalette ? "In palette" : "Add to palette"}
+          >
+            {inPalette ? "✓ In palette" : "+ Palette"}
+          </button>
         </div>
 
         <dl className="space-y-2 text-sm text-neutral-600">

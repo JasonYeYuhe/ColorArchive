@@ -1,12 +1,16 @@
-Brand Color Starter Kit Preview
+ColorArchive — Brand Color Starter Kit
 
-Included in the full pack:
-- Primary and secondary brand palette groups
-- Light and dark landing-page pairings
-- CTA accent guidance
-- Export-ready token references
+USAGE NOTES
 
-Suggested usage:
-- Use deep neutrals for structure
-- Reserve the highlight tones for action moments
-- Pair soft surfaces with one high-contrast accent for modern landing pages
+Each palette is structured for brand application:
+  -1 colors = Primary (backgrounds, hero surfaces)
+  -2 colors = Secondary (UI panels, borders)
+  -3 colors = Tertiary (supporting neutrals)
+  -4 colors = Accent (buttons, CTAs, highlights)
+  -5 colors = Deep base (text, strong contrast)
+
+Apply CSS variables via the included .css file.
+For Tailwind 4, use the @theme token snippet.
+
+Collections included: Quiet Luxury, Nocturne Tech, Orchid Bloom
+Formats: CSS variables, JSON data

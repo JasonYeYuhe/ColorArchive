@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-downloads.mjs",
     "build": "next build",
+    "generate-downloads": "node scripts/generate-downloads.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

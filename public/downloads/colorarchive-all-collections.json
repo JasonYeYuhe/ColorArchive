@@ -1,0 +1,338 @@
+[
+  {
+    "id": "quiet-luxury",
+    "title": "Quiet Luxury",
+    "summary": "Soft neutrals and muted warm surfaces for editorial, beauty, and premium product work.",
+    "tags": [
+      "Editorial",
+      "Neutral",
+      "Luxury"
+    ],
+    "palette": [
+      {
+        "id": "blush-whisper-muted",
+        "name": "Blush Whisper Muted",
+        "hex": "#F2EDF0",
+        "hsl": "hsl(330, 18%, 94%)"
+      },
+      {
+        "id": "apricot-pearl-soft",
+        "name": "Apricot Pearl Soft",
+        "hex": "#E4DBC8",
+        "hsl": "hsl(40, 34%, 84%)"
+      },
+      {
+        "id": "honey-bloom-muted",
+        "name": "Honey Bloom Muted",
+        "hex": "#C9CDB7",
+        "hsl": "hsl(70, 18%, 76%)"
+      },
+      {
+        "id": "olive-tone-muted",
+        "name": "Olive Tone Muted",
+        "hex": "#9FAB87",
+        "hsl": "hsl(80, 18%, 60%)"
+      },
+      {
+        "id": "merlot-ink-muted",
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F",
+        "hsl": "hsl(350, 18%, 14%)"
+      }
+    ]
+  },
+  {
+    "id": "modern-seaside",
+    "title": "Modern Seaside",
+    "summary": "Clear coastal blues and seafoam accents with enough structure for UI and brand systems.",
+    "tags": [
+      "Coastal",
+      "Fresh",
+      "UI"
+    ],
+    "palette": [
+      {
+        "id": "seafoam-whisper-soft",
+        "name": "Seafoam Whisper Soft",
+        "hex": "#EAF5EE",
+        "hsl": "hsl(140, 34%, 94%)"
+      },
+      {
+        "id": "lagoon-bloom-clear",
+        "name": "Lagoon Bloom Clear",
+        "hex": "#A1E3D8",
+        "hsl": "hsl(170, 54%, 76%)"
+      },
+      {
+        "id": "cerulean-silk-clear",
+        "name": "Cerulean Silk Clear",
+        "hex": "#81CBD9",
+        "hsl": "hsl(190, 54%, 68%)"
+      },
+      {
+        "id": "azure-core-vivid",
+        "name": "Azure Core Vivid",
+        "hex": "#2099D5",
+        "hsl": "hsl(200, 74%, 48%)"
+      },
+      {
+        "id": "indigo-nocturne-soft",
+        "name": "Indigo Nocturne Soft",
+        "hex": "#222744",
+        "hsl": "hsl(230, 34%, 20%)"
+      }
+    ]
+  },
+  {
+    "id": "nocturne-tech",
+    "title": "Nocturne Tech",
+    "summary": "Dark-spectrum product colors with enough neon contrast to feel modern, not generic.",
+    "tags": [
+      "Dark",
+      "Tech",
+      "Launch"
+    ],
+    "palette": [
+      {
+        "id": "indigo-ink-muted",
+        "name": "Indigo Ink Muted",
+        "hex": "#1D1F2A",
+        "hsl": "hsl(230, 18%, 14%)"
+      },
+      {
+        "id": "violet-dusk-clear",
+        "name": "Violet Dusk Clear",
+        "hex": "#372886",
+        "hsl": "hsl(250, 54%, 34%)"
+      },
+      {
+        "id": "cobalt-core-vivid",
+        "name": "Cobalt Core Vivid",
+        "hex": "#205CD5",
+        "hsl": "hsl(220, 74%, 48%)"
+      },
+      {
+        "id": "fuchsia-radiant-vivid",
+        "name": "Fuchsia Radiant Vivid",
+        "hex": "#E133E1",
+        "hsl": "hsl(300, 74%, 54%)"
+      },
+      {
+        "id": "aqua-bloom-soft",
+        "name": "Aqua Bloom Soft",
+        "hex": "#ADD7D7",
+        "hsl": "hsl(180, 34%, 76%)"
+      }
+    ]
+  },
+  {
+    "id": "editorial-warmth",
+    "title": "Editorial Warmth",
+    "summary": "Paper-like warm colors for publishing, writing, storytelling, and thoughtful landing pages.",
+    "tags": [
+      "Warm",
+      "Publishing",
+      "Storytelling"
+    ],
+    "palette": [
+      {
+        "id": "apricot-whisper-soft",
+        "name": "Apricot Whisper Soft",
+        "hex": "#F5F1EA",
+        "hsl": "hsl(40, 34%, 94%)"
+      },
+      {
+        "id": "amber-silk-soft",
+        "name": "Amber Silk Soft",
+        "hex": "#C9C092",
+        "hsl": "hsl(50, 34%, 68%)"
+      },
+      {
+        "id": "citrine-tone-muted",
+        "name": "Citrine Tone Muted",
+        "hex": "#ABAB87",
+        "hsl": "hsl(60, 18%, 60%)"
+      },
+      {
+        "id": "garnet-velvet-soft",
+        "name": "Garnet Velvet Soft",
+        "hex": "#90475F",
+        "hsl": "hsl(340, 34%, 42%)"
+      },
+      {
+        "id": "olive-dusk-muted",
+        "name": "Olive Dusk Muted",
+        "hex": "#5C6647",
+        "hsl": "hsl(80, 18%, 34%)"
+      }
+    ]
+  },
+  {
+    "id": "orchid-bloom",
+    "title": "Orchid Bloom",
+    "summary": "Blooming pinks and violets with a soft green counterpoint for beauty, culture, and campaign work.",
+    "tags": [
+      "Campaign",
+      "Beauty",
+      "Expressive"
+    ],
+    "palette": [
+      {
+        "id": "orchid-bloom-clear",
+        "name": "Orchid Bloom Clear",
+        "hex": "#B7A1E3",
+        "hsl": "hsl(260, 54%, 76%)"
+      },
+      {
+        "id": "plum-radiant-clear",
+        "name": "Plum Radiant Clear",
+        "hex": "#8A4AC9",
+        "hsl": "hsl(270, 54%, 54%)"
+      },
+      {
+        "id": "peony-bloom-vivid",
+        "name": "Peony Bloom Vivid",
+        "hex": "#EF95E0",
+        "hsl": "hsl(310, 74%, 76%)"
+      },
+      {
+        "id": "rose-core-soft",
+        "name": "Rose Core Soft",
+        "hex": "#A45188",
+        "hsl": "hsl(320, 34%, 48%)"
+      },
+      {
+        "id": "mint-whisper-muted",
+        "name": "Mint Whisper Muted",
+        "hex": "#EDF2EE",
+        "hsl": "hsl(130, 18%, 94%)"
+      }
+    ]
+  },
+  {
+    "id": "forest-terrain",
+    "title": "Forest Terrain",
+    "summary": "Deep greens, moss, earthy browns, and stone for outdoor, editorial, and natural brand work.",
+    "tags": [
+      "Natural",
+      "Organic",
+      "Outdoor"
+    ],
+    "palette": [
+      {
+        "id": "moss-tone-muted",
+        "name": "Moss Tone Muted",
+        "hex": "#93AB87",
+        "hsl": "hsl(100, 18%, 60%)"
+      },
+      {
+        "id": "leaf-dusk-soft",
+        "name": "Leaf Dusk Soft",
+        "hex": "#437439",
+        "hsl": "hsl(110, 34%, 34%)"
+      },
+      {
+        "id": "olive-silk-muted",
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F",
+        "hsl": "hsl(80, 18%, 68%)"
+      },
+      {
+        "id": "amber-velvet-soft",
+        "name": "Amber Velvet Soft",
+        "hex": "#908347",
+        "hsl": "hsl(50, 34%, 42%)"
+      },
+      {
+        "id": "honey-shadow-muted",
+        "name": "Honey Shadow Muted",
+        "hex": "#50543B",
+        "hsl": "hsl(70, 18%, 28%)"
+      }
+    ]
+  },
+  {
+    "id": "nordic-frost",
+    "title": "Nordic Frost",
+    "summary": "Ice blue, pale grey, and soft lavender for minimal UI, SaaS products, and clean landing pages.",
+    "tags": [
+      "Minimal",
+      "Clean",
+      "UI"
+    ],
+    "palette": [
+      {
+        "id": "azure-mist-muted",
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA",
+        "hsl": "hsl(200, 18%, 90%)"
+      },
+      {
+        "id": "cerulean-whisper-soft",
+        "name": "Cerulean Whisper Soft",
+        "hex": "#EAF3F5",
+        "hsl": "hsl(190, 34%, 94%)"
+      },
+      {
+        "id": "sapphire-pearl-muted",
+        "name": "Sapphire Pearl Muted",
+        "hex": "#CFD6DE",
+        "hsl": "hsl(210, 18%, 84%)"
+      },
+      {
+        "id": "iris-veil-muted",
+        "name": "Iris Veil Muted",
+        "hex": "#F9F9FB",
+        "hsl": "hsl(240, 18%, 98%)"
+      },
+      {
+        "id": "cobalt-bloom-soft",
+        "name": "Cobalt Bloom Soft",
+        "hex": "#ADBBD7",
+        "hsl": "hsl(220, 34%, 76%)"
+      }
+    ]
+  },
+  {
+    "id": "candy-pop",
+    "title": "Candy Pop",
+    "summary": "Coral, lemon, mint, lavender, and sky — saturated accents for social, D2C, and campaign work.",
+    "tags": [
+      "Vibrant",
+      "Playful",
+      "Campaign"
+    ],
+    "palette": [
+      {
+        "id": "coral-radiant-vivid",
+        "name": "Coral Radiant Vivid",
+        "hex": "#E18A33",
+        "hsl": "hsl(30, 74%, 54%)"
+      },
+      {
+        "id": "citrine-tone-vivid",
+        "name": "Citrine Tone Vivid",
+        "hex": "#E4E44E",
+        "hsl": "hsl(60, 74%, 60%)"
+      },
+      {
+        "id": "mint-core-clear",
+        "name": "Mint Core Clear",
+        "hex": "#38BC4E",
+        "hsl": "hsl(130, 54%, 48%)"
+      },
+      {
+        "id": "peony-core-vivid",
+        "name": "Peony Core Vivid",
+        "hex": "#D520B7",
+        "hsl": "hsl(310, 74%, 48%)"
+      },
+      {
+        "id": "azure-bloom-clear",
+        "name": "Azure Bloom Clear",
+        "hex": "#A1CDE3",
+        "hsl": "hsl(200, 54%, 76%)"
+      }
+    ]
+  }
+]

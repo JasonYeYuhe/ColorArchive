@@ -1,0 +1,58 @@
+:root {
+
+  /* Quiet Luxury */
+  --quiet-luxury-1: #F2EDF0; /* Blush Whisper Muted */
+  --quiet-luxury-2: #E4DBC8; /* Apricot Pearl Soft */
+  --quiet-luxury-3: #C9CDB7; /* Honey Bloom Muted */
+  --quiet-luxury-4: #9FAB87; /* Olive Tone Muted */
+  --quiet-luxury-5: #2A1D1F; /* Merlot Ink Muted */
+
+  /* Modern Seaside */
+  --modern-seaside-1: #EAF5EE; /* Seafoam Whisper Soft */
+  --modern-seaside-2: #A1E3D8; /* Lagoon Bloom Clear */
+  --modern-seaside-3: #81CBD9; /* Cerulean Silk Clear */
+  --modern-seaside-4: #2099D5; /* Azure Core Vivid */
+  --modern-seaside-5: #222744; /* Indigo Nocturne Soft */
+
+  /* Nocturne Tech */
+  --nocturne-tech-1: #1D1F2A; /* Indigo Ink Muted */
+  --nocturne-tech-2: #372886; /* Violet Dusk Clear */
+  --nocturne-tech-3: #205CD5; /* Cobalt Core Vivid */
+  --nocturne-tech-4: #E133E1; /* Fuchsia Radiant Vivid */
+  --nocturne-tech-5: #ADD7D7; /* Aqua Bloom Soft */
+
+  /* Editorial Warmth */
+  --editorial-warmth-1: #F5F1EA; /* Apricot Whisper Soft */
+  --editorial-warmth-2: #C9C092; /* Amber Silk Soft */
+  --editorial-warmth-3: #ABAB87; /* Citrine Tone Muted */
+  --editorial-warmth-4: #90475F; /* Garnet Velvet Soft */
+  --editorial-warmth-5: #5C6647; /* Olive Dusk Muted */
+
+  /* Orchid Bloom */
+  --orchid-bloom-1: #B7A1E3; /* Orchid Bloom Clear */
+  --orchid-bloom-2: #8A4AC9; /* Plum Radiant Clear */
+  --orchid-bloom-3: #EF95E0; /* Peony Bloom Vivid */
+  --orchid-bloom-4: #A45188; /* Rose Core Soft */
+  --orchid-bloom-5: #EDF2EE; /* Mint Whisper Muted */
+
+  /* Forest Terrain */
+  --forest-terrain-1: #93AB87; /* Moss Tone Muted */
+  --forest-terrain-2: #437439; /* Leaf Dusk Soft */
+  --forest-terrain-3: #B2BC9F; /* Olive Silk Muted */
+  --forest-terrain-4: #908347; /* Amber Velvet Soft */
+  --forest-terrain-5: #50543B; /* Honey Shadow Muted */
+
+  /* Nordic Frost */
+  --nordic-frost-1: #E1E7EA; /* Azure Mist Muted */
+  --nordic-frost-2: #EAF3F5; /* Cerulean Whisper Soft */
+  --nordic-frost-3: #CFD6DE; /* Sapphire Pearl Muted */
+  --nordic-frost-4: #F9F9FB; /* Iris Veil Muted */
+  --nordic-frost-5: #ADBBD7; /* Cobalt Bloom Soft */
+
+  /* Candy Pop */
+  --candy-pop-1: #E18A33; /* Coral Radiant Vivid */
+  --candy-pop-2: #E4E44E; /* Citrine Tone Vivid */
+  --candy-pop-3: #38BC4E; /* Mint Core Clear */
+  --candy-pop-4: #D520B7; /* Peony Core Vivid */
+  --candy-pop-5: #A1CDE3; /* Azure Bloom Clear */
+}

@@ -111,6 +111,77 @@ export function ProductExamplesPage({ collections, packs }: ProductExamplesPageP
           </aside>
         </section>
 
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-6">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+            Visual preview — what buyers get
+          </div>
+          <p className="mt-2 text-sm leading-6 text-neutral-500">
+            Every pack ships as live color tokens you can drop straight into your project.
+          </p>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {collections.slice(0, 3).map((collection) => {
+              const [c1, c2, c3, c4, c5] = collection.palette;
+              if (!c1 || !c2 || !c3) return null;
+              const accent = c4 ?? c3;
+              const bg = c5 ?? c1;
+              const isLight = (bg.lightness ?? 50) > 65;
+              return (
+                <div key={collection.id} className="overflow-hidden rounded-[1.3rem] border border-black/6">
+                  {/* Simulated landing page hero */}
+                  <div
+                    className="relative flex flex-col justify-between p-4"
+                    style={{ backgroundColor: bg.hex, minHeight: "9rem" }}
+                  >
+                    <div
+                      className="inline-self-start rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]"
+                      style={{ backgroundColor: `${accent.hex}33`, color: accent.hex }}
+                    >
+                      {collection.tags[0]}
+                    </div>
+                    <div>
+                      <div
+                        className="text-base font-semibold leading-tight tracking-[-0.02em]"
+                        style={{ color: isLight ? "#0f172a" : "#f8fafc" }}
+                      >
+                        {collection.title}
+                      </div>
+                      <div
+                        className="mt-2 inline-block rounded-full px-3 py-1 text-xs font-semibold"
+                        style={{ backgroundColor: accent.hex, color: isLight ? "#f8fafc" : "#0f172a" }}
+                      >
+                        Explore palette
+                      </div>
+                    </div>
+                  </div>
+                  {/* Brand swatch row */}
+                  <div className="flex border-t border-black/6">
+                    {collection.palette.map((c) => (
+                      <div
+                        key={c.id}
+                        className="flex-1 py-3"
+                        style={{ backgroundColor: c.hex }}
+                        title={`${c.name} ${c.hex}`}
+                      />
+                    ))}
+                  </div>
+                  {/* CSS snippet */}
+                  <div className="border-t border-black/6 bg-neutral-50 px-3 py-2">
+                    <div className="font-mono text-[10px] leading-5 text-neutral-500">
+                      <span className="text-violet-600">:root</span> {"{"}
+                      {collection.palette.slice(0, 3).map((c, i) => (
+                        <div key={c.id} className="pl-3">
+                          <span className="text-sky-600">--{collection.id}-{i + 1}</span>: {c.hex};
+                        </div>
+                      ))}
+                      {"}"}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
         <section className="space-y-6">
           {packs.map((pack) => {
             const relatedCollections = pack.previewCollectionIds
