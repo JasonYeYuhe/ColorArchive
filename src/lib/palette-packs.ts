@@ -1,5 +1,12 @@
 import { checkoutConfig, type CheckoutProvider } from "@/src/lib/checkout-config";
 
+export interface PackFulfillment {
+  method: string;
+  timeline: string;
+  steps: string[];
+  fileNote: string;
+}
+
 export interface PalettePack {
   audience: string;
   checkoutNote: string;
@@ -13,6 +20,7 @@ export interface PalettePack {
     answer: string;
     question: string;
   }[];
+  fulfillment: PackFulfillment;
   launchAssets: string[];
   formatList: string[];
   id: string;
@@ -61,6 +69,18 @@ export const palettePacks: PalettePack[] = [
           "Both. The full pack is intended to bridge design direction and implementation by shipping visual boards and code-friendly tokens together.",
       },
     ],
+    fulfillment: {
+      method: "Instant download via checkout provider",
+      timeline: "Delivered immediately after payment confirmation",
+      steps: [
+        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Receive a confirmation email with a secure download link.",
+        "Download the ZIP bundle — no account required.",
+        "Unzip to find palette boards, CSS tokens, JSON data, and the usage guide.",
+      ],
+      fileNote:
+        "The bundle includes: 12 PNG palette boards, a CSS variables file, a JSON data export, Tailwind token snippets, and a short usage PDF. All files are named and documented inside the ZIP.",
+    },
     launchAssets: ["Product examples page", "Collection previews", "Static shareable URLs"],
     proofPoints: [
       "Every palette is already visible on the public site.",
@@ -115,6 +135,18 @@ export const palettePacks: PalettePack[] = [
           "It is less about exploration and more about structured application: pairings, contrast roles, and page-level usage guidance.",
       },
     ],
+    fulfillment: {
+      method: "Instant download via checkout provider",
+      timeline: "Delivered immediately after payment confirmation",
+      steps: [
+        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Receive a confirmation email with a secure download link.",
+        "Download the ZIP bundle — no account required.",
+        "Unzip to find palette sets, pairing guides, token sheets, and usage notes.",
+      ],
+      fileNote:
+        "The bundle includes: primary/secondary/accent palette groups, light and dark pairings, CTA accent recommendations, export-ready CSS token sheets, and page-level usage notes. All labeled and ready to apply.",
+    },
     launchAssets: ["Pack overview", "Collection source sets", "Support page offer framing"],
     proofPoints: [
       "Built from palette families already live in the archive.",
@@ -169,6 +201,18 @@ export const palettePacks: PalettePack[] = [
           "Yes. The same bundle structure can be used as a paid product or as a lighter free sample to collect interest before releasing bigger packs.",
       },
     ],
+    fulfillment: {
+      method: "Instant download via checkout provider",
+      timeline: "Delivered immediately after payment confirmation",
+      steps: [
+        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Receive a confirmation email with a secure download link.",
+        "Download the ZIP bundle — no account required.",
+        "Unzip to find palette cards, wallpaper sets, prompt notes, and the mini guide.",
+      ],
+      fileNote:
+        "The bundle includes: social-ready PNG palette boards, wallpaper and background color sets, prompt-friendly descriptive text for each palette, and a mini usage guide for content workflows.",
+    },
     launchAssets: ["Word → Color generator", "Surprise route", "Collection previews"],
     proofPoints: [
       "Ties directly into the existing word-to-color and discovery flows.",

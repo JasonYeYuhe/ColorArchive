@@ -33,6 +33,47 @@ const routeGroups = [
   },
 ] as const;
 
+const generationSteps = [
+  {
+    label: "Hue roots",
+    value: "36",
+    detail: "Evenly spaced hues across 0–360° in 10° increments.",
+  },
+  {
+    label: "Lightness bands",
+    value: "7",
+    detail: "From near-white (95%) down to near-black (15%), stepped for perceptual evenness.",
+  },
+  {
+    label: "Chroma bands",
+    value: "8",
+    detail: "Saturation steps from muted (12%) to vivid (95%), giving each hue depth.",
+  },
+  {
+    label: "Total colors",
+    value: "2016",
+    detail: "36 × 7 × 8 = 2016 unique HSL entries. All generated in colors.ts at build time.",
+  },
+] as const;
+
+const hostingTradeoffs = [
+  {
+    label: "GitHub Pages (current)",
+    pros: ["Free, zero-ops", "Forces static discipline", "No auth complexity"],
+    cons: ["No server-side logic", "Checkout must be off-site", "No dynamic API routes"],
+  },
+  {
+    label: "Vercel / Netlify",
+    pros: ["Edge functions available", "Instant deploy previews", "Same static output works today"],
+    cons: ["Paid tier for team use", "Adds infra dependency"],
+  },
+  {
+    label: "Full backend (if needed)",
+    pros: ["Licensed downloads", "Account-gated packs", "API for token generation"],
+    cons: ["Auth complexity", "Database ops", "Higher cost and maintenance"],
+  },
+] as const;
+
 export function AboutPage() {
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -73,25 +114,92 @@ export function AboutPage() {
           ))}
         </section>
 
+        {/* Color generation algorithm */}
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+            How the 2016 colors are generated
+          </div>
+          <p className="mt-4 text-sm leading-6 text-neutral-600">
+            Every color in the archive is produced algorithmically in{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs text-neutral-700">
+              src/data/colors.ts
+            </code>{" "}
+            at build time — no database, no external color API. The generation
+            multiplies three HSL dimensions: hue roots, lightness bands, and chroma bands.
+          </p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {generationSteps.map((step) => (
+              <div
+                key={step.label}
+                className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4"
+              >
+                <div className="text-3xl font-semibold tracking-[-0.04em] text-neutral-950">
+                  {step.value}
+                </div>
+                <div className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+                  {step.label}
+                </div>
+                <p className="mt-2 text-xs leading-5 text-neutral-500">{step.detail}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
+            Each color gets a stable slug derived from its HSL values, so every color detail page
+            can be pre-rendered with{" "}
+            <code className="rounded bg-neutral-100 px-1 py-0.5 font-mono text-xs text-neutral-700">
+              generateStaticParams()
+            </code>{" "}
+            and served as flat HTML — no runtime needed.
+          </div>
+        </section>
+
+        {/* Why static + hosting tradeoffs */}
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
           <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Why it is static
+              Hosting tradeoffs
             </div>
-            <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
-              <p>
-                The project is intentionally compatible with GitHub Pages. That forces discipline:
-                local data only, no backend dependency, no auth wall, and no server-side runtime
-                assumptions.
-              </p>
-              <p>
-                That constraint is useful. It keeps the product lightweight, cheap to host, and
-                easy to reason about while still leaving room for off-site commerce and email tools.
-              </p>
-              <p>
-                If the product later needs accounts, API logic, or licensed downloads, the archive
-                can move to a richer host. Until then, static is the right default.
-              </p>
+            <div className="mt-4 space-y-3">
+              {hostingTradeoffs.map((tier) => (
+                <div
+                  key={tier.label}
+                  className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4"
+                >
+                  <div className="text-sm font-semibold text-neutral-950">{tier.label}</div>
+                  <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                    <div>
+                      <div className="mb-1.5 text-xs font-medium uppercase tracking-[0.14em] text-emerald-600">
+                        Pros
+                      </div>
+                      <ul className="space-y-1">
+                        {tier.pros.map((pro) => (
+                          <li key={pro} className="text-xs leading-5 text-neutral-600">
+                            {pro}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="mb-1.5 text-xs font-medium uppercase tracking-[0.14em] text-rose-500">
+                        Tradeoffs
+                      </div>
+                      <ul className="space-y-1">
+                        {tier.cons.map((con) => (
+                          <li key={con} className="text-xs leading-5 text-neutral-500">
+                            {con}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 text-sm leading-6 text-neutral-500">
+              The current GitHub Pages setup is intentionally the right default. Commerce moves
+              off-site (Lemon Squeezy / Stripe), so checkout never requires a backend here.
+              A move to Vercel or a full backend only makes sense when licensed downloads or
+              user accounts are needed.
             </div>
           </div>
 

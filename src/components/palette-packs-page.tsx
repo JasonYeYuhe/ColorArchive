@@ -280,7 +280,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                     Best for
                   </th>
                   <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                    Delivery
+                    Fulfillment
                   </th>
                   <th className="rounded-r-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
                     Checkout
@@ -298,7 +298,10 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                     <td className="border border-black/6 bg-white px-4 py-4 align-top">{pack.priceHint}</td>
                     <td className="border border-black/6 bg-white px-4 py-4 align-top">{pack.audience}</td>
                     <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                      {pack.formatList.slice(0, 2).join(" · ")}
+                      <span className="block text-neutral-600">{pack.fulfillment.method}</span>
+                      <span className="mt-1 block text-xs uppercase tracking-[0.12em] text-neutral-400">
+                        {pack.fulfillment.timeline}
+                      </span>
                     </td>
                     <td className="border border-black/6 bg-white px-4 py-4 align-top">
                       {pack.checkoutProvider}

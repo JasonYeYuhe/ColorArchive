@@ -64,8 +64,8 @@ export function FreePackPage({
               Download a free sample before paid checkout goes live
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
-              This route acts as a static lead magnet. It gives visitors a concrete preview of the
-              product line while Lemon approval is still pending.
+              Get a taste of the paid packs before checkout goes live. Download preview CSS tokens
+              and a JSON palette export — no signup, no email required.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -131,16 +131,14 @@ export function FreePackPage({
             </div>
             <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
               <p>
-                A free sample is the fastest path to a higher-conviction product page while the
-                payment layer is still pending.
+                The free sample gives you the exact file shapes used in the paid packs — CSS
+                variables, JSON color data, and a featured palette — so you can decide whether the
+                format fits your project before buying.
               </p>
               <p>
-                It turns existing preview assets into a concrete public offer and gives the site a
-                more credible conversion step than “wait for updates”.
-              </p>
-              <p>
-                Once Lemon is approved, this page can remain the free tier and point upward into
-                the paid packs.
+                When paid checkout goes live, this page stays as a permanent free tier. The
+                full packs add more collections, higher-resolution boards, and structured usage
+                guidance on top of what you see here.
               </p>
             </div>
 

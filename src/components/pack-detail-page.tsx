@@ -158,6 +158,29 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
               </div>
             ) : null}
 
+            {/* Fulfillment */}
+            <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                After you buy
+              </div>
+              <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
+                {pack.fulfillment.method} · {pack.fulfillment.timeline}
+              </div>
+              <ol className="mt-4 space-y-2">
+                {pack.fulfillment.steps.map((step, i) => (
+                  <li key={step} className="flex gap-3">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-black/8 bg-neutral-100 text-xs font-semibold text-neutral-500">
+                      {i + 1}
+                    </span>
+                    <span className="text-sm leading-6 text-neutral-600">{step}</span>
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-4 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
+                {pack.fulfillment.fileNote}
+              </div>
+            </div>
+
             <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 FAQ

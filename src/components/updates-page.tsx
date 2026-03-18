@@ -5,7 +5,21 @@ interface UpdatesPageProps {
   updates: readonly ProjectUpdateEntry[];
 }
 
+function groupByPhase(updates: readonly ProjectUpdateEntry[]) {
+  const map = new Map<string, ProjectUpdateEntry[]>();
+  for (const entry of updates) {
+    const list = map.get(entry.phase) ?? [];
+    list.push(entry);
+    map.set(entry.phase, list);
+  }
+  return map;
+}
+
 export function UpdatesPage({ updates }: UpdatesPageProps) {
+  const shipped = updates.filter((u) => u.status === "shipped");
+  const planned = updates.filter((u) => u.status === "planned");
+  const plannedByPhase = groupByPhase(planned);
+
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
@@ -21,30 +35,44 @@ export function UpdatesPage({ updates }: UpdatesPageProps) {
               What changed in the archive
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
-              A static changelog for route additions, product-layer changes, and major archive
-              improvements. This gives the site a visible shipping history.
+              Changelog and roadmap for ColorArchive. Shipped entries track completed work;
+              planned entries show the next commerce and content milestones.
             </p>
           </div>
         </section>
 
+        {/* Shipped changelog */}
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-black/6" />
+          <div className="rounded-full border border-black/8 bg-white px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-neutral-500">
+            Shipped
+          </div>
+          <div className="h-px flex-1 bg-black/6" />
+        </div>
+
         <section className="space-y-4">
-          {updates.map((update) => (
+          {shipped.map((update) => (
             <article
               key={update.id}
               className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]"
             >
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div className="max-w-3xl">
-                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                    {update.date}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                      {update.date}
+                    </span>
+                    <span className="rounded-full border border-black/6 bg-emerald-50 px-2.5 py-0.5 text-xs font-medium uppercase tracking-[0.14em] text-emerald-700">
+                      {update.phase}
+                    </span>
                   </div>
                   <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
                     {update.title}
                   </h2>
                   <p className="mt-3 text-sm leading-6 text-neutral-600">{update.summary}</p>
                 </div>
-                <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
-                  Update
+                <div className="shrink-0 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-emerald-700">
+                  Shipped
                 </div>
               </div>
 
@@ -59,6 +87,59 @@ export function UpdatesPage({ updates }: UpdatesPageProps) {
                 ))}
               </div>
             </article>
+          ))}
+        </section>
+
+        {/* Roadmap */}
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-black/6" />
+          <div className="rounded-full border border-black/8 bg-white px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-neutral-500">
+            Roadmap
+          </div>
+          <div className="h-px flex-1 bg-black/6" />
+        </div>
+
+        <section className="space-y-6">
+          {[...plannedByPhase.entries()].map(([phase, entries]) => (
+            <div key={phase}>
+              <div className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                {phase}
+              </div>
+              <div className="space-y-4">
+                {entries.map((update) => (
+                  <article
+                    key={update.id}
+                    className="rounded-[1.75rem] border border-dashed border-black/10 bg-white/60 p-5"
+                  >
+                    <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                      <div className="max-w-3xl">
+                        <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                          {update.date}
+                        </div>
+                        <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                          {update.title}
+                        </h2>
+                        <p className="mt-3 text-sm leading-6 text-neutral-500">{update.summary}</p>
+                      </div>
+                      <div className="shrink-0 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-amber-700">
+                        Planned
+                      </div>
+                    </div>
+
+                    <div className="mt-5 grid gap-2">
+                      {update.bullets.map((bullet) => (
+                        <div
+                          key={bullet}
+                          className="rounded-[1rem] border border-black/6 bg-white/70 px-4 py-3 text-sm leading-6 text-neutral-500"
+                        >
+                          {bullet}
+                        </div>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
           ))}
         </section>
 
