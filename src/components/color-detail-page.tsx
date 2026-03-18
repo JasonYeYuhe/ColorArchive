@@ -173,30 +173,35 @@ export function ColorDetailPage({
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
         <section className="overflow-hidden rounded-[2rem] border border-black/6 bg-white/78 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
-          <div
-            className="relative h-72 border-b border-black/6 sm:h-80"
-            style={{ backgroundColor: color.hex }}
-            aria-hidden="true"
-          >
-            <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.14),transparent_45%,rgba(17,24,39,0.08))]" />
-            <div className="absolute left-6 top-6 rounded-full border border-white/30 bg-white/18 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-white/92 backdrop-blur-md">
-              Color detail
-            </div>
-            <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <div className="text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
-                  {color.name}
+          {(() => {
+            const isLight = color.lightness > 65;
+            return (
+              <div
+                className="relative h-72 border-b border-black/6 sm:h-80"
+                style={{ backgroundColor: color.hex }}
+                aria-hidden="true"
+              >
+                <div className={`absolute inset-0 ${isLight ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.06),transparent_40%,rgba(0,0,0,0.04))]" : "bg-[linear-gradient(135deg,rgba(255,255,255,0.14),transparent_45%,rgba(17,24,39,0.08))]"}`} />
+                <div className={`absolute left-6 top-6 rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] backdrop-blur-md ${isLight ? "border border-black/10 bg-black/6 text-neutral-700" : "border border-white/30 bg-white/18 text-white/92"}`}>
+                  Color detail
                 </div>
-                <div className="mt-3 text-sm uppercase tracking-[0.22em] text-white/75">
-                  {color.family} · Hue {color.hue}
+                <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
+                  <div>
+                    <div className={`text-4xl font-semibold tracking-[-0.04em] sm:text-5xl ${isLight ? "text-neutral-900" : "text-white"}`}>
+                      {color.name}
+                    </div>
+                    <div className={`mt-3 text-sm uppercase tracking-[0.22em] ${isLight ? "text-neutral-500" : "text-white/75"}`}>
+                      {color.family} · Hue {color.hue}
+                    </div>
+                  </div>
+                  <div className={`rounded-2xl px-4 py-3 text-right backdrop-blur-md ${isLight ? "border border-black/10 bg-white/60 text-neutral-900" : "border border-white/24 bg-black/16 text-white"}`}>
+                    <div className={`text-xs uppercase tracking-[0.16em] ${isLight ? "text-neutral-500" : "text-white/70"}`}>Hex</div>
+                    <div className="mt-1 text-2xl font-semibold tracking-[0.04em]">{color.hex}</div>
+                  </div>
                 </div>
               </div>
-              <div className="rounded-2xl border border-white/24 bg-black/16 px-4 py-3 text-right text-white backdrop-blur-md">
-                <div className="text-xs uppercase tracking-[0.16em] text-white/70">Hex</div>
-                <div className="mt-1 text-2xl font-semibold tracking-[0.04em]">{color.hex}</div>
-              </div>
-            </div>
-          </div>
+            );
+          })()}
 
           <div className="grid gap-6 p-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(22rem,0.8fr)]">
             <div className="space-y-5">

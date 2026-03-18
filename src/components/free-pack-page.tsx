@@ -69,13 +69,17 @@ export function FreePackPage({
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
-              {pack.sampleDownloads.map((sample) => (
+              {pack.sampleDownloads.map((sample, index) => (
                 <a
                   key={sample.href}
                   href={sample.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                  className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                    index === 0
+                      ? "border-black/8 bg-neutral-950 text-white hover:bg-neutral-800"
+                      : "border-black/8 bg-white text-neutral-700 hover:bg-neutral-50"
+                  }`}
                 >
                   {sample.label}
                 </a>
