@@ -1,6 +1,6 @@
 # ColorArchive
 
-ColorArchive is a polished static color project built with Next.js, TypeScript, Tailwind CSS, and the App Router. It includes a primary archive page, a dedicated dense `All Colors` page, a `Spectrum Explorer`, a dedicated search page, individual color detail pages, and a lightweight `Word → Color` generator route, and it is configured for static export and GitHub Pages deployment.
+ColorArchive is a polished static color project built with Next.js, TypeScript, Tailwind CSS, and the App Router. It includes a primary archive page, a dedicated dense `All Colors` page, a `Spectrum Explorer`, a `Surprise` discovery page, a dedicated search page with multi-dimensional filters, individual color detail pages with relationship recommendations, and a lightweight `Word → Color` generator route, and it is configured for static export and GitHub Pages deployment.
 
 ## Stack
 
@@ -12,15 +12,16 @@ ColorArchive is a polished static color project built with Next.js, TypeScript, 
 
 ## Architecture
 
-- `app/` contains the single exported route, metadata, and global styles.
+- `app/` contains the exported routes, metadata, and global styles.
 - `src/data/colors.ts` generates a local dataset of 2016 colors with name, hex, rgb, hsl, hue, saturation, lightness, and family.
 - `src/components/` contains reusable UI building blocks for the hero, filters, grid, and cards.
 - `app/all-colors/page.tsx` renders the full 2016-color archive in a denser single-page layout.
 - `app/spectrum/page.tsx` renders a hue-by-lightness spectrum matrix view of the archive.
+- `app/surprise/page.tsx` adds a random discovery route for exploratory browsing.
 - `app/search/page.tsx` adds a dedicated static search route for fast color lookup.
 - `app/colors/[slug]/page.tsx` statically exports individual color detail pages.
 - `app/word-to-color/page.tsx` adds a second static route that deterministically maps any word or phrase to a color.
-- `src/lib/color-utils.ts` contains pure utility functions for color conversion, sorting, and filtering.
+- `src/lib/color-utils.ts` contains pure utility functions for color conversion, sorting, filtering, and recommendation matching.
 - `src/lib/word-color.ts` contains the local deterministic word-to-color generator.
 - `.github/workflows/deploy-pages.yml` builds and deploys the static `out/` directory to GitHub Pages.
 - `public/CNAME` ensures GitHub Pages serves the site on `colorarchive.me`.
@@ -125,4 +126,7 @@ GitHub documents the current records here:
 
 - The site uses only local data and no backend services.
 - The page is fully static-export compatible and deployable on GitHub Pages.
+- The `All Colors` route supports shareable search, family, sort, and density state for dense archive browsing.
+- The search route supports shareable query parameters for keyword, family, hue band, tone, saturation range, lightness range, and exact hex.
+- Individual color pages expose nearby, tonal, analogous, and complementary recommendations to encourage deeper exploration.
 - If you temporarily deploy without the custom domain and need a repository subpath, add a `basePath` and `assetPrefix` that match the repository name before building.

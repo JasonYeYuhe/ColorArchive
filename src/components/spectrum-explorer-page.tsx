@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { ShareLinkButton } from "@/src/components/share-link-button";
 import type { ColorRecord } from "@/src/types/color";
 
 interface SpectrumExplorerPageProps {
@@ -32,6 +33,7 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
   const lightnessBands = useMemo(() => uniqueSorted(colors.map((color) => color.lightness)).reverse(), [colors]);
   const hueBands = useMemo(() => uniqueSorted(colors.map((color) => color.hue)), [colors]);
   const [activeSaturation, setActiveSaturation] = useState<number>(saturationBands[2]?.saturation ?? 54);
+  const [selectedColorId, setSelectedColorId] = useState<string | null>(null);
 
   const spectrumRows = useMemo(
     () =>
@@ -47,6 +49,28 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
         ),
       })),
     [activeSaturation, colors, hueBands, lightnessBands],
+  );
+
+  useEffect(() => {
+    const firstAvailableColor =
+      spectrumRows.flatMap((row) => row.colors).find((color): color is ColorRecord => color !== null) ?? null;
+
+    if (!firstAvailableColor) {
+      setSelectedColorId(null);
+      return;
+    }
+
+    if (!spectrumRows.flatMap((row) => row.colors).some((color) => color?.id === selectedColorId)) {
+      setSelectedColorId(firstAvailableColor.id);
+    }
+  }, [selectedColorId, spectrumRows]);
+
+  const selectedColor = useMemo(
+    () =>
+      spectrumRows
+        .flatMap((row) => row.colors)
+        .find((color): color is ColorRecord => color !== null && color.id === selectedColorId) ?? null,
+    [selectedColorId, spectrumRows],
   );
 
   const activeBandLabel =
@@ -127,7 +151,8 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
           </div>
         </section>
 
-        <section className="space-y-4">
+        <section className="grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_minmax(22rem,0.8fr)]">
+          <div className="space-y-4">
           <div className="flex items-center justify-between px-1">
             <div>
               <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
@@ -169,17 +194,22 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
                   </div>
                   {row.colors.map((color, index) =>
                     color ? (
-                      <Link
+                      <button
                         key={`${row.lightness}-${color.id}`}
-                        href={`/colors/${color.id}/`}
-                        className="group overflow-hidden rounded-xl border border-black/6 bg-white"
-                        aria-label={`Open ${color.name}`}
+                        type="button"
+                        onClick={() => setSelectedColorId(color.id)}
+                        className={`group overflow-hidden rounded-xl border bg-white transition ${
+                          color.id === selectedColorId
+                            ? "border-neutral-950/18 ring-2 ring-neutral-900/10"
+                            : "border-black/6 hover:border-neutral-950/12"
+                        }`}
+                        aria-label={`Inspect ${color.name}`}
                       >
                         <div
                           className="h-14 transition duration-200 group-hover:scale-[1.03]"
                           style={{ backgroundColor: color.hex }}
                         />
-                      </Link>
+                      </button>
                     ) : (
                       <div
                         key={`${row.lightness}-empty-${hueBands[index]}`}
@@ -191,6 +221,65 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
               ))}
             </div>
           </div>
+          </div>
+
+          <aside className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            {selectedColor ? (
+              <div className="space-y-5">
+                <div>
+                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                    Selected spectrum point
+                  </div>
+                  <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                    {selectedColor.name}
+                  </h2>
+                  <p className="mt-2 text-sm leading-6 text-neutral-600">
+                    This point sits at hue {selectedColor.hue}, saturation {selectedColor.saturation}%, and
+                    lightness {selectedColor.lightness}% within the current matrix band.
+                  </p>
+                </div>
+
+                <div
+                  className="h-44 rounded-[1.5rem] border border-black/6"
+                  style={{ backgroundColor: selectedColor.hex }}
+                  aria-hidden="true"
+                />
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+                    <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Hex</div>
+                    <div className="mt-1 font-medium text-neutral-950">{selectedColor.hex}</div>
+                  </div>
+                  <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+                    <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">RGB</div>
+                    <div className="mt-1 font-medium text-neutral-950">{selectedColor.rgb}</div>
+                  </div>
+                  <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 sm:col-span-2">
+                    <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">HSL</div>
+                    <div className="mt-1 font-medium text-neutral-950">{selectedColor.hsl}</div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  <ShareLinkButton href={`/colors/${selectedColor.id}/`} />
+                  <Link
+                    href={`/colors/${selectedColor.id}/`}
+                    className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                  >
+                    Open detail
+                  </Link>
+                  <Link
+                    href="/surprise"
+                    className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                  >
+                    Surprise me
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <div className="text-sm text-neutral-500">No spectrum point selected.</div>
+            )}
+          </aside>
         </section>
       </div>
     </main>

@@ -23,7 +23,7 @@ export function HeroSection({
       <div className="relative mx-auto max-w-4xl">
         <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
           <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-          One-page visual archive
+          Curated color archive
         </div>
 
         <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
@@ -71,6 +71,12 @@ export function HeroSection({
             className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
           >
             Open spectrum
+          </Link>
+          <Link
+            href="/surprise"
+            className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+          >
+            Surprise me
           </Link>
         </div>
 

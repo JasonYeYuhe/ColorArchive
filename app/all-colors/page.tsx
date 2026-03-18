@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { AllColorsPage } from "@/src/components/all-colors-page";
 import { SiteHeader } from "@/src/components/site-header";
@@ -12,7 +13,9 @@ export default function AllColorsRoute() {
   return (
     <>
       <SiteHeader currentPath="/all-colors" />
-      <AllColorsPage colors={colors} />
+      <Suspense fallback={null}>
+        <AllColorsPage colors={colors} />
+      </Suspense>
     </>
   );
 }

@@ -8,6 +8,11 @@ import type { ColorRecord } from "@/src/types/color";
 interface ColorDetailPageProps {
   color: ColorRecord;
   relatedColors: readonly ColorRecord[];
+  nearestColors: readonly ColorRecord[];
+  analogousColors: readonly ColorRecord[];
+  complementaryColor: ColorRecord | null;
+  lighterCompanion: ColorRecord | null;
+  darkerCompanion: ColorRecord | null;
 }
 
 function CopyButton({ value, label }: { value: string; label: string }) {
@@ -42,7 +47,86 @@ function CopyButton({ value, label }: { value: string; label: string }) {
   );
 }
 
-export function ColorDetailPage({ color, relatedColors }: ColorDetailPageProps) {
+function RecommendationLink({
+  color,
+  eyebrow,
+}: {
+  color: ColorRecord;
+  eyebrow: string;
+}) {
+  return (
+    <Link
+      href={`/colors/${color.id}/`}
+      className="group rounded-[1.45rem] border border-black/6 bg-white/84 p-3 transition hover:-translate-y-0.5 hover:border-black/10 hover:shadow-[0_18px_36px_rgba(15,23,42,0.06)]"
+    >
+      <div
+        className="h-24 rounded-[1.1rem] border border-black/6"
+        style={{ backgroundColor: color.hex }}
+        aria-hidden="true"
+      />
+      <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-400">
+        {eyebrow}
+      </div>
+      <div className="mt-1 truncate text-base font-semibold tracking-[-0.02em] text-neutral-950">
+        {color.name}
+      </div>
+      <div className="mt-1 text-sm text-neutral-500">
+        {color.hex} · {color.hsl}
+      </div>
+    </Link>
+  );
+}
+
+export function ColorDetailPage({
+  color,
+  relatedColors,
+  nearestColors,
+  analogousColors,
+  complementaryColor,
+  lighterCompanion,
+  darkerCompanion,
+}: ColorDetailPageProps) {
+  const paletteMoves = [
+    lighterCompanion
+      ? {
+          label: "Lighter companion",
+          value: lighterCompanion,
+        }
+      : null,
+    darkerCompanion
+      ? {
+          label: "Darker companion",
+          value: darkerCompanion,
+        }
+      : null,
+    complementaryColor
+      ? {
+          label: "Complementary counterpoint",
+          value: complementaryColor,
+        }
+      : null,
+    ...analogousColors.map((analogousColor, index) => ({
+      label: index === 0 ? "Analogous lead" : "Analogous echo",
+      value: analogousColor,
+    })),
+  ]
+    .filter(
+      (
+        item,
+      ): item is {
+        label: string;
+        value: ColorRecord;
+      } => Boolean(item),
+    )
+    .reduce<{ label: string; value: ColorRecord }[]>((items, item) => {
+      if (items.some((existingItem) => existingItem.value.id === item.value.id)) {
+        return items;
+      }
+
+      items.push(item);
+      return items;
+    }, []);
+
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
@@ -107,6 +191,47 @@ export function ColorDetailPage({ color, relatedColors }: ColorDetailPageProps) 
                   {color.hue} with {color.saturation}% saturation and {color.lightness}% lightness.
                   Use it as a stable reference point inside the broader ColorArchive system.
                 </p>
+              </div>
+
+              <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Palette moves
+                </div>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
+                  Instead of stopping at one swatch, use nearby, opposite, and tonal neighbors to
+                  branch into a broader palette.
+                </p>
+
+                <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                  {paletteMoves.map((item) => (
+                    <RecommendationLink key={item.value.id} color={item.value} eyebrow={item.label} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                      Nearest neighbors
+                    </div>
+                    <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
+                      The closest archive matches by hue, saturation, and lightness.
+                    </p>
+                  </div>
+                  <Link
+                    href={`/search?hex=${encodeURIComponent(color.hex)}`}
+                    className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                  >
+                    Search by hex
+                  </Link>
+                </div>
+
+                <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                  {nearestColors.map((nearColor) => (
+                    <RecommendationLink key={nearColor.id} color={nearColor} eyebrow="Nearby match" />
+                  ))}
+                </div>
               </div>
             </div>
 

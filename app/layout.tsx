@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import { SiteFooter } from "@/src/components/site-footer";
 import "./globals.css";
 
 const siteTitle = "ColorArchive";
@@ -34,10 +35,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://colorarchive.me/og-image.svg",
+        url: "https://colorarchive.me/og-image-v1.png",
         width: 1200,
         height: 630,
-        alt: "ColorArchive social preview",
+        alt: "ColorArchive logo and social preview",
       },
     ],
   },
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["https://colorarchive.me/og-image.svg"],
+    images: ["https://colorarchive.me/og-image-v1.png"],
   },
   robots: {
     index: true,
@@ -63,7 +64,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <SiteFooter />
+      </body>
     </html>
   );
 }

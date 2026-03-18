@@ -17,6 +17,84 @@ const SEARCH_PROMPTS = ["moss", "rose", "#7F", "azure", "velvet"] as const;
 type HueBand = "all" | "warm" | "fresh" | "cool" | "violet";
 type ToneBand = "all" | "light" | "mid" | "dark";
 
+interface SearchState {
+  searchQuery: string;
+  sortBy: SortOption;
+  activeFamily: ColorFamily | "All";
+  hueBand: HueBand;
+  toneBand: ToneBand;
+  minSaturation: number;
+  maxSaturation: number;
+  minLightness: number;
+  maxLightness: number;
+  exactHex: string;
+}
+
+function clampToRange(value: number, min: number, max: number, fallback: number) {
+  if (!Number.isFinite(value)) {
+    return fallback;
+  }
+
+  return Math.min(max, Math.max(min, value));
+}
+
+function createSearchStateParams({
+  searchQuery,
+  sortBy,
+  activeFamily,
+  hueBand,
+  toneBand,
+  minSaturation,
+  maxSaturation,
+  minLightness,
+  maxLightness,
+  exactHex,
+}: SearchState) {
+  const params = new URLSearchParams();
+
+  if (searchQuery.trim()) {
+    params.set("q", searchQuery.trim());
+  }
+
+  if (sortBy !== "name") {
+    params.set("sort", sortBy);
+  }
+
+  if (activeFamily !== "All") {
+    params.set("family", activeFamily);
+  }
+
+  if (hueBand !== "all") {
+    params.set("hueBand", hueBand);
+  }
+
+  if (toneBand !== "all") {
+    params.set("tone", toneBand);
+  }
+
+  if (minSaturation > 0) {
+    params.set("minSat", String(minSaturation));
+  }
+
+  if (maxSaturation < 100) {
+    params.set("maxSat", String(maxSaturation));
+  }
+
+  if (minLightness > 0) {
+    params.set("minLight", String(minLightness));
+  }
+
+  if (maxLightness < 100) {
+    params.set("maxLight", String(maxLightness));
+  }
+
+  if (exactHex.trim()) {
+    params.set("hex", exactHex.trim().toUpperCase());
+  }
+
+  return params;
+}
+
 function matchesHueBand(color: ColorRecord, hueBand: HueBand) {
   if (hueBand === "all") {
     return true;
@@ -55,6 +133,11 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
   const initialFamily = (searchParams.get("family") as ColorFamily | null) ?? "All";
   const initialHueBand = (searchParams.get("hueBand") as HueBand | null) ?? "all";
   const initialToneBand = (searchParams.get("tone") as ToneBand | null) ?? "all";
+  const initialMinSaturation = Number(searchParams.get("minSat") ?? "0");
+  const initialMaxSaturation = Number(searchParams.get("maxSat") ?? "100");
+  const initialMinLightness = Number(searchParams.get("minLight") ?? "0");
+  const initialMaxLightness = Number(searchParams.get("maxLight") ?? "100");
+  const initialExactHex = searchParams.get("hex") ?? "";
 
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [sortBy, setSortBy] = useState<SortOption>(
@@ -78,6 +161,11 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
       ? initialToneBand
       : "all",
   );
+  const [minSaturation, setMinSaturation] = useState(clampToRange(initialMinSaturation, 0, 100, 0));
+  const [maxSaturation, setMaxSaturation] = useState(clampToRange(initialMaxSaturation, 0, 100, 100));
+  const [minLightness, setMinLightness] = useState(clampToRange(initialMinLightness, 0, 100, 0));
+  const [maxLightness, setMaxLightness] = useState(clampToRange(initialMaxLightness, 0, 100, 100));
+  const [exactHex, setExactHex] = useState(initialExactHex);
   const [selectedColorId, setSelectedColorId] = useState<string | null>(colors[0]?.id ?? null);
 
   const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
@@ -101,38 +189,59 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
 
     return sortColors(
       filtered.filter(
-        (color) => matchesHueBand(color, hueBand) && matchesToneBand(color, toneBand),
+        (color) =>
+          matchesHueBand(color, hueBand) &&
+          matchesToneBand(color, toneBand) &&
+          color.saturation >= minSaturation &&
+          color.saturation <= maxSaturation &&
+          color.lightness >= minLightness &&
+          color.lightness <= maxLightness &&
+          (exactHex.trim().length === 0 || color.hex.toLowerCase() === exactHex.trim().toLowerCase()),
       ),
       sortBy,
     );
-  }, [activeFamily, hueBand, searchResults, sortBy, toneBand]);
+  }, [
+    activeFamily,
+    exactHex,
+    hueBand,
+    maxLightness,
+    maxSaturation,
+    minLightness,
+    minSaturation,
+    searchResults,
+    sortBy,
+    toneBand,
+  ]);
 
   useEffect(() => {
-    const params = new URLSearchParams();
-
-    if (searchQuery.trim()) {
-      params.set("q", searchQuery.trim());
-    }
-
-    if (sortBy !== "name") {
-      params.set("sort", sortBy);
-    }
-
-    if (activeFamily !== "All") {
-      params.set("family", activeFamily);
-    }
-
-    if (hueBand !== "all") {
-      params.set("hueBand", hueBand);
-    }
-
-    if (toneBand !== "all") {
-      params.set("tone", toneBand);
-    }
-
+    const params = createSearchStateParams({
+      searchQuery,
+      sortBy,
+      activeFamily,
+      hueBand,
+      toneBand,
+      minSaturation,
+      maxSaturation,
+      minLightness,
+      maxLightness,
+      exactHex,
+    });
     const queryString = params.toString();
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
-  }, [activeFamily, hueBand, pathname, router, searchQuery, sortBy, toneBand]);
+  }, [
+    activeFamily,
+    exactHex,
+    hueBand,
+    maxLightness,
+    maxSaturation,
+    minLightness,
+    minSaturation,
+    pathname,
+    router,
+    searchQuery,
+    sortBy,
+    toneBand,
+  ]);
 
   useEffect(() => {
     if (visibleColors.length === 0) {
@@ -149,6 +258,34 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
     () => visibleColors.find((color) => color.id === selectedColorId) ?? visibleColors[0] ?? null,
     [selectedColorId, visibleColors],
   );
+  const shareHref = useMemo(() => {
+    const params = createSearchStateParams({
+      searchQuery,
+      sortBy,
+      activeFamily,
+      hueBand,
+      toneBand,
+      minSaturation,
+      maxSaturation,
+      minLightness,
+      maxLightness,
+      exactHex,
+    });
+    const queryString = params.toString();
+
+    return queryString ? `/search?${queryString}` : "/search";
+  }, [
+    activeFamily,
+    exactHex,
+    hueBand,
+    maxLightness,
+    maxSaturation,
+    minLightness,
+    minSaturation,
+    searchQuery,
+    sortBy,
+    toneBand,
+  ]);
 
   const nearbyColors = useMemo(() => {
     if (!selectedColor) {
@@ -174,6 +311,11 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
     setActiveFamily("All");
     setHueBand("all");
     setToneBand("all");
+    setMinSaturation(0);
+    setMaxSaturation(100);
+    setMinLightness(0);
+    setMaxLightness(100);
+    setExactHex("");
   };
 
   return (
@@ -208,20 +350,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
                   {prompt}
                 </button>
               ))}
-              <ShareLinkButton
-                href={
-                  searchQuery.trim()
-                    ? `/search?q=${encodeURIComponent(searchQuery.trim())}${
-                        activeFamily !== "All" ? `&family=${encodeURIComponent(activeFamily)}` : ""
-                      }${sortBy !== "name" ? `&sort=${encodeURIComponent(sortBy)}` : ""}${
-                        hueBand !== "all" ? `&hueBand=${encodeURIComponent(hueBand)}` : ""
-                      }${toneBand !== "all" ? `&tone=${encodeURIComponent(toneBand)}` : ""}`
-                    : `/search${hueBand !== "all" || toneBand !== "all" ? `?${new URLSearchParams({
-                        ...(hueBand !== "all" ? { hueBand } : {}),
-                        ...(toneBand !== "all" ? { tone: toneBand } : {}),
-                      }).toString()}` : ""}`
-                }
-              />
+              <ShareLinkButton href={shareHref} />
             </div>
           </div>
         </section>
@@ -274,6 +403,81 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
                 {hueBand === "all" ? "All hues" : hueBand} · {toneBand === "all" ? "All tones" : toneBand}
               </div>
             </div>
+          </div>
+
+          <div className="mt-4 grid gap-4 xl:grid-cols-3">
+            <label className="flex flex-col gap-2">
+              <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Saturation range
+              </span>
+              <div className="grid grid-cols-2 gap-2">
+                <input
+                  type="number"
+                  min={0}
+                  max={maxSaturation}
+                  value={minSaturation}
+                  onChange={(event) =>
+                    setMinSaturation(clampToRange(Number(event.target.value), 0, maxSaturation, 0))
+                  }
+                  className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+                  aria-label="Minimum saturation"
+                />
+                <input
+                  type="number"
+                  min={minSaturation}
+                  max={100}
+                  value={maxSaturation}
+                  onChange={(event) =>
+                    setMaxSaturation(clampToRange(Number(event.target.value), minSaturation, 100, 100))
+                  }
+                  className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+                  aria-label="Maximum saturation"
+                />
+              </div>
+            </label>
+
+            <label className="flex flex-col gap-2">
+              <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Lightness range
+              </span>
+              <div className="grid grid-cols-2 gap-2">
+                <input
+                  type="number"
+                  min={0}
+                  max={maxLightness}
+                  value={minLightness}
+                  onChange={(event) =>
+                    setMinLightness(clampToRange(Number(event.target.value), 0, maxLightness, 0))
+                  }
+                  className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+                  aria-label="Minimum lightness"
+                />
+                <input
+                  type="number"
+                  min={minLightness}
+                  max={100}
+                  value={maxLightness}
+                  onChange={(event) =>
+                    setMaxLightness(clampToRange(Number(event.target.value), minLightness, 100, 100))
+                  }
+                  className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+                  aria-label="Maximum lightness"
+                />
+              </div>
+            </label>
+
+            <label className="flex flex-col gap-2">
+              <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Exact hex
+              </span>
+              <input
+                type="text"
+                value={exactHex}
+                onChange={(event) => setExactHex(event.target.value)}
+                placeholder="#AABBCC"
+                className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+              />
+            </label>
           </div>
         </section>
 

@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ColorDetailPage } from "@/src/components/color-detail-page";
 import { SiteHeader } from "@/src/components/site-header";
-import { sortColors } from "@/src/lib/color-utils";
+import {
+  getAnalogousColors,
+  getComplementaryColor,
+  getNearestColors,
+  getToneCompanion,
+  sortColors,
+} from "@/src/lib/color-utils";
 import { colors } from "@/src/data/colors";
 
 export const dynamicParams = false;
@@ -56,11 +62,24 @@ export default async function ColorPage({ params }: ColorPageProps) {
   )
     .slice(0, 8)
     .sort((a, b) => (a.id === color.id ? -1 : b.id === color.id ? 1 : 0));
+  const nearestColors = getNearestColors(colors, color, 6);
+  const complementaryColor = getComplementaryColor(colors, color);
+  const analogousColors = getAnalogousColors(colors, color, 2);
+  const lighterCompanion = getToneCompanion(colors, color, "lighter");
+  const darkerCompanion = getToneCompanion(colors, color, "darker");
 
   return (
     <>
-      <SiteHeader currentPath="/" />
-      <ColorDetailPage color={color} relatedColors={relatedColors} />
+      <SiteHeader currentPath="/colors" />
+      <ColorDetailPage
+        color={color}
+        relatedColors={relatedColors}
+        nearestColors={nearestColors}
+        analogousColors={analogousColors}
+        complementaryColor={complementaryColor}
+        lighterCompanion={lighterCompanion}
+        darkerCompanion={darkerCompanion}
+      />
     </>
   );
 }

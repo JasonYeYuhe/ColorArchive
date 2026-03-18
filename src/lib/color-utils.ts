@@ -151,3 +151,117 @@ export function filterColors(
     return matchesSearch && matchesFamily;
   });
 }
+
+export function getHueDistance(fromHue: number, toHue: number): number {
+  const difference = Math.abs(fromHue - toHue) % 360;
+  return Math.min(difference, 360 - difference);
+}
+
+export function getColorDistance(baseColor: ColorRecord, comparisonColor: ColorRecord): number {
+  return (
+    getHueDistance(baseColor.hue, comparisonColor.hue) * 1.8 +
+    Math.abs(baseColor.saturation - comparisonColor.saturation) * 0.7 +
+    Math.abs(baseColor.lightness - comparisonColor.lightness) * 1.15
+  );
+}
+
+export function getNearestColors(
+  colors: readonly ColorRecord[],
+  baseColor: ColorRecord,
+  limit = 6,
+): ColorRecord[] {
+  return [...colors]
+    .filter((color) => color.id !== baseColor.id)
+    .sort((leftColor, rightColor) => {
+      return (
+        getColorDistance(baseColor, leftColor) - getColorDistance(baseColor, rightColor) ||
+        compareHueSort(leftColor, rightColor)
+      );
+    })
+    .slice(0, limit);
+}
+
+export function getComplementaryColor(
+  colors: readonly ColorRecord[],
+  baseColor: ColorRecord,
+): ColorRecord | null {
+  const targetHue = (baseColor.hue + 180) % 360;
+
+  return (
+    [...colors]
+      .filter((color) => color.id !== baseColor.id)
+      .sort((leftColor, rightColor) => {
+        const leftScore =
+          getHueDistance(leftColor.hue, targetHue) * 2 +
+          Math.abs(leftColor.lightness - baseColor.lightness) * 1.1 +
+          Math.abs(leftColor.saturation - baseColor.saturation) * 0.8;
+        const rightScore =
+          getHueDistance(rightColor.hue, targetHue) * 2 +
+          Math.abs(rightColor.lightness - baseColor.lightness) * 1.1 +
+          Math.abs(rightColor.saturation - baseColor.saturation) * 0.8;
+
+        return leftScore - rightScore || compareHueSort(leftColor, rightColor);
+      })[0] ?? null
+  );
+}
+
+export function getAnalogousColors(
+  colors: readonly ColorRecord[],
+  baseColor: ColorRecord,
+  limit = 2,
+): ColorRecord[] {
+  const targetHues = [(baseColor.hue + 24) % 360, (baseColor.hue + 336) % 360];
+
+  return targetHues
+    .map((targetHue) =>
+      [...colors]
+        .filter((color) => color.id !== baseColor.id)
+        .sort((leftColor, rightColor) => {
+          const leftScore =
+            getHueDistance(leftColor.hue, targetHue) * 2 +
+            Math.abs(leftColor.lightness - baseColor.lightness) +
+            Math.abs(leftColor.saturation - baseColor.saturation) * 0.8;
+          const rightScore =
+            getHueDistance(rightColor.hue, targetHue) * 2 +
+            Math.abs(rightColor.lightness - baseColor.lightness) +
+            Math.abs(rightColor.saturation - baseColor.saturation) * 0.8;
+
+          return leftScore - rightScore || compareHueSort(leftColor, rightColor);
+        })[0],
+    )
+    .filter((color): color is ColorRecord => Boolean(color))
+    .slice(0, limit);
+}
+
+export function getToneCompanion(
+  colors: readonly ColorRecord[],
+  baseColor: ColorRecord,
+  direction: "lighter" | "darker",
+): ColorRecord | null {
+  return (
+    [...colors]
+      .filter((color) => {
+        if (color.id === baseColor.id) {
+          return false;
+        }
+
+        if (direction === "lighter") {
+          return color.lightness > baseColor.lightness;
+        }
+
+        return color.lightness < baseColor.lightness;
+      })
+      .sort((leftColor, rightColor) => {
+        const leftScore =
+          getHueDistance(leftColor.hue, baseColor.hue) * 1.8 +
+          Math.abs(leftColor.saturation - baseColor.saturation) * 0.8 +
+          Math.abs(leftColor.lightness - baseColor.lightness) * 0.45;
+        const rightScore =
+          getHueDistance(rightColor.hue, baseColor.hue) * 1.8 +
+          Math.abs(rightColor.saturation - baseColor.saturation) * 0.8 +
+          Math.abs(rightColor.lightness - baseColor.lightness) * 0.45;
+
+        return leftScore - rightScore || compareHueSort(leftColor, rightColor);
+      })[0] ?? null
+  );
+}

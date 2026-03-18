@@ -123,19 +123,6 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
           selectedColorId={selectedColorId}
           onSelectColor={setSelectedColorId}
         />
-
-        <footer className="px-1 pb-4">
-          <div className="flex flex-col gap-3 rounded-[1.75rem] border border-black/6 bg-white/66 px-5 py-5 text-sm text-neutral-500 shadow-[0_18px_48px_rgba(15,23,42,0.04)] sm:flex-row sm:items-center sm:justify-between sm:px-6">
-            <p className="max-w-2xl leading-6">
-              Static, local-only archive built for GitHub Pages. All colors are generated from a
-              typed local dataset and sorted client-side with no backend dependencies.
-            </p>
-            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
-              Ready for static export
-            </div>
-          </div>
-        </footer>
       </div>
     </main>
   );

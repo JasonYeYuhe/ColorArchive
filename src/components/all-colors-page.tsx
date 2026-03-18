@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { COLOR_FAMILIES, sortColors } from "@/src/lib/color-utils";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { ShareLinkButton } from "@/src/components/share-link-button";
+import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
 interface AllColorsPageProps {
   colors: readonly ColorRecord[];
 }
+
+type DensityMode = "compact" | "comfortable" | "expanded";
 
 const PAGE_SORT_OPTIONS: { label: string; value: SortOption }[] = [
   { label: "Hue", value: "hue" },
@@ -15,26 +19,110 @@ const PAGE_SORT_OPTIONS: { label: string; value: SortOption }[] = [
   { label: "Name", value: "name" },
 ];
 
+const DENSITY_OPTIONS: { label: string; value: DensityMode }[] = [
+  { label: "Compact", value: "compact" },
+  { label: "Comfortable", value: "comfortable" },
+  { label: "Expanded", value: "expanded" },
+];
+
 export function AllColorsPage({ colors }: AllColorsPageProps) {
-  const [sortBy, setSortBy] = useState<SortOption>("hue");
-  const [activeFamily, setActiveFamily] = useState<ColorFamily | "All">("All");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const initialSort = (searchParams.get("sort") as SortOption | null) ?? "hue";
+  const initialFamily = (searchParams.get("family") as ColorFamily | null) ?? "All";
+  const initialDensity = (searchParams.get("density") as DensityMode | null) ?? "compact";
+  const initialQuery = searchParams.get("q") ?? "";
+
+  const [sortBy, setSortBy] = useState<SortOption>(
+    initialSort === "name" || initialSort === "lightness" || initialSort === "hue"
+      ? initialSort
+      : "hue",
+  );
+  const [activeFamily, setActiveFamily] = useState<ColorFamily | "All">(
+    initialFamily === "All" || COLOR_FAMILIES.includes(initialFamily) ? initialFamily : "All",
+  );
+  const [density, setDensity] = useState<DensityMode>(
+    initialDensity === "comfortable" || initialDensity === "expanded" ? initialDensity : "compact",
+  );
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
+
+  const searchResults = useMemo(
+    () => filterColors(colors, searchQuery, "All"),
+    [colors, searchQuery],
+  );
 
   const visibleColors = useMemo(() => {
     const filtered =
       activeFamily === "All"
-        ? colors
-        : colors.filter((color) => color.family === activeFamily);
+        ? searchResults
+        : searchResults.filter((color) => color.family === activeFamily);
 
     return sortColors(filtered, sortBy);
-  }, [activeFamily, colors, sortBy]);
+  }, [activeFamily, searchResults, sortBy]);
 
   const familyCounts = useMemo(
     () =>
       Object.fromEntries(
-        COLOR_FAMILIES.map((family) => [family, colors.filter((color) => color.family === family).length]),
+        COLOR_FAMILIES.map((family) => [
+          family,
+          searchResults.filter((color) => color.family === family).length,
+        ]),
       ) as Record<ColorFamily, number>,
-    [colors],
+    [searchResults],
   );
+  const shareHref = useMemo(() => {
+    const params = new URLSearchParams();
+
+    if (searchQuery.trim()) {
+      params.set("q", searchQuery.trim());
+    }
+
+    if (sortBy !== "hue") {
+      params.set("sort", sortBy);
+    }
+
+    if (activeFamily !== "All") {
+      params.set("family", activeFamily);
+    }
+
+    if (density !== "compact") {
+      params.set("density", density);
+    }
+
+    const queryString = params.toString();
+    return queryString ? `/all-colors?${queryString}` : "/all-colors";
+  }, [activeFamily, density, searchQuery, sortBy]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (searchQuery.trim()) {
+      params.set("q", searchQuery.trim());
+    }
+
+    if (sortBy !== "hue") {
+      params.set("sort", sortBy);
+    }
+
+    if (activeFamily !== "All") {
+      params.set("family", activeFamily);
+    }
+
+    if (density !== "compact") {
+      params.set("density", density);
+    }
+
+    const queryString = params.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
+  }, [activeFamily, density, pathname, router, searchQuery, sortBy]);
+
+  const densityGridClass =
+    density === "expanded"
+      ? "grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
+      : density === "comfortable"
+        ? "grid-cols-3 gap-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 2xl:grid-cols-12"
+        : "grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 2xl:grid-cols-14";
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -70,7 +158,13 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
               </div>
               <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
                 <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Use case</div>
-                <div className="mt-1 text-lg font-semibold text-neutral-950">Dense scan</div>
+                <div className="mt-1 text-lg font-semibold text-neutral-950">
+                  {density === "expanded"
+                    ? "Closer look"
+                    : density === "comfortable"
+                      ? "Balanced scan"
+                      : "Dense scan"}
+                </div>
               </div>
             </div>
           </div>
@@ -88,6 +182,19 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
             </div>
 
             <div className="flex flex-col gap-4 sm:flex-row">
+              <label className="flex min-w-[16rem] flex-col gap-2">
+                <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Search
+                </span>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder="Search name or hex"
+                  className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+                />
+              </label>
+
               <label className="flex min-w-[12rem] flex-col gap-2">
                 <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                   Sort
@@ -105,16 +212,39 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
                 </select>
               </label>
 
+              <label className="flex min-w-[12rem] flex-col gap-2">
+                <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Density
+                </span>
+                <select
+                  value={density}
+                  onChange={(event) => setDensity(event.target.value as DensityMode)}
+                  className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+                >
+                  {DENSITY_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
               <button
                 type="button"
                 onClick={() => {
                   setSortBy("hue");
                   setActiveFamily("All");
+                  setDensity("compact");
+                  setSearchQuery("");
                 }}
                 className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm font-medium text-neutral-900 transition hover:bg-neutral-50"
               >
                 Reset
               </button>
+
+              <div className="flex items-end">
+                <ShareLinkButton href={shareHref} />
+              </div>
             </div>
           </div>
 
@@ -175,7 +305,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
             </Link>
           </div>
 
-          <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 2xl:grid-cols-14">
+          <div className={`grid ${densityGridClass}`}>
             {visibleColors.map((color) => (
               <Link
                 key={color.id}

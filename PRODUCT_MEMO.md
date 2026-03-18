@@ -1,6 +1,6 @@
 # ColorArchive 项目备忘录
 
-最后更新：2026-03-17
+最后更新：2026-03-18
 
 ## 说明
 
@@ -26,6 +26,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增独立搜索页，用于快速查找颜色
 - 新增 All Colors 页面，用高密度方式一次性查看完整档案
 - 新增 Spectrum Explorer 页面，用颜色矩阵而不是卡片来浏览档案
+- 新增 Surprise 页面，用随机发现强化探索感
 - 新增实验性工具页面，例如“输入一个词，生成一个颜色”
 - 新增颜色详情页，用于承接更完整的颜色信息和后续 SEO 可能性
 - 整体仍保持 GitHub Pages 兼容、纯静态、无后端
@@ -39,6 +40,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 部署约束：必须兼容 GitHub Pages，因此优先使用静态导出
 - 产品形态：以档案主页为核心，逐步增加少量静态工具页
 - 品牌名：`ColorArchive`
+- 当前已接入 `logo_v1` 资产作为站点 header / footer / icon / social preview 的基础品牌素材
 
 ## 为什么选择这个方向
 
@@ -64,8 +66,9 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 8. 一个独立搜索页
 9. 一个 All Colors 页面
 10. 一个 Spectrum Explorer 页面
-11. 一个轻量实验页：输入词语生成颜色
-12. 颜色详情页，可单独访问和分享
+11. 一个 Surprise 页面
+12. 一个轻量实验页：输入词语生成颜色
+13. 颜色详情页，可单独访问和分享
 
 ## 颜色排序规则
 
@@ -142,14 +145,21 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - `All Colors`
 - 在一个页面中查看当前完整档案
 - 用更高密度的方式展示全部颜色，适合快速扫视
+- 应支持基础搜索、family 筛选、排序、密度切换与分享链接
 
 - `Spectrum Explorer`
 - 用 hue × lightness 矩阵来浏览颜色系统
 - 更适合作为项目辨识度功能，而不是普通网格
 
+- `Surprise`
+- 随机进入一个颜色并继续分支探索
+- 更偏“发现 / 玩味”体验
+
 - `Search`
 - 面向快速查找颜色
 - 适合按名称、HEX、family 直接定位
+- 持续扩展为多维过滤器（hue / tone / saturation / lightness / exact hex）
+- 查询状态应尽量可分享，可通过 URL 直接还原筛选条件
 
 - `Word → Color`
 - 用户输入任意词语 / 短语
@@ -161,6 +171,12 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 路径形态：`/colors/[slug]`
 - 展示单个颜色的完整信息
 - 适合做分享和未来 SEO 扩展
+- 不应只是“单色说明页”，还应承担继续探索的作用
+- 推荐方向包括：
+  - 邻近颜色
+  - 明暗 companion
+  - complementary 对照色
+  - analogous 相邻色
 
 ### 底部
 
@@ -243,36 +259,35 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 
 Codex 当前方向：
 
-- 创建以档案主页为核心的静态多页面 ColorArchive 网站
+- 持续打磨以档案主页为核心的静态多页面 ColorArchive
 - 使用 Next.js + TypeScript + Tailwind CSS
-- 兼容 GitHub Pages
-- 档案页展示颜色系统
-- 增加独立搜索页
-- 增加实验性颜色工具页
-- 增加颜色详情页体系
-- 增加更有辨识度的 spectrum 浏览体验
+- 保持 GitHub Pages 静态导出兼容
+- 维持 2016 色的本地档案规模
+- 强化 Search 作为多维过滤入口
+- 强化详情页作为继续探索颜色关系的入口
+- 继续增加具辨识度的实验页（Spectrum / Surprise / Word → Color）
 - 记录可用 credits：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
   - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
+  - Heroku credit: 13 USD / month
 
 ## 路线图
 
 ### 最高优先级
 
-- 完成单页面 MVP
-- 确认最终 logo 方向
-- 推送到 GitHub
-- 开启 GitHub Pages
-- 绑定 `colorarchive.me`
+- 继续提升首页和详情页的品牌完成度
+- 提升全量浏览、搜索、详情页之间的互相导流
+- 修完移动端会遮挡内容的交互细节
+- 等待并确认 `colorarchive.me` 的 HTTPS 完全稳定
 
 ### 第二阶段
 
-- 增加更多颜色数据
+- 评估是否继续增加颜色数据，或转向更强的浏览方式
 - 优化搜索与排序体验
 - 持续优化移动端查看体验，避免顶部控制区遮挡内容
 - 做 favicon
-- 做基础 SEO
-- 增加 Open Graph 图片
+- 继续做 SEO 和分享体验
+- 增强 Open Graph 表现
 - 增加颜色生成 / 颜色实验功能
 
 ### 第三阶段
@@ -301,4 +316,4 @@ ColorArchive 的核心不是“功能很多”，而是：
 
 ## 当前总结
 
-ColorArchive 当前是一款以单页面静态网站形式呈现的颜色档案产品，重点是通过清晰的排序、舒服的视觉结构、搜索与复制能力，把大量颜色整理成一个完整、易分享、带有品牌感的在线色彩档案馆。
+ColorArchive 当前已经不再是单页面，而是一个静态多页面的颜色档案产品：主站承接品牌和浏览，Search 承接快速定位，All Colors 承接全量查看，Spectrum / Surprise / Word → Color 承接探索与实验，颜色详情页承接分享和深度浏览。
