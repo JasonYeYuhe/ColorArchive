@@ -1,0 +1,9 @@
+Creator Bundle Preview
+
+Use cases:
+- Social palette cards
+- Wallpaper backgrounds
+- Prompt-ready color descriptions
+
+Prompt framing sample:
+"Soft coastal blue, orchid bloom pink, and bright violet accents on a calm neutral base."

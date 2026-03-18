@@ -145,6 +145,18 @@ export function SupportPage() {
                 Browse collections
               </Link>
               <Link
+                href="/waitlist"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Open waitlist
+              </Link>
+              <Link
+                href="/product-examples"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Product examples
+              </Link>
+              <Link
                 href="/word-to-color"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
@@ -174,6 +186,51 @@ export function SupportPage() {
               </a>
             ))}
           </div>
+        </section>
+
+        <section className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.95fr)]">
+          <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              Payment review prep
+            </div>
+            <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
+              <p>
+                If Lemon Squeezy, Stripe, or another provider asks for product proof, use the live
+                site itself: the packs page, collections page, and dedicated product examples page
+                now show concrete digital deliverables rather than generic promises.
+              </p>
+              <p>
+                The important point is that ColorArchive already has a business URL, public
+                examples, and product framing. What remains is wiring the final checkout links.
+              </p>
+            </div>
+          </div>
+
+          <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              Share these routes
+            </div>
+            <div className="mt-4 space-y-2 text-sm text-neutral-600">
+              <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
+                `/packs`
+              </div>
+              <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
+                `/product-examples`
+              </div>
+              <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
+                `/collections`
+              </div>
+              <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
+                `/waitlist`
+              </div>
+              <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
+                `/thanks`
+              </div>
+              <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
+                `/cancel`
+              </div>
+            </div>
+          </aside>
         </section>
       </div>
     </main>

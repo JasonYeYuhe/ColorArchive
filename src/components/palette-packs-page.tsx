@@ -24,6 +24,21 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
               These packs turn the archive into something directly sellable: curated sets, exports,
               and usage notes rather than loose swatches.
             </p>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              <Link
+                href="/product-examples"
+                className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+              >
+                Open product examples
+              </Link>
+              <Link
+                href="/support"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                View monetization notes
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -38,9 +53,9 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                   <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                     {pack.ctaLabel}
                   </div>
-                  <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                  <Link href={`/packs/${pack.id}`} className="mt-2 block text-2xl font-semibold tracking-[-0.03em] text-neutral-950 transition hover:text-neutral-700">
                     {pack.title}
-                  </h2>
+                  </Link>
                 </div>
                 <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
                   {pack.priceHint}
@@ -48,6 +63,13 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
               </div>
 
               <p className="mt-4 text-sm leading-6 text-neutral-600">{pack.detail}</p>
+
+              <div className="mt-4 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+                  Audience
+                </div>
+                <p className="mt-2 text-sm leading-6 text-neutral-600">{pack.audience}</p>
+              </div>
 
               <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                 <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
@@ -80,6 +102,33 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
 
               <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                 <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+                  Deliverables
+                </div>
+                <div className="mt-3 space-y-2 text-sm text-neutral-600">
+                  {pack.deliverables.map((deliverable) => (
+                    <div key={deliverable} className="rounded-[1rem] border border-black/6 bg-white px-3 py-3">
+                      {deliverable}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+                  Why it is credible
+                </div>
+                <div className="mt-3 space-y-2 text-sm text-neutral-600">
+                  {pack.proofPoints.map((point) => (
+                    <div key={point} className="rounded-[1rem] border border-black/6 bg-white px-3 py-3">
+                      {point}
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-3 text-sm leading-6 text-neutral-500">{pack.reviewNote}</p>
+              </div>
+
+              <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
                   Checkout
                 </div>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -102,9 +151,50 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                     </button>
                   )}
                   <span className="text-xs uppercase tracking-[0.14em] text-neutral-400">
-                    Replace placeholder in `src/lib/palette-packs.ts`
+                    {pack.checkoutStatus === "live" ? "Checkout live" : "Update in `src/lib/checkout-config.ts`"}
                   </span>
                 </div>
+                <p className="mt-3 text-sm leading-6 text-neutral-500">{pack.checkoutNote}</p>
+              </div>
+
+              <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+                  Free sample files
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {pack.sampleDownloads.map((sample) => (
+                    <a
+                      key={sample.href}
+                      href={sample.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                    >
+                      {sample.label} · {sample.format}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                <Link
+                  href={`/product-examples#${pack.id}`}
+                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                >
+                  View product proof
+                </Link>
+                <Link
+                  href={`/packs/${pack.id}`}
+                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                >
+                  Pack details
+                </Link>
+                <Link
+                  href="/collections"
+                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                >
+                  Open source collections
+                </Link>
               </div>
             </article>
           ))}
@@ -124,6 +214,11 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                 This page is the bridge between the archive and those future checkouts. When you
                 are ready, each pack can point to Lemon Squeezy, Stripe Payment Links, or a similar
                 off-site checkout without changing the core architecture.
+              </p>
+              <p>
+                If a payment provider asks for concrete product examples, use the dedicated product
+                examples page and the live collections as public proof of what the digital goods
+                contain.
               </p>
             </div>
           </div>
@@ -145,8 +240,65 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
               >
                 Open support page
               </Link>
+              <Link
+                href="/product-examples"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Product examples
+              </Link>
             </div>
           </aside>
+        </section>
+
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+            Compare offers
+          </div>
+          <div className="mt-4 overflow-x-auto">
+            <table className="min-w-full border-separate border-spacing-0 text-left text-sm text-neutral-600">
+              <thead>
+                <tr>
+                  <th className="rounded-l-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                    Pack
+                  </th>
+                  <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                    Price
+                  </th>
+                  <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                    Best for
+                  </th>
+                  <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                    Delivery
+                  </th>
+                  <th className="rounded-r-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                    Checkout
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {packs.map((pack) => (
+                  <tr key={pack.id}>
+                    <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                      <Link href={`/packs/${pack.id}`} className="font-semibold text-neutral-950 transition hover:text-neutral-700">
+                        {pack.title}
+                      </Link>
+                    </td>
+                    <td className="border border-black/6 bg-white px-4 py-4 align-top">{pack.priceHint}</td>
+                    <td className="border border-black/6 bg-white px-4 py-4 align-top">{pack.audience}</td>
+                    <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                      {pack.formatList.slice(0, 2).join(" · ")}
+                    </td>
+                    <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                      {pack.checkoutProvider}
+                      <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
+                        {pack.checkoutStatus}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       </div>
     </main>

@@ -1,0 +1,14 @@
+{
+  "pack": "Palette Pack Vol. 1",
+  "collections": [
+    {
+      "name": "Quiet Luxury",
+      "colors": ["#ead7d7", "#efcfbe", "#d3c89a", "#7f8b62", "#52363d"]
+    },
+    {
+      "name": "Modern Seaside",
+      "colors": ["#d4e7dd", "#86cab8", "#57a9da", "#227ff0", "#534f96"]
+    }
+  ],
+  "formats": ["CSS variables", "Tailwind tokens", "PNG boards", "Usage notes"]
+}

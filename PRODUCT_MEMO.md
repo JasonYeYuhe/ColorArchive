@@ -33,6 +33,11 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增颜色详情页，用于承接更完整的颜色信息和后续 SEO 可能性
 - 新增 Support 页面，用来承接后续商业化入口和支持方式
 - 新增 Packs 页面，用产品化 palette 承接实际销售路径
+- 新增 Pack detail 页面，用单个商品页承接更完整的产品信息
+- 新增 Product Examples 页面，用公开产品示例承接 Lemon / Stripe 等支付平台审核
+- 新增 Waitlist 页面，用静态方式承接预热期兴趣流量
+- 新增 Thanks 页面，用作支付完成后的静态回跳页面
+- 新增 Cancel 页面，用作支付取消后的静态回跳页面
 - 整体仍保持 GitHub Pages 兼容、纯静态、无后端
 
 ## 当前已确定事项
@@ -77,6 +82,11 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 15. 颜色详情页，可单独访问和分享
 16. 一个 Support 页面承接未来盈利路径
 17. 一个 Packs 页面承接实际销售产品
+18. 一个 Product Examples 页面，用于展示具体数字商品样例和导出内容
+19. 一个 Pack detail 页面，用于展示单个数字商品的完整信息
+20. 一个 Waitlist 页面，用于支付上线前承接兴趣
+21. 一个 Thanks 页面，用于支付后的静态落地页
+22. 一个 Cancel 页面，用于支付取消后的静态落地页
 
 ## 颜色排序规则
 
@@ -197,6 +207,43 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 把 collection 进一步产品化
 - 面向未来接 Lemon Squeezy / Stripe Payment Links 之类的静态友好结账方式
 - 当前阶段先保留 checkout placeholder，后面替换成真实外链
+- checkout 配置应集中在单独配置层，而不是散落在组件里
+
+- `Pack Detail`
+- 路径形态：`/packs/[slug]`
+- 用于展示单个商品的：
+  - audience
+  - deliverables
+  - sample downloads
+  - 来源 collections
+  - FAQ
+
+- `Product Examples`
+- 用公开页面展示“实际卖什么”
+- 面向支付平台审核、早期客户解释、以及产品证明
+- 应包含：
+  - 具体 pack
+  - deliverables
+  - 来源 collections
+  - 示例导出内容
+
+- `Waitlist`
+- 用静态页面承接支付上线前的兴趣
+- 当前阶段可以先用 copyable note / 公开路线说明
+- 后续可再接 Buttondown / ConvertKit / Mailchimp
+
+- `Thanks`
+- 用于 Lemon / Stripe 购买完成后的 return page
+- 应承接：
+  - 下一步指引
+  - 返回 archive / collections / favorites 的入口
+
+- `Cancel`
+- 用于 Lemon / Stripe 购买取消后的 return page
+- 应承接：
+  - 返回 pack 页面
+  - 加入 waitlist
+  - 查看 product proof
 
 ### 详情页
 
@@ -305,11 +352,28 @@ Codex 当前方向：
 - 强化详情页作为继续探索颜色关系的入口
 - 强化 Collections 作为可传播、可售卖的内容层
 - 强化 Support 作为未来商业化入口
+- 强化 Packs 与 Product Examples，减少“只有概念没有商品证明”的问题
+- 强化 Pack detail 页面，让每个商品不只是一个卡片，而是可单独访问和分享的页面
+- Packs 当前已补可公开访问的 sample download files，作为支付平台审核和早期用户预览材料
+- checkout provider / status / note / URL 现已抽到独立配置层，后续只改一个文件即可
+- waitlist provider / contact 和 success / cancel return path 也已进入配置层
+- Waitlist 与 Thanks 已加入静态商业漏斗，减少“只有商品页、没有转化承接页”的问题
+- Cancel 页面已加入，商业漏斗的退出路径也可控
 - 继续增加具辨识度的实验页（Spectrum / Surprise / Word → Color）
 - 记录可用 credits：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
   - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
   - Heroku credit: 13 USD / month
+- 当前 Lemon Squeezy 店铺申请已提交，待审核
+- 当前阶段不需要主动回复 Lemon，先保持公开产品页面和 sample files 完整可访问
+- 为配合审核，站点需要持续保留可公开访问的：
+  - `/packs`
+  - `/product-examples`
+  - `/collections`
+  - `/downloads/*`
+  - `/waitlist`
+  - `/thanks`
+  - `/cancel`
 
 ## 路线图
 

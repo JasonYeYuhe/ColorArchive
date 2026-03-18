@@ -1,0 +1,14 @@
+{
+  "pack": "Creator Bundle",
+  "palette_cards": [
+    {
+      "title": "Modern Seaside",
+      "colors": ["#d4e7dd", "#86cab8", "#57a9da", "#227ff0", "#534f96"]
+    },
+    {
+      "title": "Orchid Bloom",
+      "colors": ["#ddacef", "#a566da", "#de5cb8", "#d87f8a", "#ced8cf"]
+    }
+  ],
+  "intended_for": ["social posts", "wallpapers", "creative prompts"]
+}
