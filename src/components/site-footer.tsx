@@ -8,17 +8,17 @@ export function SiteFooter() {
         <div className="space-y-3">
           <Link href="/" className="inline-flex items-center">
             <Image
-              src="/logo-footer.png"
+              src="/logo-v1.png"
               alt="ColorArchive"
-              width={320}
-              height={213}
-              className="h-auto w-[180px]"
+              width={512}
+              height={341}
+              className="h-auto w-[160px]"
               priority
             />
           </Link>
           <p className="max-w-2xl leading-6">
-            Static, local-only color archive built for GitHub Pages. The archive, search tools,
-            and generators all run from local data with no backend dependency.
+            A curated color library with 2016 algorithmically generated colors. Browse, search,
+            save favorites, and export palette tokens — no account required.
           </p>
           <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.16em] text-neutral-400">
             <Link href="/recent" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">

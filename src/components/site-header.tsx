@@ -25,11 +25,11 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 rounded-[1.5rem] border border-black/6 bg-white/72 px-4 py-3 shadow-[0_18px_48px_rgba(15,23,42,0.05)] backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:px-5">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/logo-header.png"
+            src="/logo-v1.png"
             alt="ColorArchive"
             width={512}
             height={341}
-            className="h-auto w-[168px] sm:w-[188px]"
+            className="h-auto w-[148px] sm:w-[164px]"
             priority
           />
         </Link>
