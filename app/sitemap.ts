@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { colors } from "@/src/data/colors";
+import { collections } from "@/src/lib/collections";
 import { palettePacks } from "@/src/lib/palette-packs";
 
 export const dynamic = "force-static";
@@ -96,6 +97,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    {
+      url: "https://colorarchive.me/free-pack",
+      lastModified: new Date("2026-03-18"),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
   ];
 
   const colorRoutes: MetadataRoute.Sitemap = colors.map((color) => ({
@@ -112,5 +119,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
-  return [...topLevelRoutes, ...packRoutes, ...colorRoutes];
+  const collectionRoutes: MetadataRoute.Sitemap = collections.map((collection) => ({
+    url: `https://colorarchive.me/collections/${collection.id}`,
+    lastModified: new Date("2026-03-18"),
+    changeFrequency: "monthly",
+    priority: 0.75,
+  }));
+
+  return [...topLevelRoutes, ...collectionRoutes, ...packRoutes, ...colorRoutes];
 }

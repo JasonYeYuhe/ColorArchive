@@ -163,6 +163,12 @@ export function CollectionsPage({ collections }: CollectionsPageProps) {
                 <div className="flex flex-wrap gap-2">
                   <CopyButton label="palette" value={paletteExport} />
                   <CopyButton label="CSS vars" value={cssVariableExport} />
+                  <Link
+                    href={`/collections/${activeCollection.id}`}
+                    className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                  >
+                    Open detail
+                  </Link>
                   <ShareLinkButton href={`/collections#${activeCollection.id}`} />
                 </div>
               </div>

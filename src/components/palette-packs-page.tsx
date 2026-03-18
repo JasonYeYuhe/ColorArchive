@@ -27,8 +27,14 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
 
             <div className="mt-6 flex flex-wrap gap-2">
               <Link
-                href="/product-examples"
+                href="/free-pack"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+              >
+                Free sample pack
+              </Link>
+              <Link
+                href="/product-examples"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Open product examples
               </Link>
@@ -245,6 +251,12 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Product examples
+              </Link>
+              <Link
+                href="/free-pack"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Free sample pack
               </Link>
             </div>
           </aside>

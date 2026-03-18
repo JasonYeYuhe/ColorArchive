@@ -109,6 +109,12 @@ export function HeroSection({
             View palette packs
           </Link>
           <Link
+            href="/free-pack"
+            className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+          >
+            Get free sample
+          </Link>
+          <Link
             href="/waitlist"
             className="rounded-full border border-black/8 bg-white/88 px-4 py-1.5 font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
           >

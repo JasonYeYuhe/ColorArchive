@@ -17,11 +17,13 @@ ColorArchive is a polished static color project built with Next.js, TypeScript, 
 - `src/components/` contains reusable UI building blocks for the hero, filters, grid, and cards.
 - `app/all-colors/page.tsx` renders the full 2016-color archive in a denser single-page layout.
 - `app/collections/page.tsx` renders reusable curated palette sets for shareable editorial content.
+- `app/collections/[slug]/page.tsx` renders editorial collection detail pages with collection-specific framing and export context.
 - `app/favorites/page.tsx` renders a local-only saved color shelf backed by browser storage.
 - `app/recent/page.tsx` renders a local-only recently viewed trail backed by browser storage.
 - `app/packs/page.tsx` renders productized palette pack offers that can later point to off-site checkout.
 - `app/packs/[slug]/page.tsx` renders individual pack detail pages with source collections, FAQ, and sample files.
 - `app/product-examples/page.tsx` renders public-facing pack examples that can be shared with payment providers or early customers.
+- `app/free-pack/page.tsx` renders a static free sample pack landing page built from existing preview assets.
 - `app/spectrum/page.tsx` renders a hue-by-lightness spectrum matrix view of the archive.
 - `app/surprise/page.tsx` adds a random discovery route for exploratory browsing.
 - `app/search/page.tsx` adds a dedicated static search route for fast color lookup.
@@ -140,11 +142,14 @@ GitHub documents the current records here:
 - The page is fully static-export compatible and deployable on GitHub Pages.
 - The `All Colors` route supports shareable search, family, sort, and density state for dense archive browsing.
 - The `Collections` route packages the archive into reusable thematic sets with copyable palette exports.
+- Collection detail routes turn each set into a standalone editorial reference rather than a single aggregate list item.
 - The `Favorites` route stores saved colors in `localStorage` and now exports a saved palette or CSS variables without backend state.
 - The home archive now surfaces a local Recent / Favorites hub so users can continue browsing without digging through navigation.
 - The `Recent` route stores recently viewed colors in `localStorage`, making it easier to resume browsing without an account.
 - Both `Favorites` and `Recent` now support JSON export in addition to text-based palette export.
 - The `Packs` route turns the archive into product-ready offers and exposes placeholder checkout slots for future Lemon Squeezy or Stripe links.
+- The `Free Sample Pack` route gives the site a concrete free-to-paid bridge while Lemon approval is still pending.
+- The free sample route now includes claim guidance plus a free-versus-paid comparison block so the upgrade path is explicit.
 - `src/lib/checkout-config.ts` is now the only file you need to edit when real checkout URLs become available.
 - Individual pack detail routes deepen the product layer without introducing a backend or checkout dependency.
 - The `Waitlist` route gives the project a static pre-launch conversion page before email tooling is wired.

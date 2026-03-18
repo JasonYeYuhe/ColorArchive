@@ -26,6 +26,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增独立搜索页，用于快速查找颜色
 - 新增 All Colors 页面，用高密度方式一次性查看完整档案
 - 新增 Collections 页面，用可分享的成套 palette 承接内容价值
+- 新增 Collection detail 页面，用编辑型专题内容强化 collections 的“可读性”和 SEO
 - 新增 Favorites 页面，用浏览器本地收藏承接回访需求
 - 新增 Recent 页面，用浏览器本地最近查看承接继续浏览需求
 - 新增 Spectrum Explorer 页面，用颜色矩阵而不是卡片来浏览档案
@@ -36,6 +37,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增 Packs 页面，用产品化 palette 承接实际销售路径
 - 新增 Pack detail 页面，用单个商品页承接更完整的产品信息
 - 新增 Product Examples 页面，用公开产品示例承接 Lemon / Stripe 等支付平台审核
+- 新增 Free Sample Pack 页面，用现有下载资产承接免费层和 lead magnet
 - 新增 Waitlist 页面，用静态方式承接预热期兴趣流量
 - 新增 Thanks 页面，用作支付完成后的静态回跳页面
 - 新增 Cancel 页面，用作支付取消后的静态回跳页面
@@ -89,6 +91,8 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 21. 一个 Waitlist 页面，用于支付上线前承接兴趣
 22. 一个 Thanks 页面，用于支付后的静态落地页
 23. 一个 Cancel 页面，用于支付取消后的静态落地页
+24. 一个 Collection detail 页面，用于展示单个专题 palette 的设计语境
+25. 一个 Free Sample Pack 页面，用于在结账未上线前提供免费样例下载
 
 ## 颜色排序规则
 
@@ -174,6 +178,7 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - `Collections`
 - 用少量高质量成套 palette 承接“审美、场景、内容分享”
 - 比单纯颜色列表更接近可售卖、可传播的产品资产
+- 应逐步扩展为可单独访问的专题页，而不是只停留在一个聚合列表页
 
 - `Favorites`
 - 使用浏览器本地存储
@@ -241,6 +246,17 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 用静态页面承接支付上线前的兴趣
 - 当前阶段可以先用 copyable note / 公开路线说明
 - 后续可再接 Buttondown / ConvertKit / Mailchimp
+
+- `Free Sample Pack`
+- 用现有的公开下载资产提供一个真正可打开、可下载、可分享的免费层
+- 作用是：
+  - 在 Lemon 审核未完成期间仍然给用户一个明确转化动作
+  - 为后续 paid packs 建立 free-to-paid 路径
+  - 提高产品可信度，而不是只有“等待上线”
+- 页面本身还应清楚解释：
+  - 如何领取
+  - 免费层和付费层具体差异
+  - 下一步是 waitlist 还是直接看 paid pack
 
 - `Thanks`
 - 用于 Lemon / Stripe 购买完成后的 return page

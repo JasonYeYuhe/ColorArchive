@@ -38,6 +38,19 @@ const implementationSteps = [
   "Only add accounts, licensing, or member systems if demand is real.",
 ] as const;
 
+const upgradeComparison = [
+  {
+    label: "Free layer",
+    summary: "Preview assets and one strong sample collection",
+    detail: "Best for proving taste, getting shares, and giving people a clear first step while checkout is pending.",
+  },
+  {
+    label: "Paid packs",
+    summary: "Broader exports, more collections, clearer usage guidance",
+    detail: "Best for people who need to move from inspiration to an actual landing page, brand system, or content workflow.",
+  },
+] as const;
+
 const staticFriendlyTools = [
   {
     title: "Lemon Squeezy",
@@ -139,8 +152,14 @@ export function SupportPage() {
 
             <div className="mt-5 flex flex-wrap gap-2">
               <Link
-                href="/collections"
+                href="/free-pack"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+              >
+                Open free sample
+              </Link>
+              <Link
+                href="/collections"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Browse collections
               </Link>
@@ -188,6 +207,23 @@ export function SupportPage() {
           </div>
         </section>
 
+        <section className="grid gap-4 lg:grid-cols-2">
+          {upgradeComparison.map((lane) => (
+            <article
+              key={lane.label}
+              className="rounded-[1.7rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]"
+            >
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                {lane.label}
+              </div>
+              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                {lane.summary}
+              </h2>
+              <p className="mt-3 text-sm leading-6 text-neutral-600">{lane.detail}</p>
+            </article>
+          ))}
+        </section>
+
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.95fr)]">
           <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
@@ -216,6 +252,9 @@ export function SupportPage() {
               </div>
               <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
                 `/product-examples`
+              </div>
+              <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
+                `/free-pack`
               </div>
               <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
                 `/collections`
