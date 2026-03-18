@@ -132,8 +132,8 @@ GitHub documents the current records here:
 - The page is fully static-export compatible and deployable on GitHub Pages.
 - The `All Colors` route supports shareable search, family, sort, and density state for dense archive browsing.
 - The `Collections` route packages the archive into reusable thematic sets with copyable palette exports.
-- The `Favorites` route stores saved colors in `localStorage`, keeping repeat-use functionality without backend state.
-- The `Packs` route turns the archive into product-ready offers without breaking static hosting.
+- The `Favorites` route stores saved colors in `localStorage` and now exports a saved palette or CSS variables without backend state.
+- The `Packs` route turns the archive into product-ready offers and exposes placeholder checkout slots for future Lemon Squeezy or Stripe links.
 - The search route supports shareable query parameters for keyword, family, hue band, tone, saturation range, lightness range, and exact hex.
 - Individual color pages expose nearby, tonal, analogous, and complementary recommendations, and can copy a full palette or CSS variable set.
 - The `Word → Color` route now exports palette text and CSS variables in addition to the generated swatches.

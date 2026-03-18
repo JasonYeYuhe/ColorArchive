@@ -167,6 +167,7 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 使用浏览器本地存储
 - 不引入账户系统也能形成个人工作集
 - 目标是提高回访价值
+- 应支持一键复制整个收藏 palette / CSS variables
 
 - `Surprise`
 - 随机进入一个颜色并继续分支探索
@@ -195,6 +196,7 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - `Packs`
 - 把 collection 进一步产品化
 - 面向未来接 Lemon Squeezy / Stripe Payment Links 之类的静态友好结账方式
+- 当前阶段先保留 checkout placeholder，后面替换成真实外链
 
 ### 详情页
 

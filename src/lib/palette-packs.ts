@@ -1,4 +1,6 @@
 export interface PalettePack {
+  checkoutProvider: "Lemon Squeezy" | "Stripe Payment Link";
+  checkoutUrl: string | null;
   ctaLabel: string;
   detail: string;
   formatList: string[];
@@ -14,6 +16,8 @@ export const palettePacks: PalettePack[] = [
     title: "Palette Pack Vol. 1",
     priceHint: "$12–24",
     ctaLabel: "Launch first",
+    checkoutProvider: "Lemon Squeezy",
+    checkoutUrl: null,
     previewCollections: ["Quiet Luxury", "Modern Seaside", "Editorial Warmth"],
     formatList: ["CSS variables", "Tailwind tokens", "PNG boards", "Usage notes"],
     detail:
@@ -24,6 +28,8 @@ export const palettePacks: PalettePack[] = [
     title: "Brand Color Starter Kit",
     priceHint: "$29–59",
     ctaLabel: "Best next step",
+    checkoutProvider: "Stripe Payment Link",
+    checkoutUrl: null,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Orchid Bloom"],
     formatList: ["Brand palette sets", "Light/dark pairings", "Landing-page presets", "Export tokens"],
     detail:
@@ -34,6 +40,8 @@ export const palettePacks: PalettePack[] = [
     title: "Creator Bundle",
     priceHint: "$19–39",
     ctaLabel: "Lead magnet option",
+    checkoutProvider: "Lemon Squeezy",
+    checkoutUrl: null,
     previewCollections: ["Modern Seaside", "Orchid Bloom"],
     formatList: ["Social palette cards", "Wallpaper assets", "Prompt-ready color sets", "Mini guide"],
     detail:

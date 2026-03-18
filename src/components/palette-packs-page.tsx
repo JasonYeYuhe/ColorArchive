@@ -77,6 +77,35 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                   ))}
                 </div>
               </div>
+
+              <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+                  Checkout
+                </div>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  {pack.checkoutUrl ? (
+                    <a
+                      href={pack.checkoutUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full border border-neutral-950/10 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                    >
+                      Buy via {pack.checkoutProvider}
+                    </a>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled
+                      className="cursor-not-allowed rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-400"
+                    >
+                      {pack.checkoutProvider} link pending
+                    </button>
+                  )}
+                  <span className="text-xs uppercase tracking-[0.14em] text-neutral-400">
+                    Replace placeholder in `src/lib/palette-packs.ts`
+                  </span>
+                </div>
+              </div>
             </article>
           ))}
         </section>

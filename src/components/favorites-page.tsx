@@ -10,6 +10,38 @@ interface FavoritesPageProps {
   colors: readonly ColorRecord[];
 }
 
+function CopyButton({ label, value }: { label: string; value: string }) {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!copied) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => setCopied(false), 1400);
+    return () => window.clearTimeout(timeoutId);
+  }, [copied]);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+    >
+      {copied ? `${label} copied` : `Copy ${label}`}
+    </button>
+  );
+}
+
 export function FavoritesPage({ colors }: FavoritesPageProps) {
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
 
@@ -21,6 +53,17 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
   const favoriteColors = useMemo(
     () => favoriteIds.map((id) => colors.find((color) => color.id === id)).filter((color): color is ColorRecord => Boolean(color)),
     [colors, favoriteIds],
+  );
+  const paletteExport = useMemo(
+    () => favoriteColors.map((color, index) => `${index + 1}. ${color.name} ${color.hex}`).join("\n"),
+    [favoriteColors],
+  );
+  const cssVariableExport = useMemo(
+    () =>
+      favoriteColors
+        .map((color, index) => `--favorite-${index + 1}-${color.id}: ${color.hex};`)
+        .join("\n"),
+    [favoriteColors],
   );
 
   return (
@@ -51,6 +94,12 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
                   {favoriteColors.length} colors
                 </div>
               </div>
+              {favoriteColors.length > 0 ? (
+                <>
+                  <CopyButton label="palette" value={paletteExport} />
+                  <CopyButton label="CSS vars" value={cssVariableExport} />
+                </>
+              ) : null}
               <Link
                 href="/collections"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
@@ -78,7 +127,18 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
             </p>
           </section>
         ) : (
-          <ColorGrid colors={favoriteColors} />
+          <>
+            <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Export preview
+              </div>
+              <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
+                {paletteExport}
+              </pre>
+            </section>
+
+            <ColorGrid colors={favoriteColors} />
+          </>
         )}
       </div>
     </main>
