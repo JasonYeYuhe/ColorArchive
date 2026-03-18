@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorGrid } from "@/src/components/color-grid";
 import { FilterToolbar } from "@/src/components/filter-toolbar";
 import { SelectedColorPanel } from "@/src/components/selected-color-panel";
@@ -504,6 +505,20 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
           colors={visibleColors}
           selectedColorId={selectedColorId}
           onSelectColor={setSelectedColorId}
+          emptyState={
+            <ArchiveEmptyState
+              title="No matching search results"
+              description="This combination of keyword, family, hue band, tone, or numeric ranges does not currently resolve to a color in the archive."
+              searchQuery={searchQuery || exactHex}
+              activeFamily={activeFamily}
+              onClearSearch={() => {
+                setSearchQuery("");
+                setExactHex("");
+              }}
+              onClearFamily={() => setActiveFamily("All")}
+              onReset={handleReset}
+            />
+          }
         />
       </div>
     </main>

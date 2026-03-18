@@ -20,6 +20,17 @@ export function SiteFooter() {
             Static, local-only color archive built for GitHub Pages. The archive, search tools,
             and generators all run from local data with no backend dependency.
           </p>
+          <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.16em] text-neutral-400">
+            <Link href="/recent" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
+              Recent
+            </Link>
+            <Link href="/favorites" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
+              Favorites
+            </Link>
+            <Link href="/packs" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
+              Packs
+            </Link>
+          </div>
         </div>
 
         <div className="space-y-2 text-left sm:text-right">

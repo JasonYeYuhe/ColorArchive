@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
@@ -305,26 +306,46 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
             </Link>
           </div>
 
-          <div className={`grid ${densityGridClass}`}>
-            {visibleColors.map((color) => (
-              <Link
-                key={color.id}
-                href={`/colors/${color.id}/`}
-                className="group overflow-hidden rounded-[1.05rem] border border-black/6 bg-white shadow-[0_12px_32px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_rgba(15,23,42,0.08)]"
-                aria-label={`Open ${color.name}`}
-              >
-                <div className="h-18 border-b border-black/6 sm:h-20" style={{ backgroundColor: color.hex }} />
-                <div className="space-y-1 p-2.5">
-                  <div className="truncate text-[11px] font-semibold tracking-[-0.01em] text-neutral-950">
-                    {color.name}
+          {visibleColors.length === 0 ? (
+            <ArchiveEmptyState
+              title="No dense results for this view"
+              description="The current search, family, and density settings resolve to an empty all-colors view. Clear one of them and reopen the full archive."
+              searchQuery={searchQuery}
+              activeFamily={activeFamily}
+              onClearSearch={() => setSearchQuery("")}
+              onClearFamily={() => setActiveFamily("All")}
+              onReset={() => {
+                setSortBy("hue");
+                setActiveFamily("All");
+                setDensity("compact");
+                setSearchQuery("");
+              }}
+            />
+          ) : (
+            <div className={`grid ${densityGridClass}`}>
+              {visibleColors.map((color) => (
+                <Link
+                  key={color.id}
+                  href={`/colors/${color.id}/`}
+                  className="group overflow-hidden rounded-[1.05rem] border border-black/6 bg-white shadow-[0_12px_32px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_rgba(15,23,42,0.08)]"
+                  aria-label={`Open ${color.name}`}
+                >
+                  <div
+                    className="h-18 border-b border-black/6 sm:h-20"
+                    style={{ backgroundColor: color.hex }}
+                  />
+                  <div className="space-y-1 p-2.5">
+                    <div className="truncate text-[11px] font-semibold tracking-[-0.01em] text-neutral-950">
+                      {color.name}
+                    </div>
+                    <div className="truncate text-[10px] uppercase tracking-[0.12em] text-neutral-400">
+                      {color.hex}
+                    </div>
                   </div>
-                  <div className="truncate text-[10px] uppercase tracking-[0.12em] text-neutral-400">
-                    {color.hex}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </main>

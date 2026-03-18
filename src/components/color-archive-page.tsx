@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorGrid } from "@/src/components/color-grid";
 import { FamilyOverview } from "@/src/components/family-overview";
 import { FilterToolbar } from "@/src/components/filter-toolbar";
 import { HeroSection } from "@/src/components/hero-section";
+import { LocalArchiveHub } from "@/src/components/local-archive-hub";
 import { SelectedColorPanel } from "@/src/components/selected-color-panel";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
@@ -93,6 +95,8 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
           visibleColors={visibleColors.length}
         />
 
+        <LocalArchiveHub colors={colors} />
+
         <FilterToolbar
           activeFamily={activeFamily}
           familyCounts={familyCounts}
@@ -122,6 +126,15 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
           colors={visibleColors}
           selectedColorId={selectedColorId}
           onSelectColor={setSelectedColorId}
+          emptyState={
+            <ArchiveEmptyState
+              searchQuery={searchQuery}
+              activeFamily={activeFamily}
+              onClearSearch={() => setSearchQuery("")}
+              onClearFamily={() => setActiveFamily("All")}
+              onReset={handleReset}
+            />
+          }
         />
       </div>
     </main>

@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import { addRecentColor, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
 import type { ColorRecord } from "@/src/types/color";
 
 interface ColorDetailPageProps {
+  allColors: readonly ColorRecord[];
   color: ColorRecord;
   relatedColors: readonly ColorRecord[];
   nearestColors: readonly ColorRecord[];
@@ -101,6 +103,7 @@ function buildCssVariableExport(entries: readonly PaletteEntry[]) {
 }
 
 export function ColorDetailPage({
+  allColors,
   color,
   relatedColors,
   nearestColors,
@@ -109,6 +112,14 @@ export function ColorDetailPage({
   lighterCompanion,
   darkerCompanion,
 }: ColorDetailPageProps) {
+  const [recentColorIds, setRecentColorIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    addRecentColor(color.id);
+    setRecentColorIds(getRecentColorIds());
+    return subscribeToRecentColors(setRecentColorIds);
+  }, [color.id]);
+
   const paletteMoves = [
     lighterCompanion
       ? {
@@ -152,6 +163,11 @@ export function ColorDetailPage({
   const exportPalette = [{ label: "Base", value: color }, ...paletteMoves];
   const paletteExport = buildPaletteExport(exportPalette);
   const cssVariableExport = buildCssVariableExport(exportPalette);
+  const recentTrail = recentColorIds
+    .filter((id) => id !== color.id)
+    .map((id) => allColors.find((entry) => entry.id === id))
+    .filter((entry): entry is ColorRecord => Boolean(entry))
+    .slice(0, 4);
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -209,6 +225,12 @@ export function ColorDetailPage({
                 <CopyButton label="CSS vars" value={cssVariableExport} />
                 <FavoriteButton colorId={color.id} />
                 <ShareLinkButton href={`/colors/${color.id}/`} />
+                <Link
+                  href="/recent"
+                  className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                >
+                  Recent trail
+                </Link>
               </div>
 
               <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
@@ -271,6 +293,33 @@ export function ColorDetailPage({
                   ))}
                 </div>
               </div>
+
+              {recentTrail.length > 0 ? (
+                <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                        Recent trail
+                      </div>
+                      <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
+                        Colors you viewed recently in this browser session.
+                      </p>
+                    </div>
+                    <Link
+                      href="/recent"
+                      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                    >
+                      Open recent
+                    </Link>
+                  </div>
+
+                  <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                    {recentTrail.map((recentColor) => (
+                      <RecommendationLink key={recentColor.id} color={recentColor} eyebrow="Recently viewed" />
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             <aside className="rounded-[1.8rem] border border-black/6 bg-white/78 p-5 shadow-[0_20px_56px_rgba(15,23,42,0.05)]">

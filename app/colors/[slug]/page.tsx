@@ -72,6 +72,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
     <>
       <SiteHeader currentPath="/colors" />
       <ColorDetailPage
+        allColors={colors}
         color={color}
         relatedColors={relatedColors}
         nearestColors={nearestColors}

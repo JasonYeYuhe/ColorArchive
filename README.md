@@ -18,6 +18,7 @@ ColorArchive is a polished static color project built with Next.js, TypeScript, 
 - `app/all-colors/page.tsx` renders the full 2016-color archive in a denser single-page layout.
 - `app/collections/page.tsx` renders reusable curated palette sets for shareable editorial content.
 - `app/favorites/page.tsx` renders a local-only saved color shelf backed by browser storage.
+- `app/recent/page.tsx` renders a local-only recently viewed trail backed by browser storage.
 - `app/packs/page.tsx` renders productized palette pack offers that can later point to off-site checkout.
 - `app/packs/[slug]/page.tsx` renders individual pack detail pages with source collections, FAQ, and sample files.
 - `app/product-examples/page.tsx` renders public-facing pack examples that can be shared with payment providers or early customers.
@@ -140,6 +141,9 @@ GitHub documents the current records here:
 - The `All Colors` route supports shareable search, family, sort, and density state for dense archive browsing.
 - The `Collections` route packages the archive into reusable thematic sets with copyable palette exports.
 - The `Favorites` route stores saved colors in `localStorage` and now exports a saved palette or CSS variables without backend state.
+- The home archive now surfaces a local Recent / Favorites hub so users can continue browsing without digging through navigation.
+- The `Recent` route stores recently viewed colors in `localStorage`, making it easier to resume browsing without an account.
+- Both `Favorites` and `Recent` now support JSON export in addition to text-based palette export.
 - The `Packs` route turns the archive into product-ready offers and exposes placeholder checkout slots for future Lemon Squeezy or Stripe links.
 - `src/lib/checkout-config.ts` is now the only file you need to edit when real checkout URLs become available.
 - Individual pack detail routes deepen the product layer without introducing a backend or checkout dependency.

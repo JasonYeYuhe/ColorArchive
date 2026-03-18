@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorCard } from "@/src/components/color-card";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -5,18 +7,12 @@ interface ColorGridProps {
   colors: readonly ColorRecord[];
   selectedColorId?: string | null;
   onSelectColor?: (colorId: string) => void;
+  emptyState?: ReactNode;
 }
 
-export function ColorGrid({ colors, selectedColorId, onSelectColor }: ColorGridProps) {
+export function ColorGrid({ colors, selectedColorId, onSelectColor, emptyState }: ColorGridProps) {
   if (colors.length === 0) {
-    return (
-      <section className="glass-panel rounded-[1.75rem] px-6 py-12 text-center">
-        <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">No colors found</h2>
-        <p className="mt-2 text-sm text-neutral-500">
-          Refine the search term or clear the family filter to widen the archive.
-        </p>
-      </section>
-    );
+    return emptyState ?? <ArchiveEmptyState />;
   }
 
   return (

@@ -37,6 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: "https://colorarchive.me/recent",
+      lastModified: new Date("2026-03-18"),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
       url: "https://colorarchive.me/spectrum",
       lastModified: new Date("2026-03-18"),
       changeFrequency: "weekly",

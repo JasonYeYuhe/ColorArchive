@@ -8,6 +8,7 @@ interface SiteHeaderProps {
     | "/collections"
     | "/favorites"
     | "/packs"
+    | "/recent"
     | "/search"
     | "/spectrum"
     | "/support"
@@ -81,6 +82,16 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
             }`}
           >
             Favorites
+          </Link>
+          <Link
+            href="/recent"
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/recent"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            Recent
           </Link>
           <Link
             href="/spectrum"

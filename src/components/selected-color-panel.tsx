@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import { addRecentColor } from "@/src/lib/recent-colors";
 import type { ColorRecord } from "@/src/types/color";
 
 interface SelectedColorPanelProps {
@@ -54,6 +55,14 @@ export function SelectedColorPanel({
   nearbyColors,
   onSelectColor,
 }: SelectedColorPanelProps) {
+  useEffect(() => {
+    if (!color) {
+      return;
+    }
+
+    addRecentColor(color.id);
+  }, [color]);
+
   if (!color) {
     return null;
   }
@@ -115,6 +124,12 @@ export function SelectedColorPanel({
               className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
             >
               Open detail
+            </Link>
+            <Link
+              href="/recent"
+              className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+            >
+              Recent trail
             </Link>
           </div>
         </div>

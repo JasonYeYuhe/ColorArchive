@@ -27,6 +27,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增 All Colors 页面，用高密度方式一次性查看完整档案
 - 新增 Collections 页面，用可分享的成套 palette 承接内容价值
 - 新增 Favorites 页面，用浏览器本地收藏承接回访需求
+- 新增 Recent 页面，用浏览器本地最近查看承接继续浏览需求
 - 新增 Spectrum Explorer 页面，用颜色矩阵而不是卡片来浏览档案
 - 新增 Surprise 页面，用随机发现强化探索感
 - 新增实验性工具页面，例如“输入一个词，生成一个颜色”
@@ -76,17 +77,18 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 9. 一个 All Colors 页面
 10. 一个 Collections 页面
 11. 一个 Favorites 页面
-12. 一个 Spectrum Explorer 页面
-13. 一个 Surprise 页面
-14. 一个轻量实验页：输入词语生成颜色
-15. 颜色详情页，可单独访问和分享
-16. 一个 Support 页面承接未来盈利路径
-17. 一个 Packs 页面承接实际销售产品
-18. 一个 Product Examples 页面，用于展示具体数字商品样例和导出内容
-19. 一个 Pack detail 页面，用于展示单个数字商品的完整信息
-20. 一个 Waitlist 页面，用于支付上线前承接兴趣
-21. 一个 Thanks 页面，用于支付后的静态落地页
-22. 一个 Cancel 页面，用于支付取消后的静态落地页
+12. 一个 Recent 页面
+13. 一个 Spectrum Explorer 页面
+14. 一个 Surprise 页面
+15. 一个轻量实验页：输入词语生成颜色
+16. 颜色详情页，可单独访问和分享
+17. 一个 Support 页面承接未来盈利路径
+18. 一个 Packs 页面承接实际销售产品
+19. 一个 Product Examples 页面，用于展示具体数字商品样例和导出内容
+20. 一个 Pack detail 页面，用于展示单个数字商品的完整信息
+21. 一个 Waitlist 页面，用于支付上线前承接兴趣
+22. 一个 Thanks 页面，用于支付后的静态落地页
+23. 一个 Cancel 页面，用于支付取消后的静态落地页
 
 ## 颜色排序规则
 
@@ -179,6 +181,13 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 目标是提高回访价值
 - 应支持一键复制整个收藏 palette / CSS variables
 
+- `Recent`
+- 使用浏览器本地存储
+- 记录最近查看过的颜色
+- 用于在没有账户系统的前提下保留浏览连续性
+- 首页应给出 Recent / Favorites 的快速回入口，而不是要求用户总是先进入专门页面
+- Recent / Favorites 应支持 JSON 导出，方便后续接设计 token、内容整理或外部工具
+
 - `Surprise`
 - 随机进入一个颜色并继续分支探索
 - 更偏“发现 / 玩味”体验
@@ -188,6 +197,7 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 适合按名称、HEX、family 直接定位
 - 持续扩展为多维过滤器（hue / tone / saturation / lightness / exact hex）
 - 查询状态应尽量可分享，可通过 URL 直接还原筛选条件
+- Archive / Search / All Colors 在空结果时应提供恢复动作，而不是只显示空白状态
 
 - `Word → Color`
 - 用户输入任意词语 / 短语
@@ -359,6 +369,7 @@ Codex 当前方向：
 - waitlist provider / contact 和 success / cancel return path 也已进入配置层
 - Waitlist 与 Thanks 已加入静态商业漏斗，减少“只有商品页、没有转化承接页”的问题
 - Cancel 页面已加入，商业漏斗的退出路径也可控
+- Recent trail 已加入浏览链路，减少“看过一个颜色之后回不去”的问题
 - 继续增加具辨识度的实验页（Spectrum / Surprise / Word → Color）
 - 记录可用 credits：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
