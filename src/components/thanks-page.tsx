@@ -18,14 +18,39 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
               Purchase success
             </div>
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Thanks. Your ColorArchive purchase is complete.
+              Payment received. Your download email is on the way.
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              This route is meant to be the static return page for Lemon Squeezy or Stripe after a
-              successful payment. It keeps the commerce flow simple and brand-consistent.
+              Your receipt and secure download link should arrive in the same inbox you used at
+              checkout. If nothing shows up within 10 minutes, check Promotions or Spam, then open
+              your account page or email support.
             </p>
+            <div className="mt-6 grid gap-3 md:grid-cols-3">
+              {[
+                {
+                  title: "1. Check your inbox",
+                  body: "Look for a receipt and a download email from ColorArchive shortly after payment.",
+                },
+                {
+                  title: "2. Open the files",
+                  body: "Start with the overview, then move into the token exports, boards, and usage notes.",
+                },
+                {
+                  title: "3. Need a resend?",
+                  body: "Open your account page for order history and resend help, or contact hello@colorarchive.me.",
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-[1.2rem] border border-black/6 bg-white/86 px-4 py-4"
+                >
+                  <div className="text-sm font-semibold text-neutral-950">{item.title}</div>
+                  <p className="mt-2 text-sm leading-6 text-neutral-600">{item.body}</p>
+                </div>
+              ))}
+            </div>
             <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-white/85 px-4 py-4 text-sm leading-6 text-neutral-600">
-              Configure your checkout provider to redirect successful payments to
+              Lemon Squeezy or Stripe should return successful purchases to
               {" "}
               <span className="font-medium text-neutral-950">{checkoutFlow.successPath}</span>.
             </div>
@@ -39,10 +64,10 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
             </div>
             <div className="mt-4 grid gap-3">
               {[
-                "Open your downloaded files and start with the palette overview first.",
-                "Use the sample exports and token files to map colors into your own design system.",
-                "Return to the archive if you want more adjacent or complementary colors.",
-                "Save favorite colors and sync them to your account for a second working set.",
+                "Open the download email first so you confirm receipt, file access, and order details in one pass.",
+                "Start from the pack overview or usage notes before digging into raw token files.",
+                "Use the archive, collections, and favorites pages as your second layer when you need adjacent colors.",
+                "If you bought for implementation, move straight from the preview files into CSS, Tailwind, JSON, or Figma tokens.",
               ].map((step, index) => (
                 <div
                   key={step}
@@ -60,9 +85,21 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
           <div className="flex flex-col gap-6">
             <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                What to do next
+                Go next
               </div>
               <div className="mt-4 grid gap-3">
+                <Link
+                  href="/login/"
+                  className="flex items-center gap-3 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-3.5 text-sm leading-6 text-neutral-600 transition hover:bg-white"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-950 text-sm text-white">
+                    A
+                  </span>
+                  <span>
+                    <span className="font-medium text-neutral-950">Open account</span>
+                    {" "}- order history, resend support, and sync status
+                  </span>
+                </Link>
                 <Link
                   href="/collections/"
                   className="flex items-center gap-3 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-3.5 text-sm leading-6 text-neutral-600 transition hover:bg-white"
@@ -72,31 +109,19 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
                   </span>
                   <span>
                     <span className="font-medium text-neutral-950">Browse collections</span>
-                    {" "}&mdash; curated palettes for specific creative directions
+                    {" "}- curated palette directions to pair with your new files
                   </span>
                 </Link>
                 <Link
-                  href="/word-to-color/"
+                  href="/notes/"
                   className="flex items-center gap-3 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-3.5 text-sm leading-6 text-neutral-600 transition hover:bg-white"
                 >
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-950 text-sm text-white">
-                    W
+                    N
                   </span>
                   <span>
-                    <span className="font-medium text-neutral-950">Word to Color</span>
-                    {" "}&mdash; turn any word into a unique five-color palette
-                  </span>
-                </Link>
-                <Link
-                  href="/contrast/"
-                  className="flex items-center gap-3 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-3.5 text-sm leading-6 text-neutral-600 transition hover:bg-white"
-                >
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-950 text-sm text-white">
-                    A
-                  </span>
-                  <span>
-                    <span className="font-medium text-neutral-950">Contrast checker</span>
-                    {" "}&mdash; test accessibility between any two colors
+                    <span className="font-medium text-neutral-950">Read the notes archive</span>
+                    {" "}- usage context, product updates, and palette direction
                   </span>
                 </Link>
               </div>
@@ -105,19 +130,26 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
             <aside className="relative overflow-hidden rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-emerald-200/20 blur-2xl" />
               <div className="relative">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Share the love
-                </div>
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">Need help</div>
                 <p className="mt-3 text-sm leading-6 text-neutral-600">
-                  Know someone who&apos;d love this? Share the free pack with friends&nbsp;&mdash; no
-                  purchase needed.
+                  If your download email does not arrive, open your account page first. If that
+                  still does not solve it, email hello@colorarchive.me and include the address used
+                  at checkout.
                 </p>
-                <Link
-                  href="/free-pack/"
-                  className="mt-3 inline-flex items-center gap-2 rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-                >
-                  colorarchive.me/free-pack
-                </Link>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Link
+                    href="/login/"
+                    className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                  >
+                    Open account
+                  </Link>
+                  <Link
+                    href="/free-pack/"
+                    className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                  >
+                    Share free pack
+                  </Link>
+                </div>
               </div>
             </aside>
           </div>

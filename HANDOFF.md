@@ -4,7 +4,24 @@ Last updated: 2026-03-19
 
 ## This Session Summary
 
-### Done (Claude Code — Commerce + Analytics session, 2026-03-19 evening)
+### Done (Claude Code — Price update session, 2026-03-19 late evening)
+
+- Updated All Access Bundle price ¥2,999 → ¥2,799 across entire codebase
+- Savings recalculated: 27% → 32% (individual total ¥4,095 vs bundle ¥2,799)
+- Updated: palette-packs.ts, packs page, hero, free-pack page, email templates (free pack, Day-7), PRODUCT_MEMO
+- LS Email Receipt & Confirmation Modal config saved to docs/ls-email-receipt-config.md
+- SEO polish: robots.txt disallow admin/analytics/login, noindex /surprise/, improved 404 page
+- Server deployed and running
+
+### Done (Codex — Post-purchase funnel polish, 2026-03-19 night)
+
+- Rewrote `/thanks` into a real post-purchase hub with inbox expectations, account/resend route, and stronger next-step navigation
+- Reworked `/cancel` into a recovery page with 3 clear paths: FIRSTPACK starter offer, free sample, and All Access Bundle
+- Strengthened `/packs/all-access-bundle/` with individual-pack comparison cards, total-vs-bundle pricing, and explicit savings breakdown
+- Added `docs/commerce-ops-checklist.md` covering Lemon Squeezy production settings, return URLs, smoke test flow, and GSC submission steps
+- Updated PRODUCT_MEMO with the new conversion work and current manual ops reminder
+
+**Previously done (Claude Code — Commerce + Analytics session, 2026-03-19 evening):**
 
 - Repriced all 6 packs to ¥99–¥1,499 JPY range
 - Created All Access Bundle (¥2,799, 7th product, live on LS)

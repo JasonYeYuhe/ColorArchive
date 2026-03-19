@@ -1,6 +1,8 @@
 // Checkout configuration for all products.
-// All 6 products are currently LIVE on Lemon Squeezy (production URLs, JPY pricing).
+// All 7 products are currently LIVE on Lemon Squeezy (production URLs, JPY pricing).
 // To disable test mode in Lemon Squeezy: app.lemonsqueezy.com → Settings → Store → disable Test mode.
+// Product-level Thank You URL should be https://colorarchive.me/thanks/
+// Product-level Cancel URL should be https://colorarchive.me/cancel/
 // To switch providers: update `provider` and `url` per entry below.
 export type CheckoutProvider = "Lemon Squeezy" | "Stripe Payment Link";
 

@@ -624,6 +624,10 @@ Codex 当前方向：
 - ✅ notes 列表页底部加 EmailCaptureForm 订阅区块
 - ✅ word-to-color 页面加暗色 pack CTA panel（Browse packs + Free download）
 - ✅ project-updates.ts 新增两条 shipped 条目（SEO pass、performance/conversion pass）
+- ✅ `/thanks` 改为真实 post-purchase hub，明确 receipt / download / account / support 下一步
+- ✅ `/cancel` 改为挽回页，强化 starter 折扣、free layer 和 All Access Bundle 三条回流路径
+- ✅ All Access Bundle 详情页增加单品对比、总价 vs bundle 价和节省金额拆解
+- ✅ 新增 `docs/commerce-ops-checklist.md`，整理 LS 生产设置、回跳 URL、购买 smoke test 与 GSC 提交步骤
 
 ### 当前优先级
 
@@ -633,7 +637,7 @@ Codex 当前方向：
 - ✅ admin orders 已加入 search/filter/pagination
 - ✅ analytics 已加入 buyer drilldown
 - LS 店铺审核通过后关闭 Test mode（手动操作，见 checkout-config.ts 注释）
-- **服务端需要更新**：新的 `/analytics/buyers` 端点和 `/admin/orders` filter 逻辑需要 deploy 到服务器
+- LS 产品级 Thank You / Cancel URL 需统一配置到 `/thanks/` 和 `/cancel/`（手动操作，见 `docs/commerce-ops-checklist.md`）
 - 提高邮件送达率（新域名初期可能进 spam，需要积累域名信誉）
 - 由 allowlist 测试账号本人完成一次 Google 首次登录，确认 callback / session / redirect 全链路
 - 继续观察 Personal / Commercial 两档 license 文案是否足够清晰

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
 import type { ColorCollection } from "@/src/lib/collections";
-import type { PalettePack } from "@/src/lib/palette-packs";
+import { palettePacks, type PalettePack } from "@/src/lib/palette-packs";
 
 interface PackDetailPageProps {
   pack: PalettePack;
@@ -14,8 +14,19 @@ function buildSampleExport(collection: ColorCollection): string {
     .join("\n");
 }
 
+function parsePriceYen(priceHint: string): number {
+  return Number(priceHint.replace(/[^\d]/g, ""));
+}
+
 export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps) {
   const sampleCollection = relatedCollections[0];
+  const isAllAccessBundle = pack.id === "all-access-bundle";
+  const bundledPacks = isAllAccessBundle
+    ? palettePacks.filter((entry) => entry.id !== "all-access-bundle")
+    : [];
+  const individualTotal = bundledPacks.reduce((sum, entry) => sum + parsePriceYen(entry.priceHint), 0);
+  const bundlePrice = parsePriceYen(pack.priceHint);
+  const savingsAmount = Math.max(individualTotal - bundlePrice, 0);
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -46,7 +57,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
               <p className="mt-3 text-sm leading-6 text-neutral-500">{pack.reviewNote}</p>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className={`grid gap-3 ${isAllAccessBundle ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
               <div className="rounded-[1.25rem] border border-black/6 bg-white/86 px-4 py-4">
                 <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Pricing lane</div>
                 <div className="mt-2 text-2xl font-semibold text-neutral-950">{pack.priceHint}</div>
@@ -58,19 +69,98 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                   {pack.checkoutStatus}
                 </div>
               </div>
+              {isAllAccessBundle ? (
+                <div className="rounded-[1.25rem] border border-emerald-300/50 bg-emerald-50/80 px-4 py-4">
+                  <div className="text-xs uppercase tracking-[0.16em] text-emerald-700">Savings</div>
+                  <div className="mt-2 text-2xl font-semibold text-neutral-950">¥{savingsAmount.toLocaleString("en-US")}</div>
+                  <div className="mt-1 text-xs uppercase tracking-[0.14em] text-emerald-700">
+                    Versus buying all 6 packs separately
+                  </div>
+                </div>
+              ) : null}
               {pack.checkoutUrl ? (
                 <a
                   href={pack.checkoutUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="sm:col-span-2 flex items-center justify-center gap-2 rounded-[1.25rem] bg-neutral-950 px-6 py-4 text-sm font-semibold text-white transition hover:bg-neutral-800"
+                  className={`${isAllAccessBundle ? "sm:col-span-3" : "sm:col-span-2"} flex items-center justify-center gap-2 rounded-[1.25rem] bg-neutral-950 px-6 py-4 text-sm font-semibold text-white transition hover:bg-neutral-800`}
                 >
-                  Buy {pack.title}
+                  {isAllAccessBundle ? `Get all 6 packs for ${pack.priceHint}` : `Buy ${pack.title}`}
                 </a>
               ) : null}
             </div>
           </div>
         </section>
+
+        {isAllAccessBundle ? (
+          <section className="rounded-[1.75rem] border border-emerald-300/40 bg-gradient-to-br from-emerald-50/80 to-white/90 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+              <div className="max-w-2xl">
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                  Bundle breakdown
+                </div>
+                <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-neutral-950">
+                  Every paid pack, one checkout, one download
+                </h2>
+                <p className="mt-3 text-sm leading-6 text-neutral-600">
+                  This is for the buyer who already knows they will want more than one lane:
+                  brand system setup, creator assets, dark mode pairs, seasonal direction, and the
+                  full token archive in one purchase.
+                </p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                <div className="rounded-[1.2rem] border border-black/6 bg-white/90 px-4 py-4">
+                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Individual total</div>
+                  <div className="mt-2 text-2xl font-semibold text-neutral-950">
+                    ¥{individualTotal.toLocaleString("en-US")}
+                  </div>
+                </div>
+                <div className="rounded-[1.2rem] border border-black/6 bg-white/90 px-4 py-4">
+                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Bundle price</div>
+                  <div className="mt-2 text-2xl font-semibold text-neutral-950">{pack.priceHint}</div>
+                </div>
+                <div className="rounded-[1.2rem] border border-emerald-300/50 bg-emerald-50 px-4 py-4">
+                  <div className="text-xs uppercase tracking-[0.16em] text-emerald-700">You save</div>
+                  <div className="mt-2 text-2xl font-semibold text-neutral-950">
+                    ¥{savingsAmount.toLocaleString("en-US")}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {bundledPacks.map((includedPack) => (
+                <article
+                  key={includedPack.id}
+                  className="rounded-[1.3rem] border border-black/6 bg-white/88 px-4 py-4"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+                        {includedPack.ctaLabel}
+                      </div>
+                      <div className="mt-2 text-lg font-semibold tracking-[-0.02em] text-neutral-950">
+                        {includedPack.title}
+                      </div>
+                    </div>
+                    <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-neutral-500">
+                      {includedPack.priceHint}
+                    </div>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-neutral-600">{includedPack.detail}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Link
+                      href={`/packs/${includedPack.id}/`}
+                      className="rounded-full border border-black/8 bg-neutral-950 px-3.5 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                    >
+                      Open pack
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.95fr)]">
           <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
@@ -109,8 +199,9 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
               ))}
             </div>
             <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
-              These files are public preview assets. They make the product concrete before checkout
-              links are wired.
+              {isAllAccessBundle
+                ? "These previews come from several included packs so buyers can inspect the bundle quality before checkout."
+                : "These files are public preview assets. They make the product concrete before checkout."}
             </div>
             <div className="mt-4 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
               {pack.checkoutNote}
@@ -234,13 +325,13 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                 rel="noreferrer"
                 className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
               >
-                Buy now
+                {isAllAccessBundle ? "Get the full catalog" : "Buy now"}
               </a>
               <Link
-                href="/free-pack/"
+                href={isAllAccessBundle ? "/packs/" : "/free-pack/"}
                 className="rounded-full border border-white/16 px-5 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
               >
-                Try free layer first
+                {isAllAccessBundle ? "Compare individual packs" : "Try free layer first"}
               </Link>
             </div>
           </section>

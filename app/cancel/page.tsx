@@ -11,10 +11,15 @@ export const metadata: Metadata = {
 
 export default function CancelRoute() {
   const starterPack = palettePacks.find((p) => p.id === "palette-pack-vol-1");
+  const bundlePack = palettePacks.find((p) => p.id === "all-access-bundle");
   return (
     <>
       <SiteHeader currentPath="/support" />
-      <CancelPage checkoutFlow={checkoutFlowConfig} starterPack={starterPack} />
+      <CancelPage
+        checkoutFlow={checkoutFlowConfig}
+        starterPack={starterPack}
+        bundlePack={bundlePack}
+      />
     </>
   );
 }
