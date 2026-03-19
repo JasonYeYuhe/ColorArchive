@@ -1,4 +1,5 @@
 import { COLOR_FAMILIES } from "@/src/lib/color-utils";
+import { ShareLinkButton } from "@/src/components/share-link-button";
 import type { ColorFamily, SortOption } from "@/src/types/color";
 
 interface FilterToolbarProps {
@@ -6,6 +7,7 @@ interface FilterToolbarProps {
   familyCounts: Record<ColorFamily, number>;
   searchQuery: string;
   sortBy: SortOption;
+  shareHref?: string;
   totalColors: number;
   visibleColors: number;
   onFamilyChange: (family: ColorFamily | "All") => void;
@@ -19,6 +21,7 @@ export function FilterToolbar({
   familyCounts,
   searchQuery,
   sortBy,
+  shareHref,
   totalColors,
   visibleColors,
   onFamilyChange,
@@ -99,6 +102,8 @@ export function FilterToolbar({
           >
             Reset
           </button>
+
+          {shareHref ? <ShareLinkButton href={shareHref} label="Share view" /> : null}
         </div>
 
         <div className="-mx-1 overflow-x-auto pb-1 sm:mx-0 sm:overflow-visible">

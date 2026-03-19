@@ -38,6 +38,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增 Pack detail 页面，用单个商品页承接更完整的产品信息
 - 新增 Product Examples 页面，用公开产品示例承接 Lemon / Stripe 等支付平台审核
 - 新增 Free Sample Pack 页面，用现有下载资产承接免费层和 lead magnet
+- 新增 Analytics 页面，用站内方式查看订阅、订单和收入数据
 - 新增 About 页面，用解释项目来源、静态约束和结构判断
 - 新增 Updates 页面，用公开记录路由和产品层迭代
 - 新增 Waitlist 页面，用静态方式承接预热期兴趣流量
@@ -97,6 +98,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 25. 一个 Free Sample Pack 页面，用于在结账未上线前提供免费样例下载
 26. 一个 About 页面，用于解释项目本身和技术约束
 27. 一个 Updates 页面，用于公开记录迭代历史
+28. 一个 Analytics 页面，用于查看订阅与订单数据
 
 ## 颜色排序规则
 
@@ -206,6 +208,7 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 适合按名称、HEX、family 直接定位
 - 持续扩展为多维过滤器（hue / tone / saturation / lightness / exact hex）
 - 查询状态应尽量可分享，可通过 URL 直接还原筛选条件
+- 首页 Archive 也应逐步支持 URL 状态恢复，而不只是独立 Search 页面
 - Archive / Search / All Colors 在空结果时应提供恢复动作，而不是只显示空白状态
 
 - `Word → Color`
@@ -389,7 +392,9 @@ Codex 当前方向：
 - 保持 GitHub Pages 静态导出兼容
 - 维持 2016 色的本地档案规模
 - 强化 Search 作为多维过滤入口
+- 首页 Archive 已开始支持 URL 状态同步（query / family / sort / selected color）
 - 强化详情页作为继续探索颜色关系的入口
+- 颜色详情页现在不仅展示推荐关系，还应尽量缩短“看到推荐色 → 加入 palette builder”的距离
 - 强化 Collections 作为可传播、可售卖的内容层
 - 强化 Support 作为未来商业化入口
 - 强化 Packs 与 Product Examples，减少“只有概念没有商品证明”的问题
@@ -403,6 +408,9 @@ Codex 当前方向：
   - `waitlist`：发送更新订阅确认邮件，用于未来新品和项目更新
 - Cancel 页面已加入，商业漏斗的退出路径也可控
 - Recent trail 已加入浏览链路，减少“看过一个颜色之后回不去”的问题
+- 移动端导航和 palette builder tray 需要持续避免遮挡内容，优先保证首屏浏览和商品页阅读
+- 新增 `/analytics` 页面，直接消费 API 的订阅者、订单和收入数据
+- Pack / Collection / Color detail 页已开始补结构化 SEO（JSON-LD），不再只依赖普通 meta description
 - 继续增加具辨识度的实验页（Spectrum / Surprise / Word → Color）
 - 记录可用 credits：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
@@ -472,13 +480,18 @@ Codex 当前方向：
 - ✅ Resend 域名验证完成（colorarchive.me，Tokyo region）
 - ✅ All Colors 页面新增 Canvas 全色谱（HSL 色彩空间，饱和度滑块，点击复制 hex）
 - ✅ waitlist 邮件链路与 free-pack 邮件链路拆分，避免 waitlist 用户收到错误的下载邮件
+- ✅ 首页 Archive 支持 URL 状态同步与分享恢复
+- ✅ 新增 `/analytics` 页面，查看订阅、订单与收入数据
+- ✅ Pack / Collection / Color detail 补充结构化 SEO（JSON-LD）
+- ✅ 颜色详情页推荐色支持一键加入 palette builder
+- ✅ 移动端导航与 palette builder tray 收缩，降低小屏遮挡风险
 
 ### 当前优先级
 
 - ✅ Resend 域名验证完成（colorarchive.me verified，邮件可正常发送）
 - ✅ 6 个产品全部 live，checkout URL 已填入
 - LS 店铺审核通过后关闭 Test mode
-- 修完移动端会遮挡内容的交互细节
+- 继续观察并细修移动端会遮挡内容的交互细节
 - 增强 Open Graph 表现（D2 受限于 static export，需要评估替代方案）
 - 提高邮件送达率（新域名初期可能进 spam，需要积累域名信誉）
 

@@ -4,6 +4,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import {
+  addManyToPalette,
+  addToPalette,
+  getPaletteIds,
+  MAX_SIZE,
+  subscribeToPalette,
+} from "@/src/lib/palette-builder";
 import { addRecentColor, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
 import { getWcagContrast, getTonalStrip } from "@/src/lib/color-utils";
 import type { ColorRecord } from "@/src/types/color";
@@ -56,7 +63,65 @@ function CopyButton({ value, label }: { value: string; label: string }) {
   );
 }
 
-function RecommendationLink({
+function PaletteAddButton({ colorId }: { colorId: string }) {
+  const [paletteIds, setPaletteIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    setPaletteIds(getPaletteIds());
+    return subscribeToPalette(setPaletteIds);
+  }, []);
+
+  const inPalette = paletteIds.includes(colorId);
+  const isFull = paletteIds.length >= MAX_SIZE;
+
+  return (
+    <button
+      type="button"
+      onClick={() => addToPalette(colorId)}
+      disabled={inPalette || isFull}
+      className={`rounded-full border px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] transition ${
+        inPalette
+          ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+          : isFull
+            ? "cursor-not-allowed border-black/8 bg-neutral-50 text-neutral-300"
+            : "border-black/8 bg-white text-neutral-600 hover:bg-neutral-950 hover:text-white"
+      }`}
+    >
+      {inPalette ? "In palette" : isFull ? "Palette full" : "Add to palette"}
+    </button>
+  );
+}
+
+function PaletteBundleButton({
+  colorIds,
+  label,
+}: {
+  colorIds: string[];
+  label: string;
+}) {
+  const [paletteIds, setPaletteIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    setPaletteIds(getPaletteIds());
+    return subscribeToPalette(setPaletteIds);
+  }, []);
+
+  const addableIds = colorIds.filter((id) => !paletteIds.includes(id));
+  const noCapacity = paletteIds.length >= MAX_SIZE;
+
+  return (
+    <button
+      type="button"
+      onClick={() => addManyToPalette(colorIds)}
+      disabled={addableIds.length === 0 || noCapacity}
+      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-300"
+    >
+      {addableIds.length === 0 ? "Already saved" : noCapacity ? "Palette full" : label}
+    </button>
+  );
+}
+
+function RecommendationCard({
   color,
   eyebrow,
 }: {
@@ -64,25 +129,27 @@ function RecommendationLink({
   eyebrow: string;
 }) {
   return (
-    <Link
-      href={`/colors/${color.id}/`}
-      className="group rounded-[1.45rem] border border-black/6 bg-white/84 p-3 transition hover:-translate-y-0.5 hover:border-black/10 hover:shadow-[0_18px_36px_rgba(15,23,42,0.06)]"
-    >
-      <div
-        className="h-24 rounded-[1.1rem] border border-black/6"
-        style={{ backgroundColor: color.hex }}
-        aria-hidden="true"
-      />
-      <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-400">
-        {eyebrow}
+    <article className="rounded-[1.45rem] border border-black/6 bg-white/84 p-3 transition hover:-translate-y-0.5 hover:border-black/10 hover:shadow-[0_18px_36px_rgba(15,23,42,0.06)]">
+      <Link href={`/colors/${color.id}/`} className="group block">
+        <div
+          className="h-24 rounded-[1.1rem] border border-black/6"
+          style={{ backgroundColor: color.hex }}
+          aria-hidden="true"
+        />
+        <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-400">
+          {eyebrow}
+        </div>
+        <div className="mt-1 truncate text-base font-semibold tracking-[-0.02em] text-neutral-950">
+          {color.name}
+        </div>
+        <div className="mt-1 text-sm text-neutral-500">
+          {color.hex} · {color.hsl}
+        </div>
+      </Link>
+      <div className="mt-3">
+        <PaletteAddButton colorId={color.id} />
       </div>
-      <div className="mt-1 truncate text-base font-semibold tracking-[-0.02em] text-neutral-950">
-        {color.name}
-      </div>
-      <div className="mt-1 text-sm text-neutral-500">
-        {color.hex} · {color.hsl}
-      </div>
-    </Link>
+    </article>
   );
 }
 
@@ -164,6 +231,7 @@ export function ColorDetailPage({
   const exportPalette = [{ label: "Base", value: color }, ...paletteMoves];
   const paletteExport = buildPaletteExport(exportPalette);
   const cssVariableExport = buildCssVariableExport(exportPalette);
+  const exportPaletteIds = exportPalette.map((entry) => entry.value.id);
   const recentTrail = recentColorIds
     .filter((id) => id !== color.id)
     .map((id) => allColors.find((entry) => entry.id === id))
@@ -258,6 +326,8 @@ export function ColorDetailPage({
                 <CopyButton label="hsl" value={color.hsl} />
                 <CopyButton label="palette" value={paletteExport} />
                 <CopyButton label="CSS vars" value={cssVariableExport} />
+                <PaletteAddButton colorId={color.id} />
+                <PaletteBundleButton colorIds={exportPaletteIds} label="Add recommended palette" />
                 <FavoriteButton colorId={color.id} />
                 <ShareLinkButton href={`/colors/${color.id}/`} />
                 <Link
@@ -325,17 +395,22 @@ export function ColorDetailPage({
 
                 <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
                   {paletteMoves.map((item) => (
-                    <RecommendationLink key={item.value.id} color={item.value} eyebrow={item.label} />
+                    <RecommendationCard key={item.value.id} color={item.value} eyebrow={item.label} />
                   ))}
                 </div>
 
-                <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
-                  <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                    Export preview
+                <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+                  <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                    <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+                      Export preview
+                    </div>
+                    <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
+                      {paletteExport}
+                    </pre>
                   </div>
-                  <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
-                    {paletteExport}
-                  </pre>
+                  <div className="flex flex-wrap gap-2 lg:justify-end">
+                    <PaletteBundleButton colorIds={paletteMoves.map((item) => item.value.id)} label="Add palette moves" />
+                  </div>
                 </div>
               </div>
 
@@ -359,7 +434,7 @@ export function ColorDetailPage({
 
                 <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
                   {nearestColors.map((nearColor) => (
-                    <RecommendationLink key={nearColor.id} color={nearColor} eyebrow="Nearby match" />
+                    <RecommendationCard key={nearColor.id} color={nearColor} eyebrow="Nearby match" />
                   ))}
                 </div>
               </div>
@@ -385,7 +460,7 @@ export function ColorDetailPage({
 
                   <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
                     {recentTrail.map((recentColor) => (
-                      <RecommendationLink key={recentColor.id} color={recentColor} eyebrow="Recently viewed" />
+                      <RecommendationCard key={recentColor.id} color={recentColor} eyebrow="Recently viewed" />
                     ))}
                   </div>
                 </div>

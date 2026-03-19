@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorGrid } from "@/src/components/color-grid";
 import { FamilyOverview } from "@/src/components/family-overview";
@@ -15,11 +16,59 @@ interface ColorArchivePageProps {
   colors: readonly ColorRecord[];
 }
 
+function buildArchiveStateParams({
+  searchQuery,
+  sortBy,
+  activeFamily,
+  selectedColorId,
+}: {
+  searchQuery: string;
+  sortBy: SortOption;
+  activeFamily: ColorFamily | "All";
+  selectedColorId: string | null;
+}) {
+  const params = new URLSearchParams();
+
+  if (searchQuery.trim()) {
+    params.set("q", searchQuery.trim());
+  }
+
+  if (sortBy !== "hue") {
+    params.set("sort", sortBy);
+  }
+
+  if (activeFamily !== "All") {
+    params.set("family", activeFamily);
+  }
+
+  if (selectedColorId) {
+    params.set("selected", selectedColorId);
+  }
+
+  return params;
+}
+
 export function ColorArchivePage({ colors }: ColorArchivePageProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState<SortOption>("hue");
-  const [activeFamily, setActiveFamily] = useState<ColorFamily | "All">("All");
-  const [selectedColorId, setSelectedColorId] = useState<string | null>(colors[0]?.id ?? null);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") ?? "";
+  const initialSort = (searchParams.get("sort") as SortOption | null) ?? "hue";
+  const initialFamily = (searchParams.get("family") as ColorFamily | null) ?? "All";
+  const initialSelected = searchParams.get("selected");
+
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
+  const [sortBy, setSortBy] = useState<SortOption>(
+    initialSort === "lightness" || initialSort === "name" ? initialSort : "hue",
+  );
+  const [activeFamily, setActiveFamily] = useState<ColorFamily | "All">(
+    initialFamily === "All" || COLOR_FAMILIES.includes(initialFamily) ? initialFamily : "All",
+  );
+  const [selectedColorId, setSelectedColorId] = useState<string | null>(
+    initialSelected && colors.some((color) => color.id === initialSelected)
+      ? initialSelected
+      : colors[0]?.id ?? null,
+  );
 
   const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
 
@@ -60,6 +109,17 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
     () => visibleColors.find((color) => color.id === selectedColorId) ?? visibleColors[0] ?? null,
     [selectedColorId, visibleColors],
   );
+  const shareHref = useMemo(() => {
+    const params = buildArchiveStateParams({
+      searchQuery,
+      sortBy,
+      activeFamily,
+      selectedColorId: selectedColor?.id ?? null,
+    });
+    const queryString = params.toString();
+
+    return queryString ? `/?${queryString}` : "/";
+  }, [activeFamily, searchQuery, selectedColor, sortBy]);
 
   const nearbyColors = useMemo(() => {
     if (!selectedColor) {
@@ -78,6 +138,17 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
 
     return related.slice(Math.max(0, selectedIndex - 1), selectedIndex + 3);
   }, [searchResults, selectedColor]);
+
+  useEffect(() => {
+    const params = buildArchiveStateParams({
+      searchQuery,
+      sortBy,
+      activeFamily,
+      selectedColorId: selectedColor?.id ?? null,
+    });
+    const queryString = params.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
+  }, [activeFamily, pathname, router, searchQuery, selectedColor, sortBy]);
 
   const handleReset = () => {
     setSearchQuery("");
@@ -101,6 +172,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
           activeFamily={activeFamily}
           familyCounts={familyCounts}
           searchQuery={searchQuery}
+          shareHref={shareHref}
           sortBy={sortBy}
           totalColors={colors.length}
           visibleColors={visibleColors.length}

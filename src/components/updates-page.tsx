@@ -158,6 +158,12 @@ export function UpdatesPage({ updates }: UpdatesPageProps) {
               Support
             </Link>
             <Link
+              href="/analytics"
+              className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+            >
+              Analytics
+            </Link>
+            <Link
               href="/free-pack"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >

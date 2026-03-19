@@ -35,6 +35,19 @@ export function addToPalette(colorId: string): void {
   writeToStorage([...ids, colorId]);
 }
 
+export function addManyToPalette(colorIds: string[]): void {
+  const ids = readFromStorage();
+  const nextIds = [...ids];
+
+  for (const colorId of colorIds) {
+    if (nextIds.includes(colorId)) continue;
+    if (nextIds.length >= MAX_PALETTE_SIZE) break;
+    nextIds.push(colorId);
+  }
+
+  writeToStorage(nextIds);
+}
+
 export function removeFromPalette(colorId: string): void {
   writeToStorage(readFromStorage().filter((id) => id !== colorId));
 }

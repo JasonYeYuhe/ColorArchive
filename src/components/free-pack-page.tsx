@@ -261,7 +261,7 @@ export function FreePackPage({
               href="/waitlist"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              Open waitlist
+              Product updates
             </Link>
             <Link
               href="/product-examples"

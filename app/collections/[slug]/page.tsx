@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CollectionDetailPage } from "@/src/components/collection-detail-page";
 import { SiteHeader } from "@/src/components/site-header";
+import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { collections, getCollectionById } from "@/src/lib/collections";
 import { palettePacks } from "@/src/lib/palette-packs";
 
@@ -49,10 +50,34 @@ export default async function CollectionDetailRoute({
   const relatedPacks = palettePacks.filter((pack) =>
     pack.previewCollectionIds.includes(collection.id),
   );
+  const collectionStructuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: collection.title,
+      description: collection.description,
+      keywords: [...collection.tags, ...collection.promptWords].join(", "),
+      url: `https://colorarchive.me/collections/${collection.id}/`,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `${collection.title} palette`,
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      numberOfItems: collection.palette.length,
+      itemListElement: collection.palette.map((color, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `https://colorarchive.me/colors/${color.id}/`,
+        name: color.name,
+      })),
+    },
+  ];
 
   return (
     <>
       <SiteHeader currentPath="/collections" />
+      <StructuredDataScript data={collectionStructuredData} />
       <CollectionDetailPage collection={collection} relatedPacks={relatedPacks} />
     </>
   );

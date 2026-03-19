@@ -11,7 +11,7 @@ const featuredCollection = getCollectionById("orchid-bloom");
 export const metadata: Metadata = {
   title: "Free Sample Pack",
   description:
-    "Download a free ColorArchive sample pack while paid palette packs are still pending checkout approval.",
+    "Download the permanent free sample layer for ColorArchive and preview the live paid pack formats.",
   alternates: {
     canonical: "/free-pack",
   },

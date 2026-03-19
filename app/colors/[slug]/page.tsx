@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ColorDetailPage } from "@/src/components/color-detail-page";
 import { SiteHeader } from "@/src/components/site-header";
+import { StructuredDataScript } from "@/src/components/structured-data-script";
 import {
   getAnalogousColors,
   getComplementaryColor,
@@ -128,10 +129,44 @@ export default async function ColorPage({ params }: ColorPageProps) {
   const analogousColors = getAnalogousColors(colors, color, 2);
   const lighterCompanion = getToneCompanion(colors, color, "lighter");
   const darkerCompanion = getToneCompanion(colors, color, "darker");
+  const colorStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Thing",
+    name: color.name,
+    description: `${color.name} ${color.hex} from the ${color.family} family in ColorArchive.`,
+    url: `https://colorarchive.me/colors/${color.id}/`,
+    identifier: color.id,
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "HEX", value: color.hex },
+      { "@type": "PropertyValue", name: "RGB", value: color.rgb },
+      { "@type": "PropertyValue", name: "HSL", value: color.hsl },
+      { "@type": "PropertyValue", name: "Hue", value: color.hue },
+      { "@type": "PropertyValue", name: "Saturation", value: color.saturation },
+      { "@type": "PropertyValue", name: "Lightness", value: color.lightness },
+      { "@type": "PropertyValue", name: "Family", value: color.family },
+    ],
+    isSimilarTo: [
+      ...analogousColors.map((entry) => ({
+        "@type": "Thing",
+        name: entry.name,
+        url: `https://colorarchive.me/colors/${entry.id}/`,
+      })),
+      ...(complementaryColor
+        ? [
+            {
+              "@type": "Thing",
+              name: complementaryColor.name,
+              url: `https://colorarchive.me/colors/${complementaryColor.id}/`,
+            },
+          ]
+        : []),
+    ],
+  };
 
   return (
     <>
       <SiteHeader currentPath="/colors" />
+      <StructuredDataScript data={colorStructuredData} />
       <ColorDetailPage
         allColors={colors}
         color={color}

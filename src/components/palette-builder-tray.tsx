@@ -93,10 +93,19 @@ export function PaletteBuilderTray() {
   const jsonExport = buildPaletteJsonExport(paletteColors);
 
   return (
-    <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
+    <div
+      className={`fixed z-40 ${
+        isOpen
+          ? "inset-x-3 bottom-3 sm:bottom-6 sm:left-1/2 sm:right-auto sm:inset-x-auto sm:-translate-x-1/2"
+          : "bottom-3 right-3 sm:bottom-6 sm:left-1/2 sm:right-auto sm:-translate-x-1/2"
+      }`}
+    >
       <div className="rounded-[1.6rem] border border-black/10 bg-white/92 shadow-[0_24px_64px_rgba(15,23,42,0.18)] backdrop-blur-xl">
         {isOpen ? (
-          <div className="p-4" style={{ minWidth: "20rem", maxWidth: "min(90vw, 28rem)" }}>
+          <div
+            className="max-h-[70vh] overflow-y-auto p-4"
+            style={{ minWidth: "min(100%, 20rem)", maxWidth: "min(calc(100vw - 1.5rem), 28rem)" }}
+          >
             <div className="flex items-center justify-between gap-3">
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
                 Palette · {paletteColors.length}/{MAX_SIZE}
@@ -110,7 +119,7 @@ export function PaletteBuilderTray() {
               </button>
             </div>
 
-            <div className="mt-3 flex gap-2">
+            <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
               {paletteColors.map((c) => (
                 <button
                   key={c.id}
@@ -164,20 +173,20 @@ export function PaletteBuilderTray() {
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2.5 px-4 py-3"
+            className="flex items-center gap-2.5 px-3 py-2.5 sm:px-4 sm:py-3"
             aria-label="Open palette builder"
           >
             <div className="flex gap-1">
               {paletteColors.map((c) => (
                 <span
                   key={c.id}
-                  className="h-5 w-5 rounded-full border border-white/60 shadow-sm"
+                  className="h-4 w-4 rounded-full border border-white/60 shadow-sm sm:h-5 sm:w-5"
                   style={{ backgroundColor: c.hex }}
                   aria-hidden="true"
                 />
               ))}
             </div>
-            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-700">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-700 sm:text-xs">
               Palette · {paletteColors.length}
             </span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" className="text-neutral-400">
