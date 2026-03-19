@@ -230,30 +230,133 @@ async function sendMagicLinkEmail(to, { loginUrl, expiresInMinutes }) {
 }
 
 // Order confirmation email after LS purchase
-async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderId }) {
+async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderId, amount, currency }) {
+  const formattedAmount = amount
+    ? (currency === "JPY" ? `¥${amount.toLocaleString()}` : `$${(amount / 100).toFixed(2)}`)
+    : null;
+  const orderDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
   const result = await resend.emails.send({
     from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
     to,
     subject: `Your ${productName} download is ready`,
+    text: [
+      `Your ${productName} is ready`,
+      "",
+      "Thanks for your purchase from ColorArchive.",
+      "",
+      "Order details:",
+      `  Product: ${productName}`,
+      formattedAmount ? `  Amount: ${formattedAmount} ${currency}` : null,
+      `  Order ID: ${orderId}`,
+      `  Date: ${orderDate}`,
+      "",
+      "Download your files:",
+      downloadUrl,
+      "",
+      "This download link is unique to your order and does not expire.",
+      "",
+      "What's in the ZIP:",
+      "  - CSS variables (copy-paste ready)",
+      "  - Tailwind CSS 4 theme tokens",
+      "  - JSON data (hex, RGB, HSL for every color)",
+      "  - Usage notes with examples",
+      "",
+      "Quick start:",
+      '  1. Unzip the downloaded file',
+      '  2. Open the CSS file and copy the :root { ... } block',
+      "  3. Paste it into your stylesheet — you're done",
+      "",
+      "Need help? Reply to this email.",
+      "",
+      "— ColorArchive",
+      "https://colorarchive.me",
+    ].filter(Boolean).join("\n"),
     html: `
-      <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
-        <h2 style="color:#1a1a1a">Thanks for your purchase</h2>
-        <p>Your <strong>${productName}</strong> is ready to download.</p>
-        <p>
+      <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:0 auto;color:#1a1a1a">
+        <div style="text-align:center;padding:32px 0 24px">
+          <div style="font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:#6b7280;font-weight:600">Order Confirmation</div>
+          <h1 style="margin:12px 0 0;font-size:24px;font-weight:700;color:#111">Your ${escapeHtml(productName)} is ready</h1>
+        </div>
+
+        <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;margin:0 0 20px">
+          <table style="width:100%;border-collapse:collapse;font-size:14px">
+            <tr>
+              <td style="padding:6px 0;color:#6b7280">Product</td>
+              <td style="padding:6px 0;text-align:right;font-weight:600">${escapeHtml(productName)}</td>
+            </tr>
+            ${formattedAmount ? `<tr>
+              <td style="padding:6px 0;color:#6b7280">Amount</td>
+              <td style="padding:6px 0;text-align:right;font-weight:600">${formattedAmount}</td>
+            </tr>` : ""}
+            <tr>
+              <td style="padding:6px 0;color:#6b7280">Order ID</td>
+              <td style="padding:6px 0;text-align:right;font-family:ui-monospace,monospace;font-size:12px">${escapeHtml(orderId)}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;color:#6b7280">Date</td>
+              <td style="padding:6px 0;text-align:right">${orderDate}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;color:#6b7280">Delivery</td>
+              <td style="padding:6px 0;text-align:right;color:#059669;font-weight:600">Instant download</td>
+            </tr>
+          </table>
+        </div>
+
+        <div style="text-align:center;margin:28px 0">
           <a href="${downloadUrl}"
-             style="display:inline-block;background:#1a1a1a;color:#fff;
-                    padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600">
-            Download Now
+             style="display:inline-block;background:#111;color:#fff;
+                    padding:14px 32px;border-radius:8px;text-decoration:none;
+                    font-weight:700;font-size:15px;letter-spacing:0.3px">
+            Download Your Files
           </a>
-        </p>
-        <p style="color:#666;font-size:14px">
-          Order ID: ${orderId}. This link is unique to your order.
-        </p>
-        <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
-        <p style="color:#999;font-size:12px">
-          Questions? Reply to this email. · ColorArchive ·
-          <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
-        </p>
+          <p style="margin:10px 0 0;font-size:12px;color:#9ca3af">
+            This link is unique to your order and does not expire.
+          </p>
+        </div>
+
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:16px;padding:18px 20px;margin:24px 0">
+          <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#166534;font-weight:700;margin-bottom:10px">Quick start</div>
+          <ol style="margin:0;padding-left:18px;color:#15803d;line-height:1.8;font-size:14px">
+            <li>Unzip the downloaded file</li>
+            <li>Open the CSS file and copy the <code style="background:#dcfce7;padding:2px 6px;border-radius:4px">:root { … }</code> block</li>
+            <li>Paste into your stylesheet — done</li>
+          </ol>
+          <p style="margin:12px 0 0;font-size:13px;color:#166534">
+            The JSON file works in Figma too — import it as a token set.
+          </p>
+        </div>
+
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:16px;padding:18px 20px;margin:24px 0">
+          <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#1d4ed8;font-weight:700;margin-bottom:10px">What's in the ZIP</div>
+          <ul style="margin:0;padding-left:18px;color:#1e40af;line-height:1.8;font-size:14px">
+            <li>CSS variables (copy-paste ready)</li>
+            <li>Tailwind CSS 4 theme tokens</li>
+            <li>JSON data (hex, RGB, HSL for every color)</li>
+            <li>Usage notes with examples</li>
+          </ul>
+        </div>
+
+        <div style="text-align:center;margin:28px 0">
+          <p style="color:#6b7280;font-size:14px;margin:0 0 12px">Explore more from ColorArchive</p>
+          <a href="https://colorarchive.me/packs/" style="color:#1d4ed8;font-weight:600;font-size:14px;text-decoration:none;margin:0 8px">All packs</a>
+          <span style="color:#d1d5db">·</span>
+          <a href="https://colorarchive.me/collections/" style="color:#1d4ed8;font-weight:600;font-size:14px;text-decoration:none;margin:0 8px">Collections</a>
+          <span style="color:#d1d5db">·</span>
+          <a href="https://colorarchive.me/free-pack/" style="color:#1d4ed8;font-weight:600;font-size:14px;text-decoration:none;margin:0 8px">Free pack</a>
+        </div>
+
+        <hr style="border:none;border-top:1px solid #e5e7eb;margin:28px 0">
+        <div style="text-align:center;padding-bottom:24px">
+          <p style="color:#9ca3af;font-size:12px;margin:0 0 4px">
+            Questions? Reply to this email anytime.
+          </p>
+          <p style="color:#9ca3af;font-size:12px;margin:0">
+            ColorArchive · <a href="https://colorarchive.me" style="color:#9ca3af">colorarchive.me</a>
+          </p>
+        </div>
       </div>
     `,
   });
@@ -262,6 +365,10 @@ async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderI
     throw new Error(result.error.message);
   }
   return result;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 // Day-3 follow-up: how to use CSS tokens
@@ -341,23 +448,26 @@ async function sendFollowUp7DayEmail(to) {
       "",
       "You've had the free pack for a week. Here's a quick guide to the paid packs in case one fits:",
       "",
-      "Palette Pack Vol. 1 (¥990) — Best starter pack. 8 curated palettes, CSS + Tailwind tokens.",
-      "https://colorarchive.me/packs/palette-pack-vol-1/",
-      "",
-      "Creator Bundle (¥1,290) — Social-ready palette boards + wallpaper sets for visual content.",
-      "https://colorarchive.me/packs/content-creator-bundle/",
-      "",
-      "Dark Mode UI Kit (¥1,490) — Pre-tested light/dark pairings, contrast-checked, Tailwind ready.",
-      "https://colorarchive.me/packs/dark-mode-ui-kit/",
-      "",
-      "Brand Starter Kit (¥1,790) — Primary + secondary + accent groups for landing pages and brands.",
-      "https://colorarchive.me/packs/brand-starter-kit/",
-      "",
-      "Seasonal: Spring 2026 (¥490) — Limited seasonal direction with mood notes.",
+      "Seasonal: Spring 2026 (¥99) — Limited edition seasonal palettes with mood notes.",
       "https://colorarchive.me/packs/seasonal-spring-2026/",
       "",
-      "Complete Archive Token Set (¥1,980) — All 2016 colors as CSS, JSON, Tailwind, Figma tokens.",
-      "https://colorarchive.me/packs/complete-archive-token-set/",
+      "Palette Pack Vol. 1 (¥299) — Best starter pack. 8 curated palettes, CSS + Tailwind tokens.",
+      "https://colorarchive.me/packs/palette-pack-vol-1/",
+      "",
+      "Dark Mode UI Kit (¥499) — Pre-tested light/dark pairings, contrast-checked, Tailwind ready.",
+      "https://colorarchive.me/packs/dark-mode-ui-kit/",
+      "",
+      "Creator Bundle (¥799) — Social-ready palette boards + wallpaper sets for visual content.",
+      "https://colorarchive.me/packs/content-creator-bundle/",
+      "",
+      "Brand Starter Kit (¥999) — Primary + secondary + accent groups for landing pages and brands.",
+      "https://colorarchive.me/packs/brand-starter-kit/",
+      "",
+      "Complete Archive Token Set (¥1,499) — All 2016 colors as CSS, JSON, Tailwind, Figma tokens.",
+      "https://colorarchive.me/packs/complete-archive/",
+      "",
+      "All Access Bundle (¥2,999) — Everything above in one download. Save 27%.",
+      "https://colorarchive.me/packs/all-access-bundle/",
       "",
       "Questions? Reply here.",
       "",
@@ -369,12 +479,13 @@ async function sendFollowUp7DayEmail(to) {
         <h2 style="color:#1a1a1a">Find the right pack for your project</h2>
         <p style="color:#444;line-height:1.6">You've had the free pack for a week. Here's a quick guide to the paid packs in case one fits what you're building:</p>
         ${[
-          { id: "palette-pack-vol-1", title: "Palette Pack Vol. 1", price: "¥990", desc: "Best starter pack. 8 curated palettes, CSS + Tailwind tokens.", bg: "#f0fdf4", border: "#bbf7d0", titleColor: "#14532d", textColor: "#166534" },
-          { id: "content-creator-bundle", title: "Creator Bundle", price: "¥1,290", desc: "Social-ready palette boards and wallpaper sets for visual content.", bg: "#fff7ed", border: "#fed7aa", titleColor: "#9a3412", textColor: "#7c2d12" },
-          { id: "dark-mode-ui-kit", title: "Dark Mode UI Kit", price: "¥1,490", desc: "Pre-tested light/dark pairings, contrast-checked, Tailwind ready.", bg: "#f5f3ff", border: "#ddd6fe", titleColor: "#6d28d9", textColor: "#5b21b6" },
-          { id: "brand-starter-kit", title: "Brand Color Starter Kit", price: "¥1,790", desc: "Primary + secondary + accent groups for landing pages and brands.", bg: "#eff6ff", border: "#bfdbfe", titleColor: "#1d4ed8", textColor: "#1e3a8a" },
-          { id: "seasonal-spring-2026", title: "Seasonal: Spring 2026", price: "¥490", desc: "Limited edition seasonal direction with mood notes.", bg: "#fdf4ff", border: "#e9d5ff", titleColor: "#7e22ce", textColor: "#6b21a8" },
-          { id: "complete-archive-token-set", title: "Complete Archive Token Set", price: "¥1,980", desc: "All 2016 colors as CSS, JSON, Tailwind, and Figma tokens.", bg: "#fafafa", border: "#e5e7eb", titleColor: "#111827", textColor: "#374151" },
+          { id: "seasonal-spring-2026", title: "Seasonal: Spring 2026", price: "¥99", desc: "Limited edition seasonal palettes with mood notes.", bg: "#fdf4ff", border: "#e9d5ff", titleColor: "#7e22ce", textColor: "#6b21a8" },
+          { id: "palette-pack-vol-1", title: "Palette Pack Vol. 1", price: "¥299", desc: "Best starter pack. 8 curated palettes, CSS + Tailwind tokens.", bg: "#f0fdf4", border: "#bbf7d0", titleColor: "#14532d", textColor: "#166534" },
+          { id: "dark-mode-ui-kit", title: "Dark Mode UI Kit", price: "¥499", desc: "Pre-tested light/dark pairings, contrast-checked, Tailwind ready.", bg: "#f5f3ff", border: "#ddd6fe", titleColor: "#6d28d9", textColor: "#5b21b6" },
+          { id: "content-creator-bundle", title: "Creator Bundle", price: "¥799", desc: "Social-ready palette boards and wallpaper sets for visual content.", bg: "#fff7ed", border: "#fed7aa", titleColor: "#9a3412", textColor: "#7c2d12" },
+          { id: "brand-starter-kit", title: "Brand Color Starter Kit", price: "¥999", desc: "Primary + secondary + accent groups for landing pages and brands.", bg: "#eff6ff", border: "#bfdbfe", titleColor: "#1d4ed8", textColor: "#1e3a8a" },
+          { id: "complete-archive", title: "Complete Archive Token Set", price: "¥1,499", desc: "All 2016 colors as CSS, JSON, Tailwind, and Figma tokens.", bg: "#fafafa", border: "#e5e7eb", titleColor: "#111827", textColor: "#374151" },
+          { id: "all-access-bundle", title: "All Access Bundle", price: "¥2,999", desc: "Everything above in one download. Save 27%.", bg: "#f0fdf4", border: "#86efac", titleColor: "#14532d", textColor: "#166534" },
         ].map(p => `
         <div style="background:${p.bg};border:1px solid ${p.border};border-radius:16px;padding:14px 16px;margin:12px 0">
           <div style="display:flex;justify-content:space-between;align-items:baseline">

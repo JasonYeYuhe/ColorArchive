@@ -103,9 +103,13 @@ router.post("/ls", express.raw({ type: "application/json" }), (req, res) => {
     }
 
     // Send confirmation email (don't await — respond to LS immediately)
-    sendOrderConfirmationEmail(email, { productName, downloadUrl, orderId }).catch(
-      (err) => console.error("email error:", err)
-    );
+    sendOrderConfirmationEmail(email, {
+      productName,
+      downloadUrl,
+      orderId,
+      amount: order.total ?? 0,
+      currency: order.currency ?? "USD",
+    }).catch((err) => console.error("email error:", err));
   }
 
   res.sendStatus(200);
