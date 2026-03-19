@@ -339,14 +339,37 @@ export function ColorDetailPage({
               </div>
 
               <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Archive context
-                </div>
+                <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  About this color
+                </h2>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
-                  This entry lives in the {color.family.toLowerCase()} family and sits at hue{" "}
-                  {color.hue} with {color.saturation}% saturation and {color.lightness}% lightness.
-                  Use it as a stable reference point inside the broader ColorArchive system.
+                  {color.name} ({color.hex}) belongs to the {color.family.toLowerCase()} family —
+                  hue {color.hue}°, {color.saturation}% saturation, {color.lightness}% lightness.
+                  Copy the hex, RGB, or HSL value above, or paste the CSS custom property below into
+                  your stylesheet to reference this color directly.
                 </p>
+                <div className="mt-4 overflow-hidden rounded-xl border border-black/6 bg-neutral-950">
+                  <div className="border-b border-white/6 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">
+                    CSS
+                  </div>
+                  <pre className="overflow-x-auto px-4 py-3 text-sm leading-6 text-white/80">
+                    <span className="text-white/40">{":root {"}</span>{"\n"}
+                    {"  "}
+                    <span className="text-sky-300">
+                      {"--colorarchive-"}
+                      {color.name
+                        .toLowerCase()
+                        .replace(/[^a-z0-9]+/g, "-")
+                        .replace(/^-|-$/g, "")}
+                    </span>
+                    <span className="text-white/60">{": "}</span>
+                    <span className="text-emerald-300">{color.hex}</span>
+                    <span className="text-white/60">{";"}</span>
+                    <span className="text-white/30">{" /* " + color.hsl + " */"}</span>
+                    {"\n"}
+                    <span className="text-white/40">{"}"}</span>
+                  </pre>
+                </div>
               </div>
 
               {(() => {
@@ -354,9 +377,9 @@ export function ColorDetailPage({
                 if (tonalStrip.length < 2) return null;
                 return (
                   <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
-                    <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                    <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                       Tonal strip
-                    </div>
+                    </h2>
                     <p className="mt-2 text-sm leading-6 text-neutral-500">
                       All lightness levels at this hue and saturation. Click any to navigate.
                     </p>
@@ -385,9 +408,9 @@ export function ColorDetailPage({
               })()}
 
               <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                   Palette moves
-                </div>
+                </h2>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
                   Instead of stopping at one swatch, use nearby, opposite, and tonal neighbors to
                   branch into a broader palette.
@@ -417,9 +440,9 @@ export function ColorDetailPage({
               <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                    <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                       Nearest neighbors
-                    </div>
+                    </h2>
                     <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
                       The closest archive matches by hue, saturation, and lightness.
                     </p>
@@ -443,9 +466,9 @@ export function ColorDetailPage({
                 <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                      <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                         Recent trail
-                      </div>
+                      </h2>
                       <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
                         Colors you viewed recently in this browser session.
                       </p>
@@ -470,9 +493,9 @@ export function ColorDetailPage({
             <aside className="rounded-[1.8rem] border border-black/6 bg-white/78 p-5 shadow-[0_20px_56px_rgba(15,23,42,0.05)]">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  <p className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                     Related colors
-                  </div>
+                  </p>
                   <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
                     More from {color.family}
                   </h2>

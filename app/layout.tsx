@@ -8,7 +8,7 @@ import "./globals.css";
 
 const siteTitle = "ColorArchive";
 const siteDescription =
-  "A calm, searchable archive of curated colors with copyable hex codes and elegant visual sorting.";
+  "ColorArchive — 2016 curated hex color codes organized by family and hue. Search, copy, build palettes, and export design tokens for Figma, CSS, and Tailwind.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://colorarchive.me"),
@@ -20,12 +20,16 @@ export const metadata: Metadata = {
   description: siteDescription,
   applicationName: siteTitle,
   keywords: [
-    "ColorArchive",
-    "color library",
+    "hex color codes",
+    "color palette generator",
+    "design color library",
     "color archive",
-    "hex colors",
-    "design palette",
+    "Figma color tokens",
+    "CSS color variables",
+    "Tailwind color palette",
     "color inspiration",
+    "hex color picker",
+    "design tokens",
   ],
   alternates: {
     canonical: "/",

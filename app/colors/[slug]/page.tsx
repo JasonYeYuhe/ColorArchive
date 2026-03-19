@@ -98,11 +98,11 @@ export async function generateMetadata({ params }: ColorPageProps): Promise<Meta
   const familyLower = color.family.toLowerCase();
   const usageHint = getUsageHint(color.lightness, color.saturation);
 
-  const title = `${color.name} (${color.hex}) — ColorArchive`;
-  const description = `${color.name} is a ${temperature}, ${lightnessLabel} ${familyLower} with ${saturationLabel} saturation. ${usageHint} Explore complementary colors, tonal companions, and export design tokens at ColorArchive.`;
+  const title = `${color.name} — ${color.hex} Hex Color Code | ColorArchive`;
+  const description = `${color.hex} is a ${temperature}, ${lightnessLabel} ${familyLower} named ${color.name}. ${usageHint} Find complementary colors, tonal variants, and export as CSS, Figma tokens, or Tailwind config at ColorArchive.`;
 
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: {
       canonical: `/colors/${color.id}/`,
@@ -138,10 +138,10 @@ export default async function ColorPage({ params }: ColorPageProps) {
   const colorStructuredData = {
     "@context": "https://schema.org",
     "@type": "Thing",
-    name: color.name,
-    description: `${color.name} ${color.hex} from the ${color.family} family in ColorArchive.`,
+    name: `${color.name} ${color.hex}`,
+    description: `${color.hex} is a ${color.family.toLowerCase()} hex color code named ${color.name}. ${getUsageHint(color.lightness, color.saturation)}`,
     url: `https://colorarchive.me/colors/${color.id}/`,
-    identifier: color.id,
+    identifier: color.hex,
     additionalProperty: [
       { "@type": "PropertyValue", name: "HEX", value: color.hex },
       { "@type": "PropertyValue", name: "RGB", value: color.rgb },
@@ -169,10 +169,41 @@ export default async function ColorPage({ params }: ColorPageProps) {
     ],
   };
 
+  const breadcrumbStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "ColorArchive",
+        item: "https://colorarchive.me/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Colors",
+        item: "https://colorarchive.me/colors/",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: color.family,
+        item: `https://colorarchive.me/colors/?family=${encodeURIComponent(color.family)}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: `${color.name} ${color.hex}`,
+        item: `https://colorarchive.me/colors/${color.id}/`,
+      },
+    ],
+  };
+
   return (
     <>
       <SiteHeader currentPath="/colors" />
-      <StructuredDataScript data={colorStructuredData} />
+      <StructuredDataScript data={[colorStructuredData, breadcrumbStructuredData]} />
       <ColorDetailPage
         allColors={colors}
         color={color}

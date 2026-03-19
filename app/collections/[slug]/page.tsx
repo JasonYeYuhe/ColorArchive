@@ -29,10 +29,10 @@ export async function generateMetadata({
   }
 
   return {
-    title: collection.title,
+    title: { absolute: `${collection.title} — Color Palette | ColorArchive` },
     description: collection.summary,
     alternates: {
-      canonical: `/collections/${collection.id}`,
+      canonical: `/collections/${collection.id}/`,
     },
     openGraph: {
       images: [`https://colorarchive.me/generated/og/collections/${collection.id}.svg`],
@@ -77,6 +77,15 @@ export default async function CollectionDetailRoute({
         url: `https://colorarchive.me/colors/${color.id}/`,
         name: color.name,
       })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
+        { "@type": "ListItem", position: 2, name: "Collections", item: "https://colorarchive.me/collections/" },
+        { "@type": "ListItem", position: 3, name: collection.title, item: `https://colorarchive.me/collections/${collection.id}/` },
+      ],
     },
   ];
 
