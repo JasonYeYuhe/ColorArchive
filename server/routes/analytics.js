@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
+const { requireAnalyticsAccess } = require("../auth");
+
+router.use(requireAnalyticsAccess);
 
 function getSubscriberCountBySource(source) {
   return (

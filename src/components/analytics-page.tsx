@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "@/src/components/auth-provider";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
 
@@ -124,6 +126,7 @@ function MiniBarChart({
 }
 
 export function AnalyticsPage() {
+  const { analyticsAccess, status } = useAuth();
   const [state, setState] = useState<LoadState>("idle");
   const [data, setData] = useState<AnalyticsResponse | null>(null);
   const [error, setError] = useState("");
@@ -138,12 +141,21 @@ export function AnalyticsPage() {
       try {
         const response = await fetch(`${API_URL}/analytics`, {
           method: "GET",
+          credentials: "include",
           headers: {
             Accept: "application/json",
           },
         });
 
         if (!response.ok) {
+          if (response.status === 401) {
+            throw new Error("Sign in to view analytics.");
+          }
+
+          if (response.status === 403) {
+            throw new Error("This account does not have analytics access.");
+          }
+
           throw new Error(`Analytics request failed with ${response.status}`);
         }
 
@@ -199,7 +211,21 @@ export function AnalyticsPage() {
 
         {state === "error" ? (
           <section className="rounded-[1.75rem] border border-red-200 bg-red-50 p-6 text-sm text-red-700 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            {error}
+            <div>{error}</div>
+            {status !== "authenticated" ? (
+              <Link
+                href="/login?next=/analytics"
+                className="mt-4 inline-flex rounded-full border border-red-200 bg-white px-4 py-2 text-sm font-medium text-red-700 transition hover:bg-red-50"
+              >
+                Sign in
+              </Link>
+            ) : null}
+          </section>
+        ) : null}
+
+        {status === "authenticated" && !analyticsAccess && state !== "success" ? (
+          <section className="rounded-[1.75rem] border border-amber-200 bg-amber-50 p-6 text-sm text-amber-800 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            This account is signed in, but analytics access is limited to allowlisted admin emails.
           </section>
         ) : null}
 

@@ -2,8 +2,16 @@ const crypto = require("crypto");
 const db = require("./db");
 
 const SESSION_COOKIE = "colorarchive_session";
+const GOOGLE_STATE_COOKIE = "colorarchive_google_state";
 const MAGIC_LINK_TTL_MS = 1000 * 60 * 30;
 const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 30;
+const GOOGLE_STATE_TTL_MS = 1000 * 60 * 10;
+const ADMIN_EMAILS = new Set(
+  (process.env.ADMIN_EMAILS || "")
+    .split(",")
+    .map((value) => value.trim().toLowerCase())
+    .filter(Boolean),
+);
 
 function now() {
   return Date.now();
@@ -48,6 +56,23 @@ function buildClearCookie() {
   return `${SESSION_COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`;
 }
 
+function buildNamedCookie(name, value, maxAgeMs) {
+  const parts = [
+    `${name}=${encodeURIComponent(value)}`,
+    "Path=/",
+    "HttpOnly",
+    "Secure",
+    "SameSite=Lax",
+    `Max-Age=${Math.floor(maxAgeMs / 1000)}`,
+  ];
+
+  return parts.join("; ");
+}
+
+function buildNamedClearCookie(name) {
+  return `${name}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`;
+}
+
 function getOrCreateUser(email) {
   const normalizedEmail = email.trim().toLowerCase();
 
@@ -56,6 +81,10 @@ function getOrCreateUser(email) {
   return db
     .prepare("SELECT id, email, created_at FROM users WHERE email = ?")
     .get(normalizedEmail);
+}
+
+function isAnalyticsAdmin(user) {
+  return Boolean(user && (ADMIN_EMAILS.size === 0 || ADMIN_EMAILS.has(user.email)));
 }
 
 function createMagicLinkToken(email) {
@@ -179,11 +208,39 @@ function clearSessionCookie(res) {
   res.setHeader("Set-Cookie", buildClearCookie());
 }
 
+function setGoogleStateCookie(res, state) {
+  res.append("Set-Cookie", buildNamedCookie(GOOGLE_STATE_COOKIE, state, GOOGLE_STATE_TTL_MS));
+}
+
+function clearGoogleStateCookie(res) {
+  res.append("Set-Cookie", buildNamedClearCookie(GOOGLE_STATE_COOKIE));
+}
+
+function getGoogleState(req) {
+  const cookies = parseCookies(req);
+  return cookies[GOOGLE_STATE_COOKIE] ?? null;
+}
+
 function requireUser(req, res, next) {
   const user = getSessionUser(req);
 
   if (!user) {
     return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  req.user = user;
+  return next();
+}
+
+function requireAnalyticsAccess(req, res, next) {
+  const user = getSessionUser(req);
+
+  if (!user) {
+    return res.status(401).json({ error: "Authentication required" });
+  }
+
+  if (!isAnalyticsAdmin(user)) {
+    return res.status(403).json({ error: "Analytics access denied" });
   }
 
   req.user = user;
@@ -255,7 +312,13 @@ module.exports = {
   clearSessionCookie,
   clearSession,
   requireUser,
+  requireAnalyticsAccess,
   getUserPreferences,
   saveUserPreferences,
+  getOrCreateUser,
+  isAnalyticsAdmin,
+  setGoogleStateCookie,
+  clearGoogleStateCookie,
+  getGoogleState,
   MAGIC_LINK_TTL_MS,
 };

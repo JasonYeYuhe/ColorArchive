@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const crypto = require("crypto");
 const db = require("../db");
+const { findCatalogProduct, getDownloadUrl } = require("../catalog");
 const { sendOrderConfirmationEmail } = require("../email");
 
 // Verify Lemon Squeezy webhook signature
@@ -39,19 +40,28 @@ router.post("/ls", express.raw({ type: "application/json" }), (req, res) => {
     const email = order.user_email;
     const productName = order.first_order_item?.product_name ?? "your pack";
     const orderId = String(payload.data?.id ?? "");
-    // LS provides a receipt URL; use it as the download link
-    const downloadUrl = order.receipt || "https://colorarchive.me/packs";
+    const receiptUrl = order.receipt || null;
+    const matchedProduct = findCatalogProduct(productName);
+    const downloadUrl = getDownloadUrl(productName) || receiptUrl || "https://colorarchive.me/packs";
 
     // Persist order
     try {
       db.prepare(
-        "INSERT OR IGNORE INTO orders (ls_order_id, email, product, amount, currency) VALUES (?, ?, ?, ?, ?)"
+        `
+          INSERT OR IGNORE INTO orders (
+            ls_order_id, email, product, amount, currency, pack_id, download_url, receipt_url
+          )
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `
       ).run(
         orderId,
         email,
         productName,
         order.total ?? 0,
-        order.currency ?? "USD"
+        order.currency ?? "USD",
+        matchedProduct?.packId ?? null,
+        downloadUrl,
+        receiptUrl
       );
 
       // Also add buyer to subscribers list

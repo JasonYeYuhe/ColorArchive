@@ -101,7 +101,15 @@ function isActive(item: NavItem, currentPath: string): boolean {
 
 export function SiteHeader({ currentPath }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { logout, status, user } = useAuth();
+  const { analyticsAccess, logout, status, user } = useAuth();
+  const mobileMenuGroups = MOBILE_MENU_GROUPS.map((group) =>
+    group.label === "Project"
+      ? {
+          ...group,
+          items: group.items.filter((item) => item.href !== "/analytics" || analyticsAccess),
+        }
+      : group,
+  );
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -196,7 +204,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
                 </div>
               </div>
 
-              {MOBILE_MENU_GROUPS.map((group) => (
+              {mobileMenuGroups.map((group) => (
                 <div key={group.label}>
                   <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
                     {group.label}

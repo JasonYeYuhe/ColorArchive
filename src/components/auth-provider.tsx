@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import {
+  type AuthSession,
   fetchPreferences,
   fetchSession,
   logout as logoutRequest,
@@ -38,6 +39,8 @@ interface AuthContextValue {
   user: AuthUser | null;
   status: AuthStatus;
   lastSyncAt: number | null;
+  googleEnabled: boolean;
+  analyticsAccess: boolean;
   requestMagicLink: (email: string) => Promise<void>;
   verifyMagicLink: (token: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -72,6 +75,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [status, setStatus] = useState<AuthStatus>("loading");
   const [lastSyncAt, setLastSyncAt] = useState<number | null>(null);
+  const [googleEnabled, setGoogleEnabled] = useState(false);
+  const [analyticsAccess, setAnalyticsAccess] = useState(false);
   const syncEnabledRef = useRef(false);
   const persistTimeoutRef = useRef<number | null>(null);
   const preferencesRef = useRef<UserPreferences>({
@@ -95,6 +100,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     setLastSyncAt(Date.now());
+  }, []);
+
+  const applySession = useCallback((session: AuthSession) => {
+    setUser(session.user);
+    setGoogleEnabled(session.auth.googleEnabled);
+    setAnalyticsAccess(session.auth.analyticsAccess);
+    setStatus(session.user ? "authenticated" : "anonymous");
   }, []);
 
   const schedulePersist = useCallback(() => {
@@ -128,14 +140,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
 
         if (!session.user) {
-          setUser(null);
-          setStatus("anonymous");
+          applySession(session);
           syncEnabledRef.current = false;
           return;
         }
 
-        setUser(session.user);
-        setStatus("authenticated");
+        applySession(session);
         syncEnabledRef.current = false;
         await applyRemotePreferences();
 
@@ -147,6 +157,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (!cancelled) {
           setUser(null);
           setStatus("anonymous");
+          setGoogleEnabled(false);
+          setAnalyticsAccess(false);
           syncEnabledRef.current = false;
         }
       }
@@ -160,7 +172,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         window.clearTimeout(persistTimeoutRef.current);
       }
     };
-  }, [applyRemotePreferences]);
+  }, [applyRemotePreferences, applySession]);
 
   useEffect(() => {
     if (!user) {
@@ -195,12 +207,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const verifyMagicLink = useCallback(async (token: string) => {
     syncEnabledRef.current = false;
-    const result = await verifyMagicLinkRequest(token);
-    setUser(result.user);
-    setStatus("authenticated");
+    await verifyMagicLinkRequest(token);
+    const session = await fetchSession();
+    applySession(session);
     await applyRemotePreferences();
     syncEnabledRef.current = true;
-  }, [applyRemotePreferences]);
+  }, [applyRemotePreferences, applySession]);
 
   const logout = useCallback(async () => {
     if (persistTimeoutRef.current) {
@@ -210,6 +222,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
     setStatus("anonymous");
     setLastSyncAt(null);
+    setAnalyticsAccess(false);
     syncEnabledRef.current = false;
   }, []);
 
@@ -218,11 +231,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user,
       status,
       lastSyncAt,
+      googleEnabled,
+      analyticsAccess,
       requestMagicLink,
       verifyMagicLink,
       logout,
     }),
-    [lastSyncAt, logout, requestMagicLink, status, user, verifyMagicLink],
+    [
+      analyticsAccess,
+      googleEnabled,
+      lastSyncAt,
+      logout,
+      requestMagicLink,
+      status,
+      user,
+      verifyMagicLink,
+    ],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

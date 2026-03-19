@@ -3,6 +3,16 @@ const path = require("path");
 
 const db = new Database(path.join(__dirname, "data.db"));
 
+function ensureColumn(tableName, definition) {
+  try {
+    db.exec(`ALTER TABLE ${tableName} ADD COLUMN ${definition}`);
+  } catch (error) {
+    if (!String(error.message).includes("duplicate column name")) {
+      throw error;
+    }
+  }
+}
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS subscribers (
     id        INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,5 +64,9 @@ db.exec(`
     FOREIGN KEY (user_id) REFERENCES users(id)
   );
 `);
+
+ensureColumn("orders", "pack_id TEXT");
+ensureColumn("orders", "download_url TEXT");
+ensureColumn("orders", "receipt_url TEXT");
 
 module.exports = db;

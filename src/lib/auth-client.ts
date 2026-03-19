@@ -1,6 +1,6 @@
 "use client";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
 
 export interface AuthUser {
   id: number;
@@ -11,6 +11,26 @@ export interface AuthUser {
 export interface UserPreferences {
   favorites: string[];
   palette: string[];
+}
+
+export interface AuthSession {
+  user: AuthUser | null;
+  auth: {
+    googleEnabled: boolean;
+    analyticsAccess: boolean;
+  };
+}
+
+export interface AccountOrder {
+  orderId: string;
+  product: string;
+  amount: number;
+  currency: string;
+  created_at: string;
+  packId: string | null;
+  downloadUrl: string | null;
+  receiptUrl: string | null;
+  packUrl: string | null;
 }
 
 async function parseResponse<T>(response: Response): Promise<T> {
@@ -27,12 +47,12 @@ async function parseResponse<T>(response: Response): Promise<T> {
   return data;
 }
 
-export async function fetchSession(): Promise<{ user: AuthUser | null }> {
+export async function fetchSession(): Promise<AuthSession> {
   const response = await fetch(`${API_URL}/auth/session`, {
     credentials: "include",
   });
 
-  return parseResponse<{ user: AuthUser | null }>(response);
+  return parseResponse<AuthSession>(response);
 }
 
 export async function requestMagicLink(email: string): Promise<void> {
@@ -83,4 +103,12 @@ export async function savePreferences(preferences: UserPreferences): Promise<Use
   });
 
   return parseResponse<UserPreferences>(response);
+}
+
+export async function fetchOrders(): Promise<{ orders: AccountOrder[] }> {
+  const response = await fetch(`${API_URL}/me/orders`, {
+    credentials: "include",
+  });
+
+  return parseResponse<{ orders: AccountOrder[] }>(response);
 }

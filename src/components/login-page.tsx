@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { API_URL, fetchOrders, type AccountOrder } from "@/src/lib/auth-client";
 import { useAuth } from "@/src/components/auth-provider";
 
 type FormState = "idle" | "loading" | "success" | "error";
 type VerifyState = "idle" | "loading" | "success" | "error";
+type OrdersState = "idle" | "loading" | "success" | "error";
 
 function formatSyncTime(timestamp: number | null) {
   if (!timestamp) {
@@ -24,14 +26,42 @@ function formatSyncTime(timestamp: number | null) {
 export function LoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { lastSyncAt, logout, requestMagicLink, status, user, verifyMagicLink } = useAuth();
+  const {
+    analyticsAccess,
+    googleEnabled,
+    lastSyncAt,
+    logout,
+    requestMagicLink,
+    status,
+    user,
+    verifyMagicLink,
+  } = useAuth();
   const [email, setEmail] = useState("");
   const [formState, setFormState] = useState<FormState>("idle");
   const [verifyState, setVerifyState] = useState<VerifyState>("idle");
+  const [ordersState, setOrdersState] = useState<OrdersState>("idle");
+  const [orders, setOrders] = useState<AccountOrder[]>([]);
   const [error, setError] = useState("");
+  const [ordersError, setOrdersError] = useState("");
 
   const token = searchParams.get("token");
+  const loginError = searchParams.get("error");
   const nextPath = useMemo(() => searchParams.get("next") || "/favorites", [searchParams]);
+
+  useEffect(() => {
+    if (!loginError) {
+      return;
+    }
+
+    const messages: Record<string, string> = {
+      "google-failed": "Google sign-in could not be completed.",
+      "google-invalid": "Google sign-in returned an invalid response.",
+      "google-not-configured": "Google sign-in is not configured yet.",
+      "google-state": "Google sign-in expired. Please try again.",
+    };
+
+    setError(messages[loginError] ?? "Could not complete sign-in.");
+  }, [loginError]);
 
   useEffect(() => {
     if (!token || verifyState !== "idle" || status === "loading") {
@@ -108,6 +138,51 @@ export function LoginPage() {
     }
   }
 
+  useEffect(() => {
+    if (!user) {
+      setOrders([]);
+      setOrdersState("idle");
+      setOrdersError("");
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadOrders() {
+      setOrdersState("loading");
+      setOrdersError("");
+
+      try {
+        const payload = await fetchOrders();
+        if (cancelled) {
+          return;
+        }
+
+        setOrders(payload.orders);
+        setOrdersState("success");
+      } catch (err) {
+        if (cancelled) {
+          return;
+        }
+
+        setOrdersState("error");
+        setOrdersError(err instanceof Error ? err.message : "Could not load orders");
+      }
+    }
+
+    void loadOrders();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
+  function handleGoogleLogin() {
+    window.location.assign(
+      `${API_URL}/auth/google/start?next=${encodeURIComponent(nextPath)}`,
+    );
+  }
+
   if (token && (verifyState === "loading" || verifyState === "success")) {
     return (
       <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -143,15 +218,15 @@ export function LoginPage() {
           </h1>
 
           <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg">
-            ColorArchive now supports passwordless sign-in. One email link is enough to keep your
-            saved colors and working palettes in sync.
+            ColorArchive now supports account sync. Use a magic link today, or Google sign-in when
+            configured, to keep favorites, palettes, and downloads tied to one account.
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {[
               "No password to remember",
               "Favorites sync automatically",
-              "Palette builder follows your account",
+              "Palette builder and downloads follow your account",
             ].map((item) => (
               <div
                 key={item}
@@ -163,8 +238,9 @@ export function LoginPage() {
           </div>
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-          <div className="rounded-[1.75rem] border border-black/6 bg-white/82 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+        <section className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <div className="space-y-6">
+            <div className="rounded-[1.75rem] border border-black/6 bg-white/82 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             {user ? (
               <>
                 <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
@@ -174,7 +250,8 @@ export function LoginPage() {
                   {user.email}
                 </h2>
                 <p className="mt-3 text-sm leading-6 text-neutral-600">
-                  Your local favorites and palette are now tied to this account.
+                  Your local favorites and palette are now tied to this account. Purchased packs
+                  also appear below as a lightweight account history.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
@@ -183,6 +260,20 @@ export function LoginPage() {
                   >
                     Open favorites
                   </Link>
+                  <Link
+                    href="/packs"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                  >
+                    Browse packs
+                  </Link>
+                  {analyticsAccess ? (
+                    <Link
+                      href="/analytics"
+                      className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                    >
+                      Open analytics
+                    </Link>
+                  ) : null}
                   <Link
                     href="/palette"
                     className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
@@ -227,7 +318,7 @@ export function LoginPage() {
                   Sign in
                 </div>
                 <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                  Request a magic link
+                  Request a sign-in link
                 </h2>
                 <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
                   <input
@@ -246,14 +337,131 @@ export function LoginPage() {
                     {formState === "loading" ? "Sending link…" : "Email me a login link"}
                   </button>
                 </form>
+                {googleEnabled ? (
+                  <>
+                    <div className="my-4 flex items-center gap-3">
+                      <div className="h-px flex-1 bg-black/8" />
+                      <div className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+                        or
+                      </div>
+                      <div className="h-px flex-1 bg-black/8" />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleGoogleLogin}
+                      className="rounded-full border border-black/8 bg-white px-4 py-3 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                    >
+                      Continue with Google
+                    </button>
+                  </>
+                ) : null}
                 <p className="mt-4 text-sm leading-6 text-neutral-600">
-                  No password. One link. Favorites and palette builder sync automatically after you
-                  sign in.
+                  No password. One link. Favorites, palette builder, and account history sync after
+                  you sign in.
                 </p>
               </>
             )}
 
             {error ? <p className="mt-4 text-sm text-red-600">{error}</p> : null}
+            </div>
+
+            {user ? (
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/82 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                      Orders & downloads
+                    </div>
+                    <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                      Your pack history
+                    </h3>
+                  </div>
+                  <div className="rounded-full border border-black/8 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-neutral-500">
+                    {orders.length} orders
+                  </div>
+                </div>
+
+                {ordersState === "loading" || ordersState === "idle" ? (
+                  <p className="mt-5 text-sm text-neutral-500">Loading your orders…</p>
+                ) : null}
+
+                {ordersState === "error" ? (
+                  <p className="mt-5 text-sm text-red-600">{ordersError}</p>
+                ) : null}
+
+                {ordersState === "success" && orders.length === 0 ? (
+                  <p className="mt-5 text-sm leading-6 text-neutral-600">
+                    No purchases are tied to this email yet. Once you buy a pack with the same
+                    address, it will appear here with direct download links.
+                  </p>
+                ) : null}
+
+                {orders.length > 0 ? (
+                  <div className="mt-5 grid gap-3">
+                    {orders.map((order) => (
+                      <article
+                        key={`${order.orderId}-${order.created_at}`}
+                        className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4"
+                      >
+                        <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                          <div>
+                            <div className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">
+                              {order.product}
+                            </div>
+                            <div className="mt-2 text-sm leading-6 text-neutral-600">
+                              {new Intl.NumberFormat("en-US", {
+                                style: "currency",
+                                currency: order.currency,
+                                maximumFractionDigits: order.currency === "JPY" ? 0 : 2,
+                              }).format(order.currency === "JPY" ? order.amount : order.amount / 100)}
+                              {" · "}
+                              {new Intl.DateTimeFormat("en-US", {
+                                dateStyle: "medium",
+                                timeStyle: "short",
+                              }).format(new Date(order.created_at))}
+                            </div>
+                            <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
+                              Order {order.orderId}
+                            </div>
+                          </div>
+
+                          <div className="flex flex-wrap gap-2">
+                            {order.downloadUrl ? (
+                              <a
+                                href={order.downloadUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                              >
+                                Download ZIP
+                              </a>
+                            ) : null}
+                            {order.packUrl ? (
+                              <a
+                                href={order.packUrl}
+                                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                              >
+                                Pack page
+                              </a>
+                            ) : null}
+                            {order.receiptUrl ? (
+                              <a
+                                href={order.receiptUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                              >
+                                Receipt
+                              </a>
+                            ) : null}
+                          </div>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
           </div>
 
           <aside className="rounded-[1.75rem] border border-black/6 bg-white/78 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
@@ -274,8 +482,8 @@ export function LoginPage() {
                 account.
               </p>
               <p>
-                Downloads and deeper account history can be added later without replacing this login
-                flow.
+                Purchased packs are now shown on this page as a lightweight order and download
+                history.
               </p>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -291,6 +499,20 @@ export function LoginPage() {
               >
                 Palette builder
               </Link>
+              <Link
+                href="/packs"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Packs
+              </Link>
+              {analyticsAccess ? (
+                <Link
+                  href="/analytics"
+                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                >
+                  Analytics
+                </Link>
+              ) : null}
             </div>
           </aside>
         </section>
