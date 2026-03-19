@@ -47,7 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: "https://colorarchive.me/notes",
-      lastModified: new Date("2026-03-19"),
+      lastModified: new Date("2026-05-14"),
       changeFrequency: "weekly",
       priority: 0.76,
     },
