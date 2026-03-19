@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { generateColorFromWord } from "@/src/lib/word-color";
@@ -237,6 +238,29 @@ export function WordColorGeneratorPage() {
                     The same word always returns the same color, making it useful as a lightweight
                     visual signature.
                   </p>
+                </div>
+              </div>
+
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Find in archive
+                </div>
+                <p className="mt-2 text-sm leading-6 text-neutral-600">
+                  Search the curated ColorArchive for colors nearest to this generated hex.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Link
+                    href={`/search?hex=${encodeURIComponent(generated.hex)}`}
+                    className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
+                  >
+                    Search by hex
+                  </Link>
+                  <Link
+                    href="/colors/"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                  >
+                    Browse archive
+                  </Link>
                 </div>
               </div>
 
