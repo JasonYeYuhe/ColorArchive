@@ -177,14 +177,14 @@ export function NoteDetailPage({
               <div className="mt-2 text-sm text-neutral-500">{nextIssue.date}</div>
             </Link>
           ) : (
-            <div className="rounded-[1.5rem] border border-black/6 bg-neutral-950 px-5 py-6 text-white">
-              <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40">
+            <div className="rounded-[1.5rem] border border-black/6 bg-neutral-950 px-5 py-6 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
                 Stay in the loop
               </div>
               <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
                 You've reached the latest issue
               </p>
-              <p className="mt-2 text-sm leading-6 text-white/60">
+              <p className="mt-2 text-sm leading-6 text-white/60 dark:text-neutral-500">
                 Get notified when new issues and palette drops land.
               </p>
               <div className="mt-4">

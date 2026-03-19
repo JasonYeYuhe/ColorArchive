@@ -475,33 +475,33 @@ export function ColorDetailPage({
                 </div>
               </div>
 
-              <div className="rounded-[1.6rem] border border-black/6 bg-neutral-950 p-5 text-white">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40">
+              <div className="rounded-[1.6rem] border border-black/6 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
                   Ready to build
                 </div>
                 <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
                   Turn these colors into design tokens
                 </p>
-                <p className="mt-2 max-w-xl text-sm leading-6 text-white/60">
+                <p className="mt-2 max-w-xl text-sm leading-6 text-white/60 dark:text-neutral-500">
                   ColorArchive packs include CSS variables, Figma tokens, Tailwind config, and
                   Procreate swatches — ready to drop into any project.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
                     href="/packs/"
-                    className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200"
+                    className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
                   >
                     Browse packs
                   </Link>
                   <Link
                     href="/free-pack/"
-                    className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white"
+                    className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
                   >
                     Free download
                   </Link>
                   <Link
                     href="/collections/"
-                    className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white"
+                    className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
                   >
                     View collections
                   </Link>
