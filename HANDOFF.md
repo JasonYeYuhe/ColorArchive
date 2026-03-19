@@ -18,6 +18,7 @@ Last updated: 2026-03-19
 - Rewrote `/thanks` into a real post-purchase hub with inbox expectations, account/resend route, and stronger next-step navigation
 - Reworked `/cancel` into a recovery page with 3 clear paths: FIRSTPACK starter offer, free sample, and All Access Bundle
 - Strengthened `/packs/all-access-bundle/` with individual-pack comparison cards, total-vs-bundle pricing, and explicit savings breakdown
+- Added Notes Issue 006 and 007 to keep `/notes` fresh and support conversion / token-workflow search intent
 - Added `docs/commerce-ops-checklist.md` covering Lemon Squeezy production settings, return URLs, smoke test flow, and GSC submission steps
 - Updated PRODUCT_MEMO with the new conversion work and current manual ops reminder
 

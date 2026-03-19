@@ -628,6 +628,7 @@ Codex 当前方向：
 - ✅ `/cancel` 改为挽回页，强化 starter 折扣、free layer 和 All Access Bundle 三条回流路径
 - ✅ All Access Bundle 详情页增加单品对比、总价 vs bundle 价和节省金额拆解
 - ✅ 新增 `docs/commerce-ops-checklist.md`，整理 LS 生产设置、回跳 URL、购买 smoke test 与 GSC 提交步骤
+- ✅ `/notes` 新增 Issue 006（free pack 转化逻辑）和 Issue 007（design token workflow / bundle 价值）
 
 ### 当前优先级
 

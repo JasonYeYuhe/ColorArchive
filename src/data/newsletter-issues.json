@@ -1,5 +1,73 @@
 [
   {
+    "slug": "june-2026-design-tokens-that-dont-drift",
+    "date": "2026-06-04",
+    "title": "Design tokens that don't drift across CSS, Tailwind, and Figma",
+    "summary": "Why token exports break after handoff, how to keep reference and alias layers aligned, and where the All Access Bundle fits when a team needs one color source of truth.",
+    "eyebrow": "Issue 007",
+    "tags": ["Figma", "Tokens", "Workflow"],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "all-access-bundle",
+    "highlights": [
+      "Token drift starts when the design file, CSS variables, and framework theme stop pointing to the same role model.",
+      "Reference tokens hold raw color values; alias tokens map those values to product roles like surface, accent, and text.",
+      "The All Access Bundle is the cleanest path if you need full archive coverage plus brand, seasonal, creator, and dark mode lanes in one source."
+    ],
+    "sections": [
+      {
+        "heading": "Why token systems drift",
+        "body": "Most teams do not lose consistency because they chose the wrong blue. They lose it because one color value lives in Figma, a slightly different one ships in CSS, and Tailwind gets updated last. Once those files stop moving together, every revision compounds the mismatch. Drift is operational, not aesthetic."
+      },
+      {
+        "heading": "Reference versus alias layers",
+        "body": "The safest structure is two-layered. Reference tokens store the actual color values. Alias tokens point to those values with semantic names like surface, border, accent, or success. That means a palette refresh updates the value layer without forcing a rename across product UI, design files, and implementation. It also makes dark mode pairing far less chaotic because the role survives while the underlying value swaps."
+      },
+      {
+        "heading": "Where the bundle becomes useful",
+        "body": "The All Access Bundle is not just a larger ZIP. It is a decision-reduction tool for teams that already know they will need more than one lane: full archive coverage, dark mode pairings, seasonal sets, creator assets, and brand starter structure. The value is not only the discount. It is having one coherent export base instead of buying assets piecemeal and stitching them together later."
+      }
+    ],
+    "links": [
+      { "label": "Open All Access Bundle", "href": "/packs/all-access-bundle" },
+      { "label": "Open Complete Archive Token Set", "href": "/packs/complete-archive" },
+      { "label": "Open Quiet Luxury", "href": "/collections/quiet-luxury" }
+    ]
+  },
+  {
+    "slug": "may-2026-free-pack-that-sells",
+    "date": "2026-05-28",
+    "title": "Why the free pack has to feel like the paid product",
+    "summary": "A note on conversion quality: a free download should prove file quality, naming, and taste clearly enough that the paid packs feel like a larger version of the same system.",
+    "eyebrow": "Issue 006",
+    "tags": ["Conversion", "Downloads", "Product"],
+    "featuredCollectionId": "editorial-warmth",
+    "featuredPackId": "content-creator-bundle",
+    "highlights": [
+      "A weak freebie does not create demand for the paid product; it creates doubt about the paid product.",
+      "The free layer should prove structure, naming, and visual taste, not just hand over a few loose swatches.",
+      "Creator-facing packs convert better when the free sample already looks usable in a real publishing or social workflow."
+    ],
+    "sections": [
+      {
+        "heading": "Free does not mean throwaway",
+        "body": "Most free downloads underperform because they feel disposable. Three unlabeled colors and a vague PDF do not build trust. A proper free pack should show the same standards as the paid layer: clear naming, coherent palette logic, file formats that open cleanly, and enough explanation that the user can imagine applying it within minutes. The point is not generosity by volume. It is credibility by structure."
+      },
+      {
+        "heading": "Why this matters for conversion",
+        "body": "The user does not buy a palette pack only because they like one color combination. They buy because they trust the files will be usable once opened. The free layer is where that trust gets established. If the free pack already demonstrates clean exports, thoughtful labels, and real usage framing, then the paid packs read as expanded capability rather than a leap of faith."
+      },
+      {
+        "heading": "The Creator Bundle upgrade path",
+        "body": "The Creator Bundle is the most natural upgrade from the free layer because the use case is immediate: publishing surfaces, social-ready boards, wallpaper assets, and prompt-friendly palette descriptions. Someone who likes the free sample should not have to re-interpret what the paid product is. The relationship should feel obvious: same taste, same file discipline, more breadth."
+      }
+    ],
+    "links": [
+      { "label": "Get the Free Sample Pack", "href": "/free-pack" },
+      { "label": "Open Creator Bundle", "href": "/packs/content-creator-bundle" },
+      { "label": "Browse all packs", "href": "/packs" }
+    ]
+  },
+  {
     "slug": "may-2026-brand-color-systems",
     "date": "2026-05-14",
     "title": "Building a brand color system that actually holds up at scale",
