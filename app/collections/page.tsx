@@ -4,8 +4,9 @@ import { SiteHeader } from "@/src/components/site-header";
 import { collections } from "@/src/lib/collections";
 
 export const metadata: Metadata = {
-  title: "Collections",
-  description: "Browse curated ColorArchive palette collections built for real design use cases.",
+  title: "Color Palette Collections",
+  description: "Curated color palette collections from ColorArchive — editorial themes for branding, UI design, and print. Each collection includes hex codes, design tokens, and export formats.",
+  alternates: { canonical: "/collections/" },
 };
 
 export default function CollectionsRoute() {

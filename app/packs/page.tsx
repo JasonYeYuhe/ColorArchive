@@ -4,8 +4,9 @@ import { SiteHeader } from "@/src/components/site-header";
 import { palettePacks } from "@/src/lib/palette-packs";
 
 export const metadata: Metadata = {
-  title: "Packs",
-  description: "Preview the first productized palette packs built from the ColorArchive collections.",
+  title: "Color Palette Packs",
+  description: "Download professional color palette packs with hex codes, Figma tokens, CSS variables, and Tailwind config. Built for brand designers, UI developers, and creative teams.",
+  alternates: { canonical: "/packs/" },
 };
 
 export default function PacksRoute() {

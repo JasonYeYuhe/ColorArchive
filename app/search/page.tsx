@@ -5,8 +5,9 @@ import { SiteHeader } from "@/src/components/site-header";
 import { colors } from "@/src/data/colors";
 
 export const metadata: Metadata = {
-  title: "Search",
-  description: "Search the full ColorArchive by color name, hex value, and family.",
+  title: "Search Hex Colors",
+  description: "Search 2016 curated hex colors by name, hex code, or color family. Filter by hue, lightness, and saturation to find the exact palette color you need.",
+  alternates: { canonical: "/search/" },
 };
 
 export default function SearchPage() {

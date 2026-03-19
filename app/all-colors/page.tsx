@@ -5,8 +5,9 @@ import { SiteHeader } from "@/src/components/site-header";
 import { colors } from "@/src/data/colors";
 
 export const metadata: Metadata = {
-  title: "All Colors",
-  description: "Browse the full dense ColorArchive spectrum in a single page.",
+  title: "All 2016 Hex Colors",
+  description: "Browse the complete ColorArchive — all 2016 curated hex color codes in a single dense view, organized by hue across the full spectrum.",
+  alternates: { canonical: "/all-colors/" },
 };
 
 export default function AllColorsRoute() {

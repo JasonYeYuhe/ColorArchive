@@ -5,10 +5,10 @@ import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
 
 export const metadata: Metadata = {
-  title: "Families",
-  description: "Browse ColorArchive by hue family, from red and orange through blue, purple, and pink.",
+  title: "Color Families",
+  description: "Explore hex colors by hue family — Red, Orange, Yellow, Green, Teal, Blue, Purple, and Pink. Each family page includes all shades, tones, and design-ready swatches.",
   alternates: {
-    canonical: "/families",
+    canonical: "/families/",
   },
   openGraph: {
     images: ["https://colorarchive.me/generated/og/families/index.svg"],
