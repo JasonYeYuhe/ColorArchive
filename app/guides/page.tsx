@@ -6,7 +6,7 @@ import { landingGuides } from "@/src/lib/guides";
 export const metadata: Metadata = {
   title: "Color Guides",
   description:
-    "Practical ColorArchive guides for brand palettes, dark mode color systems, free palette downloads, and Figma token workflows.",
+    "Practical ColorArchive guides for brand palettes, SaaS website color schemes, free palette downloads, and Figma or Tailwind token workflows.",
   alternates: { canonical: "/guides/" },
 };
 

@@ -345,6 +345,166 @@ export const landingGuides: LandingGuide[] = [
       { label: "Read Figma token guide", href: "/guides/figma-color-tokens/" },
     ],
   },
+  {
+    category: "Tokens & Workflow",
+    slug: "brand-color-tokens",
+    title: "Brand Color Tokens That Keep Marketing and Product in Sync",
+    summary:
+      "How to structure brand color tokens so campaign pages, product UI, and ongoing brand work can share one palette system instead of drifting into separate color stacks.",
+    eyebrow: "Brand Token Guide",
+    priority: 94,
+    searchIntent: "brand color tokens",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Brand", "Tokens", "Systems"],
+    highlights: [
+      "Brand tokens are what keep the landing page palette from splitting away from product UI.",
+      "The stable layer is role naming, not the exact launch palette.",
+      "The Brand Starter Kit is the shortest path if the team needs a shared export base now.",
+    ],
+    sections: [
+      {
+        heading: "Treat brand color as a system, not a launch deck",
+        body:
+          "A brand palette often starts life in marketing and then gets copied loosely into product, lifecycle email, and sales collateral. That is where drift begins. Brand color tokens matter because they force the team to define reusable roles such as hero accent, muted surface, primary text, or soft background rather than re-deciding the palette every time a new asset is made.",
+      },
+      {
+        heading: "Roles should survive while values can evolve",
+        body:
+          "The exact shade of a brand accent may change over time. The role usually does not. That is why token systems work best when they separate semantic naming from raw values. Quiet Luxury is a useful example because the system can flex between warmer and cooler edits without losing the premium tone or the role structure underneath it.",
+      },
+      {
+        heading: "Why this becomes a product problem quickly",
+        body:
+          "Once product UI, landing pages, and campaign assets all depend on the same palette, token drift becomes expensive. The Brand Starter Kit reduces that cost by giving teams grouped roles, exports, and pairings that can travel across files instead of living in disconnected style experiments.",
+      },
+    ],
+    links: [
+      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Read brand palette guide", href: "/guides/brand-color-palette/" },
+      { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
+    ],
+  },
+  {
+    category: "Interface Systems",
+    slug: "design-system-palette",
+    title: "Design System Palette Ideas That Survive Component Growth",
+    summary:
+      "A practical guide to building a design system palette that still works after the component library gets larger, more stateful, and harder to maintain by taste alone.",
+    eyebrow: "System Guide",
+    priority: 90,
+    searchIntent: "design system palette",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "complete-archive",
+    tags: ["Design systems", "UI", "Tokens"],
+    highlights: [
+      "A design system palette has to scale across states, surfaces, and component density.",
+      "Monochrome or restrained lanes usually scale better because they leave more room for hierarchy.",
+      "The Complete Archive Token Set helps when the team needs broad palette testing without rebuilding exports.",
+    ],
+    sections: [
+      {
+        heading: "Component growth is what exposes weak palettes",
+        body:
+          "A palette can look fine in a hero and still fail inside a real component library. Once you add tables, empty states, alerts, filters, overlays, charts, and multiple interaction states, the system needs more than a few attractive swatches. It needs predictable roles and enough tonal range to keep every layer legible.",
+      },
+      {
+        heading: "Start restrained so the system has headroom",
+        body:
+          "Many design systems age badly because they begin with too much personality in the base layer. Monochrome Studio is useful because it starts from restraint: subtle warm and cool shifts, clean hierarchy, and enough nuance to support editorial or product surfaces without visual noise. That gives the system headroom for status colors and accents later.",
+      },
+      {
+        heading: "Broad coverage matters when the team is still deciding",
+        body:
+          "If the design system is still in flux, buying or exporting one narrow palette at a time creates rework. The Complete Archive Token Set is more useful in that stage because it gives a wider color base in implementation-ready formats, so the team can test directions without rebuilding the token layer every week.",
+      },
+    ],
+    links: [
+      { label: "Open Complete Archive Token Set", href: "/packs/complete-archive/" },
+      { label: "Open Monochrome Studio", href: "/collections/monochrome-studio/" },
+      { label: "Read Tailwind token guide", href: "/guides/tailwind-color-tokens/" },
+    ],
+  },
+  {
+    category: "Interface Systems",
+    slug: "saas-website-color-scheme",
+    title: "Website Color Scheme for SaaS Products That Need Trust Before Flash",
+    summary:
+      "How to choose a SaaS website color scheme that communicates clarity, trust, and product maturity without collapsing into the same generic blue startup palette.",
+    eyebrow: "SaaS Guide",
+    priority: 90,
+    searchIntent: "website color scheme for saas",
+    featuredCollectionId: "nordic-frost",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["SaaS", "Website", "UI"],
+    highlights: [
+      "SaaS landing pages need trust and hierarchy before they need novelty.",
+      "Cool, restrained palettes often convert better than louder systems because the product can breathe.",
+      "Nordic Frost and Palette Pack Vol. 1 are a practical starting pair for clean SaaS surfaces.",
+    ],
+    sections: [
+      {
+        heading: "Trust comes from clarity more than decoration",
+        body:
+          "A SaaS website usually has to explain workflow, features, pricing, proof, and product UI all on the same page. That means the color system has to support comprehension first. Strong CTA contrast, readable screenshots, and stable section hierarchy matter more than trying to impress with novelty in every block.",
+      },
+      {
+        heading: "Use cool restraint without becoming generic",
+        body:
+          "The trap is not using blue. The trap is using a dead, interchangeable startup blue with no supporting structure. Nordic Frost works because it keeps the clean trust signals people expect from software while introducing enough temperature variation to feel considered. The result is calm rather than bland.",
+      },
+      {
+        heading: "A starter pack is usually enough to move faster",
+        body:
+          "Most SaaS teams do not need a giant color program on day one. They need a coherent lane that can power the site, a few screenshots, and the first product surfaces without debate. Palette Pack Vol. 1 is useful there because it shortens decision time and gives an implementation-friendly palette base immediately.",
+      },
+    ],
+    links: [
+      { label: "Open Nordic Frost", href: "/collections/nordic-frost/" },
+      { label: "Open Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Read website palette guide", href: "/guides/website-color-palette/" },
+    ],
+  },
+  {
+    category: "Free & Conversion",
+    slug: "free-figma-color-palette",
+    title: "Free Figma Color Palette Files That Show Enough Quality to Earn the Upgrade",
+    summary:
+      "What people actually expect from a free Figma color palette, how much structure the file needs, and how to use the free layer to prove the paid system instead of underselling it.",
+    eyebrow: "Free Figma Guide",
+    priority: 87,
+    searchIntent: "free figma color palette",
+    featuredCollectionId: "modern-seaside",
+    featuredPackId: "content-creator-bundle",
+    tags: ["Free", "Figma", "Download"],
+    highlights: [
+      "A free Figma palette should feel organized enough to use in a real mockup immediately.",
+      "The right free file proves naming, structure, and taste rather than trying to give everything away.",
+      "The free layer works best when the upgrade path into a paid pack is obvious and believable.",
+    ],
+    sections: [
+      {
+        heading: "People want a usable file, not a teaser screenshot",
+        body:
+          "When someone searches for a free Figma color palette, they are not asking for abstract inspiration. They want something they can drop into a frame and use right away. If the sample lacks clear naming, grouping, or export discipline, it suggests that the paid product will be messy too. The free layer has to prove the opposite.",
+      },
+      {
+        heading: "A smaller system can still feel complete",
+        body:
+          "The best free files feel intentionally scoped rather than incomplete. Modern Seaside is a good example of a lane that still feels coherent even in a smaller sample because the mood, spacing, and role logic are obvious immediately. That is what gives the user confidence to keep moving through the catalog.",
+      },
+      {
+        heading: "The upgrade path should follow the same tone",
+        body:
+          "Free converts better when the next paid step feels like the same system expanded, not a different product entirely. That is why a creator-facing bundle or broader pack should inherit the same discipline around naming, formats, and file quality. The user should understand the upgrade in one glance.",
+      },
+    ],
+    links: [
+      { label: "Get the Free Sample Pack", href: "/free-pack/" },
+      { label: "Open Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Read Figma token guide", href: "/guides/figma-color-tokens/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {
@@ -369,4 +529,52 @@ export function getGuidesForPack(packId?: string | null, limit = 3) {
   return landingGuides
     .filter((guide) => guide.featuredPackId === packId)
     .slice(0, limit);
+}
+
+export function getRelatedGuides(slug: string, limit = 3) {
+  const guide = getLandingGuide(slug);
+
+  if (!guide) {
+    return [];
+  }
+
+  const scoredGuides = landingGuides
+    .filter((entry) => entry.slug !== slug)
+    .map((entry) => {
+      let score = 0;
+
+      if (entry.category === guide.category) {
+        score += 3;
+      }
+
+      if (guide.featuredPackId && entry.featuredPackId === guide.featuredPackId) {
+        score += 3;
+      }
+
+      if (guide.featuredCollectionId && entry.featuredCollectionId === guide.featuredCollectionId) {
+        score += 3;
+      }
+
+      const sharedTags = entry.tags.filter((tag) => guide.tags.includes(tag)).length;
+      score += Math.min(sharedTags, 2);
+
+      return { entry, score };
+    })
+    .sort((a, b) => b.score - a.score || b.entry.priority - a.entry.priority);
+
+  const primaryMatches = scoredGuides
+    .filter(({ score }) => score > 0)
+    .slice(0, limit)
+    .map(({ entry }) => entry);
+
+  if (primaryMatches.length >= limit) {
+    return primaryMatches;
+  }
+
+  const fallbackMatches = scoredGuides
+    .map(({ entry }) => entry)
+    .filter((entry) => !primaryMatches.some((match) => match.slug === entry.slug))
+    .slice(0, limit - primaryMatches.length);
+
+  return [...primaryMatches, ...fallbackMatches];
 }

@@ -634,6 +634,8 @@ Codex 当前方向：
 - ✅ collection / pack / note 详情页已开始根据 featured collection / pack 自动挂接相关 guides，增强商业页与 SEO 内容页之间的互链
 - ✅ `/guides` 入口页现已加入 popular guides + category 分组，首页 `/packs` `/free-pack` 文案进一步压向更明确的领取 / 购买话术
 - ✅ `/packs` 与 `/free-pack` 页面现已直接挂 guide 入口，减少用户在内容页、免费入口和结账页之间的跳出断层
+- ✅ `/guides` 现已扩展到 12 个高意图静态页，新增 brand tokens / design system palette / SaaS website color scheme / free Figma palette 等更强商业搜索词
+- ✅ guide 详情页的 related guides 已改为按 category / featured pack / featured collection / shared tags 排序，不再是随机式推荐
 
 ### 当前优先级
 

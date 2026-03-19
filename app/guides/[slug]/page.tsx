@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { GuideDetailPage } from "@/src/components/guide-detail-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
-import { getLandingGuide, landingGuides } from "@/src/lib/guides";
+import { getLandingGuide, getRelatedGuides, landingGuides } from "@/src/lib/guides";
 
 interface GuidePageProps {
   params: Promise<{ slug: string }>;
@@ -49,7 +49,7 @@ export default async function GuideRoute({ params }: GuidePageProps) {
     notFound();
   }
 
-  const relatedGuides = landingGuides.filter((entry) => entry.slug !== slug).slice(0, 2);
+  const relatedGuides = getRelatedGuides(slug, 3);
 
   const structuredData = [
     {
