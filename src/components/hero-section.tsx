@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { colors } from "@/src/data/colors";
+import { checkoutConfig } from "@/src/lib/checkout-config";
 import { palettePacks } from "@/src/lib/palette-packs";
 
 // Fixed hue-spanning strip: Tone (L=60) at Clear (S=54), one per hue across the spectrum
@@ -76,6 +77,16 @@ export function HeroSection({
             >
               Browse packs
             </Link>
+            {checkoutConfig["all-access-bundle"].url && (
+              <a
+                href={checkoutConfig["all-access-bundle"].url}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-emerald-300/40 bg-emerald-50/80 px-5 py-2.5 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100 focus:outline-none focus:ring-4 focus:ring-emerald-400/20 dark:border-emerald-700/40 dark:bg-emerald-900/40 dark:text-emerald-300"
+              >
+                All Access ¥2,999
+              </a>
+            )}
           </div>
 
           {/* Status pills */}

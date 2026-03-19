@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { AuthProvider } from "@/src/components/auth-provider";
 import { ThemeProvider } from "@/src/components/theme-provider";
 import { SiteFooter } from "@/src/components/site-footer";
+import { PageTracker } from "@/src/components/page-tracker";
 import { PaletteBuilderTray } from "@/src/components/palette-builder-tray";
 import "./globals.css";
 
@@ -97,6 +98,7 @@ export default function RootLayout({
             {children}
             <SiteFooter />
             <PaletteBuilderTray />
+            <PageTracker />
           </AuthProvider>
         </ThemeProvider>
       </body>

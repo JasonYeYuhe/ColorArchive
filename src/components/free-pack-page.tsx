@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CopyActionButton } from "@/src/components/copy-action-button";
 import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import type { ColorCollection } from "@/src/lib/collections";
-import type { WaitlistConfig } from "@/src/lib/checkout-config";
+import { checkoutConfig, type WaitlistConfig } from "@/src/lib/checkout-config";
 import type { PalettePack } from "@/src/lib/palette-packs";
 
 interface FreePackPageProps {
@@ -248,6 +248,32 @@ export function FreePackPage({
             ))}
           </div>
         </section>
+
+        {checkoutConfig["all-access-bundle"].url && (
+          <section className="rounded-[1.75rem] border border-emerald-300/40 bg-gradient-to-br from-emerald-50/80 to-white/90 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)] dark:from-emerald-950/30 dark:to-neutral-900/80 dark:border-emerald-700/30">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
+                  Want everything?
+                </div>
+                <p className="mt-1 text-lg font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
+                  All Access Bundle — <span className="line-through text-neutral-400">¥4,095</span>{" "}¥2,999
+                </p>
+                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                  All 6 packs in one download. Save 27%.
+                </p>
+              </div>
+              <a
+                href={checkoutConfig["all-access-bundle"].url}
+                target="_blank"
+                rel="noreferrer"
+                className="shrink-0 rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
+              >
+                Get All Access
+              </a>
+            </div>
+          </section>
+        )}
 
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
           <div className="flex flex-wrap gap-2">

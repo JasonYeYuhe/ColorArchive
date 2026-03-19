@@ -24,6 +24,9 @@ app.use(
   })
 );
 
+// OG image route — no CORS needed (accessed by crawlers)
+app.use("/og", require("./routes/og"));
+
 // JSON body parser for all routes except the raw webhook
 app.use((req, res, next) => {
   if (req.path === "/webhook/ls") return next();
@@ -36,6 +39,7 @@ app.use("/me", require("./routes/me"));
 app.use("/admin", require("./routes/admin"));
 app.use("/webhook", require("./routes/webhook"));
 app.use("/analytics", require("./routes/analytics"));
+app.use("/pageviews", require("./routes/pageviews"));
 
 app.get("/health", (_, res) => res.json({ ok: true }));
 

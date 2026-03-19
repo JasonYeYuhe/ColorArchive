@@ -63,6 +63,14 @@ db.exec(`
     updated_at      TEXT NOT NULL DEFAULT (datetime('now')),
     FOREIGN KEY (user_id) REFERENCES users(id)
   );
+
+  CREATE TABLE IF NOT EXISTS pageviews (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    path        TEXT NOT NULL,
+    referrer    TEXT,
+    screen_width INTEGER,
+    created_at  TEXT NOT NULL DEFAULT (datetime('now'))
+  );
 `);
 
 ensureColumn("orders", "pack_id TEXT");

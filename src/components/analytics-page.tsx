@@ -244,6 +244,15 @@ export function AnalyticsPage() {
   const [buyers, setBuyers] = useState<BuyerEntry[]>([]);
   const [buyerState, setBuyerState] = useState<LoadState>("idle");
 
+  const [pageviewData, setPageviewData] = useState<{
+    totalViews: number;
+    uniquePaths: number;
+    topPages: { path: string; views: number }[];
+    dailyViews: { date: string; views: number }[];
+    topReferrers: { referrer: string; views: number }[];
+    deviceBreakdown: { device: string; views: number }[];
+  } | null>(null);
+
   const filters = useMemo(
     () => ({
       days: searchParams.get("days") ?? "14",
@@ -299,6 +308,17 @@ export function AnalyticsPage() {
           setData(payload);
           setState("success");
         }
+
+        // Also fetch pageview stats (non-blocking)
+        try {
+          const pvRes = await fetch(`${API_URL}/pageviews/stats?days=${filters.days}`, {
+            credentials: "include",
+            headers: { Accept: "application/json" },
+          });
+          if (pvRes.ok && !cancelled) {
+            setPageviewData(await pvRes.json());
+          }
+        } catch { /* pageview stats are optional */ }
       } catch (err) {
         if (!cancelled) {
           setState("error");
@@ -712,6 +732,74 @@ export function AnalyticsPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+            </section>
+          </>
+        ) : null}
+
+        {pageviewData ? (
+          <>
+            <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Page views
+              </div>
+              <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                  <div className="text-2xl font-semibold text-neutral-950">{pageviewData.totalViews.toLocaleString()}</div>
+                  <div className="mt-1 text-xs text-neutral-500">Total views ({filters.days}d)</div>
+                </div>
+                <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                  <div className="text-2xl font-semibold text-neutral-950">{pageviewData.uniquePaths}</div>
+                  <div className="mt-1 text-xs text-neutral-500">Unique pages viewed</div>
+                </div>
+                <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                  <div className="text-2xl font-semibold text-neutral-950">
+                    {pageviewData.deviceBreakdown.find((d) => d.device === "mobile")?.views ?? 0}
+                    {" / "}
+                    {pageviewData.deviceBreakdown.find((d) => d.device === "desktop")?.views ?? 0}
+                  </div>
+                  <div className="mt-1 text-xs text-neutral-500">Mobile / Desktop</div>
+                </div>
+              </div>
+            </section>
+
+            <section className="grid gap-6 xl:grid-cols-2">
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Top pages
+                </div>
+                <div className="mt-4 grid gap-2">
+                  {pageviewData.topPages.slice(0, 15).map((page) => (
+                    <div
+                      key={page.path}
+                      className="flex items-center justify-between rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-3"
+                    >
+                      <span className="truncate text-sm text-neutral-700">{page.path}</span>
+                      <span className="ml-3 shrink-0 text-sm font-medium text-neutral-950">{page.views}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Top referrers
+                </div>
+                <div className="mt-4 grid gap-2">
+                  {pageviewData.topReferrers.length > 0 ? (
+                    pageviewData.topReferrers.map((ref) => (
+                      <div
+                        key={ref.referrer}
+                        className="flex items-center justify-between rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-3"
+                      >
+                        <span className="truncate text-sm text-neutral-700">{ref.referrer}</span>
+                        <span className="ml-3 shrink-0 text-sm font-medium text-neutral-950">{ref.views}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-sm text-neutral-400">No referrer data yet</div>
+                  )}
+                </div>
               </div>
             </section>
           </>

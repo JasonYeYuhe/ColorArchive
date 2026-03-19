@@ -108,10 +108,11 @@ export async function generateMetadata({ params }: ColorPageProps): Promise<Meta
       canonical: `/colors/${color.id}/`,
     },
     openGraph: {
-      images: [`https://colorarchive.me/generated/og/colors/${color.id}.svg`],
+      images: [`https://api.colorarchive.me/og/color/${color.hex.slice(1)}?name=${encodeURIComponent(color.name)}`],
     },
     twitter: {
-      images: [`https://colorarchive.me/generated/og/colors/${color.id}.svg`],
+      card: "summary_large_image",
+      images: [`https://api.colorarchive.me/og/color/${color.hex.slice(1)}?name=${encodeURIComponent(color.name)}`],
     },
   };
 }
