@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import { collections } from "@/src/lib/collections";
 import { palettePacks } from "@/src/lib/palette-packs";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
@@ -175,8 +176,24 @@ export function NoteDetailPage({
               <div className="mt-2 text-sm text-neutral-500">{nextIssue.date}</div>
             </Link>
           ) : (
-            <div className="rounded-[1.5rem] border border-dashed border-black/10 bg-white/60 px-5 py-5 text-sm text-neutral-500">
-              This is the newest issue in the public archive.
+            <div className="rounded-[1.5rem] border border-black/6 bg-neutral-950 px-5 py-6 text-white">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40">
+                Stay in the loop
+              </div>
+              <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
+                You've reached the latest issue
+              </p>
+              <p className="mt-2 text-sm leading-6 text-white/60">
+                Get notified when new issues and palette drops land.
+              </p>
+              <div className="mt-4">
+                <EmailCaptureForm
+                  source="notes-latest"
+                  placeholder="your@email.com"
+                  buttonLabel="Subscribe"
+                  successMessage="You're in — we'll email you about new issues."
+                />
+              </div>
             </div>
           )}
 
