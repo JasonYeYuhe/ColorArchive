@@ -577,11 +577,27 @@ Codex 当前方向：
 
 ### 后续方向
 
-- Newsletter 内容序列（月度精选配色）
-- 推荐系统（基于用户收藏推荐相似色）
-- Figma 插件（Figma Community 分发）
-- 评估商标申请
-- 评估更复杂的付费层级（Personal / Commercial 双档）
+- 1. 完整验证 Google 登录首次体验
+  - 检查真实浏览器里的 callback、cookie、跨域跳转与测试用户限制
+  - 确认 `/login` 上 Google 与 magic link 两条路径都稳定
+- 2. 扩展账户页的 post-purchase 信息
+  - 在现有 orders/downloads 基础上增加 receipt、license、purchase support、重新发送下载链接
+- 3. 给 `/analytics` 增加按来源和时间段过滤
+  - 让 free-pack / waitlist / purchase 不只是总览，而是可筛选的决策面板
+- 4. 补 landing source / UTM 追踪
+  - 真正知道哪个入口页、哪个 campaign 在带来订阅和购买
+- 5. Newsletter 内容序列（月度精选配色）
+  - 把 waitlist 从确认邮件升级为持续内容产品，形成公开更新节奏
+- 6. 推荐系统（基于用户收藏、近期浏览、已加入 palette 的颜色）
+  - 让颜色详情页和账户页更像“继续探索”而不是静态终点
+- 7. Family / Collection / Pack 之间的升级链再强化
+  - 在 family detail 和 collection detail 里更明确地告诉用户下一步该看哪个 pack
+- 8. Figma 插件或 Tokens Studio 对接
+  - 现有 token exports 已够做第一版集成，不必从零重做格式
+- 9. 更清晰的付费层级与 license 结构
+  - 评估 Personal / Commercial 双档，减少高价包的购买犹豫
+- 10. 品牌与信任层补强
+  - 评估商标申请、完善 support / about / updates 文案、持续提高邮件送达率与公开可信度
 
 ## 给未来自己的提醒
 
