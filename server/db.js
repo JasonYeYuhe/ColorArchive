@@ -83,5 +83,7 @@ ensureColumn("subscribers", "utm_medium TEXT");
 ensureColumn("subscribers", "utm_campaign TEXT");
 ensureColumn("subscribers", "utm_term TEXT");
 ensureColumn("subscribers", "utm_content TEXT");
+ensureColumn("subscribers", "follow_up_3d_sent TEXT");
+ensureColumn("subscribers", "follow_up_7d_sent TEXT");
 
 module.exports = db;

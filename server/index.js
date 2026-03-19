@@ -41,4 +41,5 @@ app.get("/health", (_, res) => res.json({ ok: true }));
 
 app.listen(PORT, () => {
   console.log(`ColorArchive server running on port ${PORT}`);
+  require("./email-scheduler").startScheduler();
 });
