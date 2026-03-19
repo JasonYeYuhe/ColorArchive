@@ -19,11 +19,12 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
               Productized color assets
             </div>
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Palette packs that are already live
+              Buy live palette packs, token exports, and the full bundle
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              These packs turn the archive into a real catalog of digital goods: curated sets,
-              export-ready tokens, and usage notes rather than loose swatches.
+              Every offer on this page is already live. Start with the free sample, buy a single
+              pack for one workflow, or take the All Access Bundle if you want the full catalog in
+              one checkout.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -31,7 +32,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                 href="/free-pack/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
-                Free sample pack
+                Get free sample
               </Link>
               <Link
                 href="/product-examples/"
@@ -69,7 +70,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                     {bundle.title}
                   </h2>
                   <p className="mt-2 max-w-xl text-sm leading-6 text-neutral-600 dark:text-neutral-400">
-                    All 6 packs in one download. Individual total: <span className="line-through">{individualTotal}</span>{" → "}
+                    One checkout, every paid pack included. Individual total: <span className="line-through">{individualTotal}</span>{" → "}
                     <span className="font-semibold text-emerald-700 dark:text-emerald-400">{bundle.priceHint}</span>
                   </p>
                 </div>
@@ -81,7 +82,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                       rel="noreferrer"
                       className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
                     >
-                      Get All Access — {bundle.priceHint}
+                      Buy All Access — {bundle.priceHint}
                     </a>
                   ) : (
                     <Link
@@ -210,7 +211,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                       rel="noreferrer"
                       className="rounded-full border border-neutral-950/10 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                     >
-                      Buy via {pack.checkoutProvider}
+                      Buy now
                     </a>
                   ) : (
                     <button
@@ -222,7 +223,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                     </button>
                   )}
                   <span className="text-xs uppercase tracking-[0.14em] text-neutral-400">
-                    {pack.checkoutStatus === "live" ? "Checkout live" : "Update in `src/lib/checkout-config.ts`"}
+                    {pack.checkoutStatus === "live" ? "Live checkout" : "Update in `src/lib/checkout-config.ts`"}
                   </span>
                 </div>
                 <p className="mt-3 text-sm leading-6 text-neutral-500">{pack.checkoutNote}</p>

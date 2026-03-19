@@ -632,6 +632,7 @@ Codex 当前方向：
 - ✅ 新增 `/guides` 内容层，补 brand palette / dark mode / free download / Figma tokens 四个高意图静态 landing pages
 - ✅ `/guides` 扩展到 8 个高意图静态页，并在首页 hero 与 `/notes` 列表页补 guides 导流入口
 - ✅ collection / pack / note 详情页已开始根据 featured collection / pack 自动挂接相关 guides，增强商业页与 SEO 内容页之间的互链
+- ✅ `/guides` 入口页现已加入 popular guides + category 分组，首页 `/packs` `/free-pack` 文案进一步压向更明确的领取 / 购买话术
 
 ### 当前优先级
 

@@ -9,10 +9,12 @@ export interface GuideLink {
 }
 
 export interface LandingGuide {
+  category: string;
   slug: string;
   title: string;
   summary: string;
   eyebrow: string;
+  priority: number;
   searchIntent: string;
   featuredCollectionId?: string;
   featuredPackId?: string;
@@ -24,11 +26,13 @@ export interface LandingGuide {
 
 export const landingGuides: LandingGuide[] = [
   {
+    category: "Brand & Marketing",
     slug: "brand-color-palette",
     title: "Brand Color Palette Ideas That Hold Up Beyond the Launch",
     summary:
       "A practical guide to building a brand color palette that survives product growth, campaign work, and interface expansion without turning into disconnected swatches.",
     eyebrow: "Brand Guide",
+    priority: 100,
     searchIntent: "brand color palette ideas",
     featuredCollectionId: "quiet-luxury",
     featuredPackId: "brand-starter-kit",
@@ -62,11 +66,13 @@ export const landingGuides: LandingGuide[] = [
     ],
   },
   {
+    category: "Interface Systems",
     slug: "dark-mode-color-palette",
     title: "Dark Mode Color Palette Ideas for Real Product Interfaces",
     summary:
       "How to build a dark mode color palette that keeps contrast, separation, and enough chroma to avoid the usual generic neon-on-black look.",
     eyebrow: "Dark Mode Guide",
+    priority: 95,
     searchIntent: "dark mode color palette",
     featuredCollectionId: "nocturne-tech",
     featuredPackId: "dark-mode-ui-kit",
@@ -100,11 +106,13 @@ export const landingGuides: LandingGuide[] = [
     ],
   },
   {
+    category: "Free & Conversion",
     slug: "free-color-palette-download",
     title: "Free Color Palette Download That Actually Proves the Product",
     summary:
       "What makes a free color palette download useful, what users expect after signup, and why the free layer should feel like a smaller version of the paid product rather than a random teaser.",
     eyebrow: "Free Download Guide",
+    priority: 96,
     searchIntent: "free color palette download",
     featuredCollectionId: "editorial-warmth",
     featuredPackId: "content-creator-bundle",
@@ -138,11 +146,13 @@ export const landingGuides: LandingGuide[] = [
     ],
   },
   {
+    category: "Tokens & Workflow",
     slug: "figma-color-tokens",
     title: "Figma Color Tokens and the Fastest Route to a Shared Color System",
     summary:
       "A guide to keeping Figma, CSS variables, Tailwind tokens, and JSON exports aligned so color decisions survive handoff instead of drifting by file type.",
     eyebrow: "Token Guide",
+    priority: 93,
     searchIntent: "figma color tokens",
     featuredCollectionId: "monochrome-studio",
     featuredPackId: "all-access-bundle",
@@ -176,11 +186,13 @@ export const landingGuides: LandingGuide[] = [
     ],
   },
   {
+    category: "Interface Systems",
     slug: "ui-color-palette",
     title: "UI Color Palette Ideas for Clear, Calm Product Surfaces",
     summary:
       "How to build a UI color palette that stays readable, calm, and consistent across product surfaces instead of turning into a pile of unrelated accent colors.",
     eyebrow: "UI Guide",
+    priority: 89,
     searchIntent: "ui color palette",
     featuredCollectionId: "nordic-frost",
     featuredPackId: "brand-starter-kit",
@@ -214,11 +226,13 @@ export const landingGuides: LandingGuide[] = [
     ],
   },
   {
+    category: "Brand & Marketing",
     slug: "website-color-palette",
     title: "Website Color Palette Ideas for Landing Pages That Still Convert",
     summary:
       "A practical guide to choosing a website color palette that supports hierarchy, CTA contrast, and brand tone without overwhelming the page.",
     eyebrow: "Website Guide",
+    priority: 92,
     searchIntent: "website color palette",
     featuredCollectionId: "modern-seaside",
     featuredPackId: "palette-pack-vol-1",
@@ -252,11 +266,13 @@ export const landingGuides: LandingGuide[] = [
     ],
   },
   {
+    category: "Brand & Marketing",
     slug: "luxury-neutral-color-palette",
     title: "Luxury Neutral Color Palette Ideas Without Defaulting to Black and White",
     summary:
       "How to build a luxury-neutral color palette that feels premium, warm, and editorial rather than empty, flat, or aggressively minimal.",
     eyebrow: "Neutral Guide",
+    priority: 88,
     searchIntent: "luxury neutral color palette",
     featuredCollectionId: "quiet-luxury",
     featuredPackId: "brand-starter-kit",
@@ -290,11 +306,13 @@ export const landingGuides: LandingGuide[] = [
     ],
   },
   {
+    category: "Tokens & Workflow",
     slug: "tailwind-color-tokens",
     title: "Tailwind Color Tokens Without Losing the Design System in Handoff",
     summary:
       "A guide to structuring Tailwind color tokens so the system stays aligned with CSS variables, JSON exports, and design files instead of fragmenting during implementation.",
     eyebrow: "Tailwind Guide",
+    priority: 91,
     searchIntent: "tailwind color tokens",
     featuredCollectionId: "monochrome-studio",
     featuredPackId: "complete-archive",

@@ -2,7 +2,15 @@ import Link from "next/link";
 import type { LandingGuide } from "@/src/lib/guides";
 
 export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
-  const featuredGuide = guides[0];
+  const featuredGuide = [...guides].sort((a, b) => b.priority - a.priority)[0];
+  const popularGuides = [...guides].sort((a, b) => b.priority - a.priority).slice(0, 4);
+  const groupedGuides = Object.entries(
+    guides.reduce<Record<string, LandingGuide[]>>((groups, guide) => {
+      groups[guide.category] ??= [];
+      groups[guide.category].push(guide);
+      return groups;
+    }, {}),
+  );
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -51,61 +59,131 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
           </div>
         </section>
 
-        <section className="grid gap-4 xl:grid-cols-2">
-          {guides.map((guide) => (
-            <article
-              key={guide.slug}
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Popular guides
+              </div>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
+                These are the strongest entry points for people looking for a practical palette,
+                token, or download decision rather than browsing the archive cold.
+              </p>
+            </div>
+            <Link
+              href="/packs/"
+              className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+            >
+              Browse packs
+            </Link>
+          </div>
+
+          <div className="mt-5 grid gap-4 xl:grid-cols-2">
+            {popularGuides.map((guide) => (
+              <article
+                key={guide.slug}
+                className="rounded-[1.5rem] border border-black/6 bg-neutral-50 p-5"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
+                    {guide.eyebrow}
+                  </span>
+                  <span className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500">
+                    {guide.searchIntent}
+                  </span>
+                </div>
+                <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                  {guide.title}
+                </h2>
+                <p className="mt-3 text-sm leading-6 text-neutral-600">{guide.summary}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <Link
+                    href={`/guides/${guide.slug}/`}
+                    className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                  >
+                    Read guide
+                  </Link>
+                  {guide.links[0] ? (
+                    <Link
+                      href={guide.links[0].href}
+                      className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                    >
+                      {guide.links[0].label}
+                    </Link>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="space-y-6">
+          {groupedGuides.map(([category, items]) => (
+            <div
+              key={category}
               className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]"
             >
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
-                  {guide.eyebrow}
-                </span>
-                <span className="rounded-full border border-black/8 bg-neutral-50 px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500">
-                  {guide.searchIntent}
-                </span>
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                {category}
               </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                {guide.title}
-              </h2>
-              <p className="mt-3 text-sm leading-6 text-neutral-600">{guide.summary}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {guide.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500"
+              <div className="mt-5 grid gap-4 xl:grid-cols-2">
+                {items.map((guide) => (
+                  <article
+                    key={guide.slug}
+                    className="rounded-[1.5rem] border border-black/6 bg-neutral-50 p-5"
                   >
-                    {tag}
-                  </span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
+                        {guide.eyebrow}
+                      </span>
+                      <span className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500">
+                        {guide.searchIntent}
+                      </span>
+                    </div>
+                    <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                      {guide.title}
+                    </h2>
+                    <p className="mt-3 text-sm leading-6 text-neutral-600">{guide.summary}</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {guide.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-5 grid gap-2">
+                      {guide.highlights.slice(0, 2).map((highlight) => (
+                        <div
+                          key={highlight}
+                          className="rounded-[1rem] border border-black/6 bg-white px-4 py-3 text-sm leading-6 text-neutral-600"
+                        >
+                          {highlight}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      <Link
+                        href={`/guides/${guide.slug}/`}
+                        className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                      >
+                        Read guide
+                      </Link>
+                      {guide.links[0] ? (
+                        <Link
+                          href={guide.links[0].href}
+                          className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                        >
+                          {guide.links[0].label}
+                        </Link>
+                      ) : null}
+                    </div>
+                  </article>
                 ))}
               </div>
-              <div className="mt-5 grid gap-2">
-                {guide.highlights.map((highlight) => (
-                  <div
-                    key={highlight}
-                    className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 text-sm leading-6 text-neutral-600"
-                  >
-                    {highlight}
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 flex flex-wrap gap-2">
-                <Link
-                  href={`/guides/${guide.slug}/`}
-                  className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-                >
-                  Read guide
-                </Link>
-                {guide.links[0] ? (
-                  <Link
-                    href={guide.links[0].href}
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                  >
-                    {guide.links[0].label}
-                  </Link>
-                ) : null}
-              </div>
-            </article>
+            </div>
           ))}
         </section>
 

@@ -64,11 +64,12 @@ export function FreePackPage({
               Free sample drop
             </div>
             <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Get the free sample pack while the paid packs stay live
+              Get the free pack first, then decide if the paid catalog fits
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
-              Use this as the permanent free tier for ColorArchive. The paid packs are already live,
-              and this page remains the easiest way to preview the file formats and join the email list.
+              This is the fastest way to inspect ColorArchive file quality before paying. We send
+              the free pack by email, and every paid pack remains live if you want more depth,
+              more collections, or implementation-ready token exports.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-2">
@@ -92,7 +93,7 @@ export function FreePackPage({
 
             <div className="mt-5">
               <p className="mb-2 text-sm text-neutral-500">
-                Enter your email and we'll send the full free pack directly:
+                Enter your email and we&apos;ll send the full free pack directly:
               </p>
               <EmailCaptureForm />
             </div>
@@ -150,7 +151,7 @@ export function FreePackPage({
                   2. Review the featured collection and export shape.
                 </div>
                 <div className="rounded-[1rem] border border-black/6 bg-white px-3 py-3">
-                  3. Enter your email above to get the full free pack, then upgrade to any live paid pack if it fits your workflow.
+                  3. Enter your email above, get the full free pack, then move into any live paid pack if you need the larger system.
                 </div>
               </div>
             </div>
