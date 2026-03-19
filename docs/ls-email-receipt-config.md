@@ -29,7 +29,7 @@ colorarchive.me/thanks/
 
 **Title:**
 ```
-Your palette pack is ready
+Your palette pack is ready！
 ```
 
 **Message:**

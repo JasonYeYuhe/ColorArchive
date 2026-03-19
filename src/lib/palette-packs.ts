@@ -478,9 +478,9 @@ export const palettePacks: PalettePack[] = [
   {
     id: "all-access-bundle",
     title: "All Access Bundle",
-    priceHint: "¥2,999",
+    priceHint: "¥2,799",
     ctaLabel: "Best value",
-    tierBadge: "Save 27%",
+    tierBadge: "Save 32%",
     audience: "Designers and developers who want everything — all 6 packs in one download at a significant discount.",
     checkoutProvider: checkoutConfig["all-access-bundle"].provider,
     checkoutStatus: checkoutConfig["all-access-bundle"].status,
@@ -501,7 +501,7 @@ export const palettePacks: PalettePack[] = [
       {
         question: "What's included compared to buying packs separately?",
         answer:
-          "You get every file from all 6 packs in a single download. Buying individually costs ¥4,095 — the bundle saves you 27%.",
+          "You get every file from all 6 packs in a single download. Buying individually costs ¥4,095 — the bundle saves you 32%.",
       },
       {
         question: "Will future seasonal packs be included?",
@@ -524,7 +524,7 @@ export const palettePacks: PalettePack[] = [
     launchAssets: ["Full catalog", "All collection previews", "Complete format coverage"],
     proofPoints: [
       "Every single file from every pack — nothing held back.",
-      "27% savings compared to buying all 6 packs individually.",
+      "32% savings compared to buying all 6 packs individually.",
       "One download, one price, complete color infrastructure.",
     ],
     reviewNote:
@@ -547,6 +547,6 @@ export const palettePacks: PalettePack[] = [
       },
     ],
     detail:
-      "All 6 packs in one bundle at 27% off. The simplest way to get everything ColorArchive offers.",
+      "All 6 packs in one bundle at 32% off. The simplest way to get everything ColorArchive offers.",
   },
 ];

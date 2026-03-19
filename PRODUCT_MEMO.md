@@ -679,7 +679,7 @@ ColorArchive 已从静态展示项目进化为完整的颜色产品：
 - 前端：Next.js 静态站（GitHub Pages），含 archive / tools / packs / families / analytics / login
 - 后端：Node.js API 服务器（DigitalOcean），处理邮箱捕获、支付 webhook、分析、magic link 登录与偏好同步
 - 商业：Lemon Squeezy 七产品上架（6 个单品 + All Access Bundle，JPY），自动交付 ZIP 包
-- 定价（2026-03-19 调整）：¥99 / ¥299 / ¥499 / ¥799 / ¥999 / ¥1,499 / ¥2,999（bundle）
+- 定价（2026-03-19 调整）：¥99 / ¥299 / ¥499 / ¥799 / ¥999 / ¥1,499 / ¥2,799（bundle）
 - 折扣码 FIRSTPACK（10% off）用于 /cancel 挽回流失用户
 - 增长：邮件列表（Day 0/3/7 自动 nurture sequence）、SEO 长尾页面、社交分享按钮（X/copy link）、可分享调色板 URL、登录后跨设备偏好同步
 - 工具：WCAG 对比度检查器、Palette Builder、Word → Color、Spectrum

@@ -7,8 +7,8 @@ Last updated: 2026-03-19
 ### Done (Claude Code — Commerce + Analytics session, 2026-03-19 evening)
 
 - Repriced all 6 packs to ¥99–¥1,499 JPY range
-- Created All Access Bundle (¥2,999, 7th product, live on LS)
-- All Access banner on /packs page (highlighted green, 27% savings callout)
+- Created All Access Bundle (¥2,799, 7th product, live on LS)
+- All Access banner on /packs page (highlighted green, 32% savings callout)
 - Bundle CTA on /free-pack page and homepage hero
 - FIRSTPACK 10% discount code on /cancel page (auto-applied to checkout URL)
 - ShareOnXButton added to color detail, collection detail, word-to-color, palette pages

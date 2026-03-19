@@ -59,7 +59,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:border-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
-                      Save 27%
+                      Save 32%
                     </span>
                     <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                       Best value

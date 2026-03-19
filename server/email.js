@@ -22,7 +22,7 @@ async function sendFreePackEmail(to) {
       "",
       "The pack includes 3 curated palettes with CSS variables and PNG swatches.",
       "",
-      "Want the full library? The All Access Bundle includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for ¥2,999.",
+      "Want the full library? The All Access Bundle includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for ¥2,799.",
       "https://colorarchive.me/packs/all-access-bundle/",
       "",
       "— ColorArchive",
@@ -45,7 +45,7 @@ async function sendFreePackEmail(to) {
         <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:16px 18px;margin:20px 0">
           <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#14532d;font-weight:700">Want the full library?</div>
           <p style="margin:10px 0 0;color:#166534;line-height:1.6;font-size:14px">
-            The <strong>All Access Bundle</strong> includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for <strong>¥2,999</strong>.
+            The <strong>All Access Bundle</strong> includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for <strong>¥2,799</strong>.
           </p>
           <p style="margin:12px 0 0">
             <a href="https://colorarchive.me/packs/all-access-bundle/"
@@ -479,7 +479,7 @@ async function sendFollowUp7DayEmail(to) {
       "Complete Archive Token Set (¥1,499) — All 2016 colors as CSS, JSON, Tailwind, Figma tokens.",
       "https://colorarchive.me/packs/complete-archive/",
       "",
-      "All Access Bundle (¥2,999) — Everything above in one download. Save 27%.",
+      "All Access Bundle (¥2,799) — Everything above in one download. Save 32%.",
       "https://colorarchive.me/packs/all-access-bundle/",
       "",
       "Questions? Reply here.",
@@ -498,7 +498,7 @@ async function sendFollowUp7DayEmail(to) {
           { id: "content-creator-bundle", title: "Creator Bundle", price: "¥799", desc: "Social-ready palette boards and wallpaper sets for visual content.", bg: "#fff7ed", border: "#fed7aa", titleColor: "#9a3412", textColor: "#7c2d12" },
           { id: "brand-starter-kit", title: "Brand Color Starter Kit", price: "¥999", desc: "Primary + secondary + accent groups for landing pages and brands.", bg: "#eff6ff", border: "#bfdbfe", titleColor: "#1d4ed8", textColor: "#1e3a8a" },
           { id: "complete-archive", title: "Complete Archive Token Set", price: "¥1,499", desc: "All 2016 colors as CSS, JSON, Tailwind, and Figma tokens.", bg: "#fafafa", border: "#e5e7eb", titleColor: "#111827", textColor: "#374151" },
-          { id: "all-access-bundle", title: "All Access Bundle", price: "¥2,999", desc: "Everything above in one download. Save 27%.", bg: "#f0fdf4", border: "#86efac", titleColor: "#14532d", textColor: "#166534" },
+          { id: "all-access-bundle", title: "All Access Bundle", price: "¥2,799", desc: "Everything above in one download. Save 32%.", bg: "#f0fdf4", border: "#86efac", titleColor: "#14532d", textColor: "#166534" },
         ].map(p => `
         <div style="background:${p.bg};border:1px solid ${p.border};border-radius:16px;padding:14px 16px;margin:12px 0">
           <div style="display:flex;justify-content:space-between;align-items:baseline">

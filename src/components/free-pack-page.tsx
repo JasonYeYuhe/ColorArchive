@@ -257,10 +257,10 @@ export function FreePackPage({
                   Want everything?
                 </div>
                 <p className="mt-1 text-lg font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
-                  All Access Bundle — <span className="line-through text-neutral-400">¥4,095</span>{" "}¥2,999
+                  All Access Bundle — <span className="line-through text-neutral-400">¥4,095</span>{" "}¥2,799
                 </p>
                 <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                  All 6 packs in one download. Save 27%.
+                  All 6 packs in one download. Save 32%.
                 </p>
               </div>
               <a
