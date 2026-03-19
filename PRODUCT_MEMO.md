@@ -636,6 +636,7 @@ Codex 当前方向：
 - ✅ `/packs` 与 `/free-pack` 页面现已直接挂 guide 入口，减少用户在内容页、免费入口和结账页之间的跳出断层
 - ✅ `/guides` 现已扩展到 12 个高意图静态页，新增 brand tokens / design system palette / SaaS website color scheme / free Figma palette 等更强商业搜索词
 - ✅ guide 详情页的 related guides 已改为按 category / featured pack / featured collection / shared tags 排序，不再是随机式推荐
+- ✅ `/notes` 新增 Issue 008（brand color tokens）和 Issue 009（SaaS website color scheme），并扩展出 `saas` / `website` / `ui` 等 tag 索引页
 
 ### 当前优先级
 

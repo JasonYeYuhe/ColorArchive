@@ -1,5 +1,73 @@
 [
   {
+    "slug": "june-2026-saas-color-scheme",
+    "date": "2026-06-18",
+    "title": "SaaS color schemes that earn trust before they ask for attention",
+    "summary": "Why restrained website color systems convert better for software products, and how Nordic Frost plus a starter pack avoid the generic startup-blue trap.",
+    "eyebrow": "Issue 009",
+    "tags": ["SaaS", "Website", "UI"],
+    "featuredCollectionId": "nordic-frost",
+    "featuredPackId": "palette-pack-vol-1",
+    "highlights": [
+      "SaaS pages usually convert on clarity and trust before they convert on visual novelty.",
+      "A cool, restrained palette can still feel branded if the supporting tones carry enough temperature and hierarchy.",
+      "Palette Pack Vol. 1 is the faster route when the team needs a site-ready palette without building a whole system from scratch."
+    ],
+    "sections": [
+      {
+        "heading": "Trust has to land before personality does",
+        "body": "Most software pages are explaining product workflow, pricing, proof, screenshots, and differentiation all at once. That means color has a job beyond taste. It has to make the page legible, keep CTA contrast obvious, and stop the product UI from disappearing into marketing styling. Novelty can help later, but trust is what gets the reader to keep moving."
+      },
+      {
+        "heading": "Blue is not the problem; generic blue is",
+        "body": "Founders often overcorrect away from blue because they fear looking like every other SaaS homepage. The real issue is not hue family. It is sameness in structure. Nordic Frost is useful because it keeps the cool trust signals people expect from software while adding enough subtle temperature shifts to feel deliberate rather than template-level."
+      },
+      {
+        "heading": "Where a starter pack fits",
+        "body": "A full design-system effort is not always the right first move. Many teams just need a website color lane that looks coherent and can extend into early product surfaces. Palette Pack Vol. 1 helps because it compresses that decision into something already curated and implementation-ready, instead of forcing the team to improvise under deadline."
+      }
+    ],
+    "links": [
+      { "label": "Open Nordic Frost", "href": "/collections/nordic-frost" },
+      { "label": "Open Palette Pack Vol. 1", "href": "/packs/palette-pack-vol-1" },
+      { "label": "Read the SaaS guide", "href": "/guides/saas-website-color-scheme" }
+    ]
+  },
+  {
+    "slug": "june-2026-brand-color-tokens",
+    "date": "2026-06-11",
+    "title": "Brand color tokens are what stop marketing and product from drifting apart",
+    "summary": "A note on role naming, palette governance, and why brand color systems fail once the landing page, product UI, and campaign work all diverge into separate files.",
+    "eyebrow": "Issue 008",
+    "tags": ["Brand", "Tokens", "Systems"],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Brand drift starts when every team copies the palette into a different format and starts naming it differently.",
+      "Semantic roles survive refreshes better than value-based token names.",
+      "The Brand Starter Kit matters because it reduces governance overhead, not just because it ships more files."
+    ],
+    "sections": [
+      {
+        "heading": "The first split usually happens quietly",
+        "body": "One team uses the original brand deck, another samples colors from a Figma file, and engineering hard-codes values during implementation. None of those decisions look dramatic on their own, but after a few launch cycles the brand no longer has one palette. It has multiple approximations. That is why token structure matters so early."
+      },
+      {
+        "heading": "Role naming protects the system",
+        "body": "If the token names are tied directly to hex values or one-off mood words, every palette update becomes a migration problem. Names like brand-surface, hero-accent, muted-support, or premium-text hold up better because the role remains stable even when the exact shade changes. Quiet Luxury is a useful lane here because it proves how much tonal editing a premium palette can absorb without losing identity."
+      },
+      {
+        "heading": "Why the structural layer is the product",
+        "body": "Teams often talk about buying color assets as if they were only buying swatches. In practice, the useful part is the structure around those swatches: grouped roles, paired surfaces, token exports, and enough consistency that marketing and product can stop arguing over the same palette. That is the real leverage inside the Brand Starter Kit."
+      }
+    ],
+    "links": [
+      { "label": "Open Brand Starter Kit", "href": "/packs/brand-starter-kit" },
+      { "label": "Open Quiet Luxury", "href": "/collections/quiet-luxury" },
+      { "label": "Read the brand token guide", "href": "/guides/brand-color-tokens" }
+    ]
+  },
+  {
     "slug": "june-2026-design-tokens-that-dont-drift",
     "date": "2026-06-04",
     "title": "Design tokens that don't drift across CSS, Tailwind, and Figma",

@@ -26,6 +26,7 @@ Last updated: 2026-03-20
 - Added guide entry points directly on `/packs` and `/free-pack` so users can move between search-intent education pages and checkout lanes without dead ends
 - Expanded `/guides` again to 12 static intent pages, adding brand tokens, design system palette, SaaS website color scheme, and free Figma palette coverage
 - Replaced random guide-detail recommendations with relevance-based related guides using category / pack / collection / tag matches
+- Added Notes Issue 008 and 009 to support the new brand-token and SaaS-site guide lanes, plus new `/notes/tags/saas`, `/notes/tags/website`, and `/notes/tags/ui` index pages
 - Added `docs/commerce-ops-checklist.md` covering Lemon Squeezy production settings, return URLs, smoke test flow, and GSC submission steps
 - Updated PRODUCT_MEMO with the new conversion work and current manual ops reminder
 
