@@ -1,5 +1,73 @@
 [
   {
+    "slug": "may-2026-brand-color-systems",
+    "date": "2026-05-14",
+    "title": "Building a brand color system that actually holds up at scale",
+    "summary": "How to move from a single hex value to a structured brand palette — token naming, role definition, and the common failure modes that kill consistency before launch.",
+    "eyebrow": "Issue 005",
+    "tags": ["Brand", "Tokens", "Systems"],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "A brand color is not a palette — defining roles (primary, surface, accent, text) is what turns swatches into a system.",
+      "Token naming that references role rather than value ('brand-surface' not '#F5F0EB') survives redesigns and dark mode.",
+      "The Brand Starter Kit structures roles, aliases, and reference tokens in one bundle — reduces the decision overhead of building from scratch."
+    ],
+    "sections": [
+      {
+        "heading": "One color versus a system",
+        "body": "Most brand projects start with a single hero color and expand from there. The problem is expansion without structure produces inconsistency: 14 shades of blue that no one can distinguish, surface tones that were never intentional, and a token file that becomes impossible to maintain. Starting with role definitions — primary, surface, muted, accent, text — creates structure before the palette grows."
+      },
+      {
+        "heading": "How to name tokens that survive change",
+        "body": "Semantic naming ('--brand-surface-subtle' not '--color-f5f0eb') means the token file stays valid when the palette shifts. Reference tokens hold the raw values; alias tokens map them to roles. This two-layer approach is how design systems at scale avoid the rewrite every time a brand refreshes."
+      },
+      {
+        "heading": "What the Brand Starter Kit provides",
+        "body": "The Brand Starter Kit ships with a reference palette, role-mapped alias tokens in CSS, Figma-ready JSON, and a Tailwind extension. The intent is to reduce the structural decision overhead — the roles are already defined, the naming convention is already chosen, so you can focus on picking the right hues rather than inventing the architecture."
+      }
+    ],
+    "links": [
+      { "label": "Open Brand Starter Kit", "href": "/packs/brand-starter-kit" },
+      { "label": "Open Quiet Luxury", "href": "/collections/quiet-luxury" },
+      { "label": "Browse all packs", "href": "/packs" }
+    ]
+  },
+  {
+    "slug": "may-2026-editorial-color",
+    "date": "2026-05-01",
+    "title": "Editorial color: warmth, tension, and why cold palettes age faster",
+    "summary": "A look at the role of warm, organic hues in editorial and content work — why apricot and amber persist across design cycles while pure neutrals tend to date themselves.",
+    "eyebrow": "Issue 004",
+    "tags": ["Editorial", "Warmth", "Brand"],
+    "featuredCollectionId": "editorial-warmth",
+    "featuredPackId": "content-creator-bundle",
+    "highlights": [
+      "Warm editorial palettes hold up longer because they reference human materials — paper, amber, clay — rather than trend.",
+      "The tension between a warm primary and a cool neutral accent is where editorial color work gets interesting.",
+      "Editorial Warmth is built for publishing, long-form reading surfaces, and storytelling brands that need approachability without sweetness."
+    ],
+    "sections": [
+      {
+        "heading": "Why warm palettes outlast neutral-cold ones",
+        "body": "Pure cool-neutral palettes — stark white, clean mid-greys, electric blue accents — tend to feel precise for 18 months and dated for the next five years. Warm palettes that pull from natural material references (apricot, amber, garnet, olive) age more gracefully because the reference is human rather than temporal. The Editorial Warmth collection is built around this premise."
+      },
+      {
+        "heading": "Tension as the design tool",
+        "body": "The most durable warm editorial palettes include a cool counterweight: a muted teal against amber, a faded cobalt against garnet. That tension keeps the palette from reading as monolithic. Without it, warm palettes risk becoming sweet rather than thoughtful. The cooler accent gives the eye a resting point and signals intention."
+      },
+      {
+        "heading": "Content Creator Bundle for publishing work",
+        "body": "The Content Creator Bundle is structured around exactly this kind of editorial application — palettes appropriate for newsletters, publication landing pages, long-form content, and creator brand surfaces. The warm editorial direction inside the bundle suits reading interfaces where color should support rather than interrupt."
+      }
+    ],
+    "links": [
+      { "label": "Open Editorial Warmth", "href": "/collections/editorial-warmth" },
+      { "label": "Open Content Creator Bundle", "href": "/packs/content-creator-bundle" },
+      { "label": "Open all collections", "href": "/collections" }
+    ]
+  },
+  {
     "slug": "april-2026-wcag-contrast",
     "date": "2026-04-16",
     "title": "Contrast, clarity, and building for accessibility from the start",
