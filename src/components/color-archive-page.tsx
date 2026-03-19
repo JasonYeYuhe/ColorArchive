@@ -92,6 +92,13 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
     return sortColors(filtered, sortBy);
   }, [activeFamily, searchResults, sortBy]);
 
+  const PAGE_SIZE = 120;
+  const [displayLimit, setDisplayLimit] = useState(PAGE_SIZE);
+
+  useEffect(() => {
+    setDisplayLimit(PAGE_SIZE);
+  }, [activeFamily, searchQuery, sortBy]);
+
   useEffect(() => {
     if (visibleColors.length === 0) {
       setSelectedColorId(null);
@@ -195,7 +202,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
         />
 
         <ColorGrid
-          colors={visibleColors}
+          colors={visibleColors.slice(0, displayLimit)}
           selectedColorId={selectedColorId}
           onSelectColor={setSelectedColorId}
           emptyState={
@@ -208,6 +215,21 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
             />
           }
         />
+
+        {displayLimit < visibleColors.length && (
+          <div className="flex items-center justify-center gap-4 py-2">
+            <span className="text-sm text-neutral-400">
+              Showing {displayLimit} of {visibleColors.length}
+            </span>
+            <button
+              type="button"
+              onClick={() => setDisplayLimit((prev) => prev + PAGE_SIZE)}
+              className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+            >
+              Show more
+            </button>
+          </div>
+        )}
       </div>
     </main>
   );

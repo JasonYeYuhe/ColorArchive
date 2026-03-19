@@ -361,7 +361,7 @@ export function ColorDetailPage({
                   Copy the hex, RGB, or HSL value above, or paste the CSS custom property below into
                   your stylesheet to reference this color directly.
                 </p>
-                <div className="mt-4 overflow-hidden rounded-xl border border-black/6 bg-neutral-950">
+                <div className="mt-4 overflow-hidden rounded-xl border border-black/6 bg-neutral-950 dark:border-white/8">
                   <div className="border-b border-white/6 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">
                     CSS
                   </div>
