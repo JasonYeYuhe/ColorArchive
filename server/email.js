@@ -51,6 +51,69 @@ async function sendFreePackEmail(to) {
   return result;
 }
 
+// Product updates / waitlist confirmation email
+async function sendWaitlistConfirmationEmail(to) {
+  const result = await resend.emails.send({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject: "You are on the ColorArchive updates list",
+    text: [
+      "You are on the ColorArchive updates list",
+      "",
+      "Thanks for following ColorArchive.",
+      "",
+      "Current status:",
+      "- 6 palette packs are live now on Lemon Squeezy",
+      "- the free sample pack is still available",
+      "- future drops, seasonal packs, and archive updates will be announced here",
+      "",
+      "Useful links:",
+      "Packs: https://colorarchive.me/packs",
+      "Free sample: https://colorarchive.me/free-pack",
+      "Updates: https://colorarchive.me/updates",
+      "",
+      "Questions? Reply to this email.",
+      "",
+      "— ColorArchive",
+      "https://colorarchive.me",
+    ].join("\n"),
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
+        <h2 style="color:#1a1a1a">You are on the ColorArchive updates list</h2>
+        <p>Thanks for following ColorArchive.</p>
+        <p style="color:#444;line-height:1.6">
+          Current status:<br>
+          • 6 palette packs are live now on Lemon Squeezy<br>
+          • the free sample pack is still available<br>
+          • future drops, seasonal packs, and archive updates will be announced here
+        </p>
+        <p style="margin:20px 0">
+          <a href="https://colorarchive.me/packs"
+             style="display:inline-block;background:#1a1a1a;color:#fff;
+                    padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600">
+            Browse Live Packs
+          </a>
+        </p>
+        <p style="color:#666;font-size:14px">
+          You can also grab the free sample here:
+          <a href="https://colorarchive.me/free-pack">colorarchive.me/free-pack</a>
+        </p>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
+        <p style="color:#999;font-size:12px">
+          Questions? Reply to this email. · ColorArchive ·
+          <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+        </p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (waitlist):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
 // Order confirmation email after LS purchase
 async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderId }) {
   const result = await resend.emails.send({
@@ -86,4 +149,8 @@ async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderI
   return result;
 }
 
-module.exports = { sendFreePackEmail, sendOrderConfirmationEmail };
+module.exports = {
+  sendFreePackEmail,
+  sendOrderConfirmationEmail,
+  sendWaitlistConfirmationEmail,
+};

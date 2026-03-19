@@ -71,24 +71,24 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-              Early interest
+              Product updates
             </div>
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Join the launch queue before checkout goes live
+              Stay on the list for future drops and launch updates
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              This page is the static pre-launch layer. It helps you capture intent and explain the
-              product line before a full email or checkout system is wired.
+              The current packs are already live. This page now works as the ongoing updates layer
+              for seasonal releases, new bundle drops, and archive product announcements.
             </p>
 
             <div className="mt-6">
               <p className="mb-2 text-sm text-neutral-500">
-                Enter your email to get notified when packs go live:
+                Enter your email to get product updates and future release notices:
               </p>
               <EmailCaptureForm
                 source="waitlist"
-                buttonLabel="Join waitlist"
-                successMessage="You're on the list — we'll email you at launch."
+                buttonLabel="Join updates"
+                successMessage="You're on the list — we'll email you about future drops and updates."
               />
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -156,19 +156,19 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
             </div>
             <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
               <p>
-                Enter your email above and you'll be the first to know when new packs,
-                collections, or pricing updates go live.
+                Enter your email above to hear about future pack launches, seasonal drops,
+                archive expansions, and pricing updates.
               </p>
               <p>
-                All three packs are available now. Your email stays private — no spam,
-                unsubscribe anytime.
+                The six current packs are already live. The list now exists for the next release
+                cycle rather than the initial launch.
               </p>
             </div>
           </div>
 
           <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Waitlist config
+              Updates config
             </div>
             <div className="mt-4 space-y-2 text-sm text-neutral-600">
               <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">

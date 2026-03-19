@@ -18,11 +18,11 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
               Productized color assets
             </div>
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Palette packs ready to become products
+              Palette packs that are already live
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              These packs turn the archive into something directly sellable: curated sets, exports,
-              and usage notes rather than loose swatches.
+              These packs turn the archive into a real catalog of digital goods: curated sets,
+              export-ready tokens, and usage notes rather than loose swatches.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -217,9 +217,8 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                 concrete product surface, clear offers, and a clean way to link out to checkout.
               </p>
               <p>
-                This page is the bridge between the archive and those future checkouts. When you
-                are ready, each pack can point to Lemon Squeezy, Stripe Payment Links, or a similar
-                off-site checkout without changing the core architecture.
+                This page is now the live bridge between the archive and checkout. Each pack already
+                points to Lemon Squeezy while keeping the core site static.
               </p>
               <p>
                 If a payment provider asks for concrete product examples, use the dedicated product

@@ -257,8 +257,8 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
   - 示例导出内容
 
 - `Waitlist`
-- 用静态页面承接支付上线前的兴趣
-- 当前阶段可以先用 copyable note / 公开路线说明
+- 当前不再只是“支付上线前等待页”
+- 已转为未来新品、季节 drop、价格更新和项目通知的 email updates 页面
 - 后续可再接 Buttondown / ConvertKit / Mailchimp
 
 - `Free Sample Pack`
@@ -398,6 +398,9 @@ Codex 当前方向：
 - checkout provider / status / note / URL 现已抽到独立配置层，后续只改一个文件即可
 - waitlist provider / contact 和 success / cancel return path 也已进入配置层
 - Waitlist 与 Thanks 已加入静态商业漏斗，减少“只有商品页、没有转化承接页”的问题
+- free-pack 与 waitlist 现应视为两条不同邮件链路：
+  - `free-pack`：发送免费包下载链接
+  - `waitlist`：发送更新订阅确认邮件，用于未来新品和项目更新
 - Cancel 页面已加入，商业漏斗的退出路径也可控
 - Recent trail 已加入浏览链路，减少“看过一个颜色之后回不去”的问题
 - 继续增加具辨识度的实验页（Spectrum / Surprise / Word → Color）
@@ -418,7 +421,9 @@ Codex 当前方向：
   - 域名：api.colorarchive.me（HTTPS，Let's Encrypt）
   - IP：143.198.85.72
   - 技术栈：Node.js + Express + SQLite + Resend
-  - POST /subscribe — 邮箱捕获（free-pack + waitlist）→ 发下载链接邮件
+  - POST /subscribe — 邮箱捕获：
+    - `free-pack` → 发下载链接邮件
+    - `waitlist` → 发更新订阅确认邮件
   - POST /webhook/ls — LS 付款 webhook → 发确认邮件 + 存订单
   - GET /analytics — 订阅者 / 订单统计
   - PM2 进程管理，开机自启
@@ -430,6 +435,7 @@ Codex 当前方向：
 - 新增 /palette?ids=... 页面：可分享的调色板 URL
 - Palette Builder 添加 Share 按钮，生成分享链接
 - 2016 个颜色详情页增加动态 meta description（SEO 长尾）
+- waitlist / free-pack / packs / updates 的站内文案已开始统一到“6 个产品已 live，free pack 作为长期免费层，waitlist 作为后续更新订阅”的状态
 - 为配合审核，站点需要持续保留可公开访问的：
   - `/packs`
   - `/product-examples`
@@ -465,6 +471,7 @@ Codex 当前方向：
 - ✅ Seasonal: Spring 2026 产品（限定季节调色板 + mood notes）
 - ✅ Resend 域名验证完成（colorarchive.me，Tokyo region）
 - ✅ All Colors 页面新增 Canvas 全色谱（HSL 色彩空间，饱和度滑块，点击复制 hex）
+- ✅ waitlist 邮件链路与 free-pack 邮件链路拆分，避免 waitlist 用户收到错误的下载邮件
 
 ### 当前优先级
 

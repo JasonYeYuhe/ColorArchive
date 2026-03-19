@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const { sendFreePackEmail } = require("../email");
+const { sendFreePackEmail, sendWaitlistConfirmationEmail } = require("../email");
 
 // POST /subscribe
 // Body: { email: string, source?: string }
@@ -17,7 +17,11 @@ router.post("/", async (req, res) => {
       "INSERT OR IGNORE INTO subscribers (email, source) VALUES (?, ?)"
     ).run(email, source);
 
-    await sendFreePackEmail(email);
+    if (source === "waitlist") {
+      await sendWaitlistConfirmationEmail(email);
+    } else {
+      await sendFreePackEmail(email);
+    }
     res.json({ ok: true });
   } catch (err) {
     console.error("subscribe error:", err);

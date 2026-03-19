@@ -10,17 +10,45 @@ export interface ProjectUpdateEntry {
 
 export const projectUpdates: ProjectUpdateEntry[] = [
   {
-    id: "2026-03-18-trust-layer",
-    date: "2026-03-18",
+    id: "2026-03-19-commerce-live",
+    date: "2026-03-19",
+    phase: "v0.4 — Commerce live",
+    status: "shipped",
+    title: "Commerce layer went fully live",
+    summary:
+      "All six Lemon Squeezy products are now live in JPY, with checkout URLs wired into the pack catalog and detail pages.",
+    bullets: [
+      "Activated all 6 Lemon Squeezy checkout URLs across the pack catalog.",
+      "Added static success and cancel return routes for off-site checkout flows.",
+      "Kept the site GitHub Pages compatible while moving payment off-site.",
+    ],
+  },
+  {
+    id: "2026-03-19-email-ops",
+    date: "2026-03-19",
+    phase: "v0.4 — Commerce live",
+    status: "shipped",
+    title: "Email delivery and API flows were stabilized",
+    summary:
+      "The API server, Resend domain verification, and purchase/download email flows are live for both free capture and paid checkout.",
+    bullets: [
+      "Verified the `colorarchive.me` sending domain in Resend.",
+      "Deployed the API server for free-pack capture, checkout webhooks, and analytics.",
+      "Separated free-pack delivery from waitlist/update confirmation email flows.",
+    ],
+  },
+  {
+    id: "2026-03-19-spectrum-canvas",
+    date: "2026-03-19",
     phase: "v0.3 — Product surface",
     status: "shipped",
-    title: "Added trust and product-proof layers",
+    title: "All Colors gained an interactive spectrum canvas",
     summary:
-      "Collection detail pages, free sample pack, and clearer upgrade paths are now part of the static product surface.",
+      "The dense archive view now includes a full HSL canvas explorer with hover and click interactions for faster broad scanning.",
     bullets: [
-      "Added editorial collection detail pages.",
-      "Added a free sample pack landing page based on real preview assets.",
-      "Strengthened support and monetization routes with clearer free-to-paid framing.",
+      "Added a full-canvas HSL spectrum to `/all-colors`.",
+      "Added hover and click hex-copy interactions.",
+      "Added saturation controls to inspect the archive in a more visual way.",
     ],
   },
   {
@@ -52,31 +80,31 @@ export const projectUpdates: ProjectUpdateEntry[] = [
     ],
   },
   {
-    id: "roadmap-checkout",
+    id: "roadmap-mobile-polish",
     date: "Q2 2026",
-    phase: "v0.4 — Commerce",
+    phase: "v0.5 — UX polish",
     status: "planned",
-    title: "Live checkout integration",
+    title: "Mobile interaction cleanup",
     summary:
-      "Wire Lemon Squeezy or Stripe checkout URLs to the existing pack detail pages. No backend required — off-site checkout keeps the static hosting model intact.",
+      "Tighten small-screen interaction so navigation, floating controls, and dense archive views never obstruct core browsing or buying paths.",
     bullets: [
-      "Activate checkout URLs in checkout-config.ts for all three packs.",
-      "Add post-purchase redirect confirmation page.",
-      "Wire download delivery via checkout provider fulfillment rules.",
+      "Reduce mobile header weight and horizontal nav pressure.",
+      "Audit floating palette-builder and sticky controls for overlap issues.",
+      "Tune spacing and safe-area behavior on dense browsing pages.",
     ],
   },
   {
-    id: "roadmap-token-export",
+    id: "roadmap-og-seo",
     date: "Q2 2026",
-    phase: "v0.4 — Commerce",
+    phase: "v0.5 — Trust & SEO",
     status: "planned",
-    title: "Generated file bundles",
+    title: "Stronger social previews and structured SEO",
     summary:
-      "Auto-generate the actual deliverable files (CSS, JSON, Tailwind tokens) at build time so the purchase bundle is always in sync with the live archive.",
+      "Improve how pack, collection, and color routes render in social embeds and search by adding stronger metadata beyond plain page descriptions.",
     bullets: [
-      "Build-time CSS token export from all five collections.",
-      "JSON export with HSL, RGB, and hex for every palette.",
-      "Tailwind 4 CSS variable config snippets.",
+      "Add stronger Open Graph coverage where static export allows it.",
+      "Add Product and collection JSON-LD to commerce and editorial routes.",
+      "Tighten route-specific social copy for archive, pack, and collection pages.",
     ],
   },
   {

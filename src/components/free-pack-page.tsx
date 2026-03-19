@@ -64,11 +64,11 @@ export function FreePackPage({
               Free sample drop
             </div>
             <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Download a free sample before paid checkout goes live
+              Get the free sample pack while the paid packs stay live
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
-              Get a taste of the paid packs before checkout goes live. Enter your email below and
-              we'll send the download link straight to your inbox.
+              Use this as the permanent free tier for ColorArchive. The paid packs are already live,
+              and this page remains the easiest way to preview the file formats and join the email list.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-2">
@@ -92,7 +92,7 @@ export function FreePackPage({
 
             <div className="mt-5">
               <p className="mb-2 text-sm text-neutral-500">
-                Enter your email and we'll send the download link directly:
+                Enter your email and we'll send the full free pack directly:
               </p>
               <EmailCaptureForm />
             </div>
@@ -133,9 +133,8 @@ export function FreePackPage({
                 format fits your project before buying.
               </p>
               <p>
-                When paid checkout goes live, this page stays as a permanent free tier. The
-                full packs add more collections, higher-resolution boards, and structured usage
-                guidance on top of what you see here.
+                This now stays in place as a permanent free tier. The full packs add more
+                collections, deeper exports, and structured usage guidance on top of what you see here.
               </p>
             </div>
 
@@ -151,7 +150,7 @@ export function FreePackPage({
                   2. Review the featured collection and export shape.
                 </div>
                 <div className="rounded-[1rem] border border-black/6 bg-white px-3 py-3">
-                  3. Enter your email above to get the download link, or join the waitlist for the full paid version.
+                  3. Enter your email above to get the full free pack, then upgrade to any live paid pack if it fits your workflow.
                 </div>
               </div>
             </div>
@@ -165,7 +164,7 @@ export function FreePackPage({
                 Free vs paid
               </div>
               <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                What changes when the paid pack goes live
+                What changes when you upgrade to the paid pack
               </h2>
             </div>
             <Link
