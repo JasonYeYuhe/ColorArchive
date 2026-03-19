@@ -405,10 +405,13 @@ Codex 当前方向：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
   - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
   - Heroku credit: 13 USD / month
-- Lemon Squeezy 店铺已创建，三个产品全部上架（Test mode）：
-  - Palette Pack Vol. 1: $14
-  - Creator Bundle: $19
-  - Brand Color Starter Kit: $39
+- Lemon Squeezy 店铺已创建，6 个产品：
+  - Palette Pack Vol. 1: $14 ✅ live
+  - Creator Bundle: $19 ✅ live
+  - Brand Color Starter Kit: $39 ✅ live
+  - Complete Archive Token Set: $49 ⏳ pending URL
+  - Dark Mode UI Kit: $24 ⏳ pending URL
+  - Seasonal: Spring 2026: $9 ⏳ pending URL
   - Checkout URL 已写入 `checkout-config.ts`，购买按钮可用
   - Webhook 已配置（api.colorarchive.me/webhook/ls → order_created）
 - 后端服务器已部署（DigitalOcean Droplet $4/month，SGP1）：
@@ -419,7 +422,7 @@ Codex 当前方向：
   - POST /webhook/ls — LS 付款 webhook → 发确认邮件 + 存订单
   - GET /analytics — 订阅者 / 订单统计
   - PM2 进程管理，开机自启
-- 免费包 + 3 个付费包 ZIP 文件已生成（prebuild 脚本自动打包）
+- 免费包 + 6 个付费包 ZIP 文件已生成（prebuild 脚本自动打包，含 SCSS maps、dark mode pairs、seasonal mood notes）
 - free-pack 页面已改为邮箱捕获 → 发下载链接（不再直接下载）
 - waitlist 页面已接入后端 EmailCaptureForm
 - GitHub Actions build 注入 NEXT_PUBLIC_API_URL=https://api.colorarchive.me
@@ -442,9 +445,9 @@ Codex 当前方向：
 
 ### 已完成
 
-- ✅ Lemon Squeezy 三产品上架 + checkout URL 接入
+- ✅ Lemon Squeezy 6 产品（3 live + 3 pending URL）
 - ✅ DigitalOcean 后端部署（邮箱捕获 + webhook + analytics）
-- ✅ 免费包 / 付费包 ZIP 打包（prebuild 自动生成）
+- ✅ 免费包 + 6 付费包 ZIP 打包（prebuild 自动生成）
 - ✅ free-pack 邮箱捕获流程（填邮箱 → 发下载链接）
 - ✅ waitlist 页面接入后端
 - ✅ /contrast WCAG 对比度检查器
@@ -452,13 +455,21 @@ Codex 当前方向：
 - ✅ 2016 色 SEO meta description
 - ✅ 9 个 V2 改进提案（A1/A2/B1-B3/C1/C2/D1）
 - ✅ HTTPS 全站稳定
+- ✅ 12 个 Collections（+4 新增：Sunset Boulevard, Monochrome Studio, Neon After Dark, Matcha & Linen）
+- ✅ Dark mode 全站切换（system / light / dark）
+- ✅ 首页重设计（产品 showcase + stats bar + feature callouts）
+- ✅ 导航重构（Explore / Tools / Shop 分组）
+- ✅ Favicon（6 色色轮）
+- ✅ Complete Archive Token Set 产品（2016 色 CSS/JSON/Tailwind/SCSS）
+- ✅ Dark Mode UI Kit 产品（明暗配对 token）
+- ✅ Seasonal: Spring 2026 产品（限定季节调色板 + mood notes）
 
 ### 当前优先级
 
-- 修完移动端会遮挡内容的交互细节
 - Resend 域名验证（让邮件不进垃圾箱）
 - LS 店铺审核通过后关闭 Test mode
-- 做 favicon
+- 3 个新产品 LS URL 待填入
+- 修完移动端会遮挡内容的交互细节
 - 增强 Open Graph 表现（D2 受限于 static export，需要评估替代方案）
 
 ### 后续方向
