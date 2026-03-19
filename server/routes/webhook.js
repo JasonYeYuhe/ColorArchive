@@ -43,15 +43,36 @@ router.post("/ls", express.raw({ type: "application/json" }), (req, res) => {
     const receiptUrl = order.receipt || null;
     const matchedProduct = findCatalogProduct(productName);
     const downloadUrl = getDownloadUrl(productName) || receiptUrl || "https://colorarchive.me/packs";
+    const subscriberAttribution = db
+      .prepare(
+        `
+          SELECT source, utm_source, utm_medium, utm_campaign, landing_path
+          FROM subscribers
+          WHERE lower(email) = lower(?)
+        `,
+      )
+      .get(email);
 
     // Persist order
     try {
       db.prepare(
         `
           INSERT OR IGNORE INTO orders (
-            ls_order_id, email, product, amount, currency, pack_id, download_url, receipt_url
+            ls_order_id,
+            email,
+            product,
+            amount,
+            currency,
+            pack_id,
+            download_url,
+            receipt_url,
+            attributed_source,
+            attributed_utm_source,
+            attributed_utm_medium,
+            attributed_utm_campaign,
+            attributed_landing_path
           )
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `
       ).run(
         orderId,
@@ -61,7 +82,12 @@ router.post("/ls", express.raw({ type: "application/json" }), (req, res) => {
         order.currency ?? "USD",
         matchedProduct?.packId ?? null,
         downloadUrl,
-        receiptUrl
+        receiptUrl,
+        subscriberAttribution?.source ?? null,
+        subscriberAttribution?.utm_source ?? null,
+        subscriberAttribution?.utm_medium ?? null,
+        subscriberAttribution?.utm_campaign ?? null,
+        subscriberAttribution?.landing_path ?? null,
       );
 
       // Also add buyer to subscribers list

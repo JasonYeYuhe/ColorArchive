@@ -104,6 +104,12 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
               >
                 Open product proof
               </Link>
+              <Link
+                href="/notes"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Read notes
+              </Link>
             </div>
           </div>
         </section>
@@ -194,6 +200,12 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Packs
+              </Link>
+              <Link
+                href="/notes"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Notes
               </Link>
               <Link
                 href="/thanks"

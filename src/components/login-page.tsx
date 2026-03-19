@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { API_URL, fetchOrders, type AccountOrder } from "@/src/lib/auth-client";
+import {
+  API_URL,
+  fetchOrders,
+  resendOrderEmail,
+  type AccountOrder,
+} from "@/src/lib/auth-client";
 import { useAuth } from "@/src/components/auth-provider";
 
 type FormState = "idle" | "loading" | "success" | "error";
@@ -21,6 +26,15 @@ function formatSyncTime(timestamp: number | null) {
     month: "short",
     day: "numeric",
   }).format(timestamp);
+}
+
+function formatOrderCurrency(amount: number, currency: string) {
+  const normalizedCurrency = currency.toUpperCase();
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: normalizedCurrency,
+    maximumFractionDigits: normalizedCurrency === "JPY" ? 0 : 2,
+  }).format(normalizedCurrency === "JPY" ? amount : amount / 100);
 }
 
 export function LoginPage() {
@@ -43,6 +57,7 @@ export function LoginPage() {
   const [orders, setOrders] = useState<AccountOrder[]>([]);
   const [error, setError] = useState("");
   const [ordersError, setOrdersError] = useState("");
+  const [resendState, setResendState] = useState<Record<string, "idle" | "sending" | "sent">>({});
 
   const token = searchParams.get("token");
   const loginError = searchParams.get("error");
@@ -178,9 +193,21 @@ export function LoginPage() {
   }, [user]);
 
   function handleGoogleLogin() {
-    window.location.assign(
-      `${API_URL}/auth/google/start?next=${encodeURIComponent(nextPath)}`,
-    );
+    window.location.assign(`${API_URL}/auth/google/start?next=${encodeURIComponent(nextPath)}`);
+  }
+
+  async function handleResend(orderId: string) {
+    try {
+      setResendState((current) => ({ ...current, [orderId]: "sending" }));
+      await resendOrderEmail(orderId);
+      setResendState((current) => ({ ...current, [orderId]: "sent" }));
+      window.setTimeout(() => {
+        setResendState((current) => ({ ...current, [orderId]: "idle" }));
+      }, 2000);
+    } catch (err) {
+      setOrdersError(err instanceof Error ? err.message : "Could not resend order email");
+      setResendState((current) => ({ ...current, [orderId]: "idle" }));
+    }
   }
 
   if (token && (verifyState === "loading" || verifyState === "success")) {
@@ -197,7 +224,7 @@ export function LoginPage() {
           <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600">
             {verifyState === "loading"
               ? "We are verifying your email link and loading your saved colors."
-              : "Your favorites and palette are synced. Redirecting now."}
+              : "Your favorites, palette, and account history are synced. Redirecting now."}
           </p>
         </section>
       </main>
@@ -214,19 +241,19 @@ export function LoginPage() {
           </div>
 
           <h1 className="mt-6 max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-            Sync favorites and palettes across devices
+            Sync favorites, downloads, and purchase history
           </h1>
 
           <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg">
-            ColorArchive now supports account sync. Use a magic link today, or Google sign-in when
-            configured, to keep favorites, palettes, and downloads tied to one account.
+            ColorArchive now supports account sync. Use a magic link today, or Google sign-in, to
+            keep favorites, palettes, downloads, and purchase history tied to one account.
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {[
               "No password to remember",
-              "Favorites sync automatically",
-              "Palette builder and downloads follow your account",
+              "Favorites and palette sync automatically",
+              "Downloads and receipts stay with your account",
             ].map((item) => (
               <div
                 key={item}
@@ -241,128 +268,128 @@ export function LoginPage() {
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <div className="space-y-6">
             <div className="rounded-[1.75rem] border border-black/6 bg-white/82 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            {user ? (
-              <>
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                  Signed in
-                </div>
-                <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                  {user.email}
-                </h2>
-                <p className="mt-3 text-sm leading-6 text-neutral-600">
-                  Your local favorites and palette are now tied to this account. Purchased packs
-                  also appear below as a lightweight account history.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link
-                    href="/favorites"
-                    className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-                  >
-                    Open favorites
-                  </Link>
-                  <Link
-                    href="/packs"
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                  >
-                    Browse packs
-                  </Link>
-                  {analyticsAccess ? (
+              {user ? (
+                <>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                    Signed in
+                  </div>
+                  <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                    {user.email}
+                  </h2>
+                  <p className="mt-3 text-sm leading-6 text-neutral-600">
+                    Your local favorites and palette are now tied to this account. Purchased packs
+                    appear below with direct downloads, receipt links, and resend actions.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
                     <Link
-                      href="/analytics"
+                      href="/favorites"
+                      className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                    >
+                      Open favorites
+                    </Link>
+                    <Link
+                      href="/palette"
                       className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                     >
-                      Open analytics
+                      Open palette
                     </Link>
-                  ) : null}
-                  <Link
-                    href="/palette"
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                  >
-                    Open palette
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => void handleLogout()}
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                  >
-                    Log out
-                  </button>
-                </div>
-                <p className="mt-5 text-xs uppercase tracking-[0.16em] text-neutral-400">
-                  Last sync {formatSyncTime(lastSyncAt)}
-                </p>
-              </>
-            ) : formState === "success" ? (
-              <>
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600">
-                  Email sent
-                </div>
-                <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                  Check your inbox
-                </h2>
-                <p className="mt-3 text-sm leading-6 text-neutral-600">
-                  We sent a one-time sign-in link. It stays valid for 30 minutes and signs you in
-                  on the device where you open it.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setFormState("idle")}
-                  className="mt-6 rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                >
-                  Send another link
-                </button>
-              </>
-            ) : (
-              <>
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                  Sign in
-                </div>
-                <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                  Request a sign-in link
-                </h2>
-                <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    placeholder="you@example.com"
-                    className="h-12 rounded-full border border-black/10 bg-white px-4 text-sm text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/20"
-                  />
-                  <button
-                    type="submit"
-                    disabled={formState === "loading"}
-                    className="rounded-full border border-black/8 bg-neutral-950 px-4 py-3 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-50"
-                  >
-                    {formState === "loading" ? "Sending link…" : "Email me a login link"}
-                  </button>
-                </form>
-                {googleEnabled ? (
-                  <>
-                    <div className="my-4 flex items-center gap-3">
-                      <div className="h-px flex-1 bg-black/8" />
-                      <div className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
-                        or
-                      </div>
-                      <div className="h-px flex-1 bg-black/8" />
-                    </div>
+                    <Link
+                      href="/packs"
+                      className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                    >
+                      Browse packs
+                    </Link>
+                    {analyticsAccess ? (
+                      <Link
+                        href="/analytics"
+                        className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                      >
+                        Open analytics
+                      </Link>
+                    ) : null}
                     <button
                       type="button"
-                      onClick={handleGoogleLogin}
-                      className="rounded-full border border-black/8 bg-white px-4 py-3 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                      onClick={() => void handleLogout()}
+                      className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                     >
-                      Continue with Google
+                      Log out
                     </button>
-                  </>
-                ) : null}
-                <p className="mt-4 text-sm leading-6 text-neutral-600">
-                  No password. One link. Favorites, palette builder, and account history sync after
-                  you sign in.
-                </p>
-              </>
-            )}
+                  </div>
+                  <p className="mt-5 text-xs uppercase tracking-[0.16em] text-neutral-400">
+                    Last sync {formatSyncTime(lastSyncAt)}
+                  </p>
+                </>
+              ) : formState === "success" ? (
+                <>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600">
+                    Email sent
+                  </div>
+                  <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                    Check your inbox
+                  </h2>
+                  <p className="mt-3 text-sm leading-6 text-neutral-600">
+                    We sent a one-time sign-in link. It stays valid for 30 minutes and signs you in
+                    on the device where you open it.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setFormState("idle")}
+                    className="mt-6 rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                  >
+                    Send another link
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                    Sign in
+                  </div>
+                  <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                    Request a sign-in link
+                  </h2>
+                  <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      placeholder="you@example.com"
+                      className="h-12 rounded-full border border-black/10 bg-white px-4 text-sm text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/20"
+                    />
+                    <button
+                      type="submit"
+                      disabled={formState === "loading"}
+                      className="rounded-full border border-black/8 bg-neutral-950 px-4 py-3 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-50"
+                    >
+                      {formState === "loading" ? "Sending link…" : "Email me a login link"}
+                    </button>
+                  </form>
+                  {googleEnabled ? (
+                    <>
+                      <div className="my-4 flex items-center gap-3">
+                        <div className="h-px flex-1 bg-black/8" />
+                        <div className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+                          or
+                        </div>
+                        <div className="h-px flex-1 bg-black/8" />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleGoogleLogin}
+                        className="rounded-full border border-black/8 bg-white px-4 py-3 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                      >
+                        Continue with Google
+                      </button>
+                    </>
+                  ) : null}
+                  <p className="mt-4 text-sm leading-6 text-neutral-600">
+                    No password. One link. Favorites, palette builder, downloads, and order history
+                    sync after you sign in.
+                  </p>
+                </>
+              )}
 
-            {error ? <p className="mt-4 text-sm text-red-600">{error}</p> : null}
+              {error ? <p className="mt-4 text-sm text-red-600">{error}</p> : null}
             </div>
 
             {user ? (
@@ -409,11 +436,7 @@ export function LoginPage() {
                               {order.product}
                             </div>
                             <div className="mt-2 text-sm leading-6 text-neutral-600">
-                              {new Intl.NumberFormat("en-US", {
-                                style: "currency",
-                                currency: order.currency,
-                                maximumFractionDigits: order.currency === "JPY" ? 0 : 2,
-                              }).format(order.currency === "JPY" ? order.amount : order.amount / 100)}
+                              {formatOrderCurrency(order.amount, order.currency)}
                               {" · "}
                               {new Intl.DateTimeFormat("en-US", {
                                 dateStyle: "medium",
@@ -423,6 +446,14 @@ export function LoginPage() {
                             <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
                               Order {order.orderId}
                             </div>
+                            {order.attribution.source || order.attribution.utmCampaign ? (
+                              <div className="mt-2 text-xs text-neutral-500">
+                                Attributed to {order.attribution.source ?? "unknown source"}
+                                {order.attribution.utmCampaign
+                                  ? ` · ${order.attribution.utmCampaign}`
+                                  : ""}
+                              </div>
+                            ) : null}
                           </div>
 
                           <div className="flex flex-wrap gap-2">
@@ -436,6 +467,18 @@ export function LoginPage() {
                                 Download ZIP
                               </a>
                             ) : null}
+                            <button
+                              type="button"
+                              onClick={() => void handleResend(order.orderId)}
+                              disabled={resendState[order.orderId] === "sending"}
+                              className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 disabled:opacity-50"
+                            >
+                              {resendState[order.orderId] === "sending"
+                                ? "Sending…"
+                                : resendState[order.orderId] === "sent"
+                                  ? "Sent"
+                                  : "Resend email"}
+                            </button>
                             {order.packUrl ? (
                               <a
                                 href={order.packUrl}
@@ -464,55 +507,89 @@ export function LoginPage() {
             ) : null}
           </div>
 
-          <aside className="rounded-[1.75rem] border border-black/6 bg-white/78 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-              What syncs
-            </div>
-            <div className="mt-5 space-y-4 text-sm leading-6 text-neutral-600">
-              <p>
-                <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-700">Favorites</code>{" "}
-                are stored under your account so the same saved shelf follows you on a new browser
-                or laptop.
-              </p>
-              <p>
-                <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-700">
-                  Palette builder
-                </code>{" "}
-                choices are merged with whatever you already had locally, then synced back to the
-                account.
-              </p>
-              <p>
-                Purchased packs are now shown on this page as a lightweight order and download
-                history.
-              </p>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/favorites"
-                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-              >
-                Favorites
-              </Link>
-              <Link
-                href="/palette"
-                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-              >
-                Palette builder
-              </Link>
-              <Link
-                href="/packs"
-                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-              >
-                Packs
-              </Link>
-              {analyticsAccess ? (
+          <aside className="space-y-6">
+            <div className="rounded-[1.75rem] border border-black/6 bg-white/78 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                What syncs
+              </div>
+              <div className="mt-5 space-y-4 text-sm leading-6 text-neutral-600">
+                <p>
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-700">
+                    Favorites
+                  </code>{" "}
+                  are stored under your account so the same saved shelf follows you on a new browser
+                  or laptop.
+                </p>
+                <p>
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-700">
+                    Palette builder
+                  </code>{" "}
+                  choices are merged with whatever you already had locally, then synced back to the
+                  account.
+                </p>
+                <p>
+                  Purchased packs now appear on this page with direct download, receipt, and resend
+                  email actions.
+                </p>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
                 <Link
-                  href="/analytics"
+                  href="/favorites"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
-                  Analytics
+                  Favorites
                 </Link>
-              ) : null}
+                <Link
+                  href="/palette"
+                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                >
+                  Palette builder
+                </Link>
+                <Link
+                  href="/packs"
+                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                >
+                  Packs
+                </Link>
+                {analyticsAccess ? (
+                  <Link
+                    href="/analytics"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                  >
+                    Analytics
+                  </Link>
+                ) : null}
+              </div>
+            </div>
+
+            <div className="rounded-[1.75rem] border border-black/6 bg-white/78 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                License & support
+              </div>
+              <div className="mt-5 space-y-4 text-sm leading-6 text-neutral-600">
+                <p>
+                  Purchased ZIPs are intended for your own design and development workflow unless a
+                  future pack page states a broader commercial license.
+                </p>
+                <p>
+                  Need help locating a file or clarifying a purchase? Use the receipt link above or
+                  contact the archive directly.
+                </p>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="mailto:hello@colorarchive.me?subject=ColorArchive%20purchase%20support"
+                  className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                >
+                  Purchase support
+                </a>
+                <Link
+                  href="/support"
+                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                >
+                  Support page
+                </Link>
+              </div>
             </div>
           </aside>
         </section>

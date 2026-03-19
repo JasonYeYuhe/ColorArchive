@@ -68,5 +68,18 @@ db.exec(`
 ensureColumn("orders", "pack_id TEXT");
 ensureColumn("orders", "download_url TEXT");
 ensureColumn("orders", "receipt_url TEXT");
+ensureColumn("orders", "attributed_source TEXT");
+ensureColumn("orders", "attributed_utm_source TEXT");
+ensureColumn("orders", "attributed_utm_medium TEXT");
+ensureColumn("orders", "attributed_utm_campaign TEXT");
+ensureColumn("orders", "attributed_landing_path TEXT");
+
+ensureColumn("subscribers", "landing_path TEXT");
+ensureColumn("subscribers", "referrer TEXT");
+ensureColumn("subscribers", "utm_source TEXT");
+ensureColumn("subscribers", "utm_medium TEXT");
+ensureColumn("subscribers", "utm_campaign TEXT");
+ensureColumn("subscribers", "utm_term TEXT");
+ensureColumn("subscribers", "utm_content TEXT");
 
 module.exports = db;

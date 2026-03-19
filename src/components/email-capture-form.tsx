@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const API_URL =
@@ -20,6 +21,8 @@ export function EmailCaptureForm({
   placeholder = "you@example.com",
   buttonLabel = "Send download link",
 }: EmailCaptureFormProps) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [state, setState] = useState<State>("idle");
   const [error, setError] = useState("");
@@ -35,7 +38,17 @@ export function EmailCaptureForm({
       const res = await fetch(`${API_URL}/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source }),
+        body: JSON.stringify({
+          email,
+          source,
+          landingPath: pathname,
+          referrer: typeof document !== "undefined" ? document.referrer || null : null,
+          utmSource: searchParams.get("utm_source"),
+          utmMedium: searchParams.get("utm_medium"),
+          utmCampaign: searchParams.get("utm_campaign"),
+          utmTerm: searchParams.get("utm_term"),
+          utmContent: searchParams.get("utm_content"),
+        }),
       });
 
       if (!res.ok) {

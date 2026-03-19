@@ -31,6 +31,13 @@ export interface AccountOrder {
   downloadUrl: string | null;
   receiptUrl: string | null;
   packUrl: string | null;
+  attribution: {
+    source: string | null;
+    utmSource: string | null;
+    utmMedium: string | null;
+    utmCampaign: string | null;
+    landingPath: string | null;
+  };
 }
 
 async function parseResponse<T>(response: Response): Promise<T> {
@@ -111,4 +118,13 @@ export async function fetchOrders(): Promise<{ orders: AccountOrder[] }> {
   });
 
   return parseResponse<{ orders: AccountOrder[] }>(response);
+}
+
+export async function resendOrderEmail(orderId: string): Promise<void> {
+  const response = await fetch(`${API_URL}/me/orders/${encodeURIComponent(orderId)}/resend`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  await parseResponse<{ ok: true }>(response);
 }

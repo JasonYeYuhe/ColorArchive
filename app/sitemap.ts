@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
 import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
+import { newsletterIssues } from "@/src/lib/newsletter-issues";
 import { palettePacks } from "@/src/lib/palette-packs";
 
 export const dynamic = "force-static";
@@ -39,16 +40,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     {
-      url: "https://colorarchive.me/analytics",
-      lastModified: new Date("2026-03-19"),
-      changeFrequency: "daily",
-      priority: 0.5,
-    },
-    {
       url: "https://colorarchive.me/updates",
       lastModified: new Date("2026-03-18"),
       changeFrequency: "weekly",
       priority: 0.75,
+    },
+    {
+      url: "https://colorarchive.me/notes",
+      lastModified: new Date("2026-03-19"),
+      changeFrequency: "weekly",
+      priority: 0.76,
     },
     {
       url: "https://colorarchive.me/favorites",
@@ -158,5 +159,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.72,
   }));
 
-  return [...topLevelRoutes, ...familyRoutes, ...collectionRoutes, ...packRoutes, ...colorRoutes];
+  const noteRoutes: MetadataRoute.Sitemap = newsletterIssues.map((issue) => ({
+    url: `https://colorarchive.me/notes/${issue.slug}`,
+    lastModified: new Date(issue.date),
+    changeFrequency: "monthly",
+    priority: 0.68,
+  }));
+
+  return [
+    ...topLevelRoutes,
+    ...noteRoutes,
+    ...familyRoutes,
+    ...collectionRoutes,
+    ...packRoutes,
+    ...colorRoutes,
+  ];
 }

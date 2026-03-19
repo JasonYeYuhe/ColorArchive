@@ -1,5 +1,6 @@
 const { Resend } = require("resend");
 const updateBrief = require("./content/update-brief");
+const newsletterIssues = require("../src/data/newsletter-issues.json");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.FROM_EMAIL || "hello@colorarchive.me";
@@ -56,6 +57,7 @@ async function sendFreePackEmail(to) {
 async function sendWaitlistConfirmationEmail(to) {
   const featuredPalette = updateBrief.featuredPalette;
   const featuredPack = updateBrief.featuredPack;
+  const latestIssue = newsletterIssues[0];
   const result = await resend.emails.send({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
@@ -87,6 +89,9 @@ async function sendWaitlistConfirmationEmail(to) {
       "Useful links:",
       "Packs: https://colorarchive.me/packs",
       "Free sample: https://colorarchive.me/free-pack",
+      latestIssue
+        ? `Latest note: ${latestIssue.title} — https://colorarchive.me/notes/${latestIssue.slug}`
+        : null,
       "Updates: https://colorarchive.me/updates",
       "",
       "Questions? Reply to this email.",
@@ -143,6 +148,20 @@ async function sendWaitlistConfirmationEmail(to) {
           You can also grab the free sample here:
           <a href="https://colorarchive.me/free-pack">colorarchive.me/free-pack</a>
         </p>
+        ${
+          latestIssue
+            ? `<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:16px;padding:16px 18px;margin:20px 0">
+          <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#6d28d9;font-weight:700">Latest note</div>
+          <p style="margin:10px 0 0;color:#5b21b6;line-height:1.6">
+            <strong>${latestIssue.title}</strong><br>
+            ${latestIssue.summary}
+          </p>
+          <p style="margin:12px 0 0">
+            <a href="https://colorarchive.me/notes/${latestIssue.slug}" style="color:#6d28d9;font-weight:600;text-decoration:none">Read the note</a>
+          </p>
+        </div>`
+            : ""
+        }
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
           Questions? Reply to this email. · ColorArchive ·

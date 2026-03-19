@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "march-2026-matcha-linen",
+    "date": "2026-03-19",
+    "title": "Matcha & Linen, calm product surfaces, and what shipped in March",
+    "summary": "A monthly ColorArchive note covering a calm green editorial direction, the archive's new account layer, and live token exports.",
+    "eyebrow": "Issue 001",
+    "highlights": [
+      "Featured palette direction: Matcha & Linen for wellness, artisan packaging, and quiet interfaces.",
+      "Account sync is now live with magic link and Google sign-in, plus lightweight order history.",
+      "Complete Archive token exports now include Figma-friendly JSON and Style Dictionary formats."
+    ],
+    "sections": [
+      {
+        "heading": "Palette direction",
+        "body": "Matcha & Linen is the kind of palette lane that holds up across packaging, wellness landing pages, and editorial UI. The point is not novelty; it is controlled softness with enough structure to still feel product-ready."
+      },
+      {
+        "heading": "What shipped",
+        "body": "This month pushed ColorArchive closer to a real product surface: account sync, protected analytics, route-specific OG assets, and better token export coverage. The site is still static at the front, but the dynamic layer is now cleanly isolated behind the API."
+      },
+      {
+        "heading": "What to open next",
+        "body": "If you want the quickest path from browsing to application, start with the Matcha & Linen collection, then compare it against the Complete Archive Token Set if you need broader production coverage."
+      }
+    ],
+    "links": [
+      {
+        "label": "Open Matcha & Linen",
+        "href": "/collections/matcha-linen"
+      },
+      {
+        "label": "Open Complete Archive Token Set",
+        "href": "/packs/complete-archive"
+      }
+    ]
+  },
+  {
+    "slug": "march-2026-dark-mode-lane",
+    "date": "2026-03-12",
+    "title": "A dark mode lane worth keeping, with Nocturne Tech as the anchor",
+    "summary": "A focused note on dark mode palette decisions, pre-paired token sets, and where the Dark Mode UI Kit fits.",
+    "eyebrow": "Issue 000",
+    "highlights": [
+      "Nocturne Tech remains the strongest public proof for ColorArchive's dark-mode taste.",
+      "The Dark Mode UI Kit is positioned less as swatches and more as pre-paired implementation help.",
+      "Contrast tooling matters more when the archive starts acting like a real interface system."
+    ],
+    "sections": [
+      {
+        "heading": "Palette direction",
+        "body": "Nocturne Tech works because the palette is not simply dark. It keeps enough chroma and separation for interface surfaces, accents, and neutral text roles to hold up under real product constraints."
+      },
+      {
+        "heading": "Pack direction",
+        "body": "The Dark Mode UI Kit should stay tied to implementation, not inspiration. Paired values, contrast notes, and usage rules are the reason it deserves to exist as a separate product."
+      }
+    ],
+    "links": [
+      {
+        "label": "Open Nocturne Tech",
+        "href": "/collections/nocturne-tech"
+      },
+      {
+        "label": "Open Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit"
+      }
+    ]
+  }
+]

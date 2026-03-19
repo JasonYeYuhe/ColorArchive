@@ -1,12 +1,28 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
 
 interface AnalyticsResponse {
+  filters: {
+    selected: {
+      days: number;
+      source: string | null;
+      utmCampaign: string | null;
+      utmSource: string | null;
+      landingPath: string | null;
+    };
+    options: {
+      sources: string[];
+      utmCampaigns: string[];
+      utmSources: string[];
+      landingPaths: string[];
+    };
+  };
   subscribers: {
     total: number;
     bySource: Array<{ source: string; count: number }>;
@@ -30,19 +46,27 @@ interface AnalyticsResponse {
   };
   products: Array<{ product: string; orders: number; revenue: number; currency: string }>;
   recent: {
-    subscribers: Array<{ email: string; source: string; created_at: string }>;
+    subscribers: Array<{
+      email: string;
+      source: string;
+      utm_source?: string | null;
+      utm_campaign?: string | null;
+      landing_path?: string | null;
+      created_at: string;
+    }>;
     orders: Array<{
       email: string;
       product: string;
       amount: number;
       currency: string;
+      attributed_source?: string | null;
+      attributed_utm_campaign?: string | null;
       created_at: string;
     }>;
   };
 }
 
 type LoadState = "idle" | "loading" | "success" | "error";
-
 const ZERO_DECIMAL_CURRENCIES = new Set(["JPY", "KRW"]);
 
 function formatCurrency(amount: number, currency: string) {
@@ -54,18 +78,6 @@ function formatCurrency(amount: number, currency: string) {
     currency: normalizedCurrency,
     maximumFractionDigits: ZERO_DECIMAL_CURRENCIES.has(normalizedCurrency) ? 0 : 2,
   }).format(amount / divisor);
-}
-
-function formatDate(value: string) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    return value;
-  }
-
-  return new Intl.DateTimeFormat("en-US", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(date);
 }
 
 function formatShortDay(value: string) {
@@ -112,7 +124,9 @@ function MiniBarChart({
             <div className="flex h-28 w-full items-end">
               <div
                 className={`w-full rounded-t-xl ${colorClass}`}
-                style={{ height: `${Math.max((entry.value / maxValue) * 100, entry.value > 0 ? 8 : 2)}%` }}
+                style={{
+                  height: `${Math.max((entry.value / maxValue) * 100, entry.value > 0 ? 8 : 2)}%`,
+                }}
               />
             </div>
             <div className="text-[10px] uppercase tracking-[0.12em] text-neutral-400">
@@ -125,11 +139,57 @@ function MiniBarChart({
   );
 }
 
+function FilterSelect({
+  label,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  options: string[];
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label className="flex flex-col gap-2">
+      <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+        {label}
+      </span>
+      <select
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className="h-11 rounded-2xl border border-black/8 bg-white px-4 text-sm text-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-900/15"
+      >
+        <option value="all">All</option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
 export function AnalyticsPage() {
   const { analyticsAccess, status } = useAuth();
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [state, setState] = useState<LoadState>("idle");
   const [data, setData] = useState<AnalyticsResponse | null>(null);
   const [error, setError] = useState("");
+
+  const filters = useMemo(
+    () => ({
+      days: searchParams.get("days") ?? "14",
+      source: searchParams.get("source") ?? "all",
+      utmCampaign: searchParams.get("utm_campaign") ?? "all",
+      utmSource: searchParams.get("utm_source") ?? "all",
+      landingPath: searchParams.get("landing_path") ?? "all",
+    }),
+    [searchParams],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -138,8 +198,15 @@ export function AnalyticsPage() {
       setState("loading");
       setError("");
 
+      const apiSearchParams = new URLSearchParams();
+      apiSearchParams.set("days", filters.days);
+      if (filters.source !== "all") apiSearchParams.set("source", filters.source);
+      if (filters.utmCampaign !== "all") apiSearchParams.set("utm_campaign", filters.utmCampaign);
+      if (filters.utmSource !== "all") apiSearchParams.set("utm_source", filters.utmSource);
+      if (filters.landingPath !== "all") apiSearchParams.set("landing_path", filters.landingPath);
+
       try {
-        const response = await fetch(`${API_URL}/analytics`, {
+        const response = await fetch(`${API_URL}/analytics?${apiSearchParams.toString()}`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -151,11 +218,9 @@ export function AnalyticsPage() {
           if (response.status === 401) {
             throw new Error("Sign in to view analytics.");
           }
-
           if (response.status === 403) {
             throw new Error("This account does not have analytics access.");
           }
-
           throw new Error(`Analytics request failed with ${response.status}`);
         }
 
@@ -177,7 +242,19 @@ export function AnalyticsPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [filters.days, filters.landingPath, filters.source, filters.utmCampaign, filters.utmSource]);
+
+  function updateFilter(key: string, value: string) {
+    const nextParams = new URLSearchParams(searchParams.toString());
+    if (value === "all") {
+      nextParams.delete(key);
+    } else {
+      nextParams.set(key, value);
+    }
+    router.replace(nextParams.toString() ? `${pathname}?${nextParams.toString()}` : pathname, {
+      scroll: false,
+    });
+  }
 
   const dominantCurrency = useMemo(() => data?.recent.orders[0]?.currency ?? "JPY", [data]);
   const topSource = data?.subscribers.bySource[0];
@@ -194,13 +271,46 @@ export function AnalyticsPage() {
               Commerce analytics
             </div>
             <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Subscribers, orders, and recent activity
+              Subscribers, orders, and attributed traffic
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
-              This page reads directly from the live API so you can inspect free-pack capture,
-              waitlist growth, and purchase activity without leaving the site.
+              Filter the live analytics feed by source, campaign, landing page, and lookback
+              window to see which capture paths are producing actual buying behavior.
             </p>
           </div>
+        </section>
+
+        <section className="grid gap-3 rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] md:grid-cols-2 xl:grid-cols-5">
+          <FilterSelect
+            label="Range"
+            value={filters.days}
+            options={["14", "30", "90"]}
+            onChange={(value) => updateFilter("days", value)}
+          />
+          <FilterSelect
+            label="Source"
+            value={filters.source}
+            options={data?.filters.options.sources ?? []}
+            onChange={(value) => updateFilter("source", value)}
+          />
+          <FilterSelect
+            label="UTM Campaign"
+            value={filters.utmCampaign}
+            options={data?.filters.options.utmCampaigns ?? []}
+            onChange={(value) => updateFilter("utm_campaign", value)}
+          />
+          <FilterSelect
+            label="UTM Source"
+            value={filters.utmSource}
+            options={data?.filters.options.utmSources ?? []}
+            onChange={(value) => updateFilter("utm_source", value)}
+          />
+          <FilterSelect
+            label="Landing Path"
+            value={filters.landingPath}
+            options={data?.filters.options.landingPaths ?? []}
+            onChange={(value) => updateFilter("landing_path", value)}
+          />
         </section>
 
         {state === "loading" || state === "idle" ? (
@@ -240,7 +350,7 @@ export function AnalyticsPage() {
                   {data.subscribers.total}
                 </div>
                 <div className="mt-2 text-sm text-neutral-500">
-                  Across free-pack, waitlist, and purchase capture.
+                  Filtered subscriber captures in the selected window.
                 </div>
               </article>
 
@@ -252,7 +362,7 @@ export function AnalyticsPage() {
                   {data.orders.total}
                 </div>
                 <div className="mt-2 text-sm text-neutral-500">
-                  Live orders processed through Lemon Squeezy.
+                  Attributed orders in the selected window.
                 </div>
               </article>
 
@@ -264,7 +374,7 @@ export function AnalyticsPage() {
                   {formatCurrency(data.orders.revenue, dominantCurrency)}
                 </div>
                 <div className="mt-2 text-sm text-neutral-500">
-                  Based on the order records currently stored in SQLite.
+                  Revenue in the selected filter scope.
                 </div>
               </article>
 
@@ -276,7 +386,7 @@ export function AnalyticsPage() {
                   {topSource?.source ?? "n/a"}
                 </div>
                 <div className="mt-2 text-sm text-neutral-500">
-                  {topSource ? `${topSource.count} subscribers so far.` : "No source data yet."}
+                  {topSource ? `${topSource.count} subscribers in this filter.` : "No source data yet."}
                 </div>
               </article>
             </section>
@@ -305,33 +415,29 @@ export function AnalyticsPage() {
                 </div>
                 <div className="mt-4 grid gap-3">
                   <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4">
-                    <div className="text-sm font-medium text-neutral-950">
-                      Free pack → purchase
-                    </div>
+                    <div className="text-sm font-medium text-neutral-950">Free pack → purchase</div>
                     <div className="mt-2 text-sm text-neutral-500">
-                      {data.funnel.freePackPurchasers} of {data.funnel.freePackSubscribers} known free-pack subscribers later purchased.
+                      {data.funnel.freePackPurchasers} of {data.funnel.freePackSubscribers} known
+                      free-pack subscribers later purchased.
                     </div>
                     <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
                       {formatPercent(data.funnel.freePackConversionRate)}
                     </div>
                   </div>
                   <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4">
-                    <div className="text-sm font-medium text-neutral-950">
-                      Waitlist → purchase
-                    </div>
+                    <div className="text-sm font-medium text-neutral-950">Waitlist → purchase</div>
                     <div className="mt-2 text-sm text-neutral-500">
-                      {data.funnel.waitlistPurchasers} of {data.funnel.waitlistSubscribers} known update subscribers later purchased.
+                      {data.funnel.waitlistPurchasers} of {data.funnel.waitlistSubscribers} known
+                      update subscribers later purchased.
                     </div>
                     <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
                       {formatPercent(data.funnel.waitlistConversionRate)}
                     </div>
                   </div>
                   <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4">
-                    <div className="text-sm font-medium text-neutral-950">
-                      Distinct purchasers
-                    </div>
+                    <div className="text-sm font-medium text-neutral-950">Distinct purchasers</div>
                     <div className="mt-2 text-sm text-neutral-500">
-                      Buyers with at least one recorded order in the current database.
+                      Buyers with at least one recorded order in this filter scope.
                     </div>
                     <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
                       {data.funnel.purchasers}
@@ -344,136 +450,90 @@ export function AnalyticsPage() {
             <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
               <MiniBarChart
                 label="Daily subscribers"
-                colorClass="bg-neutral-950"
-                data={data.series.subscribers.map((entry) => ({ day: entry.day, value: entry.count }))}
+                colorClass="bg-sky-400"
+                data={data.series.subscribers.map((entry) => ({
+                  day: entry.day,
+                  value: entry.count,
+                }))}
               />
               <MiniBarChart
-                label="Daily order revenue"
-                colorClass="bg-emerald-500"
-                data={data.series.orders.map((entry) => ({ day: entry.day, value: entry.revenue }))}
+                label="Daily revenue"
+                colorClass="bg-emerald-400"
+                data={data.series.orders.map((entry) => ({
+                  day: entry.day,
+                  value: entry.revenue,
+                }))}
                 valueFormatter={(value) => formatCurrency(value, dominantCurrency)}
               />
-            </section>
-
-            <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Product performance
-              </div>
-              <div className="mt-4 overflow-x-auto">
-                <table className="min-w-full border-separate border-spacing-0 text-left text-sm text-neutral-600">
-                  <thead>
-                    <tr>
-                      <th className="rounded-l-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                        Product
-                      </th>
-                      <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                        Orders
-                      </th>
-                      <th className="rounded-r-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                        Revenue
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.products.map((product) => (
-                      <tr key={product.product}>
-                        <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                          {product.product}
-                        </td>
-                        <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                          {product.orders}
-                        </td>
-                        <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                          {formatCurrency(product.revenue, product.currency)}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
             </section>
 
             <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
               <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Recent subscribers
+                  Product breakdown
                 </div>
-                <div className="mt-4 overflow-x-auto">
-                  <table className="min-w-full border-separate border-spacing-0 text-left text-sm text-neutral-600">
-                    <thead>
-                      <tr>
-                        <th className="rounded-l-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                          Email
-                        </th>
-                        <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                          Source
-                        </th>
-                        <th className="rounded-r-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                          Created
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.recent.subscribers.map((subscriber) => (
-                        <tr key={`${subscriber.email}-${subscriber.created_at}`}>
-                          <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                            {subscriber.email}
-                          </td>
-                          <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                            {subscriber.source}
-                          </td>
-                          <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                            {formatDate(subscriber.created_at)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="mt-4 space-y-3">
+                  {data.products.map((product) => (
+                    <div
+                      key={product.product}
+                      className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4"
+                    >
+                      <div className="text-sm font-medium text-neutral-950">{product.product}</div>
+                      <div className="mt-2 flex flex-wrap gap-4 text-sm text-neutral-500">
+                        <span>{product.orders} orders</span>
+                        <span>{formatCurrency(product.revenue, product.currency)}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Recent orders
+                  Recent subscriber captures
                 </div>
-                <div className="mt-4 overflow-x-auto">
-                  <table className="min-w-full border-separate border-spacing-0 text-left text-sm text-neutral-600">
-                    <thead>
-                      <tr>
-                        <th className="rounded-l-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                          Product
-                        </th>
-                        <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                          Buyer
-                        </th>
-                        <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                          Amount
-                        </th>
-                        <th className="rounded-r-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                          Created
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.recent.orders.map((order) => (
-                        <tr key={`${order.email}-${order.product}-${order.created_at}`}>
-                          <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                            {order.product}
-                          </td>
-                          <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                            {order.email}
-                          </td>
-                          <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                            {formatCurrency(order.amount, order.currency)}
-                          </td>
-                          <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                            {formatDate(order.created_at)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="mt-4 space-y-3">
+                  {data.recent.subscribers.map((subscriber) => (
+                    <div
+                      key={`${subscriber.email}-${subscriber.created_at}`}
+                      className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4"
+                    >
+                      <div className="text-sm font-medium text-neutral-950">{subscriber.email}</div>
+                      <div className="mt-2 text-sm text-neutral-500">
+                        {subscriber.source}
+                        {subscriber.utm_campaign ? ` · ${subscriber.utm_campaign}` : ""}
+                        {subscriber.landing_path ? ` · ${subscriber.landing_path}` : ""}
+                      </div>
+                    </div>
+                  ))}
                 </div>
+              </div>
+            </section>
+
+            <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Recent attributed orders
+              </div>
+              <div className="mt-4 grid gap-3">
+                {data.recent.orders.map((order) => (
+                  <div
+                    key={`${order.email}-${order.product}-${order.created_at}`}
+                    className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4"
+                  >
+                    <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                      <div>
+                        <div className="text-sm font-medium text-neutral-950">{order.product}</div>
+                        <div className="mt-1 text-sm text-neutral-500">
+                          {order.email} · {order.attributed_source ?? "unattributed"}
+                          {order.attributed_utm_campaign ? ` · ${order.attributed_utm_campaign}` : ""}
+                        </div>
+                      </div>
+                      <div className="text-sm font-medium text-neutral-700">
+                        {formatCurrency(order.amount, order.currency)}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </section>
           </>
