@@ -4,10 +4,10 @@ import { NotesPage } from "@/src/components/notes-page";
 import { newsletterIssues } from "@/src/lib/newsletter-issues";
 
 export const metadata: Metadata = {
-  title: "Notes",
-  description: "Public monthly notes connecting featured palettes, product updates, and archive direction.",
+  title: "Color Notes & Newsletter",
+  description: "Monthly notes from ColorArchive — featuring curated palettes, WCAG accessibility tips, seasonal color trends, and design token updates. Free to read.",
   alternates: {
-    canonical: "/notes",
+    canonical: "/notes/",
   },
 };
 
