@@ -16,7 +16,9 @@ interface SiteHeaderProps {
     | "/surprise"
     | "/updates"
     | "/word-to-color"
-    | "/colors";
+    | "/contrast"
+    | "/colors"
+    | "/palette";
 }
 
 export function SiteHeader({ currentPath }: SiteHeaderProps) {
@@ -114,6 +116,16 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
             }`}
           >
             Word → Color
+          </Link>
+          <Link
+            href="/contrast"
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+              currentPath === "/contrast"
+                ? "bg-neutral-950 text-white"
+                : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+            }`}
+          >
+            Contrast
           </Link>
           <Link
             href="/surprise"

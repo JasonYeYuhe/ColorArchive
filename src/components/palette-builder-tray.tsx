@@ -14,6 +14,37 @@ import {
 import { colors as allColors } from "@/src/data/colors";
 import type { ColorRecord } from "@/src/types/color";
 
+function ShareButton({ colorIds }: { colorIds: string[] }) {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!copied) return undefined;
+    const t = window.setTimeout(() => setCopied(false), 1400);
+    return () => window.clearTimeout(t);
+  }, [copied]);
+
+  const handleShare = async () => {
+    try {
+      const url = new URL("/palette", window.location.origin);
+      url.searchParams.set("ids", colorIds.join(","));
+      await navigator.clipboard.writeText(url.toString());
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={() => void handleShare()}
+      className="rounded-full border border-black/8 bg-neutral-950 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
+    >
+      {copied ? "Link copied!" : "Share"}
+    </button>
+  );
+}
+
 function CopyButton({ value, label }: { value: string; label: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -113,14 +144,13 @@ export function PaletteBuilderTray() {
             <div className="mt-3 flex flex-wrap gap-2">
               <CopyButton value={cssExport} label="Copy CSS" />
               <CopyButton value={jsonExport} label="Copy JSON" />
-              {paletteColors[0] && (
-                <Link
-                  href={`/colors/${paletteColors[0].id}/`}
-                  className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
-                >
-                  Open first
-                </Link>
-              )}
+              <ShareButton colorIds={paletteIds} />
+              <Link
+                href={`/palette?ids=${paletteIds.join(",")}`}
+                className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
+              >
+                View palette
+              </Link>
               <button
                 type="button"
                 onClick={clearPalette}
