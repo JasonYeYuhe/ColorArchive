@@ -5,19 +5,33 @@ const FROM = process.env.FROM_EMAIL || "hello@colorarchive.me";
 
 // Free pack download email
 async function sendFreePackEmail(to) {
-  return resend.emails.send({
+  const result = await resend.emails.send({
     from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
     to,
-    subject: "Your free ColorArchive palette pack",
+    subject: "Your ColorArchive palette pack is ready",
+    text: [
+      "Your palette pack is ready",
+      "",
+      "Thanks for your interest in ColorArchive.",
+      "",
+      "Download your palette pack here:",
+      "https://colorarchive.me/downloads/free-palette-pack.zip",
+      "",
+      "The pack includes 3 curated palettes with CSS variables and PNG swatches.",
+      "",
+      "— ColorArchive",
+      "https://colorarchive.me",
+    ].join("\n"),
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
-        <h2 style="color:#1a1a1a">Your free palette pack is ready</h2>
-        <p>Thanks for grabbing the free pack from ColorArchive.</p>
+        <h2 style="color:#1a1a1a">Your palette pack is ready</h2>
+        <p>Thanks for your interest in ColorArchive.</p>
         <p>
           <a href="https://colorarchive.me/downloads/free-palette-pack.zip"
              style="display:inline-block;background:#1a1a1a;color:#fff;
                     padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600">
-            Download Free Pack
+            Download Palette Pack
           </a>
         </p>
         <p style="color:#666;font-size:14px">
@@ -30,11 +44,16 @@ async function sendFreePackEmail(to) {
       </div>
     `,
   });
+  if (result.error) {
+    console.error("Resend error (free pack):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
 }
 
 // Order confirmation email after LS purchase
 async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderId }) {
-  return resend.emails.send({
+  const result = await resend.emails.send({
     from: `ColorArchive <${FROM}>`,
     to,
     subject: `Your ${productName} download is ready`,
@@ -60,6 +79,11 @@ async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderI
       </div>
     `,
   });
+  if (result.error) {
+    console.error("Resend error (order):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
 }
 
 module.exports = { sendFreePackEmail, sendOrderConfirmationEmail };

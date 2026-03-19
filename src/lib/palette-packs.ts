@@ -41,7 +41,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "palette-pack-vol-1",
     title: "Palette Pack Vol. 1",
-    priceHint: "$12–24",
+    priceHint: "¥1,980",
     ctaLabel: "Start here",
     audience: "Designers and founders who want polished palettes they can apply immediately.",
     checkoutProvider: checkoutConfig["palette-pack-vol-1"].provider,
@@ -107,7 +107,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "brand-starter-kit",
     title: "Brand Color Starter Kit",
-    priceHint: "$29–59",
+    priceHint: "¥5,980",
     ctaLabel: "Brand & UI",
     audience: "Solo founders, small studios, and landing-page builders who need a coherent starting system.",
     checkoutProvider: checkoutConfig["brand-starter-kit"].provider,
@@ -173,7 +173,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "content-creator-bundle",
     title: "Creator Bundle",
-    priceHint: "$19–39",
+    priceHint: "¥2,980",
     ctaLabel: "For creators",
     audience: "Creators, marketers, and social designers who need visually consistent color sets fast.",
     checkoutProvider: checkoutConfig["content-creator-bundle"].provider,
@@ -239,7 +239,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "complete-archive",
     title: "Complete Archive Token Set",
-    priceHint: "$49",
+    priceHint: "¥7,480",
     ctaLabel: "Full archive",
     audience: "Design system leads and developers who need a comprehensive, production-ready color token library.",
     checkoutProvider: checkoutConfig["complete-archive"].provider,
@@ -305,7 +305,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "dark-mode-ui-kit",
     title: "Dark Mode UI Kit",
-    priceHint: "$24",
+    priceHint: "¥3,480",
     ctaLabel: "Dark mode",
     audience: "SaaS builders and product designers who need ready-made light/dark paired token sets.",
     checkoutProvider: checkoutConfig["dark-mode-ui-kit"].provider,
@@ -371,7 +371,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "seasonal-spring-2026",
     title: "Seasonal: Spring 2026",
-    priceHint: "$9",
+    priceHint: "¥1,280",
     ctaLabel: "Spring edition",
     audience: "Designers and creators looking for fresh, seasonal color inspiration.",
     checkoutProvider: checkoutConfig["seasonal-spring-2026"].provider,

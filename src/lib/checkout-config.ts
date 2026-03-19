@@ -40,21 +40,21 @@ export const checkoutConfig = {
   },
   "complete-archive": {
     provider: "Lemon Squeezy",
-    url: null,
-    status: "pending",
-    note: "Complete Archive Token Set — pending checkout setup.",
+    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/78609f8d-1a2b-45da-ba39-af50f8fa0795",
+    status: "live",
+    note: "Complete Archive Token Set — live on Lemon Squeezy.",
   },
   "dark-mode-ui-kit": {
     provider: "Lemon Squeezy",
-    url: null,
-    status: "pending",
-    note: "Dark Mode UI Kit — pending checkout setup.",
+    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/5dca2881-8d8d-457e-8b74-89a1444ef517",
+    status: "live",
+    note: "Dark Mode UI Kit — live on Lemon Squeezy.",
   },
   "seasonal-spring-2026": {
     provider: "Lemon Squeezy",
-    url: null,
-    status: "pending",
-    note: "Seasonal: Spring 2026 — pending checkout setup.",
+    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/b10990ee-3a5c-430c-b6bf-0bfbb2d37d6d",
+    status: "live",
+    note: "Seasonal: Spring 2026 — live on Lemon Squeezy.",
   },
 } satisfies Record<string, CheckoutConfigEntry>;
 

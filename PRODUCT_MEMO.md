@@ -405,14 +405,14 @@ Codex 当前方向：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
   - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
   - Heroku credit: 13 USD / month
-- Lemon Squeezy 店铺已创建，6 个产品：
-  - Palette Pack Vol. 1: $14 ✅ live
-  - Creator Bundle: $19 ✅ live
-  - Brand Color Starter Kit: $39 ✅ live
-  - Complete Archive Token Set: $49 ⏳ pending URL
-  - Dark Mode UI Kit: $24 ⏳ pending URL
-  - Seasonal: Spring 2026: $9 ⏳ pending URL
-  - Checkout URL 已写入 `checkout-config.ts`，购买按钮可用
+- Lemon Squeezy 店铺已创建，6 个产品（全部 live，JPY 定价）：
+  - Palette Pack Vol. 1: ¥1,980 ✅ live
+  - Creator Bundle: ¥2,980 ✅ live
+  - Brand Color Starter Kit: ¥5,980 ✅ live
+  - Complete Archive Token Set: ¥7,480 ✅ live
+  - Dark Mode UI Kit: ¥3,480 ✅ live
+  - Seasonal: Spring 2026: ¥1,280 ✅ live
+  - 全部 6 个 Checkout URL 已写入 `checkout-config.ts`，购买按钮可用
   - Webhook 已配置（api.colorarchive.me/webhook/ls → order_created）
 - 后端服务器已部署（DigitalOcean Droplet $4/month，SGP1）：
   - 域名：api.colorarchive.me（HTTPS，Let's Encrypt）
@@ -445,7 +445,7 @@ Codex 当前方向：
 
 ### 已完成
 
-- ✅ Lemon Squeezy 6 产品（3 live + 3 pending URL）
+- ✅ Lemon Squeezy 6 产品全部 live（JPY 定价）
 - ✅ DigitalOcean 后端部署（邮箱捕获 + webhook + analytics）
 - ✅ 免费包 + 6 付费包 ZIP 打包（prebuild 自动生成）
 - ✅ free-pack 邮箱捕获流程（填邮箱 → 发下载链接）
@@ -466,11 +466,12 @@ Codex 当前方向：
 
 ### 当前优先级
 
-- Resend 域名验证（让邮件不进垃圾箱）
+- ✅ Resend 域名验证完成（colorarchive.me verified，邮件可正常发送）
+- ✅ 6 个产品全部 live，checkout URL 已填入
 - LS 店铺审核通过后关闭 Test mode
-- 3 个新产品 LS URL 待填入
 - 修完移动端会遮挡内容的交互细节
 - 增强 Open Graph 表现（D2 受限于 static export，需要评估替代方案）
+- 提高邮件送达率（新域名初期可能进 spam，需要积累域名信誉）
 
 ### 后续方向
 
@@ -502,7 +503,7 @@ ColorArchive 的核心不是“功能很多”，而是：
 ColorArchive 已从静态展示项目进化为完整的颜色产品：
 - 前端：Next.js 静态站（GitHub Pages），23+ 页面
 - 后端：Node.js API 服务器（DigitalOcean），处理邮箱捕获、支付 webhook、分析
-- 商业：Lemon Squeezy 三产品上架，自动交付 ZIP 包
+- 商业：Lemon Squeezy 六产品全部上架（JPY），自动交付 ZIP 包
 - 增长：邮件列表、SEO 长尾页面、可分享调色板 URL
 - 工具：WCAG 对比度检查器、Palette Builder、Word → Color
 
