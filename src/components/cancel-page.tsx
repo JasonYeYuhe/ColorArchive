@@ -54,7 +54,7 @@ export function CancelPage({ checkoutFlow, starterPack }: CancelPageProps) {
               </div>
               <div className="flex shrink-0 flex-wrap gap-2">
                 <a
-                  href={starterPack.checkoutUrl}
+                  href={`${starterPack.checkoutUrl}?discount=FIRSTPACK`}
                   className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
                 >
                   Try {starterPack.title} — {starterPack.priceHint}
@@ -78,7 +78,7 @@ export function CancelPage({ checkoutFlow, starterPack }: CancelPageProps) {
             <div className="mt-4 grid gap-3">
               {[
                 "Review the pack details again before buying.",
-                "Download the free preview assets first if you want more confidence.",
+                "Grab the free sample pack first — no payment needed.",
                 "Use the waitlist page if you want launch updates instead of purchasing today.",
               ].map((step, index) => (
                 <div
@@ -106,10 +106,10 @@ export function CancelPage({ checkoutFlow, starterPack }: CancelPageProps) {
                 Back to packs
               </Link>
               <Link
-                href="/waitlist/"
+                href="/free-pack/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Join waitlist
+                Free sample
               </Link>
               <Link
                 href="/product-examples/"

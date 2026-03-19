@@ -510,13 +510,14 @@ Codex 当前方向：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
   - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
   - Heroku credit: 13 USD / month
-- Lemon Squeezy 店铺已创建，6 个产品（全部 live，JPY 定价）：
-  - Palette Pack Vol. 1: ¥1,980 ✅ live
-  - Creator Bundle: ¥2,980 ✅ live
-  - Brand Color Starter Kit: ¥5,980 ✅ live
-  - Complete Archive Token Set: ¥7,480 ✅ live
-  - Dark Mode UI Kit: ¥3,480 ✅ live
-  - Seasonal: Spring 2026: ¥1,280 ✅ live
+- Lemon Squeezy 店铺已创建，6 个产品（全部 live，JPY 定价，2026-03-19 降价）：
+  - Seasonal: Spring 2026: ¥99 ✅ live（限时季节包）
+  - Palette Pack Vol. 1: ¥299 ✅ live（新手入门）
+  - Dark Mode UI Kit: ¥499 ✅ live
+  - Creator Bundle: ¥799 ✅ live
+  - Brand Color Starter Kit: ¥999 ✅ live
+  - Complete Archive Token Set: ¥1,499 ✅ live（旗舰）
+  - 折扣码 FIRSTPACK（10% off，全产品可用）已创建，用于 /cancel 页面挽回
   - 全部 6 个 Checkout URL 已写入 `checkout-config.ts`，购买按钮可用
   - Webhook 已配置（api.colorarchive.me/webhook/ls → order_created）
 - 后端服务器已部署（DigitalOcean Droplet $4/month，SGP1）：
