@@ -7,6 +7,7 @@ import { colors } from "@/src/data/colors";
 export const metadata: Metadata = {
   title: "Surprise Me",
   description: "Jump to a random color discovery inside ColorArchive.",
+  robots: { index: false, follow: false },
 };
 
 export default function SurprisePage() {

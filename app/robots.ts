@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/admin/", "/analytics/", "/login/"],
     },
     sitemap: "https://colorarchive.me/sitemap.xml",
   };

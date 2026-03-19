@@ -19,6 +19,14 @@ export default function NotFound() {
               This route doesn't exist in the archive. The color, collection, or page you're looking
               for may have moved or never existed.
             </p>
+            <div className="mt-6 rounded-2xl border border-black/6 bg-white/60 px-5 py-4 backdrop-blur">
+              <p className="text-sm text-neutral-500">
+                Try searching for a color by name, hex code, or family —{" "}
+                <Link href="/search/" className="font-medium text-neutral-950 underline underline-offset-2 transition hover:text-neutral-700">
+                  go to search
+                </Link>
+              </p>
+            </div>
             <div className="mt-8 flex flex-wrap gap-2">
               <Link
                 href="/"
@@ -27,10 +35,10 @@ export default function NotFound() {
                 Back to archive
               </Link>
               <Link
-                href="/search/"
+                href="/all-colors/"
                 className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Search colors
+                All colors
               </Link>
               <Link
                 href="/collections/"
@@ -43,6 +51,12 @@ export default function NotFound() {
                 className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Packs
+              </Link>
+              <Link
+                href="/free-pack/"
+                className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Free pack
               </Link>
             </div>
           </section>
