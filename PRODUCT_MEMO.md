@@ -606,6 +606,7 @@ Codex 当前方向：
 - ✅ family detail 增强 archive -> collection -> pack 升级路径
 - ✅ 生成 GPL / Sketch / ASE 设计工具导出格式
 - ✅ `/admin/orders` 管理员动作页上线
+- ✅ GitHub Pages 已成功发布上述前端改动（commit `d43d431`）
 
 ### 当前优先级
 
