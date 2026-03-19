@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { WaitlistPage } from "@/src/components/waitlist-page";
@@ -13,7 +14,9 @@ export default function WaitlistRoute() {
   return (
     <>
       <SiteHeader currentPath="/support" />
-      <WaitlistPage packs={palettePacks} waitlist={waitlistConfig} />
+      <Suspense fallback={null}>
+        <WaitlistPage packs={palettePacks} waitlist={waitlistConfig} />
+      </Suspense>
     </>
   );
 }

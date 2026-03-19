@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { AnalyticsPage } from "@/src/components/analytics-page";
 import { SiteHeader } from "@/src/components/site-header";
@@ -18,7 +19,9 @@ export default function AnalyticsRoute() {
   return (
     <>
       <SiteHeader currentPath="/analytics" />
-      <AnalyticsPage />
+      <Suspense fallback={null}>
+        <AnalyticsPage />
+      </Suspense>
     </>
   );
 }

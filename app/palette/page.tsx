@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { PalettePage } from "@/src/components/palette-page";
 import { SiteHeader } from "@/src/components/site-header";
@@ -11,7 +12,9 @@ export default function PaletteRoute() {
   return (
     <>
       <SiteHeader currentPath="/palette" />
-      <PalettePage />
+      <Suspense fallback={null}>
+        <PalettePage />
+      </Suspense>
     </>
   );
 }

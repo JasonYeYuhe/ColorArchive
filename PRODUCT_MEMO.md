@@ -449,6 +449,8 @@ Codex 当前方向：
   - product breakdown
   - 14-day subscriber / order / revenue series
   - free-pack / waitlist -> purchase funnel
+  - filters for `days / source / utm_source / utm_campaign / landing_path`
+  - attributed order rows tied back to subscriber capture source
 - auth API 已新增：
   - `POST /auth/request-link`
   - `POST /auth/verify`
@@ -471,11 +473,23 @@ Codex 当前方向：
 - `/login` 现在同时承担轻量账户页：
   - 当前显示 favorites / palette sync 状态
   - 当前显示账户订单与下载记录
+  - 当前支持 receipt、pack page、重新发送下载邮件与 support 入口
 - `/analytics` 现已从公开页改为受保护页：
   - 至少要求登录
   - 若设置 `ADMIN_EMAILS`，则进一步收紧到 allowlist 账户
 - 服务器当前已配置 `ADMIN_EMAILS`，analytics 访问已收紧到管理邮箱
 - waitlist 邮件内容已从简单确认扩展为“更新订阅”起点，含 cadence、featured collection、featured pack
+- waitlist / free-pack 邮箱捕获现会一并记录：
+  - landing path
+  - referrer
+  - UTM source / medium / campaign / term / content
+- 新增 `/notes` 与 `/notes/[slug]`：
+  - 作为公开 newsletter / update archive
+  - waitlist 确认邮件会带上最新一期 note
+- Google 登录已在真实浏览器里验证启动链路：
+  - `/login` 按钮可正常跳转到 Google Accounts
+  - OAuth URL 中的 `client_id`、`redirect_uri`、`state` 均正确
+  - 完整 callback 仍需 allowlist 测试账号本人做一次首次登录确认
 - 记录可用 credits：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
   - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
@@ -560,8 +574,13 @@ Codex 当前方向：
 - ✅ favorites / palette 云同步上线
 - ✅ 顶部导航新增 login / account 入口
 - ✅ `/login` 账户页新增订单与下载记录
+- ✅ `/login` 账户页增加 receipt / resend / support 等 post-purchase 入口
 - ✅ `/analytics` 改为登录保护，并支持 `ADMIN_EMAILS` allowlist
 - ✅ Google 登录已完成服务器环境配置并可启用
+- ✅ `/analytics` 增加来源、UTM、landing path 过滤
+- ✅ 订阅与订单已开始记录 attribution / UTM 数据
+- ✅ 新增 `/notes` 公开 newsletter archive，并接入 waitlist 邮件
+- ✅ 真实浏览器已验证 Google 登录启动链路可到达 Google Accounts
 
 ### 当前优先级
 
@@ -572,32 +591,32 @@ Codex 当前方向：
 - 继续观察并细修移动端会遮挡内容的交互细节
 - 提高邮件送达率（新域名初期可能进 spam，需要积累域名信誉）
 - 观察 magic link 邮件送达率与登录完成率
-- 验证 Google callback 在真实浏览器里的首次登录体验与测试用户限制
+- 由 allowlist 测试账号本人完成一次 Google 首次登录，确认 callback / session / redirect 全链路
 - 后续可继续扩展账户页，加入 receipts / license / purchase support 等更完整的 post-purchase 信息
 
 ### 后续方向
 
-- 1. 完整验证 Google 登录首次体验
-  - 检查真实浏览器里的 callback、cookie、跨域跳转与测试用户限制
-  - 确认 `/login` 上 Google 与 magic link 两条路径都稳定
+- 1. 用 allowlist 测试账号完成一次 Google 首次登录
+  - 重点确认 callback 完成后是否稳定落到 `/favorites` 或预期 next path
+  - 顺手确认 Google 登录后 analytics allowlist 判定是否符合预期
 - 2. 扩展账户页的 post-purchase 信息
-  - 在现有 orders/downloads 基础上增加 receipt、license、purchase support、重新发送下载链接
-- 3. 给 `/analytics` 增加按来源和时间段过滤
-  - 让 free-pack / waitlist / purchase 不只是总览，而是可筛选的决策面板
-- 4. 补 landing source / UTM 追踪
-  - 真正知道哪个入口页、哪个 campaign 在带来订阅和购买
-- 5. Newsletter 内容序列（月度精选配色）
-  - 把 waitlist 从确认邮件升级为持续内容产品，形成公开更新节奏
-- 6. 推荐系统（基于用户收藏、近期浏览、已加入 palette 的颜色）
+  - 在现有 orders/downloads 基础上继续补 license 文案与更明确的 support SLA
+- 3. 推荐系统（基于用户收藏、近期浏览、已加入 palette 的颜色）
   - 让颜色详情页和账户页更像“继续探索”而不是静态终点
-- 7. Family / Collection / Pack 之间的升级链再强化
+- 4. Family / Collection / Pack 之间的升级链再强化
   - 在 family detail 和 collection detail 里更明确地告诉用户下一步该看哪个 pack
-- 8. Figma 插件或 Tokens Studio 对接
+- 5. Figma 插件或 Tokens Studio 对接
   - 现有 token exports 已够做第一版集成，不必从零重做格式
-- 9. 更清晰的付费层级与 license 结构
+- 6. 更清晰的付费层级与 license 结构
   - 评估 Personal / Commercial 双档，减少高价包的购买犹豫
-- 10. 品牌与信任层补强
+- 7. 品牌与信任层补强
   - 评估商标申请、完善 support / about / updates 文案、持续提高邮件送达率与公开可信度
+- 8. 继续加深 analytics 决策面板
+  - 增加日期对比、source cohort、utm campaign 转化表现
+- 9. 把 `/notes` 变成真正的可归档内容流
+  - 增加 tag、issue navigation、note -> pack / collection 的更强链接关系
+- 10. 设计工具导出格式继续扩展
+  - 补 ASE / GPL / Sketch palette 等更常见的设计软件格式
 
 ## 给未来自己的提醒
 

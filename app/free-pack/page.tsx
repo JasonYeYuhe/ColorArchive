@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { FreePackPage } from "@/src/components/free-pack-page";
 import { SiteHeader } from "@/src/components/site-header";
@@ -25,11 +26,13 @@ export default function FreePackRoute() {
   return (
     <>
       <SiteHeader currentPath="/packs" />
-      <FreePackPage
-        featuredCollection={featuredCollection}
-        pack={featuredPack}
-        waitlist={waitlistConfig}
-      />
+      <Suspense fallback={null}>
+        <FreePackPage
+          featuredCollection={featuredCollection}
+          pack={featuredPack}
+          waitlist={waitlistConfig}
+        />
+      </Suspense>
     </>
   );
 }
