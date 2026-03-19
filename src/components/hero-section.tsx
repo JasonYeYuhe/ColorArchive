@@ -59,7 +59,7 @@ export function HeroSection({
           {/* Primary CTA hierarchy */}
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
-              href="/free-pack"
+              href="/free-pack/"
               className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800 focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
             >
               Get started free
@@ -71,7 +71,7 @@ export function HeroSection({
               Browse archive
             </a>
             <Link
-              href="/packs"
+              href="/packs/"
               className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
             >
               Browse packs
@@ -140,7 +140,7 @@ export function HeroSection({
               Test any two colors against WCAG AA and AAA standards. Get instant readability scores and find accessible pairings.
             </p>
             <Link
-              href="/contrast"
+              href="/contrast/"
               className="mt-3 inline-flex rounded-full border border-black/8 bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
               Try contrast checker
@@ -161,7 +161,7 @@ export function HeroSection({
               Build custom palettes and share them via URL. Collaborate on color choices with a direct link — no account needed.
             </p>
             <Link
-              href="/palette"
+              href="/palette/"
               className="mt-3 inline-flex rounded-full border border-black/8 bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
               Create a palette
@@ -227,13 +227,13 @@ export function HeroSection({
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              href="/free-pack"
+              href="/free-pack/"
               className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800"
             >
               Get started free
             </Link>
             <Link
-              href="/packs"
+              href="/packs/"
               className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white"
             >
               Browse all packs

@@ -157,7 +157,7 @@ export function RandomDiscoveryPage({ colors }: RandomDiscoveryPageProps) {
                 </h3>
               </div>
               <Link
-                href="/spectrum"
+                href="/spectrum/"
                 className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
               >
                 Spectrum

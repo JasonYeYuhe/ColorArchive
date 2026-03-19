@@ -122,7 +122,7 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
                 </>
               ) : null}
               <Link
-                href="/collections"
+                href="/collections/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
                 Browse collections

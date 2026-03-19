@@ -26,7 +26,7 @@ export function TagNotesPage({ tag, issues }: TagNotesPageProps) {
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             <Link
-              href="/notes"
+              href="/notes/"
               className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
             >
               All notes
@@ -86,7 +86,7 @@ export function TagNotesPage({ tag, issues }: TagNotesPageProps) {
                 </Link>
               ))}
             <Link
-              href="/notes"
+              href="/notes/"
               className="rounded-full border border-black/8 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-600 transition hover:bg-neutral-100"
             >
               All notes →

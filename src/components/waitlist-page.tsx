@@ -93,19 +93,19 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
-                href="/packs"
+                href="/packs/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Browse packs
               </Link>
               <Link
-                href="/product-examples"
+                href="/product-examples/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Open product proof
               </Link>
               <Link
-                href="/notes"
+                href="/notes/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Read notes
@@ -190,19 +190,19 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
 
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
-                href="/support"
+                href="/support/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
                 Support
               </Link>
               <Link
-                href="/packs"
+                href="/packs/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Packs
               </Link>
               <Link
-                href="/notes"
+                href="/notes/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Notes

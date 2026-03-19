@@ -153,19 +153,19 @@ export function SupportPage() {
 
             <div className="mt-5 flex flex-wrap gap-2">
               <Link
-                href="/free-pack"
+                href="/free-pack/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
                 Open free sample
               </Link>
               <Link
-                href="/collections"
+                href="/collections/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Browse collections
               </Link>
               <Link
-                href="/waitlist"
+                href="/waitlist/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Product updates
@@ -177,13 +177,13 @@ export function SupportPage() {
                 Analytics
               </Link>
               <Link
-                href="/product-examples"
+                href="/product-examples/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Product examples
               </Link>
               <Link
-                href="/word-to-color"
+                href="/word-to-color/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Open generator

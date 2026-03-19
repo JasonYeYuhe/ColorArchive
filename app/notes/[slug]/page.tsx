@@ -31,6 +31,17 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
     alternates: {
       canonical: `/notes/${issue.slug}/`,
     },
+    openGraph: {
+      title: issue.title,
+      description: issue.summary,
+      url: `https://colorarchive.me/notes/${issue.slug}/`,
+      images: ["https://colorarchive.me/og-image-v1.png"],
+    },
+    twitter: {
+      title: issue.title,
+      description: issue.summary,
+      images: ["https://colorarchive.me/og-image-v1.png"],
+    },
   };
 }
 

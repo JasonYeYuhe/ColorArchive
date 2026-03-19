@@ -180,7 +180,7 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
               </p>
             </div>
             <Link
-              href="/all-colors"
+              href="/all-colors/"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
               Dense archive
@@ -294,7 +294,7 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
                     Open detail
                   </Link>
                   <Link
-                    href="/surprise"
+                    href="/surprise/"
                     className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                   >
                     Surprise me

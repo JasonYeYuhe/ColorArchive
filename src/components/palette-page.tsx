@@ -180,7 +180,7 @@ function EmptyState() {
       </p>
       <div className="mt-6 flex gap-3">
         <Link
-          href="/all-colors"
+          href="/all-colors/"
           className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
         >
           Browse colors

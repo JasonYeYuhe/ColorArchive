@@ -69,7 +69,7 @@ export function FamilyDetailPage({
                 Dense family view
               </Link>
               <Link
-                href="/families"
+                href="/families/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 All families
@@ -168,7 +168,7 @@ export function FamilyDetailPage({
                 </Link>
               ) : null}
               <Link
-                href="/free-pack"
+                href="/free-pack/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Try free layer

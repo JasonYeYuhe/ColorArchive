@@ -126,7 +126,7 @@ export function SelectedColorPanel({
               Open detail
             </Link>
             <Link
-              href="/recent"
+              href="/recent/"
               className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
             >
               Recent trail

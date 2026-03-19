@@ -113,7 +113,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 Source collections
               </div>
-              <Link href="/collections" className="text-sm font-medium text-neutral-600 transition hover:text-neutral-950">
+              <Link href="/collections/" className="text-sm font-medium text-neutral-600 transition hover:text-neutral-950">
                 Open all collections
               </Link>
             </div>
@@ -238,19 +238,19 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
           <div className="flex flex-wrap gap-2">
             <Link
-              href="/packs"
+              href="/packs/"
               className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
             >
               Back to packs
             </Link>
             <Link
-              href="/product-examples"
+              href="/product-examples/"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
               Product examples
             </Link>
             <Link
-              href="/support"
+              href="/support/"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
               Support

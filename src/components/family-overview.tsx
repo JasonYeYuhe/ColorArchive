@@ -48,7 +48,7 @@ export function FamilyOverview({ activeFamily, colors, onFamilySelect }: FamilyO
           View all
         </button>
         <Link
-          href="/families"
+          href="/families/"
           className="w-fit rounded-full border border-black/8 bg-white/80 px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-white"
         >
           Open family pages

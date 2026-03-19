@@ -96,7 +96,7 @@ export function LocalArchiveHub({ colors }: LocalArchiveHubProps) {
         </div>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link
-            href="/recent"
+            href="/recent/"
             className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
           >
             Open recent
@@ -151,13 +151,13 @@ export function LocalArchiveHub({ colors }: LocalArchiveHubProps) {
         </div>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link
-            href="/favorites"
+            href="/favorites/"
             className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
           >
             Open favorites
           </Link>
           <Link
-            href="/collections"
+            href="/collections/"
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
           >
             Browse collections

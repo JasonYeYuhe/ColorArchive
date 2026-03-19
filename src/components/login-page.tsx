@@ -345,19 +345,19 @@ export function LoginPage() {
                   </p>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <Link
-                      href="/favorites"
+                      href="/favorites/"
                       className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                     >
                       Open favorites
                     </Link>
                     <Link
-                      href="/palette"
+                      href="/palette/"
                       className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                     >
                       Open palette
                     </Link>
                     <Link
-                      href="/packs"
+                      href="/packs/"
                       className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                     >
                       Browse packs
@@ -625,19 +625,19 @@ export function LoginPage() {
               </div>
                 <div className="mt-6 flex flex-wrap gap-3">
                 <Link
-                  href="/favorites"
+                  href="/favorites/"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
                   Favorites
                 </Link>
                 <Link
-                  href="/palette"
+                  href="/palette/"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
                   Palette builder
                 </Link>
                 <Link
-                  href="/packs"
+                  href="/packs/"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
                   Packs
@@ -698,7 +698,7 @@ export function LoginPage() {
                   Purchase support
                 </a>
                 <Link
-                  href="/support"
+                  href="/support/"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
                   Support page

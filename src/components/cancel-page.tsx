@@ -62,19 +62,19 @@ export function CancelPage({ checkoutFlow }: CancelPageProps) {
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
-                href="/packs"
+                href="/packs/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
                 Back to packs
               </Link>
               <Link
-                href="/waitlist"
+                href="/waitlist/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Join waitlist
               </Link>
               <Link
-                href="/product-examples"
+                href="/product-examples/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Product proof
