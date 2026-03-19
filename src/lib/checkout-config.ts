@@ -34,9 +34,9 @@ export const checkoutConfig = {
   },
   "palette-pack-vol-1": {
     provider: "Lemon Squeezy",
-    url: null,
-    status: "pending",
-    note: "Use this as the first live checkout once Lemon Squeezy approves the store.",
+    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/99c655d3-7408-4cbd-b4ed-b04fa15af1f6",
+    status: "live",
+    note: "Palette Pack Vol. 1 — live on Lemon Squeezy.",
   },
 } satisfies Record<string, CheckoutConfigEntry>;
 
