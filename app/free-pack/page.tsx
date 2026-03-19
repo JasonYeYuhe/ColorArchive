@@ -10,11 +10,11 @@ const featuredPack = palettePacks.find((pack) => pack.id === "content-creator-bu
 const featuredCollection = getCollectionById("orchid-bloom");
 
 export const metadata: Metadata = {
-  title: "Free Sample Pack",
+  title: { absolute: "Free Color Palette Pack Download | ColorArchive" },
   description:
-    "Download the permanent free sample layer for ColorArchive and preview the live paid pack formats.",
+    "Download a free ColorArchive palette pack — includes hex codes, CSS variables, and Figma tokens. Preview the full pack format before buying.",
   alternates: {
-    canonical: "/free-pack",
+    canonical: "/free-pack/",
   },
 };
 
