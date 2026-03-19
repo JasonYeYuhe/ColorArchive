@@ -47,37 +47,37 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
     label: "Explore",
     items: [
       { href: "/", label: "Archive", matchPaths: ["/", "/colors"] },
-      { href: "/all-colors", label: "All Colors" },
-      { href: "/search", label: "Search" },
-      { href: "/families", label: "Families" },
-      { href: "/collections", label: "Collections" },
-      { href: "/notes", label: "Notes" },
+      { href: "/all-colors/", label: "All Colors" },
+      { href: "/search/", label: "Search" },
+      { href: "/families/", label: "Families" },
+      { href: "/collections/", label: "Collections" },
+      { href: "/notes/", label: "Notes" },
     ],
   },
   {
     label: "Tools",
     items: [
-      { href: "/spectrum", label: "Spectrum" },
-      { href: "/word-to-color", label: "Word \u2192 Color" },
-      { href: "/contrast", label: "Contrast" },
-      { href: "/surprise", label: "Surprise" },
-      { href: "/favorites", label: "Favorites" },
+      { href: "/spectrum/", label: "Spectrum" },
+      { href: "/word-to-color/", label: "Word \u2192 Color" },
+      { href: "/contrast/", label: "Contrast" },
+      { href: "/surprise/", label: "Surprise" },
+      { href: "/favorites/", label: "Favorites" },
     ],
   },
   {
     label: "Shop",
     items: [
-      { href: "/packs", label: "Packs" },
-      { href: "/free-pack", label: "Free Pack" },
+      { href: "/packs/", label: "Packs" },
+      { href: "/free-pack/", label: "Free Pack" },
     ],
   },
 ];
 
 const MOBILE_PRIMARY_ITEMS: NavItem[] = [
   { href: "/", label: "Archive", matchPaths: ["/", "/colors"] },
-  { href: "/search", label: "Search" },
-  { href: "/packs", label: "Packs" },
-  { href: "/collections", label: "Collections" },
+  { href: "/search/", label: "Search" },
+  { href: "/packs/", label: "Packs" },
+  { href: "/collections/", label: "Collections" },
 ];
 
 const MOBILE_MENU_GROUPS: NavGroup[] = [
@@ -85,12 +85,12 @@ const MOBILE_MENU_GROUPS: NavGroup[] = [
   {
     label: "Project",
     items: [
-      { href: "/recent", label: "Recent" },
-      { href: "/analytics", label: "Analytics" },
-      { href: "/updates", label: "Updates" },
-      { href: "/notes", label: "Notes" },
-      { href: "/about", label: "About" },
-      { href: "/support", label: "Support" },
+      { href: "/recent/", label: "Recent" },
+      { href: "/analytics/", label: "Analytics" },
+      { href: "/updates/", label: "Updates" },
+      { href: "/notes/", label: "Notes" },
+      { href: "/about/", label: "About" },
+      { href: "/support/", label: "Support" },
     ],
   },
 ];

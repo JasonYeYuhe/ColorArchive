@@ -4,9 +4,24 @@ import { SiteHeader } from "@/src/components/site-header";
 import { ContrastCheckerPage } from "@/src/components/contrast-page";
 
 export const metadata: Metadata = {
-  title: "Contrast Checker",
+  title: { absolute: "WCAG Contrast Checker — ColorArchive" },
   description:
-    "Check WCAG contrast ratios between any two colors. See AA/AAA compliance for normal text, large text, and UI components.",
+    "Free WCAG contrast ratio checker. Enter any two hex colors and see AA/AAA compliance for normal text, large text, and UI components in real time.",
+  alternates: {
+    canonical: "/contrast/",
+  },
+  openGraph: {
+    title: "WCAG Contrast Checker — ColorArchive",
+    description:
+      "Free WCAG contrast ratio checker. Enter any two hex colors and see AA/AAA compliance for normal text, large text, and UI components in real time.",
+    images: ["https://colorarchive.me/og-image-v1.png"],
+  },
+  twitter: {
+    title: "WCAG Contrast Checker — ColorArchive",
+    description:
+      "Free WCAG contrast ratio checker. Enter any two hex colors and see AA/AAA compliance in real time.",
+    images: ["https://colorarchive.me/og-image-v1.png"],
+  },
 };
 
 export default function ContrastPage() {

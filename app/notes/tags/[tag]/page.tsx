@@ -19,11 +19,22 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
   if (!tag) return {};
 
   const issues = getIssuesByTag(tag);
+  const description = `${issues.length} ColorArchive note${issues.length !== 1 ? "s" : ""} tagged with ${tag}. Discover color palettes, design insights, and curated swatches.`;
   return {
     title: { absolute: `${tag} — Color Notes & Updates | ColorArchive` },
-    description: `${issues.length} ColorArchive note${issues.length !== 1 ? "s" : ""} tagged with ${tag}. Discover color palettes, design insights, and curated swatches.`,
+    description,
     alternates: {
       canonical: `/notes/tags/${tagSlug}/`,
+    },
+    openGraph: {
+      title: `${tag} — Color Notes & Updates | ColorArchive`,
+      description,
+      images: ["https://colorarchive.me/og-image-v1.png"],
+    },
+    twitter: {
+      title: `${tag} — Color Notes`,
+      description,
+      images: ["https://colorarchive.me/og-image-v1.png"],
     },
   };
 }

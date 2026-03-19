@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import Link from "next/link";
+import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
 import { tagToSlug } from "@/src/lib/newsletter-issues";
 
@@ -154,6 +156,28 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
               </div>
             </article>
           ))}
+        </section>
+
+        <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
+            Stay in the loop
+          </div>
+          <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
+            Get new issues by email
+          </p>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-white/60 dark:text-neutral-500">
+            New palette directions, product updates, and archive notes — delivered when they land.
+          </p>
+          <div className="mt-4 max-w-sm">
+            <Suspense fallback={null}>
+              <EmailCaptureForm
+                source="notes-list"
+                placeholder="your@email.com"
+                buttonLabel="Subscribe"
+                successMessage="You're in — we'll email you about new issues."
+              />
+            </Suspense>
+          </div>
         </section>
       </div>
     </main>
