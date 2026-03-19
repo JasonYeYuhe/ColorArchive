@@ -47,6 +47,16 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                   {pack.checkoutStatus}
                 </div>
               </div>
+              {pack.checkoutUrl ? (
+                <a
+                  href={pack.checkoutUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="sm:col-span-2 flex items-center justify-center gap-2 rounded-[1.25rem] bg-neutral-950 px-6 py-4 text-sm font-semibold text-white transition hover:bg-neutral-800"
+                >
+                  Buy {pack.title}
+                </a>
+              ) : null}
             </div>
           </div>
         </section>
@@ -196,6 +206,34 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
             </div>
           </aside>
         </section>
+
+        {pack.checkoutUrl ? (
+          <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
+              Ready to download
+            </div>
+            <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">{pack.title}</p>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
+              {pack.priceHint} · {pack.checkoutProvider} · Instant download after payment.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a
+                href={pack.checkoutUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
+              >
+                Buy now
+              </a>
+              <Link
+                href="/free-pack/"
+                className="rounded-full border border-white/16 px-5 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
+              >
+                Try free layer first
+              </Link>
+            </div>
+          </section>
+        ) : null}
 
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
           <div className="flex flex-wrap gap-2">
