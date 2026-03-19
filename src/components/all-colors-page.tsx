@@ -63,6 +63,13 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
     return sortColors(filtered, sortBy);
   }, [activeFamily, searchResults, sortBy]);
 
+  const PAGE_SIZE = 240;
+  const [displayLimit, setDisplayLimit] = useState(PAGE_SIZE);
+
+  useEffect(() => {
+    setDisplayLimit(PAGE_SIZE);
+  }, [activeFamily, searchQuery, sortBy, density]);
+
   const familyCounts = useMemo(
     () =>
       Object.fromEntries(
@@ -325,29 +332,46 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
               }}
             />
           ) : (
-            <div className={`grid ${densityGridClass}`}>
-              {visibleColors.map((color) => (
-                <Link
-                  key={color.id}
-                  href={`/colors/${color.id}/`}
-                  className="group overflow-hidden rounded-[1.05rem] border border-black/6 bg-white shadow-[0_12px_32px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_rgba(15,23,42,0.08)]"
-                  aria-label={`Open ${color.name}`}
-                >
-                  <div
-                    className="h-18 border-b border-black/6 sm:h-20"
-                    style={{ backgroundColor: color.hex }}
-                  />
-                  <div className="space-y-1 p-2.5">
-                    <div className="truncate text-[11px] font-semibold tracking-[-0.01em] text-neutral-950">
-                      {color.name}
+            <>
+              <div className={`grid ${densityGridClass}`}>
+                {visibleColors.slice(0, displayLimit).map((color) => (
+                  <Link
+                    key={color.id}
+                    href={`/colors/${color.id}/`}
+                    className="group overflow-hidden rounded-[1.05rem] border border-black/6 bg-white shadow-[0_12px_32px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_rgba(15,23,42,0.08)]"
+                    aria-label={`Open ${color.name}`}
+                  >
+                    <div
+                      className="h-18 border-b border-black/6 sm:h-20"
+                      style={{ backgroundColor: color.hex }}
+                    />
+                    <div className="space-y-1 p-2.5">
+                      <div className="truncate text-[11px] font-semibold tracking-[-0.01em] text-neutral-950">
+                        {color.name}
+                      </div>
+                      <div className="truncate text-[10px] uppercase tracking-[0.12em] text-neutral-400">
+                        {color.hex}
+                      </div>
                     </div>
-                    <div className="truncate text-[10px] uppercase tracking-[0.12em] text-neutral-400">
-                      {color.hex}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                  </Link>
+                ))}
+              </div>
+
+              {displayLimit < visibleColors.length && (
+                <div className="flex items-center justify-center gap-4 py-2">
+                  <span className="text-sm text-neutral-400">
+                    Showing {displayLimit} of {visibleColors.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setDisplayLimit((prev) => prev + PAGE_SIZE)}
+                    className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+                  >
+                    Show more
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </section>
       </div>
