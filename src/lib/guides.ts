@@ -332,3 +332,23 @@ export const landingGuides: LandingGuide[] = [
 export function getLandingGuide(slug: string) {
   return landingGuides.find((guide) => guide.slug === slug) ?? null;
 }
+
+export function getGuidesForCollection(collectionId?: string | null, limit = 3) {
+  if (!collectionId) {
+    return [];
+  }
+
+  return landingGuides
+    .filter((guide) => guide.featuredCollectionId === collectionId)
+    .slice(0, limit);
+}
+
+export function getGuidesForPack(packId?: string | null, limit = 3) {
+  if (!packId) {
+    return [];
+  }
+
+  return landingGuides
+    .filter((guide) => guide.featuredPackId === packId)
+    .slice(0, limit);
+}

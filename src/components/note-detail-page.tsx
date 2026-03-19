@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import { collections } from "@/src/lib/collections";
+import { getGuidesForCollection, getGuidesForPack } from "@/src/lib/guides";
 import { palettePacks } from "@/src/lib/palette-packs";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
 import { tagToSlug } from "@/src/lib/newsletter-issues";
@@ -21,6 +22,10 @@ export function NoteDetailPage({
   const featuredPack = issue.featuredPackId
     ? palettePacks.find((pack) => pack.id === issue.featuredPackId) ?? null
     : null;
+  const relatedGuides = [
+    ...getGuidesForCollection(issue.featuredCollectionId, 2),
+    ...getGuidesForPack(issue.featuredPackId, 2),
+  ].filter((guide, index, array) => array.findIndex((entry) => entry.slug === guide.slug) === index);
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -159,6 +164,29 @@ export function NoteDetailPage({
                 </Link>
               </div>
             </aside>
+
+            {relatedGuides.length > 0 ? (
+              <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Related guides
+                </div>
+                <div className="mt-4 space-y-3">
+                  {relatedGuides.map((guide) => (
+                    <Link
+                      key={guide.slug}
+                      href={`/guides/${guide.slug}/`}
+                      className="block rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 transition hover:bg-white"
+                    >
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                        {guide.searchIntent}
+                      </div>
+                      <div className="mt-2 text-sm font-semibold text-neutral-950">{guide.title}</div>
+                      <div className="mt-2 text-sm leading-6 text-neutral-600">{guide.summary}</div>
+                    </Link>
+                  ))}
+                </div>
+              </aside>
+            ) : null}
           </div>
         </section>
 

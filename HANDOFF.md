@@ -21,6 +21,7 @@ Last updated: 2026-03-19
 - Added Notes Issue 006 and 007 to keep `/notes` fresh and support conversion / token-workflow search intent
 - Added new `/guides` hub plus 4 static intent pages: brand color palette, dark mode color palette, free color palette download, and Figma color tokens
 - Expanded `/guides` to 8 static SEO landing pages and linked guides from the homepage + notes index for better crawl and click paths
+- Added contextual guide links on collection, pack, and note detail pages using featured collection / pack matches
 - Added `docs/commerce-ops-checklist.md` covering Lemon Squeezy production settings, return URLs, smoke test flow, and GSC submission steps
 - Updated PRODUCT_MEMO with the new conversion work and current manual ops reminder
 

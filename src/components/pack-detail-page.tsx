@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
 import type { ColorCollection } from "@/src/lib/collections";
+import { getGuidesForPack } from "@/src/lib/guides";
 import { palettePacks, type PalettePack } from "@/src/lib/palette-packs";
 
 interface PackDetailPageProps {
@@ -27,6 +28,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
   const individualTotal = bundledPacks.reduce((sum, entry) => sum + parsePriceYen(entry.priceHint), 0);
   const bundlePrice = parsePriceYen(pack.priceHint);
   const savingsAmount = Math.max(individualTotal - bundlePrice, 0);
+  const relatedGuides = getGuidesForPack(pack.id, 3);
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -306,6 +308,29 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                 ))}
               </div>
             </div>
+
+            {relatedGuides.length > 0 ? (
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Related guides
+                </div>
+                <div className="mt-4 space-y-3">
+                  {relatedGuides.map((guide) => (
+                    <Link
+                      key={guide.slug}
+                      href={`/guides/${guide.slug}/`}
+                      className="block rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 transition hover:bg-white"
+                    >
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                        {guide.searchIntent}
+                      </div>
+                      <div className="mt-2 text-sm font-semibold text-neutral-950">{guide.title}</div>
+                      <div className="mt-2 text-sm leading-6 text-neutral-600">{guide.summary}</div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </aside>
         </section>
 

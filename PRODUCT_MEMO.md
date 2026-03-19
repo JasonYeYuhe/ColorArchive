@@ -631,6 +631,7 @@ Codex 当前方向：
 - ✅ `/notes` 新增 Issue 006（free pack 转化逻辑）和 Issue 007（design token workflow / bundle 价值）
 - ✅ 新增 `/guides` 内容层，补 brand palette / dark mode / free download / Figma tokens 四个高意图静态 landing pages
 - ✅ `/guides` 扩展到 8 个高意图静态页，并在首页 hero 与 `/notes` 列表页补 guides 导流入口
+- ✅ collection / pack / note 详情页已开始根据 featured collection / pack 自动挂接相关 guides，增强商业页与 SEO 内容页之间的互链
 
 ### 当前优先级
 
