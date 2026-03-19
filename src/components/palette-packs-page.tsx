@@ -49,8 +49,62 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
           </div>
         </section>
 
+        {(() => {
+          const bundle = packs.find((p) => p.id === "all-access-bundle");
+          if (!bundle) return null;
+          const individualTotal = "¥4,095";
+          return (
+            <section className="rounded-[1.75rem] border border-emerald-300/40 bg-gradient-to-br from-emerald-50/80 to-white/90 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)] backdrop-blur-xl dark:from-emerald-950/30 dark:to-neutral-900/80 dark:border-emerald-700/30">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:border-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
+                      Save 27%
+                    </span>
+                    <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                      Best value
+                    </span>
+                  </div>
+                  <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white sm:text-3xl">
+                    {bundle.title}
+                  </h2>
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+                    All 6 packs in one download. Individual total: <span className="line-through">{individualTotal}</span>{" → "}
+                    <span className="font-semibold text-emerald-700 dark:text-emerald-400">{bundle.priceHint}</span>
+                  </p>
+                </div>
+                <div className="flex shrink-0 flex-wrap gap-2">
+                  {bundle.checkoutUrl ? (
+                    <a
+                      href={bundle.checkoutUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
+                    >
+                      Get All Access — {bundle.priceHint}
+                    </a>
+                  ) : (
+                    <Link
+                      href={`/packs/${bundle.id}/`}
+                      className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
+                    >
+                      View bundle details
+                    </Link>
+                  )}
+                  <Link
+                    href={`/packs/${bundle.id}/`}
+                    className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/10 dark:text-neutral-300"
+                  >
+                    What's included
+                  </Link>
+                </div>
+              </div>
+            </section>
+          );
+        })()}
+
         <section className="grid gap-4 xl:grid-cols-3">
-          {packs.map((pack) => (
+          {packs.filter((p) => p.id !== "all-access-bundle").map((pack) => (
             <article
               key={pack.id}
               className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]"

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
-import { ShareLinkButton } from "@/src/components/share-link-button";
+import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
 import {
   addManyToPalette,
   addToPalette,
@@ -337,6 +337,7 @@ export function ColorDetailPage({
                 <PaletteBundleButton colorIds={exportPaletteIds} label="Add recommended palette" />
                 <FavoriteButton colorId={color.id} />
                 <ShareLinkButton href={`/colors/${color.id}/`} />
+                <ShareOnXButton href={`/colors/${color.id}/`} text={`${color.name} ${color.hex} — from the ColorArchive`} />
                 <Link
                   href="/recent/"
                   className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"

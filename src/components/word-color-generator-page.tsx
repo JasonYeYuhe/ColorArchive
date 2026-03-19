@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ShareLinkButton } from "@/src/components/share-link-button";
+import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
 import { generateColorFromWord } from "@/src/lib/word-color";
 
 const PROMPT_SUGGESTIONS = [
@@ -135,6 +135,12 @@ export function WordColorGeneratorPage() {
                         : "/word-to-color"
                     }
                   />
+                  {input.trim().length > 0 && (
+                    <ShareOnXButton
+                      href={`/word-to-color?q=${encodeURIComponent(input.trim())}`}
+                      text={`I turned "${input.trim()}" into a color palette on ColorArchive`}
+                    />
+                  )}
                 </div>
               </div>
 

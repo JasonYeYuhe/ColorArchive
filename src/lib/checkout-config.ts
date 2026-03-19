@@ -60,6 +60,12 @@ export const checkoutConfig = {
     status: "live",
     note: "Seasonal: Spring 2026 — live on Lemon Squeezy.",
   },
+  "all-access-bundle": {
+    provider: "Lemon Squeezy",
+    url: null,
+    status: "pending",
+    note: "All Access Bundle — create on Lemon Squeezy at ¥2,999 JPY, then paste checkout URL here.",
+  },
 } satisfies Record<string, CheckoutConfigEntry>;
 
 export const checkoutFlowConfig: CheckoutFlowConfig = {

@@ -475,4 +475,78 @@ export const palettePacks: PalettePack[] = [
     detail:
       "A lightweight seasonal drop with curated spring palettes. Low price, high shareability, and a reason to come back each quarter.",
   },
+  {
+    id: "all-access-bundle",
+    title: "All Access Bundle",
+    priceHint: "¥2,999",
+    ctaLabel: "Best value",
+    tierBadge: "Save 27%",
+    audience: "Designers and developers who want everything — all 6 packs in one download at a significant discount.",
+    checkoutProvider: checkoutConfig["all-access-bundle"].provider,
+    checkoutStatus: checkoutConfig["all-access-bundle"].status,
+    checkoutUrl: checkoutConfig["all-access-bundle"].url,
+    checkoutNote: checkoutConfig["all-access-bundle"].note,
+    previewCollections: ["Quiet Luxury", "Nocturne Tech", "Sunset Boulevard", "Matcha & Linen"],
+    previewCollectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "matcha-linen"],
+    formatList: ["CSS variables", "Tailwind tokens", "Figma tokens", "SCSS maps", "JSON data", "Dark mode pairs", "Seasonal tokens"],
+    deliverables: [
+      "Everything from all 6 individual packs combined",
+      "All 2016 colors in CSS, Tailwind, Figma, SCSS, and JSON formats",
+      "Light/dark mode paired token sets",
+      "Seasonal spring palettes with mood board notes",
+      "Social-ready palette boards and prompt-friendly descriptions",
+      "Brand system starter with primary/secondary/accent groupings",
+    ],
+    faqs: [
+      {
+        question: "What's included compared to buying packs separately?",
+        answer:
+          "You get every file from all 6 packs in a single download. Buying individually costs ¥4,095 — the bundle saves you 27%.",
+      },
+      {
+        question: "Will future seasonal packs be included?",
+        answer:
+          "The bundle includes the current Spring 2026 seasonal pack. Future seasonal editions will be available as separate purchases or future bundle updates.",
+      },
+    ],
+    fulfillment: {
+      method: "Instant download via checkout provider",
+      timeline: "Delivered immediately after payment confirmation",
+      steps: [
+        "Complete checkout on the provider page (Lemon Squeezy).",
+        "Receive a confirmation email with a secure download link.",
+        "Download the mega ZIP bundle — no account required.",
+        "Unzip to find organized folders for each pack with all formats included.",
+      ],
+      fileNote:
+        "The bundle includes every file from all 6 packs: CSS variables, Tailwind tokens, Figma tokens, SCSS maps, JSON data, dark mode pairs, seasonal tokens, social palette boards, brand system guides, and usage notes. All organized by pack in labeled folders.",
+    },
+    launchAssets: ["Full catalog", "All collection previews", "Complete format coverage"],
+    proofPoints: [
+      "Every single file from every pack — nothing held back.",
+      "27% savings compared to buying all 6 packs individually.",
+      "One download, one price, complete color infrastructure.",
+    ],
+    reviewNote:
+      "The highest-value offer in the catalog. Targets users who see the full range and want everything without choosing.",
+    sampleDownloads: [
+      {
+        label: "Preview CSS tokens (full archive)",
+        format: "CSS",
+        href: "/downloads/complete-archive-preview.css",
+      },
+      {
+        label: "Preview dark mode pairs",
+        format: "CSS",
+        href: "/downloads/dark-mode-ui-kit-preview.css",
+      },
+      {
+        label: "Preview spring tokens",
+        format: "CSS",
+        href: "/downloads/seasonal-spring-2026-preview.css",
+      },
+    ],
+    detail:
+      "All 6 packs in one bundle at 27% off. The simplest way to get everything ColorArchive offers.",
+  },
 ];

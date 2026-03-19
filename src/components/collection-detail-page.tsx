@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-button";
 import type { ColorCollection } from "@/src/lib/collections";
 import type { PalettePack } from "@/src/lib/palette-packs";
 
@@ -51,6 +52,8 @@ export function CollectionDetailPage({
                   {tag}
                 </span>
               ))}
+              <ShareOnXButton href={`/collections/${collection.id}/`} text={`${collection.title} — a curated palette from ColorArchive`} />
+              <ShareLinkButton href={`/collections/${collection.id}/`} />
             </div>
           </div>
         </section>

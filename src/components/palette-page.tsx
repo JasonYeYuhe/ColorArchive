@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, useMemo, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { ShareOnXButton } from "@/src/components/share-link-button";
 import { colors as allColors } from "@/src/data/colors";
 import {
   addToPalette,
@@ -279,6 +280,10 @@ function PaletteContent() {
           <CopyButton value={cssExport} label="CSS" />
           <CopyButton value={jsonExport} label="JSON" />
           <ShareUrlButton ids={paletteColors.map((c) => c.id)} />
+          <ShareOnXButton
+            href={`/palette?ids=${paletteColors.map((c) => c.id).join(",")}`}
+            text={`Check out this ${paletteColors.length}-color palette from ColorArchive`}
+          />
           {isFromUrl && (
             <button
               type="button"
