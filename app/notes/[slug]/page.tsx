@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
+import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { NoteDetailPage } from "@/src/components/note-detail-page";
 import {
   getNewsletterIssue,
@@ -25,10 +26,10 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
   }
 
   return {
-    title: issue.title,
+    title: { absolute: `${issue.title} — ColorArchive Notes` },
     description: issue.summary,
     alternates: {
-      canonical: `/notes/${issue.slug}`,
+      canonical: `/notes/${issue.slug}/`,
     },
   };
 }
@@ -43,9 +44,33 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
 
   const { previous, next } = getNewsletterNeighbors(slug);
 
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: issue.title,
+      description: issue.summary,
+      datePublished: issue.date,
+      keywords: issue.tags.join(", "),
+      url: `https://colorarchive.me/notes/${issue.slug}/`,
+      author: { "@type": "Organization", name: "ColorArchive", url: "https://colorarchive.me" },
+      publisher: { "@type": "Organization", name: "ColorArchive", url: "https://colorarchive.me" },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
+        { "@type": "ListItem", position: 2, name: "Notes", item: "https://colorarchive.me/notes/" },
+        { "@type": "ListItem", position: 3, name: issue.title, item: `https://colorarchive.me/notes/${issue.slug}/` },
+      ],
+    },
+  ];
+
   return (
     <>
       <SiteHeader currentPath="/notes" />
+      <StructuredDataScript data={structuredData} />
       <NoteDetailPage issue={issue} previousIssue={previous} nextIssue={next} />
     </>
   );

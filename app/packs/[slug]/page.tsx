@@ -27,10 +27,10 @@ export async function generateMetadata({ params }: PackDetailRouteProps): Promis
   }
 
   return {
-    title: pack.title,
+    title: { absolute: `${pack.title} — Design Color Pack | ColorArchive` },
     description: pack.detail,
     alternates: {
-      canonical: `/packs/${pack.id}`,
+      canonical: `/packs/${pack.id}/`,
     },
     openGraph: {
       images: [`https://colorarchive.me/generated/og/packs/${pack.id}.svg`],
@@ -78,10 +78,20 @@ export default async function PackDetailRoute({ params }: PackDetailRouteProps) 
     })),
   };
 
+  const breadcrumbStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
+      { "@type": "ListItem", position: 2, name: "Palette Packs", item: "https://colorarchive.me/packs/" },
+      { "@type": "ListItem", position: 3, name: pack.title, item: `https://colorarchive.me/packs/${pack.id}/` },
+    ],
+  };
+
   return (
     <>
       <SiteHeader currentPath="/packs" />
-      <StructuredDataScript data={productStructuredData} />
+      <StructuredDataScript data={[productStructuredData, breadcrumbStructuredData]} />
       <PackDetailPage pack={pack} relatedCollections={relatedCollections} />
     </>
   );

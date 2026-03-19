@@ -18,11 +18,12 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
 
   if (!tag) return {};
 
+  const issues = getIssuesByTag(tag);
   return {
-    title: `${tag} — ColorArchive Notes`,
-    description: `ColorArchive notes and updates tagged with ${tag}.`,
+    title: { absolute: `${tag} — Color Notes & Updates | ColorArchive` },
+    description: `${issues.length} ColorArchive note${issues.length !== 1 ? "s" : ""} tagged with ${tag}. Discover color palettes, design insights, and curated swatches.`,
     alternates: {
-      canonical: `/notes/tags/${tagSlug}`,
+      canonical: `/notes/tags/${tagSlug}/`,
     },
   };
 }

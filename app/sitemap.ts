@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
 import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
-import { newsletterIssues } from "@/src/lib/newsletter-issues";
+import { getAllTags, newsletterIssues, tagToSlug } from "@/src/lib/newsletter-issues";
 import { palettePacks } from "@/src/lib/palette-packs";
 
 export const dynamic = "force-static";
@@ -166,9 +166,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.68,
   }));
 
+  const tagRoutes: MetadataRoute.Sitemap = getAllTags().map((tag) => ({
+    url: `https://colorarchive.me/notes/tags/${tagToSlug(tag)}`,
+    lastModified: new Date("2026-03-19"),
+    changeFrequency: "weekly",
+    priority: 0.62,
+  }));
+
   return [
     ...topLevelRoutes,
     ...noteRoutes,
+    ...tagRoutes,
     ...familyRoutes,
     ...collectionRoutes,
     ...packRoutes,
