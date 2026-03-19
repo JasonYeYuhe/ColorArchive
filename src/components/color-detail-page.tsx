@@ -13,6 +13,7 @@ import {
 } from "@/src/lib/palette-builder";
 import { addRecentColor, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
 import { getWcagContrast, getTonalStrip } from "@/src/lib/color-utils";
+import { getFamilySlug } from "@/src/lib/color-family-pages";
 import type { ColorRecord } from "@/src/types/color";
 
 interface ColorDetailPageProps {
@@ -260,7 +261,13 @@ export function ColorDetailPage({
                       {color.name}
                     </div>
                     <div className={`mt-3 text-sm uppercase tracking-[0.22em] ${isLight ? "text-neutral-500" : "text-white/75"}`}>
-                      {color.family} · Hue {color.hue}
+                      <Link
+                        href={`/families/${getFamilySlug(color.family)}/`}
+                        className={`transition-opacity hover:opacity-70 ${isLight ? "text-neutral-500" : "text-white/75"}`}
+                      >
+                        {color.family}
+                      </Link>
+                      {" · Hue "}{color.hue}
                     </div>
                   </div>
                   <div className={`rounded-2xl px-4 py-3 text-right backdrop-blur-md ${isLight ? "border border-black/10 bg-white/60 text-neutral-900" : "border border-white/24 bg-black/16 text-white"}`}>
@@ -343,8 +350,14 @@ export function ColorDetailPage({
                   About this color
                 </h2>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
-                  {color.name} ({color.hex}) belongs to the {color.family.toLowerCase()} family —
-                  hue {color.hue}°, {color.saturation}% saturation, {color.lightness}% lightness.
+                  {color.name} ({color.hex}) belongs to the{" "}
+                  <Link
+                    href={`/families/${getFamilySlug(color.family)}/`}
+                    className="text-neutral-900 underline underline-offset-2 hover:text-neutral-500"
+                  >
+                    {color.family.toLowerCase()} family
+                  </Link>{" "}
+                  — hue {color.hue}°, {color.saturation}% saturation, {color.lightness}% lightness.
                   Copy the hex, RGB, or HSL value above, or paste the CSS custom property below into
                   your stylesheet to reference this color directly.
                 </p>
@@ -497,7 +510,12 @@ export function ColorDetailPage({
                     Related colors
                   </p>
                   <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
-                    More from {color.family}
+                    <Link
+                      href={`/families/${getFamilySlug(color.family)}/`}
+                      className="transition-colors hover:text-neutral-500"
+                    >
+                      More from {color.family}
+                    </Link>
                   </h2>
                 </div>
                 <Link
