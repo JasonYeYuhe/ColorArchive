@@ -47,7 +47,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 
 ## 当前已确定事项
 
-- 域名已购买：`colorarchive.me`
+- 域名已购买：`colorarchive.me`（主域名）、`colorarchive.org`（品牌保护 / 重定向）
 - 域名注册商：Namecheap
 - 当前计划部署方式：GitHub Pages
 - 技术方向：Next.js + TypeScript + Tailwind CSS
@@ -463,6 +463,8 @@ Codex 当前方向：
 - ✅ Complete Archive Token Set 产品（2016 色 CSS/JSON/Tailwind/SCSS）
 - ✅ Dark Mode UI Kit 产品（明暗配对 token）
 - ✅ Seasonal: Spring 2026 产品（限定季节调色板 + mood notes）
+- ✅ Resend 域名验证完成（colorarchive.me，Tokyo region）
+- ✅ All Colors 页面新增 Canvas 全色谱（HSL 色彩空间，饱和度滑块，点击复制 hex）
 
 ### 当前优先级
 

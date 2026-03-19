@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
+import { ColorSpectrum } from "@/src/components/color-spectrum";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
@@ -170,6 +171,8 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
             </div>
           </div>
         </section>
+
+        <ColorSpectrum />
 
         <section className="rounded-[1.75rem] border border-black/6 bg-white/78 p-4 shadow-[0_18px_48px_rgba(15,23,42,0.04)] sm:p-5">
           <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
