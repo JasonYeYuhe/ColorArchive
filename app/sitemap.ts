@@ -132,42 +132,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const colorRoutes: MetadataRoute.Sitemap = colors.map((color) => ({
-    url: `https://colorarchive.me/colors/${color.id}`,
+    url: `https://colorarchive.me/colors/${color.id}/`,
     lastModified: new Date("2026-03-18"),
     changeFrequency: "monthly",
     priority: 0.6,
   }));
 
   const packRoutes: MetadataRoute.Sitemap = palettePacks.map((pack) => ({
-    url: `https://colorarchive.me/packs/${pack.id}`,
-    lastModified: new Date("2026-03-18"),
+    url: `https://colorarchive.me/packs/${pack.id}/`,
+    lastModified: new Date("2026-03-19"),
     changeFrequency: "monthly",
     priority: 0.75,
   }));
 
   const collectionRoutes: MetadataRoute.Sitemap = collections.map((collection) => ({
-    url: `https://colorarchive.me/collections/${collection.id}`,
-    lastModified: new Date("2026-03-18"),
+    url: `https://colorarchive.me/collections/${collection.id}/`,
+    lastModified: new Date("2026-03-19"),
     changeFrequency: "monthly",
     priority: 0.75,
   }));
 
   const familyRoutes: MetadataRoute.Sitemap = COLOR_FAMILY_PAGES.map((family) => ({
-    url: `https://colorarchive.me/families/${family.slug}`,
+    url: `https://colorarchive.me/families/${family.slug}/`,
     lastModified: new Date("2026-03-19"),
     changeFrequency: "weekly",
     priority: 0.72,
   }));
 
   const noteRoutes: MetadataRoute.Sitemap = newsletterIssues.map((issue) => ({
-    url: `https://colorarchive.me/notes/${issue.slug}`,
+    url: `https://colorarchive.me/notes/${issue.slug}/`,
     lastModified: new Date(issue.date),
     changeFrequency: "monthly",
     priority: 0.68,
   }));
 
   const tagRoutes: MetadataRoute.Sitemap = getAllTags().map((tag) => ({
-    url: `https://colorarchive.me/notes/tags/${tagToSlug(tag)}`,
+    url: `https://colorarchive.me/notes/tags/${tagToSlug(tag)}/`,
     lastModified: new Date("2026-03-19"),
     changeFrequency: "weekly",
     priority: 0.62,
