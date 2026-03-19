@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { colors } from "@/src/data/colors";
 import { checkoutConfig } from "@/src/lib/checkout-config";
+import { landingGuides } from "@/src/lib/guides";
 import { palettePacks } from "@/src/lib/palette-packs";
 
 // Fixed hue-spanning strip: Tone (L=60) at Clear (S=54), one per hue across the spectrum
@@ -22,6 +23,7 @@ export function HeroSection({
   visibleColors,
 }: HeroSectionProps) {
   const searchSummary = searchQuery.trim().length > 0 ? `Matching "${searchQuery.trim()}"` : "Showing full archive";
+  const featuredGuides = landingGuides.slice(0, 4);
 
   return (
     <div className="flex flex-col gap-6">
@@ -77,6 +79,12 @@ export function HeroSection({
             >
               Browse packs
             </Link>
+            <Link
+              href="/guides/"
+              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+            >
+              Read guides
+            </Link>
             {checkoutConfig["all-access-bundle"].url && (
               <a
                 href={checkoutConfig["all-access-bundle"].url}
@@ -128,7 +136,7 @@ export function HeroSection({
         </div>
         <div className="h-4 w-px bg-black/10" aria-hidden="true" />
         <div className="flex items-center gap-2 text-sm text-neutral-600">
-          <span className="text-lg font-semibold text-neutral-950">6</span> products
+          <span className="text-lg font-semibold text-neutral-950">7</span> products
         </div>
         <div className="h-4 w-px bg-black/10" aria-hidden="true" />
         <div className="flex items-center gap-2 text-sm text-neutral-600">
@@ -176,6 +184,59 @@ export function HeroSection({
               className="mt-3 inline-flex rounded-full border border-black/8 bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
               Create a palette
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
+            Guides
+          </div>
+          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
+            High-intent color guides tied to real archive routes
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
+            Start from the question you actually have: brand palette, dark mode, free downloads,
+            Figma tokens, Tailwind tokens, or website color direction.
+          </p>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {featuredGuides.map((guide) => (
+              <Link
+                key={guide.slug}
+                href={`/guides/${guide.slug}/`}
+                className="group rounded-[1.5rem] border border-black/6 bg-white/85 p-5 transition hover:shadow-md"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                    {guide.eyebrow}
+                  </div>
+                  <div className="rounded-full border border-black/6 bg-neutral-50 px-2 py-0.5 text-[11px] font-medium text-neutral-500">
+                    {guide.searchIntent}
+                  </div>
+                </div>
+                <h3 className="mt-3 text-base font-semibold text-neutral-950 group-hover:text-neutral-700">
+                  {guide.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-neutral-500">{guide.summary}</p>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href="/guides/"
+              className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800"
+            >
+              Browse all guides
+            </Link>
+            <Link
+              href="/notes/"
+              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white"
+            >
+              Read notes
             </Link>
           </div>
         </div>
