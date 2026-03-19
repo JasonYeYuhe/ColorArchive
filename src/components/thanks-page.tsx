@@ -57,31 +57,70 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
             </div>
           </div>
 
-          <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Continue exploring
-            </div>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Link
-                href="/favorites/"
-                className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-              >
-                Favorites
-              </Link>
-              <Link
-                href="/collections/"
-                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-              >
-                Collections
-              </Link>
-              <Link
-                href="/search"
-                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-              >
-                Search
-              </Link>
-            </div>
-          </aside>
+          <div className="flex flex-col gap-6">
+            <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                What to do next
+              </div>
+              <div className="mt-4 grid gap-3">
+                <Link
+                  href="/collections/"
+                  className="flex items-center gap-3 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-3.5 text-sm leading-6 text-neutral-600 transition hover:bg-white"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-950 text-sm text-white">
+                    C
+                  </span>
+                  <span>
+                    <span className="font-medium text-neutral-950">Browse collections</span>
+                    {" "}&mdash; curated palettes for specific creative directions
+                  </span>
+                </Link>
+                <Link
+                  href="/word-to-color/"
+                  className="flex items-center gap-3 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-3.5 text-sm leading-6 text-neutral-600 transition hover:bg-white"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-950 text-sm text-white">
+                    W
+                  </span>
+                  <span>
+                    <span className="font-medium text-neutral-950">Word to Color</span>
+                    {" "}&mdash; turn any word into a unique five-color palette
+                  </span>
+                </Link>
+                <Link
+                  href="/contrast/"
+                  className="flex items-center gap-3 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-3.5 text-sm leading-6 text-neutral-600 transition hover:bg-white"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-950 text-sm text-white">
+                    A
+                  </span>
+                  <span>
+                    <span className="font-medium text-neutral-950">Contrast checker</span>
+                    {" "}&mdash; test accessibility between any two colors
+                  </span>
+                </Link>
+              </div>
+            </aside>
+
+            <aside className="relative overflow-hidden rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-emerald-200/20 blur-2xl" />
+              <div className="relative">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Share the love
+                </div>
+                <p className="mt-3 text-sm leading-6 text-neutral-600">
+                  Know someone who&apos;d love this? Share the free pack with friends&nbsp;&mdash; no
+                  purchase needed.
+                </p>
+                <Link
+                  href="/free-pack/"
+                  className="mt-3 inline-flex items-center gap-2 rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                >
+                  colorarchive.me/free-pack
+                </Link>
+              </div>
+            </aside>
+          </div>
         </section>
       </div>
     </main>

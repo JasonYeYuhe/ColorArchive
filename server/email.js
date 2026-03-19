@@ -22,6 +22,9 @@ async function sendFreePackEmail(to) {
       "",
       "The pack includes 3 curated palettes with CSS variables and PNG swatches.",
       "",
+      "Want the full library? The All Access Bundle includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for ¥2,999.",
+      "https://colorarchive.me/packs/all-access-bundle/",
+      "",
       "— ColorArchive",
       "https://colorarchive.me",
     ].join("\n"),
@@ -39,6 +42,16 @@ async function sendFreePackEmail(to) {
         <p style="color:#666;font-size:14px">
           The pack includes 3 curated palettes with CSS variables and PNG swatches.
         </p>
+        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:16px 18px;margin:20px 0">
+          <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#14532d;font-weight:700">Want the full library?</div>
+          <p style="margin:10px 0 0;color:#166534;line-height:1.6;font-size:14px">
+            The <strong>All Access Bundle</strong> includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for <strong>¥2,999</strong>.
+          </p>
+          <p style="margin:12px 0 0">
+            <a href="https://colorarchive.me/packs/all-access-bundle/"
+               style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none">View All Access Bundle →</a>
+          </p>
+        </div>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
           ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
