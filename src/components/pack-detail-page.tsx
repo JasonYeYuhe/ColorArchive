@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
 import type { ColorCollection } from "@/src/lib/collections";
 import type { PalettePack } from "@/src/lib/palette-packs";
 
@@ -24,9 +25,19 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
           <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-sky-200/24 blur-3xl" />
           <div className="relative mx-auto flex max-w-5xl flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
-                <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-                Pack detail
+              <div className="mb-5 flex flex-wrap items-center gap-2">
+                <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
+                  <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
+                  Pack detail
+                </div>
+                {pack.tierBadge ? (
+                  <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
+                    {pack.tierBadge}
+                  </span>
+                ) : null}
+                {pack.seasonEnds ? (
+                  <SeasonalCountdown endDate={pack.seasonEnds} />
+                ) : null}
               </div>
               <h1 className="text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
                 {pack.title}

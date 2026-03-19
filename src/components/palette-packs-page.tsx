@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
 import type { PalettePack } from "@/src/lib/palette-packs";
 
 interface PalettePacksPageProps {
@@ -56,10 +57,20 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                    {pack.ctaLabel}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                      {pack.ctaLabel}
+                    </div>
+                    {pack.tierBadge ? (
+                      <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700">
+                        {pack.tierBadge}
+                      </span>
+                    ) : null}
+                    {pack.seasonEnds ? (
+                      <SeasonalCountdown endDate={pack.seasonEnds} />
+                    ) : null}
                   </div>
-                  <Link href={`/packs/${pack.id}`} className="mt-2 block text-2xl font-semibold tracking-[-0.03em] text-neutral-950 transition hover:text-neutral-700">
+                  <Link href={`/packs/${pack.id}/`} className="mt-2 block text-2xl font-semibold tracking-[-0.03em] text-neutral-950 transition hover:text-neutral-700">
                     {pack.title}
                   </Link>
                 </div>

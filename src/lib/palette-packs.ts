@@ -16,6 +16,8 @@ export interface PalettePack {
   ctaLabel: string;
   deliverables: string[];
   detail: string;
+  tierBadge?: string;
+  seasonEnds?: string;
   faqs: {
     answer: string;
     question: string;
@@ -41,8 +43,9 @@ export const palettePacks: PalettePack[] = [
   {
     id: "palette-pack-vol-1",
     title: "Palette Pack Vol. 1",
-    priceHint: "¥1,980",
+    priceHint: "¥990",
     ctaLabel: "Start here",
+    tierBadge: "Best starter",
     audience: "Designers and founders who want polished palettes they can apply immediately.",
     checkoutProvider: checkoutConfig["palette-pack-vol-1"].provider,
     checkoutStatus: checkoutConfig["palette-pack-vol-1"].status,
@@ -117,8 +120,9 @@ export const palettePacks: PalettePack[] = [
   {
     id: "brand-starter-kit",
     title: "Brand Color Starter Kit",
-    priceHint: "¥5,980",
+    priceHint: "¥1,790",
     ctaLabel: "Brand & UI",
+    tierBadge: "Brand systems",
     audience: "Solo founders, small studios, and landing-page builders who need a coherent starting system.",
     checkoutProvider: checkoutConfig["brand-starter-kit"].provider,
     checkoutStatus: checkoutConfig["brand-starter-kit"].status,
@@ -183,8 +187,9 @@ export const palettePacks: PalettePack[] = [
   {
     id: "content-creator-bundle",
     title: "Creator Bundle",
-    priceHint: "¥2,980",
+    priceHint: "¥1,290",
     ctaLabel: "For creators",
+    tierBadge: "Most shareable",
     audience: "Creators, marketers, and social designers who need visually consistent color sets fast.",
     checkoutProvider: checkoutConfig["content-creator-bundle"].provider,
     checkoutStatus: checkoutConfig["content-creator-bundle"].status,
@@ -249,8 +254,9 @@ export const palettePacks: PalettePack[] = [
   {
     id: "complete-archive",
     title: "Complete Archive Token Set",
-    priceHint: "¥7,480",
+    priceHint: "¥1,980",
     ctaLabel: "Full archive",
+    tierBadge: "Flagship",
     audience: "Design system leads and developers who need a comprehensive, production-ready color token library.",
     checkoutProvider: checkoutConfig["complete-archive"].provider,
     checkoutStatus: checkoutConfig["complete-archive"].status,
@@ -337,8 +343,9 @@ export const palettePacks: PalettePack[] = [
   {
     id: "dark-mode-ui-kit",
     title: "Dark Mode UI Kit",
-    priceHint: "¥3,480",
+    priceHint: "¥1,490",
     ctaLabel: "Dark mode",
+    tierBadge: "Most practical",
     audience: "SaaS builders and product designers who need ready-made light/dark paired token sets.",
     checkoutProvider: checkoutConfig["dark-mode-ui-kit"].provider,
     checkoutStatus: checkoutConfig["dark-mode-ui-kit"].status,
@@ -403,8 +410,10 @@ export const palettePacks: PalettePack[] = [
   {
     id: "seasonal-spring-2026",
     title: "Seasonal: Spring 2026",
-    priceHint: "¥1,280",
+    priceHint: "¥490",
     ctaLabel: "Spring edition",
+    tierBadge: "Limited edition",
+    seasonEnds: "2026-06-21",
     audience: "Designers and creators looking for fresh, seasonal color inspiration.",
     checkoutProvider: checkoutConfig["seasonal-spring-2026"].provider,
     checkoutStatus: checkoutConfig["seasonal-spring-2026"].status,

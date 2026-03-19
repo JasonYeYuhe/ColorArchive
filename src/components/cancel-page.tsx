@@ -1,11 +1,13 @@
 import Link from "next/link";
 import type { CheckoutFlowConfig } from "@/src/lib/checkout-config";
+import type { PalettePack } from "@/src/lib/palette-packs";
 
 interface CancelPageProps {
   checkoutFlow: CheckoutFlowConfig;
+  starterPack?: PalettePack;
 }
 
-export function CancelPage({ checkoutFlow }: CancelPageProps) {
+export function CancelPage({ checkoutFlow, starterPack }: CancelPageProps) {
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
@@ -31,6 +33,42 @@ export function CancelPage({ checkoutFlow }: CancelPageProps) {
             </div>
           </div>
         </section>
+
+        {starterPack?.checkoutUrl ? (
+          <section className="rounded-[1.75rem] border border-amber-200/60 bg-amber-50/60 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
+                  Still thinking? Here's a discount
+                </div>
+                <p className="mt-2 text-lg font-semibold tracking-[-0.02em] text-neutral-950">
+                  10% off your first pack
+                </p>
+                <p className="mt-1.5 text-sm leading-6 text-neutral-600">
+                  Use code{" "}
+                  <span className="rounded-lg border border-amber-300 bg-white px-2.5 py-1 font-mono text-sm font-bold tracking-widest text-amber-800">
+                    FIRSTPACK
+                  </span>{" "}
+                  at checkout. Works on any pack.
+                </p>
+              </div>
+              <div className="flex shrink-0 flex-wrap gap-2">
+                <a
+                  href={starterPack.checkoutUrl}
+                  className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
+                >
+                  Try {starterPack.title} — {starterPack.priceHint}
+                </a>
+                <Link
+                  href="/packs/"
+                  className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                >
+                  Browse all packs
+                </Link>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
           <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
