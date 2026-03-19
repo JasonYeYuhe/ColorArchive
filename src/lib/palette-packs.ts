@@ -236,4 +236,202 @@ export const palettePacks: PalettePack[] = [
     detail:
       "More visual and shareable. Good for creators, social designers, and as a list-building product.",
   },
+  {
+    id: "complete-archive",
+    title: "Complete Archive Token Set",
+    priceHint: "$49",
+    ctaLabel: "Full archive",
+    audience: "Design system leads and developers who need a comprehensive, production-ready color token library.",
+    checkoutProvider: checkoutConfig["complete-archive"].provider,
+    checkoutStatus: checkoutConfig["complete-archive"].status,
+    checkoutUrl: checkoutConfig["complete-archive"].url,
+    checkoutNote: checkoutConfig["complete-archive"].note,
+    previewCollections: ["Quiet Luxury", "Nocturne Tech", "Sunset Boulevard", "Neon After Dark"],
+    previewCollectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "neon-after-dark"],
+    formatList: ["CSS variables", "Tailwind tokens", "JSON data", "SCSS maps"],
+    deliverables: [
+      "All 2016 colors in CSS variable format",
+      "Complete Tailwind CSS 4 theme tokens",
+      "Structured JSON with hex, HSL, RGB for every color",
+      "SCSS color maps organized by hue family",
+    ],
+    faqs: [
+      {
+        question: "Does this include every color on the site?",
+        answer:
+          "Yes. The complete archive ships all 2016 colors across every hue, lightness, and chroma combination in four production-ready formats.",
+      },
+      {
+        question: "Can I use these tokens in my design system?",
+        answer:
+          "Absolutely. The tokens are structured for direct integration into CSS, Tailwind, SCSS, or any JSON-based design tool pipeline.",
+      },
+    ],
+    fulfillment: {
+      method: "Instant download via checkout provider",
+      timeline: "Delivered immediately after payment confirmation",
+      steps: [
+        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Receive a confirmation email with a secure download link.",
+        "Download the ZIP bundle — no account required.",
+        "Unzip to find CSS variables, Tailwind tokens, JSON data, and SCSS maps for all 2016 colors.",
+      ],
+      fileNote:
+        "The bundle includes: complete CSS variables file, Tailwind CSS 4 theme tokens, structured JSON export with hex/HSL/RGB, and SCSS maps organized by hue family. All 2016 colors included.",
+    },
+    launchAssets: ["Full color catalog", "Collection previews", "Token format samples"],
+    proofPoints: [
+      "Every single color from the public archive in production-ready token format.",
+      "Four export formats cover every major frontend workflow.",
+      "The most comprehensive color token set available from ColorArchive.",
+    ],
+    reviewNote:
+      "The premium tier product — highest price point justified by comprehensive coverage of the entire 2016-color catalog.",
+    sampleDownloads: [
+      {
+        label: "Preview CSS tokens",
+        format: "CSS",
+        href: "/downloads/complete-archive-preview.css",
+      },
+      {
+        label: "Preview JSON data",
+        format: "JSON",
+        href: "/downloads/complete-archive-preview.json",
+      },
+    ],
+    detail:
+      "The full archive in every token format. Built for design system teams that want comprehensive, production-ready color infrastructure.",
+  },
+  {
+    id: "dark-mode-ui-kit",
+    title: "Dark Mode UI Kit",
+    priceHint: "$24",
+    ctaLabel: "Dark mode",
+    audience: "SaaS builders and product designers who need ready-made light/dark paired token sets.",
+    checkoutProvider: checkoutConfig["dark-mode-ui-kit"].provider,
+    checkoutStatus: checkoutConfig["dark-mode-ui-kit"].status,
+    checkoutUrl: checkoutConfig["dark-mode-ui-kit"].url,
+    checkoutNote: checkoutConfig["dark-mode-ui-kit"].note,
+    previewCollections: ["Nocturne Tech", "Nordic Frost", "Monochrome Studio"],
+    previewCollectionIds: ["nocturne-tech", "nordic-frost", "monochrome-studio"],
+    formatList: ["Light/dark CSS pairs", "Tailwind dark mode tokens", "JSON paired data", "Usage guide"],
+    deliverables: [
+      "Paired light and dark mode CSS variable sets",
+      "Tailwind CSS 4 dark mode theme tokens",
+      "JSON export with light/dark value pairs for every color",
+      "Usage guide with contrast ratio annotations",
+    ],
+    faqs: [
+      {
+        question: "How are the light/dark pairs structured?",
+        answer:
+          "Each color ships with a matched light-mode and dark-mode value. CSS variables use a data-theme attribute pattern for seamless switching.",
+      },
+      {
+        question: "Does this work with Tailwind dark mode?",
+        answer:
+          "Yes. The Tailwind tokens include dark: variant mappings so you can use standard Tailwind dark mode utilities out of the box.",
+      },
+    ],
+    fulfillment: {
+      method: "Instant download via checkout provider",
+      timeline: "Delivered immediately after payment confirmation",
+      steps: [
+        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Receive a confirmation email with a secure download link.",
+        "Download the ZIP bundle — no account required.",
+        "Unzip to find paired light/dark token files, Tailwind config, and the usage guide.",
+      ],
+      fileNote:
+        "The bundle includes: paired light/dark CSS variable files, Tailwind dark mode tokens, JSON paired data export, and a usage guide with contrast ratio notes.",
+    },
+    launchAssets: ["Dark mode demos", "Light/dark comparison previews", "Token format samples"],
+    proofPoints: [
+      "Every palette is pre-paired for light and dark contexts.",
+      "Contrast ratios are pre-checked for accessibility compliance.",
+      "Drop-in Tailwind dark mode support with no manual mapping.",
+    ],
+    reviewNote:
+      "Mid-tier product that solves a specific pain point — dark mode implementation. Strong appeal for SaaS and product teams.",
+    sampleDownloads: [
+      {
+        label: "Preview dark mode tokens",
+        format: "CSS",
+        href: "/downloads/dark-mode-ui-kit-preview.css",
+      },
+      {
+        label: "Preview paired JSON",
+        format: "JSON",
+        href: "/downloads/dark-mode-ui-kit-preview.json",
+      },
+    ],
+    detail:
+      "Pre-paired light and dark token sets for product teams that need dark mode without the manual mapping work.",
+  },
+  {
+    id: "seasonal-spring-2026",
+    title: "Seasonal: Spring 2026",
+    priceHint: "$9",
+    ctaLabel: "Spring edition",
+    audience: "Designers and creators looking for fresh, seasonal color inspiration.",
+    checkoutProvider: checkoutConfig["seasonal-spring-2026"].provider,
+    checkoutStatus: checkoutConfig["seasonal-spring-2026"].status,
+    checkoutUrl: checkoutConfig["seasonal-spring-2026"].url,
+    checkoutNote: checkoutConfig["seasonal-spring-2026"].note,
+    previewCollections: ["Orchid Bloom", "Matcha & Linen", "Sunset Boulevard"],
+    previewCollectionIds: ["orchid-bloom", "matcha-linen", "sunset-boulevard"],
+    formatList: ["CSS variables", "Tailwind tokens", "JSON data", "Mood board notes"],
+    deliverables: [
+      "Spring-curated palette sets in CSS variable format",
+      "Tailwind CSS 4 seasonal theme tokens",
+      "JSON export with spring palette metadata",
+      "Mood board notes with seasonal application guidance",
+    ],
+    faqs: [
+      {
+        question: "What makes this seasonal?",
+        answer:
+          "The palettes are curated specifically for spring 2026 trends — fresh greens, warm florals, and light naturals that reflect the season.",
+      },
+      {
+        question: "Will there be other seasonal editions?",
+        answer:
+          "Yes. Seasonal packs are released quarterly with palettes curated for each season's trends and moods.",
+      },
+    ],
+    fulfillment: {
+      method: "Instant download via checkout provider",
+      timeline: "Delivered immediately after payment confirmation",
+      steps: [
+        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Receive a confirmation email with a secure download link.",
+        "Download the ZIP bundle — no account required.",
+        "Unzip to find seasonal palette tokens, JSON data, and mood board notes.",
+      ],
+      fileNote:
+        "The bundle includes: spring-curated CSS variables, Tailwind theme tokens, JSON data with palette metadata, and mood board notes for seasonal design direction.",
+    },
+    launchAssets: ["Seasonal collection previews", "Mood board samples", "Spring trend notes"],
+    proofPoints: [
+      "Curated from the most relevant archive palettes for the current season.",
+      "Low price point makes it an easy impulse purchase.",
+      "Seasonal releases create recurring engagement with the archive.",
+    ],
+    reviewNote:
+      "Entry-level seasonal product — low friction, high shareability, builds habit of returning for new editions.",
+    sampleDownloads: [
+      {
+        label: "Preview spring tokens",
+        format: "CSS",
+        href: "/downloads/seasonal-spring-2026-preview.css",
+      },
+      {
+        label: "Preview spring JSON",
+        format: "JSON",
+        href: "/downloads/seasonal-spring-2026-preview.json",
+      },
+    ],
+    detail:
+      "A lightweight seasonal drop with curated spring palettes. Low price, high shareability, and a reason to come back each quarter.",
+  },
 ];

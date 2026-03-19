@@ -1,0 +1,794 @@
+[
+  {
+    "id": "quiet-luxury",
+    "title": "Quiet Luxury",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Blush Whisper Muted",
+        "light": {
+          "hex": "#F2EDF0",
+          "hsl": "hsl(330, 18%, 94%)"
+        },
+        "dark": {
+          "hex": "#120D0F",
+          "hsl": "hsl(330, 18%, 6%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Apricot Pearl Soft",
+        "light": {
+          "hex": "#E4DBC8",
+          "hsl": "hsl(40, 34%, 84%)"
+        },
+        "dark": {
+          "hex": "#372D1B",
+          "hsl": "hsl(40, 34%, 16%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Honey Bloom Muted",
+        "light": {
+          "hex": "#C9CDB7",
+          "hsl": "hsl(70, 18%, 76%)"
+        },
+        "dark": {
+          "hex": "#454832",
+          "hsl": "hsl(70, 18%, 24%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Olive Tone Muted",
+        "light": {
+          "hex": "#9FAB87",
+          "hsl": "hsl(80, 18%, 60%)"
+        },
+        "dark": {
+          "hex": "#6C7854",
+          "hsl": "hsl(80, 18%, 40%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Merlot Ink Muted",
+        "light": {
+          "hex": "#2A1D1F",
+          "hsl": "hsl(350, 18%, 14%)"
+        },
+        "dark": {
+          "hex": "#E2D5D7",
+          "hsl": "hsl(350, 18%, 86%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "modern-seaside",
+    "title": "Modern Seaside",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Seafoam Whisper Soft",
+        "light": {
+          "hex": "#EAF5EE",
+          "hsl": "hsl(140, 34%, 94%)"
+        },
+        "dark": {
+          "hex": "#0A150E",
+          "hsl": "hsl(140, 34%, 6%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Lagoon Bloom Clear",
+        "light": {
+          "hex": "#A1E3D8",
+          "hsl": "hsl(170, 54%, 76%)"
+        },
+        "dark": {
+          "hex": "#1C5E53",
+          "hsl": "hsl(170, 54%, 24%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Cerulean Silk Clear",
+        "light": {
+          "hex": "#81CBD9",
+          "hsl": "hsl(190, 54%, 68%)"
+        },
+        "dark": {
+          "hex": "#266F7E",
+          "hsl": "hsl(190, 54%, 32%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Azure Core Vivid",
+        "light": {
+          "hex": "#2099D5",
+          "hsl": "hsl(200, 74%, 48%)"
+        },
+        "dark": {
+          "hex": "#2AA3DF",
+          "hsl": "hsl(200, 74%, 52%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Indigo Nocturne Soft",
+        "light": {
+          "hex": "#222744",
+          "hsl": "hsl(230, 34%, 20%)"
+        },
+        "dark": {
+          "hex": "#BBC0DD",
+          "hsl": "hsl(230, 34%, 80%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "nocturne-tech",
+    "title": "Nocturne Tech",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Indigo Ink Muted",
+        "light": {
+          "hex": "#1D1F2A",
+          "hsl": "hsl(230, 18%, 14%)"
+        },
+        "dark": {
+          "hex": "#D5D7E2",
+          "hsl": "hsl(230, 18%, 86%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Violet Dusk Clear",
+        "light": {
+          "hex": "#372886",
+          "hsl": "hsl(250, 54%, 34%)"
+        },
+        "dark": {
+          "hex": "#8979D7",
+          "hsl": "hsl(250, 54%, 66%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Cobalt Core Vivid",
+        "light": {
+          "hex": "#205CD5",
+          "hsl": "hsl(220, 74%, 48%)"
+        },
+        "dark": {
+          "hex": "#2A66DF",
+          "hsl": "hsl(220, 74%, 52%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Fuchsia Radiant Vivid",
+        "light": {
+          "hex": "#E133E1",
+          "hsl": "hsl(300, 74%, 54%)"
+        },
+        "dark": {
+          "hex": "#CC1ECC",
+          "hsl": "hsl(300, 74%, 46%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Aqua Bloom Soft",
+        "light": {
+          "hex": "#ADD7D7",
+          "hsl": "hsl(180, 34%, 76%)"
+        },
+        "dark": {
+          "hex": "#285252",
+          "hsl": "hsl(180, 34%, 24%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "editorial-warmth",
+    "title": "Editorial Warmth",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Apricot Whisper Soft",
+        "light": {
+          "hex": "#F5F1EA",
+          "hsl": "hsl(40, 34%, 94%)"
+        },
+        "dark": {
+          "hex": "#15110A",
+          "hsl": "hsl(40, 34%, 6%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Amber Silk Soft",
+        "light": {
+          "hex": "#C9C092",
+          "hsl": "hsl(50, 34%, 68%)"
+        },
+        "dark": {
+          "hex": "#6D6436",
+          "hsl": "hsl(50, 34%, 32%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Citrine Tone Muted",
+        "light": {
+          "hex": "#ABAB87",
+          "hsl": "hsl(60, 18%, 60%)"
+        },
+        "dark": {
+          "hex": "#787854",
+          "hsl": "hsl(60, 18%, 40%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Garnet Velvet Soft",
+        "light": {
+          "hex": "#90475F",
+          "hsl": "hsl(340, 34%, 42%)"
+        },
+        "dark": {
+          "hex": "#B86F88",
+          "hsl": "hsl(340, 34%, 58%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Olive Dusk Muted",
+        "light": {
+          "hex": "#5C6647",
+          "hsl": "hsl(80, 18%, 34%)"
+        },
+        "dark": {
+          "hex": "#AEB899",
+          "hsl": "hsl(80, 18%, 66%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "orchid-bloom",
+    "title": "Orchid Bloom",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Orchid Bloom Clear",
+        "light": {
+          "hex": "#B7A1E3",
+          "hsl": "hsl(260, 54%, 76%)"
+        },
+        "dark": {
+          "hex": "#321C5E",
+          "hsl": "hsl(260, 54%, 24%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Plum Radiant Clear",
+        "light": {
+          "hex": "#8A4AC9",
+          "hsl": "hsl(270, 54%, 54%)"
+        },
+        "dark": {
+          "hex": "#7536B5",
+          "hsl": "hsl(270, 54%, 46%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Peony Bloom Vivid",
+        "light": {
+          "hex": "#EF95E0",
+          "hsl": "hsl(310, 74%, 76%)"
+        },
+        "dark": {
+          "hex": "#6A105B",
+          "hsl": "hsl(310, 74%, 24%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Rose Core Soft",
+        "light": {
+          "hex": "#A45188",
+          "hsl": "hsl(320, 34%, 48%)"
+        },
+        "dark": {
+          "hex": "#AE5B92",
+          "hsl": "hsl(320, 34%, 52%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Mint Whisper Muted",
+        "light": {
+          "hex": "#EDF2EE",
+          "hsl": "hsl(130, 18%, 94%)"
+        },
+        "dark": {
+          "hex": "#0D120D",
+          "hsl": "hsl(130, 18%, 6%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "forest-terrain",
+    "title": "Forest Terrain",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Moss Tone Muted",
+        "light": {
+          "hex": "#93AB87",
+          "hsl": "hsl(100, 18%, 60%)"
+        },
+        "dark": {
+          "hex": "#607854",
+          "hsl": "hsl(100, 18%, 40%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Leaf Dusk Soft",
+        "light": {
+          "hex": "#437439",
+          "hsl": "hsl(110, 34%, 34%)"
+        },
+        "dark": {
+          "hex": "#95C68B",
+          "hsl": "hsl(110, 34%, 66%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Olive Silk Muted",
+        "light": {
+          "hex": "#B2BC9F",
+          "hsl": "hsl(80, 18%, 68%)"
+        },
+        "dark": {
+          "hex": "#566043",
+          "hsl": "hsl(80, 18%, 32%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Amber Velvet Soft",
+        "light": {
+          "hex": "#908347",
+          "hsl": "hsl(50, 34%, 42%)"
+        },
+        "dark": {
+          "hex": "#B8AC6F",
+          "hsl": "hsl(50, 34%, 58%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Honey Shadow Muted",
+        "light": {
+          "hex": "#50543B",
+          "hsl": "hsl(70, 18%, 28%)"
+        },
+        "dark": {
+          "hex": "#C0C4AB",
+          "hsl": "hsl(70, 18%, 72%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "nordic-frost",
+    "title": "Nordic Frost",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Azure Mist Muted",
+        "light": {
+          "hex": "#E1E7EA",
+          "hsl": "hsl(200, 18%, 90%)"
+        },
+        "dark": {
+          "hex": "#151B1E",
+          "hsl": "hsl(200, 18%, 10%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Cerulean Whisper Soft",
+        "light": {
+          "hex": "#EAF3F5",
+          "hsl": "hsl(190, 34%, 94%)"
+        },
+        "dark": {
+          "hex": "#0A1315",
+          "hsl": "hsl(190, 34%, 6%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Sapphire Pearl Muted",
+        "light": {
+          "hex": "#CFD6DE",
+          "hsl": "hsl(210, 18%, 84%)"
+        },
+        "dark": {
+          "hex": "#212930",
+          "hsl": "hsl(210, 18%, 16%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Iris Veil Muted",
+        "light": {
+          "hex": "#F9F9FB",
+          "hsl": "hsl(240, 18%, 98%)"
+        },
+        "dark": {
+          "hex": "#040406",
+          "hsl": "hsl(240, 18%, 2%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Cobalt Bloom Soft",
+        "light": {
+          "hex": "#ADBBD7",
+          "hsl": "hsl(220, 34%, 76%)"
+        },
+        "dark": {
+          "hex": "#283652",
+          "hsl": "hsl(220, 34%, 24%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "candy-pop",
+    "title": "Candy Pop",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Coral Radiant Vivid",
+        "light": {
+          "hex": "#E18A33",
+          "hsl": "hsl(30, 74%, 54%)"
+        },
+        "dark": {
+          "hex": "#CC751E",
+          "hsl": "hsl(30, 74%, 46%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Citrine Tone Vivid",
+        "light": {
+          "hex": "#E4E44E",
+          "hsl": "hsl(60, 74%, 60%)"
+        },
+        "dark": {
+          "hex": "#B1B11B",
+          "hsl": "hsl(60, 74%, 40%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Mint Core Clear",
+        "light": {
+          "hex": "#38BC4E",
+          "hsl": "hsl(130, 54%, 48%)"
+        },
+        "dark": {
+          "hex": "#43C759",
+          "hsl": "hsl(130, 54%, 52%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Peony Core Vivid",
+        "light": {
+          "hex": "#D520B7",
+          "hsl": "hsl(310, 74%, 48%)"
+        },
+        "dark": {
+          "hex": "#DF2AC1",
+          "hsl": "hsl(310, 74%, 52%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Azure Bloom Clear",
+        "light": {
+          "hex": "#A1CDE3",
+          "hsl": "hsl(200, 54%, 76%)"
+        },
+        "dark": {
+          "hex": "#1C485E",
+          "hsl": "hsl(200, 54%, 24%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sunset-boulevard",
+    "title": "Sunset Boulevard",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Coral Bloom Clear",
+        "light": {
+          "hex": "#E3C2A1",
+          "hsl": "hsl(30, 54%, 76%)"
+        },
+        "dark": {
+          "hex": "#5E3D1C",
+          "hsl": "hsl(30, 54%, 24%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Amber Silk Clear",
+        "light": {
+          "hex": "#D9CB81",
+          "hsl": "hsl(50, 54%, 68%)"
+        },
+        "dark": {
+          "hex": "#7E6F26",
+          "hsl": "hsl(50, 54%, 32%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Ruby Radiant Soft",
+        "light": {
+          "hex": "#B26F62",
+          "hsl": "hsl(10, 34%, 54%)"
+        },
+        "dark": {
+          "hex": "#9D5B4D",
+          "hsl": "hsl(10, 34%, 46%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Rose Pearl Soft",
+        "light": {
+          "hex": "#E4C8DB",
+          "hsl": "hsl(320, 34%, 84%)"
+        },
+        "dark": {
+          "hex": "#371B2D",
+          "hsl": "hsl(320, 34%, 16%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Garnet Tone Clear",
+        "light": {
+          "hex": "#D06287",
+          "hsl": "hsl(340, 54%, 60%)"
+        },
+        "dark": {
+          "hex": "#9D2F54",
+          "hsl": "hsl(340, 54%, 40%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "monochrome-studio",
+    "title": "Monochrome Studio",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Honey Whisper Muted",
+        "light": {
+          "hex": "#F2F2ED",
+          "hsl": "hsl(70, 18%, 94%)"
+        },
+        "dark": {
+          "hex": "#11120D",
+          "hsl": "hsl(70, 18%, 6%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Azure Mist Muted",
+        "light": {
+          "hex": "#E1E7EA",
+          "hsl": "hsl(200, 18%, 90%)"
+        },
+        "dark": {
+          "hex": "#151B1E",
+          "hsl": "hsl(200, 18%, 10%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Olive Silk Muted",
+        "light": {
+          "hex": "#B2BC9F",
+          "hsl": "hsl(80, 18%, 68%)"
+        },
+        "dark": {
+          "hex": "#566043",
+          "hsl": "hsl(80, 18%, 32%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Cobalt Dusk Muted",
+        "light": {
+          "hex": "#475166",
+          "hsl": "hsl(220, 18%, 34%)"
+        },
+        "dark": {
+          "hex": "#99A3B8",
+          "hsl": "hsl(220, 18%, 66%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Merlot Ink Muted",
+        "light": {
+          "hex": "#2A1D1F",
+          "hsl": "hsl(350, 18%, 14%)"
+        },
+        "dark": {
+          "hex": "#E2D5D7",
+          "hsl": "hsl(350, 18%, 86%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "neon-after-dark",
+    "title": "Neon After Dark",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Fuchsia Radiant Vivid",
+        "light": {
+          "hex": "#E133E1",
+          "hsl": "hsl(300, 74%, 54%)"
+        },
+        "dark": {
+          "hex": "#CC1ECC",
+          "hsl": "hsl(300, 74%, 46%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Aqua Bloom Vivid",
+        "light": {
+          "hex": "#95EFEF",
+          "hsl": "hsl(180, 74%, 76%)"
+        },
+        "dark": {
+          "hex": "#106A6A",
+          "hsl": "hsl(180, 74%, 24%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Lime Bloom Clear",
+        "light": {
+          "hex": "#C2E3A1",
+          "hsl": "hsl(90, 54%, 76%)"
+        },
+        "dark": {
+          "hex": "#3D5E1C",
+          "hsl": "hsl(90, 54%, 24%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Violet Nocturne Clear",
+        "light": {
+          "hex": "#21174F",
+          "hsl": "hsl(250, 54%, 20%)"
+        },
+        "dark": {
+          "hex": "#BAB0E8",
+          "hsl": "hsl(250, 54%, 80%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Cobalt Ink Soft",
+        "light": {
+          "hex": "#182030",
+          "hsl": "hsl(220, 34%, 14%)"
+        },
+        "dark": {
+          "hex": "#CFD7E7",
+          "hsl": "hsl(220, 34%, 86%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "matcha-linen",
+    "title": "Matcha & Linen",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Moss Silk Soft",
+        "light": {
+          "hex": "#A4C992",
+          "hsl": "hsl(100, 34%, 68%)"
+        },
+        "dark": {
+          "hex": "#486D36",
+          "hsl": "hsl(100, 34%, 32%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Leaf Bloom Muted",
+        "light": {
+          "hex": "#BACDB7",
+          "hsl": "hsl(110, 18%, 76%)"
+        },
+        "dark": {
+          "hex": "#364832",
+          "hsl": "hsl(110, 18%, 24%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Olive Pearl Muted",
+        "light": {
+          "hex": "#D9DECF",
+          "hsl": "hsl(80, 18%, 84%)"
+        },
+        "dark": {
+          "hex": "#2B3021",
+          "hsl": "hsl(80, 18%, 16%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Apricot Veil Muted",
+        "light": {
+          "hex": "#FBFAF9",
+          "hsl": "hsl(40, 18%, 98%)"
+        },
+        "dark": {
+          "hex": "#060504",
+          "hsl": "hsl(40, 18%, 2%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Honey Whisper Soft",
+        "light": {
+          "hex": "#F3F5EA",
+          "hsl": "hsl(70, 34%, 94%)"
+        },
+        "dark": {
+          "hex": "#13150A",
+          "hsl": "hsl(70, 34%, 6%)"
+        }
+      }
+    ]
+  }
+]

@@ -38,6 +38,24 @@ export const checkoutConfig = {
     status: "live",
     note: "Palette Pack Vol. 1 — live on Lemon Squeezy.",
   },
+  "complete-archive": {
+    provider: "Lemon Squeezy",
+    url: null,
+    status: "pending",
+    note: "Complete Archive Token Set — pending checkout setup.",
+  },
+  "dark-mode-ui-kit": {
+    provider: "Lemon Squeezy",
+    url: null,
+    status: "pending",
+    note: "Dark Mode UI Kit — pending checkout setup.",
+  },
+  "seasonal-spring-2026": {
+    provider: "Lemon Squeezy",
+    url: null,
+    status: "pending",
+    note: "Seasonal: Spring 2026 — pending checkout setup.",
+  },
 } satisfies Record<string, CheckoutConfigEntry>;
 
 export const checkoutFlowConfig: CheckoutFlowConfig = {

@@ -1,0 +1,176 @@
+/* ColorArchive — Dark Mode UI Kit */
+/* Light theme (default) */
+:root, [data-theme='light'] {
+
+  /* Quiet Luxury */
+  --quiet-luxury-1: #F2EDF0; /* Blush Whisper Muted */
+  --quiet-luxury-2: #E4DBC8; /* Apricot Pearl Soft */
+  --quiet-luxury-3: #C9CDB7; /* Honey Bloom Muted */
+  --quiet-luxury-4: #9FAB87; /* Olive Tone Muted */
+  --quiet-luxury-5: #2A1D1F; /* Merlot Ink Muted */
+
+  /* Modern Seaside */
+  --modern-seaside-1: #EAF5EE; /* Seafoam Whisper Soft */
+  --modern-seaside-2: #A1E3D8; /* Lagoon Bloom Clear */
+  --modern-seaside-3: #81CBD9; /* Cerulean Silk Clear */
+  --modern-seaside-4: #2099D5; /* Azure Core Vivid */
+  --modern-seaside-5: #222744; /* Indigo Nocturne Soft */
+
+  /* Nocturne Tech */
+  --nocturne-tech-1: #1D1F2A; /* Indigo Ink Muted */
+  --nocturne-tech-2: #372886; /* Violet Dusk Clear */
+  --nocturne-tech-3: #205CD5; /* Cobalt Core Vivid */
+  --nocturne-tech-4: #E133E1; /* Fuchsia Radiant Vivid */
+  --nocturne-tech-5: #ADD7D7; /* Aqua Bloom Soft */
+
+  /* Editorial Warmth */
+  --editorial-warmth-1: #F5F1EA; /* Apricot Whisper Soft */
+  --editorial-warmth-2: #C9C092; /* Amber Silk Soft */
+  --editorial-warmth-3: #ABAB87; /* Citrine Tone Muted */
+  --editorial-warmth-4: #90475F; /* Garnet Velvet Soft */
+  --editorial-warmth-5: #5C6647; /* Olive Dusk Muted */
+
+  /* Orchid Bloom */
+  --orchid-bloom-1: #B7A1E3; /* Orchid Bloom Clear */
+  --orchid-bloom-2: #8A4AC9; /* Plum Radiant Clear */
+  --orchid-bloom-3: #EF95E0; /* Peony Bloom Vivid */
+  --orchid-bloom-4: #A45188; /* Rose Core Soft */
+  --orchid-bloom-5: #EDF2EE; /* Mint Whisper Muted */
+
+  /* Forest Terrain */
+  --forest-terrain-1: #93AB87; /* Moss Tone Muted */
+  --forest-terrain-2: #437439; /* Leaf Dusk Soft */
+  --forest-terrain-3: #B2BC9F; /* Olive Silk Muted */
+  --forest-terrain-4: #908347; /* Amber Velvet Soft */
+  --forest-terrain-5: #50543B; /* Honey Shadow Muted */
+
+  /* Nordic Frost */
+  --nordic-frost-1: #E1E7EA; /* Azure Mist Muted */
+  --nordic-frost-2: #EAF3F5; /* Cerulean Whisper Soft */
+  --nordic-frost-3: #CFD6DE; /* Sapphire Pearl Muted */
+  --nordic-frost-4: #F9F9FB; /* Iris Veil Muted */
+  --nordic-frost-5: #ADBBD7; /* Cobalt Bloom Soft */
+
+  /* Candy Pop */
+  --candy-pop-1: #E18A33; /* Coral Radiant Vivid */
+  --candy-pop-2: #E4E44E; /* Citrine Tone Vivid */
+  --candy-pop-3: #38BC4E; /* Mint Core Clear */
+  --candy-pop-4: #D520B7; /* Peony Core Vivid */
+  --candy-pop-5: #A1CDE3; /* Azure Bloom Clear */
+
+  /* Sunset Boulevard */
+  --sunset-boulevard-1: #E3C2A1; /* Coral Bloom Clear */
+  --sunset-boulevard-2: #D9CB81; /* Amber Silk Clear */
+  --sunset-boulevard-3: #B26F62; /* Ruby Radiant Soft */
+  --sunset-boulevard-4: #E4C8DB; /* Rose Pearl Soft */
+  --sunset-boulevard-5: #D06287; /* Garnet Tone Clear */
+
+  /* Monochrome Studio */
+  --monochrome-studio-1: #F2F2ED; /* Honey Whisper Muted */
+  --monochrome-studio-2: #E1E7EA; /* Azure Mist Muted */
+  --monochrome-studio-3: #B2BC9F; /* Olive Silk Muted */
+  --monochrome-studio-4: #475166; /* Cobalt Dusk Muted */
+  --monochrome-studio-5: #2A1D1F; /* Merlot Ink Muted */
+
+  /* Neon After Dark */
+  --neon-after-dark-1: #E133E1; /* Fuchsia Radiant Vivid */
+  --neon-after-dark-2: #95EFEF; /* Aqua Bloom Vivid */
+  --neon-after-dark-3: #C2E3A1; /* Lime Bloom Clear */
+  --neon-after-dark-4: #21174F; /* Violet Nocturne Clear */
+  --neon-after-dark-5: #182030; /* Cobalt Ink Soft */
+
+  /* Matcha & Linen */
+  --matcha-linen-1: #A4C992; /* Moss Silk Soft */
+  --matcha-linen-2: #BACDB7; /* Leaf Bloom Muted */
+  --matcha-linen-3: #D9DECF; /* Olive Pearl Muted */
+  --matcha-linen-4: #FBFAF9; /* Apricot Veil Muted */
+  --matcha-linen-5: #F3F5EA; /* Honey Whisper Soft */
+}
+
+/* Dark theme — inverted lightness mapping */
+[data-theme='dark'] {
+
+  /* Quiet Luxury (dark) */
+  --quiet-luxury-1: #120D0F; /* Blush Whisper Muted (dark) */
+  --quiet-luxury-2: #372D1B; /* Apricot Pearl Soft (dark) */
+  --quiet-luxury-3: #454832; /* Honey Bloom Muted (dark) */
+  --quiet-luxury-4: #6C7854; /* Olive Tone Muted (dark) */
+  --quiet-luxury-5: #E2D5D7; /* Merlot Ink Muted (dark) */
+
+  /* Modern Seaside (dark) */
+  --modern-seaside-1: #0A150E; /* Seafoam Whisper Soft (dark) */
+  --modern-seaside-2: #1C5E53; /* Lagoon Bloom Clear (dark) */
+  --modern-seaside-3: #266F7E; /* Cerulean Silk Clear (dark) */
+  --modern-seaside-4: #2AA3DF; /* Azure Core Vivid (dark) */
+  --modern-seaside-5: #BBC0DD; /* Indigo Nocturne Soft (dark) */
+
+  /* Nocturne Tech (dark) */
+  --nocturne-tech-1: #D5D7E2; /* Indigo Ink Muted (dark) */
+  --nocturne-tech-2: #8979D7; /* Violet Dusk Clear (dark) */
+  --nocturne-tech-3: #2A66DF; /* Cobalt Core Vivid (dark) */
+  --nocturne-tech-4: #CC1ECC; /* Fuchsia Radiant Vivid (dark) */
+  --nocturne-tech-5: #285252; /* Aqua Bloom Soft (dark) */
+
+  /* Editorial Warmth (dark) */
+  --editorial-warmth-1: #15110A; /* Apricot Whisper Soft (dark) */
+  --editorial-warmth-2: #6D6436; /* Amber Silk Soft (dark) */
+  --editorial-warmth-3: #787854; /* Citrine Tone Muted (dark) */
+  --editorial-warmth-4: #B86F88; /* Garnet Velvet Soft (dark) */
+  --editorial-warmth-5: #AEB899; /* Olive Dusk Muted (dark) */
+
+  /* Orchid Bloom (dark) */
+  --orchid-bloom-1: #321C5E; /* Orchid Bloom Clear (dark) */
+  --orchid-bloom-2: #7536B5; /* Plum Radiant Clear (dark) */
+  --orchid-bloom-3: #6A105B; /* Peony Bloom Vivid (dark) */
+  --orchid-bloom-4: #AE5B92; /* Rose Core Soft (dark) */
+  --orchid-bloom-5: #0D120D; /* Mint Whisper Muted (dark) */
+
+  /* Forest Terrain (dark) */
+  --forest-terrain-1: #607854; /* Moss Tone Muted (dark) */
+  --forest-terrain-2: #95C68B; /* Leaf Dusk Soft (dark) */
+  --forest-terrain-3: #566043; /* Olive Silk Muted (dark) */
+  --forest-terrain-4: #B8AC6F; /* Amber Velvet Soft (dark) */
+  --forest-terrain-5: #C0C4AB; /* Honey Shadow Muted (dark) */
+
+  /* Nordic Frost (dark) */
+  --nordic-frost-1: #151B1E; /* Azure Mist Muted (dark) */
+  --nordic-frost-2: #0A1315; /* Cerulean Whisper Soft (dark) */
+  --nordic-frost-3: #212930; /* Sapphire Pearl Muted (dark) */
+  --nordic-frost-4: #040406; /* Iris Veil Muted (dark) */
+  --nordic-frost-5: #283652; /* Cobalt Bloom Soft (dark) */
+
+  /* Candy Pop (dark) */
+  --candy-pop-1: #CC751E; /* Coral Radiant Vivid (dark) */
+  --candy-pop-2: #B1B11B; /* Citrine Tone Vivid (dark) */
+  --candy-pop-3: #43C759; /* Mint Core Clear (dark) */
+  --candy-pop-4: #DF2AC1; /* Peony Core Vivid (dark) */
+  --candy-pop-5: #1C485E; /* Azure Bloom Clear (dark) */
+
+  /* Sunset Boulevard (dark) */
+  --sunset-boulevard-1: #5E3D1C; /* Coral Bloom Clear (dark) */
+  --sunset-boulevard-2: #7E6F26; /* Amber Silk Clear (dark) */
+  --sunset-boulevard-3: #9D5B4D; /* Ruby Radiant Soft (dark) */
+  --sunset-boulevard-4: #371B2D; /* Rose Pearl Soft (dark) */
+  --sunset-boulevard-5: #9D2F54; /* Garnet Tone Clear (dark) */
+
+  /* Monochrome Studio (dark) */
+  --monochrome-studio-1: #11120D; /* Honey Whisper Muted (dark) */
+  --monochrome-studio-2: #151B1E; /* Azure Mist Muted (dark) */
+  --monochrome-studio-3: #566043; /* Olive Silk Muted (dark) */
+  --monochrome-studio-4: #99A3B8; /* Cobalt Dusk Muted (dark) */
+  --monochrome-studio-5: #E2D5D7; /* Merlot Ink Muted (dark) */
+
+  /* Neon After Dark (dark) */
+  --neon-after-dark-1: #CC1ECC; /* Fuchsia Radiant Vivid (dark) */
+  --neon-after-dark-2: #106A6A; /* Aqua Bloom Vivid (dark) */
+  --neon-after-dark-3: #3D5E1C; /* Lime Bloom Clear (dark) */
+  --neon-after-dark-4: #BAB0E8; /* Violet Nocturne Clear (dark) */
+  --neon-after-dark-5: #CFD7E7; /* Cobalt Ink Soft (dark) */
+
+  /* Matcha & Linen (dark) */
+  --matcha-linen-1: #486D36; /* Moss Silk Soft (dark) */
+  --matcha-linen-2: #364832; /* Leaf Bloom Muted (dark) */
+  --matcha-linen-3: #2B3021; /* Olive Pearl Muted (dark) */
+  --matcha-linen-4: #060504; /* Apricot Veil Muted (dark) */
+  --matcha-linen-5: #13150A; /* Honey Whisper Soft (dark) */
+}

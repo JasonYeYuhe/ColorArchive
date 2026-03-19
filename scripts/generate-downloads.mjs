@@ -127,6 +127,30 @@ const COLLECTIONS = [
     tags: ["Vibrant", "Playful", "Campaign"],
     paletteIds: ["coral-radiant-vivid", "citrine-tone-vivid", "mint-core-clear", "peony-core-vivid", "azure-bloom-clear"],
   },
+  {
+    id: "sunset-boulevard", title: "Sunset Boulevard",
+    summary: "Warm oranges, pink-golds, and sunset gradient tones for lifestyle, travel, and campaign work.",
+    tags: ["Warm", "Lifestyle", "Campaign"],
+    paletteIds: ["coral-bloom-clear", "amber-silk-clear", "ruby-radiant-soft", "rose-pearl-soft", "garnet-tone-clear"],
+  },
+  {
+    id: "monochrome-studio", title: "Monochrome Studio",
+    summary: "Pure grayscale with micro-warm and micro-cool shifts for editorial, typography, and minimal UI.",
+    tags: ["Minimal", "Editorial", "Monochrome"],
+    paletteIds: ["honey-whisper-muted", "azure-mist-muted", "olive-silk-muted", "cobalt-dusk-muted", "merlot-ink-muted"],
+  },
+  {
+    id: "neon-after-dark", title: "Neon After Dark",
+    summary: "Cyber neon colors on deep dark bases for gaming, nightlife, and bold tech products.",
+    tags: ["Neon", "Dark", "Gaming"],
+    paletteIds: ["fuchsia-radiant-vivid", "aqua-bloom-vivid", "lime-bloom-clear", "violet-nocturne-clear", "cobalt-ink-soft"],
+  },
+  {
+    id: "matcha-linen", title: "Matcha & Linen",
+    summary: "Japanese-inspired matcha greens with warm linen and paper whites for wellness, tea, and artisan brands.",
+    tags: ["Japanese", "Wellness", "Organic"],
+    paletteIds: ["moss-silk-soft", "leaf-bloom-muted", "olive-pearl-muted", "apricot-veil-muted", "honey-whisper-soft"],
+  },
 ];
 
 function resolvePalette(paletteIds) {
@@ -187,6 +211,9 @@ const PACK_PREVIEWS = [
   { id: "palette-pack-vol-1", collectionIds: ["quiet-luxury", "modern-seaside", "editorial-warmth"] },
   { id: "brand-starter-kit", collectionIds: ["quiet-luxury", "nocturne-tech", "orchid-bloom"] },
   { id: "content-creator-bundle", collectionIds: ["modern-seaside", "orchid-bloom"] },
+  { id: "complete-archive", collectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "neon-after-dark"] },
+  { id: "dark-mode-ui-kit", collectionIds: ["nocturne-tech", "nordic-frost", "monochrome-studio"] },
+  { id: "seasonal-spring-2026", collectionIds: ["orchid-bloom", "matcha-linen", "sunset-boulevard"] },
 ];
 
 function generatePackCss(collectionIds) {
@@ -401,4 +428,293 @@ createZip("content-creator-bundle.zip", [
   "colorarchive-all-collections.json",
   "colorarchive-tailwind-tokens.css",
   "README-creator-bundle.txt",
+]);
+
+// --- Complete Archive Token Set ---
+// Generate comprehensive SCSS maps for the full archive
+function generateScss() {
+  const families = {};
+  for (const { name: hueName, hue } of HUE_CATALOG) {
+    const familyKey = hueName.toLowerCase();
+    families[familyKey] = [];
+    for (const { name: lName, l } of LIGHTNESS_CATALOG) {
+      for (const { name: cName, s } of CHROMA_CATALOG) {
+        const id = createId(`${hueName} ${lName} ${cName}`);
+        const hex = hslToHex(hue, s, l);
+        families[familyKey].push({ id, hex });
+      }
+    }
+  }
+  const lines = ["// ColorArchive — Complete SCSS Color Maps", "// Auto-generated — do not edit", ""];
+  for (const [family, colors] of Object.entries(families)) {
+    lines.push(`$ca-${family}: (`);
+    for (const c of colors) {
+      lines.push(`  "${c.id}": ${c.hex},`);
+    }
+    lines.push(");\n");
+  }
+  return lines.join("\n");
+}
+
+// Generate full archive CSS with ALL 2016 colors
+function generateFullArchiveCss() {
+  const lines = [":root {", "  /* ColorArchive — All 2016 Colors */"];
+  for (const { name: hueName, hue } of HUE_CATALOG) {
+    lines.push(`\n  /* ${hueName} */`);
+    for (const { name: lName, l } of LIGHTNESS_CATALOG) {
+      for (const { name: cName, s } of CHROMA_CATALOG) {
+        const id = createId(`${hueName} ${lName} ${cName}`);
+        const hex = hslToHex(hue, s, l);
+        lines.push(`  --ca-${id}: ${hex};`);
+      }
+    }
+  }
+  lines.push("}");
+  return lines.join("\n");
+}
+
+// Generate full archive Tailwind tokens
+function generateFullArchiveTailwind() {
+  const lines = ["/* Tailwind CSS v4 — Complete Archive Theme Tokens */", "@theme {"];
+  for (const { name: hueName, hue } of HUE_CATALOG) {
+    lines.push(`\n  /* ${hueName} */`);
+    for (const { name: lName, l } of LIGHTNESS_CATALOG) {
+      for (const { name: cName, s } of CHROMA_CATALOG) {
+        const id = createId(`${hueName} ${lName} ${cName}`);
+        const hex = hslToHex(hue, s, l);
+        lines.push(`  --color-${id}: ${hex};`);
+      }
+    }
+  }
+  lines.push("}");
+  return lines.join("\n");
+}
+
+// Generate full archive JSON
+function generateFullArchiveJson() {
+  const data = [];
+  for (const { name: hueName, hue } of HUE_CATALOG) {
+    for (const { name: lName, l } of LIGHTNESS_CATALOG) {
+      for (const { name: cName, s } of CHROMA_CATALOG) {
+        const colorName = `${hueName} ${lName} ${cName}`;
+        const id = createId(colorName);
+        const hex = hslToHex(hue, s, l);
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        data.push({ id, name: colorName, hex, hsl: `hsl(${hue}, ${s}%, ${l}%)`, rgb: `rgb(${r}, ${g}, ${b})`, hue, saturation: s, lightness: l });
+      }
+    }
+  }
+  return JSON.stringify(data, null, 2);
+}
+
+writeFileSync(join(OUT_DIR, "complete-archive-all-colors.css"), generateFullArchiveCss(), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-tailwind-tokens.css"), generateFullArchiveTailwind(), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-all-colors.json"), generateFullArchiveJson(), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-scss-maps.scss"), generateScss(), "utf8");
+
+const completeArchiveReadme = `ColorArchive — Complete Archive Token Set
+
+ALL 2016 COLORS IN FOUR FORMATS
+
+FORMATS INCLUDED
+- CSS variables (complete-archive-all-colors.css)
+- Tailwind CSS 4 theme tokens (complete-archive-tailwind-tokens.css)
+- Structured JSON with hex, HSL, RGB (complete-archive-all-colors.json)
+- SCSS color maps by hue family (complete-archive-scss-maps.scss)
+
+COLOR NAMING
+Each color follows the pattern: {hue}-{lightness}-{chroma}
+  36 hues x 14 lightness levels x 4 chroma bands = 2016 colors
+
+USAGE
+- CSS: copy variables into your :root {} block
+- Tailwind: paste the @theme block into your config
+- JSON: import for programmatic access or design tool integration
+- SCSS: @use the maps and access colors via map-get()
+
+— ColorArchive · https://colorarchive.me
+`;
+writeFileSync(join(OUT_DIR, "README-complete-archive.txt"), completeArchiveReadme, "utf8");
+createZip("complete-archive.zip", [
+  "complete-archive-all-colors.css",
+  "complete-archive-tailwind-tokens.css",
+  "complete-archive-all-colors.json",
+  "complete-archive-scss-maps.scss",
+  "complete-archive-preview.css",
+  "complete-archive-preview.json",
+  "README-complete-archive.txt",
+]);
+
+// --- Dark Mode UI Kit ---
+// Generate paired light/dark token files
+function generateDarkModeCss() {
+  const lines = ["/* ColorArchive — Dark Mode UI Kit */", "/* Light theme (default) */", ":root, [data-theme='light'] {"];
+  for (const col of COLLECTIONS) {
+    const palette = resolvePalette(col.paletteIds);
+    lines.push(`\n  /* ${col.title} */`);
+    palette.forEach((c, i) => {
+      lines.push(`  --${col.id}-${i + 1}: ${c.hex}; /* ${c.name} */`);
+    });
+  }
+  lines.push("}\n");
+  lines.push("/* Dark theme — inverted lightness mapping */");
+  lines.push("[data-theme='dark'] {");
+  for (const col of COLLECTIONS) {
+    const palette = resolvePalette(col.paletteIds);
+    lines.push(`\n  /* ${col.title} (dark) */`);
+    palette.forEach((c, i) => {
+      // Invert lightness for dark mode
+      const darkL = 100 - c.lightness;
+      const darkHex = hslToHex(c.hue, c.saturation, darkL);
+      lines.push(`  --${col.id}-${i + 1}: ${darkHex}; /* ${c.name} (dark) */`);
+    });
+  }
+  lines.push("}");
+  return lines.join("\n");
+}
+
+function generateDarkModeTailwind() {
+  const lines = ["/* Tailwind CSS v4 — Dark Mode Token Pairs */", "@theme {"];
+  for (const col of COLLECTIONS) {
+    const palette = resolvePalette(col.paletteIds);
+    lines.push(`\n  /* ${col.title} — light */`);
+    palette.forEach((c, i) => {
+      lines.push(`  --color-${col.id}-${i + 1}: ${c.hex};`);
+    });
+    lines.push(`  /* ${col.title} — dark */`);
+    palette.forEach((c, i) => {
+      const darkL = 100 - c.lightness;
+      const darkHex = hslToHex(c.hue, c.saturation, darkL);
+      lines.push(`  --color-${col.id}-dark-${i + 1}: ${darkHex};`);
+    });
+  }
+  lines.push("}");
+  return lines.join("\n");
+}
+
+function generateDarkModeJson() {
+  const data = COLLECTIONS.map((col) => {
+    const palette = resolvePalette(col.paletteIds);
+    return {
+      id: col.id,
+      title: col.title,
+      pairs: palette.map((c, i) => {
+        const darkL = 100 - c.lightness;
+        const darkHex = hslToHex(c.hue, c.saturation, darkL);
+        return {
+          slot: i + 1,
+          name: c.name,
+          light: { hex: c.hex, hsl: c.hsl },
+          dark: { hex: darkHex, hsl: `hsl(${c.hue}, ${c.saturation}%, ${darkL}%)` },
+        };
+      }),
+    };
+  });
+  return JSON.stringify(data, null, 2);
+}
+
+writeFileSync(join(OUT_DIR, "dark-mode-ui-kit-paired.css"), generateDarkModeCss(), "utf8");
+writeFileSync(join(OUT_DIR, "dark-mode-ui-kit-tailwind.css"), generateDarkModeTailwind(), "utf8");
+writeFileSync(join(OUT_DIR, "dark-mode-ui-kit-paired.json"), generateDarkModeJson(), "utf8");
+
+const darkModeReadme = `ColorArchive — Dark Mode UI Kit
+
+PAIRED LIGHT/DARK TOKEN SETS
+
+FORMATS INCLUDED
+- Paired CSS variables with data-theme switching (dark-mode-ui-kit-paired.css)
+- Tailwind CSS 4 dark mode tokens (dark-mode-ui-kit-tailwind.css)
+- JSON with light/dark value pairs (dark-mode-ui-kit-paired.json)
+
+HOW IT WORKS
+Light mode: use variables as-is (default)
+Dark mode: add data-theme="dark" to your <html> element
+
+The dark values are generated by inverting lightness while preserving
+hue and saturation, giving you perceptually consistent pairs.
+
+TAILWIND USAGE
+Use --color-{collection}-{slot} for light and
+--color-{collection}-dark-{slot} for dark mode values.
+
+— ColorArchive · https://colorarchive.me
+`;
+writeFileSync(join(OUT_DIR, "README-dark-mode-ui-kit.txt"), darkModeReadme, "utf8");
+createZip("dark-mode-ui-kit.zip", [
+  "dark-mode-ui-kit-paired.css",
+  "dark-mode-ui-kit-tailwind.css",
+  "dark-mode-ui-kit-paired.json",
+  "dark-mode-ui-kit-preview.css",
+  "dark-mode-ui-kit-preview.json",
+  "README-dark-mode-ui-kit.txt",
+]);
+
+// --- Seasonal: Spring 2026 ---
+const springCollectionIds = ["orchid-bloom", "matcha-linen", "sunset-boulevard"];
+const springCols = springCollectionIds.map((id) => COLLECTIONS.find((c) => c.id === id)).filter(Boolean);
+
+const springMoodNotes = `ColorArchive — Seasonal: Spring 2026
+
+MOOD BOARD NOTES
+
+THEME: Fresh Renewal
+The Spring 2026 palette draws from floral warmth, matcha greens,
+and golden-hour light. Designed for projects that need to feel
+alive, optimistic, and grounded in nature.
+
+PALETTES INCLUDED
+
+Orchid Bloom
+  Blooming pinks and violets with soft green counterpoint.
+  Use for beauty campaigns, culture pieces, and social launches.
+
+Matcha & Linen
+  Soft matcha greens with warm paper and linen tones.
+  Use for wellness, tea brands, and artisan product pages.
+
+Sunset Boulevard
+  Warm coral-to-rose gradient with amber highlights.
+  Use for travel, lifestyle content, and editorial hero sections.
+
+APPLICATION GUIDANCE
+- Pair Orchid Bloom accents with Matcha & Linen backgrounds for spring beauty work
+- Use Sunset Boulevard as a warm hero palette with Matcha & Linen as supporting neutrals
+- All three collections work together for a comprehensive spring campaign system
+
+— ColorArchive · https://colorarchive.me
+`;
+
+writeFileSync(join(OUT_DIR, "seasonal-spring-2026-mood-notes.txt"), springMoodNotes, "utf8");
+writeFileSync(join(OUT_DIR, "seasonal-spring-2026-tokens.css"), generateCss(springCols), "utf8");
+writeFileSync(join(OUT_DIR, "seasonal-spring-2026-tailwind.css"), generateTailwindSnippet(springCols), "utf8");
+writeFileSync(join(OUT_DIR, "seasonal-spring-2026-data.json"), generateJson(springCols), "utf8");
+
+const springReadme = `ColorArchive — Seasonal: Spring 2026
+
+SPRING-CURATED PALETTES
+
+COLLECTIONS
+- Orchid Bloom: Blooming pinks and violets
+- Matcha & Linen: Matcha greens with warm linen tones
+- Sunset Boulevard: Warm sunset gradient colors
+
+FORMATS
+- CSS variables (seasonal-spring-2026-tokens.css)
+- Tailwind CSS 4 theme tokens (seasonal-spring-2026-tailwind.css)
+- JSON data (seasonal-spring-2026-data.json)
+- Mood board notes (seasonal-spring-2026-mood-notes.txt)
+
+— ColorArchive · https://colorarchive.me
+`;
+writeFileSync(join(OUT_DIR, "README-seasonal-spring-2026.txt"), springReadme, "utf8");
+createZip("seasonal-spring-2026.zip", [
+  "seasonal-spring-2026-tokens.css",
+  "seasonal-spring-2026-tailwind.css",
+  "seasonal-spring-2026-data.json",
+  "seasonal-spring-2026-mood-notes.txt",
+  "seasonal-spring-2026-preview.css",
+  "seasonal-spring-2026-preview.json",
+  "README-seasonal-spring-2026.txt",
 ]);

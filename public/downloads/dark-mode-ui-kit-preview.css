@@ -1,0 +1,23 @@
+:root {
+
+  /* Nocturne Tech */
+  --nocturne-tech-1: #1D1F2A; /* Indigo Ink Muted */
+  --nocturne-tech-2: #372886; /* Violet Dusk Clear */
+  --nocturne-tech-3: #205CD5; /* Cobalt Core Vivid */
+  --nocturne-tech-4: #E133E1; /* Fuchsia Radiant Vivid */
+  --nocturne-tech-5: #ADD7D7; /* Aqua Bloom Soft */
+
+  /* Nordic Frost */
+  --nordic-frost-1: #E1E7EA; /* Azure Mist Muted */
+  --nordic-frost-2: #EAF3F5; /* Cerulean Whisper Soft */
+  --nordic-frost-3: #CFD6DE; /* Sapphire Pearl Muted */
+  --nordic-frost-4: #F9F9FB; /* Iris Veil Muted */
+  --nordic-frost-5: #ADBBD7; /* Cobalt Bloom Soft */
+
+  /* Monochrome Studio */
+  --monochrome-studio-1: #F2F2ED; /* Honey Whisper Muted */
+  --monochrome-studio-2: #E1E7EA; /* Azure Mist Muted */
+  --monochrome-studio-3: #B2BC9F; /* Olive Silk Muted */
+  --monochrome-studio-4: #475166; /* Cobalt Dusk Muted */
+  --monochrome-studio-5: #2A1D1F; /* Merlot Ink Muted */
+}

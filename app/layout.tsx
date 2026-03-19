@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import { ThemeProvider } from "@/src/components/theme-provider";
 import { SiteFooter } from "@/src/components/site-footer";
 import { PaletteBuilderTray } from "@/src/components/palette-builder-tray";
 import "./globals.css";
@@ -58,17 +59,39 @@ export const metadata: Metadata = {
   },
 };
 
+const themeScript = `
+(function(){
+  try {
+    var t = localStorage.getItem('colorarchive-theme');
+    var d = (!t || t === 'system')
+      ? window.matchMedia('(prefers-color-scheme: dark)').matches
+      : t === 'dark';
+    if (d) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      document.documentElement.style.colorScheme = 'light';
+    }
+  } catch(e) {}
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
-        {children}
-        <SiteFooter />
-        <PaletteBuilderTray />
+        <ThemeProvider>
+          {children}
+          <SiteFooter />
+          <PaletteBuilderTray />
+        </ThemeProvider>
       </body>
     </html>
   );

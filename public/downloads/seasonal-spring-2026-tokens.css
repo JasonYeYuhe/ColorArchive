@@ -1,0 +1,23 @@
+:root {
+
+  /* Orchid Bloom */
+  --orchid-bloom-1: #B7A1E3; /* Orchid Bloom Clear */
+  --orchid-bloom-2: #8A4AC9; /* Plum Radiant Clear */
+  --orchid-bloom-3: #EF95E0; /* Peony Bloom Vivid */
+  --orchid-bloom-4: #A45188; /* Rose Core Soft */
+  --orchid-bloom-5: #EDF2EE; /* Mint Whisper Muted */
+
+  /* Matcha & Linen */
+  --matcha-linen-1: #A4C992; /* Moss Silk Soft */
+  --matcha-linen-2: #BACDB7; /* Leaf Bloom Muted */
+  --matcha-linen-3: #D9DECF; /* Olive Pearl Muted */
+  --matcha-linen-4: #FBFAF9; /* Apricot Veil Muted */
+  --matcha-linen-5: #F3F5EA; /* Honey Whisper Soft */
+
+  /* Sunset Boulevard */
+  --sunset-boulevard-1: #E3C2A1; /* Coral Bloom Clear */
+  --sunset-boulevard-2: #D9CB81; /* Amber Silk Clear */
+  --sunset-boulevard-3: #B26F62; /* Ruby Radiant Soft */
+  --sunset-boulevard-4: #E4C8DB; /* Rose Pearl Soft */
+  --sunset-boulevard-5: #D06287; /* Garnet Tone Clear */
+}

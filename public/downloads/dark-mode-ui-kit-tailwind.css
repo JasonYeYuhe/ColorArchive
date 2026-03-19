@@ -1,0 +1,159 @@
+/* Tailwind CSS v4 — Dark Mode Token Pairs */
+@theme {
+
+  /* Quiet Luxury — light */
+  --color-quiet-luxury-1: #F2EDF0;
+  --color-quiet-luxury-2: #E4DBC8;
+  --color-quiet-luxury-3: #C9CDB7;
+  --color-quiet-luxury-4: #9FAB87;
+  --color-quiet-luxury-5: #2A1D1F;
+  /* Quiet Luxury — dark */
+  --color-quiet-luxury-dark-1: #120D0F;
+  --color-quiet-luxury-dark-2: #372D1B;
+  --color-quiet-luxury-dark-3: #454832;
+  --color-quiet-luxury-dark-4: #6C7854;
+  --color-quiet-luxury-dark-5: #E2D5D7;
+
+  /* Modern Seaside — light */
+  --color-modern-seaside-1: #EAF5EE;
+  --color-modern-seaside-2: #A1E3D8;
+  --color-modern-seaside-3: #81CBD9;
+  --color-modern-seaside-4: #2099D5;
+  --color-modern-seaside-5: #222744;
+  /* Modern Seaside — dark */
+  --color-modern-seaside-dark-1: #0A150E;
+  --color-modern-seaside-dark-2: #1C5E53;
+  --color-modern-seaside-dark-3: #266F7E;
+  --color-modern-seaside-dark-4: #2AA3DF;
+  --color-modern-seaside-dark-5: #BBC0DD;
+
+  /* Nocturne Tech — light */
+  --color-nocturne-tech-1: #1D1F2A;
+  --color-nocturne-tech-2: #372886;
+  --color-nocturne-tech-3: #205CD5;
+  --color-nocturne-tech-4: #E133E1;
+  --color-nocturne-tech-5: #ADD7D7;
+  /* Nocturne Tech — dark */
+  --color-nocturne-tech-dark-1: #D5D7E2;
+  --color-nocturne-tech-dark-2: #8979D7;
+  --color-nocturne-tech-dark-3: #2A66DF;
+  --color-nocturne-tech-dark-4: #CC1ECC;
+  --color-nocturne-tech-dark-5: #285252;
+
+  /* Editorial Warmth — light */
+  --color-editorial-warmth-1: #F5F1EA;
+  --color-editorial-warmth-2: #C9C092;
+  --color-editorial-warmth-3: #ABAB87;
+  --color-editorial-warmth-4: #90475F;
+  --color-editorial-warmth-5: #5C6647;
+  /* Editorial Warmth — dark */
+  --color-editorial-warmth-dark-1: #15110A;
+  --color-editorial-warmth-dark-2: #6D6436;
+  --color-editorial-warmth-dark-3: #787854;
+  --color-editorial-warmth-dark-4: #B86F88;
+  --color-editorial-warmth-dark-5: #AEB899;
+
+  /* Orchid Bloom — light */
+  --color-orchid-bloom-1: #B7A1E3;
+  --color-orchid-bloom-2: #8A4AC9;
+  --color-orchid-bloom-3: #EF95E0;
+  --color-orchid-bloom-4: #A45188;
+  --color-orchid-bloom-5: #EDF2EE;
+  /* Orchid Bloom — dark */
+  --color-orchid-bloom-dark-1: #321C5E;
+  --color-orchid-bloom-dark-2: #7536B5;
+  --color-orchid-bloom-dark-3: #6A105B;
+  --color-orchid-bloom-dark-4: #AE5B92;
+  --color-orchid-bloom-dark-5: #0D120D;
+
+  /* Forest Terrain — light */
+  --color-forest-terrain-1: #93AB87;
+  --color-forest-terrain-2: #437439;
+  --color-forest-terrain-3: #B2BC9F;
+  --color-forest-terrain-4: #908347;
+  --color-forest-terrain-5: #50543B;
+  /* Forest Terrain — dark */
+  --color-forest-terrain-dark-1: #607854;
+  --color-forest-terrain-dark-2: #95C68B;
+  --color-forest-terrain-dark-3: #566043;
+  --color-forest-terrain-dark-4: #B8AC6F;
+  --color-forest-terrain-dark-5: #C0C4AB;
+
+  /* Nordic Frost — light */
+  --color-nordic-frost-1: #E1E7EA;
+  --color-nordic-frost-2: #EAF3F5;
+  --color-nordic-frost-3: #CFD6DE;
+  --color-nordic-frost-4: #F9F9FB;
+  --color-nordic-frost-5: #ADBBD7;
+  /* Nordic Frost — dark */
+  --color-nordic-frost-dark-1: #151B1E;
+  --color-nordic-frost-dark-2: #0A1315;
+  --color-nordic-frost-dark-3: #212930;
+  --color-nordic-frost-dark-4: #040406;
+  --color-nordic-frost-dark-5: #283652;
+
+  /* Candy Pop — light */
+  --color-candy-pop-1: #E18A33;
+  --color-candy-pop-2: #E4E44E;
+  --color-candy-pop-3: #38BC4E;
+  --color-candy-pop-4: #D520B7;
+  --color-candy-pop-5: #A1CDE3;
+  /* Candy Pop — dark */
+  --color-candy-pop-dark-1: #CC751E;
+  --color-candy-pop-dark-2: #B1B11B;
+  --color-candy-pop-dark-3: #43C759;
+  --color-candy-pop-dark-4: #DF2AC1;
+  --color-candy-pop-dark-5: #1C485E;
+
+  /* Sunset Boulevard — light */
+  --color-sunset-boulevard-1: #E3C2A1;
+  --color-sunset-boulevard-2: #D9CB81;
+  --color-sunset-boulevard-3: #B26F62;
+  --color-sunset-boulevard-4: #E4C8DB;
+  --color-sunset-boulevard-5: #D06287;
+  /* Sunset Boulevard — dark */
+  --color-sunset-boulevard-dark-1: #5E3D1C;
+  --color-sunset-boulevard-dark-2: #7E6F26;
+  --color-sunset-boulevard-dark-3: #9D5B4D;
+  --color-sunset-boulevard-dark-4: #371B2D;
+  --color-sunset-boulevard-dark-5: #9D2F54;
+
+  /* Monochrome Studio — light */
+  --color-monochrome-studio-1: #F2F2ED;
+  --color-monochrome-studio-2: #E1E7EA;
+  --color-monochrome-studio-3: #B2BC9F;
+  --color-monochrome-studio-4: #475166;
+  --color-monochrome-studio-5: #2A1D1F;
+  /* Monochrome Studio — dark */
+  --color-monochrome-studio-dark-1: #11120D;
+  --color-monochrome-studio-dark-2: #151B1E;
+  --color-monochrome-studio-dark-3: #566043;
+  --color-monochrome-studio-dark-4: #99A3B8;
+  --color-monochrome-studio-dark-5: #E2D5D7;
+
+  /* Neon After Dark — light */
+  --color-neon-after-dark-1: #E133E1;
+  --color-neon-after-dark-2: #95EFEF;
+  --color-neon-after-dark-3: #C2E3A1;
+  --color-neon-after-dark-4: #21174F;
+  --color-neon-after-dark-5: #182030;
+  /* Neon After Dark — dark */
+  --color-neon-after-dark-dark-1: #CC1ECC;
+  --color-neon-after-dark-dark-2: #106A6A;
+  --color-neon-after-dark-dark-3: #3D5E1C;
+  --color-neon-after-dark-dark-4: #BAB0E8;
+  --color-neon-after-dark-dark-5: #CFD7E7;
+
+  /* Matcha & Linen — light */
+  --color-matcha-linen-1: #A4C992;
+  --color-matcha-linen-2: #BACDB7;
+  --color-matcha-linen-3: #D9DECF;
+  --color-matcha-linen-4: #FBFAF9;
+  --color-matcha-linen-5: #F3F5EA;
+  /* Matcha & Linen — dark */
+  --color-matcha-linen-dark-1: #486D36;
+  --color-matcha-linen-dark-2: #364832;
+  --color-matcha-linen-dark-3: #2B3021;
+  --color-matcha-linen-dark-4: #060504;
+  --color-matcha-linen-dark-5: #13150A;
+}

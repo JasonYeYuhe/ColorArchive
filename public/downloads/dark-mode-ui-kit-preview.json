@@ -1,0 +1,128 @@
+[
+  {
+    "id": "nocturne-tech",
+    "title": "Nocturne Tech",
+    "summary": "Dark-spectrum product colors with enough neon contrast to feel modern, not generic.",
+    "tags": [
+      "Dark",
+      "Tech",
+      "Launch"
+    ],
+    "palette": [
+      {
+        "id": "indigo-ink-muted",
+        "name": "Indigo Ink Muted",
+        "hex": "#1D1F2A",
+        "hsl": "hsl(230, 18%, 14%)"
+      },
+      {
+        "id": "violet-dusk-clear",
+        "name": "Violet Dusk Clear",
+        "hex": "#372886",
+        "hsl": "hsl(250, 54%, 34%)"
+      },
+      {
+        "id": "cobalt-core-vivid",
+        "name": "Cobalt Core Vivid",
+        "hex": "#205CD5",
+        "hsl": "hsl(220, 74%, 48%)"
+      },
+      {
+        "id": "fuchsia-radiant-vivid",
+        "name": "Fuchsia Radiant Vivid",
+        "hex": "#E133E1",
+        "hsl": "hsl(300, 74%, 54%)"
+      },
+      {
+        "id": "aqua-bloom-soft",
+        "name": "Aqua Bloom Soft",
+        "hex": "#ADD7D7",
+        "hsl": "hsl(180, 34%, 76%)"
+      }
+    ]
+  },
+  {
+    "id": "nordic-frost",
+    "title": "Nordic Frost",
+    "summary": "Ice blue, pale grey, and soft lavender for minimal UI, SaaS products, and clean landing pages.",
+    "tags": [
+      "Minimal",
+      "Clean",
+      "UI"
+    ],
+    "palette": [
+      {
+        "id": "azure-mist-muted",
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA",
+        "hsl": "hsl(200, 18%, 90%)"
+      },
+      {
+        "id": "cerulean-whisper-soft",
+        "name": "Cerulean Whisper Soft",
+        "hex": "#EAF3F5",
+        "hsl": "hsl(190, 34%, 94%)"
+      },
+      {
+        "id": "sapphire-pearl-muted",
+        "name": "Sapphire Pearl Muted",
+        "hex": "#CFD6DE",
+        "hsl": "hsl(210, 18%, 84%)"
+      },
+      {
+        "id": "iris-veil-muted",
+        "name": "Iris Veil Muted",
+        "hex": "#F9F9FB",
+        "hsl": "hsl(240, 18%, 98%)"
+      },
+      {
+        "id": "cobalt-bloom-soft",
+        "name": "Cobalt Bloom Soft",
+        "hex": "#ADBBD7",
+        "hsl": "hsl(220, 34%, 76%)"
+      }
+    ]
+  },
+  {
+    "id": "monochrome-studio",
+    "title": "Monochrome Studio",
+    "summary": "Pure grayscale with micro-warm and micro-cool shifts for editorial, typography, and minimal UI.",
+    "tags": [
+      "Minimal",
+      "Editorial",
+      "Monochrome"
+    ],
+    "palette": [
+      {
+        "id": "honey-whisper-muted",
+        "name": "Honey Whisper Muted",
+        "hex": "#F2F2ED",
+        "hsl": "hsl(70, 18%, 94%)"
+      },
+      {
+        "id": "azure-mist-muted",
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA",
+        "hsl": "hsl(200, 18%, 90%)"
+      },
+      {
+        "id": "olive-silk-muted",
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F",
+        "hsl": "hsl(80, 18%, 68%)"
+      },
+      {
+        "id": "cobalt-dusk-muted",
+        "name": "Cobalt Dusk Muted",
+        "hex": "#475166",
+        "hsl": "hsl(220, 18%, 34%)"
+      },
+      {
+        "id": "merlot-ink-muted",
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F",
+        "hsl": "hsl(350, 18%, 14%)"
+      }
+    ]
+  }
+]

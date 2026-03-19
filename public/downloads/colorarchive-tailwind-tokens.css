@@ -56,4 +56,32 @@
   --color-candy-pop-3: #38BC4E;
   --color-candy-pop-4: #D520B7;
   --color-candy-pop-5: #A1CDE3;
+
+  /* Sunset Boulevard */
+  --color-sunset-boulevard-1: #E3C2A1;
+  --color-sunset-boulevard-2: #D9CB81;
+  --color-sunset-boulevard-3: #B26F62;
+  --color-sunset-boulevard-4: #E4C8DB;
+  --color-sunset-boulevard-5: #D06287;
+
+  /* Monochrome Studio */
+  --color-monochrome-studio-1: #F2F2ED;
+  --color-monochrome-studio-2: #E1E7EA;
+  --color-monochrome-studio-3: #B2BC9F;
+  --color-monochrome-studio-4: #475166;
+  --color-monochrome-studio-5: #2A1D1F;
+
+  /* Neon After Dark */
+  --color-neon-after-dark-1: #E133E1;
+  --color-neon-after-dark-2: #95EFEF;
+  --color-neon-after-dark-3: #C2E3A1;
+  --color-neon-after-dark-4: #21174F;
+  --color-neon-after-dark-5: #182030;
+
+  /* Matcha & Linen */
+  --color-matcha-linen-1: #A4C992;
+  --color-matcha-linen-2: #BACDB7;
+  --color-matcha-linen-3: #D9DECF;
+  --color-matcha-linen-4: #FBFAF9;
+  --color-matcha-linen-5: #F3F5EA;
 }

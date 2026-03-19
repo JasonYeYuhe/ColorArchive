@@ -1,0 +1,24 @@
+/* Tailwind CSS v4 — add to your @theme block */
+@theme {
+
+  /* Orchid Bloom */
+  --color-orchid-bloom-1: #B7A1E3;
+  --color-orchid-bloom-2: #8A4AC9;
+  --color-orchid-bloom-3: #EF95E0;
+  --color-orchid-bloom-4: #A45188;
+  --color-orchid-bloom-5: #EDF2EE;
+
+  /* Matcha & Linen */
+  --color-matcha-linen-1: #A4C992;
+  --color-matcha-linen-2: #BACDB7;
+  --color-matcha-linen-3: #D9DECF;
+  --color-matcha-linen-4: #FBFAF9;
+  --color-matcha-linen-5: #F3F5EA;
+
+  /* Sunset Boulevard */
+  --color-sunset-boulevard-1: #E3C2A1;
+  --color-sunset-boulevard-2: #D9CB81;
+  --color-sunset-boulevard-3: #B26F62;
+  --color-sunset-boulevard-4: #E4C8DB;
+  --color-sunset-boulevard-5: #D06287;
+}

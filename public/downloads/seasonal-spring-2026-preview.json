@@ -1,0 +1,128 @@
+[
+  {
+    "id": "orchid-bloom",
+    "title": "Orchid Bloom",
+    "summary": "Blooming pinks and violets with a soft green counterpoint for beauty, culture, and campaign work.",
+    "tags": [
+      "Campaign",
+      "Beauty",
+      "Expressive"
+    ],
+    "palette": [
+      {
+        "id": "orchid-bloom-clear",
+        "name": "Orchid Bloom Clear",
+        "hex": "#B7A1E3",
+        "hsl": "hsl(260, 54%, 76%)"
+      },
+      {
+        "id": "plum-radiant-clear",
+        "name": "Plum Radiant Clear",
+        "hex": "#8A4AC9",
+        "hsl": "hsl(270, 54%, 54%)"
+      },
+      {
+        "id": "peony-bloom-vivid",
+        "name": "Peony Bloom Vivid",
+        "hex": "#EF95E0",
+        "hsl": "hsl(310, 74%, 76%)"
+      },
+      {
+        "id": "rose-core-soft",
+        "name": "Rose Core Soft",
+        "hex": "#A45188",
+        "hsl": "hsl(320, 34%, 48%)"
+      },
+      {
+        "id": "mint-whisper-muted",
+        "name": "Mint Whisper Muted",
+        "hex": "#EDF2EE",
+        "hsl": "hsl(130, 18%, 94%)"
+      }
+    ]
+  },
+  {
+    "id": "matcha-linen",
+    "title": "Matcha & Linen",
+    "summary": "Japanese-inspired matcha greens with warm linen and paper whites for wellness, tea, and artisan brands.",
+    "tags": [
+      "Japanese",
+      "Wellness",
+      "Organic"
+    ],
+    "palette": [
+      {
+        "id": "moss-silk-soft",
+        "name": "Moss Silk Soft",
+        "hex": "#A4C992",
+        "hsl": "hsl(100, 34%, 68%)"
+      },
+      {
+        "id": "leaf-bloom-muted",
+        "name": "Leaf Bloom Muted",
+        "hex": "#BACDB7",
+        "hsl": "hsl(110, 18%, 76%)"
+      },
+      {
+        "id": "olive-pearl-muted",
+        "name": "Olive Pearl Muted",
+        "hex": "#D9DECF",
+        "hsl": "hsl(80, 18%, 84%)"
+      },
+      {
+        "id": "apricot-veil-muted",
+        "name": "Apricot Veil Muted",
+        "hex": "#FBFAF9",
+        "hsl": "hsl(40, 18%, 98%)"
+      },
+      {
+        "id": "honey-whisper-soft",
+        "name": "Honey Whisper Soft",
+        "hex": "#F3F5EA",
+        "hsl": "hsl(70, 34%, 94%)"
+      }
+    ]
+  },
+  {
+    "id": "sunset-boulevard",
+    "title": "Sunset Boulevard",
+    "summary": "Warm oranges, pink-golds, and sunset gradient tones for lifestyle, travel, and campaign work.",
+    "tags": [
+      "Warm",
+      "Lifestyle",
+      "Campaign"
+    ],
+    "palette": [
+      {
+        "id": "coral-bloom-clear",
+        "name": "Coral Bloom Clear",
+        "hex": "#E3C2A1",
+        "hsl": "hsl(30, 54%, 76%)"
+      },
+      {
+        "id": "amber-silk-clear",
+        "name": "Amber Silk Clear",
+        "hex": "#D9CB81",
+        "hsl": "hsl(50, 54%, 68%)"
+      },
+      {
+        "id": "ruby-radiant-soft",
+        "name": "Ruby Radiant Soft",
+        "hex": "#B26F62",
+        "hsl": "hsl(10, 34%, 54%)"
+      },
+      {
+        "id": "rose-pearl-soft",
+        "name": "Rose Pearl Soft",
+        "hex": "#E4C8DB",
+        "hsl": "hsl(320, 34%, 84%)"
+      },
+      {
+        "id": "garnet-tone-clear",
+        "name": "Garnet Tone Clear",
+        "hex": "#D06287",
+        "hsl": "hsl(340, 54%, 60%)"
+      }
+    ]
+  }
+]

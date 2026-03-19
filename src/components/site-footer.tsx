@@ -4,7 +4,7 @@ import Link from "next/link";
 export function SiteFooter() {
   return (
     <footer className="px-4 pb-4 pt-2 sm:px-6 sm:pb-6">
-      <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-4 rounded-[1.75rem] border border-black/6 bg-white/66 px-5 py-5 text-sm text-neutral-500 shadow-[0_18px_48px_rgba(15,23,42,0.04)] backdrop-blur-xl sm:flex-row sm:items-end sm:justify-between sm:px-6">
+      <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-4 rounded-[1.75rem] border border-black/6 bg-white/66 px-5 py-5 text-sm text-neutral-500 shadow-[0_18px_48px_rgba(15,23,42,0.04)] backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/66 dark:text-neutral-400 dark:shadow-[0_18px_48px_rgba(0,0,0,0.2)] sm:flex-row sm:items-end sm:justify-between sm:px-6">
         <div className="space-y-3">
           <Link href="/" className="inline-flex items-center">
             <Image
@@ -12,7 +12,7 @@ export function SiteFooter() {
               alt="ColorArchive"
               width={512}
               height={341}
-              className="h-auto w-[160px]"
+              className="h-auto w-[160px] dark:invert"
               priority
             />
           </Link>
@@ -21,19 +21,22 @@ export function SiteFooter() {
             save favorites, and export palette tokens — no account required.
           </p>
           <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.16em] text-neutral-400">
-            <Link href="/recent" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
-              Recent
-            </Link>
-            <Link href="/favorites" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
-              Favorites
-            </Link>
-            <Link href="/about" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
+            <Link href="/about" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
               About
             </Link>
-            <Link href="/updates" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
+            <Link href="/support" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
+              Support
+            </Link>
+            <Link href="/updates" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
               Updates
             </Link>
-            <Link href="/packs" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50">
+            <Link href="/recent" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
+              Recent
+            </Link>
+            <Link href="/favorites" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
+              Favorites
+            </Link>
+            <Link href="/packs" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
               Packs
             </Link>
           </div>

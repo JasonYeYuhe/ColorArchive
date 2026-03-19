@@ -1,0 +1,30 @@
+:root {
+
+  /* Quiet Luxury */
+  --quiet-luxury-1: #F2EDF0; /* Blush Whisper Muted */
+  --quiet-luxury-2: #E4DBC8; /* Apricot Pearl Soft */
+  --quiet-luxury-3: #C9CDB7; /* Honey Bloom Muted */
+  --quiet-luxury-4: #9FAB87; /* Olive Tone Muted */
+  --quiet-luxury-5: #2A1D1F; /* Merlot Ink Muted */
+
+  /* Nocturne Tech */
+  --nocturne-tech-1: #1D1F2A; /* Indigo Ink Muted */
+  --nocturne-tech-2: #372886; /* Violet Dusk Clear */
+  --nocturne-tech-3: #205CD5; /* Cobalt Core Vivid */
+  --nocturne-tech-4: #E133E1; /* Fuchsia Radiant Vivid */
+  --nocturne-tech-5: #ADD7D7; /* Aqua Bloom Soft */
+
+  /* Sunset Boulevard */
+  --sunset-boulevard-1: #E3C2A1; /* Coral Bloom Clear */
+  --sunset-boulevard-2: #D9CB81; /* Amber Silk Clear */
+  --sunset-boulevard-3: #B26F62; /* Ruby Radiant Soft */
+  --sunset-boulevard-4: #E4C8DB; /* Rose Pearl Soft */
+  --sunset-boulevard-5: #D06287; /* Garnet Tone Clear */
+
+  /* Neon After Dark */
+  --neon-after-dark-1: #E133E1; /* Fuchsia Radiant Vivid */
+  --neon-after-dark-2: #95EFEF; /* Aqua Bloom Vivid */
+  --neon-after-dark-3: #C2E3A1; /* Lime Bloom Clear */
+  --neon-after-dark-4: #21174F; /* Violet Nocturne Clear */
+  --neon-after-dark-5: #182030; /* Cobalt Ink Soft */
+}

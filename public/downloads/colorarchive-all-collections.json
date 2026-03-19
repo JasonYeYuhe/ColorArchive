@@ -334,5 +334,173 @@
         "hsl": "hsl(200, 54%, 76%)"
       }
     ]
+  },
+  {
+    "id": "sunset-boulevard",
+    "title": "Sunset Boulevard",
+    "summary": "Warm oranges, pink-golds, and sunset gradient tones for lifestyle, travel, and campaign work.",
+    "tags": [
+      "Warm",
+      "Lifestyle",
+      "Campaign"
+    ],
+    "palette": [
+      {
+        "id": "coral-bloom-clear",
+        "name": "Coral Bloom Clear",
+        "hex": "#E3C2A1",
+        "hsl": "hsl(30, 54%, 76%)"
+      },
+      {
+        "id": "amber-silk-clear",
+        "name": "Amber Silk Clear",
+        "hex": "#D9CB81",
+        "hsl": "hsl(50, 54%, 68%)"
+      },
+      {
+        "id": "ruby-radiant-soft",
+        "name": "Ruby Radiant Soft",
+        "hex": "#B26F62",
+        "hsl": "hsl(10, 34%, 54%)"
+      },
+      {
+        "id": "rose-pearl-soft",
+        "name": "Rose Pearl Soft",
+        "hex": "#E4C8DB",
+        "hsl": "hsl(320, 34%, 84%)"
+      },
+      {
+        "id": "garnet-tone-clear",
+        "name": "Garnet Tone Clear",
+        "hex": "#D06287",
+        "hsl": "hsl(340, 54%, 60%)"
+      }
+    ]
+  },
+  {
+    "id": "monochrome-studio",
+    "title": "Monochrome Studio",
+    "summary": "Pure grayscale with micro-warm and micro-cool shifts for editorial, typography, and minimal UI.",
+    "tags": [
+      "Minimal",
+      "Editorial",
+      "Monochrome"
+    ],
+    "palette": [
+      {
+        "id": "honey-whisper-muted",
+        "name": "Honey Whisper Muted",
+        "hex": "#F2F2ED",
+        "hsl": "hsl(70, 18%, 94%)"
+      },
+      {
+        "id": "azure-mist-muted",
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA",
+        "hsl": "hsl(200, 18%, 90%)"
+      },
+      {
+        "id": "olive-silk-muted",
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F",
+        "hsl": "hsl(80, 18%, 68%)"
+      },
+      {
+        "id": "cobalt-dusk-muted",
+        "name": "Cobalt Dusk Muted",
+        "hex": "#475166",
+        "hsl": "hsl(220, 18%, 34%)"
+      },
+      {
+        "id": "merlot-ink-muted",
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F",
+        "hsl": "hsl(350, 18%, 14%)"
+      }
+    ]
+  },
+  {
+    "id": "neon-after-dark",
+    "title": "Neon After Dark",
+    "summary": "Cyber neon colors on deep dark bases for gaming, nightlife, and bold tech products.",
+    "tags": [
+      "Neon",
+      "Dark",
+      "Gaming"
+    ],
+    "palette": [
+      {
+        "id": "fuchsia-radiant-vivid",
+        "name": "Fuchsia Radiant Vivid",
+        "hex": "#E133E1",
+        "hsl": "hsl(300, 74%, 54%)"
+      },
+      {
+        "id": "aqua-bloom-vivid",
+        "name": "Aqua Bloom Vivid",
+        "hex": "#95EFEF",
+        "hsl": "hsl(180, 74%, 76%)"
+      },
+      {
+        "id": "lime-bloom-clear",
+        "name": "Lime Bloom Clear",
+        "hex": "#C2E3A1",
+        "hsl": "hsl(90, 54%, 76%)"
+      },
+      {
+        "id": "violet-nocturne-clear",
+        "name": "Violet Nocturne Clear",
+        "hex": "#21174F",
+        "hsl": "hsl(250, 54%, 20%)"
+      },
+      {
+        "id": "cobalt-ink-soft",
+        "name": "Cobalt Ink Soft",
+        "hex": "#182030",
+        "hsl": "hsl(220, 34%, 14%)"
+      }
+    ]
+  },
+  {
+    "id": "matcha-linen",
+    "title": "Matcha & Linen",
+    "summary": "Japanese-inspired matcha greens with warm linen and paper whites for wellness, tea, and artisan brands.",
+    "tags": [
+      "Japanese",
+      "Wellness",
+      "Organic"
+    ],
+    "palette": [
+      {
+        "id": "moss-silk-soft",
+        "name": "Moss Silk Soft",
+        "hex": "#A4C992",
+        "hsl": "hsl(100, 34%, 68%)"
+      },
+      {
+        "id": "leaf-bloom-muted",
+        "name": "Leaf Bloom Muted",
+        "hex": "#BACDB7",
+        "hsl": "hsl(110, 18%, 76%)"
+      },
+      {
+        "id": "olive-pearl-muted",
+        "name": "Olive Pearl Muted",
+        "hex": "#D9DECF",
+        "hsl": "hsl(80, 18%, 84%)"
+      },
+      {
+        "id": "apricot-veil-muted",
+        "name": "Apricot Veil Muted",
+        "hex": "#FBFAF9",
+        "hsl": "hsl(40, 18%, 98%)"
+      },
+      {
+        "id": "honey-whisper-soft",
+        "name": "Honey Whisper Soft",
+        "hex": "#F3F5EA",
+        "hsl": "hsl(70, 34%, 94%)"
+      }
+    ]
   }
 ]

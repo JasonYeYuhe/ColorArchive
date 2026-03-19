@@ -210,6 +210,86 @@ export const collections: ColorCollection[] = [
       useCases: ["Social media", "D2C brands", "Campaign pages"],
     },
   ),
+  createCollection(
+    "sunset-boulevard",
+    "Sunset Boulevard",
+    "Warm oranges, pink-golds, and sunset gradient tones for lifestyle, travel, and campaign work.",
+    "A gradient palette that moves from coral glow through amber warmth to rose-tinged dusk. Built for travel, lifestyle brands, and any surface that needs golden-hour energy.",
+    ["Warm", "Lifestyle", "Campaign"],
+    [
+      "coral-bloom-clear",
+      "amber-silk-clear",
+      "ruby-radiant-soft",
+      "rose-pearl-soft",
+      "garnet-tone-clear",
+    ],
+    {
+      editorialNote:
+        "Use this when the page needs golden-hour warmth. It works best on lifestyle, travel, and editorial surfaces that should feel aspirational and sun-touched.",
+      promptWords: ["golden hour", "sunset glow", "warm gradient", "travel warmth", "amber light"],
+      useCases: ["Travel campaigns", "Lifestyle brands", "Editorial hero sections"],
+    },
+  ),
+  createCollection(
+    "monochrome-studio",
+    "Monochrome Studio",
+    "Pure grayscale with micro-warm and micro-cool shifts for editorial, typography, and minimal UI.",
+    "A near-neutral palette spanning pale mist to deep ink with subtle warm and cool undertones. Ideal for typography-first layouts and restrained editorial work.",
+    ["Minimal", "Editorial", "Monochrome"],
+    [
+      "honey-whisper-muted",
+      "azure-mist-muted",
+      "olive-silk-muted",
+      "cobalt-dusk-muted",
+      "merlot-ink-muted",
+    ],
+    {
+      editorialNote:
+        "A studio-grade grayscale set with just enough temperature to avoid feeling dead. Good for type-heavy layouts and minimal UI where pure gray feels lifeless.",
+      promptWords: ["concrete", "studio light", "newsprint", "pencil sketch", "quiet contrast"],
+      useCases: ["Typography layouts", "Minimal UI systems", "Editorial design"],
+    },
+  ),
+  createCollection(
+    "neon-after-dark",
+    "Neon After Dark",
+    "Cyber neon colors on deep dark bases for gaming, nightlife, and bold tech products.",
+    "Electric contrast between deep nocturne bases and vivid neon accents. Built for gaming interfaces, nightlife branding, and any product that needs to glow in the dark.",
+    ["Neon", "Dark", "Gaming"],
+    [
+      "fuchsia-radiant-vivid",
+      "aqua-bloom-vivid",
+      "lime-bloom-clear",
+      "violet-nocturne-clear",
+      "cobalt-ink-soft",
+    ],
+    {
+      editorialNote:
+        "High-voltage contrast for dark interfaces. Use the vivid accents sparingly against the deep bases to create neon glow effects without becoming garish.",
+      promptWords: ["neon sign", "arcade glow", "cyber night", "electric pulse", "dark interface"],
+      useCases: ["Gaming interfaces", "Nightlife branding", "Bold tech products"],
+    },
+  ),
+  createCollection(
+    "matcha-linen",
+    "Matcha & Linen",
+    "Japanese-inspired matcha greens with warm linen and paper whites for wellness, tea, and artisan brands.",
+    "A calm, crafted palette pairing soft matcha greens with warm paper tones. Designed for wellness products, tea packaging, and artisan brand surfaces that need organic warmth.",
+    ["Japanese", "Wellness", "Organic"],
+    [
+      "moss-silk-soft",
+      "leaf-bloom-muted",
+      "olive-pearl-muted",
+      "apricot-veil-muted",
+      "honey-whisper-soft",
+    ],
+    {
+      editorialNote:
+        "A restrained, craft-forward palette inspired by Japanese tea aesthetics. Works when the surface needs to feel handmade, organic, and quietly considered.",
+      promptWords: ["matcha foam", "washi paper", "ceramic glaze", "zen garden", "linen texture"],
+      useCases: ["Wellness brands", "Tea and food packaging", "Artisan product pages"],
+    },
+  ),
 ];
 
 export function getCollectionById(id: string) {
