@@ -4,11 +4,11 @@ import { UpdatesPage } from "@/src/components/updates-page";
 import { projectUpdates } from "@/src/lib/project-updates";
 
 export const metadata: Metadata = {
-  title: "Updates",
+  title: "ColorArchive Updates",
   description:
-    "A static changelog for ColorArchive covering archive improvements, product-layer changes, and new routes.",
+    "Changelog and release notes for ColorArchive — new colors, export formats, design token improvements, and product launches.",
   alternates: {
-    canonical: "/updates",
+    canonical: "/updates/",
   },
 };
 

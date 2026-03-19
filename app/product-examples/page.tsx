@@ -5,9 +5,10 @@ import { collections } from "@/src/lib/collections";
 import { palettePacks } from "@/src/lib/palette-packs";
 
 export const metadata: Metadata = {
-  title: "Product Examples",
+  title: "Color Pack Examples — What's Inside",
   description:
-    "Concrete product examples and deliverables for the ColorArchive palette packs and digital goods.",
+    "See exactly what you get in a ColorArchive palette pack: CSS variables, Figma tokens, Tailwind config, Procreate swatches, and ACO files. Concrete examples before you buy.",
+  alternates: { canonical: "/product-examples/" },
 };
 
 export default function ProductExamplesRoute() {
