@@ -4,9 +4,21 @@ Last updated: 2026-03-19
 
 ## This Session Summary
 
-### Done (Claude Code — SEO + Conversion pass, session 2)
+### Done (Claude Code — Commerce + Analytics session, 2026-03-19 evening)
 
-**Previously done (prior Claude Code session):**
+- Repriced all 6 packs to ¥99–¥1,499 JPY range
+- Created All Access Bundle (¥2,999, 7th product, live on LS)
+- All Access banner on /packs page (highlighted green, 27% savings callout)
+- Bundle CTA on /free-pack page and homepage hero
+- FIRSTPACK 10% discount code on /cancel page (auto-applied to checkout URL)
+- ShareOnXButton added to color detail, collection detail, word-to-color, palette pages
+- Lightweight page view analytics (PageTracker beacon → SQLite → analytics dashboard)
+- Dynamic OG images for all 2016 color pages (api.colorarchive.me/og/color/:hex)
+- Fixed email scheduler (was missing on server, now deployed + running hourly)
+- Resend domain verified (colorarchive.me DKIM/SPF/MX/DMARC)
+- colorarchive.org bought and redirecting to colorarchive.me
+
+**Previously done (Codex SEO sessions):**
 - ACO, Procreate .swatches, Framer tokens, nested Figma tokens added to generate-downloads.mjs
 - Mobile palette-builder-tray fix (50vh mobile / 70vh sm+)
 - Admin orders search/filter/pagination (server + frontend)
@@ -38,12 +50,13 @@ Last updated: 2026-03-19
 - **Repo cleanup**: removed 13 duplicate download files with spaces in names (macOS copy artifacts)
 
 ### Pending / Next Steps
-- LS store review — close Test mode (manual: app.lemonsqueezy.com → Settings → Store)
-- Google login full callback test — have allowlist admin do one real first login
-- Server is already up to date
-- `/notes` can continue expanding: Issues 006+ for more content SEO
-- Design exports: Procreate/ACO/Framer formats exist; open: Framer plugin integration docs
-- Admin orders: buyer-level drilldown pending (click email → their orders)
+- LS store: close Test mode (app.lemonsqueezy.com → Settings → Store)
+- LS products: set Thank You URL to `https://colorarchive.me/thanks/` and Cancel URL to `https://colorarchive.me/cancel/` for all 7 products
+- Google Search Console: verify colorarchive.me and submit sitemap
+- Product Hunt launch preparation
+- `/notes` content expansion (Issues 006+)
+- Japanese localization (future)
+- Server is up to date
 
 ### Server State (DigitalOcean)
 - IP: 143.198.85.72 (SSH as root)

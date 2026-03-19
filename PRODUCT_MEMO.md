@@ -683,6 +683,8 @@ ColorArchive 已从静态展示项目进化为完整的颜色产品：
 - 折扣码 FIRSTPACK（10% off）用于 /cancel 挽回流失用户
 - 增长：邮件列表（Day 0/3/7 自动 nurture sequence）、SEO 长尾页面、社交分享按钮（X/copy link）、可分享调色板 URL、登录后跨设备偏好同步
 - 工具：WCAG 对比度检查器、Palette Builder、Word → Color、Spectrum
+- 分析：自建 page view tracking（PageTracker beacon → SQLite），analytics 页面展示 top pages / referrers / device breakdown
+- 社交：动态 OG 图片（api.colorarchive.me/og/color/:hex），颜色详情页分享到 X 时显示颜色色块
 - 域名：colorarchive.me（主站）、colorarchive.org（redirect）、api.colorarchive.me（API）
 
 用户可以浏览、搜索、收藏、登录同步、生成调色板、检查对比度、分享到 X、下载免费包、购买付费包——全链路闭环。
