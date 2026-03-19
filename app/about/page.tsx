@@ -3,11 +3,11 @@ import { AboutPage } from "@/src/components/about-page";
 import { SiteHeader } from "@/src/components/site-header";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About ColorArchive",
   description:
-    "Learn what ColorArchive is, why it is built as a static project, and how its archive and product layers fit together.",
+    "ColorArchive is a curated library of 2016 hex color codes for designers and developers. Learn how the archive works, how colors are generated, and what the product layer offers.",
   alternates: {
-    canonical: "/about",
+    canonical: "/about/",
   },
 };
 
