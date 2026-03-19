@@ -257,9 +257,9 @@ export function ColorDetailPage({
                 </div>
                 <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
                   <div>
-                    <div className={`text-4xl font-semibold tracking-[-0.04em] sm:text-5xl ${isLight ? "text-neutral-900" : "text-white"}`}>
+                    <h1 className={`text-4xl font-semibold tracking-[-0.04em] sm:text-5xl ${isLight ? "text-neutral-900" : "text-white"}`}>
                       {color.name}
-                    </div>
+                    </h1>
                     <div className={`mt-3 text-sm uppercase tracking-[0.22em] ${isLight ? "text-neutral-500" : "text-white/75"}`}>
                       <Link
                         href={`/families/${getFamilySlug(color.family)}/`}
