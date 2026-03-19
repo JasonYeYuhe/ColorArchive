@@ -20,6 +20,7 @@ app.use((req, res, next) => {
 
 app.use("/subscribe", require("./routes/subscribe"));
 app.use("/webhook", require("./routes/webhook"));
+app.use("/analytics", require("./routes/analytics"));
 
 app.get("/health", (_, res) => res.json({ ok: true }));
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import type { WaitlistConfig } from "@/src/lib/checkout-config";
 import type { PalettePack } from "@/src/lib/palette-packs";
 
@@ -80,25 +81,17 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
               product line before a full email or checkout system is wired.
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              <CopyButton label="interest note" value={sampleRequest} />
-              {waitlist.url ? (
-                <a
-                  href={waitlist.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-                >
-                  Join via {waitlist.provider}
-                </a>
-              ) : (
-                <a
-                  href={`mailto:${waitlist.contactEmail}?subject=ColorArchive%20waitlist`}
-                  className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-                >
-                  Email {waitlist.contactEmail}
-                </a>
-              )}
+            <div className="mt-6">
+              <p className="mb-2 text-sm text-neutral-500">
+                Enter your email to get notified when packs go live:
+              </p>
+              <EmailCaptureForm
+                source="waitlist"
+                buttonLabel="Join waitlist"
+                successMessage="You're on the list — we'll email you at launch."
+              />
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
               <Link
                 href="/packs"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
@@ -163,16 +156,12 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
             </div>
             <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
               <p>
-                Right now this route is intentionally static. It gives you a clean public place to
-                point interested users before you commit to a full email tool.
+                Enter your email above and you'll be the first to know when new packs,
+                collections, or pricing updates go live.
               </p>
               <p>
-                Later, this page can be wired to Buttondown, ConvertKit, Mailchimp, or a simple
-                form endpoint without changing the packs or product proof routes.
-              </p>
-              <p>
-                Current waitlist config: {waitlist.provider}
-                {waitlist.url ? ` at ${waitlist.url}` : ` via ${waitlist.contactEmail}`}.
+                All three packs are available now. Your email stays private — no spam,
+                unsubscribe anytime.
               </p>
             </div>
           </div>
