@@ -1,6 +1,6 @@
 # ColorArchive 项目备忘录
 
-最后更新：2026-03-19
+最后更新：2026-05-20
 
 ## 说明
 
@@ -616,6 +616,13 @@ Codex 当前方向：
 - ✅ 新增 /notes/tags/[tag] tag landing pages（12 个 tag 静态页面）
 - ✅ notes 和 note-detail 页面中的 tag 现在是可点击链接
 - ✅ Google login 按钮加 loading spinner，error 显示加 "Try again" 动作按钮
+- ✅ 自定义 404 页面（app/not-found.tsx → GitHub Pages 404.html），含品牌导航
+- ✅ site-header.tsx 全部导航链接补 trailing slash（与 trailingSlash: true 配置一致，消除 redirect）
+- ✅ /contrast 页面 meta 修正（absolute title 避免双重模板、canonical、openGraph、twitter）
+- ✅ /notes/tags/[tag] 补 openGraph 和 twitter 元数据
+- ✅ notes 列表页底部加 EmailCaptureForm 订阅区块
+- ✅ word-to-color 页面加暗色 pack CTA panel（Browse packs + Free download）
+- ✅ project-updates.ts 新增两条 shipped 条目（SEO pass、performance/conversion pass）
 
 ### 当前优先级
 
