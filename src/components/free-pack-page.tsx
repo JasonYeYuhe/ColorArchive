@@ -67,8 +67,8 @@ export function FreePackPage({
               Download a free sample before paid checkout goes live
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
-              Get a taste of the paid packs before checkout goes live. Download preview CSS tokens
-              and a JSON palette export — no signup, no email required.
+              Get a taste of the paid packs before checkout goes live. Enter your email below and
+              we'll send the download link straight to your inbox.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-2">
