@@ -629,6 +629,7 @@ Codex 当前方向：
 - ✅ All Access Bundle 详情页增加单品对比、总价 vs bundle 价和节省金额拆解
 - ✅ 新增 `docs/commerce-ops-checklist.md`，整理 LS 生产设置、回跳 URL、购买 smoke test 与 GSC 提交步骤
 - ✅ `/notes` 新增 Issue 006（free pack 转化逻辑）和 Issue 007（design token workflow / bundle 价值）
+- ✅ 新增 `/guides` 内容层，补 brand palette / dark mode / free download / Figma tokens 四个高意图静态 landing pages
 
 ### 当前优先级
 

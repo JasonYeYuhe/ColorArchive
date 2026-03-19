@@ -15,6 +15,7 @@ interface SiteHeaderProps {
     | "/collections"
     | "/favorites"
     | "/families"
+    | "/guides"
     | "/packs"
     | "/notes"
     | "/recent"
@@ -52,6 +53,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/families/", label: "Families" },
       { href: "/collections/", label: "Collections" },
       { href: "/notes/", label: "Notes" },
+      { href: "/guides/", label: "Guides" },
     ],
   },
   {
@@ -89,6 +91,7 @@ const MOBILE_MENU_GROUPS: NavGroup[] = [
       { href: "/analytics/", label: "Analytics" },
       { href: "/updates/", label: "Updates" },
       { href: "/notes/", label: "Notes" },
+      { href: "/guides/", label: "Guides" },
       { href: "/about/", label: "About" },
       { href: "/support/", label: "Support" },
     ],

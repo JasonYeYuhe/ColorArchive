@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
 import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
+import { landingGuides } from "@/src/lib/guides";
 import { getAllTags, newsletterIssues, tagToSlug } from "@/src/lib/newsletter-issues";
 import { palettePacks } from "@/src/lib/palette-packs";
 
@@ -50,6 +51,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date("2026-05-14"),
       changeFrequency: "weekly",
       priority: 0.76,
+    },
+    {
+      url: "https://colorarchive.me/guides/",
+      lastModified: new Date("2026-06-04"),
+      changeFrequency: "weekly",
+      priority: 0.77,
     },
     {
       url: "https://colorarchive.me/favorites/",
@@ -179,8 +186,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.62,
   }));
 
+  const guideRoutes: MetadataRoute.Sitemap = landingGuides.map((guide) => ({
+    url: `https://colorarchive.me/guides/${guide.slug}/`,
+    lastModified: new Date("2026-06-04"),
+    changeFrequency: "monthly",
+    priority: 0.67,
+  }));
+
   return [
     ...topLevelRoutes,
+    ...guideRoutes,
     ...noteRoutes,
     ...tagRoutes,
     ...familyRoutes,
