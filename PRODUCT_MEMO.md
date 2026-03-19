@@ -1,6 +1,6 @@
 # ColorArchive 项目备忘录
 
-最后更新：2026-03-18
+最后更新：2026-03-19
 
 ## 说明
 
@@ -405,8 +405,28 @@ Codex 当前方向：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
   - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
   - Heroku credit: 13 USD / month
-- 当前 Lemon Squeezy 店铺申请已提交，待审核
-- 当前阶段不需要主动回复 Lemon，先保持公开产品页面和 sample files 完整可访问
+- Lemon Squeezy 店铺已创建，三个产品全部上架（Test mode）：
+  - Palette Pack Vol. 1: $14
+  - Creator Bundle: $19
+  - Brand Color Starter Kit: $39
+  - Checkout URL 已写入 `checkout-config.ts`，购买按钮可用
+  - Webhook 已配置（api.colorarchive.me/webhook/ls → order_created）
+- 后端服务器已部署（DigitalOcean Droplet $4/month，SGP1）：
+  - 域名：api.colorarchive.me（HTTPS，Let's Encrypt）
+  - IP：143.198.85.72
+  - 技术栈：Node.js + Express + SQLite + Resend
+  - POST /subscribe — 邮箱捕获（free-pack + waitlist）→ 发下载链接邮件
+  - POST /webhook/ls — LS 付款 webhook → 发确认邮件 + 存订单
+  - GET /analytics — 订阅者 / 订单统计
+  - PM2 进程管理，开机自启
+- 免费包 + 3 个付费包 ZIP 文件已生成（prebuild 脚本自动打包）
+- free-pack 页面已改为邮箱捕获 → 发下载链接（不再直接下载）
+- waitlist 页面已接入后端 EmailCaptureForm
+- GitHub Actions build 注入 NEXT_PUBLIC_API_URL=https://api.colorarchive.me
+- 新增 /contrast 页面：WCAG 对比度检查器（AA/AAA 评级，实时预览）
+- 新增 /palette?ids=... 页面：可分享的调色板 URL
+- Palette Builder 添加 Share 按钮，生成分享链接
+- 2016 个颜色详情页增加动态 meta description（SEO 长尾）
 - 为配合审核，站点需要持续保留可公开访问的：
   - `/packs`
   - `/product-examples`
@@ -415,32 +435,39 @@ Codex 当前方向：
   - `/waitlist`
   - `/thanks`
   - `/cancel`
+  - `/contrast`
+  - `/palette`
 
 ## 路线图
 
-### 最高优先级
+### 已完成
 
-- 继续提升首页和详情页的品牌完成度
-- 提升全量浏览、搜索、详情页之间的互相导流
+- ✅ Lemon Squeezy 三产品上架 + checkout URL 接入
+- ✅ DigitalOcean 后端部署（邮箱捕获 + webhook + analytics）
+- ✅ 免费包 / 付费包 ZIP 打包（prebuild 自动生成）
+- ✅ free-pack 邮箱捕获流程（填邮箱 → 发下载链接）
+- ✅ waitlist 页面接入后端
+- ✅ /contrast WCAG 对比度检查器
+- ✅ /palette?ids=... 可分享调色板 URL
+- ✅ 2016 色 SEO meta description
+- ✅ 9 个 V2 改进提案（A1/A2/B1-B3/C1/C2/D1）
+- ✅ HTTPS 全站稳定
+
+### 当前优先级
+
 - 修完移动端会遮挡内容的交互细节
-- 等待并确认 `colorarchive.me` 的 HTTPS 完全稳定
-
-### 第二阶段
-
-- 评估是否继续增加颜色数据，或转向更强的浏览方式
-- 优化搜索与排序体验
-- 持续优化移动端查看体验，避免顶部控制区遮挡内容
+- Resend 域名验证（让邮件不进垃圾箱）
+- LS 店铺审核通过后关闭 Test mode
 - 做 favicon
-- 继续做 SEO 和分享体验
-- 增强 Open Graph 表现
-- 增加颜色生成 / 颜色实验功能
+- 增强 Open Graph 表现（D2 受限于 static export，需要评估替代方案）
 
-### 第三阶段
+### 后续方向
 
-- 考虑 SEO 长尾页面
-- 考虑收藏 / 导出等高级功能
+- Newsletter 内容序列（月度精选配色）
+- 推荐系统（基于用户收藏推荐相似色）
+- Figma 插件（Figma Community 分发）
 - 评估商标申请
-- 评估商业化路径
+- 评估更复杂的付费层级（Personal / Commercial 双档）
 
 ## 给未来自己的提醒
 
@@ -461,4 +488,11 @@ ColorArchive 的核心不是“功能很多”，而是：
 
 ## 当前总结
 
-ColorArchive 当前已经不再是单页面，而是一个静态多页面的颜色档案产品：主站承接品牌和浏览，Search 承接快速定位，All Colors 承接全量查看，Spectrum / Surprise / Word → Color 承接探索与实验，颜色详情页承接分享和深度浏览。
+ColorArchive 已从静态展示项目进化为完整的颜色产品：
+- 前端：Next.js 静态站（GitHub Pages），23+ 页面
+- 后端：Node.js API 服务器（DigitalOcean），处理邮箱捕获、支付 webhook、分析
+- 商业：Lemon Squeezy 三产品上架，自动交付 ZIP 包
+- 增长：邮件列表、SEO 长尾页面、可分享调色板 URL
+- 工具：WCAG 对比度检查器、Palette Builder、Word → Color
+
+用户可以浏览、搜索、收藏、生成调色板、检查对比度、分享、下载免费包、购买付费包——全链路闭环。
