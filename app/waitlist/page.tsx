@@ -6,8 +6,9 @@ import { waitlistConfig } from "@/src/lib/checkout-config";
 import { palettePacks } from "@/src/lib/palette-packs";
 
 export const metadata: Metadata = {
-  title: "Waitlist",
-  description: "Static pre-launch interest page for upcoming ColorArchive palette packs.",
+  title: "Stay Updated — ColorArchive",
+  description: "Get email updates about new ColorArchive palette packs, seasonal drops, and archive improvements.",
+  alternates: { canonical: "/waitlist/" },
 };
 
 export default function WaitlistRoute() {

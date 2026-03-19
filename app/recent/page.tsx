@@ -6,6 +6,7 @@ import { colors } from "@/src/data/colors";
 export const metadata: Metadata = {
   title: "Recent Colors",
   description: "Local recently viewed color trail for ColorArchive browsing sessions.",
+  robots: { index: false, follow: false },
 };
 
 export default function RecentRoute() {
