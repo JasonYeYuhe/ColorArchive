@@ -5,7 +5,7 @@ import { colors } from "@/src/data/colors";
 
 export const metadata: Metadata = {
   title: "Favorites",
-  description: "Your locally saved ColorArchive working set.",
+  description: "Your saved ColorArchive working set, available locally and syncable across devices.",
 };
 
 export default function FavoritesRoute() {

@@ -35,6 +35,14 @@ function saveFavoriteColorIds(colorIds: string[]) {
   window.dispatchEvent(new CustomEvent(FAVORITES_UPDATED_EVENT, { detail: colorIds }));
 }
 
+export function replaceFavoriteColorIds(colorIds: string[]) {
+  const nextIds = Array.from(
+    new Set(colorIds.filter((value): value is string => typeof value === "string")),
+  );
+  saveFavoriteColorIds(nextIds);
+  return nextIds;
+}
+
 export function isFavoriteColor(colorId: string) {
   return getFavoriteColorIds().includes(colorId);
 }

@@ -102,8 +102,8 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
             </h1>
 
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              Favorites are stored locally in your browser. This keeps the project static while
-              still giving you a reusable working set.
+              Favorites always work locally, and signed-in accounts now sync them across devices
+              without changing the browsing flow.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">

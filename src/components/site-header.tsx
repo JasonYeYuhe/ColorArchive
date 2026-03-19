@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/src/components/auth-provider";
 import { ThemeToggle } from "./theme-toggle";
 
 interface SiteHeaderProps {
@@ -25,7 +26,8 @@ interface SiteHeaderProps {
     | "/contrast"
     | "/colors"
     | "/palette"
-    | "/free-pack";
+    | "/free-pack"
+    | "/login";
 }
 
 interface NavItem {
@@ -99,6 +101,7 @@ function isActive(item: NavItem, currentPath: string): boolean {
 
 export function SiteHeader({ currentPath }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { logout, status, user } = useAuth();
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -120,6 +123,16 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
           </Link>
 
           <div className="flex shrink-0 items-center gap-2">
+            <Link
+              href="/login"
+              className={`rounded-full border px-3 py-2 text-sm font-medium transition ${
+                currentPath === "/login"
+                  ? "border-neutral-950 bg-neutral-950 text-white dark:border-white dark:bg-white dark:text-neutral-950"
+                  : "border-black/8 bg-white/85 text-neutral-700 hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
+              }`}
+            >
+              {status === "authenticated" ? "Account" : "Log in"}
+            </Link>
             <ThemeToggle />
             <button
               type="button"
@@ -156,6 +169,33 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
             className="rounded-[1.35rem] border border-black/6 bg-white/92 p-4 shadow-[0_18px_48px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-neutral-900/92 sm:hidden"
           >
             <div className="space-y-4">
+              <div>
+                <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                  Account
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Link
+                    href="/login"
+                    className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
+                      currentPath === "/login"
+                        ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
+                        : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
+                    }`}
+                  >
+                    {status === "authenticated" ? user?.email ?? "Account" : "Log in"}
+                  </Link>
+                  {status === "authenticated" ? (
+                    <button
+                      type="button"
+                      onClick={() => void logout()}
+                      className="rounded-full border border-black/8 bg-white px-3.5 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
+                    >
+                      Log out
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+
               {MOBILE_MENU_GROUPS.map((group) => (
                 <div key={group.label}>
                   <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">

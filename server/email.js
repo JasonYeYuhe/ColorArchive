@@ -158,6 +158,58 @@ async function sendWaitlistConfirmationEmail(to) {
   return result;
 }
 
+// Magic link login email
+async function sendMagicLinkEmail(to, { loginUrl, expiresInMinutes }) {
+  const result = await resend.emails.send({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject: "Your ColorArchive sign-in link",
+    text: [
+      "Your ColorArchive sign-in link",
+      "",
+      "Use the link below to sign in and sync your saved colors and palettes across devices.",
+      "",
+      loginUrl,
+      "",
+      `This link expires in ${expiresInMinutes} minutes and can only be used once.`,
+      "",
+      "If you did not request this email, you can ignore it.",
+      "",
+      "— ColorArchive",
+      "https://colorarchive.me",
+    ].join("\n"),
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
+        <h2 style="color:#1a1a1a">Your ColorArchive sign-in link</h2>
+        <p>Use this link to sign in and sync your saved colors and palettes across devices.</p>
+        <p>
+          <a href="${loginUrl}"
+             style="display:inline-block;background:#1a1a1a;color:#fff;
+                    padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600">
+            Sign In to ColorArchive
+          </a>
+        </p>
+        <p style="color:#666;font-size:14px">
+          This link expires in ${expiresInMinutes} minutes and can only be used once.
+        </p>
+        <p style="color:#666;font-size:14px">
+          If you did not request this email, you can safely ignore it.
+        </p>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
+        <p style="color:#999;font-size:12px">
+          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+        </p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (magic link):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
 // Order confirmation email after LS purchase
 async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderId }) {
   const result = await resend.emails.send({
@@ -195,6 +247,7 @@ async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderI
 
 module.exports = {
   sendFreePackEmail,
+  sendMagicLinkEmail,
   sendOrderConfirmationEmail,
   sendWaitlistConfirmationEmail,
 };

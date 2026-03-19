@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import { AuthProvider } from "@/src/components/auth-provider";
 import { ThemeProvider } from "@/src/components/theme-provider";
 import { SiteFooter } from "@/src/components/site-footer";
 import { PaletteBuilderTray } from "@/src/components/palette-builder-tray";
@@ -88,9 +89,11 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
-          {children}
-          <SiteFooter />
-          <PaletteBuilderTray />
+          <AuthProvider>
+            {children}
+            <SiteFooter />
+            <PaletteBuilderTray />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

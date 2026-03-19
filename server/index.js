@@ -4,11 +4,23 @@ const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const allowedOrigins = new Set([
+  process.env.FRONTEND_ORIGIN || "https://colorarchive.me",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+]);
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_ORIGIN || "https://colorarchive.me",
-    methods: ["GET", "POST"],
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.has(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT"],
+    credentials: true,
   })
 );
 
@@ -19,6 +31,8 @@ app.use((req, res, next) => {
 });
 
 app.use("/subscribe", require("./routes/subscribe"));
+app.use("/auth", require("./routes/auth"));
+app.use("/me", require("./routes/me"));
 app.use("/webhook", require("./routes/webhook"));
 app.use("/analytics", require("./routes/analytics"));
 

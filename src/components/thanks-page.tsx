@@ -42,7 +42,7 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
                 "Open your downloaded files and start with the palette overview first.",
                 "Use the sample exports and token files to map colors into your own design system.",
                 "Return to the archive if you want more adjacent or complementary colors.",
-                "Save favorite colors locally to build a second working set.",
+                "Save favorite colors and sync them to your account for a second working set.",
               ].map((step, index) => (
                 <div
                   key={step}

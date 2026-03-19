@@ -14,7 +14,7 @@ ColorArchive
 
 ## 当前一句话版本
 
-ColorArchive = 一个以“颜色档案馆”为核心，并延伸出轻量颜色生成工具的静态色彩项目。
+ColorArchive = 一个以“颜色档案馆”为核心、前端静态导出、动态能力由轻量 API 承担的色彩产品。
 
 ## 项目定位
 
@@ -28,7 +28,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增 Collections 页面，用可分享的成套 palette 承接内容价值
 - 新增 Families 页面，用 hue family 作为目录入口和 SEO/导航层
 - 新增 Collection detail 页面，用编辑型专题内容强化 collections 的“可读性”和 SEO
-- 新增 Favorites 页面，用浏览器本地收藏承接回访需求
+- 新增 Favorites 页面，用本地收藏和账号同步承接回访需求
 - 新增 Recent 页面，用浏览器本地最近查看承接继续浏览需求
 - 新增 Spectrum Explorer 页面，用颜色矩阵而不是卡片来浏览档案
 - 新增 Surprise 页面，用随机发现强化探索感
@@ -45,7 +45,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增 Waitlist 页面，用静态方式承接预热期兴趣流量
 - 新增 Thanks 页面，用作支付完成后的静态回跳页面
 - 新增 Cancel 页面，用作支付取消后的静态回跳页面
-- 整体仍保持 GitHub Pages 兼容、纯静态、无后端
+- 整体仍保持 GitHub Pages 兼容，主站静态导出，动态能力走独立 API
 
 ## 当前已确定事项
 
@@ -57,6 +57,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 产品形态：以档案主页为核心，逐步增加少量静态工具页
 - 品牌名：`ColorArchive`
 - 当前已接入 `logo_v1` 资产作为站点 header / footer / icon / social preview 的基础品牌素材
+- 当前已接入独立 API（`api.colorarchive.me`）处理邮箱、webhook、analytics 与账号同步
 
 ## 为什么选择这个方向
 
@@ -196,8 +197,8 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
   - family -> collection / pack 的升级入口
 
 - `Favorites`
-- 使用浏览器本地存储
-- 不引入账户系统也能形成个人工作集
+- 默认使用浏览器本地存储
+- 已新增 magic link 登录，可把 favorites 同步到账号
 - 目标是提高回访价值
 - 应支持一键复制整个收藏 palette / CSS variables
 
@@ -272,6 +273,15 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 当前不再只是“支付上线前等待页”
 - 已转为未来新品、季节 drop、价格更新和项目通知的 email updates 页面
 - 后续可再接 Buttondown / ConvertKit / Mailchimp
+
+- `Login / Account Sync`
+- 当前采用 passwordless magic link
+- 后端负责：
+  - 发登录邮件
+  - 验证一次性 token
+  - 建立 HttpOnly session cookie
+  - 同步 favorites / palette
+- 当前不做密码登录，不急着做完整账户中心
 
 - `Free Sample Pack`
 - 用现有的公开下载资产提供一个真正可打开、可下载、可分享的免费层
@@ -386,11 +396,14 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 
 - 不使用 SSR
 - 不使用 server actions
-- 不使用数据库
-- 不使用后端 API
-- 不使用 auth
-- 使用本地 mock data
-- 保持完全静态导出兼容
+- 前端继续保持静态导出兼容
+- 颜色档案数据继续以本地数据和构建期生成文件为主
+- 动态能力允许放在独立 API：
+  - 邮箱捕获
+  - webhook
+  - analytics
+  - magic link auth
+  - favorites / palette sync
 
 ## 当前开发方向
 
@@ -436,6 +449,18 @@ Codex 当前方向：
   - product breakdown
   - 14-day subscriber / order / revenue series
   - free-pack / waitlist -> purchase funnel
+- auth API 已新增：
+  - `POST /auth/request-link`
+  - `POST /auth/verify`
+  - `GET /auth/session`
+  - `POST /auth/logout`
+  - `GET /me/preferences`
+  - `PUT /me/preferences`
+- 登录方式现定为 magic link：
+  - `/login` 页面请求邮件链接
+  - 登录链接 30 分钟有效、一次性使用
+  - Session 使用 `HttpOnly` cookie
+  - 登录后自动 merge 本地 favorites / palette 与云端数据
 - waitlist 邮件内容已从简单确认扩展为“更新订阅”起点，含 cadence、featured collection、featured pack
 - 记录可用 credits：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
@@ -517,6 +542,9 @@ Codex 当前方向：
 - ✅ 完整 token exports 增加 Figma-friendly JSON 和 Style Dictionary JSON
 - ✅ Collection detail 增强为更明确的 free -> paid 升级入口
 - ✅ waitlist 邮件内容扩充为更接近 newsletter 的更新层
+- ✅ passwordless magic link 登录上线
+- ✅ favorites / palette 云同步上线
+- ✅ 顶部导航新增 login / account 入口
 
 ### 当前优先级
 
@@ -526,6 +554,8 @@ Codex 当前方向：
 - LS 店铺审核通过后关闭 Test mode
 - 继续观察并细修移动端会遮挡内容的交互细节
 - 提高邮件送达率（新域名初期可能进 spam，需要积累域名信誉）
+- 观察 magic link 邮件送达率与登录完成率
+- 后续可评估 orders / downloads 是否接入账户页
 
 ### 后续方向
 
@@ -555,10 +585,10 @@ ColorArchive 的核心不是“功能很多”，而是：
 ## 当前总结
 
 ColorArchive 已从静态展示项目进化为完整的颜色产品：
-- 前端：Next.js 静态站（GitHub Pages），23+ 页面
-- 后端：Node.js API 服务器（DigitalOcean），处理邮箱捕获、支付 webhook、分析
+- 前端：Next.js 静态站（GitHub Pages），含 archive / tools / packs / families / analytics / login
+- 后端：Node.js API 服务器（DigitalOcean），处理邮箱捕获、支付 webhook、分析、magic link 登录与偏好同步
 - 商业：Lemon Squeezy 六产品全部上架（JPY），自动交付 ZIP 包
-- 增长：邮件列表、SEO 长尾页面、可分享调色板 URL
-- 工具：WCAG 对比度检查器、Palette Builder、Word → Color
+- 增长：邮件列表、SEO 长尾页面、可分享调色板 URL、登录后跨设备偏好同步
+- 工具：WCAG 对比度检查器、Palette Builder、Word → Color、Spectrum
 
-用户可以浏览、搜索、收藏、生成调色板、检查对比度、分享、下载免费包、购买付费包——全链路闭环。
+用户可以浏览、搜索、收藏、登录同步、生成调色板、检查对比度、分享、下载免费包、购买付费包——全链路闭环。

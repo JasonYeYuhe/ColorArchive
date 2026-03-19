@@ -4,7 +4,7 @@ const principles = [
   {
     title: "Static by design",
     detail:
-      "The archive is built to run from local data only, with no backend, database, auth, or server rendering requirement.",
+      "The catalog still ships as static pages, but lightweight API endpoints now handle commerce, email, analytics, and optional account sync.",
   },
   {
     title: "Curated, not exhaustive",
@@ -59,17 +59,17 @@ const generationSteps = [
 const hostingTradeoffs = [
   {
     label: "GitHub Pages (current)",
-    pros: ["Free, zero-ops", "Forces static discipline", "No auth complexity"],
-    cons: ["No server-side logic", "Checkout must be off-site", "No dynamic API routes"],
+    pros: ["Free, zero-ops", "Forces static discipline", "Great for the archive surface"],
+    cons: ["Needs a separate API host", "Checkout must be off-site", "Dynamic features live elsewhere"],
   },
   {
     label: "Vercel / Netlify",
-    pros: ["Edge functions available", "Instant deploy previews", "Same static output works today"],
+    pros: ["Edge functions available", "Instant deploy previews", "Could consolidate frontend and API"],
     cons: ["Paid tier for team use", "Adds infra dependency"],
   },
   {
     label: "Full backend (if needed)",
-    pros: ["Licensed downloads", "Account-gated packs", "API for token generation"],
+    pros: ["Licensed downloads", "Deeper account features", "API for token generation"],
     cons: ["Auth complexity", "Database ops", "Higher cost and maintenance"],
   },
 ] as const;
@@ -196,10 +196,9 @@ export function AboutPage() {
               ))}
             </div>
             <div className="mt-4 text-sm leading-6 text-neutral-500">
-              The current GitHub Pages setup is intentionally the right default. Commerce moves
-              off-site (Lemon Squeezy / Stripe), so checkout never requires a backend here.
-              A move to Vercel or a full backend only makes sense when licensed downloads or
-              user accounts are needed.
+              The current GitHub Pages setup is still the right default for the archive UI. Dynamic
+              features already run on a separate API host, which keeps the browsing layer static
+              while still supporting checkout webhooks, email delivery, analytics, and account sync.
             </div>
           </div>
 
