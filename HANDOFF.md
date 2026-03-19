@@ -4,7 +4,7 @@ Last updated: 2026-03-19
 
 ## This Session Summary
 
-### Done (Claude Code — SEO + Conversion pass)
+### Done (Claude Code — SEO + Conversion pass, session 2)
 
 **Previously done (prior Claude Code session):**
 - ACO, Procreate .swatches, Framer tokens, nested Figma tokens added to generate-downloads.mjs
@@ -15,7 +15,7 @@ Last updated: 2026-03-19
 - Google login UX (loading spinner, styled error)
 - checkout-config.ts annotated with live status
 
-**This session — SEO & conversion improvements:**
+**Session 1 SEO & conversion improvements:**
 - **Color detail pages**: H1 added to hero color name (was a div!), meta title targets "hex color code" searches (absolute, bypasses layout template), description leads with hex, breadcrumb JSON-LD, Section headers promoted to H2 semantic tags (Tonal strip, Palette moves, Nearest neighbors, About this color, Recent trail), "About this color" section enriched with CSS custom property snippet, family label in hero + aside header now links to `/families/[slug]`
 - **Product CTA panel** on every color detail page: dark "Ready to build" section with links to /packs/, /free-pack/, /collections/
 - **Homepage**: WebSite (with SearchAction) + Organization JSON-LD added
@@ -25,18 +25,25 @@ Last updated: 2026-03-19
 - **Site footer**: expanded with /collections/, /families/, /notes/, /free-pack/ links; removed thin user-state links
 - **Word-to-color**: "Find in archive" panel links to /search?hex= and /all-colors/ after generation
 - **Sitemap**: all /notes/tags/[tag] routes added; canonical URLs updated to consistent trailing-slash format
-- **All list pages**: improved titles and descriptions (search, all-colors, collections, packs, families, notes, spectrum, about, product-examples, updates, waitlist, free-pack, word-to-color)
+- **All list pages**: improved titles and descriptions
 - **User-state pages** (/favorites, /recent, /palette): noindex added
-- Layout keywords updated to target high-intent design queries
+
+**Session 2 — Performance + Conversion:**
+- **Grid pagination**: home (/), /all-colors, /search all paginate at 120–240 colors; Show more button; resets on filter change — avoids mounting 2016 DOM nodes
+- **Pack detail page**: added checkout buttons (hero + dark bottom CTA) linking to `pack.checkoutUrl` — previously had no buy button at all
+- **Collection detail page**: dark "Take this palette further" CTA panel before upgrade table
+- **Search page**: dark conversion CTA at bottom (Browse packs / View collections / Free download)
+- **Newsletter**: Issues 004 (editorial color) + 005 (brand color systems) added → 5 new indexable pages + 3 new tags (Brand, Tokens, Systems)
+- **Dark mode fix**: CSS code block in color detail (bg-neutral-950) now has dark:border-white/8 so it's visible in dark mode
+- **Repo cleanup**: removed 13 duplicate download files with spaces in names (macOS copy artifacts)
 
 ### Pending / Next Steps
 - LS store review — close Test mode (manual: app.lemonsqueezy.com → Settings → Store)
 - Google login full callback test — have allowlist admin do one real first login
-- Server is already up to date (was updated last session manually)
-- `/notes` can continue expanding: more issues drive newsletter SEO
+- Server is already up to date
+- `/notes` can continue expanding: Issues 006+ for more content SEO
 - Design exports: Procreate/ACO/Framer formats exist; open: Framer plugin integration docs
-- Color archive main grid (/) renders 2016 colors without virtualization — consider performance work
-- Admin orders: buyer-level drilldown still pending (click email → their orders)
+- Admin orders: buyer-level drilldown pending (click email → their orders)
 
 ### Server State (DigitalOcean)
 - IP: 143.198.85.72 (SSH as root)
