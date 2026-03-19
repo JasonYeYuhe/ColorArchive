@@ -1,3 +1,7 @@
+// Checkout configuration for all products.
+// All 6 products are currently LIVE on Lemon Squeezy (production URLs, JPY pricing).
+// To disable test mode in Lemon Squeezy: app.lemonsqueezy.com → Settings → Store → disable Test mode.
+// To switch providers: update `provider` and `url` per entry below.
 export type CheckoutProvider = "Lemon Squeezy" | "Stripe Payment Link";
 
 export interface CheckoutConfigEntry {

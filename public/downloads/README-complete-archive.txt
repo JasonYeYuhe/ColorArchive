@@ -10,6 +10,11 @@ FORMATS INCLUDED
 - GIMP palette (complete-archive.gpl)
 - Sketch palette JSON (complete-archive-sketchpalette.json)
 - Adobe Swatch Exchange (complete-archive.ase)
+- Adobe Color / Photoshop ACO (complete-archive.aco)
+- Procreate swatches (complete-archive.swatches)
+- Framer design tokens CSS (complete-archive-framer-tokens.css)
+- Figma / Tokens Studio JSON — nested by family (complete-archive-figma-tokens.json)
+- Style Dictionary tokens (complete-archive-style-dictionary.json)
 
 COLOR NAMING
 Each color follows the pattern: {hue}-{lightness}-{chroma}

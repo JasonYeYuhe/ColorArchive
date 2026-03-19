@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
+import { tagToSlug } from "@/src/lib/newsletter-issues";
 
 export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
   const latestIssue = issues[0];
@@ -83,12 +84,13 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {issue.tags.map((tag) => (
-                    <span
+                    <Link
                       key={tag}
-                      className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500"
+                      href={`/notes/tags/${tagToSlug(tag)}`}
+                      className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500 transition hover:bg-neutral-50 hover:text-neutral-900"
                     >
                       {tag}
-                    </span>
+                    </Link>
                   ))}
                 </div>
               </div>

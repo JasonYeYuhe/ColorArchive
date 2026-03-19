@@ -222,6 +222,15 @@ function MiniBarChart({
   );
 }
 
+interface BuyerEntry {
+  emailMasked: string;
+  orderCount: number;
+  totalRevenue: number;
+  firstPurchaseAt: string;
+  lastPurchaseAt: string;
+  products: string[];
+}
+
 export function AnalyticsPage() {
   const { analyticsAccess, status } = useAuth();
   const pathname = usePathname();
@@ -230,6 +239,10 @@ export function AnalyticsPage() {
   const [state, setState] = useState<LoadState>("idle");
   const [data, setData] = useState<AnalyticsResponse | null>(null);
   const [error, setError] = useState("");
+
+  const [buyerSource, setBuyerSource] = useState<string | null>(null);
+  const [buyers, setBuyers] = useState<BuyerEntry[]>([]);
+  const [buyerState, setBuyerState] = useState<LoadState>("idle");
 
   const filters = useMemo(
     () => ({
@@ -309,6 +322,29 @@ export function AnalyticsPage() {
     filters.utmSource,
     filters.utmTerm,
   ]);
+
+  async function handleCohortClick(source: string) {
+    if (buyerSource === source) {
+      setBuyerSource(null);
+      setBuyers([]);
+      return;
+    }
+    setBuyerSource(source);
+    setBuyerState("loading");
+    try {
+      const qs = new URLSearchParams({ source, days: filters.days });
+      const res = await fetch(`${API_URL}/analytics/buyers?${qs.toString()}`, {
+        credentials: "include",
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) throw new Error(`${res.status}`);
+      const payload = (await res.json()) as { buyers: BuyerEntry[] };
+      setBuyers(payload.buyers);
+      setBuyerState("success");
+    } catch {
+      setBuyerState("error");
+    }
+  }
 
   function updateFilter(key: string, value: string) {
     const nextParams = new URLSearchParams(searchParams.toString());
@@ -478,14 +514,29 @@ export function AnalyticsPage() {
                 </div>
                 <div className="mt-4 grid gap-3">
                   {data.sourceCohorts.map((cohort) => (
-                    <div
+                    <button
                       key={cohort.source}
-                      className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4"
+                      type="button"
+                      onClick={() => void handleCohortClick(cohort.source)}
+                      className={`w-full rounded-[1rem] border px-4 py-4 text-left transition ${
+                        buyerSource === cohort.source
+                          ? "border-neutral-950/20 bg-neutral-100"
+                          : "border-black/6 bg-neutral-50 hover:bg-neutral-100"
+                      }`}
                     >
                       <div className="flex items-center justify-between gap-3">
                         <div className="text-sm font-semibold text-neutral-950">{cohort.source}</div>
-                        <div className="text-sm font-medium text-neutral-500">
-                          {formatPercent(cohort.conversionRate)}
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium text-neutral-500">
+                            {formatPercent(cohort.conversionRate)}
+                          </span>
+                          <svg
+                            width="12" height="12" viewBox="0 0 12 12" fill="none"
+                            aria-hidden="true"
+                            className={`text-neutral-400 transition-transform ${buyerSource === cohort.source ? "rotate-180" : ""}`}
+                          >
+                            <path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
                         </div>
                       </div>
                       <div className="mt-3 flex flex-wrap gap-4 text-sm text-neutral-500">
@@ -494,9 +545,42 @@ export function AnalyticsPage() {
                         <span>{cohort.orders} orders</span>
                         <span>{formatCurrency(cohort.revenue, dominantCurrency)}</span>
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
+
+                {buyerSource ? (
+                  <div className="mt-4 rounded-[1rem] border border-black/8 bg-white p-4">
+                    <div className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                      Buyers — {buyerSource}
+                    </div>
+                    {buyerState === "loading" ? (
+                      <div className="text-sm text-neutral-400">Loading buyers…</div>
+                    ) : buyerState === "error" ? (
+                      <div className="text-sm text-red-500">Could not load buyer list.</div>
+                    ) : buyers.length === 0 ? (
+                      <div className="text-sm text-neutral-400">No buyers found for this source.</div>
+                    ) : (
+                      <div className="grid gap-2">
+                        {buyers.map((buyer, i) => (
+                          <div key={i} className="flex flex-wrap items-start justify-between gap-2 rounded-xl border border-black/6 bg-neutral-50 px-3 py-3 text-sm">
+                            <div>
+                              <div className="font-medium text-neutral-900">{buyer.emailMasked}</div>
+                              <div className="mt-1 text-xs text-neutral-400">
+                                {buyer.products.join(", ")}
+                              </div>
+                            </div>
+                            <div className="text-right text-xs text-neutral-500">
+                              <div>{buyer.orderCount} order{buyer.orderCount !== 1 ? "s" : ""}</div>
+                              <div className="font-semibold text-neutral-900">{formatCurrency(buyer.totalRevenue, dominantCurrency)}</div>
+                              <div className="mt-1">{buyer.firstPurchaseAt.slice(0, 10)}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : null}
               </div>
 
               <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">

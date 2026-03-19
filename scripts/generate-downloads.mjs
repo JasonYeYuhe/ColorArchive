@@ -377,6 +377,111 @@ function buildAsePalette(colors) {
   return Buffer.concat([header, ...colors.map((color) => createAseColorBlock(color))]);
 }
 
+// ACO (Adobe Color / Photoshop) — v1 + v2 sections
+function buildAcoPalette(colors) {
+  const v1Header = Buffer.alloc(4);
+  v1Header.writeUInt16BE(1, 0);
+  v1Header.writeUInt16BE(colors.length, 2);
+
+  const v1Entries = colors.map((color) => {
+    const { r, g, b } = hexToRgb(color.hex);
+    const buf = Buffer.alloc(10);
+    buf.writeUInt16BE(0, 0); // RGB colorspace
+    buf.writeUInt16BE(r * 257, 2);
+    buf.writeUInt16BE(g * 257, 4);
+    buf.writeUInt16BE(b * 257, 6);
+    buf.writeUInt16BE(0, 8);
+    return buf;
+  });
+
+  const v2Header = Buffer.alloc(4);
+  v2Header.writeUInt16BE(2, 0);
+  v2Header.writeUInt16BE(colors.length, 2);
+
+  const v2Entries = colors.map((color) => {
+    const { r, g, b } = hexToRgb(color.hex);
+    const name = color.name;
+    const nameLen = name.length + 1; // include null terminator
+    const nameBuf = Buffer.alloc(nameLen * 2, 0); // zeroed (null terminator included)
+    for (let i = 0; i < name.length; i++) {
+      nameBuf.writeUInt16BE(name.charCodeAt(i), i * 2);
+    }
+    const buf = Buffer.alloc(10 + 4 + nameLen * 2);
+    let off = 0;
+    buf.writeUInt16BE(0, off); off += 2; // RGB
+    buf.writeUInt16BE(r * 257, off); off += 2;
+    buf.writeUInt16BE(g * 257, off); off += 2;
+    buf.writeUInt16BE(b * 257, off); off += 2;
+    buf.writeUInt16BE(0, off); off += 2;
+    buf.writeUInt16BE(0, off); off += 2; // color type padding
+    buf.writeUInt16BE(nameLen, off); off += 2;
+    nameBuf.copy(buf, off);
+    return buf;
+  });
+
+  return Buffer.concat([v1Header, ...v1Entries, v2Header, ...v2Entries]);
+}
+
+// Procreate .swatches — creates ZIP file containing Swatches.json
+function createProcreateSwatches(outputName, colors, paletteName) {
+  const json = JSON.stringify({
+    name: paletteName,
+    swatches: colors.map((color) => {
+      const { r, g, b } = hexToRgb(color.hex);
+      return {
+        name: color.name,
+        color: { colorSpace: 0, red: r / 255, green: g / 255, blue: b / 255, alpha: 1 },
+      };
+    }),
+  }, null, 2);
+  const tmpPath = join(OUT_DIR, "Swatches.json");
+  const outputPath = join(OUT_DIR, outputName);
+  writeFileSync(tmpPath, json, "utf8");
+  try { execSync(`rm -f "${outputPath}"`); } catch {}
+  execSync(`cd "${OUT_DIR}" && zip -j "${outputPath}" "Swatches.json"`, { stdio: "pipe" });
+  execSync(`rm -f "${tmpPath}"`);
+  console.log(`✓ Created ${outputName}`);
+}
+
+// Framer design tokens — CSS variables for use in Framer Code components
+function buildFramerTokens(colors) {
+  const lines = [
+    "/* Framer Design Tokens — ColorArchive */",
+    "/* Paste into Settings → General → Custom Code → <head> section */",
+    "/* Then reference via var(--ca-color-name) in Code components */",
+    ":root {",
+  ];
+  for (const color of colors) {
+    lines.push(`  --ca-${color.id}: ${color.hex};`);
+  }
+  lines.push("}");
+  return lines.join("\n");
+}
+
+// Figma tokens — nested by color family (better Figma Variables panel organization)
+function buildFigmaTokensNested(colors) {
+  const families = {};
+  for (const color of colors) {
+    const family =
+      color.hue < 15 || color.hue >= 345 ? "red"
+      : color.hue < 45 ? "orange"
+      : color.hue < 70 ? "yellow"
+      : color.hue < 95 ? "lime"
+      : color.hue < 150 ? "green"
+      : color.hue < 185 ? "teal"
+      : color.hue < 250 ? "blue"
+      : color.hue < 290 ? "purple"
+      : "pink";
+    if (!families[family]) families[family] = {};
+    families[family][color.id] = {
+      $type: "color",
+      $value: color.hex,
+      $description: `${color.name} · ${color.hsl}`,
+    };
+  }
+  return families;
+}
+
 function createOgSvg({ eyebrow, title, summary, swatches, accent = "#171717" }) {
   const swatchRects = swatches
     .slice(0, 6)
@@ -425,7 +530,7 @@ writeFileSync(
 );
 writeFileSync(
   join(OUT_DIR, "colorarchive-figma-tokens.json"),
-  JSON.stringify(buildFigmaTokens(ALL_ARCHIVE_COLORS), null, 2),
+  JSON.stringify(buildFigmaTokensNested(ALL_ARCHIVE_COLORS), null, 2),
   "utf8",
 );
 writeFileSync(join(OUT_DIR, "colorarchive.gpl"), buildGplPalette(ALL_ARCHIVE_COLORS, "ColorArchive Full Library"), "utf8");
@@ -435,6 +540,8 @@ writeFileSync(
   "utf8",
 );
 writeFileSync(join(OUT_DIR, "colorarchive.ase"), buildAsePalette(ALL_ARCHIVE_COLORS));
+writeFileSync(join(OUT_DIR, "colorarchive.aco"), buildAcoPalette(ALL_ARCHIVE_COLORS));
+writeFileSync(join(OUT_DIR, "colorarchive-framer-tokens.css"), buildFramerTokens(ALL_ARCHIVE_COLORS), "utf8");
 
 // Pack preview files
 for (const pack of PACK_PREVIEWS) {
@@ -450,7 +557,7 @@ writeFileSync(
 );
 writeFileSync(
   join(OUT_DIR, "complete-archive-figma-tokens.json"),
-  JSON.stringify(buildFigmaTokens(ALL_ARCHIVE_COLORS), null, 2),
+  JSON.stringify(buildFigmaTokensNested(ALL_ARCHIVE_COLORS), null, 2),
   "utf8",
 );
 writeFileSync(join(OUT_DIR, "complete-archive.gpl"), buildGplPalette(ALL_ARCHIVE_COLORS, "Complete Archive Token Set"), "utf8");
@@ -460,6 +567,8 @@ writeFileSync(
   "utf8",
 );
 writeFileSync(join(OUT_DIR, "complete-archive.ase"), buildAsePalette(ALL_ARCHIVE_COLORS));
+writeFileSync(join(OUT_DIR, "complete-archive.aco"), buildAcoPalette(ALL_ARCHIVE_COLORS));
+writeFileSync(join(OUT_DIR, "complete-archive-framer-tokens.css"), buildFramerTokens(ALL_ARCHIVE_COLORS), "utf8");
 
 // Route-specific OG assets
 for (const collection of COLLECTIONS) {
@@ -598,7 +707,7 @@ Formats: JSON data, text notes
 console.log(`✓ Generated ${COLLECTIONS.length} collections → public/downloads/`);
 console.log(`✓ ${PACK_PREVIEWS.length} pack preview files updated`);
 console.log(`✓ Generated route-specific OG SVGs → public/generated/og/`);
-console.log(`✓ Generated Figma + Style Dictionary token exports`);
+console.log(`✓ Generated Figma (nested) + Style Dictionary + ACO + Framer token exports`);
 
 // --- ZIP bundle generation ---
 import { execSync } from "child_process";
@@ -612,6 +721,10 @@ function createZip(zipName, files) {
   execSync(`cd "${OUT_DIR}" && zip -j "${zipPath}" ${fileArgs}`, { stdio: "pipe" });
   console.log(`✓ Created ${zipName}`);
 }
+
+// Procreate swatches
+createProcreateSwatches("colorarchive.swatches", ALL_ARCHIVE_COLORS, "ColorArchive Full Library");
+createProcreateSwatches("complete-archive.swatches", ALL_ARCHIVE_COLORS, "ColorArchive — Complete Archive");
 
 // Free palette pack ZIP (preview files from Vol.1 + usage guide)
 const freePackReadme = `ColorArchive — Free Palette Pack
@@ -840,6 +953,11 @@ FORMATS INCLUDED
 - GIMP palette (complete-archive.gpl)
 - Sketch palette JSON (complete-archive-sketchpalette.json)
 - Adobe Swatch Exchange (complete-archive.ase)
+- Adobe Color / Photoshop ACO (complete-archive.aco)
+- Procreate swatches (complete-archive.swatches)
+- Framer design tokens CSS (complete-archive-framer-tokens.css)
+- Figma / Tokens Studio JSON — nested by family (complete-archive-figma-tokens.json)
+- Style Dictionary tokens (complete-archive-style-dictionary.json)
 
 COLOR NAMING
 Each color follows the pattern: {hue}-{lightness}-{chroma}
@@ -862,6 +980,10 @@ createZip("complete-archive.zip", [
   "complete-archive.gpl",
   "complete-archive-sketchpalette.json",
   "complete-archive.ase",
+  "complete-archive.aco",
+  "complete-archive-framer-tokens.css",
+  "complete-archive-figma-tokens.json",
+  "complete-archive-style-dictionary.json",
   "complete-archive-preview.css",
   "complete-archive-preview.json",
   "README-complete-archive.txt",

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { collections } from "@/src/lib/collections";
 import { palettePacks } from "@/src/lib/palette-packs";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
+import { tagToSlug } from "@/src/lib/newsletter-issues";
 
 export function NoteDetailPage({
   issue,
@@ -38,12 +39,13 @@ export function NoteDetailPage({
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {issue.tags.map((tag) => (
-              <span
+              <Link
                 key={tag}
-                className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-500"
+                href={`/notes/tags/${tagToSlug(tag)}`}
+                className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-500 transition hover:bg-neutral-50 hover:text-neutral-900"
               >
                 {tag}
-              </span>
+              </Link>
             ))}
           </div>
         </section>

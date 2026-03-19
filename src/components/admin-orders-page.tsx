@@ -1,11 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { fetchAdminOrders, resendAdminOrderEmail, type AdminOrder } from "@/src/lib/auth-client";
 import { useAuth } from "@/src/components/auth-provider";
 
 type LoadState = "idle" | "loading" | "success" | "error";
+
+const PRODUCT_OPTIONS = [
+  "Palette Pack Vol. 1",
+  "Brand Color Starter Kit",
+  "Creator Bundle",
+  "Complete Archive Token Set",
+  "Dark Mode UI Kit",
+  "Seasonal: Spring 2026",
+];
 
 function formatCurrency(amount: number, currency: string) {
   const normalizedCurrency = currency.toUpperCase();
@@ -20,44 +29,68 @@ export function AdminOrdersPage() {
   const { analyticsAccess, status } = useAuth();
   const [state, setState] = useState<LoadState>("idle");
   const [orders, setOrders] = useState<AdminOrder[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const LIMIT = 25;
   const [error, setError] = useState("");
   const [resendState, setResendState] = useState<Record<string, "idle" | "sending" | "sent">>({});
 
-  useEffect(() => {
-    if (!analyticsAccess) {
-      return;
-    }
+  const [emailFilter, setEmailFilter] = useState("");
+  const [productFilter, setProductFilter] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
 
-    let cancelled = false;
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    async function load() {
+  const load = useCallback(
+    (p: number, email: string, product: string, from: string, to: string) => {
+      if (!analyticsAccess) return;
       setState("loading");
       setError("");
 
-      try {
-        const payload = await fetchAdminOrders();
-        if (cancelled) {
-          return;
-        }
+      fetchAdminOrders({ email: email || undefined, product: product || undefined, dateFrom: from || undefined, dateTo: to || undefined, page: p, limit: LIMIT })
+        .then((payload) => {
+          setOrders(payload.orders);
+          setTotal(payload.total);
+          setPage(p);
+          setState("success");
+        })
+        .catch((err: unknown) => {
+          setState("error");
+          setError(err instanceof Error ? err.message : "Could not load admin orders");
+        });
+    },
+    [analyticsAccess],
+  );
 
-        setOrders(payload.orders);
-        setState("success");
-      } catch (err) {
-        if (cancelled) {
-          return;
-        }
+  useEffect(() => {
+    if (!analyticsAccess) return;
+    load(1, "", "", "", "");
+  }, [analyticsAccess, load]);
 
-        setState("error");
-        setError(err instanceof Error ? err.message : "Could not load admin orders");
-      }
-    }
+  function handleFilterChange(email: string, product: string, from: string, to: string) {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      load(1, email, product, from, to);
+    }, 400);
+  }
 
-    void load();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [analyticsAccess]);
+  function handleEmailChange(value: string) {
+    setEmailFilter(value);
+    handleFilterChange(value, productFilter, dateFrom, dateTo);
+  }
+  function handleProductChange(value: string) {
+    setProductFilter(value);
+    handleFilterChange(emailFilter, value, dateFrom, dateTo);
+  }
+  function handleDateFromChange(value: string) {
+    setDateFrom(value);
+    handleFilterChange(emailFilter, productFilter, value, dateTo);
+  }
+  function handleDateToChange(value: string) {
+    setDateTo(value);
+    handleFilterChange(emailFilter, productFilter, dateFrom, value);
+  }
 
   async function handleResend(orderId: string) {
     try {
@@ -72,6 +105,8 @@ export function AdminOrdersPage() {
       setResendState((current) => ({ ...current, [orderId]: "idle" }));
     }
   }
+
+  const totalPages = Math.ceil(total / LIMIT);
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -118,74 +153,139 @@ export function AdminOrdersPage() {
 
         {analyticsAccess ? (
           <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            {state === "loading" || state === "idle" ? (
-              <div className="text-sm text-neutral-500">Loading admin queue…</div>
+            {/* Filter bar */}
+            <div className="mb-4 flex flex-wrap gap-3">
+              <input
+                type="text"
+                placeholder="Search email…"
+                value={emailFilter}
+                onChange={(e) => handleEmailChange(e.target.value)}
+                className="rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-neutral-700 placeholder-neutral-400 outline-none focus:border-neutral-400 sm:w-56"
+              />
+              <select
+                value={productFilter}
+                onChange={(e) => handleProductChange(e.target.value)}
+                className="rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-neutral-700 outline-none focus:border-neutral-400"
+              >
+                <option value="">All products</option>
+                {PRODUCT_OPTIONS.map((p) => (
+                  <option key={p} value={p}>{p}</option>
+                ))}
+              </select>
+              <input
+                type="date"
+                value={dateFrom}
+                onChange={(e) => handleDateFromChange(e.target.value)}
+                className="rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-neutral-700 outline-none focus:border-neutral-400"
+              />
+              <input
+                type="date"
+                value={dateTo}
+                onChange={(e) => handleDateToChange(e.target.value)}
+                className="rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-neutral-700 outline-none focus:border-neutral-400"
+              />
+            </div>
+
+            {state === "loading" ? (
+              <div className="text-sm text-neutral-500">Loading…</div>
             ) : null}
 
             {state === "error" ? <div className="text-sm text-red-600">{error}</div> : null}
 
             {state === "success" ? (
-              <div className="grid gap-3">
-                {orders.map((order) => (
-                  <article
-                    key={`admin-order-${order.orderId}`}
-                    className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4"
-                  >
-                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                      <div>
-                        <div className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">
-                          {order.product}
-                        </div>
-                        <div className="mt-2 text-sm text-neutral-500">
-                          {order.email} · {formatCurrency(order.amount, order.currency)}
-                        </div>
-                        <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
-                          Order {order.orderId}
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2">
-                        <button
-                          type="button"
-                          onClick={() => void handleResend(order.orderId)}
-                          disabled={resendState[order.orderId] === "sending"}
-                          className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-50"
-                        >
-                          {resendState[order.orderId] === "sending"
-                            ? "Sending…"
-                            : resendState[order.orderId] === "sent"
-                              ? "Sent"
-                              : "Resend email"}
-                        </button>
-                        <a
-                          href={`mailto:${order.email}?subject=${encodeURIComponent(`ColorArchive support · ${order.product}`)}`}
-                          className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                        >
-                          Email buyer
-                        </a>
-                        {order.packUrl ? (
-                          <a
-                            href={order.packUrl}
-                            className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                          >
-                            Pack page
-                          </a>
-                        ) : null}
-                        {order.downloadUrl ? (
-                          <a
-                            href={order.downloadUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                          >
-                            Download ZIP
-                          </a>
-                        ) : null}
-                      </div>
+              <>
+                <div className="mb-3 text-xs text-neutral-400">
+                  Showing {orders.length > 0 ? (page - 1) * LIMIT + 1 : 0}–{(page - 1) * LIMIT + orders.length} of {total} orders
+                </div>
+                <div className="grid gap-3">
+                  {orders.length === 0 ? (
+                    <div className="rounded-[1.2rem] border border-dashed border-black/10 px-4 py-6 text-center text-sm text-neutral-400">
+                      No orders match the current filters.
                     </div>
-                  </article>
-                ))}
-              </div>
+                  ) : null}
+                  {orders.map((order) => (
+                    <article
+                      key={`admin-order-${order.orderId}`}
+                      className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4"
+                    >
+                      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                        <div>
+                          <div className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">
+                            {order.product}
+                          </div>
+                          <div className="mt-2 text-sm text-neutral-500">
+                            {order.email} · {formatCurrency(order.amount, order.currency)}
+                          </div>
+                          <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
+                            Order {order.orderId}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            onClick={() => void handleResend(order.orderId)}
+                            disabled={resendState[order.orderId] === "sending"}
+                            className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-50"
+                          >
+                            {resendState[order.orderId] === "sending"
+                              ? "Sending…"
+                              : resendState[order.orderId] === "sent"
+                                ? "Sent"
+                                : "Resend email"}
+                          </button>
+                          <a
+                            href={`mailto:${order.email}?subject=${encodeURIComponent(`ColorArchive support · ${order.product}`)}`}
+                            className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                          >
+                            Email buyer
+                          </a>
+                          {order.packUrl ? (
+                            <a
+                              href={order.packUrl}
+                              className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                            >
+                              Pack page
+                            </a>
+                          ) : null}
+                          {order.downloadUrl ? (
+                            <a
+                              href={order.downloadUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                            >
+                              Download ZIP
+                            </a>
+                          ) : null}
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                {totalPages > 1 ? (
+                  <div className="mt-4 flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => load(page - 1, emailFilter, productFilter, dateFrom, dateTo)}
+                      disabled={page <= 1}
+                      className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm text-neutral-600 transition hover:bg-neutral-50 disabled:opacity-40"
+                    >
+                      ← Previous
+                    </button>
+                    <span className="text-xs text-neutral-400">Page {page} of {totalPages}</span>
+                    <button
+                      type="button"
+                      onClick={() => load(page + 1, emailFilter, productFilter, dateFrom, dateTo)}
+                      disabled={page >= totalPages}
+                      className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm text-neutral-600 transition hover:bg-neutral-50 disabled:opacity-40"
+                    >
+                      Next →
+                    </button>
+                  </div>
+                ) : null}
+              </>
             ) : null}
           </section>
         ) : null}

@@ -607,19 +607,28 @@ Codex 当前方向：
 - ✅ 生成 GPL / Sketch / ASE 设计工具导出格式
 - ✅ `/admin/orders` 管理员动作页上线
 - ✅ GitHub Pages 已成功发布上述前端改动（commit `d43d431`）
+- ✅ 新增 ACO（Photoshop）/ Procreate .swatches / Framer tokens 导出格式
+- ✅ Figma tokens 改为按 family 嵌套结构（更好的 Variables 面板组织）
+- ✅ 移动端 palette-builder-tray 最大高度从 70vh 降为 50vh，Collapse 按钮加 × 图标
+- ✅ admin orders 新增 search/filter/pagination（email、product、date range、分页）
+- ✅ analytics 新增 buyer drilldown：source cohort 行可点击，展开 buyer 列表（脱敏 email、LTV、订单数）
+- ✅ 新增 Issue 002（Spring Pastels）和 Issue 003（WCAG/Contrast）
+- ✅ 新增 /notes/tags/[tag] tag landing pages（12 个 tag 静态页面）
+- ✅ notes 和 note-detail 页面中的 tag 现在是可点击链接
+- ✅ Google login 按钮加 loading spinner，error 显示加 "Try again" 动作按钮
 
 ### 当前优先级
 
 - ✅ Resend 域名验证完成（colorarchive.me verified，邮件可正常发送）
 - ✅ 6 个产品全部 live，checkout URL 已填入
 - ✅ route-specific OG SVG 已补上静态替代方案
-- LS 店铺审核通过后关闭 Test mode
-- 继续观察并细修移动端会遮挡内容的交互细节
+- ✅ admin orders 已加入 search/filter/pagination
+- ✅ analytics 已加入 buyer drilldown
+- LS 店铺审核通过后关闭 Test mode（手动操作，见 checkout-config.ts 注释）
+- **服务端需要更新**：新的 `/analytics/buyers` 端点和 `/admin/orders` filter 逻辑需要 deploy 到服务器
 - 提高邮件送达率（新域名初期可能进 spam，需要积累域名信誉）
-- 观察 magic link 邮件送达率与登录完成率
 - 由 allowlist 测试账号本人完成一次 Google 首次登录，确认 callback / session / redirect 全链路
 - 继续观察 Personal / Commercial 两档 license 文案是否足够清晰
-- 验证 `/admin/orders` 在真实运维场景下是否已够用，还是需要 buyer search / filters
 
 ### 后续方向
 

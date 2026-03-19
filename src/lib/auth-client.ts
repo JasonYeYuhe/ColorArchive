@@ -144,12 +144,27 @@ export async function resendOrderEmail(orderId: string): Promise<void> {
   await parseResponse<{ ok: true }>(response);
 }
 
-export async function fetchAdminOrders(): Promise<{ orders: AdminOrder[] }> {
-  const response = await fetch(`${API_URL}/admin/orders`, {
+export async function fetchAdminOrders(params?: {
+  email?: string;
+  product?: string;
+  dateFrom?: string;
+  dateTo?: string;
+  page?: number;
+  limit?: number;
+}): Promise<{ orders: AdminOrder[]; total: number; page: number; limit: number }> {
+  const qs = new URLSearchParams();
+  if (params?.email) qs.set("email", params.email);
+  if (params?.product) qs.set("product", params.product);
+  if (params?.dateFrom) qs.set("dateFrom", params.dateFrom);
+  if (params?.dateTo) qs.set("dateTo", params.dateTo);
+  if (params?.page) qs.set("page", String(params.page));
+  if (params?.limit) qs.set("limit", String(params.limit));
+  const query = qs.toString() ? `?${qs.toString()}` : "";
+  const response = await fetch(`${API_URL}/admin/orders${query}`, {
     credentials: "include",
   });
 
-  return parseResponse<{ orders: AdminOrder[] }>(response);
+  return parseResponse<{ orders: AdminOrder[]; total: number; page: number; limit: number }>(response);
 }
 
 export async function resendAdminOrderEmail(orderId: string): Promise<void> {

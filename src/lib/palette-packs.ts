@@ -100,6 +100,16 @@ export const palettePacks: PalettePack[] = [
         format: "JSON",
         href: "/downloads/palette-pack-vol-1-preview.json",
       },
+      {
+        label: "Adobe Photoshop swatches",
+        format: "ACO",
+        href: "/downloads/colorarchive.aco",
+      },
+      {
+        label: "Framer design tokens",
+        format: "CSS",
+        href: "/downloads/colorarchive-framer-tokens.css",
+      },
     ],
     detail:
       "A first paid drop built from your strongest collections. Small enough to ship quickly, concrete enough to test demand.",
@@ -301,14 +311,24 @@ export const palettePacks: PalettePack[] = [
         href: "/downloads/complete-archive-preview.json",
       },
       {
-        label: "Figma token export",
+        label: "Figma / Tokens Studio (nested by family)",
         format: "JSON",
         href: "/downloads/complete-archive-figma-tokens.json",
       },
       {
-        label: "Style Dictionary export",
+        label: "Style Dictionary tokens",
         format: "JSON",
         href: "/downloads/complete-archive-style-dictionary.json",
+      },
+      {
+        label: "Adobe Photoshop swatches",
+        format: "ACO",
+        href: "/downloads/complete-archive.aco",
+      },
+      {
+        label: "Framer design tokens",
+        format: "CSS",
+        href: "/downloads/complete-archive-framer-tokens.css",
       },
     ],
     detail:

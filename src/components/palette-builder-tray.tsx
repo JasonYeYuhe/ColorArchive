@@ -103,7 +103,7 @@ export function PaletteBuilderTray() {
       <div className="rounded-[1.6rem] border border-black/10 bg-white/92 shadow-[0_24px_64px_rgba(15,23,42,0.18)] backdrop-blur-xl">
         {isOpen ? (
           <div
-            className="max-h-[70vh] overflow-y-auto p-4"
+            className="max-h-[50vh] overflow-y-auto p-4 sm:max-h-[70vh]"
             style={{ minWidth: "min(100%, 20rem)", maxWidth: "min(calc(100vw - 1.5rem), 28rem)" }}
           >
             <div className="flex items-center justify-between gap-3">
@@ -113,9 +113,13 @@ export function PaletteBuilderTray() {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="rounded-full border border-black/8 px-3 py-1 text-xs text-neutral-500 hover:bg-neutral-50"
+                className="flex items-center gap-1 rounded-full border border-black/8 px-3 py-1 text-xs text-neutral-500 hover:bg-neutral-50"
+                aria-label="Collapse palette builder"
               >
-                Collapse
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                  <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                </svg>
+                <span className="hidden sm:inline">Collapse</span>
               </button>
             </div>
 

@@ -335,4 +335,48 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/buyers", (req, res) => {
+  const days = normalizeDays(req.query.days);
+  const source = normalizeFilter(req.query.source);
+
+  const orderFilter = buildOrderWhere({ days, source, utmCampaign: null, utmSource: null, utmMedium: null, utmTerm: null, utmContent: null, landingPath: null });
+
+  const rows = db
+    .prepare(
+      `
+        SELECT
+          email,
+          COUNT(*) as order_count,
+          COALESCE(SUM(amount), 0) as total_revenue,
+          MIN(created_at) as first_purchase_at,
+          MAX(created_at) as last_purchase_at,
+          GROUP_CONCAT(product, '||') as products_raw
+        FROM orders
+        ${orderFilter.where}
+        GROUP BY email
+        ORDER BY total_revenue DESC
+        LIMIT 100
+      `,
+    )
+    .all(...orderFilter.params);
+
+  const buyers = rows.map((row) => {
+    const at = row.email.indexOf("@");
+    const masked =
+      at > 1
+        ? `${row.email.slice(0, 1)}${"*".repeat(Math.min(at - 1, 4))}${row.email.slice(at)}`
+        : `${"*".repeat(row.email.length - 1)}${row.email.slice(-1)}`;
+    return {
+      emailMasked: masked,
+      orderCount: row.order_count,
+      totalRevenue: row.total_revenue,
+      firstPurchaseAt: row.first_purchase_at,
+      lastPurchaseAt: row.last_purchase_at,
+      products: row.products_raw ? [...new Set(row.products_raw.split("||"))] : [],
+    };
+  });
+
+  return res.json({ buyers, source: source ?? "all", days });
+});
+
 module.exports = router;

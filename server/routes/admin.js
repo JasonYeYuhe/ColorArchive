@@ -8,7 +8,37 @@ const { sendOrderConfirmationEmail } = require("../email");
 router.use(requireAnalyticsAccess);
 
 router.get("/orders", (req, res) => {
-  const orders = db
+  const { email, product, dateFrom, dateTo, page, limit: limitParam } = req.query;
+  const limit = Math.min(parseInt(limitParam) || 25, 100);
+  const offset = (Math.max(parseInt(page) || 1, 1) - 1) * limit;
+
+  const conditions = [];
+  const params = [];
+
+  if (email) {
+    conditions.push("LOWER(email) LIKE LOWER(?)");
+    params.push(`%${email}%`);
+  }
+  if (product) {
+    conditions.push("product = ?");
+    params.push(product);
+  }
+  if (dateFrom) {
+    conditions.push("datetime(created_at) >= datetime(?)");
+    params.push(dateFrom);
+  }
+  if (dateTo) {
+    conditions.push("datetime(created_at) <= datetime(?)");
+    params.push(dateTo);
+  }
+
+  const where = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+
+  const { total } = db
+    .prepare(`SELECT COUNT(*) AS total FROM orders ${where}`)
+    .get(...params);
+
+  const rows = db
     .prepare(
       `
         SELECT
@@ -22,30 +52,31 @@ router.get("/orders", (req, res) => {
           download_url,
           receipt_url
         FROM orders
+        ${where}
         ORDER BY datetime(created_at) DESC
-        LIMIT 50
+        LIMIT ? OFFSET ?
       `,
     )
-    .all()
-    .map((order) => {
-      const matchedProduct = findCatalogProduct(order.product);
-      const packId = order.pack_id || matchedProduct?.packId || null;
+    .all(...params, limit, offset);
 
-      return {
-        orderId: order.ls_order_id,
-        email: order.email,
-        product: order.product,
-        amount: order.amount,
-        currency: order.currency,
-        created_at: order.created_at,
-        packId,
-        downloadUrl: order.download_url || getDownloadUrl(order.product),
-        receiptUrl: order.receipt_url || null,
-        packUrl: packId ? getPackUrl(order.product) : null,
-      };
-    });
+  const orders = rows.map((order) => {
+    const matchedProduct = findCatalogProduct(order.product);
+    const packId = order.pack_id || matchedProduct?.packId || null;
+    return {
+      orderId: order.ls_order_id,
+      email: order.email,
+      product: order.product,
+      amount: order.amount,
+      currency: order.currency,
+      created_at: order.created_at,
+      packId,
+      downloadUrl: order.download_url || getDownloadUrl(order.product),
+      receiptUrl: order.receipt_url || null,
+      packUrl: packId ? getPackUrl(order.product) : null,
+    };
+  });
 
-  return res.json({ orders });
+  return res.json({ orders, total, page: Math.max(parseInt(page) || 1, 1), limit });
 });
 
 router.post("/orders/:orderId/resend", async (req, res) => {

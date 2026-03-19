@@ -62,6 +62,7 @@ export function LoginPage() {
   const [orders, setOrders] = useState<AccountOrder[]>([]);
   const [adminOrders, setAdminOrders] = useState<AdminOrder[]>([]);
   const [error, setError] = useState("");
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [ordersError, setOrdersError] = useState("");
   const [adminState, setAdminState] = useState<AdminState>("idle");
   const [adminError, setAdminError] = useState("");
@@ -240,6 +241,7 @@ export function LoginPage() {
   }, [analyticsAccess, user]);
 
   function handleGoogleLogin() {
+    setGoogleLoading(true);
     window.location.assign(`${API_URL}/auth/google/start?next=${encodeURIComponent(nextPath)}`);
   }
 
@@ -445,9 +447,16 @@ export function LoginPage() {
                       <button
                         type="button"
                         onClick={handleGoogleLogin}
-                        className="rounded-full border border-black/8 bg-white px-4 py-3 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                        disabled={googleLoading}
+                        className="flex w-full items-center justify-center gap-2 rounded-full border border-black/8 bg-white px-4 py-3 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 disabled:opacity-60"
                       >
-                        Continue with Google
+                        {googleLoading ? (
+                          <svg className="animate-spin h-4 w-4 text-neutral-400" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                          </svg>
+                        ) : null}
+                        {googleLoading ? "Redirecting to Google…" : "Continue with Google"}
                       </button>
                     </>
                   ) : null}
@@ -458,7 +467,20 @@ export function LoginPage() {
                 </>
               )}
 
-              {error ? <p className="mt-4 text-sm text-red-600">{error}</p> : null}
+              {error ? (
+                <div className="mt-4 rounded-2xl border border-red-100 bg-red-50 px-4 py-3">
+                  <p className="text-sm text-red-700">{error}</p>
+                  {loginError?.startsWith("google-") ? (
+                    <button
+                      type="button"
+                      onClick={() => { setError(""); handleGoogleLogin(); }}
+                      className="mt-2 text-xs font-medium text-red-600 underline hover:text-red-800"
+                    >
+                      Try Google sign-in again
+                    </button>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
 
             {user ? (

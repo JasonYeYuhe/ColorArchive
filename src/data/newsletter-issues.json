@@ -1,5 +1,87 @@
 [
   {
+    "slug": "april-2026-wcag-contrast",
+    "date": "2026-04-16",
+    "title": "Contrast, clarity, and building for accessibility from the start",
+    "summary": "A note on WCAG contrast ratios, the /contrast tool, and why dark mode palette decisions matter more when accessibility is in scope.",
+    "eyebrow": "Issue 003",
+    "tags": ["WCAG", "Accessibility", "Tools"],
+    "featuredCollectionId": "monochrome-studio",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "The /contrast tool checks AA and AAA ratios live — useful before you commit a color to a component.",
+      "Monochrome Studio is the cleanest starting point for neutral palette work that passes contrast at every lightness level.",
+      "The Dark Mode UI Kit ships pre-paired values with lightness inversion already handled — less manual WCAG checking at implementation time."
+    ],
+    "sections": [
+      {
+        "heading": "Contrast is a product decision",
+        "body": "Accessibility is not a checklist. Choosing colors that pass AA or AAA contrast ratios is a product decision that affects readability, trust, and reach. The /contrast tool at ColorArchive makes this interactive — pick a foreground and background, see the ratio and badge in real time."
+      },
+      {
+        "heading": "Monochrome Studio as a foundation",
+        "body": "Monochrome Studio is particularly well-suited to contrast work because the palette spans a wide lightness range within a single hue family. That means you can build text and surface pairings that look intentional, not just technically compliant."
+      },
+      {
+        "heading": "How the Dark Mode UI Kit helps",
+        "body": "The Dark Mode UI Kit pre-pairs light and dark token values using perceptual lightness inversion. It does not replace accessibility testing, but it removes the most common failure mode: forgetting to define the dark counterpart and ending up with low-contrast text."
+      }
+    ],
+    "links": [
+      {
+        "label": "Open WCAG contrast checker",
+        "href": "/contrast"
+      },
+      {
+        "label": "Open Monochrome Studio",
+        "href": "/collections/monochrome-studio"
+      },
+      {
+        "label": "Open Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit"
+      }
+    ]
+  },
+  {
+    "slug": "april-2026-spring-pastels",
+    "date": "2026-04-02",
+    "title": "Spring pastels, warm earth, and the seasonal palette case",
+    "summary": "A look at the Spring 2026 seasonal palette direction, why pastels hold up in product design, and how to build a seasonal system without making it look like a greeting card.",
+    "eyebrow": "Issue 002",
+    "tags": ["Spring", "Pastels", "Palette"],
+    "featuredCollectionId": "matcha-linen",
+    "featuredPackId": "seasonal-spring-2026",
+    "highlights": [
+      "Pastels are productive when the lightness structure is tight — vague softness rarely holds up in interface or brand work.",
+      "The Spring 2026 pack anchors around Orchid Bloom, Matcha & Linen, and Sunset Boulevard as a complete seasonal system.",
+      "Warm earth tones act as natural counterweight to spring pastels — keeping the palette grounded rather than purely airy."
+    ],
+    "sections": [
+      {
+        "heading": "The case for seasonal palettes",
+        "body": "Seasonal palette drops are less about trend and more about providing a bounded, time-specific direction for projects that need one. Spring 2026 is built around renewal: floral softness in Orchid Bloom, grounded warmth in Matcha & Linen, and transition light in Sunset Boulevard."
+      },
+      {
+        "heading": "Why pastels fail and how to avoid it",
+        "body": "Pastel failures usually come from choosing the lightness level correctly but ignoring chroma. A flat, low-chroma pale color reads as washed-out rather than soft. The archive's pastel range in collections like Orchid Bloom and Matcha & Linen keeps enough saturation to hold hue identity while staying clearly light."
+      },
+      {
+        "heading": "Building with the seasonal pack",
+        "body": "The Seasonal: Spring 2026 pack includes CSS tokens, Tailwind theme variables, and structured JSON for all three collections. The mood notes inside the bundle document intended use cases — useful if you are presenting a palette direction to a client or team rather than applying it solo."
+      }
+    ],
+    "links": [
+      {
+        "label": "Open Seasonal: Spring 2026",
+        "href": "/packs/seasonal-spring-2026"
+      },
+      {
+        "label": "Open Matcha & Linen",
+        "href": "/collections/matcha-linen"
+      }
+    ]
+  },
+  {
     "slug": "march-2026-matcha-linen",
     "date": "2026-03-19",
     "title": "Matcha & Linen, calm product surfaces, and what shipped in March",
