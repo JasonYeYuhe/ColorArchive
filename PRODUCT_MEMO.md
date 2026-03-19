@@ -466,14 +466,15 @@ Codex 当前方向：
   - 登录后自动 merge 本地 favorites / palette 与云端数据
 - Google 登录支持已接入代码层：
   - 通过 Google OAuth code flow
-  - 需要环境变量 `GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / GOOGLE_REDIRECT_URI`
-  - 当前未配置这些变量时，前端不会显示 Google 登录按钮
+  - 环境变量 `GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / GOOGLE_REDIRECT_URI` 已在服务器配置
+  - `/login` 现已显示 Google 登录按钮
 - `/login` 现在同时承担轻量账户页：
   - 当前显示 favorites / palette sync 状态
   - 当前显示账户订单与下载记录
 - `/analytics` 现已从公开页改为受保护页：
   - 至少要求登录
   - 若设置 `ADMIN_EMAILS`，则进一步收紧到 allowlist 账户
+- 服务器当前已配置 `ADMIN_EMAILS`，analytics 访问已收紧到管理邮箱
 - waitlist 邮件内容已从简单确认扩展为“更新订阅”起点，含 cadence、featured collection、featured pack
 - 记录可用 credits：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
@@ -560,7 +561,7 @@ Codex 当前方向：
 - ✅ 顶部导航新增 login / account 入口
 - ✅ `/login` 账户页新增订单与下载记录
 - ✅ `/analytics` 改为登录保护，并支持 `ADMIN_EMAILS` allowlist
-- ✅ Google 登录代码路径已接入，等待环境变量后可启用
+- ✅ Google 登录已完成服务器环境配置并可启用
 
 ### 当前优先级
 
@@ -571,7 +572,7 @@ Codex 当前方向：
 - 继续观察并细修移动端会遮挡内容的交互细节
 - 提高邮件送达率（新域名初期可能进 spam，需要积累域名信誉）
 - 观察 magic link 邮件送达率与登录完成率
-- Google OAuth 环境变量配置后，验证 callback 与 cookie 行为
+- 验证 Google callback 在真实浏览器里的首次登录体验与测试用户限制
 - 后续可继续扩展账户页，加入 receipts / license / purchase support 等更完整的 post-purchase 信息
 
 ### 后续方向
