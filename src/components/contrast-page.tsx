@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import { colors } from "@/src/data/colors";
 import { hslToRgb, rgbToHex } from "@/src/lib/color-utils";
@@ -389,6 +390,39 @@ export function ContrastCheckerPage() {
                 <WcagBadge label="UI components" level="AA (3:1)" result={wcag.aaUi} />
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
+            Build with accessible color systems
+          </div>
+          <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
+            Take contrast-safe palettes into your project
+          </p>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
+            The Dark Mode UI Kit ships pre-tested light/dark pairings with contrast ratios that
+            pass AA — structured as CSS variables, Figma tokens, and Tailwind config.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              href="/packs/dark-mode-ui-kit/"
+              className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
+            >
+              Dark Mode UI Kit
+            </Link>
+            <Link
+              href="/packs/"
+              className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
+            >
+              Browse all packs
+            </Link>
+            <Link
+              href="/free-pack/"
+              className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
+            >
+              Free download
+            </Link>
           </div>
         </section>
       </div>

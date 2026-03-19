@@ -168,15 +168,30 @@ export function CollectionDetailPage({
             <div className="mt-4 space-y-3">
               {relatedPacks.length > 0 ? (
                 relatedPacks.map((pack) => (
-                  <Link
+                  <div
                     key={pack.id}
-                    href={`/packs/${pack.id}`}
-                    className="block rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 transition hover:bg-white"
+                    className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4"
                   >
                     <div className="text-sm font-semibold text-neutral-950">{pack.title}</div>
-                    <div className="mt-1 text-sm leading-6 text-neutral-600">{pack.priceHint}</div>
+                    <div className="mt-1 text-sm font-medium text-neutral-500">{pack.priceHint}</div>
                     <div className="mt-2 text-sm leading-6 text-neutral-500">{pack.detail}</div>
-                  </Link>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {pack.checkoutUrl && pack.checkoutStatus === "live" ? (
+                        <a
+                          href={pack.checkoutUrl}
+                          className="rounded-full bg-neutral-950 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
+                        >
+                          Buy — {pack.priceHint}
+                        </a>
+                      ) : null}
+                      <Link
+                        href={`/packs/${pack.id}/`}
+                        className="rounded-full border border-black/8 bg-white px-4 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
+                      >
+                        View details
+                      </Link>
+                    </div>
+                  </div>
                 ))
               ) : (
                 <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
