@@ -36,6 +36,8 @@ jobs:
 
       - name: Build static export
         run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: https://api.colorarchive.me
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
