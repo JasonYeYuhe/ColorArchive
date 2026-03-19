@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { CopyActionButton } from "@/src/components/copy-action-button";
+import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import type { ColorCollection } from "@/src/lib/collections";
 import type { WaitlistConfig } from "@/src/lib/checkout-config";
 import type { PalettePack } from "@/src/lib/palette-packs";
@@ -68,7 +71,7 @@ export function FreePackPage({
               and a JSON palette export — no signup, no email required.
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-2">
+            <div className="mt-6 flex flex-wrap items-center gap-2">
               {pack.sampleDownloads.map((sample, index) => (
                 <a
                   key={sample.href}
@@ -84,24 +87,14 @@ export function FreePackPage({
                   {sample.label}
                 </a>
               ))}
-              {waitlist.url ? (
-                <a
-                  href={waitlist.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                >
-                  Join waitlist
-                </a>
-              ) : (
-                <a
-                  href={emailHref}
-                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                >
-                  Email for updates
-                </a>
-              )}
               <CopyActionButton label="Copy request note" value={requestTemplate} />
+            </div>
+
+            <div className="mt-5">
+              <p className="mb-2 text-sm text-neutral-500">
+                Enter your email and we'll send the download link directly:
+              </p>
+              <EmailCaptureForm />
             </div>
           </div>
         </section>
@@ -158,7 +151,7 @@ export function FreePackPage({
                   2. Review the featured collection and export shape.
                 </div>
                 <div className="rounded-[1rem] border border-black/6 bg-white px-3 py-3">
-                  3. Join the waitlist or email if you want the full paid version.
+                  3. Enter your email above to get the download link, or join the waitlist for the full paid version.
                 </div>
               </div>
             </div>
