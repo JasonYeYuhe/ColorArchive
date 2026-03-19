@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import { collections } from "@/src/lib/collections";
@@ -187,12 +188,14 @@ export function NoteDetailPage({
                 Get notified when new issues and palette drops land.
               </p>
               <div className="mt-4">
-                <EmailCaptureForm
-                  source="notes-latest"
-                  placeholder="your@email.com"
-                  buttonLabel="Subscribe"
-                  successMessage="You're in — we'll email you about new issues."
-                />
+                <Suspense fallback={null}>
+                  <EmailCaptureForm
+                    source="notes-latest"
+                    placeholder="your@email.com"
+                    buttonLabel="Subscribe"
+                    successMessage="You're in — we'll email you about new issues."
+                  />
+                </Suspense>
               </div>
             </div>
           )}

@@ -256,7 +256,7 @@ export function WordColorGeneratorPage() {
                     Search by hex
                   </Link>
                   <Link
-                    href="/colors/"
+                    href="/all-colors/"
                     className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                   >
                     Browse archive
