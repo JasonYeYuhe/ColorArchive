@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorGrid } from "@/src/components/color-grid";
 import { FilterToolbar } from "@/src/components/filter-toolbar";
@@ -319,6 +320,13 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
     setExactHex("");
   };
 
+  const PAGE_SIZE = 120;
+  const [displayLimit, setDisplayLimit] = useState(PAGE_SIZE);
+
+  useEffect(() => {
+    setDisplayLimit(PAGE_SIZE);
+  }, [searchQuery, sortBy, activeFamily, hueBand, toneBand, minSaturation, maxSaturation, minLightness, maxLightness, exactHex]);
+
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
@@ -502,7 +510,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
         />
 
         <ColorGrid
-          colors={visibleColors}
+          colors={visibleColors.slice(0, displayLimit)}
           selectedColorId={selectedColorId}
           onSelectColor={setSelectedColorId}
           emptyState={
@@ -520,6 +528,54 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
             />
           }
         />
+
+        {displayLimit < visibleColors.length && (
+          <div className="flex items-center justify-center gap-4 py-2">
+            <span className="text-sm text-neutral-400">
+              Showing {displayLimit} of {visibleColors.length}
+            </span>
+            <button
+              type="button"
+              onClick={() => setDisplayLimit((prev) => prev + PAGE_SIZE)}
+              className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+            >
+              Show more
+            </button>
+          </div>
+        )}
+
+        <div className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
+            Take your palette further
+          </div>
+          <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
+            From search to production-ready tokens
+          </p>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
+            ColorArchive packs include CSS variables, Figma tokens, Tailwind config, and Procreate
+            swatches built around curated color directions.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              href="/packs/"
+              className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
+            >
+              Browse packs
+            </Link>
+            <Link
+              href="/collections/"
+              className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
+            >
+              View collections
+            </Link>
+            <Link
+              href="/free-pack/"
+              className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
+            >
+              Free download
+            </Link>
+          </div>
+        </div>
       </div>
     </main>
   );
