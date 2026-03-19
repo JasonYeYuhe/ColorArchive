@@ -46,7 +46,7 @@ router.post("/ls", express.raw({ type: "application/json" }), (req, res) => {
     const subscriberAttribution = db
       .prepare(
         `
-          SELECT source, utm_source, utm_medium, utm_campaign, landing_path
+          SELECT source, utm_source, utm_medium, utm_campaign, utm_term, utm_content, landing_path
           FROM subscribers
           WHERE lower(email) = lower(?)
         `,
@@ -70,9 +70,11 @@ router.post("/ls", express.raw({ type: "application/json" }), (req, res) => {
             attributed_utm_source,
             attributed_utm_medium,
             attributed_utm_campaign,
+            attributed_utm_term,
+            attributed_utm_content,
             attributed_landing_path
           )
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `
       ).run(
         orderId,
@@ -87,6 +89,8 @@ router.post("/ls", express.raw({ type: "application/json" }), (req, res) => {
         subscriberAttribution?.utm_source ?? null,
         subscriberAttribution?.utm_medium ?? null,
         subscriberAttribution?.utm_campaign ?? null,
+        subscriberAttribution?.utm_term ?? null,
+        subscriberAttribution?.utm_content ?? null,
         subscriberAttribution?.landing_path ?? null,
       );
 

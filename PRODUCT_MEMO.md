@@ -451,6 +451,9 @@ Codex 当前方向：
   - free-pack / waitlist -> purchase funnel
   - filters for `days / source / utm_source / utm_campaign / landing_path`
   - attributed order rows tied back to subscriber capture source
+  - filters for `utm_medium / utm_term / utm_content`
+  - previous-window comparison metrics for subscribers / orders / revenue
+  - source cohort rows with subscriber -> purchaser conversion and revenue
 - auth API 已新增：
   - `POST /auth/request-link`
   - `POST /auth/verify`
@@ -474,6 +477,8 @@ Codex 当前方向：
   - 当前显示 favorites / palette sync 状态
   - 当前显示账户订单与下载记录
   - 当前支持 receipt、pack page、重新发送下载邮件与 support 入口
+  - 当前显示 Personal / Commercial 两档 license 说明与 support SLA
+  - 当前对 admin 账户显示最近订单动作队列预览
 - `/analytics` 现已从公开页改为受保护页：
   - 至少要求登录
   - 若设置 `ADMIN_EMAILS`，则进一步收紧到 allowlist 账户
@@ -486,6 +491,17 @@ Codex 当前方向：
 - 新增 `/notes` 与 `/notes/[slug]`：
   - 作为公开 newsletter / update archive
   - waitlist 确认邮件会带上最新一期 note
+  - note detail 现已支持上一期 / 下一期导航
+  - note detail 现已强化 featured collection / featured pack 入口
+- favorites / recent 页面已开始显示基于用户已保存和最近浏览的推荐颜色
+- family detail 现已增加更明确的 archive -> collection -> pack 升级链
+- 构建脚本现已额外生成：
+  - GPL palette
+  - Sketch palette JSON
+  - Adobe Swatch Exchange (`.ase`)
+- `/admin/orders` 已上线：
+  - 仅 allowlisted admin 可访问
+  - 可查看最近订单、重发下载邮件、直接联系买家
 - Google 登录已在真实浏览器里验证启动链路：
   - `/login` 按钮可正常跳转到 Google Accounts
   - OAuth URL 中的 `client_id`、`redirect_uri`、`state` 均正确
@@ -575,12 +591,21 @@ Codex 当前方向：
 - ✅ 顶部导航新增 login / account 入口
 - ✅ `/login` 账户页新增订单与下载记录
 - ✅ `/login` 账户页增加 receipt / resend / support 等 post-purchase 入口
+- ✅ `/login` 补充 Personal / Commercial license 说明与 support SLA
 - ✅ `/analytics` 改为登录保护，并支持 `ADMIN_EMAILS` allowlist
 - ✅ Google 登录已完成服务器环境配置并可启用
 - ✅ `/analytics` 增加来源、UTM、landing path 过滤
+- ✅ `/analytics` 增加 `utm_medium / utm_term / utm_content` 过滤
 - ✅ 订阅与订单已开始记录 attribution / UTM 数据
 - ✅ 新增 `/notes` 公开 newsletter archive，并接入 waitlist 邮件
 - ✅ 真实浏览器已验证 Google 登录启动链路可到达 Google Accounts
+- ✅ `/analytics` 增加 previous-window 对比和 source cohort
+- ✅ `/notes` 增加 issue archive 视图与上一期 / 下一期导航
+- ✅ note detail 增强 featured collection / pack 升级入口
+- ✅ favorites / recent 页面增加推荐颜色层
+- ✅ family detail 增强 archive -> collection -> pack 升级路径
+- ✅ 生成 GPL / Sketch / ASE 设计工具导出格式
+- ✅ `/admin/orders` 管理员动作页上线
 
 ### 当前优先级
 
@@ -592,31 +617,26 @@ Codex 当前方向：
 - 提高邮件送达率（新域名初期可能进 spam，需要积累域名信誉）
 - 观察 magic link 邮件送达率与登录完成率
 - 由 allowlist 测试账号本人完成一次 Google 首次登录，确认 callback / session / redirect 全链路
-- 后续可继续扩展账户页，加入 receipts / license / purchase support 等更完整的 post-purchase 信息
+- 继续观察 Personal / Commercial 两档 license 文案是否足够清晰
+- 验证 `/admin/orders` 在真实运维场景下是否已够用，还是需要 buyer search / filters
 
 ### 后续方向
 
-- 1. 用 allowlist 测试账号完成一次 Google 首次登录
+- 1. 继续验证 Google 登录完整链路
   - 重点确认 callback 完成后是否稳定落到 `/favorites` 或预期 next path
   - 顺手确认 Google 登录后 analytics allowlist 判定是否符合预期
-- 2. 扩展账户页的 post-purchase 信息
-  - 在现有 orders/downloads 基础上继续补 license 文案与更明确的 support SLA
-- 3. 推荐系统（基于用户收藏、近期浏览、已加入 palette 的颜色）
-  - 让颜色详情页和账户页更像“继续探索”而不是静态终点
-- 4. Family / Collection / Pack 之间的升级链再强化
-  - 在 family detail 和 collection detail 里更明确地告诉用户下一步该看哪个 pack
-- 5. Figma 插件或 Tokens Studio 对接
+- 2. Figma 插件或 Tokens Studio 对接
   - 现有 token exports 已够做第一版集成，不必从零重做格式
-- 6. 更清晰的付费层级与 license 结构
-  - 评估 Personal / Commercial 双档，减少高价包的购买犹豫
-- 7. 品牌与信任层补强
+- 3. 品牌与信任层补强
   - 评估商标申请、完善 support / about / updates 文案、持续提高邮件送达率与公开可信度
-- 8. 继续加深 analytics 决策面板
-  - 增加日期对比、source cohort、utm campaign 转化表现
-- 9. 把 `/notes` 变成真正的可归档内容流
-  - 增加 tag、issue navigation、note -> pack / collection 的更强链接关系
-- 10. 设计工具导出格式继续扩展
-  - 补 ASE / GPL / Sketch palette 等更常见的设计软件格式
+- 4. 继续加深 analytics 决策面板
+  - 增加 cohort over time、source retention、买家搜索和 buyer-level audit trail
+- 5. 把 `/notes` 继续扩成真正的可归档内容流
+  - 增加更多 issue、归档分页、tag landing pages
+- 6. 设计工具导出格式继续扩展
+  - 补 ACO / Procreate / Framer 等更常见的设计软件格式
+- 7. 把推荐系统继续推到颜色详情页之外
+  - 让账户页、favorites、recent 和 family 页面形成连续探索链
 
 ## 给未来自己的提醒
 

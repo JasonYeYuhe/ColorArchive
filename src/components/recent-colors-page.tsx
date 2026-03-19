@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ColorGrid } from "@/src/components/color-grid";
+import { RecommendedColorsSection } from "@/src/components/recommended-colors-section";
 import { clearRecentColors, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -149,6 +150,13 @@ export function RecentColorsPage({ colors }: RecentColorsPageProps) {
           </section>
         ) : (
           <>
+            <RecommendedColorsSection
+              colors={colors}
+              seedIds={recentIds}
+              title="Keep exploring from your recent trail"
+              description="These suggestions lean on the families and tonal jumps you opened most recently, so you can branch naturally instead of restarting from the full archive."
+            />
+
             <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 Recent export preview

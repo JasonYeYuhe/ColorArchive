@@ -23,6 +23,8 @@ export function FamilyDetailPage({
   relatedPacks,
 }: FamilyDetailPageProps) {
   const featuredColors = familyColors.slice(0, 24);
+  const primaryCollection = relatedCollections[0]?.collection ?? null;
+  const primaryPack = relatedPacks[0] ?? null;
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -110,6 +112,75 @@ export function FamilyDetailPage({
               Productized packs that use this family in their source collections.
             </div>
           </article>
+        </section>
+
+        <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
+          <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              Recommended upgrade path
+            </div>
+            <div className="mt-4 space-y-3">
+              <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                <div className="text-sm font-semibold text-neutral-950">1. Start in the archive</div>
+                <div className="mt-2 text-sm leading-6 text-neutral-600">
+                  Browse the strongest {family.toLowerCase()} lane in search or dense view, then
+                  save the colors that feel closest to your project.
+                </div>
+              </div>
+              <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                <div className="text-sm font-semibold text-neutral-950">2. Move into a collection</div>
+                <div className="mt-2 text-sm leading-6 text-neutral-600">
+                  {primaryCollection
+                    ? `${primaryCollection.title} is the cleanest editorial collection to prove this family in a more intentional five-color set.`
+                    : `Open one of the matching collections to move from a family lane into a more intentional five-color set.`}
+                </div>
+              </div>
+              <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                <div className="text-sm font-semibold text-neutral-950">3. Upgrade into a pack</div>
+                <div className="mt-2 text-sm leading-6 text-neutral-600">
+                  {primaryPack
+                    ? `${primaryPack.title} is the nearest paid step if you want tokens, exports, and usage guidance around this family direction.`
+                    : `If the family is only partially represented in packs today, use the free layer first and then compare the closest live pack.`}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              Next step links
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {primaryCollection ? (
+                <Link
+                  href={`/collections/${primaryCollection.id}`}
+                  className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                >
+                  Open {primaryCollection.title}
+                </Link>
+              ) : null}
+              {primaryPack ? (
+                <Link
+                  href={`/packs/${primaryPack.id}`}
+                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                >
+                  Open {primaryPack.title}
+                </Link>
+              ) : null}
+              <Link
+                href="/free-pack"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Try free layer
+              </Link>
+              <Link
+                href={`/palette?ids=${featuredColors.slice(0, 6).map((color) => color.id).join(",")}`}
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Load sample palette
+              </Link>
+            </div>
+          </aside>
         </section>
 
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">

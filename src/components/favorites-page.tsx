@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ColorGrid } from "@/src/components/color-grid";
+import { RecommendedColorsSection } from "@/src/components/recommended-colors-section";
 import { getFavoriteColorIds, subscribeToFavorites } from "@/src/lib/favorites";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -148,6 +149,13 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
           </section>
         ) : (
           <>
+            <RecommendedColorsSection
+              colors={colors}
+              seedIds={favoriteIds}
+              title="Based on your saved shelf"
+              description="These picks stay close to your saved families and tonal range, while still widening the palette enough to keep the archive useful."
+            />
+
             <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 Export preview

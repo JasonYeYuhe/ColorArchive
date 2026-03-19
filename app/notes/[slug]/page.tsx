@@ -2,7 +2,11 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { NoteDetailPage } from "@/src/components/note-detail-page";
-import { getNewsletterIssue, newsletterIssues } from "@/src/lib/newsletter-issues";
+import {
+  getNewsletterIssue,
+  getNewsletterNeighbors,
+  newsletterIssues,
+} from "@/src/lib/newsletter-issues";
 
 interface NotePageProps {
   params: Promise<{ slug: string }>;
@@ -37,10 +41,12 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
     notFound();
   }
 
+  const { previous, next } = getNewsletterNeighbors(slug);
+
   return (
     <>
       <SiteHeader currentPath="/notes" />
-      <NoteDetailPage issue={issue} />
+      <NoteDetailPage issue={issue} previousIssue={previous} nextIssue={next} />
     </>
   );
 }

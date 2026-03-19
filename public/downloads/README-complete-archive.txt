@@ -1,12 +1,15 @@
 ColorArchive — Complete Archive Token Set
 
-ALL 2016 COLORS IN FOUR FORMATS
+ALL 2016 COLORS IN MULTIPLE FORMATS
 
 FORMATS INCLUDED
 - CSS variables (complete-archive-all-colors.css)
 - Tailwind CSS 4 theme tokens (complete-archive-tailwind-tokens.css)
 - Structured JSON with hex, HSL, RGB (complete-archive-all-colors.json)
 - SCSS color maps by hue family (complete-archive-scss-maps.scss)
+- GIMP palette (complete-archive.gpl)
+- Sketch palette JSON (complete-archive-sketchpalette.json)
+- Adobe Swatch Exchange (complete-archive.ase)
 
 COLOR NAMING
 Each color follows the pattern: {hue}-{lightness}-{chroma}

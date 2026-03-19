@@ -51,6 +51,51 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
           </div>
         </section>
 
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Issue archive
+              </div>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
+                Treat these notes as a public monthly archive rather than one-off announcements.
+                Each issue links one palette direction, one concrete ship, and one next step.
+              </p>
+            </div>
+            <Link
+              href="/waitlist"
+              className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+            >
+              Join email updates
+            </Link>
+          </div>
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
+            {issues.map((issue) => (
+              <div
+                key={`${issue.slug}-archive`}
+                className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4"
+              >
+                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
+                  {issue.eyebrow}
+                </div>
+                <div className="mt-2 text-lg font-semibold tracking-[-0.02em] text-neutral-950">
+                  {issue.title}
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {issue.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="grid gap-4 xl:grid-cols-2">
           {issues.map((issue) => (
             <article
@@ -69,6 +114,16 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
                 {issue.title}
               </h2>
               <p className="mt-3 text-sm leading-6 text-neutral-600">{issue.summary}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {issue.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
               <div className="mt-5 grid gap-2">
                 {issue.highlights.map((highlight) => (
                   <div

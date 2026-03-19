@@ -72,6 +72,8 @@ ensureColumn("orders", "attributed_source TEXT");
 ensureColumn("orders", "attributed_utm_source TEXT");
 ensureColumn("orders", "attributed_utm_medium TEXT");
 ensureColumn("orders", "attributed_utm_campaign TEXT");
+ensureColumn("orders", "attributed_utm_term TEXT");
+ensureColumn("orders", "attributed_utm_content TEXT");
 ensureColumn("orders", "attributed_landing_path TEXT");
 
 ensureColumn("subscribers", "landing_path TEXT");

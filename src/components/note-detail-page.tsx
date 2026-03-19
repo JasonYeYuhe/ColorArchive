@@ -1,7 +1,24 @@
 import Link from "next/link";
+import { collections } from "@/src/lib/collections";
+import { palettePacks } from "@/src/lib/palette-packs";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
 
-export function NoteDetailPage({ issue }: { issue: NewsletterIssue }) {
+export function NoteDetailPage({
+  issue,
+  previousIssue,
+  nextIssue,
+}: {
+  issue: NewsletterIssue;
+  previousIssue: NewsletterIssue | null;
+  nextIssue: NewsletterIssue | null;
+}) {
+  const featuredCollection = issue.featuredCollectionId
+    ? collections.find((collection) => collection.id === issue.featuredCollectionId) ?? null
+    : null;
+  const featuredPack = issue.featuredPackId
+    ? palettePacks.find((pack) => pack.id === issue.featuredPackId) ?? null
+    : null;
+
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
@@ -19,6 +36,16 @@ export function NoteDetailPage({ issue }: { issue: NewsletterIssue }) {
           <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
             {issue.summary}
           </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {issue.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-500"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </section>
 
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
@@ -52,28 +79,123 @@ export function NoteDetailPage({ issue }: { issue: NewsletterIssue }) {
             ))}
           </div>
 
-          <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Open next
-            </div>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {issue.links.map((link) => (
+          <div className="space-y-4">
+            {featuredCollection ? (
+              <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Featured collection
+                </div>
+                <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                  {featuredCollection.title}
+                </div>
+                <p className="mt-3 text-sm leading-6 text-neutral-600">{featuredCollection.summary}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Link
+                    href={`/collections/${featuredCollection.id}`}
+                    className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                  >
+                    Open collection
+                  </Link>
+                  <Link
+                    href={`/search?family=${encodeURIComponent(featuredCollection.palette[0]?.family ?? "Green")}`}
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                  >
+                    Search family
+                  </Link>
+                </div>
+              </aside>
+            ) : null}
+
+            {featuredPack ? (
+              <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Featured pack
+                </div>
+                <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                  {featuredPack.title}
+                </div>
+                <div className="mt-2 text-sm font-medium text-neutral-500">{featuredPack.priceHint}</div>
+                <p className="mt-3 text-sm leading-6 text-neutral-600">{featuredPack.detail}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Link
+                    href={`/packs/${featuredPack.id}`}
+                    className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                  >
+                    Open pack
+                  </Link>
+                  <Link
+                    href="/free-pack"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                  >
+                    Try free layer
+                  </Link>
+                </div>
+              </aside>
+            ) : null}
+
+            <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Open next
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {issue.links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
                 <Link
-                  key={link.href}
-                  href={link.href}
-                  className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                  href="/waitlist"
+                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
-                  {link.label}
+                  Join updates
                 </Link>
-              ))}
-              <Link
-                href="/waitlist"
-                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-              >
-                Join updates
-              </Link>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section className="grid gap-4 md:grid-cols-2">
+          {nextIssue ? (
+            <Link
+              href={`/notes/${nextIssue.slug}`}
+              className="rounded-[1.5rem] border border-black/6 bg-white/82 px-5 py-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5"
+            >
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Newer issue
+              </div>
+              <div className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
+                {nextIssue.title}
+              </div>
+              <div className="mt-2 text-sm text-neutral-500">{nextIssue.date}</div>
+            </Link>
+          ) : (
+            <div className="rounded-[1.5rem] border border-dashed border-black/10 bg-white/60 px-5 py-5 text-sm text-neutral-500">
+              This is the newest issue in the public archive.
             </div>
-          </aside>
+          )}
+
+          {previousIssue ? (
+            <Link
+              href={`/notes/${previousIssue.slug}`}
+              className="rounded-[1.5rem] border border-black/6 bg-white/82 px-5 py-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5"
+            >
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Older issue
+              </div>
+              <div className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
+                {previousIssue.title}
+              </div>
+              <div className="mt-2 text-sm text-neutral-500">{previousIssue.date}</div>
+            </Link>
+          ) : (
+            <div className="rounded-[1.5rem] border border-dashed border-black/10 bg-white/60 px-5 py-5 text-sm text-neutral-500">
+              This is currently the oldest public issue.
+            </div>
+          )}
         </section>
       </div>
     </main>

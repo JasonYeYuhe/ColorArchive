@@ -383,6 +383,30 @@ rose-core-soft
           >
             Style Dictionary
           </a>
+          <a
+            href="/downloads/colorarchive.gpl"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
+          >
+            GPL palette
+          </a>
+          <a
+            href="/downloads/colorarchive-sketchpalette.json"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
+          >
+            Sketch palette
+          </a>
+          <a
+            href="/downloads/colorarchive.ase"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
+          >
+            ASE swatches
+          </a>
         </div>
       </div>
     </div>

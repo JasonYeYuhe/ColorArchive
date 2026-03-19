@@ -5,15 +5,20 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import {
   API_URL,
+  fetchAdminOrders,
   fetchOrders,
+  type AdminOrder,
+  resendAdminOrderEmail,
   resendOrderEmail,
   type AccountOrder,
 } from "@/src/lib/auth-client";
 import { useAuth } from "@/src/components/auth-provider";
+import { licenseTiers, supportPolicy } from "@/src/lib/license-tiers";
 
 type FormState = "idle" | "loading" | "success" | "error";
 type VerifyState = "idle" | "loading" | "success" | "error";
 type OrdersState = "idle" | "loading" | "success" | "error";
+type AdminState = "idle" | "loading" | "success" | "error";
 
 function formatSyncTime(timestamp: number | null) {
   if (!timestamp) {
@@ -55,8 +60,11 @@ export function LoginPage() {
   const [verifyState, setVerifyState] = useState<VerifyState>("idle");
   const [ordersState, setOrdersState] = useState<OrdersState>("idle");
   const [orders, setOrders] = useState<AccountOrder[]>([]);
+  const [adminOrders, setAdminOrders] = useState<AdminOrder[]>([]);
   const [error, setError] = useState("");
   const [ordersError, setOrdersError] = useState("");
+  const [adminState, setAdminState] = useState<AdminState>("idle");
+  const [adminError, setAdminError] = useState("");
   const [resendState, setResendState] = useState<Record<string, "idle" | "sending" | "sent">>({});
 
   const token = searchParams.get("token");
@@ -192,6 +200,45 @@ export function LoginPage() {
     };
   }, [user]);
 
+  useEffect(() => {
+    if (!user || !analyticsAccess) {
+      setAdminOrders([]);
+      setAdminState("idle");
+      setAdminError("");
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadAdminOrders() {
+      setAdminState("loading");
+      setAdminError("");
+
+      try {
+        const payload = await fetchAdminOrders();
+        if (cancelled) {
+          return;
+        }
+
+        setAdminOrders(payload.orders);
+        setAdminState("success");
+      } catch (err) {
+        if (cancelled) {
+          return;
+        }
+
+        setAdminState("error");
+        setAdminError(err instanceof Error ? err.message : "Could not load admin queue");
+      }
+    }
+
+    void loadAdminOrders();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [analyticsAccess, user]);
+
   function handleGoogleLogin() {
     window.location.assign(`${API_URL}/auth/google/start?next=${encodeURIComponent(nextPath)}`);
   }
@@ -207,6 +254,20 @@ export function LoginPage() {
     } catch (err) {
       setOrdersError(err instanceof Error ? err.message : "Could not resend order email");
       setResendState((current) => ({ ...current, [orderId]: "idle" }));
+    }
+  }
+
+  async function handleAdminResend(orderId: string) {
+    try {
+      setResendState((current) => ({ ...current, [`admin-${orderId}`]: "sending" }));
+      await resendAdminOrderEmail(orderId);
+      setResendState((current) => ({ ...current, [`admin-${orderId}`]: "sent" }));
+      window.setTimeout(() => {
+        setResendState((current) => ({ ...current, [`admin-${orderId}`]: "idle" }));
+      }, 2000);
+    } catch (err) {
+      setAdminError(err instanceof Error ? err.message : "Could not resend admin order email");
+      setResendState((current) => ({ ...current, [`admin-${orderId}`]: "idle" }));
     }
   }
 
@@ -300,12 +361,20 @@ export function LoginPage() {
                       Browse packs
                     </Link>
                     {analyticsAccess ? (
-                      <Link
-                        href="/analytics"
-                        className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                      >
-                        Open analytics
-                      </Link>
+                      <>
+                        <Link
+                          href="/analytics"
+                          className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                        >
+                          Open analytics
+                        </Link>
+                        <Link
+                          href="/admin/orders"
+                          className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                        >
+                          Admin orders
+                        </Link>
+                      </>
                     ) : null}
                     <button
                       type="button"
@@ -532,7 +601,7 @@ export function LoginPage() {
                   email actions.
                 </p>
               </div>
-              <div className="mt-6 flex flex-wrap gap-3">
+                <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="/favorites"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
@@ -552,12 +621,20 @@ export function LoginPage() {
                   Packs
                 </Link>
                 {analyticsAccess ? (
-                  <Link
-                    href="/analytics"
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                  >
-                    Analytics
-                  </Link>
+                  <>
+                    <Link
+                      href="/analytics"
+                      className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                    >
+                      Analytics
+                    </Link>
+                    <Link
+                      href="/admin/orders"
+                      className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                    >
+                      Admin orders
+                    </Link>
+                  </>
                 ) : null}
               </div>
             </div>
@@ -566,15 +643,30 @@ export function LoginPage() {
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
                 License & support
               </div>
-              <div className="mt-5 space-y-4 text-sm leading-6 text-neutral-600">
-                <p>
-                  Purchased ZIPs are intended for your own design and development workflow unless a
-                  future pack page states a broader commercial license.
-                </p>
-                <p>
-                  Need help locating a file or clarifying a purchase? Use the receipt link above or
-                  contact the archive directly.
-                </p>
+              <div className="mt-5 grid gap-3">
+                {licenseTiers.map((tier) => (
+                  <div
+                    key={tier.id}
+                    className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <div className="text-sm font-semibold text-neutral-950">{tier.label}</div>
+                        <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
+                          {tier.priceNote}
+                        </div>
+                      </div>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-neutral-600">{tier.summary}</p>
+                    <div className="mt-3 text-sm leading-6 text-neutral-600">
+                      {tier.rights[0]}.
+                    </div>
+                  </div>
+                ))}
+                <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
+                  Purchase support usually replies within {supportPolicy.purchaseResponseWindow.toLowerCase()}.
+                  Coverage includes {supportPolicy.resendCoverage.toLowerCase()}.
+                </div>
               </div>
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
@@ -591,6 +683,71 @@ export function LoginPage() {
                 </Link>
               </div>
             </div>
+
+            {analyticsAccess ? (
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/78 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                      Admin queue
+                    </div>
+                    <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                      Recent order actions
+                    </h3>
+                  </div>
+                  <Link
+                    href="/admin/orders"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                  >
+                    Open full queue
+                  </Link>
+                </div>
+
+                {adminState === "loading" || adminState === "idle" ? (
+                  <p className="mt-5 text-sm text-neutral-500">Loading admin queue…</p>
+                ) : null}
+
+                {adminState === "error" ? (
+                  <p className="mt-5 text-sm text-red-600">{adminError}</p>
+                ) : null}
+
+                {adminState === "success" ? (
+                  <div className="mt-5 grid gap-3">
+                    {adminOrders.slice(0, 3).map((order) => (
+                      <article
+                        key={`admin-${order.orderId}`}
+                        className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4"
+                      >
+                        <div className="text-sm font-semibold text-neutral-950">{order.product}</div>
+                        <div className="mt-2 text-sm text-neutral-500">
+                          {order.email} · {order.orderId}
+                        </div>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            onClick={() => void handleAdminResend(order.orderId)}
+                            disabled={resendState[`admin-${order.orderId}`] === "sending"}
+                            className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 disabled:opacity-50"
+                          >
+                            {resendState[`admin-${order.orderId}`] === "sending"
+                              ? "Sending…"
+                              : resendState[`admin-${order.orderId}`] === "sent"
+                                ? "Sent"
+                                : "Resend email"}
+                          </button>
+                          <a
+                            href={`mailto:${order.email}?subject=${encodeURIComponent(`ColorArchive support · ${order.product}`)}`}
+                            className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                          >
+                            Email buyer
+                          </a>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
           </aside>
         </section>
       </div>

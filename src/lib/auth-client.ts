@@ -36,8 +36,23 @@ export interface AccountOrder {
     utmSource: string | null;
     utmMedium: string | null;
     utmCampaign: string | null;
+    utmTerm: string | null;
+    utmContent: string | null;
     landingPath: string | null;
   };
+}
+
+export interface AdminOrder {
+  orderId: string;
+  email: string;
+  product: string;
+  amount: number;
+  currency: string;
+  created_at: string;
+  packId: string | null;
+  packUrl: string | null;
+  downloadUrl: string | null;
+  receiptUrl: string | null;
 }
 
 async function parseResponse<T>(response: Response): Promise<T> {
@@ -122,6 +137,23 @@ export async function fetchOrders(): Promise<{ orders: AccountOrder[] }> {
 
 export async function resendOrderEmail(orderId: string): Promise<void> {
   const response = await fetch(`${API_URL}/me/orders/${encodeURIComponent(orderId)}/resend`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  await parseResponse<{ ok: true }>(response);
+}
+
+export async function fetchAdminOrders(): Promise<{ orders: AdminOrder[] }> {
+  const response = await fetch(`${API_URL}/admin/orders`, {
+    credentials: "include",
+  });
+
+  return parseResponse<{ orders: AdminOrder[] }>(response);
+}
+
+export async function resendAdminOrderEmail(orderId: string): Promise<void> {
+  const response = await fetch(`${API_URL}/admin/orders/${encodeURIComponent(orderId)}/resend`, {
     method: "POST",
     credentials: "include",
   });

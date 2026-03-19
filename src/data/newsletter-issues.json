@@ -5,6 +5,9 @@
     "title": "Matcha & Linen, calm product surfaces, and what shipped in March",
     "summary": "A monthly ColorArchive note covering a calm green editorial direction, the archive's new account layer, and live token exports.",
     "eyebrow": "Issue 001",
+    "tags": ["Wellness", "Account", "Tokens"],
+    "featuredCollectionId": "matcha-linen",
+    "featuredPackId": "complete-archive",
     "highlights": [
       "Featured palette direction: Matcha & Linen for wellness, artisan packaging, and quiet interfaces.",
       "Account sync is now live with magic link and Google sign-in, plus lightweight order history.",
@@ -41,6 +44,9 @@
     "title": "A dark mode lane worth keeping, with Nocturne Tech as the anchor",
     "summary": "A focused note on dark mode palette decisions, pre-paired token sets, and where the Dark Mode UI Kit fits.",
     "eyebrow": "Issue 000",
+    "tags": ["Dark mode", "Contrast", "Product"],
+    "featuredCollectionId": "nocturne-tech",
+    "featuredPackId": "dark-mode-ui-kit",
     "highlights": [
       "Nocturne Tech remains the strongest public proof for ColorArchive's dark-mode taste.",
       "The Dark Mode UI Kit is positioned less as swatches and more as pre-paired implementation help.",

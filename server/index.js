@@ -33,6 +33,7 @@ app.use((req, res, next) => {
 app.use("/subscribe", require("./routes/subscribe"));
 app.use("/auth", require("./routes/auth"));
 app.use("/me", require("./routes/me"));
+app.use("/admin", require("./routes/admin"));
 app.use("/webhook", require("./routes/webhook"));
 app.use("/analytics", require("./routes/analytics"));
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { licenseTiers, supportPolicy } from "@/src/lib/license-tiers";
 
 const revenueTracks = [
   {
@@ -228,6 +229,62 @@ export function SupportPage() {
               <p className="mt-3 text-sm leading-6 text-neutral-600">{lane.detail}</p>
             </article>
           ))}
+        </section>
+
+        <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
+          <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              License tiers
+            </div>
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              {licenseTiers.map((tier) => (
+                <article
+                  key={tier.id}
+                  className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4"
+                >
+                  <div className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">
+                    {tier.label}
+                  </div>
+                  <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
+                    {tier.priceNote}
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-neutral-600">{tier.summary}</p>
+                  <div className="mt-4 space-y-2">
+                    {tier.rights.map((item) => (
+                      <div key={item} className="text-sm leading-6 text-neutral-600">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              Support SLA
+            </div>
+            <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
+              <p>Purchase support target: {supportPolicy.purchaseResponseWindow}.</p>
+              <p>Coverage: {supportPolicy.resendCoverage}.</p>
+              <p>Escalation: {supportPolicy.escalation}.</p>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <a
+                href="mailto:hello@colorarchive.me?subject=ColorArchive%20license%20question"
+                className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+              >
+                Ask about licensing
+              </a>
+              <Link
+                href="/login"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Account & orders
+              </Link>
+            </div>
+          </aside>
         </section>
 
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.95fr)]">

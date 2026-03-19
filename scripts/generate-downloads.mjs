@@ -291,6 +291,92 @@ function buildFigmaTokens(colors) {
   );
 }
 
+function hexToRgb(hex) {
+  return {
+    r: parseInt(hex.slice(1, 3), 16),
+    g: parseInt(hex.slice(3, 5), 16),
+    b: parseInt(hex.slice(5, 7), 16),
+  };
+}
+
+function buildGplPalette(colors, name) {
+  const lines = [
+    "GIMP Palette",
+    `Name: ${name}`,
+    "Columns: 4",
+    "#",
+  ];
+
+  colors.forEach((color) => {
+    const { r, g, b } = hexToRgb(color.hex);
+    lines.push(`${String(r).padStart(3, " ")} ${String(g).padStart(3, " ")} ${String(b).padStart(3, " ")}\t${color.name}`);
+  });
+
+  return lines.join("\n");
+}
+
+function buildSketchpalette(colors) {
+  return {
+    compatibleVersion: "2.0",
+    pluginVersion: "2.14",
+    colors: colors.map((color) => {
+      const { r, g, b } = hexToRgb(color.hex);
+      return {
+        red: r / 255,
+        green: g / 255,
+        blue: b / 255,
+        alpha: 1,
+      };
+    }),
+  };
+}
+
+function encodeUtf16beString(value) {
+  const buffer = Buffer.alloc(value.length * 2);
+  for (let index = 0; index < value.length; index += 1) {
+    buffer.writeUInt16BE(value.charCodeAt(index), index * 2);
+  }
+  return buffer;
+}
+
+function createAseColorBlock(color) {
+  const nameWithNull = `${color.name}\0`;
+  const nameBuffer = encodeUtf16beString(nameWithNull);
+  const content = Buffer.alloc(2 + nameBuffer.length + 4 + 12 + 2);
+  let offset = 0;
+  content.writeUInt16BE(nameWithNull.length, offset);
+  offset += 2;
+  nameBuffer.copy(content, offset);
+  offset += nameBuffer.length;
+  content.write("RGB ", offset, "ascii");
+  offset += 4;
+
+  const { r, g, b } = hexToRgb(color.hex);
+  content.writeFloatBE(r / 255, offset);
+  offset += 4;
+  content.writeFloatBE(g / 255, offset);
+  offset += 4;
+  content.writeFloatBE(b / 255, offset);
+  offset += 4;
+  content.writeUInt16BE(0, offset);
+
+  const header = Buffer.alloc(6);
+  header.writeUInt16BE(0x0001, 0);
+  header.writeUInt32BE(content.length, 2);
+
+  return Buffer.concat([header, content]);
+}
+
+function buildAsePalette(colors) {
+  const header = Buffer.alloc(12);
+  header.write("ASEF", 0, "ascii");
+  header.writeUInt16BE(1, 4);
+  header.writeUInt16BE(0, 6);
+  header.writeUInt32BE(colors.length, 8);
+
+  return Buffer.concat([header, ...colors.map((color) => createAseColorBlock(color))]);
+}
+
 function createOgSvg({ eyebrow, title, summary, swatches, accent = "#171717" }) {
   const swatchRects = swatches
     .slice(0, 6)
@@ -327,19 +413,28 @@ mkdirSync(join(OG_DIR, "families"), { recursive: true });
 mkdirSync(join(OG_DIR, "colors"), { recursive: true });
 
 // Full archive exports
+const ALL_ARCHIVE_COLORS = [...colorMap.entries()].map(([id, color]) => ({ ...color, id }));
+
 writeFileSync(join(OUT_DIR, "colorarchive-all-collections.css"), generateCss(COLLECTIONS), "utf8");
 writeFileSync(join(OUT_DIR, "colorarchive-all-collections.json"), generateJson(COLLECTIONS), "utf8");
 writeFileSync(join(OUT_DIR, "colorarchive-tailwind-tokens.css"), generateTailwindSnippet(COLLECTIONS), "utf8");
 writeFileSync(
   join(OUT_DIR, "colorarchive-style-dictionary.json"),
-  JSON.stringify(buildStyleDictionaryTokens([...colorMap.entries()].map(([id, color]) => ({ ...color, id }))), null, 2),
+  JSON.stringify(buildStyleDictionaryTokens(ALL_ARCHIVE_COLORS), null, 2),
   "utf8",
 );
 writeFileSync(
   join(OUT_DIR, "colorarchive-figma-tokens.json"),
-  JSON.stringify(buildFigmaTokens([...colorMap.entries()].map(([id, color]) => ({ ...color, id }))), null, 2),
+  JSON.stringify(buildFigmaTokens(ALL_ARCHIVE_COLORS), null, 2),
   "utf8",
 );
+writeFileSync(join(OUT_DIR, "colorarchive.gpl"), buildGplPalette(ALL_ARCHIVE_COLORS, "ColorArchive Full Library"), "utf8");
+writeFileSync(
+  join(OUT_DIR, "colorarchive-sketchpalette.json"),
+  JSON.stringify(buildSketchpalette(ALL_ARCHIVE_COLORS), null, 2),
+  "utf8",
+);
+writeFileSync(join(OUT_DIR, "colorarchive.ase"), buildAsePalette(ALL_ARCHIVE_COLORS));
 
 // Pack preview files
 for (const pack of PACK_PREVIEWS) {
@@ -350,14 +445,21 @@ for (const pack of PACK_PREVIEWS) {
 // Additional token exports for design-tool workflows
 writeFileSync(
   join(OUT_DIR, "complete-archive-style-dictionary.json"),
-  JSON.stringify(buildStyleDictionaryTokens([...colorMap.entries()].map(([id, color]) => ({ ...color, id }))), null, 2),
+  JSON.stringify(buildStyleDictionaryTokens(ALL_ARCHIVE_COLORS), null, 2),
   "utf8",
 );
 writeFileSync(
   join(OUT_DIR, "complete-archive-figma-tokens.json"),
-  JSON.stringify(buildFigmaTokens([...colorMap.entries()].map(([id, color]) => ({ ...color, id }))), null, 2),
+  JSON.stringify(buildFigmaTokens(ALL_ARCHIVE_COLORS), null, 2),
   "utf8",
 );
+writeFileSync(join(OUT_DIR, "complete-archive.gpl"), buildGplPalette(ALL_ARCHIVE_COLORS, "Complete Archive Token Set"), "utf8");
+writeFileSync(
+  join(OUT_DIR, "complete-archive-sketchpalette.json"),
+  JSON.stringify(buildSketchpalette(ALL_ARCHIVE_COLORS), null, 2),
+  "utf8",
+);
+writeFileSync(join(OUT_DIR, "complete-archive.ase"), buildAsePalette(ALL_ARCHIVE_COLORS));
 
 // Route-specific OG assets
 for (const collection of COLLECTIONS) {
@@ -728,13 +830,16 @@ writeFileSync(join(OUT_DIR, "complete-archive-scss-maps.scss"), generateScss(), 
 
 const completeArchiveReadme = `ColorArchive — Complete Archive Token Set
 
-ALL 2016 COLORS IN FOUR FORMATS
+ALL 2016 COLORS IN MULTIPLE FORMATS
 
 FORMATS INCLUDED
 - CSS variables (complete-archive-all-colors.css)
 - Tailwind CSS 4 theme tokens (complete-archive-tailwind-tokens.css)
 - Structured JSON with hex, HSL, RGB (complete-archive-all-colors.json)
 - SCSS color maps by hue family (complete-archive-scss-maps.scss)
+- GIMP palette (complete-archive.gpl)
+- Sketch palette JSON (complete-archive-sketchpalette.json)
+- Adobe Swatch Exchange (complete-archive.ase)
 
 COLOR NAMING
 Each color follows the pattern: {hue}-{lightness}-{chroma}
@@ -754,6 +859,9 @@ createZip("complete-archive.zip", [
   "complete-archive-tailwind-tokens.css",
   "complete-archive-all-colors.json",
   "complete-archive-scss-maps.scss",
+  "complete-archive.gpl",
+  "complete-archive-sketchpalette.json",
+  "complete-archive.ase",
   "complete-archive-preview.css",
   "complete-archive-preview.json",
   "README-complete-archive.txt",

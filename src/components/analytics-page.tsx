@@ -6,6 +6,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+const ZERO_DECIMAL_CURRENCIES = new Set(["JPY", "KRW"]);
+type LoadState = "idle" | "loading" | "success" | "error";
 
 interface AnalyticsResponse {
   filters: {
@@ -14,12 +16,18 @@ interface AnalyticsResponse {
       source: string | null;
       utmCampaign: string | null;
       utmSource: string | null;
+      utmMedium: string | null;
+      utmTerm: string | null;
+      utmContent: string | null;
       landingPath: string | null;
     };
     options: {
       sources: string[];
       utmCampaigns: string[];
       utmSources: string[];
+      utmMediums: string[];
+      utmTerms: string[];
+      utmContents: string[];
       landingPaths: string[];
     };
   };
@@ -31,6 +39,19 @@ interface AnalyticsResponse {
     total: number;
     revenue: number;
   };
+  comparisons: {
+    subscribers: { current: number; previous: number; delta: number; change: number };
+    orders: { current: number; previous: number; delta: number; change: number };
+    revenue: { current: number; previous: number; delta: number; change: number };
+  };
+  sourceCohorts: Array<{
+    source: string;
+    subscribers: number;
+    purchasers: number;
+    orders: number;
+    revenue: number;
+    conversionRate: number;
+  }>;
   funnel: {
     freePackSubscribers: number;
     waitlistSubscribers: number;
@@ -50,7 +71,10 @@ interface AnalyticsResponse {
       email: string;
       source: string;
       utm_source?: string | null;
+      utm_medium?: string | null;
       utm_campaign?: string | null;
+      utm_term?: string | null;
+      utm_content?: string | null;
       landing_path?: string | null;
       created_at: string;
     }>;
@@ -60,14 +84,16 @@ interface AnalyticsResponse {
       amount: number;
       currency: string;
       attributed_source?: string | null;
+      attributed_utm_source?: string | null;
+      attributed_utm_medium?: string | null;
       attributed_utm_campaign?: string | null;
+      attributed_utm_term?: string | null;
+      attributed_utm_content?: string | null;
+      attributed_landing_path?: string | null;
       created_at: string;
     }>;
   };
 }
-
-type LoadState = "idle" | "loading" | "success" | "error";
-const ZERO_DECIMAL_CURRENCIES = new Set(["JPY", "KRW"]);
 
 function formatCurrency(amount: number, currency: string) {
   const normalizedCurrency = currency.toUpperCase();
@@ -97,46 +123,10 @@ function formatPercent(value: number) {
   return `${Math.round(value * 100)}%`;
 }
 
-function MiniBarChart({
-  data,
-  colorClass,
-  label,
-  valueFormatter,
-}: {
-  data: Array<{ day: string; value: number }>;
-  colorClass: string;
-  label: string;
-  valueFormatter?: (value: number) => string;
-}) {
-  const maxValue = Math.max(...data.map((entry) => entry.value), 1);
-
-  return (
-    <div className="rounded-[1.4rem] border border-black/6 bg-neutral-50 px-4 py-4">
-      <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-        {label}
-      </div>
-      <div className="mt-4 flex h-40 items-end gap-2">
-        {data.map((entry) => (
-          <div key={entry.day} className="flex flex-1 flex-col items-center gap-2">
-            <div className="text-[10px] text-neutral-400">
-              {valueFormatter ? valueFormatter(entry.value) : entry.value}
-            </div>
-            <div className="flex h-28 w-full items-end">
-              <div
-                className={`w-full rounded-t-xl ${colorClass}`}
-                style={{
-                  height: `${Math.max((entry.value / maxValue) * 100, entry.value > 0 ? 8 : 2)}%`,
-                }}
-              />
-            </div>
-            <div className="text-[10px] uppercase tracking-[0.12em] text-neutral-400">
-              {formatShortDay(entry.day)}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+function formatDelta(change: number) {
+  const percent = Math.round(change * 100);
+  const sign = percent > 0 ? "+" : "";
+  return `${sign}${percent}% vs previous window`;
 }
 
 function FilterSelect({
@@ -171,6 +161,67 @@ function FilterSelect({
   );
 }
 
+function MetricCard({
+  label,
+  value,
+  detail,
+  comparison,
+}: {
+  label: string;
+  value: string;
+  detail: string;
+  comparison: string;
+}) {
+  return (
+    <article className="rounded-[1.7rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+      <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">{label}</div>
+      <div className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-neutral-950">{value}</div>
+      <div className="mt-2 text-sm text-neutral-500">{detail}</div>
+      <div className="mt-3 text-xs uppercase tracking-[0.14em] text-neutral-400">{comparison}</div>
+    </article>
+  );
+}
+
+function MiniBarChart({
+  data,
+  colorClass,
+  label,
+  valueFormatter,
+}: {
+  data: Array<{ day: string; value: number }>;
+  colorClass: string;
+  label: string;
+  valueFormatter?: (value: number) => string;
+}) {
+  const maxValue = Math.max(...data.map((entry) => entry.value), 1);
+
+  return (
+    <div className="rounded-[1.4rem] border border-black/6 bg-neutral-50 px-4 py-4">
+      <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">{label}</div>
+      <div className="mt-4 flex h-40 items-end gap-2">
+        {data.map((entry) => (
+          <div key={entry.day} className="flex flex-1 flex-col items-center gap-2">
+            <div className="text-[10px] text-neutral-400">
+              {valueFormatter ? valueFormatter(entry.value) : entry.value}
+            </div>
+            <div className="flex h-28 w-full items-end">
+              <div
+                className={`w-full rounded-t-xl ${colorClass}`}
+                style={{
+                  height: `${Math.max((entry.value / maxValue) * 100, entry.value > 0 ? 8 : 2)}%`,
+                }}
+              />
+            </div>
+            <div className="text-[10px] uppercase tracking-[0.12em] text-neutral-400">
+              {formatShortDay(entry.day)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function AnalyticsPage() {
   const { analyticsAccess, status } = useAuth();
   const pathname = usePathname();
@@ -186,6 +237,9 @@ export function AnalyticsPage() {
       source: searchParams.get("source") ?? "all",
       utmCampaign: searchParams.get("utm_campaign") ?? "all",
       utmSource: searchParams.get("utm_source") ?? "all",
+      utmMedium: searchParams.get("utm_medium") ?? "all",
+      utmTerm: searchParams.get("utm_term") ?? "all",
+      utmContent: searchParams.get("utm_content") ?? "all",
       landingPath: searchParams.get("landing_path") ?? "all",
     }),
     [searchParams],
@@ -203,6 +257,9 @@ export function AnalyticsPage() {
       if (filters.source !== "all") apiSearchParams.set("source", filters.source);
       if (filters.utmCampaign !== "all") apiSearchParams.set("utm_campaign", filters.utmCampaign);
       if (filters.utmSource !== "all") apiSearchParams.set("utm_source", filters.utmSource);
+      if (filters.utmMedium !== "all") apiSearchParams.set("utm_medium", filters.utmMedium);
+      if (filters.utmTerm !== "all") apiSearchParams.set("utm_term", filters.utmTerm);
+      if (filters.utmContent !== "all") apiSearchParams.set("utm_content", filters.utmContent);
       if (filters.landingPath !== "all") apiSearchParams.set("landing_path", filters.landingPath);
 
       try {
@@ -242,7 +299,16 @@ export function AnalyticsPage() {
     return () => {
       cancelled = true;
     };
-  }, [filters.days, filters.landingPath, filters.source, filters.utmCampaign, filters.utmSource]);
+  }, [
+    filters.days,
+    filters.landingPath,
+    filters.source,
+    filters.utmCampaign,
+    filters.utmContent,
+    filters.utmMedium,
+    filters.utmSource,
+    filters.utmTerm,
+  ]);
 
   function updateFilter(key: string, value: string) {
     const nextParams = new URLSearchParams(searchParams.toString());
@@ -274,13 +340,27 @@ export function AnalyticsPage() {
               Subscribers, orders, and attributed traffic
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
-              Filter the live analytics feed by source, campaign, landing page, and lookback
-              window to see which capture paths are producing actual buying behavior.
+              Filter the live analytics feed by source, campaign, landing page, and deeper UTM
+              fields to see which capture paths are producing actual buying behavior.
             </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              <Link
+                href="/admin/orders"
+                className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+              >
+                Admin orders
+              </Link>
+              <Link
+                href="/notes"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Notes archive
+              </Link>
+            </div>
           </div>
         </section>
 
-        <section className="grid gap-3 rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] md:grid-cols-2 xl:grid-cols-5">
+        <section className="grid gap-3 rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] md:grid-cols-2 xl:grid-cols-4">
           <FilterSelect
             label="Range"
             value={filters.days}
@@ -304,6 +384,24 @@ export function AnalyticsPage() {
             value={filters.utmSource}
             options={data?.filters.options.utmSources ?? []}
             onChange={(value) => updateFilter("utm_source", value)}
+          />
+          <FilterSelect
+            label="UTM Medium"
+            value={filters.utmMedium}
+            options={data?.filters.options.utmMediums ?? []}
+            onChange={(value) => updateFilter("utm_medium", value)}
+          />
+          <FilterSelect
+            label="UTM Term"
+            value={filters.utmTerm}
+            options={data?.filters.options.utmTerms ?? []}
+            onChange={(value) => updateFilter("utm_term", value)}
+          />
+          <FilterSelect
+            label="UTM Content"
+            value={filters.utmContent}
+            options={data?.filters.options.utmContents ?? []}
+            onChange={(value) => updateFilter("utm_content", value)}
           />
           <FilterSelect
             label="Landing Path"
@@ -342,42 +440,24 @@ export function AnalyticsPage() {
         {data ? (
           <>
             <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-              <article className="rounded-[1.7rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Subscribers
-                </div>
-                <div className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-neutral-950">
-                  {data.subscribers.total}
-                </div>
-                <div className="mt-2 text-sm text-neutral-500">
-                  Filtered subscriber captures in the selected window.
-                </div>
-              </article>
-
-              <article className="rounded-[1.7rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Orders
-                </div>
-                <div className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-neutral-950">
-                  {data.orders.total}
-                </div>
-                <div className="mt-2 text-sm text-neutral-500">
-                  Attributed orders in the selected window.
-                </div>
-              </article>
-
-              <article className="rounded-[1.7rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Revenue
-                </div>
-                <div className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-neutral-950">
-                  {formatCurrency(data.orders.revenue, dominantCurrency)}
-                </div>
-                <div className="mt-2 text-sm text-neutral-500">
-                  Revenue in the selected filter scope.
-                </div>
-              </article>
-
+              <MetricCard
+                label="Subscribers"
+                value={String(data.subscribers.total)}
+                detail="Filtered subscriber captures in the selected window."
+                comparison={formatDelta(data.comparisons.subscribers.change)}
+              />
+              <MetricCard
+                label="Orders"
+                value={String(data.orders.total)}
+                detail="Attributed orders in the selected window."
+                comparison={formatDelta(data.comparisons.orders.change)}
+              />
+              <MetricCard
+                label="Revenue"
+                value={formatCurrency(data.orders.revenue, dominantCurrency)}
+                detail="Revenue in the selected filter scope."
+                comparison={formatDelta(data.comparisons.revenue.change)}
+              />
               <article className="rounded-[1.7rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                   Top source
@@ -394,16 +474,26 @@ export function AnalyticsPage() {
             <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
               <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Subscriber sources
+                  Source cohorts
                 </div>
-                <div className="mt-4 space-y-3">
-                  {data.subscribers.bySource.map((source) => (
+                <div className="mt-4 grid gap-3">
+                  {data.sourceCohorts.map((cohort) => (
                     <div
-                      key={source.source}
-                      className="flex items-center justify-between rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-3"
+                      key={cohort.source}
+                      className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4"
                     >
-                      <div className="text-sm font-medium text-neutral-950">{source.source}</div>
-                      <div className="text-sm text-neutral-500">{source.count}</div>
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="text-sm font-semibold text-neutral-950">{cohort.source}</div>
+                        <div className="text-sm font-medium text-neutral-500">
+                          {formatPercent(cohort.conversionRate)}
+                        </div>
+                      </div>
+                      <div className="mt-3 flex flex-wrap gap-4 text-sm text-neutral-500">
+                        <span>{cohort.subscribers} subs</span>
+                        <span>{cohort.purchasers} purchasers</span>
+                        <span>{cohort.orders} orders</span>
+                        <span>{formatCurrency(cohort.revenue, dominantCurrency)}</span>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -501,6 +591,8 @@ export function AnalyticsPage() {
                       <div className="text-sm font-medium text-neutral-950">{subscriber.email}</div>
                       <div className="mt-2 text-sm text-neutral-500">
                         {subscriber.source}
+                        {subscriber.utm_source ? ` · ${subscriber.utm_source}` : ""}
+                        {subscriber.utm_medium ? ` · ${subscriber.utm_medium}` : ""}
                         {subscriber.utm_campaign ? ` · ${subscriber.utm_campaign}` : ""}
                         {subscriber.landing_path ? ` · ${subscriber.landing_path}` : ""}
                       </div>
@@ -525,6 +617,8 @@ export function AnalyticsPage() {
                         <div className="text-sm font-medium text-neutral-950">{order.product}</div>
                         <div className="mt-1 text-sm text-neutral-500">
                           {order.email} · {order.attributed_source ?? "unattributed"}
+                          {order.attributed_utm_source ? ` · ${order.attributed_utm_source}` : ""}
+                          {order.attributed_utm_medium ? ` · ${order.attributed_utm_medium}` : ""}
                           {order.attributed_utm_campaign ? ` · ${order.attributed_utm_campaign}` : ""}
                         </div>
                       </div>
