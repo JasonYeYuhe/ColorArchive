@@ -12,6 +12,8 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const OUT_DIR = join(ROOT, "public", "downloads");
+const GENERATED_DIR = join(ROOT, "public", "generated");
+const OG_DIR = join(GENERATED_DIR, "og");
 
 // Minimal HSL→RGB→Hex implementation (mirrors src/lib/color-utils.ts)
 function hslToHex(h, s, l) {
@@ -63,6 +65,15 @@ const CHROMA_CATALOG = [
 
 function createId(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+function escapeXml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
 }
 
 // Build color lookup map
@@ -153,6 +164,18 @@ const COLLECTIONS = [
   },
 ];
 
+const FAMILY_PAGES = [
+  { family: "Red", slug: "red", title: "Red Family", summary: "Crimson, ruby, and merlot shades for editorial warmth and bold contrast." },
+  { family: "Orange", slug: "orange", title: "Orange Family", summary: "Coral, apricot, and ember tones for warmth, hospitality, and sunlit surfaces." },
+  { family: "Yellow", slug: "yellow", title: "Yellow Family", summary: "Amber, citrine, and honey tones for optimistic highlights and soft contrast." },
+  { family: "Lime", slug: "lime", title: "Lime Family", summary: "Olive and lime tones for freshness, energy, and curated organic accents." },
+  { family: "Green", slug: "green", title: "Green Family", summary: "Moss, leaf, emerald, and mint tones for grounded, natural systems." },
+  { family: "Teal", slug: "teal", title: "Teal Family", summary: "Seafoam, jade, lagoon, and teal shades for calm clarity and coastal products." },
+  { family: "Blue", slug: "blue", title: "Blue Family", summary: "Azure, sapphire, cobalt, and indigo shades for trust, systems, and technical products." },
+  { family: "Purple", slug: "purple", title: "Purple Family", summary: "Iris, violet, orchid, and plum tones for creative and atmospheric palettes." },
+  { family: "Pink", slug: "pink", title: "Pink Family", summary: "Magenta, fuchsia, peony, rose, and blush tones for campaign energy and expressive surfaces." },
+];
+
 function resolvePalette(paletteIds) {
   return paletteIds.map((id) => {
     const color = colorMap.get(id);
@@ -208,12 +231,12 @@ function generateJson(collections) {
 
 // Pack preview files (one CSS per pack, using the pack's previewCollectionIds)
 const PACK_PREVIEWS = [
-  { id: "palette-pack-vol-1", collectionIds: ["quiet-luxury", "modern-seaside", "editorial-warmth"] },
-  { id: "brand-starter-kit", collectionIds: ["quiet-luxury", "nocturne-tech", "orchid-bloom"] },
-  { id: "content-creator-bundle", collectionIds: ["modern-seaside", "orchid-bloom"] },
-  { id: "complete-archive", collectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "neon-after-dark"] },
-  { id: "dark-mode-ui-kit", collectionIds: ["nocturne-tech", "nordic-frost", "monochrome-studio"] },
-  { id: "seasonal-spring-2026", collectionIds: ["orchid-bloom", "matcha-linen", "sunset-boulevard"] },
+  { id: "palette-pack-vol-1", title: "Palette Pack Vol. 1", collectionIds: ["quiet-luxury", "modern-seaside", "editorial-warmth"] },
+  { id: "brand-starter-kit", title: "Brand Color Starter Kit", collectionIds: ["quiet-luxury", "nocturne-tech", "orchid-bloom"] },
+  { id: "content-creator-bundle", title: "Creator Bundle", collectionIds: ["modern-seaside", "orchid-bloom"] },
+  { id: "complete-archive", title: "Complete Archive Token Set", collectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "neon-after-dark"] },
+  { id: "dark-mode-ui-kit", title: "Dark Mode UI Kit", collectionIds: ["nocturne-tech", "nordic-frost", "monochrome-studio"] },
+  { id: "seasonal-spring-2026", title: "Seasonal: Spring 2026", collectionIds: ["orchid-bloom", "matcha-linen", "sunset-boulevard"] },
 ];
 
 function generatePackCss(collectionIds) {
@@ -226,18 +249,205 @@ function generatePackJson(collectionIds) {
   return generateJson(cols);
 }
 
+function buildStyleDictionaryTokens(colors) {
+  return {
+    color: Object.fromEntries(
+      colors.map((color) => [
+        color.id,
+        {
+          value: color.hex,
+          type: "color",
+          attributes: {
+            family:
+              color.hue < 15 || color.hue >= 345 ? "red"
+              : color.hue < 45 ? "orange"
+              : color.hue < 70 ? "yellow"
+              : color.hue < 95 ? "lime"
+              : color.hue < 150 ? "green"
+              : color.hue < 185 ? "teal"
+              : color.hue < 250 ? "blue"
+              : color.hue < 290 ? "purple"
+              : "pink",
+            hue: color.hue,
+            saturation: color.saturation,
+            lightness: color.lightness,
+          },
+        },
+      ]),
+    ),
+  };
+}
+
+function buildFigmaTokens(colors) {
+  return Object.fromEntries(
+    colors.map((color) => [
+      color.id,
+      {
+        $type: "color",
+        $value: color.hex,
+        $description: `${color.name} · ${color.hsl}`,
+      },
+    ]),
+  );
+}
+
+function createOgSvg({ eyebrow, title, summary, swatches, accent = "#171717" }) {
+  const swatchRects = swatches
+    .slice(0, 6)
+    .map(
+      (hex, index) => `<rect x="${68 + index * 176}" y="474" width="148" height="74" rx="22" fill="${hex}" />`,
+    )
+    .join("");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="0" fill="#F6F4EF"/>
+  <circle cx="150" cy="110" r="180" fill="${accent}" fill-opacity="0.12"/>
+  <circle cx="1080" cy="70" r="220" fill="#7DD3FC" fill-opacity="0.12"/>
+  <circle cx="1030" cy="550" r="180" fill="#FCA5A5" fill-opacity="0.10"/>
+  <rect x="54" y="42" width="1092" height="546" rx="36" fill="white" fill-opacity="0.74" stroke="#171717" stroke-opacity="0.08"/>
+  <text x="86" y="104" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="3">${escapeXml(eyebrow.toUpperCase())}</text>
+  <text x="86" y="196" fill="#111827" font-family="Inter, Arial, sans-serif" font-size="62" font-weight="700">${escapeXml(title)}</text>
+  <foreignObject x="86" y="228" width="840" height="170">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Inter,Arial,sans-serif;font-size:28px;line-height:1.45;color:#4B5563;">
+      ${escapeXml(summary)}
+    </div>
+  </foreignObject>
+  <rect x="86" y="428" width="214" height="44" rx="22" fill="#111827"/>
+  <text x="123" y="457" fill="white" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">colorarchive.me</text>
+  ${swatchRects}
+</svg>`;
+}
+
 // Write outputs
 mkdirSync(OUT_DIR, { recursive: true });
+mkdirSync(join(OG_DIR, "packs"), { recursive: true });
+mkdirSync(join(OG_DIR, "collections"), { recursive: true });
+mkdirSync(join(OG_DIR, "families"), { recursive: true });
+mkdirSync(join(OG_DIR, "colors"), { recursive: true });
 
 // Full archive exports
 writeFileSync(join(OUT_DIR, "colorarchive-all-collections.css"), generateCss(COLLECTIONS), "utf8");
 writeFileSync(join(OUT_DIR, "colorarchive-all-collections.json"), generateJson(COLLECTIONS), "utf8");
 writeFileSync(join(OUT_DIR, "colorarchive-tailwind-tokens.css"), generateTailwindSnippet(COLLECTIONS), "utf8");
+writeFileSync(
+  join(OUT_DIR, "colorarchive-style-dictionary.json"),
+  JSON.stringify(buildStyleDictionaryTokens([...colorMap.entries()].map(([id, color]) => ({ ...color, id }))), null, 2),
+  "utf8",
+);
+writeFileSync(
+  join(OUT_DIR, "colorarchive-figma-tokens.json"),
+  JSON.stringify(buildFigmaTokens([...colorMap.entries()].map(([id, color]) => ({ ...color, id }))), null, 2),
+  "utf8",
+);
 
 // Pack preview files
 for (const pack of PACK_PREVIEWS) {
   writeFileSync(join(OUT_DIR, `${pack.id}-preview.css`), generatePackCss(pack.collectionIds), "utf8");
   writeFileSync(join(OUT_DIR, `${pack.id}-preview.json`), generatePackJson(pack.collectionIds), "utf8");
+}
+
+// Additional token exports for design-tool workflows
+writeFileSync(
+  join(OUT_DIR, "complete-archive-style-dictionary.json"),
+  JSON.stringify(buildStyleDictionaryTokens([...colorMap.entries()].map(([id, color]) => ({ ...color, id }))), null, 2),
+  "utf8",
+);
+writeFileSync(
+  join(OUT_DIR, "complete-archive-figma-tokens.json"),
+  JSON.stringify(buildFigmaTokens([...colorMap.entries()].map(([id, color]) => ({ ...color, id }))), null, 2),
+  "utf8",
+);
+
+// Route-specific OG assets
+for (const collection of COLLECTIONS) {
+  const palette = resolvePalette(collection.paletteIds);
+  writeFileSync(
+    join(OG_DIR, "collections", `${collection.id}.svg`),
+    createOgSvg({
+      eyebrow: "Collection",
+      title: collection.title,
+      summary: collection.summary,
+      swatches: palette.map((color) => color.hex),
+      accent: palette[0]?.hex ?? "#171717",
+    }),
+    "utf8",
+  );
+}
+
+for (const pack of PACK_PREVIEWS) {
+  const swatches = pack.collectionIds
+    .flatMap((collectionId) => resolvePalette(COLLECTIONS.find((entry) => entry.id === collectionId)?.paletteIds ?? []).slice(0, 2))
+    .slice(0, 6)
+    .map((color) => color.hex);
+  writeFileSync(
+    join(OG_DIR, "packs", `${pack.id}.svg`),
+    createOgSvg({
+      eyebrow: "Palette pack",
+      title: pack.title,
+      summary: "Live ColorArchive digital pack with previewable source collections, token exports, and downloadable assets.",
+      swatches,
+      accent: swatches[0] ?? "#171717",
+    }),
+    "utf8",
+  );
+}
+
+for (const family of FAMILY_PAGES) {
+  const swatches = [...colorMap.entries()]
+    .map(([id, color]) => ({ ...color, id, family:
+      color.hue < 15 || color.hue >= 345 ? "Red"
+      : color.hue < 45 ? "Orange"
+      : color.hue < 70 ? "Yellow"
+      : color.hue < 95 ? "Lime"
+      : color.hue < 150 ? "Green"
+      : color.hue < 185 ? "Teal"
+      : color.hue < 250 ? "Blue"
+      : color.hue < 290 ? "Purple"
+      : "Pink",
+    }))
+    .filter((color) => color.family === family.family && color.lightness >= 42 && color.lightness <= 84)
+    .sort((left, right) => left.hue - right.hue)
+    .slice(0, 6)
+    .map((color) => color.hex);
+
+  writeFileSync(
+    join(OG_DIR, "families", `${family.slug}.svg`),
+    createOgSvg({
+      eyebrow: "Family",
+      title: family.title,
+      summary: family.summary,
+      swatches,
+      accent: swatches[0] ?? "#171717",
+    }),
+    "utf8",
+  );
+}
+
+writeFileSync(
+  join(OG_DIR, "families", "index.svg"),
+  createOgSvg({
+    eyebrow: "Families",
+    title: "ColorArchive Families",
+    summary: "Browse the archive by hue family, from red and orange through blue, purple, and pink.",
+    swatches: ["#E8A4A4", "#F5C882", "#E3D86B", "#A2D66A", "#73C68C", "#7AB9E5"],
+    accent: "#111827",
+  }),
+  "utf8",
+);
+
+for (const [id, color] of colorMap.entries()) {
+  writeFileSync(
+    join(OG_DIR, "colors", `${id}.svg`),
+    createOgSvg({
+      eyebrow: "Color detail",
+      title: color.name,
+      summary: `${color.hex} · ${color.hsl} · Explore complementary colors, tonal companions, and export-ready tokens at ColorArchive.`,
+      swatches: [color.hex, color.hex, color.hex, "#F6F4EF", "#111827"],
+      accent: color.hex,
+    }),
+    "utf8",
+  );
 }
 
 // Text usage notes (brand-starter-kit and content-creator-bundle)
@@ -285,6 +495,8 @@ Formats: JSON data, text notes
 
 console.log(`✓ Generated ${COLLECTIONS.length} collections → public/downloads/`);
 console.log(`✓ ${PACK_PREVIEWS.length} pack preview files updated`);
+console.log(`✓ Generated route-specific OG SVGs → public/generated/og/`);
+console.log(`✓ Generated Figma + Style Dictionary token exports`);
 
 // --- ZIP bundle generation ---
 import { execSync } from "child_process";

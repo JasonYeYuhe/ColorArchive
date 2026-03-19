@@ -13,6 +13,7 @@ interface SiteHeaderProps {
     | "/about"
     | "/collections"
     | "/favorites"
+    | "/families"
     | "/packs"
     | "/recent"
     | "/search"
@@ -45,6 +46,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/", label: "Archive", matchPaths: ["/", "/colors"] },
       { href: "/all-colors", label: "All Colors" },
       { href: "/search", label: "Search" },
+      { href: "/families", label: "Families" },
       { href: "/collections", label: "Collections" },
     ],
   },

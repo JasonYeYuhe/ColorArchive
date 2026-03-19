@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { COLOR_FAMILIES, sortColors } from "@/src/lib/color-utils";
+import { getFamilySlug } from "@/src/lib/color-family-pages";
 import type { ColorFamily, ColorRecord } from "@/src/types/color";
 
 interface FamilyOverviewProps {
@@ -45,6 +47,12 @@ export function FamilyOverview({ activeFamily, colors, onFamilySelect }: FamilyO
         >
           View all
         </button>
+        <Link
+          href="/families"
+          className="w-fit rounded-full border border-black/8 bg-white/80 px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-white"
+        >
+          Open family pages
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
@@ -54,10 +62,8 @@ export function FamilyOverview({ activeFamily, colors, onFamilySelect }: FamilyO
           const isActive = activeFamily === family;
 
           return (
-            <button
+            <article
               key={family}
-              type="button"
-              onClick={() => onFamilySelect(family)}
               className={`overflow-hidden rounded-[1.4rem] border text-left transition ${
                 isActive
                   ? "border-neutral-950/15 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
@@ -71,28 +77,50 @@ export function FamilyOverview({ activeFamily, colors, onFamilySelect }: FamilyO
                 }}
                 aria-hidden="true"
               />
-              <div className="flex items-start justify-between gap-4 p-4">
-                <div>
-                  <div className="text-base font-semibold tracking-[-0.02em] text-neutral-950">
-                    {family}
+              <div className="p-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="text-base font-semibold tracking-[-0.02em] text-neutral-950">
+                      {family}
+                    </div>
+                    <div className="mt-1 text-sm text-neutral-500">
+                      {familyColors.length === 0
+                        ? "No matches"
+                        : `${familyColors.length} ${familyColors.length === 1 ? "color" : "colors"}`}
+                    </div>
                   </div>
-                  <div className="mt-1 text-sm text-neutral-500">
-                    {familyColors.length === 0
-                      ? "No matches"
-                      : `${familyColors.length} ${familyColors.length === 1 ? "color" : "colors"}`}
+                  <div
+                    className={`rounded-full px-2.5 py-1 text-xs font-medium uppercase tracking-[0.16em] ${
+                      isActive
+                        ? "bg-neutral-950 text-white"
+                        : "border border-black/6 bg-neutral-50 text-neutral-400"
+                    }`}
+                  >
+                    {isActive ? "Active" : "Family"}
                   </div>
                 </div>
-                <div
-                  className={`rounded-full px-2.5 py-1 text-xs font-medium uppercase tracking-[0.16em] ${
-                    isActive
-                      ? "bg-neutral-950 text-white"
-                      : "border border-black/6 bg-neutral-50 text-neutral-400"
-                  }`}
-                >
-                  {isActive ? "Active" : "Family"}
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => onFamilySelect(family)}
+                    className={`rounded-full px-3 py-1.5 text-sm transition ${
+                      isActive
+                        ? "bg-neutral-950 text-white"
+                        : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50"
+                    }`}
+                  >
+                    {isActive ? "Filtered" : "Filter archive"}
+                  </button>
+                  <Link
+                    href={`/families/${getFamilySlug(family)}`}
+                    className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-neutral-50"
+                  >
+                    Family page
+                  </Link>
                 </div>
               </div>
-            </button>
+            </article>
           );
         })}
       </div>

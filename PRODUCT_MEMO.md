@@ -26,6 +26,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增独立搜索页，用于快速查找颜色
 - 新增 All Colors 页面，用高密度方式一次性查看完整档案
 - 新增 Collections 页面，用可分享的成套 palette 承接内容价值
+- 新增 Families 页面，用 hue family 作为目录入口和 SEO/导航层
 - 新增 Collection detail 页面，用编辑型专题内容强化 collections 的“可读性”和 SEO
 - 新增 Favorites 页面，用浏览器本地收藏承接回访需求
 - 新增 Recent 页面，用浏览器本地最近查看承接继续浏览需求
@@ -99,6 +100,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 26. 一个 About 页面，用于解释项目本身和技术约束
 27. 一个 Updates 页面，用于公开记录迭代历史
 28. 一个 Analytics 页面，用于查看订阅与订单数据
+29. 一个 Families 页面，用于按色族浏览和落地 SEO
 
 ## 颜色排序规则
 
@@ -185,6 +187,13 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 - 用少量高质量成套 palette 承接“审美、场景、内容分享”
 - 比单纯颜色列表更接近可售卖、可传播的产品资产
 - 应逐步扩展为可单独访问的专题页，而不是只停留在一个聚合列表页
+
+- `Families`
+- 用 hue family 做中层目录，而不是只有首页 family filter
+- 适合承接：
+  - family SEO
+  - 色族导航
+  - family -> collection / pack 的升级入口
 
 - `Favorites`
 - 使用浏览器本地存储
@@ -412,6 +421,22 @@ Codex 当前方向：
 - 新增 `/analytics` 页面，直接消费 API 的订阅者、订单和收入数据
 - Pack / Collection / Color detail 页已开始补结构化 SEO（JSON-LD），不再只依赖普通 meta description
 - 继续增加具辨识度的实验页（Spectrum / Surprise / Word → Color）
+- 新增 `/families` 与 9 个 family detail 路由，作为 hue family 目录层
+- palette 页面已支持导入：
+  - share URL
+  - color ids
+  - hex list
+  - JSON（`id` / `hex`）
+- build 脚本现在除了 ZIP 和 preview files，还生成：
+  - route-specific OG SVG（packs / collections / families / colors）
+  - Figma-friendly token JSON
+  - Style Dictionary token JSON
+- analytics API 现已扩展：
+  - source breakdown
+  - product breakdown
+  - 14-day subscriber / order / revenue series
+  - free-pack / waitlist -> purchase funnel
+- waitlist 邮件内容已从简单确认扩展为“更新订阅”起点，含 cadence、featured collection、featured pack
 - 记录可用 credits：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
   - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
@@ -485,14 +510,21 @@ Codex 当前方向：
 - ✅ Pack / Collection / Color detail 补充结构化 SEO（JSON-LD）
 - ✅ 颜色详情页推荐色支持一键加入 palette builder
 - ✅ 移动端导航与 palette builder tray 收缩，降低小屏遮挡风险
+- ✅ 新增 `/families` 和 9 个 family detail 页面
+- ✅ build-time route-specific OG SVG 方案上线（packs / collections / families / colors）
+- ✅ `/analytics` 增加 funnel、时间序列和产品表现
+- ✅ `/palette` 支持 URL / ids / hex / JSON 导入
+- ✅ 完整 token exports 增加 Figma-friendly JSON 和 Style Dictionary JSON
+- ✅ Collection detail 增强为更明确的 free -> paid 升级入口
+- ✅ waitlist 邮件内容扩充为更接近 newsletter 的更新层
 
 ### 当前优先级
 
 - ✅ Resend 域名验证完成（colorarchive.me verified，邮件可正常发送）
 - ✅ 6 个产品全部 live，checkout URL 已填入
+- ✅ route-specific OG SVG 已补上静态替代方案
 - LS 店铺审核通过后关闭 Test mode
 - 继续观察并细修移动端会遮挡内容的交互细节
-- 增强 Open Graph 表现（D2 受限于 static export，需要评估替代方案）
 - 提高邮件送达率（新域名初期可能进 spam，需要积累域名信誉）
 
 ### 后续方向

@@ -34,6 +34,12 @@ export async function generateMetadata({
     alternates: {
       canonical: `/collections/${collection.id}`,
     },
+    openGraph: {
+      images: [`https://colorarchive.me/generated/og/collections/${collection.id}.svg`],
+    },
+    twitter: {
+      images: [`https://colorarchive.me/generated/og/collections/${collection.id}.svg`],
+    },
   };
 }
 

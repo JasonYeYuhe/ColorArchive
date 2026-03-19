@@ -78,7 +78,7 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
               The current packs are already live. This page now works as the ongoing updates layer
-              for seasonal releases, new bundle drops, and archive product announcements.
+              for seasonal releases, new bundle drops, monthly curated palettes, and archive product announcements.
             </p>
 
             <div className="mt-6">
@@ -157,7 +157,7 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
             <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
               <p>
                 Enter your email above to hear about future pack launches, seasonal drops,
-                archive expansions, and pricing updates.
+                archive expansions, pricing updates, and one curated palette direction at a time.
               </p>
               <p>
                 The six current packs are already live. The list now exists for the next release

@@ -6,12 +6,15 @@ import { useSearchParams } from "next/navigation";
 import { colors as allColors } from "@/src/data/colors";
 import {
   addToPalette,
+  addManyToPalette,
   buildPaletteCssExport,
   buildPaletteJsonExport,
   getPaletteIds,
+  replacePalette,
   subscribeToPalette,
   MAX_SIZE,
 } from "@/src/lib/palette-builder";
+import { parsePaletteInput } from "@/src/lib/palette-import";
 import type { ColorRecord } from "@/src/types/color";
 
 function CopyButton({ value, label }: { value: string; label: string }) {
@@ -198,6 +201,8 @@ function PaletteContent() {
   const idsParam = searchParams.get("ids");
 
   const [builderIds, setBuilderIds] = useState<string[]>([]);
+  const [importValue, setImportValue] = useState("");
+  const [importStatus, setImportStatus] = useState("");
 
   useEffect(() => {
     setBuilderIds(getPaletteIds());
@@ -222,10 +227,28 @@ function PaletteContent() {
   const isFromUrl = Boolean(idsParam);
 
   const addAllToBuilder = useCallback(() => {
-    for (const c of paletteColors) {
-      addToPalette(c.id);
-    }
+    addManyToPalette(paletteColors.map((c) => c.id));
   }, [paletteColors]);
+
+  const handleImport = useCallback(
+    (mode: "replace" | "append") => {
+      const { ids, error } = parsePaletteInput(importValue, allColors);
+
+      if (ids.length === 0) {
+        setImportStatus(error);
+        return;
+      }
+
+      if (mode === "replace") {
+        replacePalette(ids);
+        setImportStatus(`Replaced builder with ${Math.min(ids.length, MAX_SIZE)} imported colors.`);
+      } else {
+        addManyToPalette(ids);
+        setImportStatus(`Added up to ${Math.min(ids.length, MAX_SIZE)} imported colors to the builder.`);
+      }
+    },
+    [importValue],
+  );
 
   if (paletteColors.length === 0) {
     return <EmptyState />;
@@ -268,6 +291,47 @@ function PaletteContent() {
         </div>
       </div>
 
+      <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+        <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+          Import palette
+        </div>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
+          Paste a ColorArchive share URL, color ids, HEX values, or JSON with `id` / `hex` fields.
+        </p>
+        <textarea
+          value={importValue}
+          onChange={(event) => setImportValue(event.target.value)}
+          placeholder={`Examples:
+https://colorarchive.me/palette?ids=orchid-bloom-clear,rose-core-soft
+
+orchid-bloom-clear
+rose-core-soft
+#E8C4B8
+
+[{"hex":"#E8C4B8"},{"id":"rose-core-soft"}]`}
+          className="mt-4 min-h-40 w-full rounded-[1.2rem] border border-black/8 bg-white px-4 py-3 text-sm leading-6 text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+        />
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => handleImport("replace")}
+            className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
+          >
+            Replace builder
+          </button>
+          <button
+            type="button"
+            onClick={() => handleImport("append")}
+            className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
+          >
+            Append to builder
+          </button>
+        </div>
+        {importStatus ? (
+          <div className="mt-3 text-sm text-neutral-500">{importStatus}</div>
+        ) : null}
+      </div>
+
       {/* Color detail cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {paletteColors.map((c) => (
@@ -293,6 +357,33 @@ function PaletteContent() {
         <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
           {jsonExport}
         </pre>
+      </div>
+
+      <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+        <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+          Token workflow exports
+        </div>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
+          For larger design-system workflows, use the prebuilt static exports generated from the archive.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <a
+            href="/downloads/colorarchive-figma-tokens.json"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
+          >
+            Figma tokens
+          </a>
+          <a
+            href="/downloads/colorarchive-style-dictionary.json"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
+          >
+            Style Dictionary
+          </a>
+        </div>
       </div>
     </div>
   );

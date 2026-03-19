@@ -107,6 +107,12 @@ export async function generateMetadata({ params }: ColorPageProps): Promise<Meta
     alternates: {
       canonical: `/colors/${color.id}/`,
     },
+    openGraph: {
+      images: [`https://colorarchive.me/generated/og/colors/${color.id}.svg`],
+    },
+    twitter: {
+      images: [`https://colorarchive.me/generated/og/colors/${color.id}.svg`],
+    },
   };
 }
 

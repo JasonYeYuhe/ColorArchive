@@ -56,6 +56,10 @@ export function clearPalette(): void {
   writeToStorage([]);
 }
 
+export function replacePalette(colorIds: string[]): void {
+  writeToStorage(colorIds.slice(0, MAX_PALETTE_SIZE));
+}
+
 export function isPaletteColor(colorId: string): boolean {
   return readFromStorage().includes(colorId);
 }

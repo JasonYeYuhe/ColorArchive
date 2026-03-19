@@ -186,6 +186,77 @@ export function CollectionDetailPage({
             </div>
           </aside>
         </section>
+
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Upgrade path
+              </div>
+              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                From one collection to a full pack
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
+                This collection proves the taste and color direction. The related packs add more
+                collections, token exports, and usage guidance so the palette can move from reference
+                to implementation.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 overflow-x-auto">
+            <table className="min-w-full border-separate border-spacing-0 text-left text-sm text-neutral-600">
+              <thead>
+                <tr>
+                  <th className="rounded-l-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                    Layer
+                  </th>
+                  <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                    What you have here
+                  </th>
+                  <th className="rounded-r-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                    What the related packs add
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-black/6 bg-white px-4 py-4 align-top font-medium text-neutral-950">
+                    Scope
+                  </td>
+                  <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                    One curated five-color editorial direction.
+                  </td>
+                  <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                    More collections, broader token coverage, and a fuller working set.
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-black/6 bg-white px-4 py-4 align-top font-medium text-neutral-950">
+                    Output
+                  </td>
+                  <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                    Visual palette, copyable CSS preview, and per-color archive pages.
+                  </td>
+                  <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                    Downloadable CSS, JSON, Tailwind, and pack-specific asset bundles.
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-black/6 bg-white px-4 py-4 align-top font-medium text-neutral-950">
+                    Use case
+                  </td>
+                  <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                    Direction finding, inspiration, and public proof.
+                  </td>
+                  <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                    Real project handoff, implementation, and reusable product assets.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
     </main>
   );

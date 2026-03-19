@@ -248,10 +248,12 @@ export const palettePacks: PalettePack[] = [
     checkoutNote: checkoutConfig["complete-archive"].note,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Sunset Boulevard", "Neon After Dark"],
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "neon-after-dark"],
-    formatList: ["CSS variables", "Tailwind tokens", "JSON data", "SCSS maps"],
+    formatList: ["CSS variables", "Tailwind tokens", "Figma tokens", "Style Dictionary", "SCSS maps"],
     deliverables: [
       "All 2016 colors in CSS variable format",
       "Complete Tailwind CSS 4 theme tokens",
+      "Figma-friendly token JSON export",
+      "Style Dictionary token JSON for build pipelines",
       "Structured JSON with hex, HSL, RGB for every color",
       "SCSS color maps organized by hue family",
     ],
@@ -297,6 +299,16 @@ export const palettePacks: PalettePack[] = [
         label: "Preview JSON data",
         format: "JSON",
         href: "/downloads/complete-archive-preview.json",
+      },
+      {
+        label: "Figma token export",
+        format: "JSON",
+        href: "/downloads/complete-archive-figma-tokens.json",
+      },
+      {
+        label: "Style Dictionary export",
+        format: "JSON",
+        href: "/downloads/complete-archive-style-dictionary.json",
       },
     ],
     detail:

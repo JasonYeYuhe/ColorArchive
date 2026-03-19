@@ -32,6 +32,12 @@ export async function generateMetadata({ params }: PackDetailRouteProps): Promis
     alternates: {
       canonical: `/packs/${pack.id}`,
     },
+    openGraph: {
+      images: [`https://colorarchive.me/generated/og/packs/${pack.id}.svg`],
+    },
+    twitter: {
+      images: [`https://colorarchive.me/generated/og/packs/${pack.id}.svg`],
+    },
   };
 }
 

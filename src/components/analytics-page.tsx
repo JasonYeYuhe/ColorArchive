@@ -13,6 +13,20 @@ interface AnalyticsResponse {
     total: number;
     revenue: number;
   };
+  funnel: {
+    freePackSubscribers: number;
+    waitlistSubscribers: number;
+    purchasers: number;
+    freePackPurchasers: number;
+    waitlistPurchasers: number;
+    freePackConversionRate: number;
+    waitlistConversionRate: number;
+  };
+  series: {
+    subscribers: Array<{ day: string; count: number }>;
+    orders: Array<{ day: string; count: number; revenue: number }>;
+  };
+  products: Array<{ product: string; orders: number; revenue: number; currency: string }>;
   recent: {
     subscribers: Array<{ email: string; source: string; created_at: string }>;
     orders: Array<{
@@ -50,6 +64,63 @@ function formatDate(value: string) {
     dateStyle: "medium",
     timeStyle: "short",
   }).format(date);
+}
+
+function formatShortDay(value: string) {
+  const date = new Date(`${value}T00:00:00Z`);
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
+function formatPercent(value: number) {
+  return `${Math.round(value * 100)}%`;
+}
+
+function MiniBarChart({
+  data,
+  colorClass,
+  label,
+  valueFormatter,
+}: {
+  data: Array<{ day: string; value: number }>;
+  colorClass: string;
+  label: string;
+  valueFormatter?: (value: number) => string;
+}) {
+  const maxValue = Math.max(...data.map((entry) => entry.value), 1);
+
+  return (
+    <div className="rounded-[1.4rem] border border-black/6 bg-neutral-50 px-4 py-4">
+      <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+        {label}
+      </div>
+      <div className="mt-4 flex h-40 items-end gap-2">
+        {data.map((entry) => (
+          <div key={entry.day} className="flex flex-1 flex-col items-center gap-2">
+            <div className="text-[10px] text-neutral-400">
+              {valueFormatter ? valueFormatter(entry.value) : entry.value}
+            </div>
+            <div className="flex h-28 w-full items-end">
+              <div
+                className={`w-full rounded-t-xl ${colorClass}`}
+                style={{ height: `${Math.max((entry.value / maxValue) * 100, entry.value > 0 ? 8 : 2)}%` }}
+              />
+            </div>
+            <div className="text-[10px] uppercase tracking-[0.12em] text-neutral-400">
+              {formatShortDay(entry.day)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export function AnalyticsPage() {
@@ -204,18 +275,95 @@ export function AnalyticsPage() {
 
               <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Revenue notes
+                  Funnel
                 </div>
-                <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
-                  <p>
-                    Order totals are read from the same SQLite records used by the webhook flow, so
-                    this page reflects the fulfillment pipeline rather than a manually maintained spreadsheet.
-                  </p>
-                  <p>
-                    Use source counts to see whether free-pack capture, waitlist signup, or purchase
-                    activity is creating the strongest entry point.
-                  </p>
+                <div className="mt-4 grid gap-3">
+                  <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                    <div className="text-sm font-medium text-neutral-950">
+                      Free pack → purchase
+                    </div>
+                    <div className="mt-2 text-sm text-neutral-500">
+                      {data.funnel.freePackPurchasers} of {data.funnel.freePackSubscribers} known free-pack subscribers later purchased.
+                    </div>
+                    <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                      {formatPercent(data.funnel.freePackConversionRate)}
+                    </div>
+                  </div>
+                  <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                    <div className="text-sm font-medium text-neutral-950">
+                      Waitlist → purchase
+                    </div>
+                    <div className="mt-2 text-sm text-neutral-500">
+                      {data.funnel.waitlistPurchasers} of {data.funnel.waitlistSubscribers} known update subscribers later purchased.
+                    </div>
+                    <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                      {formatPercent(data.funnel.waitlistConversionRate)}
+                    </div>
+                  </div>
+                  <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                    <div className="text-sm font-medium text-neutral-950">
+                      Distinct purchasers
+                    </div>
+                    <div className="mt-2 text-sm text-neutral-500">
+                      Buyers with at least one recorded order in the current database.
+                    </div>
+                    <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                      {data.funnel.purchasers}
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </section>
+
+            <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+              <MiniBarChart
+                label="Daily subscribers"
+                colorClass="bg-neutral-950"
+                data={data.series.subscribers.map((entry) => ({ day: entry.day, value: entry.count }))}
+              />
+              <MiniBarChart
+                label="Daily order revenue"
+                colorClass="bg-emerald-500"
+                data={data.series.orders.map((entry) => ({ day: entry.day, value: entry.revenue }))}
+                valueFormatter={(value) => formatCurrency(value, dominantCurrency)}
+              />
+            </section>
+
+            <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                Product performance
+              </div>
+              <div className="mt-4 overflow-x-auto">
+                <table className="min-w-full border-separate border-spacing-0 text-left text-sm text-neutral-600">
+                  <thead>
+                    <tr>
+                      <th className="rounded-l-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                        Product
+                      </th>
+                      <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                        Orders
+                      </th>
+                      <th className="rounded-r-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
+                        Revenue
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.products.map((product) => (
+                      <tr key={product.product}>
+                        <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                          {product.product}
+                        </td>
+                        <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                          {product.orders}
+                        </td>
+                        <td className="border border-black/6 bg-white px-4 py-4 align-top">
+                          {formatCurrency(product.revenue, product.currency)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </section>
 

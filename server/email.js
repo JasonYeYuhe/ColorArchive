@@ -1,4 +1,5 @@
 const { Resend } = require("resend");
+const updateBrief = require("./content/update-brief");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.FROM_EMAIL || "hello@colorarchive.me";
@@ -53,6 +54,8 @@ async function sendFreePackEmail(to) {
 
 // Product updates / waitlist confirmation email
 async function sendWaitlistConfirmationEmail(to) {
+  const featuredPalette = updateBrief.featuredPalette;
+  const featuredPack = updateBrief.featuredPack;
   const result = await resend.emails.send({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
@@ -67,6 +70,19 @@ async function sendWaitlistConfirmationEmail(to) {
       "- 6 palette packs are live now on Lemon Squeezy",
       "- the free sample pack is still available",
       "- future drops, seasonal packs, and archive updates will be announced here",
+      "",
+      "What these emails will contain:",
+      `- ${updateBrief.cadence}`,
+      `- one featured collection or palette direction`,
+      `- one product or token export update worth checking`,
+      "",
+      "Current featured collection:",
+      `${featuredPalette.title} — ${featuredPalette.summary}`,
+      featuredPalette.url,
+      "",
+      "Current featured pack:",
+      `${featuredPack.title} — ${featuredPack.summary}`,
+      featuredPack.url,
       "",
       "Useful links:",
       "Packs: https://colorarchive.me/packs",
@@ -88,6 +104,34 @@ async function sendWaitlistConfirmationEmail(to) {
           • the free sample pack is still available<br>
           • future drops, seasonal packs, and archive updates will be announced here
         </p>
+        <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:16px 18px;margin:20px 0">
+          <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#6b7280;font-weight:700">What you will get</div>
+          <p style="margin:10px 0 0;color:#4b5563;line-height:1.6">
+            ${updateBrief.cadence}<br>
+            • one featured collection or palette direction<br>
+            • one product or token export update worth checking
+          </p>
+        </div>
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:16px;padding:16px 18px;margin:20px 0">
+          <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#9a3412;font-weight:700">Featured collection</div>
+          <p style="margin:10px 0 0;color:#7c2d12;line-height:1.6">
+            <strong>${featuredPalette.title}</strong><br>
+            ${featuredPalette.summary}
+          </p>
+          <p style="margin:12px 0 0">
+            <a href="${featuredPalette.url}" style="color:#9a3412;font-weight:600;text-decoration:none">Open collection</a>
+          </p>
+        </div>
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:16px;padding:16px 18px;margin:20px 0">
+          <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#1d4ed8;font-weight:700">Featured pack</div>
+          <p style="margin:10px 0 0;color:#1e3a8a;line-height:1.6">
+            <strong>${featuredPack.title}</strong><br>
+            ${featuredPack.summary}
+          </p>
+          <p style="margin:12px 0 0">
+            <a href="${featuredPack.url}" style="color:#1d4ed8;font-weight:600;text-decoration:none">Open pack</a>
+          </p>
+        </div>
         <p style="margin:20px 0">
           <a href="https://colorarchive.me/packs"
              style="display:inline-block;background:#1a1a1a;color:#fff;

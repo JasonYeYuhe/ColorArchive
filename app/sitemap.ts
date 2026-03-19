@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
+import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
 import { palettePacks } from "@/src/lib/palette-packs";
 
 export const dynamic = "force-static";
@@ -121,6 +122,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    {
+      url: "https://colorarchive.me/families",
+      lastModified: new Date("2026-03-19"),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
   ];
 
   const colorRoutes: MetadataRoute.Sitemap = colors.map((color) => ({
@@ -144,5 +151,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
-  return [...topLevelRoutes, ...collectionRoutes, ...packRoutes, ...colorRoutes];
+  const familyRoutes: MetadataRoute.Sitemap = COLOR_FAMILY_PAGES.map((family) => ({
+    url: `https://colorarchive.me/families/${family.slug}`,
+    lastModified: new Date("2026-03-19"),
+    changeFrequency: "weekly",
+    priority: 0.72,
+  }));
+
+  return [...topLevelRoutes, ...familyRoutes, ...collectionRoutes, ...packRoutes, ...colorRoutes];
 }
