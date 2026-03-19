@@ -62,9 +62,9 @@ export const checkoutConfig = {
   },
   "all-access-bundle": {
     provider: "Lemon Squeezy",
-    url: null,
-    status: "pending",
-    note: "All Access Bundle — create on Lemon Squeezy at ¥2,999 JPY, then paste checkout URL here.",
+    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/320433d4-537a-4f5e-b1ca-40e3cf0ea97c",
+    status: "live",
+    note: "All Access Bundle — live on Lemon Squeezy.",
   },
 } satisfies Record<string, CheckoutConfigEntry>;
 
