@@ -258,3 +258,147 @@ Formats: JSON data, text notes
 
 console.log(`✓ Generated ${COLLECTIONS.length} collections → public/downloads/`);
 console.log(`✓ ${PACK_PREVIEWS.length} pack preview files updated`);
+
+// --- ZIP bundle generation ---
+import { execSync } from "child_process";
+
+function createZip(zipName, files) {
+  const zipPath = join(OUT_DIR, zipName);
+  // Remove existing zip if present
+  try { execSync(`rm -f "${zipPath}"`); } catch {}
+  // Create zip with the specified files (use relative paths inside zip)
+  const fileArgs = files.map((f) => `"${f}"`).join(" ");
+  execSync(`cd "${OUT_DIR}" && zip -j "${zipPath}" ${fileArgs}`, { stdio: "pipe" });
+  console.log(`✓ Created ${zipName}`);
+}
+
+// Free palette pack ZIP (preview files from Vol.1 + usage guide)
+const freePackReadme = `ColorArchive — Free Palette Pack
+
+Thank you for downloading the free sample pack.
+
+WHAT'S INCLUDED
+- CSS variables for 3 curated collections (Quiet Luxury, Modern Seaside, Editorial Warmth)
+- JSON data export with hex, HSL, and color metadata
+- Tailwind CSS 4 theme tokens
+
+HOW TO USE
+1. Copy the CSS variables from the .css file into your project
+2. Use the JSON data for programmatic access or design tool import
+3. For Tailwind, paste the @theme block from the tokens file
+
+UPGRADE TO THE FULL PACK
+Visit https://colorarchive.me/packs for the complete palette system
+with more collections, usage guides, and structured token exports.
+
+— ColorArchive · https://colorarchive.me
+`;
+writeFileSync(join(OUT_DIR, "README-free-pack.txt"), freePackReadme, "utf8");
+createZip("free-palette-pack.zip", [
+  "palette-pack-vol-1-preview.css",
+  "palette-pack-vol-1-preview.json",
+  "colorarchive-tailwind-tokens.css",
+  "README-free-pack.txt",
+]);
+
+// Palette Pack Vol. 1 ZIP (full)
+const vol1Readme = `ColorArchive — Palette Pack Vol. 1
+
+INCLUDED COLLECTIONS
+- Quiet Luxury: Soft neutrals and muted warm surfaces
+- Modern Seaside: Clear coastal blues and seafoam accents
+- Editorial Warmth: Paper-like warm colors for publishing
+- Forest Terrain: Deep greens, moss, and earthy browns
+
+FORMATS
+- CSS variables (copy into any project)
+- JSON data (for design tools and automation)
+- Tailwind CSS 4 theme tokens
+- Full archive export (all 8 collections)
+
+USAGE
+Each collection has 5 curated colors numbered -1 through -5:
+  -1 = Primary surface     -4 = Accent / CTA
+  -2 = Secondary panel     -5 = Deep contrast
+  -3 = Supporting neutral
+
+— ColorArchive · https://colorarchive.me
+`;
+writeFileSync(join(OUT_DIR, "README-palette-pack-vol-1.txt"), vol1Readme, "utf8");
+createZip("palette-pack-vol-1.zip", [
+  "palette-pack-vol-1-preview.css",
+  "palette-pack-vol-1-preview.json",
+  "colorarchive-all-collections.css",
+  "colorarchive-all-collections.json",
+  "colorarchive-tailwind-tokens.css",
+  "README-palette-pack-vol-1.txt",
+]);
+
+// Brand Color Starter Kit ZIP
+const brandReadme = `ColorArchive — Brand Color Starter Kit
+
+INCLUDED COLLECTIONS
+- Quiet Luxury: Premium brand surfaces
+- Nocturne Tech: Dark-spectrum product colors
+- Orchid Bloom: Expressive pinks and violets
+
+FORMATS
+- CSS variables with brand-role annotations
+- JSON data export
+- Tailwind CSS 4 theme tokens
+- Full archive export (all 8 collections)
+- Usage notes with application guidance
+
+BRAND APPLICATION
+  -1 = Primary (backgrounds, hero surfaces)
+  -2 = Secondary (UI panels, borders)
+  -3 = Tertiary (supporting neutrals)
+  -4 = Accent (buttons, CTAs, highlights)
+  -5 = Deep base (text, strong contrast)
+
+— ColorArchive · https://colorarchive.me
+`;
+writeFileSync(join(OUT_DIR, "README-brand-starter-kit.txt"), brandReadme, "utf8");
+createZip("brand-starter-kit.zip", [
+  "brand-starter-kit-preview.css",
+  "brand-starter-kit-preview.json",
+  "brand-starter-kit-preview.txt",
+  "colorarchive-all-collections.css",
+  "colorarchive-all-collections.json",
+  "colorarchive-tailwind-tokens.css",
+  "README-brand-starter-kit.txt",
+]);
+
+// Creator Bundle ZIP
+const creatorReadme = `ColorArchive — Creator Bundle
+
+INCLUDED COLLECTIONS
+- Modern Seaside: Fresh coastal tones for lifestyle content
+- Orchid Bloom: Vibrant pinks and violets for beauty and culture
+- Candy Pop: Saturated accents for social and D2C
+
+FORMATS
+- CSS variables
+- JSON data export
+- Tailwind CSS 4 theme tokens
+- Full archive export (all 8 collections)
+- Prompt-friendly color descriptions
+
+USE CASES
+- Social media graphics and story cards
+- Background and wallpaper color sets
+- AI prompt color descriptions
+- Brand-consistent content palettes
+
+— ColorArchive · https://colorarchive.me
+`;
+writeFileSync(join(OUT_DIR, "README-creator-bundle.txt"), creatorReadme, "utf8");
+createZip("content-creator-bundle.zip", [
+  "content-creator-bundle-preview.css",
+  "content-creator-bundle-preview.json",
+  "content-creator-bundle-preview.txt",
+  "colorarchive-all-collections.css",
+  "colorarchive-all-collections.json",
+  "colorarchive-tailwind-tokens.css",
+  "README-creator-bundle.txt",
+]);
