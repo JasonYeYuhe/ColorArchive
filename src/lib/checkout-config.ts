@@ -21,16 +21,16 @@ export interface CheckoutFlowConfig {
 
 export const checkoutConfig = {
   "brand-starter-kit": {
-    provider: "Stripe Payment Link",
-    url: null,
-    status: "pending",
-    note: "Paste the final Stripe Payment Link here when the product is ready to sell.",
+    provider: "Lemon Squeezy",
+    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/99e20a70-b3b6-4cc6-95c0-3eda68e1bfe4",
+    status: "live",
+    note: "Brand Color Starter Kit — live on Lemon Squeezy.",
   },
   "content-creator-bundle": {
     provider: "Lemon Squeezy",
-    url: null,
-    status: "pending",
-    note: "Use Lemon Squeezy if this becomes a shareable creator-facing digital download.",
+    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/3e147f06-4f49-48f2-b404-a92ed4d2b905",
+    status: "live",
+    note: "Creator Bundle — live on Lemon Squeezy.",
   },
   "palette-pack-vol-1": {
     provider: "Lemon Squeezy",
