@@ -1,6 +1,6 @@
 # Handoff — Claude Code → Codex
 
-Last updated: 2026-03-19
+Last updated: 2026-03-20
 
 ## This Session Summary
 
@@ -23,6 +23,7 @@ Last updated: 2026-03-19
 - Expanded `/guides` to 8 static SEO landing pages and linked guides from the homepage + notes index for better crawl and click paths
 - Added contextual guide links on collection, pack, and note detail pages using featured collection / pack matches
 - Refined `/guides` into a stronger hub with popular + grouped sections, and tightened homepage / packs / free-pack copy around direct conversion language
+- Added guide entry points directly on `/packs` and `/free-pack` so users can move between search-intent education pages and checkout lanes without dead ends
 - Added `docs/commerce-ops-checklist.md` covering Lemon Squeezy production settings, return URLs, smoke test flow, and GSC submission steps
 - Updated PRODUCT_MEMO with the new conversion work and current manual ops reminder
 
@@ -76,7 +77,7 @@ Last updated: 2026-03-19
 - LS products: set Thank You URL to `https://colorarchive.me/thanks/` and Cancel URL to `https://colorarchive.me/cancel/` for all 7 products
 - Google Search Console: verify colorarchive.me and submit sitemap
 - Product Hunt launch preparation
-- `/notes` content expansion (Issues 006+)
+- `/notes` content expansion (Issues 008+)
 - Japanese localization (future)
 - Server is up to date
 
