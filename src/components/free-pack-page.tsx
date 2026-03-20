@@ -26,7 +26,7 @@ export function FreePackPage({
     "I downloaded the free ColorArchive sample pack and want updates when the paid catalog is available for direct purchase.",
     "",
     `Most interested in: ${pack.title}`,
-    "Please send activation timing, final pricing, and checkout links when available.",
+    "Please send updates on new packs and seasonal releases when available.",
     "",
     `Preferred contact path: ${waitlist.provider}`,
   ].join("\n");
@@ -74,7 +74,7 @@ export function FreePackPage({
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
               This is the fastest way to inspect ColorArchive file quality before paying. We send
               the free pack by email, and the hosted paid catalog is ready if you want more depth,
-              more collections, or implementation-ready token exports once store activation is complete.
+              more collections, or implementation-ready token exports.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-2">

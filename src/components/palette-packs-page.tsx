@@ -25,9 +25,9 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
               Explore the paid palette catalog, token exports, and the full bundle
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              Start with the free sample, review the paid catalog, and use the hosted checkout
-              links once the Lemon Squeezy store activation is complete. The product structure is
-              ready even while the store review is still pending.
+              Start with the free sample to inspect file quality, then browse the paid catalog
+              for deeper collections, structured token exports, and implementation-ready downloads.
+              Every pack ships instantly after checkout.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -260,11 +260,11 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                       disabled
                       className="cursor-not-allowed rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-400"
                     >
-                      {pack.checkoutProvider} link pending
+                      Checkout unavailable
                     </button>
                   )}
                   <span className="text-xs uppercase tracking-[0.14em] text-neutral-400">
-                    {pack.checkoutStatus === "ready" ? "Checkout ready" : "Update in `src/lib/checkout-config.ts`"}
+                    {pack.checkoutStatus === "ready" ? "Checkout ready" : "Coming soon"}
                   </span>
                 </div>
                 <p className="mt-3 text-sm leading-6 text-neutral-500">{pack.checkoutNote}</p>
