@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { colors } from "@/src/data/colors";
 import { checkoutConfig } from "@/src/lib/checkout-config";
 import { landingGuides } from "@/src/lib/guides";
 import { palettePacks } from "@/src/lib/palette-packs";
+import { useLocale } from "@/src/components/locale-provider";
 
 // Fixed hue-spanning strip: Tone (L=60) at Clear (S=54), one per hue across the spectrum
 const HERO_STRIP = colors
@@ -22,7 +25,8 @@ export function HeroSection({
   totalColors,
   visibleColors,
 }: HeroSectionProps) {
-  const searchSummary = searchQuery.trim().length > 0 ? `Matching "${searchQuery.trim()}"` : "Showing full archive";
+  const { t } = useLocale();
+  const searchSummary = searchQuery.trim().length > 0 ? `Matching "${searchQuery.trim()}"` : t("hero.showingFullArchive");
   const featuredGuides = landingGuides.slice(0, 4);
 
   return (
@@ -35,7 +39,7 @@ export function HeroSection({
         <div className="relative mx-auto max-w-4xl">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
             <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-            Curated color archive
+            {t("hero.badge")}
           </div>
 
           <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
@@ -43,8 +47,7 @@ export function HeroSection({
           </h1>
 
           <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-            A calm, searchable library of color. Browse a large curated spectrum, sort it with
-            precision, and copy production-ready hex values in one click.
+            {t("hero.description")}
           </p>
 
           {/* Spectrum strip */}
@@ -65,25 +68,25 @@ export function HeroSection({
               href="/free-pack/"
               className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800 focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
             >
-              Get started free
+              {t("hero.getStartedFree")}
             </Link>
             <a
               href="#archive"
               className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
             >
-              Browse archive
+              {t("hero.browseArchive")}
             </a>
             <Link
               href="/packs/"
               className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
             >
-              Browse packs
+              {t("hero.browsePacks")}
             </Link>
             <Link
               href="/guides/"
               className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
             >
-              Read guides
+              {t("hero.readGuides")}
             </Link>
             {checkoutConfig["all-access-bundle"].url && (
               <a
@@ -103,22 +106,22 @@ export function HeroSection({
               {searchSummary}
             </span>
             <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5">
-              {activeFamily === "All" ? "All families" : `${activeFamily} family`}
+              {activeFamily === "All" ? t("hero.allFamilies") : `${activeFamily} ${t("hero.family")}`}
             </span>
           </div>
 
           {/* Stats cards */}
           <div className="mt-8 flex flex-wrap gap-3">
             <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
-              <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Archive</div>
-              <div className="mt-1 text-lg font-semibold text-neutral-950">{totalColors} colors</div>
+              <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">{t("hero.archive")}</div>
+              <div className="mt-1 text-lg font-semibold text-neutral-950">{totalColors} {t("hero.colors")}</div>
             </div>
             <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
-              <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Showing</div>
-              <div className="mt-1 text-lg font-semibold text-neutral-950">{visibleColors} colors</div>
+              <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">{t("hero.showing")}</div>
+              <div className="mt-1 text-lg font-semibold text-neutral-950">{visibleColors} {t("hero.colors")}</div>
             </div>
             <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
-              <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Default sort</div>
+              <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">{t("hero.defaultSort")}</div>
               <div className="mt-1 text-lg font-semibold text-neutral-950">Hue &rarr; Sat &rarr; Light</div>
             </div>
           </div>
@@ -128,19 +131,19 @@ export function HeroSection({
       {/* Stats / social proof bar */}
       <section className="flex flex-wrap items-center justify-center gap-4 rounded-[1.5rem] border border-black/6 bg-white/74 px-6 py-4 text-center shadow-sm backdrop-blur-xl sm:gap-8">
         <div className="flex items-center gap-2 text-sm text-neutral-600">
-          <span className="text-lg font-semibold text-neutral-950">2016</span> colors
+          <span className="text-lg font-semibold text-neutral-950">2016</span> {t("hero.colors")}
         </div>
         <div className="h-4 w-px bg-black/10" aria-hidden="true" />
         <div className="flex items-center gap-2 text-sm text-neutral-600">
-          <span className="text-lg font-semibold text-neutral-950">12</span> collections
+          <span className="text-lg font-semibold text-neutral-950">12</span> {t("hero.collections")}
         </div>
         <div className="h-4 w-px bg-black/10" aria-hidden="true" />
         <div className="flex items-center gap-2 text-sm text-neutral-600">
-          <span className="text-lg font-semibold text-neutral-950">7</span> products
+          <span className="text-lg font-semibold text-neutral-950">7</span> {t("hero.products")}
         </div>
         <div className="h-4 w-px bg-black/10" aria-hidden="true" />
         <div className="flex items-center gap-2 text-sm text-neutral-600">
-          <span className="text-lg font-semibold text-neutral-950">100%</span> static
+          <span className="text-lg font-semibold text-neutral-950">100%</span> {t("hero.static")}
         </div>
       </section>
 
@@ -150,19 +153,19 @@ export function HeroSection({
           <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-violet-200/30 blur-2xl" />
           <div className="relative">
             <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-violet-200 bg-violet-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-violet-600">
-              New
+              {t("hero.new")}
             </div>
             <h3 className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">
-              Contrast Checker
+              {t("hero.contrastChecker")}
             </h3>
             <p className="mt-1.5 text-sm leading-6 text-neutral-600">
-              Test any two colors against WCAG AA and AAA standards. Get instant readability scores and find accessible pairings.
+              {t("hero.contrastDesc")}
             </p>
             <Link
               href="/contrast/"
               className="mt-3 inline-flex rounded-full border border-black/8 bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              Try contrast checker
+              {t("hero.tryContrastChecker")}
             </Link>
           </div>
         </div>
@@ -171,19 +174,19 @@ export function HeroSection({
           <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-amber-200/30 blur-2xl" />
           <div className="relative">
             <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-600">
-              New
+              {t("hero.new")}
             </div>
             <h3 className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">
-              Shareable Palettes
+              {t("hero.shareablePalettes")}
             </h3>
             <p className="mt-1.5 text-sm leading-6 text-neutral-600">
-              Build custom palettes and share them via URL. Collaborate on color choices with a direct link — no account needed.
+              {t("hero.paletteDesc")}
             </p>
             <Link
               href="/palette/"
               className="mt-3 inline-flex rounded-full border border-black/8 bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              Create a palette
+              {t("hero.createPalette")}
             </Link>
           </div>
         </div>
@@ -192,14 +195,13 @@ export function HeroSection({
       <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
         <div className="mx-auto max-w-4xl">
           <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
-            Guides
+            {t("hero.guides")}
           </div>
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
-            High-intent color guides tied to real archive routes
+            {t("hero.guidesHeading")}
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
-            Start from the question you actually have: brand palette, dark mode, free downloads,
-            Figma tokens, Tailwind tokens, or website color direction.
+            {t("hero.guidesDesc")}
           </p>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -230,13 +232,13 @@ export function HeroSection({
               href="/guides/"
               className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800"
             >
-              Browse all guides
+              {t("hero.browseAllGuides")}
             </Link>
             <Link
               href="/notes/"
               className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white"
             >
-              Read notes
+              {t("hero.readNotes")}
             </Link>
           </div>
         </div>
@@ -246,13 +248,13 @@ export function HeroSection({
       <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
         <div className="mx-auto max-w-4xl">
           <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
-            Palette Packs
+            {t("hero.palettePacks")}
           </div>
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
-            Ready-to-use color systems
+            {t("hero.readyToUse")}
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
-            Curated palette bundles with CSS tokens, Tailwind snippets, and usage guides. Start with a free sample or browse all packs.
+            {t("hero.packsDesc")}
           </p>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -302,13 +304,13 @@ export function HeroSection({
               href="/free-pack/"
               className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800"
             >
-              Get started free
+              {t("hero.getStartedFree")}
             </Link>
             <Link
               href="/packs/"
               className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white"
             >
-              Browse all packs
+              {t("hero.browseAllPacks")}
             </Link>
           </div>
         </div>

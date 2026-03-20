@@ -1,5 +1,141 @@
 [
   {
+    "slug": "july-2026-color-naming",
+    "date": "2026-03-24",
+    "title": "Color naming that sticks: from mood labels to production-grade tokens",
+    "summary": "Why ad-hoc color names collapse under scale, how role-based naming survives redesigns, and where the All Access Bundle removes the naming architecture overhead entirely.",
+    "eyebrow": "Issue 013",
+    "tags": ["Tokens", "Workflow", "Naming"],
+    "featuredCollectionId": "monochrome-studio",
+    "featuredPackId": "all-access-bundle",
+    "highlights": [
+      "Mood-driven names like 'sunset dream' break the moment two teams try to reference the same color in different contexts.",
+      "Role-based naming (surface, accent, muted, text) holds up across palette refreshes because the role outlives any single shade.",
+      "The All Access Bundle ships pre-named token sets across every lane, so teams inherit a naming convention instead of inventing one."
+    ],
+    "sections": [
+      {
+        "heading": "Why mood names fail at scale",
+        "body": "Early-stage projects name colors after feelings: calm blue, warm sand, deep forest. That works when three people share a Figma file. It stops working once marketing, product, and engineering each interpret those labels differently. The name becomes a source of ambiguity instead of clarity. Production-grade naming ties the label to a role in the interface, not to an aesthetic impression."
+      },
+      {
+        "heading": "The role layer is what survives",
+        "body": "A token named brand-surface-muted keeps its meaning when the underlying hex changes from warm beige to cool grey. A token named sandy-warmth does not. The Monochrome Studio collection is a useful test case: the palette spans a wide neutral range, and the only thing that keeps it organized is role structure. Without that, five shades of grey become indistinguishable in code."
+      },
+      {
+        "heading": "Inheriting naming instead of inventing it",
+        "body": "The All Access Bundle is valuable here not just for breadth but for consistency. Every lane — brand, seasonal, dark mode, creator, archive — uses the same naming architecture. That means a team adopting one pack can expand to another without translating between two naming systems. The convention is already there; you just extend it."
+      }
+    ],
+    "links": [
+      { "label": "Open All Access Bundle", "href": "/packs/all-access-bundle" },
+      { "label": "Open Monochrome Studio", "href": "/collections/monochrome-studio" },
+      { "label": "Read the brand token guide", "href": "/guides/brand-color-tokens" }
+    ]
+  },
+  {
+    "slug": "july-2026-seasonal-rotation",
+    "date": "2026-03-23",
+    "title": "Seasonal palettes beyond spring: building a rotation your brand can reuse",
+    "summary": "How to turn a one-off seasonal palette into a repeatable system, why Sunset Boulevard anchors a warm-season lane, and where the Spring 2026 pack fits as the first installment.",
+    "eyebrow": "Issue 012",
+    "tags": ["Spring", "Brand", "Systems"],
+    "featuredCollectionId": "sunset-boulevard",
+    "featuredPackId": "seasonal-spring-2026",
+    "highlights": [
+      "A seasonal palette that only works once is a campaign asset, not a system. The goal is a rotation framework that survives multiple cycles.",
+      "Sunset Boulevard provides the warm anchor that carries across spring, summer, and early autumn without feeling trend-locked.",
+      "The Spring 2026 pack is designed as the first installment of a seasonal system, not a standalone drop."
+    ],
+    "sections": [
+      {
+        "heading": "One season is a campaign; a rotation is a system",
+        "body": "Most seasonal palettes are treated as disposable. The team picks colors for a launch, uses them for six weeks, and starts from scratch next quarter. That creates visual debt: old campaign assets clash with new ones, and the brand has no continuity between seasons. A rotation framework defines shared structural rules — lightness bands, chroma limits, neutral pairing logic — so each season feels fresh but related."
+      },
+      {
+        "heading": "Why warm anchors carry across seasons",
+        "body": "Sunset Boulevard works as a cross-seasonal anchor because its warmth is material rather than trendy. Coral, amber, and rose-gold reference golden-hour light, which reads well from spring through early autumn. The palette does not depend on a specific seasonal association to feel relevant, which is exactly what a rotation anchor needs."
+      },
+      {
+        "heading": "Spring 2026 as the first installment",
+        "body": "The Seasonal: Spring 2026 pack includes mood notes and structured tokens precisely because it is meant to be the first entry in a longer series. The notes document the palette rationale so the next seasonal drop can reference and extend the logic rather than starting fresh. That continuity is the difference between seasonal marketing and a seasonal system."
+      }
+    ],
+    "links": [
+      { "label": "Open Sunset Boulevard", "href": "/collections/sunset-boulevard" },
+      { "label": "Open Seasonal: Spring 2026", "href": "/packs/seasonal-spring-2026" },
+      { "label": "Browse all collections", "href": "/collections" }
+    ]
+  },
+  {
+    "slug": "july-2026-accessible-accents",
+    "date": "2026-03-22",
+    "title": "Choosing accessible accent colors that still feel intentional",
+    "summary": "Why accessible accents fail when they are chosen by compliance alone, how Orchid Bloom proves that expressive hues can pass contrast, and where the starter pack helps teams ship faster.",
+    "eyebrow": "Issue 011",
+    "tags": ["Accessibility", "WCAG", "Palette"],
+    "featuredCollectionId": "orchid-bloom",
+    "featuredPackId": "palette-pack-vol-1",
+    "highlights": [
+      "An accessible accent is not just a color that passes a contrast ratio. It is one that passes while still carrying the brand's visual intent.",
+      "Orchid Bloom demonstrates that expressive, high-chroma hues can meet AA contrast requirements when the lightness structure is deliberate.",
+      "Palette Pack Vol. 1 ships pre-checked accent and surface pairings, removing the manual contrast-testing overhead from early design work."
+    ],
+    "sections": [
+      {
+        "heading": "Compliance alone produces bland accents",
+        "body": "The most common accessibility failure in accent colors is not contrast. It is the over-correction that happens when teams pick safe, desaturated alternatives to avoid failing a check. The result is a palette that technically passes but feels lifeless. The real skill is finding hues with enough chroma and personality to feel branded while maintaining the necessary lightness distance from their background."
+      },
+      {
+        "heading": "Orchid Bloom as proof of concept",
+        "body": "Orchid Bloom is a useful example because the palette is deliberately expressive — pinks, violets, and florals that most teams would assume are risky for accessibility. But because the lightness structure is controlled, the vivid accents maintain enough contrast against both light and dark surfaces. Expressiveness and compliance are not in opposition when the lightness math is right."
+      },
+      {
+        "heading": "Pre-checked pairings save real time",
+        "body": "Palette Pack Vol. 1 ships with surface-accent pairings that have already been tested against AA thresholds. That is not a substitute for running the /contrast tool on your actual implementation, but it removes the most time-consuming part of early palette work: finding combinations that look good and pass at the same time. Start with a pre-checked set, then refine."
+      }
+    ],
+    "links": [
+      { "label": "Open Orchid Bloom", "href": "/collections/orchid-bloom" },
+      { "label": "Open Palette Pack Vol. 1", "href": "/packs/palette-pack-vol-1" },
+      { "label": "Try the contrast checker", "href": "/contrast" }
+    ]
+  },
+  {
+    "slug": "july-2026-color-workflow-automation",
+    "date": "2026-03-21",
+    "title": "Color workflow automation: from hand-picked swatches to token pipeline",
+    "summary": "Why manual color handoff breaks down, how Modern Seaside illustrates the gap between a curated palette and a production-ready token set, and where the Complete Archive fits as the pipeline source.",
+    "eyebrow": "Issue 010",
+    "tags": ["Workflow", "Tools", "Figma"],
+    "featuredCollectionId": "modern-seaside",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "Manual color handoff — screenshots, hex lists in Slack, exported PDFs — is the single biggest source of palette drift in production teams.",
+      "Modern Seaside shows the gap clearly: five curated colors are easy to agree on, but shipping them as tokens across CSS, Tailwind, and Figma requires structure the swatch itself does not provide.",
+      "The Complete Archive Token Set closes that gap by providing every color in every export format, so the pipeline starts from a single source."
+    ],
+    "sections": [
+      {
+        "heading": "Where manual handoff breaks",
+        "body": "A designer picks five colors, exports a PDF, and sends it to engineering. Engineering copies the hex values into CSS variables. A week later someone adjusts one shade in Figma but forgets to update the code. The pipeline is now out of sync, and nobody notices until a QA screenshot shows mismatched buttons. This is not a tooling problem. It is a format problem. The palette was never in a format that both sides could consume directly."
+      },
+      {
+        "heading": "The gap between curation and production",
+        "body": "Modern Seaside is a good illustration because the curation is clear — five coastal tones with obvious visual coherence. But coherence in a mood board does not translate to coherence in code unless the colors ship as structured tokens with role assignments, format coverage, and naming conventions. The swatch is the starting point; the token is the deliverable."
+      },
+      {
+        "heading": "A single source for the full pipeline",
+        "body": "The Complete Archive Token Set exists to remove the format conversion step entirely. Every color in the archive ships as CSS custom properties, Tailwind config, Figma-ready JSON, Style Dictionary tokens, SCSS maps, and more. That means the design team and the engineering team consume the same file, and palette updates propagate through the pipeline without manual re-entry."
+      }
+    ],
+    "links": [
+      { "label": "Open Complete Archive Token Set", "href": "/packs/complete-archive" },
+      { "label": "Open Modern Seaside", "href": "/collections/modern-seaside" },
+      { "label": "Read the Figma tokens guide", "href": "/guides/figma-color-tokens" }
+    ]
+  },
+  {
     "slug": "june-2026-saas-color-scheme",
     "date": "2026-03-20",
     "title": "SaaS color schemes that earn trust before they ask for attention",

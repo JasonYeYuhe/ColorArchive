@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/src/components/theme-provider";
 import { SiteFooter } from "@/src/components/site-footer";
 import { PageTracker } from "@/src/components/page-tracker";
 import { PaletteBuilderTray } from "@/src/components/palette-builder-tray";
+import { LocaleProvider } from "@/src/components/locale-provider";
+import { PHLaunchBanner } from "@/src/components/ph-launch-banner";
 import "./globals.css";
 
 const siteTitle = "ColorArchive";
@@ -82,6 +84,15 @@ const themeScript = `
 })();
 `;
 
+const localeScript = `
+(function(){
+  try {
+    var l = localStorage.getItem('colorarchive-locale');
+    if (l === 'ja') document.documentElement.lang = 'ja';
+  } catch(e) {}
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -91,15 +102,19 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: localeScript }} />
       </head>
       <body>
         <ThemeProvider>
-          <AuthProvider>
-            {children}
-            <SiteFooter />
-            <PaletteBuilderTray />
-            <PageTracker />
-          </AuthProvider>
+          <LocaleProvider>
+            <AuthProvider>
+              <PHLaunchBanner />
+              {children}
+              <SiteFooter />
+              <PaletteBuilderTray />
+              <PageTracker />
+            </AuthProvider>
+          </LocaleProvider>
         </ThemeProvider>
       </body>
     </html>

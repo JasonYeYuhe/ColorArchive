@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
+import { useLocale } from "@/src/components/locale-provider";
 import { ThemeToggle } from "./theme-toggle";
 
 interface SiteHeaderProps {
@@ -34,66 +35,66 @@ interface SiteHeaderProps {
 
 interface NavItem {
   href: string;
-  label: string;
+  labelKey: string;
   matchPaths?: string[];
 }
 
 interface NavGroup {
-  label: string;
+  labelKey: string;
   items: NavItem[];
 }
 
 const DESKTOP_NAV_GROUPS: NavGroup[] = [
   {
-    label: "Explore",
+    labelKey: "nav.explore",
     items: [
-      { href: "/", label: "Archive", matchPaths: ["/", "/colors"] },
-      { href: "/all-colors/", label: "All Colors" },
-      { href: "/search/", label: "Search" },
-      { href: "/families/", label: "Families" },
-      { href: "/collections/", label: "Collections" },
-      { href: "/notes/", label: "Notes" },
-      { href: "/guides/", label: "Guides" },
+      { href: "/", labelKey: "nav.archive", matchPaths: ["/", "/colors"] },
+      { href: "/all-colors/", labelKey: "nav.allColors" },
+      { href: "/search/", labelKey: "nav.search" },
+      { href: "/families/", labelKey: "nav.families" },
+      { href: "/collections/", labelKey: "nav.collections" },
+      { href: "/notes/", labelKey: "nav.notes" },
+      { href: "/guides/", labelKey: "nav.guides" },
     ],
   },
   {
-    label: "Tools",
+    labelKey: "nav.tools",
     items: [
-      { href: "/spectrum/", label: "Spectrum" },
-      { href: "/word-to-color/", label: "Word \u2192 Color" },
-      { href: "/contrast/", label: "Contrast" },
-      { href: "/surprise/", label: "Surprise" },
-      { href: "/favorites/", label: "Favorites" },
+      { href: "/spectrum/", labelKey: "nav.spectrum" },
+      { href: "/word-to-color/", labelKey: "nav.wordToColor" },
+      { href: "/contrast/", labelKey: "nav.contrast" },
+      { href: "/surprise/", labelKey: "nav.surprise" },
+      { href: "/favorites/", labelKey: "nav.favorites" },
     ],
   },
   {
-    label: "Shop",
+    labelKey: "nav.shop",
     items: [
-      { href: "/packs/", label: "Packs" },
-      { href: "/free-pack/", label: "Free Pack" },
+      { href: "/packs/", labelKey: "nav.packs" },
+      { href: "/free-pack/", labelKey: "nav.freePack" },
     ],
   },
 ];
 
 const MOBILE_PRIMARY_ITEMS: NavItem[] = [
-  { href: "/", label: "Archive", matchPaths: ["/", "/colors"] },
-  { href: "/search/", label: "Search" },
-  { href: "/packs/", label: "Packs" },
-  { href: "/collections/", label: "Collections" },
+  { href: "/", labelKey: "nav.archive", matchPaths: ["/", "/colors"] },
+  { href: "/search/", labelKey: "nav.search" },
+  { href: "/packs/", labelKey: "nav.packs" },
+  { href: "/collections/", labelKey: "nav.collections" },
 ];
 
 const MOBILE_MENU_GROUPS: NavGroup[] = [
   ...DESKTOP_NAV_GROUPS,
   {
-    label: "Project",
+    labelKey: "nav.project",
     items: [
-      { href: "/recent/", label: "Recent" },
-      { href: "/analytics/", label: "Analytics" },
-      { href: "/updates/", label: "Updates" },
-      { href: "/notes/", label: "Notes" },
-      { href: "/guides/", label: "Guides" },
-      { href: "/about/", label: "About" },
-      { href: "/support/", label: "Support" },
+      { href: "/recent/", labelKey: "nav.recent" },
+      { href: "/analytics/", labelKey: "nav.analytics" },
+      { href: "/updates/", labelKey: "nav.updates" },
+      { href: "/notes/", labelKey: "nav.notes" },
+      { href: "/guides/", labelKey: "nav.guides" },
+      { href: "/about/", labelKey: "nav.about" },
+      { href: "/support/", labelKey: "nav.support" },
     ],
   },
 ];
@@ -108,9 +109,10 @@ function isActive(item: NavItem, currentPath: string): boolean {
 export function SiteHeader({ currentPath }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { analyticsAccess, logout, status, user } = useAuth();
+  const { locale, setLocale, t } = useLocale();
   const loginHref = currentPath === "/login" ? "/login" : `/login?next=${encodeURIComponent(currentPath)}`;
   const mobileMenuGroups = MOBILE_MENU_GROUPS.map((group) =>
-    group.label === "Project"
+    group.labelKey === "nav.project"
       ? {
           ...group,
           items: group.items.filter((item) => item.href !== "/analytics" || analyticsAccess),
@@ -146,8 +148,16 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
                   : "border-black/8 bg-white/85 text-neutral-700 hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
               }`}
             >
-              {status === "authenticated" ? "Account" : "Log in"}
+              {status === "authenticated" ? t("header.account") : t("header.login")}
             </Link>
+            <button
+              type="button"
+              onClick={() => setLocale(locale === "en" ? "ja" : "en")}
+              className="rounded-full border border-black/8 bg-white/85 px-2.5 py-2 text-xs font-semibold tracking-wide text-neutral-500 transition hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white/14"
+              aria-label="Toggle language"
+            >
+              {locale === "en" ? "JA" : "EN"}
+            </button>
             <ThemeToggle />
             <button
               type="button"
@@ -156,7 +166,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
               aria-expanded={isMenuOpen}
               aria-controls="mobile-site-menu"
             >
-              <span>{isMenuOpen ? "Close" : "Menu"}</span>
+              <span>{isMenuOpen ? t("header.close") : t("header.menu")}</span>
               <span className="text-xs text-neutral-400">{isMenuOpen ? "×" : "≡"}</span>
             </button>
           </div>
@@ -173,7 +183,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
                   : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
               }`}
             >
-              {item.label}
+              {t(item.labelKey)}
             </Link>
           ))}
         </nav>
@@ -186,7 +196,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
             <div className="space-y-4">
               <div>
                 <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                  Account
+                  {t("nav.account")}
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Link
@@ -197,7 +207,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
                         : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
                     }`}
                   >
-                    {status === "authenticated" ? user?.email ?? "Account" : "Log in"}
+                    {status === "authenticated" ? user?.email ?? t("header.account") : t("header.login")}
                   </Link>
                   {status === "authenticated" ? (
                     <button
@@ -205,16 +215,16 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
                       onClick={() => void logout()}
                       className="rounded-full border border-black/8 bg-white px-3.5 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
                     >
-                      Log out
+                      {t("header.logout")}
                     </button>
                   ) : null}
                 </div>
               </div>
 
               {mobileMenuGroups.map((group) => (
-                <div key={group.label}>
+                <div key={group.labelKey}>
                   <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                    {group.label}
+                    {t(group.labelKey)}
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {group.items.map((item) => (
@@ -227,7 +237,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
                             : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
                         }`}
                       >
-                        {item.label}
+                        {t(item.labelKey)}
                       </Link>
                     ))}
                   </div>
@@ -239,13 +249,13 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
 
         <nav className="-mx-1 hidden w-full items-center gap-1 overflow-x-auto px-1 sm:mx-0 sm:flex sm:w-auto sm:px-0">
           {DESKTOP_NAV_GROUPS.map((group, groupIndex) => (
-            <div key={group.label} className="flex shrink-0 items-center gap-1">
+            <div key={group.labelKey} className="flex shrink-0 items-center gap-1">
               {groupIndex > 0 && (
                 <div className="mx-1.5 h-6 w-px bg-black/8 dark:bg-white/10" aria-hidden="true" />
               )}
 
               <span className="mr-1 hidden text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400 lg:inline">
-                {group.label}
+                {t(group.labelKey)}
               </span>
 
               {group.items.map((item) => (
@@ -258,7 +268,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
                       : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
                   }`}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               ))}
             </div>
