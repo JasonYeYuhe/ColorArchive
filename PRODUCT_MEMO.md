@@ -639,6 +639,9 @@ Codex 当前方向：
 - ✅ guide 详情页的 related guides 已改为按 category / featured pack / featured collection / shared tags 排序，不再是随机式推荐
 - ✅ `/notes` 新增 Issue 008（brand color tokens）和 Issue 009（SaaS website color scheme），并扩展出 `saas` / `website` / `ui` 等 tag 索引页
 - ✅ `/notes` 公共时间线、`/updates` 公共更新流与 sitemap 时间戳已回对到 2026-03 的真实发布时间，避免公开页面继续出现未来日期
+- ✅ `/notes` 新增 Issue 010-013（color workflow, accessible accents, seasonal rotation, color naming），新增 `Naming` tag 索引页
+- ✅ Product Hunt 上线准备完成：`docs/product-hunt-launch.md` 文案包 + `/launch/` 着陆页 + PH banner 组件（默认关闭）
+- ✅ 日语本地化 MVP 上线：~100 个翻译 key（导航、英雄区、页脚），EN/JA 切换按钮，localStorage 持久化，pre-hydration locale script
 
 ### 当前优先级
 

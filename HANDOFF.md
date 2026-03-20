@@ -4,6 +4,23 @@ Last updated: 2026-03-20
 
 ## This Session Summary
 
+### Done (Claude Code — Notes + PH + i18n session, 2026-03-20)
+
+- Added 4 new newsletter issues (010-013): color workflow automation, accessible accents, seasonal rotation, color naming
+- New "Naming" tag auto-generates `/notes/tags/naming/` page
+- Created Product Hunt launch preparation:
+  - `docs/product-hunt-launch.md` with tagline, description, first comment, gallery list, UTM template
+  - `src/components/ph-launch-banner.tsx` — dismissible top banner (inactive by default, flip `PH_LAUNCH_ACTIVE` on launch day)
+  - `/launch/` landing page with hero, stats, featured collections, tools, bundle CTA, email capture
+- Implemented Japanese localization MVP:
+  - `src/lib/i18n.ts` — ~100 translation keys covering nav, hero, footer
+  - `src/components/locale-provider.tsx` — React context with localStorage persistence
+  - EN/JA toggle button in site header (next to theme toggle)
+  - Header, footer, and hero section fully wired to `t()` calls
+  - Pre-hydration locale script prevents flash on page load
+- All changes: typecheck passed, build passed, committed and pushed, GitHub Pages deploying
+- Server unchanged — no deploy needed
+
 ### Done (Codex — auth + trust alignment session, 2026-03-20)
 
 - Continued from a partially completed Codex session and finished the queued 5-item cleanup batch
@@ -94,8 +111,8 @@ Last updated: 2026-03-20
 - **Repo cleanup**: removed 13 duplicate download files with spaces in names (macOS copy artifacts)
 
 ### Pending / Next Steps
-- LS store: if approved, switch out of Test mode via the bottom-left dashboard toggle
-- LS products: set `Confirmation modal` and `Email receipt` CTA links to `https://colorarchive.me/thanks/` for all 7 products; document actual cancel behavior after a smoke test
+- LS store: if approved, switch out of Test mode via the bottom-left dashboard toggle (see `docs/commerce-ops-checklist.md`)
+- LS products: set `Confirmation modal` and `Email receipt` CTA links to `https://colorarchive.me/thanks/` for all 7 products; do a smoke test purchase
 - Google auth: magic-link login now preserves `next`, Google sign-in now shows a brief success state on `/login`, and the remaining task is one real allowlisted first-login smoke test
 - Google Search Console: verify colorarchive.me and submit sitemap
 - Product Hunt launch preparation
