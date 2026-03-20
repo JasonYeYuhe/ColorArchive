@@ -4,6 +4,21 @@ Last updated: 2026-03-20
 
 ## This Session Summary
 
+### Done (Claude Code — i18n Round 2 + 3 new guides, 2026-03-20)
+
+- **i18n Round 2**: Extended locale coverage to 6 more components with ~180 new translation keys
+  - `all-colors-page.tsx` — badge, H1, description, stat labels, density labels, display controls, search/sort/density labels, "All families", "Dense spectrum", pagination — all wired to `t()`
+  - `color-archive-page.tsx` — pagination "Showing X of Y" and "Show more" wired to `t()`
+  - `search-explorer-page.tsx` — badge, H1, description, hue band label + 5 options, tone label + 4 options, "Current query"/"No keyword", "Current lens", saturation/lightness/exact hex range labels, CTA section (label/title/desc/buttons)
+  - `contrast-page.tsx` — badge, H1, description, foreground/background labels, swap button, "Pick from archive"/"Hide palette" toggle, search placeholder, "No colors match", "Live preview", sample texts, button labels, "Reversed" text, contrast ratio label, 4 ratio interpretation messages, "WCAG compliance", badge labels, CTA section
+  - `palette-packs-page.tsx` — added `"use client"` + `useLocale`; all UI chrome wired: badge, H1, description, hero buttons, bundle section, buying guides section, all pack card labels (Audience/Includes/Deliverables/Checkout/etc.), compare table headers, related routes sidebar
+  - `pack-detail-page.tsx` — added `"use client"` + `useLocale`; all UI chrome wired: badge, stat cards, bundle breakdown section, card labels, source collections, sample export, FAQ, related guides, CTA section, nav footer
+- **New guides**: Added 3 guides to `src/lib/guides.ts` (now 15 total):
+  - `color-palette-generator` — concept-driven generation, word-to-color tool, Free Palette Pack; priority 93
+  - `procreate-color-palette` — .swatches format, Editorial Warmth, Content Creator Bundle; priority 88
+  - `color-scheme-for-app` — mobile OLED constraints, dual-mode, Nocturne Tech + Dark Mode UI Kit; priority 91
+- All changes: typecheck passed, build passed (2134 pages), committed `15b5fff`, pushed to main
+
 ### Done (Claude Code — i18n + notes + perf + conversion, 2026-03-20)
 
 - **i18n**: Added ~50 new translation keys (tray / panel / empty / capture groups)
