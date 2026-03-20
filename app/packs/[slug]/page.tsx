@@ -78,6 +78,19 @@ export default async function PackDetailRoute({ params }: PackDetailRouteProps) 
     })),
   };
 
+  const faqStructuredData = pack.faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: pack.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  } : null;
+
   const breadcrumbStructuredData = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -91,7 +104,7 @@ export default async function PackDetailRoute({ params }: PackDetailRouteProps) 
   return (
     <>
       <SiteHeader currentPath="/packs" />
-      <StructuredDataScript data={[productStructuredData, breadcrumbStructuredData]} />
+      <StructuredDataScript data={[productStructuredData, breadcrumbStructuredData, ...(faqStructuredData ? [faqStructuredData] : [])]} />
       <PackDetailPage pack={pack} relatedCollections={relatedCollections} />
     </>
   );

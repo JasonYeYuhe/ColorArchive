@@ -13,6 +13,7 @@ import {
   type AccountOrder,
 } from "@/src/lib/auth-client";
 import { useAuth } from "@/src/components/auth-provider";
+import { useLocale } from "@/src/components/locale-provider";
 import { licenseTiers, supportPolicy } from "@/src/lib/license-tiers";
 
 type FormState = "idle" | "loading" | "success" | "error";
@@ -75,6 +76,7 @@ function formatOrderCurrency(amount: number, currency: string) {
 }
 
 export function LoginPage() {
+  const { t } = useLocale();
   const searchParams = useSearchParams();
   const router = useRouter();
   const {
@@ -328,15 +330,15 @@ export function LoginPage() {
         <section className="mx-auto max-w-3xl rounded-[2rem] border border-black/6 bg-white/80 px-6 py-12 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-neutral-500">
             <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-            Account sync
+            {t("login.accountSync")}
           </div>
           <h1 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-5xl">
-            {verifyState === "loading" ? "Signing you in" : "Login complete"}
+            {verifyState === "loading" ? t("login.signingYouIn") : t("login.loginComplete")}
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600">
             {verifyState === "loading"
-              ? "We are verifying your email link and loading your saved colors."
-              : "Your favorites, palette, and account history are synced. Redirecting now."}
+              ? t("login.verifyingLink")
+              : t("login.syncComplete")}
           </p>
         </section>
       </main>
@@ -349,14 +351,14 @@ export function LoginPage() {
         <section className="mx-auto max-w-3xl rounded-[2rem] border border-black/6 bg-white/80 px-6 py-12 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-neutral-500">
             <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-            Account sync
+            {t("login.accountSync")}
           </div>
           <h1 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-5xl">
-            {status === "loading" ? "Finishing Google sign-in" : "Google sign-in complete"}
+            {status === "loading" ? t("login.finishingGoogle") : t("login.googleComplete")}
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600">
             {status === "loading"
-              ? "We are connecting this Google account and loading your saved colors."
+              ? t("login.connectingGoogle")
               : `Your favorites, palette, downloads, and purchase history are ready. Redirecting to ${destinationLabel} now.`}
           </p>
         </section>
@@ -370,11 +372,11 @@ export function LoginPage() {
         <section className="rounded-[2rem] border border-black/6 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10 sm:py-14">
           <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-neutral-500">
             <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-            Account sync
+            {t("login.accountSync")}
           </div>
 
           <h1 className="mt-6 max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-            Sync favorites, downloads, and purchase history
+            {t("login.heading")}
           </h1>
 
           <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg">
@@ -384,9 +386,9 @@ export function LoginPage() {
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {[
-              "No password to remember",
-              "Favorites and palette sync automatically",
-              "Downloads and receipts stay with your account",
+              t("login.noPassword"),
+              t("login.favSync"),
+              t("login.downloadsSync"),
             ].map((item) => (
               <div
                 key={item}
@@ -404,7 +406,7 @@ export function LoginPage() {
               {user ? (
                 <>
                   <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                    Signed in
+                    {t("login.signedIn")}
                   </div>
                   <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
                     {user.email}
@@ -418,19 +420,19 @@ export function LoginPage() {
                       href="/favorites/"
                       className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                     >
-                      Open favorites
+                      {t("login.openFavorites")}
                     </Link>
                     <Link
                       href="/palette/"
                       className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                     >
-                      Open palette
+                      {t("login.openPalette")}
                     </Link>
                     <Link
                       href="/packs/"
                       className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                     >
-                      Browse packs
+                      {t("login.browsePacks")}
                     </Link>
                     {analyticsAccess ? (
                       <>
@@ -438,13 +440,13 @@ export function LoginPage() {
                           href="/analytics"
                           className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                         >
-                          Open analytics
+                          {t("login.openAnalytics")}
                         </Link>
                         <Link
                           href="/admin/orders"
                           className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                         >
-                          Admin orders
+                          {t("login.adminOrders")}
                         </Link>
                       </>
                     ) : null}
@@ -453,20 +455,20 @@ export function LoginPage() {
                       onClick={() => void handleLogout()}
                       className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                     >
-                      Log out
+                      {t("login.logOut")}
                     </button>
                   </div>
                   <p className="mt-5 text-xs uppercase tracking-[0.16em] text-neutral-400">
-                    Last sync {formatSyncTime(lastSyncAt)}
+                    {t("login.lastSync")} {formatSyncTime(lastSyncAt)}
                   </p>
                 </>
               ) : formState === "success" ? (
                 <>
                   <div className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600">
-                    Email sent
+                    {t("login.emailSent")}
                   </div>
                   <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                    Check your inbox
+                    {t("login.checkInbox")}
                   </h2>
                   <p className="mt-3 text-sm leading-6 text-neutral-600">
                     We sent a one-time sign-in link. It stays valid for 30 minutes and signs you in
@@ -477,16 +479,16 @@ export function LoginPage() {
                     onClick={() => setFormState("idle")}
                     className="mt-6 rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                   >
-                    Send another link
+                    {t("login.sendAnother")}
                   </button>
                 </>
               ) : (
                 <>
                   <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                    Sign in
+                    {t("login.signIn")}
                   </div>
                   <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                    Request a sign-in link
+                    {t("login.requestLink")}
                   </h2>
                   <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
                     <input
@@ -502,7 +504,7 @@ export function LoginPage() {
                       disabled={formState === "loading"}
                       className="rounded-full border border-black/8 bg-neutral-950 px-4 py-3 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-50"
                     >
-                      {formState === "loading" ? "Sending link…" : "Email me a login link"}
+                      {formState === "loading" ? t("login.sendingLink") : t("login.emailMeLink")}
                     </button>
                   </form>
                   {googleEnabled ? (
@@ -510,7 +512,7 @@ export function LoginPage() {
                       <div className="my-4 flex items-center gap-3">
                         <div className="h-px flex-1 bg-black/8" />
                         <div className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
-                          or
+                          {t("login.or")}
                         </div>
                         <div className="h-px flex-1 bg-black/8" />
                       </div>
@@ -526,7 +528,7 @@ export function LoginPage() {
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
                           </svg>
                         ) : null}
-                        {googleLoading ? "Redirecting to Google…" : "Continue with Google"}
+                        {googleLoading ? t("login.redirectingGoogle") : t("login.continueGoogle")}
                       </button>
                     </>
                   ) : (
@@ -551,7 +553,7 @@ export function LoginPage() {
                       onClick={() => { setError(""); handleGoogleLogin(); }}
                       className="mt-2 text-xs font-medium text-red-600 underline hover:text-red-800"
                     >
-                      Try Google sign-in again
+                      {t("login.tryGoogleAgain")}
                     </button>
                   ) : null}
                 </div>
@@ -563,19 +565,19 @@ export function LoginPage() {
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                      Orders & downloads
+                      {t("login.ordersDownloads")}
                     </div>
                     <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                      Your pack history
+                      {t("login.yourPackHistory")}
                     </h3>
                   </div>
                   <div className="rounded-full border border-black/8 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-neutral-500">
-                    {orders.length} orders
+                    {orders.length} {t("login.orders")}
                   </div>
                 </div>
 
                 {ordersState === "loading" || ordersState === "idle" ? (
-                  <p className="mt-5 text-sm text-neutral-500">Loading your orders…</p>
+                  <p className="mt-5 text-sm text-neutral-500">{t("login.loadingOrders")}</p>
                 ) : null}
 
                 {ordersState === "error" ? (
@@ -630,7 +632,7 @@ export function LoginPage() {
                                 rel="noreferrer"
                                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                               >
-                                Download ZIP
+                                {t("login.downloadZip")}
                               </a>
                             ) : null}
                             <button
@@ -640,17 +642,17 @@ export function LoginPage() {
                               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 disabled:opacity-50"
                             >
                               {resendState[order.orderId] === "sending"
-                                ? "Sending…"
+                                ? t("login.sending")
                                 : resendState[order.orderId] === "sent"
-                                  ? "Sent"
-                                  : "Resend email"}
+                                  ? t("login.sent")
+                                  : t("login.resendEmail")}
                             </button>
                             {order.packUrl ? (
                               <a
                                 href={order.packUrl}
                                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                               >
-                                Pack page
+                                {t("login.packPage")}
                               </a>
                             ) : null}
                             {order.receiptUrl ? (
@@ -660,7 +662,7 @@ export function LoginPage() {
                                 rel="noreferrer"
                                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                               >
-                                Receipt
+                                {t("login.receipt")}
                               </a>
                             ) : null}
                           </div>
@@ -676,7 +678,7 @@ export function LoginPage() {
           <aside className="space-y-6">
             <div className="rounded-[1.75rem] border border-black/6 bg-white/78 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                What syncs
+                {t("login.whatSyncs")}
               </div>
               <div className="mt-5 space-y-4 text-sm leading-6 text-neutral-600">
                 <p>
@@ -703,19 +705,19 @@ export function LoginPage() {
                   href="/favorites/"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
-                  Favorites
+                  {t("login.favorites")}
                 </Link>
                 <Link
                   href="/palette/"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
-                  Palette builder
+                  {t("login.paletteBuilder")}
                 </Link>
                 <Link
                   href="/packs/"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
-                  Packs
+                  {t("login.packs")}
                 </Link>
                 {analyticsAccess ? (
                   <>
@@ -723,13 +725,13 @@ export function LoginPage() {
                       href="/analytics"
                       className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                     >
-                      Analytics
+                      {t("login.analytics")}
                     </Link>
                     <Link
                       href="/admin/orders"
                       className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                     >
-                      Admin orders
+                      {t("login.adminOrders")}
                     </Link>
                   </>
                 ) : null}
@@ -738,7 +740,7 @@ export function LoginPage() {
 
             <div className="rounded-[1.75rem] border border-black/6 bg-white/78 px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                License & support
+                {t("login.licenseSupport")}
               </div>
               <div className="mt-5 grid gap-3">
                 {licenseTiers.map((tier) => (
@@ -770,13 +772,13 @@ export function LoginPage() {
                   href="mailto:hello@colorarchive.me?subject=ColorArchive%20purchase%20support"
                   className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                 >
-                  Purchase support
+                  {t("login.purchaseSupport")}
                 </a>
                 <Link
                   href="/support/"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
-                  Support page
+                  {t("login.supportPage")}
                 </Link>
               </div>
             </div>
@@ -786,22 +788,22 @@ export function LoginPage() {
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                      Admin queue
+                      {t("login.adminQueue")}
                     </div>
                     <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                      Recent order actions
+                      {t("login.recentOrderActions")}
                     </h3>
                   </div>
                   <Link
                     href="/admin/orders"
                     className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                   >
-                    Open full queue
+                    {t("login.openFullQueue")}
                   </Link>
                 </div>
 
                 {adminState === "loading" || adminState === "idle" ? (
-                  <p className="mt-5 text-sm text-neutral-500">Loading admin queue…</p>
+                  <p className="mt-5 text-sm text-neutral-500">{t("login.loadingAdmin")}</p>
                 ) : null}
 
                 {adminState === "error" ? (
@@ -827,16 +829,16 @@ export function LoginPage() {
                             className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 disabled:opacity-50"
                           >
                             {resendState[`admin-${order.orderId}`] === "sending"
-                              ? "Sending…"
+                              ? t("login.sending")
                               : resendState[`admin-${order.orderId}`] === "sent"
-                                ? "Sent"
-                                : "Resend email"}
+                                ? t("login.sent")
+                                : t("login.resendEmail")}
                           </button>
                           <a
                             href={`mailto:${order.email}?subject=${encodeURIComponent(`ColorArchive support · ${order.product}`)}`}
                             className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                           >
-                            Email buyer
+                            {t("login.emailBuyer")}
                           </a>
                         </div>
                       </article>

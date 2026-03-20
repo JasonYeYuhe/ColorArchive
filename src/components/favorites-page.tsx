@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ColorGrid } from "@/src/components/color-grid";
+import { useLocale } from "@/src/components/locale-provider";
 import { RecommendedColorsSection } from "@/src/components/recommended-colors-section";
 import { getFavoriteColorIds, subscribeToFavorites } from "@/src/lib/favorites";
 import type { ColorRecord } from "@/src/types/color";
@@ -44,6 +45,7 @@ function CopyButton({ label, value }: { label: string; value: string }) {
 }
 
 export function FavoritesPage({ colors }: FavoritesPageProps) {
+  const { t } = useLocale();
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -89,17 +91,22 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
+        <nav className="mb-4 text-sm text-neutral-400">
+          <Link href="/" className="transition hover:text-neutral-600">ColorArchive</Link>
+          <span className="mx-2">&rsaquo;</span>
+          <span className="text-neutral-600">Favorites</span>
+        </nav>
         <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
           <div className="pointer-events-none absolute left-0 top-10 h-48 w-48 rounded-full bg-rose-200/28 blur-3xl" />
           <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-sky-200/24 blur-3xl" />
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-              Personal archive
+              {t("favorites.badge")}
             </div>
 
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Your saved colors
+              {t("favorites.heading")}
             </h1>
 
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
@@ -109,9 +116,9 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
-                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Saved</div>
+                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">{t("favorites.saved")}</div>
                 <div className="mt-1 text-lg font-semibold text-neutral-950">
-                  {favoriteColors.length} colors
+                  {favoriteColors.length} {t("favorites.colors")}
                 </div>
               </div>
               {favoriteColors.length > 0 ? (
@@ -125,13 +132,13 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
                 href="/collections/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
-                Browse collections
+                {t("favorites.browseCollections")}
               </Link>
               <Link
                 href="/search"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Find more colors
+                {t("favorites.findMoreColors")}
               </Link>
             </div>
           </div>
@@ -140,7 +147,7 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
         {favoriteColors.length === 0 ? (
           <section className="rounded-[1.75rem] border border-black/6 bg-white/80 px-6 py-12 text-center shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
-              No saved colors yet
+              {t("favorites.noSavedYet")}
             </h2>
             <p className="mt-3 text-sm leading-6 text-neutral-600">
               Use the Save button on archive cards, selected colors, or detail pages to build a
@@ -152,19 +159,19 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
             <RecommendedColorsSection
               colors={colors}
               seedIds={favoriteIds}
-              title="Based on your saved shelf"
+              title={t("favorites.recommendedTitle")}
               description="These picks stay close to your saved families and tonal range, while still widening the palette enough to keep the archive useful."
             />
 
             <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Export preview
+                {t("favorites.exportPreview")}
               </div>
               <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
                 {paletteExport}
               </pre>
               <div className="mt-4 text-xs uppercase tracking-[0.16em] text-neutral-400">
-                JSON export is also available from the action row above.
+                {t("favorites.jsonExportNote")}
               </div>
             </section>
 

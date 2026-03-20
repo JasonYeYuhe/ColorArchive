@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, useMemo, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { useLocale } from "@/src/components/locale-provider";
 import { ShareOnXButton } from "@/src/components/share-link-button";
 import { colors as allColors } from "@/src/data/colors";
 import {
@@ -48,6 +49,7 @@ function CopyButton({ value, label }: { value: string; label: string }) {
 }
 
 function ShareUrlButton({ ids }: { ids: string[] }) {
+  const { t } = useLocale();
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -73,7 +75,7 @@ function ShareUrlButton({ ids }: { ids: string[] }) {
       onClick={() => void handleCopy()}
       className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
     >
-      {copied ? "Link copied!" : "Share link"}
+      {copied ? t("palette.linkCopied") : t("palette.shareLink")}
     </button>
   );
 }
@@ -102,6 +104,7 @@ function PaletteSwatchRow({ colors }: { colors: ColorRecord[] }) {
 }
 
 function PaletteColorDetail({ color }: { color: ColorRecord }) {
+  const { t } = useLocale();
   const [inPalette, setInPalette] = useState(false);
   const [paletteSize, setPaletteSize] = useState(0);
 
@@ -159,7 +162,7 @@ function PaletteColorDetail({ color }: { color: ColorRecord }) {
                 : "border-black/8 bg-white text-neutral-600 hover:border-neutral-950/10 hover:bg-neutral-950 hover:text-white"
           }`}
         >
-          {inPalette ? "✓ In builder" : "+ Add to builder"}
+          {inPalette ? t("palette.inBuilder") : t("palette.addToBuilder")}
         </button>
       </div>
     </div>
@@ -167,13 +170,14 @@ function PaletteColorDetail({ color }: { color: ColorRecord }) {
 }
 
 function EmptyState() {
+  const { t } = useLocale();
   return (
     <div className="flex flex-col items-center justify-center rounded-[2rem] border border-dashed border-black/10 bg-white/60 px-6 py-20 text-center">
       <div className="text-5xl" aria-hidden="true">
         🎨
       </div>
       <h2 className="mt-6 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
-        No colors in this palette
+        {t("palette.noColors")}
       </h2>
       <p className="mt-3 max-w-md text-sm leading-6 text-neutral-500">
         Add colors to your palette builder from any color card, then come back here to view and share
@@ -184,13 +188,13 @@ function EmptyState() {
           href="/all-colors/"
           className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
         >
-          Browse colors
+          {t("palette.browseColors")}
         </Link>
         <Link
           href="/search"
           className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
         >
-          Search archive
+          {t("palette.searchArchive")}
         </Link>
       </div>
     </div>
@@ -198,6 +202,7 @@ function EmptyState() {
 }
 
 function PaletteContent() {
+  const { t } = useLocale();
   const searchParams = useSearchParams();
   const idsParam = searchParams.get("ids");
 
@@ -267,8 +272,7 @@ function PaletteContent() {
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-[1.4rem] border border-black/6 bg-white/78 px-5 py-4 shadow-[0_8px_24px_rgba(15,23,42,0.04)]">
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
-            {isFromUrl ? "Shared palette" : "Your palette"} · {paletteColors.length} color
-            {paletteColors.length === 1 ? "" : "s"}
+            {isFromUrl ? t("palette.sharedPalette") : t("palette.yourPalette")} · {paletteColors.length} {paletteColors.length === 1 ? t("palette.color") : t("palette.colors")}
           </div>
           {isFromUrl && (
             <p className="mt-1 text-sm text-neutral-500">
@@ -290,7 +294,7 @@ function PaletteContent() {
               onClick={addAllToBuilder}
               className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
             >
-              + Add all to builder
+              {t("palette.addAllToBuilder")}
             </button>
           )}
         </div>
@@ -298,7 +302,7 @@ function PaletteContent() {
 
       <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
         <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-          Import palette
+          {t("palette.importPalette")}
         </div>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
           Paste a ColorArchive share URL, color ids, HEX values, or JSON with `id` / `hex` fields.
@@ -322,14 +326,14 @@ rose-core-soft
             onClick={() => handleImport("replace")}
             className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
           >
-            Replace builder
+            {t("palette.replaceBuilder")}
           </button>
           <button
             type="button"
             onClick={() => handleImport("append")}
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
-            Append to builder
+            {t("palette.appendToBuilder")}
           </button>
         </div>
         {importStatus ? (
@@ -347,7 +351,7 @@ rose-core-soft
       {/* CSS preview */}
       <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
         <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-          CSS variables
+          {t("palette.cssVariables")}
         </div>
         <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
           {cssExport}
@@ -357,7 +361,7 @@ rose-core-soft
       {/* JSON preview */}
       <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
         <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-          JSON export
+          {t("palette.jsonExport")}
         </div>
         <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
           {jsonExport}
@@ -366,7 +370,7 @@ rose-core-soft
 
       <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
         <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-          Token workflow exports
+          {t("palette.tokenWorkflows")}
         </div>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
           For larger design-system workflows, use the prebuilt static exports generated from the archive.
@@ -378,7 +382,7 @@ rose-core-soft
             rel="noreferrer"
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
-            Figma tokens
+            {t("palette.figmaTokens")}
           </a>
           <a
             href="/downloads/colorarchive-style-dictionary.json"
@@ -386,7 +390,7 @@ rose-core-soft
             rel="noreferrer"
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
-            Style Dictionary
+            {t("palette.styleDictionary")}
           </a>
           <a
             href="/downloads/colorarchive.gpl"
@@ -394,7 +398,7 @@ rose-core-soft
             rel="noreferrer"
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
-            GPL palette
+            {t("palette.gplPalette")}
           </a>
           <a
             href="/downloads/colorarchive-sketchpalette.json"
@@ -402,7 +406,7 @@ rose-core-soft
             rel="noreferrer"
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
-            Sketch palette
+            {t("palette.sketchPalette")}
           </a>
           <a
             href="/downloads/colorarchive.ase"
@@ -410,7 +414,7 @@ rose-core-soft
             rel="noreferrer"
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
-            ASE swatches
+            {t("palette.aseSwatches")}
           </a>
         </div>
       </div>
@@ -419,13 +423,19 @@ rose-core-soft
 }
 
 export function PalettePage() {
+  const { t } = useLocale();
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
+        <nav className="mb-4 text-sm text-neutral-400">
+          <Link href="/" className="transition hover:text-neutral-600">ColorArchive</Link>
+          <span className="mx-2">&rsaquo;</span>
+          <span className="text-neutral-600">{t("palette.heading")}</span>
+        </nav>
         <section className="rounded-[2rem] border border-black/6 bg-white/78 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           <div className="mb-6">
             <h1 className="text-3xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-4xl">
-              Palette
+              {t("palette.heading")}
             </h1>
             <p className="mt-2 max-w-xl text-sm leading-6 text-neutral-500">
               View, export, and share curated color palettes. Copy a shareable link or export as CSS
@@ -436,7 +446,7 @@ export function PalettePage() {
           <Suspense
             fallback={
               <div className="flex items-center justify-center rounded-[1.6rem] border border-dashed border-black/10 bg-white/60 py-20">
-                <div className="text-sm text-neutral-400">Loading palette...</div>
+                <div className="text-sm text-neutral-400">{t("palette.loadingPalette")}</div>
               </div>
             }
           >

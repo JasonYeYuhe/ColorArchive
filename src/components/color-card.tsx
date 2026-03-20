@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
+import { useLocale } from "@/src/components/locale-provider";
 import { addToPalette, getPaletteIds, subscribeToPalette, MAX_SIZE } from "@/src/lib/palette-builder";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -13,6 +14,7 @@ interface ColorCardProps {
 }
 
 export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProps) {
+  const { t } = useLocale();
   const [copied, setCopied] = useState(false);
   const [inPalette, setInPalette] = useState(false);
   const [paletteSize, setPaletteSize] = useState(0);
@@ -102,7 +104,7 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
             className="rounded-full border border-black/8 bg-neutral-950 px-3 py-1.5 text-xs font-medium tracking-[0.08em] text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
             aria-label={`Copy ${color.hex} to clipboard`}
           >
-            {copied ? "Copied" : "Copy"}
+            {copied ? t("color.copied") : t("color.copy")}
           </button>
         </div>
 
@@ -115,7 +117,7 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
               addToPalette(color.id);
             }}
             disabled={inPalette || paletteSize >= MAX_SIZE}
-            title={inPalette ? "Already in palette" : paletteSize >= MAX_SIZE ? `Palette full (${MAX_SIZE})` : "Add to palette"}
+            title={inPalette ? t("color.alreadyInPalette") : paletteSize >= MAX_SIZE ? `${t("color.paletteFull")} (${MAX_SIZE})` : t("color.addToPalette")}
             className={`rounded-full border px-3 py-1.5 text-xs font-medium transition focus:outline-none focus:ring-4 focus:ring-neutral-900/10 ${
               inPalette
                 ? "border-emerald-200 bg-emerald-50 text-emerald-700"
@@ -123,9 +125,9 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
                   ? "cursor-not-allowed border-black/8 bg-neutral-50 text-neutral-300"
                   : "border-black/8 bg-white text-neutral-600 hover:border-neutral-950/10 hover:bg-neutral-950 hover:text-white"
             }`}
-            aria-label={inPalette ? "In palette" : "Add to palette"}
+            aria-label={inPalette ? t("color.inPalette") : t("color.addToPalette")}
           >
-            {inPalette ? "✓ In palette" : "+ Palette"}
+            {inPalette ? `✓ ${t("color.inPalette")}` : `+ ${t("color.addToPalette")}`}
           </button>
         </div>
 
@@ -170,7 +172,7 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
             onClick={(event) => event.stopPropagation()}
             className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
           >
-            Open detail
+            {t("color.openDetail")}
           </Link>
         </div>
       </div>

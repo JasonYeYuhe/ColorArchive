@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
+import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { RecentColorsPage } from "@/src/components/recent-colors-page";
 import { colors } from "@/src/data/colors";
 
@@ -9,9 +10,19 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+const breadcrumbData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
+    { "@type": "ListItem", position: 2, name: "Recent Colors", item: "https://colorarchive.me/recent/" },
+  ],
+};
+
 export default function RecentRoute() {
   return (
     <>
+      <StructuredDataScript data={breadcrumbData} />
       <SiteHeader currentPath="/recent" />
       <RecentColorsPage colors={colors} />
     </>

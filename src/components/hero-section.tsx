@@ -4,6 +4,7 @@ import Link from "next/link";
 import { colors } from "@/src/data/colors";
 import { checkoutConfig } from "@/src/lib/checkout-config";
 import { landingGuides } from "@/src/lib/guides";
+import { newsletterIssues } from "@/src/lib/newsletter-issues";
 import { palettePacks } from "@/src/lib/palette-packs";
 import { useLocale } from "@/src/components/locale-provider";
 
@@ -28,6 +29,7 @@ export function HeroSection({
   const { t } = useLocale();
   const searchSummary = searchQuery.trim().length > 0 ? `Matching "${searchQuery.trim()}"` : t("hero.showingFullArchive");
   const featuredGuides = landingGuides.slice(0, 4);
+  const recentNotes = newsletterIssues.slice(0, 3);
 
   return (
     <div className="flex flex-col gap-6">
@@ -234,6 +236,45 @@ export function HeroSection({
             >
               {t("hero.browseAllGuides")}
             </Link>
+            <Link
+              href="/notes/"
+              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white"
+            >
+              {t("hero.readNotes")}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest notes */}
+      <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
+            {t("hero.latestNotes")}
+          </div>
+          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
+            {t("hero.latestNotesHeading")}
+          </h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {recentNotes.map((note) => (
+              <Link
+                key={note.slug}
+                href={`/notes/${note.slug}/`}
+                className="rounded-[1.3rem] border border-black/6 bg-white/90 p-4 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-neutral-800/60 dark:border-white/8"
+              >
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                  {note.eyebrow}
+                </div>
+                <div className="mt-2 text-sm font-semibold text-neutral-950 dark:text-white">
+                  {note.title}
+                </div>
+                <div className="mt-2 text-xs leading-5 text-neutral-500 dark:text-neutral-400">
+                  {note.summary}
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-5">
             <Link
               href="/notes/"
               className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white"

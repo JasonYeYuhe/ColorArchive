@@ -1,5 +1,8 @@
+"use client";
+
 import { COLOR_FAMILIES } from "@/src/lib/color-utils";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import { useLocale } from "@/src/components/locale-provider";
 import type { ColorFamily, SortOption } from "@/src/types/color";
 
 interface FilterToolbarProps {
@@ -29,6 +32,7 @@ export function FilterToolbar({
   onSortChange,
   onReset,
 }: FilterToolbarProps) {
+  const { t } = useLocale();
   const hasActiveFilters = activeFamily !== "All" || searchQuery.length > 0 || sortBy !== "hue";
 
   return (
@@ -40,16 +44,16 @@ export function FilterToolbar({
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Archive controls
+              {t("filter.archiveControls")}
             </div>
             <div className="mt-1 text-sm text-neutral-600">
               {visibleColors === totalColors
-                ? `Showing all ${totalColors} colors`
-                : `Showing ${visibleColors} of ${totalColors} colors`}
+                ? `${t("filter.showingAll")} ${totalColors} ${t("hero.colors")}`
+                : `${t("hero.showing")} ${visibleColors} ${t("filter.showingOf")} ${totalColors} ${t("hero.colors")}`}
             </div>
           </div>
           <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">
-            Search, sort, and narrow by family
+            {t("filter.searchSortNarrow")}
           </div>
         </div>
 
@@ -63,7 +67,7 @@ export function FilterToolbar({
               type="search"
               value={searchQuery}
               onChange={(event) => onSearchChange(event.target.value)}
-              placeholder="Search by color name or hex value"
+              placeholder={t("filter.searchPlaceholder")}
               className="w-full rounded-2xl border border-black/8 bg-white/85 px-11 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
             />
             {searchQuery.length > 0 ? (
@@ -73,14 +77,14 @@ export function FilterToolbar({
                 className="absolute right-3 top-1/2 rounded-full px-2 py-1 text-xs font-medium text-neutral-500 transition hover:bg-neutral-900/5 hover:text-neutral-900"
                 aria-label="Clear search"
               >
-                Clear
+                {t("filter.clear")}
               </button>
             ) : null}
           </label>
 
           <label className="flex min-w-[12rem] flex-col gap-2">
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Sort
+              {t("filter.sort")}
             </span>
             <select
               value={sortBy}
@@ -88,9 +92,9 @@ export function FilterToolbar({
               className="rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
               aria-label="Sort colors"
             >
-              <option value="hue">Hue</option>
-              <option value="lightness">Lightness</option>
-              <option value="name">Name</option>
+              <option value="hue">{t("filter.sortHue")}</option>
+              <option value="lightness">{t("filter.sortLightness")}</option>
+              <option value="name">{t("filter.sortName")}</option>
             </select>
           </label>
 
@@ -100,10 +104,10 @@ export function FilterToolbar({
             disabled={!hasActiveFilters}
             className="rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm font-medium text-neutral-900 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Reset
+            {t("filter.reset")}
           </button>
 
-          {shareHref ? <ShareLinkButton href={shareHref} label="Share view" /> : null}
+          {shareHref ? <ShareLinkButton href={shareHref} label={t("filter.shareView")} /> : null}
         </div>
 
         <div className="-mx-1 overflow-x-auto pb-1 sm:mx-0 sm:overflow-visible">
@@ -118,7 +122,7 @@ export function FilterToolbar({
               }`}
               aria-pressed={activeFamily === "All"}
             >
-              All families
+              {t("filter.allFamilies")}
             </button>
 
             {COLOR_FAMILIES.map((family) => {
