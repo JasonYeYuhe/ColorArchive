@@ -523,10 +523,96 @@ async function sendFollowUp7DayEmail(to) {
   return result;
 }
 
+// Day-14 follow-up: limited time offer with FIRSTPACK discount
+async function sendFollowUp14DayEmail(to) {
+  const result = await resend.emails.send({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject: "10% off your first ColorArchive pack — code FIRSTPACK",
+    text: [
+      "A small thank-you for sticking around",
+      "",
+      "You downloaded the free palette pack two weeks ago. If you've been thinking about upgrading, here's a nudge:",
+      "",
+      "Use code FIRSTPACK at checkout for 10% off any pack.",
+      "",
+      "A few popular picks:",
+      "",
+      "Palette Pack Vol. 1 (¥299 → ¥269) — 8 curated palettes, CSS + Tailwind tokens.",
+      "https://colorarchive.me/packs/palette-pack-vol-1/",
+      "",
+      "Dark Mode UI Kit (¥499 → ¥449) — Pre-tested light/dark pairings, Tailwind ready.",
+      "https://colorarchive.me/packs/dark-mode-ui-kit/",
+      "",
+      "All Access Bundle (¥2,799 → ¥2,519) — Every pack in one download.",
+      "https://colorarchive.me/packs/all-access-bundle/",
+      "",
+      "The code is valid for 7 days.",
+      "",
+      "— ColorArchive",
+      "https://colorarchive.me",
+    ].join("\n"),
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
+        <h2 style="color:#1a1a1a">A small thank-you for sticking around</h2>
+        <p style="color:#444;line-height:1.6">You downloaded the free palette pack two weeks ago. If you've been thinking about upgrading, here's a nudge:</p>
+
+        <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:16px;padding:18px 20px;margin:20px 0;text-align:center">
+          <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#92400e;font-weight:700">Your discount code</div>
+          <div style="font-size:28px;font-weight:800;color:#78350f;letter-spacing:2px;margin:8px 0">FIRSTPACK</div>
+          <p style="margin:4px 0 0;color:#92400e;font-size:14px">10% off any pack · Valid for 7 days</p>
+        </div>
+
+        <p style="color:#444;font-size:14px;font-weight:600;margin:20px 0 12px">Popular picks:</p>
+
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:16px;padding:14px 16px;margin:12px 0">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <strong style="color:#14532d">Palette Pack Vol. 1</strong>
+            <span style="color:#14532d;font-size:13px"><s style="color:#9ca3af">¥299</s> <strong>¥269</strong></span>
+          </div>
+          <p style="margin:8px 0 10px;color:#166534;font-size:14px;line-height:1.5">8 curated palettes with CSS variables and Tailwind tokens.</p>
+          <a href="https://colorarchive.me/packs/palette-pack-vol-1/" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none">View pack →</a>
+        </div>
+
+        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:16px;padding:14px 16px;margin:12px 0">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <strong style="color:#6d28d9">Dark Mode UI Kit</strong>
+            <span style="color:#6d28d9;font-size:13px"><s style="color:#9ca3af">¥499</s> <strong>¥449</strong></span>
+          </div>
+          <p style="margin:8px 0 10px;color:#5b21b6;font-size:14px;line-height:1.5">Pre-tested light/dark pairings, contrast-checked, Tailwind ready.</p>
+          <a href="https://colorarchive.me/packs/dark-mode-ui-kit/" style="color:#6d28d9;font-weight:600;font-size:13px;text-decoration:none">View pack →</a>
+        </div>
+
+        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:14px 16px;margin:12px 0">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <strong style="color:#14532d">All Access Bundle</strong>
+            <span style="color:#14532d;font-size:13px"><s style="color:#9ca3af">¥2,799</s> <strong>¥2,519</strong></span>
+          </div>
+          <p style="margin:8px 0 10px;color:#166534;font-size:14px;line-height:1.5">Every pack in one download. The best value.</p>
+          <a href="https://colorarchive.me/packs/all-access-bundle/" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none">View bundle →</a>
+        </div>
+
+        <p style="color:#666;font-size:14px;margin-top:20px">Questions? Just reply to this email.</p>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
+        <p style="color:#999;font-size:12px">
+          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+        </p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (follow-up day 14):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
 module.exports = {
   sendFreePackEmail,
   sendFollowUp3DayEmail,
   sendFollowUp7DayEmail,
+  sendFollowUp14DayEmail,
   sendMagicLinkEmail,
   sendOrderConfirmationEmail,
   sendWaitlistConfirmationEmail,

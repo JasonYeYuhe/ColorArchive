@@ -194,6 +194,46 @@ export function HeroSection({
         </div>
       </section>
 
+      {/* Token pipeline showcase */}
+      <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
+            {t("hero.tokenPipeline")}
+          </div>
+          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
+            {t("hero.tokenHeading")}
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
+            {t("hero.tokenDesc")}
+          </p>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            <div className="rounded-[1.3rem] border border-black/6 bg-neutral-950 p-4 dark:border-white/10">
+              <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">CSS Variables</div>
+              <pre className="text-xs leading-5 text-emerald-400"><code>{`:root {\n  --coral-sunset: #E8734A;\n  --ocean-depth: #1B4965;\n  --sage-mist: #A3B899;\n  --warm-sand: #D4A574;\n}`}</code></pre>
+            </div>
+            <div className="rounded-[1.3rem] border border-black/6 bg-neutral-950 p-4 dark:border-white/10">
+              <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Tailwind Config</div>
+              <pre className="text-xs leading-5 text-sky-400"><code>{`colors: {\n  coral: "#E8734A",\n  ocean: "#1B4965",\n  sage: "#A3B899",\n  sand: "#D4A574",\n}`}</code></pre>
+            </div>
+            <div className="rounded-[1.3rem] border border-black/6 bg-neutral-950 p-4 dark:border-white/10">
+              <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Figma Tokens JSON</div>
+              <pre className="text-xs leading-5 text-amber-400"><code>{`{\n  "coral-sunset": {\n    "value": "#E8734A",\n    "type": "color"\n  }\n}`}</code></pre>
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2 text-xs uppercase tracking-[0.14em] text-neutral-400">
+            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">CSS</span>
+            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">Tailwind</span>
+            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">Figma JSON</span>
+            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">Style Dictionary</span>
+            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">SCSS</span>
+            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">ACO</span>
+            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">Procreate</span>
+          </div>
+        </div>
+      </section>
+
       <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
         <div className="mx-auto max-w-4xl">
           <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">

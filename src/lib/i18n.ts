@@ -89,6 +89,9 @@ const translations: Record<string, Record<Locale, string>> = {
     ja: "CSSトークン、Tailwindスニペット、使い方ガイド付きの厳選パレットバンドル。無料サンプルから始めるか、全パックを閲覧。",
   },
   "hero.browseAllPacks": { en: "Browse all packs", ja: "すべてのパックを見る" },
+  "hero.tokenPipeline": { en: "Token pipeline", ja: "トークンパイプライン" },
+  "hero.tokenHeading": { en: "Not a color picker — a design token library", ja: "カラーピッカーではなく、デザイントークンライブラリ" },
+  "hero.tokenDesc": { en: "Every color exports as production-ready code. Drop tokens straight into your CSS, Tailwind config, Figma, or Style Dictionary workflow — no reformatting.", ja: "すべての色がプロダクション対応コードとしてエクスポート。CSS、Tailwind設定、Figma、Style Dictionaryに直接取り込めます。" },
 
   // Filter toolbar
   "filter.searchPlaceholder": { en: "Search by color name or hex value", ja: "色名またはHEX値で検索" },

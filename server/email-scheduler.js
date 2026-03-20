@@ -1,8 +1,9 @@
 const db = require("./db");
-const { sendFollowUp3DayEmail, sendFollowUp7DayEmail } = require("./email");
+const { sendFollowUp3DayEmail, sendFollowUp7DayEmail, sendFollowUp14DayEmail } = require("./email");
 
 const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+const FOURTEEN_DAYS_MS = 14 * 24 * 60 * 60 * 1000;
 const INTERVAL_MS = 60 * 60 * 1000; // run every hour
 
 async function runFollowUps() {
@@ -49,6 +50,28 @@ async function runFollowUps() {
       console.log(`[scheduler] day-7 follow-up sent to ${row.email}`);
     } catch (err) {
       console.error(`[scheduler] day-7 failed for ${row.email}:`, err.message);
+    }
+  }
+
+  // Day-14: free-pack subscribers who haven't received it yet, subscribed 14+ days ago
+  const due14d = db
+    .prepare(
+      `SELECT id, email, created_at FROM subscribers
+       WHERE source = 'free-pack'
+         AND follow_up_14d_sent IS NULL
+         AND (strftime('%s', 'now') - strftime('%s', created_at)) * 1000 >= ?`,
+    )
+    .all(FOURTEEN_DAYS_MS);
+
+  for (const row of due14d) {
+    try {
+      await sendFollowUp14DayEmail(row.email);
+      db.prepare(`UPDATE subscribers SET follow_up_14d_sent = datetime('now') WHERE id = ?`).run(
+        row.id,
+      );
+      console.log(`[scheduler] day-14 follow-up sent to ${row.email}`);
+    } catch (err) {
+      console.error(`[scheduler] day-14 failed for ${row.email}:`, err.message);
     }
   }
 }
