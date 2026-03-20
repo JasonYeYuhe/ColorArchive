@@ -407,6 +407,12 @@ export function AnalyticsPage() {
                 Admin orders
               </Link>
               <Link
+                href="/login?next=/login"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              >
+                Account page
+              </Link>
+              <Link
                 href="/notes/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
@@ -489,7 +495,21 @@ export function AnalyticsPage() {
 
         {status === "authenticated" && !analyticsAccess && state !== "success" ? (
           <section className="rounded-[1.75rem] border border-amber-200 bg-amber-50 p-6 text-sm text-amber-800 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            This account is signed in, but analytics access is limited to allowlisted admin emails.
+            <div>This account is signed in, but analytics access is limited to allowlisted admin emails.</div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link
+                href="/login?next=/login"
+                className="inline-flex rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-medium text-amber-800 transition hover:bg-amber-100"
+              >
+                Open account
+              </Link>
+              <Link
+                href="/support/"
+                className="inline-flex rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-medium text-amber-800 transition hover:bg-amber-100"
+              >
+                Support
+              </Link>
+            </div>
           </section>
         ) : null}
 

@@ -242,7 +242,7 @@ export function ProductExamplesPage({ collections, packs }: ProductExamplesPageP
 
                     <div className="rounded-[1.3rem] border border-black/6 bg-neutral-50 px-4 py-4">
                       <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                        Launch assets already live
+                        Launch assets already published
                       </div>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {pack.launchAssets.map((asset) => (

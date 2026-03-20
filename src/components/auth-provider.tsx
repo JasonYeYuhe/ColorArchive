@@ -41,7 +41,7 @@ interface AuthContextValue {
   lastSyncAt: number | null;
   googleEnabled: boolean;
   analyticsAccess: boolean;
-  requestMagicLink: (email: string) => Promise<void>;
+  requestMagicLink: (email: string, next?: string) => Promise<void>;
   verifyMagicLink: (token: string) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -201,8 +201,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [schedulePersist, user]);
 
-  const requestMagicLink = useCallback(async (email: string) => {
-    await requestMagicLinkRequest(email);
+  const requestMagicLink = useCallback(async (email: string, next?: string) => {
+    await requestMagicLinkRequest(email, next);
   }, []);
 
   const verifyMagicLink = useCallback(async (token: string) => {

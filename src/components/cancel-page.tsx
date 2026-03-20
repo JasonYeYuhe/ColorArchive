@@ -29,9 +29,11 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
               straight to the best-value bundle.
             </p>
             <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-white/85 px-4 py-4 text-sm leading-6 text-neutral-600">
-              Lemon Squeezy or Stripe should return cancelled checkouts to
+              If a hosted checkout is closed or cancelled before payment, this
               {" "}
-              <span className="font-medium text-neutral-950">{checkoutFlow.cancelPath}</span>.
+              <span className="font-medium text-neutral-950">{checkoutFlow.cancelPath}</span>
+              {" "}route is the intended recovery page. Actual hosted-provider behavior should be
+              verified during the first smoke test.
             </div>
           </div>
         </section>

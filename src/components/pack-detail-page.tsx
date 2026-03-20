@@ -68,7 +68,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                 <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Checkout</div>
                 <div className="mt-2 text-sm leading-6 text-neutral-600">{pack.checkoutProvider}</div>
                 <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
-                  {pack.checkoutStatus}
+                  {pack.checkoutStatus === "ready" ? "Checkout ready" : pack.checkoutStatus}
                 </div>
               </div>
               {isAllAccessBundle ? (

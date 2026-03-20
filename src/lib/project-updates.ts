@@ -10,16 +10,30 @@ export interface ProjectUpdateEntry {
 
 export const projectUpdates: ProjectUpdateEntry[] = [
   {
-    id: "2026-03-19-commerce-live",
-    date: "2026-03-19",
-    phase: "v0.4 — Commerce live",
+    id: "2026-03-20-content-ops-alignment",
+    date: "2026-03-20",
+    phase: "v0.5 — Content & trust",
     status: "shipped",
-    title: "Commerce layer went fully live",
+    title: "Public content and account surfaces were aligned",
     summary:
-      "All six Lemon Squeezy products are now live in JPY, with checkout URLs wired into the pack catalog and detail pages.",
+      "The public-facing content and account layer now reflect the current March launch window, the pending commerce state, and the new login flow more clearly.",
     bullets: [
-      "Activated all 6 Lemon Squeezy checkout URLs across the pack catalog.",
-      "Added static success and cancel return routes for off-site checkout flows.",
+      "Aligned public note chronology with the current March 2026 release window.",
+      "Replaced stale \"already live\" language across waitlist, free-pack, support, and updates surfaces with the current activation-ready commerce state.",
+      "Added clearer Google sign-in return feedback plus stronger account and admin return links.",
+    ],
+  },
+  {
+    id: "2026-03-19-commerce-prep",
+    date: "2026-03-19",
+    phase: "v0.4 — Commerce prep",
+    status: "shipped",
+    title: "Commerce layer was prepared for activation",
+    summary:
+      "All seven Lemon Squeezy products were configured in JPY, with hosted checkout URLs wired into the pack catalog and detail pages ahead of final store activation.",
+    bullets: [
+      "Prepared all 7 Lemon Squeezy checkout URLs across the pack catalog.",
+      "Added static post-purchase and recovery routes for off-site checkout flows.",
       "Kept the site GitHub Pages compatible while moving payment off-site.",
     ],
   },
@@ -94,8 +108,8 @@ export const projectUpdates: ProjectUpdateEntry[] = [
     ],
   },
   {
-    id: "2026-05-14-performance-conversion",
-    date: "2026-05-14",
+    id: "2026-03-19-performance-conversion",
+    date: "2026-03-19",
     phase: "v0.5 — SEO & Conversion",
     status: "shipped",
     title: "Grid pagination, checkout buttons, and conversion CTAs",
@@ -109,8 +123,8 @@ export const projectUpdates: ProjectUpdateEntry[] = [
     ],
   },
   {
-    id: "2026-05-01-seo-structured-data",
-    date: "2026-05-01",
+    id: "2026-03-19-seo-structured-data",
+    date: "2026-03-19",
     phase: "v0.5 — Trust & SEO",
     status: "shipped",
     title: "Structured data, semantic HTML, and sitemap coverage",
@@ -124,6 +138,20 @@ export const projectUpdates: ProjectUpdateEntry[] = [
       "Added all /notes/tags/[tag] and /contrast routes to sitemap.",
       "Fixed trailing slashes on all internal links and sitemap URLs to match trailingSlash config.",
       "Added Newsletter Issues 004 and 005 — editorial color and brand color systems.",
+    ],
+  },
+  {
+    id: "2026-03-19-guides-and-notes-expansion",
+    date: "2026-03-19",
+    phase: "v0.5 — Content & trust",
+    status: "shipped",
+    title: "Guide coverage and note discovery paths expanded",
+    summary:
+      "ColorArchive added a larger guide library, stronger related-guide matching, fresh notes, and tag routes that connect search-intent traffic to packs and collections.",
+    bullets: [
+      "Expanded the guides hub to 12 static search-intent landing pages.",
+      "Added notes covering brand tokens, SaaS website palettes, and related tag indexes.",
+      "Linked guides from the homepage, packs, free-pack, collections, and note detail surfaces.",
     ],
   },
   {

@@ -36,7 +36,7 @@ export function UpdatesPage({ updates }: UpdatesPageProps) {
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
               Changelog and roadmap for ColorArchive. Shipped entries track completed work;
-              planned entries show the next commerce and content milestones.
+              planned entries show the next commerce, content, and account milestones.
             </p>
           </div>
         </section>
@@ -158,10 +158,10 @@ export function UpdatesPage({ updates }: UpdatesPageProps) {
               Support
             </Link>
             <Link
-              href="/analytics"
+              href="/login?next=/login"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              Analytics
+              Account & orders
             </Link>
             <Link
               href="/notes/"

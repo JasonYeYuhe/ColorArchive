@@ -5,7 +5,8 @@ import { SiteHeader } from "@/src/components/site-header";
 
 export const metadata: Metadata = {
   title: "Log In",
-  description: "Sign in with a magic link to sync your ColorArchive favorites and palette.",
+  description:
+    "Sign in with a magic link or Google to sync your ColorArchive favorites, palette, downloads, and purchase history.",
   alternates: {
     canonical: "/login",
   },

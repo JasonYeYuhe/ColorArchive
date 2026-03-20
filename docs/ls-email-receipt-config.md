@@ -49,14 +49,12 @@ colorarchive.me/thanks/
 
 ---
 
-## Redirect URLs (Confirmation section)
+## Notes
 
-**Thank you URL:**
+- In the current hosted product UI, the reliable post-purchase setting is the `Confirmation modal` button link.
+- Point that button to:
 ```
 https://colorarchive.me/thanks/
 ```
-
-**Cancel URL:**
-```
-https://colorarchive.me/cancel/
-```
+- Do not assume there is a product-level `Cancel URL` field in this flow.
+- If ColorArchive later switches to API-created checkouts, redirect handling can be revisited there.

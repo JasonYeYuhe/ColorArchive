@@ -131,7 +131,7 @@ export function AdminOrdersPage() {
               Back to analytics
             </Link>
             <Link
-              href="/login"
+              href="/login?next=/admin/orders"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
               Account page
@@ -141,13 +141,41 @@ export function AdminOrdersPage() {
 
         {status !== "authenticated" ? (
           <section className="rounded-[1.75rem] border border-amber-200 bg-amber-50 p-6 text-sm text-amber-800 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            Sign in with an allowlisted admin account to view this page.
+            <div>Sign in with an allowlisted admin account to view this page.</div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link
+                href="/login?next=/admin/orders"
+                className="inline-flex rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-medium text-amber-800 transition hover:bg-amber-100"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/analytics"
+                className="inline-flex rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-medium text-amber-800 transition hover:bg-amber-100"
+              >
+                Back to analytics
+              </Link>
+            </div>
           </section>
         ) : null}
 
         {status === "authenticated" && !analyticsAccess ? (
           <section className="rounded-[1.75rem] border border-amber-200 bg-amber-50 p-6 text-sm text-amber-800 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            This signed-in account does not have admin order access.
+            <div>This signed-in account does not have admin order access.</div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link
+                href="/login?next=/login"
+                className="inline-flex rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-medium text-amber-800 transition hover:bg-amber-100"
+              >
+                Open account
+              </Link>
+              <Link
+                href="/analytics"
+                className="inline-flex rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-medium text-amber-800 transition hover:bg-amber-100"
+              >
+                Analytics
+              </Link>
+            </div>
           </section>
         ) : null}
 

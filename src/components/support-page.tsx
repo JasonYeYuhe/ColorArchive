@@ -33,7 +33,7 @@ const revenueTracks = [
 ] as const;
 
 const implementationSteps = [
-  "Keep the paid packs live without adding a heavy product stack to the main site.",
+  "Keep the paid catalog activation-ready without adding a heavy product stack to the main site.",
   "Use off-site checkout so the archive stays static and simple.",
   "Keep one free layer as a preview and trust builder.",
   "Only add accounts, licensing, or member systems if demand is real.",
@@ -171,10 +171,10 @@ export function SupportPage() {
                 Product updates
               </Link>
               <Link
-                href="/analytics"
+                href="/login?next=/login"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Analytics
+                Account & orders
               </Link>
               <Link
                 href="/product-examples/"
@@ -278,7 +278,7 @@ export function SupportPage() {
                 Ask about licensing
               </a>
               <Link
-                href="/login"
+                href="/login?next=/login"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Account & orders
@@ -300,8 +300,9 @@ export function SupportPage() {
               </p>
               <p>
                 The important point is that ColorArchive already has a business URL, public
-                examples, live checkout links, and a lightweight fulfillment flow. The next step is
-                optimizing conversion and trust rather than proving the product exists.
+                examples, checkout-ready product links, and a lightweight fulfillment flow. The
+                next step is store activation plus conversion and trust optimization, not proving
+                the product exists.
               </p>
             </div>
           </div>
@@ -324,7 +325,7 @@ export function SupportPage() {
                 `/collections`
               </div>
               <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
-                `/analytics`
+                `/updates`
               </div>
               <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-3 py-3">
                 `/waitlist`

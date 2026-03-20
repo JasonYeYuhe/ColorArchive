@@ -42,7 +42,7 @@ function getLoginOrigin(req) {
 }
 
 router.post("/request-link", async (req, res) => {
-  const { email } = req.body;
+  const { email, next } = req.body;
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: "Invalid email" });
@@ -51,7 +51,8 @@ router.post("/request-link", async (req, res) => {
   try {
     const { token } = createMagicLinkToken(email);
     const loginOrigin = getLoginOrigin(req);
-    const loginUrl = `${loginOrigin}/login?token=${encodeURIComponent(token)}`;
+    const nextPath = normalizeNextPath(next);
+    const loginUrl = `${loginOrigin}/login?token=${encodeURIComponent(token)}&next=${encodeURIComponent(nextPath)}`;
     await sendMagicLinkEmail(email, {
       loginUrl,
       expiresInMinutes: Math.round(MAGIC_LINK_TTL_MS / 60000),
@@ -186,7 +187,11 @@ router.get("/google/callback", async (req, res) => {
     const session = createSession(user.id);
     setSessionCookie(res, session.token);
     clearGoogleStateCookie(res);
-    return res.redirect(`${FRONTEND_ORIGIN}${nextPath}`);
+
+    const successUrl = new URL("/login", FRONTEND_ORIGIN);
+    successUrl.searchParams.set("auth", "google-success");
+    successUrl.searchParams.set("next", nextPath);
+    return res.redirect(successUrl.toString());
   } catch (error) {
     console.error("google callback error:", error);
     clearGoogleStateCookie(res);

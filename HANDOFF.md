@@ -4,6 +4,24 @@ Last updated: 2026-03-20
 
 ## This Session Summary
 
+### Done (Codex — auth + trust alignment session, 2026-03-20)
+
+- Continued from a partially completed Codex session and finished the queued 5-item cleanup batch
+- Cleaned remaining stale commerce wording so public pages no longer imply Lemon Squeezy is already fully live while the store is still pending activation
+- Updated `/waitlist`, `/free-pack`, `/support`, `/updates`, and product-proof copy to consistently describe the catalog as configured / activation-ready rather than already live
+- Tightened account wording on `/about` so Google sign-in and magic link are described consistently with the real auth surface
+- Added a clearer first-time Google sign-in success path:
+  - Google callback now redirects to `/login?auth=google-success&next=...`
+  - `/login` shows a short success / sync state before forwarding to the requested destination
+- Strengthened admin / analytics return chains:
+  - analytics hero now links back to the account page
+  - public trust pages point to account/orders instead of protected analytics where appropriate
+  - unauthorized analytics/admin states keep clearer account/support escape hatches
+- Updated `docs/google-auth-checklist.md` to reflect the new brief success state after Google sign-in
+- Synced `ROADMAP.md` and `PRODUCT_MEMO.md` with the current repo state and remaining manual verification steps
+- Ran `npm run typecheck` successfully
+- No deploy was performed in this session
+
 ### Done (Claude Code — Price update session, 2026-03-19 late evening)
 
 - Updated All Access Bundle price ¥2,999 → ¥2,799 across entire codebase
@@ -33,7 +51,7 @@ Last updated: 2026-03-20
 **Previously done (Claude Code — Commerce + Analytics session, 2026-03-19 evening):**
 
 - Repriced all 6 packs to ¥99–¥1,499 JPY range
-- Created All Access Bundle (¥2,799, 7th product, live on LS)
+- Created All Access Bundle (¥2,799, 7th product, configured in LS)
 - All Access banner on /packs page (highlighted green, 32% savings callout)
 - Bundle CTA on /free-pack page and homepage hero
 - FIRSTPACK 10% discount code on /cancel page (auto-applied to checkout URL)
@@ -51,7 +69,7 @@ Last updated: 2026-03-20
 - Analytics buyer drilldown endpoint + UI
 - Newsletter Issue 002, 003; tag landing pages; clickable tags
 - Google login UX (loading spinner, styled error)
-- checkout-config.ts annotated with live status
+- checkout-config.ts annotated with activation status
 
 **Session 1 SEO & conversion improvements:**
 - **Color detail pages**: H1 added to hero color name (was a div!), meta title targets "hex color code" searches (absolute, bypasses layout template), description leads with hex, breadcrumb JSON-LD, Section headers promoted to H2 semantic tags (Tonal strip, Palette moves, Nearest neighbors, About this color, Recent trail), "About this color" section enriched with CSS custom property snippet, family label in hero + aside header now links to `/families/[slug]`
@@ -76,8 +94,9 @@ Last updated: 2026-03-20
 - **Repo cleanup**: removed 13 duplicate download files with spaces in names (macOS copy artifacts)
 
 ### Pending / Next Steps
-- LS store: close Test mode (app.lemonsqueezy.com → Settings → Store)
-- LS products: set Thank You URL to `https://colorarchive.me/thanks/` and Cancel URL to `https://colorarchive.me/cancel/` for all 7 products
+- LS store: if approved, switch out of Test mode via the bottom-left dashboard toggle
+- LS products: set `Confirmation modal` and `Email receipt` CTA links to `https://colorarchive.me/thanks/` for all 7 products; document actual cancel behavior after a smoke test
+- Google auth: magic-link login now preserves `next`, Google sign-in now shows a brief success state on `/login`, and the remaining task is one real allowlisted first-login smoke test
 - Google Search Console: verify colorarchive.me and submit sitemap
 - Product Hunt launch preparation
 - `/notes` content expansion (Issues 008+)
@@ -110,7 +129,7 @@ Last updated: 2026-03-20
 - `src/components/site-footer.tsx` — expanded navigation
 - `app/sitemap.ts` — complete sitemap including tag routes
 - `scripts/generate-downloads.mjs` — ACO, Procreate, Framer, nested Figma exports
-- `src/lib/checkout-config.ts` — commerce config (all 6 products live)
+- `src/lib/checkout-config.ts` — commerce config (checkout-ready links, activation still depends on LS store approval)
 - `src/lib/palette-packs.ts` — 6 product definitions
 - `src/lib/newsletter-issues.ts` + `src/data/newsletter-issues.json` — 3 issues + tag helpers
 - `server/routes/analytics.js` — analytics + /buyers endpoint

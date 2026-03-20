@@ -108,6 +108,7 @@ function isActive(item: NavItem, currentPath: string): boolean {
 export function SiteHeader({ currentPath }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { analyticsAccess, logout, status, user } = useAuth();
+  const loginHref = currentPath === "/login" ? "/login" : `/login?next=${encodeURIComponent(currentPath)}`;
   const mobileMenuGroups = MOBILE_MENU_GROUPS.map((group) =>
     group.label === "Project"
       ? {
@@ -138,7 +139,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
 
           <div className="flex shrink-0 items-center gap-2">
             <Link
-              href="/login"
+              href={loginHref}
               className={`rounded-full border px-3 py-2 text-sm font-medium transition ${
                 currentPath === "/login"
                   ? "border-neutral-950 bg-neutral-950 text-white dark:border-white dark:bg-white dark:text-neutral-950"
@@ -189,7 +190,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Link
-                    href="/login"
+                    href={loginHref}
                     className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
                       currentPath === "/login"
                         ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"

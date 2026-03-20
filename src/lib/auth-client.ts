@@ -77,12 +77,12 @@ export async function fetchSession(): Promise<AuthSession> {
   return parseResponse<AuthSession>(response);
 }
 
-export async function requestMagicLink(email: string): Promise<void> {
+export async function requestMagicLink(email: string, next?: string): Promise<void> {
   const response = await fetch(`${API_URL}/auth/request-link`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email }),
+    body: JSON.stringify({ email, next }),
   });
 
   await parseResponse<{ ok: true }>(response);

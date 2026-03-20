@@ -22,12 +22,12 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
               Productized color assets
             </div>
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Buy live palette packs, token exports, and the full bundle
+              Explore the paid palette catalog, token exports, and the full bundle
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              Every offer on this page is already live. Start with the free sample, buy a single
-              pack for one workflow, or take the All Access Bundle if you want the full catalog in
-              one checkout.
+              Start with the free sample, review the paid catalog, and use the hosted checkout
+              links once the Lemon Squeezy store activation is complete. The product structure is
+              ready even while the store review is still pending.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -264,7 +264,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                     </button>
                   )}
                   <span className="text-xs uppercase tracking-[0.14em] text-neutral-400">
-                    {pack.checkoutStatus === "live" ? "Live checkout" : "Update in `src/lib/checkout-config.ts`"}
+                    {pack.checkoutStatus === "ready" ? "Checkout ready" : "Update in `src/lib/checkout-config.ts`"}
                   </span>
                 </div>
                 <p className="mt-3 text-sm leading-6 text-neutral-500">{pack.checkoutNote}</p>
@@ -324,12 +324,12 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                 concrete product surface, clear offers, and a clean way to link out to checkout.
               </p>
               <p>
-                This page is now the live bridge between the archive and checkout. Each pack already
-                points to Lemon Squeezy while keeping the core site static.
+                This page is now the bridge between the archive and hosted checkout. Each pack
+                already points to Lemon Squeezy while keeping the core site static.
               </p>
               <p>
                 If a payment provider asks for concrete product examples, use the dedicated product
-                examples page and the live collections as public proof of what the digital goods
+                examples page and the public collections as proof of what the digital goods
                 contain.
               </p>
             </div>
@@ -418,7 +418,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                     <td className="border border-black/6 bg-white px-4 py-4 align-top">
                       {pack.checkoutProvider}
                       <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
-                        {pack.checkoutStatus}
+                        {pack.checkoutStatus === "ready" ? "Checkout ready" : pack.checkoutStatus}
                       </div>
                     </td>
                   </tr>

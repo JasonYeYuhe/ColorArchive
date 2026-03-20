@@ -179,7 +179,7 @@ export function CollectionDetailPage({
                     <div className="mt-1 text-sm font-medium text-neutral-500">{pack.priceHint}</div>
                     <div className="mt-2 text-sm leading-6 text-neutral-500">{pack.detail}</div>
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {pack.checkoutUrl && pack.checkoutStatus === "live" ? (
+                      {pack.checkoutUrl && pack.checkoutStatus === "ready" ? (
                         <a
                           href={pack.checkoutUrl}
                           className="rounded-full bg-neutral-950 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"

@@ -11,7 +11,7 @@ export interface PalettePack {
   audience: string;
   checkoutNote: string;
   checkoutProvider: CheckoutProvider;
-  checkoutStatus: "live" | "pending";
+  checkoutStatus: "ready" | "pending";
   checkoutUrl: string | null;
   ctaLabel: string;
   deliverables: string[];

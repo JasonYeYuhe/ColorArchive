@@ -20,6 +20,38 @@ type VerifyState = "idle" | "loading" | "success" | "error";
 type OrdersState = "idle" | "loading" | "success" | "error";
 type AdminState = "idle" | "loading" | "success" | "error";
 
+function sanitizeNextPath(value: string | null) {
+  if (!value || !value.startsWith("/") || value.startsWith("//")) {
+    return "/favorites";
+  }
+
+  return value;
+}
+
+function describeDestination(path: string) {
+  if (path.startsWith("/analytics")) {
+    return "analytics";
+  }
+
+  if (path.startsWith("/admin/orders")) {
+    return "the admin orders queue";
+  }
+
+  if (path.startsWith("/palette")) {
+    return "your palette";
+  }
+
+  if (path.startsWith("/favorites")) {
+    return "your favorites";
+  }
+
+  if (path.startsWith("/login")) {
+    return "your account";
+  }
+
+  return "your account";
+}
+
 function formatSyncTime(timestamp: number | null) {
   if (!timestamp) {
     return "Not synced yet";
@@ -70,7 +102,10 @@ export function LoginPage() {
 
   const token = searchParams.get("token");
   const loginError = searchParams.get("error");
-  const nextPath = useMemo(() => searchParams.get("next") || "/favorites", [searchParams]);
+  const authState = searchParams.get("auth");
+  const nextPath = useMemo(() => sanitizeNextPath(searchParams.get("next")), [searchParams]);
+  const googleSuccess = authState === "google-success";
+  const destinationLabel = useMemo(() => describeDestination(nextPath), [nextPath]);
 
   useEffect(() => {
     if (!loginError) {
@@ -135,6 +170,20 @@ export function LoginPage() {
     };
   }, [nextPath, router, status, token, user, verifyMagicLink, verifyState]);
 
+  useEffect(() => {
+    if (!googleSuccess || status !== "authenticated") {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      router.replace(nextPath);
+    }, 1400);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [googleSuccess, nextPath, router, status]);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!email) {
@@ -145,7 +194,7 @@ export function LoginPage() {
     setError("");
 
     try {
-      await requestMagicLink(email);
+      await requestMagicLink(email, nextPath);
       setFormState("success");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not send link");
@@ -288,6 +337,27 @@ export function LoginPage() {
             {verifyState === "loading"
               ? "We are verifying your email link and loading your saved colors."
               : "Your favorites, palette, and account history are synced. Redirecting now."}
+          </p>
+        </section>
+      </main>
+    );
+  }
+
+  if (googleSuccess && (status === "loading" || status === "authenticated")) {
+    return (
+      <main className="px-4 py-4 sm:px-6 sm:py-6">
+        <section className="mx-auto max-w-3xl rounded-[2rem] border border-black/6 bg-white/80 px-6 py-12 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
+          <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-neutral-500">
+            <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
+            Account sync
+          </div>
+          <h1 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-5xl">
+            {status === "loading" ? "Finishing Google sign-in" : "Google sign-in complete"}
+          </h1>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600">
+            {status === "loading"
+              ? "We are connecting this Google account and loading your saved colors."
+              : `Your favorites, palette, downloads, and purchase history are ready. Redirecting to ${destinationLabel} now.`}
           </p>
         </section>
       </main>
@@ -459,7 +529,12 @@ export function LoginPage() {
                         {googleLoading ? "Redirecting to Google…" : "Continue with Google"}
                       </button>
                     </>
-                  ) : null}
+                  ) : (
+                    <div className="mt-4 rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 text-sm leading-6 text-neutral-600">
+                      Google sign-in is not enabled right now. Magic link login still works and
+                      keeps your favorites, palette, and purchase history tied to one account.
+                    </div>
+                  )}
                   <p className="mt-4 text-sm leading-6 text-neutral-600">
                     No password. One link. Favorites, palette builder, downloads, and order history
                     sync after you sign in.

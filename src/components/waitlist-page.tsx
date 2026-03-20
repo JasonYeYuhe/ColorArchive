@@ -49,7 +49,7 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
       [
         "Hi,",
         "",
-        "I want updates when new ColorArchive palette packs go live.",
+        "I want updates when new ColorArchive palette packs are available for direct purchase.",
         "",
         "Most interested in:",
         "- Palette Pack Vol. 1",
@@ -77,8 +77,9 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
               Stay on the list for future drops and launch updates
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              The current packs are already live. This page now works as the ongoing updates layer
-              for seasonal releases, new bundle drops, monthly curated palettes, and archive product announcements.
+              The current paid catalog is prepared, and this page now works as the ongoing updates
+              layer for store activation, seasonal releases, new bundle drops, monthly curated
+              palettes, and archive product announcements.
             </p>
 
             <div className="mt-6">
@@ -166,8 +167,9 @@ export function WaitlistPage({ packs, waitlist }: WaitlistPageProps) {
                 archive expansions, pricing updates, and one curated palette direction at a time.
               </p>
               <p>
-                The six current packs are already live. The list now exists for the next release
-                cycle rather than the initial launch.
+                The current paid catalog is configured and visible, but full purchase verification
+                still depends on store activation. The list now exists for the next release cycle
+                and future drops rather than a one-time launch page.
               </p>
             </div>
           </div>

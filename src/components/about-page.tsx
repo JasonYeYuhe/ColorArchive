@@ -4,7 +4,7 @@ const principles = [
   {
     title: "Static by design",
     detail:
-      "The catalog still ships as static pages, but lightweight API endpoints now handle commerce, email, analytics, and optional account sync.",
+      "The catalog still ships as static pages, but lightweight API endpoints now handle commerce, email, analytics, and optional account sync via magic link or Google sign-in.",
   },
   {
     title: "Curated, not exhaustive",

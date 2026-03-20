@@ -1,6 +1,6 @@
 # ColorArchive 项目备忘录
 
-最后更新：2026-03-19
+最后更新：2026-03-20
 
 ## 说明
 
@@ -510,15 +510,16 @@ Codex 当前方向：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
   - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
   - Heroku credit: 13 USD / month
-- Lemon Squeezy 店铺已创建，6 个产品（全部 live，JPY 定价，2026-03-19 降价）：
-  - Seasonal: Spring 2026: ¥99 ✅ live（限时季节包）
-  - Palette Pack Vol. 1: ¥299 ✅ live（新手入门）
-  - Dark Mode UI Kit: ¥499 ✅ live
-  - Creator Bundle: ¥799 ✅ live
-  - Brand Color Starter Kit: ¥999 ✅ live
-  - Complete Archive Token Set: ¥1,499 ✅ live（旗舰）
+- Lemon Squeezy 店铺已创建，7 个产品（6 个单品 + All Access Bundle，JPY 定价，2026-03-19 调价）：
+  - 当前状态：产品已在 LS 配置完成，但 store 仍在 review，Test mode 尚未关闭
+  - Seasonal: Spring 2026: ¥99 ✅ configured（限时季节包）
+  - Palette Pack Vol. 1: ¥299 ✅ configured（新手入门）
+  - Dark Mode UI Kit: ¥499 ✅ configured
+  - Creator Bundle: ¥799 ✅ configured
+  - Brand Color Starter Kit: ¥999 ✅ configured
+  - Complete Archive Token Set: ¥1,499 ✅ configured（旗舰）
   - 折扣码 FIRSTPACK（10% off，全产品可用）已创建，用于 /cancel 页面挽回
-  - 全部 6 个 Checkout URL 已写入 `checkout-config.ts`，购买按钮可用
+  - 全部 7 个 Checkout URL 已写入 `checkout-config.ts`，待 store activation 后可做真实购买验证
   - Webhook 已配置（api.colorarchive.me/webhook/ls → order_created）
 - 后端服务器已部署（DigitalOcean Droplet $4/month，SGP1）：
   - 域名：api.colorarchive.me（HTTPS，Let's Encrypt）
@@ -530,7 +531,7 @@ Codex 当前方向：
   - POST /webhook/ls — LS 付款 webhook → 发确认邮件 + 存订单
   - GET /analytics — 订阅者 / 订单统计
   - PM2 进程管理，开机自启
-- 免费包 + 6 个付费包 ZIP 文件已生成（prebuild 脚本自动打包，含 SCSS maps、dark mode pairs、seasonal mood notes）
+- 免费包 + 7 个付费包 ZIP 文件已生成（prebuild 脚本自动打包，含 SCSS maps、dark mode pairs、seasonal mood notes）
 - free-pack 页面已改为邮箱捕获 → 发下载链接（不再直接下载）
 - waitlist 页面已接入后端 EmailCaptureForm
 - GitHub Actions build 注入 NEXT_PUBLIC_API_URL=https://api.colorarchive.me
@@ -538,7 +539,7 @@ Codex 当前方向：
 - 新增 /palette?ids=... 页面：可分享的调色板 URL
 - Palette Builder 添加 Share 按钮，生成分享链接
 - 2016 个颜色详情页增加动态 meta description（SEO 长尾）
-- waitlist / free-pack / packs / updates 的站内文案已开始统一到“6 个产品已 live，free pack 作为长期免费层，waitlist 作为后续更新订阅”的状态
+- waitlist / free-pack / packs / updates 的站内文案已开始统一到“7 个产品已配置完成，free pack 作为长期免费层，waitlist 作为后续更新订阅”的状态
 - 为配合审核，站点需要持续保留可公开访问的：
   - `/packs`
   - `/product-examples`
@@ -554,9 +555,9 @@ Codex 当前方向：
 
 ### 已完成
 
-- ✅ Lemon Squeezy 6 产品全部 live（JPY 定价）
+- ✅ Lemon Squeezy 7 产品已配置完成（6 个单品 + bundle，JPY 定价）
 - ✅ DigitalOcean 后端部署（邮箱捕获 + webhook + analytics）
-- ✅ 免费包 + 6 付费包 ZIP 打包（prebuild 自动生成）
+- ✅ 免费包 + 7 付费包 ZIP 打包（prebuild 自动生成）
 - ✅ free-pack 邮箱捕获流程（填邮箱 → 发下载链接）
 - ✅ waitlist 页面接入后端
 - ✅ /contrast WCAG 对比度检查器
@@ -637,16 +638,24 @@ Codex 当前方向：
 - ✅ `/guides` 现已扩展到 12 个高意图静态页，新增 brand tokens / design system palette / SaaS website color scheme / free Figma palette 等更强商业搜索词
 - ✅ guide 详情页的 related guides 已改为按 category / featured pack / featured collection / shared tags 排序，不再是随机式推荐
 - ✅ `/notes` 新增 Issue 008（brand color tokens）和 Issue 009（SaaS website color scheme），并扩展出 `saas` / `website` / `ui` 等 tag 索引页
+- ✅ `/notes` 公共时间线、`/updates` 公共更新流与 sitemap 时间戳已回对到 2026-03 的真实发布时间，避免公开页面继续出现未来日期
 
 ### 当前优先级
 
+- 当前执行路线见仓库根目录 `ROADMAP.md`
 - ✅ Resend 域名验证完成（colorarchive.me verified，邮件可正常发送）
-- ✅ 6 个产品全部 live，checkout URL 已填入
+- ✅ 7 个产品 checkout URL 已填入，待 store activation
+- 当前已知阻塞：LS store 仍在审核中，Test mode 暂时无法关闭
+- Google 登录准备已补强：magic link 现已保留 `next path`，server `.env.example` 已补 `GOOGLE_*` 与 `ADMIN_EMAILS`，并新增 `docs/google-auth-checklist.md`
+- Google 登录体验已继续收口：header / thanks / support / admin 入口已统一回到 account path，analytics / admin 未授权提示已补明确入口
+- ✅ public trust 页面文案已继续统一：`waitlist` / `free-pack` / `support` / `updates` 不再把 LS 当前状态写成已 live，而是明确为已配置、待 activation
+- ✅ Google 登录成功后现会先经过 `/login` 的短成功反馈，再回到请求的 `next path`
+- ✅ analytics / admin / support / updates 的入口链已再次收口到 account/admin 返回路径
 - ✅ route-specific OG SVG 已补上静态替代方案
 - ✅ admin orders 已加入 search/filter/pagination
 - ✅ analytics 已加入 buyer drilldown
-- LS 店铺审核通过后关闭 Test mode（手动操作，见 checkout-config.ts 注释）
-- LS 产品级 Thank You / Cancel URL 需统一配置到 `/thanks/` 和 `/cancel/`（手动操作，见 `docs/commerce-ops-checklist.md`）
+- LS 店铺审核通过后可在左下角切换 Test mode / Live mode（手动操作，见 `docs/commerce-ops-checklist.md`）
+- LS 当前 hosted product UI 应优先配置 Confirmation modal / Email receipt 的按钮到 `/thanks/`；取消结账行为需以实际 checkout 流为准记录（手动操作，见 `docs/commerce-ops-checklist.md`）
 - 提高邮件送达率（新域名初期可能进 spam，需要积累域名信誉）
 - 由 allowlist 测试账号本人完成一次 Google 首次登录，确认 callback / session / redirect 全链路
 - 继续观察 Personal / Commercial 两档 license 文案是否足够清晰

@@ -82,7 +82,7 @@ async function sendWaitlistConfirmationEmail(to) {
       "Thanks for following ColorArchive.",
       "",
       "Current status:",
-      "- 6 palette packs are live now on Lemon Squeezy",
+      "- 7 paid products are prepared in Lemon Squeezy and queued for store activation",
       "- the free sample pack is still available",
       "- future drops, seasonal packs, and archive updates will be announced here",
       "",
@@ -118,7 +118,7 @@ async function sendWaitlistConfirmationEmail(to) {
         <p>Thanks for following ColorArchive.</p>
         <p style="color:#444;line-height:1.6">
           Current status:<br>
-          • 6 palette packs are live now on Lemon Squeezy<br>
+          • 7 paid products are prepared in Lemon Squeezy and queued for store activation<br>
           • the free sample pack is still available<br>
           • future drops, seasonal packs, and archive updates will be announced here
         </p>
@@ -455,7 +455,7 @@ async function sendFollowUp7DayEmail(to) {
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
-    subject: "6 palette packs — find the one that fits your project",
+    subject: "ColorArchive catalog preview — find the pack that fits your project",
     text: [
       "Find the right ColorArchive pack for your project",
       "",

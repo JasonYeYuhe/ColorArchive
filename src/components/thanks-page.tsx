@@ -50,9 +50,11 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
               ))}
             </div>
             <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-white/85 px-4 py-4 text-sm leading-6 text-neutral-600">
-              Lemon Squeezy or Stripe should return successful purchases to
+              This page is the intended post-purchase hub for ColorArchive. Buyers should be able
+              to reach
               {" "}
-              <span className="font-medium text-neutral-950">{checkoutFlow.successPath}</span>.
+              <span className="font-medium text-neutral-950">{checkoutFlow.successPath}</span>
+              {" "}from the hosted confirmation flow, receipt CTA, or account area.
             </div>
           </div>
         </section>
@@ -89,7 +91,7 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
               </div>
               <div className="mt-4 grid gap-3">
                 <Link
-                  href="/login/"
+                  href="/login?next=/login"
                   className="flex items-center gap-3 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-3.5 text-sm leading-6 text-neutral-600 transition hover:bg-white"
                 >
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-950 text-sm text-white">
@@ -138,7 +140,7 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
-                    href="/login/"
+                    href="/login?next=/login"
                     className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                   >
                     Open account

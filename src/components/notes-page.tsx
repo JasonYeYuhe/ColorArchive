@@ -18,14 +18,15 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
           <div className="relative mx-auto max-w-5xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-              Monthly notes
+              Public notes
             </div>
             <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
               Public notes for palette direction, product updates, and release context
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
               This is the public layer behind the updates email. Each issue ties one featured
-              palette direction to one concrete product or tooling change.
+              palette direction to one concrete product or tooling change without hiding the
+              shipping context inside private ops docs.
             </p>
 
             {latestIssue ? (
@@ -63,8 +64,8 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
                 Issue archive
               </div>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-                Treat these notes as a public monthly archive rather than one-off announcements.
-                Each issue links one palette direction, one concrete ship, and one next step.
+                Treat these notes as a public archive rather than one-off announcements. Each
+                issue links one palette direction, one concrete ship, and one next step.
               </p>
             </div>
             <Link
@@ -82,6 +83,9 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
               >
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
                   {issue.eyebrow}
+                </div>
+                <div className="mt-2 text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+                  {issue.date}
                 </div>
                 <div className="mt-2 text-lg font-semibold tracking-[-0.02em] text-neutral-950">
                   {issue.title}
