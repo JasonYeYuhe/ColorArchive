@@ -4,6 +4,25 @@ Last updated: 2026-03-20
 
 ## This Session Summary
 
+### Done (Claude Code — i18n + notes + perf + conversion, 2026-03-20)
+
+- **i18n**: Added ~50 new translation keys (tray / panel / empty / capture groups)
+  - `palette-builder-tray.tsx` — all strings wired to `t()`, incl. "Palette", "Collapse", "Copy CSS/JSON", "Share", "Link copied!", "Clear all", "View palette", hint text
+  - `selected-color-panel.tsx` — "Selected color", "Nearby picks", "More from", "Balance", "Open detail", "Recent trail", Copy actions
+  - `archive-empty-state.tsx` — "Recovery", "No colors found", "Clear search", "Show all families", "Reset everything", "Open all colors/recent"; locale-aware defaults via `useLocale`
+  - `email-capture-form.tsx` — locale-aware defaults for placeholder, button label, success message, "Sending…"
+- **Conversion**:
+  - `email-capture-form.tsx` — success state now shows "Browse paid packs →" upsell link to `/packs/`
+  - `palette-builder-tray.tsx` — when palette has ≥3 colors, shows "Turn this palette into a token pack →" link to `/packs/complete-archive/`
+- **Performance**:
+  - Created `src/components/hero-section-below-fold.tsx` with 4 below-fold sections (token pipeline, guides, latest notes, product packs)
+  - `hero-section.tsx` now lazy-loads `HeroSectionBelowFold` via `next/dynamic` with `ssr: false` — reduces initial hydration work
+- **/notes**: Added Issues 014–016:
+  - Issue 014: Dark mode color psychology (nocturne-tech + dark-mode-ui-kit)
+  - Issue 015: Typography and color pairing (editorial-warmth + brand-starter-kit)
+  - Issue 016: Color in data visualization (nordic-frost + complete-archive)
+- All changes: typecheck passed, build passed (2131 pages), committed `b94986a`, pushed to main
+
 ### Done (Claude Code — Notes + PH + i18n session, 2026-03-20)
 
 - Added 4 new newsletter issues (010-013): color workflow automation, accessible accents, seasonal rotation, color naming
