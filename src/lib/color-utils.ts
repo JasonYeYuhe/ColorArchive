@@ -131,6 +131,22 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   muted: ["muted", "soft"],
   dark: ["ink", "shadow", "deep", "coal"],
   light: ["veil", "whisper", "mist", "pearl"],
+  spring: ["mint", "peony", "rose", "blossom", "lavender"],
+  autumn: ["ember", "amber", "rust", "sienna", "garnet"],
+  fall: ["ember", "amber", "rust", "sienna", "garnet"],
+  winter: ["frost", "cobalt", "mist", "slate", "azure"],
+  summer: ["coral", "citrine", "aqua", "lime", "vivid"],
+  tropical: ["aqua", "lime", "coral", "teal", "vivid"],
+  desert: ["sand", "sienna", "amber", "rust", "clay"],
+  nordic: ["frost", "veil", "cobalt", "mist", "azure"],
+  japanese: ["moss", "ink", "plum", "muted", "ivory"],
+  luxury: ["merlot", "pearl", "soft", "garnet", "onyx"],
+  natural: ["moss", "amber", "leaf", "olive", "clay"],
+  minimal: ["veil", "mist", "whisper", "pearl", "slate"],
+  vibrant: ["vivid", "clear", "radiant", "bloom"],
+  dreamy: ["lavender", "blush", "peony", "lilac", "veil"],
+  retro: ["muted", "amber", "sienna", "garnet", "soft"],
+  tech: ["cobalt", "azure", "violet", "ink", "vivid"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

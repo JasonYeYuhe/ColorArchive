@@ -825,6 +825,126 @@ export const landingGuides: LandingGuide[] = [
       { label: "Get the Free Sample Pack", href: "/free-pack/" },
     ],
   },
+  {
+    slug: "minimalist-color-palette",
+    category: "Brand & Marketing",
+    title: "Minimalist Color Palette: How to Do More With Less",
+    summary:
+      "A guide to building restrained, high-impact palettes that use fewer colors more effectively — covering tone, proportion, and how to avoid the flatness trap in minimal design.",
+    eyebrow: "Minimalist Design Guide",
+    priority: 83,
+    searchIntent: "minimalist color palette",
+    featuredCollectionId: "nordic-frost",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Minimal", "UI", "Brand"],
+    highlights: [
+      "Minimalism is not about using gray everywhere — it is about using each color with clear intent and generous white space.",
+      "Nordic Frost gives you a cool, restrained five-color system purpose-built for focused, uncluttered interfaces.",
+      "The danger in minimal palettes is monotony — a single accent color with strong lightness contrast solves it.",
+    ],
+    sections: [
+      {
+        heading: "Minimalism is a discipline of subtraction, not neutrality",
+        body:
+          "The most common mistake in minimal palettes is defaulting to gray on gray on white and calling the result clean. True minimalism means that every color in the system has a defined purpose and enough contrast to carry it. Nordic Frost illustrates this well: ice blue, pale grey, soft lavender, and cobalt give the interface enough temperature variation to feel considered rather than inert. The colors are quiet, but they are not featureless. Each hue earns its place by solving a specific role — surface, text, border, accent, or state.",
+      },
+      {
+        heading: "Proportion and white space are the real palette tools",
+        body:
+          "In minimal design, the amount of white space surrounding a color matters as much as the color itself. A single saturated accent on a pale background reads as intentional and precise. The same accent used on every button, badge, and link reads as noise. The rule that holds across most minimal systems is to reserve your highest-chroma color for one primary action and let the rest of the interface live in low-chroma territory. Brand Starter Kit includes a structured version of this approach: a primary accent, a range of functional neutrals, and clear export-ready groupings that make the proportion decisions upfront.",
+      },
+      {
+        heading: "How to avoid the flatness trap",
+        body:
+          "When a minimal palette uses colors that are too similar in lightness, the result is flat rather than clean. The fix is to introduce enough lightness contrast between levels of the visual hierarchy even if all the hues stay muted. In Nordic Frost, the cobalt-bloom-soft sits noticeably darker than the azure-mist-muted background, which keeps the contrast legible without breaking the minimal register. When building your own minimal system, plot your palette colors on a lightness scale before finalizing — if three or more swatches cluster at the same value, add contrast by shifting one step darker or lighter rather than introducing a new hue.",
+      },
+    ],
+    links: [
+      { label: "Open Nordic Frost", href: "/collections/nordic-frost/" },
+      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Get the Free Sample Pack", href: "/free-pack/" },
+    ],
+  },
+  {
+    slug: "retro-color-palette",
+    category: "Brand & Marketing",
+    title: "Retro Color Palette: Warm, Worn, and Deliberately Off",
+    summary:
+      "How to build retro and vintage-inspired palettes that feel authentic rather than costumey — covering the hue shifts, muting techniques, and structural anchors that make retro work.",
+    eyebrow: "Retro Design Guide",
+    priority: 81,
+    searchIntent: "retro color palette",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["Retro", "Vintage", "Warm"],
+    highlights: [
+      "Retro palettes work because of how colors age — hues shift warm, saturation drops, and darks go brown rather than black.",
+      "Editorial Warmth captures that paper-and-ink register without leaning into parody.",
+      "The key to retro authenticity is muting without muddying — keep hues distinct even as they soften.",
+    ],
+    sections: [
+      {
+        heading: "Why retro colors look the way they do",
+        body:
+          "Vintage print materials, old film photography, and aged paper share a common color signature: everything has shifted slightly warm, blacks have softened to brown-black or dark sienna, and saturated colors have faded toward their muted cousins. This happens physically because pigments and film emulsions degrade in predictable ways. When designers recreate this effect, the goal is to simulate that same optical aging. Editorial Warmth does this by anchoring the palette in apricot, amber, garnet, and muted olive — tones that sit in the warm-muted register where most printed materials land after a decade or two on a shelf.",
+      },
+      {
+        heading: "Muting without muddying",
+        body:
+          "The technical challenge in retro palettes is pulling saturation down without making every color look the same. Muddy palettes happen when you desaturate indiscriminately — every hue collapses toward the same warm beige. The better approach is to reduce chroma selectively while keeping each color's hue identity clear. Amber should still read unmistakably as amber; garnet as garnet. Palette Pack Vol. 1 includes a curated set of warm-muted colors that demonstrate this balance: they are distinctly different hues that happen to share the same worn, analog quality. That shared quality is the system; the distinct hues are the variety.",
+      },
+      {
+        heading: "Using retro colors in modern interfaces",
+        body:
+          "Retro palettes do not have to live only in print-inspired layouts. They translate well to modern web contexts when you pair the warm-muted hues with clean typography and generous spacing. The warmth reads as distinctive and considered rather than antiquated when the layout around it is structured. Where retro palettes tend to fail in digital contexts is when designers push the effect too far — adding grain, worn textures, and faded colors all at once overwhelms the user. Use the palette to set a warm, editorial register and let the content carry the message. The colors should feel warm and human, not like a costume.",
+      },
+    ],
+    links: [
+      { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
+      { label: "Open Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Get the Free Sample Pack", href: "/free-pack/" },
+    ],
+  },
+  {
+    slug: "color-palette-for-print-design",
+    category: "Brand & Marketing",
+    title: "Color Palette for Print Design: What Changes When You Leave the Screen",
+    summary:
+      "A practical guide to choosing and preparing color palettes for print — covering gamut limitations, ink behavior, contrast adjustments, and why screen-based palettes often need recalibration.",
+    eyebrow: "Print Design Color Guide",
+    priority: 80,
+    searchIntent: "color palette for print design",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "complete-archive",
+    tags: ["Print", "Design", "Professional"],
+    highlights: [
+      "CMYK has a smaller gamut than RGB — vivid screen colors often need to be adjusted before they print correctly.",
+      "Monochrome Studio shows how neutral palettes stay stable across print and screen without gamut conversion loss.",
+      "High contrast and clear tonal separation matter more in print because you cannot use hover states or animation to communicate hierarchy.",
+    ],
+    sections: [
+      {
+        heading: "The gamut gap between screen and print",
+        body:
+          "RGB screens emit light; CMYK print absorbs it. The result is that screens can display a much wider range of saturated colors than offset or digital printing can reproduce. Vivid cyan, electric violet, and neon green look dramatically different when converted to CMYK — they lose saturation and appear flatter. Designers who build palettes entirely on screen without checking CMYK equivalents often receive proof prints that look nothing like what they approved on monitor. The safest approach is to verify your palette against CMYK gamut warnings in your color tool of choice before production, or to start with hues that are known to sit within the CMYK gamut: warm reds, warm oranges, most neutrals, and earth tones translate reliably.",
+      },
+      {
+        heading: "Why neutrals and earth tones work well in print",
+        body:
+          "Palettes in the neutral, warm, and earth-tone range tend to survive the screen-to-print transition better than vivid palettes because they do not depend on gamut extremes to create their effect. Monochrome Studio is a useful reference here: its range of near-neutral tones with subtle warm and cool shifts stays stable across output methods. The palette achieves its visual interest through lightness contrast and temperature variation rather than raw saturation. In print contexts, that approach is almost always more reliable than trying to force vivid colors through CMYK conversion. Complete Archive gives designers access to a full range of ColorArchive colors and is a practical resource for testing which specific swatches from each family print well versus which need adjustment.",
+      },
+      {
+        heading: "Contrast and hierarchy without interactivity",
+        body:
+          "Digital interfaces can use hover states, animation, and interactive affordances to guide users through hierarchy. Print cannot. Every level of priority — headline, subhead, body, caption, footnote — must be legible and distinguishable from the static page alone. This means print color palettes typically need stronger lightness contrast between levels than their screen equivalents. Colors that are close in value but different in hue can work as adjacent swatches in a digital interface; in print they blend into each other. When testing a palette for print, reduce the design to grayscale and check that every meaningful contrast relationship still holds. If hierarchy disappears in grayscale, the palette needs adjustment before going to production.",
+      },
+    ],
+    links: [
+      { label: "Open Monochrome Studio", href: "/collections/monochrome-studio/" },
+      { label: "Open Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Get the Free Sample Pack", href: "/free-pack/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {
