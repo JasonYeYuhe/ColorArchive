@@ -264,6 +264,50 @@ const translations: Record<string, Record<Locale, string>> = {
   "palette.inBuilder": { en: "✓ In builder", ja: "✓ ビルダー内" },
   "palette.addToBuilder": { en: "+ Add to builder", ja: "+ ビルダーに追加" },
 
+  // Palette builder tray
+  "tray.palette": { en: "Palette", ja: "パレット" },
+  "tray.collapse": { en: "Collapse", ja: "閉じる" },
+  "tray.clickToRemove": { en: "Click a swatch to remove. Tap \"+\" on any color card to add.", ja: "スウォッチをクリックして削除。カラーカードの「+」をタップして追加。" },
+  "tray.copyCss": { en: "Copy CSS", ja: "CSSをコピー" },
+  "tray.copyJson": { en: "Copy JSON", ja: "JSONをコピー" },
+  "tray.share": { en: "Share", ja: "共有" },
+  "tray.linkCopied": { en: "Link copied!", ja: "リンクコピー済み!" },
+  "tray.viewPalette": { en: "View palette", ja: "パレットを見る" },
+  "tray.clearAll": { en: "Clear all", ja: "すべて削除" },
+  "tray.copied": { en: "Copied!", ja: "コピー済み!" },
+  "tray.openPaletteBuilder": { en: "Open palette builder", ja: "パレットビルダーを開く" },
+  "tray.turnIntoTokenPack": { en: "Turn this palette into a token pack", ja: "このパレットをトークンパックに変換" },
+
+  // Selected color panel
+  "panel.selectedColor": { en: "Selected color", ja: "選択した色" },
+  "panel.nearbyPicks": { en: "Nearby picks", ja: "近くの色" },
+  "panel.moreFrom": { en: "More from", ja: "関連色" },
+  "panel.related": { en: "related", ja: "件" },
+  "panel.openDetail": { en: "Open detail", ja: "詳細を見る" },
+  "panel.recentTrail": { en: "Recent trail", ja: "最近の閲覧" },
+  "panel.balance": { en: "Balance", ja: "バランス" },
+  "panel.copy": { en: "Copy", ja: "コピー" },
+  "panel.copied": { en: "copied", ja: "コピー済み" },
+
+  // Archive empty state
+  "empty.recovery": { en: "Recovery", ja: "リカバリー" },
+  "empty.noResults": { en: "No colors found", ja: "色が見つかりません" },
+  "empty.description": { en: "The current filters are too narrow. Clear one of them and widen the archive again.", ja: "現在のフィルターが絞りすぎています。フィルターを解除してアーカイブを広げてください。" },
+  "empty.queryLabel": { en: "Query:", ja: "検索:" },
+  "empty.familyLabel": { en: "Family:", ja: "ファミリー:" },
+  "empty.clearSearch": { en: "Clear search", ja: "検索をクリア" },
+  "empty.showAllFamilies": { en: "Show all families", ja: "全ファミリーを表示" },
+  "empty.resetEverything": { en: "Reset everything", ja: "すべてリセット" },
+  "empty.openAllColors": { en: "Open all colors", ja: "全ての色を開く" },
+  "empty.openRecent": { en: "Open recent", ja: "最近の色を開く" },
+
+  // Email capture form
+  "capture.placeholder": { en: "you@example.com", ja: "you@example.com" },
+  "capture.sendLink": { en: "Send download link", ja: "ダウンロードリンクを送信" },
+  "capture.sending": { en: "Sending…", ja: "送信中…" },
+  "capture.successMessage": { en: "Check your inbox — download link sent.", ja: "受信トレイをご確認ください — ダウンロードリンクを送信しました。" },
+  "capture.browsePacks": { en: "Browse paid packs", ja: "有料パックを見る" },
+
   // Common
   "common.showMore": { en: "Show more", ja: "もっと見る" },
   "common.loading": { en: "Loading…", ja: "読み込み中…" },

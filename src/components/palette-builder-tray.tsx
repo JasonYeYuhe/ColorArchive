@@ -12,15 +12,17 @@ import {
   subscribeToPalette,
 } from "@/src/lib/palette-builder";
 import { colors as allColors } from "@/src/data/colors";
+import { useLocale } from "@/src/components/locale-provider";
 import type { ColorRecord } from "@/src/types/color";
 
 function ShareButton({ colorIds }: { colorIds: string[] }) {
   const [copied, setCopied] = useState(false);
+  const { t } = useLocale();
 
   useEffect(() => {
     if (!copied) return undefined;
-    const t = window.setTimeout(() => setCopied(false), 1400);
-    return () => window.clearTimeout(t);
+    const timer = window.setTimeout(() => setCopied(false), 1400);
+    return () => window.clearTimeout(timer);
   }, [copied]);
 
   const handleShare = async () => {
@@ -40,18 +42,19 @@ function ShareButton({ colorIds }: { colorIds: string[] }) {
       onClick={() => void handleShare()}
       className="rounded-full border border-black/8 bg-neutral-950 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
     >
-      {copied ? "Link copied!" : "Share"}
+      {copied ? t("tray.linkCopied") : t("tray.share")}
     </button>
   );
 }
 
 function CopyButton({ value, label }: { value: string; label: string }) {
   const [copied, setCopied] = useState(false);
+  const { t } = useLocale();
 
   useEffect(() => {
     if (!copied) return undefined;
-    const t = window.setTimeout(() => setCopied(false), 1400);
-    return () => window.clearTimeout(t);
+    const timer = window.setTimeout(() => setCopied(false), 1400);
+    return () => window.clearTimeout(timer);
   }, [copied]);
 
   const handleCopy = async () => {
@@ -69,7 +72,7 @@ function CopyButton({ value, label }: { value: string; label: string }) {
       onClick={() => void handleCopy()}
       className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
     >
-      {copied ? "Copied!" : label}
+      {copied ? t("tray.copied") : label}
     </button>
   );
 }
@@ -77,6 +80,7 @@ function CopyButton({ value, label }: { value: string; label: string }) {
 export function PaletteBuilderTray() {
   const [paletteIds, setPaletteIds] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLocale();
 
   useEffect(() => {
     setPaletteIds(getPaletteIds());
@@ -108,7 +112,7 @@ export function PaletteBuilderTray() {
           >
             <div className="flex items-center justify-between gap-3">
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
-                Palette · {paletteColors.length}/{MAX_SIZE}
+                {t("tray.palette")} · {paletteColors.length}/{MAX_SIZE}
               </div>
               <button
                 type="button"
@@ -119,7 +123,7 @@ export function PaletteBuilderTray() {
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
                   <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
                 </svg>
-                <span className="hidden sm:inline">Collapse</span>
+                <span className="hidden sm:inline">{t("tray.collapse")}</span>
               </button>
             </div>
 
@@ -151,34 +155,45 @@ export function PaletteBuilderTray() {
             </div>
 
             <div className="mt-3 text-[11px] text-neutral-400">
-              Click a swatch to remove. Tap "+" on any color card to add.
+              {t("tray.clickToRemove")}
             </div>
 
             <div className="mt-3 flex flex-wrap gap-2">
-              <CopyButton value={cssExport} label="Copy CSS" />
-              <CopyButton value={jsonExport} label="Copy JSON" />
+              <CopyButton value={cssExport} label={t("tray.copyCss")} />
+              <CopyButton value={jsonExport} label={t("tray.copyJson")} />
               <ShareButton colorIds={paletteIds} />
               <Link
                 href={`/palette?ids=${paletteIds.join(",")}`}
                 className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
               >
-                View palette
+                {t("tray.viewPalette")}
               </Link>
               <button
                 type="button"
                 onClick={clearPalette}
                 className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-500 transition hover:border-red-200 hover:text-red-600"
               >
-                Clear all
+                {t("tray.clearAll")}
               </button>
             </div>
+
+            {paletteColors.length >= 3 && (
+              <div className="mt-3 border-t border-black/6 pt-3">
+                <Link
+                  href="/packs/complete-archive/"
+                  className="text-[11px] text-neutral-400 transition hover:text-neutral-600"
+                >
+                  {t("tray.turnIntoTokenPack")} →
+                </Link>
+              </div>
+            )}
           </div>
         ) : (
           <button
             type="button"
             onClick={() => setIsOpen(true)}
             className="flex items-center gap-2.5 px-3 py-2.5 sm:px-4 sm:py-3"
-            aria-label="Open palette builder"
+            aria-label={t("tray.openPaletteBuilder")}
           >
             <div className="flex gap-1">
               {paletteColors.map((c) => (
@@ -191,7 +206,7 @@ export function PaletteBuilderTray() {
               ))}
             </div>
             <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-700 sm:text-xs">
-              Palette · {paletteColors.length}
+              {t("tray.palette")} · {paletteColors.length}
             </span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" className="text-neutral-400">
               <path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />

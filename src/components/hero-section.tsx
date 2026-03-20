@@ -1,17 +1,23 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { colors } from "@/src/data/colors";
 import { checkoutConfig } from "@/src/lib/checkout-config";
-import { landingGuides } from "@/src/lib/guides";
-import { newsletterIssues } from "@/src/lib/newsletter-issues";
-import { palettePacks } from "@/src/lib/palette-packs";
 import { useLocale } from "@/src/components/locale-provider";
 
 // Fixed hue-spanning strip: Tone (L=60) at Clear (S=54), one per hue across the spectrum
 const HERO_STRIP = colors
   .filter((c) => c.lightness === 60 && c.saturation === 54)
   .sort((a, b) => a.hue - b.hue);
+
+const HeroSectionBelowFold = dynamic(
+  () =>
+    import("./hero-section-below-fold").then((m) => ({
+      default: m.HeroSectionBelowFold,
+    })),
+  { ssr: false, loading: () => null }
+);
 
 interface HeroSectionProps {
   activeFamily: string;
@@ -28,8 +34,6 @@ export function HeroSection({
 }: HeroSectionProps) {
   const { t } = useLocale();
   const searchSummary = searchQuery.trim().length > 0 ? `Matching "${searchQuery.trim()}"` : t("hero.showingFullArchive");
-  const featuredGuides = landingGuides.slice(0, 4);
-  const recentNotes = newsletterIssues.slice(0, 3);
 
   return (
     <div className="flex flex-col gap-6">
@@ -194,208 +198,8 @@ export function HeroSection({
         </div>
       </section>
 
-      {/* Token pipeline showcase */}
-      <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
-            {t("hero.tokenPipeline")}
-          </div>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
-            {t("hero.tokenHeading")}
-          </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
-            {t("hero.tokenDesc")}
-          </p>
-
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-[1.3rem] border border-black/6 bg-neutral-950 p-4 dark:border-white/10">
-              <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">CSS Variables</div>
-              <pre className="text-xs leading-5 text-emerald-400"><code>{`:root {\n  --coral-sunset: #E8734A;\n  --ocean-depth: #1B4965;\n  --sage-mist: #A3B899;\n  --warm-sand: #D4A574;\n}`}</code></pre>
-            </div>
-            <div className="rounded-[1.3rem] border border-black/6 bg-neutral-950 p-4 dark:border-white/10">
-              <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Tailwind Config</div>
-              <pre className="text-xs leading-5 text-sky-400"><code>{`colors: {\n  coral: "#E8734A",\n  ocean: "#1B4965",\n  sage: "#A3B899",\n  sand: "#D4A574",\n}`}</code></pre>
-            </div>
-            <div className="rounded-[1.3rem] border border-black/6 bg-neutral-950 p-4 dark:border-white/10">
-              <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Figma Tokens JSON</div>
-              <pre className="text-xs leading-5 text-amber-400"><code>{`{\n  "coral-sunset": {\n    "value": "#E8734A",\n    "type": "color"\n  }\n}`}</code></pre>
-            </div>
-          </div>
-
-          <div className="mt-4 flex flex-wrap gap-2 text-xs uppercase tracking-[0.14em] text-neutral-400">
-            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">CSS</span>
-            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">Tailwind</span>
-            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">Figma JSON</span>
-            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">Style Dictionary</span>
-            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">SCSS</span>
-            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">ACO</span>
-            <span className="rounded-full border border-black/6 bg-white/80 px-3 py-1.5 dark:border-white/8 dark:bg-white/6">Procreate</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
-            {t("hero.guides")}
-          </div>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
-            {t("hero.guidesHeading")}
-          </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
-            {t("hero.guidesDesc")}
-          </p>
-
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {featuredGuides.map((guide) => (
-              <Link
-                key={guide.slug}
-                href={`/guides/${guide.slug}/`}
-                className="group rounded-[1.5rem] border border-black/6 bg-white/85 p-5 transition hover:shadow-md"
-              >
-                <div className="flex flex-wrap items-center gap-2">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-400">
-                    {guide.eyebrow}
-                  </div>
-                  <div className="rounded-full border border-black/6 bg-neutral-50 px-2 py-0.5 text-[11px] font-medium text-neutral-500">
-                    {guide.searchIntent}
-                  </div>
-                </div>
-                <h3 className="mt-3 text-base font-semibold text-neutral-950 group-hover:text-neutral-700">
-                  {guide.title}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-neutral-500">{guide.summary}</p>
-              </Link>
-            ))}
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/guides/"
-              className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800"
-            >
-              {t("hero.browseAllGuides")}
-            </Link>
-            <Link
-              href="/notes/"
-              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white"
-            >
-              {t("hero.readNotes")}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Latest notes */}
-      <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
-            {t("hero.latestNotes")}
-          </div>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
-            {t("hero.latestNotesHeading")}
-          </h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {recentNotes.map((note) => (
-              <Link
-                key={note.slug}
-                href={`/notes/${note.slug}/`}
-                className="rounded-[1.3rem] border border-black/6 bg-white/90 p-4 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-neutral-800/60 dark:border-white/8"
-              >
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                  {note.eyebrow}
-                </div>
-                <div className="mt-2 text-sm font-semibold text-neutral-950 dark:text-white">
-                  {note.title}
-                </div>
-                <div className="mt-2 text-xs leading-5 text-neutral-500 dark:text-neutral-400">
-                  {note.summary}
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="mt-5">
-            <Link
-              href="/notes/"
-              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white"
-            >
-              {t("hero.readNotes")}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Product showcase — pack cards */}
-      <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
-            {t("hero.palettePacks")}
-          </div>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
-            {t("hero.readyToUse")}
-          </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
-            {t("hero.packsDesc")}
-          </p>
-
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {palettePacks.map((pack) => (
-              <Link
-                key={pack.id}
-                href={`/packs/${pack.id}/`}
-                className="group rounded-[1.5rem] border border-black/6 bg-white/85 p-5 transition hover:shadow-md"
-              >
-                <div className="mb-3 flex items-center gap-2">
-                  <div className="flex -space-x-1.5">
-                    {pack.previewCollections.slice(0, 3).map((name, i) => (
-                      <div
-                        key={name}
-                        className="h-6 w-6 rounded-full border-2 border-white"
-                        style={{
-                          backgroundColor: [
-                            "#E8C4B8", "#6DB7FF", "#7FD7B4", "#FF8A7A", "#B4A0D9",
-                          ][i % 5],
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-                <h3 className="text-base font-semibold text-neutral-950 group-hover:text-neutral-700">
-                  {pack.title}
-                </h3>
-                <p className="mt-1 text-sm text-neutral-500">
-                  {pack.priceHint}
-                </p>
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  {pack.formatList.slice(0, 2).map((format) => (
-                    <span
-                      key={format}
-                      className="rounded-full border border-black/6 bg-neutral-50 px-2 py-0.5 text-[11px] font-medium text-neutral-500"
-                    >
-                      {format}
-                    </span>
-                  ))}
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/free-pack/"
-              className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800"
-            >
-              {t("hero.getStartedFree")}
-            </Link>
-            <Link
-              href="/packs/"
-              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white"
-            >
-              {t("hero.browseAllPacks")}
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Below-fold sections: lazy loaded */}
+      <HeroSectionBelowFold />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import { useLocale } from "@/src/components/locale-provider";
 import { addRecentColor } from "@/src/lib/recent-colors";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -20,6 +21,7 @@ interface CopyActionProps {
 
 function CopyAction({ label, value }: CopyActionProps) {
   const [copied, setCopied] = useState(false);
+  const { t } = useLocale();
 
   useEffect(() => {
     if (!copied) {
@@ -45,7 +47,7 @@ function CopyAction({ label, value }: CopyActionProps) {
       onClick={handleCopy}
       className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
     >
-      {copied ? `${label} copied` : `Copy ${label}`}
+      {copied ? `${label} ${t("panel.copied")}` : `${t("panel.copy")} ${label}`}
     </button>
   );
 }
@@ -55,6 +57,8 @@ export function SelectedColorPanel({
   nearbyColors,
   onSelectColor,
 }: SelectedColorPanelProps) {
+  const { t } = useLocale();
+
   useEffect(() => {
     if (!color) {
       return;
@@ -77,7 +81,7 @@ export function SelectedColorPanel({
         >
           <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.14),transparent_45%,rgba(17,24,39,0.08))]" />
           <div className="absolute left-5 top-5 rounded-full border border-white/30 bg-white/18 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-white/92 backdrop-blur-md">
-            Selected color
+            {t("panel.selectedColor")}
           </div>
           <div className="absolute bottom-5 left-5 right-5 flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -106,7 +110,7 @@ export function SelectedColorPanel({
               <div className="mt-1 font-medium text-neutral-950">{color.hsl}</div>
             </div>
             <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Balance</div>
+              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("panel.balance")}</div>
               <div className="mt-1 font-medium text-neutral-950">
                 S {color.saturation}% · L {color.lightness}%
               </div>
@@ -123,13 +127,13 @@ export function SelectedColorPanel({
               href={`/colors/${color.id}/`}
               className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
             >
-              Open detail
+              {t("panel.openDetail")}
             </Link>
             <Link
               href="/recent/"
               className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
             >
-              Recent trail
+              {t("panel.recentTrail")}
             </Link>
           </div>
         </div>
@@ -139,14 +143,14 @@ export function SelectedColorPanel({
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Nearby picks
+              {t("panel.nearbyPicks")}
             </div>
             <h3 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
-              More from {color.family}
+              {t("panel.moreFrom")} {color.family}
             </h3>
           </div>
           <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
-            {nearbyColors.length} related
+            {nearbyColors.length} {t("panel.related")}
           </div>
         </div>
 

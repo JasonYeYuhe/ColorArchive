@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useLocale } from "@/src/components/locale-provider";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
@@ -17,15 +19,20 @@ interface EmailCaptureFormProps {
 
 export function EmailCaptureForm({
   source = "free-pack",
-  successMessage = "Check your inbox — download link sent.",
-  placeholder = "you@example.com",
-  buttonLabel = "Send download link",
+  successMessage,
+  placeholder,
+  buttonLabel,
 }: EmailCaptureFormProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { t } = useLocale();
   const [email, setEmail] = useState("");
   const [state, setState] = useState<State>("idle");
   const [error, setError] = useState("");
+
+  const resolvedPlaceholder = placeholder ?? t("capture.placeholder");
+  const resolvedButtonLabel = buttonLabel ?? t("capture.sendLink");
+  const resolvedSuccessMessage = successMessage ?? t("capture.successMessage");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -65,9 +72,17 @@ export function EmailCaptureForm({
 
   if (state === "success") {
     return (
-      <div className="flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700">
-        <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
-        {successMessage}
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700">
+          <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
+          {resolvedSuccessMessage}
+        </div>
+        <p className="text-xs text-neutral-400">
+          {t("capture.browsePacks")} →{" "}
+          <Link href="/packs/" className="underline underline-offset-2 hover:text-neutral-600">
+            colorarchive.me/packs
+          </Link>
+        </p>
       </div>
     );
   }
@@ -79,7 +94,7 @@ export function EmailCaptureForm({
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder={placeholder}
+        placeholder={resolvedPlaceholder}
         className="h-9 rounded-full border border-black/10 bg-white px-4 text-sm text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/20"
       />
       <button
@@ -87,7 +102,7 @@ export function EmailCaptureForm({
         disabled={state === "loading"}
         className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-50"
       >
-        {state === "loading" ? "Sending…" : buttonLabel}
+        {state === "loading" ? t("capture.sending") : resolvedButtonLabel}
       </button>
       {state === "error" && (
         <span className="w-full text-xs text-red-500">{error}</span>

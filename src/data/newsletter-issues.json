@@ -1,5 +1,107 @@
 [
   {
+    "slug": "august-2026-data-viz-colors",
+    "date": "2026-03-27",
+    "title": "Color in data visualization: clarity over decoration",
+    "summary": "Why chart color systems fail when they prioritize beauty over function, how chroma control keeps categories readable, and where the Complete Archive provides a consistent categorical palette source.",
+    "eyebrow": "Issue 016",
+    "tags": ["Tools", "UI", "Workflow"],
+    "featuredCollectionId": "nordic-frost",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "Data visualization color fails when the designer treats chart categories like brand swatches — similar hues, similar lightness, no perceptual distance.",
+      "Categorical palettes need maximum hue distance and controlled chroma so each series reads as distinct at small sizes and low contrast.",
+      "The Complete Archive Token Set gives teams a single source for both UI color and data color, keeping the two systems from quietly diverging over time."
+    ],
+    "sections": [
+      {
+        "heading": "Why chart colors fail",
+        "body": "Most data visualization color failures are not aesthetic. They are perceptual. Two series with similar hue and matching lightness become indistinguishable at small chart sizes, in print, or for colorblind viewers. The problem starts when designers apply brand palette logic to categorical data: they choose colors that look cohesive together instead of colors that read as maximally distinct. Cohesion and distinction are opposite objectives."
+      },
+      {
+        "heading": "The role of chroma control",
+        "body": "Categorical data palettes work best when each hue is separated by at least 30–40 degrees, lightness is held constant across categories, and chroma is moderated so no single series dominates visually. Nordic Frost is a useful reference because its cool, controlled range illustrates how much perceptual separation you can achieve within a restrained palette — the hues differ enough to track, but nothing overpowers the data itself."
+      },
+      {
+        "heading": "One source for UI and data color",
+        "body": "The most common long-term problem in design systems that include data visualization is drift between the UI palette and the chart palette. They start from the same source, get managed separately, and by the third refresh cycle they no longer match. The Complete Archive Token Set is useful here because it ships every color in every format — teams can pull UI tokens and data tokens from the same file, with the same naming convention, instead of maintaining two separate palette systems."
+      }
+    ],
+    "links": [
+      { "label": "Open Complete Archive Token Set", "href": "/packs/complete-archive" },
+      { "label": "Open Nordic Frost", "href": "/collections/nordic-frost" },
+      { "label": "Try the contrast checker", "href": "/contrast" }
+    ]
+  },
+  {
+    "slug": "august-2026-typography-color-pairing",
+    "date": "2026-03-26",
+    "title": "Pairing type and color: how font weight changes what your palette needs",
+    "summary": "Why the same color reads differently under light and heavy type weights, how warm editorial palettes adapt to variable-weight type stacks, and where the Brand Starter Kit reduces the pairing guesswork.",
+    "eyebrow": "Issue 015",
+    "tags": ["Brand", "Editorial", "UI"],
+    "featuredCollectionId": "editorial-warmth",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "A color that reads as warm and inviting under light-weight type can shift to heavy and oppressive once you switch to a bold weight — the perceived lightness changes.",
+      "Warm editorial palettes need a cooler surface anchor to keep bold type readable without the palette tipping into saturation overload.",
+      "The Brand Starter Kit pairs surface, accent, and text tokens in a way that holds up across weight variation, reducing the trial-and-error of type-color pairing."
+    ],
+    "sections": [
+      {
+        "heading": "Why weight changes what you need from color",
+        "body": "A light-weight serif at 300 weight on a warm cream surface reads as elegant and airy. The same typeface at 700 weight on the same background can start to feel dense and claustrophobic. This is because optical weight amplifies perceived color saturation. Heavy strokes draw more of the warm surface color into the eye, making the palette feel more saturated than it is. That means a palette that works under a light type stack needs adjustment when you shift to heavier weights."
+      },
+      {
+        "heading": "Warm palettes and their cooler counterweight",
+        "body": "Editorial Warmth is a useful test case because the palette leads with apricot, amber, and soft clay — all tones that are immediately affected by type weight changes. The palette holds up across weight variation because it includes enough cool-neutral surface area to keep the warm accents from overwhelming the text. The cool anchor is what makes bold headlines readable without the page feeling heavy. Without it, warm palettes tend to work only at lighter weights."
+      },
+      {
+        "heading": "Reducing the pairing guesswork",
+        "body": "Type-color pairing is one of the most time-consuming parts of early brand work because it requires testing combinations at multiple weights, sizes, and surface contexts before settling on a direction. The Brand Starter Kit is useful here because it ships pre-paired surface, accent, and text tokens that have already been considered across these variables. The intention is not to eliminate the testing process but to give teams a starting point that is structurally sound rather than one that requires rebuilding from scratch."
+      }
+    ],
+    "links": [
+      { "label": "Open Brand Starter Kit", "href": "/packs/brand-starter-kit" },
+      { "label": "Open Editorial Warmth", "href": "/collections/editorial-warmth" },
+      { "label": "Read the brand palette guide", "href": "/guides/brand-color-palette" }
+    ]
+  },
+  {
+    "slug": "july-2026-dark-mode-psychology",
+    "date": "2026-03-25",
+    "title": "Dark mode color psychology: why dark surfaces change how hues read",
+    "summary": "How dark backgrounds shift color perception, why saturation and chroma behave differently on dark surfaces, and where the Dark Mode UI Kit handles the lightness inversion so teams do not have to.",
+    "eyebrow": "Issue 014",
+    "tags": ["Dark mode", "Palette", "Product"],
+    "featuredCollectionId": "nocturne-tech",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "The same hex value reads as more saturated, more luminous, and perceptually heavier on a dark background than on a light one — it is not the color that changed, it is the contrast relationship.",
+      "Dark mode palettes require lower chroma accents than their light-mode counterparts to achieve the same visual weight and avoid vibration effects.",
+      "The Dark Mode UI Kit pre-adjusts chroma and lightness across the paired token set so teams get perceptually balanced light and dark variants without manual correction."
+    ],
+    "sections": [
+      {
+        "heading": "The perceptual shift on dark backgrounds",
+        "body": "When you move a color from a white surface to a near-black surface, the color appears to intensify. A mid-saturation coral that reads as warm and approachable on light grey can look almost neon on dark navy. This is simultaneous contrast: the visual system compares each color to its immediate surroundings, and the greater the lightness gap, the more the foreground color is amplified. Dark mode design requires you to account for this shift at every layer of the palette."
+      },
+      {
+        "heading": "Chroma and saturation need recalibration",
+        "body": "A common mistake in dark mode palette work is simply inverting the lightness values from the light-mode system. That produces technically dark surfaces but perceptually unbalanced accents. The accents feel too loud, too neon, or vibrate against the dark ground. The fix is to reduce chroma on accent colors in the dark mode layer — typically by 15–25 percent — while keeping the hue and role structure intact. Nocturne Tech demonstrates this: the palette uses restrained chroma to keep the interface calm even at high contrast."
+      },
+      {
+        "heading": "Pre-handled lightness inversion",
+        "body": "The Dark Mode UI Kit exists because lightness inversion is mechanical but easy to get wrong. Every color in the kit ships as a light-dark pair, where the dark variant has been adjusted for chroma, not just inverted for lightness. That means teams inherit a balanced starting point rather than a set of inverted hex values that need manual correction before they look right in a real interface."
+      }
+    ],
+    "links": [
+      { "label": "Open Dark Mode UI Kit", "href": "/packs/dark-mode-ui-kit" },
+      { "label": "Open Nocturne Tech", "href": "/collections/nocturne-tech" },
+      { "label": "Read the dark mode guide", "href": "/guides/dark-mode-color-palette" }
+    ]
+  },
+  {
     "slug": "july-2026-color-naming",
     "date": "2026-03-24",
     "title": "Color naming that sticks: from mood labels to production-grade tokens",
