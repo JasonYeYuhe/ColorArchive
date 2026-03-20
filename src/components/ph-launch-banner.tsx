@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
  * Update PH_LISTING_URL to the actual Product Hunt listing URL.
  */
 const PH_LAUNCH_ACTIVE = true;
-const PH_LISTING_URL = "https://www.producthunt.com/posts/colorarchive";
+const PH_LISTING_URL = "https://www.producthunt.com/posts/colorarchive?utm_source=colorarchive&utm_medium=banner";
 const DISMISS_KEY = "colorarchive-ph-banner-dismissed";
 
 export function PHLaunchBanner() {
