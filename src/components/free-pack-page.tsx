@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { CopyActionButton } from "@/src/components/copy-action-button";
 import { EmailCaptureForm } from "@/src/components/email-capture-form";
+import { useLocale } from "@/src/components/locale-provider";
 import type { ColorCollection } from "@/src/lib/collections";
 import { checkoutConfig, type WaitlistConfig } from "@/src/lib/checkout-config";
 import { getGuidesForCollection, getGuidesForPack } from "@/src/lib/guides";
@@ -19,6 +20,7 @@ export function FreePackPage({
   pack,
   waitlist,
 }: FreePackPageProps) {
+  const { t } = useLocale();
   const emailHref = `mailto:${waitlist.contactEmail}?subject=ColorArchive%20free%20sample`;
   const requestTemplate = [
     "Hi,",
@@ -66,15 +68,13 @@ export function FreePackPage({
           <div className="relative mx-auto max-w-5xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-              Free sample drop
+              {t("freePack.badge")}
             </div>
             <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Get the free pack first, then decide if the paid catalog fits
+              {t("freePack.title")}
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
-              This is the fastest way to inspect ColorArchive file quality before paying. We send
-              the free pack by email, and the hosted paid catalog is ready if you want more depth,
-              more collections, or implementation-ready token exports.
+              {t("freePack.description")}
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-2">
@@ -93,12 +93,12 @@ export function FreePackPage({
                   {sample.label}
                 </a>
               ))}
-              <CopyActionButton label="Copy request note" value={requestTemplate} />
+              <CopyActionButton label={t("freePack.copyRequestNote")} value={requestTemplate} />
             </div>
 
             <div className="mt-5">
               <p className="mb-2 text-sm text-neutral-500">
-                Enter your email and we&apos;ll send the full free pack directly:
+                {t("freePack.emailHint")}
               </p>
               <EmailCaptureForm />
             </div>
@@ -108,7 +108,7 @@ export function FreePackPage({
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.95fr)]">
           <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              What is included in the free layer
+              {t("freePack.whatIncluded")}
             </div>
             <div className="mt-4 grid gap-2">
               {pack.sampleDownloads.map((sample) => (
@@ -123,14 +123,14 @@ export function FreePackPage({
                 </a>
               ))}
               <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 text-sm leading-6 text-neutral-600">
-                Curated preview collection: {featuredCollection.title}
+                {t("freePack.curatedCollection")} {featuredCollection.title}
               </div>
             </div>
           </div>
 
           <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Why this exists
+              {t("freePack.whyExists")}
             </div>
             <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
               <p>
@@ -146,17 +146,17 @@ export function FreePackPage({
 
             <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
               <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                Claim flow
+                {t("freePack.claimFlow")}
               </div>
               <div className="mt-3 space-y-2 text-sm leading-6 text-neutral-600">
                 <div className="rounded-[1rem] border border-black/6 bg-white px-3 py-3">
-                  1. Download the preview files below.
+                  {t("freePack.step1")}
                 </div>
                 <div className="rounded-[1rem] border border-black/6 bg-white px-3 py-3">
-                  2. Review the featured collection and export shape.
+                  {t("freePack.step2")}
                 </div>
                 <div className="rounded-[1rem] border border-black/6 bg-white px-3 py-3">
-                  3. Enter your email above, get the full free pack, then move into the paid catalog once hosted checkout is fully available.
+                  {t("freePack.step3")}
                 </div>
               </div>
             </div>
@@ -167,17 +167,17 @@ export function FreePackPage({
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Free vs paid
+                {t("freePack.freeVsPaid")}
               </div>
               <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                What changes when you upgrade to the paid pack
+                {t("freePack.upgradeTitle")}
               </h2>
             </div>
             <Link
               href={`/packs/${pack.id}`}
               className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
             >
-              Open paid pack
+              {t("freePack.openPaidPack")}
             </Link>
           </div>
 
@@ -186,13 +186,13 @@ export function FreePackPage({
               <thead>
                 <tr>
                   <th className="rounded-l-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                    Layer
+                    {t("freePack.tableLayer")}
                   </th>
                   <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                    Free sample
+                    {t("freePack.tableFreeSample")}
                   </th>
                   <th className="rounded-r-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                    Paid pack
+                    {t("freePack.tablePaidPack")}
                   </th>
                 </tr>
               </thead>
@@ -217,33 +217,32 @@ export function FreePackPage({
 
         <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
-            Ready to go deeper?
+            {t("freePack.ctaLabel")}
           </div>
           <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
-            Browse all palette packs
+            {t("freePack.ctaTitle")}
           </p>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
-            The free pack shows the file shape. Paid packs add more collections, deeper exports,
-            structured usage guidance, and implementation-ready token files.
+            {t("freePack.ctaDesc")}
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
               href="/packs/"
               className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
             >
-              Browse all packs
+              {t("freePack.browseAllPacks")}
             </Link>
             <Link
               href="/collections/"
               className="rounded-full border border-white/16 px-5 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
             >
-              Explore collections
+              {t("freePack.exploreCollections")}
             </Link>
             <Link
               href="/product-examples/"
               className="rounded-full border border-white/16 px-5 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
             >
-              See what&apos;s inside
+              {t("freePack.seeWhatsInside")}
             </Link>
           </div>
         </section>
@@ -252,7 +251,7 @@ export function FreePackPage({
           <div className="flex items-center justify-between gap-3">
             <div>
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Featured preview collection
+                {t("freePack.featuredCollection")}
               </div>
               <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
                 {featuredCollection.title}
@@ -265,7 +264,7 @@ export function FreePackPage({
               href={`/collections/${featuredCollection.id}`}
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              Open collection
+              {t("freePack.openCollection")}
             </Link>
           </div>
 
@@ -293,18 +292,17 @@ export function FreePackPage({
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Related guides
+                  {t("freePack.relatedGuides")}
                 </div>
                 <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-                  If you are still deciding whether to stay free or upgrade, these guides explain
-                  the specific use case behind the sample and the matching paid lane.
+                  {t("freePack.relatedGuidesDesc")}
                 </p>
               </div>
               <Link
                 href="/guides/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
-                Open guides
+                {t("freePack.openGuides")}
               </Link>
             </div>
 
@@ -333,13 +331,13 @@ export function FreePackPage({
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <div className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
-                  Want everything?
+                  {t("freePack.wantEverything")}
                 </div>
                 <p className="mt-1 text-lg font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
                   All Access Bundle — <span className="line-through text-neutral-400">¥4,095</span>{" "}¥2,799
                 </p>
                 <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                  All 6 packs in one download. Save 32%.
+                  {t("freePack.bundleSave")}
                 </p>
               </div>
               <a
@@ -348,7 +346,7 @@ export function FreePackPage({
                 rel="noreferrer"
                 className="shrink-0 rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
               >
-                Get All Access
+                {t("freePack.getAllAccess")}
               </a>
             </div>
           </section>
@@ -360,19 +358,19 @@ export function FreePackPage({
               href="/packs/"
               className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
             >
-              View paid packs
+              {t("freePack.viewPaidPacks")}
             </Link>
             <Link
               href="/waitlist/"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              Product updates
+              {t("freePack.productUpdates")}
             </Link>
             <Link
               href="/product-examples/"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              Product proof
+              {t("freePack.productProof")}
             </Link>
             <a
               href={waitlist.url ?? emailHref}
@@ -380,7 +378,7 @@ export function FreePackPage({
               rel={waitlist.url ? "noreferrer" : undefined}
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              {waitlist.url ? "Join waitlist" : "Email for launch"}
+              {waitlist.url ? t("freePack.joinWaitlist") : t("freePack.emailForLaunch")}
             </a>
           </div>
         </section>

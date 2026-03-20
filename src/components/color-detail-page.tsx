@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
+import { useLocale } from "@/src/components/locale-provider";
 import {
   addManyToPalette,
   addToPalette,
@@ -33,6 +34,7 @@ interface PaletteEntry {
 }
 
 function CopyButton({ value, label }: { value: string; label: string }) {
+  const { t } = useLocale();
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -59,12 +61,13 @@ function CopyButton({ value, label }: { value: string; label: string }) {
       onClick={handleCopy}
       className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
     >
-      {copied ? `${label} copied` : `Copy ${label}`}
+      {copied ? `${label} ${t("colorDetail.copiedState")}` : `${t("colorDetail.copyAction")} ${label}`}
     </button>
   );
 }
 
 function PaletteAddButton({ colorId }: { colorId: string }) {
+  const { t } = useLocale();
   const [paletteIds, setPaletteIds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -88,7 +91,7 @@ function PaletteAddButton({ colorId }: { colorId: string }) {
             : "border-black/8 bg-white text-neutral-600 hover:bg-neutral-950 hover:text-white"
       }`}
     >
-      {inPalette ? "In palette" : isFull ? "Palette full" : "Add to palette"}
+      {inPalette ? t("colorDetail.inPalette") : isFull ? t("colorDetail.paletteFull") : t("colorDetail.addToPalette")}
     </button>
   );
 }
@@ -100,6 +103,7 @@ function PaletteBundleButton({
   colorIds: string[];
   label: string;
 }) {
+  const { t } = useLocale();
   const [paletteIds, setPaletteIds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -117,7 +121,7 @@ function PaletteBundleButton({
       disabled={addableIds.length === 0 || noCapacity}
       className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-300"
     >
-      {addableIds.length === 0 ? "Already saved" : noCapacity ? "Palette full" : label}
+      {addableIds.length === 0 ? t("colorDetail.alreadySaved") : noCapacity ? t("colorDetail.paletteFull") : label}
     </button>
   );
 }
@@ -181,6 +185,7 @@ export function ColorDetailPage({
   lighterCompanion,
   darkerCompanion,
 }: ColorDetailPageProps) {
+  const { t } = useLocale();
   const [recentColorIds, setRecentColorIds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -192,24 +197,24 @@ export function ColorDetailPage({
   const paletteMoves = [
     lighterCompanion
       ? {
-          label: "Lighter companion",
+          label: t("colorDetail.lighterCompanion"),
           value: lighterCompanion,
         }
       : null,
     darkerCompanion
       ? {
-          label: "Darker companion",
+          label: t("colorDetail.darkerCompanion"),
           value: darkerCompanion,
         }
       : null,
     complementaryColor
       ? {
-          label: "Complementary counterpoint",
+          label: t("colorDetail.complementary"),
           value: complementaryColor,
         }
       : null,
     ...analogousColors.map((analogousColor, index) => ({
-      label: index === 0 ? "Analogous lead" : "Analogous echo",
+      label: index === 0 ? t("colorDetail.analogousLead") : t("colorDetail.analogousEcho"),
       value: analogousColor,
     })),
   ]
@@ -253,7 +258,7 @@ export function ColorDetailPage({
               >
                 <div className={`absolute inset-0 ${isLight ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.06),transparent_40%,rgba(0,0,0,0.04))]" : "bg-[linear-gradient(135deg,rgba(255,255,255,0.14),transparent_45%,rgba(17,24,39,0.08))]"}`} />
                 <div className={`absolute left-6 top-6 rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] backdrop-blur-md ${isLight ? "border border-black/10 bg-black/6 text-neutral-700" : "border border-white/30 bg-white/18 text-white/92"}`}>
-                  Color detail
+                  {t("colorDetail.badge")}
                 </div>
                 <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
                   <div>
@@ -267,11 +272,11 @@ export function ColorDetailPage({
                       >
                         {color.family}
                       </Link>
-                      {" · Hue "}{color.hue}
+                      {" · "}{t("colorDetail.hueLabel")}{" "}{color.hue}
                     </div>
                   </div>
                   <div className={`rounded-2xl px-4 py-3 text-right backdrop-blur-md ${isLight ? "border border-black/10 bg-white/60 text-neutral-900" : "border border-white/24 bg-black/16 text-white"}`}>
-                    <div className={`text-xs uppercase tracking-[0.16em] ${isLight ? "text-neutral-500" : "text-white/70"}`}>Hex</div>
+                    <div className={`text-xs uppercase tracking-[0.16em] ${isLight ? "text-neutral-500" : "text-white/70"}`}>{t("colorDetail.hexLabel")}</div>
                     <div className="mt-1 text-2xl font-semibold tracking-[0.04em]">{color.hex}</div>
                   </div>
                 </div>
@@ -299,23 +304,23 @@ export function ColorDetailPage({
                       <div className="mt-1 font-medium text-neutral-950">{color.hsl}</div>
                     </div>
                     <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-                      <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Metrics</div>
+                      <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("colorDetail.metrics")}</div>
                       <div className="mt-1 font-medium text-neutral-950">
                         S {color.saturation}% · L {color.lightness}%
                       </div>
                     </div>
                     <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-                      <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Contrast (WCAG)</div>
+                      <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("colorDetail.contrastWcag")}</div>
                       <div className="mt-2 space-y-1.5">
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs text-neutral-500">on white</span>
+                          <span className="text-xs text-neutral-500">{t("colorDetail.onWhite")}</span>
                           <div className="flex items-center gap-1.5">
                             <span className="text-xs font-semibold text-neutral-950">{wcag.vsWhite}:1</span>
                             <span className={`rounded-full border px-1.5 py-0.5 text-[10px] font-semibold ${gradeColors[wcag.whiteGrade]}`}>{wcag.whiteGrade}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs text-neutral-500">on black</span>
+                          <span className="text-xs text-neutral-500">{t("colorDetail.onBlack")}</span>
                           <div className="flex items-center gap-1.5">
                             <span className="text-xs font-semibold text-neutral-950">{wcag.vsBlack}:1</span>
                             <span className={`rounded-full border px-1.5 py-0.5 text-[10px] font-semibold ${gradeColors[wcag.blackGrade]}`}>{wcag.blackGrade}</span>
@@ -334,7 +339,7 @@ export function ColorDetailPage({
                 <CopyButton label="palette" value={paletteExport} />
                 <CopyButton label="CSS vars" value={cssVariableExport} />
                 <PaletteAddButton colorId={color.id} />
-                <PaletteBundleButton colorIds={exportPaletteIds} label="Add recommended palette" />
+                <PaletteBundleButton colorIds={exportPaletteIds} label={t("colorDetail.addRecommendedPalette")} />
                 <FavoriteButton colorId={color.id} />
                 <ShareLinkButton href={`/colors/${color.id}/`} />
                 <ShareOnXButton href={`/colors/${color.id}/`} text={`${color.name} ${color.hex} — from the ColorArchive`} />
@@ -342,13 +347,13 @@ export function ColorDetailPage({
                   href="/recent/"
                   className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                 >
-                  Recent trail
+                  {t("colorDetail.recentTrailLink")}
                 </Link>
               </div>
 
               <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
                 <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  About this color
+                  {t("colorDetail.aboutThisColor")}
                 </h2>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
                   {color.name} ({color.hex}) belongs to the{" "}
@@ -359,8 +364,7 @@ export function ColorDetailPage({
                     {color.family.toLowerCase()} family
                   </Link>{" "}
                   — hue {color.hue}°, {color.saturation}% saturation, {color.lightness}% lightness.
-                  Copy the hex, RGB, or HSL value above, or paste the CSS custom property below into
-                  your stylesheet to reference this color directly.
+                  {" "}{t("colorDetail.copyHint")}
                 </p>
                 <div className="mt-4 overflow-hidden rounded-xl border border-black/6 bg-neutral-950 dark:border-white/8">
                   <div className="border-b border-white/6 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">
@@ -392,10 +396,10 @@ export function ColorDetailPage({
                 return (
                   <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
                     <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                      Tonal strip
+                      {t("colorDetail.tonalStrip")}
                     </h2>
                     <p className="mt-2 text-sm leading-6 text-neutral-500">
-                      All lightness levels at this hue and saturation. Click any to navigate.
+                      {t("colorDetail.tonalDesc")}
                     </p>
                     <div className="mt-4 flex gap-1.5 overflow-x-auto pb-1">
                       {tonalStrip.map((entry) => (
@@ -423,11 +427,10 @@ export function ColorDetailPage({
 
               <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
                 <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Palette moves
+                  {t("colorDetail.paletteMoves")}
                 </h2>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
-                  Instead of stopping at one swatch, use nearby, opposite, and tonal neighbors to
-                  branch into a broader palette.
+                  {t("colorDetail.paletteMovesDesc")}
                 </p>
 
                 <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -439,14 +442,14 @@ export function ColorDetailPage({
                 <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
                   <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                     <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                      Export preview
+                      {t("colorDetail.exportPreview")}
                     </div>
                     <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
                       {paletteExport}
                     </pre>
                   </div>
                   <div className="flex flex-wrap gap-2 lg:justify-end">
-                    <PaletteBundleButton colorIds={paletteMoves.map((item) => item.value.id)} label="Add palette moves" />
+                    <PaletteBundleButton colorIds={paletteMoves.map((item) => item.value.id)} label={t("colorDetail.addPaletteMoves")} />
                   </div>
                 </div>
               </div>
@@ -455,56 +458,55 @@ export function ColorDetailPage({
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                      Nearest neighbors
+                      {t("colorDetail.nearestNeighbors")}
                     </h2>
                     <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
-                      The closest archive matches by hue, saturation, and lightness.
+                      {t("colorDetail.nearestDesc")}
                     </p>
                   </div>
                   <Link
                     href={`/search?hex=${encodeURIComponent(color.hex)}`}
                     className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                   >
-                    Search by hex
+                    {t("colorDetail.searchByHex")}
                   </Link>
                 </div>
 
                 <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
                   {nearestColors.map((nearColor) => (
-                    <RecommendationCard key={nearColor.id} color={nearColor} eyebrow="Nearby match" />
+                    <RecommendationCard key={nearColor.id} color={nearColor} eyebrow={t("colorDetail.nearbyMatch")} />
                   ))}
                 </div>
               </div>
 
               <div className="rounded-[1.6rem] border border-black/6 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
-                  Ready to build
+                  {t("colorDetail.readyToBuild")}
                 </div>
                 <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
-                  Turn these colors into design tokens
+                  {t("colorDetail.buildTitle")}
                 </p>
                 <p className="mt-2 max-w-xl text-sm leading-6 text-white/60 dark:text-neutral-500">
-                  ColorArchive packs include CSS variables, Figma tokens, Tailwind config, and
-                  Procreate swatches — ready to drop into any project.
+                  {t("colorDetail.buildDesc")}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
                     href="/packs/"
                     className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
                   >
-                    Browse packs
+                    {t("colorDetail.browsePacks")}
                   </Link>
                   <Link
                     href="/free-pack/"
                     className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
                   >
-                    Free download
+                    {t("colorDetail.freeDownload")}
                   </Link>
                   <Link
                     href="/collections/"
                     className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
                   >
-                    View collections
+                    {t("colorDetail.viewCollections")}
                   </Link>
                 </div>
               </div>
@@ -514,23 +516,23 @@ export function ColorDetailPage({
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                        Recent trail
+                        {t("colorDetail.recentTrail")}
                       </h2>
                       <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
-                        Colors you viewed recently in this browser session.
+                        {t("colorDetail.recentDesc")}
                       </p>
                     </div>
                     <Link
                       href="/recent/"
                       className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                     >
-                      Open recent
+                      {t("colorDetail.openRecent")}
                     </Link>
                   </div>
 
                   <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
                     {recentTrail.map((recentColor) => (
-                      <RecommendationCard key={recentColor.id} color={recentColor} eyebrow="Recently viewed" />
+                      <RecommendationCard key={recentColor.id} color={recentColor} eyebrow={t("colorDetail.recentlyViewed")} />
                     ))}
                   </div>
                 </div>
@@ -541,14 +543,14 @@ export function ColorDetailPage({
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                    Related colors
+                    {t("colorDetail.relatedColors")}
                   </p>
                   <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
                     <Link
                       href={`/families/${getFamilySlug(color.family)}/`}
                       className="transition-colors hover:text-neutral-500"
                     >
-                      More from {color.family}
+                      {t("colorDetail.moreFrom")} {color.family}
                     </Link>
                   </h2>
                 </div>
@@ -556,7 +558,7 @@ export function ColorDetailPage({
                   href="/search"
                   className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                 >
-                  Search
+                  {t("colorDetail.search")}
                 </Link>
               </div>
 

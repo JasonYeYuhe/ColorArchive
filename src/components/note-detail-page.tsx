@@ -1,6 +1,9 @@
+"use client";
+
 import { Suspense } from "react";
 import Link from "next/link";
 import { EmailCaptureForm } from "@/src/components/email-capture-form";
+import { useLocale } from "@/src/components/locale-provider";
 import { collections } from "@/src/lib/collections";
 import { getGuidesForCollection, getGuidesForPack } from "@/src/lib/guides";
 import { palettePacks } from "@/src/lib/palette-packs";
@@ -16,6 +19,7 @@ export function NoteDetailPage({
   previousIssue: NewsletterIssue | null;
   nextIssue: NewsletterIssue | null;
 }) {
+  const { t } = useLocale();
   const featuredCollection = issue.featuredCollectionId
     ? collections.find((collection) => collection.id === issue.featuredCollectionId) ?? null
     : null;
@@ -59,7 +63,7 @@ export function NoteDetailPage({
 
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-            Highlights
+            {t("note.highlights")}
           </div>
           <div className="mt-4 grid gap-3">
             {issue.highlights.map((highlight) => (
@@ -92,7 +96,7 @@ export function NoteDetailPage({
             {featuredCollection ? (
               <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Featured collection
+                  {t("note.featuredCollection")}
                 </div>
                 <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
                   {featuredCollection.title}
@@ -103,13 +107,13 @@ export function NoteDetailPage({
                     href={`/collections/${featuredCollection.id}`}
                     className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                   >
-                    Open collection
+                    {t("note.openCollection")}
                   </Link>
                   <Link
                     href={`/search?family=${encodeURIComponent(featuredCollection.palette[0]?.family ?? "Green")}`}
                     className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                   >
-                    Search family
+                    {t("note.searchFamily")}
                   </Link>
                 </div>
               </aside>
@@ -118,7 +122,7 @@ export function NoteDetailPage({
             {featuredPack ? (
               <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Featured pack
+                  {t("note.featuredPack")}
                 </div>
                 <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
                   {featuredPack.title}
@@ -130,13 +134,13 @@ export function NoteDetailPage({
                     href={`/packs/${featuredPack.id}`}
                     className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                   >
-                    Open pack
+                    {t("note.openPack")}
                   </Link>
                   <Link
                     href="/free-pack/"
                     className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                   >
-                    Try free layer
+                    {t("note.tryFreeLayer")}
                   </Link>
                 </div>
               </aside>
@@ -144,7 +148,7 @@ export function NoteDetailPage({
 
             <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Open next
+                {t("note.openNext")}
               </div>
               <div className="mt-4 flex flex-wrap gap-2">
                 {issue.links.map((link) => (
@@ -160,7 +164,7 @@ export function NoteDetailPage({
                   href="/waitlist/"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
-                  Join updates
+                  {t("note.joinUpdates")}
                 </Link>
               </div>
             </aside>
@@ -168,7 +172,7 @@ export function NoteDetailPage({
             {relatedGuides.length > 0 ? (
               <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Related guides
+                  {t("note.relatedGuides")}
                 </div>
                 <div className="mt-4 space-y-3">
                   {relatedGuides.map((guide) => (
@@ -197,7 +201,7 @@ export function NoteDetailPage({
               className="rounded-[1.5rem] border border-black/6 bg-white/82 px-5 py-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5"
             >
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Newer issue
+                {t("note.newerIssue")}
               </div>
               <div className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
                 {nextIssue.title}
@@ -207,21 +211,21 @@ export function NoteDetailPage({
           ) : (
             <div className="rounded-[1.5rem] border border-black/6 bg-neutral-950 px-5 py-6 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
-                Stay in the loop
+                {t("note.stayInLoop")}
               </div>
               <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
-                You've reached the latest issue
+                {t("note.latestIssue")}
               </p>
               <p className="mt-2 text-sm leading-6 text-white/60 dark:text-neutral-500">
-                Get notified when new issues and palette drops land.
+                {t("note.notifyDesc")}
               </p>
               <div className="mt-4">
                 <Suspense fallback={null}>
                   <EmailCaptureForm
                     source="notes-latest"
                     placeholder="your@email.com"
-                    buttonLabel="Subscribe"
-                    successMessage="You're in — we'll email you about new issues."
+                    buttonLabel={t("note.subscribe")}
+                    successMessage={t("note.successMessage")}
                   />
                 </Suspense>
               </div>
@@ -234,7 +238,7 @@ export function NoteDetailPage({
               className="rounded-[1.5rem] border border-black/6 bg-white/82 px-5 py-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5"
             >
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Older issue
+                {t("note.olderIssue")}
               </div>
               <div className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
                 {previousIssue.title}
@@ -243,7 +247,7 @@ export function NoteDetailPage({
             </Link>
           ) : (
             <div className="rounded-[1.5rem] border border-dashed border-black/10 bg-white/60 px-5 py-5 text-sm text-neutral-500">
-              This is currently the oldest public issue.
+              {t("note.oldestIssue")}
             </div>
           )}
         </section>

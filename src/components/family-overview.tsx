@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, sortColors } from "@/src/lib/color-utils";
 import { getFamilySlug } from "@/src/lib/color-family-pages";
 import type { ColorFamily, ColorRecord } from "@/src/types/color";
@@ -25,15 +26,16 @@ function getFamilySamples(colors: readonly ColorRecord[]) {
 }
 
 export function FamilyOverview({ activeFamily, colors, onFamilySelect }: FamilyOverviewProps) {
+  const { t } = useLocale();
   return (
     <section className="space-y-4 px-1">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
-            Color families
+            {t("family.colorFamilies")}
           </h2>
           <p className="mt-1 text-sm text-neutral-500">
-            Jump between hue clusters and compare each family at a glance.
+            {t("family.desc")}
           </p>
         </div>
         <button
@@ -45,13 +47,13 @@ export function FamilyOverview({ activeFamily, colors, onFamilySelect }: FamilyO
               : "border border-black/8 bg-white/80 text-neutral-700 hover:bg-white"
           }`}
         >
-          View all
+          {t("family.viewAll")}
         </button>
         <Link
           href="/families/"
           className="w-fit rounded-full border border-black/8 bg-white/80 px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-white"
         >
-          Open family pages
+          {t("family.openFamilyPages")}
         </Link>
       </div>
 
@@ -85,8 +87,8 @@ export function FamilyOverview({ activeFamily, colors, onFamilySelect }: FamilyO
                     </div>
                     <div className="mt-1 text-sm text-neutral-500">
                       {familyColors.length === 0
-                        ? "No matches"
-                        : `${familyColors.length} ${familyColors.length === 1 ? "color" : "colors"}`}
+                        ? t("family.noMatches")
+                        : `${familyColors.length} ${familyColors.length === 1 ? t("family.colorSingular") : t("family.colorPlural")}`}
                     </div>
                   </div>
                   <div
@@ -96,7 +98,7 @@ export function FamilyOverview({ activeFamily, colors, onFamilySelect }: FamilyO
                         : "border border-black/6 bg-neutral-50 text-neutral-400"
                     }`}
                   >
-                    {isActive ? "Active" : "Family"}
+                    {isActive ? t("family.active") : t("family.familyLabel")}
                   </div>
                 </div>
 
@@ -110,13 +112,13 @@ export function FamilyOverview({ activeFamily, colors, onFamilySelect }: FamilyO
                         : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50"
                     }`}
                   >
-                    {isActive ? "Filtered" : "Filter archive"}
+                    {isActive ? t("family.filtered") : t("family.filterArchive")}
                   </button>
                   <Link
                     href={`/families/${getFamilySlug(family)}`}
                     className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-neutral-50"
                   >
-                    Family page
+                    {t("family.familyPage")}
                   </Link>
                 </div>
               </div>
