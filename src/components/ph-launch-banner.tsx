@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
  * Set to true on launch day, false after launch week.
  * Update PH_LISTING_URL to the actual Product Hunt listing URL.
  */
-const PH_LAUNCH_ACTIVE = false;
+const PH_LAUNCH_ACTIVE = true;
 const PH_LISTING_URL = "https://www.producthunt.com/posts/colorarchive";
 const DISMISS_KEY = "colorarchive-ph-banner-dismissed";
 
