@@ -505,6 +505,126 @@ export const landingGuides: LandingGuide[] = [
       { label: "Read Figma token guide", href: "/guides/figma-color-tokens/" },
     ],
   },
+  {
+    category: "Tools & Workflow",
+    slug: "color-palette-generator",
+    title: "Color Palette Generator: How to Go From a Word or Mood to a Real Palette",
+    summary:
+      "Most palette generators give you random swatches. This guide covers how to derive a palette from a concept or keyword, then refine it into something production-ready across formats.",
+    eyebrow: "Generator Guide",
+    priority: 93,
+    searchIntent: "color palette generator",
+    featuredCollectionId: "modern-seaside",
+    featuredPackId: "free-palette-pack",
+    tags: ["Tools", "Workflow", "Palette"],
+    highlights: [
+      "Concept-first generation produces more coherent palettes than random hue picking.",
+      "A good generator resolves to named, exportable colors — not just inspiration screenshots.",
+      "ColorArchive's word-to-color tool turns any concept into a structured 5-variant palette instantly.",
+    ],
+    sections: [
+      {
+        heading: "The problem with random generators",
+        body:
+          "Most online palette generators produce adjacent swatches by spinning a color wheel. The output looks fine in a screenshot but collapses when you try to apply it — the lightness values conflict, the contrast ratios fail WCAG checks, and nothing maps cleanly to a primary/secondary/surface role. Starting from a concept instead of a random seed produces better results because mood and use case constrain the hue range before you touch a slider.",
+      },
+      {
+        heading: "Word-to-color: concept as input",
+        body:
+          "ColorArchive's word-to-color tool turns any word or phrase into a deterministic 5-variant palette by mapping the input to hue, saturation, and lightness ranges that match its semantic feel. \"ocean\" resolves to cool blue-greens with restrained chroma. \"ember\" pulls warm oranges with a push toward lower lightness. The result is a starting palette with mood coherence baked in rather than added later.",
+      },
+      {
+        heading: "From generator output to production palette",
+        body:
+          "A generated palette is a starting point, not a finished system. The next step is finding the named archive equivalents, checking contrast on intended surfaces, and exporting in the format your workflow needs. The Free Palette Pack includes the first 100 named archive colors in Figma, CSS, and JSON so you can test a generated palette against a real system within minutes.",
+      },
+    ],
+    links: [
+      { label: "Try Word-to-Color", href: "/word-to-color/" },
+      { label: "Get the Free Palette Pack", href: "/free-pack/" },
+      { label: "Browse the full archive", href: "/all-colors/" },
+    ],
+  },
+  {
+    category: "Export & Formats",
+    slug: "procreate-color-palette",
+    title: "Procreate Color Palette: Export, Install, and Use Archive Colors on iPad",
+    summary:
+      "How to get a production-ready Procreate color palette from a named archive into your iPad workflow — including the .swatches format, installation steps, and which collections work best for illustration.",
+    eyebrow: "Procreate Guide",
+    priority: 88,
+    searchIntent: "procreate color palette",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "content-creator-bundle",
+    tags: ["Procreate", "Download", "Illustration"],
+    highlights: [
+      "Procreate uses the .swatches format — ColorArchive exports this directly from the full archive.",
+      "Named, structured palettes speed up illustration work compared to eyedropping reference images.",
+      "Editorial Warmth and the Creator Bundle are the strongest starting points for illustration use.",
+    ],
+    sections: [
+      {
+        heading: "What Procreate needs from a color file",
+        body:
+          "Procreate imports palettes via the .swatches format, which is a flat JSON file Apple Books or Files can hand off to the app. Each color needs an HSBA value. ColorArchive's download packs include a .swatches file generated from the full named archive so you can install hundreds of production-quality colors in one tap rather than eyedropping reference images one by one.",
+      },
+      {
+        heading: "Which collections fit illustration best",
+        body:
+          "Not every archive collection works equally well for illustration. Editorial Warmth is a strong starting point because the warm-leaning mid-tones work across skin, fabric, wood, and ambient light without pushing into oversaturation. The palette has enough range to cover both shadow and highlight anchors without fighting the paper texture Procreate's brushes naturally add.",
+      },
+      {
+        heading: "Installing and organizing on iPad",
+        body:
+          "Once you have the .swatches file in Files or Downloads, open Procreate, go to the Palettes panel, tap the plus button, and choose Import. The full archive installs as a single named palette. From there you can duplicate it and delete colors you do not need to build illustration-specific subsets. The Content Creator Bundle includes the .swatches export plus CSS and JSON for the same set, so the colors stay consistent if you move between Procreate and a web or brand context.",
+      },
+    ],
+    links: [
+      { label: "Get the Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
+      { label: "Browse all colors", href: "/all-colors/" },
+    ],
+  },
+  {
+    category: "Interface Systems",
+    slug: "color-scheme-for-app",
+    title: "Color Scheme for an App: How to Build a Mobile Palette That Works Across Screens",
+    summary:
+      "Choosing a color scheme for a mobile app is different from web — smaller viewports, mixed lighting, and OS-level dark mode mean your palette choices have tighter constraints and higher stakes.",
+    eyebrow: "App UI Guide",
+    priority: 91,
+    searchIntent: "color scheme for app",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["UI", "Product", "Dark mode"],
+    highlights: [
+      "Mobile palettes need higher contrast ratios than desktop because rendering and ambient light vary more.",
+      "A dual-mode palette (light + dark) is the baseline expectation for any shipped iOS or Android app.",
+      "Nocturne Tech and the Dark Mode UI Kit are built for exactly this constraint set.",
+    ],
+    sections: [
+      {
+        heading: "Mobile rendering changes how color behaves",
+        body:
+          "An app runs on OLED screens in direct sunlight, on LCD in dim rooms, and in accessibility modes that can invert or reduce contrast. A palette that looks fine on your design laptop will often wash out or vibrate in those conditions. That means your app color scheme needs higher contrast margins than a typical web design, and the dark mode variant is not optional — it is the default for a significant share of users.",
+      },
+      {
+        heading: "System roles matter more than individual swatches",
+        body:
+          "App UI palettes work by role: background, surface, border, interactive, destructive, success. The mistake is picking beautiful swatches and assigning roles afterward. The right approach is defining the roles first — primary action, disabled state, error indicator, ambient surface — and then choosing archive colors that satisfy the contrast requirements for each. This is exactly the structure the Dark Mode UI Kit provides.",
+      },
+      {
+        heading: "Nocturne Tech as a dark mode foundation",
+        body:
+          "Nocturne Tech is calibrated for dark surface work. The blues and teals in the collection sit at lightness levels that pop clearly against a very dark background without blooming on OLED. Pair the collection's lighter values as interactive or highlight tokens and the darker values as surface or border tokens, and you have a functional dark mode skeleton in a few decisions rather than from scratch.",
+      },
+    ],
+    links: [
+      { label: "Open Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Open Nocturne Tech", href: "/collections/nocturne-tech/" },
+      { label: "Read dark mode palette guide", href: "/guides/dark-mode-color-palette/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {

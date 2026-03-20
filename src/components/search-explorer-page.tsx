@@ -8,6 +8,7 @@ import { ColorGrid } from "@/src/components/color-grid";
 import { FilterToolbar } from "@/src/components/filter-toolbar";
 import { SelectedColorPanel } from "@/src/components/selected-color-panel";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
@@ -130,6 +131,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { t } = useLocale();
   const initialQuery = searchParams.get("q") ?? "";
   const initialSort = (searchParams.get("sort") as SortOption | null) ?? "name";
   const initialFamily = (searchParams.get("family") as ColorFamily | null) ?? "All";
@@ -336,16 +338,15 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-              Search the archive
+              {t("search.badge")}
             </div>
 
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Find colors fast
+              {t("search.title")}
             </h1>
 
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              Search by name, family, or hex fragment. This page is optimized for quick lookup
-              rather than browsing the full archive.
+              {t("search.description")}
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -368,48 +369,48 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <label className="flex flex-col gap-2">
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Hue band
+                {t("search.hueBand")}
               </span>
               <select
                 value={hueBand}
                 onChange={(event) => setHueBand(event.target.value as HueBand)}
                 className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
               >
-                <option value="all">All hues</option>
-                <option value="warm">Warm</option>
-                <option value="fresh">Fresh</option>
-                <option value="cool">Cool</option>
-                <option value="violet">Violet / Pink</option>
+                <option value="all">{t("search.allHues")}</option>
+                <option value="warm">{t("search.warm")}</option>
+                <option value="fresh">{t("search.fresh")}</option>
+                <option value="cool">{t("search.cool")}</option>
+                <option value="violet">{t("search.violet")}</option>
               </select>
             </label>
 
             <label className="flex flex-col gap-2">
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Tone
+                {t("search.tone")}
               </span>
               <select
                 value={toneBand}
                 onChange={(event) => setToneBand(event.target.value as ToneBand)}
                 className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
               >
-                <option value="all">All tones</option>
-                <option value="light">Light</option>
-                <option value="mid">Mid</option>
-                <option value="dark">Dark</option>
+                <option value="all">{t("search.allTones")}</option>
+                <option value="light">{t("search.light")}</option>
+                <option value="mid">{t("search.mid")}</option>
+                <option value="dark">{t("search.dark")}</option>
               </select>
             </label>
 
             <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Current query</div>
+              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("search.currentQuery")}</div>
               <div className="mt-2 text-sm font-medium text-neutral-950">
-                {searchQuery.trim().length > 0 ? searchQuery.trim() : "No keyword"}
+                {searchQuery.trim().length > 0 ? searchQuery.trim() : t("search.noKeyword")}
               </div>
             </div>
 
             <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Current lens</div>
+              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("search.currentLens")}</div>
               <div className="mt-2 text-sm font-medium text-neutral-950">
-                {hueBand === "all" ? "All hues" : hueBand} · {toneBand === "all" ? "All tones" : toneBand}
+                {hueBand === "all" ? t("search.allHues") : hueBand} · {toneBand === "all" ? t("search.allTones") : toneBand}
               </div>
             </div>
           </div>
@@ -417,7 +418,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
           <div className="mt-4 grid gap-4 xl:grid-cols-3">
             <label className="flex flex-col gap-2">
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Saturation range
+                {t("search.satRange")}
               </span>
               <div className="grid grid-cols-2 gap-2">
                 <input
@@ -447,7 +448,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
 
             <label className="flex flex-col gap-2">
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Lightness range
+                {t("search.lightRange")}
               </span>
               <div className="grid grid-cols-2 gap-2">
                 <input
@@ -477,7 +478,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
 
             <label className="flex flex-col gap-2">
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Exact hex
+                {t("search.exactHex")}
               </span>
               <input
                 type="text"
@@ -532,47 +533,46 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
         {displayLimit < visibleColors.length && (
           <div className="flex items-center justify-center gap-4 py-2">
             <span className="text-sm text-neutral-400">
-              Showing {displayLimit} of {visibleColors.length}
+              {t("pagination.showing")} {displayLimit} {t("pagination.of")} {visibleColors.length}
             </span>
             <button
               type="button"
               onClick={() => setDisplayLimit((prev) => prev + PAGE_SIZE)}
               className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
             >
-              Show more
+              {t("pagination.showMore")}
             </button>
           </div>
         )}
 
         <div className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
-            Take your palette further
+            {t("search.ctaLabel")}
           </div>
           <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
-            From search to production-ready tokens
+            {t("search.ctaTitle")}
           </p>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
-            ColorArchive packs include CSS variables, Figma tokens, Tailwind config, and Procreate
-            swatches built around curated color directions.
+            {t("search.ctaDesc")}
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
               href="/packs/"
               className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
             >
-              Browse packs
+              {t("search.browsePacks")}
             </Link>
             <Link
               href="/collections/"
               className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
             >
-              View collections
+              {t("search.viewCollections")}
             </Link>
             <Link
               href="/free-pack/"
               className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
             >
-              Free download
+              {t("search.freeDownload")}
             </Link>
           </div>
         </div>

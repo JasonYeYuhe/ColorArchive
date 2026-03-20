@@ -9,6 +9,7 @@ import { FilterToolbar } from "@/src/components/filter-toolbar";
 import { HeroSection } from "@/src/components/hero-section";
 import { LocalArchiveHub } from "@/src/components/local-archive-hub";
 import { SelectedColorPanel } from "@/src/components/selected-color-panel";
+import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
@@ -52,6 +53,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { t } = useLocale();
   const initialQuery = searchParams.get("q") ?? "";
   const initialSort = (searchParams.get("sort") as SortOption | null) ?? "hue";
   const initialFamily = (searchParams.get("family") as ColorFamily | null) ?? "All";
@@ -219,14 +221,14 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
         {displayLimit < visibleColors.length && (
           <div className="flex items-center justify-center gap-4 py-2">
             <span className="text-sm text-neutral-400">
-              Showing {displayLimit} of {visibleColors.length}
+              {t("pagination.showing")} {displayLimit} {t("pagination.of")} {visibleColors.length}
             </span>
             <button
               type="button"
               onClick={() => setDisplayLimit((prev) => prev + PAGE_SIZE)}
               className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
             >
-              Show more
+              {t("pagination.showMore")}
             </button>
           </div>
         )}

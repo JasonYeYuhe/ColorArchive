@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import { colors } from "@/src/data/colors";
 import { hslToRgb, rgbToHex } from "@/src/lib/color-utils";
+import { useLocale } from "@/src/components/locale-provider";
 import type { ColorRecord } from "@/src/types/color";
 
 /* ------------------------------------------------------------------ */
@@ -128,6 +129,7 @@ function ColorPickerPanel({
   hex: string;
   onHexChange: (hex: string) => void;
 }) {
+  const { t } = useLocale();
   const [inputValue, setInputValue] = useState(hex);
   const [showPalette, setShowPalette] = useState(false);
   const [paletteSearch, setPaletteSearch] = useState("");
@@ -189,7 +191,7 @@ function ColorPickerPanel({
           onClick={() => setShowPalette((prev) => !prev)}
           className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
         >
-          {showPalette ? "Hide palette" : "Pick from archive"}
+          {showPalette ? t("contrast.hidePalette") : t("contrast.pickFromArchive")}
         </button>
       </div>
 
@@ -199,7 +201,7 @@ function ColorPickerPanel({
             type="text"
             value={paletteSearch}
             onChange={(e) => setPaletteSearch(e.target.value)}
-            placeholder="Search colors by name, hex, or family"
+            placeholder={t("contrast.searchPlaceholder")}
             className="mb-3 w-full rounded-2xl border border-black/8 bg-white px-4 py-2.5 text-sm text-neutral-950 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
           />
           <div className="grid max-h-48 grid-cols-6 gap-1.5 overflow-y-auto sm:grid-cols-8">
@@ -218,7 +220,7 @@ function ColorPickerPanel({
             })}
           </div>
           {filteredColors.length === 0 && (
-            <p className="py-4 text-center text-sm text-neutral-400">No colors match your search.</p>
+            <p className="py-4 text-center text-sm text-neutral-400">{t("contrast.noResults")}</p>
           )}
         </div>
       )}
@@ -231,6 +233,7 @@ function ColorPickerPanel({
 /* ------------------------------------------------------------------ */
 
 export function ContrastCheckerPage() {
+  const { t } = useLocale();
   const [fgHex, setFgHex] = useState("#1A1A2E");
   const [bgHex, setBgHex] = useState("#F5F5F0");
 
@@ -251,29 +254,28 @@ export function ContrastCheckerPage() {
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-              WCAG accessibility
+              {t("contrast.badge")}
             </div>
 
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Contrast checker
+              {t("contrast.title")}
             </h1>
 
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              Enter two colors to calculate the WCAG contrast ratio. Check compliance for
-              normal text, large text, and UI components at AA and AAA levels.
+              {t("contrast.description")}
             </p>
           </div>
         </section>
 
         {/* Color pickers */}
         <section className="grid gap-4 lg:grid-cols-[1fr_auto_1fr]">
-          <ColorPickerPanel label="Foreground (text)" hex={fgHex} onHexChange={setFgHex} />
+          <ColorPickerPanel label={t("contrast.foreground")} hex={fgHex} onHexChange={setFgHex} />
 
           <div className="flex items-center justify-center">
             <button
               type="button"
               onClick={handleSwap}
-              title="Swap foreground and background"
+              title={t("contrast.swap")}
               className="rounded-full border border-black/8 bg-white/85 p-3 text-neutral-600 shadow-sm transition hover:bg-neutral-950 hover:text-white"
             >
               <svg
@@ -292,7 +294,7 @@ export function ContrastCheckerPage() {
             </button>
           </div>
 
-          <ColorPickerPanel label="Background" hex={bgHex} onHexChange={setBgHex} />
+          <ColorPickerPanel label={t("contrast.background")} hex={bgHex} onHexChange={setBgHex} />
         </section>
 
         {/* Results */}
@@ -301,7 +303,7 @@ export function ContrastCheckerPage() {
           <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="flex items-center justify-between gap-4">
               <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
-                Live preview
+                {t("contrast.livePreview")}
               </h2>
               <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
                 {wcag.ratio} : 1
@@ -317,28 +319,26 @@ export function ContrastCheckerPage() {
                   className="text-2xl font-semibold tracking-[-0.03em] sm:text-3xl"
                   style={{ color: fgHex }}
                 >
-                  Heading text sample
+                  {t("contrast.headingSample")}
                 </h3>
                 <p className="text-base leading-7 sm:text-lg" style={{ color: fgHex }}>
-                  The quick brown fox jumps over the lazy dog. This paragraph demonstrates how
-                  body text appears at normal size with these two colors combined.
+                  {t("contrast.bodySample")}
                 </p>
                 <p className="text-sm leading-6" style={{ color: fgHex }}>
-                  Small text is harder to read at low contrast ratios. WCAG requires at least
-                  4.5:1 for normal text and 3:1 for large text at the AA level.
+                  {t("contrast.smallSample")}
                 </p>
                 <div className="flex flex-wrap gap-3 pt-2">
                   <span
                     className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium"
                     style={{ color: fgHex, borderColor: fgHex }}
                   >
-                    Button outline
+                    {t("contrast.buttonOutline")}
                   </span>
                   <span
                     className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
                     style={{ backgroundColor: fgHex, color: bgHex }}
                   >
-                    Button filled
+                    {t("contrast.buttonFilled")}
                   </span>
                 </div>
               </div>
@@ -351,7 +351,7 @@ export function ContrastCheckerPage() {
             >
               <div className="p-6 sm:p-8">
                 <p className="text-sm leading-6" style={{ color: bgHex }}>
-                  Reversed: background color on foreground color.
+                  {t("contrast.reversed")}
                 </p>
               </div>
             </div>
@@ -361,7 +361,7 @@ export function ContrastCheckerPage() {
           <div className="space-y-4">
             <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Contrast ratio
+                {t("contrast.contrastRatio")}
               </div>
               <div className="mt-3 text-5xl font-bold tracking-[-0.04em] text-neutral-950">
                 {wcag.ratio}
@@ -369,25 +369,25 @@ export function ContrastCheckerPage() {
               </div>
               <div className="mt-3 text-sm leading-6 text-neutral-600">
                 {wcag.ratio >= 7
-                  ? "Excellent contrast. Passes all WCAG criteria."
+                  ? t("contrast.excellent")
                   : wcag.ratio >= 4.5
-                    ? "Good contrast. Passes AA for normal text and AAA for large text."
+                    ? t("contrast.good")
                     : wcag.ratio >= 3
-                      ? "Moderate contrast. Passes AA for large text and UI components only."
-                      : "Poor contrast. Fails most WCAG criteria."}
+                      ? t("contrast.moderate")
+                      : t("contrast.poor")}
               </div>
             </div>
 
             <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                WCAG compliance
+                {t("contrast.wcagCompliance")}
               </div>
               <div className="space-y-2">
-                <WcagBadge label="Normal text" level="AA (4.5:1)" result={wcag.aaNormal} />
-                <WcagBadge label="Large text" level="AA (3:1)" result={wcag.aaLarge} />
-                <WcagBadge label="Normal text" level="AAA (7:1)" result={wcag.aaaNormal} />
-                <WcagBadge label="Large text" level="AAA (4.5:1)" result={wcag.aaaLarge} />
-                <WcagBadge label="UI components" level="AA (3:1)" result={wcag.aaUi} />
+                <WcagBadge label={t("contrast.normalText")} level="AA (4.5:1)" result={wcag.aaNormal} />
+                <WcagBadge label={t("contrast.largeText")} level="AA (3:1)" result={wcag.aaLarge} />
+                <WcagBadge label={t("contrast.normalText")} level="AAA (7:1)" result={wcag.aaaNormal} />
+                <WcagBadge label={t("contrast.largeText")} level="AAA (4.5:1)" result={wcag.aaaLarge} />
+                <WcagBadge label={t("contrast.uiComponents")} level="AA (3:1)" result={wcag.aaUi} />
               </div>
             </div>
           </div>
@@ -395,33 +395,32 @@ export function ContrastCheckerPage() {
 
         <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
-            Build with accessible color systems
+            {t("contrast.ctaLabel")}
           </div>
           <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
-            Take contrast-safe palettes into your project
+            {t("contrast.ctaTitle")}
           </p>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
-            The Dark Mode UI Kit ships pre-tested light/dark pairings with contrast ratios that
-            pass AA — structured as CSS variables, Figma tokens, and Tailwind config.
+            {t("contrast.ctaDesc")}
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
               href="/packs/dark-mode-ui-kit/"
               className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
             >
-              Dark Mode UI Kit
+              {t("contrast.darkModeKit")}
             </Link>
             <Link
               href="/packs/"
               className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
             >
-              Browse all packs
+              {t("contrast.browseAllPacks")}
             </Link>
             <Link
               href="/free-pack/"
               className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
             >
-              Free download
+              {t("contrast.freeDownload")}
             </Link>
           </div>
         </section>

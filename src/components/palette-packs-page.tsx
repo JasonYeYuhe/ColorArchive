@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
+import { useLocale } from "@/src/components/locale-provider";
 import { landingGuides } from "@/src/lib/guides";
 import type { PalettePack } from "@/src/lib/palette-packs";
 
@@ -8,6 +11,7 @@ interface PalettePacksPageProps {
 }
 
 export function PalettePacksPage({ packs }: PalettePacksPageProps) {
+  const { t } = useLocale();
   const popularGuides = [...landingGuides].sort((a, b) => b.priority - a.priority).slice(0, 4);
 
   return (
@@ -19,15 +23,13 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-              Productized color assets
+              {t("packs.badge")}
             </div>
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              Explore the paid palette catalog, token exports, and the full bundle
+              {t("packs.title")}
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              Start with the free sample to inspect file quality, then browse the paid catalog
-              for deeper collections, structured token exports, and implementation-ready downloads.
-              Every pack ships instantly after checkout.
+              {t("packs.description")}
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -35,19 +37,19 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                 href="/free-pack/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
-                Get free sample
+                {t("packs.getFreeSample")}
               </Link>
               <Link
                 href="/product-examples/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Open product examples
+                {t("packs.openExamples")}
               </Link>
               <Link
                 href="/support/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Pricing &amp; support
+                {t("packs.pricingSupport")}
               </Link>
             </div>
           </div>
@@ -63,17 +65,17 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:border-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
-                      Save 32%
+                      {t("packs.save32")}
                     </span>
                     <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                      Best value
+                      {t("packs.bestValue")}
                     </span>
                   </div>
                   <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white sm:text-3xl">
                     {bundle.title}
                   </h2>
                   <p className="mt-2 max-w-xl text-sm leading-6 text-neutral-600 dark:text-neutral-400">
-                    One checkout, every paid pack included. Individual total: <span className="line-through">{individualTotal}</span>{" → "}
+                    {t("packs.bundleDesc")} <span className="line-through">{individualTotal}</span>{" → "}
                     <span className="font-semibold text-emerald-700 dark:text-emerald-400">{bundle.priceHint}</span>
                   </p>
                 </div>
@@ -85,21 +87,21 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                       rel="noreferrer"
                       className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
                     >
-                      Buy All Access — {bundle.priceHint}
+                      {t("packs.buyAllAccess")} — {bundle.priceHint}
                     </a>
                   ) : (
                     <Link
                       href={`/packs/${bundle.id}/`}
                       className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
                     >
-                      View bundle details
+                      {t("packDetail.bundleTitle")}
                     </Link>
                   )}
                   <Link
                     href={`/packs/${bundle.id}/`}
                     className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/10 dark:text-neutral-300"
                   >
-                    What's included
+                    {t("packs.whatsIncluded")}
                   </Link>
                 </div>
               </div>
@@ -111,18 +113,17 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Buying guides
+                {t("packs.buyingGuides")}
               </div>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-                If you know the problem but not the right pack yet, start from the guide that
-                matches your use case, then come back to the checkout lane that fits.
+                {t("packs.buyingGuidesDesc")}
               </p>
             </div>
             <Link
               href="/guides/"
               className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
             >
-              All guides
+              {t("packs.allGuides")}
             </Link>
           </div>
 
@@ -179,14 +180,14 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
 
               <div className="mt-4 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                 <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                  Audience
+                  {t("packs.audience")}
                 </div>
                 <p className="mt-2 text-sm leading-6 text-neutral-600">{pack.audience}</p>
               </div>
 
               <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                 <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                  Includes
+                  {t("packs.includes")}
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {pack.formatList.map((format) => (
@@ -202,7 +203,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
 
               <div className="mt-5">
                 <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                  Preview collections
+                  {t("packs.previewCollections")}
                 </div>
                 <div className="mt-3 space-y-2 text-sm text-neutral-600">
                   {pack.previewCollections.map((collection) => (
@@ -215,7 +216,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
 
               <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                 <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                  Deliverables
+                  {t("packs.deliverables")}
                 </div>
                 <div className="mt-3 space-y-2 text-sm text-neutral-600">
                   {pack.deliverables.map((deliverable) => (
@@ -228,7 +229,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
 
               <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                 <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                  Why it is credible
+                  {t("packs.whyCredible")}
                 </div>
                 <div className="mt-3 space-y-2 text-sm text-neutral-600">
                   {pack.proofPoints.map((point) => (
@@ -242,7 +243,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
 
               <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                 <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                  Checkout
+                  {t("packs.checkout")}
                 </div>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   {pack.checkoutUrl ? (
@@ -252,7 +253,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                       rel="noreferrer"
                       className="rounded-full border border-neutral-950/10 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                     >
-                      Buy now
+                      {t("packs.buyNow")}
                     </a>
                   ) : (
                     <button
@@ -260,11 +261,11 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                       disabled
                       className="cursor-not-allowed rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-400"
                     >
-                      Checkout unavailable
+                      {t("packs.checkoutUnavailable")}
                     </button>
                   )}
                   <span className="text-xs uppercase tracking-[0.14em] text-neutral-400">
-                    {pack.checkoutStatus === "ready" ? "Checkout ready" : "Coming soon"}
+                    {pack.checkoutStatus === "ready" ? t("packs.checkoutReady") : t("packs.comingSoon")}
                   </span>
                 </div>
                 <p className="mt-3 text-sm leading-6 text-neutral-500">{pack.checkoutNote}</p>
@@ -272,7 +273,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
 
               <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                 <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                  Free sample files
+                  {t("packs.freeSampleFiles")}
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {pack.sampleDownloads.map((sample) => (
@@ -294,19 +295,19 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                   href={`/product-examples#${pack.id}`}
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
-                  View product proof
+                  {t("packs.viewProductProof")}
                 </Link>
                 <Link
                   href={`/packs/${pack.id}`}
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
-                  Pack details
+                  {t("packs.packDetails")}
                 </Link>
                 <Link
                   href="/collections/"
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                 >
-                  Open source collections
+                  {t("packs.openSourceCollections")}
                 </Link>
               </div>
             </article>
@@ -316,7 +317,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
           <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Why this page exists
+              {t("packs.whyPageExists")}
             </div>
             <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
               <p>
@@ -337,38 +338,38 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
 
           <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Related routes
+              {t("packs.relatedRoutes")}
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
                 href="/collections/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
-                Browse collections
+                {t("packs.browseCollections")}
               </Link>
               <Link
                 href="/support/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Open support page
+                {t("packs.openSupport")}
               </Link>
               <Link
                 href="/product-examples/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Product examples
+                {t("packs.productExamples")}
               </Link>
               <Link
                 href="/free-pack/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Free sample pack
+                {t("packs.freeSamplePack")}
               </Link>
               <Link
                 href="/guides/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Use-case guides
+                {t("packs.useCaseGuides")}
               </Link>
             </div>
           </aside>
@@ -376,26 +377,26 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
 
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-            Compare offers
+            {t("packs.compareOffers")}
           </div>
           <div className="mt-4 overflow-x-auto">
             <table className="min-w-full border-separate border-spacing-0 text-left text-sm text-neutral-600">
               <thead>
                 <tr>
                   <th className="rounded-l-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                    Pack
+                    {t("packs.packCol")}
                   </th>
                   <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                    Price
+                    {t("packs.priceCol")}
                   </th>
                   <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                    Best for
+                    {t("packs.bestForCol")}
                   </th>
                   <th className="border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                    Fulfillment
+                    {t("packs.fulfillmentCol")}
                   </th>
                   <th className="rounded-r-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                    Checkout
+                    {t("packs.checkout")}
                   </th>
                 </tr>
               </thead>
@@ -418,7 +419,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                     <td className="border border-black/6 bg-white px-4 py-4 align-top">
                       {pack.checkoutProvider}
                       <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
-                        {pack.checkoutStatus === "ready" ? "Checkout ready" : pack.checkoutStatus}
+                        {pack.checkoutStatus === "ready" ? t("packs.checkoutReady") : pack.checkoutStatus}
                       </div>
                     </td>
                   </tr>

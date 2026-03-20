@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorSpectrum } from "@/src/components/color-spectrum";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
@@ -15,22 +16,14 @@ interface AllColorsPageProps {
 
 type DensityMode = "compact" | "comfortable" | "expanded";
 
-const PAGE_SORT_OPTIONS: { label: string; value: SortOption }[] = [
-  { label: "Hue", value: "hue" },
-  { label: "Lightness", value: "lightness" },
-  { label: "Name", value: "name" },
-];
-
-const DENSITY_OPTIONS: { label: string; value: DensityMode }[] = [
-  { label: "Compact", value: "compact" },
-  { label: "Comfortable", value: "comfortable" },
-  { label: "Expanded", value: "expanded" },
-];
+const SORT_VALUES: SortOption[] = ["hue", "lightness", "name"];
+const DENSITY_VALUES: DensityMode[] = ["compact", "comfortable", "expanded"];
 
 export function AllColorsPage({ colors }: AllColorsPageProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { t } = useLocale();
   const initialSort = (searchParams.get("sort") as SortOption | null) ?? "hue";
   const initialFamily = (searchParams.get("family") as ColorFamily | null) ?? "All";
   const initialDensity = (searchParams.get("density") as DensityMode | null) ?? "compact";
@@ -142,37 +135,36 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-              Full archive view
+              {t("allColors.badge")}
             </div>
 
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              All archive colors
+              {t("allColors.title")}
             </h1>
 
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              A dense view of the full curated archive. This page is optimized for broad scanning,
-              comparison, and jumping into individual color detail pages.
+              {t("allColors.description")}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
-                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Archive</div>
-                <div className="mt-1 text-lg font-semibold text-neutral-950">{colors.length} colors</div>
+                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">{t("allColors.archiveLabel")}</div>
+                <div className="mt-1 text-lg font-semibold text-neutral-950">{colors.length} {t("hero.colors")}</div>
               </div>
               <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
-                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Visible</div>
+                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">{t("allColors.visibleLabel")}</div>
                 <div className="mt-1 text-lg font-semibold text-neutral-950">
-                  {visibleColors.length} colors
+                  {visibleColors.length} {t("hero.colors")}
                 </div>
               </div>
               <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
-                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">Use case</div>
+                <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">{t("allColors.useCaseLabel")}</div>
                 <div className="mt-1 text-lg font-semibold text-neutral-950">
                   {density === "expanded"
-                    ? "Closer look"
+                    ? t("allColors.closerLook")
                     : density === "comfortable"
-                      ? "Balanced scan"
-                      : "Dense scan"}
+                      ? t("allColors.balancedScan")
+                      : t("allColors.denseScan")}
                 </div>
               </div>
             </div>
@@ -185,39 +177,39 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
           <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
             <div>
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Display controls
+                {t("allColors.displayControls")}
               </div>
               <div className="mt-1 text-sm text-neutral-600">
-                Switch sort order or isolate a family without leaving the dense overview.
+                {t("allColors.displayControlsDesc")}
               </div>
             </div>
 
             <div className="flex flex-col gap-4 sm:flex-row">
               <label className="flex min-w-[16rem] flex-col gap-2">
                 <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Search
+                  {t("allColors.searchLabel")}
                 </span>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(event) => setSearchQuery(event.target.value)}
-                  placeholder="Search name or hex"
+                  placeholder={t("allColors.searchPlaceholder")}
                   className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
                 />
               </label>
 
               <label className="flex min-w-[12rem] flex-col gap-2">
                 <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Sort
+                  {t("allColors.sortLabel")}
                 </span>
                 <select
                   value={sortBy}
                   onChange={(event) => setSortBy(event.target.value as SortOption)}
                   className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
                 >
-                  {PAGE_SORT_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
+                  {SORT_VALUES.map((value) => (
+                    <option key={value} value={value}>
+                      {t(`filter.sort${value.charAt(0).toUpperCase()}${value.slice(1)}` as Parameters<typeof t>[0])}
                     </option>
                   ))}
                 </select>
@@ -225,16 +217,16 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
 
               <label className="flex min-w-[12rem] flex-col gap-2">
                 <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Density
+                  {t("allColors.densityLabel")}
                 </span>
                 <select
                   value={density}
                   onChange={(event) => setDensity(event.target.value as DensityMode)}
                   className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
                 >
-                  {DENSITY_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
+                  {DENSITY_VALUES.map((value) => (
+                    <option key={value} value={value}>
+                      {t(`allColors.${value}` as Parameters<typeof t>[0])}
                     </option>
                   ))}
                 </select>
@@ -250,7 +242,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
                 }}
                 className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm font-medium text-neutral-900 transition hover:bg-neutral-50"
               >
-                Reset
+                {t("allColors.reset")}
               </button>
 
               <div className="flex items-end">
@@ -270,7 +262,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
                     : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50"
                 }`}
               >
-                All families
+                {t("allColors.allFamilies")}
               </button>
 
               {COLOR_FAMILIES.map((family) => {
@@ -302,17 +294,17 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
           <div className="flex items-center justify-between px-1">
             <div>
               <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
-                Dense spectrum
+                {t("allColors.denseSpectrum")}
               </h2>
               <p className="mt-1 text-sm text-neutral-500">
-                Each tile opens a full detail page for that color.
+                {t("allColors.denseDesc")}
               </p>
             </div>
             <Link
               href="/search"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              Open search
+              {t("allColors.openSearch")}
             </Link>
           </div>
 
@@ -360,14 +352,14 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
               {displayLimit < visibleColors.length && (
                 <div className="flex items-center justify-center gap-4 py-2">
                   <span className="text-sm text-neutral-400">
-                    Showing {displayLimit} of {visibleColors.length}
+                    {t("pagination.showing")} {displayLimit} {t("pagination.of")} {visibleColors.length}
                   </span>
                   <button
                     type="button"
                     onClick={() => setDisplayLimit((prev) => prev + PAGE_SIZE)}
                     className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
                   >
-                    Show more
+                    {t("pagination.showMore")}
                   </button>
                 </div>
               )}

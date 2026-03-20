@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
+import { useLocale } from "@/src/components/locale-provider";
 import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForPack } from "@/src/lib/guides";
 import { palettePacks, type PalettePack } from "@/src/lib/palette-packs";
@@ -20,6 +23,7 @@ function parsePriceYen(priceHint: string): number {
 }
 
 export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps) {
+  const { t } = useLocale();
   const sampleCollection = relatedCollections[0];
   const isAllAccessBundle = pack.id === "all-access-bundle";
   const bundledPacks = isAllAccessBundle
@@ -41,7 +45,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
               <div className="mb-5 flex flex-wrap items-center gap-2">
                 <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
                   <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-                  Pack detail
+                  {t("packDetail.badge")}
                 </div>
                 {pack.tierBadge ? (
                   <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
@@ -61,22 +65,22 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
 
             <div className={`grid gap-3 ${isAllAccessBundle ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
               <div className="rounded-[1.25rem] border border-black/6 bg-white/86 px-4 py-4">
-                <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Pricing lane</div>
+                <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("packDetail.pricingLane")}</div>
                 <div className="mt-2 text-2xl font-semibold text-neutral-950">{pack.priceHint}</div>
               </div>
               <div className="rounded-[1.25rem] border border-black/6 bg-white/86 px-4 py-4">
-                <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Checkout</div>
+                <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("packDetail.checkout")}</div>
                 <div className="mt-2 text-sm leading-6 text-neutral-600">{pack.checkoutProvider}</div>
                 <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
-                  {pack.checkoutStatus === "ready" ? "Checkout ready" : pack.checkoutStatus}
+                  {pack.checkoutStatus === "ready" ? t("packDetail.checkoutReady") : pack.checkoutStatus}
                 </div>
               </div>
               {isAllAccessBundle ? (
                 <div className="rounded-[1.25rem] border border-emerald-300/50 bg-emerald-50/80 px-4 py-4">
-                  <div className="text-xs uppercase tracking-[0.16em] text-emerald-700">Savings</div>
+                  <div className="text-xs uppercase tracking-[0.16em] text-emerald-700">{t("packDetail.savings")}</div>
                   <div className="mt-2 text-2xl font-semibold text-neutral-950">¥{savingsAmount.toLocaleString("en-US")}</div>
                   <div className="mt-1 text-xs uppercase tracking-[0.14em] text-emerald-700">
-                    Versus buying all 6 packs separately
+                    {t("packDetail.savingsDesc")}
                   </div>
                 </div>
               ) : null}
@@ -87,7 +91,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                   rel="noreferrer"
                   className={`${isAllAccessBundle ? "sm:col-span-3" : "sm:col-span-2"} flex items-center justify-center gap-2 rounded-[1.25rem] bg-neutral-950 px-6 py-4 text-sm font-semibold text-white transition hover:bg-neutral-800`}
                 >
-                  {isAllAccessBundle ? `Get all 6 packs for ${pack.priceHint}` : `Buy ${pack.title}`}
+                  {isAllAccessBundle ? `${t("packDetail.getAllPacks")} ${pack.priceHint}` : `${t("packDetail.buyNow")} ${pack.title}`}
                 </a>
               ) : null}
             </div>
@@ -99,30 +103,28 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
             <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
               <div className="max-w-2xl">
                 <div className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
-                  Bundle breakdown
+                  {t("packDetail.bundleBreakdown")}
                 </div>
                 <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-neutral-950">
-                  Every paid pack, one checkout, one download
+                  {t("packDetail.bundleTitle")}
                 </h2>
                 <p className="mt-3 text-sm leading-6 text-neutral-600">
-                  This is for the buyer who already knows they will want more than one lane:
-                  brand system setup, creator assets, dark mode pairs, seasonal direction, and the
-                  full token archive in one purchase.
+                  {t("packDetail.bundleDesc")}
                 </p>
               </div>
               <div className="grid gap-3 sm:grid-cols-3">
                 <div className="rounded-[1.2rem] border border-black/6 bg-white/90 px-4 py-4">
-                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Individual total</div>
+                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("packDetail.individualTotal")}</div>
                   <div className="mt-2 text-2xl font-semibold text-neutral-950">
                     ¥{individualTotal.toLocaleString("en-US")}
                   </div>
                 </div>
                 <div className="rounded-[1.2rem] border border-black/6 bg-white/90 px-4 py-4">
-                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Bundle price</div>
+                  <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("packDetail.bundlePrice")}</div>
                   <div className="mt-2 text-2xl font-semibold text-neutral-950">{pack.priceHint}</div>
                 </div>
                 <div className="rounded-[1.2rem] border border-emerald-300/50 bg-emerald-50 px-4 py-4">
-                  <div className="text-xs uppercase tracking-[0.16em] text-emerald-700">You save</div>
+                  <div className="text-xs uppercase tracking-[0.16em] text-emerald-700">{t("packDetail.youSave")}</div>
                   <div className="mt-2 text-2xl font-semibold text-neutral-950">
                     ¥{savingsAmount.toLocaleString("en-US")}
                   </div>
@@ -155,7 +157,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                       href={`/packs/${includedPack.id}/`}
                       className="rounded-full border border-black/8 bg-neutral-950 px-3.5 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                     >
-                      Open pack
+                      {t("packDetail.openPack")}
                     </Link>
                   </div>
                 </article>
@@ -167,7 +169,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.95fr)]">
           <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              What this pack is for
+              {t("packDetail.whatPackIsFor")}
             </div>
             <p className="mt-4 text-sm leading-6 text-neutral-600">{pack.audience}</p>
 
@@ -185,7 +187,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
 
           <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Sample files
+              {t("packDetail.sampleFiles")}
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               {pack.sampleDownloads.map((sample) => (
@@ -202,8 +204,8 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
             </div>
             <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
               {isAllAccessBundle
-                ? "These previews come from several included packs so buyers can inspect the bundle quality before checkout."
-                : "These files are public preview assets. They make the product concrete before checkout."}
+                ? t("packDetail.sampleNoteBundle")
+                : t("packDetail.sampleNoteRegular")}
             </div>
             <div className="mt-4 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
               {pack.checkoutNote}
@@ -215,10 +217,10 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
           <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="flex items-center justify-between gap-3">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                Source collections
+                {t("packDetail.sourceCollections")}
               </div>
               <Link href="/collections/" className="text-sm font-medium text-neutral-600 transition hover:text-neutral-950">
-                Open all collections
+                {t("packDetail.openAllCollections")}
               </Link>
             </div>
 
@@ -261,10 +263,10 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
             {sampleCollection ? (
               <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Sample token export
+                  {t("packDetail.sampleTokenExport")}
                 </div>
                 <div className="mt-2 text-sm text-neutral-600">
-                  Generated from {sampleCollection.title}.
+                  {t("packDetail.generatedFrom")} {sampleCollection.title}.
                 </div>
                 <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
                   {buildSampleExport(sampleCollection)}
@@ -275,7 +277,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
             {/* Fulfillment */}
             <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                After you buy
+                {t("packDetail.afterYouBuy")}
               </div>
               <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
                 {pack.fulfillment.method} · {pack.fulfillment.timeline}
@@ -297,7 +299,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
 
             <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                FAQ
+                {t("packDetail.faq")}
               </div>
               <div className="mt-4 space-y-3">
                 {pack.faqs.map((item) => (
@@ -312,7 +314,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
             {relatedGuides.length > 0 ? (
               <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  Related guides
+                  {t("packDetail.relatedGuides")}
                 </div>
                 <div className="mt-4 space-y-3">
                   {relatedGuides.map((guide) => (
@@ -337,11 +339,11 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
         {pack.checkoutUrl ? (
           <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
-              Ready to download
+              {t("packDetail.readyToDownload")}
             </div>
             <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">{pack.title}</p>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
-              {pack.priceHint} · {pack.checkoutProvider} · Instant download after payment.
+              {pack.priceHint} · {pack.checkoutProvider} · {t("packDetail.instantDownload")}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <a
@@ -350,13 +352,13 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                 rel="noreferrer"
                 className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
               >
-                {isAllAccessBundle ? "Get the full catalog" : "Buy now"}
+                {isAllAccessBundle ? t("packDetail.getFullCatalog") : t("packDetail.buyNow")}
               </a>
               <Link
                 href={isAllAccessBundle ? "/packs/" : "/free-pack/"}
                 className="rounded-full border border-white/16 px-5 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
               >
-                {isAllAccessBundle ? "Compare individual packs" : "Try free layer first"}
+                {isAllAccessBundle ? t("packDetail.compareIndividualPacks") : t("packDetail.tryFreeFirst")}
               </Link>
             </div>
           </section>
@@ -368,19 +370,19 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
               href="/packs/"
               className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
             >
-              Back to packs
+              {t("packDetail.backToPacks")}
             </Link>
             <Link
               href="/product-examples/"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              Product examples
+              {t("packDetail.productExamples")}
             </Link>
             <Link
               href="/support/"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
-              Support
+              {t("packDetail.support")}
             </Link>
           </div>
         </section>
