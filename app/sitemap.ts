@@ -198,7 +198,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const guideRoutes: MetadataRoute.Sitemap = landingGuides.map((guide) => ({
     url: `https://colorarchive.me/guides/${guide.slug}/`,
-    lastModified: MARCH_19,
+    lastModified: MARCH_20,
     changeFrequency: "monthly",
     priority: 0.67,
   }));

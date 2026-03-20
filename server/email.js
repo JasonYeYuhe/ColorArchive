@@ -82,9 +82,9 @@ async function sendWaitlistConfirmationEmail(to) {
       "Thanks for following ColorArchive.",
       "",
       "Current status:",
-      "- 7 paid products are prepared in Lemon Squeezy and queued for store activation",
-      "- the free sample pack is still available",
-      "- future drops, seasonal packs, and archive updates will be announced here",
+      "- all packs are live and available at colorarchive.me/packs",
+      "- the free sample pack is available at colorarchive.me/free-pack",
+      "- seasonal releases and archive updates will be announced here",
       "",
       "What these emails will contain:",
       `- ${updateBrief.cadence}`,
@@ -118,9 +118,9 @@ async function sendWaitlistConfirmationEmail(to) {
         <p>Thanks for following ColorArchive.</p>
         <p style="color:#444;line-height:1.6">
           Current status:<br>
-          • 7 paid products are prepared in Lemon Squeezy and queued for store activation<br>
-          • the free sample pack is still available<br>
-          • future drops, seasonal packs, and archive updates will be announced here
+          • all packs are live at <a href="https://colorarchive.me/packs/" style="color:#374151">colorarchive.me/packs</a><br>
+          • the free sample pack is available at <a href="https://colorarchive.me/free-pack/" style="color:#374151">colorarchive.me/free-pack</a><br>
+          • seasonal releases and archive updates will be announced here
         </p>
         <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:16px 18px;margin:20px 0">
           <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#6b7280;font-weight:700">What you will get</div>

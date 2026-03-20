@@ -1,5 +1,107 @@
 [
   {
+    "slug": "march-2026-seasonal-color-shifts",
+    "date": "2026-03-30",
+    "title": "Seasonal color shifts: why the palette that worked in winter looks wrong by spring",
+    "summary": "How ambient light changes the way colors read across seasons, why warm-neutral palettes that feel grounded in winter start to feel heavy by spring, and where a seasonal palette layer helps designers adapt without rebuilding the system.",
+    "eyebrow": "Issue 019",
+    "tags": ["Palette", "Brand", "Seasonal"],
+    "featuredCollectionId": "editorial-warmth",
+    "featuredPackId": "seasonal-spring-2026",
+    "highlights": [
+      "A palette calibrated for winter ambient light — higher contrast, lower saturation — can feel oppressive or muddy when viewed in spring daylight with higher natural color temperature.",
+      "Seasonal adjustment is not about replacing the palette but introducing lighter, airier accent layers while keeping the structural tokens anchored.",
+      "Seasonal Spring 2026 provides a curated overlay of tones that integrate with existing palettes rather than replacing them — mood notes included for each swatch."
+    ],
+    "sections": [
+      {
+        "heading": "Why seasons change how palettes read",
+        "body": "Color perception is context-dependent. The same palette viewed on a monitor under winter overcast light reads as warmer and more contrasty than the same file opened in spring afternoon sunlight through a window. Ambient light temperature shifts across seasons, and while screen calibration offsets some of this, the net effect is that designs produced in winter often need re-evaluation in spring. Warm neutrals can shift from grounded to heavy; saturated accents can become harder to look at for extended periods."
+      },
+      {
+        "heading": "Adapting without rebuilding",
+        "body": "Seasonal adaptation works best as an overlay on an existing system, not a replacement. The structural palette — surface tokens, text tokens, semantic states — stays fixed. What shifts is the accent layer: primary and secondary colors that carry mood and energy. Swapping a muted clay accent for a lighter, more chromatic warm-peach equivalent keeps the system coherent while adjusting the emotional tone. The key constraint is that the new accents must pass the same contrast checks as the originals before deploying."
+      },
+      {
+        "heading": "A seasonal layer without a seasonal redesign",
+        "body": "The Seasonal Spring 2026 pack is structured around this premise. Each swatch ships with mood notes that describe its perceptual context — where it reads as fresh, where it risks becoming too light, how it pairs with the anchor neutrals most common in production systems. The intention is not to sell a new palette every quarter but to give teams a tested starting point for the accent adjustment without going back to the color picker each time."
+      }
+    ],
+    "links": [
+      { "label": "Open Seasonal Spring 2026", "href": "/packs/seasonal-spring-2026" },
+      { "label": "Open Editorial Warmth", "href": "/collections/editorial-warmth" },
+      { "label": "Read the brand palette guide", "href": "/guides/brand-color-palette" }
+    ]
+  },
+  {
+    "slug": "march-2026-monochrome-systems",
+    "date": "2026-03-29",
+    "title": "Monochrome color systems that do not look flat: contrast, texture, and role separation",
+    "summary": "Why single-hue systems collapse under real product conditions, how to create enough visual separation without introducing secondary hues, and where the Complete Archive token structure handles the layering work.",
+    "eyebrow": "Issue 018",
+    "tags": ["Palette", "UI", "Tokens"],
+    "featuredCollectionId": "monochrome-studio",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "Monochrome systems fail when designers treat them as a single color with lightness variation — the result is a washed-out UI with no clear hierarchy.",
+      "A functioning monochrome palette needs at least three distinct lightness bands with deliberate chroma variation to create surface, mid, and accent roles.",
+      "The Complete Archive ships monochrome-compatible token families where each lightness band is named and assigned a semantic role, removing the guesswork from single-hue system building."
+    ],
+    "sections": [
+      {
+        "heading": "Why monochrome systems collapse",
+        "body": "The appeal of a monochrome palette is constraint: one hue, no color conflict, easy to manage. The problem is that a single hue with lightness variation alone does not create enough visual separation for a real product interface. Card backgrounds, borders, interactive states, and text all need perceptible contrast from each other, and lightness alone — without chroma variation — produces a flat, undifferentiated surface. Monochrome Studio illustrates the principle: the palette works because it is not simply one hue at nine lightness values. Chroma is varied intentionally across the scale."
+      },
+      {
+        "heading": "Building separation without new hues",
+        "body": "The technique that makes monochrome systems readable is assigning each lightness band a strict semantic role and then never using mid-range values for both surface and interactive states simultaneously. Surface tokens live at the top of the lightness scale. Borders and dividers sit in the lower-mid range. Interactive states and focus rings use the highest-chroma values in the set. This role separation is what creates the sense of depth and structure — the eye reads the chroma shift as spatial depth even when the hue is constant."
+      },
+      {
+        "heading": "Token structure as the working layer",
+        "body": "The Complete Archive Token Set includes a monochrome family structured around exactly these bands. Each token has a named role — surface-primary, surface-secondary, border-subtle, border-strong, accent-interactive — so designers do not have to work out the role mapping on each new project. The token names communicate intent rather than just value, which means the palette stays coherent across components even as the product scales."
+      }
+    ],
+    "links": [
+      { "label": "Open Complete Archive", "href": "/packs/complete-archive" },
+      { "label": "Open Monochrome Studio", "href": "/collections/monochrome-studio" },
+      { "label": "Read the design system palette guide", "href": "/guides/design-system-palette" }
+    ]
+  },
+  {
+    "slug": "march-2026-color-accessibility",
+    "date": "2026-03-28",
+    "title": "Color accessibility beyond WCAG minimums: what the numbers miss",
+    "summary": "Why passing WCAG contrast ratios does not guarantee a readable palette, what the numbers cannot measure, and how to audit a color system for real-world accessibility beyond the 4.5:1 threshold.",
+    "eyebrow": "Issue 017",
+    "tags": ["Accessibility", "UI", "Workflow"],
+    "featuredCollectionId": "nordic-frost",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "A 4.5:1 contrast ratio passes WCAG AA, but two colors at the same ratio can have completely different legibility profiles depending on hue, background luminance, and text size.",
+      "WCAG does not account for simultaneous contrast, color blindness hue confusion, or the legibility difference between anti-aliased screen text and print.",
+      "A real accessibility audit checks contrast ratios, color-blindness simulation, hue dependency, and focus visibility — not just the single ratio number."
+    ],
+    "sections": [
+      {
+        "heading": "What the contrast ratio misses",
+        "body": "The WCAG 4.5:1 ratio is a minimum floor, not a quality standard. Two color pairs can both pass at 4.5:1 while reading very differently in practice. A dark blue on medium gray at 4.5:1 is harder to read for people with deuteranopia than a dark brown on the same gray at the same ratio — the numbers are identical but the hue confusion risk is not. The ratio also says nothing about simultaneous contrast: a color that passes when measured against a white background may become illegible when placed next to a highly chromatic neighbor."
+      },
+      {
+        "heading": "Hue dependency and contrast checking together",
+        "body": "The most practical extension of WCAG checking is adding a color blindness simulation pass to every contrast check. Running the palette through protanopia and deuteranopia filters reveals which pairs rely on a hue distinction that a portion of users cannot perceive. Nordic Frost is a useful reference case because it achieves contrast separation through lightness rather than hue — the palette remains readable under most color blindness simulations because the distinguishing factor is luminance, not red-green distinction. ColorArchive's contrast checker handles the ratio side; the simulation step requires a separate tool or browser extension."
+      },
+      {
+        "heading": "Focus visibility as the overlooked failure mode",
+        "body": "The most common accessibility failure in production UI is not text contrast — it is focus visibility. Designers check body text and button labels against WCAG and miss that the focus ring disappears against the surface color, or that the focus indicator has a 1.5:1 ratio against the background and is practically invisible. The Dark Mode UI Kit pre-checks focus ring tokens against both light and dark surface variants, which is the single most impactful structural choice for keyboard and assistive technology users."
+      }
+    ],
+    "links": [
+      { "label": "Try the contrast checker", "href": "/contrast" },
+      { "label": "Open Dark Mode UI Kit", "href": "/packs/dark-mode-ui-kit" },
+      { "label": "Open Nordic Frost", "href": "/collections/nordic-frost" }
+    ]
+  },
+  {
     "slug": "august-2026-data-viz-colors",
     "date": "2026-03-27",
     "title": "Color in data visualization: clarity over decoration",
