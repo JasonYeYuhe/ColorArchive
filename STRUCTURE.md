@@ -237,6 +237,6 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Colors | 2016 |
 | Collections | 5 |
 | Palette packs | 7 |
-| SEO guides | 15 |
-| Newsletter issues | 20 |
+| SEO guides | 20 |
+| Newsletter issues | 25 |
 | Color families | ~12 |

@@ -625,6 +625,206 @@ export const landingGuides: LandingGuide[] = [
       { label: "Read dark mode palette guide", href: "/guides/dark-mode-color-palette/" },
     ],
   },
+  {
+    category: "Accessibility",
+    slug: "accessible-color-palette",
+    title: "Accessible Color Palette Ideas That Pass WCAG Without Looking Clinical",
+    summary:
+      "How to build an accessible color palette that meets WCAG contrast requirements while still feeling warm, branded, and intentional rather than defaulting to black text on white.",
+    eyebrow: "Accessibility Guide",
+    priority: 92,
+    searchIntent: "accessible color palette",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Accessibility", "Contrast", "WCAG"],
+    highlights: [
+      "WCAG compliance is a contrast ratio problem, not a color restriction — most hues can work if lightness is managed.",
+      "Accessible palettes become easier to build when you test pairings early instead of remediating after launch.",
+      "ColorArchive's contrast checker lets you validate any two archive colors against AA and AAA thresholds instantly.",
+    ],
+    sections: [
+      {
+        heading: "Accessibility is a lightness discipline, not a hue limitation",
+        body:
+          "The most common misconception about accessible palettes is that they require dull or desaturated colors. In practice, WCAG contrast ratios depend almost entirely on the lightness difference between foreground and background. A vivid teal on a sufficiently dark surface can pass AAA. A muted sage on a slightly lighter sage will fail AA. Once you internalize that contrast is about luminance distance, palette building becomes a solvable math problem rather than a creative compromise.",
+      },
+      {
+        heading: "Test pairings before you commit to a system",
+        body:
+          "Many teams build their palette in isolation, approve it visually, and then discover during development that half their text-on-surface pairings fail contrast checks. The fix is simple: test every intended pairing before locking the palette. ColorArchive's contrast checker accepts any two colors and returns the exact ratio against AA and AAA thresholds for both normal and large text. Running those checks during the palette phase saves weeks of remediation later.",
+      },
+      {
+        heading: "Warm palettes can be fully accessible",
+        body:
+          "Editorial Warmth proves that a warm, human-feeling palette can meet accessibility standards without looking sterile. The key is anchoring body text and interactive elements to high-contrast pairings while reserving lower-contrast combinations for decorative or non-essential elements. The Brand Starter Kit reinforces this by assigning role-based tokens that separate must-be-accessible pairings from ambient surface treatments, so the team does not have to guess which combinations need to pass.",
+      },
+    ],
+    links: [
+      { label: "Open contrast checker", href: "/contrast/" },
+      { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
+      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    ],
+  },
+  {
+    category: "Content & Social",
+    slug: "color-palette-for-social-media",
+    title: "Color Palette for Social Media That Stays Recognizable Across Platforms",
+    summary:
+      "A practical guide to choosing a social media color palette that holds up across Instagram carousels, TikTok overlays, YouTube thumbnails, and Stories without fragmenting into platform-specific chaos.",
+    eyebrow: "Social Media Guide",
+    priority: 78,
+    searchIntent: "color palette for social media",
+    featuredCollectionId: "candy-gradient",
+    featuredPackId: "content-creator-bundle",
+    tags: ["Social media", "Content", "Creator"],
+    highlights: [
+      "Social palettes need to survive compression, small thumbnails, and wildly different feed backgrounds.",
+      "Consistency across platforms matters more than perfection on any single one.",
+      "The Content Creator Bundle includes export formats designed for fast social asset production.",
+    ],
+    sections: [
+      {
+        heading: "Social color has to survive the feed",
+        body:
+          "A color palette for social media faces constraints that brand guidelines rarely anticipate. Instagram compresses images and shifts color slightly. TikTok overlays white text on everything. YouTube thumbnails render at tiny sizes next to dozens of competitors. Your palette needs enough contrast and saturation to remain identifiable after compression and scaling. That usually means fewer colors with more deliberate lightness separation rather than a wide, subtle range that flattens to mush at 120 pixels wide.",
+      },
+      {
+        heading: "Pick a recognizable lane and stay in it",
+        body:
+          "The creators who build the strongest visual brands on social media tend to own one clear color lane rather than rotating palettes by post. Candy Gradient works well for social because the high-chroma, warm-to-cool transitions read instantly even at thumbnail scale. Whether you lean into that direction or something more restrained, the discipline is the same: choose a palette that is identifiable in the first half-second of scrolling, then apply it consistently across every platform rather than reinventing per channel.",
+      },
+      {
+        heading: "Export once, use everywhere",
+        body:
+          "Social content production is fast, which means any friction in finding or applying colors slows down output. The Content Creator Bundle is built for this workflow. It includes HEX, RGB, and HSL exports alongside Figma and Canva-ready formats so the same palette travels from thumbnail design to story templates to video overlays without manual conversion. That consistency is what makes a social color system feel professional instead of improvised.",
+      },
+    ],
+    links: [
+      { label: "Open Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Open Candy Gradient", href: "/collections/candy-gradient/" },
+      { label: "Get the Free Sample Pack", href: "/free-pack/" },
+    ],
+  },
+  {
+    category: "Aesthetic & Mood",
+    slug: "earth-tone-color-palette",
+    title: "Earth Tone Color Palette Ideas for Warm, Grounded Design Work",
+    summary:
+      "How to build an earth tone palette that feels natural and grounded without turning muddy, and how to pair warm neutrals with enough range for real design systems.",
+    eyebrow: "Earth Tones Guide",
+    priority: 85,
+    searchIntent: "earth tone color palette",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Earth tones", "Warm", "Natural"],
+    highlights: [
+      "Earth tones work best when they reference real materials — clay, sand, olive, walnut — not just desaturated brown.",
+      "The biggest risk with earthy palettes is losing contrast and hierarchy as everything drifts toward the same muddy middle.",
+      "Editorial Warmth anchors the earth tone lane with enough lightness range to support text, surfaces, and accents.",
+    ],
+    sections: [
+      {
+        heading: "Ground the palette in material, not just mood",
+        body:
+          "The strongest earth tone palettes reference tangible materials rather than abstract warmth. Terra cotta, raw linen, wet stone, dried sage, dark walnut — each carries a specific lightness and chroma range that keeps the palette from collapsing into undifferentiated brown. When you name your earth tones by material reference, you also give the team a shared language that survives handoff better than hex codes alone. That specificity is what separates a considered earthy system from a muddy one.",
+      },
+      {
+        heading: "Protect the hierarchy with deliberate lightness steps",
+        body:
+          "Earth tones tend to cluster in the mid-lightness range, which creates a hierarchy problem. If your background, card surface, and body text all sit between 40 and 60 percent lightness, the interface becomes hard to parse. Editorial Warmth handles this by including both very light warm values for surfaces and deep grounding darks for text and anchors. That spread is what keeps the earthy feel alive without sacrificing readability or visual structure across real layouts.",
+      },
+      {
+        heading: "Pair earth tones with a structured system",
+        body:
+          "An earth tone palette on its own can feel directionless once it has to power buttons, alerts, disabled states, and multiple surface levels. The Brand Starter Kit helps here by mapping warm, grounded colors into role-based tokens. Instead of guessing which terra cotta works for a CTA versus a decorative border, the kit assigns those roles explicitly. That structure turns an aesthetic preference into something a product team can actually ship without debating every component.",
+      },
+    ],
+    links: [
+      { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
+      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Search warm colors", href: "/search?family=orange" },
+    ],
+  },
+  {
+    category: "Web Design",
+    slug: "color-palette-for-portfolio-website",
+    title: "Color Palette for a Portfolio Website That Lets the Work Lead",
+    summary:
+      "How to choose a portfolio website color palette that supports your work without competing with it — including when to go neutral, when to add one accent, and how to keep it cohesive.",
+    eyebrow: "Portfolio Guide",
+    priority: 80,
+    searchIntent: "color palette for portfolio website",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["Portfolio", "Web Design", "Minimal"],
+    highlights: [
+      "A portfolio palette should frame work, not fight it — restraint is usually the smarter move.",
+      "One accent color with a disciplined neutral system covers more portfolio types than a multi-hue palette.",
+      "Palette Pack Vol. 1 gives a coherent starting system that can be tuned to match any portfolio direction.",
+    ],
+    sections: [
+      {
+        heading: "The portfolio should be quieter than the work",
+        body:
+          "A portfolio website exists to present work, which means the color system needs to recede. The most common mistake is building a portfolio palette that competes with the projects it displays. Photography, UI screenshots, illustrations, and brand work all bring their own color. If the site wrapper is too loud, the visitor sees palette conflicts instead of a curated body of work. Start with a surface system that stays neutral enough to frame anything, then add personality through one controlled accent.",
+      },
+      {
+        heading: "Use restraint as a signal of confidence",
+        body:
+          "Quiet Luxury is a strong reference for portfolio work because it communicates taste through restraint rather than decoration. The warm neutrals, soft contrast, and grounded darks create a surface that feels intentional without pulling attention from project imagery. Designers often worry that a restrained palette will feel boring, but in a portfolio context the opposite is true — visual quiet signals confidence and lets the viewer focus on craft rather than chrome.",
+      },
+      {
+        heading: "Start from a system, then subtract",
+        body:
+          "Building a portfolio palette from scratch is slower than starting from an existing coherent system and removing what you do not need. Palette Pack Vol. 1 is useful here because it provides a complete set of roles and pairings. From that base, you can strip the palette down to a surface tone, a text color, one accent, and a hover state. That subtraction process is faster and more reliable than assembling colors one at a time and hoping they feel unified.",
+      },
+    ],
+    links: [
+      { label: "Open Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
+      { label: "Browse all collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "pastel-color-palette-for-branding",
+    title: "Pastel Color Palette for Branding That Feels Modern, Not Childish",
+    summary:
+      "How to use pastel colors in brand work without drifting into baby-shower territory — including how to anchor soft hues with structure, contrast, and intentional pairings.",
+    eyebrow: "Pastel Branding Guide",
+    priority: 82,
+    searchIntent: "pastel color palette for branding",
+    featuredCollectionId: "candy-gradient",
+    featuredPackId: "seasonal-spring-2026",
+    tags: ["Pastel", "Brand", "Modern"],
+    highlights: [
+      "Pastels read as modern when paired with dark anchors and confident typography — softness needs a frame.",
+      "The risk is not the colors themselves but the lack of contrast and hierarchy around them.",
+      "Seasonal Spring 2026 delivers a curated pastel system with enough range for brand applications beyond a single mood board.",
+    ],
+    sections: [
+      {
+        heading: "Pastels need a structural anchor to feel professional",
+        body:
+          "Soft lavender, mint, blush, and butter yellow can all work in brand contexts, but only when they are paired with elements that provide visual authority. A near-black or deep charcoal for text, confident type sizing, and generous white space are what let pastels read as contemporary rather than juvenile. Without those anchors, soft palettes collapse into vagueness. The strongest pastel brands treat the soft hues as surface and accent colors while letting dark text and clear hierarchy do the structural work.",
+      },
+      {
+        heading: "Choose a pastel lane with enough internal range",
+        body:
+          "A common pastel mistake is selecting five colors that all sit at the same lightness and saturation level. The result feels flat because nothing separates foreground from background. Candy Gradient is a useful reference because it shows how pastels can maintain variety through hue shifts and subtle chroma differences even when the overall tone stays soft. Seasonal Spring 2026 builds on that approach with a curated set that includes lighter and slightly deeper variants, giving the brand enough range to handle cards, backgrounds, CTAs, and secondary elements without everything blending together.",
+      },
+      {
+        heading: "From pastel mood board to usable brand system",
+        body:
+          "The gap between a pastel mood board and a working brand palette is usually structure. Mood boards collect inspiration; brand systems assign roles. Seasonal Spring 2026 bridges that gap by packaging pastel-range colors into export-ready formats with clear groupings. Instead of pulling colors from a Pinterest board and hoping they work together in a Figma file, the team starts with a system that already handles the pairing and contrast questions. That is what makes the pastel direction feel like a decision rather than an aesthetic accident.",
+      },
+    ],
+    links: [
+      { label: "Open Seasonal Spring 2026", href: "/packs/seasonal-spring-2026/" },
+      { label: "Open Candy Gradient", href: "/collections/candy-gradient/" },
+      { label: "Get the Free Sample Pack", href: "/free-pack/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {

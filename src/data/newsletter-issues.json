@@ -1,5 +1,174 @@
 [
   {
+    "slug": "april-2026-trending-colors-spread",
+    "date": "2026-04-30",
+    "title": "How trending colors actually spread through design tools",
+    "summary": "A look at the pipeline that carries a color from a runway collection or gallery installation into Figma plugins, component libraries, and production design systems. The path is faster and more predictable than most designers assume, and understanding it gives you a timing advantage.",
+    "eyebrow": "Issue 024",
+    "tags": ["Trending", "Tools", "Industry"],
+    "featuredCollectionId": "candy-gradient",
+    "featuredPackId": "palette-pack-vol-1",
+    "highlights": [
+      "Color trends typically take 8–14 months to travel from fashion forecasting agencies to mainstream design tool defaults — but social-media-driven micro-trends can compress that to under 3 months.",
+      "Plugin ecosystems like Figma Community act as accelerators: a single popular palette plugin can normalize a color family across thousands of projects within weeks of publishing.",
+      "Designers who track Pantone reports, trend forecasting feeds, and plugin download charts simultaneously can anticipate which colors will saturate the market and plan differentiation ahead of time."
+    ],
+    "sections": [
+      {
+        "heading": "The supply chain of a trending color",
+        "body": "Trend colors do not appear from nowhere. The typical lifecycle starts at textile trade shows and fashion weeks, where color forecasting agencies like Pantone, WGSN, and Coloro publish their projections 12–18 months ahead. Those forecasts influence fabric mills and manufacturers first, then filter into consumer goods packaging, interior design, and finally digital design. The digital adoption stage used to be the slowest leg of the journey, but the rise of community-driven design tool ecosystems has compressed it dramatically. A color that appears on a Milan runway in September can show up in a trending Figma plugin by January."
+      },
+      {
+        "heading": "How design tools accelerate adoption",
+        "body": "Figma, Adobe, and Sketch each have plugin or asset marketplaces where palette packs are published and ranked by popularity. When a color family starts gaining traction — say, desaturated lavenders after a major brand redesign — plugin authors race to publish curated palettes around that family. Download counts create a feedback loop: the more a palette is downloaded, the higher it ranks, the more teams adopt it without questioning whether the trend fits their brand. Understanding this loop helps designers make intentional choices rather than defaulting to whatever the algorithm surfaces. It also explains why trending colors often feel overexposed within a single quarter."
+      },
+      {
+        "heading": "Staying ahead without chasing trends",
+        "body": "The practical move is not to adopt trends early but to understand their trajectory so you can decide when and whether to engage. If you know a color family is 6 months from peak saturation, you can either lean in early for freshness or deliberately avoid it to maintain differentiation. Monitoring three sources — forecasting agency reports, social media design communities, and plugin marketplace trending lists — gives you a reasonably complete picture. The ColorArchive approach is to provide the raw color data and let you map it against trend timelines yourself, rather than prescribing what is in or out of fashion."
+      }
+    ],
+    "links": [
+      { "label": "Browse all 2016 colors", "href": "/colors" },
+      { "label": "Open Candy Gradient collection", "href": "/collections/candy-gradient" },
+      { "label": "Explore Palette Pack Vol. 1", "href": "/packs/palette-pack-vol-1" }
+    ]
+  },
+  {
+    "slug": "april-2026-color-system-survives-rebrand",
+    "date": "2026-04-23",
+    "title": "Building a color system that survives a rebrand",
+    "summary": "Most design systems treat color as fixed brand constants, which means a rebrand forces a rebuild from scratch. A resilient token architecture separates structural roles from brand expression, so the system adapts to new colors without breaking components or accessibility contracts.",
+    "eyebrow": "Issue 023",
+    "tags": ["Systems", "Brand", "Tokens"],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Systems that hardcode brand hex values into component tokens create a brittle chain — changing the primary color means auditing every component that references it, often manually.",
+      "A three-tier token architecture (primitive → semantic → component) lets you swap the primitive layer during a rebrand while semantic and component tokens remain stable.",
+      "The Brand Starter Kit ships with this three-tier structure pre-built, so teams can test rebrand scenarios by replacing the primitive palette without touching downstream tokens."
+    ],
+    "sections": [
+      {
+        "heading": "Why rebrands break design systems",
+        "body": "The typical design system encodes brand colors as top-level constants: primary-500, secondary-300, neutral-100. Components reference these tokens directly, and accessibility checks are run against these specific values. When a rebrand introduces new colors, every reference needs to be audited — not just for visual consistency but for WCAG compliance against every surface combination. Teams that have built complex systems over 2–3 years often discover that a rebrand effectively means rebuilding the entire token layer, which defeats the purpose of having a system in the first place."
+      },
+      {
+        "heading": "The three-tier token pattern",
+        "body": "A more resilient approach separates tokens into three tiers. Primitive tokens are the raw color values — they have no semantic meaning and are named by hue and shade. Semantic tokens map primitives to roles: surface-primary, text-default, border-subtle. Component tokens reference semantic tokens for specific UI elements: button-background, card-border, input-focus-ring. During a rebrand, you replace the primitive layer and update the mapping from semantic to primitive. Component tokens never change because they only know about roles, not colors. This pattern requires more upfront work but pays for itself the first time the brand palette shifts."
+      },
+      {
+        "heading": "Testing a rebrand before committing",
+        "body": "The safest way to validate a new palette is to run it through the existing system in a staging environment before touching production tokens. Create a duplicate of the primitive layer with the new brand colors, re-map the semantic tokens, and render the full component library. Check contrast ratios programmatically — tools like axe-core or custom scripts against your token JSON can flag failures in seconds. The Brand Starter Kit includes a token structure designed for exactly this workflow: swap the primitive file, run the contrast audit, and review the visual diff. If everything passes, the rebrand is a single file change in production."
+      }
+    ],
+    "links": [
+      { "label": "Get the Brand Starter Kit", "href": "/packs/brand-starter-kit" },
+      { "label": "Open Quiet Luxury collection", "href": "/collections/quiet-luxury" }
+    ]
+  },
+  {
+    "slug": "april-2026-earth-tones-digital-interfaces",
+    "date": "2026-04-16",
+    "title": "The designer's guide to earth tones in digital interfaces",
+    "summary": "Earth tones carry warmth and groundedness in physical materials, but translating that quality to screen-based interfaces requires deliberate adjustments to saturation, contrast, and context. This issue covers what works, what fails, and how to avoid the most common mistakes.",
+    "eyebrow": "Issue 022",
+    "tags": ["Palette", "UI", "Aesthetic"],
+    "featuredCollectionId": "editorial-warmth",
+    "featuredPackId": "content-creator-bundle",
+    "highlights": [
+      "Earth tones sourced directly from physical swatches — terracotta, sage, ochre — often read as muddy on screens because monitors emit light rather than reflecting it, which flattens low-chroma colors.",
+      "Successful digital earth tones need slightly higher chroma and carefully managed value contrast compared to their physical counterparts to maintain readability and hierarchy.",
+      "The Editorial Warmth collection provides screen-optimized earth tones that have been tested across both light and dark UI contexts with WCAG AA contrast verification."
+    ],
+    "sections": [
+      {
+        "heading": "The screen vs. surface problem",
+        "body": "Earth tones evolved in a world of reflected light — clay, soil, stone, bark. On a physical surface, ambient light interacts with texture and material to create visual richness even at low saturation. Screens are different: they emit light directly, which means low-chroma colors lose the textural complexity that makes them interesting in the physical world. A terracotta that looks warm and inviting as a ceramic tile can appear flat and lifeless as a background color in a web application. Understanding this fundamental difference is the starting point for making earth tones work digitally."
+      },
+      {
+        "heading": "Adjustments that preserve the earthy feel",
+        "body": "The fix is not to oversaturate earth tones until they look artificial. Instead, the goal is subtle calibration. Increase chroma by 5–15% compared to the physical reference to compensate for the loss of textural richness. Ensure that value contrast between adjacent earth-toned surfaces is at least 15–20% in relative luminance — physical textures create micro-contrast that screens cannot replicate, so macro-contrast has to do more work. Pair earth tones with one higher-chroma accent that shares the same warm undertone to create a focal point without breaking the palette's mood. These adjustments are small individually but compound into a palette that reads as intentionally earthy rather than accidentally dull."
+      },
+      {
+        "heading": "Earth tones in dark mode",
+        "body": "Dark mode is where earth-tone palettes most commonly fail. Designers often invert their light-mode earth tones, producing dark browns and deep olives that absorb too much light and create an oppressively heavy interface. A better approach is to shift earth tones toward their lighter, more chromatic cousins in dark mode — warm sand instead of dark brown, sage green instead of forest green — and use them as accent or surface-elevation colors against a neutral dark base. The Editorial Warmth collection includes dark-mode variants for each swatch, tested to maintain the warm, grounded feeling without the heaviness that straight inversion produces."
+      }
+    ],
+    "links": [
+      { "label": "Open Editorial Warmth collection", "href": "/collections/editorial-warmth" },
+      { "label": "Get the Content Creator Bundle", "href": "/packs/content-creator-bundle" },
+      { "label": "Browse earth-tone colors", "href": "/colors?family=brown" }
+    ]
+  },
+  {
+    "slug": "april-2026-contrast-beyond-black-white",
+    "date": "2026-04-09",
+    "title": "Contrast ratios beyond black and white: creative approaches to WCAG compliance",
+    "summary": "WCAG contrast requirements do not mandate black text on white backgrounds. There is a wide range of color combinations that pass AA and AAA thresholds while delivering a distinctive visual identity. This issue explores how to find them systematically.",
+    "eyebrow": "Issue 021",
+    "tags": ["Accessibility", "Contrast", "WCAG"],
+    "featuredCollectionId": "nocturne-tech",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "WCAG 2.1 AA requires a minimum contrast ratio of 4.5:1 for normal text and 3:1 for large text — but there are thousands of non-black-on-white combinations that meet these thresholds.",
+      "Dark-on-dark and light-on-light palettes can achieve compliance by using carefully managed lightness separation within a single hue family, creating cohesive, branded interfaces that still pass audit.",
+      "The Dark Mode UI Kit includes pre-validated foreground/background pairings across all 7 color families, each annotated with its exact contrast ratio so teams can pick compliant combinations without manual calculation."
+    ],
+    "sections": [
+      {
+        "heading": "The compliance spectrum most teams ignore",
+        "body": "When designers hear WCAG contrast requirements, the default response is to reach for near-black text on near-white backgrounds. This works but leaves the entire middle of the contrast spectrum unexplored. A deep navy text on a light lavender background can hit 7:1 contrast — exceeding AAA requirements — while feeling completely different from black on white. Similarly, a cream text on a dark forest green surface can pass AA at 4.8:1 with a warmth that pure black and white cannot deliver. The constraint is real but the solution space is much larger than most teams realize, and exploring it is where brand differentiation happens within accessible design."
+      },
+      {
+        "heading": "Systematic contrast exploration",
+        "body": "Rather than guessing, a systematic approach to finding compliant color pairs starts with fixing one variable and sweeping the other. Pick your brand's primary hue, set it as the background at a specific lightness, then sweep foreground lightness values until you find the threshold where contrast ratio crosses 4.5:1. Record every combination that passes and evaluate them for aesthetic fit. Repeat with the hue shifted for secondary and accent roles. This produces a matrix of compliant pairings that you can reference throughout the design process. Automating this sweep with a script against your token file saves hours compared to checking individual pairs in a contrast calculator."
+      },
+      {
+        "heading": "Dark interfaces without sacrificing readability",
+        "body": "Dark mode interfaces often struggle with contrast because designers choose foreground colors that are too close in lightness to the dark background, producing text that looks stylish in a mockup but fails in production under varied screen brightness and ambient light conditions. The fix is to enforce a minimum lightness delta — typically 40–50 points in OKLCH lightness — between any text and its background surface. The Nocturne Tech collection was designed around this constraint: every color in the collection ships with a recommended dark-mode surface pairing that guarantees AA compliance. The Dark Mode UI Kit extends this further by providing complete foreground/background sets with contrast ratios pre-calculated and documented."
+      }
+    ],
+    "links": [
+      { "label": "Open Nocturne Tech collection", "href": "/collections/nocturne-tech" },
+      { "label": "Get the Dark Mode UI Kit", "href": "/packs/dark-mode-ui-kit" },
+      { "label": "Read the accessibility guide", "href": "/guides/accessible-color-palette" }
+    ]
+  },
+  {
+    "slug": "april-2026-pastel-palettes-production",
+    "date": "2026-04-02",
+    "title": "Why pastel palettes fail in production (and how to fix them)",
+    "summary": "Pastel palettes look beautiful in design mockups but frequently break down in production environments — contrast failures, washed-out hierarchy, and brand dilution are the most common symptoms. This issue diagnoses the root causes and provides concrete fixes.",
+    "eyebrow": "Issue 020",
+    "tags": ["Palette", "Brand", "Production"],
+    "featuredCollectionId": "candy-gradient",
+    "featuredPackId": "seasonal-spring-2026",
+    "highlights": [
+      "Pastels cluster in a narrow lightness band (70–85 in OKLCH), which makes it difficult to create sufficient contrast between adjacent UI elements without introducing a non-pastel anchor color.",
+      "The most common production failure is pastel text on pastel backgrounds — these combinations almost never pass WCAG AA, forcing last-minute overrides that break the palette's cohesion.",
+      "Seasonal Spring 2026 includes pastels paired with tested dark anchors and mid-tone bridges specifically designed to maintain the pastel aesthetic while passing accessibility checks in real components."
+    ],
+    "sections": [
+      {
+        "heading": "The lightness band trap",
+        "body": "Pastels are defined by high lightness and low-to-moderate chroma. This means that a palette composed entirely of pastels occupies a narrow band of the perceptual lightness scale — typically between L70 and L85 in OKLCH. Within that band, the maximum contrast ratio between any two colors is roughly 1.5:1, which is far below the 4.5:1 required for text legibility. Designers working in mockups often do not notice this because they are evaluating aesthetics rather than compliance. The problem only surfaces during development or accessibility audits, by which point the visual direction is already approved and changing it feels like a step backward."
+      },
+      {
+        "heading": "Anchoring pastels without killing the mood",
+        "body": "The solution is not to abandon pastels but to introduce structural colors outside the pastel lightness band that serve as anchors. A dark text color — not necessarily black, but something in the L20–L35 range with the same hue family as the dominant pastel — provides contrast for body text while maintaining chromatic harmony. A mid-tone bridge color in the L45–L55 range works for secondary text, borders, and interactive states. The pastels then serve their intended role: backgrounds, decorative elements, and large surface fills where contrast against text is handled by the anchor colors. This three-tier approach preserves the pastel aesthetic while making the interface functional."
+      },
+      {
+        "heading": "Testing pastels under real conditions",
+        "body": "Mockup screens are typically viewed on high-end displays at comfortable brightness in controlled lighting. Production interfaces are viewed on budget laptops, phones in direct sunlight, and projectors in conference rooms. Pastels are disproportionately affected by these conditions because their low contrast and low chroma leave almost no perceptual margin. Testing pastel palettes on a low-brightness screen in a bright room is the fastest way to identify failures before they reach users. The Seasonal Spring 2026 pack was validated under these conditions — each pastel swatch includes a minimum recommended usage size and a list of surface pairings that hold up under degraded viewing conditions."
+      }
+    ],
+    "links": [
+      { "label": "Open Candy Gradient collection", "href": "/collections/candy-gradient" },
+      { "label": "Get Seasonal Spring 2026", "href": "/packs/seasonal-spring-2026" },
+      { "label": "Browse pastel colors", "href": "/colors?family=pastel" }
+    ]
+  },
+  {
     "slug": "march-2026-seasonal-color-shifts",
     "date": "2026-03-30",
     "title": "Seasonal color shifts: why the palette that worked in winter looks wrong by spring",
