@@ -14,6 +14,7 @@ import {
 } from "@/src/lib/palette-builder";
 import { addRecentColor, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
 import { getWcagContrast, getTonalStrip } from "@/src/lib/color-utils";
+import type { WcagPairing } from "@/src/lib/color-utils";
 import { getFamilySlug } from "@/src/lib/color-family-pages";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -26,6 +27,7 @@ interface ColorDetailPageProps {
   complementaryColor: ColorRecord | null;
   lighterCompanion: ColorRecord | null;
   darkerCompanion: ColorRecord | null;
+  wcagPairings: WcagPairing[];
 }
 
 interface PaletteEntry {
@@ -184,6 +186,7 @@ export function ColorDetailPage({
   complementaryColor,
   lighterCompanion,
   darkerCompanion,
+  wcagPairings,
 }: ColorDetailPageProps) {
   const { t } = useLocale();
   const [recentColorIds, setRecentColorIds] = useState<string[]>([]);
@@ -478,6 +481,63 @@ export function ColorDetailPage({
                   ))}
                 </div>
               </div>
+
+              {wcagPairings.length > 0 && (
+                <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                        {t("colorDetail.accessiblePairings")}
+                      </h2>
+                      <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
+                        {t("colorDetail.accessibleDesc")}
+                      </p>
+                    </div>
+                    <Link
+                      href={`/contrast/`}
+                      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                    >
+                      {t("colorDetail.contrastChecker")}
+                    </Link>
+                  </div>
+                  <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                    {wcagPairings.map((pairing) => {
+                      const gradeColors = {
+                        "AAA": "text-emerald-700 bg-emerald-50 border-emerald-200",
+                        "AA": "text-sky-700 bg-sky-50 border-sky-200",
+                        "AA Large": "text-amber-700 bg-amber-50 border-amber-200",
+                      } as const;
+                      return (
+                        <article key={pairing.color.id} className="rounded-[1.45rem] border border-black/6 bg-white/84 p-3 transition hover:-translate-y-0.5 hover:border-black/10 hover:shadow-[0_18px_36px_rgba(15,23,42,0.06)]">
+                          <Link href={`/colors/${pairing.color.id}/`} className="group block">
+                            <div className="flex gap-1.5 overflow-hidden rounded-[1.1rem] border border-black/6" aria-hidden="true">
+                              <div className="h-24 flex-1" style={{ backgroundColor: color.hex }} />
+                              <div className="h-24 flex-1" style={{ backgroundColor: pairing.color.hex }} />
+                            </div>
+                            <div className="mt-3 flex items-center gap-2">
+                              <span className={`rounded-full border px-1.5 py-0.5 text-[10px] font-semibold ${gradeColors[pairing.grade]}`}>
+                                {pairing.grade}
+                              </span>
+                              <span className="text-[11px] font-medium text-neutral-500">
+                                {pairing.ratio}:1
+                              </span>
+                            </div>
+                            <div className="mt-1 truncate text-base font-semibold tracking-[-0.02em] text-neutral-950">
+                              {pairing.color.name}
+                            </div>
+                            <div className="mt-1 text-sm text-neutral-500">
+                              {pairing.color.hex}
+                            </div>
+                          </Link>
+                          <div className="mt-3">
+                            <PaletteAddButton colorId={pairing.color.id} />
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               <div className="rounded-[1.6rem] border border-black/6 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">

@@ -615,6 +615,26 @@ const translations: Record<string, Record<Locale, string>> = {
   "colorDetail.analogousEcho": { en: "Analogous echo", ja: "類似色エコー" },
   "colorDetail.addRecommendedPalette": { en: "Add recommended palette", ja: "推奨パレットを追加" },
   "colorDetail.addPaletteMoves": { en: "Add palette moves", ja: "パレット展開を追加" },
+  "colorDetail.accessiblePairings": { en: "Accessible pairings", ja: "アクセシブルな配色" },
+  "colorDetail.accessibleDesc": { en: "Archive colors that meet WCAG contrast standards when paired with this color. Use as text-on-background or background-on-text.", ja: "この色と組み合わせてWCAGコントラスト基準を満たすアーカイブカラーです。テキストと背景の組み合わせに使用できます。" },
+  "colorDetail.contrastChecker": { en: "Contrast checker", ja: "コントラストチェッカー" },
+
+  // Trending page
+  "trending.badge": { en: "Trending this week", ja: "今週のトレンド" },
+  "trending.title": { en: "Trending colors", ja: "トレンドカラー" },
+  "trending.description": { en: "See which colors and families are getting the most attention this week. The ranking refreshes every seven days.", ja: "今週最も注目されている色とファミリーをチェック。ランキングは毎週更新されます。" },
+  "trending.searchArchive": { en: "Search archive", ja: "アーカイブを検索" },
+  "trending.browseCollections": { en: "Browse collections", ja: "コレクションを見る" },
+  "trending.familyTrends": { en: "Family trends", ja: "ファミリートレンド" },
+  "trending.topColors": { en: "Top colors this week", ja: "今週のトップカラー" },
+  "trending.topColorsDesc": { en: "The most popular archive colors based on community interest this week.", ja: "今週のコミュニティの関心に基づく、最も人気のあるアーカイブカラー。" },
+  "trending.yourRecent": { en: "Your recent trail", ja: "あなたの最近の閲覧" },
+  "trending.viewAll": { en: "View all", ja: "すべて表示" },
+  "trending.ctaLabel": { en: "Go deeper", ja: "さらに深く" },
+  "trending.ctaTitle": { en: "Turn trending colors into production tokens", ja: "トレンドカラーをプロダクショントークンに変換" },
+  "trending.ctaDesc": { en: "ColorArchive packs include CSS variables, Figma tokens, Tailwind config, and Procreate swatches — ready for any project.", ja: "ColorArchive パックにはCSS変数、Figmaトークン、Tailwind設定、Procreateスウォッチが含まれ、どのプロジェクトにも対応。" },
+  "trending.browsePacks": { en: "Browse packs", ja: "パックを見る" },
+  "trending.freeDownload": { en: "Free download", ja: "無料ダウンロード" },
 
   // Common
   "common.showMore": { en: "Show more", ja: "もっと見る" },

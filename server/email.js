@@ -384,13 +384,30 @@ function escapeHtml(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+// A/B subject line variants for follow-up emails
+const SUBJECT_VARIANTS = {
+  day3: {
+    A: "How to use your ColorArchive palette in code",
+    B: "3 steps to drop your free palette into any project",
+  },
+  day7: {
+    A: "ColorArchive catalog preview — find the pack that fits your project",
+    B: "Which ColorArchive pack matches what you're building?",
+  },
+  day14: {
+    A: "10% off your first ColorArchive pack — code FIRSTPACK",
+    B: "Your FIRSTPACK discount expires in 7 days",
+  },
+};
+
 // Day-3 follow-up: how to use CSS tokens
-async function sendFollowUp3DayEmail(to) {
+async function sendFollowUp3DayEmail(to, { variant = "A" } = {}) {
+  const subject = SUBJECT_VARIANTS.day3[variant] || SUBJECT_VARIANTS.day3.A;
   const result = await resend.emails.send({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
-    subject: "How to use your ColorArchive palette in code",
+    subject,
     text: [
       "A quick tip from ColorArchive",
       "",
@@ -450,12 +467,13 @@ async function sendFollowUp3DayEmail(to) {
 }
 
 // Day-7 follow-up: pack discovery
-async function sendFollowUp7DayEmail(to) {
+async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
+  const subject = SUBJECT_VARIANTS.day7[variant] || SUBJECT_VARIANTS.day7.A;
   const result = await resend.emails.send({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
-    subject: "ColorArchive catalog preview — find the pack that fits your project",
+    subject,
     text: [
       "Find the right ColorArchive pack for your project",
       "",
@@ -524,12 +542,13 @@ async function sendFollowUp7DayEmail(to) {
 }
 
 // Day-14 follow-up: limited time offer with FIRSTPACK discount
-async function sendFollowUp14DayEmail(to) {
+async function sendFollowUp14DayEmail(to, { variant = "A" } = {}) {
+  const subject = SUBJECT_VARIANTS.day14[variant] || SUBJECT_VARIANTS.day14.A;
   const result = await resend.emails.send({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
-    subject: "10% off your first ColorArchive pack — code FIRSTPACK",
+    subject,
     text: [
       "A small thank-you for sticking around",
       "",

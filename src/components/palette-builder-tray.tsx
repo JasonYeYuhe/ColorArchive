@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import {
   buildPaletteCssExport,
   buildPaletteJsonExport,
+  buildPaletteTailwindExport,
+  buildPaletteFigmaExport,
+  generatePaletteName,
   clearPalette,
   getPaletteIds,
   MAX_SIZE,
@@ -93,8 +96,11 @@ export function PaletteBuilderTray() {
 
   if (paletteIds.length === 0) return null;
 
+  const paletteName = generatePaletteName(paletteColors);
   const cssExport = buildPaletteCssExport(paletteColors);
   const jsonExport = buildPaletteJsonExport(paletteColors);
+  const tailwindExport = buildPaletteTailwindExport(paletteColors);
+  const figmaExport = buildPaletteFigmaExport(paletteColors);
 
   return (
     <div
@@ -113,6 +119,9 @@ export function PaletteBuilderTray() {
             <div className="flex items-center justify-between gap-3">
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
                 {t("tray.palette")} · {paletteColors.length}/{MAX_SIZE}
+              </div>
+              <div className="text-sm font-semibold tracking-[-0.01em] text-neutral-800">
+                {paletteName}
               </div>
               <button
                 type="button"
@@ -161,6 +170,8 @@ export function PaletteBuilderTray() {
             <div className="mt-3 flex flex-wrap gap-2">
               <CopyButton value={cssExport} label={t("tray.copyCss")} />
               <CopyButton value={jsonExport} label={t("tray.copyJson")} />
+              <CopyButton value={tailwindExport} label="Tailwind" />
+              <CopyButton value={figmaExport} label="Figma" />
               <ShareButton colorIds={paletteIds} />
               <Link
                 href={`/palette?ids=${paletteIds.join(",")}`}

@@ -6,13 +6,33 @@ const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 const FOURTEEN_DAYS_MS = 14 * 24 * 60 * 60 * 1000;
 const INTERVAL_MS = 60 * 60 * 1000; // run every hour
 
+// A/B variant assignment — deterministic based on email hash
+// Ensures same subscriber always gets the same variant
+function getVariant(email, numVariants = 2) {
+  let hash = 0;
+  for (let i = 0; i < email.length; i++) {
+    hash = ((hash << 5) - hash + email.charCodeAt(i)) | 0;
+  }
+  return String.fromCharCode(65 + (Math.abs(hash) % numVariants)); // "A" or "B"
+}
+
+// Ensure subscriber has an ab_variant assigned
+function ensureVariant(row) {
+  if (!row.ab_variant) {
+    const variant = getVariant(row.email);
+    db.prepare(`UPDATE subscribers SET ab_variant = ? WHERE id = ?`).run(variant, row.id);
+    row.ab_variant = variant;
+  }
+  return row.ab_variant;
+}
+
 async function runFollowUps() {
   const now = Date.now();
 
   // Day-3: free-pack subscribers who haven't received it yet, subscribed 3+ days ago
   const due3d = db
     .prepare(
-      `SELECT id, email, created_at FROM subscribers
+      `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
          AND follow_up_3d_sent IS NULL
          AND (strftime('%s', 'now') - strftime('%s', created_at)) * 1000 >= ?`,
@@ -21,11 +41,12 @@ async function runFollowUps() {
 
   for (const row of due3d) {
     try {
-      await sendFollowUp3DayEmail(row.email);
-      db.prepare(`UPDATE subscribers SET follow_up_3d_sent = datetime('now') WHERE id = ?`).run(
-        row.id,
-      );
-      console.log(`[scheduler] day-3 follow-up sent to ${row.email}`);
+      const variant = ensureVariant(row);
+      await sendFollowUp3DayEmail(row.email, { variant });
+      db.prepare(
+        `UPDATE subscribers SET follow_up_3d_sent = datetime('now'), follow_up_3d_variant = ? WHERE id = ?`,
+      ).run(variant, row.id);
+      console.log(`[scheduler] day-3 follow-up (variant ${variant}) sent to ${row.email}`);
     } catch (err) {
       console.error(`[scheduler] day-3 failed for ${row.email}:`, err.message);
     }
@@ -34,7 +55,7 @@ async function runFollowUps() {
   // Day-7: free-pack subscribers who haven't received it yet, subscribed 7+ days ago
   const due7d = db
     .prepare(
-      `SELECT id, email, created_at FROM subscribers
+      `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
          AND follow_up_7d_sent IS NULL
          AND (strftime('%s', 'now') - strftime('%s', created_at)) * 1000 >= ?`,
@@ -43,11 +64,12 @@ async function runFollowUps() {
 
   for (const row of due7d) {
     try {
-      await sendFollowUp7DayEmail(row.email);
-      db.prepare(`UPDATE subscribers SET follow_up_7d_sent = datetime('now') WHERE id = ?`).run(
-        row.id,
-      );
-      console.log(`[scheduler] day-7 follow-up sent to ${row.email}`);
+      const variant = ensureVariant(row);
+      await sendFollowUp7DayEmail(row.email, { variant });
+      db.prepare(
+        `UPDATE subscribers SET follow_up_7d_sent = datetime('now'), follow_up_7d_variant = ? WHERE id = ?`,
+      ).run(variant, row.id);
+      console.log(`[scheduler] day-7 follow-up (variant ${variant}) sent to ${row.email}`);
     } catch (err) {
       console.error(`[scheduler] day-7 failed for ${row.email}:`, err.message);
     }
@@ -56,7 +78,7 @@ async function runFollowUps() {
   // Day-14: free-pack subscribers who haven't received it yet, subscribed 14+ days ago
   const due14d = db
     .prepare(
-      `SELECT id, email, created_at FROM subscribers
+      `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
          AND follow_up_14d_sent IS NULL
          AND (strftime('%s', 'now') - strftime('%s', created_at)) * 1000 >= ?`,
@@ -65,11 +87,12 @@ async function runFollowUps() {
 
   for (const row of due14d) {
     try {
-      await sendFollowUp14DayEmail(row.email);
-      db.prepare(`UPDATE subscribers SET follow_up_14d_sent = datetime('now') WHERE id = ?`).run(
-        row.id,
-      );
-      console.log(`[scheduler] day-14 follow-up sent to ${row.email}`);
+      const variant = ensureVariant(row);
+      await sendFollowUp14DayEmail(row.email, { variant });
+      db.prepare(
+        `UPDATE subscribers SET follow_up_14d_sent = datetime('now'), follow_up_14d_variant = ? WHERE id = ?`,
+      ).run(variant, row.id);
+      console.log(`[scheduler] day-14 follow-up (variant ${variant}) sent to ${row.email}`);
     } catch (err) {
       console.error(`[scheduler] day-14 failed for ${row.email}:`, err.message);
     }

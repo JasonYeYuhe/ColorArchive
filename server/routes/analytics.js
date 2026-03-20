@@ -379,4 +379,55 @@ router.get("/buyers", (req, res) => {
   return res.json({ buyers, source: source ?? "all", days });
 });
 
+// A/B test results — shows conversion rates per variant per follow-up stage
+router.get("/ab-results", (req, res) => {
+  const stages = ["3d", "7d", "14d"];
+  const results = {};
+
+  for (const stage of stages) {
+    const variantCol = `follow_up_${stage}_variant`;
+    const sentCol = `follow_up_${stage}_sent`;
+
+    // Count sent per variant
+    const sentRows = db
+      .prepare(
+        `SELECT ${variantCol} as variant, COUNT(*) as sent_count
+         FROM subscribers
+         WHERE source = 'free-pack' AND ${sentCol} IS NOT NULL AND ${variantCol} IS NOT NULL
+         GROUP BY ${variantCol}`,
+      )
+      .all();
+
+    // Count conversions (subscribers who later became buyers) per variant
+    const conversionRows = db
+      .prepare(
+        `SELECT s.${variantCol} as variant, COUNT(DISTINCT o.email) as converted_count
+         FROM subscribers s
+         INNER JOIN orders o ON s.email = o.email
+         WHERE s.source = 'free-pack'
+           AND s.${sentCol} IS NOT NULL
+           AND s.${variantCol} IS NOT NULL
+           AND datetime(o.created_at) >= datetime(s.${sentCol})
+         GROUP BY s.${variantCol}`,
+      )
+      .all();
+
+    const conversionMap = Object.fromEntries(
+      conversionRows.map((r) => [r.variant, r.converted_count]),
+    );
+
+    results[`day_${stage.replace("d", "")}`] = sentRows.map((r) => ({
+      variant: r.variant,
+      sent: r.sent_count,
+      converted: conversionMap[r.variant] || 0,
+      conversionRate:
+        r.sent_count > 0
+          ? Math.round(((conversionMap[r.variant] || 0) / r.sent_count) * 1000) / 10
+          : 0,
+    }));
+  }
+
+  return res.json({ abResults: results });
+});
+
 module.exports = router;

@@ -30,7 +30,8 @@ interface SiteHeaderProps {
     | "/colors"
     | "/palette"
     | "/free-pack"
-    | "/login";
+    | "/login"
+    | "/trending";
 }
 
 interface NavItem {

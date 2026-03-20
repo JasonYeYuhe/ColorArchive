@@ -11,6 +11,10 @@ import {
   addManyToPalette,
   buildPaletteCssExport,
   buildPaletteJsonExport,
+  buildPaletteTailwindExport,
+  buildPaletteFigmaExport,
+  buildPaletteStyleDictionaryExport,
+  generatePaletteName,
   getPaletteIds,
   replacePalette,
   subscribeToPalette,
@@ -260,8 +264,12 @@ function PaletteContent() {
     return <EmptyState />;
   }
 
+  const paletteName = generatePaletteName(paletteColors);
   const cssExport = buildPaletteCssExport(paletteColors);
   const jsonExport = buildPaletteJsonExport(paletteColors);
+  const tailwindExport = buildPaletteTailwindExport(paletteColors);
+  const figmaExport = buildPaletteFigmaExport(paletteColors);
+  const styleDictExport = buildPaletteStyleDictionaryExport(paletteColors);
 
   return (
     <div className="space-y-6">
@@ -273,6 +281,9 @@ function PaletteContent() {
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
             {isFromUrl ? t("palette.sharedPalette") : t("palette.yourPalette")} · {paletteColors.length} {paletteColors.length === 1 ? t("palette.color") : t("palette.colors")}
+          </div>
+          <div className="mt-1 text-lg font-semibold tracking-[-0.02em] text-neutral-950">
+            {paletteName}
           </div>
           {isFromUrl && (
             <p className="mt-1 text-sm text-neutral-500">
@@ -365,6 +376,45 @@ rose-core-soft
         </div>
         <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
           {jsonExport}
+        </pre>
+      </div>
+
+      {/* Tailwind preview */}
+      <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+        <div className="flex items-center justify-between">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+            Tailwind Config
+          </div>
+          <CopyButton value={tailwindExport} label="Tailwind" />
+        </div>
+        <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
+          {tailwindExport}
+        </pre>
+      </div>
+
+      {/* Figma tokens preview */}
+      <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+        <div className="flex items-center justify-between">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+            Figma Design Tokens
+          </div>
+          <CopyButton value={figmaExport} label="Figma" />
+        </div>
+        <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
+          {figmaExport}
+        </pre>
+      </div>
+
+      {/* Style Dictionary preview */}
+      <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+        <div className="flex items-center justify-between">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+            Style Dictionary
+          </div>
+          <CopyButton value={styleDictExport} label="Style Dict" />
+        </div>
+        <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
+          {styleDictExport}
         </pre>
       </div>
 

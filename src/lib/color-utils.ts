@@ -111,6 +111,67 @@ function normalizeSearchValue(value: string): string {
   return value.trim().toLowerCase();
 }
 
+// Semantic search aliases — maps common color words to name fragments in the archive
+const SEARCH_ALIASES: Record<string, string[]> = {
+  sunset: ["ember", "coral", "amber", "merlot", "ruby"],
+  ocean: ["azure", "sapphire", "cobalt", "lagoon", "teal"],
+  forest: ["moss", "leaf", "emerald", "pine", "fern"],
+  sky: ["azure", "mist", "veil", "whisper", "powder"],
+  night: ["ink", "shadow", "onyx", "coal", "deep"],
+  pastel: ["veil", "whisper", "mist", "pearl", "silk"],
+  earth: ["ember", "clay", "rust", "sienna", "umber"],
+  neon: ["vivid", "clear", "bright"],
+  warm: ["crimson", "ruby", "ember", "coral", "amber", "honey"],
+  cool: ["azure", "sapphire", "cobalt", "teal", "mint"],
+  rose: ["ruby", "crimson", "blush", "peony", "fuchsia"],
+  gold: ["amber", "honey", "citrine", "marigold"],
+  ice: ["frost", "veil", "whisper", "mist", "pearl"],
+  vintage: ["muted", "soft", "dusty"],
+  bold: ["vivid", "clear", "core"],
+  muted: ["muted", "soft"],
+  dark: ["ink", "shadow", "deep", "coal"],
+  light: ["veil", "whisper", "mist", "pearl"],
+};
+
+function fuzzyMatch(text: string, query: string): boolean {
+  // Exact substring match
+  if (text.includes(query)) return true;
+
+  // Token-level: every query word must appear somewhere in the text
+  const queryTokens = query.split(/\s+/).filter(Boolean);
+  if (queryTokens.length > 1) {
+    return queryTokens.every((token) => text.includes(token));
+  }
+
+  // Single-token: allow 1-char edit distance for queries >= 4 chars
+  if (query.length >= 4) {
+    const words = text.split(/[\s-]+/);
+    for (const word of words) {
+      if (Math.abs(word.length - query.length) > 1) continue;
+      let edits = 0;
+      const maxLen = Math.max(word.length, query.length);
+      let wi = 0;
+      let qi = 0;
+      while (wi < word.length && qi < query.length) {
+        if (word[wi] !== query[qi]) {
+          edits++;
+          if (edits > 1) break;
+          if (word.length > query.length) wi++;
+          else if (query.length > word.length) qi++;
+          else { wi++; qi++; }
+        } else {
+          wi++;
+          qi++;
+        }
+      }
+      edits += (word.length - wi) + (query.length - qi);
+      if (edits <= 1) return true;
+    }
+  }
+
+  return false;
+}
+
 function compareHueSort(a: ColorRecord, b: ColorRecord): number {
   return a.hue - b.hue || a.saturation - b.saturation || a.lightness - b.lightness;
 }
@@ -140,15 +201,33 @@ export function filterColors(
 ): ColorRecord[] {
   const normalizedQuery = normalizeSearchValue(searchQuery);
 
+  if (normalizedQuery.length === 0) {
+    return activeFamily === "All"
+      ? [...colors]
+      : colors.filter((color) => color.family === activeFamily);
+  }
+
+  // Expand aliases for semantic search
+  const aliasFragments = SEARCH_ALIASES[normalizedQuery] ?? [];
+
   return colors.filter((color) => {
-    const matchesSearch =
-      normalizedQuery.length === 0 ||
-      color.name.toLowerCase().includes(normalizedQuery) ||
-      color.hex.toLowerCase().includes(normalizedQuery);
-
     const matchesFamily = activeFamily === "All" || color.family === activeFamily;
+    if (!matchesFamily) return false;
 
-    return matchesSearch && matchesFamily;
+    const nameLower = color.name.toLowerCase();
+    const hexLower = color.hex.toLowerCase();
+
+    // Direct match (fuzzy)
+    if (fuzzyMatch(nameLower, normalizedQuery) || hexLower.includes(normalizedQuery)) {
+      return true;
+    }
+
+    // Alias match
+    if (aliasFragments.length > 0) {
+      return aliasFragments.some((frag) => nameLower.includes(frag));
+    }
+
+    return false;
   });
 }
 
@@ -265,6 +344,53 @@ export function getWcagContrast(hue: number, saturation: number, lightness: numb
     whiteGrade: wcagGrade(vsWhite),
     blackGrade: wcagGrade(vsBlack),
   };
+}
+
+export function getContrastRatio(color1: ColorRecord, color2: ColorRecord): number {
+  const rgb1 = hslToRgb(color1.hue, color1.saturation, color1.lightness);
+  const rgb2 = hslToRgb(color2.hue, color2.saturation, color2.lightness);
+  const lum1 = getRelativeLuminance(rgb1.r, rgb1.g, rgb1.b);
+  const lum2 = getRelativeLuminance(rgb2.r, rgb2.g, rgb2.b);
+  const lighter = Math.max(lum1, lum2);
+  const darker = Math.min(lum1, lum2);
+  return Math.round(((lighter + 0.05) / (darker + 0.05)) * 10) / 10;
+}
+
+export interface WcagPairing {
+  color: ColorRecord;
+  ratio: number;
+  grade: "AAA" | "AA" | "AA Large";
+}
+
+export function getWcagPairings(
+  colors: readonly ColorRecord[],
+  baseColor: ColorRecord,
+  limit = 8,
+): WcagPairing[] {
+  const pairings: WcagPairing[] = [];
+
+  for (const candidate of colors) {
+    if (candidate.id === baseColor.id) continue;
+    const ratio = getContrastRatio(baseColor, candidate);
+    if (ratio >= 3) {
+      const grade = ratio >= 7 ? "AAA" as const : ratio >= 4.5 ? "AA" as const : "AA Large" as const;
+      pairings.push({ color: candidate, ratio, grade });
+    }
+  }
+
+  // Sort: AAA first, then AA, then AA Large. Within same grade, prefer visual diversity
+  pairings.sort((a, b) => {
+    if (a.grade !== b.grade) {
+      const gradeOrder = { "AAA": 0, "AA": 1, "AA Large": 2 };
+      return gradeOrder[a.grade] - gradeOrder[b.grade];
+    }
+    // Within same grade, prefer colors from different families (diversity)
+    const aDist = getHueDistance(a.color.hue, baseColor.hue);
+    const bDist = getHueDistance(b.color.hue, baseColor.hue);
+    return bDist - aDist; // farther hues first for diversity
+  });
+
+  return pairings.slice(0, limit);
 }
 
 export function getTonalStrip(

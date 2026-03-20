@@ -5,7 +5,7 @@
  * Called automatically before npm run build via "prebuild" script.
  */
 
-import { writeFileSync, mkdirSync } from "fs";
+import { readFileSync, writeFileSync, mkdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -516,6 +516,8 @@ mkdirSync(join(OG_DIR, "packs"), { recursive: true });
 mkdirSync(join(OG_DIR, "collections"), { recursive: true });
 mkdirSync(join(OG_DIR, "families"), { recursive: true });
 mkdirSync(join(OG_DIR, "colors"), { recursive: true });
+mkdirSync(join(OG_DIR, "notes"), { recursive: true });
+mkdirSync(join(OG_DIR, "guides"), { recursive: true });
 
 // Full archive exports
 const ALL_ARCHIVE_COLORS = [...colorMap.entries()].map(([id, color]) => ({ ...color, id }));
@@ -656,6 +658,25 @@ for (const [id, color] of colorMap.entries()) {
       summary: `${color.hex} · ${color.hsl} · Explore complementary colors, tonal companions, and export-ready tokens at ColorArchive.`,
       swatches: [color.hex, color.hex, color.hex, "#F6F4EF", "#111827"],
       accent: color.hex,
+    }),
+    "utf8",
+  );
+}
+
+// Newsletter notes OG images
+const newsletterIssues = JSON.parse(readFileSync(join(ROOT, "src", "data", "newsletter-issues.json"), "utf8"));
+const NOTE_ACCENT_COLORS = ["#E8A4A4", "#7AB9E5", "#A2D66A", "#F5C882", "#B8A9E5", "#73C68C", "#E3D86B", "#E89FA4"];
+for (let i = 0; i < newsletterIssues.length; i++) {
+  const issue = newsletterIssues[i];
+  const accent = NOTE_ACCENT_COLORS[i % NOTE_ACCENT_COLORS.length];
+  writeFileSync(
+    join(OG_DIR, "notes", `${issue.slug}.svg`),
+    createOgSvg({
+      eyebrow: issue.eyebrow || `Issue ${String(i + 1).padStart(3, "0")}`,
+      title: issue.title.length > 50 ? issue.title.slice(0, 47) + "..." : issue.title,
+      summary: issue.summary,
+      swatches: [accent, "#F6F4EF", "#111827", accent, "#F6F4EF", "#111827"],
+      accent,
     }),
     "utf8",
   );

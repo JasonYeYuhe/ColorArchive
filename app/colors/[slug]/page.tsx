@@ -8,6 +8,7 @@ import {
   getComplementaryColor,
   getNearestColors,
   getToneCompanion,
+  getWcagPairings,
   sortColors,
 } from "@/src/lib/color-utils";
 import { colors } from "@/src/data/colors";
@@ -136,6 +137,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
   const analogousColors = getAnalogousColors(colors, color, 2);
   const lighterCompanion = getToneCompanion(colors, color, "lighter");
   const darkerCompanion = getToneCompanion(colors, color, "darker");
+  const wcagPairings = getWcagPairings(colors, color, 6);
   const colorStructuredData = {
     "@context": "https://schema.org",
     "@type": "Thing",
@@ -214,6 +216,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
         complementaryColor={complementaryColor}
         lighterCompanion={lighterCompanion}
         darkerCompanion={darkerCompanion}
+        wcagPairings={wcagPairings}
       />
     </>
   );

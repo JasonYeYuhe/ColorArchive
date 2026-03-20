@@ -57,7 +57,8 @@ ColorArchive/
 │   ├── cancel/                   # /cancel/ — checkout cancel landing
 │   ├── login/                    # /login/ — magic link auth
 │   ├── admin/orders/             # /admin/orders/ — internal order dashboard
-│   └── analytics/                # /analytics/ — internal analytics dashboard
+│   ├── analytics/                # /analytics/ — internal analytics dashboard
+│   └── trending/                 # /trending/ — weekly trending colors
 │
 ├── src/
 │   ├── components/               # "use client" UI components (one per page + shared)
@@ -120,7 +121,8 @@ ColorArchive/
 │   │   ├── thanks-page.tsx               # Post-purchase page
 │   │   ├── cancel-page.tsx               # Checkout cancel page
 │   │   ├── admin-orders-page.tsx         # Internal orders dashboard
-│   │   └── analytics-page.tsx            # Internal analytics dashboard
+│   │   ├── analytics-page.tsx            # Internal analytics dashboard
+│   │   └── trending-page.tsx             # Weekly trending colors page
 │   │
 │   ├── data/
 │   │   ├── colors.ts                     # Algorithmic generation of all 2016 colors
@@ -129,13 +131,15 @@ ColorArchive/
 │   │
 │   ├── lib/
 │   │   ├── color-utils.ts                # HSL↔RGB↔HEX, family classification,
-│   │   │                                 # sorting, analogous/complementary/tonal
+│   │   │                                 # sorting, analogous/complementary/tonal,
+│   │   │                                 # fuzzy search, WCAG contrast pairings
 │   │   ├── collections.ts                # 5 curated palette collections
 │   │   ├── palette-packs.ts              # 7 product pack definitions + metadata
 │   │   ├── guides.ts                     # 15 SEO landing guides
 │   │   ├── newsletter-issues.ts          # Newsletter data helpers + tagToSlug
 │   │   ├── i18n.ts                       # EN/JA translations (~600+ keys)
-│   │   ├── palette-builder.ts            # localStorage palette + subscriptions
+│   │   ├── palette-builder.ts            # localStorage palette + subscriptions,
+│   │   │                                 # Tailwind/Figma/StyleDict exports, naming
 │   │   ├── favorites.ts                  # localStorage favorites + subscriptions
 │   │   ├── recent-colors.ts              # localStorage recent history
 │   │   ├── checkout-config.ts            # Lemon Squeezy checkout URLs
@@ -155,7 +159,7 @@ ColorArchive/
 │   │                                     #   sendWaitlistConfirmationEmail
 │   │                                     #   sendOrderConfirmationEmail
 │   │                                     #   sendMagicLinkEmail
-│   ├── email-scheduler.js                # Hourly cron: runs Day-3/7/14 follow-ups
+│   ├── email-scheduler.js                # Hourly cron: Day-3/7/14 follow-ups + A/B variants
 │   ├── db.js                             # SQLite setup (subscribers, orders, sessions)
 │   ├── auth.js                           # Magic link auth logic
 │   ├── catalog.js                        # Pack catalog data
@@ -179,6 +183,11 @@ ColorArchive/
 │       ├── complete-archive.zip
 │       ├── seasonal-spring-2026.zip
 │       └── colorarchive.swatches         # Procreate swatch file
+│
+├── figma-plugin/                         # Figma plugin (browse + insert colors)
+│   ├── manifest.json                     # Plugin manifest
+│   ├── code.js                           # Main thread (apply-fill, create-style)
+│   └── ui.html                           # Plugin UI (search, family tabs, grid)
 │
 ├── docs/                                 # Internal ops documentation
 ├── scripts/                              # Build utilities (generate-downloads.mjs)
@@ -216,6 +225,8 @@ Triggered by `email-scheduler.js` running hourly on the DO droplet:
 - **Day 3** — How to use CSS tokens + Dark Mode UI Kit upsell
 - **Day 7** — Full catalog overview (all 7 packs)
 - **Day 14** — 10% discount code `FIRSTPACK`
+
+Each follow-up uses A/B subject-line variants (deterministic hash on email). Variant assignment stored in `ab_variant` column; per-stage variant tracked in `follow_up_Xd_variant`. Results available via `GET /analytics/ab-results`.
 
 ---
 

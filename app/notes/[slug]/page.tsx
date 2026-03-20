@@ -35,12 +35,16 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
       title: issue.title,
       description: issue.summary,
       url: `https://colorarchive.me/notes/${issue.slug}/`,
-      images: ["https://colorarchive.me/og-image-v1.png"],
+      type: "article",
+      publishedTime: issue.date,
+      authors: ["ColorArchive"],
+      images: [`https://colorarchive.me/generated/og/notes/${issue.slug}.svg`],
     },
     twitter: {
+      card: "summary_large_image",
       title: issue.title,
       description: issue.summary,
-      images: ["https://colorarchive.me/og-image-v1.png"],
+      images: [`https://colorarchive.me/generated/og/notes/${issue.slug}.svg`],
     },
   };
 }
@@ -62,10 +66,16 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
       headline: issue.title,
       description: issue.summary,
       datePublished: issue.date,
+      dateModified: issue.date,
       keywords: issue.tags.join(", "),
       url: `https://colorarchive.me/notes/${issue.slug}/`,
-      author: { "@type": "Organization", name: "ColorArchive", url: "https://colorarchive.me" },
-      publisher: { "@type": "Organization", name: "ColorArchive", url: "https://colorarchive.me" },
+      image: `https://colorarchive.me/generated/og/notes/${issue.slug}.svg`,
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": `https://colorarchive.me/notes/${issue.slug}/`,
+      },
+      author: { "@type": "Organization", name: "ColorArchive", url: "https://colorarchive.me", logo: { "@type": "ImageObject", url: "https://colorarchive.me/icon-512.png" } },
+      publisher: { "@type": "Organization", name: "ColorArchive", url: "https://colorarchive.me", logo: { "@type": "ImageObject", url: "https://colorarchive.me/icon-512.png" } },
     },
     {
       "@context": "https://schema.org",
