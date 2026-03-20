@@ -102,7 +102,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="QMvWjTTdo973FLMy5VZMA4lDZcirOQK8LUjLAHFD5eo" />
-        <script defer data-domain="colorarchive.me" src="https://plausible.io/js/script.js" />
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="e3af4cf3-7120-41a4-bbb8-c90d65bfa465" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: localeScript }} />
       </head>
