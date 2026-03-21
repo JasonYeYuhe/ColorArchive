@@ -114,6 +114,28 @@ export function AboutPage() {
           ))}
         </section>
 
+        {/* Live stats */}
+        <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
+            By the numbers
+          </div>
+          <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+            {([
+              ["2,016", "Colors"],
+              ["14", "Collections"],
+              ["7", "Packs"],
+              ["23", "Guides"],
+              ["31", "Notes"],
+              ["9", "Families"],
+            ] as const).map(([num, label]) => (
+              <div key={label} className="text-center">
+                <div className="text-3xl font-bold tracking-[-0.04em]">{num}</div>
+                <div className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-white/50 dark:text-neutral-400">{label}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Color generation algorithm */}
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">

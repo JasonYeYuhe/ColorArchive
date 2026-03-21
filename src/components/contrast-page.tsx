@@ -424,6 +424,44 @@ export function ContrastCheckerPage() {
           </div>
         </section>
 
+        {/* Color blindness simulation */}
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+            {t("contrast.colorBlindness")}
+          </div>
+          <p className="mt-2 text-sm leading-6 text-neutral-500">
+            {t("contrast.colorBlindnessDesc")}
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {([
+              { name: "Normal", simulate: (r: number, g: number, b: number) => [r, g, b] as const },
+              { name: "Protanopia", simulate: (r: number, g: number, b: number) => [0.567*r+0.433*g, 0.558*r+0.442*g, 0.242*g+0.758*b] as const },
+              { name: "Deuteranopia", simulate: (r: number, g: number, b: number) => [0.625*r+0.375*g, 0.7*r+0.3*g, 0.3*g+0.7*b] as const },
+              { name: "Tritanopia", simulate: (r: number, g: number, b: number) => [0.95*r+0.05*g, 0.433*g+0.567*b, 0.475*g+0.525*b] as const },
+            ] as const).map(({ name, simulate }) => {
+              const fgR = parseInt(fgHex.slice(1, 3), 16);
+              const fgG = parseInt(fgHex.slice(3, 5), 16);
+              const fgB = parseInt(fgHex.slice(5, 7), 16);
+              const bgR = parseInt(bgHex.slice(1, 3), 16);
+              const bgG = parseInt(bgHex.slice(3, 5), 16);
+              const bgB = parseInt(bgHex.slice(5, 7), 16);
+              const [sfr, sfg, sfb] = simulate(fgR, fgG, fgB);
+              const [sbr, sbg, sbb] = simulate(bgR, bgG, bgB);
+              const simFg = `rgb(${Math.round(sfr)},${Math.round(sfg)},${Math.round(sfb)})`;
+              const simBg = `rgb(${Math.round(sbr)},${Math.round(sbg)},${Math.round(sbb)})`;
+              return (
+                <div key={name} className="rounded-[1.2rem] border border-black/6 overflow-hidden">
+                  <div className="p-4" style={{ backgroundColor: simBg }}>
+                    <div className="text-lg font-semibold" style={{ color: simFg }}>Aa</div>
+                    <div className="mt-1 text-sm" style={{ color: simFg }}>Sample text</div>
+                  </div>
+                  <div className="bg-neutral-50 px-4 py-2 text-xs font-medium text-neutral-700">{name}</div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
         <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
             {t("contrast.ctaLabel")}

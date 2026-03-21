@@ -397,6 +397,8 @@ const translations: Record<string, Record<Locale, string>> = {
   "contrast.normalText": { en: "Normal text", ja: "通常テキスト" },
   "contrast.largeText": { en: "Large text", ja: "大きなテキスト" },
   "contrast.uiComponents": { en: "UI components", ja: "UIコンポーネント" },
+  "contrast.colorBlindness": { en: "Color blindness simulation", ja: "色覚シミュレーション" },
+  "contrast.colorBlindnessDesc": { en: "See how your foreground/background pair looks under common color vision deficiencies.", ja: "一般的な色覚異常で前景/背景の組み合わせがどう見えるか確認できます。" },
   "contrast.ctaLabel": { en: "Build with accessible color systems", ja: "アクセシブルなカラーシステムで構築" },
   "contrast.ctaTitle": { en: "Take contrast-safe palettes into your project", ja: "コントラスト安全なパレットをプロジェクトへ" },
   "contrast.ctaDesc": { en: "The Dark Mode UI Kit ships pre-tested light/dark pairings with contrast ratios that pass AA — structured as CSS variables, Figma tokens, and Tailwind config.", ja: "ダークモードUIキットはAAに合格したコントラスト比の光/暗ペアをプレテスト済みで提供します。CSS変数、Figmaトークン、Tailwind設定として構造化されています。" },
