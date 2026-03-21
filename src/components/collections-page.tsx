@@ -44,6 +44,18 @@ function CopyButton({ label, value }: { label: string; value: string }) {
 
 export function CollectionsPage({ collections }: CollectionsPageProps) {
   const [activeCollectionId, setActiveCollectionId] = useState<string>(collections[0]?.id ?? "");
+  const [activeTag, setActiveTag] = useState<string | null>(null);
+
+  const allTags = useMemo(() => {
+    const tags = new Set<string>();
+    for (const col of collections) for (const tag of col.tags) tags.add(tag);
+    return [...tags].sort();
+  }, [collections]);
+
+  const filteredCollections = useMemo(
+    () => activeTag ? collections.filter((c) => c.tags.includes(activeTag)) : collections,
+    [activeTag, collections],
+  );
 
   const activeCollection = useMemo(
     () => collections.find((collection) => collection.id === activeCollectionId) ?? collections[0],
@@ -107,8 +119,27 @@ export function CollectionsPage({ collections }: CollectionsPageProps) {
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
               Collections
             </div>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              <button
+                type="button"
+                onClick={() => setActiveTag(null)}
+                className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${!activeTag ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
+              >
+                All
+              </button>
+              {allTags.map((tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+                  className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${activeTag === tag ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
             <div className="mt-4 space-y-3">
-              {collections.map((collection) => {
+              {filteredCollections.map((collection) => {
                 const isActive = collection.id === activeCollection.id;
 
                 return (

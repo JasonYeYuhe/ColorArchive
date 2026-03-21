@@ -36,6 +36,33 @@ interface PaletteEntry {
   value: ColorRecord;
 }
 
+function DownloadSwatchButton({ color }: { color: ColorRecord }) {
+  function handleDownload() {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+<rect width="400" height="240" fill="${color.hex}"/>
+<rect y="240" width="400" height="60" fill="#fafaf9"/>
+<text x="200" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#1a1a1a">${color.name}</text>
+<text x="200" y="288" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">${color.hex}</text>
+</svg>`;
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${color.id}.svg`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+  return (
+    <button
+      type="button"
+      onClick={handleDownload}
+      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+    >
+      SVG
+    </button>
+  );
+}
+
 function CopyButton({ value, label }: { value: string; label: string }) {
   const { t } = useLocale();
   const [copied, setCopied] = useState(false);
@@ -347,6 +374,7 @@ export function ColorDetailPage({
                 <CopyButton label="hsl" value={color.hsl} />
                 <CopyButton label="palette" value={paletteExport} />
                 <CopyButton label="CSS vars" value={cssVariableExport} />
+                <DownloadSwatchButton color={color} />
                 <PaletteAddButton colorId={color.id} />
                 <PaletteBundleButton colorIds={exportPaletteIds} label={t("colorDetail.addRecommendedPalette")} />
                 <FavoriteButton colorId={color.id} />

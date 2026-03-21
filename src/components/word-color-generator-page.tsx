@@ -52,6 +52,10 @@ export function WordColorGeneratorPage() {
   const searchParams = useSearchParams();
   const initialWord = searchParams.get("q") ?? "quiet luxury";
   const [input, setInput] = useState(initialWord);
+  const [wordHistory, setWordHistory] = useState<string[]>(() => {
+    if (typeof window === "undefined") return [];
+    try { return JSON.parse(localStorage.getItem("colorarchive-word-history") || "[]"); } catch { return []; }
+  });
   const generated = useMemo(() => generateColorFromWord(input), [input]);
   const paletteExport = useMemo(() => {
     if (!generated) {
@@ -80,6 +84,19 @@ export function WordColorGeneratorPage() {
     const href = trimmed.length > 0 ? `${pathname}?q=${encodeURIComponent(trimmed)}` : pathname;
     router.replace(href, { scroll: false });
   }, [input, pathname, router]);
+
+  // Save word to history after debounce
+  useEffect(() => {
+    if (!input.trim() || input.trim().length < 2) return;
+    const timeout = setTimeout(() => {
+      setWordHistory((prev) => {
+        const next = [input.trim(), ...prev.filter((w) => w !== input.trim())].slice(0, 10);
+        try { localStorage.setItem("colorarchive-word-history", JSON.stringify(next)); } catch {}
+        return next;
+      });
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, [input]);
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -142,6 +159,16 @@ export function WordColorGeneratorPage() {
                     />
                   )}
                 </div>
+                {wordHistory.length > 0 && (
+                  <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                    <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-400">Recent</span>
+                    {wordHistory.filter((w) => w !== input.trim()).slice(0, 6).map((w) => (
+                      <button key={w} type="button" onClick={() => setInput(w)} className="rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-100">
+                        {w}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {generated ? (
