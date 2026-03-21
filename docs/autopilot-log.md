@@ -1,4 +1,34 @@
 
+## 2026-03-22 — Normal Run: i18n, Newsletter Issues 035–038, 2 New Collections (commit c43e0d5)
+
+**Run type:** Normal
+
+**Categories:** B. i18n Coverage, A. SEO & Content, D. Data & Collections
+
+### Category B — i18n Coverage
+- Added harmonies page translation keys: `harmonies_title`, `harmonies_subtitle`, `seed_color`, `invalid_hex` (EN + JA)
+- Added 15 new `compare.*` translation keys for Color Compare page (EN + JA) in preparation for future i18n integration
+- Total new translation keys: 18 pairs
+
+### Category A — Newsletter Issues 035–038
+- **Issue 035** (Jul 16): "Designing palettes that work for colorblind users without sacrificing character" — role redundancy, deuteranopia testing, Nordic Frost case study
+- **Issue 036** (Jul 23): "How color functions as wayfinding in complex interfaces" — spatial color memory, chromatic navigation systems, Nocturne Tech application
+- **Issue 037** (Aug 13): "Yellow in UI: the most misused accent color" — perceptual brightness paradox, three legitimate use cases, muted amber as editorial anchor
+- **Issue 038** (Aug 20): "How brand color recognition actually works" — contextual memory mechanics, hue ownership in category, cross-medium specification
+- Total newsletter issues: 39 (was 35)
+
+### Category D — Collections
+- Added **Concrete Modernism**: cerulean-whisper → sapphire-pearl → azure-tone → cobalt-dusk → indigo-shadow. Cool blue-gray palette for architecture portfolios, minimal SaaS, editorial systems
+- Added **Blossom Season**: rose-whisper → blush-pearl → orchid-bloom → peony-silk → plum-tone. Spring florals for beauty brands, wedding design, seasonal campaigns
+- Total collections: 16 (was 14)
+
+**Files modified:**
+- src/lib/i18n.ts (+29 lines)
+- src/data/newsletter-issues.json (+136 lines)
+- src/lib/collections.ts (+40 lines)
+
+**Commit:** c43e0d5
+
 ## 2026-03-21 — BIG RUN: Color Converter Tool /convert/ (commit 3d571cd)
 
 **Run type:** Big (5th run trigger — 4 normal runs since last big)

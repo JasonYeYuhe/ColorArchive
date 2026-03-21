@@ -1,7 +1,7 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-21 (autopilot big run)
+> Last updated: 2026-03-22 (autopilot normal run)
 
 ## High Priority
 - [ ] Submit Figma plugin for Community review — requires manual interaction in the Figma desktop app (publish flow, screenshots, description)
