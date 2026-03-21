@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { sortColors } from "@/src/lib/color-utils";
 import type { ColorRecord } from "@/src/types/color";
@@ -90,6 +91,7 @@ export function RandomDiscoveryPage({ colors }: RandomDiscoveryPageProps) {
               >
                 Randomize
               </button>
+              <FavoriteButton colorId={selectedColor.id} />
               <ShareLinkButton href={`/surprise?id=${selectedColor.id}`} />
               <Link
                 href={`/colors/${selectedColor.id}/`}

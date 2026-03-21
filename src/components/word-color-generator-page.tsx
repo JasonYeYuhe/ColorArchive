@@ -78,6 +78,14 @@ export function WordColorGeneratorPage() {
       })
       .join("\n");
   }, [generated]);
+  const tailwindExport = useMemo(() => {
+    if (!generated) return "";
+    const token = generated.token.replace(/[^a-z0-9]+/g, "-");
+    return `@theme {\n${generated.variants.map((v) => {
+      const slug = v.label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      return `  --color-${token}-${slug}: ${v.hex};`;
+    }).join("\n")}\n}`;
+  }, [generated]);
 
   useEffect(() => {
     const trimmed = input.trim();
@@ -210,6 +218,7 @@ export function WordColorGeneratorPage() {
                       <CopyButton label="hsl" value={generated.hsl} />
                       <CopyButton label="palette" value={paletteExport} />
                       <CopyButton label="CSS vars" value={cssVariableExport} />
+                      <CopyButton label="Tailwind" value={tailwindExport} />
                     </div>
                   </div>
                 </div>

@@ -303,6 +303,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "empty.resetEverything": { en: "Reset everything", ja: "すべてリセット" },
   "empty.openAllColors": { en: "Open all colors", ja: "全ての色を開く" },
   "empty.openRecent": { en: "Open recent", ja: "最近の色を開く" },
+  "empty.trySuggestions": { en: "Try these instead", ja: "代わりにこれを試す" },
 
   // Email capture form
   "capture.placeholder": { en: "you@example.com", ja: "you@example.com" },

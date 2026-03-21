@@ -3,6 +3,11 @@
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
 
+const SEARCH_SUGGESTIONS = [
+  "sunset", "ocean", "forest", "blush", "midnight",
+  "coral", "amber", "emerald", "lavender", "slate",
+];
+
 interface ArchiveEmptyStateProps {
   title?: string;
   description?: string;
@@ -11,6 +16,7 @@ interface ArchiveEmptyStateProps {
   onClearSearch?: () => void;
   onClearFamily?: () => void;
   onReset?: () => void;
+  onSuggest?: (term: string) => void;
 }
 
 export function ArchiveEmptyState({
@@ -21,6 +27,7 @@ export function ArchiveEmptyState({
   onClearSearch,
   onClearFamily,
   onReset,
+  onSuggest,
 }: ArchiveEmptyStateProps) {
   const { t } = useLocale();
   const resolvedTitle = title ?? t("empty.noResults");
@@ -85,6 +92,24 @@ export function ArchiveEmptyState({
               {t("empty.resetEverything")}
             </button>
           ) : null}
+
+          {onSuggest && hasSearch && (
+            <div className="mt-2 flex w-full flex-wrap justify-center gap-1.5">
+              <span className="w-full text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-400">
+                {t("empty.trySuggestions")}
+              </span>
+              {SEARCH_SUGGESTIONS.filter((s) => s !== searchQuery?.trim().toLowerCase()).slice(0, 6).map((term) => (
+                <button
+                  key={term}
+                  type="button"
+                  onClick={() => onSuggest(term)}
+                  className="rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-100"
+                >
+                  {term}
+                </button>
+              ))}
+            </div>
+          )}
 
           <Link
             href="/all-colors/"

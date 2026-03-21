@@ -572,6 +572,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
                 setExactHex("");
               }}
               onClearFamily={() => setActiveFamily("All")}
+              onSuggest={(term) => { setSearchQuery(term); setExactHex(""); }}
               onReset={handleReset}
             />
           }
