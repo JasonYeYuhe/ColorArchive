@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CopyActionButton } from "@/src/components/copy-action-button";
 import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-button";
 import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForCollection } from "@/src/lib/guides";
@@ -17,6 +18,10 @@ function buildCssExport(collection: ColorCollection) {
   return collection.palette
     .map((color, index) => `--${collection.id}-${index + 1}: ${color.hex};`)
     .join("\n");
+}
+
+function buildTailwindExport(collection: ColorCollection) {
+  return `@theme {\n${collection.palette.map((color, index) => `  --color-${collection.id}-${index + 1}: ${color.hex};`).join("\n")}\n}`;
 }
 
 export function CollectionDetailPage({
@@ -54,6 +59,8 @@ export function CollectionDetailPage({
                   {tag}
                 </span>
               ))}
+              <CopyActionButton label="Copy CSS" copiedLabel="CSS copied" value={buildCssExport(collection)} />
+              <CopyActionButton label="Copy Tailwind" copiedLabel="Tailwind copied" value={buildTailwindExport(collection)} />
               <ShareOnXButton href={`/collections/${collection.id}/`} text={`${collection.title} — a curated palette from ColorArchive`} />
               <ShareLinkButton href={`/collections/${collection.id}/`} />
             </div>

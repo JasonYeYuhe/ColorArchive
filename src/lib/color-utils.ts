@@ -466,6 +466,31 @@ export function getAnalogousColors(
     .slice(0, limit);
 }
 
+export function getSplitComplementaryColors(
+  colors: readonly ColorRecord[],
+  baseColor: ColorRecord,
+): ColorRecord[] {
+  const targetHues = [(baseColor.hue + 150) % 360, (baseColor.hue + 210) % 360];
+
+  return targetHues
+    .map((targetHue) =>
+      [...colors]
+        .filter((color) => color.id !== baseColor.id)
+        .sort((a, b) => {
+          const aScore =
+            getHueDistance(a.hue, targetHue) * 2 +
+            Math.abs(a.lightness - baseColor.lightness) +
+            Math.abs(a.saturation - baseColor.saturation) * 0.8;
+          const bScore =
+            getHueDistance(b.hue, targetHue) * 2 +
+            Math.abs(b.lightness - baseColor.lightness) +
+            Math.abs(b.saturation - baseColor.saturation) * 0.8;
+          return aScore - bScore;
+        })[0],
+    )
+    .filter((color): color is ColorRecord => Boolean(color));
+}
+
 export function getTriadicColors(
   colors: readonly ColorRecord[],
   baseColor: ColorRecord,

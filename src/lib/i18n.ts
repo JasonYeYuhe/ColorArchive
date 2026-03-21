@@ -621,6 +621,8 @@ const translations: Record<string, Record<Locale, string>> = {
   "colorDetail.analogousEcho": { en: "Analogous echo", ja: "類似色エコー" },
   "colorDetail.triadic1": { en: "Triadic +120°", ja: "トライアド +120°" },
   "colorDetail.triadic2": { en: "Triadic +240°", ja: "トライアド +240°" },
+  "colorDetail.splitComp1": { en: "Split-comp +150°", ja: "スプリット +150°" },
+  "colorDetail.splitComp2": { en: "Split-comp +210°", ja: "スプリット +210°" },
   "colorDetail.addRecommendedPalette": { en: "Add recommended palette", ja: "推奨パレットを追加" },
   "colorDetail.addPaletteMoves": { en: "Add palette moves", ja: "パレット展開を追加" },
   "colorDetail.accessiblePairings": { en: "Accessible pairings", ja: "アクセシブルな配色" },

@@ -25,6 +25,7 @@ interface ColorDetailPageProps {
   nearestColors: readonly ColorRecord[];
   analogousColors: readonly ColorRecord[];
   triadicColors: readonly ColorRecord[];
+  splitCompColors: readonly ColorRecord[];
   complementaryColor: ColorRecord | null;
   lighterCompanion: ColorRecord | null;
   darkerCompanion: ColorRecord | null;
@@ -212,6 +213,7 @@ export function ColorDetailPage({
   nearestColors,
   analogousColors,
   triadicColors,
+  splitCompColors,
   complementaryColor,
   lighterCompanion,
   darkerCompanion,
@@ -252,6 +254,10 @@ export function ColorDetailPage({
     ...triadicColors.map((triadicColor, index) => ({
       label: index === 0 ? t("colorDetail.triadic1") : t("colorDetail.triadic2"),
       value: triadicColor,
+    })),
+    ...splitCompColors.map((sc, index) => ({
+      label: index === 0 ? t("colorDetail.splitComp1") : t("colorDetail.splitComp2"),
+      value: sc,
     })),
   ]
     .filter(

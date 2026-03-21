@@ -65,6 +65,14 @@ export function RecentColorsPage({ colors }: RecentColorsPageProps) {
     () => recentColors.map((color, index) => `${index + 1}. ${color.name} ${color.hex}`).join("\n"),
     [recentColors],
   );
+  const cssExport = useMemo(
+    () => recentColors.map((color, i) => `--recent-${i + 1}: ${color.hex}; /* ${color.name} */`).join("\n"),
+    [recentColors],
+  );
+  const tailwindExport = useMemo(
+    () => `@theme {\n${recentColors.map((color, i) => `  --color-recent-${i + 1}: ${color.hex};`).join("\n")}\n}`,
+    [recentColors],
+  );
   const jsonExport = useMemo(
     () =>
       JSON.stringify(
@@ -119,6 +127,8 @@ export function RecentColorsPage({ colors }: RecentColorsPageProps) {
               {recentColors.length > 0 ? (
                 <>
                   <CopyButton label="palette" value={paletteExport} />
+                  <CopyButton label="CSS vars" value={cssExport} />
+                  <CopyButton label="Tailwind" value={tailwindExport} />
                   <CopyButton label="JSON" value={jsonExport} />
                   <button
                     type="button"

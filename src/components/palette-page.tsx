@@ -23,6 +23,32 @@ import {
 import { parsePaletteInput } from "@/src/lib/palette-import";
 import type { ColorRecord } from "@/src/types/color";
 
+function DownloadPaletteSvgButton({ colors }: { colors: { id: string; name: string; hex: string }[] }) {
+  function handleDownload() {
+    const count = colors.length || 1;
+    const w = 1200;
+    const h = 400;
+    const sw = w / count;
+    const rects = colors.map((c, i) => `<rect x="${i * sw}" y="0" width="${sw}" height="${h - 60}" fill="${c.hex}"/>
+<text x="${i * sw + sw / 2}" y="${h - 35}" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">${c.name.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</text>
+<text x="${i * sw + sw / 2}" y="${h - 15}" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">${c.hex}</text>`).join("\n");
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"><rect width="${w}" height="${h}" fill="#fafaf9"/>${rects}</svg>`;
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "palette.svg";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+  if (colors.length === 0) return null;
+  return (
+    <button type="button" onClick={handleDownload} className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white">
+      Download SVG
+    </button>
+  );
+}
+
 function CopyButton({ value, label }: { value: string; label: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -294,6 +320,7 @@ function PaletteContent() {
         <div className="flex flex-wrap gap-2">
           <CopyButton value={cssExport} label="CSS" />
           <CopyButton value={jsonExport} label="JSON" />
+          <DownloadPaletteSvgButton colors={paletteColors} />
           <ShareUrlButton ids={paletteColors.map((c) => c.id)} />
           <ShareOnXButton
             href={`/palette?ids=${paletteColors.map((c) => c.id).join(",")}`}

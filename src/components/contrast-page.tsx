@@ -50,6 +50,7 @@ type WcagLevel = "Pass" | "Fail";
 
 interface WcagResult {
   ratio: number;
+  apca: number;
   aaNormal: WcagLevel;
   aaLarge: WcagLevel;
   aaaNormal: WcagLevel;
@@ -57,10 +58,35 @@ interface WcagResult {
   aaUi: WcagLevel;
 }
 
+function sRGBtoY(hex: string): number {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  // Piecewise sRGB linearization (simplified APCA)
+  const [rL, gL, bL] = [r, g, b].map((c) => {
+    const s = c / 255;
+    return s <= 0.04045 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126729 * rL + 0.7151522 * gL + 0.0721750 * bL;
+}
+
+function getApcaContrast(textHex: string, bgHex: string): number {
+  const txtY = sRGBtoY(textHex);
+  const bgY = sRGBtoY(bgHex);
+  // Simplified APCA-W3 (Silver level approximation)
+  const normBG = Math.pow(bgY, 0.56);
+  const normTXT = Math.pow(txtY, 0.57);
+  const rawContrast = (normBG - normTXT) * 1.14;
+  if (Math.abs(rawContrast) < 0.1) return 0;
+  return Math.round(rawContrast * 100) / 100;
+}
+
 function evaluateWcag(hex1: string, hex2: string): WcagResult {
   const ratio = getContrastRatio(hex1, hex2);
+  const apca = getApcaContrast(hex1, hex2);
   return {
     ratio: Math.round(ratio * 100) / 100,
+    apca,
     aaNormal: ratio >= 4.5 ? "Pass" : "Fail",
     aaLarge: ratio >= 3 ? "Pass" : "Fail",
     aaaNormal: ratio >= 7 ? "Pass" : "Fail",
@@ -305,8 +331,13 @@ export function ContrastCheckerPage() {
               <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
                 {t("contrast.livePreview")}
               </h2>
-              <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
-                {wcag.ratio} : 1
+              <div className="flex items-center gap-2">
+                <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+                  {wcag.ratio} : 1
+                </div>
+                <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500" title="APCA Lightness Contrast (approximate)">
+                  APCA {wcag.apca > 0 ? "+" : ""}{wcag.apca}
+                </div>
               </div>
             </div>
 
