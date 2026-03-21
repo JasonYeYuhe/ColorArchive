@@ -1,4 +1,30 @@
 
+## 2026-03-21 10:15 — Content & Collections: Newsletter Issues 028–030 + 2 Collections (commit 4c1bb6c)
+
+**Run type:** Normal
+
+**Categories:** A. SEO & Content, D. Data & Collections
+
+**Changes:**
+- Added Issue 028: "Color temperature as a communication tool" (May 28, 2026)
+  - Covers warm/cool signaling, category associations, warm-accent-on-cool-base pattern
+  - Featured: Editorial Warmth collection + Brand Starter Kit
+- Added Issue 029: "Muted vs. desaturated" (June 4, 2026)
+  - Covers perceptual difference, lightness as hidden variable, building cohesive muted palettes
+  - Featured: Quiet Luxury collection + Content Creator Bundle
+- Added Issue 030: "Hue span constraints" (June 11, 2026)
+  - Covers palette bloat, hue span as governing constraint, extending palettes responsibly
+  - Featured: Forest Terrain collection + Palette Pack Vol. 1
+- Added Terracotta Loft collection: warm clay/ember/rust/amber/linen tones for interior/architecture/artisan
+- Added Ocean Abyss collection: deep teal/aqua/cerulean/cobalt for fintech/data/sci-fi products
+- Total collections: 14 (was 12), total newsletter issues: 31 (was 28)
+
+**Files modified:**
+- src/data/newsletter-issues.json
+- src/lib/collections.ts
+
+**Commit:** 4c1bb6c
+
 ## 2026-03-21 — Content: Newsletter Issues 025–027 (commit 77d62d5)
 
 **Category:** A. SEO & Content
