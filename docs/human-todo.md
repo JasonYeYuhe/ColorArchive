@@ -1,12 +1,14 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-21
+> Last updated: 2026-03-21 (autopilot big run)
 
 ## High Priority
 - [ ] Submit Figma plugin for Community review — requires manual interaction in the Figma desktop app (publish flow, screenshots, description)
 - [ ] Set up Google Search Console for colorarchive.com — verify site ownership and submit sitemap to index new guide pages
 - [ ] Update Lemon Squeezy checkout URLs in `src/lib/checkout-config.ts` when new products go live — autopilot cannot access LS dashboard
+
+- [ ] Submit /convert/ to Google Search Console once indexed — verify it ranks for "hex to rgb converter" type queries and monitor click-through rate
 
 ## Medium Priority
 - [ ] Add real product screenshots to pack detail pages — currently using placeholder/generated images; real screenshots improve conversion

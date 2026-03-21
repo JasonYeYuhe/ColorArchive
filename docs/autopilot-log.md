@@ -1,4 +1,42 @@
 
+## 2026-03-21 — BIG RUN: Color Converter Tool /convert/ (commit 3d571cd)
+
+**Run type:** Big (5th run trigger — 4 normal runs since last big)
+
+**Feature:** Full color format converter at `/convert/` — HEX ↔ RGB ↔ HSL ↔ HSB/HSV ↔ CMYK
+
+**What was built:**
+- New page `/convert/` with full metadata, structured data (WebApplication + BreadcrumbList), and sitemap entry at priority 0.82
+- Interactive converter: 5 input modes (HEX, RGB, HSL, HSB, CMYK) — enter any format, all others update in real time
+- Live color swatch preview with auto-contrast hex label
+- Copy buttons for each format output (HEX, RGB, HSL, HSB, CMYK, CSS snippet)
+- CSS custom property snippet ready for stylesheets
+- "Nearest archive color" — perceptual nearest-neighbor search across all 2016 archive colors, linking to detail page
+- 10 preset swatches for quick color loading
+- Color format reference section (5 cards explaining each model)
+- Full EN/JA i18n: nav.convert + 11 converter.* keys
+- Added to site nav under Tools group
+
+**New conversion utilities in src/lib/color-utils.ts:**
+- `hexToRgb()` — parse 3- or 6-char hex → {r,g,b}
+- `rgbToHsl()` — RGB → HSL
+- `rgbToHsb()` — RGB → HSB/HSV
+- `rgbToCmyk()` — RGB → CMYK
+- `findNearestArchiveColor()` — perceptual nearest-neighbor over full 2016-color archive
+
+**Files modified:**
+- app/convert/page.tsx (new)
+- src/components/color-converter-page.tsx (new, ~400 lines)
+- src/lib/color-utils.ts (+115 lines of new functions)
+- src/components/site-header.tsx (added /convert/ to nav + type union)
+- src/lib/i18n.ts (added nav.convert + 11 converter.* keys EN+JA)
+- app/sitemap.ts (added /convert/ at priority 0.82)
+- STRUCTURE.md (updated tree + content counts)
+
+**SEO rationale:** "hex to rgb converter" and similar queries have very high search volume. The /convert/ page is optimized for these with descriptive title, meta description, and structured data.
+
+**Commit:** 3d571cd
+
 ## 2026-03-21 10:15 — Content & Collections: Newsletter Issues 028–030 + 2 Collections (commit 4c1bb6c)
 
 **Run type:** Normal
