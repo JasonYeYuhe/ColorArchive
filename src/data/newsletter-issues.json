@@ -867,5 +867,107 @@
         "href": "/packs/dark-mode-ui-kit"
       }
     ]
+  },
+  {
+    "slug": "may-2026-palette-constraint",
+    "date": "2026-05-07",
+    "title": "The case for limiting your palette to five colors",
+    "summary": "Unlimited color freedom produces worse palettes than deliberate constraint. The five-color ceiling is not an aesthetic preference — it is a cognitive and systems design limit. Understanding why the constraint works makes it easier to apply and defend in team settings.",
+    "eyebrow": "Issue 025",
+    "tags": ["Systems", "Brand", "Process"],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Research on working memory suggests humans can track roughly five to seven distinct items simultaneously — palettes that exceed this range push recognition out of memory and into reference lookup, which slows design decisions and increases inconsistency.",
+      "A five-color palette forces you to define a hierarchy: one dominant neutral, two supporting mid-tones, one accent, and one high-contrast utility color. This structure maps cleanly to most component libraries and reduces token sprawl.",
+      "Teams that enforce a hard palette limit ship more consistent products because designers cannot introduce new colors without explicitly retiring old ones, which makes the cost of every addition visible."
+    ],
+    "sections": [
+      {
+        "heading": "Why more colors usually means worse systems",
+        "body": "The instinct when building a brand palette is to account for every possible use case up front — backgrounds, borders, text, icons, feedback states, charts, illustrations. Each new use case seems to justify a new color. But this approach mistakes coverage for flexibility. A palette that tries to answer every question in advance becomes unnavigable in practice. Designers stop consulting the system and start adding one-off values because it is faster than finding the right swatch in a 40-color table. The result is not a palette but a color log."
+      },
+      {
+        "heading": "The five-color structure that actually holds",
+        "body": "The most durable small palettes follow a predictable structure even when that structure is not explicitly named. There is typically one dominant neutral that covers most surface area — backgrounds, large blocks, structural containers. Two supporting mid-tones carry secondary content, borders, and supporting text. One accent color does the work of drawing attention and indicating primary actions. One high-contrast utility color handles error states, critical feedback, or emphasis that the accent cannot carry. Every additional color you introduce beyond these five roles needs to justify its own cognitive slot. If it cannot be explained in one sentence as a distinct role, it is probably a variant of something that already exists."
+      },
+      {
+        "heading": "Defending the constraint in practice",
+        "body": "The most common resistance to a hard palette limit comes from illustrators, marketing teams, and data visualization engineers, all of whom have legitimate needs for richer sets. The answer is not to expand the core palette but to define a clear boundary between the system palette and domain-specific extensions. The core palette governs all product UI. Domain extensions — chart colors, illustration palettes, campaign colors — live in separate, explicitly bounded namespaces and cannot migrate into product components. This boundary preserves the navigability of the core while giving other disciplines the room they need."
+      }
+    ],
+    "links": [
+      { "label": "Browse Quiet Luxury collection", "href": "/collections/quiet-luxury" },
+      { "label": "Explore Brand Starter Kit", "href": "/packs/brand-starter-kit" },
+      { "label": "Open color archive", "href": "/colors" }
+    ]
+  },
+  {
+    "slug": "may-2026-dark-mode-saturation",
+    "date": "2026-05-14",
+    "title": "Why dark mode colors need more saturation than you think",
+    "summary": "The most common mistake in dark mode color systems is lifting light-mode colors onto dark backgrounds without adjustment. Colors that look rich and saturated on white appear washed out and gray on dark surfaces. The physics of simultaneous contrast explains why, and the fix is systematic rather than case-by-case.",
+    "eyebrow": "Issue 026",
+    "tags": ["Dark Mode", "Accessibility", "UI"],
+    "featuredCollectionId": "nocturne-tech",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "Simultaneous contrast causes the same hue to read differently depending on its surroundings — a medium blue on white reads as vivid, while the same hex value on near-black reads as dim and muted, requiring a chroma boost of roughly 15–25% to maintain perceived equivalence.",
+      "Dark mode brand colors often need to shift hue slightly as well as increase saturation — warm hues in particular tend to appear more orange and less yellow against dark backgrounds, a phenomenon caused by the Bezold-Brücke hue shift at different luminance levels.",
+      "The most robust approach is to define separate dark-mode primitive tokens rather than using opacity or filter adjustments on existing values, which produce inconsistent results across different background colors."
+    ],
+    "sections": [
+      {
+        "heading": "The simultaneous contrast problem",
+        "body": "Human color perception is not absolute — it is relational. The visual cortex interprets a color partly by comparing it to its immediate surroundings. A surface that reflects a given spectral profile will look different depending on whether it is surrounded by lighter or darker values. On a white background, a medium saturation blue competes against a bright surround, and the contrast makes it appear vivid. On a dark background, the same color has no bright surround to push against, so the eye interprets it as less saturated — closer to the dark field than it actually is. This is not a display calibration issue; it is a fundamental property of human vision."
+      },
+      {
+        "heading": "What systematic compensation looks like",
+        "body": "Rather than adjusting individual colors by eye after the fact, effective dark mode systems apply a consistent chroma offset at the token level. If your light mode primary color is 60% saturation in HSL, your dark mode primitive equivalent might be 75–85% saturation at a similar lightness, adjusted until the perceived intensity matches your light mode intent. Hue also needs attention: the Bezold-Brücke shift affects warm hues most strongly, so oranges and yellows typically need a slight hue rotation toward their respective primaries when moving from light to dark contexts. These adjustments are predictable enough to encode as formulas rather than arbitrary overrides."
+      },
+      {
+        "heading": "Building the token structure",
+        "body": "The practical implication for token architecture is that dark mode cannot be implemented purely through a layer of semantic overrides on top of a single primitive set. You need a separate dark primitive palette — a set of base color values that have been adjusted for dark context — and a semantic layer that references the correct primitive set based on the active mode. This is more upfront work than the common shortcut of applying a CSS filter or opacity to existing colors, but it produces much more consistent results and makes QA straightforward: each token has an explicit expected value in each mode, which can be tested."
+      }
+    ],
+    "links": [
+      { "label": "Browse Nocturne Tech collection", "href": "/collections/nocturne-tech" },
+      { "label": "Explore Dark Mode UI Kit", "href": "/packs/dark-mode-ui-kit" },
+      { "label": "Open contrast checker", "href": "/contrast" }
+    ]
+  },
+  {
+    "slug": "may-2026-color-naming",
+    "date": "2026-05-21",
+    "title": "Color naming is a systems design decision, not a branding exercise",
+    "summary": "How you name colors in a design system determines how teams reason about them, how documentation stays current, and how onboarding scales. Semantic names age well; descriptive names create maintenance debt. The naming strategy you choose in week one will shape token discussions for years.",
+    "eyebrow": "Issue 027",
+    "tags": ["Systems", "Tokens", "Process"],
+    "featuredCollectionId": "monochrome-studio",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "Descriptive color names — 'coral', 'slate-blue', 'warm-gray-3' — create a mapping problem: as soon as the brand color changes, every reference to the old name either becomes wrong or requires a rename cascade that touches every file that imports the token.",
+      "Semantic names — 'color-surface-primary', 'color-action-default', 'color-feedback-error' — describe the role of a color rather than its appearance, which means they survive rebrand without breaking references, and self-document their intended usage context.",
+      "The primitive/semantic split allows both: primitive tokens use descriptive names to define the raw palette, semantic tokens use role-based names for all component references — teams get clear color names at the bottom and stable API names at the top."
+    ],
+    "sections": [
+      {
+        "heading": "Why names matter more than values",
+        "body": "Most design system conversations focus on choosing the right color values — the perfect primary blue, the exact warm neutral. But the more consequential long-term decision is what to call those values. A token named 'blue-600' is semantically opaque: it tells you nothing about where it belongs or what it does, and when the brand pivots to a different blue, every downstream reference is either wrong or needs updating. A token named 'interactive-primary' tells you exactly where it belongs and survives any number of underlying color changes without requiring consumers to update anything. The name, not the value, is what the rest of the system depends on."
+      },
+      {
+        "heading": "The maintenance cost of descriptive names",
+        "body": "Descriptive names feel intuitive when the palette is first defined because they are easy to understand in isolation. The maintenance problem becomes clear over time. When a brand color shifts from warm coral to cool terracotta, a token named 'coral' is now lying — it either needs to be renamed (touching every consumer) or left misleading (creating confusion in documentation and code review). Multiply this across a full palette that evolves over several product generations and the accumulated debt becomes a significant onboarding obstacle. New team members must memorize what 'coral' actually looks like today rather than reading what the token name tells them about its purpose."
+      },
+      {
+        "heading": "A naming strategy that scales",
+        "body": "The approach that scales reliably uses a two-layer structure. The primitive layer uses concise descriptive names — these are the raw color values and can use hue-lightness shorthands like 'teal-400' or 'neutral-200'. No component should reference primitive tokens directly. The semantic layer uses role-based names structured as category-role-variant — 'surface-primary', 'action-hover', 'text-secondary'. Components only reference semantic tokens. When the brand changes, you update the mapping between semantic and primitive tokens in one place. The semantic names and all component references stay untouched. This is the approach baked into the Complete Archive token set — primitives define the color space, semantics define the vocabulary."
+      }
+    ],
+    "links": [
+      { "label": "Browse Monochrome Studio collection", "href": "/collections/monochrome-studio" },
+      { "label": "Explore Complete Archive", "href": "/packs/complete-archive" },
+      { "label": "Open color archive", "href": "/colors" }
+    ]
   }
 ]
