@@ -59,7 +59,10 @@ ColorArchive/
 │   ├── admin/orders/             # /admin/orders/ — internal order dashboard
 │   ├── analytics/                # /analytics/ — internal analytics dashboard
 │   ├── trending/                 # /trending/ — weekly trending colors
-│   └── convert/                  # /convert/ — color format converter (HEX↔RGB↔HSL↔HSB↔CMYK)
+│   ├── convert/                  # /convert/ — color format converter (HEX↔RGB↔HSL↔HSB↔CMYK)
+│   ├── palette-generator/        # /palette-generator/ — seed color → 5 harmony palettes
+│   ├── gradient/                  # /gradient/ — CSS gradient generator (linear/radial)
+│   └── packs/quiz/                # /packs/quiz/ — interactive pack recommendation quiz
 │
 ├── src/
 │   ├── components/               # "use client" UI components (one per page + shared)
@@ -124,7 +127,12 @@ ColorArchive/
 │   │   ├── admin-orders-page.tsx         # Internal orders dashboard
 │   │   ├── analytics-page.tsx            # Internal analytics dashboard
 │   │   ├── trending-page.tsx             # Weekly trending colors page
-│   │   └── color-converter-page.tsx      # Color format converter (HEX↔RGB↔HSL↔HSB↔CMYK)
+│   │   ├── color-converter-page.tsx      # Color format converter (HEX↔RGB↔HSL↔HSB↔CMYK)
+│   │   ├── palette-generator-page.tsx   # Palette generator (5 harmony types from seed color)
+│   │   ├── gradient-generator-page.tsx  # CSS gradient generator (linear/radial)
+│   │   ├── pack-quiz-page.tsx           # Interactive pack recommendation quiz
+│   │   ├── back-to-top.tsx              # Floating back-to-top button
+│   │   └── error-boundary.tsx           # Global error boundary component
 │   │
 │   ├── data/
 │   │   ├── colors.ts                     # Algorithmic generation of all 2016 colors
@@ -232,7 +240,7 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 
 ---
 
-## Content Counts (as of 2026-03-20)
+## Content Counts (as of 2026-03-21)
 
 | Content | Count |
 |---------|-------|
@@ -241,4 +249,6 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Palette packs | 7 |
 | SEO guides | 23 |
 | Newsletter issues | 31 |
-| Color families | ~12 |
+| Color families | 9 |
+| Tool pages | 8 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, quiz) |
+| i18n keys | ~700+ (EN/JA) |

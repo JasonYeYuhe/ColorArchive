@@ -32,7 +32,9 @@ interface SiteHeaderProps {
     | "/free-pack"
     | "/login"
     | "/trending"
-    | "/convert";
+    | "/convert"
+    | "/gradient"
+    | "/palette-generator";
 }
 
 interface NavItem {
@@ -67,6 +69,8 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/contrast/", labelKey: "nav.contrast" },
       { href: "/surprise/", labelKey: "nav.surprise" },
       { href: "/convert/", labelKey: "nav.convert" },
+      { href: "/palette-generator/", labelKey: "nav.paletteGenerator" },
+      { href: "/gradient/", labelKey: "nav.gradient" },
       { href: "/favorites/", labelKey: "nav.favorites" },
     ],
   },

@@ -30,6 +30,7 @@ interface ColorDetailPageProps {
   lighterCompanion: ColorRecord | null;
   darkerCompanion: ColorRecord | null;
   wcagPairings: WcagPairing[];
+  usedInCollections: { id: string; title: string }[];
 }
 
 interface PaletteEntry {
@@ -218,6 +219,7 @@ export function ColorDetailPage({
   lighterCompanion,
   darkerCompanion,
   wcagPairings,
+  usedInCollections,
 }: ColorDetailPageProps) {
   const { t } = useLocale();
   const [recentColorIds, setRecentColorIds] = useState<string[]>([]);
@@ -710,6 +712,25 @@ export function ColorDetailPage({
             </aside>
           </div>
         </section>
+
+        {usedInCollections.length > 0 && (
+          <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
+              {t("colorDetail.usedIn")}
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {usedInCollections.map((col) => (
+                <Link
+                  key={col.id}
+                  href={`/collections/${col.id}/`}
+                  className="rounded-full border border-black/8 bg-neutral-50 px-3 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
+                >
+                  {col.title}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );

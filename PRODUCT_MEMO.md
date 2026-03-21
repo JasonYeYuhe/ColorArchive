@@ -1,6 +1,6 @@
 # ColorArchive 项目备忘录
 
-最后更新：2026-03-20
+最后更新：2026-03-21
 
 ## 说明
 
@@ -45,6 +45,26 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 新增 Waitlist 页面，用静态方式承接预热期兴趣流量
 - 新增 Thanks 页面，用作支付完成后的静态回跳页面
 - 新增 Cancel 页面，用作支付取消后的静态回跳页面
+- 新增 Color Converter 页面 (/convert/)，用交互式工具承接 "hex to rgb" 类搜索流量
+- 新增 Palette Generator 页面 (/palette-generator/)，从种子色生成 5 种和谐配色方案（互补/类比/三元/分裂互补/单色系）
+- 新增 CSS Gradient Generator 页面 (/gradient/)，可视化生成线性/径向渐变 + 复制 CSS
+- 新增 Pack Quiz 页面 (/packs/quiz/)，5 题互动推荐最适合的 pack
+- 首页添加 Color of the Day 每日推荐色区块
+- Color detail 页面添加 "Appears in collections" 区块（颜色 → 集合反向链接）
+- Contrast 页面添加色盲模拟预览（Protanopia/Deuteranopia/Tritanopia）+ APCA 分数
+- Guides 页面转为客户端组件，支持实时搜索和分类筛选
+- Collections 页面添加 tag 筛选
+- About 页面添加项目统计数据展示
+- 产品包内容大幅增强：SVG 色卡板、渐变壁纸、SwiftUI/Android/Flutter/CSS-in-JS 导出、WCAG 对比度报告、AI prompt 模板、色彩心理学笔记、品牌使用指南
+- 动态定价：bundle 价格和折扣百分比从数据源计算，不再硬编码
+- Cancel 页面完成 i18n 国际化
+- 多处添加 Tailwind 导出按钮（收藏页、最近查看页、word-to-color）
+- 全局 Error Boundary、Back to top 按钮、Skip-to-content 无障碍链接
+- 搜索页支持键盘快捷键（/ 聚焦）、搜索历史、无结果建议词
+- Triadic + Split-complementary 色彩推荐
+- 单色 SVG 下载、Palette SVG 导出
+- Footer 添加 Convert + Quiz 入口
+- Autopilot ↔ Remote Control 会话协调机制（.claude/session-lock.json）
 - 整体仍保持 GitHub Pages 兼容，主站静态导出，动态能力走独立 API
 
 ## 当前已确定事项

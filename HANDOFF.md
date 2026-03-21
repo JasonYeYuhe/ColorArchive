@@ -1,8 +1,41 @@
 # Handoff — Claude Code → Codex
 
-Last updated: 2026-03-20
+Last updated: 2026-03-21
 
 ## This Session Summary
+
+### Done (Claude Code — Big Update 2.0: Tools, Content, UX, 2026-03-21)
+
+- **New tool pages (3)**:
+  - `/palette-generator/` — seed color → 5 harmony palettes (complementary, analogous, triadic, split-comp, monochromatic) with CSS/Tailwind copy
+  - `/gradient/` — CSS gradient generator (linear/radial) with angle control, color swap, randomize, copy CSS
+  - `/packs/quiz/` — 5-question interactive pack recommendation quiz with JSON-LD
+- **Product content enhancement**:
+  - 4 new content categories in download packs: SVG palette boards, gradient wallpapers, SwiftUI/Android/Flutter/CSS-in-JS exports, WCAG contrast reports, AI prompt templates, color psychology notes, brand usage guides
+  - Dynamic bundle pricing (computed from data, not hardcoded ¥4,095)
+  - Cancel page full i18n (30+ translation keys EN/JA)
+  - Session coordination lock (.claude/session-lock.json) for autopilot ↔ remote control
+- **UX improvements (~30 items)**:
+  - Color of the Day on homepage (deterministic daily hash)
+  - Color detail: "Appears in collections" reverse links, triadic + split-complementary harmonies, SVG swatch download, "Copy all" button, RGB/HSL CSS snippet
+  - Contrast page: APCA score, color blindness simulation (Protanopia/Deuteranopia/Tritanopia)
+  - Guides page: converted to client component with search + category filter
+  - Collections page: tag filter pills
+  - About page: "By the numbers" stats section
+  - Search: keyboard shortcut (/), search history, no-results suggestions
+  - Favorites/Recent: Tailwind export, CSS vars export
+  - Word-to-color: Tailwind export, word history
+  - Palette page: SVG board download
+  - Color converter: "Copy all formats" button
+  - Footer: Convert + Quiz links
+  - Surprise page: Favorite button
+  - Skip-to-content a11y link, Error boundary, Back to top button
+  - License tier display on pack detail pages
+  - Pack detail: file preview concept, quiz link from packs/free-pack pages
+  - Nav: palette-generator + gradient added to Tools group
+  - Sitemap: new routes + lastmod MARCH_21
+- All changes: typecheck passed, committed and pushed
+- Server unchanged — no deploy needed
 
 ### Done (Claude Code — i18n Round 2 + 3 new guides, 2026-03-20)
 

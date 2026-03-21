@@ -210,6 +210,31 @@ export function HeroSection({
         </div>
       </section>
 
+      {/* Color of the Day */}
+      {(() => {
+        const today = new Date();
+        const dayHash = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+        const todayColor = colors[dayHash % colors.length];
+        return (
+          <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80">
+            <div className="flex items-center gap-4 sm:gap-6">
+              <Link href={`/colors/${todayColor.id}/`} className="shrink-0">
+                <div className="h-20 w-20 rounded-2xl shadow-md transition hover:shadow-lg sm:h-24 sm:w-24" style={{ backgroundColor: todayColor.hex }} />
+              </Link>
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
+                  {t("hero.colorOfTheDay")}
+                </div>
+                <Link href={`/colors/${todayColor.id}/`} className="mt-1 block text-xl font-semibold tracking-[-0.03em] text-neutral-950 hover:underline dark:text-white sm:text-2xl">
+                  {todayColor.name}
+                </Link>
+                <div className="mt-1 font-mono text-sm text-neutral-500">{todayColor.hex} · {todayColor.hsl}</div>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
+
       {/* Below-fold sections: lazy loaded */}
       <HeroSectionBelowFold />
     </div>

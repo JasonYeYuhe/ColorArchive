@@ -142,6 +142,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.78,
     },
     {
+      url: "https://colorarchive.me/palette-generator/",
+      lastModified: MARCH_21,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: "https://colorarchive.me/gradient/",
+      lastModified: MARCH_21,
+      changeFrequency: "monthly",
+      priority: 0.82,
+    },
+    {
       url: "https://colorarchive.me/product-examples/",
       lastModified: new Date("2026-03-18"),
       changeFrequency: "weekly",

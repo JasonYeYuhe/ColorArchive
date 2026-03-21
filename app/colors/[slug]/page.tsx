@@ -13,6 +13,7 @@ import {
   getWcagPairings,
   sortColors,
 } from "@/src/lib/color-utils";
+import { collections } from "@/src/lib/collections";
 import { colors } from "@/src/data/colors";
 
 export const dynamicParams = false;
@@ -142,6 +143,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
   const lighterCompanion = getToneCompanion(colors, color, "lighter");
   const darkerCompanion = getToneCompanion(colors, color, "darker");
   const wcagPairings = getWcagPairings(colors, color, 6);
+  const usedInCollections = collections.filter((c) => c.palette.some((p) => p.id === color.id));
   const colorStructuredData = {
     "@context": "https://schema.org",
     "@type": "Thing",
@@ -223,6 +225,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
         lighterCompanion={lighterCompanion}
         darkerCompanion={darkerCompanion}
         wcagPairings={wcagPairings}
+        usedInCollections={usedInCollections}
       />
     </>
   );
