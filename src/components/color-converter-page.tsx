@@ -144,6 +144,26 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 /*  Format row                                                         */
 /* ------------------------------------------------------------------ */
 
+function CopyAllButton({ conversions }: { conversions: { hex: string; r: number; g: number; b: number; hsl: { h: number; s: number; l: number }; hsb: { h: number; s: number; b: number }; cmyk: { c: number; m: number; y: number; k: number } } }) {
+  const [copied, setCopied] = useState(false);
+  const allText = [
+    `HEX: ${conversions.hex}`,
+    `RGB: rgb(${conversions.r}, ${conversions.g}, ${conversions.b})`,
+    `HSL: hsl(${conversions.hsl.h}, ${conversions.hsl.s}%, ${conversions.hsl.l}%)`,
+    `HSB: hsb(${conversions.hsb.h}, ${conversions.hsb.s}%, ${conversions.hsb.b}%)`,
+    `CMYK: cmyk(${conversions.cmyk.c}%, ${conversions.cmyk.m}%, ${conversions.cmyk.y}%, ${conversions.cmyk.k}%)`,
+  ].join("\n");
+  return (
+    <button
+      type="button"
+      onClick={async () => { try { await navigator.clipboard.writeText(allText); setCopied(true); setTimeout(() => setCopied(false), 1500); } catch {} }}
+      className="w-full rounded-xl border border-black/8 bg-neutral-950 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100"
+    >
+      {copied ? "Copied!" : "Copy all formats"}
+    </button>
+  );
+}
+
 function FormatRow({ label, value, copyText }: { label: string; value: string; copyText: string }) {
   return (
     <div className="flex items-center justify-between gap-3 rounded-xl border border-black/6 bg-white/50 px-4 py-3 dark:border-white/8 dark:bg-white/4">
@@ -526,6 +546,9 @@ export function ColorConverterPage() {
                 value={`cmyk(${conversions.cmyk.c}%, ${conversions.cmyk.m}%, ${conversions.cmyk.y}%, ${conversions.cmyk.k}%)`}
                 copyText={`cmyk(${conversions.cmyk.c}%, ${conversions.cmyk.m}%, ${conversions.cmyk.y}%, ${conversions.cmyk.k}%)`}
               />
+
+              {/* Copy all formats */}
+              <CopyAllButton conversions={conversions} />
 
               {/* CSS snippet */}
               <div className="rounded-xl border border-black/6 bg-neutral-950/3 p-4 dark:border-white/8 dark:bg-white/3">

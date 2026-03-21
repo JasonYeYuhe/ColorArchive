@@ -61,6 +61,10 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
     () => favoriteColors.map((color, index) => `${index + 1}. ${color.name} ${color.hex}`).join("\n"),
     [favoriteColors],
   );
+  const tailwindExport = useMemo(
+    () => `@theme {\n${favoriteColors.map((color, index) => `  --color-fav-${index + 1}: ${color.hex};`).join("\n")}\n}`,
+    [favoriteColors],
+  );
   const cssVariableExport = useMemo(
     () =>
       favoriteColors
@@ -125,6 +129,7 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
                 <>
                   <CopyButton label="palette" value={paletteExport} />
                   <CopyButton label="CSS vars" value={cssVariableExport} />
+                  <CopyButton label="Tailwind" value={tailwindExport} />
                   <CopyButton label="JSON" value={jsonExport} />
                 </>
               ) : null}

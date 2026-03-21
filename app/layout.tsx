@@ -7,6 +7,7 @@ import { PageTracker } from "@/src/components/page-tracker";
 import { PaletteBuilderTray } from "@/src/components/palette-builder-tray";
 import { LocaleProvider } from "@/src/components/locale-provider";
 import { PHLaunchBanner } from "@/src/components/ph-launch-banner";
+import { BackToTop } from "@/src/components/back-to-top";
 import { ErrorBoundary } from "@/src/components/error-boundary";
 import "./globals.css";
 
@@ -117,6 +118,7 @@ export default function RootLayout({
               </ErrorBoundary>
               <SiteFooter />
               <PaletteBuilderTray />
+              <BackToTop />
               <PageTracker />
             </AuthProvider>
           </LocaleProvider>

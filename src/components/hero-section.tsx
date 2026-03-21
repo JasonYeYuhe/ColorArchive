@@ -94,6 +94,18 @@ export function HeroSection({
             >
               {t("hero.readGuides")}
             </Link>
+            <Link
+              href="/convert/"
+              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+            >
+              {t("hero.convertColors")}
+            </Link>
+            <Link
+              href="/packs/quiz/"
+              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+            >
+              {t("hero.findYourPack")}
+            </Link>
             {checkoutConfig["all-access-bundle"].url && (
               <a
                 href={checkoutConfig["all-access-bundle"].url}

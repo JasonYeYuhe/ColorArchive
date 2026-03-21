@@ -8,6 +8,7 @@ import {
   getComplementaryColor,
   getNearestColors,
   getToneCompanion,
+  getTriadicColors,
   getWcagPairings,
   sortColors,
 } from "@/src/lib/color-utils";
@@ -135,6 +136,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
   const nearestColors = getNearestColors(colors, color, 6);
   const complementaryColor = getComplementaryColor(colors, color);
   const analogousColors = getAnalogousColors(colors, color, 2);
+  const triadicColors = getTriadicColors(colors, color);
   const lighterCompanion = getToneCompanion(colors, color, "lighter");
   const darkerCompanion = getToneCompanion(colors, color, "darker");
   const wcagPairings = getWcagPairings(colors, color, 6);
@@ -213,6 +215,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
         relatedColors={relatedColors}
         nearestColors={nearestColors}
         analogousColors={analogousColors}
+        triadicColors={triadicColors}
         complementaryColor={complementaryColor}
         lighterCompanion={lighterCompanion}
         darkerCompanion={darkerCompanion}
