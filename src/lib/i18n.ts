@@ -19,6 +19,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "nav.spectrum": { en: "Spectrum", ja: "スペクトラム" },
   "nav.wordToColor": { en: "Word \u2192 Color", ja: "ワード → カラー" },
   "nav.contrast": { en: "Contrast", ja: "コントラスト" },
+  "nav.convert": { en: "Convert", ja: "変換" },
   "nav.surprise": { en: "Surprise", ja: "サプライズ" },
   "nav.favorites": { en: "Favorites", ja: "お気に入り" },
   "nav.packs": { en: "Packs", ja: "パック" },
@@ -635,6 +636,38 @@ const translations: Record<string, Record<Locale, string>> = {
   "trending.ctaDesc": { en: "ColorArchive packs include CSS variables, Figma tokens, Tailwind config, and Procreate swatches — ready for any project.", ja: "ColorArchive パックにはCSS変数、Figmaトークン、Tailwind設定、Procreateスウォッチが含まれ、どのプロジェクトにも対応。" },
   "trending.browsePacks": { en: "Browse packs", ja: "パックを見る" },
   "trending.freeDownload": { en: "Free download", ja: "無料ダウンロード" },
+
+  // Color Converter page
+  "converter.title": { en: "Color Converter", ja: "カラー変換" },
+  "converter.description": {
+    en: "Convert any color between HEX, RGB, HSL, HSB/HSV, and CMYK formats instantly. Enter a value below and all formats update in real time.",
+    ja: "HEX・RGB・HSL・HSB/HSV・CMYKの各フォーマットを即座に相互変換。値を入力するとリアルタイムで全フォーマットが更新されます。",
+  },
+  "converter.presets": { en: "Presets", ja: "プリセット" },
+  "converter.nearestColor": { en: "Nearest archive color", ja: "近傍アーカイブカラー" },
+  "converter.viewInArchive": { en: "View in archive", ja: "アーカイブで見る" },
+  "converter.invalidInput": { en: "Enter a valid color value above", ja: "有効な色の値を入力してください" },
+  "converter.aboutTitle": { en: "About color formats", ja: "カラーフォーマットについて" },
+  "converter.aboutHex": {
+    en: "A 6-digit hexadecimal code (e.g. #3A86FF) representing RGB channels. The most common format for web and design tools.",
+    ja: "RGBチャンネルを16進数6桁で表現（例：#3A86FF）。WebとデザインツールでもっともよくHTMLで使用されるフォーマット。",
+  },
+  "converter.aboutRgb": {
+    en: "Red, Green, Blue channels from 0–255. The native color model for screens and digital displays.",
+    ja: "赤・緑・青の各チャンネルを0〜255で表現。スクリーンとデジタルディスプレイのネイティブカラーモデル。",
+  },
+  "converter.aboutHsl": {
+    en: "Hue (0–360°), Saturation (0–100%), Lightness (0–100%). More intuitive for humans — easy to adjust tone or brightness.",
+    ja: "色相（0〜360°）・彩度（0〜100%）・明度（0〜100%）。人間にとって直感的で、色調や明るさの調整が容易。",
+  },
+  "converter.aboutHsb": {
+    en: "Hue, Saturation, Brightness (also called HSV). Used in design tools like Photoshop and Figma color pickers.",
+    ja: "色相・彩度・輝度（HSVとも呼ばれる）。PhotoshopやFigmaなどのデザインツールのカラーピッカーで使用。",
+  },
+  "converter.aboutCmyk": {
+    en: "Cyan, Magenta, Yellow, Key (Black) — the four-ink model for print. Converts from RGB with some gamut loss for out-of-gamut colors.",
+    ja: "シアン・マゼンタ・イエロー・キー（ブラック）の4色インクモデル。印刷用フォーマットで、RGBから変換時に色域外の色は近似。",
+  },
 
   // Common
   "common.showMore": { en: "Show more", ja: "もっと見る" },

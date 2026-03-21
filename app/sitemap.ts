@@ -93,6 +93,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: "https://colorarchive.me/convert/",
+      lastModified: MARCH_20,
+      changeFrequency: "monthly",
+      priority: 0.82,
+    },
+    {
       url: "https://colorarchive.me/contrast/",
       lastModified: MARCH_18,
       changeFrequency: "monthly",

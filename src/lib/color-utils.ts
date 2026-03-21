@@ -247,6 +247,128 @@ export function filterColors(
   });
 }
 
+/* ------------------------------------------------------------------ */
+/*  Color format conversions                                           */
+/* ------------------------------------------------------------------ */
+
+export interface HsbColor {
+  h: number; // 0–360
+  s: number; // 0–100
+  b: number; // 0–100 (brightness/value)
+}
+
+export interface CmykColor {
+  c: number; // 0–100
+  m: number; // 0–100
+  y: number; // 0–100
+  k: number; // 0–100
+}
+
+/** Parse a 3- or 6-char hex string (with or without #) into RGB. Returns null for invalid input. */
+export function hexToRgb(hex: string): RgbColor | null {
+  const cleaned = hex.replace(/^#/, "");
+  const expanded =
+    cleaned.length === 3
+      ? cleaned
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : cleaned;
+  if (!/^[0-9A-Fa-f]{6}$/.test(expanded)) return null;
+  const num = parseInt(expanded, 16);
+  return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+}
+
+/** Convert RGB (0–255) to HSL (hue 0–360, s/l 0–100). */
+export function rgbToHsl(r: number, g: number, b: number): { h: number; s: number; l: number } {
+  const rn = r / 255;
+  const gn = g / 255;
+  const bn = b / 255;
+  const max = Math.max(rn, gn, bn);
+  const min = Math.min(rn, gn, bn);
+  const delta = max - min;
+  const l = (max + min) / 2;
+
+  let h = 0;
+  let s = 0;
+
+  if (delta > 0) {
+    s = delta / (1 - Math.abs(2 * l - 1));
+    if (max === rn) h = ((gn - bn) / delta) % 6;
+    else if (max === gn) h = (bn - rn) / delta + 2;
+    else h = (rn - gn) / delta + 4;
+    h = Math.round(h * 60);
+    if (h < 0) h += 360;
+  }
+
+  return {
+    h: Math.round(h),
+    s: Math.round(s * 100),
+    l: Math.round(l * 100),
+  };
+}
+
+/** Convert RGB (0–255) to HSB/HSV (hue 0–360, s/b 0–100). */
+export function rgbToHsb(r: number, g: number, b: number): HsbColor {
+  const rn = r / 255;
+  const gn = g / 255;
+  const bn = b / 255;
+  const max = Math.max(rn, gn, bn);
+  const min = Math.min(rn, gn, bn);
+  const delta = max - min;
+
+  let h = 0;
+  if (delta > 0) {
+    if (max === rn) h = ((gn - bn) / delta) % 6;
+    else if (max === gn) h = (bn - rn) / delta + 2;
+    else h = (rn - gn) / delta + 4;
+    h = Math.round(h * 60);
+    if (h < 0) h += 360;
+  }
+
+  return {
+    h,
+    s: max === 0 ? 0 : Math.round((delta / max) * 100),
+    b: Math.round(max * 100),
+  };
+}
+
+/** Convert RGB (0–255) to CMYK (0–100). */
+export function rgbToCmyk(r: number, g: number, b: number): CmykColor {
+  const rn = r / 255;
+  const gn = g / 255;
+  const bn = b / 255;
+  const k = 1 - Math.max(rn, gn, bn);
+  if (k === 1) return { c: 0, m: 0, y: 0, k: 100 };
+  return {
+    c: Math.round(((1 - rn - k) / (1 - k)) * 100),
+    m: Math.round(((1 - gn - k) / (1 - k)) * 100),
+    y: Math.round(((1 - bn - k) / (1 - k)) * 100),
+    k: Math.round(k * 100),
+  };
+}
+
+/** Find the closest ColorRecord to an arbitrary HEX color using HSL perceptual distance. */
+export function findNearestArchiveColor(
+  colors: readonly ColorRecord[],
+  hex: string,
+): ColorRecord | null {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return null;
+  const { h, s, l } = rgbToHsl(rgb.r, rgb.g, rgb.b);
+  let best: ColorRecord | null = null;
+  let bestScore = Infinity;
+  for (const color of colors) {
+    const hueDiff = Math.min(Math.abs(color.hue - h), 360 - Math.abs(color.hue - h));
+    const score = hueDiff * 1.8 + Math.abs(color.saturation - s) * 0.7 + Math.abs(color.lightness - l) * 1.15;
+    if (score < bestScore) {
+      bestScore = score;
+      best = color;
+    }
+  }
+  return best;
+}
+
 export function getHueDistance(fromHue: number, toHue: number): number {
   const difference = Math.abs(fromHue - toHue) % 360;
   return Math.min(difference, 360 - difference);

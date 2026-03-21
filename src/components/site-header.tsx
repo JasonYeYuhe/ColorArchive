@@ -31,7 +31,8 @@ interface SiteHeaderProps {
     | "/palette"
     | "/free-pack"
     | "/login"
-    | "/trending";
+    | "/trending"
+    | "/convert";
 }
 
 interface NavItem {
@@ -65,6 +66,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/word-to-color/", labelKey: "nav.wordToColor" },
       { href: "/contrast/", labelKey: "nav.contrast" },
       { href: "/surprise/", labelKey: "nav.surprise" },
+      { href: "/convert/", labelKey: "nav.convert" },
       { href: "/favorites/", labelKey: "nav.favorites" },
     ],
   },

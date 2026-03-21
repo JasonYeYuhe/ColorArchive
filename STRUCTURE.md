@@ -58,7 +58,8 @@ ColorArchive/
 │   ├── login/                    # /login/ — magic link auth
 │   ├── admin/orders/             # /admin/orders/ — internal order dashboard
 │   ├── analytics/                # /analytics/ — internal analytics dashboard
-│   └── trending/                 # /trending/ — weekly trending colors
+│   ├── trending/                 # /trending/ — weekly trending colors
+│   └── convert/                  # /convert/ — color format converter (HEX↔RGB↔HSL↔HSB↔CMYK)
 │
 ├── src/
 │   ├── components/               # "use client" UI components (one per page + shared)
@@ -122,7 +123,8 @@ ColorArchive/
 │   │   ├── cancel-page.tsx               # Checkout cancel page
 │   │   ├── admin-orders-page.tsx         # Internal orders dashboard
 │   │   ├── analytics-page.tsx            # Internal analytics dashboard
-│   │   └── trending-page.tsx             # Weekly trending colors page
+│   │   ├── trending-page.tsx             # Weekly trending colors page
+│   │   └── color-converter-page.tsx      # Color format converter (HEX↔RGB↔HSL↔HSB↔CMYK)
 │   │
 │   ├── data/
 │   │   ├── colors.ts                     # Algorithmic generation of all 2016 colors
@@ -235,8 +237,8 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Content | Count |
 |---------|-------|
 | Colors | 2016 |
-| Collections | 5 |
+| Collections | 14 |
 | Palette packs | 7 |
-| SEO guides | 20 |
-| Newsletter issues | 25 |
+| SEO guides | 23 |
+| Newsletter issues | 31 |
 | Color families | ~12 |
