@@ -53,12 +53,14 @@ export const palettePacks: PalettePack[] = [
     checkoutNote: checkoutConfig["palette-pack-vol-1"].note,
     previewCollections: ["Quiet Luxury", "Modern Seaside", "Editorial Warmth", "Forest Terrain"],
     previewCollectionIds: ["quiet-luxury", "modern-seaside", "editorial-warmth", "forest-terrain"],
-    formatList: ["CSS variables", "Tailwind tokens", "PNG boards", "Usage notes"],
+    formatList: ["CSS variables", "Tailwind tokens", "SVG boards", "Gradient wallpapers", "SwiftUI", "Android XML", "Flutter Dart", "CSS-in-JS"],
     deliverables: [
-      "8 curated five-color palette boards",
+      "4 curated five-color palette boards (SVG)",
+      "SVG gradient wallpapers (horizontal + diagonal per collection)",
       "Copy-ready CSS variable exports",
       "Tailwind token snippets for fast setup",
-      "A short PDF-style usage guide",
+      "SwiftUI, Android XML, Flutter Dart, and CSS-in-JS token exports",
+      "A short usage guide with color role assignments",
     ],
     faqs: [
       {
@@ -130,12 +132,15 @@ export const palettePacks: PalettePack[] = [
     checkoutNote: checkoutConfig["brand-starter-kit"].note,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Orchid Bloom", "Nordic Frost"],
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "orchid-bloom", "nordic-frost"],
-    formatList: ["Brand palette sets", "Light/dark pairings", "Landing-page presets", "Export tokens"],
+    formatList: ["Brand palette sets", "Light/dark pairings", "Landing-page presets", "Export tokens", "Brand guides", "Psychology notes", "Mobile tokens"],
     deliverables: [
       "Primary, secondary, and accent palette groups",
       "Light/dark interface pairings",
       "CTA and campaign accent recommendations",
       "Export-ready token sheets",
+      "Brand usage guides per collection (primary/secondary/accent roles, do/don't rules)",
+      "Color psychology notes with mood and cultural associations",
+      "SwiftUI, Android XML, Flutter Dart, and CSS-in-JS token exports",
     ],
     faqs: [
       {
@@ -197,12 +202,14 @@ export const palettePacks: PalettePack[] = [
     checkoutNote: checkoutConfig["content-creator-bundle"].note,
     previewCollections: ["Modern Seaside", "Orchid Bloom", "Candy Pop"],
     previewCollectionIds: ["modern-seaside", "orchid-bloom", "candy-pop"],
-    formatList: ["Social palette cards", "Wallpaper assets", "Prompt-ready color sets", "Mini guide"],
+    formatList: ["SVG boards", "Gradient wallpapers", "AI prompts", "Psychology notes", "Brand guides", "Prompt-ready color sets"],
     deliverables: [
-      "Social-ready palette boards",
-      "Wallpaper and background color sets",
-      "Prompt-friendly descriptive palette text",
-      "Mini usage guide for content workflows",
+      "SVG palette boards per collection (visual color cards)",
+      "SVG gradient wallpapers (horizontal + diagonal per collection)",
+      "AI prompt templates per palette (3 ready-to-use prompts)",
+      "Color psychology notes with mood and cultural associations",
+      "Brand usage guides with primary/secondary/accent role assignments",
+      "Prompt-friendly descriptive palette text for content workflows",
     ],
     faqs: [
       {
@@ -264,7 +271,7 @@ export const palettePacks: PalettePack[] = [
     checkoutNote: checkoutConfig["complete-archive"].note,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Sunset Boulevard", "Neon After Dark"],
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "neon-after-dark"],
-    formatList: ["CSS variables", "Tailwind tokens", "Figma tokens", "Style Dictionary", "SCSS maps"],
+    formatList: ["CSS variables", "Tailwind tokens", "Figma tokens", "Style Dictionary", "SCSS maps", "SwiftUI", "Android XML", "Flutter Dart", "CSS-in-JS", "Contrast reports"],
     deliverables: [
       "All 2016 colors in CSS variable format",
       "Complete Tailwind CSS 4 theme tokens",
@@ -272,6 +279,12 @@ export const palettePacks: PalettePack[] = [
       "Style Dictionary token JSON for build pipelines",
       "Structured JSON with hex, HSL, RGB for every color",
       "SCSS color maps organized by hue family",
+      "SwiftUI Color extensions for iOS development",
+      "Android colors.xml resource file",
+      "Flutter Dart color constants",
+      "CSS-in-JS theme object (styled-components / emotion)",
+      "WCAG contrast ratio matrix for all collections (JSON + Markdown)",
+      "AA/AAA compliance reports with recommended text/background combos",
     ],
     faqs: [
       {
@@ -353,11 +366,13 @@ export const palettePacks: PalettePack[] = [
     checkoutNote: checkoutConfig["dark-mode-ui-kit"].note,
     previewCollections: ["Nocturne Tech", "Nordic Frost", "Monochrome Studio"],
     previewCollectionIds: ["nocturne-tech", "nordic-frost", "monochrome-studio"],
-    formatList: ["Light/dark CSS pairs", "Tailwind dark mode tokens", "JSON paired data", "Usage guide"],
+    formatList: ["Light/dark CSS pairs", "Tailwind dark mode tokens", "JSON paired data", "Contrast matrix", "WCAG reports", "Usage guide"],
     deliverables: [
       "Paired light and dark mode CSS variable sets",
       "Tailwind CSS 4 dark mode theme tokens",
       "JSON export with light/dark value pairs for every color",
+      "WCAG contrast ratio matrix for all color pairs (JSON)",
+      "AA/AAA compliance report with recommended text/background combos (Markdown)",
       "Usage guide with contrast ratio annotations",
     ],
     faqs: [
@@ -488,20 +503,23 @@ export const palettePacks: PalettePack[] = [
     checkoutNote: checkoutConfig["all-access-bundle"].note,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Sunset Boulevard", "Matcha & Linen"],
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "matcha-linen"],
-    formatList: ["CSS variables", "Tailwind tokens", "Figma tokens", "SCSS maps", "JSON data", "Dark mode pairs", "Seasonal tokens"],
+    formatList: ["CSS variables", "Tailwind tokens", "Figma tokens", "SCSS maps", "JSON data", "Dark mode pairs", "Seasonal tokens", "SVG boards", "Mobile tokens", "Contrast reports", "AI prompts"],
     deliverables: [
       "Everything from all 6 individual packs combined",
       "All 2016 colors in CSS, Tailwind, Figma, SCSS, and JSON formats",
       "Light/dark mode paired token sets",
       "Seasonal spring palettes with mood board notes",
-      "Social-ready palette boards and prompt-friendly descriptions",
-      "Brand system starter with primary/secondary/accent groupings",
+      "SVG palette boards and gradient wallpapers for every collection",
+      "SwiftUI, Android XML, Flutter Dart, and CSS-in-JS token exports",
+      "WCAG contrast reports for all collections (JSON + Markdown)",
+      "AI prompt templates and color psychology notes per collection",
+      "Brand usage guides with role assignments and application rules",
     ],
     faqs: [
       {
         question: "What's included compared to buying packs separately?",
         answer:
-          "You get every file from all 6 packs in a single download. Buying individually costs ¥4,095 — the bundle saves you 32%.",
+          "You get every file from all 6 packs in a single download. Buying individually costs {INDIVIDUAL_TOTAL} — the bundle saves you {SAVINGS_PCT}%.",
       },
       {
         question: "Will future seasonal packs be included?",
@@ -550,3 +568,22 @@ export const palettePacks: PalettePack[] = [
       "All 6 packs in one bundle at 32% off. The simplest way to get everything ColorArchive offers.",
   },
 ];
+
+export function parsePriceYen(priceHint: string): number {
+  return Number(priceHint.replace(/[^\d]/g, ""));
+}
+
+export function computeBundleSavings(): {
+  individualTotal: number;
+  bundlePrice: number;
+  savings: number;
+  savingsPct: number;
+} {
+  const bundle = palettePacks.find((p) => p.id === "all-access-bundle")!;
+  const individuals = palettePacks.filter((p) => p.id !== "all-access-bundle");
+  const individualTotal = individuals.reduce((sum, p) => sum + parsePriceYen(p.priceHint), 0);
+  const bundlePrice = parsePriceYen(bundle.priceHint);
+  const savings = individualTotal - bundlePrice;
+  const savingsPct = Math.round((savings / individualTotal) * 100);
+  return { individualTotal, bundlePrice, savings, savingsPct };
+}

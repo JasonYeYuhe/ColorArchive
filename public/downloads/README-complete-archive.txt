@@ -15,6 +15,11 @@ FORMATS INCLUDED
 - Framer design tokens CSS (complete-archive-framer-tokens.css)
 - Figma / Tokens Studio JSON — nested by family (complete-archive-figma-tokens.json)
 - Style Dictionary tokens (complete-archive-style-dictionary.json)
+- SwiftUI Color extension (complete-archive-swiftui.swift)
+- Android colors.xml resource (complete-archive-colors.xml)
+- Flutter Dart color constants (complete-archive-colors.dart)
+- CSS-in-JS theme object (complete-archive-theme.js)
+- WCAG contrast reports for all collections
 
 COLOR NAMING
 Each color follows the pattern: {hue}-{lightness}-{chroma}
@@ -25,5 +30,9 @@ USAGE
 - Tailwind: paste the @theme block into your config
 - JSON: import for programmatic access or design tool integration
 - SCSS: @use the maps and access colors via map-get()
+- SwiftUI: add the .swift file to your Xcode project
+- Android: copy colors.xml to res/values/
+- Flutter: import the .dart file
+- CSS-in-JS: import { caTheme } from the .js file
 
 — ColorArchive · https://colorarchive.me

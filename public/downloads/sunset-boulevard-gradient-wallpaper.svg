@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+<defs><linearGradient id="g-sunset-boulevard" x1="0%" y1="50%" x2="100%" y2="50%"><stop offset="0%" stop-color="#E3C2A1"/>
+<stop offset="25%" stop-color="#D9CB81"/>
+<stop offset="50%" stop-color="#B26F62"/>
+<stop offset="75%" stop-color="#E4C8DB"/>
+<stop offset="100%" stop-color="#D06287"/></linearGradient></defs>
+<rect width="1920" height="1080" fill="url(#g-sunset-boulevard)"/>
+</svg>

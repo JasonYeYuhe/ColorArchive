@@ -672,6 +672,38 @@ const translations: Record<string, Record<Locale, string>> = {
   // Common
   "common.showMore": { en: "Show more", ja: "もっと見る" },
   "common.loading": { en: "Loading…", ja: "読み込み中…" },
+
+  // Cancel page
+  "cancel.badge": { en: "Checkout cancelled", ja: "チェックアウトキャンセル" },
+  "cancel.title": { en: "No charge went through. You still have three strong paths.", ja: "請求は発生していません。3つの選択肢があります。" },
+  "cancel.subtitle": { en: "If price, timing, or uncertainty stopped the order, do not start over from zero. You can come back lighter with the starter pack, use the free layer first, or jump straight to the best-value bundle.", ja: "価格、タイミング、または不安が注文を止めた場合、最初からやり直す必要はありません。スターターパックから軽く始めるか、まず無料版を試すか、最高コスパのバンドルに直接進んでください。" },
+  "cancel.discount.label": { en: "Still thinking? Here's a discount", ja: "まだ迷っていますか？割引があります" },
+  "cancel.discount.title": { en: "10% off your first pack", ja: "初回パック10%割引" },
+  "cancel.discount.note": { en: "at checkout. The button below preloads it for the starter pack, and the same code works on any other pack too.", ja: "チェックアウト時に適用。下のボタンでスターターパックに自動適用、他のパックにも使えます。" },
+  "cancel.discount.useCode": { en: "Use code", ja: "コードを使用" },
+  "cancel.discount.cta": { en: "Browse all packs", ja: "全パックを見る" },
+  "cancel.starter.label": { en: "Lowest-friction paid path", ja: "最も手軽な有料パス" },
+  "cancel.free.label": { en: "Zero-risk path", ja: "ゼロリスクのパス" },
+  "cancel.free.title": { en: "Free Sample Pack", ja: "無料サンプルパック" },
+  "cancel.free.price": { en: "Free", ja: "無料" },
+  "cancel.free.desc": { en: "If you need proof before paying, start with the free layer. It shows the file style, product quality, and the free-to-paid upgrade path without asking for money first.", ja: "購入前に確認したい方は、まず無料版をどうぞ。ファイルスタイル、品質、無料から有料へのアップグレードパスを確認できます。" },
+  "cancel.free.cta": { en: "Get the free pack", ja: "無料パックを入手" },
+  "cancel.free.proof": { en: "View product proof", ja: "製品証明を見る" },
+  "cancel.bundle.label": { en: "Best value", ja: "最高コスパ" },
+  "cancel.bundle.cta": { en: "Get the bundle", ja: "バンドルを入手" },
+  "cancel.bundle.details": { en: "See what is inside", ja: "内容を確認" },
+  "cancel.starter.cta": { en: "Review details", ja: "詳細を確認" },
+  "cancel.nextSteps.label": { en: "Next actions", ja: "次のアクション" },
+  "cancel.nextSteps.1": { en: "Review one pack page carefully instead of reopening the whole catalog without context.", ja: "文脈なしにカタログ全体を開き直すのではなく、1つのパックページをじっくり確認する。" },
+  "cancel.nextSteps.2": { en: "Use the free sample if trust is the blocker, not the product itself.", ja: "製品への不信ではなく、信頼が障壁なら、無料サンプルを使う。" },
+  "cancel.nextSteps.3": { en: "Use FIRSTPACK on the starter lane if price is the blocker and you want the fastest paid path.", ja: "価格が障壁で最速の有料パスを望む場合、スターターパックにFIRSTPACKを使う。" },
+  "cancel.nextSteps.4": { en: "Open the bundle page if you were comparing multiple packs and decision fatigue slowed you down.", ja: "複数パックを比較して決断疲れが生じた場合は、バンドルページを開く。" },
+  "cancel.questions.label": { en: "Questions before buying", ja: "購入前の質問" },
+  "cancel.questions.desc": { en: "If something felt unclear, the fastest way to fix drop-off is to answer the exact objection: file contents, use case, license, or support expectations.", ja: "何か不明な点があれば、ファイル内容、用途、ライセンス、サポートに関する疑問を解消することが最善です。" },
+  "cancel.questions.compareAll": { en: "Compare all packs", ja: "全パックを比較" },
+  "cancel.questions.freeSample": { en: "Free sample", ja: "無料サンプル" },
+  "cancel.questions.proof": { en: "Product proof", ja: "製品証明" },
+  "cancel.questions.support": { en: "Support & licensing", ja: "サポート・ライセンス" },
 };
 
 export function t(key: string, locale: Locale): string {

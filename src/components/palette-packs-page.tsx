@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
 import { useLocale } from "@/src/components/locale-provider";
 import { landingGuides } from "@/src/lib/guides";
-import type { PalettePack } from "@/src/lib/palette-packs";
+import { computeBundleSavings, type PalettePack } from "@/src/lib/palette-packs";
 
 interface PalettePacksPageProps {
   packs: readonly PalettePack[];
@@ -58,14 +58,14 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
         {(() => {
           const bundle = packs.find((p) => p.id === "all-access-bundle");
           if (!bundle) return null;
-          const individualTotal = "¥4,095";
+          const { individualTotal, savingsPct } = computeBundleSavings();
           return (
             <section className="rounded-[1.75rem] border border-emerald-300/40 bg-gradient-to-br from-emerald-50/80 to-white/90 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)] backdrop-blur-xl dark:from-emerald-950/30 dark:to-neutral-900/80 dark:border-emerald-700/30">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:border-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
-                      {t("packs.save32")}
+                      Save {savingsPct}%
                     </span>
                     <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                       {t("packs.bestValue")}
@@ -75,7 +75,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                     {bundle.title}
                   </h2>
                   <p className="mt-2 max-w-xl text-sm leading-6 text-neutral-600 dark:text-neutral-400">
-                    {t("packs.bundleDesc")} <span className="line-through">{individualTotal}</span>{" → "}
+                    {t("packs.bundleDesc")} <span className="line-through">¥{individualTotal.toLocaleString()}</span>{" → "}
                     <span className="font-semibold text-emerald-700 dark:text-emerald-400">{bundle.priceHint}</span>
                   </p>
                 </div>

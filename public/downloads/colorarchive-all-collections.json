@@ -502,5 +502,89 @@
         "hsl": "hsl(70, 34%, 94%)"
       }
     ]
+  },
+  {
+    "id": "terracotta-loft",
+    "title": "Terracotta Loft",
+    "summary": "Warm clay, rust, and fired earth tones for interior design, architecture, and artisan lifestyle brands.",
+    "tags": [
+      "Warm",
+      "Architecture",
+      "Artisan"
+    ],
+    "palette": [
+      {
+        "id": "coral-velvet-soft",
+        "name": "Coral Velvet Soft",
+        "hex": "#906B47",
+        "hsl": "hsl(30, 34%, 42%)"
+      },
+      {
+        "id": "ember-dusk-muted",
+        "name": "Ember Dusk Muted",
+        "hex": "#665147",
+        "hsl": "hsl(20, 18%, 34%)"
+      },
+      {
+        "id": "ruby-shadow-muted",
+        "name": "Ruby Shadow Muted",
+        "hex": "#543F3B",
+        "hsl": "hsl(10, 18%, 28%)"
+      },
+      {
+        "id": "amber-tone-soft",
+        "name": "Amber Tone Soft",
+        "hex": "#BCB076",
+        "hsl": "hsl(50, 34%, 60%)"
+      },
+      {
+        "id": "honey-silk-muted",
+        "name": "Honey Silk Muted",
+        "hex": "#B7BC9F",
+        "hsl": "hsl(70, 18%, 68%)"
+      }
+    ]
+  },
+  {
+    "id": "ocean-abyss",
+    "title": "Ocean Abyss",
+    "summary": "Deep-sea blues, teal depths, and bioluminescent accents for fintech, data, and technical product work.",
+    "tags": [
+      "Dark",
+      "Fintech",
+      "Data"
+    ],
+    "palette": [
+      {
+        "id": "teal-shadow-clear",
+        "name": "Teal Shadow Clear",
+        "hex": "#216E54",
+        "hsl": "hsl(160, 54%, 28%)"
+      },
+      {
+        "id": "aqua-dusk-soft",
+        "name": "Aqua Dusk Soft",
+        "hex": "#397474",
+        "hsl": "hsl(180, 34%, 34%)"
+      },
+      {
+        "id": "cerulean-nocturne-soft",
+        "name": "Cerulean Nocturne Soft",
+        "hex": "#223F44",
+        "hsl": "hsl(190, 34%, 20%)"
+      },
+      {
+        "id": "lagoon-silk-vivid",
+        "name": "Lagoon Silk Vivid",
+        "hex": "#71EAD6",
+        "hsl": "hsl(170, 74%, 68%)"
+      },
+      {
+        "id": "cobalt-velvet-clear",
+        "name": "Cobalt Velvet Clear",
+        "hex": "#3158A5",
+        "hsl": "hsl(220, 54%, 42%)"
+      }
+    ]
   }
 ]

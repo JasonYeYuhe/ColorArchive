@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ColorArchive — Nordic Frost -->
+<!-- Auto-generated — do not edit -->
+<resources>
+    <color name="ca_azure_mist_muted">#E1E7EA</color> <!-- Azure Mist Muted -->
+    <color name="ca_cerulean_whisper_soft">#EAF3F5</color> <!-- Cerulean Whisper Soft -->
+    <color name="ca_sapphire_pearl_muted">#CFD6DE</color> <!-- Sapphire Pearl Muted -->
+    <color name="ca_iris_veil_muted">#F9F9FB</color> <!-- Iris Veil Muted -->
+    <color name="ca_cobalt_bloom_soft">#ADBBD7</color> <!-- Cobalt Bloom Soft -->
+</resources>

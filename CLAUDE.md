@@ -49,3 +49,56 @@ Tailwind CSS 4 with utility-first classes. Key design patterns:
 ### Static Export Notes
 
 `next.config.ts` sets `output: "export"` and `trailingSlash: true`. Next.js image optimization is disabled (`unoptimized: true`). The built site goes to `out/` and is deployed via `.github/workflows/deploy-pages.yml` on push to `main`.
+
+## Session Coordination (Autopilot ↔ Remote Control)
+
+This repo uses **two concurrent Claude Code session types** that must not run simultaneously:
+- **Autopilot**: Automated scheduled runs (prefixed `[autopilot]`)
+- **Remote Control**: Human-driven interactive sessions
+
+Coordination uses `.claude/session-lock.json`. **Every session MUST follow this protocol:**
+
+### Before starting any work
+
+1. Read `.claude/session-lock.json`
+2. If `active` is not `null` and `lockedBy` is a different session type → **STOP. Do not proceed.** Print a message like: "⏸ Session locked by {lockedBy} since {lockedAt}. Waiting." and exit without making changes.
+3. If `active` is `null` → acquire the lock by writing your session type.
+
+### Acquiring the lock
+
+Write `.claude/session-lock.json` with:
+```json
+{
+  "active": true,
+  "lockedBy": "autopilot" or "remote",
+  "lockedAt": "<ISO timestamp>",
+  "message": "<brief description of what you're doing>"
+}
+```
+
+### Releasing the lock — AUTOMATIC
+
+**Every session MUST automatically release the lock after its final commit+push.** This is not optional — do it immediately after pushing, before ending the session. Reset `.claude/session-lock.json` to:
+```json
+{
+  "active": null,
+  "lockedBy": null,
+  "lockedAt": null,
+  "message": null
+}
+```
+Then commit and push this file together with your work, or as a separate small commit right after.
+
+### Rules by session type
+
+**Autopilot sessions:**
+- MUST check the lock FIRST before doing anything
+- If locked by "remote" → do nothing, exit gracefully, make zero changes
+- When starting, write lock with `"lockedBy": "autopilot"` and `"message"` describing the planned run
+- After commit+push → **automatically** release the lock (write null values + commit+push)
+
+**Remote Control sessions:**
+- MUST check the lock FIRST before doing anything
+- If locked by "autopilot" → inform user: "⚠️ Autopilot is currently running: {message}. Please wait for it to finish or manually clear `.claude/session-lock.json`."
+- When starting, write lock with `"lockedBy": "remote"`
+- After commit+push → **automatically** release the lock (write null values + commit+push)

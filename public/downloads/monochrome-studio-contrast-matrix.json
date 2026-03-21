@@ -1,0 +1,230 @@
+{
+  "collection": "Monochrome Studio",
+  "id": "monochrome-studio",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Honey Whisper Muted",
+        "hex": "#F2F2ED"
+      },
+      "color2": {
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA"
+      },
+      "ratio": 1.11,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Honey Whisper Muted",
+        "hex": "#F2F2ED"
+      },
+      "color2": {
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F"
+      },
+      "ratio": 1.77,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Honey Whisper Muted",
+        "hex": "#F2F2ED"
+      },
+      "color2": {
+        "name": "Cobalt Dusk Muted",
+        "hex": "#475166"
+      },
+      "ratio": 7.09,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Honey Whisper Muted",
+        "hex": "#F2F2ED"
+      },
+      "color2": {
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F"
+      },
+      "ratio": 14.45,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA"
+      },
+      "color2": {
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F"
+      },
+      "ratio": 1.59,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA"
+      },
+      "color2": {
+        "name": "Cobalt Dusk Muted",
+        "hex": "#475166"
+      },
+      "ratio": 6.38,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA"
+      },
+      "color2": {
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F"
+      },
+      "ratio": 13,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F"
+      },
+      "color2": {
+        "name": "Cobalt Dusk Muted",
+        "hex": "#475166"
+      },
+      "ratio": 4.02,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F"
+      },
+      "color2": {
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F"
+      },
+      "ratio": 8.18,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Cobalt Dusk Muted",
+        "hex": "#475166"
+      },
+      "color2": {
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F"
+      },
+      "ratio": 2.04,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Honey Whisper Muted",
+      "hex": "#F2F2ED",
+      "ratio": 1.12,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Azure Mist Muted",
+      "hex": "#E1E7EA",
+      "ratio": 1.25,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Olive Silk Muted",
+      "hex": "#B2BC9F",
+      "ratio": 1.98,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Cobalt Dusk Muted",
+      "hex": "#475166",
+      "ratio": 7.96,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Merlot Ink Muted",
+      "hex": "#2A1D1F",
+      "ratio": 16.23,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Honey Whisper Muted",
+      "hex": "#F2F2ED",
+      "ratio": 18.7,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Azure Mist Muted",
+      "hex": "#E1E7EA",
+      "ratio": 16.82,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Olive Silk Muted",
+      "hex": "#B2BC9F",
+      "ratio": 10.59,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Cobalt Dusk Muted",
+      "hex": "#475166",
+      "ratio": 2.64,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Merlot Ink Muted",
+      "hex": "#2A1D1F",
+      "ratio": 1.29,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ]
+}

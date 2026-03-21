@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+<defs><linearGradient id="g-forest-terrain" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#93AB87"/>
+<stop offset="25%" stop-color="#437439"/>
+<stop offset="50%" stop-color="#B2BC9F"/>
+<stop offset="75%" stop-color="#908347"/>
+<stop offset="100%" stop-color="#50543B"/></linearGradient></defs>
+<rect width="1920" height="1080" fill="url(#g-forest-terrain)"/>
+</svg>

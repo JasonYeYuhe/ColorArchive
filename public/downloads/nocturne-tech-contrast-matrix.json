@@ -1,0 +1,230 @@
+{
+  "collection": "Nocturne Tech",
+  "id": "nocturne-tech",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Indigo Ink Muted",
+        "hex": "#1D1F2A"
+      },
+      "color2": {
+        "name": "Violet Dusk Clear",
+        "hex": "#372886"
+      },
+      "ratio": 1.41,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Indigo Ink Muted",
+        "hex": "#1D1F2A"
+      },
+      "color2": {
+        "name": "Cobalt Core Vivid",
+        "hex": "#205CD5"
+      },
+      "ratio": 2.77,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Indigo Ink Muted",
+        "hex": "#1D1F2A"
+      },
+      "color2": {
+        "name": "Fuchsia Radiant Vivid",
+        "hex": "#E133E1"
+      },
+      "ratio": 4.5,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Indigo Ink Muted",
+        "hex": "#1D1F2A"
+      },
+      "color2": {
+        "name": "Aqua Bloom Soft",
+        "hex": "#ADD7D7"
+      },
+      "ratio": 10.52,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Violet Dusk Clear",
+        "hex": "#372886"
+      },
+      "color2": {
+        "name": "Cobalt Core Vivid",
+        "hex": "#205CD5"
+      },
+      "ratio": 1.96,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Violet Dusk Clear",
+        "hex": "#372886"
+      },
+      "color2": {
+        "name": "Fuchsia Radiant Vivid",
+        "hex": "#E133E1"
+      },
+      "ratio": 3.18,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Violet Dusk Clear",
+        "hex": "#372886"
+      },
+      "color2": {
+        "name": "Aqua Bloom Soft",
+        "hex": "#ADD7D7"
+      },
+      "ratio": 7.45,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Cobalt Core Vivid",
+        "hex": "#205CD5"
+      },
+      "color2": {
+        "name": "Fuchsia Radiant Vivid",
+        "hex": "#E133E1"
+      },
+      "ratio": 1.62,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Cobalt Core Vivid",
+        "hex": "#205CD5"
+      },
+      "color2": {
+        "name": "Aqua Bloom Soft",
+        "hex": "#ADD7D7"
+      },
+      "ratio": 3.79,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Fuchsia Radiant Vivid",
+        "hex": "#E133E1"
+      },
+      "color2": {
+        "name": "Aqua Bloom Soft",
+        "hex": "#ADD7D7"
+      },
+      "ratio": 2.34,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Indigo Ink Muted",
+      "hex": "#1D1F2A",
+      "ratio": 16.38,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Violet Dusk Clear",
+      "hex": "#372886",
+      "ratio": 11.6,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Cobalt Core Vivid",
+      "hex": "#205CD5",
+      "ratio": 5.91,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Fuchsia Radiant Vivid",
+      "hex": "#E133E1",
+      "ratio": 3.64,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Aqua Bloom Soft",
+      "hex": "#ADD7D7",
+      "ratio": 1.56,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Indigo Ink Muted",
+      "hex": "#1D1F2A",
+      "ratio": 1.28,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Violet Dusk Clear",
+      "hex": "#372886",
+      "ratio": 1.81,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Cobalt Core Vivid",
+      "hex": "#205CD5",
+      "ratio": 3.55,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Fuchsia Radiant Vivid",
+      "hex": "#E133E1",
+      "ratio": 5.76,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Aqua Bloom Soft",
+      "hex": "#ADD7D7",
+      "ratio": 13.48,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    }
+  ]
+}

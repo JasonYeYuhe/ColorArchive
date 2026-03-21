@@ -9,8 +9,11 @@ FORMATS
 - CSS variables with brand-role annotations
 - JSON data export
 - Tailwind CSS 4 theme tokens
-- Full archive export (all 8 collections)
+- Full archive export (all collections)
 - Usage notes with application guidance
+- Brand usage guides (per collection)
+- Color psychology notes
+- SwiftUI / Android XML / Flutter Dart / CSS-in-JS tokens
 
 BRAND APPLICATION
   -1 = Primary (backgrounds, hero surfaces)

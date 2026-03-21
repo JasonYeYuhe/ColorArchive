@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+<rect width="1200" height="400" fill="#fafaf9"/>
+<rect x="0" y="0" width="240" height="340" fill="#906B47"/>
+<text x="120" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Coral Velvet Soft</text>
+<text x="120" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#906B47</text>
+<rect x="240" y="0" width="240" height="340" fill="#665147"/>
+<text x="360" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Ember Dusk Muted</text>
+<text x="360" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#665147</text>
+<rect x="480" y="0" width="240" height="340" fill="#543F3B"/>
+<text x="600" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Ruby Shadow Muted</text>
+<text x="600" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#543F3B</text>
+<rect x="720" y="0" width="240" height="340" fill="#BCB076"/>
+<text x="840" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Amber Tone Soft</text>
+<text x="840" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#BCB076</text>
+<rect x="960" y="0" width="240" height="340" fill="#B7BC9F"/>
+<text x="1080" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Honey Silk Muted</text>
+<text x="1080" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#B7BC9F</text>
+<text x="600" y="398" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#aaa">Terracotta Loft — ColorArchive</text>
+</svg>

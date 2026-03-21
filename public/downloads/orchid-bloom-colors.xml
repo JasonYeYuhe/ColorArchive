@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ColorArchive — Orchid Bloom -->
+<!-- Auto-generated — do not edit -->
+<resources>
+    <color name="ca_orchid_bloom_clear">#B7A1E3</color> <!-- Orchid Bloom Clear -->
+    <color name="ca_plum_radiant_clear">#8A4AC9</color> <!-- Plum Radiant Clear -->
+    <color name="ca_peony_bloom_vivid">#EF95E0</color> <!-- Peony Bloom Vivid -->
+    <color name="ca_rose_core_soft">#A45188</color> <!-- Rose Core Soft -->
+    <color name="ca_mint_whisper_muted">#EDF2EE</color> <!-- Mint Whisper Muted -->
+</resources>

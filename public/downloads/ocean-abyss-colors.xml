@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ColorArchive — Ocean Abyss -->
+<!-- Auto-generated — do not edit -->
+<resources>
+    <color name="ca_teal_shadow_clear">#216E54</color> <!-- Teal Shadow Clear -->
+    <color name="ca_aqua_dusk_soft">#397474</color> <!-- Aqua Dusk Soft -->
+    <color name="ca_cerulean_nocturne_soft">#223F44</color> <!-- Cerulean Nocturne Soft -->
+    <color name="ca_lagoon_silk_vivid">#71EAD6</color> <!-- Lagoon Silk Vivid -->
+    <color name="ca_cobalt_velvet_clear">#3158A5</color> <!-- Cobalt Velvet Clear -->
+</resources>

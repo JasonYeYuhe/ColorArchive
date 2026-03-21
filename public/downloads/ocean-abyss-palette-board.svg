@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+<rect width="1200" height="400" fill="#fafaf9"/>
+<rect x="0" y="0" width="240" height="340" fill="#216E54"/>
+<text x="120" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Teal Shadow Clear</text>
+<text x="120" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#216E54</text>
+<rect x="240" y="0" width="240" height="340" fill="#397474"/>
+<text x="360" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Aqua Dusk Soft</text>
+<text x="360" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#397474</text>
+<rect x="480" y="0" width="240" height="340" fill="#223F44"/>
+<text x="600" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Cerulean Nocturne Soft</text>
+<text x="600" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#223F44</text>
+<rect x="720" y="0" width="240" height="340" fill="#71EAD6"/>
+<text x="840" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Lagoon Silk Vivid</text>
+<text x="840" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#71EAD6</text>
+<rect x="960" y="0" width="240" height="340" fill="#3158A5"/>
+<text x="1080" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Cobalt Velvet Clear</text>
+<text x="1080" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#3158A5</text>
+<text x="600" y="398" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#aaa">Ocean Abyss — ColorArchive</text>
+</svg>

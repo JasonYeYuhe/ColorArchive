@@ -1,0 +1,230 @@
+{
+  "collection": "Ocean Abyss",
+  "id": "ocean-abyss",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Teal Shadow Clear",
+        "hex": "#216E54"
+      },
+      "color2": {
+        "name": "Aqua Dusk Soft",
+        "hex": "#397474"
+      },
+      "ratio": 1.15,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Teal Shadow Clear",
+        "hex": "#216E54"
+      },
+      "color2": {
+        "name": "Cerulean Nocturne Soft",
+        "hex": "#223F44"
+      },
+      "ratio": 1.84,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Teal Shadow Clear",
+        "hex": "#216E54"
+      },
+      "color2": {
+        "name": "Lagoon Silk Vivid",
+        "hex": "#71EAD6"
+      },
+      "ratio": 4.22,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Teal Shadow Clear",
+        "hex": "#216E54"
+      },
+      "color2": {
+        "name": "Cobalt Velvet Clear",
+        "hex": "#3158A5"
+      },
+      "ratio": 1.12,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Aqua Dusk Soft",
+        "hex": "#397474"
+      },
+      "color2": {
+        "name": "Cerulean Nocturne Soft",
+        "hex": "#223F44"
+      },
+      "ratio": 2.11,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Aqua Dusk Soft",
+        "hex": "#397474"
+      },
+      "color2": {
+        "name": "Lagoon Silk Vivid",
+        "hex": "#71EAD6"
+      },
+      "ratio": 3.68,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Aqua Dusk Soft",
+        "hex": "#397474"
+      },
+      "color2": {
+        "name": "Cobalt Velvet Clear",
+        "hex": "#3158A5"
+      },
+      "ratio": 1.28,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Cerulean Nocturne Soft",
+        "hex": "#223F44"
+      },
+      "color2": {
+        "name": "Lagoon Silk Vivid",
+        "hex": "#71EAD6"
+      },
+      "ratio": 7.75,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Cerulean Nocturne Soft",
+        "hex": "#223F44"
+      },
+      "color2": {
+        "name": "Cobalt Velvet Clear",
+        "hex": "#3158A5"
+      },
+      "ratio": 1.65,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Lagoon Silk Vivid",
+        "hex": "#71EAD6"
+      },
+      "color2": {
+        "name": "Cobalt Velvet Clear",
+        "hex": "#3158A5"
+      },
+      "ratio": 4.7,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Teal Shadow Clear",
+      "hex": "#216E54",
+      "ratio": 6.13,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Aqua Dusk Soft",
+      "hex": "#397474",
+      "ratio": 5.35,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Cerulean Nocturne Soft",
+      "hex": "#223F44",
+      "ratio": 11.28,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Lagoon Silk Vivid",
+      "hex": "#71EAD6",
+      "ratio": 1.45,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Cobalt Velvet Clear",
+      "hex": "#3158A5",
+      "ratio": 6.84,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Teal Shadow Clear",
+      "hex": "#216E54",
+      "ratio": 3.42,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Aqua Dusk Soft",
+      "hex": "#397474",
+      "ratio": 3.92,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Cerulean Nocturne Soft",
+      "hex": "#223F44",
+      "ratio": 1.86,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Lagoon Silk Vivid",
+      "hex": "#71EAD6",
+      "ratio": 14.44,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Cobalt Velvet Clear",
+      "hex": "#3158A5",
+      "ratio": 3.07,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    }
+  ]
+}

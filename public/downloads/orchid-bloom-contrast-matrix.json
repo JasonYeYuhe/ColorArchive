@@ -1,0 +1,230 @@
+{
+  "collection": "Orchid Bloom",
+  "id": "orchid-bloom",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Orchid Bloom Clear",
+        "hex": "#B7A1E3"
+      },
+      "color2": {
+        "name": "Plum Radiant Clear",
+        "hex": "#8A4AC9"
+      },
+      "ratio": 2.36,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Orchid Bloom Clear",
+        "hex": "#B7A1E3"
+      },
+      "color2": {
+        "name": "Peony Bloom Vivid",
+        "hex": "#EF95E0"
+      },
+      "ratio": 1.09,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Orchid Bloom Clear",
+        "hex": "#B7A1E3"
+      },
+      "color2": {
+        "name": "Rose Core Soft",
+        "hex": "#A45188"
+      },
+      "ratio": 2.24,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Orchid Bloom Clear",
+        "hex": "#B7A1E3"
+      },
+      "color2": {
+        "name": "Mint Whisper Muted",
+        "hex": "#EDF2EE"
+      },
+      "ratio": 2.01,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Plum Radiant Clear",
+        "hex": "#8A4AC9"
+      },
+      "color2": {
+        "name": "Peony Bloom Vivid",
+        "hex": "#EF95E0"
+      },
+      "ratio": 2.57,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Plum Radiant Clear",
+        "hex": "#8A4AC9"
+      },
+      "color2": {
+        "name": "Rose Core Soft",
+        "hex": "#A45188"
+      },
+      "ratio": 1.05,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Plum Radiant Clear",
+        "hex": "#8A4AC9"
+      },
+      "color2": {
+        "name": "Mint Whisper Muted",
+        "hex": "#EDF2EE"
+      },
+      "ratio": 4.75,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Peony Bloom Vivid",
+        "hex": "#EF95E0"
+      },
+      "color2": {
+        "name": "Rose Core Soft",
+        "hex": "#A45188"
+      },
+      "ratio": 2.44,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Peony Bloom Vivid",
+        "hex": "#EF95E0"
+      },
+      "color2": {
+        "name": "Mint Whisper Muted",
+        "hex": "#EDF2EE"
+      },
+      "ratio": 1.85,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Rose Core Soft",
+        "hex": "#A45188"
+      },
+      "color2": {
+        "name": "Mint Whisper Muted",
+        "hex": "#EDF2EE"
+      },
+      "ratio": 4.51,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Orchid Bloom Clear",
+      "hex": "#B7A1E3",
+      "ratio": 2.28,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Plum Radiant Clear",
+      "hex": "#8A4AC9",
+      "ratio": 5.38,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Peony Bloom Vivid",
+      "hex": "#EF95E0",
+      "ratio": 2.09,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Rose Core Soft",
+      "hex": "#A45188",
+      "ratio": 5.11,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Mint Whisper Muted",
+      "hex": "#EDF2EE",
+      "ratio": 1.13,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Orchid Bloom Clear",
+      "hex": "#B7A1E3",
+      "ratio": 9.22,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Plum Radiant Clear",
+      "hex": "#8A4AC9",
+      "ratio": 3.9,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Peony Bloom Vivid",
+      "hex": "#EF95E0",
+      "ratio": 10.05,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Rose Core Soft",
+      "hex": "#A45188",
+      "ratio": 4.11,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Mint Whisper Muted",
+      "hex": "#EDF2EE",
+      "ratio": 18.54,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    }
+  ]
+}

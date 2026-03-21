@@ -1,0 +1,230 @@
+{
+  "collection": "Nordic Frost",
+  "id": "nordic-frost",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA"
+      },
+      "color2": {
+        "name": "Cerulean Whisper Soft",
+        "hex": "#EAF3F5"
+      },
+      "ratio": 1.11,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA"
+      },
+      "color2": {
+        "name": "Sapphire Pearl Muted",
+        "hex": "#CFD6DE"
+      },
+      "ratio": 1.17,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA"
+      },
+      "color2": {
+        "name": "Iris Veil Muted",
+        "hex": "#F9F9FB"
+      },
+      "ratio": 1.19,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Azure Mist Muted",
+        "hex": "#E1E7EA"
+      },
+      "color2": {
+        "name": "Cobalt Bloom Soft",
+        "hex": "#ADBBD7"
+      },
+      "ratio": 1.55,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Cerulean Whisper Soft",
+        "hex": "#EAF3F5"
+      },
+      "color2": {
+        "name": "Sapphire Pearl Muted",
+        "hex": "#CFD6DE"
+      },
+      "ratio": 1.3,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Cerulean Whisper Soft",
+        "hex": "#EAF3F5"
+      },
+      "color2": {
+        "name": "Iris Veil Muted",
+        "hex": "#F9F9FB"
+      },
+      "ratio": 1.07,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Cerulean Whisper Soft",
+        "hex": "#EAF3F5"
+      },
+      "color2": {
+        "name": "Cobalt Bloom Soft",
+        "hex": "#ADBBD7"
+      },
+      "ratio": 1.72,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Sapphire Pearl Muted",
+        "hex": "#CFD6DE"
+      },
+      "color2": {
+        "name": "Iris Veil Muted",
+        "hex": "#F9F9FB"
+      },
+      "ratio": 1.39,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Sapphire Pearl Muted",
+        "hex": "#CFD6DE"
+      },
+      "color2": {
+        "name": "Cobalt Bloom Soft",
+        "hex": "#ADBBD7"
+      },
+      "ratio": 1.32,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Iris Veil Muted",
+        "hex": "#F9F9FB"
+      },
+      "color2": {
+        "name": "Cobalt Bloom Soft",
+        "hex": "#ADBBD7"
+      },
+      "ratio": 1.84,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Azure Mist Muted",
+      "hex": "#E1E7EA",
+      "ratio": 1.25,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Cerulean Whisper Soft",
+      "hex": "#EAF3F5",
+      "ratio": 1.13,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Sapphire Pearl Muted",
+      "hex": "#CFD6DE",
+      "ratio": 1.47,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Iris Veil Muted",
+      "hex": "#F9F9FB",
+      "ratio": 1.05,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Cobalt Bloom Soft",
+      "hex": "#ADBBD7",
+      "ratio": 1.93,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Azure Mist Muted",
+      "hex": "#E1E7EA",
+      "ratio": 16.82,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Cerulean Whisper Soft",
+      "hex": "#EAF3F5",
+      "ratio": 18.64,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Sapphire Pearl Muted",
+      "hex": "#CFD6DE",
+      "ratio": 14.33,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Iris Veil Muted",
+      "hex": "#F9F9FB",
+      "ratio": 19.97,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Cobalt Bloom Soft",
+      "hex": "#ADBBD7",
+      "ratio": 10.87,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+<rect width="1200" height="400" fill="#fafaf9"/>
+<rect x="0" y="0" width="240" height="340" fill="#A4C992"/>
+<text x="120" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Moss Silk Soft</text>
+<text x="120" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#A4C992</text>
+<rect x="240" y="0" width="240" height="340" fill="#BACDB7"/>
+<text x="360" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Leaf Bloom Muted</text>
+<text x="360" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#BACDB7</text>
+<rect x="480" y="0" width="240" height="340" fill="#D9DECF"/>
+<text x="600" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Olive Pearl Muted</text>
+<text x="600" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#D9DECF</text>
+<rect x="720" y="0" width="240" height="340" fill="#FBFAF9"/>
+<text x="840" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Apricot Veil Muted</text>
+<text x="840" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#FBFAF9</text>
+<rect x="960" y="0" width="240" height="340" fill="#F3F5EA"/>
+<text x="1080" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Honey Whisper Soft</text>
+<text x="1080" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#F3F5EA</text>
+<text x="600" y="398" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#aaa">Matcha &amp; Linen — ColorArchive</text>
+</svg>

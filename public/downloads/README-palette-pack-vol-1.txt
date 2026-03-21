@@ -10,7 +10,10 @@ FORMATS
 - CSS variables (copy into any project)
 - JSON data (for design tools and automation)
 - Tailwind CSS 4 theme tokens
-- Full archive export (all 8 collections)
+- Full archive export (all collections)
+- SVG palette boards (visual color cards per collection)
+- SVG gradient wallpapers (horizontal + diagonal per collection)
+- SwiftUI / Android XML / Flutter Dart / CSS-in-JS tokens
 
 USAGE
 Each collection has 5 curated colors numbered -1 through -5:

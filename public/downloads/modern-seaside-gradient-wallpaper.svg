@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+<defs><linearGradient id="g-modern-seaside" x1="0%" y1="50%" x2="100%" y2="50%"><stop offset="0%" stop-color="#EAF5EE"/>
+<stop offset="25%" stop-color="#A1E3D8"/>
+<stop offset="50%" stop-color="#81CBD9"/>
+<stop offset="75%" stop-color="#2099D5"/>
+<stop offset="100%" stop-color="#222744"/></linearGradient></defs>
+<rect width="1920" height="1080" fill="url(#g-modern-seaside)"/>
+</svg>

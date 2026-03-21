@@ -5,7 +5,7 @@ import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
 import { useLocale } from "@/src/components/locale-provider";
 import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForPack } from "@/src/lib/guides";
-import { palettePacks, type PalettePack } from "@/src/lib/palette-packs";
+import { palettePacks, parsePriceYen, type PalettePack } from "@/src/lib/palette-packs";
 
 interface PackDetailPageProps {
   pack: PalettePack;
@@ -18,10 +18,6 @@ function buildSampleExport(collection: ColorCollection): string {
     .join("\n");
 }
 
-function parsePriceYen(priceHint: string): number {
-  return Number(priceHint.replace(/[^\d]/g, ""));
-}
-
 export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps) {
   const { t } = useLocale();
   const sampleCollection = relatedCollections[0];
@@ -32,7 +28,14 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
   const individualTotal = bundledPacks.reduce((sum, entry) => sum + parsePriceYen(entry.priceHint), 0);
   const bundlePrice = parsePriceYen(pack.priceHint);
   const savingsAmount = Math.max(individualTotal - bundlePrice, 0);
+  const savingsPct = individualTotal > 0 ? Math.round((savingsAmount / individualTotal) * 100) : 0;
   const relatedGuides = getGuidesForPack(pack.id, 3);
+
+  function resolveFaqAnswer(answer: string): string {
+    return answer
+      .replace("{INDIVIDUAL_TOTAL}", `¥${individualTotal.toLocaleString()}`)
+      .replace("{SAVINGS_PCT}", String(savingsPct));
+  }
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -305,7 +308,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                 {pack.faqs.map((item) => (
                   <div key={item.question} className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                     <div className="text-sm font-semibold text-neutral-950">{item.question}</div>
-                    <div className="mt-2 text-sm leading-6 text-neutral-600">{item.answer}</div>
+                    <div className="mt-2 text-sm leading-6 text-neutral-600">{resolveFaqAnswer(item.answer)}</div>
                   </div>
                 ))}
               </div>

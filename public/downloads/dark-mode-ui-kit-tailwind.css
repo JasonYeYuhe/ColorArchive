@@ -156,4 +156,30 @@
   --color-matcha-linen-dark-3: #2B3021;
   --color-matcha-linen-dark-4: #060504;
   --color-matcha-linen-dark-5: #13150A;
+
+  /* Terracotta Loft — light */
+  --color-terracotta-loft-1: #906B47;
+  --color-terracotta-loft-2: #665147;
+  --color-terracotta-loft-3: #543F3B;
+  --color-terracotta-loft-4: #BCB076;
+  --color-terracotta-loft-5: #B7BC9F;
+  /* Terracotta Loft — dark */
+  --color-terracotta-loft-dark-1: #B8946F;
+  --color-terracotta-loft-dark-2: #B8A399;
+  --color-terracotta-loft-dark-3: #C4AFAB;
+  --color-terracotta-loft-dark-4: #897D43;
+  --color-terracotta-loft-dark-5: #5B6043;
+
+  /* Ocean Abyss — light */
+  --color-ocean-abyss-1: #216E54;
+  --color-ocean-abyss-2: #397474;
+  --color-ocean-abyss-3: #223F44;
+  --color-ocean-abyss-4: #71EAD6;
+  --color-ocean-abyss-5: #3158A5;
+  /* Ocean Abyss — dark */
+  --color-ocean-abyss-dark-1: #91DEC4;
+  --color-ocean-abyss-dark-2: #8BC6C6;
+  --color-ocean-abyss-dark-3: #BBD8DD;
+  --color-ocean-abyss-dark-4: #158E7A;
+  --color-ocean-abyss-dark-5: #5A81CE;
 }

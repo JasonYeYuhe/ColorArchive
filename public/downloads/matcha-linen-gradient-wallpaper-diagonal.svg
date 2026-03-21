@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+<defs><linearGradient id="g-matcha-linen" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#A4C992"/>
+<stop offset="25%" stop-color="#BACDB7"/>
+<stop offset="50%" stop-color="#D9DECF"/>
+<stop offset="75%" stop-color="#FBFAF9"/>
+<stop offset="100%" stop-color="#F3F5EA"/></linearGradient></defs>
+<rect width="1920" height="1080" fill="url(#g-matcha-linen)"/>
+</svg>

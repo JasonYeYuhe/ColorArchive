@@ -1,0 +1,230 @@
+{
+  "collection": "Modern Seaside",
+  "id": "modern-seaside",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Seafoam Whisper Soft",
+        "hex": "#EAF5EE"
+      },
+      "color2": {
+        "name": "Lagoon Bloom Clear",
+        "hex": "#A1E3D8"
+      },
+      "ratio": 1.3,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Seafoam Whisper Soft",
+        "hex": "#EAF5EE"
+      },
+      "color2": {
+        "name": "Cerulean Silk Clear",
+        "hex": "#81CBD9"
+      },
+      "ratio": 1.64,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Seafoam Whisper Soft",
+        "hex": "#EAF5EE"
+      },
+      "color2": {
+        "name": "Azure Core Vivid",
+        "hex": "#2099D5"
+      },
+      "ratio": 2.86,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Seafoam Whisper Soft",
+        "hex": "#EAF5EE"
+      },
+      "color2": {
+        "name": "Indigo Nocturne Soft",
+        "hex": "#222744"
+      },
+      "ratio": 13.04,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Lagoon Bloom Clear",
+        "hex": "#A1E3D8"
+      },
+      "color2": {
+        "name": "Cerulean Silk Clear",
+        "hex": "#81CBD9"
+      },
+      "ratio": 1.26,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Lagoon Bloom Clear",
+        "hex": "#A1E3D8"
+      },
+      "color2": {
+        "name": "Azure Core Vivid",
+        "hex": "#2099D5"
+      },
+      "ratio": 2.2,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Lagoon Bloom Clear",
+        "hex": "#A1E3D8"
+      },
+      "color2": {
+        "name": "Indigo Nocturne Soft",
+        "hex": "#222744"
+      },
+      "ratio": 10.05,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Cerulean Silk Clear",
+        "hex": "#81CBD9"
+      },
+      "color2": {
+        "name": "Azure Core Vivid",
+        "hex": "#2099D5"
+      },
+      "ratio": 1.74,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Cerulean Silk Clear",
+        "hex": "#81CBD9"
+      },
+      "color2": {
+        "name": "Indigo Nocturne Soft",
+        "hex": "#222744"
+      },
+      "ratio": 7.96,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Azure Core Vivid",
+        "hex": "#2099D5"
+      },
+      "color2": {
+        "name": "Indigo Nocturne Soft",
+        "hex": "#222744"
+      },
+      "ratio": 4.56,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Seafoam Whisper Soft",
+      "hex": "#EAF5EE",
+      "ratio": 1.12,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Lagoon Bloom Clear",
+      "hex": "#A1E3D8",
+      "ratio": 1.45,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Cerulean Silk Clear",
+      "hex": "#81CBD9",
+      "ratio": 1.83,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Azure Core Vivid",
+      "hex": "#2099D5",
+      "ratio": 3.19,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Indigo Nocturne Soft",
+      "hex": "#222744",
+      "ratio": 14.57,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Seafoam Whisper Soft",
+      "hex": "#EAF5EE",
+      "ratio": 18.79,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Lagoon Bloom Clear",
+      "hex": "#A1E3D8",
+      "ratio": 14.49,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Cerulean Silk Clear",
+      "hex": "#81CBD9",
+      "ratio": 11.48,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Azure Core Vivid",
+      "hex": "#2099D5",
+      "ratio": 6.58,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Indigo Nocturne Soft",
+      "hex": "#222744",
+      "ratio": 1.44,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ]
+}

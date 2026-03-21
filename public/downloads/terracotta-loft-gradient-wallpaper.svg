@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+<defs><linearGradient id="g-terracotta-loft" x1="0%" y1="50%" x2="100%" y2="50%"><stop offset="0%" stop-color="#906B47"/>
+<stop offset="25%" stop-color="#665147"/>
+<stop offset="50%" stop-color="#543F3B"/>
+<stop offset="75%" stop-color="#BCB076"/>
+<stop offset="100%" stop-color="#B7BC9F"/></linearGradient></defs>
+<rect width="1920" height="1080" fill="url(#g-terracotta-loft)"/>
+</svg>

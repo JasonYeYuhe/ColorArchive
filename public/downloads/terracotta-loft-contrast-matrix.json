@@ -1,0 +1,230 @@
+{
+  "collection": "Terracotta Loft",
+  "id": "terracotta-loft",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Coral Velvet Soft",
+        "hex": "#906B47"
+      },
+      "color2": {
+        "name": "Ember Dusk Muted",
+        "hex": "#665147"
+      },
+      "ratio": 1.55,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Coral Velvet Soft",
+        "hex": "#906B47"
+      },
+      "color2": {
+        "name": "Ruby Shadow Muted",
+        "hex": "#543F3B"
+      },
+      "ratio": 2.04,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Coral Velvet Soft",
+        "hex": "#906B47"
+      },
+      "color2": {
+        "name": "Amber Tone Soft",
+        "hex": "#BCB076"
+      },
+      "ratio": 2.19,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Coral Velvet Soft",
+        "hex": "#906B47"
+      },
+      "color2": {
+        "name": "Honey Silk Muted",
+        "hex": "#B7BC9F"
+      },
+      "ratio": 2.44,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Ember Dusk Muted",
+        "hex": "#665147"
+      },
+      "color2": {
+        "name": "Ruby Shadow Muted",
+        "hex": "#543F3B"
+      },
+      "ratio": 1.32,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Ember Dusk Muted",
+        "hex": "#665147"
+      },
+      "color2": {
+        "name": "Amber Tone Soft",
+        "hex": "#BCB076"
+      },
+      "ratio": 3.39,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Ember Dusk Muted",
+        "hex": "#665147"
+      },
+      "color2": {
+        "name": "Honey Silk Muted",
+        "hex": "#B7BC9F"
+      },
+      "ratio": 3.78,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Ruby Shadow Muted",
+        "hex": "#543F3B"
+      },
+      "color2": {
+        "name": "Amber Tone Soft",
+        "hex": "#BCB076"
+      },
+      "ratio": 4.47,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Ruby Shadow Muted",
+        "hex": "#543F3B"
+      },
+      "color2": {
+        "name": "Honey Silk Muted",
+        "hex": "#B7BC9F"
+      },
+      "ratio": 4.98,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Amber Tone Soft",
+        "hex": "#BCB076"
+      },
+      "color2": {
+        "name": "Honey Silk Muted",
+        "hex": "#B7BC9F"
+      },
+      "ratio": 1.11,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Coral Velvet Soft",
+      "hex": "#906B47",
+      "ratio": 4.79,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Ember Dusk Muted",
+      "hex": "#665147",
+      "ratio": 7.41,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Ruby Shadow Muted",
+      "hex": "#543F3B",
+      "ratio": 9.76,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Amber Tone Soft",
+      "hex": "#BCB076",
+      "ratio": 2.19,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Honey Silk Muted",
+      "hex": "#B7BC9F",
+      "ratio": 1.96,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Coral Velvet Soft",
+      "hex": "#906B47",
+      "ratio": 4.38,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Ember Dusk Muted",
+      "hex": "#665147",
+      "ratio": 2.83,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Ruby Shadow Muted",
+      "hex": "#543F3B",
+      "ratio": 2.15,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Amber Tone Soft",
+      "hex": "#BCB076",
+      "ratio": 9.61,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Honey Silk Muted",
+      "hex": "#B7BC9F",
+      "ratio": 10.71,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    }
+  ]
+}

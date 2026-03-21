@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+<rect width="1200" height="400" fill="#fafaf9"/>
+<rect x="0" y="0" width="240" height="340" fill="#E1E7EA"/>
+<text x="120" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Azure Mist Muted</text>
+<text x="120" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#E1E7EA</text>
+<rect x="240" y="0" width="240" height="340" fill="#EAF3F5"/>
+<text x="360" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Cerulean Whisper Soft</text>
+<text x="360" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#EAF3F5</text>
+<rect x="480" y="0" width="240" height="340" fill="#CFD6DE"/>
+<text x="600" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Sapphire Pearl Muted</text>
+<text x="600" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#CFD6DE</text>
+<rect x="720" y="0" width="240" height="340" fill="#F9F9FB"/>
+<text x="840" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Iris Veil Muted</text>
+<text x="840" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#F9F9FB</text>
+<rect x="960" y="0" width="240" height="340" fill="#ADBBD7"/>
+<text x="1080" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Cobalt Bloom Soft</text>
+<text x="1080" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#ADBBD7</text>
+<text x="600" y="398" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#aaa">Nordic Frost — ColorArchive</text>
+</svg>

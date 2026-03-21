@@ -1,0 +1,230 @@
+{
+  "collection": "Quiet Luxury",
+  "id": "quiet-luxury",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Blush Whisper Muted",
+        "hex": "#F2EDF0"
+      },
+      "color2": {
+        "name": "Apricot Pearl Soft",
+        "hex": "#E4DBC8"
+      },
+      "ratio": 1.19,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Blush Whisper Muted",
+        "hex": "#F2EDF0"
+      },
+      "color2": {
+        "name": "Honey Bloom Muted",
+        "hex": "#C9CDB7"
+      },
+      "ratio": 1.41,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Blush Whisper Muted",
+        "hex": "#F2EDF0"
+      },
+      "color2": {
+        "name": "Olive Tone Muted",
+        "hex": "#9FAB87"
+      },
+      "ratio": 2.1,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Blush Whisper Muted",
+        "hex": "#F2EDF0"
+      },
+      "color2": {
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F"
+      },
+      "ratio": 14.02,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Apricot Pearl Soft",
+        "hex": "#E4DBC8"
+      },
+      "color2": {
+        "name": "Honey Bloom Muted",
+        "hex": "#C9CDB7"
+      },
+      "ratio": 1.18,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Apricot Pearl Soft",
+        "hex": "#E4DBC8"
+      },
+      "color2": {
+        "name": "Olive Tone Muted",
+        "hex": "#9FAB87"
+      },
+      "ratio": 1.76,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Apricot Pearl Soft",
+        "hex": "#E4DBC8"
+      },
+      "color2": {
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F"
+      },
+      "ratio": 11.8,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Honey Bloom Muted",
+        "hex": "#C9CDB7"
+      },
+      "color2": {
+        "name": "Olive Tone Muted",
+        "hex": "#9FAB87"
+      },
+      "ratio": 1.49,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Honey Bloom Muted",
+        "hex": "#C9CDB7"
+      },
+      "color2": {
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F"
+      },
+      "ratio": 9.97,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Olive Tone Muted",
+        "hex": "#9FAB87"
+      },
+      "color2": {
+        "name": "Merlot Ink Muted",
+        "hex": "#2A1D1F"
+      },
+      "ratio": 6.68,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Blush Whisper Muted",
+      "hex": "#F2EDF0",
+      "ratio": 1.16,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Apricot Pearl Soft",
+      "hex": "#E4DBC8",
+      "ratio": 1.38,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Honey Bloom Muted",
+      "hex": "#C9CDB7",
+      "ratio": 1.63,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Olive Tone Muted",
+      "hex": "#9FAB87",
+      "ratio": 2.43,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Merlot Ink Muted",
+      "hex": "#2A1D1F",
+      "ratio": 16.23,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Blush Whisper Muted",
+      "hex": "#F2EDF0",
+      "ratio": 18.15,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Apricot Pearl Soft",
+      "hex": "#E4DBC8",
+      "ratio": 15.27,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Honey Bloom Muted",
+      "hex": "#C9CDB7",
+      "ratio": 12.9,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Olive Tone Muted",
+      "hex": "#9FAB87",
+      "ratio": 8.65,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Merlot Ink Muted",
+      "hex": "#2A1D1F",
+      "ratio": 1.29,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ]
+}

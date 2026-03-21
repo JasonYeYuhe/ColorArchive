@@ -9,8 +9,13 @@ FORMATS
 - CSS variables
 - JSON data export
 - Tailwind CSS 4 theme tokens
-- Full archive export (all 8 collections)
+- Full archive export (all collections)
 - Prompt-friendly color descriptions
+- SVG palette boards (visual color cards)
+- SVG gradient wallpapers (horizontal + diagonal)
+- AI prompt templates per collection
+- Color psychology notes
+- Brand usage guides
 
 USE CASES
 - Social media graphics and story cards

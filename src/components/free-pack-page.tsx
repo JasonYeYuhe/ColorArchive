@@ -7,7 +7,7 @@ import { useLocale } from "@/src/components/locale-provider";
 import type { ColorCollection } from "@/src/lib/collections";
 import { checkoutConfig, type WaitlistConfig } from "@/src/lib/checkout-config";
 import { getGuidesForCollection, getGuidesForPack } from "@/src/lib/guides";
-import type { PalettePack } from "@/src/lib/palette-packs";
+import { computeBundleSavings, type PalettePack } from "@/src/lib/palette-packs";
 
 interface FreePackPageProps {
   featuredCollection: ColorCollection;
@@ -21,6 +21,7 @@ export function FreePackPage({
   waitlist,
 }: FreePackPageProps) {
   const { t } = useLocale();
+  const { individualTotal, bundlePrice, savingsPct } = computeBundleSavings();
   const emailHref = `mailto:${waitlist.contactEmail}?subject=ColorArchive%20free%20sample`;
   const requestTemplate = [
     "Hi,",
@@ -334,10 +335,10 @@ export function FreePackPage({
                   {t("freePack.wantEverything")}
                 </div>
                 <p className="mt-1 text-lg font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
-                  All Access Bundle — <span className="line-through text-neutral-400">¥4,095</span>{" "}¥2,799
+                  All Access Bundle — <span className="line-through text-neutral-400">¥{individualTotal.toLocaleString()}</span>{" "}¥{bundlePrice.toLocaleString()}
                 </p>
                 <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                  {t("freePack.bundleSave")}
+                  Save {savingsPct}% vs individual packs
                 </p>
               </div>
               <a

@@ -6,6 +6,8 @@ FORMATS INCLUDED
 - Paired CSS variables with data-theme switching (dark-mode-ui-kit-paired.css)
 - Tailwind CSS 4 dark mode tokens (dark-mode-ui-kit-tailwind.css)
 - JSON with light/dark value pairs (dark-mode-ui-kit-paired.json)
+- WCAG contrast ratio matrices (per collection)
+- AA/AAA compliance reports with recommended text/background combos
 
 HOW IT WORKS
 Light mode: use variables as-is (default)

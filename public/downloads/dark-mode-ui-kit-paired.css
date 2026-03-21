@@ -85,6 +85,20 @@
   --matcha-linen-3: #D9DECF; /* Olive Pearl Muted */
   --matcha-linen-4: #FBFAF9; /* Apricot Veil Muted */
   --matcha-linen-5: #F3F5EA; /* Honey Whisper Soft */
+
+  /* Terracotta Loft */
+  --terracotta-loft-1: #906B47; /* Coral Velvet Soft */
+  --terracotta-loft-2: #665147; /* Ember Dusk Muted */
+  --terracotta-loft-3: #543F3B; /* Ruby Shadow Muted */
+  --terracotta-loft-4: #BCB076; /* Amber Tone Soft */
+  --terracotta-loft-5: #B7BC9F; /* Honey Silk Muted */
+
+  /* Ocean Abyss */
+  --ocean-abyss-1: #216E54; /* Teal Shadow Clear */
+  --ocean-abyss-2: #397474; /* Aqua Dusk Soft */
+  --ocean-abyss-3: #223F44; /* Cerulean Nocturne Soft */
+  --ocean-abyss-4: #71EAD6; /* Lagoon Silk Vivid */
+  --ocean-abyss-5: #3158A5; /* Cobalt Velvet Clear */
 }
 
 /* Dark theme — inverted lightness mapping */
@@ -173,4 +187,18 @@
   --matcha-linen-3: #2B3021; /* Olive Pearl Muted (dark) */
   --matcha-linen-4: #060504; /* Apricot Veil Muted (dark) */
   --matcha-linen-5: #13150A; /* Honey Whisper Soft (dark) */
+
+  /* Terracotta Loft (dark) */
+  --terracotta-loft-1: #B8946F; /* Coral Velvet Soft (dark) */
+  --terracotta-loft-2: #B8A399; /* Ember Dusk Muted (dark) */
+  --terracotta-loft-3: #C4AFAB; /* Ruby Shadow Muted (dark) */
+  --terracotta-loft-4: #897D43; /* Amber Tone Soft (dark) */
+  --terracotta-loft-5: #5B6043; /* Honey Silk Muted (dark) */
+
+  /* Ocean Abyss (dark) */
+  --ocean-abyss-1: #91DEC4; /* Teal Shadow Clear (dark) */
+  --ocean-abyss-2: #8BC6C6; /* Aqua Dusk Soft (dark) */
+  --ocean-abyss-3: #BBD8DD; /* Cerulean Nocturne Soft (dark) */
+  --ocean-abyss-4: #158E7A; /* Lagoon Silk Vivid (dark) */
+  --ocean-abyss-5: #5A81CE; /* Cobalt Velvet Clear (dark) */
 }

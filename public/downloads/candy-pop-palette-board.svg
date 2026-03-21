@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+<rect width="1200" height="400" fill="#fafaf9"/>
+<rect x="0" y="0" width="240" height="340" fill="#E18A33"/>
+<text x="120" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Coral Radiant Vivid</text>
+<text x="120" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#E18A33</text>
+<rect x="240" y="0" width="240" height="340" fill="#E4E44E"/>
+<text x="360" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Citrine Tone Vivid</text>
+<text x="360" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#E4E44E</text>
+<rect x="480" y="0" width="240" height="340" fill="#38BC4E"/>
+<text x="600" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Mint Core Clear</text>
+<text x="600" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#38BC4E</text>
+<rect x="720" y="0" width="240" height="340" fill="#D520B7"/>
+<text x="840" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Peony Core Vivid</text>
+<text x="840" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#D520B7</text>
+<rect x="960" y="0" width="240" height="340" fill="#A1CDE3"/>
+<text x="1080" y="365" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">Azure Bloom Clear</text>
+<text x="1080" y="385" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">#A1CDE3</text>
+<text x="600" y="398" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#aaa">Candy Pop — ColorArchive</text>
+</svg>

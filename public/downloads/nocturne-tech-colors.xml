@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ColorArchive — Nocturne Tech -->
+<!-- Auto-generated — do not edit -->
+<resources>
+    <color name="ca_indigo_ink_muted">#1D1F2A</color> <!-- Indigo Ink Muted -->
+    <color name="ca_violet_dusk_clear">#372886</color> <!-- Violet Dusk Clear -->
+    <color name="ca_cobalt_core_vivid">#205CD5</color> <!-- Cobalt Core Vivid -->
+    <color name="ca_fuchsia_radiant_vivid">#E133E1</color> <!-- Fuchsia Radiant Vivid -->
+    <color name="ca_aqua_bloom_soft">#ADD7D7</color> <!-- Aqua Bloom Soft -->
+</resources>

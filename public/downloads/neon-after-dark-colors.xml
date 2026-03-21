@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ColorArchive — Neon After Dark -->
+<!-- Auto-generated — do not edit -->
+<resources>
+    <color name="ca_fuchsia_radiant_vivid">#E133E1</color> <!-- Fuchsia Radiant Vivid -->
+    <color name="ca_aqua_bloom_vivid">#95EFEF</color> <!-- Aqua Bloom Vivid -->
+    <color name="ca_lime_bloom_clear">#C2E3A1</color> <!-- Lime Bloom Clear -->
+    <color name="ca_violet_nocturne_clear">#21174F</color> <!-- Violet Nocturne Clear -->
+    <color name="ca_cobalt_ink_soft">#182030</color> <!-- Cobalt Ink Soft -->
+</resources>

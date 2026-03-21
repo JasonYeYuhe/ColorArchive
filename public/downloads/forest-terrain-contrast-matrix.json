@@ -1,0 +1,230 @@
+{
+  "collection": "Forest Terrain",
+  "id": "forest-terrain",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Moss Tone Muted",
+        "hex": "#93AB87"
+      },
+      "color2": {
+        "name": "Leaf Dusk Soft",
+        "hex": "#437439"
+      },
+      "ratio": 2.22,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Moss Tone Muted",
+        "hex": "#93AB87"
+      },
+      "color2": {
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F"
+      },
+      "ratio": 1.26,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Moss Tone Muted",
+        "hex": "#93AB87"
+      },
+      "color2": {
+        "name": "Amber Velvet Soft",
+        "hex": "#908347"
+      },
+      "ratio": 1.52,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Moss Tone Muted",
+        "hex": "#93AB87"
+      },
+      "color2": {
+        "name": "Honey Shadow Muted",
+        "hex": "#50543B"
+      },
+      "ratio": 3.15,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Leaf Dusk Soft",
+        "hex": "#437439"
+      },
+      "color2": {
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F"
+      },
+      "ratio": 2.79,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Leaf Dusk Soft",
+        "hex": "#437439"
+      },
+      "color2": {
+        "name": "Amber Velvet Soft",
+        "hex": "#908347"
+      },
+      "ratio": 1.46,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Leaf Dusk Soft",
+        "hex": "#437439"
+      },
+      "color2": {
+        "name": "Honey Shadow Muted",
+        "hex": "#50543B"
+      },
+      "ratio": 1.42,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F"
+      },
+      "color2": {
+        "name": "Amber Velvet Soft",
+        "hex": "#908347"
+      },
+      "ratio": 1.92,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Olive Silk Muted",
+        "hex": "#B2BC9F"
+      },
+      "color2": {
+        "name": "Honey Shadow Muted",
+        "hex": "#50543B"
+      },
+      "ratio": 3.96,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Amber Velvet Soft",
+        "hex": "#908347"
+      },
+      "color2": {
+        "name": "Honey Shadow Muted",
+        "hex": "#50543B"
+      },
+      "ratio": 2.07,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Moss Tone Muted",
+      "hex": "#93AB87",
+      "ratio": 2.5,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Leaf Dusk Soft",
+      "hex": "#437439",
+      "ratio": 5.53,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Olive Silk Muted",
+      "hex": "#B2BC9F",
+      "ratio": 1.98,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Amber Velvet Soft",
+      "hex": "#908347",
+      "ratio": 3.8,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Honey Shadow Muted",
+      "hex": "#50543B",
+      "ratio": 7.86,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Moss Tone Muted",
+      "hex": "#93AB87",
+      "ratio": 8.42,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Leaf Dusk Soft",
+      "hex": "#437439",
+      "ratio": 3.8,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Olive Silk Muted",
+      "hex": "#B2BC9F",
+      "ratio": 10.59,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Amber Velvet Soft",
+      "hex": "#908347",
+      "ratio": 5.52,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Honey Shadow Muted",
+      "hex": "#50543B",
+      "ratio": 2.67,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ]
+}

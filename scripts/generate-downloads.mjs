@@ -93,74 +93,142 @@ const COLLECTIONS = [
   {
     id: "quiet-luxury", title: "Quiet Luxury",
     summary: "Soft neutrals and muted warm surfaces for editorial, beauty, and premium product work.",
+    description: "A restrained palette built around pale blush, sand, oat, and deep grounding neutrals. Use it when the interface should feel expensive without becoming cold.",
     tags: ["Editorial", "Neutral", "Luxury"],
     paletteIds: ["blush-whisper-muted", "apricot-pearl-soft", "honey-bloom-muted", "olive-tone-muted", "merlot-ink-muted"],
+    editorialNote: "Use this when you need a product page or editorial surface to feel expensive, restrained, and warm rather than aggressively minimal.",
+    promptWords: ["soft stone", "blush paper", "quiet hotel", "cashmere", "late daylight"],
+    useCases: ["Editorial landing pages", "Beauty products", "Luxury product UI"],
   },
   {
     id: "modern-seaside", title: "Modern Seaside",
     summary: "Clear coastal blues and seafoam accents with enough structure for UI and brand systems.",
+    description: "This collection balances air, water, and contrast. It works for dashboards, travel, lifestyle products, and any surface that needs calm energy.",
     tags: ["Coastal", "Fresh", "UI"],
     paletteIds: ["seafoam-whisper-soft", "lagoon-bloom-clear", "cerulean-silk-clear", "azure-core-vivid", "indigo-nocturne-soft"],
+    editorialNote: "This set balances freshness and structure. It works when the product should feel open and coastal without becoming childish.",
+    promptWords: ["salt air", "glass water", "seafoam", "clear horizon", "modern coastal"],
+    useCases: ["Travel tools", "Wellness brands", "Dashboard refreshes"],
   },
   {
     id: "nocturne-tech", title: "Nocturne Tech",
     summary: "Dark-spectrum product colors with enough neon contrast to feel modern, not generic.",
+    description: "A near-black base with electric violet, cobalt, and magenta accents. Good for AI tools, music products, and technical launch pages.",
     tags: ["Dark", "Tech", "Launch"],
     paletteIds: ["indigo-ink-muted", "violet-dusk-clear", "cobalt-core-vivid", "fuchsia-radiant-vivid", "aqua-bloom-soft"],
+    editorialNote: "A dark-spectrum launch palette for technical products that need contrast and energy without falling back to generic neon-on-black styling.",
+    promptWords: ["midnight glass", "signal violet", "cobalt beam", "deep interface", "tech launch"],
+    useCases: ["AI tools", "Music products", "Dark-mode launches"],
   },
   {
     id: "editorial-warmth", title: "Editorial Warmth",
     summary: "Paper-like warm colors for publishing, writing, storytelling, and thoughtful landing pages.",
+    description: "The palette leans into apricot, amber, garnet, and muted olive so the page feels human and tactile rather than sterile.",
     tags: ["Warm", "Publishing", "Storytelling"],
     paletteIds: ["apricot-whisper-soft", "amber-silk-soft", "citrine-tone-muted", "garnet-velvet-soft", "olive-dusk-muted"],
+    editorialNote: "This palette introduces warmth and paper-like tactility. It is useful when the page should feel written, reflective, and human.",
+    promptWords: ["paper grain", "warm margin", "publisher desk", "amber ink", "essay"],
+    useCases: ["Publishing sites", "Blogs", "Narrative landing pages"],
   },
   {
     id: "orchid-bloom", title: "Orchid Bloom",
     summary: "Blooming pinks and violets with a soft green counterpoint for beauty, culture, and campaign work.",
+    description: "This set is intentionally expressive: floral, polished, and bright enough for social surfaces while still staying curated.",
     tags: ["Campaign", "Beauty", "Expressive"],
     paletteIds: ["orchid-bloom-clear", "plum-radiant-clear", "peony-bloom-vivid", "rose-core-soft", "mint-whisper-muted"],
+    editorialNote: "A brighter, campaign-ready palette with enough softness to stay curated. Good for beauty, culture, and expressive product storytelling.",
+    promptWords: ["orchid light", "soft gloss", "cultural campaign", "floral neon", "beauty launch"],
+    useCases: ["Campaign art direction", "Beauty brands", "Social launches"],
   },
   {
     id: "forest-terrain", title: "Forest Terrain",
     summary: "Deep greens, moss, earthy browns, and stone for outdoor, editorial, and natural brand work.",
+    description: "A palette rooted in organic outdoor materials — bark, moss, amber soil, and limestone. Use it when the brand needs to feel grounded, natural, and tactile.",
     tags: ["Natural", "Organic", "Outdoor"],
     paletteIds: ["moss-tone-muted", "leaf-dusk-soft", "olive-silk-muted", "amber-velvet-soft", "honey-shadow-muted"],
+    editorialNote: "A natural palette for outdoor gear, environmental brands, editorial spreads, and any project that needs to feel rooted in the physical world.",
+    promptWords: ["forest floor", "bark texture", "mossy stone", "amber soil", "late autumn"],
+    useCases: ["Outdoor brands", "Environmental campaigns", "Editorial layout"],
   },
   {
     id: "nordic-frost", title: "Nordic Frost",
     summary: "Ice blue, pale grey, and soft lavender for minimal UI, SaaS products, and clean landing pages.",
+    description: "A cool, restrained palette that feels precise and airy. Works for technical products, productivity tools, and any interface that needs to feel focused and uncluttered.",
     tags: ["Minimal", "Clean", "UI"],
     paletteIds: ["azure-mist-muted", "cerulean-whisper-soft", "sapphire-pearl-muted", "iris-veil-muted", "cobalt-bloom-soft"],
+    editorialNote: "Precision and restraint. A palette for interfaces that need to communicate clarity, focus, and intentional minimalism.",
+    promptWords: ["ice fog", "pale horizon", "nordic glass", "silent white", "cool precision"],
+    useCases: ["SaaS UI", "Tech landing pages", "Minimal dashboards"],
   },
   {
     id: "candy-pop", title: "Candy Pop",
     summary: "Coral, lemon, mint, lavender, and sky — saturated accents for social, D2C, and campaign work.",
+    description: "Bright, playful, and deliberately high-energy. Built for maximum visual impact on social media, e-commerce surfaces, and campaign landing pages.",
     tags: ["Vibrant", "Playful", "Campaign"],
     paletteIds: ["coral-radiant-vivid", "citrine-tone-vivid", "mint-core-clear", "peony-core-vivid", "azure-bloom-clear"],
+    editorialNote: "For when the work needs to pop. Use this palette on social surfaces, product launches, and anywhere that needs energy and immediacy.",
+    promptWords: ["candy gloss", "pop art", "social launch", "neon highlight", "playful brand"],
+    useCases: ["Social media", "D2C brands", "Campaign pages"],
   },
   {
     id: "sunset-boulevard", title: "Sunset Boulevard",
     summary: "Warm oranges, pink-golds, and sunset gradient tones for lifestyle, travel, and campaign work.",
+    description: "A gradient palette that moves from coral glow through amber warmth to rose-tinged dusk. Built for travel, lifestyle brands, and any surface that needs golden-hour energy.",
     tags: ["Warm", "Lifestyle", "Campaign"],
     paletteIds: ["coral-bloom-clear", "amber-silk-clear", "ruby-radiant-soft", "rose-pearl-soft", "garnet-tone-clear"],
+    editorialNote: "Use this when the page needs golden-hour warmth. It works best on lifestyle, travel, and editorial surfaces that should feel aspirational and sun-touched.",
+    promptWords: ["golden hour", "sunset glow", "warm gradient", "travel warmth", "amber light"],
+    useCases: ["Travel campaigns", "Lifestyle brands", "Editorial hero sections"],
   },
   {
     id: "monochrome-studio", title: "Monochrome Studio",
     summary: "Pure grayscale with micro-warm and micro-cool shifts for editorial, typography, and minimal UI.",
+    description: "A near-neutral palette spanning pale mist to deep ink with subtle warm and cool undertones. Ideal for typography-first layouts and restrained editorial work.",
     tags: ["Minimal", "Editorial", "Monochrome"],
     paletteIds: ["honey-whisper-muted", "azure-mist-muted", "olive-silk-muted", "cobalt-dusk-muted", "merlot-ink-muted"],
+    editorialNote: "A studio-grade grayscale set with just enough temperature to avoid feeling dead. Good for type-heavy layouts and minimal UI where pure gray feels lifeless.",
+    promptWords: ["concrete", "studio light", "newsprint", "pencil sketch", "quiet contrast"],
+    useCases: ["Typography layouts", "Minimal UI systems", "Editorial design"],
   },
   {
     id: "neon-after-dark", title: "Neon After Dark",
     summary: "Cyber neon colors on deep dark bases for gaming, nightlife, and bold tech products.",
+    description: "Electric contrast between deep nocturne bases and vivid neon accents. Built for gaming interfaces, nightlife branding, and any product that needs to glow in the dark.",
     tags: ["Neon", "Dark", "Gaming"],
     paletteIds: ["fuchsia-radiant-vivid", "aqua-bloom-vivid", "lime-bloom-clear", "violet-nocturne-clear", "cobalt-ink-soft"],
+    editorialNote: "High-voltage contrast for dark interfaces. Use the vivid accents sparingly against the deep bases to create neon glow effects without becoming garish.",
+    promptWords: ["neon sign", "arcade glow", "cyber night", "electric pulse", "dark interface"],
+    useCases: ["Gaming interfaces", "Nightlife branding", "Bold tech products"],
   },
   {
     id: "matcha-linen", title: "Matcha & Linen",
     summary: "Japanese-inspired matcha greens with warm linen and paper whites for wellness, tea, and artisan brands.",
+    description: "A calm, crafted palette pairing soft matcha greens with warm paper tones. Designed for wellness products, tea packaging, and artisan brand surfaces that need organic warmth.",
     tags: ["Japanese", "Wellness", "Organic"],
     paletteIds: ["moss-silk-soft", "leaf-bloom-muted", "olive-pearl-muted", "apricot-veil-muted", "honey-whisper-soft"],
+    editorialNote: "A restrained, craft-forward palette inspired by Japanese tea aesthetics. Works when the surface needs to feel handmade, organic, and quietly considered.",
+    promptWords: ["matcha foam", "washi paper", "ceramic glaze", "zen garden", "linen texture"],
+    useCases: ["Wellness brands", "Tea and food packaging", "Artisan product pages"],
+  },
+  {
+    id: "terracotta-loft", title: "Terracotta Loft",
+    summary: "Warm clay, rust, and fired earth tones for interior design, architecture, and artisan lifestyle brands.",
+    description: "A palette drawn from kiln-fired materials — terracotta, warm stucco, dried rust, and bleached linen.",
+    tags: ["Warm", "Architecture", "Artisan"],
+    paletteIds: ["coral-velvet-soft", "ember-dusk-muted", "ruby-shadow-muted", "amber-tone-soft", "honey-silk-muted"],
+    editorialNote: "A material-forward palette for surfaces that should feel fired, aged, and handmade. Works best for interior design, architecture portfolios, home goods, and artisan food brands.",
+    promptWords: ["fired clay", "warm stucco", "rust patina", "adobe wall", "kiln earth"],
+    useCases: ["Interior design", "Architecture portfolios", "Home goods and artisan brands"],
+  },
+  {
+    id: "ocean-abyss", title: "Ocean Abyss",
+    summary: "Deep-sea blues, teal depths, and bioluminescent accents for fintech, data, and technical product work.",
+    description: "A palette built around the pressure and light of deep water — dark teal bases, cobalt mid-tones, and vivid aqua accents.",
+    tags: ["Dark", "Fintech", "Data"],
+    paletteIds: ["teal-shadow-clear", "aqua-dusk-soft", "cerulean-nocturne-soft", "lagoon-silk-vivid", "cobalt-velvet-clear"],
+    editorialNote: "Use this when the product needs to feel deep, technical, and precise. The vivid aqua accent creates bioluminescent contrast against the deep bases.",
+    promptWords: ["deep ocean", "submarine light", "pressure blue", "bioluminescent", "abyssal depth"],
+    useCases: ["Fintech dashboards", "Data visualization", "Sci-fi and technical products"],
   },
 ];
 
@@ -730,6 +798,363 @@ console.log(`✓ ${PACK_PREVIEWS.length} pack preview files updated`);
 console.log(`✓ Generated route-specific OG SVGs → public/generated/og/`);
 console.log(`✓ Generated Figma (nested) + Style Dictionary + ACO + Framer token exports`);
 
+// ============================================================
+// NEW CONTENT CATEGORIES
+// ============================================================
+
+// --- Category 1: Visual Assets (SVG palette boards + gradient wallpapers) ---
+
+function generatePaletteBoardSvg(collection) {
+  const palette = resolvePalette(collection.paletteIds);
+  const w = 1200, h = 400, swatchW = w / 5;
+  const rects = palette.map((c, i) => {
+    const x = i * swatchW;
+    const textColor = c.lightness > 55 ? "#1a1a1a" : "#ffffff";
+    return `<rect x="${x}" y="0" width="${swatchW}" height="${h - 60}" fill="${c.hex}"/>
+<text x="${x + swatchW / 2}" y="${h - 35}" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">${escapeXml(c.name)}</text>
+<text x="${x + swatchW / 2}" y="${h - 15}" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">${c.hex}</text>`;
+  }).join("\n");
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+<rect width="${w}" height="${h}" fill="#fafaf9"/>
+${rects}
+<text x="${w / 2}" y="${h - 2}" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#aaa">${escapeXml(collection.title)} — ColorArchive</text>
+</svg>`;
+}
+
+function generateGradientWallpaperSvg(collection, diagonal = false) {
+  const palette = resolvePalette(collection.paletteIds);
+  const w = 1920, h = 1080;
+  const gradId = `g-${collection.id}`;
+  const stops = palette.map((c, i) => {
+    const offset = Math.round((i / (palette.length - 1)) * 100);
+    return `<stop offset="${offset}%" stop-color="${c.hex}"/>`;
+  }).join("\n");
+  const coords = diagonal
+    ? `x1="0%" y1="0%" x2="100%" y2="100%"`
+    : `x1="0%" y1="50%" x2="100%" y2="50%"`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+<defs><linearGradient id="${gradId}" ${coords}>${stops}</linearGradient></defs>
+<rect width="${w}" height="${h}" fill="url(#${gradId})"/>
+</svg>`;
+}
+
+for (const col of COLLECTIONS) {
+  writeFileSync(join(OUT_DIR, `${col.id}-palette-board.svg`), generatePaletteBoardSvg(col), "utf8");
+  writeFileSync(join(OUT_DIR, `${col.id}-gradient-wallpaper.svg`), generateGradientWallpaperSvg(col, false), "utf8");
+  writeFileSync(join(OUT_DIR, `${col.id}-gradient-wallpaper-diagonal.svg`), generateGradientWallpaperSvg(col, true), "utf8");
+}
+console.log(`✓ Generated ${COLLECTIONS.length * 3} SVG visual assets (boards + wallpapers)`);
+
+// --- Category 2: Export Formats (SwiftUI, Android XML, Flutter Dart, CSS-in-JS) ---
+
+function toSwiftName(id) {
+  return "ca" + id.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join("");
+}
+
+function toDartName(id) {
+  return "ca" + id.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join("");
+}
+
+function generateSwiftUI(colors, name) {
+  const lines = [
+    "// ColorArchive — SwiftUI Color Extension",
+    `// ${name}`,
+    "// Auto-generated — do not edit",
+    "",
+    "import SwiftUI",
+    "",
+    "extension Color {",
+  ];
+  for (const c of colors) {
+    const { r, g, b } = hexToRgb(c.hex);
+    lines.push(`    /// ${c.name} (${c.hex})`);
+    lines.push(`    static var ${toSwiftName(c.id)}: Color { Color(red: ${(r / 255).toFixed(4)}, green: ${(g / 255).toFixed(4)}, blue: ${(b / 255).toFixed(4)}) }`);
+  }
+  lines.push("}");
+  return lines.join("\n");
+}
+
+function generateAndroidXml(colors, name) {
+  const lines = [
+    `<?xml version="1.0" encoding="utf-8"?>`,
+    `<!-- ColorArchive — ${name} -->`,
+    `<!-- Auto-generated — do not edit -->`,
+    `<resources>`,
+  ];
+  for (const c of colors) {
+    const xmlName = "ca_" + c.id.replace(/-/g, "_");
+    lines.push(`    <color name="${xmlName}">${c.hex}</color> <!-- ${c.name} -->`);
+  }
+  lines.push(`</resources>`);
+  return lines.join("\n");
+}
+
+function generateFlutterDart(colors, name) {
+  const lines = [
+    "// ColorArchive — Flutter Color Constants",
+    `// ${name}`,
+    "// Auto-generated — do not edit",
+    "",
+    "import 'package:flutter/material.dart';",
+    "",
+    "class CAColors {",
+  ];
+  for (const c of colors) {
+    const hex8 = "0xFF" + c.hex.slice(1);
+    lines.push(`  /// ${c.name} (${c.hex})`);
+    lines.push(`  static const Color ${toDartName(c.id)} = Color(${hex8});`);
+  }
+  lines.push("}");
+  return lines.join("\n");
+}
+
+function generateCssInJs(colors, name) {
+  const entries = colors.map((c) => `  "${c.id}": "${c.hex}"`).join(",\n");
+  return `// ColorArchive — CSS-in-JS Theme Object
+// ${name}
+// Auto-generated — do not edit
+// Usage: import { caTheme } from './colorarchive-theme';
+
+export const caTheme = {
+  colors: {
+${entries}
+  }
+};
+`;
+}
+
+// Full archive platform exports
+const allColors = [...colorMap.entries()].map(([id, c]) => ({ id, ...c }));
+writeFileSync(join(OUT_DIR, "complete-archive-swiftui.swift"), generateSwiftUI(allColors, "Complete Archive — All 2016 Colors"), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-colors.xml"), generateAndroidXml(allColors, "Complete Archive — All 2016 Colors"), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-colors.dart"), generateFlutterDart(allColors, "Complete Archive — All 2016 Colors"), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-theme.js"), generateCssInJs(allColors, "Complete Archive — All 2016 Colors"), "utf8");
+
+// Per-collection platform exports
+for (const col of COLLECTIONS) {
+  const palette = resolvePalette(col.paletteIds);
+  const colors = palette.map((c) => ({ id: c.id, ...c }));
+  writeFileSync(join(OUT_DIR, `${col.id}-swiftui.swift`), generateSwiftUI(colors, col.title), "utf8");
+  writeFileSync(join(OUT_DIR, `${col.id}-colors.xml`), generateAndroidXml(colors, col.title), "utf8");
+  writeFileSync(join(OUT_DIR, `${col.id}-colors.dart`), generateFlutterDart(colors, col.title), "utf8");
+  writeFileSync(join(OUT_DIR, `${col.id}-theme.js`), generateCssInJs(colors, col.title), "utf8");
+}
+console.log(`✓ Generated platform exports: SwiftUI, Android XML, Flutter Dart, CSS-in-JS`);
+
+// --- Category 3: Accessibility / Contrast Data ---
+
+function relativeLuminance(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  const [rs, gs, bs] = [r, g, b].map((v) => {
+    const s = v / 255;
+    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+}
+
+function contrastRatio(hex1, hex2) {
+  const l1 = relativeLuminance(hex1);
+  const l2 = relativeLuminance(hex2);
+  const lighter = Math.max(l1, l2);
+  const darker = Math.min(l1, l2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+function generateContrastData(collection) {
+  const palette = resolvePalette(collection.paletteIds);
+  const pairs = [];
+  for (let i = 0; i < palette.length; i++) {
+    for (let j = i + 1; j < palette.length; j++) {
+      const ratio = contrastRatio(palette[i].hex, palette[j].hex);
+      pairs.push({
+        color1: { name: palette[i].name, hex: palette[i].hex },
+        color2: { name: palette[j].name, hex: palette[j].hex },
+        ratio: Math.round(ratio * 100) / 100,
+        passAA: ratio >= 4.5,
+        passAAA: ratio >= 7,
+        passAALarge: ratio >= 3,
+      });
+    }
+  }
+  const vsWhite = palette.map((c) => {
+    const ratio = contrastRatio(c.hex, "#FFFFFF");
+    return { name: c.name, hex: c.hex, ratio: Math.round(ratio * 100) / 100, passAA: ratio >= 4.5, passAAA: ratio >= 7, passAALarge: ratio >= 3 };
+  });
+  const vsBlack = palette.map((c) => {
+    const ratio = contrastRatio(c.hex, "#000000");
+    return { name: c.name, hex: c.hex, ratio: Math.round(ratio * 100) / 100, passAA: ratio >= 4.5, passAAA: ratio >= 7, passAALarge: ratio >= 3 };
+  });
+  return { collection: collection.title, id: collection.id, pairs, vsWhite, vsBlack };
+}
+
+function formatContrastReport(data) {
+  const flag = (v) => v ? "PASS" : "FAIL";
+  const lines = [
+    `# Contrast Report: ${data.collection}`,
+    "",
+    "## Color Pairs",
+    "",
+    "| Pair | Ratio | AA (4.5:1) | AAA (7:1) | AA Large (3:1) |",
+    "|------|-------|------------|-----------|----------------|",
+  ];
+  for (const p of data.pairs) {
+    lines.push(`| ${p.color1.name} × ${p.color2.name} | ${p.ratio}:1 | ${flag(p.passAA)} | ${flag(p.passAAA)} | ${flag(p.passAALarge)} |`);
+  }
+  lines.push("", "## Against White (#FFFFFF)", "", "| Color | Ratio | AA | AAA | AA Large |", "|-------|-------|-----|------|----------|");
+  for (const c of data.vsWhite) {
+    lines.push(`| ${c.name} (${c.hex}) | ${c.ratio}:1 | ${flag(c.passAA)} | ${flag(c.passAAA)} | ${flag(c.passAALarge)} |`);
+  }
+  lines.push("", "## Against Black (#000000)", "", "| Color | Ratio | AA | AAA | AA Large |", "|-------|-------|-----|------|----------|");
+  for (const c of data.vsBlack) {
+    lines.push(`| ${c.name} (${c.hex}) | ${c.ratio}:1 | ${flag(c.passAA)} | ${flag(c.passAAA)} | ${flag(c.passAALarge)} |`);
+  }
+  lines.push("", `— ColorArchive · https://colorarchive.me`);
+  return lines.join("\n");
+}
+
+for (const col of COLLECTIONS) {
+  const data = generateContrastData(col);
+  writeFileSync(join(OUT_DIR, `${col.id}-contrast-matrix.json`), JSON.stringify(data, null, 2), "utf8");
+  writeFileSync(join(OUT_DIR, `${col.id}-contrast-report.md`), formatContrastReport(data), "utf8");
+}
+console.log(`✓ Generated ${COLLECTIONS.length * 2} contrast/accessibility files`);
+
+// --- Category 4: AI / Creator Copy ---
+
+const COLOR_PSYCHOLOGY = {
+  red: { mood: "Energy, urgency, passion", associations: "Power, love, danger, excitement. Red draws attention and creates a sense of immediacy.", avoid: "Overuse can feel aggressive or alarming." },
+  orange: { mood: "Warmth, enthusiasm, creativity", associations: "Friendliness, confidence, adventure. Orange balances energy with approachability.", avoid: "Can feel cheap or overly casual without supporting neutrals." },
+  yellow: { mood: "Optimism, clarity, warmth", associations: "Happiness, intellect, caution. Yellow is the most visible color and suggests openness.", avoid: "Too much yellow can strain eyes; use sparingly as accents." },
+  lime: { mood: "Freshness, growth, vitality", associations: "Nature, renewal, youth. Lime bridges the energy of yellow with the calm of green.", avoid: "Can feel acidic or jarring in large areas." },
+  green: { mood: "Balance, harmony, growth", associations: "Nature, health, prosperity, stability. Green is the easiest color for eyes to process.", avoid: "Murky greens can suggest decay; keep saturation intentional." },
+  teal: { mood: "Calm, sophistication, clarity", associations: "Trust, serenity, emotional balance. Teal combines blue's stability with green's freshness.", avoid: "Very dark teals can feel heavy without light counterpoints." },
+  blue: { mood: "Trust, depth, intelligence", associations: "Professionalism, security, calm. Blue is the most universally preferred color.", avoid: "Overuse creates coldness; warm it with complementary tones." },
+  purple: { mood: "Creativity, luxury, mystery", associations: "Royalty, wisdom, imagination. Purple suggests premium quality and artistic sensibility.", avoid: "Dark purples can feel heavy; balance with lighter values." },
+  pink: { mood: "Expression, beauty, tenderness", associations: "Playfulness, romance, softness. Modern pinks range from bold fuchsia to quiet blush.", avoid: "Stereotypical use feels dated; pair with unexpected neutrals." },
+};
+
+function getColorFamily(hue) {
+  if (hue < 15 || hue >= 345) return "red";
+  if (hue < 45) return "orange";
+  if (hue < 70) return "yellow";
+  if (hue < 95) return "lime";
+  if (hue < 150) return "green";
+  if (hue < 185) return "teal";
+  if (hue < 250) return "blue";
+  if (hue < 290) return "purple";
+  return "pink";
+}
+
+function generateAiPromptTemplates(collection) {
+  const palette = resolvePalette(collection.paletteIds);
+  const colorNames = palette.map((c) => `${c.name} (${c.hex})`).join(", ");
+  const promptWords = (collection.promptWords || []).join(", ");
+  const useCases = (collection.useCases || []).join(", ");
+
+  return `# AI Prompt Templates: ${collection.title}
+
+## Palette
+${palette.map((c) => `- ${c.name}: ${c.hex}`).join("\n")}
+
+## Mood Keywords
+${promptWords}
+
+## Suggested Use Cases
+${useCases}
+
+---
+
+## Prompt 1: Visual Design
+Design a landing page using the "${collection.title}" color palette. The colors are: ${colorNames}. The mood should evoke ${promptWords}. Keep the layout clean and modern with generous white space.
+
+## Prompt 2: Brand Identity
+Create a brand identity system using these five colors: ${colorNames}. The first color is the primary brand color, the second is secondary, the third is a supporting neutral, the fourth is an accent for CTAs and highlights, and the fifth provides deep contrast for text and anchoring elements. The brand mood is: ${promptWords}.
+
+## Prompt 3: Social Media
+Design a set of Instagram story templates using the "${collection.title}" palette (${colorNames}). The feel should be ${promptWords}. Include text overlays, product frames, and quote cards that work as a cohesive series.
+
+---
+
+## Editorial Note
+${collection.editorialNote || ""}
+
+— ColorArchive · https://colorarchive.me
+`;
+}
+
+function generateColorPsychologyNotes(collection) {
+  const palette = resolvePalette(collection.paletteIds);
+  const lines = [
+    `# Color Psychology: ${collection.title}`,
+    "",
+    collection.description || collection.summary,
+    "",
+    "---",
+    "",
+  ];
+  for (const c of palette) {
+    const family = getColorFamily(c.hue);
+    const psych = COLOR_PSYCHOLOGY[family] || { mood: "Neutral", associations: "Balance and versatility.", avoid: "Can feel bland without contrast." };
+    lines.push(`## ${c.name} (${c.hex})`);
+    lines.push(`**Family:** ${family.charAt(0).toUpperCase() + family.slice(1)} · **Lightness:** ${c.lightness}% · **Saturation:** ${c.saturation}%`);
+    lines.push(`**Mood:** ${psych.mood}`);
+    lines.push(`**Associations:** ${psych.associations}`);
+    lines.push(`**Caution:** ${psych.avoid}`);
+    lines.push("");
+  }
+  lines.push("— ColorArchive · https://colorarchive.me");
+  return lines.join("\n");
+}
+
+function generateBrandUsageGuide(collection) {
+  const palette = resolvePalette(collection.paletteIds);
+  const roles = ["Primary (backgrounds, hero surfaces)", "Secondary (UI panels, borders)", "Supporting neutral (body text areas)", "Accent (CTAs, buttons, highlights)", "Deep contrast (headings, anchoring elements)"];
+
+  const lines = [
+    `# Brand Usage Guide: ${collection.title}`,
+    "",
+    collection.description || collection.summary,
+    "",
+    "---",
+    "",
+    "## Color Roles",
+    "",
+  ];
+
+  palette.forEach((c, i) => {
+    lines.push(`### Slot ${i + 1}: ${roles[i] || "Extra"}`);
+    lines.push(`**${c.name}** · ${c.hex}`);
+    lines.push("");
+  });
+
+  lines.push("## Application Guidelines", "");
+  lines.push("### Do");
+  lines.push(`- Use **${palette[0].name}** as the dominant surface color (60% of the layout)`);
+  lines.push(`- Use **${palette[1].name}** for secondary panels and content areas (30%)`);
+  lines.push(`- Reserve **${palette[3].name}** for interactive elements and calls to action (10%)`);
+  lines.push(`- Pair **${palette[4].name}** with light backgrounds for readable body text`);
+  lines.push("");
+  lines.push("### Don't");
+  lines.push(`- Don't use the accent color (**${palette[3].name}**) for large background areas`);
+  lines.push(`- Don't combine more than 2 saturated colors in the same section`);
+  lines.push(`- Don't use light palette colors for body text on white backgrounds — check contrast first`);
+  lines.push("");
+  lines.push("## Suggested Pairings");
+  lines.push(`- **Hero section:** ${palette[0].name} background + ${palette[4].name} text + ${palette[3].name} CTA button`);
+  lines.push(`- **Card layout:** ${palette[1].name} card background + ${palette[4].name} heading + ${palette[2].name} border`);
+  lines.push(`- **Dark mode:** Invert ${palette[4].name} as background, ${palette[0].name} as text`);
+  lines.push("");
+  lines.push("— ColorArchive · https://colorarchive.me");
+  return lines.join("\n");
+}
+
+for (const col of COLLECTIONS) {
+  writeFileSync(join(OUT_DIR, `${col.id}-ai-prompts.md`), generateAiPromptTemplates(col), "utf8");
+  writeFileSync(join(OUT_DIR, `${col.id}-color-psychology.md`), generateColorPsychologyNotes(col), "utf8");
+  writeFileSync(join(OUT_DIR, `${col.id}-brand-guide.md`), generateBrandUsageGuide(col), "utf8");
+}
+console.log(`✓ Generated ${COLLECTIONS.length * 3} AI/creator copy files`);
+
 // --- ZIP bundle generation ---
 import { execSync } from "child_process";
 
@@ -789,7 +1214,10 @@ FORMATS
 - CSS variables (copy into any project)
 - JSON data (for design tools and automation)
 - Tailwind CSS 4 theme tokens
-- Full archive export (all 8 collections)
+- Full archive export (all collections)
+- SVG palette boards (visual color cards per collection)
+- SVG gradient wallpapers (horizontal + diagonal per collection)
+- SwiftUI / Android XML / Flutter Dart / CSS-in-JS tokens
 
 USAGE
 Each collection has 5 curated colors numbered -1 through -5:
@@ -800,12 +1228,17 @@ Each collection has 5 curated colors numbered -1 through -5:
 — ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-palette-pack-vol-1.txt"), vol1Readme, "utf8");
+const vol1CollIds = ["quiet-luxury", "modern-seaside", "editorial-warmth", "forest-terrain"];
 createZip("palette-pack-vol-1.zip", [
   "palette-pack-vol-1-preview.css",
   "palette-pack-vol-1-preview.json",
   "colorarchive-all-collections.css",
   "colorarchive-all-collections.json",
   "colorarchive-tailwind-tokens.css",
+  ...vol1CollIds.flatMap((id) => [
+    `${id}-palette-board.svg`, `${id}-gradient-wallpaper.svg`, `${id}-gradient-wallpaper-diagonal.svg`,
+    `${id}-swiftui.swift`, `${id}-colors.xml`, `${id}-colors.dart`, `${id}-theme.js`,
+  ]),
   "README-palette-pack-vol-1.txt",
 ]);
 
@@ -821,8 +1254,11 @@ FORMATS
 - CSS variables with brand-role annotations
 - JSON data export
 - Tailwind CSS 4 theme tokens
-- Full archive export (all 8 collections)
+- Full archive export (all collections)
 - Usage notes with application guidance
+- Brand usage guides (per collection)
+- Color psychology notes
+- SwiftUI / Android XML / Flutter Dart / CSS-in-JS tokens
 
 BRAND APPLICATION
   -1 = Primary (backgrounds, hero surfaces)
@@ -834,6 +1270,7 @@ BRAND APPLICATION
 — ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-brand-starter-kit.txt"), brandReadme, "utf8");
+const brandCollIds = ["quiet-luxury", "nocturne-tech", "orchid-bloom"];
 createZip("brand-starter-kit.zip", [
   "brand-starter-kit-preview.css",
   "brand-starter-kit-preview.json",
@@ -841,6 +1278,10 @@ createZip("brand-starter-kit.zip", [
   "colorarchive-all-collections.css",
   "colorarchive-all-collections.json",
   "colorarchive-tailwind-tokens.css",
+  ...brandCollIds.flatMap((id) => [
+    `${id}-brand-guide.md`, `${id}-color-psychology.md`,
+    `${id}-swiftui.swift`, `${id}-colors.xml`, `${id}-colors.dart`, `${id}-theme.js`,
+  ]),
   "README-brand-starter-kit.txt",
 ]);
 
@@ -856,8 +1297,13 @@ FORMATS
 - CSS variables
 - JSON data export
 - Tailwind CSS 4 theme tokens
-- Full archive export (all 8 collections)
+- Full archive export (all collections)
 - Prompt-friendly color descriptions
+- SVG palette boards (visual color cards)
+- SVG gradient wallpapers (horizontal + diagonal)
+- AI prompt templates per collection
+- Color psychology notes
+- Brand usage guides
 
 USE CASES
 - Social media graphics and story cards
@@ -868,6 +1314,7 @@ USE CASES
 — ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-creator-bundle.txt"), creatorReadme, "utf8");
+const creatorCollIds = ["modern-seaside", "orchid-bloom", "candy-pop"];
 createZip("content-creator-bundle.zip", [
   "content-creator-bundle-preview.css",
   "content-creator-bundle-preview.json",
@@ -875,6 +1322,10 @@ createZip("content-creator-bundle.zip", [
   "colorarchive-all-collections.css",
   "colorarchive-all-collections.json",
   "colorarchive-tailwind-tokens.css",
+  ...creatorCollIds.flatMap((id) => [
+    `${id}-palette-board.svg`, `${id}-gradient-wallpaper.svg`, `${id}-gradient-wallpaper-diagonal.svg`,
+    `${id}-ai-prompts.md`, `${id}-color-psychology.md`, `${id}-brand-guide.md`,
+  ]),
   "README-creator-bundle.txt",
 ]);
 
@@ -979,6 +1430,11 @@ FORMATS INCLUDED
 - Framer design tokens CSS (complete-archive-framer-tokens.css)
 - Figma / Tokens Studio JSON — nested by family (complete-archive-figma-tokens.json)
 - Style Dictionary tokens (complete-archive-style-dictionary.json)
+- SwiftUI Color extension (complete-archive-swiftui.swift)
+- Android colors.xml resource (complete-archive-colors.xml)
+- Flutter Dart color constants (complete-archive-colors.dart)
+- CSS-in-JS theme object (complete-archive-theme.js)
+- WCAG contrast reports for all collections
 
 COLOR NAMING
 Each color follows the pattern: {hue}-{lightness}-{chroma}
@@ -989,6 +1445,10 @@ USAGE
 - Tailwind: paste the @theme block into your config
 - JSON: import for programmatic access or design tool integration
 - SCSS: @use the maps and access colors via map-get()
+- SwiftUI: add the .swift file to your Xcode project
+- Android: copy colors.xml to res/values/
+- Flutter: import the .dart file
+- CSS-in-JS: import { caTheme } from the .js file
 
 — ColorArchive · https://colorarchive.me
 `;
@@ -1005,6 +1465,12 @@ createZip("complete-archive.zip", [
   "complete-archive-framer-tokens.css",
   "complete-archive-figma-tokens.json",
   "complete-archive-style-dictionary.json",
+  "complete-archive-swiftui.swift",
+  "complete-archive-colors.xml",
+  "complete-archive-colors.dart",
+  "complete-archive-theme.js",
+  ...COLLECTIONS.map((c) => `${c.id}-contrast-matrix.json`),
+  ...COLLECTIONS.map((c) => `${c.id}-contrast-report.md`),
   "complete-archive-preview.css",
   "complete-archive-preview.json",
   "README-complete-archive.txt",
@@ -1090,6 +1556,8 @@ FORMATS INCLUDED
 - Paired CSS variables with data-theme switching (dark-mode-ui-kit-paired.css)
 - Tailwind CSS 4 dark mode tokens (dark-mode-ui-kit-tailwind.css)
 - JSON with light/dark value pairs (dark-mode-ui-kit-paired.json)
+- WCAG contrast ratio matrices (per collection)
+- AA/AAA compliance reports with recommended text/background combos
 
 HOW IT WORKS
 Light mode: use variables as-is (default)
@@ -1105,12 +1573,14 @@ Use --color-{collection}-{slot} for light and
 — ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-dark-mode-ui-kit.txt"), darkModeReadme, "utf8");
+const darkModeCollIds = ["nocturne-tech", "nordic-frost", "monochrome-studio"];
 createZip("dark-mode-ui-kit.zip", [
   "dark-mode-ui-kit-paired.css",
   "dark-mode-ui-kit-tailwind.css",
   "dark-mode-ui-kit-paired.json",
   "dark-mode-ui-kit-preview.css",
   "dark-mode-ui-kit-preview.json",
+  ...darkModeCollIds.flatMap((id) => [`${id}-contrast-matrix.json`, `${id}-contrast-report.md`]),
   "README-dark-mode-ui-kit.txt",
 ]);
 

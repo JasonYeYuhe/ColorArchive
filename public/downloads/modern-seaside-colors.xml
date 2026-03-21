@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ColorArchive — Modern Seaside -->
+<!-- Auto-generated — do not edit -->
+<resources>
+    <color name="ca_seafoam_whisper_soft">#EAF5EE</color> <!-- Seafoam Whisper Soft -->
+    <color name="ca_lagoon_bloom_clear">#A1E3D8</color> <!-- Lagoon Bloom Clear -->
+    <color name="ca_cerulean_silk_clear">#81CBD9</color> <!-- Cerulean Silk Clear -->
+    <color name="ca_azure_core_vivid">#2099D5</color> <!-- Azure Core Vivid -->
+    <color name="ca_indigo_nocturne_soft">#222744</color> <!-- Indigo Nocturne Soft -->
+</resources>

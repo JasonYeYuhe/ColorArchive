@@ -1,0 +1,230 @@
+{
+  "collection": "Matcha & Linen",
+  "id": "matcha-linen",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Moss Silk Soft",
+        "hex": "#A4C992"
+      },
+      "color2": {
+        "name": "Leaf Bloom Muted",
+        "hex": "#BACDB7"
+      },
+      "ratio": 1.1,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Moss Silk Soft",
+        "hex": "#A4C992"
+      },
+      "color2": {
+        "name": "Olive Pearl Muted",
+        "hex": "#D9DECF"
+      },
+      "ratio": 1.35,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Moss Silk Soft",
+        "hex": "#A4C992"
+      },
+      "color2": {
+        "name": "Apricot Veil Muted",
+        "hex": "#FBFAF9"
+      },
+      "ratio": 1.78,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Moss Silk Soft",
+        "hex": "#A4C992"
+      },
+      "color2": {
+        "name": "Honey Whisper Soft",
+        "hex": "#F3F5EA"
+      },
+      "ratio": 1.68,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Leaf Bloom Muted",
+        "hex": "#BACDB7"
+      },
+      "color2": {
+        "name": "Olive Pearl Muted",
+        "hex": "#D9DECF"
+      },
+      "ratio": 1.22,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Leaf Bloom Muted",
+        "hex": "#BACDB7"
+      },
+      "color2": {
+        "name": "Apricot Veil Muted",
+        "hex": "#FBFAF9"
+      },
+      "ratio": 1.61,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Leaf Bloom Muted",
+        "hex": "#BACDB7"
+      },
+      "color2": {
+        "name": "Honey Whisper Soft",
+        "hex": "#F3F5EA"
+      },
+      "ratio": 1.52,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Olive Pearl Muted",
+        "hex": "#D9DECF"
+      },
+      "color2": {
+        "name": "Apricot Veil Muted",
+        "hex": "#FBFAF9"
+      },
+      "ratio": 1.32,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Olive Pearl Muted",
+        "hex": "#D9DECF"
+      },
+      "color2": {
+        "name": "Honey Whisper Soft",
+        "hex": "#F3F5EA"
+      },
+      "ratio": 1.25,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Apricot Veil Muted",
+        "hex": "#FBFAF9"
+      },
+      "color2": {
+        "name": "Honey Whisper Soft",
+        "hex": "#F3F5EA"
+      },
+      "ratio": 1.06,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Moss Silk Soft",
+      "hex": "#A4C992",
+      "ratio": 1.85,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Leaf Bloom Muted",
+      "hex": "#BACDB7",
+      "ratio": 1.68,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Olive Pearl Muted",
+      "hex": "#D9DECF",
+      "ratio": 1.37,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Apricot Veil Muted",
+      "hex": "#FBFAF9",
+      "ratio": 1.04,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Honey Whisper Soft",
+      "hex": "#F3F5EA",
+      "ratio": 1.1,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Moss Silk Soft",
+      "hex": "#A4C992",
+      "ratio": 11.35,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Leaf Bloom Muted",
+      "hex": "#BACDB7",
+      "ratio": 12.5,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Olive Pearl Muted",
+      "hex": "#D9DECF",
+      "ratio": 15.3,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Apricot Veil Muted",
+      "hex": "#FBFAF9",
+      "ratio": 20.14,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Honey Whisper Soft",
+      "hex": "#F3F5EA",
+      "ratio": 19.06,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    }
+  ]
+}

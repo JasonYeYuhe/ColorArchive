@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ColorArchive — Monochrome Studio -->
+<!-- Auto-generated — do not edit -->
+<resources>
+    <color name="ca_honey_whisper_muted">#F2F2ED</color> <!-- Honey Whisper Muted -->
+    <color name="ca_azure_mist_muted">#E1E7EA</color> <!-- Azure Mist Muted -->
+    <color name="ca_olive_silk_muted">#B2BC9F</color> <!-- Olive Silk Muted -->
+    <color name="ca_cobalt_dusk_muted">#475166</color> <!-- Cobalt Dusk Muted -->
+    <color name="ca_merlot_ink_muted">#2A1D1F</color> <!-- Merlot Ink Muted -->
+</resources>

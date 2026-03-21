@@ -790,5 +790,137 @@
         }
       }
     ]
+  },
+  {
+    "id": "terracotta-loft",
+    "title": "Terracotta Loft",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Coral Velvet Soft",
+        "light": {
+          "hex": "#906B47",
+          "hsl": "hsl(30, 34%, 42%)"
+        },
+        "dark": {
+          "hex": "#B8946F",
+          "hsl": "hsl(30, 34%, 58%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Ember Dusk Muted",
+        "light": {
+          "hex": "#665147",
+          "hsl": "hsl(20, 18%, 34%)"
+        },
+        "dark": {
+          "hex": "#B8A399",
+          "hsl": "hsl(20, 18%, 66%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Ruby Shadow Muted",
+        "light": {
+          "hex": "#543F3B",
+          "hsl": "hsl(10, 18%, 28%)"
+        },
+        "dark": {
+          "hex": "#C4AFAB",
+          "hsl": "hsl(10, 18%, 72%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Amber Tone Soft",
+        "light": {
+          "hex": "#BCB076",
+          "hsl": "hsl(50, 34%, 60%)"
+        },
+        "dark": {
+          "hex": "#897D43",
+          "hsl": "hsl(50, 34%, 40%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Honey Silk Muted",
+        "light": {
+          "hex": "#B7BC9F",
+          "hsl": "hsl(70, 18%, 68%)"
+        },
+        "dark": {
+          "hex": "#5B6043",
+          "hsl": "hsl(70, 18%, 32%)"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ocean-abyss",
+    "title": "Ocean Abyss",
+    "pairs": [
+      {
+        "slot": 1,
+        "name": "Teal Shadow Clear",
+        "light": {
+          "hex": "#216E54",
+          "hsl": "hsl(160, 54%, 28%)"
+        },
+        "dark": {
+          "hex": "#91DEC4",
+          "hsl": "hsl(160, 54%, 72%)"
+        }
+      },
+      {
+        "slot": 2,
+        "name": "Aqua Dusk Soft",
+        "light": {
+          "hex": "#397474",
+          "hsl": "hsl(180, 34%, 34%)"
+        },
+        "dark": {
+          "hex": "#8BC6C6",
+          "hsl": "hsl(180, 34%, 66%)"
+        }
+      },
+      {
+        "slot": 3,
+        "name": "Cerulean Nocturne Soft",
+        "light": {
+          "hex": "#223F44",
+          "hsl": "hsl(190, 34%, 20%)"
+        },
+        "dark": {
+          "hex": "#BBD8DD",
+          "hsl": "hsl(190, 34%, 80%)"
+        }
+      },
+      {
+        "slot": 4,
+        "name": "Lagoon Silk Vivid",
+        "light": {
+          "hex": "#71EAD6",
+          "hsl": "hsl(170, 74%, 68%)"
+        },
+        "dark": {
+          "hex": "#158E7A",
+          "hsl": "hsl(170, 74%, 32%)"
+        }
+      },
+      {
+        "slot": 5,
+        "name": "Cobalt Velvet Clear",
+        "light": {
+          "hex": "#3158A5",
+          "hsl": "hsl(220, 54%, 42%)"
+        },
+        "dark": {
+          "hex": "#5A81CE",
+          "hsl": "hsl(220, 54%, 58%)"
+        }
+      }
+    ]
   }
 ]

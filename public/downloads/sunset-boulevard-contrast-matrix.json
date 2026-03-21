@@ -1,0 +1,230 @@
+{
+  "collection": "Sunset Boulevard",
+  "id": "sunset-boulevard",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Coral Bloom Clear",
+        "hex": "#E3C2A1"
+      },
+      "color2": {
+        "name": "Amber Silk Clear",
+        "hex": "#D9CB81"
+      },
+      "ratio": 1.02,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Coral Bloom Clear",
+        "hex": "#E3C2A1"
+      },
+      "color2": {
+        "name": "Ruby Radiant Soft",
+        "hex": "#B26F62"
+      },
+      "ratio": 2.34,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Coral Bloom Clear",
+        "hex": "#E3C2A1"
+      },
+      "color2": {
+        "name": "Rose Pearl Soft",
+        "hex": "#E4C8DB"
+      },
+      "ratio": 1.09,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Coral Bloom Clear",
+        "hex": "#E3C2A1"
+      },
+      "color2": {
+        "name": "Garnet Tone Clear",
+        "hex": "#D06287"
+      },
+      "ratio": 2.16,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Amber Silk Clear",
+        "hex": "#D9CB81"
+      },
+      "color2": {
+        "name": "Ruby Radiant Soft",
+        "hex": "#B26F62"
+      },
+      "ratio": 2.4,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Amber Silk Clear",
+        "hex": "#D9CB81"
+      },
+      "color2": {
+        "name": "Rose Pearl Soft",
+        "hex": "#E4C8DB"
+      },
+      "ratio": 1.06,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Amber Silk Clear",
+        "hex": "#D9CB81"
+      },
+      "color2": {
+        "name": "Garnet Tone Clear",
+        "hex": "#D06287"
+      },
+      "ratio": 2.22,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Ruby Radiant Soft",
+        "hex": "#B26F62"
+      },
+      "color2": {
+        "name": "Rose Pearl Soft",
+        "hex": "#E4C8DB"
+      },
+      "ratio": 2.54,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Ruby Radiant Soft",
+        "hex": "#B26F62"
+      },
+      "color2": {
+        "name": "Garnet Tone Clear",
+        "hex": "#D06287"
+      },
+      "ratio": 1.08,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Rose Pearl Soft",
+        "hex": "#E4C8DB"
+      },
+      "color2": {
+        "name": "Garnet Tone Clear",
+        "hex": "#D06287"
+      },
+      "ratio": 2.35,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Coral Bloom Clear",
+      "hex": "#E3C2A1",
+      "ratio": 1.68,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Amber Silk Clear",
+      "hex": "#D9CB81",
+      "ratio": 1.64,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Ruby Radiant Soft",
+      "hex": "#B26F62",
+      "ratio": 3.93,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Rose Pearl Soft",
+      "hex": "#E4C8DB",
+      "ratio": 1.55,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Garnet Tone Clear",
+      "hex": "#D06287",
+      "ratio": 3.63,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Coral Bloom Clear",
+      "hex": "#E3C2A1",
+      "ratio": 12.5,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Amber Silk Clear",
+      "hex": "#D9CB81",
+      "ratio": 12.81,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Ruby Radiant Soft",
+      "hex": "#B26F62",
+      "ratio": 5.34,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Rose Pearl Soft",
+      "hex": "#E4C8DB",
+      "ratio": 13.58,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Garnet Tone Clear",
+      "hex": "#D06287",
+      "ratio": 5.78,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    }
+  ]
+}

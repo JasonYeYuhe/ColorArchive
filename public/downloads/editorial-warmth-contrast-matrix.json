@@ -1,0 +1,230 @@
+{
+  "collection": "Editorial Warmth",
+  "id": "editorial-warmth",
+  "pairs": [
+    {
+      "color1": {
+        "name": "Apricot Whisper Soft",
+        "hex": "#F5F1EA"
+      },
+      "color2": {
+        "name": "Amber Silk Soft",
+        "hex": "#C9C092"
+      },
+      "ratio": 1.63,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Apricot Whisper Soft",
+        "hex": "#F5F1EA"
+      },
+      "color2": {
+        "name": "Citrine Tone Muted",
+        "hex": "#ABAB87"
+      },
+      "ratio": 2.09,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Apricot Whisper Soft",
+        "hex": "#F5F1EA"
+      },
+      "color2": {
+        "name": "Garnet Velvet Soft",
+        "hex": "#90475F"
+      },
+      "ratio": 5.74,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Apricot Whisper Soft",
+        "hex": "#F5F1EA"
+      },
+      "color2": {
+        "name": "Olive Dusk Muted",
+        "hex": "#5C6647"
+      },
+      "ratio": 5.41,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Amber Silk Soft",
+        "hex": "#C9C092"
+      },
+      "color2": {
+        "name": "Citrine Tone Muted",
+        "hex": "#ABAB87"
+      },
+      "ratio": 1.28,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Amber Silk Soft",
+        "hex": "#C9C092"
+      },
+      "color2": {
+        "name": "Garnet Velvet Soft",
+        "hex": "#90475F"
+      },
+      "ratio": 3.52,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Amber Silk Soft",
+        "hex": "#C9C092"
+      },
+      "color2": {
+        "name": "Olive Dusk Muted",
+        "hex": "#5C6647"
+      },
+      "ratio": 3.32,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "color1": {
+        "name": "Citrine Tone Muted",
+        "hex": "#ABAB87"
+      },
+      "color2": {
+        "name": "Garnet Velvet Soft",
+        "hex": "#90475F"
+      },
+      "ratio": 2.74,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Citrine Tone Muted",
+        "hex": "#ABAB87"
+      },
+      "color2": {
+        "name": "Olive Dusk Muted",
+        "hex": "#5C6647"
+      },
+      "ratio": 2.58,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "color1": {
+        "name": "Garnet Velvet Soft",
+        "hex": "#90475F"
+      },
+      "color2": {
+        "name": "Olive Dusk Muted",
+        "hex": "#5C6647"
+      },
+      "ratio": 1.06,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    }
+  ],
+  "vsWhite": [
+    {
+      "name": "Apricot Whisper Soft",
+      "hex": "#F5F1EA",
+      "ratio": 1.13,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Amber Silk Soft",
+      "hex": "#C9C092",
+      "ratio": 1.84,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Citrine Tone Muted",
+      "hex": "#ABAB87",
+      "ratio": 2.36,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": false
+    },
+    {
+      "name": "Garnet Velvet Soft",
+      "hex": "#90475F",
+      "ratio": 6.46,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Olive Dusk Muted",
+      "hex": "#5C6647",
+      "ratio": 6.09,
+      "passAA": true,
+      "passAAA": false,
+      "passAALarge": true
+    }
+  ],
+  "vsBlack": [
+    {
+      "name": "Apricot Whisper Soft",
+      "hex": "#F5F1EA",
+      "ratio": 18.65,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Amber Silk Soft",
+      "hex": "#C9C092",
+      "ratio": 11.44,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Citrine Tone Muted",
+      "hex": "#ABAB87",
+      "ratio": 8.91,
+      "passAA": true,
+      "passAAA": true,
+      "passAALarge": true
+    },
+    {
+      "name": "Garnet Velvet Soft",
+      "hex": "#90475F",
+      "ratio": 3.25,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    },
+    {
+      "name": "Olive Dusk Muted",
+      "hex": "#5C6647",
+      "ratio": 3.45,
+      "passAA": false,
+      "passAAA": false,
+      "passAALarge": true
+    }
+  ]
+}

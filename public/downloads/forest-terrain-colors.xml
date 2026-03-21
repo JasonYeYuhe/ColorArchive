@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ColorArchive — Forest Terrain -->
+<!-- Auto-generated — do not edit -->
+<resources>
+    <color name="ca_moss_tone_muted">#93AB87</color> <!-- Moss Tone Muted -->
+    <color name="ca_leaf_dusk_soft">#437439</color> <!-- Leaf Dusk Soft -->
+    <color name="ca_olive_silk_muted">#B2BC9F</color> <!-- Olive Silk Muted -->
+    <color name="ca_amber_velvet_soft">#908347</color> <!-- Amber Velvet Soft -->
+    <color name="ca_honey_shadow_muted">#50543B</color> <!-- Honey Shadow Muted -->
+</resources>
