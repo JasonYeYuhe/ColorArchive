@@ -91,3 +91,36 @@
 - src/lib/color-utils.ts
 
 **Commit:** 67802a9
+
+## 2026-03-21 — Normal Run: Content, Search & Palette (commit 307b3d9)
+
+**Run type:** Normal (3rd run since last big)
+
+**Categories:** A. SEO & Content, D. Data & Collections
+
+### Category A — Newsletter Issues 031–034
+- **Issue 031** (2026-06-18): "Value contrast does more work than hue contrast — and most palettes get this backwards" — lightness-first design, grayscale test, value architecture
+- **Issue 032** (2026-06-25): "The 60-30-10 ratio is a heuristic, not a law" — proportional color logic, accent overuse, interface distribution
+- **Issue 033** (2026-07-02): "Why semantic color tokens are worth the extra naming effort" — two-layer token model, semantic categories, theme switching
+- **Issue 034** (2026-07-09): "Color transition strategy: how to animate between palette states" — perceptual paths, theme fade timing, interactive state asymmetry
+- Total newsletter issues: 35 (was 31)
+
+### Category A — 2 new SEO guides
+- **wedding-color-palette** (priority 72): Multi-substrate cohesion, anchor neutrals first, photography grading considerations. Targets "wedding color palette ideas" queries.
+- **color-grading-palette** (priority 68): Photography/video grade looks mapped to palette structures, brand consistency, content creator social feeds. Targets "color grading palette photography" queries.
+- Total guides: 28 (was 26)
+
+### Category D — SEARCH_ALIASES expansion (+18 terms)
+New aliases: moody, soft, clean, elegant, playful, urban, coastal, botanical, wedding, coffee, lavender, sage, terracotta, monochrome, halloween, christmas (18 terms, bringing total to ~52)
+
+### Category D — MOOD_WORDS/SCENE_WORDS expansion
+- MOOD_WORDS: each of 9 keys expanded from 5 to 8 words (new: Petal, Apricot, Honey, Sienna, Rye, Garnet, Maroon, Umber, Powder, Haze, Cerulean, Cove, Cobalt, Indigo, Reef, Alabaster, Cream, Birch, Gravel, Dune, Pewter, Obsidian, Graphite)
+- SCENE_WORDS: each of 5 keys expanded from 5 to 8 words (new: Column, Frame, Field, Grove, Shore, Ridge, Accord, Contrast, Pairing, Market, Revue, Atlas, Archive, Drift)
+
+**Files modified:**
+- src/data/newsletter-issues.json
+- src/lib/guides.ts
+- src/lib/color-utils.ts
+- src/lib/palette-builder.ts
+
+**Commit:** 307b3d9
