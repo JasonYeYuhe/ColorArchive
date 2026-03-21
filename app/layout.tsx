@@ -7,6 +7,7 @@ import { PageTracker } from "@/src/components/page-tracker";
 import { PaletteBuilderTray } from "@/src/components/palette-builder-tray";
 import { LocaleProvider } from "@/src/components/locale-provider";
 import { PHLaunchBanner } from "@/src/components/ph-launch-banner";
+import { ErrorBoundary } from "@/src/components/error-boundary";
 import "./globals.css";
 
 const siteTitle = "ColorArchive";
@@ -111,7 +112,9 @@ export default function RootLayout({
           <LocaleProvider>
             <AuthProvider>
               <PHLaunchBanner />
-              {children}
+              <ErrorBoundary>
+                <div id="main-content">{children}</div>
+              </ErrorBoundary>
               <SiteFooter />
               <PaletteBuilderTray />
               <PageTracker />

@@ -128,6 +128,10 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
   }, [currentPath]);
 
   return (
+    <>
+    <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[9999] focus:rounded-lg focus:bg-neutral-950 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg">
+      Skip to content
+    </a>
     <header className="px-4 pt-4 sm:px-6 sm:pt-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 rounded-[1.5rem] border border-black/6 bg-white/72 px-4 py-3 shadow-[0_18px_48px_rgba(15,23,42,0.05)] backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/72 dark:shadow-[0_18px_48px_rgba(0,0,0,0.2)] sm:px-5">
         <div className="flex items-center justify-between gap-3">
@@ -279,5 +283,6 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
         </nav>
       </div>
     </header>
+    </>
   );
 }

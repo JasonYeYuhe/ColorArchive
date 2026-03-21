@@ -131,7 +131,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const initialQuery = searchParams.get("q") ?? "";
   const initialSort = (searchParams.get("sort") as SortOption | null) ?? "name";
   const initialFamily = (searchParams.get("family") as ColorFamily | null) ?? "All";
@@ -171,6 +171,22 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
   const [maxLightness, setMaxLightness] = useState(clampToRange(initialMaxLightness, 0, 100, 100));
   const [exactHex, setExactHex] = useState(initialExactHex);
   const [selectedColorId, setSelectedColorId] = useState<string | null>(colors[0]?.id ?? null);
+  const [searchHistory, setSearchHistory] = useState<string[]>(() => {
+    if (typeof window === "undefined") return [];
+    try { return JSON.parse(localStorage.getItem("colorarchive-search-history") || "[]"); } catch { return []; }
+  });
+
+  useEffect(() => {
+    if (!searchQuery.trim() || searchQuery.trim().length < 2) return;
+    const timeout = setTimeout(() => {
+      setSearchHistory((prev) => {
+        const next = [searchQuery.trim(), ...prev.filter((q) => q !== searchQuery.trim())].slice(0, 8);
+        try { localStorage.setItem("colorarchive-search-history", JSON.stringify(next)); } catch {}
+        return next;
+      });
+    }, 1500);
+    return () => clearTimeout(timeout);
+  }, [searchQuery]);
 
   const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
 
@@ -362,6 +378,24 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
               ))}
               <ShareLinkButton href={shareHref} />
             </div>
+
+            {searchHistory.length > 0 && !searchQuery.trim() ? (
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  {locale === "ja" ? "最近の検索" : "Recent"}
+                </span>
+                {searchHistory.map((q) => (
+                  <button
+                    key={q}
+                    type="button"
+                    onClick={() => setSearchQuery(q)}
+                    className="rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-100"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            ) : null}
           </div>
         </section>
 

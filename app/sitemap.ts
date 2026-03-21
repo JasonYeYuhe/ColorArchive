@@ -11,6 +11,7 @@ export const dynamic = "force-static";
 const MARCH_18 = new Date("2026-03-18");
 const MARCH_19 = new Date("2026-03-19");
 const MARCH_20 = new Date("2026-03-20");
+const MARCH_21 = new Date("2026-03-21");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const topLevelRoutes: MetadataRoute.Sitemap = [
@@ -124,15 +125,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: "https://colorarchive.me/cancel/",
-      lastModified: MARCH_19,
+      lastModified: MARCH_21,
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: "https://colorarchive.me/packs/",
-      lastModified: MARCH_19,
+      lastModified: MARCH_21,
       changeFrequency: "weekly",
       priority: 0.85,
+    },
+    {
+      url: "https://colorarchive.me/packs/quiz/",
+      lastModified: MARCH_21,
+      changeFrequency: "monthly",
+      priority: 0.78,
     },
     {
       url: "https://colorarchive.me/product-examples/",

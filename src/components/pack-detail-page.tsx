@@ -5,6 +5,7 @@ import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
 import { useLocale } from "@/src/components/locale-provider";
 import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForPack } from "@/src/lib/guides";
+import { licenseTiers } from "@/src/lib/license-tiers";
 import { palettePacks, parsePriceYen, type PalettePack } from "@/src/lib/palette-packs";
 
 interface PackDetailPageProps {
@@ -336,6 +337,26 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                 </div>
               </div>
             ) : null}
+
+            <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                {t("packDetail.license")}
+              </div>
+              <div className="mt-4 space-y-3">
+                {licenseTiers.map((tier) => (
+                  <div key={tier.id} className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm font-semibold text-neutral-950">{tier.label}</div>
+                      <div className="text-xs font-medium text-neutral-400">{tier.priceNote}</div>
+                    </div>
+                    <div className="mt-2 text-xs leading-5 text-neutral-600">{tier.summary}</div>
+                  </div>
+                ))}
+              </div>
+              <Link href="/support/" className="mt-3 block text-xs font-medium text-neutral-500 transition hover:text-neutral-900">
+                {t("packDetail.fullLicenseDetails")} →
+              </Link>
+            </div>
           </aside>
         </section>
 

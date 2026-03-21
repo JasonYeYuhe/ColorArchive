@@ -470,6 +470,8 @@ const translations: Record<string, Record<Locale, string>> = {
   "packDetail.afterYouBuy": { en: "After you buy", ja: "購入後" },
   "packDetail.faq": { en: "FAQ", ja: "よくある質問" },
   "packDetail.relatedGuides": { en: "Related guides", ja: "関連ガイド" },
+  "packDetail.license": { en: "License", ja: "ライセンス" },
+  "packDetail.fullLicenseDetails": { en: "Full license details", ja: "ライセンス詳細" },
   "packDetail.readyToDownload": { en: "Ready to download", ja: "ダウンロード準備完了" },
   "packDetail.instantDownload": { en: "Instant download after payment.", ja: "支払い後即時ダウンロード。" },
   "packDetail.getFullCatalog": { en: "Get the full catalog", ja: "フルカタログを入手" },
