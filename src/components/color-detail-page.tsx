@@ -386,7 +386,16 @@ export function ColorDetailPage({
                     <span className="text-white/60">{": "}</span>
                     <span className="text-emerald-300">{color.hex}</span>
                     <span className="text-white/60">{";"}</span>
-                    <span className="text-white/30">{" /* " + color.hsl + " */"}</span>
+                    {"\n  "}
+                    <span className="text-white/40">{"--colorarchive-"}{color.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}{"-hsl"}</span>
+                    <span className="text-white/60">{": "}</span>
+                    <span className="text-sky-300">{color.hsl}</span>
+                    <span className="text-white/60">{";"}</span>
+                    {"\n  "}
+                    <span className="text-white/40">{"--colorarchive-"}{color.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}{"-rgb"}</span>
+                    <span className="text-white/60">{": "}</span>
+                    <span className="text-amber-300">{`rgb(${parseInt(color.hex.slice(1, 3), 16)}, ${parseInt(color.hex.slice(3, 5), 16)}, ${parseInt(color.hex.slice(5, 7), 16)})`}</span>
+                    <span className="text-white/60">{";"}</span>
                     {"\n"}
                     <span className="text-white/40">{"}"}</span>
                   </pre>

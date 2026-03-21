@@ -408,6 +408,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "packs.getFreeSample": { en: "Get free sample", ja: "無料サンプルを入手" },
   "packs.openExamples": { en: "Open product examples", ja: "製品サンプルを見る" },
   "packs.pricingSupport": { en: "Pricing & support", ja: "価格とサポート" },
+  "packs.whichPack": { en: "Which pack is right for me?", ja: "どのパックが最適？" },
   "packs.save32": { en: "Save 32%", ja: "32%割引" },
   "packs.bestValue": { en: "Best value", ja: "最良の価値" },
   "packs.bundleIndividualTotal": { en: "Individual total", ja: "個別合計" },

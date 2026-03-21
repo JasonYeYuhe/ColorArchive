@@ -188,6 +188,19 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
     return () => clearTimeout(timeout);
   }, [searchQuery]);
 
+  // Keyboard shortcut: press "/" to focus search input
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes((e.target as HTMLElement).tagName)) {
+        e.preventDefault();
+        const input = document.querySelector<HTMLInputElement>("[data-search-input]");
+        input?.focus();
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
 
   const familyCounts = useMemo(

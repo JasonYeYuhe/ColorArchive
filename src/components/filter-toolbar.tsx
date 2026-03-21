@@ -65,6 +65,7 @@ export function FilterToolbar({
             </span>
             <input
               type="search"
+              data-search-input
               value={searchQuery}
               onChange={(event) => onSearchChange(event.target.value)}
               placeholder={t("filter.searchPlaceholder")}
