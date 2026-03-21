@@ -290,6 +290,46 @@ export const collections: ColorCollection[] = [
       useCases: ["Wellness brands", "Tea and food packaging", "Artisan product pages"],
     },
   ),
+  createCollection(
+    "terracotta-loft",
+    "Terracotta Loft",
+    "Warm clay, rust, and fired earth tones for interior design, architecture, and artisan lifestyle brands.",
+    "A palette drawn from kiln-fired materials — terracotta, warm stucco, dried rust, and bleached linen. It works when the brand needs to feel architectural, handcrafted, and grounded in physical material.",
+    ["Warm", "Architecture", "Artisan"],
+    [
+      "coral-velvet-soft",
+      "ember-dusk-muted",
+      "ruby-shadow-muted",
+      "amber-tone-soft",
+      "honey-silk-muted",
+    ],
+    {
+      editorialNote:
+        "A material-forward palette for surfaces that should feel fired, aged, and handmade. Works best for interior design, architecture portfolios, home goods, and artisan food brands.",
+      promptWords: ["fired clay", "warm stucco", "rust patina", "adobe wall", "kiln earth"],
+      useCases: ["Interior design", "Architecture portfolios", "Home goods and artisan brands"],
+    },
+  ),
+  createCollection(
+    "ocean-abyss",
+    "Ocean Abyss",
+    "Deep-sea blues, teal depths, and bioluminescent accents for fintech, data, and technical product work.",
+    "A palette built around the pressure and light of deep water — dark teal bases, cobalt mid-tones, and vivid aqua accents that feel electric against the depth. Designed for technical products that need to communicate sophistication and scale.",
+    ["Dark", "Fintech", "Data"],
+    [
+      "teal-shadow-clear",
+      "aqua-dusk-soft",
+      "cerulean-nocturne-soft",
+      "lagoon-silk-vivid",
+      "cobalt-velvet-clear",
+    ],
+    {
+      editorialNote:
+        "Use this when the product needs to feel deep, technical, and precise — not just dark. The vivid aqua accent creates bioluminescent contrast against the deep bases without tipping into generic neon.",
+      promptWords: ["deep ocean", "submarine light", "pressure blue", "bioluminescent", "abyssal depth"],
+      useCases: ["Fintech dashboards", "Data visualization", "Sci-fi and technical products"],
+    },
+  ),
 ];
 
 export function getCollectionById(id: string) {

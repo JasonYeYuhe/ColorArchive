@@ -969,5 +969,107 @@
       { "label": "Explore Complete Archive", "href": "/packs/complete-archive" },
       { "label": "Open color archive", "href": "/colors" }
     ]
+  },
+  {
+    "slug": "may-2026-color-temperature-communication",
+    "date": "2026-05-28",
+    "title": "Color temperature as a communication tool: what warm and cool actually signal",
+    "summary": "Temperature is one of color's most immediate communication channels — and one of the easiest to use accidentally. Understanding what warm and cool tones signal to viewers, and how to use temperature intentionally, makes palettes more persuasive without adding complexity.",
+    "eyebrow": "Issue 028",
+    "tags": ["Theory", "Communication", "Brand"],
+    "featuredCollectionId": "editorial-warmth",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Warm colors (reds, oranges, yellows) signal proximity, urgency, appetite, and human presence — which is why food brands, call-to-action buttons, and editorial accents cluster in this range.",
+      "Cool colors (blues, cyans, greens) signal distance, reliability, calm, and technical precision — the default palette for banks, hospitals, SaaS tools, and any brand that needs to communicate trust before it communicates personality.",
+      "The most effective palettes use temperature as a deliberate contrast signal: a cool neutral base with a warm accent creates a focal hierarchy that guides attention without requiring visual complexity."
+    ],
+    "sections": [
+      {
+        "heading": "Why temperature communicates faster than hue",
+        "body": "Color temperature is processed before conscious hue recognition. In a fraction of a second, the visual system reads warm or cool as a spatial and emotional cue — warm colors feel physically closer, cool colors recede. This pre-conscious processing is what makes temperature such a powerful tool: viewers respond to it before they think about it. A warm call-to-action on a cool interface surface does not just look different — it feels like it is coming toward you. A cool loading indicator on a warm dashboard feels distant and calm. These effects work whether or not the viewer knows anything about color theory."
+      },
+      {
+        "heading": "Temperature and category signaling",
+        "body": "Beyond the immediate spatial effect, color temperature carries strong categorical associations built up through decades of visual culture. Finance, healthcare, and technology brands cluster overwhelmingly in cool palettes — not because these industries consciously coordinate, but because cool tones signal trustworthiness, precision, and control. Food, hospitality, and retail brands cluster in warm palettes because warmth signals appetite, welcome, and human connection. These associations are not absolute — they can be subverted for effect — but they function as a default communication layer that works before any copy or imagery has been read. Knowing which category your product sits in tells you which temperature assumption you are working with or against."
+      },
+      {
+        "heading": "Using temperature contrast intentionally",
+        "body": "The most practical application of temperature theory is the warm-accent-on-cool-base pattern. A clean, cool neutral palette handles the information density and structural needs of a complex UI, while a single warm accent (typically an orange, coral, or amber tone) marks every interactive element, call to action, or primary signal. This pattern leverages temperature contrast to create hierarchy without adding visual noise. The Brand Starter Kit uses this structure in its default token configuration: a cool neutral range for surfaces and borders, with a warm accent family reserved for interactive states and primary actions. The result is an interface that reads as calm and organized while still directing attention effectively."
+      }
+    ],
+    "links": [
+      { "label": "Open Editorial Warmth collection", "href": "/collections/editorial-warmth" },
+      { "label": "Get the Brand Starter Kit", "href": "/packs/brand-starter-kit" },
+      { "label": "Read the brand color palette guide", "href": "/guides/brand-color-palette" }
+    ]
+  },
+  {
+    "slug": "june-2026-muted-vs-desaturated",
+    "date": "2026-06-04",
+    "title": "Muted vs. desaturated: they look similar but behave completely differently in a palette",
+    "summary": "Designers often use muted and desaturated interchangeably, but they describe different adjustments with different visual results. Understanding the distinction clarifies why some reduced-saturation palettes feel sophisticated and others just feel dull.",
+    "eyebrow": "Issue 029",
+    "tags": ["Theory", "Technique", "Palette"],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "content-creator-bundle",
+    "highlights": [
+      "Desaturating a color reduces chroma toward gray by reducing the saturation value in HSL — the result depends entirely on the original hue and lightness, and often produces muddy mid-tones with no clear character.",
+      "Muting a color is a more precise operation: it shifts the color toward a neutral anchor while preserving enough of the original hue's character to remain identifiable — often by adjusting both saturation and lightness together toward a target.",
+      "The Quiet Luxury collection demonstrates intentional muting: each color retains its hue identity at low saturation by using carefully tuned lightness values, which is why the palette reads as sophisticated rather than washed-out."
+    ],
+    "sections": [
+      {
+        "heading": "The difference between desaturation and muting",
+        "body": "Desaturation is a mechanical operation: reduce the saturation slider toward zero. The visual result depends heavily on the color's lightness. A desaturated mid-tone becomes a flat gray with a hint of the original hue — this is the washed-out look that makes palettes feel underdesigned. A desaturated dark tone becomes a muddy near-black. Neither result feels intentional. Muting, by contrast, is an aesthetic judgment: moving a color toward a specific neutral anchor while preserving enough hue character to maintain identity. Muted colors are designed to work at reduced saturation, not just processed there. The difference in the output is significant: muted tones feel considered, desaturated tones feel like an accident."
+      },
+      {
+        "heading": "Lightness is the hidden variable",
+        "body": "The reason desaturation often fails is that designers adjust only saturation and leave lightness unchanged. In HSL, saturation and lightness are not independent — at very high or very low lightness values, changes in saturation become invisible. A color at 95% lightness looks almost white regardless of its saturation, so reducing saturation on a pale tint produces little change. At 50% lightness, the same saturation reduction produces a dramatic shift toward gray. Effective muting accounts for this interaction: when saturation is reduced, lightness often needs to be adjusted simultaneously — typically lifted slightly for mid-tones — to maintain perceptual consistency across the palette. This is the manual work that automatic desaturation skips."
+      },
+      {
+        "heading": "Building a muted palette that holds together",
+        "body": "A muted palette that holds together visually has consistent perceptual distance from neutral across all swatches. Each color should feel equally reduced — no single swatch should feel noticeably more or less saturated than its neighbors. Achieving this requires checking colors against a common neutral anchor and adjusting each one individually rather than applying a uniform saturation reduction. In the Quiet Luxury collection, all five colors sit at similar perceptual distances from neutral gray, which creates visual cohesion. They can be placed adjacent in any combination without any pair feeling mismatched. The Content Creator Bundle takes this further by providing muted accent palettes tested against neutral surfaces across both light and dark contexts."
+      }
+    ],
+    "links": [
+      { "label": "Open Quiet Luxury collection", "href": "/collections/quiet-luxury" },
+      { "label": "Get the Content Creator Bundle", "href": "/packs/content-creator-bundle" },
+      { "label": "Browse the color archive", "href": "/colors" }
+    ]
+  },
+  {
+    "slug": "june-2026-palette-hue-span",
+    "date": "2026-06-11",
+    "title": "How many colors does a palette actually need? The case for hue span constraints",
+    "summary": "Most product palettes are over-specified — too many hues, too many lightness variants, too many one-off accent colors. Understanding hue span as a design constraint produces palettes that are both more coherent and easier to use across a whole product.",
+    "eyebrow": "Issue 030",
+    "tags": ["Systems", "Palette", "Process"],
+    "featuredCollectionId": "forest-terrain",
+    "featuredPackId": "palette-pack-vol-1",
+    "highlights": [
+      "Most product teams use 6–10 distinct hues in practice, but research in color cognition suggests that visual coherence degrades noticeably beyond 5 perceptually distinct hues in a single interface context.",
+      "Hue span — the total arc of the color wheel covered by a palette — is a better measure of palette breadth than raw color count, because two palettes with 12 colors can have very different visual complexity depending on whether those colors cluster around 2 hues or spread across 8.",
+      "Constraining hue span to a 90–120 degree arc and controlling lightness range within that arc produces palettes that designers can extend confidently without accidentally breaking visual coherence."
+    ],
+    "sections": [
+      {
+        "heading": "Why more colors usually means less coherence",
+        "body": "Palette bloat is a predictable design system failure mode. A product launches with a carefully considered 5-color palette, then each new feature adds a status indicator color, each new team adds an accent, each new brand campaign introduces a temporary color that becomes permanent. Within two years, the palette has 15 distinct hues with no governing logic. Individual decisions that each seemed reasonable produced a collective result that feels chaotic. The problem is not that any single color was wrong — it is that each was added without a constraint that preserved overall hue span. A hue span policy prevents accumulation: any new color that would extend the palette beyond the defined arc has to replace an existing one, not join it."
+      },
+      {
+        "heading": "Hue span as the governing constraint",
+        "body": "Hue span describes how much of the color wheel a palette occupies. A monochromatic palette has zero span — all colors share the same hue. An analogous palette spans 30–60 degrees. A complementary palette spans 180 degrees. For most product interfaces, an analogous-to-wide-analogous range of 60–120 degrees provides enough variety for a full semantic token set while maintaining visual coherence. Any hue that falls outside this arc will read as an intruder — its perceptual distance from the rest of the palette breaks the sense of a unified visual system. The Forest Terrain collection demonstrates a 90-degree span anchored in the yellow-green to green-teal range: enough variety for rich surface and accent work, narrow enough to feel unified."
+      },
+      {
+        "heading": "Extending a constrained palette responsibly",
+        "body": "A hue span constraint does not limit a palette's expressive range — it redirects it. Within a 90-degree arc, there is enormous variety available through lightness and saturation adjustment. A forest green in 14 lightness bands, each at four saturation levels, produces 56 colors that all feel related while serving every semantic role from near-white surface to near-black text. The Palette Pack Vol. 1 uses this approach: each family in the set stays within a constrained hue span but covers the full lightness and saturation range, so teams get the coherence of a narrow palette with the functional coverage of a large one. The practical rule is to expand lightness and saturation before expanding hue — depth before breadth."
+      }
+    ],
+    "links": [
+      { "label": "Open Forest Terrain collection", "href": "/collections/forest-terrain" },
+      { "label": "Explore Palette Pack Vol. 1", "href": "/packs/palette-pack-vol-1" },
+      { "label": "Browse the color archive", "href": "/colors" }
+    ]
   }
 ]
