@@ -147,6 +147,22 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   dreamy: ["lavender", "blush", "peony", "lilac", "veil"],
   retro: ["muted", "amber", "sienna", "garnet", "soft"],
   tech: ["cobalt", "azure", "violet", "ink", "vivid"],
+  moody: ["shadow", "ink", "plum", "merlot", "slate"],
+  soft: ["veil", "whisper", "mist", "pearl", "silk"],
+  clean: ["frost", "veil", "whisper", "pearl", "ivory"],
+  elegant: ["pearl", "ivory", "muted", "garnet", "onyx"],
+  playful: ["coral", "mint", "vivid", "bloom", "citrine"],
+  urban: ["ink", "slate", "cobalt", "carbon", "steel"],
+  coastal: ["aqua", "teal", "fog", "azure", "mist"],
+  botanical: ["moss", "fern", "leaf", "sage", "olive"],
+  wedding: ["blush", "ivory", "peony", "pearl", "rose"],
+  coffee: ["sienna", "amber", "clay", "umber", "ivory"],
+  lavender: ["lavender", "lilac", "violet", "blush", "veil"],
+  sage: ["sage", "olive", "moss", "muted", "leaf"],
+  terracotta: ["clay", "rust", "sienna", "ember", "amber"],
+  monochrome: ["ink", "slate", "ash", "fog", "stone"],
+  halloween: ["ember", "rust", "amber", "onyx", "garnet"],
+  christmas: ["crimson", "ruby", "pine", "forest", "gold"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

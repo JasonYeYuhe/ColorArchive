@@ -118,23 +118,23 @@ export function buildPaletteStyleDictionaryExport(colors: ColorRecord[]): string
 
 // Deterministic palette naming based on color properties
 const MOOD_WORDS: Record<string, string[]> = {
-  warm_light: ["Morning", "Dawn", "Sunrise", "Bloom", "Glow"],
-  warm_mid: ["Spice", "Clay", "Ember", "Terra", "Harvest"],
-  warm_dark: ["Dusk", "Mulled", "Fireside", "Hearth", "Smolder"],
-  cool_light: ["Frost", "Mist", "Cloud", "Arctic", "Drift"],
-  cool_mid: ["Ocean", "Stream", "Wave", "Tide", "Harbor"],
-  cool_dark: ["Midnight", "Deep", "Abyss", "Tempest", "Shadow"],
-  neutral_light: ["Silk", "Pearl", "Linen", "Ivory", "Whisper"],
-  neutral_mid: ["Stone", "Ash", "Fog", "Dove", "Slate"],
-  neutral_dark: ["Onyx", "Iron", "Carbon", "Eclipse", "Void"],
+  warm_light: ["Morning", "Dawn", "Sunrise", "Bloom", "Glow", "Petal", "Apricot", "Honey"],
+  warm_mid: ["Spice", "Clay", "Ember", "Terra", "Harvest", "Sienna", "Amber", "Rye"],
+  warm_dark: ["Dusk", "Mulled", "Fireside", "Hearth", "Smolder", "Garnet", "Maroon", "Umber"],
+  cool_light: ["Frost", "Mist", "Cloud", "Arctic", "Drift", "Powder", "Haze", "Petal"],
+  cool_mid: ["Ocean", "Stream", "Wave", "Tide", "Harbor", "Cerulean", "Teal", "Cove"],
+  cool_dark: ["Midnight", "Deep", "Abyss", "Tempest", "Shadow", "Cobalt", "Indigo", "Reef"],
+  neutral_light: ["Silk", "Pearl", "Linen", "Ivory", "Whisper", "Alabaster", "Cream", "Birch"],
+  neutral_mid: ["Stone", "Ash", "Fog", "Dove", "Slate", "Gravel", "Dune", "Pewter"],
+  neutral_dark: ["Onyx", "Iron", "Carbon", "Eclipse", "Void", "Obsidian", "Graphite", "Coal"],
 };
 
 const SCENE_WORDS: Record<string, string[]> = {
-  monochrome: ["Study", "Suite", "System", "Scale", "Layer"],
-  analogous: ["Garden", "Coast", "Valley", "Meadow", "Path"],
-  complementary: ["Clash", "Dialog", "Tension", "Balance", "Duet"],
-  triadic: ["Festival", "Bazaar", "Mosaic", "Carnival", "Prism"],
-  diverse: ["Palette", "Spectrum", "Story", "Journey", "Scene"],
+  monochrome: ["Study", "Suite", "System", "Scale", "Layer", "Column", "Frame", "Field"],
+  analogous: ["Garden", "Coast", "Valley", "Meadow", "Path", "Grove", "Shore", "Ridge"],
+  complementary: ["Clash", "Dialog", "Tension", "Balance", "Duet", "Accord", "Contrast", "Pairing"],
+  triadic: ["Festival", "Bazaar", "Mosaic", "Carnival", "Prism", "Market", "Revue", "Atlas"],
+  diverse: ["Palette", "Spectrum", "Story", "Journey", "Scene", "Archive", "Drift", "Suite"],
 };
 
 function getTemperature(hue: number): "warm" | "cool" | "neutral" {

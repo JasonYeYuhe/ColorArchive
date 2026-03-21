@@ -945,6 +945,86 @@ export const landingGuides: LandingGuide[] = [
       { label: "Get the Free Sample Pack", href: "/free-pack/" },
     ],
   },
+  {
+    category: "Events & Lifestyle",
+    slug: "wedding-color-palette",
+    title: "Wedding Color Palette Ideas That Stay Timeless After the Day Itself",
+    summary:
+      "Wedding color palettes need to work across florals, stationery, attire, lighting, and photography — often simultaneously. This guide covers palette structures that hold together across every medium, from save-the-date printing to venue décor.",
+    eyebrow: "Events Guide",
+    priority: 72,
+    searchIntent: "wedding color palette ideas",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Events", "Palette", "Print"],
+    highlights: [
+      "Wedding palettes function across more substrates than almost any other design context — paper, fabric, flowers, candles, lighting gels, and digital screens all interpret color differently.",
+      "The most durable wedding palettes anchor around two to three neutrals and use one or two accent tones. Broader palettes tend to fragment across mediums.",
+      "Orchid Bloom and soft blush/ivory pairings are reliably safe in mixed lighting — candlelight and daylight both read them as warm and flattering.",
+    ],
+    sections: [
+      {
+        heading: "Why wedding palettes need different rules",
+        body:
+          "A brand palette usually appears on one or two consistent substrates — screens and print collateral. A wedding palette appears on dozens: cotton napkins, silk ribbons, floral arrangements, paper invitations, digital RSVPs, venue draping, cake decoration, and photography editing. Each substrate interprets color differently. Flowers are organic and vary by season. Fabric dyes shift under different light sources. Paper printing has CMYK gamut constraints. This is why wedding palettes built primarily around vivid, heavily saturated colors tend to fragment — the exact hue rarely survives the translation from screen reference to real-world substrate. Palettes built around soft neutrals and gently saturated accents maintain cohesion better because their visual character depends on warmth and tone rather than specific hue values.",
+      },
+      {
+        heading: "Choosing anchor neutrals first",
+        body:
+          "The most reliable approach is to choose two anchor neutrals before selecting accent colors. For warm weddings, ivory and warm linen work well — they photograph beautifully in natural light, work in candlelight, and translate to fabric and paper without surprises. For cooler, more modern settings, soft gray and dusty white provide a cleaner base. Once the neutrals are established, accent colors can be chosen knowing they will appear against a predictable ground. A blush pink that reads muddy against pure white may read beautifully against ivory. The Orchid Bloom collection demonstrates this approach: soft blush, dusty rose, lavender, and warm white are all anchored around a common warmth and lightness level, making them naturally cohesive across any substrate.",
+      },
+      {
+        heading: "Photography and color grading considerations",
+        body:
+          "Wedding photography almost always involves some degree of color grading — adjusting warmth, tones, and saturation in post-production to create a consistent look across thousands of images taken in varied lighting conditions. A palette that is easy to grade toward will produce more consistent photo delivery than one that fights the camera's white balance. Warm, muted palettes photograph consistently across both natural and artificial light. Highly saturated palettes, especially those with vivid cyans or magentas, can shift dramatically between different light sources and are harder to normalize in editing. When selecting a wedding palette, it is worth asking whether the hues will look similar in morning ceremony light, afternoon portraits, and evening reception light — colors with a clear warmth or coolness that matches the expected lighting will perform most reliably.",
+      },
+    ],
+    links: [
+      { label: "Open Orchid Bloom collection", href: "/collections/orchid-bloom/" },
+      { label: "Browse Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse all collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Photography & Film",
+    slug: "color-grading-palette",
+    title: "Color Grading Palettes for Photography and Video: How Archive Colors Map to Grade Looks",
+    summary:
+      "Color grading in photography and video is fundamentally a palette operation — the grade establishes a dominant hue/tone balance that reads as a unified visual world. Understanding how grade looks map to palette structures helps designers and photographers align brand photography with product color systems.",
+    eyebrow: "Photography Guide",
+    priority: 68,
+    searchIntent: "color grading palette photography",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "content-creator-bundle",
+    tags: ["Photography", "Palette", "Brand"],
+    highlights: [
+      "A color grade is a palette operation applied to time-based media — it sets the dominant hue, establishes shadow and highlight temperatures, and constrains the saturation envelope of the entire piece.",
+      "The most recognizable film and photography looks — warm golden-hour, cool cinematic, muted film, high-contrast editorial — each have a specific palette signature that can be reverse-engineered into discrete color swatches.",
+      "Aligning product photography color grades with the design system palette reduces corrections between photo assets and UI components — the same warmth that reads well in shots also reads well in the interface.",
+    ],
+    sections: [
+      {
+        heading: "What color grading actually does to a palette",
+        body:
+          "A color grade applies a controlled shift to the entire tonal range of an image. The most common moves are: warming the highlights (shifting yellows and whites toward amber), cooling the shadows (shifting blacks and dark midtones toward blue or teal), and controlling midtone saturation. The sum of these shifts defines the perceptual character of the image — a warm-highlight, cool-shadow grade produces the teal-orange look common in cinematic work. A warm-through-all-tones grade produces the golden-hour look common in lifestyle photography. A desaturated, cooled grade produces the muted editorial look. Each look corresponds to a specific palette behavior: warm highlights map to amber and honey tones, cool shadows map to deep teal and cobalt, desaturated midtones map to muted mid-range hues.",
+      },
+      {
+        heading: "Matching brand photography grades to design system colors",
+        body:
+          "Brand consistency across photography and digital product is easier to achieve when the grade look and the design system palette share a common temperature and saturation target. If the design system uses a warm amber as its primary brand color, photography graded toward warm amber highlights will feel brand-consistent without additional effort. If the design system is cool and blue-toned but the photography is graded warm, the two will conflict in any layout that combines photos with UI components. The Editorial Warmth collection is designed for this use case — its amber, coral, and warm neutral tones translate directly to the warm-grade photography style common in food, lifestyle, and artisan brand photography. Using these colors in both the UI and the photography brief creates a closed loop that makes every touchpoint feel unified.",
+      },
+      {
+        heading: "Content creator palettes and social media consistency",
+        body:
+          "Social media content creators face a version of the brand photography problem at smaller scale: their feed needs to read as a unified visual world across many individual posts, each shot in different conditions. A consistent color grade is the most efficient way to achieve this — once a grade preset is established that matches the target palette, every post run through it will share the same temperature and saturation character. The Content Creator Bundle is designed for this workflow: its included palettes and token exports correspond directly to grade-ready warm and cool palette signatures. The bundle includes CSS variables and Figma tokens, and the palette structure maps to grade parameters — highlight temperature, shadow temperature, and midtone saturation are all derivable from the included color values.",
+      },
+    ],
+    links: [
+      { label: "Open Editorial Warmth collection", href: "/collections/editorial-warmth/" },
+      { label: "Explore Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Browse all packs", href: "/packs/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {

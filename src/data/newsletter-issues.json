@@ -5,7 +5,11 @@
     "title": "How trending colors actually spread through design tools",
     "summary": "A look at the pipeline that carries a color from a runway collection or gallery installation into Figma plugins, component libraries, and production design systems. The path is faster and more predictable than most designers assume, and understanding it gives you a timing advantage.",
     "eyebrow": "Issue 024",
-    "tags": ["Trending", "Tools", "Industry"],
+    "tags": [
+      "Trending",
+      "Tools",
+      "Industry"
+    ],
     "featuredCollectionId": "candy-gradient",
     "featuredPackId": "palette-pack-vol-1",
     "highlights": [
@@ -28,9 +32,18 @@
       }
     ],
     "links": [
-      { "label": "Browse all 2016 colors", "href": "/colors" },
-      { "label": "Open Candy Gradient collection", "href": "/collections/candy-gradient" },
-      { "label": "Explore Palette Pack Vol. 1", "href": "/packs/palette-pack-vol-1" }
+      {
+        "label": "Browse all 2016 colors",
+        "href": "/colors"
+      },
+      {
+        "label": "Open Candy Gradient collection",
+        "href": "/collections/candy-gradient"
+      },
+      {
+        "label": "Explore Palette Pack Vol. 1",
+        "href": "/packs/palette-pack-vol-1"
+      }
     ]
   },
   {
@@ -39,7 +52,11 @@
     "title": "Building a color system that survives a rebrand",
     "summary": "Most design systems treat color as fixed brand constants, which means a rebrand forces a rebuild from scratch. A resilient token architecture separates structural roles from brand expression, so the system adapts to new colors without breaking components or accessibility contracts.",
     "eyebrow": "Issue 023",
-    "tags": ["Systems", "Brand", "Tokens"],
+    "tags": [
+      "Systems",
+      "Brand",
+      "Tokens"
+    ],
     "featuredCollectionId": "quiet-luxury",
     "featuredPackId": "brand-starter-kit",
     "highlights": [
@@ -62,8 +79,14 @@
       }
     ],
     "links": [
-      { "label": "Get the Brand Starter Kit", "href": "/packs/brand-starter-kit" },
-      { "label": "Open Quiet Luxury collection", "href": "/collections/quiet-luxury" }
+      {
+        "label": "Get the Brand Starter Kit",
+        "href": "/packs/brand-starter-kit"
+      },
+      {
+        "label": "Open Quiet Luxury collection",
+        "href": "/collections/quiet-luxury"
+      }
     ]
   },
   {
@@ -72,7 +95,11 @@
     "title": "The designer's guide to earth tones in digital interfaces",
     "summary": "Earth tones carry warmth and groundedness in physical materials, but translating that quality to screen-based interfaces requires deliberate adjustments to saturation, contrast, and context. This issue covers what works, what fails, and how to avoid the most common mistakes.",
     "eyebrow": "Issue 022",
-    "tags": ["Palette", "UI", "Aesthetic"],
+    "tags": [
+      "Palette",
+      "UI",
+      "Aesthetic"
+    ],
     "featuredCollectionId": "editorial-warmth",
     "featuredPackId": "content-creator-bundle",
     "highlights": [
@@ -95,9 +122,18 @@
       }
     ],
     "links": [
-      { "label": "Open Editorial Warmth collection", "href": "/collections/editorial-warmth" },
-      { "label": "Get the Content Creator Bundle", "href": "/packs/content-creator-bundle" },
-      { "label": "Browse earth-tone colors", "href": "/colors?family=brown" }
+      {
+        "label": "Open Editorial Warmth collection",
+        "href": "/collections/editorial-warmth"
+      },
+      {
+        "label": "Get the Content Creator Bundle",
+        "href": "/packs/content-creator-bundle"
+      },
+      {
+        "label": "Browse earth-tone colors",
+        "href": "/colors?family=brown"
+      }
     ]
   },
   {
@@ -106,7 +142,11 @@
     "title": "Contrast ratios beyond black and white: creative approaches to WCAG compliance",
     "summary": "WCAG contrast requirements do not mandate black text on white backgrounds. There is a wide range of color combinations that pass AA and AAA thresholds while delivering a distinctive visual identity. This issue explores how to find them systematically.",
     "eyebrow": "Issue 021",
-    "tags": ["Accessibility", "Contrast", "WCAG"],
+    "tags": [
+      "Accessibility",
+      "Contrast",
+      "WCAG"
+    ],
     "featuredCollectionId": "nocturne-tech",
     "featuredPackId": "dark-mode-ui-kit",
     "highlights": [
@@ -129,9 +169,18 @@
       }
     ],
     "links": [
-      { "label": "Open Nocturne Tech collection", "href": "/collections/nocturne-tech" },
-      { "label": "Get the Dark Mode UI Kit", "href": "/packs/dark-mode-ui-kit" },
-      { "label": "Read the accessibility guide", "href": "/guides/accessible-color-palette" }
+      {
+        "label": "Open Nocturne Tech collection",
+        "href": "/collections/nocturne-tech"
+      },
+      {
+        "label": "Get the Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit"
+      },
+      {
+        "label": "Read the accessibility guide",
+        "href": "/guides/accessible-color-palette"
+      }
     ]
   },
   {
@@ -140,7 +189,11 @@
     "title": "Why pastel palettes fail in production (and how to fix them)",
     "summary": "Pastel palettes look beautiful in design mockups but frequently break down in production environments — contrast failures, washed-out hierarchy, and brand dilution are the most common symptoms. This issue diagnoses the root causes and provides concrete fixes.",
     "eyebrow": "Issue 020",
-    "tags": ["Palette", "Brand", "Production"],
+    "tags": [
+      "Palette",
+      "Brand",
+      "Production"
+    ],
     "featuredCollectionId": "candy-gradient",
     "featuredPackId": "seasonal-spring-2026",
     "highlights": [
@@ -163,9 +216,18 @@
       }
     ],
     "links": [
-      { "label": "Open Candy Gradient collection", "href": "/collections/candy-gradient" },
-      { "label": "Get Seasonal Spring 2026", "href": "/packs/seasonal-spring-2026" },
-      { "label": "Browse pastel colors", "href": "/colors?family=pastel" }
+      {
+        "label": "Open Candy Gradient collection",
+        "href": "/collections/candy-gradient"
+      },
+      {
+        "label": "Get Seasonal Spring 2026",
+        "href": "/packs/seasonal-spring-2026"
+      },
+      {
+        "label": "Browse pastel colors",
+        "href": "/colors?family=pastel"
+      }
     ]
   },
   {
@@ -174,7 +236,11 @@
     "title": "Seasonal color shifts: why the palette that worked in winter looks wrong by spring",
     "summary": "How ambient light changes the way colors read across seasons, why warm-neutral palettes that feel grounded in winter start to feel heavy by spring, and where a seasonal palette layer helps designers adapt without rebuilding the system.",
     "eyebrow": "Issue 019",
-    "tags": ["Palette", "Brand", "Seasonal"],
+    "tags": [
+      "Palette",
+      "Brand",
+      "Seasonal"
+    ],
     "featuredCollectionId": "editorial-warmth",
     "featuredPackId": "seasonal-spring-2026",
     "highlights": [
@@ -197,9 +263,18 @@
       }
     ],
     "links": [
-      { "label": "Open Seasonal Spring 2026", "href": "/packs/seasonal-spring-2026" },
-      { "label": "Open Editorial Warmth", "href": "/collections/editorial-warmth" },
-      { "label": "Read the brand palette guide", "href": "/guides/brand-color-palette" }
+      {
+        "label": "Open Seasonal Spring 2026",
+        "href": "/packs/seasonal-spring-2026"
+      },
+      {
+        "label": "Open Editorial Warmth",
+        "href": "/collections/editorial-warmth"
+      },
+      {
+        "label": "Read the brand palette guide",
+        "href": "/guides/brand-color-palette"
+      }
     ]
   },
   {
@@ -208,7 +283,11 @@
     "title": "Monochrome color systems that do not look flat: contrast, texture, and role separation",
     "summary": "Why single-hue systems collapse under real product conditions, how to create enough visual separation without introducing secondary hues, and where the Complete Archive token structure handles the layering work.",
     "eyebrow": "Issue 018",
-    "tags": ["Palette", "UI", "Tokens"],
+    "tags": [
+      "Palette",
+      "UI",
+      "Tokens"
+    ],
     "featuredCollectionId": "monochrome-studio",
     "featuredPackId": "complete-archive",
     "highlights": [
@@ -231,9 +310,18 @@
       }
     ],
     "links": [
-      { "label": "Open Complete Archive", "href": "/packs/complete-archive" },
-      { "label": "Open Monochrome Studio", "href": "/collections/monochrome-studio" },
-      { "label": "Read the design system palette guide", "href": "/guides/design-system-palette" }
+      {
+        "label": "Open Complete Archive",
+        "href": "/packs/complete-archive"
+      },
+      {
+        "label": "Open Monochrome Studio",
+        "href": "/collections/monochrome-studio"
+      },
+      {
+        "label": "Read the design system palette guide",
+        "href": "/guides/design-system-palette"
+      }
     ]
   },
   {
@@ -242,7 +330,11 @@
     "title": "Color accessibility beyond WCAG minimums: what the numbers miss",
     "summary": "Why passing WCAG contrast ratios does not guarantee a readable palette, what the numbers cannot measure, and how to audit a color system for real-world accessibility beyond the 4.5:1 threshold.",
     "eyebrow": "Issue 017",
-    "tags": ["Accessibility", "UI", "Workflow"],
+    "tags": [
+      "Accessibility",
+      "UI",
+      "Workflow"
+    ],
     "featuredCollectionId": "nordic-frost",
     "featuredPackId": "dark-mode-ui-kit",
     "highlights": [
@@ -265,9 +357,18 @@
       }
     ],
     "links": [
-      { "label": "Try the contrast checker", "href": "/contrast" },
-      { "label": "Open Dark Mode UI Kit", "href": "/packs/dark-mode-ui-kit" },
-      { "label": "Open Nordic Frost", "href": "/collections/nordic-frost" }
+      {
+        "label": "Try the contrast checker",
+        "href": "/contrast"
+      },
+      {
+        "label": "Open Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit"
+      },
+      {
+        "label": "Open Nordic Frost",
+        "href": "/collections/nordic-frost"
+      }
     ]
   },
   {
@@ -276,7 +377,11 @@
     "title": "Color in data visualization: clarity over decoration",
     "summary": "Why chart color systems fail when they prioritize beauty over function, how chroma control keeps categories readable, and where the Complete Archive provides a consistent categorical palette source.",
     "eyebrow": "Issue 016",
-    "tags": ["Tools", "UI", "Workflow"],
+    "tags": [
+      "Tools",
+      "UI",
+      "Workflow"
+    ],
     "featuredCollectionId": "nordic-frost",
     "featuredPackId": "complete-archive",
     "highlights": [
@@ -299,9 +404,18 @@
       }
     ],
     "links": [
-      { "label": "Open Complete Archive Token Set", "href": "/packs/complete-archive" },
-      { "label": "Open Nordic Frost", "href": "/collections/nordic-frost" },
-      { "label": "Try the contrast checker", "href": "/contrast" }
+      {
+        "label": "Open Complete Archive Token Set",
+        "href": "/packs/complete-archive"
+      },
+      {
+        "label": "Open Nordic Frost",
+        "href": "/collections/nordic-frost"
+      },
+      {
+        "label": "Try the contrast checker",
+        "href": "/contrast"
+      }
     ]
   },
   {
@@ -310,7 +424,11 @@
     "title": "Pairing type and color: how font weight changes what your palette needs",
     "summary": "Why the same color reads differently under light and heavy type weights, how warm editorial palettes adapt to variable-weight type stacks, and where the Brand Starter Kit reduces the pairing guesswork.",
     "eyebrow": "Issue 015",
-    "tags": ["Brand", "Editorial", "UI"],
+    "tags": [
+      "Brand",
+      "Editorial",
+      "UI"
+    ],
     "featuredCollectionId": "editorial-warmth",
     "featuredPackId": "brand-starter-kit",
     "highlights": [
@@ -333,9 +451,18 @@
       }
     ],
     "links": [
-      { "label": "Open Brand Starter Kit", "href": "/packs/brand-starter-kit" },
-      { "label": "Open Editorial Warmth", "href": "/collections/editorial-warmth" },
-      { "label": "Read the brand palette guide", "href": "/guides/brand-color-palette" }
+      {
+        "label": "Open Brand Starter Kit",
+        "href": "/packs/brand-starter-kit"
+      },
+      {
+        "label": "Open Editorial Warmth",
+        "href": "/collections/editorial-warmth"
+      },
+      {
+        "label": "Read the brand palette guide",
+        "href": "/guides/brand-color-palette"
+      }
     ]
   },
   {
@@ -344,7 +471,11 @@
     "title": "Dark mode color psychology: why dark surfaces change how hues read",
     "summary": "How dark backgrounds shift color perception, why saturation and chroma behave differently on dark surfaces, and where the Dark Mode UI Kit handles the lightness inversion so teams do not have to.",
     "eyebrow": "Issue 014",
-    "tags": ["Dark mode", "Palette", "Product"],
+    "tags": [
+      "Dark mode",
+      "Palette",
+      "Product"
+    ],
     "featuredCollectionId": "nocturne-tech",
     "featuredPackId": "dark-mode-ui-kit",
     "highlights": [
@@ -367,9 +498,18 @@
       }
     ],
     "links": [
-      { "label": "Open Dark Mode UI Kit", "href": "/packs/dark-mode-ui-kit" },
-      { "label": "Open Nocturne Tech", "href": "/collections/nocturne-tech" },
-      { "label": "Read the dark mode guide", "href": "/guides/dark-mode-color-palette" }
+      {
+        "label": "Open Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit"
+      },
+      {
+        "label": "Open Nocturne Tech",
+        "href": "/collections/nocturne-tech"
+      },
+      {
+        "label": "Read the dark mode guide",
+        "href": "/guides/dark-mode-color-palette"
+      }
     ]
   },
   {
@@ -378,7 +518,11 @@
     "title": "Color naming that sticks: from mood labels to production-grade tokens",
     "summary": "Why ad-hoc color names collapse under scale, how role-based naming survives redesigns, and where the All Access Bundle removes the naming architecture overhead entirely.",
     "eyebrow": "Issue 013",
-    "tags": ["Tokens", "Workflow", "Naming"],
+    "tags": [
+      "Tokens",
+      "Workflow",
+      "Naming"
+    ],
     "featuredCollectionId": "monochrome-studio",
     "featuredPackId": "all-access-bundle",
     "highlights": [
@@ -401,9 +545,18 @@
       }
     ],
     "links": [
-      { "label": "Open All Access Bundle", "href": "/packs/all-access-bundle" },
-      { "label": "Open Monochrome Studio", "href": "/collections/monochrome-studio" },
-      { "label": "Read the brand token guide", "href": "/guides/brand-color-tokens" }
+      {
+        "label": "Open All Access Bundle",
+        "href": "/packs/all-access-bundle"
+      },
+      {
+        "label": "Open Monochrome Studio",
+        "href": "/collections/monochrome-studio"
+      },
+      {
+        "label": "Read the brand token guide",
+        "href": "/guides/brand-color-tokens"
+      }
     ]
   },
   {
@@ -412,7 +565,11 @@
     "title": "Seasonal palettes beyond spring: building a rotation your brand can reuse",
     "summary": "How to turn a one-off seasonal palette into a repeatable system, why Sunset Boulevard anchors a warm-season lane, and where the Spring 2026 pack fits as the first installment.",
     "eyebrow": "Issue 012",
-    "tags": ["Spring", "Brand", "Systems"],
+    "tags": [
+      "Spring",
+      "Brand",
+      "Systems"
+    ],
     "featuredCollectionId": "sunset-boulevard",
     "featuredPackId": "seasonal-spring-2026",
     "highlights": [
@@ -435,9 +592,18 @@
       }
     ],
     "links": [
-      { "label": "Open Sunset Boulevard", "href": "/collections/sunset-boulevard" },
-      { "label": "Open Seasonal: Spring 2026", "href": "/packs/seasonal-spring-2026" },
-      { "label": "Browse all collections", "href": "/collections" }
+      {
+        "label": "Open Sunset Boulevard",
+        "href": "/collections/sunset-boulevard"
+      },
+      {
+        "label": "Open Seasonal: Spring 2026",
+        "href": "/packs/seasonal-spring-2026"
+      },
+      {
+        "label": "Browse all collections",
+        "href": "/collections"
+      }
     ]
   },
   {
@@ -446,7 +612,11 @@
     "title": "Choosing accessible accent colors that still feel intentional",
     "summary": "Why accessible accents fail when they are chosen by compliance alone, how Orchid Bloom proves that expressive hues can pass contrast, and where the starter pack helps teams ship faster.",
     "eyebrow": "Issue 011",
-    "tags": ["Accessibility", "WCAG", "Palette"],
+    "tags": [
+      "Accessibility",
+      "WCAG",
+      "Palette"
+    ],
     "featuredCollectionId": "orchid-bloom",
     "featuredPackId": "palette-pack-vol-1",
     "highlights": [
@@ -469,9 +639,18 @@
       }
     ],
     "links": [
-      { "label": "Open Orchid Bloom", "href": "/collections/orchid-bloom" },
-      { "label": "Open Palette Pack Vol. 1", "href": "/packs/palette-pack-vol-1" },
-      { "label": "Try the contrast checker", "href": "/contrast" }
+      {
+        "label": "Open Orchid Bloom",
+        "href": "/collections/orchid-bloom"
+      },
+      {
+        "label": "Open Palette Pack Vol. 1",
+        "href": "/packs/palette-pack-vol-1"
+      },
+      {
+        "label": "Try the contrast checker",
+        "href": "/contrast"
+      }
     ]
   },
   {
@@ -480,7 +659,11 @@
     "title": "Color workflow automation: from hand-picked swatches to token pipeline",
     "summary": "Why manual color handoff breaks down, how Modern Seaside illustrates the gap between a curated palette and a production-ready token set, and where the Complete Archive fits as the pipeline source.",
     "eyebrow": "Issue 010",
-    "tags": ["Workflow", "Tools", "Figma"],
+    "tags": [
+      "Workflow",
+      "Tools",
+      "Figma"
+    ],
     "featuredCollectionId": "modern-seaside",
     "featuredPackId": "complete-archive",
     "highlights": [
@@ -503,9 +686,18 @@
       }
     ],
     "links": [
-      { "label": "Open Complete Archive Token Set", "href": "/packs/complete-archive" },
-      { "label": "Open Modern Seaside", "href": "/collections/modern-seaside" },
-      { "label": "Read the Figma tokens guide", "href": "/guides/figma-color-tokens" }
+      {
+        "label": "Open Complete Archive Token Set",
+        "href": "/packs/complete-archive"
+      },
+      {
+        "label": "Open Modern Seaside",
+        "href": "/collections/modern-seaside"
+      },
+      {
+        "label": "Read the Figma tokens guide",
+        "href": "/guides/figma-color-tokens"
+      }
     ]
   },
   {
@@ -514,7 +706,11 @@
     "title": "SaaS color schemes that earn trust before they ask for attention",
     "summary": "Why restrained website color systems convert better for software products, and how Nordic Frost plus a starter pack avoid the generic startup-blue trap.",
     "eyebrow": "Issue 009",
-    "tags": ["SaaS", "Website", "UI"],
+    "tags": [
+      "SaaS",
+      "Website",
+      "UI"
+    ],
     "featuredCollectionId": "nordic-frost",
     "featuredPackId": "palette-pack-vol-1",
     "highlights": [
@@ -537,9 +733,18 @@
       }
     ],
     "links": [
-      { "label": "Open Nordic Frost", "href": "/collections/nordic-frost" },
-      { "label": "Open Palette Pack Vol. 1", "href": "/packs/palette-pack-vol-1" },
-      { "label": "Read the SaaS guide", "href": "/guides/saas-website-color-scheme" }
+      {
+        "label": "Open Nordic Frost",
+        "href": "/collections/nordic-frost"
+      },
+      {
+        "label": "Open Palette Pack Vol. 1",
+        "href": "/packs/palette-pack-vol-1"
+      },
+      {
+        "label": "Read the SaaS guide",
+        "href": "/guides/saas-website-color-scheme"
+      }
     ]
   },
   {
@@ -548,7 +753,11 @@
     "title": "Brand color tokens are what stop marketing and product from drifting apart",
     "summary": "A note on role naming, palette governance, and why brand color systems fail once the landing page, product UI, and campaign work all diverge into separate files.",
     "eyebrow": "Issue 008",
-    "tags": ["Brand", "Tokens", "Systems"],
+    "tags": [
+      "Brand",
+      "Tokens",
+      "Systems"
+    ],
     "featuredCollectionId": "quiet-luxury",
     "featuredPackId": "brand-starter-kit",
     "highlights": [
@@ -571,9 +780,18 @@
       }
     ],
     "links": [
-      { "label": "Open Brand Starter Kit", "href": "/packs/brand-starter-kit" },
-      { "label": "Open Quiet Luxury", "href": "/collections/quiet-luxury" },
-      { "label": "Read the brand token guide", "href": "/guides/brand-color-tokens" }
+      {
+        "label": "Open Brand Starter Kit",
+        "href": "/packs/brand-starter-kit"
+      },
+      {
+        "label": "Open Quiet Luxury",
+        "href": "/collections/quiet-luxury"
+      },
+      {
+        "label": "Read the brand token guide",
+        "href": "/guides/brand-color-tokens"
+      }
     ]
   },
   {
@@ -582,7 +800,11 @@
     "title": "Design tokens that don't drift across CSS, Tailwind, and Figma",
     "summary": "Why token exports break after handoff, how to keep reference and alias layers aligned, and where the All Access Bundle fits when a team needs one color source of truth.",
     "eyebrow": "Issue 007",
-    "tags": ["Figma", "Tokens", "Workflow"],
+    "tags": [
+      "Figma",
+      "Tokens",
+      "Workflow"
+    ],
     "featuredCollectionId": "quiet-luxury",
     "featuredPackId": "all-access-bundle",
     "highlights": [
@@ -605,9 +827,18 @@
       }
     ],
     "links": [
-      { "label": "Open All Access Bundle", "href": "/packs/all-access-bundle" },
-      { "label": "Open Complete Archive Token Set", "href": "/packs/complete-archive" },
-      { "label": "Open Quiet Luxury", "href": "/collections/quiet-luxury" }
+      {
+        "label": "Open All Access Bundle",
+        "href": "/packs/all-access-bundle"
+      },
+      {
+        "label": "Open Complete Archive Token Set",
+        "href": "/packs/complete-archive"
+      },
+      {
+        "label": "Open Quiet Luxury",
+        "href": "/collections/quiet-luxury"
+      }
     ]
   },
   {
@@ -616,7 +847,11 @@
     "title": "Why the free pack has to feel like the paid product",
     "summary": "A note on conversion quality: a free download should prove file quality, naming, and taste clearly enough that the paid packs feel like a larger version of the same system.",
     "eyebrow": "Issue 006",
-    "tags": ["Conversion", "Downloads", "Product"],
+    "tags": [
+      "Conversion",
+      "Downloads",
+      "Product"
+    ],
     "featuredCollectionId": "editorial-warmth",
     "featuredPackId": "content-creator-bundle",
     "highlights": [
@@ -639,9 +874,18 @@
       }
     ],
     "links": [
-      { "label": "Get the Free Sample Pack", "href": "/free-pack" },
-      { "label": "Open Creator Bundle", "href": "/packs/content-creator-bundle" },
-      { "label": "Browse all packs", "href": "/packs" }
+      {
+        "label": "Get the Free Sample Pack",
+        "href": "/free-pack"
+      },
+      {
+        "label": "Open Creator Bundle",
+        "href": "/packs/content-creator-bundle"
+      },
+      {
+        "label": "Browse all packs",
+        "href": "/packs"
+      }
     ]
   },
   {
@@ -650,7 +894,11 @@
     "title": "Building a brand color system that actually holds up at scale",
     "summary": "How to move from a single hex value to a structured brand palette — token naming, role definition, and the common failure modes that kill consistency before launch.",
     "eyebrow": "Issue 005",
-    "tags": ["Brand", "Tokens", "Systems"],
+    "tags": [
+      "Brand",
+      "Tokens",
+      "Systems"
+    ],
     "featuredCollectionId": "quiet-luxury",
     "featuredPackId": "brand-starter-kit",
     "highlights": [
@@ -673,9 +921,18 @@
       }
     ],
     "links": [
-      { "label": "Open Brand Starter Kit", "href": "/packs/brand-starter-kit" },
-      { "label": "Open Quiet Luxury", "href": "/collections/quiet-luxury" },
-      { "label": "Browse all packs", "href": "/packs" }
+      {
+        "label": "Open Brand Starter Kit",
+        "href": "/packs/brand-starter-kit"
+      },
+      {
+        "label": "Open Quiet Luxury",
+        "href": "/collections/quiet-luxury"
+      },
+      {
+        "label": "Browse all packs",
+        "href": "/packs"
+      }
     ]
   },
   {
@@ -684,7 +941,11 @@
     "title": "Editorial color: warmth, tension, and why cold palettes age faster",
     "summary": "A look at the role of warm, organic hues in editorial and content work — why apricot and amber persist across design cycles while pure neutrals tend to date themselves.",
     "eyebrow": "Issue 004",
-    "tags": ["Editorial", "Warmth", "Brand"],
+    "tags": [
+      "Editorial",
+      "Warmth",
+      "Brand"
+    ],
     "featuredCollectionId": "editorial-warmth",
     "featuredPackId": "content-creator-bundle",
     "highlights": [
@@ -707,9 +968,18 @@
       }
     ],
     "links": [
-      { "label": "Open Editorial Warmth", "href": "/collections/editorial-warmth" },
-      { "label": "Open Content Creator Bundle", "href": "/packs/content-creator-bundle" },
-      { "label": "Open all collections", "href": "/collections" }
+      {
+        "label": "Open Editorial Warmth",
+        "href": "/collections/editorial-warmth"
+      },
+      {
+        "label": "Open Content Creator Bundle",
+        "href": "/packs/content-creator-bundle"
+      },
+      {
+        "label": "Open all collections",
+        "href": "/collections"
+      }
     ]
   },
   {
@@ -718,7 +988,11 @@
     "title": "Contrast, clarity, and building for accessibility from the start",
     "summary": "A note on WCAG contrast ratios, the /contrast tool, and why dark mode palette decisions matter more when accessibility is in scope.",
     "eyebrow": "Issue 003",
-    "tags": ["WCAG", "Accessibility", "Tools"],
+    "tags": [
+      "WCAG",
+      "Accessibility",
+      "Tools"
+    ],
     "featuredCollectionId": "monochrome-studio",
     "featuredPackId": "dark-mode-ui-kit",
     "highlights": [
@@ -761,7 +1035,11 @@
     "title": "Spring pastels, warm earth, and the seasonal palette case",
     "summary": "A look at the Spring 2026 seasonal palette direction, why pastels hold up in product design, and how to build a seasonal system without making it look like a greeting card.",
     "eyebrow": "Issue 002",
-    "tags": ["Spring", "Pastels", "Palette"],
+    "tags": [
+      "Spring",
+      "Pastels",
+      "Palette"
+    ],
     "featuredCollectionId": "matcha-linen",
     "featuredPackId": "seasonal-spring-2026",
     "highlights": [
@@ -800,7 +1078,11 @@
     "title": "Matcha & Linen, calm product surfaces, and what shipped in March",
     "summary": "A monthly ColorArchive note covering a calm green editorial direction, the archive's new account layer, and live token exports.",
     "eyebrow": "Issue 001",
-    "tags": ["Wellness", "Account", "Tokens"],
+    "tags": [
+      "Wellness",
+      "Account",
+      "Tokens"
+    ],
     "featuredCollectionId": "matcha-linen",
     "featuredPackId": "complete-archive",
     "highlights": [
@@ -839,7 +1121,11 @@
     "title": "A dark mode lane worth keeping, with Nocturne Tech as the anchor",
     "summary": "A focused note on dark mode palette decisions, pre-paired token sets, and where the Dark Mode UI Kit fits.",
     "eyebrow": "Issue 000",
-    "tags": ["Dark mode", "Contrast", "Product"],
+    "tags": [
+      "Dark mode",
+      "Contrast",
+      "Product"
+    ],
     "featuredCollectionId": "nocturne-tech",
     "featuredPackId": "dark-mode-ui-kit",
     "highlights": [
@@ -874,7 +1160,11 @@
     "title": "The case for limiting your palette to five colors",
     "summary": "Unlimited color freedom produces worse palettes than deliberate constraint. The five-color ceiling is not an aesthetic preference — it is a cognitive and systems design limit. Understanding why the constraint works makes it easier to apply and defend in team settings.",
     "eyebrow": "Issue 025",
-    "tags": ["Systems", "Brand", "Process"],
+    "tags": [
+      "Systems",
+      "Brand",
+      "Process"
+    ],
     "featuredCollectionId": "quiet-luxury",
     "featuredPackId": "brand-starter-kit",
     "highlights": [
@@ -897,9 +1187,18 @@
       }
     ],
     "links": [
-      { "label": "Browse Quiet Luxury collection", "href": "/collections/quiet-luxury" },
-      { "label": "Explore Brand Starter Kit", "href": "/packs/brand-starter-kit" },
-      { "label": "Open color archive", "href": "/colors" }
+      {
+        "label": "Browse Quiet Luxury collection",
+        "href": "/collections/quiet-luxury"
+      },
+      {
+        "label": "Explore Brand Starter Kit",
+        "href": "/packs/brand-starter-kit"
+      },
+      {
+        "label": "Open color archive",
+        "href": "/colors"
+      }
     ]
   },
   {
@@ -908,7 +1207,11 @@
     "title": "Why dark mode colors need more saturation than you think",
     "summary": "The most common mistake in dark mode color systems is lifting light-mode colors onto dark backgrounds without adjustment. Colors that look rich and saturated on white appear washed out and gray on dark surfaces. The physics of simultaneous contrast explains why, and the fix is systematic rather than case-by-case.",
     "eyebrow": "Issue 026",
-    "tags": ["Dark Mode", "Accessibility", "UI"],
+    "tags": [
+      "Dark Mode",
+      "Accessibility",
+      "UI"
+    ],
     "featuredCollectionId": "nocturne-tech",
     "featuredPackId": "dark-mode-ui-kit",
     "highlights": [
@@ -931,9 +1234,18 @@
       }
     ],
     "links": [
-      { "label": "Browse Nocturne Tech collection", "href": "/collections/nocturne-tech" },
-      { "label": "Explore Dark Mode UI Kit", "href": "/packs/dark-mode-ui-kit" },
-      { "label": "Open contrast checker", "href": "/contrast" }
+      {
+        "label": "Browse Nocturne Tech collection",
+        "href": "/collections/nocturne-tech"
+      },
+      {
+        "label": "Explore Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit"
+      },
+      {
+        "label": "Open contrast checker",
+        "href": "/contrast"
+      }
     ]
   },
   {
@@ -942,7 +1254,11 @@
     "title": "Color naming is a systems design decision, not a branding exercise",
     "summary": "How you name colors in a design system determines how teams reason about them, how documentation stays current, and how onboarding scales. Semantic names age well; descriptive names create maintenance debt. The naming strategy you choose in week one will shape token discussions for years.",
     "eyebrow": "Issue 027",
-    "tags": ["Systems", "Tokens", "Process"],
+    "tags": [
+      "Systems",
+      "Tokens",
+      "Process"
+    ],
     "featuredCollectionId": "monochrome-studio",
     "featuredPackId": "complete-archive",
     "highlights": [
@@ -965,9 +1281,18 @@
       }
     ],
     "links": [
-      { "label": "Browse Monochrome Studio collection", "href": "/collections/monochrome-studio" },
-      { "label": "Explore Complete Archive", "href": "/packs/complete-archive" },
-      { "label": "Open color archive", "href": "/colors" }
+      {
+        "label": "Browse Monochrome Studio collection",
+        "href": "/collections/monochrome-studio"
+      },
+      {
+        "label": "Explore Complete Archive",
+        "href": "/packs/complete-archive"
+      },
+      {
+        "label": "Open color archive",
+        "href": "/colors"
+      }
     ]
   },
   {
@@ -976,7 +1301,11 @@
     "title": "Color temperature as a communication tool: what warm and cool actually signal",
     "summary": "Temperature is one of color's most immediate communication channels — and one of the easiest to use accidentally. Understanding what warm and cool tones signal to viewers, and how to use temperature intentionally, makes palettes more persuasive without adding complexity.",
     "eyebrow": "Issue 028",
-    "tags": ["Theory", "Communication", "Brand"],
+    "tags": [
+      "Theory",
+      "Communication",
+      "Brand"
+    ],
     "featuredCollectionId": "editorial-warmth",
     "featuredPackId": "brand-starter-kit",
     "highlights": [
@@ -999,9 +1328,18 @@
       }
     ],
     "links": [
-      { "label": "Open Editorial Warmth collection", "href": "/collections/editorial-warmth" },
-      { "label": "Get the Brand Starter Kit", "href": "/packs/brand-starter-kit" },
-      { "label": "Read the brand color palette guide", "href": "/guides/brand-color-palette" }
+      {
+        "label": "Open Editorial Warmth collection",
+        "href": "/collections/editorial-warmth"
+      },
+      {
+        "label": "Get the Brand Starter Kit",
+        "href": "/packs/brand-starter-kit"
+      },
+      {
+        "label": "Read the brand color palette guide",
+        "href": "/guides/brand-color-palette"
+      }
     ]
   },
   {
@@ -1010,7 +1348,11 @@
     "title": "Muted vs. desaturated: they look similar but behave completely differently in a palette",
     "summary": "Designers often use muted and desaturated interchangeably, but they describe different adjustments with different visual results. Understanding the distinction clarifies why some reduced-saturation palettes feel sophisticated and others just feel dull.",
     "eyebrow": "Issue 029",
-    "tags": ["Theory", "Technique", "Palette"],
+    "tags": [
+      "Theory",
+      "Technique",
+      "Palette"
+    ],
     "featuredCollectionId": "quiet-luxury",
     "featuredPackId": "content-creator-bundle",
     "highlights": [
@@ -1033,9 +1375,18 @@
       }
     ],
     "links": [
-      { "label": "Open Quiet Luxury collection", "href": "/collections/quiet-luxury" },
-      { "label": "Get the Content Creator Bundle", "href": "/packs/content-creator-bundle" },
-      { "label": "Browse the color archive", "href": "/colors" }
+      {
+        "label": "Open Quiet Luxury collection",
+        "href": "/collections/quiet-luxury"
+      },
+      {
+        "label": "Get the Content Creator Bundle",
+        "href": "/packs/content-creator-bundle"
+      },
+      {
+        "label": "Browse the color archive",
+        "href": "/colors"
+      }
     ]
   },
   {
@@ -1044,7 +1395,11 @@
     "title": "How many colors does a palette actually need? The case for hue span constraints",
     "summary": "Most product palettes are over-specified — too many hues, too many lightness variants, too many one-off accent colors. Understanding hue span as a design constraint produces palettes that are both more coherent and easier to use across a whole product.",
     "eyebrow": "Issue 030",
-    "tags": ["Systems", "Palette", "Process"],
+    "tags": [
+      "Systems",
+      "Palette",
+      "Process"
+    ],
     "featuredCollectionId": "forest-terrain",
     "featuredPackId": "palette-pack-vol-1",
     "highlights": [
@@ -1067,9 +1422,206 @@
       }
     ],
     "links": [
-      { "label": "Open Forest Terrain collection", "href": "/collections/forest-terrain" },
-      { "label": "Explore Palette Pack Vol. 1", "href": "/packs/palette-pack-vol-1" },
-      { "label": "Browse the color archive", "href": "/colors" }
+      {
+        "label": "Open Forest Terrain collection",
+        "href": "/collections/forest-terrain"
+      },
+      {
+        "label": "Explore Palette Pack Vol. 1",
+        "href": "/packs/palette-pack-vol-1"
+      },
+      {
+        "label": "Browse the color archive",
+        "href": "/colors"
+      }
+    ]
+  },
+  {
+    "slug": "june-2026-value-contrast-vs-hue",
+    "date": "2026-06-18",
+    "title": "Value contrast does more work than hue contrast — and most palettes get this backwards",
+    "summary": "When designers talk about color contrast, they usually mean hue difference — complementary pairs, warm/cool tension. But value contrast (lightness difference) is the primary driver of legibility, hierarchy, and spatial depth. Most palettes over-invest in hue variety and under-invest in value range.",
+    "eyebrow": "Issue 031",
+    "tags": [
+      "Contrast",
+      "Typography",
+      "Hierarchy"
+    ],
+    "featuredCollectionId": "monochrome-studio",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "Value contrast (lightness difference) governs legibility more reliably than hue contrast — a palette with three distinct hues but a narrow value range will feel flat and hard to read.",
+      "The most spatially complex palettes — editorial photography, luxury branding, dark UI — achieve depth almost entirely through value, using hue only to add warmth or coolness to a value-first structure.",
+      "A simple test: convert your palette to grayscale. If hierarchy and depth survive, the palette has strong value architecture. If everything collapses to a uniform gray, the palette is relying too heavily on hue."
+    ],
+    "sections": [
+      {
+        "heading": "Why value contrast is primary",
+        "body": "The visual system evolved to detect edges, and edges are defined by luminance differences, not hue differences. Two surfaces can differ dramatically in hue but look identical in value — and the edge between them will be weak or invisible to many viewers, including those with color vision deficiencies. A hue pair like red and green that reads as high-contrast to typical viewers may have nearly identical luminance, producing a visual vibration effect with zero spatial clarity. Designing primarily from value ensures that hierarchy works for all viewers, in all lighting conditions, at all sizes."
+      },
+      {
+        "heading": "The grayscale test in practice",
+        "body": "Converting a design to grayscale before applying color is a technique borrowed from print production, where designers had to ensure layouts would work in black-and-white before adding color as a second layer. The modern version is simpler: desaturate the palette and check whether text is legible, call-to-actions are prominent, and background/foreground relationships read clearly. If the design works in grayscale, color will enhance it. If the design only works with color, the value architecture needs rebuilding. The Monochrome Studio collection is built explicitly for this approach — all contrast comes from lightness, making it a reliable foundation for any hue overlay."
+      },
+      {
+        "heading": "Building a value-first palette",
+        "body": "A practical value-first palette identifies five or six lightness steps that correspond to semantic roles: near-white surface, light background, mid-tone support, mid-dark accent, dark text support, near-black text. Once these lightness levels are established, hue choices become much easier — they are overlaid onto a value structure that already works, rather than being asked to do double duty as both the hierarchy signal and the aesthetic character. The Dark Mode UI Kit demonstrates this approach across both light and dark themes: each theme shares the same five-step value structure, with hue shifted between the two. The design does not change — only the lighting."
+      }
+    ],
+    "links": [
+      {
+        "label": "Open Monochrome Studio collection",
+        "href": "/collections/monochrome-studio"
+      },
+      {
+        "label": "Explore Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit"
+      },
+      {
+        "label": "Try the contrast checker",
+        "href": "/contrast"
+      }
+    ]
+  },
+  {
+    "slug": "june-2026-surface-vs-accent-ratio",
+    "date": "2026-06-25",
+    "title": "The 60-30-10 ratio is a heuristic, not a law — but it points at something real",
+    "summary": "Interior designers talk about color distribution as 60% dominant, 30% secondary, 10% accent. The specific numbers are not sacred, but the underlying logic — that a small high-saturation color should be balanced by a large neutral — applies cleanly to interface design.",
+    "eyebrow": "Issue 032",
+    "tags": [
+      "Systems",
+      "Palette",
+      "UI"
+    ],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "The 60-30-10 heuristic works because high-saturation colors are perceptually heavy — they attract attention regardless of size. A small accent dot can visually dominate a large neutral surface if the saturation gap is large enough.",
+      "In interface design, the ratio translates roughly to: background surfaces (60%), content surfaces and borders (30%), interactive and semantic accents (10%). Violations look like accent overuse — too much high-saturation color reduces its ability to signal importance.",
+      "The practical implication: if everything in the interface feels loud, the fix is rarely to reduce the accent color — it is to increase the neutral surface area so the accent has breathing room."
+    ],
+    "sections": [
+      {
+        "heading": "Why proportional color logic exists",
+        "body": "Color has perceptual weight. A highly saturated color demands attention with a force disproportionate to its area — a small red button will draw the eye before a large gray panel, even though the panel occupies ten times the space. Proportional color logic exists to manage this asymmetry: by limiting the area of high-weight colors, designers preserve their ability to signal importance. When everything is saturated, nothing can signal importance. The 60-30-10 framework describes a distribution that preserves this signal — the 10% accent exists to be noticed precisely because 90% of the composition is quieter."
+      },
+      {
+        "heading": "Translating the heuristic to interface design",
+        "body": "The exact ratios shift between interior design and screen design, but the logic transfers. Backgrounds and large content surfaces should be low-saturation — near-white, warm gray, or deeply desaturated in dark themes. Secondary elements like cards, borders, dividers, and secondary text take a slightly more present tone, still restrained but visually distinct from the background. Interactive elements — buttons, links, highlights, status indicators — get the accent color, applied sparingly enough that every instance of it reads as intentional. The Quiet Luxury collection is designed around this distribution: a pale warm neutral anchors the surface, a muted mid-tone handles secondary depth, and a slightly richer warm accent provides the interactive signal without ever becoming loud."
+      },
+      {
+        "heading": "Accent overuse and how to identify it",
+        "body": "Accent overuse is easy to diagnose: convert the screen design to a hue map — a view that shows only the saturation and hue of each element, ignoring lightness. In a well-balanced design, most of the map will be gray or near-gray, with the accent color appearing in small, deliberate clusters around interactive elements. In an overloaded design, the saturated color will appear everywhere — in decorative backgrounds, illustration fills, progress indicators, chips, tags, and banners. Each individual use may seem justified, but the collective effect dilutes the accent's ability to guide attention. The fix is to reduce accent usage in decorative and non-interactive contexts, not to change the accent color itself."
+      }
+    ],
+    "links": [
+      {
+        "label": "Open Quiet Luxury collection",
+        "href": "/collections/quiet-luxury"
+      },
+      {
+        "label": "Explore Brand Starter Kit",
+        "href": "/packs/brand-starter-kit"
+      },
+      {
+        "label": "Browse color collections",
+        "href": "/collections"
+      }
+    ]
+  },
+  {
+    "slug": "july-2026-semantic-color-tokens",
+    "date": "2026-07-02",
+    "title": "Why semantic color tokens are worth the extra naming effort",
+    "summary": "Raw hex values in a stylesheet are a maintenance liability. Semantic tokens — names like --color-surface-primary or --color-action-default — decouple intent from implementation and make design system changes much cheaper. The naming effort pays for itself the first time you change a theme.",
+    "eyebrow": "Issue 033",
+    "tags": [
+      "Tokens",
+      "Systems",
+      "Development"
+    ],
+    "featuredCollectionId": "nocturne-tech",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "Semantic tokens separate intent (what this color means) from implementation (what hex value it currently has). This separation allows the underlying color to change without every component that uses it needing to be updated.",
+      "A well-structured token system has two layers: primitive tokens (raw color values organized by lightness step, like --color-blue-400) and semantic tokens (intent-based names that reference primitives, like --color-action-default: var(--color-blue-400)).",
+      "The practical benefit emerges at theme switch time: changing from light to dark mode requires only remapping the semantic tokens to different primitive values — no component code changes, no new CSS, just a token reassignment."
+    ],
+    "sections": [
+      {
+        "heading": "The two-layer token model",
+        "body": "A semantic color token system has two distinct layers. The primitive layer contains the full color vocabulary — every shade available, named by color and lightness step. Primitive names are descriptive but not meaningful: --color-teal-300 is a specific lightness of teal, nothing more. The semantic layer maps intent onto primitives — --color-action-default might reference --color-teal-300 in the light theme and --color-teal-400 in the dark theme. Components consume only semantic tokens. This separation is the key insight: components become indifferent to the underlying color values because they only care about semantic intent. A button that uses --color-action-default will look correct in any theme as long as the token is mapped correctly."
+      },
+      {
+        "heading": "Common semantic categories",
+        "body": "A minimal semantic layer needs five categories to cover most interface needs. Surface tokens describe backgrounds at various depths: surface-primary for page background, surface-secondary for card backgrounds, surface-elevated for floating layers. Border tokens describe edge treatments: border-default, border-subtle, border-focus. Text tokens describe content: text-primary, text-secondary, text-placeholder, text-inverse. Interactive tokens describe action states: action-default, action-hover, action-pressed, action-disabled. Status tokens describe system feedback: status-success, status-warning, status-error, status-info. The Nocturne Tech collection maps cleanly onto this framework — every color in the set has an obvious semantic role, which is why it exports so cleanly as a token set."
+      },
+      {
+        "heading": "Starting with semantic tokens in a new project",
+        "body": "The fastest way to adopt semantic tokens is to start from a well-structured collection and assign semantic names to the colors you already know you need. ColorArchive packs include pre-named CSS custom properties organized by semantic role — the Complete Archive ships with a full token set covering surface, border, text, interactive, and status categories for both light and dark themes. The hardest part of semantic naming is resisting the temptation to use color names — calling a token --color-blue-hover instead of --color-action-hover defeats the purpose. A useful rule: if you can replace a semantic token name with a color name and the name still makes sense, it is not semantic enough. Surface, action, status, border, and text are semantic. Blue, coral, and amber are not."
+      }
+    ],
+    "links": [
+      {
+        "label": "Open Nocturne Tech collection",
+        "href": "/collections/nocturne-tech"
+      },
+      {
+        "label": "Explore Complete Archive",
+        "href": "/packs/complete-archive"
+      },
+      {
+        "label": "Browse the color archive",
+        "href": "/colors"
+      }
+    ]
+  },
+  {
+    "slug": "july-2026-color-and-motion",
+    "date": "2026-07-09",
+    "title": "Color transition strategy: how to animate between palette states without visual chaos",
+    "summary": "Animated transitions between color states — light to dark mode, hover effects, active states, loading overlays — can enhance an interface or make it feel unstable. The difference is usually in the transition strategy: which properties animate, over what duration, and along which perceptual path.",
+    "eyebrow": "Issue 034",
+    "tags": [
+      "Animation",
+      "UI",
+      "Dark Mode"
+    ],
+    "featuredCollectionId": "neon-after-dark",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "Color transitions that animate along a perceptual path (e.g., hue staying fixed while lightness changes) feel smoother than transitions that take the shortest mathematical path through RGB or hex space, which often produce muddy intermediate states.",
+      "Theme transitions (light to dark) work best as fast, cross-fade transitions — ideally 200ms or under. Slower theme transitions draw attention to the mechanics rather than the result, making the system feel unpolished.",
+      "Interactive state transitions (hover, active, focus) benefit from asymmetric timing: fast on-state (80–120ms) to feel responsive, slightly slower off-state (200–300ms) to feel settled. Symmetric timing in both directions can feel mechanical."
+    ],
+    "sections": [
+      {
+        "heading": "The perceptual path problem",
+        "body": "When CSS transitions between two hex values, the browser interpolates through RGB space — each channel moves linearly from its start value to its end value. This is mathematically simple but perceptually unpredictable. A transition from a warm tan to a cool gray through RGB space may pass through a muddy olive or an unexpected brown at the midpoint, because the R, G, and B channels are moving at different rates. A more reliable approach is to transition in a perceptually uniform space — either HSL with hue locked and lightness transitioning, or a CSS color-mix() call with explicit interpolation settings. For design tokens, this means writing transitions as CSS custom property swaps with a transition property on the relevant element, rather than animating the hex value directly."
+      },
+      {
+        "heading": "Theme transition best practices",
+        "body": "Light-to-dark and dark-to-light transitions need to feel like a lighting change, not a color change. The most natural approach is a quick full-surface fade: the body background transitions from light to dark, and all surface-dependent colors follow because they use semantic tokens. At 150–200ms, this reads as a lighting shift. Longer than 300ms and it starts to feel like a page loading. The Neon After Dark collection is designed for dark-first interfaces where this transition lands naturally — its colors are calibrated for dark surfaces, so a theme transition from light to dark using these tokens will feel like moving from an office to a studio, not like a color accident."
+      },
+      {
+        "heading": "Interactive state animation",
+        "body": "Button hover, active, and focus states animate color properties at the microsecond scale of interaction. A hover state that takes 300ms to appear feels like a lag; at 100ms it feels responsive. The Dark Mode UI Kit ships with pre-tested hover and active color pairs for both themes — each interactive token has a corresponding -hover and -pressed variant that is already calibrated for correct contrast at each state. This removes the need to calculate hover colors manually. The key architectural decision is whether to animate the custom property value or swap a class that applies a different token set. Token swapping with a CSS transition on the element is generally more maintainable than trying to animate CSS custom properties directly, since custom property animation support varies across browsers."
+      }
+    ],
+    "links": [
+      {
+        "label": "Open Neon After Dark collection",
+        "href": "/collections/neon-after-dark"
+      },
+      {
+        "label": "Explore Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit"
+      },
+      {
+        "label": "Browse all collections",
+        "href": "/collections"
+      }
     ]
   }
 ]
