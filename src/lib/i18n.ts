@@ -687,6 +687,35 @@ const translations: Record<string, Record<Locale, string>> = {
     ja: "シアン・マゼンタ・イエロー・キー（ブラック）の4色インクモデル。印刷用フォーマットで、RGBから変換時に色域外の色は近似。",
   },
 
+  // Color Harmonies page
+  "harmonies_title": { en: "Color Harmonies Calculator", ja: "カラーハーモニー計算ツール" },
+  "harmonies_subtitle": {
+    en: "Enter a hex color and explore six classic harmony types on an interactive color wheel. Click any swatch to copy its hex code.",
+    ja: "HEXカラーを入力し、インタラクティブなカラーホイールで6種類の配色ハーモニーを探索。スウォッチをクリックしてHEXコードをコピー。",
+  },
+  "seed_color": { en: "Seed Color", ja: "基準色" },
+  "invalid_hex": { en: "Invalid hex color", ja: "無効なHEXカラーです" },
+
+  // Color Compare page
+  "compare.badge": { en: "Color Comparison", ja: "カラー比較" },
+  "compare.title": { en: "Compare Two Colors", ja: "2色を比較する" },
+  "compare.description": {
+    en: "Place any two colors side by side to compare their values, contrast ratio, and WCAG accessibility compliance at a glance.",
+    ja: "任意の2色を並べて、値・コントラスト比・WCAGアクセシビリティ適合性を一目で比較できます。",
+  },
+  "compare.colorA": { en: "Color A", ja: "カラーA" },
+  "compare.colorB": { en: "Color B", ja: "カラーB" },
+  "compare.contrastRatio": { en: "Contrast Ratio", ja: "コントラスト比" },
+  "compare.textPreview": { en: "Text Preview", ja: "テキストプレビュー" },
+  "compare.headingText": { en: "Heading Text", ja: "見出しテキスト" },
+  "compare.smallTextSample": { en: "Small text sample for fine print and captions.", ja: "脚注やキャプション向けの小文字サンプルです。" },
+  "compare.copyComparison": { en: "Copy comparison", ja: "比較をコピー" },
+  "compare.pass": { en: "Pass", ja: "合格" },
+  "compare.fail": { en: "Fail", ja: "不合格" },
+  "compare.lightness": { en: "Lightness", ja: "明度" },
+  "compare.saturation": { en: "Saturation", ja: "彩度" },
+  "compare.family": { en: "Family", ja: "ファミリー" },
+
   // Common
   "common.showMore": { en: "Show more", ja: "もっと見る" },
   "common.loading": { en: "Loading…", ja: "読み込み中…" },

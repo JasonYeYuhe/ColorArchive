@@ -330,6 +330,46 @@ export const collections: ColorCollection[] = [
       useCases: ["Fintech dashboards", "Data visualization", "Sci-fi and technical products"],
     },
   ),
+  createCollection(
+    "concrete-modernism",
+    "Concrete Modernism",
+    "Cool blue-grays and deep slates for architectural, brutalist, and minimal design systems.",
+    "A palette built around the tones of poured concrete, brushed steel, and overcast daylight. From pale mist at the top to near-black charcoal at the base, each step is cool and restrained — ideal for architecture portfolios, minimal SaaS products, and editorial systems where color should support structure rather than compete with it.",
+    ["Minimal", "Architecture", "Neutral"],
+    [
+      "cerulean-whisper-muted",
+      "sapphire-pearl-muted",
+      "azure-tone-muted",
+      "cobalt-dusk-muted",
+      "indigo-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Use this when the product needs to feel structural and serious without the warmth of beige neutrals. The cool undertone reads as architectural rather than corporate.",
+      promptWords: ["poured concrete", "brushed steel", "overcast daylight", "brutalist loft", "raw mineral"],
+      useCases: ["Architecture portfolios", "Minimal SaaS products", "Editorial design systems"],
+    },
+  ),
+  createCollection(
+    "blossom-season",
+    "Blossom Season",
+    "Soft pinks, pale orchids, and warm creams for spring campaigns, beauty brands, and wedding design.",
+    "A palette that moves from the palest petal whisper through warm rose silk to a grounding muted mauve. The tones share enough warmth to feel cohesive while spanning enough range to build full interfaces. Built for beauty, weddings, seasonal campaigns, and any product that should feel alive, soft, and celebratory.",
+    ["Spring", "Floral", "Beauty"],
+    [
+      "rose-whisper-soft",
+      "blush-pearl-soft",
+      "orchid-bloom-clear",
+      "peony-silk-soft",
+      "plum-tone-muted",
+    ],
+    {
+      editorialNote:
+        "Use this when the brief calls for feminine warmth without tipping into saccharine. The muted mauve anchor grounds the lighter pinks and gives the palette editorial weight.",
+      promptWords: ["cherry blossom", "morning petal", "bridal suite", "dried rose", "spring warmth"],
+      useCases: ["Wedding and event design", "Beauty and skincare brands", "Spring seasonal campaigns"],
+    },
+  ),
 ];
 
 export function getCollectionById(id: string) {

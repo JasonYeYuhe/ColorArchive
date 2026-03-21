@@ -60,9 +60,12 @@ Coordination uses `.claude/session-lock.json`. **Every session MUST follow this 
 
 ### Before starting any work
 
-1. Read `.claude/session-lock.json`
-2. If `active` is not `null` and `lockedBy` is a different session type → **STOP. Do not proceed.** Print a message like: "⏸ Session locked by {lockedBy} since {lockedAt}. Waiting." and exit without making changes.
-3. If `active` is `null` → acquire the lock by writing your session type.
+1. Run `git fetch origin && git pull --rebase origin main` to sync with remote.
+2. Read `.claude/session-lock.json`
+3. Check the lock state:
+   - If `active` is `null` → acquire the lock (see below).
+   - If `lockedBy` is a **different** session type → **STOP. Do not proceed.** Print: "⏸ Session locked by {lockedBy} since {lockedAt}. Waiting." and exit without making changes.
+   - If `lockedBy` is the **same** session type (e.g. autopilot sees an autopilot lock) → check `lockedAt` timestamp. If the lock is **older than 20 minutes**, it is considered **stale** (previous run likely crashed). Force-release the stale lock, run `git pull --rebase origin main` again, then acquire a fresh lock. If the lock is less than 20 minutes old, **STOP** — the previous run is likely still active.
 
 ### Acquiring the lock
 
@@ -92,13 +95,18 @@ Then commit and push this file together with your work, or as a separate small c
 ### Rules by session type
 
 **Autopilot sessions:**
-- MUST check the lock FIRST before doing anything
+- MUST run `git pull --rebase origin main` FIRST before doing anything
+- MUST check the lock SECOND
 - If locked by "remote" → do nothing, exit gracefully, make zero changes
+- If locked by "autopilot" and lock age > 20 min → stale lock, force-release and proceed
+- If locked by "autopilot" and lock age ≤ 20 min → do nothing, exit gracefully (previous run still active)
 - When starting, write lock with `"lockedBy": "autopilot"` and `"message"` describing the planned run
 - After commit+push → **automatically** release the lock (write null values + commit+push)
 
 **Remote Control sessions:**
-- MUST check the lock FIRST before doing anything
-- If locked by "autopilot" → inform user: "⚠️ Autopilot is currently running: {message}. Please wait for it to finish or manually clear `.claude/session-lock.json`."
+- MUST run `git pull --rebase origin main` FIRST before doing anything
+- MUST check the lock SECOND
+- If locked by "autopilot" → inform user: "⚠️ Autopilot is currently running: {message} (since {lockedAt}). Please wait for it to finish or manually clear `.claude/session-lock.json`."
+- If locked by "autopilot" and lock age > 20 min → inform user the lock looks stale, offer to force-release it
 - When starting, write lock with `"lockedBy": "remote"`
 - After commit+push → **automatically** release the lock (write null values + commit+push)
