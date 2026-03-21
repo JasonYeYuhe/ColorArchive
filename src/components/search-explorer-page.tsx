@@ -17,6 +17,14 @@ interface SearchExplorerPageProps {
 }
 
 const SEARCH_PROMPTS = ["moss", "rose", "#7F", "azure", "velvet"] as const;
+
+const MOOD_PRESETS: { label: string; labelJa: string; query: string; hueBand: string; toneBand: string }[] = [
+  { label: "Calm", labelJa: "穏やか", query: "", hueBand: "cool", toneBand: "light" },
+  { label: "Energetic", labelJa: "エネルギッシュ", query: "", hueBand: "warm", toneBand: "mid" },
+  { label: "Luxury", labelJa: "高級感", query: "", hueBand: "all", toneBand: "dark" },
+  { label: "Fresh", labelJa: "フレッシュ", query: "", hueBand: "fresh", toneBand: "light" },
+  { label: "Moody", labelJa: "ムーディ", query: "", hueBand: "violet", toneBand: "dark" },
+];
 type HueBand = "all" | "warm" | "fresh" | "cool" | "violet";
 type ToneBand = "all" | "light" | "mid" | "dark";
 
@@ -390,6 +398,26 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
                 </button>
               ))}
               <ShareLinkButton href={shareHref} />
+            </div>
+
+            <div className="mt-3 flex flex-wrap items-center gap-1.5">
+              <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-400">
+                {locale === "ja" ? "ムード" : "Mood"}
+              </span>
+              {MOOD_PRESETS.map((mood) => (
+                <button
+                  key={mood.label}
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery(mood.query);
+                    setHueBand(mood.hueBand as "all" | "warm" | "cool" | "fresh" | "violet");
+                    setToneBand(mood.toneBand as ToneBand);
+                  }}
+                  className="rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-100"
+                >
+                  {locale === "ja" ? mood.labelJa : mood.label}
+                </button>
+              ))}
             </div>
 
             {searchHistory.length > 0 && !searchQuery.trim() ? (

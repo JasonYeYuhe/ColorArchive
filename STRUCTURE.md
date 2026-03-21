@@ -62,6 +62,8 @@ ColorArchive/
 │   ├── convert/                  # /convert/ — color format converter (HEX↔RGB↔HSL↔HSB↔CMYK)
 │   ├── palette-generator/        # /palette-generator/ — seed color → 5 harmony palettes
 │   ├── gradient/                  # /gradient/ — CSS gradient generator (linear/radial)
+│   ├── harmonies/                 # /harmonies/ — color harmonies calculator (6 harmony types + color wheel)
+│   ├── compare/                   # /compare/ — side-by-side two-color comparison tool
 │   └── packs/quiz/                # /packs/quiz/ — interactive pack recommendation quiz
 │
 ├── src/
@@ -130,6 +132,9 @@ ColorArchive/
 │   │   ├── color-converter-page.tsx      # Color format converter (HEX↔RGB↔HSL↔HSB↔CMYK)
 │   │   ├── palette-generator-page.tsx   # Palette generator (5 harmony types from seed color)
 │   │   ├── gradient-generator-page.tsx  # CSS gradient generator (linear/radial)
+│   │   ├── color-harmonies-page.tsx    # Color harmonies calculator (6 types + SVG color wheel)
+│   │   ├── color-compare-page.tsx      # Two-color comparison tool
+│   │   ├── copy-upsell-toast.tsx       # Subtle upsell toast after 5th copy
 │   │   ├── pack-quiz-page.tsx           # Interactive pack recommendation quiz
 │   │   ├── back-to-top.tsx              # Floating back-to-top button
 │   │   └── error-boundary.tsx           # Global error boundary component
@@ -250,5 +255,5 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | SEO guides | 23 |
 | Newsletter issues | 31 |
 | Color families | 9 |
-| Tool pages | 8 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, quiz) |
+| Tool pages | 10 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz) |
 | i18n keys | ~700+ (EN/JA) |

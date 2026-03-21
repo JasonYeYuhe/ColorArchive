@@ -154,6 +154,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.82,
     },
     {
+      url: "https://colorarchive.me/harmonies/",
+      lastModified: MARCH_21,
+      changeFrequency: "monthly",
+      priority: 0.83,
+    },
+    {
+      url: "https://colorarchive.me/compare/",
+      lastModified: MARCH_21,
+      changeFrequency: "monthly",
+      priority: 0.80,
+    },
+    {
       url: "https://colorarchive.me/product-examples/",
       lastModified: new Date("2026-03-18"),
       changeFrequency: "weekly",

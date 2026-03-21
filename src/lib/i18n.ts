@@ -22,6 +22,8 @@ const translations: Record<string, Record<Locale, string>> = {
   "nav.convert": { en: "Convert", ja: "変換" },
   "nav.paletteGenerator": { en: "Palette Generator", ja: "パレット生成" },
   "nav.gradient": { en: "Gradient", ja: "グラデーション" },
+  "nav.harmonies": { en: "Harmonies", ja: "ハーモニー" },
+  "nav.compare": { en: "Compare", ja: "比較" },
   "nav.surprise": { en: "Surprise", ja: "サプライズ" },
   "nav.favorites": { en: "Favorites", ja: "お気に入り" },
   "nav.packs": { en: "Packs", ja: "パック" },
