@@ -98,5 +98,7 @@ ensureColumn("subscribers", "ab_variant TEXT");
 ensureColumn("subscribers", "follow_up_3d_variant TEXT");
 ensureColumn("subscribers", "follow_up_7d_variant TEXT");
 ensureColumn("subscribers", "follow_up_14d_variant TEXT");
+ensureColumn("subscribers", "follow_up_21d_sent TEXT");
+ensureColumn("subscribers", "follow_up_21d_variant TEXT");
 
 module.exports = db;

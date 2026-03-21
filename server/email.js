@@ -398,6 +398,10 @@ const SUBJECT_VARIANTS = {
     A: "10% off your first ColorArchive pack — code FIRSTPACK",
     B: "Your FIRSTPACK discount expires in 7 days",
   },
+  day21: {
+    A: "Three things you can build with a ColorArchive palette today",
+    B: "Color ideas for your next project — from the archive",
+  },
 };
 
 // Day-3 follow-up: how to use CSS tokens
@@ -627,11 +631,81 @@ async function sendFollowUp14DayEmail(to, { variant = "A" } = {}) {
   return result;
 }
 
+// Day-21 follow-up: creative inspiration — three use cases with palette ideas
+async function sendFollowUp21DayEmail(to, { variant = "A" } = {}) {
+  const subject = SUBJECT_VARIANTS.day21[variant] || SUBJECT_VARIANTS.day21.A;
+  const result = await resend.emails.send({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject,
+    text: [
+      "Three things you can build with a ColorArchive palette",
+      "",
+      "It has been a few weeks since you downloaded the free palette pack. Here are three concrete starting points for putting it to use:",
+      "",
+      "1. A landing page hero section",
+      "Take any five-color palette and assign roles: background (lightest), card surface, text, accent, and action color (darkest or most saturated). That structure gives you a complete landing page color system in under five minutes.",
+      "",
+      "2. A brand identity moodboard",
+      "Paste the palette swatches into a simple grid in Figma or Canva alongside a typeface sample and a photography reference. A palette moodboard is the fastest way to align a client or stakeholder before detailed design work begins.",
+      "",
+      "3. A social media post template",
+      "Use one dominant palette color as the background, one accent for type or graphic elements, and one near-neutral for any secondary information. Applied consistently across a dozen posts, it creates a feed that looks intentional and considered.",
+      "",
+      "Browse more palettes and collections: https://colorarchive.me/collections/",
+      "",
+      "Or if you want ready-made CSS, JSON, and Figma tokens: https://colorarchive.me/packs/",
+      "",
+      "— ColorArchive",
+      "https://colorarchive.me",
+    ].join("\n"),
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
+        <h2 style="color:#1a1a1a">Three things you can build with a ColorArchive palette</h2>
+        <p style="color:#444;line-height:1.6">It has been a few weeks since you downloaded the free palette pack. Here are three concrete starting points:</p>
+        <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:16px 18px;margin:20px 0">
+          <p style="margin:0 0 6px;font-weight:700;color:#111">1. A landing page hero section</p>
+          <p style="margin:0;color:#374151;font-size:14px;line-height:1.6">Assign five roles to any palette: background (lightest), card surface, text, accent, and action color. That structure gives you a complete landing page color system in under five minutes.</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:16px 18px;margin:12px 0">
+          <p style="margin:0 0 6px;font-weight:700;color:#111">2. A brand identity moodboard</p>
+          <p style="margin:0;color:#374151;font-size:14px;line-height:1.6">Paste swatches into a grid in Figma alongside a typeface sample and a photography reference. A palette moodboard is the fastest way to align a client before detailed work begins.</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:16px 18px;margin:12px 0">
+          <p style="margin:0 0 6px;font-weight:700;color:#111">3. A social media post template</p>
+          <p style="margin:0;color:#374151;font-size:14px;line-height:1.6">One dominant background color, one accent for type or graphics, one near-neutral for secondary info. Applied consistently across a dozen posts, it creates a feed that looks intentional.</p>
+        </div>
+        <div style="margin:24px 0;display:flex;gap:10px;flex-wrap:wrap">
+          <a href="https://colorarchive.me/collections/"
+             style="display:inline-block;background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
+            Browse Collections
+          </a>
+          <a href="https://colorarchive.me/packs/"
+             style="display:inline-block;background:#f8fafc;border:1px solid #e5e7eb;color:#1a1a1a;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
+            View Packs →
+          </a>
+        </div>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
+        <p style="color:#999;font-size:12px">
+          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+        </p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (follow-up day 21):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
 module.exports = {
   sendFreePackEmail,
   sendFollowUp3DayEmail,
   sendFollowUp7DayEmail,
   sendFollowUp14DayEmail,
+  sendFollowUp21DayEmail,
   sendMagicLinkEmail,
   sendOrderConfirmationEmail,
   sendWaitlistConfirmationEmail,

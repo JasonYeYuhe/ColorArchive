@@ -1025,6 +1025,166 @@ export const landingGuides: LandingGuide[] = [
       { label: "Browse all packs", href: "/packs/" },
     ],
   },
+  {
+    category: "Home & Lifestyle",
+    slug: "interior-design-color-palette",
+    title: "Interior Design Color Palette: Choosing Colors That Work Across Light, Materials, and Scale",
+    summary:
+      "Interior color palettes face constraints that digital palettes do not: natural light shifts throughout the day, materials absorb and reflect differently, and what reads well at swatch scale can disappear or overwhelm at room scale. This guide covers how to select and structure palettes for interior work.",
+    eyebrow: "Interior Design Guide",
+    priority: 67,
+    searchIntent: "interior design color palette",
+    featuredCollectionId: "terracotta-loft",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Interior", "Home", "Warm"],
+    highlights: [
+      "Light changes throughout the day — a color that reads warm at noon may shift cool by late afternoon in north-facing rooms.",
+      "Terracotta Loft's fired clay and warm stucco tones sit in the range that holds well under both natural and artificial light.",
+      "The most durable interior palettes anchor around two neutrals and use saturated colors as accents on smaller surfaces.",
+    ],
+    sections: [
+      {
+        heading: "How light changes the palette throughout the day",
+        body:
+          "The dominant challenge in interior color work is that the light source changes continuously. A north-facing room receives cool, indirect daylight that can push warm paint colors into muddy territory. A south-facing room receives warm afternoon light that can make pale yellows disappear entirely. West-facing rooms receive golden-hour warmth that transforms even cool colors into something glowing by evening. This means interior palettes cannot be evaluated in one lighting condition — the same paint swatch needs to be assessed at different times of day before committing. Palettes built around warm earth tones and fired clay colors, like those in Terracotta Loft, perform more consistently across light changes because they are designed to work with warmth rather than fight it. When daylight shifts cool, the warmth in the paint acts as a correction. When daylight shifts warm, the earthiness deepens rather than washing out.",
+      },
+      {
+        heading: "Scale effects: swatches versus rooms",
+        body:
+          "Color perception is nonlinear at scale. A paint sample that looks pleasant at 10 cm × 10 cm can feel overwhelming when applied to four walls of a room. This happens because large fields of color appear more saturated and more intense than small samples of the same hue. Interior designers account for this by choosing colors that appear slightly less saturated than the desired result at room scale — the visual system will amplify the saturation in the final environment. In practice, this means choosing muted, toned-down versions of colors rather than pure or vivid options for large wall surfaces. Terracotta Loft's palette demonstrates this principle: the coral velvet and ember dusk tones are warm and rich at swatch scale, but because they are already in the muted register, they will read as warm and grounded rather than loud at room scale.",
+      },
+      {
+        heading: "Building an interior palette structure",
+        body:
+          "A well-structured interior palette follows a similar logic to a design system: base surfaces, mid-range support tones, and accent colors each play different roles. In a room, the base surfaces are typically the largest expanses — walls and ceilings. These benefit from lighter, quieter versions of the palette hue. Mid-range support tones appear on upholstery, larger furniture, and rugs — the surfaces that define character without dominating. Accent colors appear on cushions, ceramics, art, and small decorative objects. The ratio is roughly 60 percent base, 30 percent support, 10 percent accent. Palettes like Terracotta Loft are built for exactly this structure: the warm whisper and muted honey tones work as base surfaces, the coral velvet serves as a support upholstery register, and the amber tone and ember dusk add depth as accent-scale materials.",
+      },
+    ],
+    links: [
+      { label: "Open Terracotta Loft", href: "/collections/terracotta-loft/" },
+      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse all collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Photography & Film",
+    slug: "photography-color-palette",
+    title: "Photography Color Palette: Building a Consistent Visual Look Across Your Work",
+    summary:
+      "Photographers who shoot a consistent look — the same warmth, tonal signature, and saturation character across images — build more recognizable bodies of work than those who vary the grade from shoot to shoot. This guide explains how to define, reverse-engineer, and apply a consistent color palette to photography.",
+    eyebrow: "Photography Color Guide",
+    priority: 66,
+    searchIntent: "photography color palette",
+    featuredCollectionId: "sunset-boulevard",
+    featuredPackId: "content-creator-bundle",
+    tags: ["Photography", "Brand", "Warm"],
+    highlights: [
+      "A consistent photography palette is defined by three variables: highlight temperature, shadow temperature, and midtone saturation.",
+      "Sunset Boulevard's coral-to-garnet range maps directly to the golden-hour warm-highlight grade signature common in lifestyle and portrait photography.",
+      "The Content Creator Bundle includes palette boards and token exports that can be translated into Lightroom presets and editing profiles.",
+    ],
+    sections: [
+      {
+        heading: "Defining your photographic palette in three variables",
+        body:
+          "Most photographers approach consistency through preset development — applying a fixed Lightroom or Capture One profile to every image. But a preset is really just an encoded palette decision: it defines how the software will render highlights, shadows, and midtones. Understanding the underlying palette makes it easier to refine presets and communicate the look to editors, clients, or collaborators. The three core variables are: highlight temperature (how warm or cool the brightest areas of the image are), shadow temperature (how warm or cool the darkest areas are), and midtone saturation (how rich or muted the mid-range colors appear). A warm-highlight, cool-shadow, moderate-saturation signature produces the teal-orange cinematic look. A warm-through-all-tones, slightly desaturated signature produces the golden-hour lifestyle look. Sunset Boulevard captures the warm-lifestyle signature: coral highlights, amber warmth in the midtones, and a rose-garnet depth in the shadows.",
+      },
+      {
+        heading: "Reverse-engineering your favorite photograph's palette",
+        body:
+          "When a photographer wants to replicate a specific look, the most efficient approach is to use eyedropper sampling to extract the dominant hue values from representative areas of the image: the brightest highlights, the deepest shadows, a mid-gray surface, and a saturated foreground element. These four samples will reveal the palette signature of the grade. Warm highlights with cool shadows are the teal-orange signature. Warm highlights with warm shadows are the golden-hour signature. Cool throughout with high saturation is the fashion-editorial signature. Once the signature is identified, it can be replicated with reference swatches in any grading tool. ColorArchive colors can be used as target references during the grading process — the archive's hue names make it easy to communicate the target grade to an editor without requiring screen reference images.",
+      },
+      {
+        heading: "Using palette boards to maintain consistency across series",
+        body:
+          "For photographers working in series — editorial spreads, brand campaigns, or ongoing content programs — palette boards are a practical tool for maintaining visual consistency across shoots that may happen weeks apart with different conditions. A palette board for a campaign defines the highlight target, shadow target, accent color, and neutral base as specific swatches. Every image in the series is graded to match those swatches rather than graded independently. This prevents the visual drift that happens when editors adjust images by eye across different sessions. The Content Creator Bundle is designed for this workflow: its palette boards, CSS variables, and Figma tokens can be used directly in both the design system and the photography brief, creating a single color language across all content surfaces.",
+      },
+    ],
+    links: [
+      { label: "Open Sunset Boulevard", href: "/collections/sunset-boulevard/" },
+      { label: "Open Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Browse all collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Interface Systems",
+    slug: "monochromatic-color-palette",
+    title: "Monochromatic Color Palette: The Case for Staying in One Hue",
+    summary:
+      "A monochromatic palette uses a single hue at multiple lightness and saturation levels to build hierarchy, contrast, and depth without introducing color variety. When executed well, it produces interfaces that feel cohesive, sophisticated, and highly legible. When executed poorly, it produces flat, undifferentiated surfaces with no clear hierarchy.",
+    eyebrow: "Color Theory Guide",
+    priority: 65,
+    searchIntent: "monochromatic color palette",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["Minimal", "Systems", "UI"],
+    highlights: [
+      "Monochromatic palettes succeed by maximizing lightness contrast within a single hue — not by adding more colors.",
+      "Monochrome Studio spans pale mist to deep ink across a single warm-neutral axis, showing how much hierarchy is achievable in one hue lane.",
+      "Temperature shifts — slightly warmer or cooler — can be used as a subtle second axis without breaking the monochromatic constraint.",
+    ],
+    sections: [
+      {
+        heading: "What makes a monochromatic palette actually work",
+        body:
+          "The most common failure in monochromatic design is insufficient lightness span. Designers pick three or four shades that are too similar in value and end up with an interface where nothing has clear visual weight — the primary button looks the same as the secondary one, the card background blends into the page background, and interactive elements are indistinguishable from static ones. A working monochromatic palette needs to span at minimum 40-50 points of lightness (on a 0-100 scale) between its lightest and darkest tones. Monochrome Studio is built around this principle: each step in the palette is meaningfully different in lightness from the adjacent ones, which creates the hierarchy needed to build full interfaces. The palette's subtle warm and cool undertone shifts add a second dimension of differentiation without introducing new hues.",
+      },
+      {
+        heading: "Using temperature as a secondary tool",
+        body:
+          "Strictly identical hue monochrome palettes can feel flat because the eye has no chromatic variation to create visual interest. One effective technique is to introduce micro-temperature shifts — making shadows slightly cooler and highlights slightly warmer (or the reverse) without changing the dominant hue identity. This is the same technique used in quality printing and cinema color grading, where pure achromatic grays are almost never used because they feel lifeless compared to grays with a subtle warm or cool cast. Monochrome Studio uses this approach: across its range from pale mist to deep ink, the underlying tones shift very subtly between warm and cool, creating the appearance of depth without breaking the monochromatic character. The effect is most visible when the palette is used in a layout with both light and dark surfaces side by side.",
+      },
+      {
+        heading: "When to use monochromatic and when to add color",
+        body:
+          "Monochromatic palettes are strongest when the product's content is the primary source of visual variety — journalism, photography portfolios, data dashboards, and reading interfaces all benefit from a neutral, non-competing palette. The single-hue constraint ensures the interface never visually competes with the content. Monochromatic approaches are weaker for action-heavy applications — consumer apps with many competing call-to-action elements, social platforms where content must stand out — because a single hue cannot carry enough differentiation signals on its own. In those contexts, a constrained multi-hue palette (two or three hues with intentional roles) performs better. Palette Pack Vol. 1's curated groupings demonstrate both approaches: some groupings are near-monochromatic anchored in warm neutrals; others use a two or three hue structure with clearly differentiated roles.",
+      },
+    ],
+    links: [
+      { label: "Open Monochrome Studio", href: "/collections/monochrome-studio/" },
+      { label: "Open Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Browse all collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Interface Systems",
+    slug: "game-ui-color-palette",
+    title: "Game UI Color Palette: Designing for High Contrast, Fast Reading, and Dark Environments",
+    summary:
+      "Game interfaces are read at speed, often in suboptimal lighting conditions, on screens with widely varying calibration, and by users whose attention is divided between UI and gameplay. The color constraints this creates are different from standard product design — contrast requirements are higher, palette saturation tends toward vivid, and dark base surfaces are the dominant pattern.",
+    eyebrow: "Game Design Guide",
+    priority: 63,
+    searchIntent: "game UI color palette",
+    featuredCollectionId: "neon-after-dark",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Gaming", "Dark mode", "UI"],
+    highlights: [
+      "Game UIs are typically read in 200-400ms — contrast ratios for interactive elements need to be significantly higher than standard WCAG AA minimums.",
+      "Neon After Dark's vivid accent system is designed exactly for this use case: electric contrast against deep dark bases without losing legibility.",
+      "Dark bases dominate game UI because they reduce eye strain during extended sessions and improve perceived color vibrancy for in-game content.",
+    ],
+    sections: [
+      {
+        heading: "Why game UI contrast requirements are higher than standard",
+        body:
+          "Standard WCAG AA contrast requirements (4.5:1 for body text, 3:1 for large text and UI components) are calibrated for reading environments where users are paying full attention and have time to re-read if something is unclear. Game UIs do not operate in this environment. Players are tracking multiple things simultaneously — game state, enemy positions, inventory, health — and UI elements need to be readable in peripheral vision and in under half a second of attention. Research on gaming ergonomics suggests that interactive elements in game UIs benefit from contrast ratios of 7:1 or higher for critical information, and that color hue differentiation (not just lightness contrast) plays a larger role than in standard interface design because hue is processed faster at peripheral viewing angles. Neon After Dark is built for exactly this environment: its vivid fuchsia, aqua, and lime accents provide both high lightness contrast and strong hue differentiation against the deep cobalt and violet bases.",
+      },
+      {
+        heading: "Dark backgrounds: why they dominate game UI",
+        body:
+          "The dominance of dark base colors in game UI is not purely aesthetic — it solves several real usability problems. First, dark interfaces reduce the perceived brightness difference between the UI layer and the game world, which typically contains many bright, high-saturation elements. A bright white UI overlay on a dark game world creates eye strain as the player's eyes repeatedly adjust. Dark UI matches the perceptual register of the game environment. Second, dark backgrounds make vivid accent colors appear more saturated and more luminous — the same electric blue reads as significantly brighter against near-black than against mid-gray. This is useful for status indicators, health bars, and interactive button states that need to communicate urgency or availability. Third, dark UI reduces visible burn-in risk on OLED panels, which are increasingly common in gaming monitors. The Dark Mode UI Kit provides contrast-checked dark pairings that are designed to solve all three problems simultaneously.",
+      },
+      {
+        heading: "Building a readable game UI color hierarchy",
+        body:
+          "Game UI color systems typically use four layers: a deep base (the darkest background), a panel layer (slightly lighter than base, for menus and cards), a muted informational layer (for secondary stats, labels, and non-critical text), and a vivid action layer (for interactive elements, alerts, health indicators). Each layer should be distinguishable at a glance without requiring close attention. The vivid action layer should use colors that do not appear anywhere else in the base layers — pure coincidental color matching between UI and game-world elements causes dangerous confusion. Neon After Dark separates these layers cleanly: deep cobalt ink and violet nocturne as the base register, vivid fuchsia and aqua as the action register, with lime as a tertiary accent for tertiary affordances. The palette's tonal separation is large enough that each layer reads distinctly even on uncalibrated displays with compressed contrast.",
+      },
+    ],
+    links: [
+      { label: "Open Neon After Dark", href: "/collections/neon-after-dark/" },
+      { label: "Open Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Browse all collections", href: "/collections/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {

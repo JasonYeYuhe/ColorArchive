@@ -1,9 +1,10 @@
 const db = require("./db");
-const { sendFollowUp3DayEmail, sendFollowUp7DayEmail, sendFollowUp14DayEmail } = require("./email");
+const { sendFollowUp3DayEmail, sendFollowUp7DayEmail, sendFollowUp14DayEmail, sendFollowUp21DayEmail } = require("./email");
 
 const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 const FOURTEEN_DAYS_MS = 14 * 24 * 60 * 60 * 1000;
+const TWENTYONE_DAYS_MS = 21 * 24 * 60 * 60 * 1000;
 const INTERVAL_MS = 60 * 60 * 1000; // run every hour
 
 // A/B variant assignment — deterministic based on email hash
@@ -95,6 +96,29 @@ async function runFollowUps() {
       console.log(`[scheduler] day-14 follow-up (variant ${variant}) sent to ${row.email}`);
     } catch (err) {
       console.error(`[scheduler] day-14 failed for ${row.email}:`, err.message);
+    }
+  }
+
+  // Day-21: creative inspiration email — use cases and palette ideas
+  const due21d = db
+    .prepare(
+      `SELECT id, email, created_at, ab_variant FROM subscribers
+       WHERE source = 'free-pack'
+         AND follow_up_21d_sent IS NULL
+         AND (strftime('%s', 'now') - strftime('%s', created_at)) * 1000 >= ?`,
+    )
+    .all(TWENTYONE_DAYS_MS);
+
+  for (const row of due21d) {
+    try {
+      const variant = ensureVariant(row);
+      await sendFollowUp21DayEmail(row.email, { variant });
+      db.prepare(
+        `UPDATE subscribers SET follow_up_21d_sent = datetime('now'), follow_up_21d_variant = ? WHERE id = ?`,
+      ).run(variant, row.id);
+      console.log(`[scheduler] day-21 follow-up (variant ${variant}) sent to ${row.email}`);
+    } catch (err) {
+      console.error(`[scheduler] day-21 failed for ${row.email}:`, err.message);
     }
   }
 }

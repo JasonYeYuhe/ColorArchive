@@ -163,6 +163,30 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   monochrome: ["ink", "slate", "ash", "fog", "stone"],
   halloween: ["ember", "rust", "amber", "onyx", "garnet"],
   christmas: ["crimson", "ruby", "pine", "forest", "gold"],
+  // Basic color name aliases — users searching "blue", "green", etc.
+  red: ["crimson", "ruby", "garnet", "merlot", "ember"],
+  orange: ["ember", "coral", "amber", "rust", "marigold"],
+  yellow: ["amber", "citrine", "honey", "marigold", "bloom"],
+  green: ["moss", "leaf", "fern", "olive", "sage"],
+  blue: ["azure", "cobalt", "sapphire", "teal", "cerulean"],
+  purple: ["violet", "plum", "lavender", "lilac", "amethyst"],
+  pink: ["blush", "rose", "peony", "fuchsia", "coral"],
+  brown: ["sienna", "clay", "amber", "honey", "rust"],
+  grey: ["slate", "fog", "mist", "ash", "coal"],
+  gray: ["slate", "fog", "mist", "ash", "coal"],
+  black: ["ink", "onyx", "coal", "shadow", "nocturne"],
+  white: ["ivory", "pearl", "frost", "whisper", "veil"],
+  // Style and context aliases
+  studio: ["neutral", "slate", "ivory", "warm", "muted"],
+  cinema: ["shadow", "teal", "amber", "cobalt", "dark"],
+  editorial: ["muted", "ink", "ivory", "pearl", "warm"],
+  industrial: ["slate", "coal", "ash", "fog", "steel"],
+  bohemian: ["ember", "clay", "rust", "amber", "sienna"],
+  gallery: ["ivory", "onyx", "pearl", "ink", "frost"],
+  beach: ["aqua", "teal", "coral", "mint", "azure"],
+  fire: ["ember", "crimson", "rust", "amber", "garnet"],
+  midnight: ["ink", "cobalt", "shadow", "violet", "nocturne"],
+  sunrise: ["coral", "amber", "rose", "citrine", "marigold"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
