@@ -1093,3 +1093,43 @@ Added E and F variants to all 5 follow-up email sequences (day3/7/14/21/30 — n
 - STRUCTURE.md (updated all counts)
 
 **Commit:** 3a0c87c
+
+
+## 2026-03-23 — Normal Run: Newsletter 122-125 + 2 collections + 3 guides (commit eb972a1)
+
+**Run type:** Normal (run #3 since last big run `55fb5f9`)
+
+**Categories:** A. SEO & Content (newsletter + guides), D. Data & Collections
+
+### Category A — Newsletter Issues 122–125 (Apr–May 2028)
+
+- **Issue 122** (apr-2028-color-game-ui, 2028-04-29): Color in game UI design — HUDs on variable backgrounds (color + non-color redundancy), health bar urgency thresholds (yellow at 30%, red at 15-20%), environmental color complementary to UI accents, inventory rarity tiers, minimap color grammar, elemental damage color language, adaptive vs fixed UI art direction
+- **Issue 123** (may-2028-color-cultural-meaning, 2028-05-06): Color across cultures — red (luck vs. danger), white/black (mourning vs. purity variance), green (Islamic sacred vs. Western eco vs. Chinese financial loss), religious/ceremonial associations, gender color coding evolution, limits of universal preference surveys
+- **Issue 124** (may-2028-saas-dashboard-color, 2028-05-13): Color for SaaS dashboards — semantic-first color systems (semantic > series > surface), achromatic baseline discipline, ergonomic background lightness (L96-98% / L8-12%), table row states, dark mode re-specification, time series color continuity registries
+- **Issue 125** (may-2028-color-motion-animation, 2028-05-20): Color and motion — pulsing amplification and the one-element rule, transition speed semantics (80-120ms responsive vs 400-600ms ambient), hue arc limits for gradient animation (120-180 degrees), loading state colors (skeleton vs spinner), success/error animation arcs, time-of-day color temperature adaptation, prefers-reduced-motion implementation
+
+Total newsletter issues: **126** (was 122, +4 this run)
+
+### Category A — 3 New SEO Guides (now 85)
+
+- **color-psychology-marketing-guide**: What emotion research actually shows (saturation/arousal/valence), perceived appropriateness over absolute preference, trust built through consistency not hue, A/B evidence on conversion (contrast > color), saturation-premium paradox — targets 'color psychology marketing design'
+- **startup-brand-color-guide**: 5 criteria for primary color (distinctive, appropriate, scalable, accessible, reproducible), category convention vs. break decision framework, primary color works at small scale first, color consistency over color choice, 14-color minimal system spec — targets 'startup brand color guide design'
+- **color-in-typography-design-guide**: Near-black not pure black for body text (L8-16%), 5-tier typographic color system, secondary text at L35-50% (4.5:1 to 7:1), colored text functional uses only, heading color as single-entry-point strategy, dark mode typographic color re-specification — targets 'color in typography design guide legibility'
+
+### Category D — 2 New Collections (now 49)
+
+- **aurora-borealis**: Vivid celestial palette — cobalt-core-vivid, teal-tone-vivid, mint-core-vivid, violet-nocturne-clear, plum-radiant-clear. For premium tech products, gaming, atmospheric editorial, and dark-background digital experiences. Designed for dark backgrounds only — loses celestial quality on white. The palette works as linear gradients between adjacent hues to suggest aurora sweep.
+- **berry-harvest**: Autumnal fruit palette — ruby-radiant-soft, plum-silk-soft, rose-bloom-vivid, peony-bloom-vivid, mulberry-nocturne-muted. For seasonal editorial, wine/spirits, artisan food, and autumn fashion. The vivid entries are accents; mulberry-nocturne-muted is small-quantity dark tone (header bands, footers).
+
+### Current State After This Run
+
+- Total newsletter issues: **126** (Issues 001–125)
+- Total collections: **49** (aurora-borealis, berry-harvest added)
+- Total SEO guides: **85** (3 new in extraGuides9)
+
+**Files modified (3):**
+- src/data/newsletter-issues.json (126 issues, was 122)
+- src/lib/collections.ts (+aurora-borealis, +berry-harvest, now 49 collections)
+- src/lib/guides.ts (+3 guides in extraGuides9, now 85 total)
+
+**Commit:** eb972a1
