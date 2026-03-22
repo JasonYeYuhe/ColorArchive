@@ -738,3 +738,44 @@ Total collections: **28** (was 26)
 - src/lib/color-utils.ts (+24 search aliases)
 
 **Commit:** a5b8070
+
+## 2026-03-22 — Normal Run: Newsletter 086-089 + 2 Guides + 2 Collections + Search Aliases (commit 9bf17c2)
+
+**Run type:** Normal Run (4th normal run since last big run `78c17ac`)
+
+**Categories:** A. SEO & Content, D. Data & Collections
+
+### Category A — Newsletter Issues 086–089
+
+- **Issue 086** (2027-09-02): Color for data storytelling — sequential vs diverging vs categorical palettes, salience management for equal-weight categories, color blindness requirements (deuteranopia ~8% male), rendering environment fidelity, consistent dashboard color assignment.
+- **Issue 087** (2027-09-09): Color grading for photographers — workflow order (exposure first, then color), HSL targeting for skin/sky/foliage, split toning shadow/highlight relationships, building consistent editorial LUT-based style, category color conventions (portrait, architecture, food, travel).
+- **Issue 088** (2027-09-16): The case for off-white in UI — why pure white causes fatigue (halation from screen luminance), warm vs cool off-white temperature choice, multi-surface off-white systems (base/raised/recessed), dark mode off-black at L:10-18%, practical hex values for each register.
+- **Issue 089** (2027-09-23): Color in spatial computing/XR — passthrough AR transparency constraint (visionOS glass material system), luminance management in headsets (lower peak brightness than phones), chromatic aberration and edge treatment, visionOS vibrancy/adaptive color, chromatic depth cuing (warm=advance, cool=recede).
+Total newsletter issues: **90** (was 86)
+
+### Category A — 2 New SEO Guides
+
+- **color-palette-for-real-estate** (priority 69, Industry Palettes): 5 sections — trust palette psychology, luxury green-cream-gold system, proptech/digital-first differentiation, boutique agency editorial approach, regional environmental anchoring
+- **color-for-packaging-design** (priority 68, Brand Design): 5 sections — CMYK vs RGB gamut reality, Pantone specification (when/why), shelf impact at distance (3 reading distances), material substrate behavior, regulatory and accessibility requirements
+Total guides: **69** (was 67)
+
+### Category D — 2 New Collections
+
+- **spiced-amber**: amber-velvet-clear, ember-tone-soft, honey-silk-soft, coral-dusk-muted, apricot-velvet-muted — warm autumn/artisan palette for harvest campaigns, food brands, warm editorial
+- **cerulean-depth**: cobalt-dusk-clear, cerulean-shadow-clear, azure-velvet-soft, sapphire-nocturne-muted, teal-shadow-soft — enterprise/corporate tech palette with authority without consumer-app brightness
+Total collections: **30** (was 28)
+
+### Category D — 22 New Search Aliases
+
+- Real estate & property: `real_estate`, `property`, `luxury_home`, `coastal_home`, `farmhouse`, `modern_home`
+- Packaging & print: `packaging_design`, `print_design`, `pantone`, `shelf`
+- Data visualization: `data_viz`, `dashboard`, `chart`, `analytics`
+- Photography: `photo_grade`, `film_look`, `split_tone`
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (90 issues, was 86)
+- src/lib/guides.ts (+2 guides via extraGuides3 export)
+- src/lib/collections.ts (+2 collections)
+- src/lib/color-utils.ts (+22 search aliases)
+
+**Commit:** 9bf17c2
