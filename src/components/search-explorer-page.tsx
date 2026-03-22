@@ -314,7 +314,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
     });
     const queryString = params.toString();
 
-    return queryString ? `/search?${queryString}` : "/search";
+    return queryString ? `/all-colors?${queryString}` : "/search";
   }, [
     activeFamily,
     exactHex,

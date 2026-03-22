@@ -182,6 +182,48 @@ ${semLines}
 };`;
 }
 
+/** W3C Design Tokens Community Group format (Figma Variables / Tokens Studio compatible). */
+export function buildBrandFigmaTokens(palette: BrandPalette): string {
+  const scaleObj = (colors: ScaleColor[]) =>
+    Object.fromEntries(colors.map((c) => [String(c.step), { $type: "color", $value: c.hex }]));
+
+  const semObj = Object.fromEntries(
+    palette.semantics.map((s) => [s.role, { $type: "color", $value: s.hex }]),
+  );
+
+  return JSON.stringify(
+    {
+      brand: scaleObj(palette.primary.colors),
+      neutral: scaleObj(palette.neutral.colors),
+      semantic: semObj,
+    },
+    null,
+    2,
+  );
+}
+
+/** Style Dictionary format (Amazon). */
+export function buildBrandStyleDictionary(palette: BrandPalette): string {
+  const scaleObj = (colors: ScaleColor[]) =>
+    Object.fromEntries(colors.map((c) => [String(c.step), { value: c.hex, type: "color" }]));
+
+  const semObj = Object.fromEntries(
+    palette.semantics.map((s) => [s.role, { value: s.hex, type: "color" }]),
+  );
+
+  return JSON.stringify(
+    {
+      color: {
+        brand: scaleObj(palette.primary.colors),
+        neutral: scaleObj(palette.neutral.colors),
+        semantic: semObj,
+      },
+    },
+    null,
+    2,
+  );
+}
+
 /** Compute WCAG contrast ratio between two hex colors (1–21). */
 export function hexContrastRatio(hex1: string, hex2: string): number {
   const toLinear = (c: number) => {

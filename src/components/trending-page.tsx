@@ -126,7 +126,7 @@ export function TrendingPage() {
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
-              href="/search"
+              href="/all-colors"
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
             >
               {t("trending.searchArchive")}

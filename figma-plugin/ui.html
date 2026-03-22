@@ -84,6 +84,9 @@
   .inspect-link:hover { background: #f5f5f5; }
   .inspect-link.primary { background: #111; color: #fff; border-color: #111; }
   .inspect-link.primary:hover { background: #333; }
+  .brand-scale-btn { margin: 0 16px 12px; padding: 9px 0; width: calc(100% - 32px); text-align: center; font-size: 11px; font-weight: 600; border-radius: 8px; cursor: pointer; border: 1px solid #e0e0e0; color: #333; background: #fff; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.06em; }
+  .brand-scale-btn:hover { background: #f5f5f5; }
+  .brand-scale-note { margin: 0 16px 10px; font-size: 10px; color: #aaa; text-align: center; }
 </style>
 </head>
 <body>
@@ -149,6 +152,8 @@
         <a class="inspect-link primary" id="linkColorarchive" target="_blank">View on ColorArchive</a>
         <div class="inspect-link" id="btnApplyBest">Use best text</div>
       </div>
+      <button class="brand-scale-btn" id="btnBrandScale">Generate Brand Scale (22 styles)</button>
+      <div class="brand-scale-note" id="brandScaleNote"></div>
     </div>
   </div>
 
@@ -362,6 +367,25 @@ document.getElementById('inspectCopy').addEventListener('click', () => {
 document.getElementById('btnApplyBest').addEventListener('click', () => {
   parent.postMessage({ pluginMessage: { type: 'apply-fill', hex: bestTextColor, name: bestTextColor === '#111111' ? 'Near Black' : 'White' } }, '*');
 });
+
+document.getElementById('btnBrandScale').addEventListener('click', () => {
+  parent.postMessage({ pluginMessage: { type: 'generate-brand-scale' } }, '*');
+  const note = document.getElementById('brandScaleNote');
+  note.textContent = 'Creating styles…';
+});
+
+// Handle brand-scale-done response
+const _origOnMessage = window.onmessage;
+window.onmessage = function(event) {
+  const msg = event.data.pluginMessage;
+  if (msg && msg.type === 'brand-scale-done') {
+    const note = document.getElementById('brandScaleNote');
+    note.textContent = `✓ Created ${msg.count} styles from ${msg.hex}`;
+    setTimeout(() => { note.textContent = ''; }, 3000);
+    return;
+  }
+  _origOnMessage && _origOnMessage.call(this, event);
+};
 </script>
 </body>
 </html>

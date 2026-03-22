@@ -5,6 +5,8 @@ import {
   generateBrandPalette,
   buildBrandCssVariables,
   buildBrandTailwindConfig,
+  buildBrandFigmaTokens,
+  buildBrandStyleDictionary,
   hexContrastRatio,
   wcagLabel,
   type BrandPalette,
@@ -163,32 +165,46 @@ function SemanticRow({ palette }: { palette: BrandPalette }) {
 
 // ─── Export section ──────────────────────────────────────────────────────────
 
+const EXPORT_TABS = [
+  { id: "css",      label: "CSS Variables",    copyLabel: "CSS" },
+  { id: "tailwind", label: "Tailwind Config",  copyLabel: "Config" },
+  { id: "figma",    label: "Figma Tokens",     copyLabel: "JSON" },
+  { id: "sd",       label: "Style Dictionary", copyLabel: "JSON" },
+] as const;
+
+type ExportTab = (typeof EXPORT_TABS)[number]["id"];
+
 function ExportSection({ palette }: { palette: BrandPalette }) {
-  const [tab, setTab] = useState<"css" | "tailwind">("css");
+  const [tab, setTab] = useState<ExportTab>("css");
   const css = useMemo(() => buildBrandCssVariables(palette), [palette]);
-  const tw = useMemo(() => buildBrandTailwindConfig(palette), [palette]);
-  const content = tab === "css" ? css : tw;
+  const tw  = useMemo(() => buildBrandTailwindConfig(palette), [palette]);
+  const fig = useMemo(() => buildBrandFigmaTokens(palette), [palette]);
+  const sd  = useMemo(() => buildBrandStyleDictionary(palette), [palette]);
+
+  const contentMap: Record<ExportTab, string> = { css, tailwind: tw, figma: fig, sd };
+  const content = contentMap[tab];
+  const copyLabel = EXPORT_TABS.find((t) => t.id === tab)?.copyLabel ?? "Copy";
 
   return (
     <div className="rounded-2xl border border-black/6 bg-white/60 dark:border-white/8 dark:bg-white/4">
-      <div className="flex items-center justify-between border-b border-black/6 px-5 py-3 dark:border-white/8">
-        <div className="flex gap-1">
-          {(["css", "tailwind"] as const).map((t) => (
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-black/6 px-5 py-3 dark:border-white/8">
+        <div className="flex flex-wrap gap-1">
+          {EXPORT_TABS.map((t) => (
             <button
-              key={t}
+              key={t.id}
               type="button"
-              onClick={() => setTab(t)}
+              onClick={() => setTab(t.id)}
               className={`rounded-full px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] transition ${
-                tab === t
+                tab === t.id
                   ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
                   : "text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
               }`}
             >
-              {t === "css" ? "CSS Variables" : "Tailwind Config"}
+              {t.label}
             </button>
           ))}
         </div>
-        <CopyButton value={content} label={tab === "css" ? "CSS" : "Config"} />
+        <CopyButton value={content} label={copyLabel} />
       </div>
       <pre className="overflow-x-auto rounded-b-2xl p-5 text-xs leading-relaxed text-neutral-700 dark:text-neutral-300">
         <code>{content}</code>
