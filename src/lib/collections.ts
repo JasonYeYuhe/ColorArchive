@@ -1164,3 +1164,48 @@ export const extraCollections11: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections11);
+
+const extraCollections12: ColorCollection[] = [
+  createCollection(
+    "studio-neutral",
+    "Studio Neutral",
+    "Warm white, warm pearl, pale coral mist, cool gray whisper, and pale cerulean — a photographer's studio palette for product catalogues, editorial, and minimal UI work.",
+    "These are the colors of a working photographer's studio: the near-white warmth of a seamless backdrop in diffused daylight, the slightly cooler pearl tone of light bouncing off a linen surface, the faintest warm blush of a softbox-lit paper surface, the pale cool gray of a shadow in a white corner, and the near-white cool of an ambient fill light on the ceiling. Amber-veil-muted provides the primary warm-white backdrop color — just warm enough to read as intentional rather than default; coral-whisper-muted contributes the very faint blush of warm photographic light on white surfaces; ember-pearl-muted adds a slightly deeper warm pearl for text backgrounds and card fills; cerulean-mist-muted provides the pale cool gray of ambient light in shadow areas; cobalt-whisper-muted supplies the very faint cool tone of a window-light fill — the palette's cooler neutral anchor. Together these five near-neutrals form a complete warm-cool neutral system built from studio observation rather than arbitrary gray selection.",
+    ["Neutral", "Photography", "Minimal"],
+    [
+      "amber-veil-muted",
+      "coral-whisper-muted",
+      "ember-pearl-muted",
+      "cerulean-mist-muted",
+      "cobalt-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "This palette requires intentional proportion to avoid reading as an undifferentiated neutral mass. Warm entries (amber-veil-muted, coral-whisper-muted, ember-pearl-muted) function as surface colors — backgrounds, card fills, large body areas. Cool entries (cerulean-mist-muted, cobalt-whisper-muted) function as structural elements — borders, dividers, disabled states, placeholder text backgrounds. The temperature contrast between warm surfaces and cool structure creates the minimal layering that distinguishes a designed neutral system from an undesigned one. Photography direction: product on warm-white seamless paper, diffused natural or softbox light, minimal cast shadows, props in raw wood, unbleached linen, or aged ceramic. Typography: use a dark warm amber-gray (not pure black) for body text — pure black on warm-white creates a temperature conflict. The palette pairs well with a single accent color for CTAs.",
+      promptWords: ["white seamless backdrop in photography studio", "product on warm paper surface in diffused light", "linen and ceramic tabletop styling", "editorial flatlay on warm white", "natural light product photography neutral background"],
+      useCases: ["Product catalogue and e-commerce photography", "Minimal brand identity and editorial", "Portfolio and agency websites", "Clean UI systems for consumer products"],
+    },
+  ),
+  createCollection(
+    "northern-lights",
+    "Northern Lights",
+    "Electric lagoon aqua, aurora teal, deep violet, midnight cobalt, and ice cerulean — the palette of the aurora borealis for night-sky, Nordic, and atmospheric brand work.",
+    "The aurora borealis creates vivid, saturated color in darkness — and it does so in a very specific hue range: electric aqua-green (the dominant oxygen emission line), occasional violet-purple (nitrogen), and the deep indigo of the polar night sky. This palette reconstructs those relationships: lagoon-bloom-vivid provides the primary aurora aqua at near-maximum saturation — the color of the aurora at its most intense, reading as electric against deep night; teal-silk-vivid contributes the adjacent aurora green, slightly deeper in lightness, representing the broader curtain of aurora where the oxygen emission fades toward the horizon; violet-shadow-soft carries the deep aurora purple that appears at higher latitudes and in the most active displays — dark and saturated, bridging the gap between the aqua and the night; cobalt-ink-muted provides the near-black of the polar night sky at its deepest, the ground against which the aurora is visible; cerulean-veil-muted supplies the icy pale near-white that appears as the faintest aurora glow fades into sky, and as the cold white light of polar moonlight on snow. The palette is simultaneously natural and otherworldly.",
+    ["Vivid", "Night", "Atmospheric"],
+    [
+      "lagoon-bloom-vivid",
+      "teal-silk-vivid",
+      "violet-shadow-soft",
+      "cobalt-ink-muted",
+      "cerulean-veil-muted",
+    ],
+    {
+      editorialNote:
+        "This palette requires a dark background to function correctly. On white, the vivid aqua loses its electric quality and the near-black cobalt becomes a generic dark blue. The intended use: cobalt-ink-muted as the primary background — the darkest entry, the sky itself; lagoon-bloom-vivid as the hero aurora accent for primary interactive elements and brand marks; teal-silk-vivid for secondary content and glows; violet-shadow-soft for atmospheric gradients and layered depth; cerulean-veil-muted for body text and high-contrast light elements against the dark background. Gradient technique: blend cobalt-ink-muted to violet-shadow-soft for background variation that mimics how aurora colors transition across the sky. Photography direction: long-exposure polar night photography, Nordic architecture at night, abstract ice and crystal macro photography with backlighting. The palette positions brands as visionary, technically sophisticated, or premium in an understated way.",
+      promptWords: ["aurora borealis over arctic landscape", "northern lights reflected in frozen lake", "long exposure night sky aurora", "ice cave illuminated by teal aurora", "polar night sky with violet aurora bands"],
+      useCases: ["Nordic and Scandinavian brands", "Technology and innovation product launches", "Games and entertainment platforms", "Premium night-sky experiences and observatories"],
+    },
+  ),
+];
+
+collections.push(...extraCollections12);

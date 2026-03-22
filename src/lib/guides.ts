@@ -3775,3 +3775,113 @@ const extraGuides11: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides11);
+
+const extraGuides12: LandingGuide[] = [
+  {
+    category: "Photography & Visual Direction",
+    slug: "film-color-grading-for-designers",
+    title: "Film Color Grading for Designers: Applying Cinematic Color to Brand Work",
+    summary:
+      "Film color grading has developed a rigorous visual vocabulary — lift, gamma, gain, color contrast, film stock LUTs — that designers can apply directly to photography briefs, reference selection, and brand palette construction. Understanding how grading works transforms how you direct photographers and source visual references.",
+    eyebrow: "Photography & Visual Direction",
+    priority: 71,
+    searchIntent: "film color grading design brand photography cinematic palette",
+    featuredCollectionId: "cinematic-earth",
+    featuredPackId: "complete-archive",
+    tags: ["Color Grading", "Photography", "Visual Direction"],
+    highlights: [
+      "Film grading operates on three tone zones: shadows (lift), midtones (gamma), and highlights (gain). Pushing these zones in opposite directions on the color wheel creates color contrast — the ubiquitous teal-shadow/orange-highlight combination works because warm skin tones are separated from cool backgrounds, making subjects step forward from the frame.",
+      "Extracting a palette from graded reference: sample shadow, midtone, and highlight zones separately. The hue in the deep shadow zone tells you the shadow push direction; the hue in the near-white highlight zone tells you the highlight push direction. A brand palette built from these samples will grade consistently with the reference.",
+      "Film stock LUTs (Kodak Vision3, Fuji 400H, Kodachrome-style) encode specific aesthetic identities. Specifying a LUT family in a photography brief is more actionable than describing mood — it gives photographers and retouchers a concrete, reproducible aesthetic target.",
+    ],
+    sections: [
+      {
+        heading: "The three-zone grading model and how to use it in brand work",
+        body:
+          "Shadows, midtones, and highlights are independently adjustable in professional grading tools. Pushing shadow hue toward teal and highlight hue toward warm amber creates the most common commercial grade. For brand designers: specifying the intended shadow color temperature (warm, neutral, or cool) in a photography brief is more precise than saying 'moody' or 'clean'. Warm shadows read as golden, organic, nostalgic. Cool shadows read as technical, editorial, high-contrast.",
+      },
+      {
+        heading: "When to use and when to avoid teal-and-orange",
+        body:
+          "Teal-and-orange grading is effective — warm skin tones against cool shadows create clear subject separation — but it carries mass-market associations from overuse in 2010-2020 commercial film. Alternatives: warm-shadow inversion (gold shadows, blue-white highlights) for a cooler editorial feel; monochromatic grading (both shadow and highlight pushed toward the same hue) for film-art aesthetics; desaturated, flat grades for premium editorial and fashion.",
+      },
+    ],
+    links: [
+      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Cinematic Earth collection", href: "/collections/cinematic-earth/" },
+      { label: "Color guides", href: "/guides/" },
+    ],
+  },
+  {
+    category: "Color Systems",
+    slug: "chromatic-neutrals-guide",
+    title: "Chromatic Neutrals: Why Gray Is Never Actually Gray in Professional Design",
+    summary:
+      "Pure achromatic gray almost never appears in well-designed color systems. Professional palettes use chromatic neutrals — grays with a subtle hue bias — because they feel intentional, anchor the palette to a temperature, and read as crafted rather than defaulted. This guide explains how to build warm and cool chromatic neutral scales and why the temperature choice matters.",
+    eyebrow: "Color Systems",
+    priority: 70,
+    searchIntent: "chromatic neutral palette warm gray cool gray design system guide",
+    featuredCollectionId: "minimal-workspace",
+    featuredPackId: "complete-archive",
+    tags: ["Neutral Colors", "Color Systems", "Palette Design"],
+    highlights: [
+      "Pure achromatic gray reads as cold and digitally unprocessed — it is the default state of unconfigured design tools. Chromatic neutrals with 5-12% chroma in a specific hue direction feel temperature-appropriate and designed because human vision calibrates gray relative to lighting context.",
+      "Warm neutral construction: anchor hue in the 25-45° range (yellow-amber to orange-brown), set 5-10% saturation, step lightness evenly from 5% to 97%. Keep hue and saturation constant across all steps to maintain consistent temperature from darkest to lightest value.",
+      "The mixed-temperature strategy: warm neutrals for backgrounds and surfaces, cool neutrals for borders and text. This mirrors natural lighting (warm ambient, cool shadow) and creates a palette that reads simultaneously approachable and precise — appropriate for consumer-facing products that also need to convey professionalism.",
+    ],
+    sections: [
+      {
+        heading: "Building a chromatic neutral scale from hue anchor to finished steps",
+        body:
+          "Decide temperature direction first: warm (amber/brown, hue 25-45°) or cool (blue/slate, hue 200-230°). This should match your primary brand color's temperature — warm primary requires warm neutrals; cool primary requires cool neutrals. Set saturation at 5-10% for the midtone step. Step lightness from 5% (darkest) to 97% (lightest) in 8-12 even increments, keeping hue and saturation constant across all steps. Validate by converting the scale to grayscale — each step should form a visually even progression. Uneven steps indicate some values are too similar and will merge in use.",
+      },
+      {
+        heading: "When to use warm, cool, and mixed-temperature systems",
+        body:
+          "Warm neutrals suit brand work, editorial design, and premium consumer products — they read as organic, trustworthy, material. Cool neutrals suit B2B SaaS, fintech, medical, and precision-oriented categories — they read as technical, clean, precise. Mixed-temperature systems (warm backgrounds, cool text/borders) are advanced: they require careful saturation calibration so the two scales do not appear to fight each other. Keep both at very low saturation (5-8%); allow warm to run slightly lighter and cool to run slightly darker to create a natural temperature gradient from surface to structure.",
+      },
+    ],
+    links: [
+      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Minimal Workspace collection", href: "/collections/minimal-workspace/" },
+      { label: "Design Token Generator", href: "/tokens/" },
+    ],
+  },
+  {
+    category: "Brand Strategy",
+    slug: "startup-brand-color-guide",
+    title: "Startup Brand Color: Choosing a Primary Before You Have Budget for a Brand Strategist",
+    summary:
+      "Most startups choose brand colors under time and budget pressure. The decisions made at this stage have outsized long-term cost — rebranding an established user base is expensive and disruptive. A lightweight framework for making a defensible color choice early: competitor color mapping, the 'own the space' principle, saturation strategy, and four stress tests.",
+    eyebrow: "Brand Strategy",
+    priority: 69,
+    searchIntent: "startup brand color guide choosing brand color early stage",
+    featuredCollectionId: "signal-bright",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Brand Color", "Startups", "Color Strategy"],
+    highlights: [
+      "Map your top 5-8 competitors' primary colors before choosing yours. Identify the white space — hue territory no credible competitor owns. In most B2B/SaaS categories, blue dominates; orange, purple, and green are often underrepresented. Entering a blue-saturated category with a blue brand requires competing on non-color differentiation; entering with an unused credible hue makes color a differentiation asset.",
+      "Test all three defensibility dimensions before committing: category contrast (stands apart from competitors), functional integrity (works at all sizes and contexts — app icon, dark mode, white background, small button), and brand extensibility (supports a secondary palette and neutral system without conflict).",
+      "Saturation is the most underweighted variable in startup brand color decisions. Vivid primaries command attention but age poorly and constrain your neutral system. Mid-saturation primaries are forgiving in application and scale well across 3-5 years of brand growth. Muted primaries signal maturity — right for enterprise, risky for consumer launch energy.",
+    ],
+    sections: [
+      {
+        heading: "The minimum viable brand palette for early-stage startups",
+        body:
+          "Three-system MVP: (1) Primary — mid-saturation, chosen for category contrast and functional integrity. (2) Neutral — a chromatic gray system (warm or cool, 3-5 steps) built from a slightly hue-biased base — warm gray has 5-8% yellow-brown chroma; cool gray has 5-8% blue chroma. Pure #808080 gray looks undesigned. (3) Background — near-white or very light gray with chroma direction matching the neutral. This palette covers landing page, app UI, and slide deck coherently.",
+      },
+      {
+        heading: "Four stress tests before committing to a brand color",
+        body:
+          "Run all four before treating a color as final: (1) App icon test: fill a 1024px square with the primary, add a centered white icon, view at 60px alongside competitors. Does it stand out? (2) Dark mode test: does a lightened version work on very dark backgrounds (#111 or #0a0a0a)? (3) WCAG contrast test: can you set white text on the primary CTA background at 4.5:1 contrast? (4) Print test: request a physical Pantone chip or CMYK solid. Vivid digital blues often appear flatter in CMYK. Discover substrate issues before print production begins.",
+      },
+    ],
+    links: [
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Color Contrast Checker", href: "/contrast/" },
+      { label: "Browse all colors", href: "/colors/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides12);

@@ -430,6 +430,22 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   primitive: ["tone", "muted", "soft", "clear", "vivid"],
   semantic: ["ink", "frost", "ivory", "cobalt", "crimson"],
   component: ["cobalt", "ivory", "frost", "ink", "vivid"],
+  // Film grading and photography color (new)
+  grading: ["cinnabar", "ember", "teal", "ivory", "amber"],
+  film: ["cinnabar", "ember", "amber", "ivory", "teal"],
+  cinematic: ["cinnabar", "rust", "ember", "teal", "ivory"],
+  lut: ["ember", "teal", "amber", "rust", "vivid"],
+  // Chromatic neutrals extended (new unique keys)
+  warm_gray: ["stone", "ivory", "ember", "ash", "muted"],
+  cool_gray: ["frost", "ash", "slate", "cobalt", "muted"],
+  chromatic_neutral: ["stone", "ash", "frost", "ivory", "whisper"],
+  // Brand strategy extended (new unique keys)
+  corporate: ["cobalt", "slate", "frost", "ink", "navy"],
+  // Packaging color extended (new unique keys)
+  variant: ["coral", "cobalt", "amber", "emerald", "violet"],
+  // Studio photography
+  seamless: ["ivory", "stone", "frost", "ash", "whisper"],
+  backdrop: ["ivory", "stone", "frost", "ash", "muted"],
 
 };
 
