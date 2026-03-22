@@ -1,7 +1,7 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-22 (run 5)
+> Last updated: 2026-03-22 (big run 3 — Color Tools Hub)
 
 ## High Priority
 - [ ] Set up real Lemon Squeezy checkout URLs in `src/lib/checkout-config.ts` — *placeholders are still in place; purchases can't complete*
@@ -11,7 +11,7 @@
 ## Medium Priority
 - [ ] Review and update `PRODUCT_MEMO.md` with current pricing/pack structure — *may have drifted from what's live on LS*
 - [ ] Verify the `/admin/orders/` dashboard works with real orders data — *built on SQLite, not tested with production volume*
-- [ ] Check Umami analytics is correctly tracking new tool pages (contrast, convert, harmonies, compare, colorblind, gradient) — *may need manual registration of new page paths*
+- [ ] Check Umami analytics is correctly tracking new tool pages (contrast, convert, harmonies, compare, colorblind, gradient, /tools/) — *may need manual registration of new page paths*
 - [ ] Review new collections (desert-canyon, midnight-forest, golden-hour, twilight-bloom) — confirm color IDs render correctly in the live UI
 - [ ] Now that day-30 emails are fixed (autopilot run 5 bug fix) — check if any subscribers are overdue for the day-30 email and consider a manual one-time send to catch up
 
@@ -19,7 +19,6 @@
 - [ ] Add Open Graph image generation for individual color pages — *currently uses static og-image-v1.png for all pages*
 - [ ] Set up a real CDN for download files in `public/downloads/` — *GitHub Pages serves them fine for now, but CDN would be faster*
 - [ ] Consider adding Google Search Console property for colorarchive.me — *would help track search impressions for SEO guides*
-- [ ] Next run will be a Big Run — consider new tools: /tools/ index page, a gradient preset gallery, or a batch export feature
 
 ## Done
 - [x] Lemon Squeezy webhook configured — completed 2026-03-18
@@ -29,3 +28,4 @@
 - [x] Color Blindness Simulator /colorblind/ — completed 2026-03-22 (autopilot-big)
 - [x] Color Blindness Simulator added to homepage feature grid — completed 2026-03-22 (autopilot)
 - [x] Day-30 follow-up email bug fixed — completed 2026-03-22 (autopilot run 5: code was outside function)
+- [x] Color Tools Hub /tools/ — completed 2026-03-22 (autopilot-big run 3)

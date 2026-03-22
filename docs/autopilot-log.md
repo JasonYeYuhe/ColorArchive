@@ -407,3 +407,47 @@ Total guides: **46** (was 43)
 - src/components/gradient-generator-page.tsx (accessibility improvements)
 
 **Commit:** decec50
+
+## 2026-03-22 — Big Run: Color Tools Hub /tools/ (commit 4c2e127)
+
+**Run type:** Big Run (triggered: 4 normal runs since last big run)
+
+**Feature:** New `/tools/` index page — comprehensive hub for all 11 color tools
+
+### What was built
+
+**New page: /tools/**
+A dedicated landing page that showcases every free color tool on ColorArchive, organized into 4 categories:
+- **Accessibility**: Contrast Checker, Color Blindness Simulator
+- **Color Analysis**: Color Converter, Color Compare, Color Harmonies
+- **Creative Tools**: Gradient Generator, Palette Generator, Palette Builder
+- **Exploration**: Word → Color, Spectrum View, Surprise Me
+
+Each tool card shows an icon, name, description, and "Open tool" CTA with hover animation. Category anchor links in the header allow jumping to a section directly.
+
+**SEO features:**
+- Schema.org `CollectionPage` + `ItemList` structured data (11 items)
+- Breadcrumb structured data
+- Canonical URL, OG/Twitter meta tags
+- Added to sitemap with priority 0.88
+
+**Homepage integration:**
+- Added a "Free tools for working with color" section to `hero-section-below-fold.tsx`, showcasing 6 key tools in a compact card grid above the Notes section
+- "Browse all tools →" CTA
+
+**Nav integration:**
+- "All Tools" link added at top of Tools nav group (desktop + mobile menus)
+- `/tools` added to `currentPath` union type in `SiteHeader`
+
+**i18n:**
+- 35 new translation keys for EN + JA (tool names, descriptions, categories, headings, CTAs)
+
+### Files modified
+- app/tools/page.tsx (new — route + metadata + structured data)
+- src/components/tools-page.tsx (new — full page component)
+- src/components/site-header.tsx (currentPath type + nav link)
+- src/components/hero-section-below-fold.tsx (tools section added)
+- src/lib/i18n.ts (35 new translation keys)
+- app/sitemap.ts (/tools/ entry)
+
+**Commit:** 4c2e127
