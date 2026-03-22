@@ -1,5 +1,45 @@
 // ColorArchive Figma Plugin — Main thread
-figma.showUI(__html__, { width: 340, height: 520, themeColors: true });
+figma.showUI(__html__, { width: 340, height: 560, themeColors: true });
+
+// ─── Selection inspector ────────────────────────────────────────────────────
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(v => Math.round(v * 255).toString(16).padStart(2, '0')).join('').toUpperCase();
+}
+
+function getRelativeLuminance(r, g, b) {
+  const toLinear = c => { const s = c / 255; return s <= 0.04045 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4); };
+  return 0.2126 * toLinear(Math.round(r * 255)) + 0.7152 * toLinear(Math.round(g * 255)) + 0.0722 * toLinear(Math.round(b * 255));
+}
+
+function contrastRatio(lum1, lum2) {
+  const l = Math.max(lum1, lum2), d = Math.min(lum1, lum2);
+  return Math.round(((l + 0.05) / (d + 0.05)) * 10) / 10;
+}
+
+function sendSelectionInfo() {
+  const selection = figma.currentPage.selection;
+  if (selection.length === 0) { figma.ui.postMessage({ type: 'selection-empty' }); return; }
+
+  const node = selection[0];
+  if (!('fills' in node)) { figma.ui.postMessage({ type: 'selection-no-fill' }); return; }
+
+  const fills = node.fills;
+  const solid = Array.isArray(fills) ? fills.find(f => f.type === 'SOLID' && f.visible !== false) : null;
+  if (!solid) { figma.ui.postMessage({ type: 'selection-no-fill' }); return; }
+
+  const { r, g, b } = solid.color;
+  const hex = rgbToHex(r, g, b);
+  const lum = getRelativeLuminance(r, g, b);
+  const vsWhite = contrastRatio(lum, 1.0);
+  const vsBlack = contrastRatio(lum, 0.0);
+  figma.ui.postMessage({ type: 'selection-color', hex, vsWhite, vsBlack, nodeName: node.name });
+}
+
+figma.on('selectionchange', sendSelectionInfo);
+figma.on('run', sendSelectionInfo);
+
+// ─── UI messages ─────────────────────────────────────────────────────────────
 
 figma.ui.onmessage = (msg) => {
   if (msg.type === "apply-fill") {

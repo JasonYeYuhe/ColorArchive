@@ -52,6 +52,38 @@
   .footer { padding: 8px 16px; border-top: 1px solid #e5e5e5; text-align: center; }
   .footer a { font-size: 10px; color: #999; text-decoration: none; }
   .footer a:hover { color: #111; }
+
+  /* Tabs */
+  .tabs { display: flex; border-bottom: 1px solid #e5e5e5; }
+  .tab { flex: 1; padding: 9px 0; font-size: 12px; font-weight: 600; text-align: center; cursor: pointer; color: #999; border-bottom: 2px solid transparent; transition: all 0.15s; }
+  .tab.active { color: #111; border-bottom-color: #111; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Inspect panel */
+  .inspect-empty { padding: 32px 16px; text-align: center; color: #aaa; font-size: 12px; line-height: 1.6; }
+  .inspect-swatch { height: 80px; margin: 12px 16px 0; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); }
+  .inspect-hex { padding: 8px 16px 4px; display: flex; align-items: center; justify-content: space-between; }
+  .inspect-hex-val { font-size: 16px; font-weight: 700; font-family: monospace; letter-spacing: 0.04em; }
+  .inspect-hex-copy { font-size: 10px; color: #888; cursor: pointer; padding: 3px 8px; border: 1px solid #e0e0e0; border-radius: 6px; }
+  .inspect-hex-copy:hover { background: #f5f5f5; }
+  .inspect-node { padding: 0 16px 8px; font-size: 10px; color: #aaa; }
+  .wcag-grid { padding: 8px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .wcag-card { border-radius: 10px; border: 1px solid #e5e5e5; overflow: hidden; }
+  .wcag-card-preview { height: 36px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+  .wcag-card-body { padding: 5px 8px; }
+  .wcag-card-label { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; }
+  .wcag-card-ratio { font-size: 13px; font-weight: 700; }
+  .wcag-badge { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 5px; border-radius: 4px; margin-top: 2px; }
+  .badge-aaa { background: #d1fae5; color: #065f46; }
+  .badge-aa { background: #dcfce7; color: #15803d; }
+  .badge-aa-large { background: #fef9c3; color: #92400e; }
+  .badge-fail { background: #fee2e2; color: #dc2626; }
+  .inspect-links { padding: 8px 16px 12px; display: flex; gap: 6px; }
+  .inspect-link { flex: 1; padding: 8px 0; text-align: center; font-size: 11px; font-weight: 600; border-radius: 8px; text-decoration: none; cursor: pointer; border: 1px solid #e0e0e0; color: #333; transition: all 0.15s; }
+  .inspect-link:hover { background: #f5f5f5; }
+  .inspect-link.primary { background: #111; color: #fff; border-color: #111; }
+  .inspect-link.primary:hover { background: #333; }
 </style>
 </head>
 <body>
@@ -60,22 +92,64 @@
     <p>2016 curated colors — browse, apply, export</p>
   </div>
 
-  <div class="search-bar">
-    <input type="text" id="search" placeholder="Search by name or hex..." />
+  <div class="tabs">
+    <div class="tab active" id="tabBrowse" onclick="switchTab('browse')">Browse</div>
+    <div class="tab" id="tabInspect" onclick="switchTab('inspect')">Inspect</div>
   </div>
 
-  <div class="family-tabs" id="familyTabs"></div>
-
-  <div id="selectedInfo" class="selected-info" style="display:none">
-    Selected: <strong id="selectedName"></strong> <span id="selectedHex"></span>
+  <!-- Browse tab -->
+  <div class="tab-panel active" id="panelBrowse">
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search by name or hex..." />
+    </div>
+    <div class="family-tabs" id="familyTabs"></div>
+    <div id="selectedInfo" class="selected-info" style="display:none">
+      Selected: <strong id="selectedName"></strong> <span id="selectedHex"></span>
+    </div>
+    <div class="color-grid" id="colorGrid"></div>
+    <div class="actions">
+      <button class="btn primary" id="btnApply">Apply fill</button>
+      <button class="btn" id="btnSwatch">Swatch</button>
+      <button class="btn" id="btnStyle">Style</button>
+    </div>
   </div>
 
-  <div class="color-grid" id="colorGrid"></div>
-
-  <div class="actions">
-    <button class="btn primary" id="btnApply">Apply fill</button>
-    <button class="btn" id="btnSwatch">Swatch</button>
-    <button class="btn" id="btnStyle">Style</button>
+  <!-- Inspect tab -->
+  <div class="tab-panel" id="panelInspect">
+    <div id="inspectEmpty" class="inspect-empty">
+      <div style="font-size:24px;margin-bottom:8px">◑</div>
+      Select a layer with a solid fill<br>to inspect its WCAG contrast
+    </div>
+    <div id="inspectContent" style="display:none">
+      <div class="inspect-swatch" id="inspectSwatch"></div>
+      <div class="inspect-hex">
+        <span class="inspect-hex-val" id="inspectHexVal"></span>
+        <span class="inspect-hex-copy" id="inspectCopy">Copy</span>
+      </div>
+      <div class="inspect-node" id="inspectNode"></div>
+      <div class="wcag-grid">
+        <div class="wcag-card" id="cardVsWhite">
+          <div class="wcag-card-preview" style="color:#fff" id="previewVsWhite">Aa</div>
+          <div class="wcag-card-body">
+            <div class="wcag-card-label">vs White</div>
+            <div class="wcag-card-ratio" id="ratioVsWhite"></div>
+            <div id="badgeVsWhite"></div>
+          </div>
+        </div>
+        <div class="wcag-card" id="cardVsBlack">
+          <div class="wcag-card-preview" style="color:#111" id="previewVsBlack">Aa</div>
+          <div class="wcag-card-body">
+            <div class="wcag-card-label">vs Black</div>
+            <div class="wcag-card-ratio" id="ratioVsBlack"></div>
+            <div id="badgeVsBlack"></div>
+          </div>
+        </div>
+      </div>
+      <div class="inspect-links">
+        <a class="inspect-link primary" id="linkColorarchive" target="_blank">View on ColorArchive</a>
+        <div class="inspect-link" id="btnApplyBest">Use best text</div>
+      </div>
+    </div>
   </div>
 
   <div class="footer">
@@ -215,6 +289,79 @@ document.getElementById("btnStyle").addEventListener("click", () => {
 
 renderFamilyTabs();
 render();
+
+// ─── Tab switching ────────────────────────────────────────────────────────────
+window.switchTab = function(tab) {
+  document.getElementById('tabBrowse').classList.toggle('active', tab === 'browse');
+  document.getElementById('tabInspect').classList.toggle('active', tab === 'inspect');
+  document.getElementById('panelBrowse').classList.toggle('active', tab === 'browse');
+  document.getElementById('panelInspect').classList.toggle('active', tab === 'inspect');
+};
+
+// ─── Inspect logic ────────────────────────────────────────────────────────────
+let currentInspectHex = null;
+let bestTextColor = '#111111';
+
+function wcagGrade(ratio) {
+  if (ratio >= 7) return { label: 'AAA', cls: 'badge-aaa' };
+  if (ratio >= 4.5) return { label: 'AA', cls: 'badge-aa' };
+  if (ratio >= 3) return { label: 'AA Large', cls: 'badge-aa-large' };
+  return { label: 'Fail', cls: 'badge-fail' };
+}
+
+function renderBadge(grade) {
+  return `<span class="wcag-badge ${grade.cls}">${grade.label}</span>`;
+}
+
+window.onmessage = function(event) {
+  const msg = event.data.pluginMessage;
+  if (!msg) return;
+
+  if (msg.type === 'selection-empty' || msg.type === 'selection-no-fill') {
+    document.getElementById('inspectEmpty').style.display = 'block';
+    document.getElementById('inspectContent').style.display = 'none';
+    currentInspectHex = null;
+    return;
+  }
+
+  if (msg.type === 'selection-color') {
+    const { hex, vsWhite, vsBlack, nodeName } = msg;
+    currentInspectHex = hex;
+    bestTextColor = vsBlack >= vsWhite ? '#111111' : '#FFFFFF';
+
+    document.getElementById('inspectEmpty').style.display = 'none';
+    document.getElementById('inspectContent').style.display = 'block';
+    document.getElementById('inspectSwatch').style.background = hex;
+    document.getElementById('inspectHexVal').textContent = hex;
+    document.getElementById('inspectNode').textContent = nodeName ? `Layer: ${nodeName}` : '';
+    document.getElementById('previewVsWhite').style.background = hex;
+    document.getElementById('previewVsBlack').style.background = hex;
+    document.getElementById('ratioVsWhite').textContent = `${vsWhite}:1`;
+    document.getElementById('ratioVsBlack').textContent = `${vsBlack}:1`;
+    document.getElementById('badgeVsWhite').innerHTML = renderBadge(wcagGrade(vsWhite));
+    document.getElementById('badgeVsBlack').innerHTML = renderBadge(wcagGrade(vsBlack));
+
+    const clean = hex.replace('#', '');
+    document.getElementById('linkColorarchive').href = `https://colorarchive.me/colors/hex/?c=${clean}`;
+    document.getElementById('btnApplyBest').textContent = `Use ${bestTextColor === '#111111' ? 'black' : 'white'} text`;
+
+    // Auto-switch to inspect tab when selection is found
+    switchTab('inspect');
+  }
+};
+
+document.getElementById('inspectCopy').addEventListener('click', () => {
+  if (!currentInspectHex) return;
+  navigator.clipboard.writeText(currentInspectHex).then(() => {
+    const el = document.getElementById('inspectCopy');
+    el.textContent = 'Copied!';
+    setTimeout(() => { el.textContent = 'Copy'; }, 1400);
+  }).catch(() => {});
+});
+
+document.getElementById('btnApplyBest').addEventListener('click', () => {
+  parent.postMessage({ pluginMessage: { type: 'apply-fill', hex: bestTextColor, name: bestTextColor === '#111111' ? 'Near Black' : 'White' } }, '*');
+});
 </script>
 </body>
 </html>
