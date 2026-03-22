@@ -451,3 +451,48 @@ Each tool card shows an icon, name, description, and "Open tool" CTA with hover 
 - app/sitemap.ts (/tools/ entry)
 
 **Commit:** 4c2e127
+
+## 2026-03-22 — Normal Run: Newsletter 062-065, 2 New Collections, Search Aliases, 2 New Guides (commit 62445d0)
+
+**Run type:** Normal (1st run since last big run: Color Tools Hub /tools/)
+
+**Categories:** A. SEO & Content, D. Data & Collections
+
+### Category A — Newsletter Issues 062–065
+
+- **Issue 062** (2027-03-18): "Color in typography: how typeface color and palette work together" — near-black text temperature, 4-role typographic system, link color palette integration, colored headings when they work vs fail
+- **Issue 063** (2027-03-25): "Color naming for design systems: tokens that communicate intent" — 3-layer naming model, primitive vs semantic separation, dark mode naming pitfalls, common naming failures
+- **Issue 064** (2027-04-01): "Color and wayfinding: spatial color for navigation and signage systems" — hue distinctiveness requirement, color ceiling at 8 categories, 7:1 contrast floor, physical→digital translation
+- **Issue 065** (2027-04-08): "Color in motion: animation, transitions, and temporal color design" — OKLCH interpolation for smooth transitions, 100–120ms timing sweet spot, directional hue shift meaning, page transition patterns
+Total newsletter issues: **66** (was 62)
+
+### Category D — 2 New Color Collections
+
+- **arctic-dawn**: "Arctic Dawn" — Pale icy blues, cool lavenders, whispered frost tones. Colors: iris-whisper-soft, azure-veil-muted, cobalt-mist-soft, sapphire-bloom-soft, indigo-dusk-muted. For tech products, wellness apps, premium editorial.
+- **golden-hour**: "Golden Hour" — Warm amber, honey, coral tones capturing late afternoon light. Colors: citrine-pearl-soft, honey-bloom-clear, amber-bloom-vivid, coral-silk-clear, ember-tone-soft. For food/beverage brands, creative agencies, consumer lifestyle.
+Total collections: **22** (was 20)
+
+### Category D — 29 New Search Aliases
+
+Added 7 groups of semantic search aliases:
+- **Food & beverage**: chocolate, espresso, caramel, matcha, blueberry, cherry
+- **Cosmic/space**: space, galaxy, cosmic, nebula
+- **Nature/garden**: meadow, garden, floral, alpine
+- **Textiles**: linen, canvas, denim, velvet
+- **Weather**: storm, thunder, fog, haze
+- **Gemstones**: amethyst, emerald, sapphire, ruby, topaz
+Total aliases: ~117 (was ~88)
+
+### Category A — 2 New SEO Guides
+
+- **color-typography-hierarchy** (priority 67, UI/UX Design): near-black text temperature selection, 4-role typographic color system, link color palette integration
+- **design-token-color-naming** (priority 71, Design Systems): two-tier primitive/semantic naming model, dark mode token naming, 4 common naming mistakes with fixes
+Total guides: **49** (was 47)
+
+**Files modified:**
+- src/data/newsletter-issues.json (66 issues, was 62)
+- src/lib/collections.ts (22 collections, was 20)
+- src/lib/color-utils.ts (~117 aliases, was ~88)
+- src/lib/guides.ts (49 guides, was 47)
+
+**Commit:** 62445d0
