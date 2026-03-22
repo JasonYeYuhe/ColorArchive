@@ -101,6 +101,15 @@ const TOOLS: Tool[] = [
     accent: "bg-green-100 text-green-700",
   },
   {
+    href: "/mixer/",
+    icon: "⊕",
+    nameKey: "tools.mixer.name",
+    descKey: "tools.mixer.desc",
+    categoryKey: "tools.cat.creative",
+    badgeKey: "tools.badge.new",
+    accent: "bg-pink-100 text-pink-700",
+  },
+  {
     href: "/tints/",
     icon: "▥",
     nameKey: "tools.tints.name",

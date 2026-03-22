@@ -2801,3 +2801,98 @@ export const extraGuides3: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides3);
+
+export const extraGuides4: LandingGuide[] = [
+  {
+    category: "Digital Design",
+    slug: "color-for-social-media",
+    title: "Color Strategy for Social Media: Instagram, TikTok, and Pinterest",
+    summary:
+      "Social media platforms each have distinct color cultures shaped by their native aesthetic, algorithm-driven content dynamics, and audience expectations. A color strategy that works on Instagram (polished, editorial, aspirational) may fail on TikTok (raw, high-energy, anti-polish) and perform differently on Pinterest (inspirational, mood-board, aspirational in a different register). Understanding the color grammar of each platform is a practical skill for designers building visual content systems for brands that span multiple social channels.",
+    eyebrow: "Digital Design Guide",
+    priority: 67,
+    searchIntent: "social media color palette, Instagram color scheme, TikTok brand colors, Pinterest color strategy, social media design colors",
+    featuredCollectionId: "electric-mint",
+    featuredPackId: "content-creator-bundle",
+    tags: ["Digital Design", "Brand Design"],
+    highlights: [
+      "Instagram rewards visual consistency: the most-followed brand accounts have recognizable color signatures that make each post identifiable as belonging to that account before the user reads the handle. This color consistency functions as a form of attention training — users who repeatedly see a specific color combination learn to associate it with a brand and are more likely to pause on future content. The practical implication: choose 3-5 brand colors and apply them consistently across every piece of content. The palette does not need to be unusual — it needs to be consistent.",
+      "TikTok's native aesthetic is anti-polish: the platform's most-viral content tends toward raw authenticity, visible imperfection, and high-energy editing. Highly polished, color-corrected content that would perform well on Instagram can feel inauthentic and performative on TikTok. However, this doesn't mean color doesn't matter on TikTok — it means the color strategy should emphasize energy and immediacy over refinement. High-saturation, high-contrast color combinations (vivid background + white text, bright neon on black) perform well in TikTok's fast-scroll environment because they demand visual attention in the first 0.5 seconds.",
+      "Pinterest is a search and discovery platform, not a scroll feed — which means color strategy on Pinterest is about thumbnail legibility at small sizes in a grid of competing pins. The top-performing Pinterest content tends toward warm, light, and aspirational palettes: cream and warm white backgrounds, warm neutrals, soft pastels. This aesthetic is driven by Pinterest's core use cases (home decor, recipes, wedding planning, fashion) which are all domains where warm, aspirational color palettes are the norm. Brands in cooler aesthetic categories should either adapt their palette for Pinterest's warm bias or accept lower performance on the platform.",
+    ],
+    sections: [
+      {
+        heading: "Instagram: building a recognizable color signature",
+        body: "Instagram is a visual discovery platform where color consistency is the most reliable driver of brand recognition in the feed. Studies of top brand accounts consistently show that the most-recognized brands use 2-3 dominant colors in over 80% of their content. The color signature doesn't need to be unusual — it needs to be applied with discipline. Brand color systems for Instagram should define: (1) a primary background color (the dominant color that appears behind most content — often white, off-white, black, or a brand color), (2) 1-2 accent colors that appear consistently on text, graphic elements, and CTAs, and (3) a set of rules for photography treatment (warm vs cool color grading, light vs dark key, saturation level). The most effective Instagram color strategies are brand-first, not trend-first: they apply the brand palette consistently rather than chasing each seasonal color trend.",
+      },
+      {
+        heading: "TikTok: color for the first half-second",
+        body: "TikTok content is viewed in an infinite vertical scroll where each video has approximately 0.5 seconds to capture attention before the user continues scrolling. This creates extreme demand for visual immediacy — the first frame of a video must communicate something interesting before the audio or text is processed. High-contrast color combinations are effective for this reason: white text on a vivid solid background, neon text on black, bright graphic elements that read instantly. The TikTok color vocabulary that has emerged from the platform's native creators includes: vivid gradient overlays (often pink-to-purple or blue-to-green), high-contrast text treatments (white text with black outline or drop shadow), green screen backgrounds used creatively as color fields, and the platform's own UI colors (red notification badges, white interface) which creators often echo in brand palettes to blend natively into the feed. For brand accounts on TikTok, the choice is between adapting to the platform's native energy (vivid, high-contrast, raw) or accepting that polished brand content will underperform relative to native creator content.",
+      },
+      {
+        heading: "Pinterest: warm and aspirational wins",
+        body: "Pinterest users are primarily in planning mode — they are gathering inspiration for a future project (home renovation, wedding, wardrobe, recipe collection). The dominant emotional state is aspirational: they want to feel what something could be like, not urgently need to act immediately. This planning mode shapes Pinterest's color culture: content that performs best on Pinterest tends toward warm, light, and aspirational — cream backgrounds, warm neutrals, soft blush and sage palettes, natural materials and textures. These palettes dominate Pinterest because they represent the lifestyle aspirations of the platform's core user base and because they photograph well in the flat-lay and styled-interior formats that Pinterest rewards. Brands with cool, minimal, or tech aesthetics face a structural disadvantage on Pinterest's warm-biased feed. Strategies: create a warm-adapted content series specifically for Pinterest (a 'mood board' or 'lifestyle' content series that uses a warmer palette than the main brand), or focus Pinterest strategy on content categories where the brand's aesthetic is native (e.g., a tech brand's productivity or workspace content may perform on Pinterest's work/study boards where minimal cool aesthetics are accepted).",
+      },
+      {
+        heading: "Cross-platform color adaptation",
+        body: "Brands that operate across multiple social platforms need a color system that can be adapted for each platform's aesthetic without losing brand coherence. The approach: define a core brand palette (2-3 colors that are non-negotiable across all platforms) and a set of platform-specific expression rules. The core palette maintains brand recognition. The expression rules allow appropriate adaptation. For example: a fintech brand's core palette is cobalt blue and white. On Instagram, the expression is clean, high-production editorial content in the cobalt and white palette. On TikTok, the expression is high-contrast cobalt on black or white text on cobalt — the colors are the same, the energy level and production style are adapted. On Pinterest, the expression might be 'cobalt accent on cream background' — the warm off-white is added to soften the palette for Pinterest's aesthetic while maintaining the cobalt brand signature. Same brand, different expression, platform-appropriate adaptation.",
+      },
+      {
+        heading: "Color and algorithm: when to follow and when to resist trends",
+        body: "Each social platform has algorithmic biases that reward certain visual aesthetics at certain times. When a color trend is algorithmic (the platform is actively surfacing content in a specific color aesthetic), participating in the trend generates short-term reach at the cost of brand distinctiveness. When a brand's palette aligns with the algorithmic trend, participation is free and beneficial. When it doesn't, the decision is whether to adapt temporarily (reach gain, brand dilution) or maintain distinctiveness (lower immediate reach, stronger long-term brand identity). The professional answer: never permanently alter a brand's core color palette for algorithmic reasons. Short-term platform trends (summer pastels, Y2K chrome, dark academia) can be acknowledged through limited series, seasonal campaigns, or sub-brand expressions without compromising the core identity. The brand palette exists to be recognized over months and years — algorithmic trends cycle every few weeks. Chasing them produces a brand that has no visual memory.",
+      },
+    ],
+    links: [
+      { label: "Explore Electric Mint palette", href: "/collections/electric-mint/" },
+      { label: "Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Browse all tools", href: "/tools/" },
+    ],
+  },
+  {
+    category: "Developer Tools",
+    slug: "oklch-color-space-guide",
+    title: "OKLCH Color Space: The Developer's Guide to Perceptually Uniform Color",
+    summary:
+      "OKLCH is a perceptually uniform color space designed for digital design and CSS that solves several fundamental problems with sRGB, HSL, and older color models. Developed by Björn Ottosson in 2020, OKLCH builds on OKLab (an improved version of the CIELAB color space) to provide three human-perceptible axes — Lightness, Chroma, and Hue — where equal numerical distances correspond to equal perceived color differences. For designers and developers building color systems, OKLCH offers unprecedented control over color ramps, gradients, and palette generation.",
+    eyebrow: "Developer Tools Guide",
+    priority: 66,
+    searchIntent: "OKLCH color space, oklch css, perceptually uniform color, oklch vs hsl, oklch color picker, oklch gradient, oklch color system",
+    featuredCollectionId: "cerulean-depth",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Developer Tools", "Color Theory"],
+    highlights: [
+      "The key insight of OKLCH: L (lightness) is perceptually uniform. In HSL, a color at 50% lightness may appear much darker or lighter than another color at 50% lightness — compare HSL(60, 100%, 50%) (vivid yellow) with HSL(240, 100%, 50%) (vivid blue). The yellow appears significantly lighter to the eye despite identical HSL lightness values. In OKLCH, oklch(0.7, -, -) yellow and oklch(0.7, -, -) blue will appear equally light to the human eye regardless of hue. This makes OKLCH dramatically better for generating color scales, gradients, and accessible color combinations.",
+      "CSS now natively supports OKLCH: `oklch(L C H)` is valid in all modern browsers (Chrome 111+, Firefox 113+, Safari 15.4+). The L axis runs from 0 (black) to 1 (white). The C (chroma) axis runs from 0 (gray) to approximately 0.4 (maximum saturation, varies by hue). The H axis is a hue angle from 0° to 360°. Unlike HSL's saturation, OKLCH chroma is absolute — a chroma of 0.2 means the same amount of colorfulness regardless of lightness, which makes it much more predictable when building tonal scales.",
+      "OKLCH gradients look better than RGB or HSL gradients. Gradients computed in RGB can produce muddy brown or gray midpoints when interpolating between complementary colors. Gradients in HSL can produce hue arcs (unexpected color stops in the middle of what should be a two-color blend). OKLCH interpolation maintains vivid, clean midpoints between any two colors because the perceptual path through OKLCH space is shorter and avoids the desaturated region at the center of the color gamut. This is why CSS `color-mix(in oklch, ...)` is the recommended approach for high-quality color interpolation in modern CSS.",
+    ],
+    sections: [
+      {
+        heading: "Why OKLCH? The problem with RGB and HSL",
+        body: "RGB is the native color model of display hardware — red, green, and blue channels each from 0 to 255. It is precise, widely understood, and directly maps to screen pixels. But it has no relationship to human color perception: (0, 255, 0) pure green appears dramatically lighter than (0, 0, 255) pure blue despite both being 'fully saturated' colors. HSL (hue, saturation, lightness) was designed to be more intuitive than RGB, and it is — but its lightness axis is not perceptually uniform. The result is that HSL-based color scales (where you vary lightness while keeping hue and saturation constant) produce tonal ramps where some steps appear to jump while others barely change. OKLCH solves this by working in a color space where the L axis is calibrated to human perception — any color at L=0.6 will appear equally light to the eye regardless of its hue or chroma. This is the foundational property that makes OKLCH so valuable for system design.",
+      },
+      {
+        heading: "Understanding the three OKLCH axes",
+        body: "L (Lightness): Ranges from 0 to 1. L=0 is absolute black, L=1 is absolute white. Unlike HSL, this lightness is perceptually calibrated — perceived brightness changes uniformly as L changes. For practical use: L=0.1-0.2 is very dark, useful for near-black surface backgrounds. L=0.3-0.5 is the range for dark brand colors. L=0.5-0.7 is midtones where most colors live. L=0.7-0.9 is light tints. L=0.9-1.0 is near-white. C (Chroma): Ranges from 0 to approximately 0.4, depending on hue and lightness. C=0 is achromatic (gray). C=0.05 is a very subtle tint. C=0.1-0.15 is clearly colorful. C=0.2+ is vivid. Not all L/C combinations are in-gamut for sRGB displays — very high chroma values especially in the blue-purple range may need to be clamped or gamut-mapped. H (Hue): A 0-360° hue angle. Key landmarks: 0°=pink/red, 30°=orange-red, 60°=orange, 90°=yellow, 120°=yellow-green, 150°=green, 180°=aqua, 210°=cyan, 240°=sky blue, 270°=blue, 300°=blue-violet, 330°=magenta.",
+      },
+      {
+        heading: "Generating color scales in OKLCH",
+        body: "The primary practical application of OKLCH for developers is generating tonal color scales — the 50-to-950 scales used in design systems like Tailwind, Radix, and Material. The OKLCH approach: choose a base color, identify its OKLCH values, then vary only L while keeping C and H (approximately) constant to generate the scale steps. For a 11-step scale (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950), choose L values that produce perceptually even steps: a linear distribution from L=0.97 (50 — near white) to L=0.15 (950 — near black) generally works well as a starting point. The result is a scale where each step looks equally spaced to the eye, which is the property most often missing from manually curated scales. For chroma: it is common to slightly reduce chroma at the lightest and darkest ends of the scale (the tints and shades) and peak chroma at 500 (the base color). This follows the natural behavior of pigment-based colors and avoids the slightly plastic look of very high-chroma light tints.",
+      },
+      {
+        heading: "OKLCH in CSS: syntax and browser support",
+        body: "OKLCH is fully supported in CSS as of 2023 in all major browsers. The syntax: `oklch(L C H)` or `oklch(L C H / alpha)` where L is 0-1 or 0%-100%, C is 0-0.4 (unitless) or 0%-100% (where 100% = 0.4), and H is an angle in degrees. Examples: `oklch(0.7 0.15 250)` is a medium-light blue. `oklch(0.3 0.1 30)` is a dark warm brown. `oklch(0.95 0.02 90)` is a very light warm cream. For gradients: use `background: linear-gradient(in oklch, oklch(0.5 0.2 30), oklch(0.5 0.2 270))` to get a vivid gradient that maintains saturation through the midpoint. The `color-mix()` function also accepts OKLCH: `color-mix(in oklch, #FF6600 60%, #0066FF 40%)` produces the perceptually correct mix. For TypeScript utilities, a complete OKLCH implementation (sRGB ↔ OKLCH conversion) is available via the oklab and culori JavaScript libraries, or can be implemented from Björn Ottosson's reference code (approximately 50 lines of math).",
+      },
+      {
+        heading: "Practical OKLCH for accessible color systems",
+        body: "WCAG contrast ratios are based on relative luminance, which correlates strongly with OKLCH's L axis (with some deviation). Using OKLCH to build accessible color pairs is more predictable than using HSL or RGB. The general guideline: for WCAG AA normal text (contrast ratio ≥ 4.5:1), a combination of L=0.9+ background with L=0.4 or lower text color reliably passes. For large text and UI components (contrast ratio ≥ 3:1), L=0.85+ background with L=0.5 or lower passes in most cases. The perceptual uniformity of OKLCH means that if you verify contrast for one hue, a color with the same L value in a different hue will have similar contrast behavior — unlike HSL where identical lightness values produce dramatically different actual luminance. This makes OKLCH a much more reliable tool for designing accessible color systems across a range of hues. Use the OKLCH L axis to quickly identify the lightness threshold that gives you the required contrast, then choose any hue at that lightness level — the contrast relationship will hold.",
+      },
+    ],
+    links: [
+      { label: "Color Mixer (OKLCH interpolation)", href: "/mixer/" },
+      { label: "Tints & Shades Generator", href: "/tints/" },
+      { label: "Cerulean Depth palette", href: "/collections/cerulean-depth/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides4);

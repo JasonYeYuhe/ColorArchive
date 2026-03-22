@@ -1866,6 +1866,14 @@ const translations: Record<string, Record<string, string>> = {
     en: "Paste up to 10 design system colors and get a full AA/AAA compliance matrix for every foreground/background pair. Export as CSV.",
     zh: "粘贴最多 10 个设计系统颜色，即可获得每对前景/背景的完整 AA/AAA 合规矩阵。支持导出为 CSV。",
   },
+  "tools.mixer.name": {
+    en: "Color Mixer",
+    zh: "颜色混合器",
+  },
+  "tools.mixer.desc": {
+    en: "Blend any two colors across 11 smooth steps using RGB, HSL, or perceptually uniform OKLCH interpolation. Export as CSS variables or JSON.",
+    zh: "通过 RGB、HSL 或感知均匀的 OKLCH 插值，将任意两种颜色混合为 11 步渐变色阶。可导出为 CSS 变量或 JSON。",
+  },
   "tools.brand.name": {
     en: "Brand Color System",
     zh: "品牌色彩系统",

@@ -669,3 +669,49 @@ collections.push(
     },
   ),
 );
+
+collections.push(
+  createCollection(
+    "sage-terrarium",
+    "Sage Terrarium",
+    "Soft sage, moss, and stone greens at muted and soft lightness — for wellness, botanical, and slow-living brands.",
+    "A palette built from the green spectrum's quietest register: desaturated, light-touched, and atmospheric. Sage greens and moss tones at low chroma suggest living plants behind glass, a morning walk through a damp garden, or a ceramic planter on a white shelf. The sage-mist-soft is the palette's lightest entry — an almost-grey green suitable for large background surfaces and calm UI backgrounds. The moss-tone-muted provides an earthy, grounded midtone. The fern-velvet-soft is the richest entry, with enough chroma to serve as an accent or primary brand color. The stone-green-muted bridges green to neutral, useful for typographic elements that should feel botanical without being vivid. The eucalyptus-bloom-soft adds a slightly cooler note that prevents the palette from reading as too yellow or too warm. This palette works for: wellness and mindfulness brands, botanical and plant retail, slow-living and sustainable lifestyle brands, spa and aromatherapy packaging.",
+    ["Calm", "Botanical", "Wellness"],
+    [
+      "sage-mist-soft",
+      "moss-tone-muted",
+      "fern-velvet-soft",
+      "stone-green-muted",
+      "eucalyptus-bloom-soft",
+    ],
+    {
+      editorialNote:
+        "The restraint of this palette is its strength — avoid the impulse to add a vivid accent. The palette is designed to breathe and recede. Use the fern-velvet-soft sparingly as the highest-chroma element. Pair with warm off-white backgrounds (#F8F6F1 range) and natural texture photography. Typefaces in warm charcoal or near-black (not pure black) maintain the organic temperature.",
+      promptWords: ["misty greenhouse morning", "ceramic herb planter", "linen apothecary label", "terrarium glass fog", "botanical field notebook"],
+      useCases: ["Wellness and spa brands", "Botanical and plant retail", "Sustainable lifestyle and packaging"],
+    },
+  ),
+);
+
+collections.push(
+  createCollection(
+    "dusk-coral",
+    "Dusk Coral",
+    "Warm coral, blush, and terracotta tones at soft and muted lightness — for editorial, beauty, and warm contemporary branding.",
+    "A palette centred on the coral-to-terracotta arc: the warm register where orange meets pink, touching the territory of sunsets, clay pots, and warm skin. The coral-glow-soft is the palette's warmest and most vivid entry — a saturated soft coral that carries energy without the abrasiveness of pure orange. The blush-mist-soft provides a lighter, more receded counterpoint, useful for background surfaces and secondary text containers. The terracotta-tone-muted grounds the palette with an earthy, clay-like midtone that anchors the lighter corals with material weight. The peach-silk-soft is the palette's most neutral entry — a barely-tinted warm near-white suitable for large-area fills. The rose-copper-muted adds a slightly metallic warmth at the palette's darkest end, suggesting burnished copper or dried rose petals rather than pure pink. This palette works for: editorial beauty and cosmetics, women's lifestyle brands, warm contemporary direct-to-consumer brands, event design and wedding identities.",
+    ["Warm", "Editorial", "Feminine"],
+    [
+      "coral-glow-soft",
+      "blush-mist-soft",
+      "terracotta-tone-muted",
+      "peach-silk-soft",
+      "rose-copper-muted",
+    ],
+    {
+      editorialNote:
+        "The palette's warmth is consistent — there is no cool entry to create contrast. This is deliberate: the palette creates a temperature envelope that should be broken only by type and photography. Use near-black or deep warm brown for text rather than a cool neutral, which would create temperature conflict. Photography with warm natural light, natural materials, and skin tones performs best within this system.",
+      promptWords: ["terracotta sunset horizon", "dried flower arrangement", "warm clay studio morning", "rose petal ceramic bowl", "Mediterranean dusk light"],
+      useCases: ["Beauty and cosmetics brands", "Women's editorial and lifestyle", "Wedding and event design"],
+    },
+  ),
+);

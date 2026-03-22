@@ -139,6 +139,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.82,
     },
     {
+      url: "https://colorarchive.me/mixer/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
       url: "https://colorarchive.me/tints/",
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",

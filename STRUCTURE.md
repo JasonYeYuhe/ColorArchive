@@ -16,7 +16,7 @@
 | Email | Resend |
 | Commerce | Lemon Squeezy |
 | Analytics | Umami Cloud |
-| i18n | Custom (`src/lib/i18n.ts`) — EN / JA |
+| i18n | Custom (`src/lib/i18n.ts`) — EN / ZH |
 
 ---
 
@@ -65,7 +65,8 @@ ColorArchive/
 │   ├── gradient/                  # /gradient/ — CSS gradient generator (linear/radial)
 │   ├── harmonies/                 # /harmonies/ — color harmonies calculator (6 harmony types + color wheel)
 │   ├── compare/                   # /compare/ — side-by-side two-color comparison tool
-│   └── tints/                     # /tints/ — tints & shades generator (11-step tonal scale, CSS/Tailwind/Sass/JSON export)
+│   ├── tints/                     # /tints/ — tints & shades generator (11-step tonal scale, CSS/Tailwind/Sass/JSON export)
+│   └── mixer/                     # /mixer/ — Color Mixer (RGB/HSL/OKLCH interpolation, 11-step blend, CSS vars/JSON/color-mix() export)
 │   └── packs/quiz/                # /packs/quiz/ — interactive pack recommendation quiz
 │
 ├── src/
@@ -253,15 +254,15 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 
 ---
 
-## Content Counts (as of 2026-03-21)
+## Content Counts (as of 2026-03-23)
 
 | Content | Count |
 |---------|-------|
 | Colors | 2016 |
-| Collections | 14 |
+| Collections | 32 |
 | Palette packs | 7 |
-| SEO guides | 32 |
-| Newsletter issues | 46 |
+| SEO guides | 71 |
+| Newsletter issues | 94 |
 | Color families | 9 |
-| Tool pages | 12 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz, colorblind, tints) |
-| i18n keys | ~700+ (EN/JA) |
+| Tool pages | 13 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz, colorblind, tints, mixer) |
+| i18n keys | ~710+ (EN/ZH) |

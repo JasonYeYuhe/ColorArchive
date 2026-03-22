@@ -45,7 +45,8 @@ interface SiteHeaderProps {
     | "/tints"
     | "/brand"
     | "/wcag-audit"
-    | "/api-docs";
+    | "/api-docs"
+    | "/mixer";
 }
 
 interface NavItem {

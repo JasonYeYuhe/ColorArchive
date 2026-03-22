@@ -6,7 +6,7 @@ import { ToolsPage } from "@/src/components/tools-page";
 export const metadata: Metadata = {
   title: { absolute: "Free Color Tools for Designers — ColorArchive" },
   description:
-    "12 free color tools for designers: contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more. No sign-up required.",
+    "13 free color tools for designers: color mixer, contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more. No sign-up required.",
   alternates: {
     canonical: "/tools/",
   },
@@ -100,13 +100,20 @@ const toolsListStructuredData = {
       {
         "@type": "ListItem",
         position: 11,
+        name: "Color Mixer",
+        url: "https://colorarchive.me/mixer/",
+        description: "Blend any two colors across 11 steps using RGB, HSL, or perceptually uniform OKLCH interpolation. Export as CSS variables, JSON, or color-mix() declarations.",
+      },
+      {
+        "@type": "ListItem",
+        position: 12,
         name: "Tints & Shades Generator",
         url: "https://colorarchive.me/tints/",
         description: "Generate a complete 11-step tonal color scale from any hex. Export as CSS variables, Tailwind config, Sass, or JSON.",
       },
       {
         "@type": "ListItem",
-        position: 11,
+        position: 13,
         name: "Surprise Me",
         url: "https://colorarchive.me/all-colors/",
         description: "Get a random curated color for instant design inspiration.",
