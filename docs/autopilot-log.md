@@ -887,3 +887,31 @@ Total guides: **70**
 - STRUCTURE.md (updated counts)
 
 **Commit:** 9c98352
+
+## 2026-03-23 — Normal Run: Newsletter 094-097, Collections, Search Aliases, Guides + Cleanup (commit 1cc22d1)
+
+**Run type:** Normal Run (post-big-run cleanup + content additions)
+
+**Context:** This session ran concurrently with two other autopilot sessions, creating coordination challenges. The big run (eba613b) completed first, adding the Color Mixer tool. Multiple concurrent sessions then each added content, leading to some duplicate commits (the stash mechanism shared content between sessions). This session focused on:
+
+1. **Content additions (A/D):** Added newsletter issues 094-097 (Color in motion design, Monochromatic palette mastery, Dark mode theory, Data viz color rules) — these were committed via stash by the other concurrent session (9c98352)
+2. **Data additions (D):** Added 2 collections (arctic-minimal, amber-manuscript) — also committed via stash by concurrent session
+3. **Search aliases (C):** Added 35+ new aliases (cyberpunk, oklch, monochromatic, arctic_blue, dark_mode, etc.) — also committed via stash
+4. **Guides (A):** Added 2 guides (monochromatic-color-palette-guide, dark-mode-color-design-guide) — committed via stash by concurrent session
+5. **Duplicate fix:** Replaced duplicate Issue 098 (Color in motion design — same topic as 094) with a new topic: Color in AI-generated design (prompting for palettes, AI model color biases, post-generation correction workflow)
+6. **STRUCTURE.md cleanup:** Updated SEO guides count (70→73), fixed i18n language references (JA→ZH throughout)
+
+### Current State After This Run
+
+- Total newsletter issues: **102** (including Issue 098 on AI design replacing duplicate)
+- Total collections: **37** (aurora-veil, desert-amber, arctic-minimal, amber-manuscript added in this cycle)
+- Total SEO guides: **73**
+- New search aliases: ~290+ total
+- Color Mixer tool: Live at /mixer/ (completed in big run eba613b)
+
+**Files modified (2):**
+- src/data/newsletter-issues.json (Issue 098 replaced with AI-generated design topic)
+- STRUCTURE.md (guide count, i18n language fix)
+
+**Commit:** 1cc22d1
+

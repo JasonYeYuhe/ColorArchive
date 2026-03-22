@@ -1,33 +1,40 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-23 (autopilot run 2)
+> Last updated: 2026-03-23
 
 ## High Priority
-- [ ] **Verify Color Mixer page renders correctly** — `/mixer/` was just launched. Visit the page to confirm the color picker, OKLCH interpolation, export panel, and presets all work as expected. The component was pre-built but not yet wired to a route until this run.
-- [ ] **Add Mixer to main navigation** — Color Mixer is in the Tools hub and sitemap but not in the site header nav dropdown. Consider adding it under the "Tools" nav group alongside Tints & Shades.
-- [ ] **Terms page** — `app/terms/` and `src/components/terms-page.tsx` exist as untracked files but have no route. Decide if this should be launched or if the existing Privacy Policy covers the needed legal requirements.
-- [ ] **TikTok admin page** — `app/admin/tiktok/` and `src/components/tiktok-admin-page.tsx` exist as untracked files. Review and decide whether to commit or remove these files.
+
+- [ ] **Review duplicate newsletter slug pattern** — Multiple concurrent autopilot sessions created some content with overlapping topics. Issues 094 and the original 098 both covered "Color in motion design." The duplicate was replaced with an AI-design topic, but worth reviewing the 98-102 range for any remaining quality/coherence issues.
+- [ ] **Verify Lemon Squeezy store status** — Commerce integration is coded but store may still be pending approval. Check if checkout URLs are live and purchase flow works end-to-end.
+- [ ] **Pinterest OAuth flow** — Pinterest Save button was added. Verify the OAuth redirect/callback works in production (https://colorarchive.me) since localhost testing may differ from deployed behavior. The `PINTEREST_APP_ID`, `PINTEREST_APP_SECRET`, and `PINTEREST_REDIRECT_URI` env vars need to be set in Vercel.
+- [ ] **TikTok admin page** — There's an `app/admin/tiktok/` directory in the untracked files. This may need review/cleanup or deployment.
+- [ ] **Session lock race conditions** — Multiple autopilot instances ran concurrently despite the lock system. Investigate why the 20-minute stale lock check is triggering too aggressively. Consider increasing the stale lock threshold to 30 minutes.
 
 ## Medium Priority
-- [ ] **Configure real payment provider** — `src/lib/checkout-config.ts` still has Lemon Squeezy / Stripe placeholder URLs. Integrate a real checkout provider to enable actual pack sales.
-- [ ] **Pinterest OAuth app approval** — The Pinterest integration added recently routes through the backend proxy (CORS fix) but requires Pinterest app review for production-level API access. Submit the app for review in the Pinterest developer portal.
-- [ ] **Figma plugin marketplace submission** — The Figma plugin is built and functional but may not be published to the Figma Community. Consider submitting for review.
-- [ ] **i18n audit** — STRUCTURE.md still mentioned EN/JA but the actual i18n has been switching toward EN/ZH. Confirm the intended language pair and clean up any remaining Japanese strings if ZH is the target.
-- [x] **Color collection color IDs** — sage-terrarium and dusk-coral collection IDs were audited and fixed (commit 692cc6c). New collections aurora-veil and desert-amber use verified color IDs.
+
+- [ ] **OG images for new tool pages** — /mixer/ has a generic OG image. Consider generating a custom OG image showing the color blending interface for better social sharing.
+- [ ] **Newsletter count in sitemap** — Sitemap may need updating if new note slugs aren't being generated statically. Run `npm run build` and verify /notes/ pages build correctly.
+- [ ] **Collection color IDs audit** — A commit `692cc6c Fix broken collection color IDs` was pushed by an automated session. Worth reviewing which collections had broken IDs and whether the fixes are correct.
+- [ ] **Terms page** — There's an untracked `src/components/terms-page.tsx` and `app/terms/` directory. If these are ready, they should be committed.
+- [ ] **i18n-merged.ts, i18n-part1.ts, i18n-part2.ts** — Untracked files in src/lib/. These look like working files from an i18n split/merge operation. Should be cleaned up or committed.
 
 ## Low Priority / Nice to Have
-- [ ] **Add Color Mixer to hero section** — The homepage hero section lists featured tools. Adding the Color Mixer would increase discoverability for the new tool.
-- [ ] **A/B test email subject lines** — The email scheduler has A/B variant support. Check `/analytics/ab-results` to see if there's enough data to determine winning variants and update the copy.
-- [ ] **Logo assets** — `colorarchive_logo_v1_assets/` contains logo files that are untracked. Decide if these should be committed to the repo or kept only in design files.
+
+- [ ] **Color Mixer OG preview** — A screenshot or visual showing the mixer at work would improve the /mixer/ page's social sharing appearance.
+- [ ] **Test new collections in Figma plugin** — The Figma plugin shows color families; verify the 5 new collections (aurora-veil, desert-amber, arctic-minimal, amber-manuscript, sage-terrarium, dusk-coral) appear correctly.
+- [ ] **Performance audit** — Site has grown significantly (2016 colors + 102 newsletter issues + 73 guides + 37 collections). Worth running a Lighthouse audit on key pages.
 
 ## Done
-- [x] Pinterest Save button + OAuth integration — completed 2026-03-22
-- [x] Pinterest API CORS fix via backend proxy — completed 2026-03-22
-- [x] Privacy policy updated for Pinterest API — completed 2026-03-22
-- [x] Color Mixer tool launch at /mixer/ — completed 2026-03-23
-- [x] Tints & Shades Generator — completed (autopilot-big, earlier run)
-- [x] Color Blindness Simulator — completed (autopilot-big, earlier run)
-- [x] Color Tools Hub at /tools/ — completed (autopilot-big, earlier run)
-- [x] REST API + API docs at /api-docs/ — completed (earlier session)
-- [x] Figma plugin build pipeline fix — completed (earlier session)
+
+- [x] Color Mixer tool — launched at /mixer/ with OKLCH/HSL/RGB modes (2026-03-23)
+- [x] Newsletter issues 090-101 — comprehensive content on print, wayfinding, typography, naming, motion, illustration, cross-cultural, type on color, AI design (2026-03-23)
+- [x] 5 new collections — sage-terrarium, dusk-coral, aurora-veil, desert-amber, arctic-minimal, amber-manuscript (2026-03-23)
+- [x] 4 new SEO guides — color-for-social-media, oklch-color-space-guide, monochromatic-color-palette-guide, dark-mode-color-design-guide (2026-03-23)
+- [x] Search alias expansion — 80+ new semantic aliases (cyberpunk, dark_mode, oklch, monochromatic, arctic_blue, etc.) (2026-03-23)
+- [x] Pinterest Save button + OAuth integration (committed 90793f2)
+- [x] Backend REST API (/api/colors endpoint) with API docs page
+- [x] Figma plugin: semantic colors, site integration
+- [x] WCAG Audit tool launched
+- [x] Brand Color System Generator launched
+- [x] Tints & Shades Generator launched
