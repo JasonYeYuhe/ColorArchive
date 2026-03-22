@@ -2,6 +2,7 @@
 
 import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
+import { useLocale } from "@/src/components/locale-provider";
 import { isFavoriteColor, subscribeToFavorites, toggleFavoriteColor } from "@/src/lib/favorites";
 
 interface FavoriteButtonProps {
@@ -10,6 +11,7 @@ interface FavoriteButtonProps {
 }
 
 export function FavoriteButton({ colorId, className }: FavoriteButtonProps) {
+  const { t } = useLocale();
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
@@ -35,12 +37,12 @@ export function FavoriteButton({ colorId, className }: FavoriteButtonProps) {
         className ??
         `rounded-full border px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] transition ${
           isFavorite
-            ? "border-neutral-950/10 bg-neutral-950 text-white"
-            : "border-black/8 bg-white text-neutral-600 hover:bg-neutral-950 hover:text-white"
+            ? "border-neutral-950/10 bg-neutral-950 text-white dark:border-white/20 dark:bg-white dark:text-neutral-950"
+            : "border-black/8 bg-white text-neutral-600 hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
         }`
       }
     >
-      {isFavorite ? "Saved" : "Save"}
+      {isFavorite ? t("favorite.saved") : t("favorite.save")}
     </button>
   );
 }

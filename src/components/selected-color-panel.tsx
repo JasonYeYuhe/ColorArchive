@@ -45,7 +45,7 @@ function CopyAction({ label, value }: CopyActionProps) {
     <button
       type="button"
       onClick={handleCopy}
-      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
     >
       {copied ? `${label} ${t("panel.copied")}` : `${t("panel.copy")} ${label}`}
     </button>
@@ -73,7 +73,7 @@ export function SelectedColorPanel({
 
   return (
     <section className="grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(22rem,0.8fr)]">
-      <div className="overflow-hidden rounded-[1.8rem] border border-black/6 bg-white/82 shadow-[0_20px_56px_rgba(15,23,42,0.06)]">
+      <div className="overflow-hidden rounded-[1.8rem] border border-black/6 bg-white/82 shadow-[0_20px_56px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-neutral-900/80">
         <div
           className="relative h-64 border-b border-black/6 sm:h-72"
           style={{ backgroundColor: color.hex }}
@@ -101,17 +101,17 @@ export function SelectedColorPanel({
 
         <div className="grid gap-5 p-5 lg:grid-cols-[minmax(0,1fr)_auto]">
           <div className="grid gap-3 sm:grid-cols-3">
-            <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">RGB</div>
-              <div className="mt-1 font-medium text-neutral-950">{color.rgb}</div>
+            <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 dark:border-white/10 dark:bg-white/8">
+              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">RGB</div>
+              <div className="mt-1 font-medium text-neutral-950 dark:text-white">{color.rgb}</div>
             </div>
-            <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">HSL</div>
-              <div className="mt-1 font-medium text-neutral-950">{color.hsl}</div>
+            <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 dark:border-white/10 dark:bg-white/8">
+              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">HSL</div>
+              <div className="mt-1 font-medium text-neutral-950 dark:text-white">{color.hsl}</div>
             </div>
-            <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("panel.balance")}</div>
-              <div className="mt-1 font-medium text-neutral-950">
+            <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 dark:border-white/10 dark:bg-white/8">
+              <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">{t("panel.balance")}</div>
+              <div className="mt-1 font-medium text-neutral-950 dark:text-white">
                 S {color.saturation}% · L {color.lightness}%
               </div>
             </div>
@@ -125,13 +125,13 @@ export function SelectedColorPanel({
             <ShareLinkButton href={`/colors/${color.id}/`} />
             <Link
               href={`/colors/${color.id}/`}
-              className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+              className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
             >
               {t("panel.openDetail")}
             </Link>
             <Link
               href="/recent/"
-              className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+              className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
             >
               {t("panel.recentTrail")}
             </Link>
@@ -139,17 +139,17 @@ export function SelectedColorPanel({
         </div>
       </div>
 
-      <aside className="rounded-[1.8rem] border border-black/6 bg-white/78 p-5 shadow-[0_20px_56px_rgba(15,23,42,0.05)]">
+      <aside className="rounded-[1.8rem] border border-black/6 bg-white/78 p-5 shadow-[0_20px_56px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80">
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
               {t("panel.nearbyPicks")}
             </div>
-            <h3 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950">
+            <h3 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
               {t("panel.moreFrom")} {color.family}
             </h3>
           </div>
-          <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+          <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500 dark:border-white/10 dark:bg-white/8 dark:text-neutral-400">
             {nearbyColors.length} {t("panel.related")}
           </div>
         </div>
@@ -165,8 +165,8 @@ export function SelectedColorPanel({
                 onClick={() => onSelectColor(nearbyColor.id)}
                 className={`flex w-full items-center gap-3 rounded-2xl border px-3 py-3 text-left transition ${
                   isCurrent
-                    ? "border-neutral-950/12 bg-neutral-950 text-white"
-                    : "border-black/6 bg-white hover:bg-neutral-50"
+                    ? "border-neutral-950/12 bg-neutral-950 text-white dark:border-white/14 dark:bg-white dark:text-neutral-950"
+                    : "border-black/6 bg-white hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/12"
                 }`}
               >
                 <span
@@ -175,10 +175,10 @@ export function SelectedColorPanel({
                   aria-hidden="true"
                 />
                 <span className="min-w-0 flex-1">
-                  <span className={`block truncate font-medium ${isCurrent ? "text-white" : "text-neutral-950"}`}>
+                  <span className={`block truncate font-medium ${isCurrent ? "text-white dark:text-neutral-950" : "text-neutral-950 dark:text-white"}`}>
                     {nearbyColor.name}
                   </span>
-                  <span className={`mt-1 block text-sm ${isCurrent ? "text-white/70" : "text-neutral-500"}`}>
+                  <span className={`mt-1 block text-sm ${isCurrent ? "text-white/70 dark:text-neutral-500" : "text-neutral-500 dark:text-neutral-400"}`}>
                     {nearbyColor.hex} · {nearbyColor.hsl}
                   </span>
                 </span>

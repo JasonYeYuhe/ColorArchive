@@ -1,1 +1,1 @@
-{ "active": null, "lockedBy": null, "lockedAt": null, "message": null }
+{ "active": true, "lockedBy": "remote", "lockedAt": "2026-03-22T17:55:00+09:00", "message": "10 improvement fixes: whitespace, logo, SEO, i18n, dark mode, a11y, focus trap, split components, sitemap" }

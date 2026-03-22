@@ -335,6 +335,30 @@ function NavDropdown({ group, currentPath, t }: { group: NavGroup; currentPath: 
     return () => document.removeEventListener("mousedown", handleClick);
   }, [open]);
 
+  // Keyboard navigation: Escape to close, arrow keys to navigate items
+  useEffect(() => {
+    if (!open) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setOpen(false);
+        btnRef.current?.focus();
+      }
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        const links = menuRef.current?.querySelectorAll("a");
+        if (!links?.length) return;
+        const current = document.activeElement as HTMLElement;
+        const idx = Array.from(links).indexOf(current as HTMLAnchorElement);
+        const next = e.key === "ArrowDown"
+          ? links[(idx + 1) % links.length]
+          : links[(idx - 1 + links.length) % links.length];
+        next?.focus();
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
+
   // Wrapper div handles hover for both button and portal menu
   const wrapperRef = useRef<HTMLDivElement>(null);
 

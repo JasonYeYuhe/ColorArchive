@@ -11,12 +11,33 @@ const HERO_STRIP = colors
   .filter((c) => c.lightness === 60 && c.saturation === 54)
   .sort((a, b) => a.hue - b.hue);
 
+function BelowFoldSkeleton() {
+  return (
+    <div className="space-y-6">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="animate-pulse rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 dark:border-white/10 dark:bg-neutral-900/60 sm:px-10 sm:py-10">
+          <div className="mx-auto max-w-4xl space-y-4">
+            <div className="h-3 w-24 rounded bg-neutral-200 dark:bg-neutral-700" />
+            <div className="h-7 w-64 rounded bg-neutral-200 dark:bg-neutral-700" />
+            <div className="h-4 w-96 rounded bg-neutral-100 dark:bg-neutral-800" />
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {[1, 2, 3].map((j) => (
+                <div key={j} className="h-24 rounded-[1.3rem] border border-black/6 bg-neutral-50 dark:border-white/8 dark:bg-white/4" />
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const HeroSectionBelowFold = dynamic(
   () =>
     import("./hero-section-below-fold").then((m) => ({
       default: m.HeroSectionBelowFold,
     })),
-  { ssr: false, loading: () => null }
+  { ssr: false, loading: () => <BelowFoldSkeleton /> }
 );
 
 interface HeroSectionProps {

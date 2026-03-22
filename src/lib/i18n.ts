@@ -178,6 +178,7 @@ const translations: Record<string, Record<string, string>> = {
   "filter.searchSortNarrow": { en: "Search, sort, and narrow by family", ja: "検索、並べ替え、ファミリーで絞り込み", zh: "搜索、排序并按色系筛选", ko: "검색, 정렬, 계열별 필터링", es: "Buscar, ordenar y filtrar por familia", fr: "Rechercher, trier et filtrer par famille" },
 
   // Color card
+  "color.select": { en: "Select", ja: "選択", zh: "选择", ko: "선택", es: "Seleccionar", fr: "Sélectionner" },
   "color.copy": { en: "Copy", ja: "コピー", zh: "复制", ko: "복사", es: "Copiar", fr: "Copier" },
   "color.copied": { en: "Copied", ja: "コピー済み", zh: "已复制", ko: "복사됨", es: "Copiado", fr: "Copié" },
   "color.openDetail": { en: "Open detail", ja: "詳細を見る", zh: "查看详情", ko: "상세 보기", es: "Ver detalle", fr: "Voir le détail" },
@@ -3384,6 +3385,34 @@ const translations: Record<string, Record<string, string>> = {
     ko: "가이드 읽기",
     es: "Leer guías",
     fr: "Lire les guides",
+  },
+
+  // Error page
+  "error.title": { en: "Something went wrong", ja: "問題が発生しました", zh: "出现错误", ko: "문제가 발생했습니다", es: "Algo salió mal", fr: "Une erreur est survenue" },
+  "error.description": {
+    en: "An unexpected error occurred. Try refreshing the page.",
+    ja: "予期しないエラーが発生しました。ページを更新してみてください。",
+    zh: "发生了意外错误。请尝试刷新页面。",
+    ko: "예기치 않은 오류가 발생했습니다. 페이지를 새로고침해 보세요.",
+    es: "Ocurrió un error inesperado. Intenta actualizar la página.",
+    fr: "Une erreur inattendue s'est produite. Essayez de rafraîchir la page.",
+  },
+  "error.tryAgain": { en: "Try again", ja: "もう一度試す", zh: "重试", ko: "다시 시도", es: "Intentar de nuevo", fr: "Réessayer" },
+  "error.goHome": { en: "Go home", ja: "ホームへ戻る", zh: "返回首页", ko: "홈으로 이동", es: "Ir al inicio", fr: "Retour à l'accueil" },
+
+  // Favorite actions
+  "favorite.save": { en: "Save", ja: "保存", zh: "保存", ko: "저장", es: "Guardar", fr: "Enregistrer" },
+  "favorite.saved": { en: "Saved", ja: "保存済み", zh: "已保存", ko: "저장됨", es: "Guardado", fr: "Enregistré" },
+
+  // Grid section
+  "grid.archiveTitle": { en: "Archive", ja: "アーカイブ", zh: "色彩库", ko: "아카이브", es: "Archivo", fr: "Archive" },
+  "grid.archiveDesc": {
+    en: "Curated swatches arranged for fast scanning and comparison.",
+    ja: "素早く閲覧・比較できるように配置された厳選スウォッチ。",
+    zh: "精心策划的色板，便于快速浏览和比较。",
+    ko: "빠른 탐색과 비교를 위해 배열된 엄선된 스워치.",
+    es: "Muestras seleccionadas organizadas para una exploración y comparación rápidas.",
+    fr: "Échantillons sélectionnés organisés pour une consultation et une comparaison rapides.",
   },
 };
 

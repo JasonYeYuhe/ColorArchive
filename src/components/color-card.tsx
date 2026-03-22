@@ -52,7 +52,7 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
   };
 
   return (
-    <article
+    <div
       role="button"
       tabIndex={0}
       onClick={handleSelect}
@@ -62,10 +62,10 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
           handleSelect();
         }
       }}
-      className={`group overflow-hidden rounded-[1.6rem] border bg-white/90 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.11)] focus:outline-none focus:ring-4 focus:ring-neutral-900/10 ${
-        isSelected ? "border-neutral-950/14 ring-2 ring-neutral-900/6" : "border-black/6"
+      className={`group cursor-pointer overflow-hidden rounded-[1.6rem] border bg-white/90 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.11)] focus:outline-none focus:ring-4 focus:ring-neutral-900/10 dark:bg-neutral-900/80 dark:shadow-none ${
+        isSelected ? "border-neutral-950/14 ring-2 ring-neutral-900/6 dark:border-white/14" : "border-black/6 dark:border-white/10"
       }`}
-      aria-label={`Select ${color.name}`}
+      aria-label={`${t("color.select")} ${color.name}`}
       aria-pressed={isSelected}
     >
       <div className="relative">
@@ -87,10 +87,10 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
       <div className="space-y-4 p-4">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="text-base font-semibold tracking-[-0.02em] text-neutral-950">
+            <div className="text-base font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
               {color.name}
             </div>
-            <div className="mt-1 text-xs uppercase tracking-[0.16em] text-neutral-400">
+            <div className="mt-1 text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">
               {color.hsl}
             </div>
           </div>
@@ -131,9 +131,9 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
           </button>
         </div>
 
-        <dl className="space-y-2 text-sm text-neutral-600">
+        <dl className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
           <div className="flex items-center justify-between gap-3">
-            <dt className="text-neutral-400">Hex</dt>
+            <dt className="text-neutral-400 dark:text-neutral-500">Hex</dt>
             <dd>
               <button
                 type="button"
@@ -141,7 +141,7 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
                   event.stopPropagation();
                   void handleCopy();
                 }}
-                className="font-medium text-neutral-950 transition hover:text-neutral-600 focus:outline-none"
+                className="font-medium text-neutral-950 transition hover:text-neutral-600 focus:outline-none dark:text-white dark:hover:text-neutral-400"
                 aria-label={`Copy hex value ${color.hex}`}
               >
                 {color.hex}
@@ -149,19 +149,19 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
             </dd>
           </div>
           <div className="flex items-center justify-between gap-3">
-            <dt className="text-neutral-400">RGB</dt>
-            <dd className="font-medium text-neutral-950">{color.rgb}</dd>
+            <dt className="text-neutral-400 dark:text-neutral-500">RGB</dt>
+            <dd className="font-medium text-neutral-950 dark:text-white">{color.rgb}</dd>
           </div>
         </dl>
 
         <div className="flex flex-wrap gap-2 pt-1">
-          <span className="rounded-full border border-black/6 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-500">
+          <span className="rounded-full border border-black/6 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-500 dark:border-white/10 dark:bg-white/8 dark:text-neutral-400">
             Sat {color.saturation}%
           </span>
-          <span className="rounded-full border border-black/6 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-500">
+          <span className="rounded-full border border-black/6 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-500 dark:border-white/10 dark:bg-white/8 dark:text-neutral-400">
             Light {color.lightness}%
           </span>
-          <span className="rounded-full border border-black/6 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-500">
+          <span className="rounded-full border border-black/6 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-500 dark:border-white/10 dark:bg-white/8 dark:text-neutral-400">
             {color.family}
           </span>
         </div>
@@ -170,12 +170,12 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
           <Link
             href={`/colors/${color.id}/`}
             onClick={(event) => event.stopPropagation()}
-            className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+            className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
           >
             {t("color.openDetail")}
           </Link>
         </div>
       </div>
-    </article>
+    </div>
   );
 }
