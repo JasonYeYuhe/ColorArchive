@@ -1826,6 +1826,80 @@ export const landingGuides: LandingGuide[] = [
     ],
   },
   {
+    category: "UI/UX Design",
+    slug: "color-typography-hierarchy",
+    title: "Color and Typography Hierarchy: Using Color to Structure Text",
+    summary:
+      "A practical guide to using color in typographic systems — from text color selection and link color logic to accent headings and the role of near-black text in establishing reading comfort.",
+    eyebrow: "Typography Guide",
+    priority: 67,
+    searchIntent: "color typography hierarchy design",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Typography", "UI/UX", "Systems"],
+    highlights: [
+      "Near-black text at lightness 12–18% is more readable for long-form content than pure black (#000000). Pure black creates the harshest contrast on white, causing eye fatigue. Slightly warm or cool near-black aligns with your palette's temperature while reducing visual strain across extended reading.",
+      "Use color to create a three-level typographic hierarchy: dark neutral for body, mid-tone neutral for secondary text, and one palette accent for links and interactive elements. This approach avoids relying solely on font size or weight to create distinction.",
+      "Colored headings work best for short-form marketing content. For multi-level document hierarchies (H2, H3, H4), color alone cannot create enough distinction — size, weight, and spacing must do the structural work, with color reserved for the top level only.",
+    ],
+    sections: [
+      {
+        heading: "Choosing a text color that works with your palette",
+        body: "Body text color is the largest single color area in most interfaces. The warmth or coolness of your near-black text shifts the entire page's perceived temperature — a warm near-black (HSL 30, 8%, 14%) reads warmer than a cool one (HSL 220, 8%, 14%) even when all other palette values are identical. Match the temperature of your text near-black to your palette's overall temperature. For warm palettes (ambers, corals, terracottas) use a warm near-black. For cool palettes (blues, teals, lavenders) use a cool near-black. For neutral palettes, pure near-black with zero chroma (lightness 12–16%, saturation 0%) reads as clean and intentional.",
+      },
+      {
+        heading: "Building a typographic color system with four roles",
+        body: "A complete typographic color system needs exactly four roles: primary text (near-black at L:10–16%), secondary text (mid-tone neutral at L:40–52%), placeholder and disabled text (light neutral at L:60–70%), and accent/interactive text (one palette mid-saturation color at 4.5:1 minimum contrast). Primary text carries all body copy, headings, and labels. Secondary text carries metadata, captions, and helper text. Placeholder text carries form guidance and disabled states. Accent text carries links, CTAs, and interactive elements. Four roles is enough — adding a fifth or sixth introduces hierarchy confusion rather than resolving it.",
+      },
+      {
+        heading: "Link colors that stay in the palette",
+        body: "Link color must satisfy two requirements simultaneously: distinguish from body text (signal interactivity) and remain part of the palette (avoid design friction). The most palette-compatible approach is to use your primary mid-saturation accent color at full saturation against a light background, ensuring 4.5:1 contrast. On dark backgrounds, the same hue at higher lightness (L:60–75%) achieves both contrast and palette coherence. Avoid pure blue (#0000FF) as a default link color — it almost certainly does not match your palette. A cobalt at HSL(220, 70%, 52%) achieves the universal 'link' signal while remaining a palette color.",
+      },
+    ],
+    links: [
+      { label: "Explore Monochrome Studio", href: "/collections/monochrome-studio/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse gray neutral family", href: "/families/gray/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "design-token-color-naming",
+    title: "Design Token Color Naming: A System That Scales",
+    summary:
+      "How to name color tokens in a design system that survives rebranding, dark mode, and team growth. Covers primitive vs semantic naming, common mistakes, and the two-tier structure that most successful systems use.",
+    eyebrow: "Design Systems Guide",
+    priority: 71,
+    searchIntent: "design token color naming system",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Design Systems", "UI/UX", "Brand"],
+    highlights: [
+      "Primitive color tokens define what a color is (blue-60, amber-30). Semantic tokens define what it does (action-primary, surface-default). UI code should only reference semantic tokens — this means a complete rebrand changes one mapping file, not hundreds of component references.",
+      "Avoid hue-specific names in semantic tokens. 'color-blue-primary' locks the primary action color to blue, which breaks if the brand changes hue. 'color-action-primary' is theme-agnostic and equally valid in a green or violet rebrand.",
+      "Plan for states before naming anything. A semantic token named 'action-primary' must eventually accommodate 'action-primary-hover', 'action-primary-disabled', 'action-primary-on-dark'. If your naming taxonomy doesn't accommodate compound names from the start, you'll rename tokens mid-project.",
+    ],
+    sections: [
+      {
+        heading: "The two-tier naming model: primitives and semantics",
+        body: "The two-tier model is the current standard for scalable color systems. Tier 1 — Primitives: named stops on a perceptually even scale (brand-blue-10 through brand-blue-90, neutral-0 through neutral-100). These exist in the token dictionary but are not directly referenced in component code. Tier 2 — Semantics: purpose-driven names that map to primitives (color-text-primary maps to neutral-90, color-action-primary maps to brand-blue-60). Components reference only semantic tokens. A rebrand or theme change updates only the primitive-to-semantic mapping — all component code remains unchanged. The key discipline: never let component code reference a primitive. If it does, the two-tier model degrades to a one-tier system and loses its main advantage.",
+      },
+      {
+        heading: "Naming conventions for dark mode and multi-theme systems",
+        body: "Dark mode naming fails when semantic tokens embed appearance assumptions. 'color-background-white' is incorrect in dark mode; 'color-surface-default' is correct in both. The rule: name by role and context, never by appearance. For theming beyond light/dark, the semantic token vocabulary must be theme-agnostic — it defines the structural relationships (primary action, default surface, interactive border) without specifying the color that satisfies those roles. The primitive-to-semantic mapping files — one per theme — resolve the structural names to actual values. Components never change; themes are swapped by loading a different mapping.",
+      },
+      {
+        heading: "Common naming mistakes and how to fix them",
+        body: "Mistake 1: Hue names leaking into semantics ('color-blue-cta'). Fix: split into primitive (blue-60) and semantic (action-cta). Mistake 2: Ordinal names without meaning ('color-1', 'color-2'). Fix: use semantic role names even in small systems — the documentation overhead of 'primary, secondary, tertiary' is lower than the cognitive overhead of numbered aliases. Mistake 3: Flat naming with no category structure ('primary, secondary, accent, muted'). Fix: namespace by category ('text-primary', 'surface-secondary', 'border-accent') so the system remains navigable as it grows past 20 tokens. Mistake 4: Not planning for states ('action-primary' with no hover, focus, disabled variants). Fix: define the full state vocabulary before assigning primitive values, so the taxonomy is consistent from the first token.",
+      },
+    ],
+    links: [
+      { label: "Explore Quiet Luxury palette", href: "/collections/quiet-luxury/" },
+      { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Browse all design system guides", href: "/guides/" },
+    ],
+  },
+  {
     category: "Web Design",
     slug: "color-palette-for-presentations",
     title: "Color Palette for Presentations: Slides, Decks, and Pitch Materials",

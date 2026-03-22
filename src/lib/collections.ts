@@ -450,6 +450,46 @@ export const collections: ColorCollection[] = [
       useCases: ["Sustainable and eco brands", "Wellness and retreat design", "Architectural and studio work"],
     },
   ),
+  createCollection(
+    "arctic-dawn",
+    "Arctic Dawn",
+    "Pale icy blues, cool lavenders, and whispered frost tones for clean, atmospheric, and premium interface work.",
+    "A palette built from the first light of a polar morning — the soft iris and whisper-blue that appear just before full daylight arrives. The colors are quiet and luminous: pale lavenders give way to cool misted cobalt and faintly blue-tinted neutral grounds. The palette is extremely versatile across both light and dark design contexts, and the cool temperature gives it an inherent sense of precision and calm. Best for tech products, wellness apps, and premium editorial brands where sophistication is signaled through restraint.",
+    ["Cool", "Minimalist", "Atmospheric"],
+    [
+      "iris-whisper-soft",
+      "azure-veil-muted",
+      "cobalt-mist-soft",
+      "sapphire-bloom-soft",
+      "indigo-dusk-muted",
+    ],
+    {
+      editorialNote:
+        "Use this when the brand needs to feel like the very edge of daylight — calm, precise, slightly otherworldly. The iris and azure mid-tones are the palette's character; the indigo anchor gives it depth without becoming heavy.",
+      promptWords: ["polar dawn", "ice field", "frosted glass", "clear winter sky", "glacier melt"],
+      useCases: ["Technology and SaaS products", "Wellness and meditation apps", "Premium editorial and editorial luxury"],
+    },
+  ),
+  createCollection(
+    "golden-hour",
+    "Golden Hour",
+    "Warm amber, honey, and coral tones capturing the last hour of afternoon light — for brands that want warmth, optimism, and energy.",
+    "A palette built from the most saturated and emotionally resonant light of the day. The colors move from pale citrine and soft honey through vivid amber and clear coral to warm ember tones that suggest fire, sunset, and harvest. The palette has strong emotional associations with warmth, abundance, and movement — it is inherently energetic but can be made sophisticated by using the muted and soft variants as the primary field with vivid accents sparingly. Best for food and beverage brands, creative agencies, and consumer products where warmth and appetite appeal are primary signals.",
+    ["Warm", "Energetic", "Harvest"],
+    [
+      "citrine-pearl-soft",
+      "honey-bloom-clear",
+      "amber-bloom-vivid",
+      "coral-silk-clear",
+      "ember-tone-soft",
+    ],
+    {
+      editorialNote:
+        "Use this when warmth needs to feel golden and abundant, not just orange. The amber-vivid and coral-clear are the palette's heart; the citrine and honey entries keep it from tipping into heaviness.",
+      promptWords: ["late afternoon", "honey jar", "harvest field", "warm studio light", "amber glass"],
+      useCases: ["Food and beverage brands", "Creative agencies and studios", "Consumer lifestyle products"],
+    },
+  ),
 ];
 
 export function getCollectionById(id: string) {

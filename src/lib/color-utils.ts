@@ -209,6 +209,39 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   cafe: ["sienna", "amber", "clay", "ivory", "honey"],
   startup: ["cobalt", "violet", "azure", "vivid", "ink"],
   portfolio: ["ink", "ivory", "slate", "muted", "pearl"],
+  // Food & beverage aliases
+  chocolate: ["sienna", "umber", "clay", "honey", "shadow"],
+  espresso: ["umber", "shadow", "ink", "sienna", "clay"],
+  caramel: ["amber", "honey", "sienna", "warm", "citrine"],
+  matcha: ["olive", "moss", "sage", "leaf", "muted"],
+  blueberry: ["indigo", "violet", "plum", "cobalt", "shadow"],
+  cherry: ["ruby", "crimson", "garnet", "merlot", "rose"],
+  // Cosmic & space aliases
+  space: ["ink", "cobalt", "violet", "indigo", "nocturne"],
+  galaxy: ["violet", "indigo", "cobalt", "plum", "vivid"],
+  cosmic: ["violet", "indigo", "nocturne", "cobalt", "plum"],
+  nebula: ["violet", "fuchsia", "cobalt", "plum", "vivid"],
+  // Nature & garden aliases
+  meadow: ["leaf", "lime", "moss", "citrine", "bloom"],
+  garden: ["moss", "leaf", "sage", "fern", "emerald"],
+  floral: ["peony", "rose", "blush", "lavender", "bloom"],
+  alpine: ["frost", "cobalt", "moss", "azure", "slate"],
+  // Textile & material aliases
+  linen: ["ivory", "veil", "sand", "whisper", "pearl"],
+  canvas: ["ivory", "sand", "veil", "whisper", "muted"],
+  denim: ["cobalt", "indigo", "azure", "slate", "shadow"],
+  velvet: ["plum", "merlot", "garnet", "shadow", "nocturne"],
+  // Weather & atmospheric aliases
+  storm: ["slate", "shadow", "cobalt", "ink", "fog"],
+  thunder: ["slate", "ink", "cobalt", "shadow", "onyx"],
+  fog: ["mist", "veil", "ash", "slate", "whisper"],
+  haze: ["mist", "veil", "fog", "whisper", "pearl"],
+  // Gemstone & mineral aliases
+  amethyst: ["violet", "plum", "lavender", "orchid", "soft"],
+  emerald: ["emerald", "jade", "teal", "clear", "vivid"],
+  sapphire: ["sapphire", "cobalt", "azure", "indigo", "clear"],
+  ruby: ["ruby", "crimson", "garnet", "merlot", "clear"],
+  topaz: ["amber", "honey", "citrine", "clear", "vivid"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
