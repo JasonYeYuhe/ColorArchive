@@ -779,3 +779,67 @@ Total collections: **30** (was 28)
 - src/lib/color-utils.ts (+22 search aliases)
 
 **Commit:** 9bf17c2
+
+## 2026-03-23 — Big Run: Color Mixer tool + Newsletter 090-093 + 2 Guides + 2 Collections (commit eba613b)
+
+**Run type:** Big Run (5th run since last big run `78c17ac` — threshold reached)
+
+**Categories:** Color Mixer Tool Launch, A. SEO & Content, D. Data & Collections
+
+### Color Mixer — New Tool at /mixer/
+
+A full-featured color interpolation and blending tool built on existing untracked components:
+- **Blend modes:** RGB (direct channel), HSL (hue/saturation/lightness), OKLCH (perceptually uniform)
+- **11-step gradient** with individual swatch copy buttons
+- **8 color presets** (Ocean Depth, Sunset, Forest, Lavender Mist, Ember, Slate to Snow, Mint to Navy, Mocha Rose)
+- **Gradient preview bar** showing the complete blend
+- **CSS color-mix() snippet** for the 50% midpoint
+- **Export panel:** CSS custom properties, JSON hex array, all-step color-mix() declarations
+- **Related tools** navigation
+
+**Integration:**
+- `app/mixer/page.tsx` — Next.js route with full SEO metadata (title, description, OpenGraph, Twitter) + WebApplication + BreadcrumbList structured data
+- `src/components/site-header.tsx` — added `/mixer` to currentPath union type
+- `src/components/tools-page.tsx` — added Color Mixer card in Creative Tools section with "New" badge
+- `app/tools/page.tsx` — updated count 12→13, added mixer to structured data ItemList
+- `src/lib/i18n.ts` — added `tools.mixer.name` and `tools.mixer.desc` in EN+ZH
+- `app/sitemap.ts` — added `/mixer/` at priority 0.85
+
+### Category A — Newsletter Issues 090–093
+
+- **Issue 090** (2027-09-30): Color in print and packaging — CMYK dot gain, Pantone spot colors vs CMYK builds, coated vs uncoated stock behavior, substrate color effects on ink perception, UV varnish/foil/soft-touch finish impacts
+- **Issue 091** (2027-10-07): Color in wayfinding — hospital, airport, and transit color systems, discriminability requirements, hue-based vs value-based zone coding, luminance contrast at distance, ISO 7010 emergency color standards
+- **Issue 092** (2027-10-14): Typography and color — typeface thermal classification (humanist warm, geometric cool), type-color pairing strategies (harmony vs tension), optical weight alignment, colored body text rules
+- **Issue 093** (2027-10-21): Color naming and brand identity — descriptive vs evocative naming, Pantone Color of the Year strategy, Apple's color naming vocabulary, proprietary naming systems, design token semantic naming
+
+Total newsletter issues: **94** (was 90)
+
+### Category A — 2 New SEO Guides
+
+- **color-for-social-media** (priority 67, Digital Design): Instagram brand consistency, TikTok first-half-second immediacy, Pinterest warm-aspirational grid, cross-platform color adaptation framework, algorithm vs brand identity
+- **oklch-color-space-guide** (priority 66, Developer Tools): OKLCH vs HSL/RGB comparison, three-axis explanation (L/C/H), tonal scale generation workflow, CSS syntax + browser support, WCAG accessibility with OKLCH, linking to Color Mixer tool
+
+Total guides: **71** (was 69)
+
+### Category D — 2 New Collections
+
+- **sage-terrarium**: sage-mist-soft, moss-tone-muted, fern-velvet-soft, stone-green-muted, eucalyptus-bloom-soft — muted sage/moss/stone greens for wellness, botanical, slow-living brands
+- **dusk-coral**: coral-glow-soft, blush-mist-soft, terracotta-tone-muted, peach-silk-soft, rose-copper-muted — warm coral/blush/terracotta for editorial beauty, women's lifestyle, wedding/event design
+
+Total collections: **32** (was 30)
+
+**Files modified (12):**
+- app/mixer/page.tsx (new)
+- src/components/mixer-page.tsx (new — was untracked)
+- src/lib/color-mix.ts (new — was untracked)
+- src/components/site-header.tsx (+/mixer to currentPath type)
+- src/components/tools-page.tsx (+mixer tool card)
+- app/tools/page.tsx (updated metadata + structured data)
+- src/lib/i18n.ts (+mixer i18n keys EN+ZH)
+- app/sitemap.ts (+/mixer/ URL)
+- src/lib/guides.ts (+extraGuides4 with 2 guides)
+- src/lib/collections.ts (+sage-terrarium, +dusk-coral)
+- src/data/newsletter-issues.json (94 issues, was 90)
+- STRUCTURE.md (updated counts, added /mixer/)
+
+**Commit:** eba613b

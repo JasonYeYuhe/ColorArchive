@@ -1,30 +1,33 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-22 (normal run — Newsletter 086-089, 2 guides, 2 collections, search aliases)
+> Last updated: 2026-03-23
 
 ## High Priority
-- [ ] Set up real Lemon Squeezy checkout URLs in `src/lib/checkout-config.ts` — *placeholders are still in place; purchases can't complete*
-- [ ] Configure Resend domain verification for production email delivery — *follow-up emails require verified sender domain*
-- [ ] Test the full purchase → webhook → email flow end-to-end in staging — *critical path not validated with real money*
+- [ ] **Verify Color Mixer page renders correctly** — `/mixer/` was just launched. Visit the page to confirm the color picker, OKLCH interpolation, export panel, and presets all work as expected. The component was pre-built but not yet wired to a route until this run.
+- [ ] **Add Mixer to main navigation** — Color Mixer is in the Tools hub and sitemap but not in the site header nav dropdown. Consider adding it under the "Tools" nav group alongside Tints & Shades.
+- [ ] **Terms page** — `app/terms/` and `src/components/terms-page.tsx` exist as untracked files but have no route. Decide if this should be launched or if the existing Privacy Policy covers the needed legal requirements.
+- [ ] **TikTok admin page** — `app/admin/tiktok/` and `src/components/tiktok-admin-page.tsx` exist as untracked files. Review and decide whether to commit or remove these files.
 
 ## Medium Priority
-- [ ] Review and update `PRODUCT_MEMO.md` with current pricing/pack structure — *may have drifted from what's live on LS*
-- [ ] Verify the `/admin/orders/` dashboard works with real orders data — *built on SQLite, not tested with production volume*
-- [ ] Check Umami analytics is correctly tracking new tool pages (contrast, convert, harmonies, compare, colorblind, gradient, /tools/, /tints/) — *may need manual registration of new page paths*
-- [ ] Review new collections (morning-ceramic, forest-depths, electric-mint, rose-quartz, spiced-amber, cerulean-depth) — confirm color IDs render correctly in live UI
-- [ ] Three newsletter collection references point to non-existent collections: `electric-spectrum`, `fresh-primary`, `candy-gradient` — either create those collections or update newsletter issues
-- [ ] Review new SEO guides (color-palette-for-real-estate, color-for-packaging-design) — confirm they render at /guides/{slug}/
-- [ ] Now that day-30 emails are fixed — check if any subscribers are overdue for the day-30 email and consider a manual one-time catch-up send
+- [ ] **Configure real payment provider** — `src/lib/checkout-config.ts` still has Lemon Squeezy / Stripe placeholder URLs. Integrate a real checkout provider to enable actual pack sales.
+- [ ] **Pinterest OAuth app approval** — The Pinterest integration added recently routes through the backend proxy (CORS fix) but requires Pinterest app review for production-level API access. Submit the app for review in the Pinterest developer portal.
+- [ ] **Figma plugin marketplace submission** — The Figma plugin is built and functional but may not be published to the Figma Community. Consider submitting for review.
+- [ ] **i18n audit** — STRUCTURE.md still mentioned EN/JA but the actual i18n has been switching toward EN/ZH. Confirm the intended language pair and clean up any remaining Japanese strings if ZH is the target.
+- [ ] **Color collection color IDs** — The two new collections (sage-terrarium, dusk-coral) use descriptive color IDs (sage-mist-soft, moss-tone-muted, etc.) that need to match actual color slugs in the 2016-color archive. Verify these IDs resolve to real colors or fix the references.
 
 ## Low Priority / Nice to Have
-- [ ] Add Open Graph image generation for individual color pages — *currently uses static og-image-v1.png for all pages*
-- [ ] Set up a real CDN for download files in `public/downloads/` — *GitHub Pages serves them fine for now, but CDN would be faster*
-- [ ] Consider adding Google Search Console property for colorarchive.me — *would help track search impressions for SEO guides*
-- [ ] 4 new languages added (Chinese, Korean, Spanish, French) — verify locale switcher UI and cookie persistence work as expected for each
+- [ ] **Add Color Mixer to hero section** — The homepage hero section lists featured tools. Adding the Color Mixer would increase discoverability for the new tool.
+- [ ] **A/B test email subject lines** — The email scheduler has A/B variant support. Check `/analytics/ab-results` to see if there's enough data to determine winning variants and update the copy.
+- [ ] **Logo assets** — `colorarchive_logo_v1_assets/` contains logo files that are untracked. Decide if these should be committed to the repo or kept only in design files.
 
 ## Done
-- [x] Tints & Shades Generator /tints/ — completed 2026-03-22 (autopilot-big run 4)
-- [x] Lemon Squeezy webhook configured — completed 2026-03-18
-- [x] Free pack email sequence (Day 0, 3, 7, 14) — completed 2026-03-18
-- [x] Magic link auth — completed 2026-03-18
+- [x] Pinterest Save button + OAuth integration — completed 2026-03-22
+- [x] Pinterest API CORS fix via backend proxy — completed 2026-03-22
+- [x] Privacy policy updated for Pinterest API — completed 2026-03-22
+- [x] Color Mixer tool launch at /mixer/ — completed 2026-03-23
+- [x] Tints & Shades Generator — completed (autopilot-big, earlier run)
+- [x] Color Blindness Simulator — completed (autopilot-big, earlier run)
+- [x] Color Tools Hub at /tools/ — completed (autopilot-big, earlier run)
+- [x] REST API + API docs at /api-docs/ — completed (earlier session)
+- [x] Figma plugin build pipeline fix — completed (earlier session)
