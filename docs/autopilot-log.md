@@ -1293,3 +1293,46 @@ Added: grading, film, cinematic, lut, warm_gray, cool_gray, chromatic_neutral, c
 - src/lib/color-search.ts (+11 aliases)
 
 **Commit:** 49d2dc4
+
+## 2026-03-23 — Normal Run: Newsletter 138-141 + Collections + Guides (commit 55f2854)
+
+**Run type:** Normal (3rd run since last big run `ec82fbd`)
+
+**Categories:** A. SEO & Content + D. Data & Collections
+
+### Category A — 4 Newsletter Issues (now 142 total)
+
+- **Issue 138** (aug-2028-color-material-design, 2028-08-19): Material color specification — substrate effects on perception (gloss vs matte: 5-8 lightness point difference, 15-20% saturation shift), finish specification in GU, Pantone series selection by material type (Coated/Uncoated/Plastics/Metallics/Textile), translucent and metallic/pearlescent surface challenges, production-first brand workflow
+- **Issue 139** (aug-2028-color-naming-systems, 2028-08-26): Design system color naming — descriptive vs semantic vs functional strategies, the three-tier hybrid architecture (primitives/semantic/component tokens), dark mode as the definitive naming quality stress test, failure mode analysis for each approach
+- **Issue 140** (sep-2028-color-and-motion, 2028-09-02): Color in motion — chromatic flicker (WCAG 2.3.1, Harding Test), saturation amplification through transition, OKLCH for correct animation interpolation (vs sRGB gray-mud problem), perceptually consistent hover states, skeleton screen color rules
+- **Issue 141** (sep-2028-color-psychology-product, 2028-09-09): Color psychology research — button color/conversion evidence (contrast not hue), cultural/context variability of color-emotion associations, extended session ambient color (cool dark mode = focus, warm light mode = browsing), managing stakeholder color mythology
+
+### Category D — 2 New Collections (now 57 total)
+
+- **desert-dusk**: ember-tone-soft, apricot-bloom-soft, olive-tone-muted, amber-shadow-soft, cobalt-mist-soft — Southwest arid landscape aesthetic for artisan ceramics, ranch hospitality, natural wellness
+- **midnight-garden**: emerald-shadow-soft, violet-shadow-muted, plum-velvet-muted, jade-tone-muted, blush-whisper-muted — dark botanical palette for luxury fragrance, gothic editorial, dark-mode premium brands
+
+### Category D — 3 New SEO Guides (now 97 total, extraGuides13)
+
+- **material-color-specification-guide**: Pantone series selection by substrate, finish specification (GU at 60°), production-first brand workflow — targets 'color specification physical production packaging print pantone'
+- **color-in-motion-animation-guide**: CSS OKLCH interpolation, perceptually consistent hover states in OKLCH space, skeleton screen color rules with easing/timing guidance — targets 'color animation css transition oklch hover states loading skeleton screen design'
+- **color-psychology-product-design-guide**: Evidence-based principles for trust/attention/conversion, three research-backed rules, managing stakeholder mythology — targets 'color psychology product design UX research trust brand conversion evidence'
+
+### Category D — Search Aliases (~255+ entries)
+
+Added: gloss, matte_finish, velvet_texture, substrate, metallic_sheen, translucent, adobe, southwest, sagebrush, canyon_palette, arid, high_desert, gothic, dark_botanical, apothecary_dark, moody_palette, skeleton_screen, hover_state, cta_color, trust, urgency, luxury_dark, calm_palette, energy_palette
+
+### Current State After This Run
+
+- Total newsletter issues: **142** (Issues 001–141, 4 new)
+- Total collections: **57** (desert-dusk, midnight-garden added)
+- Total SEO guides: **97** (3 new in extraGuides13)
+- Total search aliases: ~255+ entries
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (142 issues, was 138)
+- src/lib/collections.ts (+desert-dusk, +midnight-garden, now 57)
+- src/lib/guides.ts (+3 guides in extraGuides13, now 97)
+- src/lib/color-search.ts (+24 aliases)
+
+**Commit:** 55f2854
