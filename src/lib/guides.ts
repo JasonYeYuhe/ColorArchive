@@ -2349,8 +2349,98 @@ export const landingGuides: LandingGuide[] = [
       { label: "Browse color families", href: "/families/" },
     ],
   },
-];
 
+  {
+    slug: "analogous-color-palette",
+    priority: 71,
+    title: "Analogous Color Palettes: How to Build Harmonious Multi-Color Systems",
+    summary:
+      "Analogous color palettes use colors adjacent on the color wheel, creating natural harmony that reads as cohesive without being monochromatic. Learn how to select analogous ranges, control saturation for balance, and apply analogous schemes to UI, branding, and illustration work.",
+    eyebrow: "Color Theory",
+    searchIntent: "analogous color palette, analogous colors, harmonious color scheme, adjacent color wheel",
+    tags: ["Color Theory", "Design Systems"],
+    category: "Color Theory",
+    highlights: [
+      "Analogous colors are adjacent on the color wheel — typically spanning 30° to 90° of hue range. A 30° span feels subtle and near-monochromatic; a 90° span feels rich and varied while remaining clearly related.",
+      "The dominant color should occupy 60% of the design, the supporting color 30%, and the accent 10%. This 60-30-10 ratio prevents the palette from reading as confused and ensures one color anchors the visual hierarchy.",
+      "Analogous schemes lack natural contrast because the colors share temperature. Add visual interest through lightness variation — a light, medium, and dark step within the analogous range — rather than introducing a non-analogous accent.",
+    ],
+    featuredCollectionId: "blossom-season",
+    featuredPackId: "brand-starter-kit",
+    sections: [
+      {
+        heading: "Defining the analogous range",
+        body: "An analogous palette is built from colors within a contiguous arc of the color wheel. The practical design range is 30° to 90°. At 30°, the colors are so similar in hue that the scheme reads as near-monochromatic — the relationships are felt as tonal variations of a single color rather than distinct colors in combination. This is appropriate for minimal, refined contexts. At 60°, the colors are clearly different but remain in obvious harmony — the most commonly used range for brand palettes and UI systems. At 90°, the spread becomes wide enough that the palette starts to include two distinct color families (blue and green, or orange and yellow), requiring more careful management to prevent the scheme from feeling like two separate palettes placed together. Beyond 90°, most designers would classify the scheme as split-complementary or triadic rather than analogous.",
+      },
+      {
+        heading: "Controlling saturation for balance",
+        body: "Analogous schemes can feel monotonous because all colors share a similar temperature. The primary tool for creating visual interest within an analogous palette is saturation variation. Assign one color in the palette a higher saturation — this becomes the accent — and reduce the saturation of the supporting and background colors. A practical approach: the dominant background color sits at 15–25% saturation (muted, near-neutral), the supporting color at 35–50% saturation, and the accent at 65–80% saturation. This creates a dynamic hierarchy from muted field to vivid focal point while maintaining the analogous harmony. Alternatively, vary lightness dramatically across the analogous range: a pale tint, a mid-tone, and a deep shade of adjacent hues creates depth and contrast without introducing non-analogous colors.",
+      },
+      {
+        heading: "Applying analogous palettes in UI design",
+        body: "Analogous schemes are natural fits for applications, dashboards, and interfaces where visual calm and brand coherence matter more than high-energy contrast. In practice, this means: the lightest, most muted analogous color serves as the page or panel background; the mid-range analogous color serves as the card surface, sidebar, or navigation background; and the most saturated, mid-lightness color serves as the primary action color for buttons and interactive elements. Text uses a near-black that may be tinted with the dominant hue angle (e.g., a blue-gray for a blue-analogous scheme). The scheme self-limits: because all colors are related, no element will visually collide with another due to temperature conflict. The risk is flatness — address it through strong lightness contrast between background and foreground, and by using the vivid accent sparingly.",
+      },
+      {
+        heading: "Analogous palettes in branding",
+        body: "Brand color systems built on analogous schemes read as harmonious, considered, and settled — the palette feels like it belongs together rather than having been assembled from different sources. This is particularly effective for lifestyle, wellness, and editorial brands where emotional coherence matters more than high visual energy. The challenge in branding is differentiation: analogous schemes can feel generic if the hue range is too common (blue-teal, for example, is overused in tech and health). Selecting a less common analogous range — yellow-green, orange-red, blue-violet — provides the same harmonic benefit with stronger distinctiveness. Pair the analogous system with a strong typographic treatment and consistent photographic color grading to complete the brand expression.",
+      },
+      {
+        heading: "Analogous versus complementary: when to choose each",
+        body: "The choice between an analogous and a complementary color scheme is fundamentally a choice between harmony and contrast. Analogous schemes create natural cohesion but require deliberate effort to build visual hierarchy within the palette. Complementary schemes (colors opposite on the wheel) create immediate, high-energy contrast but require careful management to prevent the colors from visually competing. Analogous schemes are better for: editorial and reading contexts, interfaces with many elements (the harmony prevents visual chaos), wellness and lifestyle positioning, and any brand that wants to feel cohesive and settled. Complementary schemes are better for: call-to-action-heavy marketing pages, brands that want energy and memorability, infographics and data visualizations where differentiation is critical, and contexts where brand recognition benefits from high color contrast.",
+      },
+    ],
+    links: [
+      { label: "Explore Blossom Season palette", href: "/collections/blossom-season/" },
+      { label: "Color harmonies tool", href: "/harmonies/" },
+      { label: "Browse related palettes", href: "/collections/" },
+    ],
+  },
+  {
+    slug: "color-palette-for-healthcare",
+    priority: 70,
+    title: "Color Palettes for Healthcare Design: Trust, Calm, and Accessibility",
+    summary:
+      "Healthcare design carries unique color requirements. Trust and calm are the primary emotional signals; accessibility is non-negotiable for an audience that includes aging populations and people with medical conditions affecting vision. This guide covers the color conventions that work across patient portals, health apps, clinic branding, and medical device interfaces.",
+    eyebrow: "Industry Palettes",
+    searchIntent: "healthcare color palette, medical color scheme, health app colors, hospital brand colors, patient portal design",
+    tags: ["Industry Palettes", "Accessibility"],
+    category: "Industry Palettes",
+    highlights: [
+      "Blue is the dominant hue in healthcare branding globally — it carries strong trust, calm, and competence associations that are consistent across age groups and cultures. Mid-range blues (hue 200–220°, saturation 30–55%) are the most reliable foundation.",
+      "High-contrast green is used for positive health indicators but should never serve as the sole differentiator for status information — pair every green/red distinction with an icon or text label for color-blind users, who represent 8% of male patients.",
+      "Healthcare interfaces should target WCAG AAA (7:1) contrast for primary text where possible, not just AA (4.5:1), given an older-than-average user base with higher rates of visual impairment. Text size also matters: do not reduce text below 16px in patient-facing interfaces.",
+    ],
+    featuredCollectionId: "nordic-frost",
+    featuredPackId: "complete-archive",
+    sections: [
+      {
+        heading: "Why blue dominates healthcare",
+        body: "The prevalence of blue in healthcare branding is not arbitrary. Blue consistently produces associations with trust, competence, calm, and cleanliness across diverse age groups and cultures — precisely the signals that medical providers need to establish. Mid-range blues in the 200–220° hue range (cerulean through azure) at 30–55% saturation are the most versatile: they avoid the aggressive brightness of electric blue, the corporate coldness of navy, and the ambiguity of blue-purple. Healthcare brands that move away from blue entirely take on a significant trust deficit that requires strong compensating signals in photography, copy, and reputation. Emerging health-tech brands sometimes use green (vitality, health, growth) or teal (blue's credibility plus green's life) as a differentiator within a largely blue-coded category.",
+      },
+      {
+        heading: "Calm and clarity: avoiding the sterile trap",
+        body: "Pure clinical white (#ffffff) paired with pure black text and bright blue accents is technically accessible but reads as cold, institutional, and anxiety-inducing for patients who associate the aesthetic with hospitals. Warmer approaches that maintain trust: slightly warm whites (L:98–99%, hue 40–50°, saturation 5–10%) as the background, paired with cool blue accents that create a temperature contrast against the warm ground. This combination reads as warm and human while maintaining the blue trust signal. Alternatively, adding a soft green or teal secondary color alongside the blue shifts the palette from 'clinical' to 'wellness' — appropriate for consumer health apps, mental health platforms, and preventive care services where the emotional positioning is closer to lifestyle than to treatment.",
+      },
+      {
+        heading: "Status colors and the red-green convention",
+        body: "Healthcare interfaces universally use red for alert/danger states and green for normal/healthy states. This convention is so deeply established that violating it creates patient safety risk — a green indicator that means 'warning' or a red indicator that means 'normal' would be directly dangerous. However, the convention's ubiquity makes accessibility even more critical: red-green color blindness (deuteranopia, affecting ~8% of men) is exactly the deficit that makes the primary status encoding unreliable. Every status indicator in a healthcare interface should have a non-color encoding: an icon (check, X, warning triangle), a text label (Normal, Alert, Critical), or a pattern (solid fill, striped, hollow) so that the status is readable regardless of color perception. This applies to vital sign displays, lab result flags, medication dosage indicators, and appointment status labels.",
+      },
+      {
+        heading: "Accessibility standards for healthcare interfaces",
+        body: "Healthcare design should target WCAG 2.1 AAA wherever possible. AAA requires 7:1 contrast for normal-size text, compared to AA's 4.5:1. The reason for the higher target: healthcare audiences skew older than average, and visual acuity declines progressively with age — approximately 1 in 3 people over 65 has a vision-affecting condition. Beyond contrast ratios, healthcare-specific guidance includes: minimum body text size of 16px (not the typical 14px used in dense UI); generous line height (1.6–1.8 for body text) to aid scanning; high-contrast focus indicators for keyboard navigation, since many patients use assistive technology; and avoidance of color-only form validation (red border only for error fields). Every patient-facing form should include both a color change and a text error message with an error icon.",
+      },
+      {
+        heading: "Building a healthcare color system",
+        body: "A practical healthcare color system has four layers. (1) Trust foundation: a mid-range blue at 35–50% saturation, 45–60% lightness — the primary brand color for headers, primary buttons, and key UI elements. (2) Calm surface: an off-white or very light cool-tinted background (L:96–99%, saturation 5–10%) that reads as clean without being harsh. (3) Positive indicator: a clear green (hue 130–150°, saturation 45–60%) used for healthy status, success states, and positive results — always paired with icon and text. (4) Alert indicator: a clear red (hue 0–10°, saturation 55–70%) used for warning, critical, and error states — always paired with icon and text. This four-layer system covers the complete functional and emotional range of most healthcare interfaces without introducing color-based risk.",
+      },
+    ],
+    links: [
+      { label: "Explore Nordic Frost palette", href: "/collections/nordic-frost/" },
+      { label: "WCAG contrast checker", href: "/contrast/" },
+      { label: "Color blindness simulator", href: "/colorblind/" },
+    ],
+  },
+];
 export function getLandingGuide(slug: string) {
   return landingGuides.find((guide) => guide.slug === slug) ?? null;
 }

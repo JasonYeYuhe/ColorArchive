@@ -276,6 +276,25 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   healthtech: ["teal", "azure", "mint", "frost", "emerald"],
   ecommerce: ["coral", "vivid", "cobalt", "amber", "bloom"],
   gaming: ["vivid", "violet", "cobalt", "neon", "ink"],
+  // Healthcare and wellness
+  healthcare: ["azure", "mint", "teal", "frost", "cerulean"],
+  wellness: ["mint", "sage", "teal", "jade", "soft"],
+  // Food and hospitality
+  clay: ["ember", "coral", "apricot", "tone", "muted"],
+  ceramic: ["apricot", "honey", "amber", "silk", "pearl"],
+  latte: ["honey", "amber", "apricot", "pearl", "muted"],
+  // Fashion and beauty
+  mauve: ["blush", "orchid", "rose", "plum", "muted"],
+  dusty_rose: ["blush", "peony", "rose", "whisper", "muted"],
+  nude: ["blush", "apricot", "pearl", "whisper", "muted"],
+  champagne: ["citrine", "honey", "amber", "pearl", "whisper"],
+  taupe: ["olive", "honey", "apricot", "muted", "tone"],
+  // Architecture and interior
+  slate: ["cobalt", "azure", "indigo", "tone", "muted"],
+  charcoal: ["ink", "shadow", "nocturne", "muted", "cobalt"],
+  // Nature and landscape
+  dusk: ["merlot", "violet", "indigo", "plum", "shadow"],
+  dawn: ["rose", "apricot", "citrine", "whisper", "pearl"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

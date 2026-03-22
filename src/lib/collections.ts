@@ -490,8 +490,48 @@ export const collections: ColorCollection[] = [
       useCases: ["Food and beverage brands", "Creative agencies and studios", "Consumer lifestyle products"],
     },
   ),
-];
 
+  createCollection(
+    "sunset-terrace",
+    "Sunset Terrace",
+    "Warm rose, coral, and amber tones capturing the golden hour between afternoon and dusk — for brands that feel inviting, romantic, and energized.",
+    "A palette assembled from the warmest, most luminous part of the day: the 45-minute window when daylight turns golden and surfaces glow with reflected rose and amber. The colors move from pale peach and soft apricot through vivid coral and clear rose to warm amber. The palette is inherently romantic and social — it carries associations with outdoor dining, warmth, celebration, and human connection. It works for hospitality, food and beverage, lifestyle apps, and any brand that wants to feel welcoming and alive without tipping into urgency or aggression. The vivid coral is the palette's heart; the pale apricot and soft rose keep it from becoming heavy.",
+    ["Warm", "Romantic", "Sunset"],
+    [
+      "apricot-pearl-soft",
+      "rose-bloom-vivid",
+      "coral-silk-vivid",
+      "ember-tone-clear",
+      "amber-bloom-clear",
+    ],
+    {
+      editorialNote:
+        "Use this when warmth should feel social and alive rather than golden and abundant. The coral-vivid and rose-bloom are the character; apricot-pearl grounds it in softness. Avoid using all three vivid entries simultaneously — let one lead.",
+      promptWords: ["terrace at dusk", "pink champagne", "warm concrete", "candlelight", "open-air restaurant"],
+      useCases: ["Hospitality and restaurant brands", "Lifestyle and social apps", "Food and beverage campaigns"],
+    },
+  ),
+  createCollection(
+    "deep-tide",
+    "Deep Tide",
+    "Dark cerulean, deep teal, and shadowed sapphire tones for brands that need depth, authority, and quiet power without darkness.",
+    "A palette built from the mid-depth ocean — not the surface shimmer, not the abyssal dark, but the zone of rich, saturated blue-green that holds light without releasing it. The colors are deeply saturated at mid-low lightness, giving them weight and authority without becoming oppressive. The teal entry provides the palette's warmth and life; the cerulean and sapphire entries anchor it in cool authority. This palette is unusually versatile for a dark-leaning scheme: it works on both light and dark UI surfaces, reads as premium in editorial contexts, and carries marine-tech, fintech, and luxury brand associations. Best for products where gravitas and sophistication matter more than approachability.",
+    ["Deep", "Ocean", "Authoritative"],
+    [
+      "cerulean-dusk-clear",
+      "teal-velvet-soft",
+      "azure-shadow-soft",
+      "sapphire-dusk-clear",
+      "cobalt-nocturne-muted",
+    ],
+    {
+      editorialNote:
+        "Use this when blue needs weight and depth rather than clarity and openness. The teal-velvet brings warmth so the palette does not read as cold. Pair with near-white (#f8fafb) on light surfaces or deep charcoal (#111827) on dark ones.",
+      promptWords: ["deep water", "midnight research vessel", "pressure gauge", "sonar screen", "tide before storm"],
+      useCases: ["Fintech and data products", "Marine and environmental organizations", "Premium technology brands"],
+    },
+  ),
+];
 export function getCollectionById(id: string) {
   return collections.find((collection) => collection.id === id);
 }
