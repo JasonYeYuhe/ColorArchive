@@ -998,3 +998,47 @@ Total newsletter issues: **110** (was 106, +4 this run)
 - STRUCTURE.md (updated all counts)
 
 **Commit:** 55fb5f9
+
+
+## 2026-03-23 — Normal Run: Newsletter 110-113 + 2 collections + search aliases (commit 51635c7)
+
+**Run type:** Normal (run #1 since last big run `55fb5f9`)
+
+**Categories:** A. SEO & Content (newsletter), D. Data & Collections (collections + search aliases)
+
+### Category A — Newsletter Issues 110–113 (February 2028)
+
+- **Issue 110** (feb-2028-color-print-vs-screen, 2028-02-04): Color in print vs. screen — RGB/CMYK gamut mismatch, which colors fall through it (electric blues, cyan-greens), soft-proofing workflow with ICC profiles, total ink coverage limits for different paper stocks, building a cross-media brand palette with PMS references
+- **Issue 111** (feb-2028-neutral-scales-design-systems, 2028-02-11): Building a neutral scale that works in a design system — warm vs. cool undertone choice relative to brand primary, step density (10-12 steps), chromatic neutral technique (2-6% HSL saturation added to coordinate with primary hue), testing checklist
+- **Issue 112** (feb-2028-color-typography-legibility, 2028-02-18): Color and typography legibility — WCAG 2.1 formula limitations, APCA (WCAG 3.0) for edge cases, chromatic aberration in saturated text, weight/size interaction (semibold improves legibility at low contrast), building a complete type color system with semantic tokens
+- **Issue 113** (feb-2028-gradient-design-guide, 2028-02-25): Gradient design guide — why sRGB gradients go muddy (non-perceptual interpolation), OKLCH gradient interpolation (93% browser support), hue direction in OKLCH (shorter/longer arc, increasing/decreasing keywords), stop placement for premium gradient quality, production CSS pattern with @supports fallback
+
+Total newsletter issues: **114** (was 110, +4 this run)
+
+### Category D — 2 New Collections (now 43)
+
+- **midnight-garden**: Deep jewel tones at low lightness — violet-nocturne-soft, plum-shadow-clear, garnet-nocturne-muted, teal-shadow-soft, mulberry-ink-soft. For luxury dark-mode UI, nocturnal editorial, premium entertainment brands. Colors retain chromatic identity at 14-28% lightness.
+- **powder-room**: Barely-there pastels — blush-whisper-soft, peony-pearl-soft, rose-whisper-muted, iris-mist-muted, orchid-pearl-muted. For beauty/cosmetics, wellness, wedding platforms. The iris-mist-muted bridges pink to lavender for wider beauty brand versatility.
+
+Total collections: **43** (was 41)
+
+### Category D — SEARCH_ALIASES additions (+45 new entries)
+
+New semantic search aliases added to `src/lib/color-search.ts`:
+- Print/media: print, cmyk, offset
+- Gradients/light effects: gradient_mesh, duotone, overlay, stained_glass, prism, iridescent
+- Materials: frosted_glass, brushed_metal, anodized, gold_leaf, silver, platinum, rose_quartz
+- Environmental: canyon, prairie, tundra
+- Digital aesthetics: lofi, y2k, aura, cottagecore_green
+- Evening/atmospheric: golden_hour, twilight, afterglow
+- Design contexts: saas_dashboard, landing_page, mobile_ui
+- Botanical: succulent, palm, fern
+- Color descriptors: neon_coral, electric_purple, deep_teal, dusty_green
+- Skin/beauty: tan, bronze, ivory_skin
+
+**Files modified (3):**
+- src/data/newsletter-issues.json (114 issues, was 110)
+- src/lib/collections.ts (+midnight-garden, +powder-room, now 43 collections)
+- src/lib/color-search.ts (+45 new SEARCH_ALIASES entries)
+
+**Commit:** 51635c7
