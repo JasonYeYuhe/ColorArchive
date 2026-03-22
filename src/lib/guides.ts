@@ -3995,3 +3995,113 @@ const extraGuides13: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides13);
+
+const extraGuides14: LandingGuide[] = [
+  {
+    category: "Photography & Color",
+    slug: "extracting-color-from-photography-guide",
+    title: "Extracting Brand Color from Photography: A Systematic Method",
+    summary:
+      "Photography is the most common source of brand color — but photographic colors require systematic extraction and production correction before they become design system values. This guide covers dominant vs anchor extraction, the four-scene test, and the adjustments needed to translate photographic hex into production-ready tokens.",
+    eyebrow: "Photography",
+    priority: 76,
+    searchIntent: "extract color from image photo brand color photography palette reference",
+    featuredCollectionId: "desert-dusk",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Photography", "Brand Color", "Color Extraction"],
+    highlights: [
+      "Photography reads color in context: the same extracted hex value will look completely different as an isolated swatch than it did in the photograph. Always test extracted colors against neutral backgrounds at multiple scales before deciding if the extraction is accurate.",
+      "Dominant color (background/ambient) is not the brand anchor. The brand anchor is the subject or product color — the color that the photographer intentionally directed toward. Extract dominant, anchor, and accent separately.",
+      "Photographic saturation is almost always too high for direct use in design systems. Reduce saturation by 10-20% in OKLCH space (not HSL) to arrive at values that read correctly without their photographic context.",
+    ],
+    sections: [
+      {
+        heading: "The four-scene extraction test",
+        body:
+          "Extract colors from five different brand photography scenarios (e.g., product on white, lifestyle scene 1, lifestyle scene 2, detail/texture shot, brand environment). For each image, extract the top 3 colors: background, subject anchor, accent. Record all 15 values. The colors that appear consistently in the 'anchor' position across three or more scenes are your real brand palette. The colors that only appear in one scene are art direction choices — they belong in the 'brand photography direction' brief, not the color specification. This test prevents the common mistake of extracting from a single hero image and treating the result as the full brand palette.",
+      },
+      {
+        heading: "Production-ready correction steps",
+        body:
+          "After extraction: (1) Saturation — reduce by 10-20%. Photographic saturation is context-dependent. The Image Color Extractor on ColorArchive can help identify the closest design-system color for each extracted value. (2) Lightness normalization — map extracted values to standard token steps: light surface colors to the 50-100 range, mid-tone brand anchors to 300-500, dark values to 700-900. (3) Temperature calibration — if the photograph had strong directional lighting or white balance shift, the extracted colors may carry a cast. Adjust hue by 2-5 degrees toward your intended temperature. (4) Profile the result — generate the full 11-step tonal scale from the corrected anchor using the Tints & Shades Generator. Review the complete scale before committing — weak extracted values often reveal themselves as low-quality design system bases when the full scale is shown.",
+      },
+    ],
+    links: [
+      { label: "Image Color Extractor", href: "/image-palette/" },
+      { label: "Tints & Shades Generator", href: "/tints/" },
+      { label: "Design Token Generator", href: "/tokens/" },
+    ],
+  },
+  {
+    category: "Data Visualization",
+    slug: "color-for-data-visualization-guide",
+    title: "Color for Data Visualization: Building Perceptually Correct Chart Palettes",
+    summary:
+      "Data visualization color is not brand color. The goal is accurate encoding, not aesthetic harmony. This guide covers the four semantic color roles in dataviz, perceptual uniformity requirements, color blindness constraints, and how to build categorical, sequential, and diverging palettes that communicate data without misleading it.",
+    eyebrow: "Data Visualization",
+    priority: 77,
+    searchIntent: "data visualization color palette chart color scheme categorical sequential diverging dashboard",
+    featuredCollectionId: "data-dashboard",
+    featuredPackId: "complete-archive",
+    tags: ["Data Visualization", "Charts", "Color Theory"],
+    highlights: [
+      "The four semantic color roles in dataviz: categorical (group membership — must be maximally distinguishable), sequential (ordered quantity — must increase uniformly in lightness), diverging (deviation from a midpoint — must be balanced), and highlight (selected/anomalous values). Confusing these roles is the most common chart color failure.",
+      "Sequential and diverging scales must use perceptually uniform interpolation (OKLCH or CIELAB). HSL interpolation for gradients produces visible brightness bands and false perceptual midpoints — a well-documented failure mode that makes charts misleading.",
+      "Approximately 8% of men have red-green color vision deficiency. Categorical dataviz palettes must maintain distinguishability through lightness variation alone — color cannot be the sole encoding signal.",
+    ],
+    sections: [
+      {
+        heading: "Building a production-ready categorical palette",
+        body:
+          "A categorical palette for dashboards requires: (1) Minimum 15 OKLCH L units of lightness difference between any two adjacent colors — this ensures grayscale distinguishability. (2) Temperature alternation — alternate warm and cool hues to prevent perceived gradient ordering between unordered categories. (3) Maximum 8 categories per chart. Beyond 8, group small categories as 'Other.' (4) Semantic reservation — designate specific hues for semantic roles: a warm amber is always 'warning,' a red is always 'negative,' a green is always 'positive.' Never assign these hues to neutral data categories. The full ColorArchive provides a useful starting palette: select one medium-lightness, medium-saturation color from each color family, then check that each pair passes the lightness test.",
+      },
+      {
+        heading: "Sequential and diverging scale construction",
+        body:
+          "Sequential scales (for ordered data: quantity, intensity, risk level): (1) Choose a single hue. (2) Create an 7-9 step scale from near-white to a dark, saturated value of that hue. (3) Verify the scale is monotonically increasing in perceived lightness by converting each step to grayscale — if any step reads lighter than the previous, the scale is not perceptually monotonic. Diverging scales (for deviation from a midpoint: positive/negative, above/below average): (1) Choose two complementary hues — one for positive deviation, one for negative. (2) Ensure the midpoint is a neutral light gray. (3) Both sides must have equal maximum saturation and equal minimum lightness at their extremes. A common failure: using green/red as the diverging pair — this combination is impaired for roughly 8% of the male population. Prefer blue/orange for the primary diverging pair.",
+      },
+    ],
+    links: [
+      { label: "Data Dashboard collection", href: "/collections/data-dashboard/" },
+      { label: "Color Blindness Simulator", href: "/colorblind/" },
+      { label: "Color Contrast Checker", href: "/contrast/" },
+    ],
+  },
+  {
+    category: "Image & Color",
+    slug: "image-color-extraction-tools-guide",
+    title: "Using Image Color Extraction Tools: A Designer's Workflow Guide",
+    summary:
+      "Image color extraction is one of the most common color tasks in design — building a palette from a brand photo, matching a reference image for a client, or sampling colors from a mood board. This guide covers the workflow from raw extraction to production values, with specific guidance on what extraction tools tell you and what they don't.",
+    eyebrow: "Workflow",
+    priority: 75,
+    searchIntent: "image color extraction tool workflow extract palette from photo design",
+    featuredCollectionId: "film-neutral",
+    featuredPackId: "complete-archive",
+    tags: ["Color Extraction", "Workflow", "Tools"],
+    highlights: [
+      "Extraction tools give you pixel-level color averages, not design intent. An extracted hex value from an image is a measurement — it becomes a design decision only after you interpret it in context and apply appropriate production corrections.",
+      "The closest archive match for an extracted color is useful for naming and context, but the archive color is not always the right production value. The extracted color plus adjustments may be more appropriate than the nearest match.",
+      "Export formats matter: use CSS custom properties for web projects, JSON for token systems, and plain hex lists for sharing with clients. Match the export format to where the colors will be used.",
+    ],
+    sections: [
+      {
+        heading: "A complete extraction-to-production workflow",
+        body:
+          "Step 1 — extract. Use the ColorArchive Image Color Extractor (or similar tool) to identify the dominant colors. Aim for 6-8 colors to capture the full range without over-segmenting. Step 2 — categorize. For each extracted color, identify its role: background/ambient, subject anchor, accent, neutral/shadow. This categorization determines which token tier each color belongs to. Step 3 — correct. Adjust saturation (-10-20%), normalize lightness to token steps, calibrate temperature. Step 4 — generate scale. For each anchor and accent color, use the Tints & Shades Generator to create the full 11-step tonal scale. Step 5 — validate. Check all colors against WCAG 2.1 AA contrast requirements for the specific text/background combinations they will be used in. Step 6 — export. Export as CSS custom properties or JSON tokens, ready for design system integration.",
+      },
+      {
+        heading: "What to do when extraction fails",
+        body:
+          "Common extraction failure modes: (1) Too many similar colors — the image uses an extremely narrow palette (e.g., a black-and-white photo) and all extracted colors are slight variations of the same gray. Solution: reduce the number of extracted colors to 3-4 and accept that the palette is intentionally narrow. (2) Unwanted dominant color — a bright background or studio light source dominates the extraction, pushing the actual subject color to a minor cluster. Solution: crop the image to the subject before extracting, or manually sample the subject area. (3) Complex multicolor image produces an 'average' brown/gray that doesn't reflect any color in the image. Solution: extract more colors (8-12) and discard the muddy averages manually. The Image Color Extractor on ColorArchive allows adjusting the number of extracted colors to handle these cases.",
+      },
+    ],
+    links: [
+      { label: "Image Color Extractor", href: "/image-palette/" },
+      { label: "Tints & Shades Generator", href: "/tints/" },
+      { label: "Film Neutral collection", href: "/collections/film-neutral/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides14);

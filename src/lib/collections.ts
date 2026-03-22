@@ -1254,3 +1254,48 @@ const extraCollections13: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections13);
+
+const extraCollections14: ColorCollection[] = [
+  createCollection(
+    "data-dashboard",
+    "Data Dashboard",
+    "Cobalt signal, teal confirmation, amber warning, crimson alert, and slate neutral — a perceptually balanced palette designed for analytics dashboards and data visualization interfaces.",
+    "Data visualization demands a different color discipline than brand or editorial work. Colors must communicate data structure — category membership, sequential magnitude, divergence from a norm — without evoking false emotional associations. This palette builds a minimal but complete categorical foundation for dashboard design: cobalt-tone-vivid as the primary data series anchor, providing clear legibility against both light and dark dashboard backgrounds; teal-ink-muted as the secondary series color, maximally distinguishable from cobalt in both hue and temperature; amber-glow-soft as the warning state, warm and attention-drawing without the false urgency of red; crimson-tone-soft as the alert state, clearly negative but not alarming; slate-tone-muted as the neutral baseline, appropriate for inactive series, disabled states, and zero-value bars. The palette was designed to maintain categorical distinguishability through common forms of color vision deficiency — lightness variation between any two colors exceeds 18 OKLCH L units.",
+    ["Data Visualization", "Dashboard", "Functional"],
+    [
+      "cobalt-tone-vivid",
+      "teal-ink-muted",
+      "amber-glow-soft",
+      "crimson-tone-soft",
+      "slate-tone-muted",
+    ],
+    {
+      editorialNote:
+        "Use cobalt-tone-vivid for the primary data series only — do not use it for UI chrome in the same interface, as mixing data-encoding and UI-encoding roles for the same color is a leading source of user confusion. amber-glow-soft is the warning token, not a decorative accent. Test this palette in grayscale before finalizing: each color should remain distinguishable by lightness alone. Recommended pairing: use a very light warm white (#f8f7f5) as the chart background with these colors; on dark dashboards, increase all lightness values by 10-15 OKLCH L units.",
+      promptWords: ["analytics dashboard with colored chart lines", "data visualization with categorical bars", "business intelligence interface with metrics", "dark mode dashboard with glowing chart lines", "monitoring dashboard with status indicators"],
+      useCases: ["Product analytics dashboards", "Business intelligence and reporting tools", "Monitoring and observability interfaces", "Financial data visualization", "Health and wellness metric displays"],
+    },
+  ),
+  createCollection(
+    "film-neutral",
+    "Film Neutral",
+    "Warm parchment, exposed film beige, shadow gray-brown, dark slate, and off-black — the color palette of analog photography and cinema post-production.",
+    "Analog film has a characteristic color signature that is distinct from digital neutral palettes. Film neutrals are warm-leaning — the silver halide chemistry of black-and-white film, the color masking of color negative film, and the warm-base optical printing process all introduced a slight warmth to shadows and a creamy quality to highlights. This palette reconstructs that register: amber-veil-muted provides the warm parchment quality of highlights in well-exposed color negative film, the tone of aged photographic paper; pearl-blush-soft contributes the mid-tone warmth of exposed but undeveloped silver — a quality often described as 'analog warmth'; slate-veil-muted adds the shadow register — not pure neutral gray but a slightly warm dark value appropriate for shadow detail in film-grade work; cobalt-shadow-muted deepens the palette toward the cool-blue shadow quality that color negative film produces in deep shadows; obsidian-tone-soft provides the near-black that analog printing achieves — slightly desaturated and warm compared to digital pure black.",
+    ["Film", "Analog", "Neutral"],
+    [
+      "amber-veil-muted",
+      "pearl-blush-soft",
+      "slate-veil-muted",
+      "cobalt-shadow-muted",
+      "obsidian-tone-soft",
+    ],
+    {
+      editorialNote:
+        "This palette works best in contexts where the warmth reads as intentional craft rather than technical limitation — photography portfolios, film production, editorial design, premium print. amber-veil-muted as the primary background or paper surface; pearl-blush-soft for secondary surfaces and card backgrounds; slate-veil-muted for subtle dividers and inactive elements; cobalt-shadow-muted and obsidian-tone-soft for text and dark surfaces. The warmth is calibrated to read as 'analog' on screen — avoid pairing with pure-white or pure-black, which will make the warmth look like a calibration error rather than a deliberate aesthetic choice.",
+      promptWords: ["35mm film photograph with warm grain", "darkroom developing tray with photographic paper", "vintage cinema still with warm shadows", "analog photography workspace with film rolls", "black and white print with warm tone on fiber paper"],
+      useCases: ["Photography portfolio websites and print labs", "Film production and post-production brands", "Analog/film photography equipment brands", "Darkroom-aesthetic editorial and print design", "Vintage and heritage brand identities"],
+    },
+  ),
+];
+
+collections.push(...extraCollections14);

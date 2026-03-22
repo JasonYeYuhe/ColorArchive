@@ -6766,5 +6766,177 @@
         "href": "/guides/"
       }
     ]
+  },
+  {
+    "slug": "sep-2028-color-from-photography",
+    "date": "2028-09-16",
+    "title": "Extracting Brand Color from Photography: A Systematic Method for Designers",
+    "summary": "Photography is the original color reference — before Pantone, designers matched colors to ink by eye against printed reference images. This issue builds a systematic method for extracting production-ready brand color from photographic references, with guidance on reading color mood, dominant vs accent extraction, and translating photographic color into reproducible design system values.",
+    "eyebrow": "Color Extraction",
+    "tags": [
+      "Photography",
+      "Brand Color",
+      "Color Extraction"
+    ],
+    "featuredCollectionId": "desert-dusk",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Photography is not a neutral record of color — it is an interpretation shaped by white balance, exposure, lens characteristics, and post-processing. A well-photographed brand scene communicates more about intended brand color than a swatch specification. The extraction method starts with reading the photographer's intent: what is the dominant temperature? where does the eye go first? what colors are in shadow vs highlight?",
+      "The dominant color in a photograph is rarely the correct brand anchor. The most visually prominent color is often background — sky, wall, surface — while the brand identity often lives in the mid-ground: product color, wardrobe, prop selection. Extract dominant (background), anchor (product/subject), and accent (intentional pop) separately.",
+      "Photographic colors are soft and contextual — they exist in relation to other colors in the frame. Extracted hex values will look flat without their visual context. Always test extracted colors against neutral backgrounds at multiple scales before committing to production values."
+    ],
+    "sections": [
+      {
+        "heading": "A four-step extraction workflow",
+        "body": "Step 1 — identify the color temperature signature (warm/cool/neutral) and dominant hue family. This is the palette register: it informs every subsequent color decision. Step 2 — identify the background color (largest area). This is the 'ambient' color; it affects how all other colors read. Step 3 — identify the subject anchor color (product, hero, focal object). This is the candidate brand anchor. Step 4 — identify the accent color (the highest-saturation, smallest-area color in the image). This is the candidate CTA/interaction color. Photograph five different brand scenes and repeat the extraction. The colors that appear consistently across scenes are your real brand palette; the outliers are art direction choices."
+      },
+      {
+        "heading": "From photographic hex to production-ready design tokens",
+        "body": "Photographic color extraction produces raw hex values that are rarely usable as design system tokens without adjustment. Common corrections: (1) Saturation adjustment — photographic colors often read as over-saturated out of camera, especially after white balance correction. Reduce saturation by 10-20% to get design-system-appropriate values. (2) Lightness normalization — extract at standard lightness anchors (step 300 for accent, step 500 for mid-tone, step 700 for dark surface). Use a tints generator to build the full scale. (3) Temperature calibration — if the extracted color has an unintentional cool or warm cast from the photograph, adjust hue by 3-5 degrees toward the intended direction. The Design Token Generator on ColorArchive can turn a corrected hex into a full 11-step production scale."
+      }
+    ],
+    "links": [
+      {
+        "label": "Design Token Generator",
+        "href": "/tokens/"
+      },
+      {
+        "label": "Image Color Extractor",
+        "href": "/image-palette/"
+      },
+      {
+        "label": "Desert Dusk collection",
+        "href": "/collections/desert-dusk/"
+      }
+    ]
+  },
+  {
+    "slug": "oct-2028-color-in-data-visualization",
+    "date": "2028-09-23",
+    "title": "Color in Data Visualization: Principles for Charts, Dashboards, and Infographics",
+    "summary": "Data visualization color is a distinct discipline from brand or UI color. The goal is not aesthetic harmony but accurate encoding — color must communicate data structure, not override it. This issue covers the four semantic color roles in dataviz, perceptual uniformity requirements, color blindness constraints, and the specific rules that distinguish good chart color from misleading chart color.",
+    "eyebrow": "Data Visualization",
+    "tags": [
+      "Data Visualization",
+      "Charts",
+      "Accessibility"
+    ],
+    "featuredCollectionId": "deep-focus",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "Data visualization has four distinct color roles: categorical (encodes group membership — must be maximally distinguishable), sequential (encodes ordered quantity — must increase uniformly in lightness), diverging (encodes deviation from a midpoint — must be balanced and symmetric), and highlight (marks selected/anomalous values — must not resemble any categorical color). Using brand colors for dataviz without role-mapping is one of the most common failures in design system implementations.",
+      "Perceptual uniformity is non-negotiable for sequential and diverging scales. HSL-based color interpolation for sequential scales produces visible brightness bands — a well-known failure mode where certain hue combinations produce a false visual midpoint. Use OKLCH or CIELAB interpolation for all sequential and diverging scales.",
+      "Approximately 8% of men have some form of color vision deficiency. Red-green distinction is the most affected pairing. Categorical palettes for dataviz should rely on lightness difference and shape as the primary encodings, with color as a secondary reinforcement — never as the sole distinguishing signal."
+    ],
+    "sections": [
+      {
+        "heading": "Building a categorical palette for dashboards",
+        "body": "A good categorical palette for dashboards requires: (1) Minimum 4.5:1 contrast between any two adjacent colors when placed against the dashboard background. (2) Lightness variation of at least 15 OKLCH L units between any two colors, so that the distinction survives grayscale printing or colorblind simulation. (3) Maximum 8 distinct categories in a single chart — beyond 8, categorical encoding breaks down cognitively. For more than 8 groups, group smaller categories into 'Other.' (4) Temperature separation between adjacent categories — alternating warm and cool hues prevents accidental perceived gradient ordering. The full ColorArchive archive is a good starting point: filter by family and pick one representative at medium saturation and lightness from each of 6-8 families."
+      },
+      {
+        "heading": "When chart colors and brand colors conflict",
+        "body": "A common tension in product dashboards: brand colors assigned to dataviz categories immediately suggest meaning — 'success' brand green used for a neutral data category creates a false positive association. The solution is a clear semantic hierarchy: brand colors remain in UI chrome (navigation, CTAs, brand marks), while dataviz uses a purpose-built palette. The dataviz palette should share temperature (warm-tending or cool-tending) with the brand but use different hues. Brief the product team explicitly: 'these are data colors, not brand colors.' This prevents the gradual reassignment of dataviz colors to brand purposes over time."
+      }
+    ],
+    "links": [
+      {
+        "label": "Color Contrast Checker",
+        "href": "/contrast/"
+      },
+      {
+        "label": "Color Blindness Simulator",
+        "href": "/colorblind/"
+      },
+      {
+        "label": "Complete Archive",
+        "href": "/packs/complete-archive/"
+      }
+    ]
+  },
+  {
+    "slug": "oct-2028-print-color-management",
+    "date": "2028-09-30",
+    "title": "Print Color Management: What Every Designer Who Works with Printers Needs to Know",
+    "summary": "Screen-to-print color failure is one of the most expensive mistakes in commercial design. This issue covers the fundamentals: colorspace conversion, CMYK ink limits, press-specific profiles, and the specific decisions — proofing, substrate selection, finishing — that determine whether a printed piece looks like the screen render or not.",
+    "eyebrow": "Print & Production",
+    "tags": [
+      "Print",
+      "Color Management",
+      "CMYK"
+    ],
+    "featuredCollectionId": "studio-neutral",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Monitor RGB gamuts are substantially larger than CMYK print gamuts. Vivid screen colors in the cyan-blue range (approximately RGB 0,100,255) and vivid screen greens have no CMYK equivalent. The most common designer shock: a vivid electric blue brand color that looks muddy in print. Soft-proof in the print destination profile before committing to a color specification.",
+      "CMYK ink limits exist because ink stacks on paper — high ink coverage on press causes slow drying, show-through on thin stock, and offsetting (ink transferring from a freshly printed sheet to the back of the sheet above it). Most commercial offset processes specify a maximum total ink coverage (TIC) of 280-320%. Check with your printer; exceeding their spec is a press operator problem and an expensive one.",
+      "Pantone Matching System colors are specified by ink formulation, not by colorspace. A Pantone reference color may be outside the gamut of both CMYK and standard RGB monitors. Always specify Pantone when brand color consistency across substrates and processes is critical — Pantone is the brand anchor; CMYK is the press approximation."
+    ],
+    "sections": [
+      {
+        "heading": "The three most common print color failures (and how to prevent them)",
+        "body": "Failure 1 — flat, desaturated prints from high-saturation RGB originals. Prevention: convert to CMYK early in the design process, not at final output. Use an appropriate ICC profile for the press type (Coated GRACoL 2013 for high-quality coated offset; SWOP for web offset). Failure 2 — neutral colors with unexpected color casts. Neutral gray is notoriously unstable: RGB 128,128,128 converts to K-only in some CMYK conversion modes, but neutral gray ink alone often reads as warm or cool depending on paper and press calibration. Build neutrals from black-only or from carefully balanced four-color gray builds — ask your printer which approach their press handles better. Failure 3 — fluorescent colors and highly chromatic blues that muddy in CMYK. These exist outside CMYK gamut. Solutions: accept a less-saturated CMYK approximation; use a Pantone spot color for those specific elements; or choose an alternative hue with better CMYK reproduction."
+      },
+      {
+        "heading": "Color specification for brand standards documents",
+        "body": "A complete production-ready brand color specification includes: (1) Pantone Coated reference (C suffix) — the authoritative color for all print work with spot ink. (2) Pantone Uncoated reference (U suffix) — the same Pantone number will look different on uncoated stock; the U reference is what to measure against. (3) CMYK breakdown for coated offset (GRACoL profile). (4) CMYK breakdown for uncoated offset (SWOP or printer-specific profile — these will be different numbers than the coated breakdown). (5) RGB for screen. (6) Hex for digital. Never provide only hex and CMYK — a designer working in a new context needs all six values to make a correct color decision."
+      }
+    ],
+    "links": [
+      {
+        "label": "Color Converter",
+        "href": "/convert/"
+      },
+      {
+        "label": "Studio Neutral collection",
+        "href": "/collections/studio-neutral/"
+      },
+      {
+        "label": "Brand Starter Kit",
+        "href": "/packs/brand-starter-kit/"
+      }
+    ]
+  },
+  {
+    "slug": "oct-2028-color-systems-at-scale",
+    "date": "2028-10-07",
+    "title": "Color Systems at Scale: How Large Design Teams Maintain Color Consistency",
+    "summary": "When a single designer controls all color decisions, consistency is a matter of personal discipline. When five designers on three product teams in two time zones are making color decisions in parallel, consistency becomes a system problem. This issue describes how high-performing design teams structure color governance, version tokens, prevent unauthorized deviations, and evolve the palette without breaking existing product surfaces.",
+    "eyebrow": "Design Systems",
+    "tags": [
+      "Design Systems",
+      "Color Governance",
+      "Team Process"
+    ],
+    "featuredCollectionId": "midnight-garden",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "The two most common color consistency failures in large teams are (1) component-level color decisions that bypass the token system — a developer hardcodes a hex value because the right token doesn't exist, establishing a precedent — and (2) visual mismatch between the Figma token library and the production design token file. Both failures share the same root cause: the design token system is incomplete or too abstract for the decisions designers and engineers actually need to make.",
+      "Color token versioning follows the same principles as API versioning. A breaking change (renaming a token, changing a token's semantic role) requires a migration path, a deprecation timeline, and explicit documentation of the change in the changelog. The most common breaking change: renaming 'primary' to 'brand' after the system has been in production for 18 months. Every component that references 'primary' must be found and updated — a multi-team, multi-sprint effort.",
+      "Color governance works best when it is lightweight and asynchronous. High-ceremony processes (design review boards, approval workflows for every color addition) slow the team and create workarounds. Low-ceremony processes (a shared Slack channel, a PR template that includes 'color tokens affected: none/existing/new/breaking') keep governance visible without creating bottlenecks."
+    ],
+    "sections": [
+      {
+        "heading": "Token tiers and change frequency",
+        "body": "A practical three-tier token architecture for large teams: Tier 1 — primitive tokens (all color values in the system, named by color). Change frequency: rare. When a primitive changes, everything that references it changes automatically. Tier 2 — semantic tokens (role-mapped: --color-action, --color-surface, --color-text-primary). Change frequency: infrequent. These are the API of the design system — changing them is a breaking change. Tier 3 — component tokens (--button-primary-bg, --card-surface). Change frequency: moderate. Component tokens reference semantic tokens and can be overridden for theming without touching the semantic layer. The discipline: Tier 3 must only reference Tier 2, and Tier 2 must only reference Tier 1. Cross-tier references (a component token referencing a primitive directly) create maintenance debt."
+      },
+      {
+        "heading": "Detecting and correcting color drift",
+        "body": "Color drift — gradual deviation from the token system through incremental decisions — is hard to see in a running product and expensive to correct at scale. Prevention tools: (1) Automated linting — tools like Stylelint with a custom config can flag hardcoded hex values or colors that are not in the token vocabulary. Run in CI. (2) Figma variable audit — periodically compare the Figma library variable list against the production token file. Any Figma variable that has no production token equivalent is an unauthorized extension. (3) A 'color decision log' — a lightweight shared document where new color decisions (additions, semantic mappings, component-level overrides) are recorded with a brief rationale. Review quarterly. The log surfaces patterns of inadequacy in the token system before they become systemic workarounds."
+      }
+    ],
+    "links": [
+      {
+        "label": "Design Token Generator",
+        "href": "/tokens/"
+      },
+      {
+        "label": "Complete Archive",
+        "href": "/packs/complete-archive/"
+      },
+      {
+        "label": "Color naming guide",
+        "href": "/guides/color-naming-design-systems-guide/"
+      }
+    ]
   }
 ]

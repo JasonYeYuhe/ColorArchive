@@ -163,6 +163,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.84,
     },
     {
+      url: "https://colorarchive.me/image-palette/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.86,
+    },
+    {
       url: "https://colorarchive.me/tokens/",
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",

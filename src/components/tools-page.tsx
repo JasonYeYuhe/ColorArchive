@@ -128,6 +128,15 @@ const TOOLS: Tool[] = [
     accent: "bg-orange-100 text-orange-700",
   },
   {
+    href: "/image-palette/",
+    icon: "⬒",
+    nameKey: "tools.imagePalette.name",
+    descKey: "tools.imagePalette.desc",
+    categoryKey: "tools.cat.analysis",
+    badgeKey: "tools.badge.new",
+    accent: "bg-pink-100 text-pink-700",
+  },
+  {
     href: "/tokens/",
     icon: "⬡",
     nameKey: "tools.tokens.name",

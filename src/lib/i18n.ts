@@ -27,6 +27,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.colorblind": { en: "Colorblind", zh: "色盲模拟" },
   "nav.brand": { en: "Brand System", zh: "品牌色系" },
   "nav.wcagAudit": { en: "WCAG Audit", zh: "批量检测" },
+  "nav.imagePalette": { en: "Image Extractor", zh: "图片取色" },
   "nav.apiDocs": { en: "Color API", zh: "颜色 API" },
   "nav.figmaPlugin": { en: "Figma Plugin", zh: "Figma 插件" },
   "nav.surprise": { en: "Surprise", zh: "随机发现" },
@@ -1893,6 +1894,11 @@ const translations: Record<string, Record<string, string>> = {
   "tools.tokens.desc": {
     en: "Generate a complete token system from any brand color — primary, neutral, and semantic scales. Export as CSS vars, Tailwind, SCSS, or JSON.",
     zh: "从任意品牌色生成完整设计令牌系统——主色、中性色和语义色阶。导出为 CSS 变量、Tailwind、SCSS 或 JSON。",
+  },
+  "tools.imagePalette.name": { en: "Image Color Extractor", zh: "图片取色器" },
+  "tools.imagePalette.desc": {
+    en: "Upload any photo or design to extract its dominant color palette. Get hex, RGB, and HSL values. Find the closest ColorArchive match for each color.",
+    zh: "上传任意图片或设计稿，提取其主要色彩。获取 Hex、RGB 和 HSL 值，并匹配最接近的 ColorArchive 颜色。",
   },
   "tools.figmaPlugin.name": { en: "Figma Plugin", zh: "Figma 插件" },
   "tools.figmaPlugin.desc": {
