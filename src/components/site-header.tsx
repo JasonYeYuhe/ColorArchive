@@ -207,9 +207,10 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
 
       {/* Mobile full menu */}
       {isMenuOpen ? (
-        <div
+        <nav
           id="mobile-site-menu"
           className="mx-auto mt-2 w-full max-w-[1600px] rounded-[1.35rem] border border-black/6 bg-white/92 p-4 shadow-[0_18px_48px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-neutral-900/92 sm:hidden"
+          aria-label="Mobile menu"
         >
           <div className="space-y-4">
             <div>
@@ -262,7 +263,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
               </div>
             ))}
           </div>
-        </div>
+        </nav>
       ) : null}
     </header>
     </>
@@ -350,6 +351,8 @@ function NavDropdown({ group, currentPath, t }: { group: NavGroup; currentPath: 
         ref={btnRef}
         type="button"
         onClick={() => { updatePos(); setOpen((o) => !o); }}
+        aria-haspopup="menu"
+        aria-expanded={open}
         className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-medium transition ${
           hasActiveItem
             ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
@@ -368,12 +371,15 @@ function NavDropdown({ group, currentPath, t }: { group: NavGroup; currentPath: 
           style={{ top: pos.top, left: pos.left }}
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
+          role="menu"
+          aria-label={t(group.labelKey)}
         >
           {group.items.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
+              role="menuitem"
               className={`block px-3.5 py-1.5 text-sm font-medium transition ${
                 isActive(item, currentPath)
                   ? "bg-neutral-100 text-neutral-950 dark:bg-white/10 dark:text-white"
@@ -427,6 +433,7 @@ function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l
         onClick={() => setOpen(!open)}
         className="rounded-full border border-black/8 bg-white/85 px-2.5 py-2 text-xs font-semibold tracking-wide text-neutral-500 transition hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white/14"
         aria-label="Switch language"
+        aria-haspopup="menu"
         aria-expanded={open}
       >
         {current.label}
@@ -436,11 +443,14 @@ function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l
           ref={menuRef}
           className="fixed z-[9999] min-w-[7rem] rounded-xl border border-black/8 bg-white py-1 shadow-lg dark:border-white/10 dark:bg-neutral-900"
           style={{ top: pos.top, left: pos.left }}
+          role="menu"
+          aria-label="Language options"
         >
           {LOCALE_OPTIONS.map((opt) => (
             <button
               key={opt.code}
               type="button"
+              role="menuitem"
               onClick={() => { setLocale(opt.code); setOpen(false); }}
               className={`block w-full px-3 py-1.5 text-left text-xs font-medium transition hover:bg-neutral-50 dark:hover:bg-white/8 ${
                 opt.code === locale ? "text-neutral-950 dark:text-white" : "text-neutral-500 dark:text-neutral-400"

@@ -109,6 +109,8 @@ export function PaletteBuilderTray() {
           ? "inset-x-3 bottom-3 sm:bottom-6 sm:left-1/2 sm:right-auto sm:inset-x-auto sm:-translate-x-1/2"
           : "bottom-3 right-3 sm:bottom-6 sm:left-1/2 sm:right-auto sm:-translate-x-1/2"
       }`}
+      role="region"
+      aria-label="Palette builder"
     >
       <div className="rounded-[1.6rem] border border-black/10 bg-white/92 shadow-[0_24px_64px_rgba(15,23,42,0.18)] backdrop-blur-xl">
         {isOpen ? (

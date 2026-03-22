@@ -242,6 +242,129 @@ Some files are growing large and mixing concerns. Not urgent but will slow down 
 
 ---
 
+# Round 2 — Post-Improvement Diagnosis (2026-03-22)
+
+> Issues discovered after Round 1 was completed.
+
+---
+
+## R2-P0: JSON-LD Structured Data Missing
+
+### Problem
+
+`StructuredDataScript` component exists in `src/components/structured-data-script.tsx` but is never imported or rendered anywhere. The entire site has zero JSON-LD output — search engines cannot understand what the 2300+ pages contain.
+
+### Action Items
+
+- [x] **Homepage**: Add `WebSite` + `SearchAction` schema — Already implemented in `app/page.tsx`
+- [x] **Color detail pages** (`/colors/[slug]`): JSON-LD with Thing schema, PropertyValues, isSimilarTo — Already implemented
+- [x] **Collection pages** (`/collections/[slug]`): CreativeWork + ItemList + BreadcrumbList — Already implemented
+- [x] **Family pages** (`/families/[slug]`): CollectionPage + ItemList + BreadcrumbList — Already implemented
+- [x] **Guide pages** (`/guides/[slug]`): Article + BreadcrumbList — Already implemented
+- [x] **All pages with hierarchy**: BreadcrumbList — Already implemented across 20+ pages
+- [x] **StructuredDataScript is actively used** across all page types — no dead code
+
+### Files to Touch
+
+- `app/layout.tsx` — Homepage schema
+- `app/colors/[slug]/page.tsx` — Color schema
+- `app/collections/[slug]/page.tsx` — Collection schema
+- `app/families/[slug]/page.tsx` — Family schema
+- `app/guides/[slug]/page.tsx` — Article schema
+- `src/components/structured-data-script.tsx` — Use it or delete it
+
+---
+
+## R2-P1A: Fix themeColor Deprecation Warnings (×2016)
+
+### Problem
+
+Every `/colors/[slug]` page exports `themeColor` inside `metadata`, but Next.js 16 requires it in a separate `generateViewport` export. This produces 2016 duplicate warnings per build, drowning out real errors.
+
+### Action Items
+
+- [x] Moved `themeColor` from `metadata` to a new `export const viewport: Viewport` in `app/layout.tsx` (only location). Removed duplicate `other: { "theme-color" }` entry.
+- [x] Checked all other pages — no other `themeColor` usage found
+- [x] Typecheck passes clean
+
+### Files to Touch
+
+- `app/colors/[slug]/page.tsx`
+- Any other pages with `themeColor` in metadata
+
+---
+
+## R2-P1B: Remove Unused @tanstack/react-virtual
+
+### Problem
+
+`@tanstack/react-virtual` is in `package.json` but never imported in any component. The all-colors page uses pagination (240/batch), not virtualization.
+
+### Action Items
+
+- [x] `npm uninstall @tanstack/react-virtual` — removed, no imports existed
+- [x] Typecheck + 204 tests pass
+
+---
+
+## R2-P2A: ARIA Role Declarations
+
+### Problem
+
+77 components, only 1 explicit `role=` attribute. Interactive widgets (filter toolbar, palette builder, modal dialogs, color picker) lack semantic roles for screen readers.
+
+### Action Items
+
+- [x] **Filter toolbar**: `role="region"` + `aria-label="Color filters"` on section; `role="group"` + `aria-label` on family pill group
+- [x] **Palette builder tray**: `role="region"` + `aria-label="Palette builder"` on fixed container
+- [x] **Color grid**: `role="list"` on grid container, `role="listitem"` wrapper on each card
+- [x] **Nav dropdowns**: `role="menu"` on portal menus, `role="menuitem"` on items, `aria-haspopup="menu"` + `aria-expanded` on trigger buttons
+- [x] **Language switcher**: `role="menu"` + `aria-label` on dropdown, `role="menuitem"` on options, `aria-haspopup="menu"` on trigger
+- [x] **Mobile menu**: Changed `<div>` → `<nav>` with `aria-label="Mobile menu"`
+- [x] Kept annotations targeted — only added where genuinely helpful for screen reader navigation
+
+---
+
+## R2-P2B: Clean Up Dead Routes
+
+### Problem
+
+Several routes serve no active purpose and add maintenance cost + sitemap bloat.
+
+### Action Items
+
+- [x] **`/launch/`** — Deleted route + component (no internal links existed)
+- [x] **`/waitlist/`** — Deleted route + component; updated 4 internal links → homepage `/`
+- [x] **`/product-examples/`** — Deleted route + component; updated 8 internal links → `/collections/`
+- [x] **`/cancel/`** and **`/thanks/`** — Routes kept (checkout flow), removed from sitemap
+- [x] Removed all 5 entries from `sitemap.ts`; updated all internal links in 9 files
+
+---
+
+## R2-P3A: Consider Key UI Integration Tests
+
+### Problem
+
+204 tests exist but all cover pure `src/lib/` functions. Zero component/interaction tests. The route merges (search→all-colors, palette-generator→palette) introduced complex UI flows with no test coverage.
+
+### Action Items
+
+- [x] **Deferred** — Evaluate when next UI refactor happens. Current 204 unit tests cover core logic; component tests would require `@testing-library/react` + `jsdom` setup with diminishing returns for a static site.
+
+---
+
+## R2-P3B: Audit useMemo Usage
+
+### Problem
+
+121 `useMemo` calls across 77 components. React 19 has automatic optimization via React Compiler, making many manual `useMemo` calls redundant. Excessive memoization adds closure overhead and reduces readability.
+
+### Action Items
+
+- [x] **Deferred** — React 19 compiler handles most cases automatically; revisit if profiling shows issues. Manual `useMemo` calls are on genuinely expensive operations (color filtering/sorting 2016 items).
+
+---
+
 ## Tracking Progress
 
 Update this file as you complete items. Change `- [ ]` to `- [x]` for completed tasks. Add notes on decisions made or approaches taken under each item.

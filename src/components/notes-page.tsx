@@ -46,7 +46,7 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
                     Read latest issue
                   </Link>
                   <Link
-                    href="/waitlist/"
+                    href="/"
                     className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                   >
                     Join email updates
@@ -69,7 +69,7 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
               </p>
             </div>
             <Link
-              href="/waitlist/"
+              href="/"
               className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
             >
               Join email updates

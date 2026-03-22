@@ -165,7 +165,7 @@ export function SupportPage() {
                 Browse collections
               </Link>
               <Link
-                href="/waitlist/"
+                href="/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Product updates
@@ -177,7 +177,7 @@ export function SupportPage() {
                 Account & orders
               </Link>
               <Link
-                href="/product-examples/"
+                href="/collections/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Product examples

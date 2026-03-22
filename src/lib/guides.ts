@@ -142,7 +142,7 @@ export const landingGuides: LandingGuide[] = [
     links: [
       { label: "Get the Free Sample Pack", href: "/free-pack/" },
       { label: "Open Creator Bundle", href: "/packs/content-creator-bundle/" },
-      { label: "Open product examples", href: "/product-examples/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
   {

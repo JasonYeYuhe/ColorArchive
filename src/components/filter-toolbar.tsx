@@ -39,6 +39,8 @@ export function FilterToolbar({
     <section
       id="archive"
       className="glass-panel rounded-[1.75rem] p-4 sm:p-5 lg:sticky lg:top-4 lg:z-10"
+      role="region"
+      aria-label="Color filters"
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -112,7 +114,7 @@ export function FilterToolbar({
         </div>
 
         <div className="-mx-1 overflow-x-auto pb-1 sm:mx-0 sm:overflow-visible">
-          <div className="flex min-w-max gap-2 px-1 sm:min-w-0 sm:flex-wrap sm:px-0">
+          <div className="flex min-w-max gap-2 px-1 sm:min-w-0 sm:flex-wrap sm:px-0" role="group" aria-label="Color family filter">
             <button
               type="button"
               onClick={() => onFamilyChange("All")}

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { AuthProvider } from "@/src/components/auth-provider";
 import { ThemeProvider } from "@/src/components/theme-provider";
 import { SiteFooter } from "@/src/components/site-footer";
@@ -40,10 +40,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f6f4ef" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-  ],
   openGraph: {
     title: siteTitle,
     description: siteDescription,
@@ -69,9 +65,13 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  other: {
-    "theme-color": "#f6f4ef",
-  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f4ef" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 const themeScript = `

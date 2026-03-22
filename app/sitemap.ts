@@ -101,24 +101,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: "https://colorarchive.me/waitlist/",
-      lastModified: MARCH_18,
-      changeFrequency: "weekly",
-      priority: 0.75,
-    },
-    {
-      url: "https://colorarchive.me/thanks/",
-      lastModified: MARCH_19,
-      changeFrequency: "monthly",
-      priority: 0.55,
-    },
-    {
-      url: "https://colorarchive.me/cancel/",
-      lastModified: MARCH_21,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
       url: "https://colorarchive.me/packs/",
       lastModified: MARCH_21,
       changeFrequency: "weekly",
@@ -167,12 +149,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
-      url: "https://colorarchive.me/product-examples/",
-      lastModified: new Date("2026-03-18"),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
       url: "https://colorarchive.me/free-pack/",
       lastModified: new Date("2026-03-18"),
       changeFrequency: "weekly",
@@ -183,12 +159,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: MARCH_19,
       changeFrequency: "weekly",
       priority: 0.8,
-    },
-    {
-      url: "https://colorarchive.me/launch/",
-      lastModified: MARCH_20,
-      changeFrequency: "monthly",
-      priority: 0.7,
     },
   ];
 

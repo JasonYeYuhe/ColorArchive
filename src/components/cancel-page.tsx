@@ -123,7 +123,7 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
                 {t("cancel.free.cta")}
               </Link>
               <Link
-                href="/product-examples/"
+                href="/collections/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 {t("cancel.free.proof")}
@@ -207,7 +207,7 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
                 {t("cancel.questions.freeSample")}
               </Link>
               <Link
-                href="/product-examples/"
+                href="/collections/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 {t("cancel.questions.proof")}
