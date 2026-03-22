@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { useLocale } from "@/src/components/locale-provider";
 import { addToPalette, getPaletteIds, subscribeToPalette, MAX_SIZE } from "@/src/lib/palette-builder";
@@ -13,7 +13,7 @@ interface ColorCardProps {
   onSelect?: (colorId: string) => void;
 }
 
-export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProps) {
+export const ColorCard = memo(function ColorCard({ color, isSelected = false, onSelect }: ColorCardProps) {
   const { t } = useLocale();
   const [copied, setCopied] = useState(false);
   const [inPalette, setInPalette] = useState(false);
@@ -178,4 +178,4 @@ export function ColorCard({ color, isSelected = false, onSelect }: ColorCardProp
       </div>
     </div>
   );
-}
+});

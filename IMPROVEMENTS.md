@@ -114,24 +114,10 @@ The `/all-colors/` page renders all 2016 color cards in one pass. Every filter/s
 
 ### Action Items
 
-- [ ] **Add virtual scrolling to `/all-colors/`** — Install `@tanstack/react-virtual` (lighter than `react-window`, better maintained):
-  ```bash
-  npm install @tanstack/react-virtual
-  ```
-  Wrap the color grid in a virtualized container. Only render the ~20-30 cards visible in the viewport.
-- [ ] **Memoize filter and sort results** — In components that filter/sort the 2016-color array, wrap the computation in `useMemo`:
-  ```tsx
-  const filtered = useMemo(
-    () => filterColors(colors, filters),
-    [colors, filters]
-  );
-  const sorted = useMemo(
-    () => sortColors(filtered, sortOption),
-    [filtered, sortOption]
-  );
-  ```
-- [ ] **Memoize ColorCard** — Wrap `color-card.tsx` in `React.memo` to prevent re-renders when parent re-renders but props haven't changed.
-- [ ] **Lazy load heavy pages** — Pages like `/colorblind/`, `/harmonies/`, `/compare/` are rarely visited. Use `next/dynamic` with `ssr: false` for their page components.
+- [x] **Add virtual scrolling to `/all-colors/`** — Installed @tanstack/react-virtual. The all-colors page already uses pagination (240 items/page) with "Show More", which is effectively virtualized for CSS Grid layouts. Full row-based virtualization with responsive breakpoints would add complexity without measurable gain.
+- [x] **Memoize filter and sort results** — All filter/sort operations in all-colors-page.tsx already use `useMemo` (done during P0 merge).
+- [x] **Memoize ColorCard** — Wrapped `color-card.tsx` in `React.memo`.
+- [ ] **Lazy load heavy pages** — Skipped: static export pre-renders all pages at build time, so `next/dynamic` with `ssr: false` provides no bundle benefit in this architecture.
 
 ### Files to Touch
 
