@@ -807,3 +807,49 @@ collections.push(
     },
   ),
 );
+
+collections.push(
+  createCollection(
+    "cobalt-morning",
+    "Cobalt Morning",
+    "Cool cobalt and sapphire blues in a range from pale mist to deep velvet — for productivity tools, SaaS dashboards, and focus-oriented product UI.",
+    "A blue-dominant palette spanning from near-white cool blues to a deep cobalt velvet, with enough tonal variation to build a complete interface hierarchy from a single hue family. The cobalt-mist-muted is the palette entry point: an airy, barely-blue surface color that reads as a refreshed white alternative for application backgrounds. The azure-pearl-soft provides the next step down — visible but still light, appropriate for card surfaces, sidebar fills, or secondary containers. The cerulean-tone-soft is the palette's mid-value workhorse: saturated enough to read as deliberate blue without being heavy, suited to navigation elements, selected states, and section headings. The cobalt-velvet-clear is the concentrated payload of the palette — a rich, mid-dark blue with enough chroma to function as a primary action color or brand identifier without requiring the full saturation of a vivid. The sapphire-shadow-soft anchors the dark end: deep, slightly desaturated, useful for text, dark headers, or near-neutral dark fills. This palette avoids the cold, corporate feeling of a generic blue system by ranging from warm-white entry tones to blue-dominant but not harsh midpoints. Use it for productivity software, professional service dashboards, or technology products where calm focus and quiet authority are the primary emotional goals.",
+    ["Productivity", "SaaS", "Focus"],
+    [
+      "cobalt-mist-muted",
+      "azure-pearl-soft",
+      "cerulean-tone-soft",
+      "cobalt-velvet-clear",
+      "sapphire-shadow-soft",
+    ],
+    {
+      editorialNote:
+        "This palette works because it builds a complete tonal range from a single blue-cobalt region of the spectrum rather than mixing multiple hue families. The result is cohesive without being monotonous — each entry is distinguishable by lightness while the family relationship is always evident. Assign roles clearly: cobalt-mist-muted for backgrounds, azure-pearl-soft for cards, cerulean-tone-soft for interactive elements, cobalt-velvet-clear for primary CTAs, sapphire-shadow-soft for body text and deep fills. In dark mode, reverse the weight: sapphire-shadow-soft becomes the background, cobalt-velvet-clear the elevated surface, and cerulean-tone-soft the interactive accent.",
+      promptWords: ["early morning desk light", "open browser at 7am", "cobalt ceramic coffee mug", "clear blue morning sky", "focused work session"],
+      useCases: ["SaaS product dashboards", "Productivity and focus apps", "Professional services web presence", "Technical documentation sites"],
+    },
+  ),
+);
+
+collections.push(
+  createCollection(
+    "sage-fog",
+    "Sage Fog",
+    "Soft sage greens, muted moss, and quiet jade for wellness, editorial, and calm digital experiences.",
+    "A green-dominant palette positioned in the grey-green sage territory — not the vivid mint of nature palettes nor the deep emerald of luxury collections, but the quieter mid-green range that designers reach for when they want calm, breath, and organic warmth without natural drama. The moss-whisper-muted is the palette's lightest entry: a green so desaturated it reads as a warm off-white with a subtle green cast — the exact background tone that photography-heavy layouts and reading-optimized interfaces benefit from. The leaf-silk-soft provides the palette's clearest expression of the sage-green identity at mid-lightness — a tone that reads unmistakably as plant matter but without any brightness or shout. The olive-mist-muted shifts the palette toward the yellow-green territory at a very pale lightness — a whisper olive that works as a differentiated secondary surface or subtle highlight. The jade-bloom-soft is the palette's mid-dark and most verdant entry — a soft jade that introduces depth and a slightly cooler green temperature. The seafoam-tone-muted is the neutralizing entry: a sage-adjacent tone that bridges green and blue-green, preventing the palette from reading as too warm or too botanical while maintaining the family coherence. Together, these five entries provide enough range for a complete design system built on the sage-green register.",
+    ["Wellness", "Editorial", "Calm"],
+    [
+      "moss-whisper-muted",
+      "leaf-silk-soft",
+      "olive-mist-muted",
+      "jade-bloom-soft",
+      "seafoam-tone-muted",
+    ],
+    {
+      editorialNote:
+        "Sage-green palettes succeed when they resist the temptation toward brightness. Every entry here is below the saturation threshold where green starts reading as energetic, natural, or verdant, which allows the palette to read instead as calm, minimal, and considered. The moss-whisper-muted background creates the effect of slightly warm paper — a better reading surface than pure white for long-form content. Use jade-bloom-soft for primary interactive elements and seafoam-tone-muted for secondary actions to maintain the palette's visual quietness even at the action layer. Pairs well with warm grey type rather than cool dark grey or black, and with botanical photography styled at muted, ambient light rather than high-contrast natural lighting.",
+      promptWords: ["morning steam over still water", "sage bundle drying", "grey-green linen curtain", "moss covered stone garden", "quiet botanical library"],
+      useCases: ["Wellness and mindfulness apps", "Plant-based food and supplement brands", "Editorial and long-form reading interfaces", "Natural beauty and skincare"],
+    },
+  ),
+);

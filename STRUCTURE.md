@@ -259,10 +259,10 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Content | Count |
 |---------|-------|
 | Colors | 2016 |
-| Collections | 37 |
+| Collections | 39 |
 | Palette packs | 7 |
 | SEO guides | 73 |
-| Newsletter issues | 102 |
+| Newsletter issues | 106 |
 | Color families | 9 |
 | Tool pages | 13 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz, colorblind, tints, mixer) |
 | i18n keys | ~710+ (EN/ZH) |

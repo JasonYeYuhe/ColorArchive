@@ -390,26 +390,31 @@ const SUBJECT_VARIANTS = {
     A: "How to use your ColorArchive palette in code",
     B: "3 steps to drop your free palette into any project",
     C: "Your free palette pack — getting started",
+    D: "CSS variables, Figma tokens, and JSON — all in the pack",
   },
   day7: {
     A: "ColorArchive catalog preview — find the pack that fits your project",
     B: "Which ColorArchive pack matches what you're building?",
     C: "One palette library, every format you need",
+    D: "The 2016-color library — organized for real projects",
   },
   day14: {
     A: "10% off your first ColorArchive pack — code FIRSTPACK",
     B: "Your FIRSTPACK discount expires in 7 days",
     C: "A discount for your first ColorArchive pack — use FIRSTPACK",
+    D: "A week left to use FIRSTPACK — 10% off any pack",
   },
   day21: {
     A: "Three things you can build with a ColorArchive palette today",
     B: "Color ideas for your next project — from the archive",
     C: "Practical color: three real starting points",
+    D: "What 2016 colors give you that 5 could not",
   },
   day30: {
     A: "Your ColorArchive palette — one month on",
     B: "The pack that pays for itself in one project",
     C: "What designers do after the free pack",
+    D: "Still building with the free pack? Here is what comes next",
   },
 };
 
@@ -769,6 +774,73 @@ async function sendFollowUp30DayEmail(to, { variant = "A" } = {}) {
   }
   return result;
 }
+
+// Newsletter issue alert — sent to subscribers when a new note is published
+async function sendNewsletterIssueAlert(to, { issue, unsubscribeToken = null } = {}) {
+  if (!issue || !issue.slug || !issue.title) {
+    throw new Error("sendNewsletterIssueAlert: issue must have slug and title");
+  }
+  const issueUrl = `https://colorarchive.me/notes/${issue.slug}`;
+  const unsubscribeUrl = unsubscribeToken
+    ? `https://colorarchive.me/unsubscribe?token=${unsubscribeToken}`
+    : "https://colorarchive.me/unsubscribe";
+
+  const highlightLines = Array.isArray(issue.highlights) && issue.highlights.length > 0
+    ? issue.highlights.slice(0, 3).map((h) => `• ${h}`).join("\n")
+    : "";
+
+  const result = await resend.emails.send({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject: issue.title,
+    text: [
+      issue.eyebrow ? `${issue.eyebrow} — ColorArchive Notes` : "ColorArchive Notes",
+      "",
+      issue.title,
+      "",
+      issue.summary || "",
+      "",
+      highlightLines,
+      "",
+      `Read the full note: ${issueUrl}`,
+      "",
+      "— ColorArchive",
+      "https://colorarchive.me",
+      "",
+      `Unsubscribe: ${unsubscribeUrl}`,
+    ].filter((l) => l !== null).join("\n"),
+    html: `
+      <div style="font-family:sans-serif;max-width:520px;margin:0 auto">
+        ${issue.eyebrow ? `<p style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#9ca3af;font-weight:600;margin:0 0 12px">${issue.eyebrow} — ColorArchive Notes</p>` : ""}
+        <h2 style="color:#111827;font-size:20px;line-height:1.4;margin:0 0 12px">${issue.title}</h2>
+        ${issue.summary ? `<p style="color:#374151;line-height:1.7;font-size:15px;margin:0 0 20px">${issue.summary}</p>` : ""}
+        ${highlightLines ? `
+        <div style="background:#f9fafb;border-left:3px solid #d1d5db;padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0">
+          ${issue.highlights.slice(0, 3).map((h) =>
+            `<p style="margin:0 0 10px;color:#374151;font-size:13px;line-height:1.6;last-child:margin-bottom:0">${h}</p>`
+          ).join("")}
+        </div>` : ""}
+        <a href="${issueUrl}"
+           style="display:inline-block;background:#111827;color:#fff;padding:11px 22px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
+          Read the full note →
+        </a>
+        <hr style="border:none;border-top:1px solid #f3f4f6;margin:28px 0">
+        <p style="color:#9ca3af;font-size:11px;line-height:1.6">
+          ColorArchive · <a href="https://colorarchive.me" style="color:#9ca3af">colorarchive.me</a>
+          &nbsp;·&nbsp;
+          <a href="${unsubscribeUrl}" style="color:#9ca3af">Unsubscribe</a>
+        </p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (newsletter issue alert):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
 module.exports = {
   sendFreePackEmail,
   sendFollowUp3DayEmail,
@@ -779,4 +851,5 @@ module.exports = {
   sendMagicLinkEmail,
   sendOrderConfirmationEmail,
   sendWaitlistConfirmationEmail,
+  sendNewsletterIssueAlert,
 };
