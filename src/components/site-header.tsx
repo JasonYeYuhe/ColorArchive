@@ -329,7 +329,7 @@ function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l
         {current.label}
       </button>
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-1.5 min-w-[7rem] rounded-xl border border-black/8 bg-white py-1 shadow-lg dark:border-white/10 dark:bg-neutral-900">
+        <div className="absolute right-0 bottom-full z-50 mb-1.5 min-w-[7rem] max-h-[60vh] overflow-y-auto rounded-xl border border-black/8 bg-white py-1 shadow-lg dark:border-white/10 dark:bg-neutral-900">
           {LOCALE_OPTIONS.map((opt) => (
             <button
               key={opt.code}
