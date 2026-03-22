@@ -623,3 +623,49 @@ collections.push(
     },
   ),
 );
+
+collections.push(
+  createCollection(
+    "spiced-amber",
+    "Spiced Amber",
+    "Warm amber, ember, and honey tones at rich mid-depth for autumn campaigns, artisan food brands, and harvest-season editorial.",
+    "A palette assembled from the warmest, most saturated corner of the amber-to-ember spectrum — the zone that evokes toasted grain, aged spirits, warm autumn light, and hand-thrown ceramics. The amber-velvet-clear sits at the core: vivid enough to anchor the palette but deep enough to feel grown rather than bright. The ember-tone-soft provides a softer, more russet note in the mid-lightness range. The honey-silk-soft adds the golden register — warm, luminous, carrying the same quality as late afternoon light through amber glass. These five tones build a cohesive warm-spectrum range from deep terracotta to light honey. This palette works for: autumn campaign identities, artisanal food and beverage brands (honey, spice, small-batch spirits), warm editorial layouts, harvest and seasonal promotions, and any brand that wants to communicate craft and warmth through its color system.",
+    ["Warm", "Autumnal", "Artisan"],
+    [
+      "amber-velvet-clear",
+      "ember-tone-soft",
+      "honey-silk-soft",
+      "coral-dusk-muted",
+      "apricot-velvet-muted",
+    ],
+    {
+      editorialNote:
+        "Use when warmth needs to feel earned and aged rather than cheerful and bright. The vivid amber-velvet-clear is the most saturated entry — use it for accents and interactive states. The muted tones (coral-dusk-muted, apricot-velvet-muted) carry large surfaces and backgrounds. Pair with dark walnut or near-black type rather than a cold ink for temperature consistency.",
+      promptWords: ["aged bourbon bottle", "toasted spice jar", "harvest moon light", "amber jam jar", "autumn orchard"],
+      useCases: ["Artisan food and beverage brands", "Autumn campaign identities", "Warm editorial layouts"],
+    },
+  ),
+);
+
+collections.push(
+  createCollection(
+    "cerulean-depth",
+    "Cerulean Depth",
+    "Deep cerulean, sapphire, and cobalt tones at shadow and velvet lightness — for enterprise tech, analytics, and corporate digital products.",
+    "A palette drawn from the deep register of the blue-to-teal spectrum: the zone below the midpoint where blues become authoritative rather than playful, and where the color communicates stability, precision, and considered intelligence. The cobalt-dusk-clear is the palette's most saturated entry — a vivid deep cobalt that reads as active and capable without the aggression of a pure electric blue. The cerulean-shadow-clear provides a darker, more receded tone for large surfaces and backgrounds in dark-mode contexts. The azure-velvet-soft bridges the gap to a slightly warmer register, preventing the palette from reading as cold. The sapphire-nocturne-muted is the deepest entry: near-navy, capable of serving as a near-black alternative in contexts where pure black feels too harsh. The teal-shadow-soft adds a slight green note as a secondary accent, preventing full monochromatism. This palette works for: enterprise software, analytics dashboards, financial data platforms, corporate digital products that need authority without the warmth of consumer brand palettes.",
+    ["Deep", "Corporate", "Authoritative"],
+    [
+      "cobalt-dusk-clear",
+      "cerulean-shadow-clear",
+      "azure-velvet-soft",
+      "sapphire-nocturne-muted",
+      "teal-shadow-soft",
+    ],
+    {
+      editorialNote:
+        "Use when blue needs to communicate authority and intelligence rather than friendliness or energy. The depth in this palette comes from low lightness, not high saturation — a restraint that distinguishes it from the vivid tech palettes of consumer apps. Pair with pure white or very light off-white type rather than warm or tinted whites. Works equally well in light and dark interface contexts.",
+      promptWords: ["depth sonar display", "late-night research station", "pressure-resistant instrument casing", "deep ocean chart", "enterprise data terminal"],
+      useCases: ["Enterprise software and analytics", "Financial data platforms", "Corporate digital products"],
+    },
+  ),
+);

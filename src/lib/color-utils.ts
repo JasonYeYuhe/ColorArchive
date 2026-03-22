@@ -341,6 +341,27 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   portrait: ["blush", "ivory", "peony", "amber", "pearl"],
   product_photo: ["ivory", "pearl", "frost", "veil", "muted"],
   // Seasonal extended
+  // Real estate & property aliases
+  real_estate: ["navy", "cream", "ivory", "forest", "muted"],
+  property: ["ivory", "pearl", "forest", "navy", "slate"],
+  luxury_home: ["ivory", "onyx", "garnet", "muted", "pearl"],
+  coastal_home: ["azure", "cerulean", "mist", "pearl", "ivory"],
+  farmhouse: ["ivory", "clay", "amber", "sage", "linen"],
+  modern_home: ["ink", "ivory", "slate", "ash", "cobalt"],
+  // Packaging & print aliases
+  packaging_design: ["ivory", "pearl", "amber", "muted", "warm"],
+  print_design: ["ivory", "pearl", "muted", "cobalt", "crimson"],
+  pantone: ["coral", "cobalt", "vivid", "clear", "muted"],
+  shelf: ["vivid", "clear", "coral", "citrine", "cobalt"],
+  // Data visualization aliases
+  data_viz: ["cobalt", "teal", "coral", "amber", "moss"],
+  dashboard: ["cobalt", "azure", "ink", "frost", "vivid"],
+  chart: ["cobalt", "coral", "amber", "moss", "violet"],
+  analytics: ["cobalt", "azure", "teal", "ink", "vivid"],
+  // Photography aliases
+  photo_grade: ["amber", "coral", "teal", "ivory", "shadow"],
+  film_look: ["amber", "teal", "shadow", "muted", "ivory"],
+  split_tone: ["amber", "teal", "shadow", "ivory", "soft"],
   monsoon: ["teal", "cobalt", "slate", "jade", "muted"],
   harvest: ["amber", "ember", "rust", "sienna", "honey"],
 };

@@ -2705,3 +2705,99 @@ export const moreGuides: LandingGuide[] = [
 ];
 
 landingGuides.push(...moreGuides);
+
+// Additional guides — batch 3
+export const extraGuides3: LandingGuide[] = [
+  {
+    category: "Industry Palettes",
+    slug: "color-palette-for-real-estate",
+    title: "Color Palettes for Real Estate: Trust, Premium, and Regional Variation",
+    summary:
+      "Real estate is one of the highest-trust, highest-stakes purchase categories in consumer life. Color design for real estate brands must communicate credibility, stability, and local authority — while distinguishing the brand from the visual monotony of the sector. Most real estate brands default to blue-and-white, burgundy-and-gold, or dark-green-and-cream. These conventions exist for valid psychological reasons, and understanding them allows designers to either reinforce them (for maximum trust) or break them strategically (for differentiation in a specific market segment).",
+    eyebrow: "Industry Palettes Guide",
+    priority: 69,
+    searchIntent: "real estate color palette, property brand colors, realtor brand design, luxury real estate colors, real estate website color scheme",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Industry Palettes", "Brand Design"],
+    highlights: [
+      "The dominant real estate color conventions by market segment: corporate/national agencies (navy, white, red accents — authority, national reach), luxury residential (dark green, cream, gold — heritage, wealth, landscape), modern boutique agencies (warm neutrals, black, off-white — editorial, taste-making), and proptech/digital-first (cobalt, white, vivid accents — technology, speed, modernity). Each palette signals a different value proposition before a word of copy is read.",
+      "Trust signals in real estate color are the same as in financial services: dark navy, forest green, deep gray, and warm off-white consistently outperform vivid and saturated palettes in trust testing for high-stakes purchase decisions. The psychological connection is to institutions (banks, law firms, government buildings) that have historically used these colors to communicate permanence and reliability. Vivid colors in real estate branding read as disruptive tech startups or budget brokers — useful positioning for some brands, but incompatible with luxury positioning.",
+      "Regional and local color varies significantly in real estate. Coastal markets tend toward lighter, airier palettes (soft blues, cream, warm white) that reference the environment and lifestyle. Urban markets (New York, London) favor editorial dark palettes (black, charcoal, off-white) that communicate sophisticated city taste. Mountain/resort markets use forest green, warm wood tones, and stone palettes that reference the natural landscape. Anchoring brand color to regional environment is a differentiating move that national brands cannot replicate — a local advantage worth using.",
+    ],
+    sections: [
+      {
+        heading: "The trust palette: why real estate gravitates toward dark and restrained",
+        body: "Real estate transactions involve the largest purchase decision most consumers will make, with decision timelines of weeks to months and significant personal and financial risk. In high-stakes purchase contexts, color psychology research consistently shows preference for restrained, institutionally coded palettes — dark blue, forest green, deep gray, and warm off-white — over vivid, saturated, or unconventional colors. These colors are associated with banks, law firms, insurance companies, and financial institutions — all categories that handle significant assets and are expected to communicate stability. Real estate brands borrowing from this institutional vocabulary inherit its trust associations. The risk of this approach: the category becomes visually homogeneous. The opportunity: a brand that masters the trust palette and adds a single distinctive element (an unusual typeface, a signature green, an editorial logo) achieves both trust and differentiation.",
+      },
+      {
+        heading: "Luxury residential: the green-cream-gold system",
+        body: "Luxury residential real estate globally has converged on a recognizable palette system: a deep botanical green (often in the British racing green to hunter green range, approximately hue 130-150° in HSL, L: 25-35%, S: 45-60%), a warm cream or off-white, and a restrained gold accent (warm amber, approximately hue 45-55°, muted saturation). This palette references old-money wealth associations: English country estates, safari and hunting heritage, private members clubs, gentlemen's outfitters. The green particularly communicates landscape, acreage, and natural surroundings — implying that the properties being sold have grounds and outdoor space. For urban luxury brands, the green is often replaced with a deep warm gray or near-black, shifting the reference from estate to city penthouse. When implementing a luxury residential palette: restrict gold to very specific accent applications (logo mark, call-to-action, specific headline type), never use it as a background color, and ensure the green is dark enough to feel grown-up rather than fresh and playful.",
+      },
+      {
+        heading: "Proptech and digital-first: differentiating from traditional",
+        body: "Digital-first real estate platforms (Zillow, Redfin, Rightmove, and their national equivalents) use a distinct palette from traditional agencies: technology blue or cobalt as primary, white or light gray background, vivid accent colors for interactive states. This palette communicates: speed, data, and modernity — a contrast to the stately-and-restrained traditional agency. The differentiation is intentional. Proptech brands are positioning against traditional agencies by emphasizing their technology advantage, and the color vocabulary of tech (cobalt blue, clean whites, vivid interface accents) carries this signal automatically. The risk for proptech: the palette reads as less trustworthy in the institutional sense — fine for a search tool, potentially limiting for a transaction-forward platform where financial trust is paramount. Proptech brands that have matured past the early acquisition phase often moderately darken and desaturate their palettes over time to gain institutional trust signals without abandoning the tech aesthetic.",
+      },
+      {
+        heading: "Boutique agencies: editorial differentiation",
+        body: "Independent boutique real estate agencies — particularly in urban markets — have an opportunity to differentiate through an editorial aesthetic that national brands and proptech platforms cannot replicate. The boutique palette draws from publishing, fashion, and art galleries: warm off-white backgrounds, black or near-black type, restrained warm neutrals, large photography. The effect is taste-making rather than institutional — the brand communicates curation and aesthetic judgment rather than scale and technology. This approach works particularly well in markets where properties are design-forward and buyers are sophisticated: New York, San Francisco, London, Paris, Sydney. The palette requirement for boutique editorial: the color must recede and let the photography lead. No bright primary colors — the home images are the content, and the brand color is the frame. Warm off-white (#F5F2EE to #FAFAF8), charcoal or black type, and a single restrained accent (terracotta, warm olive, or muted coral) covers most boutique needs.",
+      },
+      {
+        heading: "Regional environmental anchoring",
+        body: "One of the most effective differentiating moves for local and regional real estate brands is anchoring the palette to the local environment — a strategy that national brands cannot replicate because they must work across diverse geographies. A coastal California agency can use sky blue and warm sand tones that reference the Pacific environment. A New England agency can use deep forest green and weathered gray to reference the landscape. A Texas agency can use warm earth tones, amber, and bleached neutral that reference the land. This environmental anchoring creates immediate local relevance — a buyer or seller from that region recognizes the environmental reference before they read a word of copy. The implementation: sample the palette from landmark photography of the region, desaturate and shift toward the appropriate brand register, and use it consistently across all brand surfaces. The result is a brand that feels rooted in place, which is a meaningful differentiator in a category where clients are making location-specific decisions.",
+      },
+    ],
+    links: [
+      { label: "Explore Quiet Luxury palette", href: "/collections/quiet-luxury/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse color families", href: "/families/" },
+    ],
+  },
+  {
+    category: "Brand Design",
+    slug: "color-for-packaging-design",
+    title: "Color for Packaging Design: Print Constraints, Shelf Impact, and Material Behavior",
+    summary:
+      "Packaging color design operates under constraints that screen design does not face. Color on physical packaging is affected by print process (CMYK, Pantone, flexography, offset), material surface (glossy, matte, uncoated, kraft, foil), lighting at point of sale, and viewing distance from a shelf. A brand color that looks excellent on screen can fail completely in print — not because the designer was wrong, but because screen and print are fundamentally different color reproduction systems. This guide covers the practical constraints and decisions in packaging color design.",
+    eyebrow: "Brand Design Guide",
+    priority: 68,
+    searchIntent: "packaging color design, product packaging color palette, CMYK color for packaging, brand color in print, packaging color psychology",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "complete-archive",
+    tags: ["Brand Design", "Industry Palettes"],
+    highlights: [
+      "CMYK print cannot reproduce all colors visible on screen. The most commonly out-of-gamut colors for packaging: vivid cyan, bright orange, electric green, and highly saturated magenta. Before finalizing a packaging palette, check each color against the CMYK gamut using a color proof tool (Adobe Acrobat's CMYK soft-proof, Pantone's color finder) to verify the printed color will match the intended design. For brand-critical colors, specifying a Pantone (PMS) color alongside CMYK guarantees color accuracy regardless of print conditions — this is standard practice for brand colors used on packaging.",
+      "The three reading distances for packaging correspond to three design problems. At 3-5 meters (shelf scanning from across the aisle): the category color must read clearly — this is the blocking and navigation level where shoppers categorize products. At 0.5-1 meter (close shelf inspection): the brand identity, product variant, and key information must be legible — this is the consideration level. At 30cm (in-hand examination): all text, ingredient lists, and secondary information must be readable. Color contrast requirements differ at each distance — high-contrast at 3-5 meters for shelf visibility, more refined and detailed at close range.",
+      "Material surface changes how color is perceived. A color printed on glossy white substrate will appear more saturated and vivid than the same color printed on matte or uncoated paper — gloss enhances color intensity and lightness because it reflects more light. Kraft and brown natural materials have a warm tint that shifts all printed colors warmer — a pure blue printed on kraft will read with a greenish or teal cast because the warm background shifts the perception of the ink color. Design the palette with the actual substrate in mind, not on a white screen background.",
+    ],
+    sections: [
+      {
+        heading: "The CMYK reality: screen vs print color space",
+        body: "Every color a designer sees on screen is rendered in RGB — an additive color model where mixing red, green, and blue light at full intensity produces white. Print uses CMYK — a subtractive model where mixing cyan, magenta, yellow, and black inks absorbs light to produce color. These are different physical processes with different color gamuts. Screen RGB can produce vivid electric colors (pure cyan #00FFFF, vivid lime #00FF00) that CMYK physically cannot reproduce with ink on paper. The standard workflow: design in RGB for screen preview, then soft-proof the design in CMYK before approving for print. Soft-proofing uses an ICC profile for the specific print process to simulate how the colors will look when printed. For packaging, the most commonly used profiles are FOGRA39 (European offset printing) and SWOP (US offset printing). Colors that shift significantly when soft-proofed in CMYK need to either be replaced with in-gamut alternatives or specified as Pantone colors for accurate reproduction.",
+      },
+      {
+        heading: "Pantone specification: when and why",
+        body: "Pantone Matching System (PMS) colors are standardized ink formulations that allow designers to specify a precise color independent of the print process. A Pantone color will produce the same visual result across different printers, substrates, and countries — as long as the substrate finish (coated vs uncoated) is correctly specified. Pantone coated colors (marked C, e.g., Pantone 485 C) are formulated for glossy coated substrates. Pantone uncoated colors (marked U) are formulated for uncoated or matte stock. The same Pantone number on coated vs uncoated stock will appear visibly different — always specify C or U, not just the number. When to use Pantone: brand-critical colors that must be consistent across many print applications (the brand primary used on packaging, business cards, retail environments); colors that fall outside CMYK gamut; any print run where color accuracy is commercially important. The cost of Pantone is a small additional print plate; the value is brand color consistency that CMYK alone cannot guarantee.",
+      },
+      {
+        heading: "Shelf impact at distance: blocking color strategy",
+        body: "At three to five meters, the eye resolves shape and color but not detail. A package at this distance is essentially a colored rectangle of a specific shape. The primary design questions at this distance: does the package color communicate the correct product category? Does it stand out from adjacent products on the same shelf section? Does the brand block (multiple facing SKUs) read as a coherent brand unit? Category color conventions establish the baseline: dairy/fresh = white, kraft, or cream; cleaning/household = vivid blue, orange, or green; organic/natural = earth tones and kraft; premium = dark backgrounds, gold, black. Breaking category conventions is a deliberate strategy that requires compensating signals — a vivid electric blue laundry detergent in a category dominated by white and green will stand out, but the rest of the package must reassure the consumer that it is, in fact, laundry detergent. Range consistency across a product line requires a systematic approach to color: a shared color family with product variants distinguished by specific hue, tint, or pattern, so the range reads as a family at distance while individual products are distinguishable at close inspection.",
+      },
+      {
+        heading: "Material and substrate considerations",
+        body: "Packaging uses a wide range of substrates, each with different optical properties that affect how color appears. Glossy coated board: highest color saturation and lightness, most suitable for vivid and premium palettes. Matte coated board: slightly reduced saturation compared to gloss, softer and less reflective — associated with premium, editorial, and sustainable aesthetics. Uncoated / natural: significantly reduced saturation, warmer due to paper color undertone. Kraft brown stock: very warm undertone shifts all colors warmer and reduces saturation — blue on kraft reads as teal-green, yellow on kraft reads as amber-orange. Metallic/foil: produces bright reflective highlights that change with viewing angle — use sparingly for premium highlight elements rather than as flat background. Clear film (food packaging, flexible packaging): the product or fill shows through the substrate — the packaging color must work in combination with the visible product. Design for the actual substrate by requesting print proofs on the intended material before final approval — screen previews cannot simulate material optical behavior.",
+      },
+      {
+        heading: "Regulatory and accessibility requirements in packaging color",
+        body: "Certain packaging categories have regulatory color requirements that constrain design choices. Pharmaceutical and medical packaging has strict requirements about the use of high-visibility warning colors (fluorescent orange, red) for certain product types. Tobacco packaging (in many jurisdictions) requires standardized brand suppression with specific background colors and font restrictions. Allergen information requires minimum print size that affects layout and may constrain background color choices for readability. Beyond regulation: accessibility on packaging is increasingly expected. Color-only information — a product variant identified only by label color with no text differentiation — fails for color-blind consumers. Use color alongside text, pattern, or shape coding for product variant differentiation. Minimum text contrast on packaging follows similar principles to WCAG on screen: sufficient lightness difference between text color and background to be legible in retail lighting conditions, which are often less controlled than office environments.",
+      },
+    ],
+    links: [
+      { label: "Explore Editorial Warmth palette", href: "/collections/editorial-warmth/" },
+      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Browse color families", href: "/families/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides3);
