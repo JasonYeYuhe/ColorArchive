@@ -1,1 +1,1 @@
-{ "active": null, "lockedBy": null, "lockedAt": null, "message": null }
+{ "active": true, "lockedBy": "remote", "lockedAt": "2026-03-22T12:54:32Z", "message": "Cleanup + API docs + user system" }

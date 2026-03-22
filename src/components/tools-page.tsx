@@ -126,6 +126,16 @@ const TOOLS: Tool[] = [
     categoryKey: "tools.cat.explore",
     accent: "bg-lime-100 text-lime-700",
   },
+  // Developer
+  {
+    href: "/api-docs/",
+    icon: "{ }",
+    nameKey: "tools.apiDocs.name",
+    descKey: "tools.apiDocs.desc",
+    categoryKey: "tools.cat.developer",
+    badgeKey: "tools.badge.new",
+    accent: "bg-slate-100 text-slate-700",
+  },
 ];
 
 const CATEGORIES = [
@@ -133,6 +143,7 @@ const CATEGORIES = [
   "tools.cat.analysis",
   "tools.cat.creative",
   "tools.cat.explore",
+  "tools.cat.developer",
 ] as const;
 
 export function ToolsPage() {

@@ -157,6 +157,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.84,
     },
     {
+      url: "https://colorarchive.me/api-docs/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.82,
+    },
+    {
       url: "https://colorarchive.me/free-pack/",
       lastModified: BUILD_DATE,
       changeFrequency: "weekly",
