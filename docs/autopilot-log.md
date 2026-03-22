@@ -915,3 +915,43 @@ Total guides: **70**
 
 **Commit:** 1cc22d1
 
+
+## 2026-03-23 — Normal Run: Newsletter 102-105, 2 Collections, Email Improvements (commit a9916ee)
+
+**Run type:** Normal (run #4 since last big run `eba613b`)
+
+**Categories:** A. SEO & Content (newsletter), D. Data & Collections, E. Server & Email
+
+### Category A — Newsletter Issues 102–105 (December 2027)
+
+- **Issue 102** (dec-2027-color-in-healthcare-ui, 2027-12-03): Color in healthcare/medical interfaces — trust palettes with cool blues, the red inflation pitfall in severity hierarchies, WCAG AAA targets for clinical contexts, testing for variable lighting conditions in healthcare environments
+- **Issue 103** (dec-2027-color-forecasting-workflow, 2027-12-10): Practical color forecasting for product designers — reading design system changelogs, plugin/template marketplaces as trend signals, building 3-year palette lifespans, separating core from accent color layers in token architecture
+- **Issue 104** (dec-2027-color-ecommerce-conversion, 2027-12-17): Color for e-commerce conversion — debunking the orange button myth (contrast > hue), product photography background research (warm off-white for premium, pure white for value), designing a testable token architecture for CRO
+- **Issue 105** (dec-2027-managing-color-fatigue, 2027-12-24): Managing color fatigue in long-running brands — diagnosing internal vs. external fatigue, partial refresh strategy (accent layer vs. core palette), when full refresh is warranted (competitive convergence, accessibility failures, repositioning)
+
+Total newsletter issues: **106** (was 102)
+
+### Category D — 2 New Collections
+
+- **cobalt-morning**: Cool cobalt/sapphire blues from pale mist to deep velvet — for productivity tools, SaaS dashboards, focus-oriented UI. Colors: cobalt-mist-muted, azure-pearl-soft, cerulean-tone-soft, cobalt-velvet-clear, sapphire-shadow-soft
+- **sage-fog**: Soft sage greens, muted moss, and quiet jade for wellness brands, editorial reading interfaces, and calm digital products. Colors: moss-whisper-muted, leaf-silk-soft, olive-mist-muted, jade-bloom-soft, seafoam-tone-muted
+
+Total collections: **39** (was 37)
+
+### Category E — Server Email Improvements
+
+- **D-variant subject lines**: Added a 4th variant (D) to all 5 follow-up email stages:
+  - day3 D: "CSS variables, Figma tokens, and JSON — all in the pack"
+  - day7 D: "The 2016-color library — organized for real projects"
+  - day14 D: "A week left to use FIRSTPACK — 10% off any pack"
+  - day21 D: "What 2016 colors give you that 5 could not"
+  - day30 D: "Still building with the free pack? Here is what comes next"
+- **sendNewsletterIssueAlert()**: New email function for broadcasting new newsletter issues to subscribers. Includes: eyebrow, title, summary, top-3 highlights in a card, CTA button, unsubscribe link, text + HTML versions
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (106 issues, was 102)
+- src/lib/collections.ts (+cobalt-morning, +sage-fog, now 39 collections)
+- server/email.js (+D variants for all stages, +sendNewsletterIssueAlert function)
+- STRUCTURE.md (updated counts)
+
+**Commit:** a9916ee
