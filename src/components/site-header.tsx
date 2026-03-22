@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
 import { useLocale } from "@/src/components/locale-provider";
@@ -305,21 +306,34 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
 
 function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l: Locale) => void }) {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (
+        btnRef.current && !btnRef.current.contains(e.target as Node) &&
+        menuRef.current && !menuRef.current.contains(e.target as Node)
+      ) setOpen(false);
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  useEffect(() => {
+    if (open && btnRef.current) {
+      const rect = btnRef.current.getBoundingClientRect();
+      setPos({ top: rect.bottom + 6, left: rect.right - 112 });
+    }
+  }, [open]);
+
   const current = LOCALE_OPTIONS.find((o) => o.code === locale) ?? LOCALE_OPTIONS[0];
 
   return (
-    <div ref={ref} className="relative">
+    <>
       <button
+        ref={btnRef}
         type="button"
         onClick={() => setOpen(!open)}
         className="rounded-full border border-black/8 bg-white/85 px-2.5 py-2 text-xs font-semibold tracking-wide text-neutral-500 transition hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white/14"
@@ -328,8 +342,12 @@ function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l
       >
         {current.label}
       </button>
-      {open && (
-        <div className="absolute right-0 bottom-full z-50 mb-1.5 min-w-[7rem] max-h-[60vh] overflow-y-auto rounded-xl border border-black/8 bg-white py-1 shadow-lg dark:border-white/10 dark:bg-neutral-900">
+      {open && createPortal(
+        <div
+          ref={menuRef}
+          className="fixed z-[9999] min-w-[7rem] rounded-xl border border-black/8 bg-white py-1 shadow-lg dark:border-white/10 dark:bg-neutral-900"
+          style={{ top: pos.top, left: pos.left }}
+        >
           {LOCALE_OPTIONS.map((opt) => (
             <button
               key={opt.code}
@@ -342,8 +360,9 @@ function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l
               {opt.label}
             </button>
           ))}
-        </div>
+        </div>,
+        document.body
       )}
-    </div>
+    </>
   );
 }
