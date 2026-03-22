@@ -549,3 +549,62 @@ Total aliases: ~150+ (was ~117)
 - src/components/color-harmonies-page.tsx (aria-pressed)
 
 **Commit:** b787319
+
+## 2026-03-22 — BIG RUN: Tints & Shades Generator + Newsletter 070-073 + 2 Guides (commit 78c17ac)
+
+**Run type:** Big Run (4th normal run since last big run `4c2e127`)
+
+**Categories:** F. New Page/Feature, A. SEO & Content, B. i18n Coverage
+
+### New Feature: /tints/ — Tints & Shades Generator
+
+Built a full 11-step tonal color scale generator (steps 50–950) as a new tool page.
+
+**Algorithm:**
+- Tints (50–400): smoothstep lightness interpolation toward 97%, saturation fades from base_S*0.08 at step 50 to full at step 500
+- Base (500): exact input color
+- Shades (600–950): smoothstep toward 7% lightness with slight saturation reduction
+
+**Features:**
+- Native color picker + hex text input with validation
+- 8 color presets (Ocean Blue, Emerald, Rose, Amber, Violet, Teal, Slate, Orange)
+- Custom palette name for export variable naming
+- Hover-activated swatch strip tooltips with HEX, RGB, HSL, WCAG contrast vs white/black
+- Full table: per-step hex/RGB/HSL, WCAG contrast badges (green/amber/grey)
+- Export: CSS custom properties, Tailwind config, Sass variables, JSON
+- "Copy All" + per-cell copy buttons
+
+**Integration:**
+- Added to tools hub (tools-page.tsx, Creative Tools category, "New" badge)
+- Updated tools/page.tsx: 12-tool structured data, updated descriptions
+- Added /tints to site-header.tsx currentPath type
+- Added /tints/ to sitemap.ts (priority 0.85)
+- i18n: tools.tints.name + tools.tints.desc (EN + JA); subheading updated to "Twelve free tools"
+
+### Category A — Newsletter Issues 070–073
+
+- **Issue 070** (2027-05-13): Tints, shades, and tones — how to build a complete color scale. Tint/shade/tone definitions in HSL terms; WCAG contrast patterns across the scale; saturation management for vivid vs muted hues; brand color anchoring at the natural step.
+- **Issue 071** (2027-05-20): Color in motion — animated color transitions and timing. RGB gray problem (interpolate in HSL/LCH instead); semantic timing (0–50ms confirmation, 100–200ms feedback, 250–400ms scene change); CSS variable interpolation for dark mode transitions.
+- **Issue 072** (2027-05-27): Color consistency across devices — display calibration and profiles. Uncalibrated vs ICC-profiled displays; sRGB as web standard; P3 wide-gamut handling; practical calibration workflow for design teams.
+- **Issue 073** (2027-06-03): Color in data visualization — sequential, diverging, categorical. Three scale types; rainbow scale failures (perceptual unevenness, color-blind issues); accessible categorical palette construction; chart type color rules.
+Total newsletter issues: **74** (was 70)
+
+### Category A — 2 New SEO Guides
+
+- **tints-shades-color-scale** (priority 74, Design Systems): 5 sections — tint/shade/tone definitions, WCAG per-step analysis, brand color anchoring, saturation management, export formats
+- **data-visualization-color-palettes** (priority 75, Color Theory): 5 sections — three scale types, rainbow scale problems, accessible categorical palettes, chart type rules, color-not-sole-differentiator principle
+Total guides: **53** (was 51)
+
+**Files modified (10):**
+- app/tints/page.tsx (new)
+- src/components/tints-shades-page.tsx (new, 370 lines)
+- src/components/site-header.tsx (+ /tints type)
+- src/components/tools-page.tsx (+ tints entry)
+- app/tools/page.tsx (12 tools, updated structured data)
+- src/lib/i18n.ts (tints keys + updated count)
+- src/lib/guides.ts (2 new guides)
+- src/data/newsletter-issues.json (70 → 74 issues)
+- app/sitemap.ts (+ /tints/)
+- STRUCTURE.md (updated counts and tree)
+
+**Commit:** 78c17ac
