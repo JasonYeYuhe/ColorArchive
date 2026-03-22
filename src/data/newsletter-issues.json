@@ -2328,5 +2328,193 @@
         "href": "/guides/"
       }
     ]
+  },
+  {
+    "slug": "december-2026-color-contrast-accessibility",
+    "date": "2026-12-10",
+    "title": "Color contrast for accessibility: what WCAG actually requires and why it matters",
+    "summary": "WCAG contrast ratios are often treated as a compliance checkbox. Understanding what the numbers actually measure — and where they fall short — makes you a better designer, not just a more compliant one.",
+    "eyebrow": "Issue 050",
+    "tags": [
+      "Accessibility",
+      "WCAG",
+      "UI/UX"
+    ],
+    "featuredCollectionId": "concrete-modernism",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "WCAG 2.1 measures contrast as a luminance ratio, not as perceived color difference — which means two colors can pass 4.5:1 while still being difficult to distinguish for users with certain color vision deficiencies.",
+      "The 3:1 threshold for large text (18pt+ or 14pt bold) is significantly more lenient, but 'large text' is measured by rendered pixel size, not by font-size values in your CSS.",
+      "WCAG 3.0 is introducing APCA (Advanced Perceptual Contrast Algorithm), which accounts for font weight, text size, and background luminance together — a much more accurate model than the binary pass/fail of 2.1."
+    ],
+    "sections": [
+      {
+        "heading": "What the contrast ratio number actually measures",
+        "body": "The WCAG contrast ratio is calculated from the relative luminance of two colors — how much light they reflect relative to white. The formula uses linearized sRGB values and weights the three color channels by their contribution to perceived brightness (red: 21%, green: 72%, blue: 7%). The result is a ratio from 1:1 (identical) to 21:1 (black on white). What the ratio does not measure: perceptual color difference, hue contrast, saturation, or font characteristics. Two colors can produce a passing 4.5:1 ratio while sharing a hue and still being difficult to distinguish for red-green color blind users. The ratio is a luminance measure only — a necessary but not sufficient condition for accessible color use."
+      },
+      {
+        "heading": "Where WCAG contrast rules apply and where designers get it wrong",
+        "body": "The 4.5:1 threshold applies to text at normal weight and size. The 3:1 threshold applies to large text (18pt or 14pt bold at rendered size, not CSS font-size), UI components, and graphical elements that convey meaning. The most common errors: applying 4.5:1 to UI components (not required), assuming font-size CSS values equal rendered pt sizes (they depend on device resolution and scaling), and confusing brand color contrast with text-background contrast. Placeholder text, decorative text, and text in inactive UI components are exempt from contrast requirements. Understanding where the rules apply prevents both over-engineering compliant systems and under-designing accessible ones."
+      },
+      {
+        "heading": "Designing for contrast from the start rather than fixing it at the end",
+        "body": "Contrast fixes are expensive when made late. A brand color that fails contrast requirements against its intended backgrounds requires either changing the brand color, changing the background, or restricting the color to non-text uses — each of which has ripple effects through the design system. The practical solution is to define surface and text token pairs with their contrast relationship built in at the token level, not resolved at the component level. The Dark Mode UI Kit is structured this way: each theme exports surface-text pairs that are pre-validated at 4.5:1, so components built on those pairs inherit contrast compliance by default. This prevents the situation where a component looks right in isolation but fails when placed on an unexpected background."
+      }
+    ],
+    "links": [
+      {
+        "label": "Check contrast ratios",
+        "href": "/contrast/"
+      },
+      {
+        "label": "Explore Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit/"
+      },
+      {
+        "label": "Simulate color blindness",
+        "href": "/colorblind/"
+      }
+    ]
+  },
+  {
+    "slug": "december-2026-print-vs-screen-color",
+    "date": "2026-12-17",
+    "title": "Print vs. screen: why your colors look different and how to manage the gap",
+    "summary": "Designing across both print and digital means managing the fundamental incompatibility between subtractive and additive color. Most designers learn this the hard way on their first print project. Here is the framework for managing it intentionally.",
+    "eyebrow": "Issue 051",
+    "tags": [
+      "Print Design",
+      "Color Science",
+      "Workflow"
+    ],
+    "featuredCollectionId": "editorial-warmth",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "RGB screens are additive (combining light wavelengths) while CMYK printing is subtractive (absorbing light from white paper). These are physically incompatible systems — there is no RGB color that prints identically to how it appears on screen.",
+      "Vivid blues and greens have the largest print gamut gap: a saturated electric blue that renders beautifully on screen cannot be physically reproduced in CMYK and will print significantly muted.",
+      "The practical solution is to design screen and print palettes as related systems with shared visual intent, not as identical values — then test print proofs early in the process rather than at final output."
+    ],
+    "sections": [
+      {
+        "heading": "The physics of the color gap",
+        "body": "Computer screens emit light — they start from black (no light) and add red, green, and blue channels to build color. Print inks absorb light — they start from white paper (all light) and subtract wavelengths using cyan, magenta, yellow, and black pigments. The gamut of printable colors (the CMYK space) is smaller than the gamut of displayable RGB colors. Highly saturated blues, greens, and certain purples exist in RGB space but have no equivalent CMYK mixture that produces the same visual result. When these colors are sent to a printer, the RIP (Raster Image Processor) converts them to the nearest printable equivalent — which often looks noticeably duller on paper than it did on screen."
+      },
+      {
+        "heading": "Which colors survive the conversion and which do not",
+        "body": "Earth tones, warm neutrals, and most muted palettes convert well from RGB to CMYK. They stay within the printable gamut and require minimal adjustment. Problem areas include: electric blues (especially around hue 200-230°), vivid greens (120-150°), neon-adjacent pinks and magentas, and pure-white backgrounds that use RGB white (255,255,255) — which on screen is lit white but on paper is just the paper color. Designers working on brand systems that span both digital and print should validate palette choices against CMYK gamut boundaries early. Any color intended for print use should be checked in a CMYK soft-proof view before being locked into the brand system."
+      },
+      {
+        "heading": "Building palettes that work across media",
+        "body": "Multi-media brand systems need a deliberate approach to color translation. One effective pattern: define the brand palette in HSL (perceptual) space, derive the screen RGB values and the closest CMYK equivalents as separate outputs, and document the acceptable visual difference as a tolerance rather than an exact match. The Brand Starter Kit is designed for digital-first use but includes enough lightness range and hue structure that print-appropriate equivalents can be derived by a print specialist without abandoning the palette's aesthetic intent. For packaging, stationery, and print-heavy brands, it is worth adding a Pantone spot color mapping as a third layer — Pantone's solid colors can match specific hues more precisely than process CMYK, at a cost premium that is justified for signature brand colors."
+      }
+    ],
+    "links": [
+      {
+        "label": "Open Editorial Warmth",
+        "href": "/collections/editorial-warmth/"
+      },
+      {
+        "label": "Explore Brand Starter Kit",
+        "href": "/packs/brand-starter-kit/"
+      },
+      {
+        "label": "Browse warm color families",
+        "href": "/families/orange"
+      }
+    ]
+  },
+  {
+    "slug": "december-2026-dark-mode-design-decisions",
+    "date": "2026-12-24",
+    "title": "Dark mode is not just inverted light mode: the design decisions that make it work",
+    "summary": "Most dark mode implementations are design accidents — light mode with the lightness flipped. Real dark mode design requires different color relationships, different contrast strategies, and different handling of shadows and elevation.",
+    "eyebrow": "Issue 052",
+    "tags": [
+      "Dark Mode",
+      "UI/UX",
+      "Design Systems"
+    ],
+    "featuredCollectionId": "nocturne-tech",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "Inverting a light mode palette produces a dark mode that fails in predictable ways: pure black backgrounds feel harsh, pure white text is too bright for reading in dim environments, and saturated accent colors look neon-aggressive against dark surfaces.",
+      "Dark mode elevation works the opposite of light mode: in light mode, shadows get darker to create depth; in dark mode, surfaces get lighter as they rise toward the viewer — no shadows required.",
+      "The Dark Mode UI Kit ships with pre-mapped elevation tokens that handle both light and dark themes using the same semantic structure, so switching themes is a token swap rather than a redesign."
+    ],
+    "sections": [
+      {
+        "heading": "Why inversion fails as a dark mode strategy",
+        "body": "Inverting lightness values produces a technically dark palette but a perceptually broken one. The problems compound: pure black backgrounds (#000000) create harsh contrast that causes halation — the visual effect where bright text on pure black seems to bleed or glow. This is physically uncomfortable during extended reading in dim environments, which is exactly when users choose dark mode. Second, linear lightness inversion does not preserve color relationships — a warm background with a cool accent inverts to a cool background with a warm accent, which may or may not be visually coherent. Third, saturated brand accents that work on light surfaces look garish and neon-like on dark backgrounds at the same saturation level. Each of these problems requires intentional design decisions, not automatic inversion."
+      },
+      {
+        "heading": "Elevation, depth, and light source in dark interfaces",
+        "body": "Light mode interfaces use shadows to simulate elevation — raised elements cast darker shadows against lighter backgrounds. In dark mode, the system inverts: backgrounds are dark, and elements appear to rise toward the viewer by becoming slightly lighter than the background. This is called the 'lightness elevation model' and it is the standard approach in Material Design's dark theme specification. A floating card in dark mode is not a darker shadow on a dark background — it is a slightly lighter surface than the app background, with the lightest elements being the highest-elevated. The Dark Mode UI Kit uses this model: each surface token step represents an elevation level, from app-background (darkest) through card, popover, and modal surfaces (progressively lighter near-black values)."
+      },
+      {
+        "heading": "Accent color adjustments for dark surfaces",
+        "body": "Brand accent colors rarely transfer from light to dark mode without adjustment. A vivid blue (#0066FF) that reads as a confident, saturated CTA on a white background reads as neon and abrasive on a near-black surface. The standard approach is to desaturate and slightly warm the accent color for dark mode — not enough to lose brand identity, but enough to reduce the perceptual harshness. The target is usually 15-25% saturation reduction paired with a 5-10% lightness increase. Some design systems maintain multiple accent variants: a vivid version for light mode and a muted-vivid version for dark mode, unified under the same semantic token name (action-primary) with different primitive values per theme. This is the approach used in the Dark Mode UI Kit: semantic tokens reference theme-specific primitives, so the accent feels right in both contexts without requiring component-level overrides."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit/"
+      },
+      {
+        "label": "Open Nocturne Tech",
+        "href": "/collections/nocturne-tech/"
+      },
+      {
+        "label": "Check contrast ratios",
+        "href": "/contrast/"
+      }
+    ]
+  },
+  {
+    "slug": "january-2027-color-naming-systems",
+    "date": "2027-01-07",
+    "title": "Color naming systems: why the words you use for colors shape how teams use them",
+    "summary": "How you name a color changes how it gets used. Teams with semantic color names make different — and usually better — design decisions than teams using raw hex values or scale-position names like 'blue-500'.",
+    "eyebrow": "Issue 053",
+    "tags": [
+      "Design Systems",
+      "Naming",
+      "Process"
+    ],
+    "featuredCollectionId": "modern-seaside",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Colors named by position (gray-100, blue-500) communicate what the color is but not what it is for — which leads to engineers choosing colors by feel rather than by intent when the designer is not available.",
+      "Semantic names (surface-primary, text-secondary, feedback-error) communicate intent and survive design system evolution better: when the exact blue changes in a rebrand, 'action-primary' still means what it meant, but 'blue-500' has to be re-mapped everywhere.",
+      "The most robust naming systems have two layers: primitive tokens (the raw palette values with position names) and semantic tokens (the functional role names that reference primitives). This structure makes both palette evolution and theme switching predictable."
+    ],
+    "sections": [
+      {
+        "heading": "What color names communicate to engineers",
+        "body": "Design tokens are the handoff layer between design and engineering. When tokens are named by raw color values or palette positions ('blue-500', 'neutral-300'), the name communicates nothing about intended usage. Engineers implementing features without designer oversight — which is most features in most engineering environments — default to choosing tokens by visual approximation rather than semantic role. This produces color drift: the 'button text' color being pulled from 'text-primary' in one component and 'gray-900' in another, producing values that look similar but are not equivalent and diverge when themes change. Semantic naming prevents this by encoding intent directly into the token name. 'button-label-default' is unambiguous in a way that 'gray-900' is not."
+      },
+      {
+        "heading": "Two-layer token architecture: primitives and semantics",
+        "body": "The two-layer token pattern separates the palette definition (primitive layer) from the usage mapping (semantic layer). Primitive tokens define the complete set of color values available in the system — every step of every scale, named by their position in that scale (sand-10, sand-20, sand-30, through sand-100). Semantic tokens define usage roles — surface-background, text-primary, action-default — and reference primitive tokens as their values. The indirection is the key: when you need to adjust the palette (new brand blue, new gray tone, dark mode theme), you change the primitive values. The semantic layer stays stable, and every component that uses semantic tokens updates automatically. Components never reference primitives directly — only semantics. This architecture is what makes design systems resilient to change."
+      },
+      {
+        "heading": "Practical naming conventions that travel well across teams",
+        "body": "The most effective semantic naming conventions follow a consistent structure: context + property + state. 'button-background-hover' is unambiguous; 'button-bg-hov' and 'btnBgHover' are variations that create inconsistency in large codebases. Agreeing on a naming convention early — and enforcing it through a design system style guide — prevents the proliferation of synonyms (is it 'default', 'rest', 'base', or 'initial'?). The Brand Starter Kit ships with a pre-defined semantic token structure that covers the most common UI patterns: surfaces, text roles, interactive states, feedback states, and border treatments. Teams adopting it get a naming convention decision already made, along with Figma and CSS variable exports that follow the same naming pattern — so the token names match from design to code without a translation layer."
+      }
+    ],
+    "links": [
+      {
+        "label": "Open Modern Seaside",
+        "href": "/collections/modern-seaside/"
+      },
+      {
+        "label": "Explore Brand Starter Kit",
+        "href": "/packs/brand-starter-kit/"
+      },
+      {
+        "label": "Browse all guides",
+        "href": "/guides/"
+      }
+    ]
   }
 ]

@@ -666,86 +666,6 @@ export const landingGuides: LandingGuide[] = [
     ],
   },
   {
-    category: "Content & Social",
-    slug: "color-palette-for-social-media",
-    title: "Color Palette for Social Media That Stays Recognizable Across Platforms",
-    summary:
-      "A practical guide to choosing a social media color palette that holds up across Instagram carousels, TikTok overlays, YouTube thumbnails, and Stories without fragmenting into platform-specific chaos.",
-    eyebrow: "Social Media Guide",
-    priority: 78,
-    searchIntent: "color palette for social media",
-    featuredCollectionId: "candy-gradient",
-    featuredPackId: "content-creator-bundle",
-    tags: ["Social media", "Content", "Creator"],
-    highlights: [
-      "Social palettes need to survive compression, small thumbnails, and wildly different feed backgrounds.",
-      "Consistency across platforms matters more than perfection on any single one.",
-      "The Content Creator Bundle includes export formats designed for fast social asset production.",
-    ],
-    sections: [
-      {
-        heading: "Social color has to survive the feed",
-        body:
-          "A color palette for social media faces constraints that brand guidelines rarely anticipate. Instagram compresses images and shifts color slightly. TikTok overlays white text on everything. YouTube thumbnails render at tiny sizes next to dozens of competitors. Your palette needs enough contrast and saturation to remain identifiable after compression and scaling. That usually means fewer colors with more deliberate lightness separation rather than a wide, subtle range that flattens to mush at 120 pixels wide.",
-      },
-      {
-        heading: "Pick a recognizable lane and stay in it",
-        body:
-          "The creators who build the strongest visual brands on social media tend to own one clear color lane rather than rotating palettes by post. Candy Gradient works well for social because the high-chroma, warm-to-cool transitions read instantly even at thumbnail scale. Whether you lean into that direction or something more restrained, the discipline is the same: choose a palette that is identifiable in the first half-second of scrolling, then apply it consistently across every platform rather than reinventing per channel.",
-      },
-      {
-        heading: "Export once, use everywhere",
-        body:
-          "Social content production is fast, which means any friction in finding or applying colors slows down output. The Content Creator Bundle is built for this workflow. It includes HEX, RGB, and HSL exports alongside Figma and Canva-ready formats so the same palette travels from thumbnail design to story templates to video overlays without manual conversion. That consistency is what makes a social color system feel professional instead of improvised.",
-      },
-    ],
-    links: [
-      { label: "Open Content Creator Bundle", href: "/packs/content-creator-bundle/" },
-      { label: "Open Candy Gradient", href: "/collections/candy-gradient/" },
-      { label: "Get the Free Sample Pack", href: "/free-pack/" },
-    ],
-  },
-  {
-    category: "Aesthetic & Mood",
-    slug: "earth-tone-color-palette",
-    title: "Earth Tone Color Palette Ideas for Warm, Grounded Design Work",
-    summary:
-      "How to build an earth tone palette that feels natural and grounded without turning muddy, and how to pair warm neutrals with enough range for real design systems.",
-    eyebrow: "Earth Tones Guide",
-    priority: 85,
-    searchIntent: "earth tone color palette",
-    featuredCollectionId: "editorial-warmth",
-    featuredPackId: "brand-starter-kit",
-    tags: ["Earth tones", "Warm", "Natural"],
-    highlights: [
-      "Earth tones work best when they reference real materials — clay, sand, olive, walnut — not just desaturated brown.",
-      "The biggest risk with earthy palettes is losing contrast and hierarchy as everything drifts toward the same muddy middle.",
-      "Editorial Warmth anchors the earth tone lane with enough lightness range to support text, surfaces, and accents.",
-    ],
-    sections: [
-      {
-        heading: "Ground the palette in material, not just mood",
-        body:
-          "The strongest earth tone palettes reference tangible materials rather than abstract warmth. Terra cotta, raw linen, wet stone, dried sage, dark walnut — each carries a specific lightness and chroma range that keeps the palette from collapsing into undifferentiated brown. When you name your earth tones by material reference, you also give the team a shared language that survives handoff better than hex codes alone. That specificity is what separates a considered earthy system from a muddy one.",
-      },
-      {
-        heading: "Protect the hierarchy with deliberate lightness steps",
-        body:
-          "Earth tones tend to cluster in the mid-lightness range, which creates a hierarchy problem. If your background, card surface, and body text all sit between 40 and 60 percent lightness, the interface becomes hard to parse. Editorial Warmth handles this by including both very light warm values for surfaces and deep grounding darks for text and anchors. That spread is what keeps the earthy feel alive without sacrificing readability or visual structure across real layouts.",
-      },
-      {
-        heading: "Pair earth tones with a structured system",
-        body:
-          "An earth tone palette on its own can feel directionless once it has to power buttons, alerts, disabled states, and multiple surface levels. The Brand Starter Kit helps here by mapping warm, grounded colors into role-based tokens. Instead of guessing which terra cotta works for a CTA versus a decorative border, the kit assigns those roles explicitly. That structure turns an aesthetic preference into something a product team can actually ship without debating every component.",
-      },
-    ],
-    links: [
-      { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
-      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-      { label: "Search warm colors", href: "/search?family=orange" },
-    ],
-  },
-  {
     category: "Web Design",
     slug: "color-palette-for-portfolio-website",
     title: "Color Palette for a Portfolio Website That Lets the Work Lead",
@@ -1463,6 +1383,126 @@ export const landingGuides: LandingGuide[] = [
       { label: "Open Terracotta Loft", href: "/collections/terracotta-loft/" },
       { label: "Explore Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
       { label: "Browse red colors", href: "/families/red/" },
+    ],
+  },
+  {
+    slug: "color-psychology-branding",
+    title: "Color Psychology in Branding: What Research Actually Says vs. Design Myths",
+    category: "Brand & Marketing",
+    summary:
+      "Color psychology is one of the most cited — and most misused — frameworks in branding. Understanding what the research actually supports helps you make more defensible color decisions and avoid overconfident claims.",
+    eyebrow: "Brand Color Guide",
+    priority: 82,
+    searchIntent: "color psychology branding",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Color Psychology", "Branding", "Research"],
+    highlights: [
+      "The research on color-emotion associations is real but modest: colors nudge emotional associations rather than causing them. Context, surrounding colors, and personal history consistently outweigh hue alone.",
+      "Brand color distinctiveness matters more than color-emotion matching: studies consistently show that recognizable color use outperforms 'correctly matched' color use in building brand recall.",
+      "Red does not universally mean urgency or danger — in East Asian contexts it is strongly positive. Blue does not universally mean trust — in some contexts it reads as cold or corporate. Color meaning is cultural and contextual, not universal.",
+    ],
+    sections: [
+      {
+        heading: "What the color-emotion research actually shows",
+        body:
+          "Decades of color psychology research confirms that colors evoke associations — warm colors tend toward energy, excitement, and warmth; cool colors toward calm, professionalism, and distance. But the effect sizes are modest. In controlled studies, color alone explains 5-10% of emotional response variance; the remaining variance comes from context, imagery, typography, personal history, and cultural background. The popular claim that 'color increases brand recognition by 80%' is frequently cited without a traceable source. The actual research shows that consistent color use increases recognition — but it is the consistency, not the specific color, that drives the effect. Any color used consistently enough becomes recognizable; the choice of which color matters less than the discipline of using it consistently.",
+      },
+      {
+        heading: "Distinctiveness versus association: which matters more for brands",
+        body:
+          "Brand color research consistently shows that distinctiveness — owning a color lane that competitors do not — outperforms association accuracy in building recall. If every financial services brand uses blue, a financial brand that uses a distinctive warm amber or terracotta will be recalled more readily, even if blue 'means trust.' The strategy implication: before optimizing for what a color communicates emotionally, optimize for whether it is ownable in your category. A distinctive color with acceptable emotional associations beats a perfectly matched color that everyone in the category already uses. Quiet Luxury is an example: warm neutrals do not have the obvious 'luxury' association that gold or black carry, but in a category full of black-and-gold luxury branding, a restrained warm palette is highly distinctive and communicates sophisticated taste through contrast with the category norm.",
+      },
+      {
+        heading: "Making defensible color decisions in a brief",
+        body:
+          "When presenting color choices to clients or stakeholders, the most defensible rationale is not 'blue means trust' (easily challenged) but rather: this color is distinguishable from competitors, is appropriate for the medium (screen, print, signage), tests well in context with the brand imagery and typography, and is available in a form that the production team can reliably reproduce. This is a production and distinctiveness argument, not an emotional-association argument. Clients who push back on a color for psychological reasons ('this doesn't feel energetic enough') are more productively engaged with visual examples — the same palette applied to real product surfaces — than with color-emotion charts. Context changes everything.",
+      },
+    ],
+    links: [
+      { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse all collections", href: "/collections/" },
+    ],
+  },
+  {
+    slug: "color-palette-for-e-commerce",
+    title: "Color Palette for E-Commerce: Driving Conversion Without Compromising Brand",
+    category: "Web Design",
+    summary:
+      "E-commerce sites face a specific color design challenge: the palette needs to feel trustworthy, guide attention toward conversion actions, and accommodate product photography that the brand does not control.",
+    eyebrow: "E-Commerce Color Guide",
+    priority: 78,
+    searchIntent: "color palette for e-commerce website",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["E-Commerce", "Conversion", "Web Design"],
+    highlights: [
+      "Product photography determines your neutral palette: if your products are photographed on white backgrounds, a warm-cream site surface creates harmony; a cool-gray site surface makes the same white-background photos look slightly yellow.",
+      "The CTA color should be the most visually distinctive element on the page — not the most 'on-brand' color. If the brand primary is a muted sage that blends with product imagery, the CTA needs a different accent that stands out clearly.",
+      "Cart and checkout flows should use a simplified palette — typically surface + CTA only — to reduce visual noise at the highest-stakes decision point. Every non-CTA visual element in checkout is a potential distraction.",
+    ],
+    sections: [
+      {
+        heading: "Surface color and product photography compatibility",
+        body:
+          "Most e-commerce photography is shot on controlled backgrounds — white, gray, or lifestyle settings. Your site surface color creates a frame around that photography, and the frame changes how the product reads. White-on-white (white product photos on a white site) requires subtle shadow, border, or surface separation to prevent products from blending into the page. Warm cream or off-white surfaces make white-background product photos feel warmer and more organic — good for beauty, food, and lifestyle products. Cool gray surfaces make white-background photos feel more clinical and precise — good for electronics, tools, and products where technical precision matters. Before locking in a surface color, test your representative product photos against it. The interaction between site surface and product background is the most common source of color conflict in e-commerce.",
+      },
+      {
+        heading: "CTA color hierarchy and attention direction",
+        body:
+          "In e-commerce, the primary CTA (Add to Cart, Buy Now) must win the attention hierarchy on the product page. This requires that the CTA color has higher visual contrast or saturation than any other element on the page that is not the product itself. The failure mode is when the brand primary color — used for navigation, headers, and UI chrome — is also used for the CTA, reducing the CTA's visual distinctiveness. The better approach is to reserve one color specifically for conversion actions and use it nowhere else in the UI. This is the 'one job' principle for CTA color: the color only appears on actions that advance the purchase, which trains users to associate it with 'something I can do here' rather than 'part of the brand decoration.'",
+      },
+      {
+        heading: "Checkout and cart: simplifying the palette at conversion",
+        body:
+          "Checkout abandonment is the highest-stakes problem in e-commerce, and visual complexity is a meaningful contributor. Once a user has reached the cart or checkout flow, every design element that is not the CTA, form field, or trust signal is a potential distraction. Most high-converting checkout flows use a dramatically reduced palette relative to the marketing site: a neutral surface, the CTA color, form field states (default, focus, error), and trust indicator colors (green checkmarks, padlock icons). Brand personality takes a back seat to functional clarity. The Brand Starter Kit's semantic token structure supports this: the checkout flow can use a subset of the token system — surface-background, action-primary, feedback-error, feedback-success — without any adjustment to the underlying palette.",
+      },
+    ],
+    links: [
+      { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Check contrast ratios", href: "/contrast/" },
+    ],
+  },
+  {
+    slug: "color-temperature-palette",
+    title: "Color Temperature in Palettes: How Warm and Cool Relationships Shape Mood",
+    category: "Color Theory",
+    summary:
+      "Color temperature — the warm-to-cool axis — is one of the most powerful and most misunderstood tools in palette design. Understanding how temperature relationships create mood, depth, and visual hierarchy changes how you build every palette.",
+    eyebrow: "Color Theory Guide",
+    priority: 75,
+    searchIntent: "color temperature palette design",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["Color Theory", "Temperature", "Palette Building"],
+    highlights: [
+      "Warm colors (red, orange, yellow) appear to advance toward the viewer; cool colors (blue, green, violet) appear to recede. This spatial property is directly usable for creating visual hierarchy without changing lightness or size.",
+      "Mixed-temperature palettes — one warm and one cool hue used together — create inherent visual tension and dynamism. Matched-temperature palettes feel more harmonious but can feel flat or monolithic without lightness variation.",
+      "The most successful palettes often have a dominant temperature (warm or cool) with a single accent in the opposing temperature. This structure gives the palette cohesion while providing contrast for emphasis.",
+    ],
+    sections: [
+      {
+        heading: "Warm and cool as spatial cues, not just mood cues",
+        body:
+          "The warm-cool axis in color is physically grounded: warm colors (long-wavelength reds and yellows) stimulate the eye's focusing mechanism differently than cool colors (short-wavelength blues and violets), creating a slight focal-length difference that makes warm colors appear closer. Artists have used this for centuries to create atmospheric perspective — distant objects are painted cooler and more blue to simulate the effect of atmosphere. In UI and graphic design, the same principle applies: warm foreground elements appear to sit above cool backgrounds, and cool type on a warm background has a slightly receding, readable quality. Understanding this lets you use temperature as an additional depth signal beyond lightness and size.",
+      },
+      {
+        heading: "Dominant temperature with opposing accent",
+        body:
+          "The most reliable palette structure for temperature management is a dominant temperature (warm or cool as the palette's overall character) with one opposing-temperature accent. Editorial Warmth demonstrates this: the dominant palette is warm (amber, honey, sand, ochre) with cool secondary elements (muted sage, olive green). The warm tones create the palette's character; the cool accents provide the contrast that prevents the warmth from feeling monotonous. The same structure works in cool-dominant palettes: a blue-gray base system with one warm amber or copper accent. The accent creates visual interest precisely because it is the exception to the dominant temperature. Using multiple accents in opposing temperatures distributes the tension and reduces the impact of any individual element.",
+      },
+      {
+        heading: "Using temperature shifts within a single hue",
+        body:
+          "Temperature variation is not limited to mixing different hue families. A single hue can shift in temperature as it changes lightness — lighter values of orange (peach, apricot) read as warmer than deeper values (sienna, rust) even though they share the same hue family. Similarly, blues become cooler as they approach pure cool blue-violet, and warmer as they shift toward cyan-teal. Within a monochromatic palette, you can create temperature movement by letting the lighter tones warm slightly (shift toward yellow-orange) and the darker tones cool slightly (shift toward blue-violet). This technique produces a palette that feels more complex and three-dimensional than a pure lightness scale without introducing additional hue families.",
+      },
+    ],
+    links: [
+      { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
+      { label: "Explore Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Browse all color families", href: "/families/" },
     ],
   },
 ];

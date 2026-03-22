@@ -370,6 +370,46 @@ export const collections: ColorCollection[] = [
       useCases: ["Wedding and event design", "Beauty and skincare brands", "Spring seasonal campaigns"],
     },
   ),
+  createCollection(
+    "golden-hour",
+    "Golden Hour",
+    "Warm amber, honey, and citrine tones for photography, editorial, and brand systems that should feel luminous and alive.",
+    "This collection captures the quality of late-afternoon light: a warm, slightly desaturated amber at the top, opening to clear honey and citrine as the palette moves toward mid-tones, then settling into deep ember and rich sienna for grounding. The tones work together across editorial surfaces, photography site wrappers, and warm-brand product pages.",
+    ["Warm", "Editorial", "Photography"],
+    [
+      "amber-whisper-soft",
+      "honey-bloom-clear",
+      "citrine-silk-soft",
+      "amber-velvet-muted",
+      "ember-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Use when the brief calls for warmth that reads as luminous rather than earthy. The clear honey and citrine mid-tones keep the palette from feeling muddy — they carry enough saturation to feel alive without tipping into yellow.",
+      promptWords: ["late afternoon light", "warm honey glass", "golden film", "amber hour", "warm editorial"],
+      useCases: ["Photography portfolio sites", "Food and hospitality brands", "Warm editorial landing pages"],
+    },
+  ),
+  createCollection(
+    "twilight-bloom",
+    "Twilight Bloom",
+    "Orchid, violet, and plum tones for beauty, creative, and editorial design that needs a romantic, distinctive palette.",
+    "A palette that moves from the palest whispered orchid through clear violet and iris mid-tones to a rich, muted plum base. The range covers enough lightness to support real interfaces while maintaining a consistent purple-violet character throughout. Works for beauty brands, independent creative work, wedding editorial, and any project where distinctiveness matters more than safety.",
+    ["Floral", "Creative", "Beauty"],
+    [
+      "orchid-whisper-soft",
+      "violet-pearl-clear",
+      "iris-bloom-clear",
+      "plum-silk-soft",
+      "mulberry-nocturne-muted",
+    ],
+    {
+      editorialNote:
+        "Use this when the palette needs to feel romantic and distinctive without tipping into the candy-pink territory. The violet and iris mid-tones read as creative and independent; the muted mulberry anchor gives editorial weight.",
+      promptWords: ["twilight garden", "violet silk", "orchid window", "iris field at dusk", "bloom and shadow"],
+      useCases: ["Beauty and fragrance brands", "Wedding editorial", "Independent creative portfolios"],
+    },
+  ),
 ];
 
 export function getCollectionById(id: string) {
