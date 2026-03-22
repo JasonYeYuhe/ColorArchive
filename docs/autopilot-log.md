@@ -1042,3 +1042,54 @@ New semantic search aliases added to `src/lib/color-search.ts`:
 - src/lib/color-search.ts (+45 new SEARCH_ALIASES entries)
 
 **Commit:** 51635c7
+
+
+## 2026-03-23 — Normal Run: Newsletter 114-117 + 2 collections + 3 guides + email variants (commit 3a0c87c)
+
+**Run type:** Normal (run #2 since last big run `55fb5f9`)
+
+**Categories:** A. SEO & Content (newsletter + guides), D. Data & Collections, E. Server & Email
+
+### Category A — Newsletter Issues 114–117 (March 2028)
+
+- **Issue 114** (mar-2028-color-brand-identity, 2028-03-04): Building a brand color system — primary/secondary/accent architecture, temperature harmony, chromatic neutrals, testing the system before committing to production
+- **Issue 115** (mar-2028-color-forecasting, 2028-03-11): Color forecasting — how trend agencies (WGSN, Pantone) aggregate signals, macro/medium/short trend cycle timescales, using trend data as directional input, counter-trend differentiation opportunities
+- **Issue 116** (mar-2028-color-packaging-design, 2028-03-18): Color in packaging — shelf presence and competitive differentiation, SKU color system planning, print production variables (substrate, ink coverage, ICC profiles), metamerism under different retail lighting
+- **Issue 117** (mar-2028-color-token-naming, 2028-03-25): Color token naming conventions — semantic vs. literal tokens, W3C tier model (global/alias/component), multi-theme naming that doesn't encode visual values, token evolution and deprecation patterns
+
+Total newsletter issues: **118** (was 114, +4 this run)
+
+### Category A — 3 New SEO Guides (now 79)
+
+- **color-contrast-accessibility-guide**: WCAG 2.1 formula mechanics and limitations, APCA/WCAG 3.0 comparison, proactive accessible palette design at token level, dark mode contrast considerations (halation, polarity effects) — targets 'color contrast accessibility guide designers'
+- **color-in-data-visualization**: Categorical/sequential/diverging encoding types, colorblind accessibility (8% of men affected), rainbow scale problems and perceptually uniform alternatives, contextual color for reference lines and emphasis — targets 'color in data visualization design'
+- **saturation-chroma-design-guide**: HSL saturation vs OKLCH perceptual chroma, why equal HSL saturation looks unequal across hues, saturation gradients for hierarchy, muted palettes and chromatic neutrals, saturation and harmonic balance — targets 'saturation chroma color design guide'
+
+### Category D — 2 New Collections (now 45)
+
+- **copper-patina**: Warm copper through oxidized bronze-green — amber-tone-soft, terracotta-silk-muted, sage-bloom-muted, teal-mist-soft, honey-bloom-muted. For artisan goods, premium hardware, material-forward brand identities. The palette traces the color lifecycle of copper from freshly polished to fully oxidized.
+- **coastal-haze**: Soft maritime blues and weathered grays — cerulean-whisper-muted, azure-mist-soft, cobalt-pearl-soft, teal-mist-soft, seafoam-whisper-soft. For travel, hospitality, coastal real estate, and calm-first digital products. Designed as background/surface colors rather than accent colors.
+
+### Category E — Email A/B Subject Line Variants
+
+Added E and F variants to all 5 follow-up email sequences (day3/7/14/21/30 — now 6 variants each):
+- day3 E: "Quick start: your palette pack in 3 minutes" / F: "Turn your free palette into a working design system"
+- day7 E: "Seven packs. One for every type of project." / F: "From landing pages to dark mode — your palette options"
+- day14 E: "A thank-you: use FIRSTPACK for 10% off" / F: "FIRSTPACK — 10% off, 7 days, yours to use"
+- day21 E: "Three ways designers put palette packs to work" / F: "A landing page, a moodboard, and a social template — in one palette"
+- day30 E: "One month in — what the full library gives you" / F: "Ready for more than the free pack? Two options."
+
+### Current State After This Run
+
+- Total newsletter issues: **118** (Issues 001–117)
+- Total collections: **45** (copper-patina, coastal-haze added)
+- Total SEO guides: **79** (3 new in extraGuides7)
+
+**Files modified (5):**
+- src/data/newsletter-issues.json (118 issues, was 114)
+- src/lib/collections.ts (+copper-patina, +coastal-haze, now 45 collections)
+- src/lib/guides.ts (+3 guides in extraGuides7, now 79 total)
+- server/email.js (SUBJECT_VARIANTS expanded to E+F for all 5 day sequences)
+- STRUCTURE.md (updated all counts)
+
+**Commit:** 3a0c87c

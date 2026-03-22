@@ -14,17 +14,18 @@
 - [ ] Review terms page (`app/terms/`) — exists as untracked file, check if it needs to be added to the site and nav.
 - [ ] Set up Google Search Console for the GitHub Pages deployment — verifying the site for GSC requires adding a meta tag or file to the repo.
 - [ ] Review `src/components/waitlist-page.tsx` (untracked) — appears to be a new waitlist page that hasn't been committed. Decide if it should be added.
+- [ ] Review i18n-merged.ts, i18n-part1.ts, i18n-part2.ts (untracked) — draft files for expanded multilingual support. Decide if they should replace or supplement `src/lib/i18n.ts`.
 
 ## Low Priority / Nice to Have
 - [ ] Add a social sharing preview image (OG image) generator — currently using static OG images; a dynamic generator would improve link previews for individual color pages.
-- [ ] Consider adding a `/changelog/` or `/updates/` page that's publicly visible — the current `/updates/` route exists but may need content population.
+- [ ] Consider adding a `/changelog/` or `/updates/` page that's publicly visible.
 - [ ] Consider a "Color of the Day" feature — could be a simple cron + static page update.
-- [ ] Review i18n-merged.ts, i18n-part1.ts, i18n-part2.ts (untracked) — these appear to be draft files for expanded multilingual support. Decide if they should replace or supplement `src/lib/i18n.ts`.
+- [ ] Review A/B subject line variant distribution — now 6 variants (A-F) per email sequence. Consider setting up analytics to track which variants perform best.
 
 ## Done
 - [x] Color Mixer tool — completed big run eba613b (2026-03-23)
 - [x] Newsletter issue duplicate fix (Issue 098 replaced) — completed 1cc22d1 (2026-03-23)
 - [x] Newsletter ordering bug fix (Issues 102-105 at wrong position) — completed 55fb5f9 (2026-03-23)
-- [x] Newsletter issues 001-113 — 114 total issues now published (through February 2028)
-- [x] 43 curated palette collections — growing collection library
-- [x] 76 SEO landing guides — comprehensive coverage
+- [x] Newsletter issues 001-117 — 118 total issues now published (through March 2028)
+- [x] 45 curated palette collections — growing collection library
+- [x] 79 SEO landing guides — comprehensive coverage
