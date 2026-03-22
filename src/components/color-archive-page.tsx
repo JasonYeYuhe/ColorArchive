@@ -123,12 +123,12 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
       searchQuery,
       sortBy,
       activeFamily,
-      selectedColorId: selectedColor?.id ?? null,
+      selectedColorId: selectedColorId,
     });
     const queryString = params.toString();
 
     return queryString ? `/?${queryString}` : "/";
-  }, [activeFamily, searchQuery, selectedColor, sortBy]);
+  }, [activeFamily, searchQuery, selectedColorId, sortBy]);
 
   const nearbyColors = useMemo(() => {
     if (!selectedColor) {
@@ -153,11 +153,11 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
       searchQuery,
       sortBy,
       activeFamily,
-      selectedColorId: selectedColor?.id ?? null,
+      selectedColorId: selectedColorId,
     });
     const queryString = params.toString();
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
-  }, [activeFamily, pathname, router, searchQuery, selectedColor, sortBy]);
+  }, [activeFamily, pathname, router, searchQuery, selectedColorId, sortBy]);
 
   const handleReset = () => {
     setSearchQuery("");
