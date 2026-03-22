@@ -496,3 +496,56 @@ Total guides: **49** (was 47)
 - src/lib/guides.ts (49 guides, was 47)
 
 **Commit:** 62445d0
+
+## 2026-03-22 — Normal Run: Newsletter 066-069, 2 Guides, Collection Bug Fix, Search Aliases, A11y (commit b787319)
+
+**Run type:** Normal (2nd run since last big run: Color Tools Hub /tools/)
+
+**Categories:** A. SEO & Content, C. Code Quality, D. Data & Collections
+
+### Bug Fix: Duplicate Collection ID + Double-Comma Syntax Error
+
+Two pre-existing bugs were found and fixed:
+1. **Duplicate collection ID**: `golden-hour` appeared twice in `collections.ts` — the newer entry (added by the previous autopilot run) was renamed to `harvest-glow` with appropriate title/description updates. Collection count remains 22 but the duplicate is now resolved.
+2. **Double-comma in guides.ts**: The previous autopilot run's insertion into the `landingGuides` array created `  },,` (two commas), causing TypeScript to infer `| undefined` for one array element. Fixed by removing the extra comma.
+
+### Category A — Newsletter Issues 066–069
+
+- **Issue 066** (2027-04-15): "Color in brand identity: building a proprietary color system from scratch" — 5-role framework (primary/secondary/neutral/text/functional), anchor-color derivation method, contrast+CMYK+colorblindness production tests
+- **Issue 067** (2027-04-22): "Color psychology in UX: what color actually affects in digital products" — contrast-first hierarchy, what conversion color research actually shows, reliable cross-cultural associations, reinforce-don't-replace UX principle
+- **Issue 068** (2027-04-29): "Color maintenance in design systems: keeping palettes consistent as products scale" — scheduled token audits, translation drift (HSL→RGB→HEX rounding), near-duplicate token problem, unauthorized token creation prevention via linting
+- **Issue 069** (2027-05-06): "Color and print production: CMYK, Pantone matching, screen-to-press" — out-of-gamut colors, CMYK file setup, rich black vs pure black, building a print-safe color system
+Total newsletter issues: **70** (was 66)
+
+### Category A — 2 New SEO Guides
+
+- **brand-color-system-design** (priority 72, Brand): How to design a proprietary brand color system from scratch — 5-role framework, anchor-color tonal range derivation, production testing (contrast/CMYK/colorblindness)
+- **color-psychology-ux-design** (priority 73, UI/UX Design): Color psychology in UX design evidence-based guide — contrast-first hierarchy, cross-cultural associations, reinforce-don't-replace principle
+Total guides: **51** (was 49)
+
+### Category C — Accessibility Improvements
+
+- **color-compare-page.tsx**: Added `aria-label` to swap button (was title-only), `aria-label` to hex text input and native color picker inputs in ColorPanel, `aria-live="polite"` + `aria-atomic="true"` on contrast ratio readout (so screen readers announce ratio changes)
+- **color-harmonies-page.tsx**: Added `aria-pressed` to harmony type selector buttons (complementary, analogous, etc.)
+
+### Category D — 30+ New Search Aliases
+
+Added 10 new alias groups:
+- **Interior design**: marble, brass, copper, oak, walnut, loft
+- **Seasonal/holiday**: valentine, thanksgiving
+- **Trend aesthetics**: cottagecore, darkacademia, grandmillennial, goblincore
+- **Design styles**: brutalist, glassmorphism, neumorphism
+- **Wellness**: zen, meditation, tropical_forest, arctic
+- **Beverages**: wine, whiskey, mint_tea
+- **Digital context**: saas, fintech, healthtech, ecommerce, gaming
+Total aliases: ~150+ (was ~117)
+
+### Files modified
+- src/data/newsletter-issues.json (70 issues, was 66)
+- src/lib/collections.ts (harvest-glow renamed from duplicate golden-hour)
+- src/lib/guides.ts (51 guides; double-comma bug fixed + 2 new guides)
+- src/lib/color-utils.ts (~150 aliases, was ~117)
+- src/components/color-compare-page.tsx (aria-label, aria-live)
+- src/components/color-harmonies-page.tsx (aria-pressed)
+
+**Commit:** b787319
