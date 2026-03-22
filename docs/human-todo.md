@@ -1,7 +1,7 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-23
+> Last updated: 2026-03-23 (autopilot run 2)
 
 ## High Priority
 - [ ] **Verify Color Mixer page renders correctly** — `/mixer/` was just launched. Visit the page to confirm the color picker, OKLCH interpolation, export panel, and presets all work as expected. The component was pre-built but not yet wired to a route until this run.
@@ -14,7 +14,7 @@
 - [ ] **Pinterest OAuth app approval** — The Pinterest integration added recently routes through the backend proxy (CORS fix) but requires Pinterest app review for production-level API access. Submit the app for review in the Pinterest developer portal.
 - [ ] **Figma plugin marketplace submission** — The Figma plugin is built and functional but may not be published to the Figma Community. Consider submitting for review.
 - [ ] **i18n audit** — STRUCTURE.md still mentioned EN/JA but the actual i18n has been switching toward EN/ZH. Confirm the intended language pair and clean up any remaining Japanese strings if ZH is the target.
-- [ ] **Color collection color IDs** — The two new collections (sage-terrarium, dusk-coral) use descriptive color IDs (sage-mist-soft, moss-tone-muted, etc.) that need to match actual color slugs in the 2016-color archive. Verify these IDs resolve to real colors or fix the references.
+- [x] **Color collection color IDs** — sage-terrarium and dusk-coral collection IDs were audited and fixed (commit 692cc6c). New collections aurora-veil and desert-amber use verified color IDs.
 
 ## Low Priority / Nice to Have
 - [ ] **Add Color Mixer to hero section** — The homepage hero section lists featured tools. Adding the Color Mixer would increase discoverability for the new tool.

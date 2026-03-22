@@ -843,3 +843,47 @@ Total collections: **32** (was 30)
 - STRUCTURE.md (updated counts, added /mixer/)
 
 **Commit:** eba613b
+
+## 2026-03-23 — Normal Run: Newsletter 098-101, Collections, Search Aliases (commit 9c98352)
+
+**Run type:** Normal (run #1 since last big run `eba613b`)
+
+**Categories:** A. SEO & Content, D. Data & Collections, C. Code Quality (search aliases)
+
+### Category A — Newsletter Issues 098–101
+
+- **Issue 098** (2027-10-28): Color in motion design — why static color rules break in animation, easing and color interpolation (RGB vs OKLCH transitions), temporal contrast, brand motion color systems with desaturation guidelines
+- **Issue 099** (2027-11-04): Color for illustrators — master palette systems (15-25 color working palettes), limited palette discipline, atmospheric vs local color thinking, digital workflow (Procreate swatches, value-first approach)
+- **Issue 100** (2027-11-11): Cross-cultural color design — universal color associations (blue/calm is genuinely universal), where cultural variation matters (finance, food, healthcare), practical global palette review process
+- **Issue 101** (2027-11-18): Type on color mechanics — how WCAG luminance formula works, chromatic vibration from complementary hues, dark mode halation with pure white, practical guidelines beyond minimum compliance
+
+Total newsletter issues: **102** (was 94)
+
+### Category D — 2 New Collections
+
+- **aurora-veil**: indigo-velvet-soft, violet-tone-soft, teal-bloom-soft, cerulean-mist-soft, sapphire-dusk-soft — cool blue-indigo-violet palette for tech, premium digital, and creative studio brands
+- **desert-amber**: amber-tone-muted, honey-velvet-muted, ember-silk-muted, coral-dusk-muted, olive-bloom-muted — warm earthy muted palette for artisan food, ceramics, and sustainable lifestyle
+
+Total collections: **37** (was 32)
+
+### Category C — 40+ New Search Aliases
+
+New semantic aliases covering: nursery/baby/kids, athletic/sport/fitness, kitchen/bakery/pastry/sourdough, futuristic/holographic/ai_design, avocado/mango/citrus/berry/peach, music/podcast/concert, instagram/tiktok/content_creator, aurora/northern_lights/borealis, earthy/clay_earth/amber_warm, mid_century/art_deco/bauhaus, marine/deep_sea/lagoon, stationery/letterpress/journal
+
+Total aliases: ~290 (was ~250)
+
+### Bonus — 2 SEO Guides (from stash)
+
+- **monochromatic-color-palette-guide** (extraGuides5): single-hue depth building, lightness/saturation curves, WCAG compliance in tonal scales
+- **dark-mode-color-design-guide**: included from previous stashed work
+
+Total guides: **70**
+
+**Files modified (5):**
+- src/data/newsletter-issues.json (102 issues, was 94)
+- src/lib/collections.ts (+aurora-veil, +desert-amber)
+- src/lib/color-search.ts (+40 new semantic aliases)
+- src/lib/guides.ts (+2 guides from stash)
+- STRUCTURE.md (updated counts)
+
+**Commit:** 9c98352
