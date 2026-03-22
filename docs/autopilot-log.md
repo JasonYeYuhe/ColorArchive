@@ -1207,3 +1207,46 @@ Added a full new tool page at `/tokens/` — the 14th color tool on ColorArchive
 - STRUCTURE.md (updated all counts)
 
 **Commit:** ec82fbd
+
+## 2026-03-23 — Normal Run: Newsletter 130-133 + Collections + Guides (commit f3df3b6)
+
+**Run type:** Normal (1st run since last big run `ec82fbd`)
+
+**Categories:** A. SEO & Content + D. Data & Collections
+
+### Category A — 4 Newsletter Issues (now 134 total)
+
+- **Issue 130** (jun-2028-color-in-wayfinding, 2028-06-24): Color coding cognitive limits (6-8 max), colorblind constraints for wayfinding (avoid sole red-green pair), contrast requirements for physical substrates (target 7:1), digital vs. physical specification differences
+- **Issue 131** (jul-2028-hdr-displays-color, 2028-07-01): P3 color space encompassing 25% more colors than sRGB, tone mapping SDR/HDR artifacts, CSS Color Level 4 progressive enhancement (`@supports` with P3 values), photography workflow for wide-gamut assets
+- **Issue 132** (jul-2028-data-viz-color, 2028-07-08): Three palette types (sequential/categorical/diverging), luminance channel for reliable quantitative encoding, Okabe-Ito colorblind-safe palette, gray+accent highlighting strategy
+- **Issue 133** (jul-2028-color-naming-design-systems, 2028-07-15): Three-tier token model (primitive/semantic/component), dark mode collapse as broken semantic layer symptom, role-based naming patterns that age well, component token trigger criteria
+
+### Category D — 2 New Collections (now 53 total)
+
+- **copper-patina**: Ember-tone-muted, apricot-bloom-soft, olive-tone-muted, jade-mist-soft, teal-shadow-muted — aged metal and verdigris aesthetic for artisan jewelry, architecture, craft brands
+- **tropical-resort**: Lagoon-bloom-clear, aqua-silk-vivid, coral-pearl-soft, apricot-pearl-soft, blush-whisper-muted — warm-weather travel and lifestyle, resort marketing
+
+### Category D — 3 New SEO Guides (now 91 total)
+
+- **data-visualization-color-guide**: Sequential/categorical/diverging palette theory, OKLCH for perceptually uniform ramps, colorblind safety — targets 'data visualization color palette design'
+- **wayfinding-color-systems-guide**: Cognitive limits for color codes, colorblind constraints, substrate testing, digital vs. physical specification — targets 'color wayfinding environmental signage'
+- **wide-gamut-hdr-color-design-guide**: When P3 matters (saturation threshold), CSS Color Level 4 syntax, OKLCH chroma for gamut-aware palette building — targets 'wide gamut color design P3 HDR'
+
+### Category D — Search Aliases (20+ new entries)
+
+Added: wayfinding, signage, transit, navigation, infographic, visualization, graph, patina, verdigris, oxidized, aged_metal, resort, caribbean, beach_club, vivid_brand, wide_gamut, primitive, semantic, component
+
+### Current State After This Run
+
+- Total newsletter issues: **134** (Issues 001–133, 4 new)
+- Total collections: **53** (copper-patina, tropical-resort added)
+- Total SEO guides: **91** (3 new in extraGuides11)
+- Total search aliases: ~220+ entries
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (134 issues, was 130)
+- src/lib/collections.ts (+copper-patina, +tropical-resort, now 53)
+- src/lib/guides.ts (+3 guides in extraGuides11, now 91)
+- src/lib/color-search.ts (+20 aliases)
+
+**Commit:** f3df3b6

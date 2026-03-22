@@ -29,7 +29,7 @@
 - [x] Add Tints & Shades Generator (/tints/) — completed 2026-03-23
 - [x] Add Brand Color Generator (/brand/) — completed 2026-03-23
 - [x] Add Palette Generator (/palette-generator/) — completed 2026-03-23
-- [x] Add Design Token Generator (/tokens/) — completed 2026-03-23 (this big run)
-- [x] Reach 100+ newsletter issues — achieved (130 as of this run)
-- [x] Reach 80+ SEO guides — achieved (88 as of this run)
-- [x] Reach 50+ collections — achieved (51 as of this run)
+- [x] Add Design Token Generator (/tokens/) — completed 2026-03-23
+- [x] Reach 100+ newsletter issues — achieved (134 as of 2026-03-23)
+- [x] Reach 80+ SEO guides — achieved (91 as of 2026-03-23)
+- [x] Reach 50+ collections — achieved (53 as of 2026-03-23)
