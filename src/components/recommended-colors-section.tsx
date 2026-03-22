@@ -40,7 +40,7 @@ export function RecommendedColorsSection({
           <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">{description}</p>
         </div>
         <Link
-          href="/search"
+          href="/all-colors"
           className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
         >
           Open search

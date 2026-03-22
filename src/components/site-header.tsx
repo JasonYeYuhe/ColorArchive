@@ -31,10 +31,8 @@ interface SiteHeaderProps {
     | "/packs"
     | "/notes"
     | "/recent"
-    | "/search"
     | "/spectrum"
     | "/support"
-    | "/surprise"
     | "/updates"
     | "/word-to-color"
     | "/contrast"
@@ -42,10 +40,8 @@ interface SiteHeaderProps {
     | "/palette"
     | "/free-pack"
     | "/login"
-    | "/trending"
     | "/convert"
     | "/gradient"
-    | "/palette-generator"
     | "/compare"
     | "/harmonies"
     | "/colorblind"
@@ -70,7 +66,6 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
     items: [
       { href: "/", labelKey: "nav.archive", matchPaths: ["/", "/colors"] },
       { href: "/all-colors/", labelKey: "nav.allColors" },
-      { href: "/search/", labelKey: "nav.search" },
       { href: "/families/", labelKey: "nav.families" },
       { href: "/collections/", labelKey: "nav.collections" },
       { href: "/notes/", labelKey: "nav.notes" },
@@ -84,9 +79,8 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/spectrum/", labelKey: "nav.spectrum" },
       { href: "/word-to-color/", labelKey: "nav.wordToColor" },
       { href: "/contrast/", labelKey: "nav.contrast" },
-      { href: "/surprise/", labelKey: "nav.surprise" },
+      { href: "/palette/", labelKey: "nav.palette" },
       { href: "/convert/", labelKey: "nav.convert" },
-      { href: "/palette-generator/", labelKey: "nav.paletteGenerator" },
       { href: "/gradient/", labelKey: "nav.gradient" },
       { href: "/harmonies/", labelKey: "nav.harmonies" },
       { href: "/compare/", labelKey: "nav.compare" },
@@ -94,19 +88,11 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/favorites/", labelKey: "nav.favorites" },
     ],
   },
-  {
-    labelKey: "nav.shop",
-    items: [
-      { href: "/packs/", labelKey: "nav.packs" },
-      { href: "/free-pack/", labelKey: "nav.freePack" },
-    ],
-  },
 ];
 
 const MOBILE_PRIMARY_ITEMS: NavItem[] = [
   { href: "/", labelKey: "nav.archive", matchPaths: ["/", "/colors"] },
-  { href: "/search/", labelKey: "nav.search" },
-  { href: "/packs/", labelKey: "nav.packs" },
+  { href: "/all-colors/", labelKey: "nav.allColors" },
   { href: "/collections/", labelKey: "nav.collections" },
 ];
 

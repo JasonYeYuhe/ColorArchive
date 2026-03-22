@@ -1,0 +1,299 @@
+# ColorArchive Improvement Plan
+
+> Generated 2026-03-22. Work through each section top-to-bottom by priority.
+
+---
+
+## P0: Product Focus — Clarify Positioning
+
+### Problem
+
+The project tries to be three things at once: a color tool, a content platform, and an e-commerce store. None of them are deep enough to stand on their own. Users who arrive don't have a clear reason to stay or return.
+
+### Current State
+
+- 44 routes, 73 components — high surface area, shallow depth
+- Feature overlap: `/search/` vs `/all-colors/`, three separate palette flows, `/trending/` with no real data
+- Commerce integration half-built (Lemon Squeezy test mode, store pending approval)
+- Content layer thin (few guides, few notes)
+
+### Action Items
+
+- [x] **Define the one primary use case.** Chosen: "the best color exploration tool for designers." Commerce routes kept but removed from main nav.
+- [x] **Audit and consolidate routes.** Merged overlapping pages:
+  - Merged `/search/` into `/all-colors/` — unified browse page with search, advanced filters (hue/tone bands, sat/light ranges), mood presets, and density modes
+  - Merged `/palette-generator/` into `/palette/` — added collapsible harmony generator section to palette page
+  - Removed `/trending/` — deleted route and component
+  - Converted `/surprise/` to a "Random Color" button on `/all-colors/` — deleted standalone route
+  - Removed `/packs/` (Shop group) from header nav; routes preserved
+  - Updated all internal links, sitemap, structured data, and nav
+- [x] **Map the core user journey.** Landing → `/all-colors/` (discovery + search + random) → color detail (value) → palette builder (retention). Nav streamlined to Explore + Tools.
+
+### Files to Touch
+
+- `app/` — Remove or merge route directories
+- `src/components/` — Consolidate corresponding page components
+- `app/sitemap.ts` — Update after route changes
+- Navigation in `src/components/site-header.tsx`
+
+---
+
+## P1-A: Add Test Coverage for Core Logic
+
+### Problem
+
+`color-utils.ts` (843 lines), `colorblind.ts`, `word-color.ts`, and `palette-builder.ts` contain pure functions with zero test coverage. These functions generate every color in the system, calculate WCAG contrast, and handle color space conversions. A single bug here silently breaks all 2016 color pages.
+
+### Current State
+
+- No test framework installed
+- No test scripts in `package.json`
+- `npm run typecheck` is the only validation gate
+
+### Action Items
+
+- [ ] **Install vitest** — minimal config, fast, works with TypeScript out of the box
+  ```bash
+  npm install -D vitest
+  ```
+- [ ] **Add test script** to `package.json`:
+  ```json
+  "test": "vitest run",
+  "test:watch": "vitest"
+  ```
+- [ ] **Write tests for `src/lib/color-utils.ts`** (highest priority):
+  - `hslToRgb()` / `rgbToHsl()` — round-trip property: convert HSL→RGB→HSL should return original values (within rounding tolerance)
+  - `rgbToHex()` / `hexToRgb()` — known value pairs (e.g., `rgb(255,0,0)` → `#FF0000`)
+  - `getColorFamily(hue)` — boundary values: hue 0 → Red, hue 30 → Orange, hue 60 → Yellow, etc.
+  - `getContrastRatio()` — known pairs: black/white → 21:1, same color → 1:1
+  - `meetsWcagAA()` / `meetsWcagAAA()` — threshold checks
+  - `getAnalogousColors()`, `getComplementaryColor()` — verify hue offsets
+  - `filterColors()` / `sortColors()` — filter by family, sort by hue/lightness/name
+- [ ] **Write tests for `src/lib/colorblind.ts`**:
+  - `simulateColorBlindness()` — known transforms: pure red under protanopia should shift toward yellow/brown
+  - Achromatopsia should produce grayscale (R = G = B)
+  - Identity: normal vision simulation should return input unchanged
+- [ ] **Write tests for `src/lib/word-color.ts`**:
+  - Determinism: same input always produces same output
+  - Different inputs produce different outputs (collision resistance for common words)
+  - Output is valid hex
+  - Returns exactly 5 variants
+- [ ] **Write tests for `src/lib/palette-builder.ts`**:
+  - Max 6 colors enforced
+  - Add/remove/replace operations
+  - Duplicate prevention
+- [ ] **Add vitest to CI** — run tests in `.github/workflows/deploy-pages.yml` before build
+
+### Files to Create
+
+- `vitest.config.ts`
+- `src/lib/__tests__/color-utils.test.ts`
+- `src/lib/__tests__/colorblind.test.ts`
+- `src/lib/__tests__/word-color.test.ts`
+- `src/lib/__tests__/palette-builder.test.ts`
+
+---
+
+## P1-B: Validate the Business Model Before Building More
+
+### Problem
+
+Seven product packs are defined with pricing, descriptions, FAQs, and proof points — but Lemon Squeezy is still in test mode and the store is pending approval. There's no evidence of real user demand for paid design token packages, especially when tools like Tailwind's default palette, Open Color, and Radix Colors are free.
+
+### Current State
+
+- `src/lib/palette-packs.ts` — 7 packs, ¥299–¥1299 pricing
+- `src/lib/checkout-config.ts` — Lemon Squeezy test URLs, Stripe fallback placeholder
+- `/packs/quiz/` — Product recommendation quiz built but checkout doesn't work
+- `/free-pack/` — Free sample exists but download flow unclear
+
+### Action Items
+
+- [ ] **Set up a real waitlist** — Replace the current email capture with a proper form (e.g., Buttondown, Loops, or even a simple Google Form). Track how many signups you get per week.
+- [ ] **Ship the free pack first** — Make the free download frictionless (no login required). Track download count. This is your top-of-funnel metric.
+- [ ] **Talk to 10 potential customers** — Post in designer communities (Twitter/X, Dribbble, Discord servers). Ask: "Would you pay ¥299 for a curated set of design tokens in CSS/Tailwind/SwiftUI format? Why or why not?"
+- [ ] **Define what makes your tokens worth paying for** — Raw hex values are free. What's the premium? Possible angles:
+  - Curated palettes tested for WCAG accessibility across all combinations
+  - Multi-format export with guaranteed consistency (Figma plugin, CSS, Tailwind, SwiftUI, Android, Flutter — all from one source of truth)
+  - Semantic naming system (not just "blue-500" but purpose-driven names)
+  - Regular seasonal updates (subscription model)
+- [ ] **Don't build more commerce features until you have signal** — No point building order management, license tiers, or admin dashboards without customers.
+
+### Pages to Potentially Defer
+
+- `/admin/orders/` — No orders to manage yet
+- `/analytics/` — Premature without traffic
+- `/login/` — Auth system complexity without proven need
+
+---
+
+## P2-A: Performance — Virtual Scrolling & Memoization
+
+### Problem
+
+The `/all-colors/` page renders all 2016 color cards in one pass. Every filter/sort operation re-renders the entire list. The full `colors` array (2016 objects) is imported and held in memory by every page that uses it.
+
+### Current State
+
+- `src/data/colors.ts` — Generates 2016 `ColorRecord` objects at module load
+- `src/components/all-colors-page.tsx` — Maps over full array, no virtualization
+- `src/components/color-grid.tsx` — Renders all cards passed to it
+- No `React.memo`, no `useMemo` on filter/sort operations
+
+### Action Items
+
+- [ ] **Add virtual scrolling to `/all-colors/`** — Install `@tanstack/react-virtual` (lighter than `react-window`, better maintained):
+  ```bash
+  npm install @tanstack/react-virtual
+  ```
+  Wrap the color grid in a virtualized container. Only render the ~20-30 cards visible in the viewport.
+- [ ] **Memoize filter and sort results** — In components that filter/sort the 2016-color array, wrap the computation in `useMemo`:
+  ```tsx
+  const filtered = useMemo(
+    () => filterColors(colors, filters),
+    [colors, filters]
+  );
+  const sorted = useMemo(
+    () => sortColors(filtered, sortOption),
+    [filtered, sortOption]
+  );
+  ```
+- [ ] **Memoize ColorCard** — Wrap `color-card.tsx` in `React.memo` to prevent re-renders when parent re-renders but props haven't changed.
+- [ ] **Lazy load heavy pages** — Pages like `/colorblind/`, `/harmonies/`, `/compare/` are rarely visited. Use `next/dynamic` with `ssr: false` for their page components.
+
+### Files to Touch
+
+- `src/components/all-colors-page.tsx`
+- `src/components/color-grid.tsx`
+- `src/components/color-card.tsx`
+- `src/components/search-explorer-page.tsx` (also renders large lists)
+
+### How to Measure
+
+- Chrome DevTools Performance tab: record a filter operation on `/all-colors/`, measure render time before and after
+- Lighthouse Performance score on `/all-colors/`
+
+---
+
+## P2-B: i18n — Fix It or Cut It
+
+### Problem
+
+The current i18n implementation gives maintenance overhead without SEO benefit. All translations are in one file (`i18n.ts`), there's no type safety ensuring completeness, and search engines can't index language variants because there are no language-specific URLs or `hreflang` tags.
+
+### Current State
+
+- `src/lib/i18n.ts` — 200+ keys × 6 languages in one object
+- `src/components/locale-provider.tsx` — Client-side locale switching via React Context
+- `<html lang="en">` is hardcoded in `app/layout.tsx` — doesn't change with locale
+- No `/zh/`, `/ja/` URL prefixes
+- No `<link rel="alternate" hreflang="...">` tags
+- No sitemap entries for alternate languages
+
+### Option A: Do i18n Properly (if multi-language is a real growth lever)
+
+- [ ] Install `next-intl` or implement App Router i18n with `[locale]` segment
+- [ ] Move translations to per-locale JSON files: `messages/en.json`, `messages/zh.json`, etc.
+- [ ] Add type-safe translation keys (next-intl does this automatically)
+- [ ] Update `<html lang>` dynamically based on locale
+- [ ] Add `hreflang` tags to `<head>`
+- [ ] Generate sitemap entries for each locale
+- [ ] Note: This is a significant refactor — every page moves under `app/[locale]/`
+
+### Option B: Cut to 2 languages (if multi-language is not driving growth)
+
+- [ ] Keep only English and Chinese (your two real audiences)
+- [ ] Remove JA, KO, ES, FR translations from `i18n.ts`
+- [ ] Remove those options from the locale selector in `site-header.tsx`
+- [ ] Still fix `<html lang>` to update dynamically
+- [ ] Saves ongoing maintenance of 4 languages
+
+### Recommended
+
+Start with Option B now. Move to Option A later if analytics show significant traffic from other locales.
+
+---
+
+## P2-C: The 2016-Color Problem
+
+### Problem
+
+2016 is an awkward number. It's too many for "curated" (users can't browse 2016 colors meaningfully) and too few for "comprehensive" (designers expect to input any hex and get results). The 4-level saturation resolution is particularly coarse — many practical colors fall between the bands.
+
+### Current State
+
+- `src/data/colors.ts`: 36 hue roots × 14 lightness × 4 saturation = 2016
+- Each color gets a generated name like "Crimson Veil Muted"
+- Individual color pages show relationships, WCAG pairings, usage hints
+
+### Action Items
+
+- [ ] **Add an "any hex" input mode** — Let users type or paste any hex code and get the full detail page experience (relationships, contrast pairings, colorblind preview, etc.). This makes the tool useful for colors outside the 2016 set.
+- [ ] **Consider increasing saturation bands** — Going from 4 to 6-8 bands would fill the gaps in the mid-saturation range where most UI colors live. Tradeoff: more static pages at build time.
+- [ ] **Or: reframe the 2016 as "featured" colors** — Position them as an editorial selection within an infinite color space. The detail page works for any hex; the 2016 are just the ones with names and pre-built pages.
+
+### Files to Touch
+
+- `src/data/colors.ts` — If changing generation params
+- `app/colors/[slug]/page.tsx` — If supporting arbitrary hex input
+- `src/lib/color-utils.ts` — Add functions to generate detail data for arbitrary colors
+
+---
+
+## P3: Evaluate Static Export Limitations
+
+### Problem
+
+`output: "export"` (GitHub Pages) means no server-side logic. But the codebase already contains auth (`auth-provider.tsx`), analytics (`/analytics/`), admin orders (`/admin/orders/`), and remote data sync — all of which need a server. These features either don't work or depend on an external backend that adds complexity.
+
+### Current State
+
+- `next.config.ts`: `output: "export"`, deployed to GitHub Pages
+- `src/components/auth-provider.tsx` — Magic link auth, calls external API
+- `src/lib/checkout-config.ts` — Lemon Squeezy webhooks need a server endpoint
+- `/admin/orders/` — Order data must come from somewhere
+
+### Action Items (when the time comes)
+
+- [ ] **List what actually needs a server** — Auth, webhook handlers, order data, analytics writes. Be specific.
+- [ ] **Evaluate deployment options**:
+  - **Vercel** — Free tier, supports API routes, edge functions, ISR. Easiest migration from Next.js.
+  - **Cloudflare Pages** — Free tier, supports workers for server logic. Slightly more setup.
+  - **Keep GitHub Pages + external API** — Current approach. Works but splits the codebase.
+- [ ] **Don't migrate preemptively** — Only move when a server-dependent feature is actively blocking a paying user's need. Until then, static export is simpler and cheaper.
+
+---
+
+## P3-B: Code Organization
+
+### Problem
+
+Some files are growing large and mixing concerns. Not urgent but will slow down future development.
+
+### Action Items
+
+- [ ] **Split `color-utils.ts` (843 lines)** into focused modules:
+  - `src/lib/color-convert.ts` — HSL↔RGB↔HEX conversions
+  - `src/lib/color-contrast.ts` — WCAG contrast ratio, AA/AAA checks
+  - `src/lib/color-relationships.ts` — Analogous, complementary, triadic, split-complementary
+  - `src/lib/color-search.ts` — Search aliases, semantic matching
+  - `src/lib/color-filter.ts` — Filter and sort functions
+  - Keep `color-utils.ts` as a barrel re-export for backward compatibility
+- [ ] **Extract translation files** — Even without full i18n routing, move translations out of `i18n.ts` into separate JSON files per locale. Easier to maintain and diff.
+- [ ] **Group components by feature** — Instead of 73 flat files in `src/components/`, consider:
+  ```
+  src/components/
+    color/         — color-card, color-grid, color-detail
+    palette/       — palette-builder, palette-tray, palette-generator
+    layout/        — site-header, site-footer, back-to-top
+    commerce/      — packs-page, checkout, email-capture
+    providers/     — theme, locale, auth
+  ```
+
+---
+
+## Tracking Progress
+
+Update this file as you complete items. Change `- [ ]` to `- [x]` for completed tasks. Add notes on decisions made or approaches taken under each item.
+
+When all items in a priority level are done, move to the next level.

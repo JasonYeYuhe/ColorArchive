@@ -292,7 +292,7 @@ export function WordColorGeneratorPage() {
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
-                    href={`/search?hex=${encodeURIComponent(generated.hex)}`}
+                    href={`/all-colors?hex=${encodeURIComponent(generated.hex)}`}
                     className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
                   >
                     Search by hex

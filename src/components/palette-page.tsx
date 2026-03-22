@@ -221,7 +221,7 @@ function EmptyState() {
           {t("palette.browseColors")}
         </Link>
         <Link
-          href="/search"
+          href="/all-colors"
           className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
         >
           {t("palette.searchArchive")}
@@ -499,6 +499,140 @@ rose-core-soft
   );
 }
 
+function PaletteGeneratorSection() {
+  const { t } = useLocale();
+  const [hexInput, setHexInput] = useState("4A90D9");
+  const [expanded, setExpanded] = useState(false);
+
+  const hsl = useMemo(() => {
+    const match = hexInput.match(/^([0-9a-f]{6})$/i);
+    if (!match) return null;
+    const r = parseInt(match[1].slice(0, 2), 16) / 255;
+    const g = parseInt(match[1].slice(2, 4), 16) / 255;
+    const b = parseInt(match[1].slice(4, 6), 16) / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    const l = (max + min) / 2;
+    if (max === min) return { h: 0, s: 0, l: Math.round(l * 100) };
+    const d = max - min;
+    const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    let h = 0;
+    if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+    else if (max === g) h = ((b - r) / d + 2) / 6;
+    else h = ((r - g) / d + 4) / 6;
+    return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+  }, [hexInput]);
+
+  const hslToHex = useCallback((h: number, s: number, l: number): string => {
+    const sN = s / 100, lN = l / 100;
+    const q = lN < 0.5 ? lN * (1 + sN) : lN + sN - lN * sN;
+    const p = 2 * lN - q;
+    const hN = h / 360;
+    const hue2rgb = (p2: number, q2: number, t: number) => {
+      let t2 = t;
+      if (t2 < 0) t2 += 1;
+      if (t2 > 1) t2 -= 1;
+      if (t2 < 1 / 6) return p2 + (q2 - p2) * 6 * t2;
+      if (t2 < 1 / 2) return q2;
+      if (t2 < 2 / 3) return p2 + (q2 - p2) * (2 / 3 - t2) * 6;
+      return p2;
+    };
+    const rv = Math.round(hue2rgb(p, q, hN + 1 / 3) * 255);
+    const gv = Math.round(hue2rgb(p, q, hN) * 255);
+    const bv = Math.round(hue2rgb(p, q, hN - 1 / 3) * 255);
+    return `#${[rv, gv, bv].map(c => c.toString(16).padStart(2, "0")).join("").toUpperCase()}`;
+  }, []);
+
+  const harmonies = useMemo(() => {
+    if (!hsl) return [];
+    const { h, s, l } = hsl;
+    return [
+      { name: "Complementary", colors: [{ hex: hslToHex(h, s, l), label: "Base" }, { hex: hslToHex((h + 180) % 360, s, l), label: "Complement" }] },
+      { name: "Analogous", colors: [{ hex: hslToHex((h + 330) % 360, s, l), label: "-30°" }, { hex: hslToHex(h, s, l), label: "Base" }, { hex: hslToHex((h + 30) % 360, s, l), label: "+30°" }] },
+      { name: "Triadic", colors: [{ hex: hslToHex(h, s, l), label: "Base" }, { hex: hslToHex((h + 120) % 360, s, l), label: "+120°" }, { hex: hslToHex((h + 240) % 360, s, l), label: "+240°" }] },
+      { name: "Split-Complementary", colors: [{ hex: hslToHex(h, s, l), label: "Base" }, { hex: hslToHex((h + 150) % 360, s, l), label: "+150°" }, { hex: hslToHex((h + 210) % 360, s, l), label: "+210°" }] },
+      { name: "Monochromatic", colors: [{ hex: hslToHex(h, s, 90), label: "Lightest" }, { hex: hslToHex(h, s, 70), label: "Light" }, { hex: hslToHex(h, s, 50), label: "Mid" }, { hex: hslToHex(h, s, 30), label: "Dark" }, { hex: hslToHex(h, s, 15), label: "Darkest" }] },
+    ];
+  }, [hsl, hslToHex]);
+
+  const seedHex = hsl ? hslToHex(hsl.h, hsl.s, hsl.l) : "#000000";
+
+  return (
+    <section className="rounded-[2rem] border border-black/6 bg-white/78 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-neutral-900/78">
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        className="flex w-full items-center justify-between"
+      >
+        <div>
+          <h2 className="text-2xl font-semibold tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-3xl">
+            {t("palette_generator_title") || "Palette Generator"}
+          </h2>
+          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+            Enter a seed color to generate harmonious palettes
+          </p>
+        </div>
+        <span className={`text-xl text-neutral-400 transition ${expanded ? "rotate-180" : ""}`}>▾</span>
+      </button>
+
+      {expanded && (
+        <div className="mt-6 space-y-6">
+          <div className="flex items-center gap-4">
+            <div
+              className="h-14 w-14 shrink-0 rounded-2xl shadow-sm ring-1 ring-black/6 dark:ring-white/10"
+              style={{ backgroundColor: hsl ? seedHex : "#000000" }}
+            />
+            <div className="flex flex-1 items-center rounded-xl border border-black/8 bg-white px-3 py-2.5 font-mono text-lg focus-within:ring-2 focus-within:ring-blue-500 dark:border-white/10 dark:bg-white/10">
+              <span className="mr-0.5 select-none text-neutral-400">#</span>
+              <input
+                type="text"
+                value={hexInput}
+                onChange={(e) => setHexInput(e.target.value.replace(/[^0-9a-fA-F]/g, "").slice(0, 6))}
+                maxLength={6}
+                spellCheck={false}
+                autoComplete="off"
+                className="w-full bg-transparent uppercase text-neutral-900 outline-none placeholder:text-neutral-300 dark:text-white"
+                placeholder="4A90D9"
+              />
+            </div>
+            <input
+              type="color"
+              value={hsl ? seedHex : "#000000"}
+              onChange={(e) => setHexInput(e.target.value.replace("#", "").toUpperCase())}
+              className="h-10 w-10 shrink-0 cursor-pointer appearance-none rounded-xl border-0 bg-transparent p-0"
+              aria-label="Pick a color"
+            />
+          </div>
+
+          {harmonies.length > 0 && (
+            <div className="grid gap-4 sm:grid-cols-2">
+              {harmonies.map((harmony) => (
+                <div key={harmony.name} className="rounded-[1.4rem] border border-black/6 bg-white/74 p-5 dark:border-white/8 dark:bg-white/5">
+                  <h3 className="mb-4 text-base font-semibold text-neutral-900 dark:text-white">{harmony.name}</h3>
+                  <div className="grid auto-cols-fr grid-flow-col gap-2">
+                    {harmony.colors.map((c) => (
+                      <div key={`${c.hex}-${c.label}`} className="flex flex-col items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={async () => { try { await navigator.clipboard.writeText(c.hex); } catch {} }}
+                          className="aspect-square w-full rounded-xl shadow-sm transition-transform hover:scale-105"
+                          style={{ backgroundColor: c.hex }}
+                          title={`Copy ${c.hex}`}
+                        />
+                        <span className="text-[10px] font-medium tracking-wide text-neutral-500 dark:text-neutral-400">{c.hex}</span>
+                        <span className="text-[9px] uppercase tracking-wider text-neutral-400 dark:text-neutral-500">{c.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </section>
+  );
+}
+
 export function PalettePage() {
   const { t } = useLocale();
   return (
@@ -530,6 +664,9 @@ export function PalettePage() {
             <PaletteContent />
           </Suspense>
         </section>
+
+        {/* Palette Generator section */}
+        <PaletteGeneratorSection />
       </div>
     </main>
   );

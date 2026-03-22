@@ -126,7 +126,7 @@ export function HeroSectionBelowFold() {
               { href: "/colorblind/", label: t("tools.colorblind.name"), desc: "8 vision types", accent: "bg-indigo-100 text-indigo-700", icon: "◎" },
               { href: "/gradient/", label: t("tools.gradient.name"), desc: "CSS · linear · radial", accent: "bg-rose-100 text-rose-700", icon: "▣" },
               { href: "/harmonies/", label: t("tools.harmonies.name"), desc: "Complementary · analogous", accent: "bg-teal-100 text-teal-700", icon: "◇" },
-              { href: "/palette-generator/", label: t("tools.paletteGen.name"), desc: "Algorithmic palettes", accent: "bg-orange-100 text-orange-700", icon: "▦" },
+              { href: "/palette/", label: t("tools.paletteGen.name"), desc: "Algorithmic palettes", accent: "bg-orange-100 text-orange-700", icon: "▦" },
             ].map((tool) => (
               <Link key={tool.href} href={tool.href}
                 className="group flex items-center gap-3 rounded-[1.3rem] border border-black/6 bg-white/85 p-4 transition hover:shadow-md hover:bg-white dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/12"

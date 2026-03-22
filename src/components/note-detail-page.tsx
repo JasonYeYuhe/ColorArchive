@@ -110,7 +110,7 @@ export function NoteDetailPage({
                     {t("note.openCollection")}
                   </Link>
                   <Link
-                    href={`/search?family=${encodeURIComponent(featuredCollection.palette[0]?.family ?? "Green")}`}
+                    href={`/all-colors?family=${encodeURIComponent(featuredCollection.palette[0]?.family ?? "Green")}`}
                     className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                   >
                     {t("note.searchFamily")}

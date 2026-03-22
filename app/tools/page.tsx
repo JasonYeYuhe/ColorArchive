@@ -79,16 +79,9 @@ const toolsListStructuredData = {
       {
         "@type": "ListItem",
         position: 7,
-        name: "Palette Generator",
-        url: "https://colorarchive.me/palette-generator/",
-        description: "Build curated palettes algorithmically from any seed color.",
-      },
-      {
-        "@type": "ListItem",
-        position: 8,
-        name: "Palette Builder",
+        name: "Palette Builder & Generator",
         url: "https://colorarchive.me/palette/",
-        description: "Pick colors from the archive and export as CSS, Tailwind, or Figma tokens.",
+        description: "Build curated palettes, generate harmonies from a seed color, and export as CSS, Tailwind, or Figma tokens.",
       },
       {
         "@type": "ListItem",
@@ -113,9 +106,9 @@ const toolsListStructuredData = {
       },
       {
         "@type": "ListItem",
-        position: 12,
+        position: 11,
         name: "Surprise Me",
-        url: "https://colorarchive.me/surprise/",
+        url: "https://colorarchive.me/all-colors/",
         description: "Get a random curated color for instant design inspiration.",
       },
     ],

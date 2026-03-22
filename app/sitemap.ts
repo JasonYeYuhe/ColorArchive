@@ -29,12 +29,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: "https://colorarchive.me/search/",
-      lastModified: MARCH_18,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
       url: "https://colorarchive.me/collections/",
       lastModified: MARCH_18,
       changeFrequency: "weekly",
@@ -81,12 +75,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: MARCH_18,
       changeFrequency: "weekly",
       priority: 0.8,
-    },
-    {
-      url: "https://colorarchive.me/surprise/",
-      lastModified: MARCH_18,
-      changeFrequency: "weekly",
-      priority: 0.7,
     },
     {
       url: "https://colorarchive.me/word-to-color/",
@@ -141,12 +129,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: MARCH_21,
       changeFrequency: "monthly",
       priority: 0.78,
-    },
-    {
-      url: "https://colorarchive.me/palette-generator/",
-      lastModified: MARCH_21,
-      changeFrequency: "monthly",
-      priority: 0.85,
     },
     {
       url: "https://colorarchive.me/gradient/",

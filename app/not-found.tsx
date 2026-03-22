@@ -22,7 +22,7 @@ export default function NotFound() {
             <div className="mt-6 rounded-2xl border border-black/6 bg-white/60 px-5 py-4 backdrop-blur">
               <p className="text-sm text-neutral-500">
                 Try searching for a color by name, hex code, or family —{" "}
-                <Link href="/search/" className="font-medium text-neutral-950 underline underline-offset-2 transition hover:text-neutral-700">
+                <Link href="/all-colors/" className="font-medium text-neutral-950 underline underline-offset-2 transition hover:text-neutral-700">
                   go to search
                 </Link>
               </p>

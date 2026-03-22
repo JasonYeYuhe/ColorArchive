@@ -67,14 +67,6 @@ const TOOLS: Tool[] = [
     accent: "bg-rose-100 text-rose-700",
   },
   {
-    href: "/palette-generator/",
-    icon: "▦",
-    nameKey: "tools.paletteGen.name",
-    descKey: "tools.paletteGen.desc",
-    categoryKey: "tools.cat.creative",
-    accent: "bg-orange-100 text-orange-700",
-  },
-  {
     href: "/palette/",
     icon: "▤",
     nameKey: "tools.palette.name",
@@ -109,7 +101,7 @@ const TOOLS: Tool[] = [
     accent: "bg-blue-100 text-blue-700",
   },
   {
-    href: "/surprise/",
+    href: "/all-colors/",
     icon: "✦",
     nameKey: "tools.surprise.name",
     descKey: "tools.surprise.desc",

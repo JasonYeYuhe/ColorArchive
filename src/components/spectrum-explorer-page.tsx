@@ -294,7 +294,7 @@ export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
                     Open detail
                   </Link>
                   <Link
-                    href="/surprise/"
+                    href="/all-colors/"
                     className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                   >
                     Surprise me

@@ -16,7 +16,7 @@ const homepageStructuredData = [
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://colorarchive.me/search?q={search_term_string}",
+        urlTemplate: "https://colorarchive.me/all-colors?q={search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },

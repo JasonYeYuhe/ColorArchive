@@ -520,7 +520,7 @@ export function ColorDetailPage({
                     </p>
                   </div>
                   <Link
-                    href={`/search?hex=${encodeURIComponent(color.hex)}`}
+                    href={`/all-colors?hex=${encodeURIComponent(color.hex)}`}
                     className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                   >
                     {t("colorDetail.searchByHex")}
@@ -667,7 +667,7 @@ export function ColorDetailPage({
                   </h2>
                 </div>
                 <Link
-                  href="/search"
+                  href="/all-colors"
                   className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                 >
                   {t("colorDetail.search")}

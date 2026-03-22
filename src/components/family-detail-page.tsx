@@ -57,7 +57,7 @@ export function FamilyDetailPage({
 
             <div className="mt-6 flex flex-wrap gap-2">
               <Link
-                href={`/search?family=${encodeURIComponent(family)}`}
+                href={`/all-colors?family=${encodeURIComponent(family)}`}
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
                 Search this family
@@ -219,7 +219,7 @@ export function FamilyDetailPage({
               </p>
             </div>
             <Link
-              href={`/search?family=${encodeURIComponent(family)}`}
+              href={`/all-colors?family=${encodeURIComponent(family)}`}
               className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
               Open search
