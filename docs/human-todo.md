@@ -1,28 +1,27 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-22 01:44 (autopilot normal run)
+> Last updated: 2026-03-22
 
 ## High Priority
-- [ ] Submit Figma plugin for Community review — requires manual interaction in the Figma desktop app (publish flow, screenshots, description)
-- [ ] Set up Google Search Console for colorarchive.com — verify site ownership and submit sitemap to index new guide pages
-- [ ] Update Lemon Squeezy checkout URLs in `src/lib/checkout-config.ts` when new products go live — autopilot cannot access LS dashboard
-- [ ] Submit /convert/ to Google Search Console once indexed — verify it ranks for "hex to rgb converter" type queries and monitor click-through rate
+- [ ] Set up real Lemon Squeezy checkout URLs in `src/lib/checkout-config.ts` — *placeholders are still in place; purchases can't complete*
+- [ ] Configure Resend domain verification for production email delivery — *follow-up emails require verified sender domain*
+- [ ] Test the full purchase → webhook → email flow end-to-end in staging — *critical path not validated with real money*
 
 ## Medium Priority
-- [ ] Add real product screenshots to pack detail pages — currently using placeholder/generated images; real screenshots improve conversion
-- [ ] Review A/B email subject line variants in `server/email.js` before enabling in production — copy needs human tone check; now includes day-30 final follow-up
-- [ ] Register domain aliases or redirects (e.g. colorarchive.io → colorarchive.com) if desired for SEO
-- [ ] Set up proper analytics funnel in Umami Cloud — create goals for checkout clicks, pack downloads, newsletter signups
-- [ ] Review new architecture/startup/fashion guide pages once indexed — check for ranking opportunities on target keywords
+- [ ] Review and update `PRODUCT_MEMO.md` with current pricing/pack structure — *may have drifted from what's live on LS*
+- [ ] Verify the `/admin/orders/` dashboard works with real orders data — *built on SQLite, not tested with production volume*
+- [ ] Check Umami analytics is correctly tracking new tool pages (contrast, convert, harmonies, compare, colorblind) — *may need manual registration of new page paths*
+- [ ] Consider adding the Color Blindness Simulator (`/colorblind/`) to the homepage feature grid — *newly added tool, not yet surfaced on homepage*
 
 ## Low Priority / Nice to Have
-- [ ] Create social preview images (OG images) for newsletter issue pages — currently using generic OG
-- [ ] Add a favicon set (16px, 32px, 180px apple-touch-icon) — current favicon may be basic
-- [ ] Review and update Privacy Policy / Terms of Service if Lemon Squeezy integration changes data handling
-- [ ] Consider setting up Cloudflare in front of GitHub Pages for better edge caching and analytics
+- [ ] Add Open Graph image generation for individual color pages — *currently uses static og-image-v1.png for all pages*
+- [ ] Set up a real CDN for download files in `public/downloads/` — *GitHub Pages serves them fine for now, but CDN would be faster*
+- [ ] Consider adding Google Search Console property for colorarchive.me — *would help track search impressions for SEO guides*
 
 ## Done
-- [x] Set real Figma plugin ID in manifest — completed 2026-03-21
-- [x] Fix Figma manifest allowedDomains (add https://) — completed 2026-03-21
-- [x] Switch analytics to Umami Cloud — completed earlier
+- [x] Lemon Squeezy webhook configured — completed 2026-03-18
+- [x] Free pack email sequence (Day 0, 3, 7, 14) — completed 2026-03-18
+- [x] Magic link auth — completed 2026-03-18
+- [x] Color converter tool /convert/ — completed 2026-03-21 (autopilot-big)
+- [x] Color Blindness Simulator /colorblind/ — completed 2026-03-22 (autopilot-big)

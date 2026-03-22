@@ -205,3 +205,44 @@ New aliases: moody, soft, clean, elegant, playful, urban, coastal, botanical, we
 - src/lib/palette-builder.ts
 
 **Commit:** 307b3d9
+
+## 2026-03-22 — Big Run: Color Blindness Simulator (commit 137345e)
+
+**Run type:** BIG (5 normal runs since last big run: 3d571cd Color Converter)
+
+### New feature: /colorblind/ — Color Blindness Simulator
+
+Complete accessibility tool for designers to simulate how colors appear
+under 4 types of color vision deficiency.
+
+**Algorithm:** Viénot et al. (1999) linearized sRGB matrix transforms
+- Deuteranopia: missing M (green-sensitive) cones — red/green confusion
+- Protanopia: missing L (red-sensitive) cones — red darkened, red/green confusion
+- Tritanopia: missing S (blue-sensitive) cones — blue/yellow confusion
+- Achromatopsia: no cone function — luminance-only perception
+
+**Features:**
+- Single color mode: hex text + color picker → original + 4 simulations in swatch cards
+- Palette batch mode: paste up to 8 hex codes → full simulation table
+- Pair distinguishability checker: shows which color pairs are at risk under each deficiency type
+- Design tips section, related tool links
+- JSON-LD structured data (WebApplication + BreadcrumbList)
+- Added to site nav tools group with EN/JA i18n key
+
+**Content additions:**
+- Newsletter Issues 043–045 (color blindness, color temperature, background as color decision)
+- New SEO guide: color-blind-friendly-palette (priority 80, Accessibility category)
+
+**Files created:**
+- src/lib/colorblind.ts
+- src/components/colorblind-page.tsx
+- app/colorblind/page.tsx
+
+**Files modified:**
+- src/components/site-header.tsx
+- src/lib/i18n.ts
+- app/sitemap.ts
+- src/data/newsletter-issues.json (46 total, was 43)
+- src/lib/guides.ts (32 total, was 31)
+
+**Commit:** 137345e

@@ -137,6 +137,7 @@ ColorArchive/
 │   │   ├── copy-upsell-toast.tsx       # Subtle upsell toast after 5th copy
 │   │   ├── pack-quiz-page.tsx           # Interactive pack recommendation quiz
 │   │   ├── back-to-top.tsx              # Floating back-to-top button
+│   │   ├── colorblind-page.tsx          # Color blindness simulator (4 deficiency types, palette mode)
 │   │   └── error-boundary.tsx           # Global error boundary component
 │   │
 │   ├── data/
@@ -159,6 +160,7 @@ ColorArchive/
 │   │   ├── recent-colors.ts              # localStorage recent history
 │   │   ├── checkout-config.ts            # Lemon Squeezy checkout URLs
 │   │   ├── color-family-pages.ts         # Color family page slug/metadata
+│   │   ├── colorblind.ts                 # Viénot (1999) color blindness simulation matrices
 │   │   └── word-color.ts                 # Deterministic word→color hash
 │   │
 │   └── types/
@@ -252,8 +254,8 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Colors | 2016 |
 | Collections | 14 |
 | Palette packs | 7 |
-| SEO guides | 23 |
-| Newsletter issues | 31 |
+| SEO guides | 32 |
+| Newsletter issues | 46 |
 | Color families | 9 |
-| Tool pages | 10 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz) |
+| Tool pages | 11 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz, colorblind) |
 | i18n keys | ~700+ (EN/JA) |
