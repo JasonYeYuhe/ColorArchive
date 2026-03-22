@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { createPortal } from "react-dom";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
 import { useLocale } from "@/src/components/locale-provider";
 import { ThemeToggle } from "./theme-toggle";
@@ -289,15 +289,28 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
 
 function NavDropdown({ group, currentPath, t }: { group: NavGroup; currentPath: string; t: (key: string) => string }) {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
 
   const hasActiveItem = group.items.some((item) => isActive(item, currentPath));
 
+  useEffect(() => { setMounted(true); }, []);
+
+  const updatePos = useCallback(() => {
+    if (btnRef.current) {
+      const rect = btnRef.current.getBoundingClientRect();
+      setPos({ top: rect.bottom + 6, left: rect.left });
+    }
+  }, []);
+
   const handleEnter = useCallback(() => {
     clearTimeout(timerRef.current);
+    updatePos();
     setOpen(true);
-  }, []);
+  }, [updatePos]);
 
   const handleLeave = useCallback(() => {
     timerRef.current = setTimeout(() => setOpen(false), 150);
@@ -305,11 +318,32 @@ function NavDropdown({ group, currentPath, t }: { group: NavGroup; currentPath: 
 
   useEffect(() => () => clearTimeout(timerRef.current), []);
 
+  useEffect(() => {
+    if (open) updatePos();
+  }, [open, updatePos]);
+
+  // Close on outside click
+  useEffect(() => {
+    if (!open) return;
+    function handleClick(e: MouseEvent) {
+      if (
+        btnRef.current && !btnRef.current.contains(e.target as Node) &&
+        menuRef.current && !menuRef.current.contains(e.target as Node)
+      ) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open]);
+
+  // Wrapper div handles hover for both button and portal menu
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div ref={ref} className="relative" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+    <div ref={wrapperRef} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <button
+        ref={btnRef}
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => { updatePos(); setOpen((o) => !o); }}
         className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-medium transition ${
           hasActiveItem
             ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
@@ -321,8 +355,14 @@ function NavDropdown({ group, currentPath, t }: { group: NavGroup; currentPath: 
           <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
-      {open && (
-        <div className="absolute left-0 top-full z-50 mt-1.5 min-w-[10rem] rounded-xl border border-black/8 bg-white/95 py-1.5 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/95">
+      {open && mounted && createPortal(
+        <div
+          ref={menuRef}
+          className="fixed z-[9999] min-w-[10rem] rounded-xl border border-black/8 bg-white/95 py-1.5 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/95"
+          style={{ top: pos.top, left: pos.left }}
+          onMouseEnter={handleEnter}
+          onMouseLeave={handleLeave}
+        >
           {group.items.map((item) => (
             <Link
               key={item.href}
@@ -337,7 +377,8 @@ function NavDropdown({ group, currentPath, t }: { group: NavGroup; currentPath: 
               {t(item.labelKey)}
             </Link>
           ))}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
