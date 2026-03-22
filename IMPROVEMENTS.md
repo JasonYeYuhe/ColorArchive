@@ -230,23 +230,15 @@ Some files are growing large and mixing concerns. Not urgent but will slow down 
 
 ### Action Items
 
-- [ ] **Split `color-utils.ts` (843 lines)** into focused modules:
-  - `src/lib/color-convert.ts` — HSL↔RGB↔HEX conversions
-  - `src/lib/color-contrast.ts` — WCAG contrast ratio, AA/AAA checks
-  - `src/lib/color-relationships.ts` — Analogous, complementary, triadic, split-complementary
-  - `src/lib/color-search.ts` — Search aliases, semantic matching
-  - `src/lib/color-filter.ts` — Filter and sort functions
-  - Keep `color-utils.ts` as a barrel re-export for backward compatibility
-- [ ] **Extract translation files** — Even without full i18n routing, move translations out of `i18n.ts` into separate JSON files per locale. Easier to maintain and diff.
-- [ ] **Group components by feature** — Instead of 73 flat files in `src/components/`, consider:
-  ```
-  src/components/
-    color/         — color-card, color-grid, color-detail
-    palette/       — palette-builder, palette-tray, palette-generator
-    layout/        — site-header, site-footer, back-to-top
-    commerce/      — packs-page, checkout, email-capture
-    providers/     — theme, locale, auth
-  ```
+- [x] **Split `color-utils.ts` (843 lines)** into 5 focused modules + barrel:
+  - `color-convert.ts` — HSL↔RGB↔HEX, format functions, type exports (RgbColor, HsbColor, CmykColor)
+  - `color-contrast.ts` — WCAG contrast, getContrastRatio, getWcagPairings (WcagContrastData, WcagPairing types)
+  - `color-relationships.ts` — analogous, complementary, triadic, split-comp, tonal strip, nearest colors
+  - `color-search.ts` — search aliases, fuzzy match, filterColors
+  - `color-filter.ts` — COLOR_FAMILIES, getColorFamily, sortColors
+  - `color-utils.ts` → barrel re-export (`export *` from all 5). All 204 tests pass unchanged.
+- [ ] **Extract translation files** — Skipped: with only 2 locales (EN/ZH), the single `i18n.ts` file is manageable.
+- [ ] **Group components by feature** — Skipped: would break many import paths across 40+ files with high risk of regressions for minimal benefit. Can revisit when component count grows further.
 
 ---
 
