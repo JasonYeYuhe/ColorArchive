@@ -6,20 +6,20 @@ import { ToolsPage } from "@/src/components/tools-page";
 export const metadata: Metadata = {
   title: { absolute: "Free Color Tools for Designers — ColorArchive" },
   description:
-    "13 free color tools for designers: color mixer, contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more. No sign-up required.",
+    "14 free color tools for designers: color mixer, contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more. No sign-up required.",
   alternates: {
     canonical: "/tools/",
   },
   openGraph: {
     title: "Free Color Tools for Designers — ColorArchive",
     description:
-      "12 free color tools for designers: contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more.",
+      "14 free color tools for designers: contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
   twitter: {
     title: "Free Color Tools for Designers — ColorArchive",
     description:
-      "12 free color tools: contrast checker, tints & shades generator, converter, blindness simulator, harmony generator, gradient builder, and more.",
+      "14 free color tools: contrast checker, tints & shades generator, converter, blindness simulator, harmony generator, gradient builder, and more.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
 };
@@ -117,6 +117,13 @@ const toolsListStructuredData = {
         name: "Surprise Me",
         url: "https://colorarchive.me/all-colors/",
         description: "Get a random curated color for instant design inspiration.",
+      },
+      {
+        "@type": "ListItem",
+        position: 14,
+        name: "Design Token Generator",
+        url: "https://colorarchive.me/tokens/",
+        description: "Generate a complete design token system from any brand color. Export as CSS, Tailwind, SCSS, or JSON.",
       },
     ],
   },

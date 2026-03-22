@@ -1072,3 +1072,50 @@ export const extraCollections9: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections9);
+
+// Additional collections appended by autopilot 2026-03-23 (big run)
+
+export const extraCollections10: ColorCollection[] = [
+  createCollection(
+    "desert-minerals",
+    "Desert Minerals",
+    "Terracotta, rust, burnished sand, warm amber, and dusty sage — a palette drawn from the mineral palette of arid landscapes for earthy brand identities and warm-toned editorial.",
+    "The color of mineral-rich desert terrain: iron-oxide red in exposed canyon walls, the warm tan of sandstone plateaus, the amber of dry grasses, the dusty sage of desert scrub, and the pale cream of sun-bleached stone. Terracotta-tone-muted provides the foundational warm red-brown — a deeply earthy hue that reads as both geological and handcrafted; rust-bloom-muted introduces the more intense iron-oxide red-orange of exposed rock surfaces; honey-bloom-muted provides the warm amber-gold of desert light at the golden hour; sage-mist-soft brings the cool, dusty green that appears in desert vegetation — a color that reads as neutral when surrounded by warm tones, adding chromatic relief without introducing a jarring contrast; sand-pearl-soft provides the lightest entry — the pale buff of desert sand or sun-bleached sandstone, which works as both a light-toned accent and a warm off-white surface color. Together the five colors create a palette of mineral warmth and geological authority.",
+    ["Earthy", "Desert", "Warm"],
+    [
+      "terracotta-tone-muted",
+      "rust-bloom-muted",
+      "honey-bloom-muted",
+      "sage-mist-soft",
+      "sand-pearl-soft",
+    ],
+    {
+      editorialNote:
+        "This palette reads as 'desert' rather than 'rustic' when sage-mist-soft is included — the cool sage against warm terracotta and rust creates the specific temperature contrast of desert landscape photography. Without the sage, it becomes a purely warm earthy palette that could read as autumnal or Mediterranean. Use sand-pearl-soft as the background surface color (on white paper or in UI background roles) rather than pure white — the slight warm buff tone ties the other colors together. Typography: use a dark version of the terracotta or rust hue for headings, and neutral near-black for body text. Avoid pure black — it creates temperature contrast that fights the palette.",
+      promptWords: ["red rock canyon at midday", "desert mineral specimens on white paper", "dried earth and sage after summer rain", "rust-veined sandstone cliff face", "Navajo textiles and pottery"],
+      useCases: ["Regional brand identities in the American Southwest", "Artisan ceramics, natural materials, and handcrafted goods", "Architecture and interior design for desert climates", "Earthy wellness and skincare brands"],
+    },
+  ),
+  createCollection(
+    "midnight-garden",
+    "Midnight Garden",
+    "Deep navy, forest shadow, dusty rose, warm cream, and soft charcoal — a sophisticated palette for luxury fashion, dark editorial, and premium evening-oriented products.",
+    "A palette assembled around the specific visual register of a garden at night under a clear sky: the deep, slightly warm navy of the sky above, the nearly-black green of dense foliage in shadow, the soft dusty rose of night-blooming flowers barely visible in low light, the warm cream of stone paths and moonlit surfaces, and the soft charcoal of bark and branch. Midnight-blue-nocturne (navy-nocturne-muted in the archive) provides the deep blue anchor — not pure navy but a slightly warm, deep blue-black that reads as 'night sky rather than ocean'; forest-shadow-soft contributes the dark, desaturated green of foliage without light — a color that functions equally as an accent and a near-neutral; rose-whisper-muted introduces the pale, dusty rose note — a highly desaturated pink that reads as muted rather than sweet and provides chromatic warmth; cream-pearl-soft provides the warmest and lightest entry, suggesting moonlit stone and aged paper surfaces; charcoal-soft provides the most neutral and darkest entry — a warm charcoal that functions as a dark neutral without the coldness of pure black.",
+    ["Dark", "Botanical", "Luxury"],
+    [
+      "navy-nocturne-muted",
+      "forest-shadow-soft",
+      "rose-whisper-muted",
+      "cream-pearl-soft",
+      "charcoal-bloom-soft",
+    ],
+    {
+      editorialNote:
+        "The palette's sophistication depends on the muted quality of all five entries — no color in this palette should be vivid or high-saturation. If your execution requires more chromatic presence, introduce it through texture and finish (matte vs. gloss, foil, embossing) rather than by increasing color saturation. Navy-nocturne-muted is the dominant color and should appear in the largest quantities; forest-shadow-soft is the secondary — these two set the overall dark, cool-warm temperature contrast. Rose-whisper-muted is the palette's feminine note and should be used sparingly — one element per composition — to prevent it from dominating. Cream-pearl-soft is the primary light surface: use it for backgrounds, light panels, or white-paper equivalents rather than pure white. Typography: charcoal-bloom-soft works as a text color that integrates with the palette; navy-nocturne-muted can be used for heading color.",
+      promptWords: ["moonlit garden path at midnight", "dark perfume bottle on marble", "pressed botanicals on cream paper", "evening gown on shadowed terrace", "luxury packaging with foil stamp"],
+      useCases: ["Luxury fashion and evening wear brands", "Dark editorial and cultural institutions", "Premium perfume and cosmetics packaging", "Luxury hotel and evening dining identities"],
+    },
+  ),
+];
+
+collections.push(...extraCollections10);

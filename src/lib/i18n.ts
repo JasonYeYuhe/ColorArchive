@@ -1889,6 +1889,11 @@ const translations: Record<string, Record<string, string>> = {
     en: "Free REST API for 2016 colors. Search by name, hex, or mood. Get color relationships. No auth required.",
     zh: "免费 REST API，支持按名称、hex 或语义搜索 2016 种颜色。获取关联色。无需认证。",
   },
+    "tools.tokens.name": { en: "Design Token Generator", zh: "设计令牌生成器" },
+  "tools.tokens.desc": {
+    en: "Generate a complete token system from any brand color — primary, neutral, and semantic scales. Export as CSS vars, Tailwind, SCSS, or JSON.",
+    zh: "从任意品牌色生成完整设计令牌系统——主色、中性色和语义色阶。导出为 CSS 变量、Tailwind、SCSS 或 JSON。",
+  },
   "tools.figmaPlugin.name": { en: "Figma Plugin", zh: "Figma 插件" },
   "tools.figmaPlugin.desc": {
     en: "Browse 2016 colors, inspect WCAG contrast, and generate brand scales with 30 paint styles — directly inside Figma.",

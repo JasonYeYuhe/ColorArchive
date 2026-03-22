@@ -3549,3 +3549,119 @@ const extraGuides9: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides9);
+
+// Extra guides added by autopilot 2026-03-23 (big run)
+const extraGuides10: LandingGuide[] = [
+  {
+    category: "Design Systems",
+    slug: "design-token-color-system-guide",
+    title: "How to Build a Color Token System: The Complete Designer's Guide",
+    summary:
+      "A color token system is the infrastructure layer between your abstract brand palette and the code that implements it. Tokens translate color decisions into reusable, maintainable variables that can be updated globally, themed, and exported to any platform. Building a token system is not about adding complexity — it is about removing the hidden complexity that accumulates when colors are hard-coded directly into components.",
+    eyebrow: "Design Systems Guide",
+    priority: 82,
+    searchIntent: "design token color system guide designers",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Design Systems", "Tokens", "Color Systems"],
+    highlights: [
+      "A color token system has three tiers, and the distinction between tiers is the single most important concept in token architecture. Tier 1 (Primitive / Global tokens): the raw color values from your palette — `--color-blue-500: #3B82F6`. These tokens have no semantic meaning; they just name colors. They are never used directly in component code. Tier 2 (Semantic / Alias tokens): tokens that express intent rather than value — `--color-action-primary: var(--color-blue-500)`. These are the tokens components actually reference. Semantic tokens are what makes theming possible: to switch from blue to green primary, you change one semantic token, not hundreds of component-level hard-codes. Tier 3 (Component tokens, optional): component-specific tokens for large design systems — `--button-primary-background: var(--color-action-primary)`. Most projects do not need Tier 3 initially; add it when component-level overrides become necessary. The common mistake is to use only Tier 1 (raw hex) in components, which produces fragile systems that break on any rebrand.",
+      "Token naming is the decision with the longest-lasting consequences. Two naming philosophies exist: semantic naming (names express use) and descriptive naming (names express appearance). Semantic: `--color-text-primary`, `--color-surface-secondary`, `--color-feedback-error`. Descriptive: `--color-neutral-900`, `--color-brand-blue`, `--color-red-600`. Best practice: use descriptive naming at Tier 1 and semantic naming at Tier 2. Do NOT use color names that encode visual values into semantic positions (avoid `--color-primary-blue` because it breaks when the primary becomes green; prefer `--color-brand-primary` or `--color-action-interactive`). Do NOT name tokens for current values — `--color-dark-gray-text` creates problems when dark mode makes that 'dark gray' appear light. Name tokens for their role, not their current value.",
+      "Multi-theme token systems — supporting light mode, dark mode, and potentially brand variants — require that Tier 2 semantic tokens change their resolved Tier 1 value depending on the active theme, while component code remains unchanged. Implementation: define semantic tokens in a `:root` block for light mode, and override them in a `[data-theme='dark']` or `@media (prefers-color-scheme: dark)` block. Component code uses only semantic tokens — `background: var(--color-surface-primary)` — and automatically picks up the correct value for the active theme. The number of semantic tokens in a well-structured system is typically 30-60 for a complete product UI; a system with over 100 semantic tokens may have introduced unnecessary token proliferation.",
+    ],
+    sections: [
+      {
+        heading: "Choosing your scale: how many steps do you need?",
+        body:
+          "The standard 11-step scale (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950) provides sufficient resolution for almost all UI use cases. Steps 50-200 are used for subtle tinted backgrounds, hover states, and light surface colors. Steps 300-400 are used for borders, dividers, and medium-emphasis surfaces. Step 500 is typically the base or identity color — the color that appears in the brand's identity, the primary button, or the logo. Steps 600-700 are used for hover states on primary actions and for icon colors on light backgrounds. Steps 800-900 are used for high-emphasis text on colored backgrounds and very dark surfaces. Step 950 is used for near-black text color and the darkest surface. Not every design needs all 11 steps — a minimal project might use only 50, 500, and 700 — but having the full scale available prevents the need to add ad-hoc color values later.",
+      },
+      {
+        heading: "From primitives to semantics: mapping your palette to roles",
+        body:
+          "Once your primitive scale exists, the next step is mapping primitive tokens to semantic roles. The core semantic roles most products need: `color-surface-primary` (page background, typically step 50 in light mode, step 950 or near-black in dark mode), `color-surface-secondary` (card/panel background, typically step 100 in light mode), `color-border-default` (dividers and outlines, typically step 200 in light mode), `color-text-primary` (body text, typically step 900 in light mode), `color-text-secondary` (metadata and supporting text, typically step 500 in light mode), `color-action-primary` (interactive elements, typically step 500 or 600 depending on contrast requirements), `color-action-primary-hover` (hover state, typically step 700). Semantic tokens for dark mode typically invert the scale: `color-text-primary` points to step 50 (near-white) instead of step 900 (near-black). Work through every distinct visual role in your product and assign it a semantic token before writing any component code.",
+      },
+      {
+        heading: "Exporting tokens: CSS, Tailwind, JSON, and SCSS",
+        body:
+          "Tokens need to be exported in a format that your development stack can consume. CSS custom properties are the most universal: they work in any web context, support runtime theming via JavaScript, and are referenced in any CSS value position. Tailwind CSS config uses a JavaScript object structure where color names map to hex values or CSS variable references; using CSS variables as the values in Tailwind config (`brand: { 500: 'var(--color-brand-500)' }`) allows runtime theming to work even with Tailwind's utility class approach. JSON in the W3C Design Token Community Group format (`{ '$value': '#hex', '$type': 'color' }`) is the most portable format — it is the input format for Style Dictionary, which can transform tokens into any platform's native format (iOS Swift, Android XML, CSS, Tailwind, SCSS). SCSS variables work for codebases that use Sass preprocessing and prefer variable-style token references over CSS custom properties.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "WCAG Contrast Checker", href: "/contrast/" },
+      { label: "Monochrome Studio collection", href: "/collections/monochrome-studio/" },
+    ],
+  },
+  {
+    category: "Conversion & Landing Pages",
+    slug: "color-palette-for-landing-pages",
+    title: "Choosing a Color Palette for Landing Pages: What Actually Drives Conversion",
+    summary:
+      "Landing page color is one of the most frequently A/B tested variables in conversion rate optimization, and one of the most frequently misunderstood. The research literature is clear: no single color converts universally better than another. What matters is contrast, hierarchy, accessibility, and visual tension — the relationships between colors, not the colors themselves.",
+    eyebrow: "Landing Page Design",
+    priority: 80,
+    searchIntent: "color palette for landing page conversion",
+    featuredCollectionId: "nordic-winter",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Landing Pages", "Conversion", "Color Strategy"],
+    highlights: [
+      "The CTA button color question — 'what color converts best?' — is the wrong question. The research consensus on CTA color: the highest-converting CTA button is the one with the highest contrast against the surrounding content, regardless of its hue. An orange button on a white page converts well not because orange is a conversion color but because orange creates maximum contrast against white and typical page surroundings. A red button on a red page converts poorly for the same reason: zero contrast, zero attention. The practical rule: make your CTA the most visually prominent element on the page. This means high contrast against background, high contrast against surrounding text and graphics, and sufficient size. Hue is secondary to contrast every time.",
+      "Color hierarchy on a landing page should direct the eye through a specific sequence: headline → supporting benefit → CTA. The color system that supports this sequence: (1) Background: neutral or very low-chroma, no visual competition. (2) Headline: darkest color on the page, maximum contrast, maximum weight. (3) Supporting elements (icons, dividers, section headers): medium-chroma accent color, consistent but not overpowering. (4) CTA: the only high-chroma, high-contrast color on the page — it gets the chromatic 'loudest' position. If multiple elements compete chromatically with the CTA, the CTA loses its ability to direct attention. Landing page color design is largely about chromatic restraint everywhere except the single point of action.",
+      "Social proof and trust signals respond differently to color than conversion elements. Trust-building sections (testimonials, logos, certifications, guarantees) benefit from a neutral or slightly warm palette — high-chroma color in trust sections makes them feel like sales content rather than genuine endorsement. Contrast this with urgency elements (countdown timers, limited availability notices, promotional banners) which benefit from high-chroma warm hues (orange-red spectrum) that signal urgency without triggering the 'this is an ad' dismissal reflex that solid red often produces. The psychological mechanism: warm orange-amber reads as 'paying attention' where saturated red reads as 'danger / stop.' For most e-commerce and SaaS landing pages, urgent-but-not-alarming is the right register for scarcity-based elements.",
+    ],
+    sections: [
+      {
+        heading: "Building a landing page color system in four decisions",
+        body:
+          "Four color decisions define a landing page palette: (1) Background temperature. Choose one of three directions: pure white (maximum contrast, most versatile, reads as neutral); warm white/cream (slightly lower contrast against warm brand colors, but adds sophistication and warmth — good for lifestyle, luxury, and artisan contexts); light-tinted (a very low saturation tint of your brand primary color — 5-8% saturation — creates subtle brand presence in the background without distracting from content). (2) Brand primary. The color that represents your brand in logomark, product imagery, and brand-adjacent elements. It should appear in the page's visual identity without dominating the conversion focus. (3) CTA color. This may or may not be your brand primary — it should be the color with the highest contrast and chromatic intensity on the page. If your brand primary is blue and your background is white, a blue CTA provides good contrast; if your brand primary is a light teal, a darker complementary color may convert better. (4) Semantic accent. A single accent color for icons, section dividers, and highlight elements — used consistently to create visual rhythm without competing with the CTA.",
+      },
+      {
+        heading: "Above the fold vs. below the fold color strategy",
+        body:
+          "Above the fold on a landing page is the hero section: the headline, subheadline, primary CTA, and hero image or illustration. This section should use the highest-contrast version of your palette — white or near-white background, dark heading text, prominent CTA. Below the fold — feature sections, testimonials, pricing, FAQ — can introduce more color variety: alternating section backgrounds (white alternating with a light tint of the brand color, or white alternating with a very light neutral), more color in icons and section headers, and secondary CTAs using slightly lower-emphasis color treatments. The principle: reserve maximum chromatic intensity for the primary CTA above the fold; use secondary color treatments to guide the scroll journey. Repeating the primary CTA button style (same color, same size) at the bottom of the page creates a consistent 'answer' to the visitor's scroll question — 'what should I do?' — without introducing visual competition.",
+      },
+    ],
+    links: [
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Color Contrast Checker", href: "/contrast/" },
+      { label: "Nordic Winter collection", href: "/collections/nordic-winter/" },
+    ],
+  },
+  {
+    category: "Icon Design",
+    slug: "color-in-icon-design-guide",
+    title: "Color in Icon Design: Single-Color, Multi-Color, and Semantic Icon Systems",
+    summary:
+      "Icon color is one of the most technically constrained areas of color design — icons must work at small scales, across multiple backgrounds, in dark and light modes, and within the color expectations of their containing interface. The decisions are simple in principle and consistently under-specified in practice: how many colors, which colors, when to use semantic color, and how to handle context variability.",
+    eyebrow: "Icon Design",
+    priority: 76,
+    searchIntent: "color in icon design icon color system",
+    featuredCollectionId: "minimal-workspace",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Icons", "UI Design", "Color Systems"],
+    highlights: [
+      "Single-color icons — icons rendered in one color, typically the current text color or a specified interface color — are the most versatile and scalable icon type for UI systems. By accepting the current color context (via `currentColor` in SVG), they automatically adapt to dark/light mode, themed surfaces, and disabled states without separate icon variants. The constraint: single-color icons communicate function through form alone, without color as a signal. This is sufficient for most UI navigation and action icons. The design requirement for single-color icons is higher: form must communicate unambiguously without color cues. The common mistake: designing icons in a specific color (dark on white) and assuming they will work in all contexts — test every single-color icon in four states: default (light mode), dark mode, on a colored background, and in a disabled (50% opacity) state.",
+      "Multi-color icons gain the ability to use color as a semantic layer — to distinguish parts of an icon visually and to carry meaning beyond form. The constraint is production complexity: multi-color icons need separate dark mode variants, more complex SVG with multiple color values, and careful contrast checks for each color combination. The practical recommendation for UI icon systems: use single-color icons for all system and navigation icons (16-24px size), and reserve multi-color icons for decorative or marketing contexts (32px+) where the extra expressiveness justifies the production overhead. App icons, feature illustrations, and onboarding imagery are the appropriate context for multi-color icon treatment in a product design system.",
+      "Semantic color in icons — using color to communicate meaning, not just decoration — is most valuable in status and feedback icons. The icon system patterns: error/destructive = red; warning/caution = amber/yellow; success/confirmation = green; informational = blue. These four semantic colors should be consistent across every icon and UI element in the product — the same red used in error icons should be the same red used in error borders and error text. Consistency is the source of semantic value: if red appears in three different hues across the product (error icons in one red, destructive button in another, notification badge in a third), the semantic signal is diluted and users cannot rely on color alone as a meaning carrier.",
+    ],
+    sections: [
+      {
+        heading: "Icon color at small sizes: the contrast problem",
+        body:
+          "Icons at 16-20px face a perceptual contrast threshold that is different from text contrast. WCAG defines contrast requirements for text at normal and large sizes, and for UI components (3:1 minimum), but does not specifically address icon contrast at the specific sizes they appear in. The practical finding: icons below 20px in a color that passes 3:1 contrast on the background often fail perceptually due to antialiasing, the small proportion of colored pixels to background, and the complex form of the icon at small scale. The working recommendation: design icons to pass 4.5:1 contrast at their intended render size, not 3:1, to compensate for the perceptual penalty of small-scale rendering. Use the contrast checker tools to verify the icon color against all backgrounds on which it appears — particularly colored header backgrounds, card surfaces, and dark mode backgrounds.",
+      },
+      {
+        heading: "Adapting icon color across surfaces",
+        body:
+          "Icons appear on multiple background surfaces in a product: white page backgrounds, card surfaces, colored header bars, toolbar backgrounds, dark panels. Each background creates a different contrast relationship with the icon color. The two strategies for handling this: (1) CSS `currentColor` strategy: icons inherit the text color of their container, which is already specified to be accessible on that surface. If the container text color is specified correctly, icon color follows automatically. This is the most maintainable approach for system icons. (2) Fixed icon color strategy: icons use a specified fixed color (typically step 600-700 of the neutral scale for light mode, step 200-300 for dark mode) that provides sufficient contrast on expected surfaces. This approach requires explicit management when icons appear on non-standard backgrounds. The `currentColor` strategy is generally preferable for design systems because it reduces the number of independent color decisions and integrates icon color into the existing text hierarchy.",
+      },
+    ],
+    links: [
+      { label: "Minimal Workspace collection", href: "/collections/minimal-workspace/" },
+      { label: "WCAG Contrast Checker", href: "/contrast/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides10);
