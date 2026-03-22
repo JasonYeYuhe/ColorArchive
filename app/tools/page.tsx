@@ -6,20 +6,20 @@ import { ToolsPage } from "@/src/components/tools-page";
 export const metadata: Metadata = {
   title: { absolute: "Free Color Tools for Designers — ColorArchive" },
   description:
-    "11 free color tools for designers: contrast checker, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more. No sign-up required.",
+    "12 free color tools for designers: contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more. No sign-up required.",
   alternates: {
     canonical: "/tools/",
   },
   openGraph: {
     title: "Free Color Tools for Designers — ColorArchive",
     description:
-      "11 free color tools for designers: contrast checker, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more.",
+      "12 free color tools for designers: contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
   twitter: {
     title: "Free Color Tools for Designers — ColorArchive",
     description:
-      "11 free color tools: contrast checker, converter, blindness simulator, harmony generator, gradient builder, and more.",
+      "12 free color tools: contrast checker, tints & shades generator, converter, blindness simulator, harmony generator, gradient builder, and more.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
 };
@@ -107,6 +107,13 @@ const toolsListStructuredData = {
       {
         "@type": "ListItem",
         position: 11,
+        name: "Tints & Shades Generator",
+        url: "https://colorarchive.me/tints/",
+        description: "Generate a complete 11-step tonal color scale from any hex. Export as CSS variables, Tailwind config, Sass, or JSON.",
+      },
+      {
+        "@type": "ListItem",
+        position: 12,
         name: "Surprise Me",
         url: "https://colorarchive.me/surprise/",
         description: "Get a random curated color for instant design inspiration.",

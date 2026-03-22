@@ -100,6 +100,15 @@ const TOOLS: Tool[] = [
     accent: "bg-green-100 text-green-700",
   },
   {
+    href: "/tints/",
+    icon: "▥",
+    nameKey: "tools.tints.name",
+    descKey: "tools.tints.desc",
+    categoryKey: "tools.cat.creative",
+    badgeKey: "tools.badge.new",
+    accent: "bg-blue-100 text-blue-700",
+  },
+  {
     href: "/surprise/",
     icon: "✦",
     nameKey: "tools.surprise.name",

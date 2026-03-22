@@ -3259,5 +3259,173 @@
         "href": "/families/gray/"
       }
     ]
+  },
+  {
+    "slug": "jun-2027-tints-shades-tones-color-scale",
+    "date": "2027-05-13",
+    "title": "Tints, shades, and tones: how to build a complete color scale for any brand color",
+    "summary": "The difference between a tint, a shade, and a tone is not just terminology — it reflects three different relationships between a color and its visual context. Understanding how to generate a complete, usable tonal scale from any brand color is one of the foundational skills of modern design systems. Most color tools produce scales that look acceptable but break down under real conditions: text that fails contrast on midrange steps, surfaces that feel muddy rather than elevated, and shades that lose hue fidelity as they darken. Building a reliable color scale requires understanding where each decision compounds.",
+    "eyebrow": "Issue 070",
+    "tags": [
+      "Design Systems",
+      "Color Theory"
+    ],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "A tint is made by adding white to a color — in practice, by raising lightness while reducing saturation proportionally. A shade is made by adding black — lowering lightness while keeping saturation controlled. A tone is made by adding gray — reducing saturation while keeping lightness roughly constant. In HSL terms: tints push L toward 100 while reducing S, shades push L toward 0, and tones reduce S at a fixed L. All three operations preserve the original hue angle, which is what maintains color identity across the scale.",
+      "The most common failure in tonal scales is midrange contrast collapse. Steps 300–500 often produce colors where neither black nor white text meets WCAG AA (4.5:1 for normal text). This is predictable: the midrange is where luminance crosses the threshold that makes both foreground options borderline. The fix is to designate midrange steps explicitly as background-only and design the scale so that no interactive or informational element uses those steps for text color. The 200-step is typically the last viable background step with black text; the 700-step is typically the first viable background step with white text.",
+      "Saturation behavior across a scale determines whether it reads as a single color family or as disconnected swatches. For vivid hues like blue or orange, reducing saturation aggressively in the light steps (50–200) prevents washed-out pastels that read as gray rather than tinted. For muted, earthy hues like terracotta or sage, saturation is already low and should change minimally across the scale to preserve the character. The same lightness interpolation applied to two different base colors requires different saturation curves to produce equally usable results."
+    ],
+    "sections": [
+      {
+        "heading": "How to evaluate a color scale before using it in a design system",
+        "body": "A tonal scale is production-ready when it passes four tests. (1) Every step is visually distinct — adjacent steps should be immediately distinguishable, not near-identical. (2) The light steps (50–200) pass AA contrast with black text at normal size. (3) The dark steps (700–950) pass AA contrast with white text at normal size. (4) The midrange steps (300–600) are explicitly designated as non-text colors in the system documentation, preventing misuse. Test the scale on a white background, a dark background, and in the context of your actual UI components — a swatch grid is not a sufficient test environment."
+      },
+      {
+        "heading": "Building a scale from a brand color that does not sit at step 500",
+        "body": "Not every brand color is naturally a step 500 value. A bright electric blue might naturally read as step 400 — vivid but still fairly light. A deep burgundy might naturally read as step 700. Forcing it into the 500 slot by adjusting lightness changes the color and may not be acceptable for brand consistency. The correct approach is to find the natural position of the brand color in the lightness range, fix it there, and build the rest of the scale outward from that anchor. Document which step the brand color occupies. If the brand blue is at step 400, the primary action color in the design system becomes step 400, not step 500, and the scale is built to accommodate that."
+      }
+    ],
+    "links": [
+      {
+        "label": "Try the Tints & Shades Generator",
+        "href": "/tints/"
+      },
+      {
+        "label": "Explore the Quiet Luxury palette",
+        "href": "/collections/quiet-luxury/"
+      },
+      {
+        "label": "Read our design systems guide",
+        "href": "/guides/design-token-color-naming/"
+      }
+    ]
+  },
+  {
+    "slug": "jun-2027-color-in-motion-animation",
+    "date": "2027-05-20",
+    "title": "Color in motion: designing animated color transitions and when timing matters",
+    "summary": "Animating color is not simply moving from one hex value to another. The path a color takes between two states — through which intermediate values, at what speed — determines whether the transition reads as intentional or accidental. Most UI color animations use linear interpolation in RGB, which produces desaturated midpoints and timing that feels unnatural to the human visual system. Designing motion-aware color requires understanding how color spaces affect interpolation and how animation timing curves change perceived color speed.",
+    "eyebrow": "Issue 071",
+    "tags": [
+      "UI/UX Design",
+      "Animation"
+    ],
+    "featuredCollectionId": "digital-dusk",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "RGB linear interpolation produces the gray problem: transitioning from red to blue through RGB always passes through a desaturated, grayish midpoint. This is because the mathematical midpoint of two high-saturation RGB values often sits near the gray axis of the color space. The solution is to interpolate in HSL or LCH instead. HSL interpolation keeps saturation constant and transitions through the hue arc between the two colors, which reads as vivid and intentional. LCH interpolation maintains perceptual lightness uniformly, which produces transitions that feel photorealistic rather than digital.",
+      "The speed of a color transition changes its perceived meaning. Instant color changes (0–50ms) register as state confirmation — a button press, a toggle activation. Fast transitions (100–200ms) read as responsive feedback. Medium transitions (250–400ms) read as scene changes and mode shifts. Slow transitions (500ms+) read as atmospheric or ambient. Applying a 400ms ease to a button press hover state is a mismatch: the timing contradicts the interaction type. Match transition duration to semantic meaning, not to aesthetic preference.",
+      "Hue rotation in CSS (filter: hue-rotate()) is useful for theming experiments but produces perceptually uneven results because equal hue rotation does not produce equal visual change across the color wheel. Blue hues shift appearance faster than red or green hues with the same rotation angle. For precise animated color systems, use custom properties (CSS variables) updated via JavaScript and interpolate in HSL or LCH rather than relying on filter effects."
+    ],
+    "sections": [
+      {
+        "heading": "Practical rules for UI color animation",
+        "body": "Color transitions in UI contexts should follow three rules. (1) Animate state, not decoration: only animate color when it carries semantic meaning — active, disabled, error, success. Animating colors for visual interest without semantic purpose increases cognitive load. (2) Keep durations under 300ms for interactive elements: longer transitions feel broken on slow hardware and frustrate users who have already committed to an interaction. (3) Test in reduced-motion mode: operating systems provide reduced-motion preferences that browsers expose via the prefers-reduced-motion media query. All non-essential color animations should be disabled or minimized under this setting."
+      },
+      {
+        "heading": "Dark mode and animated color systems",
+        "body": "Dark mode transitions present a specific challenge: switching between light and dark mode involves simultaneous changes to background, surface, text, and border colors. If each color transitions independently at slightly different speeds, the result is a jarring intermediate state where contrast relationships are temporarily broken. The correct approach is to transition all semantic color tokens simultaneously using a single CSS transition applied at the root level: :root { transition: color 200ms, background-color 200ms; }. This ensures all color values change in synchrony and the intermediate state is a uniformly shifting palette rather than a patchwork of independently timed elements."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore Digital Dusk palette",
+        "href": "/collections/digital-dusk/"
+      },
+      {
+        "label": "Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit/"
+      },
+      {
+        "label": "Contrast checker",
+        "href": "/contrast/"
+      }
+    ]
+  },
+  {
+    "slug": "jun-2027-color-consistency-across-devices",
+    "date": "2027-05-27",
+    "title": "Color consistency across devices: why the same hex looks different everywhere",
+    "summary": "A designer specifies #2563EB on a calibrated display. The developer sees a slightly different blue on their laptop. The client reports it looks wrong on their phone. The same hex value, different appearance. This is not a bug — it is color management working as intended, exposing the gap between color as a number and color as a perceptual experience. Display calibration, color profiles, and rendering environments create a physical layer beneath the digital layer that most designers never see until a client complaint forces them to look. Understanding the basics makes hex choices more deliberate and client conversations more productive.",
+    "eyebrow": "Issue 072",
+    "tags": [
+      "Color Theory",
+      "UI/UX Design"
+    ],
+    "featuredCollectionId": "coastal-morning",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "Every display renders RGB values differently because every panel has different phosphor or pixel characteristics. A display running without a color profile is essentially uncalibrated — the operating system applies no correction, and RGB values are sent directly to the panel hardware. A display running with a calibrated ICC profile has its output adjusted so that a measured reference color (e.g., sRGB D65 white point) is rendered accurately. On macOS, most displays use color profiles automatically. On Windows, many displays run without calibration. This means your carefully specified hex values look noticeably different on uncalibrated hardware, and you cannot control this from the design file.",
+      "sRGB is the standard color space for web design. It was established in 1996 and is supported by every browser on every device. When you specify a hex color in CSS, browsers assume sRGB. When a display's color profile is set to sRGB (or a manufacturer-mapped equivalent), the hex-to-pixel mapping is consistent and predictable. The design risk arises with wide-gamut displays — Apple's P3, which covers about 25% more color than sRGB. On a P3 display showing sRGB content, colors are mapped correctly and look like sRGB. But images or assets that accidentally include out-of-sRGB colors will appear oversaturated or shifted on non-P3 displays.",
+      "Browser color management behavior varies. Safari has supported full color management including P3 for years. Chrome added Display P3 support and applies ICC profiles properly in recent versions. Firefox has variable behavior depending on the operating system. For web design, the practical implication is: always author in sRGB. Use P3 only when you explicitly want to take advantage of wide-gamut displays, and always test on both a P3 display and an sRGB display to verify the fallback appearance."
+    ],
+    "sections": [
+      {
+        "heading": "Practical calibration workflow for design teams",
+        "body": "Design teams sharing color specifications can reduce cross-device variance with three practices. (1) All designers should use the same color profile setting on their displays — sRGB is the standard baseline. (2) Design tool exports (PNG, SVG) should be exported with an embedded sRGB ICC profile so browsers apply correct color mapping. In Figma, use the Figma Color Profile setting. In Photoshop, enable 'Embed Color Profile' on export. (3) Client review links should include a note that colors are optimized for calibrated displays and may appear slightly different on uncalibrated hardware — this sets accurate expectations and preempts complaints."
+      },
+      {
+        "heading": "When to specify P3 colors intentionally",
+        "body": "CSS Color Level 4 allows explicit P3 color specification: color(display-p3 0.15 0.36 0.92). This is appropriate when designing for Apple platforms where P3 displays are universal, or when you need the most saturated possible blues, greens, or magentas that exceed the sRGB gamut. The correct fallback pattern is @supports with an sRGB hex as the default: .element { color: #2563EB; } @supports (color: color(display-p3 0 0 0)) { .element { color: color(display-p3 0.1 0.38 0.92); } }. Always verify the sRGB fallback is acceptable on its own before adding P3 enhancement."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore Coastal Morning",
+        "href": "/collections/coastal-morning/"
+      },
+      {
+        "label": "Browse the complete archive",
+        "href": "/all-colors/"
+      },
+      {
+        "label": "Color converter",
+        "href": "/convert/"
+      }
+    ]
+  },
+  {
+    "slug": "jun-2027-color-in-data-visualization",
+    "date": "2027-06-03",
+    "title": "Color in data visualization: encoding information without misleading your audience",
+    "summary": "In most design contexts, color is decorative or expressive. In data visualization, color is functional: it encodes information. The same color choice that reads as attractive in a marketing context can systematically mislead an audience in a chart. The rules for visualization color are different from the rules for UI color, different from the rules for brand color, and different from the rules for illustration. Applying the wrong ruleset — as most designers do when they first approach data visualization — produces charts that look designed but communicate poorly.",
+    "eyebrow": "Issue 073",
+    "tags": [
+      "Color Theory",
+      "Design Systems"
+    ],
+    "featuredCollectionId": "signal-tones",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "There are three types of color scales in data visualization, and each requires a different color strategy. Sequential scales represent ordered data from low to high (e.g., population density, revenue). They should use a single hue with lightness varying from light (low) to dark (high), or two hues that transition through a neutral. Diverging scales represent data with a meaningful midpoint (e.g., temperature above/below freezing, survey agreement/disagreement). They should use two contrasting hues meeting at a neutral center. Categorical scales represent unordered groups (e.g., product categories, geographic regions). They should use hues that are maximally distinct with equal perceptual weight — avoiding any hue that reads as more important than others.",
+      "Rainbow color scales (ROYGBIV) are one of the most persistent mistakes in data visualization. They look like they should encode a range, but they don't: the perceived brightness of rainbow hues is uneven (yellow is much lighter than blue), which creates false visual emphasis. Green appears more important than red or violet simply because of its position in the visual hierarchy. The ordering is not perceptually linear — the gap between red and orange appears larger than the gap between green and teal even if the underlying data gap is identical. Use perceptually uniform color scales (viridis, cividis, plasma) for quantitative sequential data instead.",
+      "Color blindness affects approximately 8% of men and 0.5% of women, with red-green color vision deficiency (deuteranopia and protanopia) being the most common form. A chart that encodes the distinction between positive and negative values using only red and green will be completely unreadable to this population. The fix is to use both color and a secondary encoding — shape, position, pattern, or label — for any distinction the chart depends on. Never rely on color as the sole differentiator for critical data."
+    ],
+    "sections": [
+      {
+        "heading": "Choosing accessible colors for data visualization",
+        "body": "For categorical palettes in charts, start with hues separated by at least 30 degrees on the color wheel: blue (220°), orange (25°), green (140°), red (350°), purple (280°), teal (175°). Keep saturation and lightness roughly equal across all hues so no category appears more prominent than others. Test every categorical palette with a deuteranopia simulator before finalizing. For sequential palettes, use a single-hue ramp with lightness from ~90% (low values) to ~20% (high values) — this provides the greatest perceptual range while remaining accessible. For diverging palettes, the neutral midpoint should be clearly distinguishable and typically should sit near 85-90% lightness."
+      },
+      {
+        "heading": "Color and chart type relationships",
+        "body": "Different chart types have different color requirements that are not always obvious. In line charts, each line needs a distinct hue, but the lines compete visually — use no more than 5-6 colors before switching to a labeled direct annotation strategy. In bar charts, all bars in a single category should use the same hue; color variation within bars implies category differences that may not exist. In scatter plots, color encodes a third variable — use sequential or categorical scales as appropriate for that variable's type, not the color that 'looks good' with the chart background. In heatmaps, sequential scales (light to dark) are almost always correct; avoid using diverging scales unless a meaningful midpoint exists in the data."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore Signal Tones palette",
+        "href": "/collections/signal-tones/"
+      },
+      {
+        "label": "Color blindness simulator",
+        "href": "/colorblind/"
+      },
+      {
+        "label": "Browse complete archive",
+        "href": "/all-colors/"
+      }
+    ]
   }
 ]

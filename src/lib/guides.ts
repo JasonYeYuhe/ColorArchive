@@ -2259,6 +2259,96 @@ export const landingGuides: LandingGuide[] = [
       { label: "Browse color families", href: "/families/" },
     ],
   },
+  {
+    slug: "tints-shades-color-scale",
+    priority: 74,
+    title: "How to Build a Tints and Shades Color Scale for Any Brand Color",
+    summary:
+      "A complete guide to generating tonal color scales for design systems. Learn the difference between tints, shades, and tones, the WCAG contrast requirements for each step, and how to choose the right scale for your brand.",
+    eyebrow: "Design Systems",
+    searchIntent: "color scale generator, tints and shades, tailwind color scale, design system colors",
+    tags: ["Design Systems", "Color Theory"],
+    category: "Design Systems",
+    highlights: [
+      "Tints add white (raise lightness, reduce saturation). Shades add black (lower lightness). Tones add gray (reduce saturation at fixed lightness). All three preserve the original hue angle.",
+      "WCAG AA requires 4.5:1 contrast. Steps 50–200 typically pass with black text; steps 700–950 pass with white text. Steps 300–600 are midrange — designate them as non-text colors in your token system.",
+      "Do not force your brand color into step 500. Identify its natural lightness position (400, 500, 600, etc.) and anchor the scale there. The step number is a label, not a constraint.",
+    ],
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    sections: [
+      {
+        heading: "Tints, shades, and tones: understanding the difference",
+        body: "A tint is created by adding white to a color — in HSL terms, increasing lightness while reducing saturation. A shade is created by adding black — decreasing lightness. A tone is created by adding gray — reducing saturation while keeping lightness roughly constant. In a tonal scale for a design system, tints occupy the light steps (50–400), the base color anchors the mid step (500), and shades fill the dark steps (600–950). Each operation preserves the original hue, which is what makes the scale feel like a single, coherent color family rather than a collection of separate colors.",
+      },
+      {
+        heading: "Contrast requirements across a tonal scale",
+        body: "WCAG 2.1 AA compliance requires 4.5:1 contrast for normal-size text and 3:1 for large text (18pt+ or 14pt bold). Across an 11-step scale, this creates a predictable pattern: steps 50–200 typically pass AA with black text, steps 700–950 typically pass AA with white text, and steps 300–600 fall into the midrange where neither black nor white achieves the full 4.5:1 ratio for normal text. The correct design system response is to designate midrange steps as non-text colors — suitable for borders, backgrounds, and decorative elements — and explicitly forbid their use for body text. Document this in your token specifications.",
+      },
+      {
+        heading: "Building a scale from a brand color",
+        body: "The most common mistake when building a tonal scale is forcing the brand color into step 500 regardless of its natural lightness. A bright electric blue (L≈60%) that belongs at step 400 will look washed-out if stretched to step 500. A deep burgundy (L≈30%) that belongs at step 700 will lose its character if lightened to step 500. The correct approach: (1) Enter the brand color into a tonal scale tool. (2) Identify which step it most closely matches by comparing lightness. (3) Declare that step as the primary action color in your design system — whether it is 400, 500, or 600 — and build the rest of the scale outward. The step number is a label, not a constraint.",
+      },
+      {
+        heading: "Saturation management across the scale",
+        body: "Saturation behavior determines whether a scale reads as unified or disconnected. For vivid hues like electric blue or bright orange, the light steps (50–200) require significant saturation reduction to avoid looking like washed-out pastels rather than true tints. For muted, earthy hues like sage, terracotta, or slate, saturation is already low and should change minimally across the scale to preserve character. As a rule: reduce saturation in tints (steps 50–300) by 30–70% relative to the base, and reduce saturation slightly in deep shades (steps 800–950) by 15–25%. The exact values depend on the base hue's starting saturation.",
+      },
+      {
+        heading: "Exporting a color scale for use in code",
+        body: "A tonal scale should be exported in the format your engineering team uses. CSS custom properties are the most universal: --color-primary-500: #2563EB. Tailwind CSS config allows extending the color palette with a named scale that integrates with all Tailwind utilities. Sass variables work for older preprocessor-based systems. JSON is useful as a format-agnostic source of truth that can be transformed into any target format. Regardless of format, the naming convention should be consistent — {palette-name}-{step} — and the full scale should be included even if only a few steps are currently in active use, so the system can grow without gaps.",
+      },
+    ],
+    links: [
+      { label: "Try the Tints & Shades Generator", href: "/tints/" },
+      { label: "Learn design token naming", href: "/guides/design-token-color-naming/" },
+      { label: "Check WCAG contrast", href: "/contrast/" },
+    ],
+  },
+  {
+    slug: "data-visualization-color-palettes",
+    priority: 75,
+    title: "Color Palettes for Data Visualization: Sequential, Diverging, and Categorical",
+    summary:
+      "How to choose and build color palettes for charts and dashboards. Covers sequential, diverging, and categorical scale types, perceptual uniformity, rainbow scale problems, and accessibility for color-blind users.",
+    eyebrow: "Color Theory",
+    searchIntent: "data visualization color palette, chart colors, accessible color palette, visualization colors",
+    tags: ["Color Theory", "Design Systems"],
+    category: "Color Theory",
+    highlights: [
+      "Three scale types: sequential (single-hue light-to-dark for ordered data), diverging (two hues meeting at neutral for data with a midpoint), categorical (distinct hues at equal perceptual weight for unordered groups).",
+      "Rainbow (ROYGBIV) scales fail: uneven perceived brightness, no logical ordering, unequal perceptual steps, and the red-green pair is the most common color-blind confusion. Use viridis, cividis, or plasma instead.",
+      "Never use color as the sole differentiator. Add a secondary encoding — shape, position, pattern, or label — for every color-based distinction. This covers color-blind users, print, grayscale, and high-glare environments.",
+    ],
+    featuredCollectionId: "signal-tones",
+    featuredPackId: "complete-archive",
+    sections: [
+      {
+        heading: "The three types of data visualization color scales",
+        body: "Every chart color decision belongs to one of three scale types. Sequential scales encode ordered, one-directional data — temperature, revenue, density. They work best with a single hue progressing from light (low values) to dark (high values). Diverging scales encode data with a meaningful midpoint — profit/loss, above/below average, agree/disagree. They use two contrasting hues that meet at a neutral center, allowing the viewer to read both direction and magnitude from color alone. Categorical scales encode unordered group membership — product lines, regions, demographic segments. They use maximally distinct hues at equal perceptual weight, so no category appears more important than others simply because of its color.",
+      },
+      {
+        heading: "Why rainbow color scales are a mistake",
+        body: "Rainbow (ROYGBIV) scales appear to encode a range, but they fail in four ways. First, perceived brightness is uneven: yellow is far lighter than blue, creating false visual emphasis in the middle of the range. Second, there is no logical ordering — a viewer cannot reliably determine whether violet is above or below red without a legend. Third, the hue steps are perceptually unequal: the gap between red and orange appears larger than the gap between green and teal even if the data gap is identical. Fourth, the red-to-green transition is the most common color-blind confusion pair, making the scale unreadable for the 8% of men with deuteranopia. Use perceptually uniform alternatives: viridis (blue-green-yellow), cividis (blue-yellow, fully color-blind safe), or plasma (blue-pink-yellow).",
+      },
+      {
+        heading: "Building accessible categorical palettes",
+        body: "A categorical palette for charts should meet three criteria. (1) Sufficient hue separation: each category hue should be at least 30° apart on the color wheel. A practical starting palette: blue (220°), orange (25°), green (140°), red (0°), purple (280°), teal (175°). (2) Equal perceptual weight: saturation and lightness should be roughly equal across all hues so no category visually dominates. (3) Color-blind legibility: test every palette with a deuteranopia simulator. The blue-orange combination is the most reliably accessible pair, as it is distinguishable for all common types of color vision deficiency.",
+      },
+      {
+        heading: "Color and chart type: matching the scale to the visualization",
+        body: "Different chart types have different color requirements. In line charts, each line needs a distinct categorical hue — limit to 5-6 lines before switching to direct data labels that remove the need for color-based differentiation. In bar charts, bars within a single category should all share one hue; adding color variation implies categorical differences that may not exist. In scatter plots, color encodes a third variable — apply a sequential scale for quantitative third variables, a categorical scale for nominal ones. In heatmaps, sequential scales (light to dark) are almost always correct; diverging scales are only appropriate when the data has a genuine neutral midpoint with meaningful departures in both directions.",
+      },
+      {
+        heading: "Never use color as the sole differentiator",
+        body: "The most important rule in accessible data visualization is that color should never be the only way to distinguish between data categories or values. Every color-encoded distinction should have a secondary encoding: position, shape, pattern, direct label, or texture. This is not just a color-blindness consideration — it benefits all users in high-glare environments, on printed materials, in black-and-white photocopies, and in screenshots shared in document form. The principle is: design with color, verify without it.",
+      },
+    ],
+    links: [
+      { label: "Color blindness simulator", href: "/colorblind/" },
+      { label: "Contrast checker", href: "/contrast/" },
+      { label: "Browse color families", href: "/families/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {

@@ -767,7 +767,7 @@ const translations: Record<string, Record<Locale, string>> = {
   // Tools index page
   "tools.badge": { en: "Color tools", ja: "カラーツール" },
   "tools.heading": { en: "Free Color Tools", ja: "無料カラーツール" },
-  "tools.subheading": { en: "Eleven free tools to help designers work with color more effectively. No account required.", ja: "デザイナーがより効果的に色を扱うための11個の無料ツール。アカウント不要。" },
+  "tools.subheading": { en: "Twelve free tools to help designers work with color more effectively. No account required.", ja: "デザイナーがより効果的に色を扱うための12個の無料ツール。アカウント不要。" },
   "tools.openTool": { en: "Open tool", ja: "ツールを開く" },
   "tools.badge.new": { en: "New", ja: "新着" },
   "tools.cat.accessibility": { en: "Accessibility", ja: "アクセシビリティ" },
@@ -796,6 +796,8 @@ const translations: Record<string, Record<Locale, string>> = {
   "tools.spectrum.desc": { en: "Explore all 2016 archive colors arranged in a full-spectrum grid sorted by hue, lightness, and saturation.", ja: "色相、明度、彩度でソートされた全2016色のアーカイブをスペクトラムグリッドで探索。" },
   "tools.surprise.name": { en: "Surprise Me", ja: "サプライズ" },
   "tools.surprise.desc": { en: "Click for a random color from the curated archive. Great for breaking creative blocks and finding unexpected inspiration.", ja: "厳選アーカイブからランダムな色を表示。クリエイティブなブロックを打ち破り、意外なインスピレーションを見つけるのに最適。" },
+  "tools.tints.name": { en: "Tints & Shades Generator", ja: "ティント＆シェード生成" },
+  "tools.tints.desc": { en: "Generate a complete 11-step tonal scale (50–950) from any hex color. Export as CSS variables, Tailwind config, Sass, or JSON.", ja: "任意のHEXカラーから11段階のトーンスケール（50〜950）を生成。CSS変数、Tailwind設定、Sass、JSONでエクスポート。" },
   "tools.ctaBadge": { en: "More to explore", ja: "さらに探索" },
   "tools.ctaHeading": { en: "2,016 colors, zero noise", ja: "2,016色、ノイズゼロ" },
   "tools.ctaDesc": { en: "Every tool on this page works with the same carefully curated archive of 2,016 designer-ready colors. Browse the full archive or read the guides to level up your color knowledge.", ja: "このページのすべてのツールは、デザイナー向けに厳選された2,016色の同じアーカイブを使用しています。全アーカイブを閲覧するか、ガイドを読んでカラーの知識を深めましょう。" },

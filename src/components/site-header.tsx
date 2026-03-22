@@ -38,7 +38,8 @@ interface SiteHeaderProps {
     | "/compare"
     | "/harmonies"
     | "/colorblind"
-    | "/tools";
+    | "/tools"
+    | "/tints";
 }
 
 interface NavItem {
