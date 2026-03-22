@@ -1925,6 +1925,13 @@ const translations: Record<string, Record<string, string>> = {
   "share.shareLink": { en: "Share link", zh: "分享链接" },
   "share.linkCopied": { en: "Link copied", zh: "链接已复制" },
 
+  // Pinterest
+  "pinterest.save": { en: "Pin", zh: "Pin" },
+  "pinterest.chooseBoard": { en: "Save to Board", zh: "保存到画板" },
+  "pinterest.saved": { en: "Saved to Pinterest!", zh: "已保存到 Pinterest!" },
+  "pinterest.noBoards": { en: "No boards found. Create one on Pinterest first.", zh: "未找到画板，请先在 Pinterest 创建。" },
+  "pinterest.disconnect": { en: "Disconnect Pinterest", zh: "断开 Pinterest" },
+
   // Grid section
   "grid.archiveTitle": { en: "Archive", zh: "色彩库" },
   "grid.archiveDesc": {
