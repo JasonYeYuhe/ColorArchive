@@ -405,6 +405,31 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   y2k: ["vivid", "fuchsia", "cobalt", "coral", "citrine"],
   aura: ["violet", "lavender", "orchid", "veil", "blush"],
   cottagecore_green: ["moss", "sage", "fern", "leaf", "muted"],
+  // Wayfinding and environmental design
+  wayfinding: ["vivid", "clear", "cobalt", "crimson", "citrine"],
+  signage: ["vivid", "clear", "cobalt", "crimson", "amber"],
+  transit: ["cobalt", "crimson", "amber", "emerald", "violet"],
+  navigation: ["cobalt", "azure", "teal", "vivid", "mint"],
+  // Data visualization extended
+  infographic: ["cobalt", "coral", "amber", "moss", "violet"],
+  visualization: ["cobalt", "teal", "coral", "amber", "moss"],
+  graph: ["cobalt", "coral", "amber", "emerald", "violet"],
+  // Copper and metal patina
+  patina: ["jade", "teal", "olive", "muted", "soft"],
+  verdigris: ["teal", "jade", "emerald", "muted", "soft"],
+  oxidized: ["jade", "teal", "olive", "amber", "muted"],
+  aged_metal: ["ember", "olive", "jade", "teal", "muted"],
+  // Tropical and resort
+  resort: ["lagoon", "aqua", "coral", "blush", "apricot"],
+  caribbean: ["lagoon", "aqua", "teal", "cobalt", "vivid"],
+  beach_club: ["lagoon", "aqua", "coral", "ivory", "vivid"],
+  // HDR and wide gamut
+  vivid_brand: ["vivid", "clear", "bloom", "coral", "cobalt"],
+  wide_gamut: ["vivid", "clear", "bloom", "radiant", "coral"],
+  // Color naming and design system tokens
+  primitive: ["tone", "muted", "soft", "clear", "vivid"],
+  semantic: ["ink", "frost", "ivory", "cobalt", "crimson"],
+  component: ["cobalt", "ivory", "frost", "ink", "vivid"],
 
 };
 

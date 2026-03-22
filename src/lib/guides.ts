@@ -3665,3 +3665,113 @@ const extraGuides10: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides10);
+
+const extraGuides11: LandingGuide[] = [
+  {
+    category: "Data Visualization",
+    slug: "data-visualization-color-guide",
+    title: "Color in Data Visualization: Sequential, Categorical, and Diverging Palettes Explained",
+    summary:
+      "Data visualization color follows a different set of rules from brand or UI color — the palette must encode information accurately, survive colorblindness, and remain legible at small scales and in print. This guide covers the three palette types every data designer needs, how to build each, and the most common mistakes that make charts misleading.",
+    eyebrow: "Data Visualization",
+    priority: 77,
+    searchIntent: "data visualization color palette design",
+    featuredCollectionId: "signal-bright",
+    featuredPackId: "complete-archive",
+    tags: ["Data Visualization", "Color Systems", "Accessibility"],
+    highlights: [
+      "Match palette type to data type: sequential for ordered data (light to dark), categorical for distinct groups (maximally different hues), diverging for data with a meaningful center point (two-hue ramp with neutral middle). Using the wrong type makes charts misleading rather than merely ugly.",
+      "Any valid sequential palette should pass as a correct ordering when converted to grayscale. If the grayscale version looks randomly ordered, the lightness encoding is broken and the chart will fail for colorblind users.",
+      "Colorblind-safe defaults: Okabe-Ito palette for categorical data, viridis or cividis for sequential data, orange-purple or blue-red for diverging data. Avoid red-green as the sole differentiator in any chart.",
+    ],
+    sections: [
+      {
+        heading: "Sequential palettes: encoding ordered data",
+        body:
+          "Sequential palettes encode data with a natural low-to-high order — temperature, revenue, time, density. The principle: lighter values represent lower quantities, darker values represent higher quantities. Single-hue sequential palettes (light blue to dark blue) are the most reliable and the most colorblind-safe. Two-hue sequential palettes (yellow to blue, yellow to green) can provide more perceptual range but must still maintain a consistent lightness progression — the hue transition must not create a local lightness anomaly. The test: convert the sequential palette to grayscale. Each step should be visibly darker than the last. If any step appears lighter than its neighbor in grayscale, the palette has a lightness inversion that will produce ordering errors. OKLCH is the most effective color space for building sequential palettes because it provides perceptually uniform lightness — a 10-unit OKLCH lightness step looks the same regardless of hue. Building a sequential ramp in HSL or RGB often produces lightness anomalies at certain hues (yellow is perceptually much lighter than blue at the same HSL lightness).",
+      },
+      {
+        heading: "Categorical palettes: encoding distinct groups",
+        body:
+          "Categorical palettes are used for data with no inherent ordering — country, product category, demographic group. Each category receives a distinct hue; hues should be as different as possible to minimize confusion. The constraints: (1) Limit to 6-8 categories in a single chart — above 8, confusability increases steeply, particularly for colorblind users. (2) Keep lightness similar across all categories — if one category's color is significantly darker, it appears more important regardless of the data. (3) Test for colorblindness — run deuteranopia and protanopia simulations and identify any pairs that become visually identical. Replace one color in any confusable pair with a distinct alternative. (4) For print: ensure each category achieves at least 3:1 contrast on white, which is the WCAG minimum for non-text elements. The Okabe-Ito palette (published by Masataka Okabe and Kei Ito) provides 8 colors specifically designed for color vision deficiency safety and is an excellent starting point for categorical data work.",
+      },
+    ],
+    links: [
+      { label: "Color Contrast Checker", href: "/contrast/" },
+      { label: "OKLCH guide", href: "/guides/oklch-perceptual-color-design-guide/" },
+      { label: "Signal Bright collection", href: "/collections/signal-bright/" },
+    ],
+  },
+  {
+    category: "Environmental Design",
+    slug: "wayfinding-color-systems-guide",
+    title: "Color in Wayfinding Systems: Building Legible, Accessible Environmental Color Codes",
+    summary:
+      "Wayfinding color — used in transit maps, hospital signage, campus directories, and navigation apps — operates under functional constraints that override aesthetic preference. The palette must work at distance, under variable lighting, for people with color vision deficiencies, and under the cognitive load of navigation. This guide covers how to build a wayfinding color system that actually works.",
+    eyebrow: "Environmental Design",
+    priority: 74,
+    searchIntent: "color wayfinding design environmental signage color system",
+    featuredCollectionId: "signal-bright",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Wayfinding", "Environmental Design", "Accessibility"],
+    highlights: [
+      "The cognitive ceiling for color-coded categories is 6-8 distinct colors. Above this, users make systematic identification errors, particularly under time pressure or anxiety. If your system requires more codes, combine color with shape, number, or letter to create redundant differentiation.",
+      "Never use red-green as the sole differentiating pair in a wayfinding system — 8% of males cannot reliably distinguish them. Always ensure adjacent color codes differ in both hue and lightness value so grayscale and colorblind viewing remains functional.",
+      "Test your palette on every physical substrate: white vinyl, brushed aluminum, painted concrete, and uncoated paper all shift colors differently. A color that passes 7:1 contrast on screen may fail on matte aluminum at standard sign viewing distances.",
+    ],
+    sections: [
+      {
+        heading: "Selecting colors for wayfinding codes",
+        body:
+          "The starting point for a wayfinding palette is constraint mapping, not color selection. Define: the number of required codes, the range of viewing distances, the ambient lighting conditions of the environment (fluorescent, daylight, sodium vapor, LED), and the substrates the colors will appear on. From these constraints derive your requirements: minimum contrast ratio on each substrate, colorblind-safe differentiation for each color pair, and maximum number of distinct codes. Only then begin color selection. Select hues spaced broadly around the color wheel — red, orange, yellow, green, blue, purple are maximally distinct. Adjust each hue's lightness and saturation to achieve contrast and consistent perceived prominence. The common mistake: selecting colors that are aesthetically harmonious (adjacent on the color wheel, similar saturation) — harmonious palettes are maximally legible in brand contexts and maximally confusable in wayfinding contexts. Wayfinding palettes should feel slightly harsh and over-differentiated in isolation; when embedded in environmental context, the over-differentiation reads as clarity.",
+      },
+      {
+        heading: "Digital wayfinding apps vs. physical signage",
+        body:
+          "Digital wayfinding (navigation apps, kiosk interfaces, screen-based directories) and physical wayfinding (printed and applied signs) require different color specifications for the same system. Physical: use Pantone spot colors for the most reproducible specification; define CMYK equivalents for process print; test each color on uncoated and coated stock, and on each physical substrate used. Colors shift significantly between coated (glossy) and uncoated finishes — a color that reads as vivid on coated stock may appear dull and low-contrast on uncoated. Digital: specify in sRGB; test on both OLED displays (deep blacks, vivid colors) and LCD displays (lower contrast, slight color shift); ensure dark mode variants are defined for kiosk applications in dim environments. The two specifications will not be mathematically identical — they are perceptual targets. Document both in the wayfinding system specification and include a note about allowable deviation: the goal is matching the perceptual impression in each medium, not matching the numerical values.",
+      },
+    ],
+    links: [
+      { label: "Color Contrast Checker", href: "/contrast/" },
+      { label: "Signal Bright collection", href: "/collections/signal-bright/" },
+      { label: "Complete Archive", href: "/packs/complete-archive/" },
+    ],
+  },
+  {
+    category: "Color Management",
+    slug: "wide-gamut-hdr-color-design-guide",
+    title: "Wide Gamut and HDR Color for Designers: P3, OKLCH, and When It Actually Matters",
+    summary:
+      "HDR displays and wide-gamut color spaces are now standard on the devices your users have — but most design workflows still produce only sRGB output. This guide explains when the gap between sRGB and wide gamut is visible and consequential, how to progressively enhance your color palette for P3 displays, and what tools in CSS and Figma make wide-gamut color practical today.",
+    eyebrow: "Color Management",
+    priority: 72,
+    searchIntent: "wide gamut color design P3 HDR display designer guide",
+    featuredCollectionId: "signal-bright",
+    featuredPackId: "complete-archive",
+    tags: ["Color Management", "HDR", "Advanced Color"],
+    highlights: [
+      "Wide gamut matters most for highly saturated colors — reds, oranges, and vivid greens above 85% HSL saturation. Muted, pastel, and neutral palettes are almost entirely within sRGB and require no wide-gamut treatment.",
+      "Use CSS Color Level 4 syntax for progressive enhancement: specify sRGB hex as a fallback, then add `color(display-p3 r g b)` values inside `@supports` for capable displays. Browsers handle the fallback automatically.",
+      "OKLCH is the most practical color space for wide-gamut work because it is perceptually uniform across gamuts — a change in OKLCH chroma produces the same perceived saturation increase regardless of hue, making it reliable for building wide-gamut palettes.",
+    ],
+    sections: [
+      {
+        heading: "Which colors benefit from P3 specification",
+        body:
+          "The Display P3 color space contains approximately 25% more colors than sRGB, with the extra gamut concentrated in highly saturated reds, oranges, greens, and cyans. Colors within the sRGB gamut look identical in both color spaces — P3 is a superset, not a replacement. The practical threshold: colors with HSL saturation below 70% are almost certainly within sRGB and require no P3 specification. Colors with saturation above 85% in warm hues (reds, oranges) or cool hues (vivid greens, cyans) are most likely to benefit. The visible effect on capable displays: a P3-specified vivid orange appears more chromatic and luminous than its sRGB equivalent; the sRGB version appears slightly dull or clipped by comparison. The test: view your brand color on a Display P3-capable Mac or iPhone. If it looks significantly less vivid than intended, the color is being clipped to the sRGB boundary. Specify it in P3 to recover the intended saturation.",
+      },
+      {
+        heading: "CSS Color Level 4 in practice",
+        body:
+          "CSS Color Level 4 is supported in all modern browsers (Chrome 111+, Safari 15.4+, Firefox 113+). The syntax for P3 color: `color(display-p3 0.9 0.3 0.1)` where the three values are P3 red, green, and blue channels in the 0-1 range. The recommended progressive enhancement pattern: define your color as a CSS custom property with an sRGB fallback and a P3 override. In CSS: `--brand-color: #E84A2F; @supports (color: color(display-p3 1 0 0)) { --brand-color: color(display-p3 0.91 0.29 0.18); }`. The P3 value is typically derived by converting your sRGB color to the P3 color space using a tool like oklch.com or the Chrome DevTools color picker, then slightly increasing the chroma to reach the intended vivid target (since the sRGB value is by definition the gamut boundary — the most saturated version of that color that sRGB can represent — the P3 version should go slightly beyond it). OKLCH chroma is the most intuitive way to increase saturation in a gamut-aware way: increase the C value while keeping L and H constant.",
+      },
+    ],
+    links: [
+      { label: "OKLCH guide", href: "/guides/oklch-perceptual-color-design-guide/" },
+      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Color guides", href: "/guides/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides11);

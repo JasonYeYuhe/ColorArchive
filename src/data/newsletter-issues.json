@@ -6250,5 +6250,177 @@
         "href": "/packs/brand-starter-kit/"
       }
     ]
+  },
+  {
+    "slug": "jun-2028-color-in-wayfinding",
+    "date": "2028-06-24",
+    "title": "Color in Wayfinding Design: Coding, Contrast, and the Psychology of Navigation",
+    "summary": "Wayfinding color operates under different constraints from brand color or UI color. The primary job is functional: guide people through physical or digital environments using color as a signal they can decode under any conditions — poor light, high anxiety, cognitive load, or when glancing while moving. Understanding these constraints reveals why wayfinding color systems look the way they do, and what happens when they fail.",
+    "eyebrow": "Environmental & Signage Design",
+    "tags": [
+      "Wayfinding",
+      "Environmental Design",
+      "Color Systems"
+    ],
+    "featuredCollectionId": "signal-bright",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "Color coding in wayfinding — using distinct colors to represent zones, lines, or routes — works when the number of distinct color categories is kept small. The limit from cognitive psychology: humans reliably distinguish 6-8 colors in a wayfinding context; above 8, confusability errors increase significantly, particularly under stress or poor viewing conditions. The practical ceiling for color-coded wayfinding systems is 6-7 distinct codes. Transit systems that exceed this limit (large metro networks with 10+ lines) compensate by combining color with number, letter, or graphic shape codes — the color becomes one signal within a redundant system rather than the sole navigation mechanism. The design implication: if your wayfinding system requires more than 7 color codes, redesign the information architecture before adding more colors.",
+      "Contrast in wayfinding must account for environmental variables that studio design cannot simulate. Text on a wayfinding sign must be legible at reading distance (typically 1-5 meters), under ambient light that may be fluorescent, daylight, or sodium vapor, at angles that are not perpendicular to the viewer, and by people with varying visual acuity. WCAG 4.5:1 contrast ratio is a minimum, not a target. Wayfinding best practice targets 7:1 or higher for primary navigation text, particularly in healthcare and transit environments. The color specification must account for substrate: a color that passes 7:1 on white vinyl may fail on brushed aluminum, printed on uncoated stock, or painted on concrete. Test color contrast on every substrate used in the implementation, not just on screen.",
+      "Hue selection for wayfinding is constrained by colorblindness prevalence. Approximately 8% of males have some form of color vision deficiency; the most common type (deuteranopia / red-green deficiency) affects the ability to distinguish red from green. A wayfinding system that relies on red and green as two distinct codes will fail for a significant proportion of users. Best practice: ensure that color-coded wayfinding categories differ in both hue AND value (lightness) — a light color paired with a dark color is distinguishable even when hue discrimination fails. Avoid red-green pairs as sole coding mechanisms; if red and green must appear in the same system, ensure they are accompanied by shape, label, or value differences."
+    ],
+    "sections": [
+      {
+        "heading": "Building a wayfinding color palette",
+        "body": "A wayfinding palette starts with the constraint set, not the aesthetic. Required properties: (1) Each color must be distinguishable from every other color in the system under worst-case ambient lighting. (2) Each color must pass 4.5:1 contrast on white and on the primary dark background. (3) Adjacent color pairs must differ in at least two of: hue, saturation, and value. (4) The system must remain functional when displayed in grayscale — test by converting to grayscale and confirming that all elements remain distinguishable by value alone. Begin by selecting maximally distinct hues spaced around the color wheel; adjust lightness and saturation to achieve contrast and legibility; test under the specific environmental conditions of the implementation. Never start from an existing brand palette and force it into wayfinding — start from the functional requirements and resolve brand harmony afterward."
+      },
+      {
+        "heading": "Digital vs. physical wayfinding: specification differences",
+        "body": "Physical wayfinding (printed signs, painted surfaces, vinyl) and digital wayfinding (screens, kiosks, apps) have different color specifications even when they are designed as one system. Physical: colors must be specified in Pantone or CMYK for print accuracy; lightness is affected by material finish (matte, semi-gloss, gloss) and substrate color; colors shift under different light sources (metamerism means two colors that match under fluorescent light may diverge under daylight). Digital: colors are specified in sRGB; screen brightness and ambient light dramatically affect perceived contrast; dark environments require lower luminance colors to avoid glare. The correct approach: define each color in both physical and digital specifications simultaneously, accepting that they will not be mathematically identical but must produce the same perceptual signal in their respective environments."
+      }
+    ],
+    "links": [
+      {
+        "label": "Signal Bright collection",
+        "href": "/collections/signal-bright/"
+      },
+      {
+        "label": "Color Contrast Checker",
+        "href": "/contrast/"
+      },
+      {
+        "label": "Color guides",
+        "href": "/guides/"
+      }
+    ]
+  },
+  {
+    "slug": "jul-2028-hdr-displays-color",
+    "date": "2028-07-01",
+    "title": "Color on HDR Displays: Wide Gamut, Tone Mapping, and the New Design Constraints",
+    "summary": "HDR (High Dynamic Range) displays — now standard on premium phones, laptops, and TVs — can display colors outside the sRGB color space that most designers use. This creates a gap between what designers specify and what users see, particularly on Apple devices using the P3 color space. Understanding HDR color is no longer optional for product designers; the displays are mainstream, and the color artifacts from ignoring them are visible on a significant share of devices.",
+    "eyebrow": "Advanced Color Systems",
+    "tags": [
+      "HDR",
+      "Wide Gamut",
+      "Color Management"
+    ],
+    "featuredCollectionId": "signal-bright",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "The P3 color space — used in Apple's Display P3 standard (Mac, iPhone, iPad) — encompasses approximately 25% more colors than sRGB. The colors that exist in P3 but not sRGB are concentrated in highly saturated greens, reds, and oranges — the chromatic extremes. For most color work (neutrals, pastels, muted palettes), sRGB and P3 produce identical results because the colors fall within both gamuts. The difference appears only in highly saturated values. The practical test: if your brand color or accent color is a highly saturated red, orange, or green, it may appear clipped and duller on wide-gamut displays when specified in sRGB, because the display is rendering a richer version of that hue in P3. Check the current CSS Color Level 4 specification for `color(display-p3 ...)` syntax for specifying P3 colors in CSS.",
+      "Tone mapping is the process by which HDR content is rendered on SDR (standard dynamic range) displays, and it creates unexpected color shifts. If you design assets intended for HDR display (product photography with HDR-grade rendering, video thumbnails, high-end editorial imagery), those assets will be tone-mapped when viewed on SDR screens — and the tone mapping process shifts colors, particularly in highlights and saturated areas, in ways that are difficult to predict without testing. The design implication: always test HDR assets on SDR displays as part of your review process, and do not make final color judgments from HDR-only viewing environments. The most common failure mode: highlights that look detailed and rich in HDR appear blown out and flat on SDR.",
+      "CSS has a growing toolkit for wide-gamut color: `color(display-p3 r g b)` for P3 colors, `oklch()` for perceptual uniformity across gamuts, and `color-mix()` for mixing colors in a specified color space. Browser support for these is now mainstream (Chrome 111+, Safari 15+, Firefox 113+). The progressive enhancement strategy: specify your core brand colors in sRGB hex for broad compatibility; add `@supports (color: color(display-p3 1 0 0))` declarations with P3-enhanced versions for capable displays. The P3 version of a brand color is typically a slightly more saturated version — the sRGB value maps to the edge of the P3 gamut, while the P3 value targets the actual intended saturation. For most design work, the difference is subtle; for hero imagery and high-saturation brand colors, it is visible."
+    ],
+    "sections": [
+      {
+        "heading": "Checking and adapting your palette for wide gamut",
+        "body": "The first step in adapting a palette for wide gamut is to identify which colors are out-of-gamut in sRGB — that is, which P3 colors you may currently be missing. Use Figma's gamut warning (View > Pixel Preview > Display P3 gamut warning) or the browser DevTools color picker, which shows the P3 values for any color. In practice, colors with HSL saturation below 70% are almost always within sRGB. Colors with saturation above 85% in red, orange, green, or cyan hues are the most likely to benefit from P3 specification. If your palette uses muted and mid-saturation colors — which most professional design palettes do — wide-gamut specification may offer minimal visual difference. Reserve the P3 enhancement effort for hero brand colors and high-saturation accents that appear prominently in UI or marketing materials."
+      },
+      {
+        "heading": "Photography and image color in wide-gamut workflows",
+        "body": "Product photography and editorial imagery present the most immediate wide-gamut challenge for designers. Modern cameras capture in wide-gamut color spaces (Adobe RGB, ProPhoto RGB); when exported to sRGB for web use, highly saturated colors in the image are compressed, losing some of the original chromatic richness. On HDR displays, this compression is visible as desaturation in areas of the image that should be vivid. The workflow solution: work with photographers to receive images in Display P3 (for web) or Adobe RGB (for print) when your output platform supports it. For web, img elements in browsers do apply color management to embedded ICC profiles, so a Display P3 image with an embedded P3 profile will render correctly on capable displays. The common mistake: stripping ICC profiles from web images to reduce file size, which removes the color space information the display needs to render the image correctly."
+      }
+    ],
+    "links": [
+      {
+        "label": "Complete Archive",
+        "href": "/packs/complete-archive/"
+      },
+      {
+        "label": "OKLCH guide",
+        "href": "/guides/oklch-perceptual-color-design-guide/"
+      },
+      {
+        "label": "Browse colors",
+        "href": "/colors/"
+      }
+    ]
+  },
+  {
+    "slug": "jul-2028-data-viz-color",
+    "date": "2028-07-08",
+    "title": "Color in Data Visualization: Encoding, Perception, and the Rules That Are Actually Followed",
+    "summary": "Data visualization color is a specialized discipline within color design, governed by how humans perceive differences in hue, saturation, and value when those differences carry quantitative meaning. The rules are different from brand color, UI color, or print color — and violating them silently degrades the accuracy of the data communication, sometimes in ways that are worse than using no color at all.",
+    "eyebrow": "Data Visualization",
+    "tags": [
+      "Data Visualization",
+      "Color Systems",
+      "Accessibility"
+    ],
+    "featuredCollectionId": "signal-bright",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "There are three types of data that require three different color encoding strategies. Categorical data (country, product type, category) requires colors that are maximally distinct — hue-based differentiation where each category gets a different hue, all at similar lightness so no category appears more important than others. Sequential data (temperature from low to high, revenue from small to large) requires a single-hue or two-hue ramp that changes in lightness from light (low values) to dark (high values) — the perceptual ordering is reliable because humans judge lightness differences more accurately than hue differences. Diverging data (values centered around a neutral point, like deviations from average, profit vs. loss) requires a two-hue ramp with a neutral center, where each hue encodes direction (positive vs. negative) and lightness encodes magnitude. Using a sequential palette for categorical data, or a categorical palette for sequential data, is one of the most common and most damaging mistakes in data visualization.",
+      "The luminance channel carries the most reliable quantitative information in color-encoded data. Humans perceive differences in lightness (luminance) more accurately and consistently than differences in hue or saturation. This is why sequential palettes work: the ordering of light-to-dark reliably conveys low-to-high. The failure mode of many data visualization tools is defaulting to hue-based sequential palettes (e.g., yellow to red to blue) where the hue changes without a consistent lightness progression — the result is a scale where the perceptual ordering depends on the viewer's hue perception, which varies significantly and is systematically disrupted by color vision deficiency. Rule of thumb: any sequential palette you use should pass as a correct ordering when converted to grayscale. If it does not, the lightness encoding is broken.",
+      "Colorblind-safe data visualization palettes are not a nice-to-have — data visualizations are often used by multiple stakeholders in organizational contexts, and a palette that fails for colorblind viewers is inaccessible to approximately 1 in 12 male viewers. The established safe palettes: the Okabe-Ito palette for categorical data (8 distinct colors that work for deuteranopia, protanopia, and tritanopia); viridis, inferno, and cividis for sequential data (all designed to be perceptually uniform and colorblind safe). For diverging data: use purple-green or orange-purple rather than red-green. Test every visualization using a colorblind simulation tool before publishing. Many charting libraries include built-in colorblind-safe palettes — prefer these over custom color choices when the chart is in a context where colorblind-safe data communication is required."
+    ],
+    "sections": [
+      {
+        "heading": "Building a categorical palette for charts",
+        "body": "A categorical palette for data visualization needs 6-8 maximally distinct colors at similar lightness values (within a 10-point lightness range). The process: (1) Select hues spaced approximately 45 degrees apart around the color wheel — this provides a foundation of hue diversity. (2) Adjust each hue to similar lightness (target HSL lightness 50-60% for colors that work on white backgrounds). (3) Run colorblind simulations on the full set — identify any pairs that become indistinguishable, and replace one of them. (4) Check that each color achieves at least 3:1 contrast on white — required for chart elements. (5) Define a dark-mode variant (typically by increasing lightness to 65-75% on dark backgrounds). The challenge with equal-lightness categorical palettes: some hues appear lighter than others even at the same HSL lightness value, because HSL lightness is not perceptually uniform. OKLCH provides perceptually uniform lightness, making it easier to achieve truly equal-appearing colors across hues."
+      },
+      {
+        "heading": "Using color to highlight rather than encode",
+        "body": "Not every chart requires color encoding. In many contexts, color is most effective not as a data dimension but as a highlighting mechanism — drawing attention to the data point the viewer should notice. This is the 'gray + one accent' visualization strategy: render all data series or bars in a medium neutral gray, then color the single element that represents the key insight in a vivid accent color. This technique is particularly effective in presentation contexts (slides, reports) where the viewer needs to extract the takeaway quickly. The accent color carries no categorical meaning — it means 'this is the important one.' The result is typically clearer communication than a full categorical palette, because the viewer's attention is directed before they must parse a legend. Reserve full categorical color palettes for exploratory data tools where the viewer needs to distinguish all series simultaneously."
+      }
+    ],
+    "links": [
+      {
+        "label": "Complete Archive",
+        "href": "/packs/complete-archive/"
+      },
+      {
+        "label": "Color Contrast Checker",
+        "href": "/contrast/"
+      },
+      {
+        "label": "Color guides",
+        "href": "/guides/"
+      }
+    ]
+  },
+  {
+    "slug": "jul-2028-color-naming-design-systems",
+    "date": "2028-07-15",
+    "title": "Color Naming in Design Systems: Semantic, Functional, and Why Your Naming Breaks at Scale",
+    "summary": "Color naming in design systems is a solved problem that teams keep resolving incorrectly. The tension between descriptive names (blue-500), semantic names (color-interactive), and functional names (button-primary-background) has a correct resolution depending on design system maturity and team size — but most teams use an approach that works at one stage and fails as the system grows. Understanding the three-tier model prevents the most common naming collapses.",
+    "eyebrow": "Design Systems",
+    "tags": [
+      "Design Systems",
+      "Color Tokens",
+      "Design Process"
+    ],
+    "featuredCollectionId": "minimal-workspace",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "The three-tier color naming model separates colors into: (1) Primitive tokens — the raw color values with descriptive names (blue-500, gray-100). These are fixed values that never change meaning. (2) Semantic tokens — purpose-driven names that reference primitives (color-background, color-interactive, color-error). These have stable meaning but can change their underlying primitive across themes. (3) Component tokens — component-specific names that reference semantic tokens (button-background, card-border, nav-text). These are the highest-level abstraction and exist only for components that need fine-grained control. The most common mistake: systems that skip tier 2 (semantic tokens) and map primitive names directly to component names. This collapses when the team needs theming, dark mode, or brand refreshes — without a semantic layer, every theme requires a new primitive-to-component mapping, and the work scales with (primitives x themes).",
+      "Primitive token naming should be value-descriptive, never semantic. `blue-500` is correct; `brand-blue` is incorrect for this tier because it encodes meaning (brand association) into a structural name (the 500 step in the blue scale). When the brand color changes from blue to green, `brand-blue` must be renamed everywhere, whereas `blue-500` simply becomes a less frequently referenced value. The numeric scale convention (50-950 or 100-900 in 100-step increments) has become the de facto standard because it is extensible and value-descriptive — `blue-450` clearly represents a value between blue-400 and blue-500. Avoid naming primitives with lightness words (blue-light, blue-dark) because these become ambiguous at the edges and when the scale grows — is `blue-lighter` lighter than `blue-light`? The numeric convention avoids this entirely.",
+      "The dark mode collapse is the most common symptom of a broken semantic layer. Teams building dark mode for the first time often discover that they have no semantic tokens — their components reference primitive tokens directly (color: blue-900; background: gray-50). Dark mode requires a different color assignment in a different context, which requires a semantic layer to express: `color-text: blue-900 (light) / blue-100 (dark)`. Without this layer, every component needs manual dark mode overrides, which is unsustainable. The fix requires retroactively adding a semantic layer between primitives and components — auditing which primitives appear in which semantic roles, creating semantic tokens that cover those roles, updating components to reference semantic tokens, and then defining the dark mode theme as a mapping of semantic tokens to different primitives. This is correct but painful to do after the fact; the cost of doing it correctly at the start is low."
+    ],
+    "sections": [
+      {
+        "heading": "Semantic naming patterns that age well",
+        "body": "The semantic naming patterns that remain stable as systems grow use role + prominence + state, not descriptive color language. Pattern: `color-{role}-{prominence}-{state}`. Examples: `color-background` (default background), `color-background-subtle` (secondary background surface), `color-interactive` (default interactive element), `color-interactive-hover` (hover state of interactive), `color-feedback-error` (error state signal), `color-feedback-success` (success state signal). Avoid naming patterns that embed color descriptions (`color-blue-interactive`) or product names (`color-cta`) in semantic tokens — both become inaccurate when the primitive value changes. The role-based pattern remains accurate regardless of what primitive value backs it, and reads as a design decision (this surface is 'subtle') rather than a color description."
+      },
+      {
+        "heading": "When to add component tokens",
+        "body": "Component tokens — the third tier — should be added selectively, not comprehensively. The trigger for adding component tokens: a component needs a color that deviates from the semantic meaning it would normally use. A button with a background of `color-interactive` is correct and does not need a component token. A card that uses a slightly different surface color than the default `color-background-subtle` — to create a specific layering effect — benefits from a `card-surface` component token, because this deviation needs to be explicit and themeable. The anti-pattern: creating component tokens for every color used in every component 'for completeness.' The result is a system with hundreds of component tokens that most designers ignore, and where changes to shared semantic values must be propagated manually to every component token that redundantly stores the same value. The criterion: add a component token only when the component needs a deviation from semantic color, not for every color used."
+      }
+    ],
+    "links": [
+      {
+        "label": "Design Token Generator",
+        "href": "/tokens/"
+      },
+      {
+        "label": "Color token system guide",
+        "href": "/guides/design-token-color-system-guide/"
+      },
+      {
+        "label": "Brand Starter Kit",
+        "href": "/packs/brand-starter-kit/"
+      }
+    ]
   }
 ]

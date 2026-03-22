@@ -1119,3 +1119,48 @@ export const extraCollections10: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections10);
+
+export const extraCollections11: ColorCollection[] = [
+  createCollection(
+    "copper-patina",
+    "Copper Patina",
+    "Warm amber-copper tones with oxidized teal-green accents — a palette of aged metal and artisanal material surfaces.",
+    "This collection is built from the color language of copper at different stages of oxidation: the warm orange-red of freshly polished copper, the amber of slightly aged metal, the olive-tan of early patination, the cool dusty sage of partially oxidized surfaces, and the deep blue-green of fully patinated verdigris. Ember-tone-muted provides the foundational warm copper-brown — not a vivid orange but the muted, dark version that reads as aged metal or polished stone; apricot-bloom-soft brings the lighter, warmer amber tone of fresh copper or warm metal leaf; olive-tone-muted introduces the olive-tan of early oxidation, sitting between the warm copper and the green patina; jade-mist-soft provides the dusty, desaturated green of developing verdigris — soft enough not to read as a primary green but clearly cooler than the warm copper tones; teal-shadow-muted contributes the deep, dark blue-green of fully oxidized patina — the darkest and coolest entry, providing the grounding contrast that anchors the palette. The palette is inherently dual-temperature: warm coppers in tension with cool patina greens.",
+    ["Metallic", "Artisanal", "Warm-Cool"],
+    [
+      "ember-tone-muted",
+      "apricot-bloom-soft",
+      "olive-tone-muted",
+      "jade-mist-soft",
+      "teal-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "The dual-temperature structure of this palette is its defining characteristic and its most fragile quality. If the warm coppers and cool patina greens are used in equal proportions, the palette reads as incoherent — two separate palettes fighting for dominance. The intended proportion: warm copper tones (ember, apricot, olive) should occupy 70-80% of the composition; the patina greens (jade, teal) should appear as accents, details, or structural elements. This reflects how actual patina works: copper surfaces are predominantly warm, with verdigris appearing in recesses, edges, and areas of concentrated moisture. Photography direction: aged bronze or copper artifacts on neutral stone or linen surfaces; architectural details of oxidized metal on masonry; artisan metalwork, jewelry casting, or craft objects. Typography: ember-tone-muted works as a dark heading color; teal-shadow-muted works for structural elements or borders.",
+      promptWords: ["aged copper vessel on stone", "verdigris architectural detail", "artisan bronze jewelry on linen", "oxidized copper roof tiles", "patinated metalwork close-up"],
+      useCases: ["Artisan jewelry and metalwork brands", "Architecture and materials-focused editorial", "Luxury home goods and interior design", "Craft brewery, distillery, or ceramics branding"],
+    },
+  ),
+  createCollection(
+    "tropical-resort",
+    "Tropical Resort",
+    "Vivid turquoise, warm coral, clear aqua, sandy peach, and soft blush — an optimistic palette for travel, lifestyle, and warm-weather product work.",
+    "The color language of premium tropical environments: the clear, vivid turquoise of shallow water over white sand, the saturated aqua of deeper lagoon water, the warm coral of tropical flowers and sunset light, the sandy peach of beach stone and warm-toned surfaces, and the palest blush of washed-out tropical sky at dawn. Lagoon-bloom-clear provides the mid-tone turquoise — clear and vivid but not garish, reading as the color of transparent shallow water; aqua-silk-vivid introduces the more intense, saturated aqua of deeper water with direct sunlight, the most chromatic entry in the palette; coral-pearl-soft brings the warm, light coral tone of tropical hibiscus or papaya skin — saturated enough to read as distinctly warm but soft enough to work alongside the light neutrals; apricot-pearl-soft provides the sandy, peachy tone of warm sand and warm-toned stone — the palette's neutral bridge between the coral and the pale blush; blush-whisper-muted contributes the palest entry — the nearly-white, faintly rose tone of a tropical sky at dawn or of bleached linen in strong sunlight. Together the five colors create an atmosphere of warmth, clarity, and optimism without reading as juvenile.",
+    ["Tropical", "Coastal", "Vivid"],
+    [
+      "lagoon-bloom-clear",
+      "aqua-silk-vivid",
+      "coral-pearl-soft",
+      "apricot-pearl-soft",
+      "blush-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "This palette's mood depends on the vivid quality of the two aqua entries — lagoon-bloom-clear and aqua-silk-vivid are the chromatic core. Desaturate either and the palette loses its tropical register, reading instead as 'coastal' or 'seafoam.' Use the vivid aquas for the primary surface colors (backgrounds, hero panels, large fills); bring in coral and apricot as warm accent counterpoints (CTAs, highlights, illustration elements); use blush-whisper-muted for light surfaces, cards, and body text backgrounds. The palette supports a high-energy, aspirational tone rather than a calm wellness tone — it is closer to a luxury resort campaign than to a meditation app. Photography direction: strong direct sunlight, clear water, white sand, tropical foliage; avoid moody or overcast lighting which will fight the palette's energy. Typography: use a dark, warm neutral (charcoal or dark amber) for body text rather than pure black, which introduces too much temperature contrast.",
+      promptWords: ["aerial view of turquoise lagoon", "tropical resort pool at noon", "coral reef snorkeling", "overwater bungalow on aqua water", "fresh tropical fruit on white marble"],
+      useCases: ["Travel brands and resort marketing", "Warm-weather lifestyle and activewear", "Tropical food and beverage branding", "Summer product launches and seasonal campaigns"],
+    },
+  ),
+];
+
+collections.push(...extraCollections11);
