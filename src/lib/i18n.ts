@@ -3404,6 +3404,11 @@ const translations: Record<string, Record<string, string>> = {
   "favorite.save": { en: "Save", ja: "保存", zh: "保存", ko: "저장", es: "Guardar", fr: "Enregistrer" },
   "favorite.saved": { en: "Saved", ja: "保存済み", zh: "已保存", ko: "저장됨", es: "Guardado", fr: "Enregistré" },
 
+  // Share actions
+  "share.shareOnX": { en: "Share on X", ja: "Xでシェア", zh: "分享到X", ko: "X에 공유", es: "Compartir en X", fr: "Partager sur X" },
+  "share.shareLink": { en: "Share link", ja: "リンクを共有", zh: "分享链接", ko: "링크 공유", es: "Compartir enlace", fr: "Partager le lien" },
+  "share.linkCopied": { en: "Link copied", ja: "リンクをコピー", zh: "链接已复制", ko: "링크 복사됨", es: "Enlace copiado", fr: "Lien copié" },
+
   // Grid section
   "grid.archiveTitle": { en: "Archive", ja: "アーカイブ", zh: "色彩库", ko: "아카이브", es: "Archivo", fr: "Archive" },
   "grid.archiveDesc": {

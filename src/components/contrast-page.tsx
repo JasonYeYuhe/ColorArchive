@@ -124,16 +124,16 @@ function normalizeHex(value: string): string {
 function WcagBadge({ label, level, result }: { label: string; level: string; result: WcagLevel }) {
   const pass = result === "Pass";
   return (
-    <div className="flex items-center justify-between rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+    <div className="flex items-center justify-between rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 dark:border-white/10 dark:bg-white/8">
       <div>
-        <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{label}</div>
-        <div className="mt-1 text-sm font-medium text-neutral-700">{level}</div>
+        <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">{label}</div>
+        <div className="mt-1 text-sm font-medium text-neutral-700 dark:text-neutral-300">{level}</div>
       </div>
       <span
         className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] ${
           pass
-            ? "border border-emerald-200 bg-emerald-50 text-emerald-700"
-            : "border border-red-200 bg-red-50 text-red-600"
+            ? "border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-400"
+            : "border border-red-200 bg-red-50 text-red-600 dark:border-red-800 dark:bg-red-950 dark:text-red-400"
         }`}
       >
         {result}

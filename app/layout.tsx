@@ -40,6 +40,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f4ef" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
   openGraph: {
     title: siteTitle,
     description: siteDescription,

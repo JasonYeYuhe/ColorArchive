@@ -123,7 +123,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         preferencesRef.current = await savePreferences(preferencesRef.current);
         setLastSyncAt(Date.now());
       } catch (error) {
-        console.error("preference sync failed:", error);
+        // Silently ignore — backend may be unreachable in static export
       }
     }, 300);
   }, [user]);
@@ -153,7 +153,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           syncEnabledRef.current = true;
         }
       } catch (error) {
-        console.error("session check failed:", error);
+        // Silently ignore — backend may be unreachable in static export
         if (!cancelled) {
           setUser(null);
           setStatus("anonymous");

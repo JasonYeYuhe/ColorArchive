@@ -69,7 +69,7 @@ export function FilterToolbar({
               value={searchQuery}
               onChange={(event) => onSearchChange(event.target.value)}
               placeholder={t("filter.searchPlaceholder")}
-              className="w-full rounded-2xl border border-black/8 bg-white/85 px-11 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+              className="w-full rounded-2xl border border-black/8 bg-white/85 px-11 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8 dark:border-white/10 dark:bg-white/8 dark:text-white dark:placeholder-neutral-500 dark:focus:border-white/20 dark:focus:ring-white/8"
             />
             {searchQuery.length > 0 ? (
               <button
@@ -90,7 +90,7 @@ export function FilterToolbar({
             <select
               value={sortBy}
               onChange={(event) => onSortChange(event.target.value as SortOption)}
-              className="rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+              className="rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8 dark:border-white/10 dark:bg-white/8 dark:text-white dark:focus:border-white/20 dark:focus:ring-white/8"
               aria-label="Sort colors"
             >
               <option value="hue">{t("filter.sortHue")}</option>
@@ -103,7 +103,7 @@ export function FilterToolbar({
             type="button"
             onClick={onReset}
             disabled={!hasActiveFilters}
-            className="rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm font-medium text-neutral-900 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm font-medium text-neutral-900 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-white/8 dark:text-white dark:hover:bg-white/14"
           >
             {t("filter.reset")}
           </button>
@@ -118,8 +118,8 @@ export function FilterToolbar({
               onClick={() => onFamilyChange("All")}
               className={`shrink-0 rounded-full px-3 py-1.5 text-sm transition ${
                 activeFamily === "All"
-                  ? "bg-neutral-950 text-white"
-                  : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+                  ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
+                  : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
               }`}
               aria-pressed={activeFamily === "All"}
             >
@@ -136,8 +136,8 @@ export function FilterToolbar({
                   onClick={() => onFamilyChange(family)}
                   className={`shrink-0 rounded-full px-3 py-1.5 text-sm transition ${
                     isActive
-                      ? "bg-neutral-950 text-white"
-                      : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white"
+                      ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
+                      : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
                   }`}
                   aria-pressed={isActive}
                 >
