@@ -1,1 +1,6 @@
-{ "active": null, "lockedBy": null, "lockedAt": null, "message": null }
+{
+  "active": true,
+  "lockedBy": "autopilot",
+  "lockedAt": "2026-03-22T17:28:45Z",
+  "message": "Normal run: i18n ZH audit, search aliases, code quality, newsletter 094-097"
+}
