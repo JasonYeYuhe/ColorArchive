@@ -306,9 +306,12 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
 
 function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l: Locale) => void }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ top: 0, left: 0 });
+
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -342,7 +345,7 @@ function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l
       >
         {current.label}
       </button>
-      {open && createPortal(
+      {open && mounted && createPortal(
         <div
           ref={menuRef}
           className="fixed z-[9999] min-w-[7rem] rounded-xl border border-black/8 bg-white py-1 shadow-lg dark:border-white/10 dark:bg-neutral-900"
