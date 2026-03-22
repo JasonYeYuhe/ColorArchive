@@ -410,6 +410,46 @@ export const collections: ColorCollection[] = [
       useCases: ["Beauty and fragrance brands", "Wedding editorial", "Independent creative portfolios"],
     },
   ),
+  createCollection(
+    "desert-canyon",
+    "Desert Canyon",
+    "Warm terracotta, sandstone, and dusty sage tones for Southwest-inspired and earthy brand work.",
+    "A sun-baked palette that moves from pale sand and whispered coral through rich terracotta and ember clay to deep muted garnet anchors. The palette has enough range to support editorial and UI work, and the warm neutrals give it versatility across print and screen. Best for brands that want grounded, authentic warmth without resorting to trend-chasing.",
+    ["Earthy", "Warm", "Southwestern"],
+    [
+      "apricot-whisper-soft",
+      "ember-pearl-soft",
+      "coral-bloom-muted",
+      "ember-tone-muted",
+      "garnet-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Use this when the brand needs warmth that reads as natural and material — clay pots, desert rock, dry grass at golden hour. The terracotta mid-tones are the palette's core identity; the garnet anchor gives it weight.",
+      promptWords: ["canyon wall", "terracotta roof", "dry riverbed", "mesa at noon", "sandstone arch"],
+      useCases: ["Southwestern and artisan brands", "Food and hospitality", "Real estate and interior design"],
+    },
+  ),
+  createCollection(
+    "midnight-forest",
+    "Midnight Forest",
+    "Deep emerald, mossy greens, and shadow teals for atmospheric brand work that needs depth and quiet intensity.",
+    "A palette that begins in the pale, airy register of soft jade and seafoam, descends through rich emerald and teal mid-tones, and grounds in shadowed moss and deep nocturne tones. It has the range to support both light and dark design contexts. Best for brands where nature, depth, and a sense of serious calm are the primary signals — wellness retreats, sustainable brands, architectural practices.",
+    ["Forest", "Deep", "Nature"],
+    [
+      "seafoam-whisper-soft",
+      "jade-bloom-clear",
+      "emerald-silk-soft",
+      "teal-tone-muted",
+      "moss-nocturne-muted",
+    ],
+    {
+      editorialNote:
+        "Use this when green needs to feel like a forest at night, not a meadow in afternoon sun. The emerald and teal mid-tones are the character; the muted moss anchor gives it depth without darkness.",
+      promptWords: ["forest floor", "still water", "canopy shadow", "mossy stone", "midnight pine"],
+      useCases: ["Sustainable and eco brands", "Wellness and retreat design", "Architectural and studio work"],
+    },
+  ),
 ];
 
 export function getCollectionById(id: string) {
