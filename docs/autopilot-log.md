@@ -955,3 +955,46 @@ Total collections: **39** (was 37)
 - STRUCTURE.md (updated counts)
 
 **Commit:** a9916ee
+
+
+## 2026-03-23 — Big Run: Newsletter fix + 4 issues + 3 guides + 2 collections (commit 55fb5f9)
+
+**Run type:** Big Run (5th run since last big run `eba613b` — threshold reached)
+
+**Categories:** A. SEO & Content (newsletter + guides), D. Data & Collections
+
+### Category A — Newsletter Fix + Issues 106–109 (January 2028)
+
+**Bug fix:** Issues 102-105 (December 2027) were in the wrong position — prepended to the start of the JSON array (index 0-3) instead of appended to the end. Fixed ordering so they follow Issues 098-101 correctly.
+
+- **Issue 106** (jan-2028-color-in-game-ui, 2028-01-07): Color in game UI — HUD peripheral vision design, item rarity color conventions (Diablo 2 origin), damage type multi-channel redundancy, color accessibility in competitive games (colorblind modes at Riot, Valve)
+- **Issue 107** (jan-2028-black-in-ui-design, 2028-01-14): Choosing black in digital interfaces — halation from pure black on OLED, when to use pure #000000, tinted blacks coordinated to brand hue direction, surface elevation with lightness increments in dark mode
+- **Issue 108** (jan-2028-color-financial-data-viz, 2028-01-21): Color in financial data viz — making red-green accessible (redundant channels), extended semantic palette (6 states), conditional formatting density problem, dark mode for trading dashboards
+- **Issue 109** (jan-2028-color-cultural-sensitivity, 2028-01-28): Color and cultural sensitivity — which meanings are universal vs. culturally specific, red's financial inversion (red=gain in East Asia), religious significance of saffron/green/purple, building culturally adaptable color token systems
+
+Total newsletter issues: **110** (was 106, +4 this run)
+
+### Category A — SEO Guides (+3, now 76)
+
+- **color-wheel-guide**: Six harmonic relationships (complementary, analogous, triadic, tetradic, split-complementary, square), UI palette construction from fixed primary hue, hue temperature and psychological weight — targets 'color wheel guide for designers'
+- **color-for-mobile-app-design**: OLED dark mode battery optimization, ambient lighting range on mobile, tap target state distinctions, platform color conventions (iOS/Android), safe area and system UI integration — targets 'color for mobile app design'
+- **color-temperature-guide**: Physics of warm/cool light (Kelvin), spatial advancement/recession effects, tinted neutral palettes, mixed temperature palettes and productive tension — targets 'warm vs cool colors design'
+
+### Category D — 2 New Collections (now 41)
+
+- **terracotta-fired**: Warm ember/coral/amber tones at midrange lightness — for artisan goods, boutique hospitality, earthy lifestyle brands. Colors: ember-tone-soft, coral-silk-soft, apricot-bloom-soft, amber-tone-muted, crimson-velvet-soft
+- **nordic-morning**: Pale blue mists and cool whisper whites — for Scandinavian/hygge-influenced, wellness, and minimalist SaaS brands. Colors: azure-mist-soft, cerulean-whisper-muted, cobalt-pearl-soft, iris-mist-muted, teal-mist-soft
+
+### Current State After This Run
+
+- Total newsletter issues: **110** (Issues 001–109, plus ordering bug fixed for 102-105)
+- Total collections: **41** (terracotta-fired, nordic-morning added)
+- Total SEO guides: **76** (color-wheel-guide, color-for-mobile-app-design, color-temperature-guide added)
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (110 issues, ordering fixed, 4 new Jan 2028 issues)
+- src/lib/collections.ts (+terracotta-fired, +nordic-morning, now 41 collections)
+- src/lib/guides.ts (+3 guides in extraGuides6, now 76 total)
+- STRUCTURE.md (updated all counts)
+
+**Commit:** 55fb5f9
