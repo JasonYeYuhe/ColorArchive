@@ -58,6 +58,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
   const initialSort = (searchParams.get("sort") as SortOption | null) ?? "hue";
   const initialFamily = (searchParams.get("family") as ColorFamily | null) ?? "All";
   const initialSelected = searchParams.get("selected");
+  const hasExplicitSelection = !!(initialSelected && colors.some((color) => color.id === initialSelected));
 
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [sortBy, setSortBy] = useState<SortOption>(
@@ -67,10 +68,12 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
     initialFamily === "All" || COLOR_FAMILIES.includes(initialFamily) ? initialFamily : "All",
   );
   const [selectedColorId, setSelectedColorId] = useState<string | null>(
-    initialSelected && colors.some((color) => color.id === initialSelected)
+    hasExplicitSelection
       ? initialSelected
       : colors[0]?.id ?? null,
   );
+  // Track whether the user explicitly selected a color (vs auto-fallback to first)
+  const [userSelectedExplicitly, setUserSelectedExplicitly] = useState(hasExplicitSelection);
 
   const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
 
@@ -123,12 +126,12 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
       searchQuery,
       sortBy,
       activeFamily,
-      selectedColorId: selectedColorId,
+      selectedColorId: userSelectedExplicitly ? selectedColorId : null,
     });
     const queryString = params.toString();
 
     return queryString ? `/?${queryString}` : "/";
-  }, [activeFamily, searchQuery, selectedColorId, sortBy]);
+  }, [activeFamily, searchQuery, selectedColorId, sortBy, userSelectedExplicitly]);
 
   const nearbyColors = useMemo(() => {
     if (!selectedColor) {
@@ -148,16 +151,21 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
     return related.slice(Math.max(0, selectedIndex - 1), selectedIndex + 3);
   }, [searchResults, selectedColor]);
 
+  const handleSelectColor = (id: string) => {
+    setSelectedColorId(id);
+    setUserSelectedExplicitly(true);
+  };
+
   useEffect(() => {
     const params = buildArchiveStateParams({
       searchQuery,
       sortBy,
       activeFamily,
-      selectedColorId: selectedColorId,
+      selectedColorId: userSelectedExplicitly ? selectedColorId : null,
     });
     const queryString = params.toString();
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
-  }, [activeFamily, pathname, router, searchQuery, selectedColorId, sortBy]);
+  }, [activeFamily, pathname, router, searchQuery, selectedColorId, sortBy, userSelectedExplicitly]);
 
   const handleReset = () => {
     setSearchQuery("");
@@ -200,13 +208,13 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
         <SelectedColorPanel
           color={selectedColor}
           nearbyColors={nearbyColors}
-          onSelectColor={setSelectedColorId}
+          onSelectColor={handleSelectColor}
         />
 
         <ColorGrid
           colors={visibleColors.slice(0, displayLimit)}
           selectedColorId={selectedColorId}
-          onSelectColor={setSelectedColorId}
+          onSelectColor={handleSelectColor}
           emptyState={
             <ArchiveEmptyState
               searchQuery={searchQuery}
