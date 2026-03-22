@@ -1,4 +1,4 @@
-const LAST_UPDATED = "March 22, 2026";
+const LAST_UPDATED = "March 23, 2026";
 
 const sections = [
   {
@@ -29,18 +29,29 @@ We do not sell your personal information to third parties.`,
 - **Lemon Squeezy** — Payment processing. Subject to [Lemon Squeezy's Privacy Policy](https://www.lemonsqueezy.com/privacy).
 - **Google OAuth** — Optional sign-in. Subject to [Google's Privacy Policy](https://policies.google.com/privacy).
 - **Vercel** — Hosting and analytics. Subject to [Vercel's Privacy Policy](https://vercel.com/legal/privacy-policy).
-- **Pinterest API** — Content publishing and marketing automation. Subject to [Pinterest's Privacy Policy](https://policy.pinterest.com/privacy-policy).
+- **Pinterest API** — Optional integration that allows users to save color palettes and pins to their own Pinterest boards. We access only the data explicitly authorized by the user via Pinterest OAuth. We do not store, cache, or retain any Pinterest user data on our servers beyond the active session. We do not sell, share, or transfer Pinterest data to any third party. Subject to [Pinterest's Privacy Policy](https://policy.pinterest.com/privacy-policy) and [Pinterest Developer Guidelines](https://policy.pinterest.com/developer-guidelines).
 
 These services may collect information as described in their respective privacy policies.`,
   },
   {
-    title: "4. Data Storage and Security",
+    title: "4. Pinterest API Data Use",
+    content: `If you choose to connect your Pinterest account to ColorArchive, the following applies:
+
+- **Authorization**: We use Pinterest OAuth to request access only to the specific permissions needed (e.g., writing pins to your boards). You can revoke access at any time from your Pinterest account settings.
+- **Data accessed**: We may read your board list so you can choose where to save a pin. We do not access your followers, messages, or personal profile beyond what Pinterest provides in the OAuth flow.
+- **No data storage**: We do not store, cache, or persist any data retrieved from the Pinterest API on our servers. All Pinterest data is used only during your active session and discarded immediately after.
+- **No data sharing**: We never sell, share, license, or transfer any Pinterest user data to third parties, including advertisers or data brokers.
+- **No automated actions**: We do not perform bulk or automated actions on your Pinterest account. Every pin or board action is initiated explicitly by you.
+- **Compliance**: Our use of the Pinterest API complies with the [Pinterest Developer Guidelines](https://policy.pinterest.com/developer-guidelines) and [Pinterest API Terms](https://developers.pinterest.com/terms/).`,
+  },
+  {
+    title: "5. Data Storage and Security",
     content: `Your data is stored on secure servers. Account data and preferences are stored on our backend server. We use HTTPS for all data transmission and follow industry-standard security practices to protect your information.
 
 If you use ColorArchive without an account, your favorites and recent colors are stored only in your browser's localStorage and never transmitted to our servers.`,
   },
   {
-    title: "5. Your Rights",
+    title: "6. Your Rights",
     content: `You have the right to:
 
 - **Access** the personal data we hold about you.
@@ -51,17 +62,17 @@ If you use ColorArchive without an account, your favorites and recent colors are
 To exercise any of these rights, contact us at the email below.`,
   },
   {
-    title: "6. Children's Privacy",
+    title: "7. Children's Privacy",
     content:
       "ColorArchive is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal data, please contact us so we can delete it.",
   },
   {
-    title: "7. Changes to This Policy",
+    title: "8. Changes to This Policy",
     content:
       "We may update this Privacy Policy from time to time. We will notify registered users of material changes via email. The date at the top of this page indicates when the policy was last revised.",
   },
   {
-    title: "8. Contact",
+    title: "9. Contact",
     content:
       "If you have questions about this Privacy Policy, please contact us at **privacy@colorarchive.me**.",
   },
