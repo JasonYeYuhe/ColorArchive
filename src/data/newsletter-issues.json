@@ -4661,53 +4661,56 @@
     ]
   },
   {
-    "slug": "oct-2027-color-in-motion-design",
-    "date": "2027-10-28",
-    "title": "Color in motion: how animation changes the rules of color choice",
-    "summary": "Static and animated color follow different rules. A palette that reads beautifully in a static mockup can vibrate, clash, or feel exhausting when the elements move. Understanding temporal contrast, easing-aware color transitions, and the specific ways human vision responds to moving color helps motion designers avoid the mistakes that turn technically correct palettes into visual fatigue.",
+    "slug": "nov-2027-color-in-ai-generated-design",
+    "date": "2027-11-25",
+    "title": "Color in AI-generated design: prompting, correcting, and maintaining brand palette consistency",
+    "summary": "AI image generation tools (Midjourney, DALL·E, Stable Diffusion) have introduced a new creative workflow that most designers haven't fully integrated into their color practice yet. AI models have strong aesthetic priors about color that pull outputs toward certain palettes — moody desaturated tones, high-contrast cinematic grading, or hyper-saturated fantasy colors depending on the model and prompt. Understanding how to work with and against these priors is now a practical design skill. This issue covers AI color aesthetics, how to prompt for specific palettes, post-generation color correction workflows, and how to maintain brand palette consistency when AI is part of your production pipeline.",
     "eyebrow": "Issue 098",
     "tags": [
-      "Motion Design",
-      "Animation",
-      "Color Theory"
+      "Digital Design",
+      "Brand Design"
     ],
-    "featuredCollectionId": "nocturne-tech",
-    "featuredPackId": "dark-mode-ui-kit",
+    "featuredCollectionId": "electric-mint",
+    "featuredPackId": "brand-starter-kit",
     "highlights": [
-      "Simultaneous contrast — the optical effect where adjacent colors appear to shift based on their neighbors — is amplified in motion because the brain cannot adapt to constantly shifting adjacencies. A green that looks stable next to a fixed grey will appear to pulse and shift when the grey is animating. Motion designers should test palettes under the actual animation conditions, not from static exports.",
-      "Research in visual neuroscience shows that high-contrast color combinations (especially complementary pairs like red-green or blue-orange) at high saturation create visual fatigue significantly faster when elements are in motion compared to static. The threshold for 'acceptable contrast' in a still UI is not the same threshold that works for a looping animation or video. Animated brand assets often benefit from reducing saturation by 15–25% compared to print equivalents.",
-      "The temporal arc of an animation matters for color planning. An animation that moves from warm to cool communicates transformation and resolution. An animation cycling between two states without directional temperature change can feel unresolved or mechanical. Planning the color temperature journey of an animation — even a simple UI state transition — creates cohesion that audiences feel but cannot articulate."
+      "AI image models have trained-in color biases. Midjourney v6 pulls toward desaturated, cinematic palettes with crushed shadows and lifted highlights — an aesthetic that photographs well on social media but diverges significantly from most brand color systems. DALL·E 3 tends toward higher saturation and more literal color interpretation of prompts. Understanding which model's baseline aesthetic is closer to your brand's target saves significant post-processing time and prompt iteration.",
+      "Exact hex color control is not yet natively supported in text-to-image AI tools, but several prompting strategies increase palette accuracy: providing reference image URLs (when supported), using specific color name modifiers ('cobalt blue accent, not teal'), describing the color relationship ('muted warm amber tones, low saturation'), and adding lighting descriptors that imply color temperature ('overcast natural light' for cool muted tones, 'golden hour backlight' for warm amber). No approach delivers precise palette accuracy, but each reduces the correction load.",
+      "Color correction after AI generation can be done efficiently in layers: broad HSL adjustments to shift the overall temperature toward brand values, targeted Hue/Saturation masks to correct specific problem colors (AI-generated greens frequently shift too yellow), and final curves adjustments to match luminance targets. For batch workflows processing many AI-generated images, Lightroom presets or Photoshop actions encoding brand color correction parameters allow consistent palette application at scale without per-image manual work."
     ],
     "sections": [
       {
-        "heading": "Why static color rules break in motion",
-        "body": "The human visual system processes color differently when elements are in motion. In static contexts, the eye adapts to a fixed color scene — after a few seconds, color constancy mechanisms help the brain normalize the overall color cast and focus on relative differences. In motion, that adaptation process is constantly interrupted. The eye must continuously re-evaluate color relationships as they change in time. This means that color choices which feel comfortable in a static mockup — particularly high-saturation complementary combinations — can trigger visual fatigue or apparent vibration when animated. The phenomenon is most pronounced with red-green and blue-orange combinations at full saturation, which exploit the limitations of opponent-process channels in the visual cortex. Motion designers working in brand animation, interface micro-interactions, or video should develop a separate, desaturated version of the brand palette specifically for motion contexts."
+        "heading": "Understanding AI model color aesthetics",
+        "body": "Every AI image model has a trained aesthetic that includes color preferences derived from its training data distribution. Midjourney's cinematic bias produces images with high contrast, lifted blacks, and slightly desaturated midtones — an aesthetic that looks professional in general editorial contexts but clashes with most corporate brand palettes. DALL·E 3's more literal interpretation makes it better for brand-aligned work where you need specific colors to appear. Stable Diffusion with custom checkpoints offers the most control but requires more technical setup. Understanding these baseline aesthetics before starting a project informs which model to start with and how much color correction budget to allocate."
       },
       {
-        "heading": "Easing and color transition design",
-        "body": "The relationship between an animation's easing curve and its color interpolation method matters more than most motion designers realize. By default, design tools interpolate colors through the RGB color space — which means that a transition from warm orange to cool blue will pass through an unsaturated grey-brown midpoint that looks muddy and unintentional. Interpolating through HSL or OKLCH maintains perceptual consistency through the transition: the midpoint stays vibrant and readable rather than collapsing to a desaturated middle value. The practical implication: if you are animating a color change in CSS, use `color-mix()` or CSS transitions with oklch() values rather than hex-to-hex transitions. In After Effects and design tools, use gradient interpolation settings to control the path colors take through color space. The motion designer who understands this creates transitions that feel crafted; the one who does not produces transitions that feel technically functional but emotionally flat."
+        "heading": "Prompting for specific color palettes",
+        "body": "Effective color prompting in AI tools works through multiple channels simultaneously. Color name specificity: 'cobalt blue' is more reliably rendered than 'blue'; 'sage green' more predictably muted than 'green'. Lighting descriptors strongly influence overall palette temperature: 'overcast diffuse light' for cool muted results, 'warm directional studio lighting' for amber-toned warmth. Style references: including established aesthetic movements ('Bauhaus color palette', 'Japanese wabi-sabi neutral tones') invokes the training data patterns associated with those movements' color practices. Negative prompts: explicitly excluding problematic color regions ('no neon, no highly saturated colors, no warm tones') can be as effective as positive specification. Combination approach: using all four channels simultaneously — specific names, lighting, style reference, negative exclusion — produces the most palette-consistent outputs."
       },
       {
-        "heading": "Temporal contrast and color sequencing",
-        "body": "Temporal contrast refers to the difference between a color's current state and its previous state — effectively, the contrast in time rather than space. High temporal contrast (large, rapid color changes) creates excitement and urgency, which is appropriate for alerts, celebrations, and calls to action. Low temporal contrast (gradual, subtle shifts) creates calm and reliability, appropriate for background ambient animation, loading states, and transitions that should not pull attention. The planning process for motion color is therefore two-dimensional: static contrast (how colors relate to each other within a frame) and temporal contrast (how colors change across frames). A common mistake is maximizing static contrast while ignoring temporal contrast — producing animations that feel aggressive and fatiguing even though each individual frame looks balanced. The most legible motion work manages both dimensions simultaneously."
+        "heading": "Post-generation color correction workflow",
+        "body": "A standard three-stage correction workflow for brand-aligning AI-generated images: Stage 1 — global temperature shift. Use a Curves or Color Balance adjustment to pull the image's overall temperature toward the brand palette. For a cool, desaturated brand pulling away from AI's warm cinematic default, add blue and reduce red globally. Stage 2 — targeted hue replacement. Use Hue/Saturation with targeted color selectors to address specific problem areas: AI greens that have shifted too yellow-green, AI blues that have drifted to cyan, AI reds that have become too orange. Stage 3 — luminance matching. Compare overall luminance levels to brand reference images and use Curves to match the exposure range. This three-stage workflow handles the majority of AI color correction cases; most images need only 5-10 minutes of work when the brand correction parameters are predetermined."
       },
       {
-        "heading": "Brand animation color systems",
-        "body": "Major brand design systems increasingly include motion-specific color variants alongside static palette definitions. The system distinguishes between 'brand colors' (used for static applications), 'motion colors' (desaturated variants for animation), and 'accent animation colors' (a small set of highly saturated colors reserved for moments of emphasis in motion — never used as backgrounds in long animations). This three-tier approach prevents the creep of full-saturation vivid colors into animation contexts where they cause visual discomfort. When building a color system for a brand that has significant motion touchpoints — social video, animated ads, UI interactions — design the motion palette explicitly rather than leaving motion designers to improvise from the static system. A brand's animated identity should feel as intentional as its print identity."
+        "heading": "Maintaining brand consistency at scale",
+        "body": "When AI generation becomes a regular part of a design team's workflow, systematic color consistency requires infrastructure, not individual correction. The baseline approach is a standardized Lightroom preset or Photoshop action that encodes the brand's standard color correction — temperature, tint, HSL targets, curves shape — applied as the first step to every AI-generated image before art direction review. More sophisticated implementations use ICC color profiles configured to the brand's target gamut. For teams with dedicated photo editing workflows, the AI-generated images slot into the same correction pipeline as photography, ensuring consistent treatment. The key principle: treat AI generation as a source material (like photography) rather than a final output, and apply the same color discipline to it as any other visual asset."
+      },
+      {
+        "heading": "Color and AI design tool integration strategy",
+        "body": "The medium-term trajectory of AI design tools is toward better color control — Midjourney has indicated plans for palette reference inputs, and several research projects demonstrate OKLCH-space color targeting in diffusion models. In the current state, the practical integration strategy is: use AI generation for composition, texture, and concept exploration (where it excels), apply manual or systematized color correction to brand-align the output, and build a library of successfully corrected reference images to use as visual prompts for future generation. As control improves, this correction workflow will shrink — but the underlying skill of understanding AI color biases and correction methods will remain valuable for directing the control interfaces that emerge."
       }
     ],
     "links": [
       {
-        "label": "Explore Nocturne Tech palette",
-        "href": "/collections/nocturne-tech/"
+        "label": "Brand Color System Generator",
+        "url": "https://colorarchive.me/brand/"
       },
       {
-        "label": "Dark Mode UI Kit",
-        "href": "/packs/dark-mode-ui-kit/"
+        "label": "ColorArchive WCAG Audit tool",
+        "url": "https://colorarchive.me/wcag-audit/"
       },
       {
-        "label": "WCAG Contrast Checker",
-        "href": "/contrast/"
+        "label": "Color Compare tool",
+        "url": "https://colorarchive.me/compare/"
       }
     ]
   },

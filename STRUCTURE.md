@@ -159,7 +159,7 @@ ColorArchive/
 │   │   ├── palette-packs.ts              # 7 product pack definitions + metadata
 │   │   ├── guides.ts                     # 15 SEO landing guides
 │   │   ├── newsletter-issues.ts          # Newsletter data helpers + tagToSlug
-│   │   ├── i18n.ts                       # EN/JA translations (~600+ keys)
+│   │   ├── i18n.ts                       # EN/ZH translations (~710+ keys)
 │   │   ├── palette-builder.ts            # localStorage palette + subscriptions,
 │   │   │                                 # Tailwind/Figma/StyleDict exports, naming
 │   │   ├── favorites.ts                  # localStorage favorites + subscriptions
@@ -241,7 +241,7 @@ Three independent stores, each with a subscription pattern for cross-component r
 - `recent-colors.ts` — browsing history
 
 ### i18n
-`src/lib/i18n.ts` exports a `t(key, locale)` function. The `useLocale()` hook (from `locale-provider.tsx`) gives components `{ t, locale }`. Locale stored in `localStorage` as `colorarchive-locale`. Supported: `en`, `ja`.
+`src/lib/i18n.ts` exports a `t(key, locale)` function. The `useLocale()` hook (from `locale-provider.tsx`) gives components `{ t, locale }`. Locale stored in `localStorage` as `colorarchive-locale`. Supported: `en`, `zh`.
 
 ### Email Nurture Sequence
 Triggered by `email-scheduler.js` running hourly on the DO droplet:
@@ -261,7 +261,7 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Colors | 2016 |
 | Collections | 37 |
 | Palette packs | 7 |
-| SEO guides | 70 |
+| SEO guides | 73 |
 | Newsletter issues | 102 |
 | Color families | 9 |
 | Tool pages | 13 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz, colorblind, tints, mixer) |
