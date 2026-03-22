@@ -3131,3 +3131,143 @@ export const extraGuides6: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides6);
+
+const extraGuides7: LandingGuide[] = [
+  {
+    category: "Color Theory",
+    slug: "color-contrast-accessibility-guide",
+    title: "Color Contrast and Accessibility: WCAG, APCA, and Building an Accessible Palette",
+    summary:
+      "Color contrast accessibility is one of the most commonly misunderstood areas of design compliance. Designers know they need to 'pass WCAG' but often do not understand what the standard measures, what it misses, or how to build a palette that passes consistently rather than checking contrast case by case. Understanding the mechanics of contrast standards enables you to design accessible color systems proactively rather than patching them reactively.",
+    eyebrow: "Accessibility Guide",
+    priority: 80,
+    searchIntent: "color contrast accessibility guide designers",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Accessibility", "WCAG", "Color Contrast"],
+    highlights: [
+      "WCAG 2.1 contrast ratio is calculated from the relative luminance of two colors using the formula CR = (L1 + 0.05) / (L2 + 0.05), where L1 is the lighter color's relative luminance. A ratio of 4.5:1 is required for normal text (under 18pt or 14pt bold) to meet Level AA compliance. A ratio of 3:1 applies to large text and UI components like form borders and active indicators. Level AAA requires 7:1 for normal text. These thresholds were established in the early 2000s based on research into legibility for users with low vision; they represent minimum requirements, not design targets. Designing to 4.6:1 gives you no margin for production variation or substrate shifts.",
+      "The WCAG 2.1 contrast formula has well-documented limitations. It treats all hues equally (a blue-on-white pair with ratio 4.5:1 is equivalent to a green-on-white pair with the same ratio), but human perception does not treat them equally — the eye is less sensitive to blue than to green or red. The formula also weights luminance differently for light-on-dark versus dark-on-light text, but the weighting does not match measured human reading performance. APCA (Advanced Perceptual Contrast Algorithm), proposed for WCAG 3.0, corrects these limitations by separately modeling background lightness, text lightness, font weight, and font size. APCA produces different results for many combinations that WCAG 2.1 passes or fails ambiguously.",
+      "The most reliable approach to accessible color systems is to build the accessibility in at the token level rather than the component level. Define your text color tokens so that each one meets the required contrast ratio against every background token it may appear on. Document the valid foreground-background pairs. Components that consume these token pairs are then automatically accessible — the contrast verification happens once during token design, not repeatedly during component design and review.",
+    ],
+    sections: [
+      {
+        heading: "How WCAG contrast ratio is calculated and what it measures",
+        body:
+          "The WCAG contrast ratio formula converts each color to relative luminance — a value between 0 (absolute black) and 1 (absolute white) — using a linearization of the sRGB values followed by luminance weighting that matches the human eye's sensitivity (more sensitive to green than red than blue). The contrast ratio between two colors is then (brighter luminance + 0.05) / (dimmer luminance + 0.05). This formula measures luminance contrast, not color difference. Two colors that are perceptually very different (a saturated red and a saturated green) can have low contrast ratios if their luminance values are similar. This is why red-green combinations are accessibility problems — not because the colors are too similar to distinguish for color-sighted users, but because many users with color deficiencies cannot distinguish red from green, and the luminance contrast between them is often insufficient to compensate.",
+      },
+      {
+        heading: "APCA and the transition to WCAG 3.0",
+        body:
+          "APCA (Advanced Perceptual Contrast Algorithm) was developed by Andrew Somers to address the limitations of the WCAG 2.1 formula. Key differences: APCA models polarity (light text on dark background vs. dark text on light background) separately, because reading performance differs between polarities at the same contrast ratio. APCA models the impact of font weight and size, so a heavy-weight large heading can pass at a lower contrast value than a thin-weight small body text. APCA outputs a Lc (Lightness Contrast) value rather than a ratio — Lc 60 is roughly equivalent to WCAG 4.5:1 for body text, but the equivalence varies by font. For design teams working on accessibility-critical products, testing against APCA criteria (in addition to WCAG 2.1 for current compliance) future-proofs the design against the upcoming standard change.",
+      },
+      {
+        heading: "Building an accessible color palette proactively",
+        body:
+          "An accessible-first palette design process: (1) Define your background range: the full set of surface colors in your system (page background, card, elevated card, dark mode variants). (2) For each background, determine the accessible text color range: which foreground values produce ≥4.5:1 contrast against that background. (3) Choose your text token values from within this range. If your primary text color does not pass 4.5:1 against one of your background tokens, either the text color or background must change. (4) Define your interactive element palette (buttons, links, form borders) and verify 3:1 contrast against all backgrounds where they appear. (5) Define your status colors (error, warning, success, info) and verify that status-colored text meets 4.5:1 and that status-colored backgrounds paired with white or near-black text also meet 4.5:1. This process front-loads accessibility into palette design, preventing the retrofitting problem.",
+      },
+      {
+        heading: "Dark mode accessibility considerations",
+        body:
+          "Dark mode introduces accessibility complexity that light-mode-only designs avoid. In dark mode, the typical body text relationship is inverted: light text on dark background. The WCAG formula treats this symmetrically (4.5:1 is the same requirement in either direction), but human reading performance for light-on-dark text is measurably lower than dark-on-light for extended reading. Best practices: (1) Use slightly higher contrast values for body text in dark mode — target 6:1 rather than 4.5:1 for sustained reading contexts. (2) Avoid pure white (#FFFFFF) on pure black (#000000) — the extreme contrast of 21:1 causes halation (the bright text appears to glow and bleed) on OLED and high-contrast LCD displays. A warm off-white on a dark gray (e.g., #F0EEE8 on #1C1C1E) produces both lower halation and often slightly better perceived legibility. (3) Test your dark mode at actual display brightness settings — dark mode is often used in low-ambient-light conditions where screen brightness is turned down, which effectively reduces the rendered contrast ratio.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Checker", href: "/tools/contrast/" },
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Monochrome Studio collection", href: "/collections/monochrome-studio/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "color-in-data-visualization",
+    title: "Color in Data Visualization: Encoding Information Without Misleading Your Audience",
+    summary:
+      "Color in data visualization is not decoration — it is an encoding channel that carries quantitative and categorical information. Using color poorly in charts and graphs misleads readers, creates accessibility barriers, and undermines the credibility of the data being presented. Using color well produces visualizations that communicate at a glance, remain legible across display conditions, and serve the full range of users including those with color vision deficiencies.",
+    eyebrow: "Data Visualization Guide",
+    priority: 71,
+    searchIntent: "color in data visualization design",
+    featuredCollectionId: "neon-after-dark",
+    featuredPackId: "complete-archive",
+    tags: ["Data Visualization", "Accessibility", "Color Theory"],
+    highlights: [
+      "Data visualization uses three distinct types of color encoding, each with different design requirements. Categorical encoding uses color to distinguish unordered groups (product categories, countries, species) — the colors should be maximally distinguishable from each other while avoiding any implication of ordering. Sequential encoding uses color lightness or saturation to represent a continuous ordered variable (temperature, population density, probability) — the color progression should be perceptually uniform so that equal data differences produce equal perceived color differences. Diverging encoding represents variables with a meaningful midpoint (positive vs. negative deviation, comparison to average) — two hue sequences meet at a neutral midpoint color, showing direction as well as magnitude.",
+      "The most pervasive data visualization color mistake is applying categorical colors to ordered data, or sequential colors to categorical data. A bar chart showing five product categories should use five distinguishable, perceptually equal colors — not a five-step gradient from light to dark, which implies that the last category is 'more' than the first. A choropleth map showing population density should use a sequential color scale — not five arbitrary categorical colors, which obscures the underlying ordering. The choice of encoding type is a data structure decision, not an aesthetic one: it should be determined by whether the variable being represented is nominal (unordered), ordinal (ordered), or continuous (numeric).",
+      "Colorblind accessibility in data visualization requires designing for the 8% of men and 0.5% of women with some form of color vision deficiency. Deuteranopia and protanopia (red-green colorblindness) are the most common forms. The most common visualization mistake for these users: using red for 'bad' and green for 'good' without any other distinguishing encoding. The solution is not to eliminate color, but to add redundant encoding: shape, pattern, position, or text labels that convey the same information the color is encoding. A well-designed accessible visualization uses color as one of multiple encoding channels, not the sole encoding channel for critical information.",
+    ],
+    sections: [
+      {
+        heading: "Choosing a categorical color palette for visualization",
+        body:
+          "A good categorical color palette for data visualization has three properties: (1) Distinguishability — each color is visually distinct from every other color in the set. This is harder than it sounds for large sets (10+ categories) because the human eye can only reliably distinguish a limited number of colors simultaneously. Palettes of 8-12 colors are near the practical limit; beyond that, supplementary encoding (shape, pattern, texture) becomes necessary. (2) Perceptual equality — no color should appear more important or 'louder' than the others. Highly saturated colors appear more prominent than muted colors of the same hue; bright yellows appear lighter and less prominent than dark blues at the same saturation level. A good categorical palette is balanced across perceived lightness and saturation. (3) Colorblind safety — the palette should remain distinguishable for deuteranopes and protanopes. Tools like Viz Palette and the ColorBrewer palette library design specifically for colorblind-safe categorical sets.",
+      },
+      {
+        heading: "Sequential and diverging scales: designing for perceptual uniformity",
+        body:
+          "Sequential and diverging color scales should be perceptually uniform: equal steps in data value should produce equal steps in perceived color. Perceptually non-uniform scales mislead — they make some data ranges appear to vary more than others for reasons of color physics rather than data patterns. The standard color spaces used in legacy visualization tools (HSL, sRGB) are not perceptually uniform. CIELAB and OKLCH are significantly more uniform. Palette libraries like ColorBrewer were designed with perceptual uniformity testing; the viridis, inferno, and magma scales in matplotlib were specifically engineered for perceptual uniformity and colorblind safety. When designing custom sequential scales, test by converting to grayscale — the grayscale version should show a smooth, gradual transition with no abrupt jumps or flat regions. Abrupt jumps in grayscale indicate a perceptual uniformity problem.",
+      },
+      {
+        heading: "The problem with rainbow color scales",
+        body:
+          "Rainbow color scales (cycling through the full spectrum from red to violet) are the most commonly misused visualization palette. They are perceptually non-uniform — the transition between yellow and green appears sharper than the transition between blue and indigo, creating artificial visual features in data that do not represent real data discontinuities. They are not colorblind-safe. They imply no natural ordering (which direction is 'more'?). And they are challenging to print accurately and to read under different display conditions. Despite these problems, rainbow scales persist because they are visually striking and easily create an impression of data richness. For any visualization where the goal is accurate data communication rather than visual spectacle, replace rainbow scales with perceptually uniform sequential or diverging scales. For visualizations where the goal is to show maximum detail in a continuous field (satellite imagery, topography, certain scientific data), rainbow scales can be effective if their limitations are understood.",
+      },
+      {
+        heading: "Contextual color: reference lines, annotations, and emphasis",
+        body:
+          "Beyond data encoding, visualizations use color contextually: to highlight specific data points, mark reference lines, annotate outliers, or show uncertainty ranges. These contextual uses require a different color strategy than the encoding palette. Reference lines (averages, targets, thresholds) should use neutral colors (medium gray) that do not compete with the data encoding but remain legible. Highlighted emphasis colors (to draw attention to a specific data series or point) should contrast with the general data palette — typically achieved by making all non-highlighted elements gray and using the brand's primary action color for the highlighted element. Uncertainty representation (confidence intervals, error bars, probability ranges) benefits from lower saturation and transparency, visually signaling 'less certain' compared to the primary data marks. A visualization with a clean color hierarchy — where encoding, reference, emphasis, and uncertainty use distinct and non-competing color treatments — communicates significantly more efficiently than one where all color uses compete at the same visual weight.",
+      },
+    ],
+    links: [
+      { label: "Complete Archive Token Set", href: "/packs/complete-archive/" },
+      { label: "Color Converter Tool", href: "/tools/convert/" },
+      { label: "Color Family Browser", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "saturation-chroma-design-guide",
+    title: "Saturation and Chroma in Design: How to Control Color Intensity Without Losing Harmony",
+    summary:
+      "Saturation is one of the least consciously controlled dimensions in design color work. Designers often choose colors by hue first and saturation second, treating saturation as a fine-tuning variable rather than a primary design decision. But saturation is often the difference between a palette that feels cohesive and refined and one that feels random or amateurish. Understanding how saturation works across hues — and why equal-saturation colors look unequal — is essential for professional color control.",
+    eyebrow: "Color Theory Guide",
+    priority: 70,
+    searchIntent: "saturation chroma color design guide",
+    featuredCollectionId: "neon-after-dark",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["Color Theory", "Saturation", "Chroma"],
+    highlights: [
+      "HSL saturation is a mathematical property, not a perceptual one. Two colors with the same HSL saturation value (e.g., 80%) can appear dramatically different in perceived colorfulness if they have different hues or lightness values. Yellow at S:80% appears extremely vivid; blue-violet at S:80% at the same lightness appears only moderately vivid. This discrepancy exists because the HSL model was designed for computational simplicity, not perceptual accuracy. Perceptual chroma — the measure of colorfulness that matches human perception — varies significantly by hue even at constant HSL saturation. Working in HSL gives you mathematical consistency but perceptual inconsistency; working in OKLCH gives you perceptual consistency at the cost of some computational complexity.",
+      "The practical consequence of uneven perceptual chroma across hues: a palette built in HSL with consistent saturation values will look unbalanced. Yellow entries will look more vivid than blue entries; green entries will look different again. If you are building a categorical data visualization palette or a brand color system where each color should feel equally prominent, equalizing HSL saturation is not enough — you must equalize perceptual chroma. The OKLCH color model provides a C (chroma) channel where equal values produce equal perceived colorfulness across all hues. Tools like oklch.com and modern CSS color functions allow you to specify colors in OKLCH and get perceptually balanced sets.",
+      "High-saturation palettes are harder to work with than low-saturation palettes for most UI design contexts. Highly saturated colors create strong simultaneous contrast effects at boundaries (the borders between colors appear to glow or vibrate), which increases visual noise and reduces readability. They also have less room to maneuver for hover states, active states, and selected states — adding saturation or darkening a highly saturated color quickly produces muddy or clashing results. Low-to-medium saturation palettes give you more room to create state variations and are easier to use in large surface areas without creating eye strain. Reserve high saturation for small accent elements, data visualization, and deliberate high-energy design contexts.",
+    ],
+    sections: [
+      {
+        heading: "HSL saturation vs. perceptual chroma",
+        body:
+          "The HSL color model represents saturation as a percentage from 0% (grayscale) to 100% (fully saturated). But 'fully saturated' means something different for different hues: a fully saturated yellow at 50% lightness (#FFFF00) is perceptually much more vivid than a fully saturated blue-violet at 50% lightness (#8000FF). This is because the HSL model is based on the geometry of the RGB cube, not on human perception. Perceptual color models — CIELab, CIECAM02, OKLCH — were designed to have perceptually uniform chroma, where equal numerical differences in chroma produce equal perceived differences in colorfulness. In OKLCH, a C (chroma) value of 0.2 produces the same apparent saturation level for any hue, which allows you to build palettes where every color carries the same visual weight regardless of hue.",
+      },
+      {
+        heading: "Using saturation gradients for hierarchy and depth",
+        body:
+          "Saturation gradients — systematic reduction of saturation from primary to supporting elements — are one of the most effective tools for establishing visual hierarchy without changing hue or lightness. A primary action button can use full-saturation brand color while secondary buttons use 40-60% saturation, disabled states use 15-25% saturation, and placeholder text uses 5-10% saturation with appropriate lightness. This saturation hierarchy communicates interaction priority using a single hue rather than multiple competing colors. The same technique works for informational hierarchy: headlines at higher saturation, body text at lower saturation, captions and metadata at minimal saturation. Perceptual saturation gradients work best in OKLCH; in HSL, the uneven distribution of hue across saturation space requires different HSL percentages to achieve equal perceptual steps for different hues.",
+      },
+      {
+        heading: "Muted palettes and chromatic neutrals",
+        body:
+          "Muted palettes — palettes where all colors are at medium-to-low saturation — are one of the most reliable approaches for sophisticated, editorial, and premium design aesthetics. The 'muted' quality creates a sense of restraint and intention: colors that are chosen for the specific character they bring rather than for maximum vibrancy. In practice, muted palette design requires equal care to high-saturation design — removing saturation does not simplify the palette, it makes the subtle hue differences more critical. A muted olive and a muted sage look very different at high saturation but converge at low saturation; the ability to distinguish them depends on careful hue spacing. Chromatic neutrals — colors that read as gray but carry a slight hue tint — are the most demanding application: they must be saturated enough to register as intentionally tinted rather than accidentally off-neutral, but not so saturated that they read as a color.",
+      },
+      {
+        heading: "Saturation and color harmony",
+        body:
+          "Harmonic color systems — complementary, analogous, triadic palettes based on hue relationships — require consistent saturation treatment to achieve harmony in practice. Two complementary hues (e.g., orange and blue) at matching perceptual chroma will feel harmonically balanced; the same hues at very different saturation levels will feel unbalanced, with the more saturated hue dominating. The traditional color theory rules (complementary colors create maximum contrast, analogous colors create harmony) assume equal saturation as a baseline. In HSL terms, two complementary colors at equal HSL saturation but different hues will have unequal perceptual chroma, which skews the harmonic relationship. The practical implication: when building harmonic palettes in HSL, expect to adjust saturation values between hues to achieve perceptual balance. When building in OKLCH, equal C values produce balanced harmonics directly.",
+      },
+    ],
+    links: [
+      { label: "Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Color Converter Tool", href: "/tools/convert/" },
+      { label: "Neon After Dark collection", href: "/collections/neon-after-dark/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides7);

@@ -939,3 +939,46 @@ collections.push(
     },
   ),
 );
+
+collections.push(
+  createCollection(
+    "copper-patina",
+    "Copper Patina",
+    "Warm copper tones shifting through oxidized green-bronze — for artisan products, premium hardware, and material-forward brand identities.",
+    "This collection traces the color story of copper across its lifecycle: from the warm amber-red of freshly polished metal to the blue-green oxidation of aged bronze. Amber-tone-soft provides the warm anchoring copper note; terracotta-silk-muted steps into the reddish-brown territory of aged copper surfaces; sage-bloom-muted introduces the pale teal-green of incipient patina; teal-mist-soft brings the cleaner, bluer aqua of fully developed patina; and honey-bloom-muted bridges the warm and oxidized zones with a golden amber that reads as mineral and natural. Together the palette evokes material history — the sense of objects that have been made with care and used over time.",
+    ["Warm", "Artisan", "Material"],
+    [
+      "amber-tone-soft",
+      "terracotta-silk-muted",
+      "sage-bloom-muted",
+      "teal-mist-soft",
+      "honey-bloom-muted",
+    ],
+    {
+      editorialNote:
+        "The palette requires warm typography — use amber-tinted near-black rather than cool or neutral grays. The teal-mist-soft entry is the palette's surprise: it reads as patina rather than tech, which makes it usable in artisan and craft contexts where a standard teal would feel out of place. The full palette reads best on natural-texture backgrounds (warm white, linen, uncoated paper) rather than cool white or pure white surfaces.",
+      promptWords: ["aged bronze door handle", "copper pot kitchen", "mineral vein in stone", "antique patina surface", "artisan foundry morning"],
+      useCases: ["Artisan goods and craft brands", "Premium kitchen and hardware products", "Metalwork and material-forward branding", "Architectural and interior design studios"],
+    },
+  ),
+  createCollection(
+    "coastal-haze",
+    "Coastal Haze",
+    "Soft maritime blues and weathered grays with a warm undertone — for travel, hospitality, and calm-first digital products.",
+    "The palette of foggy coastal mornings: a range that sits between the slate of overcast sea and the pale aqua of shallow water at the horizon. Cerulean-whisper-muted provides the palest, most atmospheric blue-gray entry — the color of coastal sky through sea mist; azure-mist-soft steps toward a clearer, more definitively blue note; cobalt-pearl-soft introduces the slightly deeper, more saturated blue of deeper coastal water; slate-mist-soft (or its nearest equivalent teal-mist-soft) provides the blue-gray ground tone; and seafoam-whisper-soft contributes the warm aqua-green of shallow water over sand. The collection is deliberately understated — these are colors that work in large fields as backgrounds and surface tones rather than as accent colors.",
+    ["Coastal", "Calm", "Hospitality"],
+    [
+      "cerulean-whisper-muted",
+      "azure-mist-soft",
+      "cobalt-pearl-soft",
+      "teal-mist-soft",
+      "seafoam-whisper-soft",
+    ],
+    {
+      editorialNote:
+        "These colors are background and surface colors, not accent colors. They work best paired with a warm cream or off-white for page backgrounds and a warm near-black or dark slate for typography. A single warm accent (amber, terracotta, or soft gold) creates effective contrast against the cool-neutral haze palette without fighting it. Avoid pure white, pure black, or bright saturated accents — they break the atmospheric quality the palette creates.",
+      promptWords: ["morning harbor fog", "linen sail in haze", "Atlantic morning from the shore", "weathered coastal grey", "sea glass on wet sand"],
+      useCases: ["Travel and hospitality brands", "Coastal real estate", "Wellness retreats and spas", "Calm-first productivity and journaling tools"],
+    },
+  ),
+);
