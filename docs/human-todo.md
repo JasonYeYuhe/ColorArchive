@@ -26,6 +26,6 @@
 - [x] Color Mixer tool — completed big run eba613b (2026-03-23)
 - [x] Newsletter issue duplicate fix (Issue 098 replaced) — completed 1cc22d1 (2026-03-23)
 - [x] Newsletter ordering bug fix (Issues 102-105 at wrong position) — completed 55fb5f9 (2026-03-23)
-- [x] Newsletter issues 001-117 — 118 total issues now published (through March 2028)
-- [x] 45 curated palette collections — growing collection library
-- [x] 79 SEO landing guides — comprehensive coverage
+- [x] Newsletter issues 001-121 — 122 total issues now published (through April 2028)
+- [x] 47 curated palette collections — growing collection library
+- [x] 82 SEO landing guides — comprehensive coverage
