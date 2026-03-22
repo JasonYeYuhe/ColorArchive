@@ -652,3 +652,44 @@ Also fixed: pre-existing typecheck error in i18n-part1.ts (unclosed object liter
 - src/lib/color-utils.ts (+13 unique new search aliases)
 
 **Commit:** c643798
+
+## 2026-03-22 — Normal Run: Newsletter 078-081 + 2 Guides + 2 Collections + Search Aliases (commit 1886a0b)
+
+**Run type:** Normal Run (2nd normal run since last big run `78c17ac`)
+
+**Categories:** A. SEO & Content, D. Data & Collections
+
+### Category A — Newsletter Issues 078–081
+
+- **Issue 078** (2027-07-08): Dark mode color design — surface layering (3-4 lightness steps), desaturated accents for dark backgrounds, text hierarchy with lightness+opacity, border strategies, semantic colors in dark context.
+- **Issue 079** (2027-07-15): Color in packaging design — the three reading distances (3m category, 1m brand, 30cm trust), category color conventions and when to break them, CMYK gamut limits and PMS specification, color-on-material behavior.
+- **Issue 080** (2027-07-22): Warm vs cool neutrals — how to detect temperature in HSL, warm neutrals for consumer/wellness/food contexts, cool neutrals for developer/analytics/fintech, mixing temperatures correctly, neutral-brand color interaction.
+- **Issue 081** (2027-07-29): Color psychology in marketing — debunking fabricated statistics, category fit research (Labrecque & Milne), red's consistent arousal effect and context dependency, gender-color research limitations.
+Total newsletter issues: **82** (was 78)
+
+### Category A — 2 New SEO Guides
+
+- **dark-mode-color-palette** (priority 76, UI/UX Design): 5 sections — surface layering, accent desaturation for dark backgrounds, text hierarchy (lightness+opacity), borders/dividers in dark mode, semantic colors
+- **neutral-color-palettes** (priority 73, UI/UX Design): 5 sections — detecting neutral temperature via HSL, warm neutral contexts, cool neutral contexts, applying temperature consistently, neutrals and brand color interaction
+Total guides: **57** (was 55)
+
+### Category D — 2 New Collections
+
+- **morning-ceramic**: Warm off-whites and barely-there naturals (apricot-whisper-soft, honey-veil-muted, amber-pearl-muted, olive-whisper-muted, coral-pearl-muted) — for Japandi, artisan, and minimal wellness brands
+- **forest-depths**: Deep botanical greens at shadow threshold (emerald-shadow-clear, jade-velvet-soft, moss-shadow-clear, leaf-shadow-soft, teal-shadow-muted) — for premium herbal, biophilic, and luxury wellness brands
+Total collections: **26** (was 24)
+
+### Category D — 13 New Search Aliases
+
+- Packaging/material: `packaging`, `artisan`, `handmade`
+- Aesthetic/lifestyle: `japandi`, `wabi_sabi`, `biophilic`
+- Brand/industry: `herbalist`, `natural_beauty`, `organic`, `apothecary`
+- Architecture/space: `japandi_interior`, `scandi`
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (82 issues, was 78)
+- src/lib/guides.ts (+2 guides)
+- src/lib/collections.ts (+2 collections)
+- src/lib/color-utils.ts (+13 search aliases)
+
+**Commit:** 1886a0b
