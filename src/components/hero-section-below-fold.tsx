@@ -107,6 +107,46 @@ export function HeroSectionBelowFold() {
         </div>
       </section>
 
+      {/* Tools hub */}
+      <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
+            {t("hero.toolsSection")}
+          </div>
+          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
+            {t("hero.toolsHeading")}
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
+            {t("hero.toolsDesc")}
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { href: "/contrast/", label: t("tools.contrast.name"), desc: "WCAG AA/AAA", accent: "bg-violet-100 text-violet-700", icon: "◑" },
+              { href: "/convert/", label: t("tools.convert.name"), desc: "HEX · RGB · HSL · CMYK", accent: "bg-sky-100 text-sky-700", icon: "⇄" },
+              { href: "/colorblind/", label: t("tools.colorblind.name"), desc: "8 vision types", accent: "bg-indigo-100 text-indigo-700", icon: "◎" },
+              { href: "/gradient/", label: t("tools.gradient.name"), desc: "CSS · linear · radial", accent: "bg-rose-100 text-rose-700", icon: "▣" },
+              { href: "/harmonies/", label: t("tools.harmonies.name"), desc: "Complementary · analogous", accent: "bg-teal-100 text-teal-700", icon: "◇" },
+              { href: "/palette-generator/", label: t("tools.paletteGen.name"), desc: "Algorithmic palettes", accent: "bg-orange-100 text-orange-700", icon: "▦" },
+            ].map((tool) => (
+              <Link key={tool.href} href={tool.href}
+                className="group flex items-center gap-3 rounded-[1.3rem] border border-black/6 bg-white/85 p-4 transition hover:shadow-md hover:bg-white"
+              >
+                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-base font-bold ${tool.accent}`}>{tool.icon}</div>
+                <div className="min-w-0">
+                  <div className="truncate text-sm font-semibold text-neutral-950 group-hover:text-neutral-700">{tool.label}</div>
+                  <div className="truncate text-xs text-neutral-400">{tool.desc}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-5">
+            <Link href="/tools/" className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white">
+              {t("hero.browseAllTools")}
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Latest notes */}
       <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10">
         <div className="mx-auto max-w-4xl">

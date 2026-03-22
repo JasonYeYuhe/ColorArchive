@@ -167,6 +167,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.80,
     },
     {
+      url: "https://colorarchive.me/tools/",
+      lastModified: MARCH_22,
+      changeFrequency: "monthly",
+      priority: 0.88,
+    },
+    {
       url: "https://colorarchive.me/colorblind/",
       lastModified: MARCH_22,
       changeFrequency: "monthly",
