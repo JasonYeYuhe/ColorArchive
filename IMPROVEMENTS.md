@@ -52,37 +52,13 @@ The project tries to be three things at once: a color tool, a content platform, 
 
 ### Action Items
 
-- [ ] **Install vitest** — minimal config, fast, works with TypeScript out of the box
-  ```bash
-  npm install -D vitest
-  ```
-- [ ] **Add test script** to `package.json`:
-  ```json
-  "test": "vitest run",
-  "test:watch": "vitest"
-  ```
-- [ ] **Write tests for `src/lib/color-utils.ts`** (highest priority):
-  - `hslToRgb()` / `rgbToHsl()` — round-trip property: convert HSL→RGB→HSL should return original values (within rounding tolerance)
-  - `rgbToHex()` / `hexToRgb()` — known value pairs (e.g., `rgb(255,0,0)` → `#FF0000`)
-  - `getColorFamily(hue)` — boundary values: hue 0 → Red, hue 30 → Orange, hue 60 → Yellow, etc.
-  - `getContrastRatio()` — known pairs: black/white → 21:1, same color → 1:1
-  - `meetsWcagAA()` / `meetsWcagAAA()` — threshold checks
-  - `getAnalogousColors()`, `getComplementaryColor()` — verify hue offsets
-  - `filterColors()` / `sortColors()` — filter by family, sort by hue/lightness/name
-- [ ] **Write tests for `src/lib/colorblind.ts`**:
-  - `simulateColorBlindness()` — known transforms: pure red under protanopia should shift toward yellow/brown
-  - Achromatopsia should produce grayscale (R = G = B)
-  - Identity: normal vision simulation should return input unchanged
-- [ ] **Write tests for `src/lib/word-color.ts`**:
-  - Determinism: same input always produces same output
-  - Different inputs produce different outputs (collision resistance for common words)
-  - Output is valid hex
-  - Returns exactly 5 variants
-- [ ] **Write tests for `src/lib/palette-builder.ts`**:
-  - Max 6 colors enforced
-  - Add/remove/replace operations
-  - Duplicate prevention
-- [ ] **Add vitest to CI** — run tests in `.github/workflows/deploy-pages.yml` before build
+- [x] **Install vitest** — installed vitest, created vitest.config.ts with path aliases
+- [x] **Add test script** — added "test" and "test:watch" scripts to package.json
+- [x] **Write tests for `src/lib/color-utils.ts`** — 204 total tests across all files. color-utils covers: HSL↔RGB round-trip, rgbToHex/hexToRgb known pairs, getColorFamily boundaries, getContrastRatio (black/white=21:1), WCAG grading, analogous/complementary hue offsets, filterColors, sortColors
+- [x] **Write tests for `src/lib/colorblind.ts`** — protanopia red shift, achromatopsia grayscale, identity for normal input, hex conversion round-trips
+- [x] **Write tests for `src/lib/word-color.ts`** — determinism, collision resistance, valid hex output, 5 variants
+- [x] **Write tests for `src/lib/palette-builder.ts`** — max 6 enforced, add/remove/replace/clear, duplicate prevention, localStorage mock
+- [x] **Add vitest to CI** — added `npm run test` step before build in deploy-pages.yml
 
 ### Files to Create
 
@@ -109,15 +85,11 @@ Seven product packs are defined with pricing, descriptions, FAQs, and proof poin
 
 ### Action Items
 
-- [ ] **Set up a real waitlist** — Replace the current email capture with a proper form (e.g., Buttondown, Loops, or even a simple Google Form). Track how many signups you get per week.
-- [ ] **Ship the free pack first** — Make the free download frictionless (no login required). Track download count. This is your top-of-funnel metric.
-- [ ] **Talk to 10 potential customers** — Post in designer communities (Twitter/X, Dribbble, Discord servers). Ask: "Would you pay ¥299 for a curated set of design tokens in CSS/Tailwind/SwiftUI format? Why or why not?"
-- [ ] **Define what makes your tokens worth paying for** — Raw hex values are free. What's the premium? Possible angles:
-  - Curated palettes tested for WCAG accessibility across all combinations
-  - Multi-format export with guaranteed consistency (Figma plugin, CSS, Tailwind, SwiftUI, Android, Flutter — all from one source of truth)
-  - Semantic naming system (not just "blue-500" but purpose-driven names)
-  - Regular seasonal updates (subscription model)
-- [ ] **Don't build more commerce features until you have signal** — No point building order management, license tiers, or admin dashboards without customers.
+- [ ] **Set up a real waitlist** — Replace the current email capture with a proper form (e.g., Buttondown, Loops, or even a simple Google Form). Track how many signups you get per week. *(Product/ops task — not code)*
+- [x] **Ship the free pack first** — Verified: free-pack-page.tsx has direct `<a href>` download links (no login gate). EmailCaptureForm posts to backend API `/subscribe` with UTM tracking. Both work.
+- [ ] **Talk to 10 potential customers** — *(Product/ops task — not code)*
+- [ ] **Define what makes your tokens worth paying for** — *(Product/strategy task — not code)*
+- [x] **Don't build more commerce features until you have signal** — Confirmed: Shop group removed from main nav in P0. Commerce routes preserved but de-prioritized.
 
 ### Pages to Potentially Defer
 

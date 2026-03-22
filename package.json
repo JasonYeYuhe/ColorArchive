@@ -7,7 +7,9 @@
     "prebuild": "node scripts/generate-downloads.mjs",
     "build": "next build",
     "generate-downloads": "node scripts/generate-downloads.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "next": "16.1.7",
@@ -20,6 +22,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "tailwindcss": "4.2.1",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^4.1.0"
   }
 }
