@@ -26,6 +26,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.compare": { en: "Compare", zh: "比较" },
   "nav.colorblind": { en: "Colorblind", zh: "色盲模拟" },
   "nav.brand": { en: "Brand System", zh: "品牌色系" },
+  "nav.wcagAudit": { en: "WCAG Audit", zh: "批量检测" },
   "nav.surprise": { en: "Surprise", zh: "随机发现" },
   "nav.favorites": { en: "Favorites", zh: "收藏" },
   "nav.packs": { en: "Packs", zh: "色彩包" },
@@ -1854,6 +1855,22 @@ const translations: Record<string, Record<string, string>> = {
   "tools.tints.desc": {
     en: "Generate a complete 11-step tonal scale (50–950) from any hex color. Export as CSS variables, Tailwind config, Sass, or JSON.",
     zh: "从任意十六进制颜色生成完整的 11 级色调阶梯（50-950）。导出为 CSS 变量、Tailwind 配置、Sass 或 JSON。",
+  },
+  "tools.wcagAudit.name": {
+    en: "WCAG Contrast Auditor",
+    zh: "WCAG 批量检测",
+  },
+  "tools.wcagAudit.desc": {
+    en: "Paste up to 10 design system colors and get a full AA/AAA compliance matrix for every foreground/background pair. Export as CSV.",
+    zh: "粘贴最多 10 个设计系统颜色，即可获得每对前景/背景的完整 AA/AAA 合规矩阵。支持导出为 CSV。",
+  },
+  "tools.brand.name": {
+    en: "Brand Color System",
+    zh: "品牌色彩系统",
+  },
+  "tools.brand.desc": {
+    en: "Turn any hex color into a complete design system: 11-step primary & neutral scales, semantic colors, WCAG validation, and CSS/Tailwind export.",
+    zh: "将任意十六进制颜色转化为完整的设计系统：11 级主色和中性色阶、语义色、WCAG 验证，以及 CSS/Tailwind 导出。",
   },
   "tools.ctaBadge": {
     en: "More to explore",

@@ -32,6 +32,15 @@ const TOOLS: Tool[] = [
     badgeKey: "tools.badge.new",
     accent: "bg-indigo-100 text-indigo-700",
   },
+  {
+    href: "/wcag-audit/",
+    icon: "AA",
+    nameKey: "tools.wcagAudit.name",
+    descKey: "tools.wcagAudit.desc",
+    categoryKey: "tools.cat.accessibility",
+    badgeKey: "tools.badge.new",
+    accent: "bg-fuchsia-100 text-fuchsia-700",
+  },
   // Color Analysis
   {
     href: "/convert/",
@@ -99,6 +108,15 @@ const TOOLS: Tool[] = [
     categoryKey: "tools.cat.creative",
     badgeKey: "tools.badge.new",
     accent: "bg-blue-100 text-blue-700",
+  },
+  {
+    href: "/brand/",
+    icon: "◈",
+    nameKey: "tools.brand.name",
+    descKey: "tools.brand.desc",
+    categoryKey: "tools.cat.creative",
+    badgeKey: "tools.badge.new",
+    accent: "bg-orange-100 text-orange-700",
   },
   {
     href: "/all-colors/",

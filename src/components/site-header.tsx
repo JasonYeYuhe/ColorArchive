@@ -43,7 +43,8 @@ interface SiteHeaderProps {
     | "/colorblind"
     | "/tools"
     | "/tints"
-    | "/brand";
+    | "/brand"
+    | "/wcag-audit";
 }
 
 interface NavItem {
@@ -83,6 +84,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/compare/", labelKey: "nav.compare" },
       { href: "/colorblind/", labelKey: "nav.colorblind" },
       { href: "/brand/", labelKey: "nav.brand" },
+      { href: "/wcag-audit/", labelKey: "nav.wcagAudit" },
       { href: "/favorites/", labelKey: "nav.favorites" },
     ],
   },
