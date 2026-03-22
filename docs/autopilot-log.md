@@ -608,3 +608,47 @@ Total guides: **53** (was 51)
 - STRUCTURE.md (updated counts and tree)
 
 **Commit:** 78c17ac
+
+## 2026-03-22 — Normal Run: Newsletter 074-077 + 2 Guides + 2 Collections + Search Aliases (commit c643798)
+
+**Run type:** Normal Run (1st normal run since last big run `78c17ac`)
+
+**Categories:** A. SEO & Content, D. Data & Collections
+
+### Category A — Newsletter Issues 074–077
+
+- **Issue 074** (2027-06-10): Color and typography — why font color matters. Off-black selection (range #1a1a1a–#333333), temperature matching between text and surface, secondary text WCAG contrast failures.
+- **Issue 075** (2027-06-17): RGB vs CMYK vs HSL — which color mode to design in. Additive vs subtractive color, CMYK gamut limitations, HSL as the design-decision model, OKLCH for advanced work.
+- **Issue 076** (2027-06-24): Color accessibility beyond contrast ratios — links (underline requirement), focus indicators (WCAG 2.2 SC 2.4.11), red/green status patterns for color-blind users.
+- **Issue 077** (2027-07-01): Color and cultural context — regional color associations (red in China vs. West), white/black reversal in East Asia, 3-question framework for international design.
+Total newsletter issues: **78** (was 74)
+
+### Category A — 2 New SEO Guides
+
+- **analogous-color-palette** (priority 71, Color Theory): Analogous color range selection (30–90°), saturation control, UI and branding application, vs. complementary schemes
+- **color-palette-for-healthcare** (priority 70, Industry Palettes): Why blue dominates healthcare, avoiding sterile aesthetics, red/green status encoding, WCAG AAA targeting, 4-layer system
+Total guides: **55** (was 53)
+
+### Category D — 2 New Color Collections
+
+- **sunset-terrace**: Warm rose (rose-bloom-vivid), coral (coral-silk-vivid), ember, amber, apricot-pearl — for hospitality, lifestyle, food/beverage brands. Tags: Warm, Romantic, Sunset.
+- **deep-tide**: Dark cerulean-dusk, teal-velvet, azure-shadow, sapphire-dusk, cobalt-nocturne — for fintech, marine orgs, premium tech. Tags: Deep, Ocean, Authoritative.
+Total collections: **24** (was 22)
+
+### Category D — 13 New Search Aliases
+
+- Healthcare: `healthcare`, `wellness`
+- Food: `clay`, `ceramic`, `latte`
+- Fashion/beauty: `mauve`, `dusty_rose`, `nude`, `champagne`, `taupe`
+- Interior: `slate`, `charcoal`
+- Nature: `dusk`, `dawn`
+
+Also fixed: pre-existing typecheck error in i18n-part1.ts (unclosed object literal)
+
+### Files modified (4)
+- src/data/newsletter-issues.json (78 issues, was 74)
+- src/lib/guides.ts (+2 guides)
+- src/lib/collections.ts (+2 collections)
+- src/lib/color-utils.ts (+13 unique new search aliases)
+
+**Commit:** c643798
