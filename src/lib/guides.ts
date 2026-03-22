@@ -2610,3 +2610,98 @@ export const additionalGuides: LandingGuide[] = [
 
 // Merge into main landingGuides array at module initialization
 landingGuides.push(...additionalGuides);
+
+export const moreGuides: LandingGuide[] = [
+  {
+    category: "UI/UX Design",
+    slug: "gradient-color-design",
+    title: "Gradient Color Design: From Basic Fades to Mesh Gradients",
+    summary:
+      "Gradients have moved from Web 2.0 cliché to a central tool in contemporary UI and brand design. When designed well, a gradient extends a color palette into atmosphere, depth, and motion. When designed poorly, it introduces color noise, accessibility failures, and brand incoherence. This guide covers the theory behind effective gradient design and how to translate your flat palette into gradient applications.",
+    eyebrow: "UI/UX Design Guide",
+    priority: 74,
+    searchIntent: "gradient color palette, CSS gradient design, mesh gradient tool, gradient color picker, how to design gradients",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "complete-archive",
+    tags: ["UI/UX Design", "Color Theory", "Web Design"],
+    highlights: [
+      "Gradients that look natural to the eye always travel through the perceptual midpoint of their two endpoint colors. A direct CSS linear-gradient from blue to yellow often produces a muddy gray center — traveling through HSL or OKLCH color space instead of RGB produces vivid, luminous transitions. Use oklch() gradients in CSS for the cleanest transitions between colors with large hue differences.",
+      "Accessible text on gradient backgrounds requires testing contrast at every point, not just the endpoints. A headline that passes WCAG AA at the light end of the gradient may fail at the dark end, or vice versa. Use a semi-transparent overlay on one side, or confine text to the section of the gradient where contrast is reliably sufficient.",
+      "Mesh gradients — multiple soft radial color blobs blended across a surface — produce the current luxury/editorial aesthetic seen in premium SaaS and brand design. They work best with analogous colors (adjacent on the hue wheel), 3-5 nodes, and significant variation in lightness between nodes. Chromatic noise (too many hue transitions) kills the effect.",
+    ],
+    sections: [
+      {
+        heading: "Why gradients fail and how to fix them",
+        body: "Most gradient failures come from working in RGB color space, which is the default for CSS linear-gradient. RGB interpolation produces visually muddy transitions between colors that are far apart on the hue wheel because the math crosses through the gray center of the color space. A gradient from blue (#0000FF) to yellow (#FFFF00) produces a gray midpoint in RGB. The fix is to specify the color space: in modern CSS, `linear-gradient(in oklch, ...)` or `linear-gradient(in hsl, ...)` interpolates through a perceptually uniform path, producing vivid midpoints that feel natural to the eye. OKLCH in particular produces the most consistently luminous transitions across the full hue range and is the recommended choice for gradients with large hue differences.",
+      },
+      {
+        heading: "Two-color vs multi-stop gradients",
+        body: "Two-color gradients are the most controllable: one start value, one end value, and a clear perceptual path between them. They work well for hero backgrounds, cards, and button states. Multi-stop gradients (3-5+ colors) create more atmospheric and complex surfaces but require careful planning. Each transition between stops must be considered independently — a gradient that works from blue to purple to rose may fail at the blue-to-purple transition (muddy midpoint) even if the purple-to-rose transition is clean. The practical approach: design each adjacent pair as if it were a two-color gradient, then chain them. Using identical lightness across stops (only varying hue) produces the smoothest multi-stop transitions.",
+      },
+      {
+        heading: "Gradient direction and spatial hierarchy",
+        body: "Gradient direction communicates hierarchy and orientation. Top-to-bottom gradients (dark at top, light at bottom, or reversed) create natural spatial grounding — darker top simulates overhead light, lighter top simulates floor reflection. Left-to-right gradients create directional movement and are useful for progress indicators, timelines, and multi-step interfaces. Radial gradients (from center outward) create focal depth and work well for hero sections where the visual focus should be centered. Diagonal gradients (135°-150°) feel dynamic and contemporary — they are the most common choice for SaaS hero backgrounds. Choosing direction deliberately rather than defaulting to 90° produces gradients that feel designed rather than generated.",
+      },
+      {
+        heading: "Mesh gradients: technique and use cases",
+        body: "Mesh gradients are created by blending multiple soft radial color sources across a surface. In Figma, this means overlaid radial gradients at low opacity with blend modes. In CSS, it is approximated with multiple radial-gradient() layers in the background property, or achieved precisely with SVG mesh gradient elements. The aesthetic works best with: 3-5 color nodes rather than 10-12 (fewer nodes, more coherent result), analogous or adjacent hue selections (colors within 60-90° of each other), significant lightness variation between nodes (one light, two mid, one dark node), and subtle animation if used in motion contexts. Mesh gradients read as broken when the hue range is too wide (complementary colors produce muddy blends), when all nodes have similar lightness (no depth), or when the grain texture (often added for surface quality) is too coarse.",
+      },
+      {
+        heading: "Gradients and brand systems",
+        body: "A gradient should be derivable from the flat palette, not designed independently. Best practice: define the gradient as a formula applied to existing palette colors — for example, the brand's primary vivid at 100% opacity fading to the secondary soft variant at 0% opacity. This approach ensures the gradient reads as an extension of the palette rather than an independent element. Store the gradient formula in the design token system alongside flat colors. For multi-brand systems, define gradient templates (direction, opacity curve, number of stops) as tokens, then apply them to each brand's color palette to produce on-brand variants without redesigning from scratch.",
+      },
+    ],
+    links: [
+      { label: "Explore Nocturne Tech palette", href: "/collections/nocturne-tech/" },
+      { label: "Browse Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Try the color converter", href: "/convert/" },
+    ],
+  },
+  {
+    category: "Industry Palettes",
+    slug: "color-for-e-commerce",
+    title: "Color for E-commerce: Conversion, Trust, and Product Clarity",
+    summary:
+      "E-commerce color design balances three competing goals: building trust (so the customer feels safe buying), showcasing the product (so the product image reads clearly and attractively), and driving conversion (so the customer acts on intent). These goals sometimes pull in opposite directions — a bold high-contrast call-to-action can undermine the premium trust signal a luxury brand requires. This guide covers the color decisions that consistently affect e-commerce performance.",
+    eyebrow: "Industry Palettes Guide",
+    priority: 71,
+    searchIntent: "e-commerce color palette, website color scheme for online store, CTA button color conversion, product page color design, trust color design",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Industry Palettes", "Brand", "UI/UX Design"],
+    highlights: [
+      "Product photography background color is the most impactful e-commerce color decision. Pure white (#FFFFFF) maximizes product edge clarity but reads as sterile for lifestyle categories. Off-white or warm light gray (L: 95-97%, warm hue) adds warmth while maintaining product legibility. Dark backgrounds increase drama and premium perception but require products with defined light edges — products without clear contrast to the background disappear.",
+      "CTA button color research consistently shows that contrast relative to the surrounding page matters more than the specific button color. An orange CTA on an orange-dominant page will underperform a blue CTA on the same page. The CTA must stand out from everything else on the page — not be a \"good\" color in isolation. Test against the specific page composition, not as an abstract A/B color test.",
+      "Trust signals (badges, guarantees, security icons) should be in the same color temperature as the overall brand, but darker and more neutral. Electric or vivid trust badge colors create anxiety rather than confidence. The color language for trust is: navy, forest green, deep gray, and dark neutrals — the same colors associated with legal, financial, and institutional contexts.",
+    ],
+    sections: [
+      {
+        heading: "Product photography and background color",
+        body: "The relationship between product photography and page background color determines whether the product reads clearly or disappears. The safest approach for multi-product catalogs: all product images on consistent pure white (#FFFFFF) backgrounds, with a warm off-white (#F8F5F0 to #FAF7F4) as the page background. The slight contrast between product white and page off-white creates product depth without requiring a colored background that would conflict with product photography. For single-product hero pages, colored backgrounds can be sampled from the product itself — extracting the dominant product color and desaturating it 70-80% produces a background that feels tailored to the product without overwhelming it.",
+      },
+      {
+        heading: "CTA color and conversion",
+        body: "The most frequently tested e-commerce color decision is the primary CTA button. The research finding that consistently holds: CTA performance correlates with contrast against the immediate visual context, not with a specific \"best\" color. On a white-dominant page with dark typography, a vivid coral, orange, or green button outperforms navy (which reads as part of the type system). On a warm-beige page with brown accents, navy or electric blue provides the most contrast and outperforms warm tones that blend with the background. CTA color optimization is a contextual decision — it requires testing the button color in the actual page context, not in isolation. What transfers across e-commerce contexts: high saturation (vivid, not pastel), adequate size, and clear contrast from everything adjacent.",
+      },
+      {
+        heading: "Premium vs value positioning through color",
+        body: "E-commerce color language communicates price positioning before the customer reads a single word of copy. Premium signals: white or near-white backgrounds, black or dark text, minimal accent color use, ample white space. Value and discount signals: high-saturation yellow or orange accents, bold red price-reduction badges, dense product grids with minimal white space. Mixing signals creates brand confusion — a premium-positioned brand that uses bright yellow sale banners visually signals a discount positioning that contradicts its product pricing. Brands operating above the median price point should restrict promotional color (red, orange, yellow for sales and urgency) to specific contexts and maintain the overall color system in restrained, trustworthy tones.",
+      },
+      {
+        heading: "Category color conventions in e-commerce",
+        body: "Category color conventions operate at the sector level, not just the brand level. Beauty and skincare: cream, white, dusty rose, sage — signals natural, clean, and personal care. Sportswear and fitness: vivid primaries, black, electric accents — signals energy and performance. Food and grocery: warm oranges, reds, greens — appetite-stimulating and fresh. Electronics and tech: dark backgrounds, white type, electric blue or silver accents — signals precision and innovation. Home and furniture: warm neutrals, earthy tones, dusty sage — signals comfort and considered taste. Breaking category convention requires compensating signals — a tech brand using warm beige aesthetics needs to reinforce its technological capability through product imagery and copy because the color does not carry that signal.",
+      },
+      {
+        heading: "Seasonal and promotional color management",
+        body: "E-commerce brands face the problem of promotional calendar color: Black Friday, holiday sales, spring campaigns, back-to-school events — each with distinct color conventions that may conflict with the brand system. The best approach: define a secondary promotional color system separate from the brand primary system. The promotional layer uses higher-saturation versions of adjacent brand colors (rather than unrelated promotional clichés like pure red and yellow) and is applied only to specific sale and campaign surfaces. This produces a legible promotional signal (the page looks different, sale is evident) without abandoning the brand system entirely. After the promotional period, removing the promotional layer restores the full brand experience without redesign work.",
+      },
+    ],
+    links: [
+      { label: "Explore Quiet Luxury palette", href: "/collections/quiet-luxury/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse color families", href: "/families/" },
+    ],
+  },
+];
+
+landingGuides.push(...moreGuides);

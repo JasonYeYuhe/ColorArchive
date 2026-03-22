@@ -580,3 +580,46 @@ collections.push(
     },
   ),
 );
+
+collections.push(
+  createCollection(
+    "electric-mint",
+    "Electric Mint",
+    "Vivid mint, seafoam, and teal tones at full chroma for tech brands, fintech dashboards, and startup launch pages that need clean, energetic green.",
+    "A palette built from the most saturated zone of the cyan-green spectrum: pure mint, seafoam, and teal at vivid and clear chroma, with lighter bloom variants for breathing room. The colors are unmistakably digital — they live in the part of the spectrum that screens render at their most luminous, where green becomes almost electric. The palette communicates freshness, innovation, and technical precision simultaneously. The mint-core-vivid is the focal point — a medium-lightness vivid mint that reads as energetic without becoming neon. The seafoam adds warmth and life; the jade grounds the palette into something more considered than a simple color pop. This palette works well for: fintech interfaces using green as a positive indicator, startup brands that want energy without the clichéd tech blue, sustainability dashboards, and any context where clean, vivid green needs to feel designed rather than accidental.",
+    ["Tech", "Fresh", "Vivid"],
+    [
+      "mint-core-vivid",
+      "seafoam-core-vivid",
+      "jade-radiant-clear",
+      "teal-tone-vivid",
+      "lagoon-bloom-clear",
+    ],
+    {
+      editorialNote:
+        "Use when green needs to feel technological and intentional rather than natural or organic. The vivid saturation is the point — don't mute these colors. Pair with very dark typography (#0d1117) or near-white (#f0faf6) for maximum legibility against the mint tones.",
+      promptWords: ["circuit board refresh", "positive delta", "growth metric", "clean energy terminal", "startup launch"],
+      useCases: ["Fintech and trading dashboards", "Clean energy and sustainability brands", "Tech startup branding"],
+    },
+  ),
+  createCollection(
+    "rose-quartz",
+    "Rose Quartz",
+    "Soft peony, rose, and blush tones at restrained saturation for beauty brands, wellness platforms, and feminine editorial systems.",
+    "A palette assembled from the warmest, most interior-facing corner of the pink spectrum: the zone between blush and dusty rose where color is present but subdued, where warmth communicates care rather than excitement. The colors are not vivid — they sit at soft and muted chroma, which gives them the quality of something worn smooth by time, like the inside of a shell or the color of skin in warm light. The rose-pearl-soft is the palette center, a mid-lightness rose that could serve as a primary card surface. The blush-mist-muted provides a near-neutral with a pink cast for large surfaces. The peony-bloom-soft is the only accent-capable entry — warm enough to direct attention while remaining part of the same tonal family. This palette works for: beauty and skincare brands that want warmth without the saturated pink of conventional beauty marketing, wellness platforms, spa and retreat identities, and any editorial context where the pink must feel sophisticated rather than playful.",
+    ["Soft", "Feminine", "Editorial"],
+    [
+      "rose-pearl-soft",
+      "blush-mist-muted",
+      "peony-bloom-soft",
+      "magenta-tone-muted",
+      "rose-silk-muted",
+    ],
+    {
+      editorialNote:
+        "Use when pink needs to feel editorial and considered rather than playful or loud. The low saturation is the essential character of this palette — higher-chroma variants of these hues would produce a completely different register. Pair with warm off-white typography (#3d2b2b or similar warm dark) rather than pure black.",
+      promptWords: ["rose petal at dusk", "blush paper", "warm spa stone", "shell interior", "cream silk"],
+      useCases: ["Beauty and skincare brands", "Wellness and spa identities", "Feminine editorial layouts"],
+    },
+  ),
+);

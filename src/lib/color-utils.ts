@@ -311,6 +311,38 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   // Architecture & space aliases
   japandi_interior: ["ivory", "olive", "ash", "fog", "amber"],
   scandi: ["fog", "ash", "ivory", "frost", "veil"],
+  // Color trend and aesthetic aliases
+  electric: ["vivid", "clear", "neon", "mint", "cobalt"],
+  neon_green: ["mint", "lime", "vivid", "clear", "bright"],
+  mint_green: ["mint", "seafoam", "jade", "clear", "fresh"],
+  powder_blue: ["cerulean", "azure", "mist", "veil", "whisper"],
+  dusty_blue: ["cerulean", "azure", "cobalt", "muted", "soft"],
+  // Fashion and beauty extended
+  rose_gold: ["rose", "blush", "peony", "amber", "pearl"],
+  cobalt_blue: ["cobalt", "azure", "sapphire", "clear", "vivid"],
+  // Lifestyle and aesthetic
+  dark_academia: ["shadow", "sienna", "umber", "ink", "muted"],
+  // Industry and brand
+  tech_startup: ["cobalt", "violet", "azure", "vivid", "mint"],
+  premium: ["pearl", "ivory", "onyx", "garnet", "muted"],
+  luxury_brand: ["pearl", "ivory", "garnet", "onyx", "shadow"],
+  // Animation and motion design
+  gradient: ["vivid", "clear", "bloom", "radiant", "vivid"],
+  animation: ["vivid", "coral", "cobalt", "violet", "mint"],
+  // Email and marketing
+  email: ["ivory", "pearl", "cobalt", "crimson", "muted"],
+  newsletter: ["ivory", "muted", "cobalt", "coral", "amber"],
+  marketing: ["coral", "vivid", "cobalt", "amber", "crimson"],
+  // Color system aliases
+  token: ["muted", "soft", "clear", "vivid", "ink"],
+  design_system: ["cobalt", "ink", "ivory", "muted", "vivid"],
+  brand_color: ["vivid", "clear", "muted", "soft", "pearl"],
+  // Photography and visual
+  portrait: ["blush", "ivory", "peony", "amber", "pearl"],
+  product_photo: ["ivory", "pearl", "frost", "veil", "muted"],
+  // Seasonal extended
+  monsoon: ["teal", "cobalt", "slate", "jade", "muted"],
+  harvest: ["amber", "ember", "rust", "sienna", "honey"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
