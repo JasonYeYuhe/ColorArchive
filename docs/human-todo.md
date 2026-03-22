@@ -4,39 +4,25 @@
 > Last updated: 2026-03-23
 
 ## High Priority
-- [ ] Integrate real payment provider (Lemon Squeezy / Stripe) in `src/lib/checkout-config.ts` — *all commerce flows are still mock/placeholder*
-- [ ] Set up Pinterest API credentials for Pinterest OAuth flow — *`app/pinterest/callback/` exists but OAuth app needs credentials*
-- [ ] Review and publish the TikTok admin page (`app/admin/tiktok/`) and terms page (`app/terms/`) — *these are untracked/uncommitted pages visible in git status*
-- [ ] Test the new Image Color Extractor (/image-palette/) visually — *built and deployed but not manually QA'd; especially verify the canvas extraction algorithm works correctly on various image types*
+- [ ] Add real payment provider to `src/lib/checkout-config.ts` — *commerce is currently non-functional; Lemon Squeezy or Stripe integration needed*
+- [ ] Review collections with renamed IDs — `moonlit-garden`, `dark-botanical`, `copper-verdigris` replaced duplicates; check if any external links or marketing materials referenced the old IDs
+- [ ] Verify Vercel builds are now succeeding — *the autopilot fixed the collections build error (was breaking since ~Mar 23); check Vercel dashboard to confirm next deploy passes*
 
 ## Medium Priority
-- [ ] Configure Umami analytics to track new tool pages (/tokens/, /wcag-audit/, /colorblind/, /brand/, /image-palette/) — *new pages added but not confirmed in analytics dashboard*
-- [ ] Review the waitlist page (`src/components/waitlist-page.tsx`) — *untracked, unclear if it should be published*
-- [ ] Review the launch page (`src/components/launch-page.tsx`) — *untracked, Product Hunt launch page, check if still relevant*
-- [ ] Review/update pricing on pack product pages — *Lemon Squeezy URLs are placeholders*
-- [ ] Update the figma-plugin with any new color data or features — *figma-plugin/package-lock.json is untracked*
-- [ ] Promote the Image Color Extractor — *new tool that designers search for; worth a tweet/newsletter mention*
-- [ ] Test the Design Token Generator (/tokens/) visually — *built and deployed but not manually QA'd*
-- [ ] Cross-promote new data visualization and print color management guides — *newsletter issues 143-144 are content marketing opportunities for these topics*
+- [ ] Configure TikTok admin page (`app/admin/tiktok/`) — *exists as untracked file; unclear if it should be staged and deployed*
+- [ ] Review and stage `src/components/launch-page.tsx`, `waitlist-page.tsx`, `terms-page.tsx` — *several components exist as untracked files; decide if these should be deployed*
+- [ ] Figma plugin: `figma-plugin/package-lock.json` is untracked — should be committed if the plugin is actively maintained
+- [ ] Verify newsletter `featuredCollectionId` references are valid — *some older issues may reference renamed collections (midnight-garden, copper-patina)*; no automated check exists
 
 ## Low Priority / Nice to Have
-- [ ] Add the new /image-palette/ page to any marketing copy or newsletter mentions — *newly launched tool worth promoting*
-- [ ] Consider adding image URL input to Image Color Extractor (paste a public image URL) — *requires CORS proxy but would improve workflow for web designers*
-- [ ] Add /image-palette/ link to color detail pages sidebar — *cross-linking would improve discoverability*
-- [ ] Update OpenGraph preview image to reflect the expanded tool set — *og-image-v1.png was created with fewer tools*
-- [ ] Add a /tokens/ link to the color detail pages sidebar — *cross-linking would improve discoverability*
-- [ ] Add /image-palette/ and /tokens/ to the Figma plugin description or community page
+- [ ] Add Stripe/LS webhooks to server for order fulfillment automation — *currently manual*
+- [ ] Consider adding a color ID validation step to the autopilot run to catch invalid IDs before build — *autopilot has added invalid IDs multiple times; a validation script in the SKILL.md would prevent this*
+- [ ] Review `src/lib/i18n-merged.ts`, `i18n-part1.ts`, `i18n-part2.ts` — *untracked files; unclear if these are working drafts or obsolete*
+- [ ] Seasonal collection: spring-2026 assets exist in downloads but no corresponding collection page — *consider adding a seasonal palette page*
 
 ## Done
-- [x] Add Color Mixer page (/mixer/) — completed 2026-03-23
-- [x] Add WCAG Audit page (/wcag-audit/) — completed 2026-03-23
-- [x] Add Color Blindness Simulator (/colorblind/) — completed 2026-03-23
-- [x] Add Tints & Shades Generator (/tints/) — completed 2026-03-23
-- [x] Add Brand Color Generator (/brand/) — completed 2026-03-23
-- [x] Add Palette Generator (/palette-generator/) — completed 2026-03-23
-- [x] Add Design Token Generator (/tokens/) — completed 2026-03-23
-- [x] Add Image Color Extractor (/image-palette/) — completed 2026-03-23
-- [x] Reach 100+ newsletter issues — achieved (146 as of 2026-03-23)
-- [x] Reach 80+ SEO guides — achieved (100 as of 2026-03-23)
-- [x] Reach 50+ collections — achieved (59 as of 2026-03-23)
-- [x] Reach 100 SEO guides — achieved (100 as of 2026-03-23)
+- [x] Fix collections build error (18 invalid color IDs) — completed 2026-03-23 autopilot
+- [x] Fix duplicate collection IDs (midnight-garden ×3, copper-patina ×2) — completed 2026-03-23 autopilot
+- [x] Fix notes page prerender failure (15 links with url instead of href) — completed 2026-03-23 autopilot
+- [x] Add Image Color Extractor tool (/image-palette/) — completed 2026-03-23 big run
+- [x] Add Design Token Generator — completed earlier big run

@@ -1390,3 +1390,62 @@ Built a complete client-side image color extraction tool:
 - src/lib/guides.ts (+3 guides in extraGuides14, now 100)
 
 **Commit:** 2cf62a3
+
+## 2026-03-23 — Normal Run: Newsletter 146-150 + Collections + Guides + Critical Build Fixes (commit 84db35d)
+
+**Run type:** Normal (1st run since last big run `2cf62a3`)
+
+**Categories:** A. SEO & Content + D. Data & Collections + Bug Fixes (critical)
+
+### Critical Bug Fixes
+
+**Collections build error (was breaking Vercel deploy on every push since ~Mar 23):**
+- 18 invalid color IDs replaced in collections.ts — these used non-existent roots (frost, sage, slate, terracotta, charcoal, cream, forest, navy, obsidian, rust, pearl-as-root) or invalid lightness labels (glow). The static build was crashing at collections module initialization with "Unknown color id: frost-veil-soft". Since this was the FIRST error, it masked all subsequent issues.
+- Replacements: frost→cerulean, sage→moss, slate→cobalt, terracotta→ember, charcoal→cobalt-ink, cream→amber, forest→emerald, navy→cobalt, obsidian→cobalt-ink, rust→ember, pearl-blush-soft→blush-pearl-soft, amber-glow→amber-bloom
+- Also detected and fixed via systematic ID validation script
+
+**Duplicate collection IDs (causing getCollectionById to always return first match):**
+- midnight-garden: appeared 3 times with 3 different palettes — renamed 2nd to "moonlit-garden", 3rd to "dark-botanical"
+- copper-patina: appeared 2 times — renamed 2nd to "copper-verdigris"
+
+**Notes page prerender failure (15 links using url instead of href):**
+- Issues 094-098 (nov-2027 series) had `url` field instead of `href` in their links arrays
+- `<Link href={undefined}>` during static generation caused "Cannot destructure property 'auth'" error
+- Fixed all 15 affected links across 5 newsletter issues
+
+### Category A — 4 Newsletter Issues (now 150 total)
+
+- **Issue 146** (oct-2028-color-accessibility-beyond-wcag, 2028-10-14): WCAG 2.1 vs APCA — contrast ratio formula limitations, APCA Lc values by font size/weight, dual-standard audit strategy
+- **Issue 147** (oct-2028-color-typography-interaction, 2028-10-21): Color and typography — luminance hierarchy first principle, temperature contrast (cool recedes, warm advances), achromatic body text rule (saturation ≤12%)
+- **Issue 148** (nov-2028-color-environmental-sustainability, 2028-10-28): Sustainable color design — OLED pixel energy (23% battery difference dark/light), print TIC/GCR, muted palettes as sustainability choice
+- **Issue 149** (nov-2028-color-in-packaging-design, 2028-11-04): Packaging color — substrate gamut selection, finish effects (matte darkens 4-8L, gloss adds 3-7C), spot vs. process decision framework
+
+### Category D — 2 New Collections (now 60 total)
+
+- **velvet-dusk**: plum-shadow-clear, mulberry-ink-soft, violet-mist-muted, rose-nocturne-muted, orchid-shadow-muted — luxury evening/beauty palette for premium cosmetics and dark editorial
+- **coastal-fog**: cobalt-veil-muted, cerulean-mist-muted, moss-mist-muted, cobalt-shadow-muted, blush-pearl-soft — muted maritime fog palette for coastal and tech brands
+
+### Category D — 3 New SEO Guides (now 103 total, extraGuides15)
+
+- **packaging-color-design-guide**: Substrate selection, finish specification, spot vs process decision — targets 'packaging design color substrate print production pantone cmyk specification'
+- **color-typography-readability-guide**: Luminance hierarchy, temperature contrast, chromatic body text rules — targets 'color typography readability hierarchy text contrast design system accessible'
+- **color-accessibility-apca-guide**: WCAG 2.1 vs APCA dual-standard audit, Lc thresholds — targets 'color accessibility wcag apca contrast ratio 2025 standard audit accessible design'
+
+### Category D — Search Aliases (~275+ entries)
+
+Added: packaging_color, kraft_packaging, spot_color, print_production, evening_palette, beauty_palette, cosmetics, fragrance, coastal_fog, maritime, overcast, fog_palette, nordic_coastal, high_contrast, accessible, wcag, body_text, heading_color, text_hierarchy
+
+### Current State After This Run
+
+- Total newsletter issues: **150** (Issues 001–149, 4 new)
+- Total collections: **60** (velvet-dusk, coastal-fog added; 3 renamed IDs fixed)
+- Total SEO guides: **103** (3 new in extraGuides15)
+- Build: **now passing** (was broken since at least early Mar 23 runs)
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (4 new + 15 link href fixes, now 150)
+- src/lib/collections.ts (2 new, 3 duplicate ID fixes, 18 invalid color ID fixes)
+- src/lib/guides.ts (+3 guides in extraGuides15, now 103)
+- src/lib/color-search.ts (+19 aliases)
+
+**Commit:** 84db35d
