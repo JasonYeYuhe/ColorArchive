@@ -1,1 +1,6 @@
-{ "active": null, "lockedBy": null, "lockedAt": null, "message": null }
+{
+  "active": true,
+  "lockedBy": "autopilot",
+  "lockedAt": "2026-03-22T17:44:34Z",
+  "message": "Fix duplicate newsletter issue 094/098 + update STRUCTURE.md counts"
+}
