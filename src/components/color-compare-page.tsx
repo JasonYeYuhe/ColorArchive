@@ -167,12 +167,14 @@ function ColorPanel({
           value={inputValue}
           onChange={(e) => onInputChange(e.target.value)}
           placeholder="#000000"
+          aria-label={`${label} hex color value`}
           className="w-full rounded-2xl border border-black/8 bg-white px-4 py-3 text-base font-medium text-neutral-950 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8 dark:border-white/10 dark:bg-white/5 dark:text-neutral-100 dark:focus:border-white/20 dark:focus:ring-white/8"
         />
         <input
           type="color"
           value={hex}
           onChange={(e) => onColorPickerChange(e.target.value.toUpperCase())}
+          aria-label={`${label} color picker`}
           className="h-12 w-12 shrink-0 cursor-pointer rounded-xl border border-black/8 bg-transparent dark:border-white/10"
         />
       </div>
@@ -340,6 +342,7 @@ WCAG AAA Normal: ${passAAANormal ? "Pass" : "Fail"} | AAA Large: ${passAAALarge 
               type="button"
               onClick={handleSwap}
               title="Swap colors"
+              aria-label="Swap colors A and B"
               className="rounded-full border border-black/8 bg-white/85 p-3 text-neutral-600 shadow-sm transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
             >
               <svg
@@ -362,7 +365,11 @@ WCAG AAA Normal: ${passAAANormal ? "Pass" : "Fail"} | AAA Large: ${passAAALarge 
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
                 Contrast Ratio
               </div>
-              <div className="mt-2 text-3xl font-bold tracking-tight text-neutral-950 dark:text-neutral-50">
+              <div
+                className="mt-2 text-3xl font-bold tracking-tight text-neutral-950 dark:text-neutral-50"
+                aria-live="polite"
+                aria-atomic="true"
+              >
                 {ratio}:1
               </div>
               <div className="mt-3 flex flex-wrap justify-center gap-2">

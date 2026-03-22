@@ -1939,6 +1939,326 @@ export const landingGuides: LandingGuide[] = [
       { label: "Browse neutral family", href: "/families/gray/" },
     ],
   },
+  {
+    category: "Brand & Marketing",
+    slug: "architecture-color-palette",
+    title: "Architecture Color Palette: Tone Systems for Firms, Portfolios, and Built Environment Brands",
+    summary:
+      "Architecture practices and built environment brands face a specific color problem: the palette has to work at three scales simultaneously — digital presentation, printed material, and the physical space itself. A color system that solves this requires restraint, material awareness, and a different approach to contrast than most digital-first palettes.",
+    eyebrow: "Architecture Guide",
+    priority: 61,
+    searchIntent: "architecture color palette",
+    featuredCollectionId: "concrete-modernism",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Architecture", "Brand", "Neutral"],
+    highlights: [
+      "Architecture portfolios fail when the palette competes with the photography. The strongest architecture brand palettes are near-neutral — they frame the work rather than fight it.",
+      "Concrete Modernism was built specifically for this use case: a cool, restrained system from pale mist to near-black charcoal that works across digital and print without adjustment.",
+      "Material references are a reliable shortcut for architectural palette selection: poured concrete, brushed steel, raw linen, and weathered oak all have precise color equivalents that carry implicit material intelligence.",
+    ],
+    sections: [
+      {
+        heading: "Why architecture palettes need to stay near-neutral",
+        body:
+          "The central challenge of an architecture brand palette is that the work is the star, not the brand. An architecture firm's portfolio lives or dies by the quality of its project photography — and the brand palette exists to give that photography a disciplined container. A saturated brand color in the same visual field as a complex building photograph creates competition, not context. The strongest architecture brand palettes are almost always near-neutral: warm off-whites, cool concrete grays, slate blues, and muted warm stone tones. These palettes frame work rather than fight it. Concrete Modernism was built around exactly this logic: each tone in the palette references a real material — poured concrete at the mid-range, brushed steel at the cool end, raw limestone at the light end, charcoal slate at the base.",
+      },
+      {
+        heading: "Material references as a palette design method",
+        body:
+          "The most reliable shortcut for architectural palette selection is working from material references rather than abstract color theory. Every significant material in the built environment has a precise HSL equivalent: raw concrete sits around HSL(210°, 8%, 62%), structural steel around HSL(215°, 12%, 48%), aged bronze around HSL(35°, 30%, 38%), weathered corten around HSL(20°, 55%, 38%). Starting from these material references rather than from color wheels produces palettes that carry implicit credibility — they look right to an architecture audience because they reference familiar textures and surface qualities. The Brand Starter Kit provides token formats that make it easy to specify these material-referenced hues with precision for both screen and print output.",
+      },
+      {
+        heading: "Designing across scales: digital, print, and built",
+        body:
+          "Architecture brand materials operate across three distinct scales: a responsive website viewed on screens with varying calibration, printed collateral on coated and uncoated stocks, and physical signage in the built space itself. A single HEX value will look different at each scale. The practical solution is over-specification: for each core brand color, define the screen value (HEX/HSL), the print value (CMYK for coated, separate CMYK for uncoated), and the closest paint or Pantone match for physical applications. The muted, near-neutral tones in Concrete Modernism are particularly forgiving of cross-medium translation: they fall outside the saturated gamut zones that typically shift unpredictably between digital and print, making consistent cross-scale application more achievable.",
+      },
+    ],
+    links: [
+      { label: "Open Concrete Modernism", href: "/collections/concrete-modernism/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse neutral family colors", href: "/families/neutral/" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "startup-brand-color-palette",
+    title: "Startup Brand Color Palette: Building a Color System Before You Have a Full Design Team",
+    summary:
+      "Early-stage startups face a specific color challenge: the palette needs to work before there is a design team, a brand guide, or a production budget. A well-chosen early palette does most of the work automatically — reducing decisions at component level and making the product feel intentional even when built quickly.",
+    eyebrow: "Startup Guide",
+    priority: 59,
+    searchIntent: "startup brand color palette",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Brand", "Startup", "Systems"],
+    highlights: [
+      "The single most important startup palette decision is: one primary, one accent, one neutral. Three colors with clear roles produce more coherent products than ten colors without them.",
+      "Startups in the same category converge on the same blue. The best palette differentiation move is a deliberate category break — choosing the hue family that no major competitor occupies.",
+      "A dark-first product palette (using Nocturne Tech as the base) has a structural advantage: dark surfaces tolerate inconsistency better than light surfaces, giving you more margin while the system is immature.",
+    ],
+    sections: [
+      {
+        heading: "Three colors with roles beats ten colors without them",
+        body:
+          "The most common startup palette mistake is addition without structure. The team picks a hero color, adds a second for variety, then keeps extending — until the product has seventeen colors and none of them have defined jobs. The minimum viable palette structure is three colors with explicit roles: a primary action color (buttons, links, CTAs), a background neutral (the surface the product lives on), and an accent (for emphasis, status, or energy). This three-color system with clear roles produces more visually coherent products than any expanded palette without role assignments. The Brand Starter Kit is built around role-first organization: each color token has an explicit purpose, which means the palette works immediately in implementation even without a detailed brand guide.",
+      },
+      {
+        heading: "Category color differentiation as a competitive move",
+        body:
+          "SaaS products default to blue. Fintech products default to blue or dark teal. Healthcare startups default to blue or green. The predictability of category color conventions means that differentiation through hue selection is genuinely achievable — it requires only choosing the hue family that no category leader occupies. A cold storage startup in a blue-dominant market that chooses a warm amber primary will be immediately visually distinct. A design tool startup in the blue/purple space that chooses deep sage green will stand out at the product listing level before anyone reads the value proposition. Nocturne Tech provides a differentiated base for technical and product startups: cobalt-to-violet with vivid aqua accents, positioned away from the generic 'enterprise blue' but close enough in tone to read as credible and technical.",
+      },
+      {
+        heading: "The dark-first advantage for resource-constrained teams",
+        body:
+          "Dark-mode-first palettes have a structural benefit for resource-constrained product teams: dark backgrounds are more forgiving of component-level inconsistency than light surfaces. On a light background, every shadow, border radius, and elevation inconsistency is visible. On a deep dark surface, minor inconsistencies in component treatment disappear into the base. This means a product built on a dark foundation looks more intentional during its rough early state — before all the edge cases have been styled. Nocturne Tech was designed around this property: deep cobalt and indigo surfaces that are rich enough to have character but dark enough to absorb the small mistakes that accumulate during fast iteration.",
+      },
+    ],
+    links: [
+      { label: "Open Nocturne Tech", href: "/collections/nocturne-tech/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse all guides", href: "/guides/" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "fashion-color-palette",
+    title: "Fashion Color Palette: Building Brand Color Systems for Apparel, Beauty, and Style Brands",
+    summary:
+      "Fashion and beauty brands have color requirements that differ from product and tech — the palette must work on fabric, in photography, in retail environments, and in editorial contexts simultaneously. Building a fashion color system means thinking about how color reads when it is the product, not just the brand.",
+    eyebrow: "Fashion & Beauty Guide",
+    priority: 57,
+    searchIntent: "fashion brand color palette",
+    featuredCollectionId: "blossom-season",
+    featuredPackId: "content-creator-bundle",
+    tags: ["Fashion", "Brand", "Editorial"],
+    highlights: [
+      "Fashion palettes work differently because color is the product. The brand palette has to create space for merchandise colors rather than compete with them — which means fashion brand neutrals are more important than fashion brand accents.",
+      "Editorial context is everything. The same color reads as cheap or luxurious depending on the typography, photography style, and whitespace around it — not the hue itself.",
+      "Seasonal palette extensions are more important in fashion than in any other category. A flexible accent system that can shift between seasonal color stories without replacing the brand base is the most valuable structural decision.",
+    ],
+    sections: [
+      {
+        heading: "Brand color that creates space for merchandise",
+        body:
+          "In most categories, the brand palette is the foreground and the product photography is secondary. In fashion and apparel, this relationship inverts: the product color is the primary communication, and the brand palette exists to make space for it. A brand system that uses vivid, saturated colors will fight with merchandise in every editorial layout. The strongest fashion brand neutrals are carefully chosen near-neutrals — warm off-whites, cool dove grays, pale blush or stone tones — that give merchandise photography room to read without color competition. Blossom Season demonstrates this in a spring/summer register: rose-to-plum tones at controlled saturation that can frame light-colored merchandise without fighting it.",
+      },
+      {
+        heading: "Editorial context shapes how color reads",
+        body:
+          "Color perception in fashion is highly context-dependent. A specific shade of sage green reads as premium and understated in a magazine layout with clean typography and generous whitespace — and reads as cheap in a cluttered e-commerce grid with dense price tags. This means fashion brand palettes cannot be evaluated in isolation: they must be judged in the editorial context where they will actually appear. The Content Creator Bundle includes export formats designed for content production — CSS variables, HEX exports, and image-ready color swatches — which makes it easier to test palette colors in real photographic and editorial contexts before committing to brand guidelines.",
+      },
+      {
+        heading: "Seasonal accent flexibility as a structural requirement",
+        body:
+          "Fashion operates on seasonal cycles in a way that most other industries do not. A fashion brand palette needs to feel current in January collections and fresh again in August lookbooks without triggering a brand redesign twice a year. The solution is a stable neutral base with a flexible accent layer: the core palette — surfaces, typography, structural brand elements — stays consistent. The seasonal accent colors shift within a defined range. Spring gets a blush or apricot accent. Fall gets a terracotta or amber accent. The brand reads as seasonally engaged without the fragmentation that comes from starting a completely new palette twice a year. Building this flexibility into the initial palette structure — deciding which accent slots are 'seasonal' versus 'permanent' — is the most important early structural decision for fashion brand color systems.",
+      },
+    ],
+    links: [
+      { label: "Open Blossom Season", href: "/collections/blossom-season/" },
+      { label: "Explore Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Browse all collections", href: "/collections/" },
+    ],
+  },
+  {
+    slug: "monochromatic-color-palette",
+    title: "Monochromatic Color Palette: How to Design with One Hue",
+    category: "Color Theory",
+    summary:
+      "A monochromatic palette — all colors derived from a single hue — is one of the most elegant and underused strategies in design. Done right, it creates cohesion, sophistication, and calm. Done wrong, it looks flat and incomplete.",
+    eyebrow: "Color Theory Guide",
+    priority: 73,
+    searchIntent: "monochromatic color palette design",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Monochromatic", "Color Theory", "Design Systems"],
+    highlights: [
+      "A monochromatic palette is not just one color — it is a system of lightness and saturation variations on a single hue. The range from near-white to near-black gives you enough contrast to build a complete UI without any additional hues.",
+      "The most common failure mode is insufficient lightness range: a monochromatic palette where all swatches sit in the mid-lightness band looks muddy and hard to read, because there is not enough contrast between background, surface, and text values.",
+      "Professional monochromatic palettes often cheat slightly — they shift the hue a few degrees warmer in the light tones and cooler in the dark tones, creating the perception of depth without technically introducing a second hue.",
+    ],
+    sections: [
+      {
+        heading: "What makes a monochromatic palette work",
+        body:
+          "A monochromatic palette uses variations of a single hue — changing lightness and saturation but keeping the hue constant (or nearly constant). The key is range: you need values distributed across the full lightness spectrum, from near-white (lightness 90-95%) through mid-tones to near-black (lightness 8-15%). Palettes that sit entirely in the mid-range — all lightness values between 40-70% — look muddy and produce insufficient contrast for text and UI hierarchy. The trick is to think of a monochromatic palette as a structural system, not a collection of swatches. Each value has a role: page background, elevated surface, border, secondary text, primary text, emphasis/accent. Those six roles require six meaningfully different values.",
+      },
+      {
+        heading: "Saturation management in single-hue palettes",
+        body:
+          "Beyond lightness, saturation is the second dimension of a monochromatic palette. Very light values tend to look best at low-to-medium saturation (the color feels like a tinted white rather than a pale version of a vivid hue). Very dark values can carry more saturation without looking harsh. The mid-tones are where you can introduce a more saturated accent step — one swatch in the palette that carries higher saturation than the surrounding values creates the visual highlight without requiring a new hue. This single saturated mid-tone is often used for buttons, links, and interactive states in monochromatic UI systems: it stands out from the background and text values through saturation contrast while maintaining hue coherence.",
+      },
+      {
+        heading: "When to choose a monochromatic approach",
+        body:
+          "Monochromatic palettes are the right choice when brand identity, sophistication, or simplicity are the primary goals, and when the color itself (not color contrast between hues) carries the brand expression. Fashion, luxury, architecture, and editorial design are natural homes for monochromatic systems. They work less well in contexts requiring complex information hierarchy where multiple categorical distinctions must be made in parallel — data visualization, navigation systems with many parallel categories, or status-heavy dashboards. In those contexts, the single-hue constraint is a liability. In contexts where the atmosphere matters more than the information architecture, it is an asset.",
+      },
+    ],
+    links: [
+      { label: "Explore Monochrome Studio", href: "/collections/monochrome-studio/" },
+      { label: "Browse all families", href: "/families/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    ],
+  },
+  {
+    slug: "color-palette-for-apps",
+    title: "Color Palette for Apps: Building a System That Scales",
+    category: "Web Design",
+    summary:
+      "App color systems are more complex than brand color palettes. An app needs colors for every state, every component, and both light and dark modes — from a starting point of three or four brand colors. Here is how to architect that expansion correctly.",
+    eyebrow: "Web Design Guide",
+    priority: 76,
+    searchIntent: "color palette for app UI design",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["UI/UX", "App Design", "Design Systems", "Web Design"],
+    highlights: [
+      "A brand palette has 3-5 colors. A functional app color system needs 30-50 distinct values: interactive states, semantic feedback colors, elevation layers, and text role variants. These are not the same thing — the brand palette is the input, and the app color system is the engineered output.",
+      "Color roles matter more than color values. Before assigning any hex code, define the roles your palette needs to fill: primary action, secondary action, surface, elevated surface, destructive action, success state, warning state, disabled state. Then find colors that fill those roles with sufficient contrast.",
+      "Semantic tokens — color values named by role rather than appearance — are the foundation of maintainable app color systems. 'button-primary-background' is more useful than 'blue-500' because it communicates intent, survives rebrands, and enables theme switching without component-level changes.",
+    ],
+    sections: [
+      {
+        heading: "The gap between brand palette and app color system",
+        body:
+          "Brand guidelines typically define 3-5 colors: a primary brand color, a secondary accent, and a set of neutral tones. An app needs many more. You need feedback colors (error red, success green, warning amber, info blue) that may not appear in the brand palette at all. You need an elevation system: multiple surface levels for cards, modals, and panels that must all be distinguishable without introducing new hues. You need interactive state colors: hover, active, focus, and disabled variants for every interactive component. You need dark mode variants of all of the above. Bridging the gap from 5 brand colors to a complete system means systematically deriving the required values from the brand palette's hue and saturation structure, not choosing arbitrary new colors.",
+      },
+      {
+        heading: "Designing for interactive states",
+        body:
+          "Every interactive element needs at minimum four states: default, hover, active (pressed), and disabled. The standard approach is to derive hover and active states by adjusting the lightness of the default value — hover typically lightens or darkens by 8-12%, active by 15-20% in the same direction. Disabled states are typically the default value at 40-50% opacity, or a flat gray that removes the hue information entirely to signal non-interactivity. These derivations should be systematic: if your primary button default is L:45%, the hover is L:38%, and the active is L:30%. Consistent derivation logic means the interactive states will feel coherent across components, even when the underlying default colors differ.",
+      },
+      {
+        heading: "Semantic tokens and long-term maintainability",
+        body:
+          "Semantic color tokens are the most important architectural decision in an app color system. A token named 'primary-action-background' can reference a blue value today and an orange value after a rebrand — every component using that token updates automatically. A token named 'blue-500' is tied to that specific hue forever and must be manually replaced everywhere when the brand changes. Beyond rebranding, semantic tokens enable theme switching: light and dark mode are implemented as two sets of primitive color values bound to the same semantic token names. The component code never changes — only the values behind the tokens differ per theme. The Dark Mode UI Kit exports a complete semantic token structure in this format, with CSS custom property exports for web and Figma token exports for design tool use.",
+      },
+    ],
+    links: [
+      { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Check contrast ratios", href: "/contrast/" },
+      { label: "Explore Nocturne Tech", href: "/collections/nocturne-tech/" },
+    ],
+  },
+  {
+    slug: "pastel-color-palette",
+    title: "Pastel Color Palette: How to Use Soft Colors Without Losing Contrast",
+    category: "Color Theory",
+    summary:
+      "Pastel palettes are frequently misused — deployed for their softness without the structural contrast that makes them work. This guide covers the architecture behind successful pastel design: how to use high-lightness hues while maintaining readability, hierarchy, and professionalism.",
+    eyebrow: "Color Theory Guide",
+    priority: 71,
+    searchIntent: "pastel color palette design",
+    featuredCollectionId: "blossom-season",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Pastel", "Color Theory", "Brand"],
+    highlights: [
+      "Pastel colors live at the high-lightness end of the HSL scale (L:75-95%). Their defining characteristic is that they read as soft and approachable rather than intense. But high lightness also means low contrast against white — which makes them unusable as text colors and forces all contrast work onto dark neutral anchor values.",
+      "The two-layer pastel system works by separating the pastel colors (which are used only for backgrounds and surfaces) from the dark anchors (near-black neutrals used for all text and interactive elements). The pastel sets the atmosphere; the dark anchors provide the structure.",
+      "Successful pastel palettes typically have a clear temperature identity — all warm (peach, blush, champagne), all cool (lavender, powder blue, mint), or all earthy (sage, terracotta, cream). Mixed-temperature pastel palettes without a connecting logic read as accidental rather than designed.",
+    ],
+    sections: [
+      {
+        heading: "Why pastels fail and what they need to work",
+        body:
+          "Pastels fail in design for one of two reasons: insufficient contrast or temperature incoherence. Insufficient contrast is the most common problem — designers use pastel background colors and then choose text and interactive colors that are also relatively light, producing a washed-out interface where nothing has visual authority. The fix is simple but counterintuitive: the softer your backgrounds, the darker your text needs to be. A pastel blush-pink background (#f2d5d5) with a near-black text color (#1a1a1a) achieves excellent contrast while still reading as soft, because the background carries all the pastel character and the text just needs to be legible. Temperature incoherence is the second failure mode: a palette of random pastels that mix warm and cool without intent reads as accidental. A palette of consistently warm pastels or consistently cool pastels reads as a deliberate system.",
+      },
+      {
+        heading: "The two-layer pastel system",
+        body:
+          "Professional pastel design separates the palette into two structural layers. The pastel layer contains all the high-lightness hues: these are used for page backgrounds, card surfaces, section backgrounds, and illustration areas. They create the palette's atmosphere and brand character. The anchor layer contains dark neutrals — a single near-black base with 3-4 lightness variants — used for all text, borders, icons, and interactive states. The anchor layer provides the contrast structure that makes the pastel layer legible. A well-designed pastel interface looks soft and light because the pastels dominate the surface area, but reads clearly because every piece of text and every interactive element is dark enough to create real contrast against those soft backgrounds.",
+      },
+      {
+        heading: "Choosing and expanding a pastel palette",
+        body:
+          "When building a pastel palette, start with one anchor pastel hue — the one that represents the core brand character (a blush pink, a powder blue, a sage green). Then expand by choosing 2-3 adjacent hues in the same temperature direction: soft coral and apricot if your anchor is blush (warm direction), or soft periwinkle and mint if your anchor is powder blue (cool direction). Avoid jumping across the color wheel in a pastel palette — a pastel pink next to a pastel green looks like Christmas decoration rather than a curated system. The Blossom Season collection demonstrates this structure: a family of pinks and soft purples, all warm-to-neutral in temperature, with enough lightness variation to distinguish background from surface values.",
+      },
+    ],
+    links: [
+      { label: "Explore Blossom Season", href: "/collections/blossom-season/" },
+      { label: "Browse pink family", href: "/families/pink/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    ],
+  },
+  {
+    slug: "brand-color-system-design",
+    title: "How to design a proprietary brand color system from scratch",
+    summary:
+      "Learn how to build a proprietary brand color system from a single anchor color, with five functional roles, tonal ranges, and production-ready CMYK specifications.",
+    eyebrow: "Brand Systems Guide",
+    category: "Brand",
+    tags: ["Brand", "Color Theory", "Design Systems"],
+    priority: 72,
+    searchIntent: "how to design a brand color system",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    highlights: [
+      "A complete brand color system assigns every color to one of five roles before choosing any individual color: primary, secondary accent, neutral field, text, and functional indicators.",
+      "A full 12-15 color palette can be derived algorithmically from a single anchor color by generating tonal ranges, finding complements, and tinting neutrals from the anchor hue.",
+      "Every brand color must pass both contrast testing (4.5:1 minimum) and CMYK gamut testing before it is finalized — many saturated digital brand colors cannot be reproduced accurately in print.",
+    ],
+    sections: [
+      {
+        heading: "The five-role framework: what every brand color system needs",
+        body:
+          "Designing a brand color system means filling five distinct roles before selecting any individual color. Primary brand color: the color most strongly associated with the brand — appears on the logo, primary CTAs, and brand surfaces. Secondary accent: complements or contrasts the primary, used for emphasis and to prevent visual monotony. Neutral field: the background and surface color that everything else sits on — always a tinted near-neutral (not pure white or pure black) that subtly reinforces the brand's temperature and personality. Text color: specified separately from the primary brand color, and optimized for body copy readability against the neutral field. Functional indicators: a red for errors, a green for confirmations, and an amber for warnings — these are utility colors and must not visually conflict with the brand palette. Defining these roles before choosing colors prevents the most common brand color failure: having a beautiful hero color with no system around it.",
+      },
+      {
+        heading: "Deriving a complete palette from one anchor color",
+        body:
+          "Most brand projects start with a single color — the logo color. Building a full palette from that anchor requires a systematic method rather than intuitive color picking. Step 1: Lock the anchor hue exactly. Step 2: Generate a 7-step tonal range at the same hue — from a near-white tint (L: 94-96%) through the anchor value (L: 40-55% typically) down to a near-black shade (L: 10-14%). Step 3: Identify the natural complement (180° on the hue wheel ±20°) as the secondary accent candidate. Test it against the anchor for contrast and visual compatibility. Step 4: Shift the anchor hue by 10-15° and reduce saturation by 65-75% to derive the neutral field color — this tinted neutral will feel related to the brand without competing with the primary color. Step 5: Darken the anchor to L: 12-15% for the text color. The result is a 12-15 color system in which every value shares a genetic relationship with the original anchor, creating inherent visual coherence.",
+      },
+      {
+        heading: "Production testing before launch: contrast, CMYK, and colorblindness",
+        body:
+          "A brand color system must pass three production tests before it is finalized. Contrast test: every foreground-background pairing used for text must achieve 4.5:1 contrast ratio at normal size and 3:1 at large size (WCAG AA). Many bold brand colors fail this test against their natural backgrounds — especially medium-value blues and greens. If the primary brand color cannot be used for text on the brand's standard background, the system is broken at the foundation. CMYK gamut test: convert every color to CMYK and view the simulation in Photoshop or Illustrator (View > Proof Colors). Saturated RGB purples, electric blues, and vivid oranges often compress significantly in CMYK. If the brand requires print use, CMYK values must be manually adjusted and approved on physical proofs. Colorblindness test: check the full palette under deuteranopia simulation. Approximately 8% of males have red-green color vision deficiency — a brand that relies on red versus green distinction for important information is not accessible to a meaningful portion of its audience.",
+      },
+    ],
+    links: [
+      { label: "Explore Quiet Luxury", href: "/collections/quiet-luxury/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Check contrast ratios", href: "/contrast/" },
+    ],
+  },
+  {
+    slug: "color-psychology-ux-design",
+    title: "Color psychology in UX design: what color actually affects in digital products",
+    summary:
+      "Understand what color psychology research actually shows about digital UX — separating reliable effects from popular myths, with practical guidance for interface design.",
+    eyebrow: "UX Design Guide",
+    category: "UI/UX Design",
+    tags: ["UI/UX", "Color Psychology", "Brand"],
+    priority: 73,
+    searchIntent: "color psychology in UX design",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    highlights: [
+      "The most reliable color effect in digital UX is contrast-driven hierarchy, not specific hue associations — users follow high-contrast paths first regardless of which color is used.",
+      "Most color-conversion studies are confounded by contrast changes; the honest conclusion is that contrast and visual distinctiveness drive performance, not specific hue choices.",
+      "Cross-cultural color associations that hold most reliably are: blue for trust/technology, green for health/completion, yellow for caution, and white for cleanliness and space.",
+    ],
+    sections: [
+      {
+        heading: "What the color-conversion research actually shows",
+        body:
+          "The most-cited examples of color affecting conversion rates are almost all confounded by a simpler variable: contrast. The famous 'red button vs. green button' tests that showed 20-34% conversion lifts did not demonstrate that red is better than green for CTAs. They demonstrated that the red button had higher contrast against the grey page background than the green button did. The same test on a green or red background would likely produce the opposite result. When researchers control for contrast, size, and position — holding everything constant except hue — hue differences produce much smaller and less consistent conversion effects than commonly claimed. The practical implication is straightforward: design your primary CTA to have the highest contrast on the page. The specific hue matters less than the contrast relationship.",
+      },
+      {
+        heading: "Color effects that hold up across cultures and contexts",
+        body:
+          "After decades of cross-cultural research, several color associations are consistent enough to inform initial design decisions with reasonable confidence. Blue is reliably associated with trust, reliability, and technology across North America, Europe, and East Asia. This is why financial services, healthcare, and enterprise software disproportionately use blue — not because of arbitrary convention, but because the trust association is consistent enough to be useful. Green is reliably associated with nature, health, and positive completion states — hence its use in confirmation messages, health products, and environmental brands globally. Yellow is reliably associated with high visibility and caution, making it appropriate for warning states and attention-seeking UI elements. White is reliably associated with cleanliness, space, and modernity. These four associations are reliable. Industry-specific associations and fine-grained hue distinctions are more context-dependent and should be validated with user research rather than assumed.",
+      },
+      {
+        heading: "Using color to reinforce, not replace, UX patterns",
+        body:
+          "The WCAG principle of 'use of color' — that information must never be communicated by color alone — is both an accessibility requirement and a design quality principle. A primary action button should be identifiable as the primary action because of its size, label, and position. Color makes it faster to find; it does not make it possible to find. Error states should be identifiable from the error message and (ideally) an icon. Color makes them faster to scan in a long form. Navigation hierarchy should be established by size, weight, and position — color reinforces it. When a UI pattern relies on color alone to communicate information, it fails for colorblind users, fails in monochrome print, fails in high-contrast accessibility modes, and fails when users scan rather than read. Design the pattern to function in greyscale first. Then add color to amplify the pattern that already works. This produces more robust, accessible designs for all users.",
+      },
+    ],
+    links: [
+      { label: "Explore Nocturne Tech", href: "/collections/nocturne-tech/" },
+      { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Browse color families", href: "/families/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {

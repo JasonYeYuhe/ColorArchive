@@ -397,6 +397,7 @@ export function ColorHarmoniesPage() {
                     key={h.name}
                     type="button"
                     onClick={() => setActiveHarmonyIdx(i)}
+                    aria-pressed={i === activeHarmonyIdx}
                     className={`rounded-full px-3.5 py-1.5 text-xs font-medium tracking-wide transition ${
                       i === activeHarmonyIdx
                         ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"

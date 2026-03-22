@@ -471,8 +471,8 @@ export const collections: ColorCollection[] = [
     },
   ),
   createCollection(
-    "golden-hour",
-    "Golden Hour",
+    "harvest-glow",
+    "Harvest Glow",
     "Warm amber, honey, and coral tones capturing the last hour of afternoon light — for brands that want warmth, optimism, and energy.",
     "A palette built from the most saturated and emotionally resonant light of the day. The colors move from pale citrine and soft honey through vivid amber and clear coral to warm ember tones that suggest fire, sunset, and harvest. The palette has strong emotional associations with warmth, abundance, and movement — it is inherently energetic but can be made sophisticated by using the muted and soft variants as the primary field with vivid accents sparingly. Best for food and beverage brands, creative agencies, and consumer products where warmth and appetite appeal are primary signals.",
     ["Warm", "Energetic", "Harvest"],

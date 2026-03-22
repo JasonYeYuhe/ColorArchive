@@ -242,6 +242,40 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   sapphire: ["sapphire", "cobalt", "azure", "indigo", "clear"],
   ruby: ["ruby", "crimson", "garnet", "merlot", "clear"],
   topaz: ["amber", "honey", "citrine", "clear", "vivid"],
+  // Interior design & material aliases
+  marble: ["ivory", "pearl", "frost", "ash", "veil"],
+  brass: ["amber", "honey", "citrine", "warm", "gold"],
+  copper: ["ember", "rust", "amber", "sienna", "coral"],
+  oak: ["amber", "honey", "sienna", "clay", "soft"],
+  walnut: ["sienna", "umber", "shadow", "clay", "warm"],
+  loft: ["slate", "ash", "ivory", "concrete", "warm"],
+  // Seasonal & holiday aliases
+  valentine: ["ruby", "crimson", "rose", "blush", "peony"],
+  thanksgiving: ["ember", "amber", "rust", "sienna", "honey"],
+  // Trend & aesthetic aliases
+  cottagecore: ["sage", "blush", "ivory", "rose", "moss"],
+  darkacademia: ["shadow", "sienna", "umber", "ink", "muted"],
+  grandmillennial: ["peony", "ivory", "rose", "plum", "muted"],
+  goblincore: ["moss", "olive", "fern", "clay", "amber"],
+  // Design style aliases
+  brutalist: ["ink", "onyx", "coal", "ash", "concrete"],
+  glassmorphism: ["veil", "frost", "mist", "whisper", "azure"],
+  neumorphism: ["fog", "veil", "ash", "whisper", "pearl"],
+  // Wellness & nature aliases
+  zen: ["mist", "whisper", "ivory", "sage", "veil"],
+  meditation: ["mist", "lavender", "veil", "whisper", "sage"],
+  tropical_forest: ["emerald", "teal", "moss", "lime", "vivid"],
+  arctic: ["frost", "veil", "azure", "whisper", "mist"],
+  // Beverage aliases
+  wine: ["merlot", "garnet", "plum", "ruby", "shadow"],
+  whiskey: ["amber", "sienna", "honey", "warm", "ember"],
+  mint_tea: ["mint", "frost", "veil", "sage", "whisper"],
+  // Digital design context aliases
+  saas: ["cobalt", "azure", "violet", "ink", "vivid"],
+  fintech: ["cobalt", "azure", "teal", "ink", "frost"],
+  healthtech: ["teal", "azure", "mint", "frost", "emerald"],
+  ecommerce: ["coral", "vivid", "cobalt", "amber", "bloom"],
+  gaming: ["vivid", "violet", "cobalt", "neon", "ink"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
