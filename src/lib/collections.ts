@@ -715,3 +715,95 @@ collections.push(
     },
   ),
 );
+
+collections.push(
+  createCollection(
+    "arctic-minimal",
+    "Arctic Minimal",
+    "Icy whites, cool grays, and restrained arctic blues — for clinical precision, Scandinavian design, and ultra-clean UI systems.",
+    "A palette built on the coldest end of the visible spectrum: the territory of glaciers, surgical precision, and premium technology. The frost-veil-soft anchors the palette at its lightest — a barely-there off-white with a cold undertone that reads as pure without being sterile. The azure-mist-soft provides a faint blue tint at near-white lightness, suggesting sky or ice-refracted light rather than blue pigment. The cobalt-veil-soft pushes further into the blue register while remaining light enough for backgrounds. The cerulean-tone-muted is the palette's structural midtone — a desaturated arctic blue that reads as sophisticated and technical. The slate-tone-muted closes the palette at a cool medium-dark neutral, providing the contrast anchor for text and borders without the warmth of charcoal. This palette is optimized for: premium technology product UIs, medical and healthcare brands, Scandinavian minimalist editorial and product design, and architectural photography.",
+    ["Cool", "Minimal", "Technical"],
+    [
+      "frost-veil-soft",
+      "azure-mist-soft",
+      "cerulean-mist-soft",
+      "cerulean-tone-muted",
+      "cobalt-tone-muted",
+    ],
+    {
+      editorialNote:
+        "Temperature consistency is everything in this palette — avoid any warm neutrals. Every element including type should carry a cool or neutral temperature. Body type in slate-tone-muted or a near-black with cool undertone maintains the system's coherence. This palette pairs especially well with geometric sans-serif typefaces (Neue Haas Grotesk, Suisse Int'l, Inter) which carry the same temperature as the colors.",
+      promptWords: ["surgical steel surface", "frozen lake at dawn", "arctic research station interior", "clean room laboratory", "premium tech product launch"],
+      useCases: ["Healthcare and medtech brands", "Premium technology products", "Scandinavian minimalist branding"],
+    },
+  ),
+);
+
+collections.push(
+  createCollection(
+    "amber-manuscript",
+    "Amber Manuscript",
+    "Warm ambers, honey tones, and aged parchment neutrals — evoking aged paper, handwritten maps, and artisanal craft.",
+    "A palette drawn from the warmth of aged materials: amber glass, beeswax candles, old book pages, and sun-warmed honey. The honey-silk-soft opens the palette at its lightest — a warm, near-ivory with unmistakable amber warmth that reads as parchment or aged paper. The amber-tone-soft provides a more decisively amber midpoint, useful for tints and surface washes that need to read as warm without feeling orange. The citrine-tone-muted introduces a slightly more yellow-gold temperature, suggesting aged manuscripts or candlelight rather than fresh amber. The ember-tone-soft deepens the warmth toward the copper-bronze end of the spectrum, grounding the lighter entries with material weight. The sienna-tone-muted closes the palette with a deeper amber-brown that suggests oxidized leather, aged wood, or dark amber glass. This palette works for: craft food and beverage brands (honey, whisky, specialty tea), artisan goods, editorial design with heritage voice, and warm luxury hospitality.",
+    ["Warm", "Artisan", "Heritage"],
+    [
+      "honey-silk-soft",
+      "amber-tone-soft",
+      "amber-tone-muted",
+      "ember-tone-soft",
+      "sienna-tone-muted",
+    ],
+    {
+      editorialNote:
+        "The palette's monochromatic warmth creates a sense of material richness that works best with photography of actual warm materials: wood, leather, ceramic, paper, food. Avoid cool photography within this system — a single cool image will break the temperature envelope. Type in deep warm brown (near-black at warm temperature) maintains system coherence better than neutral black.",
+      promptWords: ["old letterpress shop", "beeswax candle workshop", "aged whisky barrel", "handwritten cartography", "harvest morning apiary"],
+      useCases: ["Craft food and beverage brands", "Artisan goods and packaging", "Heritage editorial and publishing"],
+    },
+  ),
+);
+
+collections.push(
+  createCollection(
+    "aurora-veil",
+    "Aurora Veil",
+    "Indigo, violet, and teal blues at soft lightness — for tech, creative, and premium digital brands.",
+    "A palette built around the blue-to-violet arc at restrained saturation and varied depth. The indigo-velvet-soft anchors the palette with a deep blue-indigo that communicates intelligence and premium quality — dark enough to function as a near-neutral base in UI contexts, but distinctly blue rather than black. The violet-tone-soft provides a mid-register purple-blue that bridges the indigo depth and the lighter cerulean, giving the palette range across the full value scale. The teal-bloom-soft introduces a cool green-blue at medium lightness — the palette's most air-like entry, suggesting sky on the horizon. The cerulean-mist-soft is the lightest and most receded entry: a pale, barely-tinted near-white that works for large background surfaces and subtle pattern work. The sapphire-dusk-soft grounds the palette at the dark end with a deep pure blue — the most saturated entry and the one that carries the most directional color energy. This palette works for: technology companies, premium digital products, creative agencies, data visualization, fintech and enterprise software.",
+    ["Blue", "Tech", "Premium"],
+    [
+      "indigo-velvet-soft",
+      "violet-tone-soft",
+      "teal-bloom-soft",
+      "cerulean-mist-soft",
+      "sapphire-dusk-soft",
+    ],
+    {
+      editorialNote:
+        "This palette reads as intelligent, precise, and premium — qualities driven by the blue-violet temperature and the controlled saturation. The teal-bloom-soft prevents the palette from reading as too corporate or cold by introducing a slight green note that suggests growth and possibility. Avoid using all five colors at equal weight: treat the sapphire and indigo as primary colors, the violet as a secondary accent, and the teal and cerulean as background and atmospheric fills. Works exceptionally well in dark-mode UI contexts where the indigo and sapphire entries can serve as panel backgrounds.",
+      promptWords: ["deep ocean sonar", "northern lights over fjord", "space observatory dome", "glass hologram display", "crystalline ice formation"],
+      useCases: ["Technology and software products", "Premium fintech and data platforms", "Creative studio identities", "Dark-mode UI systems"],
+    },
+  ),
+);
+
+collections.push(
+  createCollection(
+    "desert-amber",
+    "Desert Amber",
+    "Warm amber, ember, and honey tones at muted saturation — for earthy, artisan, and warm contemporary brands.",
+    "A palette drawn from the warm-yellow-to-orange register at low chroma and varied depth. The amber-tone-muted is the palette's center of gravity: a warm mid-value amber that reads as honey, aged wood, or late afternoon light depending on context. The honey-velvet-muted provides a darker, richer entry — less orange than the amber, more brown-honey, suitable for shadow tones and grounding elements. The ember-silk-muted bridges the warm oranges toward the red end of the spectrum: a muted orange-red that suggests warm terra cotta without the saturated energy of a vivid rust. The coral-dusk-muted is the palette's deepest entry — a dark, earthy muted coral that functions as the palette's near-neutral dark, providing depth without reaching for pure brown or black. The olive-bloom-muted offers a cooler, slightly greener entry at medium lightness that prevents the palette from reading as too uniformly orange-warm. This palette works for: artisan food and beverage brands, pottery and ceramics, sustainable and organic lifestyle products, warm minimalist interior brands.",
+    ["Warm", "Earthy", "Artisan"],
+    [
+      "amber-tone-muted",
+      "honey-velvet-muted",
+      "ember-silk-muted",
+      "coral-dusk-muted",
+      "olive-bloom-muted",
+    ],
+    {
+      editorialNote:
+        "The warmth of this palette is subtle rather than vivid — the muted saturation prevents it from reading as bold or energetic. It suggests material warmth (wood, clay, wax) rather than fire or citrus. Use amber-tone-muted as the dominant background or brand color, with coral-dusk-muted for depth and olive-bloom-muted as a grounding neutral accent. Pair with natural material photography (wood grain, ceramic surfaces, linen) and warm-weight serif typefaces. Avoid cool-toned type or high-contrast white, which would introduce a temperature conflict that undercuts the palette's warmth.",
+      promptWords: ["clay wheel thrown bowl", "beeswax candle workshop", "amber glass honey jar", "desert sandstone afternoon", "artisan sourdough crust"],
+      useCases: ["Artisan food and ceramics brands", "Sustainable and natural lifestyle", "Warm minimalist interiors", "Craft beverage packaging"],
+    },
+  ),
+);

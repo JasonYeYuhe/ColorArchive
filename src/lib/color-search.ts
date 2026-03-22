@@ -257,6 +257,104 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   split_tone: ["amber", "teal", "shadow", "ivory", "soft"],
   monsoon: ["teal", "cobalt", "slate", "jade", "muted"],
   harvest: ["amber", "ember", "rust", "sienna", "honey"],
+  // Color mixing and interpolation
+  mix: ["vivid", "clear", "bloom", "soft", "muted"],
+  blend: ["vivid", "clear", "bloom", "soft", "muted"],
+  oklch: ["vivid", "cobalt", "teal", "emerald", "violet"],
+  perceptual: ["muted", "soft", "clear", "vivid", "tone"],
+  // Cyberpunk and digital aesthetics
+  cyber: ["vivid", "violet", "cobalt", "mint", "ink"],
+  cyberpunk: ["vivid", "violet", "cobalt", "neon", "ink"],
+  synthwave: ["violet", "fuchsia", "cobalt", "vivid", "nocturne"],
+  vaporwave: ["fuchsia", "violet", "cobalt", "vivid", "orchid"],
+  neon_blue: ["cobalt", "azure", "cerulean", "vivid", "clear"],
+  neon_pink: ["fuchsia", "rose", "orchid", "vivid", "clear"],
+  // Monochromatic and single-hue
+  monochromatic: ["tone", "muted", "soft", "veil", "shadow"],
+  single_hue: ["tone", "muted", "soft", "veil", "vivid"],
+  tonal: ["tone", "muted", "soft", "shadow", "veil"],
+  scale: ["tone", "muted", "soft", "veil", "vivid"],
+  // Dark mode and night interfaces
+  dark_mode: ["ink", "shadow", "nocturne", "muted", "cobalt"],
+  night_mode: ["ink", "shadow", "nocturne", "teal", "cobalt"],
+  dark_ui: ["ink", "shadow", "nocturne", "cobalt", "slate"],
+  dark_theme: ["ink", "shadow", "nocturne", "muted", "cobalt"],
+  // Data visualization
+  sequential: ["teal", "cobalt", "azure", "frost", "vivid"],
+  diverging: ["coral", "ivory", "cobalt", "ruby", "azure"],
+  categorical: ["coral", "cobalt", "amber", "moss", "violet"],
+  heatmap: ["crimson", "amber", "citrine", "frost", "cobalt"],
+  // Sustainability and eco
+  sustainable: ["moss", "olive", "sage", "teal", "jade"],
+  eco: ["moss", "sage", "leaf", "olive", "emerald"],
+  renewable: ["moss", "teal", "azure", "lime", "jade"],
+  // Arctic and cool nature
+  arctic_blue: ["azure", "cobalt", "cerulean", "frost", "veil"],
+  ice_blue: ["frost", "veil", "azure", "whisper", "mist"],
+  glacier: ["azure", "frost", "cobalt", "veil", "mist"],
+  // Warm heritage and craft
+  manuscript: ["amber", "honey", "sienna", "ivory", "muted"],
+  parchment: ["ivory", "honey", "amber", "veil", "whisper"],
+  heritage: ["amber", "sienna", "garnet", "ivory", "muted"],
+  antique: ["amber", "ivory", "sienna", "honey", "muted"],
+  heirloom: ["ivory", "amber", "rose", "honey", "muted"],
+  // Animation and motion
+  motion: ["vivid", "cobalt", "coral", "violet", "amber"],
+  animated: ["vivid", "coral", "cobalt", "amber", "violet"],
+  transition: ["vivid", "soft", "muted", "clear", "tone"],
+  // Lifestyle and home decor
+  nursery: ["blush", "mint", "lavender", "whisper", "pearl"],
+  baby: ["blush", "mint", "lavender", "whisper", "veil"],
+  kids: ["coral", "citrine", "mint", "vivid", "bloom"],
+  playground: ["coral", "citrine", "vivid", "mint", "cobalt"],
+  // Sports and fitness
+  athletic: ["cobalt", "vivid", "crimson", "emerald", "amber"],
+  sport: ["cobalt", "vivid", "crimson", "emerald", "amber"],
+  fitness: ["cobalt", "vivid", "coral", "mint", "ink"],
+  // Kitchen and food styling
+  kitchen: ["ivory", "amber", "honey", "slate", "warm"],
+  bakery: ["amber", "honey", "ivory", "warm", "sienna"],
+  pastry: ["blush", "amber", "honey", "ivory", "rose"],
+  sourdough: ["amber", "sienna", "honey", "ivory", "warm"],
+  // Sci-fi and futuristic
+  futuristic: ["cobalt", "violet", "vivid", "azure", "mint"],
+  holographic: ["violet", "teal", "cobalt", "vivid", "iridescent"],
+  ai_design: ["cobalt", "azure", "violet", "ink", "vivid"],
+  // Fruit and plant-based food
+  avocado: ["olive", "leaf", "moss", "muted", "tone"],
+  mango: ["amber", "citrine", "honey", "vivid", "coral"],
+  citrus: ["citrine", "amber", "lime", "vivid", "coral"],
+  berry: ["plum", "garnet", "ruby", "violet", "merlot"],
+  peach: ["blush", "apricot", "amber", "coral", "whisper"],
+  // Music and entertainment
+  music: ["violet", "cobalt", "amber", "ink", "vivid"],
+  podcast: ["cobalt", "ink", "violet", "ivory", "azure"],
+  concert: ["vivid", "amber", "cobalt", "ink", "coral"],
+  // Social media and content
+  instagram: ["blush", "coral", "amber", "vivid", "ivory"],
+  tiktok: ["vivid", "cobalt", "ink", "coral", "mint"],
+  content_creator: ["coral", "vivid", "amber", "cobalt", "ivory"],
+  // Aurora and northern lights
+  aurora: ["teal", "indigo", "violet", "cerulean", "sapphire"],
+  northern_lights: ["teal", "indigo", "violet", "cerulean", "sapphire"],
+  borealis: ["teal", "cobalt", "violet", "indigo", "azure"],
+  // Warm earthy tones
+  amber_warm: ["amber", "honey", "ember", "sienna", "warm"],
+  earthy: ["sienna", "clay", "amber", "olive", "honey"],
+  clay_earth: ["ember", "sienna", "clay", "amber", "rust"],
+  // Architectural styles
+  mid_century: ["amber", "olive", "rust", "ivory", "honey"],
+  art_deco: ["amber", "onyx", "ivory", "garnet", "pearl"],
+  bauhaus: ["crimson", "cobalt", "citrine", "onyx", "ivory"],
+  // Water and marine
+  marine: ["azure", "cobalt", "teal", "sapphire", "lagoon"],
+  deep_sea: ["cobalt", "azure", "sapphire", "indigo", "nocturne"],
+  lagoon: ["teal", "aqua", "azure", "cerulean", "mint"],
+  // Stationery and paper
+  stationery: ["ivory", "pearl", "cobalt", "muted", "warm"],
+  letterpress: ["ivory", "ink", "pearl", "muted", "amber"],
+  journal: ["ivory", "amber", "honey", "ink", "warm"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

@@ -2896,3 +2896,98 @@ export const extraGuides4: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides4);
+
+export const extraGuides5: LandingGuide[] = [
+  {
+    category: "Color Theory",
+    slug: "monochromatic-color-palette-guide",
+    title: "Monochromatic Color Palettes: How to Build Depth from a Single Hue",
+    summary:
+      "Monochromatic palettes are the most sophisticated and most misunderstood approach in color design. When done well, they create instant brand recognition and visual cohesion that multi-hue palettes can't match. This guide covers the three variables that make monochromatic palettes work — lightness, saturation, and temperature shift — and shows how to build an 11-step scale with enough contrast for accessibility, the right saturation curve to avoid flatness, and the subtle temperature arc that makes great monochromatic palettes feel alive rather than sterile.",
+    eyebrow: "Color Theory Guide",
+    priority: 65,
+    searchIntent: "monochromatic color palette, single hue design, monochrome color scheme designer, monochromatic UI colors, build tonal scale",
+    featuredCollectionId: "cerulean-depth",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["Color Theory", "UI Design"],
+    highlights: [
+      "Adjusting lightness alone produces a flat, lifeless scale — professional monochromatic palettes also modulate saturation (lower at extremes, peak at mid-tone) and allow a subtle temperature arc (warm shift at light end, cool shift at dark end) that mimics how real surfaces look under changing light.",
+      "Generating WCAG AA compliance within a single-hue system requires at least 5-6 lightness steps between text and background colors. A well-designed 11-step scale (Tailwind-style 50–950) provides this separation naturally if the scale endpoints are deep enough — text should sit at step 700 or darker, backgrounds at step 100 or lighter.",
+      "Monochromatic palettes excel in three contexts: brands built around a single signature hue (Facebook blue, Spotify green), professional tools where visual noise increases cognitive load, and editorial/portfolio contexts where photography provides color richness and a neutral UI avoids competing with it.",
+    ],
+    sections: [
+      {
+        heading: "The three variables: lightness, saturation, and temperature",
+        body: "Most designers treat a monochromatic palette as a lightness gradient — taking one hue and making it lighter or darker. This produces a usable scale but not a great one. Professional monochromatic palettes control three distinct variables simultaneously. Lightness is the primary axis: step 50 is near-white, step 950 is near-black. Saturation should follow a bell curve: very low at the light and dark extremes, peaking near step 500 (the base hue). Keeping saturation constant across the scale produces tints and shades that look plasticky rather than natural. Temperature — a subtle hue shift of 5-15 degrees between the lightest and darkest steps — is the detail that separates exceptional monochromatic palettes from good ones. Light blues naturally drift toward cyan (cooler, shorter wavelength); dark blues naturally drift toward indigo (warmer, longer wavelength). Allowing this drift to happen creates a scale that feels physically plausible.",
+      },
+      {
+        heading: "Building the scale with OKLCH",
+        body: "OKLCH is the recommended color space for generating monochromatic scales because its L axis is perceptually uniform — equal L steps appear equally spaced to the human eye. Start with your base hue as an OKLCH value (e.g., a strong blue: L=0.50, C=0.19, H=253). For the 11-step scale: set L values from 0.97 (step 50) to 0.12 (step 950), distributed with a slight smooth-step curve rather than linear — the middle steps should be more closely spaced than the endpoints. Keep H constant or allow it to vary ±10° from step 50 to step 950. Reduce C from the base value to 40% of peak at step 50 and 60% of peak at step 950. The resulting scale will pass WCAG AA contrast between step 100 backgrounds and step 700 text. The ColorArchive Tints & Shades Generator implements this algorithm using a smooth-step lightness curve.",
+      },
+      {
+        heading: "Accessibility within a monochromatic system",
+        body: "Meeting WCAG contrast requirements within a single hue requires deliberate step planning. For normal text on white or step-50 backgrounds, text color must be at step 700 or darker to achieve 4.5:1 contrast in most color families. For large text (18pt+) or UI components (buttons, input borders), step 600 is often sufficient. Body text in running copy should generally use step 900 or step 950 for comfortable reading. For interactive states within the system: hover states can use one step lighter (e.g., step 600 → step 500 on hover for a button), pressed states one step darker (step 600 → step 700), and disabled states should use step 300 with reduced opacity rather than a lighter step-600 variant, which might look too similar to an enabled state.",
+      },
+      {
+        heading: "The monochromatic + accent pattern",
+        body: "A pure monochromatic palette can feel too restrained for products that need strong calls to action. The solution is a single accent hue — one color from outside the monochromatic system used exclusively for interactive affordances. The accent should be complementary to the base hue (180° away in the hue wheel) or split-complementary (150-165° away) for maximum perceptual contrast. It should appear only on interactive elements: primary buttons, links, selected states, progress indicators. Never use the accent decoratively — as a section background, border decoration, or icon fill. This discipline keeps the visual system unified while giving users a clear signal: the accent means 'this is interactive'. Linear's violet-on-gray, Vercel's white-on-black, and Notion's black-on-light-gray each follow a variation of this pattern.",
+      },
+      {
+        heading: "When monochromatic beats multi-hue",
+        body: "Three contexts reliably favor monochromatic palettes over multi-hue approaches. First: single-hue brand ownership — brands like Facebook (blue), Spotify (green), and Tiffany (blue-green) derive significant brand equity from hue ownership. Using that single hue monochromatically across all materials reinforces the association across every touchpoint. Second: low-noise professional tools — developer tools, terminal applications, data dashboards, and professional software benefit from single-hue UI systems because they reduce interpretive cognitive load. When every color in the interface carries a semantic meaning (rather than multiple decorative hues), users build faster mental models. Third: photography and content platforms — an editorial website, photography portfolio, or image-heavy product catalog benefits from a monochromatic UI because the content images provide all the color richness. A multi-hue UI in this context competes with the content rather than receding behind it.",
+      },
+    ],
+    links: [
+      { label: "Tints & Shades Generator", href: "/tints/" },
+      { label: "WCAG Contrast Checker", href: "/contrast/" },
+      { label: "Color Mixer (OKLCH blending)", href: "/mixer/" },
+    ],
+  },
+  {
+    category: "UI Design",
+    slug: "dark-mode-color-design-guide",
+    title: "Dark Mode Color Design: Building a System, Not Just an Inversion",
+    summary:
+      "Dark mode is no longer optional — it's a baseline expectation for digital products across all platforms. But most dark mode implementations are poor: either straight palette inversions that look like afterthoughts, or inconsistent systems that feel like a different product. This guide explains why dark mode requires fundamentally different color principles than light mode, how to build a parallel dark surface system using lightness elevation rather than shadows, how to re-calibrate saturation to prevent visual aggression, and how to handle semantic colors (success/warning/error) across both modes.",
+    eyebrow: "UI Design Guide",
+    priority: 64,
+    searchIntent: "dark mode color palette, dark mode UI design, dark theme colors, dark mode color system, how to design dark mode",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["UI Design", "Accessibility"],
+    highlights: [
+      "Dark mode backgrounds should not be pure black (#000000). Pure black creates excessive contrast with almost any foreground, causing \"blooming\" where bright text appears to glow and edges vibrate. The recommended dark mode base background is L:8-12% with slight desaturation and a subtle cool undertone — typically around #141416 for neutral-cool or #121214 for a warmer dark.",
+      "Colors that look professional at 55% saturation on a white background look visually aggressive at the same saturation on a dark background. Dark surfaces increase perceived chromatic intensity. Re-calibrate saturation for dark mode by reducing 15-25% across the system, then adjust individual hues — blues may need more reduction, reds less.",
+      "Dark mode elevation (layer depth) cannot use box shadows because shadows are invisible against dark backgrounds. Implement elevation through surface lightness: base-bg at L:10, first-elevation (cards) at L:14-16, second-elevation (popovers/modals) at L:18-20. Each 3-4 lightness points creates a clear visual layer.",
+    ],
+    sections: [
+      {
+        heading: "Why inversion doesn't work",
+        body: "A naive dark mode inverts the light palette: white backgrounds become near-black, dark text becomes near-white, accents are kept roughly the same. This approach fails because light and dark modes have fundamentally asymmetric perceptual requirements. Light mode's core challenge is legibility on high-reflectance surfaces. Dark mode's core challenge is managing contrast so text is readable but not harsh, colors are vivid but not aggressive, and spatial hierarchy is communicated through lightness rather than shadow. An inverted light palette doesn't address any of these — it produces a UI that looks like someone dimmed the lights rather than designed for the dark.",
+      },
+      {
+        heading: "Building a dark surface system with lightness elevation",
+        body: "Depth in dark mode UIs is expressed through lightness levels: darker surfaces recede, lighter surfaces advance. The standard system has 4-5 distinct lightness levels, each representing a different elevation: base background (L:10-12%), slightly elevated surfaces like sidebars (L:14-16%), card surfaces (L:17-20%), overlay surfaces like modals and drawers (L:22-26%), and tooltip/popover surfaces (L:26-30%). The lightness differences are subtle — only 3-5 points between levels — but perceptually clear because they're the primary depth cue available in dark mode. This system is most legible when surface borders (at L:25-30%) and subtle separators (L:20-22%) are also controlled precisely. Android's Material Design and Apple's Human Interface Guidelines both specify elevation-based surface systems along these principles.",
+      },
+      {
+        heading: "Saturation re-calibration for dark surfaces",
+        body: "Every brand color in a design system needs individual saturation re-calibration for dark mode. Blues and cyans are naturally more visually intense on dark backgrounds and often need 20-30% saturation reduction. Reds and oranges maintain their perceived intensity better and typically need only 10-15% reduction. Greens can become over-bright in dark mode and often benefit from a slight hue shift toward teal (3-5° cooler) in addition to saturation reduction. Yellows are the most problematic in dark mode: full-saturation yellow on a dark background is extremely aggressive and nearly impossible to soften without losing its yellow identity. Dark mode warning colors (semantic yellow) are almost always completely redesigned — typically shifting toward amber or warm orange — rather than desaturated from the light mode yellow.",
+      },
+      {
+        heading: "Semantic colors across modes",
+        body: "Semantic colors — success (green), warning (yellow-amber), error (red), info (blue) — must maintain their semantic legibility in both modes while being individually calibrated for each. The most important constraint is that all four semantic colors must be distinguishable from each other in both modes for users with color vision deficiency. Design each semantic color with hue and lightness differentiation, not just hue. In dark mode: success green should shift toward a higher-lightness, slightly teal-adjusted green (lighter and cooler than the light-mode version); warning should shift to amber-orange; error red can remain similar but slightly lighter; info blue should be light enough to be distinguishable from the dark background without neon-level brightness. Test the full semantic palette in the ColorArchive WCAG Audit tool for each mode.",
+      },
+      {
+        heading: "Implementation with CSS custom properties",
+        body: "The recommended implementation uses CSS custom properties (CSS variables) for all color values, with dark mode as a parallel variable set. Structure: define all light mode colors in :root { } and override with dark mode values in @media (prefers-color-scheme: dark) :root { } for automatic OS-level detection. For a manual toggle: apply data-color-scheme='dark' to the <html> element and target [data-color-scheme='dark'] in your CSS, alongside the media query. Map your surface system to semantic token names: --surface-base, --surface-raised, --surface-overlay, --text-primary, --text-secondary, --text-disabled, --border-default, --border-strong. Each token maps to different actual color values in light and dark contexts. This approach — used by Radix UI, shadcn/ui, and most modern design systems — allows components to be authored once while responding correctly to both color schemes.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "WCAG Audit Tool", href: "/wcag-audit/" },
+      { label: "Nocturne Tech collection", href: "/collections/nocturne-tech/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides5);
