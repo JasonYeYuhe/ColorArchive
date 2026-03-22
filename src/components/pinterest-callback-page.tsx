@@ -2,20 +2,15 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { storeToken } from "@/src/lib/pinterest";
+import { storeToken, exchangeCodeForToken } from "@/src/lib/pinterest";
 
 /**
  * Pinterest OAuth callback page.
  *
  * After the user authorizes on Pinterest, they are redirected here with
  * ?code=AUTH_CODE in the URL. We exchange the code for an access token
- * via the Pinterest token endpoint, store it in localStorage, and show a
- * success/error message.
- *
- * Because this is a fully static site with no backend, we exchange the
- * code client-side. Pinterest's token endpoint requires the app secret,
- * so we proxy through a small server-side function. For the demo/trial
- * period we store the token directly when provided via the hash fragment.
+ * via our backend proxy (which holds the app secret), store it in
+ * localStorage, and show a success/error message.
  */
 export function PinterestCallbackPage() {
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
@@ -43,12 +38,15 @@ export function PinterestCallbackPage() {
     }
 
     if (code) {
-      // In a production setup, we'd POST this code to our backend to exchange
-      // for a token (since the exchange requires the app secret).
-      // For now, we store the auth code and prompt the user.
-      setStatus("success");
-      // Store the code temporarily so the main page knows auth succeeded
-      sessionStorage.setItem("pinterest-auth-code", code);
+      exchangeCodeForToken(code)
+        .then((accessToken) => {
+          storeToken(accessToken);
+          setStatus("success");
+        })
+        .catch((err) => {
+          setErrorMsg(err instanceof Error ? err.message : "Token exchange failed.");
+          setStatus("error");
+        });
       return;
     }
 

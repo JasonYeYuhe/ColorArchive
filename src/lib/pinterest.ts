@@ -4,14 +4,16 @@
  * OAuth 2.0 flow:
  *   1. User clicks "Save to Pinterest" → redirect to Pinterest authorize URL
  *   2. Pinterest redirects back with ?code=… to /pinterest/callback/
- *   3. Callback page exchanges code for access_token via our proxy (or direct if CORS allows)
+ *   3. Callback page exchanges code for access_token via our backend proxy
  *   4. Token stored in localStorage; user picks a board; pin is created
  *
- * All logic is client-side — no backend required for the static site.
+ * All Pinterest API calls go through our backend proxy at api.colorarchive.me
+ * to avoid CORS issues (Pinterest API does not support browser-origin requests).
  */
 
 const PINTEREST_APP_ID = "1555251";
 const REDIRECT_URI = "https://colorarchive.me/pinterest/callback/";
+const API_PROXY = "https://api.colorarchive.me/pinterest";
 
 const SCOPES = "boards:read,pins:read,pins:write,boards:write";
 const LS_KEY = "colorarchive-pinterest-token";
@@ -56,7 +58,22 @@ export function subscribeToPinterestToken(cb: () => void): () => void {
   };
 }
 
-/* ── API helpers ───────────────────────────────────────────── */
+/** Exchange OAuth authorization code for an access token via backend proxy. */
+export async function exchangeCodeForToken(code: string): Promise<string> {
+  const res = await fetch(`${API_PROXY}/token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code, redirect_uri: REDIRECT_URI }),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Token exchange failed: ${res.status} — ${text}`);
+  }
+  const data: { access_token: string } = await res.json();
+  return data.access_token;
+}
+
+/* ── API helpers (via backend proxy) ───────────────────────── */
 
 interface PinterestBoard {
   id: string;
@@ -71,7 +88,7 @@ interface PinterestBoardsResponse {
 }
 
 export async function fetchBoards(token: string): Promise<PinterestBoard[]> {
-  const res = await fetch("https://api.pinterest.com/v5/boards?page_size=50", {
+  const res = await fetch(`${API_PROXY}/boards`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   if (!res.ok) {
@@ -110,7 +127,7 @@ export async function createPin(params: CreatePinParams): Promise<{ id: string }
     body.alt_text = params.altText;
   }
 
-  const res = await fetch("https://api.pinterest.com/v5/pins", {
+  const res = await fetch(`${API_PROXY}/pins`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${params.token}`,
