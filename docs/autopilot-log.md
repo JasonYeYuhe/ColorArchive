@@ -693,3 +693,48 @@ Total collections: **26** (was 24)
 - src/lib/color-utils.ts (+13 search aliases)
 
 **Commit:** 1886a0b
+
+## 2026-03-22 — Normal Run: Newsletter 082-085 + 2 Guides + 2 Collections + Search Aliases (commit a5b8070)
+
+**Run type:** Normal Run (3rd normal run since last big run `78c17ac`)
+
+**Categories:** A. SEO & Content, D. Data & Collections
+
+### Category A — Newsletter Issues 082–085
+
+- **Issue 082** (2027-08-05): Color in animation — CSS color space interpolation (OKLCH vs RGB for vivid midpoints), easing curves and perceived speed quality, state color communication, dark mode animation calibration.
+- **Issue 083** (2027-08-12): Color naming systems — Pantone for brand/print accuracy, NCS for architecture/interior Europe, RAL for industrial/architectural finishes, Munsell for fine arts and science.
+- **Issue 084** (2027-08-19): The 60-30-10 rule — the principle behind proportions (ground/structure/focus), UI application (60% neutral, 30% structural, 10% accent), data viz exception, valid intentional violations.
+- **Issue 085** (2027-08-26): Color in email design — Outlook bgcolor vs CSS limitations, Apple Mail dark mode automatic inversion and fix with @media prefers-color-scheme, Gmail inline style requirement, render-test matrix.
+Total newsletter issues: **86** (was 82)
+
+### Category A — 2 New SEO Guides
+
+- **gradient-color-design** (priority 74, UI/UX Design): 5 sections — OKLCH vs RGB interpolation, two-color vs multi-stop gradients, gradient direction and spatial hierarchy, mesh gradient technique, gradients in brand systems
+- **color-for-e-commerce** (priority 71, Industry Palettes): 5 sections — product photography background, CTA color and conversion research, premium vs value color positioning, category color conventions, seasonal/promotional color management
+Total guides: **67** (was 65)
+
+### Category D — 2 New Collections
+
+- **electric-mint**: Vivid mint (mint-core-vivid), seafoam (seafoam-core-vivid), jade (jade-radiant-clear), teal (teal-tone-vivid), lagoon (lagoon-bloom-clear) — for fintech, sustainability, and tech startup brands needing clean energetic green
+- **rose-quartz**: Soft rose-pearl (rose-pearl-soft), blush-mist (blush-mist-muted), peony-bloom (peony-bloom-soft), magenta-tone (magenta-tone-muted), rose-silk (rose-silk-muted) — for beauty, wellness, spa, and feminine editorial identities
+Total collections: **28** (was 26)
+
+### Category D — 24 New Search Aliases
+
+- Color trends: `electric`, `neon_green`, `mint_green`, `powder_blue`, `dusty_blue`
+- Fashion/beauty: `rose_gold`, `cobalt_blue`
+- Lifestyle: `dark_academia`, `tech_startup`, `premium`, `luxury_brand`
+- Animation/motion: `gradient`, `animation`
+- Email/marketing: `email`, `newsletter`, `marketing`
+- Design systems: `token`, `design_system`, `brand_color`
+- Photography: `portrait`, `product_photo`
+- Seasonal: `monsoon`, `harvest`
+
+### Files modified (4)
+- src/data/newsletter-issues.json (86 issues, was 82)
+- src/lib/guides.ts (+2 guides via moreGuides export)
+- src/lib/collections.ts (+2 collections via push)
+- src/lib/color-utils.ts (+24 search aliases)
+
+**Commit:** a5b8070
