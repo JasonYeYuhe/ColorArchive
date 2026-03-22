@@ -3271,3 +3271,141 @@ const extraGuides7: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides7);
+
+
+const extraGuides8: LandingGuide[] = [
+  {
+    category: "Color Theory",
+    slug: "color-gradients-design-guide",
+    title: "Color Gradients in Design: Types, Color Space Choices, and Avoiding Common Mistakes",
+    summary:
+      "Gradients are among the most visible design elements in contemporary digital design, yet they are frequently applied without understanding why some gradients look rich and smooth while others look muddy, banded, or artificial. The choice of color space, the number of stops, the hue arc traveled, and the lightness relationship between endpoints all affect gradient quality. Understanding these mechanics allows designers to produce gradients that enhance rather than undermine visual quality.",
+    eyebrow: "Design Guide",
+    priority: 80,
+    searchIntent: "color gradients design guide",
+    featuredCollectionId: "aurora-veil",
+    tags: ["Gradients", "CSS", "Color Space"],
+    highlights: [
+      "CSS gradients interpolate between endpoint colors in a color space — by default, sRGB. Linear interpolation in sRGB produces the notorious 'gray band' artifact: when transitioning between two complementary or near-complementary hues (e.g., orange to blue), the midpoint falls near a desaturated gray, because the interpolated values in sRGB lose saturation in the middle. The fix: use CSS color interpolation in a perceptual color space. Modern CSS supports `color-interpolation-method` for gradients — specifying `in oklch` or `in hsl` produces smoother, more saturated midpoints. OKLCH-space gradients are especially good for hue-arc transitions because OKLCH maintains consistent lightness and chroma throughout, preventing the gray-middle artifact.",
+      "Two types of gradients serve different design functions. Tonal gradients transition between two values of the same or similar hue — lighter to darker, more saturated to less. They add depth, shadow, and dimension without introducing hue contrast. Hue-arc gradients travel across the hue wheel between two different hues. They are more expressive and have higher visual energy but are harder to control: too wide an arc produces rainbow-like results; too narrow an arc looks like a tonal gradient. The sweet spot for hue-arc gradients is a 30–90 degree arc on the hue wheel with consistent chroma/saturation throughout, producing a gradient that clearly reads as a two-color transition rather than a rainbow or a tonal shift.",
+      "Gradient direction is a compositional decision, not just an aesthetic one. Horizontal gradients (left to right) interact with the natural reading direction in left-to-right languages — a gradient that goes from warm (attention-getting) at left to cool (receding) at right creates a subtle forward momentum. Vertical gradients interact with depth conventions: darker at bottom (shadow/ground) feels natural and stable; darker at top (in certain UI contexts) can feel like a sky gradient. Radial gradients create emphasis by placing the lightest or most saturated point at the center of attention. Diagonal gradients are the most energetic direction and work best for backgrounds and full-bleed hero elements rather than bounded UI components."
+    ],
+    sections: [
+      {
+        heading: "Gradient color stops and the three-stop technique",
+        body:
+          "Two-stop gradients (one endpoint to another) are the simplest but often the least smooth, because the interpolation path between any two colors depends entirely on the chosen color space. Adding a manually specified middle stop — the three-stop technique — gives precise control over the midpoint and allows the designer to push the middle stop toward a more saturated, more vibrant version of either endpoint hue. This technique is standard practice in motion graphics and visual effects and is increasingly valuable in UI design. For a gradient from warm amber to teal, a three-stop version might specify amber at 0%, a slightly more saturated amber-green at 45%, and teal at 100%. The manually positioned stop prevents the gray-middle artifact and can be used to skew the gradient toward one endpoint, creating asymmetric transitions with a slower or faster ramp.",
+      },
+      {
+        heading: "Gradient backgrounds for UI: constraints and best practices",
+        body:
+          "Using gradients as full-page or hero-section backgrounds in UI creates accessibility and legibility challenges. Text placed over a gradient background encounters variable contrast: the text may pass WCAG contrast requirements at one end and fail at the other. The standard solutions: (1) place text only over the portion of the gradient that provides sufficient contrast, (2) add a semi-transparent overlay (dark or light scrim) over the gradient before placing text, (3) use the gradient as a decorative edge element and keep text on solid-surface areas. The scrim solution is most robust — a linear gradient from rgba(0,0,0,0.5) to transparent positioned behind the text field ensures consistent contrast regardless of the gradient endpoint colors. In dark interfaces, a subtle gradient background (very low chroma, 5–15 degree hue arc) can add depth and sophistication without the legibility problems of a saturated gradient.",
+      },
+      {
+        heading: "Mesh gradients and multi-point color fields",
+        body:
+          "Mesh gradients — color fields with multiple focal points rather than linear endpoints — represent a significant visual trend in contemporary UI and brand design. Unlike CSS linear or radial gradients, mesh gradients require image-based implementation (SVG with feTurbulence filters, or raster image exports from tools like Figma, Adobe Illustrator, or dedicated mesh gradient generators). Their advantage: they produce natural, organic-feeling color transitions that suggest light rather than literal gradient ramps. The design challenges: (1) they are expensive to animate and difficult to make responsive, (2) high-contrast mesh gradients create severe legibility problems for text placed on top, (3) they date quickly as visual trends shift. Best uses: hero section backgrounds, brand image assets, social content, and any context where the gradient is a purely decorative element detached from functional UI.",
+      },
+      {
+        heading: "Choosing gradient colors from a palette",
+        body:
+          "When using gradients within a design system that has a defined color palette, the most cohesive approach selects gradient endpoints from within the existing palette and chooses endpoints that travel a hue arc rather than a lightness-only path. Tonal gradients (from a light palette color to its darker version) produce the most conservative results and the least visual conflict with other UI elements. Hue-arc gradients (from one palette color to a nearby or analogous hue) produce more expressive results. The systematic approach: identify which color pairs in your palette have interesting hue-arc relationships (e.g., amber and rose, teal and cobalt, violet and magenta), test those pairs as gradient endpoints, and standardize the approved gradient pairs in the design system documentation. This prevents gradient proliferation — the accumulation of arbitrary gradients that each feel individually justified but collectively create visual incoherence.",
+      },
+    ],
+    links: [
+      { label: "Aurora Veil collection", href: "/collections/aurora-veil/" },
+      { label: "Color Converter Tool", href: "/tools/convert/" },
+      { label: "Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+    ],
+  },
+  {
+    category: "Design Practice",
+    slug: "oklch-perceptual-color-design-guide",
+    title: "OKLCH Color in Design: Why Perceptual Color Space Changes How You Build Palettes",
+    summary:
+      "OKLCH is a perceptual color model that maps color values to how humans actually perceive them — unlike HSL, which is based on screen geometry. Equal numerical differences in OKLCH produce equal perceived differences in lightness, chroma, and hue, enabling designers to build color scales, harmonics, and gradients that work visually without requiring constant manual correction. Understanding OKLCH changes how designers build systematic color.",
+    eyebrow: "Advanced Color Guide",
+    priority: 77,
+    searchIntent: "oklch color design guide perceptual color space",
+    featuredCollectionId: "neon-after-dark",
+    tags: ["OKLCH", "Color Space", "Advanced"],
+    highlights: [
+      "HSL (Hue, Saturation, Lightness) is the most common color model in web design. It is based on a mathematical transformation of RGB values, which are themselves based on how screens produce light rather than how humans see it. The result: equal HSL lightness values do not look equally light across all hues. A yellow at HSL(60, 70%, 50%) looks much brighter than a blue at HSL(240, 70%, 50%) — even though both have 50% HSL lightness. This perceptual inequality means that building a color scale in HSL by incrementing lightness values produces steps that look uneven: some steps appear larger than others depending on the hue involved. OKLCH solves this problem by using lightness and chroma values derived from how human vision works rather than how screens work.",
+      "In OKLCH, the three parameters are: L (perceptual lightness, 0–1 or 0–100), C (chroma, roughly 0–0.4+), and H (hue in degrees, 0–360). Equal L values produce equally bright colors regardless of hue — a yellow and a blue both at L:0.65 will look comparably bright to human observers. Equal C values produce equally saturated colors regardless of hue — something that HSL cannot achieve because different hues have different maximum achievable saturation. This perceptual uniformity is what makes OKLCH useful for systematic design: building a 9-step lightness scale in OKLCH produces visually even steps without manual correction, and building a harmonic palette with equal C values produces colors with equal visual weight.",
+      "OKLCH is supported in modern CSS via the oklch() color function, which means it can be used directly in production code without preprocessing. The syntax is: oklch(0.65 0.18 240) for a medium-lightness, moderately saturated blue. Browser support as of 2025: Chrome/Edge, Firefox, and Safari all support oklch() natively. Figma supports OKLCH via the color picker's 'OKLCH' mode in recent versions. Design tools that do not natively support OKLCH can use converter tools (oklch.com, bottosson.github.io/posts/oklab) to find OKLCH equivalents for any HSL or HEX color. The workflow: design and specify colors in OKLCH; export to HEX or HSL for tools that require it."
+    ],
+    sections: [
+      {
+        heading: "Building a lightness scale in OKLCH vs HSL",
+        body:
+          "The practical difference between OKLCH and HSL scales becomes immediately visible when building a tonal scale. In HSL, building a 9-step scale for cobalt blue by incrementing lightness from 10% to 90% in equal steps produces visually uneven results — the jumps in perceived brightness vary substantially between steps. In OKLCH, building the same scale by incrementing L from 0.15 to 0.92 in equal steps produces visually even steps. The design implication: OKLCH scales require no manual correction for perceptual evenness. The numbers produce the right visual result. This makes OKLCH especially valuable for design systems where colors are generated programmatically — a loop that increments OKLCH L values produces a usable scale; the same loop in HSL requires a lookup table or hue-specific adjustments.",
+      },
+      {
+        heading: "Equal-chroma palettes for visual harmony",
+        body:
+          "One of the most powerful uses of OKLCH is building multi-hue palettes where all colors share the same C (chroma) value. In HSL, colors at equal saturation across different hues look unequally saturated because the hue affects the maximum achievable colorfulness. In OKLCH, colors at equal C value look equally saturated regardless of hue. This enables a new type of palette construction: choose your hues (e.g., cobalt H:240, emerald H:155, amber H:70, rose H:10), set equal C values (e.g., C:0.16 for a muted palette, C:0.25 for a rich palette), and adjust L to your desired lightness — the result is a set of colors that carry equal visual weight and feel harmonically matched without requiring manual balancing.",
+      },
+      {
+        heading: "OKLCH gradients: solving the gray-band problem",
+        body:
+          "CSS gradients default to sRGB interpolation, which produces the notorious 'gray band' artifact between complementary or contrasting hues. When transitioning from orange to blue in sRGB, the midpoint colors lose chroma and approach a gray — because the interpolation travels through the low-saturation center of the RGB cube. OKLCH gradients avoid this by maintaining chroma throughout the interpolation. In CSS, specify `background: linear-gradient(in oklch, oklch(0.65 0.20 70), oklch(0.58 0.22 240))` to produce an orange-to-blue gradient that stays saturated through the midpoint. The OKLCH gradient travels around the hue circle rather than through the gray center, producing a richer, more vibrant transition.",
+      },
+      {
+        heading: "Migrating an existing color system to OKLCH",
+        body:
+          "For design systems already built in HSL, migrating to OKLCH is a phased process. Phase 1: Convert existing palette values to OKLCH using a converter tool and document the OKLCH coordinates alongside the existing HSL/HEX values. This establishes the OKLCH coordinates without breaking anything. Phase 2: Add OKLCH-based versions of any new scale steps or palette additions, allowing the system to grow natively in OKLCH while existing values remain in their current format. Phase 3: Update CSS custom properties to use oklch() for new tokens and gradually replace existing tokens as they are touched in normal design system maintenance. Full migration is not always necessary — even partial OKLCH adoption for scale generation and gradient specification produces significant quality improvements over a pure-HSL approach.",
+      },
+    ],
+    links: [
+      { label: "Neon After Dark collection", href: "/collections/neon-after-dark/" },
+      { label: "Color Converter Tool", href: "/tools/convert/" },
+      { label: "Complete Archive", href: "/packs/complete-archive/" },
+    ],
+  },
+  {
+    category: "Design Practice",
+    slug: "color-for-mobile-ui-guide",
+    title: "Color for Mobile UI: Display Characteristics, Small-Screen Legibility, and Touch Hierarchy",
+    summary:
+      "Mobile UI design presents unique color challenges that desktop design does not: smaller screen sizes, varying ambient lighting conditions, touch targets that require different visual treatment than hover interactions, and display characteristics (OLED vs LCD, high DPI screens) that change how colors render. Designing for mobile with color requires understanding these constraints as first-class design inputs rather than afterthoughts applied at the end of a desktop-first process.",
+    eyebrow: "Mobile Design Guide",
+    priority: 76,
+    searchIntent: "color for mobile UI design guide",
+    featuredCollectionId: "nocturne-tech",
+    tags: ["Mobile", "UI Design", "Accessibility"],
+    highlights: [
+      "OLED displays — used in most premium mobile devices — render pure black as truly off-pixel, producing absolute black backgrounds with no backlight bleed. This creates a qualitative difference from LCD screens: dark mode on OLED genuinely turns off pixels, making true black (#000000) both power-efficient and visually distinct. Designers working on apps for OLED-dominant platforms (recent iPhone Pro, premium Android flagships) can use true black as a design element rather than a technical fallback. The design implication: a near-black surface (hsl 0, 0%, 8%) and a true black surface (#000) look identical on LCD but distinctly different on OLED. For dark-mode mobile UI, using true black for the page background and near-black for cards creates a surface hierarchy that only works on OLED — and looks flat on LCD. Decide whether to target OLED-specific design or to design for the minimum common denominator.",
+      "Ambient lighting changes how mobile colors appear in ways that desktop designers rarely account for. A screen viewed in bright outdoor sunlight requires higher color contrast to remain legible — colors that look appropriately differentiated at 200 nits in a dim office can collapse into each other at 800+ nits outdoors. Most mobile operating systems include automatic brightness adjustment, but designers cannot rely on this to solve contrast problems. The practical guideline: test all color contrast at the brightness levels and lighting conditions that your users encounter. For outdoor-use apps (sports, navigation, fitness), design for bright-ambient legibility as the baseline rather than the exception. High-contrast color pairs (near-black on white, dark-colored text on pale surfaces) are more robust across lighting conditions than lower-contrast choices that look fine in controlled conditions.",
+      "Touch target size creates a spatial constraint that affects color application differently than desktop hover states. WCAG requires a minimum 44×44pt touch target for interactive elements; Apple HIG recommends 44×44pt; Material Design recommends 48×48dp. At these sizes, a solid-fill button with a 2px border reads very differently from a hover-only desktop indicator. Mobile interactive states — pressed, selected, active — must communicate through color changes that are visible within the bounds of a small touch target, without requiring precise cursor placement. This means pressed state color changes should be substantial (not the subtle 5% lightness shift that works for desktop hover) and should affect the entire touch target area rather than just a small portion of it."
+    ],
+    sections: [
+      {
+        heading: "Color contrast requirements at mobile scale",
+        body:
+          "WCAG contrast requirements apply equally to mobile and desktop, but small screen sizes compound the practical impact of low contrast. At small type sizes (11–13px, common for mobile labels, captions, and secondary text), low contrast is both harder to read and more likely to fail WCAG AA (4.5:1 for small text). Mobile designs that pass contrast at 16px body text can still have systematic contrast failures at smaller sizes. Mobile-specific audit practice: test every text style in your design system at its actual mobile size (not at 2× or 3× design tool zoom) and on a real device at standard brightness. The visual impact of a contrast failure is physically different on a 6-inch phone screen than on a 27-inch monitor — what looks passable on the large screen can be genuinely difficult to read on the small one.",
+      },
+      {
+        heading: "Navigation and tab bar color hierarchy",
+        body:
+          "Mobile navigation elements — bottom tab bars, top navigation bars, floating action buttons — have specific color requirements that differ from desktop navigation. Tab bars appear at the bottom of the screen in thumb reach; their active and inactive state colors must be clearly distinguishable without requiring precise attention. Standard practice: inactive tab icons at 40–50% opacity or mid-lightness gray; active tab icon in primary brand color with a full-opacity fill or bottom indicator in brand color. The visual gap between inactive (gray, low-contrast) and active (brand color, full-opacity) provides the navigational hierarchy. Floating action buttons (FABs) use high-contrast brand color fills to create maximum visual priority — they should be the single most visually prominent UI element in the interaction viewport.",
+      },
+      {
+        heading: "System colors and OS integration",
+        body:
+          "Mobile platforms have system-defined colors that appear throughout the OS UI — iOS uses a set of semantic dynamic colors (label, secondaryLabel, systemBackground, etc.) that automatically adapt to light and dark mode and respect user accessibility settings. Android has Material You dynamic color, which generates a complete color scheme from the user's wallpaper. Designers working on native mobile apps need to understand when to use system colors (for elements that should feel integrated with the OS — system alerts, pickers, date selectors) and when to use brand colors (for elements that should express the product identity). Mixing system and brand colors carelessly creates visual inconsistency; deliberately separating OS-integrated elements from product-branded elements creates a coherent visual system.",
+      },
+      {
+        heading: "Dark mode implementation on mobile",
+        body:
+          "Mobile dark mode has different usage patterns than desktop dark mode: users switch more frequently (auto-switching based on time of day is common on mobile), and mobile dark mode usage is higher in low-light, evening, and before-sleep contexts. This means dark mode on mobile should be optimized for low-ambient-light conditions — lower maximum brightness for large light-colored surfaces, avoidance of large pure-white surface areas (which are bright enough to be uncomfortable in dark environments), and careful management of notification-style elements that can flash bright colors. The most comfortable dark-mode mobile palettes: page backgrounds at L8–12% (dark but not pure black on LCD), card surfaces at L14–18%, and accent colors at L60–70% — light enough for contrast, not so light they become uncomfortable at night. Test at actual mobile brightness settings in actual dark environments.",
+      },
+    ],
+    links: [
+      { label: "Nocturne Tech collection", href: "/collections/nocturne-tech/" },
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "WCAG Contrast Checker", href: "/tools/contrast/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides8);

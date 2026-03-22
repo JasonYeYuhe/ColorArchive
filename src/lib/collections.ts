@@ -982,3 +982,46 @@ collections.push(
     },
   ),
 );
+
+collections.push(
+  createCollection(
+    "desert-terrain",
+    "Desert Terrain",
+    "Warm terracotta, rust, sand, and bleached sage — for southwestern aesthetics, earthy editorial, and sun-weathered brand identities.",
+    "The color palette of high desert landscapes: the warm spectrum that runs from bleached sand through fired terracotta to rust and iron-red, with the sage-green of desert scrub as a cool counterweight. Ember-tone-muted provides the warmest, most actively orange entry — the color of terracotta tile in direct sunlight; coral-bloom-muted steps toward a softer, more peachy warmth; honey-mist-soft contributes the pale, sun-bleached quality of desert sand and dried grasses; olive-tone-muted introduces the muted green of desert sage and scrub; merlot-dusk-muted anchors the palette with the dark warm-red of iron-rich desert stone. The collection traces the specific heat of a high-desert afternoon: sun-baked earth, warm wind, and the surprising life that grows in dry places.",
+    ["Warm", "Earthy", "Editorial"],
+    [
+      "ember-tone-muted",
+      "coral-bloom-muted",
+      "honey-mist-soft",
+      "olive-tone-muted",
+      "merlot-dusk-muted",
+    ],
+    {
+      editorialNote:
+        "This palette's warmth is most readable when used with generous whitespace and a near-white background with a slight warm tint (add 3-5% yellow-orange hue to the background). The olive-tone-muted is the most versatile entry — it reads as sage, clay, or linen depending on its neighbors, making it useful as a neutral or a distinctive accent depending on the context. Pair with a warm serif or humanist sans for typography to reinforce the earthy, handcrafted character.",
+      promptWords: ["terracotta roof tile", "desert trail at noon", "dried sage and clay", "Southwest stucco wall", "iron-red canyon stone"],
+      useCases: ["Southwestern and regional brand identities", "Earthy editorial and lifestyle content", "Interior design and architecture studios", "Artisan ceramics and handmade goods"],
+    },
+  ),
+  createCollection(
+    "winter-botanical",
+    "Winter Botanical",
+    "Deep forest greens, berry, warm cream, and dark earth for seasonal editorial, luxury packaging, and nature-forward brand identities.",
+    "The palette of botanical illustration in the dormant season: the dark, saturated greens of evergreen foliage, the warm red of winter berries, the cold cream of snow-covered stems, and the deep brown of bare winter branches. Emerald-dusk-soft provides the richest, most saturated dark-green entry — dense and weighted like conifer needles; jade-velvet-muted introduces a slightly bluer, cooler forest green that reads as the color of shade rather than sunlight; leaf-shadow-soft adds a deep, nearly black-green that functions as a dark accent and near-neutral; garnet-radiant-clear contributes the vivid warm red of holly berries and winter rose hips; blush-pearl-muted provides the pale, barely-there pink of winter sky or dried rose-hip flesh. Together they evoke the specific color register of botanical illustration books, winter garden prints, and premium seasonal packaging.",
+    ["Dark", "Botanical", "Seasonal"],
+    [
+      "emerald-dusk-soft",
+      "jade-velvet-muted",
+      "leaf-shadow-soft",
+      "garnet-radiant-clear",
+      "blush-pearl-muted",
+    ],
+    {
+      editorialNote:
+        "The palette reads as 'botanical' only when the two greens and the deep leaf-shadow are used together as a group — separating them produces a different effect. The garnet-radiant-clear is the palette's accent: use it sparingly (one element per composition) to create the focal point. For backgrounds, use blush-pearl-muted at maximum lightness (85-95% opacity on white) or pure warm white — the pale pink contributes warmth without adding color noise. Typography should be very dark: leaf-shadow-soft works as a text color and integrates with the palette rather than introducing a separate neutral.",
+      promptWords: ["winter holly branch", "botanical print on cream paper", "evergreen forest after frost", "pressed dried flowers", "vintage seed catalog"],
+      useCases: ["Seasonal editorial and magazine design", "Luxury holiday packaging and cards", "Garden and plant brand identities", "Premium food and botanical product brands"],
+    },
+  ),
+);
