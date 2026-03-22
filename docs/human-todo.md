@@ -1,20 +1,20 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-22 (autopilot normal run)
+> Last updated: 2026-03-22 01:44 (autopilot normal run)
 
 ## High Priority
 - [ ] Submit Figma plugin for Community review — requires manual interaction in the Figma desktop app (publish flow, screenshots, description)
 - [ ] Set up Google Search Console for colorarchive.com — verify site ownership and submit sitemap to index new guide pages
 - [ ] Update Lemon Squeezy checkout URLs in `src/lib/checkout-config.ts` when new products go live — autopilot cannot access LS dashboard
-
 - [ ] Submit /convert/ to Google Search Console once indexed — verify it ranks for "hex to rgb converter" type queries and monitor click-through rate
 
 ## Medium Priority
 - [ ] Add real product screenshots to pack detail pages — currently using placeholder/generated images; real screenshots improve conversion
-- [ ] Review A/B email subject line variants in `server/email.js` before enabling in production — copy needs human tone check
+- [ ] Review A/B email subject line variants in `server/email.js` before enabling in production — copy needs human tone check; now includes day-30 final follow-up
 - [ ] Register domain aliases or redirects (e.g. colorarchive.io → colorarchive.com) if desired for SEO
 - [ ] Set up proper analytics funnel in Umami Cloud — create goals for checkout clicks, pack downloads, newsletter signups
+- [ ] Review new architecture/startup/fashion guide pages once indexed — check for ranking opportunities on target keywords
 
 ## Low Priority / Nice to Have
 - [ ] Create social preview images (OG images) for newsletter issue pages — currently using generic OG

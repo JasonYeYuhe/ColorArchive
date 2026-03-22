@@ -1,3 +1,54 @@
+## 2026-03-22 01:44 — Newsletter 039–042, 3 SEO guides, 20 search aliases, day-30 email (commit e649c5f)
+
+**Run type:** Normal (3rd run since last big run)
+
+**Categories:** A. SEO & Content, D. Data, E. Server & Email
+
+### Category A — Newsletter Issues 039–042
+- **Issue 039** (Sep 3): "How color creates visual hierarchy without touching your typefaces"
+  — value contrast as primary hierarchy driver, saturation as emphasis tool, surface color technique
+  — Featured: Editorial Warmth + Brand Starter Kit
+- **Issue 040** (Sep 10): "Saturation control: the underused variable in palette refinement"
+  — saturation misalignment diagnosis, two-tier saturation systems, muted colors as precision
+  — Featured: Quiet Luxury + Palette Pack Vol. 1
+- **Issue 041** (Sep 17): "Color and component states: building interactive color systems"
+  — state color pre-planning, lightness-shift model, disabled state accessibility
+  — Featured: Nocturne Tech + Dark Mode UI Kit
+- **Issue 042** (Sep 24): "Seasonal palette shifts: how to adapt your core system for campaign content"
+  — brand extension vs replacement, accent-first seasonal approach, lightness matching
+  — Featured: Blossom Season + Seasonal Spring 2026
+- Total newsletter issues: 43 (was 39)
+
+### Category A — 3 New SEO Landing Guides
+- **architecture-color-palette** (priority 61): near-neutral framing for portfolio brands, material references as palette method, cross-scale (digital/print/built) specification. Featured: Concrete Modernism
+- **startup-brand-color-palette** (priority 59): 3-color minimum viable palette, category color differentiation, dark-first structural advantage. Featured: Nocturne Tech
+- **fashion-color-palette** (priority 57): brand color that creates space for merchandise, editorial context effects, seasonal accent flexibility system. Featured: Blossom Season
+- Total guides: 32 (was 29)
+
+### Category D — 20 New SEARCH_ALIASES
+- Material/architecture: cement, concrete, stone, mineral
+- Fashion/style: fashion, chic, couture, runway
+- Mood/aesthetic: cheerful, romantic, mysterious, serene
+- Industry/context: medical, spa, food, cafe, startup, portfolio
+
+### Category E — Day-30 Follow-up Email
+- Added `SUBJECT_VARIANTS.day30` (A: "Your ColorArchive palette — one month on", B: "The pack that pays for itself in one project")
+- New `sendFollowUp30DayEmail()` function — catalog conversion angle, features Complete Archive and Brand Starter Kit with direct links
+- Added DB columns `follow_up_30d_sent` + `follow_up_30d_variant` in db.js
+- Added day-30 scheduler block in email-scheduler.js
+- Completes 3/7/14/21/30-day follow-up sequence
+- Server deployed to DO droplet (pm2 restarted)
+
+**Files modified:**
+- src/data/newsletter-issues.json (+4 issues)
+- src/lib/guides.ts (+3 guides)
+- src/lib/color-utils.ts (+20 aliases)
+- server/email.js (+day-30 function + subject variants)
+- server/email-scheduler.js (+day-30 scheduler)
+- server/db.js (+2 columns)
+
+**Commit:** e649c5f
+
 
 ## 2026-03-22 — Normal Run: i18n, Newsletter Issues 035–038, 2 New Collections (commit c43e0d5)
 
