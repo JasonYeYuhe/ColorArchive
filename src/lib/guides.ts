@@ -4105,3 +4105,113 @@ const extraGuides14: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides14);
+
+const extraGuides15: LandingGuide[] = [
+  {
+    category: "Print & Packaging",
+    slug: "packaging-color-design-guide",
+    title: "Packaging Color Design: Substrate, Finish, and the Production Gap",
+    summary:
+      "Packaging color design fails most often not in the design application but between the screen and the substrate. This guide covers the production-specific variables that determine whether packaging color survives the journey from Pantone spec to finished shelf item: substrate color interaction, ink system selection, finish effects, and the approval workflow that catches problems before press.",
+    eyebrow: "Print Production",
+    priority: 78,
+    searchIntent: "packaging design color substrate print production pantone cmyk specification",
+    featuredCollectionId: "copper-patina",
+    featuredPackId: "complete-archive",
+    tags: ["Packaging", "Print", "Production", "Pantone", "CMYK"],
+    highlights: [
+      "Substrate is the first color decision in packaging — it sets the gamut available to every subsequent ink choice. Coated white stock maximizes gamut; kraft and natural boards add a warm brown cast to every color printed on them. Design against a substrate-accurate simulation, not a default white screen.",
+      "The spot vs. process color decision is a gamut and consistency decision. Highly saturated brand colors outside CMYK gamut must be specified as Pantone spot; colors within gamut can be specified as CMYK process with an accepted Delta-E tolerance.",
+      "Finish transforms apparent color after production: matte laminate darkens perceived lightness by 4-8 L points; gloss laminate increases apparent saturation by 3-7 chroma units. A physical substrate drawdown — not a screen preview — is the only accurate pre-production reference.",
+    ],
+    sections: [
+      {
+        heading: "Substrate selection and color simulation",
+        body:
+          "The packaging color workflow begins with substrate selection because the substrate determines available gamut and shifts all printed color. For coated stock (C1S, C2S, SBS): design against a standard white background — the coated surface minimizes substrate color interaction. For uncoated offset: the substrate absorbs ink, reducing gamut by 20-30% and warming all colors. Simulate by using a warm off-white background (#F6F0E8) in your design application during production-spec work. For kraft: the base board color (approximately CIELAB L:65, a:3, b:21) adds a warm amber cast. Simulate with a warm brown background (#C8A87A) — colors designed on white will appear washed out or falsely warm on kraft. Test all color choices with a physical drawdown on the actual substrate before approving final Pantone or CMYK specifications.",
+      },
+      {
+        heading: "Finish specification and color management",
+        body:
+          "Finish decisions are made after design but before final production specification. The critical relationships: Matte laminate — reduces lightness by 4-8 CIELAB L units (a medium blue at L:45 reads as L:38-40 under matte laminate). Account for this by lightening colors that will receive matte laminate in the pre-press specification. Gloss laminate — minimal lightness change, increases chroma (saturation) by 3-7 units. Colors close to the gamut boundary may shift out of specification under gloss laminate — verify against the full substrate+finish drawdown. Soft-touch laminate — same lightness effect as matte, but adds perceived warmth through tactile cross-modal interaction. Colors read slightly warmer under soft-touch than under standard matte. Foil and embossing — metallic foils replace ink entirely; embossing creates depth through shadow and highlight on the substrate surface without adding color. Specify foil finishes by Pantone Metallic swatch, not by standard solid Pantone.",
+      },
+    ],
+    links: [
+      { label: "Color Converter", href: "/tools/convert/" },
+      { label: "Copper Patina collection", href: "/collections/copper-patina/" },
+      { label: "Print color management guide", href: "/guides/print-color-management-guide/" },
+    ],
+  },
+  {
+    category: "Typography & Readability",
+    slug: "color-typography-readability-guide",
+    title: "Color and Typography: How Color Choices Affect Reading Comfort and Hierarchy",
+    summary:
+      "Color is not independent of typography. A type hierarchy built on size and weight alone changes the moment color is introduced — a vivid small label can visually dominate a large neutral heading. This guide systematizes the relationship between color and type: how to maintain hierarchy when introducing color, which color variables most affect reading comfort, and practical rules for avoiding the most common color/typography conflicts.",
+    eyebrow: "Readability",
+    priority: 76,
+    searchIntent: "color typography readability hierarchy text contrast design system accessible",
+    featuredCollectionId: "studio-neutral",
+    featuredPackId: "complete-archive",
+    tags: ["Typography", "Readability", "Hierarchy", "Accessibility"],
+    highlights: [
+      "Typographic color — the term for a block of text's overall perceived lightness — is primarily determined by font weight, not hue. Chromatic color should reinforce luminance hierarchy, not substitute for it. Establish weight-based hierarchy first; apply hue within that structure.",
+      "Never use saturation as the sole differentiator between text hierarchy levels. Two saturations of the same hue at the same lightness will not produce reliable, consistent hierarchy across different displays and viewing conditions.",
+      "Body text — paragraph-level, extended reading — should be achromatic or near-achromatic (saturation ≤ 12%). Chromatic body text measurably increases cognitive load for extended reading sessions.",
+    ],
+    sections: [
+      {
+        heading: "Maintaining luminance hierarchy when adding color",
+        body:
+          "The safest method for introducing color into a typographic system without breaking hierarchy: use the Lch or OKLCH color space to change hue without changing lightness. A heading at OKLCH L:25, C:0 (dark neutral) can be colored by increasing C to 12-18 while keeping L:25 — the heading retains its luminance position in the hierarchy while gaining hue identity. If the colored version is lighter or darker than the neutral version, it has moved in the hierarchy. Most design applications provide Lch or OKLCH controls — verify that your color change is chroma-only, not lightness-changing. For text roles that should recede (captions, metadata, footnotes): use luminance reduction (increase L by 20-30 points toward the background) rather than saturation reduction — high-saturation low-contrast text fails WCAG and is harder to read than low-saturation high-contrast text at any given perceived lightness.",
+      },
+      {
+        heading: "Temperature interactions between text and background",
+        body:
+          "Color temperature creates a perceptual layering effect in type: cool text on warm backgrounds recedes (reads as secondary or distant); warm text on cool backgrounds advances (reads as primary or proximate). This effect operates independently of luminance contrast and can reinforce or undermine hierarchy. Common failure: warm background color (amber, peach, warm beige) with warm text color — both background and text compete for the same temperature position, reducing perceived hierarchy even when luminance contrast is technically sufficient. Solution: when using a warm background, shift primary text toward a cool-neutral (a slightly blue-shifted near-black: hue ~220°, L:12%, S:8%) rather than a warm-neutral. The temperature contrast creates visual separation that compensates for reduced lightness contrast on warm backgrounds. The same principle applies in reverse: cool backgrounds benefit from slightly warm text.",
+      },
+    ],
+    links: [
+      { label: "Color Compare tool", href: "/tools/compare/" },
+      { label: "WCAG Contrast Auditor", href: "/tools/wcag-audit/" },
+      { label: "Studio Neutral collection", href: "/collections/studio-neutral/" },
+    ],
+  },
+  {
+    category: "Color Systems",
+    slug: "color-accessibility-apca-guide",
+    title: "Color Accessibility in 2025: WCAG 2.1, APCA, and the Dual-Standard Audit",
+    summary:
+      "WCAG 2.1's contrast ratio formula was not calibrated for font weight or size — it treats a 400-weight 12px label and a 700-weight 48px heading identically. APCA (Advanced Perceptual Contrast Algorithm), the foundation of the forthcoming WCAG 3.0, corrects this with a model that varies required contrast by font size and weight. This guide explains the practical differences, how to run a dual-standard audit, and what to prioritize during the standards transition.",
+    eyebrow: "Accessibility",
+    priority: 82,
+    searchIntent: "color accessibility wcag apca contrast ratio 2025 standard audit accessible design",
+    featuredCollectionId: "data-dashboard",
+    featuredPackId: "complete-archive",
+    tags: ["Accessibility", "WCAG", "APCA", "Contrast", "Standards"],
+    highlights: [
+      "WCAG 2.1 requires a 4.5:1 contrast ratio for normal text regardless of font size or weight. APCA requires a minimum Lc 75 for small body text (16px 400-weight) but allows Lc 45 for large bold headings (32px 700-weight). The same color pair can pass one standard and fail the other depending on the type role.",
+      "The errors in WCAG 2.1 go in both directions: some compliant combinations are genuinely hard to read (white on medium blue); some failures are fine at large, bold sizes. The dual-standard audit reveals which failures matter and which are false alarms.",
+      "APCA currently has legal weight in a subset of jurisdictions under WCAG 3.0 drafts. WCAG 2.1 remains the legal standard for EN 301 549 (EU), Section 508 (US), and most accessibility regulations worldwide as of early 2025. Design for WCAG 2.1 compliance now; flag APCA differences for future migration.",
+    ],
+    sections: [
+      {
+        heading: "How WCAG 2.1 and APCA differ in practice",
+        body:
+          "WCAG 2.1 uses a contrast ratio: (L1 + 0.05) / (L2 + 0.05), where L1 and L2 are relative luminance values. Thresholds: 4.5:1 for normal text (< 18pt / < 14pt bold), 3:1 for large text (≥ 18pt / ≥ 14pt bold). The formula is luminance-only — hue and saturation have no effect on the calculated ratio, and font weight/size have no effect beyond the binary normal/large text categories. APCA replaces the ratio with a signed Lc value (Lc 0 to Lc 106 for dark text on light background). Required Lc values from the APCA lookup table (representative examples): body text at 14px 400-weight — Lc 90; body text at 16px 400-weight — Lc 75; UI labels at 24px 400-weight — Lc 60; large headings at 32px 700-weight — Lc 45; non-text elements and decorative content — Lc 15 minimum. APCA also accounts for polarity: dark text on light background is not symmetrical with light text on dark — the Lc value is signed (positive for dark-on-light, negative for light-on-dark).",
+      },
+      {
+        heading: "Running a dual-standard audit",
+        body:
+          "A dual-standard audit evaluates each foreground/background color pair against both WCAG 2.1 and APCA, then categorizes the result: (A) Passes both — no action required. (B) Fails both — fix immediately, regardless of which standard is legally current. (C) Passes WCAG 2.1, fails APCA — document with the specific font role and size context; flag for migration when WCAG 3.0 has legal weight in your jurisdiction. (D) Passes APCA, fails WCAG 2.1 — this is likely a large, bold-weight text role; document the specific use case and confirm it qualifies as 'large text' under WCAG 2.1. Automate the WCAG 2.1 portion with the ColorArchive WCAG Contrast Auditor; check APCA values using the APCA Contrast Calculator (open source) or the Sa11y accessibility checker. The dual-standard audit is primarily useful for design systems with a large number of color pair combinations — single-page designs can be audited manually.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/tools/wcag-audit/" },
+      { label: "Color Compare tool", href: "/tools/compare/" },
+      { label: "Data Dashboard collection", href: "/collections/data-dashboard/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides15);

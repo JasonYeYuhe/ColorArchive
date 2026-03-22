@@ -724,7 +724,7 @@ collections.push(
     "A palette built on the coldest end of the visible spectrum: the territory of glaciers, surgical precision, and premium technology. The frost-veil-soft anchors the palette at its lightest — a barely-there off-white with a cold undertone that reads as pure without being sterile. The azure-mist-soft provides a faint blue tint at near-white lightness, suggesting sky or ice-refracted light rather than blue pigment. The cobalt-veil-soft pushes further into the blue register while remaining light enough for backgrounds. The cerulean-tone-muted is the palette's structural midtone — a desaturated arctic blue that reads as sophisticated and technical. The slate-tone-muted closes the palette at a cool medium-dark neutral, providing the contrast anchor for text and borders without the warmth of charcoal. This palette is optimized for: premium technology product UIs, medical and healthcare brands, Scandinavian minimalist editorial and product design, and architectural photography.",
     ["Cool", "Minimal", "Technical"],
     [
-      "frost-veil-soft",
+      "cerulean-veil-soft",
       "azure-mist-soft",
       "cerulean-mist-soft",
       "cerulean-tone-muted",
@@ -751,7 +751,7 @@ collections.push(
       "amber-tone-soft",
       "amber-tone-muted",
       "ember-tone-soft",
-      "sienna-tone-muted",
+      "ember-tone-muted",
     ],
     {
       editorialNote:
@@ -949,8 +949,8 @@ collections.push(
     ["Warm", "Artisan", "Material"],
     [
       "amber-tone-soft",
-      "terracotta-silk-muted",
-      "sage-bloom-muted",
+      "ember-silk-muted",
+      "moss-bloom-muted",
       "teal-mist-soft",
       "honey-bloom-muted",
     ],
@@ -1083,11 +1083,11 @@ export const extraCollections10: ColorCollection[] = [
     "The color of mineral-rich desert terrain: iron-oxide red in exposed canyon walls, the warm tan of sandstone plateaus, the amber of dry grasses, the dusty sage of desert scrub, and the pale cream of sun-bleached stone. Terracotta-tone-muted provides the foundational warm red-brown — a deeply earthy hue that reads as both geological and handcrafted; rust-bloom-muted introduces the more intense iron-oxide red-orange of exposed rock surfaces; honey-bloom-muted provides the warm amber-gold of desert light at the golden hour; sage-mist-soft brings the cool, dusty green that appears in desert vegetation — a color that reads as neutral when surrounded by warm tones, adding chromatic relief without introducing a jarring contrast; sand-pearl-soft provides the lightest entry — the pale buff of desert sand or sun-bleached sandstone, which works as both a light-toned accent and a warm off-white surface color. Together the five colors create a palette of mineral warmth and geological authority.",
     ["Earthy", "Desert", "Warm"],
     [
-      "terracotta-tone-muted",
-      "rust-bloom-muted",
+      "ember-tone-muted",
+      "ember-bloom-muted",
       "honey-bloom-muted",
-      "sage-mist-soft",
-      "sand-pearl-soft",
+      "moss-mist-soft",
+      "apricot-pearl-soft",
     ],
     {
       editorialNote:
@@ -1097,17 +1097,17 @@ export const extraCollections10: ColorCollection[] = [
     },
   ),
   createCollection(
-    "midnight-garden",
-    "Midnight Garden",
+    "moonlit-garden",
+    "Moonlit Garden",
     "Deep navy, forest shadow, dusty rose, warm cream, and soft charcoal — a sophisticated palette for luxury fashion, dark editorial, and premium evening-oriented products.",
     "A palette assembled around the specific visual register of a garden at night under a clear sky: the deep, slightly warm navy of the sky above, the nearly-black green of dense foliage in shadow, the soft dusty rose of night-blooming flowers barely visible in low light, the warm cream of stone paths and moonlit surfaces, and the soft charcoal of bark and branch. Midnight-blue-nocturne (navy-nocturne-muted in the archive) provides the deep blue anchor — not pure navy but a slightly warm, deep blue-black that reads as 'night sky rather than ocean'; forest-shadow-soft contributes the dark, desaturated green of foliage without light — a color that functions equally as an accent and a near-neutral; rose-whisper-muted introduces the pale, dusty rose note — a highly desaturated pink that reads as muted rather than sweet and provides chromatic warmth; cream-pearl-soft provides the warmest and lightest entry, suggesting moonlit stone and aged paper surfaces; charcoal-soft provides the most neutral and darkest entry — a warm charcoal that functions as a dark neutral without the coldness of pure black.",
     ["Dark", "Botanical", "Luxury"],
     [
-      "navy-nocturne-muted",
-      "forest-shadow-soft",
+      "cobalt-nocturne-muted",
+      "emerald-shadow-soft",
       "rose-whisper-muted",
-      "cream-pearl-soft",
-      "charcoal-bloom-soft",
+      "amber-pearl-soft",
+      "cobalt-ink-soft",
     ],
     {
       editorialNote:
@@ -1122,8 +1122,8 @@ collections.push(...extraCollections10);
 
 export const extraCollections11: ColorCollection[] = [
   createCollection(
-    "copper-patina",
-    "Copper Patina",
+    "copper-verdigris",
+    "Copper Verdigris",
     "Warm amber-copper tones with oxidized teal-green accents — a palette of aged metal and artisanal material surfaces.",
     "This collection is built from the color language of copper at different stages of oxidation: the warm orange-red of freshly polished copper, the amber of slightly aged metal, the olive-tan of early patination, the cool dusty sage of partially oxidized surfaces, and the deep blue-green of fully patinated verdigris. Ember-tone-muted provides the foundational warm copper-brown — not a vivid orange but the muted, dark version that reads as aged metal or polished stone; apricot-bloom-soft brings the lighter, warmer amber tone of fresh copper or warm metal leaf; olive-tone-muted introduces the olive-tan of early oxidation, sitting between the warm copper and the green patina; jade-mist-soft provides the dusty, desaturated green of developing verdigris — soft enough not to read as a primary green but clearly cooler than the warm copper tones; teal-shadow-muted contributes the deep, dark blue-green of fully oxidized patina — the darkest and coolest entry, providing the grounding contrast that anchors the palette. The palette is inherently dual-temperature: warm coppers in tension with cool patina greens.",
     ["Metallic", "Artisanal", "Warm-Cool"],
@@ -1232,8 +1232,8 @@ const extraCollections13: ColorCollection[] = [
     },
   ),
   createCollection(
-    "midnight-garden",
-    "Midnight Garden",
+    "dark-botanical",
+    "Dark Botanical",
     "Deep forest green, noir violet, shadow plum, pewter sage, and faint blush — a moody botanical palette for editorial, luxury, and dark-mode brand work.",
     "The midnight garden is a specific aesthetic register: dark, lush, romantic, and slightly gothic — the visual language of luxury botanicals, dark academia, and high-end editorial photography. It works because it occupies hue territory (deep green-violet) that most brands avoid as too niche, giving it immediate differentiation value. Emerald-shadow-soft anchors the palette in the dark, saturated forest green that defines the aesthetic — the color of dense foliage at night, or of aged velvet in a dim interior; violet-shadow-muted provides the moody near-black purple that accompanies deep greens in this palette register — it serves as the darkest surface and background in dark-mode applications; plum-velvet-muted contributes depth without brightness — a shadow color that bridges green and purple in the mid-dark range, appropriate for overlays and secondary surfaces; jade-tone-muted adds a slightly lighter botanical green, the color of aged botanical prints and pressed specimens; blush-whisper-muted provides the single light accent, a deliberately spare pale warm note that creates a moment of air in an otherwise deep palette.",
     ["Moody", "Botanical", "Dark Mode"],
@@ -1265,9 +1265,9 @@ const extraCollections14: ColorCollection[] = [
     [
       "cobalt-tone-vivid",
       "teal-ink-muted",
-      "amber-glow-soft",
+      "amber-bloom-soft",
       "crimson-tone-soft",
-      "slate-tone-muted",
+      "cobalt-tone-muted",
     ],
     {
       editorialNote:
@@ -1284,10 +1284,10 @@ const extraCollections14: ColorCollection[] = [
     ["Film", "Analog", "Neutral"],
     [
       "amber-veil-muted",
-      "pearl-blush-soft",
-      "slate-veil-muted",
+      "blush-pearl-soft",
+      "cobalt-veil-muted",
       "cobalt-shadow-muted",
-      "obsidian-tone-soft",
+      "cobalt-ink-soft",
     ],
     {
       editorialNote:
@@ -1299,3 +1299,48 @@ const extraCollections14: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections14);
+
+const extraCollections15: ColorCollection[] = [
+  createCollection(
+    "velvet-dusk",
+    "Velvet Dusk",
+    "Deep plum, shadow violet, rose noir, dark orchid, and muted charcoal — a rich evening palette for luxury cosmetics, premium beauty, and dark editorial work.",
+    "Velvet dusk is a specific register in the luxury color vocabulary: the deep, warm-dark purples and plums of evening beauty photography — the colors of velvet packaging, premium fragrances, and high-end editorial cosmetics. The palette lives at the intersection of warm and cool in the dark value range, where purple-pinks and blue-purples coexist without conflict. Plum-shadow-clear anchors the palette in a deep, warm-leaning plum that serves as the dominant brand surface — rich without being candy-like; mulberry-ink-soft provides the darkest, most neutral-dark entry, a near-black with enough purple residue to read as intentional; violet-mist-muted introduces a lighter, slightly cooler purple-gray that works for secondary surfaces and typography in light-mode applications; rose-nocturne-muted brings the warm pink-dark note that prevents the palette from reading as cold; orchid-shadow-muted completes the set with a mid-dark orchid that bridges the cool violet and warm rose entries. The palette is simultaneously evening, premium, and feminine without being pastel or juvenile.",
+    ["Luxury", "Beauty", "Evening"],
+    [
+      "plum-shadow-clear",
+      "mulberry-ink-soft",
+      "violet-mist-muted",
+      "rose-nocturne-muted",
+      "orchid-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "This palette requires careful proportion management: mulberry-ink-soft as the background at maximum depth; plum-shadow-clear as the primary brand accent; violet-mist-muted for light text and secondary surfaces in dark-mode applications. In light-mode: reverse the palette's role — use violet-mist-muted as the primary surface, plum-shadow-clear as the brand anchor, and pair with near-white for body areas. The rose-nocturne-muted note should be used for a single accent element per composition — it reads as distinctly warm against the cooler purples and draws the eye.",
+      promptWords: ["velvet cosmetics packaging in studio light", "luxury perfume bottle on dark marble", "beauty editorial with plum editorial background", "dark-mode skincare brand interface", "premium evening fragrance campaign"],
+      useCases: ["Luxury cosmetics and fragrance brands", "Premium beauty editorial and campaign", "Dark-mode fashion and lifestyle platforms", "High-end event and hospitality branding"],
+    },
+  ),
+  createCollection(
+    "coastal-fog",
+    "Coastal Fog",
+    "Pale slate, misty sage, silver white, pewter gray, and deep marine — the muted, cool-neutral palette of overcast coastal environments and maritime aesthetics.",
+    "The coastal fog palette occupies a different register than the bright coastal palettes (clear aquas and vivid blues) — it represents the cooler, more atmospheric quality of foggy coastal mornings, overcast seascapes, and the specific desaturated blue-grays of maritime environments. This is the palette of weathered boat paint, salt-bleached driftwood, fog-softened horizon lines, and the silver-white light of a cloudy coastal day. Slate-veil-muted provides the foundational warm-cool gray of fog and bleached surfaces — not a design-neutral gray but a color with a slight blue-leaning identity; cerulean-mist-muted contributes the pale, desaturated near-blue that reads as sky-and-sea under overcast light; sage-mist-muted introduces the cool, slightly desaturated sage of coastal vegetation — muted beach grass and salt-weathered plant life; cobalt-shadow-muted provides the deep marine reference — a dark, desaturated blue that anchors the palette in the depth of seawater rather than sky; pearl-blush-soft supplies the palest, warmest entry — the faint warm-white of sea foam and salt-crystallized surfaces. Together the five colors create a palette that reads as simultaneously coastal and sophisticated, appropriate for maritime brands, technology companies, and any identity that requires restraint and cool-neutral authority.",
+    ["Coastal", "Cool-Neutral", "Atmospheric"],
+    [
+      "cobalt-veil-muted",
+      "cerulean-mist-muted",
+      "moss-mist-muted",
+      "cobalt-shadow-muted",
+      "blush-pearl-soft",
+    ],
+    {
+      editorialNote:
+        "This palette's mood depends entirely on application — on white or near-white backgrounds, it reads as minimalist coastal; on dark backgrounds, it reads as atmospheric and moody. For brand applications: cobalt-shadow-muted as the primary dark anchor; cerulean-mist-muted as the secondary surface color; pearl-blush-soft for light surface areas and body text backgrounds. Typography: use cobalt-shadow-muted for headings and primary navigation — it functions as the palette's 'almost black' without introducing a temperature conflict. Photography direction: overcast coastal scenes, fog over water, weathered maritime surfaces, silver-white diffused natural light.",
+      promptWords: ["foggy coastal morning on rocky shore", "weathered boat hull in gray harbor", "overcast beach with pale sand and sea foam", "maritime warehouse in silver morning light", "salt-weathered coastal architecture in fog"],
+      useCases: ["Maritime and coastal lifestyle brands", "Technology and SaaS companies with minimal aesthetic", "Premium hospitality in coastal or Nordic environments", "Architecture and interior design with cool-neutral palette"],
+    },
+  ),
+];
+
+collections.push(...extraCollections15);

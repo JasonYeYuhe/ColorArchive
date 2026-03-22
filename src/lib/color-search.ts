@@ -480,6 +480,35 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   calm_palette: ["cerulean", "aqua", "mist", "bloom", "soft"],
   energy_palette: ["vivid", "coral", "amber", "citrine", "lime"],
 
+  // Packaging and print production
+  packaging_color: ["amber", "terracotta", "coral", "copper", "muted"],
+  kraft_packaging: ["amber", "honey", "ember", "apricot", "tone"],
+  spot_color: ["vivid", "crimson", "cobalt", "emerald", "violet"],
+  print_production: ["amber", "terracotta", "ember", "cobalt", "muted"],
+
+  // Velvet and evening aesthetics
+  evening_palette: ["plum", "violet", "shadow", "nocturne", "mulberry"],
+  beauty_palette: ["rose", "blush", "peony", "orchid", "plum"],
+  cosmetics: ["rose", "blush", "mulberry", "plum", "violet"],
+  fragrance: ["plum", "violet", "rose", "orchid", "shadow"],
+
+  // Coastal fog and maritime
+  coastal_fog: ["slate", "cerulean", "cobalt", "sage", "mist"],
+  maritime: ["cobalt", "navy", "cerulean", "slate", "shadow"],
+  overcast: ["slate", "cerulean", "silver", "mist", "whisper"],
+  fog_palette: ["mist", "veil", "whisper", "slate", "cerulean"],
+  nordic_coastal: ["cerulean", "cobalt", "slate", "pearl", "mist"],
+
+  // Accessibility and contrast
+  high_contrast: ["vivid", "ink", "shadow", "nocturne", "core"],
+  accessible: ["vivid", "core", "ink", "shadow", "muted"],
+  wcag: ["vivid", "ink", "cobalt", "crimson", "shadow"],
+
+  // Typography color
+  body_text: ["ink", "shadow", "slate", "muted", "soft"],
+  heading_color: ["ink", "nocturne", "shadow", "core", "muted"],
+  text_hierarchy: ["ink", "shadow", "muted", "soft", "whisper"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
