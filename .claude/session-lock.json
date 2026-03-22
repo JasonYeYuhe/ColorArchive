@@ -1,1 +1,6 @@
-{ "active": null, "lockedBy": null, "lockedAt": null, "message": null }
+{
+  "active": true,
+  "lockedBy": "autopilot",
+  "lockedAt": "2026-03-22T12:00:00Z",
+  "message": "Normal run: newsletter issues, new guides, UI polish"
+}
