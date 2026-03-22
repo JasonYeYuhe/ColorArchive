@@ -1,7 +1,7 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-22
+> Last updated: 2026-03-22 (run 2)
 
 ## High Priority
 - [ ] Set up real Lemon Squeezy checkout URLs in `src/lib/checkout-config.ts` — *placeholders are still in place; purchases can't complete*
@@ -12,7 +12,7 @@
 - [ ] Review and update `PRODUCT_MEMO.md` with current pricing/pack structure — *may have drifted from what's live on LS*
 - [ ] Verify the `/admin/orders/` dashboard works with real orders data — *built on SQLite, not tested with production volume*
 - [ ] Check Umami analytics is correctly tracking new tool pages (contrast, convert, harmonies, compare, colorblind) — *may need manual registration of new page paths*
-- [ ] Consider adding the Color Blindness Simulator (`/colorblind/`) to the homepage feature grid — *newly added tool, not yet surfaced on homepage*
+
 
 ## Low Priority / Nice to Have
 - [ ] Add Open Graph image generation for individual color pages — *currently uses static og-image-v1.png for all pages*
@@ -25,3 +25,4 @@
 - [x] Magic link auth — completed 2026-03-18
 - [x] Color converter tool /convert/ — completed 2026-03-21 (autopilot-big)
 - [x] Color Blindness Simulator /colorblind/ — completed 2026-03-22 (autopilot-big)
+- [x] Color Blindness Simulator added to homepage feature grid — completed 2026-03-22 (autopilot)

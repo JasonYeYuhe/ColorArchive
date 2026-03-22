@@ -246,3 +246,41 @@ under 4 types of color vision deficiency.
 - src/lib/guides.ts (32 total, was 31)
 
 **Commit:** 137345e
+
+## 2026-03-22 — Normal Run: UI Polish, Newsletter 046-049, SEO Guides (commit 97bdb01)
+
+**Run type:** Normal (1st run since last big run)
+
+**Categories:** F. UI/UX, A. SEO & Content
+
+### Category F — UI/UX Polish
+
+**Color Blindness Simulator added to homepage feature callouts:**
+- `hero-section.tsx`: Feature callouts grid changed from `sm:grid-cols-2` to `sm:grid-cols-2 lg:grid-cols-3`. New teal-themed card added for `/colorblind/` with `hero.colorblindSimulator`, `hero.colorblindDesc`, `hero.tryColorblind` i18n keys.
+- `site-footer.tsx`: `/colorblind/` link added to footer navigation chips.
+- `i18n.ts`: Three new `hero.colorblind*` keys added with EN + JA translations.
+- Human-todo item closed: "Consider adding /colorblind/ to homepage feature grid"
+
+### Category A — Newsletter Issues 046–049
+
+- **Issue 046** (2026-11-05): "Typography and color: how type weight changes the palette you need" — typographic mass effect, contrast requirements at weight/size, warm vs. cool type on tinted backgrounds
+- **Issue 047** (2026-11-12): "Color in motion: how animation changes what palettes need to do" — static vs. animated color perception, hover state motion calibration, transition interpolation paths
+- **Issue 048** (2026-11-19): "Color meaning is cultural: what your palette communicates across regions" — limits of universal psychology, regional associations (East Asia, Middle East, Western), cultural neutrality vs. specificity
+- **Issue 049** (2026-12-03): "How to document a color palette so the next designer can use it" — three-layer documentation, semantic naming as living docs, real-world usage examples
+- Total newsletter issues: **50** (was 46)
+
+### Category A — 3 New SEO Guides
+
+- **color-palette-for-social-media** (priority 70, Brand & Marketing): feed recognition speed, platform-aware calibration, minimal three-role palette structure
+- **neutral-color-palette** (priority 69, Interface Systems): gray color cast bias, 6+ lightness step requirement, neutral/accent temperature relationships
+- **earth-tone-color-palette** (priority 67, Brand & Marketing): definition of earth tones, muddiness failure mode and lightness variation, contemporary design contexts
+- Total guides: **35** (was 32)
+
+**Files modified:**
+- src/lib/i18n.ts
+- src/components/hero-section.tsx
+- src/components/site-footer.tsx
+- src/data/newsletter-issues.json
+- src/lib/guides.ts
+
+**Commit:** 97bdb01
