@@ -152,7 +152,7 @@
         <a class="inspect-link primary" id="linkColorarchive" target="_blank">View on ColorArchive</a>
         <div class="inspect-link" id="btnApplyBest">Use best text</div>
       </div>
-      <button class="brand-scale-btn" id="btnBrandScale">Generate Brand Scale (22 styles)</button>
+      <button class="brand-scale-btn" id="btnBrandScale">Generate Brand Scale (30 styles)</button>
       <div class="brand-scale-note" id="brandScaleNote"></div>
     </div>
   </div>
@@ -350,8 +350,15 @@ window.onmessage = function(event) {
     document.getElementById('linkColorarchive').href = `https://colorarchive.me/colors/hex/?c=${clean}`;
     document.getElementById('btnApplyBest').textContent = `Use ${bestTextColor === '#111111' ? 'black' : 'white'} text`;
 
-    // Auto-switch to inspect tab when selection is found
     switchTab('inspect');
+    return;
+  }
+
+  if (msg.type === 'brand-scale-done') {
+    const note = document.getElementById('brandScaleNote');
+    note.textContent = '\u2713 Created ' + msg.count + ' styles from ' + msg.hex;
+    setTimeout(() => { note.textContent = ''; }, 3000);
+    return;
   }
 };
 
@@ -370,22 +377,8 @@ document.getElementById('btnApplyBest').addEventListener('click', () => {
 
 document.getElementById('btnBrandScale').addEventListener('click', () => {
   parent.postMessage({ pluginMessage: { type: 'generate-brand-scale' } }, '*');
-  const note = document.getElementById('brandScaleNote');
-  note.textContent = 'Creating styles…';
+  document.getElementById('brandScaleNote').textContent = 'Creating styles\u2026';
 });
-
-// Handle brand-scale-done response
-const _origOnMessage = window.onmessage;
-window.onmessage = function(event) {
-  const msg = event.data.pluginMessage;
-  if (msg && msg.type === 'brand-scale-done') {
-    const note = document.getElementById('brandScaleNote');
-    note.textContent = `✓ Created ${msg.count} styles from ${msg.hex}`;
-    setTimeout(() => { note.textContent = ''; }, 3000);
-    return;
-  }
-  _origOnMessage && _origOnMessage.call(this, event);
-};
 </script>
 </body>
 </html>

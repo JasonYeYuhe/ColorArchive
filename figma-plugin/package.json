@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "ColorArchive Figma plugin — browse 2016 curated colors and inspect WCAG contrast",
   "scripts": {
-    "build": "tsc --noEmit && cp src/ui.html ui.html",
+    "build": "tsc && cp dist/code.js code.js",
     "watch": "tsc --watch"
   },
   "devDependencies": {

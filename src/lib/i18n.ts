@@ -28,6 +28,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.brand": { en: "Brand System", zh: "品牌色系" },
   "nav.wcagAudit": { en: "WCAG Audit", zh: "批量检测" },
   "nav.apiDocs": { en: "Color API", zh: "颜色 API" },
+  "nav.figmaPlugin": { en: "Figma Plugin", zh: "Figma 插件" },
   "nav.surprise": { en: "Surprise", zh: "随机发现" },
   "nav.favorites": { en: "Favorites", zh: "收藏" },
   "nav.packs": { en: "Packs", zh: "色彩包" },
@@ -1873,11 +1874,17 @@ const translations: Record<string, Record<string, string>> = {
     en: "Turn any hex color into a complete design system: 11-step primary & neutral scales, semantic colors, WCAG validation, and CSS/Tailwind export.",
     zh: "将任意十六进制颜色转化为完整的设计系统：11 级主色和中性色阶、语义色、WCAG 验证，以及 CSS/Tailwind 导出。",
   },
+  "tools.cat.integrations": { en: "Integrations", zh: "集成" },
   "tools.cat.developer": { en: "Developer", zh: "开发者" },
   "tools.apiDocs.name": { en: "Color API", zh: "颜色 API" },
   "tools.apiDocs.desc": {
     en: "Free REST API for 2016 colors. Search by name, hex, or mood. Get color relationships. No auth required.",
     zh: "免费 REST API，支持按名称、hex 或语义搜索 2016 种颜色。获取关联色。无需认证。",
+  },
+  "tools.figmaPlugin.name": { en: "Figma Plugin", zh: "Figma 插件" },
+  "tools.figmaPlugin.desc": {
+    en: "Browse 2016 colors, inspect WCAG contrast, and generate brand scales with 30 paint styles — directly inside Figma.",
+    zh: "在 Figma 中浏览 2016 种颜色、检查 WCAG 对比度、生成 30 个品牌色 paint style。",
   },
   "tools.ctaBadge": {
     en: "More to explore",

@@ -136,6 +136,16 @@ const TOOLS: Tool[] = [
     badgeKey: "tools.badge.new",
     accent: "bg-slate-100 text-slate-700",
   },
+  // Integrations
+  {
+    href: "https://www.figma.com/community/plugin/1616829363158218051",
+    icon: "◆",
+    nameKey: "tools.figmaPlugin.name",
+    descKey: "tools.figmaPlugin.desc",
+    categoryKey: "tools.cat.integrations",
+    badgeKey: "tools.badge.new",
+    accent: "bg-purple-100 text-purple-700",
+  },
 ];
 
 const CATEGORIES = [
@@ -144,6 +154,7 @@ const CATEGORIES = [
   "tools.cat.creative",
   "tools.cat.explore",
   "tools.cat.developer",
+  "tools.cat.integrations",
 ] as const;
 
 export function ToolsPage() {
@@ -201,10 +212,15 @@ export function ToolsPage() {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {catTools.map((tool) => (
-                  <Link
+                {catTools.map((tool) => {
+                  const isExternal = tool.href.startsWith("http");
+                  const Comp = isExternal ? "a" : Link;
+                  const extraProps = isExternal ? { target: "_blank" as const, rel: "noopener noreferrer" } : {};
+                  return (
+                  <Comp
                     key={tool.href}
                     href={tool.href}
+                    {...extraProps}
                     className="group relative flex flex-col gap-4 rounded-[1.5rem] border border-black/6 bg-white/80 p-6 shadow-[0_8px_32px_rgba(15,23,42,0.05)] transition hover:shadow-[0_12px_40px_rgba(15,23,42,0.10)] hover:bg-white backdrop-blur-sm"
                   >
                     {tool.badgeKey ? (
@@ -230,8 +246,9 @@ export function ToolsPage() {
                       <span>{t("tools.openTool")}</span>
                       <span className="transition group-hover:translate-x-0.5">→</span>
                     </div>
-                  </Link>
-                ))}
+                  </Comp>
+                  );
+                })}
               </div>
             </section>
           );

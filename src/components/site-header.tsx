@@ -87,6 +87,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/brand/", labelKey: "nav.brand" },
       { href: "/wcag-audit/", labelKey: "nav.wcagAudit" },
       { href: "/api-docs/", labelKey: "nav.apiDocs" },
+      { href: "https://www.figma.com/community/plugin/1616829363158218051", labelKey: "nav.figmaPlugin" },
       { href: "/favorites/", labelKey: "nav.favorites" },
     ],
   },
