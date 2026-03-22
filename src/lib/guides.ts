@@ -1185,6 +1185,126 @@ export const landingGuides: LandingGuide[] = [
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
+  {
+    category: "Brand & Marketing",
+    slug: "architecture-color-palette",
+    title: "Architecture Color Palette: Tone Systems for Firms, Portfolios, and Built Environment Brands",
+    summary:
+      "Architecture practices and built environment brands face a specific color problem: the palette has to work at three scales simultaneously — digital presentation, printed material, and the physical space itself. A color system that solves this requires restraint, material awareness, and a different approach to contrast than most digital-first palettes.",
+    eyebrow: "Architecture Guide",
+    priority: 61,
+    searchIntent: "architecture color palette",
+    featuredCollectionId: "concrete-modernism",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Architecture", "Brand", "Neutral"],
+    highlights: [
+      "Architecture portfolios fail when the palette competes with the photography. The strongest architecture brand palettes are near-neutral — they frame the work rather than fight it.",
+      "Concrete Modernism was built specifically for this use case: a cool, restrained system from pale mist to near-black charcoal that works across digital and print without adjustment.",
+      "Material references are a reliable shortcut for architectural palette selection: poured concrete, brushed steel, raw linen, and weathered oak all have precise color equivalents that carry implicit material intelligence.",
+    ],
+    sections: [
+      {
+        heading: "Why architecture palettes need to stay near-neutral",
+        body:
+          "The central challenge of an architecture brand palette is that the work is the star, not the brand. An architecture firm's portfolio lives or dies by the quality of its project photography — and the brand palette exists to give that photography a disciplined container. A saturated brand color in the same visual field as a complex building photograph creates competition, not context. The strongest architecture brand palettes are almost always near-neutral: warm off-whites, cool concrete grays, slate blues, and muted warm stone tones. These palettes frame work rather than fight it. Concrete Modernism was built around exactly this logic: each tone in the palette references a real material — poured concrete at the mid-range, brushed steel at the cool end, raw limestone at the light end, charcoal slate at the base.",
+      },
+      {
+        heading: "Material references as a palette design method",
+        body:
+          "The most reliable shortcut for architectural palette selection is working from material references rather than abstract color theory. Every significant material in the built environment has a precise HSL equivalent: raw concrete sits around HSL(210°, 8%, 62%), structural steel around HSL(215°, 12%, 48%), aged bronze around HSL(35°, 30%, 38%), weathered corten around HSL(20°, 55%, 38%). Starting from these material references rather than from color wheels produces palettes that carry implicit credibility — they look right to an architecture audience because they reference familiar textures and surface qualities. The Brand Starter Kit provides token formats that make it easy to specify these material-referenced hues with precision for both screen and print output.",
+      },
+      {
+        heading: "Designing across scales: digital, print, and built",
+        body:
+          "Architecture brand materials operate across three distinct scales: a responsive website viewed on screens with varying calibration, printed collateral on coated and uncoated stocks, and physical signage in the built space itself. A single HEX value will look different at each scale. The practical solution is over-specification: for each core brand color, define the screen value (HEX/HSL), the print value (CMYK for coated, separate CMYK for uncoated), and the closest paint or Pantone match for physical applications. The muted, near-neutral tones in Concrete Modernism are particularly forgiving of cross-medium translation: they fall outside the saturated gamut zones that typically shift unpredictably between digital and print, making consistent cross-scale application more achievable.",
+      },
+    ],
+    links: [
+      { label: "Open Concrete Modernism", href: "/collections/concrete-modernism/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse neutral family colors", href: "/families/neutral/" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "startup-brand-color-palette",
+    title: "Startup Brand Color Palette: Building a Color System Before You Have a Full Design Team",
+    summary:
+      "Early-stage startups face a specific color challenge: the palette needs to work before there is a design team, a brand guide, or a production budget. A well-chosen early palette does most of the work automatically — reducing decisions at component level and making the product feel intentional even when built quickly.",
+    eyebrow: "Startup Guide",
+    priority: 59,
+    searchIntent: "startup brand color palette",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Brand", "Startup", "Systems"],
+    highlights: [
+      "The single most important startup palette decision is: one primary, one accent, one neutral. Three colors with clear roles produce more coherent products than ten colors without them.",
+      "Startups in the same category converge on the same blue. The best palette differentiation move is a deliberate category break — choosing the hue family that no major competitor occupies.",
+      "A dark-first product palette (using Nocturne Tech as the base) has a structural advantage: dark surfaces tolerate inconsistency better than light surfaces, giving you more margin while the system is immature.",
+    ],
+    sections: [
+      {
+        heading: "Three colors with roles beats ten colors without them",
+        body:
+          "The most common startup palette mistake is addition without structure. The team picks a hero color, adds a second for variety, then keeps extending — until the product has seventeen colors and none of them have defined jobs. The minimum viable palette structure is three colors with explicit roles: a primary action color (buttons, links, CTAs), a background neutral (the surface the product lives on), and an accent (for emphasis, status, or energy). This three-color system with clear roles produces more visually coherent products than any expanded palette without role assignments. The Brand Starter Kit is built around role-first organization: each color token has an explicit purpose, which means the palette works immediately in implementation even without a detailed brand guide.",
+      },
+      {
+        heading: "Category color differentiation as a competitive move",
+        body:
+          "SaaS products default to blue. Fintech products default to blue or dark teal. Healthcare startups default to blue or green. The predictability of category color conventions means that differentiation through hue selection is genuinely achievable — it requires only choosing the hue family that no category leader occupies. A cold storage startup in a blue-dominant market that chooses a warm amber primary will be immediately visually distinct. A design tool startup in the blue/purple space that chooses deep sage green will stand out at the product listing level before anyone reads the value proposition. Nocturne Tech provides a differentiated base for technical and product startups: cobalt-to-violet with vivid aqua accents, positioned away from the generic 'enterprise blue' but close enough in tone to read as credible and technical.",
+      },
+      {
+        heading: "The dark-first advantage for resource-constrained teams",
+        body:
+          "Dark-mode-first palettes have a structural benefit for resource-constrained product teams: dark backgrounds are more forgiving of component-level inconsistency than light surfaces. On a light background, every shadow, border radius, and elevation inconsistency is visible. On a deep dark surface, minor inconsistencies in component treatment disappear into the base. This means a product built on a dark foundation looks more intentional during its rough early state — before all the edge cases have been styled. Nocturne Tech was designed around this property: deep cobalt and indigo surfaces that are rich enough to have character but dark enough to absorb the small mistakes that accumulate during fast iteration.",
+      },
+    ],
+    links: [
+      { label: "Open Nocturne Tech", href: "/collections/nocturne-tech/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse all guides", href: "/guides/" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "fashion-color-palette",
+    title: "Fashion Color Palette: Building Brand Color Systems for Apparel, Beauty, and Style Brands",
+    summary:
+      "Fashion and beauty brands have color requirements that differ from product and tech — the palette must work on fabric, in photography, in retail environments, and in editorial contexts simultaneously. Building a fashion color system means thinking about how color reads when it is the product, not just the brand.",
+    eyebrow: "Fashion & Beauty Guide",
+    priority: 57,
+    searchIntent: "fashion brand color palette",
+    featuredCollectionId: "blossom-season",
+    featuredPackId: "content-creator-bundle",
+    tags: ["Fashion", "Brand", "Editorial"],
+    highlights: [
+      "Fashion palettes work differently because color is the product. The brand palette has to create space for merchandise colors rather than compete with them — which means fashion brand neutrals are more important than fashion brand accents.",
+      "Editorial context is everything. The same color reads as cheap or luxurious depending on the typography, photography style, and whitespace around it — not the hue itself.",
+      "Seasonal palette extensions are more important in fashion than in any other category. A flexible accent system that can shift between seasonal color stories without replacing the brand base is the most valuable structural decision.",
+    ],
+    sections: [
+      {
+        heading: "Brand color that creates space for merchandise",
+        body:
+          "In most categories, the brand palette is the foreground and the product photography is secondary. In fashion and apparel, this relationship inverts: the product color is the primary communication, and the brand palette exists to make space for it. A brand system that uses vivid, saturated colors will fight with merchandise in every editorial layout. The strongest fashion brand neutrals are carefully chosen near-neutrals — warm off-whites, cool dove grays, pale blush or stone tones — that give merchandise photography room to read without color competition. Blossom Season demonstrates this in a spring/summer register: rose-to-plum tones at controlled saturation that can frame light-colored merchandise without fighting it.",
+      },
+      {
+        heading: "Editorial context shapes how color reads",
+        body:
+          "Color perception in fashion is highly context-dependent. A specific shade of sage green reads as premium and understated in a magazine layout with clean typography and generous whitespace — and reads as cheap in a cluttered e-commerce grid with dense price tags. This means fashion brand palettes cannot be evaluated in isolation: they must be judged in the editorial context where they will actually appear. The Content Creator Bundle includes export formats designed for content production — CSS variables, HEX exports, and image-ready color swatches — which makes it easier to test palette colors in real photographic and editorial contexts before committing to brand guidelines.",
+      },
+      {
+        heading: "Seasonal accent flexibility as a structural requirement",
+        body:
+          "Fashion operates on seasonal cycles in a way that most other industries do not. A fashion brand palette needs to feel current in January collections and fresh again in August lookbooks without triggering a brand redesign twice a year. The solution is a stable neutral base with a flexible accent layer: the core palette — surfaces, typography, structural brand elements — stays consistent. The seasonal accent colors shift within a defined range. Spring gets a blush or apricot accent. Fall gets a terracotta or amber accent. The brand reads as seasonally engaged without the fragmentation that comes from starting a completely new palette twice a year. Building this flexibility into the initial palette structure — deciding which accent slots are 'seasonal' versus 'permanent' — is the most important early structural decision for fashion brand color systems.",
+      },
+    ],
+    links: [
+      { label: "Open Blossom Season", href: "/collections/blossom-season/" },
+      { label: "Explore Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Browse all collections", href: "/collections/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {

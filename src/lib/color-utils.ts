@@ -187,6 +187,28 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   fire: ["ember", "crimson", "rust", "amber", "garnet"],
   midnight: ["ink", "cobalt", "shadow", "violet", "nocturne"],
   sunrise: ["coral", "amber", "rose", "citrine", "marigold"],
+  // Architecture & material aliases
+  cement: ["slate", "ash", "fog", "mist", "stone"],
+  concrete: ["slate", "ash", "fog", "coal", "stone"],
+  stone: ["ash", "fog", "slate", "sand", "ivory"],
+  mineral: ["ash", "slate", "cobalt", "umber", "clay"],
+  // Fashion & style aliases
+  fashion: ["blush", "ivory", "peony", "onyx", "pearl"],
+  chic: ["ivory", "onyx", "pearl", "muted", "slate"],
+  couture: ["pearl", "ivory", "onyx", "garnet", "plum"],
+  runway: ["onyx", "ivory", "crimson", "pearl", "garnet"],
+  // Mood & aesthetic aliases
+  cheerful: ["coral", "citrine", "mint", "bloom", "amber"],
+  romantic: ["blush", "peony", "rose", "plum", "garnet"],
+  mysterious: ["shadow", "ink", "plum", "violet", "nocturne"],
+  serene: ["mist", "fog", "frost", "whisper", "veil"],
+  // Industry & context aliases
+  medical: ["azure", "frost", "whisper", "mint", "teal"],
+  spa: ["mist", "whisper", "sage", "teal", "ivory"],
+  food: ["ember", "amber", "coral", "honey", "citrine"],
+  cafe: ["sienna", "amber", "clay", "ivory", "honey"],
+  startup: ["cobalt", "violet", "azure", "vivid", "ink"],
+  portfolio: ["ink", "ivory", "slate", "muted", "pearl"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

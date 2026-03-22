@@ -398,6 +398,10 @@ const SUBJECT_VARIANTS = {
     A: "10% off your first ColorArchive pack — code FIRSTPACK",
     B: "Your FIRSTPACK discount expires in 7 days",
   },
+  day30: {
+    A: "Your ColorArchive palette — one month on",
+    B: "The pack that pays for itself in one project",
+  },
   day21: {
     A: "Three things you can build with a ColorArchive palette today",
     B: "Color ideas for your next project — from the archive",
@@ -700,12 +704,73 @@ async function sendFollowUp21DayEmail(to, { variant = "A" } = {}) {
   return result;
 }
 
+
+async function sendFollowUp30DayEmail(to, { variant = "A" } = {}) {
+  const subject = SUBJECT_VARIANTS.day30[variant] || SUBJECT_VARIANTS.day30.A;
+  const result = await resend.emails.send({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject,
+    text: [
+      "One month with ColorArchive",
+      "",
+      "You downloaded the free palette pack a month ago. Here is where a lot of designers end up after that first step:",
+      "",
+      "The free pack gives you a strong starting point — 30 production-ready palettes with HEX and HSL values. But the most common request after the free pack is: 'I need more range. I am working on a dark-mode product and need the full spectrum, or I am building a brand system and need the token structure, not just the colors.'",
+      "",
+      "The Complete Archive gives you all 2016 colors in the system — every hue, every lightness band, every chroma level, in HEX, RGB, HSL, CSS variables, and Figma tokens. It is the reference collection designers use when they need the full set on hand.",
+      "",
+      "The Brand Starter Kit is the other option: fewer colors, but organized by role rather than by spectrum. Primary, surface, accent, text — already structured for implementation.",
+      "",
+      "Both are one-time purchases with no subscription.",
+      "",
+      "Browse the full catalog: https://colorarchive.me/packs/",
+      "",
+      "— ColorArchive",
+    ].join("\n"),
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
+        <h2 style="color:#1a1a1a">One month with ColorArchive</h2>
+        <p style="color:#444;line-height:1.6">You downloaded the free palette pack a month ago. Here is where a lot of designers end up after that first step:</p>
+        <p style="color:#444;line-height:1.6">The free pack gives you a strong starting point — 30 production-ready palettes with HEX and HSL values. But the most common request after the free pack is: <em>"I need more range."</em></p>
+        <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;margin:20px 0">
+          <p style="margin:0 0 4px;font-weight:700;color:#111">Complete Archive</p>
+          <p style="margin:0 0 10px;color:#374151;font-size:14px;line-height:1.6">All 2016 colors in HEX, RGB, HSL, CSS variables, and Figma tokens. The full reference collection for when you need the entire spectrum on hand.</p>
+          <a href="https://colorarchive.me/packs/complete-archive/" style="display:inline-block;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:13px">View Complete Archive →</a>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;margin:12px 0">
+          <p style="margin:0 0 4px;font-weight:700;color:#111">Brand Starter Kit</p>
+          <p style="margin:0 0 10px;color:#374151;font-size:14px;line-height:1.6">Fewer colors, organized by role. Primary, surface, accent, text — already structured for brand systems and implementation handoff.</p>
+          <a href="https://colorarchive.me/packs/brand-starter-kit/" style="display:inline-block;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:13px">View Brand Starter Kit →</a>
+        </div>
+        <p style="color:#666;font-size:14px;line-height:1.6">Both are one-time purchases. No subscription. Download once, use forever.</p>
+        <div style="margin:20px 0">
+          <a href="https://colorarchive.me/packs/"
+             style="display:inline-block;background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
+            Browse the full catalog
+          </a>
+        </div>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
+        <p style="color:#999;font-size:12px">
+          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+        </p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (follow-up day 30):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
 module.exports = {
   sendFreePackEmail,
   sendFollowUp3DayEmail,
   sendFollowUp7DayEmail,
   sendFollowUp14DayEmail,
   sendFollowUp21DayEmail,
+  sendFollowUp30DayEmail,
   sendMagicLinkEmail,
   sendOrderConfirmationEmail,
   sendWaitlistConfirmationEmail,
