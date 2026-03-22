@@ -15,12 +15,14 @@
 - [ ] Review the launch page (`src/components/launch-page.tsx`) — *untracked, Product Hunt launch page, check if still relevant*
 - [ ] Review/update pricing on pack product pages — *Lemon Squeezy URLs are placeholders*
 - [ ] Update the figma-plugin with any new color data or features — *figma-plugin/package-lock.json is untracked*
+- [ ] Visually QA new studio-neutral and northern-lights collections on the site — *newly added, check rendering*
 
 ## Low Priority / Nice to Have
 - [ ] Add the new /tokens/ page to any marketing copy or newsletter mentions — *newly launched tool worth promoting*
 - [ ] Consider adding color palette import to the token generator (paste hex list → generate tokens) — *would make the tool more powerful for existing palettes*
 - [ ] Update OpenGraph preview image to reflect the expanded tool set — *og-image-v1.png was created with fewer tools*
 - [ ] Add a /tokens/ link to the color detail pages sidebar — *cross-linking would improve discoverability*
+- [ ] Consider writing a newsletter issue on the chromatic neutrals guide content — *issue 136 added, could cross-promote guide*
 
 ## Done
 - [x] Add Color Mixer page (/mixer/) — completed 2026-03-23
@@ -30,6 +32,6 @@
 - [x] Add Brand Color Generator (/brand/) — completed 2026-03-23
 - [x] Add Palette Generator (/palette-generator/) — completed 2026-03-23
 - [x] Add Design Token Generator (/tokens/) — completed 2026-03-23
-- [x] Reach 100+ newsletter issues — achieved (134 as of 2026-03-23)
-- [x] Reach 80+ SEO guides — achieved (91 as of 2026-03-23)
-- [x] Reach 50+ collections — achieved (53 as of 2026-03-23)
+- [x] Reach 100+ newsletter issues — achieved (138 as of 2026-03-23)
+- [x] Reach 80+ SEO guides — achieved (94 as of 2026-03-23)
+- [x] Reach 50+ collections — achieved (55 as of 2026-03-23)

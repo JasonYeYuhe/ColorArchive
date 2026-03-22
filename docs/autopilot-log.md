@@ -1250,3 +1250,46 @@ Added: wayfinding, signage, transit, navigation, infographic, visualization, gra
 - src/lib/color-search.ts (+20 aliases)
 
 **Commit:** f3df3b6
+
+## 2026-03-23 — Normal Run: Newsletter 134-137 + Collections + Guides (commit 49d2dc4)
+
+**Run type:** Normal (2nd run since last big run `ec82fbd`)
+
+**Categories:** A. SEO & Content + D. Data & Collections
+
+### Category A — 4 Newsletter Issues (now 138 total)
+
+- **Issue 134** (jul-2028-film-color-grading-designers, 2028-07-22): Film color grading for designers — three-zone grading model (lift/gamma/gain), teal-and-orange analysis, how to extract brand palettes from graded reference imagery, LUT and film stock specification for photography briefs
+- **Issue 135** (aug-2028-startup-brand-color, 2028-07-29): Startup brand color — competitor color mapping, 'own the space' principle, saturation strategy (vivid/mid/muted), four stress tests before committing (app icon, dark mode, WCAG, print)
+- **Issue 136** (aug-2028-chromatic-neutrals, 2028-08-05): The case for chromatic neutrals — why pure gray reads as undesigned, warm vs cool neutral construction, mixed-temperature neutral systems for brand and UI
+- **Issue 137** (aug-2028-packaging-color-hierarchy, 2028-08-12): Color hierarchy in packaging — three-level system (brand anchor/category line/variant), shelf-impact vs in-hand experience tension, print substrate constraints, Pantone specification strategy
+
+### Category D — 2 New Collections (now 55 total)
+
+- **studio-neutral**: amber-veil-muted, coral-whisper-muted, ember-pearl-muted, cerulean-mist-muted, cobalt-whisper-muted — photographer studio neutrals for product catalogues, minimal editorial, and clean UI
+- **northern-lights**: lagoon-bloom-vivid, teal-silk-vivid, violet-shadow-soft, cobalt-ink-muted, cerulean-veil-muted — aurora borealis atmospheric palette for Nordic brands, tech launches, night-sky experiences
+
+### Category D — 3 New SEO Guides (now 94 total, extraGuides12)
+
+- **film-color-grading-for-designers**: Three-zone grading model, teal-and-orange analysis, palette extraction from reference, LUT briefing — targets 'film color grading design brand photography'
+- **chromatic-neutrals-guide**: Why pure gray fails, warm/cool neutral construction, mixed-temperature systems — targets 'chromatic neutral palette warm gray cool gray design system'
+- **startup-brand-color-guide**: Competitor color mapping, defensibility dimensions, saturation strategy, four stress tests — targets 'startup brand color guide choosing brand color early stage'
+
+### Category D — Search Aliases (~235+ entries)
+
+Added: grading, film, cinematic, lut, warm_gray, cool_gray, chromatic_neutral, corporate, variant, seamless, backdrop
+
+### Current State After This Run
+
+- Total newsletter issues: **138** (Issues 001–137, 4 new)
+- Total collections: **55** (studio-neutral, northern-lights added)
+- Total SEO guides: **94** (3 new in extraGuides12)
+- Total search aliases: ~235+ entries
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (138 issues, was 134)
+- src/lib/collections.ts (+studio-neutral, +northern-lights, now 55)
+- src/lib/guides.ts (+3 guides in extraGuides12, now 94)
+- src/lib/color-search.ts (+11 aliases)
+
+**Commit:** 49d2dc4
