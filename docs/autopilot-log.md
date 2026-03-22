@@ -284,3 +284,41 @@ under 4 types of color vision deficiency.
 - src/lib/guides.ts
 
 **Commit:** 97bdb01
+
+## 2026-03-22 — Normal Run: Guides Dedup, Newsletter 050-053, New Guides, New Collections (commit 2ef08b4)
+
+**Run type:** Normal (3rd run since last big run)
+
+**Categories:** Bug Fix, A. SEO & Content, D. Data & Collections
+
+### Bug Fix — Duplicate Guide Entries Removed
+Discovered and removed two duplicate guide entries that had been added in a previous run:
+- `color-palette-for-social-media` appeared twice with different category/priority/featured collection
+- `earth-tone-color-palette` appeared twice with different categories
+Removed the shorter, older versions; kept the newer more detailed versions.
+Unique guide count: 37 (after dedup from 39 apparent entries)
+
+### Category A — Newsletter Issues 050–053
+- **Issue 050** (2026-12-10): "Color contrast for accessibility: what WCAG actually requires and why it matters" — luminance ratio vs. perceptual difference, where WCAG applies, designing for contrast from the start
+- **Issue 051** (2026-12-17): "Print vs. screen: why your colors look different and how to manage the gap" — additive/subtractive physics, gamut gap by hue region, multi-media palette strategy
+- **Issue 052** (2026-12-24): "Dark mode is not just inverted light mode" — why inversion fails, elevation model (surfaces get lighter as they rise), accent color adjustment for dark surfaces
+- **Issue 053** (2027-01-07): "Color naming systems: why the words you use for colors shape how teams use them" — position vs. semantic names, two-layer token architecture (primitives + semantics), practical conventions
+Total newsletter issues: **54** (was 50)
+
+### Category A — 3 New SEO Guides
+- **color-psychology-branding** (priority 82, Brand & Marketing): research vs. myths, distinctiveness vs. association, defensible color decisions in briefs
+- **color-palette-for-e-commerce** (priority 78, Web Design): product photography compatibility, CTA hierarchy, checkout palette simplification
+- **color-temperature-palette** (priority 75, Color Theory): warm/cool as spatial cues, dominant temperature with opposing accent, temperature within single hue
+Total guides: **37** (was 34 unique)
+
+### Category D — 2 New Collections
+- **golden-hour**: Amber whisper soft → honey bloom clear → citrine silk soft → amber velvet muted → ember shadow muted. Warm amber/honey/citrine for photography and editorial.
+- **twilight-bloom**: Orchid whisper soft → violet pearl clear → iris bloom clear → plum silk soft → mulberry nocturne muted. Purple-violet palette for beauty, creative, and wedding editorial.
+Total collections: **18** (was 16)
+
+**Files modified:**
+- src/data/newsletter-issues.json
+- src/lib/guides.ts (removed duplicates + added 3 guides)
+- src/lib/collections.ts
+
+**Commit:** 2ef08b4
