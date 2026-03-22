@@ -11,11 +11,7 @@ import type { Locale } from "@/src/lib/i18n";
 
 const LOCALE_OPTIONS: { code: Locale; label: string }[] = [
   { code: "en", label: "EN" },
-  { code: "ja", label: "JA" },
   { code: "zh", label: "中文" },
-  { code: "ko", label: "한국어" },
-  { code: "es", label: "ES" },
-  { code: "fr", label: "FR" },
 ];
 
 interface SiteHeaderProps {

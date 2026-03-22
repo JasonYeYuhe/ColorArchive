@@ -160,11 +160,11 @@ The current i18n implementation gives maintenance overhead without SEO benefit. 
 
 ### Option B: Cut to 2 languages (if multi-language is not driving growth)
 
-- [ ] Keep only English and Chinese (your two real audiences)
-- [ ] Remove JA, KO, ES, FR translations from `i18n.ts`
-- [ ] Remove those options from the locale selector in `site-header.tsx`
-- [ ] Still fix `<html lang>` to update dynamically
-- [ ] Saves ongoing maintenance of 4 languages
+- [x] Keep only English and Chinese — Locale type trimmed to `"en" | "zh"`
+- [x] Remove JA, KO, ES, FR translations from `i18n.ts` — file reduced from 3439 to 1920 lines
+- [x] Remove those options from the locale selector in `site-header.tsx` — only EN and 中文 remain
+- [x] Fix `<html lang>` to update dynamically — locale-provider already sets `document.documentElement.lang` on change; layout.tsx inline script handles initial load
+- [x] Saves ongoing maintenance of 4 languages
 
 ### Recommended
 
@@ -186,9 +186,9 @@ Start with Option B now. Move to Option A later if analytics show significant tr
 
 ### Action Items
 
-- [ ] **Add an "any hex" input mode** — Let users type or paste any hex code and get the full detail page experience (relationships, contrast pairings, colorblind preview, etc.). This makes the tool useful for colors outside the 2016 set.
-- [ ] **Consider increasing saturation bands** — Going from 4 to 6-8 bands would fill the gaps in the mid-saturation range where most UI colors live. Tradeoff: more static pages at build time.
-- [ ] **Or: reframe the 2016 as "featured" colors** — Position them as an editorial selection within an infinite color space. The detail page works for any hex; the 2016 are just the ones with names and pre-built pages.
+- [x] **Add an "any hex" input mode** — Hex input box on `/all-colors/` hero section. Navigates to `/colors/hex/?c=RRGGBB` which renders a full client-side color detail page (WCAG contrast, tonal scale, relationships, accessible pairings, nearest archive colors). New files: `app/colors/hex/page.tsx`, `src/components/custom-color-page.tsx`.
+- [ ] **Consider increasing saturation bands** — Deferred; not needed now that any hex can be explored.
+- [x] **Reframe the 2016 as "featured" colors** — The 2016 are pre-built pages; any hex gets the same detail experience via the new `/colors/hex/` route.
 
 ### Files to Touch
 

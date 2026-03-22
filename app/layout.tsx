@@ -95,7 +95,7 @@ const localeScript = `
 (function(){
   try {
     var l = localStorage.getItem('colorarchive-locale');
-    if (l === 'ja') document.documentElement.lang = 'ja';
+    if (l === 'zh') document.documentElement.lang = 'zh';
   } catch(e) {}
 })();
 `;

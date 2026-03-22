@@ -92,6 +92,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
     return !!(searchParams.get("hueBand") || searchParams.get("tone") || searchParams.get("minSat") || searchParams.get("maxSat") || searchParams.get("minLight") || searchParams.get("maxLight"));
   });
   const [selectedColorId, setSelectedColorId] = useState<string | null>(null);
+  const [hexInput, setHexInput] = useState("");
 
   const hasAdvancedFilters = hueBand !== "all" || toneBand !== "all" || minSaturation > 0 || maxSaturation < 100 || minLightness > 0 || maxLightness < 100;
 
@@ -292,6 +293,31 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
                 className="rounded-full border border-neutral-200 bg-neutral-950 px-2.5 py-1 text-xs font-medium text-white transition hover:bg-neutral-800 dark:border-white/20 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200"
               >
                 {t("allColors.randomColor") || "Random Color"}
+              </button>
+            </div>
+
+            {/* Hex input */}
+            <div className="mt-4 flex items-center gap-2">
+              <div className="flex items-center rounded-xl border border-black/8 bg-white/85 px-3 py-2 dark:border-white/10 dark:bg-white/8">
+                <span className="mr-0.5 select-none text-neutral-400">#</span>
+                <input
+                  type="text"
+                  value={hexInput}
+                  onChange={(e) => setHexInput(e.target.value.replace(/[^0-9a-fA-F]/g, "").slice(0, 6))}
+                  onKeyDown={(e) => { if (e.key === "Enter" && hexInput.length === 6) router.push(`/colors/hex/?c=${hexInput.toLowerCase()}`); }}
+                  maxLength={6}
+                  spellCheck={false}
+                  placeholder="Type any hex"
+                  className="w-24 bg-transparent text-sm uppercase text-neutral-900 outline-none placeholder:normal-case placeholder:text-neutral-400 dark:text-white"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={() => { if (hexInput.length === 6) router.push(`/colors/hex/?c=${hexInput.toLowerCase()}`); }}
+                disabled={hexInput.length !== 6}
+                className="rounded-xl border border-black/8 bg-neutral-950 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-40 dark:border-white/20 dark:bg-white dark:text-neutral-950"
+              >
+                Go
               </button>
             </div>
           </div>
