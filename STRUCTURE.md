@@ -149,15 +149,15 @@ ColorArchive/
 │   ├── data/
 │   │   ├── colors.ts                     # Algorithmic generation of all 2016 colors
 │   │   │                                 # (hue roots × lightness bands × chroma bands)
-│   │   └── newsletter-issues.json        # 20 newsletter issues (Issue 001–019+)
+│   │   └── newsletter-issues.json        # 110 newsletter issues (Issue 001–109+)
 │   │
 │   ├── lib/
 │   │   ├── color-utils.ts                # HSL↔RGB↔HEX, family classification,
 │   │   │                                 # sorting, analogous/complementary/tonal,
 │   │   │                                 # fuzzy search, WCAG contrast pairings
-│   │   ├── collections.ts                # 5 curated palette collections
+│   │   ├── collections.ts                # 41 curated palette collections
 │   │   ├── palette-packs.ts              # 7 product pack definitions + metadata
-│   │   ├── guides.ts                     # 15 SEO landing guides
+│   │   ├── guides.ts                     # 76 SEO landing guides
 │   │   ├── newsletter-issues.ts          # Newsletter data helpers + tagToSlug
 │   │   ├── i18n.ts                       # EN/ZH translations (~710+ keys)
 │   │   ├── palette-builder.ts            # localStorage palette + subscriptions,
@@ -259,10 +259,10 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Content | Count |
 |---------|-------|
 | Colors | 2016 |
-| Collections | 39 |
+| Collections | 41 |
 | Palette packs | 7 |
-| SEO guides | 73 |
-| Newsletter issues | 106 |
+| SEO guides | 76 |
+| Newsletter issues | 110 |
 | Color families | 9 |
 | Tool pages | 13 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz, colorblind, tints, mixer) |
 | i18n keys | ~710+ (EN/ZH) |

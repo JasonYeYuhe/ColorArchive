@@ -853,3 +853,46 @@ collections.push(
     },
   ),
 );
+
+collections.push(
+  createCollection(
+    "terracotta-fired",
+    "Terracotta Fired",
+    "Warm ember, coral, and amber tones reminiscent of kiln-fired clay — for artisan goods, handmade ceramics, boutique hospitality, and earthy lifestyle brands.",
+    "A palette drawn from the warmest corner of the midrange hue spectrum: the zone where orange meets amber, coral deepens to ember, and the warmth of fired clay is expressed without straying into red or yellow territory. The colors carry the specific warmth of unpainted studio pottery — not the terracotta of unfinished plant pots, but the richer, more saturated warmth of glazed stoneware and artisan ceramics. The ember-tone-soft entry provides the dominant clay warmth; coral-silk-soft and apricot-bloom-soft supply the lighter, more translucent registers that keep the palette from feeling heavy. Amber-tone-muted grounds the warm spectrum without introducing green; crimson-velvet-soft provides the deep anchor that stops the palette from reading as pure orange. Designed for environments where warmth should feel handmade and organic rather than synthetic or tropical.",
+    ["Warm", "Artisan", "Earthy"],
+    [
+      "ember-tone-soft",
+      "coral-silk-soft",
+      "apricot-bloom-soft",
+      "amber-tone-muted",
+      "crimson-velvet-soft",
+    ],
+    {
+      editorialNote:
+        "Use this when earthy warmth should read as artisan and considered rather than rustic or casual. The crimson-velvet-soft anchor is deep enough to prevent the palette from feeling washed out, while apricot-bloom-soft keeps the top register warm-light rather than neutral. Works best with warm dark type (hue 20-30°, L:12-18%) and uncoated paper textures in photography.",
+      promptWords: ["kiln-fired stoneware", "ceramic studio window", "terracotta roof at noon", "warm clay under hands", "artisan market morning"],
+      useCases: ["Artisan and ceramic brands", "Boutique hospitality and restaurants", "Earthy lifestyle and wellness brands", "Handmade goods e-commerce"],
+    },
+  ),
+  createCollection(
+    "nordic-morning",
+    "Nordic Morning",
+    "Pale blue mists, cool whisper whites, and soft cerulean tones inspired by Scandinavian coastal light — for minimal, calm, and hygge-influenced brands.",
+    "A palette assembled from the palest, most luminous end of the cool spectrum: the colors that exist in the hour after sunrise on a cloudless Northern European morning, when the sky is more silver than blue and the light has a particular clarity without harsh warmth. The colors are distinguished from a generic 'light blue' palette by their precision — each is positioned at the convergence of high lightness and controlled saturation, so they read as full colors rather than washed-out tints. Azure-mist-soft provides the clear, identifiable blue that anchors the palette's cool identity; cerulean-whisper-muted establishes the lighter, hazier register; cobalt-pearl-soft adds the slightly richer mid-register; iris-mist-muted introduces a subtle lavender quality that prevents the palette from reading as purely technological; teal-mist-soft connects the blues to the green spectrum, suggesting sea-adjacent rather than purely sky-adjacent. This is the color language of hygge, Scandinavian design, and calm-focused digital products.",
+    ["Cool", "Minimal", "Scandinavian"],
+    [
+      "azure-mist-soft",
+      "cerulean-whisper-muted",
+      "cobalt-pearl-soft",
+      "iris-mist-muted",
+      "teal-mist-soft",
+    ],
+    {
+      editorialNote:
+        "Use this when cool should feel serene and considered rather than technological or corporate. The iris-mist-muted entry is the differentiating color — it prevents the palette from reading as standard enterprise blue by introducing a subtle violet quality. Pairs well with warm off-white surfaces (#F9F8F6 or similar) and natural wood tones in photography. Avoid pure black type — use a cool-tinted dark grey (L:15%, H:210°) to maintain palette coherence.",
+      promptWords: ["Baltic sea at dawn", "Scandinavian sauna steam", "frosted glass morning", "quiet fjord mist", "hygge reading nook"],
+      useCases: ["Scandinavian-influenced consumer brands", "Wellness and meditation apps", "Clean beauty and personal care", "Minimalist SaaS and productivity tools"],
+    },
+  ),
+);

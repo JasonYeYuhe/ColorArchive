@@ -2991,3 +2991,143 @@ export const extraGuides5: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides5);
+
+export const extraGuides6: LandingGuide[] = [
+  {
+    category: "Tools & Techniques",
+    slug: "color-wheel-guide",
+    title: "Color Wheel Guide: How to Use Color Relationships in Design",
+    summary:
+      "The color wheel is not a historical curiosity — it is a practical tool for building palettes with mathematical predictability. Understanding the six core harmonic relationships (complementary, analogous, triadic, tetradic, split-complementary, and square) gives you a structured framework for palette decisions that would otherwise rely on intuition alone.",
+    eyebrow: "Color Theory Guide",
+    priority: 85,
+    searchIntent: "color wheel guide for designers",
+    featuredCollectionId: "terracotta-loft",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["Color Theory", "Palette", "Fundamentals"],
+    highlights: [
+      "The color wheel is structured around hue, which is the 360° property of color that determines whether it reads as red, orange, yellow, green, blue, or violet. Hue is independent of lightness (how dark or bright a color is) and saturation (how vivid or muted it is). Color relationships are defined entirely by hue angle differences — complementary colors are 180° apart, analogous colors are 30° apart, triadic colors are 120° apart. Understanding this means you can derive any harmonic relationship mathematically from any starting color.",
+      "Complementary pairings (180° apart) generate the highest hue contrast of any two-color combination, which is why they are used in warning systems and high-impact brand identities. But full-saturation complements placed side by side create chromatic vibration that can be visually uncomfortable. The designer's version of complementary pairings is almost always desaturated or lightness-adjusted: a desaturated teal ground with a vivid orange accent uses complementary hue logic while avoiding vibration.",
+      "Analogous palettes (colors within a 60-90° arc on the wheel) are the most common choice for extended-use interfaces because they create color harmony without hue contrast tension. The risk of analogous palettes is that they can feel flat or low-energy if every color is at similar saturation and lightness. The solution: vary lightness significantly across the analogous group (from a very light tint to a deep shade) while keeping hue within the arc. This gives the palette visual interest and value range while maintaining the harmonic coherence.",
+    ],
+    sections: [
+      {
+        heading: "The six core harmonic relationships",
+        body:
+          "Complementary: 180° apart. Maximum hue contrast. Effective for accent/call-to-action pairings, sport branding, and high-energy identities. Risk: chromatic vibration at full saturation. Fix: desaturate the dominant color. Analogous: 30-60° arc. Minimal hue contrast. Natural, cohesive, and suitable for extended-use UI. Risk: monotony. Fix: add significant lightness variation. Triadic: 120° apart, three colors. Balanced contrast with variety. Common in playful or educational brands. Risk: visual noise. Fix: make one color dominant, one secondary, one accent. Split-complementary: one base + two colors 150° away (flanking the complement). Variation on complementary with reduced tension. Useful when full complementary feels too aggressive. Tetradic/double-complementary: two complementary pairs. Maximum palette variety. Difficult to balance without one pair overwhelming the other. Best used with one pair as primary and one as secondary. Square: four colors at 90° intervals. Even spacing across the wheel. Produces rich, complex palettes. Rarely used in UI; more common in illustration and print.",
+      },
+      {
+        heading: "Using the color wheel for UI palette construction",
+        body:
+          "UI palette construction follows a different logic than illustration or fine art. A UI palette is not primarily about visual beauty — it is a system for communicating information and hierarchy. The starting constraint is: your brand primary hue is fixed. From that fixed point, derive the rest. For semantic colors (error red, success green, warning amber), choose hues that are maximally distinct from each other AND from your primary — typically distributed 90-120° apart so they do not cluster. For accent colors, split-complementary gives you a safe high-contrast option. For surface colors (backgrounds, cards, borders), desaturate the primary hue and adjust lightness rather than introducing new hues. This keeps surfaces within the brand hue direction while not competing with content colors.",
+      },
+      {
+        heading: "Hue temperature and psychological weight",
+        body:
+          "The color wheel has a perceptual split beyond pure geometry: warm hues (red, orange, yellow — roughly H:0° to H:60° and H:330° to H:360°) and cool hues (green, blue, violet — roughly H:100° to H:270°). Warm colors advance perceptually — they appear closer to the viewer, feel more energetic, and activate stronger physiological arousal responses at equal saturation. Cool colors recede — they appear further away, feel calmer, and are associated with trust, stability, and restraint. This asymmetry matters for composition: a 20% warm accent on a 80% cool field creates strong visual focus. The same balance reversed (20% cool on 80% warm) creates less focus because warm backgrounds activate higher overall arousal. For most interfaces and editorial layouts, cool-dominant with warm accents is the high-control composition.",
+      },
+      {
+        heading: "Practical color wheel workflow",
+        body:
+          "A repeatable workflow: (1) Fix your primary hue. (2) Choose your harmonic relationship type based on brand energy (complementary for high-impact, analogous for calm, triadic for playful). (3) Derive the secondary and accent hues mathematically. (4) Calibrate saturation — reduce the most saturated colors to avoid chromatic vibration. (5) Set lightness variation — ensure you have at least 4 lightness levels across your palette (very light surface tint, light mid-tone, medium saturated tone, dark shade). (6) Test for distinguishability at simulated color vision deficiency. (7) Assign roles: which hue is primary, which is background, which is accent, which is semantic. Never leave a hue without a role — unassigned colors become noise.",
+      },
+    ],
+    links: [
+      { label: "Harmonies Calculator", href: "/harmonies/" },
+      { label: "Palette Generator", href: "/palette-generator/" },
+      { label: "Citrus Grove collection", href: "/collections/terracotta-loft/" },
+    ],
+  },
+  {
+    category: "UI & Product Design",
+    slug: "color-for-mobile-app-design",
+    title: "Color for Mobile App Design: Principles for Small Screens",
+    summary:
+      "Mobile color design operates under unique constraints that desktop and web do not share: variable ambient lighting, OLED display characteristics, smaller interaction targets, and the attention cost of persistent system UI (status bar, home indicator, navigation bar). A color palette that works on desktop may fail on mobile not because the colors are wrong but because the context changes how they are perceived and used.",
+    eyebrow: "Mobile Design Guide",
+    priority: 78,
+    searchIntent: "color for mobile app design",
+    featuredCollectionId: "ocean-abyss",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Mobile", "UI Design", "Color Systems"],
+    highlights: [
+      "OLED displays (used in all premium smartphones since 2017) have a fundamentally different characteristic from LCD: each pixel emits its own light, meaning black pixels draw zero power. This gives pure black (#000000) a functional advantage in OLED mobile apps beyond aesthetics — it is a battery optimization. Apps with dark modes on OLED screens can reduce display power consumption by 30-60% at low brightness levels. This is why dark mode is disproportionately popular on mobile: users unconsciously associate it with longer battery life, and on OLED they are correct.",
+      "Ambient lighting conditions for mobile range from direct sunlight (requiring high contrast and saturated colors to overcome glare) to complete darkness (requiring reduced brightness to avoid eye strain). The same app will be viewed in both conditions within a single day. This means mobile color systems benefit from dynamic range that desktop design rarely needs: your primary text should meet 7:1 contrast in bright mode, your dark mode backgrounds should be dim enough to be comfortable in darkness. Dynamic Display modes (Apple's True Tone, Android's adaptive brightness) shift display color temperature automatically, which can slightly alter the perceived hue of your accent colors across the day.",
+      "Tap target size interacts with color perception: on mobile, interactive elements must be at least 44×44pt (iOS) or 48×48dp (Material Design). At these minimum sizes, subtle color differences that distinguish states (default vs. pressed vs. disabled) must be clearly perceptible. Hover states do not exist on touch interfaces, so the visual distinction between rest and active states must be communicated entirely through color, size, and shape changes on tap — not on hover approach. This means disabled colors must be dramatically different from active colors (50%+ contrast reduction) rather than the subtle 20% darkening that desktop designs often use.",
+    ],
+    sections: [
+      {
+        heading: "Platform color conventions and when to break them",
+        body:
+          "iOS and Android have distinct color conventions that users have learned: iOS defaults to system blue (#007AFF) for interactive elements, system red for destructive actions, and a specific grading of grey system colors. Android Material Design 3 uses dynamic color (extracting accent colors from the user's wallpaper) and has its own semantic role colors. Users with strong platform familiarity may initially interpret your brand colors through the lens of platform convention — a brand primary that is close to iOS system blue will feel like an interactive element when used on a non-interactive element. The practical guidance: maintain sufficient hue distance from platform conventions for any non-standard usage, or consciously embrace the convention (using standard system blue for your primary interactive color if it aligns with your brand hue direction).",
+      },
+      {
+        heading: "Safe area and system UI color integration",
+        body:
+          "Mobile apps must coexist with system UI: the status bar (time, battery, signal) at the top and the home indicator or navigation bar at the bottom. These system elements sit on top of your app's background color. The status bar content (icons and text) is either white or black, chosen by you — you do not control which system icons appear, so your status bar area must work with both light (black icons) and dark (white icons) content. The practical rule: if your app header or hero area is light (L > 65%), set the status bar to dark content mode. If it is dark (L < 45%), set to light content mode. Avoid the middle range (L:45-65%) for areas beneath the status bar unless you verify with actual device testing — this is where status bar content becomes hard to read.",
+      },
+      {
+        heading: "Dark mode on mobile versus desktop",
+        body:
+          "Mobile dark mode is used in more varied contexts than desktop dark mode. Desktop dark mode is mostly used by developers and designers in preference for extended-session comfort. Mobile dark mode is used at night, in bed, in dark vehicles, and in low-light social settings. This means mobile dark mode backgrounds should be darker than desktop dark mode backgrounds: while desktop dark mode backgrounds are typically L:12-16%, mobile dark mode backgrounds are often L:8-10% because the additional darkness is appropriate for low-ambient-light phone use. Pure black (#000000) is more defensible on mobile OLED than on desktop monitors for both the battery and the ambient-light reasons.",
+      },
+      {
+        heading: "Color and navigation hierarchy in mobile",
+        body:
+          "Mobile navigation color has evolved away from heavy use of branded color in navigation bars toward more minimal approaches. Tab bars in iOS 17+ and bottom navigation in Material Design 3 use mostly white or system-background surfaces with a single accent color for the active state indicator. Branded color in mobile navigation tends to either: (a) work only for apps with a single dominant brand color (Instagram, Airbnb) where the brand hue is so associated with the app that its presence in the navigation feels natural, or (b) fail for apps with complex color palettes, where the navigation brand color creates visual noise against the content area. The current best practice for most apps: neutral navigation surfaces with a single accent-color active indicator, reserving brand color for hero areas, calls to action, and illustration.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "WCAG Contrast Checker", href: "/contrast/" },
+      { label: "Deep Ocean collection", href: "/collections/ocean-abyss/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "color-temperature-guide",
+    title: "Color Temperature in Design: Warm vs. Cool and How to Use the Difference",
+    summary:
+      "Color temperature is the most intuitive and most misunderstood axis of color design. Warm colors (reds, oranges, yellows) and cool colors (blues, greens, violets) create fundamentally different perceptual effects that go beyond aesthetics — they influence spatial perception, psychological arousal, time perception, and brand trust. Knowing how to leverage temperature systematically makes palette decisions more intentional and more predictable.",
+    eyebrow: "Color Theory Guide",
+    priority: 72,
+    searchIntent: "warm vs cool colors design",
+    featuredCollectionId: "golden-hour",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["Color Theory", "Psychology", "Brand"],
+    highlights: [
+      "The warm-cool distinction is rooted in the physics of light. Warm light sources (fire, incandescent bulbs, sunrise/sunset) have color temperatures below 3500K and shift light toward the red-orange-yellow spectrum. Cool light sources (sky, daylight, LED panels) have color temperatures above 5000K and shift toward the blue-white spectrum. Human visual processing has evolved to interpret warm-hued environments as lower-light and lower-energy situations (dusk, firelight, enclosed spaces) and cool-hued environments as higher-light and higher-energy situations (midday, open sky, active alertness). This evolutionary context is why warm colors feel intimate and cool colors feel expansive — it is a learned environmental association built over 200,000 years of hominid visual experience.",
+      "Warm backgrounds advance perceptually — they appear to come toward the viewer, reducing the perceived depth of a space or screen. Cool backgrounds recede — they appear to push away, creating perceived depth and openness. This effect is strong enough to compensate for physical size: a warm-colored element will appear slightly larger than a cool-colored element of identical pixel dimensions. For layout design, this means warm-colored elements need slightly more surrounding space than cool ones to achieve equivalent perceived breathing room. Advertising designers learned this empirically before it was codified in perceptual research.",
+      "The most effective brand color temperature strategies match temperature to customer journey stage. Awareness and discovery stages benefit from warm hues (energy, attention, openness). Decision stages benefit from cooler tones that signal stability and trust. Post-purchase confirmation screens that shift warmer (away from the transaction-era cool blues) are associated with higher customer satisfaction scores — the warmth signals that the transactional moment has ended and a relationship has begun. This staged temperature strategy is used consciously by Amazon (cool product browsing, warm confirmation) and has been replicated across e-commerce independently.",
+    ],
+    sections: [
+      {
+        heading: "The physics and perception of color temperature",
+        body:
+          "Color temperature in physics is measured in Kelvin and refers to the color of light emitted by an idealized 'black body' radiator at a given temperature. Counterintuitively, 'warm' light (redder, like candlelight) corresponds to lower Kelvin temperatures (~1800-3000K), while 'cool' light (bluer, like overcast sky) corresponds to higher Kelvin temperatures (~6000-8000K). In design, warm and cool refer not to Kelvin values but to perceptual groupings: warm hues are red, orange, yellow, and hues in the 0-60° and 330-360° range on the color wheel; cool hues are green, blue, violet, and hues in the 100-270° range. There is a transitional zone (yellow-green H:60-100°, red-violet H:270-330°) where temperature reading depends on context and surrounding colors.",
+      },
+      {
+        heading: "Using temperature for spatial and depth effects",
+        body:
+          "The spatial properties of warm and cool colors are reliable enough to be used as deliberate compositional tools. For flat UI design, a warm primary action button on a cool background creates a foreground/background depth separation that reinforces the clickable/non-clickable distinction. For illustration and graphic design, warm foreground elements and cool background elements create consistent depth cues without requiring shadow or perspective. In interior design photography used for real estate and hospitality, warm-tinted rooms photograph as smaller and more intimate while cool-tinted rooms photograph as larger and more expansive. Both can be desirable — the right temperature depends on the emotional goal rather than the objective square footage.",
+      },
+      {
+        heading: "Warm and cool in neutral palettes",
+        body:
+          "Neutral palettes (whites, greys, beiges, off-blacks) have temperature characteristics that are often overlooked. A warm white (#FAF7F2 — a very slightly amber-tinted off-white) and a cool white (#F5F8FA — a very slightly blue-tinted off-white) create fundamentally different brand feelings despite being nearly identical in measured lightness and saturation. Warm neutrals feel artisan, premium, editorial, and natural. Cool neutrals feel clinical, technological, minimal, and corporate. Luxury consumer brands (fashion, beauty, high-end food) default to warm neutrals. Technology and healthcare brands default to cool neutrals. The choice is not arbitrary — it is the fastest way to signal brand category without using any explicit color.",
+      },
+      {
+        heading: "Mixed temperature palettes and visual tension",
+        body:
+          "Palettes that intentionally mix warm and cool colors generate visual tension — the eye is drawn to the temperature boundary between them. This tension is productive in call-to-action design (warm button on cool interface), illustrative work (sunset warmth against sky cool), and editorial design (warm photography with cool typographic treatment). It becomes counterproductive when the mixing is incidental rather than intentional: a mostly warm palette with a cool accent that arrived through a color picker rather than deliberate choice creates visual dissonance rather than productive tension. A useful test for mixed-temperature palettes: can you explain why each color is warm or cool, and what that temperature choice accomplishes? If the answer requires rationalizing post-hoc rather than stating a design intention, the temperature mixing may be incidental and worth revisiting.",
+      },
+    ],
+    links: [
+      { label: "Sunset Ember collection", href: "/collections/golden-hour/" },
+      { label: "Palette Generator", href: "/palette-generator/" },
+      { label: "Color Families", href: "/families/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides6);
