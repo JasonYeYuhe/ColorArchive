@@ -5258,5 +5258,209 @@
         "href": "/families/"
       }
     ]
+  },
+  {
+    "slug": "feb-2028-color-print-vs-screen",
+    "date": "2028-02-04",
+    "title": "Color in print vs. screen: what changes and what to do about it",
+    "summary": "The same hex value that looks sharp and saturated on a display will print as a flat, muted approximation — sometimes barely recognizable as the same color. The gap between RGB screen color and CMYK print color is one of the most practically significant color problems for designers who work across both media. Understanding why the gap exists, which colors fall through it most dramatically, and how to manage the proofing process prevents the expensive surprise of seeing your brand colors look wrong on a printed deliverable.",
+    "eyebrow": "Issue 110",
+    "tags": [
+      "Print Design",
+      "Color Management",
+      "CMYK"
+    ],
+    "featuredCollectionId": "warm-neutrals",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "The gamut mismatch between RGB screens and CMYK print is largest in saturated cyan-greens, electric blues, and neon magentas — colors that exist well within RGB's range but are physically unreproducible by four-color ink. When a designer specifies a vivid electric blue (#0066FF) for a brand that will appear in both digital and print contexts, the print version will be noticeably duller because the ink combination capable of producing that exact color doesn't exist. The practical implication: saturated brand primaries should be reviewed early in CMYK-converted form, not as a final proofing step. Adjust the brand palette toward colors that exist comfortably within CMYK gamut if print fidelity is a meaningful requirement.",
+      "Soft-proofing in Photoshop and Illustrator (View → Proof Colors) simulates how a specific print profile will render your design on screen. This is not a perfect simulation — monitor gamut and calibration affect the preview — but it is accurate enough to catch dramatic gamut mismatches early. The most useful profiles to proof with are: US Web Coated SWOP v2 (standard for offset printing in North America), Coated FOGRA39 (European offset standard), and the ICC profile provided by your specific print vendor. Vendor profiles are the most accurate because they account for that press's specific ink densities and paper stock.",
+      "Total ink coverage is a print-specific constraint that has no analog in screen design. Most offset presses impose a total ink coverage limit — the combined percentage of CMYK ink that can be applied to a single area without the ink becoming tacky, taking longer to dry, or bleeding through to the reverse side of the sheet. The standard limit for coated stock is 300-320%, and for uncoated stock, 240-280%. A rich black (K:100 C:40 M:30 Y:30) totals 200% — well within limits for coated stock but approaching limits for uncoated. Designers who are new to print often use Photoshop's default rich black (C:75 M:68 Y:67 K:90 = 300%) without checking whether their print vendor's limit accommodates it. Check total ink coverage in Photoshop's CMYK readout before sending files."
+    ],
+    "sections": [
+      {
+        "heading": "Why the same color looks different on screen vs. print",
+        "body": "Screens produce color through emitted light: combining red, green, and blue light sources in varying intensities across a range that extends to very high saturation levels. CMYK print works through subtractive color: inks absorb certain wavelengths, and the combination of Cyan, Magenta, Yellow, and Key (Black) inks reflects a narrower range of colors than a screen can display. The result is that CMYK has a smaller color gamut than most modern displays. Colors that exist in the screen color space but outside the print gamut are 'out of gamut' — they will be mapped to the nearest reproducible color during printing, which often means a noticeably less saturated result. The gamut mismatch is color-dependent: blue and green tend to lose significant saturation, while reds and oranges often translate fairly well. Yellow is particularly problematic because screen yellows (which mix green and red light) look very different from the behavior of yellow ink under different lighting conditions."
+      },
+      {
+        "heading": "Soft-proofing workflow",
+        "body": "Reliable color proofing requires: (1) A calibrated monitor. Without monitor calibration, soft-proof previews are unreliable because the screen itself introduces an unknown deviation. A hardware calibrator (X-Rite, Datacolor) and monthly recalibration is the industry standard. (2) The correct ICC profile for your output process. Your print vendor should provide a press profile; if not, use the industry standard for your region. (3) Soft-proofing in a room with appropriate lighting — daylight-equivalent D65 lighting reduces the metamerism problem (where colors look different under different light sources). The practical workflow: design in RGB, enable soft-proofing during the design phase (not just at the end), flag out-of-gamut colors using Photoshop's gamut warning (Shift+Ctrl+Y/Shift+Cmd+Y), and adjust those specific colors toward in-gamut equivalents that serve the same visual purpose."
+      },
+      {
+        "heading": "Building a cross-media brand palette",
+        "body": "Brands that operate across digital and print media need a palette strategy that accounts for both gamuts simultaneously. The approach: (1) Define the palette in a perceptually uniform color space (LAB or OKLCH) rather than in hex/RGB. This makes it easier to find the closest reproducible equivalents in each gamut. (2) Specify brand colors with both RGB/HEX (for screen) and CMYK (for print) values, understanding that these will not look identical but will be the best achievable approximation in each medium. (3) Choose primary brand colors that are within or near the CMYK gamut intersection — you'll sacrifice some digital vividness for print consistency. (4) Accept that some colors will look different across media and compensate through composition and context rather than expecting exact color matching. (5) For mission-critical color matching (packaging, brand standards that require consistency across physical touchpoints), specify Pantone Matching System (PMS) colors as the definitive reference — these are ink formulations designed for reproducibility across different presses."
+      },
+      {
+        "heading": "Practical print specifications to know",
+        "body": "Rich black for type and solid fills: use 100% K for small type (under 24pt) to avoid registration issues; use a rich black (C:60 M:40 Y:40 K:100) for large solid fills on coated stock. Minimum ink coverage: 10-15% of a single ink is usually the minimum to achieve a visible dot on most presses — very light colors with 5% coverage may print inconsistently. Image resolution: 300 PPI at output size for photographs; 600-1200 PPI for line art and text-heavy elements. Bleed and safe zone: 3mm bleed beyond trim on all sides; keep critical content 3-5mm inside the trim line. File format: PDF/X-4 is the current industry standard for press-ready files — it embeds all fonts, converts all colors to the specified CMYK profile, and includes output intent information that helps the printer verify color accuracy."
+      }
+    ],
+    "links": [
+      {
+        "label": "Color Families",
+        "href": "/families/"
+      },
+      {
+        "label": "Brand Starter Kit",
+        "href": "/packs/brand-starter-kit/"
+      },
+      {
+        "label": "WCAG Color Contrast Checker",
+        "href": "/tools/contrast/"
+      }
+    ]
+  },
+  {
+    "slug": "feb-2028-neutral-scales-design-systems",
+    "date": "2028-02-11",
+    "title": "Building a neutral scale that actually works in a design system",
+    "summary": "Neutral palettes look like the safest part of a design system until they are not. A neutral scale that seems fine in isolation creates visual problems when used at scale: text that feels too cool against warm imagery, backgrounds that make UI controls look pasted-on, and a general sense that the design lacks coherence even though each individual component looks correct. Building a neutral scale with intention — choosing the right undertone, defining the right number of steps, and anchoring it to the system's primary hues — is one of the highest-leverage decisions in a design system.",
+    "eyebrow": "Issue 111",
+    "tags": [
+      "Design Systems",
+      "Neutral Colors",
+      "Typography"
+    ],
+    "featuredCollectionId": "warm-neutrals",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "The undertone of your neutral scale — warm (yellow/red bias), cool (blue/green bias), or true neutral — should be chosen in relation to your brand primary hue, not independently. A cobalt-blue primary with a warm neutral creates a tension that makes the UI feel inconsistent: the primary screams digital and cool, the background mutters warm and analog. The convention in digital design systems is to use a cool-to-neutral gray scale for blue-primary products (Google, Atlassian, Salesforce) and a warm gray scale for products with warmer primaries (Airbnb's warm gray, Mailchimp's warm off-white). This is not a hard rule, but the more saturated and chromatic your brand primary, the more the neutral scale's undertone creates or destroys coherence.",
+      "Most mature design systems use 10-12 neutral steps (Gray-50, Gray-100 ... Gray-900, Gray-950 in Tailwind's convention). The density of steps near the ends of the scale (very light and very dark) is more important than steps in the middle. Very light neutrals (50, 100, 200) define the entire range of background surfaces in light mode — getting these three steps right determines whether the UI feels layered or flat. Very dark neutrals (800, 900, 950) define dark mode surfaces and text-on-light contrast. The middle range (400-600) handles borders, disabled states, and placeholder text. If you can only spend time tuning three areas of a neutral scale, tune the light end, tune the dark end, and make sure your mid-tones are monotonically decreasing in lightness (perceptual lightness jumps between adjacent steps create visual discontinuities in gradients and hover states).",
+      "Pure HSL grays (hue=0, saturation=0) look artificially flat in interfaces that contain chromatic content because the human visual system adapts to chromatic context and reads pure neutral grays as slightly colored by contrast. The fix — used by almost every major design system — is to add a small amount of chroma to neutral steps (typically 2-6% saturation in HSL, or a chroma of 2-5 in OKLCH). This chroma addition coordinates the gray with the primary hue direction, making the neutral feel like it belongs in the same color world as the chromatic elements. Figma's Gray palette, Apple's system grays, and Google's Material 3 neutral palette all use slightly chromatic neutrals. The effect is subtle at any single step but cumulatively produces a neutral palette that feels unified rather than generic."
+    ],
+    "sections": [
+      {
+        "heading": "Warm vs. cool neutrals: the choice that determines everything",
+        "body": "The practical difference between a warm neutral (Gray with a yellow/red undertone) and a cool neutral (Gray with a blue/green undertone) becomes visible at two extremes: very light values (where the undertone tints the background) and very dark values (where the undertone tints the near-black text and dark surfaces). Mid-range grays are close enough to true neutral that the undertone is less perceptible. For choosing undertone direction: analyze the dominant hue of your primary palette (cool primaries → cool neutrals, warm primaries → warm neutrals), analyze the content your UI will display (photography-heavy interfaces often use warm neutrals because warm-tinted backgrounds are more flattering to skin tones), and consider your product's emotional register (warm neutrals feel more approachable and human, cool neutrals feel more technical and precise). When in doubt, slightly warm neutrals are more universally flattering in light mode; slightly cool neutrals work better in dark mode (dark cool grays feel more like genuine darkness, while dark warm grays can feel muddy)."
+      },
+      {
+        "heading": "Defining the right number of steps",
+        "body": "The minimum usable neutral scale has 5 steps: background (lightest), surface, border, secondary text, primary text. This minimum works for simple products but quickly becomes limiting as UI complexity increases. A 10-step scale (50 through 900 in Tailwind convention) handles almost all use cases. A 12-step scale adds 950 (near-black) and 25 (near-white) for products that need those extremes. Beyond 12 steps, you are more likely creating naming complexity than solving real design problems. The test for whether your scale has enough steps: can you represent all of these states uniquely — default background, elevated surface (card), border, divider, disabled element, placeholder text, secondary text, primary text, and inverse text (white on dark)? If two of these states share the same neutral step, you need more steps in that region of the scale."
+      },
+      {
+        "heading": "Anchoring neutrals to your brand hue",
+        "body": "The most cohesive neutral scales have a subtle hue relationship with the product's primary color. The method: instead of hue=0 (pure gray) as the HSL base, use hue=primary_hue with saturation set to 3-8% for light steps and 5-12% for dark steps. This produces grays that are perceptually near-neutral but tonally coordinated. For a cobalt-blue primary (hue≈220), neutral steps built on hue 220 at low saturation produce grays with a slight blue-slate quality — coherent with the primary without being obviously colored. This technique requires working in HSL or OKLCH rather than hex, and verifying that each step meets your contrast requirements against the steps it will appear with. Most design tokens tools (Style Dictionary, Theo) allow you to define neutrals parametrically so the hue relationship is maintained if the primary hue changes."
+      },
+      {
+        "heading": "Testing your neutral scale",
+        "body": "The tests that reveal neutral scale problems before they ship: (1) Render all 10 neutral steps in a horizontal bar at full width — look for non-monotonic lightness jumps that will look wrong in hover state transitions. (2) Place body text (typically Gray-900 or Gray-950) on each background step — verify that text on Gray-200 and Gray-300 (common card backgrounds) still meets WCAG AA contrast. (3) Place your primary button color on Gray-50 and Gray-100 — verify it doesn't look pasted-on. (4) Render a UI with the neutral scale in both light and dark mode — check that dark mode neutrals (inverted scale) produce appropriate surface hierarchy. (5) Render a photograph against your lightest neutral background — check that the transition between photograph edge and background reads as a deliberate contrast rather than an accidental color clash."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore All Colors",
+        "href": "/colors/"
+      },
+      {
+        "label": "Complete Archive Pack",
+        "href": "/packs/complete-archive/"
+      },
+      {
+        "label": "WCAG Contrast Checker",
+        "href": "/tools/contrast/"
+      }
+    ]
+  },
+  {
+    "slug": "feb-2028-color-typography-legibility",
+    "date": "2028-02-18",
+    "title": "Color and typography: contrast ratios, optical size, and legibility at scale",
+    "summary": "Type legibility is more than a WCAG checkbox. A paragraph that technically passes 4.5:1 contrast ratio but uses a warm gray on a cool background in a thin font weight will fatigue readers in a way that a correctly-calibrated, high-contrast pair will not. The relationship between color choice and typographic legibility involves contrast ratio, hue combination, font weight, type size, background texture, and optical size rendering — all of which interact. Understanding this system helps you make better decisions than any single metric can.",
+    "eyebrow": "Issue 112",
+    "tags": [
+      "Typography",
+      "Accessibility",
+      "Color Contrast"
+    ],
+    "featuredCollectionId": "dark-mode-essentials",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "WCAG 2.1's contrast ratio formula weights luminance in a way that makes certain color combinations pass the 4.5:1 standard while still being harder to read than others. The most commonly cited examples: a dark saturated green (#008000) on white produces a contrast ratio of 4.55:1 — technically passing AA, but the simultaneous contrast between highly saturated green and white creates chromatic vibration that makes text tiring to read at body sizes. Similarly, certain blue-black and near-black combinations pass WCAG but produce interference patterns in low-resolution or ClearType-rendered text. The practical guideline: target 7:1 contrast (WCAG AAA) for body text even if AA compliance is the legal requirement, and avoid highly saturated colors for body text regardless of contrast ratio.",
+      "The relationship between type size and required contrast is codified in WCAG but often misapplied. Large text (18pt normal or 14pt bold) requires 3:1 contrast; normal text requires 4.5:1. But the optical difference between 14pt and 17pt text at the same contrast ratio is significant — 14pt text at 4.5:1 contrast is notably harder to read than 17pt text at the same ratio. The practical approach for design systems: define a type scale, test each size at your chosen text color, and increase contrast for smaller sizes rather than applying uniform contrast throughout. Text smaller than 14px benefits substantially from increased contrast (5:1 or higher) regardless of what WCAG technically requires.",
+      "Colored text — any text that is not near-black — requires particular care. Marketing headlines in brand colors, link text, labels, and status text all use color to carry meaning. Each of these needs individual contrast verification against every background it will appear on. The common failure: a design system defines a blue link color (#2563EB) that passes 5.9:1 against white, but the same link color is then used on light blue background sections (#EFF6FF) where it produces only 2.1:1. Color variables that pass in one context will fail in another — systematic contrast testing across all background/foreground combinations is the only way to catch this before it ships."
+    ],
+    "sections": [
+      {
+        "heading": "How contrast ratio relates to actual legibility",
+        "body": "Contrast ratio (CR) is calculated from the relative luminance of two colors: CR = (L1 + 0.05) / (L2 + 0.05) where L1 is the lighter color's luminance. This formula is luminance-based, not perception-based — it treats all hues as equal, which they are not. The upcoming WCAG 3.0 Advanced Perceptual Contrast Algorithm (APCA) addresses this limitation by separately modeling the lightness of the text and background, the polarity (light-on-dark vs. dark-on-light), and the font weight and size. APCA produces significantly different results from WCAG 2.1 for certain color combinations: highly saturated foregrounds on white backgrounds, light text on dark backgrounds, and small font sizes all get recalibrated. Designers working on accessibility-critical products should test against both WCAG 2.1 (current legal standard) and APCA (forthcoming standard) for any edge cases."
+      },
+      {
+        "heading": "Hue interference and chromatic aberration in text",
+        "body": "Highly saturated color combinations used for text create a visual effect called simultaneous contrast — where the boundary between two colors creates an apparent light or dark fringe that makes edges look vibrated or unclear. This effect is strongest with complementary color pairs (red on green, blue on orange) and with highly saturated colors on white or near-white backgrounds. For body text, the safe hue range is achromatic (grays and near-blacks) or very low saturation chromatic neutrals. For display text (headlines, large callouts), moderate saturation is fine; high saturation is acceptable but should be tested at actual render size across different display types. Chromatic aberration from LCD subpixel rendering affects differently-colored text differently — red text and blue text on white will show slightly different sharpness characteristics due to the RGB subpixel layout of most displays."
+      },
+      {
+        "heading": "Weight, size, and color interaction",
+        "body": "Font weight is the most practical lever for improving legibility when you cannot increase contrast. A text element that fails WCAG AA at 400 weight (regular) may pass at 500 (medium) or 600 (semibold) because heavier weights have more ink coverage and create a larger effective contrast area. The WCAG definition of 'large text' includes 14pt/19px bold as qualifying for the lower 3:1 contrast requirement — the bold weight is specifically recognized as a legibility factor. Practical applications: use heavier weights for secondary text (placeholder text, captions, metadata) that cannot meet full contrast due to design constraints; avoid thin weights (100, 200, 300) for text in colors other than near-black; and test text rendering at typical viewing conditions — most design tools render text at higher fidelity than browsers at standard screen resolutions."
+      },
+      {
+        "heading": "Building a type color system",
+        "body": "A minimal type color system for a design system includes: Primary text (for body content and headings) — maximum contrast, near-black or black. Secondary text (for supporting information, captions, timestamps) — reduced contrast but still WCAG AA compliant against all possible backgrounds. Disabled text — typically 40-50% opacity of primary text, by convention expected to fail contrast (exempt in WCAG). Interactive text (links) — brand-colored, WCAG AA against all background surfaces where links appear. Status text (error, warning, success) — each verified against all background surfaces in the system. Inverse text (white on dark backgrounds) — verified against all dark surface steps. Map each text color to a specific semantic token, verify contrast against every background token, and document the intended use cases. This prevents the drift where colors are used in unanticipated combinations that fail contrast requirements."
+      }
+    ],
+    "links": [
+      {
+        "label": "Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit/"
+      },
+      {
+        "label": "WCAG Contrast Checker",
+        "href": "/tools/contrast/"
+      },
+      {
+        "label": "Complete Archive Pack",
+        "href": "/packs/complete-archive/"
+      }
+    ]
+  },
+  {
+    "slug": "feb-2028-gradient-design-guide",
+    "date": "2028-02-25",
+    "title": "Designing gradients that look good: interpolation, stops, and perceptual smoothness",
+    "summary": "A gradient between two colors should look smooth, but CSS linear-gradient often produces a muddy, desaturated band through the middle of the transition. The problem is that CSS gradients interpolate in sRGB space, which is not perceptually uniform — the midpoint of a red-to-blue gradient passes through a desaturated purple-gray, not a vibrant purple. Modern CSS now offers interpolation in perceptually uniform spaces like OKLCH and OKLab, which produce gradients that stay saturated and visually smooth across the entire range. Understanding this system changes how you design gradients.",
+    "eyebrow": "Issue 113",
+    "tags": [
+      "Gradients",
+      "CSS",
+      "OKLCH"
+    ],
+    "featuredCollectionId": "vivid-spectrum",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "The sRGB gradient problem is most visible in three specific color transitions: red-to-green (which passes through a muddy brown-yellow band), blue-to-yellow (which passes through a desaturated grayish-green), and any transition between two colors with different hue values in sRGB. The cause is mathematical: sRGB interpolation mixes the raw channel values linearly, which does not correspond to how human perception measures color change. A gradient that looks smooth in a linear interpolation formula often produces a clearly visible dark band at the midpoint when measured perceptually. The fix, available in modern CSS via the `color-interpolation-method` syntax: `background: linear-gradient(in oklch, #hsl1, #hsl2)` — this instructs the browser to perform gradient interpolation in OKLCH space, which is perceptually uniform and produces gradients that stay vibrant and smooth.",
+      "Hue interpolation in OKLCH gradients introduces a new choice: which direction to traverse the hue circle between two endpoint colors. The default (shorter arc) is usually correct, but the `increasing` and `decreasing` keywords let you specify clockwise or counterclockwise hue traversal. A gradient from orange to blue-violet in OKLCH shorter arc passes through green (shorter path on the hue wheel); in OKLCH longer arc it passes through red and magenta. Neither is automatically better — the right choice depends on whether the intermediate hues are desirable for your design. The ability to specify hue interpolation direction is one of the key advantages of OKLCH over sRGB gradient interpolation, which gives you no control over the intermediate hue path.",
+      "Strategic color stop placement is the professional technique for controlling gradient character without switching interpolation methods. Instead of a 2-stop gradient (color A to color B), adding 1-2 intermediate stops lets you shape the gradient's midpoint behavior: a gradient with a slightly lighter or more saturated midpoint stop creates a more luxurious, backlit quality; a slightly darker midpoint produces depth and dimension. The classic 3-stop technique for premium gradients: darken the midpoint by 5-10% lightness relative to a straight interpolation of the two endpoints. This prevents the gradient from looking flat or washed out at the center, which is the most common failure mode of two-stop gradients."
+    ],
+    "sections": [
+      {
+        "heading": "Why CSS gradients look muddy and how to fix it",
+        "body": "Default CSS gradient interpolation happens in sRGB, which is a display-encoding space optimized for hardware signal levels, not perceptual uniformity. When you interpolate from red (#ff0000) to blue (#0000ff) in sRGB, the mathematical midpoint (#7f007f) is a dark, desaturated purple that looks significantly dimmer than either endpoint. The resulting gradient has a clearly visible dark band through the center. The CSS Color Level 4 specification introduced gradient interpolation in perceptually uniform spaces: `background: linear-gradient(in oklch, red, blue)`. In OKLCH, the interpolation path stays at constant perceived lightness and saturation — producing a gradient that maintains visual vibrancy across its full width. Browser support for OKLCH gradient interpolation is now at 93% globally (Chrome 111+, Firefox 113+, Safari 16.2+), making it safe to use in most production contexts with a sRGB fallback for older browsers."
+      },
+      {
+        "heading": "Interpolation space comparison",
+        "body": "Gradient interpolation quality varies significantly by color space. sRGB (browser default): produces muddy midpoints on multi-hue gradients; the most common cause of gradient disappointment in UI design. Linear-light sRGB (`in srgb-linear`): slightly better than sRGB for luminance consistency, but still not hue-uniform. OKLab (`in oklab`): perceptually uniform lightness and saturation, but hue interpolation is linear in Lab space which can produce unexpected intermediate hues for some color pairs. OKLCH (`in oklch`): perceptually uniform with hue interpolation along the hue wheel arc — generally the best choice for vibrant multi-hue gradients. HSL (`in hsl`): hue interpolation along the hue wheel like OKLCH but using the non-perceptual HSL space, so luminance varies significantly between hues. P3 (`in display-p3`): useful for wide-gamut gradient endpoints on P3-capable displays, but interpolation still follows sRGB's non-uniform path. The practical recommendation: use `in oklch` as your default for multi-hue gradients; use `in oklab` for same-hue gradients where you want smooth lightness transitions without hue shift."
+      },
+      {
+        "heading": "Designing gradient color stop placement",
+        "body": "The professional approach to gradient stop placement: (1) Start with your two endpoint colors. (2) Render the gradient and identify any visual problems — muddy midpoint, perceived dark band, flat center. (3) Add a third stop at 50% position set to a color that corrects the problem: typically 5-10% lighter than the sRGB interpolated midpoint, or shifted toward a more saturated intermediate hue. (4) Add a fourth stop if the correction creates a new problem on either half of the gradient. This process typically reaches a satisfying result in 3-4 stops. More than 4-5 stops usually indicates a more fundamental color choice problem (the two endpoint colors are simply incompatible for a smooth gradient) rather than a stop-placement problem. The alternative: choose endpoint colors that share similar perceptual lightness, which naturally produces smoother gradients regardless of interpolation method."
+      },
+      {
+        "heading": "Practical CSS gradient patterns",
+        "body": "The production-ready CSS gradient pattern with OKLCH interpolation and fallback: define the sRGB fallback first, then add the enhanced version using @supports. For a gradient from cobalt to violet: `.gradient-hero { background: linear-gradient(135deg, #2563EB, #7C3AED); } @supports (background: linear-gradient(in oklch, red, blue)) { .gradient-hero { background: linear-gradient(in oklch 135deg, oklch(0.55 0.22 265), oklch(0.47 0.22 305)); } }` — this gives modern browsers the perceptually smooth OKLCH gradient while providing a reasonable sRGB fallback. For animated gradients (CSS custom property animation or JavaScript), prefer OKLCH for the same reason — linear interpolation of OKLCH values produces smooth, physically plausible transitions that sRGB interpolation does not."
+      }
+    ],
+    "links": [
+      {
+        "label": "Vivid Spectrum collection",
+        "href": "/collections/vivid-spectrum/"
+      },
+      {
+        "label": "Color Converter Tool",
+        "href": "/tools/convert/"
+      },
+      {
+        "label": "Complete Archive Pack",
+        "href": "/packs/complete-archive/"
+      }
+    ]
   }
 ]

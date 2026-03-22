@@ -896,3 +896,46 @@ collections.push(
     },
   ),
 );
+
+collections.push(
+  createCollection(
+    "midnight-garden",
+    "Midnight Garden",
+    "Deep jewel tones — moody violet, plum, garnet, and teal — at low lightness for luxury editorial, dark-mode UI, and nocturnal brand identities.",
+    "A palette that lives in the darkest, most saturated zone of the spectrum: colors that retain visible chromatic identity at low lightness levels, where lesser palettes collapse into undifferentiated near-black. Violet-nocturne-soft provides the deep, moody anchor that reads unmistakably purple even at 20% lightness; plum-shadow-clear introduces a slightly warmer, more magenta-adjacent deep tone; garnet-nocturne-muted brings a dark, desaturated red-brown that grounds the palette's warmth; teal-shadow-soft supplies the cool counterweight that keeps the collection from reading as all-warm; mulberry-ink-soft delivers the deepest near-black with enough residual violet chroma to feel intentional rather than default. This is the palette for interfaces that need weight and atmosphere without losing color identity — premium dark-mode products, night-mode editorial layouts, and luxury branding that earns its darkness through chromatic depth rather than simple black-on-black.",
+    ["Dark", "Jewel", "Luxury"],
+    [
+      "violet-nocturne-soft",
+      "plum-shadow-clear",
+      "garnet-nocturne-muted",
+      "teal-shadow-soft",
+      "mulberry-ink-soft",
+    ],
+    {
+      editorialNote:
+        "These colors succeed when used with a very light, high-contrast foreground — try warm ivory (#FAF7F4) or pale lavender (#F0EEF8) for text rather than pure white, which can feel too stark against these dark tones. The teal-shadow-soft is the most versatile entry — it works as a dark-mode interactive highlight and as a data visualization accent against the deep violet and plum tones.",
+      promptWords: ["velvet theatre curtain", "deep forest at dusk", "stained glass at midnight", "jewel in dark shadow", "moonlit garden path"],
+      useCases: ["Premium dark-mode UI products", "Luxury editorial and magazine layouts", "Nocturnal brand identities", "Music and entertainment platforms"],
+    },
+  ),
+  createCollection(
+    "powder-room",
+    "Powder Room",
+    "The softest register of warm pink, rose, peony, and iris — barely-there pastels for beauty, wellness, and elevated feminine brand aesthetics.",
+    "A collection assembled at the intersection of high lightness and deliberately low saturation, producing colors that exist on the threshold between tinted white and clearly recognizable hue. The palette is built around the warmest quarter of the pink-to-violet arc, where blush, rose, peony, and iris all coexist as close tonal neighbors. Blush-whisper-soft provides the warmest and most recognizably pink entry, anchoring the palette in warmth; peony-pearl-soft steps down in lightness while retaining a soft pink identity; rose-whisper-muted introduces a slightly cooler, more neutral near-white; iris-mist-muted bridges the transition from pink to lavender; orchid-pearl-muted brings the subtlest cool-purple quality that widens the palette's versatility for beauty and wellness brands that want softness without being restricted to pink alone.",
+    ["Soft", "Beauty", "Feminine"],
+    [
+      "blush-whisper-soft",
+      "peony-pearl-soft",
+      "rose-whisper-muted",
+      "iris-mist-muted",
+      "orchid-pearl-muted",
+    ],
+    {
+      editorialNote:
+        "The palette reads as cohesive only when all five colors are used with high-lightness surfaces (white or near-white backgrounds). On grey or dark surfaces, the subtle hue differences collapse and the palette reads as a collection of near-whites. For typography, use a warm near-black (hue 330°, L:10-14%, S:12%) rather than pure black — it coordinates with the warmth of the palette entries and prevents the page from feeling like tinted white on cold black.",
+      promptWords: ["cotton candy at dusk", "powder compact at 10am", "rose water in clear glass", "botanical watercolor wash", "peony petal on white marble"],
+      useCases: ["Beauty and cosmetics brands", "Wellness and self-care products", "Wedding and celebration platforms", "Feminine editorial and lifestyle content"],
+    },
+  ),
+);

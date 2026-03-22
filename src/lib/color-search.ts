@@ -354,6 +354,57 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   stationery: ["ivory", "pearl", "cobalt", "muted", "warm"],
   letterpress: ["ivory", "ink", "pearl", "muted", "amber"],
   journal: ["ivory", "amber", "honey", "ink", "warm"],
+  // Print and media aliases
+  print: ["ivory", "pearl", "muted", "cobalt", "ink"],
+  cmyk: ["crimson", "cobalt", "citrine", "ink", "clear"],
+  offset: ["ivory", "muted", "pearl", "amber", "ink"],
+  // Gradient and blend aliases
+  gradient_mesh: ["vivid", "cobalt", "violet", "teal", "coral"],
+  duotone: ["cobalt", "amber", "ink", "ivory", "vivid"],
+  overlay: ["violet", "cobalt", "amber", "soft", "muted"],
+  // Architectural glass and light
+  stained_glass: ["crimson", "cobalt", "citrine", "emerald", "violet"],
+  prism: ["coral", "citrine", "emerald", "cobalt", "violet"],
+  iridescent: ["teal", "violet", "cobalt", "cerulean", "fuchsia"],
+  // Specific material and surface aliases
+  frosted_glass: ["frost", "veil", "whisper", "azure", "pearl"],
+  brushed_metal: ["ash", "fog", "pearl", "slate", "frost"],
+  anodized: ["cobalt", "azure", "violet", "teal", "vivid"],
+  // Evening and dusk
+  golden_hour: ["amber", "ember", "coral", "honey", "citrine"],
+  twilight: ["violet", "indigo", "cobalt", "plum", "rose"],
+  afterglow: ["rose", "peony", "amber", "coral", "blush"],
+  // Specific brand and design contexts
+  saas_dashboard: ["cobalt", "azure", "ink", "frost", "vivid"],
+  landing_page: ["cobalt", "ivory", "vivid", "coral", "amber"],
+  mobile_ui: ["cobalt", "azure", "vivid", "mint", "coral"],
+  // Plant and botanical extended
+  succulent: ["jade", "mint", "olive", "teal", "muted"],
+  palm: ["lime", "emerald", "leaf", "teal", "vivid"],
+  fern: ["moss", "fern", "leaf", "olive", "emerald"],
+  // Precious and craft materials
+  gold_leaf: ["amber", "honey", "citrine", "pearl", "warm"],
+  silver: ["pearl", "frost", "ash", "fog", "veil"],
+  platinum: ["pearl", "frost", "ash", "slate", "fog"],
+  rose_quartz: ["blush", "pearl", "whisper", "rose", "muted"],
+  // Specific color descriptor aliases
+  neon_coral: ["coral", "vivid", "ember", "clear", "bloom"],
+  electric_purple: ["violet", "orchid", "fuchsia", "vivid", "clear"],
+  deep_teal: ["teal", "cobalt", "shadow", "dusk", "soft"],
+  dusty_green: ["sage", "olive", "moss", "muted", "soft"],
+  // Skin and beauty tones
+  tan: ["apricot", "honey", "amber", "sienna", "warm"],
+  bronze: ["amber", "sienna", "ember", "honey", "rust"],
+  ivory_skin: ["ivory", "pearl", "blush", "whisper", "veil"],
+  // Environmental and outdoor
+  canyon: ["rust", "sienna", "ember", "clay", "amber"],
+  prairie: ["amber", "honey", "olive", "leaf", "warm"],
+  tundra: ["frost", "veil", "ash", "mist", "whisper"],
+  // Digital-native aesthetics
+  lofi: ["muted", "amber", "soft", "warm", "ivory"],
+  y2k: ["vivid", "fuchsia", "cobalt", "coral", "citrine"],
+  aura: ["violet", "lavender", "orchid", "veil", "blush"],
+  cottagecore_green: ["moss", "sage", "fern", "leaf", "muted"],
 
 };
 
