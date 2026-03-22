@@ -2704,5 +2704,191 @@
         "href": "/packs/brand-starter-kit/"
       }
     ]
+  },
+  {
+    "slug": "february-2027-gradient-design",
+    "date": "2027-02-18",
+    "title": "Designing with gradients: when they help and when they hurt",
+    "summary": "Gradients are back — not as skeuomorphic shadows but as a contemporary design tool for backgrounds, UI surfaces, and brand systems. But the same properties that make gradients expressive also make them easy to misuse. Understanding the mechanics helps you use them intentionally.",
+    "eyebrow": "Issue 058",
+    "tags": [
+      "Color Theory",
+      "UI/UX",
+      "Brand"
+    ],
+    "featuredCollectionId": "nocturne-tech",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "Gradients succeed when they communicate directionality, depth, or a transition between states. They fail when they become decorative noise that competes with content. The test: if the gradient were a flat color, would the design still communicate its hierarchy and purpose?",
+      "The most common gradient mistake is interpolating through gray. A gradient from a warm orange to a cool blue that passes through the color wheel's midpoint will create a muddy gray band in the center. Fix this by routing the gradient through a hue that connects them — amber → yellow → green → teal — or by using perceptual color interpolation (OKLCH) instead of RGB.",
+      "Gradients work best when they have a light source logic. Top-to-bottom, upper-left-to-lower-right, and radial gradients from the center all imply a consistent light source. Arbitrary diagonal gradients or multi-stop gradients without a clear directionality logic read as arbitrary rather than intentional."
+    ],
+    "sections": [
+      {
+        "heading": "Why gradients fell out of favor and why they're back",
+        "body": "Flat design's rise in the early 2010s was a reaction against skeuomorphism's overuse of gradients to simulate physical depth — beveled buttons, leather textures, and 3D chrome effects. The solution was an overcorrection: all color became solid, all surfaces became flat. What's happening now is more nuanced. Gradients are being used not to simulate physicality but to express energy, warmth, and brand personality. The difference is intent: a gradient that adds atmospheric depth to a hero background is doing something different from a gradient that tries to make a button look pressable."
+      },
+      {
+        "heading": "The mechanics of gradient quality",
+        "body": "A gradient's quality comes down to three decisions: the color pair, the interpolation path, and the easing curve. The color pair determines what hues are involved. The interpolation path determines what hues appear between them — RGB interpolation often creates desaturated midpoints; HSL interpolation creates brighter but sometimes garish midpoints; OKLCH interpolation creates perceptually uniform transitions that look most natural. The easing curve determines the distribution of the transition — a linear gradient applies the transition evenly, while an ease-in or ease-out gradient creates gradients that linger longer at one end, which creates a different atmospheric effect."
+      },
+      {
+        "heading": "Practical gradient rules for UI and brand work",
+        "body": "For UI backgrounds, use subtle gradients with low contrast between stops (L difference under 8%) to add atmospheric depth without competing with foreground content. For hero sections and brand expressions, higher contrast is acceptable but the gradient should move from a primary brand color toward a hue that is adjacent on the color wheel, not directly across it. For interactive elements like buttons, gradients are acceptable when they reinforce the brand palette and when the hover state has a corresponding gradient shift — a static gradient button that does not respond to hover reads as an image, not a component."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore Nocturne Tech",
+        "href": "/collections/nocturne-tech/"
+      },
+      {
+        "label": "Browse dark family",
+        "href": "/families/black/"
+      },
+      {
+        "label": "Explore Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit/"
+      }
+    ]
+  },
+  {
+    "slug": "february-2027-color-palettes-for-logos",
+    "date": "2027-02-25",
+    "title": "Color for logo design: constraints that make logos work",
+    "summary": "Logo color follows different rules from UI or editorial color. A logo must work at 16px and 1600px, in color and in black, on screens and on merchandise. These constraints shape which colors work for logos and which will fail in production.",
+    "eyebrow": "Issue 059",
+    "tags": [
+      "Brand",
+      "Color Theory"
+    ],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Logos should be designed in black first. If a logo only works in its color version, it is not a finished logo. The black version reveals whether the form carries the identity — color should enhance the form, not compensate for a form that doesn't hold on its own.",
+      "Logo colors need to survive reproduction across physical and digital contexts. A color that looks clean on screen may shift dramatically in offset printing (CMYK gamut limitations), screen printing (spot color matching), or embroidery (thread color matching). Before finalizing a logo color, check its nearest Pantone equivalent.",
+      "The most reliable logo palettes use one primary color plus one neutral (black, white, or a near-neutral). Multi-color logos require careful management to avoid becoming complicated when reduced. Complexity added in the logo itself must be subtracted somewhere else in the brand system."
+    ],
+    "sections": [
+      {
+        "heading": "Why logo color is a different problem from brand color",
+        "body": "A brand palette might contain 20 or more colors used across print, digital, environmental, and social contexts. A logo uses one or two colors that must hold across every single one of those contexts simultaneously. This is a fundamentally more constrained problem. Logo colors need to be perceptually distinctive, reproducible in every printing and screen technology, and readable at any size from a favicon to a billboard. Most brand colors fail at least one of these requirements when tested rigorously."
+      },
+      {
+        "heading": "Testing a logo color for production readiness",
+        "body": "Run four tests before finalizing a logo color: (1) Conversion test — does the color convert cleanly to CMYK without a dramatic shift? Colors near the edges of the CMYK gamut (saturated cyan-greens, bright oranges) shift significantly. (2) Spot color test — what is the nearest Pantone match and is the visual difference acceptable? (3) Small-size test — at 32px width, does the color still read clearly against white and against dark backgrounds? (4) Context test — render the logo in white against the primary brand color background, in black against white, and in the primary color against both light and dark neutrals. All four must be acceptable."
+      },
+      {
+        "heading": "The single-color logo system",
+        "body": "The strongest logo systems are built around one primary color with a defined neutral counterpart. This constraint makes the system flexible: the logo can appear in primary color on white, white on primary color, black on white, and white on black — four configurations that cover most design contexts. Adding a second accent color to a logo multiplies the configuration complexity significantly. If a second logo color is genuinely needed (as in a logo with two components that need differentiation), treat them as primary and secondary: one carries the brand identity, the other supports it."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore Quiet Luxury",
+        "href": "/collections/quiet-luxury/"
+      },
+      {
+        "label": "Browse neutral family",
+        "href": "/families/gray/"
+      },
+      {
+        "label": "Explore Brand Starter Kit",
+        "href": "/packs/brand-starter-kit/"
+      }
+    ]
+  },
+  {
+    "slug": "march-2027-color-in-photography",
+    "date": "2027-03-04",
+    "title": "Color in photography: how photos and palettes interact in design",
+    "summary": "Most designed surfaces include photography. The relationship between photography color and designed palette color is one of the most common sources of visual discord in professional design work — yet it is rarely taught explicitly.",
+    "eyebrow": "Issue 060",
+    "tags": [
+      "Brand",
+      "Editorial",
+      "Color Theory"
+    ],
+    "featuredCollectionId": "editorial-warmth",
+    "featuredPackId": "content-creator-bundle",
+    "highlights": [
+      "Photography color temperature is the first compatibility check. Warm-toned photography (golden hour, incandescent light) pairs naturally with warm palettes; cool-toned photography (overcast daylight, studio blue-white light) pairs with cool palettes. Mixing warm photography with a cool palette, or vice versa, creates tension that requires a conscious bridging strategy to resolve.",
+      "Desaturated photography is the most palette-compatible photography treatment. A palette's accent colors read more clearly against low-saturation photography because there is less color competition. This is why editorial luxury brands often use high-contrast black-and-white photography with single saturated accent colors — the contrast is maximized by eliminating color competition.",
+      "Duotone photography (two-color toning) is an effective strategy for unifying a mixed photography library. By mapping all photography shadows to the brand's dark neutral and highlights to a lighter brand tint, otherwise unrelated images acquire a shared color language."
+    ],
+    "sections": [
+      {
+        "heading": "The photography-palette compatibility problem",
+        "body": "When photography and palette are both high-saturation, they compete. The viewer's eye moves between the photographic colors and the palette colors without a clear hierarchy. This is fine in a mood board context, where competition signals energy. It is a problem on a designed page, where the photography should support content rather than compete with it. The standard solution is to either desaturate the photography, or to choose photography that is already dominated by a narrow color range that aligns with the palette."
+      },
+      {
+        "heading": "Color grading photography to match your palette",
+        "body": "Basic color grading in Lightroom, Capture One, or Photoshop can substantially increase palette-photography compatibility. The most effective adjustments: (1) Use the HSL panel to reduce saturation of hues that clash with the palette while preserving hues that align. (2) Use tone curves to push shadows toward the palette's darkest neutral and pull highlights toward the palette's lightest surface color. (3) Use split toning or color grade panels to add a consistent tint across the shadow and highlight ranges. Even subtle applications of these techniques create a cohesive color relationship between photography and palette."
+      },
+      {
+        "heading": "Building a photography brief that specifies color",
+        "body": "For commercial work that involves art directing photography, the color brief is as important as the compositional brief. Specify: (1) Target color temperature in Kelvin (e.g., 4200K for warm daylight) or by reference (\"match attached reference images\"). (2) Dominant surface color (the color that occupies the largest area of the frame — often a background, fabric, or architectural surface). (3) Color range to avoid — colors that will conflict with the existing palette. A photographer working with these specifications can choose locations, styling, and lighting that produces photography that naturally integrates with the design system."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore Editorial Warmth",
+        "href": "/collections/editorial-warmth/"
+      },
+      {
+        "label": "Browse warm amber tones",
+        "href": "/families/orange/"
+      },
+      {
+        "label": "Explore Content Creator Bundle",
+        "href": "/packs/content-creator-bundle/"
+      }
+    ]
+  },
+  {
+    "slug": "march-2027-color-for-presentations",
+    "date": "2027-03-11",
+    "title": "Color for presentations: slides, decks, and pitch materials",
+    "summary": "Presentations have a specific set of color requirements that differ from web and brand work. The surface is projected or screen-rendered at variable quality, the audience reads text at low resolution from a distance, and the design must support rapid comprehension rather than exploration.",
+    "eyebrow": "Issue 061",
+    "tags": [
+      "Brand",
+      "UI/UX"
+    ],
+    "featuredCollectionId": "monochrome-studio",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Presentation backgrounds should use near-neutral values, not pure black or pure white. Pure white backgrounds cause eye fatigue in dim conference rooms, and pure black backgrounds create extreme contrast that makes text appear to vibrate. Off-white (L:96-98%) and near-black (L:8-12%) both read as neutral while being easier on the viewer's eyes across the full duration of a presentation.",
+      "Text contrast in presentations must exceed WCAG minimums because of projection variability. A projector with poor lamp life or a screen with ambient glare can reduce contrast by 30-40%. Design for 7:1 contrast on text and data, not the 4.5:1 WCAG minimum, to maintain readability in unpredictable environments.",
+      "Use accent colors sparingly in presentations — one per slide maximum, and only to direct attention to the single most important element on that slide. Multi-accent slides produce visual competition that slows comprehension. Reserve your most saturated palette colors for the data points, callouts, and headlines you most need the audience to remember."
+    ],
+    "sections": [
+      {
+        "heading": "How projection and variable screens change color requirements",
+        "body": "Presentation design is distinct from screen UI design in one critical way: the final display is often outside your control. A deck viewed in a dark boardroom on a calibrated monitor looks different from the same deck projected onto a matte screen in a sunlit conference room. The practical result is that saturated colors tend to appear more intense in projection (expanding apparent saturation), medium-value colors flatten (reducing perceived contrast), and brand colors often shift due to the projector's color temperature. The safest approach is to design with more contrast than you think you need, keep the palette minimal, and test a printed version alongside the screen version before a high-stakes presentation."
+      },
+      {
+        "heading": "The four-color deck system",
+        "body": "The most presentation-effective palettes use exactly four color roles: background neutral, text color, accent color, and data highlight color. Background neutral: a light near-white or dark near-black depending on the deck's tone. Text color: high-contrast against the background — dark neutrals on light backgrounds, white or light neutral on dark backgrounds. Accent color: one mid-saturation brand color used sparingly for headings, rule lines, and structural elements. Data highlight: a saturated, memorable color used only on the single most important data point or callout per slide. Four colors is enough. Six colors in a deck is usually evidence that the visual hierarchy hasn't been resolved."
+      },
+      {
+        "heading": "Dark vs. light presentation palettes",
+        "body": "The choice between dark and light deck palettes is partly aesthetic and partly contextual. Dark palettes (near-black backgrounds) project well in dim rooms, support vivid brand color use, and read as more dramatic and premium. They are appropriate for pitches, launches, and high-stakes client presentations. Light palettes (near-white backgrounds) are easier to read in bright rooms, work better in printed form, and read as cleaner and more documentary. They are appropriate for reports, data-heavy presentations, and internal communications. If you use the same deck in both contexts, design for light first (it is harder to achieve high contrast on light than on dark) and provide an alternate dark-background version for presentation contexts."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore Monochrome Studio",
+        "href": "/collections/monochrome-studio/"
+      },
+      {
+        "label": "Browse neutral grays",
+        "href": "/families/gray/"
+      },
+      {
+        "label": "Explore Brand Starter Kit",
+        "href": "/packs/brand-starter-kit/"
+      }
+    ]
   }
 ]

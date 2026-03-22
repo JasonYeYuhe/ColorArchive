@@ -1745,7 +1745,126 @@ export const landingGuides: LandingGuide[] = [
       { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
     ],
   },
-
+  {
+    category: "Color Theory",
+    slug: "gradient-color-palette",
+    title: "Gradient Color Palette: How to Design Gradients That Look Intentional",
+    summary:
+      "Gradients are a powerful tool when used with precision — and a design liability when applied without a system. Understanding the mechanics of gradient quality, interpolation paths, and contextual constraints helps you use gradients as a deliberate design choice rather than a decoration.",
+    eyebrow: "Color Theory Guide",
+    priority: 69,
+    searchIntent: "gradient color palette design",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Gradient", "Color Theory", "UI/UX"],
+    highlights: [
+      "The most common gradient mistake is interpolating through gray. A gradient from warm orange to cool blue that passes through the RGB midpoint creates a muddy gray band. The fix: route through a connecting hue, or use perceptual interpolation (OKLCH) instead of RGB.",
+      "Gradients succeed when they communicate directionality or depth. The test: if you replaced the gradient with a flat color, would the design still work? If yes, the gradient may be unnecessary. If no, it is doing a real job.",
+      "Subtle gradients — with low contrast between stops (lightness difference under 8%) — add atmospheric depth without competing with foreground content. They are almost always preferable to high-contrast decorative gradients on UI surfaces.",
+    ],
+    sections: [
+      {
+        heading: "The mechanics of gradient quality: color pair, interpolation, easing",
+        body:
+          "A gradient's quality comes down to three decisions. The color pair determines which hues are involved. The interpolation path determines what hues appear between them — RGB interpolation creates desaturated midpoints; HSL creates brighter but sometimes garish transitions; OKLCH creates perceptually uniform transitions that look most natural. The easing curve determines the distribution: a linear easing applies the transition evenly, while ease-in or ease-out curves create gradients that linger at one end, producing a different atmospheric effect. Most designers control the color pair and ignore the interpolation path, which is why so many gradients have unexpectedly muddy centers. Switching a gradient from RGB to OKLCH interpolation in CSS (using `in oklch` syntax) is the single most effective quality improvement for multi-hue gradients.",
+      },
+      {
+        heading: "When gradients help and when they hurt",
+        body:
+          "Gradients work best in three contexts: as atmospheric background surfaces (hero sections, page backgrounds) where the gradient creates depth without competing with content; as data visualization elements where a gradient communicates a continuous range or intensity scale; and as brand expression elements in launch pages or illustrations where high energy and visual richness are appropriate. Gradients hurt in contexts where they compete with the primary communication: on cards or components where the background gradient competes with the foreground text, on interactive elements like buttons where gradient surfaces can feel inconsistent across states, and in dense information layouts where multiple gradients in the same visual field create noise. Dark Mode UI Kit provides both dark-surface palettes and vivid accent colors that pair well in gradient combinations — the deep cobalt-to-violet range produces gradients that feel rich rather than random.",
+      },
+      {
+        heading: "Building a systematic gradient palette",
+        body:
+          "Ad-hoc gradient generation produces inconsistent results. A systematic gradient palette defines a small set of approved gradient combinations — typically three to five — rather than allowing free-form gradient use across a design system. Each approved combination specifies the two stop colors, the interpolation method, and the angle or gradient type. This approach means that gradients across a product or brand feel related rather than arbitrary. For dark UI systems like Nocturne Tech, a useful gradient palette might include: (1) a deep cobalt-to-violet for primary brand surfaces, (2) a violet-to-indigo for secondary and background elements, (3) an electric-aqua-to-cobalt for emphasis and CTA surfaces, and (4) a near-black-to-deep-blue for card elevations. Four combinations cover most gradient needs without producing visual chaos.",
+      },
+    ],
+    links: [
+      { label: "Explore Nocturne Tech", href: "/collections/nocturne-tech/" },
+      { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Try the gradient tool", href: "/tools/gradient/" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "logo-color-palette",
+    title: "Logo Color Palette: Choosing Colors That Work at Every Scale",
+    summary:
+      "Logo color follows different rules from UI or editorial color. A logo must work at 16px and 1600px, in color and monochrome, on screens and physical surfaces. These constraints shape which palette choices survive production and which will fail.",
+    eyebrow: "Brand & Identity Guide",
+    priority: 72,
+    searchIntent: "logo color palette design",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Brand", "Logo", "Color Theory"],
+    highlights: [
+      "Design the logo in black first. If a logo only works in color, it is not a finished logo. The black version reveals whether the form carries the identity — color should enhance the form, not compensate for a weak form.",
+      "Logo colors must survive CMYK conversion, Pantone matching, and small-size reduction. Colors near the edge of the CMYK gamut (saturated cyan-greens, bright oranges) shift significantly in print. Check the nearest Pantone match before finalizing.",
+      "The most reliable logo palettes use one primary color and one neutral. Multi-color logos require more management to avoid becoming complicated when reduced to small sizes or reproduced in restricted color environments.",
+    ],
+    sections: [
+      {
+        heading: "Why logo color is a more constrained problem than brand color",
+        body:
+          "A brand palette might contain 20 or more colors used across print, digital, environmental, and social contexts. A logo uses one or two colors that must work across every single one of those contexts simultaneously. This makes logo color a fundamentally more constrained problem. Logo colors need to be perceptually distinctive, reproducible in every printing and screen technology, and readable at any size from a 16px favicon to a billboard. Most brand colors fail at least one of these requirements when tested rigorously. The Brand Starter Kit provides colors that have been specified with cross-medium use in mind — each token includes both HEX (screen) and CSS variable formats that are easy to map to CMYK and Pantone equivalents during identity production.",
+      },
+      {
+        heading: "Testing a logo color before committing",
+        body:
+          "Run four tests before finalizing a logo color. The conversion test: does the color convert cleanly to CMYK without a dramatic visual shift? Colors near the edges of the CMYK gamut shift significantly — check by converting to CMYK in Photoshop or Illustrator and comparing. The spot color test: what is the nearest Pantone match, and is the visual difference between the HEX and Pantone acceptable for your typical use cases? The small-size test: at 32 pixels wide, does the color still read clearly against both white and dark backgrounds? The context test: render the logo in full color, in black, in white on the primary brand color, and in the primary brand color on white. All four configurations must be visually acceptable.",
+      },
+      {
+        heading: "The single-color logo system and when to extend it",
+        body:
+          "The strongest logo systems are built around one primary color with a defined neutral counterpart. This creates a flexible, self-contained system: primary color on white, white on primary color, black on white, white on black — four configurations that cover most real-world design contexts. Adding a second logo color multiplies complexity significantly. If a second color is genuinely needed — for example, in a logomark that contains two components requiring differentiation — structure them as primary and secondary: one carries the brand identity, the other supports it. Quiet Luxury demonstrates an effective restrained palette approach: muted warm tones that photograph and print consistently, without the saturation extremes that cause CMYK and Pantone matching problems.",
+      },
+    ],
+    links: [
+      { label: "Explore Quiet Luxury", href: "/collections/quiet-luxury/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse all families", href: "/families/" },
+    ],
+  },
+  {
+    category: "Web Design",
+    slug: "color-palette-for-presentations",
+    title: "Color Palette for Presentations: Slides, Decks, and Pitch Materials",
+    summary:
+      "Presentations have specific color requirements that differ from web and brand work. Slides are projected or screen-rendered at variable quality, read from a distance, and designed for rapid comprehension. These constraints determine which color choices work and which fail.",
+    eyebrow: "Web Design Guide",
+    priority: 68,
+    searchIntent: "color palette for presentations slides",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Presentations", "Brand", "UI/UX"],
+    highlights: [
+      "Use near-neutral backgrounds rather than pure white or pure black. Pure white causes eye fatigue in dim conference rooms; pure black creates harsh contrast. Off-white (L: 96-98%) and near-black (L: 8-12%) read as neutral while being easier on the eyes across a full presentation.",
+      "Presentation contrast must exceed WCAG minimums. Projection variability — poor lamp life, ambient glare — can reduce effective contrast by 30-40%. Design for 7:1 contrast on text and data values, not the 4.5:1 WCAG minimum.",
+      "Use one accent color per slide, maximum. More than one accent per slide creates visual competition that slows comprehension. Reserve the most saturated palette color for the single most important element the audience needs to remember.",
+    ],
+    sections: [
+      {
+        heading: "How projection and variable display conditions change color requirements",
+        body:
+          "Presentation design differs from screen UI design in one critical way: the final display is often outside your control. A deck viewed in a dark boardroom on a calibrated monitor looks different from the same deck projected onto a matte screen in a sunlit conference room. Saturated colors often appear more intense in projection; medium-value colors flatten; brand colors shift due to the projector's color temperature. The practical consequence: design with more contrast than you think you need, keep the palette minimal, and test a printed version alongside the screen version before high-stakes presentations. Monochrome Studio provides a restrained palette of cool neutrals that are particularly projection-friendly — the low-saturation tones shift minimally across display conditions compared to vivid brand colors.",
+      },
+      {
+        heading: "The four-color deck system",
+        body:
+          "The most presentation-effective color systems use exactly four roles: background neutral, text color, accent color, and data highlight color. Background neutral: a near-white or near-black depending on the deck's tone. Text color: high-contrast against the background — dark neutrals on light backgrounds, white or very light neutral on dark backgrounds. Accent color: one mid-saturation brand color used sparingly for headings, rule lines, and structural elements. Data highlight: a saturated, memorable color used only on the single most important data point or callout per slide. Four roles is enough. Six colors in a deck usually indicates that the visual hierarchy hasn't been resolved — adding color is easier than doing the work of simplification.",
+      },
+      {
+        heading: "Dark vs. light presentation palettes",
+        body:
+          "Dark palettes (near-black backgrounds) project well in dim rooms, support more vivid brand color use, and read as more dramatic and premium. They work for pitches, product launches, and high-stakes client presentations. Light palettes (near-white backgrounds) are easier to read in bright rooms, work better in printed form, and read as cleaner and more documentary. They work for data-heavy presentations, reports, and internal communications. If the same deck is used in both contexts, design for light first — it is harder to achieve adequate contrast on light surfaces — and provide an alternate dark-background version for presentation environments where projection is the primary display.",
+      },
+    ],
+    links: [
+      { label: "Explore Monochrome Studio", href: "/collections/monochrome-studio/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse neutral family", href: "/families/gray/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {

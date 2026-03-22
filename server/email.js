@@ -389,22 +389,27 @@ const SUBJECT_VARIANTS = {
   day3: {
     A: "How to use your ColorArchive palette in code",
     B: "3 steps to drop your free palette into any project",
+    C: "Your free palette pack — getting started",
   },
   day7: {
     A: "ColorArchive catalog preview — find the pack that fits your project",
     B: "Which ColorArchive pack matches what you're building?",
+    C: "One palette library, every format you need",
   },
   day14: {
     A: "10% off your first ColorArchive pack — code FIRSTPACK",
     B: "Your FIRSTPACK discount expires in 7 days",
-  },
-  day30: {
-    A: "Your ColorArchive palette — one month on",
-    B: "The pack that pays for itself in one project",
+    C: "A discount for your first ColorArchive pack — use FIRSTPACK",
   },
   day21: {
     A: "Three things you can build with a ColorArchive palette today",
     B: "Color ideas for your next project — from the archive",
+    C: "Practical color: three real starting points",
+  },
+  day30: {
+    A: "Your ColorArchive palette — one month on",
+    B: "The pack that pays for itself in one project",
+    C: "What designers do after the free pack",
   },
 };
 

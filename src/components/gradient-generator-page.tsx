@@ -111,6 +111,7 @@ export function GradientGeneratorPage() {
               <button
                 type="button"
                 onClick={() => setGradientType("linear")}
+                aria-pressed={gradientType === "linear"}
                 className={`px-5 py-2 text-sm font-medium transition ${
                   gradientType === "linear"
                     ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"
@@ -122,6 +123,7 @@ export function GradientGeneratorPage() {
               <button
                 type="button"
                 onClick={() => setGradientType("radial")}
+                aria-pressed={gradientType === "radial"}
                 className={`px-5 py-2 text-sm font-medium transition ${
                   gradientType === "radial"
                     ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"
@@ -137,18 +139,21 @@ export function GradientGeneratorPage() {
           <div className="mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
             {/* Color 1 */}
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              <label htmlFor="color1-text" className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 Color 1
               </label>
               <div className="flex items-center gap-3">
                 <input
                   type="color"
+                  id="color1-picker"
+                  aria-label="Color 1 picker"
                   value={color1}
                   onChange={(e) => setColor1(e.target.value.toUpperCase())}
                   className="h-10 w-14 cursor-pointer rounded-lg border border-black/8 bg-transparent dark:border-white/10"
                 />
                 <input
                   type="text"
+                  id="color1-text"
                   value={color1}
                   onChange={(e) => {
                     const v = e.target.value.toUpperCase();
@@ -162,18 +167,21 @@ export function GradientGeneratorPage() {
 
             {/* Color 2 */}
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              <label htmlFor="color2-text" className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 Color 2
               </label>
               <div className="flex items-center gap-3">
                 <input
                   type="color"
+                  id="color2-picker"
+                  aria-label="Color 2 picker"
                   value={color2}
                   onChange={(e) => setColor2(e.target.value.toUpperCase())}
                   className="h-10 w-14 cursor-pointer rounded-lg border border-black/8 bg-transparent dark:border-white/10"
                 />
                 <input
                   type="text"
+                  id="color2-text"
                   value={color2}
                   onChange={(e) => {
                     const v = e.target.value.toUpperCase();
@@ -189,14 +197,16 @@ export function GradientGeneratorPage() {
           {/* angle slider (linear only) */}
           {gradientType === "linear" && (
             <div className="mb-6">
-              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              <label htmlFor="gradient-angle" className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 Angle: {angle}°
               </label>
               <input
                 type="range"
+                id="gradient-angle"
                 min={0}
                 max={360}
                 value={angle}
+                aria-label={`Gradient angle: ${angle} degrees`}
                 onChange={(e) => setAngle(Number(e.target.value))}
                 className="w-full accent-neutral-900 dark:accent-white"
               />

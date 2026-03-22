@@ -15,13 +15,13 @@ function getVariant(email, numVariants = 2) {
   for (let i = 0; i < email.length; i++) {
     hash = ((hash << 5) - hash + email.charCodeAt(i)) | 0;
   }
-  return String.fromCharCode(65 + (Math.abs(hash) % numVariants)); // "A" or "B"
+  return String.fromCharCode(65 + (Math.abs(hash) % numVariants)); // "A", "B", or "C"
 }
 
 // Ensure subscriber has an ab_variant assigned
 function ensureVariant(row) {
   if (!row.ab_variant) {
-    const variant = getVariant(row.email);
+    const variant = getVariant(row.email, 3);
     db.prepare(`UPDATE subscribers SET ab_variant = ? WHERE id = ?`).run(variant, row.id);
     row.ab_variant = variant;
   }
@@ -122,7 +122,6 @@ async function runFollowUps() {
       console.error(`[scheduler] day-21 failed for ${row.email}:`, err.message);
     }
   }
-}
 
   // Day-30: final follow-up — catalog conversion email
   const due30d = db
