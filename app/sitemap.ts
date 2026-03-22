@@ -145,6 +145,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: "https://colorarchive.me/brand/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.87,
+    },
+    {
       url: "https://colorarchive.me/free-pack/",
       lastModified: BUILD_DATE,
       changeFrequency: "weekly",

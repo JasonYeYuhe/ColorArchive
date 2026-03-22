@@ -291,6 +291,14 @@ function PaletteContent() {
   }
 
   const paletteName = generatePaletteName(paletteColors);
+
+  useEffect(() => {
+    if (isFromUrl) {
+      document.title = `${paletteName} — ColorArchive`;
+      return () => { document.title = "Palette Builder — ColorArchive"; };
+    }
+  }, [isFromUrl, paletteName]);
+
   const cssExport = buildPaletteCssExport(paletteColors);
   const jsonExport = buildPaletteJsonExport(paletteColors);
   const tailwindExport = buildPaletteTailwindExport(paletteColors);

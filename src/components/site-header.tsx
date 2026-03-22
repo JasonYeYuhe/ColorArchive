@@ -42,7 +42,8 @@ interface SiteHeaderProps {
     | "/harmonies"
     | "/colorblind"
     | "/tools"
-    | "/tints";
+    | "/tints"
+    | "/brand";
 }
 
 interface NavItem {
@@ -81,6 +82,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/harmonies/", labelKey: "nav.harmonies" },
       { href: "/compare/", labelKey: "nav.compare" },
       { href: "/colorblind/", labelKey: "nav.colorblind" },
+      { href: "/brand/", labelKey: "nav.brand" },
       { href: "/favorites/", labelKey: "nav.favorites" },
     ],
   },

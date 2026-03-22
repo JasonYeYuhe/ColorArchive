@@ -25,6 +25,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.harmonies": { en: "Harmonies", zh: "色彩和谐" },
   "nav.compare": { en: "Compare", zh: "比较" },
   "nav.colorblind": { en: "Colorblind", zh: "色盲模拟" },
+  "nav.brand": { en: "Brand System", zh: "品牌色系" },
   "nav.surprise": { en: "Surprise", zh: "随机发现" },
   "nav.favorites": { en: "Favorites", zh: "收藏" },
   "nav.packs": { en: "Packs", zh: "色彩包" },
