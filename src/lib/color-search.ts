@@ -446,6 +446,39 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   // Studio photography
   seamless: ["ivory", "stone", "frost", "ash", "whisper"],
   backdrop: ["ivory", "stone", "frost", "ash", "muted"],
+  // Material and physical production
+  gloss: ["pearl", "silk", "vivid", "clear", "radiant"],
+  matte_finish: ["muted", "tone", "dusk", "shadow", "whisper"],
+  velvet_texture: ["emerald", "violet", "plum", "shadow", "nocturne"],
+  substrate: ["muted", "tone", "dusk", "whisper", "pearl"],
+  metallic_sheen: ["amber", "honey", "citrine", "olive", "silk"],
+  translucent: ["mist", "whisper", "veil", "pearl", "bloom"],
+
+  // Desert and Southwest
+  adobe: ["ember", "apricot", "amber", "coral", "tone"],
+  southwest: ["ember", "apricot", "amber", "olive", "tone"],
+  sagebrush: ["olive", "moss", "jade", "lime", "muted"],
+  canyon_palette: ["ember", "amber", "ruby", "coral", "shadow"],
+  arid: ["amber", "apricot", "ember", "olive", "muted"],
+  high_desert: ["ember", "olive", "cobalt", "amber", "muted"],
+
+  // Dark botanical and gothic
+  gothic: ["violet", "plum", "mulberry", "shadow", "ink"],
+  dark_botanical: ["emerald", "jade", "violet", "plum", "shadow"],
+  apothecary_dark: ["violet", "plum", "mulberry", "jade", "emerald"],
+  moody_palette: ["violet", "plum", "shadow", "emerald", "muted"],
+
+  // Animation and UX color
+  skeleton_screen: ["mist", "whisper", "veil", "pearl"],
+  hover_state: ["silk", "bloom", "tone", "clear", "radiant"],
+  cta_color: ["vivid", "coral", "amber", "crimson", "cobalt"],
+
+  // Color psychology
+  trust: ["cobalt", "cerulean", "azure", "sapphire", "teal"],
+  urgency: ["crimson", "coral", "vivid", "ember", "ruby"],
+  luxury_dark: ["muted", "shadow", "dusk", "velvet", "ink"],
+  calm_palette: ["cerulean", "aqua", "mist", "bloom", "soft"],
+  energy_palette: ["vivid", "coral", "amber", "citrine", "lime"],
 
 };
 

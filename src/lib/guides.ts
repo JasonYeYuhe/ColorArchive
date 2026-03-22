@@ -3885,3 +3885,113 @@ const extraGuides12: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides12);
+
+const extraGuides13: LandingGuide[] = [
+  {
+    category: "Material Design",
+    slug: "material-color-specification-guide",
+    title: "Material Color: How to Specify Color for Physical Production",
+    summary:
+      "Digital color and physical color are different problems. This guide covers the essential concepts for designers specifying color in physical production: substrate effects on color perception, finish specification, Pantone series selection for different materials, and why digital-first brands consistently fail their first physical production run.",
+    eyebrow: "Material Design",
+    priority: 72,
+    searchIntent: "color specification physical production packaging print materials pantone",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Material Design", "Print", "Pantone", "Brand Color"],
+    highlights: [
+      "Surface finish is the most underestimated variable in material color specification. The same Pantone applied to glossy and matte substrates can differ by 5-8 perceived lightness points and 15-20% in apparent saturation. Always specify finish (gloss units at 60°) alongside the Pantone reference.",
+      "Translucent and backlit materials require separate specification from reflected-light materials. A pale blue translucent panel over white reads entirely differently over black — and neither matches the screen value. Backlit color must be sampled under representative illumination.",
+      "Brand color should be anchored in a physical material standard (a Pantone chip under D65/10° reference lighting), not a hex value. All digital specifications should be derived from the physical anchor — the reverse process (physical derived from screen) consistently produces unacceptable production variation.",
+    ],
+    sections: [
+      {
+        heading: "Pantone series selection by substrate type",
+        body:
+          "Pantone publishes separate systems for different material categories — selecting the wrong series is a common source of production color error. Pantone+ Coated (C) and Uncoated (U): for paper and board. The same Pantone number in C and U variants specifies different ink mixes because coated paper requires different formulation to achieve the same perceived color. Pantone+ Plastics (P): for injection-molded and extruded plastic components — formulated for polymer substrates. Pantone+ Metallics (M): for metallic ink applications on paper. Pantone+ Textile (TPX): for fabric and soft goods — color references are woven fabric samples, not ink-on-paper. Never cross-specify: using a Pantone Coated number for a textile application will produce a mismatch because the physical reference material is different.",
+      },
+      {
+        heading: "Material color for brand identity: the production-first workflow",
+        body:
+          "The production-first workflow: (1) Define the brand color intent as a physical Pantone chip in the appropriate series for the primary production context (packaging, usually Pantone+ Coated). (2) Photograph the approved chip under D65 reference lighting and derive the closest sRGB equivalent. (3) Use the sRGB value as the digital primary; derive the hex from the photograph, not from the Pantone formula. (4) For each new substrate (textile, plastic, signage), request production samples matched to the original physical standard, not to the hex. This workflow maintains physical consistency as the primary requirement and treats digital color as a derived specification, which is appropriate for brands where physical materials are the primary brand expression.",
+      },
+    ],
+    links: [
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Quiet Luxury collection", href: "/collections/quiet-luxury/" },
+      { label: "Color guides", href: "/guides/" },
+    ],
+  },
+  {
+    category: "Motion Design",
+    slug: "color-in-motion-animation-guide",
+    title: "Color in Motion: Designing Transitions, Hover States, and Loading Colors That Work",
+    summary:
+      "Motion changes how color is perceived. This guide covers the perceptual phenomena unique to animated color — chromatic flicker, saturation amplification through transition, and why OKLCH is the correct interpolation space for color animation. Practical rules for hover states, skeleton screens, and brand reveal animations.",
+    eyebrow: "Motion Design",
+    priority: 73,
+    searchIntent: "color animation css transition oklch hover states loading skeleton screen design",
+    featuredCollectionId: "signal-bright",
+    featuredPackId: "complete-archive",
+    tags: ["Motion Design", "CSS", "OKLCH", "Animation"],
+    highlights: [
+      "CSS interpolates transitions and gradients in sRGB by default, which creates visible brightness dips (muddy gray intermediates) when transitioning between saturated hues. Use `transition: color 200ms` with OKLCH interpolation via CSS Color Level 4: `background: oklch(from var(--color-a) l c h / 1)` combined with `color-mix(in oklch, color-a, color-b)` for correct perceptual interpolation.",
+      "Saturation amplification through transition: the visual system compares transition endpoints in rapid succession, making the higher-saturation state appear more saturated than it does as a static color. Use this deliberately — low saturation entry state + high saturation exit state amplifies perceived vibrancy at key reveal moments.",
+      "WCAG 2.1 SC 2.3.1 sets a 3 Hz flicker threshold for large areas. Saturated red-green alternation is the highest-risk combination and should be avoided in any animated element. High-contrast hue alternation above 4 Hz — even for non-red-green pairs — can create uncomfortable flicker for photosensitive users.",
+    ],
+    sections: [
+      {
+        heading: "Perceptually consistent hover states across all hues",
+        body:
+          "Standard practice (adjust hex or HSL lightness by a fixed amount) produces inconsistent perceived hover contrast across hues because HSL lightness is not perceptually uniform. A +10 HSL lightness step reads as very large for blue but very small for yellow. Solution: design hover states in OKLCH. Step L (perceptual lightness) by +8 for light-mode hover, -8 for dark-mode hover. Chroma (C) and hue (H) stay constant. This produces visually equal contrast steps regardless of starting hue. Implement with: `oklch(calc(l + 0.08) c h)` where l, c, h are the OKLCH values of the base color.",
+      },
+      {
+        heading: "Skeleton screen color rules for product designers",
+        body:
+          "Skeleton pulse animation between two states: (1) Base skeleton color: 6-10 OKLCH lightness units below the background surface. Too close and it disappears; too far and it distracts. (2) Pulse highlight color: 3-5 OKLCH lightness units above the base skeleton color — a gentle shimmer, not a flash. (3) Both skeleton states should carry the same slight chroma as the background surface. A warm-white background should produce warm-tinted skeleton colors, not pure gray. (4) Animation: ease-in-out, 1.4-1.8s period, looping. Faster reads as anxious; slower reads as broken. (5) On dark surfaces, the skeleton pulse direction reverses: the base skeleton is lighter than the background by 6-10 OKLCH units, and the pulse darkens toward the background value.",
+      },
+    ],
+    links: [
+      { label: "Color Mixer", href: "/mixer/" },
+      { label: "Signal Bright collection", href: "/collections/signal-bright/" },
+      { label: "Design Token Generator", href: "/tokens/" },
+    ],
+  },
+  {
+    category: "Color Psychology",
+    slug: "color-psychology-product-design-guide",
+    title: "Color Psychology in Product Design: Evidence-Based Principles for UI and Brand",
+    summary:
+      "Separating color-psychology fact from marketing mythology. This guide reviews what peer-reviewed research actually shows about color, trust, decision-making, and perceived quality — and translates the findings into practical principles for product designers and brand teams.",
+    eyebrow: "Color Psychology",
+    priority: 74,
+    searchIntent: "color psychology product design UX research trust brand conversion evidence",
+    featuredCollectionId: "deep-focus",
+    featuredPackId: "complete-archive",
+    tags: ["Color Psychology", "UX Research", "Brand Strategy"],
+    highlights: [
+      "Button color does not determine conversion in isolation. The highest-quality A/B research shows luminance contrast with the surrounding color environment is the actual driver — a red button outperforms a green button on a green background, but the same result would reverse in a red-dominant environment. The implication: maximize CTA luminance contrast against its immediate background, not its hue.",
+      "Color-emotion associations vary significantly by culture, hue saturation level, and context. Blue reads as calm in Western contexts but has mourning associations in some Asian cultures. Vivid red activates; muted rose does not — even though both are 'red.' Cultural and context research should precede any color decision for global audiences.",
+      "Extended session UI color affects measured cognitive load and mood. Cool-primary dark-mode environments consistently produce higher self-reported focus scores in research on extended work sessions. Warm-accent light-mode environments produce higher engagement scores in content-browsing tasks. Design ambient color (background, large surfaces) for the session type, not just for component clarity.",
+    ],
+    sections: [
+      {
+        heading: "Three research-backed color principles worth applying now",
+        body:
+          "From peer-reviewed meta-analyses and the best-controlled A/B research: (1) Cool-hue backgrounds (blue-teal range, muted, mid-lightness) are consistently rated as more trustworthy than warm-hue or high-saturation backgrounds in health, finance, and insurance categories. Trust perception is measurably correlated with conversion for high-stakes purchases. (2) Warm saturated accents (vivid orange, vivid amber) are measurably more attention-capturing than cool accents at equal luminance contrast. Use for primary CTAs when attention capture is the goal. (3) Chromatic coherence — all colors in a UI sharing the same temperature direction and a common hue anchor — is rated as higher-quality and more professional than eclectic multicolor palettes, independent of individual color choices.",
+      },
+      {
+        heading: "Managing stakeholder color mythology",
+        body:
+          "Common stakeholder color requests based on mythology: 'Make the CTA orange — orange creates urgency.' 'Use more blue — blue means trust.' 'Green means go — use it for the confirm button.' The framework for managing these: acknowledge the association (color-emotion associations are real), question the specificity (what saturation, what lightness, in what context?), propose testing (A/B test the hypothesis for your specific audience). This frames color as a testable variable rather than a superstition — and protects teams from cargo-cult color decisions that are contradicted by the actual research. The most durable color decisions are made at the system level (what role does each hue play across all surfaces and components?) rather than at the component level ('what color is this button?').",
+      },
+    ],
+    links: [
+      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Deep Focus collection", href: "/collections/deep-focus/" },
+      { label: "Color Contrast Checker", href: "/contrast/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides13);

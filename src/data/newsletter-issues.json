@@ -6594,5 +6594,177 @@
         "href": "/guides/"
       }
     ]
+  },
+  {
+    "slug": "aug-2028-color-material-design",
+    "date": "2028-08-19",
+    "title": "Material Color: How Physical Material Properties Change Color Perception",
+    "summary": "Digital color design treats color as a flat attribute — a hex value. Physical materials treat color as a surface property that interacts with light, texture, and finish. Understanding how gloss, matte, velvet, metal, and translucent surfaces change the perceptual quality of identical hue values is essential for packaging, industrial design, and any work where physical production is the output.",
+    "eyebrow": "Material Design",
+    "tags": [
+      "Material",
+      "Color Perception",
+      "Print Design"
+    ],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Surface finish is the most underestimated variable in material color specification. The same Pantone color applied to glossy and matte substrates can differ by 5-8 lightness points in apparent perceptual brightness and by 15-20% in apparent saturation. Gloss surfaces reflect specular light, adding apparent brightness and snap to deep colors but causing glare on light ones. Matte surfaces scatter light uniformly — colors appear softer, lower-contrast, and more tactile. Velvet, suede, and textured matte finishes absorb light directionally and can increase apparent depth dramatically for dark colors. Always specify the finish alongside the Pantone — the color system requires both parameters.",
+      "Translucent and transparent materials add a third variable: what is behind the material. Glass, acrylic, and translucent plastics transmit and refract the background color into the foreground color. A pale blue translucent material over white reads very differently from the same material over black or over a warm wood surface. Backlit translucent materials (e.g., illuminated signage, phone back panels, automotive light clusters) require a completely different specification approach — the transmitted color of the illuminated material often does not match the reflected color in daylight.",
+      "Metallic and pearlescent surfaces create a fourth category: directional color — the perceived color changes with viewing angle. Metallic inks achieve this through aluminum flake orientation; pearlescent materials use interference pigments (mica-based) that shift color angle-dependently. When designing with metallic or pearlescent materials: never evaluate the color from a single viewing angle; specify the design intent as a range or 'travel' — the color at normal incidence and the color at the high-flop angle. These surfaces cannot be reliably simulated on screen and require physical sample approval."
+    ],
+    "sections": [
+      {
+        "heading": "Specifying material color for consistent production",
+        "body": "Material color specification for production requires three-part documentation: (1) Color standard — the Pantone number in the appropriate series for the substrate (Pantone Coated, Uncoated, Plastics, Metallic, or Textile). (2) Finish standard — gloss level measured in GU (gloss units) at 60° angle using a gloss meter; matte surfaces specify a GU ceiling, gloss surfaces specify a GU floor. (3) Reference sample — a physical approved sample against which production is compared under D65/10° viewing conditions. Without all three, a color 'match' is ambiguous — production may match the Pantone but differ from the design intent because finish has changed."
+      },
+      {
+        "heading": "Material color and brand identity: why digital-native brands fail at physical",
+        "body": "Brands that define their identity exclusively in hex values often fail their first physical production run. The failure modes: (1) The vivid digital blue that is 'brand blue' cannot be achieved in CMYK without significant gamut mismatch; the closest Pantone is several steps away and looks flat by comparison. (2) The brand's matte finish specification conflicts with the category norm (packaging in the category is glossy; the matte brand stands out as 'cheap' rather than 'premium'). (3) The brand's primary color looks different on every substrate — carton, tissue paper, tote bag, and signage — because each was matched separately to the screen reference rather than to a shared physical standard. The solution: define brand color once in physical material (a Pantone chip under reference lighting) and derive all digital specifications from that physical anchor, rather than anchoring to a screen value."
+      }
+    ],
+    "links": [
+      {
+        "label": "Brand Starter Kit",
+        "href": "/packs/brand-starter-kit/"
+      },
+      {
+        "label": "Quiet Luxury collection",
+        "href": "/collections/quiet-luxury/"
+      },
+      {
+        "label": "Color guides",
+        "href": "/guides/"
+      }
+    ]
+  },
+  {
+    "slug": "aug-2028-color-naming-systems",
+    "date": "2028-08-26",
+    "title": "Color Naming for Design Systems: Why Your System Breaks Down and How to Fix It",
+    "summary": "Design system color naming is one of the most consequential and least discussed decisions in product design. The naming system you choose determines how well the system scales, how accurately designers communicate intent, and how long the system remains coherent as products expand. A review of the three primary naming strategies, their failure modes, and the hybrid approach that most durable systems use.",
+    "eyebrow": "Design Systems",
+    "tags": [
+      "Design Systems",
+      "Color Naming",
+      "UI Color"
+    ],
+    "featuredCollectionId": "minimal-workspace",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "Descriptive naming (Blue-500, Red-200, Gray-100) is the most common and most brittle naming strategy. It encodes color in the name itself — which means any rebrand or palette update requires renaming every token and every reference in code. When the brand evolves from blue to indigo, 'Blue-500' is now either a lie or a migration project. Descriptive names also leak implementation into the semantic layer: 'Blue-500' tells the consumer what the color is, not what it means or where to use it.",
+      "Semantic naming (Primary, Secondary, Destructive, Surface, Muted) solves the rebrand problem and the intent problem simultaneously. The name encodes purpose: Primary is always the brand's primary action color, whatever that color happens to be at any point in the brand lifecycle. The failure mode: semantic names become overloaded when a system has many components. 'Primary' eventually conflicts — primary text? primary surface? primary button? primary icon? The solution is hierarchical semantic naming: tier-one semantic names for the most stable roles, component-scoped semantic names for complex components.",
+      "Functional naming (Action, Background, Border, Text, Icon) addresses component structure rather than brand role or hue. These names age extremely well because they describe UI function — even as the product scales, 'Action' is always the color of interactive elements and 'Border' is always the color of dividing lines. The weakness: functional names do not communicate tone. 'Action-Strong' versus 'Action-Subtle' is clear enough, but 'Action-Strong-Brand' versus 'Action-Strong-Destructive' starts to feel verbose. The tradeoff between clarity and verbosity defines the practical ceiling for functional naming systems."
+    ],
+    "sections": [
+      {
+        "heading": "The hybrid naming architecture used by mature design systems",
+        "body": "Figma's and GitHub's mature color systems use a three-tier hierarchy: (1) Primitive tokens — numeric or descriptive names that map to specific color values (Blue-500, Gray-100). These are never used directly in component design; they exist as the raw material for the semantic layer. (2) Semantic tokens — functional or role-based names (Text-Primary, Surface-Raised, Border-Subtle) that reference primitives. These are what designers and developers use directly. (3) Component tokens — component-specific overrides (Button-Background-Default, Input-Border-Focus) that reference semantic tokens or primitives directly. The key insight: each tier can evolve independently. Primitives can be recalibrated without changing semantic names; semantic tokens can be remapped to different primitives without changing component implementations."
+      },
+      {
+        "heading": "Dark mode as the stress test for naming quality",
+        "body": "Dark mode is the definitive stress test for color naming systems. If your system uses descriptive naming (White, Black, Light-Gray), dark mode requires either maintaining two separate naming systems or creating confusing names like 'Light-Background' that are wrong in dark mode. If your system uses semantic naming (Surface, Background, Raised) dark mode becomes a simple token remapping — Surface-Default changes from near-white to near-black and every component that references Surface-Default automatically responds. Well-named semantic tokens make dark mode implementation a 2-3 hour project; poorly named descriptive tokens make it a multi-week migration."
+      }
+    ],
+    "links": [
+      {
+        "label": "Design Token Generator",
+        "href": "/tokens/"
+      },
+      {
+        "label": "Color API",
+        "href": "/api-docs/"
+      },
+      {
+        "label": "Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit/"
+      }
+    ]
+  },
+  {
+    "slug": "sep-2028-color-and-motion",
+    "date": "2028-09-02",
+    "title": "Color in Motion: How Animation Changes Color Perception and What Designers Miss",
+    "summary": "Static color design and motion design interact in ways most designers do not account for. Color in motion is subject to perceptual phenomena that do not exist in static composition — temporal brightness averaging, chromatic flicker, persistence of vision effects, and the way transitions change apparent saturation. A practical guide to designing color systems that work in motion.",
+    "eyebrow": "Motion Design",
+    "tags": [
+      "Motion Design",
+      "Animation",
+      "Color Perception"
+    ],
+    "featuredCollectionId": "signal-bright",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "Chromatic flicker is the most overlooked color-in-motion issue for designers outside broadcast. When a hue or luminance value alternates rapidly (above ~4 Hz), the human visual system does not average the alternating states — it perceives flicker that is disproportionately irritating at certain contrast ratios and hue combinations. Red-green flicker at high contrast is the most physiologically activating and the most likely to trigger photosensitive responses. WCAG 2.1 Success Criterion 2.3.1 addresses general flicker; for motion-heavy UIs, also apply the Harding Test criteria (flicker below 3 Hz for large areas, avoidance of saturated red-green transitions).",
+      "Transitions between colors of very different saturation levels create a perceptual artifact: the higher-saturation endpoint appears even more saturated during the transition than it does as a static color. This is because the visual system is comparing the two states in rapid succession. A fade from a muted gray to a vivid orange will make the orange appear more vivid than a static field of the same orange. Motion designers exploit this deliberately — use low-saturation entry states and high-saturation exit states to amplify perceived intensity at key reveal moments. The reverse (vivid to muted) creates a landing sensation: things settling into place.",
+      "OKLCH is the correct color space for animation because it is perceptually uniform — equal numerical steps produce equal perceived change in lightness, chroma, and hue. CSS linear-gradient and transition interpolate in sRGB by default, which creates brightness dips (through muddy intermediates) when transitioning between saturated hues. For vivid color transitions (brand animations, loading states, hover effects), interpolate in OKLCH using the CSS Color Level 4 specification: `linear-gradient(in oklch, color-a, color-b)`. This eliminates the gray mud that appears when transitioning directly between saturated red and saturated green or blue."
+    ],
+    "sections": [
+      {
+        "heading": "Designing hover and transition colors for perceptual accuracy",
+        "body": "Standard practice: on hover, lighten or darken the base color by a fixed hex or HSL increment. The problem: HSL lightness increments are not perceptually equal — the same numerical step produces very different perceived brightness changes depending on starting hue. Blue-to-light-blue hover looks flat; yellow-to-light-yellow hover looks huge. The solution: design hover states in OKLCH. Start with the base color in OKLCH, step L (lightness) by +8 for light mode hover, -8 for dark mode hover. This produces perceptually consistent hover contrast across all hues — a blue hover and a yellow hover both 'feel' like the same visual step up or down."
+      },
+      {
+        "heading": "Loading states and skeleton screens: the color rules",
+        "body": "Skeleton screens use a pulse animation between two lightness states. The rules for getting this right: (1) The dark skeleton color should be 6-10 OKLCH lightness units below the background. Too close and the skeleton disappears into the background; too far and it becomes distracting. (2) The light skeleton color should be 3-5 OKLCH lightness units above the dark state — the pulse is subtle, not dramatic. (3) The animation easing should be ease-in-out with a 1.2-1.8 second period — too fast feels anxious; too slow feels broken. (4) Skeleton colors should be desaturated but not pure gray — match the slight chroma of the background surface (if the background is warm white at 3% amber chroma, the skeleton should also carry that amber direction at the same or slightly higher chroma level)."
+      }
+    ],
+    "links": [
+      {
+        "label": "Complete Archive",
+        "href": "/packs/complete-archive/"
+      },
+      {
+        "label": "Signal Bright collection",
+        "href": "/collections/signal-bright/"
+      },
+      {
+        "label": "Color Mixer",
+        "href": "/mixer/"
+      }
+    ]
+  },
+  {
+    "slug": "sep-2028-color-psychology-product",
+    "date": "2028-09-09",
+    "title": "Color Psychology in Product Design: What the Research Actually Shows",
+    "summary": "Color psychology is one of the most misunderstood areas of design — overstated in marketing ('red increases urgency by 23%') and underapplied in practice. A review of what peer-reviewed research actually shows about color and decision-making, trust, appetite, and perceived product quality — and what this means practically for product designers.",
+    "eyebrow": "Color Psychology",
+    "tags": [
+      "Color Psychology",
+      "UX Research",
+      "Product Design"
+    ],
+    "featuredCollectionId": "deep-focus",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "Color-emotion associations are real but highly context-dependent. Meta-analyses show that color-emotion associations vary significantly by culture (blue is calm in Western contexts, associated with mourning in some East Asian contexts), by specific hue and saturation level (vivid red activates; muted rose does not), and by surrounding context (the same orange reads as energetic in a sports app and as cheap in a luxury context). The practical implication: color-emotion generalizations are starting points for hypotheses, not design rules. The only reliable way to know how your specific audience responds to a color in your specific context is to test it — A/B testing of color palettes for conversion-critical elements has produced meaningful results in multiple documented cases.",
+      "Perceived product quality and trust are measurably affected by color. Studies on packaging consistently show that: higher saturation correlates with perceived strength/potency (useful for cleaning products, problematic for premium food brands); color consistency across a product family increases perceived quality by signaling systematic thinking; mismatch between the cultural color associations for a category and a product's palette increases cognitive friction and reduces purchase confidence. The most actionable finding: brands that deviate from category color conventions pay a 'awareness tax' — they must communicate more context to establish category legitimacy that an on-convention brand communicates for free via color alone.",
+      "The research on color and conversion rates shows the most surprising result: button color in isolation is not a significant conversion driver. The highest-quality research (Hubspot's famous 'red vs green' button test, widely cited as showing red outperforms green) shows that contrast with the surrounding color environment is the actual driver, not the hue per se. A red button on a green background outperforms a green button on a green background — but the same result would occur in reverse. The highest-impact color decision for conversion-critical elements is ensuring maximum luminance contrast with the surrounding surface, not selecting a specific 'high-converting' hue."
+    ],
+    "sections": [
+      {
+        "heading": "Applying color psychology research to real product decisions",
+        "body": "Three research-backed principles worth applying directly: (1) Cool colors (blue, teal, muted green) consistently score higher on trust measures in the health, finance, and insurance categories — and trust is measurably correlated with conversion for high-stakes purchases. (2) Warm, saturated accent colors (vivid orange, vivid red) are measurably more attention-catching at equal contrast to background — use them for primary CTAs when attention capture is the goal. (3) The ambient background color of a UI affects mood during extended sessions. Dark mode with cool primary colors creates measured preference for extended focus work; light mode with warm accents creates measured preference for content browsing. Product interfaces used for long sessions should consider ambient color design, not just component color."
+      },
+      {
+        "heading": "What color cannot do: managing stakeholder expectations",
+        "body": "Design teams regularly receive stakeholder requests informed by color-psychology mythology: 'make the checkout button orange because orange increases urgency' or 'use more blue because blue means trust.' Managing these requests requires a clear framework for what color can and cannot do. Color cannot rescue a bad product, a confusing UX flow, or a missing value proposition. Color can: reduce or increase cognitive friction at key moments; reinforce or undermine existing brand associations; signal category membership or deviance; and modulate the emotional tone of extended interactions. These are meaningful but bounded effects. Present color decisions as hypotheses to test, not certainties to implement — this frames color as a measurable variable rather than a superstition."
+      }
+    ],
+    "links": [
+      {
+        "label": "Complete Archive",
+        "href": "/packs/complete-archive/"
+      },
+      {
+        "label": "Deep Focus collection",
+        "href": "/collections/deep-focus/"
+      },
+      {
+        "label": "Color guides",
+        "href": "/guides/"
+      }
+    ]
   }
 ]

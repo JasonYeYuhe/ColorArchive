@@ -1209,3 +1209,48 @@ const extraCollections12: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections12);
+
+const extraCollections13: ColorCollection[] = [
+  createCollection(
+    "desert-dusk",
+    "Desert Dusk",
+    "Warm terracotta, sun-bleached clay, dusty sage, pale sand, and deep sienna — the golden hour palette of arid landscapes and Southwest aesthetics.",
+    "The desert at dusk compresses an extraordinary color range into a few minutes: clay-warm terracottas shift to deep sienna as shadows lengthen; sun-bleached surfaces cool from pale amber to dusty sage; the sky transitions from saturated amber through blush to the first violet of evening. This palette reconstructs that sequence — ember-tone-soft anchors the warm terracotta mid-ground, the primary surface color of adobe, clay tile, and desert rock in late-afternoon light; apricot-bloom-soft provides the lighter sun-bleached warm surface, the color of pale sand and drying clay; olive-tone-muted introduces the desert plant life — dusty sagebrush and low scrub that adds a muted cool note against the warmth; amber-shadow-soft deepens the palette toward the sienna and rust that dominates sheltered canyon walls and terracotta pottery; cobalt-mist-soft contributes the desert sky at the moment before dusk — still blue but beginning to grey at the horizon. The palette reads simultaneously as earthy and refined — appropriate for Southwest lifestyle brands, artisan craft, and premium hospitality.",
+    ["Earthy", "Warm", "Artisan"],
+    [
+      "ember-tone-soft",
+      "apricot-bloom-soft",
+      "olive-tone-muted",
+      "amber-shadow-soft",
+      "cobalt-mist-soft",
+    ],
+    {
+      editorialNote:
+        "This palette requires a light, warm background to activate correctly — pair with apricot-veil-muted or amber-whisper-muted as the page background. ember-tone-soft as the primary brand anchor; apricot-bloom-soft for surface variations; olive-tone-muted as the single cool-leaning accent. Photography direction: terracotta pottery and ceramic objects in diffused window light, Southwest architecture in early morning or late afternoon light, natural dried botanicals and linen textiles.",
+      promptWords: ["adobe building at golden hour", "terracotta pots in desert garden", "dried sagebrush on warm sand", "Southwest pottery on linen background", "canyon walls in late afternoon sun"],
+      useCases: ["Southwest and desert lifestyle brands", "Artisan ceramics and handcraft e-commerce", "Premium hospitality and ranch resort brands", "Organic skincare and natural wellness products"],
+    },
+  ),
+  createCollection(
+    "midnight-garden",
+    "Midnight Garden",
+    "Deep forest green, noir violet, shadow plum, pewter sage, and faint blush — a moody botanical palette for editorial, luxury, and dark-mode brand work.",
+    "The midnight garden is a specific aesthetic register: dark, lush, romantic, and slightly gothic — the visual language of luxury botanicals, dark academia, and high-end editorial photography. It works because it occupies hue territory (deep green-violet) that most brands avoid as too niche, giving it immediate differentiation value. Emerald-shadow-soft anchors the palette in the dark, saturated forest green that defines the aesthetic — the color of dense foliage at night, or of aged velvet in a dim interior; violet-shadow-muted provides the moody near-black purple that accompanies deep greens in this palette register — it serves as the darkest surface and background in dark-mode applications; plum-velvet-muted contributes depth without brightness — a shadow color that bridges green and purple in the mid-dark range, appropriate for overlays and secondary surfaces; jade-tone-muted adds a slightly lighter botanical green, the color of aged botanical prints and pressed specimens; blush-whisper-muted provides the single light accent, a deliberately spare pale warm note that creates a moment of air in an otherwise deep palette.",
+    ["Moody", "Botanical", "Dark Mode"],
+    [
+      "emerald-shadow-soft",
+      "violet-shadow-muted",
+      "plum-velvet-muted",
+      "jade-tone-muted",
+      "blush-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "This palette requires a dark background to function — use violet-shadow-muted or a near-black custom value (#0f0d12) as the primary page background. emerald-shadow-soft as the primary brand accent and interactive element color; jade-tone-muted for secondary content and botanical graphic elements; blush-whisper-muted for body text and sparingly as a warmth accent. The key discipline: resist adding brightness. This palette's power is in restraint — keep light values rare and purposeful. Photography direction: dark botanical still life with single light source, luxury product photography on dark velvet or marble surfaces, overexposed flora against deep shadow backgrounds.",
+      promptWords: ["dark botanical still life with candlelight", "luxury fragrance on dark marble", "overexposed orchid against black velvet", "pressed botanical specimens on dark paper", "dark academic library with botanical prints"],
+      useCases: ["Luxury fragrance and beauty brands", "Dark mode editorial and portfolio websites", "Premium botanical skincare and apothecary", "Gothic and dark academia lifestyle content"],
+    },
+  ),
+];
+
+collections.push(...extraCollections13);
