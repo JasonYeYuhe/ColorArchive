@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { createPortal } from "react-dom";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
 import { useLocale } from "@/src/components/locale-provider";
 import { ThemeToggle } from "./theme-toggle";
@@ -157,23 +157,31 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
       Skip to content
     </a>
     <header className="px-4 pt-4 sm:px-6 sm:pt-6">
-      <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 rounded-[1.5rem] border border-black/6 bg-white/72 px-4 py-3 shadow-[0_18px_48px_rgba(15,23,42,0.05)] backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/72 dark:shadow-[0_18px_48px_rgba(0,0,0,0.2)] sm:px-5">
-        <div className="flex items-center justify-between gap-3">
-          <Link href="/" className="flex min-w-0 items-center gap-3">
+      <div className="mx-auto flex w-full max-w-[1600px] items-center gap-3 rounded-[1.5rem] border border-black/6 bg-white/72 px-4 py-3 shadow-[0_18px_48px_rgba(15,23,42,0.05)] backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/72 dark:shadow-[0_18px_48px_rgba(0,0,0,0.2)] sm:px-5">
+          <Link href="/" className="flex shrink-0 items-center">
             <Image
               src="/logo-v1.png"
               alt="ColorArchive"
               width={512}
               height={341}
-              className="h-auto w-[148px] dark:invert sm:w-[164px]"
+              className="h-auto w-[120px] dark:invert sm:w-[136px]"
               priority
             />
           </Link>
 
+          {/* Desktop dropdown nav */}
+          <nav className="hidden items-center gap-1 sm:flex" aria-label="Main navigation">
+            {DESKTOP_NAV_GROUPS.map((group) => (
+              <NavDropdown key={group.labelKey} group={group} currentPath={currentPath} t={t} />
+            ))}
+          </nav>
+
+          <div className="flex-1" />
+
           <div className="flex shrink-0 items-center gap-2">
             <Link
               href={loginHref}
-              className={`rounded-full border px-3 py-2 text-sm font-medium transition ${
+              className={`hidden rounded-full border px-3 py-2 text-sm font-medium transition sm:inline-flex ${
                 currentPath === "/login"
                   ? "border-neutral-950 bg-neutral-950 text-white dark:border-white dark:bg-white dark:text-neutral-950"
                   : "border-black/8 bg-white/85 text-neutral-700 hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
@@ -194,9 +202,11 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
               <span className="text-xs text-neutral-400">{isMenuOpen ? "×" : "≡"}</span>
             </button>
           </div>
-        </div>
+      </div>
 
-        <nav className="flex gap-2 overflow-x-auto pb-1 sm:hidden" aria-label="Primary mobile navigation">
+      {/* Mobile nav row */}
+      <div className="mx-auto mt-2 w-full max-w-[1600px] px-0 sm:hidden">
+        <nav className="flex gap-2 overflow-x-auto pb-1" aria-label="Primary mobile navigation">
           {MOBILE_PRIMARY_ITEMS.map((item) => (
             <Link
               key={item.href}
@@ -211,96 +221,125 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
             </Link>
           ))}
         </nav>
+      </div>
 
-        {isMenuOpen ? (
-          <div
-            id="mobile-site-menu"
-            className="rounded-[1.35rem] border border-black/6 bg-white/92 p-4 shadow-[0_18px_48px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-neutral-900/92 sm:hidden"
-          >
-            <div className="space-y-4">
-              <div>
-                <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                  {t("nav.account")}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <Link
-                    href={loginHref}
-                    className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
-                      currentPath === "/login"
-                        ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
-                        : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
-                    }`}
-                  >
-                    {status === "authenticated" ? user?.email ?? t("header.account") : t("header.login")}
-                  </Link>
-                  {status === "authenticated" ? (
-                    <button
-                      type="button"
-                      onClick={() => void logout()}
-                      className="rounded-full border border-black/8 bg-white px-3.5 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
-                    >
-                      {t("header.logout")}
-                    </button>
-                  ) : null}
-                </div>
+      {/* Mobile full menu */}
+      {isMenuOpen ? (
+        <div
+          id="mobile-site-menu"
+          className="mx-auto mt-2 w-full max-w-[1600px] rounded-[1.35rem] border border-black/6 bg-white/92 p-4 shadow-[0_18px_48px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-neutral-900/92 sm:hidden"
+        >
+          <div className="space-y-4">
+            <div>
+              <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                {t("nav.account")}
               </div>
-
-              {mobileMenuGroups.map((group) => (
-                <div key={group.labelKey}>
-                  <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                    {t(group.labelKey)}
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
-                          isActive(item, currentPath)
-                            ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
-                            : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
-                        }`}
-                      >
-                        {t(item.labelKey)}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : null}
-
-        <nav className="-mx-1 hidden w-full items-center gap-1 overflow-x-auto px-1 sm:mx-0 sm:flex sm:w-auto sm:px-0">
-          {DESKTOP_NAV_GROUPS.map((group, groupIndex) => (
-            <div key={group.labelKey} className="flex shrink-0 items-center gap-1">
-              {groupIndex > 0 && (
-                <div className="mx-1.5 h-6 w-px bg-black/8 dark:bg-white/10" aria-hidden="true" />
-              )}
-
-              <span className="mr-1 hidden text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400 lg:inline">
-                {t(group.labelKey)}
-              </span>
-
-              {group.items.map((item) => (
+              <div className="flex flex-wrap gap-2">
                 <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
-                    isActive(item, currentPath)
+                  href={loginHref}
+                  className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
+                    currentPath === "/login"
                       ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
-                      : "border border-black/8 bg-white/85 text-neutral-700 hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
+                      : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
                   }`}
                 >
-                  {t(item.labelKey)}
+                  {status === "authenticated" ? user?.email ?? t("header.account") : t("header.login")}
                 </Link>
-              ))}
+                {status === "authenticated" ? (
+                  <button
+                    type="button"
+                    onClick={() => void logout()}
+                    className="rounded-full border border-black/8 bg-white px-3.5 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
+                  >
+                    {t("header.logout")}
+                  </button>
+                ) : null}
+              </div>
             </div>
-          ))}
-        </nav>
-      </div>
+
+            {mobileMenuGroups.map((group) => (
+              <div key={group.labelKey}>
+                <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                  {t(group.labelKey)}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
+                        isActive(item, currentPath)
+                          ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
+                          : "border border-black/8 bg-white text-neutral-700 hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
+                      }`}
+                    >
+                      {t(item.labelKey)}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </header>
     </>
+  );
+}
+
+function NavDropdown({ group, currentPath, t }: { group: NavGroup; currentPath: string; t: (key: string) => string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  const hasActiveItem = group.items.some((item) => isActive(item, currentPath));
+
+  const handleEnter = useCallback(() => {
+    clearTimeout(timerRef.current);
+    setOpen(true);
+  }, []);
+
+  const handleLeave = useCallback(() => {
+    timerRef.current = setTimeout(() => setOpen(false), 150);
+  }, []);
+
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  return (
+    <div ref={ref} className="relative" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-medium transition ${
+          hasActiveItem
+            ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
+            : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-white/10"
+        }`}
+      >
+        {t(group.labelKey)}
+        <svg className={`h-3 w-3 transition ${open ? "rotate-180" : ""}`} fill="none" viewBox="0 0 12 12">
+          <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute left-0 top-full z-50 mt-1.5 min-w-[10rem] rounded-xl border border-black/8 bg-white/95 py-1.5 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/95">
+          {group.items.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              className={`block px-3.5 py-1.5 text-sm font-medium transition ${
+                isActive(item, currentPath)
+                  ? "bg-neutral-100 text-neutral-950 dark:bg-white/10 dark:text-white"
+                  : "text-neutral-600 hover:bg-neutral-50 dark:text-neutral-400 dark:hover:bg-white/8"
+              }`}
+            >
+              {t(item.labelKey)}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
