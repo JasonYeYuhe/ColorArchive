@@ -1336,3 +1336,57 @@ Added: gloss, matte_finish, velvet_texture, substrate, metallic_sheen, transluce
 - src/lib/color-search.ts (+24 aliases)
 
 **Commit:** 55f2854
+
+## 2026-03-23 — Big Run: Image Color Extractor + Newsletter 142-145 + Collections + Guides (commit 2cf62a3)
+
+**Run type:** Big Run (4th run since last big run `ec82fbd`)
+
+**Categories:** New Tool + A. SEO & Content + D. Data & Collections
+
+### New Feature: Image Color Extractor (/image-palette/)
+
+Built a complete client-side image color extraction tool:
+- **app/image-palette/page.tsx**: Next.js route with SEO metadata, structured data (WebApplication schema), breadcrumbs, canonical URL
+- **src/components/image-palette-page.tsx** (~300 lines): Pure client-side component using Canvas API
+- **Algorithm**: Quantize-then-k-means in weighted RGB space — samples up to 10,000 pixels, clusters with adjustable k (4-12 colors), finds closest ColorArchive color by Euclidean RGB distance
+- **Features**: Drag-and-drop upload, 4 sample images for quick demo, per-color hex/RGB/HSL display, percentage-of-image readout, archive match with link to color detail page, export in HEX/RGB/HSL/CSS/JSON formats, copy-to-clipboard
+- **Privacy**: All processing is client-side — no images leave the browser
+- **Integration**: Added to tools page, site-header nav, sitemap, i18n (EN + ZH)
+
+### Category A — 4 Newsletter Issues (now 146 total)
+
+- **Issue 142** (sep-2028-color-from-photography, 2028-09-16): Extracting brand color from photography — dominant vs anchor vs accent extraction, the four-scene consistency test, production correction steps (saturation -10-20%, lightness normalization, temperature calibration)
+- **Issue 143** (oct-2028-color-in-data-visualization, 2028-09-23): Color in data visualization — the four semantic roles (categorical/sequential/diverging/highlight), perceptual uniformity requirement for sequential scales, categorical palette construction, red-green deficiency constraints
+- **Issue 144** (oct-2028-print-color-management, 2028-09-30): Print color management — screen-to-print gamut gap, CMYK ink limits and TIC, neutral gray instability, Pantone vs CMYK, the 6-value brand color specification
+- **Issue 145** (oct-2028-color-systems-at-scale, 2028-10-07): Color systems at scale — token tier architecture, change frequency and versioning, color drift detection via linting and variable audits, lightweight governance patterns
+
+### Category D — 2 New Collections (now 59 total)
+
+- **data-dashboard**: cobalt-tone-vivid, teal-ink-muted, amber-glow-soft, crimson-tone-soft, slate-tone-muted — perceptually balanced categorical palette for analytics dashboards, designed for lightness-distinguishable data encoding
+- **film-neutral**: amber-veil-muted, pearl-blush-soft, slate-veil-muted, cobalt-shadow-muted, obsidian-tone-soft — analog photography/cinema color register for photography portfolios, film production brands, heritage aesthetics
+
+### Category D — 3 New SEO Guides (now 100 total, extraGuides14)
+
+- **extracting-color-from-photography-guide**: Dominant vs anchor extraction, four-scene test, production correction workflow — targets 'extract color from image photo brand color photography palette reference'
+- **color-for-data-visualization-guide**: Four semantic dataviz roles, OKLCH/CIELAB for sequential scales, categorical palette construction — targets 'data visualization color palette chart color scheme categorical sequential diverging dashboard'
+- **image-color-extraction-tools-guide**: Complete extraction-to-production workflow, failure modes and solutions — targets 'image color extraction tool workflow extract palette from photo design'
+
+### Current State After This Run
+
+- Total newsletter issues: **146** (Issues 001–145, 4 new)
+- Total collections: **59** (data-dashboard, film-neutral added)
+- Total SEO guides: **100** (3 new in extraGuides14) ← reached 100 guides!
+- New tool: Image Color Extractor at /image-palette/
+
+**Files modified (9):**
+- app/image-palette/page.tsx (new)
+- src/components/image-palette-page.tsx (new, ~300 lines)
+- src/components/site-header.tsx (+currentPath type, +nav item)
+- src/components/tools-page.tsx (+image-palette tool card)
+- src/lib/i18n.ts (+nav.imagePalette, +tools.imagePalette.name/desc EN+ZH)
+- app/sitemap.ts (+/image-palette/ route)
+- src/data/newsletter-issues.json (4 new issues, now 146)
+- src/lib/collections.ts (+data-dashboard, +film-neutral, now 59)
+- src/lib/guides.ts (+3 guides in extraGuides14, now 100)
+
+**Commit:** 2cf62a3
