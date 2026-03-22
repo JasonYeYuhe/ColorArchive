@@ -78,6 +78,7 @@ const themeScript = `
 (function(){
   try {
     var t = localStorage.getItem('colorarchive-theme');
+    if (!["light","dark","system"].includes(t)) t = "system";
     var d = (!t || t === 'system')
       ? window.matchMedia('(prefers-color-scheme: dark)').matches
       : t === 'dark';
@@ -95,6 +96,7 @@ const localeScript = `
 (function(){
   try {
     var l = localStorage.getItem('colorarchive-locale');
+    if (!["en","zh"].includes(l)) l = "en";
     if (l === 'zh') document.documentElement.lang = 'zh';
   } catch(e) {}
 })();

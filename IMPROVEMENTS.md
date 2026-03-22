@@ -365,6 +365,106 @@ Several routes serve no active purpose and add maintenance cost + sitemap bloat.
 
 ---
 
+---
+
+# Round 3 — Polish & Robustness (2026-03-22)
+
+> Minor issues found after Rounds 1+2. No architectural problems — all polish-level fixes.
+
+---
+
+## R3-P1A: Email Capture Form — Prevent Double Submit
+
+### Problem
+
+`email-capture-form.tsx` doesn't disable the submit button during loading. Rapid clicks cause duplicate requests.
+
+### Action Items
+
+- [x] Disable the submit button when `state === "loading"` — button already had `disabled`, added `aria-disabled` attribute
+- [x] Also add `aria-disabled` for screen readers
+
+---
+
+## R3-P1B: Suspense Fallback for /colors/hex/
+
+### Problem
+
+`app/colors/hex/page.tsx` wraps `<CustomColorPage />` in `<Suspense>` with no fallback. Users see a blank flash.
+
+### Action Items
+
+- [x] Add a fallback UI (simple loading skeleton or spinner) — added animate-pulse skeleton div with dark mode support
+
+---
+
+## R3-P1C: setTimeout Cleanup on Unmount
+
+### Problem
+
+Multiple components use `setTimeout` for copy-feedback state but don't `clearTimeout` on unmount. Causes React warnings and potential memory leaks.
+
+### Action Items
+
+- [x] Fix in `src/components/color-detail-page.tsx` — Already implemented: useEffect returns `() => window.clearTimeout(id)`
+- [x] Fix in `src/components/custom-color-page.tsx` — Already implemented: same pattern
+- [x] Fix in `src/components/palette-page.tsx` — Already implemented: same pattern (×2)
+- [x] Fix in `src/components/palette-builder-tray.tsx` — Already implemented: same pattern (×2)
+- [x] Pattern: all four files already use useEffect cleanup to clear timeouts — no changes needed
+
+---
+
+## R3-P2A: Sitemap Dates — Stop Hardcoding
+
+### Problem
+
+`app/sitemap.ts` has all `lastModified` dates hardcoded (2026-03-18~22). They never update, giving search engines stale signals.
+
+### Action Items
+
+- [x] Replace hardcoded dates with `new Date()` for the build-time timestamp — replaced all MARCH_xx consts with single `const BUILD_DATE = new Date()` at top of sitemap.ts
+
+---
+
+## R3-P2B: Auth & Analytics — Don't Silently Swallow Errors
+
+### Problem
+
+`auth-provider.tsx` and `page-tracker.tsx` use empty `.catch(() => {})` blocks. Backend failures are completely invisible.
+
+### Action Items
+
+- [x] In `auth-provider.tsx`: no empty `.catch(() => {})` found — uses try/catch blocks; no change needed
+- [x] In `page-tracker.tsx`: replaced `.catch(() => {})` with `.catch((err) => console.warn("Analytics tracking failed:", err))`
+- [x] Don't throw or show UI errors — just log for debugging
+
+---
+
+## R3-P2C: Theme & Locale Init Script Validation
+
+### Problem
+
+`app/layout.tsx` inline scripts read theme/locale from localStorage without validating the stored value. A corrupted value (e.g. `"purple"` for theme) silently fails.
+
+### Action Items
+
+- [x] Theme script: validate value is one of `"light"`, `"dark"`, `"system"` before using. Fall back to `"system"` otherwise
+- [x] Locale script: validate value is one of `"en"`, `"zh"` before using. Fall back to `"en"` otherwise
+
+---
+
+## R3-P3: /colors/hex/ noindex Evaluation
+
+### Problem
+
+Custom color page has `robots: { index: false, follow: false }`. This prevents search engines from indexing user-shared hex color links. May be intentional (infinite URL space) but worth reconsidering.
+
+### Action Items
+
+- [x] Keep `noindex` — Deliberate decision — infinite URL space would dilute SEO. Keep noindex.
+
+---
+
 ## Tracking Progress
 
 Update this file as you complete items. Change `- [ ]` to `- [x]` for completed tasks. Add notes on decisions made or approaches taken under each item.

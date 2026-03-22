@@ -13,7 +13,12 @@ export default function HexColorPage() {
   return (
     <>
       <SiteHeader currentPath="/colors" />
-      <Suspense>
+      <Suspense fallback={
+        <div className="mx-auto max-w-5xl px-4 py-12 animate-pulse">
+          <div className="h-8 w-48 rounded-lg bg-neutral-200 dark:bg-neutral-800 mb-4" />
+          <div className="h-64 w-full rounded-2xl bg-neutral-200 dark:bg-neutral-800" />
+        </div>
+      }>
         <CustomColorPage />
       </Suspense>
     </>

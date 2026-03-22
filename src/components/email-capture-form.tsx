@@ -100,6 +100,7 @@ export function EmailCaptureForm({
       <button
         type="submit"
         disabled={state === "loading"}
+        aria-disabled={state === "loading"}
         className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-50"
       >
         {state === "loading" ? t("capture.sending") : resolvedButtonLabel}
