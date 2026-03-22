@@ -18,12 +18,12 @@ interface SearchExplorerPageProps {
 
 const SEARCH_PROMPTS = ["moss", "rose", "#7F", "azure", "velvet"] as const;
 
-const MOOD_PRESETS: { label: string; labelJa: string; query: string; hueBand: string; toneBand: string }[] = [
-  { label: "Calm", labelJa: "穏やか", query: "", hueBand: "cool", toneBand: "light" },
-  { label: "Energetic", labelJa: "エネルギッシュ", query: "", hueBand: "warm", toneBand: "mid" },
-  { label: "Luxury", labelJa: "高級感", query: "", hueBand: "all", toneBand: "dark" },
-  { label: "Fresh", labelJa: "フレッシュ", query: "", hueBand: "fresh", toneBand: "light" },
-  { label: "Moody", labelJa: "ムーディ", query: "", hueBand: "violet", toneBand: "dark" },
+const MOOD_PRESETS: { labels: Record<string, string>; query: string; hueBand: string; toneBand: string }[] = [
+  { labels: { en: "Calm", ja: "穏やか", zh: "平静", ko: "차분한", es: "Calma", fr: "Calme" }, query: "", hueBand: "cool", toneBand: "light" },
+  { labels: { en: "Energetic", ja: "エネルギッシュ", zh: "活力", ko: "에너지", es: "Enérgico", fr: "Énergique" }, query: "", hueBand: "warm", toneBand: "mid" },
+  { labels: { en: "Luxury", ja: "高級感", zh: "奢华", ko: "럭셔리", es: "Lujo", fr: "Luxe" }, query: "", hueBand: "all", toneBand: "dark" },
+  { labels: { en: "Fresh", ja: "フレッシュ", zh: "清新", ko: "청량", es: "Fresco", fr: "Frais" }, query: "", hueBand: "fresh", toneBand: "light" },
+  { labels: { en: "Moody", ja: "ムーディ", zh: "暗调", ko: "무디", es: "Sombrío", fr: "Sombre" }, query: "", hueBand: "violet", toneBand: "dark" },
 ];
 type HueBand = "all" | "warm" | "fresh" | "cool" | "violet";
 type ToneBand = "all" | "light" | "mid" | "dark";
@@ -402,11 +402,11 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
 
             <div className="mt-3 flex flex-wrap items-center gap-1.5">
               <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-400">
-                {locale === "ja" ? "ムード" : "Mood"}
+                {t("search.mood")}
               </span>
               {MOOD_PRESETS.map((mood) => (
                 <button
-                  key={mood.label}
+                  key={mood.labels.en}
                   type="button"
                   onClick={() => {
                     setSearchQuery(mood.query);
@@ -415,7 +415,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
                   }}
                   className="rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-100"
                 >
-                  {locale === "ja" ? mood.labelJa : mood.label}
+                  {mood.labels[locale] ?? mood.labels.en}
                 </button>
               ))}
             </div>
@@ -423,7 +423,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
             {searchHistory.length > 0 && !searchQuery.trim() ? (
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  {locale === "ja" ? "最近の検索" : "Recent"}
+                  {t("search.recent")}
                 </span>
                 {searchHistory.map((q) => (
                   <button

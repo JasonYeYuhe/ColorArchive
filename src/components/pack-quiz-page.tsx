@@ -3,11 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
+import type { Locale } from "@/src/lib/i18n";
+
+type LocaleText = Record<string, string>;
 
 interface Question {
   id: string;
-  text: { en: string; ja: string };
-  options: { label: { en: string; ja: string }; scores: Record<string, number> }[];
+  text: LocaleText;
+  options: { label: LocaleText; scores: Record<string, number> }[];
 }
 
 const QUESTIONS: Question[] = [
@@ -76,7 +79,7 @@ const QUESTIONS: Question[] = [
   },
 ];
 
-const PACK_META: Record<string, { title: string; desc: { en: string; ja: string }; href: string; accent: string }> = {
+const PACK_META: Record<string, { title: string; desc: LocaleText; href: string; accent: string }> = {
   "palette-pack-vol-1": { title: "Palette Pack Vol. 1", desc: { en: "A curated starter set with SVG boards, gradient wallpapers, and multi-platform tokens.", ja: "SVGボード、グラデーション壁紙、マルチプラットフォームトークンを含むスターターセット。" }, href: "/packs/palette-pack-vol-1/", accent: "bg-amber-50 border-amber-200/60" },
   "brand-starter-kit": { title: "Brand Color Starter Kit", desc: { en: "Structured brand palettes with usage guides, psychology notes, and mobile tokens.", ja: "使用ガイド、心理学ノート、モバイルトークンを含む構造化されたブランドパレット。" }, href: "/packs/brand-starter-kit/", accent: "bg-rose-50 border-rose-200/60" },
   "content-creator-bundle": { title: "Creator Bundle", desc: { en: "Visual assets, AI prompts, and shareable palette boards for content creators.", ja: "コンテンツクリエイター向けのビジュアル素材、AIプロンプト、共有可能なパレットボード。" }, href: "/packs/content-creator-bundle/", accent: "bg-violet-50 border-violet-200/60" },
@@ -85,6 +88,10 @@ const PACK_META: Record<string, { title: string; desc: { en: string; ja: string 
   "seasonal-spring-2026": { title: "Seasonal: Spring 2026", desc: { en: "Limited spring palettes with mood board notes — lightest entry point.", ja: "ムードボードノート付きの限定スプリングパレット。" }, href: "/packs/seasonal-spring-2026/", accent: "bg-emerald-50 border-emerald-200/60" },
   "all-access-bundle": { title: "All Access Bundle", desc: { en: "Every pack combined at 32% off — the simplest way to get everything.", ja: "全パックを32%割引で — 全てを手に入れる最もシンプルな方法。" }, href: "/packs/all-access-bundle/", accent: "bg-emerald-50 border-emerald-300/40" },
 };
+
+function lt(texts: LocaleText, locale: string): string {
+  return texts[locale] ?? texts.en ?? "";
+}
 
 export function PackQuizPage() {
   const { locale } = useLocale();
@@ -129,15 +136,13 @@ export function PackQuizPage() {
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-              {locale === "ja" ? "パック選択ガイド" : "Pack finder"}
+              {lt({ en: "Pack finder", ja: "パック選択ガイド", zh: "选包指南", ko: "팩 추천", es: "Buscador de packs", fr: "Guide de choix" }, locale)}
             </div>
             <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
-              {locale === "ja" ? "あなたに最適なパックは？" : "Which pack is right for you?"}
+              {lt({ en: "Which pack is right for you?", ja: "あなたに最適なパックは？", zh: "哪个包最适合你？", ko: "어떤 팩이 적합할까요?", es: "¿Qué pack es el adecuado para ti?", fr: "Quel pack vous convient ?" }, locale)}
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              {locale === "ja"
-                ? "5つの質問に答えるだけで、プロジェクトに最適なパックをご提案します。"
-                : "Answer 5 quick questions and we'll recommend the best pack for your project."}
+              {lt({ en: "Answer 5 quick questions and we'll recommend the best pack for your project.", ja: "5つの質問に答えるだけで、プロジェクトに最適なパックをご提案します。", zh: "回答5个问题，我们将为你推荐最合适的包。", ko: "5가지 질문에 답하면 프로젝트에 맞는 팩을 추천해드립니다.", es: "Responde 5 preguntas rápidas y te recomendaremos el mejor pack.", fr: "Répondez à 5 questions et nous vous recommanderons le pack idéal." }, locale)}
             </p>
           </div>
         </section>
@@ -146,7 +151,7 @@ export function PackQuizPage() {
           /* Question Card */
           <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-8">
             <div className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              {locale === "ja" ? `質問 ${current + 1} / ${QUESTIONS.length}` : `Question ${current + 1} of ${QUESTIONS.length}`}
+              {lt({ en: "Question", ja: "質問", zh: "问题", ko: "질문", es: "Pregunta", fr: "Question" }, locale)} {current + 1} / {QUESTIONS.length}
             </div>
             {/* Progress bar */}
             <div className="mb-6 h-1.5 w-full rounded-full bg-neutral-100">
@@ -156,7 +161,7 @@ export function PackQuizPage() {
               />
             </div>
             <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
-              {question.text[locale]}
+              {lt(question.text, locale)}
             </h2>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {question.options.map((option, i) => (
@@ -166,7 +171,7 @@ export function PackQuizPage() {
                   onClick={() => selectOption(i)}
                   className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-5 py-4 text-left text-sm font-medium text-neutral-700 transition hover:border-neutral-300 hover:bg-white hover:shadow-md active:scale-[0.98]"
                 >
-                  {option.label[locale]}
+                  {lt(option.label, locale)}
                 </button>
               ))}
             </div>
@@ -176,11 +181,11 @@ export function PackQuizPage() {
           <>
             <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-8">
               <div className="mb-1 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                {locale === "ja" ? "おすすめ結果" : "Your recommendation"}
+                {lt({ en: "Your recommendation", ja: "おすすめ結果", zh: "推荐结果", ko: "추천 결과", es: "Tu recomendación", fr: "Notre recommandation" }, locale)}
               </div>
               <div className="mb-6 h-1.5 w-full rounded-full bg-neutral-900" />
               <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">
-                {locale === "ja" ? "あなたにおすすめのパック" : "Here's what we recommend"}
+                {lt({ en: "Here's what we recommend", ja: "あなたにおすすめのパック", zh: "为你推荐", ko: "추천 팩", es: "Esto es lo que recomendamos", fr: "Voici nos recommandations" }, locale)}
               </h2>
               <div className="mt-6 grid gap-4 lg:grid-cols-3">
                 {ranked.map((pack, i) => (
@@ -191,17 +196,17 @@ export function PackQuizPage() {
                   >
                     {i === 0 && (
                       <div className="mb-2 inline-flex rounded-full bg-neutral-900 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
-                        {locale === "ja" ? "最もおすすめ" : "Best match"}
+                        {lt({ en: "Best match", ja: "最もおすすめ", zh: "最佳匹配", ko: "최적 매치", es: "Mejor opción", fr: "Meilleur choix" }, locale)}
                       </div>
                     )}
                     <h3 className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">
                       {pack.title}
                     </h3>
                     <p className="mt-2 text-sm leading-6 text-neutral-600">
-                      {pack.desc[locale]}
+                      {lt(pack.desc, locale)}
                     </p>
                     <div className="mt-3 text-sm font-medium text-neutral-900">
-                      {locale === "ja" ? "詳細を見る →" : "View details →"}
+                      {lt({ en: "View details →", ja: "詳細を見る →", zh: "查看详情 →", ko: "상세 보기 →", es: "Ver detalles →", fr: "Voir les détails →" }, locale)}
                     </div>
                   </Link>
                 ))}
@@ -213,19 +218,19 @@ export function PackQuizPage() {
                 onClick={restart}
                 className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                {locale === "ja" ? "やり直す" : "Start over"}
+                {lt({ en: "Start over", ja: "やり直す", zh: "重新开始", ko: "다시 시작", es: "Empezar de nuevo", fr: "Recommencer" }, locale)}
               </button>
               <Link
                 href="/packs/"
                 className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
               >
-                {locale === "ja" ? "全パックを見る" : "Browse all packs"}
+                {lt({ en: "Browse all packs", ja: "全パックを見る", zh: "浏览所有包", ko: "모든 팩 보기", es: "Ver todos los packs", fr: "Parcourir les packs" }, locale)}
               </Link>
               <Link
                 href="/free-pack/"
                 className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                {locale === "ja" ? "無料サンプル" : "Free sample"}
+                {lt({ en: "Free sample", ja: "無料サンプル", zh: "免费样品", ko: "무료 샘플", es: "Muestra gratuita", fr: "Échantillon gratuit" }, locale)}
               </Link>
             </div>
           </>

@@ -2,10 +2,20 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
 import { useLocale } from "@/src/components/locale-provider";
 import { ThemeToggle } from "./theme-toggle";
+import type { Locale } from "@/src/lib/i18n";
+
+const LOCALE_OPTIONS: { code: Locale; label: string }[] = [
+  { code: "en", label: "EN" },
+  { code: "ja", label: "JA" },
+  { code: "zh", label: "中文" },
+  { code: "ko", label: "한국어" },
+  { code: "es", label: "ES" },
+  { code: "fr", label: "FR" },
+];
 
 interface SiteHeaderProps {
   currentPath:
@@ -170,14 +180,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
             >
               {status === "authenticated" ? t("header.account") : t("header.login")}
             </Link>
-            <button
-              type="button"
-              onClick={() => setLocale(locale === "en" ? "ja" : "en")}
-              className="rounded-full border border-black/8 bg-white/85 px-2.5 py-2 text-xs font-semibold tracking-wide text-neutral-500 transition hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white/14"
-              aria-label="Toggle language"
-            >
-              {locale === "en" ? "JA" : "EN"}
-            </button>
+            <LanguageSwitcher locale={locale} setLocale={setLocale} />
             <ThemeToggle />
             <button
               type="button"
@@ -297,5 +300,50 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
       </div>
     </header>
     </>
+  );
+}
+
+function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l: Locale) => void }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  const current = LOCALE_OPTIONS.find((o) => o.code === locale) ?? LOCALE_OPTIONS[0];
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="rounded-full border border-black/8 bg-white/85 px-2.5 py-2 text-xs font-semibold tracking-wide text-neutral-500 transition hover:bg-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white/14"
+        aria-label="Switch language"
+        aria-expanded={open}
+      >
+        {current.label}
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full z-50 mt-1.5 min-w-[7rem] rounded-xl border border-black/8 bg-white py-1 shadow-lg dark:border-white/10 dark:bg-neutral-900">
+          {LOCALE_OPTIONS.map((opt) => (
+            <button
+              key={opt.code}
+              type="button"
+              onClick={() => { setLocale(opt.code); setOpen(false); }}
+              className={`block w-full px-3 py-1.5 text-left text-xs font-medium transition hover:bg-neutral-50 dark:hover:bg-white/8 ${
+                opt.code === locale ? "text-neutral-950 dark:text-white" : "text-neutral-500 dark:text-neutral-400"
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
