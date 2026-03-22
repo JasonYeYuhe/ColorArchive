@@ -12,6 +12,7 @@ const MARCH_18 = new Date("2026-03-18");
 const MARCH_19 = new Date("2026-03-19");
 const MARCH_20 = new Date("2026-03-20");
 const MARCH_21 = new Date("2026-03-21");
+const MARCH_22 = new Date("2026-03-22");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const topLevelRoutes: MetadataRoute.Sitemap = [
@@ -164,6 +165,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: MARCH_21,
       changeFrequency: "monthly",
       priority: 0.80,
+    },
+    {
+      url: "https://colorarchive.me/colorblind/",
+      lastModified: MARCH_22,
+      changeFrequency: "monthly",
+      priority: 0.82,
     },
     {
       url: "https://colorarchive.me/product-examples/",

@@ -1305,6 +1305,46 @@ export const landingGuides: LandingGuide[] = [
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
+  {
+    slug: "color-blind-friendly-palette",
+    title: "Color-Blind Friendly Palette: Designing for Color Vision Deficiency",
+    category: "Accessibility",
+    summary:
+      "About 8% of males have some form of color vision deficiency — deuteranopia, protanopia, or tritanopia. A color-blind friendly palette does not limit your design range; it disciplines your palette decisions in ways that improve clarity for everyone.",
+    eyebrow: "Accessibility Color Guide",
+    priority: 80,
+    searchIntent: "color blind friendly color palette",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Accessibility", "UI Design", "Color Theory"],
+    highlights: [
+      "Deuteranopia — missing green-sensitive cones — affects roughly 6% of males and is the most common color vision deficiency. Red-green combinations are the highest-risk pair in most UI systems.",
+      "Luminance contrast is universally perceivable: even people with complete color blindness (achromatopsia) can distinguish colors based on brightness alone. High luminance contrast is the most accessible choice you can make.",
+      "The safest pair for two-category data visualization is blue and orange, which remain distinct under all three major deficiency types. Red and green should only be used when supplemented by shape, text, or pattern cues.",
+    ],
+    sections: [
+      {
+        heading: "Understanding the three main deficiency types",
+        body:
+          "Color vision deficiency comes in three primary forms. Deuteranopia (missing M cones) and protanopia (missing L cones) both cause red-green confusion — reds and greens appear as variants of the same brownish-olive tone. Tritanopia (missing S cones) causes blue-yellow confusion — blue and purple can look similar, and yellow can appear pale. Each type affects a different portion of the spectrum, which means a palette that is legible under deuteranopia is not necessarily legible under tritanopia. Designing for all three requires building luminance contrast into every color distinction that matters — because luminance is the one dimension that all deficiency types preserve fully. Testing with a color blindness simulator (rather than guessing) is the only reliable way to verify a palette against all types.",
+      },
+      {
+        heading: "Safe pairs for UI and data visualization",
+        body:
+          "For two-color distinctions — yes/no, pass/fail, category A/category B — the blue-orange combination is the most universally legible. Blue and orange remain well-separated under deuteranopia, protanopia, and tritanopia. Red-green combinations should be avoided for any meaning-carrying distinction unless redundant cues (icons, text labels, patterns) are present. For sequential color scales (heat maps, progress indicators, density charts), single-hue progressions from light to dark are more accessible than multi-hue scales, because luminance differences are preserved under all deficiency types while hue transitions may collapse. If you need multi-hue sequences, blue-to-yellow is more accessible than red-to-green. The Dark Mode UI Kit includes pre-specified status-color tokens — error, warning, success, info — built to remain distinguishable under the three major deficiency types through a combination of hue, luminance, and saturation differences.",
+      },
+      {
+        heading: "Building a color-blind friendly system without limiting expression",
+        body:
+          "Accessible color design is often framed as a restriction, but it is more accurately understood as a discipline that improves clarity for everyone. The core principles: use redundant encoding (color + shape + label) for any critical distinction; ensure each color in your palette occupies a distinct luminance level so the palette reads clearly in grayscale; prefer blue-orange over red-green for emphasis pairs; and test your palette under deuteranopia simulation before finalizing. None of these constraints prevent expressive, distinctive design. They redirect attention from hue-only thinking to luminance-first thinking, which tends to produce more sophisticated palettes anyway. A palette that works in grayscale, reads under simulation, and maintains the hue relationships you want is a better palette than one that only works for users with typical color vision.",
+      },
+    ],
+    links: [
+      { label: "Simulate color blindness", href: "/colorblind/" },
+      { label: "Check contrast ratios", href: "/contrast/" },
+      { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {

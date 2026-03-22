@@ -36,7 +36,8 @@ interface SiteHeaderProps {
     | "/gradient"
     | "/palette-generator"
     | "/compare"
-    | "/harmonies";
+    | "/harmonies"
+    | "/colorblind";
 }
 
 interface NavItem {
@@ -75,6 +76,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/gradient/", labelKey: "nav.gradient" },
       { href: "/harmonies/", labelKey: "nav.harmonies" },
       { href: "/compare/", labelKey: "nav.compare" },
+      { href: "/colorblind/", labelKey: "nav.colorblind" },
       { href: "/favorites/", labelKey: "nav.favorites" },
     ],
   },

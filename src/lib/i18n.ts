@@ -24,6 +24,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "nav.gradient": { en: "Gradient", ja: "グラデーション" },
   "nav.harmonies": { en: "Harmonies", ja: "ハーモニー" },
   "nav.compare": { en: "Compare", ja: "比較" },
+  "nav.colorblind": { en: "Colorblind", ja: "色覚シミュレーター" },
   "nav.surprise": { en: "Surprise", ja: "サプライズ" },
   "nav.favorites": { en: "Favorites", ja: "お気に入り" },
   "nav.packs": { en: "Packs", ja: "パック" },
