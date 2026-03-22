@@ -45,6 +45,9 @@ export function SiteFooter() {
             <Link href="/convert/" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
               {t("nav.convert")}
             </Link>
+            <Link href="/colorblind/" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
+              {t("nav.colorblind")}
+            </Link>
             <Link href="/packs/quiz/" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
               {t("packs.whichPack")}
             </Link>

@@ -78,6 +78,12 @@ const translations: Record<string, Record<Locale, string>> = {
     ja: "カスタムパレットを作成してURLで共有。ダイレクトリンクで色の選択を共同作業 — アカウント不要。",
   },
   "hero.createPalette": { en: "Create a palette", ja: "パレットを作成" },
+  "hero.colorblindSimulator": { en: "Color Blindness Simulator", ja: "色覚シミュレーター" },
+  "hero.colorblindDesc": {
+    en: "Preview how your palette looks under deuteranopia, protanopia, tritanopia, and achromatopsia. Paste up to 8 hex codes for a full simulation table.",
+    ja: "色覚異常（赤緑色盲、青黄色盲、全色盲）のもとでパレットがどう見えるかを確認。最大8色のHEXコードで完全シミュレーション。",
+  },
+  "hero.tryColorblind": { en: "Try the simulator", ja: "シミュレーターを試す" },
   "hero.guides": { en: "Guides", ja: "ガイド" },
   "hero.guidesHeading": {
     en: "High-intent color guides tied to real archive routes",

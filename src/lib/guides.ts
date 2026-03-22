@@ -1345,6 +1345,126 @@ export const landingGuides: LandingGuide[] = [
       { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
     ],
   },
+  {
+    slug: "color-palette-for-social-media",
+    title: "Color Palette for Social Media: Building a Recognizable Visual Brand",
+    category: "Brand & Marketing",
+    summary:
+      "Social media feeds move fast. A consistent color palette is the fastest way to make your content recognizable at scroll speed — before anyone reads the text or sees the full image.",
+    eyebrow: "Brand Color Guide",
+    priority: 70,
+    searchIntent: "color palette for social media branding",
+    featuredCollectionId: "blossom-season",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Social Media", "Branding", "Content Creation"],
+    highlights: [
+      "Feed-level visual cohesion comes from consistent background color and lighting treatment, not from individual post colors. Posts look cohesive when they share a surface treatment — warm cream backgrounds, cool dark surfaces — more than when they share accent colors.",
+      "Platform color bias matters: Instagram's interface is white; TikTok's is black. A palette that looks vibrant on a white-background platform may look washed out on a dark-background platform. Test palette swatches against both.",
+      "Three palette roles for social content: background surface (highest visual area), primary accent (call-to-action, emphasis), and text/overlay color. Most brands need one surface color, one accent, and one text color — more than this adds visual noise.",
+    ],
+    sections: [
+      {
+        heading: "Why color recognition works faster than logo recognition",
+        body:
+          "In a social media feed scrolled at 50-100 items per minute, color is processed in approximately 90 milliseconds — faster than logo shape, faster than typography, faster than image content. Consistent palette use creates what researchers call 'brand fluency': the ability to identify a brand's content before consciously reading it. Major consumer brands on Instagram invest significantly in palette discipline — not just for aesthetic reasons but because palette consistency measurably increases content attribution at scroll speed. A three-color palette used consistently across 80% of posts creates stronger brand recognition than a wider palette used inconsistently. The discipline of constraint outperforms the expressiveness of variety when recognition is the goal.",
+      },
+      {
+        heading: "Platform-aware color calibration",
+        body:
+          "Different platforms display colors differently — and their interface chrome affects how your palette reads in context. Instagram's white interface makes warm palettes feel warmer and saturated palettes feel vivid. TikTok's dark chrome makes the same palettes feel muted and washed out without deliberate saturation adjustment. Pinterest's mosaic layout means your palette competes with every adjacent pin's palette simultaneously — high contrast and distinctive hues perform better than subtle pastels in crowded feeds. LinkedIn's cool blue-gray interface makes warm palettes read as warmer by contrast, and makes cool palettes feel institutional and cold. Before finalizing a social media palette, test rendered content against the actual platform interface — not just on a white artboard.",
+      },
+      {
+        heading: "Building a minimal palette for consistent content",
+        body:
+          "Content creator and brand palettes for social media work best with three defined roles: a surface color (the background for quote cards, carousels, story frames — should cover 50-70% of visual area), an accent color (used for emphasis, call-to-action frames, brand moments — should appear in 20-30% of visual area), and a text/overlay color (high enough contrast against both surface and image content to be legible at thumbnail size). Most brands need one or two options per role — a light surface and a dark surface, a warm accent and a cool accent. The Brand Starter Kit provides exactly this structure: core surface tokens, an accent pair, and text tokens calibrated for both surface variants. The palette exports as CSS, which can be used directly in Canva, Figma, or any tool that accepts hex values.",
+      },
+    ],
+    links: [
+      { label: "Open Blossom Season", href: "/collections/blossom-season/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Build a palette", href: "/palette/" },
+    ],
+  },
+  {
+    slug: "neutral-color-palette",
+    title: "Neutral Color Palette: Building Systems That Let Other Colors Breathe",
+    category: "Interface Systems",
+    summary:
+      "Neutral palettes are the foundation of most design systems — and the most underdesigned part of most palettes. Grays, taupes, and near-whites do most of the heavy lifting in interfaces but rarely receive the same intentional treatment as accent colors.",
+    eyebrow: "Color System Guide",
+    priority: 69,
+    searchIntent: "neutral color palette for design systems",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Neutral Colors", "Design Systems", "UI Design"],
+    highlights: [
+      "Most design system grays have an unintentional color cast — cool blue-grays from copying Material Design defaults, or warm beige-grays from Tailwind's stone scale. Both are opinionated choices even if they feel 'neutral.' Choose your gray cast deliberately.",
+      "A neutral palette needs at least 6 distinct lightness steps to cover the typical UI roles: background, surface, border, disabled, secondary text, and primary text. Fewer steps force the same token into multiple semantic roles, which breaks under theme switching.",
+      "Warm neutrals and cool accents create professional sophistication; cool neutrals and warm accents create energetic contrast. The temperature relationship between your neutral and your accent is a key aesthetic decision.",
+    ],
+    sections: [
+      {
+        heading: "The hidden color in your grays",
+        body:
+          "Pure neutral gray has equal RGB values (128, 128, 128 for mid-gray). Almost no design system uses pure neutral grays, because they look lifeless and clinical. Most grays in design systems have a slight color cast — a subtle blue, violet, green, or warm yellow-brown bias. This cast is often unintentional: designers copy a popular scale, or use a default UI framework, and end up with grays that have a personality they did not consciously choose. The most common unintentional gray biases in contemporary design systems: cool blue-gray (from Material Design and its derivatives), warm beige-gray (from Tailwind CSS stone and warm gray scales), and violet-gray (from the minimalist/tech aesthetic that became popular around 2020-2022). All of these are valid — but they are design choices, not neutrals. Knowing the bias of your gray lets you choose accents that either harmonize with it or deliberately contrast it.",
+      },
+      {
+        heading: "How many neutral steps do you actually need",
+        body:
+          "A minimal neutral palette for a design system needs to cover: the page background (lightest), the card/panel surface (one step darker), borders and dividers (mid-light), disabled states and placeholder text (mid), secondary text (mid-dark), and primary text (darkest). That is six semantic roles requiring six distinguishable values — and they need to be far enough apart to be perceptually distinct when placed adjacent to each other. Systems with fewer than 6 neutral steps inevitably end up reusing tokens across incompatible semantic roles, which creates fragility when switching themes or changing background colors. The ideal is 8-10 steps with named semantic tokens that reference primitive steps. Brand Starter Kit ships with 8 neutral steps per surface family (warm and cool), with pre-mapped semantic tokens for each UI role.",
+      },
+      {
+        heading: "Neutral and accent temperature relationships",
+        body:
+          "The temperature relationship between your neutral palette and your accent color creates the emotional tone of the whole design. Warm neutrals (beige, sand, cream) paired with warm accents (terracotta, gold, amber) produce a cohesive, enveloping warmth — appropriate for luxury, food, and wellness. Warm neutrals paired with cool accents (cerulean, slate, sage) create a sophisticated tension — the contrast between the warm surface and the cool accent makes the accent feel precise and deliberate. Cool neutrals (blue-gray, silver, concrete) paired with warm accents (orange, copper, warm yellow) create energy — the contrast reads as active and dynamic. Cool neutrals paired with cool accents (deep blue, violet, teal) create calm authority — appropriate for technology, financial, and enterprise products. The Quiet Luxury collection demonstrates warm-neutral-with-cool-accent tension at an editorial sophistication level.",
+      },
+    ],
+    links: [
+      { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
+      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse all colors", href: "/" },
+    ],
+  },
+  {
+    slug: "earth-tone-color-palette",
+    title: "Earth Tone Color Palette: Building with Soil, Stone, and Nature's Range",
+    category: "Brand & Marketing",
+    summary:
+      "Earth tones have become one of the dominant palettes in contemporary design — from wellness brands to editorial interiors to sustainable packaging. Understanding what makes an earth tone palette work prevents the common failure mode of palettes that feel muddy rather than grounded.",
+    eyebrow: "Color Trend Guide",
+    priority: 67,
+    searchIntent: "earth tone color palette for design",
+    featuredCollectionId: "terracotta-loft",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["Earth Tones", "Branding", "Nature-Inspired"],
+    highlights: [
+      "Earth tones are not just browns and tans: the earth-tone family includes terracotta reds, sage and olive greens, slate and stone blues, ochre yellows, and clay oranges — all sharing the key characteristic of reduced saturation and medium-low lightness.",
+      "The failure mode of earth-tone palettes is muddiness: choosing colors that share such similar lightness and saturation that they lose distinction from each other. Successful earth-tone palettes have intentional lightness variation across the palette range.",
+      "Earth tones work best with at least one color that provides luminance contrast — a pale cream, a near-black charcoal, or a warm white — to prevent the palette from feeling flat and textureless.",
+    ],
+    sections: [
+      {
+        heading: "What actually makes a color an earth tone",
+        body:
+          "Earth tones share two defining characteristics: reduced chroma (saturation) and a warm or neutral hue bias. The saturation of most earth tones falls in the 15-45% range — vivid enough to read as colored rather than gray, but desaturated enough to feel organic and non-synthetic. The hue range covers red-orange (terracotta, rust, brick), orange-yellow (ochre, amber, honey), yellow-green (olive, moss, sage), and the warm neutrals (sand, tan, camel, linen). Cool earth tones — slate, stone, clay blue — exist but are less common and require careful handling to remain within the earth-tone family rather than reading as cool modern grays. The unifying characteristic is that all earth tones feel like colors you might find in a natural landscape: soil, mineral, plant, stone.",
+      },
+      {
+        heading: "Building range without muddiness",
+        body:
+          "The most common failure in earth-tone palettes is choosing colors that are too similar in lightness and saturation. A palette of medium-saturation, medium-lightness browns and tans becomes visually undifferentiated — each color feels like a variation of the same tone rather than a distinct palette member. Successful earth-tone palettes introduce deliberate lightness variation: a very light tone (cream, linen, pale sand) for surfaces, mid-tone earth colors for primary accent and supporting roles, and a deep anchor tone (dark chocolate, espresso, charcoal-brown) for text and dark-mode surfaces. This three-tier lightness structure prevents muddiness by ensuring that every palette pairing has enough luminance contrast to be perceptually distinct.",
+      },
+      {
+        heading: "Earth tones and contemporary design contexts",
+        body:
+          "Earth tones have seen a significant revival in the 2020s, driven by sustainability, wellness, and the biophilic design movement. They appear across CPG packaging (especially food, beauty, and personal care), interior design and furniture branding, editorial and lifestyle publishing, and sustainable fashion. The contemporary use of earth tones often pairs them with uncoated or textured paper stocks (in print) or warm-white backgrounds with a slight cream or linen cast (in digital). The effect suggests honesty, naturalness, and craft — in contrast to the clinical brightness of pure whites. Earth-tone palettes pair well with sans-serif typography that has warmth (rounded or humanist letterforms) rather than geometric precision, which would create a temperature conflict with the warm, organic palette.",
+      },
+    ],
+    links: [
+      { label: "Open Terracotta Loft", href: "/collections/terracotta-loft/" },
+      { label: "Explore Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Browse red colors", href: "/families/red/" },
+    ],
+  },
 ];
 
 export function getLandingGuide(slug: string) {

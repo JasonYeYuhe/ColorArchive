@@ -166,7 +166,7 @@ export function HeroSection({
       </section>
 
       {/* Feature callouts */}
-      <section className="grid gap-4 sm:grid-cols-2">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="relative overflow-hidden rounded-[1.75rem] border border-black/6 bg-white/78 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.04)]">
           <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-violet-200/30 blur-2xl" />
           <div className="relative">
@@ -205,6 +205,27 @@ export function HeroSection({
               className="mt-3 inline-flex rounded-full border border-black/8 bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
             >
               {t("hero.createPalette")}
+            </Link>
+          </div>
+        </div>
+
+        <div className="relative overflow-hidden rounded-[1.75rem] border border-black/6 bg-white/78 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.04)]">
+          <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-teal-200/30 blur-2xl" />
+          <div className="relative">
+            <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-teal-200 bg-teal-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-teal-600">
+              {t("hero.new")}
+            </div>
+            <h3 className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">
+              {t("hero.colorblindSimulator")}
+            </h3>
+            <p className="mt-1.5 text-sm leading-6 text-neutral-600">
+              {t("hero.colorblindDesc")}
+            </p>
+            <Link
+              href="/colorblind/"
+              className="mt-3 inline-flex rounded-full border border-black/8 bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+            >
+              {t("hero.tryColorblind")}
             </Link>
           </div>
         </div>
