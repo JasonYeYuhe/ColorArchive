@@ -295,6 +295,22 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   // Nature and landscape
   dusk: ["merlot", "violet", "indigo", "plum", "shadow"],
   dawn: ["rose", "apricot", "citrine", "whisper", "pearl"],
+  // Packaging and material aliases
+  packaging: ["ivory", "pearl", "amber", "muted", "soft"],
+  artisan: ["clay", "amber", "ivory", "honey", "muted"],
+  handmade: ["clay", "amber", "apricot", "honey", "olive"],
+  // Aesthetic and lifestyle aliases
+  japandi: ["ivory", "olive", "ash", "whisper", "muted"],
+  wabi_sabi: ["ivory", "olive", "ash", "honey", "muted"],
+  biophilic: ["moss", "leaf", "emerald", "sage", "teal"],
+  // Brand and industry aliases
+  herbalist: ["moss", "olive", "emerald", "jade", "shadow"],
+  natural_beauty: ["blush", "ivory", "peony", "rose", "muted"],
+  organic: ["olive", "moss", "amber", "ivory", "leaf"],
+  apothecary: ["moss", "jade", "emerald", "shadow", "muted"],
+  // Architecture & space aliases
+  japandi_interior: ["ivory", "olive", "ash", "fog", "amber"],
+  scandi: ["fog", "ash", "ivory", "frost", "veil"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

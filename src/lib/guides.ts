@@ -2512,3 +2512,101 @@ export function getRelatedGuides(slug: string, limit = 3) {
 
   return [...primaryMatches, ...fallbackMatches];
 }
+
+// Guides appended by autopilot
+
+export const additionalGuides: LandingGuide[] = [
+  {
+    category: "UI/UX Design",
+    slug: "dark-mode-color-palette",
+    title: "Dark Mode Color Palette: Building Accessible Night Themes",
+    summary:
+      "Dark mode is not light mode with inverted colors. Effective dark themes use layered surface tones, desaturated accents, and carefully managed text hierarchy to produce interfaces that feel polished and restful rather than harsh and flat. This guide covers the structural decisions behind a production-quality dark mode color system.",
+    eyebrow: "UI/UX Design Guide",
+    priority: 76,
+    searchIntent: "dark mode color palette, dark theme colors, dark UI design, night mode color scheme",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["UI/UX Design", "Accessibility", "Color Systems"],
+    highlights: [
+      "Dark mode surfaces should be layered — use 3-4 distinct lightness levels (L:10, 14, 18, 22%) rather than a single flat dark gray. The Nocturne Tech collection demonstrates this range from cobalt-ink through violet-dusk.",
+      "Saturated brand colors lose perceived vibrancy on dark backgrounds. Reduce saturation by 10-15% and increase lightness by 5-8% when creating dark mode accent variants — the result reads as equivalent weight to the light mode version.",
+      "Pure white (#ffffff) is too harsh for dark mode body text. Use L:92-95% for primary text, L:65-75% for secondary, and L:40-50% for disabled states — these lightness differences create hierarchy without the contrast fatigue of white on black.",
+    ],
+    sections: [
+      {
+        heading: "Surface layering: the foundation of dark mode depth",
+        body: "The most important structural decision in dark mode design is how to create visual hierarchy without light backgrounds and drop shadows. The answer is elevation through lightness: each layer of the interface sits at a slightly higher lightness value than the one below it. A reliable starting point: base background at L:10-12%, navigation at L:13-15%, card surfaces at L:17-19%, modals at L:21-23%. Each step is only 2-4% lightness — invisible as swatches side by side but clearly readable as depth when rendered in a complete interface. This approach also works in dark UI kits like the Dark Mode UI Kit, which provides these layer values as named design tokens.",
+      },
+      {
+        heading: "Accent colors for dark backgrounds",
+        body: "Colors calibrated for light backgrounds become neon on dark ones. The perceptual mechanism: on a white background, a saturated blue competes with a high-luminance ground and reads as confident. On a dark background, the same blue has no luminance competition and reads as electrically bright. The fix is a dedicated dark mode accent variant — typically 10-15 points less saturated and 8-10 points lighter than the light mode version. HSL format makes this calculation straightforward: start with the light mode accent HSL, subtract from saturation, add to lightness. The Nocturne Tech collection provides cobalt, violet, and fuchsia at dark-mode-appropriate values for reference.",
+      },
+      {
+        heading: "Text hierarchy on dark surfaces",
+        body: "Light mode text hierarchy often uses a three-gray system: near-black for primary, medium gray for secondary, light gray for disabled. On dark surfaces, this system compresses — there are fewer distinguishable gray steps between dark backgrounds and readable text. A more robust dark mode text hierarchy uses both lightness and opacity: primary text at L:92-95% opacity 100%, secondary at L:68-75% opacity 90%, tertiary/placeholder at L:45-55% opacity 80%. The opacity variation adds a layer of differentiation that pure lightness cannot. Avoid pure white (#ffffff) for primary text — it causes contrast fatigue in prolonged sessions and looks harsh against dark mid-tone card surfaces.",
+      },
+      {
+        heading: "Borders and dividers in dark mode",
+        body: "Border values from light mode designs typically vanish in dark mode. A #e5e7eb border on white creates ~15% lightness contrast — easily visible. The same value on a dark L:14 background produces near-zero contrast. Dark mode borders should be defined relative to their surface: if the card surface is L:18, the card border should be at L:23-26 — a 5-8% step that reads as a defined edge without being stark. For interfaces with strong visual hierarchy through layering, borders can often be eliminated entirely on elevated surfaces, reserving them for data tables, form inputs, and areas where explicit cell boundaries are functionally required.",
+      },
+      {
+        heading: "Semantic colors in dark contexts",
+        body: "Success, warning, error, and info states need dark mode variants just like brand colors do. The same principles apply: reduce saturation, increase lightness slightly, and ensure the result still meets WCAG AA contrast against the dark background. A practical minimum: 4.5:1 contrast ratio for text-size status labels, 3:1 for large status banners. Green success states that meet AA on white may fail on dark L:12 backgrounds if they are not lightness-adjusted. Test all semantic colors in both modes and maintain separate token values for light/dark rather than relying on a single hex to work in both contexts.",
+      },
+    ],
+    links: [
+      { label: "Explore Nocturne Tech palette", href: "/collections/nocturne-tech/" },
+      { label: "Browse Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "WCAG contrast checker", href: "/contrast/" },
+    ],
+  },
+  {
+    category: "UI/UX Design",
+    slug: "neutral-color-palettes",
+    title: "Neutral Color Palettes: Warm vs Cool and How to Choose",
+    summary:
+      "Neutral colors — whites, grays, and off-whites — occupy the largest visual surface area in most interfaces and brand materials. The temperature of these neutrals (warm amber undertones vs cool blue undertones) shapes the entire emotional register of a design. This guide covers how to identify neutral temperature, when to choose warm vs cool, and how to apply neutrals consistently across a design system.",
+    eyebrow: "UI/UX Design Guide",
+    priority: 73,
+    searchIntent: "neutral color palette, warm gray color palette, cool gray design, off white color scheme, neutral colors UI",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "complete-archive",
+    tags: ["UI/UX Design", "Color Systems", "Brand"],
+    highlights: [
+      "Neutral temperature is hidden in the HSL hue value: a gray with hue 40-60° at low saturation is warm; a gray with hue 200-240° is cool. Tailwind's slate and zinc scales are cool-neutral; stone and warm scales lean warm. Know what temperature you are inheriting from your framework.",
+      "Warm neutrals (amber, ivory, off-white with a honey undertone) feel approachable, human, and analog — suited for consumer apps, wellness, food, and creative tools. Cool neutrals (blue-gray, true gray) feel precise and systematic — suited for developer tools, analytics, and financial software.",
+      "The most common neutral mistake is mixing warm and cool within the same elevation level. A warm off-white card on a cool gray background creates visual tension that reads as unpolished. Commit to one temperature per layer; reserve intentional cross-temperature contrast for specific framing moments (warm content modal over cool dark overlay).",
+    ],
+    sections: [
+      {
+        heading: "How to detect neutral temperature",
+        body: "Any gray with saturation greater than 0% has a temperature. Convert the gray hex to HSL: if hue is 0-70°, it leans warm (red/amber undertone); if hue is 180-270°, it leans cool (blue/green undertone); if saturation is effectively 0, it is true neutral. Most design systems choose a subtle temperature — 3-8% saturation — that is invisible in isolation but creates clear warmth or coolness when used as a large background surface. The Editorial Warmth collection demonstrates warm neutrals at work: amber-silk, apricot-whisper, and honey variants at low saturation produce surfaces that feel materially warm without being overtly colored.",
+      },
+      {
+        heading: "Warm neutrals: where they work best",
+        body: "Warm neutrals are most effective in contexts where human connection and physical comfort are primary design goals. Consumer apps, health and wellness platforms, food and hospitality interfaces, creative tools, e-commerce, and lifestyle brands all benefit from warm neutral palettes because the warmth creates a sense of physical familiarity — paper, linen, warm wood, cream ceramics. The effect is subtle and sometimes unconscious: users describe warm-neutral interfaces as \"friendly,\" \"approachable,\" and \"easy to use\" in usability testing, without being able to identify the neutral temperature as the cause. Warm neutrals also perform better in warm-lit environments (kitchens, bedrooms, coffee shops) where a cool-gray screen creates uncomfortable temperature dissonance with ambient light.",
+      },
+      {
+        heading: "Cool neutrals: where they work best",
+        body: "Cool neutrals signal precision, systematization, and digital clarity. Developer tools, analytics dashboards, design applications, productivity software, data platforms, and financial services all benefit from cool neutral palettes because the coolness communicates competence and order. Cool neutrals also produce better dark modes: dark cool grays (blue-tinted dark) create the layered depth required for effective dark UI without the warm-dark-reads-as-brown problem that affects warm dark neutrals. If the product will have a dark mode as a primary experience (professional tools, code editors, data terminals), starting with cool neutrals makes the dark mode transition significantly more coherent.",
+      },
+      {
+        heading: "Applying neutral temperature consistently",
+        body: "Once a temperature is chosen, it should be consistent across all neutral values in the system: background, surface, card, sidebar, modal, tooltip. Define a neutral temperature token at the system level — for example, a \"neutral hue\" token set to 220° for cool or 45° for warm — and derive all gray values from that hue at appropriate lightness and saturation steps. This approach ensures temperature consistency even as the system grows. The most common failure mode is adding a third-party component library whose gray scale has a different temperature: the neutral conflict creates a subtle dissonance that is difficult to diagnose. When integrating external components, override their gray scale with your system's neutral tokens.",
+      },
+      {
+        heading: "Neutrals and brand color interaction",
+        body: "Neutral temperature amplifies or mutes brand colors. A warm amber brand color placed on warm-neutral surfaces reads as cohesive and harmonious — the undertones reinforce each other. The same amber on cool-gray surfaces creates a temperature conflict: the amber feels slightly warm and out of place against the cool ground. The inverse: a cool cobalt brand color on warm neutrals creates a tension that can read as deliberate and sophisticated — a cool accent against a warm ground is a classic interior design pairing — but requires careful calibration to avoid the surfaces and brand color appearing like different design eras. As a rule, decide neutral temperature after brand color selection, not before.",
+      },
+    ],
+    links: [
+      { label: "Explore Editorial Warmth palette", href: "/collections/editorial-warmth/" },
+      { label: "Browse Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Try the palette generator", href: "/palette/" },
+    ],
+  },
+];
+
+// Merge into main landingGuides array at module initialization
+landingGuides.push(...additionalGuides);

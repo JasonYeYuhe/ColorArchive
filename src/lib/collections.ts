@@ -535,3 +535,48 @@ export const collections: ColorCollection[] = [
 export function getCollectionById(id: string) {
   return collections.find((collection) => collection.id === id);
 }
+
+// Collections appended by autopilot
+
+collections.push(
+  createCollection(
+    "morning-ceramic",
+    "Morning Ceramic",
+    "Warm off-whites and barely-there naturals inspired by unglazed ceramics, linen, and early light — for minimal, Japandi-influenced, and artisan brands.",
+    "A palette assembled from the quietest corner of the warm spectrum: the zone where color is present but subordinate, where warmth is felt rather than seen. The colors move from a barely-warm white through soft apricot veil and honey mist to a grounded olive whisper that anchors the palette without weight. The mood is handmade, morning, restrained — evocative of ceramic studio walls, natural linen, unbleached cotton, and warm stone. It works for artisan brands, Japandi-aesthetic e-commerce, wellness and spa identities, and any editorial system where the design must feel quiet, physical, and considered. No color in this palette announces itself; together they create an atmosphere of careful, warm stillness.",
+    ["Warm", "Minimal", "Artisan"],
+    [
+      "apricot-whisper-soft",
+      "honey-veil-muted",
+      "amber-pearl-muted",
+      "olive-whisper-muted",
+      "coral-pearl-muted",
+    ],
+    {
+      editorialNote:
+        "Use this when warmth should be ambient rather than expressive. None of these colors should dominate — the effect comes from their combined warmth. Pair with warm dark typography (L:12-18%, hue 40-50°) rather than pure black for full palette coherence.",
+      promptWords: ["unglazed ceramic", "warm linen", "morning window", "wabi-sabi studio", "handmade"],
+      useCases: ["Artisan and craft brands", "Japandi and minimal e-commerce", "Wellness and spa identities"],
+    },
+  ),
+  createCollection(
+    "forest-depths",
+    "Forest Depths",
+    "Deep botanical greens at the threshold of shadow — emerald, jade, and moss at low lightness for premium wellness, biophilic design, and herbal brand identities.",
+    "A palette built from the densest, most light-absorbing part of the green spectrum: the zone where green meets shadow and becomes something almost mineral. These are not fresh spring greens — they are old-growth greens, the color of moss on north-facing stone, deep jade water, ancient emerald in low light. The colors hold saturation even at reduced lightness, giving the palette weight and depth without darkness for its own sake. The jade and emerald entries carry cool undertones that keep the palette from reading as earthy or autumnal; the moss entry provides the warmth and groundedness. This palette works for premium herbal brands, biophilic architecture, luxury wellness identities, and any brand where the green needs to feel aged, authoritative, and deep rather than fresh, light, and springlike.",
+    ["Deep", "Botanical", "Premium"],
+    [
+      "emerald-shadow-clear",
+      "jade-velvet-soft",
+      "moss-shadow-clear",
+      "leaf-shadow-soft",
+      "teal-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Use this when green needs gravitas rather than vitality. These colors are too dark for large light-mode surfaces but excellent as primary brand colors, hero elements, dark mode surfaces, and product photography backgrounds. Pair with warm gold or soft apricot accents for editorial richness.",
+      promptWords: ["old-growth canopy", "deep moss stone", "herbal apothecary", "ancient jade", "forest floor"],
+      useCases: ["Premium herbal and botanical brands", "Biophilic architecture and interior design", "Luxury wellness and spa identities"],
+    },
+  ),
+);
