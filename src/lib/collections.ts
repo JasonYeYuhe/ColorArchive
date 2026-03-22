@@ -678,11 +678,11 @@ collections.push(
     "A palette built from the green spectrum's quietest register: desaturated, light-touched, and atmospheric. Sage greens and moss tones at low chroma suggest living plants behind glass, a morning walk through a damp garden, or a ceramic planter on a white shelf. The sage-mist-soft is the palette's lightest entry — an almost-grey green suitable for large background surfaces and calm UI backgrounds. The moss-tone-muted provides an earthy, grounded midtone. The fern-velvet-soft is the richest entry, with enough chroma to serve as an accent or primary brand color. The stone-green-muted bridges green to neutral, useful for typographic elements that should feel botanical without being vivid. The eucalyptus-bloom-soft adds a slightly cooler note that prevents the palette from reading as too yellow or too warm. This palette works for: wellness and mindfulness brands, botanical and plant retail, slow-living and sustainable lifestyle brands, spa and aromatherapy packaging.",
     ["Calm", "Botanical", "Wellness"],
     [
-      "sage-mist-soft",
+      "moss-mist-muted",
+      "moss-pearl-muted",
+      "moss-bloom-muted",
+      "moss-silk-muted",
       "moss-tone-muted",
-      "fern-velvet-soft",
-      "stone-green-muted",
-      "eucalyptus-bloom-soft",
     ],
     {
       editorialNote:
@@ -701,11 +701,11 @@ collections.push(
     "A palette centred on the coral-to-terracotta arc: the warm register where orange meets pink, touching the territory of sunsets, clay pots, and warm skin. The coral-glow-soft is the palette's warmest and most vivid entry — a saturated soft coral that carries energy without the abrasiveness of pure orange. The blush-mist-soft provides a lighter, more receded counterpoint, useful for background surfaces and secondary text containers. The terracotta-tone-muted grounds the palette with an earthy, clay-like midtone that anchors the lighter corals with material weight. The peach-silk-soft is the palette's most neutral entry — a barely-tinted warm near-white suitable for large-area fills. The rose-copper-muted adds a slightly metallic warmth at the palette's darkest end, suggesting burnished copper or dried rose petals rather than pure pink. This palette works for: editorial beauty and cosmetics, women's lifestyle brands, warm contemporary direct-to-consumer brands, event design and wedding identities.",
     ["Warm", "Editorial", "Feminine"],
     [
-      "coral-glow-soft",
+      "coral-tone-soft",
       "blush-mist-soft",
-      "terracotta-tone-muted",
-      "peach-silk-soft",
-      "rose-copper-muted",
+      "coral-silk-soft",
+      "blush-bloom-soft",
+      "rose-tone-soft",
     ],
     {
       editorialNote:
