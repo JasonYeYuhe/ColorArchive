@@ -4,30 +4,32 @@
 > Last updated: 2026-03-23
 
 ## High Priority
-- [ ] Set up real payment provider (Lemon Squeezy or Stripe) in `src/lib/checkout-config.ts` — *currently placeholder URLs, blocking actual revenue*
-- [ ] Configure Pinterest OAuth app credentials — *Pinterest social sharing requires real API keys*
-- [ ] Review and publish TikTok admin page (`app/admin/tiktok/`) — *exists as untracked file, needs review before committing*
-- [ ] Review and publish terms page (`app/terms/`) — *exists as untracked file, legal content needs human review*
+- [ ] Integrate real payment provider (Lemon Squeezy / Stripe) in `src/lib/checkout-config.ts` — *all commerce flows are still mock/placeholder*
+- [ ] Set up Pinterest API credentials for Pinterest OAuth flow — *`app/pinterest/callback/` exists but OAuth app needs credentials*
+- [ ] Review and publish the TikTok admin page (`app/admin/tiktok/`) and terms page (`app/terms/`) — *these are untracked/uncommitted pages visible in git status*
+- [ ] Test the new Design Token Generator (/tokens/) visually — *built and deployed but not manually QA'd*
 
 ## Medium Priority
-- [ ] Set up email sending provider (Postmark/SendGrid) for the server email system — *server/email.js is ready but needs real credentials*
-- [ ] Review waitlist page component (`src/components/waitlist-page.tsx`) — *untracked, needs decision on whether to deploy*
-- [ ] Review launch page (`src/components/launch-page.tsx`) — *untracked, assess if needed*
-- [ ] Add real Figma plugin to Figma Community — *plugin code exists in `figma-plugin/`, needs community submission*
-- [ ] Set up analytics tracking (GA4 or Plausible) — *no analytics currently active on frontend*
+- [ ] Configure Umami analytics to track new tool pages (/tokens/, /wcag-audit/, /colorblind/, /brand/) — *new pages added but not confirmed in analytics dashboard*
+- [ ] Review the waitlist page (`src/components/waitlist-page.tsx`) — *untracked, unclear if it should be published*
+- [ ] Review the launch page (`src/components/launch-page.tsx`) — *untracked, Product Hunt launch page, check if still relevant*
+- [ ] Review/update pricing on pack product pages — *Lemon Squeezy URLs are placeholders*
+- [ ] Update the figma-plugin with any new color data or features — *figma-plugin/package-lock.json is untracked*
 
 ## Low Priority / Nice to Have
-- [ ] Add Open Graph images for individual color pages — *currently uses generic OG image*
-- [ ] Consider adding a "Collections" featured section to the homepage — *collections content is strong at 49 entries*
-- [ ] Review duplicate download files in `public/downloads/` — *several files have numbered copies (e.g., "complete-archive 2.zip") that may be outdated*
-- [ ] Evaluate whether `src/lib/i18n-merged.ts`, `i18n-part1.ts`, `i18n-part2.ts` are used or can be cleaned up — *these appear as untracked files*
+- [ ] Add the new /tokens/ page to any marketing copy or newsletter mentions — *newly launched tool worth promoting*
+- [ ] Consider adding color palette import to the token generator (paste hex list → generate tokens) — *would make the tool more powerful for existing palettes*
+- [ ] Update OpenGraph preview image to reflect the expanded tool set — *og-image-v1.png was created with fewer tools*
+- [ ] Add a /tokens/ link to the color detail pages sidebar — *cross-linking would improve discoverability*
 
 ## Done
-- [x] Add newsletter system with issues 001-125 — completed 2026-03-23
-- [x] Reach 49 curated color collections — completed 2026-03-23
-- [x] Reach 85 SEO landing guides — completed 2026-03-23
-- [x] Build Color Mixer tool — completed earlier
-- [x] Build Brand Color System tool — completed earlier
-- [x] Build WCAG Contrast Checker — completed earlier
-- [x] Add REST API with documentation page — completed earlier
-- [x] Add Figma plugin code — completed earlier
+- [x] Add Color Mixer page (/mixer/) — completed 2026-03-23
+- [x] Add WCAG Audit page (/wcag-audit/) — completed 2026-03-23
+- [x] Add Color Blindness Simulator (/colorblind/) — completed 2026-03-23
+- [x] Add Tints & Shades Generator (/tints/) — completed 2026-03-23
+- [x] Add Brand Color Generator (/brand/) — completed 2026-03-23
+- [x] Add Palette Generator (/palette-generator/) — completed 2026-03-23
+- [x] Add Design Token Generator (/tokens/) — completed 2026-03-23 (this big run)
+- [x] Reach 100+ newsletter issues — achieved (130 as of this run)
+- [x] Reach 80+ SEO guides — achieved (88 as of this run)
+- [x] Reach 50+ collections — achieved (51 as of this run)

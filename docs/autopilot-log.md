@@ -1133,3 +1133,77 @@ Total newsletter issues: **126** (was 122, +4 this run)
 - src/lib/guides.ts (+3 guides in extraGuides9, now 85 total)
 
 **Commit:** eb972a1
+
+## 2026-03-23 — Big Run: Design Token Generator + Content Batch (commit ec82fbd)
+
+**Run type:** Big (5th run since last big run `55fb5f9`)
+
+**Categories:** New Tool Feature + A. SEO & Content + D. Data & Collections
+
+### New Feature: Design Token Generator (/tokens/)
+
+Added a full new tool page at `/tokens/` — the 14th color tool on ColorArchive.
+
+**What it does:**
+- Takes any brand color hex as input + a custom variable name
+- Generates 6 color scales × 11 steps (50–950) = 66 total tokens:
+  - **Primary** — built from the user's brand color (scale-generated, step 500 = input color)
+  - **Neutral** — same hue as primary at 10% saturation for harmonious grays
+  - **Success** (green), **Warning** (amber), **Error** (red), **Info** (blue) — fixed semantic hues
+- Interactive swatch strips for all 6 scales
+- Per-scale detail table with HEX, RGB, HSL, contrast vs white (W), contrast vs black (B)
+- WCAG contrast badges: green = AA pass (≥4.5:1), amber = large text only (≥3:1), grey = fail
+- Export in 4 formats: CSS custom properties, Tailwind config, SCSS variables, JSON (W3C DTCG format)
+- 8 color presets, native color picker, and custom variable name input
+- Usage guide section explaining 3-tier token architecture and dark mode strategy
+
+**Files created:**
+- `app/tokens/page.tsx` — Next.js Server Component with metadata + structured data
+- `src/components/token-generator-page.tsx` — Full client component (700+ lines)
+
+**Files updated:**
+- `src/components/site-header.tsx` — added `/tokens` to currentPath type union
+- `src/components/tools-page.tsx` — added token generator as 14th tool entry
+- `src/lib/i18n.ts` — added `tools.tokens.name` + `tools.tokens.desc` (EN + ZH)
+- `app/tools/page.tsx` — updated description count 13→14, added to structured data list
+- `app/sitemap.ts` — added `/tokens/` URL at priority 0.85
+
+### Category A — 4 Newsletter Issues (now 130)
+
+- **Issue 126** (may-2028-color-in-illustration, 2028-05-27): Color in illustration — limited vs. complex palettes, chromatic weight mechanics, shadow color strategies (multiply/complementary/ambient), expressive color beyond accuracy
+- **Issue 127** (jun-2028-subscription-brand-color, 2028-06-03): Subscription brand color — recurring context vs. one-time packaging, unboxing color sequence, seasonal variant strategy, digital vs. physical specification
+- **Issue 128** (jun-2028-warm-cool-bias-ui, 2028-06-10): Warm vs. cool bias in UI — background temperature mechanics, trust-warmth tradeoff, dark mode temperature specification, neutral scale hue strategy
+- **Issue 129** (jun-2028-color-neurodiversity, 2028-06-17): Color and neurodiversity — saturation thresholds for sensory sensitivity, ADHD chromatic complexity, reduced stimulation modes via CSS variables
+
+### Category A — 3 New SEO Guides (now 88)
+
+- **design-token-color-system-guide**: Three-tier token architecture (primitive/semantic/component), token naming conventions, multi-theme specification, scale resolution, semantic role mapping — targets 'design token color system guide designers'
+- **color-palette-for-landing-pages**: CTA color (contrast > hue), landing page color hierarchy, trust vs. conversion color treatment, above/below fold strategy — targets 'color palette for landing page conversion'
+- **color-in-icon-design-guide**: Single-color vs. multi-color icons, semantic icon color, small-scale contrast thresholds, currentColor vs. fixed color strategies — targets 'color in icon design icon color system'
+
+### Category D — 2 New Collections (now 51)
+
+- **desert-minerals**: Terracotta, rust, warm amber, dusty sage, sand buff — for Southwest/regional brands, artisan ceramics, earthy wellness. The sage creates the specific desert temperature contrast.
+- **midnight-garden**: Deep navy, forest shadow, dusty rose, warm cream, soft charcoal — for luxury fashion, dark editorial, evening product brands. All five entries are deliberately muted — no vivid colors.
+
+### Current State After This Run
+
+- Total newsletter issues: **130** (Issues 001–129)
+- Total collections: **51** (desert-minerals, midnight-garden added)
+- Total SEO guides: **88** (3 new in extraGuides10)
+- Total tool pages: **14** (/tokens/ added)
+
+**Files modified (11):**
+- app/tokens/page.tsx (new)
+- src/components/token-generator-page.tsx (new)
+- src/components/site-header.tsx (+/tokens type)
+- src/components/tools-page.tsx (+token generator entry)
+- src/lib/i18n.ts (+tokens keys)
+- app/tools/page.tsx (+count, +structured data)
+- app/sitemap.ts (+/tokens/ URL)
+- src/data/newsletter-issues.json (130 issues, was 126)
+- src/lib/collections.ts (+desert-minerals, +midnight-garden, now 51)
+- src/lib/guides.ts (+3 guides in extraGuides10, now 88)
+- STRUCTURE.md (updated all counts)
+
+**Commit:** ec82fbd
