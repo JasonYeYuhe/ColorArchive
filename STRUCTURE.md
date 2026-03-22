@@ -56,6 +56,7 @@ ColorArchive/
 │   ├── thanks/                   # /thanks/ — post-purchase confirmation
 │   ├── cancel/                   # /cancel/ — checkout cancel landing
 │   ├── login/                    # /login/ — magic link auth
+│   ├── pinterest/callback/       # /pinterest/callback/ — Pinterest OAuth redirect handler
 │   ├── admin/orders/             # /admin/orders/ — internal order dashboard
 │   ├── analytics/                # /analytics/ — internal analytics dashboard
 │   ├── trending/                 # /trending/ — weekly trending colors
@@ -115,6 +116,8 @@ ColorArchive/
 │   │   ├── copy-action-button.tsx        # Reusable copy-to-clipboard button
 │   │   ├── favorite-button.tsx           # Add/remove favorite button
 │   │   ├── share-link-button.tsx         # Share / share on X buttons
+│   │   ├── pinterest-save-button.tsx    # Save to Pinterest button + board picker modal
+│   │   ├── pinterest-callback-page.tsx  # Pinterest OAuth callback handler
 │   │   ├── recommended-colors-section.tsx # Related colors suggestions
 │   │   ├── local-archive-hub.tsx         # Local storage color hub
 │   │   ├── theme-toggle.tsx              # Dark/light mode toggle
@@ -160,6 +163,7 @@ ColorArchive/
 │   │   │                                 # Tailwind/Figma/StyleDict exports, naming
 │   │   ├── favorites.ts                  # localStorage favorites + subscriptions
 │   │   ├── recent-colors.ts              # localStorage recent history
+│   │   ├── pinterest.ts                  # Pinterest OAuth + API proxy helpers
 │   │   ├── checkout-config.ts            # Lemon Squeezy checkout URLs
 │   │   ├── color-family-pages.ts         # Color family page slug/metadata
 │   │   ├── colorblind.ts                 # Viénot (1999) color blindness simulation matrices
