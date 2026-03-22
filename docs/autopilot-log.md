@@ -356,3 +356,54 @@ Total collections: **20** (was 18)
 - src/lib/collections.ts (20 collections, was 18)
 
 **Commit:** 629cf0c
+
+## 2026-03-22 — Normal Run: Bug Fix, Newsletter 058-061, 3 New Guides, Email A/B Variants, Accessibility (commit decec50)
+
+**Run type:** Normal (4th run since last big run: Color Blindness Simulator)
+
+**Categories:** Bug Fix, A. SEO & Content, E. Server & Email, C. Code Quality
+
+### Critical Bug Fix — email-scheduler.js day-30 emails never sent
+
+Discovered that the day-30 follow-up email code was placed **outside** the `runFollowUps()` function body due to a premature closing brace at line 125. This meant day-30 emails had never been sent since the scheduler was written. Fix: removed the stray `}` so the day-30 block correctly executes inside `runFollowUps()`.
+
+### Category E — Email A/B Testing Improvements
+
+- Added **variant C** subject lines to all 5 follow-up email sequences:
+  - day3 C: "Your free palette pack — getting started"
+  - day7 C: "One palette library, every format you need"
+  - day14 C: "A discount for your first ColorArchive pack — use FIRSTPACK"
+  - day21 C: "Practical color: three real starting points"
+  - day30 C: "What designers do after the free pack"
+- Updated `ensureVariant()` call in scheduler to use 3 variants (A/B/C)
+- Server redeployed to DO droplet
+
+### Category A — Newsletter Issues 058–061
+
+- **Issue 058** (2027-02-18): "Designing with gradients: when they help and when they hurt" — interpolation mechanics (RGB vs OKLCH), light source logic, gradient vs flat test
+- **Issue 059** (2027-02-25): "Color for logo design: constraints that make logos work" — black-first design principle, four production tests (CMYK, Pantone, small size, context), single-color logo system
+- **Issue 060** (2027-03-04): "Color in photography: how photos and palettes interact in design" — temperature compatibility, desaturation strategy, duotone unification, color grading brief
+- **Issue 061** (2027-03-11): "Color for presentations: slides, decks, and pitch materials" — near-neutral backgrounds, 7:1 contrast for projection variability, four-color deck system, dark vs light palette choice
+Total newsletter issues: **62** (was 58)
+
+### Category A — 3 New SEO Guides
+
+- **gradient-color-palette** (priority 69, Color Theory): interpolation paths and OKLCH, systematic gradient palette approach, contextual gradient use rules
+- **logo-color-palette** (priority 72, Brand & Marketing): black-first logo design, four production tests, single-color logo system with Pantone guidance
+- **color-palette-for-presentations** (priority 68, Web Design): projection contrast requirements, four-color deck system, dark vs light presentation palette guide
+Total guides: **46** (was 43)
+
+### Category C — Accessibility: gradient-generator-page.tsx
+
+- Added `aria-pressed` to Linear/Radial gradient type toggle buttons (screen readers can now announce active state)
+- Added `htmlFor`/`id` associations for all label/input pairs (Color 1, Color 2, Angle)
+- Added `aria-label` to color picker inputs and angle range slider
+
+**Files modified:**
+- server/email-scheduler.js (critical bug fix: day-30 inside function + 3-variant support)
+- server/email.js (variant C subject lines for all 5 follow-up sequences)
+- src/data/newsletter-issues.json (62 issues, was 58)
+- src/lib/guides.ts (46 guides, was 43)
+- src/components/gradient-generator-page.tsx (accessibility improvements)
+
+**Commit:** decec50
