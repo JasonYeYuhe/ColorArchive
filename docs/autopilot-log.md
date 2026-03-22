@@ -322,3 +322,37 @@ Total collections: **18** (was 16)
 - src/lib/collections.ts
 
 **Commit:** 2ef08b4
+
+## 2026-03-22 — Normal Run: Newsletter 054-057, New Guides, New Collections (commit 629cf0c)
+
+**Run type:** Normal (3rd run since last big run: Color Blindness Simulator 137345e)
+
+**Categories:** A. SEO & Content, D. Data & Collections
+
+### Category A — Newsletter Issues 054–057
+
+- **Issue 054** (2027-01-14): "Color in data visualization: why chart palettes need different rules" — categorical vs. sequential vs. diverging palette types, why branding palettes fail data viz tests, designing accessible chart palettes for color-blind audiences
+- **Issue 055** (2027-01-21): "Monochromatic palette strategy: getting the most out of a single hue" — why single-hue constraints improve design skills, building 6+ lightness step systems, when to add accent colors in monochromatic contexts
+- **Issue 056** (2027-02-04): "Designing color systems for mobile apps: constraints that change the rules" — OLED display impact on background decisions, real-world contrast beyond WCAG, semantic token architecture for system-level dark mode switching
+- **Issue 057** (2027-02-11): "Working with pastel palettes: softness without weakness" — two-layer contrast system (pastels as surfaces, dark anchors for text), temperature coherence in pastel collections, avoiding washed-out failure mode
+Total newsletter issues: **58** (was 54)
+
+### Category A — 3 New SEO Guides
+
+- **monochromatic-color-palette** (priority 73, Color Theory): single-hue system architecture, saturation management, saturation-based accent step, when monochromatic approach is right
+- **color-palette-for-apps** (priority 76, Web Design): brand-to-app system gap (5 colors → 50 values), interactive state derivation logic, semantic token architecture for maintainability and theme switching
+- **pastel-color-palette** (priority 71, Color Theory): two-layer pastel system, contrast architecture with near-black anchors, temperature-coherent pastel palette construction
+Total guides: **43** (was 40)
+
+### Category D — 2 New Collections
+
+- **desert-canyon**: Warm terracotta, sandstone, coral ember, and garnet anchor tones. For Southwest-inspired brands, hospitality, food, and interior design. Colors: apricot-whisper-soft, ember-pearl-soft, coral-bloom-muted, ember-tone-muted, garnet-ink-muted.
+- **midnight-forest**: Deep emerald, jade, teal, and mossy green tones. For sustainable brands, wellness retreats, and architectural practices. Colors: seafoam-whisper-soft, jade-bloom-clear, emerald-silk-soft, teal-tone-muted, moss-nocturne-muted.
+Total collections: **20** (was 18)
+
+**Files modified:**
+- src/data/newsletter-issues.json (58 issues, was 54)
+- src/lib/guides.ts (43 guides, was 40)
+- src/lib/collections.ts (20 collections, was 18)
+
+**Commit:** 629cf0c

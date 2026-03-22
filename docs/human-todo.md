@@ -1,7 +1,7 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-22 (run 3)
+> Last updated: 2026-03-22 (run 4)
 
 ## High Priority
 - [ ] Set up real Lemon Squeezy checkout URLs in `src/lib/checkout-config.ts` — *placeholders are still in place; purchases can't complete*
@@ -12,12 +12,14 @@
 - [ ] Review and update `PRODUCT_MEMO.md` with current pricing/pack structure — *may have drifted from what's live on LS*
 - [ ] Verify the `/admin/orders/` dashboard works with real orders data — *built on SQLite, not tested with production volume*
 - [ ] Check Umami analytics is correctly tracking new tool pages (contrast, convert, harmonies, compare, colorblind) — *may need manual registration of new page paths*
+- [ ] Review new collections (desert-canyon, midnight-forest) added in this run — confirm color IDs render correctly in the live UI
 - [ ] Review new collections (golden-hour, twilight-bloom) featured in /collections/ — confirm they look right on the live site
 
 ## Low Priority / Nice to Have
 - [ ] Add Open Graph image generation for individual color pages — *currently uses static og-image-v1.png for all pages*
 - [ ] Set up a real CDN for download files in `public/downloads/` — *GitHub Pages serves them fine for now, but CDN would be faster*
 - [ ] Consider adding Google Search Console property for colorarchive.me — *would help track search impressions for SEO guides*
+- [ ] Next big run: could be a new /tools/ index page, gradient tool, or a batch export feature — autopilot will pick up in next cycle
 
 ## Done
 - [x] Lemon Squeezy webhook configured — completed 2026-03-18
