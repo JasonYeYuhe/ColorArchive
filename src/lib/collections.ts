@@ -1025,3 +1025,50 @@ collections.push(
     },
   ),
 );
+
+// Additional collections appended by autopilot 2026-03-23
+
+export const extraCollections9: ColorCollection[] = [
+  createCollection(
+    "aurora-borealis",
+    "Aurora Borealis",
+    "Vivid celestial blues, teals, and violets inspired by the northern lights — for premium tech products, atmospheric editorial, and dark-background digital experiences.",
+    "A palette drawn from the vivid, high-chroma end of the blue-green-violet arc: the colors that appear in long-exposure photographs of the northern lights, where saturation is compressed and amplified simultaneously. Cobalt-core-vivid provides the deepest, most intense blue anchor — the color of deep sky at zenith; teal-tone-vivid brings the electric cyan-teal of the aurora's most active bands; mint-core-vivid is the pale, almost-white-green of the aurora's outer glow; violet-nocturne-clear introduces the deep purple-violet of atmospheric depth at the horizon; plum-radiant-clear adds the warm-violet note that appears when the aurora's reds and blues overlap. Together, these five create a palette of extraordinary chromatic intensity that functions best on dark backgrounds — each color carries maximum luminosity against near-black, and the palette loses its celestial character on white.",
+    ["Dark", "Vivid", "Celestial"],
+    [
+      "cobalt-core-vivid",
+      "teal-tone-vivid",
+      "mint-core-vivid",
+      "violet-nocturne-clear",
+      "plum-radiant-clear",
+    ],
+    {
+      editorialNote:
+        "This palette is designed for dark-background use only — on white or light backgrounds the vivid chroma reads as harsh rather than luminous. Use cobalt-core-vivid and teal-tone-vivid as the dominant hues; reserve plum-radiant-clear and violet-nocturne-clear as accent colors appearing in small quantities. Mint-core-vivid is the palette's lightest and most ethereal entry — it works as a text highlight or glow effect against dark surfaces. For typography, use pure white or the lightest palette entry (mint-core-vivid) for body text, never dark text colors. The palette pairs well with linear gradients between adjacent hues (cobalt to teal, violet to plum) to suggest the sweep and movement of the aurora itself.",
+      promptWords: ["northern lights over snow field", "long-exposure aurora photograph", "deep space nebula", "bioluminescent ocean at night", "electric sky before a storm"],
+      useCases: ["Premium technology and SaaS dark-mode products", "Gaming and entertainment branding", "Atmospheric editorial and music visual identity", "Science and astronomy-adjacent digital products"],
+    },
+  ),
+  createCollection(
+    "berry-harvest",
+    "Berry Harvest",
+    "Deep plum, mulberry, vivid rose, and warm red — a rich autumnal fruit palette for seasonal editorial, luxury food brands, and warm-toned product photography.",
+    "A palette assembled at the intersection of red and violet: the warm, saturated spectrum of ripe autumn berries — blackberries at full ripeness, wine-dark plums, the vivid crimson of wild strawberries, the deep rose of rose hips. Ruby-radiant-soft provides the palette's most active and warm entry — a vivid red-pink that reads as fresh berry against the darker tones; plum-silk-soft introduces the mid-register of ripe plum at softer saturation; rose-bloom-vivid contributes the vivid warm-pink at high chroma; peony-bloom-vivid is the palette's most expressive entry — a vivid warm rose that reads simultaneously as floral and fruit; mulberry-nocturne-muted provides the deep, almost-black anchor — the color of dried berry or deeply shadowed plum skin. The five colors span from deep-dark to vivid-light within a tight hue arc, creating a palette with strong chromatic coherence and natural depth.",
+    ["Warm", "Berry", "Seasonal"],
+    [
+      "ruby-radiant-soft",
+      "plum-silk-soft",
+      "rose-bloom-vivid",
+      "peony-bloom-vivid",
+      "mulberry-nocturne-muted",
+    ],
+    {
+      editorialNote:
+        "The palette's richness is most readable with generous use of near-white or cream as a surface color — a warm white (HSL 30 20% 97%) gives the berry tones their maximum luminosity. Mulberry-nocturne-muted works effectively as a dark background color in small quantities (header bands, footer areas) rather than as a full-page background. The vivid entries (rose-bloom-vivid and peony-bloom-vivid) should be used as accent colors, not dominant surfaces. Typography: the palette supports both dark (mulberry-nocturne-muted) and medium (plum-silk-soft) text on light backgrounds; avoid mixing both in the same text hierarchy. Particularly effective for harvest season campaigns, wine and spirits brands, artisan jam and confectionery, and premium autumn editorial.",
+      promptWords: ["bowl of late-summer berries", "wine-dark plum on the branch", "blackberry jam in a jar", "autumn fruit market stall", "mulberry-stained fingers in harvest season"],
+      useCases: ["Seasonal and harvest-themed editorial", "Wine, spirits, and artisan food brands", "Luxury confectionery and preserve packaging", "Autumn fashion and lifestyle content"],
+    },
+  ),
+];
+
+collections.push(...extraCollections9);

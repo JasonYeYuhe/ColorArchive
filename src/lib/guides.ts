@@ -3409,3 +3409,143 @@ const extraGuides8: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides8);
+
+const extraGuides9: LandingGuide[] = [
+  {
+    category: "Color Psychology",
+    slug: "color-psychology-marketing-design",
+    title: "Color Psychology in Marketing: How Color Drives Emotion, Trust, and Purchase Decisions",
+    summary:
+      "Color psychology in marketing is one of the most studied and most misunderstood areas in design practice. The research is real — color affects emotional response, purchase intent, perceived product quality, and brand trust — but the popular summaries are often oversimplified. Understanding what the research actually shows, where it applies, and where it breaks down enables designers and marketers to make color decisions based on evidence rather than received wisdom.",
+    eyebrow: "Psychology Guide",
+    priority: 80,
+    searchIntent: "color psychology marketing design",
+    featuredCollectionId: "golden-hour",
+    featuredPackId: "complete-archive",
+    tags: ["Color Psychology", "Marketing", "Brand Design"],
+    highlights: [
+      "The research on color and emotion is real but context-dependent. Studies consistently show that color affects first impressions, emotional valence (positive/negative), and arousal levels (calm/stimulating). But the specific emotional association of a color depends heavily on context, culture, saturation, and what colors surround it. The same red reads as exciting in a consumer electronics ad, dangerous in a security alert, and romantic in a Valentine's Day campaign. The implication: color psychology cannot be applied by looking up 'what red means' and selecting accordingly. It requires understanding the specific associations your audience holds for that color in that category in that cultural context.",
+      "Purchase intent research consistently shows that perceived appropriateness of color to the product category matters more than absolute color preference. Consumers buy when the color matches their expectations for the category, not when the color is their personal favorite. This is why most cleaning products use blue and white (clean, sterile, trustworthy) rather than the research-favorite blue that consumers would choose if asked in isolation. A cleaning product in vivid orange would be noticed but would create a category mismatch that reduces purchase confidence. The design principle: use color to signal category fit and brand values, not to express designer preference.",
+      "Trust is one of the most commercially important outcomes of color, and it is built through consistency and quality rather than through specific hues. A brand that applies its color system consistently — same palette, same proportions, same tonal relationships across every touchpoint — builds color-based recognition and trust over time. A brand with inconsistent color application signals low investment and low attention to quality, regardless of which colors it uses. The most important thing a brand can do with color to build trust is to maintain consistent, high-quality application of its chosen palette — not to select the theoretically most-trustworthy color from a psychology handbook.",
+    ],
+    sections: [
+      {
+        heading: "What the research actually shows about color and emotion",
+        body:
+          "The foundational research on color-emotion associations (Plutchik, Ou et al., Valdez and Mehrabian) shows consistent patterns: high-saturation colors produce higher arousal; cool hues (blue, green) produce lower arousal than warm hues (red, orange, yellow) on average; colors at extreme lightness values (very light or very dark) produce different valence responses than midrange lightness. These patterns are reliable at the aggregate level but are substantially modified by cultural context, individual experience, and product category. The much-cited claim that 'blue means trust' is an aggregate statistical tendency with high variance, not a reliable individual effect. The more actionable insight: high-saturation, warm, mid-lightness colors produce higher arousal and are more effective for calls to action; low-saturation, cool, high-lightness colors produce lower arousal and are more effective for environments requiring calm attention and extended engagement.",
+      },
+      {
+        heading: "Color and perceived product quality",
+        body:
+          "Color significantly affects perceived product quality independent of actual quality differences. Research on food and beverage products shows that color saturation affects perceived flavor intensity; research on premium consumer goods shows that packaging color correlates with willingness-to-pay. The mechanisms: dark, desaturated, low-contrast palettes signal premium and craft quality in categories where restraint is valued (spirits, luxury goods, high-end cosmetics); vivid, high-saturation palettes signal value, energy, and mass appeal in categories where accessibility is valued (soft drinks, snack foods, children's products). The practical implication: if your product is positioned as premium, your color palette should be restrained, controlled, and high-quality in its application — not necessarily dark, but calibrated and intentional. If your product is positioned for broad mass appeal, higher saturation and more expressive color choices perform better.",
+      },
+      {
+        heading: "Color and conversion: what actually moves purchase rates",
+        body:
+          "A/B testing on e-commerce platforms has produced a large body of real-world evidence on color and conversion. The findings are more nuanced than common 'the button color that doubled conversions' myths suggest. Button color matters less than button contrast: a button that stands out clearly against its background will outperform a lower-contrast button in almost any color. The specific hue matters primarily in category-fit terms — a medical e-commerce site with a vivid orange buy button may underperform a blue one due to category mismatch, not because orange is a bad button color universally. The most reliable conversion-positive color principles from A/B evidence: (1) High contrast between CTA and surrounding content. (2) Consistent application of a single CTA color that is used nowhere else on the page. (3) Color semantics that do not conflict with the product category. (4) Sufficient whitespace around color elements to give them visual priority.",
+      },
+      {
+        heading: "The saturation-premium paradox",
+        body:
+          "One of the most reliable and counterintuitive findings in color marketing research is the saturation-premium paradox: high-saturation colors signal value and accessibility, while low-saturation (muted, toned, desaturated) colors signal premium quality and exclusivity. This is the opposite of what many designers expect, and it explains the distinctive visual language of luxury branding: understated palettes, careful tonal relationships, significant use of near-neutral colors, and restrained application of accent colors. The paradox has a cultural-historical origin: vivid dyes were historically expensive and therefore associated with wealth; as dye production industrialized and vivid colors became cheap and ubiquitous, desaturated restraint became the new signal of premium taste. This dynamic is not fixed — it shifts over time and varies by category — but the general principle remains reliable: for premium positioning, reach for muted, toned, desaturated palettes over vivid, high-saturation ones.",
+      },
+    ],
+    links: [
+      { label: "Golden Hour collection", href: "/collections/golden-hour/" },
+      { label: "Complete Archive pack", href: "/packs/complete-archive/" },
+      { label: "Browse all color families", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "startup-brand-color-guide",
+    title: "Startup Brand Color: How to Build a Color Identity That Scales",
+    summary:
+      "Early-stage startups face a specific set of color challenges: they need to establish a distinctive visual identity quickly, on limited design resources, in a crowded category, with an audience they are still learning. The color decisions made in the first year of a brand often persist for decades — and the decisions made casually in a Saturday afternoon Figma session can become expensive to change after product-market fit. Understanding how to approach startup brand color deliberately is one of the highest-leverage design investments a founding team can make.",
+    eyebrow: "Brand Guide",
+    priority: 78,
+    searchIntent: "startup brand color guide design",
+    featuredCollectionId: "cobalt-morning",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Brand Design", "Startup", "Color Systems"],
+    highlights: [
+      "The most expensive startup color mistake is choosing a color that is indistinguishable from competitors. Category convention exists for a reason — users learn to associate color with function (fintech is blue, health is green, food delivery is orange) — but category convention also creates color sameness that makes differentiation impossible. The right approach: understand the dominant color conventions in your category, then make a deliberate choice about whether to follow them (for trust and recognition) or violate them (for differentiation and memorability). Following convention is the lower-risk short-term choice; violating it with a well-reasoned alternative can create strong differentiation, but only if the chosen color is appropriate to the product and consistently executed.",
+      "Startups need a color system that works at the smallest scale first: the app icon, the favicon, the social media avatar. These are 32x32 to 512x512 pixel squares with a single color or simple gradient. A brand color that requires complexity or multiple tones to read correctly at small sizes will fail to build recognition across the most frequently seen brand touchpoints. The primary brand color should be fully recognizable as a single tone in a square. Secondary colors, gradients, and typographic color pairings are secondary concerns — they matter for website and marketing materials but not for the most frequently encountered brand surface.",
+      "Color consistency is more important for startups than color choice. The fastest way to build brand recognition is to pick a color and apply it with unwavering consistency across every touchpoint for 12–24 months. Many startups undermine their own brand recognition by making minor color variations (slightly different blue on the landing page versus the app, different saturation in print materials) that prevent the color from building the strong neural association with the brand that consistent exposure creates. Define exact hex values for your primary and secondary brand colors in the first week, write them into a brand guidelines document (even a one-page Notion doc), and enforce them at every stage of production.",
+    ],
+    sections: [
+      {
+        heading: "Choosing a primary brand color: five criteria",
+        body:
+          "A startup primary brand color should meet five criteria simultaneously. (1) Distinctive within the category: visually differentiated from the most common colors used by direct competitors. (2) Appropriate to the product: the color should be semantically congruent with what the product does and who it serves — a security product in vivid pink may be memorable but will work against trust building. (3) Scalable to a design system: the color should have enough tonal range to produce a complete design system (light backgrounds, medium UI tones, dark text-safe versions) without becoming muddy or losing identity. (4) Accessible at sufficient contrast: the primary color should achieve 4.5:1 contrast with a white or near-white background for text use, or at minimum 3:1 for large text and UI components. (5) Reproducible across media: the color should be specifiable in hex for screen, as close a CMYK match as possible for print, and as a Pantone match for premium print and merchandise.",
+      },
+      {
+        heading: "Brand color and category: when to follow convention vs. break it",
+        body:
+          "Every product category has dominant color conventions. Fintech and SaaS: blue. Health and wellness: green. Food and consumer goods: orange, red, yellow. Luxury: black, navy, burgundy, gold. Creative tools: vivid primary colors. Following category convention reduces cognitive friction — users recognize the product category instantly and extend category trust to the new entrant. Breaking category convention creates differentiation opportunity but requires more work from the product itself to establish trust and category fit. The highest-risk category convention breaks: a security or financial product in red (fear, danger associations), a healthcare product in black (death associations), a children's product in muted desaturated tones (adult associations). The highest-opportunity category convention breaks: a fintech in warm amber (warmer, more approachable than the sea of blue), a wellness brand in deep navy (authoritative, less generic than green), a creative tool in a single confident accent color (premium, focused).",
+      },
+      {
+        heading: "Building a minimal color system in week one",
+        body:
+          "A startup brand color system can be fully specified in a single design session. Start with: (1) Primary brand color — one hex value that passes accessibility requirements. (2) Primary tonal scale — 5 values from a very light tint (90–95% lightness) to a very dark shade (15–25% lightness), using the same hue and saturation. (3) Neutral scale — 6 values from near-white to near-black, either warm-neutral (slight hue tint toward your brand primary) or cool-neutral, with the darkest as your body text color. (4) Semantic colors — a green for success, a red for error, an amber for warning, separate from and not confused with your brand primary. (5) White and black values — a near-white background and a near-black body text, finalized. This 14-color system covers 95% of product and marketing design needs and can be documented in a 30-minute design spec session.",
+      },
+      {
+        heading: "Color as hiring and cultural signal",
+        body:
+          "An underappreciated dimension of startup brand color is its effect on talent. Engineers, designers, and operators evaluate companies through their visual presentation before they read about the mission or the team. A company with a carefully executed brand color system — even a minimal one — signals design maturity and attention to craft quality. A company with inconsistent, default-looking color choices signals low investment in design and visual culture. For startups competing for design and engineering talent where multiple high-quality options exist, the quality of brand execution (including color execution) is a meaningful signal in the talent market. This is not an argument for expensive brand identity work before product-market fit — it is an argument for deliberate, consistent application of a simple, well-chosen color system, which costs time and discipline rather than money.",
+      },
+    ],
+    links: [
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Cobalt Morning collection", href: "/collections/cobalt-morning/" },
+      { label: "Brand Color Palette guide", href: "/guides/brand-color-palette/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "color-in-typography-design-guide",
+    title: "Color in Typography: How to Use Color in Text Without Losing Legibility",
+    summary:
+      "Typography color is the most technically constrained area of color design — it must simultaneously meet accessibility requirements, serve hierarchy and emphasis functions, maintain brand coherence, and work across every screen and print context. Most designers learn body text color (very dark) and link color (blue by convention) but do not develop a systematic approach to the full typographic color spectrum. A well-designed typographic color system is one of the highest-leverage investments in design system quality.",
+    eyebrow: "Typography Guide",
+    priority: 79,
+    searchIntent: "color in typography design guide legibility",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Typography", "Legibility", "Color Systems"],
+    highlights: [
+      "Body text color is not black — it is near-black. Pure #000000 text on pure #FFFFFF white creates maximum contrast (21:1) but produces a harsh, optically aggressive reading experience on modern backlit screens. The optimal body text color for extended reading is in the L8–16% range with slight chromatic warmth (2–8% saturation in the direction of the brand primary or a warm neutral). This produces contrast ratios of 14:1 to 18:1 against white — well above the WCAG AAA requirement of 7:1 — while eliminating the optical harshness of pure black. The difference is subtle in isolation but significant in extended reading contexts: a 2,000-word article in near-black text causes less eye fatigue than the same article in pure black.",
+      "Secondary text color is one of the most important and most neglected decisions in a typographic color system. Secondary text — metadata, captions, timestamps, form labels, supporting copy — must be visually distinct from primary text but still meet WCAG AA minimum contrast (4.5:1 for normal text). The target range: L35–50% for secondary text on white backgrounds, which produces 4.5:1 to 7:1 contrast and reads clearly as 'less important than primary text' without disappearing. Avoid the common mistake of tertiary text at L60–70% (contrast ~2.5:1) — this fails accessibility requirements and creates content that users cannot read comfortably, particularly in variable ambient light conditions.",
+      "Colored text should serve a specific function: link indication, emphasis, category labeling, or decorative headline styling. Colored body text — body copy set in a brand color other than near-black — is almost always a design mistake. It compromises readability, reduces the signal value of the color (if all text is blue, blue no longer signals anything), and creates contrast problems unless the brand color happens to be dark enough for body text use. Reserve colored text for three functional uses: links (blue convention or brand primary, always with a non-color indicator like underline), callout text or pull quotes (one or two sentences at larger size, where a brand color adds visual interest without fatiguing the eye), and categorical labels (small caps or tag-style label text using a semantic or categorical color).",
+    ],
+    sections: [
+      {
+        heading: "Building a complete typographic color system",
+        body:
+          "A complete typographic color system for light mode contains five tiers. (1) Primary text: L10–15%, warm near-black — for headings, body text, and all primary content. (2) Secondary text: L40–50%, medium gray — for metadata, captions, supporting information. (3) Tertiary/disabled text: L65–70%, light gray — for placeholder text, disabled states, and de-emphasized UI strings (note: this fails WCAG for meaningful content and should only be used for truly non-essential text). (4) Inverse text: near-white, L92–97% — for text on dark backgrounds, banners, dark UI elements. (5) Link/interactive text: brand primary or blue-family, L30–45% on white — for links, with an underline or other non-color indicator. Each tier needs a defined hex value, a documented contrast ratio against its intended background, and a specified use case. Without this specification, designers will make inconsistent tier choices, eroding visual hierarchy across the product.",
+      },
+      {
+        heading: "Text on colored backgrounds: the hardest legibility problem",
+        body:
+          "Text on colored backgrounds is the most technically difficult legibility situation in typographic color design. The challenges: (1) Most brand colors at medium saturation and lightness (the range most useful for UI components) do not provide 4.5:1 contrast against either white or black text — they fall in a no-man's land where both fail. (2) Colored backgrounds reduce the apparent contrast of text against the background due to simultaneous contrast effects — text that measures 4.5:1 on a saturated red background may appear to have lower contrast than the same ratio on a neutral gray. (3) Brand color backgrounds create strong visual noise that competes with the typographic content. Solutions: use background tints (8–15% opacity version of the brand color on white) rather than full-saturation color blocks for large text-containing areas; use very dark (L10–20%) or very light (L90–97%) text depending on background lightness; test colored text backgrounds at multiple size points since the legibility threshold is larger for small text.",
+      },
+      {
+        heading: "Color hierarchy in headings and display type",
+        body:
+          "Heading color is an opportunity to add visual richness and brand expression without compromising legibility, because headings are set at large sizes where contrast requirements are lower (3:1 rather than 4.5:1) and reading duration is shorter. The most effective use of color in headings: use the brand primary or a closely related color for one level of heading (typically H1 or the most prominent headline style), keeping all other heading levels in primary text color (near-black). This creates a single, visually striking color entry point into text content without creating the visual noise of multi-color heading hierarchies. Alternatively, use color to highlight a single key phrase within an otherwise near-black heading — a technique common in editorial design that draws attention to the conceptual center of the heading.",
+      },
+      {
+        heading: "Typographic color in dark mode",
+        body:
+          "Dark mode typographic color systems mirror the structure of light mode systems but require different values at each tier. Primary text on dark: L88–94%, warm near-white — maintaining slight warmth prevents the harsh optical effect of pure white (#FFFFFF) on near-black backgrounds. Secondary text on dark: L55–65%, medium light gray — providing sufficient differentiation from primary text while meeting contrast requirements. The common dark mode mistake: using the same hex values from the light mode system inverted, which produces inconsistent contrast relationships and often results in either too little contrast (text too dark against the dark background) or too much (text too bright and harsh). Semantic text colors (error red, success green, warning amber) need separate dark-mode specifications — the same hex that provides sufficient contrast on white may fail on near-black backgrounds.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Checker", href: "/tools/contrast/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Monochrome Studio collection", href: "/collections/monochrome-studio/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides9);
