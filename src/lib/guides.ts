@@ -4435,3 +4435,144 @@ const extraGuides17: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides17);
+
+export const extraGuides18: LandingGuide[] = [
+  {
+    slug: "color-combinations-guide",
+    title: "How to Choose Color Combinations That Work",
+    summary: "The practical framework for choosing 2-5 color combinations for design projects — covering harmony types, proportion, and the common mistakes that make palettes feel off.",
+    category: "Color Theory",
+    eyebrow: "Combinations Guide",
+    priority: 72,
+    searchIntent: "color combinations design complementary analogous triadic color harmony how to choose colors palette 60 30 10 rule color wheel",
+    featuredCollectionId: "cobalt-spectrum",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Color Harmony", "Palette Design", "Color Theory"],
+    highlights: [
+      "The 60-30-10 rule is the most reliable starting proportion for a 3-color combination: 60% dominant (usually a neutral or near-neutral), 30% secondary, 10% accent. The dominant color sets the mood; the accent color gets remembered. Reversing these proportions — a small amount of neutral with a large area of vivid color — is one of the most common causes of palettes that feel overwhelming in real applications.",
+      "Complementary combinations (opposite hues on the color wheel) create maximum contrast and energy. They work at full saturation only at small scale or for very specific brand personalities. For most applications, use complementary hues at different saturation levels: one muted, one vivid. This preserves the energy of the complementary relationship while making the palette livable.",
+      "Analogous combinations (3-4 adjacent hues) are inherently cohesive but risk feeling flat. The solution is variation in lightness and saturation within the analogous range rather than adding more hues. A well-varied analogous palette — light-medium-dark of the same hue family, with one step more saturated as the accent — reads as polished and intentional.",
+    ],
+    sections: [
+      {
+        heading: "Starting with harmony type",
+        body:
+          "Harmony type describes the geometric relationship between your hues on the color wheel. Complementary (0° + 180°) is the highest contrast relationship — bold and energetic. Analogous (0° + 30° + 60°) is the lowest contrast — calm, cohesive, naturalistic. Triadic (0° + 120° + 240°) balances variety with structure. Split-complementary (0° + 150° + 210°) adds variety with less tension than full complementary. Monochromatic (single hue, multiple lightness steps) is the most controllable and the most at risk of flatness. Choose your harmony type based on the emotional register of the brand, not aesthetic preference alone.",
+      },
+      {
+        heading: "The role of neutrals",
+        body:
+          "Most functional color palettes are 80% neutral — the background, surface, body text, and secondary elements that carry the visual weight of the layout. The hue colors you agonize over typically appear at 10-30% of the total visual area. This means neutral design is the primary skill, and hue selection is the secondary one. A palette with a poor neutral strategy fails regardless of how well-chosen the accent colors are. Warm neutrals (slightly yellow or red-shifted) pair with warm hue palettes; cool neutrals (slightly blue or gray-shifted) pair with cool palettes. Mixing warm accents with cool neutrals creates the temperature dissonance that makes combinations feel 'almost right but off.'",
+      },
+    ],
+    links: [
+      { label: "Browse Color Combinations", href: "/combinations/" },
+      { label: "Color Harmony Calculator", href: "/harmonies/" },
+      { label: "Palette Generator", href: "/palette-generator/" },
+    ],
+  },
+  {
+    slug: "monochromatic-color-palette-guide",
+    title: "Monochromatic Color Palettes: A Designer's Complete Guide",
+    summary: "How to build effective monochromatic palettes using a single hue — covering scale construction, contrast management, and when monochromatic design is the right choice.",
+    category: "Color Theory",
+    eyebrow: "Monochromatic Guide",
+    priority: 71,
+    searchIntent: "monochromatic color palette design single hue tints shades tones scale blue palette red palette color scheme same color",
+    featuredCollectionId: "cobalt-spectrum",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Monochromatic", "Color Scales", "Palette Design"],
+    highlights: [
+      "A monochromatic palette is not simply varying lightness of a single color. True monochromatic design also varies saturation (chroma) across the scale — light steps are typically less saturated, darker steps are typically more saturated, and the most saturated version of the hue falls somewhere in the mid-range. A scale that's uniformly saturated throughout reads as flat and synthetic; natural chroma variation is what makes scales feel like they belong to the same family.",
+      "The contrast challenge in monochromatic design is harder than it appears. If your text and background are in the same hue family, you're relying on lightness contrast alone. Lightness contrast becomes the only variable for visual hierarchy — which means your scale needs to be significantly spread to create enough distinction between levels. A monochromatic palette where the lightest and darkest values aren't at least 5:1 contrast ratio leaves insufficient room for accessible text hierarchy.",
+      "Monochromatic palettes are the cleanest solution for brand color systems built around a single hue (a blue brand, a green brand). They guarantee color cohesion, simplify design decisions, and produce immediately recognizable brand association. The risk is monotony — address it with strong typographic hierarchy, texture variation, and photography selection that introduces complementary hues naturally.",
+    ],
+    sections: [
+      {
+        heading: "Building the scale",
+        body:
+          "Start with your target hue and build a 9-11 step scale from near-white to near-black. The key is perceptual uniformity: each step should appear equally distant from its neighbors in terms of lightness. OKLCH-based scales achieve this better than HSL-based ones because OKLCH lightness correlates more closely to human perception. In practice, build your scale, then test each step-pair's contrast ratio — it should step in consistent increments. Steps with contrast below 1.3:1 against their neighbor are too close; steps with contrast above 3:1 are too far apart and will create a visible gap in the scale.",
+      },
+      {
+        heading: "Adding warmth to a cool hue",
+        body:
+          "Pure single-hue scales can feel cold in the light range because white surfaces read as neutral (no hue cast) while your lightest scale steps have a slight hue cast. Warm the very lightest steps by introducing a small hue shift (10-20° toward warm) in the pale range. This technique, used by Apple's semantic color system and Google Material You, creates light surfaces that feel naturally warm and inviting while keeping the saturated mid-range on-brand. It's not strictly monochromatic by purist definition, but it's the professional approach.",
+      },
+    ],
+    links: [
+      { label: "Tints & Shades Generator", href: "/tints/" },
+      { label: "Color Combinations", href: "/combinations/" },
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+    ],
+  },
+  {
+    slug: "color-in-packaging-design-guide",
+    title: "Color in Packaging Design: What Works and Why",
+    summary: "The specific rules for packaging color — shelf impact, category conventions, material and print constraints, and how digital mock-up colors translate (or don't) to physical products.",
+    category: "Brand & Marketing",
+    eyebrow: "Packaging Guide",
+    priority: 70,
+    searchIntent: "color packaging design product branding shelf impact print CMYK brand color physical product label design consumer goods",
+    featuredCollectionId: "terracotta-workshop",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Packaging", "Print", "Branding"],
+    highlights: [
+      "Shelf impact is a completely different design constraint from screen legibility. On shelf, you have approximately 300ms of moving, peripheral vision to capture attention. High contrast (light/dark) and brand color consistency beat fine typographic detail every time in the peripheral attention zone. The color that 'reads' from 10 feet in a glance is your packaging's most critical design decision — and it must be optimized for peripheral, not foveal, vision.",
+      "CMYK gamut compression affects specific colors dramatically. Vivid oranges, bright greens, and certain purples are outside standard CMYK gamut and will print significantly duller than their screen appearance. Always check packaging colors in CMYK-mode in your design software before finalizing. If your brand color is outside CMYK gamut, a Pantone spot color is the only way to reproduce it accurately in print — and the additional cost per print run should be factored into the brand decision.",
+      "Category color conventions are strong priors that work in your favor or against you. Premium spirits are dark-background, gold-accent. Organic food is muted green and cream. Luxury cosmetics is black or white with metallic. Departing from category convention requires explicit rationale and risks shelf confusion — buyers categorize products partially by color cue before they read text. Brands that successfully break category color convention (e.g., Method's move away from green for cleaning products) usually replace the category signal with a distinctive form factor or other strong visual identity signal.",
+    ],
+    sections: [
+      {
+        heading: "Material and finish color interaction",
+        body:
+          "The substrate (material) of your packaging changes how colors appear. Glossy surfaces intensify darks and deepen colors — the same navy on gloss versus uncoated stock will read 20-30% darker on gloss. Kraft (brown) packaging changes everything: colors printed on kraft inherit a warm brown undertone that makes cool colors (blues, purples) shift warm and already-warm colors (orange, red) appear more saturated. White inks on dark packaging also interact with substrate — digital mock-ups that show crisp white on black should be tested in actual print because white ink coverage and opacity vary significantly across print methods.",
+      },
+      {
+        heading: "Digital to physical accuracy",
+        body:
+          "The most important professional skill in packaging color is understanding the digital-to-physical translation gap. Never approve packaging color from a screen rendering alone. Request physical proofs, ideally in the intended print method and substrate. For critical brand colors, specify Pantone PMS values as the primary color reference and use CMYK builds only for non-brand supporting colors. If you don't have direct print experience, a pre-production review with the printer's color technician is worth the time — they can flag gamut issues, ink trapping concerns, and substrate interactions that digital proofs cannot show.",
+      },
+    ],
+    links: [
+      { label: "Color Format Converter", href: "/convert/" },
+      { label: "WCAG Contrast Auditor", href: "/wcag-audit/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    ],
+  },
+  {
+    slug: "neutral-color-palette-guide",
+    title: "Building Neutral Color Palettes for Design Systems",
+    summary: "How to design the neutral palette that forms the backbone of any design system — covering warm vs. cool neutrals, gray scale construction, and when neutrals are the primary design decision.",
+    category: "Interface Systems",
+    eyebrow: "Neutral Palette Guide",
+    priority: 73,
+    searchIntent: "neutral color palette design system gray scale warm gray cool gray off white design tokens neutral system UI design",
+    featuredCollectionId: "stone-and-teal",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Neutral Colors", "Design Systems", "Color Scales"],
+    highlights: [
+      "Most design systems fail at neutrals, not at accent colors. The neutral palette carries 80% of the visual weight in a typical UI — backgrounds, surfaces, dividers, secondary text, placeholder text, disabled states. If the neutral scale is too flat (steps too close together) or too warm-cold mismatched (warm accent, cool neutral), the system feels off in ways that are difficult to diagnose but immediately visible.",
+      "True gray (equal R, G, B values) almost never looks neutral in practice because it reads against the color temperature of the ambient light and surrounding hues. On most screens, with most content, a very slightly warm gray (shifted toward yellow-red) reads as more neutral than mathematically pure gray. The specific neutrals used by Apple (Human Interface Guidelines), Google Material, and Tailwind are all slightly warm-shifted — this is intentional.",
+      "The warm-cool decision in neutrals should be driven by your accent palette, not by isolation preference. Warm accent colors (orange, yellow, red-orange) require a warm neutral family to avoid temperature conflict. Cool accent colors (blue, purple, teal) are more flexible but often look crisper on slightly cool-neutral backgrounds. The test: put your accent color on your neutral — do they feel like they belong to the same designed system, or do they look like they came from different sources?",
+    ],
+    sections: [
+      {
+        heading: "Scale construction for neutrals",
+        body:
+          "A professional neutral scale has 9-11 steps: 1-2 near-white light steps for backgrounds, 2-3 mid-light steps for surfaces, borders, and dividers, 2-3 mid-range steps for secondary text and disabled states, and 2-3 dark steps for body text and near-black. The near-white steps (your 50 and 100) determine the warmth temperature of the entire UI — they're the canvas everything renders on. The near-black steps (800-950) determine text readability and brand authority. Many designers focus too much on the mid-range when the extremes establish the system's character.",
+      },
+      {
+        heading: "Semantic neutral tokens",
+        body:
+          "Raw neutral scale values should map to semantic tokens before they reach component implementations. 'surface.default' → neutral-50, 'surface.elevated' → neutral-0 (white), 'text.primary' → neutral-900, 'text.secondary' → neutral-600, 'border.default' → neutral-200. This mapping layer is what allows a dark mode to invert the references — 'surface.default' becomes neutral-950 in dark mode, 'text.primary' becomes neutral-50, without changing the token names. Systems that skip the semantic layer cannot support theming without editing every component.",
+      },
+    ],
+    links: [
+      { label: "Tints & Shades Generator", href: "/tints/" },
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Color Combinations", href: "/combinations/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides18);

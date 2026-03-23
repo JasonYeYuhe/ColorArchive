@@ -1434,3 +1434,68 @@ const extraCollections17: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections17);
+
+const extraCollections18: ColorCollection[] = [
+  createCollection(
+    "cobalt-spectrum",
+    "Cobalt Spectrum",
+    "A five-step monochromatic cobalt scale — from whisper pale through deep ink — the complete system blue for professional digital products.",
+    "The cobalt spectrum is a functional monochromatic system palette built for serious digital products. Rather than curating hue variety, it commits fully to cobalt blue across five perceptually spaced lightness levels: a near-white pale for backgrounds, a soft mid for surfaces and containers, the saturated core for interactive elements and brand moments, a deep velvet for text and secondary actions, and ink for maximum contrast. This palette architecture reflects how professional design systems actually work — most colors in a UI are the same hue at different intensities, with rare accent interventions from the broader palette. Cobalt-whisper-muted functions as the warm white substitute for surfaces and backgrounds, light enough to feel clean without reading as stark; cobalt-silk-soft provides the medium-light card and container surface, visually anchored in the hue family without competing with the interactive tier; cobalt-core-clear is the system's action color — saturated enough to attract attention, light enough to carry white text at AA compliance; cobalt-dusk-soft enters the darker register for secondary UI elements, navigation items, and supporting text; cobalt-ink-muted provides maximum contrast for primary typographic elements and the darkest surface in a dark-mode configuration.",
+    ["Monochromatic", "System", "Professional"],
+    [
+      "cobalt-whisper-muted",
+      "cobalt-silk-soft",
+      "cobalt-core-clear",
+      "cobalt-dusk-soft",
+      "cobalt-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Cobalt spectrum is a design system architect's palette, not an editorial or brand palette. It assumes that most layout decisions — color management, hierarchy, attention direction — will be made within the cobalt hue family, with external colors (error red, success green, warning amber) appearing as exception states only. Before implementing this as a full system, audit your product for color use: if your UI needs more than 4-5 distinct hue families to function, a monochromatic system will feel constraining. But for products that currently use 15+ ad-hoc colors, reducing to a disciplined cobalt spectrum often dramatically improves visual coherence. Photography and illustration direction should lean toward complementary warmth (amber, terracotta, cream tones) as the cobalt system's natural environmental contrast partner.",
+      promptWords: ["professional web application dashboard in cobalt blue", "SaaS product interface with monochromatic navy system", "fintech app design in deep cobalt with light blue backgrounds", "design system documentation in blue monochromatic palette", "corporate intranet in professional cobalt blue scale"],
+      useCases: ["Enterprise SaaS products", "Fintech and banking applications", "Design system documentation", "Corporate digital products", "Professional web applications"],
+    },
+  ),
+  createCollection(
+    "stone-and-teal",
+    "Stone & Teal",
+    "Warm greige neutrals grounded by a single precise teal accent — the architect's palette for interiors, services, and professional digital work.",
+    "Stone and teal is the restraint palette — built on the principle that most visual space should be as neutral as possible to give the accent color maximum force. The neutral range runs through warm olive-shifted grays that feel material rather than digital: they have enough warmth to feel like stone, plaster, or unbleached linen rather than monitor gray. Against this warm neutral ground, the teal accent reads with exceptional clarity — cool, precise, and purposeful. Olive-veil-muted provides the near-white background, slightly warm enough to prevent the clinical sterility of pure white; olive-whisper-muted is the secondary surface for cards and raised elements — the difference between it and the veil tone is enough to create visual depth without introducing contrast that competes with the teal; olive-mist-muted acts as the divider and secondary text color, maintaining the warm neutral character at medium lightness; olive-tone-muted provides the darker neutral for secondary actions, labels, and supporting interface elements; teal-core-clear is the single vivid element — the interactive color, the brand moment, the signature. Used at approximately 10% of total color area.",
+    ["Minimal", "Neutral+Accent", "Professional"],
+    [
+      "olive-veil-muted",
+      "olive-whisper-muted",
+      "olive-mist-muted",
+      "olive-tone-muted",
+      "teal-core-clear",
+    ],
+    {
+      editorialNote:
+        "Stone and teal's discipline is its strength and its constraint: it requires restraint in execution. Every addition of a second vivid color breaks the palette's logic — the architect's one-accent rule is non-negotiable here. This makes it ideal for experienced design teams who understand that limiting the palette simplifies future decisions, but difficult for organizations where multiple stakeholders add 'just one more color' to communications over time. The warm neutral family (olive-shifted) pairs best with photography that includes natural materials: stone, wood, concrete, linen, ceramic. Avoid photography with strong saturated backgrounds (which compete with the teal) or strong cool tones (which conflict with the warm neutral base). Typography should be minimal — ideally a geometric sans-serif that doesn't introduce its own personality competing with the palette's restraint.",
+      promptWords: ["architectural office interior in warm stone and teal accents", "professional services firm website with minimal warm-neutral design", "interior design studio with warm concrete and teal brand color", "consulting firm digital identity in stone and teal", "premium real estate brand in warm neutral with teal accents"],
+      useCases: ["Architecture and interior design firms", "Premium real estate and property", "Professional services and consulting", "Minimal digital products and SaaS", "Corporate brand identity"],
+    },
+  ),
+  createCollection(
+    "rose-scale",
+    "Rose Scale",
+    "Five steps from pale blush whisper to deep rose shadow — the complete feminine monochromatic system for beauty, bridal, and editorial brands.",
+    "The rose scale is a feminine monochromatic brand system built around the full lightness range of a single rose hue. Unlike collections that blend hue families for variety, rose scale commits to the monochromatic discipline — all hierarchy, depth, and nuance comes from lightness variation within a single pink-rose register. This approach works particularly well for beauty, bridal, and editorial brands that want immediate hue recognition (this is a pink brand) while demonstrating sophisticated design thinking through the control of scale rather than variety. Rose-whisper-muted opens the palette at maximum delicacy — a barely-visible rose tint for backgrounds and light surfaces, warm enough to distinguish itself from white but light enough to serve as the canvas for text and photography; rose-bloom-soft provides the mid-light surface for cards and containers, with enough visibility to create subtle depth between background tiers; rose-core-clear is the palette's saturated action color — the pink that reads unmistakably as rose, used for primary CTAs, key interactive elements, and brand accent moments; rose-velvet-soft descends into the darker rose range, appropriate for secondary text, navigation elements, and dark-mode surfaces; rose-shadow-muted approaches near-black within the rose family, providing the anchor for primary text and the deepest contrast the palette generates.",
+    ["Monochromatic", "System", "Elegant"],
+    [
+      "rose-whisper-muted",
+      "rose-bloom-soft",
+      "rose-core-clear",
+      "rose-velvet-soft",
+      "rose-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Rose scale succeeds as a system palette only with strict application discipline. The temptation to introduce complementary colors — a green accent, a cream neutral, a black text — should be resisted in favor of using the darkest rose step (shadow) as the 'black' and the whisper step as the 'white.' This constraint produces the strongest brand coherence. Accessibility testing is essential before finalizing: rose hues in the mid-range (bloom through core) may not achieve 4.5:1 contrast against the pale background steps for text-size applications. In those cases, use rose-shadow-muted for body text and reserve the saturated core for large-type elements and interactive components only. Photography direction: warm natural light, skin tones, soft fabrics (silk, cotton, linen), florals in pale or deep rose registers. Avoid strong blue or green photography color casts, which create temperature dissonance against the warm rose palette.",
+      promptWords: ["bridal brand editorial in pale and deep rose tones", "luxury skincare brand photography in monochromatic rose palette", "wedding invitation design in blush to deep rose scale", "beauty brand website in pink monochromatic system", "fashion editorial in rose whisper to rose shadow"],
+      useCases: ["Bridal and wedding brands", "Luxury beauty and skincare", "Fashion editorial and publishing", "Feminine personal care brands", "Romantic event and hospitality brands"],
+    },
+  ),
+];
+
+collections.push(...extraCollections18);

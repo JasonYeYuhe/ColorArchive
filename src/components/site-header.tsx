@@ -48,7 +48,8 @@ interface SiteHeaderProps {
     | "/api-docs"
     | "/mixer"
     | "/tokens"
-    | "/image-palette";
+    | "/image-palette"
+    | "/combinations";
 }
 
 interface NavItem {
@@ -90,6 +91,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/brand/", labelKey: "nav.brand" },
       { href: "/wcag-audit/", labelKey: "nav.wcagAudit" },
       { href: "/image-palette/", labelKey: "nav.imagePalette" },
+      { href: "/combinations/", labelKey: "nav.combinations" },
       { href: "/api-docs/", labelKey: "nav.apiDocs" },
       { href: "https://www.figma.com/community/plugin/1616829363158218051", labelKey: "nav.figmaPlugin" },
       { href: "/favorites/", labelKey: "nav.favorites" },

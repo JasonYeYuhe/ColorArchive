@@ -66,7 +66,8 @@ ColorArchive/
 │   ├── harmonies/                 # /harmonies/ — color harmonies calculator (6 harmony types + color wheel)
 │   ├── compare/                   # /compare/ — side-by-side two-color comparison tool
 │   ├── tints/                     # /tints/ — tints & shades generator (11-step tonal scale, CSS/Tailwind/Sass/JSON export)
-│   └── mixer/                     # /mixer/ — Color Mixer (RGB/HSL/OKLCH interpolation, 11-step blend, CSS vars/JSON/color-mix() export)
+│   ├── mixer/                     # /mixer/ — Color Mixer (RGB/HSL/OKLCH interpolation, 11-step blend, CSS vars/JSON/color-mix() export)
+│   └── combinations/              # /combinations/ — Color Combinations Library (30+ curated 2-5 color combos, filter by harmony type)
 │   └── tokens/                    # /tokens/ — Design Token Generator (primary/neutral/semantic scales, CSS/Tailwind/SCSS/JSON export)
 │   └── packs/quiz/                # /packs/quiz/ — interactive pack recommendation quiz
 │
@@ -169,7 +170,8 @@ ColorArchive/
 │   │   ├── checkout-config.ts            # Lemon Squeezy checkout URLs
 │   │   ├── color-family-pages.ts         # Color family page slug/metadata
 │   │   ├── colorblind.ts                 # Viénot (1999) color blindness simulation matrices
-│   │   └── word-color.ts                 # Deterministic word→color hash
+│   │   ├── combinations.ts               # 30+ curated color combinations (complementary, analogous, triadic, monochromatic, neutral+accent)
+│   └── word-color.ts                 # Deterministic word→color hash
 │   │
 │   └── types/
 │       └── color.ts                      # ColorRecord, ColorFamily, SortOption
@@ -260,10 +262,10 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Content | Count |
 |---------|-------|
 | Colors | 2016 |
-| Collections | 47 |
+| Collections | 68 |
 | Palette packs | 7 |
-| SEO guides | 88 |
-| Newsletter issues | 122 |
+| SEO guides | 113 |
+| Newsletter issues | 166 |
 | Color families | 9 |
-| Tool pages | 14 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz, colorblind, tints, mixer) |
+| Tool pages | 15 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz, colorblind, tints, mixer, combinations) |
 | i18n keys | ~710+ (EN/ZH) |

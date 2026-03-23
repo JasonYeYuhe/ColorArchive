@@ -28,6 +28,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.brand": { en: "Brand System", zh: "品牌色系" },
   "nav.wcagAudit": { en: "WCAG Audit", zh: "批量检测" },
   "nav.imagePalette": { en: "Image Extractor", zh: "图片取色" },
+  "nav.combinations": { en: "Combinations", zh: "配色组合" },
   "nav.apiDocs": { en: "Color API", zh: "颜色 API" },
   "nav.figmaPlugin": { en: "Figma Plugin", zh: "Figma 插件" },
   "nav.surprise": { en: "Surprise", zh: "随机发现" },
@@ -1899,6 +1900,11 @@ const translations: Record<string, Record<string, string>> = {
   "tools.imagePalette.desc": {
     en: "Upload any photo or design to extract its dominant color palette. Get hex, RGB, and HSL values. Find the closest ColorArchive match for each color.",
     zh: "上传任意图片或设计稿，提取其主要色彩。获取 Hex、RGB 和 HSL 值，并匹配最接近的 ColorArchive 颜色。",
+  },
+  "tools.combinations.name": { en: "Color Combinations", zh: "配色组合" },
+  "tools.combinations.desc": {
+    en: "Browse 30+ curated color combinations — complementary, analogous, triadic, monochromatic — with hex codes and design use cases.",
+    zh: "浏览 30+ 精选配色组合——互补色、类比色、三角色、单色——附十六进制代码与使用场景。",
   },
   "tools.figmaPlugin.name": { en: "Figma Plugin", zh: "Figma 插件" },
   "tools.figmaPlugin.desc": {
