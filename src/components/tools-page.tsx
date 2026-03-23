@@ -164,7 +164,7 @@ const TOOLS: Tool[] = [
     accent: "bg-indigo-100 text-indigo-700",
   },
   {
-    href: "/all-colors/",
+    href: "/surprise/",
     icon: "✦",
     nameKey: "tools.surprise.name",
     descKey: "tools.surprise.desc",

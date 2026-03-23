@@ -22,6 +22,7 @@ import {
   MAX_SIZE,
 } from "@/src/lib/palette-builder";
 import { parsePaletteInput } from "@/src/lib/palette-import";
+import { buildRecommendedColors } from "@/src/lib/color-recommendations";
 import type { ColorRecord } from "@/src/types/color";
 
 /* ------------------------------------------------------------------ */
@@ -359,8 +360,16 @@ function PaletteColorDetail({ color }: { color: ColorRecord }) {
   );
 }
 
-function EmptyState() {
+function EmptyState({ colors }: { colors: ColorRecord[] }) {
   const { t } = useLocale();
+  const handleRandom = () => {
+    const idx1 = Math.floor(Math.random() * colors.length);
+    let idx2 = Math.floor(Math.random() * colors.length);
+    while (idx2 === idx1) idx2 = Math.floor(Math.random() * colors.length);
+    const seedIds = [colors[idx1].id, colors[idx2].id];
+    const recommended = buildRecommendedColors({ colors, seedIds, excludeIds: seedIds, limit: 4 });
+    addManyToPalette([...seedIds, ...recommended.map((c) => c.id)]);
+  };
   return (
     <div className="flex flex-col items-center justify-center rounded-[2rem] border border-dashed border-black/10 bg-white/60 px-6 py-20 text-center">
       <div className="text-5xl" aria-hidden="true">
@@ -373,10 +382,17 @@ function EmptyState() {
         Add colors to your palette builder from any color card, then come back here to view and share
         your palette. Or paste a shared palette URL to see someone else&apos;s picks.
       </p>
-      <div className="mt-6 flex gap-3">
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <button
+          type="button"
+          onClick={handleRandom}
+          className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
+        >
+          ✦ Generate random palette
+        </button>
         <Link
           href="/all-colors/"
-          className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
+          className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
         >
           {t("palette.browseColors")}
         </Link>
@@ -447,7 +463,7 @@ function PaletteContent() {
   );
 
   if (paletteColors.length === 0) {
-    return <EmptyState />;
+    return <EmptyState colors={allColors} />;
   }
 
   const paletteName = generatePaletteName(paletteColors);

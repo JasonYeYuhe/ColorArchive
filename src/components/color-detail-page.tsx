@@ -14,7 +14,7 @@ import {
   subscribeToPalette,
 } from "@/src/lib/palette-builder";
 import { addRecentColor, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
-import { getWcagContrast, getTonalStrip } from "@/src/lib/color-utils";
+import { getWcagContrast, getTonalStrip, hexToRgb, rgbToCmyk } from "@/src/lib/color-utils";
 import { simulateColorBlindness, hexToRgbCB, rgbToHexCB } from "@/src/lib/colorblind";
 import type { WcagPairing } from "@/src/lib/color-utils";
 import { getFamilySlug } from "@/src/lib/color-family-pages";
@@ -225,6 +225,12 @@ export function ColorDetailPage({
 }: ColorDetailPageProps) {
   const { t } = useLocale();
   const [recentColorIds, setRecentColorIds] = useState<string[]>([]);
+  const cmykString = (() => {
+    const rgb = hexToRgb(color.hex);
+    if (!rgb) return null;
+    const { c, m, y, k } = rgbToCmyk(rgb.r, rgb.g, rgb.b);
+    return `cmyk(${c}%, ${m}%, ${y}%, ${k}%)`;
+  })();
 
   useEffect(() => {
     addRecentColor(color.id);
@@ -340,7 +346,7 @@ export function ColorDetailPage({
                   "Fail": "text-red-600 bg-red-50 border-red-200",
                 } as const;
                 return (
-                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
                     <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
                       <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">RGB</div>
                       <div className="mt-1 font-medium text-neutral-950">{color.rgb}</div>
@@ -349,6 +355,12 @@ export function ColorDetailPage({
                       <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">HSL</div>
                       <div className="mt-1 font-medium text-neutral-950">{color.hsl}</div>
                     </div>
+                    {cmykString && (
+                      <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
+                        <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">CMYK</div>
+                        <div className="mt-1 font-medium text-neutral-950">{cmykString}</div>
+                      </div>
+                    )}
                     <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
                       <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("colorDetail.metrics")}</div>
                       <div className="mt-1 font-medium text-neutral-950">
@@ -382,6 +394,7 @@ export function ColorDetailPage({
                 <CopyButton label="hex" value={color.hex} />
                 <CopyButton label="rgb" value={color.rgb} />
                 <CopyButton label="hsl" value={color.hsl} />
+                {cmykString && <CopyButton label="cmyk" value={cmykString} />}
                 <CopyButton label="tailwind" value={`bg-[${color.hex}]`} />
                 <CopyButton label="all" value={`${color.name}\nHEX: ${color.hex}\nRGB: ${color.rgb}\nHSL: ${color.hsl}\nFamily: ${color.family}`} />
                 <CopyButton label="palette" value={paletteExport} />

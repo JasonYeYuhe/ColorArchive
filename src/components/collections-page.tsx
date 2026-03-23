@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForCollection } from "@/src/lib/guides";
+import { addManyToPalette } from "@/src/lib/palette-builder";
 
 interface CollectionsPageProps {
   collections: readonly ColorCollection[];
@@ -38,6 +39,31 @@ function CopyButton({ label, value }: { label: string; value: string }) {
       className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
     >
       {copied ? `${label} copied` : `Copy ${label}`}
+    </button>
+  );
+}
+
+function AddCollectionToPaletteButton({ collection }: { collection: ColorCollection }) {
+  const [added, setAdded] = useState(false);
+  const handleAdd = () => {
+    addManyToPalette(collection.palette.map((c) => c.id));
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+  return added ? (
+    <Link
+      href="/palette/"
+      className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-emerald-700 transition hover:bg-emerald-100"
+    >
+      ✓ Added — View palette →
+    </Link>
+  ) : (
+    <button
+      type="button"
+      onClick={handleAdd}
+      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+    >
+      + Add to Palette Builder
     </button>
   );
 }
@@ -200,6 +226,7 @@ export function CollectionsPage({ collections }: CollectionsPageProps) {
                 <div className="flex flex-wrap gap-2">
                   <CopyButton label="palette" value={paletteExport} />
                   <CopyButton label="CSS vars" value={cssVariableExport} />
+                  <AddCollectionToPaletteButton collection={activeCollection} />
                   <Link
                     href={`/collections/${activeCollection.id}`}
                     className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"

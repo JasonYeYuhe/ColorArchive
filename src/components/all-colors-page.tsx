@@ -11,6 +11,7 @@ import { SelectedColorPanel } from "@/src/components/selected-color-panel";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
+import { findNearestArchiveColor } from "@/src/lib/color-relationships";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
 interface AllColorsPageProps {
@@ -93,6 +94,10 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
   });
   const [selectedColorId, setSelectedColorId] = useState<string | null>(null);
   const [hexInput, setHexInput] = useState("");
+  const nearestToHex = useMemo(
+    () => hexInput.length === 6 ? findNearestArchiveColor(colors, `#${hexInput}`) : null,
+    [colors, hexInput],
+  );
 
   const hasAdvancedFilters = hueBand !== "all" || toneBand !== "all" || minSaturation > 0 || maxSaturation < 100 || minLightness > 0 || maxLightness < 100;
 
@@ -320,6 +325,19 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
                 Go
               </button>
             </div>
+            {nearestToHex && (
+              <Link
+                href={`/colors/${nearestToHex.id}/`}
+                className="mt-2 inline-flex items-center gap-2 rounded-xl border border-black/8 bg-white/85 px-3 py-1.5 text-xs text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300"
+              >
+                <span
+                  className="h-4 w-4 flex-none rounded-full border border-black/8"
+                  style={{ backgroundColor: nearestToHex.hex }}
+                />
+                <span>Nearest: <span className="font-medium">{nearestToHex.name}</span> {nearestToHex.hex}</span>
+                <span className="text-neutral-400">→</span>
+              </Link>
+            )}
           </div>
         </section>
 
