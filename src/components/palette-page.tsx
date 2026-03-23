@@ -5,6 +5,7 @@ import { useEffect, useState, useMemo, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useLocale } from "@/src/components/locale-provider";
 import { ShareOnXButton } from "@/src/components/share-link-button";
+import { hexToRgb } from "@/src/lib/color-utils";
 import { colors as allColors } from "@/src/data/colors";
 import {
   addToPalette,
@@ -22,6 +23,165 @@ import {
 } from "@/src/lib/palette-builder";
 import { parsePaletteInput } from "@/src/lib/palette-import";
 import type { ColorRecord } from "@/src/types/color";
+
+/* ------------------------------------------------------------------ */
+/*  Binary export helpers                                              */
+/* ------------------------------------------------------------------ */
+
+/** CRC-32 used by ZIP */
+function crc32(data: Uint8Array): number {
+  const t = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let j = 0; j < 8; j++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1;
+    t[i] = c;
+  }
+  let crc = 0xFFFFFFFF;
+  for (let i = 0; i < data.length; i++) crc = t[(crc ^ data[i]) & 0xFF] ^ (crc >>> 8);
+  return (crc ^ 0xFFFFFFFF) >>> 0;
+}
+
+/** Minimal ZIP archive with a single stored (uncompressed) file */
+function singleFileZip(filename: string, content: Uint8Array): Uint8Array {
+  const fn = new TextEncoder().encode(filename);
+  const crc = crc32(content);
+  const sz = content.length;
+
+  const lh = new Uint8Array(30 + fn.length);
+  const lv = new DataView(lh.buffer);
+  lv.setUint32(0, 0x04034B50, true); // local file header sig
+  lv.setUint16(4, 20, true);
+  lv.setUint32(14, crc, true);
+  lv.setUint32(18, sz, true);
+  lv.setUint32(22, sz, true);
+  lv.setUint16(26, fn.length, true);
+  lh.set(fn, 30);
+
+  const cdOffset = lh.length + sz;
+  const cd = new Uint8Array(46 + fn.length);
+  const cv = new DataView(cd.buffer);
+  cv.setUint32(0, 0x02014B50, true); // central dir sig
+  cv.setUint16(4, 20, true);
+  cv.setUint16(6, 20, true);
+  cv.setUint32(16, crc, true);
+  cv.setUint32(20, sz, true);
+  cv.setUint32(24, sz, true);
+  cv.setUint16(28, fn.length, true);
+  cd.set(fn, 46);
+
+  const eocd = new Uint8Array(22);
+  const ev = new DataView(eocd.buffer);
+  ev.setUint32(0, 0x06054B50, true);
+  ev.setUint16(8, 1, true);
+  ev.setUint16(10, 1, true);
+  ev.setUint32(12, cd.length, true);
+  ev.setUint32(16, cdOffset, true);
+
+  const out = new Uint8Array(lh.length + sz + cd.length + eocd.length);
+  let p = 0;
+  out.set(lh, p); p += lh.length;
+  out.set(content, p); p += sz;
+  out.set(cd, p); p += cd.length;
+  out.set(eocd, p);
+  return out;
+}
+
+/** Procreate .swatches — ZIP containing Swatches.json */
+function buildProcreateSwatches(colors: { name: string; hex: string }[]): Uint8Array {
+  const swatches = colors.map((c) => {
+    const rgb = hexToRgb(c.hex);
+    return {
+      name: c.name,
+      colorSpace: 0,
+      red: rgb ? rgb.r / 255 : 0,
+      green: rgb ? rgb.g / 255 : 0,
+      blue: rgb ? rgb.b / 255 : 0,
+      alpha: 1.0,
+    };
+  });
+  const json = JSON.stringify({ name: "ColorArchive Palette", swatches }, null, 2);
+  return singleFileZip("Swatches.json", new TextEncoder().encode(json));
+}
+
+/** Adobe Swatch Exchange (.ase) binary format */
+function buildAseBuffer(colors: { name: string; hex: string }[]): Uint8Array {
+  const blocks: Uint8Array[] = [];
+  for (const color of colors) {
+    const rgb = hexToRgb(color.hex);
+    if (!rgb) continue;
+    // UTF-16 BE name + null terminator
+    const units = color.name.length + 1;
+    const nameBytes = new Uint8Array(units * 2);
+    for (let i = 0; i < color.name.length; i++) {
+      const ch = color.name.charCodeAt(i);
+      nameBytes[i * 2] = (ch >> 8) & 0xFF;
+      nameBytes[i * 2 + 1] = ch & 0xFF;
+    }
+    const blockLen = 2 + nameBytes.length + 4 + 4 + 4 + 4 + 2;
+    const block = new Uint8Array(6 + blockLen);
+    const v = new DataView(block.buffer);
+    let p = 0;
+    v.setUint16(p, 0x0001, false); p += 2;  // color entry
+    v.setUint32(p, blockLen, false); p += 4;
+    v.setUint16(p, units, false); p += 2;   // name length incl null
+    block.set(nameBytes, p); p += nameBytes.length;
+    block[p] = 0x52; block[p + 1] = 0x47; block[p + 2] = 0x42; block[p + 3] = 0x20; p += 4; // "RGB "
+    v.setFloat32(p, rgb.r / 255, false); p += 4;
+    v.setFloat32(p, rgb.g / 255, false); p += 4;
+    v.setFloat32(p, rgb.b / 255, false); p += 4;
+    v.setUint16(p, 0, false); // global color
+    blocks.push(block);
+  }
+  const header = new Uint8Array(12);
+  const hv = new DataView(header.buffer);
+  header[0] = 0x41; header[1] = 0x53; header[2] = 0x45; header[3] = 0x46; // ASEF
+  hv.setUint16(4, 1, false);
+  hv.setUint16(6, 0, false);
+  hv.setUint32(8, blocks.length, false);
+  const total = new Uint8Array(header.length + blocks.reduce((s, b) => s + b.length, 0));
+  let pos = 0;
+  total.set(header, pos); pos += header.length;
+  for (const b of blocks) { total.set(b, pos); pos += b.length; }
+  return total;
+}
+
+function downloadBinary(data: Uint8Array, filename: string) {
+  const blob = new Blob([data.buffer as ArrayBuffer], { type: "application/octet-stream" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function DownloadProcreateButton({ colors }: { colors: { name: string; hex: string }[] }) {
+  if (colors.length === 0) return null;
+  return (
+    <button
+      type="button"
+      onClick={() => downloadBinary(buildProcreateSwatches(colors), "palette.swatches")}
+      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+    >
+      Procreate
+    </button>
+  );
+}
+
+function DownloadAseButton({ colors }: { colors: { name: string; hex: string }[] }) {
+  if (colors.length === 0) return null;
+  return (
+    <button
+      type="button"
+      onClick={() => downloadBinary(buildAseBuffer(colors), "palette.ase")}
+      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+    >
+      Adobe (.ase)
+    </button>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 
 function DownloadPaletteSvgButton({ colors }: { colors: { id: string; name: string; hex: string }[] }) {
   function handleDownload() {
@@ -329,6 +489,8 @@ function PaletteContent() {
           <CopyButton value={cssExport} label="CSS" />
           <CopyButton value={jsonExport} label="JSON" />
           <DownloadPaletteSvgButton colors={paletteColors} />
+          <DownloadProcreateButton colors={paletteColors} />
+          <DownloadAseButton colors={paletteColors} />
           <ShareUrlButton ids={paletteColors.map((c) => c.id)} />
           <ShareOnXButton
             href={`/palette?ids=${paletteColors.map((c) => c.id).join(",")}`}

@@ -61,6 +61,15 @@ function ResultPanel({ result, onClear }: { result: IdentifiedColor; onClear: ()
     result.match ? isFavoriteColor(result.match.id) : false
   );
 
+  const handleShareLink = () => {
+    const url = `${window.location.origin}/identify/?hex=${result.hex.replace("#", "")}`;
+    window.history.replaceState(null, "", `/identify/?hex=${result.hex.replace("#", "")}`);
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied("share");
+      setTimeout(() => setCopied(null), 1800);
+    });
+  };
+
   useEffect(() => {
     if (!result.match) return;
     setFavorited(isFavoriteColor(result.match.id));
@@ -103,7 +112,13 @@ function ResultPanel({ result, onClear }: { result: IdentifiedColor; onClear: ()
           {copied === "rgb" ? "✓" : `RGB ${result.r}, ${result.g}, ${result.b}`}
         </button>
         <button
-          className={`absolute top-3 right-10 px-2.5 py-1 rounded-full text-xs transition-colors ${btnBase}`}
+          className={`absolute top-3 right-16 px-2.5 py-1 rounded-full text-xs transition-colors ${btnBase}`}
+          onClick={handleShareLink}
+        >
+          {copied === "share" ? "✓ Copied" : "Share"}
+        </button>
+        <button
+          className={`absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs transition-colors ${btnBase}`}
           onClick={onClear}
           aria-label="Clear result"
         >
@@ -630,6 +645,21 @@ export function ColorFinderPage() {
       if (prev[0]?.hex === r.hex) return prev;
       return [r, ...prev].slice(0, MAX_HISTORY);
     });
+  }, []);
+
+  // Auto-identify from URL param ?hex=3b82f6
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const hexParam = params.get("hex");
+    if (hexParam && isValidHex(hexParam)) {
+      const hex = normalizeHex(hexParam);
+      const rgb = hexToRgb(hex);
+      if (rgb) {
+        setMode("hex");
+        handleResult(pixelToIdentified(rgb.r, rgb.g, rgb.b));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const tabs: { id: Mode; label: string; icon: string }[] = [
