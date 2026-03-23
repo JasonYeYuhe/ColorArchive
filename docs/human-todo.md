@@ -13,6 +13,7 @@
 - [ ] Review and stage `src/components/launch-page.tsx`, `waitlist-page.tsx`, `terms-page.tsx` — *several components exist as untracked files; decide if these should be deployed*
 - [ ] Figma plugin: `figma-plugin/package-lock.json` is untracked — should be committed if the plugin is actively maintained
 - [ ] Verify newsletter `featuredCollectionId` references are valid — *some older issues may reference renamed collections (midnight-garden, copper-patina)*; no automated check exists
+- [ ] Next run trigger: big run is due in 2 more normal runs — plan a substantial new feature (new tool page, batch of 5+ guides, or significant new capability)
 
 ## Low Priority / Nice to Have
 - [ ] Add Stripe/LS webhooks to server for order fulfillment automation — *currently manual*

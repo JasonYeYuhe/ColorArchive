@@ -1498,3 +1498,49 @@ None needed — build and tests clean.
 - src/lib/color-search.ts (7 new unique aliases, 405 total)
 
 **Commit:** 82373af
+
+## 2026-03-23 — Normal Run: Newsletter 155-158 + Collections + Guides + Aliases (commit 4f4cba9)
+
+**Run type:** Normal (3rd run since last big run `2cf62a3`)
+
+**Categories:** A. SEO & Content + D. Data & Collections
+
+### Category A — 4 Newsletter Issues (now 158 total)
+
+- **Issue 155** (dec-2028-color-psychology-in-marketing, 2028-12-09): Color psychology in marketing — what research actually says vs myths; fit-contrast-convention practical framework; why CTA button color is really about contrast not psychology
+- **Issue 156** (dec-2028-color-wayfinding-systems, 2028-12-16): Environmental graphic design principles for wayfinding — London Underground single-meaning rule, zone vs path coding, 7 rules for digital wayfinding color, healthcare and transit lessons
+- **Issue 157** (dec-2028-color-token-architecture, 2028-12-23): Design token architecture — primitive/semantic/component tiers, CSS custom properties vs DTCG format, maintainable dark mode through token structure, Style Dictionary
+- **Issue 158** (dec-2028-color-in-illustration, 2028-12-30): Color in illustration — 5-8 color professional constraint, hue shifting for shadow/light, flat vs rendered palette logic, brand illustration color governance
+
+### Category D — 2 New Collections (now 64 total)
+
+- **terracotta-workshop**: ember-tone-muted, coral-silk-muted, apricot-pearl-soft, honey-velvet-soft, amber-bloom-clear — earthy mineral palette for ceramics, craft brands, and artisan products
+- **fresh-herb**: mint-whisper-soft, seafoam-mist-soft, jade-silk-clear, moss-bloom-muted, leaf-tone-clear — botanical warm-green palette for health, wellness, and organic food brands
+
+### Category A — 3 New SEO Guides (now 109 total, extraGuides17)
+
+- **color-psychology-marketing-guide**: Fit-contrast-convention framework, CTA color research demystified — targets 'color psychology marketing branding conversion CTA button color brand identity trust consumer behavior'
+- **color-wayfinding-systems-guide**: Zone vs path coding, environmental design principles, 7 digital wayfinding rules — targets 'color wayfinding navigation signage system design hospital airport transit map zone coding'
+- **color-token-architecture-guide**: Primitive/semantic tiers, CSS custom properties, DTCG format, maintainability principles — targets 'design tokens color token architecture CSS variables semantic tokens primitive tokens dark mode Tailwind Style Dictionary DTCG'
+
+### Category D — Search Aliases (416 total, 11 new unique)
+
+Added: cta_button, conversion, trust_color, navigation_color, zone_color, craft, pottery, herb, supplement, fresh_green
+(Deduplicated against existing: marketing, brand_color, wayfinding, signage, botanical, terracotta, wellness, ceramic, artisan already existed)
+
+### Current State After This Run
+
+- Total newsletter issues: **158** (Issues 001–158, 4 new)
+- Total collections: **64** (terracotta-workshop, fresh-herb added)
+- Total SEO guides: **109** (3 new in extraGuides17)
+- Search aliases: **416** total (11 new unique)
+- Typecheck: ✓ clean (0 errors)
+- Tests: ✓ 204/204 passing
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (4 new issues, now 158)
+- src/lib/collections.ts (2 new collections, now 64)
+- src/lib/guides.ts (3 guides in extraGuides17, now 109)
+- src/lib/color-search.ts (11 new unique aliases, 416 total)
+
+**Commit:** 4f4cba9
