@@ -1544,3 +1544,89 @@ Added: cta_button, conversion, trust_color, navigation_color, zone_color, craft,
 - src/lib/color-search.ts (11 new unique aliases, 416 total)
 
 **Commit:** 4f4cba9
+
+## 2026-03-23 — Big Run: Color Combinations Library + Newsletter 159-166 + 4 Guides + 3 Collections (commit ce9198d)
+
+**Run type:** Big Run (4th normal run since last big run `2cf62a3`)
+
+**Categories:** New Feature + A. SEO & Content + D. Data & Collections
+
+### New Feature: Color Combinations Library (/combinations/)
+
+Built end-to-end new page at /combinations/ with 30+ curated color combinations:
+
+**src/lib/combinations.ts** — Data library with 30+ combinations:
+- Type-safe `ColorCombination` and `HarmonyType` interfaces
+- 30 named combinations: Cobalt & Amber, Teal & Coral, Indigo & Citrine, Violet & Lime, Rose & Jade, Ocean Gradient, Sunset Palette, Forest Floor, Twilight Sequence, Ember to Crimson, Primary Soft, Vivid Triad, Muted Triad, Sage & Warm, Indigo Split, Stone & Teal, Navy & Gold, Blush & Charcoal, Warm White & Cobalt, Sand & Terracotta, Cobalt Spectrum, Rose Scale, Green Depths, Midnight Studio, Noir & Blush, Forest Noir, Spring Pastels, Cotton Sky, Herb Garden, Mauve & Sage
+- Each has: id, name, description, useCase, harmonyType (6 types), tags, colorIds, colors
+
+**src/components/combinations-page.tsx** — Full client component:
+- Sticky filter bar: harmony type pills + style tags
+- Grid of combination cards (2-3 columns responsive)
+- Cards show: expandable swatches, name, harmony badge, description, use case, hex copy buttons, color links, style tags
+- Bottom CTA linking to Palette Generator, Harmony Calculator, Contrast Checker
+- Dark mode support throughout
+
+**app/combinations/page.tsx** — Server component with metadata + JSON-LD schema
+
+**site-header.tsx** — Added `/combinations` to currentPath type union + nav item under Tools section
+
+**app/sitemap.ts** — Added /combinations/ URL (priority 0.85)
+
+**src/lib/i18n.ts** — Added nav.combinations (EN/ZH) and tools.combinations.name/desc keys
+
+**src/components/tools-page.tsx** — Added combinations as tool entry in creative category
+
+### Category A — 8 Newsletter Issues (now 166 total)
+
+- **Issue 159** (jan-2029-color-and-attention): Spotlight principle, luminance contrast > hue contrast, F-pattern color placement, mistakes that create distraction, muted-base rule
+- **Issue 160** (jan-2029-color-naming-systems): Physical/perceptual/structural/semantic naming layers; the four-layer naming stack
+- **Issue 161** (jan-2029-dark-mode-color-design): Palette split architecture, saturation adjustments for dark surfaces, shadow/elevation in dark mode, APCA vs WCAG for dark mode
+- **Issue 162** (jan-2029-color-in-data-charts): Categorical/sequential/diverging palette types, why brand palettes fail in charts, colorblind testing
+- **Issue 163** (feb-2029-color-trend-2029): Earthy saturation, technical blue/violet, complex greens, black's return, personalization over trend
+- **Issue 164** (feb-2029-color-and-brand-trust): Labrecque & Milne (2012) research, fit matters more than hue, consistency as trust signal, contrast/legibility as trust
+- **Issue 165** (feb-2029-building-accessible-color-systems): 5-step process for accessible color systems from scratch — scale architecture, semantic tokens, pair testing, documentation
+- **Issue 166** (mar-2029-color-in-motion): OKLCH vs RGB/HSL interpolation, duration thresholds (100/300ms), dark-to-light perception asymmetry, saturation pulses for attention
+
+### Category A — 4 New SEO Guides (now 113 total, extraGuides18)
+
+- **color-combinations-guide**: 60-30-10 rule, harmony types, complementary/analogous tips, neutrals role — targets combinations/harmony SEO
+- **monochromatic-color-palette-guide**: Scale construction, chroma variation, contrast challenges, professional warmth technique
+- **color-in-packaging-design-guide**: Shelf impact, CMYK gamut, category conventions, material/finish interactions, digital-to-physical translation
+- **neutral-color-palette-guide**: Warm vs cool neutrals, scale construction, semantic neutral tokens for design systems
+
+### Category D — 3 New Collections (now 68 total, extraCollections18)
+
+- **cobalt-spectrum**: 5-step cobalt monochromatic system (whisper→silk→core→dusk→ink) for professional design systems
+- **stone-and-teal**: 4 warm olive neutrals (veil→whisper→mist→tone) + teal-core-clear accent — architect's minimal palette
+- **rose-scale**: 5-step rose monochromatic (whisper→bloom→core→velvet→shadow) for beauty/bridal brand systems
+
+### Bug Fixes
+
+- Fixed invalid featuredCollectionId references in new newsletter issues (combination IDs mistakenly used as collection IDs; corrected to valid collection IDs)
+- Fixed extraGuides18 missing required LandingGuide fields (category, eyebrow, priority)
+- Fixed erroneous `createCombination: undefined as never` line in collections.ts
+
+### Current State After This Run
+
+- Total newsletter issues: **166** (Issues 001–166, 8 new)
+- Total collections: **68** (cobalt-spectrum, stone-and-teal, rose-scale added)
+- Total SEO guides: **113** (4 new in extraGuides18)
+- Tool pages: **15** (combinations added)
+- Typecheck: ✓ clean
+- Tests: ✓ 204/204 passing
+
+**Files modified/created (11):**
+- src/lib/combinations.ts (NEW — 337 lines, 30+ combinations)
+- src/components/combinations-page.tsx (NEW — 264 lines)
+- app/combinations/page.tsx (NEW)
+- src/components/site-header.tsx (currentPath type + nav entry)
+- app/sitemap.ts (+/combinations/ URL)
+- src/lib/i18n.ts (nav.combinations + tools.combinations keys)
+- src/components/tools-page.tsx (+combinations tool entry)
+- src/data/newsletter-issues.json (8 new issues, now 166)
+- src/lib/guides.ts (4 guides in extraGuides18, now 113)
+- src/lib/collections.ts (3 new, now 68)
+- STRUCTURE.md (updated counts)
+
+**Commit:** ce9198d
