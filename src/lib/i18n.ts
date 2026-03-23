@@ -1896,6 +1896,11 @@ const translations: Record<string, Record<string, string>> = {
     en: "Generate a complete token system from any brand color — primary, neutral, and semantic scales. Export as CSS vars, Tailwind, SCSS, or JSON.",
     zh: "从任意品牌色生成完整设计令牌系统——主色、中性色和语义色阶。导出为 CSS 变量、Tailwind、SCSS 或 JSON。",
   },
+  "tools.colorFinder.name": { en: "Color Finder", zh: "颜色识别器" },
+  "tools.colorFinder.desc": {
+    en: "Identify any color from a photo, your camera, or anywhere on your screen. Get the name, hex/RGB/HSL values, and closest archive match.",
+    zh: "从图片、摄像头或屏幕上的任意位置识别颜色，获取名称、Hex/RGB/HSL 值及最近匹配色。",
+  },
   "tools.imagePalette.name": { en: "Image Color Extractor", zh: "图片取色器" },
   "tools.imagePalette.desc": {
     en: "Upload any photo or design to extract its dominant color palette. Get hex, RGB, and HSL values. Find the closest ColorArchive match for each color.",

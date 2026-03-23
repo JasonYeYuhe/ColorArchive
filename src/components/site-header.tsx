@@ -49,7 +49,8 @@ interface SiteHeaderProps {
     | "/mixer"
     | "/tokens"
     | "/image-palette"
-    | "/combinations";
+    | "/combinations"
+    | "/identify";
 }
 
 interface NavItem {
