@@ -1344,3 +1344,48 @@ const extraCollections15: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections15);
+
+const extraCollections16: ColorCollection[] = [
+  createCollection(
+    "golden-hour",
+    "Golden Hour",
+    "Warm amber, apricot glow, honey silk, ember core, and amber velvet — the concentrated warmth of late-afternoon light for lifestyle, photography, and editorial brands.",
+    "Golden hour is the 45-minute window before sunset when sunlight travels through more atmosphere, scattering blue wavelengths and concentrating warm amber and orange frequencies. The resulting light quality — saturated warmth at medium-high lightness, with deep amber shadows — is one of the most recognizable and commercially desirable color registers in photography, film, food, and lifestyle branding. The palette captures this light in its full range: amber-bloom-clear provides the luminous, slightly saturated amber of direct golden-hour sun — the color of light striking a glass of honey; apricot-silk-soft delivers the warm, peachy-amber of skin and light fabric illuminated from behind; honey-bloom-muted introduces the slightly softer, more golden version of the same warmth — amber where the direct light has diffused; ember-core-soft supplies the deeper, more saturated anchor — the color of direct sunlight on warm stone or the concentrated warmth of backlit leaves; amber-velvet-soft completes the palette with the deep warm-amber shadow value — the color of late shadow in golden light, where warmth persists into the darker values. Together these five colors recreate the luminosity gradient of golden-hour light from highlight to deep warm shadow.",
+    ["Warm", "Lifestyle", "Photography"],
+    [
+      "amber-bloom-clear",
+      "apricot-silk-soft",
+      "honey-bloom-muted",
+      "ember-core-soft",
+      "amber-velvet-soft",
+    ],
+    {
+      editorialNote:
+        "Use amber-bloom-clear as the dominant color only in small doses — as an accent, button, or single hero element — since its saturation at mid-lightness becomes dominant quickly. For layouts: honey-bloom-muted as the primary warm surface; apricot-silk-soft for secondary backgrounds and gradient bases; amber-velvet-soft for text, deep containers, and anchor elements. The palette pairs well with off-white or warm cream for neutrals — avoid pure white, which introduces a cold note that breaks the temperature coherence. For photography: warm, golden-hour lifestyle scenes; food photography; lifestyle brands positioned around warmth, hospitality, and natural light.",
+      promptWords: ["golden-hour light on rustic linen table setting", "food photography in warm late afternoon light", "lifestyle brand with amber and honey palette", "editorial sunset portrait with golden backlight", "warm artisan product photography in natural light"],
+      useCases: ["Food and beverage lifestyle brands", "Photography studios and editors", "Hospitality and travel brands", "Natural and artisan product lines"],
+    },
+  ),
+  createCollection(
+    "digital-night",
+    "Digital Night",
+    "Cobalt ink, indigo shadow, violet nocturne, electric iris, and deep sapphire — the high-contrast, cool-dark palette of developer tools, AI interfaces, and night-mode technical products.",
+    "The digital night palette operates in the register of premium technical dark interfaces: not the generic near-black of mainstream dark mode, but the specific blue-violet-indigo darkness of sophisticated developer tools, terminal emulators, code editors, and AI product interfaces. This darkness has hue — it is not neutral gray but a deliberate cool-blue-to-violet spectrum that implies depth, intelligence, and precision. Cobalt-ink-muted provides the foundational dark background — a deep, near-black cobalt that reads as dark without being simply gray, establishing the palette's cool directional identity; indigo-shadow-soft delivers the secondary surface value — slightly lighter and warmer than cobalt-ink, appropriate for cards, panels, and elevated surfaces in dark layouts; violet-nocturne-muted introduces the darkest purple-adjacent entry — for the deepest container backgrounds and gradient bases; iris-core-vivid is the palette's electric accent — a high-saturation, mid-lightness blue-violet that functions as the primary interactive color and the point of maximum visual energy in the system; sapphire-ink-soft closes the palette with a deep, cool blue-black anchor that provides contrast against the lighter accent and functions as the palette's primary text-background pairing surface.",
+    ["Dark", "Tech", "Developer"],
+    [
+      "cobalt-ink-muted",
+      "indigo-shadow-soft",
+      "violet-nocturne-muted",
+      "iris-core-vivid",
+      "sapphire-ink-soft",
+    ],
+    {
+      editorialNote:
+        "This palette requires a single high-energy accent (iris-core-vivid) against a field of dark, cool neutrals. The common mistake is using too many saturated elements — the electric iris accent only works because it is surrounded by the muted, near-neutral dark of cobalt-ink, indigo-shadow, and sapphire-ink. Proportion guideline: dark backgrounds 70%; muted surface colors 20%; electric accent 10% maximum. For developer tool interfaces: use cobalt-ink-muted as the primary editor background; indigo-shadow-soft for the sidebar; iris-core-vivid for syntax highlighting of keywords and interactive elements; off-white or pale blue for primary text. Avoid red accents — they introduce a temperature conflict that reads as warning/error rather than feature. Reserve red for genuine error states only.",
+      promptWords: ["dark developer IDE with blue-violet syntax highlighting", "AI chat interface at night with electric accent", "terminal emulator with cool dark theme", "SaaS analytics dashboard in deep blue-dark mode", "technical product launch page with electric iris accent"],
+      useCases: ["Developer tools and IDE themes", "AI and machine learning product interfaces", "Technical SaaS dark-mode dashboards", "Night-mode lifestyle and gaming applications"],
+    },
+  ),
+];
+
+collections.push(...extraCollections16);

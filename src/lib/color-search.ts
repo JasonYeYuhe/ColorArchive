@@ -509,6 +509,21 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   heading_color: ["ink", "nocturne", "shadow", "core", "muted"],
   text_hierarchy: ["ink", "shadow", "muted", "soft", "whisper"],
 
+  // Data visualization (extended)
+  chart_color: ["vivid", "cobalt", "amber", "crimson", "teal"],
+
+  // Mobile UI (OLED-specific)
+  oled_dark: ["ink", "nocturne", "shadow", "cobalt", "indigo"],
+
+  // Golden hour / warm photography (extended)
+  warm_light: ["amber", "honey", "apricot", "coral", "ember"],
+  photography: ["amber", "honey", "teal", "cobalt", "shadow"],
+
+  // Developer / technical dark interfaces
+  developer_tool: ["cobalt", "indigo", "violet", "iris", "sapphire"],
+  terminal: ["cobalt", "ink", "shadow", "indigo", "violet"],
+  ai_interface: ["cobalt", "iris", "violet", "indigo", "shadow"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

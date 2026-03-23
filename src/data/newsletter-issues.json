@@ -7114,5 +7114,181 @@
         "href": "/guides/material-color-specification-guide/"
       }
     ]
+  },
+  {
+    "slug": "nov-2028-color-in-data-visualization",
+    "date": "2028-11-11",
+    "title": "Color in Data Visualization: Choosing Palettes That Inform Without Misleading",
+    "summary": "Data visualization is one of the highest-stakes environments for color decision-making. The wrong palette can make a chart misleading, inaccessible to colorblind viewers, or simply unreadable when printed in grayscale. This issue covers the three main palette types (sequential, diverging, categorical), how to select and validate them, and the most common mistakes that turn an informative chart into a confusing one.",
+    "eyebrow": "Data Design",
+    "tags": [
+      "Data Visualization",
+      "Charts",
+      "Accessibility",
+      "Color Systems"
+    ],
+    "featuredCollectionId": "data-dashboard",
+    "featuredPackId": "complete-archive",
+    "highlights": [
+      "Data visualization palettes have three fundamental structures: sequential (one hue, varying lightness — for ordered data with a clear low-to-high progression), diverging (two hues from a neutral midpoint — for data with a meaningful center, like profit/loss or temperature anomalies), and categorical (distinct hues for unordered groupings — for categories with no inherent order). Using a sequential palette for categorical data — or vice versa — creates false implied ordering and is one of the most common data visualization color errors.",
+      "Approximately 8% of men and 0.5% of women have some form of color vision deficiency. The most common is deuteranopia (red-green), which makes red and green indistinguishable at many lightness levels. A red/green comparison chart — still ubiquitous in financial reporting — is unreadable to roughly 1 in 12 male viewers. Validated colorblind-safe palettes (Okabe-Ito, ColorBrewer) use hue differences with sufficient lightness contrast to remain distinguishable under multiple deficiency types.",
+      "The grayscale test: convert your chart palette to grayscale and verify that all categories remain distinguishable. This matters because charts are frequently printed, photocopied, or viewed on low-quality displays. If two categories collapse to the same gray, they are not differentiable without the legend — and many viewers will not read the legend. Sequential palettes typically pass this test; categorical palettes frequently fail unless they were explicitly designed with lightness variation across hues."
+    ],
+    "sections": [
+      {
+        "heading": "Sequential vs. diverging vs. categorical: when to use each",
+        "body": "Sequential palettes encode magnitude: the progression from light to dark (or vice versa) maps to low-to-high values. Use sequential when the data has a natural minimum and maximum without a meaningful midpoint — population density, sales volume, temperature (not anomaly). A single-hue sequential palette (e.g., light yellow → saturated orange → dark brown) is always safe; multi-hue sequential palettes (e.g., yellow-green → blue-green → dark blue) can increase discrimination at the cost of implying a direction change. Diverging palettes have two hues that meet at a neutral center. Use diverging when zero or the mean is meaningful — financial variance, survey agreement (strongly disagree to strongly agree), geographic deviation from average. The two endpoint hues should be perceptually equidistant from the neutral center in luminance. Categorical palettes need hues that are perceptually distinct and do not imply order. Maximum categorical discrimination: space hues at least 30-40° apart on the wheel, vary lightness slightly to add discrimination, and never use adjacent warm colors (yellow, orange, red) as separate categories — they look too similar under small chart element sizes."
+      },
+      {
+        "heading": "Validating for colorblindness and grayscale",
+        "body": "Run every data visualization palette through two validation tests before shipping. Test 1 — colorblind simulation: use a tool like Coblis or Figma's accessibility plugin to simulate deuteranopia, protanopia, and tritanopia. For each simulation, verify that all categories remain distinguishable. If two categories merge, replace one with a color that differs in lightness as well as hue — lightness difference survives all forms of color vision deficiency. Test 2 — grayscale: desaturate the chart entirely. Each category should remain distinguishable by lightness value alone. If you have 5 categories, you need 5 distinct lightness levels. The practical constraint: more than 4-5 categories in a single chart is usually a design problem, not just a color problem — the chart may need to be split or restructured rather than given more colors."
+      }
+    ],
+    "links": [
+      {
+        "label": "Color Compare tool",
+        "href": "/tools/compare/"
+      },
+      {
+        "label": "WCAG Contrast Auditor",
+        "href": "/tools/wcag-audit/"
+      },
+      {
+        "label": "Data Dashboard collection",
+        "href": "/collections/data-dashboard/"
+      }
+    ]
+  },
+  {
+    "slug": "nov-2028-documenting-color-systems",
+    "date": "2028-11-18",
+    "title": "Documenting Color Systems: What to Write Down and Why Most Teams Skip It",
+    "summary": "Most color systems fail not because the colors are wrong, but because the decisions behind them were never written down. When the designer who chose the palette leaves, the rationale disappears. Future contributors apply the colors inconsistently because they do not know the rules — which colors are for text only, which are decorative, which encode states, which must meet WCAG AA. This issue covers the minimum viable color system documentation and how to structure it so it actually gets used.",
+    "eyebrow": "Color Systems",
+    "tags": [
+      "Documentation",
+      "Design Systems",
+      "Color Tokens",
+      "Workflow"
+    ],
+    "featuredCollectionId": "data-dashboard",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Color system documentation has three distinct audiences with three different needs: designers need intent (why this color, what emotion, what context); engineers need implementation (token name, value, override rules); QA and accessibility reviewers need constraints (minimum contrast ratios, which roles require WCAG AA vs AAA, which colors must not be used on white backgrounds). Writing one document for all three audiences produces a document that serves none of them. The minimum viable documentation is three separate tables, each targeting one audience.",
+      "The most common undocumented decision in color systems is the role assignment — which semantic tokens map to which base colors under which conditions. Primary can mean the brand color, the most important action, or the most saturated color in the system, depending on who you ask. Without explicit documentation of what primary-500 means (the interactive element color for high-emphasis actions in the default light theme), every new contributor will interpret it differently — and over time the system drifts.",
+      "Token naming tells a story about intent. A token named blue-500 describes what it is; a token named action-primary describes what it does. Systems built on descriptive names (what it is) require designers to memorize which blue to use for which purpose. Systems built on semantic names (what it does) are self-documenting — the name communicates the use context. The tradeoff: semantic naming requires more upfront architecture decisions, but those decisions are what you need to document anyway."
+    ],
+    "sections": [
+      {
+        "heading": "The three documentation layers",
+        "body": "Layer 1 — Base palette: the raw colors before semantic assignment. Document each base color with its hex value, OKLCH coordinates, and a plain-language description of its perceptual quality (\"warm amber at medium lightness\", \"near-black cool neutral\"). No use-context at this layer — just what the color looks and feels like. This is the reference layer for designers and brand teams. Layer 2 — Semantic tokens: the mapping from base colors to functional roles. Document each semantic token with: (a) the base color it maps to in the default theme, (b) the base color it maps to in dark mode, (c) the use constraint (\"never use as text on white — contrast ratio 2.1:1\"), and (d) the intended context (\"hover states on secondary interactive elements only\"). This is the reference layer for engineers. Layer 3 — Composition rules: documented patterns for how tokens combine. Examples: \"action-primary on surface-default: always meets WCAG AA 4.5:1\"; \"status-error on surface-default: meets WCAG AA for large text only (3:1), do not use for body-size error labels\". This is the reference layer for QA and accessibility reviewers."
+      },
+      {
+        "heading": "Making documentation that gets used",
+        "body": "Documentation that lives only in Notion or Confluence gets ignored by engineers and forgotten by designers within 6 months. Documentation that lives in the component library or Storybook, adjacent to the components that use the tokens, gets consulted regularly. The most effective documentation format for color systems: a Storybook color story that renders every semantic token with its name, value, dark-mode value, use constraint, and a live contrast ratio check against both white and the default surface color. The ratio check should be automated — if the token value changes, the documentation immediately shows whether the constraint is still met. The second most effective format: a Figma library with documented annotations directly on each color swatch. Engineers who use design handoff will see the documentation without leaving their workflow."
+      }
+    ],
+    "links": [
+      {
+        "label": "Design Token Generator",
+        "href": "/tools/design-tokens/"
+      },
+      {
+        "label": "WCAG Contrast Auditor",
+        "href": "/tools/wcag-audit/"
+      },
+      {
+        "label": "Brand Starter Kit",
+        "href": "/packs/brand-starter-kit/"
+      }
+    ]
+  },
+  {
+    "slug": "dec-2028-color-mobile-ui",
+    "date": "2028-11-25",
+    "title": "Color on Small Screens: What Changes When Your Canvas Is a Phone",
+    "summary": "Mobile UI color design is not simply desktop design scaled down. Small canvas size, high pixel density, variable ambient light conditions, and the dominance of OLED panels fundamentally change which color decisions matter. This issue covers the mobile-specific constraints that most desktop-trained designers encounter when they first work at phone scale — and how to adapt a desktop palette for mobile without rebuilding it from scratch.",
+    "eyebrow": "Mobile Design",
+    "tags": [
+      "Mobile",
+      "UI Design",
+      "OLED",
+      "Color Systems"
+    ],
+    "featuredCollectionId": "modern-seaside",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "Pixel density changes perceptual color. The same hex value renders visibly different on a 2x Retina display versus a 3x display versus a 1x desktop monitor. At 3x (460 PPI, typical high-end iPhone), colors appear slightly more saturated and slightly darker than at 1x because subpixel rendering has less impact and individual pixels are imperceptible. Colors that look appropriately saturated on a desktop monitor often look aggressive on a 3x mobile display. The practical rule: evaluate mobile palette decisions on an actual device, not just in browser DevTools with a responsive viewport.",
+      "Touch targets require different color contrast logic than hover states. On desktop, a hover state only needs enough visual change to be noticeable (3:1 contrast ratio between default and hover is often sufficient). On mobile, there is no hover — a touch either fires or it does not. The pressed state (the state that shows feedback after a tap) must be immediately distinguishable from the default state, and it must be visible in the brief moment of the interaction. A 10% lightness shift that reads clearly on desktop often vanishes under a finger shadow on mobile. Mobile pressed states need a more dramatic color change: 20-30% lightness shift or a hue change, not just a subtle darkening.",
+      "Variable ambient light is the mobile-specific problem that does not exist in controlled desktop environments. Mobile screens are used in direct sunlight (which washes out low-contrast colors), in dark rooms (where high-saturation colors create eye strain), and at arm's length with Auto-Brightness enabled (which changes perceived contrast dynamically). The minimum practical contrast ratio for mobile body text in mixed lighting conditions is 5:1, not the WCAG AA minimum of 4.5:1 — the 0.5:1 buffer accounts for sunlight readability degradation."
+    ],
+    "sections": [
+      {
+        "heading": "Adapting a desktop palette for mobile",
+        "body": "Three adjustments consistently improve desktop palettes when ported to mobile. First: increase the minimum contrast ratio for body text from 4.5:1 to 5.5:1. This provides a buffer for sunlight degradation without requiring a full redesign. Second: darken interactive element backgrounds by 5-10% L in OKLCH. On OLED mobile screens, buttons and interactive elements read as slightly lighter than on LCD desktop monitors at the same hex value, because OLED panels tend to have higher peak brightness. A small lightness reduction compensates. Third: reduce saturation of background accent colors by 10-15%. Background tinting (subtle colored surfaces behind content areas) looks appropriate at low saturation on desktop, but accumulates visual fatigue on OLED mobile because the panel renders saturated colors at higher perceived intensity. The same OKLCH chroma value that reads as \"subtle\" on desktop reads as \"loud\" on OLED mobile."
+      },
+      {
+        "heading": "Dark mode on mobile: OLED optimization",
+        "body": "Mobile dark mode is qualitatively different from desktop dark mode because most mobile flagship devices use OLED panels where true black pixels consume zero power. The difference between a dark mode background of #0a0a0a (near-black) and #1e1e1e (dark gray) is approximately 8-12% battery impact per hour at maximum brightness, according to documented Google and Apple measurements. For apps with significant dark-mode usage, this is a material product decision, not just an aesthetic one. OLED-optimized dark mode guidelines: main background #000000 or #0a0a0a; surface elevation (cards, sheets) #111111 - #1a1a1a; elevated interactive surfaces #222222 - #2a2a2a. The elevation system should use near-black increments, not the Material Design default gray scale (which was designed for LCD). Text on these backgrounds: off-white at #e8e8e8 rather than pure white — pure white on pure black creates maximum luminance contrast that many users find harsh at low ambient light, particularly at night."
+      }
+    ],
+    "links": [
+      {
+        "label": "Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit/"
+      },
+      {
+        "label": "WCAG Contrast Auditor",
+        "href": "/tools/wcag-audit/"
+      },
+      {
+        "label": "Color Converter",
+        "href": "/tools/convert/"
+      }
+    ]
+  },
+  {
+    "slug": "dec-2028-color-consistency-cross-platform",
+    "date": "2028-12-02",
+    "title": "Color Consistency Across Platforms: Why Your Brand Colors Look Different Everywhere",
+    "summary": "A hex code is not a color — it is an instruction to a device that interprets it according to its own calibration, color profile, and display technology. The same #2563eb looks different on a MacBook Pro XDR display, a budget Android phone, a Windows office monitor, and a printed brochure. This issue explains why cross-platform color inconsistency happens, which differences are acceptable, and what designers can actually do to narrow the gap.",
+    "eyebrow": "Color Science",
+    "tags": [
+      "Cross-Platform",
+      "Color Management",
+      "Branding",
+      "Color Profiles"
+    ],
+    "featuredCollectionId": "midnight-garden",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "sRGB is the assumed color space for web and most digital output. When a browser renders #2563eb, it interprets the value as sRGB. But display hardware varies enormously: a P3 display (MacBook, iPhone, iPad) can render colors outside the sRGB gamut — colors that look more saturated and vivid. When an sRGB hex value is displayed on a P3-capable device without color management, the device maps sRGB values into its larger P3 gamut, making them appear brighter and more saturated than on a standard sRGB display. This is why the same brand blue looks noticeably more vivid on an iPhone than on a cheap Android phone or a Windows office monitor.",
+      "The display-p3 CSS color space, introduced in Safari and now broadly supported, lets you specify colors that use the full P3 gamut: color(display-p3 0.15 0.39 0.92). This is equivalent to approximately #2563eb in sRGB, but on P3 hardware, the P3 version will look slightly more vivid and accurate. The practical approach: define your base palette in sRGB as the minimum baseline, then add P3 overrides using @supports (color: color(display-p3 0 0 0)) for screens that can benefit. This requires measuring how your key brand colors look in both color spaces on both display types.",
+      "Print-to-screen consistency is a separate problem from screen-to-screen consistency, and it is fundamentally harder. Print is subtractive (CMYK), screen is additive (RGB), and the gamuts do not align: some screen colors (electric blue, vivid green) cannot be reproduced in print, and some print colors (certain warm reds, deep purples on coated stock) are outside the sRGB gamut. The practical design decision: identify which colors in your system are likely to appear in both print and digital, and evaluate them on both media during the initial palette selection. Colors in the sRGB/CMYK overlap zone are the safest choices for cross-media brand systems."
+    ],
+    "sections": [
+      {
+        "heading": "Understanding display color profiles",
+        "body": "Every display has a color profile — a mapping from numerical values (RGB codes) to actual emitted light frequencies. Without a color profile, RGB values are treated as sRGB by default in browsers and operating systems. With a color profile (typically embedded in the display hardware and read by the OS), the same RGB value can produce different light output on different displays. The OS color management system (ColorSync on macOS, Windows Color Management on Windows) handles profile-to-profile conversion when the browser has color management enabled. Chrome, Firefox, and Safari all perform color management for tagged images (JPEG, PNG with embedded profiles); Safari also performs color management for CSS color values. The practical implication: colors look most consistent on macOS + Safari with calibrated displays. Windows browsers, particularly Chrome on Windows, have historically been less aggressive about color management for non-image content, which is one reason web colors look more washed out on many Windows machines."
+      },
+      {
+        "heading": "What you can actually control",
+        "body": "Three practical interventions for cross-platform color consistency. First: calibrate your design monitor. An uncalibrated monitor introduces a personal bias into every color decision. macOS includes built-in display calibration (System Settings → Displays → Color); for serious brand work, a hardware calibration tool (X-Rite, Datacolor) removes the remaining error. Second: test on multiple devices before finalizing a palette. This means a Windows laptop, an Android phone, an iPhone, and ideally a budget monitor. What reads as a precise premium blue on a P3 MacBook may read as oversaturated or dull on other devices. Third: for print integration, specify Pantone or Lab values as the primary reference, not hex. Pantone values are device-independent (the ink is the reference, not a numeric encoding); Lab values are device-independent by definition. Hex values are device-dependent and should be derived from the Pantone/Lab reference, not the other way around."
+      }
+    ],
+    "links": [
+      {
+        "label": "Color Converter",
+        "href": "/tools/convert/"
+      },
+      {
+        "label": "Color Compare tool",
+        "href": "/tools/compare/"
+      },
+      {
+        "label": "Brand Starter Kit",
+        "href": "/packs/brand-starter-kit/"
+      }
+    ]
   }
 ]

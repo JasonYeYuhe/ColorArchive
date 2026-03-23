@@ -4215,3 +4215,113 @@ const extraGuides15: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides15);
+
+const extraGuides16: LandingGuide[] = [
+  {
+    category: "Color for Data",
+    slug: "data-visualization-color-guide",
+    title: "Color in Data Visualization: Sequential, Diverging, and Categorical Palettes",
+    summary:
+      "Data visualization is one of the highest-stakes environments for color decision-making. The wrong palette can make a chart misleading, inaccessible to colorblind viewers, or unreadable in grayscale. This guide covers the three palette types, how to validate them, and the most common visualization color mistakes.",
+    eyebrow: "Data Design",
+    priority: 80,
+    searchIntent: "data visualization color palette sequential diverging categorical chart accessible colorblind",
+    featuredCollectionId: "data-dashboard",
+    featuredPackId: "complete-archive",
+    tags: ["Data Visualization", "Charts", "Accessibility", "Color Theory"],
+    highlights: [
+      "Sequential, diverging, and categorical are the three fundamental data visualization palette types. Using the wrong type — categorical colors for ordered data, or sequential colors for unordered categories — creates false implied ordering and is one of the most common data visualization color errors.",
+      "Approximately 8% of men have some form of red-green color vision deficiency. A red/green comparison chart — still ubiquitous in financial dashboards — is unreadable to roughly 1 in 12 male viewers. Validated colorblind-safe palettes (Okabe-Ito, ColorBrewer) solve this with lightness contrast that survives all deficiency types.",
+      "The grayscale test: convert your chart palette to grayscale and verify all categories remain distinguishable. Charts are frequently printed, photocopied, or viewed on low-quality displays. If two categories collapse to the same gray, viewers cannot differentiate them without reading the legend.",
+    ],
+    sections: [
+      {
+        heading: "Sequential vs. diverging vs. categorical",
+        body:
+          "Sequential palettes encode magnitude: light-to-dark maps to low-to-high values. Use for data with a natural minimum and maximum — population density, sales volume, response time. A single-hue sequential palette is always safe; multi-hue sequential palettes can increase discrimination at the cost of implying a direction change. Diverging palettes have two hues meeting at a neutral center. Use when zero or the mean is meaningful — financial variance, survey agreement, geographic deviation from average. The two endpoint hues should be perceptually equidistant from the neutral center in luminance. Categorical palettes need hues that are perceptually distinct without implying order. Maximum discrimination: space hues at least 30-40° apart on the color wheel, vary lightness slightly to add discrimination, and never use adjacent warm colors (yellow, orange, red) as separate categories — they look too similar at small chart element sizes.",
+      },
+      {
+        heading: "Validating for colorblindness and print",
+        body:
+          "Every data visualization palette needs two validation passes before shipping. Colorblind simulation: use Coblis, Figma's accessibility plugin, or Stark to simulate deuteranopia, protanopia, and tritanopia. For each simulation, verify all categories remain distinguishable. If two categories merge, replace one with a color that differs in lightness — lightness difference survives all forms of color vision deficiency. Grayscale test: desaturate the chart entirely. Each category should remain distinguishable by lightness value alone. If you have 5 categories, you need 5 distinct lightness levels. The practical constraint: more than 4-5 categories in a single chart is usually a design problem, not just a color problem — the chart may need to be restructured rather than given more colors. A sixth color that is indistinguishable from an existing one in grayscale is a signal to split the chart.",
+      },
+    ],
+    links: [
+      { label: "Color Compare tool", href: "/tools/compare/" },
+      { label: "WCAG Contrast Auditor", href: "/tools/wcag-audit/" },
+      { label: "Data Dashboard collection", href: "/collections/data-dashboard/" },
+    ],
+  },
+  {
+    category: "Color Systems",
+    slug: "color-system-documentation-guide",
+    title: "Documenting Color Systems: The Three Layers Every Design System Needs",
+    summary:
+      "Most color systems fail not because the colors are wrong, but because the decisions behind them were never written down. When the designer who chose the palette leaves, the rationale disappears. This guide covers the minimum viable color system documentation — three layers targeting designers, engineers, and QA — and how to structure it so it actually gets used.",
+    eyebrow: "Design Systems",
+    priority: 78,
+    searchIntent: "color system documentation design tokens semantic naming documentation layer design system guide",
+    featuredCollectionId: "data-dashboard",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Documentation", "Design Systems", "Color Tokens", "Process"],
+    highlights: [
+      "Color system documentation has three distinct audiences: designers need intent (why this color, what emotion, what context); engineers need implementation (token name, value, override rules); QA and accessibility reviewers need constraints (minimum contrast ratios, which roles require WCAG AA vs AAA). Writing one document for all three audiences produces a document that serves none of them.",
+      "The most common undocumented decision is role assignment — which semantic tokens map to which base colors under which conditions. 'Primary' can mean the brand color, the most important action, or the most saturated color, depending on who you ask. Without explicit documentation, every new contributor interprets it differently and the system drifts.",
+      "Token naming tells a story about intent. A token named 'blue-500' describes what it is; a token named 'action-primary' describes what it does. Semantic naming is self-documenting — the name communicates the use context without requiring a separate reference document.",
+    ],
+    sections: [
+      {
+        heading: "The three documentation layers",
+        body:
+          "Layer 1 — Base palette: raw colors before semantic assignment. Document each base color with its hex value, OKLCH coordinates, and a plain-language description of its perceptual quality. No use-context at this layer — just what the color looks and feels like. This is the reference layer for designers and brand teams. Layer 2 — Semantic tokens: the mapping from base colors to functional roles. Document each semantic token with: (a) the base color in the default theme, (b) the base color in dark mode, (c) the use constraint ('never use as text on white — contrast ratio 2.1:1'), and (d) the intended context ('hover states on secondary interactive elements only'). This is the reference layer for engineers. Layer 3 — Composition rules: documented patterns for how tokens combine. Examples: 'action-primary on surface-default: always meets WCAG AA 4.5:1'; 'status-error on surface-default: meets WCAG AA for large text only (3:1), do not use for body-size error labels'. This is the reference layer for QA and accessibility reviewers.",
+      },
+      {
+        heading: "Making documentation that gets used",
+        body:
+          "Documentation that lives only in Notion or Confluence gets ignored by engineers and forgotten by designers within 6 months. Documentation that lives in Storybook, adjacent to the components that use the tokens, gets consulted regularly. The most effective format: a Storybook color story that renders every semantic token with its name, value, dark-mode value, use constraint, and a live contrast ratio check against both white and the default surface color. The ratio check should be automated — if the token value changes, the documentation immediately shows whether the constraint is still met. Second most effective: a Figma library with documented annotations directly on each color swatch. Engineers who use design handoff will see the documentation without leaving their workflow. Avoid documentation that requires a separate lookup step — the friction of switching tools ensures the documentation gets skipped under deadline pressure.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tools/design-tokens/" },
+      { label: "WCAG Contrast Auditor", href: "/tools/wcag-audit/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    ],
+  },
+  {
+    category: "Mobile Design",
+    slug: "mobile-ui-color-guide",
+    title: "Color on Mobile: OLED Optimization, Touch States, and Cross-Device Consistency",
+    summary:
+      "Mobile UI color design is not simply desktop design scaled down. Small canvas size, OLED panels, variable ambient light, and touch interaction fundamentally change which color decisions matter. This guide covers the mobile-specific constraints that most desktop-trained designers encounter when first working at phone scale.",
+    eyebrow: "Mobile Design",
+    priority: 76,
+    searchIntent: "mobile UI color design OLED dark mode contrast touch states cross-device color consistency phone",
+    featuredCollectionId: "modern-seaside",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Mobile", "OLED", "Dark Mode", "UI Design"],
+    highlights: [
+      "Pixel density changes perceptual color. The same hex value looks visibly different on a 3x Retina display versus a 1x desktop monitor — colors appear slightly more saturated and darker at 3x because subpixel rendering has less impact. Colors that look appropriately saturated on desktop often look aggressive on high-DPI mobile. Always evaluate mobile palette decisions on an actual device.",
+      "Touch targets require different color contrast logic than hover states. On desktop, a hover state needs to be noticeable — 3:1 contrast ratio often suffices. On mobile, there is no hover — the pressed state must be immediately distinguishable from the default state in the brief moment of the interaction. Mobile pressed states need a 20-30% lightness shift, not the subtle 10% that reads well on desktop.",
+      "The minimum practical contrast ratio for mobile body text in mixed lighting conditions is 5:1, not the WCAG AA minimum of 4.5:1. The 0.5:1 buffer accounts for sunlight readability degradation — mobile screens are routinely used outdoors in direct sunlight, which washes out low-contrast text that would be perfectly readable indoors.",
+    ],
+    sections: [
+      {
+        heading: "Adapting a desktop palette for mobile",
+        body:
+          "Three adjustments consistently improve desktop palettes when ported to mobile. First: increase the minimum contrast ratio for body text from 4.5:1 to 5.5:1. This provides a sunlight buffer without requiring a full redesign. Second: darken interactive element backgrounds by 5-10% L in OKLCH. On OLED mobile screens, buttons read as slightly lighter than on LCD desktop monitors at the same hex value — a small lightness reduction compensates. Third: reduce saturation of background accent colors by 10-15%. Background tinting looks appropriate at low saturation on desktop, but accumulates visual fatigue on OLED mobile because the panel renders saturated colors at higher perceived intensity. The same OKLCH chroma value that reads as subtle on desktop reads as loud on OLED mobile. These three adjustments can be implemented as a mobile-specific override layer on top of the existing design token system, without changing the desktop palette.",
+      },
+      {
+        heading: "OLED-optimized dark mode",
+        body:
+          "Mobile dark mode is qualitatively different from desktop dark mode because most mobile flagship devices use OLED panels where true black pixels consume zero power. The difference between a dark mode background of #0a0a0a (near-black) and #1e1e1e (dark gray) is approximately 8-12% battery impact per hour at maximum brightness, documented by Google and Apple measurements. OLED-optimized dark mode guidelines: main background #000000 or #0a0a0a; surface elevation (cards, sheets) #111111–#1a1a1a; elevated interactive surfaces #222222–#2a2a2a. The elevation system uses near-black increments, not the Material Design default gray scale (designed for LCD). Text: off-white at #e8e8e8 rather than pure white — pure white on pure black creates maximum luminance contrast that many users find harsh at low ambient light. Use the ColorArchive Dark Mode UI Kit for a complete OLED-optimized token system.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "WCAG Contrast Auditor", href: "/tools/wcag-audit/" },
+      { label: "Color Converter", href: "/tools/convert/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides16);
