@@ -582,6 +582,15 @@ function fuzzyMatch(text: string, query: string): boolean {
   return false;
 }
 
+// Curated discovery chips grouped by theme — shown in search UI
+export const SEARCH_CHIPS: { group: string; terms: string[] }[] = [
+  { group: "Nature", terms: ["forest", "ocean", "desert", "botanical", "coastal", "alpine", "meadow"] },
+  { group: "Season", terms: ["spring", "summer", "autumn", "winter", "sunset", "sunrise", "dawn"] },
+  { group: "Mood", terms: ["moody", "dreamy", "serene", "bold", "minimal", "elegant", "playful"] },
+  { group: "Aesthetic", terms: ["cottagecore", "darkacademia", "vaporwave", "japandi", "brutalist", "scandi"] },
+  { group: "Material", terms: ["velvet", "marble", "linen", "terracotta", "denim", "copper", "brass"] },
+];
+
 export function filterColors(
   colors: readonly ColorRecord[],
   searchQuery: string,

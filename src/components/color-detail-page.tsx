@@ -15,6 +15,7 @@ import {
 } from "@/src/lib/palette-builder";
 import { addRecentColor, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
 import { getWcagContrast, getTonalStrip } from "@/src/lib/color-utils";
+import { simulateColorBlindness, hexToRgbCB, rgbToHexCB } from "@/src/lib/colorblind";
 import type { WcagPairing } from "@/src/lib/color-utils";
 import { getFamilySlug } from "@/src/lib/color-family-pages";
 import type { ColorRecord } from "@/src/types/color";
@@ -593,6 +594,51 @@ export function ColorDetailPage({
                   </div>
                 </div>
               )}
+
+              {/* Colorblind simulation */}
+              {(() => {
+                const rgb = hexToRgbCB(color.hex);
+                if (!rgb) return null;
+                const types = [
+                  { key: "deuteranopia" as const, label: "Deuteranopia" },
+                  { key: "protanopia" as const, label: "Protanopia" },
+                  { key: "tritanopia" as const, label: "Tritanopia" },
+                ] as const;
+                return (
+                  <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                          Color Vision Simulation
+                        </h2>
+                        <p className="mt-1.5 text-sm text-neutral-500">How this color appears with different color vision deficiencies.</p>
+                      </div>
+                      <Link
+                        href="/colorblind/"
+                        className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                      >
+                        Full simulator
+                      </Link>
+                    </div>
+                    <div className="mt-4 grid grid-cols-3 gap-3">
+                      {types.map(({ key, label }) => {
+                        const simRgb = simulateColorBlindness(rgb, key);
+                        const simHex = rgbToHexCB(simRgb);
+                        return (
+                          <div key={key} className="flex flex-col gap-2">
+                            <div
+                              className="h-14 rounded-[1rem] border border-black/8"
+                              style={{ backgroundColor: simHex }}
+                            />
+                            <div className="text-[11px] font-medium text-neutral-500">{label}</div>
+                            <div className="font-mono text-xs text-neutral-400">{simHex}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()}
 
               <div className="rounded-[1.6rem] border border-black/6 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">

@@ -2,6 +2,8 @@
 
 import { useState, useMemo } from "react";
 import { hexContrastRatio, wcagLabel } from "@/src/lib/brand-palette";
+import { getPaletteIds } from "@/src/lib/palette-builder";
+import { colors as allColors } from "@/src/data/colors";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -158,6 +160,20 @@ export function WcagAuditPage() {
               className="rounded-full border border-black/8 bg-white px-4 py-2.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/12"
             >
               Load example
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                const ids = getPaletteIds();
+                const hexes = ids
+                  .map((id: string) => allColors.find((c) => c.id === id)?.hex)
+                  .filter((h): h is string => Boolean(h))
+                  .join("\n");
+                if (hexes) { setInput(hexes); setSubmitted(hexes); }
+              }}
+              className="rounded-full border border-black/8 bg-white px-4 py-2.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/12"
+            >
+              Load from Palette Builder
             </button>
           </div>
         </div>

@@ -10,6 +10,7 @@ import { SelectedColorPanel } from "@/src/components/selected-color-panel";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
+import { SEARCH_CHIPS } from "@/src/lib/color-search";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
 interface SearchExplorerPageProps {
@@ -417,6 +418,26 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
                 >
                   {mood.labels[locale] ?? mood.labels.en}
                 </button>
+              ))}
+            </div>
+
+            <div className="mt-4 space-y-2">
+              {SEARCH_CHIPS.map(({ group, terms }) => (
+                <div key={group} className="flex flex-wrap items-center gap-1.5">
+                  <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-400 w-16 shrink-0">
+                    {group}
+                  </span>
+                  {terms.map((term) => (
+                    <button
+                      key={term}
+                      type="button"
+                      onClick={() => setSearchQuery(term)}
+                      className={`rounded-full border px-2.5 py-1 text-xs transition ${searchQuery === term ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100"}`}
+                    >
+                      {term}
+                    </button>
+                  ))}
+                </div>
               ))}
             </div>
 

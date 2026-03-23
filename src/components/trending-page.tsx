@@ -105,6 +105,12 @@ export function TrendingPage() {
 
   const trending = useMemo(() => generateTrendingColors(weekSeed), [weekSeed]);
   const familyTrends = useMemo(() => generateFamilyTrends(weekSeed), [weekSeed]);
+  const weekRange = useMemo(() => {
+    const start = new Date(weekSeed * 7 * 24 * 60 * 60 * 1000);
+    const end = new Date(start.getTime() + 6 * 24 * 60 * 60 * 1000);
+    const fmt = (d: Date) => d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    return `Week of ${fmt(start)}–${fmt(end)}, ${end.getFullYear()}`;
+  }, [weekSeed]);
   const recentColors = recentIds
     .map((id) => allColors.find((c) => c.id === id))
     .filter((c): c is ColorRecord => Boolean(c))
@@ -118,8 +124,9 @@ export function TrendingPage() {
           <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-400">
             {t("trending.badge")}
           </div>
-          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-4xl">
+          <h1 className="mt-3 flex flex-wrap items-baseline gap-3 text-3xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-4xl">
             {t("trending.title")}
+            <span className="text-sm font-normal tracking-normal text-neutral-400">{weekRange}</span>
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
             {t("trending.description")}
