@@ -5,8 +5,8 @@
 
 ## High Priority
 - [ ] Add real payment provider to `src/lib/checkout-config.ts` — *commerce is currently non-functional; Lemon Squeezy or Stripe integration needed*
-- [ ] Review collections with renamed IDs — `moonlit-garden`, `dark-botanical`, `copper-verdigris` replaced duplicates; check if any external links or marketing materials referenced the old IDs
 - [ ] Verify Vercel builds are now succeeding — *the autopilot fixed the collections build error (was breaking since ~Mar 23); check Vercel dashboard to confirm next deploy passes*
+- [ ] Review collections with renamed IDs — `moonlit-garden`, `dark-botanical`, `copper-verdigris` replaced duplicates; check if any external links or marketing materials referenced the old IDs
 
 ## Medium Priority
 - [ ] Configure TikTok admin page (`app/admin/tiktok/`) — *exists as untracked file; unclear if it should be staged and deployed*

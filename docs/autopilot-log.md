@@ -1449,3 +1449,52 @@ Added: packaging_color, kraft_packaging, spot_color, print_production, evening_p
 - src/lib/color-search.ts (+19 aliases)
 
 **Commit:** 84db35d
+
+## 2026-03-23 — Normal Run: Newsletter 151-154 + Collections + Guides + Aliases (commit 82373af)
+
+**Run type:** Normal (3rd run since last big run `2cf62a3`)
+
+**Categories:** A. SEO & Content + D. Data & Collections
+
+### Category A — 4 Newsletter Issues (now 154 total)
+
+- **Issue 151** (nov-2028-color-in-data-visualization, 2028-11-11): Sequential/diverging/categorical palette types, colorblind validation (deuteranopia, protanopia, tritanopia), grayscale test methodology
+- **Issue 152** (nov-2028-documenting-color-systems, 2028-11-18): Three-layer documentation framework — base palette (designers), semantic tokens (engineers), composition rules (QA/accessibility). Token naming philosophy (descriptive vs semantic). Documentation that gets used (Storybook, Figma annotations)
+- **Issue 153** (dec-2028-color-mobile-ui, 2028-11-25): OLED optimization, touch state contrast (20-30% shift vs 10% desktop), pixel density perceptual differences, 5:1 minimum contrast for sunlight readability, adapting desktop palettes for mobile
+- **Issue 154** (dec-2028-color-consistency-cross-platform, 2028-12-02): sRGB vs P3 gamut differences, display color profiles (ColorSync), CSS display-p3 color space, print-to-screen consistency, Pantone/Lab as device-independent reference
+
+### Category D — 2 New Collections (now 62 total)
+
+- **golden-hour**: amber-bloom-clear, apricot-silk-soft, honey-bloom-muted, ember-core-soft, amber-velvet-soft — warm late-afternoon light palette for lifestyle, food photography, and artisan brands
+- **digital-night**: cobalt-ink-muted, indigo-shadow-soft, violet-nocturne-muted, iris-core-vivid, sapphire-ink-soft — high-contrast cool-dark palette for developer tools, AI interfaces, and night-mode technical products
+
+### Category A — 3 New SEO Guides (now 106 total, extraGuides16)
+
+- **data-visualization-color-guide**: Sequential/diverging/categorical types, colorblind validation, grayscale test — targets 'data visualization color palette sequential diverging categorical chart accessible colorblind'
+- **color-system-documentation-guide**: Three-layer doc framework, token naming (descriptive vs semantic), Storybook/Figma docs — targets 'color system documentation design tokens semantic naming'
+- **mobile-ui-color-guide**: OLED optimization, touch state contrast, desktop-to-mobile adaptation — targets 'mobile UI color design OLED dark mode contrast touch states'
+
+### Category D — Search Aliases (405 total, 7 new unique)
+
+Added: chart_color, oled_dark, warm_light, photography, developer_tool, terminal, ai_interface
+
+### Bug Fixes
+
+None needed — build and tests clean.
+
+### Current State After This Run
+
+- Total newsletter issues: **154** (Issues 001–154, 4 new)
+- Total collections: **62** (golden-hour, digital-night added)
+- Total SEO guides: **106** (3 new in extraGuides16)
+- Search aliases: **405** total (7 new unique)
+- Typecheck: ✓ (1 type error fixed: Guide → LandingGuide)
+- Tests: ✓ 204/204 passing
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (4 new issues, now 154)
+- src/lib/collections.ts (2 new, now 62)
+- src/lib/guides.ts (3 guides in extraGuides16, now 106; fixed Guide→LandingGuide type)
+- src/lib/color-search.ts (7 new unique aliases, 405 total)
+
+**Commit:** 82373af
