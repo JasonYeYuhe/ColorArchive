@@ -1389,3 +1389,48 @@ const extraCollections16: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections16);
+
+const extraCollections17: ColorCollection[] = [
+  createCollection(
+    "terracotta-workshop",
+    "Terracotta Workshop",
+    "Warm ember, coral, apricot, and honey tones — the earthy, handmade palette for craft brands, ceramics, and artisan product design.",
+    "The terracotta workshop palette captures the warm mineral spectrum of hand-thrown pottery, artisan ceramics, and craft studio aesthetics. Built around muted ember and coral tones with honey and apricot accents, it conveys warmth through restraint — these are not bright oranges but oxidized, clay-fired earthy tones that feel material and tactile. Ember-tone-muted anchors the palette as a warm, mid-dark clay note — a color that reads as terracotta without the fluorescent intensity of pure orange; coral-silk-muted provides the secondary warm surface — lighter and slightly more pink-leaning than ember, appropriate for backgrounds and secondary containers in craft editorial; apricot-pearl-soft introduces the most delicate entry — a pale, creamy apricot that functions as the near-white neutral for headers and light surfaces; honey-velvet-soft closes the warm range with a richer, deeper honey amber that works as the dark text anchor and grounding element.",
+    ["Craft", "Warm", "Artisan"],
+    [
+      "ember-tone-muted",
+      "coral-silk-muted",
+      "apricot-pearl-soft",
+      "honey-velvet-soft",
+      "amber-bloom-clear",
+    ],
+    {
+      editorialNote:
+        "Terracotta workshop works best on surfaces that reference material texture — rough linen, uncoated paper, raw wood grain. In digital contexts, use an off-white or warm paper background (not pure white) to maintain the material warmth; pure white surfaces introduce a sterile note that disconnects from the craft positioning. Pair with a serif typeface with editorial warmth (Freight Text, Canela, Playfair Display) rather than geometric sans-serifs, which create a temperature conflict. Photography direction: natural light only, imperfect surfaces welcome — handprints, glaze drips, throwing marks. The palette pairs poorly with cooler accent colors like aqua, mint, or cobalt; if a cool contrast is needed, use a very pale blush whisper as the lightest neutral to bridge temperatures.",
+      promptWords: ["hand-thrown ceramic bowls in terracotta clay tones", "artisan pottery studio with warm earthy palette", "craft packaging design with organic warm surfaces", "ceramics brand product photography in natural light", "workshop with clay, wood, and warm material textures"],
+      useCases: ["Ceramics and pottery brands", "Artisan food and beverage brands", "Craft studio branding and packaging", "Home goods and material product lines"],
+    },
+  ),
+  createCollection(
+    "fresh-herb",
+    "Fresh Herb",
+    "Mint whisper, seafoam mist, jade silk, moss bloom, and leaf tone — a clean, living-green palette for health, wellness, and botanical brands.",
+    "The fresh herb palette draws from the botanical spectrum of growing things: the pale aqua-green of young mint leaves, the deeper seafoam of fresh basil, the rich jade of mature herb garden growth, and the warm olive-moss of dried herbs. Unlike the cooler teal/aqua collections, fresh herb stays in the warm-green register — these are plant colors, not mineral or water colors. Mint-whisper-soft opens the palette at maximum lightness — a barely-there pale green that works as the primary white substitute, maintaining the botanical direction while avoiding the clinical sterility of pure white; seafoam-mist-soft provides the secondary light surface — slightly more saturated and visible than mint whisper, appropriate for cards and gentle section differentiation; jade-silk-clear introduces the palette's first clearly saturated entry — a mid-green with enough chroma to read as a brand color and function as an interactive accent; moss-bloom-muted grounds the palette with a softer, more olive-leaning mid-green that pairs well with the brighter jade accent; leaf-tone-clear adds the deeper, vegetation-green anchor that works as the text color in all-green layouts.",
+    ["Botanical", "Fresh", "Wellness"],
+    [
+      "mint-whisper-soft",
+      "seafoam-mist-soft",
+      "jade-silk-clear",
+      "moss-bloom-muted",
+      "leaf-tone-clear",
+    ],
+    {
+      editorialNote:
+        "Fresh herb is a palette that performs well in light-mode digital contexts for health, food, and wellness brands but requires careful contrast management. Jade-silk-clear (the primary interactive color) should be tested at 4.5:1 contrast minimum against the light backgrounds — jade-silk-clear on mint-whisper-soft may be too low-contrast for accessible text; use leaf-tone-clear or moss-bloom-muted for body text instead. For CTAs and interactive elements, jade-silk-clear on white or mint-whisper-soft backgrounds typically passes AA for large text and UI components (3:1), but verify with the WCAG Auditor before finalizing. Photography: macro herb and botanical photography with natural light, shallow depth of field. Pair with a humanist sans-serif (Nunito, Inter, Source Sans) for contemporary wellness positioning, or a geometric sans for clinical/supplement brand positioning.",
+      promptWords: ["fresh herb garden photography with botanical greens", "wellness brand palette with mint and jade tones", "organic food brand packaging with living green colors", "supplement brand with clean botanical green system", "health app with fresh mint and jade design palette"],
+      useCases: ["Health and wellness brands", "Organic food and beverage packaging", "Supplement and nutraceutical brands", "Botanical beauty and skincare brands"],
+    },
+  ),
+];
+
+collections.push(...extraCollections17);

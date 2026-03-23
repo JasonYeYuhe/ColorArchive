@@ -524,6 +524,24 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   terminal: ["cobalt", "ink", "shadow", "indigo", "violet"],
   ai_interface: ["cobalt", "iris", "violet", "indigo", "shadow"],
 
+  // Marketing and conversion colors (new unique aliases)
+  cta_button: ["crimson", "ember", "cobalt", "emerald", "iris"],
+  conversion: ["crimson", "ruby", "ember", "cobalt", "emerald"],
+  trust_color: ["cobalt", "sapphire", "azure", "teal", "cerulean"],
+
+  // Wayfinding and signage (new unique aliases)
+  navigation_color: ["cobalt", "teal", "emerald", "sapphire", "cerulean"],
+  zone_color: ["cobalt", "crimson", "emerald", "amber", "teal"],
+
+  // Craft and artisan palette (new unique aliases)
+  craft: ["ember", "coral", "apricot", "honey", "amber"],
+  pottery: ["ember", "coral", "honey", "amber", "merlot"],
+
+  // Fresh herb and botanical palette (new unique aliases)
+  herb: ["mint", "seafoam", "jade", "moss", "leaf"],
+  supplement: ["mint", "jade", "teal", "cobalt", "seafoam"],
+  fresh_green: ["mint", "seafoam", "jade", "moss", "leaf"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

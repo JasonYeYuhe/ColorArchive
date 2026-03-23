@@ -4325,3 +4325,113 @@ const extraGuides16: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides16);
+
+const extraGuides17: LandingGuide[] = [
+  {
+    category: "Marketing & Branding",
+    slug: "color-psychology-marketing-guide",
+    title: "Color Psychology in Marketing: What the Research Actually Says",
+    summary:
+      "Color psychology is one of the most cited and least understood topics in marketing design. This guide separates the empirical findings — what reliably replicates across studies — from the widely-shared myths, and provides a practical framework for applying color research to real brand and conversion design decisions.",
+    eyebrow: "Marketing & Branding",
+    priority: 77,
+    searchIntent: "color psychology marketing branding conversion CTA button color brand identity trust consumer behavior purchase intent",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Marketing", "Color Psychology", "Branding", "Conversion"],
+    highlights: [
+      "The most replicated finding in color-brand research: perceived color-category fit predicts purchase intent more reliably than specific color choices. Red works for clearance sales because urgency is already expected there — not because red is inherently urgent. Context dominates color meaning in every reliable study.",
+      "CTA button color research shows contrast against the surrounding page matters more than the button color itself. The famous red-vs-green tests that appear to favor red actually measure higher-contrast colors against green-dominant page backgrounds. Control for contrast ratio and the color effect largely disappears.",
+      "Blue-trust associations are culturally mediated and stronger in Western than East Asian markets. The more robust principle: category convention matters more than innate color meaning. Financial services use blue because banks use blue — the association is industrial, not innate.",
+    ],
+    sections: [
+      {
+        heading: "Three findings that hold up across studies",
+        body:
+          "Color increases recognition speed — this is the real mechanism behind brand recognition claims. Consistent color application speeds retrieval on repeat exposure. Color affects perceived price: muted, lighter palettes are rated more premium; saturated high-contrast palettes read as affordable and high-energy. This effect is reliable enough for positioning decisions. Category-color associations (green/natural, brown/artisan, blue/tech-finance) are strong industrial conventions that new entrants fight against at a cost, even if they are not psychological universals.",
+      },
+      {
+        heading: "The fit-contrast-convention framework",
+        body:
+          "Apply three checks before finalizing marketing color decisions. Fit: does this color reinforce or contradict the category expectations the audience already has? Going against convention requires a strong brand reason. Contrast: will this color be visible and readable across every channel — web, print, social thumbnails, small mobile screens? Convention: what do competitors use? If every competitor uses blue, green is rational if it passes fit and contrast checks. In highly convention-driven categories (financial services, healthcare), distinctiveness has a higher cost and a stronger justification requirement.",
+      },
+    ],
+    links: [
+      { label: "Brand System Generator", href: "/tools/brand/" },
+      { label: "WCAG Contrast Auditor", href: "/tools/wcag-audit/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    ],
+  },
+  {
+    category: "Environmental Design",
+    slug: "color-wayfinding-systems-guide",
+    title: "Color as Navigation: Principles From Environmental Wayfinding Design",
+    summary:
+      "Airports, hospitals, and transit systems have solved color-as-navigation problems that digital designers frequently reinvent poorly. Environmental graphic design has a rigorous set of principles for wayfinding color that translates directly to digital product navigation. This guide covers the core principles and digital application rules.",
+    eyebrow: "Environmental Design",
+    priority: 75,
+    searchIntent: "color wayfinding navigation signage system design hospital airport transit map zone coding color coding navigation UX",
+    featuredCollectionId: "digital-night",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Wayfinding", "Navigation", "Signage", "System Design"],
+    highlights: [
+      "Harry Beck's 1931 London Underground map established the core rule: each line gets one color, that color means only 'this is that line', and no color has a secondary meaning in the system. This single-meaning rule is violated constantly in digital design, where the same blue is simultaneously a link color, an information state, a brand color, and a navigation highlight.",
+      "Healthcare wayfinding research finds the most effective systems use 6-8 zone colors maximum, pair every color with non-color redundancy (floor numbers, symbols, text), and never rely solely on color for navigation. Approximately 8% of males have some color vision deficiency — wayfinding color is always a confirmation, never the sole cue.",
+      "In digital multi-product suites (Google, Microsoft, Atlassian), each product gets a single color that appears in the nav chrome, favicon, and document headers — meaning only 'you are in this product' and nothing else. This wayfinding-correct approach explains why these color systems feel coherent despite spanning hundreds of products.",
+    ],
+    sections: [
+      {
+        heading: "Zone coding vs. path coding",
+        body:
+          "Zone coding assigns color to an area: 'the red wing is surgical'. Path coding assigns color to a route: 'follow the yellow line to radiology'. Digital design almost exclusively uses zone coding — sections get different colors — but multi-step flows, wizards, and onboarding sequences benefit from path coding logic, where the primary signal is the next step rather than the current location. Choosing the wrong strategy is one of the most common wayfinding failures in complex digital products.",
+      },
+      {
+        heading: "Seven rules for digital wayfinding color",
+        body:
+          "One: assign colors to spaces, not meanings — 'red' means 'section red', not danger. Two: never reuse a wayfinding color for content emphasis. Three: ensure every wayfinding color has a non-color equivalent (section name text always present). Four: test all zone colors against deuteranopia and protanopia simulation. Five: use high luminance contrast (L50 or higher) for zone identification elements. Six: limit to the number of zones users need to learn — beyond 8, use a two-level hierarchy (color zone + numbered sub-zone). Seven: place zone color identifiers consistently so users develop spatial memory of where to look for location context.",
+      },
+    ],
+    links: [
+      { label: "Color Compare tool", href: "/tools/compare/" },
+      { label: "Colorblind Simulator", href: "/tools/colorblind/" },
+      { label: "Design Token Generator", href: "/tools/design-tokens/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "color-token-architecture-guide",
+    title: "Color Token Architecture: Building Maintainable Design Token Systems",
+    summary:
+      "A poorly designed token architecture makes dark mode a two-week rebuild. A well-designed one makes it a two-hour configuration change. This guide covers the structural principles — primitive, semantic, and component tier design — that determine how maintainable your color system is over time.",
+    eyebrow: "Design Systems",
+    priority: 78,
+    searchIntent: "design tokens color token architecture CSS variables semantic tokens primitive tokens dark mode Tailwind Style Dictionary DTCG design system",
+    featuredCollectionId: "velvet-dusk",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Design Tokens", "Design Systems", "CSS Variables", "Tailwind"],
+    highlights: [
+      "The two-tier primitive/semantic split is the minimum viable token architecture. Primitive tokens are raw values (--color-blue-500: #3b82f6). Semantic tokens are intent references (--color-interactive-primary: var(--color-blue-500)). Components use the semantic tier only — this means changing blue-500's hex updates everything that references interactive-primary automatically.",
+      "Semantic token naming should describe function, not appearance. --color-text-default is correct. --color-text-dark-gray is wrong — it describes the current value, not the purpose. When dark mode makes text light, --color-text-dark-gray becomes actively misleading. Test: can this token name remain accurate in dark mode and high-contrast mode? If not, it describes appearance, not function.",
+      "CSS custom properties are the broadest-compatible output format and integrate directly with Tailwind 4. JSON is most portable for cross-platform systems. DTCG (Design Tokens Community Group) format, now supported by Tokens Studio, adds type and description metadata. For web-only systems, CSS custom properties from a simple JSON source is sufficient; for multi-platform systems, DTCG + Style Dictionary is current best practice.",
+    ],
+    sections: [
+      {
+        heading: "Structuring the primitive layer",
+        body:
+          "The primitive layer contains every color value the system will ever use, organized by hue. A full-scale primitive palette typically contains 6-12 hues × 8-12 lightness steps = 48-144 raw values. For dark mode, a linear lightness scale (100, 200... 900) makes it easy to find semantic equivalents by inverting steps: what was step 200 in light mode becomes step 800 in dark mode. HSL-based steps work better for this inversion than OKLCH steps because HSL inversion is predictable. OKLCH produces more perceptually consistent steps — systems built for multiple brand themes benefit from OKLCH primitives despite the inversion complexity.",
+      },
+      {
+        heading: "When to add the component tier",
+        body:
+          "Component tokens are the third tier many systems add: --color-button-primary-background: var(--color-interactive-primary). This allows consumers to override button styles without modifying the global semantic layer. Add the component tier only when the system has confirmed use cases for component-level overrides. A three-tier token system is significantly more complex to document and maintain — adding it speculatively creates documentation debt before the use case arrives. For most in-house design systems serving a single product team, two tiers are sufficient and easier to keep current.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tools/design-tokens/" },
+      { label: "WCAG Contrast Auditor", href: "/tools/wcag-audit/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides17);
