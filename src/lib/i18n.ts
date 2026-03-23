@@ -1956,6 +1956,8 @@ const translations: Record<string, Record<string, string>> = {
   "pinterest.saved": { en: "Saved to Pinterest!", zh: "已保存到 Pinterest!" },
   "pinterest.noBoards": { en: "No boards found. Create one on Pinterest first.", zh: "未找到画板，请先在 Pinterest 创建。" },
   "pinterest.disconnect": { en: "Disconnect Pinterest", zh: "断开 Pinterest" },
+  "pinterest.saveSuccess": { en: "Pin saved to your board!", zh: "已成功保存 Pin 到画板！" },
+  "pinterest.saveError": { en: "Failed to save Pin. Please try again.", zh: "保存 Pin 失败，请重试。" },
 
   // Grid section
   "grid.archiveTitle": { en: "Archive", zh: "色彩库" },

@@ -132,6 +132,45 @@ function BoardPickerModal({
   );
 }
 
+/* ── Toast notification ─────────────────────────────────── */
+function Toast({
+  message,
+  type,
+  onClose,
+}: {
+  message: string;
+  type: "success" | "error";
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const timer = setTimeout(onClose, 3500);
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  return (
+    <div className="fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 animate-[slideUp_0.3s_ease-out]">
+      <div
+        className={`flex items-center gap-2.5 rounded-2xl px-5 py-3 text-sm font-medium shadow-xl ${
+          type === "success"
+            ? "bg-green-600 text-white"
+            : "bg-red-600 text-white"
+        }`}
+      >
+        {type === "success" ? (
+          <svg className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        ) : (
+          <svg className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+          </svg>
+        )}
+        {message}
+      </div>
+    </div>
+  );
+}
+
 /* ── Main button ────────────────────────────────────────── */
 export function PinterestSaveButton({ color }: { color: ColorRecord }) {
   const { t } = useLocale();
@@ -141,6 +180,7 @@ export function PinterestSaveButton({ color }: { color: ColorRecord }) {
   const [loadingBoards, setLoadingBoards] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   // Sync token from localStorage
   useEffect(() => {
@@ -190,8 +230,11 @@ export function PinterestSaveButton({ color }: { color: ColorRecord }) {
         altText: `Color swatch for ${color.name} (${color.hex})`,
       });
       setSaved(true);
+      setShowPicker(false);
+      setToast({ message: t("pinterest.saveSuccess"), type: "success" });
     } catch (err) {
       console.error("Pinterest save failed:", err);
+      setToast({ message: t("pinterest.saveError"), type: "error" });
     } finally {
       setSaving(false);
     }
@@ -216,6 +259,14 @@ export function PinterestSaveButton({ color }: { color: ColorRecord }) {
           onClose={() => setShowPicker(false)}
           saving={saving}
           saved={saved}
+        />
+      )}
+
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
         />
       )}
     </>
