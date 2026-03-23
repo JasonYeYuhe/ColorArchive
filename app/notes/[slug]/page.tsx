@@ -67,7 +67,7 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
       description: issue.summary,
       datePublished: issue.date,
       dateModified: issue.date,
-      keywords: issue.tags.join(", "),
+      keywords: (issue.tags ?? []).join(", "),
       url: `https://colorarchive.me/notes/${issue.slug}/`,
       image: `https://colorarchive.me/generated/og/notes/${issue.slug}.svg`,
       mainEntityOfPage: {

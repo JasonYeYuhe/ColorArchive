@@ -37,7 +37,7 @@ export function NoteDetailPage({
         <section className="rounded-[2rem] border border-black/6 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10 sm:py-14">
           <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-neutral-500">
             <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
-            {issue.eyebrow}
+            {issue.eyebrow ?? "ColorArchive Notes"}
           </div>
           <div className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
             {issue.date}
@@ -61,35 +61,45 @@ export function NoteDetailPage({
           </div>
         </section>
 
-        <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-            {t("note.highlights")}
-          </div>
-          <div className="mt-4 grid gap-3">
-            {issue.highlights.map((highlight) => (
-              <div
-                key={highlight}
-                className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 text-sm leading-6 text-neutral-600"
-              >
-                {highlight}
-              </div>
-            ))}
-          </div>
-        </section>
+        {issue.highlights && issue.highlights.length > 0 && (
+          <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              {t("note.highlights")}
+            </div>
+            <div className="mt-4 grid gap-3">
+              {issue.highlights.map((highlight) => (
+                <div
+                  key={highlight}
+                  className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 text-sm leading-6 text-neutral-600"
+                >
+                  {highlight}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,0.85fr)]">
           <div className="space-y-4">
-            {issue.sections.map((section) => (
-              <article
-                key={section.heading}
-                className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]"
-              >
-                <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                  {section.heading}
-                </h2>
-                <p className="mt-3 text-sm leading-7 text-neutral-600">{section.body}</p>
+            {issue.sections && issue.sections.length > 0 ? (
+              issue.sections.map((section) => (
+                <article
+                  key={section.heading}
+                  className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]"
+                >
+                  <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                    {section.heading}
+                  </h2>
+                  <p className="mt-3 text-sm leading-7 text-neutral-600">{section.body}</p>
+                </article>
+              ))
+            ) : issue.body ? (
+              <article className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <div className="prose prose-neutral max-w-none text-sm leading-7 text-neutral-600 [&_strong]:text-neutral-950 [&_p]:mb-4 whitespace-pre-line">
+                  {issue.body}
+                </div>
               </article>
-            ))}
+            ) : null}
           </div>
 
           <div className="space-y-4">
@@ -151,7 +161,7 @@ export function NoteDetailPage({
                 {t("note.openNext")}
               </div>
               <div className="mt-4 flex flex-wrap gap-2">
-                {issue.links.map((link) => (
+                {(issue.links ?? []).map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}

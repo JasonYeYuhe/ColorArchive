@@ -135,7 +135,7 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
                 ))}
               </div>
               <div className="mt-5 grid gap-2">
-                {issue.highlights.map((highlight) => (
+                {(issue.highlights ?? []).map((highlight) => (
                   <div
                     key={highlight}
                     className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 text-sm leading-6 text-neutral-600"
@@ -151,7 +151,7 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
                 >
                   Read issue
                 </Link>
-                {issue.links[0] ? (
+                {issue.links?.[0] ? (
                   <Link
                     href={issue.links[0].href}
                     className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"

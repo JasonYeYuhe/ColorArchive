@@ -15,13 +15,14 @@ export interface NewsletterIssue {
   date: string;
   title: string;
   summary: string;
-  eyebrow: string;
+  eyebrow?: string;
   tags: string[];
   featuredCollectionId?: string;
   featuredPackId?: string;
-  highlights: string[];
-  sections: NewsletterIssueSection[];
-  links: NewsletterIssueLink[];
+  highlights?: string[];
+  sections?: NewsletterIssueSection[];
+  links?: NewsletterIssueLink[];
+  body?: string;
 }
 
 export const newsletterIssues = issues as NewsletterIssue[];
