@@ -198,7 +198,8 @@ ColorArchive/
 │       ├── admin.js                      # GET /admin/* — orders dashboard
 │       ├── analytics.js                  # GET /analytics/* — internal stats
 │       ├── pageviews.js                  # POST /pageviews — page tracking
-│       └── og.js                         # GET /og — OG image generation
+│       ├── og.js                         # GET /og — OG image generation
+│       └── instagram.js                  # GET/POST /instagram/* — Instagram API (OAuth, publish, media feed)
 │
 ├── public/
 │   └── downloads/                        # Pack download files (.zip, .swatches)

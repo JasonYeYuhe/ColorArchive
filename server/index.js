@@ -40,6 +40,7 @@ app.use("/admin", require("./routes/admin"));
 app.use("/webhook", require("./routes/webhook"));
 app.use("/analytics", require("./routes/analytics"));
 app.use("/pageviews", require("./routes/pageviews"));
+app.use("/instagram", require("./routes/instagram"));
 
 app.get("/health", (_, res) => res.json({ ok: true }));
 
