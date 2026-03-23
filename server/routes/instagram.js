@@ -48,14 +48,19 @@ function clearNamedCookie(res, name) {
   res.setHeader("Set-Cookie", `${name}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`);
 }
 
-// Instagram API credentials (from Meta Developer Portal → Instagram App)
+// Instagram API credentials (from Meta Developer Portal)
+// Uses Facebook Login for Business with Instagram Graph API configuration
+const FB_APP_ID = process.env.FB_APP_ID || process.env.INSTAGRAM_APP_ID || "";
+const FB_APP_SECRET = process.env.FB_APP_SECRET || process.env.INSTAGRAM_APP_SECRET || "";
 const IG_APP_ID = process.env.INSTAGRAM_APP_ID || "";
 const IG_APP_SECRET = process.env.INSTAGRAM_APP_SECRET || "";
 const IG_REDIRECT_URI =
   process.env.INSTAGRAM_REDIRECT_URI || "https://api.colorarchive.me/instagram/auth/callback";
+const IG_CONFIG_ID = process.env.INSTAGRAM_CONFIG_ID || "1416912286310751";
 
-// Instagram Graph API base
+// Graph API base URLs
 const IG_GRAPH_URL = "https://graph.instagram.com";
+const FB_GRAPH_URL = "https://graph.facebook.com";
 const IG_API_URL = "https://api.instagram.com";
 
 // In-memory token store (persisted to .env.instagram file)
@@ -109,19 +114,14 @@ router.get("/auth/start", (req, res) => {
   // Store state in cookie for CSRF validation
   setNamedCookie(res, "ig_oauth_state", state, 10 * 60 * 1000);
 
-  const scopes = [
-    "instagram_business_basic",
-    "instagram_business_content_publish",
-    "instagram_business_manage_messages",
-    "instagram_business_manage_comments",
-  ].join(",");
-
+  // Use Facebook Login for Business with Instagram Graph API config
+  // This approach uses config_id instead of individual scopes
   const url =
-    `https://www.instagram.com/oauth/authorize?` +
-    `client_id=${IG_APP_ID}` +
+    `https://www.facebook.com/dialog/oauth?` +
+    `client_id=${FB_APP_ID}` +
     `&redirect_uri=${encodeURIComponent(IG_REDIRECT_URI)}` +
     `&response_type=code` +
-    `&scope=${encodeURIComponent(scopes)}` +
+    `&config_id=${IG_CONFIG_ID}` +
     `&state=${state}`;
 
   return res.redirect(url);
@@ -158,18 +158,13 @@ router.get("/auth/callback", async (req, res) => {
   }
 
   try {
-    // Step 1: Exchange code for short-lived token
-    const tokenRes = await fetch(`${IG_API_URL}/oauth/access_token`, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        client_id: IG_APP_ID,
-        client_secret: IG_APP_SECRET,
-        grant_type: "authorization_code",
-        redirect_uri: IG_REDIRECT_URI,
-        code,
-      }),
-    });
+    // Step 1: Exchange code for access token via Facebook Graph API
+    const tokenRes = await fetch(`${FB_GRAPH_URL}/v25.0/oauth/access_token?` +
+      `client_id=${FB_APP_ID}` +
+      `&redirect_uri=${encodeURIComponent(IG_REDIRECT_URI)}` +
+      `&client_secret=${FB_APP_SECRET}` +
+      `&code=${code}`
+    );
 
     const tokenData = await tokenRes.json();
     if (!tokenRes.ok || !tokenData.access_token) {
@@ -177,34 +172,28 @@ router.get("/auth/callback", async (req, res) => {
       return res.redirect(`${FRONTEND_ORIGIN}/?ig_error=token-exchange`);
     }
 
-    console.log("[instagram] Short-lived token obtained for user:", tokenData.user_id);
+    console.log("[instagram] Access token obtained, type:", tokenData.token_type);
 
-    // Step 2: Exchange short-lived for long-lived token (60 days)
-    const longRes = await fetch(
-      `${IG_GRAPH_URL}/access_token?` +
-        `grant_type=ig_exchange_token` +
-        `&client_secret=${IG_APP_SECRET}` +
-        `&access_token=${tokenData.access_token}`
-    );
+    // For system-user tokens (never expire), store directly
+    // For user tokens, they may have expires_in
+    const expiresIn = tokenData.expires_in || null;
+    tokenStore = {
+      access_token: tokenData.access_token,
+      user_id: null, // Will be populated by first API call
+      expires_at: expiresIn ? new Date(Date.now() + expiresIn * 1000).toISOString() : "never",
+      token_type: tokenData.token_type || "bearer",
+    };
 
-    const longData = await longRes.json();
-    if (!longRes.ok || !longData.access_token) {
-      console.error("[instagram] Long-lived token exchange failed:", longData);
-      // Fall back to short-lived token
-      tokenStore = {
-        access_token: tokenData.access_token,
-        user_id: String(tokenData.user_id),
-        expires_at: new Date(Date.now() + 3600 * 1000).toISOString(),
-        token_type: "short-lived",
-      };
-    } else {
-      tokenStore = {
-        access_token: longData.access_token,
-        user_id: String(tokenData.user_id),
-        expires_at: new Date(Date.now() + longData.expires_in * 1000).toISOString(),
-        token_type: "long-lived",
-      };
-      console.log("[instagram] Long-lived token obtained, expires:", tokenStore.expires_at);
+    // Try to get the Instagram user ID from the token
+    try {
+      const meRes = await fetch(`${IG_GRAPH_URL}/me?fields=id,username&access_token=${tokenData.access_token}`);
+      const meData = await meRes.json();
+      if (meData.id) {
+        tokenStore.user_id = meData.id;
+        console.log("[instagram] Connected as:", meData.username, "(ID:", meData.id, ")");
+      }
+    } catch (e) {
+      console.warn("[instagram] Could not fetch IG user info:", e.message);
     }
 
     saveTokenStore();
