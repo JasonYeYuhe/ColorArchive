@@ -17,6 +17,7 @@ const API_PROXY = "https://api.colorarchive.me/pinterest";
 
 const SCOPES = "boards:read,pins:read,pins:write,boards:write";
 const LS_KEY = "colorarchive-pinterest-token";
+const LS_RETURN_KEY = "colorarchive-pinterest-return";
 
 /* ── Auth helpers ──────────────────────────────────────────── */
 
@@ -45,6 +46,18 @@ export function storeToken(token: string): void {
 export function clearToken(): void {
   localStorage.removeItem(LS_KEY);
   window.dispatchEvent(new CustomEvent("pinterest-token-change"));
+}
+
+/** Save the current path so we can return after OAuth. */
+export function setReturnPath(path: string): void {
+  localStorage.setItem(LS_RETURN_KEY, path);
+}
+
+/** Get and clear the saved return path. */
+export function consumeReturnPath(): string {
+  const path = localStorage.getItem(LS_RETURN_KEY) || "/";
+  localStorage.removeItem(LS_RETURN_KEY);
+  return path;
 }
 
 export function subscribeToPinterestToken(cb: () => void): () => void {

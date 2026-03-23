@@ -9,6 +9,7 @@ import {
   createPin,
   clearToken,
   subscribeToPinterestToken,
+  setReturnPath,
 } from "@/src/lib/pinterest";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -202,7 +203,8 @@ export function PinterestSaveButton({ color }: { color: ColorRecord }) {
 
   const handleClick = () => {
     if (!token) {
-      // Redirect to Pinterest OAuth
+      // Save current path so callback can redirect back here
+      setReturnPath(window.location.pathname);
       window.location.href = getPinterestAuthUrl();
       return;
     }

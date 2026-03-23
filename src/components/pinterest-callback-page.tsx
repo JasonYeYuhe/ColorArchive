@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { storeToken, exchangeCodeForToken } from "@/src/lib/pinterest";
+import { storeToken, exchangeCodeForToken, consumeReturnPath } from "@/src/lib/pinterest";
 
 /**
  * Pinterest OAuth callback page.
@@ -15,8 +15,12 @@ import { storeToken, exchangeCodeForToken } from "@/src/lib/pinterest";
 export function PinterestCallbackPage() {
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [errorMsg, setErrorMsg] = useState("");
+  const [returnPath, setReturnPath] = useState("/");
 
   useEffect(() => {
+    // Read return path before anything else (consumeReturnPath clears it)
+    setReturnPath(consumeReturnPath());
+
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
     const error = params.get("error");
@@ -75,7 +79,7 @@ export function PinterestCallbackPage() {
             Your Pinterest account is now linked. You can save colors as Pins from any color detail page.
           </p>
           <Link
-            href="/"
+            href={returnPath}
             className="inline-block rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-800"
           >
             Back to ColorArchive
@@ -93,7 +97,7 @@ export function PinterestCallbackPage() {
           <h1 className="text-xl font-semibold text-neutral-950">Connection Failed</h1>
           <p className="text-sm text-neutral-500">{errorMsg}</p>
           <Link
-            href="/"
+            href={returnPath}
             className="inline-block rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-800"
           >
             Back to ColorArchive
