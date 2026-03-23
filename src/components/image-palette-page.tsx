@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { hexToRgb, rgbToHsl, rgbToHex } from "@/src/lib/color-utils";
 import { colors as archiveColors } from "@/src/data/colors";
+import { addManyToPalette } from "@/src/lib/palette-builder";
 import { useLocale } from "@/src/components/locale-provider";
 import { t } from "@/src/lib/i18n";
 
@@ -192,6 +193,29 @@ function formatForExport(colors: ExtractedColor[], format: ExportFormat): string
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
+
+function AddMatchesToPaletteButton({ matchedColors }: { matchedColors: { archiveId: string | null }[] }) {
+  const [added, setAdded] = useState(false);
+  const ids = matchedColors.map((m) => m.archiveId).filter((id): id is string => Boolean(id));
+  if (ids.length === 0) return null;
+  const handleAdd = () => {
+    addManyToPalette(ids);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+  return added ? (
+    <Link href="/palette/" className="text-sm text-indigo-600 hover:underline font-medium">
+      ✓ Added to Palette Builder →
+    </Link>
+  ) : (
+    <button
+      onClick={handleAdd}
+      className="px-3 py-1.5 text-sm bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-lg hover:bg-indigo-100 transition-colors font-medium"
+    >
+      + Add all to Palette Builder
+    </button>
+  );
+}
 
 export function ImagePalettePage() {
   const { locale } = useLocale();
@@ -487,7 +511,10 @@ export function ImagePalettePage() {
         {/* Results: matched colors detail */}
         {matchedColors.length > 0 && (
           <section>
-            <h2 className="text-lg font-semibold text-slate-800 mb-4">Color Details</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-slate-800">Color Details</h2>
+              <AddMatchesToPaletteButton matchedColors={matchedColors} />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {matchedColors.map((mc, i) => {
                 const c = mc.extracted;

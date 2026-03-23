@@ -8,7 +8,7 @@ import { useLocale } from "@/src/components/locale-provider";
 import type { ColorRecord } from "@/src/types/color";
 
 /* ------------------------------------------------------------------ */
-/*  WCAG contrast helpers                                              */
+/*  WCAG contrast helpers + fix suggestions                           */
 /* ------------------------------------------------------------------ */
 
 function hexToRgb(hex: string): { r: number; g: number; b: number } {
@@ -93,6 +93,116 @@ function evaluateWcag(hex1: string, hex2: string): WcagResult {
     aaaLarge: ratio >= 4.5 ? "Pass" : "Fail",
     aaUi: ratio >= 3 ? "Pass" : "Fail",
   };
+}
+
+/* ------------------------------------------------------------------ */
+/*  Fix suggestions                                                    */
+/* ------------------------------------------------------------------ */
+
+interface FixSuggestion {
+  label: string;
+  hex: string;
+  ratio: number;
+  target: "fg" | "bg";
+}
+
+function hexToHsl(hex: string): { h: number; s: number; l: number } {
+  const { r, g, b } = hexToRgb(hex);
+  const rn = r / 255, gn = g / 255, bn = b / 255;
+  const max = Math.max(rn, gn, bn), min = Math.min(rn, gn, bn);
+  const l = (max + min) / 2;
+  if (max === min) return { h: 0, s: 0, l: Math.round(l * 100) };
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  let h = 0;
+  if (max === rn) h = ((gn - bn) / d + (gn < bn ? 6 : 0)) / 6;
+  else if (max === gn) h = ((bn - rn) / d + 2) / 6;
+  else h = ((rn - gn) / d + 4) / 6;
+  return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+}
+
+function adjustedHex(hsl: { h: number; s: number; l: number }, newL: number): string {
+  const rgb = hslToRgb(hsl.h, hsl.s, Math.max(0, Math.min(100, newL)));
+  return rgbToHex(rgb);
+}
+
+function suggestFixes(fgHex: string, bgHex: string, targetRatio = 4.5): FixSuggestion[] {
+  const results: FixSuggestion[] = [];
+  const fgHsl = hexToHsl(fgHex);
+  const bgHsl = hexToHsl(bgHex);
+
+  // Binary search: adjust fg lighter
+  let lo = fgHsl.l, hi = 100;
+  for (let i = 0; i < 20; i++) {
+    const mid = (lo + hi) / 2;
+    if (getContrastRatio(adjustedHex(fgHsl, mid), bgHex) >= targetRatio) hi = mid;
+    else lo = mid;
+  }
+  if (hi < 99 && hi > fgHsl.l + 1) {
+    const hex = adjustedHex(fgHsl, Math.ceil(hi));
+    results.push({ label: "Lighten foreground", hex, ratio: Math.round(getContrastRatio(hex, bgHex) * 100) / 100, target: "fg" });
+  }
+
+  // Binary search: adjust fg darker
+  lo = 0; hi = fgHsl.l;
+  for (let i = 0; i < 20; i++) {
+    const mid = (lo + hi) / 2;
+    if (getContrastRatio(adjustedHex(fgHsl, mid), bgHex) >= targetRatio) lo = mid;
+    else hi = mid;
+  }
+  if (lo > 1 && lo < fgHsl.l - 1) {
+    const hex = adjustedHex(fgHsl, Math.floor(lo));
+    results.push({ label: "Darken foreground", hex, ratio: Math.round(getContrastRatio(hex, bgHex) * 100) / 100, target: "fg" });
+  }
+
+  // Binary search: adjust bg lighter
+  lo = bgHsl.l; hi = 100;
+  for (let i = 0; i < 20; i++) {
+    const mid = (lo + hi) / 2;
+    if (getContrastRatio(fgHex, adjustedHex(bgHsl, mid)) >= targetRatio) hi = mid;
+    else lo = mid;
+  }
+  if (hi < 99 && hi > bgHsl.l + 1) {
+    const hex = adjustedHex(bgHsl, Math.ceil(hi));
+    results.push({ label: "Lighten background", hex, ratio: Math.round(getContrastRatio(fgHex, hex) * 100) / 100, target: "bg" });
+  }
+
+  return results.filter((r) => r.ratio >= targetRatio).slice(0, 3);
+}
+
+function ContrastFixSuggestions({
+  fgHex, bgHex, onApply,
+}: {
+  fgHex: string;
+  bgHex: string;
+  onApply: (fg: string, bg: string) => void;
+}) {
+  const fixes = useMemo(() => suggestFixes(fgHex, bgHex), [fgHex, bgHex]);
+  if (fixes.length === 0) return null;
+  return (
+    <div className="rounded-[1.4rem] border border-amber-200/80 bg-amber-50/60 p-4">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-700 mb-3">
+        Fix suggestions — adjustments that pass AA (4.5:1)
+      </p>
+      <div className="flex flex-col gap-2">
+        {fixes.map((fix) => (
+          <div key={fix.hex} className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg shrink-0 border border-black/8" style={{ backgroundColor: fix.hex }} />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm text-neutral-700 font-medium">{fix.label}</p>
+              <p className="text-xs font-mono text-neutral-500">{fix.hex} · {fix.ratio}:1</p>
+            </div>
+            <button
+              onClick={() => onApply(fix.target === "fg" ? fix.hex : fgHex, fix.target === "bg" ? fix.hex : bgHex)}
+              className="shrink-0 px-3 py-1.5 text-xs font-medium bg-white border border-black/8 rounded-full hover:bg-neutral-950 hover:text-white transition-colors"
+            >
+              Apply
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 /* ------------------------------------------------------------------ */
@@ -422,6 +532,15 @@ export function ContrastCheckerPage() {
               </div>
             </div>
           </div>
+          {wcag.aaNormal === "Fail" && (
+            <div className="mt-4">
+              <ContrastFixSuggestions
+                fgHex={fgHex}
+                bgHex={bgHex}
+                onApply={(fg, bg) => { setFgHex(fg); setBgHex(bg); }}
+              />
+            </div>
+          )}
         </section>
 
         {/* Color blindness simulation */}

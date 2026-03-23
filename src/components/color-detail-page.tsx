@@ -381,6 +381,7 @@ export function ColorDetailPage({
                 <CopyButton label="hex" value={color.hex} />
                 <CopyButton label="rgb" value={color.rgb} />
                 <CopyButton label="hsl" value={color.hsl} />
+                <CopyButton label="tailwind" value={`bg-[${color.hex}]`} />
                 <CopyButton label="all" value={`${color.name}\nHEX: ${color.hex}\nRGB: ${color.rgb}\nHSL: ${color.hsl}\nFamily: ${color.family}`} />
                 <CopyButton label="palette" value={paletteExport} />
                 <CopyButton label="CSS vars" value={cssVariableExport} />

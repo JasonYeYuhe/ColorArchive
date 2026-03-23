@@ -6,6 +6,7 @@ import { hexToRgb, rgbToHsl, rgbToHex } from "@/src/lib/color-utils";
 import { findNearestArchiveColor, getNearestColors } from "@/src/lib/color-relationships";
 import { colors as archiveColors } from "@/src/data/colors";
 import { toggleFavoriteColor, isFavoriteColor, subscribeToFavorites } from "@/src/lib/favorites";
+import { addManyToPalette } from "@/src/lib/palette-builder";
 import type { ColorRecord } from "@/src/types/color";
 
 /* ------------------------------------------------------------------ */
@@ -631,6 +632,29 @@ function HexInputMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) 
 /*  Main Page                                                          */
 /* ------------------------------------------------------------------ */
 
+function AddHistoryToPaletteButton({ history }: { history: IdentifiedColor[] }) {
+  const [added, setAdded] = useState(false);
+  const ids = history.map((h) => h.match?.id).filter((id): id is string => Boolean(id));
+  if (ids.length === 0) return null;
+  const handleAdd = () => {
+    addManyToPalette(ids);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+  return added ? (
+    <Link href="/palette/" className="text-xs text-indigo-600 hover:underline">
+      ✓ Added — View palette →
+    </Link>
+  ) : (
+    <button
+      onClick={handleAdd}
+      className="text-xs text-slate-500 hover:text-indigo-600 transition-colors"
+    >
+      + Add all to Palette Builder
+    </button>
+  );
+}
+
 const MAX_HISTORY = 6;
 
 export function ColorFinderPage() {
@@ -717,7 +741,10 @@ export function ColorFinderPage() {
         {/* Color history */}
         {history.length > 1 && (
           <div>
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Recent picks</p>
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Recent picks</p>
+              <AddHistoryToPaletteButton history={history} />
+            </div>
             <div className="flex gap-2 flex-wrap">
               {history.map((h, i) => (
                 <button

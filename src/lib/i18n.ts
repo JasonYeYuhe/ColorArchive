@@ -28,6 +28,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.brand": { en: "Brand System", zh: "品牌色系" },
   "nav.wcagAudit": { en: "WCAG Audit", zh: "批量检测" },
   "nav.imagePalette": { en: "Image Extractor", zh: "图片取色" },
+  "nav.colorFinder": { en: "Color Finder", zh: "颜色识别" },
   "nav.combinations": { en: "Combinations", zh: "配色组合" },
   "nav.apiDocs": { en: "Color API", zh: "颜色 API" },
   "nav.figmaPlugin": { en: "Figma Plugin", zh: "Figma 插件" },
