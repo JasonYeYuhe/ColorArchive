@@ -4,57 +4,40 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchSession, type AuthSession } from "@/src/lib/auth-client";
 import { proSubscriptionConfig } from "@/src/lib/checkout-config";
+import { useLocale } from "@/src/components/locale-provider";
 
-const FEATURES = [
-  {
-    title: "Unlimited AI Generations",
-    description: "Brand palettes, mood palettes, and AI color naming — no daily limits.",
-    icon: (
-      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Unlimited Exports",
-    description: "CSS variables, Tailwind config, SCSS, and JSON — export as many palettes as you need.",
-    icon: (
-      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-      </svg>
-    ),
-  },
-  {
-    title: "WCAG Audit Reports",
-    description: "Download full accessibility audit reports for your color systems.",
-    icon: (
-      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Full Token Generator",
-    description: "Complete color scale output (50-950) in all formats, not just previews.",
-    icon: (
-      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
-      </svg>
-    ),
-  },
+const FEATURE_ICONS = [
+  (
+    <svg key="ai" className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+    </svg>
+  ),
+  (
+    <svg key="export" className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+    </svg>
+  ),
+  (
+    <svg key="wcag" className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+    </svg>
+  ),
+  (
+    <svg key="token" className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
+    </svg>
+  ),
 ];
 
-const COMPARISON = [
-  { feature: "Browse 3,000+ colors", free: true, pro: true },
-  { feature: "Copy hex / RGB / HSL", free: true, pro: true },
-  { feature: "AI generations per day", free: "3 (anonymous) / 10 (signed in)", pro: "Unlimited" },
-  { feature: "Export palettes", free: "1 per day", pro: "Unlimited" },
-  { feature: "WCAG audit download", free: false, pro: true },
-  { feature: "Token generator output", free: "Preview", pro: "Full" },
-  { feature: "Image palette save", free: false, pro: true },
+const FEATURE_KEYS = [
+  { titleKey: "pro.feature1.title", descKey: "pro.feature1.desc" },
+  { titleKey: "pro.feature2.title", descKey: "pro.feature2.desc" },
+  { titleKey: "pro.feature3.title", descKey: "pro.feature3.desc" },
+  { titleKey: "pro.feature4.title", descKey: "pro.feature4.desc" },
 ];
 
 export function ProPage() {
+  const { t } = useLocale();
   const [billing, setBilling] = useState<"monthly" | "yearly">("yearly");
   const [session, setSession] = useState<AuthSession | null>(null);
 
@@ -65,18 +48,28 @@ export function ProPage() {
   const isPro = session?.auth.tier === "pro";
   const plan = proSubscriptionConfig[billing];
 
+  const COMPARISON: { featureKey: string; free: boolean | string; pro: boolean | string }[] = [
+    { featureKey: "pro.comparison.row1", free: true, pro: true },
+    { featureKey: "pro.comparison.row2", free: true, pro: true },
+    { featureKey: "pro.comparison.row3", free: t("pro.comparison.row3free"), pro: t("pro.comparison.row3pro") },
+    { featureKey: "pro.comparison.row4", free: t("pro.comparison.row4free"), pro: t("pro.comparison.row4pro") },
+    { featureKey: "pro.comparison.row5", free: false, pro: true },
+    { featureKey: "pro.comparison.row6", free: t("pro.comparison.row6free"), pro: t("pro.comparison.row6pro") },
+    { featureKey: "pro.comparison.row7", free: false, pro: true },
+  ];
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 pb-24">
       {/* Hero */}
       <section className="max-w-3xl mx-auto px-4 pt-12 pb-10 text-center">
         <span className="inline-block px-3 py-1 text-xs font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 rounded-full mb-4">
-          PRO
+          {t("pro.badge")}
         </span>
         <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight mb-3">
-          Unlock the full power of ColorArchive
+          {t("pro.heroTitle")}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base max-w-lg mx-auto">
-          Unlimited AI generations, full exports, accessibility reports, and more — everything professionals need to ship faster.
+          {t("pro.heroDesc")}
         </p>
       </section>
 
@@ -91,7 +84,7 @@ export function ProPage() {
                 billing === "monthly" ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm" : "text-slate-500 dark:text-slate-400"
               }`}
             >
-              Monthly
+              {t("pro.monthly")}
             </button>
             <button
               onClick={() => setBilling("yearly")}
@@ -99,7 +92,7 @@ export function ProPage() {
                 billing === "yearly" ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm" : "text-slate-500 dark:text-slate-400"
               }`}
             >
-              Yearly <span className="text-indigo-600 text-xs font-semibold ml-1">Save 31%</span>
+              {t("pro.yearly")} <span className="text-indigo-600 text-xs font-semibold ml-1">{t("pro.yearlySave")}</span>
             </button>
           </div>
 
@@ -110,42 +103,42 @@ export function ProPage() {
 
           {isPro ? (
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-semibold">
-              <span>&#10003;</span> You&apos;re on Pro
+              <span>&#10003;</span> {t("pro.youreOnPro")}
             </div>
           ) : plan.url ? (
             <a
               href={plan.url}
               className="inline-block px-8 py-3 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
             >
-              Subscribe to Pro
+              {t("pro.subscribeToPro")}
             </a>
           ) : (
             <div className="space-y-3">
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                Pro subscriptions are launching soon.
+                {t("pro.launchingSoon")}
               </p>
               <Link
                 href="/free-pack"
                 className="inline-block px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-700 transition-colors"
               >
-                Join the waitlist
+                {t("pro.joinWaitlist")}
               </Link>
             </div>
           )}
 
-          <p className="text-xs text-slate-400 mt-3">Cancel anytime. 7-day money-back guarantee.</p>
+          <p className="text-xs text-slate-400 mt-3">{t("pro.cancelAnytime")}</p>
         </div>
 
         {/* Features grid */}
         <div className="grid sm:grid-cols-2 gap-4">
-          {FEATURES.map((f) => (
-            <div key={f.title} className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-100 dark:border-white/10 shadow-sm p-5 flex gap-4">
+          {FEATURE_KEYS.map((f, i) => (
+            <div key={f.titleKey} className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-100 dark:border-white/10 shadow-sm p-5 flex gap-4">
               <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-                {f.icon}
+                {FEATURE_ICONS[i]}
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-800 dark:text-white mb-1">{f.title}</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{f.description}</p>
+                <p className="text-sm font-semibold text-slate-800 dark:text-white mb-1">{t(f.titleKey)}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{t(f.descKey)}</p>
               </div>
             </div>
           ))}
@@ -154,13 +147,13 @@ export function ProPage() {
         {/* Comparison table */}
         <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm overflow-hidden">
           <div className="grid grid-cols-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-white/10 px-6 py-3">
-            <span>Feature</span>
-            <span className="text-center">Free</span>
-            <span className="text-center">Pro</span>
+            <span>{t("pro.comparison.feature")}</span>
+            <span className="text-center">{t("pro.comparison.free")}</span>
+            <span className="text-center">{t("pro.comparison.pro")}</span>
           </div>
           {COMPARISON.map((row) => (
-            <div key={row.feature} className="grid grid-cols-3 text-sm px-6 py-3 border-b border-slate-50 last:border-0">
-              <span className="text-slate-700">{row.feature}</span>
+            <div key={row.featureKey} className="grid grid-cols-3 text-sm px-6 py-3 border-b border-slate-50 last:border-0">
+              <span className="text-slate-700">{t(row.featureKey)}</span>
               <span className="text-center text-slate-500">
                 {row.free === true ? (
                   <span className="text-emerald-500">&#10003;</span>
@@ -181,23 +174,22 @@ export function ProPage() {
           ))}
         </div>
 
+        {/* Testimonial */}
+        <div className="bg-indigo-50/60 dark:bg-indigo-950/20 rounded-2xl border border-indigo-100 dark:border-indigo-900/30 p-6 text-center">
+          <p className="text-sm text-indigo-900 dark:text-indigo-300 italic leading-relaxed mb-3">
+            &ldquo;{t("pro.testimonial")}&rdquo;
+          </p>
+          <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-400">{t("pro.testimonialAuthor")}</p>
+        </div>
+
         {/* FAQ */}
         <section>
-          <h2 className="text-lg font-semibold text-slate-800 dark:text-white mb-4">Frequently asked questions</h2>
+          <h2 className="text-lg font-semibold text-slate-800 dark:text-white mb-4">{t("pro.faqTitle")}</h2>
           <div className="space-y-4">
             {[
-              {
-                q: "Can I try before I subscribe?",
-                a: "Yes! Free accounts get 10 AI generations per day and 1 export per day. No credit card required.",
-              },
-              {
-                q: "What happens when my subscription ends?",
-                a: "You keep access to all colors and tools. AI generations and exports revert to free tier limits.",
-              },
-              {
-                q: "Can I get a refund?",
-                a: "Yes, we offer a 7-day money-back guarantee. Email hello@colorarchive.me.",
-              },
+              { q: t("pro.faq.q1"), a: t("pro.faq.a1") },
+              { q: t("pro.faq.q2"), a: t("pro.faq.a2") },
+              { q: t("pro.faq.q3"), a: t("pro.faq.a3") },
             ].map(({ q, a }) => (
               <div key={q} className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-100 dark:border-white/10 shadow-sm p-5">
                 <p className="text-sm font-semibold text-slate-800 dark:text-white mb-1">{q}</p>

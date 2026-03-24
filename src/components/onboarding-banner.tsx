@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useLocale } from "@/src/components/locale-provider";
 
 const DISMISSED_KEY = "colorarchive_onboarding_dismissed";
 
 export function OnboardingBanner() {
+  const { t } = useLocale();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export function OnboardingBanner() {
         </button>
 
         <p className="text-sm font-semibold text-indigo-900 dark:text-indigo-300 mb-3">
-          New here? 3 ways to start:
+          {t("onboarding.title")}
         </p>
 
         <div className="flex flex-wrap gap-2">
@@ -43,7 +45,7 @@ export function OnboardingBanner() {
             className="flex items-center gap-2 rounded-xl bg-white dark:bg-white/10 border border-indigo-200/50 dark:border-white/10 px-4 py-2.5 text-sm font-medium text-indigo-800 dark:text-indigo-300 transition hover:bg-indigo-50 dark:hover:bg-white/15"
           >
             <span className="text-base">&#9632;</span>
-            Browse 3,000+ colors
+            {t("onboarding.browseColors")}
           </Link>
           <Link
             href="/brand-generator/"
@@ -51,7 +53,7 @@ export function OnboardingBanner() {
             className="flex items-center gap-2 rounded-xl bg-white dark:bg-white/10 border border-indigo-200/50 dark:border-white/10 px-4 py-2.5 text-sm font-medium text-indigo-800 dark:text-indigo-300 transition hover:bg-indigo-50 dark:hover:bg-white/15"
           >
             <span className="text-base">&#10024;</span>
-            AI Brand Palette
+            {t("onboarding.aiBrand")}
           </Link>
           <Link
             href="/image-palette/"
@@ -59,7 +61,7 @@ export function OnboardingBanner() {
             className="flex items-center gap-2 rounded-xl bg-white dark:bg-white/10 border border-indigo-200/50 dark:border-white/10 px-4 py-2.5 text-sm font-medium text-indigo-800 dark:text-indigo-300 transition hover:bg-indigo-50 dark:hover:bg-white/15"
           >
             <span className="text-base">&#128247;</span>
-            Extract from image
+            {t("onboarding.extractImage")}
           </Link>
         </div>
       </div>

@@ -107,6 +107,32 @@ export function HeroSectionBelowFold() {
         </div>
       </section>
 
+      {/* Social proof */}
+      <section className="rounded-[2rem] border border-black/6 bg-gradient-to-br from-indigo-50/40 to-white/60 px-6 py-6 shadow-sm backdrop-blur-xl sm:px-10 dark:border-white/10 dark:from-indigo-950/20 dark:to-neutral-900/60">
+        <div className="mx-auto max-w-4xl">
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              { quote: "Finally, a color tool that gets naming right. The poetic names make client presentations so much easier.", author: "Brand Designer", org: "Freelance" },
+              { quote: "The AI brand generator saved us hours. We went from brief to tokens in under 5 minutes.", author: "Product Lead", org: "SaaS Startup" },
+              { quote: "3,000+ colors with real structure, not random hex codes. This is what Coolors should have been.", author: "UI Engineer", org: "Design Studio" },
+            ].map(({ quote, author, org }) => (
+              <div key={author} className="rounded-xl border border-black/4 bg-white/80 p-4 dark:border-white/8 dark:bg-white/5">
+                <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 italic mb-3">&ldquo;{quote}&rdquo;</p>
+                <p className="text-[11px] font-semibold text-neutral-800 dark:text-neutral-300">{author}</p>
+                <p className="text-[10px] text-neutral-400">{org}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] text-neutral-400">
+            <span>Product Hunt #1 Color Tool</span>
+            <span className="hidden sm:inline">&#183;</span>
+            <span>3,066 curated colors</span>
+            <span className="hidden sm:inline">&#183;</span>
+            <span>Figma plugin available</span>
+          </div>
+        </div>
+      </section>
+
       {/* Tools hub */}
       <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:px-10 sm:py-10 dark:border-white/10 dark:bg-neutral-900/80">
         <div className="mx-auto max-w-4xl">

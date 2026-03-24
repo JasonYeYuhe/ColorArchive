@@ -1,0 +1,25 @@
+{
+  "name": "ColorArchive",
+  "short_name": "ColorArchive",
+  "description": "3,000+ curated colors with AI palette tools, design tokens, and WCAG accessibility checks.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#1a1a2e",
+  "orientation": "any",
+  "categories": ["design", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "apple touch icon"
+    }
+  ]
+}

@@ -10,6 +10,7 @@ import {
   shareProject,
   type Project,
 } from "@/src/lib/auth-client";
+import { useLocale } from "@/src/components/locale-provider";
 
 function ProjectCard({
   project,
@@ -20,6 +21,7 @@ function ProjectCard({
   onDelete: (id: number) => void;
   onShare: (id: number) => void;
 }) {
+  const { t } = useLocale();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const palette = project.palette.slice(0, 8);
 
@@ -37,7 +39,7 @@ function ProjectCard({
           ))
         ) : (
           <div className="flex-1 bg-slate-100 dark:bg-white/8 flex items-center justify-center">
-            <span className="text-xs text-slate-400">No colors</span>
+            <span className="text-xs text-slate-400">{t("projects.noColors")}</span>
           </div>
         )}
       </div>
@@ -64,11 +66,11 @@ function ProjectCard({
         <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-white/10">
           <div className="flex items-center gap-2">
             <span className="text-[10px] text-slate-400">
-              {palette.length} colors
+              {palette.length} {t("projects.colors")}
             </span>
             {project.hasCritique && (
               <span className="text-[10px] px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full">
-                Reviewed
+                {t("projects.reviewed")}
               </span>
             )}
           </div>
@@ -76,23 +78,23 @@ function ProjectCard({
             <button
               onClick={() => onShare(project.id)}
               className="text-[10px] px-2 py-1 text-slate-500 hover:text-indigo-600 transition-colors"
-              title="Share"
+              title={t("projects.share")}
             >
-              Share
+              {t("projects.share")}
             </button>
             {confirmDelete ? (
               <button
                 onClick={() => { onDelete(project.id); setConfirmDelete(false); }}
                 className="text-[10px] px-2 py-1 text-red-600 font-semibold"
               >
-                Confirm
+                {t("projects.confirm")}
               </button>
             ) : (
               <button
                 onClick={() => setConfirmDelete(true)}
                 className="text-[10px] px-2 py-1 text-slate-400 hover:text-red-500 transition-colors"
               >
-                Delete
+                {t("projects.delete")}
               </button>
             )}
           </div>
@@ -103,6 +105,7 @@ function ProjectCard({
 }
 
 export function ProjectsPage() {
+  const { t } = useLocale();
   const { status, tier } = useAuth();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -114,11 +117,11 @@ export function ProjectsPage() {
       const { projects: data } = await fetchProjects();
       setProjects(data);
     } catch {
-      setError("Failed to load projects.");
+      setError(t("projects.loadError"));
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -133,7 +136,7 @@ export function ProjectsPage() {
       await deleteProject(id);
       setProjects((prev) => prev.filter((p) => p.id !== id));
     } catch {
-      setError("Failed to delete project.");
+      setError(t("projects.deleteError"));
     }
   };
 
@@ -145,7 +148,7 @@ export function ProjectsPage() {
       setShareUrl(url);
       setTimeout(() => setShareUrl(null), 3000);
     } catch {
-      setError("Failed to generate share link.");
+      setError(t("projects.shareError"));
     }
   };
 
@@ -153,15 +156,15 @@ export function ProjectsPage() {
     return (
       <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 flex items-center justify-center p-4">
         <div className="text-center max-w-sm space-y-4">
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Sign in to save projects</h1>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{t("projects.signInTitle")}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Save your palettes, brand systems, and design reviews in the cloud. Access them anywhere.
+            {t("projects.signInDesc")}
           </p>
           <Link
             href="/login?next=/projects"
             className="inline-block px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-700 transition-colors"
           >
-            Sign in
+            {t("projects.signIn")}
           </Link>
         </div>
       </main>
@@ -173,9 +176,9 @@ export function ProjectsPage() {
       <section className="max-w-4xl mx-auto px-4 pt-10 pb-6">
         <div className="flex items-center justify-between mb-1">
           <div>
-            <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">Workspace</p>
+            <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">{t("projects.workspace")}</p>
             <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
-              Projects
+              {t("projects.title")}
             </h1>
           </div>
           {tier !== "pro" && (
@@ -183,19 +186,19 @@ export function ProjectsPage() {
               href="/pro"
               className="text-xs text-indigo-600 hover:text-indigo-500 font-medium"
             >
-              {projects.length}/3 free &middot; Upgrade
+              {projects.length}/3 {t("projects.freeUpgrade")} &middot; {t("projects.upgrade")}
             </Link>
           )}
         </div>
         <p className="text-slate-500 dark:text-slate-400 text-sm">
-          Your saved palettes, brand systems, and design reviews.
+          {t("projects.desc")}
         </p>
       </section>
 
       <div className="max-w-4xl mx-auto px-4 space-y-6">
         {shareUrl && (
           <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl px-4 py-3 text-sm text-emerald-700 dark:text-emerald-400">
-            Link copied to clipboard!
+            {t("projects.linkCopied")}
           </div>
         )}
 
@@ -214,14 +217,14 @@ export function ProjectsPage() {
         ) : projects.length === 0 ? (
           <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-10 text-center">
             <p className="text-slate-500 dark:text-slate-400 text-sm mb-4">
-              No projects yet. Generate a palette and save it here.
+              {t("projects.noProjects")}
             </p>
             <div className="flex flex-wrap justify-center gap-2">
               <Link href="/brand-generator/" className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-700 transition-colors">
-                Brand Generator
+                {t("projects.brandGenerator")}
               </Link>
               <Link href="/mood-palette/" className="px-4 py-2 bg-indigo-600 text-white text-xs font-semibold rounded-xl hover:bg-indigo-500 transition-colors">
-                Mood Palette
+                {t("projects.moodPalette")}
               </Link>
             </div>
           </div>

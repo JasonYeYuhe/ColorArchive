@@ -5,8 +5,10 @@ import Link from "next/link";
 import { useAuth } from "@/src/components/auth-provider";
 import { fetchUsage, type UsageStats, API_URL } from "@/src/lib/auth-client";
 import { ReferralCard } from "@/src/components/referral-card";
+import { useLocale } from "@/src/components/locale-provider";
 
 function UsageBar({ used, limit, label }: { used: number; limit: number | null; label: string }) {
+  const { t } = useLocale();
   const isUnlimited = limit === null;
   const pct = isUnlimited ? 0 : limit > 0 ? Math.min((used / limit) * 100, 100) : 0;
   const isNearLimit = !isUnlimited && limit > 0 && used >= limit * 0.8;
@@ -17,7 +19,7 @@ function UsageBar({ used, limit, label }: { used: number; limit: number | null; 
         <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{label}</span>
         <span className="text-xs text-slate-500 dark:text-slate-400">
           {isUnlimited ? (
-            <span className="text-indigo-600 dark:text-indigo-400 font-semibold">Unlimited</span>
+            <span className="text-indigo-600 dark:text-indigo-400 font-semibold">{t("account.unlimited")}</span>
           ) : (
             <>{used} / {limit}</>
           )}
@@ -38,6 +40,7 @@ function UsageBar({ used, limit, label }: { used: number; limit: number | null; 
 }
 
 function ApiKeySection() {
+  const { t } = useLocale();
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -71,8 +74,8 @@ function ApiKeySection() {
 
   return (
     <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6">
-      <h2 className="text-sm font-semibold text-slate-800 dark:text-white mb-1">API Key</h2>
-      <p className="text-xs text-slate-400 mb-4">Use this key for the Figma plugin, REST API, and integrations.</p>
+      <h2 className="text-sm font-semibold text-slate-800 dark:text-white mb-1">{t("account.apiKey")}</h2>
+      <p className="text-xs text-slate-400 mb-4">{t("account.apiKeyDesc")}</p>
 
       {apiKey ? (
         <div className="flex gap-2">
@@ -86,7 +89,7 @@ function ApiKeySection() {
             onClick={copyKey}
             className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-700 transition-colors dark:bg-white dark:text-neutral-950 shrink-0"
           >
-            {copied ? "Copied!" : "Copy"}
+            {copied ? t("account.copied") : t("account.copy")}
           </button>
         </div>
       ) : (
@@ -95,7 +98,7 @@ function ApiKeySection() {
           disabled={loading}
           className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-700 transition-colors disabled:opacity-50 dark:bg-white dark:text-neutral-950"
         >
-          {loading ? "Generating..." : "Generate API Key"}
+          {loading ? t("account.generating") : t("account.generateApiKey")}
         </button>
       )}
     </div>
@@ -103,6 +106,7 @@ function ApiKeySection() {
 }
 
 export function AccountPage() {
+  const { t } = useLocale();
   const { user, status, tier, logout } = useAuth();
   const [usage, setUsage] = useState<UsageStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -122,15 +126,15 @@ export function AccountPage() {
     return (
       <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 flex items-center justify-center p-4">
         <div className="text-center max-w-sm space-y-4">
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Sign in</h1>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{t("account.signIn")}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Sign in to view your account, usage stats, and manage your subscription.
+            {t("account.signInDesc")}
           </p>
           <Link
             href="/login?next=/account"
             className="inline-block px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-700 transition-colors"
           >
-            Sign in
+            {t("account.signIn")}
           </Link>
         </div>
       </main>
@@ -142,9 +146,9 @@ export function AccountPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 pb-24">
       <section className="max-w-2xl mx-auto px-4 pt-10 pb-6">
-        <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">Account</p>
+        <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">{t("account.label")}</p>
         <h1 className="text-3xl font-bold text-slate-900 dark:text-white leading-tight">
-          {user?.email ?? "Account"}
+          {user?.email ?? t("account.label")}
         </h1>
       </section>
 
@@ -161,7 +165,7 @@ export function AccountPage() {
                 {isPro ? "PRO" : "FREE"}
               </div>
               <span className="text-sm text-slate-600 dark:text-slate-300">
-                {isPro ? "You have full access to all features." : "Upgrade for unlimited AI and exports."}
+                {isPro ? t("account.fullAccess") : t("account.upgradeHint")}
               </span>
             </div>
             {!isPro && (
@@ -169,14 +173,14 @@ export function AccountPage() {
                 href="/pro"
                 className="px-4 py-2 bg-indigo-600 text-white text-xs font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
               >
-                Upgrade to Pro
+                {t("account.upgradeToPro")}
               </Link>
             )}
           </div>
 
           {isPro && (
             <p className="text-xs text-slate-400">
-              Thank you for supporting ColorArchive! Contact hello@colorarchive.me for billing questions.
+              {t("account.proThanks")}
             </p>
           )}
         </div>
@@ -188,19 +192,19 @@ export function AccountPage() {
           </div>
         ) : usage && (
           <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6 space-y-5">
-            <h2 className="text-sm font-semibold text-slate-800 dark:text-white">Today&apos;s Usage</h2>
+            <h2 className="text-sm font-semibold text-slate-800 dark:text-white">{t("account.todaysUsage")}</h2>
             <UsageBar
-              label="AI Generations"
+              label={t("account.aiGenerations")}
               used={usage.ai.used}
               limit={usage.ai.limit}
             />
             <UsageBar
-              label="Projects"
+              label={t("account.projects")}
               used={usage.projects.count}
               limit={usage.projects.limit}
             />
             <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-white/10">
-              <span className="text-xs text-slate-500 dark:text-slate-400">Favorites saved</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">{t("account.favoritesSaved")}</span>
               <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{usage.favorites.count}</span>
             </div>
           </div>
@@ -208,13 +212,13 @@ export function AccountPage() {
 
         {/* Quick links */}
         <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6">
-          <h2 className="text-sm font-semibold text-slate-800 dark:text-white mb-4">Quick Links</h2>
+          <h2 className="text-sm font-semibold text-slate-800 dark:text-white mb-4">{t("account.quickLinks")}</h2>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { href: "/projects/", label: "My Projects", desc: `${usage?.projects.count ?? 0} saved` },
-              { href: "/favorites/", label: "Favorites", desc: `${usage?.favorites.count ?? 0} colors` },
-              { href: "/brand-generator/", label: "Brand Generator", desc: "AI palette" },
-              { href: "/mood-palette/", label: "Mood Palette", desc: "AI moods" },
+              { href: "/projects/", label: t("account.myProjects"), desc: `${usage?.projects.count ?? 0} ${t("account.saved")}` },
+              { href: "/favorites/", label: t("account.favorites"), desc: `${usage?.favorites.count ?? 0} ${t("account.colors")}` },
+              { href: "/brand-generator/", label: t("account.brandGenerator"), desc: t("account.aiPalette") },
+              { href: "/mood-palette/", label: t("account.moodPalette"), desc: t("account.aiMoods") },
             ].map(({ href, label, desc }) => (
               <Link
                 key={href}
@@ -239,7 +243,7 @@ export function AccountPage() {
           onClick={() => { logout(); window.location.href = "/"; }}
           className="w-full text-center py-2.5 text-sm text-slate-500 dark:text-slate-400 hover:text-red-500 transition-colors"
         >
-          Sign out
+          {t("account.signOut")}
         </button>
       </div>
     </main>

@@ -65,6 +65,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
@@ -90,6 +91,7 @@ const themeScript = `
     }
   } catch(e) {}
 })();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}
 `;
 
 const localeScript = `
