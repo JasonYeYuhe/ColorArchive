@@ -420,4 +420,50 @@ router.get("/status", (req, res) => {
   });
 });
 
+/* ── Auto Token Refresh ──────────────────────────────────── */
+
+/**
+ * Automatically refresh the long-lived token when it's within 7 days of expiry.
+ * Runs every 12 hours. Long-lived tokens last 60 days and can be refreshed
+ * as long as they haven't expired yet.
+ */
+async function autoRefreshToken() {
+  if (!hasToken() || !tokenStore.expires_at || tokenStore.expires_at === "never") return;
+
+  const expiresAt = new Date(tokenStore.expires_at).getTime();
+  const now = Date.now();
+  const sevenDays = 7 * 24 * 60 * 60 * 1000;
+
+  if (expiresAt - now > sevenDays) {
+    console.log("[instagram] Token still valid, expires:", tokenStore.expires_at);
+    return;
+  }
+
+  console.log("[instagram] Token expiring soon, refreshing...");
+  try {
+    const refreshRes = await fetch(
+      `${IG_GRAPH_URL}/refresh_access_token?` +
+        `grant_type=ig_refresh_token` +
+        `&access_token=${tokenStore.access_token}`
+    );
+    const data = await refreshRes.json();
+    if (data.access_token) {
+      tokenStore.access_token = data.access_token;
+      tokenStore.expires_at = new Date(Date.now() + data.expires_in * 1000).toISOString();
+      tokenStore.token_type = "long-lived";
+      saveTokenStore();
+      console.log("[instagram] Token refreshed, new expiry:", tokenStore.expires_at);
+    } else {
+      console.error("[instagram] Auto-refresh failed:", data);
+    }
+  } catch (err) {
+    console.error("[instagram] Auto-refresh error:", err.message);
+  }
+}
+
+// Run refresh check every 12 hours
+setInterval(autoRefreshToken, 12 * 60 * 60 * 1000);
+// Also check on startup (after 30s delay to let server settle)
+setTimeout(autoRefreshToken, 30 * 1000);
+
 module.exports = router;
