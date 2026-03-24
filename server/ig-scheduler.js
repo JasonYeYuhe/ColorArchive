@@ -99,7 +99,26 @@ async function publishToInstagram(imageUrl, caption, mediaType = "IMAGE") {
     return null;
   }
 
-  // Step 2: Publish
+  // Step 2: Wait for media to be ready (poll status)
+  console.log(`[ig-scheduler] Container created: ${containerData.id}, waiting for processing...`);
+  for (let attempt = 0; attempt < 10; attempt++) {
+    await new Promise((r) => setTimeout(r, 5000)); // wait 5s between checks
+    const statusRes = await fetch(
+      `${IG_GRAPH_URL}/${containerData.id}?fields=status_code&access_token=${store.access_token}`
+    );
+    const statusData = await statusRes.json();
+    if (statusData.status_code === "FINISHED") {
+      console.log("[ig-scheduler] Media ready, publishing...");
+      break;
+    }
+    if (statusData.status_code === "ERROR") {
+      console.error("[ig-scheduler] Media processing failed:", statusData);
+      return null;
+    }
+    console.log(`[ig-scheduler] Status: ${statusData.status_code || "IN_PROGRESS"} (attempt ${attempt + 1}/10)`);
+  }
+
+  // Step 3: Publish
   const publishRes = await fetch(`${IG_GRAPH_URL}/${store.user_id}/media_publish`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
