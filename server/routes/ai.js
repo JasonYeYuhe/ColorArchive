@@ -1,13 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const Anthropic = require("@anthropic-ai/sdk");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+function getClient() {
+  return new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
+}
 
 /**
  * POST /ai/brand-palette
  * Body: { industry, style, audience, keywords }
- * Returns: { colors: [{ role, hex, name, rationale }] }
+ * Returns: { palette: [{ role, hex, name, rationale }], summary }
  */
 router.post("/brand-palette", async (req, res) => {
   const { industry, style, audience, keywords } = req.body ?? {};
@@ -16,7 +18,7 @@ router.post("/brand-palette", async (req, res) => {
     return res.status(400).json({ error: "Please provide at least industry, style, or keywords." });
   }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.GOOGLE_AI_API_KEY) {
     return res.status(503).json({ error: "AI feature not configured on this server." });
   }
 
@@ -54,20 +56,14 @@ Respond ONLY with a valid JSON object in this exact format:
 No markdown, no explanation outside the JSON. Pure JSON only.`;
 
   try {
-    const message = await client.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: 1024,
-      messages: [{ role: "user", content: prompt }],
-    });
+    const model = getClient().getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await model.generateContent(prompt);
+    const text = result.response.text();
 
-    const text = message.content[0]?.type === "text" ? message.content[0].text : "";
-
-    // Parse the JSON response
     let parsed;
     try {
       parsed = JSON.parse(text.trim());
     } catch {
-      // Try to extract JSON from the response if there's any wrapping text
       const match = text.match(/\{[\s\S]*\}/);
       if (match) {
         parsed = JSON.parse(match[0]);
@@ -76,15 +72,11 @@ No markdown, no explanation outside the JSON. Pure JSON only.`;
       }
     }
 
-    // Validate structure
     if (!parsed.palette || !Array.isArray(parsed.palette) || parsed.palette.length === 0) {
       throw new Error("Invalid palette structure in AI response");
     }
 
-    return res.json({
-      palette: parsed.palette,
-      summary: parsed.summary ?? "",
-    });
+    return res.json({ palette: parsed.palette, summary: parsed.summary ?? "" });
   } catch (err) {
     console.error("[ai/brand-palette] Error:", err);
     return res.status(500).json({ error: "Failed to generate palette. Please try again." });
@@ -103,7 +95,7 @@ router.post("/name-color", async (req, res) => {
     return res.status(400).json({ error: "Missing hex value." });
   }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.GOOGLE_AI_API_KEY) {
     return res.status(503).json({ error: "AI feature not configured on this server." });
   }
 
@@ -134,13 +126,9 @@ Respond ONLY with valid JSON in this exact format:
 No markdown, no explanation outside the JSON. Pure JSON only.`;
 
   try {
-    const message = await client.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: 512,
-      messages: [{ role: "user", content: prompt }],
-    });
-
-    const text = message.content[0]?.type === "text" ? message.content[0].text : "";
+    const model = getClient().getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await model.generateContent(prompt);
+    const text = result.response.text();
 
     let parsed;
     try {
