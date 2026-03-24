@@ -114,14 +114,20 @@ router.get("/auth/start", (req, res) => {
   // Store state in cookie for CSRF validation
   setNamedCookie(res, "ig_oauth_state", state, 10 * 60 * 1000);
 
-  // Use Facebook Login for Business with Instagram Graph API config
-  // This approach uses config_id instead of individual scopes
+  // Use Instagram Login (direct Instagram OAuth, not Facebook Login for Business)
+  // This works for first-party apps where we own both the app and the IG account
+  const scopes = [
+    "instagram_business_basic",
+    "instagram_business_content_publish",
+    "instagram_business_manage_messages",
+    "instagram_business_manage_comments",
+  ].join(",");
   const url =
-    `https://www.facebook.com/dialog/oauth?` +
-    `client_id=${FB_APP_ID}` +
+    `https://www.instagram.com/oauth/authorize?` +
+    `client_id=${IG_APP_ID}` +
     `&redirect_uri=${encodeURIComponent(IG_REDIRECT_URI)}` +
     `&response_type=code` +
-    `&config_id=${IG_CONFIG_ID}` +
+    `&scope=${encodeURIComponent(scopes)}` +
     `&state=${state}`;
 
   return res.redirect(url);
@@ -158,13 +164,18 @@ router.get("/auth/callback", async (req, res) => {
   }
 
   try {
-    // Step 1: Exchange code for access token via Facebook Graph API
-    const tokenRes = await fetch(`${FB_GRAPH_URL}/v25.0/oauth/access_token?` +
-      `client_id=${FB_APP_ID}` +
-      `&redirect_uri=${encodeURIComponent(IG_REDIRECT_URI)}` +
-      `&client_secret=${FB_APP_SECRET}` +
-      `&code=${code}`
-    );
+    // Step 1: Exchange code for short-lived token via Instagram API
+    const tokenBody = new URLSearchParams({
+      client_id: IG_APP_ID,
+      client_secret: IG_APP_SECRET,
+      grant_type: "authorization_code",
+      redirect_uri: IG_REDIRECT_URI,
+      code,
+    });
+    const tokenRes = await fetch(`${IG_API_URL}/oauth/access_token`, {
+      method: "POST",
+      body: tokenBody,
+    });
 
     const tokenData = await tokenRes.json();
     if (!tokenRes.ok || !tokenData.access_token) {
@@ -172,24 +183,43 @@ router.get("/auth/callback", async (req, res) => {
       return res.redirect(`${FRONTEND_ORIGIN}/?ig_error=token-exchange`);
     }
 
-    console.log("[instagram] Access token obtained, type:", tokenData.token_type);
+    console.log("[instagram] Short-lived token obtained for user:", tokenData.user_id);
 
-    // For system-user tokens (never expire), store directly
-    // For user tokens, they may have expires_in
-    const expiresIn = tokenData.expires_in || null;
+    // Step 2: Exchange short-lived token for long-lived token (60 days)
+    const longRes = await fetch(
+      `${IG_GRAPH_URL}/access_token?` +
+      `grant_type=ig_exchange_token` +
+      `&client_secret=${IG_APP_SECRET}` +
+      `&access_token=${tokenData.access_token}`
+    );
+    const longData = await longRes.json();
+
+    let finalToken = tokenData.access_token;
+    let expiresIn = 3600; // short-lived default 1h
+    let tokenType = "short-lived";
+
+    if (longData.access_token) {
+      finalToken = longData.access_token;
+      expiresIn = longData.expires_in || 5184000; // 60 days
+      tokenType = "long-lived";
+      console.log("[instagram] Long-lived token obtained, expires in", expiresIn, "seconds");
+    } else {
+      console.warn("[instagram] Long-lived token exchange failed, using short-lived:", longData);
+    }
+
     tokenStore = {
-      access_token: tokenData.access_token,
-      user_id: null, // Will be populated by first API call
-      expires_at: expiresIn ? new Date(Date.now() + expiresIn * 1000).toISOString() : "never",
-      token_type: tokenData.token_type || "bearer",
+      access_token: finalToken,
+      user_id: String(tokenData.user_id),
+      expires_at: new Date(Date.now() + expiresIn * 1000).toISOString(),
+      token_type: tokenType,
     };
 
-    // Try to get the Instagram user ID from the token
+    // Get username for logging
     try {
-      const meRes = await fetch(`${IG_GRAPH_URL}/me?fields=id,username&access_token=${tokenData.access_token}`);
+      const meRes = await fetch(`${IG_GRAPH_URL}/me?fields=id,username&access_token=${finalToken}`);
       const meData = await meRes.json();
-      if (meData.id) {
-        tokenStore.user_id = meData.id;
+      if (meData.username) {
+        tokenStore.username = meData.username;
         console.log("[instagram] Connected as:", meData.username, "(ID:", meData.id, ")");
       }
     } catch (e) {
