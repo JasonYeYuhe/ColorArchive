@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
 import { PinterestSaveButton } from "@/src/components/pinterest-save-button";
+import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { useLocale } from "@/src/components/locale-provider";
 import {
   addManyToPalette,
@@ -504,6 +505,7 @@ export function ColorDetailPage({
                 <ShareLinkButton href={`/colors/${color.id}/`} />
                 <ShareOnXButton href={`/colors/${color.id}/`} text={`${color.name} ${color.hex} — from the ColorArchive`} />
                 <PinterestSaveButton color={color} />
+                <SaveToProjectButton palette={[color.hex]} defaultName={color.name} />
                 <Link
                   href="/recent/"
                   className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"

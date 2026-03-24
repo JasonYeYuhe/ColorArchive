@@ -9,6 +9,7 @@ import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { ProGate } from "@/src/components/pro-gate";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
+import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 import type { ColorRecord } from "@/src/types/color";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
@@ -308,7 +309,10 @@ export function BrandGeneratorPage() {
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 pb-24">
       {/* Hero */}
       <section className="max-w-3xl mx-auto px-4 pt-10 pb-8">
-        <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">AI Tool</p>
+        <div className="flex items-center gap-3 mb-1">
+          <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">AI Tool</p>
+          <AiUsageBadge />
+        </div>
         <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-2">
           Brand Color Generator
         </h1>

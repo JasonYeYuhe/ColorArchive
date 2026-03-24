@@ -205,6 +205,20 @@ export interface CritiqueResult {
   overall_assessment: string;
 }
 
+export interface UsageStats {
+  tier: UserTier;
+  ai: { used: number; limit: number | null };
+  projects: { count: number; limit: number | null };
+  favorites: { count: number };
+}
+
+export async function fetchUsage(): Promise<UsageStats> {
+  const response = await fetch(`${API_URL}/me/usage`, {
+    credentials: "include",
+  });
+  return parseResponse<UsageStats>(response);
+}
+
 export async function fetchProjects(): Promise<{ projects: Project[] }> {
   const response = await fetch(`${API_URL}/projects`, {
     credentials: "include",

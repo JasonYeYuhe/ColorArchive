@@ -5,6 +5,7 @@ import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-but
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
+import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 import { toggleFavoriteColor, getFavoriteColorIds } from "@/src/lib/favorites";
 import { colors as archiveColors } from "@/src/data/colors";
 
@@ -149,7 +150,10 @@ export function MoodPalettePage() {
     <main className="min-h-screen bg-white dark:bg-neutral-950">
       {/* Header */}
       <section className="max-w-2xl mx-auto px-4 pt-12 pb-8 text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">AI Tool</p>
+        <div className="flex items-center justify-center gap-3 mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">AI Tool</p>
+          <AiUsageBadge />
+        </div>
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-3">
           Mood Palette Generator
         </h1>

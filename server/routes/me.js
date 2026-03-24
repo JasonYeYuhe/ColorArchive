@@ -17,6 +17,45 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/usage", (req, res) => {
+  const today = new Date().toISOString().slice(0, 10);
+  const tier = req.user.tier || "free";
+
+  // AI usage today
+  const aiRow = db.prepare(
+    "SELECT count FROM ai_usage WHERE identifier = ? AND date = ?"
+  ).get(`user:${req.user.id}`, today);
+  const aiUsed = aiRow ? aiRow.count : 0;
+  const aiLimit = tier === "pro" ? null : tier === "free" ? 10 : 3;
+
+  // Project count
+  const projectRow = db.prepare(
+    "SELECT COUNT(*) as count FROM projects WHERE user_id = ?"
+  ).get(req.user.id);
+  const projectCount = projectRow ? projectRow.count : 0;
+  const projectLimit = tier === "pro" ? null : 3;
+
+  // Favorites count (from user_preferences)
+  let favoritesCount = 0;
+  try {
+    const prefRow = db.prepare(
+      "SELECT favorites_json FROM user_preferences WHERE user_id = ?"
+    ).get(req.user.id);
+    if (prefRow) {
+      favoritesCount = JSON.parse(prefRow.favorites_json).length;
+    }
+  } catch {
+    favoritesCount = 0;
+  }
+
+  return res.json({
+    tier,
+    ai: { used: aiUsed, limit: aiLimit },
+    projects: { count: projectCount, limit: projectLimit },
+    favorites: { count: favoritesCount },
+  });
+});
+
 router.get("/preferences", (req, res) => {
   return res.json(getUserPreferences(req.user.id));
 });

@@ -212,7 +212,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
               </Link>
             )}
             <Link
-              href={loginHref}
+              href={status === "authenticated" ? "/account" : loginHref}
               className={`hidden rounded-full border px-3 py-2 text-sm font-medium transition sm:inline-flex ${
                 currentPath === "/login"
                   ? "border-neutral-950 bg-neutral-950 text-white dark:border-white dark:bg-white dark:text-neutral-950"

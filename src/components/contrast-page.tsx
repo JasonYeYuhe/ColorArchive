@@ -5,6 +5,7 @@ import { useCallback, useMemo, useState } from "react";
 import { colors } from "@/src/data/colors";
 import { hslToRgb, rgbToHex } from "@/src/lib/color-utils";
 import { useLocale } from "@/src/components/locale-provider";
+import { SaveToProjectButton } from "@/src/components/save-to-project";
 import type { ColorRecord } from "@/src/types/color";
 
 /* ------------------------------------------------------------------ */
@@ -541,6 +542,9 @@ export function ContrastCheckerPage() {
               />
             </div>
           )}
+          <div className="mt-4 flex justify-end">
+            <SaveToProjectButton palette={[fgHex, bgHex]} defaultName="Contrast Pair" />
+          </div>
         </section>
 
         {/* Color blindness simulation */}
