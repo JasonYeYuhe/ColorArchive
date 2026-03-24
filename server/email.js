@@ -5,9 +5,24 @@ const newsletterIssues = require("../src/data/newsletter-issues.json");
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.FROM_EMAIL || "hello@colorarchive.me";
 
+// CAN-SPAM compliant email send wrapper
+async function sendEmail(options) {
+  if (!resend) return;
+  return resend.emails.send({
+    ...options,
+    from: options.from || `ColorArchive <${FROM}>`,
+    reply_to: options.reply_to || FROM,
+    headers: {
+      "List-Unsubscribe": `<mailto:${FROM}?subject=unsubscribe>`,
+      "List-Unsubscribe-Post": "List-Unsubscribe=One-Click-Unsubscribe",
+      ...options.headers,
+    },
+  });
+}
+
 // Free pack download email
 async function sendFreePackEmail(to) {
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -71,7 +86,7 @@ async function sendWaitlistConfirmationEmail(to) {
   const featuredPalette = updateBrief.featuredPalette;
   const featuredPack = updateBrief.featuredPack;
   const latestIssue = newsletterIssues[0];
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -192,7 +207,7 @@ async function sendWaitlistConfirmationEmail(to) {
 
 // Magic link login email
 async function sendMagicLinkEmail(to, { loginUrl, expiresInMinutes }) {
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -249,7 +264,7 @@ async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderI
     : null;
   const orderDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -431,7 +446,7 @@ const SUBJECT_VARIANTS = {
 // Day-3 follow-up: how to use CSS tokens
 async function sendFollowUp3DayEmail(to, { variant = "A" } = {}) {
   const subject = SUBJECT_VARIANTS.day3[variant] || SUBJECT_VARIANTS.day3.A;
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -497,7 +512,7 @@ async function sendFollowUp3DayEmail(to, { variant = "A" } = {}) {
 // Day-7 follow-up: pack discovery
 async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
   const subject = SUBJECT_VARIANTS.day7[variant] || SUBJECT_VARIANTS.day7.A;
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -572,7 +587,7 @@ async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
 // Day-14 follow-up: limited time offer with FIRSTPACK discount
 async function sendFollowUp14DayEmail(to, { variant = "A" } = {}) {
   const subject = SUBJECT_VARIANTS.day14[variant] || SUBJECT_VARIANTS.day14.A;
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -658,7 +673,7 @@ async function sendFollowUp14DayEmail(to, { variant = "A" } = {}) {
 // Day-21 follow-up: creative inspiration — three use cases with palette ideas
 async function sendFollowUp21DayEmail(to, { variant = "A" } = {}) {
   const subject = SUBJECT_VARIANTS.day21[variant] || SUBJECT_VARIANTS.day21.A;
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -727,7 +742,7 @@ async function sendFollowUp21DayEmail(to, { variant = "A" } = {}) {
 
 async function sendFollowUp30DayEmail(to, { variant = "A" } = {}) {
   const subject = SUBJECT_VARIANTS.day30[variant] || SUBJECT_VARIANTS.day30.A;
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -799,7 +814,7 @@ async function sendNewsletterIssueAlert(to, { issue, unsubscribeToken = null } =
     ? issue.highlights.slice(0, 3).map((h) => `• ${h}`).join("\n")
     : "";
 
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -868,7 +883,7 @@ async function sendCotdEmail(to, color, dateStr) {
     parseInt(color.hex.slice(5, 7), 16) * 0.114;
   const textOnSwatch = luminance > 140 ? "#1a1a1a" : "#ffffff";
 
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
     to,
@@ -945,7 +960,7 @@ async function sendCotdEmail(to, color, dateStr) {
 
 async function sendProUpsellEmail(email) {
   if (!resend) return;
-  const result = await resend.emails.send({
+  const result = await sendEmail({
     from: FROM_EMAIL,
     to: email,
     subject: "You've hit your daily limit — unlock unlimited AI with Pro",

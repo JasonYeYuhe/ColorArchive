@@ -50,6 +50,7 @@ app.use("/pageviews", require("./routes/pageviews"));
 app.use("/instagram", require("./routes/instagram"));
 app.use("/ai", require("./routes/ai"));
 app.use("/projects", require("./routes/projects"));
+app.use("/events", require("./routes/events"));
 
 app.get("/health", (_, res) => res.json({ ok: true, uptime: process.uptime() }));
 

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { track } from "@/src/lib/track";
 import { useLocale } from "@/src/components/locale-provider";
 
 const API_URL =
@@ -65,6 +66,7 @@ export function EmailCaptureForm({
       }
 
       setState("success");
+      track("email_subscribed", { source });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
       setState("error");

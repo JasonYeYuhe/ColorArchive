@@ -123,6 +123,16 @@ db.exec(`
     UNIQUE(identifier, date)
   );
 
+  CREATE TABLE IF NOT EXISTS events (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_name  TEXT NOT NULL,
+    props_json  TEXT NOT NULL DEFAULT '{}',
+    user_id     INTEGER,
+    session_id  TEXT,
+    path        TEXT,
+    created_at  TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
   CREATE TABLE IF NOT EXISTS projects (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id     INTEGER NOT NULL,

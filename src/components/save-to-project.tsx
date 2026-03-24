@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/src/components/auth-provider";
+import { track } from "@/src/lib/track";
 import { createProject } from "@/src/lib/auth-client";
 
 interface SaveToProjectProps {
@@ -59,6 +60,7 @@ export function SaveToProjectButton({ palette, defaultName = "" }: SaveToProject
         notes: notes.trim(),
       });
       setSaved(true);
+      track("project_saved", { colors: palette.length });
       setOpen(false);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save.");

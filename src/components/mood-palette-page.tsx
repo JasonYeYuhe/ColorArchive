@@ -8,6 +8,7 @@ import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 import { DownloadPaletteImage } from "@/src/components/download-palette-image";
 import { classifyError } from "@/src/lib/error-utils";
+import { track } from "@/src/lib/track";
 import { toggleFavoriteColor, getFavoriteColorIds } from "@/src/lib/favorites";
 import { colors as archiveColors } from "@/src/data/colors";
 
@@ -118,6 +119,7 @@ export function MoodPalettePage() {
       }
       const data: MoodResult = await res.json();
       setResult(data);
+      track("ai_generated", { tool: "mood_palette", mood: data.mood_tag });
       const url = buildShareUrl(data, prompt.trim());
       setShareUrl(url);
       window.history.replaceState(null, "", url);

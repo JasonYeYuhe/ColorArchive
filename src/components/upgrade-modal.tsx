@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { UserTier } from "@/src/lib/auth-client";
+import { track } from "@/src/lib/track";
 
 interface UpgradeModalProps {
   open: boolean;
@@ -141,6 +142,7 @@ export function useUpgradeModal() {
   function handleRateLimitError(data: RateLimitResponse) {
     setInfo({ tier: data.tier as UserTier, used: data.used, limit: data.dailyLimit });
     setOpen(true);
+    track("upgrade_modal_shown", { tier: data.tier, used: data.used });
   }
 
   function close() {
