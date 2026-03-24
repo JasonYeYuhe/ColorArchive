@@ -49,6 +49,7 @@ app.use("/analytics", require("./routes/analytics"));
 app.use("/pageviews", require("./routes/pageviews"));
 app.use("/instagram", require("./routes/instagram"));
 app.use("/ai", require("./routes/ai"));
+app.use("/projects", require("./routes/projects"));
 
 app.get("/health", (_, res) => res.json({ ok: true }));
 

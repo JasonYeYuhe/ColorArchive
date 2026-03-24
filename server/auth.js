@@ -169,7 +169,7 @@ function getSessionUser(req) {
     .prepare(
       `
         SELECT sessions.id as session_id, sessions.user_id, sessions.expires_at,
-               users.email, users.created_at
+               users.email, users.created_at, users.tier, users.pro_expires_at
         FROM sessions
         INNER JOIN users ON users.id = sessions.user_id
         WHERE sessions.token_hash = ?
@@ -184,10 +184,21 @@ function getSessionUser(req) {
     return null;
   }
 
+  // Check if pro has expired
+  let tier = session.tier || "free";
+  if (tier === "pro" && session.pro_expires_at) {
+    const expiresMs = new Date(session.pro_expires_at).getTime();
+    if (expiresMs < now()) {
+      tier = "free";
+      db.prepare("UPDATE users SET tier = 'free' WHERE id = ?").run(session.user_id);
+    }
+  }
+
   return {
     id: session.user_id,
     email: session.email,
     created_at: session.created_at,
+    tier,
   };
 }
 

@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-button";
+import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
+import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { toggleFavoriteColor, getFavoriteColorIds } from "@/src/lib/favorites";
 import { colors as archiveColors } from "@/src/data/colors";
 
@@ -47,6 +49,7 @@ export function MoodPalettePage() {
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
   const [savedIdx, setSavedIdx] = useState<Set<number>>(new Set());
   const [shareUrl, setShareUrl] = useState("/mood-palette/");
+  const upgrade = useUpgradeModal();
 
   // Load from shared URL on mount
   useEffect(() => {
@@ -94,9 +97,17 @@ export function MoodPalettePage() {
     try {
       const res = await fetch(`${API_URL}/ai/mood-palette`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: prompt.trim() }),
       });
+      if (res.status === 429) {
+        const limitData = await res.json().catch(() => ({}));
+        if (limitData.limit) {
+          upgrade.handleRateLimitError(limitData);
+          return;
+        }
+      }
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.error ?? "Server error");
@@ -253,9 +264,21 @@ export function MoodPalettePage() {
           <div className="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-slate-100 dark:border-white/10">
             <ShareLinkButton href={shareUrl} label="Copy palette link" />
             <ShareOnXButton text={xText} href={shareUrl} />
+            <SaveToProjectButton
+              palette={result.colors.map((c) => c.hex)}
+              defaultName={result.palette_name}
+            />
           </div>
         </section>
       )}
+
+      <UpgradeModal
+        open={upgrade.open}
+        onClose={upgrade.close}
+        tier={upgrade.info.tier}
+        used={upgrade.info.used}
+        limit={upgrade.info.limit}
+      />
     </main>
   );
 }

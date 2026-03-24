@@ -5,6 +5,7 @@ import { useEffect, useState, useMemo, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useLocale } from "@/src/components/locale-provider";
 import { ShareOnXButton } from "@/src/components/share-link-button";
+import { ProGate } from "@/src/components/pro-gate";
 import { hexToRgb } from "@/src/lib/color-utils";
 import { colors as allColors } from "@/src/data/colors";
 import {
@@ -502,11 +503,21 @@ function PaletteContent() {
           )}
         </div>
         <div className="flex flex-wrap gap-2">
-          <CopyButton value={cssExport} label="CSS" />
-          <CopyButton value={jsonExport} label="JSON" />
-          <DownloadPaletteSvgButton colors={paletteColors} />
-          <DownloadProcreateButton colors={paletteColors} />
-          <DownloadAseButton colors={paletteColors} />
+          <ProGate label="Export">
+            <CopyButton value={cssExport} label="CSS" />
+          </ProGate>
+          <ProGate label="Export">
+            <CopyButton value={jsonExport} label="JSON" />
+          </ProGate>
+          <ProGate label="Download">
+            <DownloadPaletteSvgButton colors={paletteColors} />
+          </ProGate>
+          <ProGate label="Download">
+            <DownloadProcreateButton colors={paletteColors} />
+          </ProGate>
+          <ProGate label="Download">
+            <DownloadAseButton colors={paletteColors} />
+          </ProGate>
           <ShareUrlButton ids={paletteColors.map((c) => c.id)} />
           <ShareOnXButton
             href={`/palette?ids=${paletteColors.map((c) => c.id).join(",")}`}

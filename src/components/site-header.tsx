@@ -57,7 +57,10 @@ interface SiteHeaderProps {
     | "/mood-palette"
     | "/preview"
     | "/mesh-gradient"
-    | "/stories";
+    | "/stories"
+    | "/pro"
+    | "/projects"
+    | "/analyze";
 }
 
 interface NavItem {
@@ -118,6 +121,8 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
     items: [
       { href: "/packs/", labelKey: "nav.packs" },
       { href: "/free-pack/", labelKey: "nav.freePack" },
+      { href: "/pro/", labelKey: "nav.pro" },
+      { href: "/projects/", labelKey: "nav.projects" },
     ],
   },
 ];
@@ -153,7 +158,7 @@ function isActive(item: NavItem, currentPath: string): boolean {
 
 export function SiteHeader({ currentPath }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { analyticsAccess, logout, status, user } = useAuth();
+  const { analyticsAccess, logout, status, tier, user } = useAuth();
   const { locale, setLocale, t } = useLocale();
   const loginHref = currentPath === "/login" ? "/login" : `/login?next=${encodeURIComponent(currentPath)}`;
   const mobileMenuGroups = MOBILE_MENU_GROUPS.map((group) =>
@@ -197,6 +202,14 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
           <div className="flex-1" />
 
           <div className="flex shrink-0 items-center gap-2">
+            {tier !== "pro" && (
+              <Link
+                href="/pro/"
+                className="hidden rounded-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-indigo-500 sm:inline-flex"
+              >
+                Pro
+              </Link>
+            )}
             <Link
               href={loginHref}
               className={`hidden rounded-full border px-3 py-2 text-sm font-medium transition sm:inline-flex ${

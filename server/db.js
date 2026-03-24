@@ -105,4 +105,32 @@ ensureColumn("subscribers", "follow_up_30d_variant TEXT");
 ensureColumn("subscribers", "cotd_subscribed INTEGER DEFAULT 0");
 ensureColumn("subscribers", "cotd_last_sent TEXT");
 
+ensureColumn("users", "tier TEXT DEFAULT 'free'");
+ensureColumn("users", "pro_expires_at TEXT");
+
+// AI usage tracking — per user (or IP hash) per day
+db.exec(`
+  CREATE TABLE IF NOT EXISTS ai_usage (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    identifier TEXT NOT NULL,
+    date       TEXT NOT NULL,
+    count      INTEGER NOT NULL DEFAULT 0,
+    UNIQUE(identifier, date)
+  );
+
+  CREATE TABLE IF NOT EXISTS projects (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id     INTEGER NOT NULL,
+    name        TEXT NOT NULL,
+    tags_json   TEXT NOT NULL DEFAULT '[]',
+    palette_json TEXT NOT NULL DEFAULT '[]',
+    notes       TEXT NOT NULL DEFAULT '',
+    share_id    TEXT UNIQUE,
+    critique_json TEXT,
+    created_at  TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at  TEXT NOT NULL DEFAULT (datetime('now')),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+  );
+`);
+
 module.exports = db;

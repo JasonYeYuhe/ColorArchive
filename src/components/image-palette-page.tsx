@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { ProGate } from "@/src/components/pro-gate";
 import { hexToRgb, rgbToHsl, rgbToHex } from "@/src/lib/color-utils";
 import { colors as archiveColors } from "@/src/data/colors";
 import { addManyToPalette } from "@/src/lib/palette-builder";
@@ -638,12 +639,14 @@ export function ImagePalettePage() {
                   <>
                     <ShareLinkButton href={shareUrl} label="Copy link" />
                     <ShareOnXButton text={xShareText} href={shareUrl} />
-                    <button
-                      onClick={handleDownloadSvg}
-                      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
-                    >
-                      Download SVG
-                    </button>
+                    <ProGate label="Download SVG">
+                      <button
+                        onClick={handleDownloadSvg}
+                        className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                      >
+                        Download SVG
+                      </button>
+                    </ProGate>
                   </>
                 )}
               </div>
@@ -718,6 +721,7 @@ export function ImagePalettePage() {
 
         {/* Export */}
         {extractedColors.length > 0 && (
+          <ProGate label="Export Palette">
           <section className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <h2 className="text-lg font-semibold text-slate-800">Export Palette</h2>
@@ -747,6 +751,7 @@ export function ImagePalettePage() {
               {exportText}
             </pre>
           </section>
+          </ProGate>
         )}
 
         {/* How it works */}

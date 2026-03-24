@@ -72,6 +72,22 @@ export const checkoutConfig = {
   },
 } satisfies Record<string, CheckoutConfigEntry>;
 
+export const proSubscriptionConfig = {
+  monthly: {
+    price: "$4.99",
+    period: "month",
+    url: null as string | null, // Set when Lemon Squeezy / Stripe subscription product is created
+    note: "Pro monthly subscription — pending product creation in payment provider.",
+  },
+  yearly: {
+    price: "$39.99",
+    period: "year",
+    savings: "33%",
+    url: null as string | null,
+    note: "Pro yearly subscription — pending product creation in payment provider.",
+  },
+} as const;
+
 export const checkoutFlowConfig: CheckoutFlowConfig = {
   successPath: "/thanks",
   cancelPath: "/cancel",

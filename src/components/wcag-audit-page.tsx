@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { hexContrastRatio, wcagLabel } from "@/src/lib/brand-palette";
 import { getPaletteIds } from "@/src/lib/palette-builder";
+import { ProGate } from "@/src/components/pro-gate";
 import { colors as allColors } from "@/src/data/colors";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -208,13 +209,15 @@ export function WcagAuditPage() {
               <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400">
                 Contrast Matrix
               </h2>
-              <button
-                type="button"
-                onClick={() => void handleCopyCsv()}
-                className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
-              >
-                {csvCopied ? "CSV Copied" : "Copy CSV"}
-              </button>
+              <ProGate label="Copy CSV">
+                <button
+                  type="button"
+                  onClick={() => void handleCopyCsv()}
+                  className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
+                >
+                  {csvCopied ? "CSV Copied" : "Copy CSV"}
+                </button>
+              </ProGate>
             </div>
 
             {/* Grid: each row is a background, each column is a foreground */}

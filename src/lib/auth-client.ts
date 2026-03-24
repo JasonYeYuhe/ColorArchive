@@ -13,11 +13,14 @@ export interface UserPreferences {
   palette: string[];
 }
 
+export type UserTier = "anonymous" | "free" | "pro";
+
 export interface AuthSession {
   user: AuthUser | null;
   auth: {
     googleEnabled: boolean;
     analyticsAccess: boolean;
+    tier: UserTier;
   };
 }
 
@@ -165,6 +168,97 @@ export async function fetchAdminOrders(params?: {
   });
 
   return parseResponse<{ orders: AdminOrder[]; total: number; page: number; limit: number }>(response);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Projects API                                                       */
+/* ------------------------------------------------------------------ */
+
+export interface Project {
+  id: number;
+  name: string;
+  tags: string[];
+  palette: string[];
+  notes: string;
+  shareId: string | null;
+  hasCritique: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SharedProject {
+  name: string;
+  tags: string[];
+  palette: string[];
+  notes: string;
+  critique: CritiqueResult | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CritiqueResult {
+  score: string;
+  harmony_type: string;
+  contrast_issues: { pair: string; ratio: number; wcag_level: string }[];
+  suggestions: { index: number; current_hex: string; replacement_hex: string; replacement_name: string; reason: string }[];
+  cultural_notes: string;
+  overall_assessment: string;
+}
+
+export async function fetchProjects(): Promise<{ projects: Project[] }> {
+  const response = await fetch(`${API_URL}/projects`, {
+    credentials: "include",
+  });
+  return parseResponse<{ projects: Project[] }>(response);
+}
+
+export async function createProject(data: {
+  name: string;
+  tags?: string[];
+  palette?: string[];
+  notes?: string;
+}): Promise<{ id: number; ok: true }> {
+  const response = await fetch(`${API_URL}/projects`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return parseResponse<{ id: number; ok: true }>(response);
+}
+
+export async function updateProject(
+  id: number,
+  data: Partial<{ name: string; tags: string[]; palette: string[]; notes: string; critique: CritiqueResult }>
+): Promise<{ ok: true }> {
+  const response = await fetch(`${API_URL}/projects/${id}`, {
+    method: "PUT",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return parseResponse<{ ok: true }>(response);
+}
+
+export async function deleteProject(id: number): Promise<{ ok: true }> {
+  const response = await fetch(`${API_URL}/projects/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+  return parseResponse<{ ok: true }>(response);
+}
+
+export async function shareProject(id: number): Promise<{ shareId: string }> {
+  const response = await fetch(`${API_URL}/projects/${id}/share`, {
+    method: "POST",
+    credentials: "include",
+  });
+  return parseResponse<{ shareId: string }>(response);
+}
+
+export async function fetchSharedProject(shareId: string): Promise<SharedProject> {
+  const response = await fetch(`${API_URL}/projects/shared/${encodeURIComponent(shareId)}`);
+  return parseResponse<SharedProject>(response);
 }
 
 export async function resendAdminOrderEmail(orderId: string): Promise<void> {

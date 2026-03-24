@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { aiRateLimit } = require("../ai-rate-limit");
 
 function getClient() {
   return new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
@@ -11,7 +12,7 @@ function getClient() {
  * Body: { industry, style, audience, keywords }
  * Returns: { palette: [{ role, hex, name, rationale }], summary }
  */
-router.post("/brand-palette", async (req, res) => {
+router.post("/brand-palette", aiRateLimit, async (req, res) => {
   const { industry, style, audience, keywords } = req.body ?? {};
 
   if (!industry && !style && !keywords) {
@@ -88,7 +89,7 @@ No markdown, no explanation outside the JSON. Pure JSON only.`;
  * Body: { hex, name, hsl, family }
  * Returns: { names: [{ en, zh, description }] }
  */
-router.post("/name-color", async (req, res) => {
+router.post("/name-color", aiRateLimit, async (req, res) => {
   const { hex, name, hsl, family } = req.body ?? {};
 
   if (!hex) {
@@ -155,7 +156,7 @@ No markdown, no explanation outside the JSON. Pure JSON only.`;
  * Body: { prompt: string }
  * Returns: { colors: [{ hex, name, description }], palette_name, mood_tag }
  */
-router.post("/mood-palette", async (req, res) => {
+router.post("/mood-palette", aiRateLimit, async (req, res) => {
   const { prompt } = req.body ?? {};
 
   if (!prompt || typeof prompt !== "string" || prompt.trim().length < 2) {

@@ -43,7 +43,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "palette-pack-vol-1",
     title: "Palette Pack Vol. 1",
-    priceHint: "¥299",
+    priceHint: "$19",
     ctaLabel: "Start here",
     tierBadge: "Best starter",
     audience: "Designers and founders who want polished palettes they can apply immediately.",
@@ -122,7 +122,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "brand-starter-kit",
     title: "Brand Color Starter Kit",
-    priceHint: "¥999",
+    priceHint: "$49",
     ctaLabel: "Brand & UI",
     tierBadge: "Brand systems",
     audience: "Solo founders, small studios, and landing-page builders who need a coherent starting system.",
@@ -192,7 +192,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "content-creator-bundle",
     title: "Creator Bundle",
-    priceHint: "¥799",
+    priceHint: "$29",
     ctaLabel: "For creators",
     tierBadge: "Most shareable",
     audience: "Creators, marketers, and social designers who need visually consistent color sets fast.",
@@ -261,7 +261,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "complete-archive",
     title: "Complete Archive Token Set",
-    priceHint: "¥1,499",
+    priceHint: "$79",
     ctaLabel: "Full archive",
     tierBadge: "Flagship",
     audience: "Design system leads and developers who need a comprehensive, production-ready color token library.",
@@ -356,7 +356,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "dark-mode-ui-kit",
     title: "Dark Mode UI Kit",
-    priceHint: "¥499",
+    priceHint: "$29",
     ctaLabel: "Dark mode",
     tierBadge: "Most practical",
     audience: "SaaS builders and product designers who need ready-made light/dark paired token sets.",
@@ -425,7 +425,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "seasonal-spring-2026",
     title: "Seasonal: Spring 2026",
-    priceHint: "¥99",
+    priceHint: "$9",
     ctaLabel: "Spring edition",
     tierBadge: "Limited edition",
     seasonEnds: "2026-06-21",
@@ -493,9 +493,9 @@ export const palettePacks: PalettePack[] = [
   {
     id: "all-access-bundle",
     title: "All Access Bundle",
-    priceHint: "¥2,799",
+    priceHint: "$129",
     ctaLabel: "Best value",
-    tierBadge: "Save 32%",
+    tierBadge: "Save 40%",
     audience: "Designers and developers who want everything — all 6 packs in one download at a significant discount.",
     checkoutProvider: checkoutConfig["all-access-bundle"].provider,
     checkoutStatus: checkoutConfig["all-access-bundle"].status,
@@ -542,7 +542,7 @@ export const palettePacks: PalettePack[] = [
     launchAssets: ["Full catalog", "All collection previews", "Complete format coverage"],
     proofPoints: [
       "Every single file from every pack — nothing held back.",
-      "32% savings compared to buying all 6 packs individually.",
+      "40% savings compared to buying all 6 packs individually.",
       "One download, one price, complete color infrastructure.",
     ],
     reviewNote:
@@ -565,13 +565,16 @@ export const palettePacks: PalettePack[] = [
       },
     ],
     detail:
-      "All 6 packs in one bundle at 32% off. The simplest way to get everything ColorArchive offers.",
+      "All 6 packs in one bundle at 40% off. The simplest way to get everything ColorArchive offers.",
   },
 ];
 
-export function parsePriceYen(priceHint: string): number {
-  return Number(priceHint.replace(/[^\d]/g, ""));
+export function parsePrice(priceHint: string): number {
+  return Number(priceHint.replace(/[^\d.]/g, ""));
 }
+
+/** @deprecated Use parsePrice instead */
+export const parsePriceYen = parsePrice;
 
 export function computeBundleSavings(): {
   individualTotal: number;
@@ -581,8 +584,8 @@ export function computeBundleSavings(): {
 } {
   const bundle = palettePacks.find((p) => p.id === "all-access-bundle")!;
   const individuals = palettePacks.filter((p) => p.id !== "all-access-bundle");
-  const individualTotal = individuals.reduce((sum, p) => sum + parsePriceYen(p.priceHint), 0);
-  const bundlePrice = parsePriceYen(bundle.priceHint);
+  const individualTotal = individuals.reduce((sum, p) => sum + parsePrice(p.priceHint), 0);
+  const bundlePrice = parsePrice(bundle.priceHint);
   const savings = individualTotal - bundlePrice;
   const savingsPct = Math.round((savings / individualTotal) * 100);
   return { individualTotal, bundlePrice, savings, savingsPct };

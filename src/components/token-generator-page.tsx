@@ -3,6 +3,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { hexToRgb, rgbToHsl, hslToRgb, rgbToHex } from "@/src/lib/color-utils";
 import { useLocale } from "@/src/components/locale-provider";
+import { ProGate } from "@/src/components/pro-gate";
 
 /* ------------------------------------------------------------------ */
 /*  Types & constants                                                   */
@@ -471,6 +472,7 @@ export function TokenGeneratorPage() {
             </div>
 
             {/* Export */}
+            <ProGate label="Export Tokens">
             <div className="mb-8 rounded-[2rem] border border-black/6 bg-white/74 p-6 backdrop-blur-xl sm:p-8 dark:border-white/8 dark:bg-neutral-900/60">
               <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                 <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-neutral-400">Export Tokens</h2>
@@ -501,6 +503,7 @@ export function TokenGeneratorPage() {
                 <code>{exportCode}</code>
               </pre>
             </div>
+            </ProGate>
 
             {/* Usage guide */}
             <div className="rounded-[2rem] border border-black/6 bg-white/74 p-6 backdrop-blur-xl sm:p-8 dark:border-white/8 dark:bg-neutral-900/60">

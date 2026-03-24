@@ -18,6 +18,7 @@ import {
   requestMagicLink as requestMagicLinkRequest,
   savePreferences,
   type AuthUser,
+  type UserTier,
   verifyMagicLink as verifyMagicLinkRequest,
   type UserPreferences,
 } from "@/src/lib/auth-client";
@@ -38,6 +39,7 @@ type AuthStatus = "loading" | "authenticated" | "anonymous";
 interface AuthContextValue {
   user: AuthUser | null;
   status: AuthStatus;
+  tier: UserTier;
   lastSyncAt: number | null;
   googleEnabled: boolean;
   analyticsAccess: boolean;
@@ -75,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [status, setStatus] = useState<AuthStatus>("loading");
   const [lastSyncAt, setLastSyncAt] = useState<number | null>(null);
+  const [tier, setTier] = useState<UserTier>("anonymous");
   const [googleEnabled, setGoogleEnabled] = useState(false);
   const [analyticsAccess, setAnalyticsAccess] = useState(false);
   const syncEnabledRef = useRef(false);
@@ -104,6 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const applySession = useCallback((session: AuthSession) => {
     setUser(session.user);
+    setTier(session.auth.tier);
     setGoogleEnabled(session.auth.googleEnabled);
     setAnalyticsAccess(session.auth.analyticsAccess);
     setStatus(session.user ? "authenticated" : "anonymous");
@@ -157,6 +161,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (!cancelled) {
           setUser(null);
           setStatus("anonymous");
+          setTier("anonymous");
           setGoogleEnabled(false);
           setAnalyticsAccess(false);
           syncEnabledRef.current = false;
@@ -221,6 +226,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await logoutRequest();
     setUser(null);
     setStatus("anonymous");
+    setTier("anonymous");
     setLastSyncAt(null);
     setAnalyticsAccess(false);
     syncEnabledRef.current = false;
@@ -230,6 +236,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     () => ({
       user,
       status,
+      tier,
       lastSyncAt,
       googleEnabled,
       analyticsAccess,
@@ -244,6 +251,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       logout,
       requestMagicLink,
       status,
+      tier,
       user,
       verifyMagicLink,
     ],

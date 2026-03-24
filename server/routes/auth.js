@@ -89,10 +89,11 @@ router.post("/verify", (req, res) => {
 router.get("/session", (req, res) => {
   const user = getSessionUser(req);
   return res.json({
-    user,
+    user: user ? { id: user.id, email: user.email, created_at: user.created_at } : null,
     auth: {
       googleEnabled: isGoogleEnabled(),
       analyticsAccess: isAnalyticsAdmin(user),
+      tier: user?.tier ?? "anonymous",
     },
   });
 });

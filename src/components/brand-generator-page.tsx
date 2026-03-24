@@ -5,6 +5,9 @@ import Link from "next/link";
 import { hexToRgb, rgbToHsl } from "@/src/lib/color-utils";
 import { colors as archiveColors } from "@/src/data/colors";
 import { ShareOnXButton } from "@/src/components/share-link-button";
+import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
+import { ProGate } from "@/src/components/pro-gate";
+import { SaveToProjectButton } from "@/src/components/save-to-project";
 import type { ColorRecord } from "@/src/types/color";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
@@ -203,34 +206,42 @@ function PaletteResult({
       </div>
 
       {/* Export section */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-          <h3 className="text-base font-semibold text-slate-800">Export</h3>
-          <div className="flex items-center gap-2">
-            {(["css", "tailwind"] as const).map((fmt) => (
-              <button
-                key={fmt}
-                onClick={() => setExportMode(fmt)}
-                className={`px-3 py-1 text-xs font-mono rounded-lg transition-colors ${
-                  exportMode === fmt
-                    ? "bg-indigo-600 text-white"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                }`}
-              >
-                {fmt === "css" ? "CSS Variables" : "Tailwind"}
-              </button>
-            ))}
-            <CopyButton text={exportText} label="Copy" />
+      <ProGate label="Export">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <h3 className="text-base font-semibold text-slate-800">Export</h3>
+            <div className="flex items-center gap-2">
+              {(["css", "tailwind"] as const).map((fmt) => (
+                <button
+                  key={fmt}
+                  onClick={() => setExportMode(fmt)}
+                  className={`px-3 py-1 text-xs font-mono rounded-lg transition-colors ${
+                    exportMode === fmt
+                      ? "bg-indigo-600 text-white"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  }`}
+                >
+                  {fmt === "css" ? "CSS Variables" : "Tailwind"}
+                </button>
+              ))}
+              <CopyButton text={exportText} label="Copy" />
+            </div>
           </div>
+          <pre className="text-xs font-mono text-slate-600 bg-slate-50 rounded-xl p-4 overflow-auto whitespace-pre-wrap max-h-48">
+            {exportText}
+          </pre>
         </div>
-        <pre className="text-xs font-mono text-slate-600 bg-slate-50 rounded-xl p-4 overflow-auto whitespace-pre-wrap max-h-48">
-          {exportText}
-        </pre>
-      </div>
+      </ProGate>
 
       {/* Share + CTA */}
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <ShareOnXButton text={xText} href="/brand-generator/" />
+        <div className="flex flex-wrap items-center gap-2">
+          <ShareOnXButton text={xText} href="/brand-generator/" />
+          <SaveToProjectButton
+            palette={generated.palette.map((c) => c.hex)}
+            defaultName={inputs.industry || inputs.style || "Brand Palette"}
+          />
+        </div>
         <Link
           href="/packs/brand-starter-kit/"
           className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-xs font-medium rounded-lg hover:bg-slate-700 transition-colors"
@@ -257,6 +268,7 @@ export function BrandGeneratorPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<GeneratedPalette | null>(null);
+  const upgrade = useUpgradeModal();
 
   const handleGenerate = useCallback(async () => {
     if (!industry && !style && !keywords) {
@@ -270,10 +282,15 @@ export function BrandGeneratorPage() {
     try {
       const res = await fetch(`${API_URL}/ai/brand-palette`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ industry, style, audience, keywords }),
       });
       const data = await res.json();
+      if (res.status === 429 && data.limit) {
+        upgrade.handleRateLimitError(data);
+        return;
+      }
       if (!res.ok) throw new Error(data.error || "Failed to generate palette");
       setResult(data);
     } catch (err) {
@@ -281,7 +298,7 @@ export function BrandGeneratorPage() {
     } finally {
       setIsLoading(false);
     }
-  }, [industry, style, audience, keywords]);
+  }, [industry, style, audience, keywords, upgrade]);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 pb-24">
@@ -454,6 +471,14 @@ export function BrandGeneratorPage() {
           </div>
         </section>
       </div>
+
+      <UpgradeModal
+        open={upgrade.open}
+        onClose={upgrade.close}
+        tier={upgrade.info.tier}
+        used={upgrade.info.used}
+        limit={upgrade.info.limit}
+      />
     </main>
   );
 }
