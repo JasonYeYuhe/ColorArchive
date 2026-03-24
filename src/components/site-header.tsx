@@ -50,7 +50,9 @@ interface SiteHeaderProps {
     | "/tokens"
     | "/image-palette"
     | "/combinations"
-    | "/identify";
+    | "/identify"
+    | "/color-quiz"
+    | "/brand-generator";
 }
 
 interface NavItem {
@@ -93,6 +95,8 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/wcag-audit/", labelKey: "nav.wcagAudit" },
       { href: "/image-palette/", labelKey: "nav.imagePalette" },
       { href: "/identify/", labelKey: "nav.colorFinder" },
+      { href: "/color-quiz/", labelKey: "nav.colorQuiz" },
+      { href: "/brand-generator/", labelKey: "nav.brandGenerator" },
       { href: "/combinations/", labelKey: "nav.combinations" },
       { href: "/api-docs/", labelKey: "nav.apiDocs" },
       { href: "https://www.figma.com/community/plugin/1616829363158218051", labelKey: "nav.figmaPlugin" },

@@ -30,6 +30,8 @@ const translations: Record<string, Record<string, string>> = {
   "nav.imagePalette": { en: "Image Extractor", zh: "图片取色" },
   "nav.colorFinder": { en: "Color Finder", zh: "颜色识别" },
   "nav.combinations": { en: "Combinations", zh: "配色组合" },
+  "nav.colorQuiz": { en: "Color Quiz", zh: "颜色测试" },
+  "nav.brandGenerator": { en: "Brand Generator", zh: "品牌色生成" },
   "nav.apiDocs": { en: "Color API", zh: "颜色 API" },
   "nav.figmaPlugin": { en: "Figma Plugin", zh: "Figma 插件" },
   "nav.surprise": { en: "Surprise", zh: "随机发现" },
@@ -1906,6 +1908,16 @@ const translations: Record<string, Record<string, string>> = {
   "tools.imagePalette.desc": {
     en: "Upload any photo or design to extract its dominant color palette. Get hex, RGB, and HSL values. Find the closest ColorArchive match for each color.",
     zh: "上传任意图片或设计稿，提取其主要色彩。获取 Hex、RGB 和 HSL 值，并匹配最接近的 ColorArchive 颜色。",
+  },
+  "tools.colorQuiz.name": { en: "Color Personality Quiz", zh: "颜色性格测试" },
+  "tools.colorQuiz.desc": {
+    en: "Answer 5 questions and discover your color personality type. Get a custom palette and shareable result card.",
+    zh: "5 道题测出你的颜色性格，获得专属调色板与可分享结果卡。",
+  },
+  "tools.brandGenerator.name": { en: "AI Brand Color Generator", zh: "AI 品牌色生成器" },
+  "tools.brandGenerator.desc": {
+    en: "Describe your brand and get a full 6-color palette — primary, accents, neutrals — with AI-generated rationale and export tokens.",
+    zh: "描述品牌，AI 生成完整 6 色系统，包含主色、辅色、中性色，附设计理由和导出格式。",
   },
   "tools.combinations.name": { en: "Color Combinations", zh: "配色组合" },
   "tools.combinations.desc": {

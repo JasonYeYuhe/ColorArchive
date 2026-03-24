@@ -48,6 +48,7 @@ app.use("/webhook", require("./routes/webhook"));
 app.use("/analytics", require("./routes/analytics"));
 app.use("/pageviews", require("./routes/pageviews"));
 app.use("/instagram", require("./routes/instagram"));
+app.use("/ai", require("./routes/ai"));
 
 app.get("/health", (_, res) => res.json({ ok: true }));
 
