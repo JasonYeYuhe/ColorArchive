@@ -24,7 +24,8 @@ const {
 } = require("./ig-image-generator");
 
 const TOKEN_FILE = path.join(__dirname, ".env.instagram");
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://api.colorarchive.me";
+// Images are served from the API server, not the frontend
+const API_ORIGIN = process.env.API_ORIGIN || "https://api.colorarchive.me";
 
 // Track what we've already posted (persisted per-day)
 const POSTED_LOG = path.join(__dirname, "generated", ".post-log.json");
@@ -164,7 +165,7 @@ async function runDailyStory() {
       console.log(`[ig-scheduler] Story: Palette — ${collection.title}`);
     }
 
-    const imageUrl = `${FRONTEND_ORIGIN}/generated/${filename}`;
+    const imageUrl = `${API_ORIGIN}/generated/${filename}`;
     const mediaId = await publishToInstagram(imageUrl, null, "STORIES");
 
     if (mediaId) {
@@ -205,7 +206,7 @@ async function runPeriodicPost() {
       console.log(`[ig-scheduler] Post: Palette — ${collection.title}`);
     }
 
-    const imageUrl = `${FRONTEND_ORIGIN}/generated/${filename}`;
+    const imageUrl = `${API_ORIGIN}/generated/${filename}`;
     const mediaId = await publishToInstagram(imageUrl, caption, "IMAGE");
 
     if (mediaId) {
