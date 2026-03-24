@@ -420,6 +420,39 @@ router.get("/status", (req, res) => {
   });
 });
 
+/* ── Webhooks ────────────────────────────────────────────── */
+
+const WEBHOOK_VERIFY_TOKEN = process.env.INSTAGRAM_WEBHOOK_VERIFY_TOKEN || "colorarchive_ig_webhook_2026";
+
+/**
+ * GET /instagram/webhook
+ * Verification endpoint for Instagram webhook subscription.
+ * Meta sends a GET with hub.mode, hub.verify_token, hub.challenge.
+ */
+router.get("/webhook", (req, res) => {
+  const mode = req.query["hub.mode"];
+  const token = req.query["hub.verify_token"];
+  const challenge = req.query["hub.challenge"];
+
+  if (mode === "subscribe" && token === WEBHOOK_VERIFY_TOKEN) {
+    console.log("[instagram] Webhook verified");
+    return res.status(200).send(challenge);
+  }
+  return res.sendStatus(403);
+});
+
+/**
+ * POST /instagram/webhook
+ * Receives webhook events (comments, messages, etc).
+ * Logs them for now; can be extended to trigger actions.
+ */
+router.post("/webhook", (req, res) => {
+  const body = req.body;
+  console.log("[instagram] Webhook event:", JSON.stringify(body).slice(0, 500));
+  // Always return 200 quickly to acknowledge receipt
+  return res.sendStatus(200);
+});
+
 /* ── Auto Token Refresh ──────────────────────────────────── */
 
 /**
