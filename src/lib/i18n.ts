@@ -1253,6 +1253,10 @@ const translations: Record<string, Record<string, string>> = {
     en: "Already saved",
     zh: "已保存",
   },
+  "colorDetail.startPalette": {
+    en: "Start palette from this",
+    zh: "以此色开始调色板",
+  },
   "colorDetail.recentTrailLink": {
     en: "Recent trail",
     zh: "最近浏览",

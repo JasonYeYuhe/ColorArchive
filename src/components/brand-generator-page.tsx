@@ -13,6 +13,7 @@ import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 import { DownloadPaletteImage } from "@/src/components/download-palette-image";
+import { WhatsNext } from "@/src/components/whats-next";
 import { collections } from "@/src/lib/collections";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
@@ -465,27 +466,12 @@ export function BrandGeneratorPage() {
           </section>
         )}
 
-        {/* Related tools */}
-        <section>
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Related tools</p>
-          <div className="flex flex-wrap gap-2">
-            {[
-              { href: "/contrast/", label: "Contrast Checker" },
-              { href: "/tokens/", label: "Token Generator" },
-              { href: "/harmonies/", label: "Color Harmonies" },
-              { href: "/image-palette/", label: "Image Color Extractor" },
-              { href: "/color-quiz/", label: "Color Personality Quiz" },
-            ].map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="px-3 py-1.5 text-sm bg-white border border-slate-200 rounded-lg text-slate-600 hover:border-indigo-300 hover:text-indigo-700 transition-colors"
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
-        </section>
+        {/* What's next */}
+        <WhatsNext items={[
+          { href: "/contrast/", label: "Audit Contrast", desc: "Check WCAG compliance for your new palette" },
+          { href: "/tokens/", label: "Export Tokens", desc: "Generate a full design system from your primary color" },
+          { href: "/packs/brand-starter-kit/", label: "Brand Starter Kit", desc: "Get the complete brand system with guides and templates" },
+        ]} />
       </div>
 
       <UpgradeModal

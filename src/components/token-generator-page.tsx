@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo } from "react";
 import { hexToRgb, rgbToHsl, hslToRgb, rgbToHex } from "@/src/lib/color-utils";
 import { useLocale } from "@/src/components/locale-provider";
 import { ProGate } from "@/src/components/pro-gate";
+import { WhatsNext } from "@/src/components/whats-next";
 
 /* ------------------------------------------------------------------ */
 /*  Types & constants                                                   */
@@ -532,6 +533,12 @@ export function TokenGeneratorPage() {
             </div>
           </>
         )}
+
+        <WhatsNext items={[
+          { href: "/contrast/", label: "Audit Contrast", desc: "Check WCAG compliance for your token system" },
+          { href: "/preview/", label: "Preview in UI", desc: "See your colors applied to real components" },
+          { href: "/packs/complete-archive/", label: "Complete Archive", desc: "All 3,000+ colors as production-ready tokens" },
+        ]} />
       </div>
     </main>
   );

@@ -6,6 +6,7 @@ import { colors } from "@/src/data/colors";
 import { hslToRgb, rgbToHex } from "@/src/lib/color-utils";
 import { useLocale } from "@/src/components/locale-provider";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
+import { WhatsNext } from "@/src/components/whats-next";
 import type { ColorRecord } from "@/src/types/color";
 
 /* ------------------------------------------------------------------ */
@@ -616,6 +617,12 @@ export function ContrastCheckerPage() {
             </Link>
           </div>
         </section>
+
+        <WhatsNext items={[
+          { href: "/tokens/", label: "Export Design Tokens", desc: "Generate a full color scale from your primary color" },
+          { href: "/brand-generator/", label: "AI Brand Generator", desc: "Create a complete brand palette with AI" },
+          { href: "/wcag-audit/", label: "Full WCAG Audit", desc: "Test all color pairs in your system at once" },
+        ]} />
       </div>
     </main>
   );

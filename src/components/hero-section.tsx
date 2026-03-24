@@ -104,6 +104,12 @@ export function HeroSection({
               AI Brand Generator
             </Link>
             <Link
+              href="/palette-generator/"
+              className="rounded-full border border-indigo-200/50 bg-indigo-50/80 px-5 py-2.5 text-sm font-medium text-indigo-700 transition hover:bg-indigo-100 dark:border-indigo-800/50 dark:bg-indigo-950/30 dark:text-indigo-400"
+            >
+              Random Palette
+            </Link>
+            <Link
               href="/packs/"
               className="text-sm font-medium text-neutral-500 transition hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
             >

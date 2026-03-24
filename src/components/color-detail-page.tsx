@@ -507,6 +507,12 @@ export function ColorDetailPage({
                 <PinterestSaveButton color={color} />
                 <SaveToProjectButton palette={[color.hex]} defaultName={color.name} />
                 <Link
+                  href={`/brand/?primary=${encodeURIComponent(color.hex)}`}
+                  className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-xs font-medium text-indigo-700 transition hover:bg-indigo-100 dark:border-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400"
+                >
+                  {t("colorDetail.startPalette")}
+                </Link>
+                <Link
                   href="/recent/"
                   className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                 >
