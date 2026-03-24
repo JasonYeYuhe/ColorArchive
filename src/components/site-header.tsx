@@ -53,7 +53,11 @@ interface SiteHeaderProps {
     | "/identify"
     | "/color-quiz"
     | "/brand-generator"
-    | "/today";
+    | "/today"
+    | "/mood-palette"
+    | "/preview"
+    | "/mesh-gradient"
+    | "/stories";
 }
 
 interface NavItem {
@@ -77,6 +81,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/collections/", labelKey: "nav.collections" },
       { href: "/notes/", labelKey: "nav.notes" },
       { href: "/guides/", labelKey: "nav.guides" },
+      { href: "/stories/", labelKey: "nav.stories" },
     ],
   },
   {
@@ -97,6 +102,9 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/image-palette/", labelKey: "nav.imagePalette" },
       { href: "/identify/", labelKey: "nav.colorFinder" },
       { href: "/today/", labelKey: "nav.today" },
+      { href: "/mood-palette/", labelKey: "nav.moodPalette" },
+      { href: "/preview/", labelKey: "nav.preview" },
+      { href: "/mesh-gradient/", labelKey: "nav.meshGradient" },
       { href: "/color-quiz/", labelKey: "nav.colorQuiz" },
       { href: "/brand-generator/", labelKey: "nav.brandGenerator" },
       { href: "/combinations/", labelKey: "nav.combinations" },

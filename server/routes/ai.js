@@ -150,4 +150,81 @@ No markdown, no explanation outside the JSON. Pure JSON only.`;
   }
 });
 
+/**
+ * POST /ai/mood-palette
+ * Body: { prompt: string }
+ * Returns: { colors: [{ hex, name, description }], palette_name, mood_tag }
+ */
+router.post("/mood-palette", async (req, res) => {
+  const { prompt } = req.body ?? {};
+
+  if (!prompt || typeof prompt !== "string" || prompt.trim().length < 2) {
+    return res.status(400).json({ error: "Please provide a mood or scene description." });
+  }
+
+  if (!process.env.GOOGLE_AI_API_KEY) {
+    return res.status(503).json({ error: "AI feature not configured on this server." });
+  }
+
+  const safePrompt = prompt.trim().slice(0, 200);
+
+  const instruction = `You are a creative color director who translates moods, scenes, and emotions into beautiful color palettes.
+
+A user described this mood or scene: "${safePrompt}"
+
+Create a 5-color palette that perfectly captures this feeling. Each color should contribute to the overall atmosphere.
+
+For each color provide:
+- hex: a valid 6-digit hex code starting with #
+- name: a poetic, evocative name (2-4 words)
+- description: one short sentence (max 12 words) describing what this color contributes to the mood
+
+Also provide:
+- palette_name: a beautiful 2-5 word name for the whole palette
+- mood_tag: one word or short phrase capturing the vibe (e.g. "melancholic", "energetic", "serene")
+
+Respond ONLY with valid JSON in this exact format:
+{
+  "palette_name": "Late Night Reverie",
+  "mood_tag": "contemplative",
+  "colors": [
+    { "hex": "#1a1a2e", "name": "Midnight Ink", "description": "The deep silence of 3am streets." },
+    { "hex": "#16213e", "name": "Ocean Floor", "description": "Cool depth beneath the surface." },
+    { "hex": "#0f3460", "name": "Cobalt Dream", "description": "A hint of possibility in the dark." },
+    { "hex": "#533483", "name": "Violet Thought", "description": "Where ideas form in the quiet." },
+    { "hex": "#e94560", "name": "Dawn Signal", "description": "The single light breaking through." }
+  ]
+}
+
+No markdown, no explanation outside the JSON. Pure JSON only.`;
+
+  try {
+    const model = getClient().getGenerativeModel({ model: "gemini-3-flash" });
+    const result = await model.generateContent(instruction);
+    const text = result.response.text();
+
+    let parsed;
+    try {
+      parsed = JSON.parse(text.trim());
+    } catch {
+      const match = text.match(/\{[\s\S]*\}/);
+      if (match) parsed = JSON.parse(match[0]);
+      else throw new Error("Could not parse AI response as JSON");
+    }
+
+    if (!parsed.colors || !Array.isArray(parsed.colors) || parsed.colors.length === 0) {
+      throw new Error("Invalid colors structure in AI response");
+    }
+
+    return res.json({
+      colors: parsed.colors,
+      palette_name: parsed.palette_name ?? "Untitled Palette",
+      mood_tag: parsed.mood_tag ?? "evocative",
+    });
+  } catch (err) {
+    console.error("[ai/mood-palette] Error:", err);
+    return res.status(500).json({ error: "Failed to generate palette. Please try again." });
+  }
+});
+
 module.exports = router;
