@@ -67,9 +67,29 @@ ColorArchive/
 │   ├── compare/                   # /compare/ — side-by-side two-color comparison tool
 │   ├── tints/                     # /tints/ — tints & shades generator (11-step tonal scale, CSS/Tailwind/Sass/JSON export)
 │   ├── mixer/                     # /mixer/ — Color Mixer (RGB/HSL/OKLCH interpolation, 11-step blend, CSS vars/JSON/color-mix() export)
-│   └── combinations/              # /combinations/ — Color Combinations Library (30+ curated 2-5 color combos, filter by harmony type)
-│   └── tokens/                    # /tokens/ — Design Token Generator (primary/neutral/semantic scales, CSS/Tailwind/SCSS/JSON export)
-│   └── packs/quiz/                # /packs/quiz/ — interactive pack recommendation quiz
+│   ├── combinations/              # /combinations/ — Color Combinations Library
+│   ├── tokens/                    # /tokens/ — Design Token Generator
+│   ├── packs/quiz/                # /packs/quiz/ — interactive pack recommendation quiz
+│   ├── brand-generator/           # /brand-generator/ — AI brand palette generator
+│   ├── mood-palette/              # /mood-palette/ — AI mood palette generator
+│   ├── color-quiz/                # /color-quiz/ — Color personality quiz
+│   ├── image-palette/             # /image-palette/ — Image color extractor
+│   ├── identify/                  # /identify/ — Color finder (camera/image/eyedropper)
+│   ├── preview/                   # /preview/ — Palette UI preview (5 scenes + dark mode)
+│   ├── mesh-gradient/             # /mesh-gradient/ — Mesh gradient generator
+│   ├── stories/                   # /stories/ — Color stories (cultural/psychological)
+│   ├── today/                     # /today/ — Color of the Day
+│   ├── colorblind/                # /colorblind/ — Color blindness simulator
+│   ├── wcag-audit/                # /wcag-audit/ — Full WCAG audit matrix
+│   ├── brand/                     # /brand/ — Brand palette system builder
+│   ├── tools/                     # /tools/ — All tools listing page
+│   ├── api-docs/                  # /api-docs/ — Public API documentation
+│   ├── pro/                       # /pro/ — Pro subscription pricing page
+│   ├── projects/                  # /projects/ — Cloud project library
+│   ├── projects/shared/[shareId]/ # /projects/shared/:id — Public shared project view
+│   ├── account/                   # /account/ — User account dashboard
+│   ├── analyze/                   # /analyze/ — Brand color analyzer (URL extraction)
+│   ├── admin/tiktok/              # /admin/tiktok/ — TikTok publishing admin
 │
 ├── src/
 │   ├── components/               # "use client" UI components (one per page + shared)
@@ -145,13 +165,38 @@ ColorArchive/
 │   │   ├── copy-upsell-toast.tsx       # Subtle upsell toast after 5th copy
 │   │   ├── pack-quiz-page.tsx           # Interactive pack recommendation quiz
 │   │   ├── back-to-top.tsx              # Floating back-to-top button
-│   │   ├── colorblind-page.tsx          # Color blindness simulator (4 deficiency types, palette mode)
-│   │   └── error-boundary.tsx           # Global error boundary component
+│   │   ├── colorblind-page.tsx          # Color blindness simulator
+│   │   ├── error-boundary.tsx           # Global error boundary component
+│   │   ├── brand-generator-page.tsx     # AI brand palette generator
+│   │   ├── mood-palette-page.tsx        # AI mood palette generator
+│   │   ├── color-quiz-page.tsx          # Color personality quiz
+│   │   ├── image-palette-page.tsx       # Image color extractor (k-means)
+│   │   ├── color-finder-page.tsx        # Color finder (camera/image/eyedropper)
+│   │   ├── palette-preview-page.tsx     # Palette UI preview (5 scenes + dark mode)
+│   │   ├── mesh-gradient-page.tsx       # Mesh gradient generator
+│   │   ├── color-stories-page.tsx       # Color stories page
+│   │   ├── color-of-day-page.tsx        # Color of the Day
+│   │   ├── wcag-audit-page.tsx          # WCAG audit matrix
+│   │   ├── token-generator-page.tsx     # Design token generator
+│   │   ├── tools-page.tsx              # All tools listing
+│   │   ├── api-docs-page.tsx           # API documentation
+│   │   ├── pro-page.tsx                # Pro pricing page
+│   │   ├── pro-gate.tsx                # Export gating component (Free: 1/day, Pro: unlimited)
+│   │   ├── upgrade-modal.tsx           # Pro upgrade modal + useUpgradeModal hook
+│   │   ├── projects-page.tsx           # Cloud projects list
+│   │   ├── shared-project-page.tsx     # Public shared project view
+│   │   ├── save-to-project.tsx         # "Save to Projects" button (used across 8+ pages)
+│   │   ├── account-page.tsx            # Account dashboard (tier, usage, referral)
+│   │   ├── palette-critique-panel.tsx  # AI design critique panel
+│   │   ├── url-analyzer-page.tsx       # Brand color analyzer (URL extraction)
+│   │   ├── referral-card.tsx           # Referral link + credits display
+│   │   └── ai-usage-badge.tsx          # AI usage counter badge
 │   │
 │   ├── data/
-│   │   ├── colors.ts                     # Algorithmic generation of all 2016 colors
-│   │   │                                 # (hue roots × lightness bands × chroma bands)
-│   │   └── newsletter-issues.json        # 130 newsletter issues (Issue 001–129+)
+│   │   ├── colors.ts                     # Algorithmic generation of 3,066 colors
+│   │   │                                 # (36 hues × 14 lightness × 6 chroma + 3 neutral groups × 14)
+│   │   ├── color-stories.json            # Color stories (cultural/psychological content)
+│   │   └── newsletter-issues.json        # 130+ newsletter issues
 │   │
 │   ├── lib/
 │   │   ├── color-utils.ts                # HSL↔RGB↔HEX, family classification,
@@ -167,7 +212,13 @@ ColorArchive/
 │   │   ├── favorites.ts                  # localStorage favorites + subscriptions
 │   │   ├── recent-colors.ts              # localStorage recent history
 │   │   ├── pinterest.ts                  # Pinterest OAuth + API proxy helpers
-│   │   ├── checkout-config.ts            # Lemon Squeezy checkout URLs
+│   │   ├── checkout-config.ts            # Lemon Squeezy checkout URLs + Pro subscription config
+│   │   ├── auth-client.ts               # Client API: session, projects, usage, referral, types
+│   │   ├── brand-palette.ts             # Single-hex → 11-step design system + semantic colors
+│   │   ├── color-relationships.ts       # Color relationships (analogous, complementary, triadic, tonal)
+│   │   ├── color-contrast.ts            # WCAG contrast ratio + relative luminance
+│   │   ├── color-of-day.ts              # Deterministic daily color selection
+│   │   ├── license-tiers.ts             # License tier definitions
 │   │   ├── color-family-pages.ts         # Color family page slug/metadata
 │   │   ├── colorblind.ts                 # Viénot (1999) color blindness simulation matrices
 │   │   ├── combinations.ts               # 30+ curated color combinations (complementary, analogous, triadic, monochromatic, neutral+accent)
@@ -178,28 +229,32 @@ ColorArchive/
 │
 ├── server/                               # Express backend — DO Droplet
 │   ├── index.js                          # Entry point, routes registration
-│   ├── email.js                          # Resend email functions:
-│   │                                     #   sendFreePackEmail (Day-0)
-│   │                                     #   sendFollowUp3DayEmail
-│   │                                     #   sendFollowUp7DayEmail
-│   │                                     #   sendFollowUp14DayEmail
-│   │                                     #   sendWaitlistConfirmationEmail
-│   │                                     #   sendOrderConfirmationEmail
-│   │                                     #   sendMagicLinkEmail
-│   ├── email-scheduler.js                # Hourly cron: Day-3/7/14 follow-ups + A/B variants
-│   ├── db.js                             # SQLite setup (subscribers, orders, sessions)
-│   ├── auth.js                           # Magic link auth logic
+│   ├── email.js                          # Resend email functions (11 types incl. Pro upsell)
+│   ├── email-scheduler.js                # Hourly cron: Day-3/7/14/21/30 follow-ups + COTD + A/B
+│   ├── db.js                             # SQLite setup (subscribers, orders, sessions, users,
+│   │                                     #   projects, ai_usage, user_preferences)
+│   ├── auth.js                           # Magic link + Google OAuth auth, tier management
 │   ├── catalog.js                        # Pack catalog data
+│   ├── colors.js                         # Server-side 3,066 color generation (mirrors client)
+│   ├── ai-rate-limit.js                  # AI rate limiting middleware (anon 3/day, free 10/day,
+│   │                                     #   pro unlimited, credit consumption)
+│   ├── api-rate-limit.js                 # API rate limiting middleware (60/1k/10k per hour)
+│   ├── ig-scheduler.js                   # Instagram auto-posting scheduler
+│   ├── ig-image-generator.js             # Instagram image generation
 │   └── routes/
-│       ├── subscribe.js                  # POST /subscribe — email capture
+│       ├── subscribe.js                  # POST /subscribe — email capture + referral tracking
 │       ├── webhook.js                    # POST /webhook — Lemon Squeezy events
-│       ├── auth.js                       # POST /auth/request, GET /auth/verify
-│       ├── me.js                         # GET /me — session user info
+│       ├── auth.js                       # Magic link + Google OAuth + session (with tier)
+│       ├── me.js                         # GET /me, /me/usage, /me/referral, /me/api-key,
+│       │                                 #   /me/preferences, /me/orders
+│       ├── projects.js                   # CRUD /projects + GET /projects/shared/:id
+│       ├── ai.js                         # POST /ai/brand-palette, /ai/mood-palette,
+│       │                                 #   /ai/name-color, /ai/critique, /ai/analyze-url
 │       ├── admin.js                      # GET /admin/* — orders dashboard
 │       ├── analytics.js                  # GET /analytics/* — internal stats
 │       ├── pageviews.js                  # POST /pageviews — page tracking
 │       ├── og.js                         # GET /og — OG image generation
-│       └── instagram.js                  # GET/POST /instagram/* — Instagram API (OAuth, publish, media feed)
+│       └── instagram.js                  # Instagram API (OAuth, publish, media feed)
 │
 ├── public/
 │   └── downloads/                        # Pack download files (.zip, .swatches)
@@ -236,7 +291,7 @@ app/colors/[slug]/page.tsx  →  src/components/color-detail-page.tsx
 ```
 
 ### Static Generation
-`generateStaticParams()` in dynamic routes pre-renders all pages at build time. 2016 color pages + family/collection/pack/guide/note pages = ~2134 total pages.
+`generateStaticParams()` in dynamic routes pre-renders all pages at build time. 3,066 color pages + family/collection/pack/guide/note pages = ~3,200+ total pages.
 
 ### localStorage Persistence
 Three independent stores, each with a subscription pattern for cross-component reactivity:
@@ -253,20 +308,34 @@ Triggered by `email-scheduler.js` running hourly on the DO droplet:
 - **Day 3** — How to use CSS tokens + Dark Mode UI Kit upsell
 - **Day 7** — Full catalog overview (all 7 packs)
 - **Day 14** — 10% discount code `FIRSTPACK`
+- **Day 21** — Creative inspiration email
+- **Day 30** — Final conversion email
+- **On AI limit hit** — Pro upsell email (max 1/day per user)
+- **Daily** — Color of the Day (COTD) for opted-in subscribers
 
-Each follow-up uses A/B subject-line variants (deterministic hash on email). Variant assignment stored in `ab_variant` column; per-stage variant tracked in `follow_up_Xd_variant`. Results available via `GET /analytics/ab-results`.
+Each follow-up uses A/B subject-line variants (deterministic hash on email). Variant assignment stored in `ab_variant` column; per-stage variant tracked in `follow_up_Xd_variant`.
+
+### Pro Subscription & Monetization
+- **Tier system**: anonymous (3 AI/day) → free (10 AI/day, 3 projects) → Pro (unlimited)
+- **ProGate**: Export gating on token generator, WCAG audit, image palette, palette builder, preview
+- **Referral credits**: +5 AI credits per referred signup, credits consumed before tier limits
+- **API tiering**: 60/hr (anonymous) → 1,000/hr (free key) → 10,000/hr (Pro key)
+- **Upgrade triggers**: 429 rate limit → modal + email; ProGate lock → /pro link
 
 ---
 
-## Content Counts (as of 2026-03-23)
+## Content Counts (as of 2026-03-24)
 
 | Content | Count |
 |---------|-------|
-| Colors | 2016 |
+| Colors | 3,066 (3,024 chromatic + 42 neutral grays) |
+| Saturation bands | 6 (Faint 10%, Muted 18%, Soft 34%, Clear 54%, Vivid 74%, Pure 92%) |
+| Neutral groups | 3 (Warm Gray, Cool Gray, True Gray) |
 | Collections | 68 |
-| Palette packs | 7 |
+| Palette packs | 7 (USD $9–$129) |
 | SEO guides | 113 |
 | Newsletter issues | 166 |
 | Color families | 9 |
-| Tool pages | 15 (converter, contrast, spectrum, word-to-color, surprise, palette-generator, gradient, harmonies, compare, quiz, colorblind, tints, mixer, combinations) |
-| i18n keys | ~710+ (EN/ZH) |
+| Tool pages | 22+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze) |
+| AI endpoints | 5 (brand-palette, mood-palette, name-color, critique, analyze-url) |
+| i18n keys | ~750+ (EN/ZH) |
