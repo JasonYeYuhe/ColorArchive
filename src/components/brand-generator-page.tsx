@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Link from "next/link";
 import { hexToRgb, findClosestArchiveColor } from "@/src/lib/color-utils";
+import { classifyError } from "@/src/lib/error-utils";
 import { colors as archiveColors } from "@/src/data/colors";
 import { ShareOnXButton } from "@/src/components/share-link-button";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
@@ -273,7 +274,7 @@ export function BrandGeneratorPage() {
       if (!res.ok) throw new Error(data.error || "Failed to generate palette");
       setResult(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setError(classifyError(err));
     } finally {
       setIsLoading(false);
     }

@@ -6,6 +6,7 @@ import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
+import { classifyError } from "@/src/lib/error-utils";
 import { toggleFavoriteColor, getFavoriteColorIds } from "@/src/lib/favorites";
 import { colors as archiveColors } from "@/src/data/colors";
 
@@ -120,7 +121,7 @@ export function MoodPalettePage() {
       setShareUrl(url);
       window.history.replaceState(null, "", url);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setError(classifyError(err));
     } finally {
       setIsLoading(false);
     }

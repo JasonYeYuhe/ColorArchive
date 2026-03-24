@@ -89,54 +89,26 @@ export function HeroSection({
             ))}
           </div>
 
-          {/* Primary CTA hierarchy */}
+          {/* Primary CTA — focused on 2 actions */}
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <Link
-              href="/free-pack/"
-              className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800 focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
-            >
-              {t("hero.getStartedFree")}
-            </Link>
             <a
               href="#archive"
-              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+              className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800 focus:outline-none focus:ring-4 focus:ring-neutral-900/10 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100"
             >
               {t("hero.browseArchive")}
             </a>
             <Link
+              href="/brand-generator/"
+              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
+            >
+              AI Brand Generator
+            </Link>
+            <Link
               href="/packs/"
-              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
+              className="text-sm font-medium text-neutral-500 transition hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
             >
-              {t("hero.browsePacks")}
+              {t("hero.browsePacks")} &rarr;
             </Link>
-            <Link
-              href="/guides/"
-              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
-            >
-              {t("hero.readGuides")}
-            </Link>
-            <Link
-              href="/convert/"
-              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
-            >
-              {t("hero.convertColors")}
-            </Link>
-            <Link
-              href="/packs/quiz/"
-              className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10"
-            >
-              {t("hero.findYourPack")}
-            </Link>
-            {checkoutConfig["all-access-bundle"].url && (
-              <a
-                href={checkoutConfig["all-access-bundle"].url}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-emerald-300/40 bg-emerald-50/80 px-5 py-2.5 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100 focus:outline-none focus:ring-4 focus:ring-emerald-400/20 dark:border-emerald-700/40 dark:bg-emerald-900/40 dark:text-emerald-300"
-              >
-                All Access ¥5,980
-              </a>
-            )}
           </div>
 
           {/* Status pills */}

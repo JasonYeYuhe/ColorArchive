@@ -98,6 +98,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
   }, [activeFamily, searchResults, sortBy]);
 
   const PAGE_SIZE = 120;
+  const MAX_DISPLAY = 720;
   const [displayLimit, setDisplayLimit] = useState(PAGE_SIZE);
 
   useEffect(() => {
@@ -233,7 +234,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
             </span>
             <button
               type="button"
-              onClick={() => setDisplayLimit((prev) => prev + PAGE_SIZE)}
+              onClick={() => setDisplayLimit((prev) => Math.min(prev + PAGE_SIZE, MAX_DISPLAY))}
               className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
             >
               {t("pagination.showMore")}

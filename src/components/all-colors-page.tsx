@@ -144,6 +144,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
 
   // Pagination
   const PAGE_SIZE = 240;
+  const MAX_DISPLAY = 960; // Cap at ~1000 for performance
   const [displayLimit, setDisplayLimit] = useState(PAGE_SIZE);
 
   useEffect(() => {
@@ -590,7 +591,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
             />
           ) : (
             <>
-              <div className={`grid ${densityGridClass}`}>
+              <div className={`grid ${densityGridClass}`} style={{ contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}>
                 {visibleColors.slice(0, displayLimit).map((color) => (
                   <button
                     key={color.id}
@@ -622,7 +623,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
                   </span>
                   <button
                     type="button"
-                    onClick={() => setDisplayLimit((prev) => prev + PAGE_SIZE)}
+                    onClick={() => setDisplayLimit((prev) => Math.min(prev + PAGE_SIZE, MAX_DISPLAY))}
                     className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
                   >
                     {t("pagination.showMore")}

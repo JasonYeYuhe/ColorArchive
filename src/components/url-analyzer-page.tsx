@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { findClosestArchiveColor } from "@/src/lib/color-utils";
+import { classifyError } from "@/src/lib/error-utils";
 import { colors as archiveColors } from "@/src/data/colors";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
@@ -66,7 +67,7 @@ export function UrlAnalyzerPage() {
       setColors(enriched);
       setAnalyzedUrl(data.url);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(classifyError(err));
     } finally {
       setLoading(false);
     }
