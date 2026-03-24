@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev        # Start development server
-npm run build      # Build static export to out/
+npm run build      # Build for Vercel deployment
 npm run typecheck  # Run TypeScript type checking (no emit)
 ```
 
@@ -14,7 +14,7 @@ There is no test suite. Use `typecheck` to validate changes.
 
 ## Architecture
 
-**ColorArchive** is a fully static Next.js app (App Router, static export) deployed to GitHub Pages. It has no backend — all logic runs client-side.
+**ColorArchive** is a Next.js app (App Router) deployed to Vercel. Backend API runs on a DigitalOcean Droplet (Express + SQLite).
 
 ### Data & Core Logic
 
@@ -49,7 +49,7 @@ Tailwind CSS 4 with utility-first classes. Key design patterns:
 
 ### Static Export Notes
 
-`next.config.ts` sets `output: "export"` and `trailingSlash: true`. Next.js image optimization is disabled (`unoptimized: true`). The built site goes to `out/` and is deployed via `.github/workflows/deploy-pages.yml` on push to `main`.
+`next.config.ts` sets `trailingSlash: true`. The site is deployed to Vercel automatically on push to `main`. Backend API at `api.colorarchive.me` runs on a DigitalOcean Droplet via PM2.
 
 ## Session Coordination (Autopilot ↔ Remote Control)
 
