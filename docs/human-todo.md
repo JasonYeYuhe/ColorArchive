@@ -21,25 +21,60 @@
 - [ ] Seasonal collection: spring-2026 assets exist in downloads but no corresponding collection page — *consider adding a seasonal palette page*
 - [ ] Add more combinations to /combinations/ — *started with 30; could expand to 50+ over future runs*
 
-## Social Media & Marketing Status (Updated 2026-03-24)
+## Social Media & Promotion Status (Updated 2026-03-24)
 
-### Completed
-- [x] **YouTube channel** — @colorarchiveme, 1 subscriber, 1 video uploaded, avatar/banner set
-- [x] **Facebook Page** — "Color Archive" page created (ID: 61576446410794)
-- [x] **Instagram account** — @colorarchive.me (Professional/Business account, linked to Meta Accounts Center)
-- [x] **Meta Developer App** — "ColorArchive" (App ID: 2333103020516915), Instagram API use case configured
-- [x] **Instagram API integration** — Full OAuth + publish + media feed endpoints on api.colorarchive.me
-  - Token: long-lived, expires 2026-05-23
-  - IG User ID: 17841440093063589
-  - Endpoints: /instagram/status, /instagram/profile, /instagram/media, /instagram/publish
-- [x] **Pinterest API** — OAuth flow working (existing integration)
+### Instagram ✅ 全自动运行中
+- [x] 账号: @colorarchive.me (Business), IG User ID: `34301687282808975`
+- [x] Meta Developer App: "ColorArchive" (App ID: `2333103020516915`)
+- [x] Instagram API (Instagram Login OAuth): 完整 OAuth + publish + media feed
+- [x] Token: 长期有效，到期日 2026-05-23，服务器每12h自动检查+续期
+- [x] **自动发帖 scheduler 已部署在 DO 服务器**:
+  - 每天 10:00 JST 发 Story（60% 每日颜色 / 40% 调色板集合）
+  - 每3天 12:00 JST 发 Feed Post（50% 单色 / 50% 调色板 + caption + hashtags）
+  - 图片由 sharp 自动生成（SVG→PNG, Story 1080×1920, Post 1080×1080）
+  - 防重复: date-seeded + post-log.json
+- [x] 已成功发帖测试: 2条 Story + 1条 Feed Post
 
-### Pending
-- [ ] Instagram: Post first content (color palette images, educational content)
-- [ ] Instagram: Token auto-refresh cron (before 2026-05-23 expiry)
-- [ ] TikTok: Complete API integration (admin page exists at app/admin/tiktok/)
-- [ ] YouTube: Upload more content / create content pipeline
-- [ ] Cross-post automation: Build autopilot task to publish to IG + Pinterest simultaneously
+### X/Twitter ⏳ API key 已有，待集成
+- [x] X Developer App: "ColorArchive" (App ID: `32630701`, ACTIVE)
+- [x] Bearer Token: 已生成 (2026-03-23)
+- [x] OAuth 1.0 Consumer Key: `••••••••••t54QX2`
+- [x] OAuth 1.0 Access Token: 已生成，for @JasonYeyuhe, Read+Write+DM
+- [x] OAuth 2.0 Client ID: `TzhESXZ40UdRN2pqU3VxVUZJMVo6MTpjaQ`
+- [ ] **TODO: 集成 X API 到 server（自动发推 + 配合 IG scheduler 同步发帖）**
+
+### TikTok ⏳ 审核中
+- [x] TikTok Developer App: "ColorArchive" (Category: Productivity)
+- [x] App icon 已上传 (ColorArchive logo)
+- [x] 已提交审核，状态: **"In review"**（Production 模式）
+- [ ] **等审核通过后: 集成 TikTok Content Posting API 到 server**
+- 注: 前端有 admin demo page (`app/admin/tiktok/`)，但后端未实现
+
+### YouTube ⏳ 频道已有，API 待集成
+- [x] 频道: @colorarchiveme, 1 subscriber, 1 video
+- [x] Avatar + banner 已设置 (`colorarchive_logo_v1_assets/`)
+- [ ] **TODO: YouTube Data API 集成（自动上传 color showcase 视频）**
+- 注: API key 已有但未在代码中看到，需要 Jason 提供具体 key
+
+### Pinterest ✅ 已集成
+- [x] OAuth flow 工作中 (App ID: `1555251`)
+- [x] 用户可以从颜色页 Save Pin 到 Pinterest boards
+- [ ] TODO: 自动发 Pin（配合 IG scheduler 同步）
+
+### Facebook 📋 Page 已创建
+- [x] Facebook Page: "Color Archive" (ID: `61576446410794`)
+- [ ] 未做 API 集成，暂不优先
+
+### Email Marketing ✅ 自动运行中
+- [x] Resend 发送, from: hello@colorarchive.me
+- [x] 免费包下载邮件 + waitlist 确认
+- [x] 5轮自动 follow-up (3/7/14/21/30天) + A/B/C 测试
+- [x] UTM + referrer 追踪
+
+### Commerce ⏳ 待激活
+- [x] 7个产品定义完成 (¥99–¥2,799)
+- [x] Lemon Squeezy + Stripe 代码就绪
+- [ ] **TODO: Lemon Squeezy 商店激活 + webhook 配置**
 
 ## Done
 - [x] Fix collections build error (18 invalid color IDs) — completed 2026-03-23 autopilot
