@@ -14,7 +14,7 @@ import "./globals.css";
 
 const siteTitle = "ColorArchive";
 const siteDescription =
-  "ColorArchive — 2016 curated hex color codes organized by family and hue. Search, copy, build palettes, and export design tokens for Figma, CSS, and Tailwind.";
+  "ColorArchive — 3,000+ curated hex color codes organized by family and hue. Search, copy, build palettes, and export design tokens for Figma, CSS, and Tailwind.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://colorarchive.me"),

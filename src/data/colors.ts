@@ -58,10 +58,12 @@ const lightBands = [
 ] as const;
 
 const chromaBands = [
+  { label: "Faint", saturation: 10 },
   { label: "Muted", saturation: 18 },
   { label: "Soft", saturation: 34 },
   { label: "Clear", saturation: 54 },
   { label: "Vivid", saturation: 74 },
+  { label: "Pure", saturation: 92 },
 ] as const;
 
 const toneCatalog = lightBands.flatMap(({ label: lightLabel, lightness }) =>
@@ -80,8 +82,15 @@ function createColorId(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
+const neutralCatalog = [
+  { root: "Warm Gray", hue: 30, saturation: 6 },
+  { root: "Cool Gray", hue: 210, saturation: 6 },
+  { root: "True Gray", hue: 0, saturation: 0 },
+] as const;
+
 function createColorDataset(): ColorRecord[] {
-  return hueCatalog.flatMap(({ hue, root }) =>
+  // Main chromatic colors: 36 hues × 14 lightness × 6 saturation = 3,024
+  const chromatic = hueCatalog.flatMap(({ hue, root }) =>
     toneCatalog.map(({ suffix, saturation, lightness }) => {
       const name = `${root} ${suffix}`;
       const rgbValue = hslToRgb(hue, saturation, lightness);
@@ -99,6 +108,28 @@ function createColorDataset(): ColorRecord[] {
       };
     }),
   );
+
+  // Neutral grays: 3 groups × 14 lightness = 42
+  const neutrals = neutralCatalog.flatMap(({ root, hue, saturation }) =>
+    lightBands.map(({ label, lightness }) => {
+      const name = `${root} ${label}`;
+      const rgbValue = hslToRgb(hue, saturation, lightness);
+
+      return {
+        id: createColorId(name),
+        name,
+        hex: rgbToHex(rgbValue),
+        rgb: formatRgb(rgbValue),
+        hsl: formatHsl(hue, saturation, lightness),
+        hue,
+        saturation,
+        lightness,
+        family: getColorFamily(hue),
+      };
+    }),
+  );
+
+  return [...chromatic, ...neutrals];
 }
 
 export const colors: ColorRecord[] = createColorDataset();

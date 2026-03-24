@@ -166,8 +166,8 @@ const translations: Record<string, Record<string, string>> = {
 
   // Footer
   "footer.description": {
-    en: "A curated color library with 2016 algorithmically generated colors. Browse, search, save favorites, and export palette tokens — no account required.",
-    zh: "一个包含 2016 种算法生成颜色的精选色彩库。浏览、搜索、收藏和导出调色板令牌——无需账户。",
+    en: "A curated color library with 3,000+ algorithmically generated colors. Browse, search, save favorites, and export palette tokens — no account required.",
+    zh: "一个包含 3,000+ 种算法生成颜色的精选色彩库。浏览、搜索、收藏和导出调色板令牌——无需账户。",
   },
   "footer.readyForExport": { en: "Ready for static export", zh: "可静态导出" },
 
@@ -1836,8 +1836,8 @@ const translations: Record<string, Record<string, string>> = {
     zh: "调色板构建器",
   },
   "tools.palette.desc": {
-    en: "Pick colors from the 2016-color archive and export your selection as CSS variables, Tailwind config, or Figma JSON.",
-    zh: "从 2016 色档案中选色，导出为 CSS 变量、Tailwind 配置或 Figma JSON。",
+    en: "Pick colors from the 3,000+ color archive and export your selection as CSS variables, Tailwind config, or Figma JSON.",
+    zh: "从 3,000+ 色档案中选色，导出为 CSS 变量、Tailwind 配置或 Figma JSON。",
   },
   "tools.wordToColor.name": {
     en: "Word \u2192 Color",
@@ -1852,8 +1852,8 @@ const translations: Record<string, Record<string, string>> = {
     zh: "光谱视图",
   },
   "tools.spectrum.desc": {
-    en: "Explore all 2016 archive colors arranged in a full-spectrum grid sorted by hue, lightness, and saturation.",
-    zh: "在按色相、明度和饱和度排列的全光谱网格中探索全部 2016 种档案颜色。",
+    en: "Explore all 3,000+ archive colors arranged in a full-spectrum grid sorted by hue, lightness, and saturation.",
+    zh: "在按色相、明度和饱和度排列的全光谱网格中探索全部 3,000+ 种档案颜色。",
   },
   "tools.surprise.name": {
     en: "Surprise Me",
@@ -1899,8 +1899,8 @@ const translations: Record<string, Record<string, string>> = {
   "tools.cat.developer": { en: "Developer", zh: "开发者" },
   "tools.apiDocs.name": { en: "Color API", zh: "颜色 API" },
   "tools.apiDocs.desc": {
-    en: "Free REST API for 2016 colors. Search by name, hex, or mood. Get color relationships. No auth required.",
-    zh: "免费 REST API，支持按名称、hex 或语义搜索 2016 种颜色。获取关联色。无需认证。",
+    en: "Free REST API for 3,000+ colors. Search by name, hex, or mood. Get color relationships. No auth required.",
+    zh: "免费 REST API，支持按名称、hex 或语义搜索 3,000+ 种颜色。获取关联色。无需认证。",
   },
     "tools.tokens.name": { en: "Design Token Generator", zh: "设计令牌生成器" },
   "tools.tokens.desc": {
@@ -1954,20 +1954,20 @@ const translations: Record<string, Record<string, string>> = {
   },
   "tools.figmaPlugin.name": { en: "Figma Plugin", zh: "Figma 插件" },
   "tools.figmaPlugin.desc": {
-    en: "Browse 2016 colors, inspect WCAG contrast, and generate brand scales with 30 paint styles — directly inside Figma.",
-    zh: "在 Figma 中浏览 2016 种颜色、检查 WCAG 对比度、生成 30 个品牌色 paint style。",
+    en: "Browse 3,000+ colors, inspect WCAG contrast, and generate brand scales with 30 paint styles — directly inside Figma.",
+    zh: "在 Figma 中浏览 3,000+ 种颜色、检查 WCAG 对比度、生成 30 个品牌色 paint style。",
   },
   "tools.ctaBadge": {
     en: "More to explore",
     zh: "更多探索",
   },
   "tools.ctaHeading": {
-    en: "2,016 colors, zero noise",
-    zh: "2,016 种颜色，零噪音",
+    en: "3,000+ colors, zero noise",
+    zh: "3,000+ 种颜色，零噪音",
   },
   "tools.ctaDesc": {
-    en: "Every tool on this page works with the same carefully curated archive of 2,016 designer-ready colors. Browse the full archive or read the guides to level up your color knowledge.",
-    zh: "此页面上的每个工具都使用同一个精心策划的 2,016 色设计师级档案。浏览完整档案或阅读指南来提升您的色彩知识。",
+    en: "Every tool on this page works with the same carefully curated archive of 3,000+ designer-ready colors. Browse the full archive or read the guides to level up your color knowledge.",
+    zh: "此页面上的每个工具都使用同一个精心策划的 3,000+ 色设计师级档案。浏览完整档案或阅读指南来提升您的色彩知识。",
   },
   "tools.ctaBrowseArchive": {
     en: "Browse archive",
