@@ -16,6 +16,7 @@ router.post("/", async (req, res) => {
     cotd = false,
     landingPath,
     referrer,
+    ref,
     utmSource,
     utmMedium,
     utmCampaign,
@@ -68,6 +69,18 @@ router.post("/", async (req, res) => {
     if (cotd) {
       db.prepare(`UPDATE subscribers SET cotd_subscribed = 1 WHERE email = ?`)
         .run(email.trim().toLowerCase());
+    }
+
+    // Referral credit: if ref code provided, credit the referrer +5 AI credits
+    const refCode = sanitizeString(ref, 20);
+    if (refCode) {
+      db.prepare("UPDATE subscribers SET referred_by = ? WHERE email = ?")
+        .run(refCode, email.trim().toLowerCase());
+      // Credit the referrer (find user by referral_code)
+      const referrerUser = db.prepare("SELECT id FROM users WHERE referral_code = ?").get(refCode);
+      if (referrerUser) {
+        db.prepare("UPDATE users SET credits = credits + 5 WHERE id = ?").run(referrerUser.id);
+      }
     }
 
     if (source === "waitlist") {

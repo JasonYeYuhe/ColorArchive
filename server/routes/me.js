@@ -1,4 +1,5 @@
 const express = require("express");
+const crypto = require("crypto");
 const router = express.Router();
 const db = require("../db");
 const {
@@ -146,6 +147,64 @@ router.post("/orders/:orderId/resend", async (req, res) => {
     console.error("resend order email error:", error);
     return res.status(500).json({ error: "Could not resend download email" });
   }
+});
+
+// --- Referral System ---
+
+function ensureReferralCode(userId) {
+  const user = db.prepare("SELECT referral_code FROM users WHERE id = ?").get(userId);
+  if (user.referral_code) return user.referral_code;
+  const code = crypto.randomBytes(4).toString("hex");
+  db.prepare("UPDATE users SET referral_code = ? WHERE id = ?").run(code, userId);
+  return code;
+}
+
+router.get("/referral", (req, res) => {
+  const code = ensureReferralCode(req.user.id);
+  const user = db.prepare("SELECT credits FROM users WHERE id = ?").get(req.user.id);
+
+  // Count referrals
+  const referrals = db
+    .prepare("SELECT COUNT(*) as count FROM subscribers WHERE referred_by = ?")
+    .get(code);
+
+  return res.json({
+    code,
+    credits: user.credits || 0,
+    referrals: referrals.count,
+    link: `https://colorarchive.me/?ref=${code}`,
+  });
+});
+
+router.post("/referral/share", (req, res) => {
+  // Award credits for sharing (best-effort, called when share intent fires)
+  const SHARE_CREDITS = 2;
+  db.prepare("UPDATE users SET credits = credits + ? WHERE id = ?").run(SHARE_CREDITS, req.user.id);
+  const user = db.prepare("SELECT credits FROM users WHERE id = ?").get(req.user.id);
+  return res.json({ ok: true, credits: user.credits });
+});
+
+// --- API Key Management ---
+
+router.get("/api-key", (req, res) => {
+  const user = db.prepare("SELECT api_key FROM users WHERE id = ?").get(req.user.id);
+  return res.json({ apiKey: user.api_key || null });
+});
+
+router.post("/api-key", (req, res) => {
+  const existing = db.prepare("SELECT api_key FROM users WHERE id = ?").get(req.user.id);
+  if (existing.api_key) {
+    return res.json({ apiKey: existing.api_key });
+  }
+
+  const key = `ca_${crypto.randomBytes(16).toString("hex")}`;
+  db.prepare("UPDATE users SET api_key = ? WHERE id = ?").run(key, req.user.id);
+  return res.json({ apiKey: key });
+});
+
+router.delete("/api-key", (req, res) => {
+  db.prepare("UPDATE users SET api_key = NULL WHERE id = ?").run(req.user.id);
+  return res.json({ ok: true });
 });
 
 module.exports = router;

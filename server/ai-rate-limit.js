@@ -2,6 +2,19 @@ const crypto = require("crypto");
 const db = require("./db");
 const { getSessionUser } = require("./auth");
 
+// Lazy-load email to avoid circular deps
+let sendProUpsellEmail = null;
+function getSendProUpsellEmail() {
+  if (!sendProUpsellEmail) {
+    try {
+      sendProUpsellEmail = require("./email").sendProUpsellEmail;
+    } catch {
+      sendProUpsellEmail = () => {};
+    }
+  }
+  return sendProUpsellEmail;
+}
+
 // Limits per tier per day
 const TIER_LIMITS = {
   anonymous: 3,
@@ -30,19 +43,30 @@ function incrementUsage(identifier, date) {
   ).run(identifier, date);
 }
 
+function getUserCredits(userId) {
+  const row = db.prepare("SELECT credits FROM users WHERE id = ?").get(userId);
+  return row ? row.credits : 0;
+}
+
+function consumeCredit(userId) {
+  db.prepare("UPDATE users SET credits = MAX(credits - 1, 0) WHERE id = ?").run(userId);
+}
+
 /**
  * Express middleware that enforces AI generation rate limits.
- * Attaches req.aiTier and req.aiIdentifier for downstream use.
+ * Credits are consumed first before falling back to tier limits.
  * Returns 429 when limit is exceeded.
  */
 function aiRateLimit(req, res, next) {
   const user = getSessionUser(req);
   let tier = "anonymous";
   let identifier;
+  let userId = null;
 
   if (user) {
     tier = user.tier || "free";
     identifier = "user:" + user.id;
+    userId = user.id;
   } else {
     identifier = ipHash(req);
   }
@@ -52,6 +76,35 @@ function aiRateLimit(req, res, next) {
   const used = getUsage(identifier, dateKey);
 
   if (used >= limit) {
+    // Check if user has credits to spend
+    if (userId) {
+      const credits = getUserCredits(userId);
+      if (credits > 0) {
+        consumeCredit(userId);
+        incrementUsage(identifier, dateKey);
+        req.aiTier = tier;
+        req.aiIdentifier = identifier;
+        req.aiUsed = used + 1;
+        req.aiLimit = limit;
+        req.aiCreditsUsed = true;
+        return next();
+      }
+    }
+
+    // Trigger Pro upsell email for free-tier users (max 1/day, fire-and-forget)
+    if (userId && tier === "free") {
+      const upsellKey = `upsell:${userId}`;
+      const alreadySent = getUsage(upsellKey, dateKey);
+      if (alreadySent === 0) {
+        incrementUsage(upsellKey, dateKey);
+        const userRow = db.prepare("SELECT email FROM users WHERE id = ?").get(userId);
+        if (userRow) {
+          const send = getSendProUpsellEmail();
+          if (send) send(userRow.email).catch(() => {});
+        }
+      }
+    }
+
     return res.status(429).json({
       error: "Daily AI generation limit reached.",
       limit: true,

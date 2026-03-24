@@ -1,6 +1,6 @@
 /**
  * Server-side color dataset — mirrors src/data/colors.ts
- * Generates all 2016 colors algorithmically (36 hues × 14 lightness × 4 chroma).
+ * Generates 3,066 colors algorithmically (36 hues × 14 lightness × 6 chroma + 3 neutral groups × 14 lightness).
  */
 
 const hueCatalog = [
@@ -29,8 +29,15 @@ const lightBands = [
 ];
 
 const chromaBands = [
-  { label: "Muted", saturation: 18 }, { label: "Soft", saturation: 34 },
-  { label: "Clear", saturation: 54 }, { label: "Vivid", saturation: 74 },
+  { label: "Faint", saturation: 10 }, { label: "Muted", saturation: 18 },
+  { label: "Soft", saturation: 34 }, { label: "Clear", saturation: 54 },
+  { label: "Vivid", saturation: 74 }, { label: "Pure", saturation: 92 },
+];
+
+const neutralCatalog = [
+  { root: "Warm Gray", hue: 30, saturation: 6 },
+  { root: "Cool Gray", hue: 210, saturation: 6 },
+  { root: "True Gray", hue: 0, saturation: 0 },
 ];
 
 function hslToRgb(hue, saturation, lightness) {
@@ -79,8 +86,8 @@ function createColorId(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-// Generate all 2016 colors
-const colors = hueCatalog.flatMap(({ hue, root }) =>
+// Generate chromatic colors (36 × 14 × 6 = 3,024)
+const chromaticColors = hueCatalog.flatMap(({ hue, root }) =>
   lightBands.flatMap(({ label: lightLabel, lightness }) =>
     chromaBands.map(({ label: chromaLabel, saturation }) => {
       const name = `${root} ${lightLabel} ${chromaLabel}`;
@@ -97,6 +104,25 @@ const colors = hueCatalog.flatMap(({ hue, root }) =>
     })
   )
 );
+
+// Generate neutral grays (3 × 14 = 42)
+const neutralColors = neutralCatalog.flatMap(({ root, hue, saturation }) =>
+  lightBands.map(({ label, lightness }) => {
+    const name = `${root} ${label}`;
+    const rgb = hslToRgb(hue, saturation, lightness);
+    return {
+      id: createColorId(name),
+      name,
+      hex: rgbToHex(rgb),
+      hue,
+      saturation,
+      lightness,
+      family: getColorFamily(hue),
+    };
+  })
+);
+
+const colors = [...chromaticColors, ...neutralColors];
 
 // Collection definitions (color IDs only — resolved at runtime)
 const collectionDefs = [

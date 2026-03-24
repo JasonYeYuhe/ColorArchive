@@ -107,6 +107,11 @@ ensureColumn("subscribers", "cotd_last_sent TEXT");
 
 ensureColumn("users", "tier TEXT DEFAULT 'free'");
 ensureColumn("users", "pro_expires_at TEXT");
+ensureColumn("users", "credits INTEGER DEFAULT 0");
+ensureColumn("users", "referral_code TEXT");
+ensureColumn("users", "api_key TEXT");
+
+ensureColumn("subscribers", "referred_by TEXT");
 
 // AI usage tracking — per user (or IP hash) per day
 db.exec(`

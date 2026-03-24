@@ -55,6 +55,7 @@ export function EmailCaptureForm({
           utmCampaign: searchParams.get("utm_campaign"),
           utmTerm: searchParams.get("utm_term"),
           utmContent: searchParams.get("utm_content"),
+          ref: searchParams.get("ref"),
         }),
       });
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useAuth } from "@/src/components/auth-provider";
 import { fetchUsage, type UsageStats } from "@/src/lib/auth-client";
+import { ReferralCard } from "@/src/components/referral-card";
 
 function UsageBar({ used, limit, label }: { used: number; limit: number | null; label: string }) {
   const isUnlimited = limit === null;
@@ -161,6 +162,9 @@ export function AccountPage() {
             ))}
           </div>
         </div>
+
+        {/* Referral */}
+        <ReferralCard />
 
         {/* Sign out */}
         <button

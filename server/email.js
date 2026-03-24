@@ -943,6 +943,43 @@ async function sendCotdEmail(to, color, dateStr) {
   return result;
 }
 
+async function sendProUpsellEmail(email) {
+  if (!resend) return;
+  const result = await resend.emails.send({
+    from: FROM_EMAIL,
+    to: email,
+    subject: "You've hit your daily limit — unlock unlimited AI with Pro",
+    html: `
+      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
+        <p style="color:#1a1a2e;font-size:15px;line-height:1.6;">
+          Hey there,
+        </p>
+        <p style="color:#555;font-size:14px;line-height:1.6;">
+          You've used all your free AI generations for today. That means you're getting real value from ColorArchive — nice!
+        </p>
+        <p style="color:#555;font-size:14px;line-height:1.6;">
+          With <strong>Pro</strong>, you get <strong>unlimited</strong> AI palette generations, exports, WCAG reports, and more — for just $4.99/month.
+        </p>
+        <div style="text-align:center;margin:24px 0;">
+          <a href="https://colorarchive.me/pro" style="display:inline-block;background:#6366f1;color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">
+            Upgrade to Pro
+          </a>
+        </div>
+        <p style="color:#999;font-size:12px;line-height:1.5;">
+          Your free generations reset tomorrow. Or share your referral link to earn bonus AI credits!
+        </p>
+        <p style="color:#ccc;font-size:11px;margin-top:24px;">
+          ColorArchive · hello@colorarchive.me
+        </p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (pro upsell):", JSON.stringify(result.error));
+  }
+  return result;
+}
+
 module.exports = {
   sendFreePackEmail,
   sendFollowUp3DayEmail,
@@ -955,4 +992,5 @@ module.exports = {
   sendWaitlistConfirmationEmail,
   sendNewsletterIssueAlert,
   sendCotdEmail,
+  sendProUpsellEmail,
 };
