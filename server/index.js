@@ -27,6 +27,13 @@ app.use(
 // OG image route — no CORS needed (accessed by crawlers)
 app.use("/og", require("./routes/og"));
 
+// Generated images (Instagram posts/stories) — public static files
+const path = require("path");
+app.use("/generated", express.static(path.join(__dirname, "generated"), {
+  maxAge: "7d",
+  immutable: true,
+}));
+
 // JSON body parser for all routes except the raw webhook
 app.use((req, res, next) => {
   if (req.path === "/webhook/ls") return next();
@@ -47,4 +54,5 @@ app.get("/health", (_, res) => res.json({ ok: true }));
 app.listen(PORT, () => {
   console.log(`ColorArchive server running on port ${PORT}`);
   require("./email-scheduler").startScheduler();
+  require("./ig-scheduler").startScheduler();
 });

@@ -356,7 +356,7 @@ router.post("/publish", async (req, res) => {
     return res.status(401).json({ error: "Instagram not connected" });
   }
 
-  const { image_url, caption } = req.body;
+  const { image_url, caption, media_type } = req.body;
   if (!image_url) {
     return res.status(400).json({ error: "image_url is required" });
   }
@@ -365,14 +365,20 @@ router.post("/publish", async (req, res) => {
 
   try {
     // Step 1: Create media container
+    const containerPayload = {
+      image_url,
+      access_token: tokenStore.access_token,
+    };
+    if (media_type === "STORIES") {
+      containerPayload.media_type = "STORIES";
+    } else {
+      containerPayload.caption = caption || "";
+    }
+
     const containerRes = await fetch(`${IG_GRAPH_URL}/${userId}/media`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        image_url,
-        caption: caption || "",
-        access_token: tokenStore.access_token,
-      }),
+      body: JSON.stringify(containerPayload),
     });
 
     const containerData = await containerRes.json();
@@ -498,5 +504,27 @@ async function autoRefreshToken() {
 setInterval(autoRefreshToken, 12 * 60 * 60 * 1000);
 // Also check on startup (after 30s delay to let server settle)
 setTimeout(autoRefreshToken, 30 * 1000);
+
+/* ── Manual Trigger Endpoints (for testing) ──── */
+
+router.post("/test-story", async (req, res) => {
+  try {
+    const { runDailyStory } = require("../ig-scheduler");
+    await runDailyStory();
+    res.json({ ok: true, message: "Story triggered" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post("/test-post", async (req, res) => {
+  try {
+    const { runPeriodicPost } = require("../ig-scheduler");
+    await runPeriodicPost();
+    res.json({ ok: true, message: "Post triggered" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 module.exports = router;

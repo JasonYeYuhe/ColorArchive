@@ -11,3 +11,4 @@ pnpm-debug.log*
 server/.env
 server/data.db
 public/generated/
+server/generated/
