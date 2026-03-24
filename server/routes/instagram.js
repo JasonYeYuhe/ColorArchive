@@ -56,7 +56,7 @@ const IG_APP_ID = process.env.INSTAGRAM_APP_ID || "";
 const IG_APP_SECRET = process.env.INSTAGRAM_APP_SECRET || "";
 const IG_REDIRECT_URI =
   process.env.INSTAGRAM_REDIRECT_URI || "https://api.colorarchive.me/instagram/auth/callback";
-const IG_CONFIG_ID = process.env.INSTAGRAM_CONFIG_ID || "1416912286310751";
+const IG_CONFIG_ID = process.env.INSTAGRAM_CONFIG_ID || "1662120915240411";
 
 // Graph API base URLs
 const IG_GRAPH_URL = "https://graph.instagram.com";
