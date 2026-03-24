@@ -87,6 +87,24 @@
   .brand-scale-btn { margin: 0 16px 12px; padding: 9px 0; width: calc(100% - 32px); text-align: center; font-size: 11px; font-weight: 600; border-radius: 8px; cursor: pointer; border: 1px solid #e0e0e0; color: #333; background: #fff; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.06em; }
   .brand-scale-btn:hover { background: #f5f5f5; }
   .brand-scale-note { margin: 0 16px 10px; font-size: 10px; color: #aaa; text-align: center; }
+
+  /* Projects tab */
+  .projects-auth { padding: 24px 16px; text-align: center; }
+  .projects-auth p { font-size: 12px; color: #888; margin-bottom: 12px; }
+  .api-key-input { width: 100%; padding: 8px 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 11px; font-family: monospace; outline: none; margin-bottom: 8px; }
+  .api-key-input:focus { border-color: #111; }
+  .projects-list { padding: 8px 16px; max-height: 400px; overflow-y: auto; }
+  .project-card { border: 1px solid #e5e5e5; border-radius: 10px; margin-bottom: 8px; overflow: hidden; cursor: pointer; transition: border-color 0.15s; }
+  .project-card:hover { border-color: #111; }
+  .project-swatches { display: flex; height: 32px; }
+  .project-swatches div { flex: 1; }
+  .project-info { padding: 8px 10px; display: flex; align-items: center; justify-content: space-between; }
+  .project-name { font-size: 11px; font-weight: 600; }
+  .project-count { font-size: 10px; color: #999; }
+  .project-apply-btn { padding: 6px 12px; font-size: 10px; font-weight: 600; border-radius: 6px; border: none; background: #111; color: #fff; cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; }
+  .project-apply-btn:hover { background: #333; }
+  .projects-empty { padding: 24px 16px; text-align: center; font-size: 12px; color: #aaa; }
+  .projects-status { padding: 4px 16px; font-size: 10px; color: #4ade80; text-align: center; }
 </style>
 </head>
 <body>
@@ -98,6 +116,7 @@
   <div class="tabs">
     <div class="tab active" id="tabBrowse" onclick="switchTab('browse')">Browse</div>
     <div class="tab" id="tabInspect" onclick="switchTab('inspect')">Inspect</div>
+    <div class="tab" id="tabProjects" onclick="switchTab('projects')">Projects</div>
   </div>
 
   <!-- Browse tab -->
@@ -154,6 +173,25 @@
       </div>
       <button class="brand-scale-btn" id="btnBrandScale">Generate Brand Scale (30 styles)</button>
       <div class="brand-scale-note" id="brandScaleNote"></div>
+    </div>
+  </div>
+
+  <!-- Projects tab -->
+  <div class="tab-panel" id="panelProjects">
+    <div id="projectsAuth" class="projects-auth">
+      <p>Connect your ColorArchive account to sync projects.</p>
+      <input type="text" class="api-key-input" id="apiKeyInput" placeholder="Paste your API key (from colorarchive.me/account)" />
+      <button class="btn primary" style="width:100%" onclick="connectApiKey()">Connect</button>
+      <p style="margin-top:8px;font-size:10px;color:#bbb">
+        Get your API key at <a href="https://colorarchive.me/account" target="_blank" style="color:#6366f1">colorarchive.me/account</a>
+      </p>
+    </div>
+    <div id="projectsList" style="display:none">
+      <div id="projectsStatus" class="projects-status"></div>
+      <div id="projectsContent" class="projects-list"></div>
+      <div style="padding:8px 16px;">
+        <button class="btn" style="width:100%;font-size:10px" onclick="disconnectApiKey()">Disconnect</button>
+      </div>
     </div>
   </div>
 
@@ -312,8 +350,96 @@ render();
 window.switchTab = function(tab) {
   document.getElementById('tabBrowse').classList.toggle('active', tab === 'browse');
   document.getElementById('tabInspect').classList.toggle('active', tab === 'inspect');
+  document.getElementById('tabProjects').classList.toggle('active', tab === 'projects');
   document.getElementById('panelBrowse').classList.toggle('active', tab === 'browse');
   document.getElementById('panelInspect').classList.toggle('active', tab === 'inspect');
+  document.getElementById('panelProjects').classList.toggle('active', tab === 'projects');
+  if (tab === 'projects' && storedApiKey) loadProjects();
+};
+
+// ─── Projects logic ──────────────────────────────────────────────────────────
+const API_BASE = 'https://api.colorarchive.me';
+let storedApiKey = localStorage.getItem('ca_api_key') || '';
+let projectsData = [];
+
+if (storedApiKey) {
+  document.getElementById('projectsAuth').style.display = 'none';
+  document.getElementById('projectsList').style.display = 'block';
+}
+
+window.connectApiKey = function() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key) return;
+  storedApiKey = key;
+  localStorage.setItem('ca_api_key', key);
+  document.getElementById('projectsAuth').style.display = 'none';
+  document.getElementById('projectsList').style.display = 'block';
+  loadProjects();
+};
+
+window.disconnectApiKey = function() {
+  storedApiKey = '';
+  localStorage.removeItem('ca_api_key');
+  document.getElementById('projectsAuth').style.display = 'block';
+  document.getElementById('projectsList').style.display = 'none';
+  document.getElementById('apiKeyInput').value = '';
+};
+
+function loadProjects() {
+  const status = document.getElementById('projectsStatus');
+  status.textContent = 'Loading...';
+  status.style.color = '#888';
+
+  fetch(API_BASE + '/projects', {
+    headers: { 'Authorization': 'Bearer ' + storedApiKey }
+  })
+  .then(r => {
+    if (!r.ok) throw new Error('Auth failed');
+    return r.json();
+  })
+  .then(data => {
+    projectsData = data.projects || [];
+    status.textContent = projectsData.length + ' project' + (projectsData.length !== 1 ? 's' : '');
+    status.style.color = '#4ade80';
+    renderProjects();
+  })
+  .catch(() => {
+    status.textContent = 'Invalid API key';
+    status.style.color = '#f87171';
+    document.getElementById('projectsContent').innerHTML = '<div class="projects-empty">Could not connect. Check your API key.</div>';
+  });
+}
+
+function renderProjects() {
+  const container = document.getElementById('projectsContent');
+  if (projectsData.length === 0) {
+    container.innerHTML = '<div class="projects-empty">No projects yet. Save a palette on colorarchive.me first.</div>';
+    return;
+  }
+  container.innerHTML = projectsData.map((p, i) => `
+    <div class="project-card">
+      <div class="project-swatches">
+        ${(p.palette || []).slice(0, 8).map(hex => `<div style="background:${hex}"></div>`).join('')}
+      </div>
+      <div class="project-info">
+        <div>
+          <div class="project-name">${p.name}</div>
+          <div class="project-count">${(p.palette || []).length} colors</div>
+        </div>
+        <button class="project-apply-btn" onclick="applyProject(${i})">Apply</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+window.applyProject = function(index) {
+  const project = projectsData[index];
+  if (!project || !project.palette || project.palette.length === 0) return;
+  parent.postMessage({ pluginMessage: {
+    type: 'create-project-styles',
+    name: project.name,
+    palette: project.palette,
+  }}, '*');
 };
 
 // ─── Inspect logic ────────────────────────────────────────────────────────────

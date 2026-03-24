@@ -212,6 +212,25 @@ figma.ui.onmessage = (msg) => {
         figma.notify(`Created ${brandStyles.length} brand styles from ${hex}`);
         figma.ui.postMessage({ type: 'brand-scale-done', count: brandStyles.length, hex });
     }
+    if (msg.type === 'create-project-styles' && msg.palette && msg.name) {
+        const projectName = msg.name;
+        const palette = msg.palette;
+        let created = 0;
+        for (let i = 0; i < palette.length; i++) {
+            const hex = palette[i];
+            if (typeof hex !== 'string' || !hex.startsWith('#'))
+                continue;
+            const r = parseInt(hex.slice(1, 3), 16) / 255;
+            const g = parseInt(hex.slice(3, 5), 16) / 255;
+            const b = parseInt(hex.slice(5, 7), 16) / 255;
+            const style = figma.createPaintStyle();
+            style.name = `${projectName}/${i + 1}`;
+            style.paints = [{ type: 'SOLID', color: { r, g, b } }];
+            created++;
+        }
+        figma.notify(`Created ${created} styles from "${projectName}"`);
+        figma.ui.postMessage({ type: 'project-styles-done', count: created, name: projectName });
+    }
     if (msg.type === 'close') {
         figma.closePlugin();
     }

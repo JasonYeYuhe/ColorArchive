@@ -6,6 +6,30 @@ const { requireUser, getSessionUser } = require("../auth");
 
 const FREE_PROJECT_LIMIT = 3;
 
+/** Authenticate via session cookie OR API key header */
+function requireUserOrApiKey(req, res, next) {
+  // Try session first
+  const sessionUser = getSessionUser(req);
+  if (sessionUser) {
+    req.user = sessionUser;
+    return next();
+  }
+
+  // Try API key
+  const authHeader = req.headers.authorization;
+  const apiKey = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : req.query.api_key;
+  if (apiKey) {
+    const user = db.prepare("SELECT id, email, created_at, tier FROM users WHERE api_key = ?").get(apiKey);
+    if (user) {
+      req.user = user;
+      return next();
+    }
+    return res.status(401).json({ error: "Invalid API key" });
+  }
+
+  return res.status(401).json({ error: "Unauthorized" });
+}
+
 function getUserTier(user) {
   return user.tier || "free";
 }
@@ -39,8 +63,8 @@ router.get("/shared/:shareId", (req, res) => {
   });
 });
 
-// Auth-required routes
-router.use(requireUser);
+// Auth-required routes (session cookie OR API key)
+router.use(requireUserOrApiKey);
 
 // List user's projects
 router.get("/", (req, res) => {

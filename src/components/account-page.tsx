@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useAuth } from "@/src/components/auth-provider";
-import { fetchUsage, type UsageStats } from "@/src/lib/auth-client";
+import { fetchUsage, type UsageStats, API_URL } from "@/src/lib/auth-client";
 import { ReferralCard } from "@/src/components/referral-card";
 
 function UsageBar({ used, limit, label }: { used: number; limit: number | null; label: string }) {
@@ -32,6 +32,71 @@ function UsageBar({ used, limit, label }: { used: number; limit: number | null; 
             style={{ width: `${pct}%` }}
           />
         </div>
+      )}
+    </div>
+  );
+}
+
+function ApiKeySection() {
+  const [apiKey, setApiKey] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    fetch(`${API_URL}/me/api-key`, { credentials: "include" })
+      .then((r) => r.json())
+      .then((d) => setApiKey(d.apiKey))
+      .catch(() => {});
+  }, []);
+
+  const generateKey = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_URL}/me/api-key`, { method: "POST", credentials: "include" });
+      const data = await res.json();
+      setApiKey(data.apiKey);
+    } catch {
+      // ignore
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copyKey = () => {
+    if (!apiKey) return;
+    navigator.clipboard.writeText(apiKey);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6">
+      <h2 className="text-sm font-semibold text-slate-800 dark:text-white mb-1">API Key</h2>
+      <p className="text-xs text-slate-400 mb-4">Use this key for the Figma plugin, REST API, and integrations.</p>
+
+      {apiKey ? (
+        <div className="flex gap-2">
+          <input
+            type="text"
+            readOnly
+            value={apiKey}
+            className="flex-1 text-xs font-mono border border-slate-200 dark:border-white/15 rounded-xl px-3 py-2 bg-slate-50 dark:bg-white/5 text-slate-600 dark:text-slate-400"
+          />
+          <button
+            onClick={copyKey}
+            className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-700 transition-colors dark:bg-white dark:text-neutral-950 shrink-0"
+          >
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
+      ) : (
+        <button
+          onClick={generateKey}
+          disabled={loading}
+          className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-700 transition-colors disabled:opacity-50 dark:bg-white dark:text-neutral-950"
+        >
+          {loading ? "Generating..." : "Generate API Key"}
+        </button>
       )}
     </div>
   );
@@ -165,6 +230,9 @@ export function AccountPage() {
 
         {/* Referral */}
         <ReferralCard />
+
+        {/* API Key */}
+        <ApiKeySection />
 
         {/* Sign out */}
         <button
