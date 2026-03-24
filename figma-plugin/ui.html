@@ -201,26 +201,27 @@
 
 <script>
 // Minimal color generation mirroring src/data/colors.ts
+// Must match src/data/colors.ts exactly
 const HUE_ROOTS = [
   { hue: 0, name: "Crimson" }, { hue: 10, name: "Ruby" }, { hue: 20, name: "Ember" },
-  { hue: 30, name: "Coral" }, { hue: 40, name: "Amber" }, { hue: 50, name: "Honey" },
-  { hue: 60, name: "Citrine" }, { hue: 70, name: "Chartreuse" }, { hue: 80, name: "Fern" },
-  { hue: 90, name: "Sage" }, { hue: 100, name: "Leaf" }, { hue: 110, name: "Moss" },
-  { hue: 120, name: "Emerald" }, { hue: 130, name: "Pine" }, { hue: 140, name: "Jade" },
-  { hue: 150, name: "Mint" }, { hue: 160, name: "Seafoam" }, { hue: 170, name: "Lagoon" },
-  { hue: 180, name: "Teal" }, { hue: 190, name: "Cerulean" }, { hue: 200, name: "Azure" },
+  { hue: 30, name: "Coral" }, { hue: 40, name: "Apricot" }, { hue: 50, name: "Amber" },
+  { hue: 60, name: "Citrine" }, { hue: 70, name: "Honey" }, { hue: 80, name: "Olive" },
+  { hue: 90, name: "Lime" }, { hue: 100, name: "Moss" }, { hue: 110, name: "Leaf" },
+  { hue: 120, name: "Emerald" }, { hue: 130, name: "Mint" }, { hue: 140, name: "Seafoam" },
+  { hue: 150, name: "Jade" }, { hue: 160, name: "Teal" }, { hue: 170, name: "Lagoon" },
+  { hue: 180, name: "Aqua" }, { hue: 190, name: "Cerulean" }, { hue: 200, name: "Azure" },
   { hue: 210, name: "Sapphire" }, { hue: 220, name: "Cobalt" }, { hue: 230, name: "Indigo" },
   { hue: 240, name: "Iris" }, { hue: 250, name: "Violet" }, { hue: 260, name: "Orchid" },
-  { hue: 270, name: "Amethyst" }, { hue: 280, name: "Plum" }, { hue: 290, name: "Mulberry" },
-  { hue: 300, name: "Fuchsia" }, { hue: 310, name: "Magenta" }, { hue: 320, name: "Peony" },
-  { hue: 330, name: "Rose" }, { hue: 340, name: "Blush" }, { hue: 350, name: "Merlot" },
+  { hue: 270, name: "Plum" }, { hue: 280, name: "Mulberry" }, { hue: 290, name: "Magenta" },
+  { hue: 300, name: "Fuchsia" }, { hue: 310, name: "Peony" }, { hue: 320, name: "Rose" },
+  { hue: 330, name: "Blush" }, { hue: 340, name: "Garnet" }, { hue: 350, name: "Merlot" },
 ];
 const LIGHTNESS_BANDS = [
   { l: 98, name: "Veil" }, { l: 94, name: "Whisper" }, { l: 90, name: "Mist" },
-  { l: 84, name: "Pearl" }, { l: 78, name: "Silk" }, { l: 72, name: "Bloom" },
-  { l: 66, name: "Glow" }, { l: 58, name: "Core" }, { l: 50, name: "Pure" },
-  { l: 42, name: "Deep" }, { l: 34, name: "Rich" }, { l: 26, name: "Shadow" },
-  { l: 20, name: "Coal" }, { l: 14, name: "Ink" },
+  { l: 84, name: "Pearl" }, { l: 76, name: "Bloom" }, { l: 68, name: "Silk" },
+  { l: 60, name: "Tone" }, { l: 54, name: "Radiant" }, { l: 48, name: "Core" },
+  { l: 42, name: "Velvet" }, { l: 34, name: "Dusk" }, { l: 28, name: "Shadow" },
+  { l: 20, name: "Nocturne" }, { l: 14, name: "Ink" },
 ];
 const SAT_BANDS = [
   { s: 10, name: "Faint" }, { s: 18, name: "Muted" }, { s: 34, name: "Soft" }, { s: 54, name: "Clear" }, { s: 74, name: "Vivid" }, { s: 92, name: "Pure" },

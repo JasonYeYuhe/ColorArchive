@@ -140,16 +140,16 @@ export function ThanksPage({ checkoutFlow }: ThanksPageProps) {
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
-                    href="/login?next=/login"
+                    href="/account"
                     className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                   >
                     Open account
                   </Link>
                   <Link
-                    href="/free-pack/"
-                    className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                    href="/account"
+                    className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700 transition hover:bg-indigo-100"
                   >
-                    Share free pack
+                    Refer a friend &amp; earn credits
                   </Link>
                 </div>
               </div>

@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
-import { hexToRgb, rgbToHsl } from "@/src/lib/color-utils";
+import { hexToRgb, findClosestArchiveColor } from "@/src/lib/color-utils";
 import { colors as archiveColors } from "@/src/data/colors";
 import { ShareOnXButton } from "@/src/components/share-link-button";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
@@ -10,7 +10,6 @@ import { ProGate } from "@/src/components/pro-gate";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
-import type { ColorRecord } from "@/src/types/color";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
 
@@ -28,31 +27,6 @@ interface BrandColor {
 interface GeneratedPalette {
   palette: BrandColor[];
   summary: string;
-}
-
-/* ------------------------------------------------------------------ */
-/*  Archive matching                                                   */
-/* ------------------------------------------------------------------ */
-
-function colorDistance(
-  r1: number, g1: number, b1: number,
-  r2: number, g2: number, b2: number
-): number {
-  const dr = r1 - r2, dg = g1 - g2, db = b1 - b2;
-  return Math.sqrt(2 * dr * dr + 4 * dg * dg + 3 * db * db);
-}
-
-function findClosestArchiveColor(hex: string): ColorRecord | null {
-  const rgb = hexToRgb(hex);
-  if (!rgb) return null;
-  let best: { color: ColorRecord; d: number } | null = null;
-  for (const ac of archiveColors) {
-    const acRgb = hexToRgb(ac.hex);
-    if (!acRgb) continue;
-    const d = colorDistance(rgb.r, rgb.g, rgb.b, acRgb.r, acRgb.g, acRgb.b);
-    if (!best || d < best.d) best = { color: ac, d };
-  }
-  return best?.color ?? null;
 }
 
 /* ------------------------------------------------------------------ */
@@ -156,7 +130,7 @@ function PaletteResult({
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         {generated.palette.map((c) => {
           const tc = textColorFor(c.hex);
-          const closest = findClosestArchiveColor(c.hex);
+          const closest = findClosestArchiveColor(archiveColors, c.hex);
           return (
             <div key={c.role} className="rounded-xl overflow-hidden border border-slate-100 shadow-sm bg-white">
               <div
@@ -447,7 +421,7 @@ export function BrandGeneratorPage() {
               </div>
               <div>
                 <p className="font-medium text-slate-700 mb-1">2. Generate</p>
-                <p>Claude analyzes your inputs against color psychology and design principles to build a 6-color system.</p>
+                <p>AI analyzes your inputs against color psychology and design principles to build a 6-color system.</p>
               </div>
               <div>
                 <p className="font-medium text-slate-700 mb-1">3. Export</p>

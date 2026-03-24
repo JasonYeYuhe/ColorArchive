@@ -66,29 +66,29 @@ export function ProPage() {
   const plan = proSubscriptionConfig[billing];
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 pb-24">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 pb-24">
       {/* Hero */}
       <section className="max-w-3xl mx-auto px-4 pt-12 pb-10 text-center">
-        <span className="inline-block px-3 py-1 text-xs font-semibold bg-indigo-50 text-indigo-700 rounded-full mb-4">
+        <span className="inline-block px-3 py-1 text-xs font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 rounded-full mb-4">
           PRO
         </span>
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-3">
+        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight mb-3">
           Unlock the full power of ColorArchive
         </h1>
-        <p className="text-slate-500 text-sm sm:text-base max-w-lg mx-auto">
+        <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base max-w-lg mx-auto">
           Unlimited AI generations, full exports, accessibility reports, and more — everything professionals need to ship faster.
         </p>
       </section>
 
       <div className="max-w-3xl mx-auto px-4 space-y-10">
         {/* Pricing card */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8 text-center">
+        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-8 text-center">
           {/* Billing toggle */}
-          <div className="inline-flex items-center bg-slate-100 rounded-xl p-1 mb-6">
+          <div className="inline-flex items-center bg-slate-100 dark:bg-white/10 rounded-xl p-1 mb-6">
             <button
               onClick={() => setBilling("monthly")}
               className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                billing === "monthly" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500"
+                billing === "monthly" ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm" : "text-slate-500 dark:text-slate-400"
               }`}
             >
               Monthly
@@ -96,7 +96,7 @@ export function ProPage() {
             <button
               onClick={() => setBilling("yearly")}
               className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                billing === "yearly" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500"
+                billing === "yearly" ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm" : "text-slate-500 dark:text-slate-400"
               }`}
             >
               Yearly <span className="text-indigo-600 text-xs font-semibold ml-1">Save 33%</span>
@@ -104,8 +104,8 @@ export function ProPage() {
           </div>
 
           <div className="mb-6">
-            <span className="text-4xl font-bold text-slate-900">{plan.price}</span>
-            <span className="text-slate-500 text-sm ml-1">/ {plan.period}</span>
+            <span className="text-4xl font-bold text-slate-900 dark:text-white">{plan.price}</span>
+            <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {plan.period}</span>
           </div>
 
           {isPro ? (
@@ -121,7 +121,7 @@ export function ProPage() {
             </a>
           ) : (
             <div className="space-y-3">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-500 dark:text-slate-400">
                 Pro subscriptions are launching soon.
               </p>
               <Link
@@ -139,21 +139,21 @@ export function ProPage() {
         {/* Features grid */}
         <div className="grid sm:grid-cols-2 gap-4">
           {FEATURES.map((f) => (
-            <div key={f.title} className="bg-white rounded-xl border border-slate-100 shadow-sm p-5 flex gap-4">
+            <div key={f.title} className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-100 dark:border-white/10 shadow-sm p-5 flex gap-4">
               <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
                 {f.icon}
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-800 mb-1">{f.title}</p>
-                <p className="text-xs text-slate-500 leading-relaxed">{f.description}</p>
+                <p className="text-sm font-semibold text-slate-800 dark:text-white mb-1">{f.title}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{f.description}</p>
               </div>
             </div>
           ))}
         </div>
 
         {/* Comparison table */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-          <div className="grid grid-cols-3 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-100 px-6 py-3">
+        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm overflow-hidden">
+          <div className="grid grid-cols-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-white/10 px-6 py-3">
             <span>Feature</span>
             <span className="text-center">Free</span>
             <span className="text-center">Pro</span>
@@ -183,7 +183,7 @@ export function ProPage() {
 
         {/* FAQ */}
         <section>
-          <h2 className="text-lg font-semibold text-slate-800 mb-4">Frequently asked questions</h2>
+          <h2 className="text-lg font-semibold text-slate-800 dark:text-white mb-4">Frequently asked questions</h2>
           <div className="space-y-4">
             {[
               {
@@ -199,9 +199,9 @@ export function ProPage() {
                 a: "Yes, we offer a 7-day money-back guarantee. Email hello@colorarchive.me.",
               },
             ].map(({ q, a }) => (
-              <div key={q} className="bg-white rounded-xl border border-slate-100 shadow-sm p-5">
-                <p className="text-sm font-semibold text-slate-800 mb-1">{q}</p>
-                <p className="text-sm text-slate-500">{a}</p>
+              <div key={q} className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-100 dark:border-white/10 shadow-sm p-5">
+                <p className="text-sm font-semibold text-slate-800 dark:text-white mb-1">{q}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{a}</p>
               </div>
             ))}
           </div>

@@ -18,7 +18,7 @@ There is no test suite. Use `typecheck` to validate changes.
 
 ### Data & Core Logic
 
-- `src/data/colors.ts` — Generates all 2016 colors algorithmically (hue roots × lightness bands × chroma bands). Never stored externally.
+- `src/data/colors.ts` — Generates all 3,066 colors algorithmically (36 hue roots × 14 lightness bands × 6 chroma bands + 3 neutral gray groups × 14). Never stored externally.
 - `src/lib/color-utils.ts` — Pure functions for HSL↔RGB↔HEX conversion, color family classification, filtering, sorting, and finding color relationships (analogous, complementary, tonal companions).
 - `src/types/color.ts` — Core `ColorRecord` interface and enums (`ColorFamily`, `SortOption`).
 
@@ -26,7 +26,7 @@ There is no test suite. Use `typecheck` to validate changes.
 
 Pages in `app/` are Next.js Server Components. Each page imports a corresponding `*-page.tsx` component from `src/components/` that holds the actual UI and is marked `"use client"`. This keeps the App Router data/metadata layer separate from interactive client logic.
 
-Dynamic routes (e.g., `app/colors/[slug]/page.tsx`) use `generateStaticParams()` to pre-render all 2016 color pages at build time.
+Dynamic routes (e.g., `app/colors/[slug]/page.tsx`) use `generateStaticParams()` to pre-render all 3,066 color pages at build time.
 
 ### Persistence (localStorage)
 
@@ -34,9 +34,10 @@ Dynamic routes (e.g., `app/colors/[slug]/page.tsx`) use `generateStaticParams()`
 
 ### Content / Commerce
 
-- `src/lib/collections.ts` — 5 curated palette collections (editorial metadata + color IDs).
-- `src/lib/palette-packs.ts` — 3 product pack definitions (audience, deliverables, FAQ, proof points).
-- `src/lib/checkout-config.ts` — Checkout provider + URL placeholders (Lemon Squeezy / Stripe). This is where to update commerce config when integrating a real payment provider.
+- `src/lib/collections.ts` — 68+ curated palette collections (editorial metadata + color IDs).
+- `src/lib/palette-packs.ts` — 7 product pack definitions (USD $9–$129) + All Access bundle.
+- `src/lib/checkout-config.ts` — Checkout provider + URLs (Lemon Squeezy / Stripe) + Pro subscription config ($4.99/mo, $39.99/yr).
+- `src/lib/auth-client.ts` — Client API for auth, projects, usage stats, referral, API keys.
 - `src/lib/word-color.ts` — Deterministic word→color hash algorithm (string hash → hue/saturation/lightness → 5 color variants).
 
 ### Styling

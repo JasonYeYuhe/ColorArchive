@@ -134,7 +134,7 @@ export function HeroSection({
                 rel="noreferrer"
                 className="rounded-full border border-emerald-300/40 bg-emerald-50/80 px-5 py-2.5 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100 focus:outline-none focus:ring-4 focus:ring-emerald-400/20 dark:border-emerald-700/40 dark:bg-emerald-900/40 dark:text-emerald-300"
               >
-                All Access ¥2,799
+                All Access $129
               </a>
             )}
           </div>
@@ -170,7 +170,7 @@ export function HeroSection({
       {/* Stats / social proof bar */}
       <section className="flex flex-wrap items-center justify-center gap-4 rounded-[1.5rem] border border-black/6 bg-white/74 px-6 py-4 text-center shadow-sm backdrop-blur-xl sm:gap-8">
         <div className="flex items-center gap-2 text-sm text-neutral-600">
-          <span className="text-lg font-semibold text-neutral-950">2016</span> {t("hero.colors")}
+          <span className="text-lg font-semibold text-neutral-950">3,066</span> {t("hero.colors")}
         </div>
         <div className="h-4 w-px bg-black/10" aria-hidden="true" />
         <div className="flex items-center gap-2 text-sm text-neutral-600">

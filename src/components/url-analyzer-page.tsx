@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { hexToRgb } from "@/src/lib/color-utils";
+import { findClosestArchiveColor } from "@/src/lib/color-utils";
 import { colors as archiveColors } from "@/src/data/colors";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
@@ -15,24 +15,6 @@ interface ExtractedColor {
   hex: string;
   frequency: number;
   archiveMatch: ColorRecord | null;
-}
-
-function colorDistance(r1: number, g1: number, b1: number, r2: number, g2: number, b2: number): number {
-  const dr = r1 - r2, dg = g1 - g2, db = b1 - b2;
-  return Math.sqrt(2 * dr * dr + 4 * dg * dg + 3 * db * db);
-}
-
-function findClosestArchiveColor(hex: string): ColorRecord | null {
-  const rgb = hexToRgb(hex);
-  if (!rgb) return null;
-  let best: { color: ColorRecord; d: number } | null = null;
-  for (const ac of archiveColors) {
-    const acRgb = hexToRgb(ac.hex);
-    if (!acRgb) continue;
-    const d = colorDistance(rgb.r, rgb.g, rgb.b, acRgb.r, acRgb.g, acRgb.b);
-    if (!best || d < best.d) best = { color: ac, d };
-  }
-  return best?.color ?? null;
 }
 
 function luminance(hex: string): number {
@@ -78,7 +60,7 @@ export function UrlAnalyzerPage() {
       const enriched: ExtractedColor[] = data.colors.map((c: { hex: string; frequency: number }) => ({
         hex: c.hex,
         frequency: c.frequency,
-        archiveMatch: findClosestArchiveColor(c.hex),
+        archiveMatch: findClosestArchiveColor(archiveColors, c.hex),
       }));
 
       setColors(enriched);

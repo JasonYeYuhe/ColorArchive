@@ -35,6 +35,27 @@ export function getNearestColors(
     .slice(0, limit);
 }
 
+/**
+ * Find the closest archive color to an arbitrary hex value.
+ * Uses weighted RGB distance for perceptual accuracy.
+ */
+export function findClosestArchiveColor(
+  archiveColors: readonly ColorRecord[],
+  hex: string,
+): ColorRecord | null {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return null;
+  let best: { color: ColorRecord; d: number } | null = null;
+  for (const ac of archiveColors) {
+    const acRgb = hexToRgb(ac.hex);
+    if (!acRgb) continue;
+    const dr = rgb.r - acRgb.r, dg = rgb.g - acRgb.g, db = rgb.b - acRgb.b;
+    const d = Math.sqrt(2 * dr * dr + 4 * dg * dg + 3 * db * db);
+    if (!best || d < best.d) best = { color: ac, d };
+  }
+  return best?.color ?? null;
+}
+
 export function getComplementaryColor(
   colors: readonly ColorRecord[],
   baseColor: ColorRecord,

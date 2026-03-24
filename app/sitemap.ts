@@ -198,6 +198,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    {
+      url: "https://colorarchive.me/pro/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: "https://colorarchive.me/projects/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
+    {
+      url: "https://colorarchive.me/analyze/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ];
 
   const colorRoutes: MetadataRoute.Sitemap = colors.map((color) => ({
