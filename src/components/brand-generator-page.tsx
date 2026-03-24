@@ -11,6 +11,8 @@ import { ProGate } from "@/src/components/pro-gate";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
+import { DownloadPaletteImage } from "@/src/components/download-palette-image";
+import { collections } from "@/src/lib/collections";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
 
@@ -214,6 +216,11 @@ function PaletteResult({
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <ShareOnXButton text={xText} href="/brand-generator/" />
+          <DownloadPaletteImage
+            colors={generated.palette.map((c) => ({ hex: c.hex, name: c.name }))}
+            title={inputs.industry || inputs.style || "Brand Palette"}
+            subtitle={generated.summary?.slice(0, 60)}
+          />
           <SaveToProjectButton
             palette={generated.palette.map((c) => c.hex)}
             defaultName={inputs.industry || inputs.style || "Brand Palette"}
@@ -239,6 +246,12 @@ function PaletteResult({
 
 const STYLE_PRESETS = ["Minimal", "Bold", "Elegant", "Playful", "Natural", "Tech", "Luxury", "Warm"];
 const INDUSTRY_PRESETS = ["SaaS / Tech", "Fashion", "Health & Wellness", "Food & Beverage", "Finance", "Creative Agency", "Education", "Real Estate"];
+const COLLECTION_PRESETS = collections.slice(0, 8).map((c) => ({
+  id: c.id,
+  title: c.title,
+  style: c.promptWords.slice(0, 3).join(", "),
+  summary: c.summary,
+}));
 
 export function BrandGeneratorPage() {
   const [industry, setIndustry] = useState("");
@@ -375,6 +388,24 @@ export function BrandGeneratorPage() {
               placeholder="e.g. trustworthy, innovative, sustainable, premium"
               className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 bg-white text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
             />
+          </div>
+
+          {/* Start from a collection */}
+          <div>
+            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+              Or start from a collection
+            </label>
+            <div className="flex flex-wrap gap-1.5">
+              {COLLECTION_PRESETS.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => { setStyle(c.style); setKeywords(c.summary.split(".")[0]); }}
+                  className="px-2.5 py-1 text-xs bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 rounded-full transition-colors"
+                >
+                  {c.title}
+                </button>
+              ))}
+            </div>
           </div>
 
           {error && (

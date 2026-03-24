@@ -6,6 +6,7 @@ import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
+import { DownloadPaletteImage } from "@/src/components/download-palette-image";
 import { classifyError } from "@/src/lib/error-utils";
 import { toggleFavoriteColor, getFavoriteColorIds } from "@/src/lib/favorites";
 import { colors as archiveColors } from "@/src/data/colors";
@@ -270,6 +271,11 @@ export function MoodPalettePage() {
           <div className="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-slate-100 dark:border-white/10">
             <ShareLinkButton href={shareUrl} label="Copy palette link" />
             <ShareOnXButton text={xText} href={shareUrl} />
+            <DownloadPaletteImage
+              colors={result.colors.map((c) => ({ hex: c.hex, name: c.name }))}
+              title={result.palette_name}
+              subtitle={result.mood_tag}
+            />
             <SaveToProjectButton
               palette={result.colors.map((c) => c.hex)}
               defaultName={result.palette_name}

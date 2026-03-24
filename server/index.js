@@ -51,10 +51,31 @@ app.use("/instagram", require("./routes/instagram"));
 app.use("/ai", require("./routes/ai"));
 app.use("/projects", require("./routes/projects"));
 
-app.get("/health", (_, res) => res.json({ ok: true }));
+app.get("/health", (_, res) => res.json({ ok: true, uptime: process.uptime() }));
+
+// Global error handlers
+process.on("unhandledRejection", (reason) => {
+  console.error("[FATAL] Unhandled rejection:", reason);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("[FATAL] Uncaught exception:", err);
+  // Let PM2 restart the process
+  process.exit(1);
+});
 
 app.listen(PORT, () => {
   console.log(`ColorArchive server running on port ${PORT}`);
-  require("./email-scheduler").startScheduler();
-  require("./ig-scheduler").startScheduler();
+
+  try {
+    require("./email-scheduler").startScheduler();
+  } catch (err) {
+    console.error("[WARN] Email scheduler failed to start:", err);
+  }
+
+  try {
+    require("./ig-scheduler").startScheduler();
+  } catch (err) {
+    console.error("[WARN] Instagram scheduler failed to start:", err);
+  }
 });
