@@ -35,13 +35,14 @@
   - 防重复: date-seeded + post-log.json
 - [x] 已成功发帖测试: 2条 Story + 1条 Feed Post
 
-### X/Twitter ⏳ API key 已有，待集成
+### X/Twitter ⏳ API key 已存到服务器，待集成
 - [x] X Developer App: "ColorArchive" (App ID: `32630701`, ACTIVE)
-- [x] Bearer Token: 已生成 (2026-03-23)
-- [x] OAuth 1.0 Consumer Key: `••••••••••t54QX2`
-- [x] OAuth 1.0 Access Token: 已生成，for @JasonYeyuhe, Read+Write+DM
-- [x] OAuth 2.0 Client ID: `TzhESXZ40UdRN2pqU3VxVUZJMVo6MTpjaQ`
+- [x] Bearer Token: 已生成 (2026-03-24), 已验证有效
+- [x] OAuth 1.0a: Consumer Key + Secret + Access Token + Secret, 已验证（for @JasonYeyuhe, Read+Write+DM）
+- [x] OAuth 2.0: Client ID + Secret
+- [x] **Keys 已存到 DO 服务器** (`server/.env.twitter`)
 - [ ] **TODO: 集成 X API 到 server（自动发推 + 配合 IG scheduler 同步发帖）**
+- 注: Access Token 绑定 @JasonYeyuhe 个人号，如需品牌号需另建 X 账号并重新授权
 
 ### TikTok ⏳ 审核中
 - [x] TikTok Developer App: "ColorArchive" (Category: Productivity)
@@ -50,11 +51,13 @@
 - [ ] **等审核通过后: 集成 TikTok Content Posting API 到 server**
 - 注: 前端有 admin demo page (`app/admin/tiktok/`)，但后端未实现
 
-### YouTube ⏳ 频道已有，API 待集成
-- [x] 频道: @colorarchiveme, 1 subscriber, 1 video
+### YouTube ⏳ API key 已存到服务器，待集成
+- [x] 频道: @colorarchiveme (Channel ID: `UCNoXTmSG24M20aXOjD7bHsA`), 1 subscriber, 1 video
 - [x] Avatar + banner 已设置 (`colorarchive_logo_v1_assets/`)
-- [ ] **TODO: YouTube Data API 集成（自动上传 color showcase 视频）**
-- 注: API key 已有但未在代码中看到，需要 Jason 提供具体 key
+- [x] Google Cloud Project: `main-analog-442915-s5`, YouTube Data API v3 已启用
+- [x] API Key: 已验证有效，已存到 DO 服务器 (`server/.env.youtube`)
+- [x] OAuth 2.0 Client: "ColorArchive YouTube Uploader" (Desktop app) — 用于上传视频
+- [ ] **TODO: YouTube upload 集成到 server（自动生成+上传 color showcase 视频）**
 
 ### Pinterest ✅ 已集成
 - [x] OAuth flow 工作中 (App ID: `1555251`)
