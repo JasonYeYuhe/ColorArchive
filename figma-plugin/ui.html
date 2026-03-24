@@ -92,7 +92,7 @@
 <body>
   <div class="header">
     <h1>ColorArchive</h1>
-    <p>2016 curated colors — browse, apply, export</p>
+    <p>3,000+ curated colors — browse, apply, export</p>
   </div>
 
   <div class="tabs">
@@ -185,7 +185,7 @@ const LIGHTNESS_BANDS = [
   { l: 20, name: "Coal" }, { l: 14, name: "Ink" },
 ];
 const SAT_BANDS = [
-  { s: 18, name: "Muted" }, { s: 34, name: "Soft" }, { s: 54, name: "Clear" }, { s: 74, name: "Vivid" },
+  { s: 10, name: "Faint" }, { s: 18, name: "Muted" }, { s: 34, name: "Soft" }, { s: 54, name: "Clear" }, { s: 74, name: "Vivid" }, { s: 92, name: "Pure" },
 ];
 const FAMILIES = ["Red","Orange","Yellow","Lime","Green","Teal","Blue","Purple","Pink"];
 
@@ -210,7 +210,7 @@ function getFamily(hue) {
   return "Pink";
 }
 
-// Generate all 2016 colors
+// Generate chromatic colors (36 × 14 × 6 = 3,024)
 const allColors = [];
 for (const root of HUE_ROOTS) {
   for (const lb of LIGHTNESS_BANDS) {
@@ -219,6 +219,19 @@ for (const root of HUE_ROOTS) {
       const id = name.toLowerCase().replace(/\s+/g, "-");
       allColors.push({ id, name, hue: root.hue, saturation: sb.s, lightness: lb.l, hex: hslToHex(root.hue, sb.s, lb.l), family: getFamily(root.hue) });
     }
+  }
+}
+// Generate neutral grays (3 × 14 = 42)
+const NEUTRAL_ROOTS = [
+  { name: "Warm Gray", hue: 30, s: 6 },
+  { name: "Cool Gray", hue: 210, s: 6 },
+  { name: "True Gray", hue: 0, s: 0 },
+];
+for (const nr of NEUTRAL_ROOTS) {
+  for (const lb of LIGHTNESS_BANDS) {
+    const name = `${nr.name} ${lb.name}`;
+    const id = name.toLowerCase().replace(/\s+/g, "-");
+    allColors.push({ id, name, hue: nr.hue, saturation: nr.s, lightness: lb.l, hex: hslToHex(nr.hue, nr.s, lb.l), family: getFamily(nr.hue) });
   }
 }
 
