@@ -228,4 +228,221 @@ No markdown, no explanation outside the JSON. Pure JSON only.`;
   }
 });
 
+/**
+ * POST /ai/critique
+ * Body: { colors: [{ hex, name? }] }
+ * Returns: { score, harmony_type, contrast_issues, suggestions, cultural_notes, overall_assessment }
+ */
+router.post("/critique", aiRateLimit, async (req, res) => {
+  const { colors } = req.body ?? {};
+
+  if (!colors || !Array.isArray(colors) || colors.length < 2 || colors.length > 12) {
+    return res.status(400).json({ error: "Provide 2-12 colors for critique." });
+  }
+
+  if (!process.env.GOOGLE_AI_API_KEY) {
+    return res.status(503).json({ error: "AI feature not configured on this server." });
+  }
+
+  // Pre-compute contrast data server-side for accuracy
+  function relativeLuminance(hex) {
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    const toLinear = (c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+    return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+  }
+
+  function contrastRatio(hex1, hex2) {
+    const l1 = relativeLuminance(hex1);
+    const l2 = relativeLuminance(hex2);
+    const lighter = Math.max(l1, l2);
+    const darker = Math.min(l1, l2);
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+
+  const hexes = colors.map((c) => (typeof c === "string" ? c : c.hex));
+  const names = colors.map((c, i) => (typeof c === "string" ? c : c.name || c.hex));
+
+  // Build contrast matrix
+  const contrastPairs = [];
+  for (let i = 0; i < hexes.length; i++) {
+    for (let j = i + 1; j < hexes.length; j++) {
+      const ratio = contrastRatio(hexes[i], hexes[j]);
+      const level = ratio >= 7 ? "AAA" : ratio >= 4.5 ? "AA" : ratio >= 3 ? "AA Large" : "Fail";
+      contrastPairs.push({
+        pair: `${hexes[i]} / ${hexes[j]}`,
+        ratio: Math.round(ratio * 100) / 100,
+        level,
+      });
+    }
+  }
+
+  const failingPairs = contrastPairs.filter((p) => p.level === "Fail");
+
+  const prompt = `You are a senior color design critic with deep expertise in color theory, WCAG accessibility, cultural associations, and brand design.
+
+A designer has submitted this palette for review:
+${hexes.map((hex, i) => `${i + 1}. ${hex} (${names[i]})`).join("\n")}
+
+Here are the factual WCAG contrast ratios between all pairs:
+${contrastPairs.map((p) => `${p.pair}: ${p.ratio}:1 (${p.level})`).join("\n")}
+
+${failingPairs.length > 0 ? `WARNING: ${failingPairs.length} pair(s) FAIL minimum contrast requirements.` : "All pairs meet at least AA Large contrast."}
+
+Provide a professional design critique covering:
+1. Overall score (A, B, C, D, or F)
+2. Harmony type (complementary, analogous, triadic, split-complementary, monochromatic, custom)
+3. Contrast issues (list the problematic pairs with ratios — use the factual data above, do NOT recalculate)
+4. 1-3 specific suggestions: for each, suggest a DIFFERENT hex that would improve the palette (fix a contrast issue, improve harmony, or fill a gap). Provide the index of the color to replace, the replacement hex, a poetic name for the replacement, and the reason.
+5. Cultural notes: any cultural or psychological associations worth knowing (1-2 sentences)
+6. Overall assessment: 2-3 sentences summarizing the palette's strengths and weaknesses
+
+Respond ONLY with valid JSON in this exact format:
+{
+  "score": "B",
+  "harmony_type": "analogous",
+  "contrast_issues": [
+    { "pair": "#1a1a2e / #16213e", "ratio": 1.23, "wcag_level": "Fail" }
+  ],
+  "suggestions": [
+    { "index": 2, "current_hex": "#16213e", "replacement_hex": "#e8e0d8", "replacement_name": "Warm Linen", "reason": "Adds a light neutral for text backgrounds, fixing contrast with the dark tones." }
+  ],
+  "cultural_notes": "Brief cultural or psychological insight.",
+  "overall_assessment": "Summary of palette strengths and areas for improvement."
+}
+
+No markdown, no explanation outside the JSON. Pure JSON only.`;
+
+  try {
+    const model = getClient().getGenerativeModel({ model: "gemini-3-flash" });
+    const result = await model.generateContent(prompt);
+    const text = result.response.text();
+
+    let parsed;
+    try {
+      parsed = JSON.parse(text.trim());
+    } catch {
+      const match = text.match(/\{[\s\S]*\}/);
+      if (match) parsed = JSON.parse(match[0]);
+      else throw new Error("Could not parse AI response as JSON");
+    }
+
+    if (!parsed.score || !parsed.overall_assessment) {
+      throw new Error("Invalid critique structure in AI response");
+    }
+
+    // Ensure contrast_issues uses factual data
+    parsed.contrast_issues = failingPairs;
+
+    return res.json(parsed);
+  } catch (err) {
+    console.error("[ai/critique] Error:", err);
+    return res.status(500).json({ error: "Failed to generate critique. Please try again." });
+  }
+});
+
+/**
+ * POST /ai/analyze-url
+ * Body: { url: string }
+ * Returns: { colors: [{ hex, frequency, archiveMatch? }], analysis }
+ */
+router.post("/analyze-url", aiRateLimit, async (req, res) => {
+  const { url } = req.body ?? {};
+
+  if (!url || typeof url !== "string") {
+    return res.status(400).json({ error: "Please provide a URL." });
+  }
+
+  // Validate URL format
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(url.startsWith("http") ? url : `https://${url}`);
+  } catch {
+    return res.status(400).json({ error: "Invalid URL format." });
+  }
+
+  try {
+    // Fetch the page
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const response = await fetch(parsedUrl.toString(), {
+      signal: controller.signal,
+      headers: { "User-Agent": "ColorArchive Bot/1.0 (color analysis)" },
+    });
+    clearTimeout(timeout);
+
+    if (!response.ok) {
+      return res.status(400).json({ error: `Could not fetch URL (${response.status}).` });
+    }
+
+    const html = await response.text();
+
+    // Extract colors from CSS and inline styles
+    const colorRegex = /#(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b/g;
+    const rgbRegex = /rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)/g;
+    const rgbaRegex = /rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,/g;
+
+    const colorCounts = new Map();
+
+    function normalizeHex(hex) {
+      hex = hex.toLowerCase();
+      if (hex.length === 4) {
+        hex = `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`;
+      }
+      return hex;
+    }
+
+    function rgbToHex(r, g, b) {
+      return `#${[r, g, b].map((c) => Math.min(255, Math.max(0, parseInt(c))).toString(16).padStart(2, "0")).join("")}`;
+    }
+
+    // Extract hex colors
+    let match;
+    while ((match = colorRegex.exec(html)) !== null) {
+      const hex = normalizeHex(match[0]);
+      colorCounts.set(hex, (colorCounts.get(hex) || 0) + 1);
+    }
+
+    // Extract rgb() colors
+    while ((match = rgbRegex.exec(html)) !== null) {
+      const hex = rgbToHex(match[1], match[2], match[3]);
+      colorCounts.set(hex, (colorCounts.get(hex) || 0) + 1);
+    }
+
+    // Extract rgba() colors
+    while ((match = rgbaRegex.exec(html)) !== null) {
+      const hex = rgbToHex(match[1], match[2], match[3]);
+      colorCounts.set(hex, (colorCounts.get(hex) || 0) + 1);
+    }
+
+    // Filter out pure black, white, and near-transparent
+    const filtered = [...colorCounts.entries()]
+      .filter(([hex]) => hex !== "#000000" && hex !== "#ffffff" && hex !== "#fff" && hex !== "#000")
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 12);
+
+    if (filtered.length === 0) {
+      return res.status(400).json({ error: "No colors found on this page." });
+    }
+
+    const extractedColors = filtered.map(([hex, count]) => ({
+      hex,
+      frequency: count,
+    }));
+
+    return res.json({
+      url: parsedUrl.toString(),
+      colors: extractedColors,
+      total_colors_found: colorCounts.size,
+    });
+  } catch (err) {
+    if (err.name === "AbortError") {
+      return res.status(400).json({ error: "URL took too long to respond." });
+    }
+    console.error("[ai/analyze-url] Error:", err);
+    return res.status(500).json({ error: "Failed to analyze URL. Please try again." });
+  }
+});
+
 module.exports = router;

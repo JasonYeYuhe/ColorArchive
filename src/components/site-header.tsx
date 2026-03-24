@@ -110,6 +110,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/mesh-gradient/", labelKey: "nav.meshGradient" },
       { href: "/color-quiz/", labelKey: "nav.colorQuiz" },
       { href: "/brand-generator/", labelKey: "nav.brandGenerator" },
+      { href: "/analyze/", labelKey: "nav.analyze" },
       { href: "/combinations/", labelKey: "nav.combinations" },
       { href: "/api-docs/", labelKey: "nav.apiDocs" },
       { href: "https://www.figma.com/community/plugin/1616829363158218051", labelKey: "nav.figmaPlugin" },

@@ -45,6 +45,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.freePack": { en: "Free Pack", zh: "免费包" },
   "nav.pro": { en: "Pro", zh: "Pro" },
   "nav.projects": { en: "Projects", zh: "项目" },
+  "nav.analyze": { en: "Brand Analyzer", zh: "品牌分析" },
   "nav.recent": { en: "Recent", zh: "最近浏览" },
   "nav.analytics": { en: "Analytics", zh: "数据分析" },
   "nav.updates": { en: "Updates", zh: "更新动态" },

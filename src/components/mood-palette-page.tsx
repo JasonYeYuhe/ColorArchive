@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-button";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
+import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { toggleFavoriteColor, getFavoriteColorIds } from "@/src/lib/favorites";
 import { colors as archiveColors } from "@/src/data/colors";
 
@@ -268,6 +269,11 @@ export function MoodPalettePage() {
               palette={result.colors.map((c) => c.hex)}
               defaultName={result.palette_name}
             />
+          </div>
+
+          {/* AI Design Critique */}
+          <div className="mt-6">
+            <PaletteCritiquePanel palette={result.colors.map((c) => c.hex)} />
           </div>
         </section>
       )}

@@ -8,6 +8,7 @@ import { ShareOnXButton } from "@/src/components/share-link-button";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { ProGate } from "@/src/components/pro-gate";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
+import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import type { ColorRecord } from "@/src/types/color";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
@@ -249,6 +250,9 @@ function PaletteResult({
           Get Brand Color Starter Kit →
         </Link>
       </div>
+
+      {/* AI Design Critique */}
+      <PaletteCritiquePanel palette={generated.palette.map((c) => c.hex)} />
     </div>
   );
 }
