@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { SaveToProjectButton } from "@/src/components/save-to-project";
 import {
   buildPaletteCssExport,
   buildPaletteJsonExport,
@@ -181,6 +182,10 @@ export function PaletteBuilderTray() {
               >
                 {t("tray.viewPalette")}
               </Link>
+              <SaveToProjectButton
+                palette={paletteColors.map((c) => c.hex)}
+                defaultName={paletteName}
+              />
               <button
                 type="button"
                 onClick={clearPalette}

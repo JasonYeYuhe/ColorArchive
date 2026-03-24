@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { ProGate } from "@/src/components/pro-gate";
+import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { hexToRgb, rgbToHsl, rgbToHex } from "@/src/lib/color-utils";
 import { colors as archiveColors } from "@/src/data/colors";
 import { addManyToPalette } from "@/src/lib/palette-builder";
@@ -635,6 +636,10 @@ export function ImagePalettePage() {
               <h2 className="text-lg font-semibold text-slate-800">Color Details</h2>
               <div className="flex flex-wrap items-center gap-2">
                 <AddMatchesToPaletteButton matchedColors={matchedColors} />
+                <SaveToProjectButton
+                  palette={matchedColors.map((m) => m.extracted.hex)}
+                  defaultName="Image Palette"
+                />
                 {shareUrl && (
                   <>
                     <ShareLinkButton href={shareUrl} label="Copy link" />

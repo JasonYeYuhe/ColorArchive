@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { ProGate } from "@/src/components/pro-gate";
+import { SaveToProjectButton } from "@/src/components/save-to-project";
 
 // --- Color utilities ---
 
@@ -487,6 +489,28 @@ export function PalettePreviewPage() {
     setTimeout(() => setCopied(false), 1400);
   }, [cssVars]);
 
+  const [twCopied, setTwCopied] = useState(false);
+  const tailwindConfig = `// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        bg: "${roles.bg}",
+        surface: "${roles.surface}",
+        primary: "${roles.primary}",
+        text: "${roles.text}",
+        accent: "${roles.accent}",
+      },
+    },
+  },
+};`;
+
+  const copyTailwind = useCallback(() => {
+    navigator.clipboard.writeText(tailwindConfig);
+    setTwCopied(true);
+    setTimeout(() => setTwCopied(false), 1400);
+  }, [tailwindConfig]);
+
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-neutral-950">
       {/* Header */}
@@ -566,14 +590,31 @@ export function PalettePreviewPage() {
             </div>
           </div>
 
-          {/* Copy CSS */}
-          <button
-            type="button"
-            onClick={copyCss}
-            className="w-full text-xs font-semibold py-2.5 rounded-xl border border-slate-200 dark:border-white/15 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
-          >
-            {copied ? "✓ Copied CSS Variables" : "Copy CSS Variables"}
-          </button>
+          {/* Export */}
+          <div className="space-y-2">
+            <ProGate label="Export CSS">
+              <button
+                type="button"
+                onClick={copyCss}
+                className="w-full text-xs font-semibold py-2.5 rounded-xl border border-slate-200 dark:border-white/15 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
+              >
+                {copied ? "✓ Copied CSS Variables" : "Copy CSS Variables"}
+              </button>
+            </ProGate>
+            <ProGate label="Export Tailwind">
+              <button
+                type="button"
+                onClick={copyTailwind}
+                className="w-full text-xs font-semibold py-2.5 rounded-xl border border-slate-200 dark:border-white/15 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
+              >
+                {twCopied ? "✓ Copied Tailwind Config" : "Copy Tailwind Config"}
+              </button>
+            </ProGate>
+            <SaveToProjectButton
+              palette={Object.values(roles)}
+              defaultName="UI Preview Palette"
+            />
+          </div>
         </div>
 
         {/* Right: preview */}

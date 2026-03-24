@@ -200,6 +200,15 @@ const TOOLS: Tool[] = [
     accent: "bg-teal-100 text-teal-700",
   },
   {
+    href: "/analyze/",
+    icon: "◎",
+    nameKey: "tools.analyze.name",
+    descKey: "tools.analyze.desc",
+    categoryKey: "tools.cat.creative",
+    badgeKey: "tools.badge.new",
+    accent: "bg-rose-100 text-rose-700",
+  },
+  {
     href: "/tokens/",
     icon: "⬡",
     nameKey: "tools.tokens.name",

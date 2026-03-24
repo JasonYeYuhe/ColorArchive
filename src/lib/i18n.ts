@@ -1942,6 +1942,11 @@ const translations: Record<string, Record<string, string>> = {
     en: "Describe your brand and get a full 6-color palette — primary, accents, neutrals — with AI-generated rationale and export tokens.",
     zh: "描述品牌，AI 生成完整 6 色系统，包含主色、辅色、中性色，附设计理由和导出格式。",
   },
+  "tools.analyze.name": { en: "Brand Color Analyzer", zh: "品牌配色分析" },
+  "tools.analyze.desc": {
+    en: "Paste any URL to extract its color palette, match to the archive, and get an AI design critique.",
+    zh: "粘贴任意网址，提取配色方案，匹配色彩库，获取 AI 设计诊断。",
+  },
   "tools.combinations.name": { en: "Color Combinations", zh: "配色组合" },
   "tools.combinations.desc": {
     en: "Browse 30+ curated color combinations — complementary, analogous, triadic, monochromatic — with hex codes and design use cases.",
