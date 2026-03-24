@@ -21,6 +21,26 @@
 - [ ] Seasonal collection: spring-2026 assets exist in downloads but no corresponding collection page — *consider adding a seasonal palette page*
 - [ ] Add more combinations to /combinations/ — *started with 30; could expand to 50+ over future runs*
 
+## Social Media & Marketing Status (Updated 2026-03-24)
+
+### Completed
+- [x] **YouTube channel** — @colorarchiveme, 1 subscriber, 1 video uploaded, avatar/banner set
+- [x] **Facebook Page** — "Color Archive" page created (ID: 61576446410794)
+- [x] **Instagram account** — @colorarchive.me (Professional/Business account, linked to Meta Accounts Center)
+- [x] **Meta Developer App** — "ColorArchive" (App ID: 2333103020516915), Instagram API use case configured
+- [x] **Instagram API integration** — Full OAuth + publish + media feed endpoints on api.colorarchive.me
+  - Token: long-lived, expires 2026-05-23
+  - IG User ID: 17841440093063589
+  - Endpoints: /instagram/status, /instagram/profile, /instagram/media, /instagram/publish
+- [x] **Pinterest API** — OAuth flow working (existing integration)
+
+### Pending
+- [ ] Instagram: Post first content (color palette images, educational content)
+- [ ] Instagram: Token auto-refresh cron (before 2026-05-23 expiry)
+- [ ] TikTok: Complete API integration (admin page exists at app/admin/tiktok/)
+- [ ] YouTube: Upload more content / create content pipeline
+- [ ] Cross-post automation: Build autopilot task to publish to IG + Pinterest simultaneously
+
 ## Done
 - [x] Fix collections build error (18 invalid color IDs) — completed 2026-03-23 autopilot
 - [x] Fix duplicate collection IDs (midnight-garden ×3, copper-patina ×2) — completed 2026-03-23 autopilot
