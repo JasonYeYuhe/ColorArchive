@@ -4576,3 +4576,1992 @@ export const extraGuides18: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides18);
+
+export const seoGuides: LandingGuide[] = [
+  // ── SaaS ──────────────────────────────────────────────
+  {
+    category: "Industry Colors",
+    slug: "saas-brand-color-palette",
+    title: "SaaS Brand Color Palettes That Convert Free Users to Paid",
+    summary:
+      "How to choose a SaaS brand palette that signals trust, modernity, and value — without looking like every other blue-gradient startup.",
+    eyebrow: "SaaS",
+    priority: 50,
+    searchIntent: "best brand colors for SaaS startups",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "brand-starter-kit",
+    tags: ["SaaS", "Brand", "Startup", "Palette"],
+    highlights: [
+      "Blue dominates SaaS for good reason — it reads as stable and trustworthy — but differentiation requires pushing into adjacent hues like teal or indigo.",
+      "Your primary color will appear in CTAs, nav elements, and onboarding — pick one that stays legible on both light and dark surfaces.",
+      "A three-role palette (primary, neutral surface, accent) is enough for most SaaS dashboards.",
+    ],
+    sections: [
+      {
+        heading: "Why most SaaS palettes look the same",
+        body:
+          "The SaaS industry gravitates toward blue because it signals reliability, but that creates a sea of sameness. To stand out, shift your primary by 15–30 degrees on the hue wheel — from pure blue toward violet or teal. This keeps the trust signal while giving your product a distinct personality. Use ColorArchive's brand generator to test adjacent hues against your competitors' screenshots.",
+      },
+      {
+        heading: "Building a conversion-focused palette",
+        body:
+          "Your CTA color needs maximum contrast against your surface color. In SaaS, that usually means a saturated accent on a neutral or slightly tinted background. Avoid using your primary brand color for destructive actions — reserve a separate warm tone for warnings and errors. The Brand Starter Kit provides role-based groupings that map directly to SaaS UI patterns.",
+      },
+      {
+        heading: "Scaling from landing page to product",
+        body:
+          "The palette that works on your marketing site needs to survive the complexity of dashboards, data tables, and settings pages. Export your palette as design tokens early so engineers and designers share the same source of truth. ColorArchive's token export generates CSS custom properties and JSON tokens that plug directly into Tailwind or any design system.",
+      },
+    ],
+    links: [
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Design Token Export", href: "/tokens/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "saas-dark-mode-colors",
+    title: "Dark Mode Color Schemes for SaaS Products That Don't Strain Eyes",
+    summary:
+      "A practical guide to dark mode palettes for SaaS dashboards — where users spend hours daily and eye strain is a churn risk.",
+    eyebrow: "SaaS",
+    priority: 50,
+    searchIntent: "dark mode color scheme for SaaS dashboard",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["SaaS", "Dark Mode", "UI", "Dashboard"],
+    highlights: [
+      "SaaS users who work in dark mode spend an average of 4+ hours per session — surface contrast matters more than accent vibrancy.",
+      "Avoid pure black (#000) backgrounds; use elevated dark grays (hsl 220, 10%, 12%) that reduce halation on LCD screens.",
+    ],
+    sections: [
+      {
+        heading: "Surface elevation in dark mode",
+        body:
+          "In dark mode, depth is communicated through lighter surfaces, not shadows. Your base layer should sit around 8–12% lightness, with each elevated surface stepping up by 2–4%. This creates the layered card effect users expect in dashboards without relying on heavy box shadows that look painted-on against dark backgrounds.",
+      },
+      {
+        heading: "Text and data readability",
+        body:
+          "Primary text in dark mode should be off-white (around 87–92% lightness) rather than pure white, which creates glare. Secondary text can drop to 60–70% lightness. For data-heavy SaaS products, ensure your chart colors maintain at least 4.5:1 contrast against the dark surface. Use ColorArchive's WCAG audit tool to verify every color in your palette against your dark background.",
+      },
+      {
+        heading: "Accent colors that survive mode switching",
+        body:
+          "The accent colors from your light theme rarely work unchanged in dark mode — they either look washed out or neon. Reduce saturation by 10–15% and increase lightness by 5–10% for dark mode variants. The Dark Mode UI Kit includes pre-mapped light/dark pairs so you don't have to hand-tune every color.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "WCAG Contrast Checker", href: "/audit/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "saas-accessible-color-scheme",
+    title: "WCAG-Compliant Color Palettes for SaaS Products",
+    summary:
+      "How to build an accessible color system for SaaS that meets WCAG AA standards without sacrificing visual appeal or brand identity.",
+    eyebrow: "SaaS",
+    priority: 50,
+    searchIntent: "accessible color palette for SaaS products",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "brand-starter-kit",
+    tags: ["SaaS", "Accessibility", "WCAG", "Contrast"],
+    highlights: [
+      "Enterprise SaaS buyers increasingly require WCAG AA compliance in procurement evaluations — accessibility is a revenue issue.",
+      "Color alone should never convey status; pair every color signal with an icon, label, or pattern.",
+      "Run every interactive color through a 4.5:1 contrast check against its most common background.",
+    ],
+    sections: [
+      {
+        heading: "Contrast ratios for data-heavy interfaces",
+        body:
+          "SaaS dashboards are dense with text, labels, and status indicators. Body text requires 4.5:1 contrast (WCAG AA), but large headings only need 3:1. The trap is secondary text and placeholder text — they often fall below 4.5:1 when designers chase a muted aesthetic. ColorArchive's WCAG auditor flags every pair that fails, so you can fix problems before shipping.",
+      },
+      {
+        heading: "Status colors beyond red and green",
+        body:
+          "Roughly 8% of men have some form of color vision deficiency, and red-green is the most common. In SaaS, where success/error states are constant, you need supplementary cues: icons, border patterns, or text labels alongside color. When choosing status colors, pick hues with different luminance levels — not just different hues — so they remain distinguishable in grayscale.",
+      },
+      {
+        heading: "Building an accessible token system",
+        body:
+          "Structure your design tokens with accessibility baked in: define semantic pairs like text-on-surface and text-on-primary, and validate each pair at token creation time. Export tokens from ColorArchive with contrast metadata so your CI pipeline can catch regressions. This prevents the slow drift where individual component changes erode accessibility over time.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Design Token Export", href: "/tokens/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "saas-website-color-inspiration",
+    title: "SaaS Website Color Inspiration That Goes Beyond Gradient Headers",
+    summary:
+      "Real color strategies from high-converting SaaS sites — and how to adapt them to your product without copying anyone's exact palette.",
+    eyebrow: "SaaS",
+    priority: 50,
+    searchIntent: "SaaS website color inspiration ideas",
+    featuredCollectionId: "modern-seaside",
+    featuredPackId: "brand-starter-kit",
+    tags: ["SaaS", "Website", "Inspiration", "Marketing"],
+    highlights: [
+      "The best SaaS sites use color to direct attention to one CTA per viewport — not to decorate.",
+      "Tinted neutrals (warm gray, cool slate) create more visual interest than pure gray backgrounds.",
+    ],
+    sections: [
+      {
+        heading: "Color hierarchy on landing pages",
+        body:
+          "High-converting SaaS landing pages follow a strict color hierarchy: the primary CTA gets the most saturated color, the background stays neutral or lightly tinted, and secondary elements use muted variants. This creates an obvious visual path. Browse ColorArchive's Modern Seaside collection for a teal-and-sand palette that balances energy with calm — ideal for SaaS marketing pages.",
+      },
+      {
+        heading: "Using tinted surfaces for depth",
+        body:
+          "Instead of alternating between white and gray sections, tint your surfaces with 2–5% of your brand hue. A SaaS site with a blue brand color might use hsl(220, 15%, 97%) as an alternate section background. This subtle tinting creates rhythm and cohesion that pure neutrals can't match. It also makes your brand feel more considered and less template-driven.",
+      },
+      {
+        heading: "From inspiration to implementation",
+        body:
+          "Once you've found a direction, use ColorArchive's brand generator to explore variations and export them as ready-to-use CSS variables. Test your palette at different viewport sizes — colors that look balanced on desktop can feel overwhelming on mobile where they fill a larger percentage of the screen. The Brand Starter Kit includes responsive-tested groupings for this reason.",
+      },
+    ],
+    links: [
+      { label: "Modern Seaside Collection", href: "/collections/modern-seaside/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Browse All Colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "saas-design-token-system",
+    title: "Design Token Systems for SaaS: From Color Picker to Production CSS",
+    summary:
+      "How to structure color tokens for a SaaS product so your palette scales across themes, components, and teams without entropy.",
+    eyebrow: "SaaS",
+    priority: 50,
+    searchIntent: "design token system for SaaS color management",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "complete-archive",
+    tags: ["SaaS", "Design Tokens", "Systems", "CSS"],
+    highlights: [
+      "Three-layer token architecture — primitive, semantic, component — prevents color drift as your product grows.",
+      "Token naming should describe purpose (surface.primary) not appearance (blue-500).",
+      "ColorArchive exports tokens as CSS custom properties, JSON, and Tailwind config.",
+    ],
+    sections: [
+      {
+        heading: "Primitive, semantic, and component layers",
+        body:
+          "Primitive tokens are your raw color values: blue-500, gray-100, red-600. Semantic tokens map those to roles: surface-default, text-primary, border-subtle. Component tokens reference semantics for specific UI elements: button-primary-bg, input-border-error. This three-layer system means a theme change only touches the semantic layer — components don't know or care about the raw values underneath.",
+      },
+      {
+        heading: "Naming conventions that scale",
+        body:
+          "Avoid naming tokens after their visual appearance. 'Blue-cta' breaks when marketing decides the CTA should be orange. Instead use role-based names: action-primary, feedback-success, surface-elevated. ColorArchive's token export follows this convention by default, generating names that communicate purpose rather than hue. This makes your token file readable even to developers who weren't part of the original design process.",
+      },
+      {
+        heading: "Automating token distribution",
+        body:
+          "Once tokens are defined, distribute them through your build pipeline. CSS custom properties for web, JSON for React Native, and Tailwind config extensions for utility-class workflows. ColorArchive generates all three formats from a single palette. Version your token file in git alongside your component library so changes are tracked and reviewable — color changes should go through PR review just like code changes.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Tints & Shades Generator", href: "/tints/" },
+    ],
+  },
+
+  // ── Fintech ───────────────────────────────────────────
+  {
+    category: "Industry Colors",
+    slug: "fintech-brand-color-palette",
+    title: "Fintech Brand Colors That Signal Trust Without Looking Like a Bank",
+    summary:
+      "How to build a fintech brand palette that communicates security and innovation simultaneously — the central tension of financial product design.",
+    eyebrow: "Fintech",
+    priority: 50,
+    searchIntent: "best brand colors for fintech apps",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Fintech", "Brand", "Trust", "Palette"],
+    highlights: [
+      "Navy and deep teal dominate fintech because they combine the trust of blue with enough distinctiveness to avoid looking like a legacy bank.",
+      "Accent colors in fintech need to work for both positive (green gains) and cautionary (amber alerts) without clashing.",
+      "A fintech palette must function across cards, dashboards, and marketing — test all three contexts early.",
+    ],
+    sections: [
+      {
+        heading: "The trust-innovation spectrum",
+        body:
+          "Traditional banks use navy, burgundy, and gold. Crypto startups use neon gradients and black. Your fintech sits somewhere between, and the palette should reflect that positioning. A deep teal primary with a warm neutral surface says 'modern but responsible.' Use ColorArchive's brand generator to test your primary against both ends of this spectrum and find where your product naturally sits.",
+      },
+      {
+        heading: "Financial data color requirements",
+        body:
+          "Fintech products display gains, losses, balances, and alerts — all of which carry color expectations. Green for positive, red for negative, amber for caution. These semantic colors must coexist with your brand palette without conflict. Define them as a separate semantic layer in your token system. The Brand Starter Kit includes semantic color slots specifically for this purpose.",
+      },
+      {
+        heading: "Card and payment UI considerations",
+        body:
+          "If your fintech product includes a virtual or physical card, the card design is a branding surface. Dark, desaturated colors photograph better on physical cards and render more consistently across device screens. Test your brand color at both 100% and 15% opacity — the lighter tint will appear on hover states, selected rows, and background accents throughout the product.",
+      },
+    ],
+    links: [
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fintech-dark-mode-colors",
+    title: "Dark Mode Palettes for Fintech Dashboards and Trading Interfaces",
+    summary:
+      "Build dark mode color schemes for financial products where users watch numbers change in real time and need to parse data under low contrast conditions.",
+    eyebrow: "Fintech",
+    priority: 50,
+    searchIntent: "dark mode colors for fintech trading dashboard",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Fintech", "Dark Mode", "Trading", "Dashboard"],
+    highlights: [
+      "Trading interfaces in dark mode need at least 5 distinct status colors that remain distinguishable at small sizes.",
+      "Financial dark UIs should avoid pure black — a dark navy or charcoal base reduces eye fatigue during extended sessions.",
+    ],
+    sections: [
+      {
+        heading: "Dark surfaces for financial data",
+        body:
+          "Financial dashboards in dark mode need a background dark enough to make green and red numbers pop, but not so dark that the interface feels oppressive. A base of hsl(225, 15%, 10%) with elevated cards at hsl(225, 12%, 14%) gives enough separation for complex layouts. The Nocturne Tech collection provides this exact tonal range, purpose-built for data-dense dark interfaces.",
+      },
+      {
+        heading: "Chart and graph colors in dark mode",
+        body:
+          "Charts in dark mode fail when designers reuse light-mode palette colors unchanged. Saturated colors need desaturation against dark backgrounds, and line charts need higher lightness values to remain visible against dark surfaces. Define a separate chart color set for dark mode — 6 to 8 colors that maintain mutual contrast and don't blend into the background. Use ColorArchive's contrast checker to verify each against your dark surface.",
+      },
+      {
+        heading: "Real-time data color signals",
+        body:
+          "Price tickers and live feeds update constantly. The colors for up/down/neutral must be instantly recognizable at a glance. In dark mode, use green at hsl(145, 65%, 55%) and red at hsl(0, 70%, 60%) — both need enough lightness to read against dark surfaces. The Dark Mode UI Kit includes pre-tuned semantic colors for this exact use case.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "WCAG Contrast Checker", href: "/audit/" },
+      { label: "Color Combinations", href: "/combinations/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fintech-accessible-color-scheme",
+    title: "Accessible Color Systems for Financial Products and Banking Apps",
+    summary:
+      "WCAG-compliant color strategies for fintech where accessibility failures can mean users literally cannot read their account balance.",
+    eyebrow: "Fintech",
+    priority: 50,
+    searchIntent: "accessible colors for banking and financial apps",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Fintech", "Accessibility", "WCAG", "Banking"],
+    highlights: [
+      "Financial accessibility is a regulatory concern in many jurisdictions — not just a design preference.",
+      "Never rely solely on red/green to show gains and losses; add arrows, plus/minus signs, or labels.",
+      "Small text displaying monetary values must meet WCAG AA (4.5:1) at every font size you ship.",
+    ],
+    sections: [
+      {
+        heading: "Regulatory accessibility in finance",
+        body:
+          "Many financial regulations now require digital products to meet accessibility standards. The Americans with Disabilities Act, European Accessibility Act, and Section 508 all have implications for fintech color choices. This means accessibility isn't optional — it's a compliance requirement. Build WCAG AA into your color system from day one rather than retrofitting. ColorArchive's WCAG auditor can verify your entire palette in seconds.",
+      },
+      {
+        heading: "Color-blind safe financial indicators",
+        body:
+          "The most critical color pair in finance — red for loss, green for gain — is also the most problematic for color-blind users. Always supplement with directional indicators: up/down arrows, plus/minus prefixes, or explicit labels. When choosing your red and green, ensure they differ in luminance as well as hue. A darker red and a lighter green remain distinguishable even in grayscale.",
+      },
+      {
+        heading: "Touch target and focus state colors",
+        body:
+          "Financial products handle sensitive actions — transfers, payments, confirmations. Focus states and touch targets must be visually obvious. Use a 3:1 contrast ratio for focus indicators against adjacent colors (WCAG 2.2 requirement). Define these as tokens so they update consistently across every button, link, and input in your product.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Design Token Export", href: "/tokens/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fintech-website-color-inspiration",
+    title: "Fintech Website Color Palettes That Drive Signups and Trust",
+    summary:
+      "Color strategies for fintech marketing sites that need to simultaneously convey security, simplicity, and a reason to switch from incumbents.",
+    eyebrow: "Fintech",
+    priority: 50,
+    searchIntent: "fintech website color design inspiration",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Fintech", "Website", "Marketing", "Inspiration"],
+    highlights: [
+      "High-trust fintech sites use ample white space with a single confident brand color rather than multi-color gradients.",
+      "Social proof sections benefit from neutral backgrounds that let testimonial headshots and logos take visual priority.",
+    ],
+    sections: [
+      {
+        heading: "Landing page color for financial trust",
+        body:
+          "The highest-converting fintech landing pages share a pattern: a clean, predominantly white layout with one strong brand color used sparingly for CTAs and key numbers. This restraint signals professionalism. Browse ColorArchive's Quiet Luxury collection for palette inspiration that feels premium without being flashy — the exact tone most successful fintech brands aim for.",
+      },
+      {
+        heading: "Pricing and comparison tables",
+        body:
+          "Fintech pricing pages need color to guide users toward the recommended plan without feeling manipulative. Use your brand color to highlight the preferred tier and neutral tones for others. Avoid using more than three colors on a pricing table — complexity reduces conversion. A subtle background tint on the recommended column is more effective than heavy borders or badges.",
+      },
+      {
+        heading: "Mobile-first color considerations",
+        body:
+          "Most fintech signups happen on mobile. Colors that look subtle on a 27-inch monitor can become invisible on a phone screen in sunlight. Test your palette at reduced brightness and in outdoor lighting conditions. ColorArchive's contrast tools help you verify readability across viewing conditions, not just in ideal design environments.",
+      },
+    ],
+    links: [
+      { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Browse All Colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fintech-design-token-system",
+    title: "Design Tokens for Fintech: Managing Color Across Platforms and Themes",
+    summary:
+      "How to build a token architecture for financial products that ship on web, iOS, Android, and email — all from one source of truth.",
+    eyebrow: "Fintech",
+    priority: 50,
+    searchIntent: "design tokens for fintech multi-platform color system",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "complete-archive",
+    tags: ["Fintech", "Design Tokens", "Multi-platform", "Systems"],
+    highlights: [
+      "Fintech products ship on more surfaces than most — web, native apps, email notifications, PDF statements, and physical cards.",
+      "Token naming in finance must accommodate semantic colors (success, danger, warning) alongside brand colors without namespace collisions.",
+    ],
+    sections: [
+      {
+        heading: "Multi-platform token strategy",
+        body:
+          "A fintech product's colors appear in web apps, native mobile apps, transactional emails, and PDF statements. Each platform has different color rendering. Define tokens in a platform-agnostic format (JSON) and transform them for each target: CSS custom properties for web, Swift/Kotlin constants for native, and inline styles for email. ColorArchive exports in all major formats to bootstrap this pipeline.",
+      },
+      {
+        heading: "Semantic tokens for financial states",
+        body:
+          "Financial products need more semantic states than typical SaaS: positive, negative, pending, processing, failed, cancelled, and informational. Each needs a foreground, background, and border variant. Structure these under a feedback namespace in your tokens — feedback.positive.fg, feedback.positive.bg, feedback.positive.border — so they don't collide with your brand color namespace.",
+      },
+      {
+        heading: "Versioning and governance",
+        body:
+          "In regulated industries, color changes can affect compliance. Version your token files with semantic versioning and require design team approval for major changes. ColorArchive's token export includes metadata comments so reviewers can see the source palette and contrast ratios at a glance. Store tokens in a shared package that all platform teams consume as a dependency.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+    ],
+  },
+
+  // ── Healthcare ────────────────────────────────────────
+  {
+    category: "Industry Colors",
+    slug: "healthcare-brand-color-palette",
+    title: "Healthcare Brand Colors That Calm Patients and Convey Competence",
+    summary:
+      "Choosing brand colors for healthcare products and services where the wrong palette can increase patient anxiety rather than reduce it.",
+    eyebrow: "Healthcare",
+    priority: 50,
+    searchIntent: "best brand colors for healthcare companies",
+    featuredCollectionId: "modern-seaside",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Healthcare", "Brand", "Calming", "Medical"],
+    highlights: [
+      "Cool blues and greens dominate healthcare branding because they physiologically reduce stress responses — this is backed by environmental psychology research.",
+      "Healthcare palettes need to work in clinical contexts (white walls, fluorescent light) not just on screens.",
+      "Avoid pure red as a primary — in medical contexts it triggers alarm associations.",
+    ],
+    sections: [
+      {
+        heading: "The psychology of clinical color",
+        body:
+          "Color in healthcare carries more psychological weight than in most industries. Blue and green hues are associated with cleanliness, calm, and trust. Warm neutrals add approachability without sacrificing professionalism. Avoid saturated reds and oranges as primary colors — in medical settings, these trigger urgency and alarm associations. ColorArchive's Modern Seaside collection offers a teal-and-warm-neutral palette ideal for healthcare brands.",
+      },
+      {
+        heading: "Working across digital and physical",
+        body:
+          "Healthcare brands appear on websites, apps, printed materials, scrubs, signage, and physical spaces. Your palette must render consistently under fluorescent clinical lighting, daylight, and screen backlighting. Choose colors with moderate saturation that hold their character across lighting conditions. Test your brand color as a paint chip, not just a hex value — ColorArchive shows each color's HSL breakdown so you can communicate precisely with print and environmental designers.",
+      },
+      {
+        heading: "Patient-facing versus clinical interfaces",
+        body:
+          "Patient-facing materials should feel warm and reassuring, while clinical interfaces for staff need to prioritize data clarity. This often means two palette modes from the same brand system. Use your warm, approachable tones for patient portals and appointment booking, and your cooler, higher-contrast variants for EHR screens and clinical dashboards. The Brand Starter Kit's role-based structure accommodates this split naturally.",
+      },
+    ],
+    links: [
+      { label: "Modern Seaside Collection", href: "/collections/modern-seaside/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "healthcare-dark-mode-colors",
+    title: "Dark Mode Color Schemes for Healthcare Apps and Patient Portals",
+    summary:
+      "How to implement dark mode in healthcare products where readability of medical information is literally a safety concern.",
+    eyebrow: "Healthcare",
+    priority: 50,
+    searchIntent: "dark mode design for healthcare apps",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Healthcare", "Dark Mode", "Patient Portal", "Safety"],
+    highlights: [
+      "Night-shift clinicians and patients checking results at 2 AM both benefit from dark mode — but medical text demands higher contrast ratios than typical UI.",
+      "Medication names, dosages, and allergy warnings must remain unmissable regardless of theme.",
+    ],
+    sections: [
+      {
+        heading: "Medical readability in dark mode",
+        body:
+          "Healthcare dark mode cannot sacrifice readability for aesthetics. Medication names, dosage numbers, and allergy warnings must maintain at least 7:1 contrast (WCAG AAA) — not just the 4.5:1 minimum. Use off-white text (hsl 0, 0%, 90%) on dark blue-gray surfaces (hsl 210, 15%, 12%). ColorArchive's contrast auditor can verify AAA compliance for every text/background pair in your palette.",
+      },
+      {
+        heading: "Alert and warning colors at night",
+        body:
+          "Medical alerts in dark mode need extra care. A red warning that's clearly visible in light mode can become muddy against dark backgrounds if not adjusted. Increase the lightness of alert colors by 10–15% for dark mode. Use persistent visual indicators (icons, borders) alongside color so alerts remain identifiable even for fatigued or color-deficient users.",
+      },
+      {
+        heading: "Night-shift and low-light usage",
+        body:
+          "Healthcare workers on night shifts and patients checking results in bed use devices in near-darkness. A true dark mode — not just inverted colors — reduces blue light emission and eye strain. Use warm-shifted dark surfaces (slight warm tint in your dark gray) and the Dark Mode UI Kit's pre-tuned values to create a comfortable nighttime experience.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "healthcare-accessible-color-scheme",
+    title: "WCAG Color Compliance for Healthcare Products and Medical Interfaces",
+    summary:
+      "Accessibility in healthcare is a patient safety issue — here's how to build color systems that meet WCAG standards and protect users.",
+    eyebrow: "Healthcare",
+    priority: 50,
+    searchIntent: "WCAG accessible colors for healthcare medical apps",
+    featuredCollectionId: "modern-seaside",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Healthcare", "WCAG", "Accessibility", "Patient Safety"],
+    highlights: [
+      "Healthcare accessibility failures can have life-safety consequences — a missed allergy warning or misread dosage.",
+      "Target WCAG AAA (7:1) for critical medical information, not just the AA minimum.",
+      "Elderly patients — your largest user group — often have reduced contrast sensitivity and color perception.",
+    ],
+    sections: [
+      {
+        heading: "Beyond compliance: safety-driven color",
+        body:
+          "In healthcare, accessibility isn't just about inclusion — it's patient safety. Elderly users with cataracts, patients on medications that affect vision, and people in high-stress states all need maximum clarity. Aim for WCAG AAA (7:1 contrast) on any text that conveys medical information: test results, medication names, appointment details. ColorArchive's auditor checks both AA and AAA thresholds simultaneously.",
+      },
+      {
+        heading: "Color coding in medical contexts",
+        body:
+          "Medical interfaces often color-code by category: vitals, medications, appointments, billing. This coding must be supplemented with labels, icons, or patterns because color alone is insufficient for the 8% of male patients with color vision deficiency. Define your coding colors to differ in luminance, not just hue — a dark blue, medium green, and light amber remain distinguishable even in monochrome.",
+      },
+      {
+        heading: "Testing with real patients",
+        body:
+          "Automated contrast checkers verify math, but healthcare products need testing with actual patients in real conditions: small phone screens, bright exam rooms, dimly lit bedrooms. Use ColorArchive to generate your palette, verify contrast ratios with the WCAG tool, then export tokens for implementation. But always supplement with observational testing in clinical environments.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Modern Seaside Collection", href: "/collections/modern-seaside/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "healthcare-website-color-inspiration",
+    title: "Healthcare Website Color Palettes That Build Patient Trust Online",
+    summary:
+      "Color strategies for healthcare websites where visitors are often anxious and need visual reassurance alongside clinical information.",
+    eyebrow: "Healthcare",
+    priority: 50,
+    searchIntent: "healthcare website color design ideas",
+    featuredCollectionId: "modern-seaside",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Healthcare", "Website", "Trust", "Patient Experience"],
+    highlights: [
+      "Healthcare visitors arrive with higher anxiety than most website users — color should de-escalate, not stimulate.",
+      "Soft teal, sage green, and warm cream create the 'clean and welcoming' feel that outperforms sterile blue-and-white.",
+    ],
+    sections: [
+      {
+        heading: "De-escalation through color",
+        body:
+          "People visiting healthcare websites are often worried — about symptoms, costs, or procedures. Your color palette should actively reduce anxiety. Soft, mid-saturation cool colors (teal, sage, soft blue) paired with warm neutrals (cream, warm gray) create a welcoming environment. Avoid the sterile all-white-with-blue-accents look that many healthcare sites default to — it reads as cold and institutional rather than caring.",
+      },
+      {
+        heading: "Guiding patients to action",
+        body:
+          "Healthcare CTAs ('Book Appointment,' 'Find a Doctor,' 'Patient Portal') need to be obvious without being aggressive. Use your brand's most saturated color only for primary actions. Secondary actions can use outlined styles in your brand color. Avoid red CTAs on healthcare sites — even for urgency — because red triggers alarm associations. A confident teal or warm blue converts better.",
+      },
+      {
+        heading: "Provider listing and directory pages",
+        body:
+          "Doctor directories and provider listings are among the most-visited pages on healthcare sites. These pages need excellent color organization: department color-coding, availability indicators, and specialty tags. Keep the base layout neutral and let provider photos provide the visual warmth. ColorArchive's palette tools help you create a categorization system that's distinctive without being garish.",
+      },
+    ],
+    links: [
+      { label: "Modern Seaside Collection", href: "/collections/modern-seaside/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Browse All Colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "healthcare-design-token-system",
+    title: "Design Tokens for Healthcare Products: Color Consistency Across Care Touchpoints",
+    summary:
+      "Structuring color tokens for healthcare systems that span patient apps, clinician tools, kiosks, and printed materials.",
+    eyebrow: "Healthcare",
+    priority: 50,
+    searchIntent: "design token system for healthcare digital products",
+    featuredCollectionId: "modern-seaside",
+    featuredPackId: "complete-archive",
+    tags: ["Healthcare", "Design Tokens", "Systems", "Multi-platform"],
+    highlights: [
+      "Healthcare design systems often serve 5+ product surfaces: patient web, patient mobile, clinician desktop, kiosks, and print.",
+      "Compliance-critical colors (allergy warnings, drug interaction alerts) need token-level enforcement that prevents overrides.",
+    ],
+    sections: [
+      {
+        heading: "Token architecture for multi-product healthcare",
+        body:
+          "Large healthcare systems have multiple products sharing one brand: patient portals, clinician dashboards, scheduling apps, and public websites. A shared token system ensures visual consistency without forcing identical UI across products. Define global tokens for brand and semantic colors, then allow product-level tokens to extend (but not override) the global set. ColorArchive's token export provides the base layer for this architecture.",
+      },
+      {
+        heading: "Safety-critical color tokens",
+        body:
+          "Some colors in healthcare are effectively safety signals: allergy flags, drug interaction warnings, critical lab results. These should be locked tokens — defined once, never overridden at the component or product level. Mark them with a 'safety' namespace (safety.allergy.bg, safety.interaction.fg) and enforce immutability through your token tooling. This prevents the scenario where a well-meaning designer inadvertently changes an alert color.",
+      },
+      {
+        heading: "Print and physical token mapping",
+        body:
+          "Healthcare brands appear on printed materials, wayfinding signage, and even physical environments (wall colors, scrub colors). Your token system should include CMYK and Pantone mappings for print-critical colors. Define these as metadata on your primary tokens so the design team has a single source of truth. ColorArchive's color detail pages show HSL, RGB, and HEX values to help bridge digital and physical specifications.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Color Detail Pages", href: "/colors/" },
+    ],
+  },
+
+  // ── E-commerce ────────────────────────────────────────
+  {
+    category: "Industry Colors",
+    slug: "ecommerce-brand-color-palette",
+    title: "E-commerce Brand Colors That Drive Clicks and Reduce Cart Abandonment",
+    summary:
+      "How to choose an e-commerce brand palette that creates visual urgency for sales while maintaining brand consistency across thousands of product pages.",
+    eyebrow: "E-commerce",
+    priority: 50,
+    searchIntent: "best brand colors for e-commerce online stores",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "brand-starter-kit",
+    tags: ["E-commerce", "Brand", "Conversion", "Retail"],
+    highlights: [
+      "E-commerce palettes must support both brand identity and product photography — colors that clash with product images reduce conversion.",
+      "Your 'Add to Cart' button color is the single most impactful color decision in e-commerce.",
+      "Neutral backgrounds let products be the hero; save saturated colors for actions and promotions.",
+    ],
+    sections: [
+      {
+        heading: "Brand color versus product photography",
+        body:
+          "Unlike SaaS, e-commerce sites are dominated by product photography, and your brand colors must coexist with thousands of product images. This means your surface colors should be neutral or very lightly tinted, and your brand color should be used surgically: in the header, CTAs, and promotional banners. The Editorial Warmth collection offers warm neutrals that complement most product photography without competing for attention.",
+      },
+      {
+        heading: "The psychology of the buy button",
+        body:
+          "The 'Add to Cart' button needs to be the most visually distinct element on any product page. It should contrast sharply with both the page background and surrounding elements. Orange and green test well because they combine urgency with positive associations, but the specific shade matters less than the contrast ratio against your layout. Use ColorArchive's contrast tools to ensure your CTA achieves at least 4.5:1 against its immediate context.",
+      },
+      {
+        heading: "Seasonal and promotional flexibility",
+        body:
+          "E-commerce brands need palette flexibility for seasonal promotions, holiday sales, and flash events. Build your token system with promotional override slots: promo-primary, promo-accent, promo-surface. This lets you run a Black Friday dark theme or a Valentine's Day pink overlay without touching your core brand tokens. The Brand Starter Kit's structure supports this kind of seasonal layering.",
+      },
+    ],
+    links: [
+      { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "ecommerce-dark-mode-colors",
+    title: "Dark Mode for E-commerce: Showcasing Products on Dark Backgrounds",
+    summary:
+      "How to build a dark mode e-commerce experience that makes products pop while maintaining readability for prices, reviews, and product details.",
+    eyebrow: "E-commerce",
+    priority: 50,
+    searchIntent: "dark mode color scheme for e-commerce stores",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["E-commerce", "Dark Mode", "Product Display", "UI"],
+    highlights: [
+      "Dark backgrounds make product images pop — especially for tech, jewelry, and luxury goods.",
+      "Price text on dark backgrounds needs higher contrast than typical body text to remain scannable.",
+    ],
+    sections: [
+      {
+        heading: "Product photography on dark surfaces",
+        body:
+          "Dark mode can elevate e-commerce product presentation — luxury brands have long used dark backgrounds to create focus. But product images shot on white backgrounds will have visible white edges on dark layouts. Consider using products with transparent backgrounds or adding subtle cards with slightly elevated dark surfaces. The Nocturne Tech collection provides a range of dark surface tones ideal for product showcase layouts.",
+      },
+      {
+        heading: "Pricing and purchase flow readability",
+        body:
+          "The most critical text in e-commerce — prices, shipping info, stock status — must remain scannable in dark mode. Use your highest-lightness text color (90%+) for prices and high-contrast badges for sale indicators. Avoid placing colored price text on dark backgrounds without checking contrast — a green sale price that works on white often fails on dark gray. ColorArchive's WCAG auditor catches these issues.",
+      },
+      {
+        heading: "Cart and checkout in dark mode",
+        body:
+          "The checkout flow in dark mode needs extra attention because trust is paramount during payment. Keep the checkout background slightly lighter than the browse experience — a dark gray rather than near-black — and use ample spacing. Payment form fields should have clear borders against the dark background. The Dark Mode UI Kit includes input and form color pairings tuned for these high-stakes interactions.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "WCAG Contrast Checker", href: "/audit/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "ecommerce-accessible-color-scheme",
+    title: "Accessible Color Design for E-commerce That Doesn't Kill Conversion",
+    summary:
+      "How to make your online store WCAG-compliant without sacrificing the visual excitement that drives purchases.",
+    eyebrow: "E-commerce",
+    priority: 50,
+    searchIntent: "accessible color scheme for online stores WCAG",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "brand-starter-kit",
+    tags: ["E-commerce", "Accessibility", "WCAG", "Conversion"],
+    highlights: [
+      "Accessible e-commerce sites reach 15–20% more potential customers — people with disabilities have $490 billion in disposable income in the US alone.",
+      "Sale badges, stock indicators, and size selectors are the most common accessibility failures in e-commerce.",
+    ],
+    sections: [
+      {
+        heading: "Accessible color sells more",
+        body:
+          "Accessibility in e-commerce isn't a compromise — it's a market expansion. If users can't read your prices, understand your size options, or distinguish in-stock from out-of-stock items, they leave. Every color that conveys information must also communicate through text, icons, or patterns. Use ColorArchive's WCAG auditor to check your product page colors: price text, badge backgrounds, and status indicators are the most common failure points.",
+      },
+      {
+        heading: "Sale and promotional accessibility",
+        body:
+          "Sale badges typically use red text or red backgrounds. For color-blind users, ensure the badge also says 'Sale' or '-30%' in text, not just through color. Strikethrough pricing needs sufficient contrast for both the original and sale prices. Avoid light gray strikethrough text — it often falls below 3:1 contrast. A medium gray (55% lightness on white) maintains readability while still looking secondary.",
+      },
+      {
+        heading: "Form and filter accessibility",
+        body:
+          "Product filters, size selectors, and color swatches are interactive elements that often lack proper accessibility. Color swatch selectors should include the color name as a tooltip or label. Active/selected states need a visible indicator beyond color change — a checkmark, border, or scale change. These patterns are more usable for everyone, not just users with disabilities.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "ecommerce-website-color-inspiration",
+    title: "E-commerce Website Color Palettes That Convert Browsers to Buyers",
+    summary:
+      "Color strategies for online stores where every page needs to balance brand expression, product visibility, and conversion pressure.",
+    eyebrow: "E-commerce",
+    priority: 50,
+    searchIntent: "e-commerce website color inspiration best examples",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "brand-starter-kit",
+    tags: ["E-commerce", "Website", "Inspiration", "Conversion"],
+    highlights: [
+      "The best e-commerce color palettes fade into the background — literally — letting products and CTAs dominate the visual hierarchy.",
+      "Category landing pages can use accent colors to create distinct shopping moods without breaking brand consistency.",
+    ],
+    sections: [
+      {
+        heading: "Neutral-first design strategy",
+        body:
+          "The most successful e-commerce sites use a neutral-dominant palette: warm whites, soft grays, and occasional cream for surfaces, with a single brand color for navigation and CTAs. This approach works because products are the content — the UI should frame them, not compete with them. ColorArchive's Editorial Warmth collection provides exactly this tonal palette: warm neutrals that feel curated rather than default.",
+      },
+      {
+        heading: "Category differentiation through color",
+        body:
+          "Large e-commerce sites with multiple categories can use accent colors to differentiate departments: electronics in cool blue, home goods in warm terra cotta, fashion in muted rose. These accents should share the same saturation level and work within your overall brand system. Use them for category headers and navigation highlights, not for full page backgrounds that would create jarring transitions between sections.",
+      },
+      {
+        heading: "Mobile shopping color optimization",
+        body:
+          "Over 70% of e-commerce traffic is mobile, where screen space is limited and thumb-friendly CTAs matter. Your primary action color needs to be immediately recognizable at every scroll position. Fixed-position 'Add to Cart' bars, sticky headers, and bottom navigation all need consistent color treatment. Use ColorArchive to define these key action colors and export them as tokens for your mobile component library.",
+      },
+    ],
+    links: [
+      { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Color Combinations", href: "/combinations/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "ecommerce-design-token-system",
+    title: "Design Tokens for E-commerce: Scaling Color Across Thousands of Pages",
+    summary:
+      "How to build a token system that keeps your online store visually consistent across product pages, category layouts, checkout flows, and promotional campaigns.",
+    eyebrow: "E-commerce",
+    priority: 50,
+    searchIntent: "design tokens for e-commerce color system at scale",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "complete-archive",
+    tags: ["E-commerce", "Design Tokens", "Scale", "Systems"],
+    highlights: [
+      "E-commerce sites can have thousands of pages generated from templates — tokens are the only way to maintain color consistency at this scale.",
+      "Promotional override tokens let you run seasonal campaigns without touching your core design system.",
+    ],
+    sections: [
+      {
+        heading: "Token strategy for template-driven pages",
+        body:
+          "E-commerce sites generate pages from templates: product detail, category listing, cart, checkout. Each template references tokens, not hard-coded colors. This means a single token change updates every instance across your entire catalog. Define tokens for surface, text, border, action-primary, action-secondary, and feedback states. ColorArchive's token export generates exactly this structure, ready for integration into any templating system.",
+      },
+      {
+        heading: "Promotional and seasonal overrides",
+        body:
+          "Black Friday, holiday sales, summer promotions — e-commerce needs temporary color overrides that don't corrupt the base system. Create a promotional token layer that overrides only specific tokens: promo.surface, promo.accent, promo.badge-bg. When the promotion ends, remove the override layer and the base system shows through unchanged. This architecture prevents the common problem of promotional CSS that lingers and conflicts long after the sale ends.",
+      },
+      {
+        heading: "Cross-channel consistency",
+        body:
+          "E-commerce color appears in web, email, social ads, and packaging. Your token system should be the single source for all channels. Export tokens as CSS variables for web, inline styles for email templates (where CSS variables aren't supported), and JSON for design tools. The Complete Archive provides enough color depth to populate all these channels from one coordinated system.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
+    ],
+  },
+
+  // ── Education ─────────────────────────────────────────
+  {
+    category: "Industry Colors",
+    slug: "education-brand-color-palette",
+    title: "Education Brand Color Palettes That Inspire Learning and Engagement",
+    summary:
+      "How to choose brand colors for educational platforms that balance academic credibility with the approachability needed to motivate learners.",
+    eyebrow: "Education",
+    priority: 50,
+    searchIntent: "best brand colors for education platforms",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Education", "Brand", "Learning", "Engagement"],
+    highlights: [
+      "Education palettes need to span a wide emotional range: serious enough for professional certification, friendly enough for K-12.",
+      "Purple and teal are emerging as education brand colors because they avoid the corporate feel of blue while retaining authority.",
+      "Your palette needs to support both instructor and student interfaces — often very different UIs.",
+    ],
+    sections: [
+      {
+        heading: "Balancing authority and approachability",
+        body:
+          "Education brands face a unique tension: they need the credibility of an institution but the approachability of a consumer product. Deep purple or teal as a primary color threads this needle — authoritative without being corporate. The Orchid Bloom collection explores this space with rich purple-violet tones that feel both sophisticated and creative. Use it as a starting point for EdTech brand exploration.",
+      },
+      {
+        heading: "Age-appropriate color strategies",
+        body:
+          "A K-5 learning platform needs brighter, more saturated colors with higher contrast than a graduate-level course platform. Define your target audience's age range first, then choose saturation and contrast levels accordingly. Children's platforms can use 4-5 distinct saturated hues; adult education should limit to 2-3 more restrained colors. ColorArchive's brand generator lets you adjust saturation and lightness to tune for any age group.",
+      },
+      {
+        heading: "Subject and course differentiation",
+        body:
+          "Multi-subject education platforms need color systems that differentiate subjects while maintaining brand unity. Assign each subject area an accent color from the same saturation family: math in blue, science in green, language in amber, arts in purple. These should all feel like they belong together. Export them as design tokens so every course template automatically receives its designated color from a single source of truth.",
+      },
+    ],
+    links: [
+      { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "education-dark-mode-colors",
+    title: "Dark Mode Color Schemes for Learning Platforms and Course Interfaces",
+    summary:
+      "How to build dark mode for education apps where students study at night, code in dark IDEs, and read long-form content for hours.",
+    eyebrow: "Education",
+    priority: 50,
+    searchIntent: "dark mode colors for education learning platforms",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Education", "Dark Mode", "Reading", "Study"],
+    highlights: [
+      "Students studying at night are your largest dark-mode user group — comfort during extended reading sessions is the top priority.",
+      "Code blocks, math equations, and interactive exercises each have unique dark mode requirements.",
+    ],
+    sections: [
+      {
+        heading: "Extended reading in dark mode",
+        body:
+          "Education products involve more sustained reading than most apps. In dark mode, long text blocks need careful treatment: reduce text brightness to 85–90% (not pure white) to minimize eye strain, increase line height slightly, and use a warm-shifted dark background that reduces blue light. These adjustments make the difference between a dark mode students voluntarily use and one they avoid.",
+      },
+      {
+        heading: "Code blocks and technical content",
+        body:
+          "Programming courses need syntax-highlighted code blocks that work in dark mode. The container background should be slightly different from the page background — lighter if the page is very dark, or darker if the page is medium-dark. Popular dark syntax themes (like One Dark or Dracula) use specific background values. Align your page's dark mode background to complement these standard code themes rather than fighting them.",
+      },
+      {
+        heading: "Progress and gamification colors",
+        body:
+          "Education platforms often use progress bars, streak counters, and achievement badges. In dark mode, these motivational elements need to maintain their energy. Use your most vibrant accent colors for progress indicators — they can afford higher saturation against dark backgrounds. The Dark Mode UI Kit includes accent color pairings optimized for this kind of motivational UI element.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+      { label: "WCAG Contrast Checker", href: "/audit/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "education-accessible-color-scheme",
+    title: "Accessible Color Systems for Education That Include Every Learner",
+    summary:
+      "Building WCAG-compliant educational interfaces where accessibility directly impacts learning outcomes for millions of students.",
+    eyebrow: "Education",
+    priority: 50,
+    searchIntent: "accessible colors for education platforms WCAG",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Education", "Accessibility", "WCAG", "Inclusive Design"],
+    highlights: [
+      "12–15% of school-age children have some form of learning difference — accessible color helps many of them.",
+      "Interactive educational content (quizzes, drag-and-drop, simulations) has the highest accessibility failure rate.",
+      "WCAG compliance in education is legally required in many contexts under ADA, IDEA, and Section 508.",
+    ],
+    sections: [
+      {
+        heading: "Legal requirements in educational accessibility",
+        body:
+          "Educational institutions in the US must comply with Section 508, ADA, and IDEA accessibility requirements. These laws apply to the digital tools those institutions purchase. If your EdTech product doesn't meet WCAG AA, you're excluded from a significant portion of the market. Build accessibility into your color system from the start — retrofitting is far more expensive. Use ColorArchive's WCAG auditor to validate your palette before development begins.",
+      },
+      {
+        heading: "Interactive content accessibility",
+        body:
+          "Quizzes, matching exercises, and interactive simulations are where education platforms most often fail accessibility checks. Color-coded answer options, drag targets indicated only by color, and progress indicators that rely on color alone are all WCAG violations. Every color-coded element needs a redundant text, icon, or pattern indicator. Test your interactive components with browser accessibility tools before release.",
+      },
+      {
+        heading: "Reading and dyslexia considerations",
+        body:
+          "Students with dyslexia often find reading easier on lightly tinted backgrounds — cream or soft blue rather than pure white. Consider offering background tint options in your reading interface. Avoid pure black text on pure white backgrounds; a dark gray (hsl 0, 0%, 15%) on a slightly warm white (hsl 40, 20%, 98%) reduces contrast glare while still meeting WCAG AAA for normal text.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "education-website-color-inspiration",
+    title: "Education Website Color Palettes That Attract Students and Build Credibility",
+    summary:
+      "Color strategies for education websites that need to appeal to prospective students while maintaining the gravitas that parents and administrators expect.",
+    eyebrow: "Education",
+    priority: 50,
+    searchIntent: "education website color design inspiration",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Education", "Website", "Inspiration", "Enrollment"],
+    highlights: [
+      "Education websites serve dual audiences — students and decision-makers (parents, administrators) — who respond to different color signals.",
+      "Campus photography should influence your palette; choose colors that harmonize with your physical environment.",
+    ],
+    sections: [
+      {
+        heading: "Dual-audience color strategy",
+        body:
+          "Students want a website that feels modern, energetic, and slightly playful. Parents and administrators want one that feels established, credible, and professional. A deep primary color (navy, deep teal, or rich purple) satisfies the authority seekers, while a vibrant accent color (coral, bright teal, or amber) adds the energy students respond to. The Orchid Bloom collection balances this richness-and-vibrancy tension well.",
+      },
+      {
+        heading: "Program and department differentiation",
+        body:
+          "Universities and large educational platforms have multiple departments or program areas. Use color as a wayfinding tool: each department gets an accent color, but all share the same brand primary and neutral system. This creates variety within unity. Define department colors as tokens so any template can be department-aware. Six to eight distinct accent colors are typically enough for even large institutions.",
+      },
+      {
+        heading: "Event and enrollment season colors",
+        body:
+          "Education websites have seasonal peaks — open enrollment, back to school, graduation. Like e-commerce, build promotional color slots into your token system for these events. An open enrollment campaign might use warmer, more inviting accent colors, while a research showcase might use cooler, more authoritative tones. These seasonal shifts keep the site feeling dynamic without requiring a redesign.",
+      },
+    ],
+    links: [
+      { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Browse All Colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "education-design-token-system",
+    title: "Design Tokens for EdTech: Managing Color Across Courses, Themes, and Platforms",
+    summary:
+      "How to structure a token system for education products where each course might need its own visual identity while sharing core brand foundations.",
+    eyebrow: "Education",
+    priority: 50,
+    searchIntent: "design token system for education technology platforms",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "complete-archive",
+    tags: ["Education", "Design Tokens", "EdTech", "Theming"],
+    highlights: [
+      "EdTech token systems need to support per-course theming — each course can have its own accent color without rebuilding the component library.",
+      "Student-facing and teacher-facing interfaces often need different color priorities from the same token foundation.",
+    ],
+    sections: [
+      {
+        heading: "Per-course theming architecture",
+        body:
+          "Education platforms often want each course or subject to feel distinct. Build this into your token system: a global token layer holds brand colors, typography tokens, and semantic feedback colors. A course-level layer overrides only the accent/theme tokens. When a student enters a math course, the accent might shift to blue; in a creative writing course, it shifts to warm amber. The underlying components stay identical — only the accent tokens change.",
+      },
+      {
+        heading: "Role-based token sets",
+        body:
+          "Students and instructors interact with the same platform but have different needs. Instructor dashboards emphasize data and analytics (needing chart colors and status indicators), while student interfaces emphasize content and progress. Define shared base tokens plus role-specific extensions: instructor.chart.1 through instructor.chart.8 for analytics views, student.progress.active and student.progress.complete for learning paths.",
+      },
+      {
+        heading: "Accessibility as a token-level guarantee",
+        body:
+          "Bake accessibility into the token system itself. Every text token should reference a background token it's been validated against. Include contrast ratio metadata in your token definitions. When designers or developers create new components, the tokens themselves guide them toward accessible combinations. Export your tokens from ColorArchive with this metadata, and integrate contrast validation into your CI pipeline.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+    ],
+  },
+
+  // ── Restaurant ────────────────────────────────────────
+  {
+    category: "Industry Colors",
+    slug: "restaurant-brand-color-palette",
+    title: "Restaurant Brand Colors That Make Customers Hungry and Loyal",
+    summary:
+      "How to choose restaurant brand colors that stimulate appetite, convey your cuisine's personality, and look as good on a menu as they do on Instagram.",
+    eyebrow: "Restaurant",
+    priority: 50,
+    searchIntent: "best brand colors for restaurants and food businesses",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Restaurant", "Brand", "Food", "Appetite"],
+    highlights: [
+      "Warm colors (red, orange, amber, terracotta) are proven to stimulate appetite — there's a reason fast food uses them universally.",
+      "Fine dining gravitates toward deep, desaturated tones: charcoal, burgundy, forest green, and gold accents.",
+      "Your brand colors will appear on menus, signage, uniforms, packaging, and social media — test across all surfaces.",
+    ],
+    sections: [
+      {
+        heading: "Appetite psychology and color",
+        body:
+          "Warm colors trigger appetite at a physiological level. Red and orange increase heart rate and metabolism slightly, which creates hunger cues. But the specific shade matters enormously: fast casual restaurants use bright, saturated warm tones for energy, while fine dining uses deep, desaturated versions of those same hues for sophistication. The Editorial Warmth collection captures the refined end of this spectrum — warm without being loud.",
+      },
+      {
+        heading: "Cuisine-specific color associations",
+        body:
+          "Different cuisines carry different color expectations. Italian restaurants lean into red, green, and warm cream. Japanese restaurants use black, natural wood tones, and restrained accents. Mexican restaurants embrace vibrant, saturated warm colors. Your palette should acknowledge these cultural associations while adding enough distinction that you don't look like a cliché. ColorArchive's brand generator helps you find the intersection of expected and distinctive.",
+      },
+      {
+        heading: "Print and physical applications",
+        body:
+          "Restaurant brand colors appear more in physical contexts than most modern brands: menus, napkins, takeout containers, signage, and interior walls. Colors render differently on coated versus uncoated paper, on illuminated signs versus daylight. Choose a primary color with enough saturation to survive these transitions. Test your hex values as Pantone matches for print applications — ColorArchive shows the HSL values that help printers match your intent.",
+      },
+    ],
+    links: [
+      { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "restaurant-dark-mode-colors",
+    title: "Dark Mode Design for Restaurant Apps and Online Ordering",
+    summary:
+      "How to create a dark mode experience for restaurant apps where food photography must look appetizing and ordering flows must feel effortless.",
+    eyebrow: "Restaurant",
+    priority: 50,
+    searchIntent: "dark mode design for restaurant food ordering apps",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Restaurant", "Dark Mode", "Food App", "Ordering"],
+    highlights: [
+      "Food photography looks strikingly good on dark backgrounds — it's why premium restaurant websites often use dark layouts by default.",
+      "Evening ordering sessions (dinner decisions) are the peak use time for dark mode in food apps.",
+    ],
+    sections: [
+      {
+        heading: "Food photography on dark surfaces",
+        body:
+          "Dark mode is arguably better for food apps than light mode. Food photography naturally pops against dark backgrounds, creating a premium presentation that increases perceived value. Use a warm dark surface (hsl 20, 8%, 10%) rather than a cool or neutral dark — the warm undertone complements the warm tones in food photography. This subtle shift makes the entire experience feel more appetizing.",
+      },
+      {
+        heading: "Menu and ordering interface",
+        body:
+          "Menu browsing in dark mode needs clear category separation and readable item descriptions. Use surface elevation (lighter dark cards on a darker background) to group menu categories. Price text should be high-contrast but not overly prominent — customers should see the food first, price second. Item descriptions in 80% lightness text provide sufficient readability without competing with photography or item names.",
+      },
+      {
+        heading: "Order confirmation and delivery tracking",
+        body:
+          "The order confirmation and tracking screen should use your brand's warm accent colors to maintain the appetizing feel. Status indicators (confirmed, preparing, on the way, delivered) work well in progressively warming tones: cool neutral for pending, warm amber for preparing, warm green for completed. The Dark Mode UI Kit provides status color pairings that maintain this warmth against dark surfaces.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+      { label: "Color Combinations", href: "/combinations/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "restaurant-accessible-color-scheme",
+    title: "Accessible Color Design for Restaurant Websites and Menus",
+    summary:
+      "Making restaurant digital experiences accessible to all diners — including the 26% of US adults with some form of disability.",
+    eyebrow: "Restaurant",
+    priority: 50,
+    searchIntent: "accessible colors for restaurant websites and apps",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Restaurant", "Accessibility", "WCAG", "Menu Design"],
+    highlights: [
+      "Digital menu accessibility is increasingly required by law — ADA lawsuits against restaurants with inaccessible websites have increased dramatically.",
+      "Allergen indicators, dietary labels (vegan, gluten-free), and spice levels all need to work without relying on color alone.",
+    ],
+    sections: [
+      {
+        heading: "Menu readability for all users",
+        body:
+          "Restaurant menus, whether digital or PDF, need to be readable by everyone. Item names should meet 4.5:1 contrast at their displayed size. Descriptions and prices need the same standard. Many restaurant websites use decorative fonts with thin strokes that reduce effective contrast — if you use a light typeface, increase the contrast ratio to compensate. ColorArchive's WCAG auditor can verify your text-on-background combinations.",
+      },
+      {
+        heading: "Dietary and allergen indicators",
+        body:
+          "Dietary labels (vegan, vegetarian, gluten-free) and allergen warnings are often color-coded with small colored dots. This fails for color-blind users and anyone viewing on a low-quality screen. Use icons with text labels instead of or alongside color indicators. If you do use color-coded dots, ensure they differ in luminance — a dark green dot and a light orange dot remain distinguishable even without hue perception.",
+      },
+      {
+        heading: "Reservation and ordering flow",
+        body:
+          "Date pickers, time slot selectors, and menu item customization forms must be accessible. Selected states need more than just a color change — add a checkmark, border weight change, or underline. Error states in ordering forms (required fields, invalid inputs) should use both color and text messaging. These improvements help all users, not just those with disabilities, complete orders faster and with fewer errors.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "restaurant-website-color-inspiration",
+    title: "Restaurant Website Color Palettes That Get Reservations and Orders",
+    summary:
+      "Color inspiration for restaurant websites where the goal is simple: make the food look irresistible and the 'Order Now' button impossible to miss.",
+    eyebrow: "Restaurant",
+    priority: 50,
+    searchIntent: "restaurant website color palette inspiration",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Restaurant", "Website", "Inspiration", "Reservations"],
+    highlights: [
+      "The best restaurant websites use no more than three colors: a warm neutral for surfaces, a deep tone for text, and a single action color for CTAs.",
+      "Full-bleed food photography is the hero — your palette should be a supporting cast, not the star.",
+    ],
+    sections: [
+      {
+        heading: "Let the food do the talking",
+        body:
+          "Restaurant websites succeed when the food photography is the dominant visual element and the UI colors recede. Use warm, muted backgrounds (cream, warm gray, soft tan) that make food images look natural and appetizing. Avoid cool blues and grays as primary surfaces — they make food look clinical. The Editorial Warmth collection provides the exact warm neutral range that professional food stylists prefer as backdrop tones.",
+      },
+      {
+        heading: "Single-action color strategy",
+        body:
+          "Restaurant websites typically have one primary goal: get a reservation or an order. Use a single, confident color for all primary CTAs — 'Reserve a Table,' 'Order Now,' 'View Menu.' This color should be warm and inviting: a rich burgundy, warm orange, or deep terracotta. Don't dilute its impact by using the same color decoratively elsewhere on the page. One job, one color.",
+      },
+      {
+        heading: "Atmosphere through color",
+        body:
+          "Your website should convey the atmosphere of the physical space. A casual brunch spot might use warm yellows and soft greens. A speakeasy-inspired bar might use dark backgrounds with amber and gold accents. Match your website's color temperature to your interior design philosophy. Browse ColorArchive's full palette to find colors that evoke your restaurant's specific atmosphere and energy level.",
+      },
+    ],
+    links: [
+      { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Browse All Colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "restaurant-design-token-system",
+    title: "Design Tokens for Restaurant Brands: Consistency from App to Takeout Box",
+    summary:
+      "How to build a token system for restaurant brands that maintains visual consistency across digital ordering, physical menus, packaging, and social media.",
+    eyebrow: "Restaurant",
+    priority: 50,
+    searchIntent: "design tokens for restaurant brand color management",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "complete-archive",
+    tags: ["Restaurant", "Design Tokens", "Branding", "Multi-channel"],
+    highlights: [
+      "Restaurant brands touch more physical surfaces than almost any other industry — tokens need to bridge digital and print.",
+      "Multi-location restaurants need token-level consistency to prevent franchise drift.",
+    ],
+    sections: [
+      {
+        heading: "Digital-to-physical token bridge",
+        body:
+          "Restaurant brands appear on screens (app, website, digital menu boards), paper (printed menus, receipts, packaging), and environments (signage, wall colors, uniforms). Your token system should define colors in both digital (HEX, RGB) and physical (Pantone, CMYK) formats. ColorArchive's color detail pages provide the HEX and HSL values you need to start, and the token export generates structured files for your digital properties.",
+      },
+      {
+        heading: "Multi-location consistency",
+        body:
+          "If you have multiple locations, token-based color management prevents franchise drift — the gradual divergence of brand expression across locations. Define strict tokens for primary brand colors, CTA colors, and signage colors. Allow flexible tokens for seasonal promotions and location-specific photography treatments. This tiered approach maintains recognizability while allowing local relevance.",
+      },
+      {
+        heading: "Third-party platform integration",
+        body:
+          "Restaurant brands appear on Uber Eats, DoorDash, Grubhub, and Google Business profiles — all with their own color constraints. Your token system should include a 'constrained' variant for each brand color: what to use when you can only pick one hex value for a platform profile. This is typically your highest-saturation, most recognizable brand color. Export this as a specific token so every team member gives the same value to third-party platforms.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
+    ],
+  },
+
+  // ── Real Estate ───────────────────────────────────────
+  {
+    category: "Industry Colors",
+    slug: "real-estate-brand-color-palette",
+    title: "Real Estate Brand Colors That Communicate Luxury, Trust, or Both",
+    summary:
+      "How to choose brand colors for real estate companies where the palette must convey both the reliability of an institution and the aspiration of a lifestyle brand.",
+    eyebrow: "Real Estate",
+    priority: 50,
+    searchIntent: "best brand colors for real estate companies",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Real Estate", "Brand", "Luxury", "Trust"],
+    highlights: [
+      "Real estate brand colors appear on signage, business cards, property listings, and open house materials — versatility is essential.",
+      "Navy, deep green, and charcoal are the dominant luxury real estate primaries; gold, cream, and copper serve as premium accents.",
+      "Your brand color will appear next to property photos — it must complement, not clash with, diverse architecture and interiors.",
+    ],
+    sections: [
+      {
+        heading: "Positioning through color",
+        body:
+          "In real estate, your brand color immediately signals your market segment. Bright, saturated colors suggest affordable or first-time buyer markets. Deep, desaturated tones say luxury and established. Navy suggests institutional trust, deep green suggests wealth and nature, and charcoal with gold accents says high-end boutique. The Quiet Luxury collection captures this premium tonal range — explore it to find your segment's sweet spot.",
+      },
+      {
+        heading: "Photography compatibility",
+        body:
+          "Real estate brands surround themselves with property photography, and every listing looks different. Your brand colors need to harmonize with sunlit suburban homes, sleek urban condos, and rustic countryside properties alike. Neutral and desaturated tones are your friend here. Test your brand color overlaid on diverse property photos — if it fights with any common property style, it will create friction in your listings.",
+      },
+      {
+        heading: "Agent and team branding",
+        body:
+          "Individual agents often create personal branding within a brokerage's color system. Build your token system to allow personal accent colors within a fixed brand framework. The primary brand colors stay constant, but agents can choose from an approved accent palette for their personal materials. ColorArchive's brand generator can produce a family of coordinated accent options from your primary brand color.",
+      },
+    ],
+    links: [
+      { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "real-estate-dark-mode-colors",
+    title: "Dark Mode Color Schemes for Real Estate Platforms and Property Apps",
+    summary:
+      "How to implement dark mode for property listing platforms where high-quality photography is the primary content and browsing happens at all hours.",
+    eyebrow: "Real Estate",
+    priority: 50,
+    searchIntent: "dark mode design for real estate property apps",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Real Estate", "Dark Mode", "Property", "Listings"],
+    highlights: [
+      "Property browsing is often an evening activity — dark mode isn't optional for real estate apps.",
+      "Dark backgrounds make property photos dramatic and gallery-like, increasing perceived value.",
+    ],
+    sections: [
+      {
+        heading: "Gallery-style property presentation",
+        body:
+          "Dark mode transforms property listings from catalog pages into gallery experiences. Each property image sits on a dark surface that draws the eye and increases perceived quality. Use a neutral dark background (not blue-shifted) so property photos render with accurate color. HSL(0, 0%, 8%) with elevated cards at HSL(0, 0%, 12%) provides a museum-like backdrop for property imagery.",
+      },
+      {
+        heading: "Map and search interface in dark mode",
+        body:
+          "Property search involves maps, filters, and list views. Maps in dark mode need a dark tile set (like Mapbox Dark) with property pins that maintain high visibility. Your pin color should be your most saturated brand accent — it needs to read against varied map terrain. Filter chips and search inputs require clear borders against dark surfaces. The Dark Mode UI Kit includes form element pairings for this exact use case.",
+      },
+      {
+        heading: "Property details and pricing",
+        body:
+          "Property detail pages in dark mode need to present a lot of structured data: price, bedrooms, square footage, neighborhood stats, and agent contact info. Use a clear typographic hierarchy with your brightest text for the price, medium brightness for key features, and muted text for secondary details. Keep the agent contact CTA in your brand accent color — it should be the most clickable element on the page.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+      { label: "Color Combinations", href: "/combinations/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "real-estate-accessible-color-scheme",
+    title: "Accessible Color Design for Real Estate Websites and Property Portals",
+    summary:
+      "Building accessible real estate platforms that serve all home buyers — including the 70 million Americans with disabilities.",
+    eyebrow: "Real Estate",
+    priority: 50,
+    searchIntent: "accessible colors for real estate websites WCAG",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Real Estate", "Accessibility", "WCAG", "Property"],
+    highlights: [
+      "Fair Housing laws require equal access to housing information — inaccessible websites can create legal liability.",
+      "Map-based property search is the most accessibility-challenged feature in real estate platforms.",
+    ],
+    sections: [
+      {
+        heading: "Legal accessibility in real estate",
+        body:
+          "The Fair Housing Act and ADA have been increasingly applied to digital real estate platforms. If a user with a visual impairment can't navigate your property listings, you may face legal exposure. Color accessibility is one part of this — ensuring all text meets WCAG AA contrast requirements, all interactive elements are visually distinguishable, and color is never the sole indicator of information. Use ColorArchive's WCAG auditor to validate your entire palette.",
+      },
+      {
+        heading: "Map and visual search accessibility",
+        body:
+          "Map-based property search is powerful but challenging for accessibility. Color-coded map pins (by price range, property type) need text-based alternatives. Provide a list view alongside every map view. If you use color-coded zones or heat maps, include a labeled legend and ensure the colors differ in luminance, not just hue, so they remain distinguishable for color-blind users.",
+      },
+      {
+        heading: "Property comparison and filtering",
+        body:
+          "Property comparison features often use color to highlight differences: green for favorable metrics, red for unfavorable. Supplement these with directional indicators (arrows, plus/minus) and explicit labels. Filter interfaces need clear selected/unselected states beyond color change — use borders, backgrounds, and checkmarks. These improvements reduce cognitive load for all users, improving conversion rates across the board.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "real-estate-website-color-inspiration",
+    title: "Real Estate Website Color Palettes That Sell Properties Faster",
+    summary:
+      "Color strategies for real estate websites where the goal is to make properties look irresistible and lead generation feel natural.",
+    eyebrow: "Real Estate",
+    priority: 50,
+    searchIntent: "real estate website color design inspiration",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Real Estate", "Website", "Inspiration", "Lead Generation"],
+    highlights: [
+      "Luxury real estate sites use the most restrained palettes — cream, charcoal, and one metallic accent.",
+      "The 'Schedule a Tour' CTA is the single most important color decision on a real estate website.",
+    ],
+    sections: [
+      {
+        heading: "Luxury versus volume positioning",
+        body:
+          "Luxury real estate websites use minimal, desaturated palettes: lots of white space, charcoal typography, and perhaps a gold or deep blue accent. Volume-oriented platforms use more color for categorization, badges, and promotional elements. Choose your position first, then select your palette's saturation level accordingly. The Quiet Luxury collection provides the tonal restraint that high-end real estate demands.",
+      },
+      {
+        heading: "Lead generation color strategy",
+        body:
+          "Real estate websites convert through lead forms: 'Schedule a Tour,' 'Request Info,' 'Get Pre-Approved.' Your CTA color needs to stand out against property photography, neutral surfaces, and navigation elements simultaneously. Test your CTA color on top of your three most common property image types — if it disappears or clashes against any, adjust. A warm, confident color (deep orange, warm blue, or rich teal) typically performs best.",
+      },
+      {
+        heading: "Neighborhood and lifestyle imagery",
+        body:
+          "Real estate is selling a lifestyle, not just a building. Neighborhood content — photos, statistics, school info — should use color to create emotional warmth. Light warm backgrounds (cream, soft beige) under neighborhood content sections create a welcoming feel. Use your palette's warmest accent for lifestyle-related CTAs like 'Explore the Neighborhood' to differentiate them from transaction-oriented buttons.",
+      },
+    ],
+    links: [
+      { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Browse All Colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "real-estate-design-token-system",
+    title: "Design Tokens for Real Estate: Brand Consistency Across Listings and Platforms",
+    summary:
+      "How to build a token system for real estate brands that maintains consistency across MLS feeds, property websites, print materials, and agent tools.",
+    eyebrow: "Real Estate",
+    priority: 50,
+    searchIntent: "design tokens for real estate brand management",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "complete-archive",
+    tags: ["Real Estate", "Design Tokens", "MLS", "Multi-channel"],
+    highlights: [
+      "Real estate brands appear on owned websites, MLS listings, Zillow/Realtor.com profiles, print flyers, and yard signs — tokens unify them all.",
+      "Agent-level customization within brand guidelines is a common real estate requirement.",
+    ],
+    sections: [
+      {
+        heading: "Token architecture for brokerage brands",
+        body:
+          "Real estate brokerages need a three-tier token system: brand-level tokens (logo colors, primary CTA, brand background), office-level tokens (local market adjustments, regional accents), and agent-level tokens (personal accent colors within approved ranges). This hierarchy maintains brand recognition while allowing the personalization that agents demand. ColorArchive's token export generates the brand-level foundation for this architecture.",
+      },
+      {
+        heading: "MLS and syndication color constraints",
+        body:
+          "Property listings are syndicated to MLS, Zillow, Realtor.com, and other aggregators, each with their own display constraints. Your brand color often appears only in a logo image or a small accent element. Define a 'syndication' token — your single most recognizable brand color in its most impactful form — for use wherever you get only one color to represent your brand. This prevents the inconsistency of different team members picking slightly different shades.",
+      },
+      {
+        heading: "Print and signage tokens",
+        body:
+          "Yard signs, property flyers, and business cards are still critical in real estate. Your token system should include Pantone and CMYK equivalents for every brand color used in print. Store these alongside the digital values in your token definitions. When a new office opens or a new agent joins, they reference the token file for every material they produce — no more guessing at colors from a screenshot of the website.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
+    ],
+  },
+
+  // ── Fashion ───────────────────────────────────────────
+  {
+    category: "Industry Colors",
+    slug: "fashion-brand-color-palette",
+    title: "Fashion Brand Color Palettes That Define a Visual Identity Customers Wear",
+    summary:
+      "How to choose brand colors for fashion labels where the palette isn't just marketing — it appears on the product itself.",
+    eyebrow: "Fashion",
+    priority: 50,
+    searchIntent: "best brand colors for fashion brands and clothing",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Fashion", "Brand", "Identity", "Clothing"],
+    highlights: [
+      "Fashion brands have a unique constraint: the brand palette must work on garments, packaging, retail space, and digital — simultaneously.",
+      "Monochrome palettes (black, white, one accent) have dominated luxury fashion because they're the most garment-compatible.",
+      "Seasonal color stories layer on top of the brand palette but should never replace it.",
+    ],
+    sections: [
+      {
+        heading: "Brand color as product color",
+        body:
+          "In fashion, your brand color might literally be worn by your customers. This creates a constraint no other industry faces: the color must work on fabric, in dye, under store lighting, and on screen. Neutral-first palettes dominate fashion for this reason — they photograph well, dye consistently, and never clash with the season's trending colors. The Quiet Luxury collection embodies this restrained approach with warm neutrals and refined earth tones.",
+      },
+      {
+        heading: "Seasonal versus permanent palette",
+        body:
+          "Fashion brands need a permanent palette (brand identity) and a rotating seasonal palette (collection stories). The permanent palette should be minimal — 2-3 colors that appear on tags, packaging, and retail environments year-round. Seasonal palettes are creative expressions that change every collection. Structure your color system so seasonal colors extend your permanent palette rather than replacing it. ColorArchive's brand generator can help you test seasonal additions against your permanent base.",
+      },
+      {
+        heading: "Retail and e-commerce harmony",
+        body:
+          "Your brand colors appear in physical stores (fixtures, walls, bags) and on your website. These must feel like the same brand. The challenge: screen colors and physical colors render very differently. Choose brand colors that are resilient — they hold their character across media. Medium-saturation, medium-lightness colors are most stable across screen and print. Export your chosen palette from ColorArchive with both HEX values for digital and HSL breakdowns for physical color matching.",
+      },
+    ],
+    links: [
+      { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fashion-dark-mode-colors",
+    title: "Dark Mode Design for Fashion E-commerce and Lookbook Sites",
+    summary:
+      "How to build dark mode for fashion websites where garment color accuracy is everything and the shopping experience should feel like a curated gallery.",
+    eyebrow: "Fashion",
+    priority: 50,
+    searchIntent: "dark mode color scheme for fashion e-commerce websites",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Fashion", "Dark Mode", "E-commerce", "Lookbook"],
+    highlights: [
+      "Dark backgrounds make fashion photography more editorial — like flipping through a high-end magazine.",
+      "Garment color accuracy is critical in dark mode; ensure your dark surfaces don't cast color onto product images.",
+    ],
+    sections: [
+      {
+        heading: "Editorial dark mode for fashion",
+        body:
+          "Fashion websites in dark mode immediately feel more editorial. The shift from white backgrounds to dark surfaces transforms product grids into curated galleries. Use a true neutral dark background (avoid blue or warm tints) so garment colors render accurately. Product photography on dark surfaces should have consistent lighting — inconsistent white balance becomes more visible against dark backgrounds.",
+      },
+      {
+        heading: "Color accuracy for garments",
+        body:
+          "Fashion e-commerce lives and dies by color accuracy. Returns due to 'color didn't match' are a major cost center. In dark mode, ensure your dark surface is truly neutral — any tint in the background will shift the perceived color of garments in photographs. Use HSL(0, 0%, 10%) or very slightly warm for your base. Test garment photos of difficult colors (navy vs. black, olive vs. sage) against your dark surface.",
+      },
+      {
+        heading: "Size, color, and variant selectors",
+        body:
+          "Fashion product pages have complex variant selectors: size, color, material. In dark mode, color swatches need clear borders to separate them from the dark background — especially for dark-colored garment options. Use a 1px light border (20% lightness) around all color swatches. Selected states need a visible indicator beyond a border change — a checkmark overlay or a double-width border both work. The Dark Mode UI Kit includes these interaction patterns.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+      { label: "WCAG Contrast Checker", href: "/audit/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fashion-accessible-color-scheme",
+    title: "Accessible Color Systems for Fashion Brands and Online Retail",
+    summary:
+      "How to make fashion e-commerce accessible without sacrificing the visual sophistication that defines your brand.",
+    eyebrow: "Fashion",
+    priority: 50,
+    searchIntent: "accessible color design for fashion e-commerce",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Fashion", "Accessibility", "WCAG", "E-commerce"],
+    highlights: [
+      "Fashion brands often sacrifice accessibility for aesthetic — light gray text on white, thin fonts — but this excludes customers and reduces conversion.",
+      "Color name accuracy in product options is an accessibility issue: 'sage' means nothing to someone who can't see the swatch.",
+    ],
+    sections: [
+      {
+        heading: "Aesthetics and accessibility coexist",
+        body:
+          "Fashion brands love minimalism: thin fonts, muted colors, subtle interactions. But minimalism taken too far becomes inaccessible. Light gray text (60% lightness on white) is a common fashion-site pattern that fails WCAG AA. The fix isn't abandoning minimalism — it's finding the minimum viable contrast. A text color at 40% lightness on white still feels restrained while meeting accessibility standards. Use ColorArchive's WCAG auditor to find your brand's accessible threshold.",
+      },
+      {
+        heading: "Product option accessibility",
+        body:
+          "Color variant names like 'Dusk,' 'Ember,' and 'Stone' are evocative but meaningless to color-blind users or anyone unfamiliar with your naming convention. Every color swatch must include a text label visible on hover or selection. Better yet, show the label persistently. Include descriptive names alongside creative ones: 'Sage (Light Green).' This tiny change reduces returns and increases confidence for all customers.",
+      },
+      {
+        heading: "Lookbook and campaign page accessibility",
+        body:
+          "Fashion lookbook pages often use overlay text on photography — white text on a light image, or dark text on a dark image. Always use a background scrim (gradient or solid overlay at 40–60% opacity) behind text on images to ensure contrast. Alt text for lookbook images should describe the garments, colors, and styling, not just 'model wearing dress.' These practices make your editorial content accessible without compromising visual impact.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fashion-website-color-inspiration",
+    title: "Fashion Website Color Palettes That Feel Like the Brand Experience",
+    summary:
+      "Color strategies for fashion websites where the palette must evoke the same feeling as walking into the brand's flagship store.",
+    eyebrow: "Fashion",
+    priority: 50,
+    searchIntent: "fashion website color palette inspiration ideas",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Fashion", "Website", "Inspiration", "Branding"],
+    highlights: [
+      "The best fashion websites use the fewest colors — white space and photography carry the emotional weight.",
+      "Streetwear and luxury fashion require opposite color approaches: energy versus restraint.",
+    ],
+    sections: [
+      {
+        heading: "Luxury fashion: the power of restraint",
+        body:
+          "Luxury fashion websites typically use a monochrome base — black, white, and one warm neutral — with photography providing all the color. This restraint signals confidence: the brand doesn't need color tricks to sell the product. The Quiet Luxury collection's palette maps directly to this approach. Use warm cream for surfaces, charcoal for text, and reserve color exclusively for seasonal campaign moments.",
+      },
+      {
+        heading: "Streetwear and contemporary: controlled energy",
+        body:
+          "Streetwear and contemporary fashion brands need more energy than luxury minimalism allows. Bold backgrounds, accent colors, and graphic elements create the cultural relevance these brands require. But even here, limit your active palette to 2-3 strong colors. Rotate one of those slots seasonally. Use ColorArchive's brand generator to test high-energy color combinations that stay harmonious rather than chaotic.",
+      },
+      {
+        heading: "Campaign-driven color moments",
+        body:
+          "Fashion brands often launch campaign-specific microsites or landing pages with completely different color stories. Build these as color overrides in your system, not as standalone designs. A spring campaign might introduce coral and soft green; fall might bring burgundy and olive. These campaign colors should complement your permanent palette so the transition doesn't feel like a different brand. Export campaign palettes as temporary token sets.",
+      },
+    ],
+    links: [
+      { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Browse All Colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fashion-design-token-system",
+    title: "Design Tokens for Fashion Brands: Managing Color from Runway to Website",
+    summary:
+      "How to build a token system for fashion brands where color stories change every season but brand identity must remain constant.",
+    eyebrow: "Fashion",
+    priority: 50,
+    searchIntent: "design tokens for fashion brand color management",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "complete-archive",
+    tags: ["Fashion", "Design Tokens", "Seasonal", "Brand Systems"],
+    highlights: [
+      "Fashion needs the most flexible token architecture of any industry — seasonal color stories change every 3-6 months.",
+      "Permanent tokens (brand identity) and seasonal tokens (collection colors) must coexist cleanly.",
+    ],
+    sections: [
+      {
+        heading: "Permanent versus seasonal token layers",
+        body:
+          "Fashion token systems need two distinct layers. The permanent layer holds your brand identity colors: the colors on your logo, shopping bags, and store fixtures that never change. The seasonal layer holds collection-specific colors that rotate every 3-6 months. Structure these as separate token files — permanent tokens import first, seasonal tokens override only designated slots. This prevents seasonal enthusiasm from accidentally changing brand-critical colors.",
+      },
+      {
+        heading: "Cross-channel seasonal deployment",
+        body:
+          "When a new seasonal palette launches, it needs to appear simultaneously on web, email, social, and in-store digital displays. Token-based distribution makes this feasible: update the seasonal token file, and every channel pulls the new values. Without tokens, each channel's design team interprets the seasonal palette independently, resulting in inconsistency. ColorArchive's export generates the structured files needed for this kind of synchronized deployment.",
+      },
+      {
+        heading: "Archive and historical token management",
+        body:
+          "Fashion brands care about their color history — past collection palettes are part of the brand narrative. Version your seasonal token files in git with clear collection names and dates. This creates a searchable archive of every color story your brand has told. Designers working on retrospective campaigns or anniversary collections can pull exact past palettes. The Complete Archive pack provides a comprehensive color foundation for this kind of deep color library.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
+    ],
+  },
+
+  // ── Creative Agency ───────────────────────────────────
+  {
+    category: "Industry Colors",
+    slug: "creative-agency-brand-color-palette",
+    title: "Creative Agency Brand Colors That Practice What You Preach",
+    summary:
+      "How to choose brand colors for a creative agency where your palette is simultaneously your identity and a demonstration of your craft.",
+    eyebrow: "Creative Agency",
+    priority: 50,
+    searchIntent: "best brand colors for creative design agencies",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Creative Agency", "Brand", "Portfolio", "Identity"],
+    highlights: [
+      "Your agency's palette is a live portfolio piece — it should demonstrate the level of craft you sell to clients.",
+      "Agencies that use bold, distinctive palettes attract bolder clients; neutral palettes attract enterprise.",
+      "The palette must work as a frame for diverse client work without competing with it.",
+    ],
+    sections: [
+      {
+        heading: "Your palette is your first case study",
+        body:
+          "Potential clients evaluate your design ability starting with your own brand. A thoughtful, distinctive color palette signals expertise. Avoid the temptation to be aggressively unique — that reads as self-indulgent rather than capable. Choose a palette that's distinctive but controlled: an unexpected primary color (rich violet, warm coral, deep forest green) with sophisticated neutral support. The Orchid Bloom collection shows how a bold primary can feel refined rather than loud.",
+      },
+      {
+        heading: "Framing client work",
+        body:
+          "Your agency website primarily showcases client projects. Your brand palette needs to frame diverse visual styles without clashing. Dark, desaturated palettes work best as frames because they recede behind the content. Light, neutral palettes also work but can feel generic if not carefully crafted. Avoid using your most saturated brand color near client work screenshots — it draws the eye away from the work you're trying to showcase.",
+      },
+      {
+        heading: "Internal brand versus client deliverables",
+        body:
+          "Your brand palette serves two contexts: your own materials and client-facing deliverables (proposals, presentations, invoices). Both should feel like the same brand. Build your palette with professional document use in mind — ensure your primary color works in a PowerPoint header, a PDF footer, and an email signature. Use ColorArchive to test your palette at reduced sizes and in text-heavy contexts where it appears small.",
+      },
+    ],
+    links: [
+      { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "creative-agency-dark-mode-colors",
+    title: "Dark Mode Portfolios for Creative Agencies That Showcase Work Beautifully",
+    summary:
+      "How to build a dark mode portfolio site that makes your client work the undeniable hero of every page.",
+    eyebrow: "Creative Agency",
+    priority: 50,
+    searchIntent: "dark mode portfolio design for creative agencies",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Creative Agency", "Dark Mode", "Portfolio", "Showcase"],
+    highlights: [
+      "Dark portfolio sites are the industry standard for a reason — they create a gallery experience that elevates every project.",
+      "The transition between projects in a dark portfolio feels more dramatic and intentional than in a light layout.",
+    ],
+    sections: [
+      {
+        heading: "Gallery-grade dark surfaces",
+        body:
+          "Creative agency portfolios on dark backgrounds feel like exhibitions. Each project image is framed by darkness, creating separation and drama. Use a consistently neutral dark surface — HSL(0, 0%, 6%) to HSL(0, 0%, 10%) — so no project's colors are influenced by the background tint. The Nocturne Tech collection provides a range of dark neutrals calibrated for this gallery effect.",
+      },
+      {
+        heading: "Navigation and case study flow",
+        body:
+          "Dark portfolio navigation should be minimal and transparent — it exists to guide, not to decorate. Use light text at 70–80% opacity for navigation items, increasing to 100% on hover. Case study transitions on dark backgrounds can use your brand accent color as a brief flash or loading indicator, adding personality without compromising the gallery feel. Keep the focus ruthlessly on the work.",
+      },
+      {
+        heading: "Text-heavy sections on dark backgrounds",
+        body:
+          "Agency portfolios include case study writeups — process descriptions, results, client quotes. Long text on dark backgrounds needs wider line spacing (1.6–1.8 line height) and slightly larger font sizes than light-mode equivalents. Use off-white text (90% lightness) and limit paragraph width to 65–75 characters. The Dark Mode UI Kit includes typography-optimized dark surface values for these content-heavy sections.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+      { label: "Color Combinations", href: "/combinations/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "creative-agency-accessible-color-scheme",
+    title: "Accessible Color Design for Creative Agencies (Lead by Example)",
+    summary:
+      "Why creative agencies should champion accessible color — both for their own sites and as a standard they bring to every client project.",
+    eyebrow: "Creative Agency",
+    priority: 50,
+    searchIntent: "accessible color design for creative agency websites",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Creative Agency", "Accessibility", "WCAG", "Best Practice"],
+    highlights: [
+      "Agencies that build accessibility into their process command higher fees and avoid costly retrofits.",
+      "Your own site being WCAG-compliant demonstrates the standard you'll bring to client work.",
+    ],
+    sections: [
+      {
+        heading: "Accessibility as a competitive advantage",
+        body:
+          "Many agencies treat accessibility as a checkbox. The ones that embed it as a core competency differentiate on value. If your own website is WCAG AA-compliant, you can credibly sell accessibility-first design to clients. Start with your own palette — use ColorArchive's WCAG auditor to verify every color combination on your site. A compliant agency portfolio is a live demonstration of your accessibility capability.",
+      },
+      {
+        heading: "Creative solutions within constraints",
+        body:
+          "Accessibility constraints don't limit creativity — they channel it. A minimum 4.5:1 contrast ratio still allows thousands of beautiful color combinations. The challenge is finding the ones that are both distinctive and compliant. This is actually where great design happens: within constraints. Use ColorArchive's contrast tools to explore the boundary — you'll find your most interesting palette options right at the edge of compliance, where contrast is exactly sufficient.",
+      },
+      {
+        heading: "Building accessibility into client deliverables",
+        body:
+          "Every color palette you deliver to clients should include contrast ratios and WCAG compliance status for each color pair. This sets the expectation that accessibility is part of professional color work, not an afterthought. Export client palettes from ColorArchive with token metadata that includes compliance information. This documentation elevates your deliverable from a set of hex values to a professional color specification.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
+      { label: "Design Token Export", href: "/tokens/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "creative-agency-website-color-inspiration",
+    title: "Creative Agency Website Color Palettes That Win Clients on First Scroll",
+    summary:
+      "Color inspiration for agency websites where the palette needs to say 'we understand design' within three seconds of landing.",
+    eyebrow: "Creative Agency",
+    priority: 50,
+    searchIntent: "creative agency website color palette inspiration",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Creative Agency", "Website", "Inspiration", "New Business"],
+    highlights: [
+      "Agency websites have approximately 3 seconds to signal design credibility — color is the fastest signal.",
+      "The trend is shifting from monochrome agency sites toward sites with one distinctive, confident color.",
+    ],
+    sections: [
+      {
+        heading: "First-impression color strategy",
+        body:
+          "Agency websites need to communicate design expertise instantly. A monochrome palette (black, white, one accent) signals sophistication but can feel safe. A more distinctive approach: choose one unexpected primary color and commit to it. A deep violet, a warm terracotta, or a rich teal used confidently throughout the site says more about your design point of view than a safe grayscale. The Orchid Bloom collection offers bold starting points that don't sacrifice refinement.",
+      },
+      {
+        heading: "Portfolio grid color strategy",
+        body:
+          "The portfolio grid is the heart of an agency website. If your projects have diverse visual identities (which they should), your grid will be inherently colorful. Your site's palette should recede here — use neutral surfaces and minimal UI chrome so the project thumbnails create the visual energy. The grid itself becomes your color palette, and your site's role is to frame it intelligently.",
+      },
+      {
+        heading: "Contact and new business pages",
+        body:
+          "The contact page is where color does its conversion work. Use your most confident brand color for the inquiry form and CTA. Warm colors on contact pages create approachability — visitors are about to initiate a business relationship and need to feel welcomed. A warm accent paired with generous white space creates the 'professional but human' feeling that converts visitors into leads. Export your contact-page palette as tokens to maintain consistency across form variants.",
+      },
+    ],
+    links: [
+      { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Browse All Colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "creative-agency-design-token-system",
+    title: "Design Tokens for Creative Agencies: Systematizing Color Across Client Projects",
+    summary:
+      "How to use design tokens as a creative agency — both for your own brand and as a scalable delivery format for client color systems.",
+    eyebrow: "Creative Agency",
+    priority: 50,
+    searchIntent: "design tokens for creative agency workflow",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "complete-archive",
+    tags: ["Creative Agency", "Design Tokens", "Client Delivery", "Workflow"],
+    highlights: [
+      "Agencies that deliver token-based color systems create ongoing value — and ongoing retainer relationships.",
+      "A standardized token format across clients reduces onboarding time for agency team members switching between projects.",
+    ],
+    sections: [
+      {
+        heading: "Tokens as a client deliverable",
+        body:
+          "Instead of handing clients a PDF style guide with hex values, deliver a token file. This immediately works in their codebase: CSS custom properties for web teams, JSON for design tools, Tailwind config for utility-class workflows. It elevates your deliverable from a reference document to a working system component. ColorArchive's token export generates all these formats from a single palette, giving you a client-ready deliverable in minutes.",
+      },
+      {
+        heading: "Agency-internal token standards",
+        body:
+          "Establish a standard token structure that all agency projects follow: the same naming conventions, the same semantic categories, the same file format. This means any team member can onboard to any project quickly because the color system structure is familiar. Only the values change between clients. This standardization also makes it easier to build agency-wide component libraries that can be themed per client.",
+      },
+      {
+        heading: "Version control and client handoff",
+        body:
+          "Store every client's token file in version control with clear documentation. When you hand off a project, the client receives not just current values but the complete history of color decisions. This makes future updates — by you or another agency — much easier. The Complete Archive provides the depth of color options needed to populate comprehensive client token systems across industries and aesthetics.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
+    ],
+  },
+
+  // ── Fitness ───────────────────────────────────────────
+  {
+    category: "Industry Colors",
+    slug: "fitness-brand-color-palette",
+    title: "Fitness Brand Color Palettes That Energize and Motivate",
+    summary:
+      "How to choose brand colors for fitness brands that convey energy, determination, and results — without looking like every other gym.",
+    eyebrow: "Fitness",
+    priority: 50,
+    searchIntent: "best brand colors for fitness gym brands",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Fitness", "Brand", "Energy", "Motivation"],
+    highlights: [
+      "High-energy fitness brands use saturated warm colors (red, orange, electric blue) while wellness brands use softer, cooler tones (sage, teal, lavender).",
+      "Your brand color will appear on apparel, equipment, signage, and social media — it must work at every scale.",
+      "Black paired with a single vibrant accent is the most popular fitness palette structure because it reads as bold and focused.",
+    ],
+    sections: [
+      {
+        heading: "Energy level through color",
+        body:
+          "Your fitness brand's color palette should match the energy level of your offering. High-intensity training brands thrive with saturated reds, oranges, and electric blues. Yoga and wellness brands succeed with sage, teal, and muted earth tones. Hybrid brands (offering both) need a versatile palette: a neutral base (black or dark charcoal) with both an energetic accent and a calm accent. ColorArchive's brand generator lets you test different energy levels quickly.",
+      },
+      {
+        heading: "The power of one bold accent",
+        body:
+          "The most recognizable fitness brands use one dominant accent color against a black or dark neutral base. Think of how immediately recognizable a single neon green or electric blue is against black. This simplicity creates instant brand recognition on any surface: app icons, t-shirts, water bottles, gym walls. Choose your one accent color and commit to it completely. The Orchid Bloom collection offers bold accent options that stand out against dark foundations.",
+      },
+      {
+        heading: "Apparel and merchandise color",
+        body:
+          "Fitness brands sell (or give away) branded apparel and merchandise. Your brand colors need to be producible in fabric dye and screen printing. Test your palette against standard athletic fabric colors — black, white, heather gray — to ensure your accent color reads well on actual garments. Export your palette from ColorArchive and bring the HEX values to your merchandise supplier for color matching.",
+      },
+    ],
+    links: [
+      { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fitness-dark-mode-colors",
+    title: "Dark Mode Color Schemes for Fitness Apps and Workout Trackers",
+    summary:
+      "How to build dark mode for fitness apps where users check their phone mid-workout in dim gyms and need glanceable data.",
+    eyebrow: "Fitness",
+    priority: 50,
+    searchIntent: "dark mode colors for fitness workout tracking apps",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Fitness", "Dark Mode", "Workout App", "Tracking"],
+    highlights: [
+      "Gym environments are often dimly lit — dark mode isn't a preference for fitness apps, it's a necessity.",
+      "Workout tracking data needs to be readable at arm's length with sweat on the screen.",
+    ],
+    sections: [
+      {
+        heading: "Glanceable dark UI for workouts",
+        body:
+          "Fitness app users check their phone mid-set with sweaty hands in dim lighting. Dark mode in this context needs extremely high contrast for key data: current weight, rep count, timer, and rest period. These numbers should be large, high-contrast (white or your vibrant accent on a dark surface), and positioned where they're visible at arm's length. Background elements should be minimal and deeply recessed.",
+      },
+      {
+        heading: "Activity and heart rate zone colors",
+        body:
+          "Heart rate zones and activity types need distinct colors that users learn to recognize at a glance. The standard five heart-rate zones (gray, blue, green, yellow, red) need adjustment for dark mode: increase lightness by 15–20% so they remain vivid against dark surfaces. The Nocturne Tech collection provides high-contrast accent colors that work for this kind of data visualization on dark backgrounds.",
+      },
+      {
+        heading: "Progress and achievement visuals",
+        body:
+          "Fitness apps rely heavily on progress visualization: streak flames, progress rings, achievement badges. In dark mode, these motivational elements should be the most vibrant things on screen. Use your brand accent at full saturation for progress indicators — they can afford to be bold against a subdued dark background. The Dark Mode UI Kit includes accent color pairings tuned for this high-energy-on-dark-surface pattern.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
+      { label: "WCAG Contrast Checker", href: "/audit/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fitness-accessible-color-scheme",
+    title: "Accessible Color Design for Fitness Apps and Wellness Platforms",
+    summary:
+      "Building fitness experiences that work for all bodies and all abilities — including the visual accessibility that makes your app usable for everyone.",
+    eyebrow: "Fitness",
+    priority: 50,
+    searchIntent: "accessible colors for fitness wellness apps",
+    featuredCollectionId: "modern-seaside",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Fitness", "Accessibility", "WCAG", "Wellness"],
+    highlights: [
+      "Fitness apps serve users of all ages and abilities — accessibility is essential, not just for compliance but for market reach.",
+      "Timer and rep counter interfaces need to work for users with low vision who may hold their phone at different distances.",
+    ],
+    sections: [
+      {
+        heading: "Inclusive fitness design",
+        body:
+          "Fitness is for everyone, and your app's color design should reflect that. Users with low vision, color blindness, and age-related visual changes all use fitness apps. Key workout data — timers, rep counts, weight values — must meet WCAG AAA contrast (7:1) because they're often viewed in challenging conditions: dim gyms, bright outdoor settings, or at arm's length. Use ColorArchive's WCAG auditor to verify these critical text elements.",
+      },
+      {
+        heading: "Color-blind safe workout categorization",
+        body:
+          "Exercise categorization (strength, cardio, flexibility, recovery) is often color-coded. For color-blind users, supplement each color with an icon or label. Choose colors that differ in luminance, not just hue: a dark blue for strength, a light green for cardio, a medium amber for flexibility. These remain distinguishable even for users with deuteranopia or protanopia, which affect about 8% of men.",
+      },
+      {
+        heading: "High-contrast mode for outdoor use",
+        body:
+          "Outdoor fitness (running, cycling, outdoor classes) means screens in direct sunlight. Offer a high-contrast mode with pure black text on white backgrounds for maximum readability in bright conditions. This isn't a dark mode or light mode — it's an accessibility mode that maximizes contrast above all aesthetic considerations. Let users toggle it easily from workout screens.",
+      },
+    ],
+    links: [
+      { label: "WCAG Contrast Auditor", href: "/audit/" },
+      { label: "Modern Seaside Collection", href: "/collections/modern-seaside/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fitness-website-color-inspiration",
+    title: "Fitness Website Color Palettes That Convert Visitors to Members",
+    summary:
+      "Color strategies for fitness websites where the palette must convey energy, results, and community — all while driving membership signups.",
+    eyebrow: "Fitness",
+    priority: 50,
+    searchIntent: "fitness gym website color inspiration ideas",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Fitness", "Website", "Inspiration", "Membership"],
+    highlights: [
+      "Fitness website color should match the intensity of the workout experience you offer.",
+      "Before/after transformations, class schedules, and pricing pages are the conversion-critical sections that need the best color hierarchy.",
+    ],
+    sections: [
+      {
+        heading: "Matching color energy to workout intensity",
+        body:
+          "A CrossFit box and a Pilates studio need completely different color energies. High-intensity brands benefit from bold, saturated colors against dark backgrounds — electric accents that feel urgent and powerful. Low-intensity wellness brands should use softer, more organic palettes: sage, cream, terracotta, and muted teal. Browse ColorArchive's collections to find the energy level that matches your brand: Orchid Bloom for bold and distinctive, Modern Seaside for calm and natural.",
+      },
+      {
+        heading: "Pricing page color psychology",
+        body:
+          "The pricing page is where most fitness website visitors decide to join or leave. Use your brand's most confident color for the recommended membership tier. A subtle background highlight (5% opacity brand color) on the preferred option guides the eye without feeling manipulative. Keep the other options in neutral tones. Avoid using more than two colors on pricing — simplicity builds trust and reduces decision anxiety.",
+      },
+      {
+        heading: "Social proof and community sections",
+        body:
+          "Member testimonials, transformation photos, and community events build the emotional connection that drives membership decisions. These sections should feel warm and inviting. Use your palette's warmest tones for community sections — a cream or warm gray background creates a fundamentally different feeling than a cool white. Let member photos provide the color and energy; your palette's job is to create a welcoming frame.",
+      },
+    ],
+    links: [
+      { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
+      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Browse All Colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Industry Colors",
+    slug: "fitness-design-token-system",
+    title: "Design Tokens for Fitness Brands: Scaling Color Across App, Web, and Wearables",
+    summary:
+      "How to build a token system for fitness brands that maintains visual consistency across mobile apps, websites, wearable displays, and branded merchandise.",
+    eyebrow: "Fitness",
+    priority: 50,
+    searchIntent: "design tokens for fitness brand color system",
+    featuredCollectionId: "orchid-bloom",
+    featuredPackId: "complete-archive",
+    tags: ["Fitness", "Design Tokens", "Wearables", "Multi-platform"],
+    highlights: [
+      "Fitness brands appear on phone screens, wearable watches, gym displays, apparel, and social media — tokens keep them unified.",
+      "Wearable displays have severely limited color gamut — your accent color needs a wearable-safe variant token.",
+    ],
+    sections: [
+      {
+        heading: "Multi-surface token strategy",
+        body:
+          "Fitness brands touch more surfaces than most: mobile app, web, wearable watch face, gym TV displays, branded apparel, and social media templates. Each surface has different color constraints. Wearable screens render a fraction of the sRGB gamut. Gym TVs are often low-quality displays. Define surface-specific token variants: brand.accent (standard), brand.accent.wearable (higher contrast), brand.accent.print (CMYK-safe). ColorArchive's token export provides the digital foundation for this multi-surface system.",
+      },
+      {
+        heading: "Activity-specific color tokens",
+        body:
+          "Fitness apps often assign colors to workout types: blue for strength, green for cardio, orange for HIIT, purple for yoga. These activity colors are referenced everywhere — calendars, activity feeds, achievement badges, analytics charts. Define them as first-class tokens (activity.strength, activity.cardio) so they can be updated consistently when your visual language evolves. Include both a primary and a muted variant for each activity type.",
+      },
+      {
+        heading: "Motivational color tokens",
+        body:
+          "Streaks, achievements, personal records, and milestones all use celebratory colors. Define motivational tokens: motivation.streak, motivation.pr, motivation.milestone. These are often your most saturated, energetic colors — gold, bright green, vibrant blue. Having them as named tokens prevents different parts of the app from inventing their own celebration colors. Export from ColorArchive with these motivational slots defined for team-wide consistency.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
+    ],
+  },
+];
+
+landingGuides.push(...seoGuides);
