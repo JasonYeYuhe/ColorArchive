@@ -91,4 +91,75 @@ No markdown, no explanation outside the JSON. Pure JSON only.`;
   }
 });
 
+/**
+ * POST /ai/name-color
+ * Body: { hex, name, hsl, family }
+ * Returns: { names: [{ en, zh, description }] }
+ */
+router.post("/name-color", async (req, res) => {
+  const { hex, name, hsl, family } = req.body ?? {};
+
+  if (!hex) {
+    return res.status(400).json({ error: "Missing hex value." });
+  }
+
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return res.status(503).json({ error: "AI feature not configured on this server." });
+  }
+
+  const prompt = `You are a poetic color naming expert with deep knowledge of color psychology, art history, and language.
+
+A designer is looking at this color:
+- Hex: ${hex}
+- HSL: ${hsl || "unknown"}
+- Color family: ${family || "unknown"}
+- Current archive name: ${name || "unknown"}
+
+Generate 3 alternative evocative names for this color. Each name should feel poetic, memorable, and distinct from the others. One could be nature-inspired, one could be emotional/mood-based, and one could be cultural or historical.
+
+For each name provide:
+- en: the English name (2-4 words max)
+- zh: the Chinese name (2-4 characters, poetic, not a direct translation)
+- description: one short sentence (max 15 words) evoking what this color feels like
+
+Respond ONLY with valid JSON in this exact format:
+{
+  "names": [
+    { "en": "English Name", "zh": "中文名", "description": "One evocative sentence." },
+    { "en": "English Name", "zh": "中文名", "description": "One evocative sentence." },
+    { "en": "English Name", "zh": "中文名", "description": "One evocative sentence." }
+  ]
+}
+
+No markdown, no explanation outside the JSON. Pure JSON only.`;
+
+  try {
+    const message = await client.messages.create({
+      model: "claude-sonnet-4-6",
+      max_tokens: 512,
+      messages: [{ role: "user", content: prompt }],
+    });
+
+    const text = message.content[0]?.type === "text" ? message.content[0].text : "";
+
+    let parsed;
+    try {
+      parsed = JSON.parse(text.trim());
+    } catch {
+      const match = text.match(/\{[\s\S]*\}/);
+      if (match) parsed = JSON.parse(match[0]);
+      else throw new Error("Could not parse AI response as JSON");
+    }
+
+    if (!parsed.names || !Array.isArray(parsed.names)) {
+      throw new Error("Invalid names structure in AI response");
+    }
+
+    return res.json({ names: parsed.names });
+  } catch (err) {
+    console.error("[ai/name-color] Error:", err);
+    return res.status(500).json({ error: "Failed to generate names. Please try again." });
+  }
+});
+
 module.exports = router;

@@ -1,5 +1,6 @@
 const db = require("./db");
-const { sendFollowUp3DayEmail, sendFollowUp7DayEmail, sendFollowUp14DayEmail, sendFollowUp21DayEmail, sendFollowUp30DayEmail } = require("./email");
+const { sendFollowUp3DayEmail, sendFollowUp7DayEmail, sendFollowUp14DayEmail, sendFollowUp21DayEmail, sendFollowUp30DayEmail, sendCotdEmail } = require("./email");
+const { getColorOfDay } = require("./colors");
 
 const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
@@ -147,11 +148,41 @@ async function runFollowUps() {
   }
 }
 
+async function runCotdEmails() {
+  // Only send between UTC 09:00–09:59 to avoid spamming on restarts
+  const utcHour = new Date().getUTCHours();
+  if (utcHour !== 9) return;
+
+  const todayStr = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  const color = getColorOfDay(todayStr);
+  if (!color) return;
+
+  const due = db
+    .prepare(
+      `SELECT id, email FROM subscribers
+       WHERE cotd_subscribed = 1
+         AND (cotd_last_sent IS NULL OR cotd_last_sent < date('now'))`,
+    )
+    .all();
+
+  for (const row of due) {
+    try {
+      await sendCotdEmail(row.email, color, todayStr);
+      db.prepare(`UPDATE subscribers SET cotd_last_sent = date('now') WHERE id = ?`).run(row.id);
+      console.log(`[scheduler] cotd sent to ${row.email} (${color.name})`);
+    } catch (err) {
+      console.error(`[scheduler] cotd failed for ${row.email}:`, err.message);
+    }
+  }
+}
+
 function startScheduler() {
   // Run once on startup (catches any backlog), then on the interval
   runFollowUps().catch((err) => console.error("[scheduler] startup run failed:", err.message));
+  runCotdEmails().catch((err) => console.error("[scheduler] cotd startup run failed:", err.message));
   setInterval(() => {
     runFollowUps().catch((err) => console.error("[scheduler] interval run failed:", err.message));
+    runCotdEmails().catch((err) => console.error("[scheduler] cotd interval run failed:", err.message));
   }, INTERVAL_MS);
   console.log("[scheduler] email follow-up scheduler started (hourly)");
 }

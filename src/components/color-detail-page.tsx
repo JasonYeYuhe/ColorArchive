@@ -192,6 +192,104 @@ function RecommendationCard({
   );
 }
 
+const AI_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+
+interface AiName { en: string; zh: string; description: string; }
+
+function AiColorNaming({ color }: { color: ColorRecord }) {
+  const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [names, setNames] = useState<AiName[]>([]);
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+
+  const handleGenerate = async () => {
+    setState("loading");
+    try {
+      const res = await fetch(`${AI_URL}/ai/name-color`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ hex: color.hex, name: color.name, hsl: color.hsl, family: color.family }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed");
+      setNames(data.names ?? []);
+      setState("done");
+    } catch {
+      setState("error");
+    }
+  };
+
+  const handleCopy = (idx: number, text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 1500);
+    });
+  };
+
+  return (
+    <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+          AI Color Names
+        </h2>
+        {state !== "done" && (
+          <button
+            onClick={handleGenerate}
+            disabled={state === "loading"}
+            className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white disabled:opacity-50"
+          >
+            {state === "loading" ? (
+              <span className="flex items-center gap-1.5">
+                <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin" />
+                Generating…
+              </span>
+            ) : (
+              "✦ Generate"
+            )}
+          </button>
+        )}
+      </div>
+
+      {state === "idle" && (
+        <p className="text-xs text-neutral-400 leading-5">
+          Let AI suggest alternative poetic names for this color in English and Chinese.
+        </p>
+      )}
+
+      {state === "error" && (
+        <p className="text-xs text-red-500">Could not generate names. Try again later.</p>
+      )}
+
+      {state === "done" && names.length > 0 && (
+        <div className="space-y-2.5">
+          {names.map((n, i) => (
+            <div key={i} className="flex items-start justify-between gap-3 rounded-xl bg-neutral-50 px-3.5 py-3">
+              <div className="min-w-0">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm font-semibold text-neutral-900">{n.en}</span>
+                  <span className="text-sm text-neutral-500">{n.zh}</span>
+                </div>
+                <p className="text-xs text-neutral-400 mt-0.5 leading-4">{n.description}</p>
+              </div>
+              <button
+                onClick={() => handleCopy(i, n.en)}
+                className="shrink-0 text-[10px] font-medium text-neutral-400 hover:text-neutral-700 transition-colors"
+              >
+                {copiedIdx === i ? "✓" : "Copy"}
+              </button>
+            </div>
+          ))}
+          <button
+            onClick={() => setState("idle")}
+            className="text-[10px] text-neutral-400 hover:text-neutral-600 mt-1"
+          >
+            Generate again
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function buildPaletteExport(entries: readonly PaletteEntry[]) {
   return entries.map((entry) => `${entry.label}: ${entry.value.name} ${entry.value.hex}`).join("\n");
 }
@@ -461,6 +559,9 @@ export function ColorDetailPage({
                   </pre>
                 </div>
               </div>
+
+              {/* AI Color Naming */}
+              <AiColorNaming color={color} />
 
               {(() => {
                 const tonalStrip = getTonalStrip(allColors, color);

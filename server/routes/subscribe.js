@@ -8,11 +8,12 @@ function sanitizeString(value, limit = 240) {
 }
 
 // POST /subscribe
-// Body: { email: string, source?: string }
+// Body: { email: string, source?: string, cotd?: boolean }
 router.post("/", async (req, res) => {
   const {
     email,
     source = "free-pack",
+    cotd = false,
     landingPath,
     referrer,
     utmSource,
@@ -62,6 +63,12 @@ router.post("/", async (req, res) => {
       sanitizeString(utmTerm, 160),
       sanitizeString(utmContent, 160),
     );
+
+    // Enable COTD if requested (separate update to handle existing subscribers too)
+    if (cotd) {
+      db.prepare(`UPDATE subscribers SET cotd_subscribed = 1 WHERE email = ?`)
+        .run(email.trim().toLowerCase());
+    }
 
     if (source === "waitlist") {
       await sendWaitlistConfirmationEmail(email);

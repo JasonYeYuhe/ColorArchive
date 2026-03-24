@@ -52,7 +52,8 @@ interface SiteHeaderProps {
     | "/combinations"
     | "/identify"
     | "/color-quiz"
-    | "/brand-generator";
+    | "/brand-generator"
+    | "/today";
 }
 
 interface NavItem {
@@ -95,6 +96,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/wcag-audit/", labelKey: "nav.wcagAudit" },
       { href: "/image-palette/", labelKey: "nav.imagePalette" },
       { href: "/identify/", labelKey: "nav.colorFinder" },
+      { href: "/today/", labelKey: "nav.today" },
       { href: "/color-quiz/", labelKey: "nav.colorQuiz" },
       { href: "/brand-generator/", labelKey: "nav.brandGenerator" },
       { href: "/combinations/", labelKey: "nav.combinations" },

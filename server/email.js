@@ -851,6 +851,98 @@ async function sendNewsletterIssueAlert(to, { issue, unsubscribeToken = null } =
   return result;
 }
 
+/**
+ * Daily "Color of the Day" email
+ * @param {string} to
+ * @param {{ id: string, name: string, hex: string, hsl: string, family: string }} color
+ * @param {string} dateStr  e.g. "2026-03-24"
+ */
+async function sendCotdEmail(to, color, dateStr) {
+  const formattedDate = new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", {
+    weekday: "long", year: "numeric", month: "long", day: "numeric",
+  });
+  const archiveUrl = `https://colorarchive.me/colors/${color.id}/`;
+  const unsubUrl = `https://colorarchive.me/unsubscribe/?email=${encodeURIComponent(to)}`;
+  const luminance = parseInt(color.hex.slice(1, 3), 16) * 0.299 +
+    parseInt(color.hex.slice(3, 5), 16) * 0.587 +
+    parseInt(color.hex.slice(5, 7), 16) * 0.114;
+  const textOnSwatch = luminance > 140 ? "#1a1a1a" : "#ffffff";
+
+  const result = await resend.emails.send({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject: `${color.name} — your ColorArchive color for ${formattedDate}`,
+    text: [
+      `${color.name}`,
+      `Your ColorArchive color for ${formattedDate}`,
+      "",
+      `Hex: ${color.hex}`,
+      `HSL: ${color.hsl}`,
+      `Family: ${color.family}`,
+      "",
+      `View in Archive: ${archiveUrl}`,
+      "",
+      "— ColorArchive",
+      "https://colorarchive.me",
+      "",
+      `Unsubscribe: ${unsubUrl}`,
+    ].join("\n"),
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
+        <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#999;margin:0 0 16px">
+          ${formattedDate}
+        </p>
+
+        <!-- Swatch -->
+        <div style="background:${color.hex};border-radius:16px;padding:32px 24px;text-align:center;margin-bottom:20px">
+          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:${textOnSwatch};opacity:0.6;margin-bottom:8px">
+            Color of the Day
+          </div>
+          <div style="font-size:28px;font-weight:700;color:${textOnSwatch};letter-spacing:-0.5px">
+            ${color.name}
+          </div>
+          <div style="font-size:14px;font-family:monospace;color:${textOnSwatch};opacity:0.7;margin-top:6px">
+            ${color.hex.toUpperCase()}
+          </div>
+        </div>
+
+        <!-- Details -->
+        <table style="width:100%;border-collapse:collapse;margin-bottom:20px">
+          <tr>
+            <td style="padding:8px 0;color:#999;font-size:12px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid #f0f0f0">Family</td>
+            <td style="padding:8px 0;color:#1a1a1a;font-size:14px;font-weight:500;border-bottom:1px solid #f0f0f0;text-align:right">${color.family}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0;color:#999;font-size:12px;letter-spacing:1px;text-transform:uppercase">HSL</td>
+            <td style="padding:8px 0;color:#1a1a1a;font-size:14px;font-family:monospace;text-align:right">${color.hsl}</td>
+          </tr>
+        </table>
+
+        <p style="text-align:center;margin:24px 0">
+          <a href="${archiveUrl}"
+             style="display:inline-block;background:#1a1a1a;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px">
+            View in ColorArchive →
+          </a>
+        </p>
+
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
+        <p style="color:#bbb;font-size:11px;text-align:center">
+          ColorArchive · <a href="https://colorarchive.me" style="color:#bbb">colorarchive.me</a>
+          &nbsp;·&nbsp;
+          <a href="${unsubUrl}" style="color:#bbb">Unsubscribe</a>
+        </p>
+      </div>
+    `,
+  });
+
+  if (result.error) {
+    console.error("Resend error (cotd email):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
 module.exports = {
   sendFreePackEmail,
   sendFollowUp3DayEmail,
@@ -862,4 +954,5 @@ module.exports = {
   sendOrderConfirmationEmail,
   sendWaitlistConfirmationEmail,
   sendNewsletterIssueAlert,
+  sendCotdEmail,
 };

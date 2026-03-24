@@ -6,6 +6,7 @@ import { ColorGrid } from "@/src/components/color-grid";
 import { useLocale } from "@/src/components/locale-provider";
 import { RecommendedColorsSection } from "@/src/components/recommended-colors-section";
 import { getFavoriteColorIds, subscribeToFavorites } from "@/src/lib/favorites";
+import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
 import type { ColorRecord } from "@/src/types/color";
 
 interface FavoritesPageProps {
@@ -92,6 +93,17 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
     [favoriteColors],
   );
 
+  const shareUrl = useMemo(() => {
+    if (favoriteColors.length === 0) return null;
+    const ids = favoriteColors.slice(0, 20).map((c) => c.id).join(",");
+    return `/palette/?ids=${ids}`;
+  }, [favoriteColors]);
+
+  const xShareText = useMemo(() => {
+    if (!shareUrl) return "";
+    return `My ColorArchive color collection ✦ ${favoriteColors.length} saved colors #colorarchive #colorpalette`;
+  }, [shareUrl, favoriteColors.length]);
+
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
@@ -131,6 +143,12 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
                   <CopyButton label="CSS vars" value={cssVariableExport} />
                   <CopyButton label="Tailwind" value={tailwindExport} />
                   <CopyButton label="JSON" value={jsonExport} />
+                  {shareUrl && (
+                    <>
+                      <ShareLinkButton href={shareUrl} label="Share collection" />
+                      <ShareOnXButton text={xShareText} href={shareUrl} />
+                    </>
+                  )}
                 </>
               ) : null}
               <Link

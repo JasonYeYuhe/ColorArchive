@@ -32,6 +32,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.combinations": { en: "Combinations", zh: "配色组合" },
   "nav.colorQuiz": { en: "Color Quiz", zh: "颜色测试" },
   "nav.brandGenerator": { en: "Brand Generator", zh: "品牌色生成" },
+  "nav.today": { en: "Today's Color", zh: "今日颜色" },
   "nav.apiDocs": { en: "Color API", zh: "颜色 API" },
   "nav.figmaPlugin": { en: "Figma Plugin", zh: "Figma 插件" },
   "nav.surprise": { en: "Surprise", zh: "随机发现" },

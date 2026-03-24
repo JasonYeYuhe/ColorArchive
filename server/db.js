@@ -102,5 +102,7 @@ ensureColumn("subscribers", "follow_up_21d_sent TEXT");
 ensureColumn("subscribers", "follow_up_21d_variant TEXT");
 ensureColumn("subscribers", "follow_up_30d_sent TEXT");
 ensureColumn("subscribers", "follow_up_30d_variant TEXT");
+ensureColumn("subscribers", "cotd_subscribed INTEGER DEFAULT 0");
+ensureColumn("subscribers", "cotd_last_sent TEXT");
 
 module.exports = db;
