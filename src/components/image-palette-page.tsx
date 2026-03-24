@@ -7,6 +7,7 @@ import { colors as archiveColors } from "@/src/data/colors";
 import { addManyToPalette } from "@/src/lib/palette-builder";
 import { useLocale } from "@/src/components/locale-provider";
 import { t } from "@/src/lib/i18n";
+import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -190,6 +191,53 @@ function formatForExport(colors: ExtractedColor[], format: ExportFormat): string
   }
 }
 
+function buildShareUrl(matched: MatchedColor[]): string {
+  const ids = matched
+    .map((m) => m.archiveId)
+    .filter((id): id is string => Boolean(id))
+    .join(",");
+  return `/image-palette/?ids=${ids}`;
+}
+
+function generatePaletteSvg(matched: MatchedColor[]): string {
+  const cols = matched.length;
+  const W = 800;
+  const swatchH = 140;
+  const H = 200;
+  const colW = W / cols;
+
+  const textColor = (hex: string) => {
+    const rgb = hexToRgb(hex);
+    if (!rgb) return "#1a1a1a";
+    const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+    return luminance > 0.5 ? "#1a1a1a" : "#ffffff";
+  };
+
+  const rects = matched.map((mc, i) => {
+    const hex = (mc.archiveHex ?? mc.extracted.hex).toUpperCase();
+    const name = mc.archiveName ?? hex;
+    const tc = textColor(hex);
+    const x = Math.round(i * colW);
+    const w = Math.round(colW);
+    return `<rect x="${x}" y="0" width="${w}" height="${swatchH}" fill="${hex}"/><text x="${x + w / 2}" y="${swatchH - 10}" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="${tc}" opacity="0.7">${hex}</text>`;
+  }).join("\n  ");
+
+  const labels = matched.map((mc, i) => {
+    const hex = (mc.archiveHex ?? mc.extracted.hex).toUpperCase();
+    const name = mc.archiveName ?? hex;
+    const x = Math.round(i * colW);
+    const w = Math.round(colW);
+    return `<text x="${x + w / 2}" y="${swatchH + 18}" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#374151">${name.length > 18 ? name.slice(0, 17) + "…" : name}</text>`;
+  }).join("\n  ");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <rect width="${W}" height="${H}" fill="#f8fafc"/>
+  ${rects}
+  ${labels}
+  <text x="${W - 8}" y="${H - 6}" text-anchor="end" font-family="system-ui,sans-serif" font-size="8" fill="#9ca3af">colorarchive.me</text>
+</svg>`;
+}
+
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
@@ -232,6 +280,8 @@ export function ImagePalettePage() {
   const [showMatches, setShowMatches] = useState(true);
   const [sampleUrlInput, setSampleUrlInput] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [shareUrl, setShareUrl] = useState<string | null>(null);
+  const [isSharedView, setIsSharedView] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -276,6 +326,10 @@ export function ImagePalettePage() {
       setExtractedColors(colors);
       setMatchedColors(matched);
       setIsProcessing(false);
+      setIsSharedView(false);
+      const url = buildShareUrl(matched);
+      setShareUrl(url);
+      window.history.replaceState(null, "", url);
     };
     img.onerror = () => {
       setError("Could not load image. Try a different file or URL.");
@@ -289,6 +343,43 @@ export function ImagePalettePage() {
     if (imageUrl) processImage(imageUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colorCount]);
+
+  // Read ?ids= on mount to reconstruct a shared palette view
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const ids = params.get("ids");
+    if (!ids) return;
+    const idList = ids.split(",").filter(Boolean);
+    const reconstructed: MatchedColor[] = idList.flatMap((id) => {
+      const ac = archiveColors.find((c) => c.id === id);
+      if (!ac) return [];
+      const rgb = hexToRgb(ac.hex);
+      if (!rgb) return [];
+      const { h, s, l } = rgbToHsl(rgb.r, rgb.g, rgb.b);
+      const extracted: ExtractedColor = {
+        hex: ac.hex,
+        r: rgb.r, g: rgb.g, b: rgb.b,
+        h, s, l,
+        count: 0,
+        percentage: 0,
+      };
+      return [{
+        extracted,
+        archiveId: ac.id,
+        archiveName: ac.name,
+        archiveHex: ac.hex,
+        distance: 0,
+      }];
+    });
+    if (reconstructed.length > 0) {
+      setMatchedColors(reconstructed);
+      setExtractedColors(reconstructed.map((m) => m.extracted));
+      setIsSharedView(true);
+      const url = `/image-palette/?ids=${idList.join(",")}`;
+      setShareUrl(url);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleFile = useCallback((file: File) => {
     if (!file.type.startsWith("image/")) {
@@ -336,6 +427,26 @@ export function ImagePalettePage() {
     () => (extractedColors.length > 0 ? formatForExport(extractedColors, exportFormat) : ""),
     [extractedColors, exportFormat]
   );
+
+  const handleDownloadSvg = useCallback(() => {
+    const svg = generatePaletteSvg(matchedColors);
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "colorarchive-palette.svg";
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [matchedColors]);
+
+  const xShareText = useMemo(() => {
+    if (!shareUrl || matchedColors.length === 0) return "";
+    const names = matchedColors
+      .map((m) => m.archiveName ?? m.extracted.hex)
+      .slice(0, 5)
+      .join(" · ");
+    return `My image palette from @ColorArchive ✦ ${names} #colorarchive #colorpalette`;
+  }, [matchedColors, shareUrl]);
 
   const SAMPLE_IMAGES = [
     { label: "Ocean Sunset", url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" },
@@ -511,9 +622,31 @@ export function ImagePalettePage() {
         {/* Results: matched colors detail */}
         {matchedColors.length > 0 && (
           <section>
-            <div className="flex items-center justify-between mb-4">
+            {/* Shared palette banner */}
+            {isSharedView && (
+              <div className="mb-4 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-700 text-sm">
+                <span>Shared palette</span>
+                <span className="text-indigo-400">·</span>
+                <span className="text-indigo-500 text-xs">Upload your own image to extract a new palette</span>
+              </div>
+            )}
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
               <h2 className="text-lg font-semibold text-slate-800">Color Details</h2>
-              <AddMatchesToPaletteButton matchedColors={matchedColors} />
+              <div className="flex flex-wrap items-center gap-2">
+                <AddMatchesToPaletteButton matchedColors={matchedColors} />
+                {shareUrl && (
+                  <>
+                    <ShareLinkButton href={shareUrl} label="Copy link" />
+                    <ShareOnXButton text={xShareText} href={shareUrl} />
+                    <button
+                      onClick={handleDownloadSvg}
+                      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                    >
+                      Download SVG
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {matchedColors.map((mc, i) => {
@@ -526,13 +659,15 @@ export function ImagePalettePage() {
                       className="h-24 w-full relative"
                       style={{ backgroundColor: c.hex }}
                     >
-                      <span
-                        className={`absolute top-2 left-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
-                          isLight ? "bg-black/10 text-black/60" : "bg-white/20 text-white/80"
-                        }`}
-                      >
-                        #{i + 1} · {c.percentage}%
-                      </span>
+                      {!isSharedView && (
+                        <span
+                          className={`absolute top-2 left-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
+                            isLight ? "bg-black/10 text-black/60" : "bg-white/20 text-white/80"
+                          }`}
+                        >
+                          #{i + 1} · {c.percentage}%
+                        </span>
+                      )}
                       <button
                         className={`absolute top-2 right-2 text-xs px-2 py-0.5 rounded-full transition-colors ${
                           isLight
