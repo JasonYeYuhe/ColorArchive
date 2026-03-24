@@ -49,7 +49,7 @@ const QUESTIONS: Question[] = [
     options: [
       { label: { en: "A small, curated palette (5-20 colors)", ja: "少数の厳選パレット（5-20色）" }, scores: { "palette-pack-vol-1": 2, "seasonal-spring-2026": 1 } },
       { label: { en: "A structured brand set (20-50 colors)", ja: "構造化されたブランドセット（20-50色）" }, scores: { "brand-starter-kit": 2, "content-creator-bundle": 1 } },
-      { label: { en: "Everything — the full 2016-color archive", ja: "全部 — 2016色の完全アーカイブ" }, scores: { "complete-archive": 3, "all-access-bundle": 2 } },
+      { label: { en: "Everything — the full 3,000+ color archive", ja: "全部 — 3,000+色の完全アーカイブ" }, scores: { "complete-archive": 3, "all-access-bundle": 2 } },
     ],
   },
   {
@@ -83,7 +83,7 @@ const PACK_META: Record<string, { title: string; desc: LocaleText; href: string;
   "palette-pack-vol-1": { title: "Palette Pack Vol. 1", desc: { en: "A curated starter set with SVG boards, gradient wallpapers, and multi-platform tokens.", ja: "SVGボード、グラデーション壁紙、マルチプラットフォームトークンを含むスターターセット。" }, href: "/packs/palette-pack-vol-1/", accent: "bg-amber-50 border-amber-200/60" },
   "brand-starter-kit": { title: "Brand Color Starter Kit", desc: { en: "Structured brand palettes with usage guides, psychology notes, and mobile tokens.", ja: "使用ガイド、心理学ノート、モバイルトークンを含む構造化されたブランドパレット。" }, href: "/packs/brand-starter-kit/", accent: "bg-rose-50 border-rose-200/60" },
   "content-creator-bundle": { title: "Creator Bundle", desc: { en: "Visual assets, AI prompts, and shareable palette boards for content creators.", ja: "コンテンツクリエイター向けのビジュアル素材、AIプロンプト、共有可能なパレットボード。" }, href: "/packs/content-creator-bundle/", accent: "bg-violet-50 border-violet-200/60" },
-  "complete-archive": { title: "Complete Archive Token Set", desc: { en: "All 2016 colors in 16+ formats including SwiftUI, Android, Flutter, and WCAG reports.", ja: "SwiftUI、Android、Flutter、WCAGレポートを含む16以上の形式で全2016色。" }, href: "/packs/complete-archive/", accent: "bg-sky-50 border-sky-200/60" },
+  "complete-archive": { title: "Complete Archive Token Set", desc: { en: "All 3,000+ colors in 16+ formats including SwiftUI, Android, Flutter, and WCAG reports.", ja: "SwiftUI、Android、Flutter、WCAGレポートを含む16以上の形式で全3,000+色。" }, href: "/packs/complete-archive/", accent: "bg-sky-50 border-sky-200/60" },
   "dark-mode-ui-kit": { title: "Dark Mode UI Kit", desc: { en: "Paired light/dark tokens with WCAG contrast matrices and AA/AAA compliance reports.", ja: "WCAGコントラストマトリックスとAA/AAAコンプライアンスレポートを含む明暗ペアトークン。" }, href: "/packs/dark-mode-ui-kit/", accent: "bg-neutral-100 border-neutral-300/60" },
   "seasonal-spring-2026": { title: "Seasonal: Spring 2026", desc: { en: "Limited spring palettes with mood board notes — lightest entry point.", ja: "ムードボードノート付きの限定スプリングパレット。" }, href: "/packs/seasonal-spring-2026/", accent: "bg-emerald-50 border-emerald-200/60" },
   "all-access-bundle": { title: "All Access Bundle", desc: { en: "Every pack combined at 32% off — the simplest way to get everything.", ja: "全パックを32%割引で — 全てを手に入れる最もシンプルな方法。" }, href: "/packs/all-access-bundle/", accent: "bg-emerald-50 border-emerald-300/40" },

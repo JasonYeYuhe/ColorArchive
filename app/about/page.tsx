@@ -5,7 +5,7 @@ import { SiteHeader } from "@/src/components/site-header";
 export const metadata: Metadata = {
   title: "About ColorArchive",
   description:
-    "ColorArchive is a curated library of 2016 hex color codes for designers and developers. Learn how the archive works, how colors are generated, and what the product layer offers.",
+    "ColorArchive is a curated library of 3,000+ hex color codes for designers and developers. Learn how the archive works, how colors are generated, and what the product layer offers.",
   alternates: {
     canonical: "/about/",
   },

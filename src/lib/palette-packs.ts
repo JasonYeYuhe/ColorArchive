@@ -43,7 +43,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "palette-pack-vol-1",
     title: "Palette Pack Vol. 1",
-    priceHint: "$19",
+    priceHint: "¥980",
     ctaLabel: "Start here",
     tierBadge: "Best starter",
     audience: "Designers and founders who want polished palettes they can apply immediately.",
@@ -122,7 +122,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "brand-starter-kit",
     title: "Brand Color Starter Kit",
-    priceHint: "$49",
+    priceHint: "¥2,480",
     ctaLabel: "Brand & UI",
     tierBadge: "Brand systems",
     audience: "Solo founders, small studios, and landing-page builders who need a coherent starting system.",
@@ -192,7 +192,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "content-creator-bundle",
     title: "Creator Bundle",
-    priceHint: "$29",
+    priceHint: "¥1,480",
     ctaLabel: "For creators",
     tierBadge: "Most shareable",
     audience: "Creators, marketers, and social designers who need visually consistent color sets fast.",
@@ -261,7 +261,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "complete-archive",
     title: "Complete Archive Token Set",
-    priceHint: "$79",
+    priceHint: "¥3,980",
     ctaLabel: "Full archive",
     tierBadge: "Flagship",
     audience: "Design system leads and developers who need a comprehensive, production-ready color token library.",
@@ -356,7 +356,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "dark-mode-ui-kit",
     title: "Dark Mode UI Kit",
-    priceHint: "$29",
+    priceHint: "¥1,480",
     ctaLabel: "Dark mode",
     tierBadge: "Most practical",
     audience: "SaaS builders and product designers who need ready-made light/dark paired token sets.",
@@ -425,7 +425,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "seasonal-spring-2026",
     title: "Seasonal: Spring 2026",
-    priceHint: "$9",
+    priceHint: "¥480",
     ctaLabel: "Spring edition",
     tierBadge: "Limited edition",
     seasonEnds: "2026-06-21",
@@ -493,7 +493,7 @@ export const palettePacks: PalettePack[] = [
   {
     id: "all-access-bundle",
     title: "All Access Bundle",
-    priceHint: "$129",
+    priceHint: "¥5,980",
     ctaLabel: "Best value",
     tierBadge: "Save 40%",
     audience: "Designers and developers who want everything — all 6 packs in one download at a significant discount.",

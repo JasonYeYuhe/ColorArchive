@@ -45,7 +45,7 @@ const FEATURES = [
 ];
 
 const COMPARISON = [
-  { feature: "Browse 2,016 colors", free: true, pro: true },
+  { feature: "Browse 3,000+ colors", free: true, pro: true },
   { feature: "Copy hex / RGB / HSL", free: true, pro: true },
   { feature: "AI generations per day", free: "3 (anonymous) / 10 (signed in)", pro: "Unlimited" },
   { feature: "Export palettes", free: "1 per day", pro: "Unlimited" },
@@ -99,7 +99,7 @@ export function ProPage() {
                 billing === "yearly" ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm" : "text-slate-500 dark:text-slate-400"
               }`}
             >
-              Yearly <span className="text-indigo-600 text-xs font-semibold ml-1">Save 33%</span>
+              Yearly <span className="text-indigo-600 text-xs font-semibold ml-1">Save 31%</span>
             </button>
           </div>
 

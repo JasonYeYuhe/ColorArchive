@@ -5,8 +5,8 @@ import { SiteHeader } from "@/src/components/site-header";
 import { colors } from "@/src/data/colors";
 
 export const metadata: Metadata = {
-  title: "All 2016 Hex Colors",
-  description: "Browse the complete ColorArchive — all 2016 curated hex color codes in a single dense view, organized by hue across the full spectrum.",
+  title: "All 3,000+ Hex Colors",
+  description: "Browse the complete ColorArchive — all 3,000+ curated hex color codes in a single dense view, organized by hue across the full spectrum.",
   alternates: { canonical: "/all-colors/" },
   openGraph: {
     images: ["https://colorarchive.me/og-image-v1.png"],

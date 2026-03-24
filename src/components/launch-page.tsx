@@ -30,7 +30,7 @@ export function LaunchPage() {
           </div>
 
           <h1 className="text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-5xl dark:text-neutral-50">
-            2,016 curated colors.<br />Production-ready tokens.
+            3,000+ curated colors.<br />Production-ready tokens.
           </h1>
 
           <p className="mx-auto mt-5 max-w-xl text-balance text-base leading-7 text-neutral-600 sm:text-lg dark:text-neutral-400">
@@ -66,7 +66,7 @@ export function LaunchPage() {
       {/* Stats */}
       <section className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
         {[
-          { label: "Colors", value: "2,016" },
+          { label: "Colors", value: "3,000+" },
           { label: "Collections", value: String(collections.length) },
           { label: "Export formats", value: "10+" },
           { label: "Token packs", value: String(palettePacks.length) },
