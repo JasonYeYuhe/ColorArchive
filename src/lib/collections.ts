@@ -2973,3 +2973,104 @@ const extraCollections31: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections31);
+
+const extraCollections32: ColorCollection[] = [
+  createCollection(
+    "solar-flare",
+    "Solar Flare",
+    "Maximum-saturation amber, ember, and vivid coral — the palette of solar energy, peak summer intensity, and bold consumer brands that want to register as hot, energetic, and unstoppable.",
+    "Solar flare is built at the highest-energy end of the warm spectrum — colors that read as heat, light, and kinetic energy rather than warmth and comfort. These are not the relaxed ambers of harvest season or the soft corals of skincare; they are the near-neon registers of concentrated sunlight, liquid amber at its most vivid, and the orange-red of flame at its most energetic. Amber-bloom-vivid anchors the palette at maximum amber saturation — a vivid warm orange that reads as molten, electric, and intensely energetic. Amber-dusk-vivid provides a deeper, more bronzed vivid register — the color of concentrated amber at low sun angle, dark enough to have weight and authority but vivid enough to vibrate. Ember-tone-clear gives the cooler, more orange-red register — the specific color of an ember at peak heat, between amber and coral in hue. Citrine-bloom-vivid extends toward the yellow-warm end — a vivid citrine that reads as electric lemon and solar energy, providing the palette's lightest and most energetic point. Coral-radiant-vivid adds the warm pink-orange extension — the vivid coral of heated neon, providing the palette's most saturated warm-pink register.",
+    ["Vivid", "Warm", "Energy"],
+    [
+      "amber-bloom-vivid",
+      "amber-dusk-vivid",
+      "ember-tone-clear",
+      "citrine-bloom-vivid",
+      "coral-radiant-vivid",
+    ],
+    {
+      editorialNote:
+        "Solar flare works for energy drink and functional beverage brands, summer campaigns and seasonal activations, sports nutrition and performance brands, bold consumer technology and gaming brands, and any creative work where visual intensity and energy are primary brand attributes. At this saturation level, the palette requires restraint in deployment — using all five colors simultaneously creates visual fatigue. Best practice: select one or two as dominant, use a third as accent, and deploy the remaining as exception or interaction states. Photography direction: high-key sunlit environments, reflective surfaces, glass and liquid in direct light, motion blur with warm color cast. Typography: bold geometric sans at large scale reads well against these saturated backgrounds.",
+      promptWords: [
+        "energy brand in maximum amber and vivid coral solar palette",
+        "summer campaign in electric amber and vivid ember tones",
+        "bold consumer brand in high-saturation solar flare palette",
+      ],
+      useCases: ["Energy and functional beverage brands", "Sports and performance brands", "Summer seasonal campaigns and activations"],
+    }
+  ),
+  createCollection(
+    "cloud-nine",
+    "Cloud Nine",
+    "The very palest blues, near-whites, and clean cerulean whispers — a palette for minimal digital products, clean interfaces, and brands that want to feel airy, open, and effortlessly light.",
+    "Cloud nine occupies the extreme pale end of the blue-white spectrum — colors so desaturated and light that they read as white until examined closely, with the just-perceptible quality of sky and cloud rather than the visual weight of blue. These are not the vivid blues of ocean or sky at noon; they are the barely-there blues of high overcast, of clean frosted glass, of pale morning sky before the sun has fully risen. Cerulean-whisper-soft provides the palette's foundational tone — a very pale cerulean with just enough blue presence to be perceptible against white, reading as the specific color of clean winter sky in diffused light. Azure-silk-faint extends to an even paler, slightly greener whisper — the color of high-altitude ice haze, barely distinguishable from white but perceptibly distinct. Cerulean-veil-muted gives a slightly more present pale — a whisper of cerulean with a slightly more saturated character that provides definition against the two fainter tones. Cobalt-mist-faint adds a slightly darker, cooler note — a very pale cobalt whisper that provides the palette's deepest tone and allows for subtle hierarchy without visual weight. Cerulean-whisper-muted completes the range with a slightly warmer, more present cerulean that bridges the faintest and most saturated registers.",
+    ["Minimal", "Airy", "Clean"],
+    [
+      "cerulean-whisper-soft",
+      "azure-silk-faint",
+      "cerulean-veil-muted",
+      "cobalt-mist-faint",
+      "cerulean-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "Cloud nine works for minimal SaaS and productivity tools positioning on clarity and focus, cloud computing and infrastructure brands, premium healthcare and wellness digital products, clean consumer technology brands, and any interface or brand system where the surface should feel open, uncluttered, and breathing. The palette requires careful color management in production: very pale blues can shift significantly between screen profiles and print, and the distinctions between tones are subtle enough to collapse under poor display conditions. Design with explicit surface hierarchy in mind — the five tones provide a complete pale surface stack, from near-white to a pale blue that can carry text in the right context. Photography direction: high-key natural light, clean white and glass surfaces, overcast sky environments, minimal product photography on white or very pale backgrounds.",
+      promptWords: [
+        "minimal SaaS dashboard in pale cerulean and clean blue palette",
+        "cloud technology brand in airy whisper blues",
+        "clean healthcare interface in pale azure and frost palette",
+      ],
+      useCases: ["Minimal SaaS and productivity tools", "Cloud computing and infrastructure brands", "Premium healthcare and wellness digital products"],
+    }
+  ),
+  createCollection(
+    "autumn-harvest",
+    "Autumn Harvest",
+    "Deep amber, burnt rust, olive, and garnet — the specific palette of late harvest season: aged oak barrels, the color of dried corn and turning leaves, the particular richness of October afternoons.",
+    "Autumn harvest is built on the deep, saturated warmth of late-season organic materials — colors that have dried, aged, and concentrated over the growing season into their richest and most intense expression. These are not the early autumn colors of fresh orange leaves and bright yellow; they are the late harvest palette of dried grasses, aged wood, preserved fruits, the specific brown-red of turning oak, and the deep olive of spent foliage. Amber-velvet-muted provides the palette's foundational warm amber — a desaturated, muted amber that reads as aged rather than vivid, like amber seen in indirect autumn light through dusty glass. Ember-veil-muted gives the deep rust-copper register — the specific warm brown of dried ember and aged copper, a color that reads as spent and preserved rather than hot and active. Garnet-velvet-soft provides the palette's deepest tone — a soft, muted garnet that reads as concentrated fruit and aged wood, the color of late autumn vineyards and dark harvest produce. Olive-dusk-muted extends to the characteristic muted yellow-green of late-season foliage — dried grass, preserved herb, the specific olive of late-autumn sage after the first frost. Amber-whisper-muted completes the range with a very pale, desaturated amber that reads as dried parchment and aged paper — the palette's lightest and most restrained tone.",
+    ["Autumn", "Harvest", "Warm"],
+    [
+      "amber-velvet-muted",
+      "ember-veil-muted",
+      "garnet-velvet-soft",
+      "olive-dusk-muted",
+      "amber-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "Autumn harvest works for seasonal campaigns (Q4 retail, harvest-season food and beverage), premium food and agricultural brands with a terroir and provenance positioning, heritage craft spirits and wine brands, premium home goods and interior brands with a seasonal warmth character, editorial photography campaigns, and autumn fashion editorial. The palette has natural affinity with premium print and tactile materials — an embossed, letterpress, or foil-stamped execution in these tones on uncoated paper stock aligns with the palette's aged, organic quality. Photography direction: natural autumn light (warm, raking low-angle light), aged materials (wood, stone, paper, ceramic), close-up textures of harvest produce and dried organic materials, interior photography with warm tungsten light in aged wood environments.",
+      promptWords: [
+        "autumn seasonal campaign in deep amber and harvest palette",
+        "premium wine brand in aged amber, garnet and olive autumn tones",
+        "heritage craft spirits brand in autumn harvest palette",
+      ],
+      useCases: ["Seasonal Q4 retail and food campaigns", "Premium wine and craft spirits with harvest character", "Heritage home goods and interior brands with autumn warmth"],
+    }
+  ),
+  createCollection(
+    "northern-winter",
+    "Northern Winter",
+    "Ice blue, pale cerulean, deep indigo, and near-white — the precise color palette of northern latitude winters: the color of ice, frozen water, clear winter sky, and the particular blue-black of a winter night.",
+    "Northern winter is built on the specific color registers of cold-climate winter environments — colors that read as cold, clear, and expansive rather than warm or enclosed. These are not the generic blues of generic 'winter' palettes; they are the precise colors of particular winter experiences: the pale blue of ice at shallow depth, the near-white of fresh snow under overcast sky, the particular dark blue-gray of frozen lake ice, and the deep indigo of northern sky in the hour after sunset when the last warm light has faded and only the cold blue remains. Cerulean-mist-soft anchors the palette at the pale ice-blue register — a very pale, desaturated cerulean that reads as the specific color of thin ice over still water, simultaneously cold and luminous. Cerulean-nocturne-soft provides the deeper, more present blue — the color of clear northern winter sky in the afternoon, saturated enough to read as definitively cold but not so dark as to lose the open, expansive quality. Indigo-dusk-muted gives the palette's deepest, darkest tone — a muted indigo that reads as the specific blue-black of winter night sky just before full dark, heavy and cold but with retained color character rather than neutral darkness. Cerulean-pearl-muted extends to a near-white pale blue — the color of fresh snow in diffused winter light, reading as clean and cold with just-perceptible color. Cobalt-dusk-faint completes the range with a pale, slightly more saturated blue that bridges the very pale and the mid-blue registers.",
+    ["Winter", "Nordic", "Cold"],
+    [
+      "cerulean-mist-soft",
+      "cerulean-nocturne-soft",
+      "indigo-dusk-muted",
+      "cerulean-pearl-muted",
+      "cobalt-dusk-faint",
+    ],
+    {
+      editorialNote:
+        "Northern winter works for Nordic and Scandinavian lifestyle and fashion brands, winter sports and outdoor equipment brands with a cold-climate character, premium skincare and beauty brands positioning on winter, ice, and clean cold environments, winter seasonal campaigns, and any brand or editorial work that wants to evoke the specific quality of northern latitude winters — not generic festive winter but the real cold, clear, austere beauty of high-latitude environments in the dark season. Photography direction: natural winter light (low angle, blue-toned, diffused), ice and snow textures, winter landscapes with emphasis on the specific blues of frozen water and winter sky, interior photography with cool, clean north light. Typography: clean geometric sans at generous weight reads as the correct register — avoid warm serif faces that work against the palette's cold character.",
+      promptWords: [
+        "Nordic winter lifestyle brand in pale cerulean and ice blue palette",
+        "winter sports brand in cold northern winter blue tones",
+        "Scandinavian premium brand in ice blue and deep indigo winter palette",
+      ],
+      useCases: ["Nordic and Scandinavian lifestyle and fashion brands", "Winter sports and cold-climate outdoor brands", "Premium winter skincare and beauty brands"],
+    }
+  ),
+];
+
+collections.push(...extraCollections32);

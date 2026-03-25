@@ -828,6 +828,46 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   neon_spectrum: ["violet", "cobalt", "iris", "teal", "fuchsia"],
   // Metal and patina
   copper_palette: ["ember", "amber", "jade", "teal", "honey"],
+  // Packaging and retail
+  consumer_goods: ["amber", "coral", "cobalt", "ivory", "vivid"],
+  shelf_impact: ["vivid", "coral", "amber", "cobalt", "citrine"],
+  retail_display: ["vivid", "coral", "amber", "cobalt", "citrine"],
+  // Adaptive and dark/light mode
+  adaptive_ui: ["cobalt", "azure", "ink", "ivory", "frost"],
+  dark_light: ["cobalt", "ink", "ivory", "azure", "frost"],
+  mode_switching: ["cobalt", "ink", "ivory", "azure", "shadow"],
+  semantic_token: ["cobalt", "azure", "ivory", "muted", "soft"],
+  // Design tokens and systems
+  variable_color: ["cobalt", "azure", "ivory", "soft", "muted"],
+  component_library: ["cobalt", "azure", "ivory", "ink", "vivid"],
+  // Color forecasting and trends
+  fashion_forecast: ["blush", "coral", "amber", "vivid", "soft"],
+  trend_color: ["vivid", "coral", "amber", "cobalt", "iris"],
+  pantone_year: ["vivid", "coral", "amber", "cobalt", "iris"],
+  color_cycle: ["vivid", "coral", "amber", "cobalt", "iris"],
+  emerging_trend: ["vivid", "coral", "iris", "cobalt", "amber"],
+  // Film and photography grading
+  color_grade: ["amber", "teal", "ink", "shadow", "muted"],
+  cinematic_color: ["amber", "teal", "ink", "shadow", "cobalt"],
+  lut_preset: ["amber", "teal", "ink", "shadow", "cobalt"],
+  split_toning: ["amber", "teal", "shadow", "ink", "cobalt"],
+  // Solar and energy
+  solar_energy: ["amber", "citrine", "vivid", "coral", "ember"],
+  heat_wave: ["ember", "amber", "coral", "vivid", "citrine"],
+  summer_vivid: ["coral", "amber", "vivid", "citrine", "ember"],
+  // Cloud and minimal
+  cloud_minimal: ["cerulean", "azure", "cobalt", "frost", "veil"],
+  airy_space: ["cerulean", "azure", "cobalt", "frost", "whisper"],
+  clean_digital: ["cobalt", "azure", "ivory", "frost", "veil"],
+  // Autumn and harvest
+  harvest_season: ["amber", "sienna", "garnet", "olive", "honey"],
+  autumn_palette: ["amber", "rust", "garnet", "olive", "sienna"],
+  fall_editorial: ["amber", "rust", "garnet", "olive", "sienna"],
+  // Nordic winter
+  nordic_winter: ["cerulean", "indigo", "cobalt", "frost", "azure"],
+  ice_palette: ["cerulean", "azure", "cobalt", "frost", "whisper"],
+  winter_palette: ["cerulean", "azure", "indigo", "cobalt", "frost"],
+  arctic_palette: ["cerulean", "azure", "indigo", "cobalt", "veil"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

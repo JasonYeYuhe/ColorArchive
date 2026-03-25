@@ -9069,3 +9069,212 @@ const extraGuides32: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides32);
+const extraGuides33: LandingGuide[] = [
+  {
+    category: "Packaging Design",
+    slug: "packaging-color-design-guide",
+    title: "Color in Packaging Design: Shelf Psychology and Purchase Triggers",
+    summary:
+      "How consumer packaging color drives attention, category signaling, and purchase decisions — and the design principles that make packaging perform at retail shelf and digital thumbnail scale.",
+    eyebrow: "Shelf Impact",
+    priority: 82,
+    searchIntent: "packaging color design shelf impact consumer packaging color psychology purchase decision packaging design guide",
+    featuredCollectionId: "solar-flare",
+    featuredPackId: "complete-archive",
+    tags: ["Packaging", "Consumer Psychology", "Brand Strategy"],
+    highlights: [
+      "Consumers evaluate fast-moving consumer goods packaging in under three seconds — color must accomplish category identification, brand differentiation, and purchase trigger in a single visual glance.",
+      "Category color codes (green for health, dark for premium) are not rules but conventions — strategic violations can differentiate, but only when the deviation is intentional and legible.",
+      "Contemporary packaging must perform in both physical retail and e-commerce thumbnail environments, which sometimes requires designing separate versions of the same color system.",
+    ],
+    sections: [
+      {
+        heading: "How shelf psychology works",
+        body: "Consumer packaging research consistently finds that purchase decisions for fast-moving consumer goods are made in under three seconds at the point of sale. In this compressed decision window, color communicates category membership (is this the right category?), brand identity (is this the brand I trust?), and product benefit (does this look like it does what I need?) simultaneously. Packaging that requires more than a glance to decode these three things loses to packaging that answers all three immediately. Color is not decorative in this context — it is the primary communication channel.",
+      },
+      {
+        heading: "Category codes and when to break them",
+        body: "Consumer goods categories develop color conventions over decades of market conditioning. Dairy uses white and blue for freshness. Snack foods use orange and red for appetite stimulation. Health products use green for naturalness. Premium products across multiple categories use dark grounds. These conventions create recognition shortcuts for consumers — they allow rapid category identification without conscious thought. Designers can work within category codes to reduce friction or violate them strategically to create differentiation. The rule is that violations must be legible: the consumer must read the deviation as a deliberate brand statement, not as category confusion.",
+      },
+      {
+        heading: "Shelf impact vs. brand harmony",
+        body: "A packaging color that reads as distinctive in a design review can disappear against adjacent products in the actual retail environment. Shelf impact depends on contrast against shelf neighbors, not on color theory in isolation. Best practice is to evaluate packaging color in context — mock up the shelf set with competitive products at realistic scale and evaluate at two to three meters distance. The question is not whether the packaging is visually refined but whether it emerges from its competitive context with clarity and differentiation.",
+      },
+      {
+        heading: "Physical and digital environments",
+        body: "E-commerce has introduced a second critical environment for packaging color: the product thumbnail at small scale on screen. Packaging designed for physical retail — with fine detail and subtle color refinement — often collapses into undifferentiated visual noise as a 200-pixel image. Contemporary packaging design must perform in both environments. Some brands design two versions of the color system: one optimized for physical shelf visibility, one simplified for digital clarity. The brand identity must remain consistent across both, but the execution priorities differ.",
+      },
+    ],
+    links: [
+      { label: "Browse all collections", href: "/collections/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-emotion-guide/" },
+      { label: "Brand Color Guide", href: "/guides/brand-color-psychology-guide/" },
+    ],
+  },
+  {
+    category: "Digital Design",
+    slug: "adaptive-color-systems-guide",
+    title: "Adaptive Color Systems: Building Palettes for Light and Dark Mode",
+    summary:
+      "Building a color system that works in both light and dark modes requires semantic token architecture, surface layer design, and independent accessibility checking for each mode — not palette inversion.",
+    eyebrow: "Dark Mode Design",
+    priority: 88,
+    searchIntent: "dark mode color design adaptive color system light dark mode design tokens semantic color variables dark mode palette guide",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Dark Mode", "Design Systems", "Digital Design"],
+    highlights: [
+      "A palette designed for light mode does not invert to dark mode — contrast relationships, saturation, and surface layering all require independent design decisions for each mode.",
+      "Semantic tokens (surface-primary, text-default) are the architectural foundation of adaptive systems — they define roles that hold the same structural meaning across both modes.",
+      "Brand colors rarely translate directly between modes without adjustment; full-saturation brand colors often read as harsh on dark backgrounds and need a lighter, slightly desaturated dark-mode variant.",
+    ],
+    sections: [
+      {
+        heading: "Why inversion fails",
+        body: "The naive approach to dark mode — inverting the light palette — fails because color perception is not symmetric. Colors that are muted and restrained on a white background appear vivid and aggressive on a dark background. Contrast relationships that work in light mode may be insufficient or excessive in dark mode. The elevated surface stack works through adding gray in light mode and adding white in dark mode — the same operation in opposite directions. An effective adaptive color system must be designed for both contexts independently, with a shared token architecture that allows controlled variation rather than automatic inversion.",
+      },
+      {
+        heading: "Semantic tokens as the foundation",
+        body: "The structural foundation of an adaptive color system is the semantic token layer. Semantic tokens define color roles — surface-primary, text-default, border-subtle, action-primary — without encoding specific color values. The values assigned to these roles change per mode, while the component code that consumes the tokens remains unchanged. This architecture means a dark mode implementation requires only new token value assignments, not component rewrites. Every adaptive color system should start with a complete semantic token inventory before assigning any specific color values.",
+      },
+      {
+        heading: "Surface elevation in dark mode",
+        body: "The surface elevation system — how background, cards, modals, and overlays are differentiated — works differently in dark mode. In light mode, elevated surfaces are lighter than the base background (adding gray to white). In dark mode, elevated surfaces are lighter than the dark base (adding white to dark). Material Design popularized this convention with its 'overlay' model: each elevation level applies a white overlay at increasing opacity over the base dark color. The practical effect is that in both modes, elevated surfaces appear lighter than their parent surface, consistent with real-world lighting conventions.",
+      },
+      {
+        heading: "Accessibility in adaptive systems",
+        body: "Accessibility evaluation must be performed independently for both modes. A text-on-background combination that passes WCAG 4.5:1 in light mode may fail in dark mode if the dark-mode token values were chosen by visual judgment rather than computed contrast. The practical requirement is automated contrast checking against both token sets as part of the build or design review process. Any failure in either mode should be treated as a blocking issue. Some teams run contrast checks as part of CI — any token change that introduces a contrast failure blocks the pull request.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "WCAG Contrast Checker", href: "/tools/contrast/" },
+      { label: "Color Accessibility Guide", href: "/guides/color-accessibility-design-guide/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "design-tokens-color-guide",
+    title: "Design Token Architecture for Color: Building Scalable, Maintainable Systems",
+    summary:
+      "A well-structured token architecture makes color systems easier to maintain, theme, and evolve. The three-tier model — primitive, semantic, component — provides the foundation for color systems that survive rebrands, multi-theme requirements, and team scale.",
+    eyebrow: "Token Architecture",
+    priority: 85,
+    searchIntent: "design tokens color design system token architecture semantic tokens primitive tokens color variables figma tokens design system color guide",
+    featuredCollectionId: "data-dashboard",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Design Tokens", "Design Systems", "Architecture"],
+    highlights: [
+      "The three-tier token architecture (primitive → semantic → component) enables brand refreshes through a single file change — components never reference raw color values, only roles.",
+      "Token naming should encode design intention (action-primary, surface-default) rather than color values (blue-500, gray-100) — names should communicate what a token is for, not what color it currently holds.",
+      "Figma Variables and automated token pipelines enable bidirectional sync between design files and production code — eliminating the translation errors that occur when developers manually transcribe color values.",
+    ],
+    sections: [
+      {
+        heading: "The three-tier model",
+        body: "Color token architecture organizes tokens into three tiers. The primitive tier holds raw color values with no semantic meaning — cobalt-500, amber-300, neutral-100. The semantic tier maps primitives to roles — text-primary maps to neutral-900, surface-default maps to neutral-50, action-primary maps to cobalt-500. The component tier maps semantic tokens to specific UI elements — button-background maps to action-primary, card-border maps to border-subtle. When the brand palette changes, only the semantic-to-primitive mapping needs to update. Component code is never touched. This architecture requires more upfront structure but creates dramatically lower maintenance cost over a system's lifetime.",
+      },
+      {
+        heading: "Token naming principles",
+        body: "Token naming is a consequential design decision that most teams underestimate. Names that encode color values (gray-100, blue-500) are quick to define but create ambiguity about intent — the same blue-500 might be used as an action color in buttons and as a decorative color in illustrations, and the name provides no guidance about which uses are correct. Names that encode role (action-primary, interactive-default, text-heading) communicate intent precisely but can become verbose. The practical rule: semantic and component tokens should have role-based names; primitive tokens can have value-based names since they carry no intent themselves.",
+      },
+      {
+        heading: "Multi-mode and multi-theme support",
+        body: "The semantic tier is where theme variation lives. For dark mode, define an alternate semantic-to-primitive mapping that uses different primitive values for the same roles: surface-default maps to neutral-900 in dark mode instead of neutral-50. For brand variants or white-label products, define alternate primitive tiers with different hue families, with the semantic and component tiers remaining unchanged. This architecture means a single component codebase can support unlimited visual variations through token set switching — a significant maintenance advantage over component-level theming.",
+      },
+      {
+        heading: "Tooling and pipeline",
+        body: "Figma Variables (native) and Tokens Studio (plugin) are the primary tools for managing token systems in design files. Both support multi-mode definitions and JSON export. The critical engineering requirement is an automated pipeline from token JSON to production code — a build step that converts token definitions into CSS custom properties, Tailwind configuration, or framework-specific variables. Any change in the design file should propagate to production automatically. Manual transcription of token values from design tools to code is a reliability and velocity liability that the pipeline eliminates.",
+      },
+    ],
+    links: [
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "WCAG Audit Tool", href: "/tools/wcag-audit/" },
+      { label: "Adaptive Color Guide", href: "/guides/adaptive-color-systems-guide/" },
+    ],
+  },
+  {
+    category: "Brand Strategy",
+    slug: "color-trend-forecasting-guide",
+    title: "Color Trend Forecasting: How to Read Trends and Use Them Strategically",
+    summary:
+      "Color forecasting operates 18-24 months ahead of consumer markets. Understanding the forecasting process helps designers evaluate trend signals critically — distinguishing structurally durable trends from noise and making informed adoption decisions.",
+    eyebrow: "Trend Intelligence",
+    priority: 80,
+    searchIntent: "color trend forecasting pantone color of the year color trends 2025 2026 color forecast design trends color trend guide",
+    featuredCollectionId: "morning-light",
+    featuredPackId: "complete-archive",
+    tags: ["Trends", "Color Forecasting", "Brand Strategy"],
+    highlights: [
+      "Major color forecasters work 18-24 months ahead of consumer markets — by the time a trend reaches peak mainstream visibility, design leaders have been tracking it for over a year.",
+      "The Pantone Color of the Year announcement marks peak adoption, not emergence — colors that appear in mass retail have already been saturating the professional design market for 12+ months.",
+      "Structurally durable trends are tied to material properties or demographic shifts; event-driven trends (a film, a viral moment) peak quickly and fade within a single season.",
+    ],
+    sections: [
+      {
+        heading: "How forecasting works",
+        body: "Color forecasting is a research discipline that synthesizes input from fashion weeks, art fairs, street style documentation, social trend analysis, economic indicators, and historical color cycle data to project which colors will resonate with consumers 18-24 months ahead. The major forecasting organizations — Pantone Color Institute, WGSN, Coloro — each use proprietary methodologies, but the core inputs overlap considerably. The organizations are looking for colors that appear across multiple categories simultaneously (fashion, interiors, food, technology) because cross-category emergence suggests broad cultural resonance rather than a single-category trend.",
+      },
+      {
+        heading: "The Pantone Color of the Year mechanism",
+        body: "The Pantone Color of the Year process illustrates how institutional forecasting creates market outcomes. The team documents colors emerging across art, food, architecture, interiors, and fashion, identifies candidates with cross-category resonance, and announces the chosen color in December for the following year. The announcement itself creates a self-fulfilling market effect: brands producing merchandise in that color generate press cycle revenue, and the high-profile alignment of multiple premium brands around a single color normalizes it across the market within twelve months. Designers who understand this mechanism can use it strategically — the announcement marks peak mainstream adoption, not trend emergence.",
+      },
+      {
+        heading: "Reading trend durability",
+        body: "Not all trend signals have equal durability. Colors grounded in material properties — the specific amber of resin, the particular teal of oxidized copper, the natural browns of sustainable materials — tend to have longer relevance windows because they are tied to enduring material culture. Colors driven by a single cultural event (a film, a viral social post, a celebrity look) peak and fade quickly, often within a single season. Colors that align with structural demographic or behavioral shifts — the greens associated with sustainability values, the deep blues associated with digital fatigue and attention to rest — maintain relevance across multiple seasons because the underlying driver is structural.",
+      },
+      {
+        heading: "Practical adoption strategy",
+        body: "For most design teams, the practical relationship to trend forecasting is informed awareness rather than alignment. Understanding where a color sits in its trend cycle — emerging, rising, peak, saturating, declining — enables conscious choices about adoption timing. Using an emerging color creates freshness but requires confidence that the trend has structural support. Using a peak color creates contemporaneity at the cost of near-term differentiation. Using a declining color creates associations with a specific past moment. All three positions are valid strategic choices. The mistake is adoption without awareness — defaulting to a trending color because it appears in Figma community resources without understanding where it sits in its cycle.",
+      },
+    ],
+    links: [
+      { label: "Browse Collections", href: "/collections/" },
+      { label: "Brand Color Guide", href: "/guides/brand-color-psychology-guide/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-emotion-guide/" },
+    ],
+  },
+  {
+    category: "Photography",
+    slug: "color-grading-photography-guide",
+    title: "Color Grading for Designers: Visual Tone, Film Looks, and Photography Direction",
+    summary:
+      "Color grading — the post-production adjustment of color and tone in photography and film — is a design discipline with a precise vocabulary. Understanding grading principles gives designers better tools for directing photography, specifying visual tone, and coordinating color across image and UI.",
+    eyebrow: "Visual Tone",
+    priority: 78,
+    searchIntent: "color grading photography film look visual tone LUT presets photo editing color correction photography color guide cinematic color",
+    featuredCollectionId: "golden-harvest",
+    featuredPackId: "complete-archive",
+    tags: ["Photography", "Color Grading", "Visual Media"],
+    highlights: [
+      "Shadow lift — raising the black point so shadows are a slightly elevated dark value rather than pure black — is the single characteristic that most distinguishes the 'film look' from digital photography.",
+      "The teal-and-orange grade that dominated Hollywood from 2007 onward works because teal is complementary to the orange of human skin tones, creating maximum contrast between subjects and backgrounds.",
+      "LUTs (Look-Up Tables) allow non-specialist designers to apply complex color grades to photography as a single import — enabling art directors to specify visual tone precisely without grading expertise.",
+    ],
+    sections: [
+      {
+        heading: "The vocabulary of color grading",
+        body: "Color grading operates on three tonal ranges independently: shadows (the darkest tones), midtones (the middle range), and highlights (the brightest tones). Each range can be adjusted in luminance (how bright) and color (what hue cast). The four primary controls in most grading tools are lift (raises or lowers the shadow floor), gamma (adjusts midtone brightness), gain (adjusts highlight brightness), and saturation (the global intensity of color). Understanding these controls provides a precise vocabulary for communicating with photographers and retouchers — specifying 'warm lifted shadows, muted midtones, slightly cooled highlights' is a complete technical brief that a colorist can implement without interpretation.",
+      },
+      {
+        heading: "The film look and shadow lift",
+        body: "The 'film look' that became dominant in digital photography from roughly 2010 — and subsequently in social media aesthetics and branded photography — is characterized primarily by lifted shadows. Film emulsion has a physical characteristic called 'base density' that prevents it from recording pure black; the darkest areas of a film frame are a slightly elevated dark value, not absolute black. Digital sensors capture pure black easily, which reads as harsh and overly precise to eyes conditioned on film. Shadow lift — intentionally raising the black point to simulate film's base density — is the single most recognizable characteristic of the film-inspired aesthetic that still dominates premium commercial photography.",
+      },
+      {
+        heading: "The teal-and-orange grade",
+        body: "The teal-and-orange grade that became ubiquitous in Hollywood action films from 2007 (Iron Man, The Dark Knight) and in digital photography subsequently exploits a specific perceptual property: teal is the complement of the orange of human skin tones. The grade pushes highlights and midtones toward orange (warming skin) while pushing shadows toward teal (cooling backgrounds), creating maximum contrast between human subjects and environmental backgrounds. The practical result is that human subjects read more prominently even in visually complex scenes. Understanding the mechanism allows designers to use or avoid the grade deliberately — and to recognize that its cultural saturation (it now signals 'generic Hollywood blockbuster') may or may not serve a specific brand's visual identity.",
+      },
+      {
+        heading: "Using LUTs for photography direction",
+        body: "LUTs (Look-Up Tables) encode complete color transforms as importable files — a single file that shifts an image's color relationships to match a specific visual style. Professional LUTs developed by colorists are widely available and allow photographers and designers without specialist training to apply sophisticated grades. For art directors, LUTs enable a precise briefing mechanism: provide the photographer with a target LUT during the shoot so they can preview the graded result in real time. This eliminates the ambiguity in briefs that use vague terms like 'warm' or 'cinematic' — the LUT specifies the visual target precisely, and the photographer can adjust lighting and composition to optimize for the graded result.",
+      },
+    ],
+    links: [
+      { label: "Browse Color Families", href: "/colors/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-emotion-guide/" },
+      { label: "Golden Harvest Collection", href: "/collections/golden-harvest/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides33);
