@@ -8019,3 +8019,213 @@ const extraGuides27: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides27);
+
+const extraGuides28: LandingGuide[] = [
+  {
+    category: "Environmental Design",
+    slug: "wayfinding-color-guide",
+    title: "Color in Wayfinding: Legibility, Accessibility, and Navigation at Scale",
+    summary:
+      "Signage and wayfinding systems have fundamentally different color requirements from screen interfaces. Environmental contrast, glance legibility, and permanent installation change everything.",
+    eyebrow: "Specialized Color",
+    priority: 72,
+    searchIntent: "wayfinding color signage color system transit map color environmental design color accessibility",
+    featuredCollectionId: "cobalt-system",
+    featuredPackId: "complete-archive",
+    tags: ["Wayfinding", "Accessibility", "Environmental Design"],
+    highlights: [
+      "Wayfinding color requires maximum distinctiveness between system categories, not just sufficient contrast against background — similar hues for different zones create classification errors.",
+      "Color-blind accessibility in wayfinding requires redundant encoding: shape, pattern, or letter alongside color, since color cannot be the sole distinguishing variable.",
+      "Physical color specifications must include ambient lighting context and material-specific standards with Delta-E acceptance tolerances — hex codes are insufficient for environmental installation.",
+    ],
+    sections: [
+      {
+        heading: "Environmental color constraints",
+        body: "Wayfinding color operates under constraints that most UI designers rarely consider: the color must work in direct sunlight, under fluorescent lighting, and in dim corridor environments. It must read from 30 meters and 30 centimeters. And once installed in a public building or transit system, it cannot be updated through a sprint cycle. This permanence fundamentally changes the design process — wayfinding color decisions require more rigorous validation before installation than screen design decisions, because the cost of error is measured in years and capital budgets rather than deployment cycles.",
+      },
+      {
+        heading: "Category distinctiveness over contrast ratios",
+        body: "The legibility hierarchy in wayfinding is inverted from typical UI hierarchy. In a software interface, the primary action should be most visually prominent. In wayfinding, system categories must be most prominent — the color associated with each zone or function must be instantly retrievable from memory after repeated encounters. This requires hues that are maximally distinctive from each other across the full set, not just distinctively different from white or black backgrounds. Transit systems that use similar-family colors (navy, cobalt, royal blue) for different lines create cognitive load at the classification step even if each individual color passes contrast ratios. The London Underground's palette works because its line colors are categorically distinct, not just individually legible.",
+      },
+      {
+        heading: "Accessible wayfinding beyond WCAG",
+        body: "WCAG contrast specifies minimum contrast for text on background. It does not address the wayfinding problem of distinguishing two colored paths on a map or two colored bands on a sign. Color-blind users navigating a coded system need redundant encoding: shape, pattern, or letter coding alongside color. In a color-coded floor system, each floor should have both a distinct color and a distinct pattern fill or numeral — the color serves sighted users reading at a glance, while the letter or pattern serves color-blind users who need the same information. Never rely on color as the only distinguishing variable in a wayfinding system.",
+      },
+      {
+        heading: "Material-specific color specification",
+        body: "A color specified in hex or Pantone must be re-specified for every substrate it will appear on in a wayfinding system. The same Pantone value appears differently on printed signage, backlit display panels, digital kiosks, and painted wall sections due to different light emission and reflection properties. Comprehensive wayfinding specifications include material-specific color standards, ambient lighting context for the installation environment, and acceptance tolerance ranges in Delta-E units for physical installation review. Skipping this step produces visually inconsistent systems where nominally identical colors look mismatched across material types.",
+      },
+    ],
+    links: [
+      { label: "Color accessibility auditor", href: "/wcag-audit/" },
+      { label: "Color combinations library", href: "/combinations/" },
+      { label: "Browse all colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Brand Design",
+    slug: "luxury-brand-color-guide",
+    title: "Luxury Brand Color: Restraint, Heritage, and the Logic of Exclusivity",
+    summary:
+      "Luxury brands use color differently from mass market and premium brands. Understanding the logic of brand-specific color equity, materiality signals, and why generic sophistication is a dead end.",
+    eyebrow: "Brand Color",
+    priority: 74,
+    searchIntent: "luxury brand color premium brand color color exclusivity brand color equity heritage color",
+    featuredCollectionId: "pearl-oyster",
+    featuredPackId: "complete-archive",
+    tags: ["Luxury", "Brand Identity", "Color Strategy"],
+    highlights: [
+      "Genuine luxury color logic is built on specificity and repeatability over decades, not on maximum psychological impact or intrinsic color associations.",
+      "Black and gold signal aspirational positioning, not authentic luxury — they are generic because every aspirational brand defaults to them, which is precisely why mature luxury brands avoid them.",
+      "Materiality signals — warm off-whites, muted warm grays, matte surfaces — encode quality associations by approximating the light behavior of premium physical materials in digital contexts.",
+    ],
+    sections: [
+      {
+        heading: "Brand equity vs. color psychology",
+        body: "The primary color logic in genuine luxury is restraint and specificity, not richness or psychological trigger. Hermes orange, Cartier red, and Tiffany blue are not chosen for maximum psychological impact. They are chosen for distinctiveness and repeatability. The brand color becomes valuable through consistent application over decades, not through intrinsic color psychology. This inverts the mass market logic: mass market brands choose colors for maximum impact and broad recognition, while luxury brands build equity through specificity and consistency. The result is that a Hermes orange box communicates luxury not because orange is luxurious but because the specific orange is unmistakably one brand.",
+      },
+      {
+        heading: "Why black and gold fail as luxury signals",
+        body: "Black and gold are not luxury colors — they are the visual vocabulary of aspirational brands that have not yet built distinctive color equity. Black carries sophistication because it is neutral. Gold carries luxury because of its material referent. But both are generic. Every mid-tier hotel, every new premium food brand, and every aspirational beauty product defaults to black and gold because it reads as luxury to a broad and relatively undiscriminating audience. This ubiquity is exactly why mature luxury brands avoid it: the combination signals 'trying to look luxury' rather than 'we are luxury.' Chanel uses black and white, but with such specificity and consistency that the palette is unmistakably Chanel, not generic sophistication.",
+      },
+      {
+        heading: "Materiality as a color signal",
+        body: "Luxury color operates through a secondary signal system most designers are not explicitly taught: materiality encoding. The physical materials associated with luxury categories — unbleached linen, aged leather, polished stone, matte ceramic, raw brass — have specific color values that create mental associations with quality and craft. When a luxury brand uses warm off-whites rather than pure white, warm grays with yellow or brown undertones rather than neutral cool gray, and matte surface treatments over glossy, it is encoding materiality signals into the digital or print representation. These choices collectively read as physical quality because they approximate the light-scattering behavior of premium physical materials in two-dimensional contexts.",
+      },
+      {
+        heading: "Protecting heritage color equity",
+        body: "Heritage colors are valuable intangible assets. The specific LAB or LCH value of a brand's signature color, measured and archived, is as important as the trademark registration. Brands that let color drift through inconsistent application across digital, print, and physical touchpoints degrade the equity they have built. Luxury brand color management at the enterprise level requires regular color audits across all touchpoints, explicit Delta-E acceptance tolerances for production materials, and documented color authority defining which team or role has final approval on color matches across media and materials.",
+      },
+    ],
+    links: [
+      { label: "Pearl Oyster collection", href: "/collections/pearl-oyster/" },
+      { label: "Color combinations library", href: "/combinations/" },
+      { label: "Export palettes", href: "/palette-builder/" },
+    ],
+  },
+  {
+    category: "Data Visualization",
+    slug: "data-visualization-color-guide",
+    title: "Color Scales for Data Visualization: Sequential, Diverging, and Categorical",
+    summary:
+      "The choice between sequential, diverging, and categorical color scales is one of the highest-leverage color decisions in data visualization. Getting it wrong systematically misleads readers.",
+    eyebrow: "Data & Color",
+    priority: 76,
+    searchIntent: "data visualization color chart color scale sequential diverging categorical color accessibility color blindness dataviz",
+    featuredCollectionId: "cobalt-system",
+    featuredPackId: "complete-archive",
+    tags: ["Data Visualization", "Color Science", "Accessibility"],
+    highlights: [
+      "Sequential scales encode ordered data: use single-hue progressions from light to saturated, constructed in OKLCH for perceptually consistent lightness steps.",
+      "Diverging scales require a meaningful midpoint — never apply a diverging scale to data without a true zero or neutral value, as it creates false emphasis on the middle range.",
+      "Categorical scales require maximum distinctiveness between classes, not ordered progression — similar hues for different categories imply a false ordinal relationship.",
+    ],
+    sections: [
+      {
+        heading: "Sequential scales: encoding ordered magnitude",
+        body: "Sequential color scales encode a single ordered dimension: more of something is represented by more of a visual property. In a well-designed sequential scale, darker or more saturated means more. The most legible sequential scales move from a near-neutral light value to a single saturated hue at the high end. Single-hue sequential scales are interpretable by color-blind readers and work well in print. Multi-hue sequential scales (yellow to green to blue) can encode a wider value range with more perceptual steps, but require careful construction to maintain perceptual ordering — the human visual system does not automatically see multi-hue progressions as ordered the way it sees single-hue progressions. The OKLCH color space produces sequential scales with more consistent perceptual lightness steps than sRGB, which matters for accurate data encoding.",
+      },
+      {
+        heading: "Diverging scales: encoding deviation from a midpoint",
+        body: "Diverging scales encode data that has a meaningful midpoint: a zero value, a neutral value, or a target. A temperature anomaly map (departures from average) should be diverging. A sentiment score from -10 to +10 should be diverging. A range from 0 to 100 with no meaningful midpoint should not — using a diverging scale on data without a true midpoint introduces false emphasis on whatever value falls in the middle of the range. The canonical diverging scale architecture uses two distinct hues at the extremes with a near-white or neutral midpoint. The two hue families should be visually equidistant from neutral, which requires careful construction — many default diverging palettes have imbalanced saturation at the extremes, making one tail appear more extreme than the other.",
+      },
+      {
+        heading: "Categorical scales: encoding discrete classes",
+        body: "Categorical scales encode discrete classes with no ordinal relationship. The requirement is maximum distinctiveness between classes rather than ordered progression. Categorical scales fail when they use similar hues for different categories: a map with five shades of blue for five categories uses a sequential encoding for categorical data, which incorrectly implies that the categories are ordered along some dimension. The practical maximum for distinguishable categorical colors in typical data visualization is eight to twelve. Beyond that, patterns, shapes, or text labels are needed because human visual discrimination cannot reliably distinguish more hue classes in dense visualization contexts.",
+      },
+      {
+        heading: "Accessibility in data visualization color",
+        body: "Functional accessibility requires testing with simulated color vision deficiency, not just WCAG contrast ratios. Deuteranopia (the most common form of red-green color blindness) collapses many green and red colors into the same perceived range, making standard traffic-light status color systems unreadable without other distinguishing properties. The fix is to add luminance contrast between the green and red levels so they are distinguishable by lightness value even when hue information is lost. For general two-color systems, blue-orange is a more accessible alternative to red-green. For sequential scales, test that the progression reads as ordered under deuteranopia and protanopia simulation — some multi-hue scales that appear progressive to trichromats appear non-ordered or reversed to color-blind readers.",
+      },
+    ],
+    links: [
+      { label: "WCAG contrast auditor", href: "/wcag-audit/" },
+      { label: "Color combinations library", href: "/combinations/" },
+      { label: "Browse all colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Packaging Design",
+    slug: "packaging-color-guide",
+    title: "Packaging Color: Shelf Presence, Category Conventions, and Material Finish",
+    summary:
+      "Packaging color must work at shelf scale, communicate category membership, and differentiate from direct competitors simultaneously. The principles differ from screen design in almost every dimension.",
+    eyebrow: "Applied Color",
+    priority: 73,
+    searchIntent: "packaging color design product packaging color retail color shelf impact packaging design color conventions",
+    featuredCollectionId: "spring-herb",
+    featuredPackId: "complete-archive",
+    tags: ["Packaging", "Retail", "Product Design"],
+    highlights: [
+      "Category color conventions exist because they communicate membership to shoppers scanning shelves — new entrants should differentiate through accent color and finish rather than full palette rebellion.",
+      "Finish quality (matte, spot UV, soft-touch) often communicates premium positioning more powerfully than hue choice, and the effect is lost in photography.",
+      "Material color must be separately specified for each substrate — the same Pantone value appears differently on matte cardboard, coated gloss, kraft board, and metallized film.",
+    ],
+    sections: [
+      {
+        heading: "Shelf legibility and viewing conditions",
+        body: "Packaging color operates under simultaneous constraints that screen design does not: it must work at 3 meters distance, from a 90-degree side angle, in variable retail lighting ranging from warm incandescent in specialty retail to cool fluorescent in supermarkets, and in direct visual competition with adjacent products. The color decision that works in isolation in a design review may fail at shelf when placed next to the competitive context it will actually appear in. Proper packaging color evaluation requires a shelf simulation: mock-up at scale, placed in a competitive context, viewed under relevant retail lighting conditions.",
+      },
+      {
+        heading: "Category color conventions",
+        body: "FMCG categories have strong color conventions established through decades of retail evolution: dark roasted coffee uses dark brown and black, organic and natural food uses kraft and earthy green, premium dairy uses deep blue or white, household cleaning uses bright blue and yellow. These conventions communicate category membership to shoppers scanning shelves without consciously reading labels. Breaking category conventions requires deliberate differentiation investment: the brand must actively teach the new association rather than borrowing existing category memory. New entrants should use category-aligned color as a baseline and differentiate through secondary accent color, typography, or finish quality rather than full palette rebellion, unless the differentiation argument is the explicit brand premise.",
+      },
+      {
+        heading: "Material-specific color specification",
+        body: "A color specified in hex or Pantone must be separately specified for every physical substrate it will appear on. The same Pantone 485 red appears distinctly different on matte white cardboard, coated gloss white cardboard, natural kraft board, and metallized film due to different light reflection and absorption properties. Premium packaging production includes material sampling rounds and color approval against specified Delta-E acceptance tolerances before full production. Skipping this step produces color drift across a product range: nominally identical specifications that visually mismatch at retail.",
+      },
+      {
+        heading: "Finish as a premium signal",
+        body: "Finish quality often communicates premium positioning more powerfully than hue choice, and this effect is invisible in photography. Matte finishes, spot UV varnish, soft-touch coatings, embossing, and foil stamping signal quality through tactile and visual surface properties that persist across different hue choices. A dark green package with matte finish and embossed logo reads as premium. The same green with standard gloss finish reads as mid-range. This is why packaging design work must be evaluated through physical prototypes rather than digital renderings — the material dimension collapses in photography, removing the primary signal that distinguishes premium packaging from lower-quality imitations.",
+      },
+    ],
+    links: [
+      { label: "Spring Herb collection", href: "/collections/spring-herb/" },
+      { label: "Color family explorer", href: "/colors/" },
+      { label: "Export palettes", href: "/palette-builder/" },
+    ],
+  },
+  {
+    category: "Brand Design",
+    slug: "sustainable-brand-color-guide",
+    title: "Sustainable Brand Color: Authentic Environmental Signals vs. Greenwashing Aesthetics",
+    summary:
+      "The natural palette — kraft, earthy green, muted neutrals — has been so widely adopted that it has decoupled from actual sustainability credentials. How to build brand color that communicates authentically.",
+    eyebrow: "Brand Color",
+    priority: 71,
+    searchIntent: "sustainable brand color green brand design eco brand color environmental design greenwashing color natural palette",
+    featuredCollectionId: "coastal-sage",
+    featuredPackId: "complete-archive",
+    tags: ["Sustainability", "Brand Identity", "Color Strategy"],
+    highlights: [
+      "The natural aesthetic (kraft, earthy green, muted tones) now has negative evidentiary value for sustainability claims — it signals design familiarity with category aesthetics, not environmental credentials.",
+      "Authentic sustainable color should be anchored in something specific and verifiable: supply chain origins, certified material colors, or documented production context.",
+      "Vivid colors are not incompatible with sustainability positioning — some of the most credible environmental brands use bold color precisely to break from the generic natural aesthetic.",
+    ],
+    sections: [
+      {
+        heading: "When aesthetics decouple from credentials",
+        body: "Sustainability aesthetics and actual environmental credentials are now substantially decoupled. Kraft packaging, natural green palettes, botanical illustration, and lowercase sans-serif typography are deployed across the full spectrum from genuinely certified sustainable operations to companies with minimal environmental commitments beyond the marketing presentation. The visual language of sustainability was originally functional: unbleached kraft has a natural color because it is not bleached; earthy tones were associated with natural materials because those are the actual colors of unprocessed natural materials. As the aesthetic became desirable, it was adopted as a styled choice by brands with no production constraint requiring it. The result is that the natural aesthetic now tells you a brand has hired a designer familiar with current category trends, not that the brand has meaningful environmental credentials.",
+      },
+      {
+        heading: "Specificity as the differentiator",
+        body: "Authentic sustainable brand color should be anchored in something specific and verifiable rather than generic natural aesthetics. A brand whose primary sustainable credential is recycled ocean plastic can anchor its color story to the ocean context specifically: blues and greens with material referents connecting to the actual supply chain. A brand with certified regenerative agricultural sourcing can use the specific soil and crop colors tied to the landscapes they work with. A certified B Corporation can use the documentation and audit relationship as the anchor for any environmental color claims. Specificity distinguishes authentic from performative: generic kraft-and-green reads as aesthetic sustainability, while a color story anchored in documented production context reads as earned.",
+      },
+      {
+        heading: "Vivid color and sustainability",
+        body: "Vivid colors are not incompatible with sustainability positioning. The assumption that sustainable brands must use muted, earthy, or natural palettes is a convention created by the aestheticization of the natural look, not by any underlying logic about sustainability communication. Some of the most credible environmental organizations use vivid, high-energy color precisely because it breaks the connection with the generic natural aesthetic — the brand is making an argument about performance and effectiveness rather than about looking as if it was grown in a field. A bold, saturated color choice backed by genuine certifications communicates more credibility than a natural palette deployed without substantive credential.",
+      },
+      {
+        heading: "Regulatory and reputational risk",
+        body: "Color credibility in sustainability contexts is increasingly scrutinized by informed consumers, journalists, and regulators. Greenwashing enforcement is expanding in multiple jurisdictions, with specific attention to visual and messaging cues that create misleading environmental impressions. The combination of natural-aesthetic palette with weak or misleading environmental claims is a recognized greenwashing pattern. Brands using sustainability aesthetics should ensure the visual positioning is backed by substantive claims — third-party certifications, specific reduction metrics, transparent supply chain reporting — so that the aesthetic is earned rather than borrowed. The visual language of sustainability will eventually be recalibrated around this more demanding standard as the category matures.",
+      },
+    ],
+    links: [
+      { label: "Coastal Sage collection", href: "/collections/coastal-sage/" },
+      { label: "Spring Herb collection", href: "/collections/spring-herb/" },
+      { label: "Browse green colors", href: "/colors/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides28);

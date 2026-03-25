@@ -2468,3 +2468,104 @@ const extraCollections26: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections26);
+
+const extraCollections27: ColorCollection[] = [
+  createCollection(
+    "platinum-edge",
+    "Platinum Edge",
+    "Cool blue-gray and near-neutral silver tones for precision technology, luxury hardware, and automotive brands.",
+    "Platinum edge is drawn from the cool-gray end of the chromatic spectrum — not the warm neutral of Scandinavian minimalism, but the colder, more technical register of precision manufacturing and luxury hardware. The palette lives in the space between pure neutral gray and a trace of blue or indigo, giving every tone a sense of engineered specificity. Slate-whisper-muted opens the palette at its lightest — a barely-tinted cool gray that functions as a premium near-white surface. Slate-pearl-faint is the palette's bright neutral anchor — very light, with just enough cool character to prevent warmth from diluting the technical register. Slate-shadow-soft moves into medium-value territory — a warm-tinged mid-gray that provides the tonal center of the palette. Cobalt-shadow-muted deepens toward the blue end — a cool, desaturated blue-gray for secondary surfaces and structural color. Slate-dusk-soft closes as the darkest entry — a deep warm-gray that grounds the palette and provides contrast range for typography and UI applications.",
+    ["Technical", "Precision", "Neutral"],
+    [
+      "slate-whisper-muted",
+      "slate-pearl-faint",
+      "slate-shadow-soft",
+      "cobalt-shadow-muted",
+      "slate-dusk-soft",
+    ],
+    {
+      editorialNote:
+        "Platinum edge is built for precision technology brands, luxury automotive and hardware, professional-grade tools and equipment, scientific instrumentation, and any brand whose premium signal is technical precision and engineered quality rather than warmth or accessibility. The palette conveys expertise and rigor rather than approachability. Photography direction: closeup industrial machining details, polished metal and matte carbon fiber textures, architectural photography of glass curtain wall and steel structures, studio product photography with cold gray background and precision lighting, luxury vehicle detail photography. Typography: a geometric sans at narrow tracking (Akzidenz-Grotesk, Helvetica Neue, Suisse Int) reads as technically precise in this palette; generous whitespace and conservative type hierarchy reinforce the precision aesthetic.",
+      promptWords: [
+        "precision technology brand in cool gray and platinum palette",
+        "luxury automotive brand in silver and cold gray identity",
+        "professional tools brand in muted blue-gray and slate palette",
+      ],
+      useCases: ["Precision technology and instrumentation", "Luxury automotive and hardware", "Professional-grade tools and equipment"],
+    }
+  ),
+  createCollection(
+    "tuscan-clay",
+    "Tuscan Clay",
+    "Warm terracotta, muted coral, and olive-tinged earth tones inspired by Mediterranean architecture and artisan ceramics.",
+    "Tuscan clay draws from the specific chromatic range of Italian and Iberian vernacular architecture: the warm terracotta of fired roof tiles, the muted coral-pink of lime-washed plaster, the olive-gray of aged stone, the warm camel of dried grass and straw, and the deep amber-brown of exposed clay soil. This is not the generic earth palette of sustainability marketing but the specific, saturated-yet-muted range of materials that have been baked, weathered, and aged by decades of Mediterranean sun. Amber-earth-muted leads with the palette's signature terracotta register — a warm, slightly orange-brown that reads as fired clay and mineral pigment. Amber-dusk-soft shifts toward camel and warm tan — the color of dried grasses and plastered wall in soft afternoon light. Coral-velvet-soft introduces the muted coral note — a restrained warm pink that reads as blush plaster and faded fresco rather than cosmetic pink. Olive-pearl-muted provides the cool counterbalance — an olive-gray that reads as aged stone and lichen and prevents the palette from becoming uniformly warm. Amber-shadow-muted closes as the deep anchor — a rich warm brown that functions as the palette's grounding dark.",
+    ["Mediterranean", "Earthy", "Artisan"],
+    [
+      "amber-earth-muted",
+      "amber-dusk-soft",
+      "coral-velvet-soft",
+      "olive-pearl-muted",
+      "amber-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Tuscan clay is the palette for Italian and Mediterranean food and beverage brands, artisan ceramics and pottery studios, boutique hospitality and agritourism, interior design studios with a warm material Mediterranean aesthetic, natural cosmetics and skincare with an artisan positioning, and travel and lifestyle content set in southern Europe. Photography direction: fired clay pottery and ceramic textures in direct sunlight, lime-washed plaster walls with iron window hardware, dried botanical arrangements on terracotta surfaces, produce and food photography on warm stone or wood backgrounds, architectural detail of terracotta rooflines and stone stairs. Typography: a humanist italic serif (Cormorant Italic, Freight Text Italic) or a calligraphic display face reads as authentically artisan-Mediterranean; warm amber-brown type against plaster-pale background creates the right printed-ephemera character.",
+      promptWords: [
+        "Mediterranean food brand in warm terracotta and clay palette",
+        "artisan ceramics studio in fired clay and olive tones",
+        "Italian hospitality brand in tuscan earth and coral plaster palette",
+      ],
+      useCases: ["Mediterranean food and beverage brands", "Artisan ceramics and pottery studios", "Boutique hospitality and agritourism"],
+    }
+  ),
+  createCollection(
+    "dusk-lavender",
+    "Dusk Lavender",
+    "Muted violet, soft iris, and warm purple-gray tones for mindfulness, meditation, and mental wellness brands.",
+    "Dusk lavender occupies the narrow, carefully calibrated register of violet that reads as calm, inward-focused, and restorative without crossing into either corporate purple or psychedelic intensity. This is the color of the sky 20 minutes after sunset — still warm from the residual light but cooling into violet-gray, with a quietness that is perceptual rather than purely associative. Iris-whisper-soft opens the palette at its lightest — a barely-perceptible lavender that functions as a warm near-white surface with personality. Iris-pearl-muted is the pale lavender anchor — a soft, muted purple that reads as gentle and considered rather than assertive. Iris-mist-muted shifts into medium-value territory — a desaturated iris with a gray quality that reads as contemplative and precise. Violet-tone-soft introduces a slightly deeper and warmer purple midtone — the palette's most distinctly violet entry, with enough saturation to serve as accent or hero color. Iris-veil-muted closes as the dark anchor — a deep, desaturated purple-gray that provides contrast range and grounding.",
+    ["Calm", "Wellness", "Mindful"],
+    [
+      "iris-whisper-soft",
+      "iris-pearl-muted",
+      "iris-mist-muted",
+      "violet-tone-soft",
+      "iris-veil-muted",
+    ],
+    {
+      editorialNote:
+        "Dusk lavender is the palette for mental wellness and mindfulness apps, meditation and yoga studios, sleep and rest health products, calming consumer wellness brands, therapeutic spaces and counseling services, and any product where the emotional register is restoration, inwardness, and quiet. The palette is explicitly not generic lavender: the desaturation and gray-violet character prevent it from reading as cosmetic or floral, and the tonal range gives it enough depth for functional UI application. Photography direction: soft-focus morning light through gauze curtains, water surfaces at dusk, minimal wellness product arrangements on linen, meditation or yoga environment details in diffused light, close-up botanical photography with shallow depth of field. Typography: a humanist rounded sans (Plus Jakarta Sans, Nunito) or a clean geometric at light weight pairs naturally with this palette; soft type weight hierarchy reinforces the palette's non-assertive character.",
+      promptWords: [
+        "mindfulness app in muted lavender and soft iris palette",
+        "meditation studio in dusk violet and calm purple-gray identity",
+        "mental wellness brand in soft iris and warm lavender tones",
+      ],
+      useCases: ["Mental wellness and mindfulness apps", "Meditation studios and yoga spaces", "Sleep and rest health products"],
+    }
+  ),
+  createCollection(
+    "bamboo-grove",
+    "Bamboo Grove",
+    "Warm jade, muted olive, and soft teal-green tones for spa, organic beauty, and botanical wellness brands.",
+    "Bamboo grove draws from the specific green register of living botanical environments — not the deep forest darkness of mossy woodland but the lighter, warmer, more luminous green of bamboo, eucalyptus, and tropical garden spaces where light filters through canopy at midday. The palette is unified by a warm yellow-green undertone that prevents it from reading as cold or clinical, and by consistent muting that reads as organic and natural rather than synthetic or vivid. Jade-whisper-soft opens at the palest end — a very light, almost white jade that creates the palette's breathing room and its most expansive surface tone. Olive-whisper-muted is the warm neutral entry — a muted warm green with enough olive character to read as living botanical material. Jade-whisper-muted deepens slightly toward the true jade register — a soft mid-light green that bridges the olive warmth and the cooler teal notes. Teal-whisper-soft introduces a trace of blue-green — the palette's cool counterpoint that prevents complete warmth saturation and adds the freshness note associated with water and clean botanical scents. Olive-veil-muted closes as the deepest and most saturated entry — a medium-depth olive that functions as the palette's structural anchor and hero color.",
+    ["Organic", "Botanical", "Wellness"],
+    [
+      "jade-whisper-soft",
+      "olive-whisper-muted",
+      "jade-whisper-muted",
+      "teal-whisper-soft",
+      "olive-veil-muted",
+    ],
+    {
+      editorialNote:
+        "Bamboo grove is the palette for spa and wellness hospitality, organic and botanical beauty brands, natural skincare and personal care, herbal supplement and functional food brands, yoga and movement studios, and any brand whose proposition is connected to living plant material and natural wellness ritual. The palette reads as aspirationally clean, organic, and restorative without the over-muted heaviness of dark earth palettes. Photography direction: bamboo and eucalyptus botanical details in warm light, product photography on warm white stone with fresh plant material, spa environment details (linen towels, wooden accessories, water surfaces), close-up botanical texture photography in diffused natural light, minimal flat-lay arrangements with green botanicals on pale surface. Typography: a clean geometric sans (Montserrat, DM Sans) at regular or medium weight reads as contemporary wellness-brand in this palette; generous leading and whitespace reinforce the open, clean character of the green tones.",
+      promptWords: [
+        "spa brand in warm jade and bamboo botanical palette",
+        "organic beauty brand in muted olive and soft teal-green identity",
+        "botanical wellness brand in bamboo grove green and natural tones",
+      ],
+      useCases: ["Spa and wellness hospitality", "Organic and botanical beauty brands", "Herbal supplements and functional food"],
+    }
+  ),
+];
+
+collections.push(...extraCollections27);

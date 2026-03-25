@@ -646,6 +646,37 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   quiet_luxury: ["pearl", "ivory", "onyx", "garnet", "muted"],
   old_money: ["ivory", "pearl", "navy", "garnet", "onyx"],
   understated: ["muted", "soft", "ivory", "pearl", "slate"],
+
+  // Wayfinding and environmental design (new terms)
+  environmental: ["jade", "teal", "olive", "amber", "slate"],
+
+  // Luxury brand color (new terms)
+  prestige: ["garnet", "indigo", "ivory", "pearl", "onyx"],
+  legacy: ["garnet", "navy", "ivory", "amber", "onyx"],
+  refined: ["pearl", "ivory", "slate", "muted", "onyx"],
+
+  // Data visualization (new terms)
+  choropleth: ["cobalt", "teal", "jade", "amber", "slate"],
+
+  // Packaging design (new terms)
+  fmcg: ["amber", "cobalt", "jade", "red", "ivory"],
+  organic_packaging: ["jade", "olive", "amber", "ivory", "whisper"],
+
+  // Sustainability color (new terms)
+  greenwashing: ["jade", "olive", "amber", "ivory", "moss"],
+  eco_brand: ["jade", "moss", "olive", "amber", "teal"],
+  regenerative: ["moss", "jade", "amber", "olive", "teal"],
+
+  // New collection identities (new terms)
+  chrome: ["slate", "cobalt", "ivory", "whisper", "muted"],
+  metallic: ["slate", "amber", "cobalt", "ivory", "whisper"],
+  tuscan: ["amber", "coral", "olive", "sienna", "clay"],
+  mediterranean: ["amber", "coral", "olive", "teal", "sienna"],
+  terracotta_palette: ["amber", "coral", "sienna", "clay", "rust"],
+  lilac: ["iris", "violet", "soft", "whisper", "muted"],
+  mindful: ["iris", "violet", "teal", "jade", "soft"],
+  bamboo: ["jade", "olive", "teal", "whisper", "soft"],
+  wellness_green: ["jade", "teal", "olive", "soft", "whisper"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
