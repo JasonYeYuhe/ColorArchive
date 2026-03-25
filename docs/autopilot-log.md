@@ -2104,3 +2104,52 @@ Added unique new terms: environmental, prestige, legacy, refined, choropleth, fm
 - `src/lib/guides.ts` — extraGuides28 (5 guides, 159 total)
 - `src/lib/collections.ts` — extraCollections27 (4 collections, 102 total)
 - `src/lib/color-search.ts` — 26 new unique search aliases
+
+---
+
+## Run — 2026-03-26 (Normal Run #4 since last big run)
+
+**Timestamp:** 2026-03-26
+**Type:** Normal
+**Commit:** 0334cc2
+**Categories:** A (Newsletter + Guides), D (Collections + Search Aliases)
+
+### Category A — 5 New Newsletter Issues (now 224 total)
+
+- **apr-2030-fashion-color-forecasting**: How forecasting agencies build palettes, Color of the Year vs strategic palettes, digital micro-trends vs slow traditional cycle
+- **apr-2030-color-spatial-memory**: Landmark color in route learning, zone color coding for navigation efficiency, cognitive accessibility design
+- **apr-2030-film-color-grading**: Multi-timescale narrative color, teal-and-orange convention critique, saturation as expressive register, lessons for motion designers
+- **apr-2030-healthcare-color-design**: Patient preference vs functional requirements, evidence on anxiety reduction, wayfinding as patient safety, color and perceived noise
+- **apr-2030-brand-color-dilution**: Production drift mechanisms, sub-brand color architecture, licensing controls, digital-to-physical translation gap
+
+### Category A — 5 New Guides (extraGuides29, now 164 total)
+
+- **fashion-color-forecasting-guide**: Trend pipeline, forecasting agency outputs, strategic timing for designers
+- **healthcare-color-design-guide**: Evidence-based clinical color, patient anxiety research, wayfinding safety
+- **film-cinematography-color-guide**: Narrative color logic, teal-orange convention, saturation register, motion design lessons
+- **spatial-color-design-guide**: Perceived dimensions, spatial memory formation, zone coding efficiency, cognitive accessibility
+- **brand-color-consistency-guide**: Production drift, sub-brand architecture, licensing controls, digital-physical translation
+
+### Category D — 4 New Collections (extraCollections28, now 106 total)
+
+- **arctic-aurora**: Ice blue, pale cyan, cool mint — nordic tech/environmental orgs/premium water
+- **scorched-earth**: Deep ochre, raw sienna, rust — rugged outdoor, craft spirits, industrial
+- **deep-ocean**: Dark navy, teal-black, deep blue — marine tech, enterprise security, naval
+- **desert-rose**: Warm blush, dusty peach, sand-pink — contemporary beauty, minimal luxury, fine jewelry
+
+### Category D — 49 New Search Aliases (color-search.ts)
+
+Fashion: forecast, trend, trending_color, coloroftheyear, fashion_palette
+Film: film_grade, cinematic_teal, noir, colorgrade, moody_film
+Healthcare: clinical, hospital, calming_blue, therapeutic
+Spatial: interior_color, room_color, architectural, spatial, wallpaint
+Nordic/Arctic: nordic_color, glacial, polar, frost
+Ocean: deep_blue, ocean_depth, submarine
+Desert: scorched, rust_palette, wildwest
+Beauty: blush_palette, beauty_brand, skincare, desert_rose, sun_kissed, feminine_minimal
+
+### Files Modified (4)
+- `src/data/newsletter-issues.json` — 5 new issues (220-224)
+- `src/lib/guides.ts` — extraGuides29 (5 guides, 164 total)
+- `src/lib/collections.ts` — extraCollections28 (4 collections, 106 total)
+- `src/lib/color-search.ts` — 49 new unique search aliases
