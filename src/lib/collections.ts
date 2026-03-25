@@ -2242,10 +2242,10 @@ const extraCollections25: ColorCollection[] = [
     "Midnight forge is drawn from the chromatic universe of high-precision manufacturing at night: the near-black of forged steel in low light, the cool blue-gray of polished tooled aluminum, the deep navy of industrial powder coating, and the subtle silver of precision machined surfaces. Cobalt-shadow-deep opens at the darkest end — not pure black but the deep cool-dark of forged metal in shadow, with a trace of blue. Cobalt-shadow-muted rises into full dark navy territory — the color of a precision instrument under halogen light, where the cool undertone is clearly visible. Cobalt-shadow-soft brings the palette toward accessible dark — a dark steel blue that reads as professional and precise. Slate-shadow-soft introduces the neutral anchor — a dark gray-charcoal that pairs with the blue tones as a secondary dark surface. Cobalt-whisper-muted provides the accent — a mid-tone steel blue that functions as the palette's single energetic note, used for highlights, interactive states, and key data markers.",
     ["Dark", "Technical", "Precision"],
     [
-      "cobalt-shadow-deep",
+      "cobalt-shadow-vivid",
       "cobalt-shadow-muted",
       "cobalt-shadow-soft",
-      "slate-shadow-soft",
+      "cobalt-shadow-faint",
       "cobalt-whisper-muted",
     ],
     {
@@ -2274,11 +2274,11 @@ const extraCollections25: ColorCollection[] = [
     "Spring herb is assembled from the fresh, slightly yellow-green range of early spring: new herb growth, unfurling sage leaves, the light lime of young mint tips, and the barely-there green of glass filtered water. Chartreuse-pearl-faint opens at near-white — a barely visible warmth of new green, like sunlight through a single layer of fresh sage leaves. Lime-whisper-soft deepens to the first clear herb note — a soft, slightly warm mint-green that reads as 'fresh ingredients' without being aggressive. Sage-whisper-soft introduces the dry herb character — cooler, more gray-green, the color of mature sage before harvest. Lime-whisper-muted moves into a more confident spring green — present and energetic but still quiet, like a perfectly fresh celery note. Sage-whisper-muted anchors with depth — a mature sage that grounds the lighter tones with herbal complexity.",
     ["Fresh", "Natural", "Energetic"],
     [
-      "chartreuse-pearl-faint",
+      "lime-pearl-faint",
       "lime-whisper-soft",
-      "sage-whisper-soft",
+      "moss-whisper-soft",
       "lime-whisper-muted",
-      "sage-whisper-muted",
+      "moss-whisper-muted",
     ],
     {
       editorialNote:
@@ -2338,11 +2338,11 @@ const extraCollections25: ColorCollection[] = [
     "Arctic white is assembled from the coldest, most minimal end of the white-gray spectrum: the ice-silver of a polished titanium surface, the near-zero white of fresh snow on a gray-sky day, the subtle cool of a Scandinavian interior in winter light, and the refined pale gray of high-end tech product surfaces. White-pearl-faint opens at absolute near-white — the color of cloud cover at noon, with the faintest suggestion of cool silvery undertone. Slate-pearl-faint introduces the first cool gray movement — a barely-there gray that on a pure white background reads as the palest possible step away from white. Slate-whisper-soft deepens to the first clearly gray tone — refined, cool, and very light, like brushed aluminum or raw concrete in indirect light. Slate-whisper-muted adds substance — a mid-light cool gray that functions as a text color, divider, or secondary surface in minimal design systems. Slate-shadow-soft provides the darkest anchor — a deep cool charcoal that maintains the cold temperature of the palette while providing usable contrast for headlines and primary navigation.",
     ["Minimal", "Cold", "Premium"],
     [
-      "white-pearl-faint",
-      "slate-pearl-faint",
-      "slate-whisper-soft",
-      "slate-whisper-muted",
-      "slate-shadow-soft",
+      "true-gray-veil",
+      "cobalt-pearl-faint",
+      "cool-gray-whisper",
+      "cool-gray-whisper",
+      "cobalt-shadow-faint",
     ],
     {
       editorialNote:
@@ -2376,10 +2376,10 @@ const extraCollections26: ColorCollection[] = [
     "Desert gold captures the chromatic range of high-desert light at its most generous: the warm amber of sandstone cliffs at noon, the golden ochre of dried grass in late summer, the soft camel of weathered adobe, and the dusty terracotta of exposed canyon rock. Amber-sunrise-soft opens the palette at its warmest — a golden yellow-amber that reads as sunlit and generous. Amber-noon-muted shifts into ochre territory — the warm yellow-orange of natural pigment, beeswax, and raw linen. Amber-dusk-soft deepens toward camel and warm tan, carrying the palette's neutral anchor. Amber-earth-muted introduces the deeper ochre note — the color of clay soil and unglazed ceramic before firing. Amber-shadow-muted closes at a deep warm brown that grounds the palette and prevents it from reading as uniformly bright.",
     ["Warm", "Natural", "Artisan"],
     [
-      "amber-sunrise-soft",
-      "amber-noon-muted",
+      "amber-mist-soft",
+      "amber-silk-muted",
       "amber-dusk-soft",
-      "amber-earth-muted",
+      "amber-dusk-muted",
       "amber-shadow-muted",
     ],
     {
@@ -2400,10 +2400,10 @@ const extraCollections26: ColorCollection[] = [
     "Electric violet draws from the indigo-to-violet spectrum at its most saturated and contemporary — the palette of creative technology, gaming hardware, generative AI products, and entertainment brands that want distinctiveness without corporate primary-color defaults. Violet-electric-muted leads at a vivid mid-value purple — enough saturation to read as energetic but not neon-crude. Violet-electric-soft lightens toward lavender-adjacent — accessible and approachable while maintaining the purple identity. Indigo-electric-muted provides the blue anchor — a deep electric indigo that reads as technical precision and depth. Violet-shadow-deep brings the darkest near-black — a deep purple-black that works as a dark surface with personality rather than generic black. Violet-whisper-soft provides the neutral — a very light lavender that serves as the palette's breathing room on white-adjacent surfaces.",
     ["Electric", "Creative", "Tech"],
     [
-      "violet-electric-muted",
-      "violet-electric-soft",
-      "indigo-electric-muted",
-      "violet-shadow-deep",
+      "violet-core-clear",
+      "violet-bloom-soft",
+      "indigo-core-clear",
+      "violet-shadow-vivid",
       "violet-whisper-soft",
     ],
     {
@@ -2424,11 +2424,11 @@ const extraCollections26: ColorCollection[] = [
     "Forest floor is drawn from the chromatic complexity of a temperate forest at ground level: the deep warm green of wet moss, the rich umber of exposed root systems, the cool shadow-green of lichen on stone, the warm brown of composting leaf matter, and the ochre tones of dried pine needles. Green-moss-muted leads with the palette's hero tone — a deep, warm-leaning green with enough complexity to read as genuinely botanical rather than generic. Green-shadow-muted deepens into forest-floor shadow territory — the near-black of soil and decomposing organic matter with a green undertone. Amber-earth-muted contributes the warm umber note — the color of exposed clay, bark, and dried botanical material. Green-whisper-soft provides the light tertiary — a muted sage that creates breathing room and pairs with the dark tones. Slate-earth-muted closes as a neutral gray-brown that grounds the palette without pulling toward either pure green or pure brown.",
     ["Natural", "Earthy", "Organic"],
     [
-      "green-moss-muted",
-      "green-shadow-muted",
-      "amber-earth-muted",
-      "green-whisper-soft",
-      "slate-earth-muted",
+      "moss-tone-muted",
+      "emerald-shadow-muted",
+      "amber-dusk-muted",
+      "emerald-whisper-soft",
+      "cobalt-dusk-faint",
     ],
     {
       editorialNote:
@@ -2448,11 +2448,11 @@ const extraCollections26: ColorCollection[] = [
     "Pearl oyster captures the narrow but richly varied chromatic range of luxury neutral surfaces: the warm cream of natural pearl, the cool luminous white of bleached linen, the warm gray of polished oyster shell, the soft beige of raw silk, and the slightly cooler gray of matte stone. The palette works precisely because its tones are never pure: there is always a trace of warmth or coolness that prevents the neutrals from reading as generic. Slate-whisper-soft leads with the coolest tone — a very light gray with a trace of blue-gray that reads as cool, precise, and editorial. Amber-whisper-soft provides the warm near-white — cream-adjacent with warmth that reads as organic and luxurious rather than clinical. Slate-morning-soft serves as the mid-value neutral — a warm gray that functions as secondary surface color. Slate-afternoon-muted introduces the darker gray — a medium-tone warm gray for text and secondary accents. Slate-dusk-soft closes with a deep warm gray that functions as the palette's anchor dark.",
     ["Luxury", "Editorial", "Neutral"],
     [
-      "slate-whisper-soft",
+      "cool-gray-whisper",
       "amber-whisper-soft",
-      "slate-morning-soft",
-      "slate-afternoon-muted",
-      "slate-dusk-soft",
+      "cobalt-mist-faint",
+      "cobalt-tone-faint",
+      "cobalt-dusk-faint",
     ],
     {
       editorialNote:
@@ -2477,11 +2477,11 @@ const extraCollections27: ColorCollection[] = [
     "Platinum edge is drawn from the cool-gray end of the chromatic spectrum — not the warm neutral of Scandinavian minimalism, but the colder, more technical register of precision manufacturing and luxury hardware. The palette lives in the space between pure neutral gray and a trace of blue or indigo, giving every tone a sense of engineered specificity. Slate-whisper-muted opens the palette at its lightest — a barely-tinted cool gray that functions as a premium near-white surface. Slate-pearl-faint is the palette's bright neutral anchor — very light, with just enough cool character to prevent warmth from diluting the technical register. Slate-shadow-soft moves into medium-value territory — a warm-tinged mid-gray that provides the tonal center of the palette. Cobalt-shadow-muted deepens toward the blue end — a cool, desaturated blue-gray for secondary surfaces and structural color. Slate-dusk-soft closes as the darkest entry — a deep warm-gray that grounds the palette and provides contrast range for typography and UI applications.",
     ["Technical", "Precision", "Neutral"],
     [
-      "slate-whisper-muted",
-      "slate-pearl-faint",
-      "slate-shadow-soft",
+      "cool-gray-whisper",
+      "cobalt-pearl-faint",
+      "cobalt-shadow-faint",
       "cobalt-shadow-muted",
-      "slate-dusk-soft",
+      "cobalt-dusk-faint",
     ],
     {
       editorialNote:
@@ -2501,7 +2501,7 @@ const extraCollections27: ColorCollection[] = [
     "Tuscan clay draws from the specific chromatic range of Italian and Iberian vernacular architecture: the warm terracotta of fired roof tiles, the muted coral-pink of lime-washed plaster, the olive-gray of aged stone, the warm camel of dried grass and straw, and the deep amber-brown of exposed clay soil. This is not the generic earth palette of sustainability marketing but the specific, saturated-yet-muted range of materials that have been baked, weathered, and aged by decades of Mediterranean sun. Amber-earth-muted leads with the palette's signature terracotta register — a warm, slightly orange-brown that reads as fired clay and mineral pigment. Amber-dusk-soft shifts toward camel and warm tan — the color of dried grasses and plastered wall in soft afternoon light. Coral-velvet-soft introduces the muted coral note — a restrained warm pink that reads as blush plaster and faded fresco rather than cosmetic pink. Olive-pearl-muted provides the cool counterbalance — an olive-gray that reads as aged stone and lichen and prevents the palette from becoming uniformly warm. Amber-shadow-muted closes as the deep anchor — a rich warm brown that functions as the palette's grounding dark.",
     ["Mediterranean", "Earthy", "Artisan"],
     [
-      "amber-earth-muted",
+      "amber-dusk-muted",
       "amber-dusk-soft",
       "coral-velvet-soft",
       "olive-pearl-muted",
@@ -2578,11 +2578,11 @@ const extraCollections28: ColorCollection[] = [
     "Arctic aurora draws from the specific chromatic register of high-latitude light: the cool blue-white of polar ice, the pale cyan of glacial water in shallow depths, the soft green-teal of the aurora borealis at its quietest hour, and the blue-gray of the sky above the treeline in winter. This is the chromatic vocabulary of clarity, low temperatures, and the particular brightness of sunlight reflected from snow at low angles. Unlike standard cool blue palettes, arctic aurora has a distinctly luminous quality — each tone feels lit from within rather than simply cool. Cyan-whisper-soft opens the palette at its lightest — a pale, barely-perceptible cyan that reads as breathable polar air and provides the palette's most expansive surface tone. Cyan-pearl-muted is the pale ice anchor — a soft cyan with enough color to read as glacial water or northern sky without feeling clinical. Teal-whisper-soft shifts slightly toward blue-green — the palette's aurora register, evoking the trace of natural green-cyan in polar light phenomena. Cobalt-whisper-muted introduces a cool blue-gray — a tone that reads as the deep winter sky above the arctic circle. Cyan-mist-soft closes as the medium-depth accent — a richer cyan-teal that provides the palette's most saturated point and functions as a hero color for accents and interactive states.",
     ["Arctic", "Nordic", "Clean"],
     [
-      "cyan-whisper-soft",
-      "cyan-pearl-muted",
+      "aqua-whisper-soft",
+      "aqua-pearl-muted",
       "teal-whisper-soft",
       "cobalt-whisper-muted",
-      "cyan-mist-soft",
+      "aqua-mist-soft",
     ],
     {
       editorialNote:
@@ -2602,11 +2602,11 @@ const extraCollections28: ColorCollection[] = [
     "Scorched earth draws from the specific chromatic range of high-temperature and high-UV environments: the deep orange-brown of iron-rich sedimentary rock, the warm red of oxidized metal, the yellow-ochre of baked clay and dry desert soil, the muted amber of weathered sandstone, and the near-black of volcanic rock and charred wood. This is not the refined earth palette of boutique wellness and Mediterranean hospitality but the more aggressive, saturated, and rugged register of exposed geology, industrial process, and extreme climate. The palette has natural credibility and material weight without warmth or softness. Amber-earth-strong opens with the palette's core ochre — a deep, warm orange-brown that reads as raw mineral pigment and sunbaked clay. Amber-fire-muted shifts toward the rust and red-oxide register — a burnt sienna tone that reads as oxidized iron and heat-processed clay. Amber-depth-strong deepens toward rich warm brown — the palette's anchor and structurally darkest entry, suggesting deep earth and shadow. Rust-velvet-muted is the palette's most distinctly reddish entry — a warm, slightly orange-red that reads as raw rust and ferrous oxide without the vividity of commercial red. Amber-gold-soft provides a lighter, warm accent — the reflective warmth of desert light on pale ochre rock that prevents the palette from becoming uniformly dark.",
     ["Raw", "Industrial", "Earthy"],
     [
-      "amber-earth-strong",
-      "amber-fire-muted",
-      "amber-depth-strong",
-      "rust-velvet-muted",
-      "amber-gold-soft",
+      "amber-dusk-vivid",
+      "amber-core-clear",
+      "amber-nocturne-vivid",
+      "ember-velvet-muted",
+      "amber-bloom-soft",
     ],
     {
       editorialNote:
@@ -2626,10 +2626,10 @@ const extraCollections28: ColorCollection[] = [
     "Deep ocean draws from the color register of ocean depth rather than ocean surface: not the vivid turquoise of shallow tropical water but the progressively darkening blue-teal of descending depth, the near-black of bathypelagic zones, and the cold, pressure-heavy quality of abyssal environments. The palette is unified by high value depth and cool temperature — each tone sits in the dark-to-very-dark range, with distinctiveness expressed through subtle shifts between blue, teal, and near-neutral gray-blue. Navy-depth-strong opens as the palette's primary deep navy — a rich, cool dark blue that provides the palette's most recognizable and versatile foundation tone. Teal-depth-strong introduces the blue-green register — a very dark teal that reads as oceanic depth with a trace of green-cyan distinguishing it from pure navy. Cobalt-depth-strong deepens toward pure cool dark blue — a tone with slightly more purple-blue character that reads as deepwater at night. Navy-shadow-muted provides a near-neutral dark blue-gray — the palette's most neutral and versatile dark, functioning as the primary text and background color in dark-mode applications. Teal-shadow-muted closes at the deepest point — a very dark teal-gray that approaches black while retaining just enough chromatic identity to maintain the oceanic register.",
     ["Ocean", "Deep", "Technical"],
     [
-      "navy-depth-strong",
-      "teal-depth-strong",
-      "cobalt-depth-strong",
-      "navy-shadow-muted",
+      "cobalt-nocturne-vivid",
+      "teal-nocturne-vivid",
+      "cobalt-nocturne-vivid",
+      "cobalt-shadow-muted",
       "teal-shadow-muted",
     ],
     {
@@ -2651,9 +2651,9 @@ const extraCollections28: ColorCollection[] = [
     ["Blush", "Minimal", "Beauty"],
     [
       "rose-whisper-soft",
-      "peach-pearl-muted",
+      "apricot-pearl-muted",
       "rose-pearl-muted",
-      "peach-tone-soft",
+      "apricot-tone-soft",
       "rose-veil-muted",
     ],
     {
@@ -2670,3 +2670,104 @@ const extraCollections28: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections28);
+
+const extraCollections29: ColorCollection[] = [
+  createCollection(
+    "golden-ratio",
+    "Golden Ratio",
+    "Rich amber, warm honey, and burnished gold tones that capture the warmth of precious metal and handcrafted luxury — a palette for premium editorial, artisan brands, and architectural materials.",
+    "Golden ratio draws from the chromatic vocabulary of precious metals and handcrafted materials: the warm glow of polished gold, the amber depth of aged honey, the burnished warmth of hammered brass, and the cool gleam of fine champagne. These are not the garish metallics of costume jewelry but the measured, deep warmth of material quality — the palette of a master goldsmith's workbench or an architectural interior where brass fixtures age into character. Amber-gold-soft opens at the pale end — a warm, barely-saturated gold-cream that reads as natural light on pale stone or warm parchment. Amber-silk-soft provides the palette's central warm tone — a desaturated golden amber that reads as aged textile or warm wood grain. Amber-noon-muted deepens toward the copper register — a medium amber with enough saturation to read as genuine warmth without becoming orange. Amber-velvet-muted provides the mid-dark anchor — a rich, complex amber-brown that reads as aged leather or seasoned wood. Amber-depth-strong closes at a deep, near-umber warmth that grounds the palette with genuine depth.",
+    ["Gold", "Luxury", "Editorial"],
+    [
+      "amber-bloom-soft",
+      "amber-silk-soft",
+      "amber-silk-muted",
+      "amber-velvet-muted",
+      "amber-nocturne-vivid",
+    ],
+    {
+      editorialNote:
+        "Golden ratio is the palette for premium artisan brands and handcrafted product design, architectural material editorial (brass, bronze, warm stone), fine whisky, cognac, and aged spirits brands, luxury hotel and hospitality with warm material character, premium stationery and publishing with a heritage register, and fashion editorial with a warm materiality focus. The palette reads as warm and precious without the ostentation of loud gold. Photography direction: close-up material photography of brass, gold leaf, amber glass, aged leather, and warm wood in directional warm light; architectural interior photography emphasizing material warmth and natural patina; product photography of glass, ceramic, or metal objects on warm stone or wood surfaces; abstract texture photography of precious metal surfaces. Typography: a classical serif at light or regular weight (Freight Text, Garamond, Playfair Display) reinforces the heritage warmth character; avoid pure white for type — use a very light warm amber or cream.",
+      promptWords: [
+        "artisan luxury brand in warm amber and burnished gold palette",
+        "premium spirits editorial in aged amber and deep honey tones",
+        "architectural interior brand in brass and warm metal materials",
+      ],
+      useCases: ["Premium artisan and handcrafted brands", "Luxury spirits and hospitality", "Architectural material editorial"],
+    }
+  ),
+  createCollection(
+    "stone-garden",
+    "Stone Garden",
+    "Weathered limestone, dry sage, and quiet warm gray tones drawn from Japanese rock garden aesthetics — a palette for meditation, mindfulness, and understated craft brands.",
+    "Stone garden draws from the austere, meditative palette of the karesansui (dry rock garden): the pale neutral of raked gravel, the muted sage of lichen on stone, the warm gray of weathered granite, and the subtle warmth of aged wood. This is a palette of deliberate quietness — colors that recede, that do not insist, that create space for the viewer rather than filling it. Slate-whisper-soft anchors the pale end — a near-white warm gray that reads as pale stone in diffused light, with almost no color identity of its own. Slate-pearl-faint introduces the first suggestion of tone — a very pale, barely-warm neutral that reads as unbleached natural material. Lime-whisper-muted provides the palette's organic note — a muted, very slightly warm olive that reads as dried lichen or old sage rather than green. Slate-shadow-soft serves as the structural midtone — a medium warm gray with slight desaturated warmth, the color of smooth river stone. Slate-earth-muted closes at a grounded, medium-dark warm gray that provides typographic contrast without blackness.",
+    ["Minimal", "Zen", "Wellness"],
+    [
+      "cool-gray-whisper",
+      "cobalt-pearl-faint",
+      "lime-whisper-muted",
+      "cobalt-shadow-faint",
+      "cobalt-dusk-faint",
+    ],
+    {
+      editorialNote:
+        "Stone garden is the palette for mindfulness apps and meditation platforms, Japanese-influenced minimalist lifestyle brands, premium ceramics and handcraft product design, architectural and interior photography with a quiet material focus, wellness retreat brands with a nature-grounded aesthetic, and editorial design for contemplative or philosophical content. The palette creates quietness through restraint -- there is almost no color, only tone. Photography direction: close-up photography of natural stone, ceramic, raw linen, and weathered wood in soft natural light; Japanese garden and architectural photography emphasizing stone, moss, and aged material; abstract texture photography of neutral natural surfaces; product photography of ceramics and handcraft objects on stone or linen backgrounds. Typography: a light-weight geometric sans (Inter, Helvetica Neue, Suisse Int'l) at generous scale with restrained hierarchy reinforces the quiet character; body text in slate-earth-muted maintains the palette's neutrality.",
+      promptWords: [
+        "mindfulness app in quiet stone and sage gray palette",
+        "premium ceramics brand in weathered limestone and warm gray tones",
+        "Japanese-influenced wellness brand in muted stone and lichen sage",
+      ],
+      useCases: ["Mindfulness and meditation platforms", "Premium handcraft and ceramics brands", "Wellness retreat and spa brands"],
+    }
+  ),
+  createCollection(
+    "citrus-grove",
+    "Citrus Grove",
+    "Vivid lemon, warm tangerine, and fresh lime tones drawn from Mediterranean citrus groves — a palette for food brands, summer editorial, and vibrant lifestyle content.",
+    "Citrus grove draws from the sensory richness of a Mediterranean citrus grove in full season: the vivid yellow of ripe lemons in direct sun, the warm orange-amber of blood orange peel, the electric green of lime leaf, and the soft gold of dried citrus rind. This is a palette of direct, uncomplicated pleasure -- warm, vivid, and immediately appetizing without the visual complexity of more sophisticated editorial color. Citrine-bloom-vivid opens at the vivid yellow anchor -- a bright, fully saturated lemon yellow that reads as direct sunlight on ripe citrus. Citrine-silk-soft provides a softer mid-tone -- a warm, desaturated golden yellow that reads as dried citrus or warm sun-bleached peel. Honey-bloom-clear steps toward the amber register -- a vivid warm amber that bridges the yellow and orange tones. Apricot-bloom-soft provides the palette's warmth depth -- a medium soft apricot-coral that reads as warm flesh-toned citrus. Lime-bloom-vivid provides the contrasting note -- a vivid electric lime that cuts through the warm tones and reads as fresh cut lime or green leaf.",
+    ["Vivid", "Food", "Summer"],
+    [
+      "citrine-bloom-vivid",
+      "citrine-silk-soft",
+      "honey-bloom-clear",
+      "apricot-bloom-soft",
+      "lime-bloom-vivid",
+    ],
+    {
+      editorialNote:
+        "Citrus grove is the palette for food and beverage brands with a Mediterranean or artisan identity, summer lifestyle editorial and campaign imagery, fresh produce and organic food market branding, citrus-flavored products and packaging, vibrant juice, smoothie, and wellness drink brands, and summer fashion editorial with a warm Southern European mood. The palette reads as appetizing, warm, and immediately pleasurable. Photography direction: direct Mediterranean sunlight photography of citrus fruit in natural settings; close-up citrus texture photography (cut lemon cross-sections, orange peel texture, lime zest) with strong directional light; food photography on warm stone or terracotta tile backgrounds; lifestyle photography in warm Mediterranean outdoor environments. Typography: a confident, warm rounded sans (Nunito, Gilroy, or a geometric with warm optical adjustments) reinforces the accessible, appetizing character; avoid cold or corporate typefaces which contradict the palette's warmth.",
+      promptWords: [
+        "Mediterranean food brand in vivid lemon yellow and warm tangerine palette",
+        "summer lifestyle editorial in citrus yellow and electric lime tones",
+        "fresh juice brand in bright citrine and warm apricot palette",
+      ],
+      useCases: ["Food and beverage brands", "Summer lifestyle editorial", "Fresh produce and organic food brands"],
+    }
+  ),
+  createCollection(
+    "navy-signal",
+    "Navy Signal",
+    "Deep navy, crisp white, and bold signal red — the classic nautical and maritime color combination that communicates authority, precision, and enduring institutional quality.",
+    "Navy signal draws from the timeless chromatic vocabulary of maritime tradition: the deep authority of navy blue, the crisp clarity of signal white, the bold precision of buoy red, and the structural neutrality of nautical brass. This is not the decorative nautical of coastal lifestyle brands but the working palette of maritime institutions, precision instrument makers, and brands that inherit the authority of nautical tradition. Cobalt-shadow-strong anchors the palette at the deepest end -- a rich, saturated navy that reads as deep water or a precision instrument case. Cobalt-tone-muted provides a slightly lighter navy -- a desaturated blue-navy that reads as aged uniform cloth or institutional blue. Cobalt-veil-soft opens the blue range -- a light, muted blue-gray that provides the palette's aerial note. Crimson-tone-soft provides the signal accent -- a clean, slightly muted red that reads as nautical signal or precision mark rather than alarm. Slate-whisper-soft provides the white anchor -- a clean near-white with minimal warmth.",
+    ["Navy", "Maritime", "Authority"],
+    [
+      "cobalt-nocturne-vivid",
+      "cobalt-tone-muted",
+      "cobalt-veil-soft",
+      "crimson-tone-soft",
+      "cool-gray-whisper",
+    ],
+    {
+      editorialNote:
+        "Navy signal is the palette for nautical and maritime brands, precision instrument and technology companies, institutional and professional services firms seeking authority and precision, classic menswear and tailoring brands, editorial content covering naval history, ocean racing, and maritime culture, and any brand seeking to inherit the authority and precision of seafaring tradition without the decorative softness of coastal lifestyle aesthetics. The palette reads as authoritative, precise, and enduring. Photography direction: clean product photography of precision instruments and devices on dark navy or white backgrounds; nautical architecture and rigging photography in high contrast natural light; classic tailoring and uniform photography with controlled lighting; ocean racing photography emphasizing precision and speed; editorial photography of navigational instruments in working contexts. Typography: a clean, authoritative serif (Freight Text, Caslon) or a geometric sans (Futura, DIN) both work well in this palette; the authority of the palette supports either direction.",
+      promptWords: [
+        "maritime precision brand in deep navy and signal red palette",
+        "institutional authority brand in navy blue and crisp white tones",
+        "classic menswear brand in navy and crimson nautical palette",
+      ],
+      useCases: ["Nautical and maritime brands", "Precision instruments and technology", "Institutional authority and professional services"],
+    }
+  ),
+];
+
+collections.push(...extraCollections29);

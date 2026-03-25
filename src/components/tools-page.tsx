@@ -244,6 +244,15 @@ const TOOLS: Tool[] = [
     badgeKey: "tools.badge.new",
     accent: "bg-slate-100 text-slate-700",
   },
+  {
+    href: "/css-colors/",
+    icon: "</>",
+    nameKey: "tools.cssColors.name",
+    descKey: "tools.cssColors.desc",
+    categoryKey: "tools.cat.developer",
+    badgeKey: "tools.badge.new",
+    accent: "bg-cyan-100 text-cyan-700",
+  },
   // Integrations
   {
     href: "https://www.figma.com/community/plugin/1616829363158218051",

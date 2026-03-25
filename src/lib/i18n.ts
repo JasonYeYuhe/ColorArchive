@@ -1902,6 +1902,11 @@ const translations: Record<string, Record<string, string>> = {
   },
   "tools.cat.integrations": { en: "Integrations", zh: "集成" },
   "tools.cat.developer": { en: "Developer", zh: "开发者" },
+  "tools.cssColors.name": { en: "CSS Named Colors", zh: "CSS 命名颜色" },
+  "tools.cssColors.desc": {
+    en: "Complete reference for all 148 CSS named color keywords with hex, RGB, and HSL values. Filter by family or CSS level.",
+    zh: "所有 148 个 CSS 命名颜色关键字的完整参考，含 hex、RGB 和 HSL 值。按色系或 CSS 版本筛选。",
+  },
   "tools.apiDocs.name": { en: "Color API", zh: "颜色 API" },
   "tools.apiDocs.desc": {
     en: "Free REST API for 3,000+ colors. Search by name, hex, or mood. Get color relationships. No auth required.",
