@@ -39,7 +39,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Modern Seaside Collection", href: "/collections/modern-seaside/" },
       { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
   {
@@ -51,13 +51,13 @@ export const seoGuides2: LandingGuide[] = [
     eyebrow: "Nonprofit",
     priority: 50,
     searchIntent: "dark mode color palette for nonprofit website",
-    featuredCollectionId: "deep-focus",
+    featuredCollectionId: "midnight-forest",
     featuredPackId: "dark-mode-ui-kit",
     tags: ["Nonprofit", "Dark Mode", "Campaigns", "Portal"],
     highlights: [
       "Donor portals in dark mode need elevated surface layers rather than flat black — this prevents the interface from feeling cold or impersonal.",
       "Digital fundraising campaigns that run in dark mode perform better when the CTA color contrasts sharply against a deep, warm background rather than pure black.",
-      "Deep Focus provides the kind of concentrated dark palette that keeps donors engaged during late-evening giving sessions.",
+      "Midnight Forest provides the kind of concentrated dark palette that keeps donors engaged during late-evening giving sessions.",
     ],
     sections: [
       {
@@ -68,7 +68,7 @@ export const seoGuides2: LandingGuide[] = [
       {
         heading: "Campaign emails and dark backgrounds",
         body:
-          "More than half of email opens now render in dark mode, which means your fundraising campaign colors must survive automatic inversion. Avoid light-on-light color combinations that email clients flip to invisible. Test your accent colors against both #1a1a1a and #121212 backgrounds — the Deep Focus collection provides pairs that hold contrast across both contexts. The Dark Mode UI Kit includes pre-tested email-safe color pairings.",
+          "More than half of email opens now render in dark mode, which means your fundraising campaign colors must survive automatic inversion. Avoid light-on-light color combinations that email clients flip to invisible. Test your accent colors against both #1a1a1a and #121212 backgrounds — the Midnight Forest collection provides pairs that hold contrast across both contexts. The Dark Mode UI Kit includes pre-tested email-safe color pairings.",
       },
       {
         heading: "Maintaining warmth in dark interfaces",
@@ -77,9 +77,9 @@ export const seoGuides2: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Deep Focus Collection", href: "/collections/deep-focus/" },
+      { label: "Midnight Forest Collection", href: "/collections/midnight-forest/" },
       { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
-      { label: "WCAG Contrast Checker", href: "/audit/" },
+      { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
     ],
   },
   {
@@ -117,7 +117,7 @@ export const seoGuides2: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "WCAG Contrast Checker", href: "/audit/" },
+      { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
       { label: "Stone & Teal Collection", href: "/collections/stone-and-teal/" },
       { label: "Complete Archive", href: "/packs/complete-archive/" },
     ],
@@ -159,7 +159,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Golden Hour Collection", href: "/collections/golden-hour/" },
       { label: "Content Creator Bundle", href: "/packs/content-creator-bundle/" },
-      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
   {
@@ -171,12 +171,12 @@ export const seoGuides2: LandingGuide[] = [
     eyebrow: "Nonprofit",
     priority: 50,
     searchIntent: "design token system for nonprofit multi-chapter brand",
-    featuredCollectionId: "signal-bright",
+    featuredCollectionId: "candy-pop",
     featuredPackId: "palette-pack-vol-1",
     tags: ["Nonprofit", "Design Tokens", "Multi-Chapter", "Consistency"],
     highlights: [
       "Multi-chapter nonprofits lose 30–50% of brand consistency within two years without a token system — every office drifts toward its own interpretation.",
-      "Signal Bright provides high-visibility tokens that volunteer designers can use confidently without color theory training.",
+      "Candy Pop provides high-visibility tokens that volunteer designers can use confidently without color theory training.",
       "Token-based color systems reduce the support burden on central marketing teams by making the right choice the default choice.",
     ],
     sections: [
@@ -188,7 +188,7 @@ export const seoGuides2: LandingGuide[] = [
       {
         heading: "Structuring tokens for program flexibility",
         body:
-          "Large nonprofits run multiple programs that need visual distinction while staying on-brand. Structure your tokens in two tiers: organization-level tokens (primary brand, surfaces, text) that never change, and program-level tokens (accent, category, highlight) that can vary within approved ranges. The Signal Bright collection provides the kind of clear, high-contrast accent palette that works well for program differentiation. Palette Pack Vol. 1 gives you enough pre-built groupings to assign unique accents to each program.",
+          "Large nonprofits run multiple programs that need visual distinction while staying on-brand. Structure your tokens in two tiers: organization-level tokens (primary brand, surfaces, text) that never change, and program-level tokens (accent, category, highlight) that can vary within approved ranges. The Candy Pop collection provides the kind of clear, high-contrast accent palette that works well for program differentiation. Palette Pack Vol. 1 gives you enough pre-built groupings to assign unique accents to each program.",
       },
       {
         heading: "Token export for non-technical teams",
@@ -198,7 +198,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Export", href: "/tokens/" },
-      { label: "Signal Bright Collection", href: "/collections/signal-bright/" },
+      { label: "Candy Pop Collection", href: "/collections/candy-pop/" },
       { label: "Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
     ],
   },
@@ -241,7 +241,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
       { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
   {
@@ -281,7 +281,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
       { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
-      { label: "WCAG Contrast Checker", href: "/audit/" },
+      { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
     ],
   },
   {
@@ -319,7 +319,7 @@ export const seoGuides2: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "WCAG Contrast Checker", href: "/audit/" },
+      { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
       { label: "Cobalt Morning Collection", href: "/collections/cobalt-morning/" },
       { label: "Complete Archive", href: "/packs/complete-archive/" },
     ],
@@ -361,7 +361,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Copper Patina Collection", href: "/collections/copper-patina/" },
       { label: "Content Creator Bundle", href: "/packs/content-creator-bundle/" },
-      { label: "Brand Color Generator", href: "/generator/" },
+      { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
   {
@@ -442,7 +442,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Browse Sunset Boulevard", href: "/collections/sunset-boulevard/" },
     { label: "Get Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-    { label: "Generate custom palette", href: "/generator/" },
+    { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
 {
@@ -482,7 +482,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Browse Ocean Abyss", href: "/collections/ocean-abyss/" },
     { label: "Get Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
-    { label: "Run contrast audit", href: "/audit/" },
+    { label: "Run contrast audit", href: "/wcag-audit/" },
   ],
 },
 {
@@ -495,12 +495,12 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "accessible color scheme travel website",
   featuredCollectionId: "nordic-frost",
-  featuredPackId: "free-palette-pack",
+  featuredPackId: "palette-pack-vol-1",
   tags: ["Travel", "Accessibility", "WCAG", "Inclusive"],
   highlights: [
     "Travel sites serve the widest possible audience — accessibility is not a compliance box, it is a revenue multiplier.",
     "Cool, high-clarity tones from Nordic Frost maintain readability across cheap Android screens and premium Retina displays alike.",
-    "Starting with the Free Palette Pack lets you validate accessible combinations before committing to a full system.",
+    "Starting with the Palette Pack Vol 1 lets you validate accessible combinations before committing to a full system.",
   ],
   sections: [
     {
@@ -516,13 +516,13 @@ export const seoGuides2: LandingGuide[] = [
     {
       heading: "Start free, then scale the system",
       body:
-        "The Free Palette Pack gives you enough accessible base combinations to prototype and test a booking flow before investing in a full design system. Start by mapping the free palette to your core components — buttons, form fields, status badges, navigation — and run real user tests with screen readers and high-contrast mode. Once you have validated that the foundational contrast ratios work in your specific layouts, you can expand into a complete token system. This order — validate first, systematize second — prevents the common mistake of building an elaborate accessible palette that still fails in the actual product.",
+        "The Palette Pack Vol 1 gives you enough accessible base combinations to prototype and test a booking flow before investing in a full design system. Start by mapping the free palette to your core components — buttons, form fields, status badges, navigation — and run real user tests with screen readers and high-contrast mode. Once you have validated that the foundational contrast ratios work in your specific layouts, you can expand into a complete token system. This order — validate first, systematize second — prevents the common mistake of building an elaborate accessible palette that still fails in the actual product.",
     },
   ],
   links: [
     { label: "Browse Nordic Frost", href: "/collections/nordic-frost/" },
-    { label: "Get Free Palette Pack", href: "/packs/free-palette-pack/" },
-    { label: "Audit your colors", href: "/audit/" },
+    { label: "Get Palette Pack Vol 1", href: "/packs/palette-pack-vol-1/" },
+    { label: "Audit your colors", href: "/wcag-audit/" },
   ],
 },
 {
@@ -562,7 +562,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Browse Desert Dusk", href: "/collections/desert-dusk/" },
     { label: "Get Content Creator Bundle", href: "/packs/content-creator-bundle/" },
-    { label: "Generate custom palette", href: "/generator/" },
+    { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
 {
@@ -643,7 +643,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Browse Neon After Dark", href: "/collections/neon-after-dark/" },
     { label: "Get Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-    { label: "Generate custom palette", href: "/generator/" },
+    { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
 {
@@ -696,12 +696,12 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "accessible color scheme gaming esports",
   featuredCollectionId: "candy-pop",
-  featuredPackId: "free-palette-pack",
+  featuredPackId: "palette-pack-vol-1",
   tags: ["Gaming", "Accessibility", "WCAG", "Platform"],
   highlights: [
     "Xbox and PlayStation now require accessibility features — color-only information encoding fails certification.",
     "Candy Pop provides high-chroma, high-contrast combinations that feel energetic while meeting WCAG AA standards.",
-    "Start with the Free Palette Pack to validate accessible combinations against your specific UI components.",
+    "Start with the Palette Pack Vol 1 to validate accessible combinations against your specific UI components.",
   ],
   sections: [
     {
@@ -717,13 +717,13 @@ export const seoGuides2: LandingGuide[] = [
     {
       heading: "Validate before you systematize",
       body:
-        "The Free Palette Pack gives you enough high-contrast, accessible color combinations to prototype your core gaming UI components — HUD elements, menus, notification toasts, and inventory grids — before committing to a full token system. Run these prototype components through the accessibility audit tool to verify contrast ratios at the exact font sizes and element dimensions your game uses. A color that passes WCAG AA at 16px body text might fail at the 11px label size common in inventory screens. Once you have validated the combinations that work in your specific context, expand into a systematic token set with confidence.",
+        "The Palette Pack Vol 1 gives you enough high-contrast, accessible color combinations to prototype your core gaming UI components — HUD elements, menus, notification toasts, and inventory grids — before committing to a full token system. Run these prototype components through the accessibility audit tool to verify contrast ratios at the exact font sizes and element dimensions your game uses. A color that passes WCAG AA at 16px body text might fail at the 11px label size common in inventory screens. Once you have validated the combinations that work in your specific context, expand into a systematic token set with confidence.",
     },
   ],
   links: [
     { label: "Browse Candy Pop", href: "/collections/candy-pop/" },
-    { label: "Get Free Palette Pack", href: "/packs/free-palette-pack/" },
-    { label: "Audit your colors", href: "/audit/" },
+    { label: "Get Palette Pack Vol 1", href: "/packs/palette-pack-vol-1/" },
+    { label: "Audit your colors", href: "/wcag-audit/" },
   ],
 },
 {
@@ -763,7 +763,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Browse Electric Mint", href: "/collections/electric-mint/" },
     { label: "Get Content Creator Bundle", href: "/packs/content-creator-bundle/" },
-    { label: "Generate custom palette", href: "/generator/" },
+    { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
 {
@@ -844,7 +844,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Open Terracotta Loft", href: "/collections/terracotta-loft/" },
     { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-    { label: "Try the brand generator", href: "/generator/" },
+    { label: "Try the brand generator", href: "/brand-generator/" },
   ],
 },
 
@@ -858,19 +858,19 @@ export const seoGuides2: LandingGuide[] = [
   eyebrow: "Food & Beverage",
   priority: 50,
   searchIntent: "dark mode color scheme for food delivery app",
-  featuredCollectionId: "cinematic-earth",
+  featuredCollectionId: "desert-canyon",
   featuredPackId: "dark-mode-ui-kit",
   tags: ["Food", "Dark Mode", "App", "Delivery"],
   highlights: [
     "Food photography loses its appetite appeal against pure black backgrounds — warm dark surfaces preserve the emotional pull of the imagery.",
     "Dark mode ordering flows need higher contrast on price and CTA elements because users often browse while lying down in dim rooms.",
-    "Cinematic Earth provides the warm-dark foundation that makes food images pop without the sterile feel of a typical tech dark mode.",
+    "Desert Canyon provides the warm-dark foundation that makes food images pop without the sterile feel of a typical tech dark mode.",
   ],
   sections: [
     {
       heading: "Warm dark surfaces preserve food photography impact",
       body:
-        "The number one mistake in food app dark mode is using cool, blue-tinted dark backgrounds that make food photos look unappetizing. Food photography is shot under warm lighting — golden hour tones, candlelight, rich amber — and a cool dark surface fights that warmth. Use dark surfaces in the hsl(20–35, 8–15%, 10–14%) range so the app environment complements rather than contradicts the imagery. Cinematic Earth is built on exactly this principle: its base tones are dark but carry enough warmth to feel like a dimly lit restaurant rather than a server room.",
+        "The number one mistake in food app dark mode is using cool, blue-tinted dark backgrounds that make food photos look unappetizing. Food photography is shot under warm lighting — golden hour tones, candlelight, rich amber — and a cool dark surface fights that warmth. Use dark surfaces in the hsl(20–35, 8–15%, 10–14%) range so the app environment complements rather than contradicts the imagery. Desert Canyon is built on exactly this principle: its base tones are dark but carry enough warmth to feel like a dimly lit restaurant rather than a server room.",
     },
     {
       heading: "Menu scanning and price legibility at night",
@@ -884,9 +884,9 @@ export const seoGuides2: LandingGuide[] = [
     },
   ],
   links: [
-    { label: "Open Cinematic Earth", href: "/collections/cinematic-earth/" },
+    { label: "Open Desert Canyon", href: "/collections/desert-canyon/" },
     { label: "Open Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
-    { label: "Check contrast ratios", href: "/audit/" },
+    { label: "Check contrast ratios", href: "/wcag-audit/" },
   ],
 },
 
@@ -901,7 +901,7 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "accessible color scheme for food packaging labels",
   featuredCollectionId: "stone-and-teal",
-  featuredPackId: "free-palette-pack",
+  featuredPackId: "palette-pack-vol-1",
   tags: ["Food", "Accessibility", "Packaging", "WCAG"],
   highlights: [
     "Nearly 40% of grocery shoppers are over 50 — if your label color contrast fails under fluorescent lighting, you are losing a massive customer segment.",
@@ -922,13 +922,13 @@ export const seoGuides2: LandingGuide[] = [
     {
       heading: "Maintaining brand appeal with accessible constraints",
       body:
-        "The most common objection to accessible packaging colors is that high contrast looks clinical or cheap. That is a design skill problem, not an accessibility problem. Brands like Oatly and Hu Kitchen prove that strong contrast and premium feel coexist — the trick is choosing sophisticated hues rather than defaulting to black-on-white. Use deep teals, warm charcoals, and muted stone tones as your accessible palette base, then add one saturated accent for shelf pop. The Free Palette Pack includes starter combinations that demonstrate how accessibility constraints can actually sharpen brand identity rather than dilute it.",
+        "The most common objection to accessible packaging colors is that high contrast looks clinical or cheap. That is a design skill problem, not an accessibility problem. Brands like Oatly and Hu Kitchen prove that strong contrast and premium feel coexist — the trick is choosing sophisticated hues rather than defaulting to black-on-white. Use deep teals, warm charcoals, and muted stone tones as your accessible palette base, then add one saturated accent for shelf pop. The Palette Pack Vol 1 includes starter combinations that demonstrate how accessibility constraints can actually sharpen brand identity rather than dilute it.",
     },
   ],
   links: [
     { label: "Open Stone and Teal", href: "/collections/stone-and-teal/" },
-    { label: "Run a WCAG color audit", href: "/audit/" },
-    { label: "Download Free Palette Pack", href: "/packs/free-palette-pack/" },
+    { label: "Run a WCAG color audit", href: "/wcag-audit/" },
+    { label: "Download Palette Pack Vol 1", href: "/packs/palette-pack-vol-1/" },
   ],
 },
 
@@ -970,7 +970,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Open Golden Hour", href: "/collections/golden-hour/" },
     { label: "Open Content Creator Bundle", href: "/packs/content-creator-bundle/" },
-    { label: "Generate a palette", href: "/generator/" },
+    { label: "Generate a palette", href: "/brand-generator/" },
   ],
 },
 
@@ -1054,7 +1054,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Open Cobalt Morning", href: "/collections/cobalt-morning/" },
     { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-    { label: "Try the brand generator", href: "/generator/" },
+    { label: "Try the brand generator", href: "/brand-generator/" },
   ],
 },
 
@@ -1096,7 +1096,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Open Nocturne Tech", href: "/collections/nocturne-tech/" },
     { label: "Open Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
-    { label: "Check contrast ratios", href: "/audit/" },
+    { label: "Check contrast ratios", href: "/wcag-audit/" },
   ],
 },
 
@@ -1110,19 +1110,19 @@ export const seoGuides2: LandingGuide[] = [
   eyebrow: "Automotive",
   priority: 50,
   searchIntent: "accessible color scheme for automotive dashboard UI",
-  featuredCollectionId: "signal-bright",
-  featuredPackId: "free-palette-pack",
+  featuredCollectionId: "candy-pop",
+  featuredPackId: "palette-pack-vol-1",
   tags: ["Automotive", "Accessibility", "Dashboard", "Safety"],
   highlights: [
     "Dashboard accessibility in vehicles is not a compliance checkbox — it is a safety-critical design constraint where color confusion at 120 km/h can have fatal consequences.",
     "Automotive interfaces must be accessible to drivers with color vision deficiency, which affects roughly 8% of male drivers.",
-    "Signal Bright provides the high-chroma, high-contrast accent palette that automotive warning and status systems demand for instant recognition.",
+    "Candy Pop provides the high-chroma, high-contrast accent palette that automotive warning and status systems demand for instant recognition.",
   ],
   sections: [
     {
       heading: "Glanceable color at highway speed",
       body:
-        "When a driver looks at a dashboard, they have roughly 0.5 to 1.5 seconds before they need to return their eyes to the road. In that window, color must communicate status instantly: green means go, amber means caution, red means stop or danger. There is no time for the driver to read a label or interpret a subtle gradient. Use maximally distinct hues for different status levels, with brightness values that remain distinguishable in both direct sunlight and nighttime conditions. Signal Bright is designed for exactly this use case — its colors are selected for maximum perceptual distance from each other, ensuring that no two status colors can be confused even in peripheral vision.",
+        "When a driver looks at a dashboard, they have roughly 0.5 to 1.5 seconds before they need to return their eyes to the road. In that window, color must communicate status instantly: green means go, amber means caution, red means stop or danger. There is no time for the driver to read a label or interpret a subtle gradient. Use maximally distinct hues for different status levels, with brightness values that remain distinguishable in both direct sunlight and nighttime conditions. Candy Pop is designed for exactly this use case — its colors are selected for maximum perceptual distance from each other, ensuring that no two status colors can be confused even in peripheral vision.",
     },
     {
       heading: "Designing for color vision deficiency behind the wheel",
@@ -1132,13 +1132,13 @@ export const seoGuides2: LandingGuide[] = [
     {
       heading: "Regulatory requirements and future-proofing",
       body:
-        "Automotive UI accessibility is increasingly regulated. ISO 15008 specifies minimum contrast ratios and character sizes for in-vehicle displays, and UNECE guidelines are tightening requirements for digital instruments. Designing to meet these standards now avoids costly retrofits later. Build your color palette around a minimum 4.5:1 contrast ratio for all text and 3:1 for large UI elements, even though current regulations may allow lower thresholds — the trend is toward stricter requirements. The Free Palette Pack provides a starting set of pre-audited combinations you can test against these standards before committing to a full production palette.",
+        "Automotive UI accessibility is increasingly regulated. ISO 15008 specifies minimum contrast ratios and character sizes for in-vehicle displays, and UNECE guidelines are tightening requirements for digital instruments. Designing to meet these standards now avoids costly retrofits later. Build your color palette around a minimum 4.5:1 contrast ratio for all text and 3:1 for large UI elements, even though current regulations may allow lower thresholds — the trend is toward stricter requirements. The Palette Pack Vol 1 provides a starting set of pre-audited combinations you can test against these standards before committing to a full production palette.",
     },
   ],
   links: [
-    { label: "Open Signal Bright", href: "/collections/signal-bright/" },
-    { label: "Run a WCAG color audit", href: "/audit/" },
-    { label: "Download Free Palette Pack", href: "/packs/free-palette-pack/" },
+    { label: "Open Candy Pop", href: "/collections/candy-pop/" },
+    { label: "Run a WCAG color audit", href: "/wcag-audit/" },
+    { label: "Download Palette Pack Vol 1", href: "/packs/palette-pack-vol-1/" },
   ],
 },
 
@@ -1180,7 +1180,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Open Monochrome Studio", href: "/collections/monochrome-studio/" },
     { label: "Open Content Creator Bundle", href: "/packs/content-creator-bundle/" },
-    { label: "Generate a palette", href: "/generator/" },
+    { label: "Generate a palette", href: "/brand-generator/" },
   ],
 },
 
@@ -1194,19 +1194,19 @@ export const seoGuides2: LandingGuide[] = [
   eyebrow: "Automotive",
   priority: 50,
   searchIntent: "design token system for automotive brand consistency",
-  featuredCollectionId: "deep-focus",
+  featuredCollectionId: "midnight-forest",
   featuredPackId: "brand-starter-kit",
   tags: ["Automotive", "Design Tokens", "Systems", "Multi-platform"],
   highlights: [
     "Automotive brands span more platform diversity than almost any industry — in-car displays, configurator apps, dealer management systems, consumer websites, and print advertising all need the same palette speaking different technical languages.",
     "The token architecture must account for display technology differences: OLED infotainment screens, low-quality dealer kiosk LCDs, and high-gamut marketing monitors all render the same hex code differently.",
-    "Deep Focus provides the controlled, systematic palette structure that a multi-platform automotive token system demands.",
+    "Midnight Forest provides the controlled, systematic palette structure that a multi-platform automotive token system demands.",
   ],
   sections: [
     {
       heading: "Why automotive token systems are uniquely complex",
       body:
-        "Most design token systems manage two outputs: web and mobile. Automotive brands manage at least six: in-car HMI, consumer website, configurator app, dealer management tools, marketing campaigns, and physical environment guidelines. Each platform has different technical constraints, different display technologies, and different usage contexts. A token system for automotive must include platform-specific output transforms — the same semantic token (brand-primary) might resolve to an sRGB hex for web, a P3 value for in-car OLED, a Pantone reference for showroom signage, and a RAL number for architectural applications. Deep Focus provides the systematic palette depth needed to populate all these output channels without creating ad-hoc color decisions at each touchpoint.",
+        "Most design token systems manage two outputs: web and mobile. Automotive brands manage at least six: in-car HMI, consumer website, configurator app, dealer management tools, marketing campaigns, and physical environment guidelines. Each platform has different technical constraints, different display technologies, and different usage contexts. A token system for automotive must include platform-specific output transforms — the same semantic token (brand-primary) might resolve to an sRGB hex for web, a P3 value for in-car OLED, a Pantone reference for showroom signage, and a RAL number for architectural applications. Midnight Forest provides the systematic palette depth needed to populate all these output channels without creating ad-hoc color decisions at each touchpoint.",
     },
     {
       heading: "Structuring tokens across vehicle lines",
@@ -1220,7 +1220,7 @@ export const seoGuides2: LandingGuide[] = [
     },
   ],
   links: [
-    { label: "Open Deep Focus", href: "/collections/deep-focus/" },
+    { label: "Open Midnight Forest", href: "/collections/midnight-forest/" },
     { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
     { label: "Export design tokens", href: "/tokens/" },
   ],
@@ -1263,7 +1263,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Explore Concrete Modernism", href: "/collections/concrete-modernism/" },
     { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-    { label: "Generate custom palette", href: "/generator/" },
+    { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
 {
@@ -1303,7 +1303,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Explore Monochrome Studio", href: "/collections/monochrome-studio/" },
     { label: "Get the Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
-    { label: "Run a contrast audit", href: "/audit/" },
+    { label: "Run a contrast audit", href: "/wcag-audit/" },
   ],
 },
 {
@@ -1342,7 +1342,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Explore Stone and Teal", href: "/collections/stone-and-teal/" },
-    { label: "Run a WCAG audit", href: "/audit/" },
+    { label: "Run a WCAG audit", href: "/wcag-audit/" },
     { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
   ],
 },
@@ -1464,7 +1464,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Explore Velvet Dusk", href: "/collections/velvet-dusk/" },
     { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-    { label: "Generate custom palette", href: "/generator/" },
+    { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
 {
@@ -1504,7 +1504,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Explore Neon After Dark", href: "/collections/neon-after-dark/" },
     { label: "Get the Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
-    { label: "Run a contrast audit", href: "/audit/" },
+    { label: "Run a contrast audit", href: "/wcag-audit/" },
   ],
 },
 {
@@ -1516,7 +1516,7 @@ export const seoGuides2: LandingGuide[] = [
   eyebrow: "Music & Entertainment",
   priority: 50,
   searchIntent: "accessible colors for music events and apps",
-  featuredCollectionId: "signal-bright",
+  featuredCollectionId: "candy-pop",
   featuredPackId: "brand-starter-kit",
   tags: ["Music", "Accessibility", "Events", "Signage"],
   highlights: [
@@ -1528,7 +1528,7 @@ export const seoGuides2: LandingGuide[] = [
     {
       heading: "Venue signage faces the harshest accessibility conditions",
       body:
-        "Concert halls, festival grounds, and club venues present accessibility challenges that desktop design never encounters. Signage must be legible at 20+ meters, under shifting colored stage lighting, in near-darkness, and by a diverse audience that includes people with low vision and color vision deficiency. The Signal Bright collection is built for exactly these conditions — its high-saturation, high-contrast tones maintain differentiation even when ambient lighting shifts the perceived hue. Pair bold signal colors with large type and simple iconography so wayfinding never depends on color recognition alone.",
+        "Concert halls, festival grounds, and club venues present accessibility challenges that desktop design never encounters. Signage must be legible at 20+ meters, under shifting colored stage lighting, in near-darkness, and by a diverse audience that includes people with low vision and color vision deficiency. The Candy Pop collection is built for exactly these conditions — its high-saturation, high-contrast tones maintain differentiation even when ambient lighting shifts the perceived hue. Pair bold signal colors with large type and simple iconography so wayfinding never depends on color recognition alone.",
     },
     {
       heading: "Ticketing apps must meet WCAG AA across all states",
@@ -1542,8 +1542,8 @@ export const seoGuides2: LandingGuide[] = [
     },
   ],
   links: [
-    { label: "Explore Signal Bright", href: "/collections/signal-bright/" },
-    { label: "Run a WCAG audit", href: "/audit/" },
+    { label: "Explore Candy Pop", href: "/collections/candy-pop/" },
+    { label: "Run a WCAG audit", href: "/wcag-audit/" },
     { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
   ],
 },
@@ -1664,7 +1664,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Browse Blossom Season", href: "/collections/blossom-season/" },
       { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-      { label: "Generate custom palette", href: "/generator/" },
+      { label: "Generate custom palette", href: "/brand-generator/" },
     ],
   },
   {
@@ -1704,7 +1704,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Browse Midnight Forest", href: "/collections/midnight-forest/" },
       { label: "Get the Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
-      { label: "Run a contrast audit", href: "/audit/" },
+      { label: "Run a contrast audit", href: "/wcag-audit/" },
     ],
   },
   {
@@ -1743,7 +1743,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Nordic Frost", href: "/collections/nordic-frost/" },
-      { label: "Run a WCAG audit", href: "/audit/" },
+      { label: "Run a WCAG audit", href: "/wcag-audit/" },
       { label: "Export design tokens", href: "/tokens/" },
     ],
   },
@@ -1864,7 +1864,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Browse Nocturne Tech", href: "/collections/nocturne-tech/" },
       { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-      { label: "Generate custom palette", href: "/generator/" },
+      { label: "Generate custom palette", href: "/brand-generator/" },
     ],
   },
   {
@@ -1904,7 +1904,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Browse Digital Night", href: "/collections/digital-night/" },
       { label: "Get the Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
-      { label: "Run a contrast audit", href: "/audit/" },
+      { label: "Run a contrast audit", href: "/wcag-audit/" },
     ],
   },
   {
@@ -1943,7 +1943,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Monochrome Studio", href: "/collections/monochrome-studio/" },
-      { label: "Run a WCAG audit", href: "/audit/" },
+      { label: "Run a WCAG audit", href: "/wcag-audit/" },
       { label: "Export design tokens", href: "/tokens/" },
     ],
   },
