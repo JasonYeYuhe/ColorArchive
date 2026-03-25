@@ -2063,3 +2063,44 @@ Added keywords for: motion design, temporal color, color management/print, desig
 - `src/lib/guides.ts` — extraGuides27 (5 guides, 154 total)
 - `src/lib/collections.ts` — extraCollections26 (4 collections, 98 total)
 - `src/lib/color-search.ts` — 45 new search aliases
+
+---
+
+## 2026-03-26 — Normal Run
+
+**Run type:** Normal (3rd run since last big run)
+**Commit:** 9eea5d1
+**Typecheck:** ✓ clean (fixed 2 duplicate key errors in color-search.ts)
+
+### Category A — 5 New Newsletter Issues (now 219 total)
+
+- **mar-2030-wayfinding-color**: Signage legibility, environmental contrast, redundant encoding for color-blind accessibility, material-specific specification
+- **mar-2030-luxury-brand-color**: Restraint vs richness logic, heritage color equity, why black-and-gold fails mature luxury brands, materiality signals
+- **mar-2030-data-viz-color**: Sequential/diverging/categorical scale selection, OKLCH for perceptual accuracy, color-blind accessibility testing
+- **mar-2030-packaging-color**: Shelf legibility conditions, category color conventions, material-specific specification, finish quality as premium signal
+- **mar-2030-sustainable-brand-color**: Aesthetics decoupled from credentials, specificity as differentiator, vivid colors and sustainability, regulatory risk
+
+### Category A — 5 New Guides (now 159 total, extraGuides28)
+
+- **wayfinding-color-guide**: Environmental constraints, category distinctiveness, redundant encoding, material-specific specification
+- **luxury-brand-color-guide**: Brand equity vs psychology, materiality encoding, heritage color protection
+- **data-visualization-color-guide**: Scale type selection, perceptual accuracy in OKLCH, color-blind accessibility
+- **packaging-color-guide**: Shelf simulation, category conventions, material specification, finish as premium signal
+- **sustainable-brand-color-guide**: Decoupled aesthetics, specificity as differentiator, vivid sustainability, regulatory risk
+
+### Category D — 4 New Collections (now 102 total, extraCollections27)
+
+- **platinum-edge**: Cool blue-gray and silver for precision tech, luxury hardware, automotive
+- **tuscan-clay**: Warm terracotta, muted coral, olive for Mediterranean artisan brands
+- **dusk-lavender**: Muted violet and iris for mindfulness, meditation, mental wellness apps
+- **bamboo-grove**: Warm jade and olive for spa, organic beauty, botanical wellness
+
+### Category D — 26 New Search Aliases (color-search.ts)
+
+Added unique new terms: environmental, prestige, legacy, refined, choropleth, fmcg, organic_packaging, greenwashing, eco_brand, regenerative, chrome, metallic, tuscan, mediterranean, terracotta_palette, lilac, mindful, bamboo, wellness_green + 7 more
+
+### Files Modified (4)
+- `src/data/newsletter-issues.json` — 5 new issues (215-219)
+- `src/lib/guides.ts` — extraGuides28 (5 guides, 159 total)
+- `src/lib/collections.ts` — extraCollections27 (4 collections, 102 total)
+- `src/lib/color-search.ts` — 26 new unique search aliases
