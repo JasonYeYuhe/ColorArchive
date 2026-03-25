@@ -1834,3 +1834,136 @@ const extraCollections21: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections21);
+
+const extraCollections22: ColorCollection[] = [
+  createCollection(
+    "sand-dune",
+    "Sand Dune",
+    "Warm apricot and honey dune tones — a Mediterranean sun palette for hospitality, wellness, and organic lifestyle brands.",
+    "Sand dune is built on the layered colors of sun-warmed desert sand from pale late-afternoon light to the deep amber of shadow in a dune's fold. Apricot-veil-faint opens as the barely-warm base — the color of bleached sand in bright noon sun, almost white but with enough warmth to register. Honey-whisper-muted steps up as the secondary surface, introducing the characteristic honey warmth of sandstone without becoming obviously orange. Apricot-pearl-soft deepens to the mid-value sand tone — warm, gentle, and round — that works for contained surface areas and secondary UI elements. Honey-silk-soft moves into the richer amber-honey that appears in the shadowed sides of dunes, the most distinctive tone in the set. Amber-shadow-muted anchors the palette as the structural dark — a warm, deep amber-brown that functions as near-black while remaining unmistakably warm throughout.",
+    ["Warm", "Hospitality", "Organic"],
+    [
+      "apricot-veil-faint",
+      "honey-whisper-muted",
+      "apricot-pearl-soft",
+      "honey-silk-soft",
+      "amber-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Sand dune is ideal for Mediterranean hospitality, organic skincare and beauty, wellness retreats, artisan food brands, and sustainable lifestyle companies. It carries immediate associations with warmth, natural materials, and unhurried ease. Photography direction: sun-warmed surfaces, linen and natural cotton textiles, terracotta and raw clay ceramics, warm afternoon light, beaches and arid landscape details. Avoid cool photography — gray skies, cold architectural white, and blue-shifted environments will break the palette's warmth. Typography: a humanist or old-style typeface adds warmth; geometric sans at medium weight provides modern contrast.",
+      promptWords: [
+        "Mediterranean wellness retreat in warm sand and honey tones",
+        "organic skincare brand in apricot and natural amber palette",
+        "boutique hospitality brand in sand dune and warm amber",
+        "artisan food company in honey and warm sand tones",
+        "sustainable lifestyle brand in pale apricot and earthy amber",
+      ],
+      useCases: [
+        "Mediterranean hospitality and resort brands",
+        "Organic skincare and natural beauty",
+        "Wellness retreat and spa identity",
+        "Artisan food and beverage brands",
+        "Sustainable and slow-living lifestyle brands",
+      ],
+    },
+  ),
+  createCollection(
+    "nordic-morning",
+    "Nordic Morning",
+    "Ice-pale blues and cool bone whites — a cold-light clarity palette for Scandinavian-aesthetic brands, productivity tools, and premium cold-climate design.",
+    "Nordic morning captures the quality of light in northern latitudes in early morning: the pale, slightly blue-shifted light that precedes sunrise, where everything is visible but nothing is warm. Azure-veil-faint opens as the barely-blue base — nearly white, with just enough cool blue presence to read as intentional rather than warm-neutral. Cool-gray-whisper provides the secondary surface in near-perfect neutral gray, slightly cooler than warm-gray, adding structural separation without temperature shift. Cerulean-bloom-muted introduces the first clearly defined blue mid-tone — a muted cerulean at medium lightness, the color of a clear northern sky at depth. Azure-tone-soft darkens toward a readable structural blue-gray for secondary text and contained areas, still firmly light and cool. Cobalt-ink-muted closes as the near-dark anchor — a deep muted cobalt that provides full text contrast while maintaining the cool Nordic register.",
+    ["Cold", "Scandinavian", "Precision"],
+    [
+      "azure-veil-faint",
+      "cool-gray-whisper",
+      "cerulean-bloom-muted",
+      "azure-tone-soft",
+      "cobalt-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Nordic morning is the colder sibling of Glacier Melt — where Glacier Melt is purely arctic and aqua-tinged, Nordic morning is true cold-sky blue with a neutral gray grounding. It suits Scandinavian-aesthetic lifestyle brands, productivity and focus applications, minimal architecture, and healthcare technology. Photography direction: overcast northern light, white and gray interiors with wooden accents, frosted glass, winter landscape, crisp architectural photography with gray skies. Avoid warm photography entirely — golden light and amber surfaces will fight the palette's cold register. Typography: a geometric or neo-grotesque sans in light or regular weight; the more refined and precise the better.",
+      promptWords: [
+        "Scandinavian productivity app in pale blue and cool gray",
+        "minimal architecture firm in Nordic blue and bone white",
+        "premium cold-climate outdoor brand in azure and cobalt",
+        "healthcare technology in cool cerulean and precise gray",
+        "design studio in Nordic morning blue and off-white palette",
+      ],
+      useCases: [
+        "Scandinavian-aesthetic product and brand design",
+        "Productivity, focus, and minimal digital tools",
+        "Architecture and interior design firms",
+        "Healthcare technology and medical devices",
+        "Cold-climate outdoor and lifestyle brands",
+      ],
+    },
+  ),
+  createCollection(
+    "ember-hearth",
+    "Ember Hearth",
+    "Warm amber glows and deep ruby embers — a firelit warmth palette for home, hospitality, and brands that evoke comfort and gathered heat.",
+    "Ember hearth is built on the colors of a dying fire: the pale warmth of amber-lit room air, the golden mid-glow of a bed of coals, the deeper orange-red of active embers, and the near-black of ash-edged charcoal. Amber-whisper-faint opens as the barely-warm base — the color of a room illuminated only by firelight at its most subtle, a warm cast on an otherwise white surface. Coral-pearl-muted deepens as the secondary surface tone, adding the soft coral warmth of firelight on skin or paper. Ember-silk-soft introduces the true ember register at mid-value — a warm orange-amber that is the visual heart of the palette, alive and present. Ruby-shadow-muted darkens toward the deep ruby-ember territory of a coal's glowing core. Ember-ink-muted closes as the anchoring near-dark — a warm, dark near-black with enough ember-red shift to feel intimate and firelit rather than cold.",
+    ["Warm", "Cozy", "Hearth"],
+    [
+      "amber-whisper-faint",
+      "coral-pearl-muted",
+      "ember-silk-soft",
+      "ruby-shadow-muted",
+      "ember-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Ember hearth suits home goods, hospitality, cozy food and beverage brands, premium candle and fragrance brands, and any product that sells comfort and warmth as its primary proposition. It is warmer and more physically present than Amber Library (which is intellectual and editorial) — this palette is about physical, sensory heat and comfort. Photography direction: firelight and candle-lit interiors, warm incandescent rooms, ceramics and textiles by fire, warm close-up food photography, evening light through warm window glass. Avoid cool or daylight photography. Typography: a slightly rounded humanist or slab serif reinforces warmth; sharp geometric sans will fight the palette's intimacy.",
+      promptWords: [
+        "premium candle brand in amber and ember tones",
+        "cozy home goods in firelit warm palette",
+        "boutique hospitality in ember and deep ruby",
+        "artisan food brand in hearth-warm amber and coral",
+        "luxury hot beverage brand in ember-glow palette",
+      ],
+      useCases: [
+        "Candle, home fragrance, and aromatherapy brands",
+        "Premium hot beverage and comfort food brands",
+        "Cozy hospitality and boutique accommodation",
+        "Home goods and warm interior brands",
+        "Premium spirits with warmth and heritage positioning",
+      ],
+    },
+  ),
+  createCollection(
+    "mint-laboratory",
+    "Mint Laboratory",
+    "Clean mint and precise seafoam greens on clinical white — a fresh precision palette for health tech, clean beauty, and science-backed wellness brands.",
+    "Mint laboratory is built on the colors of a well-equipped research facility with unexpected plant life: the clinical whites and cool-neutral grays of precision environments, interrupted by the fresh, alive green of a mint plant growing in a window. Mint-veil-faint opens as the barely-green base — nearly white with a clean, fresh green tint that reads as hygienic and alive rather than sterile. Mint-bloom-muted deepens as the secondary surface, adding more visible mint presence at medium lightness without moving into vivid territory. Seafoam-silk-soft introduces the complementary seafoam note — where mint leans slightly cool-green, seafoam adds a slight aqua dimension that broadens the palette's freshness. Mint-tone-muted darkens toward a readable structural green-gray for secondary text and contained elements. Emerald-ink-muted closes as the deep anchor — a muted dark emerald-green that provides full contrast while maintaining the fresh, living-green register.",
+    ["Fresh", "Clinical", "Health"],
+    [
+      "mint-veil-faint",
+      "mint-bloom-muted",
+      "seafoam-silk-soft",
+      "mint-tone-muted",
+      "emerald-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Mint laboratory is designed for health technology, clean beauty and skincare, science-backed wellness supplements, functional food and beverage, and any brand that wants to communicate efficacy, cleanliness, and natural freshness simultaneously. It occupies the space between clinical white (too cold, too hospital-like) and lush botanical green (too untamed, too spa-like) — precise, fresh, and alive. Photography direction: clean laboratory aesthetics, fresh herbs and leaves in clinical environments, transparent ingredients against white, product photography on clean white with mint botanical accents. Typography: a geometric or neo-grotesque sans communicates precision; avoid decorative typefaces.",
+      promptWords: [
+        "health technology platform in clean mint and white palette",
+        "science-backed skincare brand in mint and clinical white",
+        "wellness supplement brand in fresh mint and precision green",
+        "functional beverage brand in mint laboratory palette",
+        "clean beauty brand in fresh seafoam and mint tones",
+      ],
+      useCases: [
+        "Health technology platforms and medical interfaces",
+        "Clean beauty, skincare, and cosmetics",
+        "Science-backed wellness and supplement brands",
+        "Functional food, beverage, and nutrition brands",
+        "Telehealth and digital health products",
+      ],
+    },
+  ),
+];
+
+collections.push(...extraCollections22);

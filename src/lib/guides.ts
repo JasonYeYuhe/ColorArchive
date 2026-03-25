@@ -6730,3 +6730,213 @@ export const extraGuides21: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides21);
+
+const extraGuides22: LandingGuide[] = [
+  {
+    category: "UI Design",
+    slug: "ecommerce-color-guide",
+    title: "E-Commerce Color Strategy: Driving Trust, Urgency, and Conversions",
+    summary:
+      "A practical guide to using color in e-commerce design — CTA contrast, trust palette selection, urgency signals, and aligning product photography with brand palette.",
+    eyebrow: "E-Commerce",
+    priority: 80,
+    searchIntent: "ecommerce color design conversion CTA color online store palette",
+    featuredCollectionId: "terracotta-loft",
+    featuredPackId: "complete-archive",
+    tags: ["E-Commerce", "Color Psychology", "UI Design", "Conversion"],
+    highlights: [
+      "CTA button contrast against its surrounding surface drives conversion more reliably than specific hue choice — always test the highest-contrast option first.",
+      "Cool, desaturated palettes consistently score higher on trustworthiness ratings than warm, saturated ones — critical for checkout, payment, and data-entry pages.",
+      "Aligning product photography temperature with brand palette temperature is one of the simplest high-impact improvements to e-commerce brand coherence.",
+    ],
+    sections: [
+      {
+        heading: "CTA color: contrast first, hue second",
+        body: "The most persistent e-commerce color myth is that a single CTA hue — orange, green, red — is inherently better than others. Empirical testing consistently shows that the decisive variable is contrast against the surrounding surface, not the hue itself. A CTA button that has the highest lightness contrast and the largest temperature shift from its background will outperform a same-hue button at lower contrast in A/B tests. On a cool-blue interface, a warm amber CTA exploits both value contrast and temperature contrast simultaneously. On a neutral-light background, a deep green or saturated orange provides strong contrast. The wrong starting question is 'what color should my CTA be?'; the right question is 'what color would stand out most against this specific page?'",
+      },
+      {
+        heading: "Trust palette and credibility signals",
+        body: "Research into color and perceived trustworthiness consistently finds that cool, desaturated palettes — blues, blue-grays, muted greens — score higher on trust ratings than warm or high-saturation equivalents. This explains the dominance of cool blues in financial services, insurance, and healthcare e-commerce. The effect is measurable: in user studies, products presented against cool-blue interfaces are rated more reliable and professional than identical products on warm-amber interfaces. For any e-commerce context involving payment, personal data, or high-consideration purchases, a cool-leaning primary palette with muted saturation is a defensible default. Warm, energetic palettes work better for impulse purchases, low-ticket items, and experiential products where urgency matters more than credibility.",
+      },
+      {
+        heading: "Urgency and scarcity color conventions",
+        body: "Red carries the strongest association with urgency, time pressure, and alarm in most cultural contexts. In e-commerce, red for sale pricing, countdown timers, and 'limited stock' indicators exploits this pre-existing association to increase purchase urgency. The effect is real but susceptible to overuse: interfaces that apply red broadly lose the urgency signal, as the eye begins to ignore it. Orange functions as a lower-urgency urgency signal — it shares warmth and energy with red but lacks the alarm association, making it suitable for general promotional indicators without inducing the anxiety response of red. Black is increasingly used for premium urgency signals (Black Friday, limited edition, exclusive access) — it communicates scarcity and exclusivity rather than alarm, suitable for higher-ticket purchases.",
+      },
+      {
+        heading: "Product photography and palette alignment",
+        body: "Product photography is a color decision with as much impact as interface palette. A muted, cool brand palette combined with warm golden-hour product photography creates a tonal mismatch that reads as inconsistent or disorganized — even to users who cannot articulate the specific problem. The solution is to align photography temperature with interface palette temperature: muted palettes pair with diffused natural light or off-white seamless photography; warm palettes pair with golden-hour, incandescent, or candlelit photography; saturated palettes pair with studio photography using controlled, richer lighting. Setting an explicit color direction for product photography — even a two-line brief about lighting temperature — is one of the most cost-effective ways to improve visual brand coherence in e-commerce.",
+      },
+    ],
+    links: [
+      { label: "Color contrast checker", href: "/contrast/" },
+      { label: "Brand palette generator", href: "/palette-generator/" },
+      { label: "All collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Environmental Design",
+    slug: "wayfinding-color-design",
+    title: "Wayfinding Color Systems: Color in Physical Spaces and Signage",
+    summary:
+      "How color works differently in architectural and environmental contexts — the specific constraints of scale, lighting variation, and spatial hierarchy that govern wayfinding color systems.",
+    eyebrow: "Environmental Design",
+    priority: 58,
+    searchIntent: "wayfinding color design signage environmental color architectural color",
+    featuredCollectionId: "forest-terrain",
+    featuredPackId: "complete-archive",
+    tags: ["Environmental Design", "Wayfinding", "Color Systems", "Architecture"],
+    highlights: [
+      "Hue differentiation alone fails at architectural distances — lightness contrast must always support hue in large-scale color systems.",
+      "Each wayfinding zone should use one color that appears nowhere else for non-wayfinding purposes; mixing decorative and directional use of the same hue destroys the signal.",
+      "Metamerism — colors matching under one light source but diverging under another — is a unique challenge in physical environments that digital design does not face.",
+    ],
+    sections: [
+      {
+        heading: "Why environmental color follows different rules",
+        body: "Screen color and environmental color operate under fundamentally different conditions. Digital interfaces are viewed at consistent distances (50-80cm) under reasonably controlled ambient lighting; architectural color is experienced at varying distances from centimeters to hundreds of meters, under changing natural and artificial light, and in motion. Colors that appear clearly distinct on a monitor can become indistinguishable at 30 meters. Hue differences that are obviously readable at arm's length disappear at architectural scale, leaving only lightness contrast as a reliable signal. This is why effective wayfinding systems — airports, hospitals, transit networks — rely primarily on value (light-dark) contrast with saturation as a secondary signal, not on hue alone.",
+      },
+      {
+        heading: "Wayfinding color logic",
+        body: "Effective wayfinding color systems use color as a zone identifier, not as decoration. The cardinal principle: each zone gets one color, and that color appears nowhere else in the environment for non-wayfinding purposes. When a building uses a color decoratively in multiple zones, the wayfinding directional signal is destroyed. Hospital wayfinding failures trace most frequently to exactly this problem: a warm red used for both cardiac-unit wayfinding and general lobby branding, so the directional signal cannot be decoded from the decorative use. The palette for a wayfinding system should be selected as a closed set of carefully differentiated hues — typically 4-8 colors with both hue and value contrast between zones — tested against the building's architectural palette, and protected by specification from non-wayfinding use.",
+      },
+      {
+        heading: "Metamerism and lighting variation",
+        body: "Metamerism is the phenomenon where two colors match under one illuminant but appear different under another. A palette selected under fluorescent office lighting may read as significantly different under warm incandescent, daylight-temperature LED, or natural daylight at different times of day. Physical material specifications use standardized illuminants (D65, D50, CIE Illuminant A) to manage this. In practice, environmental color specifiers evaluate physical samples under all lighting conditions present in the space — not just the primary light source. Digital representations (screen mockups, rendered visualizations) cannot predict metamerism; only physical samples under actual site lighting conditions can validate an environmental color decision.",
+      },
+      {
+        heading: "Scale, material, and finish",
+        body: "The same spectral color value looks completely different across physical materials and surface finishes. Gloss finishes appear more saturated and higher-contrast than matte finishes. Metallic finishes create directional reflectance — their apparent color changes with viewing angle. Textured surfaces diffuse color across the irregularities, reducing apparent saturation. Environmental designers maintain separate finish specifications for the same design intent across different material applications. A hex code from a screen mockup is always the starting point of an environmental color decision, never the end: the physical sample on the specified material, under site lighting, viewed at design distance, is the only valid test of an environmental color choice.",
+      },
+    ],
+    links: [
+      { label: "Color contrast checker", href: "/contrast/" },
+      { label: "All colors", href: "/all-colors/" },
+      { label: "Color family guides", href: "/guides/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "color-token-naming-guide",
+    title: "Color Token Naming: Building a Semantic Layer That Actually Works",
+    summary:
+      "How to name design tokens for color correctly — the semantic layer that maps raw hue values to design intent, enabling dark mode, theming, and rebrand without touching components.",
+    eyebrow: "Design Systems",
+    priority: 75,
+    searchIntent: "design token naming color tokens semantic tokens design system",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "ui-design-system-kit",
+    tags: ["Design Systems", "Design Engineering", "Color Tokens", "CSS Variables"],
+    highlights: [
+      "Semantic token names must express meaning (what is this for?) not appearance (what does it look like?) — names including color values like 'blue-500' are broken semantic tokens.",
+      "The correctness test for a semantic token system: can you implement dark mode by rebinding only the semantic-to-primitive mapping, without editing any component?",
+      "The five standard semantic categories are: surface, text, interactive, feedback, and border — covering 85-90% of token needs in most products.",
+    ],
+    sections: [
+      {
+        heading: "Primitive vs semantic vs component tokens",
+        body: "Color token systems have three layers with different jobs. Primitive tokens are the raw values: --color-amber-500: #D97706, --color-neutral-900: #1A1A1A. They should be a complete, closed set of the palette. Semantic tokens map primitives to meaning: --color-text-primary: var(--color-neutral-900), --color-interactive-default: var(--color-amber-500). They express design intent independently of specific values. Component tokens bind semantics to components: --button-background: var(--color-interactive-default). The architectural principle is that components reference semantics, never primitives. This means a rebrand — change --color-interactive-default from amber to cobalt — automatically propagates to all components that reference it, without editing a single component file.",
+      },
+      {
+        heading: "The standard semantic categories",
+        body: "Well-designed semantic token systems organize into five categories that cover the vast majority of color needs. Surface tokens define backgrounds at different elevations: --surface-default (page background), --surface-subtle (slightly differentiated sections), --surface-raised (cards, panels), --surface-overlay (modals, drawers). Text tokens define readable copy: --text-primary (headings, body), --text-secondary (supporting text), --text-tertiary (metadata, captions), --text-disabled, --text-inverse (text on dark surfaces). Interactive tokens define control states: --interactive-default, --interactive-hover, --interactive-active, --interactive-focus-ring, --interactive-disabled. Feedback tokens define status communication: --feedback-positive, --feedback-warning, --feedback-error, --feedback-info. Border tokens: --border-default, --border-strong, --border-focus. These cover 85-90% of needs in most products.",
+      },
+      {
+        heading: "Common naming mistakes",
+        body: "The most common semantic token error is encoding appearance in the name. '--color-blue-500-text' is a broken semantic token because it reveals the current primitive binding — when the brand recolors from blue to green, every consumer of that token must be updated to reflect the changed meaning. '--color-text-primary' is correct: it expresses meaning only. Renaming the underlying primitive does not require touching the semantic token. The second common error is over-specification: '--color-navbar-background' is a component token masquerading as a semantic token. If the navbar is renamed 'topbar' or the component is restructured, the token name is wrong. Semantic tokens should be abstract enough to apply to multiple components without sounding misnamed.",
+      },
+      {
+        heading: "Dark mode as a correctness test",
+        body: "The most reliable test of semantic token system quality is theming: can you implement dark mode by rebinding only the semantic-to-primitive layer — changing --surface-default from a light primitive to a dark one — without editing any component? If yes, the semantic layer is working. If dark mode requires editing component files to swap color values, the semantic layer has gaps: components are consuming primitive tokens directly, bypassing the semantic layer. Systems built with a clean semantic layer handle dark mode, high-contrast mode, and brand theming work an order of magnitude faster than those that attempt to add theming after the fact. Audit components periodically for primitive-direct references and migrate them to semantic tokens.",
+      },
+    ],
+    links: [
+      { label: "Export CSS tokens", href: "/all-colors/" },
+      { label: "UI Design System Kit", href: "/packs/ui-design-system-kit/" },
+      { label: "Color contrast checker", href: "/contrast/" },
+    ],
+  },
+  {
+    category: "UI Design",
+    slug: "gradient-design-guide",
+    title: "Gradients in UI Design: Functional vs Decorative and How to Use Both",
+    summary:
+      "A framework for using gradients well — understanding what gradients communicate, avoiding common failures like the muddy middle, and building gradients that survive palette changes.",
+    eyebrow: "Visual Design",
+    priority: 65,
+    searchIntent: "gradient design UI CSS gradient background gradient palette",
+    featuredCollectionId: "neon-after-dark",
+    featuredPackId: "complete-archive",
+    tags: ["UI Design", "CSS", "Color Theory", "Visual Design"],
+    highlights: [
+      "Gradients transitioning between hues via HSL interpolation often produce a desaturated 'muddy middle' — OKLCH interpolation solves this with perceptually uniform transitions.",
+      "A gradient communicates movement, depth, and energy simultaneously; when those signals conflict with the design's intent, the gradient adds noise rather than meaning.",
+      "Define gradients as named tokens in design systems (--gradient-hero-background) rather than ad-hoc in components — rebrand updates propagate automatically.",
+    ],
+    sections: [
+      {
+        heading: "What gradients communicate",
+        body: "Before deciding whether to use a gradient, understand what it will communicate. Gradients communicate three things simultaneously: movement (the eye follows the gradient's direction of transition), depth (a gradient from lighter at the top to darker at the bottom reads as a surface curving away from the viewer), and energy (high-saturation gradients read as dynamic and playful; muted gradients read as calm and sophisticated). When these effects align with design intent, a gradient adds meaning. When they conflict — a 'trustworthy, stable, financial' brand using a vivid, high-energy gradient — the gradient creates visual noise by implying qualities the brand does not intend. The design question before adding a gradient is always: what does this specific gradient communicate, and does that match what this surface needs to say?",
+      },
+      {
+        heading: "The muddy middle problem and perceptual gradients",
+        body: "The most common gradient failure is the muddy middle: a gradient between two pure hues that passes through an unpleasant, desaturated zone at the midpoint. A gradient from red to blue interpolated through HSL crosses the hue wheel through purple-to-near-gray in a way that looks muddy and unintended. The problem is that HSL is not a perceptually uniform color space — equal steps in HSL produce unequal perceptual steps, and hue transitions between some color pairs cross through near-gray zones. The solution is perceptual color space interpolation. CSS now supports OKLCH gradients: background: linear-gradient(in oklch, red, blue) produces a vivid, perceptually uniform transition through violet rather than the muddy HSL path. For any hue-to-hue gradient, OKLCH is the correct interpolation space.",
+      },
+      {
+        heading: "Functional gradient applications",
+        body: "Several functional gradient patterns are reliable across interface types. Surface depth on cards: a very subtle top-to-bottom lightness gradient (2-3% lightness difference) on a large card surface reads as physical depth without drawing attention to itself. Text legibility overlay: a gradient from transparent to 60-70% black at the bottom of a photographic area ensures text contrast without a hard edge line — ubiquitous in media, content, and hero sections. Focus and attention gradient: a radial gradient glow behind a featured element or active state uses the eye-following property of gradients to draw attention to the active component. Status gradients: subtle background gradients in success/warning/error banners add visual distinctiveness to feedback without relying solely on color hue, which is important for color-blind accessibility.",
+      },
+      {
+        heading: "Gradients in design systems",
+        body: "Gradients are harder to maintain in design systems than flat colors because they are defined by multiple color stops, not a single value. When brand colors change, gradient definitions must be manually updated. The solution is gradient tokens: define named gradient presets with semantic references — --gradient-hero-background: linear-gradient(in oklch, var(--brand-primary-light), var(--brand-primary-dark)). Component gradients reference the gradient token rather than raw values. When the brand palette changes, updating the primitive tokens automatically updates every gradient token, which automatically updates every component using it. Ad-hoc gradients defined with raw hex values in component files are a maintenance debt. Audit for them regularly and migrate to token references.",
+      },
+    ],
+    links: [
+      { label: "Tints and shades generator", href: "/tints/" },
+      { label: "Color harmony tool", href: "/harmonies/" },
+      { label: "Neon After Dark collection", href: "/collections/neon-after-dark/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "color-and-motion-guide",
+    title: "Color and Motion: Using Color to Guide Attention in Animated Interfaces",
+    summary:
+      "How color and animation work together — temporal contrast, easing curves and color transitions, and using color in loading states, transitions, and interactive feedback.",
+    eyebrow: "Motion Design",
+    priority: 62,
+    searchIntent: "color animation UI motion design transition color loading state",
+    featuredCollectionId: "vivid-spectrum",
+    featuredPackId: "complete-archive",
+    tags: ["Motion Design", "UI Design", "Color Theory", "Interaction Design"],
+    highlights: [
+      "Temporal contrast — a brief color flash or shift — draws the eye more reliably than a static color accent, making color-in-motion more powerful than static color for attention direction.",
+      "Color transitions should ease in and out in both value and saturation simultaneously — a transition that holds saturation constant while lightness changes looks mechanical.",
+      "Loading state colors should use the interface's lowest-saturation tones; high-saturation loading states create visual fatigue during wait times.",
+    ],
+    sections: [
+      {
+        heading: "Temporal contrast and attention",
+        body: "The human visual system is wired to detect change more reliably than static states. A brief color flash — an interface element that changes color for 200-400ms and then returns to resting state — draws the eye more powerfully than any static color accent. This temporal contrast effect is the basis for notification badges, error field highlighting, success confirmations, and focus indicators. The practical design implication: color used in motion is more attention-directing than color used statically. Elements that need to attract attention when something changes — an error appears, a form submits successfully, a notification arrives — should use color change as the primary signal, not a static accent that is always present. Always-on accent colors stop directing attention; they become part of the background.",
+      },
+      {
+        heading: "Color transitions and easing",
+        body: "Color transitions that feel natural ease in both lightness and saturation simultaneously, matching the timing of positional easing curves. A transition from a resting state (medium value, low-medium saturation) to a hover state (lighter value, slightly higher saturation) should use the same easing curve for both dimensions. Transitions that hold saturation constant while lightness changes, or vice versa, look mechanical and disjointed compared to the expected simultaneous shift. CSS custom properties with easing are the correct implementation: define resting and hover values as separate custom properties, then transition both simultaneously in the same rule. The easing curve should match the character of the interaction — ease-out for responsive UI elements (they react immediately), ease-in-out for ambient or ambient transitions.",
+      },
+      {
+        heading: "Loading state color design",
+        body: "Loading states — skeleton screens, progress bars, spinners — require specific color decisions that differ from normal interface color. The loading state is a context of elevated user anxiety: something is being waited for, and the user cannot proceed. High-saturation or high-energy colors in loading states amplify this anxiety rather than reducing it. The correct approach is to use the interface's lowest-saturation tones for loading state fills — near-neutral light grays for skeleton screens, muted mid-tones for progress indicators. A subtle shimmer animation (a lightness pulse from 88% to 94% and back) adds enough motion to communicate active loading without adding color energy. The only exception is progress bars that indicate completion toward a positive outcome — a muted green progress fill can communicate success-approaching without triggering urgency.",
+      },
+      {
+        heading: "Reduced motion and color-only states",
+        body: "Accessibility requirements for motion (prefers-reduced-motion) require that interfaces function without animation. When animation is disabled, the signals carried by temporal contrast must be replaced by static color signals. Design both the animated and static versions of every color-in-motion element: the error state that normally flashes red should rest as a red background without the flash; the success confirmation that pulses green should resolve to a static green banner. This dual design requirement is best approached as a feature, not a constraint — it forces you to make the static color state independently legible, which also improves accessibility for users in low-motion environments (older hardware, low-bandwidth connections, cognitive load situations where animation is distracting). Every color-in-motion element should have a specified no-motion equivalent.",
+      },
+    ],
+    links: [
+      { label: "Color contrast checker", href: "/contrast/" },
+      { label: "All colors", href: "/all-colors/" },
+      { label: "Vivid Spectrum collection", href: "/collections/vivid-spectrum/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides22);
