@@ -2153,3 +2153,82 @@ Beauty: blush_palette, beauty_brand, skincare, desert_rose, sun_kissed, feminine
 - `src/lib/guides.ts` — extraGuides29 (5 guides, 164 total)
 - `src/lib/collections.ts` — extraCollections28 (4 collections, 106 total)
 - `src/lib/color-search.ts` — 49 new unique search aliases
+
+---
+
+## 2026-03-26 — BIG Run (5th run since last big run)
+
+**Run type:** Big Run (1st big run since last big run at d8615e7)
+**Commit:** 785895e
+**Typecheck:** ✓ clean
+**Build:** ✓ clean (first full build in several runs — caught and fixed pre-existing invalid color IDs)
+
+### New Feature: CSS Named Colors Reference (/css-colors/)
+
+Built a complete new tool page for CSS named color keywords:
+- Lists all 148 CSS named color keywords with swatches, hex/RGB/HSL values
+- Search by name or hex, filter by color family (13 families) or CSS level (CSS1-CSS4)
+- Hover swatches show copy buttons for name and hex
+- CSS level badges for each color (CSS1/CSS3/CSS4)
+- Info cards explaining CSS level history including the rebeccapurple story
+- Added to tools page Developer category with `</>` icon
+- Added to sitemap with priority 0.85
+- Added EN+ZH i18n keys
+- Added `/css-colors` to SiteHeader currentPath type
+- Related tools links: Color Converter, Contrast Checker, Tints & Shades, Design Tokens
+
+### Category A — 5 New Newsletter Issues (now 229 total)
+
+- **may-2030-css-color-systems**: CSS color history from VGA palette to oklch, rebeccapurple, perceptual uniformity
+- **may-2030-color-in-motion-design**: Transition timing semantics, saturation trajectories, color narrative callbacks
+- **may-2030-color-and-type-pairing**: Visual weight shifts, temperature matching with typefaces, legibility edge cases
+- **may-2030-material-color-psychology**: Matte vs gloss premium signals, metallic material override, translucency luminosity
+- **may-2030-color-iteration-prototyping**: Context simulation, paired comparison stakeholder alignment, evaluation criteria
+
+### Category A — 5 New Guides (extraGuides30, now 169 total)
+
+- **css-color-guide**: CSS named colors history, oklch perceptual uniformity, production color spec strategy
+- **motion-design-color-guide**: Transition speed semantics, saturation trajectories, color temperature arcs
+- **chromatic-typography-guide**: Type weight/temperature interactions, typeface-color pairing tendencies, legibility
+- **material-color-guide**: Matte vs gloss, metallic material psychology, translucency luminosity effects
+- **color-iteration-process-guide**: Context simulation, paired comparison, systematic evaluation criteria
+
+### Category D — 4 New Collections (extraCollections29, now 110 total)
+
+- **golden-ratio**: Rich amber, warm honey, burnished gold — artisan luxury, fine spirits, architectural materials
+- **stone-garden**: Weathered limestone, dry sage, warm gray — Japanese zen, mindfulness, premium ceramics
+- **citrus-grove**: Vivid lemon, warm tangerine, electric lime — Mediterranean food, summer editorial, beverage
+- **navy-signal**: Deep navy, signal red, crisp white — maritime institutions, menswear, precision instruments
+
+### Category D — 37 New Search Aliases
+
+CSS: css_named, css_color, cornflowerblue, rebeccapurple, goldenrod, chartreuse, aquamarine, periwinkle, celadon, vermillion, cobalt_blue (updated), prussian, phthalo, titanium, tungsten
+Motion/Animation: animation_color, ui_animation
+Maritime: navy_signal, nautical
+Food: lemon, tangerine
+Lifestyle: stone_garden, karesansui, meditation (updated)
+Typography: typography_color, chromatic_type
+Material: material_color, gold_palette, precious_metal
+
+### Build Fixes (pre-existing bugs)
+
+First full `npm run build` in several runs caught:
+- Invalid color IDs throughout collections.ts (slate-*, cyan-*, green-*, navy-*, amber-gold/noon/earth/fire/depth/sunrise, cobalt-depth-strong, teal-depth-strong, violet-electric-*, peach-*, rust-*, sage-*, white-pearl-faint, chartreuse-*, indigo-electric-*)
+- Root names "slate", "cyan", "green", "navy", "peach", "rust", "sage" don't exist in color catalog
+- Lightness bands "gold", "noon", "earth", "fire", "depth", "morning", "afternoon", "electric", "sunrise" are invalid
+- Chroma bands "strong", "deep" are invalid
+- Replaced all ~35 invalid IDs with valid equivalents (cobalt-*, cool-gray-*, emerald-*, moss-*, apricot-*, aqua-*, ember-*, etc.)
+- Also fixed: 25 newsletter issues missing `date` field (caused sitemap RangeError on toISOString)
+
+### Files Modified (11)
+- `app/css-colors/page.tsx` — new page route
+- `src/components/css-colors-page.tsx` — new client component (148 CSS colors, search/filter)
+- `src/components/site-header.tsx` — added /css-colors to currentPath type
+- `src/components/tools-page.tsx` — added CSS Named Colors to Developer category
+- `app/tools/page.tsx` — updated description count
+- `src/lib/i18n.ts` — added cssColors.name/desc EN+ZH keys
+- `app/sitemap.ts` — added /css-colors/ with priority 0.85
+- `src/data/newsletter-issues.json` — 5 new issues (225-229) + date fixes on 25 prior
+- `src/lib/guides.ts` — extraGuides30 (5 guides, now 169 total)
+- `src/lib/collections.ts` — extraCollections29 (4 new, now 110) + 35 invalid ID fixes
+- `src/lib/color-search.ts` — 37 new aliases (net, after dedup removal)

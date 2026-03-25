@@ -4,41 +4,37 @@
 > Last updated: 2026-03-26
 
 ## High Priority
-
-- [ ] **Activate Lemon Squeezy store** — Store needs KYB verification completion before payments go live. Check LS dashboard for verification status.
-- [ ] **Set Pro subscription checkout URLs** — Pro subscription config in `src/lib/checkout-config.ts` needs the real LS monthly/yearly checkout URLs once store is active.
-- [ ] **Test purchase flow end-to-end** — After LS activation, test buying a pack and verify webhook fires, order is recorded, and download link is delivered.
-- [ ] **Wire up sendReferralWelcomeEmail** — New referral welcome email function is in email.js but not yet called from any route. Wire it into the subscribe route when a `ref` param is present and the referred user is new.
+- [ ] Activate Lemon Squeezy store — *required before any paid purchases can go through*
+- [ ] Set live pricing on LS products (palette packs $9–$129, All Access bundle) — *placeholder prices may be showing*
+- [ ] Configure Pro subscription URLs in checkout-config.ts ($4.99/mo, $39.99/yr) — *subscription flow incomplete until live LS product IDs are set*
+- [ ] KYB review follow-up with Lemon Squeezy — *business verification may still be pending*
 
 ## Medium Priority
-
-- [ ] **QA new collections (batches 26-28)** — 12 new collections added across last 3 runs (desert-gold, electric-violet, forest-floor, pearl-oyster, platinum-edge, tuscan-clay, dusk-lavender, bamboo-grove, arctic-aurora, scorched-earth, deep-ocean, desert-rose). Verify they render correctly and swatches look right.
-- [ ] **QA Color Name Generator** — New `/name/` page launched. Test the hex input, color picker, preset buttons, and copy actions on mobile and desktop. Verify nearest-color matching looks sensible.
-- [ ] **TikTok content review** — TikTok account is in review. Check status and publish first videos once approved.
-- [ ] **Twitter/X posting cadence** — API is configured. Set up or review the posting schedule for color-of-the-day content.
-- [ ] **Pinterest board strategy** — Pinterest integration is active. Consider creating dedicated boards per color family or collection.
-- [ ] **Product Hunt follow-up** — PH is live. Engage with comments and upvoters; post a milestone update when hitting 100 reviews/upvotes.
-- [ ] **YouTube video strategy** — First video is published. Plan next 3 videos (tutorial, feature walkthrough, color theory explainer).
-- [ ] **Google Search Console verification** — Confirm sitemap is indexed and check for crawl errors after new /name/ and guide pages are added. Now 164 guides total.
+- [ ] Review CSS Named Colors page (/css-colors/) — *new big run feature, verify visually and check mobile layout*
+- [ ] Review invalid color ID fixes in collections.ts — *35 pre-existing bad IDs were replaced with valid equivalents; visually confirm affected collections still look right*
+- [ ] Review newsletter issues without dates — *25 issues had dates auto-added (slug-derived dates); verify they're correct in /notes/*
+- [ ] TikTok video review — *video submitted for review per earlier marketing push, check approval status*
+- [ ] Pinterest integration check — *verify pins are being created correctly for new color pages*
+- [ ] YouTube content calendar — *continue publishing schedule for color education videos*
 
 ## Low Priority / Nice to Have
-
-- [ ] **Demo video** — demo-video/ folder exists in repo root (untracked). Review and either publish or remove.
-- [ ] **Figma plugin submission** — Figma plugin code exists. Submit to Figma Community if not already done.
-- [ ] **API key beta program** — API endpoints are built. Consider creating a waitlist or beta for public API access.
-- [ ] **Referral program promotion** — Referral system is live. Promote it in the next newsletter issue.
-- [ ] **Review /use-cases/ page** — "By Industry" feature launched in prior big run. QA the page on mobile and desktop.
+- [ ] Add Product Hunt badge to homepage once launch settles — *PH live but badge not added yet*
+- [ ] Twitter/X API rate limit check — *API configured but high-volume posting may hit rate limits*
+- [ ] Consider CSS Named Colors page SEO — *could add internal links from color detail pages to /css-colors/ for relevant CSS color names*
+- [ ] Consider adding structured data (ItemList) to /css-colors/ for better search appearance
 
 ## Done
-
-- [x] Lemon Squeezy product setup — products created with correct prices
-- [x] Pro subscription pricing ($4.99/mo, $39.99/yr) — configured in checkout-config.ts
-- [x] Product Hunt launch page — /launch/ is live
-- [x] Pinterest OAuth integration — callback handler and save button implemented
-- [x] WCAG audit tool — /wcag-audit/ page live
-- [x] Color combinations library — /combinations/ page live
-- [x] Design token generator — /tokens/ page live
-- [x] Color Use Cases feature — /use-cases/ with 10 industry guides (2026-03-26)
-- [x] i18n for use-cases pages — EN/ZH translations added (2026-03-26)
-- [x] sendProUpsellEmail FROM_EMAIL bug — fixed (2026-03-26)
-- [x] Color Name Generator — /name/ page live (2026-03-26)
+- [x] Color Name Generator tool (/name/) — completed 2026-03-26 big run
+- [x] Newsletter system launched at /notes/
+- [x] 229 newsletter issues added
+- [x] 169 SEO guides added
+- [x] 110 color collections defined
+- [x] Figma plugin published
+- [x] Pro subscription page built (/pro/)
+- [x] Free pack page (/free-pack/)
+- [x] WCAG audit tool (/wcag-audit/)
+- [x] Color blindness simulator (/colorblind/)
+- [x] Design token generator (/tokens/)
+- [x] CSS Named Colors reference page (/css-colors/) — completed 2026-03-26 big run
+- [x] Fixed pre-existing invalid color IDs in collections.ts — 2026-03-26 big run
+- [x] Fixed missing date fields in 25 newsletter issues — 2026-03-26 big run
