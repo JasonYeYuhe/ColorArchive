@@ -1879,3 +1879,40 @@ Each use case has: color family recommendations, families to avoid, 4 key princi
 - `src/components/use-case-detail-page.tsx` — i18n integration
 - `server/email.js` — FROM_EMAIL bug fix + sendReferralWelcomeEmail
 
+
+---
+
+## 2026-03-26 — Normal Run
+
+**Run type:** Normal
+**Commit:** ebf9981
+**Typecheck:** ✓ clean
+
+### Category A — 5 New Newsletter Issues (now 199 total)
+
+- **oct-2029-color-in-ai-interfaces**: Generative state vs loading state, streaming text opacity treatment, confidence encoding, AI refusal state visual containers, dark-mode-first for AI products
+- **oct-2029-print-to-digital-color**: Pantone-to-hex translation, color profiles and P3 gamut, paper-white vs screen-white, environmental/signage color, cross-medium brand color spec
+- **oct-2029-color-in-video-streaming-ui**: Dark-first rationale, thumbnail color chaos containment, restrained brand color signal, text-over-image scrim tokens, progress/state density
+- **nov-2029-financial-data-color**: Red/green convention + a11y failure, trust vs brand color, categorical chart color, progressive disclosure color, urgency/alert hierarchy
+- **nov-2029-ambient-display-color**: Luminance APL management, environmental color harmony, peripheral vision motion limits, time-of-day color temperature shift
+
+### Category A — 5 New SEO Guides (now 139 total, extraGuides24)
+
+- **ai-interface-color-guide**: AI generative states, streaming text treatment, confidence without numbers, refusal/system message styling, dark-first design
+- **print-to-digital-color-guide**: Pantone translation, P3 gamut awareness, paper-to-screen gap, environmental color, cross-medium brand spec
+- **financial-ui-color-guide**: Red/green a11y failure, trust vs brand color, categorical chart system, progressive disclosure color, urgency color hierarchy
+- **video-streaming-ui-color-guide**: Dark-first design principles, thumbnail chaos management, restrained brand color use, scrim design tokens, state and density
+- **ambient-display-color-guide**: Luminance APL, environmental harmony, peripheral motion thresholds, time-of-day color temperature
+
+### Category D — 4 New Collections (now 86 total, extraCollections23)
+
+- **solar-terracotta**: Warm apricot-coral-amber fired-clay palette — ceramics, artisan craft, natural skincare, warm-climate hospitality
+- **deep-ocean**: Pale coastal cerulean through abyssal cobalt navy — maritime, water products, professional services
+- **pearl-cloud**: Cool-tinted pearl whites through silvery gray — premium tech, luxury retail, high-end editorial
+- **golden-harvest**: Warm citrine-honey-amber harvest palette — food, agriculture, artisan, natural lifestyle brands
+
+### Files modified (3)
+- src/data/newsletter-issues.json — 5 new issues (195-199)
+- src/lib/guides.ts — extraGuides24 (5 guides)
+- src/lib/collections.ts — extraCollections23 (4 collections)
+

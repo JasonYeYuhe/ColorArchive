@@ -18,7 +18,7 @@
 - [ ] **Pinterest board strategy** — Pinterest integration is active. Consider creating dedicated boards per color family or collection.
 - [ ] **Product Hunt follow-up** — PH is live. Engage with comments and upvoters; post a milestone update when hitting 100 reviews/upvotes.
 - [ ] **YouTube video strategy** — First video is published. Plan next 3 videos (tutorial, feature walkthrough, color theory explainer).
-- [ ] **Google Search Console verification** — Confirm sitemap is indexed and check for crawl errors after the new /use-cases/ pages are added.
+- [ ] **Google Search Console verification** — Confirm sitemap is indexed and check for crawl errors after the new /use-cases/ and new guide pages are added.
 
 ## Low Priority / Nice to Have
 
