@@ -2232,3 +2232,54 @@ First full `npm run build` in several runs caught:
 - `src/lib/guides.ts` — extraGuides30 (5 guides, now 169 total)
 - `src/lib/collections.ts` — extraCollections29 (4 new, now 110) + 35 invalid ID fixes
 - `src/lib/color-search.ts` — 37 new aliases (net, after dedup removal)
+
+---
+
+## 2026-03-26 — Normal Run
+
+**Run type:** Normal Run (1st since last big run at 785895e)
+**Commit:** 0a8427b
+**Typecheck:** ✓ clean
+
+### Category A — 5 New Newsletter Issues (now 234 total)
+
+Topics: June 2030 issue batch covering accessibility, AI tools, cross-cultural color, dark mode systems, and print production.
+
+- **jun-2030-color-accessibility-design**: WCAG contrast ratios, color blindness simulation, building accessible palettes as design input
+- **jun-2030-generative-color-ai**: AI exploration vs. human refinement workflow, semantic functional briefs, oklch-based systematic refinement
+- **jun-2030-color-cultural-meaning**: Contextual color associations, major cross-cultural differences by hue, blue as globally safe choice, audience research approach
+- **jun-2030-dark-mode-color-strategy**: Dark mode as parallel system, semantic token architecture, surface/text value selection, brand color adaptation
+- **jun-2030-print-color-production**: CMYK gamut limitations, ICC profile workflow, soft proofing, Pantone specification decisions, print-safe palette building
+
+### Category A — 5 New SEO Guides (extraGuides31, now 174 total)
+
+- **color-accessibility-design-guide**: WCAG, inclusive palettes, color blindness simulation (Accessibility category)
+- **dark-mode-color-design-guide**: Semantic tokens, CSS custom properties, dark surface values (Digital Design category)
+- **cultural-color-meanings-guide**: Cross-cultural color, global design, cultural association models (Global Design category)
+- **print-color-production-guide**: CMYK, ICC profiles, Pantone, screen-to-press gap (Print & Production category)
+- **generative-ai-color-guide**: AI palette tools, functional briefs, exploration and refinement workflow (AI Design category)
+
+### Category D — 4 New Collections (extraCollections30, now 114 total)
+
+- **morning-light**: Soft peach, warm cream, pale gold — hospitality, bakery, skincare (apricot, amber, citrine, coral tones)
+- **midnight-library**: Deep indigo, dark violet, near-black — premium publishing, luxury tech, intellectual brands
+- **lavender-fields**: Soft lavender, pale lilac, quiet violet — wellness, premium beauty, spa
+- **deep-forest**: Dark emerald, deep moss, shadow green — premium outdoor, craft spirits, conservation
+
+### Category D — 30 New Search Aliases
+
+Accessibility: a11y, accessible_color, color_blindness, inclusive_design
+Dark mode: dark_palette (new, others existed)
+Print: offset_print, print_color
+Cultural: chinese_color, lunar_new_year, festive_red, japanese_aesthetics, scandinavian_color, mediterranean_color
+Warmth/Soft: morning_light, soft_warmth
+Editorial: midnight_palette
+Lavender/wellness: lavender_palette, lilac_palette, wellness_color, spa_color
+Forest/outdoor: forest_green, old_growth
+AI/generative: generative_palette, ai_palette, algorithmic
+
+### Files Modified (4)
+- `src/data/newsletter-issues.json` — 5 new issues (230-234)
+- `src/lib/guides.ts` — extraGuides31 (5 guides, 174 total)
+- `src/lib/collections.ts` — extraCollections30 (4 collections, 114 total)
+- `src/lib/color-search.ts` — 30 new unique search aliases
