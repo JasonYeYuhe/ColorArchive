@@ -6940,3 +6940,213 @@ const extraGuides22: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides22);
+
+const extraGuides23: LandingGuide[] = [
+  {
+    category: "Accessibility",
+    slug: "color-in-data-tables-guide",
+    title: "Color in Data Tables: Contrast, State, and Accessible Row Encoding",
+    summary:
+      "A practical guide to making data tables accessible and visually coherent — covering contrast matrices for row states, accessible status encoding, and managing color density in complex enterprise UIs.",
+    eyebrow: "Accessibility",
+    priority: 79,
+    searchIntent: "accessible data table color design row states contrast enterprise UI",
+    featuredCollectionId: "monochrome-studio",
+    featuredPackId: "complete-archive",
+    tags: ["Accessibility", "Data Visualization", "Enterprise UI", "Design Systems"],
+    highlights: [
+      "Every foreground color in a table needs contrast verification against all row state backgrounds — not just the default white row.",
+      "Row encoding that uses color alone fails colorblind and low-vision users; always pair color with iconography, typography, or structural grouping.",
+      "Restraint in the default state makes exceptions — status indicators, selection, alerts — visually noticeable against an uncolored baseline.",
+    ],
+    sections: [
+      {
+        heading: "The contrast matrix problem",
+        body: "Tables stack color decisions in ways no other component does. A row in a data table may simultaneously carry a default background, a hover state, a selected state, and a status indicator — and the text, icons, and badges inside that row must maintain accessible contrast against whichever background state is active. A status badge with 4.5:1 contrast on a default white row may drop below 3:1 when the same row is selected and carries a pale blue background. The correct approach is to enumerate every possible row background state (default, hover, selected, flagged, error) and verify all foreground colors against each one — a verification matrix rather than a single contrast check. Most WCAG auditing tools check against the page background, not component-specific backgrounds; the matrix must be checked manually or with specialized tooling.",
+      },
+      {
+        heading: "Row encoding beyond color",
+        body: "Color-based row encoding — using background tints to distinguish data categories, stripe alternating rows for readability — is accessible only when color carries a structural rather than semantic signal. Zebra striping that communicates 'rows are visually separated' is acceptable as a color-only technique because the underlying data meaning (these are separate rows) can be inferred without color. Category encoding that communicates 'this row belongs to category A and this one to category B' requires a non-color redundant signal: a category icon in a leading column, a bold category header row, or visible group dividers. The WCAG success criterion 1.4.1 (Use of Color) applies directly: information that is communicated by color alone must also be communicated by another means.",
+      },
+      {
+        heading: "Status color conventions and icons",
+        body: "Red, yellow, and green for error, warning, and success are the most cross-culturally consistent color conventions in enterprise UI. They work — and should not be reinvented. The accessibility requirement is that these colors cannot stand alone: an icon (✕, ⚠, ✓), a text label ('Error', 'Warning', 'OK'), or a pattern must accompany any status color signal. In dense tables where cell background coloring would reduce text legibility, a dedicated status column with icon-plus-color is the standard solution: it adds no semantic complexity, preserves foreground text contrast, and satisfies WCAG 1.4.1 simultaneously. For very dense tables where a status column would consume too much horizontal space, a narrow colored left-border stripe (4px) paired with a tooltip on focus provides the color indicator without background coloring.",
+      },
+      {
+        heading: "Managing color density at scale",
+        body: "Large tables with heavy color encoding suffer visual fatigue — when every row carries multiple colors simultaneously, the eye has no resting point and nothing stands out. The remedy is a strong default state: most cells white or near-white, dark text, no background color. Color is then reserved for states and exceptions, ensuring that any colored row is immediately noticeable against the uncolored baseline. A table that applies row tints, hover highlights, status badges, and selection colors simultaneously on every row has no contrast hierarchy — everything is equally emphasized, meaning nothing is. Audit tables for color density by switching to grayscale: if the table still communicates clearly in grayscale, the information architecture is sound and color is playing a reinforcement role. If the table is illegible in grayscale, color is carrying too much semantic weight.",
+      },
+    ],
+    links: [
+      { label: "WCAG Audit Tool", href: "/wcag-audit/" },
+      { label: "Color contrast checker", href: "/contrast/" },
+      { label: "Monochrome Studio collection", href: "/collections/monochrome-studio/" },
+    ],
+  },
+  {
+    category: "UI Design",
+    slug: "onboarding-color-design-guide",
+    title: "Onboarding Color Design: Directing Attention Without Overwhelming New Users",
+    summary:
+      "How to use color strategically in onboarding flows — progressive color introduction, progress indication, error-state calibration, and completion moments that reinforce the brand.",
+    eyebrow: "UX Design",
+    priority: 78,
+    searchIntent: "onboarding UI color design new user flow progress color attention",
+    featuredCollectionId: "calm-tech",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["UX Design", "Onboarding", "UI Design", "Color Psychology"],
+    highlights: [
+      "Progressive color introduction — starting restrained and revealing more as users advance — reduces cognitive load at the most unfamiliar moment.",
+      "Progress indicators that show upcoming steps in a lighter tint of the same hue outperform backward-looking indicators in completion-rate testing.",
+      "Error colors in onboarding may be calibrated softer than production UI — amber before red for first-impression contexts where red feels punitive.",
+    ],
+    sections: [
+      {
+        heading: "Progressive color introduction",
+        body: "Onboarding is the highest-stakes first impression: the user is spatially unfamiliar with the interface and must simultaneously learn navigation, understand the brand, and complete a task. High color complexity at step one adds cognitive load at exactly the moment when cognitive load should be minimized. The most effective onboarding color patterns start maximally restrained — near-monochrome with a single brand accent on the primary CTA — and introduce secondary colors, richer backgrounds, and illustrative color only as the user advances through the flow. This progression creates a subjective sense of the interface 'opening up' as onboarding progresses, reinforcing the forward momentum the flow needs. Test by desaturating each step's screenshot: step one should look almost identical desaturated; later steps should show more color that disappears when desaturated.",
+      },
+      {
+        heading: "Progress and momentum color",
+        body: "Progress indicators — step counters, progress bars, completion percentages — serve both a functional and motivational role. Functionally, they tell users where they are. Motivationally, they encourage forward momentum. Color serves the motivational function most effectively when it shows what's available ahead, not just what's been completed behind. A progress indicator where upcoming steps are shown in a light tint of the brand accent (rather than gray) communicates 'more of this positive thing is available' rather than 'you have not done this yet.' In user testing, forward-looking progress indicators (lighter-tinted future steps in the same brand hue) produce higher completion rates than backward-only indicators (colored only for completed steps) — possibly because they frame remaining steps as opportunity rather than obligation.",
+      },
+      {
+        heading: "Error calibration in first impressions",
+        body: "Standard red error states are appropriate in production interfaces where users are familiar with the product context. In onboarding, red errors carry an additional emotional load: they can make the first user-facing feedback feel punitive, particularly for errors that are minor or easily corrected (formatting errors in text fields, capitalization variations). Consider calibrating the error severity spectrum in onboarding: use amber or warm orange for first-occurrence errors that have clear corrections, reserving red for persistent errors and blocking errors that prevent progression. This calibration is not softening standards — it is matching error weight to error severity. A user who misformats their birthday on first attempt needs a correction signal, not an alarm.",
+      },
+      {
+        heading: "Completion color moments",
+        body: "Completion moments — finishing the final onboarding step, completing a key first action — are high-value opportunities for the brand's highest-energy color expression. A brief green pulse, a background shift to the brand's accent at full saturation, a celebratory animation using the primary palette: these moments encode a positive brand association at the emotional peak of the onboarding experience. The key design constraints are brevity (300-600ms — long enough to register as intentional, short enough not to delay forward progress) and specificity (the color should be recognizably the brand accent, not a generic green). Completion colors work best when they briefly depart from the restrained onboarding palette — the contrast with the proceeding restraint amplifies the celebratory signal.",
+      },
+    ],
+    links: [
+      { label: "Color contrast checker", href: "/contrast/" },
+      { label: "Palette generator", href: "/palette-generator/" },
+      { label: "Calm Tech collection", href: "/collections/calm-tech/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "color-typography-pairing-guide",
+    title: "Color and Typography Pairing: How Weight and Typeface Affect Perceived Color",
+    summary:
+      "The same hex value looks different at different type weights and across serif versus sans-serif typefaces. How to account for this interaction when calibrating text color for digital interfaces.",
+    eyebrow: "Color Theory",
+    priority: 77,
+    searchIntent: "color typography pairing text color weight typeface digital design",
+    featuredCollectionId: "editorial-neutrals",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Typography", "Color Theory", "Design Systems", "UI Design"],
+    highlights: [
+      "Light-weight type appears lighter than its hex value due to counter negative space mixing with the page background perceptually.",
+      "Serif typefaces appear lighter than sans-serif at the same color and weight because thin stroke segments reduce the effective ink coverage per letterform.",
+      "Always test text colors across all intended type weights — a color that works at body weight may appear too light at thin display weight and too dark at black weight.",
+    ],
+    sections: [
+      {
+        heading: "Why weight changes apparent color",
+        body: "Type weight affects perceived color through a mechanism called simultaneous contrast — the white space within and around letterforms mixes perceptually with the letterform color, pulling the apparent color toward white. At light weights (thin, light), letterforms have large counters and significant inter-letter spacing, creating substantial negative space that mixes with the ink. The perceived color is measurably lighter than the nominal hex value. At heavy weights (bold, black), letterforms cover more area, counters are smaller, and the ink color dominates the perceptual mix — the apparent color approaches the nominal value. The practical consequence: a text color that looks right at regular weight may read as too light at thin display weight and too heavy at black utility weight. Test text colors across the full weight range before finalizing.",
+      },
+      {
+        heading: "Serif versus sans-serif color response",
+        body: "Serif typefaces have high stroke-width variation — thick primary strokes and thin hairline serifs. A single serif letterform contains multiple effective weights within itself: the thick verticals may appear close to the nominal color, while the thin horizontals appear significantly lighter. The blended perceptual result is that serif type at a given color and weight appears lighter than the same color applied to a sans-serif at equivalent weight. For equivalent visual color intensity, serif body text typically needs a color 10-15 lightness points darker than sans-serif body text at the same size and weight. This is most consequential at small text sizes where hairline strokes approach the legibility threshold — a color that provides adequate contrast for 14px sans-serif body may fail for 14px serif body at the same nominal contrast ratio.",
+      },
+      {
+        heading: "Display type on colored backgrounds",
+        body: "Large display type (32px and above) on colored backgrounds has more calibration freedom than body type. At display sizes, letterforms are large enough to hold their own against background color, and the WCAG 3:1 large text requirement is a genuine minimum rather than a target to approach. The more common calibration problem at display sizes is that brand colors that look appropriately saturated at small sizes can feel overwhelming at display scale — the same hue covers significantly more pixel area and dominates the composition. Display type color decisions should be reviewed at the actual display size in the actual layout context, not in color pickers or swatches. A saturated brand color that works beautifully as a small accent may need desaturation or lightness adjustment to work as a 64px headline.",
+      },
+      {
+        heading: "Cross-platform rendering considerations",
+        body: "Text color decisions made on a Retina display are not identical to what users on standard-DPI displays see. macOS with Retina renders text with sharper antialiasing, producing slightly thicker-appearing letterforms compared to standard-DPI Windows rendering. A text color calibrated on a Retina display may appear lighter than intended on a non-Retina Windows display, potentially reducing effective contrast. The standard mitigation is to test text colors on both display types at target sizes, and to bias slightly darker when calibrating for global audiences — the cost of being slightly darker on Retina is minimal (marginally more prominent text); the cost of being too light on Windows is reduced legibility. Browser font-smoothing settings add additional variation; the safest approach is to disable font-smoothing in browser devtools and verify that text colors remain adequate at the 'worst case' rendering.",
+      },
+    ],
+    links: [
+      { label: "Color contrast checker", href: "/contrast/" },
+      { label: "WCAG Audit Tool", href: "/wcag-audit/" },
+      { label: "Editorial Neutrals collection", href: "/collections/editorial-neutrals/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "color-system-documentation-guide",
+    title: "Color System Documentation: What to Write, Where to Keep It, and How to Keep It Current",
+    summary:
+      "Color system docs decay faster than the code they describe. A practical framework for the four documentation layers, keeping documentation close to implementation, and building the changelog habit.",
+    eyebrow: "Design Systems",
+    priority: 76,
+    searchIntent: "color system documentation design tokens changelog design system docs",
+    featuredCollectionId: "neutral-ground",
+    featuredPackId: "complete-archive",
+    tags: ["Design Systems", "Color Tokens", "Documentation", "Team Process"],
+    highlights: [
+      "Color system documentation has four layers with different decay rates: decisions (slowest), semantics, implementation (fastest), and usage.",
+      "Documentation kept in a separate wiki diverges from the codebase fastest — the best documentation is generated from the token file itself.",
+      "A color system changelog — dated records of what changed and why — dramatically reduces incident diagnosis time and enables confident palette evolution.",
+    ],
+    sections: [
+      {
+        heading: "The four documentation layers",
+        body: "Effective color system documentation covers four distinct layers, each with a different lifecycle. The decision layer documents why specific colors were chosen, what they communicate, and what constraints shaped the palette — this layer decays slowest because brand rationale rarely changes. The semantic layer documents meaning assignments, the token hierarchy, and the mapping from primitive values to semantic names — this layer changes when the vocabulary evolves. The implementation layer records the actual token values, CSS custom property names, Figma variable IDs, and platform-specific representations — this is the fastest-changing layer and the one most often out of date. The usage layer provides examples of which tokens to use in which contexts — this changes when design patterns evolve. Writing all four layers at system creation is not sufficient; each layer needs its own maintenance cadence and ownership.",
+      },
+      {
+        heading: "Proximity to code reduces drift",
+        body: "Documentation maintained in a separate wiki or design tool diverges from the production implementation faster than documentation co-located with the code. Token definitions documented in comments within the token file — or in a generated reference page built from the token file — update automatically when values change, because the documentation and the source of truth are the same artifact. Design system teams that generate a documentation site from their token files (parsing the file to render a live palette reference, contrast matrix, and usage examples) report significantly more accurate documentation than teams using a separate wiki. The investment in tooling to generate documentation from source pays dividends in perpetually accurate token references without manual maintenance effort.",
+      },
+      {
+        heading: "The changelog discipline",
+        body: "Color systems benefit from a changelog: a dated narrative record of what changed, why, and how to migrate. 'Changed --color-text-secondary from #6b7280 to #71717a because the warm-toned gray was inconsistent with the blue-toned primary palette' is more useful than a git commit message to the three audiences who need it: engineers updating component implementations, designers updating their tools, and future maintainers trying to understand why past decisions were made. Teams that maintain a color system changelog report faster root-cause diagnosis when accessibility regressions occur (the changelog reveals when a value changed), more confident palette evolution (past decisions have documented rationale), and faster onboarding for new team members who can read the system's history rather than guessing at intent.",
+      },
+      {
+        heading: "Automated consistency enforcement",
+        body: "Documentation stays current most reliably when consistency is enforced by tooling rather than process. Linting rules that flag hard-coded color values in component files (requiring token usage instead) prevent the documentation from becoming inaccurate by preventing the implementation from drifting from the token definitions. CI checks that verify token names match the documented vocabulary detect naming deviations before they reach production. Design tool sync plugins that keep Figma variables in sync with the code token file reduce the gap between design and implementation documentation. The goal is not zero manual documentation but documentation that covers the decisions and rationale that automation cannot check — the why, not the what. The what should be verifiable from the code directly.",
+      },
+    ],
+    links: [
+      { label: "Design token generator", href: "/tokens/" },
+      { label: "Color contrast checker", href: "/contrast/" },
+      { label: "Neutral Ground collection", href: "/collections/neutral-ground/" },
+    ],
+  },
+  {
+    category: "Mobile Design",
+    slug: "mobile-ui-color-guide",
+    title: "Mobile UI Color Design: OLED, Platform Conventions, and Touch-Target Affordance",
+    summary:
+      "How mobile color design differs from desktop — OLED true-black dark mode, iOS and Android platform color conventions, compressed touch-target contrast requirements, and cross-device rendering calibration.",
+    eyebrow: "Mobile Design",
+    priority: 75,
+    searchIntent: "mobile UI color design iOS Android OLED dark mode platform conventions",
+    featuredCollectionId: "midnight-form",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Mobile Design", "UI Design", "Accessibility", "iOS", "Android"],
+    highlights: [
+      "OLED true black (#000000) creates a qualitatively different dark mode than LCD near-black — but mixing the two looks muddy on LCD while looking correct on OLED.",
+      "iOS system accent color conventions reduce learnable friction; breaking them for brand expression requires teaching users a new interaction vocabulary.",
+      "Mobile touch targets demand higher contrast default states than desktop — there is no hover state to confirm interactivity before a tap.",
+    ],
+    sections: [
+      {
+        heading: "Compressed screen size and contrast requirements",
+        body: "The dominant mobile color constraint is spatial compression. Color relationships that communicate clearly at 1440px — a pale tint background with a slightly darker border — may be imperceptible at 390px where the spatial separation between elements is minimal. Mobile interfaces need higher contrast at every level than their desktop equivalents: more contrast between background and border, more contrast between inactive and active states, and more contrast between primary text and secondary text. WCAG minimum contrast ratios are starting points for mobile, not targets to approach. The practical recommendation is to aim for 5:1 to 7:1 for body text on mobile (rather than the 4.5:1 minimum), and to test all state transitions — hover-equivalent active press states — at the actual physical device size, not scaled browser windows.",
+      },
+      {
+        heading: "OLED black and dark mode strategy",
+        body: "OLED screens render true black by turning off individual pixels — the result is a black depth that LCD screens cannot reproduce. iOS and many premium Android apps leverage this with true-black (#000000) backgrounds in dark mode, which on OLED produces a qualitatively premium appearance. The complication: mixing true black backgrounds with near-black surface colors (#121212 cards) looks appropriately layered on OLED but muddy on LCD, where both appear as similar dark grays. Applications targeting primarily OLED devices (recent iPhones, Samsung flagships) can embrace true-black dark mode. Cross-platform applications targeting a range of display types should compromise at near-black (#0a0a0a or #111111) — visible enough above true black on any display, while still feeling dark on OLED. The Apple HIG recommends a specific dark mode gray scale for iOS components; following it rather than inventing custom dark neutrals ensures consistent rendering across iOS device generations.",
+      },
+      {
+        heading: "Platform color conventions",
+        body: "iOS and Android have established interaction color conventions that users have internalized over years of device use. On iOS, blue (the system accent, user-adjustable) signals interactive elements: buttons, links, toggles, and selection states. Deviating from this convention — using a brand color for all interactive elements — requires users to learn a new interaction vocabulary specific to the application, increasing learnable friction. The tradeoff is brand expression versus learnable familiarity. For utility-first applications (productivity, tools, utilities), following platform conventions reduces friction and is usually the right call. For brand-experience applications (retail, entertainment, lifestyle), using brand colors for primary CTAs is often worth the tradeoff — but secondary interactive elements should still lean toward platform conventions. Android's Material You system dynamically generates interface colors from the user's wallpaper, meaning any hardcoded brand accent may harmonize or clash with user-generated palettes unpredictably.",
+      },
+      {
+        heading: "Touch affordance color",
+        body: "Desktop interactive elements benefit from hover states — a color change that occurs before the click, confirming interactivity before commitment. Mobile has no hover: the user taps, and the action occurs. This absence means that the resting state of a mobile interactive element must do the work that desktop hover does — it must clearly signal affordance through color alone, without the benefit of hover confirmation. The minimum for a mobile CTA button: sufficient fill color contrast against the page background that the button is immediately recognizable as a distinct interactive element. Text links on mobile face the same constraint more sharply: a text link that relies on hover underline for affordance is inaccessible on mobile. Mobile text links need a persistent color difference (not just hover-activated) with sufficient contrast against both surrounding text and page background. Test all interactive elements on a physical device with a momentary glance — if affordance is not immediately obvious, the color differentiation is insufficient.",
+      },
+    ],
+    links: [
+      { label: "Dark mode color guide", href: "/guides/dark-mode-palette-guide/" },
+      { label: "WCAG Audit Tool", href: "/wcag-audit/" },
+      { label: "Midnight Form collection", href: "/collections/midnight-form/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides23);

@@ -5,12 +5,24 @@ import { collections, getCollectionById } from "@/src/lib/collections";
 import { landingGuides } from "@/src/lib/guides";
 import type { UseCase } from "@/src/lib/use-cases";
 import { useCases } from "@/src/lib/use-cases";
+import { t, getLocaleFromStorage } from "@/src/lib/i18n";
+import { useState, useEffect } from "react";
+import type { Locale } from "@/src/lib/i18n";
 
 interface UseCaseDetailPageProps {
   useCase: UseCase;
 }
 
 export function UseCaseDetailPage({ useCase }: UseCaseDetailPageProps) {
+  const [locale, setLocale] = useState<Locale>("en");
+
+  useEffect(() => {
+    setLocale(getLocaleFromStorage());
+    const handler = () => setLocale(getLocaleFromStorage());
+    window.addEventListener("colorarchive-locale-change", handler);
+    return () => window.removeEventListener("colorarchive-locale-change", handler);
+  }, []);
+
   const relatedCollections = useCase.collectionIds
     .map((id) => getCollectionById(id))
     .filter(Boolean);
@@ -36,7 +48,7 @@ export function UseCaseDetailPage({ useCase }: UseCaseDetailPageProps) {
           href="/use-cases/"
           className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors mb-6"
         >
-          ← All use cases
+          ← {t("useCases.allUseCases", locale)}
         </Link>
 
         <div className="flex items-center gap-4 mb-5">
@@ -48,7 +60,7 @@ export function UseCaseDetailPage({ useCase }: UseCaseDetailPageProps) {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-1">
-              Industry Guide
+              {t("useCases.industryGuide", locale)}
             </p>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
               {useCase.title}
@@ -79,7 +91,7 @@ export function UseCaseDetailPage({ useCase }: UseCaseDetailPageProps) {
         {/* Key Principles */}
         <section>
           <h2 className="text-base font-semibold text-neutral-800 dark:text-neutral-200 mb-4 uppercase tracking-wide text-xs">
-            Key Design Principles
+            {t("useCases.keyPrinciples", locale)}
           </h2>
           <div className="space-y-3">
             {useCase.keyPrinciples.map((principle, i) => (
@@ -134,13 +146,13 @@ export function UseCaseDetailPage({ useCase }: UseCaseDetailPageProps) {
           <section>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xs font-semibold text-neutral-800 dark:text-neutral-200 uppercase tracking-wide">
-                Curated Palettes
+                {t("useCases.relatedCollections", locale)}
               </h2>
               <Link
                 href="/collections/"
                 className="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
               >
-                All collections →
+                {t("useCases.exploreCollections", locale)} →
               </Link>
             </div>
             <div className="space-y-3">
@@ -184,13 +196,13 @@ export function UseCaseDetailPage({ useCase }: UseCaseDetailPageProps) {
           <section>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xs font-semibold text-neutral-800 dark:text-neutral-200 uppercase tracking-wide">
-                Related Guides
+                {t("useCases.relatedGuides", locale)}
               </h2>
               <Link
                 href="/guides/"
                 className="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
               >
-                All guides →
+                {t("useCases.readGuide", locale)} →
               </Link>
             </div>
             <div className="space-y-2">
@@ -218,7 +230,7 @@ export function UseCaseDetailPage({ useCase }: UseCaseDetailPageProps) {
         {/* Other Use Cases */}
         <section>
           <h2 className="text-xs font-semibold text-neutral-800 dark:text-neutral-200 uppercase tracking-wide mb-4">
-            Other Industries
+            {t("useCases.moreUseCases", locale)}
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {otherUseCases.map((uc) => (

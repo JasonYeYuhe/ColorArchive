@@ -2127,6 +2127,22 @@ const translations: Record<string, Record<string, string>> = {
   "projects.loadError": { en: "Failed to load projects.", zh: "加载项目失败。" },
   "projects.deleteError": { en: "Failed to delete project.", zh: "删除项目失败。" },
   "projects.shareError": { en: "Failed to generate share link.", zh: "生成分享链接失败。" },
+
+  // Use Cases page
+  "useCases.eyebrow": { en: "Industry Guides", zh: "行业指南" },
+  "useCases.title": { en: "Color Palettes by Use Case", zh: "按用途分类的配色方案" },
+  "useCases.subtitle": { en: "Every industry has its own color conventions, constraints, and opportunities. Explore palette strategies tailored to your specific design context.", zh: "每个行业都有其独特的配色惯例、限制和机遇。探索为你的具体设计场景量身定制的调色板策略。" },
+  "useCases.designPrinciples": { en: "design principles", zh: "条设计原则" },
+  "useCases.curatedPalettes": { en: "curated palettes", zh: "个精选调色板" },
+  "useCases.industryGuide": { en: "Industry Guide", zh: "行业指南" },
+  "useCases.allUseCases": { en: "All use cases", zh: "所有使用场景" },
+  "useCases.keyPrinciples": { en: "Key Design Principles", zh: "核心设计原则" },
+  "useCases.relatedCollections": { en: "Curated Collections", zh: "精选合集" },
+  "useCases.relatedGuides": { en: "Related Guides", zh: "相关指南" },
+  "useCases.exploreCollections": { en: "Explore collections", zh: "浏览合集" },
+  "useCases.readGuide": { en: "Read guide", zh: "阅读指南" },
+  "useCases.moreUseCases": { en: "More Use Cases", zh: "更多使用场景" },
+  "useCases.viewUseCase": { en: "View use case", zh: "查看使用场景" },
 };
 
 export function t(key: string, locale: Locale): string {

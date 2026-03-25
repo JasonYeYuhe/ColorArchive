@@ -961,7 +961,7 @@ async function sendCotdEmail(to, color, dateStr) {
 async function sendProUpsellEmail(email) {
   if (!resend) return;
   const result = await sendEmail({
-    from: FROM_EMAIL,
+    from: `ColorArchive <${FROM}>`,
     to: email,
     subject: "You've hit your daily limit — unlock unlimited AI with Pro",
     html: `
@@ -995,6 +995,66 @@ async function sendProUpsellEmail(email) {
   return result;
 }
 
+
+// Referral welcome email — sent to a referred user after they sign up
+async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
+  const referrerPhrase = referrerName
+    ? `Someone you know — ${referrerName} — shared ColorArchive with you.`
+    : "Someone shared ColorArchive with you.";
+  const result = await sendEmail({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject: "Welcome to ColorArchive — you were referred",
+    text: [
+      "Welcome to ColorArchive",
+      "",
+      referrerPhrase,
+      "",
+      "Here is what you can do right now for free:",
+      "- Browse 3,066 named colors at colorarchive.me/all-colors",
+      "- Generate an AI brand palette from a text description",
+      "- Extract colors from any image",
+      "- Run a WCAG accessibility audit on any color pair",
+      "",
+      "Your free account gives you 10 AI generations per day — no credit card required.",
+      "",
+      "Want unlimited AI generations, exports, and every color format? Pro is $4.99/month.",
+      "https://colorarchive.me/pro",
+      "",
+      "— ColorArchive",
+      "https://colorarchive.me",
+    ].join("\n"),
+    html: `
+      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
+        <p style="color:#1a1a2e;font-size:15px;line-height:1.6;font-weight:600;">Welcome to ColorArchive</p>
+        <p style="color:#555;font-size:14px;line-height:1.6;">${referrerPhrase}</p>
+        <p style="color:#555;font-size:14px;line-height:1.6;">Here is what you can do right now, for free:</p>
+        <ul style="color:#374151;font-size:14px;line-height:1.9;padding-left:20px;">
+          <li>Browse <strong>3,066 named colors</strong> — filterable by family, mood, and lightness</li>
+          <li>Generate an <strong>AI brand palette</strong> from a text description</li>
+          <li>Extract colors from any image</li>
+          <li>Run a <strong>WCAG accessibility audit</strong> on any color pair</li>
+        </ul>
+        <p style="color:#555;font-size:14px;line-height:1.6;">Your free account includes 10 AI generations per day — no credit card needed.</p>
+        <div style="text-align:center;margin:24px 0;">
+          <a href="https://colorarchive.me" style="display:inline-block;background:#1a1a1a;color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">Explore ColorArchive</a>
+        </div>
+        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:16px 18px;margin:20px 0;">
+          <div style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#14532d;font-weight:700;">Pro — unlimited everything</div>
+          <p style="margin:8px 0 0;color:#166534;font-size:14px;line-height:1.6;">Unlimited AI generations, WCAG reports, exports in every format, and access to the complete 3,066-color token set. From <strong>$4.99/month</strong>.</p>
+          <p style="margin:10px 0 0;"><a href="https://colorarchive.me/pro" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none;">View Pro plans →</a></p>
+        </div>
+        <p style="color:#ccc;font-size:11px;margin-top:24px;">ColorArchive · hello@colorarchive.me</p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (referral welcome):", JSON.stringify(result.error));
+  }
+  return result;
+}
+
 module.exports = {
   sendFreePackEmail,
   sendFollowUp3DayEmail,
@@ -1008,4 +1068,5 @@ module.exports = {
   sendNewsletterIssueAlert,
   sendCotdEmail,
   sendProUpsellEmail,
+  sendReferralWelcomeEmail,
 };

@@ -2,20 +2,31 @@
 
 import Link from "next/link";
 import { useCases } from "@/src/lib/use-cases";
+import { t, getLocaleFromStorage } from "@/src/lib/i18n";
+import { useState, useEffect } from "react";
+import type { Locale } from "@/src/lib/i18n";
 
 export function UseCasesPage() {
+  const [locale, setLocale] = useState<Locale>("en");
+
+  useEffect(() => {
+    setLocale(getLocaleFromStorage());
+    const handler = () => setLocale(getLocaleFromStorage());
+    window.addEventListener("colorarchive-locale-change", handler);
+    return () => window.removeEventListener("colorarchive-locale-change", handler);
+  }, []);
+
   return (
     <main className="min-h-screen bg-white dark:bg-neutral-950">
       <section className="max-w-2xl mx-auto px-4 pt-12 pb-8 text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
-          Industry Guides
+          {t("useCases.eyebrow", locale)}
         </p>
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-4">
-          Color Palettes by Use Case
+          {t("useCases.title", locale)}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm max-w-lg mx-auto leading-relaxed">
-          Every industry has its own color conventions, constraints, and opportunities. Explore
-          palette strategies tailored to your specific design context.
+          {t("useCases.subtitle", locale)}
         </p>
       </section>
 
@@ -53,9 +64,9 @@ export function UseCasesPage() {
                 </div>
 
                 <div className="mt-4 flex items-center text-xs text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-600 dark:group-hover:text-neutral-400 transition-colors">
-                  <span>{uc.keyPrinciples.length} design principles</span>
+                  <span>{uc.keyPrinciples.length} {t("useCases.designPrinciples", locale)}</span>
                   <span className="mx-2">·</span>
-                  <span>{uc.collectionIds.length} curated palettes</span>
+                  <span>{uc.collectionIds.length} {t("useCases.curatedPalettes", locale)}</span>
                   <span className="ml-auto">→</span>
                 </div>
               </div>
