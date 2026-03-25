@@ -2366,3 +2366,105 @@ const extraCollections25: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections25);
+
+
+const extraCollections26: ColorCollection[] = [
+  createCollection(
+    "desert-gold",
+    "Desert Gold",
+    "Warm amber, sand, and ochre tones drawn from arid landscape light — the palette of artisan goods, natural beauty, and heritage craft.",
+    "Desert gold captures the chromatic range of high-desert light at its most generous: the warm amber of sandstone cliffs at noon, the golden ochre of dried grass in late summer, the soft camel of weathered adobe, and the dusty terracotta of exposed canyon rock. Amber-sunrise-soft opens the palette at its warmest — a golden yellow-amber that reads as sunlit and generous. Amber-noon-muted shifts into ochre territory — the warm yellow-orange of natural pigment, beeswax, and raw linen. Amber-dusk-soft deepens toward camel and warm tan, carrying the palette's neutral anchor. Amber-earth-muted introduces the deeper ochre note — the color of clay soil and unglazed ceramic before firing. Amber-shadow-muted closes at a deep warm brown that grounds the palette and prevents it from reading as uniformly bright.",
+    ["Warm", "Natural", "Artisan"],
+    [
+      "amber-sunrise-soft",
+      "amber-noon-muted",
+      "amber-dusk-soft",
+      "amber-earth-muted",
+      "amber-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Desert gold is the natural palette for artisan goods brands, natural beauty and skincare, heritage craft and leather goods, boutique food and beverage, and interior design studios with a warm material aesthetic. Photography direction: raw linen texture in direct sunlight, ceramic vessels on natural wood, dried botanicals and seed pods, weathered terracotta tiles, beeswax candles on stone surfaces. Typography: a humanist serif (Cormorant, Freight Display) or a soft geometric sans (Brandon Grotesque, Proxima Nova) pairs with the warmth of this palette; heavy-weight typography at a deep warm brown creates authoritative hierarchy.",
+      promptWords: [
+        "artisan goods brand in warm amber and desert gold palette",
+        "natural skincare brand in ochre and sand tones",
+        "heritage craft studio in warm amber and camel palette",
+      ],
+      useCases: ["Artisan goods brands", "Natural beauty and skincare", "Heritage craft and leather goods"],
+    }
+  ),
+  createCollection(
+    "electric-violet",
+    "Electric Violet",
+    "Deep indigo and electric purple tones for creative tech, gaming, and entertainment brands that need presence without defaulting to primary red or blue.",
+    "Electric violet draws from the indigo-to-violet spectrum at its most saturated and contemporary — the palette of creative technology, gaming hardware, generative AI products, and entertainment brands that want distinctiveness without corporate primary-color defaults. Violet-electric-muted leads at a vivid mid-value purple — enough saturation to read as energetic but not neon-crude. Violet-electric-soft lightens toward lavender-adjacent — accessible and approachable while maintaining the purple identity. Indigo-electric-muted provides the blue anchor — a deep electric indigo that reads as technical precision and depth. Violet-shadow-deep brings the darkest near-black — a deep purple-black that works as a dark surface with personality rather than generic black. Violet-whisper-soft provides the neutral — a very light lavender that serves as the palette's breathing room on white-adjacent surfaces.",
+    ["Electric", "Creative", "Tech"],
+    [
+      "violet-electric-muted",
+      "violet-electric-soft",
+      "indigo-electric-muted",
+      "violet-shadow-deep",
+      "violet-whisper-soft",
+    ],
+    {
+      editorialNote:
+        "Electric violet suits creative technology platforms, AI products and startups, gaming hardware and software, entertainment streaming services, and digital-native brands competing in crowded spaces where differentiation from blue and red is strategically valuable. Photography direction: holographic foil textures, neon-lit urban environments at dusk, iridescent material surfaces, generative art with purple-indigo palette, dark studio photography with violet gel lighting. Typography: geometric sans-serifs (Neue Haas Grotesk, GT Walsheim) or variable display fonts read as tech-contemporary in this palette.",
+      promptWords: [
+        "AI startup brand in electric violet and deep indigo palette",
+        "gaming hardware brand in vibrant purple and electric violet tones",
+        "creative technology platform in indigo and purple identity",
+      ],
+      useCases: ["Creative tech and AI startups", "Gaming hardware and software", "Entertainment and streaming brands"],
+    }
+  ),
+  createCollection(
+    "forest-floor",
+    "Forest Floor",
+    "Deep moss, earthy umber, and warm bark tones — the palette for brands rooted in nature, sustainability, and the material world.",
+    "Forest floor is drawn from the chromatic complexity of a temperate forest at ground level: the deep warm green of wet moss, the rich umber of exposed root systems, the cool shadow-green of lichen on stone, the warm brown of composting leaf matter, and the ochre tones of dried pine needles. Green-moss-muted leads with the palette's hero tone — a deep, warm-leaning green with enough complexity to read as genuinely botanical rather than generic. Green-shadow-muted deepens into forest-floor shadow territory — the near-black of soil and decomposing organic matter with a green undertone. Amber-earth-muted contributes the warm umber note — the color of exposed clay, bark, and dried botanical material. Green-whisper-soft provides the light tertiary — a muted sage that creates breathing room and pairs with the dark tones. Slate-earth-muted closes as a neutral gray-brown that grounds the palette without pulling toward either pure green or pure brown.",
+    ["Natural", "Earthy", "Organic"],
+    [
+      "green-moss-muted",
+      "green-shadow-muted",
+      "amber-earth-muted",
+      "green-whisper-soft",
+      "slate-earth-muted",
+    ],
+    {
+      editorialNote:
+        "Forest floor is the palette for sustainability-led brands, outdoor equipment and apparel, organic food and agriculture, environmental organizations, botanical wellness and herbalism, and heritage outdoor brands with deep roots in the natural world. Photography direction: macro forest floor details (moss texture, root systems, lichen), morning light in dense forest canopy, earthy material textures (unglazed ceramic, raw wood, stone), dried botanical and herbal product arrangements. Typography: humanist serifs with ink-trap details (Freight Text, Tiempos) or craft-forward slab serifs (Sentinel, Archer) reinforce the artisan-natural register of this palette.",
+      promptWords: [
+        "sustainability brand in deep moss and forest floor earthy palette",
+        "outdoor equipment brand in warm botanical green and umber tones",
+        "organic food brand in forest floor green and amber earth palette",
+      ],
+      useCases: ["Sustainability and environmental brands", "Outdoor and wilderness equipment", "Organic food and botanical wellness"],
+    }
+  ),
+  createCollection(
+    "pearl-oyster",
+    "Pearl Oyster",
+    "Soft cream, warm white, and luminous gray — the palette of quiet luxury, editorial fashion, and refined hospitality.",
+    "Pearl oyster captures the narrow but richly varied chromatic range of luxury neutral surfaces: the warm cream of natural pearl, the cool luminous white of bleached linen, the warm gray of polished oyster shell, the soft beige of raw silk, and the slightly cooler gray of matte stone. The palette works precisely because its tones are never pure: there is always a trace of warmth or coolness that prevents the neutrals from reading as generic. Slate-whisper-soft leads with the coolest tone — a very light gray with a trace of blue-gray that reads as cool, precise, and editorial. Amber-whisper-soft provides the warm near-white — cream-adjacent with warmth that reads as organic and luxurious rather than clinical. Slate-morning-soft serves as the mid-value neutral — a warm gray that functions as secondary surface color. Slate-afternoon-muted introduces the darker gray — a medium-tone warm gray for text and secondary accents. Slate-dusk-soft closes with a deep warm gray that functions as the palette's anchor dark.",
+    ["Luxury", "Editorial", "Neutral"],
+    [
+      "slate-whisper-soft",
+      "amber-whisper-soft",
+      "slate-morning-soft",
+      "slate-afternoon-muted",
+      "slate-dusk-soft",
+    ],
+    {
+      editorialNote:
+        "Pearl oyster is the palette for quiet luxury fashion and accessories, premium hospitality and hotel brands, high-end real estate and interior design, editorial publications, luxury skincare and beauty with minimal-luxury positioning, and any brand where the premium signal must come from restraint and material quality rather than color boldness. Photography direction: natural linen fabric texture in diffused light, white ceramic and natural stone still life, editorial fashion photography with neutral backdrops, luxury hotel room details (bedding, marble, polished metal). Typography: a refined serif (Canela, Freight Display, Cardinal) or an elegant high-contrast display face paired with a light geometric sans for body text creates the right editorial hierarchy in this palette.",
+      promptWords: [
+        "luxury fashion brand in pearl and warm neutral editorial palette",
+        "premium hotel brand in cream and cool gray sophisticated palette",
+        "high-end skincare brand in quiet luxury neutral and pearl tones",
+      ],
+      useCases: ["Quiet luxury fashion and accessories", "Premium hospitality and hotel brands", "High-end editorial publications"],
+    }
+  ),
+];
+
+collections.push(...extraCollections26);

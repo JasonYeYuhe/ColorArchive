@@ -7809,3 +7809,213 @@ const extraGuides26: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides26);
+
+const extraGuides27: LandingGuide[] = [
+  {
+    category: "Motion Design",
+    slug: "color-in-motion-design-guide",
+    title: "Color in Motion Design: Temporal Color and Animation Principles",
+    summary:
+      "Static color theory doesn't cover color in motion. Easing, interpolation, frame rate, and temporal contrast change how color works — here's the framework for designing color that moves.",
+    eyebrow: "Advanced Color",
+    priority: 75,
+    searchIntent: "color motion design animation color theory UI animation color interpolation OKLCH gradient easing",
+    featuredCollectionId: "aurora-shift",
+    featuredPackId: "complete-archive",
+    tags: ["Motion Design", "UI Animation", "Color Theory"],
+    highlights: [
+      "Fast color transitions require higher chromatic contrast to read as deliberate change — temporal contrast is a function of both color difference and transition duration.",
+      "OKLCH color interpolation avoids the desaturated gray midpoint that sRGB produces when transitioning between opposite hues.",
+      "Dark/light mode toggle animations should transition through intermediate grays rather than directly between extremes to avoid perceived brightness flashing.",
+    ],
+    sections: [
+      {
+        heading: "Temporal contrast: color across time",
+        body: "Static color theory teaches how colors relate to each other in a fixed moment. Motion adds time as a design dimension: two colors that appear clearly distinct side by side may blur together in a fast transition, while a shift that looks dramatic as a static before/after may feel imperceptible at high speed. The effective contrast of a color transition depends on both the chromatic difference and the duration. Fast animations (under 150ms) require higher chromatic contrast to register as intentional change; slow animations (over 400ms) can use subtle color shifts that still feel meaningful because the eye has time to register the movement.",
+      },
+      {
+        heading: "Color interpolation and easing",
+        body: "Easing functions interact with color in ways that aren't obvious from standard animation principles. A linear sRGB transition from red to blue passes through a desaturated purple-gray midpoint — perceptually muddy and often unintended. OKLCH interpolation follows perceptually uniform paths, producing vivid intermediate hues rather than muddy midpoints. For any hue-to-hue color transition, OKLCH interpolation in CSS (`color-mix(in oklch, ...)` or CSS linear-gradient with oklch) produces more visually satisfying results than default sRGB. Ease-in-out functions compress the middle of the transition, making intermediate colors a brief flash rather than a sustained midpoint — useful when the intermediate hues are less attractive than the endpoint colors.",
+      },
+      {
+        heading: "Animation states in UI color systems",
+        body: "Color systems designed for static interfaces often lack vocabulary for animation states. UI color needs at minimum: resting state, hover state, pressed/active state, loading/generating state, and success/error completion states. The transitions between these states are as important as the states themselves. A button press that snaps instantly between resting and active lacks physical responsiveness; a button that transitions smoothly over 80–120ms with an ease-out function reads as responsive and tactile. The color shift on press should be meaningful — typically a darkening of 10–15% lightness in OKLCH — but not dramatic enough to look like an error state.",
+      },
+      {
+        heading: "Dark mode toggle animation",
+        body: "The dark/light mode toggle is a full-surface color transition — one of the most challenging in UI animation because it involves every surface simultaneously. A naive linear transition from light to dark produces a perceptual brightness flash at the midpoint because the eye's adaptation lag creates the impression of a momentary surge of contrast. Better approaches: transition through intermediate neutral gray values rather than linearly from light to dark, stagger the transition across page layers (background first, then content, then text last), or use a wipe/radial animation that constrains the transition to a moving boundary rather than animating the entire surface at once. The transition speed sweet spot is 300–500ms — fast enough to feel responsive, slow enough to avoid visual shock.",
+      },
+    ],
+    links: [
+      { label: "Color combinations library", href: "/combinations/" },
+      { label: "WCAG contrast auditor", href: "/wcag-audit/" },
+      { label: "Aurora Shift collection", href: "/collections/aurora-shift/" },
+    ],
+  },
+  {
+    category: "Brand Design",
+    slug: "print-vs-digital-color-guide",
+    title: "Print vs Digital Color: Managing Brand Color Across Media",
+    summary:
+      "A brand color is not a hex code — it's a perceptual target that must be approximated across print, screen, and physical media. Here's how to specify, manage, and quality-control cross-media color.",
+    eyebrow: "Color Management",
+    priority: 74,
+    searchIntent: "print vs digital color brand color management CMYK hex Pantone cross-media color specification",
+    featuredCollectionId: "natural-linen",
+    featuredPackId: "complete-archive",
+    tags: ["Brand Design", "Print Design", "Color Management"],
+    highlights: [
+      "Hex codes describe light-emitting display behavior — they don't translate to print without colorimetric conversion via ICC profiles.",
+      "Highly saturated digital colors often have no printable CMYK equivalent — choose brand colors from within the intersection of display and print gamuts.",
+      "A complete brand color specification includes hex, CMYK, Pantone, and a Delta-E tolerance that defines acceptable color difference between media.",
+    ],
+    sections: [
+      {
+        heading: "Why the same color looks different in print",
+        body: "Display gamuts reproduce color by combining red, green, and blue light. Print gamuts reproduce color by subtracting cyan, magenta, yellow, and black ink from reflected white paper. These are physically different color reproduction mechanisms with different gamut boundaries. They overlap substantially in the midrange but diverge at saturated primaries: highly saturated greens, cyans, and oranges achievable on modern displays cannot be reproduced in standard CMYK. Brands that define their identity around saturated neon-adjacent colors often discover this problem at first print run when the color appears washed out or shifted. The solution is to choose brand colors from within the gamut intersection — colors that can be approximated in both media without major perceptual sacrifice.",
+      },
+      {
+        heading: "The complete color specification",
+        body: "A professional brand color specification includes four components: the display value (hex or RGB, specifying the color for screens and digital applications), the CMYK value (for offset and digital print, with paper stock specified), the Pantone spot color number (for high-value print runs where consistent color is worth the premium of a dedicated ink), and a Delta-E tolerance (the maximum acceptable color difference between any of these renditions). The Delta-E tolerance is the quality control mechanism — it acknowledges that perfect cross-media matching is impossible and establishes what perceptual difference is acceptable for this brand. Consumer brands typically use Delta-E ≤ 2.0 for acceptable variation; premium brands with exacting color standards (Tiffany, Hermès) specify ≤ 1.0.",
+      },
+      {
+        heading: "Common cross-media color failures",
+        body: "The most frequent brand color failures in cross-media work: specifying a brand color in extremely saturated digital hex values with no print gamut check (results in a color that cannot be faithfully reproduced in print); using CMYK values as direct hex conversions (mathematically incorrect — the conversion depends on paper stock, press calibration, and ICC profile, not a fixed formula); and having no Pantone specification, which results in different printers producing different approximations of the brand color. A brand that has been in use for several years without consistent Pantone specification often has visibly inconsistent color across printed materials — business cards, packaging, and brochures that each represent slightly different versions of the brand color.",
+      },
+      {
+        heading: "Physical media considerations",
+        body: "Beyond print, brands encounter color in physical materials: powder coating on metal products, injection-molded plastic, fabric dyeing, vinyl wraps, and illuminated signage. Each medium has its own gamut and rendering characteristics. Powder coating palettes are limited compared to paint. Fabric dye lots vary between production runs. Illuminated signage can appear dramatically different between daytime and night contexts. Physical media specifications typically use Pantone's physical fan guides (the Pantone solid coated/uncoated books for print, Pantone Plastics for injection molding, Pantone TCX for textiles) as reference standards. Matching physical materials to screen colors precisely is often impossible; the goal is perceptual equivalence within each medium's constraints.",
+      },
+    ],
+    links: [
+      { label: "Brand palette builder", href: "/palette-builder/" },
+      { label: "Color families library", href: "/colors/" },
+      { label: "Natural Linen collection", href: "/collections/natural-linen/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "design-token-color-guide",
+    title: "Design Token Color Architecture: Beyond Named Variables",
+    summary:
+      "Color tokens are more than a sync tool between Figma and code. Done right, they encode semantic contracts, enable dark mode automatically, and make color changes safe at scale.",
+    eyebrow: "Design Systems",
+    priority: 73,
+    searchIntent: "design token color system CSS variables semantic tokens primitive tokens dark mode Figma design system",
+    featuredCollectionId: "midnight-forge",
+    featuredPackId: "complete-archive",
+    tags: ["Design Systems", "Design Tokens", "Color Architecture"],
+    highlights: [
+      "Two-tier token architecture (primitive → semantic) enables dark mode through remapping alone — no component-level changes needed.",
+      "Components should consume semantic tokens only, never primitives directly — this is the discipline that makes the system scalable.",
+      "If implementing dark mode requires touching more than a few token mappings, the semantic layer is incomplete.",
+    ],
+    sections: [
+      {
+        heading: "Primitive and semantic token layers",
+        body: "The two-tier token architecture separates color vocabulary from color meaning. Primitive tokens (also called global or reference tokens) represent raw color values with no semantic intent: --brand-blue-500: #1E3A8A, --neutral-gray-200: #E5E7EB. These form the color vocabulary of the system. Semantic tokens reference primitives and attach usage context: --color-action-primary: var(--brand-blue-500), --color-surface-secondary: var(--neutral-gray-200). The rule that makes the architecture work: components and styles consume semantic tokens only, never primitives directly. When this discipline is maintained, updating a primitive value propagates coherently through the entire product via the semantic layer.",
+      },
+      {
+        heading: "The dark mode test",
+        body: "Dark mode is the acid test for semantic token completeness. If components reference semantic tokens correctly, dark mode is a matter of remapping semantic tokens to different primitive values: --color-surface-secondary might reference --neutral-gray-200 in light mode and --neutral-gray-800 in dark mode. If components reference primitives directly, dark mode requires updating every component individually. The dark mode test: can you implement dark mode by changing only the semantic-to-primitive mappings, without touching any component styles? If the answer is no, the semantic layer has gaps. Common gaps: surfaces that reference gray primitives directly, text colors hard-coded to black or white, interactive states defined with specific hex values.",
+      },
+      {
+        heading: "State and interaction tokens",
+        body: "Beyond surface and text tokens, a complete semantic layer covers interaction states: hover, pressed, focused, disabled, selected. These state tokens are often the most neglected part of token architecture — designers specify them inconsistently, engineers implement them ad-hoc, and the result is hover states that differ across components. A systematic approach: define base semantic tokens (--color-action-primary), then state variants (--color-action-primary-hover: var(--brand-blue-600), --color-action-primary-pressed: var(--brand-blue-700), --color-action-primary-disabled: var(--brand-blue-200)). Hover and pressed states are typically 1–2 lightness steps darker than the base; disabled states are significantly desaturated and lightened.",
+      },
+      {
+        heading: "Token naming conventions",
+        body: "Naming conventions are a design decision with long-term maintenance consequences. Naming primitives by color and shade (brand-blue-500, neutral-gray-200) makes them legible as color values. Naming semantics by role and state (surface-primary, action-hover, feedback-error) makes intent clear without exposing implementation. Component-level tokens (the third tier) follow semantic naming patterns applied to specific components: --button-primary-background, --card-border-color, --input-placeholder-color. The non-negotiable discipline: maintain consistent naming across all tiers. Mixed naming conventions — some tokens named by color, others by role, others by component — create cognitive overhead and invite inconsistency. Pick a convention and enforce it.",
+      },
+    ],
+    links: [
+      { label: "Color combinations library", href: "/combinations/" },
+      { label: "WCAG contrast auditor", href: "/wcag-audit/" },
+      { label: "Midnight Forge collection", href: "/collections/midnight-forge/" },
+    ],
+  },
+  {
+    category: "E-Commerce",
+    slug: "ecommerce-color-psychology-guide",
+    title: "E-Commerce Color Psychology: What the Research Actually Shows",
+    summary:
+      "Color conversion folklore has outrun the evidence. A clear-eyed look at what controlled research shows about color, conversion, trust signals, and category-specific color norms in online retail.",
+    eyebrow: "Color Psychology",
+    priority: 72,
+    searchIntent: "ecommerce color psychology conversion rate CTA button color trust color online store color strategy",
+    featuredCollectionId: "blush-garden",
+    featuredPackId: "complete-archive",
+    tags: ["E-Commerce", "Color Psychology", "Conversion"],
+    highlights: [
+      "Context-appropriateness (color fit) consistently outperforms specific hue associations — category color norms matter more than universal color meaning.",
+      "CTA button effectiveness is driven by contrast relative to surrounding elements, not specific hue — maximum contrast outperforms 'right' color.",
+      "Cool blue palettes have reliable evidence for building trust in unfamiliar purchase contexts, particularly for high-anxiety categories.",
+    ],
+    sections: [
+      {
+        heading: "Color fit beats color meaning",
+        body: "The most replicated finding in e-commerce color research is that colors work better when they match customer expectations for the category — not when they match universal color associations. A blue CTA on a sportswear site underperforms relative to a high-contrast orange or red, not because blue is intrinsically inferior, but because the brand expectation is athletic and energetic, and blue creates cognitive dissonance with that expectation. The same blue CTA on a financial products site may outperform alternatives. Category color norms are formed by the competitive landscape: customers arrive with color-coded expectations shaped by existing brands, and violating those expectations without a deliberate differentiation strategy creates friction. Understanding your category's color language is the prerequisite to using color strategically.",
+      },
+      {
+        heading: "CTA buttons: contrast over hue",
+        body: "The orange vs. green CTA debate that pervades conversion rate optimization is largely a debate about different contrast levels against different backgrounds. What research consistently shows is that CTA button effectiveness is primarily driven by contrast relative to the surrounding page, not the specific hue. A yellow button against a dark neutral background significantly outperforms a green button that blends into a similar-chroma background. The practical recommendation: maximize button contrast relative to its immediate background context. Choose a button color that has no equivalent in the surrounding palette — this creates visual uniqueness, not just contrast. The hue should respect category fit, but within that constraint, contrast is the performance driver.",
+      },
+      {
+        heading: "Trust architecture in retail color",
+        body: "Trust is the one area where specific color associations have meaningful evidence in e-commerce research. Cool palettes with blue undertones — particularly in the navy-to-midtone-blue range — correlate with higher trust ratings in unfamiliar purchasing contexts. This effect is strongest on first purchases, high-value transactions, and categories with high purchase anxiety (supplements, insurance, unfamiliar brands). For brands with established customer relationships, trust coloring matters less because brand equity carries trust independent of palette. For acquisition-focused landing pages and unfamiliar brands in high-anxiety categories, conservative blue-adjacent palettes have reliable evidence behind them.",
+      },
+      {
+        heading: "Urgency colors and overuse",
+        body: "Red and orange are associated with urgency, scarcity, and time pressure — but the effect degrades with overuse. A single red sale badge on a neutral site reads as high-urgency. A site with red banners, red badges, and red CTAs reads as chronic urgency — the visual equivalent of a store that always has a sale, where the urgency signal loses credibility. The most effective promotional color application creates contrast against an otherwise calm palette: warm amber or soft red used only in genuine scarcity and time-limited contexts retains salience because the surrounding site is visually calm. Urgency coloring works by being an exception. If it's everywhere, it's nowhere.",
+      },
+    ],
+    links: [
+      { label: "Brand palette builder", href: "/palette-builder/" },
+      { label: "Color families library", href: "/colors/" },
+      { label: "Blush Garden collection", href: "/collections/blush-garden/" },
+    ],
+  },
+  {
+    category: "UI Design",
+    slug: "ai-interface-color-guide",
+    title: "Color for AI Interfaces: States, Trust, and Uncertainty",
+    summary:
+      "AI products have UI states that conventional design systems weren't built for — generating, thinking, uncertain, degraded. A color framework for the new vocabulary of AI interface design.",
+    eyebrow: "Advanced Color",
+    priority: 71,
+    searchIntent: "AI interface color design system chatbot UI color generation state loading state trust color AI product design",
+    featuredCollectionId: "electric-violet",
+    featuredPackId: "complete-archive",
+    tags: ["AI Design", "UI Design", "Color Strategy"],
+    highlights: [
+      "Generative states benefit from calm, low-urgency color — subtle blue or green reads as 'active but not alarming' versus anxiety-inducing animated gradients.",
+      "Uncertainty coloring should be surgical, used on specific flagged content rather than globally — global uncertainty coloring makes interfaces feel unreliable.",
+      "Trust in AI interfaces must extend to model outputs, not just system reliability — professional-register palettes signal rigor and precision over theatrical visual effects.",
+    ],
+    sections: [
+      {
+        heading: "Color for generative and loading states",
+        body: "AI products have introduced UI states that conventional loading indicators don't handle well: streaming text generation, model processing with variable and unknowable duration, and generation that can fail mid-stream. The instinct to signal these states with animated gradients or pulsing accent colors creates visual anxiety that doesn't match the user expectation — which is patient waiting, not urgency. Better approach: a subtle low-saturation blue or teal reading as 'active but not alarming', combined with visible text streaming that makes generation progress legible without requiring a prominent loading element. The color goal for generative states is calm attentiveness, not urgency.",
+      },
+      {
+        heading: "Expressing confidence and uncertainty",
+        body: "Conventional design systems have binary feedback states: success (green) and error (red). AI systems often produce outputs with varying confidence levels, or have genuine uncertainty about claims, dates, or domain knowledge. Some AI interfaces surface this to users through inline annotations or confidence markers. Color can carry uncertainty meaning carefully: slightly desaturated or warm-tinted text for uncertain claims, subtle amber surface tint for flagged content. The critical discipline: uncertainty coloring must be the exception, used surgically on specific content rather than applied broadly. If uncertainty signals appear throughout the interface, users read the entire interface as unreliable. Reserve uncertainty color for content specifically flagged as potentially incorrect or unverified.",
+      },
+      {
+        heading: "Error states: beyond binary red",
+        body: "AI generation errors differ from conventional errors. A standard error is binary and complete: the operation failed. An AI error might be partial (generation interrupted mid-stream), soft (output produced but quality is suspect), or rate-limited (system temporarily unavailable but functional). Mapping these nuanced states onto binary red/green creates information loss. Partial failures might use amber rather than red — communicating 'something went wrong but partial output exists.' Soft quality flags might use a warm neutral tint rather than an error color — communicating 'consider verifying this' rather than 'this is wrong.' Expanding the semantic color vocabulary to include these intermediate states makes the interface more informative without creating alarm.",
+      },
+      {
+        heading: "Building output trust through color",
+        body: "Trust in AI interfaces extends to model outputs, not just system reliability. Users must trust both that the system works and that the content it produces is reliable. Color can support output trust through consistent attribution marking — a distinct surface treatment or subtle border differentiating AI-generated content from human-verified or source-cited content. Professional-register color palettes (muted, precise, conservative in saturation) signal rigor and expertise. Restraint with AI visual spectacle — avoiding the animated gradient streaming effect that signals 'magic technology' in favor of clean, precise presentation — may actually improve trust in professional contexts by reading as precise rather than theatrical.",
+      },
+    ],
+    links: [
+      { label: "Color combinations library", href: "/combinations/" },
+      { label: "WCAG contrast auditor", href: "/wcag-audit/" },
+      { label: "Electric Violet collection", href: "/collections/electric-violet/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides27);

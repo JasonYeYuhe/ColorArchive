@@ -597,6 +597,55 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   error_state: ["crimson", "ruby", "ember", "garnet", "vivid"],
   info_state: ["cobalt", "azure", "cerulean", "teal", "vivid"],
 
+
+  // Motion design and animation states
+  motion_design: ["vivid", "cobalt", "coral", "violet", "amber"],
+  temporal: ["vivid", "cobalt", "coral", "soft", "muted"],
+  streaming: ["cobalt", "azure", "violet", "indigo", "teal"],
+  generative: ["cobalt", "violet", "indigo", "azure", "vivid"],
+  interactive: ["cobalt", "vivid", "coral", "amber", "emerald"],
+
+  // Color management and print
+  cross_media: ["ivory", "muted", "pearl", "cobalt", "amber"],
+  color_management: ["ivory", "cobalt", "muted", "pearl", "amber"],
+  pantone_color: ["coral", "cobalt", "vivid", "emerald", "amber"],
+  brand_specification: ["cobalt", "ivory", "muted", "pearl", "vivid"],
+
+  // Design token extended
+  dark_mode_token: ["ink", "shadow", "nocturne", "cobalt", "slate"],
+  light_mode_token: ["ivory", "frost", "pearl", "cobalt", "azure"],
+  design_token: ["cobalt", "ink", "ivory", "muted", "vivid"],
+  token_system: ["ink", "ivory", "cobalt", "frost", "vivid"],
+
+  // E-commerce extended
+  conversion_color: ["vivid", "crimson", "coral", "cobalt", "amber"],
+  retail_color: ["coral", "vivid", "cobalt", "amber", "ivory"],
+  checkout: ["cobalt", "emerald", "crimson", "amber", "ivory"],
+  purchase: ["cobalt", "crimson", "coral", "emerald", "amber"],
+
+  // AI and generative interfaces
+  generating: ["cobalt", "azure", "violet", "indigo", "teal"],
+  uncertainty: ["amber", "honey", "warm", "muted", "soft"],
+  ai_product: ["cobalt", "violet", "indigo", "azure", "vivid"],
+  chatbot: ["cobalt", "azure", "violet", "teal", "ink"],
+
+  // New palette collection aliases
+  desert_palette: ["amber", "sienna", "honey", "rust", "clay"],
+  ochre: ["amber", "honey", "citrine", "sienna", "warm"],
+  sandstone: ["amber", "honey", "sienna", "clay", "warm"],
+  golden_sand: ["amber", "citrine", "honey", "sienna", "warm"],
+  vibrant_purple: ["violet", "fuchsia", "orchid", "vivid", "plum"],
+  indigo_palette: ["indigo", "violet", "cobalt", "azure", "sapphire"],
+  forest_palette: ["moss", "emerald", "fern", "jade", "olive"],
+  woodland: ["moss", "fern", "ember", "sienna", "leaf"],
+  bark: ["sienna", "umber", "amber", "honey", "clay"],
+  lichen: ["sage", "olive", "moss", "jade", "muted"],
+  oyster: ["ivory", "pearl", "ash", "veil", "whisper"],
+  mother_of_pearl: ["pearl", "ivory", "frost", "veil", "whisper"],
+  raw_silk: ["ivory", "pearl", "blush", "whisper", "veil"],
+  quiet_luxury: ["pearl", "ivory", "onyx", "garnet", "muted"],
+  old_money: ["ivory", "pearl", "navy", "garnet", "onyx"],
+  understated: ["muted", "soft", "ivory", "pearl", "slate"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
