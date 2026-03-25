@@ -1568,3 +1568,104 @@ export const extraCollections19: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections19);
+
+const extraCollections20: ColorCollection[] = [
+  createCollection(
+    "twilight-lavender",
+    "Twilight Lavender",
+    "Soft violets and muted purples deepening toward evening dusk — a meditative palette for wellness, beauty, and premium digital experiences that require calm authority.",
+    "Twilight lavender is built on the color register that appears in the sky just before full dark — when blue has warmed toward violet and the light source is diffuse and fading. The palette moves through five deliberate steps: iris-veil-muted opens as the palest near-white with just enough violet to register as intentional color rather than untreated white; iris-pearl-muted steps the chroma up slightly while remaining firmly in the delicate register used for premium background surfaces; violet-silk-clear introduces the first clearly violet tone — mid-value, clean chroma, the workhorse accent color that handles links, highlights, and interactive emphasis; violet-tone-muted deepens toward the rich mid-dark that creates text contrast and structural depth; and plum-ink-muted closes the palette as the darkest anchor — deep enough for full-contrast body text in dark mode or deep surface backgrounds.",
+    ["Wellness", "Beauty", "Premium"],
+    [
+      "iris-veil-muted",
+      "iris-pearl-muted",
+      "violet-silk-clear",
+      "violet-tone-muted",
+      "plum-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Twilight lavender works best in interfaces where calm and authority coexist — meditation apps, premium skincare, holistic health practices, and night-mode digital experiences. Photography direction: low ambient light, soft diffuse sources, botanical close-ups in violet and purple tones (lavender fields, orchids, wisteria), evening sky tones. Avoid harsh shadows and bright direct light — the palette communicates a late-day, reflective quality that clashes with midday sun photography. Typography: a refined serif or a light-weight geometric sans complements the meditative quality; avoid heavy, aggressive typefaces.",
+      promptWords: [
+        "premium wellness app in soft lavender and deep violet",
+        "luxury skincare brand in twilight purple and muted lavender",
+        "meditation and mindfulness platform in calm violet tones",
+        "holistic health brand identity in lavender and plum",
+        "evening-mode digital experience in violet and near-black",
+      ],
+      useCases: [
+        "Wellness apps and meditation platforms",
+        "Premium skincare and beauty brands",
+        "Holistic health and therapy services",
+        "Premium nighttime digital products",
+        "Luxury fragrance and candle brands",
+      ],
+    },
+  ),
+  createCollection(
+    "chalk-and-coral",
+    "Chalk and Coral",
+    "Chalky off-whites and warm bone tones paired with soft coral — an approachable warmth palette for creative studios, lifestyle brands, and editorial content.",
+    "Chalk and coral is a palette built around the warmth of sun-bleached surfaces and the soft warmth of coral at low chroma. Ember-veil-muted establishes the palette's base — a near-white with just enough warm undertone to prevent clinical coldness, functioning as the primary background for content-heavy layouts. Apricot-veil-muted steps up as a secondary surface with more warmth — slightly apricot-tinted, functioning as the alternative background for cards, callouts, and contained surfaces. Coral-silk-muted introduces the palette's defining color — a soft coral at mid-value and restrained chroma, warm without being saturated, suitable for both accent text and background use in smaller areas. Coral-tone-muted deepens the coral register to a value that handles secondary headings and structural elements without becoming heavy. Ember-shadow-muted anchors the dark end — a warm, earthy near-dark that feels far more human than cold gray or pure black.",
+    ["Warm", "Editorial", "Lifestyle"],
+    [
+      "ember-veil-muted",
+      "apricot-veil-muted",
+      "coral-silk-muted",
+      "coral-tone-muted",
+      "ember-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Chalk and coral suits brands that want warmth without energy — approachable and human, but not playful or loud. It works well for creative studios, interior design brands, lifestyle blogs, and food and wellness editorial content. Photography direction: natural light, warm shadows, textured surfaces (linen, ceramic, wood), fresh flowers in pink and peach tones, morning light. Avoid cool-toned photography — blue-hour shots, overcast grey days, or cool studio lighting will clash with the palette's warm base.",
+      promptWords: [
+        "creative studio branding in warm chalk white and soft coral",
+        "lifestyle blog visual identity in warm off-white and terracotta",
+        "interior design brand in chalk and muted coral palette",
+        "artisan food brand photography in warm cream and coral tones",
+        "editorial content layout in chalk white and warm terracotta",
+      ],
+      useCases: [
+        "Creative and design studios",
+        "Lifestyle and food editorial brands",
+        "Interior design and home decor",
+        "Artisan and craft product brands",
+        "Warm-aesthetic digital magazines",
+      ],
+    },
+  ),
+  createCollection(
+    "slate-and-sage",
+    "Slate and Sage",
+    "Cool blue-gray slates and muted sage greens — a composed, professional palette for architecture, real estate, and premium B2B brands that signal considered restraint.",
+    "Slate and sage is built on the color relationship between cool architectural surfaces (concrete, stone, aged metal) and the understated green of sage and rosemary in dry gardens. These colors are associated with permanence, skill, and environmental awareness — qualities that premium professional services brands seek to communicate. Cobalt-veil-muted opens as the palest blue-gray, barely warm enough to be distinguished from pure white, functioning as the clean neutral background for text-heavy layouts. Cobalt-pearl-muted deepens to a readable secondary surface tone used for panels, cards, and contained areas. Moss-silk-muted introduces the palette's green register — muted enough to read as a sophisticated neutral rather than a decorative color. Cobalt-tone-muted moves into the darker blue-gray that handles subheadings and secondary structure. Cobalt-ink-muted closes as the near-dark anchor, cool-toned enough to feel architectural and authoritative.",
+    ["Professional", "Architecture", "Minimal"],
+    [
+      "cobalt-veil-muted",
+      "cobalt-pearl-muted",
+      "moss-silk-muted",
+      "cobalt-tone-muted",
+      "cobalt-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Slate and sage works best for brands in architecture, engineering, real estate, professional services, and premium B2B. The palette communicates competence, permanence, and environmental sensitivity without warm-industry friendliness. Photography direction: architectural photography (clean geometry, natural materials, open space), landscape photography with green-gray tones (sage, olive, stone), black and white photography with green tint. Avoid saturated photography — vivid colors in editorial context clash with the palette's composed restraint.",
+      promptWords: [
+        "architecture firm branding in cool slate and muted sage",
+        "real estate developer brand identity in slate gray and sage green",
+        "professional services firm in slate and sage palette",
+        "sustainable building brand in cool gray and muted green",
+        "premium B2B SaaS interface in slate and sage tones",
+      ],
+      useCases: [
+        "Architecture and engineering firms",
+        "Real estate developers and brokers",
+        "Premium professional services",
+        "Sustainable building and environmental consultancies",
+        "B2B enterprise software with premium positioning",
+      ],
+    },
+  ),
+];
+
+collections.push(...extraCollections20);

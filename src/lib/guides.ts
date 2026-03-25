@@ -6365,3 +6365,158 @@ export const extraGuides19: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides19);
+
+export const extraGuides20: LandingGuide[] = [
+  {
+    category: "Color Theory",
+    slug: "ecommerce-color-guide",
+    title: "Color Psychology in E-Commerce: How Palettes Drive Purchase Decisions",
+    summary:
+      "A practical breakdown of how color influences shopping behavior — from product page psychology to cart abandonment — and how to build a palette strategy for higher-converting online stores.",
+    eyebrow: "E-Commerce",
+    priority: 72,
+    searchIntent: "ecommerce color psychology conversion optimization",
+    featuredCollectionId: "vivid-spectrum",
+    featuredPackId: "content-creator-bundle",
+    tags: ["E-Commerce", "Color Psychology", "Conversion", "UX Design"],
+    highlights: [
+      "Product background color is the single highest-impact color decision in e-commerce — it determines how the product reads at thumbnail scale.",
+      "Trust signals (payment icons, security badges, reviews) benefit from conservative color contexts — loud, high-saturation palettes compete for attention with the trust elements.",
+      "Urgency colors (reds and oranges on sale badges and countdown timers) work better when the rest of the interface is neutral — contrast is what triggers urgency, not red alone.",
+    ],
+    sections: [
+      {
+        heading: "Product imagery and background color",
+        body:
+          "In e-commerce, the product is the hero — and the background color either supports or competes with it. White and near-white backgrounds (#F8F8F8 to #FFFFFF) create a neutral stage that lets product color read accurately and clearly at thumbnail scale. This is why most large marketplaces default to white product photography. Tinted backgrounds work for lifestyle positioning: a warm linen background communicates a different brand register than pure white, and can make the product feel more considered and editorial. The rule is that background tint should have lower chroma than the product — if the background is more saturated than the product, the product recedes and the background advances.",
+      },
+      {
+        heading: "Category color language",
+        body:
+          "Different e-commerce categories have established color conventions that set user expectations. Luxury goods: black, deep navy, warm gold accents on white — violating this with bright saturated colors signals mass-market positioning even if the product price says otherwise. Health and wellness: muted greens, warm whites, sage and eucalyptus tones — this color convention signals natural, clean, safe. Electronics: dark gray, white, and cyan-teal accents — the Apple palette has become so dominant that tech products using it benefit from association. Fast fashion and youth: high saturation, multi-color, playful — signals accessibility and trend-forward positioning. Understanding your category convention helps you decide when to follow it (for credibility) and when to break it (for differentiation).",
+      },
+      {
+        heading: "The cart and checkout palette",
+        body:
+          "Checkout flows have one job: reduce friction. Color decisions in checkout should minimize everything except forward momentum. Use a conservative, low-saturation palette that puts all attention on form fields and the primary CTA. Avoid decorative color use in checkout — banners, promotional messaging, and bright accents all compete with the goal of completing the purchase. Primary CTA button: high contrast against the background, higher saturation than everything else on the page. Error states: red is appropriate and expected — this is one context where the convention should not be subverted. Trust elements (SSL badge, payment logos): keep them visible and don't surround them with competing color.",
+      },
+      {
+        heading: "Sale and urgency color strategy",
+        body:
+          "Red on sale badges and discount tags is a deeply learned convention — it signals urgency and savings. This convention is worth using because users scan for it quickly. But red urgency only works against neutral backgrounds; on a page already using red in the brand palette, the sale badge loses its signal. If your brand uses red, choose a different urgency signal color for promotions (orange, or a contrasting color not used elsewhere in the interface) or use contrast ratio alone — a bold black badge on white can carry the same urgency as a red one when other urgency signals (countdown timer, low stock text) are present.",
+      },
+      {
+        heading: "Building an e-commerce color system",
+        body:
+          "A minimal e-commerce color system needs: a neutral background scale (white to near-black, 5-7 values), a single brand accent color, a secondary utility color for sale and promotional states, and semantic status colors (success green, error red, warning orange). Everything else — rich brand colors, photography tones, lifestyle palette — lives in photography and imagery, not the interface itself. This minimal approach keeps the interface from competing with the products. ColorArchive's brand generator exports a production-ready system with these roles pre-assigned, which you can use directly as a starting point for any e-commerce project.",
+      },
+    ],
+    links: [
+      { label: "Brand Color Generator", href: "/brand-generator/" },
+      { label: "Color Combinations", href: "/combinations/" },
+      { label: "Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "social-media-color-guide",
+    title: "Color Strategy for Social Media: Creating Visual Consistency Across Platforms",
+    summary:
+      "How to build a social media color palette that stays recognizable across Instagram, TikTok, Pinterest, and LinkedIn — while adapting to each platform's visual culture.",
+    eyebrow: "Social Media",
+    priority: 68,
+    searchIntent: "social media color palette brand consistency",
+    featuredCollectionId: "candy-pop",
+    featuredPackId: "content-creator-bundle",
+    tags: ["Social Media", "Brand Identity", "Visual Consistency", "Content Strategy"],
+    highlights: [
+      "A social feed is a grid: colors that look good individually can clash or blend into a monotone mass when seen together. Design for the grid, not just the individual post.",
+      "Platform display environments differ significantly — Instagram has heavy saturation compression, LinkedIn defaults to white backgrounds, TikTok displays against full black. Test colors on each platform before committing.",
+      "Recognizable accounts use color as a signature — a consistent palette that users learn to associate with your content before they even read the caption.",
+    ],
+    sections: [
+      {
+        heading: "The grid as a design unit",
+        body:
+          "Instagram profiles are viewed as 3x3 grids before users open individual posts. Colors that seem fine individually often create unintended patterns when tiled — a checkerboard of alternating warm and cool posts, a stripe of high-saturation content in one row, or a jarring color break when a new campaign launches. Experienced content creators plan grid color across 9-post cycles: they sketch out the 3x3 arrangement and evaluate the gestalt before publishing. Your social palette should be designed with this grid view in mind: use 2-3 colors that can alternate and combine without creating unintended patterns.",
+      },
+      {
+        heading: "Platform-specific color behaviors",
+        body:
+          "Different platforms have different display defaults that affect how your colors read. Instagram's compression algorithm is particularly aggressive on fine detail and subtle color gradients — what looks like a beautiful muted gradient in Lightroom can compress to a flat banded mess in the feed. Test gradient-heavy designs at Instagram export compression before finalizing. LinkedIn's interface is predominantly white and light gray — your brand colors will appear against a clean neutral background, giving saturated accent colors maximum impact. TikTok's video interface appears against true black in the app — colors that look vivid on white will appear even more saturated against black, and light colors may feel washed out. Pinterest's mosaic grid rewards vertical images with bold, legible color at small scale.",
+      },
+      {
+        heading: "Building your signature palette",
+        body:
+          "A social media signature palette works like a uniform: consistent enough to be recognizable, flexible enough to apply to different content types. The most effective social palettes use 2-3 dominant colors (often a warm neutral background, a brand accent, and a supporting secondary tone) plus 1-2 accent colors used sparingly for emphasis. The key is that one color should be used at a high enough frequency that it becomes associated with your presence — appearing in at least 60-70% of posts in some form, even if just as a border, overlay, or text color. This is your signature hue.",
+      },
+      {
+        heading: "Adapting across content types",
+        body:
+          "Social content includes multiple formats — static images, carousels, Reels/TikTok videos, Stories. Your palette needs to work across all of them. For video: choose colors that work both as solid backgrounds and as text overlays. Highly saturated backgrounds make text harder to read; mid-tone or neutralized versions of your brand colors work better as video backgrounds. For carousels: maintain consistent background color across all slides so the swipe feels like a continuous surface. For Stories: the 9:16 vertical format with UI elements at top and bottom means your key color moments need to land in the middle third of the frame.",
+      },
+      {
+        heading: "Using ColorArchive for social palettes",
+        body:
+          "ColorArchive's 3,066-color library is particularly useful for social palette building because the systematic naming structure makes it easy to find color families and lightness relationships. To build a social palette: choose a hue root, then select 3-5 colors from that family across different lightness bands (very light for backgrounds, mid-tone for surfaces, darker for text and emphasis). Add a complementary or analogous accent from a different hue root for variety. Export as CSS variables or PNG swatches to use across your design tools. The content creator bundle includes pre-formatted social media templates in the most common aspect ratios.",
+      },
+    ],
+    links: [
+      { label: "Palette Builder", href: "/palette-builder/" },
+      { label: "Color Combinations", href: "/combinations/" },
+      { label: "Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "color-illustration-guide",
+    title: "Color Approaches for Digital Illustration: From Flat Design to Complex Palettes",
+    summary:
+      "How professional illustrators structure color decisions — palette restraint, the role of value, temperature contrast, and building a consistent color voice across a series of illustrations.",
+    eyebrow: "Illustration",
+    priority: 65,
+    searchIntent: "color palette digital illustration guide",
+    featuredCollectionId: "berry-harvest",
+    featuredPackId: "palette-pack-vol-1",
+    tags: ["Illustration", "Digital Art", "Color Palettes", "Design"],
+    highlights: [
+      "Most professional illustrators work with a restricted palette of 5-7 colors — unlimited color choices rarely produce better illustrations, and often produce worse ones.",
+      "Value structure (the light-to-dark distribution) should be readable in grayscale before color is added. Color that doesn't reinforce value structure creates muddy, hard-to-read images.",
+      "Temperature contrast (warm vs. cool) is often more visually powerful than hue contrast. A warm light source and cool shadows (or vice versa) creates the atmospheric depth that separates flat from dimensional illustration.",
+    ],
+    sections: [
+      {
+        heading: "The restricted palette principle",
+        body:
+          "The counter-intuitive truth about illustration color is that constraints improve results. When every color is available, the decision paralysis and temptation to add just one more hue produces busy, incoherent images. Professional illustrators typically define a working palette before starting — 5-7 swatches that cover their light, mid-tone, dark, and accent needs — and stick to it throughout the piece. This restriction forces creative problem-solving: instead of choosing a new color for each element, you learn to create variation through value shifts, opacity, and texture within the restricted set. The Procreate and Adobe Fresco swatch system makes this workflow easy to enforce.",
+      },
+      {
+        heading: "Value structure first",
+        body:
+          "Color gets all the attention in illustration, but value — the lightness-to-darkness distribution — does the real structural work. Before adding color to an illustration, establish the value structure as a grayscale or single-color rough. The lights should clearly separate from the darks; the focal point should be the area of highest contrast. If the illustration reads clearly in grayscale, color will enhance it. If it only reads clearly with color, the value structure needs work. This principle comes from classical painting training and applies directly to digital illustration: correct value + wrong hue is forgivable; correct hue + wrong value produces mud.",
+      },
+      {
+        heading: "Temperature contrast for depth",
+        body:
+          "One of the most powerful tools in illustration color is temperature contrast — using warm and cool colors in relationship to create atmospheric depth. The classic formulation: warm light source (yellow-orange sunlight), cool shadows (blue-violet shade). This combination works because it mirrors the outdoor physics of direct sunlight plus sky-lit shadows, which human vision has evolved to perceive as natural and spatially coherent. It also means that warm and cool colors naturally sort themselves by depth (warm elements advance, cool recede) without requiring complex value management. The inverse (cool light, warm shadows) reads as indoor artificial light — fluorescent or overcast.",
+      },
+      {
+        heading: "Building a color voice",
+        body:
+          "Illustrators with recognizable styles often have distinctive color signatures — a particular palette character that makes their work identifiable even in a thumbnail. This signature is usually a combination of value range (high contrast vs. low contrast), saturation level (vivid vs. muted), and temperature bias (warm-dominant vs. cool-dominant). To develop a color voice: analyze 10-15 illustrations you admire and note their shared characteristics — not the specific hues, but the structural relationships. Then deliberately experiment with those structural parameters in your own work, independent of subject matter. Consistency in color voice comes from decisions about structure, not from copying specific swatches.",
+      },
+      {
+        heading: "Palette resources for illustrators",
+        body:
+          "ColorArchive is built on a systematic 36-hue-root structure that makes it particularly useful for illustrators building restricted palettes. To build an illustration palette: choose a primary temperature (warm or cool) and select 2-3 hues within that range for your midtones and darks. Add 1-2 hues from the opposite temperature family for lights and accents. This warm-cool split within a small hue count covers most illustration needs and produces the temperature contrast that creates depth. ColorArchive's palette builder lets you test 5-color combinations side by side and export them directly to Procreate-compatible SWATCHES format — useful for moving from palette research to illustration without a manual step.",
+      },
+    ],
+    links: [
+      { label: "Palette Builder", href: "/palette-builder/" },
+      { label: "Color Combinations", href: "/combinations/" },
+      { label: "Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides20);
