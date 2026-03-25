@@ -14,3 +14,4 @@ public/generated/
 server/generated/
 server/.env.twitter
 server/.env.youtube
+server/.env.instagram

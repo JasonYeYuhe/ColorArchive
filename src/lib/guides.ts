@@ -1144,7 +1144,7 @@ export const landingGuides: LandingGuide[] = [
     links: [
       { label: "Open Concrete Modernism", href: "/collections/concrete-modernism/" },
       { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-      { label: "Browse neutral family colors", href: "/families/neutral/" },
+      { label: "Browse all color families", href: "/families/" },
     ],
   },
   {
@@ -1741,7 +1741,7 @@ export const landingGuides: LandingGuide[] = [
     links: [
       { label: "Explore Monochrome Studio", href: "/collections/monochrome-studio/" },
       { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-      { label: "Browse gray neutral family", href: "/families/gray/" },
+      { label: "Browse all color families", href: "/families/" },
     ],
   },
   {
@@ -1818,7 +1818,7 @@ export const landingGuides: LandingGuide[] = [
     links: [
       { label: "Explore Monochrome Studio", href: "/collections/monochrome-studio/" },
       { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-      { label: "Browse neutral family", href: "/families/gray/" },
+      { label: "Browse all color families", href: "/families/" },
     ],
   },
   {
@@ -3781,7 +3781,7 @@ const extraGuides15: LandingGuide[] = [
     links: [
       { label: "Color Converter", href: "/convert/" },
       { label: "Copper Patina collection", href: "/collections/copper-patina/" },
-      { label: "Print color management guide", href: "/guides/print-color-management-guide/" },
+      { label: "Print color management guide", href: "/guides/color-palette-for-print-design/" },
     ],
   },
   {

@@ -60,7 +60,8 @@ interface SiteHeaderProps {
     | "/stories"
     | "/pro"
     | "/projects"
-    | "/analyze";
+    | "/analyze"
+    | "/product-examples";
 }
 
 interface NavItem {

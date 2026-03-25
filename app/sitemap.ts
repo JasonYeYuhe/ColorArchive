@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { colors } from "@/src/data/colors";
+import stories from "@/src/data/color-stories.json";
 import { collections } from "@/src/lib/collections";
 import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
 import { landingGuides } from "@/src/lib/guides";
@@ -216,6 +217,84 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: "https://colorarchive.me/stories/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
+    {
+      url: "https://colorarchive.me/trending/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "weekly",
+      priority: 0.78,
+    },
+    {
+      url: "https://colorarchive.me/today/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "daily",
+      priority: 0.75,
+    },
+    {
+      url: "https://colorarchive.me/identify/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.82,
+    },
+    {
+      url: "https://colorarchive.me/mesh-gradient/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://colorarchive.me/mood-palette/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://colorarchive.me/brand-generator/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: "https://colorarchive.me/color-quiz/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
+    {
+      url: "https://colorarchive.me/palette-generator/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.84,
+    },
+    {
+      url: "https://colorarchive.me/preview/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.78,
+    },
+    {
+      url: "https://colorarchive.me/product-examples/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.72,
+    },
+    {
+      url: "https://colorarchive.me/privacy/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: "https://colorarchive.me/terms/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
   ];
 
   const colorRoutes: MetadataRoute.Sitemap = colors.map((color) => ({
@@ -260,6 +339,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.62,
   }));
 
+  const storyRoutes: MetadataRoute.Sitemap = Object.keys(stories).map((slug) => ({
+    url: `https://colorarchive.me/stories/${slug}/`,
+    lastModified: BUILD_DATE,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const guideRoutes: MetadataRoute.Sitemap = landingGuides.map((guide) => ({
     url: `https://colorarchive.me/guides/${guide.slug}/`,
     lastModified: BUILD_DATE,
@@ -272,6 +358,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...guideRoutes,
     ...noteRoutes,
     ...tagRoutes,
+    ...storyRoutes,
     ...familyRoutes,
     ...collectionRoutes,
     ...packRoutes,
