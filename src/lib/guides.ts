@@ -6210,3 +6210,158 @@ landingGuides.push(...seoGuides);
 
 // Batch 2: 10 more industries (Nonprofit, Legal, Travel, Gaming, Food & Beverage, Automotive, Architecture, Music, Pet Care, Crypto)
 landingGuides.push(...seoGuides2);
+
+export const extraGuides19: LandingGuide[] = [
+  {
+    category: "Color Theory",
+    slug: "color-contrast-accessibility-guide",
+    title: "Color Contrast for Accessibility: WCAG 2.1, APCA, and Real-World Decisions",
+    summary:
+      "A practical guide to meeting and exceeding accessibility contrast standards — covering WCAG AA/AAA, the APCA model, and how to make contrast decisions for real interfaces.",
+    eyebrow: "Accessibility",
+    priority: 70,
+    searchIntent: "color contrast accessibility WCAG guide",
+    featuredCollectionId: "studio-neutral",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Accessibility", "WCAG", "Color Contrast", "Inclusive Design"],
+    highlights: [
+      "WCAG 2.1 AA requires 4.5:1 contrast for normal text and 3:1 for large text — but these ratios are minimums, not targets.",
+      "APCA (Advanced Perceptual Contrast Algorithm) is a new model that accounts for font weight, size, and polarity — giving more accurate predictions than WCAG ratios alone.",
+      "High contrast doesn't always mean more accessible: for users with certain visual conditions, very high contrast (pure black on pure white) can cause halation that reduces readability.",
+    ],
+    sections: [
+      {
+        heading: "Understanding WCAG contrast ratios",
+        body:
+          "WCAG 2.1 defines contrast ratios using a formula based on relative luminance — the measure of how much light a color emits relative to white. A ratio of 4.5:1 is required for normal text at AA level; 3:1 for large text (18pt regular or 14pt bold). AAA requires 7:1 for normal text and 4.5:1 for large text. The ratio is symmetric — 4.5:1 means the lighter color is 4.5 times more luminous than the darker one. When checking contrast, always test with your actual production font rendering — antialiasing and subpixel rendering affect perceived contrast at small sizes.",
+      },
+      {
+        heading: "Where WCAG falls short",
+        body:
+          "WCAG contrast ratios have a known weakness: they treat all font sizes and weights equally, which doesn't match perceptual reality. A bold 24px heading at 3.5:1 contrast is highly legible; a light 11px caption at the same 3.5:1 ratio may be nearly unreadable. WCAG also doesn't distinguish between text on dark backgrounds vs. light backgrounds — the formula is purely mathematical. In practice, light text on dark backgrounds typically requires higher ratios to achieve equivalent legibility because screens emit more light than they absorb, making light-on-dark inherently harder to read for many users.",
+      },
+      {
+        heading: "APCA: the next generation of contrast",
+        body:
+          "The Advanced Perceptual Contrast Algorithm (APCA) is being considered for WCAG 3.0. It produces a 'Lc' (lightness contrast) value that accounts for font size and weight, polarity (dark-on-light vs. light-on-dark), and screen luminance assumptions. An Lc of 60 is roughly equivalent to WCAG 4.5:1, but APCA allows lower contrast for large bold text and requires higher contrast for small light-weight text. Many designers use APCA as a supplementary check alongside WCAG compliance. ColorArchive's palette exports include contrast ratio data for all palette combinations.",
+      },
+      {
+        heading: "Non-text contrast and UI elements",
+        body:
+          "WCAG also specifies 3:1 contrast for non-text UI elements: input borders, focus indicators, icon-only buttons, and graphical elements that convey meaning. This is commonly overlooked — a light gray border on a white input at 1.5:1 contrast fails WCAG, even though it's common in modern UI design. Audit your form elements, icons, and decorative borders alongside text. Focus indicators, in particular, are often too subtle — browsers default to low-contrast outlines that technically fail WCAG 2.4.11 (AA in WCAG 2.2). Use a 2px or 3px solid focus ring in a highly contrasting color.",
+      },
+      {
+        heading: "Building an accessible palette",
+        body:
+          "An accessible color system pre-solves contrast decisions rather than auditing after the fact. Define semantic tokens (text.primary, text.secondary, text.disabled) with guaranteed contrast against their expected backgrounds. In ColorArchive, filter palettes by lightness to identify colors in the accessible range for your surface colors. Export the full palette with contrast data and establish a team-wide rule: no color combination below 4.5:1 for any body text, no exceptions in shipped code.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Studio Neutral Collection", href: "/collections/studio-neutral/" },
+      { label: "Browse All Colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "color-token-naming-guide",
+    title: "Color Token Naming Conventions: Primitive, Semantic, and Component Layers",
+    summary:
+      "How to structure a three-layer token naming system that scales from a small product to a multi-brand design system — with practical naming patterns used by leading teams.",
+    eyebrow: "Design Systems",
+    priority: 65,
+    searchIntent: "color token naming conventions design system",
+    featuredCollectionId: "data-dashboard",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Design Tokens", "Design Systems", "Naming Conventions", "Component Library"],
+    highlights: [
+      "A two-layer system (primitive + semantic) solves most single-product needs; multi-brand systems require a third component layer.",
+      "Primitive tokens describe what a color is ('blue-500'); semantic tokens describe what it means ('color.action.primary'); component tokens describe where it lives ('button.background.default').",
+      "Consistent naming prevents token sprawl — without a convention, teams end up with dozens of one-off tokens that duplicate each other.",
+    ],
+    sections: [
+      {
+        heading: "The three-layer model",
+        body:
+          "Most production design token systems use three layers. Primitive tokens are the raw values — they describe what the color is. Examples: `color.blue.500 = #3B82F6`, `color.gray.100 = #F3F4F6`. Semantic tokens describe intent — they reference primitives by role. Examples: `color.action.primary = {color.blue.500}`, `color.surface.default = {color.gray.100}`. Component tokens describe specific component slots and reference semantic tokens. Examples: `button.background.primary = {color.action.primary}`. This hierarchy allows you to retheme an entire product by changing a single semantic token, or retheme just one component by changing its component token.",
+      },
+      {
+        heading: "Primitive token patterns",
+        body:
+          "Primitive tokens follow a scale pattern: `{namespace}.{hue}.{step}`. Common step scales: 50-100-200-300-400-500-600-700-800-900 (Tailwind-style) or 0-10-20-30-40-50-60-70-80-90-100 (Radix-style). Choose one scale and apply it consistently to all hues in your palette. Avoid naming primitives by their intended use ('brand-blue', 'error-red') — primitives should be purely descriptive. ColorArchive's full archive exports work naturally as primitive tokens, with the color's lightness and chroma bands mapping directly to scale steps.",
+      },
+      {
+        heading: "Semantic token patterns",
+        body:
+          "Semantic tokens answer 'what is this used for?' The most common semantic categories are: surface (backgrounds and containers), text (all typography), border (dividers and outlines), action (interactive elements), status (success, warning, error, info), and icon. Within each category, define variants for state: `color.action.primary.default`, `color.action.primary.hover`, `color.action.primary.pressed`, `color.action.primary.disabled`. Keeping state as a suffix rather than a top-level category keeps related tokens together when sorted alphabetically.",
+      },
+      {
+        heading: "Avoiding common mistakes",
+        body:
+          "The most common token mistakes are: creating semantic tokens that duplicate primitives without adding meaning ('color.brand = {color.blue.500}' is not semantic — what does 'brand' mean?); using semantic tokens as primitives in component tokens (component tokens should always reference semantic, not primitive, tokens); and creating too many semantic tokens for edge cases before you need them. Start with fewer, broader semantic tokens and subdivide only when you have a concrete need. A token system with 20 semantic tokens that cover 90% of your UI is more useful than one with 200 that no one uses consistently.",
+      },
+      {
+        heading: "Exporting from ColorArchive",
+        body:
+          "ColorArchive's token export generates both primitive and semantic layers. The primitive layer maps the full archive to a consistent scale. The semantic layer provides a starter set of role tokens you can rename and extend for your product. Export as CSS custom properties, JSON (W3C Design Token format), or Figma-compatible structures. The brand generator creates a focused palette with pre-assigned semantic roles so you can move directly from palette selection to token implementation without a manual mapping step.",
+      },
+    ],
+    links: [
+      { label: "Design Token Generator", href: "/tokens/" },
+      { label: "Brand Color Generator", href: "/brand-generator/" },
+      { label: "Data Dashboard Collection", href: "/collections/data-dashboard/" },
+    ],
+  },
+  {
+    category: "Brand Colors",
+    slug: "logo-color-guide",
+    title: "Choosing Colors for Your Logo: Reproduction, Context, and Brand Longevity",
+    summary:
+      "What makes a logo color choice work across every medium — print, screen, embroidery, signage — and how to build a logo color system that survives decades of use.",
+    eyebrow: "Brand Identity",
+    priority: 65,
+    searchIntent: "how to choose logo colors brand identity",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Logo Design", "Brand Identity", "Color Reproduction", "Print"],
+    highlights: [
+      "Logo colors must work in full color, single color (black), single color (white), and reduced palette — before you choose, test all four versions.",
+      "Colors that look identical on screen can appear dramatically different in print due to CMYK gamut limitations — especially vivid oranges, purples, and certain greens.",
+      "Spot colors (Pantone) guarantee exact print reproduction; process (CMYK) colors vary by paper stock, press, and humidity.",
+    ],
+    sections: [
+      {
+        heading: "The reproduction test",
+        body:
+          "A logo color isn't just a hex value — it's a color that must survive multiple reproduction environments. Before finalizing your choice, run four tests: (1) full color on white background, (2) full color on black background, (3) single color black only, (4) single color white only (reversed). If the logo fails the single-color tests — if it loses legibility, if a thin element disappears — the design or the color needs to change. Single-color reproduction isn't hypothetical: it appears in fax transmissions, embroidery on dark fabrics, debossed leather goods, and laser-engraved merchandise.",
+      },
+      {
+        heading: "CMYK and print gamut",
+        body:
+          "The most vivid colors in the RGB/hex space cannot be reproduced in CMYK print. Pure orange (#FF6B00), vivid green (#00FF87), and bright purple (#9B00FF) all fall outside standard CMYK gamut — they will print as significantly duller, shifted versions of themselves. If your logo appears on printed materials, test your CMYK conversion before finalizing the digital color. Use ColorArchive to identify colors that stay vivid in both RGB and CMYK. Generally, colors in the middle lightness range (L 40–65 in LAB) with moderate chroma reproduce most faithfully across both media.",
+      },
+      {
+        heading: "Pantone and spot color strategy",
+        body:
+          "Spot colors (Pantone Matching System) are the only way to guarantee exact color reproduction in offset printing. If your brand color is specific enough that variation is unacceptable — a very specific teal, a branded coral — specify it as a Pantone swatch in addition to CMYK and RGB values. Note that Pantone colors cost more to print (each spot color adds a press pass), so many logos use a maximum of two spot colors. ColorArchive colors include approximate Pantone mappings in export — useful as a starting reference for your printer.",
+      },
+      {
+        heading: "Color count and complexity",
+        body:
+          "The most enduring logos use one or two colors. A complex multi-color logo is expensive to reproduce in print, difficult to apply on merchandise, and harder to maintain consistently across time. If your brand direction calls for a rich palette (gradients, multiple hues), consider a tiered system: a simplified logo lockup for reproductions where color is limited (one or two colors) and a full-color version for digital and rich print applications. Document both versions in your brand guidelines so vendors always know which to use.",
+      },
+      {
+        heading: "Longevity and cultural drift",
+        body:
+          "Logo colors carry cultural weight that can drift over decades. Colors associated with specific movements, decades, or competitors can date a brand. The safest logo colors for longevity are in the middle range — not too trendy (neon, very specific desaturated pastels), not too generic (pure red, pure blue). Test your color choice against competitors in your category and against colors associated with the decade you're designing in. A color that feels fresh and distinctive in 2026 should still feel appropriate in 2036. ColorArchive's palette generation is designed around stable, well-distributed hue roots that avoid trend-specific positions.",
+      },
+    ],
+    links: [
+      { label: "Brand Color Generator", href: "/brand-generator/" },
+      { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
+      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides19);

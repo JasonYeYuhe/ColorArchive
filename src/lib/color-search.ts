@@ -542,6 +542,61 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   supplement: ["mint", "jade", "teal", "cobalt", "seafoam"],
   fresh_green: ["mint", "seafoam", "jade", "moss", "leaf"],
 
+  // Linen, natural textile, and organic material aliases
+  linen_white: ["ivory", "veil", "whisper", "pearl", "warm"],
+  raw_linen: ["ivory", "honey", "amber", "veil", "whisper"],
+  natural_white: ["ivory", "whisper", "veil", "frost", "pearl"],
+  unbleached: ["ivory", "honey", "amber", "warm", "pearl"],
+  parchment_warm: ["ivory", "amber", "honey", "sienna", "veil"],
+
+  // Mushroom and neutral earthy aliases
+  mushroom: ["stone", "ivory", "ash", "warm", "muted"],
+  putty: ["stone", "ivory", "ash", "olive", "muted"],
+  greige: ["stone", "ivory", "olive", "honey", "muted"],
+  warm_white: ["ivory", "whisper", "veil", "pearl", "warm"],
+  off_white: ["ivory", "whisper", "veil", "pearl", "frost"],
+
+  // Color temperature aliases
+  warm_palette: ["amber", "ember", "coral", "honey", "citrine"],
+  cool_palette: ["azure", "cobalt", "cerulean", "teal", "frost"],
+  neutral_palette: ["ivory", "ash", "fog", "slate", "muted"],
+  temperature_balanced: ["amber", "azure", "ivory", "teal", "coral"],
+
+  // Ink and editorial aliases
+  editorial_dark: ["ink", "shadow", "ivory", "amber", "muted"],
+  luxury_editorial: ["ink", "ivory", "amber", "garnet", "pearl"],
+  magazine: ["ivory", "ink", "amber", "coral", "cobalt"],
+  newspaper: ["ivory", "ink", "ash", "shadow", "muted"],
+
+  // Pastel extended
+  pastel_pink: ["blush", "peony", "rose", "whisper", "veil"],
+  pastel_blue: ["azure", "cerulean", "frost", "whisper", "veil"],
+  pastel_green: ["mint", "seafoam", "jade", "whisper", "veil"],
+  pastel_yellow: ["citrine", "honey", "amber", "whisper", "veil"],
+  pastel_purple: ["lavender", "lilac", "orchid", "whisper", "veil"],
+  candy_pastel: ["blush", "mint", "lavender", "citrine", "coral"],
+
+  // Festival and celebration aliases
+  festival: ["vivid", "coral", "citrine", "violet", "fuchsia"],
+  celebration: ["vivid", "coral", "amber", "citrine", "crimson"],
+  party: ["coral", "citrine", "vivid", "fuchsia", "cobalt"],
+  wedding_palette: ["blush", "ivory", "peony", "pearl", "gold"],
+  graduation: ["cobalt", "gold", "ivory", "amber", "garnet"],
+
+  // Architecture style aliases
+  organic_architecture: ["olive", "amber", "sienna", "moss", "ivory"],
+  sustainable_design: ["moss", "olive", "sage", "teal", "ivory"],
+  biophilic_design: ["moss", "fern", "leaf", "emerald", "ivory"],
+  green_building: ["moss", "olive", "teal", "jade", "ivory"],
+
+  // Specific UI context aliases
+  onboarding: ["cobalt", "vivid", "ivory", "coral", "mint"],
+  empty_state: ["mist", "whisper", "veil", "pearl", "soft"],
+  success_state: ["emerald", "jade", "teal", "mint", "vivid"],
+  warning_state: ["amber", "honey", "citrine", "ember", "warm"],
+  error_state: ["crimson", "ruby", "ember", "garnet", "vivid"],
+  info_state: ["cobalt", "azure", "cerulean", "teal", "vivid"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

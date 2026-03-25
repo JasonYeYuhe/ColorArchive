@@ -1499,3 +1499,72 @@ const extraCollections18: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections18);
+
+export const extraCollections19: ColorCollection[] = [
+  createCollection(
+    "ink-and-gold",
+    "Ink and Gold",
+    "Deep indigo ink tones anchored by warm amber-gold accents — the premium editorial palette for luxury publishing, fintech, and dark-mode brand identities.",
+    "Ink and gold is the classic luxury contrast palette, built here on a cool-shifting deep indigo-ink base with warm amber accents that read as genuine gold rather than cheap yellow. The palette works because the indigo dark and the amber light are both slightly chromatic — neither is a neutral — creating a tension that feels expensive and deliberate. The indigo-ink base provides the near-black that grounds premium dark interfaces; cobalt-nocturne supplies the secondary dark surface for cards and layered elements; amber-velvet adds a warm midtone that bridges the temperature gap between cool dark and warm accent; amber-bloom-clear is the signature gold — saturated and warm, used for key interactive elements, gold-rule details, and brand accent moments; amber-pearl-soft provides the near-white that completes the scale, warm enough to harmonize with the amber accent without competing with it.",
+    ["Dark", "Luxury", "Editorial"],
+    [
+      "indigo-ink-muted",
+      "cobalt-nocturne-muted",
+      "amber-velvet-muted",
+      "amber-bloom-clear",
+      "amber-pearl-soft",
+    ],
+    {
+      editorialNote:
+        "Ink and gold succeeds through deliberate temperature contrast: the cool-shifting dark (indigo) against the warm accent (amber). Avoid the temptation to warm the dark base — the coolness is what makes the gold read as rich rather than muddy. In interface applications, use the indigo-ink as the true background, cobalt-nocturne for elevated surfaces (cards, modals), and reserve amber-bloom-clear strictly for primary actions and brand moments. Overusing the gold — making it appear in headers, borders, and multiple UI states simultaneously — dilutes its premium signal. Typography direction: use a high-contrast serif for display type to complement the editorial character; set body text in amber-pearl-soft (the light end of the palette) against the dark base. Photography: architectural photography, editorial portraits, still-life product shots. Avoid colorful lifestyle photography that competes with the palette's restraint.",
+      promptWords: [
+        "luxury financial app in dark indigo and gold",
+        "premium publishing brand in ink and amber editorial palette",
+        "fintech dark mode interface in deep navy and warm gold",
+        "premium whiskey brand identity in dark and gold",
+        "architecture magazine editorial in dark ink and gold accent",
+      ],
+      useCases: [
+        "Luxury fintech and wealth management apps",
+        "Premium publishing and editorial brands",
+        "High-end spirits and luxury goods",
+        "Architecture and design publications",
+        "Dark-mode SaaS for enterprise clients",
+      ],
+    },
+  ),
+  createCollection(
+    "moss-linen",
+    "Moss and Linen",
+    "Pale linen whites and muted olive grounds layered with soft moss greens — the organic naturalist palette for wellness, sustainability, and botanical brands.",
+    "Moss and linen is the palette of considered natural living — built on warm pale grounds that evoke unbleached linen and aged paper, layered upward through the muted greens of ground moss and forest understory. Every color in the range has its chroma kept deliberately low: this is not a vibrant palette but an organic one, where the restraint of saturation communicates that the brand is careful, unhurried, and rooted in natural processes rather than manufactured urgency. Olive-veil-muted is the palest ground — slightly warm and barely visible as a color, functioning as the near-white background; olive-whisper-muted steps up as the secondary surface with just enough warmth to distinguish itself; moss-pearl-muted introduces the first legible green — delicate, barely-green, like the first growth of lichen on stone; moss-silk-muted deepens the green register to a readable mid-value that works for secondary text and subtle borders; moss-tone-muted anchors the palette as the darkest value in regular use, providing contrast for text while remaining firmly within the green-muted family.",
+    ["Organic", "Minimal", "Wellness"],
+    [
+      "olive-veil-muted",
+      "olive-whisper-muted",
+      "moss-pearl-muted",
+      "moss-silk-muted",
+      "moss-tone-muted",
+    ],
+    {
+      editorialNote:
+        "Moss and linen works best when photography and typography reinforce the restrained natural character. Photography direction: natural light, textures (linen, ceramic, wood, stone), herbs and botanicals, minimal props. Avoid high-saturation photography or images with strong non-green color elements — they create jarring contrast against the muted ground. Typography: a humanist serif or a slightly rounded sans-serif complements the organic sensibility; avoid geometric or brutalist typefaces that feel industrial against the palette's natural warmth. Accessibility note: the muted palette has limited contrast range — moss-tone-muted on olive-veil-muted may not achieve the 4.5:1 ratio required for body text. Supplement with a near-black text color (outside the palette's five-color range) or a darker moss value for body copy, reserving the five palette colors for interface structure and branding.",
+      promptWords: [
+        "organic skincare brand photography in moss and linen palette",
+        "wellness app interface in muted olive and soft green",
+        "sustainable fashion brand website in natural linen and moss tones",
+        "botanical illustration brand in pale olive and moss green",
+        "herbal apothecary brand identity in muted greens and warm neutrals",
+      ],
+      useCases: [
+        "Wellness and natural health brands",
+        "Sustainable and organic product brands",
+        "Botanical and garden-related brands",
+        "Eco-conscious food and beverage",
+        "Minimalist lifestyle and home decor",
+      ],
+    },
+  ),
+];
+
+collections.push(...extraCollections19);
