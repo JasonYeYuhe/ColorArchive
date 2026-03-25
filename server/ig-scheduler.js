@@ -116,6 +116,10 @@ async function publishToInstagram(imageUrl, caption, mediaType = "IMAGE") {
       return null;
     }
     console.log(`[ig-scheduler] Status: ${statusData.status_code || "IN_PROGRESS"} (attempt ${attempt + 1}/10)`);
+    if (attempt === 9) {
+      console.error("[ig-scheduler] Media processing timed out after 10 attempts");
+      return null;
+    }
   }
 
   // Step 3: Publish

@@ -213,6 +213,7 @@ function cleanOldFiles(maxAgeMs = 7 * 24 * 60 * 60 * 1000) {
   const cutoff = Date.now() - maxAgeMs;
   let cleaned = 0;
   for (const file of fs.readdirSync(GENERATED_DIR)) {
+    if (file.startsWith(".")) continue; // skip .post-log.json and other dotfiles
     const filepath = path.join(GENERATED_DIR, file);
     const stat = fs.statSync(filepath);
     if (stat.mtimeMs < cutoff) {
