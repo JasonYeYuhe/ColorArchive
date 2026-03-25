@@ -2334,3 +2334,53 @@ Metal/patina: copper_palette (verdigris deduped)
 - `src/lib/guides.ts` — extraGuides32 (5 guides, 179 total)
 - `src/lib/collections.ts` — extraCollections31 (4 collections, 118 total)
 - `src/lib/color-search.ts` — 34 new unique search aliases
+
+---
+
+## 2026-03-26 — Normal Run
+
+**Run type:** Normal Run (3rd since last big run at 785895e)
+**Commit:** 9b91174
+**Typecheck:** ✓ clean
+
+### Category A — 5 New Newsletter Issues (now 244 total)
+
+Topics: August 2030 batch covering packaging design, adaptive color for dark/light mode, design token architecture, color trend forecasting, and color grading for photography.
+
+- **aug-2030-color-packaging-design**: Shelf psychology, three-second decision window, category color codes, shelf impact vs. brand harmony, physical and digital environments
+- **aug-2030-color-dark-light-adaptive**: Why inversion fails, semantic token architecture, surface elevation stack, brand color adaptation, accessibility in adaptive systems
+- **aug-2030-design-tokens-color-architecture**: Three-tier token model (primitive/semantic/component), naming principles, multi-mode and multi-theme support, Figma Variables pipeline
+- **aug-2030-color-forecasting-trend-cycle**: How forecasting works, Pantone Color of the Year mechanism, trend durability signals, practical adoption strategy
+- **aug-2030-color-grading-film-digital**: Grading vocabulary (lift/gamma/gain), shadow lift and the film look, teal-and-orange grade mechanics, LUT workflow for designers
+
+### Category A — 5 New SEO Guides (extraGuides33, now 225 total)
+
+- **packaging-color-design-guide**: Shelf impact, category codes, physical+digital environments (Packaging Design)
+- **adaptive-color-systems-guide**: Dark mode semantic tokens, surface elevation, independent a11y checking (Digital Design)
+- **design-tokens-color-guide**: Three-tier architecture, role-based naming, multi-mode, Figma pipeline (Design Systems)
+- **color-trend-forecasting-guide**: Forecasting process, Pantone mechanism, structural vs. ephemeral trends (Brand Strategy)
+- **color-grading-photography-guide**: Film look, shadow lift, teal-orange grade, LUTs for art direction (Photography)
+
+### Category D — 4 New Collections (extraCollections32, now 122 total)
+
+- **solar-flare**: Max-saturation amber, ember, vivid coral — energy brands, summer campaigns, sports nutrition
+- **cloud-nine**: Palest blues and near-whites — minimal SaaS, cloud tech, clean interfaces
+- **autumn-harvest**: Deep amber, rust, olive, garnet — seasonal, wine, heritage brands, Q4 retail
+- **northern-winter**: Ice blue, cerulean, deep indigo — Nordic lifestyle, winter sports, premium winter beauty
+
+### Category D — 31 New Search Aliases
+
+Packaging/retail: consumer_goods, shelf_impact, retail_display
+Dark mode/tokens: adaptive_ui, dark_light, mode_switching, semantic_token, variable_color, component_library
+Trend forecasting: fashion_forecast, trend_color, pantone_year, color_cycle, emerging_trend
+Film/photography: color_grade, cinematic_color, lut_preset, split_toning
+Energy/summer: solar_energy, heat_wave, summer_vivid
+Minimal/cloud: cloud_minimal, airy_space, clean_digital
+Autumn/harvest: harvest_season, autumn_palette, fall_editorial
+Nordic/winter: nordic_winter, ice_palette, winter_palette, arctic_palette
+
+### Files Modified (4)
+- `src/data/newsletter-issues.json` — 5 new issues (240-244)
+- `src/lib/guides.ts` — extraGuides33 (5 guides, 225 total)
+- `src/lib/collections.ts` — extraCollections32 (4 collections, 122 total)
+- `src/lib/color-search.ts` — 31 new unique search aliases (657 total)
