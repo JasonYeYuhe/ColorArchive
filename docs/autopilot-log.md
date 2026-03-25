@@ -1916,3 +1916,72 @@ Each use case has: color family recommendations, families to avoid, 4 key princi
 - src/lib/guides.ts — extraGuides24 (5 guides)
 - src/lib/collections.ts — extraCollections23 (4 collections)
 
+
+---
+
+## 2026-03-26 — Big Run
+
+**Run type:** Big (4 normal runs since last big run)
+**Commit:** d8615e7
+**Typecheck:** ✓ clean
+
+### New Feature: Color Name Generator (/name/)
+
+A complete new tool accessible at `/name/` that analyzes any hex color and generates:
+- Poetic/evocative name (e.g. "Pale Sage Mist") using hue family word pools, lightness descriptors, saturation modifiers
+- Alternate name variants (2 additional names)
+- CSS custom property name (e.g. `--color-sage-soft`)
+- Tailwind-compatible class name (e.g. `sage-200`)
+- Sass variable (`$color-sage-soft`)
+- Semantic role suggestion (background-subtle, text-primary, interactive-default, etc.)
+- WCAG contrast ratios vs white and black with AA/AAA labels
+- Color psychology / mood associations per hue family
+- Nearest ColorArchive named color via Euclidean RGB distance search across all 3,066 colors
+- 8 preset colors for quick exploration
+- Color picker + hex text input + URL state (shareable links)
+
+**New files:**
+- `src/lib/color-naming.ts` — naming algorithm + word pools + nearestColor()
+- `src/components/color-name-page.tsx` — UI component
+- `app/name/page.tsx` — App Router page with metadata
+
+**Supporting updates:**
+- `src/components/tools-page.tsx` — Added Color Name Generator to tools grid
+- `src/components/site-header.tsx` — Added "/name" to currentPath union type
+- `app/sitemap.ts` — Added /name/ sitemap entry (priority 0.84)
+- `src/lib/i18n.ts` — Added EN+ZH keys: `tools.colorNamer.name`, `tools.colorNamer.desc`
+
+### Category A — 5 New Newsletter Issues (now 204 total)
+
+- **nov-2029-color-naming-systems**: Pantone/Munsell/NCS naming systems, two-tier token model, poetic name alignment
+- **dec-2029-dark-mode-color-systems**: Beyond inversion — OLED constraints, semantic tokens, saturation shifts
+- **dec-2029-color-in-dashboard-design**: Signal vs noise, categorical parsimony, status color conventions
+- **dec-2029-color-and-trust**: Blue shade signals in financial/medical/legal, high-stakes moment conservatism
+- **dec-2029-seasonal-color-shifts**: Where seasonal color belongs, brand DNA, semantic token seasonal strategy
+
+### Category A — 5 New SEO Guides (now 144 total, extraGuides25)
+
+- **color-naming-guide**: Primitive vs semantic tiers, poetic names, CSS naming conventions, naming pitfalls
+- **dark-mode-color-guide**: OLED constraints, semantic token architecture, saturation management, surface elevation
+- **trust-color-guide**: Blue shade signals, high-stakes moment design, differentiation within trust palette
+- **dashboard-color-guide**: Categorical parsimony, status conventions, contrast hierarchy, multi-chart consistency
+- **seasonal-color-design-guide**: Functional vs promotional zones, brand compatibility, token architecture
+
+### Category D — 4 New Collections (now 90 total, extraCollections24)
+
+- **storm-silver**: Cool cobalt/cerulean/azure at low saturation for enterprise software and precision tech brands
+- **blush-garden**: Rose/coral/blush palette for beauty, bridal, wellness, and feminine lifestyle brands
+- **dark-academia**: Amber/ember/moss shadows for literary, publishing, and scholarly aesthetic brands
+- **coastal-sage**: Seafoam/jade/teal at muted saturation for wellness and Mediterranean hospitality brands
+
+### Files Modified (10)
+- `app/name/page.tsx` — new
+- `src/components/color-name-page.tsx` — new
+- `src/lib/color-naming.ts` — new
+- `src/components/tools-page.tsx` — color namer added
+- `src/components/site-header.tsx` — /name added
+- `app/sitemap.ts` — /name/ entry
+- `src/lib/i18n.ts` — colorNamer keys
+- `src/data/newsletter-issues.json` — 5 new issues (200-204)
+- `src/lib/guides.ts` — extraGuides25 (5 guides, 144 total)
+- `src/lib/collections.ts` — extraCollections24 (4 collections, 90 total)

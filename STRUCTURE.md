@@ -200,15 +200,15 @@ ColorArchive/
 │   │   ├── colors.ts                     # Algorithmic generation of 3,066 colors
 │   │   │                                 # (36 hues × 14 lightness × 6 chroma + 3 neutral groups × 14)
 │   │   ├── color-stories.json            # Color stories (cultural/psychological content)
-│   │   └── newsletter-issues.json        # 176 newsletter issues
+│   │   └── newsletter-issues.json        # 204 newsletter issues
 │   │
 │   ├── lib/
 │   │   ├── color-utils.ts                # HSL↔RGB↔HEX, family classification,
 │   │   │                                 # sorting, analogous/complementary/tonal,
 │   │   │                                 # fuzzy search, WCAG contrast pairings
-│   │   ├── collections.ts                # 73 curated palette collections
+│   │   ├── collections.ts                # 90 curated palette collections
 │   │   ├── palette-packs.ts              # 7 product pack definitions + metadata
-│   │   ├── guides.ts                     # 119 SEO landing guides
+│   │   ├── guides.ts                     # 144 SEO landing guides
 │   │   ├── newsletter-issues.ts          # Newsletter data helpers + tagToSlug
 │   │   ├── i18n.ts                       # EN/ZH translations (~710+ keys)
 │   │   ├── palette-builder.ts            # localStorage palette + subscriptions,
@@ -337,10 +337,10 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Neutral groups | 3 (Warm Gray, Cool Gray, True Gray) |
 | Collections | 78 |
 | Palette packs | 7 (USD $9–$129) |
-| SEO guides | 124 |
+| SEO guides | 144 |
 | Newsletter issues | 184 |
 | Color families | 9 |
 | Industry use cases | 10 (saas-tech, healthcare, luxury, food, finance, education, creative, sustainability, beauty, nonprofit) |
-| Tool pages | 22+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze) |
+| Tool pages | 23+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name) |
 | AI endpoints | 5 (brand-palette, mood-palette, name-color, critique, analyze-url) |
 | i18n keys | ~750+ (EN/ZH) |
