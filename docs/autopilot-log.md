@@ -1678,3 +1678,40 @@ Built end-to-end new page at /combinations/ with 30+ curated color combinations:
 - src/lib/color-search.ts (38 new aliases, now 454)
 
 **Commit:** 2d4a941
+
+## 2026-03-26 — Normal Run: Newsletter 172-176 + 3 Guides + 3 Collections (commit 7614963)
+
+### Category A — 5 Newsletter Issues (now 176 total)
+
+- **apr-2029-color-grading-photography**: Three-zone model (shadows/midtones/highlights), complementary color in grading, saturation and emotional register, applying grading logic to interface design
+- **apr-2029-brand-color-evolution**: Four signals that a color needs changing, the equity question, smooth vs. sharp transitions, practical transition architecture
+- **may-2029-color-ar-vr**: VR display characteristics (OLED, field of view), the field-of-view fatigue problem, AR overlay constraints, what transfers from flat design
+- **may-2029-color-environmental-design**: Scale effect in physical spaces, natural light cycles, material and finish interactions, wayfinding color principles
+- **may-2029-color-typography-hierarchy**: Lightness-importance relationship, color as hierarchy layer, weight-color tradeoff, 5-level type color scale
+
+### Category A — 3 New SEO Guides (now 119 total, extraGuides20)
+
+- **ecommerce-color-guide**: Product background psychology, category color language, checkout palette strategy, urgency color conventions, full e-commerce color system — targets e-commerce/conversion SEO
+- **social-media-color-guide**: Grid-as-design-unit, platform-specific color behaviors (Instagram/LinkedIn/TikTok/Pinterest), signature palette building, adapting across content types — targets social media/content SEO
+- **color-illustration-guide**: Restricted palette principle, value structure first methodology, temperature contrast for depth, building a color voice — targets illustration/digital art SEO
+
+### Category D — 3 New Collections (now 73 total, extraCollections20)
+
+- **twilight-lavender**: iris-veil-muted through plum-ink-muted — meditative violet/purple palette for wellness, beauty, premium nighttime digital products
+- **chalk-and-coral**: ember-veil + apricot-veil + coral-silk/tone + ember-shadow — warm approachable palette for creative studios, lifestyle editorial
+- **slate-and-sage**: cobalt-veil/pearl/tone/ink + moss-silk — composed professional palette for architecture, real estate, premium B2B
+
+### Current State After This Run
+
+- Total newsletter issues: **176** (Issues 001–176, 5 new)
+- Total SEO guides: **119** (3 new in extraGuides20)
+- Total collections: **73** (3 new in extraCollections20)
+- Build: ✓ clean
+- Typecheck: ✓ clean
+
+**Files modified (3):**
+- src/data/newsletter-issues.json (5 new issues, now 176)
+- src/lib/guides.ts (3 guides in extraGuides20, now 119)
+- src/lib/collections.ts (3 new, now 73)
+
+**Commit:** 7614963
