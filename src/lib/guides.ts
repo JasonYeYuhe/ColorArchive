@@ -1,3 +1,5 @@
+import { seoGuides2 } from "./seo-guides-batch2";
+
 export interface GuideSection {
   heading: string;
   body: string;
@@ -6565,3 +6567,6 @@ export const seoGuides: LandingGuide[] = [
 ];
 
 landingGuides.push(...seoGuides);
+
+// Batch 2: 10 more industries (Nonprofit, Legal, Travel, Gaming, Food & Beverage, Automotive, Architecture, Music, Pet Care, Crypto)
+landingGuides.push(...seoGuides2);
