@@ -2283,3 +2283,54 @@ AI/generative: generative_palette, ai_palette, algorithmic
 - `src/lib/guides.ts` — extraGuides31 (5 guides, 174 total)
 - `src/lib/collections.ts` — extraCollections30 (4 collections, 114 total)
 - `src/lib/color-search.ts` — 30 new unique search aliases
+
+---
+
+## 2026-03-26 — Normal Run
+
+**Run type:** Normal Run (2nd since last big run at 785895e)
+**Commit:** 1b0bd02
+**Typecheck:** ✓ clean
+
+### Category A — 5 New Newsletter Issues (now 239 total)
+
+Topics: July 2030 batch covering hospitality design, sports branding, cognitive science of color, wayfinding systems, and accessibility math.
+
+- **jul-2030-color-in-restaurant-design**: Appetite stimulation vs suppression, dining behavior by format, lighting color temperature, positioning alignment
+- **jul-2030-color-sports-branding**: Tribal signaling function, color equity accumulation, rebrand success/failure patterns, new franchise development
+- **jul-2030-color-memory-learning**: Isolation effect, arousal encoding, semantic documentation color systems, accessibility in learning materials
+- **jul-2030-color-wayfinding-systems**: London Underground principles, discriminability requirements, zone hierarchy, digital navigation translation
+- **jul-2030-color-contrast-technical**: WCAG luminance formula, perceptual weighting, calibration techniques, APCA introduction
+
+### Category A — 5 New SEO Guides (extraGuides32, now 179 total)
+
+- **restaurant-color-design-guide**: Hospitality color, appetite psychology, quick service vs fine dining (Interior Design)
+- **sports-brand-color-guide**: Tribal identity, rebrand strategy, franchise color development (Brand Strategy)
+- **color-memory-learning-guide**: Isolation effect, arousal encoding, semantic color systems (Color Psychology)
+- **wayfinding-color-systems-guide**: Environmental design, discriminability, zone hierarchy (Environmental Design)
+- **color-theory-fundamentals-guide**: Color wheel, harmony models, value, simultaneous contrast (Color Theory)
+
+### Category D — 4 New Collections (extraCollections31, now 118 total)
+
+- **vintage-americana**: Deep navy + barn red + warm cream — American heritage brands, workwear, craft food
+- **tea-ceremony**: Warm cream + aged brown + quiet sage — Japanese wellness, matcha brands, ceramics
+- **electric-dreams**: Vivid violet + cobalt + iris + teal — digital creative tools, AI platforms, gaming
+- **copper-verdigris**: Copper ember + oxidized jade — craft spirits, architectural metalwork, artisan goods
+
+### Category D — 34 New Search Aliases
+
+Color theory education: analogous, complementary, triadic, split_complementary, tetradic
+Interior styles: hygge, maximalist, mid_century_modern
+Photography types: street_photography, landscape_photo, food_photography
+Cultural palettes: indian_color, african_palette, latin_palette, middle_eastern
+Workspace/focus: home_office, workspace, focus_mode
+Design movements: constructivism, pop_art, art_nouveau, impressionism
+Heritage: vintage_americana, barnwood, tea_ceremony, matcha_palette
+Electric/neon: electric_palette, neon_spectrum
+Metal/patina: copper_palette (verdigris deduped)
+
+### Files Modified (4)
+- `src/data/newsletter-issues.json` — 5 new issues (235-239)
+- `src/lib/guides.ts` — extraGuides32 (5 guides, 179 total)
+- `src/lib/collections.ts` — extraCollections31 (4 collections, 118 total)
+- `src/lib/color-search.ts` — 34 new unique search aliases
