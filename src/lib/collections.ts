@@ -2569,3 +2569,104 @@ const extraCollections27: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections27);
+
+const extraCollections28: ColorCollection[] = [
+  createCollection(
+    "arctic-aurora",
+    "Arctic Aurora",
+    "Ice blue, pale cyan, and cool mint tones inspired by polar light phenomena and nordic glacial environments.",
+    "Arctic aurora draws from the specific chromatic register of high-latitude light: the cool blue-white of polar ice, the pale cyan of glacial water in shallow depths, the soft green-teal of the aurora borealis at its quietest hour, and the blue-gray of the sky above the treeline in winter. This is the chromatic vocabulary of clarity, low temperatures, and the particular brightness of sunlight reflected from snow at low angles. Unlike standard cool blue palettes, arctic aurora has a distinctly luminous quality — each tone feels lit from within rather than simply cool. Cyan-whisper-soft opens the palette at its lightest — a pale, barely-perceptible cyan that reads as breathable polar air and provides the palette's most expansive surface tone. Cyan-pearl-muted is the pale ice anchor — a soft cyan with enough color to read as glacial water or northern sky without feeling clinical. Teal-whisper-soft shifts slightly toward blue-green — the palette's aurora register, evoking the trace of natural green-cyan in polar light phenomena. Cobalt-whisper-muted introduces a cool blue-gray — a tone that reads as the deep winter sky above the arctic circle. Cyan-mist-soft closes as the medium-depth accent — a richer cyan-teal that provides the palette's most saturated point and functions as a hero color for accents and interactive states.",
+    ["Arctic", "Nordic", "Clean"],
+    [
+      "cyan-whisper-soft",
+      "cyan-pearl-muted",
+      "teal-whisper-soft",
+      "cobalt-whisper-muted",
+      "cyan-mist-soft",
+    ],
+    {
+      editorialNote:
+        "Arctic aurora is the palette for nordic tech and software brands, climate and environmental organizations focused on polar ecosystems, cold-water outdoor and adventure brands, premium mineral water and functional beverage, high-end skincare with a clinical or science-driven positioning, and any brand whose visual register is purity, clarity, and precision. The palette communicates performance and cleanliness without warmth, making it appropriate for brands where the premium signal is rigor and precision rather than approachability. Photography direction: aerial photography of arctic or glacial landscapes, extreme close-up of ice crystal and frost textures, clean water photography with depth, studio product photography with cool blue-gray backgrounds and directional cold lighting, architectural photography of glass and steel structures in winter light. Typography: a clean geometric sans at tight tracking (Helvetica Neue, Neue Haas Grotesk, GT America) reads as technically precise in this palette; ample negative space and high line density reinforce the performance-brand character.",
+      promptWords: [
+        "nordic tech brand in cool ice blue and pale cyan palette",
+        "polar environmental organization in arctic blue-teal identity",
+        "premium mineral water brand in glacial cyan and cool mint tones",
+      ],
+      useCases: ["Nordic and cold-climate tech brands", "Premium water and functional beverage", "Climate and environmental organizations"],
+    }
+  ),
+  createCollection(
+    "scorched-earth",
+    "Scorched Earth",
+    "Deep ochre, raw sienna, and weathered rust tones inspired by arid landscapes, exposed mineral sediment, and fired industrial materials.",
+    "Scorched earth draws from the specific chromatic range of high-temperature and high-UV environments: the deep orange-brown of iron-rich sedimentary rock, the warm red of oxidized metal, the yellow-ochre of baked clay and dry desert soil, the muted amber of weathered sandstone, and the near-black of volcanic rock and charred wood. This is not the refined earth palette of boutique wellness and Mediterranean hospitality but the more aggressive, saturated, and rugged register of exposed geology, industrial process, and extreme climate. The palette has natural credibility and material weight without warmth or softness. Amber-earth-strong opens with the palette's core ochre — a deep, warm orange-brown that reads as raw mineral pigment and sunbaked clay. Amber-fire-muted shifts toward the rust and red-oxide register — a burnt sienna tone that reads as oxidized iron and heat-processed clay. Amber-depth-strong deepens toward rich warm brown — the palette's anchor and structurally darkest entry, suggesting deep earth and shadow. Rust-velvet-muted is the palette's most distinctly reddish entry — a warm, slightly orange-red that reads as raw rust and ferrous oxide without the vividity of commercial red. Amber-gold-soft provides a lighter, warm accent — the reflective warmth of desert light on pale ochre rock that prevents the palette from becoming uniformly dark.",
+    ["Raw", "Industrial", "Earthy"],
+    [
+      "amber-earth-strong",
+      "amber-fire-muted",
+      "amber-depth-strong",
+      "rust-velvet-muted",
+      "amber-gold-soft",
+    ],
+    {
+      editorialNote:
+        "Scorched earth is the palette for rugged outdoor and adventure brands, independent craft spirits and whiskey distilleries, industrial and materials manufacturing brands, geological and mining sector communications, editorial content with an arid landscape or extreme environment theme, and any brand whose premium signal is raw material authenticity, physical durability, and earned character rather than refined elegance. The palette is intentionally aggressive in its saturation and warmth relative to most earth palettes, giving it more visual impact at large scale. Photography direction: extreme close-up of rust and oxidized metal textures, desert and badlands aerial and ground photography, kiln and foundry process photography, ceramic and fired clay product photography on raw stone surfaces, geological cross-section and mineral specimen photography. Typography: a condensed or display serif with strong weight contrast (Canela Condensed, Freight Display) or an industrial grotesque (Franklin Gothic, Trade Gothic) carries the material weight of this palette; black or deep amber-brown type on pale ochre reads as label and stamp printing from industrial history.",
+      promptWords: [
+        "rugged outdoor brand in deep ochre and raw sienna palette",
+        "craft spirits distillery in scorched earth and rust-brown identity",
+        "industrial materials brand in burnt ochre and oxidized red tones",
+      ],
+      useCases: ["Rugged outdoor and adventure brands", "Craft spirits and distilleries", "Industrial and materials sector"],
+    }
+  ),
+  createCollection(
+    "deep-ocean",
+    "Deep Ocean",
+    "Dark navy, teal-black, and deep blue tones inspired by the visual register of oceanic depth, marine technology, and high-pressure aquatic environments.",
+    "Deep ocean draws from the color register of ocean depth rather than ocean surface: not the vivid turquoise of shallow tropical water but the progressively darkening blue-teal of descending depth, the near-black of bathypelagic zones, and the cold, pressure-heavy quality of abyssal environments. The palette is unified by high value depth and cool temperature — each tone sits in the dark-to-very-dark range, with distinctiveness expressed through subtle shifts between blue, teal, and near-neutral gray-blue. Navy-depth-strong opens as the palette's primary deep navy — a rich, cool dark blue that provides the palette's most recognizable and versatile foundation tone. Teal-depth-strong introduces the blue-green register — a very dark teal that reads as oceanic depth with a trace of green-cyan distinguishing it from pure navy. Cobalt-depth-strong deepens toward pure cool dark blue — a tone with slightly more purple-blue character that reads as deepwater at night. Navy-shadow-muted provides a near-neutral dark blue-gray — the palette's most neutral and versatile dark, functioning as the primary text and background color in dark-mode applications. Teal-shadow-muted closes at the deepest point — a very dark teal-gray that approaches black while retaining just enough chromatic identity to maintain the oceanic register.",
+    ["Ocean", "Deep", "Technical"],
+    [
+      "navy-depth-strong",
+      "teal-depth-strong",
+      "cobalt-depth-strong",
+      "navy-shadow-muted",
+      "teal-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Deep ocean is the palette for marine technology and ocean science organizations, deep-sea exploration and research programs, premium naval and maritime brands, cybersecurity and enterprise security products where depth and gravity are the emotional register, and editorial and documentary content covering ocean ecosystems and climate. The palette functions exceptionally well in dark-mode interface design where the tonal range provides depth hierarchy without requiring pure black. Photography direction: underwater photography at depth (blue-shifted, low-contrast, diffused light), ocean surface photography under overcast sky at dusk, deep-sea research vessel and ROV equipment photography, atmospheric coastal photography with storm-light conditions, macro photography of water surface abstraction with directional blue lighting. Typography: a clean technical sans (IBM Plex Mono, Roboto Mono, or similar monospace for data contexts; DIN, Aktiv Grotesk for body text) works well in this palette; light-weight type on very dark backgrounds creates strong contrast and a technical precision character.",
+      promptWords: [
+        "marine technology brand in deep navy and teal-black palette",
+        "ocean science organization in dark blue and deepwater teal identity",
+        "enterprise security product in deep ocean blue and dark navy tones",
+      ],
+      useCases: ["Marine technology and ocean science", "Enterprise security and deep tech", "Naval and maritime brands"],
+    }
+  ),
+  createCollection(
+    "desert-rose",
+    "Desert Rose",
+    "Warm blush, dusty peach, and sand-pink tones drawn from the arid desert at sunrise — a palette for contemporary beauty and lifestyle brands with an elevated, minimal aesthetic.",
+    "Desert rose draws from the chromatic range of desert light in the early morning: the warm blush of sand illuminated by low-angled sunrise, the dusty pink of sandstone formations, the pale peach-gold of flat desert light on pale rock, and the muted mauve-rose of shadows in that same early light. Unlike typical blush palettes that read as feminine or cosmetic, desert rose has an architectural quality from the warm muting and slight dryness of its tones — the colors are warm but not sweet, pink-adjacent but not floral. Rose-whisper-soft opens at the palest end — a barely-perceptible warm blush that functions as the palette's premium near-white surface. Peach-pearl-muted provides the pale warm neutral — a sandy peach with more warmth than a cool off-white but less saturation than a vivid peach, reading as warm desert light on pale stone. Rose-pearl-muted introduces the palette's clearest blush — a soft muted pink-rose that reads as desert sand in direct morning light. Peach-tone-soft deepens toward the warm sand register — a medium peach with enough saturation to anchor the palette as an accent color without reading as vivid. Rose-veil-muted closes as the palette's deepest and most saturated entry — a warm, slightly dusty rose-mauve that grounds the palette and provides the contrast range for typography.",
+    ["Blush", "Minimal", "Beauty"],
+    [
+      "rose-whisper-soft",
+      "peach-pearl-muted",
+      "rose-pearl-muted",
+      "peach-tone-soft",
+      "rose-veil-muted",
+    ],
+    {
+      editorialNote:
+        "Desert rose is the palette for contemporary beauty and skincare brands with an architectural, elevated aesthetic, minimal luxury lifestyle editorial, fine jewelry and accessories with a desert or stone-mineral positioning, wellness and retreat hospitality in arid landscape settings, contemporary fashion editorial with a sun-bleached or minimalist visual direction, and any brand whose combination of warmth and restraint communicates elevated simplicity rather than maximalist luxury. The palette reads as warm without being sweet, and feminine without relying on conventional pink tropes. Photography direction: bleached desert landscape photography with low-angle warm light, architectural photography of adobe and plaster surfaces in direct sun, skincare and beauty product photography on warm stone or bleached wood surfaces, fashion editorial in arid landscape settings, close-up photography of mineral and gemstone textures in warm light. Typography: a contemporary elegant serif (Canela, Freight Display Italic, Playfair Display) at light weight creates the right combination of refinement and warmth; generous leading and restrained type hierarchy reinforce the elevated minimal character.",
+      promptWords: [
+        "contemporary beauty brand in warm blush and desert rose palette",
+        "minimal luxury lifestyle brand in dusty peach and rose-sand tones",
+        "fine jewelry brand in desert rose and warm stone palette",
+      ],
+      useCases: ["Contemporary beauty and skincare brands", "Minimal luxury lifestyle editorial", "Wellness retreats in arid settings"],
+    }
+  ),
+];
+
+collections.push(...extraCollections28);

@@ -8229,3 +8229,213 @@ const extraGuides28: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides28);
+
+const extraGuides29: LandingGuide[] = [
+  {
+    category: "Color Science",
+    slug: "fashion-color-forecasting-guide",
+    title: "Fashion Color Forecasting: How Trend Agencies Shape the Colors You Use",
+    summary:
+      "Pantone, WGSN, and Coloro publish color forecasts 12–24 months ahead of retail. Understanding the forecasting pipeline helps designers make intentional choices about trend adoption, differentiation, and timing.",
+    eyebrow: "Color Trends",
+    priority: 70,
+    searchIntent: "fashion color forecasting color trends color of the year pantone forecast color trend prediction design color trends",
+    featuredCollectionId: "candy-gradient",
+    featuredPackId: "complete-archive",
+    tags: ["Trending", "Industry", "Color Strategy"],
+    highlights: [
+      "Color forecasting agencies publish their palettes 12–24 months ahead of retail because manufacturers need lead time for textile dyeing, packaging ink formulation, and production planning.",
+      "The annual 'color of the year' is a marketing instrument; the strategically useful outputs are the broader conceptual palette systems that multiple industries use simultaneously.",
+      "Digital design has a compressed micro-trend cycle driven by social platforms, operating in weeks rather than months — distinct from the slower traditional forecasting pipeline.",
+    ],
+    sections: [
+      {
+        heading: "How forecasting agencies build their palettes",
+        body: "Color forecasting is a discipline of cultural synthesis, not aesthetic preference. Agencies like Pantone, WGSN, and Coloro employ analysts who monitor contemporary art programming, social media aesthetic communities, geopolitical and economic mood signals, film and television color direction, and material trade shows. The question they are answering is: which color registers will resonate with the cultural mood that consumers will be in 12–24 months from now? The forecast is a cultural prediction more than an aesthetic recommendation. This is why forecast palettes often feel coherent as a cultural artifact before they feel coherent as a design palette — they are encoding a particular moment in cultural history, not just a harmonious set of colors.",
+      },
+      {
+        heading: "The difference between Color of the Year and strategic forecasts",
+        body: "The annual Color of the Year announcements from Pantone and competitors are marketing instruments designed to attract press coverage and drive licensing revenue. They select a single color that represents the year's cultural mood and generate content around it. The strategically useful outputs are the broader palette systems — typically 10–16 colors grouped by conceptual theme — that get used by product developers across categories simultaneously. When a muted mauve-adjacent pink appears in apparel, interior paint, food packaging, and digital product design within the same 8-month window, it is typically because multiple teams were working from the same forecasting palette system, not because of independent convergence. Understanding the palette systems rather than just the headline color gives a more complete map of what is coming.",
+      },
+      {
+        heading: "Using forecasts for strategic timing",
+        body: "The practical value of trend awareness for independent designers and studios is not to follow forecasts but to understand timing. If a color family is currently being specified for mass retail production, it will reach peak market saturation in 18–24 months. A brand or product that adopts the color early gets freshness. A brand that adopts it at mid-cycle gets broad audience resonance. A brand that consciously avoids the forecasted family can achieve distinctiveness during the trend period. All three are valid strategies; what is not strategically useful is being unaware of where in the cycle a color family sits when making brand or product decisions.",
+      },
+      {
+        heading: "Digital micro-trends vs. traditional cycles",
+        body: "Digital design operates on a compressed trend cycle that runs in parallel with the traditional forecasting pipeline. Social media platforms — Instagram, Pinterest, Dribbble, Behance — create micro-trend cycles that move from emergence to saturation in weeks rather than months. A distinctive color palette used in a viral design post can propagate through the design community within days, reaching mainstream client briefs within weeks. This compressed cycle has created a situation where digital design trends are genuinely distinct from traditional forecast cycles: a color family can be simultaneously fresh in traditional forecasting terms and saturated in digital design community terms. Monitoring both cycles gives the most complete picture of where a color stands in its adoption trajectory.",
+      },
+    ],
+    links: [
+      { label: "Browse trending palettes", href: "/colors/" },
+      { label: "Candy Gradient collection", href: "/collections/candy-gradient/" },
+      { label: "Build custom palette", href: "/palette-builder/" },
+    ],
+  },
+  {
+    category: "Environmental Design",
+    slug: "healthcare-color-design-guide",
+    title: "Healthcare Color Design: Evidence-Based Approaches for Clinical Environments",
+    summary:
+      "Healthcare has more rigorous empirical research on color outcomes than almost any other design context. The evidence is more specific and more counterintuitive than popular design guidance suggests — and it has direct patient safety implications.",
+    eyebrow: "Applied Color",
+    priority: 68,
+    searchIntent: "healthcare color design hospital color palette medical environment color clinical color design patient room color",
+    featuredCollectionId: "coastal-sage",
+    featuredPackId: "complete-archive",
+    tags: ["Healthcare", "Environmental Design", "Color Science"],
+    highlights: [
+      "Patient satisfaction surveys favor warm residential palettes, but procedure rooms require high-CRI neutral daylight lighting for accurate clinical assessment — the two goals are not always compatible.",
+      "Blue-green wall tones in the 440–490nm range consistently reduce anxiety in pre-operative waiting areas in controlled studies, with the effect specific to naturalistic (not saturated) greens.",
+      "Zone color coding with high distinctiveness is a patient safety issue: disoriented patients generate significantly higher nursing workload and error risk.",
+    ],
+    sections: [
+      {
+        heading: "Patient preference vs. functional requirements",
+        body: "Healthcare color research distinguishes between patient preference outcomes and functional performance outcomes. Patient satisfaction surveys consistently favor warm, residential palettes — warm whites, soft greens, muted yellows — over clinical cool palettes. But procedure and examination rooms have overriding functional requirements: accurate color rendering for skin tone assessment, wound evaluation, and medication identification. The standard for clinical assessment areas is high color rendering index lighting (CRI 90+) at a neutral daylight color temperature (5000–6500K), regardless of the warm preference that may apply to corridors and waiting areas. Designing healthcare environments requires coordinating these two distinct requirement sets rather than applying a single palette across all space types.",
+      },
+      {
+        heading: "Evidence on patient anxiety and color",
+        body: "Controlled studies of pre-operative waiting areas consistently find that blue-green wall colors in the 440–490nm range (blue-green to mid-green) produce lower self-reported anxiety scores compared to neutral and warm-toned comparisons. The proposed mechanism is related to attention restoration theory: green environments engage involuntary attention through their resemblance to natural settings, providing restorative relief from the voluntary attention demands of anxious rumination. The effect is specific to naturalistic, moderately saturated green tones — bright or highly saturated greens show neutral or mildly negative results in some studies. This means the clinical evidence supports the soft, naturalistic green register rather than vivid or institutional green.",
+      },
+      {
+        heading: "Wayfinding as patient safety",
+        body: "Healthcare wayfinding is not just a navigation convenience — it is a patient safety issue. Disoriented patients in unfamiliar hospital environments generate significantly higher nursing workload through call light use, anxiety-related requests, and accidental bed exits. Studies of wayfinding color coding interventions consistently find that zone color systems with high distinctiveness and strong contrast reduce patient disorientation and reduce nursing assistance time. The color distinctiveness requirements in healthcare are more demanding than commercial wayfinding because patient populations include elderly adults with reduced color discrimination and individuals under medications that affect visual perception. This means healthcare wayfinding requires higher contrast levels between zone colors than would be necessary for the same system in a commercial building.",
+      },
+      {
+        heading: "Color and perceived noise",
+        body: "Research on cross-modal perception shows consistent correlations between warm-register color environments and higher perceived noise levels, and between cool-register environments and lower perceived noise levels, in otherwise acoustically identical conditions. The mechanism is cross-modal arousal: warm, saturated colors increase general arousal, which amplifies the aversive quality of auditory input. For high-noise clinical environments — emergency departments, ICUs — this suggests that cool, low-saturation color palettes provide a perceptual benefit beyond aesthetics, effectively reducing the subjective noise level without acoustic intervention. The evidence base is not yet at the level of established clinical recommendation but is consistent enough to inform design decisions where acoustic treatment is limited.",
+      },
+    ],
+    links: [
+      { label: "Coastal Sage collection", href: "/collections/coastal-sage/" },
+      { label: "Bamboo Grove collection", href: "/collections/bamboo-grove/" },
+      { label: "Browse green colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Visual Design",
+    slug: "film-cinematography-color-guide",
+    title: "Film Color Grading: How Cinematographers Use Color as Narrative Instrument",
+    summary:
+      "Film color grading is one of the most sophisticated applications of color in any visual medium. Understanding how cinematographers use hue, saturation, and contrast to encode narrative and emotion offers transferable lessons for any visual communication work.",
+    eyebrow: "Color Theory",
+    priority: 67,
+    searchIntent: "film color grading color theory cinema color palette movie color grade color cinematography visual storytelling color",
+    featuredCollectionId: "midnight-noir",
+    featuredPackId: "complete-archive",
+    tags: ["Film", "Color Theory", "Visual Design"],
+    highlights: [
+      "Cinematographers apply color at multiple timescales: scene-level emotional temperature, story-arc chromatic progressions, and timeline-level color coding to distinguish flashbacks or parallel narratives.",
+      "The ubiquitous 'teal and orange' look is a readability technique exploiting complementary contrast between sky shadows and skin tones — not an aesthetic statement, and increasingly considered visually exhausted.",
+      "Saturation reduction is often more expressive than hue shifting for creating emotional register differences — desaturated palettes suggest memory, distance, and institutional environments without referencing specific hues.",
+    ],
+    sections: [
+      {
+        heading: "Color at multiple narrative timescales",
+        body: "Film color grading applies color logic at multiple levels simultaneously. At the scene level, color temperature and saturation communicate immediate emotional register: warm golden light signals safety, connection, and comfort; cool blue-green light signals threat, alienation, or institutional sterility. These are conventional associations built through decades of film language, well-established enough to operate as shorthand without audiences consciously noting them. At the story arc level, color shifts mark narrative and character development — many films use desaturated, cooler palettes in act one and progressively warmer or more saturated palettes as emotional resolution approaches, creating a visible chromatic arc that tracks the internal story. At the timeline level, distinct palettes distinguish flashbacks, dream sequences, or parallel narrative threads, giving viewers a perceptual orientation signal without requiring explicit time stamps.",
+      },
+      {
+        heading: "The teal-and-orange convention",
+        body: "The dominant aesthetic of contemporary commercial film colorimetry — sometimes described as the 'teal and orange' look — is a technical convention rather than an expressive choice. The convention works by simultaneously pushing shadows toward teal (the natural color of blue sky reflections on dark surfaces in typical outdoor photography) and skin tones toward orange (the natural color temperature of human skin). The result is a complementary-contrast enhancement that improves perceptual separation between human subjects and background environments, making subjects visually prominent without compositional changes. It became ubiquitous in commercial film because it is technically efficient and broadly appealing. It is not considered an aesthetically sophisticated choice by cinematographers with strong visual opinions — it has been so widely applied that it now signals commercial filmmaking conventions rather than intentional visual strategy.",
+      },
+      {
+        heading: "Saturation as an expressive register",
+        body: "Saturation control is often more expressive than hue choice in film color grading. Highly desaturated palettes (approaching black-and-white) consistently communicate emotional registers of memory, temporal distance, institutional environments, and psychological dissociation across different film traditions and cultures. The association is strong enough that a brief desaturation shift can signal a flashback or memory sequence without any other temporal marker. Partial desaturation — preserving one specific hue while reducing saturation of others — is a specific technique for directing attention to a narratively significant color element. The red coat in Schindler's List is the canonical example: selective color in a near-monochrome image makes the single preserved color element extremely prominent and psychologically significant.",
+      },
+      {
+        heading: "Lessons for motion and video design",
+        body: "The practical lessons from film grading for motion designers and video content creators are specific and applicable without professional colorist tools. Establish a consistent color temperature logic early in a project — warm for human and emotional content, cool for technical and institutional content — and apply it consistently rather than letting it vary by clip. Use saturation reduction rather than hue shifting to create register differences between content sections: a desaturated interview segment reads as more serious and testimonial than a vivid version of the same footage. Evaluate color grading decisions on a calibrated display rather than in an ambient-lit room — lighting conditions have a strong effect on perceived color temperature and saturation. Contemporary video editing software implements the same colorist workflow tools used in professional film post-production; the difference is in the skill and intentionality of their application.",
+      },
+    ],
+    links: [
+      { label: "Midnight Noir collection", href: "/collections/midnight-noir/" },
+      { label: "Browse color palettes", href: "/colors/" },
+      { label: "Export palettes", href: "/palette-builder/" },
+    ],
+  },
+  {
+    category: "Environmental Design",
+    slug: "spatial-color-design-guide",
+    title: "Spatial Color Design: How Color Shapes Perception, Navigation, and Memory in Physical Space",
+    summary:
+      "Color in physical space has measurable effects on perceived room dimensions, wayfinding efficiency, and spatial memory formation. Understanding the spatial psychology of color enables more intentional design decisions in interior and environmental contexts.",
+    eyebrow: "Applied Color",
+    priority: 66,
+    searchIntent: "spatial color design interior color theory color in architecture color perception space room color psychology spatial design",
+    featuredCollectionId: "nordic-mist",
+    featuredPackId: "complete-archive",
+    tags: ["Interior Design", "Environmental Design", "Color Psychology"],
+    highlights: [
+      "Color influences perceived room dimensions: warm, saturated, and dark colors advance visually, making walls appear closer; cool, light, and low-saturation colors recede, making spaces feel larger.",
+      "Spatial distinctiveness — different color palettes in different zones — significantly improves navigation speed and accuracy compared to uniform color treatment across a building.",
+      "Color functions as a landmark cue at decision points, encoding spatial memories that enable faster and more reliable navigation after the initial learning session.",
+    ],
+    sections: [
+      {
+        heading: "Color and perceived space dimensions",
+        body: "Color choices in interior spaces create measurable perceptual distortions of room dimensions. Warm, saturated, and dark colors advance visually — surfaces painted in these registers appear closer to the observer than they physically are. Cool, light, and low-saturation colors recede — surfaces in these registers appear further away. The practical implication for interior design is consistent: small rooms feel more spacious with cool, light wall treatments; large rooms feel more intimate with warm, richer wall treatments. Ceiling height perception follows the same logic: dark ceilings feel lower, light ceilings feel higher, independent of actual dimensions. These effects are strongest for hue and value combined — a dark warm color advances more strongly than either dark or warm alone.",
+      },
+      {
+        heading: "Color and spatial memory formation",
+        body: "Cognitive psychology research shows that color is one of the primary cues people use to form and retrieve spatial memories — the mental maps of environments that enable navigation. Research on route learning consistently shows that distinctive color cues at decision points (junctions, entrances, zone transitions) improve both the accuracy and the reliability of route memory after the initial learning session. The cognitive mechanism is landmark-based navigation: humans preferentially encode salient, distinctive cues at route junctions rather than metric distances or compass directions. Color is particularly efficient as a landmark cue because it is recognizable at distance, across variable lighting conditions, and without requiring deliberate attention to encode.",
+      },
+      {
+        heading: "Zone color coding and navigation efficiency",
+        body: "Spatial distinctiveness — applying different color palettes to different zones of a building — significantly improves wayfinding performance compared to uniform color treatment. The improvement is consistent across building types: offices, hospitals, educational institutions, and transit facilities all show faster navigation times and fewer navigation errors with color-coded zones compared to uniform environments. The cognitive mechanism is categorical spatial memory: color coding enables users to classify 'I am in the blue zone' without conscious effort, providing a constant low-cognitive-load orientation signal that supplements explicit signage. Effective zone color coding requires sufficient hue distinctiveness between zones — adjacent zones should differ in hue rather than just value or saturation — and consistent application within each zone.",
+      },
+      {
+        heading: "Designing for cognitive accessibility",
+        body: "Spatial color design has accessibility dimensions beyond color vision deficiency. Older adults and people experiencing cognitive load from fatigue, illness, or attention differences benefit particularly from spatial color coding because it provides redundant orientation information that compensates for reduced working memory capacity. An environment that is navigable by color coding alone requires less cognitive effort than one that requires active recall of route instructions. For spaces used by diverse populations — hospitals, transit systems, public buildings — spatial color design that provides redundant orientation cues (color plus shape, color plus text, color plus position) represents a meaningful accessibility contribution beyond WCAG compliance.",
+      },
+    ],
+    links: [
+      { label: "Nordic Mist collection", href: "/collections/nordic-mist/" },
+      { label: "Browse neutral colors", href: "/colors/" },
+      { label: "Color family explorer", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Brand Design",
+    slug: "brand-color-consistency-guide",
+    title: "Brand Color Consistency: Protecting and Maintaining Color Equity Across Touchpoints",
+    summary:
+      "Brand color equity — the recognition value and associated meaning attached to a signature color — erodes through inconsistent production, subband proliferation, and the digital-to-physical translation gap. Understanding the mechanisms of dilution is the first step to preventing it.",
+    eyebrow: "Brand Color",
+    priority: 65,
+    searchIntent: "brand color consistency color standards brand guidelines color management color equity brand color system color specification",
+    featuredCollectionId: "neutral-ground",
+    featuredPackId: "complete-archive",
+    tags: ["Brand Identity", "Color Strategy", "Design Systems"],
+    highlights: [
+      "Production drift — the cumulative divergence of color values across vendors, materials, and batches — is the most common and most preventable source of brand color dilution.",
+      "Sub-brand color architecture should use the parent brand color as a consistent structural element, with differentiation achieved through the variable accent palette rather than changes to the primary color.",
+      "Digital color specifications (sRGB, Display P3) are not directly translatable to physical production — build physical and digital standards simultaneously rather than translating from one to the other.",
+    ],
+    sections: [
+      {
+        heading: "Production drift and color audits",
+        body: "The most common mechanism of brand color dilution is production drift: the systematic divergence of color values across different materials, vendors, and production contexts over time. A brand color specified in Pantone for offset print, calibrated in sRGB for screen, and approximated in CMYK for packaging will drift across all three specifications as vendor batches vary, calibration standards get inconsistently applied, and production shortcuts accumulate. The cumulative effect is that the brand color becomes a loose family of similar-but-distinct values that erode the recognition signal rather than a single identifiable color. The prevention is regular color audits — comparing production samples against the master color standard with documented Delta-E acceptance tolerances — and a designated color authority responsible for approving new production specifications.",
+      },
+      {
+        heading: "Sub-brand and product line color architecture",
+        body: "Sub-brand and product line proliferation is a common dilution vector for established brands. When a parent brand launches multiple product lines with color-differentiated sub-brand identities, the parent brand color may appear in inconsistent configurations — primary in some lines, accent in others, absent in others. This inconsistency weakens the parent brand signal while rarely building sub-brand equity efficiently. The more effective approach is a color architecture that defines the parent brand color as a consistent structural element across all sub-brands, with differentiation achieved through the variable accent and secondary palette. The parent brand color is a fixed anchor; the sub-brand character is expressed through everything else.",
+      },
+      {
+        heading: "Licensing and co-branding controls",
+        body: "Licensing and co-branding agreements represent a dilution risk that is often underestimated in brand color management. When a brand color appears in partner marketing, co-branded products, or licensed product ranges without adequate production control, it can appear in off-specification versions that train consumer perception toward incorrect color values. Brand licensing agreements involving color equity should specify production standards in the contract and include audit rights and color approval processes rather than relying on the licensee's good-faith application of brand guidelines. The brand owner's reputational interest in color accuracy is not automatically shared by licensees whose primary interest is efficient production.",
+      },
+      {
+        heading: "Digital-to-physical color translation",
+        body: "Digital-to-physical consistency failures are increasingly significant as brands originate digitally and extend to physical products. Screen-optimized color profiles (sRGB, Display P3) are not directly usable for physical production — the translation from screen color to Pantone or CMYK values is not automatic, and the most vivid, fully-saturated hues common in digital brand design are frequently outside the achievable gamut of print or colorant processes. Brands that develop their color identity on screen and then translate it to physical production often discover that their digital brand color has no precise physical equivalent. The most effective preventive measure is to develop physical and digital color specifications simultaneously in the initial brand development process, rather than treating one as the canonical reference and translating to the other.",
+      },
+    ],
+    links: [
+      { label: "Neutral Ground collection", href: "/collections/neutral-ground/" },
+      { label: "Browse brand palettes", href: "/colors/" },
+      { label: "Export to multiple formats", href: "/palette-builder/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides29);

@@ -677,6 +677,57 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   mindful: ["iris", "violet", "teal", "jade", "soft"],
   bamboo: ["jade", "olive", "teal", "whisper", "soft"],
   wellness_green: ["jade", "teal", "olive", "soft", "whisper"],
+
+  // Fashion color forecasting (new terms)
+  forecast: ["amber", "rose", "iris", "teal", "coral"],
+  trend: ["coral", "iris", "amber", "teal", "rose"],
+  coloroftheyear: ["coral", "iris", "amber", "rose", "teal"],
+  trending_color: ["coral", "iris", "amber", "rose", "teal"],
+  fashion_palette: ["rose", "ivory", "coral", "amber", "iris"],
+
+  // Film and cinematography (new terms)
+  film_grade: ["navy", "amber", "ivory", "teal", "rust"],
+  cinematic_teal: ["teal", "cobalt", "navy", "jade", "shadow"],
+  noir: ["black", "navy", "ivory", "shadow", "midnight"],
+  colorgrade: ["navy", "amber", "teal", "ivory", "cobalt"],
+  moody_film: ["navy", "amber", "shadow", "teal", "rust"],
+
+  // Healthcare and clinical (new terms)
+  clinical: ["cobalt", "ivory", "teal", "cyan", "whisper"],
+  hospital: ["cobalt", "ivory", "teal", "cyan", "soft"],
+  calming_blue: ["cobalt", "teal", "cyan", "soft", "whisper"],
+  therapeutic: ["teal", "jade", "cobalt", "iris", "soft"],
+
+  // Spatial and interior design (new terms)
+  interior_color: ["amber", "ivory", "slate", "teal", "olive"],
+  room_color: ["amber", "ivory", "slate", "olive", "rose"],
+  architectural: ["slate", "ivory", "amber", "cobalt", "navy"],
+  spatial: ["slate", "cobalt", "teal", "ivory", "amber"],
+  wallpaint: ["ivory", "slate", "amber", "olive", "rose"],
+
+  // Arctic and nordic (new terms)
+  nordic_color: ["cyan", "cobalt", "slate", "ivory", "whisper"],
+  glacial: ["cyan", "cobalt", "teal", "whisper", "soft"],
+  polar: ["cyan", "cobalt", "slate", "ivory", "teal"],
+  frost: ["cyan", "ivory", "cobalt", "whisper", "soft"],
+
+  // Deep ocean (new terms)
+  deep_blue: ["navy", "cobalt", "teal", "shadow", "depth"],
+  ocean_depth: ["navy", "teal", "cobalt", "shadow", "depth"],
+  submarine: ["navy", "teal", "cobalt", "shadow", "depth"],
+
+  // Desert and arid (new terms)
+  scorched: ["amber", "rust", "sienna", "clay", "shadow"],
+  rust_palette: ["rust", "amber", "sienna", "clay", "shadow"],
+  wildwest: ["amber", "rust", "sienna", "clay", "ivory"],
+
+  // Beauty and lifestyle (new terms)
+  blush_palette: ["rose", "peach", "pink", "soft", "whisper"],
+  beauty_brand: ["rose", "peach", "ivory", "coral", "soft"],
+  skincare: ["rose", "peach", "ivory", "soft", "whisper"],
+  desert_rose: ["rose", "peach", "amber", "soft", "whisper"],
+  sun_kissed: ["peach", "amber", "rose", "coral", "soft"],
+  feminine_minimal: ["rose", "ivory", "peach", "soft", "whisper"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
