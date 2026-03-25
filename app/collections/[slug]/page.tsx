@@ -12,6 +12,8 @@ interface CollectionDetailRouteProps {
   }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return collections.map((collection) => ({
     slug: collection.id,

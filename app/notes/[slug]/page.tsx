@@ -13,6 +13,8 @@ interface NotePageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return newsletterIssues.map((issue) => ({ slug: issue.slug }));
 }
