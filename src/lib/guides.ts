@@ -7381,3 +7381,221 @@ const extraGuides24: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides24);
+
+const extraGuides25: LandingGuide[] = [
+  {
+    category: "Color Theory",
+    slug: "color-naming-guide",
+    title: "How to Name Colors in Design Systems: Poetic, Semantic, and Token Names",
+    summary:
+      "A practical guide to color naming — from evocative names that align teams emotionally to semantic token names that make design systems scalable and refactor-friendly.",
+    eyebrow: "Design Systems",
+    priority: 74,
+    searchIntent: "color naming design system token names CSS variables Tailwind semantic",
+    featuredCollectionId: "pearl-cloud",
+    featuredPackId: "complete-archive",
+    tags: ["Design Systems", "Color Theory", "Naming"],
+    highlights: [
+      "Design systems need two color name tiers: primitive names (blue-500) that describe what the color is, and semantic names (interactive-default) that describe what the color does.",
+      "Poetic color names create shared vocabulary that shapes how teams talk about and use colors — naming a muted sage 'Morning Dew' changes the decisions made around it versus 'Muted Green 3'.",
+      "CSS custom property naming should encode semantic role and scale step, not hex value — this lets tokens adapt across themes without changing any component code.",
+    ],
+    sections: [
+      {
+        heading: "Why color names matter in design systems",
+        body: "A color name is a contract between designers and developers — and between the present system and its future maintainers. When a designer says 'use Ocean Blue' and a developer writes '--color-blue-600', they are either describing the same thing or a future support ticket. Well-named colors reduce ambiguity, prevent inconsistency, and make design systems refactorable. A system where every color reference is by hex value is a system that cannot safely evolve.",
+      },
+      {
+        heading: "Primitive vs semantic naming tiers",
+        body: "The two-tier model separates what a color is (primitive) from what it does (semantic). Primitives name the color itself: blue-100, blue-300, blue-500, blue-700. Semantics name the role: interactive-default, interactive-hover, text-secondary, surface-elevated. A button's background uses the semantic token '--interactive-default'; the token resolves to blue-500 in light mode and blue-300 in dark mode. The component never needs to know — and when you want to change the brand blue to teal, you change one primitive assignment, and every semantic reference updates automatically.",
+      },
+      {
+        heading: "Poetic names and emotional alignment",
+        body: "Poetic color names — the kind used in paint systems (Farrow & Ball's 'Elephant's Breath'), fashion, and fine art — serve a different purpose: emotional alignment. When a brand calls their primary blue 'Horizon', every decision made about that color is filtered through what Horizon communicates — open, optimistic, slightly cool, expansive. Naming a color changes how teams use it. In large design organizations, shared poetic vocabulary helps maintain visual consistency without rigid specification enforcement, because teams self-select toward the named color's character.",
+      },
+      {
+        heading: "CSS custom property naming conventions",
+        body: "For CSS design tokens, naming conventions should encode hierarchy and role: '--color-{primitive}-{step}' for raw values, '--color-{semantic-role}' for function. Common semantic categories: text (primary, secondary, disabled, inverse), surface (default, elevated, overlay, inset), border (default, strong, focus), and interactive (default, hover, active, disabled). Always use kebab-case and avoid encoding specific hex values in token names — '--color-blue-500' is fine; '--color-1a2b3c' is not, because it breaks as soon as the value changes.",
+      },
+      {
+        heading: "Naming pitfalls to avoid",
+        body: "Three common color naming mistakes: using ordinal numbers without context ('color1', 'color2' — meaningless after six months), encoding current hex values in token names ('blue-1a72cf' — breaks on every palette update), and mixing semantic and primitive tiers without clear separation (calling a button background 'primary-blue' mixes intent and description). The cleanest systems have a strict rule: primitives are in one file/section and are never referenced directly in component code — everything goes through semantics.",
+      },
+    ],
+    links: [
+      { label: "Color token naming guide (detailed)", href: "/guides/color-token-naming-guide/" },
+      { label: "Design token generator", href: "/tokens/" },
+      { label: "Color name generator", href: "/name/" },
+    ],
+  },
+  {
+    category: "UI Design",
+    slug: "dark-mode-color-guide",
+    title: "Dark Mode Color Design: Beyond Inverting Your Palette",
+    summary:
+      "Dark mode done wrong looks like a costume. This guide covers systematic dark mode color — semantic tokens, OLED constraints, saturation shifts, and layered surface elevation.",
+    eyebrow: "UI Design",
+    priority: 75,
+    searchIntent: "dark mode color design system CSS tokens OLED saturation surface elevation",
+    featuredCollectionId: "deep-ocean",
+    featuredPackId: "complete-archive",
+    tags: ["Dark Mode", "UI Design", "Design Systems"],
+    highlights: [
+      "OLED dark mode should avoid pure black (#000000) as a general background — near-black (#111, #1C1C1E) is less fatiguing and more legible for extended use.",
+      "Semantic token architecture makes dark mode systematic: a single token resolves to different values per theme without any component code changes.",
+      "Saturation shifts are necessary — colors that look vivid and clean in light mode can appear neon or harsh in dark mode without reducing saturation by 10-20%.",
+    ],
+    sections: [
+      {
+        heading: "The OLED constraint",
+        body: "On OLED screens, each pixel produces its own light — pure black (#000000) means a pixel that consumes zero power and emits zero photons. This creates extreme contrast between dark backgrounds and bright text that feels jarring in most UI contexts, despite the technical contrast ratio being ideal (21:1 with white). Apple's dark mode uses #1C1C1E as its primary background rather than true black, using black only for borders, modals, and elevated surface outlines. This surface-layering approach creates depth without the harshness of maximum contrast.",
+      },
+      {
+        heading: "Semantic tokens make dark mode scale",
+        body: "Without semantic tokens, dark mode means touching every component: overriding colors in dozens of CSS rules, maintaining two parallel stylesheets, and inevitably missing things. With semantic tokens, dark mode is a theme file: '--surface-default' is #ffffff in light mode and #1C1C1E in dark mode; '--text-primary' is #111 and #F5F5F5. Your components reference semantic tokens and are automatically correct in both themes. Adding a high-contrast or system-matched theme is just another token value set.",
+      },
+      {
+        heading: "Saturation management",
+        body: "Colors that work in light mode — vivid blues, rich greens, warm reds — often look neon or synthetic in dark mode. In light mode, surrounding light anchors saturated colors and makes them feel grounded. In dark mode, the same saturation appears to glow. Standard practice is to reduce saturation 10-20% for dark-mode palette variants, sometimes shifting hue slightly toward cooler or warmer endpoints to maintain perceptual warmth. Your brand colors will need tested, calibrated dark-mode variants — not just the light-mode values on dark backgrounds.",
+      },
+      {
+        heading: "Surface elevation in dark mode",
+        body: "Light mode creates depth through shadows (dark overlay on light backgrounds). Dark mode cannot do this — you cannot shadow a dark surface darker. Instead, elevation is communicated through lightness: higher surfaces are lighter in dark mode. Apple's iOS uses a progression from #1C1C1E (base) through #2C2C2E (card) to #3A3A3C (elevated) to #48484A (modal/overlay). This lightness-as-elevation pattern is now standard and expected — deviating from it creates surfaces that feel flat and unanchored.",
+      },
+      {
+        heading: "Common dark mode failures",
+        body: "The most common dark mode failures: using pure black as the base background (harsh, fatiguing), injecting unmodified light-mode accent colors into dark surfaces (neon/synthetic result), insufficient contrast for text states (disabled text vs secondary text become indistinguishable), and forgetting that images with white backgrounds look wrong on dark UI. Well-implemented dark mode often requires separate image variants for illustrations and screenshots with white or near-white backgrounds. Dark mode is a design system feature, not a CSS filter.",
+      },
+    ],
+    links: [
+      { label: "Color token naming guide", href: "/guides/color-token-naming-guide/" },
+      { label: "Contrast checker", href: "/contrast/" },
+      { label: "Deep Ocean collection", href: "/collections/deep-ocean/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "trust-color-guide",
+    title: "Color and Trust: How Financial, Medical, and Legal Products Signal Credibility",
+    summary:
+      "The visual language of trust-critical categories is not accidental. Learn why these categories converge on the same color conventions — and how to differentiate within them.",
+    eyebrow: "Brand Design",
+    priority: 76,
+    searchIntent: "trust color design finance healthcare legal brand blue credibility palette",
+    featuredCollectionId: "nordic-morning",
+    featuredPackId: "complete-archive",
+    tags: ["Brand Design", "Color Psychology", "Trust"],
+    highlights: [
+      "Navy and dark blue signal established institutional reliability; bright or electric blue signals modern technical credibility; warm blues and teal signal approachable professionalism.",
+      "Trust-critical products should maintain conservative color conventions in high-stakes user moments (errors, security alerts, payment flows) even if the overall product uses a differentiated palette.",
+      "Differentiation in trust categories works best when it stays within the trust-color family — a softer blue, a more approachable teal — rather than moving to contrast colors like orange or red.",
+    ],
+    sections: [
+      {
+        heading: "Why trust categories converge on blue",
+        body: "Blue's association with trust, reliability, and calm is among the most consistently documented across color psychology research and cross-cultural studies. For trust-critical categories (financial services, healthcare, legal), this convergence is reinforced by decades of institutional design: banks, hospitals, and law firms that use blue have trained users to associate blue with stability. New entrants to these categories adopt blue partly because the research supports it, and partly because not adopting it creates a perception gap against established players.",
+      },
+      {
+        heading: "Reading blue shade signals",
+        body: "The specific shade of blue carries fine-grained signals. Navy blue (deeply saturated, low lightness) reads as traditional, conservative, and established — appropriate for old-guard financial institutions and formal legal contexts. Bright or medium blue reads as technical, modern, and transparent — used by fintech challengers, health tech, and newer legal services platforms. Teal and warm blue read as approachable and human-centered — common in primary care, mental health, and consumer-first financial products. Each shade carries accumulated associations that users interpret even without conscious awareness.",
+      },
+      {
+        heading: "High-stakes moments and color conservatism",
+        body: "Users in high-stakes moments — a declined payment, a suspicious account alert, a medical test result — are in heightened vigilance states. Colors that read as playful or casual during routine use can register as 'inappropriate' or 'uncaring' during these moments. Companies that use differentiated, warm-hued primary palettes often maintain strict conventional color in their error, alert, and critical notification states: conventional red for danger, conventional amber for warning, conventional blue-gray for informational states. The design system's personality applies to the product's face; its trust signals apply to its moments of stress.",
+      },
+      {
+        heading: "Differentiating within the trust palette",
+        body: "Successful differentiation in trust categories works by moving along trust-family color dimensions, not outside them. A healthcare brand that wants to feel less clinical might shift from cold clinical blue-gray toward warmer blue or soft teal — still within the trust chromatic family but with more warmth. A legal tech platform targeting startups might use charcoal rather than navy, signaling modernity while maintaining the seriousness of dark neutrals. Moving entirely outside trust-color conventions (a finance product with a primary orange) requires significant brand-building investment to carry the trust signal that blue delivers by default.",
+      },
+    ],
+    links: [
+      { label: "Color psychology guide", href: "/guides/color-psychology-guide/" },
+      { label: "Brand color analyzer", href: "/analyze/" },
+      { label: "Nordic Morning collection", href: "/collections/nordic-morning/" },
+    ],
+  },
+  {
+    category: "UI Design",
+    slug: "dashboard-color-guide",
+    title: "Color in Dashboard and Data Visualization Design",
+    summary:
+      "Dashboard color is the most abused in product design. Learn when to use color categorically, when to encode with value, and how to keep charts legible at scale.",
+    eyebrow: "Data Visualization",
+    priority: 77,
+    searchIntent: "dashboard color data visualization chart color palette accessible design system",
+    featuredCollectionId: "golden-harvest",
+    featuredPackId: "complete-archive",
+    tags: ["Data Visualization", "Dashboard Design", "UI Design"],
+    highlights: [
+      "Use categorical color (distinct hues) only for data series users need to track across multiple charts — single-series charts should use a single color with lightness encoding for value differences.",
+      "Status colors (green/red/yellow) carry strong conventions in dashboards — violating them, even for brand reasons, creates user confusion in data-critical contexts.",
+      "The 'data ink' principle applies to color: chart chrome (axes, grid lines, labels) should use low-contrast neutral color so that data marks receive full visual attention.",
+    ],
+    sections: [
+      {
+        heading: "Categorical parsimony: use fewer colors",
+        body: "The most common dashboard color mistake is using a different color for every dimension in a chart by default. A bar chart showing revenue by month needs one color. A bar chart showing revenue vs expenses needs two colors. A scatter plot showing five product lines tracked across multiple charts needs five consistent colors — and no more, because human color discrimination in chart contexts breaks down after about seven distinct hues. Reach for lightness encoding (same hue, lighter/darker) before reaching for additional categorical colors.",
+      },
+      {
+        heading: "Status colors are conventions, not brand decisions",
+        body: "Red means negative/bad, green means positive/good, yellow means warning in dashboard contexts — these are deeply established conventions that users apply automatically and emotionally. Using red for a 'record high revenue' metric, or green for an 'error rate increase', creates cognitive dissonance that slows comprehension and erodes trust in the dashboard. Reserve status colors for their conventional meanings, even if the product's brand palette has a different primary hue. Brand colors appear in non-data elements (headers, icons, navigation) and leave status colors to do their semantic job.",
+      },
+      {
+        heading: "Contrast hierarchy: data vs chrome",
+        body: "Every element on a chart occupies visual real estate. The data marks (bars, lines, points) should have the highest visual weight — the most contrast against the background. Axes, grid lines, and tick labels should be significantly lower contrast — present but not competing. A practical rule: grid lines use the same color as the surrounding surface with a slight border (e.g., neutral-200 on a white background), axis labels use neutral-400 or 500 text, and data marks use full-saturation values from the data color palette. This hierarchy ensures that when users scan, they see data first.",
+      },
+      {
+        heading: "Multi-chart consistency",
+        body: "In multi-chart dashboards, consistency in color assignment is non-negotiable. If 'Product A' is blue on the top chart, it must be the same blue on the bottom chart and on the summary table. Color inconsistency in dashboards forces users to re-learn which color means what on every chart — a severe cognitive load that erodes dashboard usability. Build a palette object at the application level that maps data categories to specific color tokens, and ensure all chart components consume from that same palette object.",
+      },
+    ],
+    links: [
+      { label: "WCAG contrast auditor", href: "/wcag-audit/" },
+      { label: "Color combinations library", href: "/combinations/" },
+      { label: "Golden Harvest collection", href: "/collections/golden-harvest/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "seasonal-color-design-guide",
+    title: "Seasonal Color Design: When to Update Your UI Palette and When to Hold",
+    summary:
+      "Seasonal UI updates are frequently requested and frequently botched. A systematic approach to seasonal color that reinforces brand warmth without eroding identity.",
+    eyebrow: "Brand Design",
+    priority: 78,
+    searchIntent: "seasonal color UI design system holiday brand palette spring summer autumn winter",
+    featuredCollectionId: "ember-hearth",
+    featuredPackId: "complete-archive",
+    tags: ["Brand Design", "Seasonal Design", "Color Psychology"],
+    highlights: [
+      "Seasonal color should only appear in non-functional UI elements (banners, illustrations, hero images) — navigations, form controls, and status indicators must remain on-brand.",
+      "Seasonal palettes work best when they share color DNA with the brand palette — the shift should feel like a warm variation, not a costume change.",
+      "Design token architecture makes seasonal updates clean: swap a small set of promotional token values and revert after the campaign without hunting through component code.",
+    ],
+    sections: [
+      {
+        heading: "Where seasonal color belongs",
+        body: "Seasonal color should only appear in elements that are promotional and temporary in nature: hero banners, promotional tiles, email header illustrations, loading screens for campaign periods. Navigation, primary CTAs, form controls, error states, and status indicators must remain on-brand year-round. These functional elements are where users orient themselves and make decisions — seasonal surprise in these locations is disorienting and undermines the trust that consistent visual identity builds over time.",
+      },
+      {
+        heading: "Brand color DNA and seasonal compatibility",
+        body: "Seasonal palettes work best when they extend the brand's existing color temperature, not oppose it. A warm-primary brand (amber, orange, coral) can lean naturally into autumn/harvest tones or warm holiday tones without visual whiplash. A cool-primary brand (blue, teal, slate) can shift to winter blues and ice tones for a season. The worst seasonal results come from direct temperature opposition: pure warm holiday tones injected into a cold, clinical brand; or cool spring greens dropped into a brand built around warm terracotta. The test: if you squint at the seasonal variation, does it still feel like the brand?",
+      },
+      {
+        heading: "Semantic tokens make seasonal updates clean",
+        body: "A common technical problem with seasonal design: seasonal colors spread through dozens of component overrides, are hard to revert cleanly, and leave artifacts for months. The solution is a semantic token layer specifically for promotional content: '--color-promo-primary', '--color-promo-accent', '--color-promo-surface'. Components in promotional zones reference these promo tokens. At the start of a campaign period, update the promo token values to seasonal colors. At the end, revert the token file. No component code changes. No forgotten overrides. This is the only scalable way to do seasonal design at any meaningful team or product scale.",
+      },
+      {
+        heading: "Duration and revert planning",
+        body: "Seasonal color updates need explicit end dates built into the planning process. Without them, holiday red persists into February, autumn orange outlasts the season, and spring greens stay through summer. In sprint planning, create a revert ticket for every seasonal update at the time of the original implementation ticket. The best design systems teams deploy seasonal tokens as feature flags or dated CSS variable overrides that automatically revert after a defined date — no manual cleanup required.",
+      },
+    ],
+    links: [
+      { label: "Color psychology guide", href: "/guides/color-psychology-guide/" },
+      { label: "Color token naming guide", href: "/guides/color-token-naming-guide/" },
+      { label: "Ember Hearth collection", href: "/collections/ember-hearth/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides25);

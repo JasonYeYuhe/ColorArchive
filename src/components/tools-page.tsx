@@ -209,6 +209,15 @@ const TOOLS: Tool[] = [
     accent: "bg-rose-100 text-rose-700",
   },
   {
+    href: "/name/",
+    icon: "Aa",
+    nameKey: "tools.colorNamer.name",
+    descKey: "tools.colorNamer.desc",
+    categoryKey: "tools.cat.creative",
+    badgeKey: "tools.badge.new",
+    accent: "bg-rose-100 text-rose-700",
+  },
+  {
     href: "/tokens/",
     icon: "⬡",
     nameKey: "tools.tokens.name",

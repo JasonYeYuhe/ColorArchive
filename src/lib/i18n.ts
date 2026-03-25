@@ -1907,6 +1907,11 @@ const translations: Record<string, Record<string, string>> = {
     en: "Free REST API for 3,000+ colors. Search by name, hex, or mood. Get color relationships. No auth required.",
     zh: "免费 REST API，支持按名称、hex 或语义搜索 3,000+ 种颜色。获取关联色。无需认证。",
   },
+  "tools.colorNamer.name": { en: "Color Name Generator", zh: "颜色命名生成器" },
+  "tools.colorNamer.desc": {
+    en: "Enter any hex color to get a poetic name, CSS variable name, Tailwind class, and WCAG contrast data.",
+    zh: "输入任意 hex 颜色，获取诗意名称、CSS 变量名、Tailwind 类名及 WCAG 对比度数据。",
+  },
     "tools.tokens.name": { en: "Design Token Generator", zh: "设计令牌生成器" },
   "tools.tokens.desc": {
     en: "Generate a complete token system from any brand color — primary, neutral, and semantic scales. Export as CSS vars, Tailwind, SCSS, or JSON.",

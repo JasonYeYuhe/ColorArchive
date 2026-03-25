@@ -62,7 +62,8 @@ interface SiteHeaderProps {
     | "/projects"
     | "/analyze"
     | "/product-examples"
-    | "/use-cases";
+    | "/use-cases"
+    | "/name";
 }
 
 interface NavItem {

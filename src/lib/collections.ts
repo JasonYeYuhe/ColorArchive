@@ -2100,3 +2100,136 @@ const extraCollections23: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections23);
+
+const extraCollections24: ColorCollection[] = [
+  createCollection(
+    "storm-silver",
+    "Storm Silver",
+    "Cool graphite, silver-gray, and storm-cloud tones — precise, technical, and quietly sophisticated. For professional tools, enterprise software, and premium industrial design.",
+    "Storm silver draws from the chromatic range of storm-lit skies, brushed aluminum, polished concrete, and anodized titanium surfaces. Cobalt-pearl-faint opens at near-white with the faintest cool presence — the color of overcast daylight on white concrete. Cerulean-whisper-muted deepens to the first distinct cool-gray tone — the color of polished industrial stone or matte aluminum. Azure-silk-faint moves into a confident mid-gray that reads as technical and refined simultaneously. Cobalt-shadow-soft contributes a barely-perceptible cool-blue shadow depth — the hue that natural metal surfaces show when lit from above. Cobalt-shadow-muted anchors as the deep storm-silver — near-dark neutral with a precise, metallic character.",
+    ["Cool", "Technical", "Sophisticated"],
+    [
+      "cobalt-pearl-faint",
+      "cerulean-whisper-muted",
+      "azure-silk-faint",
+      "cobalt-shadow-soft",
+      "cobalt-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Storm silver suits enterprise software, professional SaaS tools, advanced consumer technology, industrial design, and any brand that wants to communicate precision and technical credibility without warmth. It is the palette of high-quality German engineering, precision optical instruments, premium industrial hardware, and high-specification manufacturing. Photography direction: brushed aluminum and titanium surfaces, architectural concrete, precision machined metal parts, overcast industrial environments, technical product photography on gray and white backgrounds. Typography: a geometric or industrial sans (Helvetica, Inter, Aktiv Grotesk) in storm silver reads as precision-engineered; a compressed condensed grotesque reads as technical and performance-focused.",
+      promptWords: [
+        "enterprise software or SaaS brand in storm silver palette",
+        "precision technology brand in brushed aluminum and cool gray",
+        "industrial design or engineering brand in graphite palette",
+        "premium consumer electronics in storm silver tones",
+        "professional tools brand in technical cool-gray palette",
+      ],
+      useCases: [
+        "Enterprise software and B2B SaaS platforms",
+        "Precision manufacturing and industrial brands",
+        "Advanced consumer technology and hardware",
+        "Professional tools and high-specification equipment",
+        "Architecture, engineering, and technical consulting",
+      ],
+    },
+  ),
+  createCollection(
+    "blush-garden",
+    "Blush Garden",
+    "Warm rose, peach, and dusty blush tones — soft, romantic, and quietly luxurious. For beauty, wellness, bridal, and feminine lifestyle brands at any market level.",
+    "Blush garden is assembled from the warm-pink range of early garden blooms: tea rose petals, pale peach blossom, dusty carnation, and the warm flush of cherry at first light. Rose-pearl-faint opens at near-white with the softest rose warmth — the color of fresh cream with a single drop of rose water. Rose-whisper-soft deepens to the first distinct blush tone — gentle, warm, and unmistakably feminine without being cloying. Coral-whisper-soft introduces the peach-blossom note — slightly warmer and more apricot-adjacent, like the inner petals of a garden peony. Rose-silk-soft moves into a confident medium blush — saturated but still delicate, a dusty tea rose or faded carnation. Rose-velvet-muted anchors with depth — a dusky rose-mauve that carries the romantic weight of old garden varieties.",
+    ["Soft", "Romantic", "Feminine"],
+    [
+      "rose-pearl-faint",
+      "rose-whisper-soft",
+      "coral-whisper-soft",
+      "rose-silk-soft",
+      "rose-velvet-muted",
+    ],
+    {
+      editorialNote:
+        "Blush garden suits beauty and cosmetics brands at all price points, bridal and wedding industry, women's wellness and self-care, feminine lifestyle and fashion, and floral-adjacent product categories. It avoids the saturated hot-pink of mass-market beauty, instead occupying the more refined space of editorial beauty and premium skincare. Photography direction: fresh roses and garden blooms, natural light through linen, warm-lit close-up skin and texture photography, marble with soft pink veining, raw silk and cashmere in blush tones. Typography: a refined transitional serif or delicate thin-weight display type reads as luxury beauty in this palette; a humanist sans at light weights reads as clean contemporary wellness.",
+      promptWords: [
+        "luxury skincare or beauty brand in blush garden palette",
+        "bridal and wedding brand in soft rose and blush tones",
+        "women's wellness and self-care brand in dusty rose palette",
+        "feminine lifestyle brand in garden blush and peach",
+        "premium floral or gifting brand in rose garden tones",
+      ],
+      useCases: [
+        "Luxury skincare and prestige beauty brands",
+        "Bridal, wedding, and celebration design",
+        "Women's wellness, self-care, and personal care",
+        "Premium gifting, florist, and artisan product brands",
+        "Feminine lifestyle, fashion, and editorial content",
+      ],
+    },
+  ),
+  createCollection(
+    "dark-academia",
+    "Dark Academia",
+    "Deep tobacco, worn leather, aged paper, and forest-shadow greens — the palette of old libraries, candlelit study rooms, and scholarly melancholy.",
+    "Dark academia draws from the chromatic universe of old-world learning: the warm amber of aged vellum, the deep brown of worn leather bindings, the gray-green of lichen on stone, and the dark forest shadows of overgrown university courtyards. Amber-shadow-soft opens with a warm, aged-paper tone — not bright or fresh, but the warmer oxidized hue of a page handled many times. Ember-shadow-muted deepens into worn leather territory — rich, complex, and dark with warm undertones of old tan and tobacco. Moss-shadow-muted contributes the green note — a dark forest-shadow green, heavy with age and moisture, like the north face of old stone. Amber-shadow-muted anchors the amber range in deep burnished warmth. Slate-shadow-muted provides the cool-dark counterpoint — a shadow gray that reads as old stone, slate roofing, or the cool air of an underground library.",
+    ["Dark", "Literary", "Melancholic"],
+    [
+      "amber-shadow-soft",
+      "ember-shadow-muted",
+      "moss-shadow-muted",
+      "amber-shadow-muted",
+      "cobalt-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Dark academia suits literary and publishing brands, academic institutions with traditional heritage, premium stationery and journaling products, book subscription services, sophisticated education platforms, and any brand in the intellectual-melancholy aesthetic space. It has significant appeal in the social media cultural aesthetic community, making it well-suited for products targeting audiences who identify with academic or literary identities. Photography direction: candlelit desks with open books, aged library interiors, weathered stone and ivy, leather-bound books and vintage paper, autumn forest paths and fog. Typography: a transitional or old-style serif (Garamond, Palatino, EB Garamond) reads as authentically scholarly in this palette; a carefully chosen italic or blackletter accent adds atmospheric weight.",
+      promptWords: [
+        "literary or publishing brand in dark academia palette",
+        "premium stationery and journaling brand in aged leather and parchment tones",
+        "academic institution or education platform in scholarly dark palette",
+        "book subscription or reading community brand in dark academia aesthetic",
+        "luxury pen, ink, or writing instrument brand in tobacco and leather tones",
+      ],
+      useCases: [
+        "Literary, publishing, and book-adjacent brands",
+        "Academic institutions and educational platforms",
+        "Premium stationery, journaling, and writing instruments",
+        "Book subscription boxes and reading communities",
+        "Atmospheric lifestyle brands in the scholarly aesthetic",
+      ],
+    },
+  ),
+  createCollection(
+    "coastal-sage",
+    "Coastal Sage",
+    "Muted seafoam, dry sage, bleached driftwood, and coastal stone tones — the palette of sun-bleached shore, Mediterranean herbs, and unhurried summer light.",
+    "Coastal sage is assembled from the desaturated, sun-baked color range of a Mediterranean coastline: dry sage and oregano on stony hillsides, bleached driftwood at the shore, the muted seafoam of a calm sea viewed from distance, and the pale warm gray of coastal limestone. Seafoam-pearl-faint opens at near-white with the faintest coastal coolness — the color of breaking foam against white sand. Jade-whisper-soft introduces the dry sage note — pale, muted, and sun-dried, carrying the character of wild coastal herbs. Teal-whisper-soft moves into the distant-sea tone — muted aqua, slightly cool, and deeply calming. Jade-whisper-muted deepens the sage note into a more present, full-bodied dried herb gray-green. Seafoam-shadow-soft anchors with the darkest tone — a muted seafoam-teal that carries the depth of coastal shadow in early morning.",
+    ["Coastal", "Serene", "Mediterranean"],
+    [
+      "seafoam-pearl-faint",
+      "jade-whisper-soft",
+      "teal-whisper-soft",
+      "jade-whisper-muted",
+      "seafoam-shadow-soft",
+    ],
+    {
+      editorialNote:
+        "Coastal sage suits wellness and meditation brands, Mediterranean hospitality and travel, organic skincare and clean beauty, sustainable lifestyle and home goods, yoga and mindful living, and any brand whose identity centers on unhurried summer calm. It is more desaturated and driftwood-adjacent than typical coastal palettes, which makes it feel refined and editorial rather than mass-market beach. Photography direction: Mediterranean hillside herbs in dry summer light, bleached driftwood and smooth coastal stone, distant sea views in hazy afternoon light, linen and natural fiber textures, ceramic and terracotta in warm coastal tones. Typography: a humanist sans or casual script in this palette reads as warm and approachable; a refined old-style serif reads as Mediterranean artisan heritage.",
+      promptWords: [
+        "wellness or meditation brand in coastal sage palette",
+        "Mediterranean hospitality or travel brand in sun-bleached coastal tones",
+        "organic skincare or clean beauty brand in dry sage and seafoam",
+        "sustainable lifestyle or home goods brand in coastal sage and driftwood",
+        "yoga or mindful living brand in calm Mediterranean sage tones",
+      ],
+      useCases: [
+        "Wellness, meditation, and mindful living brands",
+        "Mediterranean hospitality, villa rentals, and travel",
+        "Organic skincare and clean beauty",
+        "Sustainable home goods and lifestyle products",
+        "Yoga studios, wellness retreats, and spa brands",
+      ],
+    },
+  ),
+];
+
+collections.push(...extraCollections24);

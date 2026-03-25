@@ -159,6 +159,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.87,
     },
     {
+      url: "https://colorarchive.me/name/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.84,
+    },
+    {
       url: "https://colorarchive.me/wcag-audit/",
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",
