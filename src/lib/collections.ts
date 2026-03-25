@@ -1669,3 +1669,168 @@ const extraCollections20: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections20);
+
+const extraCollections21: ColorCollection[] = [
+  createCollection(
+    "glacier-melt",
+    "Glacier Melt",
+    "Pale arctic blues and icy celadon whites — a cold clarity palette for technology, premium water brands, and Scandinavian-aesthetic interfaces.",
+    "Glacier melt is built on the colors of Arctic ice at different thicknesses and densities: the near-white of deep pack ice, the pale blue of compressed glacial ice, the clear blue-green of meltwater channels. Azure-veil-faint opens as the barely-tinted white base — cold, clean, and airy. Azure-whisper-faint steps up as the secondary surface, adding just enough blue to register intentionally. Aqua-mist-soft introduces the first clearly green-shifted blue — the signature celadon of glacial meltwater, modern and distinctive. Azure-tone-muted deepens to a readable mid-value for structural elements and secondary headings. Cerulean-ink-muted anchors the palette as the darkest value — deep enough for full text contrast while maintaining the cold, Arctic register throughout.",
+    ["Cold", "Minimal", "Technology"],
+    [
+      "azure-veil-faint",
+      "azure-whisper-faint",
+      "aqua-mist-soft",
+      "azure-tone-muted",
+      "cerulean-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Glacier melt works for brands that want to communicate pristine, cold precision — premium water brands, Scandinavian-aesthetic design systems, clean technology products, and air purification or environmental technology companies. Photography direction: frozen landscapes, clean ice textures, minimal white space, pale northern light. Avoid warm photography entirely — golden hour, amber sunsets, and warm interior shots will clash with the cold palette register. Typography: a geometric sans at light or regular weight; avoid decorative or serif typefaces.",
+      promptWords: [
+        "premium water brand in glacier blue and Arctic white",
+        "Scandinavian design system in cold white and pale blue",
+        "clean technology brand in icy azure and pale celadon",
+        "air purification product in frost white and glacier blue",
+        "minimal productivity app in cold pale blue tones",
+      ],
+      useCases: [
+        "Premium water and beverage brands",
+        "Scandinavian-aesthetic product design",
+        "Clean technology and environmental products",
+        "Minimal productivity and focus applications",
+        "Healthcare and pharmaceutical digital products",
+      ],
+    },
+  ),
+  createCollection(
+    "amber-library",
+    "Amber Library",
+    "Deep amber and warm cognac tones with leather-brown anchors — an intellectual warmth palette for publishing, education, and knowledge-product brands.",
+    "Amber library is built around the colors of a well-used private library: aged paper, polished wood surfaces, leather binding, the amber glow of incandescent reading lights. Honey-whisper-muted opens as the palest aged-paper white — barely yellowed, warm but not obviously orange. Amber-pearl-muted deepens as the secondary surface tone, adding warmth that calls to mind old linen or aged ivory. Honey-silk-muted introduces the amber register at mid-value — the color of old honey, warm and rich without being sweet. Amber-shadow-muted moves into the deeper cognac-brown territory that handles structural elements, secondary headings, and contained surface areas with depth. Honey-ink-muted closes as the near-dark anchor — a warm, brown-shifted near-black that is far more intimate than cold neutral-gray.",
+    ["Warm", "Editorial", "Knowledge"],
+    [
+      "honey-whisper-muted",
+      "amber-pearl-muted",
+      "honey-silk-muted",
+      "amber-shadow-muted",
+      "honey-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Amber library suits brands in publishing, education, knowledge management, and intellectual product spaces. It reads as warm, serious, and deep — the palette of learning rather than entertainment. Photography direction: aged paper textures, wood surfaces, leather, warm lamp light, architectural interiors with rich wood tones. Avoid cold or clinical photography — chrome, cool lighting, and modern minimalist spaces conflict with the palette's warmth. Typography: a serif typeface strongly enhances the editorial quality; a sturdy old-style serif (Garamond family) is ideal.",
+      promptWords: [
+        "educational platform in warm amber and aged ivory",
+        "publishing brand identity in cognac brown and warm paper white",
+        "knowledge management app in amber and warm near-black",
+        "library system interface in honey and deep brown tones",
+        "bookstore brand in warm amber and leather brown palette",
+      ],
+      useCases: [
+        "Educational platforms and e-learning",
+        "Publishing and media brands",
+        "Knowledge management and note-taking applications",
+        "Bookstores and literary brands",
+        "Premium newsletter and subscription journalism",
+      ],
+    },
+  ),
+  createCollection(
+    "concrete-bloom",
+    "Concrete & Bloom",
+    "Cool concrete gray surfaces with single soft blossom accents — an urban naturalist palette for architecture, property, and brands at the intersection of the built and natural environment.",
+    "Concrete and bloom juxtaposes the precision and coolness of architectural gray with the soft vulnerability of a single flowering accent — representing the wildflowers that grow through cracks in city concrete. True-gray-whisper-faint establishes the cool neutral base — genuinely neutral, neither warm nor cold, a foundation for maximum content flexibility. Cool-gray-pearl-faint adds a slightly cooler secondary surface, leaning into the architectural register. Rose-bloom-soft introduces the palette's accent — a mid-value blush-rose at low chroma, functioning as the human warmth in an otherwise monolithic gray world. True-gray-tone-muted deepens to a structural mid-gray for secondary text and dividers. True-gray-ink-faint closes as the anchoring near-dark — still cooler than warm near-blacks, precise and architectural.",
+    ["Architecture", "Urban", "Contrast"],
+    [
+      "true-gray-whisper",
+      "cool-gray-pearl",
+      "rose-bloom-soft",
+      "true-gray-tone",
+      "true-gray-ink",
+    ],
+    {
+      editorialNote:
+        "Concrete and bloom is ideal for architecture firms, real estate developers, property brands, and urban lifestyle companies. The gray communicates built precision; the blossom accent communicates human scale and warmth. The contrast between the two is the entire point — a gray-only palette is sterile, but the single warm accent humanizes without softening. Photography direction: architectural photography with unexpected botanical intrusions (moss, flowers, vines on concrete), urban landscape with natural elements, structural forms with soft natural accents. Typography: a refined grotesque sans is ideal; avoid decorative or script typefaces.",
+      promptWords: [
+        "architecture firm branding in cool gray and soft rose accent",
+        "real estate developer brand in concrete gray and blush",
+        "urban property platform in structural gray with botanical accent",
+        "city lifestyle brand in concrete and single bloom palette",
+        "design studio in cool neutral gray and warm rose accent",
+      ],
+      useCases: [
+        "Architecture and design firms",
+        "Real estate developers and property platforms",
+        "Urban lifestyle and city-living brands",
+        "Interior design with minimal color",
+        "Premium co-working space brands",
+      ],
+    },
+  ),
+  createCollection(
+    "verdigris-copper",
+    "Verdigris & Copper",
+    "Aged green patina and warm copper — the palette of oxidized metal and industrial heritage for craft brands, spirits, and premium artisan goods.",
+    "Verdigris and copper is built on the color pair that appears when copper ages in the open air — the warm orange-brown of polished copper transitions over years into the cool blue-green of verdigris patina. Teal-whisper-soft establishes the palette's cool patina note — a pale, slightly muted blue-green that reads as aged rather than fresh. Jade-pearl-soft deepens the patina toward a more saturated jade-green mid-tone, the color of the transition zone between copper and verdigris. Ember-silk-soft introduces the copper register — a warm amber-orange mid-tone that sits in contrast to the cool patina tones. Teal-tone-muted darkens toward the deeper blue-green that characterizes aged bronze surfaces. Ember-shadow-soft closes as the warm dark anchor — a deep amber-brown that reads as aged copper or weathered metal.",
+    ["Artisan", "Heritage", "Craft"],
+    [
+      "teal-whisper-soft",
+      "jade-pearl-soft",
+      "ember-silk-soft",
+      "teal-tone-muted",
+      "ember-shadow-soft",
+    ],
+    {
+      editorialNote:
+        "Verdigris and copper works for craft spirits (whiskey, rum, gin), artisan goods, hardware and tool brands, vintage industrial aesthetics, and premium heritage products. The palette communicates age, quality, and craft — things made with hands and improved by time. Photography direction: aged metal surfaces, copper pots and tools, craft distillery environments, aged wood and metal industrial spaces, warm incandescent lighting. Avoid modern minimalist photography — cold white studio shots, clean digital renders, or contemporary architectural spaces will break the palette's heritage register.",
+      promptWords: [
+        "craft distillery brand in verdigris and warm copper palette",
+        "artisan hardware brand in aged copper and patina green",
+        "heritage spirits label in teal patina and amber copper tones",
+        "premium brewery in verdigris green and copper brown",
+        "industrial craft brand in aged metal palette",
+      ],
+      useCases: [
+        "Craft spirits and distilleries",
+        "Artisan food and beverage brands",
+        "Heritage and vintage product brands",
+        "Craft tool and hardware brands",
+        "Premium heritage goods and leather goods",
+      ],
+    },
+  ),
+  createCollection(
+    "dusk-violet",
+    "Dusk Violet",
+    "Deep indigo evening tones with soft mauve accents — a premium twilight palette for beauty, wellness, and sophisticated nightlife brands.",
+    "Dusk violet is built on the colors of late twilight — not the sunset warmth that precedes it, but the cool, deepening violet that follows once the sun has set and before true dark falls. Orchid-veil-faint opens as the palest barely-violet white — the color of a sky that has just lost its last warmth, cool and quiet. Violet-pearl-muted deepens as the secondary surface tone — distinctly violet but still light enough for background application in text-heavy layouts. Orchid-silk-soft introduces the palette's defining mid-value — a soft, warm mauve that sits between pink and purple, the color of a fading peony at dusk. Indigo-tone-muted darkens to the structural anchor for secondary text and contained areas, a deep blue-violet with authority. Plum-ink-muted closes as the near-dark — a deep plum that functions as the darkest value, rich and dark without becoming unpleasant to read against.",
+    ["Evening", "Luxury", "Premium"],
+    [
+      "orchid-veil-faint",
+      "violet-pearl-muted",
+      "orchid-silk-soft",
+      "indigo-tone-muted",
+      "plum-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Dusk violet suits premium beauty and fragrance brands, evening cocktail bars and nightlife venues, luxury wellness retreat brands, and sophisticated subscription or membership services that want to feel exclusive and evening-appropriate. It occupies the space between the meditation-calm of twilight lavender and the energetic confidence of neon-after-dark — composed, luxurious, and distinctly nighttime. Photography direction: evening light, candles, deep violet and indigo ambient lighting, botanical close-ups in mauve and purple tones, low-key studio photography with purple gels. Avoid daylight photography — the palette's register is nocturnal.",
+      promptWords: [
+        "premium fragrance brand in dusk violet and deep plum",
+        "luxury cocktail bar in indigo and mauve evening palette",
+        "high-end wellness retreat in soft orchid and plum tones",
+        "exclusive membership platform in deep violet and mauve",
+        "premium beauty brand in dusk orchid and plum palette",
+      ],
+      useCases: [
+        "Premium fragrance and beauty brands",
+        "Luxury cocktail bars and evening venues",
+        "Wellness retreats and meditation centers",
+        "Exclusive membership and subscription services",
+        "Sophisticated evening event brands",
+      ],
+    },
+  ),
+];
+
+collections.push(...extraCollections21);

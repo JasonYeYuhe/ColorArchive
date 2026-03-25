@@ -61,7 +61,8 @@ interface SiteHeaderProps {
     | "/pro"
     | "/projects"
     | "/analyze"
-    | "/product-examples";
+    | "/product-examples"
+    | "/use-cases";
 }
 
 interface NavItem {
@@ -86,6 +87,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/notes/", labelKey: "nav.notes" },
       { href: "/guides/", labelKey: "nav.guides" },
       { href: "/stories/", labelKey: "nav.stories" },
+      { href: "/use-cases/", labelKey: "nav.useCases" },
     ],
   },
   {

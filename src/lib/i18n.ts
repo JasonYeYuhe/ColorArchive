@@ -37,6 +37,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.preview": { en: "UI Preview", zh: "界面预览" },
   "nav.meshGradient": { en: "Mesh Gradient", zh: "网格渐变" },
   "nav.stories": { en: "Color Stories", zh: "颜色故事" },
+  "nav.useCases": { en: "By Industry", zh: "按行业" },
   "nav.apiDocs": { en: "Color API", zh: "颜色 API" },
   "nav.figmaPlugin": { en: "Figma Plugin", zh: "Figma 插件" },
   "nav.surprise": { en: "Surprise", zh: "随机发现" },

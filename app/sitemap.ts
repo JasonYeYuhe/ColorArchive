@@ -6,6 +6,7 @@ import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
 import { landingGuides } from "@/src/lib/guides";
 import { getAllTags, newsletterIssues, tagToSlug } from "@/src/lib/newsletter-issues";
 import { palettePacks } from "@/src/lib/palette-packs";
+import { useCases } from "@/src/lib/use-cases";
 
 export const dynamic = "force-static";
 
@@ -180,6 +181,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",
       priority: 0.85,
+    },
+    {
+      url: "https://colorarchive.me/use-cases/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.82,
     },
     {
       url: "https://colorarchive.me/api-docs/",
@@ -365,6 +372,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.67,
   }));
 
+  const useCaseRoutes: MetadataRoute.Sitemap = useCases.map((uc) => ({
+    url: `https://colorarchive.me/use-cases/${uc.id}/`,
+    lastModified: BUILD_DATE,
+    changeFrequency: "monthly" as const,
+    priority: 0.72,
+  }));
+
   return [
     ...topLevelRoutes,
     ...guideRoutes,
@@ -374,6 +388,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...familyRoutes,
     ...collectionRoutes,
     ...packRoutes,
+    ...useCaseRoutes,
     ...colorRoutes,
   ];
 }

@@ -6520,3 +6520,213 @@ export const extraGuides20: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides20);
+
+export const extraGuides21: LandingGuide[] = [
+  {
+    category: "Color Theory",
+    slug: "color-for-healthcare-design",
+    title: "Color in Healthcare Design: Building Palettes That Heal",
+    summary:
+      "A clinical and psychological guide to healthcare color design — from hospital wayfinding to health app interfaces — including the specific hue families that communicate care, trust, and calm.",
+    eyebrow: "Healthcare",
+    priority: 74,
+    searchIntent: "healthcare color palette medical app design hospital colors",
+    featuredCollectionId: "sage-terracotta",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Healthcare", "Color Psychology", "UX Design", "Accessibility"],
+    highlights: [
+      "Teal and seafoam communicate clinical cleanliness without the coldness of pure white or industrial gray — the most versatile healthcare hue families.",
+      "Red must be reserved exclusively for emergency and alert states in healthcare interfaces — using it decoratively creates confusion in clinical environments.",
+      "Warm whites and light warm grays outperform pure white in patient-facing healthcare design, reducing visual fatigue during long reading sessions.",
+    ],
+    sections: [
+      {
+        heading: "Why healthcare color is different",
+        body: "Healthcare color design operates under constraints that do not exist in commercial product design. Users may be experiencing stress, pain, or fear. They may be in clinical environments with unusual lighting. They may be navigating high-stakes decisions. Each of these factors shifts the design brief: color must communicate competence and calm simultaneously — a combination that is surprisingly difficult to achieve. The palette must also avoid accidentally triggering alarm in environments where alarm carries real consequences. A red button that is merely a CTA in a shopping app becomes a potential source of distress in a patient portal.",
+      },
+      {
+        heading: "Hue families for clinical trust",
+        body: "Teal and seafoam are the most proven healthcare hue families because they satisfy two competing requirements: they communicate cleanliness and precision (blue component) while retaining warmth and approachability (green component). Pure blue reads as cold and technical — appropriate for enterprise software, less appropriate for patient-facing healthcare. Sage green communicates nature and calm without tipping into the 'ecological brand' register. Soft lavender is increasingly used in palliative care, mental health, and wellness applications because it signals calm and care rather than clinical precision. For the structural palette — backgrounds, cards, navigation — warm grays (slight warm shift versus pure cool gray) consistently test better in patient-facing contexts.",
+      },
+      {
+        heading: "Red as a reserved semantic color",
+        body: "In healthcare interfaces specifically, red carries more semantic weight than in any other context. Clinical environments train staff and patients to treat red as an emergency signal — and patient-facing software inherits that training. Using red for decorative purposes, sale badges, or non-critical alerts in health contexts creates confusion and low-grade anxiety. The rule: red appears in a healthcare interface only for genuine urgency or critical alerts. For secondary alerts and warnings, amber-orange is the appropriate choice. For error states (form validation errors, data entry errors), red is appropriate — but at lower saturation than you might use in a non-medical context.",
+      },
+      {
+        heading: "Accessibility in healthcare",
+        body: "Healthcare has some of the strongest reasons to meet and exceed WCAG accessibility standards. Patients may be older and have reduced contrast sensitivity. They may be viewing on hospital displays with non-calibrated screens. They may be medicated or cognitively impaired. WCAG AA is the minimum; WCAG AAA (7:1 contrast ratio for normal text) is the appropriate target for primary content in patient-facing applications. All interactive elements should have visible focus indicators — keyboard and screen reader navigation is more common among older and disabled patients than in general consumer populations. Color should never be the only channel for communicating critical information: medical urgency, test result severity, and medication alerts must all use text and icon in addition to color.",
+      },
+    ],
+    links: [
+      { label: "Color contrast checker", href: "/contrast/" },
+      { label: "WCAG audit tool", href: "/wcag-audit/" },
+      { label: "Accessible palette guidance", href: "/guides/color-contrast-accessibility-guide/" },
+    ],
+  },
+  {
+    category: "Brand Design",
+    slug: "rebranding-color-guide",
+    title: "Rebranding Through Color: How to Change Your Palette Without Losing Your Audience",
+    summary:
+      "A strategic guide to brand color evolution — when to change, how to manage the transition, and how to preserve brand equity while updating your visual identity.",
+    eyebrow: "Rebranding",
+    priority: 71,
+    searchIntent: "rebrand color change brand refresh color update",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Rebranding", "Brand Strategy", "Color Systems", "Brand Identity"],
+    highlights: [
+      "High-equity brand colors should evolve, not be replaced — shift lightness or saturation before shifting hue to preserve recognition while modernizing.",
+      "Competitive saturation is the most legitimate trigger for color change — when three direct competitors share your hue, differentiation through color has eroded.",
+      "A transition palette that combines old and new elements gives audiences a cognitive bridge across the rebrand without losing continuity.",
+    ],
+    sections: [
+      {
+        heading: "When to change your brand color",
+        body: "Brand color changes are expensive — they require updating every brand touchpoint and rebuilding color associations that may have taken years to establish. Most color changes happen for the wrong reasons: the founder wants something different, a new designer arrives with different preferences, or the change is made for novelty rather than strategic need. The right reasons to change: competitive saturation (your color has been adopted by several direct competitors), positioning change (the brand has moved market position and the old color no longer fits), reproduction failures (the legacy color has consistent print reproduction issues), or accessibility failures (the existing color system cannot be made accessible without fundamental changes).",
+      },
+      {
+        heading: "Equity preservation: what to keep",
+        body: "Before designing a new color, document the current color equity — the degree to which your current color is associated with your brand by your target audience. High-equity brands (instantly recognizable colors) should preserve as much as possible during a transition. The most conservative change is a lightness or saturation shift within the same hue: taking a legacy blue from 55% saturation to 65% modernizes it without losing hue recognition. The next step is a small hue shift (20-30 degrees): a legacy teal moving toward blue or toward green retains familiarity while adding freshness. Hue jumps of 60+ degrees are the most disruptive and require the most transition support.",
+      },
+      {
+        heading: "Planning the transition",
+        body: "A rebrand transition architecture defines which elements change immediately and which phase out over time. Digital touchpoints — website, app, social channels — can change overnight. Physical materials — packaging, signage, printed collateral — have lead times of weeks to months and may not be replaced until inventory is exhausted. The transition palette bridges both states: a set of colors that are neither the old brand nor the new brand, but that look coherent alongside both. Usually this means introducing one element of the new color while retaining the strongest element of the old one — a new primary with the original secondary, for example.",
+      },
+      {
+        heading: "Documenting the new system",
+        body: "A rebrand is an opportunity to document the color system more thoroughly than it was originally. The new system should specify: all values in HEX, RGB, CMYK, and PMS formats; the lightness and saturation ranges within which each color can be used; approved tints and shades; approved combinations; semantic roles (which color is primary, which is secondary, which is used for error and success states); and photographic color direction (grading preferences, surface colors, model tones). ColorArchive palette exports provide all digital values; completing the system requires adding print-specific specification through soft proofing with your print vendor.",
+      },
+    ],
+    links: [
+      { label: "Brand palette builder", href: "/brand/" },
+      { label: "Palette collections", href: "/collections/" },
+      { label: "Color format converter", href: "/convert/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "color-temperature-guide",
+    title: "Color Temperature in Design: Warm vs. Cool and When Each Wins",
+    summary:
+      "A practical guide to color temperature — how warm and cool hues affect perception, mood, and spatial relationships in UI and brand design.",
+    eyebrow: "Color Theory",
+    priority: 70,
+    searchIntent: "warm cool color temperature design palette",
+    featuredCollectionId: "citrus-grove",
+    featuredPackId: "complete-archive",
+    tags: ["Color Theory", "Color Psychology", "UI Design", "Brand Design"],
+    highlights: [
+      "Warm colors (reds, oranges, yellows) advance in the visual field — they appear closer than they are and create energy and urgency.",
+      "Cool colors (blues, teals, purples) recede — they appear further away and create calm, focus, and professionalism.",
+      "The most effective palettes use temperature contrast deliberately: a warm accent on a cool background creates maximum salience with minimum color complexity.",
+    ],
+    sections: [
+      {
+        heading: "What color temperature means",
+        body: "Color temperature describes the perceptual warmth or coolness of a color relative to others. Warm colors — reds, oranges, amber, warm yellows — are associated with fire, sunlight, and biological warmth signals. Cool colors — blues, teals, purples, cool greens — are associated with sky, water, and distance. The temperature axis is independent of lightness and saturation: a very pale blue is still cool, and a very dark orange is still warm. In design, temperature is one of the most reliable predictors of emotional response — warm palettes feel energetic and inviting; cool palettes feel calm and professional.",
+      },
+      {
+        heading: "Spatial effects of temperature",
+        body: "Warm colors advance in the visual field: elements in warm colors appear slightly closer than elements in cool colors at the same size. This has direct spatial design implications. Using a warm color for a CTA button on a cool background exploits this advance effect — the button literally pops toward the viewer in addition to its color contrast. Using warm colors for large background areas can make a layout feel slightly compressed or crowded, because the warm background advances toward the viewer. Conversely, cool backgrounds create a sense of spaciousness. Interior designers exploit this extensively; the principles transfer directly to digital layouts.",
+      },
+      {
+        heading: "Warm and cool in different contexts",
+        body: "Different industries have characteristic temperature preferences that reflect their emotional briefs. Finance and tech favor cool palettes because they communicate precision, scale, and calm under pressure. Food and hospitality favor warm palettes because they stimulate appetite and create welcoming feeling. Healthcare uses muted cool-to-neutral temperatures to communicate cleanliness without coldness. Creative and fashion industries have the most latitude — both extremes work depending on the positioning. Understanding your industry temperature conventions lets you decide whether to align with them for trust signals, or deviate from them for differentiation.",
+      },
+      {
+        heading: "Temperature contrast as a design tool",
+        body: "The most powerful use of temperature in design is temperature contrast: combining a warm accent with a cool background (or vice versa) to create maximum visual energy with minimum palette complexity. A single warm amber button on a cool blue-gray interface creates strong contrast through both lightness and temperature — two dimensions of contrast simultaneously. This is more effective than trying to add contrast through additional colors. The classic warm-on-cool combination (warm CTA on cool surface) is so reliable precisely because it exploits multiple contrast axes at once. When building your palette, explicitly consider which elements should be warm and which cool — treating temperature as a design decision rather than a side effect.",
+      },
+    ],
+    links: [
+      { label: "Color harmonies tool", href: "/harmonies/" },
+      { label: "Palette generator", href: "/palette-generator/" },
+      { label: "All collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "UI Design",
+    slug: "dark-mode-palette-guide",
+    title: "Building a Dark Mode Color Palette: Beyond Inverting Light Mode",
+    summary:
+      "A practitioner's guide to dark mode color design — the specific lightness, saturation, and elevation decisions that make dark mode interfaces feel polished rather than merely dark.",
+    eyebrow: "Dark Mode",
+    priority: 76,
+    searchIntent: "dark mode color palette design UI dark theme",
+    featuredCollectionId: "neon-after-dark",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Dark Mode", "UI Design", "Color Systems", "Design Systems"],
+    highlights: [
+      "Pure black (#000000) is almost never the right dark mode background — near-blacks in the 8-12% lightness range are more comfortable for extended use.",
+      "Dark mode saturation should be reduced 15-25% relative to light mode equivalents — fully saturated colors feel harsh and visually loud on dark backgrounds.",
+      "Elevation in dark mode is communicated through lightness steps, not shadow — each layer up adds 4-8% lightness to the background surface.",
+    ],
+    sections: [
+      {
+        heading: "The elevation model in dark mode",
+        body: "Light mode interfaces communicate elevation through shadows — a card that floats above the background casts a shadow. In dark mode, shadows are less legible because the contrast between a dark surface and a darker shadow is low. Material Design introduced the concept of elevation through lightness in dark mode: higher surfaces (cards, dialogs, menus) use slightly lighter backgrounds than lower surfaces (page background). A typical dark mode elevation scale might run from 8% lightness at the base, 12% for cards, 16% for hover states, and 20% for active/elevated states. This creates a coherent spatial hierarchy without requiring visible shadows.",
+      },
+      {
+        heading: "Background surface selection",
+        body: "The most common dark mode mistake is choosing pure black or near-pure-black as the base surface. Pure black creates maximum contrast with text and UI elements — which sounds desirable — but produces visual fatigue in extended reading sessions because the contrast is greater than the eye comfortably handles over time. OLED screens produce true black (pixels off), which can create a harsh 'floating elements' effect for content. The recommended range for dark mode base surfaces is 8-14% lightness, often with a slight warm or cool shift: slightly warm near-blacks feel cozy and editorial; slightly cool near-blacks feel technical and modern. The shift only needs to be 2-4 degrees of hue rotation from neutral to be perceptible.",
+      },
+      {
+        heading: "Saturation reduction in dark mode",
+        body: "Colors that appear vibrant and pleasant in light mode can look harsh, glowing, or sickly in dark mode contexts. The reason is that highly saturated colors seen against a dark background trigger the same visual mechanism as neon signs — they appear to emit light rather than reflect it. For most brand and UI colors, reducing saturation by 15-25% in dark mode produces a more comfortable result while preserving hue recognition. The specific reduction depends on the original saturation level: very saturated colors (70%+) benefit from larger reductions; muted colors (20-30%) may need little or no adjustment. Dark mode text should use light tones with slightly reduced saturation — pure white (#FFFFFF) is too harsh for body text on near-black; a very light gray or warm near-white at 92-95% lightness is more comfortable.",
+      },
+      {
+        heading: "Accent colors in dark mode",
+        body: "Accent colors — the brand color used for links, buttons, and interactive elements — behave differently in dark mode than light mode. A blue that looks appropriately confident on a white background may look electric and overwhelming on a dark surface. The adjustment is typically to increase the lightness of the accent slightly (shift from core value toward silk or bloom) and reduce saturation moderately. This maintains the hue identity while preventing the 'neon sign' effect. Simultaneously, ensure that lightened accent colors still pass contrast requirements against the dark background — WCAG 4.5:1 for normal text is harder to achieve with light accents on near-black than it seems. ColorArchive's contrast checker tests any combination.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Color contrast checker", href: "/contrast/" },
+      { label: "Tints and shades generator", href: "/tints/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "color-saturation-guide",
+    title: "Mastering Color Saturation: When to Be Bold and When to Pull Back",
+    summary:
+      "A practical guide to saturation decisions in design — understanding chroma, the saturation spectrum from muted to vivid, and how to use saturation strategically rather than accidentally.",
+    eyebrow: "Color Theory",
+    priority: 68,
+    searchIntent: "color saturation chroma design palette vivid muted",
+    featuredCollectionId: "vivid-spectrum",
+    featuredPackId: "complete-archive",
+    tags: ["Color Theory", "Color Psychology", "Design Principles"],
+    highlights: [
+      "Saturation is the most overused lever in amateur color work and the most underused in professional work — restraint in saturation almost always improves clarity.",
+      "The most impactful use of high saturation is as an accent against a low-saturation field — a single vivid element against a muted background outperforms five vivid elements competing for attention.",
+      "Each ColorArchive chroma band (Faint, Muted, Soft, Clear, Vivid, Pure) represents a different emotional register with different appropriate applications.",
+    ],
+    sections: [
+      {
+        heading: "What saturation actually is",
+        body: "Saturation — sometimes called chroma — describes how pure or colorful a hue is, independent of how light or dark it is. A fully saturated red has no gray mixed into it; a zero-saturation red is indistinguishable from gray. The saturation axis exists independently of the lightness axis, though they interact perceptually. ColorArchive organizes colors into six chroma bands: Faint (10% saturation), Muted (18%), Soft (34%), Clear (54%), Vivid (74%), and Pure (92%). Each band represents a qualitatively different color register — Faint and Muted are barely-there tints; Clear and Vivid are assertive; Pure is fully saturated primary color.",
+      },
+      {
+        heading: "The saturation spectrum in design",
+        body: "Each saturation level has characteristic appropriate uses. Faint and Muted work for backgrounds, tints, and surfaces — they add color without asserting it, useful for giving a neutral background a coherent temperature without distracting from foreground content. Soft works for secondary UI elements, supporting accents, and elements that should read as colored without being prominent. Clear and Vivid work for primary interactive elements, key data visualization colors, and brand accent applications — the range where color becomes assertive and attention-directing. Pure is the territory of primary-school primaries: red, yellow, blue at full intensity. Pure saturation is rarely appropriate in professional design because it reads as unsophisticated — the exception is contexts that deliberately reference primary-color playfulness (children's products, sports, celebration).",
+      },
+      {
+        heading: "Saturation contrast as a design tool",
+        body: "The most powerful saturation technique is saturation contrast: using a vivid or clear accent against a muted or faint field. A single vivid amber button on a palette of muted neutrals commands attention because it represents the largest saturation jump in the layout. This is more impactful than placing the same button on a background with several other saturated elements — where it must compete for attention. The principle: use saturation sparingly and deliberately, and the elements you saturate become instantly high-priority in visual hierarchy. Use saturation broadly and the hierarchy effect disappears entirely.",
+      },
+      {
+        heading: "Saturation fatigue and premium design",
+        body: "High saturation causes visual fatigue over time — extended exposure to vivid colors is tiring in a way that muted palettes are not. This is why high-saturation palettes are more appropriate for short-session contexts (landing pages, marketing, advertising) than for long-session contexts (productivity tools, reading interfaces, professional dashboards). Premium brand associations are almost exclusively tied to muted saturation: luxury fashion, high-end hospitality, and premium consumer goods overwhelmingly use Muted-to-Soft chroma ranges. The more saturated a palette, the more mass-market or energetic it reads. Understanding this relationship helps you select the right chroma level for your brand positioning from the start."
+      },
+    ],
+    links: [
+      { label: "Browse by saturation", href: "/all-colors/" },
+      { label: "Tints and shades", href: "/tints/" },
+      { label: "Color harmony tool", href: "/harmonies/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides21);
