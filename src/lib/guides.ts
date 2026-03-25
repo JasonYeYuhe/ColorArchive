@@ -7150,3 +7150,234 @@ const extraGuides23: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides23);
+
+
+const extraGuides24: LandingGuide[] = [
+  {
+    category: "AI Design",
+    slug: "ai-interface-color-guide",
+    title: "Color in AI Interfaces: Generative States, Streaming, and Uncertainty",
+    summary:
+      "How to design color systems for AI-native products — signaling generation-in-progress, communicating model confidence, and handling AI-specific error and refusal states.",
+    eyebrow: "UI Design",
+    priority: 77,
+    searchIntent: "AI interface color design generative state streaming LLM chat UI",
+    featuredCollectionId: "nocturne-tech",
+    featuredPackId: "complete-archive",
+    tags: ["AI", "UI Design", "Design Systems", "Color Systems"],
+    highlights: [
+      "A generative state is distinct from a loading state — color and motion for AI generation should feel active and open-ended, not passive and waiting.",
+      "Streaming text benefits from a reduced-opacity treatment as it arrives, transitioning to full opacity at completion — a visual signal that content is still forming.",
+      "AI refusals and system messages need a distinct visual container, not a standard red error treatment, to maintain conversational visual rhythm.",
+    ],
+    sections: [
+      {
+        heading: "The generative state problem",
+        body: "Traditional UI color handles two states: active (doing something) and passive (waiting). AI interfaces introduce a third state: generative — an in-progress computation with an unknown, streamed output. The gray spinner used for loading (a known outcome arriving) is not the right treatment for generation (an unknown outcome emerging). AI-native products benefit from a dedicated visual language for generation-in-progress: a pulsing accent color, a streaming gradient, or a visible in-progress cursor that signals active computation rather than passive waiting.",
+      },
+      {
+        heading: "Streaming text color treatment",
+        body: "When LLM output streams character by character into the interface, the in-progress text needs visual distinction from completed text. A common and effective pattern: render streamed text at a slightly reduced opacity (75-85%) as it arrives, transitioning to full opacity as generation completes or reaches a completion boundary. This creates a natural fade-in quality — the interface visually communicates that content is still forming. The active cursor or generation point can use a subtle accent color pulse to track the streaming head without demanding foreground attention.",
+      },
+      {
+        heading: "Confidence without numbers",
+        body: "Some AI features benefit from communicating model confidence: tag suggestions, autocomplete alternatives, content classifications. Color is one encoding channel for confidence gradients — a high-confidence suggestion in full color versus a lower-confidence alternative in muted gray uses value and saturation as probability proxies. Use this pattern for subliminal prioritization, not for cases where users need explicit probability values. If a decision is high-stakes (a medical diagnosis, a financial recommendation), surface numerical confidence alongside any color encoding rather than relying on color alone.",
+      },
+      {
+        heading: "AI error and refusal states",
+        body: "AI models produce refusals, content policy blocks, and tool failures alongside normal output — these need color distinction from both successful output and standard form validation errors. A standard red inline error treatment is inappropriate for a model refusal that appears within a conversation stream. Most AI products use a visually contained block — a distinct background color (muted amber or neutral gray), a subtle left border accent, or a contained system-message treatment — to set off model-generated system messages from user/AI turn content while preserving the conversational visual rhythm.",
+      },
+      {
+        heading: "Dark mode first for AI products",
+        body: "AI products are statistically more likely to be used in dark mode and disproportionately default to dark-first visual design. The terminal aesthetic, technical-professional positioning, and visual weight of large text blocks all favor dark backgrounds. If building an AI product, design the dark mode color system as the primary context and derive the light mode as the secondary variant — not the reverse. Test all generative state colors, streaming treatments, and confidence encodings in dark mode first.",
+      },
+    ],
+    links: [
+      { label: "Dark mode color guide", href: "/guides/dark-mode-palette-guide/" },
+      { label: "UI color systems guide", href: "/guides/ui-color-system-guide/" },
+      { label: "Nocturne Tech collection", href: "/collections/nocturne-tech/" },
+    ],
+  },
+  {
+    category: "Brand Design",
+    slug: "print-to-digital-color-guide",
+    title: "Print to Digital: Managing Brand Color Fidelity Across Mediums",
+    summary:
+      "A practical guide to translating brand color from Pantone and CMYK to screen-accurate hex values — covering color profiles, gamut limits, paper-to-screen differences, and signage.",
+    eyebrow: "Brand Color",
+    priority: 76,
+    searchIntent: "Pantone to hex print to digital color translation CMYK RGB brand color",
+    featuredCollectionId: "editorial-warmth",
+    featuredPackId: "complete-archive",
+    tags: ["Print Design", "Color Management", "Brand Color", "CMYK"],
+    highlights: [
+      "Pantone sRGB hex values are official calibrated approximations — use them as the correct starting point rather than trying to visually match a printed swatch on screen.",
+      "P3-gamut hex values specified in wide-gamut color spaces require design tools set to Display P3 — otherwise they silently compress to sRGB.",
+      "Accept that digital brand color will appear cooler and more contrasty than the printed piece — avoid compensating with warm-white backgrounds.",
+    ],
+    sections: [
+      {
+        heading: "Pantone to hex translation",
+        body: "Pantone provides official sRGB hex equivalents for every Pantone solid color. Start here — do not visually match a printed swatch on screen, as ambient lighting, monitor calibration, and substrate all affect perceived color. The Pantone sRGB values are the correct starting point and represent a calibrated closest-match under D50 illuminant. Accept that some vivid Pantones (many saturated reds, oranges, and blues) will appear less vivid in their sRGB form — this is a gamut limitation, not a translation error. Do not compensate by pushing the digital value beyond the Pantone specification.",
+      },
+      {
+        heading: "Color profiles and wide gamut",
+        body: "Most design tools default to sRGB. If your brand has specified a Display P3 hex value (which can represent colors outside sRGB), verify that your design tool is set to the correct color space — otherwise the wide-gamut value will be silently compressed into sRGB and you will not see the rendering difference until you test on a P3 display. Figma, Sketch, and Adobe tools handle wide-gamut color differently. Confirm your tool's behavior before specifying P3 brand colors. When sharing specs with developers, explicitly note whether hex values are sRGB or P3.",
+      },
+      {
+        heading: "Paper white versus screen white",
+        body: "Uncoated paper under warm office lighting is not #FFFFFF — it is a warm, slightly textured off-white. Coated paper is closer to screen white but still warmer than an emitting RGB display. When translating a print design to digital, resist matching the visual appearance of the printed piece by adding warm-white or cream backgrounds. Accept that the digital version will appear cooler and more contrasty — this is expected and correct. A cream background that recreates print warmth on screen is unusual to digital users and typically reads as dated.",
+      },
+      {
+        heading: "Environmental and signage color",
+        body: "Outdoor and large-format printing is a third environment distinct from print and screen. Ink on vinyl, paint on wall, or illuminated channel letters all shift hue from the source specification. Test environmental color applications separately. Document environment-specific color values — the Pantone for an outdoor vinyl banner may need to be a different value than the Pantone for a brochure to achieve the same perceived result. Illuminate all environmental color mockups under the expected lighting conditions; daylight versus indoor fluorescent versus dusk dramatically affects perceived color on non-emitting surfaces.",
+      },
+      {
+        heading: "Building a cross-medium brand color spec",
+        body: "A well-maintained brand color specification lists every medium separately: Pantone Coated (print), Pantone Uncoated (uncoated paper), CMYK (offset printing), RGB/hex (screen), HEX-P3 (wide gamut screen), RAL or NCS (paint and environmental). Each medium has its own translation, and each is the correct value for its context — not an approximation of a master value. Maintain this multi-medium spec in the brand guidelines and update it whenever a new medium is added. The absence of a medium-specific value is an invitation for inconsistent ad-hoc translation.",
+      },
+    ],
+    links: [
+      { label: "Color systems guide", href: "/guides/color-systems-guide/" },
+      { label: "Color harmony guide", href: "/guides/color-harmony-guide/" },
+      { label: "Editorial Warmth collection", href: "/collections/editorial-warmth/" },
+    ],
+  },
+  {
+    category: "UI Design",
+    slug: "financial-ui-color-guide",
+    title: "Color in Financial UI: Trust, Data Visualization, and the Red/Green Convention",
+    summary:
+      "Financial interfaces carry entrenched color conventions — red/green profit/loss, trust-signaling navy, accessible data charts. How to work with these conventions, extend them, and handle their accessibility failures.",
+    eyebrow: "Finance UI",
+    priority: 75,
+    searchIntent: "financial UI color design red green profit loss accessibility data viz",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "complete-archive",
+    tags: ["Finance UI", "Data Visualization", "Accessibility", "Color Blindness"],
+    highlights: [
+      "Red-green color blindness affects ~8% of males — profit/loss must always be encoded through a second channel (arrow, sign, parentheses) alongside color.",
+      "Financial trust palettes lean cool-neutral (navy, dark blue, slate) — if your brand uses warm color, maintain a separate cooler data-color subsystem.",
+      "Categorical chart color must simultaneously be distinguishable, avoid profit/loss red-green associations, and maintain contrast across light and dark backgrounds.",
+    ],
+    sections: [
+      {
+        heading: "The red/green convention and its accessibility failure",
+        body: "The red/green profit/loss convention is deeply entrenched in financial UI — violating it creates confusion and erodes user trust. But red-green color blindness (deuteranopia) affects approximately 8% of males with typical XY chromosomes. A user who cannot distinguish red from green cannot distinguish profit from loss using color alone. Financial products must encode profit/loss through at least one additional channel beyond color: up/down arrow icons, value sign (+/-), parentheses for negatives, or explicit text labels. Color-only encoding of financial state is an accessibility failure regardless of regulatory requirements.",
+      },
+      {
+        heading: "Trust color versus brand color",
+        body: "Financial products need color that communicates trust and institutional stability — a different requirement from brand expressiveness or memorability. Trust palettes in financial UI tend toward cool-neutral: navy, dark blue, charcoal, and slate. These hues read as conservative, competent, and stable in Western financial contexts. If your brand uses a warm color system (amber, terracotta, coral) for marketing, consider maintaining a separate data color system for financial interfaces that pulls from the cooler end of your palette or adds a trustworthy neutral to the brand system.",
+      },
+      {
+        heading: "Categorical color in financial charts",
+        body: "Multi-series financial charts (multiple stocks on a line chart, multiple categories in a portfolio allocation pie) require categorical color systems: each series must be visually distinguishable from every other series. Build this system with four constraints: (1) distinguishable by common color vision types, (2) contrast against both light and dark backgrounds, (3) no red or green values that could be misread as profit/loss signals for non-profit/loss data, and (4) consistent saturation and lightness so no category appears more 'important' than others by accident. Off-the-shelf color scales rarely meet all four constraints — treat the chart color system as a first-class design artifact.",
+      },
+      {
+        heading: "Progressive disclosure color",
+        body: "Financial data is often hierarchical: top-line summary visible first, detailed breakdown visible on drill-down. Color can support this hierarchy by using different levels of saturation or weight for different data depths. Top-line values (portfolio total, daily P&L) warrant full-color, high-contrast treatment. Detail rows (individual line items, percentage breakdowns) can use more subdued color — lower saturation, smaller type, more neutral ink. This progressive color weight helps users navigate data hierarchy intuitively: the most important numbers are visually heaviest.",
+      },
+      {
+        heading: "Urgency and alert color in financial context",
+        body: "Financial UIs need alert color for margin calls, balance alerts, failed transactions, and security events. Because red is already used for loss, financial alert systems need to work around this existing semantic. Many financial products use amber (not red) for warnings that require attention but are not immediate loss events, reserving red for confirmed loss values. Bright red used for both 'stock declined' and 'account compromised' creates a problematic equivalence. Consider giving security-critical alerts a distinct visual treatment (outline, badge, strong border) in addition to color, so urgency hierarchy is apparent even to users who process color-only alerts habitually.",
+      },
+    ],
+    links: [
+      { label: "WCAG Audit Tool", href: "/wcag-audit/" },
+      { label: "Color accessibility guide", href: "/guides/accessible-color-guide/" },
+      { label: "Quiet Luxury collection", href: "/collections/quiet-luxury/" },
+    ],
+  },
+  {
+    category: "UI Design",
+    slug: "video-streaming-ui-color-guide",
+    title: "Color in Video Streaming Interfaces: Dark-First, Thumbnails, and Hierarchy",
+    summary:
+      "Video streaming UIs — Netflix, Disney+, Apple TV+ — share a distinct color design approach. Dark-first layout, thumbnail-dominant content, restrained brand color use, and text legibility over imagery.",
+    eyebrow: "Product Design",
+    priority: 74,
+    searchIntent: "video streaming UI color dark mode thumbnail hierarchy netflix design",
+    featuredCollectionId: "midnight-form",
+    featuredPackId: "complete-archive",
+    tags: ["UI Design", "Dark Mode", "Visual Hierarchy", "Product Design"],
+    highlights: [
+      "Streaming UIs are dark-first because dark backgrounds reduce luminance contrast with video content and reduce viewer eye fatigue in dimly lit environments.",
+      "Brand color in streaming UI is used with high restraint — progress bars, active selection, primary CTA — so it retains clear signal value against content-dominant layouts.",
+      "Text legibility over hero imagery requires a scrim (gradient overlay) defined as design tokens, not one-offs — the same layout must work over dark oceans and bright snow.",
+    ],
+    sections: [
+      {
+        heading: "Why streaming UIs are dark-first",
+        body: "Video streaming interfaces are almost universally dark-mode-first or dark-mode-only. The rationale is practical: viewing video content on a bright-white interface creates uncomfortable luminance contrast between content and surrounding UI, accelerates eye fatigue in low-light environments, and aesthetically positions the product as entertainment rather than productivity. The dark background recedes visually, allowing content imagery to dominate. For entertainment, media, immersive experience, or ambient products, dark-mode-first is the correct default — design for dark, then derive light mode as the secondary context.",
+      },
+      {
+        heading: "Managing thumbnail color chaos",
+        body: "The central content of a streaming UI is cinematically color-graded imagery that does not share your brand palette — a single content row may span nearly every hue. Streaming UIs solve this visual chaos through spatial containment: fixed grids, consistent cell sizes, uniform card borders, and consistent text treatment (typically white title text at consistent typographic sizes). UI accent color (brand color) is used with restraint and appears only in selection states, active indicators, and progress bars — never in bulk or competing with content color at scale. When designing any content-heavy UI that will display varied user imagery, study this containment approach.",
+      },
+      {
+        heading: "Restrained use of brand color",
+        body: "In streaming UIs, the interactive/brand color (Netflix red, Disney blue, Apple white-blue) appears in small, precise locations: the active selection indicator, the play button, the progress bar, the primary CTA. This restraint gives brand color its signal value — when the Netflix red progress bar appears, it reads immediately as interactive and primary. Overusing brand color in a content-dominant UI dilutes this signal, causing the brand color to compete with content rather than organize the interface. Treat streaming-context brand color as a rare signal, not a decorative element.",
+      },
+      {
+        heading: "Text legibility over imagery",
+        body: "Streaming UIs regularly render title text over hero imagery with a wide dynamic range. Legibility over arbitrary imagery requires a scrim: a semi-transparent gradient overlay on the image that darkens the image enough for white text to read at WCAG AA contrast (4.5:1 for small text, 3:1 for large). Define scrim opacity and gradient stop positions as design tokens — a gradient from rgba(0,0,0,0.7) at the text baseline fading to transparent over 200px is a reasonable starting point. Never rely on the underlying image being dark — the same layout must accommodate a bright snowy scene and a dark ocean shot.",
+      },
+      {
+        heading: "Progress, state, and density color",
+        body: "Streaming content libraries are dense: many titles, multiple content rows, nested categories. State color (watched, in-progress, new, unavailable) must be subtle enough not to clutter the grid while communicating status at a glance. Progress bars on thumbnails use a thin horizontal line in brand color — this is near-universally understood in the streaming context. 'New' badges use a secondary accent, typically a brighter or lighter value of the brand color or a complementary accent. 'Unavailable' content is indicated by overlay opacity reduction — the thumbnail dims — rather than a separate color treatment.",
+      },
+    ],
+    links: [
+      { label: "Dark mode color guide", href: "/guides/dark-mode-palette-guide/" },
+      { label: "UI color systems guide", href: "/guides/ui-color-system-guide/" },
+      { label: "Midnight Form collection", href: "/collections/midnight-form/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "ambient-display-color-guide",
+    title: "Color for Ambient Displays: Smart TVs, Digital Art Frames, and Always-On Screens",
+    summary:
+      "Designing color for screens in passive contexts — digital art frames, smart TV screensavers, waiting room displays — where peripheral viewing, extended presence, and environmental harmony replace active interaction.",
+    eyebrow: "Environmental Design",
+    priority: 73,
+    searchIntent: "ambient display color design smart TV digital frame always-on screen",
+    featuredCollectionId: "sand-dune",
+    featuredPackId: "complete-archive",
+    tags: ["Color Theory", "Environmental Design", "UI Design"],
+    highlights: [
+      "Ambient displays should target lower average luminance (25-40% APL) than interactive UI — brightness appropriate for focused use is fatiguing over extended passive presence.",
+      "Peripheral vision is highly sensitive to motion; ambient animation must be nearly imperceptible — seconds-long pans, minute-long evolutions, not second-scale transitions.",
+      "A time-of-day color temperature shift (cool-neutral daytime to warm-amber evening) meaningfully improves ambient display quality over extended hours.",
+    ],
+    sections: [
+      {
+        heading: "Ambient vs interactive display contexts",
+        body: "Ambient displays are screens in passive states: a smart TV between uses, a digital art frame on a wall, a hallway information screen. They are not being actively used — they are visible in peripheral vision or glanced at intermittently. Color design for ambient contexts follows different principles than interactive UI: lower overall luminance, slower motion or none, warmer midtones, and palettes that harmonize with physical environments rather than demand visual attention. The goal is presence without intrusion.",
+      },
+      {
+        heading: "Luminance management for extended viewing",
+        body: "A very bright white background appropriate for a productivity app is uncomfortable on a 65-inch TV in a living room, visible for hours. Ambient display color should be designed for lower luminance than interactive UI. Most smart TV ambient modes (Apple TV screensavers, Samsung The Frame, Chromecast Backdrop) default to moderate-luminance, moderate-saturation imagery for extended presence. For custom ambient display content, target an average picture level (APL) below 50% — closer to 25-40% for comfortable extended presence in normally lit rooms.",
+      },
+      {
+        heading: "Environmental color harmony",
+        body: "A digital frame on a wall competes with the physical environment it inhabits: room paint color, furniture, natural light, and the physical frame material. Digital art content designed for ambient use often defaults to warm, earthy, and naturalistic palettes because these statistically harmonize with residential interiors more often than high-saturation or cool-dominant palettes. If designing ambient content for a known physical environment, sample the room's dominant colors and build a palette that complements rather than contrasts with the space. A piece that clashes with its room will feel wrong even if the color design is excellent in isolation.",
+      },
+      {
+        heading: "Peripheral vision and motion",
+        body: "The peripheral visual system is disproportionately sensitive to motion — rapid transitions or high-contrast animation in peripheral vision are physiologically disruptive, triggering the attention-orienting reflex even when the viewer is trying to focus elsewhere. Ambient display animation should be slow and subtle: a very slow pan, a gradual color temperature shift, a textural evolution over minutes rather than seconds. The threshold for motion that is noticeable-but-not-distracting in direct view is much lower for peripheral view — test ambient animation while focusing on something else in the room.",
+      },
+      {
+        heading: "Time-of-day color temperature",
+        body: "Some ambient displays benefit from dynamic color temperature adjustment based on time of day — warmer (lower Kelvin, more amber) toward evening, cooler and brighter during active daytime hours. This follows the circadian rhythm design principles behind iOS Night Shift and similar features. For displays that will be on across many hours, a gradual color temperature shift from cool-neutral daytime to warm-amber evening meaningfully improves the quality of ambient presence, making the display feel natural rather than disruptive as lighting conditions and user activity change throughout the day.",
+      },
+    ],
+    links: [
+      { label: "Color in interior design guide", href: "/guides/color-interior-design-guide/" },
+      { label: "Color and light guide", href: "/guides/color-and-light-guide/" },
+      { label: "Sand Dune collection", href: "/collections/sand-dune/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides24);

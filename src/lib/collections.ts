@@ -1967,3 +1967,136 @@ const extraCollections22: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections22);
+
+const extraCollections23: ColorCollection[] = [
+  createCollection(
+    "solar-terracotta",
+    "Solar Terracotta",
+    "Sun-warmed terracotta and amber tones — a palette that captures the heat and depth of fired clay, sun-bleached stone, and desert warmth. For brands rooted in natural materials, craft, and artisan production.",
+    "Solar terracotta is built on the color register of a Mediterranean sun at midday filtered through fired clay and warm stone. Apricot-whisper-soft opens as the barely-warm base — a clean light peach that reads as warm air rather than color. Coral-bloom-soft deepens toward the first visible terracotta pink-orange, the color of unglazed ceramic in diffuse light. Amber-silk-soft moves into the medium warm amber register — rich and sun-saturated without approaching orange. Amber-velvet-muted provides structure as a darkened, burnished amber-tone for secondary text and boundary elements. Ember-shadow-muted closes as the depth anchor — a dark fired-earth tone that completes the palette's warmth range from bleached pale to kiln-dark.",
+    ["Warm", "Earthy", "Craft"],
+    [
+      "apricot-whisper-soft",
+      "coral-bloom-soft",
+      "amber-silk-soft",
+      "amber-velvet-muted",
+      "ember-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Solar terracotta is the palette for makers, craft brands, and products that reference natural materials and artisan process. It suits ceramics, handmade goods, natural skincare, heritage food and beverage, and travel brands focused on warm-climate destinations. Photography direction: fired clay, sun-bleached linen, natural terracotta pots, warm stone surfaces in afternoon light, craft workshop imagery with natural textures. Typography: a humanist or old-style serif communicates warmth and craft heritage; contemporary grotesques work in a clean-craft hybrid context.",
+      promptWords: [
+        "artisan ceramics brand in terracotta and warm amber palette",
+        "natural skincare brand in sun-warmed earthy tones",
+        "heritage food brand in craft terracotta palette",
+        "warm-climate travel brand in terracotta and amber",
+        "handmade goods brand in fired-clay and warm stone tones",
+      ],
+      useCases: [
+        "Ceramics, pottery, and artisan craft brands",
+        "Natural and organic skincare and beauty",
+        "Heritage food, olive oil, and Mediterranean grocery brands",
+        "Warm-climate hospitality and travel",
+        "Handmade goods marketplaces and artisan platforms",
+      ],
+    },
+  ),
+  createCollection(
+    "deep-ocean",
+    "Deep Ocean",
+    "From pale horizon cerulean to abyssal cobalt navy — a full-depth ocean palette anchored in the blues of open water, coastal mist, and deep-sea dark. For maritime, oceanic, and premium technical brands.",
+    "Deep ocean moves through the full chromatic depth of open water, from the pale blue of a hazy coastal horizon to the near-black of an oceanic trench. Cerulean-whisper-muted opens as the pale coastal tone — barely blue, like early morning sea mist. Cerulean-mist-soft extends into the visible light-blue of shallow coastal water in clear conditions. Azure-silk-soft enters mid-palette as the classic open-ocean midpoint — clear, confident blue with the luminosity of deep water in full sun. Cobalt-dusk-clear deepens toward the darker, richer blue of the open Atlantic or Pacific at depth. Cobalt-shadow-muted anchors at near-black navy — the color of deep water at night or from maximum depth, the ultimate dark end of the ocean palette.",
+    ["Cool", "Depth", "Maritime"],
+    [
+      "cerulean-whisper-muted",
+      "cerulean-mist-soft",
+      "azure-silk-soft",
+      "cobalt-dusk-clear",
+      "cobalt-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Deep ocean is a natural fit for maritime brands, sailing and water sports, ocean conservation, premium water products, and technical brands in navy-blue territory. It also works for financial, insurance, and professional services seeking a trustworthy blue that does not read as standard corporate. Photography direction: open water at various depths and times of day, coastal mist, underwater photography with light refracting through water, traditional marine navigation instruments. Typography: a clean, geometric or neo-grotesque sans communicates technical precision at sea; a transitional serif can add maritime heritage.",
+      promptWords: [
+        "sailing and maritime brand in deep ocean navy palette",
+        "premium water and hydration brand in oceanic blues",
+        "ocean conservation platform in coastal to deep-sea tones",
+        "technical outdoor apparel brand in navy and cerulean",
+        "professional services firm in deep trustworthy navy",
+      ],
+      useCases: [
+        "Sailing, maritime, and water sports brands",
+        "Premium water, hydration, and beverage brands",
+        "Ocean conservation and environmental NGOs",
+        "Technical outdoor and performance apparel",
+        "Financial, legal, and professional services",
+      ],
+    },
+  ),
+  createCollection(
+    "pearl-cloud",
+    "Pearl Cloud",
+    "Soft cloud-white through silvery pearl to cool stone gray — a palette of refined neutrals with just enough blue-violet presence to read as sophisticated rather than sterile. For premium technology, luxury retail, and editorial design.",
+    "Pearl cloud is an achromatic palette with a breath of cool hue — the faintest violet-blue tint that prevents the whites from reading as blank and lifts the grays from corporate beige. Azure-veil-faint opens as the barely-blue white — a white with the subtlest sky reflection, appropriate as the dominant background. Iris-whisper-soft introduces the pearl tone proper — a soft, pearl-white with a gentle violet presence. Cerulean-pearl-muted deepens toward a recognizable cool pearl gray, the color of brushed aluminum or high-grade paper stock. Azure-tone-muted provides structural weight as a cool blue-gray for secondary text, dividers, and contained elements. Sapphire-shadow-soft anchors the palette as a dark cool-blue gray — deep enough for primary text while maintaining the cool refined register of the palette throughout.",
+    ["Neutral", "Refined", "Cool"],
+    [
+      "azure-veil-faint",
+      "iris-whisper-soft",
+      "cerulean-pearl-muted",
+      "azure-tone-muted",
+      "sapphire-shadow-soft",
+    ],
+    {
+      editorialNote:
+        "Pearl cloud is designed for premium tech products, luxury retail, high-end editorial, and any brand that wants the sophistication of a neutral palette without the warmth of off-white or the coldness of pure gray. It occupies the nuanced space of a high-spec material surface — anodized aluminum, frosted glass, high-grade matte coated paper. Photography direction: product photography on pearl and stone surfaces, brushed metal textures, frosted glass, clean architectural photography in overcast or soft-diffuse light. Typography: a geometric or rational sans (Helvetica Neue, Aktiv Grotesk, Inter) in this palette reads as premium tech; a refined transitional serif reads as luxury retail.",
+      promptWords: [
+        "premium technology brand in pearl and cool gray palette",
+        "luxury retail in refined cool-neutral tones",
+        "high-end editorial design in pearl cloud palette",
+        "architecture or real estate brand in sophisticated pearl gray",
+        "professional services in refined neutral blue-gray",
+      ],
+      useCases: [
+        "Premium consumer technology and hardware brands",
+        "Luxury retail and e-commerce",
+        "High-end editorial and publishing",
+        "Architecture, real estate, and interior design",
+        "Professional consulting and advisory firms",
+      ],
+    },
+  ),
+  createCollection(
+    "golden-harvest",
+    "Golden Harvest",
+    "Warm ochre, honey, and burnished gold tones — the palette of late-summer harvest light, dried grasses, golden-hour fields, and aged beeswax. For food, agriculture, nature, and warm premium lifestyle brands.",
+    "Golden harvest is assembled from the chromatic range of late-summer agricultural abundance: bleached wheat, dried grass, liquid honey, aged beeswax, and the warmest moment of golden-hour light before it tips into orange. Citrine-whisper-soft opens as the palest harvest tone — warm off-white with a gentle yellow presence, the color of bleached linen left in summer sun. Honey-whisper-soft deepens to the first perceptible honey tone — delicate, warm, and naturally lit. Citrine-silk-soft moves into the vibrant midrange of golden wheat — warm, luminous, and richly saturated without tipping toward amber. Honey-velvet-muted provides warm depth as a burnished honey-gold — the color of aged beeswax or pressed olive oil. Amber-shadow-muted anchors as the depth value — a dark warm amber-gold that completes the palette from pale harvest to rich dark warmth.",
+    ["Warm", "Harvest", "Natural"],
+    [
+      "citrine-whisper-soft",
+      "honey-whisper-soft",
+      "citrine-silk-soft",
+      "honey-velvet-muted",
+      "amber-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Golden harvest suits food and agriculture brands, natural honey and bee-product companies, sustainable farming, artisan food production, and premium lifestyle brands in the warm-organic space. It also works for financial products wanting warmth over traditional navy-blue trustworthiness, and wellness brands that want warmth without terracotta. Photography direction: golden-hour agricultural fields, liquid honey and beeswax, dried wheat and grasses, warm stone with afternoon light, artisan food preparation with natural lighting. Typography: a humanist serif or a well-considered display typeface in this palette reads as premium natural; geometric sans at lighter weights communicates contemporary clean.",
+      promptWords: [
+        "artisan honey and bee product brand in golden harvest palette",
+        "sustainable farm-to-table food brand in warm ochre and honey",
+        "premium grain and natural food brand in harvest gold tones",
+        "organic lifestyle brand in golden-hour warmth palette",
+        "premium agricultural brand in sun-dried wheat and amber",
+      ],
+      useCases: [
+        "Honey, beeswax, and apiary products",
+        "Sustainable agriculture and farm-to-table brands",
+        "Premium artisan food and grocery",
+        "Organic wellness and natural lifestyle brands",
+        "Warm-premium financial and advisory brands",
+      ],
+    },
+  ),
+];
+
+collections.push(...extraCollections23);
