@@ -8,7 +8,7 @@
 - [ ] **Activate Lemon Squeezy store** — Store needs KYB verification completion before payments go live. Check LS dashboard for verification status.
 - [ ] **Set Pro subscription checkout URLs** — Pro subscription config in `src/lib/checkout-config.ts` needs the real LS monthly/yearly checkout URLs once store is active.
 - [ ] **Test purchase flow end-to-end** — After LS activation, test buying a pack and verify webhook fires, order is recorded, and download link is delivered.
-- [ ] **Review /use-cases/ page** — New "By Industry" feature launched this run. QA the page on mobile and desktop, check collection links resolve correctly.
+- [ ] **Review /use-cases/ page** — "By Industry" feature launched last big run. QA the page on mobile and desktop, check collection links resolve correctly.
 
 ## Medium Priority
 

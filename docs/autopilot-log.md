@@ -1798,3 +1798,39 @@ Each use case has: color family recommendations, families to avoid, 4 key princi
 - src/lib/use-cases.ts (new)
 
 **Commit:** 0e48595
+
+---
+
+## 2026-03-26 — Normal Run
+
+**Run type:** Normal
+**Commit:** 6d8d96e
+**Typecheck:** ✓ clean
+
+### Category A — 5 New Newsletter Issues (now 189 total)
+
+- **jul-2029-color-environmental-wayfinding**: Wayfinding and environmental color — scale effects, zone isolation, metamerism, material finish
+- **aug-2029-typography-color-interface**: Typography-color interface — weight and apparent value, color as hierarchy signal, font rendering, line length fatigue
+- **aug-2029-ecommerce-conversion-color**: E-commerce conversion color — CTA contrast vs hue, trust palette, urgency/scarcity signals, photography alignment
+- **aug-2029-semantic-token-naming**: Semantic color tokens — primitive/semantic/component layers, naming rules, dark mode as correctness test
+- **aug-2029-gradient-design-principles**: Gradients in UI — what gradients communicate, muddy middle / OKLCH interpolation, functional patterns, gradient tokens
+
+### Category A — 5 New SEO Guides (now 129 total, extraGuides22)
+
+- **ecommerce-color-guide**: E-commerce color strategy — CTA contrast, trust palette selection, urgency signals, photography alignment
+- **wayfinding-color-design**: Environmental wayfinding color — scale effects, zone isolation, metamerism, material/finish constraints
+- **color-token-naming-guide**: Semantic token naming — primitive/semantic/component hierarchy, naming mistakes, dark mode test
+- **gradient-design-guide**: Gradient design — temporal contrast, OKLCH muddy-middle fix, functional gradient patterns, gradient tokens
+- **color-and-motion-guide**: Color and motion — temporal contrast, easing and color, loading state color, reduced motion equivalents
+
+### Category D — 4 New Collections (now 82 total, extraCollections22)
+
+- **sand-dune**: Warm apricot/honey dune tones — Mediterranean hospitality, organic lifestyle, wellness retreats
+- **nordic-morning**: Ice-pale blues and cool gray — Scandinavian-aesthetic brands, productivity tools, healthcare tech
+- **ember-hearth**: Firelit amber/ruby embers — home goods, candle brands, cozy hospitality
+- **mint-laboratory**: Clean mint/seafoam on clinical white — health tech, clean beauty, science-backed wellness
+
+### Files modified (3)
+- src/data/newsletter-issues.json
+- src/lib/guides.ts
+- src/lib/collections.ts
