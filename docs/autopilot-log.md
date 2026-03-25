@@ -1985,3 +1985,40 @@ A complete new tool accessible at `/name/` that analyzes any hex color and gener
 - `src/data/newsletter-issues.json` — 5 new issues (200-204)
 - `src/lib/guides.ts` — extraGuides25 (5 guides, 144 total)
 - `src/lib/collections.ts` — extraCollections24 (4 collections, 90 total)
+
+
+---
+
+## 2026-03-26 — Normal Run
+
+**Run type:** Normal (1st run since last big run)
+**Commit:** 12a04a5
+**Typecheck:** ✓ clean
+
+### Category A — 5 New Newsletter Issues (now 209 total)
+
+- **jan-2030-gradient-design**: Chromatic vs tonal gradients, mesh gradient chromatic range, CSS color-interpolation-method in OKLab/OKLCH
+- **jan-2030-mobile-color-dark**: OLED black artifacts (#000000 halo problem), Display P3 gamut cross-device variance, semantic token two-layer architecture for OS dark mode
+- **jan-2030-color-in-saas**: B2B trust-first color architecture, tier color using material metaphors over status colors, pricing page CTA contrast hierarchy
+- **jan-2030-typography-color-harmony**: Heavy type + saturated color collision, cross-modal pairing logic, typeface classification and color temperature alignment
+- **jan-2030-color-accessibility-beyond-contrast**: Color blindness secondary signals, motion and vestibular accessibility, focus state color and WCAG 2.2
+
+### Category A — 5 New Guides (now 149 total, extraGuides26)
+
+- **gradient-color-guide**: Chromatic vs tonal progressions, mesh gradient design, CSS implementation details
+- **mobile-dark-mode-color-guide**: OLED, Display P3, semantic token dark mode architecture
+- **saas-color-strategy-guide**: B2B trust colors, tier systems, pricing page color hierarchy
+- **typography-color-pairing-guide**: Weight/saturation pairing, colored type contrast, typeface emotional register
+- **color-accessibility-beyond-contrast-guide**: Color blindness patterns, motion accessibility, focus state compliance
+
+### Category D — 4 New Collections (now 94 total, extraCollections25)
+
+- **midnight-forge**: Deep charcoal-navy-steel — developer tools, industrial tech, precision manufacturing
+- **spring-herb**: Fresh sage-chartreuse-mint — wellness, clean food, natural personal care
+- **burnt-clay**: Terra cotta-adobe-rust — ceramic studios, artisan kitchen goods, interior design
+- **arctic-white**: Ice-silver-cold-gray — premium tech, Scandinavian design, ultra-minimal products
+
+### Files modified (3)
+- src/data/newsletter-issues.json — 5 new issues (205-209)
+- src/lib/guides.ts — extraGuides26 (5 guides, 149 total)
+- src/lib/collections.ts — extraCollections25 (4 collections, 94 total)
