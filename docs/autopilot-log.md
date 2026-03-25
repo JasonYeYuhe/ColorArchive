@@ -1630,3 +1630,51 @@ Built end-to-end new page at /combinations/ with 30+ curated color combinations:
 - STRUCTURE.md (updated counts)
 
 **Commit:** ce9198d
+
+## 2026-03-26 — Normal Run: Newsletter 167-171 + 3 Guides + 2 Collections + Search Aliases (commit 2d4a941)
+
+### Category A — 5 Newsletter Issues (now 171 total)
+
+- **mar-2029-color-and-typography**: Color and typography readability relationship — optical weight, warm-on-warm conflicts, color-coding hierarchy
+- **mar-2029-color-in-product-photography**: Building a photography house style — shadow color as brand signal, LAB-specified backgrounds, LUT encoding
+- **mar-2029-seasonal-color-planning**: 12-month brand color calendar — core + seasonal accent model, industry differences, planning methodology
+- **mar-2029-dark-mode-color-strategy**: Beyond inverting light themes — OLED-specific considerations, elevation system, saturation reduction
+- **apr-2029-color-for-conversion**: What A/B tests reveal about CTA colors — contrast vs. color, expectation/context, secondary CTA hierarchy
+
+### Category A — 3 New SEO Guides (now 116 total, extraGuides19)
+
+- **color-contrast-accessibility-guide**: WCAG 2.1, APCA model, non-text contrast, building accessible palettes — targets accessibility SEO
+- **color-token-naming-guide**: Primitive/semantic/component three-layer system, naming patterns, avoiding token sprawl — targets design systems SEO
+- **logo-color-guide**: Reproduction test, CMYK gamut, Pantone spot colors, logo color longevity — targets brand identity SEO
+
+### Category D — 2 New Collections (now 70 total, extraCollections19)
+
+- **ink-and-gold**: Deep indigo-ink base + warm amber accents — luxury editorial palette for fintech, publishing, premium dark interfaces
+- **moss-linen**: Pale olive-linen whites + soft moss greens — organic naturalist palette for wellness, sustainability, botanical brands
+
+### Category D — Search Aliases (now 454 total, 38 new)
+
+- Linen/textile aliases: linen_white, raw_linen, natural_white, unbleached, parchment_warm
+- Neutral descriptors: mushroom, putty, greige, warm_white, off_white
+- Color temperature: warm_palette, cool_palette, neutral_palette, temperature_balanced
+- Editorial/ink aliases: editorial_dark, luxury_editorial, magazine, newspaper
+- Pastel family: pastel_pink, pastel_blue, pastel_green, pastel_yellow, pastel_purple, candy_pastel
+- Festival/celebration: festival, celebration, party, wedding_palette, graduation
+- Architecture styles: organic_architecture, sustainable_design, biophilic_design, green_building
+- UI states: onboarding, empty_state, success_state, warning_state, error_state, info_state
+
+### Current State After This Run
+
+- Total newsletter issues: **171** (Issues 001–171, 5 new)
+- Total collections: **70** (ink-and-gold, moss-linen added)
+- Total SEO guides: **116** (3 new in extraGuides19)
+- Search aliases: **454** (38 new)
+- Typecheck: ✓ clean
+
+**Files modified (4):**
+- src/data/newsletter-issues.json (5 new issues, now 171)
+- src/lib/guides.ts (3 guides in extraGuides19, now 116)
+- src/lib/collections.ts (2 new, now 70)
+- src/lib/color-search.ts (38 new aliases, now 454)
+
+**Commit:** 2d4a941

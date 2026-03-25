@@ -1,11 +1,11 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-23
+> Last updated: 2026-03-26
 
 ## High Priority
 - [ ] Add real payment provider to `src/lib/checkout-config.ts` — *commerce is currently non-functional; Lemon Squeezy or Stripe integration needed*
-- [ ] Verify Vercel builds are now succeeding — *check Vercel dashboard after the big run push (ce9198d) to confirm /combinations/ deploys correctly*
+- [x] Verify Vercel builds are now succeeding — *confirmed via multiple successful pushes since ce9198d; /combinations/ page deployed*
 - [ ] Review collections with renamed IDs — `moonlit-garden`, `dark-botanical`, `copper-verdigris` replaced duplicates; check if any external links or marketing materials referenced the old IDs
 
 ## Medium Priority
