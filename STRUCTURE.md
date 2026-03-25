@@ -88,6 +88,8 @@ ColorArchive/
 │   ├── projects/                  # /projects/ — Cloud project library
 │   ├── projects/shared/[shareId]/ # /projects/shared/:id — Public shared project view
 │   ├── account/                   # /account/ — User account dashboard
+│   ├── use-cases/                 # /use-cases/ — Color palettes by industry (10 use cases)
+│   │   └── [slug]/               # 10 static industry detail pages
 │   ├── analyze/                   # /analyze/ — Brand color analyzer (URL extraction)
 │   ├── admin/tiktok/              # /admin/tiktok/ — TikTok publishing admin
 │
@@ -189,6 +191,8 @@ ColorArchive/
 │   │   ├── account-page.tsx            # Account dashboard (tier, usage, referral)
 │   │   ├── palette-critique-panel.tsx  # AI design critique panel
 │   │   ├── url-analyzer-page.tsx       # Brand color analyzer (URL extraction)
+│   │   ├── use-cases-page.tsx          # Color palettes by industry index
+│   │   └── use-case-detail-page.tsx    # Individual industry palette guide
 │   │   ├── referral-card.tsx           # Referral link + credits display
 │   │   └── ai-usage-badge.tsx          # AI usage counter badge
 │   │
@@ -331,11 +335,12 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Colors | 3,066 (3,024 chromatic + 42 neutral grays) |
 | Saturation bands | 6 (Faint 10%, Muted 18%, Soft 34%, Clear 54%, Vivid 74%, Pure 92%) |
 | Neutral groups | 3 (Warm Gray, Cool Gray, True Gray) |
-| Collections | 68 |
+| Collections | 78 |
 | Palette packs | 7 (USD $9–$129) |
-| SEO guides | 119 |
-| Newsletter issues | 166 |
+| SEO guides | 124 |
+| Newsletter issues | 184 |
 | Color families | 9 |
+| Industry use cases | 10 (saas-tech, healthcare, luxury, food, finance, education, creative, sustainability, beauty, nonprofit) |
 | Tool pages | 22+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze) |
 | AI endpoints | 5 (brand-palette, mood-palette, name-color, critique, analyze-url) |
 | i18n keys | ~750+ (EN/ZH) |

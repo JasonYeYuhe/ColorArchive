@@ -1715,3 +1715,86 @@ Built end-to-end new page at /combinations/ with 30+ curated color combinations:
 - src/lib/collections.ts (3 new, now 73)
 
 **Commit:** 7614963
+
+## 2026-03-26 — BIG RUN: Color Use Cases Feature + Newsletter 177-184 + 5 Guides + 5 Collections (commit 0e48595)
+
+### BIG RUN — New Feature: Color Palettes by Industry (/use-cases/)
+
+Added a complete new section with 10 industry-specific color palette guides:
+- **SaaS & Tech**: Cerulean/Arctic/Slate palettes, trust + clarity focus
+- **Healthcare & Wellness**: Teal/Sage/Lavender, calm + reassuring
+- **Luxury & Premium**: Quiet luxury/ink-and-gold, restraint + authority
+- **Food & Beverage**: Terracotta/Golden/Fresh herb, appetite + warmth
+- **Finance & Fintech**: Ocean/Midnight/Nordic, stability + confidence
+- **Education & E-Learning**: Golden/Arctic/Studio, focus + encouragement
+- **Creative & Design Studios**: Chalk-coral/Aurora/Dark botanical, boldness
+- **Sustainability & Environment**: Forest/Sage/Moss, grounded + honest
+- **Beauty & Fashion**: Quiet luxury/Rose quartz/Twilight lavender
+- **Nonprofit & Social Impact**: Sage/Chalk-coral/Nordic, purpose + warmth
+
+Each use case has: color family recommendations, families to avoid, 4 key principles, tone summary, curated collection links, related guide links, and cross-links to other industries.
+
+**New files (5):**
+- `src/lib/use-cases.ts` — Data file with 10 UseCase objects
+- `app/use-cases/page.tsx` — Index route
+- `app/use-cases/[slug]/page.tsx` — Detail route (10 static pages, dynamicParams=false)
+- `src/components/use-cases-page.tsx` — Index client component
+- `src/components/use-case-detail-page.tsx` — Detail client component
+
+**Updated files (6):**
+- `src/components/site-header.tsx` — Added `/use-cases` to type union + nav link "By Industry"
+- `app/sitemap.ts` — Added /use-cases/ index + 10 detail URLs
+- `src/lib/i18n.ts` — Added nav.useCases key (EN: "By Industry", ZH: "按行业")
+- `src/data/newsletter-issues.json` — 8 new issues
+- `src/lib/guides.ts` — 5 new guides in extraGuides21
+- `src/lib/collections.ts` — 5 new collections in extraCollections21
+
+### Category A — 8 Newsletter Issues (now 184 total)
+
+- **may-2029-color-negative-space**: Background color theory, off-white taxonomy, dark mode negative space, component design
+- **jun-2029-color-motion-animation**: Temporal contrast, easing curves, saturation in motion, reduced motion a11y
+- **jun-2029-color-data-visualization**: Perceptual uniformity, sequential vs. diverging scales, categorical color, a11y in charts
+- **jun-2029-cultural-color-meanings**: Red across cultures, white mourning in East Asia, green in Islam, designing for translation
+- **jun-2029-color-print-vs-screen**: Gamut problem, Pantone spot colors, ICC profiles, brand color documentation
+- **jul-2029-color-microinteractions**: Hover state logic, focus ring design, loading/progress color, success/error feedback
+- **jul-2029-seasonal-palette-design**: Core vs. seasonal model, color calendar, production timeline, e-commerce seasonal cycles
+- **jul-2029-color-system-auditing**: Inventory audit, consolidation, accessibility audit, token review
+
+### Category A — 5 New SEO Guides (now 124 total, extraGuides21)
+
+- **color-for-healthcare-design**: Clinical hue families, reserved red, WCAG AAA target, accessibility in health
+- **rebranding-color-guide**: When to change, equity preservation, transition palette, documentation
+- **color-temperature-guide**: Warm vs. cool theory, spatial effects, industry temperature conventions
+- **dark-mode-palette-guide**: Elevation model, near-black backgrounds, saturation reduction, accent adjustment
+- **color-saturation-guide**: Chroma bands, saturation contrast tool, saturation fatigue, premium design
+
+### Category D — 5 New Collections (now 78 total, extraCollections21)
+
+- **glacier-melt**: Azure veil + aqua mist + cerulean ink — Arctic precision for tech and premium water brands
+- **amber-library**: Honey/amber warmth — publishing, education, knowledge products
+- **concrete-bloom**: True gray + single rose bloom — architecture, property, urban lifestyle
+- **verdigris-copper**: Teal patina + ember copper — craft spirits, artisan goods, heritage brands
+- **dusk-violet**: Orchid/plum twilight — premium beauty, evening venues, fragrance
+
+### Current State After This Run
+
+- Total newsletter issues: **184** (Issues 001–184, 8 new)
+- Total SEO guides: **124** (5 new in extraGuides21)
+- Total collections: **78** (5 new in extraCollections21)
+- New pages: **12** (1 index + 10 use case detail + 1 route group)
+- Typecheck: ✓ clean
+
+**Files modified (11):**
+- app/sitemap.ts
+- app/use-cases/[slug]/page.tsx (new)
+- app/use-cases/page.tsx (new)
+- src/components/site-header.tsx
+- src/components/use-case-detail-page.tsx (new)
+- src/components/use-cases-page.tsx (new)
+- src/data/newsletter-issues.json
+- src/lib/collections.ts
+- src/lib/guides.ts
+- src/lib/i18n.ts
+- src/lib/use-cases.ts (new)
+
+**Commit:** 0e48595
