@@ -21,6 +21,8 @@ interface FamilyRouteProps {
   }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return COLOR_FAMILY_PAGES.map((entry) => ({
     slug: entry.slug,

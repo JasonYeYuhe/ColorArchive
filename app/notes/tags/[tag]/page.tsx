@@ -8,6 +8,8 @@ interface TagPageProps {
   params: Promise<{ tag: string }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return getAllTags().map((tag) => ({ tag: tagToSlug(tag) }));
 }

@@ -18,6 +18,8 @@ type Story = {
   palette_tip: string;
 };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return Object.keys(stories).map((slug) => ({ slug }));
 }

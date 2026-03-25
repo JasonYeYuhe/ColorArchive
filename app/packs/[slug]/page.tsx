@@ -12,6 +12,8 @@ interface PackDetailRouteProps {
   }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return palettePacks.map((pack) => ({
     slug: pack.id,
