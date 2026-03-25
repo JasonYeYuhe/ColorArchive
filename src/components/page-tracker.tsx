@@ -31,7 +31,7 @@ export function PageTracker() {
         headers: { "Content-Type": "application/json" },
         body,
         keepalive: true,
-      }).catch((err) => console.warn("Analytics tracking failed:", err));
+      }).catch(() => {});
     }
   }, [pathname]);
 

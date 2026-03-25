@@ -284,6 +284,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.72,
     },
     {
+      url: "https://colorarchive.me/search/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: "https://colorarchive.me/colors/hex/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
+    {
       url: "https://colorarchive.me/privacy/",
       lastModified: BUILD_DATE,
       changeFrequency: "yearly",

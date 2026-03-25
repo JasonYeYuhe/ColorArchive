@@ -7,6 +7,7 @@ import { palettePacks } from "@/src/lib/palette-packs";
 export const metadata: Metadata = {
   title: "Checkout Cancelled",
   description: "Static cancel return page for ColorArchive off-site checkout flows.",
+  robots: { index: false, follow: false },
 };
 
 export default function CancelRoute() {

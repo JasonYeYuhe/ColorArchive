@@ -235,7 +235,6 @@ export function PinterestSaveButton({ color }: { color: ColorRecord }) {
       setShowPicker(false);
       setToast({ message: t("pinterest.saveSuccess"), type: "success" });
     } catch (err) {
-      console.error("Pinterest save failed:", err);
       setToast({ message: t("pinterest.saveError"), type: "error" });
     } finally {
       setSaving(false);

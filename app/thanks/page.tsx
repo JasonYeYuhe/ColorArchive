@@ -6,6 +6,7 @@ import { checkoutFlowConfig } from "@/src/lib/checkout-config";
 export const metadata: Metadata = {
   title: "Thanks",
   description: "Static purchase success page for ColorArchive palette pack checkouts.",
+  robots: { index: false, follow: false },
 };
 
 export default function ThanksRoute() {
