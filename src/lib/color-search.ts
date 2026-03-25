@@ -755,6 +755,40 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   material_color: ["slate", "amber", "copper", "ivory", "muted"],
   gold_palette: ["amber", "honey", "citrine", "vivid", "rich"],
   precious_metal: ["amber", "slate", "ivory", "shadow", "deep"],
+  // Accessibility
+  a11y: ["cobalt", "indigo", "shadow", "ink", "dark"],
+  accessible_color: ["cobalt", "shadow", "ink", "core", "dusk"],
+  color_blindness: ["cerulean", "cobalt", "azure", "muted", "shadow"],
+  inclusive_design: ["azure", "cobalt", "seafoam", "shadow", "clear"],
+  // Dark mode
+  dark_palette: ["nocturne", "shadow", "dusk", "ink", "deep"],
+  // Print and production
+  offset_print: ["cobalt", "crimson", "ink", "shadow", "pure"],
+  print_color: ["crimson", "cobalt", "citrine", "shadow", "vivid"],
+  // Cultural colors
+  chinese_color: ["crimson", "ruby", "amber", "vivid", "warm"],
+  lunar_new_year: ["crimson", "ruby", "amber", "vivid", "bloom"],
+  festive_red: ["crimson", "ruby", "coral", "vivid", "bloom"],
+  japanese_aesthetics: ["whisper", "ink", "pearl", "muted", "shadow"],
+  scandinavian_color: ["cobalt", "whisper", "pearl", "muted", "faint"],
+  mediterranean_color: ["azure", "cobalt", "amber", "coral", "vivid"],
+  // Morning and soft warmth
+  morning_light: ["apricot", "amber", "coral", "bloom", "soft"],
+  soft_warmth: ["apricot", "amber", "coral", "bloom", "whisper"],
+  // Library and editorial dark
+  midnight_palette: ["indigo", "cobalt", "violet", "nocturne", "ink"],
+  // Lavender and wellness
+  lavender_palette: ["iris", "orchid", "violet", "plum", "soft"],
+  lilac_palette: ["iris", "orchid", "plum", "bloom", "muted"],
+  wellness_color: ["iris", "orchid", "teal", "seafoam", "whisper"],
+  spa_color: ["iris", "orchid", "teal", "aqua", "whisper"],
+  // Forest and outdoor
+  forest_green: ["emerald", "moss", "leaf", "jade", "shadow"],
+  old_growth: ["emerald", "moss", "jade", "shadow", "dusk"],
+  // AI and generative
+  generative_palette: ["cobalt", "violet", "iris", "vivid", "bloom"],
+  ai_palette: ["cobalt", "sapphire", "iris", "violet", "vivid"],
+  algorithmic: ["cobalt", "azure", "cerulean", "vivid", "clear"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

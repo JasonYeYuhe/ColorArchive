@@ -2771,3 +2771,104 @@ const extraCollections29: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections29);
+
+const extraCollections30: ColorCollection[] = [
+  createCollection(
+    "morning-light",
+    "Morning Light",
+    "Soft peach, warm cream, and pale gold tones that capture the warm, diffused quality of early morning light — a palette for hospitality, bakery brands, skincare, and residential interiors with a welcoming warmth.",
+    "Morning light draws from the narrow chromatic window of the first hours of daylight, when the sun is low and warm and the air is diffused: the soft peach of warm sky on thin cloud, the pale honey of early sun on white walls, the warm cream of unbleached linen in natural light, the faint apricot of terracotta in diffused morning warmth. These are not the vivid oranges of direct noon sun but the subtle, washed warmth of indirect early light — colors that are easy to live with, that invite rather than demand attention, and that read as comfortable and genuine. Apricot-whisper-soft anchors the pale end — a very light, barely-peach tone that reads as warm white, the palest natural wall in morning light. Amber-mist-soft provides the warm cream note — a soft, yellowed neutral that reads as aged linen or warm parchment. Citrine-pearl-soft introduces the pale honey register — a very light warm gold that reads as early morning sun filtered through gauze. Apricot-bloom-soft provides the palette's central warmer tone — a soft, genuinely peachy mid-tone that reads as warm terracotta in pale form. Coral-silk-soft closes the warm arc — a medium-light warm coral-pink that provides depth without loudness.",
+    ["Warm", "Soft", "Hospitality"],
+    [
+      "apricot-whisper-soft",
+      "amber-mist-soft",
+      "citrine-pearl-soft",
+      "apricot-bloom-soft",
+      "coral-silk-soft",
+    ],
+    {
+      editorialNote:
+        "Morning light is the palette for bakery and café brands with a handcrafted, warm character, skincare and beauty brands with a natural, gentle positioning, boutique hotel and hospitality with a residential warmth, children's lifestyle brands at the more understated, quality-focused end, residential interior design photography with soft natural light, and brand systems for food brands with a home-cooking authenticity. The palette communicates warmth, comfort, and genuine material quality without the sentimentality of louder warm palettes. Photography direction: close-up still life photography of baked goods, ceramics, and natural materials on warm linen or plaster backgrounds; interior photography with soft window light falling on natural materials; product photography of skincare or food products with warm, diffused natural light. Typography: a humanist serif at regular or medium weight (Freight Text, Cormorant, Lora) reinforces the warm, handmade character; avoid pure white for type — a warm off-white or light apricot maintains the palette's warmth.",
+      promptWords: [
+        "artisan bakery brand in warm peach and cream palette",
+        "skincare brand in soft morning light and natural warmth tones",
+        "boutique hotel brand in warm cream and pale gold palette",
+      ],
+      useCases: ["Artisan bakery and café brands", "Natural skincare and beauty", "Boutique hospitality and residential interiors"],
+    }
+  ),
+  createCollection(
+    "midnight-library",
+    "Midnight Library",
+    "Deep indigo, dark violet, and rich near-black tones that evoke the atmosphere of late-night reading, private scholarship, and premium editorial — a palette for luxury publishing, premium tech, and brands with an intellectual depth.",
+    "Midnight library draws from the deep, saturated palette of a well-appointed private library at night: the dark indigo of book cloth binding, the deep violet of shadow between shelves, the rich near-black of aged leather, the cool dark blue of a lit screen in a darkened room. These are not the flat black neutrals of generic dark aesthetics but colors with genuine chromatic depth — each one contains a distinct chromatic temperature that contributes to the palette's layered richness. Cobalt-shadow-faint provides the near-black anchor — a very dark blue that reads as black with a cool undertone, adding depth without pure blackness. Indigo-nocturne-muted deepens into the characteristic dark indigo register — a very dark, muted indigo that reads as the color of deep-dye book cloth or aged velvet. Violet-shadow-muted provides the dark violet accent — a deep, muted violet that reads as the shadow color of a luxury brand system. Indigo-dusk-soft moves slightly lighter — a dark indigo with enough saturation to read as intentionally chromatic rather than neutral-dark. Violet-dusk-soft closes at a mid-dark violet that provides just enough lightness to create structural contrast within the palette's compressed dark range.",
+    ["Dark", "Editorial", "Luxury"],
+    [
+      "cobalt-shadow-faint",
+      "indigo-nocturne-muted",
+      "violet-shadow-muted",
+      "indigo-dusk-soft",
+      "violet-dusk-soft",
+    ],
+    {
+      editorialNote:
+        "Midnight library is the palette for premium publishing and editorial brands, luxury technology products with a design-forward, intellectual positioning, financial services brands targeting high-net-worth individuals who identify with intellectual distinction, premium subscription products (legal research, academic databases, knowledge management), brand systems for educational technology platforms at the premium end, and fashion editorial with a darkly sophisticated register. The palette works best when used at full depth — attempting to lighten it or add bright accents undermines its atmospheric quality. Photography direction: close-up photography of books, fine binding, paper texture, and leather in low, directional light; architectural photography of libraries, studies, and private collections in candlelight or warm artificial light; product photography of premium tech or luxury objects on dark cloth or dark wood surfaces. Typography: a refined serif at light or regular weight (Freight Display, Canela, Editorial New) in off-white creates the clearest legibility contrast; a fine-stroke sans-serif also works well at large scale.",
+      promptWords: [
+        "premium publishing brand in deep indigo and midnight violet palette",
+        "luxury knowledge platform in dark indigo and deep violet tones",
+        "intellectual technology brand in midnight library palette",
+      ],
+      useCases: ["Premium publishing and editorial brands", "Luxury knowledge and research platforms", "Premium technology with intellectual positioning"],
+    }
+  ),
+  createCollection(
+    "lavender-fields",
+    "Lavender Fields",
+    "Soft lavender, pale lilac, and quiet violet tones drawn from the gentle color palette of lavender in bloom — a palette for wellness brands, premium beauty, spa environments, and lifestyle brands with a calm, elevated femininity.",
+    "Lavender fields draws from the specific, narrow palette of actual lavender plants seen in diffused natural light: the very pale, slightly muted violet of lavender in bloom, the soft gray-lavender of dried stalks, the warm white of sunlit stone between flower rows, the deeper blue-violet of shadow within the plant mass. These are not the vivid purples of cosmetic branding but the subtle, washed tones of a natural material — colors that have genuine complexity and a quiet sophistication that vivid purples lack. Iris-whisper-soft provides the pale anchor — a barely-lavender near-white that reads as the palest possible tint of the hue, a lavender white with gentle warmth. Orchid-mist-soft deepens slightly — a soft, warm pale lilac that reads as the lightest possible purple in natural light. Iris-pearl-muted provides the palette's central muted lavender — a soft, slightly grayed pale violet that reads as genuine dried lavender color. Violet-bloom-soft lightens into a clearer, slightly more saturated lavender that reads as fresh bloom in open sunlight. Plum-silk-muted closes as the deeper accent — a medium-light, muted mauve-violet that provides structural contrast without loudness.",
+    ["Soft", "Wellness", "Beauty"],
+    [
+      "iris-whisper-soft",
+      "orchid-mist-soft",
+      "iris-pearl-muted",
+      "violet-bloom-soft",
+      "plum-silk-muted",
+    ],
+    {
+      editorialNote:
+        "Lavender fields is the palette for wellness and mindfulness brands at the premium end, natural and clean beauty brands with a botanical positioning, spa and retreat environments with a calm luxury character, premium lifestyle brands targeting women in the 25-45 demographic, home fragrance and aromatherapy product brands, and brand systems for sleep, relaxation, or mental wellness technology. The palette communicates calm, gentle luxury, and natural quality without the artificiality of louder purple and pink palettes. Photography direction: close-up photography of lavender, soft botanicals, and natural dried flowers in diffused natural light; spa and wellness photography with soft, directional natural light and linen or stone backgrounds; product photography of glass bottles, ceramic vessels, or premium packaged goods on pale stone or white fabric backgrounds. Typography: a refined, slightly condensed serif (Cormorant Garamond, EB Garamond, Freight Text) at light weight reinforces the delicate character; body text in the iris-pearl-muted or violet-bloom-soft range maintains the palette's color identity.",
+      promptWords: [
+        "natural wellness brand in soft lavender and pale lilac palette",
+        "premium spa brand in lavender fields and muted violet tones",
+        "clean beauty brand in botanical lavender and gentle bloom palette",
+      ],
+      useCases: ["Natural wellness and mindfulness brands", "Clean beauty and botanical skincare", "Spa, retreat, and aromatherapy brands"],
+    }
+  ),
+  createCollection(
+    "deep-forest",
+    "Deep Forest",
+    "Dark emerald, deep moss, and rich shadow-green tones drawn from old-growth forest in low light — a palette for premium outdoor brands, craft spirits, environmental organizations, and brands built around depth, substance, and natural authority.",
+    "Deep forest draws from the specific, compressed palette of a temperate forest interior under overcast light: the very dark, saturated green of mossy bark in shadow, the deep olive-brown of forest floor in rain, the dark emerald of canopy viewed from below, the cool dark of deep undergrowth where direct light never reaches. These are not the bright greens of open meadow or the muted tans of dry savanna but the dark, rich, layered greens of a mature forest — colors that carry authority and depth through their compression into the dark range. Emerald-nocturne-muted provides the deepest anchor — a near-black dark green that reads as forest floor shadow or the interior of a tree hollow, providing the palette's most dramatic depth. Moss-shadow-muted establishes the dark moss-brown register — a deep, muted brownish-green that reads as bark, decomposing matter, and the organic forest floor. Leaf-dusk-soft provides the deep shadowed green of mid-level foliage — a dark, slightly cooler green with enough clarity to read as leaf rather than earth. Emerald-shadow-muted deepens into the characteristic color of old-growth canopy seen in shadow — a very dark, muted emerald with genuine chromatic depth. Jade-velvet-soft provides the slightly lighter, cleaner dark teal-green that reads as wet, living forest.",
+    ["Dark", "Nature", "Premium Outdoor"],
+    [
+      "emerald-nocturne-muted",
+      "moss-shadow-muted",
+      "leaf-dusk-soft",
+      "emerald-shadow-muted",
+      "jade-velvet-soft",
+    ],
+    {
+      editorialNote:
+        "Deep forest is the palette for premium outdoor and adventure brands with a quality-over-spectacle positioning, craft spirits brands with a nature-sourced, dark character (whisky, gin, craft beer), environmental organizations and land conservation brands at the credibility-first end, premium hotel and hospitality brands in forested or wilderness locations, hunting and field sports brands with a heritage-quality positioning, and leather goods, luggage, or carry brands with an outdoor heritage. The palette reads as substantive, earned, and genuine — not the bright outdoor retail palette but the considered outdoor quality palette. Photography direction: close-up photography of forest floor, bark, moss, lichen, and leaf texture in overcast natural light; architectural photography of timber-framed or stone structures in forested settings; product photography of leather goods, dark spirits, or precision instruments on dark wood or stone surfaces in low, directional natural light. Typography: a structured serif or geometric slab (Canela Text, Freight Display, Tiempos Text) provides the right authority level; body type in moss-shadow-muted or leaf-dusk-soft maintains the palette's deep character.",
+      promptWords: [
+        "premium outdoor brand in deep forest and dark emerald palette",
+        "craft whisky brand in old-growth forest and dark moss tones",
+        "environmental conservation brand in deep green and shadow forest palette",
+      ],
+      useCases: ["Premium outdoor and wilderness brands", "Craft spirits with nature-sourced positioning", "Environmental and conservation organizations"],
+    }
+  ),
+];
+
+collections.push(...extraCollections30);

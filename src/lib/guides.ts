@@ -8649,3 +8649,213 @@ const extraGuides30: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides30);
+
+const extraGuides31: LandingGuide[] = [
+  {
+    category: "Accessibility",
+    slug: "color-accessibility-design-guide",
+    title: "Color Accessibility: Building Inclusive Palettes That Meet WCAG Standards",
+    summary:
+      "Accessibility is not a constraint added to finished design work — it is a structural requirement that shapes palette decisions from the start. Understanding WCAG contrast ratios, color blindness simulation, and semantic color differentiation produces work that is more legible, more legally sound, and more professionally complete.",
+    eyebrow: "Accessible Design",
+    priority: 75,
+    searchIntent: "color accessibility wcag contrast ratio accessible palette color blindness inclusive design a11y accessible colors",
+    featuredCollectionId: "cool-professionals",
+    featuredPackId: "complete-archive",
+    tags: ["Accessibility", "Digital Design", "Color Systems"],
+    highlights: [
+      "WCAG 2.1 defines two contrast tiers: AA (4.5:1 for normal text) is the legal baseline in most jurisdictions, while AAA (7:1) is the target for critical content contexts like healthcare or education.",
+      "Deuteranopia (red-green color deficiency) affects approximately 8% of males — making it the most common variant of color vision deficiency and the most important to simulate during palette development.",
+      "Building accessible palettes from the start means selecting primary colors against contrast requirements before aesthetic colors — accessibility-first design produces better decisions, not just more compliant ones.",
+    ],
+    sections: [
+      {
+        heading: "Why accessibility shapes palette decisions, not just final checks",
+        body: "The most common error in color accessibility practice is treating it as a final check rather than a design input. A palette built for visual appeal and then evaluated for contrast is almost always a palette that will fail — because the relationships between colors were never structured around legibility, only around aesthetic intent. The more effective approach is to treat minimum contrast ratios as a design system constraint that shapes choices from the beginning. This produces better work: not just more accessible work, but more legible, more versatile, and more durable work. A palette that satisfies contrast requirements typically also performs better in low-light conditions, on lower-quality displays, and at smaller text sizes — all contexts that affect real users regardless of whether they have documented disabilities.",
+      },
+      {
+        heading: "Understanding WCAG contrast requirements",
+        body: "WCAG 2.1 defines contrast requirements in terms of relative luminance ratios between foreground and background colors. The minimum ratios are: AA requires 4.5:1 for normal text (under 18pt regular or 14pt bold) and 3:1 for large text; AAA requires 7:1 for normal text and 4.5:1 for large text. AA is the legal baseline required by most accessibility regulations worldwide, including WCAG-based standards in the EU, US, UK, Canada, and Australia. AAA is not required by most regulations but is appropriate for critical content contexts: medical information, legal documents, educational materials, emergency communications. Every design system should have a contrast matrix that shows the WCAG rating for every text/background combination in the system — this matrix is a design artifact that should be maintained alongside the palette itself.",
+      },
+      {
+        heading: "Designing for color vision deficiencies",
+        body: "Color blindness simulation reveals a specific category of accessibility failure that contrast ratio testing cannot detect: distinctions that are visible to standard color vision but ambiguous or invisible to users with color vision deficiencies. Deuteranopia (inability to distinguish red-green in one mode) and protanopia (a different form of red-green deficiency) together affect approximately 8% of males and 0.5% of females. Tritanopia (blue-yellow deficiency) is rarer. The design requirement is not that every color look identical to all users, but that every meaningful use of color also conveys information through a second channel: shape, label, pattern, position, or typography. Status colors (error red, warning yellow, success green) are the most common failure point — design these to be distinguishable by lightness value as well as hue, and always accompany them with icons or text labels.",
+      },
+      {
+        heading: "Building an accessible palette from scratch",
+        body: "The sequence that produces the most reliably accessible palette systems begins with functional colors before aesthetic colors. Define your text color and background color first — these set the contrast baseline that all other color decisions must work around. Select your primary interactive color (links, buttons, focus states) to meet 3:1 contrast against all backgrounds where it appears. Select your semantic status colors (error, warning, success, info) to be distinguishable from each other using lightness differentiation as the primary factor and hue as a secondary cue. Once these functional requirements are satisfied, you have a constrained space in which aesthetic color choices can be made — and those choices will be meaningfully constrained in a way that produces a system rather than a collection of individually evaluated colors.",
+      },
+    ],
+    links: [
+      { label: "CSS Named Colors Reference", href: "/css-colors/" },
+      { label: "Color Contrast Checker", href: "/tools/contrast-checker/" },
+      { label: "Color Families", href: "/families/" },
+    ],
+  },
+  {
+    category: "Digital Design",
+    slug: "dark-mode-color-design-guide",
+    title: "Dark Mode Color Design: Semantic Token Systems for Dual-Theme Interfaces",
+    summary:
+      "Dark mode is not a color inversion — it is a parallel design system that requires its own palette logic. Semantic token systems, built around functional color roles rather than raw values, are the professional standard for managing dark mode at scale without duplicating design work.",
+    eyebrow: "UI Color Systems",
+    priority: 72,
+    searchIntent: "dark mode color palette dark theme design dark mode colors semantic tokens dark UI color system night mode",
+    featuredCollectionId: "deep-ocean",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["UI Design", "Color Systems", "Digital Design"],
+    highlights: [
+      "Dark mode is a parallel design system, not a transformation — colors that work in light mode do not work at the same saturation values in dark mode because perceptual color relationships shift significantly with background luminance.",
+      "Semantic token systems define colors by function (surface.primary, text.secondary) rather than value (blue-500) — this is the structural solution that enables theme switching without modifying individual components.",
+      "Surfaces in dark mode should use subtle lightness gradation to convey elevation — the Material Design model of using near-black surfaces with slight lightness increments for cards and overlays is more legible than using color or shadow alone.",
+    ],
+    sections: [
+      {
+        heading: "Why dark mode requires its own palette logic",
+        body: "The dark mode failures that produce the worst user experience share a common origin: dark mode was implemented as a transformation of an existing light mode palette rather than designed as a parallel system. Simple inversions (swap background and foreground), tinted neutrals (use the same hue at low lightness), and shifted saturation (desaturate everything) produce results that feel technically functional but visually wrong — because the perceptual relationships that made the light mode palette work do not survive transformation. Color perception changes significantly as background luminance shifts: colors that appear saturated and vibrant on a light background appear garish or harsh on a dark background at the same saturation level. Successful dark mode palettes are not translations — they are reimaginings that produce similar emotional and functional effects using different concrete color values.",
+      },
+      {
+        heading: "The semantic token system approach",
+        body: "Semantic token systems are the structural solution to dark mode at scale. Rather than defining colors as raw hex values with names like 'blue-500', semantic tokens are defined by function: 'surface.primary', 'text.primary', 'border.subtle', 'status.error'. Each token is assigned a specific concrete color value per theme. In light mode, 'surface.primary' might be #FFFFFF; in dark mode, it might be #1A1A1A. Components in the system use only semantic tokens — never raw color values — which means theme switching is handled entirely at the token layer, and every component works correctly in both modes without modification. CSS custom properties are the standard implementation for web: define token values on :root for light mode, redefine them within a [data-theme='dark'] selector or prefers-color-scheme: dark media query, and reference only var(--token-name) throughout component styles.",
+      },
+      {
+        heading: "Choosing dark mode surface and text values",
+        body: "Dark mode surface colors should not be pure black (#000000). Pure black backgrounds create excessive contrast that causes halation — the apparent bleeding of light-colored text — and creates visual hardness that light mode equivalents do not have. The standard approach is to use a very dark neutral with a slight hue tint: #121212 (Material Design's baseline dark surface), #0F1117 (a cool-tinted near-black), or #1C1C1E (Apple's system dark background). For text, pure white (#FFFFFF) creates the same halation problem against dark surfaces. Standard practice is to use an off-white: #E5E5E5 for primary text, #A0A0A0 for secondary text, and #666666 for disabled states. These values satisfy WCAG contrast requirements against standard dark surfaces while eliminating the harshness of maximum contrast.",
+      },
+      {
+        heading: "Managing brand colors in dark mode",
+        body: "Brand colors require careful evaluation in dark mode because the saturation and lightness values that read well on light backgrounds frequently read poorly on dark ones. A vivid primary blue that reads as confident and clear at #0066CC on a white background may read as cold or harsh against near-black. The standard adaptation is to reduce chroma slightly and increase lightness: a dark mode variant of a brand blue might be at 70% lightness and 80% of the light mode chroma value. For interactive elements (buttons, links, focus rings), the dark mode variant of a brand color should meet 3:1 contrast against the dark surface it appears on — which often means using a lighter, less saturated version than the light mode brand color.",
+      },
+    ],
+    links: [
+      { label: "Tints & Shades Generator", href: "/tools/tints-shades/" },
+      { label: "Color Contrast Checker", href: "/tools/contrast-checker/" },
+      { label: "Design Tokens Export", href: "/tools/design-tokens/" },
+    ],
+  },
+  {
+    category: "Global Design",
+    slug: "cultural-color-meanings-guide",
+    title: "Color Meaning Across Cultures: A Practical Guide for Global Design",
+    summary:
+      "Color meaning is not universal — it is culturally constructed and contextually variable in ways that global design practice frequently underestimates. A working model of cultural color association, combined with audience research, produces more effective international design work and prevents costly cross-cultural errors.",
+    eyebrow: "Cultural Color",
+    priority: 65,
+    searchIntent: "color meaning across cultures cultural color symbolism color psychology cultural color guide global design color associations international",
+    featuredCollectionId: "golden-ratio",
+    featuredPackId: "complete-archive",
+    tags: ["Global Design", "Color Theory", "Brand Strategy"],
+    highlights: [
+      "Blue has the most consistent cross-cultural positive associations of any chromatic color — trusted and competent across an unusually wide range of cultural contexts — which explains its dominance in global tech and financial branding.",
+      "White signals purity in Western contexts but mourning in many East Asian, South Asian, and African cultural contexts — making it the most significant single cross-cultural color difference for global brand work.",
+      "Cultural color associations are contextual, not absolute: red signals luck in Chinese festive contexts but urgency in Chinese healthcare contexts — the same culture applies different associations based on the framing context.",
+    ],
+    sections: [
+      {
+        heading: "Why cultural color knowledge is more nuanced than reference tables suggest",
+        body: "The most widely cited facts about cultural color meaning — red means luck in China, white means mourning in Japan, green means envy in the West — are accurate as generalizations but systematically misleading as design guidance. They are accurate in that these associations exist and are documented. They are misleading in that they suggest a simple mapping from color to meaning that can be consulted like a lookup table. Color meaning is contextual: the same color reads differently in a funeral context than in a celebration context, in a food category than in a technology category, at high saturation than at low saturation, in isolation than in combination. The framework that produces better design decisions is to understand not just what a color means in a culture, but what range of meanings it can activate, which contexts trigger which readings, and how much variance exists within the population.",
+      },
+      {
+        heading: "The major cross-cultural differences by hue",
+        body: "The most significant cross-cultural differences in color meaning cluster around a small number of hues. White: signals purity, bridal, and new beginnings in Western and some South American contexts; signals mourning and death in many East Asian (China, Japan, Korea), South Asian, and some African cultural contexts. This is the single most important color difference to evaluate for global brand work involving white-dominant palettes. Red: signals luck, vitality, and celebration in Chinese, Korean, and South Asian contexts; danger and urgency universally in safety contexts; passion and romance in Western contexts. Green: luck and prosperity in Chinese contexts; Islam, fertility, and nature in Middle Eastern and African contexts; envy (idiomatically) in English-language Western contexts; nature and environment broadly across most cultures. Purple: royalty and luxury in Western contexts; mourning in Brazilian and Thai contexts; less culturally charged in East Asian contexts. Yellow: imperial and sacred in Chinese context; caution and cowardice (idiomatically) in Western contexts; mourning in some Mexican contexts.",
+      },
+      {
+        heading: "Hues with consistent global readings",
+        body: "Blue has the most consistent cross-cultural positive associations of any chromatic color. Across East Asia, South Asia, the Middle East, Europe, North America, and South America, medium-saturation blue consistently reads as trustworthy, competent, calm, and reliable. This is the primary reason that blue dominates global technology and financial branding: it is the color that carries the fewest cultural risks across the widest range of international markets. Neutral and achromatic colors (grays, whites, blacks) also have relatively consistent readings — the mourning associations of white and black are more specific to high-saturation or pure white than to the full range of neutral tones. Mid-grays and off-whites read as sophisticated, minimal, and premium with consistent cross-cultural reliability.",
+      },
+      {
+        heading: "Practical approach for global design work",
+        body: "For global design work, audience research produces better results than color theory alone. Survey or interview members of the specific cultural audience about their associations with your candidate palette. Color meaning research is faster and cheaper than most other forms of design research — a simple survey of 20-30 people in the target market can surface significant associations that would be invisible from a Western perspective. For digital products, behavioral data complements attitudinal data: if your analytics show significantly lower click-through rates on a specific color element in particular regional markets, that is a signal worth investigating. The practical heuristic for selecting a globally safe primary color: a medium-saturation, relatively neutral blue is the lowest-risk starting point for any audience; from there, you can evaluate whether the specific cultural context supports a more distinctive choice.",
+      },
+    ],
+    links: [
+      { label: "Color Collections", href: "/collections/" },
+      { label: "Color Families", href: "/families/" },
+      { label: "Color Use Cases", href: "/use-cases/" },
+    ],
+  },
+  {
+    category: "Print & Production",
+    slug: "print-color-production-guide",
+    title: "Print Color Production: CMYK, ICC Profiles, and Managing the Screen-to-Press Gap",
+    summary:
+      "The gap between screen color and print color is a persistent source of expensive surprises in production design. Understanding CMYK color modeling, ICC profile workflows, and print-specific palette decisions prevents the most common and costly errors before they reach press.",
+    eyebrow: "Print Color",
+    priority: 68,
+    searchIntent: "print color guide cmyk color management icc profiles print design color offset printing pantone print production",
+    featuredCollectionId: "midnight-library",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Print Design", "Color Production", "Design Workflow"],
+    highlights: [
+      "CMYK is a smaller gamut than RGB — vivid electric blues, saturated greens, and neon oranges that look striking on screen frequently become dull or muddy in print, making soft-proofing with the correct ICC profile essential before finalizing print palettes.",
+      "Pantone (PMS) spot color specification guarantees color consistency across print vendors and paper stocks in a way that CMYK process color cannot — for brand primaries, specifying the Pantone value is standard professional practice.",
+      "The correct ICC profile for your work depends on your print vendor and press type — always request the specific profile from your vendor rather than assuming a generic standard (SWOP, GRACoL, ISO Coated v2).",
+    ],
+    sections: [
+      {
+        heading: "Why screen and print colors differ",
+        body: "The most fundamental fact about print color that screen-native designers frequently underestimate is that CMYK is a smaller color space than RGB. The range of colors that can be reproduced on a commercial offset press — even a well-calibrated, high-quality one — is significantly narrower than the range displayable on a modern computer monitor. This means that a design created in RGB for screen will, when converted to CMYK for print, have some colors shift — sometimes dramatically. Vivid electric blues (especially those near #0066FF or #0033CC), saturated greens, and neon oranges are the most common casualties: colors that look striking on screen and dull or muddy in print. The screen-to-press gap exists because RGB creates color by adding light (additive mixing, with a broader achievable gamut) while CMYK creates color by subtracting light through ink absorption (subtractive mixing, with a narrower achievable gamut).",
+      },
+      {
+        heading: "ICC profiles and soft proofing",
+        body: "ICC profile-based color management is the system that bridges between how colors are defined and how they should be reproduced on a specific device. The most common profiles for commercial offset printing are SWOP (Specifications for Web Offset Publications) for North American publication printing, GRACoL (General Requirements and Applications for Commercial Offset Lithography) for North American premium commercial printing, and ISO Coated v2 for European printing. The correct profile is determined by your print vendor — ask them specifically which press profile and which paper stock profile to use before building your color system. When you soft-proof your design using the press profile in Photoshop or Illustrator, you see an approximation of how the printed result will look. Colors that fall outside the press gamut will be mapped to the nearest in-gamut equivalent — reviewing the out-of-gamut warnings before finalizing your palette lets you make choices rather than having choices made for you at the moment of conversion.",
+      },
+      {
+        heading: "When to use Pantone spot colors",
+        body: "Pantone (PMS) specification is the standard for brand colors in print work where consistency across vendors, paper stocks, and print runs is critical. CMYK process color inherently has variance: the same CMYK build can look different depending on ink density, paper stock, humidity, and press calibration on any given day. A Pantone specification bypasses this variance by specifying a pre-mixed ink formulation — the printer mixes the Pantone color directly rather than building it from process inks. This guarantees that a brand red looks the same across a business card printed in Tokyo and a brochure printed in New York. The decision to use Pantone spot colors involves cost (spot colors add a setup fee per color per run) and print method constraints (many digital and web offset presses cannot run spot colors). For identity systems, packaging, and premium publications where color fidelity is critical, the Pantone specification of at least the primary brand color is standard professional practice.",
+      },
+      {
+        heading: "Building a print-safe palette",
+        body: "The workflow for building a print-safe palette begins with the color space decision. For print-primary work, build in CMYK from the start using your target press profile rather than starting in RGB and converting later. When selecting colors, evaluate candidates with soft-proofing enabled to see how they will actually appear in print. Avoid specifying colors in the out-of-gamut range unless you have explicitly chosen a Pantone equivalent. For secondary and supporting colors that do not have Pantone specifications, select CMYK builds that reproduce well across the expected range of paper stocks — coated and uncoated stocks reproduce color very differently, and a color that looks good on coated stock may look very different on uncoated. Building a physical swatch library of your brand color specifications — actual printed output on your actual production paper stocks — is the most reliable way to ensure that the colors you see in your design tool correspond to what will actually be produced.",
+      },
+    ],
+    links: [
+      { label: "Color Converter", href: "/tools/color-converter/" },
+      { label: "Color Palettes by Use Case", href: "/use-cases/" },
+      { label: "Download Color Packs", href: "/packs/" },
+    ],
+  },
+  {
+    category: "AI Design",
+    slug: "generative-ai-color-guide",
+    title: "Generative AI for Color Design: How to Use AI Palette Tools Effectively",
+    summary:
+      "Generative AI has transformed the color exploration phase from a manual creative exercise into a large-scale candidate search. The designers who use these tools most effectively treat AI as a breadth amplifier — generating and filtering large candidate sets quickly — while applying human expertise to evaluation, selection, and systematic refinement.",
+    eyebrow: "AI Color Tools",
+    priority: 70,
+    searchIntent: "ai color palette generator ai color design generative color palette ai palette tool color ai design tool ai generated palette",
+    featuredCollectionId: "aurora-borealis",
+    featuredPackId: "complete-archive",
+    tags: ["AI Design", "Color Systems", "Design Process"],
+    highlights: [
+      "The most productive use of generative color AI is not replacement of palette design but acceleration of the exploration phase — generating fifty candidate directions in the time that manual work produces five, so that human judgment can be applied to a much larger search space.",
+      "AI tools that produce the most production-usable results are those that generate from functional descriptions (a fintech app for 35-55 year old professionals) rather than purely aesthetic ones — because they can recall learned associations between color territories and functional outcomes.",
+      "The professional workflow combines AI breadth with systematic evaluation: AI generates candidates rapidly, human judgment selects the viable ones, and mathematical color space operations (adjusting oklch values) refine the survivors rather than intuitive nudging.",
+    ],
+    sections: [
+      {
+        heading: "What AI color tools are actually doing",
+        body: "The early generation of AI color tools produced palettes by interpolating between training examples — useful for exploration, unreliable for production. The current generation understands color intent at a more functional level: given a brief describing a brand, an industry, an emotional register, or a functional requirement, these systems generate palettes that have been implicitly filtered against constraints the designer did not need to specify. This is not magic — it is pattern recall from a very large training set of designed palettes labeled with their context. The AI is answering the question 'what kinds of colors do designers use in this context?' rather than solving for aesthetic quality directly. Understanding this limitation is what lets designers use AI color tools effectively: they are excellent at recalling contextual norms and weak at producing genuinely distinctive or innovative work.",
+      },
+      {
+        heading: "Using AI to accelerate exploration",
+        body: "The most productive use of generative color in professional practice is to expand the exploration phase. A skilled designer starting a brand color project might manually generate five to ten palette directions and spend an hour refining each one. With generative tools, they can produce fifty candidates in the same time, use their expertise to select the two or three that have genuine potential, and concentrate their refinement time on the most promising options. The quality of the final result depends on the quality of the selection judgment — which requires the same expertise as before — but the search space that judgment can be applied to is dramatically larger. The failure mode is treating AI output as near-finished work that needs minor polish rather than as raw candidates that need evaluation and significant refinement.",
+      },
+      {
+        heading: "Writing effective color briefs for AI tools",
+        body: "The AI tools that produce the most production-usable results generate from functional descriptions rather than purely aesthetic ones. A brief like 'warm, earthy, professional' produces aesthetically plausible results but gives the AI little context to distinguish between appropriate and inappropriate options within that aesthetic territory. A brief like 'a fintech app targeting professionals aged 35-55 that needs to communicate security and competence while remaining approachable, with dark mode support and WCAG AA compliance' gives the AI functional constraints that significantly narrow the candidate space toward production-viable options. Effective color briefs include: the industry and product type, the target user demographics and psychology, the primary emotional register (trustworthy, playful, luxurious, energetic), any technical constraints (accessibility, print vs. digital, light/dark mode), and any explicit references or exclusions (avoid these competitors' palettes, must not read as childish).",
+      },
+      {
+        heading: "Systematic refinement after generation",
+        body: "The professional workflow that produces the best final results combines AI generation with systematic evaluation and mathematical refinement. After selecting candidate palettes from AI output, evaluate each against objective criteria: WCAG contrast ratios, color blindness simulation, brand distinctiveness, competitive differentiation, dark mode viability. Reject candidates that fail; keep the two or three that pass the most criteria. For the survivors, apply mathematical refinement using color space operations — adjusting lightness and chroma in oklch to create consistent tonal scales, rather than intuitive nudging of individual hex values. oklch refinement produces systematic improvements because its perceptual uniformity means that equal numeric steps produce equal perceived changes — a 10% lightness increase reads as a consistent perceived change across all hues. This combination of AI breadth and systematic refinement consistently produces better results than either approach alone.",
+      },
+    ],
+    links: [
+      { label: "AI Brand Palette", href: "/tools/brand/" },
+      { label: "Mood Palette Generator", href: "/tools/mood/" },
+      { label: "Color Collections", href: "/collections/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides31);
