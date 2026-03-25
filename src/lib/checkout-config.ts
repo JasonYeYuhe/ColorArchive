@@ -77,7 +77,7 @@ export const proSubscriptionConfig = {
     price: "¥499",
     period: "month",
     trialDays: 3,
-    url: null as string | null, // TODO: set checkout URL from Lemon Squeezy Pro Access Monthly Subscription
+    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/59d0c0b3-a368-440b-942c-0c53a8f3d64b",
     note: "Pro monthly subscription — published in Lemon Squeezy, pending store activation.",
   },
   yearly: {
@@ -85,7 +85,7 @@ export const proSubscriptionConfig = {
     period: "year",
     trialDays: 3,
     savings: "33%",
-    url: null as string | null, // TODO: set checkout URL from Lemon Squeezy Pro Access Yearly Subscription
+    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/72fe6359-636e-4675-a0d6-c03b70154b68",
     note: "Pro yearly subscription — published in Lemon Squeezy, pending store activation.",
   },
 } as const;
