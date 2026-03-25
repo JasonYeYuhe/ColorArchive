@@ -99,13 +99,13 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
                 href="/pro"
                 className="text-center py-2.5 bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-200 transition-colors"
               >
-                ¥480/mo
+                ¥499/mo
               </Link>
               <Link
                 href="/pro"
                 className="text-center py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
               >
-                ¥3,980/yr <span className="text-indigo-200 text-xs">Save 31%</span>
+                ¥3,999/yr <span className="text-indigo-200 text-xs">Save 33%</span>
               </Link>
             </div>
           </div>

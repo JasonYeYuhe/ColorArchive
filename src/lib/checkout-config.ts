@@ -74,17 +74,19 @@ export const checkoutConfig = {
 
 export const proSubscriptionConfig = {
   monthly: {
-    price: "¥480",
+    price: "¥499",
     period: "month",
-    url: null as string | null, // Set when Lemon Squeezy / Stripe subscription product is created
-    note: "Pro monthly subscription — pending product creation in payment provider.",
+    trialDays: 3,
+    url: null as string | null, // TODO: set checkout URL from Lemon Squeezy Pro Access Monthly Subscription
+    note: "Pro monthly subscription — published in Lemon Squeezy, pending store activation.",
   },
   yearly: {
-    price: "¥3,980",
+    price: "¥3,999",
     period: "year",
+    trialDays: 3,
     savings: "33%",
-    url: null as string | null,
-    note: "Pro yearly subscription — pending product creation in payment provider.",
+    url: null as string | null, // TODO: set checkout URL from Lemon Squeezy Pro Access Yearly Subscription
+    note: "Pro yearly subscription — published in Lemon Squeezy, pending store activation.",
   },
 } as const;
 
