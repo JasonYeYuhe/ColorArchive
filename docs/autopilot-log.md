@@ -2022,3 +2022,44 @@ A complete new tool accessible at `/name/` that analyzes any hex color and gener
 - src/data/newsletter-issues.json — 5 new issues (205-209)
 - src/lib/guides.ts — extraGuides26 (5 guides, 149 total)
 - src/lib/collections.ts — extraCollections25 (4 collections, 94 total)
+
+---
+
+## 2026-03-26 — Normal Run
+
+**Run type:** Normal (2nd run since last big run)
+**Commit:** 78c427f
+**Typecheck:** ✓ clean
+
+### Category A — 5 New Newsletter Issues (now 214 total)
+
+- **feb-2030-color-in-motion**: Temporal color contrast, OKLCH interpolation vs sRGB, easing and color, dark/light mode toggle animation
+- **feb-2030-print-vs-digital-color**: Gamut mismatch, complete brand color specification (hex/CMYK/Pantone/Delta-E), cross-media failures, physical materials
+- **feb-2030-design-token-color-systems**: Two-tier token architecture, dark mode test, interaction state tokens, naming conventions
+- **feb-2030-ecommerce-color-psychology**: Color fit over universal associations, CTA contrast research, trust color evidence, urgency overuse degradation
+- **feb-2030-color-in-ai-interfaces**: Generative state color, uncertainty coloring discipline, AI error state nuance, output trust architecture
+
+### Category A — 5 New Guides (now 154 total, extraGuides27)
+
+- **color-in-motion-design-guide**: Temporal contrast, OKLCH interpolation, animation states, dark mode toggle animation
+- **print-vs-digital-color-guide**: Gamut intersection, brand color spec, cross-media failure modes, physical media constraints
+- **design-token-color-guide**: Primitive/semantic layers, dark mode test, state token vocabulary, naming conventions
+- **ecommerce-color-psychology-guide**: Color fit research, CTA contrast, trust architecture, urgency overuse
+- **ai-interface-color-guide**: Generation states, uncertainty, error states, output trust building
+
+### Category D — 4 New Collections (now 98 total, extraCollections26)
+
+- **desert-gold**: Warm amber/ochre/sand for artisan goods, natural beauty, heritage craft brands
+- **electric-violet**: Deep indigo/electric purple for creative tech, gaming, AI products, entertainment
+- **forest-floor**: Deep moss/umber/bark for sustainability, outdoor, organic food, botanical wellness
+- **pearl-oyster**: Cream/warm-white/luminous-gray for quiet luxury fashion, premium hospitality, editorial
+
+### Category C — 45 New Search Aliases (color-search.ts)
+
+Added keywords for: motion design, temporal color, color management/print, design tokens, e-commerce conversion, AI interfaces, and new collection identities (desert, violet/indigo, forest, pearl/oyster/quiet luxury)
+
+### Files Modified (4)
+- `src/data/newsletter-issues.json` — 5 new issues (210-214)
+- `src/lib/guides.ts` — extraGuides27 (5 guides, 154 total)
+- `src/lib/collections.ts` — extraCollections26 (4 collections, 98 total)
+- `src/lib/color-search.ts` — 45 new search aliases

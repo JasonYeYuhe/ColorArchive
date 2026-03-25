@@ -13,13 +13,13 @@
 ## Medium Priority
 
 - [ ] **QA Color Name Generator** — New `/name/` page launched. Test the hex input, color picker, preset buttons, and copy actions on mobile and desktop. Verify nearest-color matching looks sensible.
-- [ ] **QA new collections** — 4 new collections added (midnight-forge, spring-herb, burnt-clay, arctic-white). Verify they render correctly and colors look right in the browser.
+- [ ] **QA new collections (batch 26)** — 4 new collections added (desert-gold, electric-violet, forest-floor, pearl-oyster). Verify they render correctly and color swatches look right in the browser.
 - [ ] **TikTok content review** — TikTok account is in review. Check status and publish first videos once approved.
 - [ ] **Twitter/X posting cadence** — API is configured. Set up or review the posting schedule for color-of-the-day content.
 - [ ] **Pinterest board strategy** — Pinterest integration is active. Consider creating dedicated boards per color family or collection.
 - [ ] **Product Hunt follow-up** — PH is live. Engage with comments and upvoters; post a milestone update when hitting 100 reviews/upvotes.
 - [ ] **YouTube video strategy** — First video is published. Plan next 3 videos (tutorial, feature walkthrough, color theory explainer).
-- [ ] **Google Search Console verification** — Confirm sitemap is indexed and check for crawl errors after the new /name/ and new guide pages are added.
+- [ ] **Google Search Console verification** — Confirm sitemap is indexed and check for crawl errors after the new /name/ and new guide pages are added. Now 154 guides total.
 
 ## Low Priority / Nice to Have
 
