@@ -1834,3 +1834,48 @@ Each use case has: color family recommendations, families to avoid, 4 key princi
 - src/data/newsletter-issues.json
 - src/lib/guides.ts
 - src/lib/collections.ts
+
+---
+
+## 2026-03-26 — Normal Run
+
+**Run type:** Normal
+**Commit:** d664310
+**Typecheck:** ✓ clean
+
+### Category A — 5 New Newsletter Issues (now 194 total)
+
+- **sep-2029-accessible-color-in-data-tables**: Contrast matrices for all row state backgrounds, WCAG 1.4.1 row encoding without color dependence, status icons in dense tables, color density management
+- **sep-2029-color-in-onboarding-flows**: Progressive color introduction, forward-looking progress indicators, error calibration (amber before red), completion color moments
+- **sep-2029-color-and-typography-pairing**: How weight changes apparent color via negative space, serif vs. sans-serif lightness response, display type on backgrounds, cross-platform rendering
+- **sep-2029-color-system-documentation**: Four documentation layers (decision/semantic/implementation/usage), documentation proximity to code, changelog discipline, automated consistency enforcement
+- **oct-2029-color-in-mobile-ui**: OLED true black vs LCD near-black dark mode, iOS/Android platform color conventions, touch-target affordance without hover states
+
+### Category A — 5 New SEO Guides (now 134 total, extraGuides23)
+
+- **color-in-data-tables-guide**: Accessible enterprise data tables — WCAG 1.4.1 row encoding, contrast matrices, status color conventions
+- **onboarding-color-design-guide**: UX onboarding flows — progressive color, progress momentum, error calibration, completion moments
+- **color-typography-pairing-guide**: Color-type interactions — apparent color by weight, serif vs sans-serif, cross-platform rendering
+- **color-system-documentation-guide**: Design system docs — four layers, changelog discipline, automated enforcement
+- **mobile-ui-color-guide**: Mobile color design — OLED dark mode, iOS/Android conventions, touch affordance
+
+### Category B — i18n for Use-Cases Pages
+
+- Added 13 new translation keys in `src/lib/i18n.ts` for use-cases UI strings (EN + ZH)
+- Updated `UseCasesPage` to use `t()` with locale detection + `colorarchive-locale-change` event listener
+- Updated `UseCaseDetailPage` to use `t()` for all section headings and navigation strings
+
+### Category E — Email Improvements
+
+- **Bug fix**: `sendProUpsellEmail` used `FROM_EMAIL` (the env var name literal) instead of `FROM` (the declared variable) — would have caused a ReferenceError in production
+- **New function**: `sendReferralWelcomeEmail(to, { referrerName })` — welcome email for users who signed up via a referral link; includes feature list, Explore CTA, and Pro upsell panel; exported from `module.exports`
+
+### Files Modified (6)
+
+- `src/data/newsletter-issues.json` — 5 new issues
+- `src/lib/guides.ts` — extraGuides23 (5 guides)
+- `src/lib/i18n.ts` — 13 new i18n keys for use-cases
+- `src/components/use-cases-page.tsx` — i18n integration
+- `src/components/use-case-detail-page.tsx` — i18n integration
+- `server/email.js` — FROM_EMAIL bug fix + sendReferralWelcomeEmail
+
