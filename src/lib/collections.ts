@@ -2233,3 +2233,136 @@ const extraCollections24: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections24);
+
+const extraCollections25: ColorCollection[] = [
+  createCollection(
+    "midnight-forge",
+    "Midnight Forge",
+    "Deep charcoal, cool navy, and polished steel tones — the palette of precision engineering, developer tools, and industrial technology with a premium finish.",
+    "Midnight forge is drawn from the chromatic universe of high-precision manufacturing at night: the near-black of forged steel in low light, the cool blue-gray of polished tooled aluminum, the deep navy of industrial powder coating, and the subtle silver of precision machined surfaces. Cobalt-shadow-deep opens at the darkest end — not pure black but the deep cool-dark of forged metal in shadow, with a trace of blue. Cobalt-shadow-muted rises into full dark navy territory — the color of a precision instrument under halogen light, where the cool undertone is clearly visible. Cobalt-shadow-soft brings the palette toward accessible dark — a dark steel blue that reads as professional and precise. Slate-shadow-soft introduces the neutral anchor — a dark gray-charcoal that pairs with the blue tones as a secondary dark surface. Cobalt-whisper-muted provides the accent — a mid-tone steel blue that functions as the palette's single energetic note, used for highlights, interactive states, and key data markers.",
+    ["Dark", "Technical", "Precision"],
+    [
+      "cobalt-shadow-deep",
+      "cobalt-shadow-muted",
+      "cobalt-shadow-soft",
+      "slate-shadow-soft",
+      "cobalt-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "Midnight forge is ideally positioned for developer tools, CLI products, terminal interfaces, infrastructure software, industrial technology brands, and precision manufacturing companies. It communicates engineering rigor, technical depth, and quiet confidence without the corporate neutrality of a standard dark-mode palette. Photography direction: precision-machined metal parts, server rack ambient glow, industrial equipment under task lighting, welding sparks against dark backgrounds, circuit board macro photography with selective focus. Typography: a geometric monospace or technical sans-serif (JetBrains Mono, IBM Plex, Geist Mono) reads as authentically developer-oriented in this palette; a bold industrial sans at heavy weight adds structural authority for headlines.",
+      promptWords: [
+        "developer tools brand in midnight forge dark palette",
+        "industrial technology company in dark charcoal and steel tones",
+        "infrastructure software product in deep navy and precision steel",
+        "precision manufacturing brand in dark forge palette",
+        "terminal or CLI product in dark steel and cobalt tones",
+      ],
+      useCases: [
+        "Developer tools, CLI products, and terminal interfaces",
+        "Infrastructure software and DevOps platforms",
+        "Industrial technology and manufacturing equipment brands",
+        "Precision instrument and hardware brands",
+        "Dark-mode-first SaaS products in technical domains",
+      ],
+    },
+  ),
+  createCollection(
+    "spring-herb",
+    "Spring Herb",
+    "Fresh sage, soft chartreuse, and light mint — the palette of new growth, clean ingredient lists, and wellness brands that want energy without loudness.",
+    "Spring herb is assembled from the fresh, slightly yellow-green range of early spring: new herb growth, unfurling sage leaves, the light lime of young mint tips, and the barely-there green of glass filtered water. Chartreuse-pearl-faint opens at near-white — a barely visible warmth of new green, like sunlight through a single layer of fresh sage leaves. Lime-whisper-soft deepens to the first clear herb note — a soft, slightly warm mint-green that reads as 'fresh ingredients' without being aggressive. Sage-whisper-soft introduces the dry herb character — cooler, more gray-green, the color of mature sage before harvest. Lime-whisper-muted moves into a more confident spring green — present and energetic but still quiet, like a perfectly fresh celery note. Sage-whisper-muted anchors with depth — a mature sage that grounds the lighter tones with herbal complexity.",
+    ["Fresh", "Natural", "Energetic"],
+    [
+      "chartreuse-pearl-faint",
+      "lime-whisper-soft",
+      "sage-whisper-soft",
+      "lime-whisper-muted",
+      "sage-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "Spring herb works for functional wellness and supplement brands, clean-ingredient food and beverage products, farm-to-table restaurants and food tech, natural personal care and clean beauty, and any brand that wants the freshness signal of green without the cold clinical associations of a pure emerald or bright lime. It is distinct from 'sustainability green' (which tends to be darker and more earthy) — spring herb is lighter, more vital, and more ingredient-forward. Photography direction: fresh herbs in natural light, clean kitchen preparation surfaces, close-up plant texture on white, farmers market produce, glass vessels with green liquid. Typography: a clean grotesque or humanist sans at regular or medium weight reads as modern wellness; a handcrafted serif can add artisanal warmth for food and farm contexts.",
+      promptWords: [
+        "wellness supplement brand in fresh sage and mint palette",
+        "clean-ingredient food brand in spring herb tones",
+        "farm-to-table restaurant brand in fresh green and herb palette",
+        "natural personal care brand in light sage and chartreuse",
+        "functional beverage or nutrition brand in fresh spring green",
+      ],
+      useCases: [
+        "Functional wellness, supplement, and nutrition brands",
+        "Clean-ingredient food and beverage products",
+        "Farm-to-table restaurants and food technology",
+        "Natural personal care and clean beauty brands",
+        "Sustainable lifestyle and eco-friendly household products",
+      ],
+    },
+  ),
+  createCollection(
+    "burnt-clay",
+    "Burnt Clay",
+    "Terra cotta, adobe, and sun-dried brick — warm earth tones fired by heat and shaped by hand. For artisan makers, interior design, and handmade goods with authentic heritage.",
+    "Burnt clay is drawn from the warmest end of the earth-tone spectrum: the orange-red of fired terra cotta, the warm tan of sun-dried adobe brick, the dusty ochre of dry clay soil in summer heat, and the deep rust of kiln-fired pottery in reduction. Coral-silk-soft opens with a warm, pinkish-terra cotta tone — fresh from the kiln, still carrying a blush of rose in the orange warmth. Ember-whisper-muted deepens into the classic terra cotta note — warm orange-brown, the color of an unglazed pot on a Mediterranean windowsill. Amber-whisper-muted introduces the ochre note — a warm golden-tan that sits at the clay/earth boundary, dry and sun-heated. Ember-whisper-soft brings the palette's most orange note — a fired-earth tone with clear orange character, like autumn gourds or a ceramic bowl just removed from the kiln. Ember-shadow-soft anchors with depth — the deep rust-brown of high-fired clay in a reduction atmosphere, where oxygen restriction pulls reds toward deep rust and warm umber.",
+    ["Warm", "Artisan", "Earthy"],
+    [
+      "coral-silk-soft",
+      "ember-whisper-muted",
+      "amber-whisper-muted",
+      "ember-whisper-soft",
+      "ember-shadow-soft",
+    ],
+    {
+      editorialNote:
+        "Burnt clay suits ceramic studios and pottery brands, artisan food and kitchen goods, interior design and home décor brands with a handmade or wabi-sabi aesthetic, natural skincare and body care in earth-toned packaging, and Southwestern or Mediterranean lifestyle brands. It occupies a distinct niche from standard warm earth tones — more fired and mineral than soft terracotta, more artisan than mass-market 'warm neutral'. Photography direction: thrown-clay pottery in natural light, kiln interiors with warm glow, raw clay texture and hand-forming shots, wooden cutting boards with warm-toned foods, sun-lit adobe architecture and textured plaster walls. Typography: a slightly rough or handcrafted serif adds authentic artisan character; a bold condensed sans in a strong weight can communicate craft confidence in shorter text.",
+      promptWords: [
+        "ceramic studio and pottery brand in terra cotta and burnt clay palette",
+        "artisan kitchen and food goods brand in warm earth tones",
+        "interior design brand in terra cotta and adobe palette",
+        "natural skincare brand in warm clay and earth tones",
+        "Southwestern or Mediterranean lifestyle brand in burnt clay palette",
+      ],
+      useCases: [
+        "Ceramic studios, pottery makers, and kiln art brands",
+        "Artisan food, kitchen, and tableware brands",
+        "Interior design and home décor with handmade aesthetic",
+        "Natural body care and skincare in earth-toned positioning",
+        "Southwestern, Mediterranean, and warm-climate lifestyle brands",
+      ],
+    },
+  ),
+  createCollection(
+    "arctic-white",
+    "Arctic White",
+    "Ice-silver, cold white, and near-zero gray — the palette of extreme minimalism, premium precision technology, and Scandinavian product design without ornamentation.",
+    "Arctic white is assembled from the coldest, most minimal end of the white-gray spectrum: the ice-silver of a polished titanium surface, the near-zero white of fresh snow on a gray-sky day, the subtle cool of a Scandinavian interior in winter light, and the refined pale gray of high-end tech product surfaces. White-pearl-faint opens at absolute near-white — the color of cloud cover at noon, with the faintest suggestion of cool silvery undertone. Slate-pearl-faint introduces the first cool gray movement — a barely-there gray that on a pure white background reads as the palest possible step away from white. Slate-whisper-soft deepens to the first clearly gray tone — refined, cool, and very light, like brushed aluminum or raw concrete in indirect light. Slate-whisper-muted adds substance — a mid-light cool gray that functions as a text color, divider, or secondary surface in minimal design systems. Slate-shadow-soft provides the darkest anchor — a deep cool charcoal that maintains the cold temperature of the palette while providing usable contrast for headlines and primary navigation.",
+    ["Minimal", "Cold", "Premium"],
+    [
+      "white-pearl-faint",
+      "slate-pearl-faint",
+      "slate-whisper-soft",
+      "slate-whisper-muted",
+      "slate-shadow-soft",
+    ],
+    {
+      editorialNote:
+        "Arctic white suits premium consumer electronics and tech hardware brands, Scandinavian furniture and home design products, luxury minimal fashion and accessories, clinical health and medical technology, and any brand whose aesthetic proposition is radical simplicity and cold precision. It is the inverse of warm minimalism — where warm minimal palettes feel inviting and human, arctic white feels exact, refined, and slightly aloof. Photography direction: white studio product photography with cold shadows, industrial minimal architecture, polished white ceramic and titanium hardware, winter landscape abstractions, raw concrete with natural cold north light. Typography: a geometric or neo-grotesque sans at thin or light weight (Helvetica Neue Thin, Geist Light, PP Neue Machina) reads as authentically minimal in this palette; generous tracking and tight line-height complete the cold precision feel.",
+      promptWords: [
+        "premium consumer electronics brand in arctic white and cold gray palette",
+        "Scandinavian furniture or home design in minimal cool tones",
+        "luxury minimal fashion brand in ice-silver and white",
+        "medical technology or health brand in clinical cold minimal palette",
+        "ultra-minimal SaaS product in arctic white and cool gray system",
+      ],
+      useCases: [
+        "Premium consumer electronics and technology hardware",
+        "Scandinavian furniture, home, and lifestyle design",
+        "Luxury minimal fashion and accessories",
+        "Medical technology, health, and clinical products",
+        "Ultra-minimal SaaS and software product brands",
+      ],
+    },
+  ),
+];
+
+collections.push(...extraCollections25);

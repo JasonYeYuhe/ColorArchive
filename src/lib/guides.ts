@@ -7599,3 +7599,213 @@ const extraGuides25: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides25);
+
+const extraGuides26: LandingGuide[] = [
+  {
+    category: "UI Design",
+    slug: "gradient-color-guide",
+    title: "Gradient Design: Chromatic Progressions That Feel Contemporary",
+    summary:
+      "Gradients are back — but the contemporary gradient is nothing like the early 2000s lens flare era. A framework for mesh gradients, chromatic progressions, and tonal ramps that feel intentional.",
+    eyebrow: "Advanced Color",
+    priority: 76,
+    searchIntent: "gradient design color guide UI mesh gradient chromatic progression tonal gradient CSS",
+    featuredCollectionId: "misty-harbor",
+    featuredPackId: "complete-archive",
+    tags: ["Gradients", "UI Design", "Color Theory"],
+    highlights: [
+      "Chromatic gradients (cross-hue progression) carry more energy than tonal gradients (single-hue lightness shift) — but require careful hue-space interpolation to avoid muddy intermediate colors.",
+      "Mesh gradients work best when the chromatic range is narrow: two or three adjacent hues with lightness variation doing most of the spatial work.",
+      "Background contexts are the safe zone for gradients in UI; interactive elements (buttons, CTAs) risk reading as template-quality unless execution quality is exceptional.",
+    ],
+    sections: [
+      {
+        heading: "Chromatic vs tonal gradients",
+        body: "A tonal gradient moves along a single hue's lightness axis — light blue fading to dark blue. Tonal gradients are safe, predictable, and low-risk; they're also less visually interesting. A chromatic gradient moves across hue space — warm blue shifting through violet toward rose. Chromatic gradients carry more emotional energy and visual tension, but they need careful execution to avoid the muddy intermediate zone where colors mix poorly. Moving through HSL or OKLab color space rather than RGB is essential: an HSL gradient from blue to red produces clean violet intermediates, while an RGB lerp produces a washed-out desaturated muddle.",
+      },
+      {
+        heading: "Mesh gradients: control points and chromatic range",
+        body: "Mesh gradients define color behavior with multiple control points across a 2D surface, producing organic non-linear color fields. They're powerful, but the chromatic range is the key decision: wide-hue-range mesh gradients (cyan through green through yellow through orange) read as decoration or illustration, not as material surface. Narrow-range mesh gradients — warm white shifting through cream into a whisper of rose, or cool gray with a touch of violet in one corner — read as material, like the color variation in polished stone, woven fabric, or backlit glass. For UI use, err toward narrow chromatic range and let lightness variation create the visual interest.",
+      },
+      {
+        heading: "Where gradients belong in a design system",
+        body: "Full-bleed background contexts (hero sections, marketing panels, feature highlights) are the low-risk, high-impact zone for gradients. They fill a large area where the gradient quality is visible and the decorative role is appropriate. Interactive elements (buttons, progress bars, selected states) are riskier — a gradient button reads as premium in one context and as cheap template artifact in another. The test is whether the gradient adds meaning (suggests direction, depth, state change) or is purely cosmetic. Status indicators and data visualizations should almost never use gradients: they introduce ambiguity about where one state ends and another begins, undermining the semantic clarity that makes them functional.",
+      },
+      {
+        heading: "CSS gradient implementation details",
+        body: "The `color-interpolation-method` property in modern CSS allows gradient hue interpolation in OKLab or OKLCH color space, which produces perceptually uniform gradients without the common mid-gradient desaturation artifacts. `background: linear-gradient(in oklch, hsl(220 80% 60%), hsl(300 70% 50%))` will produce a cleaner blue-to-violet than the RGB-space default. For long gradients, adding intermediate color stops at the midpoint (with a slightly boosted saturation value) prevents the washed-out center that plagues many chromatic gradients. Grain or noise texture layered over gradients — via SVG filter, canvas, or a semi-transparent noise image — adds tactility that prevents the 'screen-printed' look of pure smooth gradients.",
+      },
+    ],
+    links: [
+      { label: "Color combinations library", href: "/combinations/" },
+      { label: "Brand color analyzer", href: "/analyze/" },
+      { label: "Misty Harbor collection", href: "/collections/misty-harbor/" },
+    ],
+  },
+  {
+    category: "Mobile Design",
+    slug: "mobile-dark-mode-color-guide",
+    title: "Mobile Dark Mode Color: OLED, P3, and System Theming",
+    summary:
+      "Between your CSS hex values and the user's eyes: OLED panels, Display P3 gamut, OS dark mode, and manufacturer color tuning. Understanding the translation stack lets you design for it.",
+    eyebrow: "Mobile Color",
+    priority: 75,
+    searchIntent: "dark mode mobile design color OLED display P3 system theming iOS Android CSS color management",
+    featuredCollectionId: "storm-silver",
+    featuredPackId: "data-viz",
+    tags: ["Dark Mode", "Mobile Design", "Accessibility"],
+    highlights: [
+      "OLED true black (#000000) creates pixel-off halos at component edges — use #0A0A0A or #111111 as the dark surface minimum to avoid edge artifacts while preserving battery savings.",
+      "Display P3 colors appear significantly more vivid on modern iPhones and Android flagships than the same values on older sRGB displays — stick to sRGB-gamut values for cross-device consistency.",
+      "Two-token-layer architecture (semantic tokens pointing to different primitives in light/dark mode) is the only scalable approach to OS dark mode — component-level dark mode logic doesn't scale.",
+    ],
+    sections: [
+      {
+        heading: "OLED black: what works and what causes artifacts",
+        body: "OLED displays achieve true black by completely turning off pixels, which means pure black backgrounds save battery and achieve perfect contrast against light elements. But there's a catch: component edges where a lit element meets a fully black background can show subtle halos or contrast banding due to the abrupt pixel activation boundary. Pure black (#000000) is most susceptible; a near-black like #0A0A0A or #111111 gets most of the battery savings while softening the edge artifact problem. Additionally, many OLED display calibrations apply aggressive contrast boosting that can make mid-dark surfaces appear more washed-out than intended — test your dark surfaces on OLED hardware, not just simulator.",
+      },
+      {
+        heading: "Display P3 and color gamut",
+        body: "Modern iPhones (iPhone 7 and later) and many Android flagships support Display P3, a wider color gamut than sRGB that allows significantly more vivid colors — particularly in reds, greens, and cyans. Colors defined in P3 space look correct on P3 displays and washed-out on sRGB displays. If your brand accent is a highly saturated color, check whether it lives within sRGB gamut: a color mixer in P3 space will show you whether your accent clips the sRGB boundary. For cross-device consistency, keep brand accents within sRGB gamut; if you want to use P3 vividity, use it for decorative elements rather than functional UI color that needs to appear consistently across devices.",
+      },
+      {
+        heading: "OS dark mode: semantic token architecture",
+        body: "CSS `prefers-color-scheme: dark` gives you the signal, but semantic color tokens give you the architecture to respond to it cleanly. The pattern: a semantic token layer (--color-surface, --color-text-primary, --color-border, --color-accent) points to different primitive values in light vs dark mode. Components reference only semantic tokens, never raw hex values or primitive colors directly. This separation means light/dark mode is a pure token-swap operation — no component logic, no conditional class names, no CSS-in-JS dark mode props. Components are written once and work in both modes automatically.",
+      },
+      {
+        heading: "Manufacturer color tuning and calibration variance",
+        body: "Even within the Android ecosystem, the gap between a Samsung Galaxy S (with vivid mode engaged by default) and a Google Pixel (with accurate color calibration) can make your carefully chosen palette look radically different between devices. Samsung's default display mode significantly boosts saturation; cooler, lower-saturation designs can look unexpectedly vivid on Samsung hardware. Mitigation: test on both saturated (Samsung vivid) and accurate (Pixel, iPhone) display profiles during design QA. For web-based products, there's limited recourse — the solution is designing in mid-saturation ranges that look intentional even when boosted by manufacturer tuning.",
+      },
+    ],
+    links: [
+      { label: "WCAG contrast auditor", href: "/wcag-audit/" },
+      { label: "Color combinations library", href: "/combinations/" },
+      { label: "Storm Silver collection", href: "/collections/storm-silver/" },
+    ],
+  },
+  {
+    category: "Product Design",
+    slug: "saas-color-strategy-guide",
+    title: "Color Strategy for SaaS Products: Tiers, Trust, and the Pricing Page",
+    summary:
+      "SaaS products must build trust with skeptical buyers, differentiate feature tiers, and perform on the pricing page. A color system built for products that need to sell.",
+    eyebrow: "SaaS Design",
+    priority: 74,
+    searchIntent: "SaaS product color strategy pricing page feature tier trust colors B2B design system",
+    featuredCollectionId: "corporate-slate",
+    featuredPackId: "complete-archive",
+    tags: ["SaaS Design", "Product Design", "Color Strategy"],
+    highlights: [
+      "Conservative blue and blue-gray palettes outperform colorful or playful primaries in enterprise B2B trust research — keep the neutral core stable and carry brand personality in a single accent.",
+      "Feature tier color systems work best with material metaphors (silver/gold/platinum) rather than status colors (green/yellow/red) — status colors read as good/warning/bad, not basic/standard/premium.",
+      "The pricing page CTA button should always sit at the apex of contrast in the page — higher contrast than surrounding content, not lower.",
+    ],
+    sections: [
+      {
+        heading: "Trust-first color architecture for B2B",
+        body: "Enterprise SaaS products are purchased by people who are cautious about spending company money and accountable to colleagues for the choice. This risk-aware mindset responds best to color systems that signal stability, professionalism, and seriousness. Blue, blue-gray, and dark neutral palettes consistently outperform warm or playful primaries in B2B purchase context research. This doesn't mean SaaS products must be visually dull — a carefully chosen accent color on key interactive moments (primary CTA, active state, completion state) can carry brand personality without undermining the professional core. The core surfaces (sidebar, navigation, dashboard) should feel stable and neutral; the accent supplies warmth and brand character.",
+      },
+      {
+        heading: "Feature tier color differentiation",
+        body: "Tier systems (Free, Pro, Enterprise or Starter, Growth, Scale) need visual differentiation that feels aspirational rather than evaluative. The failure mode is a traffic-light metaphor — free is green, pro is yellow, enterprise is red — which reads as good/warning/danger rather than value progression. Material metaphors work better: silver, gold, and obsidian communicate premium tier progression through material connotation, not status signal. Badge colors for tier labels should be clearly distinct from status and notification colors in the same design system — using the same orange for 'Pro' badges and 'Warning' alerts creates semantic confusion across the product.",
+      },
+      {
+        heading: "The pricing page: color hierarchy that converts",
+        body: "The pricing page is the highest commercial intent page in a SaaS product; color choices here directly affect revenue. Evidence from B2B pricing page optimization: the recommended plan benefits from a subtle background differentiation (a slightly different surface color, or a colored top border) rather than dramatic color contrast — dramatic differentiation can feel pushy, while subtle differentiation feels helpful. CTA buttons on the pricing page should have the highest contrast in the entire page composition — not just 'accessible' contrast but maximum visual weight. Feature list typography should be light or muted enough to support scanning without competing with the CTA.",
+      },
+      {
+        heading: "Growth metric contexts: red down, green up",
+        body: "SaaS dashboards and analytics panels use color to encode metric direction — revenue up (green), churn up (red), latency increased (amber). These are deep conventions users bring from trading dashboards, accounting software, and spreadsheet tools. Violating them is a UX tax: users who see a green number going down experience a moment of cognitive recalibration on every dashboard visit. The exception is products that deliberately invert the convention because the metric's meaning is inverted — 'bug count down' might reasonably be green even though the number decreased. Make the override explicit with an annotation or icon, not just color.",
+      },
+    ],
+    links: [
+      { label: "Color psychology guide", href: "/guides/color-psychology-guide/" },
+      { label: "WCAG contrast auditor", href: "/wcag-audit/" },
+      { label: "Corporate Slate collection", href: "/collections/corporate-slate/" },
+    ],
+  },
+  {
+    category: "Brand Design",
+    slug: "typography-color-pairing-guide",
+    title: "Typography and Color as a Co-Expressive System",
+    summary:
+      "Typography and color amplify or cancel each other. How typographic weight, width, and classification interact with hue, saturation, and lightness — and how to design them together.",
+    eyebrow: "Type & Color",
+    priority: 73,
+    searchIntent: "typography color pairing guide design brand identity type weight color saturation harmony",
+    featuredCollectionId: "editorial-gray",
+    featuredPackId: "complete-archive",
+    tags: ["Typography", "Brand Design", "Color Theory"],
+    highlights: [
+      "Heavy-weight type + highly saturated color creates visual collision; cross-modal pairings work better: heavy type with neutral color (type carries the weight) or thin type with saturated accent (color carries the energy).",
+      "Hue similarity reduces apparent contrast between type and surface even when lightness contrast meets WCAG minimums — blue text on a blue-tinted surface requires extra lightness separation.",
+      "Humanist sans-serifs carry warmth that pairs with warm palettes; geometric sans-serifs read as cooler and more neutral; old-style serifs feel historical and pair with earth and low-saturation palettes.",
+    ],
+    sections: [
+      {
+        heading: "Weight and saturation: cross-modal pairing",
+        body: "Typographic weight and color saturation are two dimensions of visual energy. When both are at maximum — heavy Black-weight type in a highly saturated accent color — they compete rather than cooperate, creating visual noise rather than hierarchy. The most effective pairings are cross-modal: heavy type with desaturated, neutral, or low-contrast color (the type dominates), or light or thin type with a saturated, warm, or vivid color (the color dominates). The combination works at short lengths — a logo wordmark, a hero heading — but fails at scale. Body text and interface copy should always resolve this tension toward legibility: neutral color, moderate or regular weight.",
+      },
+      {
+        heading: "Contrast in colored typography",
+        body: "WCAG contrast ratios measure lightness difference between foreground and background, accounting for the specific luminance contribution of each color channel. But hue similarity introduces a perceptual effect the ratio doesn't capture: blue text on a blue-tinted background requires more lightness contrast than blue text on a neutral white background to achieve the same practical readability. The recommendation: when using colored type on colored surfaces, add an extra half-step of lightness contrast beyond the WCAG minimum. Check your actual render in a desaturated (grayscale) view — if the type disappears into the surface when desaturated, the contrast is insufficient regardless of calculated ratio.",
+      },
+      {
+        heading: "Typeface classification and color temperature",
+        body: "The emotional register of typefaces interacts with color temperature in ways designers often underestimate. Humanist sans-serifs (Gill Sans, Myriad, Frutiger, Inter) are warm, approachable, and relational — they pair naturally with warm palettes (red-adjacent, orange, yellow-adjacent, warm neutrals) and create mild tension with cold palettes (steel blue, cool gray). Geometric sans-serifs (Futura, Avenir, Neuzeit, Montserrat) are cooler and more rational — they pair with cold palettes and feel slightly clinical on warm ones. Old-style serifs (Garamond, Caslon, Sabon, EB Garamond) carry historical gravity that suits dark, earthy, or low-saturation palettes; they feel anachronistic on bright or highly saturated palettes, which works when the tension is deliberate.",
+      },
+      {
+        heading: "Scale and color together",
+        body: "Typographic scale creates hierarchy through size; color creates a parallel hierarchy through lightness and saturation contrast. These two hierarchies should align, not conflict. The most prominent text element (page headline) should have both size advantage and color advantage — maximum size and maximum contrast against background. Supporting content (subheadings, body) sits lower on both dimensions: smaller size and lower contrast (lighter text color against white, or more muted tones). Metadata and secondary information (dates, labels, captions) should be furthest along both axes: small and low-contrast. When size hierarchy and color hierarchy contradict each other — a large heading in muted gray, a small element in a vivid accent — the visual system feels disorganized and users have trouble finding the entry point.",
+      },
+    ],
+    links: [
+      { label: "Color Name Generator", href: "/name/" },
+      { label: "Brand color analyzer", href: "/analyze/" },
+      { label: "Editorial Gray collection", href: "/collections/editorial-gray/" },
+    ],
+  },
+  {
+    category: "Accessibility",
+    slug: "color-accessibility-beyond-contrast-guide",
+    title: "Color Accessibility Beyond WCAG Contrast Ratios",
+    summary:
+      "Contrast ratios are necessary but not sufficient. Pattern, motion, focus states, and color blindness simulation — the full accessibility picture that compliance checklists miss.",
+    eyebrow: "Accessibility",
+    priority: 72,
+    searchIntent: "color accessibility beyond WCAG contrast ratio color blindness focus state motion accessibility design",
+    featuredCollectionId: "nordic-morning",
+    featuredPackId: "complete-archive",
+    tags: ["Accessibility", "Color Theory", "UX Design"],
+    highlights: [
+      "Red-green color blindness affects ~8% of men — any UI using red vs green as the only signal (error vs success, up vs down) is inaccessible to this population; always add a secondary signal: icon, label, or pattern.",
+      "prefers-reduced-motion should also reduce or remove color animations — pulsing color indicators and animated gradient backgrounds can cause physical discomfort for users with vestibular or photosensitive conditions.",
+      "Custom focus states must have 3:1 contrast against adjacent surfaces per WCAG 2.2 and should be tested across all background contexts in the design system, not just on white.",
+    ],
+    sections: [
+      {
+        heading: "Color blindness: secondary signals are non-optional",
+        body: "Red-green color blindness (deuteranopia, protanopia, and related variants) affects approximately 8% of people with XY genetics — a significant population at scale. These users cannot reliably distinguish red from green hues. Any interface that uses color as the only distinguishing signal between two states is inaccessible to this group: red error vs green success, a green 'available' vs red 'unavailable' indicator, a chart legend using red and green lines. The fix is always a secondary signal: an icon (✕ for error, ✓ for success), a text label, a pattern fill on a chart area, or a position difference (error message appears below the field, success message at the top). Color becomes a reinforcing signal for information already conveyed another way.",
+      },
+      {
+        heading: "Motion and color accessibility",
+        body: "Animated color changes interact with accessibility in two distinct ways. First, the WCAG photosensitive epilepsy threshold: content that flashes more than 3 times per second, or that contains high-contrast alternations across a large screen area, can trigger seizures in photosensitive users. Second, and more broadly, pulsing, oscillating, or continuously animating color elements — a red notification badge that pulses, an animated gradient background — can cause discomfort, dizziness, or distraction for users with vestibular disorders, migraines, or attention-related conditions. The CSS `prefers-reduced-motion: reduce` media query lets users opt out of motion. Best practice: under `prefers-reduced-motion: reduce`, also reduce or eliminate color animation (not just position/scale animation), replacing animated indicators with static color differences.",
+      },
+      {
+        heading: "Focus state color: the neglected accessibility problem",
+        body: "Keyboard navigation depends on visible focus states. The widespread CSS pattern `*:focus { outline: none; }` — added to suppress browser default focus rings that designers find aesthetically unwelcome — eliminates keyboard accessibility for the interface. Custom focus styles are the solution, but they carry their own color requirements: WCAG 2.2 Success Criterion 2.4.11 (Focus Appearance) requires that focus indicators have 3:1 contrast against adjacent colors and are at minimum 2 CSS pixels thick. One common failure: a blue focus ring that is clearly visible on a white background disappears against a blue sidebar or a dark header. Test focus visibility across every background context in the design system, not just the most common white surface.",
+      },
+      {
+        heading: "Simulation tools and real-user testing",
+        body: "Browser extensions and design tool plugins can simulate various color vision deficiency modes (deuteranopia, protanopia, tritanopia, achromatopsia) and provide a useful first-pass check. But simulation has limits: it approximates the experience without replicating the adaptive strategies that color-blind users develop over time for navigating interfaces. Real-user testing with color-blind participants catches the actual navigation breakdowns that simulation misses — places where a color-blind user cannot distinguish two states despite the simulation suggesting they're different enough. For high-stakes UI (medical software, financial tools, emergency systems), this level of testing is essential. For most consumer products, simulation combined with the secondary-signal design pattern provides a solid foundation.",
+      },
+    ],
+    links: [
+      { label: "WCAG contrast auditor", href: "/wcag-audit/" },
+      { label: "Color combinations library", href: "/combinations/" },
+      { label: "Nordic Morning collection", href: "/collections/nordic-morning/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides26);
