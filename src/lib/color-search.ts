@@ -789,6 +789,45 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   generative_palette: ["cobalt", "violet", "iris", "vivid", "bloom"],
   ai_palette: ["cobalt", "sapphire", "iris", "violet", "vivid"],
   algorithmic: ["cobalt", "azure", "cerulean", "vivid", "clear"],
+  // Color theory education
+  analogous: ["coral", "amber", "citrine", "honey", "olive"],
+  complementary: ["cobalt", "amber", "coral", "citrine", "vivid"],
+  triadic: ["crimson", "cobalt", "citrine", "vivid", "clear"],
+  split_complementary: ["violet", "amber", "coral", "soft", "muted"],
+  tetradic: ["cobalt", "crimson", "citrine", "violet", "vivid"],
+  // Interior and home design styles
+  hygge: ["amber", "ivory", "honey", "sienna", "warm"],
+  maximalist: ["vivid", "coral", "violet", "amber", "cobalt"],
+  mid_century_modern: ["amber", "olive", "rust", "ivory", "honey"],
+  // Photography types
+  street_photography: ["ink", "shadow", "slate", "ash", "ivory"],
+  landscape_photo: ["amber", "teal", "cobalt", "moss", "azure"],
+  food_photography: ["amber", "coral", "honey", "ivory", "warm"],
+  // Cultural palettes
+  indian_color: ["crimson", "amber", "citrine", "cobalt", "vivid"],
+  african_palette: ["ember", "amber", "cobalt", "citrine", "rust"],
+  latin_palette: ["coral", "amber", "cobalt", "vivid", "crimson"],
+  middle_eastern: ["amber", "garnet", "cobalt", "ivory", "vivid"],
+  // Workspace and focus
+  home_office: ["cobalt", "ivory", "slate", "azure", "muted"],
+  workspace: ["cobalt", "ivory", "slate", "teal", "muted"],
+  focus_mode: ["cobalt", "azure", "ivory", "muted", "soft"],
+  // Design movements
+  constructivism: ["crimson", "cobalt", "citrine", "onyx", "ivory"],
+  pop_art: ["crimson", "cobalt", "citrine", "vivid", "onyx"],
+  art_nouveau: ["olive", "amber", "jade", "plum", "ivory"],
+  impressionism: ["blush", "lavender", "amber", "soft", "muted"],
+  // Americana and heritage
+  vintage_americana: ["cobalt", "crimson", "amber", "honey", "ivory"],
+  barnwood: ["sienna", "honey", "amber", "ivory", "shadow"],
+  // Tea and ceremony
+  tea_ceremony: ["amber", "honey", "moss", "jade", "whisper"],
+  matcha_palette: ["moss", "jade", "olive", "whisper", "soft"],
+  // Electric and neon
+  electric_palette: ["violet", "cobalt", "iris", "teal", "fuchsia"],
+  neon_spectrum: ["violet", "cobalt", "iris", "teal", "fuchsia"],
+  // Metal and patina
+  copper_palette: ["ember", "amber", "jade", "teal", "honey"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

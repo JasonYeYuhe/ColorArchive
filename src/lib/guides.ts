@@ -8859,3 +8859,213 @@ const extraGuides31: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides31);
+
+const extraGuides32: LandingGuide[] = [
+  {
+    category: "Interior Design",
+    slug: "restaurant-color-design-guide",
+    title: "Restaurant Color Design: How Color Shapes the Dining Experience",
+    summary:
+      "A practical guide to using color in restaurant and hospitality design. Learn how color affects appetite, dwell time, and perceived quality across different dining formats.",
+    eyebrow: "Hospitality Color",
+    priority: 60,
+    searchIntent: "restaurant color design hospitality interior color dining room color palette restaurant branding interior color psychology",
+    featuredCollectionId: "terracotta-valley",
+    featuredPackId: "warm-neutrals",
+    tags: ["Interior Design", "Color Psychology", "Hospitality"],
+    highlights: [
+      "Fast-food brands converged on red and yellow because these warm colors increase food drive and eating speed — a behavioral engineering decision, not an aesthetic one.",
+      "Fine dining palettes are built to extend dwell time: dark, warm, and visually quiet environments produce the calm state that supports unhurried dining and premium spending.",
+      "Lighting color temperature is as important as surface color — warm-temperature point-source light (2700K) suppresses critical evaluation and increases comfort at the dining table.",
+    ],
+    sections: [
+      {
+        heading: "Color and dining behavior",
+        body: "Restaurant color choices are behavioral design decisions before they are aesthetic ones. The goal of the color palette is to produce a specific guest behavior that aligns with the restaurant's economic model. Quick-service restaurants need high throughput — fast arrival, fast ordering, fast eating, fast departure — and warm activating palettes (red, orange, high-chroma yellow) accelerate this cycle. Fine dining needs extended dwell time, high per-table spend, and return visits — and dark, warm, visually quiet palettes produce the parasympathetic state that supports unhurried dining. Understanding the business model first and deriving the palette from behavioral goals produces far better outcomes than choosing colors aesthetically.",
+      },
+      {
+        heading: "Appetite stimulation and suppression",
+        body: "The warm end of the spectrum (red, orange, warm yellow) has well-documented appetite-stimulating effects through mild sympathetic arousal. These colors are effective for concepts where hunger and speed are desirable. Blue and purple are the colors most consistently associated with appetite suppression — there are very few naturally occurring blue foods, and the color triggers a cautionary response in some food contexts. Green sits in the middle: in food contexts it reads as fresh, natural, and healthy, making it effective for salad bars, health-focused concepts, and farm-to-table positioning. Earthy neutrals — clay, terracotta, warm white — read as artisanal and handmade, appropriate for bakery, farm casual, and craft food concepts.",
+      },
+      {
+        heading: "Lighting color temperature",
+        body: "Lighting is as important as surface color in restaurant environments, and the two must be designed together. Low color-temperature sources (2700K and below, warm amber light) suppress critical visual evaluation, increase warmth and comfort, and make food look more appetizing by bringing out warm tones in proteins and baked goods. High color-temperature sources (4000K+) increase alertness and critical evaluation — useful for fast-casual environments where legibility of menu boards matters, but counterproductive in fine dining. Point-source lighting at table level is psychologically intimate and focuses attention on the food and conversation.",
+      },
+      {
+        heading: "Positioning and color alignment",
+        body: "The most critical error in restaurant color design is misalignment between price positioning and visual environment. Diners arrive with a price expectation set by everything they see before the menu arrives: the exterior, the signage, the host stand, the lighting, and the table setting. When the visual environment signals one price tier and the menu delivers another, the response is usually negative — the higher-cost menu feels overpriced against a casual-looking room, while the lower-cost menu feels like a pleasant surprise in a premium-looking room. Color alignment with positioning means that a fast-casual concept should embrace approachable, energetic color without apology, and a premium concept should use restraint, darkness, and material quality that communicates consideration.",
+      },
+    ],
+    links: [
+      { label: "Color Families", href: "/colors/" },
+      { label: "Mood Palette Generator", href: "/tools/mood/" },
+      { label: "Color Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Brand Strategy",
+    slug: "sports-brand-color-guide",
+    title: "Sports Brand Color: Team Identity, Psychology, and Rebranding Strategy",
+    summary:
+      "How color functions in sports branding — the psychology of team color identity, why fan attachment runs so deep, and what makes sports color rebrands succeed or fail.",
+    eyebrow: "Sports Branding",
+    priority: 58,
+    searchIntent: "sports brand color team identity sports design color psychology sports branding team color rebrand",
+    featuredCollectionId: "cobalt-authority",
+    featuredPackId: "brand-palette-kit",
+    tags: ["Brand Strategy", "Color Psychology", "Sports Design"],
+    highlights: [
+      "Sports color is tribal signaling before it is brand communication — the relevant question is not whether a palette is refined but whether it is unmistakably distinct from rivals.",
+      "Sports team colors accumulate decades of emotional memory — wins, seasons, players — which makes rebranding far more consequential than consumer brand color changes.",
+      "The sports rebrands that succeed are framed as restoration rather than replacement, and preserve the primary color identity while modernizing secondary elements.",
+    ],
+    sections: [
+      {
+        heading: "The tribal function of sports color",
+        body: "Sports color is tribal signaling before it is brand communication. When fans wear their team's colors, they are not expressing a product preference — they are declaring membership. This tribal function means that sports color identity is evaluated entirely differently from consumer brand color. The relevant question is not 'Is this palette aesthetically refined?' but 'Is this unmistakably our colors and unmistakably different from rivals?' Combinations that would fail any conventional brand review — fluorescent orange and dark blue, athletic gold and black, Kelly green and yellow — persist for decades precisely because their distinctiveness serves the tribal function.",
+      },
+      {
+        heading: "Color equity and institutional memory",
+        body: "Sports team colors accumulate meaning over decades in ways that no other brand category matches. A championship run in the 1970s is still encoded in a color forty years later; a hall-of-fame player's number retirement ceremony is encoded in the color he wore. The emotional weight of a team's colors for a lifelong fan includes all of these experiences — wins, losses, seasons, players, moments. This accumulated equity explains why sports color rebrands are so frequently catastrophic. When colors change, they sever the connection to encoded memory. The colors carry the archive.",
+      },
+      {
+        heading: "Why sports rebrands succeed or fail",
+        body: "The sports rebrands that succeed share common features: they are framed as restoration rather than replacement, they preserve the primary color identity while modernizing secondary elements, and they involve the fan community in the process. The rebrands that fail often involve a color identity shift driven by executive or design preference rather than fan identity research, and land in a color space that reads as generic rather than tribal.",
+      },
+      {
+        heading: "Designing new franchise color identity",
+        body: "New franchise color development has the rare opportunity to build an identity from the ground up, but faces a clear constraint: the palette must be maximally distinct from every existing franchise in the geographic and competitive context. New franchise colors should also consider: merchandise legibility on both white and black apparel, geographic or civic association to build authenticity, and palette expansion capacity for alternate uniforms and special events. Document the color identity precisely — Pantone values, digital RGB equivalents, fabric dyeing specifications — because inconsistent color reproduction is the most common identity deterioration problem across a long franchise history.",
+      },
+    ],
+    links: [
+      { label: "Brand Palette Builder", href: "/tools/brand/" },
+      { label: "Color Families", href: "/colors/" },
+      { label: "Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Color Psychology",
+    slug: "color-memory-learning-guide",
+    title: "Color and Memory: How Color Improves Learning and Information Recall",
+    summary:
+      "The cognitive science behind color and memory — how color highlighting, semantic color coding, and emotional color affect how we encode and recall information in learning and interface design.",
+    eyebrow: "Cognitive Color",
+    priority: 62,
+    searchIntent: "color and memory color learning recall color psychology educational color design cognitive color design",
+    featuredCollectionId: "nordic-signal",
+    featuredPackId: "complete-archive",
+    tags: ["Color Psychology", "UX Design", "Educational Design"],
+    highlights: [
+      "The isolation effect is the most reliable mechanism: items that are visually distinctive within their context are better encoded and recalled, which means selective color use outperforms heavy color use.",
+      "Warm activating colors produce mild arousal that facilitates memory consolidation — information encountered with mild emotional activation is encoded more deeply.",
+      "Semantic color systems in documentation (blue for notes, amber for warnings) create retrieval cues that help readers locate and recall categorized information.",
+    ],
+    sections: [
+      {
+        heading: "The isolation effect",
+        body: "The isolation effect is the most reliably documented mechanism connecting color to memory: items that are visually distinctive within their context are better remembered than items that blend in. A key term highlighted in amber on a page of neutral text will be remembered better than the same term without highlighting — not because amber has intrinsic memory properties, but because distinctiveness flags cognitive importance. The brain allocates more processing resources to visually isolated elements, which translates to deeper encoding and better recall. The critical implication is that selective color use is more effective than extensive color use: if every element is highlighted, none are isolated, and the memory benefit disappears.",
+      },
+      {
+        heading: "Emotional arousal and encoding",
+        body: "Emotional arousal at the time of encoding improves memory consolidation. Warm activating colors — reds, oranges, high-chroma warm tones — produce mild arousal that facilitates the encoding of information encountered in that context. This is part of why high-energy presentation environments with dramatic visuals produce better message recall than flat, neutral ones. In learning design, this principle suggests using more activating color treatment for the most critical content while maintaining calmer treatment for supporting material.",
+      },
+      {
+        heading: "Semantic color systems in documentation",
+        body: "The most powerful application of color in learning design is systematic semantic coding: consistently using specific colors for specific categories of information. A documentation system that always uses blue for notes, amber for warnings, and green for examples trains users to use color as a retrieval cue. Memory works partly through spatial and categorical context — 'I remember this was a warning, so it was amber, on the right side of the page.' This kind of cue-based retrieval is fast and reliable when the underlying system is consistent. The color system must be consistent across every instance to provide the cue — inconsistent application creates interference.",
+      },
+      {
+        heading: "Color accessibility in learning materials",
+        body: "Color-as-meaning in learning materials must always be paired with a secondary differentiator, because approximately 8% of male learners have some form of color vision deficiency. In red-green color blindness, red and green are indistinguishable — a warning-and-success color system using only these colors would exclude a significant portion of the audience. Best practice is to pair color with at least one other differentiator: icon, label text, pattern, or position. This makes the categorical system accessible to all users while still providing the mnemonic benefit of color for those who can perceive it.",
+      },
+    ],
+    links: [
+      { label: "Color Accessibility", href: "/guides/color-accessibility-design-guide/" },
+      { label: "Contrast Checker", href: "/tools/contrast/" },
+      { label: "Color Families", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Environmental Design",
+    slug: "wayfinding-color-systems-guide",
+    title: "Wayfinding Color Systems: Designing Navigation Color for Physical and Digital Spaces",
+    summary:
+      "How to design color systems for wayfinding and environmental navigation — the principles behind the London Underground, hospital signage, and airport systems, and how they translate to digital navigation design.",
+    eyebrow: "Environmental Design",
+    priority: 55,
+    searchIntent: "wayfinding design color system navigation color environmental design signage color information architecture color wayfinding",
+    featuredCollectionId: "cobalt-authority",
+    featuredPackId: "complete-archive",
+    tags: ["Wayfinding Design", "Environmental Design", "Systems Design"],
+    highlights: [
+      "The primary criterion for wayfinding color is inter-color discriminability — colors must be maximally distinguishable from each other under varied lighting and at speed, not just on a desktop monitor.",
+      "Large wayfinding systems need a two-level color hierarchy: a small primary palette for major zones, with each primary color supported by tonal variation for secondary navigation.",
+      "Color in wayfinding must always be paired with a secondary differentiator — label, number, or symbol — because 8% of males have color vision deficiency.",
+    ],
+    sections: [
+      {
+        heading: "The demands of navigation color",
+        body: "Wayfinding color must perform reliably in conditions that make conventional design rules insufficient. The color must be instantly readable at speed — a passenger running for a train has a fraction of a second to identify a color signal and make a routing decision. It must work under varied and often poor lighting conditions — fluorescent, daylight, sodium vapor, LED, all in the same environment. It must communicate to a maximally diverse user base, including the approximately 8% of males with color vision deficiency. And it must be reproducible consistently across print, digital, architectural paint, and wayfinding hardware over decades of maintenance.",
+      },
+      {
+        heading: "Discriminability and palette selection",
+        body: "The primary criterion for wayfinding color selection is inter-color discriminability: colors in the palette must be maximally distinguishable from each other, especially under compromised viewing conditions. High saturation aids discriminability — muted colors lose their distinctions under varied lighting. Maximum hue separation aids discriminability — the London Underground map distributes its line colors evenly around the hue wheel with large angular separations. The most common wayfinding palette error is choosing colors that look beautifully harmonious at desktop scale and become illegible at signage scale or under field lighting.",
+      },
+      {
+        heading: "Hierarchy and zone systems",
+        body: "Large wayfinding systems — airports, hospital campuses, university buildings — need color to represent multiple levels of hierarchy simultaneously. A single flat palette cannot distinguish between top-level navigation and secondary navigation without creating confusion. Best practice is a two-level system: a small primary palette (4-8 colors) for major zones or routes, with each primary color supported by a tonal range or geometric variation for secondary levels. The system should always have expansion capacity — unused palette slots for future zones — rather than exhausting all discriminable colors in the initial design.",
+      },
+      {
+        heading: "From environmental to digital navigation",
+        body: "The wayfinding design principles translate directly to digital information architecture. Category navigation should use a small, high-contrast palette with consistent semantic assignment — the same color always means the same thing throughout the product. Navigation colors should be chosen for inter-color discriminability, not palette harmony. Color must always be paired with labels and icons, never used as the sole navigation differentiator. The system should be documented precisely enough that any future developer can implement it identically.",
+      },
+    ],
+    links: [
+      { label: "CSS Named Colors Reference", href: "/css-colors/" },
+      { label: "Contrast Checker", href: "/tools/contrast/" },
+      { label: "Color Accessibility Guide", href: "/guides/color-accessibility-design-guide/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "color-theory-fundamentals-guide",
+    title: "Color Theory Fundamentals: The Principles Every Designer Should Know",
+    summary:
+      "A comprehensive guide to core color theory — the color wheel, harmony models, value and saturation, simultaneous contrast, and how these principles translate to practical design decisions.",
+    eyebrow: "Color Theory Basics",
+    priority: 85,
+    searchIntent: "color theory fundamentals color wheel color harmony complementary colors analogous colors color theory guide design",
+    featuredCollectionId: "spectrum-study",
+    featuredPackId: "complete-archive",
+    tags: ["Color Theory", "Design Fundamentals", "Education"],
+    highlights: [
+      "Of the three dimensions of color — hue, saturation, and value — value is the most important for readability and hierarchy, and should be evaluated by checking designs in grayscale.",
+      "Simultaneous contrast means colors shift appearance based on surrounding context — colors must always be evaluated in context, not in isolation.",
+      "Color theory principles are most useful as diagnostic tools: when a palette is not working, the theory identifies why, and guides the fix.",
+    ],
+    sections: [
+      {
+        heading: "The color wheel and harmony models",
+        body: "The color wheel is a circular arrangement of hues based on their perceptual relationships. Complementary colors sit opposite each other on the wheel (high contrast, visually active), analogous colors sit adjacent (low contrast, cohesive), and triadic colors form an equilateral triangle (balanced contrast with hue variety). Each harmony model has characteristic emotional properties: complementary schemes are energetic, analogous schemes are harmonious and restful, triadic schemes are varied but balanced. Split-complementary schemes — one primary color plus the two colors adjacent to its complement — offer lower tension than pure complementary while maintaining variety.",
+      },
+      {
+        heading: "Value: the most important dimension",
+        body: "Of the three dimensions of color — hue, saturation, and value (lightness) — value is the most important for readability, hierarchy, and spatial depth. Designs that have strong value contrast work even when printed in grayscale; designs built on hue contrast alone fail in low-light conditions and for users with color vision deficiency. A useful exercise is to desaturate any palette and evaluate it in grayscale: if the hierarchy and contrast structure remain readable, the design is built on solid value relationships. If everything merges into undifferentiated gray, the design depends on hue contrast that will fail in edge cases.",
+      },
+      {
+        heading: "Simultaneous contrast and color context",
+        body: "Colors do not exist in isolation — they shift in appearance based on their surrounding context, a phenomenon called simultaneous contrast. A medium gray surrounded by dark gray appears lighter than the same medium gray surrounded by light gray. A warm orange placed against a red background appears more yellow than the same orange against a blue background. For designers, simultaneous contrast means that palette approval in isolation is unreliable — colors must be evaluated in context, at the actual size and proportion they will appear in the final work.",
+      },
+      {
+        heading: "From principles to practice",
+        body: "Color theory principles are most useful as diagnostic tools rather than generative rules. When a palette is not working, the theory helps identify why: too much hue variety without sufficient value structure, simultaneous contrast creating unintended perceptual shifts, harmony model producing the wrong emotional character. The most effective approach is to learn the principles well enough to deploy them diagnostically, while remaining empirical — willing to keep what works even when it defies the theory, and to reject what doesn't work even when it satisfies the rules.",
+      },
+    ],
+    links: [
+      { label: "Color Families", href: "/colors/" },
+      { label: "Tonal Palette Builder", href: "/tools/tonal/" },
+      { label: "Mood Palette Generator", href: "/tools/mood/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides32);

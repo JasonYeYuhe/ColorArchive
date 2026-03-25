@@ -2872,3 +2872,104 @@ const extraCollections30: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections30);
+
+const extraCollections31: ColorCollection[] = [
+  createCollection(
+    "vintage-americana",
+    "Vintage Americana",
+    "Deep navy, barn red, and warm cream tones drawn from classic American visual culture — flags, painted barns, weathered wood, and heritage advertising. A palette for brands with genuine historical depth or an American craft-and-quality positioning.",
+    "Vintage Americana is the palette vocabulary of the American landscape at its most distilled: the deep, slightly grayed navy of a flag in flat light, the specific saturated red of a painted barn or classic vehicle, the warm cream of aged canvas, cotton shirting, and hand-lettered signage. These are not nostalgic-cutesy colors but genuinely weighted ones — colors that carry the specific gravity of things built to last. Cobalt-shadow-muted provides the foundational deep navy — not bright and fresh but aged, substantial, with a slight warmth that reads as heritage rather than corporate. Crimson-velvet-soft provides the barn red register — a saturated but somewhat darkened red that reads as painted wood and classic Americana rather than emergency or urgency. Amber-bloom-soft provides the warm cream of aged linen, natural canvas, and heritage paper — a background that grounds the palette in handmade and time-worn. Honey-whisper-faint extends to the palest warm cream register for fine detail and near-white contexts. Cobalt-dusk-clear provides a medium-dark navy with enough clarity to carry typography at small sizes.",
+    ["Heritage", "American", "Classic"],
+    [
+      "cobalt-shadow-muted",
+      "crimson-velvet-soft",
+      "amber-bloom-soft",
+      "honey-whisper-faint",
+      "cobalt-dusk-clear",
+    ],
+    {
+      editorialNote:
+        "Vintage Americana works for brands with genuine American heritage or craft positioning: workwear, denim, boots, and accessories brands with American manufacturing; food and beverage brands — craft beer, whiskey, hot sauce, condiments — built on regional American identity; heritage outdoor and sporting goods; publishing and media with an independent American voice; interior brands with a farmhouse or classic American aesthetic. The palette should be executed with enough restraint to avoid tipping into kitsch — the navy and cream do most of the work, with red as an accent rather than a dominant. Photography direction: natural light on worn wood, painted surfaces showing age, raw materials like leather, canvas, and denim; product on stone, reclaimed wood, or worn workbench surfaces; exterior American architecture in natural light. Typography: the palette pairs best with condensed Gothic or slab-serif typefaces with American wood-type heritage (Knockout, Tungsten, Sentinel), or classic geometric sans with confident weight.",
+      promptWords: [
+        "heritage American workwear brand in deep navy and barn red",
+        "craft American whiskey brand in vintage navy and warm cream",
+        "independent American food brand in classic americana palette",
+      ],
+      useCases: ["American heritage workwear and clothing brands", "Craft food and beverage with American regional identity", "Heritage outdoor and sporting goods brands"],
+    }
+  ),
+  createCollection(
+    "tea-ceremony",
+    "Tea Ceremony",
+    "Warm cream, aged brown, and quiet sage tones drawn from the Japanese tea ceremony — tatami, ceramic glazes, the color of matcha and aged oak, and the particular quality of diffused light through shoji screens.",
+    "The tea ceremony palette is defined by its restraint and its warmth: colors that have been steeped in use and time rather than freshly applied. The reference is the chashitsu — the tea house — with its natural materials, aged finishes, and carefully considered light. Amber-pearl-muted provides the foundational warm cream of aged washi paper, hemp rope, and undyed linen — a background that reads as natural and considered, not clinical or cold. Warm-gray-whisper-soft gives the cool pale register of the shoji screen — light diffused through translucent paper, neither warm nor cold but perfectly balanced. Honey-dusk-muted provides the deep, warm brown of oiled cedar, aged bamboo, and the darker ceramic glazes — a color that grounds the palette in organic material. Moss-tone-muted gives the specific muted gray-green of matcha as a color field — not the vivid green of fresh vegetation but the composed, slightly gray tone of dried, powdered tea and aged jade. Jade-whisper-faint extends to a very pale, barely-there green-gray for fine detail and the softest presence of the botanical register.",
+    ["Japanese", "Zen", "Serene"],
+    [
+      "amber-pearl-muted",
+      "warm-gray-whisper-soft",
+      "honey-dusk-muted",
+      "moss-tone-muted",
+      "jade-whisper-faint",
+    ],
+    {
+      editorialNote:
+        "Tea ceremony works for premium Japanese wellness and hospitality brands, specialty tea and matcha brands positioning above commercial green tea, Japanese ceramics and craft goods, premium skincare and beauty with a Japanese botanical or minimalist positioning, wellness and meditation apps, and high-end Japanese-inspired interiors and home goods. The palette demands execution discipline: every surface and proportion must be considered, because the palette's power comes from the precision of restraint. Photography direction: close-up of ceramic glazes and raw clay surfaces; natural light through translucent screens; macro photography of matcha, dried herbs, and botanical materials; product on natural wood, stone, or washi paper with diffused natural light. Typography: a fine-weight Japanese-compatible serif or humanist sans at generous tracking (Noto Serif, Hiragino Mincho Pro, Minion Pro) reads as the correct register; avoid bold or condensed type that introduces energy the palette does not support.",
+      promptWords: [
+        "Japanese matcha brand in warm cream and muted sage tea ceremony palette",
+        "premium Japanese wellness brand in washi and aged ceramic tones",
+        "minimalist Japanese ceramics brand in tea ceremony earthy palette",
+      ],
+      useCases: ["Specialty matcha and Japanese tea brands", "Premium Japanese wellness and spa brands", "Japanese-inspired ceramics and craft goods"],
+    }
+  ),
+  createCollection(
+    "electric-dreams",
+    "Electric Dreams",
+    "Vivid violet, electric cobalt, iris, and teal at maximum saturation — a palette for digital-native brands, technology experiences, and creative work where energy, imagination, and forward momentum are the primary signals.",
+    "Electric dreams is built at the most charged end of the spectrum: the high-saturation blues, purples, and greens that read as digital-native, generative, and kinetically alive. These are the colors of screens at their most vivid, of generative AI interfaces, of music visualizers and digital art — colors that feel like potential energy held in visual form. Violet-core-vivid provides the palette's primary charge — a full-saturation violet at medium lightness that reads as creative, imaginative, and slightly otherworldly. Cobalt-core-vivid gives the electric blue register — the specific blue of creative software, digital interfaces, and technology brands that want to read as bold and forward. Iris-core-vivid bridges the two with an electric blue-violet that reads as simultaneously technological and creative. Teal-core-vivid provides the palette's cool complement — an electric teal that balances the warm end of the violet-cobalt range and adds visual complexity. Fuchsia-radiant-vivid extends to the hot pink register for maximum energy and the pop of contemporary digital aesthetics.",
+    ["Digital", "Vibrant", "Creative"],
+    [
+      "violet-core-vivid",
+      "cobalt-core-vivid",
+      "iris-core-vivid",
+      "teal-core-vivid",
+      "fuchsia-radiant-vivid",
+    ],
+    {
+      editorialNote:
+        "Electric dreams works for digital-native creative tools and platforms, music production software and streaming brands, generative AI creative applications, gaming and entertainment brands, digital art and NFT platforms, creative agencies and studios with an avant-garde positioning, and any brand targeting a young, digital-first audience where energy and creativity are the primary brand attributes. The palette requires restraint in execution: at this saturation level, using all five colors simultaneously creates visual fatigue. Best practice is to select one or two as dominant, use a third as accent, and reserve the remaining colors for specific emphasis or interaction states. Photography and visual direction: digital rendering, 3D illustration, motion graphics, and synthetic imagery work best — analog photography is rarely the right treatment. Typography: geometric sans at all weights and sizes works with this palette's energy.",
+      promptWords: [
+        "creative AI platform in electric violet and cobalt palette",
+        "digital music brand in vivid electric dreams spectrum",
+        "generative art tool in neon violet and electric blue",
+      ],
+      useCases: ["Digital creative tools and AI platforms", "Music production and streaming brands", "Gaming and digital entertainment brands"],
+    }
+  ),
+  createCollection(
+    "copper-verdigris",
+    "Copper & Verdigris",
+    "Warm copper tones, deep ember, and oxidized jade-green — the specific palette of aged copper and bronze: the warm metal underneath, the darkened shadow register, and the blue-green patina that builds over decades of exposure.",
+    "Copper and verdigris is the palette of aged metal — specifically the three-register color story of copper: the warm orange-red of new copper, the darkened ember of oxidized copper without patina, and the characteristic blue-green of mature verdigris. These colors appear together on copper rooftops, bronze sculpture, architectural details, and aged vessels, and the combination reads as simultaneously warm and sophisticated — the warmth of the copper contrasted against the cool, chemical quality of the patina. Ember-core-soft provides the palette's foundational warm copper — a slightly desaturated ember that reads as burnished metal rather than raw fire. Ember-shadow-muted gives the deep, darkened copper register — the color of copper that has oxidized to brown without yet developing patina, the specific warm dark of aged metal in shadow. Jade-tone-muted provides the characteristic patina register — the specific muted gray-green of copper verdigris, which reads as simultaneously aged, sophisticated, and slightly mysterious. Teal-tone-muted extends the patina into the slightly more chromatic range — the greener, more vivid verdigris seen in areas of more active oxidation. Amber-bloom-soft provides a warm mid-range that bridges the copper and patina registers, reading as burnished highlight and connecting the warm and cool poles of the palette.",
+    ["Artisan", "Metallic", "Heritage"],
+    [
+      "ember-core-soft",
+      "ember-shadow-muted",
+      "jade-tone-muted",
+      "teal-tone-muted",
+      "amber-bloom-soft",
+    ],
+    {
+      editorialNote:
+        "Copper verdigris works for premium spirits and wine brands with a craft and heritage character, architectural metalwork and decorative hardware brands, luxury home goods and interior brands with an art object sensibility, jewelry and craft metalsmithing brands, premium coffee roasters and specialty food brands with an artisan positioning, and environmental and architectural design projects incorporating aged metal as a material reference. The palette has a natural affinity with premium printing and embossing: a foil-stamped logo in copper on a card stock matching ember-shadow-muted is a classic execution. Photography direction: close-up of aged copper, bronze, and patina surfaces in natural light; product on stone, concrete, or weathered wood; architectural photography of copper-clad buildings and aged bronze fixtures; interior photography where aged metal is a primary material. Typography: a refined serif or refined italic (Caslon, Cormorant, or EB Garamond) aligns well with the palette's aged-quality character.",
+      promptWords: [
+        "premium craft spirits brand in aged copper and verdigris palette",
+        "luxury metalwork brand in warm copper and patina green",
+        "artisan coffee brand in burnished copper and oxidized teal tones",
+      ],
+      useCases: ["Premium craft spirits and specialty beverage brands", "Architectural metalwork and luxury hardware brands", "Artisan food, jewelry, and craft goods brands"],
+    }
+  ),
+];
+
+collections.push(...extraCollections31);
