@@ -1,7 +1,7 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-26 (after normal run #4)
+> Last updated: 2026-03-26 (after big run #5)
 
 ## High Priority
 - [ ] Activate Lemon Squeezy store and complete KYB review — *required before any paid products go live*
@@ -16,12 +16,13 @@
 - [ ] Set up Google Analytics / Vercel Analytics review cadence — *data is being collected, just needs regular review*
 - [ ] Consider Product Hunt follow-up content now that it's live — *engagement momentum window*
 - [ ] Review server health on DO Droplet: disk space, PM2 uptime, memory usage — *occasional manual check*
+- [ ] Consider creating a blog post or Product Hunt update about the new Color Trends 2026 page — *timely, high-traffic keyword opportunity*
 
 ## Low Priority / Nice to Have
 - [ ] Record a demo video walkthrough for the homepage — *colorarchive_logo_v1_assets has subscription images ready*
 - [ ] Consider adding a public API or embeddable color widget for developer audience — *would expand use cases significantly*
-- [ ] Explore adding a "Color of the Day" feature with email opt-in — *engagement and list building opportunity*
 - [ ] A/B test homepage hero copy — *current copy is good but untested*
+- [ ] Add /trends page link to main navigation or homepage feature section — *new page not yet in nav*
 
 ## Done
 - [x] YouTube channel published — completed 2026-03-26
@@ -30,3 +31,4 @@
 - [x] Pinterest integration added — completed 2026-03-26
 - [x] Industry color palettes page added (Color Palettes by Industry) — 2026-03-26 big run #4
 - [x] Color Seasons page added — 2026-03-26 big run #3
+- [x] Color Trends 2026 page added (/trends/) — 2026-03-26 big run #5

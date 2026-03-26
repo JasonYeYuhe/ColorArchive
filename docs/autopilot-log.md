@@ -3216,3 +3216,45 @@ New alias groups: architecture (architectural_color, urban_palette, mediterranea
 - `src/lib/collections.ts` — extraCollections49 (215 total)
 - `src/lib/color-search.ts` — 1497 lines total
 - `.claude/session-lock.json` — released
+
+## 2026-03-26 — Big Run #5 (post big run #4)
+
+**Type:** Big Run (5th normal since last big run)
+**Commit:** 5f07988
+**Timestamp:** 2026-03-26T (after big run #4, normal runs #1–#4)
+**Categories:** New Page (Color Trends 2026), Content (A), Collections (D)
+
+### New Feature: /trends — Color Trends 2026 page
+- `src/lib/color-trends.ts` — 8 trend entries: Warm Earth Revival, Digital Sage, Quiet Luxury Neutrals, Cobalt Confidence, Neo-Botanica, Evolved Coral, Midnight Plum, Warm Minimalism
+- `src/components/color-trends-page.tsx` — Category filter, expandable trend cards, per-color copy buttons, palette preview links, collection cross-links, EN+ZH i18n
+- `app/trends/page.tsx` — SEO metadata with CollectionPage + FAQPage structured data
+- `src/components/site-header.tsx` — Added `/trends` to currentPath union type
+- `app/sitemap.ts` — Added `/trends/` at priority 0.90
+
+### Category A — 4 Newsletter Issues (326–329, total 329)
+- `mar-2033-color-in-music` — Synesthesia, chromesthesia, album art, genre color conventions
+- `mar-2033-color-naming-linguistics` — World Color Survey, Russian siniy/goluboy, Japanese ao
+- `apr-2033-color-in-fashion-beyond-trends` — Signature color systems (Hermès, Louboutin, Tiffany)
+- `apr-2033-light-color-photography` — Photography + color: Kodachrome, film emulation, digital
+
+### Category A — 3 SEO Guides (extraGuides51, 301 total)
+- `color-trends-2026-design-guide` (priority 96) — Why 2026 leans warm, applying trends strategically
+- `color-palette-for-social-media` (priority 90) — Feed palette, thumbnail scale, platform context
+- `monochromatic-color-palette-guide` (priority 84) — Tonal scale, contrast, value compression
+
+### Category D — 8 Collections (extraCollections50, 223 total)
+- `2026-warm-earth-trend`, `2026-digital-sage-trend`, `2026-quiet-luxury-trend`
+- `2026-cobalt-confidence-trend`, `2026-midnight-plum-trend` — Trend-anchored palettes
+- `photography-film-emulation`, `synesthetic-sound-palette`, `luxury-perfume-editorial`
+
+### Files Modified (9 total)
+- `app/trends/page.tsx` — NEW
+- `src/components/color-trends-page.tsx` — NEW
+- `src/lib/color-trends.ts` — NEW
+- `src/components/site-header.tsx` — +/trends to type union
+- `src/data/newsletter-issues.json` — 329 total
+- `src/lib/guides.ts` — extraGuides51 (301 total)
+- `src/lib/collections.ts` — extraCollections50 (223 total)
+- `app/sitemap.ts` — +/trends/
+- `STRUCTURE.md` — documented /trends/ route
+- `.claude/session-lock.json` — released
