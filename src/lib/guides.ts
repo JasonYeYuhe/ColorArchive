@@ -9807,7 +9807,7 @@ const extraGuides36: LandingGuide[] = [
     eyebrow: "Accessibility",
     priority: 85,
     searchIntent: "color accessibility WCAG contrast color blindness accessible color design inclusive design colorblind safe palette accessible UI color",
-    featuredCollectionId: "high-contrast-system",
+    featuredCollectionId: "monochrome-studio",
     featuredPackId: "brand-starter-kit",
     tags: ["Accessibility", "WCAG", "Inclusive Design"],
     highlights: [

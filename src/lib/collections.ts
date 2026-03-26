@@ -2902,11 +2902,11 @@ const extraCollections31: ColorCollection[] = [
     "tea-ceremony",
     "Tea Ceremony",
     "Warm cream, aged brown, and quiet sage tones drawn from the Japanese tea ceremony — tatami, ceramic glazes, the color of matcha and aged oak, and the particular quality of diffused light through shoji screens.",
-    "The tea ceremony palette is defined by its restraint and its warmth: colors that have been steeped in use and time rather than freshly applied. The reference is the chashitsu — the tea house — with its natural materials, aged finishes, and carefully considered light. Amber-pearl-muted provides the foundational warm cream of aged washi paper, hemp rope, and undyed linen — a background that reads as natural and considered, not clinical or cold. Warm-gray-whisper-soft gives the cool pale register of the shoji screen — light diffused through translucent paper, neither warm nor cold but perfectly balanced. Honey-dusk-muted provides the deep, warm brown of oiled cedar, aged bamboo, and the darker ceramic glazes — a color that grounds the palette in organic material. Moss-tone-muted gives the specific muted gray-green of matcha as a color field — not the vivid green of fresh vegetation but the composed, slightly gray tone of dried, powdered tea and aged jade. Jade-whisper-faint extends to a very pale, barely-there green-gray for fine detail and the softest presence of the botanical register.",
+    "The tea ceremony palette is defined by its restraint and its warmth: colors that have been steeped in use and time rather than freshly applied. The reference is the chashitsu — the tea house — with its natural materials, aged finishes, and carefully considered light. Amber-pearl-muted provides the foundational warm cream of aged washi paper, hemp rope, and undyed linen — a background that reads as natural and considered, not clinical or cold. Warm-gray-whisper gives the cool pale register of the shoji screen — light diffused through translucent paper, neither warm nor cold but perfectly balanced. Honey-dusk-muted provides the deep, warm brown of oiled cedar, aged bamboo, and the darker ceramic glazes — a color that grounds the palette in organic material. Moss-tone-muted gives the specific muted gray-green of matcha as a color field — not the vivid green of fresh vegetation but the composed, slightly gray tone of dried, powdered tea and aged jade. Jade-whisper-faint extends to a very pale, barely-there green-gray for fine detail and the softest presence of the botanical register.",
     ["Japanese", "Zen", "Serene"],
     [
       "amber-pearl-muted",
-      "warm-gray-whisper-soft",
+      "warm-gray-whisper",
       "honey-dusk-muted",
       "moss-tone-muted",
       "jade-whisper-faint",
@@ -3087,7 +3087,7 @@ const extraCollections33: ColorCollection[] = [
       "emerald-bloom-vivid",
       "citrine-bloom-vivid",
       "cobalt-whisper-soft",
-      "true-gray-light-faint",
+      "true-gray-mist",
     ],
     {
       editorialNote:
@@ -3104,13 +3104,13 @@ const extraCollections33: ColorCollection[] = [
     "film-noir",
     "Film Noir",
     "Deep cool black, ash gray, and cold blue-gray shadows — the palette of 1940s black-and-white cinema translated to modern UI and editorial design seeking dramatic atmosphere and noir mystery.",
-    "Film noir was a cinematic movement defined by extreme tonal contrast, deep shadows, and moral ambiguity — visually expressed through hard, high-contrast light sources (venetian blinds, street lamps, match flares) that created absolute black-and-white with no comfortable midtones. The palette for contemporary noir aesthetic draws from the specific grays of silver-gelatin film stock — not neutral grays but slightly cool, slightly blue-tinged shadow tones that communicate cinematic depth rather than mere darkness. True-gray-deep-soft provides the near-black that reads as shadow rather than digital void — the specific dark of printed film noir rather than screen black. Cool-gray-mid-muted gives the characteristic silver of mid-tone shadows — the gray of a villain's pinstripe suit, the tone of a wet rain-slicked street under a lamp. Cool-gray-light-soft extends to the lighter film gray — the specific tone of blown-out window light in a high-contrast interior, or the pale skin tone of film stock. The result is a dramatically atmospheric dark palette with none of the pure-black flatness of contemporary dark UI.",
+    "Film noir was a cinematic movement defined by extreme tonal contrast, deep shadows, and moral ambiguity — visually expressed through hard, high-contrast light sources (venetian blinds, street lamps, match flares) that created absolute black-and-white with no comfortable midtones. The palette for contemporary noir aesthetic draws from the specific grays of silver-gelatin film stock — not neutral grays but slightly cool, slightly blue-tinged shadow tones that communicate cinematic depth rather than mere darkness. True-gray-nocturne provides the near-black that reads as shadow rather than digital void — the specific dark of printed film noir rather than screen black. Cool-gray-tone gives the characteristic silver of mid-tone shadows — the gray of a villain's pinstripe suit, the tone of a wet rain-slicked street under a lamp. Cool-gray-mist extends to the lighter film gray — the specific tone of blown-out window light in a high-contrast interior, or the pale skin tone of film stock. The result is a dramatically atmospheric dark palette with none of the pure-black flatness of contemporary dark UI.",
     ["Dark", "Dramatic", "Cinematic"],
     [
-      "true-gray-deep-soft",
-      "cool-gray-deep-muted",
-      "cool-gray-mid-muted",
-      "cool-gray-light-soft",
+      "true-gray-nocturne",
+      "cool-gray-shadow",
+      "cool-gray-tone",
+      "cool-gray-mist",
       "cobalt-whisper-muted",
     ],
     {
@@ -3152,13 +3152,13 @@ const extraCollections33: ColorCollection[] = [
     "brand-trust",
     "Brand Trust",
     "Deep navy, warm gray, and reliable white — the archetypal palette of institutional authority, financial services, and legacy brands that have traded heavily in trust for decades.",
-    "Trust has a color, and it is institutionalized navy blue. The specific quality of this blue — deep, slightly warm, not the pure cool of cerulean or the near-purple of indigo — is the color that has anchored financial services, healthcare, legal, and government brands for over a century. It exists because these institutions must communicate reliability and permanence above all other qualities, and deep navy is the most culturally legible signal of those values in Western contexts. The palette builds outward from this anchor in the warm direction rather than the cool, using warm grays and off-whites rather than cool grays and pure whites. This creates a system that reads as authoritative but not cold, institutional but not clinical. Indigo-core-muted provides the foundational institutional navy — the specific blue of a banking logo or a law firm letterhead, with enough depth to read as serious and enough warmth to remain approachable. Warm-gray-mid-muted gives the supporting secondary tone — the gray of corporate stationery, the tone of professional documents, present but never dominant. Warm-gray-light-faint extends to the near-white that reads as premium rather than cold.",
+    "Trust has a color, and it is institutionalized navy blue. The specific quality of this blue — deep, slightly warm, not the pure cool of cerulean or the near-purple of indigo — is the color that has anchored financial services, healthcare, legal, and government brands for over a century. It exists because these institutions must communicate reliability and permanence above all other qualities, and deep navy is the most culturally legible signal of those values in Western contexts. The palette builds outward from this anchor in the warm direction rather than the cool, using warm grays and off-whites rather than cool grays and pure whites. This creates a system that reads as authoritative but not cold, institutional but not clinical. Indigo-core-muted provides the foundational institutional navy — the specific blue of a banking logo or a law firm letterhead, with enough depth to read as serious and enough warmth to remain approachable. Warm-gray-tone gives the supporting secondary tone — the gray of corporate stationery, the tone of professional documents, present but never dominant. Warm-gray-mist extends to the near-white that reads as premium rather than cold.",
     ["Classic", "Trust", "Institutional"],
     [
       "indigo-core-muted",
       "indigo-whisper-soft",
-      "warm-gray-mid-muted",
-      "warm-gray-light-faint",
+      "warm-gray-tone",
+      "warm-gray-mist",
       "amber-silk-faint",
     ],
     {
@@ -3418,12 +3418,12 @@ const extraCollections36: ColorCollection[] = [
     "The visual atmosphere of a classic jazz club: warm amber spill-light over polished wood, the warm shadow of velvet curtains, ivory keys and brass fittings. A deeply warm, richly tonal palette for environments that feel both intimate and sophisticated.",
     ["Evening", "Warm", "Sophisticated"],
     [
-      "amber-deep-core",
+      "amber-shadow-clear",
       "ember-tone-muted",
       "honey-tone-muted",
-      "shadow-warm-dark",
-      "ivory-pearl-soft",
-      "sienna-core-core",
+      "warm-gray-shadow",
+      "coral-veil-faint",
+      "ember-core-clear",
     ],
     {
       editorialNote:
@@ -3443,11 +3443,11 @@ const extraCollections36: ColorCollection[] = [
     "The functional color language of polar expeditions: ice-blue glacial water, the high-visibility orange of expedition gear and survival equipment, deep navy of polar sky, and the pure white of compacted ice. A palette of stark natural beauty and purposeful contrast.",
     ["Arctic", "Adventure", "Contrast"],
     [
-      "azure-frost-soft",
-      "cobalt-deep-muted",
-      "navy-deep-core",
-      "apricot-vivid-core",
-      "frost-pearl-soft",
+      "azure-whisper-soft",
+      "cobalt-shadow-muted",
+      "sapphire-shadow-clear",
+      "apricot-core-vivid",
+      "azure-veil-soft",
       "cool-gray-bloom",
     ],
     {
@@ -3468,12 +3468,12 @@ const extraCollections36: ColorCollection[] = [
     "The colors of studio pottery: warm ivory clay bodies, pale celadon glazes with their quiet green-gray cool, dusty rose slip decoration, and the neutral warmth of unglazed stoneware. A gentle, handmade palette that signals craft, warmth, and quiet intention.",
     ["Artisan", "Neutral", "Warm"],
     [
-      "ivory-pearl-soft",
+      "coral-veil-faint",
       "seafoam-whisper-soft",
       "rose-whisper-soft",
       "warm-gray-bloom",
       "apricot-pearl-soft",
-      "sage-whisper-soft",
+      "moss-whisper-muted",
     ],
     {
       editorialNote:
@@ -3496,8 +3496,8 @@ const extraCollections36: ColorCollection[] = [
       "teal-tone-muted",
       "apricot-bloom-muted",
       "cool-gray-bloom",
-      "shadow-deep-muted",
-      "ivory-bloom-soft",
+      "warm-gray-nocturne",
+      "amber-whisper-faint",
       "cobalt-tone-muted",
     ],
     {
@@ -3518,11 +3518,11 @@ const extraCollections36: ColorCollection[] = [
     "The color world of monsoon: deep jade canopy saturated by rainfall, the warm gray of heavy cloud cover, amber earth after the first rains, and the brief vivid lime of new growth pushing through. A palette of moisture, abundance, and natural intensity.",
     ["Tropical", "Nature", "Intense"],
     [
-      "jade-deep-core",
+      "jade-shadow-clear",
       "emerald-tone-muted",
-      "warm-gray-deep",
+      "warm-gray-shadow",
       "amber-bloom-muted",
-      "lime-vivid-core",
+      "lime-core-vivid",
       "moss-tone-muted",
     ],
     {
@@ -3548,12 +3548,12 @@ const extraCollections37: ColorCollection[] = [
     "The color vocabulary of Art Deco in its purest form: the warm antique gold of gilt frames and embossed metalwork, jet black for contrast and drama, ivory cream for background warmth, and deep jewel accents (emerald, garnet, violet) arranged in precise geometric fields. The palette of 1920s luxury, cinema palaces, and the confidence of the modern world discovering itself.",
     ["Art Deco", "Luxury", "Historical", "Gold"],
     [
-      "honey-deep-core",
-      "true-gray-deep",
+      "honey-shadow-clear",
+      "true-gray-shadow",
       "honey-whisper-soft",
-      "emerald-deep-vivid",
-      "garnet-deep-core",
-      "violet-deep-muted",
+      "emerald-shadow-vivid",
+      "garnet-shadow-clear",
+      "violet-shadow-muted",
     ],
     {
       editorialNote:
@@ -3599,11 +3599,11 @@ const extraCollections37: ColorCollection[] = [
     ["Earth Tones", "1970s", "Warm", "Organic"],
     [
       "amber-tone-vivid",
-      "olive-tone-core",
+      "olive-tone-clear",
       "ember-tone-vivid",
-      "ember-deep-muted",
+      "ember-shadow-muted",
       "honey-tone-muted",
-      "moss-tone-core",
+      "moss-tone-clear",
     ],
     {
       editorialNote:
@@ -3626,7 +3626,7 @@ const extraCollections37: ColorCollection[] = [
       "blush-bloom-soft",
       "cerulean-whisper-soft",
       "true-gray-bloom",
-      "lime-vivid-core",
+      "lime-core-vivid",
       "coral-tone-vivid",
       "blush-veil-soft",
     ],
@@ -3776,7 +3776,7 @@ const extraCollections38: ColorCollection[] = [
     [
       "cool-gray-ink",
       "cool-gray-shadow",
-      "cool-gray-mid-muted",
+      "cool-gray-tone",
       "cool-gray-tone",
       "cool-gray-whisper",
     ],
@@ -3931,7 +3931,7 @@ const extraCollections40: ColorCollection[] = [
       "honey-silk-soft",
       "amber-whisper-soft",
       "coral-bloom-muted",
-      "ivory-pearl-soft",
+      "coral-veil-faint",
     ],
     {
       editorialNote:
@@ -3955,7 +3955,7 @@ const extraCollections40: ColorCollection[] = [
       "cobalt-shadow-muted",
       "cobalt-dusk-muted",
       "cool-gray-whisper",
-      "ivory-pearl-soft",
+      "coral-veil-faint",
     ],
     {
       editorialNote:
@@ -3976,10 +3976,10 @@ const extraCollections40: ColorCollection[] = [
     ["Neutral", "Wellness", "Calm"],
     [
       "warm-gray-whisper",
-      "sage-bloom-muted",
+      "moss-bloom-muted",
       "cool-gray-whisper",
       "mint-veil-soft",
-      "ivory-pearl-soft",
+      "coral-veil-faint",
     ],
     {
       editorialNote:
@@ -4003,7 +4003,7 @@ const extraCollections40: ColorCollection[] = [
       "violet-nocturne-muted",
       "plum-shadow-muted",
       "cool-gray-ink",
-      "ivory-pearl-soft",
+      "coral-veil-faint",
     ],
     {
       editorialNote:
@@ -4025,8 +4025,8 @@ const extraCollections40: ColorCollection[] = [
     [
       "cerulean-core-clear",
       "cerulean-whisper-muted",
-      "cool-gray-mid-muted",
-      "frost-pearl-soft",
+      "cool-gray-tone",
+      "azure-veil-soft",
       "amber-tone-soft",
     ],
     {
@@ -4053,10 +4053,10 @@ const extraCollections41: ColorCollection[] = [
     ["Cool", "Motion", "Brand"],
     [
       "cobalt-tone-vivid",
-      "azure-deep-vivid",
+      "azure-shadow-vivid",
       "teal-ink-vivid",
-      "amber-gold-vivid",
-      "charcoal-shadow-muted",
+      "amber-core-vivid",
+      "cool-gray-shadow",
     ],
     {
       editorialNote:
@@ -4076,11 +4076,11 @@ const extraCollections41: ColorCollection[] = [
     "Natural product packaging has converged on a recognizable palette: unbleached kraft, warm gray, sage, and muted clay or terracotta. This collection captures that aesthetic honestly — these colors signal natural, thoughtful, and small-batch without irony. Works for food, cosmetics, wellness, and any brand positioning around authenticity.",
     ["Warm", "Natural", "Packaging"],
     [
-      "warm-gray-pebble-muted",
-      "sage-mist-muted",
-      "terracotta-dust-muted",
-      "ivory-linen-soft",
-      "warm-brown-sand-muted",
+      "warm-gray-tone",
+      "moss-mist-muted",
+      "ember-dusk-muted",
+      "coral-veil-soft",
+      "honey-silk-muted",
     ],
     {
       editorialNote:
@@ -4100,11 +4100,11 @@ const extraCollections41: ColorCollection[] = [
     "Healthcare and educational environments for children benefit from palettes that feel safe and natural without being institutional. This collection draws on the research consensus: soft blue-greens and warm neutrals reduce anxiety; clean, warm accents maintain visual engagement without overstimulation. The result is a palette that feels genuinely child-appropriate rather than forced-cheerful.",
     ["Warm", "Soft", "Natural"],
     [
-      "sky-mist-soft",
-      "sage-whisper-soft",
+      "azure-mist-soft",
+      "moss-whisper-muted",
       "coral-bloom-soft",
-      "warm-white-ivory",
-      "leaf-green-muted",
+      "coral-veil-faint",
+      "leaf-tone-muted",
     ],
     {
       editorialNote:
@@ -4124,11 +4124,11 @@ const extraCollections41: ColorCollection[] = [
     "Kodachrome film created a characteristic palette: warm-shifted reds, golden midtones, and slightly cool, slightly blue-green shadows. This collection approximates those qualities with contemporary color values. Use for brands wanting that specific late-twentieth-century warmth without full retro pastiche.",
     ["Warm", "Vintage", "Nostalgic"],
     [
-      "amber-sunset-vivid",
-      "coral-ember-vivid",
-      "warm-green-moss-muted",
-      "amber-gold-muted",
-      "warm-shadow-brown-muted",
+      "amber-radiant-vivid",
+      "coral-core-vivid",
+      "moss-tone-muted",
+      "amber-core-muted",
+      "ember-shadow-muted",
     ],
     {
       editorialNote:
@@ -4148,10 +4148,10 @@ const extraCollections41: ColorCollection[] = [
     "Red as prosperity and celebration is one of the most widely shared color associations across East Asia, South Asia, and beyond. This collection pairs deep vermilion and celebration red with gold, warm accent, and a deep anchor — the palette of festivity, launch events, and brand moments that want to communicate energy and joy without Western danger associations.",
     ["Warm", "Festive", "Cultural"],
     [
-      "crimson-deep-vivid",
-      "vermilion-tone-vivid",
-      "amber-gold-vivid",
-      "warm-ivory-cream",
+      "crimson-shadow-vivid",
+      "ruby-tone-vivid",
+      "amber-core-vivid",
+      "amber-veil-faint",
       "crimson-shadow-muted",
     ],
     {
@@ -4304,8 +4304,8 @@ const extraCollections43: ColorCollection[] = [
     [
       "cobalt-core-vivid",
       "cobalt-shadow-clear",
-      "ink-core-vivid",
-      "ivory-bloom-soft",
+      "indigo-nocturne-vivid",
+      "amber-whisper-faint",
       "garnet-core-vivid",
     ],
     {
@@ -4329,7 +4329,7 @@ const extraCollections43: ColorCollection[] = [
       "amber-tone-soft",
       "honey-bloom-soft",
       "apricot-bloom-soft",
-      "ivory-bloom-soft",
+      "amber-whisper-faint",
       "teal-mist-soft",
     ],
     {
@@ -4378,7 +4378,7 @@ const extraCollections43: ColorCollection[] = [
       "teal-core-vivid",
       "azure-bloom-soft",
       "azure-whisper-soft",
-      "ink-core-vivid",
+      "indigo-nocturne-vivid",
     ],
     {
       editorialNote:
@@ -4402,7 +4402,7 @@ const extraCollections43: ColorCollection[] = [
       "moss-shadow-soft",
       "jade-shadow-clear",
       "violet-shadow-clear",
-      "ivory-bloom-soft",
+      "amber-whisper-faint",
     ],
     {
       editorialNote:
@@ -4427,10 +4427,10 @@ const extraCollections44: ColorCollection[] = [
     "Dark mode surface palette designed around the layered elevation system used by iOS, Android Material, and premium web applications. Near-black base, progressively lighter gray surfaces for elevation, with a restrained accent blue and high-legibility text tones. Built around the principle that true black backgrounds amplify saturation — all surfaces use dark gray to keep foreground colors perceptually controlled. Suitable for design system dark mode token definitions.",
     ["Dark Mode", "UI Design", "Design Systems", "Night Mode"],
     [
-      "ink-core-vivid",
-      "ink-shadow-soft",
-      "ink-mist-soft",
-      "slate-core-muted",
+      "indigo-nocturne-vivid",
+      "indigo-shadow-soft",
+      "indigo-mist-soft",
+      "cool-gray-core",
       "cobalt-bloom-soft",
     ],
     {
@@ -4455,7 +4455,7 @@ const extraCollections44: ColorCollection[] = [
       "mint-core-vivid",
       "azure-core-vivid",
       "violet-core-vivid",
-      "ink-core-vivid",
+      "indigo-nocturne-vivid",
     ],
     {
       editorialNote:
@@ -4475,11 +4475,11 @@ const extraCollections44: ColorCollection[] = [
     "Residential interior palette built around the warm neutrals that define comfortable, livable spaces: warm ivory walls that shift toward cream in morning light, honey and amber tones that evoke warm wood and natural materials, with a warm gray counterbalance that reads as sophisticated without coldness. This is the palette of Japandi-influenced interiors, Nordic-warm aesthetics, and crafted residential spaces. Equally at home in home decor lookbooks, interior architecture presentations, and furniture brand imagery.",
     ["Interior Design", "Architecture", "Warm Neutrals", "Residential"],
     [
-      "ivory-bloom-soft",
+      "amber-whisper-faint",
       "honey-bloom-soft",
       "amber-tone-soft",
       "amber-mist-soft",
-      "slate-mist-soft",
+      "cool-gray-mist",
     ],
     {
       editorialNote:
@@ -4527,7 +4527,7 @@ const extraCollections44: ColorCollection[] = [
       "ember-core-vivid",
       "amber-core-vivid",
       "honey-core-vivid",
-      "ivory-bloom-soft",
+      "amber-whisper-faint",
     ],
     {
       editorialNote:
