@@ -10263,3 +10263,186 @@ export const extraGuides38: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides38);
+
+export const extraGuides39: LandingGuide[] = [
+  {
+    category: "Color Psychology",
+    slug: "blue-color-psychology-branding-guide",
+    title: "Blue Color Psychology in Branding: Why Every Bank and Tech Giant Chooses Blue",
+    summary: "Blue's dominance in corporate, tech, and financial branding is not accidental. This guide explains the psychological research behind blue and trust, the self-reinforcing industry conventions that amplified it, and how to use blue strategically — including when to break the convention.",
+    eyebrow: "Color Psychology",
+    priority: 86,
+    searchIntent: "blue color psychology branding trust",
+    tags: ["Color Psychology", "Branding", "Blue", "Corporate"],
+    highlights: [
+      "Blue is reliably associated with competence and reliability across cultures — but the effect is amplified by decades of industry convention in finance and technology.",
+      "The exact shade of blue matters: cobalt and royal blue read as active and confident; navy reads as authoritative and established; sky blue reads as approachable and calm.",
+      "Blue is the only color that consistently ranks as a 'safe' choice across gender, age, and cultural demographics — making it risk-minimal for large institutions.",
+      "Breaking from blue in institutional branding is possible but requires significantly more brand-building investment to establish trust signals through other means.",
+    ],
+    sections: [
+      {
+        heading: "The Psychological Foundation",
+        body: "Cross-cultural color psychology research consistently shows blue associated with competence, reliability, and calm. Unlike red (which elevates heart rate and creates urgency) or yellow (which is associated with caution and energy), blue is physiologically calming. This makes it uniquely suited for institutions where the primary emotional job is reducing anxiety — financial services, healthcare, insurance — where users are often in a state of elevated stress.",
+      },
+      {
+        heading: "The Convention Amplification Effect",
+        body: "The psychological effect alone does not explain blue's total dominance in finance. The industry convention effect is equally important. Once enough banks and financial institutions used blue, blue began to directly signal 'institution you can trust' — not through psychology but through learned cultural association. New institutions then adopted blue partly to borrow that cultural signal, which further reinforced it. This is a self-reinforcing loop that has made blue in financial design almost mandatory.",
+      },
+      {
+        heading: "Choosing the Right Blue",
+        body: "Not all blues create the same effect. Deep navy (approximately 220–230° hue, high saturation, low lightness) reads as authoritative and established — appropriate for legacy financial institutions and law. Royal and cobalt blue (220–230° hue, high saturation, medium lightness) reads as active, confident, and modern — appropriate for technology and newer financial brands. Sky and medium blue (200–210° hue, medium saturation, high lightness) reads as approachable and friendly — appropriate for consumer-facing health and education brands. Matching the specific shade to the institution's personality is as important as choosing blue at all.",
+      },
+      {
+        heading: "When to Break the Convention",
+        body: "ING orange, Virgin Money red, and Monzo coral are examples of financial brands that successfully broke from blue. These worked because the brands had strong product differentiation (innovative features, challenger positioning) and enough marketing investment to establish alternative trust signals. For established institutions with large, conservative customer bases, breaking from blue is high-risk. For challenger brands targeting younger demographics who trust design quality signals over color conventions, it can be effective differentiation.",
+      },
+    ],
+    links: [
+      { label: "Browse Blue Colors", href: "/families/blue/" },
+      { label: "Browse Navy & Dark Blue", href: "/colors/cobalt-ink-muted/" },
+      { label: "Browse All Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "UI Design",
+    slug: "dark-mode-color-palette-guide",
+    title: "Dark Mode Color Palette Guide: Building Accessible, Beautiful Dark Interfaces",
+    summary: "Dark mode design has unique requirements that differ fundamentally from light mode. This guide explains the key principles: surface layering with dark grays (not black), color temperature consistency, semantic token architecture, and how to handle elevation and depth without shadows.",
+    eyebrow: "UI Design",
+    priority: 88,
+    searchIntent: "dark mode colors dark theme palette UI design",
+    tags: ["Dark Mode", "UI Design", "Interface", "Accessibility"],
+    highlights: [
+      "True black (#000000) is almost never the right dark mode background — it creates extreme contrast that causes halation (blurry text perception) for many users. Dark gray (8–12% lightness) is correct.",
+      "Dark mode surfaces use layered grays with subtle lightness steps to create hierarchy — not shadows, which disappear at low lightness values.",
+      "Color saturation should be reduced in dark mode: the same hue at full saturation appears more intense on dark backgrounds and can feel garish or harsh.",
+      "Semantic color tokens (--surface-base, --surface-raised, --surface-overlay) are essential for a dark mode system that can be maintained and extended.",
+    ],
+    sections: [
+      {
+        heading: "The Surface Layering System",
+        body: "In light mode, elevation and hierarchy are communicated through shadows. In dark mode, shadows become invisible at low lightness values, so hierarchy must instead be created through surface lightness steps. The base background is the darkest surface (typically 8–12% lightness). Elevated surfaces like cards and panels are 2–4% lighter. Interactive overlays like dropdowns and modals are another 2–4% lighter still. This creates a subtle but legible hierarchy that communicates depth without shadows.",
+      },
+      {
+        heading: "Why True Black Fails",
+        body: "Pure black (#000000) as a dark mode background creates a contrast ratio with white text that is technically excellent but perceptually poor. The extreme contrast causes halation — a perceptual blurring effect where bright objects on very dark backgrounds appear to bleed at their edges. This makes text on true black backgrounds harder to read for many users, especially in low-light environments. The correct dark background is a very dark gray, not black.",
+      },
+      {
+        heading: "Color Management in Dark Mode",
+        body: "Colors that work in light mode often need adjustment for dark mode. Saturated colors appear more intense on dark backgrounds and should be slightly desaturated. Light colors used for text or icons on light backgrounds may need to be darkened (since they'll appear against a dark surface). The correct approach is to define semantic tokens — --color-accent, --color-success, --color-warning — with separate light and dark mode values, rather than using raw color values that will be incorrect in one mode.",
+      },
+    ],
+    links: [
+      { label: "Browse Dark Colors", href: "/families/neutral/" },
+      { label: "Browse Deep Blue Tones", href: "/colors/cobalt-nocturne-muted/" },
+      { label: "Browse All Tools", href: "/tools/" },
+    ],
+  },
+  {
+    category: "Color Psychology",
+    slug: "restaurant-interior-color-guide",
+    title: "Restaurant Interior Color Guide: How Color Affects Appetite, Dwell Time, and Dining Experience",
+    summary: "Restaurant color design is one of the most studied areas of applied color psychology. This guide covers the key findings: which colors stimulate appetite, which encourage faster table turnover, how lighting interacts with wall color, and the palette differences between fast casual and fine dining.",
+    eyebrow: "Applied Color Psychology",
+    priority: 79,
+    searchIntent: "restaurant interior color design appetite palette",
+    tags: ["Color Psychology", "Interior", "Food", "Restaurant"],
+    highlights: [
+      "Red and orange genuinely stimulate appetite in research settings — the warm end of the spectrum is associated with food, warmth, and social energy in multiple cultures.",
+      "Fast food chains deliberately use red and yellow because these colors are associated with speed, energy, and short dwell time — they make customers eat faster and leave sooner.",
+      "Fine dining uses dark, muted, and warm-neutral palettes to signal premium positioning and encourage slow, relaxed dining — reducing table turnover is acceptable at high price points.",
+      "Green in restaurant contexts reads as fresh, organic, and healthy — strongly adopted by fast casual and health-positioned restaurants since the 2010s.",
+    ],
+    sections: [
+      {
+        heading: "The Appetite Color Science",
+        body: "The relationship between warm colors and appetite is one of the more robust findings in color psychology. Red, orange, and warm yellow are consistently associated with appetite stimulation across multiple studies. The proposed mechanisms include: association with ripe fruits and cooked foods (warm colors dominate the visual appearance of food that is safe to eat); association with warmth (warm environments signal safety and plentiful food); and direct physiological effects (warm colors have slight stimulating effects on the autonomic nervous system). These effects are modest individually but compound in a designed environment.",
+      },
+      {
+        heading: "Fast Food vs. Fine Dining Color Logic",
+        body: "The color difference between fast food and fine dining is not just aesthetic — it reflects different commercial objectives. Fast food restaurants want high table turnover: they benefit from customers eating quickly and leaving. Red and yellow stimulate energy, slightly increase heart rate, and reduce the inclination to linger. Fine dining restaurants want guests to stay, drink wine, order dessert, and return. Dark, warm, and muted environments — deep earth tones, burgundy, dark wood — signal that slow enjoyment is expected. The color palette is part of the service model.",
+      },
+      {
+        heading: "The Rise of Green in Fast Casual",
+        body: "The fast casual segment's adoption of green (Sweetgreen, Tender Greens, most salad chains) reflects both product positioning and demographic targeting. The millennial and Gen Z customer base that built fast casual identified green with fresh ingredients, organic sourcing, and health consciousness. Green reduced the cultural gap between restaurant and grocery store, reinforcing the 'eating well without cooking' proposition. The palette also read as more sophisticated than fast food reds — elevating the perceived quality even for similar price points.",
+      },
+    ],
+    links: [
+      { label: "Browse Red & Warm Colors", href: "/families/red/" },
+      { label: "Browse Amber & Gold Colors", href: "/families/yellow/" },
+      { label: "Browse All Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Accessibility",
+    slug: "wcag-color-accessibility-guide",
+    title: "WCAG Color Accessibility Guide: Contrast Ratios, Color-Blind Design, and What You Actually Need to Know",
+    summary: "WCAG color accessibility requirements are often reduced to a contrast ratio number. This guide explains what that number actually measures, what it misses, how to design for color vision deficiency, and how to build a color system that is genuinely accessible rather than just technically compliant.",
+    eyebrow: "Accessibility",
+    priority: 91,
+    searchIntent: "WCAG color contrast accessibility color blind design",
+    tags: ["Accessibility", "WCAG", "Color Contrast", "Color Blind"],
+    highlights: [
+      "WCAG 2.1 requires a contrast ratio of 4.5:1 for normal text and 3:1 for large text (18pt+ or 14pt bold+). WCAG 3.0 is moving to a perceptual contrast model (APCA) that better reflects how humans actually perceive contrast.",
+      "Passing the contrast ratio does not mean the color is accessible to users with color vision deficiency — contrast measures luminance difference, not hue distinction.",
+      "The most common color accessibility failure in UI is red/green state signaling with no backup indicator — affecting approximately 8% of male users with red-green color blindness.",
+      "Never use color as the only means of conveying information — always pair color with shape, icon, text, or pattern.",
+    ],
+    sections: [
+      {
+        heading: "What the Contrast Ratio Measures (and Misses)",
+        body: "The WCAG contrast ratio measures the relative luminance difference between two colors — essentially, how different they are in brightness. A ratio of 4.5:1 means the foreground is 4.5 times brighter or darker than the background. This is a useful measure of legibility for users without color vision deficiency. What it does not measure is distinguishability for users with color vision deficiency: two colors can have high contrast (different luminance) while being indistinguishable by hue to someone with red-green color blindness. High contrast ratio is necessary but not sufficient for color accessibility.",
+      },
+      {
+        heading: "Designing for Color Vision Deficiency",
+        body: "Approximately 8% of men and 0.5% of women have some form of color vision deficiency. The most common type is red-green deficiency, where reds and greens at similar luminance values appear as the same brownish-gray. The primary design implication is to avoid red/green as a semantic distinction without backup signals. Error (red) vs. success (green) states should also use icons (× and ✓), different shapes, or text labels to communicate the distinction. Other CVD types (blue-yellow, monochromacy) are rarer but also require consideration in safety-critical contexts.",
+      },
+      {
+        heading: "Building an Accessible Color System",
+        body: "The correct approach to accessible color is to define semantic roles for colors (primary action, danger, success, warning) and verify that each role is distinguishable from others through luminance, not just hue. Use a tool like the APCA contrast checker (the model that WCAG 3.0 is adopting) rather than just the 4.5:1 WCAG 2.1 threshold, which has known limitations. Test designs with a CVD simulator (most browsers have accessibility tools for this) to verify that state changes are visible without color. These steps catch real accessibility failures that the automated contrast checker misses.",
+      },
+    ],
+    links: [
+      { label: "Check Contrast Ratios", href: "/tools/" },
+      { label: "Browse All Collections", href: "/collections/" },
+      { label: "Color Accessibility Tools", href: "/tools/" },
+    ],
+  },
+  {
+    category: "Typography",
+    slug: "typography-gray-color-guide",
+    title: "Choosing the Right Gray for Typography: Warm Gray vs. Cool Gray and Why It Matters",
+    summary: "The choice between warm gray and cool gray for body text cascades through every other color decision in a design system. This guide explains the difference, how to identify which gray you have, and how to choose compatible accents for a coherent palette.",
+    eyebrow: "Design Systems",
+    priority: 77,
+    searchIntent: "warm gray vs cool gray typography design system neutral",
+    tags: ["Typography", "Color Theory", "Design Systems", "Neutral"],
+    highlights: [
+      "All grays have a color temperature — a slight lean toward warmth (yellow-orange undertones) or coolness (blue-violet undertones). True neutral gray (equal RGB values) is rare in real design systems.",
+      "Warm gray pairs naturally with warm accent colors (amber, terracotta, coral, gold); cool gray pairs with cool accents (cobalt, cerulean, teal, slate).",
+      "The test: put your gray next to pure white. If it looks slightly yellow or tan, it's warm. If it looks slightly blue or purple, it's cool.",
+      "Mixing warm gray body text with cool blue primary actions creates underlying palette tension that most users won't consciously identify but will perceive as slight incoherence.",
+    ],
+    sections: [
+      {
+        heading: "Why Gray Is the Foundational Color Decision",
+        body: "Most designers think of gray as background infrastructure — something you pick to be invisible, letting the 'real' colors do the work. But gray is the most used color in almost every design system by pixel count: it is the body text, the secondary labels, the disabled states, the borders, the surface backgrounds. Because it appears everywhere, any color temperature embedded in it will interact with every other color in the system. This makes gray the decision that most constrains all other color choices.",
+      },
+      {
+        heading: "Warm Gray in Practice",
+        body: "Warm gray reads as organic, tactile, and human — it borrows associations from natural materials (paper, stone, linen, concrete). It works best in editorial, publishing, lifestyle, and artisan brand contexts. Compatible accents are warm-spectrum colors: amber, honey, coral, terracotta, garnet, merlot, apricot. It fights with cool-spectrum accents: bright cobalt, cyan, mint, cool teal. The overall aesthetic of a warm gray system tends toward warmth, craft, and human presence.",
+      },
+      {
+        heading: "Cool Gray in Practice",
+        body: "Cool gray reads as precise, technical, and contemporary — it aligns with screen aesthetics, digital precision, and modern minimalism. It works best in technology, financial, healthcare, and contemporary product brand contexts. Compatible accents are cool-spectrum colors: cobalt, azure, cerulean, teal, mint, sapphire. It fights with warm-spectrum accents: terracotta, amber, coral, rust. The overall aesthetic of a cool gray system tends toward precision, modernity, and technical competence.",
+      },
+    ],
+    links: [
+      { label: "Browse Neutral Colors", href: "/families/neutral/" },
+      { label: "Browse Warm Gray Tones", href: "/colors/warm-gray-mid-muted/" },
+      { label: "Browse Cool Gray Tones", href: "/colors/cool-gray-mid-muted/" },
+    ],
+  },
+];
+landingGuides.push(...extraGuides39);

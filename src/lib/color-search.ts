@@ -1014,6 +1014,30 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   "2020s": ["iris", "leaf", "coral", "apricot", "cobalt"],
   very_peri: ["iris", "violet", "cobalt", "periwinkle", "indigo"],
   sage_green: ["leaf", "mint", "moss", "olive", "jade"],
+
+  // Restaurant, food, and appetite
+  restaurant: ["ember", "amber", "garnet", "coral", "merlot"],
+  dining: ["ember", "amber", "honey", "garnet", "ivory"],
+  appetite: ["crimson", "ember", "coral", "amber", "citrine"],
+  bistro: ["merlot", "amber", "ivory", "garnet", "olive"],
+
+  // Interface and UX design
+  ui_design: ["cobalt", "cerulean", "ink", "cool-gray", "azure"],
+  ux: ["cobalt", "cerulean", "slate", "azure", "frost"],
+  interface: ["cobalt", "cerulean", "cool-gray", "azure", "ink"],
+  mobile_app: ["cobalt", "cerulean", "azure", "blush", "fuchsia"],
+
+  // Monochrome and grayscale
+  grayscale: ["cool-gray", "ink", "shadow", "pearl", "mist"],
+  greyscale: ["cool-gray", "ink", "shadow", "pearl", "mist"],
+  mono: ["ink", "cool-gray", "shadow", "pearl", "whisper"],
+  black_and_white: ["ink", "cool-gray", "pearl", "whisper", "shadow"],
+
+  // Business and branding
+  business_card: ["ink", "cobalt", "ivory", "garnet", "cool-gray"],
+  hospitality: ["amber", "ivory", "garnet", "ember", "sage"],
+  interior_design: ["ivory", "amber", "sage", "terracotta", "olive"],
+  branding: ["cobalt", "garnet", "amber", "ink", "ivory"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

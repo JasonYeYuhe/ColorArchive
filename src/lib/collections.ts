@@ -3669,3 +3669,128 @@ const extraCollections37: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections37);
+
+const extraCollections38: ColorCollection[] = [
+  createCollection(
+    "restaurant-warmth",
+    "Restaurant Warmth",
+    "Deep reds, terracotta, and amber — the appetite-stimulating palette of successful dining spaces.",
+    "A palette built on the colors that food research consistently associates with warmth, appetite, and social dining energy. Ember orange, garnet red, and amber gold create the visual heat that signals good food and convivial atmosphere.",
+    ["Warm", "Food", "Interior"],
+    [
+      "ember-core-vivid",
+      "garnet-velvet-soft",
+      "amber-core-vivid",
+      "coral-tone-soft",
+      "merlot-dusk-muted",
+    ],
+    {
+      editorialNote:
+        "Use this when the brief calls for appetite, warmth, and social energy. Works for restaurant brands, food-adjacent products, and any context where warmth and invitation are the primary emotional goals.",
+      promptWords: [
+        "candle-lit dining room in deep red and amber",
+        "restaurant warmth in terracotta and ember",
+        "Italian trattoria palette in garnet and gold",
+      ],
+      useCases: ["Restaurant branding and interiors", "Food and beverage packaging", "Hospitality design"],
+    },
+  ),
+  createCollection(
+    "dark-mode-foundation",
+    "Dark Mode Foundation",
+    "A layered dark surface system in deep cobalt-gray — built for interfaces, not decoration.",
+    "Dark mode requires surface layering (not just black) and carefully desaturated accent colors. This palette provides the base layer system: near-black backgrounds, dark mid-surfaces, and a single structured blue for hierarchy and interactive states.",
+    ["Dark", "UI", "Tech"],
+    [
+      "cobalt-ink-muted",
+      "cobalt-nocturne-muted",
+      "cobalt-shadow-muted",
+      "cobalt-dusk-muted",
+      "cobalt-core-vivid",
+    ],
+    {
+      editorialNote:
+        "A dark interface foundation palette that moves from near-black ink through structured dark layers to an active cobalt. Avoids true black in favor of dark blue-gray surfaces with depth.",
+      promptWords: [
+        "dark mode interface in deep cobalt and near-black",
+        "engineering tool dark theme in slate and cobalt",
+        "night mode dashboard in structured dark blue-gray",
+      ],
+      useCases: ["Developer tools and IDEs", "Data dashboards in dark theme", "Technical product launch pages"],
+    },
+  ),
+  createCollection(
+    "institutional-trust",
+    "Institutional Trust",
+    "The navy, cobalt, and cool-gray system that powers financial, healthcare, and government branding.",
+    "This palette distills the color logic of institutional credibility: deep navy anchor, structured cobalt, and calibrated cool grays. Use it when the product's primary value proposition is reliability, stability, and competence rather than excitement or novelty.",
+    ["Corporate", "Blue", "Neutral"],
+    [
+      "cobalt-ink-muted",
+      "cobalt-dusk-muted",
+      "cobalt-core-vivid",
+      "cool-gray-tone",
+      "cool-gray-pearl",
+    ],
+    {
+      editorialNote:
+        "The color system of institutions that have to be trusted. Not exciting, not warm — stable, clear, and competent. A strong choice when the brief is 'our clients need to trust us with serious things.'",
+      promptWords: [
+        "financial institution branding in navy and cobalt",
+        "healthcare system brand in cobalt and cool gray",
+        "government agency identity in deep blue and structured gray",
+      ],
+      useCases: ["Financial services branding", "Healthcare and insurance systems", "Government and civic design"],
+    },
+  ),
+  createCollection(
+    "appetite-vivid",
+    "Appetite Vivid",
+    "Red, orange, citrine — the high-saturation palette of fast food, snack brands, and food energy.",
+    "The appetite palette in its full-saturation form: bright crimson, vivid ember orange, sharp amber, fresh coral. These are the colors that food packaging research consistently links to impulse purchase, appetite stimulation, and fast consumption — energetic, immediate, and hard to ignore.",
+    ["Vivid", "Food", "Energy"],
+    [
+      "crimson-core-vivid",
+      "ember-tone-vivid",
+      "amber-tone-vivid",
+      "coral-core-vivid",
+      "citrine-tone-vivid",
+    ],
+    {
+      editorialNote:
+        "Maximum appetite energy. For fast food, snacks, beverage brands, food apps, and any product where the goal is immediate craving rather than considered appreciation.",
+      promptWords: [
+        "fast food brand palette in red and orange",
+        "snack packaging in vivid ember and crimson",
+        "food app UI in bright coral and amber",
+      ],
+      useCases: ["Fast food and quick service restaurants", "Snack food packaging", "Food delivery and ordering apps"],
+    },
+  ),
+  createCollection(
+    "editorial-monochrome",
+    "Editorial Monochrome",
+    "Near-black ink, structured grays, and a single warm-white — for typography-first design.",
+    "A true monochrome editorial palette for design where typography is the primary visual element. Deep ink black, three structured gray steps, and a warm near-white provide all the hierarchy needed for publishing, writing tools, and editorial layouts without reaching for color.",
+    ["Editorial", "Neutral", "Typography"],
+    [
+      "cool-gray-ink",
+      "cool-gray-shadow",
+      "cool-gray-mid-muted",
+      "cool-gray-tone",
+      "cool-gray-whisper",
+    ],
+    {
+      editorialNote:
+        "For interfaces and editorial layouts where color is a distraction. Typography, whitespace, and weight carry all the hierarchy. A deliberate choice that signals seriousness and restraint.",
+      promptWords: [
+        "editorial magazine layout in ink and warm white",
+        "writing tool interface in structured gray",
+        "publishing brand in near-black and cool white",
+      ],
+      useCases: ["Writing and publishing tools", "Editorial and magazine layouts", "Typography-first brand systems"],
+    },
+  ),
+];
+
+collections.push(...extraCollections38);
