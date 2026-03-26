@@ -22,6 +22,29 @@ There is no test suite. Use `typecheck` to validate changes.
 - `src/lib/color-utils.ts` — Pure functions for HSL↔RGB↔HEX conversion, color family classification, filtering, sorting, and finding color relationships (analogous, complementary, tonal companions).
 - `src/types/color.ts` — Core `ColorRecord` interface and enums (`ColorFamily`, `SortOption`).
 
+### Color ID Naming Rules (CRITICAL for collections/guides)
+
+All 3,066 color IDs are generated algorithmically. **Do NOT invent color IDs.** Only use IDs that match these exact patterns:
+
+**Chromatic colors (3,024):** `{root}-{lightness}-{chroma}`
+- **36 roots:** Crimson, Ruby, Ember, Coral, Apricot, Amber, Citrine, Honey, Olive, Lime, Moss, Leaf, Emerald, Mint, Seafoam, Jade, Teal, Lagoon, Aqua, Cerulean, Azure, Sapphire, Cobalt, Indigo, Iris, Violet, Orchid, Plum, Mulberry, Magenta, Fuchsia, Peony, Rose, Blush, Garnet, Merlot
+- **14 lightness bands:** Veil (98), Whisper (94), Mist (90), Pearl (84), Bloom (76), Silk (68), Tone (60), Radiant (54), Core (48), Velvet (42), Dusk (34), Shadow (28), Nocturne (20), Ink (14)
+- **6 chroma bands:** Faint (10), Muted (18), Soft (34), Clear (54), Vivid (74), Pure (92)
+- Examples: `amber-pearl-muted`, `cobalt-shadow-vivid`, `emerald-bloom-clear`
+
+**Neutral grays (42):** `{root}-{lightness}` — **NO chroma suffix**
+- **3 roots:** Warm Gray, Cool Gray, True Gray
+- **14 lightness bands:** same as above
+- Examples: `warm-gray-whisper`, `cool-gray-shadow`, `true-gray-tone`
+
+**Common mistakes to avoid:**
+- ❌ `warm-gray-whisper-soft` — neutrals have NO chroma suffix → ✅ `warm-gray-whisper`
+- ❌ `ivory-pearl-soft` — "Ivory" is not a root → ✅ use `coral-veil-faint` or `amber-veil-faint`
+- ❌ `amber-deep-core` — "Deep" is not a lightness band → ✅ `amber-shadow-clear`
+- ❌ `apricot-vivid-core` — order is root-lightness-chroma, not root-chroma-lightness → ✅ `apricot-core-vivid`
+
+When creating collections, **always verify** color IDs exist by checking against this naming scheme. The build will fail with `Unknown color id` if any ID is invalid.
+
 ### Page & Component Pattern
 
 Pages in `app/` are Next.js Server Components. Each page imports a corresponding `*-page.tsx` component from `src/components/` that holds the actual UI and is marked `"use client"`. This keeps the App Router data/metadata layer separate from interactive client logic.
