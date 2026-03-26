@@ -932,6 +932,39 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   millennium_color: ["cobalt", "azure", "lime", "vivid", "magenta"],
   retro_digital: ["cobalt", "iris", "lime", "vivid", "azure"],
   early_internet: ["cobalt", "iris", "lime", "fuchsia", "vivid"],
+  // Memory and nostalgia
+  memory_color: ["amber", "honey", "muted", "ivory", "sienna"],
+  nostalgic_palette: ["amber", "sienna", "muted", "garnet", "soft"],
+  retro_warmth: ["amber", "honey", "coral", "sienna", "muted"],
+  faded_memory: ["muted", "soft", "amber", "warm-gray", "ivory"],
+  childhood_palette: ["coral", "citrine", "mint", "peony", "sky"],
+  // Packaging and product
+  packaging_neutral: ["ivory", "warm-gray", "soft", "pearl", "muted"],
+  product_color: ["amber", "coral", "teal", "indigo", "vivid"],
+  shelf_color: ["crimson", "azure", "citrine", "emerald", "clear"],
+  // Dark mode and dark UI
+  oled_black: ["ink", "coal", "onyx", "deep", "shadow"],
+  dark_background: ["ink", "shadow", "nocturne", "slate", "deep"],
+  // Accessibility and contrast
+  high_contrast_color: ["ink", "vivid", "clear", "crimson", "cobalt"],
+  wcag_color: ["ink", "vivid", "cobalt", "emerald", "crimson"],
+  colorblind_safe: ["cobalt", "amber", "teal", "ink", "honey"],
+  // Neon and fluorescent
+  fluorescent_color: ["vivid", "lime", "fuchsia", "citrine", "cobalt"],
+  neon_sign: ["fuchsia", "lime", "cobalt", "citrine", "vivid"],
+  blacklight_color: ["violet", "orchid", "indigo", "fuchsia", "vivid"],
+  glow_color: ["teal", "fuchsia", "cobalt", "lime", "vivid"],
+  // Architecture and materials
+  concrete_gray: ["cool-gray", "warm-gray", "slate", "fog", "cement"],
+  brutalist_color: ["cool-gray", "warm-gray", "concrete", "shadow", "ink"],
+  architectural_neutral: ["warm-gray", "cool-gray", "slate", "fog", "ivory"],
+  raw_material: ["warm-gray", "sienna", "amber", "slate", "coal"],
+  // Nordic and boreal
+  boreal_palette: ["emerald", "moss", "jade", "cool-gray", "frost"],
+  nordic_forest: ["emerald", "moss", "leaf", "cool-gray", "shadow"],
+  spruce_green: ["emerald", "jade", "moss", "shadow", "leaf"],
+  birch_white: ["warm-gray", "ivory", "pearl", "veil", "cool-gray"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

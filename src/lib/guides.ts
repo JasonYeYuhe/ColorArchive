@@ -9673,3 +9673,213 @@ const extraGuides35: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides35);
+
+const extraGuides36: LandingGuide[] = [
+  {
+    category: "Color Psychology",
+    slug: "color-memory-nostalgia-guide",
+    title: "Color and Memory: Using Nostalgic Palettes in Design",
+    summary:
+      "Colors are among the most reliable autobiographical memory triggers. A guide to understanding color-memory neuroscience and using nostalgia deliberately in brand and product design.",
+    eyebrow: "Color Psychology",
+    priority: 74,
+    searchIntent: "color memory nostalgia nostalgic palette retro color psychology emotional color design memory trigger",
+    featuredCollectionId: "faded-earth",
+    featuredPackId: "complete-archive",
+    tags: ["Color Psychology", "Nostalgia", "Branding"],
+    highlights: [
+      "Color is stored in the brain alongside spatial, temporal, and emotional memory — encountering a color later reactivates the full encoded experience, not just a visual cue.",
+      "Nostalgia works at two levels: autobiographical (personal memory) and collective (shared cultural moment). Period-accurate palettes trigger collective nostalgia; approximate palettes create cognitive dissonance.",
+      "The most powerful nostalgic palettes occupy precise hue-saturation-lightness positions, not broad categories. Kodak yellow is a specific warm chrome yellow, not 'yellow.'",
+    ],
+    sections: [
+      {
+        heading: "How Color Encodes Memory",
+        body: "Color is processed in the visual cortex alongside spatial, temporal, and emotional information during experience encoding. When you encounter a color years later, it activates the same neural pathways — returning not just a visual cue but the emotional context and sensory details of the original experience. This is why certain colors feel personally significant in a way that shapes and patterns rarely do.",
+      },
+      {
+        heading: "Autobiographical vs. Collective Nostalgia",
+        body: "Autobiographical nostalgia targets individual memories — the palette triggers something in a specific viewer's past. Collective nostalgia targets shared cultural moments — the palette references a period that an entire generation encoded together. Y2K aesthetics are collective nostalgia, exploiting the specific palette of early digital interfaces shared by a generation that came of age during that period.",
+      },
+      {
+        heading: "Period Accuracy Matters",
+        body: "Retro design that uses technically incorrect palette combinations for the era it claims to reference creates cognitive dissonance rather than nostalgia. Research what the actual colors of a period looked like in the medium you are referencing: photographic fading characteristics, printing technology limitations, screen phosphor profiles, and material manufacturing constraints all shaped the palettes of their times.",
+      },
+      {
+        heading: "Precision Over Category",
+        body: "The most effective nostalgic palettes occupy precise hue-saturation-lightness positions, not broad categories. A specific warm honey-amber with a slight green cast triggers a specific era of interior design; generic 'warm yellow' does not. Building a nostalgic palette requires source research, not mood-boarding.",
+      },
+    ],
+    links: [
+      { label: "Browse Retro Collections", href: "/collections/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-emotions-guide/" },
+      { label: "Newsletter: Color & Memory", href: "/newsletter/" },
+    ],
+  },
+  {
+    category: "Design Process",
+    slug: "packaging-color-design-guide",
+    title: "Packaging Color Design: Shelf Impact, Print Constraints, and Signal Design",
+    summary:
+      "Color in packaging works differently than color on screens. A practical guide to competitive shelf positioning, Pantone specification, material rendering, and the physical constraints of packaging color.",
+    eyebrow: "Print & Production",
+    priority: 73,
+    searchIntent: "packaging color design shelf impact product packaging color print color pantone packaging palette brand packaging",
+    featuredCollectionId: "natural-remedy",
+    featuredPackId: "palette-pack-vol-2",
+    tags: ["Packaging", "Print Design", "Production"],
+    highlights: [
+      "Shelf impact depends on contrast with competitors, not absolute color quality. Start every packaging project with a physical competitive shelf audit.",
+      "CMYK cannot reliably reproduce many brand colors. Specifying packaging palettes in Pantone spot colors provides more consistent results across substrate types.",
+      "The 'blue food problem' is a calibration for designers: no naturally edible food in human evolutionary history was blue, so blue packaging activates food-aversion signals in most Western markets.",
+    ],
+    sections: [
+      {
+        heading: "Competitive Shelf Positioning",
+        body: "The best packaging color strategy begins with competitive audit: photograph the actual shelf at the point of sale and analyze the dominant color palette of the category. Breaking from category language risks being invisible. Adopting it risks disappearing into competitive noise. The resolution is to occupy a precise position within category language that is distinctly yours while remaining categorically legible.",
+      },
+      {
+        heading: "Material and Print Rendering",
+        body: "A cyan that reads clean and bright on screen may print dull on uncoated stock, vivid on coated stock, and entirely different on kraft board. Specifying packaging palettes in Pantone spot colors rather than CMYK provides more predictable results, especially for brand colors that appear across multiple substrate types and printing processes.",
+      },
+      {
+        heading: "Food Category Color Conventions",
+        body: "Humans are instinctively averse to blue food because no naturally edible food in the human evolutionary environment was blue. Green, yellow, orange, and red trigger food-positive associations; blue, purple, and black trigger food-neutral or food-negative responses in most Western markets. These are signal processing contexts, not design rules.",
+      },
+      {
+        heading: "Color as Category Language",
+        body: "Every product category has established color conventions that consumers use to orient themselves on shelf. These conventions are worth understanding deeply before breaking them. A new entrant in a category that breaks the color convention needs to win on another dimension — typically through premium positioning, deliberate disruption, or strong out-of-shelf marketing support that pre-orients consumers before they encounter the shelf.",
+      },
+    ],
+    links: [
+      { label: "Browse Natural Palettes", href: "/colors/?family=Green" },
+      { label: "Brand Color Guide", href: "/guides/brand-color-palette-guide/" },
+      { label: "Color Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "dark-mode-color-systems-guide",
+    title: "Dark Mode Color Systems: A Token Architecture Guide",
+    summary:
+      "Dark mode is not an inverted light mode. A guide to building dual-mode color systems from perceptual principles — with design token architecture, OLED optimization, and elevation systems.",
+    eyebrow: "Design Systems",
+    priority: 82,
+    searchIntent: "dark mode color system dark mode design tokens dark ui palette dark mode design dark color system OLED dark mode",
+    featuredCollectionId: "midnight-coast",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Dark Mode", "Design Systems", "UI Color"],
+    highlights: [
+      "Dark mode is not inverted light mode. Every surface hierarchy encoded through lightness in light mode must be independently re-encoded for dark environments.",
+      "OLED displays render #000000 as a physically off pixel — use very dark gray (#0F0F0F–#121212) for primary dark backgrounds to avoid halo effects on text.",
+      "Design token architecture with semantic tokens (surface-primary, text-secondary) that resolve to different values per mode is the structural answer to dual-mode color management.",
+    ],
+    sections: [
+      {
+        heading: "Perceptual Inversion Doesn't Work",
+        body: "In light mode, dark elements advance and light elements recede. In dark mode, the opposite is true: light elements float forward and dark elements recede. This means every surface hierarchy encoded through lightness in light mode must be re-encoded through a different luminance relationship in dark mode. Simply inverting lightness values produces either flat surfaces or clashing interfaces.",
+      },
+      {
+        heading: "OLED Black and Halo Effects",
+        body: "On OLED displays, pure black (#000000) is a physically turned-off pixel — no backlight, no light output at all. This makes pure black backgrounds genuinely black on OLED, but can create halo and smearing effects on text in low-light conditions. Using very dark gray (#0F0F0F to #121212) rather than pure black for primary dark backgrounds is standard OLED-aware dark mode practice.",
+      },
+      {
+        heading: "Semantic Token Architecture",
+        body: "The structural solution to dual-mode color management is semantic design tokens: tokens named for their role (surface-primary, text-secondary, border-default) that resolve to different absolute values in light and dark mode. Binding semantic tokens directly to absolute values — a 'card background' token that always equals #FFFFFF — prevents theming without full refactoring. A theme layer that maps semantic tokens to mode-specific values preserves flexibility.",
+      },
+      {
+        heading: "Elevation in Dark Mode",
+        body: "Light mode encodes elevation through drop shadows that add darkness below components. Dark mode typically inverts this: elevated components are lighter than their background, not darker. Material Design formalized this as an 'overlay' system: elevated surfaces receive a white overlay at increasing opacity per elevation level. This produces the appearance of components floating above the dark background plane through surface-lightening rather than shadow-darkening.",
+      },
+    ],
+    links: [
+      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Browse Dark Palettes", href: "/colors/?family=Blue" },
+      { label: "Design Systems Guide", href: "/guides/design-system-color-tokens-guide/" },
+    ],
+  },
+  {
+    category: "Accessibility",
+    slug: "color-accessibility-wcag-guide",
+    title: "Color Accessibility Beyond WCAG: A Practical Field Guide",
+    summary:
+      "Contrast ratios are a floor, not a ceiling. A practical guide to accessible color design for color blindness, reduced contrast sensitivity, aging vision, and cognitive load — with actionable testing checklists.",
+    eyebrow: "Accessibility",
+    priority: 85,
+    searchIntent: "color accessibility WCAG contrast color blindness accessible color design inclusive design colorblind safe palette accessible UI color",
+    featuredCollectionId: "high-contrast-system",
+    featuredPackId: "brand-starter-kit",
+    tags: ["Accessibility", "WCAG", "Inclusive Design"],
+    highlights: [
+      "WCAG contrast ratios measure luminance contrast only. They do not test color differentiation for colorblind users or account for aging vision, reduced contrast sensitivity, or cognitive color load.",
+      "Approximately 8% of males have color vision deficiency. Color should never be the only channel through which meaning is communicated in an interface — always add redundant signals.",
+      "Targeting 7:1 luminance contrast rather than 4.5:1 provides a buffer for older users, low-light environments, and display variability that real-world use introduces.",
+    ],
+    sections: [
+      {
+        heading: "What WCAG Actually Measures",
+        body: "WCAG 4.5:1 contrast compliance tests luminance contrast between foreground and background under standard conditions. It does not measure color differentiation for users with color vision deficiency, nor does it account for aging vision, low-light environments, or display calibration variability. Meeting AA compliance is the legal and technical floor, not the design quality ceiling.",
+      },
+      {
+        heading: "Designing for Color Blindness",
+        body: "Approximately 8% of males and 0.5% of females have color vision deficiency. Red-green deficiencies (deuteranopia/protanopia) are most common. A design using red for errors and green for success with no other differentiating signals fails for this population regardless of contrast ratios. Add redundant signals: icon shapes, text labels, position, pattern, or size. Color should never be the sole carrier of meaning.",
+      },
+      {
+        heading: "Aging Vision and Contrast Headroom",
+        body: "The lens of the human eye yellows with age, filtering short-wavelength light and reducing perceived saturation of blue hues. Blue interfaces that look vivid to a young designer may appear muted to older users. Designing with additional contrast headroom — targeting 7:1 rather than 4.5:1 for critical information — provides a buffer for real-world aging, display variability, and low-light viewing conditions.",
+      },
+      {
+        heading: "Practical Accessibility Testing",
+        body: "Accessible color testing requires more than an automated contrast checker. Simulate the design in deuteranopia, protanopia, and tritanopia modes. Review at reduced size and resolution. Test in reduced contrast mode. Ask whether every color-coded distinction would still be meaningful in grayscale. If a legend is required to distinguish data categories that could be distinguished by shape alone, that is a design failure with an accessible solution.",
+      },
+    ],
+    links: [
+      { label: "WCAG Audit Tool", href: "/tools/wcag-audit/" },
+      { label: "Contrast Checker", href: "/tools/contrast/" },
+      { label: "Colorblind Simulator", href: "/tools/colorblind/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "fluorescent-neon-colors-guide",
+    title: "Fluorescent and Neon Colors: When They Work and When They Don't",
+    summary:
+      "Fluorescent colors are physically different from standard colors — they absorb UV and re-emit visible light. A guide to DayGlo history, the luxury-neon tension, screen gamut constraints, and deliberate use of extreme chroma.",
+    eyebrow: "Color Production",
+    priority: 70,
+    searchIntent: "fluorescent color design neon colors extreme chroma vivid color saturated palette neon design DayGlo bright color production",
+    featuredCollectionId: "vivid-signal",
+    featuredPackId: "complete-archive",
+    tags: ["Color Theory", "Neon", "Production"],
+    highlights: [
+      "Fluorescent pigments absorb UV light and re-emit it as visible light — producing a perceived brightness that exceeds the illuminating light source. Standard CMYK gamut cannot contain most fluorescent hues.",
+      "DayGlo orange carries permanent safety and warning associations from 70+ years of emergency signage use. Using fluorescent orange as a brand accent risks communicating urgency rather than energy.",
+      "Most consumer displays render at sRGB gamut, which clips extreme fluorescent hues. Designing in P3 color space requires fallback values for sRGB display environments.",
+    ],
+    sections: [
+      {
+        heading: "What Makes Fluorescent Colors Different",
+        body: "Fluorescent pigments and dyes absorb ultraviolet light and re-emit it as visible light at longer wavelengths — producing a brightness that appears to exceed the illuminating light source. This luminescence is why fluorescent colors appear to glow, particularly under UV-enriched lighting. It also explains why they are genuinely difficult to reproduce: standard CMYK gamut cannot contain most fluorescent hues, and most standard RGB displays cannot either.",
+      },
+      {
+        heading: "The DayGlo Association Problem",
+        body: "DayGlo colors became the visual language of safety and warning systems from the 1940s onward: lifejackets, emergency vehicles, safety vests, construction barriers. This association is so deeply encoded in collective perception that fluorescent orange activates safety and warning signals regardless of design intent. Using DayGlo orange as a brand accent risks communicating urgency, not energy — unless that association is deliberately exploited or clearly countered by context.",
+      },
+      {
+        heading: "The Luxury-Neon Tension",
+        body: "Most luxury brands avoid fluorescent colors entirely — luxury is carried through restraint, specificity, and deep tone, not optical intensity. Contemporary luxury streetwear has deliberately broken this pattern: Versace on neon yellow, Bottega Veneta in acid green. These are deliberate violations of category norms to claim a specific paradox position — the expensive piece that signals it is not trying. The violation only works because the norm exists.",
+      },
+      {
+        heading: "Screen Gamut and Fallback Design",
+        body: "Most consumer displays render at sRGB gamut, which clips extreme fluorescent hues to their nearest in-gamut approximation. A vivid lime on a wide-gamut display may look murky on a standard display. Designing fluorescent-adjacent palettes requires knowing your audience's display capabilities and providing sRGB fallback values. Social media platforms increasingly normalize gamut in image processing, which can shift neon palette intentions significantly.",
+      },
+    ],
+    links: [
+      { label: "Browse Vivid Colors", href: "/colors/" },
+      { label: "Color Theory Guide", href: "/guides/color-theory-basics-guide/" },
+      { label: "Explore All Collections", href: "/collections/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides36);

@@ -3280,3 +3280,132 @@ const extraCollections34: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections34);
+
+const extraCollections35: ColorCollection[] = [
+  createCollection(
+    "dusk-garden",
+    "Dusk Garden",
+    "Evening florals in lavender, rose, and muted violet — a romantic palette for editorial, beauty, and atmospheric design.",
+    "The palette of a garden at golden hour: dusty lavender, warm rose, muted violet, and the soft amber glow of fading light. Cool florals grounded by warm neutrals create a sense of melancholy beauty.",
+    ["Floral", "Evening", "Romantic"],
+    [
+      "violet-pearl-soft",
+      "rose-silk-soft",
+      "orchid-bloom-muted",
+      "plum-tone-muted",
+      "amber-whisper-muted",
+      "rose-pearl-soft",
+    ],
+    {
+      editorialNote:
+        "Dusk Garden captures the transitional light of late afternoon when floral colors shift from their daytime clarity toward more muted, atmospheric tones. The palette is most effective in editorial and beauty contexts where mood and poetry matter more than clarity. The warm amber anchor prevents the palette from becoming cold or melancholy.",
+      promptWords: [
+        "editorial beauty campaign in dusty lavender and warm rose",
+        "evening garden scene in muted violet and amber glow",
+        "romantic atmospheric palette in twilight florals",
+      ],
+      useCases: ["Beauty editorial", "Wedding and events", "Atmospheric product photography"],
+    },
+  ),
+  createCollection(
+    "raw-concrete",
+    "Raw Concrete",
+    "Brutalist grays from warm to cool — the palette of exposed concrete, modernist architecture, and industrial materials.",
+    "The spectrum of unfinished concrete: cool stone, warm aggregate, dark formwork shadows, and the chalk-pale of freshly cured surfaces. A grounding, structural palette for architecture, interior, and design-forward brands.",
+    ["Architecture", "Brutalist", "Industrial"],
+    [
+      "cool-gray-whisper",
+      "warm-gray-silk",
+      "cool-gray-tone",
+      "warm-gray-velvet",
+      "cool-gray-shadow",
+      "warm-gray-nocturne",
+    ],
+    {
+      editorialNote:
+        "Raw Concrete takes its palette from the material character of exposed concrete surfaces, which are never truly neutral — they shift between warm aggregate tones and cool blue-gray stone, with deep formwork shadows and pale cured highlights. This palette works particularly well in architecture, interior, and product contexts where material authenticity and structural weight are the intended mood.",
+      promptWords: [
+        "brutalist architecture editorial in concrete gray tones",
+        "industrial interior palette in warm and cool gray",
+        "minimal design system in exposed concrete surface palette",
+      ],
+      useCases: ["Architecture and interior design", "Industrial brand identity", "Minimal design system backgrounds"],
+    },
+  ),
+  createCollection(
+    "boreal-forest",
+    "Boreal Forest",
+    "The deep greens, bark grays, and frost accents of northern boreal landscapes — for outdoor, wellness, and earthy editorial.",
+    "A palette from the world's great northern forest biome: deep spruce, pine shadow, lichen gray, birch bark, and the pale frost of a winter sky. Cold, ancient, and clean.",
+    ["Nordic", "Forest", "Outdoor"],
+    [
+      "emerald-shadow-soft",
+      "moss-velvet-soft",
+      "jade-dusk-muted",
+      "cool-gray-bloom",
+      "leaf-core-muted",
+      "cool-gray-whisper",
+    ],
+    {
+      editorialNote:
+        "The boreal forest palette differs from temperate forest palettes in its coldness and blue-gray undertones. The spruce and pine greens lean toward blue rather than yellow, the grays carry the cool tone of granite and permafrost, and the accents come from frost and pale winter sky rather than warm autumn light. This makes it distinctly different from, say, Autumn Harvest or Forest Floor — it reads as more severe, more northern, and more minimal.",
+      promptWords: [
+        "nordic wilderness editorial in spruce and frost tones",
+        "boreal forest branding in deep green and cool gray",
+        "northern outdoor campaign in pine shadow and birch light",
+      ],
+      useCases: ["Outdoor and adventure brands", "Nordic wellness", "Environmental editorial"],
+    },
+  ),
+  createCollection(
+    "carnival-lights",
+    "Carnival Lights",
+    "The vivid nostalgia of a traveling fair — scarlet, cobalt, citrine, and warm ivory for bold editorial and festive campaigns.",
+    "The palette of a carnival at night: blazing scarlet, electric cobalt, citrine yellow, and the warm ivory of painted wood. Bold, festive, and slightly nostalgic.",
+    ["Festive", "Nostalgia", "Bold"],
+    [
+      "crimson-core-vivid",
+      "cobalt-core-vivid",
+      "citrine-core-vivid",
+      "amber-silk-clear",
+      "warm-gray-whisper",
+    ],
+    {
+      editorialNote:
+        "Carnival Lights draws from the primary color exuberance of traveling fairs and amusement parks — the painted wood, the bare bulb strings, the vivid canvas banners. The palette is unapologetically bold and slightly nostalgic, working best in campaigns that want festive energy without becoming saccharine. The warm gray anchor keeps the palette from becoming purely childlike.",
+      promptWords: [
+        "festive fair campaign in vivid scarlet, cobalt, and citrine",
+        "carnival nostalgia palette in bold primary colors",
+        "bold editorial palette in traveling fair colors",
+      ],
+      useCases: ["Festive campaign design", "Event branding", "Bold editorial packaging"],
+    },
+  ),
+  createCollection(
+    "bleached-denim",
+    "Bleached Denim",
+    "Washed indigo, powder blue, chalk, and faded amber — the lived-in palette of vintage denim and sun-faded textiles.",
+    "The palette of denim that has been through a thousand washes: faded indigo, powder blue, off-white chalk, warm ecru, and the pale amber of sun-bleached thread. Effortless, lived-in, and warm.",
+    ["Denim", "Vintage", "Casual"],
+    [
+      "indigo-silk-muted",
+      "cobalt-bloom-muted",
+      "azure-pearl-soft",
+      "cool-gray-bloom",
+      "amber-whisper-soft",
+      "warm-gray-veil",
+    ],
+    {
+      editorialNote:
+        "Bleached Denim is a palette about material aging and wear history. Each color represents a stage in the fading process: the dark indigo of new denim, the mid-blue of frequent wear, the powder blue of vintage pieces, and the chalk and ecru of near-total bleaching. The palette works in fashion, lifestyle, and casual brand contexts where authenticity and ease are the intended character.",
+      promptWords: [
+        "vintage denim editorial in faded indigo and powder blue",
+        "lived-in casual palette in washed blue and off-white",
+        "sun-bleached textile palette for lifestyle brand",
+      ],
+      useCases: ["Fashion and lifestyle brands", "Casual editorial", "Vintage-inspired product photography"],
+    },
+  ),
+];
+
+collections.push(...extraCollections35);
