@@ -10840,3 +10840,173 @@ export const extraGuides41: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides41);
+
+export const extraGuides42: LandingGuide[] = [
+  {
+    category: "Motion & Animation",
+    slug: "color-in-motion-design-guide",
+    title: "Color in Motion Design: Making Hue and Timing Work Together",
+    summary: "Animated and video contexts require different color thinking than static design. Saturation, contrast, and transition behavior all work differently in the temporal dimension — and most designers learn this only after their first motion project looks wrong.",
+    eyebrow: "Motion & Animation",
+    priority: 78,
+    searchIntent: "motion design color animation color palette UI animation",
+    tags: ["Motion Design", "Animation", "Color", "UX"],
+    highlights: [
+      "High-contrast, fully saturated colors vibrate in animation — the eye processes motion and color simultaneously, and both at maximum frequency causes overload. Motion designers routinely reduce saturation 10–15% from static equivalents.",
+      "Color transition speed carries semantic meaning: slow fades read as time passing, hard cuts read as state changes. The palette may be identical; only the temporal behavior changes the message.",
+      "Hue constancy — using a single hue family at varying saturation and value — creates coherence across complex animated sequences without reducing visual variety.",
+    ],
+    sections: [
+      {
+        heading: "Why Static Palettes Fail in Motion",
+        body: "A palette that performs well in static design often looks wrong in motion because the eye processes animated color information differently from static. In a static composition, the viewer's eye moves voluntarily through the image; in animation, the image changes before the eye can complete its scan. High-contrast combinations that add visual interest in static work create noise in motion — the transitions generate perceptual interference that reads as flickering or agitation. Designers moving from print or UI to motion frequently encounter this: their palettes are technically correct but emotionally wrong because they were calibrated for static perception.",
+      },
+      {
+        heading: "Temporal Color Meaning",
+        body: "The way a color changes over time carries semantic content independent of the hue itself. A slow fade from warm to cool reads as a natural time cycle — dawn to dusk, energy winding down. The same transition in a single frame reads as an abrupt state change — power switching off, an alert. Brand animations frequently exploit this: financial services brands favor slow, confident transitions between blues and teals; technology brands use faster, sharper transitions to signal responsiveness. The palette alone does not produce the meaning; the palette plus the temporal behavior does.",
+      },
+      {
+        heading: "Saturation Management in Animation",
+        body: "Saturation in motion should be calibrated for the intended output environment. Television broadcast standards have historically required reduced saturation to prevent chroma bleeding on NTSC/PAL systems — this constraint is less rigid on modern streaming platforms, but the perceptual reasons remain valid. On screens viewed in ambient light, very high saturation colors in motion can feel assaultive rather than energetic. The practical approach is to begin with a static palette and reduce saturation by 10-15% for the animated version, then re-evaluate contrast ratios, since saturation reduction affects perceived contrast.",
+      },
+    ],
+    links: [
+      { label: "Browse all colors", href: "/colors/" },
+      { label: "Browse collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Retail & Packaging",
+    slug: "retail-packaging-color-guide",
+    title: "Retail Packaging Color: Standing Out on the Shelf Without Getting Lost",
+    summary: "Consumer packaged goods must compete in one of the densest visual environments in design — the retail shelf — while also performing in e-commerce thumbnails and on variable retail lighting. This guide covers the color strategies that actually work.",
+    eyebrow: "Retail & Packaging",
+    priority: 81,
+    searchIntent: "packaging color design retail shelf color consumer goods color",
+    tags: ["Packaging", "Retail", "Brand", "Color Strategy"],
+    highlights: [
+      "Category color conventions exist because they help shoppers navigate — but conforming to them means blending into the shelf. The resolution is to own one element strongly while conforming to category conventions on the others.",
+      "Warm colors (red, orange, yellow) outperform cool colors at distance under typical retail lighting because fluorescent and warm-LED sources amplify warm wavelengths. Cool packaging typically requires higher initial saturation to compensate.",
+      "E-commerce thumbnails are 200–400px wide. Color differentiation that works at full resolution can merge at thumbnail scale — value contrast survives compression better than hue contrast.",
+    ],
+    sections: [
+      {
+        heading: "The Shelf Competition Problem",
+        body: "The retail shelf is a competitive visual field in a way that no other context is. Dozens of products in the same category occupy a single viewing frame simultaneously, all competing for the same 0.3-second attention scan. The color decisions that work in isolation — on a presentation slide or in a mood board — are tested under completely different conditions on the shelf. A beautiful, harmonious color palette may be invisible on a shelf surrounded by louder, simpler competitors. The constraint that packaging color must navigate is not 'does this look good' but 'does this win at 3 meters when surrounded by 30 competitors.'",
+      },
+      {
+        heading: "Blocking: The Most Reliable Shelf Strategy",
+        body: "The packaging approach with the best track record for shelf differentiation is color blocking — using a single strongly saturated or strongly contrasting color as a solid panel occupying a significant portion of the package face. The color mass registers at distance before any typography is legible. Cadbury purple, Heinz red, Coca-Cola red, and UPS brown all work this way. The color itself becomes the recognition signal. Smaller brands that cannot afford years of blocking-color association building can use the same principle at category scale — owning a color within a category, not across all categories, requires less investment.",
+      },
+      {
+        heading: "Lighting and the Warm-Color Advantage",
+        body: "Most retail lighting — fluorescent tubes or warm-LED strips — has a spectral distribution that amplifies warm wavelengths and partially suppresses cool ones. This is why the most visually prominent products on most shelves skew red, orange, and yellow: the lighting environment amplifies their natural value. Blues and violets can appear desaturated or grayish under poor-CRI fluorescent sources. When packaging must use cool colors (unavoidable in some categories — ice cream, cleaning products, water), the design should start with higher initial saturation than the target palette requires, to compensate for the anticipated lighting-induced desaturation.",
+      },
+    ],
+    links: [
+      { label: "Browse all collections", href: "/collections/" },
+      { label: "Browse packs", href: "/packs/" },
+    ],
+  },
+  {
+    category: "Psychology & Culture",
+    slug: "color-symbolism-across-cultures-guide",
+    title: "Color Symbolism Across Cultures: What Designers Need to Know Before Going Global",
+    summary: "No color has a universal meaning. Red is danger, prosperity, love, and mourning depending on cultural context. White is purity in Western weddings and mourning in East Asian funerals. This guide maps the most important cultural color divergences for designers working with global audiences.",
+    eyebrow: "Psychology & Culture",
+    priority: 79,
+    searchIntent: "color symbolism culture color meaning cultural color differences",
+    tags: ["Cultural Color", "Color Psychology", "Global Design", "Symbolism"],
+    highlights: [
+      "White is the mourning color in China, Japan, and much of South and Southeast Asia — using white heavily in a congratulatory or product launch context for these markets carries unintended associations.",
+      "Red is simultaneously the color of danger (Western safety standards), prosperity and celebration (Chinese culture), love (Western Valentine's), and mourning (parts of South Africa). Context determines which reading activates.",
+      "Green carries strong Islamic associations and is the dominant sacred color of the Muslim world — using it in commercial contexts for Muslim-majority markets requires awareness of this register.",
+    ],
+    sections: [
+      {
+        heading: "Why Color Meaning Is Cultural, Not Universal",
+        body: "The idea that color meaning is universal is widespread in popular accounts of color psychology but is contradicted by both anthropological research and the everyday reality of cross-cultural communication. The meanings attached to colors are learned through cultural transmission, not hardwired through visual biology. The only robust universal finding is a preference for blue and green across most cultures studied — but even this is a preference finding, not a meaning finding. What blue or green means varies dramatically. The practical implication for designers is that no color palette is culturally neutral: every choice activates cultural associations, and those associations vary by audience.",
+      },
+      {
+        heading: "The Most Problematic Divergences",
+        body: "Several color associations diverge so sharply across cultures that they create reliable communication failures when ignored. White is the most important: its Western associations with purity, cleanliness, and celebration (wedding white) are inverted in East Asian mourning contexts where white is the ritual color of death and passage. Purple carries mourning associations in Brazil that are absent in most other markets. Yellow, the most universally disliked adult color in Western research, carries positive associations in East Asia (imperial gold association) and Southeast Asia. Green in Western pharmaceutical contexts signals natural/safe; in some Middle Eastern contexts it is a sacred color with a different register.",
+      },
+      {
+        heading: "Red: The Most Complex Color",
+        body: "Red is probably the most culturally complex color in global design because it carries strong positive and negative associations simultaneously in different systems. In Western safety standards, red is danger — mandated for fire equipment, stop signals, and hazard warnings. In Chinese culture, red is the primary color of prosperity, celebration, and good fortune — the color of New Year envelopes, wedding decorations, and lucky charms. In Western Valentine's culture, red is romantic love. In some South African cultures, red and black together signal mourning. These associations are not metaphorical ornaments that can be stripped away; they are primary meanings that activate before conscious reflection. A red-heavy brand identity communicates very differently to a Shanghai audience than a London one.",
+      },
+    ],
+    links: [
+      { label: "Browse all colors", href: "/colors/" },
+      { label: "Browse collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Nostalgia & Trends",
+    slug: "nostalgia-color-palettes-design-guide",
+    title: "Nostalgia Color Palettes: How to Use Era-Specific Color Without Being Derivative",
+    summary: "Certain color palettes reliably trigger memory and emotional recall of specific decades — Kodachrome 1970s, neon 1980s, faded Polaroid 1990s. Understanding the mechanism helps designers use nostalgic palettes with precision instead of accidentally invoking the wrong era or the wrong emotion.",
+    eyebrow: "Nostalgia & Trends",
+    priority: 74,
+    searchIntent: "nostalgia color palette retro color vintage design aesthetic",
+    tags: ["Color Trends", "Nostalgia", "Retro", "Branding"],
+    highlights: [
+      "Era-specific color palettes work because technology created consistent color artifacts — Kodachrome film, CRT screen gamuts, newspaper halftone printing each produced specific color characteristics that now function as temporal markers.",
+      "Nostalgia design fails when the palette is not specific enough to anchor to a period, when target audiences have negative associations with the era, or when the product category creates cognitive dissonance with that era.",
+      "The most effective nostalgic palettes borrow 2-3 era-specific characteristics rather than full reproduction — selective reference reads as intentional; total reproduction often reads as pastiche.",
+    ],
+    sections: [
+      {
+        heading: "How Technology Creates Nostalgia Palettes",
+        body: "Era-specific color palettes are not chosen — they are produced by the technical limitations and capabilities of the media technologies of that period. Kodachrome film created specific warm saturation profiles and shadow rolloffs that no digital camera reproduces. Early CRT monitors displayed a particular range of slightly phosphorescent colors, especially the blues and greens of 8-bit software interfaces. Polaroid SX-70 prints had a characteristic color cast and fading pattern. Each of these is now a nostalgia trigger for audiences who grew up with them — not because those colors are aesthetically preferred but because they are temporally specific. When a contemporary designer replicates these color characteristics, they invoke the memory of the medium.",
+      },
+      {
+        heading: "Selecting the Right Era",
+        body: "The critical design question with nostalgic palettes is not 'what era is this from' but 'who is my audience and what are their associations with this era.' Nostalgic palettes work when the target cohort has positive memories of the referenced period and where those memories align with the product or brand's value proposition. A 1970s warm-film palette applied to artisanal food products works because those audiences associate that era with craft, authenticity, and natural materials. The same palette applied to a technology startup could work for audiences who associate the 1970s with innovation and optimism — or it could fail for audiences who associate it with obsolescence. The palette does not determine the meaning; the audience-era-product triangle does.",
+      },
+      {
+        heading: "Using Nostalgic Palettes Without Pastiche",
+        body: "Full reproduction of an era's color characteristics reads as pastiche — technically correct but aesthetically stale. The more effective approach is selective reference: identifying 2-3 characteristics specific to the target era and incorporating them into an otherwise contemporary palette. A modern brand wanting 1970s warmth might adopt the characteristic warm shadow color of Kodachrome while using contemporary saturation levels and hue range. A brand referencing 1990s web culture might adopt the characteristic slightly oversaturated blues while using current typographic conventions. The goal is recognition without imitation — enough specificity to trigger the period association, not enough to trap the design in it.",
+      },
+    ],
+    links: [
+      { label: "Browse all collections", href: "/collections/" },
+      { label: "Browse all colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Environment & Architecture",
+    slug: "color-in-healthcare-environments-guide",
+    title: "Color in Healthcare Environments: Evidence-Based Design for Patient Spaces",
+    summary: "Hospital and clinic color design has moved from institutional defaults to evidence-based practice over the past 30 years. The research on which color choices reduce anxiety, improve patient cooperation, and support staff performance is specific enough to be actionable.",
+    eyebrow: "Environment & Architecture",
+    priority: 77,
+    searchIntent: "healthcare color design hospital color palette medical interior",
+    tags: ["Healthcare", "Interior Design", "Color Psychology", "Evidence-Based"],
+    highlights: [
+      "Natural colors — greens, warm neutrals, sky blues — consistently reduce self-reported patient anxiety versus institutional neutrals, across age groups. The effect is one of the more robust findings in applied environmental color psychology.",
+      "High-saturation or high-contrast accent colors in clinical spaces increase perceived cleanliness when used in appropriate contexts (hand-washing stations, procedural zones) by directing attention.",
+      "Staff environments benefit from different color logic than patient-facing spaces: mid-value, cool-neutral palettes in charting areas reduce eye fatigue during extended screen use; warm accents in break rooms support recovery from clinical focus.",
+    ],
+    sections: [
+      {
+        heading: "The Shift to Evidence-Based Color in Healthcare",
+        body: "Healthcare color design was, for most of the twentieth century, determined by practical considerations (paint durability, cleanability) and institutional convention (the ubiquitous institutional green of hospitals that derived from an early twentieth-century belief in its bacteriostatic properties — a belief that proved unfounded). From the 1980s onward, the growing field of evidence-based design began producing research on the effects of architectural and interior variables on patient outcomes. Color was among the variables studied. The findings are more modest than popular accounts suggest — color alone is not a clinical intervention — but they are consistent enough to justify moving beyond institutional defaults.",
+      },
+      {
+        heading: "Patient Room Color",
+        body: "The most consistent research finding in healthcare color is that natural-associative palettes — blues, greens, warm neutrals — reduce self-reported patient anxiety versus both institutional neutral grays and high-saturation bright palettes. The effect is observed across patient age groups including children and is persistent enough that it has been incorporated into healthcare design guidelines in several countries. The working hypothesis is that the mechanism is primarily associative — natural colors are linked in memory to non-clinical, safe environments — rather than directly physiological. Regardless of mechanism, the practical guidance is clear: patient rooms benefit from color palettes that reference the natural environment rather than either institutional grays or clinical whites.",
+      },
+      {
+        heading: "Wayfinding and Procedural Zone Color",
+        body: "Color in clinical corridors and procedural spaces serves a different function from color in patient rooms: it must support navigation and communicate zone purpose at a glance. High-saturation accent colors on feature walls or flooring are effective wayfinding tools in hospitals because they register pre-attentively — visitors can track a color path without consciously following it. Procedural zones (blood draw stations, medication dispensing areas) benefit from moderate contrast accents that signal 'this is a task-specific space' without producing the anxiety response that high-saturation red or orange can generate in clinical contexts. The research consensus favors value contrast over hue contrast for clinical wayfinding: value differences survive variable lighting conditions and color vision deficiency better than hue differences alone.",
+      },
+    ],
+    links: [
+      { label: "Browse all collections", href: "/collections/" },
+      { label: "Browse all colors", href: "/colors/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides42);

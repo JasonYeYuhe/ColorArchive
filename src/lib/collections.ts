@@ -4043,3 +4043,128 @@ const extraCollections40: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections40);
+
+const extraCollections41: ColorCollection[] = [
+  createCollection(
+    "motion-brand-vivid",
+    "Motion Brand Vivid",
+    "High-energy palette for brand animation — cobalt, cyan, and electric accent on near-black, calibrated for screen motion.",
+    "Animation brand palettes need colors that hold visual weight in motion without vibrating. This collection pairs cobalt and cyan with a near-black base and a warm amber accent — high contrast, low noise, designed to move. Use for brand idents, UI micro-interactions, and product launch animations.",
+    ["Cool", "Motion", "Brand"],
+    [
+      "cobalt-tone-vivid",
+      "azure-deep-vivid",
+      "teal-ink-vivid",
+      "amber-gold-vivid",
+      "charcoal-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Designed for brand animation and motion graphic contexts. Cobalt and cyan create energy; amber accent provides warmth and rhythm punctuation; charcoal base prevents vibration artifacts in fast transitions.",
+      promptWords: [
+        "tech brand animation in cobalt and electric blue",
+        "product launch motion graphic in vivid teal and amber",
+        "UI animation system in high-contrast cobalt palette",
+      ],
+      useCases: ["Brand animation and idents", "UI micro-interaction color system", "Product launch video palette"],
+    },
+  ),
+  createCollection(
+    "natural-earth-packaging",
+    "Natural Earth Packaging",
+    "The earthy, unbleached palette of natural product packaging — kraft, warm neutral, sage, and muted terracotta.",
+    "Natural product packaging has converged on a recognizable palette: unbleached kraft, warm gray, sage, and muted clay or terracotta. This collection captures that aesthetic honestly — these colors signal natural, thoughtful, and small-batch without irony. Works for food, cosmetics, wellness, and any brand positioning around authenticity.",
+    ["Warm", "Natural", "Packaging"],
+    [
+      "warm-gray-pebble-muted",
+      "sage-mist-muted",
+      "terracotta-dust-muted",
+      "ivory-linen-soft",
+      "warm-brown-sand-muted",
+    ],
+    {
+      editorialNote:
+        "Natural product packaging palette. Kraft neutral, sage, and muted terracotta together signal artisan, unprocessed, and authentically made — without the cliché of pure white minimalism.",
+      promptWords: [
+        "natural product packaging in kraft and sage",
+        "artisan food brand in earthy neutral and terracotta",
+        "wellness product palette in unbleached and sage",
+      ],
+      useCases: ["Natural food packaging", "Organic cosmetics brand identity", "Artisan product photography backgrounds"],
+    },
+  ),
+  createCollection(
+    "pediatric-calm-bright",
+    "Pediatric Calm Bright",
+    "Evidence-based color for children's environments — soft sky, warm green, gentle coral, and natural neutral, without institutional dullness.",
+    "Healthcare and educational environments for children benefit from palettes that feel safe and natural without being institutional. This collection draws on the research consensus: soft blue-greens and warm neutrals reduce anxiety; clean, warm accents maintain visual engagement without overstimulation. The result is a palette that feels genuinely child-appropriate rather than forced-cheerful.",
+    ["Warm", "Soft", "Natural"],
+    [
+      "sky-mist-soft",
+      "sage-whisper-soft",
+      "coral-bloom-soft",
+      "warm-white-ivory",
+      "leaf-green-muted",
+    ],
+    {
+      editorialNote:
+        "Calibrated for children's healthcare and educational environments. Natural-associative colors reduce patient anxiety (research-supported). Also works for children's brand identity, toy packaging, and family product photography.",
+      promptWords: [
+        "children's healthcare interior in soft sky and sage",
+        "pediatric clinic palette in natural blues and greens",
+        "children's brand identity in soft coral and sky blue",
+      ],
+      useCases: ["Pediatric clinic interior", "Children's educational environment", "Family brand identity and packaging"],
+    },
+  ),
+  createCollection(
+    "kodachrome-memory",
+    "Kodachrome Memory",
+    "The warm, saturated palette of film photography nostalgia — amber-shifted reds, warm greens, and the signature golden midtones of Kodachrome stock.",
+    "Kodachrome film created a characteristic palette: warm-shifted reds, golden midtones, and slightly cool, slightly blue-green shadows. This collection approximates those qualities with contemporary color values. Use for brands wanting that specific late-twentieth-century warmth without full retro pastiche.",
+    ["Warm", "Vintage", "Nostalgic"],
+    [
+      "amber-sunset-vivid",
+      "coral-ember-vivid",
+      "warm-green-moss-muted",
+      "amber-gold-muted",
+      "warm-shadow-brown-muted",
+    ],
+    {
+      editorialNote:
+        "Film-photography nostalgia palette calibrated on Kodachrome color characteristics. Warm reds, golden midtones, cool-leaning shadows. Works for food photography, lifestyle brands targeting 30-45 age cohort, and editorial design wanting period warmth.",
+      promptWords: [
+        "Kodachrome film photography color palette",
+        "vintage film color grading warm and saturated",
+        "nostalgic lifestyle brand in warm amber and coral",
+      ],
+      useCases: ["Lifestyle brand identity", "Food and recipe photography", "Editorial design with nostalgic register"],
+    },
+  ),
+  createCollection(
+    "global-celebration-red",
+    "Global Celebration Red",
+    "Red as celebration — the palette of Chinese New Year, South Asian weddings, and global festivity — deep vermilion, gold, and rich accent.",
+    "Red as prosperity and celebration is one of the most widely shared color associations across East Asia, South Asia, and beyond. This collection pairs deep vermilion and celebration red with gold, warm accent, and a deep anchor — the palette of festivity, launch events, and brand moments that want to communicate energy and joy without Western danger associations.",
+    ["Warm", "Festive", "Cultural"],
+    [
+      "crimson-deep-vivid",
+      "vermilion-tone-vivid",
+      "amber-gold-vivid",
+      "warm-ivory-cream",
+      "crimson-shadow-muted",
+    ],
+    {
+      editorialNote:
+        "Celebration red palette calibrated for positive cultural associations — prosperity, festivity, and joy. Works for brands launching into East and South Asian markets, cultural event design, and any brand identity wanting red's energy without danger association.",
+      promptWords: [
+        "Chinese New Year brand palette in red and gold",
+        "celebration event design in crimson and amber",
+        "festive brand identity in deep red and warm gold",
+      ],
+      useCases: ["Cultural celebration event design", "Brand identity for East/South Asian markets", "Product launch visual identity"],
+    },
+  ),
+];
+
+collections.push(...extraCollections41);

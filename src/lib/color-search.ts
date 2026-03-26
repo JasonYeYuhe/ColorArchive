@@ -1076,6 +1076,28 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   daylight_color: ["frost", "veil", "whisper", "cerulean", "ivory"],
   candlelight: ["amber", "ember", "honey", "apricot", "warm-gray"],
 
+  // Motion and animation
+  motion_brand: ["cobalt", "teal", "azure", "amber", "vivid"],
+  brand_animation: ["cobalt", "teal", "electric", "amber", "charcoal"],
+  ui_microinteraction: ["cobalt", "frost", "azure", "ivory", "slate"],
+
+  // Retail and packaging
+  retail_shelf: ["crimson", "amber", "vermilion", "coral", "vivid"],
+  natural_packaging: ["sage", "terracotta", "ivory", "warm-gray", "kraft"],
+  artisan_product: ["terracotta", "sage", "warm-brown", "ivory", "stone"],
+
+  // Healthcare and children
+  pediatric_color: ["sky", "sage", "coral", "ivory", "soft"],
+  healthcare_interior: ["sky", "sage", "ivory", "warm-gray", "frost"],
+  children_space: ["sky", "sage", "coral", "amber", "ivory"],
+
+  // Cultural and festive
+  celebration_color: ["crimson", "vermilion", "amber", "gold", "vivid"],
+  chinese_red: ["crimson", "vermilion", "scarlet", "coral", "ember"],
+  festive_palette: ["crimson", "amber", "gold", "ivory", "vivid"],
+  global_red: ["crimson", "vermilion", "scarlet", "ember", "warm"],
+  nostalgia_film: ["amber", "coral", "warm-green", "ivory", "warm-brown"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
