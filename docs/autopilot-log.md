@@ -2520,3 +2520,54 @@ Y2K/nostalgia: y2k_palette, millennium_color, retro_digital, early_internet
 - `src/lib/guides.ts` — extraGuides35 (5 guides, ~235 total)
 - `src/lib/collections.ts` — extraCollections34 (4 collections, 130 total)
 - `src/lib/color-search.ts` — 30 new unique search aliases (687 total)
+
+---
+
+## 2026-03-26 — Normal Run #2
+
+**Run type:** Normal Run
+**Commit:** 6c5f574
+**Typecheck:** ✓ clean (fixed 5 duplicate search alias keys)
+
+### Category A — 5 New Newsletter Issues (259 total, Dec 2030 batch)
+
+- **dec-2030-color-memory-nostalgia**: Color-memory neuroscience — autobiographical vs. collective nostalgia, period-accurate palettes, precision over broad category
+- **dec-2030-packaging-color-design**: Shelf impact via competitive audit, Pantone vs CMYK, material rendering differences, blue food problem
+- **dec-2030-dark-mode-color-systems**: Perceptual inversion failures, OLED #000 vs #121212, semantic token architecture, elevation through surface-lightening
+- **dec-2030-color-accessibility-beyond-wcag**: Contrast ratios as floor not ceiling, 8% male color blindness, aging lens yellowing, practical simulation testing
+- **dec-2030-fluorescent-neon-design**: DayGlo UV physics, safety association baggage, luxury-neon paradox, sRGB gamut clipping
+
+### Category A — 5 New SEO Guides (extraGuides36, ~240 total)
+
+- **color-memory-nostalgia-guide**: Color psychology → memory science for brand designers (priority 74)
+- **packaging-color-design-guide**: Print/production packaging guide — shelf positioning, Pantone spec (priority 73)
+- **dark-mode-color-systems-guide**: Dual-mode token architecture, OLED optimization (priority 82)
+- **color-accessibility-wcag-guide**: Comprehensive color accessibility beyond contrast (priority 85)
+- **fluorescent-neon-colors-guide**: Extreme chroma design — DayGlo, gamut, luxury tension (priority 70)
+
+### Category D — 5 New Collections (extraCollections35, 135 total)
+
+- **dusk-garden**: Evening florals — violet, rose, orchid, plum, amber
+- **raw-concrete**: Brutalist architecture grays — cool/warm gray spectrum, 6 gray tones
+- **boreal-forest**: Northern forest — spruce, moss, jade, cool gray, frost
+- **carnival-lights**: Vivid fair nostalgia — crimson, cobalt, citrine, amber
+- **bleached-denim**: Washed denim — indigo, cobalt, azure, cool gray, amber
+
+### Category D — 25 New Search Aliases (737 total)
+
+Memory/nostalgia: memory_color, nostalgic_palette, retro_warmth, faded_memory, childhood_palette
+Packaging: packaging_neutral, product_color, shelf_color
+Accessibility: high_contrast_color, wcag_color, colorblind_safe
+Neon/fluorescent: fluorescent_color, neon_sign, blacklight_color, glow_color
+Architecture: concrete_gray, brutalist_color, architectural_neutral, raw_material
+Nordic/boreal: boreal_palette, nordic_forest, spruce_green, birch_white
+
+### Build Fixes
+- Removed 5 duplicate SEARCH_ALIASES keys: shelf_impact, dark_mode, dark_ui, night_mode, accessible_color (already existed from prior runs)
+- Fixed invalid neutral gray IDs (grays don't have chroma suffix): cool-gray-bloom-muted → cool-gray-bloom, etc.
+
+### Files Modified (4)
+- `src/data/newsletter-issues.json` — 5 new issues (255-259)
+- `src/lib/guides.ts` — extraGuides36 (5 guides, ~240 total)
+- `src/lib/collections.ts` — extraCollections35 (5 collections, 135 total)
+- `src/lib/color-search.ts` — 25 new unique aliases (737 total)
