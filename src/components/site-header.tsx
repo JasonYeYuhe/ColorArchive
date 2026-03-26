@@ -98,6 +98,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/industry/", labelKey: "nav.industry" },
       { href: "/seasonal/", labelKey: "nav.seasonal" },
       { href: "/decades/", labelKey: "nav.decades" },
+      { href: "/trends/", labelKey: "nav.trends" },
     ],
   },
   {

@@ -1407,6 +1407,59 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   metallic_palette: ["warm-gray", "honey", "amber", "cool-gray", "true-gray"],
   chrome_colors: ["cool-gray", "true-gray", "cobalt", "azure", "warm-gray"],
 
+  // Dark mode and UI systems
+  dark_mode_ui: ["cobalt", "indigo", "violet", "cool-gray", "true-gray"],
+  dark_mode_surface: ["cool-gray", "true-gray", "indigo", "cobalt"],
+  dark_mode_alt: ["cobalt", "indigo", "cool-gray", "sapphire", "violet"],
+  night_ui: ["cobalt", "indigo", "cool-gray", "violet"],
+  dark_ui_accent: ["aqua", "violet", "fuchsia", "lime", "coral"],
+  oled_screen: ["true-gray", "cool-gray", "cobalt", "indigo"],
+
+  // Neo-noir and cinematic
+  neo_noir: ["violet", "aqua", "amber", "cobalt", "indigo"],
+  neon_noir: ["violet", "aqua", "fuchsia", "cobalt"],
+  cyberpunk_neon: ["violet", "fuchsia", "aqua", "lime", "cobalt"],
+  cinematic_night: ["cobalt", "indigo", "violet", "amber", "cool-gray"],
+  blade_runner: ["violet", "aqua", "amber", "cobalt"],
+  film_noir: ["cool-gray", "true-gray", "warm-gray", "cobalt", "indigo"],
+
+  // Wabi-sabi and imperfect beauty
+  wabi_sabi_earth: ["warm-gray", "coral", "olive", "amber", "moss"],
+  imperfect_beauty: ["warm-gray", "coral", "olive", "amber"],
+  japanese_earth: ["warm-gray", "olive", "moss", "coral", "true-gray"],
+  zen_palette: ["warm-gray", "olive", "moss", "true-gray", "cool-gray"],
+  pottery_glaze: ["warm-gray", "coral", "amber", "olive", "moss"],
+  raku: ["warm-gray", "amber", "olive", "cool-gray"],
+
+  // Art Deco
+  art_deco_palette: ["amber", "honey", "warm-gray", "emerald", "garnet"],
+  deco_gold: ["amber", "honey", "citrine", "warm-gray"],
+  deco_jewel: ["emerald", "sapphire", "garnet", "violet", "amber"],
+  gatsby_palette: ["amber", "honey", "warm-gray", "emerald", "rose"],
+  twenties_palette: ["amber", "emerald", "warm-gray", "violet", "ruby"],
+
+  // Fog and coastal
+  coastal_fog_morning: ["aqua", "seafoam", "cool-gray", "teal", "blush"],
+  marine_layer: ["cool-gray", "aqua", "seafoam", "teal"],
+  foggy_morning: ["cool-gray", "true-gray", "aqua", "seafoam", "blush"],
+  beach_mist: ["aqua", "seafoam", "blush", "cool-gray", "teal"],
+  pacific_fog: ["cool-gray", "aqua", "teal", "blush", "seafoam"],
+
+  // Botanical illustration
+  botanical_ink: ["moss", "olive", "coral", "amber", "warm-gray"],
+  naturalist_palette: ["moss", "olive", "lime", "amber", "coral"],
+  field_guide: ["moss", "olive", "amber", "coral", "leaf"],
+  victorian_botanical: ["moss", "olive", "amber", "coral", "warm-gray"],
+  antique_botanical: ["olive", "moss", "amber", "coral", "warm-gray"],
+
+  // Typography and readability
+  reading_palette: ["warm-gray", "true-gray", "cool-gray", "amber"],
+  editorial_text: ["warm-gray", "true-gray", "cobalt", "cool-gray"],
+  print_palette: ["warm-gray", "true-gray", "cool-gray", "cobalt", "garnet"],
+  book_design: ["warm-gray", "amber", "true-gray", "cobalt"],
+  typographic: ["true-gray", "warm-gray", "cool-gray", "cobalt", "amber"],
+
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

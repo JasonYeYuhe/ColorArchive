@@ -5622,3 +5622,208 @@ const extraCollections50: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections50);
+
+const extraCollections51: ColorCollection[] = [
+  createCollection(
+    "coastal-fog-palette",
+    "Coastal Fog",
+    "The muted, diffuse palette of a marine layer morning — seafoam, silver, pale aqua, and washed-out sand.",
+    "Coastal fog has its own color logic: not the vivid blues of clear ocean days, but the soft silver-greens and pale grays of a marine layer diffusing all light. This palette captures that quiet, washed-out quality — used in coastal architecture, Scandinavian beach houses, and minimal spa environments.",
+    ["Coastal", "Fog", "Neutral", "Muted", "Calm"],
+    [
+      "aqua-mist-faint",
+      "seafoam-pearl-faint",
+      "cool-gray-bloom",
+      "teal-whisper-faint",
+      "blush-veil-faint",
+      "cool-gray-whisper",
+    ],
+    {
+      editorialNote: "A morning at the beach before the fog burns off. Everything is soft-edged and quiet. The water is barely distinguishable from the sky.",
+      promptWords: [
+        "coastal fog color palette",
+        "marine layer color scheme",
+        "beach morning muted palette",
+        "Scandinavian coastal colors",
+      ],
+      useCases: ["Coastal hospitality and resort branding", "Spa and wellness UI design", "Minimal architectural visualization"],
+    },
+  ),
+  createCollection(
+    "high-fashion-monochrome",
+    "High Fashion Monochrome",
+    "An editorial monochrome palette across a complete warm gray spectrum — from near-white whisper to near-black shadow.",
+    "High fashion editorial photography often runs in strict monochrome: a single gray temperature across a full value range, with no color accent breaking the purity. This palette builds exactly that — warm gray from whisper to shadow, with enough tonal separation to construct a complete hierarchy.",
+    ["Fashion", "Editorial", "Monochrome", "Warm Gray", "Minimal"],
+    [
+      "warm-gray-whisper",
+      "warm-gray-mist",
+      "warm-gray-bloom",
+      "warm-gray-tone",
+      "warm-gray-dusk",
+      "warm-gray-shadow",
+    ],
+    {
+      editorialNote: "A fashion editorial in warm gray — the model, the background, the clothes all operating in the same tonal register. A study in value.",
+      promptWords: [
+        "monochrome fashion palette",
+        "editorial gray color scheme",
+        "warm gray tonal palette",
+        "high fashion color palette",
+      ],
+      useCases: ["Fashion editorial and lookbook design", "Luxury brand identity", "Premium product photography backdrop"],
+    },
+  ),
+  createCollection(
+    "art-deco-gold-black",
+    "Art Deco Gold & Black",
+    "The opulent color language of Art Deco — deep black, burnished gold amber, ivory cream, and emerald accent.",
+    "Art Deco's color code is precise: pure geometry in maximum contrast between deep black and warm gold, softened by ivory and punctuated by one vivid jewel-tone accent — usually emerald, sapphire, or garnet. This palette renders the decade's signature opulence.",
+    ["Art Deco", "Gold", "Luxury", "Geometric", "Historical"],
+    [
+      "amber-core-vivid",
+      "amber-shadow-muted",
+      "warm-gray-ink",
+      "blush-veil-faint",
+      "emerald-core-clear",
+      "honey-bloom-soft",
+    ],
+    {
+      editorialNote: "A hotel lobby in 1925. Black marble, gold leaf, geometry everywhere. The emerald in the chandelier glass.",
+      promptWords: [
+        "art deco color palette",
+        "art deco gold black color scheme",
+        "1920s design palette",
+        "deco luxury colors",
+      ],
+      useCases: ["Art Deco themed brand identity", "Luxury event and hospitality design", "Historical editorial and publication design"],
+    },
+  ),
+  createCollection(
+    "wabi-sabi-earth",
+    "Wabi-Sabi Earth",
+    "The imperfect beauty palette of wabi-sabi aesthetics — warm bone, weathered clay, faded moss, and aged wood.",
+    "Wabi-sabi, the Japanese aesthetic of finding beauty in imperfection and transience, has a specific color language: muted naturals that suggest aging, wear, and organic irregularity. No vivid colors. No pure whites. Tones that look like they've been here for decades.",
+    ["Wabi-Sabi", "Japanese", "Earth", "Muted", "Organic"],
+    [
+      "warm-gray-pearl",
+      "coral-bloom-muted",
+      "olive-tone-muted",
+      "amber-tone-muted",
+      "warm-gray-tone",
+      "moss-dusk-muted",
+    ],
+    {
+      editorialNote: "A raku bowl, still warm from the kiln. The glaze cracked exactly right. Everything around it has been here for a while.",
+      promptWords: [
+        "wabi-sabi color palette",
+        "Japanese aesthetic colors",
+        "imperfect beauty color scheme",
+        "muted earth palette",
+      ],
+      useCases: ["Japanese-inspired interior and product design", "Artisan and craft brand identity", "Wellness and mindfulness app design"],
+    },
+  ),
+  createCollection(
+    "tropical-modernist",
+    "Tropical Modernist",
+    "Bold tropical color meets modernist restraint — vivid fuchsia and emerald against clean white and warm neutral.",
+    "Tropical modernism as a design movement pairs the high saturation of tropical color (vivid botanical greens, hot pinks, deep ocean blues) with clean modernist geometry and white space. The rule: two vivid colors maximum, against a pure background.",
+    ["Tropical", "Modernist", "Vivid", "Botanical", "Bold"],
+    [
+      "fuchsia-core-vivid",
+      "emerald-tone-clear",
+      "true-gray-whisper",
+      "aqua-bloom-soft",
+      "warm-gray-mist",
+      "lime-bloom-muted",
+    ],
+    {
+      editorialNote: "A hotel in São Paulo with giant monstera leaves against a white concrete wall. The furniture is Danish teak. The accent is impossible pink.",
+      promptWords: [
+        "tropical modernist color palette",
+        "tropical design colors",
+        "bold botanical color scheme",
+        "resort branding colors",
+      ],
+      useCases: ["Tropical resort and hospitality brand identity", "Botanical product and packaging design", "Bold editorial and poster design"],
+    },
+  ),
+  createCollection(
+    "gallery-white-study",
+    "Gallery White Study",
+    "A refined study of gallery whites and near-whites — warm, cool, and true-neutral — used in art and museum spaces.",
+    "Gallery and museum spaces don't use a single white — they use a family of whites calibrated to the art within. This palette explores the subtle differences between warm white, cool white, and true white, with near-white surface variants used as elevation levels.",
+    ["Gallery", "White", "Minimal", "Neutral", "Architectural"],
+    [
+      "warm-gray-veil",
+      "true-gray-veil",
+      "cool-gray-veil",
+      "warm-gray-whisper",
+      "cool-gray-whisper",
+      "true-gray-whisper",
+    ],
+    {
+      editorialNote: "Three adjacent galleries. One hangs warm canvases on warm white. One hangs photography on cool white. One hangs sculpture on true neutral. They only work in their rooms.",
+      promptWords: [
+        "gallery white palette",
+        "museum color scheme",
+        "art gallery white colors",
+        "architectural white palette",
+      ],
+      useCases: ["Art gallery and museum environmental design", "Gallery portfolio and exhibition design", "Minimal architectural visualization and staging"],
+    },
+  ),
+  createCollection(
+    "botanical-ink-palette",
+    "Botanical Ink",
+    "The antique palette of hand-rendered botanical illustration — sage ink, parchment, rust, and aged manuscript black.",
+    "18th and 19th century botanical illustration developed a specific color vocabulary: earthy sage and moss greens for leaves, terracotta and rust for earth tones, cream parchment for paper, and the distinctive warm black of iron gall ink. This palette recreates that register.",
+    ["Botanical", "Illustration", "Antique", "Natural", "Historical"],
+    [
+      "moss-tone-muted",
+      "olive-silk-soft",
+      "coral-tone-soft",
+      "amber-bloom-muted",
+      "warm-gray-pearl",
+      "warm-gray-nocturne",
+    ],
+    {
+      editorialNote: "A page from a hand-colored Linnaean folio. The sage still vivid, the parchment foxed at the edges, the iron gall ink brown with age.",
+      promptWords: [
+        "botanical illustration color palette",
+        "antique botanical colors",
+        "naturalist illustration palette",
+        "vintage botanical color scheme",
+      ],
+      useCases: ["Botanical brand identity and packaging", "Natural and organic product design", "Editorial and publishing design with natural theme"],
+    },
+  ),
+  createCollection(
+    "cinematic-neon-noir",
+    "Cinematic Neon Noir",
+    "The color language of neo-noir cinema — electric violet and cyan against deep shadow, with amber streetlight warmth.",
+    "Neo-noir cinema (Blade Runner, Drive, Collateral) uses neon color strategically: vivid violet, electric blue, and amber appear as pools of colored light against very deep, desaturated shadow backgrounds. The contrast is extreme and intentional.",
+    ["Noir", "Neon", "Cinematic", "Night", "Vivid"],
+    [
+      "violet-shadow-vivid",
+      "aqua-core-vivid",
+      "amber-tone-clear",
+      "cobalt-nocturne-soft",
+      "cool-gray-nocturne",
+      "indigo-ink-faint",
+    ],
+    {
+      editorialNote: "A rain-slicked alley in a future city. Three light sources: violet neon from the left, aqua from the right, amber sodium lamp overhead. Everything else is shadow.",
+      promptWords: [
+        "neo-noir color palette",
+        "neon noir color scheme",
+        "cyberpunk color palette",
+        "cinematic night colors",
+      ],
+      useCases: ["Dark UI and gaming interface design", "Film and entertainment brand identity", "Dramatic editorial and poster design"],
+    },
+  ),
+];
+
+collections.push(...extraCollections51);

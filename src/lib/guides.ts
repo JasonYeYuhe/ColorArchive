@@ -12366,3 +12366,122 @@ export const extraGuides51: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides51);
+
+export const extraGuides52: LandingGuide[] = [
+  {
+    slug: "how-to-choose-colors-for-dark-mode",
+    title: "How to Choose Colors for Dark Mode: A Complete System Design Guide",
+    summary: "Dark mode requires fundamentally different color decisions than light mode — not just inverted values, but rethought contrast hierarchies, reduced saturation, and carefully calibrated surface elevations.",
+    eyebrow: "Dark Mode Color Guide",
+    searchIntent: "how to choose colors for dark mode design",
+    priority: 94,
+    category: "Color Systems",
+    tags: ["Dark Mode", "Color Systems", "UI Design", "Accessibility", "Design Tokens"],
+    highlights: [
+      "Dark mode surfaces should use near-black with very subtle warm or cool tints — pure #000000 backgrounds are rarely correct and create harsh halation against light text elements.",
+      "Accent colors for dark mode should be lighter and slightly less saturated than their light-mode equivalents, because dark backgrounds amplify perceived saturation.",
+      "A proper dark mode token system defines separate values for each semantic role (surface, surface-elevated, text-primary, text-secondary, accent) rather than generating dark values algorithmically from light values.",
+    ],
+    sections: [
+      {
+        heading: "Start with surfaces, not accents",
+        body: "The foundation of any dark mode palette is the surface hierarchy: the 3-4 near-black values used for background, card, modal, and tooltip levels. A common mistake is starting with accent colors — trying to make your blue button look right on dark — before establishing the neutral foundation. Get the surface hierarchy right first. Most good dark mode systems use a base background around #0f0f0f to #1a1a1a, with each elevation step adding approximately 4-6 points of lightness in HSL. Pure #000000 should be reserved for true-black elements (deep shadows, text on light surfaces), not used as the default background — it creates too harsh a contrast against surface-level elements.",
+      },
+      {
+        heading: "Redefine your accent colors, don't just reuse them",
+        body: "The most common dark mode color mistake is using identical hex values for interactive elements in both modes. A blue at #2563eb — excellent on white — becomes harsh and irradiating on #111111. The dark mode equivalent needs to shift both lightness upward and saturation downward: something like #93c5fd or #60a5fa achieves the same brand recognition with less visual aggression. The rule is: in dark mode, accents should be lighter (because they're illuminating a dark ground) and slightly more muted (because the dark background amplifies the apparent saturation of any hue). Test your proposed dark mode accents against your dark surfaces at 50-70% screen brightness — the real usage environment.",
+      },
+      {
+        heading: "Text color tiers in dark mode",
+        body: "Dark mode text hierarchies are the inverse of light mode: primary text is near-white rather than near-black, and secondary text is a medium gray rather than a lighter gray. A good dark mode text system uses three tiers: primary text at #f5f5f5 to #e8e8e8 (high contrast against dark surfaces), secondary text at #a3a3a3 to #b8b8b8 (sufficient for captions and metadata), and tertiary/disabled at around #6b6b6b (for placeholders and inactive states). Verify each tier against your actual surface values — the contrast ratio requirements don't relax in dark mode. A secondary text color that looks reasonable visually may fail WCAG 4.5:1 against your dark background.",
+      },
+      {
+        heading: "Token architecture for maintainable dark mode",
+        body: "Teams that implement dark mode as a set of color overrides (rather than a proper token system) create maintenance debt that compounds quickly. The correct architecture defines semantic tokens that describe roles, not values: --color-surface-base, --color-text-primary, --color-accent-interactive. Light and dark themes provide different hex values for each token, and all component styles reference only semantic tokens. This means adding dark mode support to a new component requires zero new color decisions — it inherits the theme automatically. CSS custom properties handle this elegantly with a data-theme='dark' attribute on the root element triggering overrides. Design systems in Figma can mirror this with separate light/dark mode variable sets referencing the same semantic names.",
+      },
+    ],
+    links: [
+      { label: "Test contrast ratios", href: "/contrast" },
+      { label: "Browse dark mode collections", href: "/collections" },
+      { label: "Explore dark mode UI kit", href: "/packs/dark-mode-ui-kit" },
+    ],
+  },
+  {
+    slug: "color-contrast-checker-guide",
+    title: "Color Contrast Checker: Understanding WCAG Requirements and How to Apply Them",
+    summary: "WCAG contrast requirements are widely cited but frequently misunderstood. This guide explains the contrast ratio formula, the 4.5:1 and 3:1 thresholds, when each applies, and how to make contrast decisions that go beyond minimum compliance.",
+    eyebrow: "Color Contrast Guide",
+    searchIntent: "color contrast checker WCAG requirements guide",
+    priority: 91,
+    category: "Accessibility",
+    tags: ["Contrast", "Accessibility", "WCAG", "Color Theory", "UI Design"],
+    highlights: [
+      "The WCAG contrast ratio formula measures relative luminance — a perceptual measure that accounts for how human vision responds to different colors — not raw RGB differences or HSL lightness.",
+      "The 4.5:1 minimum applies to text smaller than 18pt (or 14pt bold). Large text (18pt+ or 14pt+ bold) only requires 3:1. Interactive components and focus indicators require 3:1 against adjacent colors.",
+      "Passing WCAG minimum contrast doesn't guarantee good readability — it's a floor, not a target. High-quality typography often targets 7:1 or higher for body text.",
+    ],
+    sections: [
+      {
+        heading: "How the contrast ratio is calculated",
+        body: "The WCAG contrast ratio compares the relative luminance of two colors using the formula (L1 + 0.05) / (L2 + 0.05), where L1 is the lighter luminance and L2 is the darker. Relative luminance is computed from sRGB values using a gamma correction formula that models how human vision perceives light — it's not the same as HSL lightness. Two colors at similar HSL lightness can have very different relative luminance. The formula produces ratios from 1:1 (identical colors) to 21:1 (pure black against pure white). The +0.05 constants prevent division-by-zero at pure black and provide a slight adjustment for the non-linearity of human visual response near absolute black.",
+      },
+      {
+        heading: "Which threshold applies when",
+        body: "WCAG 2.1 AA defines three contrast thresholds. The 4.5:1 ratio applies to normal text: any text under 18pt regular or 14pt bold. The 3:1 ratio applies to large text (18pt+ or 14pt+ bold), to UI components in their resting state (button backgrounds, input borders), and to graphical objects like icons and charts that convey meaning. Non-text elements that are purely decorative require no contrast minimum. WCAG AAA (the enhanced level) requires 7:1 for normal text and 4.5:1 for large text. Most accessibility audits target AA compliance, but for high-stakes contexts like healthcare, finance, or government, AAA is appropriate. WCAG 3.0 (in development) will replace the contrast ratio with APCA — the Advanced Perceptual Contrast Algorithm — which accounts for font weight and size more precisely.",
+      },
+      {
+        heading: "Common contrast failures and how to fix them",
+        body: "The most frequent contrast failures in real interfaces are: gray-on-gray text (caption and metadata text against light gray backgrounds often fails 4.5:1 even when it looks 'fine' visually), light-colored text on colored backgrounds (a yellow button with white text almost never passes), placeholder text (which is intentionally lighter than body text but must still meet 4.5:1 if it conveys form instructions), and focus indicators (which must contrast 3:1 against their adjacent colors, not the page background). Fixing these usually requires lightening the background or darkening the foreground — or both. Shifting hue can sometimes achieve adequate contrast without dramatically changing the visual design.",
+      },
+      {
+        heading: "Beyond compliance: designing for actual readability",
+        body: "WCAG minimum contrast is a floor. A 4.5:1 ratio is the minimum that research shows allows most people with typical vision impairment to read text; it's not the target for general design quality. Body text in high-quality editorial and book design typically targets 10:1 to 15:1 — well above WCAG requirements. For UI design, a practical approach is: body text at 7:1+, secondary text at 4.5:1+, tertiary at 3:1+. This creates a meaningful visual hierarchy while ensuring all tiers are accessible. When testing contrast, also test at multiple screen brightness levels and in simulated daylight conditions — a color combination that passes at 4.5:1 may appear to fail in bright ambient light if the effective luminance of both colors shifts toward white.",
+      },
+    ],
+    links: [
+      { label: "Run a contrast check", href: "/contrast" },
+      { label: "WCAG batch audit tool", href: "/wcag-audit" },
+      { label: "Colorblind simulation", href: "/colorblind" },
+    ],
+  },
+  {
+    slug: "color-palettes-for-website-design",
+    title: "Color Palettes for Website Design: A Process for Choosing Colors That Work",
+    summary: "Choosing a website color palette requires balancing brand identity, readability, accessibility, emotional tone, and practical applicability across all page types. Here's a structured process for making those decisions well.",
+    eyebrow: "Website Color Palette Guide",
+    searchIntent: "color palette website design how to choose",
+    priority: 92,
+    category: "Web Design",
+    tags: ["Web Design", "Color Palettes", "Brand", "Accessibility", "Design Process"],
+    highlights: [
+      "A website palette typically needs 5-7 functional roles: background, surface, border, text primary, text secondary, accent interactive, and accent decorative — not just a set of brand colors.",
+      "Start with the primary brand hue, then derive neutral grays that harmonize with it (slightly warm grays for warm brands, slightly cool for cool brands), then select 1-2 accent colors with sufficient contrast against your surfaces.",
+      "Test your palette in context before committing: paste your proposed hex values into a real page mockup with real content to see how the colors behave together at scale, not just as swatches.",
+    ],
+    sections: [
+      {
+        heading: "Define your palette roles before choosing colors",
+        body: "The mistake most designers make when building a website palette is selecting colors before defining what those colors need to do. A functional web palette requires at minimum: a background color (typically near-white or a very light tint), a surface color slightly different from background (for cards and panels), a border color (subtle, for dividers and outlines), text primary (near-black or dark gray for body and headings), text secondary (medium gray for captions and metadata), an interactive accent (a distinctive color for links, buttons, and focus states), and optionally a second accent for decorative elements. Define these roles first. Then choose colors that fill them — not the other way around.",
+      },
+      {
+        heading: "Building from a primary brand hue",
+        body: "For most websites, the process starts with a primary brand hue — often already established in a logo or style guide. From that hue, derive: the interactive accent (often the brand hue at a specific lightness/saturation that maintains 4.5:1 against both white and your background), supporting neutrals (grays that harmonize with the brand hue — a 1-3% hue shift toward the brand color is often enough to create cohesion without obvious coloration), and if needed, a secondary accent at a complementary or analogous hue. Resist the urge to use multiple vivid colors at full saturation. Web palettes with 3+ vivid colors at full saturation are almost always visually fatiguing. Let one color carry the chromatic energy; the others should support it.",
+      },
+      {
+        heading: "Accessibility requirements shape the palette",
+        body: "Accessibility isn't a constraint you apply after choosing colors — it shapes the palette. The moment you select a background color, you've constrained the minimum lightness of your text colors (they must be dark enough to achieve 4.5:1). The moment you select your brand accent, you've determined whether it can be used for button backgrounds with white text. Work the accessibility requirements into the palette definition process rather than testing at the end: as you try potential colors, check their contrast ratios in real time. Many teams find that the most satisfying, elegant color selections naturally have high contrast because high contrast is part of what makes a color combination feel 'clean' rather than muddy.",
+      },
+      {
+        heading: "Testing the palette in context",
+        body: "Color swatches are misleading. A set of 5 colors that look beautiful as evenly-sized squares often performs differently in practice: the background color takes up 60-70% of the visual field, the surface color 15-20%, and all the other colors together comprise the remaining 15-25%. The palette should be tested in actual proportions — build even a rough page layout with your content and apply the palette. Look specifically at: whether text reads clearly at the actual sizes you'll use (not just at enlarged preview), how the accent color reads when it's only 2% of the page (link text, small buttons), and whether the overall tone matches the brand's intended personality. Colors that feel too bold as swatches sometimes feel right at actual usage proportions, and vice versa.",
+      },
+    ],
+    links: [
+      { label: "Explore web design collections", href: "/collections" },
+      { label: "Check contrast ratios", href: "/contrast" },
+      { label: "Generate a brand palette", href: "/brand-generator" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides52);

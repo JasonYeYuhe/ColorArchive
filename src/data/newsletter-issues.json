@@ -1,5 +1,213 @@
 [
   {
+    "slug": "may-2026-dark-mode-color-systems",
+    "date": "2026-05-28",
+    "title": "Dark mode color systems: why most implementations get it wrong",
+    "summary": "Dark mode is not just a color inversion. Building a proper dark mode palette requires rethinking the entire color hierarchy — with different luminance relationships, contrast ratios, and chromatic intensity requirements than light mode.",
+    "eyebrow": "Issue 028",
+    "tags": [
+      "Dark Mode",
+      "Color Systems",
+      "UI Design",
+      "Accessibility"
+    ],
+    "featuredCollectionId": "nocturne-tech",
+    "featuredPackId": "dark-mode-ui-kit",
+    "highlights": [
+      "Inverting a light palette doesn't produce a functional dark palette — dark backgrounds amplify color saturation, making colors that read clearly in light mode appear neon or harsh in dark mode.",
+      "Proper dark mode palettes use desaturated, slightly cool-shifted mid-tones for surfaces, with brighter, more vivid colors reserved for interactive elements and accents.",
+      "The WCAG contrast requirements remain in force for dark mode — light text on dark background must still meet 4.5:1 minimum — but the 'colors' used to achieve that contrast are fundamentally different from light mode selections."
+    ],
+    "sections": [
+      {
+        "heading": "Why inversion doesn't work",
+        "body": "The instinct to build dark mode by inverting a light palette — flipping #ffffff to #000000 and adjusting everything else proportionally — fails for a perceptual reason: human vision doesn't respond symmetrically to light and dark backgrounds. On a dark background, colors appear more saturated and more vivid than they do on a white ground. A coral at #FF6B4A might read as a warm, approachable accent on white; against #121212 it reads as aggressive neon. Dark mode requires genuinely different chroma values at each color role, not just flipped lightness values. Many design systems solve this by defining entirely separate dark-mode tokens rather than generating them from light-mode values algorithmically."
+      },
+      {
+        "heading": "Surface hierarchy in dark mode",
+        "body": "Light mode uses proximity to white to signal elevation: a card floats over a near-white background; a modal floats over the card. In dark mode, the hierarchy is reversed — higher elevation surfaces get lighter, not darker. A base background at #121212 sits below a surface at #1e1e1e, which sits below an elevated card at #242424. The steps are subtle and use neutral dark grays rather than hued values, because in dark environments, color on surfaces is harder to calibrate precisely. The color lives in text, icons, and interactive elements, while surfaces stay neutral. This is why most dark mode systems appear almost achromatic compared to light mode — the chromatic load has shifted to the content layer."
+      },
+      {
+        "heading": "Chromatic intensity and accent selection",
+        "body": "When selecting accent colors for dark mode, you cannot simply use the same hex values as light mode. A vivid blue (#2563eb in Tailwind terms) that reads as a professional accent on white may feel harsh and irradiating against dark backgrounds. The correction is usually to desaturate slightly and shift lightness upward (not downward): the dark mode version of a blue accent might be #60a5fa rather than #2563eb — lighter and slightly less saturated. This maintains the hue and brand recognition while adjusting the physical energy of the color for dark viewing conditions. Brands with strong color identities often define three values for each accent: the base color, the light-mode interactive variant, and the dark-mode interactive variant."
+      },
+      {
+        "heading": "Testing dark mode properly",
+        "body": "The final step that most teams skip is testing dark mode at actual expected viewing conditions. Dark mode is used predominantly at night or in low-light environments, which means the visual system's adaptation state is different from daytime use. Colors that look appropriately muted at a calibrated monitor in a bright room may appear too stark or too dim on the same screen in a dark bedroom. Testing with screen brightness reduced to 50-70% of maximum is closer to realistic dark mode usage than testing at full brightness. Accessibility checking also needs specific attention: some dark mode implementations create contrast issues for light-on-dark that wouldn't exist in the light mode version."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore dark mode collections",
+        "href": "/collections"
+      },
+      {
+        "label": "Check color contrast ratios",
+        "href": "/contrast"
+      },
+      {
+        "label": "Browse Dark Mode UI Kit",
+        "href": "/packs/dark-mode-ui-kit"
+      }
+    ]
+  },
+  {
+    "slug": "may-2026-brand-color-persistence",
+    "date": "2026-05-21",
+    "title": "Brand color persistence: how companies keep colors consistent across decades",
+    "summary": "Tiffany Blue, Hermès Orange, UPS Brown — some brand colors outlast product lines, leadership teams, and market shifts. How color persistence actually works across materials, vendors, screens, and decades.",
+    "eyebrow": "Issue 027",
+    "tags": [
+      "Brand",
+      "Color Management",
+      "Identity",
+      "History"
+    ],
+    "featuredCollectionId": "quiet-luxury",
+    "featuredPackId": "brand-starter-kit",
+    "highlights": [
+      "Tiffany Blue has a specific Pantone designation (1837 — chosen for the year the company was founded) that has been contractually protected since the 1990s, including restrictions on other jewelers using similar colors.",
+      "Color persistence across materials requires maintaining multiple color specifications simultaneously: a Pantone spot color for print, an sRGB hex for screens, and CMYK values for offset printing — and these never exactly match each other.",
+      "Research into color memory shows humans can recognize brand colors even when slightly shifted — which is why some famous brand colors look different than their official specifications when printed or displayed under different conditions."
+    ],
+    "sections": [
+      {
+        "heading": "What makes a color stick",
+        "body": "Brand colors persist for the same reason brand names persist: repetition plus distinctiveness. A color that appears consistently across every touchpoint — packaging, signage, digital, advertising, physical environments — becomes associated with the brand through sheer volume of exposure. The psychology of color memory is favorable to brand building: humans are better at recognizing colors than at describing them verbally. You know Tiffany Blue when you see it even if you can't name its exact hue angle. This recognition operates partly below conscious awareness, which is why brand color changes feel viscerally wrong to customers even when they can't articulate why. The color has become a Pavlovian signal for the brand's entire emotional register."
+      },
+      {
+        "heading": "The specification problem across media",
+        "body": "No two color specification systems are perfectly compatible. Pantone Matching System (PMS) spot colors are physical inks that can be mixed with high precision across print vendors globally. But converting a PMS color to CMYK (for four-color printing) produces a slightly different result; converting to sRGB for screens produces another; converting for physical materials like plastic or fabric produces yet another. Major brands manage this through color tolerance specifications: official documents that define acceptable ranges of variation and specify which specification takes precedence in which context. For Coca-Cola Red, the PMS reference is PMS 485; the sRGB reference is #f40009. These are close but not identical, and a brand manager's job includes deciding when a variant is within tolerance and when it isn't."
+      },
+      {
+        "heading": "How brand colors evolve without changing",
+        "body": "Many famous brand colors have evolved significantly over decades while maintaining the perception of consistency. The Hermès orange evolved from a beige/cream used in early 20th century boxes (the orange replaced it due to material shortages during WWII) and has shifted slightly in warmth and saturation across subsequent decades. The psychological continuity is maintained by evolutionary change — small adjustments made slowly over time — rather than revolutionary change. Brands that attempt radical color changes quickly (Gap's 2010 logo attempt, Tropicana's 2009 packaging redesign) face immediate customer backlash, even when the new color is objectively well-designed. The color is the brand to customers who don't consciously track graphic design decisions."
+      },
+      {
+        "heading": "Digital-first brand color challenges",
+        "body": "Digital-native brands face a different color persistence challenge: their colors exist primarily on screens with varying color profiles, brightness settings, and ambient lighting. A color that looks authoritative on a calibrated MacBook display may look washed out on a Windows laptop or aggressive on an OLED phone at high brightness. Unlike print brands, digital brands cannot use Pantone as their canonical reference. The emerging standard is to define brand colors in OKLCH or P3 color space — which covers a wider gamut than sRGB — and define fallbacks for sRGB-only displays. This future-proofs the brand color as wider-gamut displays become the norm, rather than locking it to the sRGB gamut just because that was the standard when the brand launched."
+      }
+    ],
+    "links": [
+      {
+        "label": "Explore brand color tools",
+        "href": "/brand"
+      },
+      {
+        "label": "Browse brand identity collections",
+        "href": "/collections"
+      },
+      {
+        "label": "Build a brand color system",
+        "href": "/brand-generator"
+      }
+    ]
+  },
+  {
+    "slug": "may-2026-seasonal-color-transitions",
+    "date": "2026-05-14",
+    "title": "Seasonal color transitions: designing palettes that shift without a full rebrand",
+    "summary": "Seasonal color adaptation — updating a brand or product's palette for spring, summer, autumn, winter — is a design challenge with specific technical and perceptual requirements. How to do it without losing brand recognition.",
+    "eyebrow": "Issue 026",
+    "tags": [
+      "Seasonal",
+      "Brand",
+      "Color Systems",
+      "Design"
+    ],
+    "featuredCollectionId": "editorial-warmth",
+    "featuredPackId": "seasonal-spring-2026",
+    "highlights": [
+      "Successful seasonal color transitions preserve brand hue identity while shifting lightness and saturation — a warm amber brand might go gold and rich for winter, pale and blossomy for spring, without ever changing the core hue family.",
+      "The most effective seasonal palettes work as accent shifts over a stable neutral foundation — the brand's neutrals stay constant while 1-3 accent colors update to mark the season.",
+      "Seasonal palettes that ignore local hemisphere differences risk alienating international audiences: a Christmas red-green palette signals 'summer' in the southern hemisphere, not winter."
+    ],
+    "sections": [
+      {
+        "heading": "Why seasonal color works psychologically",
+        "body": "Seasonal color adaptation works because humans have strong involuntary color-season associations built from years of environmental observation. Pale greens, soft pinks, and clear yellows reliably signal spring across most cultures with temperate seasonal cycles. Deep burgundy, warm amber, and ochre signal autumn. These associations run deep enough that they create genuine emotional responses — exposure to spring-palette colors measurably improves mood in controlled settings. Brands that tap into this through seasonal palette updates are leveraging a psychological mechanism, not just following fashion trends. The risk is that colors with strong seasonal associations may feel 'off-brand' if the brand's identity is strongly anchored to a different season."
+      },
+      {
+        "heading": "The stable neutral + seasonal accent model",
+        "body": "The most robust seasonal color system works through a stable foundation with updated accents. The brand's neutral palette — its grays, its whites, its off-whites — remains constant throughout the year. These are the structural colors: backgrounds, text, borders, shadows. What changes is the accent tier: the 2-4 colors used for buttons, highlights, featured content, decorative elements. In spring, those accents might be pale coral, sage, and lavender. In winter, they might be deep navy, warm gold, and burgundy. The brand recognition is maintained through the stable neutrals and the overall typographic/layout system; the seasonal freshness comes through the accents."
+      },
+      {
+        "heading": "Technical implementation for seasonal updates",
+        "body": "In CSS and design systems, seasonal color updates are cleanest when color roles are properly abstracted from specific values. A token system where 'color-accent-primary' is a semantic role (not a hex value) allows updating the entire seasonal palette by changing which hex values map to those roles — without touching any component code. Seasonal tokens are defined as a separate layer: the summer theme maps 'color-accent-primary' to a certain hex, the autumn theme maps it differently, and a global theme variable controls which mapping is active. Teams that haven't adopted token-based design systems yet often handle seasonality through CSS custom properties that override the base values, which achieves the same effect at the component level."
+      },
+      {
+        "heading": "Global brand, local season",
+        "body": "One underappreciated complication of seasonal design is global deployment: if your product serves both Northern and Southern Hemisphere audiences, your 'autumn palette' deploys to Australia in their spring. There's no perfect solution to this, but the most thoughtful approach is to use 'mood' rather than literal season as the organizing principle. A 'harvest warmth' campaign works because amber, ochre, and sienna read as warm and abundant regardless of hemisphere — not because they literally represent autumn leaves. Similarly, a 'fresh start' palette in pale greens and clear sky blues reads as renewal and energy in any hemisphere, rather than being tied to one region's literal spring experience."
+      }
+    ],
+    "links": [
+      {
+        "label": "Browse seasonal collections",
+        "href": "/seasonal"
+      },
+      {
+        "label": "Explore spring palette",
+        "href": "/collections"
+      },
+      {
+        "label": "Download Spring 2026 pack",
+        "href": "/packs/seasonal-spring-2026"
+      }
+    ]
+  },
+  {
+    "slug": "may-2026-color-and-typography-pairing",
+    "date": "2026-05-07",
+    "title": "Color and typography: the interaction most designers underestimate",
+    "summary": "Type color isn't just a contrast problem. The hue and saturation of text affects reading speed, fatigue, and perceived professionalism. How the color of type interacts with its weight, size, and the background behind it.",
+    "eyebrow": "Issue 025",
+    "tags": [
+      "Typography",
+      "Color Theory",
+      "Readability",
+      "UI Design"
+    ],
+    "featuredCollectionId": "minimalist-gray-study",
+    "featuredPackId": "content-creator-bundle",
+    "highlights": [
+      "Pure black (#000000) text on pure white is rarely optimal — the maximum contrast creates halation effects that cause eye strain in extended reading sessions. Most book typography uses near-black on off-white for this reason.",
+      "Hued text (blue-gray, warm gray, cool gray versus neutral gray) affects perceived personality more than readability: warm gray text reads as friendly, cool gray as authoritative, at identical luminance levels.",
+      "Text weight interacts with color: thin weights need higher contrast to maintain readability at the same luminance as bold weights, because the narrow stroke widths amplify the apparent lightness of the text."
+    ],
+    "sections": [
+      {
+        "heading": "The halation problem with maximum contrast",
+        "body": "The irony of maximum contrast is that it's not the most readable combination for extended text. Pure black (#000000) on pure white (#ffffff) produces a contrast ratio of 21:1 — far exceeding WCAG requirements — but the extreme brightness differential causes an optical effect called irradiation or halation: the white background appears to bleed slightly into the black letterforms, creating a faint halo that affects character definition, especially at smaller sizes and thinner weights. Book typography has known this for centuries: professional body text uses near-black (often #1a1a1a to #2d2d2d, or even a very slightly warm dark) on off-white or cream stock. The contrast is still very high but the halation is reduced, improving readability over long sessions."
+      },
+      {
+        "heading": "Hue shifts in type color",
+        "body": "The choice of gray in type color is not neutral — different gray hues affect perceived tone substantially. Warm gray body text (gray with slight yellow or red content: #2c2724, #3d3530) reads as approachable, editorial, and warm. Cool gray body text (gray with slight blue content: #1e2430, #2b3040) reads as technical, authoritative, and precise. These are both grays at similar luminance levels, but the personality difference is immediately apparent. The typographic relationship between warmth and approachability is strong enough that UX researchers can reliably predict whether users rate an interface as 'friendly' or 'professional' based partly on whether the body text uses warm or cool gray — even when respondents can't articulate why they made that judgment."
+      },
+      {
+        "heading": "Weight and color contrast interaction",
+        "body": "Type weight and color contrast are not independent variables. A bold weight at medium contrast may be more readable than a thin weight at high contrast because the stroke width matters as much as the luminance ratio. The practical implication: if your design uses thin or light-weight typography (common in minimal or luxury design contexts), you need higher foreground-to-background contrast than you would with regular or medium weights. WCAG doesn't distinguish by weight, but some emerging standards (APCA — the Advanced Perceptual Contrast Algorithm) do weight these variables together. Designs that use 300-weight type for body copy at 4.5:1 contrast may technically pass WCAG while still having readability issues for users with moderate vision impairment."
+      },
+      {
+        "heading": "Secondary text and hierarchy through color",
+        "body": "Most design systems use at least two levels of text color: a primary (near-black or dark gray for headings and body) and a secondary (lighter gray for captions, metadata, supporting text). Getting this right requires care: the secondary color needs to be meaningfully lighter than primary (enough to signal reduced emphasis) while still maintaining adequate contrast against the background. A common mistake is using pure 50% gray as secondary text — it often fails WCAG at the 4.5:1 threshold required for body text, and the contrast drop from primary to secondary feels abrupt rather than graduated. Better secondary text sits at around 60-70% luminance: lighter than primary, but still substantial. A third tier (placeholder text, disabled states) can then sit at 40-50% luminance, creating a clear three-level hierarchy."
+      }
+    ],
+    "links": [
+      {
+        "label": "Check text contrast ratios",
+        "href": "/contrast"
+      },
+      {
+        "label": "Explore typography color collections",
+        "href": "/collections"
+      },
+      {
+        "label": "WCAG contrast audit tool",
+        "href": "/wcag-audit"
+      }
+    ]
+  },
+  {
     "slug": "april-2026-trending-colors-spread",
     "date": "2026-04-30",
     "title": "How trending colors actually spread through design tools",

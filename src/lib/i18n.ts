@@ -41,6 +41,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.industry": { en: "Color by Industry", zh: "行业色彩" },
   "nav.seasonal": { en: "Color by Season", zh: "四季色彩" },
   "nav.decades": { en: "Color by Decade", zh: "年代色彩" },
+  "nav.trends": { en: "Color Trends 2026", zh: "2026年色彩趋势" },
   "nav.apiDocs": { en: "Color API", zh: "颜色 API" },
   "nav.figmaPlugin": { en: "Figma Plugin", zh: "Figma 插件" },
   "nav.surprise": { en: "Surprise", zh: "随机发现" },
