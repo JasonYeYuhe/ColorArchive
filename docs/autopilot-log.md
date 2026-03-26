@@ -2747,3 +2747,52 @@ Business: business_card, hospitality, interior_design, branding
 - `src/lib/guides.ts` — extraGuides39 (5 guides, ~255 total)
 - `src/lib/collections.ts` — extraCollections38 (5 collections, 150 total)
 - `src/lib/color-search.ts` — 18 new aliases
+
+---
+
+## 2026-03-26 — Normal Run #2 (post big-run)
+
+**Run Type:** Normal
+**Commit:** 9609576
+**Timestamp:** 2026-03-26T03:10:00Z
+
+### Categories Covered
+- **A — SEO & Content**: 5 newsletter issues + 5 SEO guides
+- **D — Data & Collections**: 5 new collections + 10 search aliases
+
+### Category A — 5 New Newsletter Issues (279 total, May–Jul 2031)
+
+- **may-2031-fashion-color-runway-to-retail**: Fashion color forecasting pipeline — how the 18-24 month production lead time shapes what colors appear in stores, and the industry coordination role of Pantone and WGSN
+- **jun-2031-seasonal-color-analysis-personal**: Seasonal color analysis (Spring/Summer/Autumn/Winter) — the undertone science behind it, what the system gets right, and its practical limitations
+- **jun-2031-color-naming-language-perception**: How language shapes color perception — Russian goluboy/siniy distinction, Berlin/Kay universals, why named colors are processed and recalled differently
+- **jun-2031-wayfinding-color-systems-airports**: Wayfinding color design constraints — discriminability, value difference, emotional neutrality principle, healthcare anxiety reduction
+- **jul-2031-color-memory-brand-recognition**: How color ownership develops — consistency + ubiquity + time formula, pre-attentive recognition value, protecting color equity
+
+### Category A — 5 New SEO Guides (extraGuides40, ~260 total)
+
+- **fashion-color-palette-guide**: Wardrobe color systems, undertone matching, three-tone method (priority 78)
+- **seasonal-color-analysis-guide**: Spring/Summer/Autumn/Winter personal color system with diagnostic guidance (priority 74)
+- **brand-color-refresh-guide**: Strategic framework for brand color updates — shade vs. hue change, equity cost, safe alternatives (priority 83)
+- **wayfinding-color-systems-guide**: Environmental color design principles, hue+value discriminability, healthcare wayfinding (priority 75)
+- **color-memory-brand-recognition-guide**: Pre-attentive recognition science, color equity accumulation, consistency rules (priority 81)
+
+### Category D — 5 New Collections (extraCollections39, 155 total)
+
+- **runway-neutrals**: Warm amber-range neutrals (whisper through velvet) — fashion editorial anchor palette
+- **spring-editorial**: Blush/apricot/leaf/citrine/coral — warm editorial spring pastels
+- **scandi-winter**: Cobalt whisper/azure/cerulean/cool-gray/amber — Nordic winter system
+- **capsule-cool**: Cobalt ink/shadow/cool-gray/cobalt whisper/teal — cool-toned capsule wardrobe
+- **nostalgia-amber**: Amber silk/velvet/blush pearl/apricot/warm-gray — analog memory vintage palette
+
+### Category D — 10 New Search Aliases
+
+Fashion: wardrobe, capsule, lookbook
+Nordic: scandinavian, minimalist
+Nostalgia: nostalgia, nostalgic, memory, analog
+(Note: duplicates with existing keys removed — fashion, runway, editorial, nordic, scandi, hygge, retro, wayfinding, signage, environmental were already present)
+
+### Files Modified (4 total)
+- `src/data/newsletter-issues.json` — 5 new issues (275–279, 279 total)
+- `src/lib/guides.ts` — extraGuides40 (5 guides, ~260 total)
+- `src/lib/collections.ts` — extraCollections39 (5 collections, 155 total)
+- `src/lib/color-search.ts` — 10 new aliases (deduped from 20 attempted)
