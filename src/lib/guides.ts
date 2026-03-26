@@ -11643,3 +11643,122 @@ export const extraGuides45: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides45);
+
+export const extraGuides46: LandingGuide[] = [
+  {
+    category: "Brand & Marketing",
+    slug: "industry-color-palettes-brand-guide",
+    title: "Industry Color Palettes: Brand Color Psychology by Sector",
+    summary:
+      "Complete guide to color palettes by industry — Technology blues, Food reds, Healthcare teals, Fashion blacks, Finance navy, Education blues, Beauty roses, Architecture terracottas — with brand psychology and design guidance for each sector.",
+    eyebrow: "Industry Guide",
+    priority: 92,
+    searchIntent: "industry color palettes brand",
+    tags: ["Brand", "Industry", "Psychology", "Strategy"],
+    highlights: [
+      "Technology's blue dominance began with IBM in the 1960s and has been reinforced through six decades of brand conditioning.",
+      "Red stimulates appetite and creates urgency — the mechanism behind virtually every quick-service restaurant chain's brand color choice.",
+      "Blue dominantly suppresses appetite in food contexts — the one categorical rule no food designer should break.",
+      "Luxury color grammar operates through reduction: fewer colors used with greater precision creates higher premium signal.",
+      "Healthcare has evolved toward 'clinical warmth' — teal and sage adding psychological safety alongside clinical competence.",
+    ],
+    sections: [
+      {
+        heading: "How Industry Color Grammars Develop",
+        body: "Industry color grammars develop through a self-reinforcing cycle of conditioning. When dominant players in a category share a color palette long enough, consumers associate those colors with the category's core values. New entrants then face a choice: adopt the grammar to signal category membership immediately, or invest in building a new association from scratch. The cost of breaking with industry convention is significant — it requires sustained marketing investment to establish that your non-conforming color choice signals differentiation rather than inexperience.",
+      },
+      {
+        heading: "Technology: Trust in Blue",
+        body: "Technology's blue palette is grounded in cognitive research: blue is consistently associated with reliability, logic, and competence — the exact qualities technology products need to communicate. The category has evolved from lighter accessible blues toward deeper midnight navies and AI-adjacent purples. Violet and indigo have emerged as the primary signal for AI capability and advanced intelligence, carrying associations with imagination and the beyond-ordinary that differentiate from legacy technology blue.",
+      },
+      {
+        heading: "Food: Appetite Engineering",
+        body: "Food color psychology is the most commercially studied in branding because results are directly measurable. Red stimulates appetite through evolutionary biology — it signals ripe, high-calorie fruit and increases attention and salivation. Orange extends this effect while adding friendliness, making it the fast-casual register. Warm brown signals craft and natural origin. Green signals freshness and farm-to-table values. Blue suppresses appetite and should be avoided as a dominant food color under any circumstances.",
+      },
+      {
+        heading: "Healthcare: Clinical Warmth",
+        body: "Healthcare has evolved from the purely clinical blue-white that dominated hospital environments toward a 'clinical warmth' register. Digital health, telehealth, and mental health products need color that reduces anxiety and signals psychological safety alongside clinical competence. Teal bridges these requirements: it reads as clinically precise while carrying warmth that pure clinical blue lacks. Sage green and soft mint enter the vocabulary through wellness brands needing to differentiate from acute care while maintaining the trust signal.",
+      },
+    ],
+    links: [
+      { label: "Color Palettes by Industry", href: "/industry/" },
+      { label: "Browse technology color palettes", href: "/families/blue/" },
+      { label: "Color by Season", href: "/seasonal/" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "technology-brand-color-design-guide",
+    title: "Technology Brand Color Design: Trust, Intelligence, and the Blue Problem",
+    summary:
+      "Why blue dominates technology branding, how AI products use violet to differentiate, the dark mode palette shift, and how to build a tech brand identity that signals the right kind of intelligence for your specific product.",
+    eyebrow: "Tech Brand Guide",
+    priority: 88,
+    searchIntent: "technology brand color palette",
+    tags: ["Technology", "Brand", "SaaS", "UI Design"],
+    highlights: [
+      "Blue is consistently associated with trust, reliability, and competence in cognitive research — the foundational qualities technology products need to establish.",
+      "Violet and indigo have emerged as the primary color signal for AI and generative technology products.",
+      "Dark mode design has transformed how technology brands use color — electric accents on dark backgrounds are now viable primary brand expressions.",
+      "Forest green has entered technology brand vocabulary through climate tech and sustainability-focused companies breaking the blue convention.",
+    ],
+    sections: [
+      {
+        heading: "Why Blue Still Works",
+        body: "Despite its ubiquity, blue remains the correct foundation for most technology brand identities. The cognitive association between blue and trust was built across 60 years of brand conditioning and cannot be abandoned without significant investment. The question is not whether to use blue but which blue and how. Deep midnight navy signals established authority for enterprise and B2B. Bright accessible blue signals consumer-facing friendliness for social and productivity tools. Electric cobalt signals energy and innovation for developer tools and real-time products.",
+      },
+      {
+        heading: "The Violet Pivot for AI",
+        body: "The emergence of violet and indigo as AI color signals follows a recognizable pattern: a new technology category needs to differentiate from the existing vocabulary while maintaining core trust signals. Purple sits close enough to blue to carry trust-adjacent associations while being distinct enough to signal something genuinely new. The shift started with early AI interfaces clustering around dark, purple-tinged aesthetics and has accelerated as AI capabilities become the primary product differentiator.",
+      },
+      {
+        heading: "Building the Technology Palette",
+        body: "A well-structured technology palette has four tiers. First, the anchor: deep navy or midnight blue that signals foundational trust. Second, the interactive blue: the bright blue for CTAs, links, and interactive states. Third, the category signal: violet for AI, green for sustainability, teal for data — whichever secondary hue positions the product in its specific niche. Fourth, the neutral system: cool grays that support the palette without competing with it.",
+      },
+    ],
+    links: [
+      { label: "Color Palettes by Industry", href: "/industry/" },
+      { label: "Browse blue palettes", href: "/families/blue/" },
+      { label: "Browse indigo palettes", href: "/families/indigo/" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "fashion-luxury-brand-color-guide",
+    title: "Fashion & Luxury Brand Color Design: The Restraint Principle",
+    summary:
+      "How luxury brands use color differently from mass-market brands — the restraint principle, heritage color identity, why Hermès orange works, and how to design premium brand identities through strategic color reduction.",
+    eyebrow: "Luxury Brand Guide",
+    priority: 85,
+    searchIntent: "luxury brand color palette fashion",
+    tags: ["Luxury", "Fashion", "Brand", "Premium"],
+    highlights: [
+      "Luxury brands signal premium through color reduction, not color abundance — fewer colors used with more precision creates higher premium perception.",
+      "Chanel's black-and-white-and-gold palette has remained essentially unchanged for nearly 100 years.",
+      "Hermès's saffron orange was chosen for practical reasons and has since become one of the world's most valuable color identities through consistent use.",
+      "Warm ivory reads as more premium than pure white in most luxury contexts.",
+      "Trend-responsive color changes signal brand insecurity; consistency signals confidence.",
+    ],
+    sections: [
+      {
+        heading: "The Restraint Principle",
+        body: "Luxury communicates through what it omits. A brand that uses twelve colors signals uncertainty about its identity. A brand that uses two or three colors with absolute consistency across every application signals complete confidence — and confidence is the foundational luxury signal. Reducing the palette is the primary creative act in luxury brand development. Maintaining that reduction over years and decades is the hardest part of luxury brand stewardship.",
+      },
+      {
+        heading: "The Near-Neutral Foundation",
+        body: "The luxury palette almost always begins with a near-neutral foundation: near-black (not pure black, which reads as fashion rather than heritage), warm ivory (not pure white, which reads as clinical), and one or two structural neutrals that create depth without demanding attention. Into this field, accent colors are deployed with surgical restraint. Their rarity is their value — they carry the entire emotional weight of the palette because they appear so rarely.",
+      },
+      {
+        heading: "Building Heritage Color Identity",
+        body: "The most powerful luxury color positions are not designed — they are accumulated. The lesson for contemporary brand design is that building a heritage color identity requires choosing a color that can be owned, committing to it publicly, and maintaining it through trend cycles. The temporary dating is the price of eventual heritage. Brands that have achieved this — Hermès, Tiffany, Cadbury — did so not through beautiful color choices but through decades of consistent deployment.",
+      },
+    ],
+    links: [
+      { label: "Color Palettes by Industry", href: "/industry/" },
+      { label: "Browse neutral palettes", href: "/families/true-gray/" },
+      { label: "Browse plum and burgundy palettes", href: "/families/plum/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides46);

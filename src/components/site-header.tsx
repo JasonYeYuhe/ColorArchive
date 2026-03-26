@@ -67,7 +67,8 @@ interface SiteHeaderProps {
     | "/css-colors"
     | "/famous-palettes"
     | "/decades"
-    | "/seasonal";
+    | "/seasonal"
+    | "/industry";
 }
 
 interface NavItem {
@@ -93,6 +94,9 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/guides/", labelKey: "nav.guides" },
       { href: "/stories/", labelKey: "nav.stories" },
       { href: "/use-cases/", labelKey: "nav.useCases" },
+      { href: "/industry/", labelKey: "nav.industry" },
+      { href: "/seasonal/", labelKey: "nav.seasonal" },
+      { href: "/decades/", labelKey: "nav.decades" },
     ],
   },
   {

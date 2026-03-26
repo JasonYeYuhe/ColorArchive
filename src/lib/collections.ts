@@ -4543,3 +4543,200 @@ const extraCollections44: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections44);
+
+const extraCollections45: ColorCollection[] = [
+  createCollection(
+    "tech-brand-navy-blue",
+    "Tech Brand Navy",
+    "Trust-first technology palette anchored in deep cobalt with indigo depth. For SaaS, enterprise software, and developer tools.",
+    "Deep navy technology palette for enterprise and SaaS brand identities. The cobalt-to-indigo progression signals institutional trust while dark neutral tones ground the composition in professional authority. Suitable for brand identity systems, product UI design, and developer tool branding where competence and reliability are the primary signals.",
+    ["Technology", "SaaS", "Enterprise", "Blue", "Trust"],
+    [
+      "cobalt-shadow-vivid",
+      "cobalt-dusk-vivid",
+      "indigo-shadow-clear",
+      "indigo-nocturne-soft",
+      "true-gray-shadow",
+      "true-gray-nocturne",
+    ],
+    {
+      editorialNote: "Deep navy technology palette for enterprise and SaaS brand identities. The navy-to-cobalt progression signals institutional trust while the dark neutral grounds the composition in professional authority.",
+      promptWords: [
+        "technology brand navy blue palette",
+        "SaaS enterprise color palette",
+        "trust signal blue brand identity",
+      ],
+      useCases: ["SaaS brand identity", "Enterprise software UI", "Developer tool branding"],
+    },
+  ),
+  createCollection(
+    "ai-intelligence-violet",
+    "AI Intelligence Violet",
+    "Electric violet and indigo palette signaling AI capability and generative technology — differentiating from legacy technology blue.",
+    "Violet-forward palette for AI and generative technology brands. Sits close enough to blue to carry trust-adjacent associations while signaling something genuinely new. The violet-to-indigo axis references imagination and advanced intelligence — the current market signal for AI products. Ideal for dark-mode-first product design systems and brand identities built around intelligent automation.",
+    ["AI", "Technology", "Violet", "Indigo", "Innovation"],
+    [
+      "violet-shadow-vivid",
+      "indigo-shadow-clear",
+      "iris-dusk-vivid",
+      "cobalt-shadow-clear",
+      "iris-nocturne-soft",
+      "true-gray-ink",
+    ],
+    {
+      editorialNote: "Violet-forward palette for AI and generative technology brands. Differentiates from legacy technology blue while maintaining trust-adjacent associations. Ideal for dark-mode-first product design.",
+      promptWords: [
+        "AI brand color palette violet",
+        "artificial intelligence purple indigo",
+        "generative technology brand identity",
+      ],
+      useCases: ["AI product identity", "Machine learning platform branding", "Generative tool UI"],
+    },
+  ),
+  createCollection(
+    "healthcare-clinical-teal",
+    "Healthcare Clinical Teal",
+    "Clinical teal and wellness sage for healthcare, telehealth, and medical brands — the clinical warmth register.",
+    "Clinical teal palette bridging medical precision and wellness warmth. The teal-to-sage-to-mint progression creates psychological safety without sacrificing clinical authority — the 'clinical warmth' register that modern digital health products need. Communicates cleanliness, competence, and calm simultaneously. Ideal for telehealth, mental health, and wellness-positioned medical products.",
+    ["Healthcare", "Medical", "Teal", "Clinical", "Wellness"],
+    [
+      "teal-shadow-clear",
+      "teal-tone-soft",
+      "emerald-bloom-soft",
+      "aqua-mist-soft",
+      "teal-pearl-faint",
+      "cool-gray-whisper",
+    ],
+    {
+      editorialNote: "Clinical teal palette for digital health and telehealth products. The teal-to-sage progression creates psychological safety without sacrificing clinical authority.",
+      promptWords: [
+        "healthcare brand teal palette",
+        "medical app color palette",
+        "clinical wellness teal green palette",
+      ],
+      useCases: ["Telehealth product UI", "Medical brand identity", "Wellness app design"],
+    },
+  ),
+  createCollection(
+    "luxury-restrained-neutral",
+    "Luxury Restrained Neutral",
+    "Near-black, warm ivory, and muted amber — the three-color restraint palette of heritage luxury brands.",
+    "The restraint-based luxury palette drawn from near-black, warm ivory, and muted champagne gold. Represents the minimum viable palette that heritage luxury brands maintain across all applications — print, digital, and packaging. Works as the foundational layer beneath a brand's signature accent color. The neutral range photographs consistently under all lighting conditions and ages without dating.",
+    ["Luxury", "Fashion", "Neutral", "Restrained", "Heritage"],
+    [
+      "true-gray-ink",
+      "warm-gray-veil",
+      "amber-pearl-muted",
+      "warm-gray-whisper",
+      "true-gray-nocturne",
+      "amber-bloom-faint",
+    ],
+    {
+      editorialNote: "The restraint-based luxury palette: near-black, warm ivory, and muted champagne gold. For heritage luxury brands maintaining a stable, minimal palette across all applications.",
+      promptWords: [
+        "luxury brand black ivory gold palette",
+        "premium fashion color palette",
+        "heritage brand restrained palette",
+      ],
+      useCases: ["Luxury fashion brand identity", "Premium product packaging", "High-end hospitality design"],
+    },
+  ),
+  createCollection(
+    "outdoor-earth-forest",
+    "Outdoor Earth + Forest",
+    "Forest green and earth sienna palette for outdoor brands and sustainability-signaling design.",
+    "Deep forest and earth palette for outdoor brands and sustainability-signaling identities. The earthy sienna grounds the forest greens in materiality, referencing bark, soil, and terrain rather than digital greens. The muted, natural character of the palette signals environmental honesty — these are colors that belong in the physical world, not invented by a brand team. Works across gear, packaging, and digital product design.",
+    ["Outdoor", "Nature", "Forest", "Earth", "Sustainable"],
+    [
+      "emerald-shadow-clear",
+      "olive-dusk-clear",
+      "amber-dusk-muted",
+      "moss-shadow-soft",
+      "emerald-nocturne-soft",
+      "warm-gray-mist",
+    ],
+    {
+      editorialNote: "Deep forest and earth palette for outdoor brands and sustainability-signaling design. The earthy sienna grounds the forest greens in materiality, referencing bark, soil, and terrain.",
+      promptWords: [
+        "outdoor brand forest earth palette",
+        "nature green earth color palette",
+        "sustainability brand earthy palette",
+      ],
+      useCases: ["Outdoor gear brand identity", "Sustainability brand design", "Nature-adjacent product packaging"],
+    },
+  ),
+  createCollection(
+    "finance-authority-navy",
+    "Finance Authority Navy",
+    "Institutional navy and wealth forest for financial brands — conservative, authoritative, and capital-signaling.",
+    "Conservative financial authority palette drawing on deep cobalt navy and emerald forest green. Colors of longevity, stability, and capital preservation — the 19th century banking aesthetic in digital form. The deep navy-to-forest green pairing references institutional banking environments (dark wood, marble, brass, green banker's lamps). Suitable for wealth management, investment platforms, and professional financial services.",
+    ["Finance", "Banking", "Navy", "Authority", "Wealth"],
+    [
+      "cobalt-nocturne-soft",
+      "cobalt-ink-faint",
+      "emerald-nocturne-soft",
+      "garnet-nocturne-soft",
+      "amber-shadow-muted",
+      "cool-gray-ink",
+    ],
+    {
+      editorialNote: "Conservative financial authority palette: deep navy and wealth forest. Colors of longevity, stability, and capital preservation — the 19th century banking aesthetic in digital form.",
+      promptWords: [
+        "finance brand navy authority palette",
+        "banking institution color palette",
+        "investment brand conservative colors",
+      ],
+      useCases: ["Wealth management brand identity", "Banking product design", "Investment firm brand"],
+    },
+  ),
+  createCollection(
+    "beauty-rose-plum",
+    "Beauty Rose + Plum",
+    "Velvet rose and deep plum palette for cosmetics, beauty brands, and luxury skincare.",
+    "Pigment-rich beauty palette from velvet rose to deep plum. The depth progression simulates the color range in color cosmetics — from sheer blush to opaque pigment — while the rose-plum axis creates a sophisticated, feminine identity with enough depth to signal premium. Works effectively in both light and dark brand contexts, and photographs beautifully in product imagery.",
+    ["Beauty", "Cosmetics", "Rose", "Plum", "Feminine"],
+    [
+      "rose-shadow-vivid",
+      "plum-dusk-clear",
+      "orchid-shadow-soft",
+      "rose-tone-soft",
+      "plum-nocturne-soft",
+      "rose-whisper-faint",
+    ],
+    {
+      editorialNote: "Pigment-rich beauty palette from velvet rose to deep plum. The rose-plum axis creates sophisticated feminine identity with enough depth to signal premium.",
+      promptWords: [
+        "beauty brand rose plum palette",
+        "cosmetics color palette feminine",
+        "luxury skincare rose mauve palette",
+      ],
+      useCases: ["Beauty brand identity", "Cosmetics packaging design", "Luxury skincare product design"],
+    },
+  ),
+  createCollection(
+    "architecture-terracotta-sage",
+    "Architecture Terracotta + Sage",
+    "Terracotta clay and garden sage for interior design, architecture, and home brands.",
+    "Material-reference interior design palette centered on terracotta and sage. References Mediterranean plaster, clay tile, and botanical greens — the dominant contemporary residential aesthetic following the retreat from all-white minimalism. These colors belong to surfaces you would want to touch: textured plaster, rough clay, aged timber, growing plants. Ideal for interior design, home furnishing, and architecture brands.",
+    ["Architecture", "Interior Design", "Terracotta", "Sage", "Natural"],
+    [
+      "coral-dusk-soft",
+      "amber-dusk-muted",
+      "moss-tone-soft",
+      "coral-shadow-soft",
+      "olive-tone-muted",
+      "warm-gray-pearl",
+    ],
+    {
+      editorialNote: "Material-reference interior design palette centered on terracotta and sage. References Mediterranean plaster, clay tile, and botanical greens — the dominant contemporary residential aesthetic.",
+      promptWords: [
+        "interior design terracotta sage palette",
+        "architecture earth tone palette",
+        "residential color palette natural material",
+      ],
+      useCases: ["Interior design brand identity", "Home furnishing design", "Architectural material palette"],
+    },
+  ),
+];
+
+collections.push(...extraCollections45);
