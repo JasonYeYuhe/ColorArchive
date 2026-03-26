@@ -68,7 +68,8 @@ interface SiteHeaderProps {
     | "/famous-palettes"
     | "/decades"
     | "/seasonal"
-    | "/industry";
+    | "/industry"
+    | "/trends";
 }
 
 interface NavItem {

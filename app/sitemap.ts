@@ -213,6 +213,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.87,
     },
     {
+      url: "https://colorarchive.me/trends/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "yearly" as const,
+      priority: 0.90,
+    },
+    {
       url: "https://colorarchive.me/industry/",
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",

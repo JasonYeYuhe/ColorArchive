@@ -94,6 +94,7 @@ ColorArchive/
 │   ├── famous-palettes/           # /famous-palettes/ — Famous color palettes reference library
 │   ├── decades/                   # /decades/ — Color palettes by decade (1920s–2020s, 11 eras)
 │   ├── seasonal/                  # /seasonal/ — Color by Season (Spring/Summer/Autumn/Winter, 4 seasons × 6 colors)
+│   ├── trends/                   # /trends/ — Color Trends 2026 (8 trend palettes with design guidance)
 │   ├── admin/tiktok/              # /admin/tiktok/ — TikTok publishing admin
 │
 ├── src/

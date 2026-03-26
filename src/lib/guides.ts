@@ -12244,3 +12244,125 @@ export const extraGuides50: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides50);
+
+export const extraGuides51: LandingGuide[] = [
+  {
+    slug: "color-trends-2026-design-guide",
+    title: "Color Trends 2026: What's Defining Design, Fashion, and Branding This Year",
+    summary: "From warm earth tones to digital sage and quiet luxury neutrals, the color trends of 2026 reflect a design culture navigating between analog warmth and digital precision. A practical guide to understanding and using this year's defining palettes.",
+    eyebrow: "Color Trends 2026",
+    searchIntent: "color trends 2026 design",
+    priority: 96,
+    category: "Trends",
+    tags: ["Color Trends", "2026", "Design Forecast", "Palette", "Fashion Color"],
+    highlights: [
+      "2026's color story is about warmth as a counterweight to digital perfection: earth tones, warm neutrals, and complex corals are moving against clinical cool palettes.",
+      "Digital Sage is the defining tech/branding color of the year: muted, intelligent green that signals sustainability and thoughtfulness without environmental cliché.",
+      "Quiet Luxury Neutrals mature beyond simple beige into a sophisticated system of oat, cashmere, and aged parchment tones that communicate genuine quality.",
+      "Cobalt Confidence gives challenger brands a high-presence blue that avoids both the corporate weight of navy and the passivity of soft blue.",
+    ],
+    sections: [
+      {
+        heading: "Why 2026 Leans Warm",
+        body: "After a decade of cool, desaturated, 'accessible' color palettes in digital design — the Instagram gray, the startup teal, the clinical white — the design culture has reached a saturation point with coldness. 2026's dominant movement is a return to warmth: warm earth tones in interior and fashion, warm neutrals replacing cold whites in minimalist design, warm-cast photography replacing the blue-toned editorial aesthetic. This isn't simply a cyclical swing; it's a response to specific cultural pressures. The rise of AI-generated imagery, which typically produces color-accurate but emotionally cool renderings, is creating demand for the handmade and analog. The post-pandemic emphasis on comfort and home is sustaining interest in the colors of natural materials. And the pervasive wellness movement continues to favor organic, earthy tones over the synthetic clarity of digital primaries.",
+      },
+      {
+        heading: "Earth Tones: More Complex Than Before",
+        body: "The earth tones of 2026 are not the blunt terracottas of previous cycles. They are specific: fired sienna rather than generic orange-brown, pale adobe rather than flat beige, burnished clay rather than rust. The sophistication comes from adding dimension — slightly warm shadows, slightly cooler mids, warm dusty lights — rather than using flat color. The best implementations of this trend in interior and fashion contexts layer multiple earth tones (warm clay, raw sand, burned sienna) rather than using a single representative earth color, creating tonal depth that reads as genuine material texture. For digital applications, earth tone palettes work best when the warmth is concentrated in mid-tones and lights, with neutralized (rather than saturated) shadows.",
+      },
+      {
+        heading: "The Quiet Luxury Shift in Neutrals",
+        body: "The most significant neutral story of 2026 is the systematic replacement of pure white (#FFFFFF) and cool light gray (#F5F5F5) with warm near-whites: cream, warm alabaster, cashmere oat. Interior paint companies report measurable market share shifts away from pure whites toward cream and warm gray-white categories. Digital design, following interior and fashion, is beginning the same shift — websites and apps that would have used cool white backgrounds now increasingly use warm-tinted whites that feel more inviting. The effect is subtle in isolation but immediately apparent in direct comparison: a warm-background layout feels noticeably more human and less clinical. The restraint is the point: the quieter the neutral, the more it signals consideration and quality.",
+      },
+      {
+        heading: "Applying 2026 Trends Strategically",
+        body: "Trend engagement should be strategic, not wholesale. The right approach to a specific trend depends on your brand's timeline (trend engagement has a peak window of roughly 12-18 months before it tips into feeling dated), your audience's relationship to trends (fashion-forward audiences reward early adoption; conservative or luxury audiences reward restraint), and which layer of your visual system you're updating (changing an accent color to engage a trend is low-risk; changing your primary brand color is a multi-year commitment that shouldn't be trend-driven). For most brands, the most defensible approach is to use 2026 trend colors in photography, illustration, and environmental design — where they can be updated with content cycles — while maintaining trend-resistant primary brand colors. The trend informs the language of the season; the brand color system provides the consistent grammar.",
+      },
+    ],
+    links: [
+      { label: "Explore Color Trends 2026 palettes", href: "/trends" },
+      { label: "Browse warm earth tone collections", href: "/collections" },
+      { label: "Find your brand color palette", href: "/brand-generator" },
+    ],
+  },
+  {
+    slug: "color-palette-for-social-media",
+    title: "Color Palettes for Social Media: Designing for Feed Coherence and Platform Context",
+    summary: "Social media has created a new color discipline: the feed aesthetic. How to build color systems that work at thumbnail scale, create visual identity across posts, and remain coherent across platform-specific rendering differences.",
+    eyebrow: "Social Media Color Guide",
+    searchIntent: "color palette for social media",
+    priority: 90,
+    category: "Digital Design",
+    tags: ["Social Media", "Instagram", "Brand Identity", "Digital Design", "Content Design"],
+    highlights: [
+      "A social media color system needs to work at 1080×1080 and at 50×50 — the same palette reads very differently at thumbnail scale.",
+      "Instagram, TikTok, Pinterest, and LinkedIn each have different dominant aesthetic norms that affect how color choices are perceived on each platform.",
+      "A 'feed palette' — a restricted set of 3-5 colors used consistently across posts — creates visual identity faster than any other single design decision.",
+      "Platform UI colors (Instagram's white-and-gradient, TikTok's black) compete with and affect how your content colors read.",
+    ],
+    sections: [
+      {
+        heading: "The Thumbnail Problem",
+        body: "Every social post will be seen first as a thumbnail — typically 50-100 pixels wide — before it is seen at full size. This thumbnail-first reality has fundamental implications for color choice. Colors that work beautifully at full size (subtle gradients, complex multi-color compositions, intricate patterns) often reduce to muddy or undifferentiated blobs at thumbnail scale. Colors that create strong visual identity at thumbnail size tend to be: a dominant color that occupies at least 30% of the frame, high value contrast between the dominant color and at least one other element, and simple composition with large color areas rather than complex textures. Testing your content at 50-100px width before finalizing is a discipline that fundamentally changes which palettes you choose.",
+      },
+      {
+        heading: "Platform Aesthetic Context",
+        body: "Each major social platform has developed a dominant visual aesthetic that represents the norm your content will be seen against. Instagram's dominant aesthetic in 2025-2026 is warm, lifestyle-oriented photography with high production value — bright but not overexposed, saturated but not garish, with frequent use of warm neutrals and earthy accents. TikTok's native aesthetic skews toward high contrast, saturated, and optimized for vertical video with text overlays — a very different color discipline than Instagram still photography. Pinterest's dominant feed is aspirational and heavily art-directed, with strong use of muted pastels, editorial styling, and flat-lay composition. LinkedIn's visual language is more formal: blues, grays, and corporate-appropriate palettes with clearly readable text. Your color choices land in these ambient contexts and will be judged relative to the platform's aesthetic norms.",
+      },
+      {
+        heading: "Building a Feed Palette",
+        body: "A feed palette is a restricted color set — typically 3-5 colors including neutrals — used consistently across all content to create visual coherence when posts are seen together in grid view. The most effective feed palettes have clear roles for each color: a dominant background or environment color that appears in most posts (often a neutral), an accent color that appears in every post as a recognition element, one or two supporting colors that rotate through. The discipline is restriction: using colors not in the palette breaks the feed coherence immediately in grid view, even if the individual post looks fine in isolation. Building the feed palette before creating any content — and treating it as a system constraint — produces stronger visual identity than attempting to unify existing varied content.",
+      },
+      {
+        heading: "Platform-Specific Color Considerations",
+        body: "Different social platforms render and compress color differently, and these technical differences affect your palette choices. Instagram applies HEIF compression to uploaded images that can slightly shift saturated colors and reduce detail in high-frequency color areas — images with many different highly-saturated colors in proximity will lose fidelity more than images with fewer, more uniform color areas. TikTok's video compression is aggressive, especially in low-light color areas; dark shadows and near-black tones often block into featureless darkness. Pinterest renders at relatively high quality and rewards the investment in careful color grading. All platforms display differently across devices — an iPhone, Android phone, and desktop monitor will all show your colors differently. Testing on multiple real devices (not just your own phone) before committing to a brand palette is essential for understanding how your colors actually land.",
+      },
+    ],
+    links: [
+      { label: "Build a brand color palette", href: "/brand-generator" },
+      { label: "Preview palette in UI contexts", href: "/preview" },
+      { label: "Browse editorial collections", href: "/collections" },
+    ],
+  },
+  {
+    slug: "monochromatic-color-palette-guide",
+    title: "How to Use a Monochromatic Color Palette: Tonal Range, Contrast, and Depth",
+    summary: "Monochromatic design is harder than it looks. Using only one hue means every distinction must come from value and saturation — which requires a sophisticated understanding of tonal range and contrast to execute well.",
+    eyebrow: "Monochromatic Color Guide",
+    searchIntent: "monochromatic color palette design",
+    priority: 84,
+    category: "Color Theory",
+    tags: ["Monochromatic", "Color Theory", "Design", "Tonal Range", "Color Systems"],
+    highlights: [
+      "Monochromatic design is not just 'everything the same color' — it requires a full tonal range from very light to very dark with consistent hue throughout.",
+      "The hardest part of monochromatic design is maintaining adequate contrast between interactive elements, text, and backgrounds using only value differences.",
+      "Neutralizing slightly toward gray at extreme values (lights and darks) is the technique that makes monochromatic palettes feel sophisticated rather than flat.",
+      "A 9-step tonal scale built from a single hue gives you all the tools needed for a complete design system without any additional colors.",
+    ],
+    sections: [
+      {
+        heading: "What Monochromatic Actually Means",
+        body: "A true monochromatic palette uses a single hue — one location on the color wheel — varying only in lightness (value) and saturation. This is different from 'tonal' design (which may use near-neutral grays with minimal hue content) or 'analogous' design (which uses adjacent hues). The constraint of a single hue is rigorous: adding even a slightly different hue as an accent technically breaks the monochromatic system, though the effect depends on how different the added hue is and how it's used. Most real-world 'monochromatic' designs allow some neutral (black, white, or very low-saturation gray) as a structural element, because building a complete hierarchy entirely within one hue requires a tonal range sophisticated enough to maintain readable contrast across all use cases.",
+      },
+      {
+        heading: "Building the Tonal Scale",
+        body: "The foundation of any monochromatic system is a complete tonal scale: typically 9-11 steps from the lightest usable value of your hue (step 50 in Tailwind-style notation: very pale, barely tinted) to the darkest (step 900: very dark, near-black for dark hues or a very deep version of the hue for lighter ones). Each step should represent a consistent perceptual jump in lightness, not just a mathematical division of HSL lightness values. In HSL space, equal lightness steps don't produce equal perceptual steps — especially at high and low values, where the steps need to be larger to produce the same apparent jump. Using OKLCH or LCH color space for building tonal scales produces more perceptually consistent results. The tonal scale is the foundation; every design decision in the system draws from it.",
+      },
+      {
+        heading: "Managing Contrast in a Single Hue",
+        body: "The central challenge of monochromatic design is maintaining adequate contrast between all interactive and informational elements using only value differences. For text on background: body text needs at minimum a 4.5:1 contrast ratio, which requires approximately a 4-5 step separation in a standard 9-step scale. Interactive elements (buttons, links) need sufficient contrast from their background AND sufficient contrast from the surrounding text. States (hover, active, disabled) must be distinguishable from their resting states without using hue variation. This constraint is genuinely difficult and is why many systems that appear monochromatic actually include very subtle hue shifts in dark and light values — neutralizing slightly toward gray at the extremes — which technically breaks the monochromatic purity but enables the required contrast range.",
+      },
+      {
+        heading: "The Sophisticated Move: Value Compression at Extremes",
+        body: "The technical technique that separates polished monochromatic systems from flat ones is value compression at extremes: the lightest lights are neutralized slightly toward white (losing saturation), and the darkest darks are neutralized slightly toward near-black (again losing saturation). This produces a tonal range that feels rich at the midtones — where the hue reads clearly — while maintaining subtlety at the extremes, where pure-hue values would feel garish (very saturated light blues read as neon-adjacent) or unreadably dark. The practical effect is a tonal scale that starts at near-white, builds to full saturation at middle values, then darkens while slightly desaturating toward the dark end. This curve is what makes navy-based, sage-based, and burgundy-based monochromatic systems feel sophisticated and finished rather than flat or oversaturated.",
+      },
+    ],
+    links: [
+      { label: "Generate tints and shades of any color", href: "/tints" },
+      { label: "Explore color harmonies", href: "/harmonies" },
+      { label: "Browse monochromatic collections", href: "/collections" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides51);
