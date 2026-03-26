@@ -1,33 +1,31 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-26 (normal run #8)
+> Last updated: 2026-03-26 (after normal run #9)
 
 ## High Priority
-- [ ] Activate Lemon Squeezy store — *KYB review is the blocker; no sales until this is done*
-- [ ] Set final pricing in LS dashboard — *autopilot has pricing defined in checkout-config.ts but needs LS product IDs*
-- [ ] Configure Pro subscription URLs — *$4.99/mo and $39.99/yr plans need LS checkout links in checkout-config.ts*
-- [ ] Wire `sendWeeklyDigestEmail()` to a cron/route — *function added in run #8, needs a server route + scheduler call to actually send*
+- [ ] Activate Lemon Squeezy store — KYB review should be complete; need to go live for purchases to process
+- [ ] Set final pricing in LS dashboard — verify $9/$19/$39/$79/$129/$199 pack prices match checkout-config.ts
+- [ ] Configure Pro subscription URLs in checkout-config.ts — replace placeholder URLs with real LS subscription links
+- [ ] Test full purchase flow end-to-end (palette pack + Pro subscription) before marketing push
 
 ## Medium Priority
-- [ ] Review TikTok account status — *was "in review" as of last check; confirm if approved*
-- [ ] Set up Twitter/X scheduled posting — *API configured; need to write posting logic or connect to autopilot*
-- [ ] Pinterest integration — *integrated but confirm boards and pins are being created correctly*
-- [ ] Set up `sendCotdEmail()` cron on server — *function exists, needs PM2 cron or external scheduler (e.g., `node-cron`)*
-- [ ] Add newsletter unsubscribe endpoint test — *token-based unsub exists in route but hasn't been end-to-end tested*
+- [ ] TikTok video review — posted but "in review"; follow up if stuck in review > 48 hours
+- [ ] Twitter/X: Post first content thread now that API is configured — autopilot can't post
+- [ ] Pinterest: Verify boards are populating via RSS integration (check analytics dashboard)
+- [ ] Product Hunt listing — mark as launched, respond to comments, request reviews from early users
+- [ ] YouTube: Follow up on first video performance — consider posting 2nd video (palette walkthrough or color theory explainer)
 
 ## Low Priority / Nice to Have
-- [ ] Demo video — *demo-video/ directory exists locally but not committed; record and add*
-- [ ] Monthly/yearly subscription badge images — *colorarchive_logo_v1_assets/monthlysubscription.png + yearlysubscription.png exist locally but not committed*
-- [ ] Review directory-submissions.md — *has local modifications; check if ready to publish as outreach tracker*
-- [ ] Product Hunt follow-up posts — *Product Hunt is live; consider update posts or comment engagement*
-- [ ] Consider APCA-based contrast in color detail pages — *new WCAG 3.0 standard; autopilot noted in newsletter, could add as UI feature*
+- [ ] Set up email automation for abandoned cart in Lemon Squeezy (if supported)
+- [ ] Record demo video showing color search, palette builder, export flow — assets folder already exists
+- [ ] Create affiliate/referral landing page for newsletter subscribers
+- [ ] Add Google Analytics / Plausible for traffic visibility
 
 ## Done
-- [x] YouTube channel published — completed before run #1
-- [x] Color Trends 2026 page — built in big run #5
-- [x] Navigation: /trends added to site-header — run #5 + run #6
-- [x] 241+ newsletter issues — ongoing
-- [x] 248 collections — ongoing  
-- [x] 312 SEO guides — ongoing
-- [x] Weekly digest email template — added run #8
+- [x] YouTube video — published
+- [x] Twitter/X API — configured
+- [x] Pinterest — integrated
+- [x] Product Hunt — live listing created
+- [x] /trends page — Color Trends 2026 feature page added (big run #5)
+- [x] Server email — weekly digest email template added (run #8)

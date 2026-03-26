@@ -3384,3 +3384,42 @@ New alias groups: Bauhaus/Mondrian/primary, cyberpunk/synthwave/retrowave/vaporw
 - `server/email.js` — +sendWeeklyDigestEmail()
 - `STRUCTURE.md` — updated counts (341 newsletters, 248 collections, 312 guides)
 - `.claude/session-lock.json` — released
+
+## 2026-03-26 — Normal Run #9 (post big run #5)
+
+**Type:** Normal Run  
+**Commit:** f6e8ab4  
+**Timestamp:** 2026-03-26T (after big run #5, normal run #4)  
+**Categories:** Content (A), Collections (D), Aliases (D)
+
+### Category A — 4 Newsletter Issues (342–345, total 345)
+- `sep-2033-color-adaptation-and-constancy` — Visual adaptation and color constancy: receptor bleaching mechanism, chromatic adaptation levels (retinal + cortical), illuminant estimation, design implications for controlled viewing environments
+- `sep-2033-color-in-wayfinding` — Color as navigation: London Underground history, hospital zone systems, airport symbol vs color tradeoffs, Tokyo Metro vs NYC subway color logic, redundancy principle
+- `sep-2033-seasonal-color-transitions` — Seasonal color logic for designers: Pantone forecasting cadence, WGSN 18-24 month lead time, biophilic basis for seasonal preference shifts, interior vs fashion timelines, anticipatory campaign design
+- `sep-2033-color-and-typography` — Color and type interaction: optical color/texture of type, saturation shift by typeface weight, contrast polarity differences (dark mode), color hierarchy without size changes, rich black vs K-only in print
+
+### Category A — 3 SEO Guides (extraGuides55, 315 total)
+- `color-palette-for-social-media` (priority 92) — Platform-specific color strategy, thumb-stopping contrast in feed context, background color as brand signature, multi-format testing
+- `purple-color-palette-guide` (priority 88) — Hue sub-families (violet/indigo/orchid/magenta), saturation management for large areas, dual luxury vs tech associations, industry fit guide
+- `dark-color-palette-guide` (priority 90) — Surface layering architecture for dark UI, saturation recalibration, APCA contrast implications, dark branding vs dark UI distinctions
+
+### Category D — 8 Collections (extraCollections54, 256 total)
+- `scandinavian-winter` — Cool gray, cerulean, cobalt for Nordic winter light palette
+- `golden-hour` — Amber, apricot, coral, rose for magic hour photography
+- `forest-bathing` — Leaf, moss, emerald for shinrin-yoku biophilic wellness design
+- `industrial-loft` — Warm gray, ember, true gray for raw material/concrete aesthetics
+- `tropical-garden` — Fuchsia, lime, teal, ember for maximalist botanical editorial
+- `art-nouveau-revival` — Teal, iris, amber, moss for ornamental heritage and brand
+- `nordic-summer` — Cerulean, blush, citrine, rose for midsummer Scandinavian palette
+- `canyon-dusk` — Ember, apricot, violet for Southwest canyon sunset palette
+
+### Category D — ~80 Search Aliases (~1805 lines total)
+New alias groups: scandinavian/nordic winter, golden hour/magic hour, forest bathing/shinrin-yoku/biophilic, industrial/concrete/loft, tropical/maximalist botanical, art nouveau/peacock/ornamental, nordic summer/midsommar, canyon/southwest/desert dusk
+
+### Files Modified (6 total)
+- `src/data/newsletter-issues.json` — 345 total
+- `src/lib/guides.ts` — extraGuides55 (315 total)
+- `src/lib/collections.ts` — extraCollections54 (256 total)
+- `src/lib/color-search.ts` — ~1805 lines total
+- `STRUCTURE.md` — updated counts (345 newsletters, 256 collections, 315 guides)
+- `.claude/session-lock.json` — released
