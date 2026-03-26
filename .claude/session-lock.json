@@ -1,1 +1,6 @@
-{ "active": null, "lockedBy": null, "lockedAt": null, "message": null }
+{
+  "active": true,
+  "lockedBy": "autopilot",
+  "lockedAt": "2026-03-26T10:03:43Z",
+  "message": "Normal run #8: newsletters 338-341 + new guides + collections + palette word pool"
+}
