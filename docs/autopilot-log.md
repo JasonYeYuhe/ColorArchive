@@ -3020,3 +3020,60 @@ Architecture, dark mode UI, cultural, UI states (success/error/warning/info), na
 - `src/lib/collections.ts` — extraCollections43 + extraCollections44
 - `src/lib/color-search.ts` — 36 new unique aliases added
 - `.claude/session-lock.json` — released
+
+## 2026-03-26 — Big Run #4 (6th since last big run — triggered)
+
+**Type:** Big Run  
+**Commit:** 77d880d  
+**Timestamp:** 2026-03-26T (post run #5)  
+**Categories:** New Feature Page, Content (A), Collections (D)
+
+### New Feature: /industry — Color Palettes by Industry
+
+Built a full reference page at `/industry/` covering 9 major design industries, styled after `/seasonal` and `/decades`.
+
+**Industries covered (9 — 54 signature colors total):**
+1. **Technology** — Midnight navy, system blue, intelligence violet (Trust)
+2. **Food & Restaurant** — Appetite red, harvest orange, warm amber (Appetite)
+3. **Healthcare & Medical** — Clinical teal, wellness sage, sterile white (Calm)
+4. **Fashion & Luxury** — Absolute black, warm ivory, heritage plum (Prestige)
+5. **Nature & Outdoor** — Deep forest, trail sienna, clay orange (Vitality)
+6. **Finance & Banking** — Institutional navy, wealth forest, capital gold (Authority)
+7. **Education & Learning** — Knowledge blue, discovery yellow, growth green (Clarity)
+8. **Beauty & Cosmetics** — Velvet rose, blush petal, rose gold (Sensuality)
+9. **Architecture & Interior** — Terracotta clay, aged concrete, garden sage (Warmth)
+
+**New files:**
+- `src/lib/color-industries.ts` — Industry data with full EN/ZH copy, design tips, key brands, colors-to-avoid
+- `src/components/color-industries-page.tsx` — Client component with expandable cards + palette builder integration
+- `app/industry/page.tsx` — App Router route with CollectionPage + BreadcrumbList structured data
+
+**Also fixed human-todo item:** Added /seasonal and /decades to nav alongside /industry — all three editorial reference pages now discoverable from Explore nav.
+
+### Category A — 4 Newsletter Issues (306–309)
+- `may-2032-industry-color-psychology` — Why Every Industry Has Its Own Color Language
+- `may-2032-tech-color-design` — The Blue Problem: How Technology's Color Grammar Is Evolving
+- `jun-2032-luxury-color-restraint` — Color Restraint as Luxury Signal
+- `jun-2032-food-color-appetite` — The Appetite Code: How Color Makes Food Look Better
+
+### Category A — 3 SEO Guides (extraGuides46, 288 total)
+- `industry-color-palettes-brand-guide` (priority 92)
+- `technology-brand-color-design-guide` (priority 88)
+- `fashion-luxury-brand-color-guide` (priority 85)
+
+### Category D — 8 Collections (extraCollections45, 177 total)
+- `tech-brand-navy-blue`, `ai-intelligence-violet`, `healthcare-clinical-teal`
+- `luxury-restrained-neutral`, `outdoor-earth-forest`, `finance-authority-navy`
+- `beauty-rose-plum`, `architecture-terracotta-sage`
+
+### Files Modified (10 total)
+- `src/lib/color-industries.ts` — NEW
+- `src/components/color-industries-page.tsx` — NEW
+- `app/industry/page.tsx` — NEW
+- `src/components/site-header.tsx` — /industry type + 3 nav items (industry, seasonal, decades)
+- `src/lib/i18n.ts` — 3 new nav keys with EN/ZH
+- `app/sitemap.ts` — /industry/ entry
+- `src/data/newsletter-issues.json` — 4 new issues (309 total)
+- `src/lib/guides.ts` — extraGuides46 (3 guides, 288 total)
+- `src/lib/collections.ts` — extraCollections45 (8 collections, 177 total)
+- `.claude/session-lock.json` — released
