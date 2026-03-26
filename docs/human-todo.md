@@ -1,7 +1,7 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-26T autopilot normal run #1
+> Last updated: 2026-03-26T autopilot normal run #2
 
 ## High Priority
 
@@ -26,6 +26,7 @@
 
 ## Done
 
+- [x] Newsletters 314–317 + 3 guides + 6 collections + 50 aliases — 2026-03-26 normal run #2
 - [x] Newsletters 310–313 + 3 guides + 6 collections + 50 aliases — 2026-03-26 normal run #1
 - [x] /industry Color Palettes by Industry page built and deployed — 2026-03-26 big run #4
 - [x] /seasonal and /decades added to main Explore nav — 2026-03-26 big run #4

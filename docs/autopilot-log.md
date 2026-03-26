@@ -3108,3 +3108,35 @@ New alias groups: craft beer, winery, automotive/EV, esports, streetwear, gender
 - `src/lib/collections.ts` — extraCollections46 (193 total)
 - `src/lib/guides.ts` — extraGuides47 (289 total)
 - `src/lib/color-search.ts` — ~1336 lines total
+
+## 2026-03-26 — Normal Run #2 (post big run #4)
+
+**Type:** Normal Run  
+**Commit:** 46fff43  
+**Timestamp:** 2026-03-26T (after big run #4, normal run #1)  
+**Categories:** Content (A), Collections (D), Aliases (D)
+
+### Category A — 4 Newsletter Issues (314–317)
+- `sep-2032-interior-color-psychology` — The Interior Effect: How Room Color Changes What You Feel and Do
+- `sep-2032-color-trend-forecasting` — How Color Trend Forecasting Actually Works
+- `oct-2032-color-in-film` — Color Grading as Language: How Film and TV Use Color to Tell Stories
+- `oct-2032-data-visualization-color` — Color in Data Visualization: The Rules That Make Charts Readable and Honest
+
+### Category A — 3 SEO Guides (extraGuides48, 292 total)
+- `interior-design-color-guide` (priority 89) — Room palette selection across light conditions
+- `color-temperature-design-guide` (priority 86) — Warm vs cool colors complete design guide
+- `wedding-color-palette-guide` (priority 83) — Wedding colors that photograph well
+
+### Category D — 6 Collections (extraCollections47, 199 total)
+- `coastal-morning-mist`, `autumn-harvest-warmth`, `pure-monochrome-system`
+- `botanical-foliage-study`, `urban-bold-contrast`, `nordic-wool-warmth`
+
+### Category D — ~50 Search Aliases
+New alias groups: real estate/home staging, wedding/events, children's brand, medical/pharma, government/civic, education/academia, fine dining/restaurant, travel/hospitality, yoga/wellness studio
+
+### Files Modified (4 total)
+- `src/data/newsletter-issues.json` — 317 total
+- `src/lib/collections.ts` — extraCollections47 (199 total)
+- `src/lib/guides.ts` — extraGuides48 (292 total)
+- `src/lib/color-search.ts` — ~1399 lines total
+- `.claude/session-lock.json` — released
