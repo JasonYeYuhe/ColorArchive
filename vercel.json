@@ -1,3 +1,3 @@
 {
-  "ignoreCommand": "bash -c 'git diff $VERCEL_GIT_PREVIOUS_SHA HEAD --name-only | grep -qvE \"^(\\.claude/session-lock\\.json|\\.claude/autopilot-tasks\\.md|autopilot-log\\.md|docs/autopilot-log\\.md|docs/human-todo\\.md|docs/STRUCTURE\\.md)$\"'"
+  "ignoreCommand": "bash -c 'if ! git cat-file -e \"$VERCEL_GIT_PREVIOUS_SHA\" 2>/dev/null; then exit 1; fi; if git diff \"$VERCEL_GIT_PREVIOUS_SHA\" HEAD --name-only | grep -qvE \"^(\\.claude/session-lock\\.json|\\.claude/autopilot-tasks\\.md|autopilot-log\\.md|docs/autopilot-log\\.md|docs/human-todo\\.md|docs/STRUCTURE\\.md)$\"; then exit 1; else exit 0; fi'"
 }
