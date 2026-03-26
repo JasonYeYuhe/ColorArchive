@@ -3178,3 +3178,41 @@ New alias groups: UI/light-mode, editorial (magazine, newspaper, poster), materi
 - `src/lib/collections.ts` — extraCollections48 (207 total)
 - `src/lib/color-search.ts` — 1451 lines total
 - `.claude/session-lock.json` — released
+
+## 2026-03-26 — Normal Run #4 (post big run #4)
+
+**Type:** Normal Run  
+**Commit:** ed7de48  
+**Timestamp:** 2026-03-26T (after big run #4, normal runs #1, #2, and #3)  
+**Categories:** Content (A), Collections (D), Aliases (D)
+
+### Category A — 4 Newsletter Issues (322–325)
+- `jan-2033-color-in-architecture` — Color in Architecture: How Buildings Are Colored and Why It Matters
+- `jan-2033-color-and-emotion-physiology` — The Physiology of Color and Emotion: What the Research Actually Shows
+- `feb-2033-color-in-packaging` — Color in Packaging: The Science of Shelf Impact and Purchase Decisions
+- `feb-2033-color-and-digital-accessibility` — Color Accessibility Beyond WCAG: Building Truly Inclusive Color Systems
+
+### Category A — 3 SEO Guides (extraGuides50, 298 total)
+- `color-palette-for-logo-design` (priority 93) — Strategic logo color selection: one-color viability, category tradeoffs, PMS spec, real-condition testing
+- `color-theory-for-interior-design` (priority 87) — Room light direction, 60-30-10 rule, simultaneous contrast, ceiling color as design tool
+- `color-palette-generator-guide` (priority 85) — How HSL-rotation generators work, why outputs need refinement, building a system from generated starting point
+
+### Category D — 8 Collections (extraCollections49, 215 total)
+- `golden-hour-warmth` — Amber radiant, apricot silk, rose bloom, honey tone, coral pearl — sunset warm palette
+- `japandi-neutral-study` — Warm gray tone, true gray pearl, olive veil, moss mist — Japandi neutrals
+- `electric-neon-accent` — Lime pure, fuchsia vivid, aqua vivid, violet vivid, citrine pure — high-voltage neon
+- `french-countryside-palette` — Iris pearl muted, true gray bloom, honey bloom, moss whisper, rose mist — Provence
+- `midnight-jewel-tones` — Sapphire nocturne, emerald shadow, violet dusk, garnet shadow, cool gray nocturne
+- `sage-and-terracotta` — Moss silk, coral tone muted, olive bloom, amber silk muted, warm gray bloom
+- `holographic-iridescent` — Iris bloom, aqua bloom, rose bloom, violet mist, true gray whisper — opalescent
+- `desert-sunrise-palette` — Rose radiant, amber bloom, coral silk, azure pearl, honey whisper — desert dawn
+
+### Category D — ~50 Search Aliases (1497 lines)
+New alias groups: architecture (architectural_color, urban_palette, mediterranean_architecture, scandinavian_design, industrial_aesthetic, facade_color, concrete_palette, brutalist_palette), packaging design (packaging_design_color, premium_packaging, organic_pack, luxury_packaging, sustainable_packaging, food_packaging, beauty_packaging, kids_packaging), accessibility/UI (accessible_palette, high_contrast_palette, wcag_compliant, dark_mode_palette, light_mode_palette, ui_system, design_system_colors), logo/identity (logo_color, brand_identity, wordmark_color, monogram_palette), interior by room (living_room_colors, bedroom_palette, kitchen_colors, bathroom_palette, home_office_colors, nursery_palette), light effects (golden_hour_palette, magic_hour, sunrise_palette), holographic/iridescent (holographic_palette, iridescent_palette, opalescent, metallic_palette, chrome_colors)
+
+### Files Modified (4 total)
+- `src/data/newsletter-issues.json` — 325 total
+- `src/lib/guides.ts` — extraGuides50 (298 total)
+- `src/lib/collections.ts` — extraCollections49 (215 total)
+- `src/lib/color-search.ts` — 1497 lines total
+- `.claude/session-lock.json` — released
