@@ -1055,6 +1055,103 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
   return result;
 }
 
+
+/**
+ * Weekly digest email — sent to newsletter subscribers once a week
+ * @param {string} to
+ * @param {{ issues: Array, collections: Array, unsubscribeToken?: string }} opts
+ */
+async function sendWeeklyDigestEmail(to, { issues = [], collections = [], unsubscribeToken = null } = {}) {
+  const unsubUrl = unsubscribeToken
+    ? `https://colorarchive.me/unsubscribe?token=${unsubscribeToken}`
+    : `https://colorarchive.me/unsubscribe`;
+  const weekStr = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+
+  const recentIssues = issues.slice(0, 3);
+  const featuredCollection = collections[0] || null;
+
+  const issueHtml = recentIssues.map((issue) => {
+    const url = `https://colorarchive.me/notes/${issue.slug}`;
+    return `
+      <tr>
+        <td style="padding:12px 0;border-bottom:1px solid #f3f4f6;">
+          <a href="${url}" style="text-decoration:none;">
+            <div style="font-size:13px;font-weight:600;color:#111827;line-height:1.4;margin-bottom:4px;">${issue.title}</div>
+            <div style="font-size:12px;color:#6b7280;line-height:1.5;">${(issue.summary || "").slice(0, 120)}${issue.summary && issue.summary.length > 120 ? "…" : ""}</div>
+          </a>
+        </td>
+      </tr>`;
+  }).join("");
+
+  const issueText = recentIssues.map((issue) =>
+    `• ${issue.title}\n  https://colorarchive.me/notes/${issue.slug}`
+  ).join("\n\n");
+
+  const collectionHtml = featuredCollection ? `
+    <div style="background:#f9fafb;border-radius:12px;padding:16px 18px;margin:20px 0;">
+      <div style="font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#6b7280;font-weight:600;margin-bottom:6px;">Featured Collection</div>
+      <div style="font-size:15px;font-weight:700;color:#111827;margin-bottom:4px;">${featuredCollection.name}</div>
+      <div style="font-size:13px;color:#6b7280;line-height:1.5;margin-bottom:12px;">${(featuredCollection.description || featuredCollection.longDescription || "").slice(0, 160)}…</div>
+      <a href="https://colorarchive.me/collections/${featuredCollection.slug}/" style="font-size:13px;font-weight:600;color:#4f46e5;text-decoration:none;">View collection →</a>
+    </div>
+  ` : "";
+
+  const result = await sendEmail({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject: `ColorArchive — week of ${weekStr}`,
+    text: [
+      `ColorArchive — week of ${weekStr}`,
+      "",
+      "Recent notes from the archive:",
+      "",
+      issueText,
+      "",
+      featuredCollection ? `Featured collection: ${featuredCollection.name}` : "",
+      featuredCollection ? `https://colorarchive.me/collections/${featuredCollection.slug}/` : "",
+      "",
+      "Browse the full archive: https://colorarchive.me",
+      "",
+      "— ColorArchive",
+      `Unsubscribe: ${unsubUrl}`,
+    ].filter(Boolean).join("\n"),
+    html: `
+      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;">
+        <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9ca3af;margin:0 0 20px;">Week of ${weekStr} — ColorArchive</p>
+        
+        <h2 style="font-size:18px;font-weight:700;color:#111827;margin:0 0 4px;">What's in the archive this week</h2>
+        <p style="font-size:13px;color:#6b7280;margin:0 0 20px;">A roundup of recent notes on color theory, design, and history.</p>
+
+        <table style="width:100%;border-collapse:collapse;">
+          ${issueHtml}
+        </table>
+
+        ${collectionHtml}
+
+        <div style="text-align:center;margin:24px 0;">
+          <a href="https://colorarchive.me/notes/"
+             style="display:inline-block;background:#111827;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:13px;">
+            Browse all notes →
+          </a>
+        </div>
+
+        <hr style="border:none;border-top:1px solid #f3f4f6;margin:24px 0;">
+        <p style="color:#9ca3af;font-size:11px;line-height:1.6;">
+          ColorArchive · <a href="https://colorarchive.me" style="color:#9ca3af;">colorarchive.me</a>
+          &nbsp;·&nbsp;
+          <a href="${unsubUrl}" style="color:#9ca3af;">Unsubscribe</a>
+        </p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (weekly digest):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
 module.exports = {
   sendFreePackEmail,
   sendFollowUp3DayEmail,
@@ -1069,4 +1166,5 @@ module.exports = {
   sendCotdEmail,
   sendProUpsellEmail,
   sendReferralWelcomeEmail,
+  sendWeeklyDigestEmail,
 };

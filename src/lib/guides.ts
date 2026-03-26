@@ -12603,3 +12603,119 @@ export const extraGuides53: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides53);
+
+export const extraGuides54: LandingGuide[] = [
+  {
+    slug: "best-colors-for-bedroom-walls",
+    title: "Best Colors for Bedroom Walls: Sleep Science and Design",
+    summary: "The bedroom is the room where color choice has the most direct effect on physiology. A designer's guide to bedroom palette selection — balancing sleep science, personal preference, and design quality.",
+    eyebrow: "Bedroom Color Guide",
+    searchIntent: "best colors for bedroom walls sleep",
+    priority: 90,
+    category: "Interior Design",
+    tags: ["Bedroom Design", "Interior Color", "Sleep Science", "Wall Color", "Residential"],
+    highlights: [
+      "Blue, green, and muted neutral palettes consistently score highest for sleep quality in research on bedroom color — not because these hues are universally calming but because they tend toward low arousal.",
+      "Light Reflectance Value (LRV) matters more than hue in small or north-facing bedrooms: a warm gray at LRV 70 reads brighter and more spacious than a cool blue at LRV 45.",
+      "The ceiling color is the first surface you see waking up — an overlooked but high-impact design decision, especially for low-saturation, high-lightness ceilings.",
+    ],
+    sections: [
+      {
+        heading: "What sleep science actually says about bedroom color",
+        body: "The research on bedroom color and sleep is less definitive than interior design advice suggests, but the consistent finding is that high-arousal color environments — highly saturated, warm-temperature hues — tend to be associated with lighter, less restful sleep than low-arousal environments. Warm, vivid reds and oranges increase heart rate and physiological arousal; cool, muted blues and greens tend toward the opposite. The mechanism is not fully understood but likely involves both psychological expectation (blue skies signal daytime; dark, muted tones signal night) and direct physiological response to color temperature. A 2013 Travelodge study of 2,000 UK participants found that people with blue bedrooms averaged the most sleep — 7 hours 52 minutes — compared to purple bedroom occupants who averaged the least (5 hours 56 minutes). The effect sizes are meaningful even if the study is not controlled academic research.",
+      },
+      {
+        heading: "Light Reflectance Value and bedroom perception",
+        body: "LRV — Light Reflectance Value — measures how much light a paint color reflects on a scale of 0 (black) to 100 (pure white). For bedroom design, LRV is often more important than hue: a room that feels too dark and cave-like at LRV 30 can feel restful and enveloping at LRV 55, even with the same base hue. North-facing bedrooms with limited natural light need higher LRV colors to avoid feeling dim — a deep teal at LRV 18 will feel gloomy; a muted teal at LRV 52 will feel serene. South- and west-facing bedrooms with abundant afternoon light can handle lower LRV colors that would feel oppressive in darker rooms. Always test paint samples in the actual room at different times of day before committing.",
+      },
+      {
+        heading: "Palette structures that work in bedrooms",
+        body: "Three bedroom palette structures have strong track records. The first is the tonal approach: a single hue used across a range of values — light walls, medium bedding, deeper accent pillows — creating depth without visual complexity. Muted blue-greens, soft sages, and warm grays work particularly well tonally. The second is the neutral-plus-one approach: a warm or cool neutral for walls (LRV 60–75), and one muted accent color in soft furnishings. This creates flexibility and avoids the risk of hue fatigue in a room you spend eight hours in. The third is the dark room approach: deep, saturated walls (LRV 10–30) creating an enveloping, cocoon-like atmosphere — high design risk but high reward when well executed, typically with warm-toned lighting and natural textures.",
+      },
+      {
+        heading: "Colors to approach carefully",
+        body: "Bright, highly saturated versions of any hue — vivid red, electric blue, pure yellow — are high risk in bedrooms because they create visual energy that competes with rest. This does not mean avoiding warm colors entirely; a muted, dusty rose or a warm terracotta at medium value works well. Pure white presents a different challenge: it is extremely sensitive to light conditions and can read as clinical, cold, or flat depending on the room's natural light. Most designers use off-whites (warm or cool) rather than pure white for bedroom walls. Purple is the most reliably problematic bedroom color in survey research — possibly because its wide hue-temperature ambiguity (red-purple reads warm; blue-purple reads cool) creates visual instability, or simply because high-chroma purple is inherently high-arousal.",
+      },
+    ],
+    links: [
+      { label: "Explore bedroom palette collections", href: "/collections" },
+      { label: "Browse by color family", href: "/colors" },
+    ],
+  },
+  {
+    slug: "color-palette-for-logo-design",
+    title: "Color Palette for Logo Design: What Actually Works",
+    summary: "Logo color is the most permanent and most consequential color decision in brand design. A practical guide to selecting, testing, and specifying logo colors — including why logo palette logic differs from full brand palette logic.",
+    eyebrow: "Logo Color Guide",
+    searchIntent: "color palette for logo design",
+    priority: 93,
+    category: "Branding",
+    tags: ["Logo Design", "Brand Identity", "Color Specification", "Pantone", "Visual Identity"],
+    highlights: [
+      "A logo palette is not your full brand palette: logos need to function in 1–3 colors across all reproduction contexts, including single-color and black-and-white.",
+      "Pantone specification is non-optional for any brand that prints — the difference between a Pantone-matched brand red and a CMYK approximation can be obvious and damaging to brand consistency.",
+      "The most common logo color mistake is selecting a color that works on screen but fails in print, embroidery, vinyl cutting, or engraving.",
+    ],
+    sections: [
+      {
+        heading: "Logo palettes are not full brand palettes",
+        body: "A logo must function in contexts where full brand palettes cannot: embossed business cards (one color or colorless), small-scale embroidery, laser engraving, black-and-white fax documents, newspaper ads, and monochrome printing. This means logo color selection must always be tested in single-color, two-color, and black-and-white versions before the palette is finalized. If your logo only works in its full-color form, it is not yet a complete logo design. The practical rule: design in grayscale first, add color second. If the logo communicates and reads correctly in grayscale, adding color enhances it. If the logo stops making sense in grayscale, there is a structural problem that color selection cannot fix.",
+      },
+      {
+        heading: "Color space discipline: Pantone, CMYK, RGB, hex",
+        body: "Professional logo delivery requires color specifications in all relevant color spaces: Pantone (for spot printing, embroidery, signage, and any application where color accuracy is critical), CMYK (for offset and digital printing), sRGB and hex (for digital use), and optionally P3 display (for modern screen applications). Each color space has different gamuts — some colors achievable in Pantone are not fully reproducible in CMYK; some vivid screen colors have no Pantone equivalent. If your chosen logo color is outside the CMYK gamut, every print application will involve a visible compromise. Testing your intended color in CMYK mode before finalizing avoids this problem. The safest logo colors for multi-medium consistency are mid-saturation hues that sit comfortably within the CMYK gamut while still having viable Pantone matches.",
+      },
+      {
+        heading: "Category conventions and distinctiveness",
+        body: "Every industry category has dominant color conventions that reflect accumulated brand decisions: blue dominates finance and technology (trust, precision), green dominates environmental and health (nature, wellness), red dominates food and entertainment (energy, appetite). Understanding your category's color conventions informs two strategic choices: whether to conform (reducing risk of reading as inappropriate) or differentiate (owning an uncommon color to build faster recognition). For new brands in crowded categories, distinctiveness within the category is a real asset — a distinctive color reduces advertising spend required to achieve recognition. For brands entering categories with strong, established competitors, color proximity to the dominant color can imply quality and legitimacy before it has been earned.",
+      },
+      {
+        heading: "Testing logo colors before commitment",
+        body: "Logo color decisions deserve more testing than they typically receive. The minimum viable test: apply the proposed logo in its intended primary contexts (white background, dark background, photography, physical mockup) and evaluate at actual output sizes. Logo colors that look strong at 800px on screen often look flat or muddy at 32px or in print at 1 inch. The failure mode to watch for most carefully is logo colors that work at 100% saturation but become illegible when reproduced at reduced opacity, embossed, or printed on textured surfaces. Giving your logo color adequate testing at the decision stage prevents expensive brand consistency problems later.",
+      },
+    ],
+    links: [
+      { label: "Browse brand palette collections", href: "/collections" },
+      { label: "Explore brand color packs", href: "/packs" },
+    ],
+  },
+  {
+    slug: "warm-color-palette-guide",
+    title: "Warm Color Palette Guide: Reds, Oranges, Yellows, and Their Neutrals",
+    summary: "Warm color palettes are the most emotionally immediate in design — and the most likely to go wrong. A designer's guide to building warm palettes that feel rich and intentional rather than aggressive or cheap.",
+    eyebrow: "Warm Color Guide",
+    searchIntent: "warm color palette guide design",
+    priority: 89,
+    category: "Color Theory",
+    tags: ["Warm Colors", "Color Theory", "Palette Design", "Red", "Orange", "Yellow"],
+    highlights: [
+      "The warm hue range — roughly 0° to 70° on the color wheel — spans aggressive energy (pure red) to subtle sunshine (yellow-green), and the key to warm palette success is managing where on this range your dominant hue falls.",
+      "Warm palettes need at minimum one neutral anchor that is warm-toned itself (warm white, warm gray, cream) rather than a cold neutral that will fight the palette's temperature.",
+      "Saturation is the highest-risk variable in warm palettes: pure, fully saturated warm colors (vivid red, vivid orange) need very careful context to avoid reading as alarming or cheap.",
+    ],
+    sections: [
+      {
+        heading: "Understanding the warm hue range",
+        body: "Warm colors occupy roughly 0° to 70° on the standard color wheel: reds, red-oranges, oranges, yellow-oranges, and yellows. Within this range, there is enormous variation in emotional quality. True reds (0°) are high-energy, intense, and associated with urgency, danger, and passion — useful in small doses, overwhelming in large applications. Moving toward orange (30°) softens the intensity: orange is warmer, friendlier, more approachable than red. At yellow (60°), the emotional quality shifts again toward sunshine and optimism, though pure yellow is also the most difficult hue to control in design because of its high visual vibration and poor contrast against white. The most versatile segment of the warm range for general design use is the red-orange to orange zone — warm enough to feel energizing without the intensity management challenges of true red or the contrast challenges of pure yellow.",
+      },
+      {
+        heading: "Saturation and value in warm palettes",
+        body: "The most common failure in warm palette design is overestimating how much saturation warm colors can carry. Fully saturated red and orange are inherently high-arousal — that is their design value, but it is a value that quickly becomes a liability when applied to large areas or used as a background. Warm palettes work better when the fully saturated versions are used as accents and emphasis, while the dominant areas use muted or desaturated warm tones: terracotta instead of vivid orange, warm blush instead of bright red, golden wheat instead of pure yellow. Combining a muted warm dominant with a vivid warm accent creates palettes that read as warm and inviting without exhausting the viewer. Value management matters too: very light warm tones (warm whites, blush, cream, peach) are extremely versatile and feel warm without intensity; very dark warm tones (warm brown, deep rust, garnet) anchor palettes with rich depth.",
+      },
+      {
+        heading: "Warm neutrals as essential palette components",
+        body: "Warm palettes require warm neutrals — not cold grays or pure whites, which will create an uncomfortable temperature conflict. Warm white (cream, off-white with a slight yellow or red cast), warm gray (gray with a brown or red undertone), and warm beige or tan are the neutral foundation of most successful warm palettes. These warm neutrals let the warm accent colors breathe without the palette becoming entirely saturated with hue. A practical check: put your proposed warm palette next to a cool gray — if the cool gray looks dramatically wrong and jarring, your neutrals are reading as too cool for the palette's temperature. Swap for a warm gray and the palette will cohere.",
+      },
+      {
+        heading: "Industry applications and context",
+        body: "Warm palettes have natural industry fits where their emotional associations are strategic assets: food and hospitality (appetite stimulation, comfort, warmth), home goods and furniture (domestic warmth, quality materials), fashion in autumn-winter seasonal campaigns (autumnal warmth, richness), artisan and craft brands (handmade, natural, earthy), and certain healthcare contexts (warmth, human care). Warm palettes are a mismatch for categories where precision, cool-technology, or sterile-clinical associations matter: medical devices, fintech, enterprise software, and most B2B technology brands. In these categories, warm palette elements can be used sparingly for humanization — a warm accent in a predominantly cool palette — without overwhelming the category-appropriate cool positioning.",
+      },
+    ],
+    links: [
+      { label: "Explore warm color collections", href: "/collections" },
+      { label: "Browse warm palette packs", href: "/packs" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides54);

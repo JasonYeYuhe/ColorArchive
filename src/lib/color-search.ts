@@ -1526,6 +1526,100 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   marine_deep: ["cobalt", "teal", "aqua", "cool-gray"],
   deep_blue_ocean: ["cobalt", "aqua", "teal", "cool-gray"],
   ocean_floor: ["cobalt", "teal", "cool-gray"],
+  // Bauhaus / Modernist
+  bauhaus_palette: ["crimson", "citrine", "cobalt", "true-gray"],
+  primary_colors: ["crimson", "citrine", "cobalt"],
+  german_modernist: ["crimson", "citrine", "cobalt", "true-gray"],
+  de_stijl: ["crimson", "citrine", "cobalt", "true-gray"],
+  mondrian_palette: ["crimson", "citrine", "cobalt", "true-gray"],
+  geometric_primary: ["crimson", "citrine", "cobalt"],
+  bauhaus_color: ["crimson", "cobalt", "citrine"],
+  
+  // Cyberpunk / Neon Dark
+  cyberpunk_palette: ["violet", "aqua", "fuchsia", "cobalt", "iris"],
+  neon_dark: ["violet", "aqua", "fuchsia", "true-gray"],
+  electric_dark: ["violet", "aqua", "fuchsia", "iris"],
+  synthwave_palette: ["violet", "fuchsia", "aqua", "cobalt"],
+  retrowave: ["violet", "fuchsia", "aqua", "cobalt"],
+  vaporwave_palette: ["iris", "aqua", "fuchsia", "violet"],
+  techwear_palette: ["true-gray", "cobalt", "violet"],
+  sci_fi_palette: ["cobalt", "aqua", "violet", "true-gray"],
+
+  // Stone and sage / mineral
+  stone_and_sage: ["cool-gray", "moss", "leaf"],
+  mineral_palette: ["cool-gray", "moss", "true-gray"],
+  sage_and_gray: ["moss", "cool-gray", "leaf"],
+  concrete_stone_palette: ["cool-gray", "true-gray", "moss"],
+  stone_green: ["cool-gray", "moss", "leaf"],
+  mossy_rock: ["cool-gray", "moss", "olive"],
+  lichen_palette: ["moss", "cool-gray", "leaf", "olive"],
+  slate_and_herb: ["cool-gray", "moss", "true-gray"],
+
+  // Autumn harvest
+  autumn_harvest_palette: ["amber", "ember", "citrine", "olive"],
+  fall_harvest: ["amber", "ember", "coral", "olive"],
+  harvest_gold_palette: ["amber", "citrine", "olive"],
+  fall_foliage: ["ember", "amber", "citrine", "leaf"],
+  october_palette: ["amber", "ember", "citrine", "olive"],
+  pumpkin_palette: ["ember", "amber", "apricot", "olive"],
+  maple_leaf: ["ember", "amber", "crimson"],
+  thanksgiving_palette: ["amber", "ember", "olive", "citrine"],
+  harvest_festival: ["amber", "citrine", "ember", "warm-gray"],
+
+  // Rose quartz / mauve / crystal
+  rose_quartz_palette: ["rose", "blush", "iris", "warm-gray"],
+  mauve_palette: ["rose", "iris", "blush"],
+  dusty_rose_palette: ["rose", "blush", "warm-gray"],
+  crystal_palette: ["rose", "iris", "blush", "amethyst"],
+  powder_pink: ["blush", "rose", "warm-gray"],
+  antique_rose: ["rose", "blush", "warm-gray"],
+  muted_pink: ["blush", "rose", "warm-gray"],
+  ballet_pink: ["blush", "rose", "warm-gray"],
+  petal_palette: ["rose", "blush", "warm-gray"],
+
+  // Midnight garden / dark botanical
+  midnight_garden: ["leaf", "plum", "cobalt", "emerald"],
+  dark_botanical_palette: ["leaf", "moss", "plum", "emerald"],
+  night_garden: ["leaf", "plum", "cobalt", "emerald"],
+  gothic_garden: ["plum", "leaf", "cobalt", "emerald"],
+  moody_botanical: ["leaf", "plum", "moss", "cobalt"],
+  dark_floral: ["plum", "rose", "leaf", "emerald"],
+  victorian_garden: ["plum", "leaf", "emerald", "cobalt"],
+  enchanted_forest: ["leaf", "emerald", "cobalt", "plum"],
+  fairy_tale_dark: ["plum", "cobalt", "leaf", "emerald"],
+
+  // Vintage paper / sepia / heritage
+  vintage_paper: ["amber", "warm-gray", "ember", "coral"],
+  sepia_palette: ["amber", "warm-gray", "ember"],
+  antique_paper: ["amber", "warm-gray", "coral"],
+  aged_parchment: ["amber", "warm-gray", "ember"],
+  archival_palette: ["warm-gray", "amber", "ember"],
+  heritage_paper: ["amber", "warm-gray", "coral"],
+  document_palette: ["warm-gray", "amber", "ember"],
+  parchment_palette: ["amber", "warm-gray", "ember"],
+  manuscript_palette: ["amber", "warm-gray", "ember", "coral"],
+
+  // Citrus / bright food
+  citrus_palette: ["citrine", "amber", "ember", "lime"],
+  lemon_palette: ["citrine", "amber"],
+  orange_citrus: ["amber", "ember", "apricot"],
+  lime_palette: ["lime", "citrine", "leaf"],
+  blood_orange: ["ember", "crimson", "amber"],
+  tangerine_palette: ["apricot", "amber", "ember"],
+  tropical_citrus: ["citrine", "lime", "amber", "apricot"],
+  fresh_juice: ["citrine", "amber", "lime", "ember"],
+  vitamin_palette: ["citrine", "lime", "amber", "ember"],
+  summer_citrus: ["citrine", "amber", "lime", "ember"],
+
+  // Bedroom / sleep palette keywords
+  bedroom_color_palette: ["teal", "aqua", "moss", "cool-gray"],
+  sleep_color: ["teal", "cool-gray", "cobalt", "moss"],
+  calming_bedroom: ["teal", "moss", "cool-gray", "cerulean"],
+  restful_palette: ["teal", "cool-gray", "moss", "cobalt"],
+  bedroom_wall: ["teal", "moss", "cool-gray", "blush"],
+  master_bedroom: ["cool-gray", "moss", "cobalt", "warm-gray"],
+  cozy_bedroom: ["warm-gray", "blush", "amber", "rose"],
+  scandinavian_bedroom: ["cool-gray", "warm-gray", "teal", "cobalt"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
