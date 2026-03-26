@@ -81,7 +81,7 @@ echo '{ "active": true, "lockedBy": "autopilot", "lockedAt": "'$(date -u +%Y-%m-
 ```bash
 echo '{ "active": null, "lockedBy": null, "lockedAt": null, "message": null }' > .claude/session-lock.json
 ```
-Then commit and push this file together with your work, or as a separate small commit right after.
+Then include this file in your single commit (see batching rule below).
 
 ### Rules by session type
 
@@ -92,7 +92,7 @@ Then commit and push this file together with your work, or as a separate small c
 - If locked by "autopilot" and lock age > 20 min → stale lock, force-release and proceed
 - If locked by "autopilot" and lock age ≤ 20 min → do nothing, exit gracefully (previous run still active)
 - When starting, write lock with `"lockedBy": "autopilot"` and `"message"` describing the planned run
-- After commit+push → **automatically** release the lock (write null values + commit+push)
+- After all work is done → release the lock and commit everything in a **single commit+push** (see batching rule below)
 
 **Remote Control sessions:**
 - MUST run `git pull --rebase origin main` FIRST before doing anything
@@ -101,3 +101,21 @@ Then commit and push this file together with your work, or as a separate small c
 - If locked by "autopilot" and lock age > 20 min → inform user the lock looks stale, offer to force-release it
 - When starting, write lock with `"lockedBy": "remote"`
 - After commit+push → **automatically** release the lock (write null values + commit+push)
+
+### Commit batching rule (CRITICAL — saves Vercel build minutes)
+
+**Every push to `main` triggers a full Vercel deployment** that rebuilds 3,000+ static pages. To minimize wasted builds:
+
+**Autopilot MUST make exactly ONE commit and ONE push per run.** The workflow is:
+
+1. Write `.claude/session-lock.json` to acquire lock — **do NOT commit or push yet**
+2. Do all content work (newsletters, guides, collections, aliases, etc.)
+3. `git add` all content files
+4. Update `autopilot-log.md`, `docs/autopilot-log.md`, `docs/human-todo.md` — stage them
+5. Write the null lock (release) to `.claude/session-lock.json` — stage it
+6. **Single `git commit`** with all changes (content + logs + lock release)
+7. **Single `git push`** → triggers exactly ONE Vercel deployment
+
+**Do NOT** make separate commits for lock acquire, content, logs, and lock release. This wastes 3 extra deployments per run.
+
+A `vercel.json` `ignoreCommand` is configured as a safety net — if a push only contains metadata files (lock, logs, human-todo), Vercel will skip the deployment automatically.

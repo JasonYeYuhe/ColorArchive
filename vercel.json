@@ -1,0 +1,3 @@
+{
+  "ignoreCommand": "bash -c 'git diff HEAD~1 --name-only | grep -qvE \"^(\\.claude/session-lock\\.json|autopilot-log\\.md|docs/autopilot-log\\.md|docs/human-todo\\.md)$\"'"
+}
