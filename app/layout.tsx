@@ -11,6 +11,7 @@ import { BackToTop } from "@/src/components/back-to-top";
 import { CopyUpsellToast } from "@/src/components/copy-upsell-toast";
 import { ErrorBoundary } from "@/src/components/error-boundary";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 import "./globals.css";
 
 const siteTitle = "ColorArchive";
@@ -114,6 +115,16 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="QMvWjTTdo973FLMy5VZMA4lDZcirOQK8LUjLAHFD5eo" />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-11416473237"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-gtag" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-11416473237');`}
+        </Script>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: localeScript }} />
       </head>
