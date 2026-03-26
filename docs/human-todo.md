@@ -5,29 +5,37 @@
 
 ## High Priority
 
-- [ ] Activate Lemon Squeezy store and complete KYB review — *commerce is blocked until LS approves the store; packs/subscriptions can't sell*
-- [ ] Configure Pro subscription URLs in `src/lib/checkout-config.ts` — *Pro page shows placeholder messaging until real LS subscription links are set*
-- [ ] Set final pack pricing in Lemon Squeezy dashboard — *prices are defined in code but need to match LS product prices to avoid mismatch*
+- [ ] **Lemon Squeezy store activation** — Switch LS from Test mode to Live mode (bottom-left toggle). Without this, no real purchases can be made. *Commerce cannot launch until this is done.*
+- [ ] **Set post-purchase URLs in LS** — For all 7 products, set Confirmation modal + Email receipt CTA to `https://colorarchive.me/thanks/`. *Required for buyers to reach the confirmation page.*
+- [ ] **Run purchase smoke test** — Complete one real purchase after store activation to verify checkout → thanks → download email → /login order history all work end-to-end.
+- [ ] **Google OAuth smoke test** — Follow `docs/google-auth-checklist.md` for first real login. Verify account state and admin allowlist.
 
 ## Medium Priority
 
-- [ ] Twitter/X API: Verify posting is working end-to-end — *API configured but uncertain if automated posts are actually going out*
-- [ ] Pinterest: Monitor pin performance and verify board saves are working for users — *integration exists but real-world success rate unknown*
-- [ ] TikTok: Check review status and enable posting once approved — *in review per last update*
-- [ ] Review email deliverability rates in Resend dashboard — *autopilot can't check open/bounce rates*
-- [ ] Set up Google Search Console and submit sitemap — *SEO is strong but GSC indexing visibility unknown*
+- [ ] **TikTok review status** — Check if TikTok developer account is approved yet. The admin interface at `/admin/tiktok/` is ready.
+- [ ] **Pinterest integration verification** — Confirm Pinterest OAuth is working end-to-end with a live account.
+- [ ] **Product Hunt listing** — Verify PH listing is accurate and matches current product state.
+- [ ] **Check famous palettes page** — New `/famous-palettes/` page launched in this run. Verify it renders correctly on production (Vercel auto-deploy triggered by push to main).
 
 ## Low Priority / Nice to Have
 
-- [ ] Record a product demo video for the landing page — *colorarchive_logo_v1_assets has new subscription screenshots ready*
-- [ ] Add Figma plugin to Figma Community marketplace — *API key system is built; plugin itself needs packaging and submission*
-- [ ] Set up Stripe as payment alternative to Lemon Squeezy — *checkout-config.ts already has Stripe config option*
-- [ ] Review and curate the CSS Named Colors reference page — *autopilot added the page; manual editorial review of color data quality*
+- [ ] **Demo video** — `demo-video/` folder exists with content. Review and decide if/how to publish.
+- [ ] **Monthly/yearly subscription assets** — `colorarchive_logo_v1_assets/monthlysubscription.png` and `yearlysubscription.png` are untracked. Decide if these should be committed.
+- [ ] **Analytics decision layer** — Review ROADMAP.md priority #3: cohort-over-time views, retention by source, buyer audit trail.
 
 ## Done
 
-- [x] YouTube channel published — completed 2026-03-26
-- [x] Product Hunt launch — live
-- [x] Pinterest integration — integrated 2026-03-26
-- [x] Twitter/X API configuration — configured 2026-03-26
-- [x] CSS Named Colors reference page — built 2026-03-26 (autopilot-big run)
+- [x] Famous Palettes page built and deployed — 2026-03-26
+- [x] CSS Named Colors page — 2026-03-26
+- [x] Colorblind simulator — prior runs
+- [x] WCAG audit matrix — prior runs
+- [x] Design token generator — prior runs
+- [x] Image palette extractor — prior runs
+- [x] Color quiz — prior runs
+- [x] Mesh gradient generator — prior runs
+- [x] Brand color analyzer — prior runs
+- [x] Color stories page — prior runs
+- [x] Color of the Day — prior runs
+- [x] 126 color collections — prior runs
+- [x] 230+ SEO guides — prior runs
+- [x] 249 newsletter issues — prior runs

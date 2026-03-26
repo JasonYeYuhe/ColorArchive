@@ -2384,3 +2384,87 @@ Nordic/winter: nordic_winter, ice_palette, winter_palette, arctic_palette
 - `src/lib/guides.ts` — extraGuides33 (5 guides, 225 total)
 - `src/lib/collections.ts` — extraCollections32 (4 collections, 122 total)
 - `src/lib/color-search.ts` — 31 new unique search aliases (657 total)
+
+---
+
+## 2026-03-26 — Big Run
+
+**Run type:** Big Run (4th since last big run, triggering big run threshold)
+**Commit:** 9db06f5
+**Typecheck:** ✓ clean (fixed duplicate search alias keys + missing links fields)
+
+### New Feature: Famous Color Palettes Page (/famous-palettes/)
+
+A comprehensive reference library of 35 iconic color palettes from brands, art movements, films, and design systems — with hex codes, historical context, and direct palette tools integration.
+
+**Data file (src/lib/famous-palettes.ts):**
+35 palettes across 5 categories:
+- **Brands (13):** Google, Apple, Spotify, Netflix, Meta, Airbnb, Slack, Stripe, Tiffany & Co., Hermès, Chanel, McDonald's, Coca-Cola
+- **Art Movements (6):** Bauhaus, De Stijl/Mondrian, Memphis Design, Art Deco, Impressionism, Pop Art
+- **Film & Cinema (5):** Wes Anderson, Blade Runner 2049, Grand Budapest Hotel, The Matrix, Mad Max: Fury Road
+- **Design Systems (4):** Nord, Solarized, Dracula, IBM Carbon
+- **Fashion & Trends (5):** Millennial Pink, Pantone 2024/2023/2022, Classic Navy & Cream
+
+**UI (src/components/famous-palettes-page.tsx):**
+- Category filter bar (All + 5 categories with counts)
+- Text search across name, description, tags, color names
+- Palette cards with animated swatch strips, historical context, click-to-copy hex codes
+- Links to ColorArchive color search for each hex
+- "Open in Palette Builder" action per palette
+- Related tools section at bottom
+
+**SEO (app/famous-palettes/page.tsx):**
+- Full metadata with description targeting "famous brand palettes", "Google colors", "Bauhaus palette", etc.
+- JSON-LD CollectionPage structured data
+- Canonical URL + OpenGraph
+
+### Category A — 5 New Newsletter Issues (now 249 total)
+
+September–October 2030 batch:
+- **sep-2030-color-brand-system-architecture**: Brand color system architecture (primitive/semantic/component three-tier model)
+- **sep-2030-color-data-visualization**: Data viz color grammar (categorical, sequential, diverging scales, a11y)
+- **sep-2030-historical-pigments-colors**: Pigment history — ultramarine, Tyrian purple, verdigris
+- **oct-2030-color-negative-space**: Negative space and color restraint (60-30-10 rule)
+- **oct-2030-color-user-research**: User research methods for color decisions
+
+### Category A — 5 New SEO Guides (extraGuides34, ~230 total)
+
+- **data-visualization-color-guide**: Categorical/sequential/diverging scales, Okabe-Ito, common errors
+- **historical-pigments-color-guide**: Ultramarine, Tyrian purple, pigment chemistry revolution
+- **negative-space-color-guide**: 60-30-10 rule, background color as design decision, luxury restraint
+- **brand-color-system-architecture-guide**: Three-tier token architecture, semantic tokens, governance
+- **color-user-research-guide**: A/B testing, eye-tracking, qualitative research for color
+
+### Category D — 4 New Collections (extraCollections33, now 126 total)
+
+- **digital-primary**: Cobalt, emerald, citrine — tech brand primary triad, Bauhaus-inspired
+- **film-noir**: Cool grays and cobalt shadows — premium dark palette, cinematic depth
+- **impressionist-garden**: Cerulean, jade, rose, honey — Monet palette, botanical wellness
+- **brand-trust**: Deep indigo, warm grays — institutional authority, financial services
+
+### Category D — 30+ New Search Aliases
+
+Data viz: data_color, chart_palette, graph_palette, dataviz, sequential_scale, categorical_palette
+Famous brands: google_colors, spotify_green, netflix_red, apple_gray, brand_blue
+Design system colors: success_color, warning_color, error_color, info_color, neutral_system
+System architecture: token_color, system_color, design_tokens
+Historical: renaissance_color, medieval_color, imperial_purple, royal_blue_classic, pigment_blue
+Negative space: breathing_room, empty_space, premium_neutral, luxury_neutral, restraint_palette
+
+### Build Fixes
+
+Fixed 2 duplicate search alias keys (chart_color → chart_palette, design_token → design_tokens)
+Fixed 5 guides missing required links[] field
+
+### Files Modified (11)
+-  — new page route
+-  — added /famous-palettes/ with priority 0.88
+-  — new client component
+-  — added /famous-palettes to currentPath type
+-  — added Famous Palettes to Explore category
+-  — 5 new issues (245-249)
+-  — extraCollections33 (4 collections, 126 total)
+-  — 30+ new search aliases
+-  — new data file (35 palettes)
+-  — extraGuides34 (5 guides)
+-  — EN/ZH keys for famous palettes page + tools
