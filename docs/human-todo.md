@@ -1,43 +1,35 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-26
+> Last updated: 2026-03-26 (Normal Run #3)
 
 ## High Priority
 
-- [ ] **Lemon Squeezy store activation** — Switch LS from Test mode to Live mode (bottom-left toggle). Without this, no real purchases can be made. *Commerce cannot launch until this is done.*
-- [ ] **Set post-purchase URLs in LS** — For all 7 products, set Confirmation modal + Email receipt CTA to `https://colorarchive.me/thanks/`. *Required for buyers to reach the confirmation page.*
-- [ ] **Run purchase smoke test** — Complete one real purchase after store activation to verify checkout → thanks → download email → /login order history all work end-to-end.
-- [ ] **Google OAuth smoke test** — Follow `docs/google-auth-checklist.md` for first real login. Verify account state and admin allowlist.
+- [ ] Activate Lemon Squeezy store and set live pricing — *revenue blocked until store is live*
+- [ ] Configure Pro subscription URLs in `src/lib/checkout-config.ts` — *Pro page shows "launching soon" until URLs are live*
+- [ ] Verify LS KYB review status — *store cannot process payments until KYB is complete*
 
 ## Medium Priority
 
-- [ ] **TikTok review status** — Check if TikTok developer account is approved yet. The admin interface at `/admin/tiktok/` is ready.
-- [ ] **Pinterest integration verification** — Confirm Pinterest OAuth is working end-to-end with a live account.
-- [ ] **Product Hunt listing** — Verify PH listing is accurate and matches current product state.
-- [ ] **Check famous palettes page** — `/famous-palettes/` launched in prior big run. Verify it renders correctly on production.
-- [ ] **Verify new collections load** — 9 new collections added across recent runs (forest-bathing, y2k-digital, haute-couture, transit-authority, dusk-garden, raw-concrete, boreal-forest, carnival-lights, bleached-denim). Check `/collections/` page on production.
+- [ ] Test free pack download email flow end-to-end — *email sends but download URL needs verification*
+- [ ] Set up Pinterest API credentials in server `.env` — *Pinterest save feature needs real API keys*
+- [ ] Review Twitter/X API configuration — *marketing automation configured but needs verification*
+- [ ] Update pack prices in email templates if LS pricing differs from current values in `server/email.js`
 
 ## Low Priority / Nice to Have
 
-- [ ] **Demo video** — `demo-video/` folder exists with content. Review and decide if/how to publish.
-- [ ] **Monthly/yearly subscription assets** — `colorarchive_logo_v1_assets/monthlysubscription.png` and `yearlysubscription.png` are untracked. Decide if these should be committed.
-- [ ] **Analytics decision layer** — Review ROADMAP.md priority #3: cohort-over-time views, retention by source, buyer audit trail.
+- [ ] Record demo video for Product Hunt / YouTube — *marketing assets in `demo-video/` directory ready*
+- [ ] Upload monthly subscription and yearly subscription images — *`colorarchive_logo_v1_assets/monthlysubscription.png` and `yearlysubscription.png` are untracked*
+- [ ] Review Famous Palettes page for any factual accuracy on brand history claims
+- [ ] Consider adding PDF export of palette packs for Pro users
 
 ## Done
 
-- [x] 135 color collections — 2026-03-26
-- [x] ~240 SEO guides — 2026-03-26
-- [x] 259 newsletter issues — 2026-03-26
-- [x] 737 search aliases — 2026-03-26
-- [x] Famous Palettes page built and deployed — 2026-03-26
-- [x] CSS Named Colors page — 2026-03-26
-- [x] Colorblind simulator — prior runs
-- [x] WCAG audit matrix — prior runs
-- [x] Design token generator — prior runs
-- [x] Image palette extractor — prior runs
-- [x] Color quiz — prior runs
-- [x] Mesh gradient generator — prior runs
-- [x] Brand color analyzer — prior runs
-- [x] Color stories page — prior runs
-- [x] Color of the Day — prior runs
+- [x] Newsletter infrastructure — `src/data/newsletter-issues.json` pattern established, 264 issues
+- [x] SEO guides — ~245 guides across all topics
+- [x] Collections — 140 curated collections
+- [x] Famous Palettes page — 35+ iconic palettes (big run 2026-03-26)
+- [x] Search aliases — 760 total aliases covering all major color search terms
+- [x] i18n — EN + ZH translations complete for all UI strings
+- [x] Pro page — fully built with comparison table and FAQ
+- [x] Palette builder word pools — expanded MOOD_WORDS and SCENE_WORDS (2026-03-26)

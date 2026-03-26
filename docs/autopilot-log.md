@@ -2571,3 +2571,56 @@ Nordic/boreal: boreal_palette, nordic_forest, spruce_green, birch_white
 - `src/lib/guides.ts` — extraGuides36 (5 guides, ~240 total)
 - `src/lib/collections.ts` — extraCollections35 (5 collections, 135 total)
 - `src/lib/color-search.ts` — 25 new unique aliases (737 total)
+
+---
+
+## 2026-03-26 — Normal Run #3
+
+**Run type:** Normal Run
+**Commit:** d885d87
+**Typecheck:** ✓ clean (fixed 2 duplicate search alias keys: celadon → celadon_glaze, monsoon → monsoon_season)
+
+### Category A — 5 New Newsletter Issues (264 total, Jan 2031 batch)
+
+- **jan-2031-color-grading-photography**: Split toning, HSL panel workflow, building a personal signature palette — presets vs. deliberate grades
+- **jan-2031-chromatic-aberration-lens-color**: Why vintage lenses have optical personality — chromatic aberration, uncoated glass warmth, the Leica/Zeiss/Nikon rendering character
+- **jan-2031-cultural-color-mourning**: White, purple, gold mourning colors across South Asia, East Asia, Catholic liturgy, West Africa — design implications for cross-cultural work
+- **jan-2031-data-visualization-color-principles**: Sequential, diverging, categorical, and highlight palette taxonomy — rainbow palette failure, neutral midpoints, 8-12 color categorical limit
+- **jan-2031-natural-dye-indigo-history**: Indigo trade routes, European woad protectionism (death penalty for importers), Bengali Indigo Revolt 1859, BASF synthesis 1897 → blue jeans
+
+### Category A — 5 New SEO Guides (extraGuides37, ~245 total)
+
+- **color-grading-photography-guide**: Split toning + HSL panel workflow for photographers (priority 72)
+- **data-visualization-color-guide**: Sequential/diverging/categorical/highlight palette taxonomy (priority 84)
+- **mourning-colors-world-cultures-guide**: Cross-cultural mourning color guide for global designers (priority 68)
+- **indigo-history-color-trade-guide**: Indigo commodity history, colonialism, synthesis (priority 65)
+- **vintage-lens-color-rendering-guide**: Optical character of vintage lenses for photographers (priority 63)
+
+### Category D — 5 New Collections (extraCollections36, 140 total)
+
+- **jazz-club**: Deep amber, warm shadow, ivory — late-night music venue palette
+- **polar-expedition**: Ice blue, expedition orange, navy, frost — Arctic adventure palette
+- **glazed-ceramic**: Warm ivory, celadon (seafoam), dusty rose, warm gray — studio pottery palette
+- **cinema-verité**: Desaturated teal, warm skin (apricot), cool gray — documentary film color
+- **monsoon-season**: Deep jade, warm gray, amber, lime — tropical rainfall palette
+
+### Category D — 28 New Search Aliases + SEARCH_CHIPS (760 total)
+
+Jazz/music: jazz_palette, jazz_club, late_night, brass_color, velvet_curtain
+Arctic/expedition: polar_palette, expedition_color, arctic_explorer, high_latitude, survival_orange
+Ceramics/craft: celadon_glaze, glazed_ceramic, studio_pottery, stoneware, kiln_color
+Documentary/film: documentary, verité, handheld_film, available_light
+Monsoon/tropical: monsoon_season, tropical_rain, rainforest_floor, humid
+New SEARCH_CHIPS groups: Film & Art, Craft, Industry
+
+### Category F — Expanded Palette Builder Word Pools
+
+- **MOOD_WORDS**: 8 → 12 words per zone — added Glacé, Vapour, Fjord, Nocturne, Parchment, Vellum, Ecru, Flint, Basalt, Cinder, Treacle, Ochre, Saffron, etc.
+- **SCENE_WORDS**: 8 → 12 words per harmony type — added Canopy, Gradient, Counterpoint, Interval, Triptych, Collection, Passage, etc.
+
+### Files Modified (5)
+- `src/data/newsletter-issues.json` — 5 new issues (260-264)
+- `src/lib/guides.ts` — extraGuides37 (5 guides, ~245 total)
+- `src/lib/collections.ts` — extraCollections36 (5 collections, 140 total)
+- `src/lib/color-search.ts` — 28 new aliases + 3 new SEARCH_CHIPS groups (760 total)
+- `src/lib/palette-builder.ts` — expanded MOOD_WORDS (8→12) and SCENE_WORDS (8→12)
