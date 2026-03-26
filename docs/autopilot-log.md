@@ -3302,3 +3302,42 @@ New alias groups: dark mode UI systems (dark_mode_ui, dark_mode_surface, dark_ui
 - `src/lib/i18n.ts` — +nav.trends key
 - `src/components/site-header.tsx` — +/trends/ nav item
 - `.claude/session-lock.json` — released
+
+## 2026-03-26 — Normal Run #7 (post big run #5)
+
+**Type:** Normal Run  
+**Commit:** 7a198fe  
+**Timestamp:** 2026-03-26T (after big run #5, normal run #2)  
+**Categories:** Content (A), Collections (D), Aliases (D)
+
+### Category A — 4 Newsletter Issues (334–337, total 337)
+- `may-2033-color-and-space-perception` — Color's effect on spatial perception: value drives apparent size, hue drives temperature, biophilic design research, ceiling color strategy
+- `may-2033-earth-pigments-color-history` — Pigment economics from ochre to Prussian Blue: how material costs shaped art history, synthetic pigment revolution
+- `jun-2033-color-and-time-perception` — Arousal-driven time compression: retail applications, dining environments, digital UX implications, attention modifying factor
+- `jun-2033-cross-cultural-color-divergence` — Cross-cultural color divergence for global design: white mourning, yellow associations across markets, green and Islam, practical framework
+
+### Category A — 3 SEO Guides (extraGuides53, 309 total)
+- `color-palette-for-app-design` (priority 93) — Semantic roles first, tonal scales, state colors, light+dark from day one, device testing
+- `earthy-color-palette-guide` (priority 88) — Earth pigment history, palette architecture (light neutral + accent + green + anchor), digital value management, industry fit
+- `color-psychology-marketing-guide` (priority 91) — Appropriateness over symbolism, distinctiveness vs convention-breaking, cultural variation, when color psychology matters
+
+### Category D — 8 Collections (extraCollections52, 240 total)
+- `terracotta-studio` — Mediterranean fired clay: coral tone muted, apricot silk, amber bloom, olive faint, warm-gray spectrum
+- `northern-forest` — Boreal Canada/Finland: teal shadow, leaf dusk, amber bloom, cool-gray whisper/shadow, aqua faint
+- `parisian-salon` — Haussmann apartment patina: rose bloom, blush silk, amber tone muted, cool-gray, plum velvet
+- `desert-dusk` — Southwest post-sunset: amber radiant, apricot bloom, violet dusk, iris shadow, warm-gray mist, rose bloom
+- `minimal-japanese` — Zen restraint: warm-gray spectrum from whisper to ink, amber faint, moss faint
+- `eighties-miami` — Miami Vice palette: fuchsia bloom vivid, aqua bloom clear, teal tone, rose bloom vivid, warm-gray whisper
+- `soft-romantic` — Wedding/beauty: blush whisper/bloom, iris whisper, amber whisper, rose veil, warm-gray whisper
+- `deep-ocean` — Abyssal marine: aqua shadow vivid, teal nocturne, cobalt nocturne, cool-gray whisper, cobalt ink
+
+### Category D — ~60 Search Aliases (deduped, ~1615 lines total)
+New alias groups: terracotta/clay/Mediterranean earth, boreal/northern forest, Parisian/French salon, desert/Southwest/canyon, Japanese minimalism/wabi-sabi/Muji/Zen/Kyoto, 80s Miami, soft romantic/wedding/bridal, deep ocean/marine/abyssal
+
+### Files Modified (6 total)
+- `src/data/newsletter-issues.json` — 337 total
+- `src/lib/guides.ts` — extraGuides53 (309 total)
+- `src/lib/collections.ts` — extraCollections52 (240 total)
+- `src/lib/color-search.ts` — ~1615 lines total
+- `STRUCTURE.md` — updated counts
+- `.claude/session-lock.json` — released

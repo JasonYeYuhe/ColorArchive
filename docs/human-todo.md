@@ -1,30 +1,28 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-26 (after normal run #6)
+> Last updated: 2026-03-26 (normal run #7)
 
 ## High Priority
-- [ ] Activate Lemon Squeezy store — *required before any product purchases can complete*
-- [ ] Configure Pro subscription checkout URLs — `src/lib/checkout-config.ts` has placeholder URLs for LS/Stripe subscription checkout; these need real product URLs once the store is activated
-- [ ] Review and activate the LS KYB (Know Your Business) submission — store is blocked on this
-- [ ] Set final pricing in LS dashboard — pricing is defined in code (`palette-packs.ts`, `checkout-config.ts`) but needs to match what's configured in the LS product catalog
+- [ ] Activate Lemon Squeezy store — KYB review pending; need to complete LS onboarding to enable payments
+- [ ] Set final pricing on LS — individual packs ($9–$49), All Access ($129), Pro subscription ($4.99/mo, $39.99/yr)
+- [ ] Configure Pro subscription URLs in `src/lib/checkout-config.ts` — LS monthly + yearly subscription links needed
+- [ ] Test checkout flow end-to-end — verify LS webhook → DO backend → user unlocking packs
 
 ## Medium Priority
-- [ ] Upload free palette pack ZIP to `/public/downloads/free-palette-pack.zip` — referenced in email templates but file may not exist yet
-- [ ] Record and upload demo video — `demo-video/` folder exists in repo but appears empty; product pages could use a short screen recording
-- [ ] Pinterest: verify API integration is working and boards are publishing — Pinterest is configured but verify content is flowing
-- [ ] Twitter/X: verify API publishing is working — configured but needs verification
+- [ ] Pinterest integration — verify Pinterest API token is still valid and pins are publishing correctly
+- [ ] Twitter/X API — verify scheduled tweet posting is working post-API changes
+- [ ] TikTok — check if video is still in review or published; consider posting additional short-form content
+- [ ] YouTube — publish additional color theory explainer videos to grow channel
+- [ ] Product Hunt — monitor for comments/reviews; respond to early adopters
 
 ## Low Priority / Nice to Have
-- [ ] Update `server/content/update-brief.js` with current featured collections and pack info — this file drives the waitlist confirmation email content and may have outdated references
-- [ ] Consider adding the /trends page to the mobile primary nav items (currently only in desktop Explore dropdown) — if trends traffic grows, elevate it
-- [ ] Review `/colorarchive_logo_v1_assets/` folder — contains monthlysubscription.png and yearlysubscription.png; verify these are being used correctly in the Pro page
+- [ ] Commission or create demo video for landing page (demo-video/ folder exists but is empty)
+- [ ] Add monthly subscription and yearly subscription product images from colorarchive_logo_v1_assets/ into LS store
+- [ ] Consider A/B testing landing page headline for conversion optimization
+- [ ] Email list — set up proper welcome sequence in addition to existing email templates
 
 ## Done
-- [x] /trends page created — Color Trends 2026 with 8 trend entries, EN+ZH, category filter (big run #5)
-- [x] /trends added to Explore nav and i18n — nav.trends key, site-header updated (normal run #6)
-- [x] YouTube published — product demo/overview video live
-- [x] TikTok submitted for review
-- [x] Product Hunt live
-- [x] Twitter/X API configured
-- [x] Pinterest integrated
+- [x] /trends page — Color Trends 2026 page built and deployed (big run #5)
+- [x] i18n nav.trends key — added ZH translation for trends nav item
+- [x] STRUCTURE.md — kept up to date with all autopilot additions
