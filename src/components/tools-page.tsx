@@ -234,6 +234,15 @@ const TOOLS: Tool[] = [
     categoryKey: "tools.cat.explore",
     accent: "bg-lime-100 text-lime-700",
   },
+  {
+    href: "/famous-palettes/",
+    icon: "★",
+    nameKey: "tools.famousPalettes.name",
+    descKey: "tools.famousPalettes.desc",
+    categoryKey: "tools.cat.explore",
+    badgeKey: "tools.badge.new",
+    accent: "bg-amber-100 text-amber-700",
+  },
   // Developer
   {
     href: "/api-docs/",

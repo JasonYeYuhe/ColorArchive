@@ -3074,3 +3074,104 @@ const extraCollections32: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections32);
+
+const extraCollections33: ColorCollection[] = [
+  createCollection(
+    "digital-primary",
+    "Digital Primary",
+    "Pure cobalt, vivid emerald, and bright citrine — the clean, maximally-saturated primary triad for digital brands that want to signal clarity, precision, and optimistic energy.",
+    "Digital primary draws from the tradition of the Bauhaus and De Stijl primary color philosophies, reinterpreted for contemporary digital interfaces. Where Mondrian's primaries were printed inks and Bauhaus pigments, these are calibrated for screen luminosity — colors that maximize legibility, contrast, and visual clarity on digital surfaces. Cobalt-core-vivid anchors the palette with the definitive saturated digital blue — the blue of interactive elements, primary CTAs, and brand anchors in technology brands. Emerald-bloom-vivid provides the vivid green — the specific quality of a success state, an active status indicator, or a brand green in the tradition of Spotify or Robinhood. Citrine-bloom-vivid extends to vivid yellow — the alert color, the highlight, the energy accent. These three together create the classic primary energy of multi-color tech brand systems, while the composition can also deploy one color at a time for focused, single-accent brand systems.",
+    ["Vivid", "Digital", "Primary"],
+    [
+      "cobalt-core-vivid",
+      "emerald-bloom-vivid",
+      "citrine-bloom-vivid",
+      "cobalt-whisper-soft",
+      "true-gray-light-faint",
+    ],
+    {
+      editorialNote:
+        "Digital primary works for technology brands that want to signal openness, clarity, and optimism without the corporate restraint of single-blue systems. Best deployed as one dominant primary with two accents rather than three simultaneous equals — the three-equal-weight deployment risks reading as generic.",
+      promptWords: [
+        "tech brand in vivid cobalt, emerald, and citrine digital primary",
+        "SaaS product in clean multi-color primary system",
+        "digital brand in Bauhaus-inspired vivid primary palette",
+      ],
+      useCases: ["Multi-product technology brands", "Developer tools and platforms", "EdTech and educational technology"],
+    }
+  ),
+  createCollection(
+    "film-noir",
+    "Film Noir",
+    "Deep cool black, ash gray, and cold blue-gray shadows — the palette of 1940s black-and-white cinema translated to modern UI and editorial design seeking dramatic atmosphere and noir mystery.",
+    "Film noir was a cinematic movement defined by extreme tonal contrast, deep shadows, and moral ambiguity — visually expressed through hard, high-contrast light sources (venetian blinds, street lamps, match flares) that created absolute black-and-white with no comfortable midtones. The palette for contemporary noir aesthetic draws from the specific grays of silver-gelatin film stock — not neutral grays but slightly cool, slightly blue-tinged shadow tones that communicate cinematic depth rather than mere darkness. True-gray-deep-soft provides the near-black that reads as shadow rather than digital void — the specific dark of printed film noir rather than screen black. Cool-gray-mid-muted gives the characteristic silver of mid-tone shadows — the gray of a villain's pinstripe suit, the tone of a wet rain-slicked street under a lamp. Cool-gray-light-soft extends to the lighter film gray — the specific tone of blown-out window light in a high-contrast interior, or the pale skin tone of film stock. The result is a dramatically atmospheric dark palette with none of the pure-black flatness of contemporary dark UI.",
+    ["Dark", "Dramatic", "Cinematic"],
+    [
+      "true-gray-deep-soft",
+      "cool-gray-deep-muted",
+      "cool-gray-mid-muted",
+      "cool-gray-light-soft",
+      "cobalt-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "Film noir palette is ideal for premium dark interfaces, luxury brand materials where glossy black feels cheap, editorial photography with a cinematic treatment, and any design that requires dramatic atmosphere without resorting to pure black. The slight cool cast differentiates from generic dark UI.",
+      promptWords: [
+        "dark editorial design in film noir silver and shadow palette",
+        "luxury dark interface in cinematic gray and black tones",
+        "dramatic brand identity in noir shadow and cool gray palette",
+      ],
+      useCases: ["Premium dark mode digital products", "Luxury brand materials and packaging", "Cinematic editorial photography direction"],
+    }
+  ),
+  createCollection(
+    "impressionist-garden",
+    "Impressionist Garden",
+    "Soft sky blue, garden green, warm floral pink, and luminous afternoon light — the palette of Monet's Giverny and the Impressionist movement's study of natural light.",
+    "The Impressionist color palette emerges from the movement's radical methodological innovation: painting en plein air, studying light rather than local color, and using broken, unmixed brushstrokes to capture the visual sensation of a moment rather than the documented facts of a scene. The result is a palette of atmospheric softness — no pure, unmixed hues, but a collection of colors that have been influenced by adjacent light, shadow, and reflection. Sky and water blues carry warmth from surrounding sunlight; garden greens are modified by golden afternoon light and purple shadow; pinks and roses are simultaneously warm in light and cool in shadow. Cerulean-bloom-soft anchors the palette with the characteristic sky-water blue of the Impressionist outdoor scene — not a pure cobalt but a soft, light-modified blue with warmth from ambient light. Jade-tone-soft provides the garden green — a sage-jade tone that reads as natural botanical rather than saturated green, suggesting leaves under dappled light. Rose-whisper-soft extends to the floral register — the soft pink of water lily flowers, roses, and reflected sunset light on water surfaces. Honey-silk-soft adds the warm golden afternoon light quality — the specific amber-warm tone of late afternoon sun.",
+    ["Soft", "Natural", "Garden"],
+    [
+      "cerulean-bloom-soft",
+      "jade-tone-soft",
+      "rose-whisper-soft",
+      "honey-silk-soft",
+      "violet-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "Impressionist garden is ideal for wellness, spa, and botanical brands; fine art-adjacent editorial and publishing; organic and natural food brands; and any design that wants to communicate sensory pleasure and natural beauty without the rawness of vivid color or the staleness of predictable pastels.",
+      promptWords: [
+        "botanical wellness brand in Impressionist soft garden palette",
+        "fine art-inspired editorial in soft blue, green, and rose tones",
+        "luxury natural beauty brand in Impressionist garden palette",
+      ],
+      useCases: ["Botanical wellness and spa brands", "Fine art-adjacent publishing and editorial", "Luxury natural and organic beauty brands"],
+    }
+  ),
+  createCollection(
+    "brand-trust",
+    "Brand Trust",
+    "Deep navy, warm gray, and reliable white — the archetypal palette of institutional authority, financial services, and legacy brands that have traded heavily in trust for decades.",
+    "Trust has a color, and it is institutionalized navy blue. The specific quality of this blue — deep, slightly warm, not the pure cool of cerulean or the near-purple of indigo — is the color that has anchored financial services, healthcare, legal, and government brands for over a century. It exists because these institutions must communicate reliability and permanence above all other qualities, and deep navy is the most culturally legible signal of those values in Western contexts. The palette builds outward from this anchor in the warm direction rather than the cool, using warm grays and off-whites rather than cool grays and pure whites. This creates a system that reads as authoritative but not cold, institutional but not clinical. Indigo-core-muted provides the foundational institutional navy — the specific blue of a banking logo or a law firm letterhead, with enough depth to read as serious and enough warmth to remain approachable. Warm-gray-mid-muted gives the supporting secondary tone — the gray of corporate stationery, the tone of professional documents, present but never dominant. Warm-gray-light-faint extends to the near-white that reads as premium rather than cold.",
+    ["Classic", "Trust", "Institutional"],
+    [
+      "indigo-core-muted",
+      "indigo-whisper-soft",
+      "warm-gray-mid-muted",
+      "warm-gray-light-faint",
+      "amber-silk-faint",
+    ],
+    {
+      editorialNote:
+        "Brand trust is the foundational palette for any brand that competes on reliability, permanence, and institutional credibility. Works for financial services, legal, healthcare, insurance, government, and any brand whose primary value proposition is 'we will still be here in 20 years.' The amber-silk-faint accent adds humanity to what could otherwise be too institutional.",
+      promptWords: [
+        "financial services brand in institutional navy and warm gray palette",
+        "law firm identity in deep navy and professional warm gray",
+        "healthcare brand in trustworthy navy and soft warm white",
+      ],
+      useCases: ["Financial services and banking", "Healthcare and insurance", "Legal and professional services"],
+    }
+  ),
+];
+
+collections.push(...extraCollections33);

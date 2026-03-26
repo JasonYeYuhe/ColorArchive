@@ -2153,6 +2153,13 @@ const translations: Record<string, Record<string, string>> = {
   "useCases.readGuide": { en: "Read guide", zh: "阅读指南" },
   "useCases.moreUseCases": { en: "More Use Cases", zh: "更多使用场景" },
   "useCases.viewUseCase": { en: "View use case", zh: "查看使用场景" },
+
+  // Famous Palettes page
+  "famousPalettes.eyebrow": { en: "Reference Library", zh: "参考资料库" },
+  "famousPalettes.title": { en: "Famous Color Palettes", zh: "知名配色方案" },
+  "famousPalettes.subtitle": { en: "Iconic palettes from the most recognized brands, art movements, films, and design systems in history — with hex codes, cultural context, and the stories behind each color choice.", zh: "历史上最具代表性品牌、艺术流派、电影和设计系统的标志性配色方案，附 hex 代码、文化背景及每种颜色背后的故事。" },
+  "tools.famousPalettes.name": { en: "Famous Palettes", zh: "知名配色" },
+  "tools.famousPalettes.desc": { en: "35+ iconic color palettes from Google, Apple, Bauhaus, Matrix, and more. With hex codes and cultural history.", zh: "35 套以上标志性配色方案，涵盖谷歌、苹果、包豪斯、黑客帝国等。附 hex 代码和文化历史。" },
 };
 
 export function t(key: string, locale: Locale): string {

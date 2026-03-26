@@ -868,6 +868,41 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   ice_palette: ["cerulean", "azure", "cobalt", "frost", "whisper"],
   winter_palette: ["cerulean", "azure", "indigo", "cobalt", "frost"],
   arctic_palette: ["cerulean", "azure", "indigo", "cobalt", "veil"],
+  // Data visualization
+  data_color: ["cobalt", "teal", "amber", "coral", "emerald"],
+  chart_palette: ["cobalt", "teal", "amber", "coral", "citrine"],
+  graph_palette: ["cobalt", "teal", "amber", "jade", "citrine"],
+  dataviz: ["cobalt", "teal", "amber", "coral", "emerald"],
+  sequential_scale: ["cobalt", "cerulean", "azure", "frost", "veil"],
+  categorical_palette: ["cobalt", "teal", "amber", "coral", "violet"],
+  // Famous brands
+  google_colors: ["cobalt", "ember", "citrine", "emerald"],
+  spotify_green: ["emerald", "jade", "moss"],
+  netflix_red: ["ember", "crimson", "coral"],
+  apple_gray: ["cool-gray", "warm-gray", "neutral"],
+  brand_blue: ["cobalt", "azure", "cerulean", "indigo"],
+  // Design system colors
+  success_color: ["emerald", "jade", "moss", "lime"],
+  warning_color: ["amber", "citrine", "honey", "ember"],
+  error_color: ["ember", "crimson", "coral", "rose"],
+  info_color: ["cobalt", "azure", "cerulean", "teal"],
+  neutral_system: ["cool-gray", "warm-gray", "true-gray", "ivory"],
+  // Color system architecture
+  token_color: ["cobalt", "azure", "teal", "indigo"],
+  system_color: ["cobalt", "azure", "teal", "neutral"],
+  design_tokens: ["cobalt", "azure", "teal", "neutral", "ivory"],
+  // Historical and cultural
+  renaissance_color: ["cobalt", "amber", "crimson", "ivory", "gold"],
+  medieval_color: ["cobalt", "crimson", "amber", "jade", "ivory"],
+  imperial_purple: ["violet", "indigo", "plum"],
+  royal_blue_classic: ["cobalt", "indigo", "azure"],
+  pigment_blue: ["cobalt", "indigo", "cerulean"],
+  // Negative space and minimal
+  breathing_room: ["ivory", "veil", "frost", "whisper"],
+  empty_space: ["ivory", "veil", "frost", "neutral"],
+  premium_neutral: ["warm-gray", "cool-gray", "ivory", "frost"],
+  luxury_neutral: ["warm-gray", "ivory", "frost", "veil"],
+  restraint_palette: ["warm-gray", "cool-gray", "ivory"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

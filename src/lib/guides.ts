@@ -9278,3 +9278,188 @@ const extraGuides33: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides33);
+
+const extraGuides34: LandingGuide[] = [
+  {
+    category: "Data Visualization",
+    slug: "data-visualization-color-guide",
+    title: "Color for Data Visualization: Categorical, Sequential, and Diverging Scales",
+    summary:
+      "A practical guide to the three fundamental scales of data visualization color, accessibility for color vision deficiency, and the common errors that make data charts misleading.",
+    eyebrow: "Information Design",
+    priority: 83,
+    searchIntent: "data visualization color color charts color scales categorical sequential diverging data viz color accessibility",
+    featuredCollectionId: "cloud-nine",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Data Visualization", "Accessibility", "Information Design"],
+    highlights: [
+      "The three fundamental scales — categorical (unordered groups), sequential (magnitude), and diverging (two-direction from a center) — each have distinct requirements for discriminability, perceptual uniformity, and accessibility.",
+      "Approximately 8% of male readers have some form of color vision deficiency; red-green reliance in categorical palettes is the most common accessibility failure in data design.",
+      "The Okabe-Ito palette is the most widely recommended categorical palette for accessibility, designed to be discriminable across all common forms of color vision deficiency simultaneously.",
+    ],
+    sections: [
+      {
+        heading: "The Grammar of Data Color",
+        body: "Data visualization has a stricter color grammar than other design disciplines — here, color is not expression but communication, and mistakes mean readers misunderstand data. The three scales (categorical, sequential, diverging) each solve different data communication problems.",
+      },
+      {
+        heading: "Accessibility First",
+        body: "Color vision deficiency affects a meaningful portion of your audience. The Okabe-Ito palette, WCAG contrast ratios for text-on-chart-background, and always pairing color with shape/pattern redundancy are non-negotiable in published data work.",
+      },
+      {
+        heading: "Common Errors to Avoid",
+        body: "Too many categories (5-7 max reliable), using the same hue for different data types, fully saturated colors in tables, and single-hue sequential palettes for diverging data — these are the errors that make data visually confusing.",
+      },
+    ],
+    links: [
+      { label: "Browse Collections", href: "/collections/" },
+      { label: "Color Tools", href: "/tools/" },
+    ],
+  },
+  {
+    category: "Color History",
+    slug: "historical-pigments-color-guide",
+    title: "Historical Pigments: The Colors That Shaped Art and Culture",
+    summary:
+      "Before synthetic chemistry, specific colors were extraordinarily rare and expensive. Ultramarine cost more than gold; Tyrian purple was reserved for emperors. Understanding pigment history explains why certain colors carry cultural weight today.",
+    eyebrow: "Art History",
+    priority: 79,
+    searchIntent: "historical pigments color history ultramarine lapis lazuli tyrian purple color art history pigment history",
+    featuredCollectionId: "art-deco",
+    featuredPackId: "complete-archive",
+    tags: ["Color History", "Art History", "Pigments"],
+    highlights: [
+      "Ultramarine cost more than gold throughout the Renaissance — produced exclusively from lapis lazuli mined in Afghanistan. Synthetic ultramarine (1826) dropped the price by 99% and its luxury associations nearly as fast.",
+      "Tyrian purple required approximately 12,000 murex snails to produce 1.4 grams of dyestuff — enough to dye only a hem. Roman Sumptuary Laws restricted its use to emperors and their immediate families.",
+      "Verdigris, the primary green available to Renaissance painters, was chemically unstable and often darkened over centuries — explaining why many originally-green areas in old paintings now appear near-black.",
+    ],
+    sections: [
+      {
+        heading: "Scarcity as Cultural Value",
+        body: "When specific colors exist only through specific sources — geological, biological, alchemical — their scarcity becomes their meaning. Ultramarine, Tyrian purple, and Tyrian crimson were all political as much as aesthetic choices. Understanding this history illuminates why certain colors still carry authority beyond their visual properties.",
+      },
+      {
+        heading: "The Chemistry Revolution",
+        body: "The 19th century synthetic pigment revolution — chromium oxide green (1838), synthetic ultramarine (1826), cadmium pigments (1840s), synthetic alizarin (1868) — democratized color access while simultaneously deflating the cultural associations of specific hues. Today's designers inherit a palette that was shaped entirely by chemistry.",
+      },
+      {
+        heading: "Design Implications",
+        body: "Historical pigment associations are not obsolete — they're encoded in collective cultural memory. Navy blue's association with authority comes partly from its use in naval uniforms when indigo was an expensive import. Gold's associations are inseparable from actual gold's scarcity. These histories operate below conscious threshold but above zero.",
+      },
+    ],
+    links: [
+      { label: "Browse Collections", href: "/collections/" },
+      { label: "Color Tools", href: "/tools/" },
+    ],
+  },
+  {
+    category: "Design Principles",
+    slug: "negative-space-color-guide",
+    title: "Negative Space in Color Design: The Power of Restraint",
+    summary:
+      "The most powerful palettes often succeed through what they don't include. Understanding negative space, background color, and the 60-30-10 proportion rule transforms how you deploy color across any design surface.",
+    eyebrow: "Color Principles",
+    priority: 81,
+    searchIntent: "negative space color design color restraint white space color 60 30 10 rule color proportion background color design",
+    featuredCollectionId: "cloud-nine",
+    featuredPackId: "complete-archive",
+    tags: ["Design Principles", "Minimalism", "Color Theory"],
+    highlights: [
+      "The 60-30-10 rule: 60% neutral background, 30% secondary structural elements, 10% accent color. When more than 15% of visual space is saturated color, palettes read as busy regardless of how good the individual colors are.",
+      "Pure white (#FFFFFF) and pure black (#000000) are paradoxically the hardest backgrounds to design against. Near-whites and dark-but-not-black alternatives add character without introducing visible 'color.'",
+      "Luxury and premium brands consistently use more neutral space than their competitors — the large neutral field is what gives accent colors (Hermès orange, Tiffany blue) their impact.",
+    ],
+    sections: [
+      {
+        heading: "Background Color as Design Decision",
+        body: "Background is the largest single color area in most designs, yet it's usually chosen last. The specific near-white (#FAFAF8 warm vs #F8F9FB cool) or near-black (#0A0A0A vs #121218) creates the emotional temperature of the entire design. This is a design decision with large consequences, not a default.",
+      },
+      {
+        heading: "The 60-30-10 Proportion",
+        body: "Color balance is about proportion, not count. Five colors at equal visual weight create chaos; the same five colors at 60/20/10/6/4 proportion create coherence. The accent-to-neutral ratio is the most controllable lever in palette deployment.",
+      },
+      {
+        heading: "Learning from Luxury",
+        body: "Apple, Hermès, Chanel, and similar premium brands are aggressive practitioners of color restraint. Their accent colors (blue, orange, black) are impactful precisely because they appear rarely against vast neutral fields. The lesson generalizes: color scarcity creates color value.",
+      },
+    ],
+    links: [
+      { label: "Browse Collections", href: "/collections/" },
+      { label: "Color Tools", href: "/tools/" },
+    ],
+  },
+  {
+    category: "Brand Strategy",
+    slug: "brand-color-system-architecture-guide",
+    title: "Brand Color System Architecture: Primitive, Semantic, and Component Layers",
+    summary:
+      "A color palette is not a color system. Learn how to build a scalable three-tier color architecture — primitive values, semantic tokens, and component tokens — that works across every surface, team, and mode.",
+    eyebrow: "Design Systems",
+    priority: 85,
+    searchIntent: "brand color system design tokens semantic color tokens primitive color tokens color architecture design system color",
+    featuredCollectionId: "cloud-nine",
+    featuredPackId: "dark-mode-ui-kit",
+    tags: ["Brand Strategy", "Design Systems", "Tokens"],
+    highlights: [
+      "The three-tier architecture — primitive (Blue 100–900), semantic (color.background.primary), component (button.primary.background) — is how IBM Carbon, Material 3, and Apple HIG all structure color at scale.",
+      "Semantic tokens decouple design intent from color values, enabling multi-mode systems: the same semantic token maps to different primitives in light mode, dark mode, high-contrast mode, or alternate themes without changing component code.",
+      "Color governance — the policies for introducing new tokens, reviewing palette evolution, and preventing ad-hoc hex values from proliferating — is the underappreciated half of color system work.",
+    ],
+    sections: [
+      {
+        heading: "From Palette to Architecture",
+        body: "A palette is a list of colors. A system is a set of decisions about how colors relate to each other and to design intent. The architectural difference is the semantic layer: naming colors by purpose rather than appearance, which is what enables multi-mode, multi-brand, and multi-product scalability.",
+      },
+      {
+        heading: "Building the Three Tiers",
+        body: "Start with a comprehensive primitive scale (full range, not just the values you expect to use). Build a semantic mapping that describes every design decision as a named token. Connect component-level tokens to semantic tokens so changes propagate automatically. Tools: Figma Variables, Tokens Studio, Style Dictionary.",
+      },
+      {
+        heading: "Governance and Evolution",
+        body: "Without governance, systems drift. Color review workflows, versioning strategies, and clear criteria for when to add vs. reuse tokens prevent the ad-hoc proliferation of hex values that makes systems unmaintainable.",
+      },
+    ],
+    links: [
+      { label: "Color Combinations", href: "/combinations/" },
+      { label: "Design Token Generator", href: "/tokens/" },
+    ],
+  },
+  {
+    category: "UX Design",
+    slug: "color-user-research-guide",
+    title: "Testing Color with Users: Research Methods for Color Decisions",
+    summary:
+      "Color decisions made by instinct, committee, or competitive reference are defensible but often wrong. Learn how A/B testing, eye-tracking, and qualitative research can make color choices evidence-based.",
+    eyebrow: "UX Research",
+    priority: 78,
+    searchIntent: "color user research color testing A/B testing color eye tracking color color user testing ux color research",
+    featuredCollectionId: "electric-dreams",
+    featuredPackId: "complete-archive",
+    tags: ["UX Research", "Color Testing", "Evidence-Based Design"],
+    highlights: [
+      "A/B testing measures behavioral outcomes (click-through, conversion) for specific interface elements — most valuable for high-traffic CTAs, checkout buttons, and form fields. It tells you which color performs, not why.",
+      "Eye-tracking reveals attention patterns — whether your CTA color commands attention in a complex layout, whether error states get noticed before invalid form submission, whether visual hierarchy is actually experienced as intended.",
+      "Qualitative research (interviews, usability sessions) often surfaces the most actionable color insights: users describing a design as 'cold' or 'dated' are almost always responding to color decisions, even when color isn't mentioned.",
+    ],
+    sections: [
+      {
+        heading: "Why Instinct and Reference Fail",
+        body: "Instinct encodes personal taste, not user behavior. Competitive reference creates palette convergence, not differentiation. Committee decisions optimize for internal agreement, not user experience. Each has its value but none produces reliably correct color decisions without validation.",
+      },
+      {
+        heading: "Quantitative Methods",
+        body: "A/B testing (behavioral outcomes), eye-tracking (attention patterns), and first-click testing (navigational clarity) each answer specific questions. The methodological limitation: quantitative methods tell you which color is better in a specific context, not why, and they don't generalize across contexts.",
+      },
+      {
+        heading: "Qualitative Insights",
+        body: "The verbal language users use to describe how a design feels — 'trustworthy,' 'clinical,' 'old,' 'approachable' — is almost always a response to color. Capturing this language in moderated sessions gives design teams the vocabulary to make color corrections that align with user perception rather than internal aesthetic preferences.",
+      },
+    ],
+    links: [
+      { label: "Browse Collections", href: "/collections/" },
+      { label: "Color Tools", href: "/tools/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides34);

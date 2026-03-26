@@ -64,7 +64,8 @@ interface SiteHeaderProps {
     | "/product-examples"
     | "/use-cases"
     | "/name"
-    | "/css-colors";
+    | "/css-colors"
+    | "/famous-palettes";
 }
 
 interface NavItem {
