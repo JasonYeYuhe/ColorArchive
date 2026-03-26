@@ -5093,7 +5093,7 @@ const extraCollections48: ColorCollection[] = [
     "The color of temperate forest in the thirty minutes after sunset — when color is still present but shadow is reclaiming the space. Moss nocturne provides the deep shadow green of forest canopy at the lowest light: nearly black, with just enough green to read as living rather than mineral. Indigo velvet clear adds the indigo-tinted depth of a darkening sky seen through tree cover. Emerald dusk soft delivers the mid-range forest green where some daylight still filters. Amber dusk muted is the last warm light, the color of horizontal light on tree trunks. True gray shadow carries the forest floor in dim conditions.",
     ["Forest", "Moody", "Twilight", "Dark", "Nature"],
     [
-      "moss-nocturne",
+      "moss-nocturne-muted",
       "indigo-velvet-clear",
       "emerald-dusk-soft",
       "amber-dusk-muted",
@@ -5210,7 +5210,7 @@ const extraCollections48: ColorCollection[] = [
     "A palette built from the deep ocean as a scientific and aesthetic space — the specific blues and blacks of depth, the bioluminescent colors of abyssal life, and the subtle phosphorescence of moving water in complete darkness. Cobalt nocturne provides the near-black navy of deep water at depth. Indigo shadow vivid adds the intense deep indigo of the middle water column. Aqua velvet clear delivers the bioluminescent aqua of deep-sea organisms — cold, clear, vivid at this depth. Seafoam bloom clear brings the lighter teal of shallower water for contrast. True gray nocturne provides the pure abyssal black.",
     ["Ocean", "Deep Sea", "Dark", "Navy", "Bioluminescent"],
     [
-      "cobalt-nocturne",
+      "cobalt-nocturne-muted",
       "indigo-shadow-vivid",
       "aqua-velvet-clear",
       "seafoam-bloom-clear",

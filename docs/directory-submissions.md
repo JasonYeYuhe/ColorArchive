@@ -1,7 +1,7 @@
 # ColorArchive — Directory Submission Guide
 
 > Ready-to-use copy + links for submitting to free tool directories.
-> Updated: 2026-03-26
+> Updated: 2026-03-26 (all submissions completed)
 
 ## Submission Copy
 
@@ -27,28 +27,28 @@ hex color codes, color palette generator, design color library, Figma color toke
 ### Tier 1 — High Impact
 | # | Directory | Submit URL | Status |
 |---|-----------|-----------|--------|
-| 1 | Product Hunt | https://www.producthunt.com/posts/new | ✅ Already listed |
-| 2 | AlternativeTo | https://alternativeto.net/ (sign up → suggest app) | ⬜ TODO |
-| 3 | SaaSHub | https://www.saashub.com/services/submit | ⬜ TODO |
-| 4 | TOOOLS.design | https://www.toools.design/suggest-a-tool | ⬜ TODO |
+| 1 | Product Hunt | https://www.producthunt.com/posts/new | ✅ Listed |
+| 2 | AlternativeTo | https://alternativeto.net/ (sign up → suggest app) | ✅ Submitted (7-day review, ~2026-04-02) |
+| 3 | SaaSHub | https://www.saashub.com/services/submit | ✅ Submitted (Free tier) |
+| 4 | TOOOLS.design | https://www.toools.design/suggest-a-tool | ✅ Submitted |
 
 ### Tier 2 — Good Backlinks
 | # | Directory | Submit URL | Status |
 |---|-----------|-----------|--------|
-| 5 | Uneed.best | https://www.uneed.best/submit-a-tool | ⬜ TODO |
-| 6 | MicroLaunch | https://microlaunch.net/ | ⬜ TODO |
-| 7 | DevHunt | https://devhunt.org/ | ⬜ TODO |
-| 8 | BetaList | https://betalist.com/submit | ⬜ TODO |
+| 5 | Uneed.best | https://www.uneed.best/submit-a-tool | ✅ Submitted (launch scheduled) |
+| 6 | MicroLaunch | https://microlaunch.net/ | ⛔ Skipped (paid only, $49+) |
+| 7 | DevHunt | https://devhunt.org/ | ⛔ Skipped (free slots full until 2028) |
+| 8 | BetaList | https://betalist.com/submit | ⛔ Skipped (no Google OAuth, email/password only) |
 
 ### Tier 3 — Community / Long Tail
 | # | Directory | Submit URL | Status |
 |---|-----------|-----------|--------|
-| 9 | Indie Hackers | https://www.indiehackers.com/products | ⬜ TODO |
-| 10 | Fazier | https://fazier.com/ | ⬜ TODO |
-| 11 | Launching Next | https://www.launchingnext.com/submit/ | ⬜ TODO |
-| 12 | Open Launch | https://open-launch.com/ | ⬜ TODO |
-| 13 | Peerlist | https://peerlist.io/ | ⬜ TODO |
-| 14 | StackShare | https://stackshare.io/ | ⬜ TODO |
+| 9 | Indie Hackers | https://www.indiehackers.com/product/colorarchive | ✅ Listed |
+| 10 | Fazier | https://fazier.com/ | ⛔ Skipped (comment UI non-functional) |
+| 11 | Launching Next | https://www.launchingnext.com/submit/ | ✅ Submitted (ID: 129304) |
+| 12 | Open Launch | https://open-launch.com/ | ✅ Submitted (free launch, Dec 15 2026) |
+| 13 | Peerlist | https://peerlist.io/ | ⛔ Skipped (no Google OAuth, email/password only) |
+| 14 | StackShare | https://stackshare.io/colorarchive | ✅ Listed |
 
 ### Position As Alternative To
 - Coolors (coolors.co)
