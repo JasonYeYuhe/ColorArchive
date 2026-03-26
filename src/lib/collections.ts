@@ -3175,3 +3175,108 @@ const extraCollections33: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections33);
+
+const extraCollections34: ColorCollection[] = [
+  createCollection(
+    "forest-bathing",
+    "Forest Bathing",
+    "A deep woodland palette for wellness brands, botanical illustration, and nature-immersive interfaces.",
+    "Inspired by the Japanese practice of shinrin-yoku, this collection draws from forest undergrowth, canopy light, and mossy shade. The palette spans from sun-dappled lime to the deepest emerald shadow, with warm amber as a late-afternoon accent.",
+    ["Nature", "Wellness", "Green"],
+    [
+      "moss-bloom-soft",
+      "leaf-tone-soft",
+      "emerald-core-soft",
+      "lime-silk-clear",
+      "olive-shadow-muted",
+      "amber-bloom-soft",
+    ],
+    {
+      editorialNote:
+        "Forest Bathing evokes the sensory richness of time spent in woodland: the layered greens from undergrowth to canopy, the filtered warmth of light through leaves, the deep shadows under old growth. This palette works for wellness brands, outdoor gear, botanical products, and any interface that should feel grounded and alive rather than sterile.",
+      promptWords: [
+        "wellness brand in deep woodland greens with warm amber accent",
+        "botanical illustration palette with layered forest greens",
+        "outdoor gear brand in nature-immersive green and moss",
+      ],
+      useCases: ["Wellness and mindfulness brands", "Outdoor and nature brands", "Botanical illustration and editorial"],
+    },
+  ),
+  createCollection(
+    "y2k-digital",
+    "Y2K Digital",
+    "A millennium-era revival palette of electric blues, chrome silvers, and vivid accents for digital nostalgia projects.",
+    "Early internet optimism rendered in the colors of the 2000s: electric cobalt, chrome gray, lime green, and vivid magenta. This palette captures the era of translucent plastics, neon desktop themes, and unironic digital maximalism.",
+    ["Digital", "Nostalgia", "Bold"],
+    [
+      "cobalt-bloom-vivid",
+      "iris-tone-vivid",
+      "lime-core-vivid",
+      "magenta-silk-vivid",
+      "cool-gray-tone",
+      "azure-pearl-clear",
+    ],
+    {
+      editorialNote:
+        "Y2K Digital is unabashedly bold: this is the palette of translucent iMacs, MSN Messenger skins, and early Flash websites. It belongs in music, gaming, streetwear, and any brand that wants to claim the early-internet aesthetic without being ironic about it. Use sparingly in UI contexts — this palette can overwhelm — but lean into its energy for editorial and campaign work.",
+      promptWords: [
+        "music brand in early 2000s electric blue and vivid chrome palette",
+        "streetwear brand with Y2K era bold colors and digital energy",
+        "gaming interface in millennium-era cobalt and lime palette",
+      ],
+      useCases: ["Music and entertainment branding", "Streetwear and fashion", "Gaming and digital nostalgia"],
+    },
+  ),
+  createCollection(
+    "haute-couture",
+    "Haute Couture",
+    "The restrained neutrals of fashion week runways — ivory, bone, nude, and the considered use of a single dark ground.",
+    "Fashion houses at the highest level use almost no color in their core system: ivory, cream, warm bone, and a single dark anchor. This collection captures the palette of runway presentation: editorial restraint, maximum quality signal, zero unnecessary saturation.",
+    ["Fashion", "Luxury", "Neutral"],
+    [
+      "apricot-whisper-faint",
+      "apricot-pearl-muted",
+      "honey-mist-faint",
+      "warm-gray-pearl",
+      "warm-gray-dusk",
+      "merlot-ink-muted",
+    ],
+    {
+      editorialNote:
+        "Haute Couture is the palette of restraint at its most intentional. Fashion at this level communicates through what it does not do: no saturated accent, no decorative color, no visual noise. The dark merlot-ink anchor provides depth without introducing hue competition. This palette works for luxury fashion, high-end beauty, jewelry, and any brand that competes on quality of craft rather than breadth of color expression.",
+      promptWords: [
+        "luxury fashion brand in runway neutral ivory and warm bone palette",
+        "high-end jewelry brand in restrained cream and warm gray",
+        "editorial fashion photography palette in nude, bone, and dark ink",
+      ],
+      useCases: ["Luxury fashion and beauty", "High-end jewelry and accessories", "Editorial fashion photography"],
+    },
+  ),
+  createCollection(
+    "transit-authority",
+    "Transit Authority",
+    "High-contrast navigation colors drawn from the world's great metro systems — for signage, maps, and wayfinding design.",
+    "The palette of public transit: cerulean line colors, amber warnings, emergency red, and the cool grays of concrete and infrastructure. Designed for maximum legibility at distance and under varied lighting conditions.",
+    ["Navigation", "Signage", "UI"],
+    [
+      "cerulean-core-vivid",
+      "amber-core-vivid",
+      "ember-core-vivid",
+      "emerald-core-vivid",
+      "cool-gray-core",
+      "cool-gray-ink",
+    ],
+    {
+      editorialNote:
+        "Transit Authority draws from a century of public navigation design: the high saturation colors used by metro systems worldwide to ensure unambiguous line identification at a glance. These colors were not chosen for beauty but for maximum discrimination under fluorescent lighting, at distance, and in peripheral vision. As a design palette, they bring an authoritative, utility-forward energy to interface, wayfinding, and technical communication work.",
+      promptWords: [
+        "transit map design in high-contrast metro line colors",
+        "wayfinding system in municipal blue, amber, and red",
+        "technical interface palette in high-saturation navigation colors",
+      ],
+      useCases: ["Wayfinding and signage design", "Maps and navigation interfaces", "Technical and utility-focused UI"],
+    },
+  ),
+];
+
+collections.push(...extraCollections34);

@@ -9463,3 +9463,213 @@ const extraGuides34: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides34);
+
+const extraGuides35: LandingGuide[] = [
+  {
+    category: "Color Psychology",
+    slug: "color-ecommerce-conversion-guide",
+    title: "Color and E-Commerce Conversion: Evidence-Based Design Decisions",
+    summary:
+      "What research actually says about color's effect on purchasing behavior. Button color, product photography backgrounds, and palette-to-psychology matching — without the myths.",
+    eyebrow: "E-Commerce Design",
+    priority: 82,
+    searchIntent: "color ecommerce conversion button color shop color palette product photography color",
+    featuredCollectionId: "electric-blue",
+    featuredPackId: "brand-starter-kit",
+    tags: ["E-Commerce", "Conversion", "Color Psychology"],
+    highlights: [
+      "Contrast matters more than hue: visual salience — how strongly an element stands out from context — predicts click behavior better than any specific button color.",
+      "Pure white product photography signals commodity. Warm cream and off-white backgrounds signal brand and elevate perceived value, which is why premium brands avoid pure #FFFFFF.",
+      "Cooler palettes (blues, cool grays) reduce return rates for considered purchases; warmer palettes drive impulse behavior. Match palette temperature to desired customer psychology.",
+    ],
+    sections: [
+      {
+        heading: "The Button Color Myth",
+        body: "The '32% conversion boost from orange buttons' originated from a single unreplicated test. Large-scale testing consistently shows contrast matters more than hue. Visual salience — standing out from context — predicts clicks better than any color rule.",
+      },
+      {
+        heading: "Product Photography Backgrounds",
+        body: "Pure white communicates commodity and drives specification comparison. Warm cream, off-white, and contextual photography communicate brand. Apple, Hermès, and Net-a-Porter all use carefully controlled near-whites rather than pure #FFFFFF.",
+      },
+      {
+        heading: "Warm vs. Cool Palette Strategy",
+        body: "Cooler palettes (blues, cool grays) are associated with accuracy and trust, reducing return rates for considered purchases. Warmer palettes drive impulse conversion but may increase returns. Match palette temperature to the customer behavior you want.",
+      },
+      {
+        heading: "Category-Specific Color Logic",
+        body: "Luxury and high-consideration categories benefit from cooler, more controlled palettes that signal precision. Fast fashion uses warmer, more energetic palettes to drive rapid decision-making. Fintech, healthcare, and insurance use blue universally for its trust association.",
+      },
+    ],
+    links: [
+      { label: "Browse Blue Palettes", href: "/colors/?family=Blue" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-emotions-guide/" },
+      { label: "Explore Tools", href: "/tools/" },
+    ],
+  },
+  {
+    category: "Systems Design",
+    slug: "wayfinding-color-systems-guide",
+    title: "Wayfinding Color Systems: Designing Navigation for Hospitals, Transit, and Campuses",
+    summary:
+      "How transit systems, hospitals, and airports use color to guide millions of people — the principles behind life-critical color system design.",
+    eyebrow: "Wayfinding Design",
+    priority: 78,
+    searchIntent: "wayfinding color system signage design hospital color transit color map color navigation design",
+    featuredCollectionId: "transit-authority",
+    featuredPackId: "complete-archive",
+    tags: ["Wayfinding", "Signage", "Systems Design"],
+    highlights: [
+      "The Washington DC Metro (unique color per line) is consistently rated easier to navigate than the NYC Subway (multiple lines sharing colors). Color uniqueness compounds in value as systems scale.",
+      "Hospital wayfinding must work for people under stress — anxiety impairs spatial navigation. High-saturation, unambiguous zone colors and text+symbol pairing for accessibility are non-negotiable.",
+      "Zone colors that represent activity type (arts, sciences, administration) rather than specific buildings survive construction and repurposing without requiring redesign.",
+    ],
+    sections: [
+      {
+        heading: "The Principle of Color Uniqueness",
+        body: "Every shared color in a wayfinding system creates disambiguation burden on every user, every time. Color uniqueness compounds in value as systems scale — each unique color is a guaranteed cognitive shortcut.",
+      },
+      {
+        heading: "Stress-State Design",
+        body: "Hospital visitors under stress have degraded spatial navigation ability. High-saturation, unambiguous zone colors; complete consistency across all touchpoints; and always pairing color with text and symbols ensure the system works for everyone.",
+      },
+      {
+        heading: "Zone Color vs. Route Color",
+        body: "Campus and building wayfinding uses zone colors that represent activity type, not specific locations. This design survives building repurposing and new construction: a new building inheriting its zone color needs no additional orientation.",
+      },
+      {
+        heading: "Contrast and Legibility",
+        body: "ADA and ISO standards require minimum 3:1 contrast for large signage text, 4.5:1 for standard text. Test wayfinding colors at all expected viewing distances and under variable lighting — fluorescent lighting significantly alters warm colors.",
+      },
+    ],
+    links: [
+      { label: "Color Contrast Checker", href: "/tools/" },
+      { label: "Accessibility Color Guide", href: "/guides/color-blindness-accessibility-design-guide/" },
+      { label: "Browse Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "color-typography-pairing-guide",
+    title: "Pairing Color with Typography: A Systems Approach",
+    summary:
+      "Every typeface has a palette it prefers and a palette it fights. How to match font personality to palette personality for cohesive design systems.",
+    eyebrow: "Design Systems",
+    priority: 80,
+    searchIntent: "color typography pairing typeface color palette font color design system type hierarchy",
+    featuredCollectionId: "quiet-luxury",
+    featuredPackId: "editorial-print",
+    tags: ["Typography", "Color Pairing", "Design Systems"],
+    highlights: [
+      "High-contrast typefaces (Bodoni, Didot, Playfair) need restrained palettes. The typeface carries visual weight — the palette provides context. Saturated backgrounds destroy their personality.",
+      "Geometric sans-serifs (Futura, Neue Haas Grotesk, Circular) have structural neutrality that supports wide palette ranges — they absorb the palette's personality rather than imposing their own.",
+      "Always test type hierarchy in the actual deployed palette, not in black-on-white. Warm accent colors advance visually; cool accents recede — both interact with typographic weight.",
+    ],
+    sections: [
+      {
+        heading: "High-Contrast Typefaces Need Restraint",
+        body: "Typefaces with dramatic thick-thin stroke contrast pair best with restrained palettes: dark ink on warm ivory, a single sparing accent. The typeface carries visual weight; the palette provides context. Busy backgrounds destroy their personality.",
+      },
+      {
+        heading: "Geometric Sans-Serifs Are Palette-Flexible",
+        body: "Futura, Neue Haas Grotesk, Circular, and Graphik tolerate reversed type, read cleanly against saturated backgrounds, and absorb the personality of the palette. This explains their dominance in technology and digital branding.",
+      },
+      {
+        heading: "Hierarchy Through Color",
+        body: "When headings and body text share the same weight and typeface, the palette must communicate hierarchy. This only works when accent colors have sufficient value contrast with body text and background — always test in the actual palette.",
+      },
+      {
+        heading: "Temperature and Visual Weight",
+        body: "Warm accent colors (coral, amber, rust) advance visually and feel heavier than cool accents (cobalt, indigo, teal) at identical lightness and saturation. This temperature effect compounds with typographic weight.",
+      },
+    ],
+    links: [
+      { label: "Explore Neutral Palettes", href: "/colors/?family=Neutral" },
+      { label: "Color Contrast Checker", href: "/tools/" },
+      { label: "Browse Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "color-trend-forecasting-guide",
+    title: "How Color Trends Are Predicted: Pantone, WGSN, and Forecasting Methods",
+    summary:
+      "Inside the trend forecasting industry: how color trends are identified, amplified, and why understanding the cultural shift matters more than copying the hex code.",
+    eyebrow: "Trend Analysis",
+    priority: 77,
+    searchIntent: "color trend forecasting pantone color of the year color trends design trends WGSN color forecast",
+    featuredCollectionId: "famous-palettes",
+    featuredPackId: "complete-archive",
+    tags: ["Color Trends", "Pantone", "Forecasting"],
+    highlights: [
+      "Color forecasters like WGSN and Pantone operate on 18-to-24-month lead times. A color designated as trending for 2026 was identified as emerging in 2024, through social media analysis, runway attendance, and early-adopter market data.",
+      "Color forecasting is partially self-fulfilling: when major forecasters designate a color and hundreds of brands act on the forecast, the trend materializes as much through prediction as independent emergence.",
+      "The more valuable question is not 'what color is trending?' but 'what cultural shift does this color represent?' — understanding the shift helps you apply the insight rather than decorating with the hex code.",
+    ],
+    sections: [
+      {
+        heading: "The 18-24 Month Lead Time",
+        body: "Trend forecasters combine social media color analysis, runway attendance, early-adopter market sales data (Korea, Scandinavia), and macro-cultural trend mapping to identify colors 18-24 months before mainstream adoption.",
+      },
+      {
+        heading: "Trends as Self-Fulfilling",
+        body: "When WGSN designates a color and distributes to hundreds of thousands of subscribers including major brands, those brands produce products in the color. The trend materializes partly through prediction. Color forecasting is trend construction as much as trend discovery.",
+      },
+      {
+        heading: "The Cultural Shift Behind the Color",
+        body: "Sage green's 2020-2023 dominance expressed a cultural reorientation toward wellness and anti-anxiety aesthetics after maximalist saturation. Understanding the underlying shift is more useful than matching the hex code.",
+      },
+      {
+        heading: "Using Forecasts as Alignment",
+        body: "Trend forecasts are most useful as alignment tools: they tell you what color language your audience will encounter over the next two years. Using a forecast color thoughtfully means understanding its cultural resonance.",
+      },
+    ],
+    links: [
+      { label: "Browse Color Collections", href: "/collections/" },
+      { label: "Explore Famous Palettes", href: "/famous-palettes/" },
+      { label: "Newsletter on Color Trends", href: "/newsletter/" },
+    ],
+  },
+  {
+    category: "Color Psychology",
+    slug: "synesthesia-cross-modal-color-guide",
+    title: "Synesthesia and Cross-Modal Color: Why Color Feels the Way It Does",
+    summary:
+      "The neuroscience of color perception beyond vision. How synesthesia research illuminates universal cross-modal associations between color, sound, shape, and texture.",
+    eyebrow: "Color Neuroscience",
+    priority: 76,
+    searchIntent: "synesthesia color perception cross modal color psychology color neuroscience color and sound color feeling",
+    featuredCollectionId: "dreamlike",
+    featuredPackId: "complete-archive",
+    tags: ["Color Psychology", "Neuroscience", "Synesthesia"],
+    highlights: [
+      "Cross-modal color associations appear in everyone below conscious awareness — not just synesthetes. The Bouba/Kiki effect shows automatic sound-shape associations across cultures. High-pitched sounds map to lighter, more saturated colors; low-pitched sounds to darker, neutral palettes.",
+      "Mismatched audio-visual palettes create cognitive friction users feel but rarely articulate. A sharp notification sound with a soft, warm visual palette creates tension. Cohesive products align modal character across senses.",
+      "Tiffany blue activates the full sensory memory of a Tiffany purchase — the cardboard texture, tissue paper sound, and color are stored as a linked sensory cluster, not isolated channels.",
+    ],
+    sections: [
+      {
+        heading: "Cross-Modal Color Is Universal",
+        body: "Approximately 4% of people have synesthesia, but cross-modal color associations appear in everyone. High-pitched sounds map to lighter, more saturated colors across cultures. Low-pitched sounds map to darker, neutral palettes. This is neurological, not learned.",
+      },
+      {
+        heading: "Audio-Visual Palette Alignment",
+        body: "Sound design and color design in interactive products are not independent. Mismatched audio-visual palettes create cognitive friction users feel but rarely articulate. Cohesive products align modal character — the 'feel' of interactions — across all senses.",
+      },
+      {
+        heading: "Cross-Modal Brand Memory",
+        body: "Brands with aligned color, sound, and texture profiles achieve higher recognition and recall. Color is most powerful when it anchors a full sensory experience rather than standing as an isolated visual element.",
+      },
+      {
+        heading: "Design System Implications",
+        body: "Design systems that specify only visual color tokens are missing half the picture. The tactile qualities of materials, the sound of interactions, and the motion character of animations all carry color-like modal associations that reinforce or undermine the palette personality.",
+      },
+    ],
+    links: [
+      { label: "Color Psychology Basics", href: "/guides/color-psychology-emotions-guide/" },
+      { label: "Browse Calming Palettes", href: "/colors/?family=Blue" },
+      { label: "Explore Color Tools", href: "/tools/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides35);

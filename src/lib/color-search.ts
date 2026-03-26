@@ -903,6 +903,35 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   premium_neutral: ["warm-gray", "cool-gray", "ivory", "frost"],
   luxury_neutral: ["warm-gray", "ivory", "frost", "veil"],
   restraint_palette: ["warm-gray", "cool-gray", "ivory"],
+  // E-commerce and conversion
+  add_to_cart: ["cobalt", "emerald", "amber", "vivid"],
+  shop_palette: ["cobalt", "coral", "amber", "ivory", "vivid"],
+  storefront_color: ["cobalt", "amber", "coral", "ivory", "emerald"],
+  // Wayfinding and transit
+  wayfinding_color: ["cerulean", "amber", "ember", "emerald", "cobalt"],
+  transit_color: ["cerulean", "cobalt", "amber", "ember", "emerald"],
+  signage_color: ["cobalt", "cerulean", "amber", "ember", "vivid"],
+  metro_palette: ["cerulean", "amber", "emerald", "ember", "cobalt"],
+  // Synesthesia and cross-modal
+  sound_color: ["cobalt", "violet", "indigo", "amber", "vivid"],
+  music_palette: ["cobalt", "violet", "indigo", "crimson", "vivid"],
+  sensory_color: ["cobalt", "violet", "coral", "teal", "vivid"],
+  audio_visual: ["cobalt", "violet", "indigo", "amber"],
+  // Fashion and runway
+  runway_palette: ["ivory", "warm-gray", "apricot", "merlot", "shadow"],
+  couture_color: ["ivory", "apricot", "warm-gray", "merlot"],
+  fashion_neutral: ["apricot", "honey", "ivory", "warm-gray", "muted"],
+  haute_couture: ["ivory", "apricot", "honey", "warm-gray"],
+  // Forest and nature immersion
+  forest_bath: ["moss", "leaf", "emerald", "olive", "lime"],
+  shinrin_yoku: ["moss", "emerald", "leaf", "olive", "jade"],
+  canopy_green: ["leaf", "lime", "emerald", "moss", "jade"],
+  undergrowth: ["olive", "moss", "emerald", "jade", "shadow"],
+  // Y2K and millennium nostalgia
+  y2k_palette: ["cobalt", "iris", "lime", "magenta", "vivid"],
+  millennium_color: ["cobalt", "azure", "lime", "vivid", "magenta"],
+  retro_digital: ["cobalt", "iris", "lime", "vivid", "azure"],
+  early_internet: ["cobalt", "iris", "lime", "fuchsia", "vivid"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
