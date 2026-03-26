@@ -3077,3 +3077,34 @@ Built a full reference page at `/industry/` covering 9 major design industries, 
 - `src/lib/guides.ts` — extraGuides46 (3 guides, 288 total)
 - `src/lib/collections.ts` — extraCollections45 (8 collections, 177 total)
 - `.claude/session-lock.json` — released
+
+## 2026-03-26 — Normal Run #1 (post big run #4)
+
+**Type:** Normal Run  
+**Commit:** 77fd7fa  
+**Timestamp:** 2026-03-26T (after big run #4)  
+**Categories:** Content (A), Collections (D), Aliases (D)
+
+### Category A — 4 Newsletter Issues (310–313)
+- `jul-2032-color-wayfinding` — The Hidden Language of Wayfinding Color
+- `jul-2032-gray-return` — The Return of Gray: Chromatic Neutrals in Contemporary Design
+- `aug-2032-shelf-impact` — The Shelf Impact System: Packaging Color Psychology
+- `aug-2032-color-accessibility` — Designing for Color Blindness: Beyond Contrast Ratios
+
+### Category A — 3 SEO Guides (extraGuides47, 289 total)
+- `color-accessibility-guide` (priority 90)
+- `wayfinding-color-design-guide` (priority 82)
+- `packaging-shelf-impact-color-guide` (priority 87)
+
+### Category D — 6 Collections (extraCollections46, 193 total)
+- `midnight-cobalt-violet`, `spring-mint-blush`, `desert-amber-rust`
+- `jewel-tones-deep`, `nordic-minimal-frost`, `citrus-vivid-burst`
+
+### Category D — 50+ Search Aliases
+New alias groups: craft beer, winery, automotive/EV, esports, streetwear, gender-neutral, festive/cultural occasions (diwali, hanukkah, st_patricks, easter, carnival, mardi_gras), timepieces, biophilic/eco, poster/print design, holiday campaigns (black_friday, mothers_day, etc.)
+
+### Files Modified (4 total)
+- `src/data/newsletter-issues.json` — 313 total
+- `src/lib/collections.ts` — extraCollections46 (193 total)
+- `src/lib/guides.ts` — extraGuides47 (289 total)
+- `src/lib/color-search.ts` — ~1336 lines total
