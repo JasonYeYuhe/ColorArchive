@@ -5229,3 +5229,192 @@ const extraCollections48: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections48);
+
+const extraCollections49: ColorCollection[] = [
+  createCollection(
+    "golden-hour-warmth",
+    "Golden Hour Warmth",
+    "The warm amber and peach palette of late afternoon sun — honey gold, soft apricot, blush rose, warm sand.",
+    "Golden hour light at its most luminous — the thirty minutes before sunset when sunlight turns amber and every surface glows peach and gold. Amber radiant clear is the primary color: a pure golden amber at full mid-lightness, the color of sunlight through honey. Apricot silk soft brings the soft, flushed warmth of lit skin and warm stone. Rose bloom muted provides the blush wash of sky at the horizon. Honey tone soft grounds the palette with a deeper, amber-based warm neutral. Coral pearl faint adds the lightest echo of warm pink — a barely-there warmth for surfaces and backgrounds.",
+    ["Warm", "Golden", "Sunset", "Romantic", "Lifestyle"],
+    [
+      "amber-radiant-clear",
+      "apricot-silk-soft",
+      "rose-bloom-muted",
+      "honey-tone-soft",
+      "coral-pearl-faint",
+    ],
+    {
+      editorialNote: "Golden hour light at its warmest — the hour before sunset when everything glows amber and shadow turns peach. The light that every photographer chases.",
+      promptWords: [
+        "golden hour color palette",
+        "sunset warm tones palette",
+        "amber peach color scheme",
+      ],
+      useCases: ["Beauty and skincare brand", "Lifestyle photography editorial", "Wedding and celebration palette"],
+    },
+  ),
+  createCollection(
+    "japandi-neutral-study",
+    "Japandi Neutral Study",
+    "The restrained, warm neutrals of Japandi design — warm gray, stone, linen, pale sage, natural ash.",
+    "Japandi — the synthesis of Japanese wabi-sabi and Scandinavian hygge — in its most essential color language. The palette finds beauty in restraint, in natural material finishes, and in the quiet that comes from removing everything superfluous. Warm gray tone provides the primary warm neutral: the color of unfinished plaster, Japanese shoji paper, and Scandinavian birch left unfinished. True gray pearl adds a cooler, lighter surface — the gray of limestone, concrete, and Nordic summer light. Olive veil faint is the barely-there sage, the color of dried botanicals and natural linen with the faintest green cast. Moss mist faint deepens the green slightly — the color of lichen on stone. Warm gray whisper closes the palette with the lightest possible warm surface.",
+    ["Japandi", "Neutral", "Minimalist", "Natural", "Wabi-sabi"],
+    [
+      "warm-gray-tone",
+      "true-gray-pearl",
+      "olive-veil-faint",
+      "moss-mist-faint",
+      "warm-gray-whisper",
+    ],
+    {
+      editorialNote: "Japandi — Japanese wabi-sabi meets Scandinavian hygge — in its most essential color language: quiet, warm, and organic. Restraint as aesthetic.",
+      promptWords: [
+        "japandi color palette",
+        "wabi sabi neutral palette",
+        "warm minimalist color scheme",
+      ],
+      useCases: ["Interior design moodboard", "Minimalist furniture and homeware brand", "Wellness and slow-living editorial"],
+    },
+  ),
+  createCollection(
+    "electric-neon-accent",
+    "Electric Neon",
+    "High-voltage neon palette for bold digital-first brands — electric lime, hot magenta, bright cyan, vivid violet.",
+    "The palette of LED signage, rave culture, and the digital-native aesthetic of Gen-Z creative work. These are not colors chosen for subtlety — they are colors designed to demand attention, to glow, to read at maximum saturation on screens designed for exactly this. Lime core pure provides the electric green-yellow — the color of safety vests, neon signage, and gaming peripherals. Fuchsia tone vivid brings the hot pink of club lighting and festival branding. Aqua radiant vivid adds the bright cyan of digital lighting effects. Violet core vivid completes the cool side of the spectrum with vivid purple. Citrine core pure adds electric yellow for maximum light-field energy.",
+    ["Neon", "Bold", "Digital", "Vivid", "Youth"],
+    [
+      "lime-core-pure",
+      "fuchsia-tone-vivid",
+      "aqua-radiant-vivid",
+      "violet-core-vivid",
+      "citrine-core-pure",
+    ],
+    {
+      editorialNote: "The palette of LED signage, rave culture, and Gen-Z digital aesthetics — uncompromisingly vivid, energy-first. Not colors for the faint of heart.",
+      promptWords: [
+        "neon color palette",
+        "electric bright colors design",
+        "bold digital palette",
+      ],
+      useCases: ["Gaming brand or esports team", "Youth fashion and streetwear label", "Club, rave, or event brand"],
+    },
+  ),
+  createCollection(
+    "french-countryside-palette",
+    "French Countryside",
+    "The sun-faded, chalky palette of Provence — lavender, aged limestone, wheat gold, dusty sage, faded rose.",
+    "Southern France in summer, seen in the particular bleached quality that intense Mediterranean sun gives to color after years of exposure. The lavender fields outside Valensole, the limestone farmhouses of Les Baux, the terracotta roof tiles of Aix — all faded, chalked, worn by sun and wind into something more beautiful for having been used. Iris pearl muted is the key color: not vivid lavender but the softer, dustier purple of dried lavender bundles and aged paint. True gray bloom provides the aged limestone neutral. Honey bloom soft captures the wheat fields and warm stone surfaces. Moss whisper faint adds the faint green of herb gardens and old shutters. Rose mist faint provides the blushed warmth of sunset on pale stone.",
+    ["French", "Provençal", "Soft", "Romantic", "European"],
+    [
+      "iris-pearl-muted",
+      "true-gray-bloom",
+      "honey-bloom-soft",
+      "moss-whisper-faint",
+      "rose-mist-faint",
+    ],
+    {
+      editorialNote: "Southern France in summer: lavender fields, limestone farmhouses, bleached by sun and wind into something gorgeous. The palette of Provence at its quietest and most beautiful.",
+      promptWords: [
+        "french countryside color palette",
+        "provence color palette design",
+        "french farmhouse colors",
+      ],
+      useCases: ["Home decor and lifestyle brand", "Food, wine, and hospitality packaging", "Travel and editorial photography"],
+    },
+  ),
+  createCollection(
+    "midnight-jewel-tones",
+    "Midnight Jewel Tones",
+    "Rich, saturated jewel tones against near-black — deep sapphire, forest emerald, amethyst, garnet.",
+    "The color language of precious stones, velvet upholstery, candlelight, and the luxury that exists most naturally in darkness. These are colors that need a dark background to reach their full intensity — on white they look heavy, but against near-black they glow like lit gems. Sapphire nocturne vivid provides the deep midnight blue of a faceted sapphire — saturated blue at its darkest, still reading as blue rather than black. Emerald shadow clear adds the forest depth of a fine emerald: rich, dark green with full chromatic presence. Violet dusk vivid brings the purple of amethyst and court velvet. Garnet shadow vivid is the deep red of garnets and ruby glass. Cool gray nocturne provides the near-black field.",
+    ["Jewel Tones", "Dark", "Luxury", "Rich", "Opulent"],
+    [
+      "sapphire-nocturne-vivid",
+      "emerald-shadow-clear",
+      "violet-dusk-vivid",
+      "garnet-shadow-vivid",
+      "cool-gray-nocturne",
+    ],
+    {
+      editorialNote: "The color language of velvet, candlelight, and precious stones — luxury that lives in the dark. Jewel tones need darkness to reach their full saturation and depth.",
+      promptWords: [
+        "jewel tone color palette",
+        "dark jewel color scheme",
+        "midnight luxury color palette",
+      ],
+      useCases: ["Luxury goods or fashion brand", "Evening event, gala, or awards", "Jewelry and fine goods brand"],
+    },
+  ),
+  createCollection(
+    "sage-and-terracotta",
+    "Sage and Terracotta",
+    "The timeless pairing of warm clay earth and cool dusty sage — grounded, organic, and unmistakably contemporary.",
+    "Few color pairings have proven as durable in contemporary design as sage green and terracotta — the cool plant and the warm earth, the living and the mineral. The pairing works because it is essentially nature: the color of clay soil next to growing herbs, of sunbaked earthenware next to dried botanicals. Moss silk soft provides the dusty, mid-range sage: green enough to read clearly as a plant color, muted enough to feel natural rather than synthetic. Coral tone muted is the terracotta anchor: warm orange-red at medium lightness, the color of fired clay and canyon soil. Olive bloom soft adds a lighter, more yellow-green for depth on the botanical side. Amber silk muted brings a warm honey-ochre to ground the earth side. Warm gray bloom provides a shared neutral.",
+    ["Sage", "Terracotta", "Earth Tones", "Organic", "Contemporary"],
+    [
+      "moss-silk-soft",
+      "coral-tone-muted",
+      "olive-bloom-soft",
+      "amber-silk-muted",
+      "warm-gray-bloom",
+    ],
+    {
+      editorialNote: "One of the most enduring color pairings in contemporary interior and lifestyle design — the earth and the plant, warm and cool, grounded and growing.",
+      promptWords: [
+        "sage and terracotta color palette",
+        "earth tone palette design",
+        "organic boho color scheme",
+      ],
+      useCases: ["Interior moodboard and home decor", "Ceramics and homeware brand", "Plant, garden, and botanical brand"],
+    },
+  ),
+  createCollection(
+    "holographic-iridescent",
+    "Holographic Iridescent",
+    "The opalescent, shifting palette of holograms and iridescent surfaces — prismatic violet, aqua, soft pink, pearl.",
+    "Holographic surfaces shift as you move — the same material reads violet from one angle, aqua from another, pink from a third. This palette captures the static version of that shift: the palette of opal, abalone shell, oil-slick on water, and the iridescent finishes that have become one of the defining surface aesthetics of contemporary beauty and tech product design. Iris bloom soft is the primary prismatic color: the lavender-violet of holographic film at its most neutral angle. Aqua bloom muted brings the teal-cyan shift. Rose bloom soft adds the pink-peach angle. Violet mist faint creates the near-white violet end of the spectrum. True gray whisper provides the near-white neutral base — the paper or surface color beneath the iridescent finish.",
+    ["Holographic", "Iridescent", "Prismatic", "Beauty", "Opalescent"],
+    [
+      "iris-bloom-soft",
+      "aqua-bloom-muted",
+      "rose-bloom-soft",
+      "violet-mist-faint",
+      "true-gray-whisper",
+    ],
+    {
+      editorialNote: "The color language of holograms, oil slicks, abalone shell, and iridescent finishes — colors that shift as you move, captured in static form.",
+      promptWords: [
+        "holographic color palette",
+        "iridescent color scheme",
+        "opal prismatic palette",
+      ],
+      useCases: ["Beauty and cosmetics brand or packaging", "Tech product launch campaign", "Fashion, accessories, and foil print"],
+    },
+  ),
+  createCollection(
+    "desert-sunrise-palette",
+    "Desert Sunrise",
+    "The brief, vivid palette of desert dawn — pink sky, amber sand, coral mesa, pale gold, and long blue shadow.",
+    "Desert light at sunrise has a precision and brevity that other sunrises do not — because there is no moisture or cloud to diffuse it, the transition from dark to golden is fast and dramatic, and the colors are exact: pink fading to apricot, sand catching the first horizontal amber light, long shadows of brilliant blue across red rock. Rose radiant soft provides the primary dawn sky color: a vivid, warm pink that occupies the sky for only minutes before turning golden. Amber bloom muted is the sand — warm, golden-brown, the color of desert rock in the first direct light. Coral silk soft adds the mesa and canyon wall color. Azure pearl faint brings the long cool shadow — the crisp blue that fills shadow in dry, high-altitude desert light. Honey whisper faint completes the palette with the faint warm gold of pre-dawn sky.",
+    ["Desert", "Sunrise", "Southwest", "Warm", "Nature"],
+    [
+      "rose-radiant-soft",
+      "amber-bloom-muted",
+      "coral-silk-soft",
+      "azure-pearl-faint",
+      "honey-whisper-faint",
+    ],
+    {
+      editorialNote: "Desert light at sunrise — pink sky fading to gold, long blue shadows across red rock, sand catching the first horizontal amber light. The light that lasts twenty minutes.",
+      promptWords: [
+        "desert sunrise color palette",
+        "desert color scheme design",
+        "southwest sunrise palette",
+      ],
+      useCases: ["Travel and adventure brand", "Outdoor lifestyle and activewear", "Southwest-inspired home and interior"],
+    },
+  ),
+];
+
+collections.push(...extraCollections49);

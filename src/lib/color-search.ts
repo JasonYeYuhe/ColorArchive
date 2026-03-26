@@ -1352,6 +1352,61 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   sustainable_brand: ["moss", "emerald", "teal", "olive", "warm-gray"],
   artisan_brand: ["amber", "warm-gray", "coral", "honey", "merlot"],
 
+  // Architecture & spatial design
+  architectural_color: ["warm-gray", "cool-gray", "stone", "amber", "true-gray"],
+  urban_palette: ["cool-gray", "cobalt", "true-gray", "azure", "jade"],
+  mediterranean_architecture: ["cobalt", "cerulean", "true-gray", "amber", "coral"],
+  scandinavian_design: ["cool-gray", "true-gray", "cobalt", "birch", "pine"],
+  industrial_aesthetic: ["cool-gray", "cobalt", "true-gray", "rust", "amber"],
+  facade_color: ["warm-gray", "amber", "coral", "cool-gray", "stone"],
+  concrete_palette: ["cool-gray", "true-gray", "warm-gray", "cobalt"],
+  brutalist_palette: ["cool-gray", "true-gray", "cobalt", "warm-gray"],
+
+  // Packaging design
+  packaging_design_color: ["emerald", "cobalt", "amber", "coral", "warm-gray"],
+  premium_packaging: ["true-gray", "cobalt", "warm-gray", "amber", "garnet"],
+  organic_pack: ["moss", "olive", "warm-gray", "amber", "honey"],
+  luxury_packaging: ["warm-gray", "cobalt", "true-gray", "amber", "merlot"],
+  sustainable_packaging: ["moss", "olive", "warm-gray", "jade", "seafoam"],
+  food_packaging: ["amber", "coral", "citrine", "honey", "emerald"],
+  beauty_packaging: ["blush", "rose", "violet", "warm-gray", "gold"],
+  kids_packaging: ["coral", "citrine", "mint", "azure", "orchid"],
+
+  // Accessibility and UI system colors
+  accessible_palette: ["cobalt", "emerald", "amber", "true-gray", "cool-gray"],
+  high_contrast_palette: ["true-gray", "cool-gray", "cobalt", "amber", "warm-gray"],
+  wcag_compliant: ["cobalt", "true-gray", "cool-gray", "emerald", "garnet"],
+  dark_mode_palette: ["cool-gray", "cobalt", "indigo", "teal", "true-gray"],
+  light_mode_palette: ["cobalt", "azure", "emerald", "warm-gray", "cool-gray"],
+  ui_system: ["cobalt", "cool-gray", "true-gray", "emerald", "amber"],
+  design_system_colors: ["cobalt", "cool-gray", "true-gray", "warm-gray", "azure"],
+
+  // Logo and identity
+  logo_color: ["cobalt", "emerald", "coral", "amber", "violet"],
+  brand_identity: ["cobalt", "emerald", "amber", "coral", "warm-gray"],
+  wordmark_color: ["cobalt", "true-gray", "emerald", "merlot", "amber"],
+  monogram_palette: ["true-gray", "cobalt", "warm-gray", "amber", "garnet"],
+
+  // Interior design
+  living_room_colors: ["warm-gray", "amber", "teal", "cobalt", "true-gray"],
+  bedroom_palette: ["cobalt", "lavender", "blush", "warm-gray", "sage"],
+  kitchen_colors: ["cobalt", "sage", "warm-gray", "amber", "coral"],
+  bathroom_palette: ["teal", "aqua", "cobalt", "true-gray", "blush"],
+  home_office_colors: ["cobalt", "emerald", "warm-gray", "sage", "cool-gray"],
+  nursery_palette: ["blush", "lavender", "mint", "warm-gray", "honey"],
+
+  // Golden hour and light effects
+  golden_hour_palette: ["amber", "honey", "coral", "apricot", "rose"],
+  magic_hour: ["amber", "coral", "rose", "honey", "citrine"],
+  sunrise_palette: ["rose", "apricot", "amber", "azure", "blush"],
+
+  // Holographic and special effects
+  holographic_palette: ["iris", "aqua", "rose", "violet", "true-gray"],
+  iridescent_palette: ["iris", "aqua", "blush", "violet", "rose"],
+  opalescent: ["blush", "iris", "aqua", "violet", "rose"],
+  metallic_palette: ["warm-gray", "honey", "amber", "cool-gray", "true-gray"],
+  chrome_colors: ["cool-gray", "true-gray", "cobalt", "azure", "warm-gray"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

@@ -12122,3 +12122,125 @@ export const extraGuides49: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides49);
+
+export const extraGuides50: LandingGuide[] = [
+  {
+    slug: "color-palette-for-logo-design",
+    title: "How to Choose a Color Palette for Logo Design: A Strategic Framework",
+    summary: "Logo color is the most lasting color decision a brand makes. A strategic guide to choosing logo colors that work across all sizes, backgrounds, and media — and build brand equity over time.",
+    eyebrow: "Logo Color Guide",
+    searchIntent: "color palette for logo design",
+    priority: 93,
+    category: "Branding",
+    tags: ["Logo Design", "Branding", "Color Strategy", "Identity Design", "Graphic Design"],
+    highlights: [
+      "Your logo must work in one color (black) before it works in any color — single-color viability is the first test.",
+      "The most memorable logo colors are hues that are strongly associated with your category but owned by your specific brand.",
+      "Logo colors should be specified in Pantone (PMS) for print consistency — RGB and HEX values drift between printers and screens.",
+      "Test logo colors on white, black, and photography backgrounds — most logos fail on at least one of these before refinement.",
+    ],
+    sections: [
+      {
+        heading: "Start With One Color, Not a Palette",
+        body: "The first mistake in logo color selection is thinking about a palette before establishing whether the primary logo color works on its own. Every logo must function in single-color form — black on white, white on black, and a single spot color on a neutral — before it can earn the right to be more complex. This single-color constraint is not a limitation; it is the filter that separates identity systems that hold together under real conditions (embossed letterhead, screen-printed apparel, fax documents, newspaper reproduction) from those that only look good in the designer's presentation. Once a primary color is established that reads clearly at all sizes and on all backgrounds in single-color form, secondary and tertiary palette colors can be added to enrich the system without diluting the core mark.",
+      },
+      {
+        heading: "The Category Association vs. Distinctiveness Tradeoff",
+        body: "Logo color selection involves a fundamental tradeoff between category association and competitive distinctiveness. Category-conforming colors — blue for financial services, green for environmental brands, red for food — communicate industry membership at a glance and reduce cognitive effort for new audiences. Competitively distinctive colors — Tiffany's specific robin's egg blue, Hermès's orange, UPS's Pullman Brown — own mental territory that competitors cannot easily occupy. Most successful brand color strategies land between these extremes: using a hue that reads as appropriate for the category while choosing a specific value, saturation, and tone within that hue that is ownable and distinct from direct competitors. The worst outcome is choosing the most generic version of the category color — a middle-of-the-road blue for a financial services company that looks like every other financial services company.",
+      },
+      {
+        heading: "Color Specification: The Technical Reality",
+        body: "Logo colors must be specified in multiple color systems to reproduce consistently. The primary specification should be a Pantone Matching System (PMS) color — the industry standard for print and physical reproduction that gives printers an unambiguous reference regardless of their ink formulation or press calibration. From the PMS reference, CMYK values for four-color printing, RGB values for screen display, and HEX values for web use are derived — but these translations are never mathematically perfect. A vivid PMS color may not be achievable in CMYK (gamut limitations mean some colors, especially vivid oranges, greens, and some purples, cannot be reproduced in four-color process). Testing the approved logo in all specified color modes before finalizing is essential, as the first CMYK conversion produced by a color profile may produce a noticeably different result from the intended PMS color.",
+      },
+      {
+        heading: "Testing Logo Colors in Real Conditions",
+        body: "Logo color testing should include every surface and background the mark will actually appear on, not just the clean mockups in a brand presentation. Essential tests include: white background (standard, but reveals whether the color reads clearly without help), black background (tests whether the color is bright enough to hold up inverted), photography (the logo will appear on images with a wide range of backgrounds — test on warm, cool, light, dark, and busy image backgrounds), colored backgrounds (packaging, environmental graphics, co-branded materials often place logos on brand colors of partners or products), and physical materials (screen-print ink on fabric, embossed on leather, laser-engraved on metal all render color differently from digital mockups). Most logo colors need refinement after real-condition testing — the hex value that looked perfect on a monitor at 800px rarely reproduces the same way at all these scales and on all these surfaces.",
+      },
+    ],
+    links: [
+      { label: "Browse colors by family for logo palette ideas", href: "/families" },
+      { label: "Build a logo color palette", href: "/builder" },
+      { label: "Explore editorial collections", href: "/collections" },
+    ],
+  },
+  {
+    slug: "color-theory-for-interior-design",
+    title: "Color Theory for Interior Design: The Complete Practical Guide",
+    summary: "Interior color works completely differently from screen or print color. Light, material, and scale transform every color choice. A practical guide to applying color theory in real rooms — avoiding the mistakes designers make and understanding what actually works.",
+    eyebrow: "Interior Color Theory Guide",
+    searchIntent: "color theory interior design",
+    priority: 87,
+    category: "Interior Design",
+    tags: ["Interior Design", "Color Theory", "Home Design", "Architecture", "Spatial Color"],
+    highlights: [
+      "Paint chips look nothing like painted walls — always test large painted samples (at least 12×12 inches) in the actual room before committing.",
+      "The 60-30-10 rule (dominant-secondary-accent) is a starting point, not a formula — adjust ratios based on room light and furniture weight.",
+      "North-facing rooms receive cool, flat light that makes warm colors look muddy and cool colors look correct; south-facing rooms do the opposite.",
+      "Ceiling color is often the most impactful surface in a room — painting it even slightly off-white dramatically changes the room's perceived warmth.",
+    ],
+    sections: [
+      {
+        heading: "How Room Light Changes Everything",
+        body: "The direction a room faces determines the quality of natural light it receives, and that light quality transforms the apparent color of every surface. North-facing rooms (in the northern hemisphere) receive indirect, cool light without direct sun — colors in these rooms appear cooler and slightly grayer than they do in other orientations, which means warm colors (ochre, terracotta, warm white) often look muddy or dingy while cool colors (blue-gray, sage green, off-white with cool undertones) appear clear and true. South-facing rooms receive warm, direct sunlight for most of the day — warm colors sing here, cool colors can look washed out, and even moderately saturated colors can appear vivid. East-facing rooms have warm morning light that goes cool and blue by afternoon. West-facing rooms do the reverse. Choosing paint color without understanding the room's light orientation is the most common interior color mistake.",
+      },
+      {
+        heading: "The 60-30-10 Rule in Practice",
+        body: "The 60-30-10 proportion rule — 60% dominant color (usually walls), 30% secondary color (large furniture, flooring, rugs), 10% accent (cushions, art, small accessories) — is a useful starting framework but a poor formula. Its actual value is not the specific percentages but the principle of visual hierarchy: one color should read as dominant, one as secondary, and accents should be small relative to the others. The proportions shift based on room function (living rooms tolerate more variation than bedrooms), material weight (a dark wood floor at 30% of visual field reads as heavier than pale upholstery at the same proportion), and the specific colors involved (a very saturated accent at 10% can outweigh a muted dominant at 60% in visual impact). Use the rule to check that you have a clear hierarchy, but use your eye to set the actual proportions.",
+      },
+      {
+        heading: "Material Interaction and Simultaneous Contrast",
+        body: "Interior colors are never experienced in isolation — they are always seen against adjacent materials, which change how they appear through simultaneous contrast. A warm beige wall next to a warm wood floor will look cooler and more gray than the same beige wall next to a cool gray floor, because the eye compensates for the warm color by shifting perception of the adjacent color toward its opposite. This simultaneous contrast effect is strongest at high-saturation boundaries and weakest when adjacent colors are similar in temperature and saturation. Interior designers routinely use this effect intentionally: a near-white wall next to rich dark wood appears crisper and more white than it would next to pale flooring; a sage green wall next to a terracotta rug appears more blue-green than it would next to a neutral. Always evaluate paint samples in place with existing materials, never in isolation.",
+      },
+      {
+        heading: "Ceiling Color as a Design Tool",
+        body: "Ceilings receive far less design attention than walls despite being one of the most visually impactful surfaces in a room. A standard white ceiling reflects light and makes a room feel taller and lighter — this is usually the right choice for small rooms with low ceilings or limited natural light. But in rooms with adequate light and height, ceiling color can be a powerful design tool. Painting the ceiling the same color as the walls (especially in saturated colors) creates a cocooning, intimate effect — the color wraps the space rather than ending at the wall-ceiling junction. Painting the ceiling slightly lighter than the walls (rather than pure white) softens the contrast at the junction and makes the room feel more finished. Dark ceilings — counterintuitively — often make a room feel more intimate rather than oppressive if the walls are light, because the visual weight above creates a sense of shelter rather than constriction.",
+      },
+    ],
+    links: [
+      { label: "Browse warm interior color families", href: "/families/amber" },
+      { label: "Explore interior design collections", href: "/collections" },
+      { label: "Build a room color palette", href: "/builder" },
+    ],
+  },
+  {
+    slug: "color-palette-generator-guide",
+    title: "How Color Palette Generators Work — and How to Use Them Well",
+    summary: "Color palette generators are everywhere, but most designers use them without understanding what the algorithms are actually doing. A practical guide to what generator outputs mean, where they fail, and how to go from generated palette to production-ready color system.",
+    eyebrow: "Palette Generator Guide",
+    searchIntent: "color palette generator how to use",
+    priority: 85,
+    category: "Tools",
+    tags: ["Color Tools", "Palette Generation", "Color Theory", "Design Workflow", "Color Systems"],
+    highlights: [
+      "Most generators use HSL or HSB rotation to find complementary and analogous colors — understanding this explains why the results look plausible but rarely production-ready.",
+      "A 5-color generated palette is a starting hypothesis, not a finished color system — it still needs tonal range, neutrals, and functional color variants.",
+      "Generated palettes often fail accessibility — always test contrast ratios between generated colors before using them in UI.",
+      "The best use of a generator is to find a promising hue combination quickly, then manually refine the specific values for your use case.",
+    ],
+    sections: [
+      {
+        heading: "What Palette Algorithms Actually Do",
+        body: "Most color palette generators operate on a simple principle: take a seed color (usually specified by the user), apply one or more transformation rules in a perceptual color space (HSL, HSB, or sometimes OKLCH or LCH), and output the results as swatches. Complementary palettes rotate hue by 180 degrees. Analogous palettes step hue by 30 degrees in each direction. Triadic palettes rotate by 120 degrees. Split-complementary palettes take the complement and step 30 degrees in each direction from it. These are theoretically valid color relationships derived from color wheel geometry — they describe hue relationships that historically appear pleasing together. The limitation is that hue relationship alone is insufficient to determine whether colors actually work together: value contrast, saturation balance, and the specific application context all matter more for most practical design problems than hue geometry.",
+      },
+      {
+        heading: "Why Generated Palettes Need Refinement",
+        body: "A generated palette of five colors is a hypothesis about a useful hue combination, not a finished color system. The gaps between a generated palette and a production-ready color system include: tonal range (a single mid-tone of each hue gives you no light or dark variants for backgrounds, text, or hover states), neutrals (almost every design needs at least one neutral or near-neutral; generators rarely produce these appropriately), functional colors (success green, warning amber, error red, info blue are almost always needed for UI systems and rarely emerge from a hue-based generator), semantic mappings (knowing which of the five generated colors is for primary actions, which for backgrounds, which for text is a design decision the generator cannot make), and accessibility testing (generated color combinations frequently fail contrast ratio requirements when checked — the algorithm has no accessibility objective).",
+      },
+      {
+        heading: "Building a System From a Generated Starting Point",
+        body: "The most efficient workflow treats a generated palette as a seed for systematic expansion rather than a finished output. Once you have identified a hue combination you find promising, the next step is to build a tonal scale for each hue: typically 9-11 steps from very light (95% lightness) to very dark (10% lightness), with consistent perceptual steps between each. This tonal scale gives you all the variants you need for backgrounds, borders, text, icons, and interactive states. The generated palette's specific saturation and lightness values are usually adjusted at this stage — generator outputs are often mid-saturation and mid-lightness values that look balanced in isolation but are not optimized for any specific surface role. After building scales, semantic tokens map scale steps to roles: background.subtle = hue-50, text.primary = hue-900, action.primary = hue-600, and so on.",
+      },
+      {
+        heading: "When to Use a Generator and When Not To",
+        body: "Color palette generators are most useful early in a design process when you need to explore hue combinations quickly and have not yet committed to a direction. They are useful for finding unexpected color relationships (combinations you would not have reached by walking the color wheel manually), for presenting multiple palette options to a client quickly, and for getting unstuck when you are too anchored to a specific starting color. They are least useful when you already know the brand colors (you need to build a system around fixed anchors, not generate freely), when the application has strong functional requirements (data visualization, accessibility-critical UI), or when you need to produce a final, production-ready system (generators cannot replace the systematic work of building tonal scales, testing contrast, and defining semantic mappings).",
+      },
+    ],
+    links: [
+      { label: "Try the ColorArchive palette builder", href: "/builder" },
+      { label: "Browse curated color collections", href: "/collections" },
+      { label: "Explore colors by family", href: "/families" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides50);
