@@ -3258,3 +3258,47 @@ New alias groups: architecture (architectural_color, urban_palette, mediterranea
 - `app/sitemap.ts` — +/trends/
 - `STRUCTURE.md` — documented /trends/ route
 - `.claude/session-lock.json` — released
+
+## 2026-03-26 — Normal Run #6 (post big run #5)
+
+**Type:** Normal Run  
+**Commit:** bca3439  
+**Timestamp:** 2026-03-26T (after big run #5, normal run #1)  
+**Categories:** Content (A), Collections (D), Aliases (D), Navigation/i18n (B)
+
+### Category A — 4 Newsletter Issues (330–333, Issues 025–028)
+- `may-2026-color-and-typography-pairing` — Halation effects from max contrast, warm/cool gray hue personality, weight-contrast interaction, 3-tier text hierarchy
+- `may-2026-seasonal-color-transitions` — Psychological basis for seasonal color, stable neutral + seasonal accent model, token architecture, hemisphere complications
+- `may-2026-brand-color-persistence` — Why brand colors stick (repetition + distinctiveness), PMS/CMYK/sRGB tolerance specs, Hermès orange evolution, digital-native challenges
+- `may-2026-dark-mode-color-systems` — Why inversion fails, surface elevation hierarchy, dark mode accent redefining, testing at real viewing conditions
+
+### Category A — 3 SEO Guides (extraGuides52, 306 total)
+- `how-to-choose-colors-for-dark-mode` (priority 94) — Start with surfaces, redefine accents, text tiers, token architecture for maintainable dark mode
+- `color-contrast-checker-guide` (priority 91) — WCAG contrast ratio formula, when 4.5:1 vs 3:1 applies, common failures, beyond-compliance targets
+- `color-palettes-for-website-design` (priority 92) — Define roles before colors, build from brand hue, integrate accessibility, test in context
+
+### Category D — 8 Collections (extraCollections51, 232 total)
+- `coastal-fog-palette` — Marine layer morning muted palette: aqua mist, seafoam pearl, cool gray bloom
+- `high-fashion-monochrome` — Complete warm gray spectrum from whisper to shadow for fashion editorial
+- `art-deco-gold-black` — 1920s opulence: amber vivid, honey, emerald clear, warm gray ink
+- `wabi-sabi-earth` — Imperfect beauty: warm gray pearl, coral bloom muted, olive tone muted, moss dusk
+- `tropical-modernist` — Bold tropical meets modernist restraint: fuchsia vivid, emerald clear, true gray whisper
+- `gallery-white-study` — Fine art gallery whites: warm veil, cool veil, true veil + whisper variants
+- `botanical-ink-palette` — Antique botanical illustration: moss tone, olive silk, coral tone, amber bloom
+- `cinematic-neon-noir` — Neo-noir cinema: violet shadow vivid, aqua core vivid, amber tone clear, cobalt nocturne soft
+
+### Category D — ~50 Search Aliases (~1550 lines total)
+New alias groups: dark mode UI systems (dark_mode_ui, dark_mode_surface, dark_ui_accent, night_ui), neo-noir/cinematic (neo_noir, neon_noir, cyberpunk_neon, blade_runner, film_noir, cinematic_night), wabi-sabi (wabi_sabi_earth, imperfect_beauty, japanese_earth, zen_palette, pottery_glaze, raku), Art Deco (art_deco_palette, deco_gold, deco_jewel, gatsby_palette, twenties_palette), coastal fog (coastal_fog_morning, marine_layer, foggy_morning, beach_mist, pacific_fog), botanical illustration (botanical_ink, naturalist_palette, field_guide, victorian_botanical, antique_botanical), typography (reading_palette, editorial_text, print_palette, book_design, typographic)
+
+### Category B — Navigation & i18n
+- `src/lib/i18n.ts` — Added `nav.trends` key (EN: "Color Trends 2026", ZH: "2026年色彩趋势")
+- `src/components/site-header.tsx` — Added `/trends/` to Explore nav group (after /decades/), expanded currentPath type
+
+### Files Modified (6 total)
+- `src/data/newsletter-issues.json` — 333 total
+- `src/lib/guides.ts` — extraGuides52 (306 total)
+- `src/lib/collections.ts` — extraCollections51 (232 total)
+- `src/lib/color-search.ts` — ~1550 lines total
+- `src/lib/i18n.ts` — +nav.trends key
+- `src/components/site-header.tsx` — +/trends/ nav item
+- `.claude/session-lock.json` — released
