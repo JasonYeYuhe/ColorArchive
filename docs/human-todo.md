@@ -1,38 +1,36 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-26 (Big Run #2)
+> Last updated: 2026-03-26T autopilot normal run #1
 
 ## High Priority
 
-- [ ] Activate Lemon Squeezy store and set live pricing — *revenue blocked until store is live*
-- [ ] Configure Pro subscription URLs in `src/lib/checkout-config.ts` — *Pro page shows "launching soon" until URLs are live*
-- [ ] Verify LS KYB review status — *store cannot process payments until KYB is complete*
+- [ ] **Activate Lemon Squeezy store** — KYB review should be complete; activate the store so palette pack purchases work end-to-end
+- [ ] **Set live Lemon Squeezy checkout URLs** in `src/lib/checkout-config.ts` — currently placeholder URLs; real LS product/variant IDs needed for purchases to function
+- [ ] **Configure Pro subscription pricing** ($4.99/mo, $39.99/yr) in LS and wire up `src/lib/checkout-config.ts` subscription URLs — backend auth-client.ts is ready but needs live product IDs
+- [ ] **Verify API server is healthy** — `ssh root@143.198.85.72 "pm2 status"` and check that colorarchive-server is running and API endpoints respond
 
 ## Medium Priority
 
-- [ ] Test free pack download email flow end-to-end — *email sends but download URL needs verification*
-- [ ] Set up Pinterest API credentials in server `.env` — *Pinterest save feature needs real API keys*
-- [ ] Review Twitter/X API configuration — *marketing automation configured but needs verification*
-- [ ] Update pack prices in email templates if LS pricing differs from current values in `server/email.js`
-- [ ] Review /decades/ page after deploy — *verify swatch colors look accurate, expand some decade cards to verify context copy*
+- [ ] **TikTok marketing account** — video was in review; check if it's been approved and published, and schedule follow-up content
+- [ ] **Product Hunt follow-up** — check upvotes/comments and reply to any feedback since launch
+- [ ] **Twitter/X content cadence** — API is configured; set up or review scheduled posts for color content
+- [ ] **Pinterest boards** — integration is live; review board performance and add seasonal/trending content
+- [ ] **YouTube channel** — first video is published; plan next video topic (tutorial, color theory, ColorArchive walkthrough)
 
 ## Low Priority / Nice to Have
 
-- [ ] Record demo video for Product Hunt / YouTube — *marketing assets in `demo-video/` directory ready*
-- [ ] Upload monthly subscription and yearly subscription images — *`colorarchive_logo_v1_assets/monthlysubscription.png` and `yearlysubscription.png` are untracked*
-- [ ] Review Famous Palettes page for any factual accuracy on brand history claims
-- [ ] Consider adding PDF export of palette packs for Pro users
-- [ ] Add /decades/ to site nav or homepage featured tools section — *currently only accessible via /tools/ listing*
+- [ ] **Figma plugin** — if planning to build a Figma integration, API keys are working; could implement a color search/copy plugin
+- [ ] **Email capture flow** — review newsletter sign-up conversion; consider A/B testing the onboarding banner copy
+- [ ] **Analytics review** — check Vercel/GA for traffic sources; validate that SEO guides are indexed and receiving traffic
 
 ## Done
 
-- [x] Newsletter infrastructure — `src/data/newsletter-issues.json` pattern established, 269 issues
-- [x] SEO guides — ~250 guides across all topics
-- [x] Collections — 145 curated collections
-- [x] Famous Palettes page — 35+ iconic palettes (big run 2026-03-26)
-- [x] Color by Decade page — 11 decades, 66 signature colors, full history (big run 2026-03-26)
-- [x] Search aliases — 780+ total aliases covering all major color search terms
-- [x] i18n — EN + ZH translations complete for all UI strings
-- [x] Pro page — fully built with comparison table and FAQ
-- [x] Palette builder word pools — expanded MOOD_WORDS and SCENE_WORDS (2026-03-26)
+- [x] Color by Decade page built and deployed — 2026-03-26
+- [x] Newsletter infrastructure (270+ issues) — 2026-03-26
+- [x] 255+ SEO landing guides — ongoing
+- [x] 150 curated collections — 2026-03-26
+- [x] Famous Palettes page — prior run
+- [x] Use Cases page — prior run
+- [x] Projects/workspace page — prior run
+- [x] Pro subscription config in checkout-config.ts — prior run (URLs still need updating)

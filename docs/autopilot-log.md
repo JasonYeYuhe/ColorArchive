@@ -2698,3 +2698,52 @@ Style terms: neon_palette, miami_vice, grunge, millennial_pink, very_peri, sage_
 - `src/lib/guides.ts` — extraGuides38 (5 guides, ~250 total)
 - `src/lib/collections.ts` — extraCollections37 (5 collections, 145 total)
 - `src/lib/color-search.ts` — 20 new decade aliases
+
+---
+
+## 2026-03-26 — Normal Run #1 (post big-run)
+
+**Run Type:** Normal
+**Commit:** 9ef92bc
+**Timestamp:** 2026-03-26T02:43:29Z
+
+### Categories Covered
+- **A — SEO & Content**: 5 newsletter issues + 5 SEO guides
+- **D — Data & Collections**: 5 new collections + 18 search aliases
+
+### Category A — 5 New Newsletter Issues (274 total, Apr–May 2031)
+
+- **apr-2031-blue-corporate-trust**: Why every bank logo is blue — psychological research + convention amplification effect + when to break the convention
+- **apr-2031-pantone-color-of-year-business**: How Pantone's CoY works as a business model + coordination mechanism for the design industry
+- **apr-2031-color-ux-design-psychology**: Color in UX as cognitive tool (hierarchy, state communication, accessibility) not decoration
+- **may-2031-warm-vs-cool-gray-typography**: Warm vs cool gray as foundational palette decision — compatibility implications for accent selection
+- **may-2031-food-packaging-color-appetite**: Food packaging color logic — appetite colors, fast food vs fine dining, green and health positioning
+
+### Category A — 5 New SEO Guides (extraGuides39, ~255 total)
+
+- **blue-color-psychology-branding-guide**: Trust science, convention amplification, shade selection, when to break (priority 86)
+- **dark-mode-color-palette-guide**: Surface layering, why not true black, semantic tokens (priority 88)
+- **restaurant-interior-color-guide**: Appetite colors, fast food vs fine dining, green in fast casual (priority 79)
+- **wcag-color-accessibility-guide**: Contrast ratio limitations, CVD design, building accessible systems (priority 91)
+- **typography-gray-color-guide**: Warm vs cool gray identification, compatible accent selection (priority 77)
+
+### Category D — 5 New Collections (extraCollections38, 150 total)
+
+- **restaurant-warmth**: Ember/garnet/amber/coral/merlot — appetite and dining energy
+- **dark-mode-foundation**: Cobalt ink layer system — structured dark interface palette
+- **institutional-trust**: Cobalt ink/dusk/core + cool-gray — financial/healthcare/government branding
+- **appetite-vivid**: Crimson/ember/amber/coral/citrine vivid — fast food and snack energy
+- **editorial-monochrome**: Cool-gray ink/shadow/mid/tone/whisper — typography-first design
+
+### Category D — 18 New Search Aliases
+
+Food/dining: restaurant, dining, appetite, bistro
+UI/UX: ux, interface, ui_design, mobile_app
+Monochrome: grayscale, greyscale, mono, black_and_white
+Business: business_card, hospitality, interior_design, branding
+
+### Files Modified (4 total)
+- `src/data/newsletter-issues.json` — 5 new issues (270–274, 274 total)
+- `src/lib/guides.ts` — extraGuides39 (5 guides, ~255 total)
+- `src/lib/collections.ts` — extraCollections38 (5 collections, 150 total)
+- `src/lib/color-search.ts` — 18 new aliases
