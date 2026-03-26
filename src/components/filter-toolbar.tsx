@@ -67,6 +67,8 @@ export function FilterToolbar({
             </span>
             <input
               type="search"
+              id="color-search"
+              name="color-search"
               data-search-input
               value={searchQuery}
               onChange={(event) => onSearchChange(event.target.value)}
@@ -90,6 +92,8 @@ export function FilterToolbar({
               {t("filter.sort")}
             </span>
             <select
+              id="color-sort"
+              name="color-sort"
               value={sortBy}
               onChange={(event) => onSortChange(event.target.value as SortOption)}
               className="rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8 dark:border-white/10 dark:bg-white/8 dark:text-white dark:focus:border-white/20 dark:focus:ring-white/8"
