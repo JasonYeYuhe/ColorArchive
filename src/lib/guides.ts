@@ -11875,3 +11875,128 @@ export const extraGuides47: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides47);
+
+export const extraGuides48: LandingGuide[] = [
+  {
+    category: "Interior Design",
+    slug: "interior-design-color-guide",
+    title: "Interior Color Guide: How to Choose Room Palettes That Work Across Light Conditions",
+    summary:
+      "The definitive guide to choosing interior paint and material colors — saturation rules for architectural scale, how daylight and artificial light transform color, small space strategies, and why your samples always look different on the wall.",
+    eyebrow: "Interior Design Guide",
+    priority: 89,
+    searchIntent: "interior design color palette room colors",
+    tags: ["Interior Design", "Architecture", "Color Psychology", "Home Design"],
+    highlights: [
+      "Color chips at 2 square inches and color at full architectural scale are functionally different visual experiences.",
+      "Go 2-3 saturation steps lower than your instinct for wall colors — what reads as timid on a swatch reads as generous and calm in a room.",
+      "Test any color in the actual space across a full lighting cycle: morning natural light, midday, late afternoon, and evening artificial light.",
+      "Deep saturated colors in small spaces create deliberate intimacy — the mistake is mid-saturation colors with no clear intention.",
+    ],
+    sections: [
+      {
+        heading: "The Scale Problem: Why Samples Always Lie",
+        body: "Every interior designer's persistent challenge is that the colors selected from samples never look quite the same once applied. This is not a failure of perception — it is a predictable physical effect. Smaller areas of color appear slightly lighter and less saturated than the same color at large scale, because the ratio of color-reflected light to ambient light changes with surface area. A color chip showing a medium-saturated amber is giving you the appearance of that color at approximately 2 square inches. At 400 square feet of wall surface, the same pigment looks measurably richer and more saturated. The practical implication: always go lighter and less saturated than your sample-based instinct, particularly for dominant room colors. A color that looks faintly timid on a swatch will be full and comfortable on a wall.",
+      },
+      {
+        heading: "Saturation Rules at Architectural Scale",
+        body: "Saturation is the most powerful lever in interior color psychology, and the one most frequently mishandled. High saturation drives arousal and attention regardless of hue — a saturated blue is stimulating, not calming, even though blue has a cultural association with relaxation. For rooms where sustained occupation is expected (bedrooms, living rooms, home offices), saturation should be low to moderate: enough color to have a clear identity and warmth but not enough to demand attention. Reserve high saturation for accent surfaces — a single wall, a built-in bookcase, architectural detail — where its energy concentrates rather than saturates the whole room. A fully saturated color read for 8 hours induces fatigue; the same color as a 20% accent surface reads as energetic and intentional.",
+      },
+      {
+        heading: "How Light Transforms Interior Color",
+        body: "Daylight shifts in color temperature from blue-white at noon to red-amber at golden hour. Artificial light spans from warm incandescent (approximately 2700K) to harsh cool-white fluorescent (above 5000K). Any given paint color will read differently across this full range — sometimes dramatically differently. Cool-toned gray walls that look sophisticated under overcast northern light become harsh and institutional under warm downlighting at night. Warm amber whites that glow under late afternoon sun read yellowish under cool task lighting. The only reliable selection method is observing samples — large ones, at least 12 by 12 inches — in the actual space through an entire day including the evening artificial light environment. For spaces with one dominant light source (a north-facing study lit primarily by cool natural light), that source is sufficient. For most rooms, the full cycle matters.",
+      },
+      {
+        heading: "Small Space Color Strategy",
+        body: "The conventional guidance — use light colors in small spaces to maximize perceived volume — is correct but incomplete. Light values reflect more ambient light and reduce shadow depth, both of which increase apparent volume. This is the right choice for spaces where smallness is a problem: a narrow hallway, a cramped bathroom, a low-ceilinged entry. But a small space with a specific function can use depth rather than light to create a different kind of success. A library painted in deep moss or shadow cobalt reads not as cramped but as enclosing and intimate — the right quality for reading. A powder room in deep plum or ink teal reads as a bold design moment rather than a limitation. The goal in small spaces is intentionality: either expand the apparent volume with light values, or lean into the smallness by creating depth and enclosure. The mistake is choosing mid-value, mid-saturation colors that accomplish neither.",
+      },
+    ],
+    links: [
+      { label: "Browse warm neutral palettes", href: "/families/amber/" },
+      { label: "Explore teal color palettes", href: "/families/teal/" },
+      { label: "Color psychology guide", href: "/guides/color-psychology-brand-guide" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "color-temperature-design-guide",
+    title: "Warm vs Cool Colors: A Designer's Complete Guide to Color Temperature",
+    summary:
+      "Why warm colors advance and cool colors recede, how to use temperature contrast to create depth and hierarchy, and the strategic use of temperature mixing in brand palettes, UI design, and interior applications.",
+    eyebrow: "Color Theory Guide",
+    priority: 86,
+    searchIntent: "warm vs cool colors design color temperature",
+    tags: ["Color Theory", "Design Fundamentals", "Brand Design", "UI Design"],
+    highlights: [
+      "Warm colors appear to advance toward the viewer; cool colors appear to recede — exploiting this creates perceived depth without shadow.",
+      "Color temperature is relative: the same orange can read as warm against violet but cool against a redder orange.",
+      "Mixed-temperature palettes (warm dominant with cool accent, or vice versa) create more visual interest than all-warm or all-cool combinations.",
+      "Digital screens add a layer of complexity: screens emit light rather than reflecting it, making warm colors more stimulating in dark environments.",
+    ],
+    sections: [
+      {
+        heading: "The Physics and Perception of Color Temperature",
+        body: "Color temperature is named for an analogy to blackbody radiation: objects heated to different temperatures emit different colors of light, from deep red at lower temperatures through orange, yellow, and white to blue-white at extreme heat. In design, 'warm' colors are those associated with fire and sunlight — reds, oranges, and yellows — while 'cool' colors are associated with sky, water, and shadow — blues, blue-greens, and blue-violets. Greens and purples sit at intermediate temperatures and shift toward warm or cool depending on their specific hue. A yellow-green reads warm; a blue-green reads cool. A red-violet reads warm; a blue-violet reads cool. Temperature is a property of the full color, not just its hue position.",
+      },
+      {
+        heading: "Advance and Recession: Creating Depth with Temperature",
+        body: "Warm colors appear to advance toward the viewer; cool colors appear to recede. This is a perceptual fact that holds across most viewing contexts and can be exploited deliberately to create depth without using value contrast or shadow. A warm orange element on a cool blue ground appears to sit in front of the blue — even when both are flat, same-value colors with no shadow. Landscape painters use this principle constantly: warm-toned foreground elements against cooler background distances. UI designers use it to make CTA buttons appear to sit above the interface surface. Brand designers use it to make hero elements pop from supporting graphic structures. Temperature contrast creates a light, flat, crisp sense of depth that value contrast cannot fully replicate.",
+      },
+      {
+        heading: "The Strategy of Mixed-Temperature Palettes",
+        body: "A palette composed entirely of warm colors or entirely of cool colors tends toward monotony and a quality designers describe as 'lacking air.' Mixed-temperature palettes — a warm dominant with cool accent, or a cool primary palette punctuated by a warm highlight — create visual interest through contrast and give each color a job. In practice, the most successful mixed-temperature palettes have a clear temperature dominant (which establishes the overall emotional register of the palette) and a deliberate temperature accent (which creates the contrast needed for hierarchy and interest). A brand built on warm amber and honey with a single teal accent achieves balance without losing its warm identity. A cool blue-dominant UI with orange accent elements achieves both the trustworthy calm of blue and the energy and urgency the orange calls for.",
+      },
+      {
+        heading: "Screen Light vs Reflected Light",
+        body: "Screens add a complicating variable to color temperature design: they emit light rather than reflecting it. Warm colors on a backlit screen in a darkened environment are more physiologically activating than the same colors in print or on a wall, because the light emission enters the eye directly rather than being filtered by reflection. This is part of why warm-toned night mode options (reducing blue light) affect sleep quality — the color temperature shift reduces the melatonin-suppressing effect of direct screen light. For designers building digital experiences, this has practical implications: warm accent colors in dark-mode UI designs are more attention-demanding than they appear on a design surface viewed under ambient light, and should be used more sparingly to avoid overstimulation.",
+      },
+    ],
+    links: [
+      { label: "Browse warm color palettes", href: "/families/amber/" },
+      { label: "Browse cool color palettes", href: "/families/cobalt/" },
+      { label: "Color psychology guide", href: "/guides/color-psychology-brand-guide" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "wedding-color-palette-guide",
+    title: "Wedding Color Palettes: How to Choose Colors That Photograph Well and Work Across a Full Event",
+    summary:
+      "Choosing wedding colors is not the same as choosing a brand palette — you need colors that work in flowers, textiles, paper goods, and digital, that hold up under venue lighting, that photograph in every condition, and that read as cohesive across a six-hour event.",
+    eyebrow: "Wedding & Events Guide",
+    priority: 83,
+    searchIntent: "wedding color palette ideas photography",
+    tags: ["Wedding Design", "Event Planning", "Photography", "Color Coordination"],
+    highlights: [
+      "Wedding colors must work across six different material types: flowers, fabric, paper, ceramics, candles, and food — each material renders color differently.",
+      "The most photogenic wedding palettes have deliberate tonal range — at least one deep anchor, one mid tone, and one light or clear color.",
+      "Venue lighting is the wild card: candlelight warms all colors, string light color temperatures vary wildly, and window light shifts throughout the day.",
+      "A three-color wedding palette — dominant, supporting, and accent — is easier to execute consistently than four or five colors.",
+    ],
+    sections: [
+      {
+        heading: "The Multi-Material Challenge",
+        body: "Wedding color coordination requires working across a wider range of materials than almost any other design context. The same palette must be expressed in flowers (which have their own inherent color range and vary by season and availability), fabric (ceremony linens, tablecloths, bridesmaid dresses — each textile renders color differently based on weave, fiber, and finish), printed paper goods (menus, programs, stationery — flat printed color that must read cohesively with saturated flowers), and digital (save-the-dates, social posts, website). No material renders color identically. A deep sage green in fabric, in fresh eucalyptus, and in printed Pantone ink will all look different — but they should look intentionally related rather than accidentally mismatched. The solution is to define colors by their mood and value position rather than exact hex — build your palette around 'the deep anchor,' 'the soft blush,' 'the warm neutral' — and allow each material's natural variation within that tonal position.",
+      },
+      {
+        heading: "Palette Structure for Photography",
+        body: "Wedding photography is the primary record of a wedding and the primary context in which color decisions will be evaluated afterward — not in real time at the event, but across thousands of photographs shared for years. Photogenic wedding palettes share a consistent structural property: deliberate tonal range. A palette that spans from at least one deep anchor color (the navy, forest green, burgundy, or charcoal that grounds the compositions), through one or two mid tones (the sage, dusty rose, or terracotta that carries volume), to at least one light or clear color (ivory, white, blush, or pale gold that brightens images) gives photographers range to work with. Monochromatic palettes in the middle tonal range — all mid-pink, all medium sage — tend to photograph flat and are difficult to differentiate from each other in the final images.",
+      },
+      {
+        heading: "Venue Lighting and Color Distortion",
+        body: "Venue lighting is the most underestimated variable in wedding color design. Candlelight and most warm string lights sit around 2200K — dramatically warmer than daylight at 5500K or overcast light at 6500K. Under 2200K candlelight, cool-toned colors like lavender, dusty blue, and sage shift noticeably toward amber and may lose their identifying coolness. A palette designed for a daytime garden ceremony will look different at an evening ballroom reception. For venues where you control artificial light, warm white bulbs with a color temperature between 2700K and 3000K render most wedding colors well and are the safe default. For venues with fixed lighting, request photos from previous events in similar lighting conditions before finalizing your palette.",
+      },
+      {
+        heading: "Building a Three-Color Wedding Palette",
+        body: "The most practically executable wedding color palette uses three colors with clear roles: a dominant color (which appears most frequently, in the largest volume — usually in florals and fabric), a supporting color (which appears in secondary elements and provides tonal contrast to the dominant), and an accent color (which appears in small, precise moments — ribbon detail, stationery elements, candles — and provides the punch that makes the palette memorable). A common failure is adding a fourth or fifth color that is similar enough to an existing color that it reads as a mismatch rather than an intentional addition. Strict palette discipline — three colors, clearly defined roles — is easier for vendors to execute consistently and reads more intentional in photographs than a looser approach. If you need variety within the palette, vary saturation and tonal values of your three colors rather than adding new hues.",
+      },
+    ],
+    links: [
+      { label: "Browse blush and rose palettes", href: "/families/blush/" },
+      { label: "Explore sage and green palettes", href: "/families/moss/" },
+      { label: "Browse all color collections", href: "/collections" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides48);

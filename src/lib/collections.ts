@@ -4889,3 +4889,151 @@ const extraCollections46: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections46);
+
+const extraCollections47: ColorCollection[] = [
+  createCollection(
+    "coastal-morning-mist",
+    "Coastal Morning Mist",
+    "Soft coastal palette of early-morning beach light — pale azure sky, quiet teal water, seafoam on sand.",
+    "Colors at their most peaceful before the day intensifies. Azure mist provides the sky tone — barely-blue, almost white. Teal pearl and seafoam pearl capture the quiet shallow water and wet sand at low tide. Cerulean whisper offers the faintest directional blue. Lagoon bloom soft is the most saturated entry, the deep-water accent. Cool gray whisper completes the palette as its neutral anchor — the color of bleached driftwood and sea-worn stone.",
+    ["Coastal", "Blue", "Teal", "Serene", "Hospitality"],
+    [
+      "azure-mist-faint",
+      "teal-pearl-soft",
+      "seafoam-pearl-faint",
+      "cerulean-whisper-muted",
+      "lagoon-bloom-soft",
+      "cool-gray-whisper",
+    ],
+    {
+      editorialNote: "Soft coastal palette of early-morning beach light — pale azure sky, quiet teal water, seafoam on sand. Colors at their most peaceful before the day intensifies. Works for spa, coastal hospitality, and serene lifestyle branding.",
+      promptWords: [
+        "coastal color palette soft blue",
+        "beach morning light palette",
+        "spa brand muted teal blue colors",
+      ],
+      useCases: ["Coastal hospitality branding", "Spa and wellness design", "Lifestyle brand identity"],
+    },
+  ),
+  createCollection(
+    "autumn-harvest-warmth",
+    "Autumn Harvest Warmth",
+    "Rich harvest season warmth: vivid amber, ember rust, soft coral, honey gold. Colors of ripe grain and turning leaves.",
+    "The palette of October agricultural abundance: amber core vivid is ripe wheat at peak light, warm and luminous; ember dusk clear is the rust of dried corn husks and autumn berries; coral tone soft provides a muted warmth between orange and pink — the color of spent pumpkin flowers; honey radiant clear adds the mid-value golden warmth of dried grasses; citrine shadow muted is the deep, grounded yellow-green of autumn's shadow side. Warm gray tone grounds everything as the palette neutral — the color of weathered barn wood.",
+    ["Autumn", "Seasonal", "Warm", "Amber", "Harvest"],
+    [
+      "amber-core-vivid",
+      "ember-dusk-clear",
+      "coral-tone-soft",
+      "honey-radiant-clear",
+      "citrine-shadow-muted",
+      "warm-gray-tone",
+    ],
+    {
+      editorialNote: "Rich harvest season warmth: vivid amber, ember rust, soft coral, honey gold. Colors of ripe grain, turning leaves, and late-afternoon light in October. Grounded by warm gray. Seasonal without being kitsch.",
+      promptWords: [
+        "autumn color palette warm harvest",
+        "fall brand design amber rust",
+        "seasonal warm color palette October",
+      ],
+      useCases: ["Autumn campaign design", "Food and harvest branding", "Seasonal retail merchandising"],
+    },
+  ),
+  createCollection(
+    "pure-monochrome-system",
+    "Pure Monochrome System",
+    "Clean monochromatic system using the full tonal range of neutral grays with a single muted cobalt accent.",
+    "The complete neutral gray system spanning from whisper-light to shadow-deep, with a single muted cobalt accent that provides just enough chromatic direction to prevent the palette from reading as uncommitted. True gray whisper and cool gray mist provide the lightest surface entries — background and card colors for high-clarity layouts. Warm gray pearl offers a barely-perceptible warmth at the pearl lightness level for natural-light interfaces. True gray tone provides the structural mid-gray. Cool gray shadow completes the depth range. Cobalt tone muted is the disciplined accent: clearly a color without being demanding.",
+    ["Minimal", "Monochrome", "Gray", "Architecture", "Neutral"],
+    [
+      "true-gray-whisper",
+      "cool-gray-mist",
+      "warm-gray-pearl",
+      "true-gray-tone",
+      "cool-gray-shadow",
+      "cobalt-tone-muted",
+    ],
+    {
+      editorialNote: "Clean monochromatic system using the full tonal range of neutral grays with a single muted cobalt accent. Maximum typographic clarity. Architecture, luxury, and editorial brands use this palette for its confident restraint.",
+      promptWords: [
+        "monochrome gray palette minimal",
+        "neutral palette with blue accent",
+        "architectural minimal color system",
+      ],
+      useCases: ["Architecture firm branding", "Luxury product design", "Editorial typography system"],
+    },
+  ),
+  createCollection(
+    "botanical-foliage-study",
+    "Botanical Foliage Study",
+    "A naturalist's palette of botanical greens: moss and lichen through emergent leaf and emerald canopy.",
+    "Built for brands and projects rooted in the natural world, this palette tracks the full spectrum of green as it appears in actual botanical observation rather than design convention. Moss bloom soft is ground-level lichen and shaded moss — the oldest, most rooted green. Leaf tone clear is mid-canopy photosynthesis green in full daylight. Olive radiant muted brings the warm, slightly golden cast of leaves seen against sun. Emerald bloom soft provides the clean, pure green of new growth. Jade dusk soft adds cooler, deeper shadow-green. Honey pearl faint completes the palette as the warm soil undertone — the color of dried straw and light-saturated earth.",
+    ["Botanical", "Green", "Nature", "Sustainable", "Plant-Based"],
+    [
+      "moss-bloom-soft",
+      "leaf-tone-clear",
+      "olive-radiant-muted",
+      "emerald-bloom-soft",
+      "jade-dusk-soft",
+      "honey-pearl-faint",
+    ],
+    {
+      editorialNote: "A naturalist's palette of green study: moss and lichen through emergent leaf and emerald canopy. No artificial or enhanced green — all grounded in actual botanical observation. Honey pearl adds warm soil undertone. Ideal for sustainable, plant-forward brands.",
+      promptWords: [
+        "botanical green palette natural",
+        "plant brand green color palette",
+        "foliage nature color design",
+      ],
+      useCases: ["Sustainable brand identity", "Botanical illustration projects", "Plant-based food and product branding"],
+    },
+  ),
+  createCollection(
+    "urban-bold-contrast",
+    "Urban Bold Contrast",
+    "High-contrast urban palette: deep ink cobalt, vivid crimson, electric citrine — colors of city signage and street art.",
+    "Built for brands that need to dominate visually in competitive environments. Cobalt ink pure is the deepest, most saturated blue possible in the archive — the color of transit authority signage and high-performance technical equipment. Crimson nocturne vivid is vivid red at its most dramatic depth — energy without aggression. Citrine bloom vivid is the electric yellow of safety systems and street art — maximum stop power. Cool gray shadow and cool gray veil provide the structural gray scale that gives the saturated colors room to breathe and assert hierarchy. The palette of urban environments at their most decisive.",
+    ["Urban", "Bold", "High Contrast", "Street", "Vivid"],
+    [
+      "cobalt-ink-pure",
+      "crimson-nocturne-vivid",
+      "citrine-bloom-vivid",
+      "cool-gray-shadow",
+      "cool-gray-veil",
+    ],
+    {
+      editorialNote: "High-contrast urban palette: deep ink cobalt, vivid crimson, electric citrine yellow — colors of city signage, street art, and transit systems. Clean gray scale provides the structure. Maximum stop power for brands that need to dominate visually.",
+      promptWords: [
+        "bold contrast color palette urban",
+        "city brand color palette vivid",
+        "high contrast design color system",
+      ],
+      useCases: ["Urban brand identity", "Street culture and streetwear", "Bold event and festival design"],
+    },
+  ),
+  createCollection(
+    "nordic-wool-warmth",
+    "Nordic Wool Warmth",
+    "Cozy Scandinavian hygge palette: warm wool grays, faint amber candlelight, barely-there blush and teal.",
+    "The palette of interior warmth during long Nordic winters — designed for sustained exposure and maximum comfort. Warm gray pearl is the lead color: the exact tone of undyed wool, aged linen, and birch wood in low light. Amber pearl faint provides the candlelight warmth — barely there, just enough to tip the palette from cool to cozy. Blush mist faint and teal veil faint are the palette's chromatic whispers — each providing a direction without insisting. Honey mist muted adds the warm mid-tone of beeswax and dried heather. True gray whisper completes the palette as its lightest entry — the color of snow light through frosted glass.",
+    ["Nordic", "Hygge", "Cozy", "Neutral", "Warm Gray"],
+    [
+      "warm-gray-pearl",
+      "amber-pearl-faint",
+      "blush-mist-faint",
+      "teal-veil-faint",
+      "honey-mist-muted",
+      "true-gray-whisper",
+    ],
+    {
+      editorialNote: "Cozy Scandinavian hygge palette: warm wool grays, faint amber candlelight, barely-there blush and teal. Colors of interior warmth during long dark winters — the palette of knits, wooden furniture, and natural textiles. Extremely livable and sustained over long-form exposure.",
+      promptWords: [
+        "nordic color palette cozy warm",
+        "scandinavian hygge color design",
+        "cozy home interior color palette",
+      ],
+      useCases: ["Home goods and textiles brand", "Interior design moodboards", "Cozy lifestyle brand identity"],
+    },
+  ),
+];
+
+collections.push(...extraCollections47);

@@ -1244,7 +1244,70 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   mothers_day: ["blush", "rose", "peony", "ivory", "lavender"],
   fathers_day: ["cobalt", "slate", "amber", "ivory", "olive"],
   new_year_palette: ["amber", "ivory", "cobalt", "vivid", "shadow"],
+  // Real estate and home staging
+  real_estate_brand: ["warm-gray", "ivory", "amber", "teal", "cobalt"],
+  home_staging: ["warm-gray", "ivory", "blush", "teal", "amber"],
+  luxury_real_estate: ["cool-gray", "cobalt", "ivory", "gold", "shadow"],
+  curb_appeal: ["olive", "amber", "ivory", "warm-gray", "emerald"],
+  modern_home_design: ["cool-gray", "true-gray", "cobalt", "ivory", "teal"],
 
+  // Wedding and events
+  wedding_color_palette: ["blush", "ivory", "rose", "warm-gray", "gold"],
+  bridal_color: ["blush", "ivory", "white", "rose", "peony"],
+  garden_wedding: ["blush", "sage", "ivory", "mint", "moss"],
+  romantic_palette: ["rose", "blush", "plum", "peony", "ivory"],
+  wedding_flowers: ["blush", "ivory", "rose", "peony", "lavender"],
+  wedding_photography: ["blush", "ivory", "warm-gray", "rose", "amber"],
+
+  // Children and family
+  childrens_brand: ["citrine", "coral", "aqua", "lime", "peony"],
+  kids_design: ["citrine", "coral", "aqua", "lime", "vivid"],
+  toy_brand: ["citrine", "cobalt", "crimson", "lime", "vivid"],
+  baby_shower: ["blush", "mint", "lavender", "ivory", "aqua"],
+  nursery_color: ["blush", "mint", "lavender", "ivory", "warm-gray"],
+  family_brand: ["amber", "teal", "citrine", "ivory", "emerald"],
+
+  // Medical and pharmaceutical
+  pharma_brand: ["cobalt", "teal", "ivory", "azure", "cool-gray"],
+  medical_brand: ["cobalt", "teal", "azure", "ivory", "cool-gray"],
+  healthcare_marketing: ["teal", "cobalt", "aqua", "ivory", "emerald"],
+  dental_brand: ["aqua", "mint", "ivory", "cobalt", "cool-gray"],
+  pharmacy_color: ["cobalt", "ivory", "azure", "teal", "cool-gray"],
+  mental_health_brand: ["lavender", "teal", "mint", "ivory", "iris"],
+
+  // Government and civic
+  government_brand: ["cobalt", "crimson", "ivory", "warm-gray", "shadow"],
+  civic_design: ["cobalt", "ivory", "cool-gray", "teal", "emerald"],
+  nonprofit_brand: ["teal", "cobalt", "amber", "ivory", "emerald"],
+  public_service: ["cobalt", "cool-gray", "ivory", "teal", "emerald"],
+
+  // Education and academia
+  university_brand: ["cobalt", "crimson", "ivory", "shadow", "amber"],
+  academic_color: ["cobalt", "ivory", "shadow", "emerald", "amber"],
+  school_brand: ["cobalt", "citrine", "crimson", "ivory", "emerald"],
+  e_learning: ["cobalt", "teal", "citrine", "ivory", "aqua"],
+  edtech_brand: ["cobalt", "citrine", "teal", "ivory", "lime"],
+
+  // Fine dining and restaurant
+  fine_dining_brand: ["shadow", "amber", "ivory", "warm-gray", "garnet"],
+  restaurant_brand: ["warm-gray", "amber", "ivory", "crimson", "shadow"],
+  wine_pairing: ["garnet", "merlot", "plum", "ivory", "shadow"],
+  cocktail_bar: ["amber", "shadow", "garnet", "ivory", "cobalt"],
+  cafe_color: ["amber", "warm-gray", "ivory", "honey", "shadow"],
+
+  // Travel and hospitality
+  hotel_brand: ["warm-gray", "ivory", "amber", "teal", "cobalt"],
+  resort_palette: ["teal", "aqua", "ivory", "amber", "cerulean"],
+  travel_brand: ["cobalt", "teal", "amber", "ivory", "azure"],
+  airline_brand: ["cobalt", "azure", "ivory", "cool-gray", "teal"],
+  boutique_hotel: ["warm-gray", "ivory", "blush", "teal", "amber"],
+
+  // Yoga and wellness studio
+  yoga_studio: ["blush", "ivory", "mint", "lavender", "warm-gray"],
+  wellness_brand: ["mint", "teal", "ivory", "blush", "lavender"],
+  meditation_color: ["lavender", "iris", "blush", "ivory", "warm-gray"],
+  pilates_brand: ["blush", "warm-gray", "ivory", "mint", "coral"],
+  holistic_health: ["teal", "lavender", "mint", "ivory", "moss"],
 
 };
 
