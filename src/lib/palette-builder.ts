@@ -118,23 +118,23 @@ export function buildPaletteStyleDictionaryExport(colors: ColorRecord[]): string
 
 // Deterministic palette naming based on color properties
 const MOOD_WORDS: Record<string, string[]> = {
-  warm_light: ["Morning", "Dawn", "Sunrise", "Bloom", "Glow", "Petal", "Apricot", "Honey"],
-  warm_mid: ["Spice", "Clay", "Ember", "Terra", "Harvest", "Sienna", "Amber", "Rye"],
-  warm_dark: ["Dusk", "Mulled", "Fireside", "Hearth", "Smolder", "Garnet", "Maroon", "Umber"],
-  cool_light: ["Frost", "Mist", "Cloud", "Arctic", "Drift", "Powder", "Haze", "Petal"],
-  cool_mid: ["Ocean", "Stream", "Wave", "Tide", "Harbor", "Cerulean", "Teal", "Cove"],
-  cool_dark: ["Midnight", "Deep", "Abyss", "Tempest", "Shadow", "Cobalt", "Indigo", "Reef"],
-  neutral_light: ["Silk", "Pearl", "Linen", "Ivory", "Whisper", "Alabaster", "Cream", "Birch"],
-  neutral_mid: ["Stone", "Ash", "Fog", "Dove", "Slate", "Gravel", "Dune", "Pewter"],
-  neutral_dark: ["Onyx", "Iron", "Carbon", "Eclipse", "Void", "Obsidian", "Graphite", "Coal"],
+  warm_light: ["Morning", "Dawn", "Sunrise", "Bloom", "Glow", "Petal", "Apricot", "Honey", "Blush", "Soleil", "Sherbet", "Peach"],
+  warm_mid: ["Spice", "Clay", "Ember", "Terra", "Harvest", "Sienna", "Amber", "Rye", "Ochre", "Saffron", "Rust", "Baked"],
+  warm_dark: ["Dusk", "Mulled", "Fireside", "Hearth", "Smolder", "Garnet", "Maroon", "Umber", "Mahogany", "Rum", "Clove", "Treacle"],
+  cool_light: ["Frost", "Mist", "Cloud", "Arctic", "Drift", "Powder", "Haze", "Petal", "Glacé", "Vapour", "Crystal", "Rime"],
+  cool_mid: ["Ocean", "Stream", "Wave", "Tide", "Harbor", "Cerulean", "Teal", "Cove", "Lagoon", "Shoal", "Estuary", "Current"],
+  cool_dark: ["Midnight", "Deep", "Abyss", "Tempest", "Shadow", "Cobalt", "Indigo", "Reef", "Trench", "Fjord", "Ink", "Nocturne"],
+  neutral_light: ["Silk", "Pearl", "Linen", "Ivory", "Whisper", "Alabaster", "Cream", "Birch", "Parchment", "Vellum", "Ecru", "Cotton"],
+  neutral_mid: ["Stone", "Ash", "Fog", "Dove", "Slate", "Gravel", "Dune", "Pewter", "Flint", "Pebble", "Mortar", "Grain"],
+  neutral_dark: ["Onyx", "Iron", "Carbon", "Eclipse", "Void", "Obsidian", "Graphite", "Coal", "Basalt", "Cinder", "Forge", "Pitch"],
 };
 
 const SCENE_WORDS: Record<string, string[]> = {
-  monochrome: ["Study", "Suite", "System", "Scale", "Layer", "Column", "Frame", "Field"],
-  analogous: ["Garden", "Coast", "Valley", "Meadow", "Path", "Grove", "Shore", "Ridge"],
-  complementary: ["Clash", "Dialog", "Tension", "Balance", "Duet", "Accord", "Contrast", "Pairing"],
-  triadic: ["Festival", "Bazaar", "Mosaic", "Carnival", "Prism", "Market", "Revue", "Atlas"],
-  diverse: ["Palette", "Spectrum", "Story", "Journey", "Scene", "Archive", "Drift", "Suite"],
+  monochrome: ["Study", "Suite", "System", "Scale", "Layer", "Column", "Frame", "Field", "Tone", "Register", "Chord", "Volume"],
+  analogous: ["Garden", "Coast", "Valley", "Meadow", "Path", "Grove", "Shore", "Ridge", "Canopy", "Clearing", "Terrace", "Gradient"],
+  complementary: ["Clash", "Dialog", "Tension", "Balance", "Duet", "Accord", "Contrast", "Pairing", "Counterpoint", "Interval", "Response", "Echo"],
+  triadic: ["Festival", "Bazaar", "Mosaic", "Carnival", "Prism", "Market", "Revue", "Atlas", "Triad", "Triptych", "Triangle", "Chord"],
+  diverse: ["Palette", "Spectrum", "Story", "Journey", "Scene", "Archive", "Drift", "Suite", "Collection", "Passage", "Movement", "Study"],
 };
 
 function getTemperature(hue: number): "warm" | "cool" | "neutral" {

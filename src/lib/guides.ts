@@ -9883,3 +9883,203 @@ const extraGuides36: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides36);
+
+const extraGuides37: LandingGuide[] = [
+  {
+    category: "Photography",
+    slug: "color-grading-photography-guide",
+    title: "Color Grading for Photography: Building a Personal Visual Language",
+    summary: "Deliberate color grading goes beyond presets — it is the systematic shaping of hue, saturation, and luminosity to create a coherent image world. Learn split toning, HSL panel logic, and how to develop a signature palette.",
+    eyebrow: "Photography Color Guide",
+    priority: 72,
+    searchIntent: "photography color grading guide",
+    tags: ["Photography", "Color Grading", "Post-Processing"],
+    highlights: [
+      "Split toning technique: warm highlights + cool shadows mirrors natural light physics and reads as authentic even when heavily applied.",
+      "HSL panel in Lightroom lets you target specific hue ranges — pulling blue saturation while boosting luminosity creates a more film-like rendering than global adjustments.",
+      "Inverse color grading (cool highlights, warm shadows) creates artificial tension — useful for sci-fi and conceptual work but dissonant in portraits.",
+      "Build a signature palette by first identifying latent visual preferences in your un-edited images — what temperature and shadow color do your best-received images share?",
+    ],
+    sections: [
+      {
+        heading: "Presets vs. Deliberate Grades",
+        body: "A preset applies a predetermined transformation — it is a starting point, not a conclusion. A deliberate color grade results from understanding what the image already contains and making intentional decisions about where to push it. The two processes look identical at the output stage but represent fundamentally different relationships between the photographer and the image.",
+      },
+      {
+        heading: "Split Toning and Natural Light Logic",
+        body: "Warm highlights and cool shadows mirrors the physics of natural light: tungsten and golden-hour light warms the lit areas while skylight cools the shadowed ones. The eye reads this as natural even when heavily applied. The inverse — cool highlights and warm shadows — creates tension that reads as artificial, useful for conceptual work but dissonant in documentary contexts.",
+      },
+      {
+        heading: "HSL Panel: Precise Color Targeting",
+        body: "The HSL (Hue/Saturation/Luminosity) panel enables micro-adjustments that build a coherent image world. Shift orange hue slightly toward yellow then pull orange luminosity up to warm skin tones without causing orange cast. Pull blue saturation down while boosting blue luminosity for a film-like sky rendering. These targeted adjustments are more powerful than global color temperature changes.",
+      },
+      {
+        heading: "Developing a Signature Palette",
+        body: "Look at fifty of your images without editing — what hue temperature do your best-received images share? What saturation register? What shadow color? The answer reveals your latent visual preference. A calibration target shot at the start of a day's work anchors the grade to actual light conditions, making your personal preset a faithful translation of your perceptual lens rather than a random transformation.",
+      },
+    ],
+    links: [
+      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Color Theory Basics", href: "/guides/color-theory-basics-guide/" },
+      { label: "Explore Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Data Design",
+    slug: "data-visualization-color-guide",
+    title: "Data Visualization Color: Sequential, Diverging, and Categorical Palettes",
+    summary: "Choosing the wrong palette type for your data type distorts what viewers see. Sequential, diverging, categorical, and highlight palettes each serve a specific data structure — this guide covers when and how to use each.",
+    eyebrow: "Data Design Guide",
+    priority: 84,
+    searchIntent: "data visualization color palette guide",
+    tags: ["Data Visualization", "Color Theory", "UX Design"],
+    highlights: [
+      "Sequential palettes encode magnitude — perceptual distance between color steps must be proportional to data distance, or the scale misleads.",
+      "The rainbow palette is perceptually non-monotonic: some color steps look like big jumps while others look small, misrepresenting linear data.",
+      "Diverging palettes require a visually neutral midpoint — the zero position should not look significant just because of its color.",
+      "Categorical palettes work by maximum distinctiveness — the limit of 8-12 colors exists because reliable visual separation is difficult beyond that.",
+    ],
+    sections: [
+      {
+        heading: "Sequential Palettes: Encoding Magnitude",
+        body: "Sequential palettes map values from low to high through a smooth perceptual gradient. The critical requirement is perceptual proportionality: equal data steps should look like equal color steps. The notorious rainbow palette fails this — it is perceptually non-monotonic, making some data ranges appear more prominent than others regardless of their actual magnitude.",
+      },
+      {
+        heading: "Diverging Palettes: Encoding Deviation",
+        body: "Diverging palettes encode deviation from a meaningful midpoint. The midpoint must be visually neutral — a grey or desaturated hue — not a visually salient color that makes the zero position look significant. The two arms should be perceptually balanced: equal saturation change and equal luminance change from midpoint to endpoints.",
+      },
+      {
+        heading: "Categorical Palettes: Maximum Distinctiveness",
+        body: "Categorical palettes encode nominal categories with no inherent order. Each category must be visually separable from all others — including when printed in black and white or viewed by colorblind users. This requires differences in luminance and saturation, not just hue. The 8-12 color limit exists because reliable distinctiveness is genuinely difficult to maintain beyond it.",
+      },
+      {
+        heading: "Highlight Palettes: Directing Attention",
+        body: "Highlight palettes use desaturated base colors for background data and a single saturated accent for the focus element. This is the correct palette type when the story is about one specific data element relative to everything else. It is the visual equivalent of whispering context while shouting the main point — and it works only because the base is genuinely muted.",
+      },
+    ],
+    links: [
+      { label: "Browse Blue Palettes", href: "/families/blue/" },
+      { label: "Color Contrast Checker", href: "/tools/contrast/" },
+      { label: "Explore All Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Cultural Color",
+    slug: "mourning-colors-world-cultures-guide",
+    title: "Mourning Colors Around the World: Why Black Is Not Universal",
+    summary: "White is the mourning color across much of South Asia and East Asia. Purple carries grief associations in Catholic liturgy and Thai widowhood. Gold marks death in some West African traditions. Color meaning in grief contexts is culturally specific, not universal.",
+    eyebrow: "Cross-Cultural Color Guide",
+    priority: 68,
+    searchIntent: "mourning colors different cultures",
+    tags: ["Color Culture", "Global Design", "Color Symbolism"],
+    highlights: [
+      "In Hindu tradition and much of South Asia, white is the mourning color — a white sari at a funeral is correct where a black one would be incongruous.",
+      "Purple's mourning association in Catholic liturgy — the deep purple of Lent and specific masses — permeates European religious art and architecture.",
+      "In Thailand, purple is the mourning color specifically for widows. In Brazil, purple and black together mark mourning.",
+      "The design principle: never assume color carries the same emotional weight across cultural contexts, especially in healthcare, sympathy, and memorial categories.",
+    ],
+    sections: [
+      {
+        heading: "White Mourning: South Asia and East Asia",
+        body: "In Hindu tradition and across much of South Asia, white is the correct mourning color. The association comes through purity and the idea of the soul departing — white represents the absence of worldly attachment. In Chinese traditional culture, white similarly carries mourning associations, though contemporary urban practice increasingly incorporates black. The shade matters: pure white, not ivory or off-white, carries the correct connotation.",
+      },
+      {
+        heading: "Purple: Liturgy, Lent, and Specific Widowhood",
+        body: "Purple mourning has deep roots in Catholic and Orthodox Christian liturgical contexts — the deep purple of Lent and specific funeral masses permeates European religious art. In Thailand, purple is the mourning color specifically for widows. In Brazil, the combination of purple and black marks mourning contexts. The specific hue matters: cool violet-purple reads differently from warm red-purple in these contexts.",
+      },
+      {
+        heading: "Gold and Red in Mourning Contexts",
+        body: "In some West African cultural traditions, gold is associated with death and the afterlife — connected to ancestor veneration and the wealth that follows the deceased into the spirit world. In certain Chinese Taoist funeral contexts, red appears because it is associated with good fortune for the soul's transition, not just celebration. These associations are specific to religious and regional context, not universal to the cultural area.",
+      },
+      {
+        heading: "Design Implications for Cross-Cultural Work",
+        body: "A sympathy card design that works for a UK market may carry completely wrong associations in an Indian market. A healthcare brand built around white for clinical associations may read as funereal in a Japanese context if not carefully balanced. The safest path for cross-cultural color work in sensitive categories is audience-specific research before committing to a palette.",
+      },
+    ],
+    links: [
+      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Explore Collections", href: "/collections/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-complete-guide/" },
+    ],
+  },
+  {
+    category: "History",
+    slug: "indigo-history-color-trade-guide",
+    title: "Indigo: The Color That Built Trade Routes and Made Blue Cheap",
+    summary: "Before synthetic dyes, indigo was a global commodity that reshaped trade, caused diplomatic conflicts, and determined which cultures could afford blue. The story of a single color traces the history of globalization, colonialism, and industrial chemistry.",
+    eyebrow: "Color History Guide",
+    priority: 65,
+    searchIntent: "history of indigo color dye",
+    tags: ["Color History", "Natural Dye", "Cultural History"],
+    highlights: [
+      "European rulers in the 15th and 16th centuries banned Indian indigo to protect domestic woad producers — Germany and France imposed the death penalty for importers.",
+      "South Carolina's indigo economy was built on enslaved Africans specifically acquired for their cultivation and processing knowledge from West Africa.",
+      "Adolf von Baeyer synthesized indigo in 1878; BASF began commercial production in 1897, collapsing the natural indigo market within a generation.",
+      "The democratic blue of blue jeans is a direct consequence of synthetic indigo making the dye cheap enough for mass clothing production.",
+    ],
+    sections: [
+      {
+        heading: "Indigo Before the Trade Routes",
+        body: "Indigo dye is derived from the indigofera plant genus, with evidence of use in Peru dating 6,000 years ago and in Egypt 4,400 years ago. The colorless precursor compound indican in the plant's leaves converts to insoluble blue pigment through fermentation and oxidation — a process practiced as craft knowledge for millennia before its chemistry was understood.",
+      },
+      {
+        heading: "The Political Economy of Blue",
+        body: "Indian indigo — indigofera tinctoria — was chemically superior to European woad, the native blue dye plant. The competition was commercial and political: European rulers in the 15th and 16th centuries banned Indian indigo to protect domestic woad producers, with Germany and France imposing the death penalty for importers. The prohibition was official policy protecting incumbent industry, not quality judgment.",
+      },
+      {
+        heading: "Forced Labor and the Indigo Economy",
+        body: "The indigo economy of colonial South Carolina and British India's Bengal province was built on coerced labor. In South Carolina, enslaved Africans from West Africa's rice-growing regions were specifically acquired for their agricultural expertise. In Bengal, the neel chaash system forced peasant farmers to grow indigo at below-market prices, producing the Indigo Revolt of 1859 — one of the first organized peasant uprisings against colonial agricultural exploitation.",
+      },
+      {
+        heading: "Synthesis and the Democratization of Blue",
+        body: "Adolf von Baeyer's 1878 laboratory synthesis and BASF's 1897 commercial production collapsed the natural indigo market within a generation. The price of blue dropped precipitously. Levi Strauss had been producing blue denim work trousers since 1873 using natural indigo — the shift to synthetic indigo in the early twentieth century made blue denim an everyday garment rather than specialized workwear. The democratic blue of blue jeans is the direct consequence.",
+      },
+    ],
+    links: [
+      { label: "Browse Blue Colors", href: "/families/blue/" },
+      { label: "Browse Indigo Colors", href: "/colors/" },
+      { label: "Color History Guides", href: "/guides/" },
+    ],
+  },
+  {
+    category: "Optics",
+    slug: "vintage-lens-color-rendering-guide",
+    title: "Why Vintage Lenses Have a Color Personality: Chromatic Aberration and Optical Character",
+    summary: "Old glass produces color that modern optics cannot — not because modern lenses are worse, but because aberration correction eliminates the rendering characteristics that gave vintage glass its warmth and glow. A guide to optical color for photographers.",
+    eyebrow: "Photography Optics Guide",
+    priority: 63,
+    searchIntent: "vintage lens color rendering photography",
+    tags: ["Photography", "Optics", "Color Rendering"],
+    highlights: [
+      "Chromatic aberration — the failure of a lens to focus all wavelengths at the same point — produces colored fringing at contrast edges, which modern ED glass corrects.",
+      "The warm bias of pre-war uncoated lenses comes from amber-tinted glass elements that absorb blue light while allowing red and green wavelengths to pass more readily.",
+      "The Leica look, Zeiss look, and Nikon pre-AI look each refer in part to optical rendering characteristics formed by technical limitations of their era.",
+      "Working with vintage glass: the color grade should work with the rendering, not against it — Leica glass needs minimal warm adjustment but careful highlight rolloff management.",
+    ],
+    sections: [
+      {
+        heading: "What Chromatic Aberration Actually Is",
+        body: "Different wavelengths of light refract at slightly different angles through glass, so an uncorrected lens produces small colored fringes — typically magenta-green or red-blue — at high contrast edges. Modern lens design suppresses this using extra-low dispersion (ED) or special dispersion (SD) glass elements that bring multiple wavelengths to a common focal point. The correction is technically superior but changes the color character.",
+      },
+      {
+        heading: "Why Old Glass Looks Warm",
+        body: "The warm rendering characteristic of pre-war and early postwar lenses comes partly from glass compositions of the era and partly from the absence of anti-reflective coatings. When blue light is partially absorbed by amber-tinted glass elements while red and green wavelengths pass through more readily, the result is a warm rendering that digital photographers spend significant effort replicating in post-processing.",
+      },
+      {
+        heading: "Optical Personality vs. Technical Improvement",
+        body: "A Summicron from 1960 renders color differently from a Summicron from 2020 not because Leica declined to improve the design, but because improvements — tighter aberration control, new coating formulas, computer-optimized curvature — changed the color rendering along with the resolution. The older lens has a personality formed by its limitations; the newer lens is more neutral and more correct.",
+      },
+      {
+        heading: "Grading Vintage Glass in Post",
+        body: "The color grade you apply to old-lens images should work with the rendering rather than against it. Leica glass typically needs minimal warm adjustment but benefits from careful highlight rolloff management. Zeiss glass, known for higher saturation and micro-contrast, may need saturation reduction in specific hue ranges to avoid oversaturation. Understanding optical character is the foundation of an efficient color workflow.",
+      },
+    ],
+    links: [
+      { label: "Browse Warm Colors", href: "/families/orange/" },
+      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Explore Collections", href: "/collections/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides37);

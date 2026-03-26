@@ -965,6 +965,34 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   spruce_green: ["emerald", "jade", "moss", "shadow", "leaf"],
   birch_white: ["warm-gray", "ivory", "pearl", "veil", "cool-gray"],
 
+  // Jazz and music venue
+  jazz_palette: ["amber", "ember", "honey", "shadow", "ivory"],
+  jazz_club: ["amber", "warm-gray", "ivory", "shadow", "sienna"],
+  late_night: ["shadow", "amber", "ivory", "dark", "warm-gray"],
+  brass_color: ["amber", "honey", "citrine", "warm-gray", "ivory"],
+  velvet_curtain: ["merlot", "garnet", "plum", "shadow", "ivory"],
+  // Polar and arctic expedition
+  polar_palette: ["frost", "azure", "cobalt", "apricot", "navy"],
+  expedition_color: ["azure", "cobalt", "apricot", "frost", "cool-gray"],
+  arctic_explorer: ["frost", "azure", "navy", "apricot", "cool-gray"],
+  high_latitude: ["cobalt", "frost", "azure", "navy", "cool-gray"],
+  survival_orange: ["apricot", "coral", "amber", "vivid", "ember"],
+  // Ceramics and craft
+  celadon_glaze: ["seafoam", "sage", "jade", "whisper", "soft"],
+  glazed_ceramic: ["ivory", "seafoam", "rose", "warm-gray", "apricot"],
+  studio_pottery: ["ivory", "warm-gray", "amber", "sage", "apricot"],
+  stoneware: ["warm-gray", "ivory", "slate", "amber", "muted"],
+  kiln_color: ["amber", "sienna", "ember", "ivory", "warm-gray"],
+  // Documentary and realism
+  documentary: ["teal", "apricot", "cool-gray", "shadow", "ivory"],
+  verité: ["teal", "cobalt", "apricot", "cool-gray", "shadow"],
+  handheld_film: ["teal", "shadow", "amber", "cool-gray", "muted"],
+  available_light: ["amber", "apricot", "cool-gray", "shadow", "ivory"],
+  // Monsoon and tropical rain
+  monsoon_season: ["jade", "emerald", "warm-gray", "amber", "lime"],
+  tropical_rain: ["jade", "moss", "emerald", "lime", "warm-gray"],
+  rainforest_floor: ["moss", "shadow", "jade", "amber", "olive"],
+  humid: ["jade", "teal", "lime", "moss", "warm-gray"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
@@ -1012,6 +1040,9 @@ export const SEARCH_CHIPS: { group: string; terms: string[] }[] = [
   { group: "Mood", terms: ["moody", "dreamy", "serene", "bold", "minimal", "elegant", "playful"] },
   { group: "Aesthetic", terms: ["cottagecore", "darkacademia", "vaporwave", "japandi", "brutalist", "scandi"] },
   { group: "Material", terms: ["velvet", "marble", "linen", "terracotta", "denim", "copper", "brass"] },
+  { group: "Film & Art", terms: ["cinematic", "noir", "vintage", "bauhaus", "art_deco", "editorial"] },
+  { group: "Craft", terms: ["ceramic", "pottery", "wabi_sabi", "artisan", "handmade", "studio"] },
+  { group: "Industry", terms: ["tech", "medical", "hospitality", "financial", "retail", "sports"] },
 ];
 
 export function filterColors(

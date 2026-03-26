@@ -3409,3 +3409,133 @@ const extraCollections35: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections35);
+
+const extraCollections36: ColorCollection[] = [
+  createCollection(
+    "jazz-club",
+    "Jazz Club",
+    "Deep amber, warm shadow, and rich ivory — the palette of low-lit venues, brass instruments, and late-night music.",
+    "The visual atmosphere of a classic jazz club: warm amber spill-light over polished wood, the warm shadow of velvet curtains, ivory keys and brass fittings. A deeply warm, richly tonal palette for environments that feel both intimate and sophisticated.",
+    ["Evening", "Warm", "Sophisticated"],
+    [
+      "amber-deep-core",
+      "ember-tone-muted",
+      "honey-tone-muted",
+      "shadow-warm-dark",
+      "ivory-pearl-soft",
+      "sienna-core-core",
+    ],
+    {
+      editorialNote:
+        "Jazz Club captures the specific quality of warm tungsten light on warm surfaces — wood, brass, velvet, skin. The palette is intensely warm but avoids being garish through the use of muted and tonal variants rather than vivid hues. The shadow anchor prevents it from looking simply bright. Most effective for hospitality, nightlife, and premium entertainment brands.",
+      promptWords: [
+        "jazz club interior in warm amber and deep shadow",
+        "late-night music venue in honey and warm ivory",
+        "brass instrument still life in amber and warm dark tones",
+      ],
+      useCases: ["Hospitality branding", "Music venue identity", "Premium entertainment"],
+    },
+  ),
+  createCollection(
+    "polar-expedition",
+    "Polar Expedition",
+    "Ice blue, expedition orange, deep navy, and frost white — the palette of Arctic research vessels and high-latitude adventure.",
+    "The functional color language of polar expeditions: ice-blue glacial water, the high-visibility orange of expedition gear and survival equipment, deep navy of polar sky, and the pure white of compacted ice. A palette of stark natural beauty and purposeful contrast.",
+    ["Arctic", "Adventure", "Contrast"],
+    [
+      "azure-frost-soft",
+      "cobalt-deep-muted",
+      "navy-deep-core",
+      "apricot-vivid-core",
+      "frost-pearl-soft",
+      "cool-gray-bloom",
+    ],
+    {
+      editorialNote:
+        "Polar Expedition uses the natural contrast of Arctic environments — the cold blue-white of ice against the safety orange of human presence. The orange accent works at small quantities as a signal color; the palette reads as purposeful and technical rather than recreational. Effective for outdoor gear brands, expedition equipment, and adventure travel.",
+      promptWords: [
+        "arctic expedition gear in orange and ice blue",
+        "polar research vessel palette in navy and frost",
+        "high-latitude adventure branding in cobalt and apricot",
+      ],
+      useCases: ["Outdoor gear brands", "Adventure travel", "Scientific and research contexts"],
+    },
+  ),
+  createCollection(
+    "glazed-ceramic",
+    "Glazed Ceramic",
+    "Warm ivory, soft celadon, dusty rose, and warm gray — the palette of hand-thrown studio pottery and artisan ceramics.",
+    "The colors of studio pottery: warm ivory clay bodies, pale celadon glazes with their quiet green-gray cool, dusty rose slip decoration, and the neutral warmth of unglazed stoneware. A gentle, handmade palette that signals craft, warmth, and quiet intention.",
+    ["Artisan", "Neutral", "Warm"],
+    [
+      "ivory-pearl-soft",
+      "seafoam-whisper-soft",
+      "rose-whisper-soft",
+      "warm-gray-bloom",
+      "apricot-pearl-soft",
+      "sage-whisper-soft",
+    ],
+    {
+      editorialNote:
+        "Glazed Ceramic draws from the specific color register of craft ceramics — warm, slightly imperfect, and quiet. The palette resists digital sharpness; it works best in contexts where slight texture and warmth are part of the brand story. The celadon-adjacent tones (seafoam whisper, sage whisper) provide the characteristic cool green-gray of wood-fired or reduction glazes.",
+      promptWords: [
+        "studio pottery still life in warm ivory and pale celadon",
+        "artisan ceramics brand in dusty rose and warm gray",
+        "hand-thrown vessel photography in soft ivory and seafoam",
+      ],
+      useCases: ["Craft and artisan brands", "Home goods and lifestyle", "Slow living editorial"],
+    },
+  ),
+  createCollection(
+    "cinema-verité",
+    "Cinéma Vérité",
+    "Desaturated cool tones, warm skin, muted teal, and gray shadow — the palette of documentary film and handheld realism.",
+    "The visual grammar of documentary and observational cinema: the slight desaturation of handheld footage, warm skin tones against cool ambient light, the muted teal of fluorescent-lit interiors, and the compressed shadow of available-light shooting. A palette of restrained realism and human warmth.",
+    ["Film", "Documentary", "Realism"],
+    [
+      "teal-tone-muted",
+      "apricot-bloom-muted",
+      "cool-gray-bloom",
+      "shadow-deep-muted",
+      "ivory-bloom-soft",
+      "cobalt-tone-muted",
+    ],
+    {
+      editorialNote:
+        "Cinéma Vérité captures the specific desaturated realism of documentary and naturalistic cinema — skin warmth against ambient cool, compressed dynamic range, fluorescent interiors. The palette is deliberately restrained rather than stylized; its power comes from the contrast between warm skin tones and cool ambient. Most effective for documentary, journalism, social impact, and humanist brand contexts.",
+      promptWords: [
+        "documentary photography palette in desaturated teal and warm skin",
+        "observational cinema color grade in muted cool and amber",
+        "humanist editorial palette in cool gray and apricot",
+      ],
+      useCases: ["Documentary and journalism", "Social impact brands", "Humanist editorial"],
+    },
+  ),
+  createCollection(
+    "monsoon-season",
+    "Monsoon Season",
+    "Deep jade, warm gray rain, amber soil, and vivid yellow-green — the palette of tropical rainfall and lush post-storm vegetation.",
+    "The color world of monsoon: deep jade canopy saturated by rainfall, the warm gray of heavy cloud cover, amber earth after the first rains, and the brief vivid lime of new growth pushing through. A palette of moisture, abundance, and natural intensity.",
+    ["Tropical", "Nature", "Intense"],
+    [
+      "jade-deep-core",
+      "emerald-tone-muted",
+      "warm-gray-deep",
+      "amber-bloom-muted",
+      "lime-vivid-core",
+      "moss-tone-muted",
+    ],
+    {
+      editorialNote:
+        "Monsoon Season captures the saturation of tropical environments during and after heavy rainfall — the deepened greens, the warm gray overcast, the brief lime flash of new growth against wet amber soil. The palette works best with the lime used sparingly as an accent against the deeper greens and warm gray. Effective for tropical travel, sustainability brands, and agricultural contexts.",
+      promptWords: [
+        "tropical monsoon palette in deep jade and warm gray",
+        "post-storm vegetation in emerald and lime green",
+        "rainy season color story in green and amber earth",
+      ],
+      useCases: ["Tropical travel brands", "Sustainability and environmental", "Agricultural and food"],
+    },
+  ),
+];
+
+collections.push(...extraCollections36);
