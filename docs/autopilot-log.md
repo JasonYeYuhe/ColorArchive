@@ -2845,3 +2845,52 @@ Lighting/environment: warm_interior, cool_interior, daylight_color, candlelight
 - `src/lib/guides.ts` — extraGuides41 (5 guides, ~265 total)
 - `src/lib/collections.ts` — extraCollections40 (5 collections, 160 total)
 - `src/lib/color-search.ts` — 16 new aliases (1 duplicate deduped)
+
+---
+
+## 2026-03-26 — Normal Run #4 (post big-run)
+
+**Run Type:** Normal
+**Commit:** b8cb60f
+**Timestamp:** 2026-03-26T04:10:00Z
+
+### Categories Covered
+- **A — SEO & Content**: 5 newsletter issues + 5 SEO guides
+- **D — Data & Collections**: 5 new collections + 15 search aliases
+
+### Category A — 5 New Newsletter Issues (289 total, Sep–Oct 2031)
+
+- **sep-2031-color-in-motion-design**: Color in motion design — temporal behavior, hue constancy, saturation management for animation contexts
+- **sep-2031-cultural-color-mourning-celebration**: Why mourning is white in some cultures and black in others — symbolic logic behind color associations
+- **sep-2031-color-in-retail-shelf-design**: Retail shelf color science — warm-color lighting advantage, blocking strategy, e-commerce thumbnail performance
+- **oct-2031-color-and-memory-nostalgia**: How technology creates nostalgia palettes — Kodachrome, CRT screens, Polaroid color characteristics
+- **oct-2031-color-psychology-children-spaces**: Evidence-based color for children's spaces — natural associative palettes, contrast effects, pediatric healthcare research
+
+### Category A — 5 New SEO Guides (extraGuides42, 270 total)
+
+- **color-in-motion-design-guide**: Animation color saturation, temporal meaning, hue constancy for brand motion (priority 78)
+- **retail-packaging-color-guide**: Shelf competition, color blocking strategy, warm-color lighting advantage (priority 81)
+- **color-symbolism-across-cultures-guide**: White as mourning, red as celebration, culturally divergent color meanings (priority 79)
+- **nostalgia-color-palettes-design-guide**: Era-specific technology color artifacts, selective nostalgia reference (priority 74)
+- **color-in-healthcare-environments-guide**: Evidence-based natural palette research, wayfinding, staff vs patient space (priority 77)
+
+### Category D — 5 New Collections (extraCollections41, 164 total)
+
+- **motion-brand-vivid**: Cobalt/cyan/amber on charcoal — brand animation palette
+- **natural-earth-packaging**: Sage/terracotta/ivory/warm-gray — natural product packaging
+- **pediatric-calm-bright**: Sky/sage/coral/ivory — children's healthcare environments
+- **kodachrome-memory**: Amber-shifted reds/warm greens/golden midtones — film nostalgia palette
+- **global-celebration-red**: Crimson/vermilion/gold — cultural celebration, Chinese New Year register
+
+### Category D — 15 New Search Aliases
+
+Motion: motion_brand, brand_animation, ui_microinteraction
+Retail: retail_shelf, natural_packaging, artisan_product
+Healthcare/children: pediatric_color, healthcare_interior, children_space
+Cultural/festive: celebration_color, chinese_red, festive_palette, global_red, nostalgia_film
+
+### Files Modified (4 total)
+- `src/data/newsletter-issues.json` — 5 new issues (285–289, 289 total)
+- `src/lib/guides.ts` — extraGuides42 (5 guides, 270 total)
+- `src/lib/collections.ts` — extraCollections41 (5 collections, 164 total)
+- `src/lib/color-search.ts` — 15 new aliases (2 deduped/renamed)

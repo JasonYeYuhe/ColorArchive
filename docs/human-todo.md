@@ -1,7 +1,7 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-26T autopilot normal run #3
+> Last updated: 2026-03-26T autopilot normal run #4
 
 ## High Priority
 
@@ -27,9 +27,9 @@
 ## Done
 
 - [x] Color by Decade page built and deployed — 2026-03-26
-- [x] Newsletter infrastructure (284+ issues) — 2026-03-26
-- [x] 265+ SEO landing guides — ongoing
-- [x] 160 curated collections — 2026-03-26
+- [x] Newsletter infrastructure (289+ issues) — 2026-03-26
+- [x] 270+ SEO landing guides — ongoing
+- [x] 164 curated collections — 2026-03-26
 - [x] Famous Palettes page — prior run
 - [x] Use Cases page — prior run
 - [x] Projects/workspace page — prior run
