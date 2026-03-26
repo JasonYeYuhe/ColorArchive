@@ -207,6 +207,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.87,
     },
     {
+      url: "https://colorarchive.me/seasonal/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.87,
+    },
+    {
       url: "https://colorarchive.me/use-cases/",
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",

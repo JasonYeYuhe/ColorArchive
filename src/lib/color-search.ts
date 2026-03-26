@@ -1098,6 +1098,22 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   global_red: ["crimson", "vermilion", "scarlet", "ember", "warm"],
   nostalgia_film: ["amber", "coral", "warm-green", "ivory", "warm-brown"],
 
+  // Seasonal design
+  spring_blossom: ["blush", "mint", "lavender", "soft", "pale"],
+  spring_pastel: ["blush", "peach", "lavender", "mint", "sky"],
+  spring_campaign: ["blossom", "mint", "ivory", "soft", "pale"],
+  summer_coastal: ["coral", "teal", "aqua", "vivid", "amber"],
+  summer_tropical: ["coral", "lime", "amber", "vivid", "citrine"],
+  summer_festival: ["coral", "vivid", "amber", "sky", "teal"],
+  autumn_harvest: ["burgundy", "rust", "amber", "olive", "brown"],
+  autumn_earth: ["rust", "sienna", "amber", "garnet", "olive"],
+  autumn_premium: ["burgundy", "amber", "rust", "olive", "cream"],
+  winter_holiday: ["crimson", "pine", "amber", "gold", "navy"],
+  winter_festive: ["crimson", "navy", "gold", "ivory", "deep"],
+  winter_ice: ["pale", "frost", "azure", "silver", "cobalt"],
+  winter_minimal: ["frost", "silver", "pale", "navy", "ice"],
+  seasonal_palette: ["amber", "coral", "mint", "frost", "olive"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

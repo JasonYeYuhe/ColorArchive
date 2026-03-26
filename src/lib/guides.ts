@@ -11010,3 +11010,222 @@ export const extraGuides42: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides42);
+
+export const extraGuides43: LandingGuide[] = [
+  {
+    category: "Color Theory & Design",
+    slug: "seasonal-color-palettes-design-guide",
+    title: "Seasonal Color Palettes: A Designer's Four-Season Reference",
+    summary: "Complete guide to spring, summer, autumn, and winter color palettes — with hex codes, cultural context, industry applications, and tips for building seasonal brand systems.",
+    eyebrow: "Seasonal Color",
+    priority: 84,
+    searchIntent: "seasonal color palettes spring summer autumn winter design",
+    tags: ["Seasonal", "Color Palettes", "Design Strategy", "Brand"],
+    highlights: [
+      "Seasonal color alignment exploits chromatic adaptation — palettes that match the ambient seasonal environment are processed more fluently and feel more appropriate than seasonally misaligned choices.",
+      "Building a seasonal brand system distinguishes structural palette (constant year-round) from seasonal accent palette (rotating quarterly) — structural maintains recognition, accents maintain temporal relevance.",
+      "Autumn palettes need a cool anchor. A single deep forest green or dark slate prevents an all-warm autumn palette from reading as monochromatic and adds the depth contrast that defines professional autumn color work.",
+    ],
+    sections: [
+      {
+        heading: "Why Seasons Shape Color Perception",
+        body: "Seasonal color palettes work because of chromatic adaptation — our visual system continuously adjusts its white-point reference to match the dominant ambient light. In summer, high-angle daylight pushes the visual system toward blue-shifted calibration; in autumn, low-angle warm light shifts toward amber. Colors that match the ambient seasonal register are processed more fluently and feel more appropriate. Designers who align campaign color to seasonal ambient light exploit this fluency effect, making their visuals feel more timely without viewers explicitly noticing why.",
+      },
+      {
+        heading: "Spring Palette Design Principles",
+        body: "Authentic spring palettes are distinguished by high lightness (L* 75-90) and moderate saturation (chroma 20-45 in OKLCH). The reference is the specific quality of spring light: diffuse, slightly cool, filtered through new leaf cover. Spring colors should never be fully saturated — the defining characteristic is a slight milkiness or softness that suggests morning mist and new growth rather than midday directness. The classic spring combination of blush pink and sage green works because both share this diffuse, high-lightness quality while occupying opposite sides of the hue wheel. The danger in spring palettes is oversaturation: a pink at chroma 80 is summer coral, not spring blossom.",
+      },
+      {
+        heading: "Summer Palette Design Principles",
+        body: "Summer palettes are the high-saturation, maximum-energy register of seasonal color. The reference is direct overhead sun, deep saturated water, and ripe fruit — all contexts of maximum chromatic intensity. Summer design color should use the full saturation range (chroma 60-90 in OKLCH) while controlling value range to prevent muddy shadows. The traditional warning against too much saturation does not apply in summer contexts — what matters is managing the value structure beneath the saturated hues. Dark navy as an anchor for bright coral and turquoise creates the depth that prevents a summer palette from reading as visual noise.",
+      },
+      {
+        heading: "Autumn Palette Design Principles",
+        body: "Autumn palettes are characterized by mid-to-dark values (L* 30-65) with high-to-moderate chroma, biased toward warm hues (hue angle 20-70 in OKLCH). The physical reference is the specific quality of autumn light — low-angle, warm-shifted, with long shadows — and autumn organic materials, which are almost all warm-spectrum: decaying chlorophyll releasing orange and yellow carotenoids, polyphenol-rich bark, oxidizing iron compounds in soil. A single cool anchor (deep forest green, dark slate) prevents a warm palette from reading as monochromatic and adds the depth dimension that distinguishes professional autumn color work.",
+      },
+      {
+        heading: "Winter Palette Design Principles",
+        body: "Winter design color occupies two distinct registers: the ice palette (high lightness, low saturation, cool-shifted) and the jewel palette (deep value, high saturation, rich hues). Both are legitimate winter modes for different contexts. Ice palettes — ice blue, frost white, pale silver — project clinical precision and are effective for technology and luxury skincare brands. Jewel palettes — deep crimson, midnight navy, forest green, candlelight gold — project premium, festive, and celebratory registers. The structural key in both winter modes is extreme value contrast: winter is the season where black and white both become fully legitimate design elements.",
+      },
+      {
+        heading: "Building a Seasonal Brand Color System",
+        body: "A seasonal brand color system distinguishes between structural palette (primary brand colors, constant year-round) and seasonal accent palette (supporting colors that rotate quarterly). The structural palette maintains brand recognition; seasonal accents maintain temporal relevance. Derive seasonal accents from the brand's existing hue territory — a brand anchored in deep blue can develop ice blue and silver for winter, sky blue and coral for summer, maintaining family coherence while shifting seasonal register. Output a simple 12-month matrix specifying which accent palette applies when, and apply it to marketing surfaces while keeping product colors and UI in the structural palette.",
+      },
+    ],
+    links: [
+      { label: "Browse seasonal color palettes", href: "/seasonal/" },
+      { label: "Browse all collections", href: "/collections/" },
+      { label: "Explore color families", href: "/families/" },
+    ],
+  },
+  {
+    category: "UI/UX Design",
+    slug: "dark-mode-color-design-guide",
+    title: "Dark Mode Color Design: Beyond Simple Palette Inversion",
+    summary: "Professional guide to dark mode color design — saturation adjustments, contrast calibration, elevation systems, and brand color adaptation for dark UI contexts.",
+    eyebrow: "UI/UX Color",
+    priority: 86,
+    searchIntent: "dark mode color design dark UI palette dark theme accessibility",
+    tags: ["Dark Mode", "UI Design", "Color Systems", "Accessibility"],
+    highlights: [
+      "Pure white on pure black creates halation — bright text elements bleed slightly at the edges in dark mode because the eye calibrates to the dominant dark luminance. Major platforms use off-black (#1A1A1A to #2C2C2C) and off-white (#E5E5E5 to #F0F0F0) to prevent this.",
+      "Mid-value saturated brand colors become harsh on dark backgrounds. Reduce chroma by 15-25% and increase lightness by 5-10% for dark mode variants — compensating for the background's perceptual amplification of emitted light.",
+      "Dark mode depth cannot use shadow systems — black shadows on dark backgrounds disappear. Elevation must be created through lightness increments: base L* 12, first elevation L* 15, second elevation L* 18.",
+    ],
+    sections: [
+      {
+        heading: "Why Palette Inversion Fails",
+        body: "Implementing dark mode by mathematically inverting a light palette produces consistent failures: over-contrast (pure white on pure black creates halation effects that reduce legibility), wrong-register saturation (mid-value saturated brand colors become harsh on dark backgrounds), and broken depth (light-mode shadow systems disappear on dark backgrounds). Light-mode and dark-mode color operate on opposite contrast mechanics. Light mode is light-reflecting — dark elements on a reflective background. Dark mode is light-emitting — bright elements in a dark context. These different physical contexts require different color engineering, not polarity reversal.",
+      },
+      {
+        heading: "Background Darkness Calibration",
+        body: "Pure black (#000000) is almost never the right dark mode background. The reason is the halation effect: bright text elements on a pure-black background appear to glow and bleed slightly at the edges, reducing legibility for extended reading. This occurs because the eye calibrates to the dominant luminance in view — pure-black-background digital interfaces are effectively bright light sources in darkness. Major platform dark mode implementations use off-black backgrounds: Apple's system dark mode uses approximately #1C1C1E, Material Design 3 uses #1C1B1F. The practical range is L* 10-22 in OKLCH.",
+      },
+      {
+        heading: "Saturation Adjustment for Dark Contexts",
+        body: "Colors that appear well-calibrated at mid-to-high saturation in light mode tend to look neon-harsh on dark backgrounds. The mechanism is the dark background's perceptual amplification of any emitted light — a saturated color on a dark background is a bright, directed light source in a dark field. The correction is to reduce chroma by approximately 15-25% and increase lightness by 5-10% for dark mode variants. This compensates for the background's perceptual amplification and produces colors that feel equivalent in weight to their light-mode counterparts.",
+      },
+      {
+        heading: "Elevation Systems for Dark UI",
+        body: "Light mode creates depth hierarchy primarily through shadow: raised elements cast downward shadows on recessed surfaces. This system fails in dark mode because shadows on dark backgrounds disappear — a dark shadow on a dark surface produces no visible contrast. Dark mode depth must be created through lightness: elevated surfaces are slightly lighter than their base surface, simulating the way elevated surfaces receive more ambient light. A practical dark mode elevation scale: base surface L* 12 (#1A1A1A), first elevation L* 15 (#242424), second elevation L* 18 (#2E2E2E), floating surface L* 21 (#363636).",
+      },
+      {
+        heading: "Brand Color Adaptation for Dark Mode",
+        body: "Brand colors require dedicated dark-mode variants rather than direct application. A brand orange that communicates warmth and energy on a white background can read as warning on a dark background because its hue range overlaps with alert conventions in dark UI contexts. The adaptation process: reduce chroma by 15-20%, increase lightness by 8-12%, rotate hue slightly toward neutral if the color is in the red-orange range. Store the light and dark variants as design tokens and apply contextually rather than trying to find a single color that works in both contexts.",
+      },
+    ],
+    links: [
+      { label: "Browse dark palettes", href: "/collections/" },
+      { label: "Color contrast checker", href: "/contrast/" },
+      { label: "WCAG audit tool", href: "/wcag-audit/" },
+    ],
+  },
+  {
+    category: "Accessibility",
+    slug: "color-wayfinding-signage-guide",
+    title: "Color in Wayfinding: How to Design Color-Coded Navigation Systems",
+    summary: "Professional guide to wayfinding color design — categorical distinctness, accessibility for color vision deficiency, hospital and transit conventions, and applying wayfinding principles to digital navigation.",
+    eyebrow: "Wayfinding & Navigation",
+    priority: 78,
+    searchIntent: "wayfinding color design color coded navigation signage color accessibility",
+    tags: ["Wayfinding", "Accessibility", "Color Systems", "UX Design"],
+    highlights: [
+      "Wayfinding color must achieve categorical distinctness under real-world conditions: variable lighting, peripheral vision (signs read while walking), distance viewing, and color vision deficiency (~8% of males have some form of red-green deficiency).",
+      "Accessible wayfinding design ensures every pair of coded categories differs on at least two perceptual dimensions — hue plus lightness, or hue plus pattern — so color-vision-deficient users always have a non-hue cue.",
+      "Hospital color conventions are tested and meaningful: red for emergency, green for exits and safety, blue for general patient areas, warm colors for high-traffic navigational anchors. Deviating requires explicit reasons.",
+    ],
+    sections: [
+      {
+        heading: "The Core Requirement: Categorical Distinctness",
+        body: "Wayfinding color systems must achieve categorical distinctness — every coded category must be unambiguously different from every other coded category under real-world viewing conditions. Real-world conditions include variable lighting (fluorescent, LED, daylight), peripheral vision (signs read while walking, not studied), distance viewing, and color vision deficiency. These constraints drive wayfinding color selection toward a methodology similar to data visualization: choose hues that are maximally spaced around the hue wheel, ensure sufficient lightness difference between similar hues, and avoid placing red and green as the sole differentiators between categories.",
+      },
+      {
+        heading: "Colorblind-Accessible Wayfinding",
+        body: "Accessible wayfinding design for color vision deficiency requires more than avoiding red-green pairs. The principle is to ensure that every pair of coded categories differs on at least two perceptual dimensions: hue, lightness, saturation, or shape/pattern. For a transit map, two lines that share a similar hue region must also differ clearly in lightness or must be accompanied by a shape code. The London Underground handles this by assigning lightness ranges as well as hues — darker, more saturated colors contrast clearly with lighter, more vibrant colors even when viewed in grayscale simulation.",
+      },
+      {
+        heading: "Hospital Wayfinding Color Conventions",
+        body: "Hospitals have developed a tested shared color vocabulary for wayfinding. Emergency/urgent care: red (exploits pre-existing cultural emergency association). Exits and safety equipment: green (ISO safety color convention). General patient care: blue (neutral, high-trust, non-clinical). Diagnostic services: purple or violet (distinctive, no strong anxiety association). Maternity and pediatrics: warm yellow or orange (positive, nurturing). Staff-only zones: gray or cool neutral. These conventions are not universal but represent a tested default — designers deviating from them should have explicit reasons.",
+      },
+      {
+        heading: "Applying Wayfinding Principles to Digital Navigation",
+        body: "Wayfinding color principles apply directly to information architecture in digital products. Navigation systems with multiple parallel tracks — like a product with several distinct functional areas — can use color coding to help users understand which area they are in. The same distinctness and accessibility requirements apply: each section's color must be distinguishable from adjacent sections on more than hue alone, and must maintain sufficient contrast with backgrounds. Brand colors are typically optimized for recognition rather than categorical distinctness and may not provide adequate differentiation across all sections.",
+      },
+      {
+        heading: "Color Coding Maintenance and Consistency",
+        body: "Color coding systems degrade when new categories are added without systematic review. An organization that starts with five color-coded zones and incrementally adds more often ends up with legacy colors that are well-differentiated and newer colors that are inconsistent. Maintaining a color coding system requires a governance process: new category additions should be reviewed against the complete existing system for distinctness, documented in a system specification, and verified against accessibility requirements before deployment. The specification should include exact color values (not named colors), the distinctness evaluation methodology, and the rationale for each assignment.",
+      },
+    ],
+    links: [
+      { label: "Color accessibility checker", href: "/contrast/" },
+      { label: "Color blindness simulator", href: "/colorblind/" },
+      { label: "Browse collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "metallic-color-design-guide",
+    title: "Metallic Colors in Design: Gold, Silver, and Bronze for Digital and Print",
+    summary: "Professional guide to metallic color design — simulating metallic effects in digital contexts, using metallic in print and packaging, and understanding why so much digital gold looks cheap.",
+    eyebrow: "Metallic & Luxury",
+    priority: 77,
+    searchIntent: "metallic color design gold design silver color luxury palette foil packaging",
+    tags: ["Metallic", "Luxury", "Brand", "Print Design"],
+    highlights: [
+      "Physical metallic is a surface property (directional reflectance). Digital gold cannot reproduce this by default — a flat #FFD700 reads as orange-yellow with no metallic quality. Effective digital metallic uses gradients to simulate reflectance.",
+      "Metallic color functions as an accent and signal, not a dominant palette color. At scale, metallic associations collapse and the underlying hue dominates — a large gold background reads as yellow or amber, not luxury.",
+      "Digital gold gradient: three stops — shadow (#7D5A30), midtone (#C8A84B), highlight (#FFF4C7) — at 45 degrees. The dark shadow stop is essential; without it the gradient reads as yellow-white rather than metallic.",
+    ],
+    sections: [
+      {
+        heading: "The Digital Metallic Problem",
+        body: "Physical metallic color is a surface property: reflectance that varies with viewing angle and light source position. A real gold object looks different from above, from the side, and in different lighting conditions — this variability is what makes physical metallic look precious. Digital color cannot reproduce this behavior by default. A flat #FFD700 (gold hex) is an orange-yellow with no directional reflectance, which is why so much digital gold reads as yellow or cheap. The challenge of digital metallic is to simulate reflectance behavior using static color — primarily through gradients that encode the highlight, midtone, and shadow of a directionally lit metallic surface.",
+      },
+      {
+        heading: "Constructing Digital Gold",
+        body: "Effective digital gold uses a three-stop gradient: shadow (#7D5A30, a warm dark brown), midtone (#C8A84B, a medium gold-yellow), and highlight (#FFF4C7, a near-white warm cream). Applied to text at approximately 45 degrees, this gradient simulates the light distribution on a convex gold surface and reads as metallic rather than simply yellow. The key is the dark shadow stop — without it, the gradient reads as yellow-white rather than gold. Adjusting the stop ratios allows different gold qualities: a 40/40/20 ratio reads as aged or matte gold; a 20/50/30 ratio reads as bright polished gold.",
+      },
+      {
+        heading: "When to Use Metallic Color",
+        body: "Metallic color functions as an accent and signal, not a dominant palette color. At scale — as a background color, a primary UI color, or a large area fill — metallic associations collapse and the underlying hue dominates. A large gold background reads as yellow or amber. At accent scale — text treatments, iconographic elements, borders, and small graphic highlights — metallic color retains its luxury or achievement association because the limited area is insufficient for the underlying hue to dominate perception. The rule: use metallic to accent, not to fill.",
+      },
+      {
+        heading: "Silver and Platinum in Design",
+        body: "Silver and platinum are more versatile in design than gold because they are proximate to neutral gray and can function at larger scales without strong category associations. The perceptual distinction between silver (premium, reflective) and gray (neutral, institutional) is subtle: silver reads as silver when it has slightly cool color temperature, high lightness (L* 80-92), and is presented in contexts that activate metallic associations — near gold, near dark navy, in premium product contexts. A #C0C0C0 reads as silver alongside deep navy and gold accents; the same value reads as light gray alongside flat colors and practical contexts.",
+      },
+      {
+        heading: "Metallic in Print and Packaging",
+        body: "In print and packaging, metallic is literal: metallic inks, foil stamping, and embossing create actual reflective surfaces. Unlike digital simulation, physical metallic guarantees the directional reflectance that makes metallic readings premium. The design challenge shifts from simulation to restraint: metallic in print is expensive per coverage area and tends to visually dominate whatever it touches. Effective print metallic design uses it at minimum necessary coverage — a single brand mark, a logotype, a decorative border — and relies on the material quality to carry the luxury signal without needing extensive area.",
+      },
+    ],
+    links: [
+      { label: "Browse luxury color palettes", href: "/collections/" },
+      { label: "Explore yellow color family", href: "/families/yellow/" },
+      { label: "Color tints and shades", href: "/tints/" },
+    ],
+  },
+  {
+    category: "Color Theory & Design",
+    slug: "color-background-negative-space-guide",
+    title: "Background Color Design: How Neutral Backgrounds Affect Every Other Color",
+    summary: "How to select background neutrals for design layouts — understanding simultaneous contrast, warm vs cool background effects, and why pure white is not always the best base.",
+    eyebrow: "Layout & Composition",
+    priority: 80,
+    searchIntent: "background color design neutral color palette white space simultaneous contrast off-white",
+    tags: ["Color Theory", "Layout", "Typography", "Visual Hierarchy"],
+    highlights: [
+      "Simultaneous contrast: a warm red on a cool white background appears slightly more orange and saturated than the same red on warm cream. These shifts compound across a full layout — background color is upstream of every other color decision.",
+      "Warm backgrounds (cream, warm white) harmonize with warm-palette designs and contrast with cool palettes. Cool backgrounds do the reverse. Match background warmth to palette warmth for harmony; oppose it for contrast.",
+      "Pure white (#FFFFFF) creates maximum contrast against every foreground color — which can make designs feel harsh when foreground colors are already vivid. Major design systems use L* 96-98 backgrounds rather than L* 100.",
+    ],
+    sections: [
+      {
+        heading: "Simultaneous Contrast and Background Neutrals",
+        body: "The choice of background neutral — pure white, warm cream, or cool light gray — is a color decision that affects every other color in the layout through simultaneous contrast. Simultaneous contrast is the perceptual effect where a color's apparent hue, saturation, and value shift based on its surrounding context. A warm red on a cool white background appears slightly more orange and more saturated than the same red on a warm cream background, where the background's warmth partially neutralizes the color contrast. These shifts are subtle in isolation but compound across a full layout. Background color selection is upstream of every other color decision.",
+      },
+      {
+        heading: "Warm Backgrounds: When and Why",
+        body: "Warm backgrounds — cream, warm white (#FAFAF7), warm light gray (#F5F3EF) — create a harmonious context for warm-palette designs (orange, red, amber primary palettes) and a contrasting context for cool-palette designs. A warm background makes warm foreground colors feel cohesive and organic; it makes cool foreground colors feel more contrasted due to complementary contrast. Warm backgrounds are appropriate for: editorial design (books, magazines, long-form content), luxury beauty and skincare, artisan food and product brands, and any context where tactility and approachability are primary tonal goals.",
+      },
+      {
+        heading: "Cool Backgrounds: When and Why",
+        body: "Cool backgrounds — cool white (#F5F8FC), light blue-gray (#F0F4F8), cool light gray (#F3F4F6) — create a systematic, precise context for cool-palette designs. They push warm palette elements into higher prominence through contrast, which can be used deliberately to make call-to-action elements pop in an otherwise neutral UI. Cool backgrounds are appropriate for: software products, technology brands, medical and scientific contexts, financial services, and any context where systematic clarity and precision are primary tonal goals.",
+      },
+      {
+        heading: "Why Pure White Is Not Always Optimal",
+        body: "Pure white (#FFFFFF) is the maximum luminance baseline: it creates the highest possible contrast against any foreground color. This can make designs feel harsh or visually tense when foreground colors are already vivid, because every element is simultaneously maximally contrasted against the background. The widespread shift away from pure-white backgrounds in premium digital and editorial design reflects a preference for slightly reduced background contrast that allows color to breathe. Apple's system interfaces use approximately #FBFBFB; many editorial design systems use warm off-whites in the #F8F4EF range.",
+      },
+      {
+        heading: "Selecting Background Neutrals in Practice",
+        body: "The practical selection process: (1) identify whether your primary palette is warm, cool, or balanced; (2) choose background warmth to harmonize with warm palettes, contrast with cool palettes, or stay neutral for balanced palettes; (3) calibrate lightness to slightly below pure white for most digital contexts (L* 96-98 rather than L* 100) to reduce baseline contrast; (4) test the proposed background against your primary palette elements at full composition, not just in isolation. The last step is critical — simultaneous contrast effects only become visible when the full layout is assembled.",
+      },
+    ],
+    links: [
+      { label: "Browse neutral color palettes", href: "/collections/" },
+      { label: "Color converter", href: "/convert/" },
+      { label: "Explore color families", href: "/families/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides43);

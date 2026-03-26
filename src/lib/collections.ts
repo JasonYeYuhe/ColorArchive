@@ -4168,3 +4168,128 @@ const extraCollections41: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections41);
+
+const extraCollections42: ColorCollection[] = [
+  createCollection(
+    "spring-blossom-fresh",
+    "Spring Blossom Fresh",
+    "Soft spring pastels — cherry blossom pink, tender mint, morning sky blue, and delicate orchid for seasonal campaigns.",
+    "A high-lightness spring palette built from the season's most distinctive natural references: cherry blossom, new leaf mint, forsythia yellow, morning sky blue, and wisteria orchid. Every color shares the slightly milky, diffuse quality of spring light — moderate saturation, high lightness, never strident. Ideal for spring campaigns, beauty launches, and any brand content that needs to feel fresh, optimistic, and seasonally current.",
+    ["Spring", "Pastel", "Seasonal", "Fresh"],
+    [
+      "blush-bloom-soft",
+      "mint-bloom-soft",
+      "azure-bloom-soft",
+      "orchid-pearl-soft",
+      "blush-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "High-lightness spring palette anchored in blossom pink and tender mint. Works for seasonal beauty campaigns, spring fashion editorials, children's product launches, and wellness brands positioning around renewal.",
+      promptWords: [
+        "spring campaign visuals in blossom pink and mint",
+        "cherry blossom brand identity",
+        "seasonal beauty launch in pastel spring palette",
+      ],
+      useCases: ["Spring marketing campaigns", "Seasonal beauty packaging", "Children's brand seasonal content"],
+    },
+  ),
+  createCollection(
+    "summer-coastal-vivid",
+    "Summer Coastal Vivid",
+    "Bold summer energy — sunset coral, sea-glass teal, sol yellow, and deep sapphire for travel and lifestyle brands.",
+    "Full-saturation summer coastal palette anchored in sunset coral and sea-glass teal — the colors of warm water, ripe fruit, and directional sun. The deep sapphire grounds the palette and prevents the vivid hues from reading as noise. Works at maximum visual energy for summer campaigns, festival events, travel brands, and any context where confident, joyful color is the goal.",
+    ["Summer", "Coastal", "Vivid", "Tropical"],
+    [
+      "coral-bloom-vivid",
+      "teal-tone-vivid",
+      "amber-bloom-vivid",
+      "sapphire-shadow-clear",
+      "coral-mist-soft",
+    ],
+    {
+      editorialNote:
+        "Maximum-energy summer palette. Works for travel and tourism brands, summer beverage campaigns, festival event identity, sportswear seasonal drops, and youth lifestyle content.",
+      promptWords: [
+        "summer coastal brand in coral and teal",
+        "tropical travel campaign palette",
+        "outdoor summer event in vivid warm colors",
+      ],
+      useCases: ["Summer travel campaigns", "Festival event branding", "Outdoor lifestyle product photography"],
+    },
+  ),
+  createCollection(
+    "autumn-harvest-deep",
+    "Autumn Harvest Deep",
+    "Rich autumn earth tones — harvest garnet, burnt ember, amber canopy, and forest jade for premium seasonal work.",
+    "Deep, warm autumn palette built from the season's richest organic references: harvest garnet, burnt ember orange, amber maple canopy, October jade forest, and amber dusk bark. The cool jade anchor prevents the palette from reading as monochromatic warm, adding the depth contrast that distinguishes professional autumn color work. Works across premium food, artisan packaging, fashion editorial, and luxury brand seasonal campaigns.",
+    ["Autumn", "Earthy", "Rich", "Harvest"],
+    [
+      "garnet-core-vivid",
+      "ember-core-vivid",
+      "amber-silk-vivid",
+      "jade-dusk-clear",
+      "amber-dusk-muted",
+    ],
+    {
+      editorialNote:
+        "Professional autumn palette anchored in garnet and jade green. Works for luxury food and beverage brands, fall fashion editorial, artisan product packaging, home goods seasonal campaigns, and hospitality autumn menus.",
+      promptWords: [
+        "autumn harvest campaign in garnet and amber",
+        "fall luxury food brand in earth tones",
+        "artisan packaging in warm seasonal palette",
+      ],
+      useCases: ["Autumn food and beverage campaigns", "Fall fashion editorial", "Artisan product packaging"],
+    },
+  ),
+  createCollection(
+    "winter-jewel-nocturnal",
+    "Winter Jewel Nocturnal",
+    "Deep winter jewels — midnight indigo, crimson ember, evergreen jade, and candlelight amber on a dark base.",
+    "High-contrast winter jewel palette for holiday, premium, and nocturnal design contexts. Midnight indigo and deep jade anchor the palette in depth; crimson and candlelight amber provide the festive warm accents that lift against the dark base. This is the color of candlelit evenings, frost windows, and premium holiday packaging — maximum value contrast with saturated jewel accents that read as rich rather than harsh.",
+    ["Winter", "Jewel", "Holiday", "Deep"],
+    [
+      "indigo-shadow-vivid",
+      "crimson-core-vivid",
+      "jade-dusk-clear",
+      "amber-silk-vivid",
+      "blush-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "Premium winter and holiday palette. Works for holiday gift packaging, luxury retail seasonal campaigns, festive event identity, premium spirits and gifting brands, and dark-mode product interfaces.",
+      promptWords: [
+        "holiday luxury packaging in indigo and crimson",
+        "winter brand campaign in deep jewel tones",
+        "festive premium identity in amber and forest green",
+      ],
+      useCases: ["Holiday gift packaging", "Luxury seasonal campaigns", "Festive event identity"],
+    },
+  ),
+  createCollection(
+    "winter-ice-minimal",
+    "Winter Ice Minimal",
+    "Crisp winter ice palette — pale azure, frost cerulean, cobalt depth, and whisper sapphire for precision and Nordic brands.",
+    "The cool, crystalline register of winter — pale azure blue, frost cerulean, deep cobalt, and whisper sapphire. This is not the festive register of winter color but the austere clarity register: the palette of precision instruments, Nordic design, premium skincare, and technology brands seeking authority through restraint. Every color has high lightness and low-to-moderate saturation with a cool shift that reads as cold, exact, and uncompromising.",
+    ["Winter", "Ice", "Minimal", "Nordic"],
+    [
+      "azure-bloom-soft",
+      "cerulean-bloom-soft",
+      "cobalt-mist-soft",
+      "sapphire-pearl-soft",
+      "azure-whisper-soft",
+    ],
+    {
+      editorialNote:
+        "Cool, minimal winter palette. Works for technology product launches, premium skincare and fragrance, Nordic lifestyle brands, medical and precision equipment, and high-end digital product interfaces targeting premium audiences.",
+      promptWords: [
+        "Nordic winter brand identity in ice blue and frost",
+        "premium technology palette in cool minimal tones",
+        "luxury skincare in azure and cerulean palette",
+      ],
+      useCases: ["Technology brand identity", "Nordic lifestyle product photography", "Premium skincare and fragrance"],
+    },
+  ),
+];
+
+collections.push(...extraCollections42);
