@@ -2796,3 +2796,52 @@ Nostalgia: nostalgia, nostalgic, memory, analog
 - `src/lib/guides.ts` — extraGuides40 (5 guides, ~260 total)
 - `src/lib/collections.ts` — extraCollections39 (5 collections, 155 total)
 - `src/lib/color-search.ts` — 10 new aliases (deduped from 20 attempted)
+
+---
+
+## 2026-03-26 — Normal Run #3 (post big-run)
+
+**Run Type:** Normal
+**Commit:** 8dd07af
+**Timestamp:** 2026-03-26T03:40:00Z
+
+### Categories Covered
+- **A — SEO & Content**: 5 newsletter issues + 5 SEO guides
+- **D — Data & Collections**: 5 new collections + 16 search aliases
+
+### Category A — 5 New Newsletter Issues (284 total, Jul–Aug 2031)
+
+- **jul-2031-color-space-perception-interior**: Color as spatial tool in interiors — warm/cool advance/recede, ceiling height, corridors, open-plan zone definition
+- **jul-2031-neon-color-cycles-cultural**: 15-year neon design cycles — reaction formation mechanism, technology enabling role, brand adoption lag
+- **aug-2031-color-signage-legibility-system**: Signage color science — value contrast primacy, CVD considerations, retroreflective materials, typography contrast standards
+- **aug-2031-color-fatigue-desaturation-trend**: Post-maximalist design contraction — perceptual adaptation, cultural embarrassment, brand survival strategies
+- **aug-2031-color-in-data-visualization-encoding**: Data visualization color encoding — sequential vs categorical, rainbow palette failure modes, CVD impact
+
+### Category A — 5 New SEO Guides (extraGuides41, ~265 total)
+
+- **print-color-management-guide**: CMYK vs RGB gamut, ICC profiles, coated vs uncoated paper, soft proofing workflow (priority 82)
+- **hospitality-interior-color-guide**: Hotel lobby positioning, restaurant dwell time, guestroom restraint, lighting interaction (priority 76)
+- **color-temperature-lighting-design-guide**: CCT Kelvin scale, surface color impact under warm/cool light, photography white balance (priority 79)
+- **typographic-color-hierarchy-guide**: Value hierarchy, accent wayfinding, dark mode typography, WCAG contrast standards (priority 77)
+- **luxury-packaging-color-guide**: Category color conventions, finish types as luxury signals, saturation rule, unboxing sequence design (priority 80)
+
+### Category D — 5 New Collections (extraCollections40, 160 total)
+
+- **hotel-lobby-warmth**: Amber/honey/ivory/coral — approachable hospitality welcome palette
+- **heritage-navy-anchor**: Deep cobalt/navy/cool-gray/ivory — institutional legacy brand anchor
+- **spa-stone-calm**: Warm-gray/sage/mint/ivory — wellness and rest environment palette
+- **dark-editorial-night**: Ink navy/violet/plum/ivory — fashion editorial dark aesthetic
+- **alpine-clarity**: Cerulean/frost/cool-gray/amber — high-altitude outdoor clarity
+
+### Category D — 16 New Search Aliases
+
+Print/press: press_ready, spot_printing, substrate_neutral
+Hospitality: hotel_lobby, hotel_room, restaurant_interior, fine_dining, bar_color
+Data visualization: sequential_palette, diverging_palette, chart_background
+Lighting/environment: warm_interior, cool_interior, daylight_color, candlelight
+
+### Files Modified (4 total)
+- `src/data/newsletter-issues.json` — 5 new issues (280–284, 284 total)
+- `src/lib/guides.ts` — extraGuides41 (5 guides, ~265 total)
+- `src/lib/collections.ts` — extraCollections40 (5 collections, 160 total)
+- `src/lib/color-search.ts` — 16 new aliases (1 duplicate deduped)
