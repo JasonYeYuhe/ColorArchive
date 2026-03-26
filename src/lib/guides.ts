@@ -12000,3 +12000,125 @@ export const extraGuides48: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides48);
+
+export const extraGuides49: LandingGuide[] = [
+  {
+    slug: "brand-identity-color-guide",
+    title: "Choosing Your Brand's Primary Color: A Complete Identity Guide",
+    summary: "How to select and build your brand's primary color system. Covers color psychology, competitive differentiation, palette architecture, and ensuring your brand color works at every scale and context.",
+    eyebrow: "Brand Identity Guide",
+    searchIntent: "how to choose brand color",
+    priority: 91,
+    category: "Branding",
+    tags: ["Brand Identity", "Color Strategy", "Logo Design", "Visual Identity"],
+    highlights: [
+      "Brand color recognition can increase brand awareness by up to 80% — color is the fastest-processed visual brand signal.",
+      "Competitive mapping before color selection prevents choosing a color already 'owned' by a dominant category player.",
+      "Primary brand color should work in single-color (one ink) before being evaluated in full palette context.",
+      "Color meaning is culturally variable — a color that reads as trustworthy in one market may read as neutral in another.",
+    ],
+    sections: [
+      {
+        heading: "Why Brand Color Selection Is a Strategic Decision",
+        body: "Choosing a brand color is not primarily an aesthetic decision — it is a strategic one. The most important variable is not whether the color is beautiful but whether it is ownable in your competitive space, legible across all your touchpoints, and aligned with the emotional meaning your brand needs to convey. A color that perfectly represents your brand values but is already dominant in your category creates confusion rather than distinction. A color that differentiates you brilliantly but does not translate to single-color print or digital UI reduces your ability to use it consistently. Strategic color selection starts with constraints, not preferences.",
+      },
+      {
+        heading: "Competitive Mapping: What Colors Are Already Taken",
+        body: "Before generating color options, audit the color landscape of your competitive category. Collect the primary brand colors of your five to ten closest competitors and map them on a simplified color wheel. This reveals which hue regions are saturated (many competitors share a hue family) and which are open (few or no competitors use a hue region). In most categories, there are one or two dominant hue families that communicate 'I belong to this category' and one or two hue regions that are open for differentiation. Understanding this map lets you make an explicit choice: use the category convention (credibility, legibility, belonging) or differentiate (distinction, memorability, risk). Neither is inherently correct — the choice depends on your brand's positioning strategy. But the choice should be explicit and intentional, not accidental.",
+      },
+      {
+        heading: "Functional Requirements Before Aesthetics",
+        body: "Before finalizing a brand color, test it against its complete use context. The primary brand color must work as: a single flat color on white background (for document headers, one-color print, simple digital); a single flat color on dark/black background (for dark-mode interfaces, reversed print, video applications); a fill color in combination with the brand's secondary palette; a photo filter or color overlay; and as a small icon or favicon. Many colors that look strong in a brand presentation fall apart in one or more of these contexts — particularly very dark colors (which lose definition at small sizes), very light colors (which disappear on white), or very saturated complementary pairs (which create chromatic vibration at small sizes). This functional stress-testing should happen before final selection.",
+      },
+      {
+        heading: "Building the Full Palette from the Primary Color",
+        body: "Once the primary brand color is selected, the supporting palette is built around it using consistent structural principles. The most reliable approach for brand palettes uses: the primary color at its characteristic saturation and lightness as the lead; a neutralized or toned version of the primary hue as a background or secondary surface color; a warm or cool neutral (depending on the primary's temperature) for large-area typography and surfaces; and one accent color at the maximum or minimum end of the palette for emphasis and call-to-action elements. This architecture gives the palette internal logic — each color has a clear role — and makes consistent application easier across teams and vendors who need to understand how to use the colors without the original designer present.",
+      },
+    ],
+    links: [
+      { label: "Explore brand-aligned color palettes", href: "/collections" },
+      { label: "Browse by color family", href: "/families" },
+      { label: "Build a custom palette", href: "/builder" },
+    ],
+  },
+  {
+    slug: "typography-color-pairing-guide",
+    title: "Typography and Color Pairing: The Complete Guide to Readable, Beautiful Text",
+    summary: "How to pair typefaces with color systems for maximum readability and aesthetic coherence. Covers contrast ratios, color temperature pairing, and how font weight interacts with color choice.",
+    eyebrow: "Typography Color Guide",
+    searchIntent: "typography color pairing guide",
+    priority: 84,
+    category: "Typography",
+    tags: ["Typography", "Readability", "Color Contrast", "Web Design", "Print Design"],
+    highlights: [
+      "WCAG AA requires a minimum 4.5:1 contrast ratio for normal text and 3:1 for large text (18pt+ or 14pt+ bold).",
+      "Warm text on cool backgrounds and cool text on warm backgrounds both create visual tension — neutral text often reads calmer.",
+      "Light-weight type requires higher contrast ratios than bold type to achieve the same perceived legibility.",
+      "Colored body text adds cognitive load — reserve it for headlines, callouts, and decorative purposes.",
+    ],
+    sections: [
+      {
+        heading: "The Fundamental Hierarchy: Body vs. Display Type",
+        body: "The starting point for any typography-color system is the distinction between body text and display type. Body text — the long-form reading text of paragraphs, articles, and documentation — has one primary requirement: legibility over extended exposure. The appropriate color for body text is almost always near-black on a near-white or very light background, or near-white on a very dark background. Any significant departure from these poles introduces cognitive load that accumulates over reading sessions. Display type — headlines, subheadings, callouts, UI labels — operates differently: it is read in short bursts, benefits from visual variety, and is the appropriate place to introduce brand color, chromatic interest, and tonal variety. This fundamental distinction — neutral for body, expressive for display — is the foundation from which exceptions are deliberately and sparingly introduced.",
+      },
+      {
+        heading: "Color Temperature and Typeface Character",
+        body: "Typefaces have inherent color temperature through their formal character: geometric sans-serifs (Futura, Circular, Avenir) read as cool and precise; humanist serifs (Garamond, Palatino, Georgia) read as warm and traditional; slab serifs read as solid and neutral to warm. These inherent temperatures interact with the chromatic color of the type. A warm amber headline set in Futura creates a deliberate contrast between the form's cool geometry and the warm chromatic color — this contrast is a design choice, not an error, but it reads as intentional tension rather than coherence. A warm amber headline set in Garamond has temperature alignment between form and color — it reads as unified. Neither is universally correct, but understanding the interaction allows you to choose deliberately.",
+      },
+      {
+        heading: "Font Weight and Contrast Tradeoffs",
+        body: "Font weight directly affects the contrast ratio needed for equivalent legibility. A light or thin typeface weight (100–300 in CSS font-weight terms) has narrow strokes that require higher luminance contrast to remain legible — the same WCAG score that is adequate for regular or bold weight becomes borderline for thin weights. Conversely, bold and black weights (700–900) are legible at lower contrast ratios because the high stroke coverage compensates for lower contrast difference. This has practical implications for colored headline typography: if you want to use a mid-lightness brand color as a headline color, it will be more successful at heavier weights (semibold or bold) than at light or regular weights, particularly at smaller display sizes.",
+      },
+      {
+        heading: "Building a Typography Color System",
+        body: "A functional typography color system has four tiers: primary text color (near-black or near-white depending on background, used for all body text and default UI text); secondary text color (a slightly lower-contrast version of primary, used for captions, metadata, timestamps, and supporting information — this creates hierarchy without adding color); emphasis color (brand primary or accent, used for links, inline emphasis, call-to-action labels, and key callout text — deployed sparingly); and decorative/display color (the full range of the brand palette, reserved for large-format headlines and graphic text elements where legibility is aided by size). This four-tier system keeps most text in the neutral primary tier, uses the secondary tier for hierarchy, and reserves chromatic color for deliberate moments of emphasis and expression.",
+      },
+    ],
+    links: [
+      { label: "Explore high-contrast color palettes", href: "/collections" },
+      { label: "Browse neutral gray colors", href: "/families/true-gray/" },
+      { label: "Test color contrast in the palette builder", href: "/builder" },
+    ],
+  },
+  {
+    slug: "dark-mode-color-palette-guide",
+    title: "Dark Mode Color Palette Design: How to Build UI Colors That Work in Both Themes",
+    summary: "A complete guide to designing color systems that work in light and dark mode. How to avoid the common mistakes — washed-out grays, oversaturated accents, illegible text — and build adaptive palettes that look intentional in both themes.",
+    eyebrow: "Dark Mode Color Guide",
+    searchIntent: "dark mode color palette design",
+    priority: 88,
+    category: "UI Design",
+    tags: ["Dark Mode", "UI Design", "Design Systems", "Accessibility", "Color Tokens"],
+    highlights: [
+      "True black (#000000) is rarely right for dark mode — dark grays (5%–12% lightness) reduce eye strain and work better with shadows.",
+      "Saturated colors appear to 'glow' on dark backgrounds — reduce saturation by 15–25% in dark mode to match perceived intensity.",
+      "Surface elevation in dark mode is communicated by lightness: higher surfaces are lighter, not by adding shadows as in light mode.",
+      "Text on dark backgrounds should not be pure white — near-white (90%–95% lightness) reduces eye strain from harsh contrast.",
+    ],
+    sections: [
+      {
+        heading: "The Fundamental Architecture of Dark Mode Color",
+        body: "Dark mode is not simply an inversion of light mode. Inverting a light mode palette produces washed-out midtones, oversaturated accents, and backgrounds that are either too dark (pure black, which creates harsh contrast) or not dark enough (inverted mid-grays that look like dirty white). Effective dark mode design starts from different assumptions: backgrounds should be dark grays in the 5%–15% HSL lightness range (not black), surfaces should communicate elevation through lightness steps (each raised surface slightly lighter than the one below), text should be near-white (90%–95% lightness) not pure white, and accent colors should be desaturated by 15–25% relative to their light-mode equivalents to prevent the 'glowing' effect that fully saturated colors produce on dark grounds.",
+      },
+      {
+        heading: "Designing Surfaces and Elevation Without Shadows",
+        body: "Light mode UI design communicates element elevation primarily through shadows — a raised card has a drop shadow, a raised button has a shadow, a modal has a deep shadow. Dark mode changes this vocabulary because dark shadows on dark backgrounds are not visible. The solution adopted by Material Design, Apple's HIG, and most modern design systems is to communicate elevation through surface lightness: the app background is the darkest surface; cards and panels sit one step lighter; popped dialogs and tooltips sit another step lighter; the topmost elements (selection highlights, focused inputs) are lightest. This lightness-equals-elevation system creates spatial depth without shadows and is more consistent across different display brightness levels.",
+      },
+      {
+        heading: "Adapting Brand Colors for Dark Mode",
+        body: "Brand accent colors require modification for dark mode use. The most common mistake is using the same hex value in both modes — a vivid blue that looks precisely right on a white background will appear to glow on a very dark surface, drawing more visual weight than intended. The correct adaptation reduces saturation (typically by 15–25%) and sometimes slightly increases lightness (by 5–10%) to match the perceived intensity from light mode. This counterintuitive principle — that less chromatic intensity on a dark background can match more chromatic intensity on a light background perceptually — is verified by the way OLED screens handle saturated colors: each pixel is self-luminous on OLED, so a fully saturated red on black is backlit only by its own light and appears to actively emit rather than reflect.",
+      },
+      {
+        heading: "Color Token Architecture for Adaptive Systems",
+        body: "Adaptive color systems that support both light and dark modes should use semantic color tokens rather than literal values. Instead of defining 'blue-600' and using it directly, define 'color.action.primary' with a light-mode value of blue-600 and a dark-mode value of blue-400 (lighter and potentially less saturated). This architecture separates the role of a color from its specific value, allowing themes to swap values without requiring every component that uses the color to know which mode it is in. The minimal semantic token set for a dual-mode system includes: background.base, background.surface, background.elevated, text.primary, text.secondary, text.disabled, border.default, action.primary, action.secondary, and state variants (hover, pressed, focus) for each action token.",
+      },
+    ],
+    links: [
+      { label: "Explore dark and moody color palettes", href: "/collections" },
+      { label: "Browse near-black color shades", href: "/colors/cool-gray-nocturne" },
+      { label: "Browse neutral gray families", href: "/families/true-gray/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides49);

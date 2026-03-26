@@ -1309,6 +1309,49 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   pilates_brand: ["blush", "warm-gray", "ivory", "mint", "coral"],
   holistic_health: ["teal", "lavender", "mint", "ivory", "moss"],
 
+  // UI and light/dark themes (new unique entries)
+  light_mode: ["whisper", "mist", "veil", "pearl", "bloom"],
+
+  // Editorial layout (unique entries only)
+  magazine_layout: ["crimson", "cobalt", "cool-gray", "ivory"],
+  newspaper_design: ["true-gray", "cool-gray", "cobalt", "crimson"],
+  poster_color: ["crimson", "amber", "cobalt", "emerald", "violet"],
+
+  // Material and craft
+  ceramic_color: ["cobalt", "teal", "warm-gray", "ivory", "amber"],
+  pottery_color: ["amber", "warm-gray", "coral", "teal", "cobalt"],
+  terracotta_color: ["coral", "ember", "amber", "warm-gray", "merlot"],
+  adobe_color: ["coral", "amber", "warm-gray", "ember", "honey"],
+  clay_color: ["coral", "amber", "warm-gray", "ember"],
+  wood_color: ["amber", "honey", "warm-gray", "merlot", "ember"],
+  linen_color: ["warm-gray", "ivory", "honey", "amber"],
+  wool_color: ["warm-gray", "ivory", "honey", "blush", "teal"],
+
+  // Memory and psychology
+  nostalgia_color: ["amber", "honey", "warm-gray", "rose", "blush"],
+  retro_aesthetic: ["amber", "coral", "teal", "citrine", "crimson"],
+  y2k_color: ["blush", "citrine", "azure", "mint", "iris"],
+  candy_color: ["blush", "citrine", "azure", "mint", "iris"],
+  pastel_pop: ["blush", "citrine", "azure", "mint", "iris"],
+
+  // Science and nature
+  bioluminescent: ["aqua", "seafoam", "teal", "cobalt", "indigo"],
+  deep_sea_color: ["cobalt", "indigo", "aqua", "seafoam", "true-gray"],
+  ocean_trench: ["cobalt", "indigo", "aqua", "true-gray"],
+  forest_dusk: ["moss", "indigo", "emerald", "amber", "true-gray"],
+  twilight_color: ["indigo", "violet", "cobalt", "blush", "amber"],
+  dawn_color: ["blush", "rose", "amber", "cobalt", "lavender"],
+
+  // Brand psychology
+  trustworthy_brand: ["cobalt", "teal", "emerald", "cool-gray", "true-gray"],
+  innovative_brand: ["violet", "cobalt", "indigo", "azure", "coral"],
+  premium_brand: ["warm-gray", "cool-gray", "cobalt", "amber", "true-gray"],
+  approachable_brand: ["teal", "mint", "aqua", "blush", "azure"],
+  authoritative_brand: ["cobalt", "indigo", "cool-gray", "true-gray", "garnet"],
+  playful_brand: ["coral", "citrine", "blush", "mint", "azure"],
+  sustainable_brand: ["moss", "emerald", "teal", "olive", "warm-gray"],
+  artisan_brand: ["amber", "warm-gray", "coral", "honey", "merlot"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

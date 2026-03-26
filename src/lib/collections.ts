@@ -5037,3 +5037,195 @@ const extraCollections47: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections47);
+
+const extraCollections48: ColorCollection[] = [
+  createCollection(
+    "editorial-black-white-red",
+    "Editorial Black, White & Red",
+    "Classic editorial triad: near-black ink, crisp white, and a bold primary red accent for maximum graphic impact.",
+    "The most powerful graphic color system in editorial design — the three-color palette that has anchored magazine covers, fashion campaigns, and newspaper design for over a century. Cool gray nocturne provides the near-black ink anchor: rich and dark enough to read as black across media, without the flatness of pure black. True gray whisper delivers the crisp white surface. Crimson core vivid is the red — a pure, fully saturated true red at the midpoint of lightness, neither too bright nor too deep, made to dominate the palette when deployed at full saturation. Garnet shadow provides an optional deeper red for depth. Cool gray mist adds a midtone surface for panels and backgrounds.",
+    ["Editorial", "Bold", "Graphic", "Magazine", "High Contrast"],
+    [
+      "cool-gray-nocturne",
+      "true-gray-whisper",
+      "crimson-core-vivid",
+      "garnet-shadow-vivid",
+      "cool-gray-mist",
+    ],
+    {
+      editorialNote: "Classic editorial triad: near-black ink, crisp white, bold primary red accent. The graphic standard of fashion editorial, newspaper design, and bold brand identity for 100+ years.",
+      promptWords: [
+        "editorial black white red palette",
+        "bold graphic design color scheme",
+        "fashion magazine color palette",
+      ],
+      useCases: ["Fashion magazine layout", "Bold brand identity", "Newspaper and editorial design"],
+    },
+  ),
+  createCollection(
+    "mediterranean-tile-blues",
+    "Mediterranean Tile Blues",
+    "Ceramic blues of the Mediterranean coast: hand-painted tile indigo, sky cerulean, sea teal, and sun-bleached white.",
+    "The color palette of Portuguese azulejos, Moroccan zellige tile, and Greek island ceramics — blues assembled from centuries of coastal craft tradition. Cobalt shadow vivid anchors the palette with the deep blue of hand-fired ceramic glazes, the color of traditional Portuguese tile. Cerulean bloom clear provides the mid-range sky blue of summer coastal light. Azure silk clear adds a lighter, more luminous blue for gradient variety. Teal bloom soft brings the faint green edge of shallow Mediterranean water. True gray whisper and ivory-adjacent warm gray veil complete the palette as the sun-bleached white of plastered walls.",
+    ["Mediterranean", "Ceramic", "Coastal", "Blue", "Artisan"],
+    [
+      "cobalt-shadow-vivid",
+      "cerulean-bloom-clear",
+      "azure-silk-clear",
+      "teal-bloom-soft",
+      "warm-gray-veil",
+      "true-gray-whisper",
+    ],
+    {
+      editorialNote: "Ceramic blues of the Mediterranean — hand-painted tile indigo, sky cerulean, sea teal, bleached white. Colors of Portuguese azulejos, Moroccan zellige, Greek island ceramics.",
+      promptWords: [
+        "mediterranean blue palette design",
+        "ceramic tile color palette",
+        "coastal artisan blue color scheme",
+      ],
+      useCases: ["Mediterranean restaurant and hospitality", "Artisan ceramic and craft brand", "Travel and tourism identity"],
+    },
+  ),
+  createCollection(
+    "forest-dusk-palette",
+    "Forest at Dusk",
+    "The precise moment twilight enters a forest: deep shadow green, indigo-tinted canopy, amber last-light, and the gray of forest floor.",
+    "The color of temperate forest in the thirty minutes after sunset — when color is still present but shadow is reclaiming the space. Moss nocturne provides the deep shadow green of forest canopy at the lowest light: nearly black, with just enough green to read as living rather than mineral. Indigo velvet clear adds the indigo-tinted depth of a darkening sky seen through tree cover. Emerald dusk soft delivers the mid-range forest green where some daylight still filters. Amber dusk muted is the last warm light, the color of horizontal light on tree trunks. True gray shadow carries the forest floor in dim conditions.",
+    ["Forest", "Moody", "Twilight", "Dark", "Nature"],
+    [
+      "moss-nocturne",
+      "indigo-velvet-clear",
+      "emerald-dusk-soft",
+      "amber-dusk-muted",
+      "true-gray-shadow",
+    ],
+    {
+      editorialNote: "The precise moment twilight enters a forest: deep shadow green, indigo-tinted canopy, amber last-light, gray forest floor. For moody natural environments and dark brand identities.",
+      promptWords: [
+        "forest dusk dark color palette",
+        "moody nature dark green palette",
+        "twilight forest color scheme",
+      ],
+      useCases: ["Outdoor brand with dark aesthetic", "Forest and nature photography brand", "Gaming and entertainment dark UI"],
+    },
+  ),
+  createCollection(
+    "candy-pop-pastel",
+    "Candy Pop Pastel",
+    "High-energy candy-bright pastels: bubblegum pink, lemon yellow, sky blue, mint green, and lavender for playful brand identity.",
+    "The palette of confectionery packaging, children's brand identity, and the brighter end of Y2K nostalgia — pastels at maximum cheerfulness. Blush mist soft provides the bubblegum pink: a true pastel pink with enough saturation to read as actively candy rather than merely blush. Citrine mist soft delivers lemon yellow at the boundary between pastel and vivid. Azure mist soft contributes sky blue — light, clear, and effortlessly summery. Mint mist soft adds the classic candy mint green. Iris mist soft brings lavender into the mix. True gray whisper provides the clean white between candy elements.",
+    ["Candy", "Pastel", "Playful", "Y2K", "Cheerful"],
+    [
+      "blush-mist-soft",
+      "citrine-mist-soft",
+      "azure-mist-soft",
+      "mint-mist-soft",
+      "iris-mist-soft",
+      "true-gray-whisper",
+    ],
+    {
+      editorialNote: "High-energy candy-bright pastels: bubblegum pink, lemon, sky blue, mint, lavender. Maximum cheerfulness — for confectionery, children's brands, and Y2K nostalgia aesthetics.",
+      promptWords: [
+        "candy pastel color palette",
+        "playful bright pastel palette",
+        "y2k pastel color scheme",
+      ],
+      useCases: ["Confectionery and candy brand", "Children's products and entertainment", "Playful digital product and app UI"],
+    },
+  ),
+  createCollection(
+    "retro-americana-palette",
+    "Retro Americana",
+    "Mid-century American diner and roadside culture: cherry red, chrome silver, turquoise teal, mustard yellow, and cream.",
+    "The color palette of 1950s American roadside culture — the colors of chrome diners, drive-ins, roadside motels, and the optimistic mass consumer culture of postwar America. Crimson core vivid provides the cherry red of vinyl booth seating and neon signage. Teal bloom clear delivers the turquoise of period appliances and motel signage. Amber tone muted gives the mustard yellow of mid-century tile and signage backgrounds. Warm gray pearl is the cream of Formica countertops and menu cards. Cool gray whisper delivers the chrome silver of diner surfaces and chrome trim. These five colors, assembled, reconstruct the visual language of American diner culture with documentary accuracy.",
+    ["Retro", "Americana", "Vintage", "Diner", "Mid-Century"],
+    [
+      "crimson-core-vivid",
+      "teal-bloom-clear",
+      "amber-tone-muted",
+      "warm-gray-pearl",
+      "cool-gray-whisper",
+    ],
+    {
+      editorialNote: "Mid-century American diner and roadside culture: cherry red, chrome silver, turquoise teal, mustard yellow, cream. 1950s roadside optimism — diners, drive-ins, vinyl booths.",
+      promptWords: [
+        "retro americana color palette",
+        "1950s diner color scheme",
+        "mid century american vintage palette",
+      ],
+      useCases: ["Retro restaurant and diner branding", "Americana apparel and merchandise", "Nostalgic CPG packaging"],
+    },
+  ),
+  createCollection(
+    "minimalist-gray-study",
+    "Minimalist Gray Study",
+    "A refined value study in gray: from warm white through cool mid-grays to near-black, with a single blue-gray accent.",
+    "The palette of deliberate material minimalism — the gray scale as a design language rather than a default. True gray whisper is the near-white beginning of the scale: the color of plaster, uncoated paper, natural linen. True gray pearl advances to light gray. True gray tone reaches the mid-value — the gray of concrete in diffuse light, of brushed aluminum, of matte ceramic. True gray shadow delivers the dark value for borders, labels, and structural elements. True gray nocturne closes the scale at near-black. Cool gray tone provides the single chromatic accent: a blue-gray that brings the cool direction of the palette without committing to a chromatic color, perfect for a primary action color in a near-monochrome system.",
+    ["Minimalist", "Gray", "Monochrome", "Refined", "Neutral"],
+    [
+      "true-gray-whisper",
+      "true-gray-pearl",
+      "true-gray-tone",
+      "true-gray-shadow",
+      "true-gray-nocturne",
+      "cool-gray-tone",
+    ],
+    {
+      editorialNote: "A refined value study in gray: from warm white through cool mid-grays to near-black with a single blue-gray accent. Deliberate material minimalism — concrete, plaster, brushed aluminum.",
+      promptWords: [
+        "minimalist gray color palette",
+        "monochrome gray design palette",
+        "neutral gray color system",
+      ],
+      useCases: ["Luxury minimal brand identity", "Architecture and design studio", "Minimal UI design system"],
+    },
+  ),
+  createCollection(
+    "sunbaked-clay-terracotta",
+    "Sunbaked Clay & Terracotta",
+    "Earth and sun: fired clay orange, dusty adobe red, warm sand, sun-bleached bone, and the shadow brown of dried earth.",
+    "The palette of sun-baked earth materials — adobe, fired clay, dried grasses, and the warm mineral colors of desert cultures. Coral core vivid provides the warm, fired clay orange that anchors the palette: the exact color of unglazed terracotta at peak sun. Ember tone muted delivers a dusty adobe red — the color of dried mud brick and desert earth. Amber pearl muted provides warm sand and sun-bleached stone. Warm gray bloom provides the bone-white of dry limestone and bleached mineral. Merlot shadow muted adds the deep dried-earth brown for depth and shadow. These five colors together reconstruct the thermal, material warmth of adobe architecture and earthen craft.",
+    ["Terracotta", "Earth", "Desert", "Clay", "Adobe"],
+    [
+      "coral-core-vivid",
+      "ember-tone-muted",
+      "amber-pearl-muted",
+      "warm-gray-bloom",
+      "merlot-shadow-muted",
+    ],
+    {
+      editorialNote: "Earth and sun: fired clay orange, dusty adobe red, warm sand, sun-bleached bone, dried earth brown. The thermal palette of adobe architecture, earthen craft, and desert cultures.",
+      promptWords: [
+        "terracotta clay color palette",
+        "earth tones adobe palette",
+        "desert clay color scheme",
+      ],
+      useCases: ["Artisan ceramics and home goods", "Desert architecture and interiors", "Wellness and natural beauty brand"],
+    },
+  ),
+  createCollection(
+    "deep-ocean-trench",
+    "Deep Ocean Trench",
+    "The colors of deep ocean: abyssal navy, bioluminescent aqua, midnight indigo, seafoam glow, and the black of the deep trench.",
+    "A palette built from the deep ocean as a scientific and aesthetic space — the specific blues and blacks of depth, the bioluminescent colors of abyssal life, and the subtle phosphorescence of moving water in complete darkness. Cobalt nocturne provides the near-black navy of deep water at depth. Indigo shadow vivid adds the intense deep indigo of the middle water column. Aqua velvet clear delivers the bioluminescent aqua of deep-sea organisms — cold, clear, vivid at this depth. Seafoam bloom clear brings the lighter teal of shallower water for contrast. True gray nocturne provides the pure abyssal black.",
+    ["Ocean", "Deep Sea", "Dark", "Navy", "Bioluminescent"],
+    [
+      "cobalt-nocturne",
+      "indigo-shadow-vivid",
+      "aqua-velvet-clear",
+      "seafoam-bloom-clear",
+      "true-gray-nocturne",
+    ],
+    {
+      editorialNote: "The colors of deep ocean: abyssal navy, bioluminescent aqua, midnight indigo, seafoam glow, abyssal black. Scientific and aesthetic — from the deep trench to the surface shimmer.",
+      promptWords: [
+        "deep ocean color palette",
+        "dark blue bioluminescent palette",
+        "abyssal sea color scheme",
+      ],
+      useCases: ["Marine science and ocean research brand", "Dark tech and gaming product", "Luxury navy and indigo product line"],
+    },
+  ),
+];
+
+collections.push(...extraCollections48);
