@@ -2468,3 +2468,55 @@ Fixed 5 guides missing required links[] field
 -  — new data file (35 palettes)
 -  — extraGuides34 (5 guides)
 -  — EN/ZH keys for famous palettes page + tools
+
+---
+
+## 2026-03-26 — Normal Run
+
+**Run type:** Normal Run
+**Commit:** cf7a15d
+**Typecheck:** ✓ clean (fixed duplicate search alias keys + corrected guides format)
+
+### Category A — 5 New Newsletter Issues (254 total)
+
+Oct–Nov 2030 batch:
+- **oct-2030-color-ecommerce-psychology**: Color psychology in e-commerce — what research actually shows about conversion, button color myths, product photography backgrounds
+- **nov-2030-color-wayfinding-systems**: Wayfinding color design for hospitals, transit, and campuses — Harry Beck's Underground, NHS hospital systems, zone vs. route color
+- **nov-2030-synesthesia-color-perception**: Synesthesia and cross-modal perception — Bouba/Kiki effect, audio-visual alignment, cross-modal brand memory
+- **nov-2030-color-forecasting-methodology**: Inside Pantone and WGSN — 18-24 month lead times, self-fulfilling forecasts, cultural shifts behind colors
+- **nov-2030-color-typography-pairing**: Fonts and palettes as an integrated system — high-contrast typefaces, geometric sans-serifs, hierarchy through color
+
+### Category A — 5 New SEO Guides (extraGuides35, ~235 total)
+
+- **color-ecommerce-conversion-guide**: Evidence-based e-commerce color decisions (contrast > hue, photography backgrounds, warm/cool strategy)
+- **wayfinding-color-systems-guide**: Life-critical wayfinding design principles (uniqueness, stress-state design, zone color)
+- **color-typography-pairing-guide**: Font-palette personality alignment (high-contrast needs restraint, geometric sans flexibility)
+- **color-trend-forecasting-guide**: Forecasting methodology and cultural shifts (WGSN, Pantone, self-fulfilling predictions)
+- **synesthesia-cross-modal-color-guide**: Cross-modal color neuroscience (universal associations, audio-visual alignment, brand memory)
+
+### Category D — 4 New Collections (extraCollections34, 130 total)
+
+- **forest-bathing**: Woodland greens + amber accent — shinrin-yoku wellness palette
+- **y2k-digital**: Electric cobalt, iris, lime, magenta — millennium nostalgia palette
+- **haute-couture**: Runway neutrals — ivory, bone, warm gray, dark merlot anchor
+- **transit-authority**: High-contrast metro line colors — cerulean, amber, ember, emerald, cool gray
+
+### Category D — 30 New Search Aliases (687 total)
+
+E-commerce: add_to_cart, shop_palette, storefront_color, conversion_color
+Wayfinding/transit: wayfinding_color, transit_color, signage_color, metro_palette
+Cross-modal: sound_color, music_palette, sensory_color, audio_visual
+Fashion/runway: runway_palette, couture_color, fashion_neutral, haute_couture
+Forest/nature: forest_bath, shinrin_yoku, canopy_green, undergrowth
+Y2K/nostalgia: y2k_palette, millennium_color, retro_digital, early_internet
+
+### Build Fixes
+
+- Removed duplicate SEARCH_ALIASES keys: cta_button, conversion_color, navigation_color, old_growth, woodland (already existed from prior runs)
+- Corrected extraGuides35 format from wrong interface shape to correct LandingGuide structure
+
+### Files Modified (4)
+- `src/data/newsletter-issues.json` — 5 new issues (250-254)
+- `src/lib/guides.ts` — extraGuides35 (5 guides, ~235 total)
+- `src/lib/collections.ts` — extraCollections34 (4 collections, 130 total)
+- `src/lib/color-search.ts` — 30 new unique search aliases (687 total)

@@ -15,7 +15,8 @@
 - [ ] **TikTok review status** — Check if TikTok developer account is approved yet. The admin interface at `/admin/tiktok/` is ready.
 - [ ] **Pinterest integration verification** — Confirm Pinterest OAuth is working end-to-end with a live account.
 - [ ] **Product Hunt listing** — Verify PH listing is accurate and matches current product state.
-- [ ] **Check famous palettes page** — New `/famous-palettes/` page launched in this run. Verify it renders correctly on production (Vercel auto-deploy triggered by push to main).
+- [ ] **Check famous palettes page** — `/famous-palettes/` launched in prior big run. Verify it renders correctly on production.
+- [ ] **Verify new collections load** — 4 new collections added (forest-bathing, y2k-digital, haute-couture, transit-authority). Check `/collections/` page on production.
 
 ## Low Priority / Nice to Have
 
@@ -25,6 +26,10 @@
 
 ## Done
 
+- [x] 130 color collections — 2026-03-26
+- [x] ~235 SEO guides — 2026-03-26
+- [x] 254 newsletter issues — 2026-03-26
+- [x] 687 search aliases — 2026-03-26
 - [x] Famous Palettes page built and deployed — 2026-03-26
 - [x] CSS Named Colors page — 2026-03-26
 - [x] Colorblind simulator — prior runs
@@ -36,6 +41,3 @@
 - [x] Brand color analyzer — prior runs
 - [x] Color stories page — prior runs
 - [x] Color of the Day — prior runs
-- [x] 126 color collections — prior runs
-- [x] 230+ SEO guides — prior runs
-- [x] 249 newsletter issues — prior runs
