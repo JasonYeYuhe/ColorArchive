@@ -1458,8 +1458,74 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   print_palette: ["warm-gray", "true-gray", "cool-gray", "cobalt", "garnet"],
   book_design: ["warm-gray", "amber", "true-gray", "cobalt"],
   typographic: ["true-gray", "warm-gray", "cool-gray", "cobalt", "amber"],
+  // Terracotta and Mediterranean earth
+  clay_palette: ["coral", "apricot", "warm-gray", "olive"],
+  mediterranean_earth: ["coral", "amber", "olive", "warm-gray"],
+  baked_clay: ["coral", "apricot", "amber"],
+  fired_clay: ["coral", "apricot", "amber", "warm-gray"],
+  rustic_earth: ["coral", "amber", "olive", "warm-gray"],
+  artisan_earth: ["amber", "olive", "coral", "warm-gray"],
+  oaxaca_palette: ["coral", "amber", "olive", "warm-gray"],
+  southwest_earth: ["coral", "amber", "apricot", "warm-gray"],
 
+  // Boreal and northern forest
+  boreal_forest: ["teal", "leaf", "amber", "cool-gray"],
+  northern_forest: ["teal", "leaf", "cool-gray", "aqua"],
+  spruce_palette: ["teal", "leaf", "cool-gray"],
+  birch_palette: ["cool-gray", "warm-gray", "amber"],
+  taiga_palette: ["teal", "leaf", "amber", "cool-gray", "aqua"],
+  pine_palette: ["teal", "leaf", "moss", "cool-gray"],
+  winter_forest: ["cool-gray", "teal", "aqua", "amber"],
 
+  // Parisian and French aesthetic
+  parisian_palette: ["rose", "blush", "cool-gray", "plum"],
+  french_palette: ["rose", "blush", "cool-gray", "amber"],
+  paris_color: ["rose", "blush", "cool-gray", "plum"],
+  salon_palette: ["rose", "plum", "cool-gray", "amber"],
+  haussmann_palette: ["cool-gray", "warm-gray", "rose", "amber"],
+  vintage_paris: ["rose", "blush", "cool-gray", "plum"],
+  french_boudoir: ["rose", "blush", "plum", "cool-gray"],
+
+  // Desert and Southwestern
+  desert_dusk: ["amber", "apricot", "violet", "iris", "rose"],
+  southwest_sunset: ["amber", "apricot", "violet", "warm-gray"],
+  desert_sunset: ["amber", "coral", "violet", "iris"],
+  mesa_palette: ["amber", "coral", "warm-gray", "violet"],
+  sedona_palette: ["coral", "amber", "apricot", "warm-gray"],
+  monument_valley: ["amber", "coral", "warm-gray", "violet"],
+  arizona_desert: ["amber", "coral", "apricot", "warm-gray"],
+
+  // Japanese minimalism
+  japanese_minimal: ["warm-gray", "amber", "moss"],
+  wabi_sabi_minimal: ["warm-gray", "amber", "moss"],
+  muji_palette: ["warm-gray", "amber", "true-gray"],
+  zen_minimal: ["warm-gray", "true-gray", "moss"],
+  kyoto_palette: ["warm-gray", "moss", "amber"],
+  japanese_neutral: ["warm-gray", "true-gray", "amber", "moss"],
+  japanese_zen: ["warm-gray", "true-gray", "moss"],
+  minimalist_japanese: ["warm-gray", "amber", "moss", "true-gray"],
+
+  // 80s Miami / retro vivid
+  miami_palette: ["fuchsia", "aqua", "rose", "amber"],
+  eighties_palette: ["fuchsia", "aqua", "amber", "rose"],
+  retro_vivid: ["fuchsia", "aqua", "amber", "rose"],
+  neon_pastel: ["fuchsia", "aqua", "rose", "iris"],
+  art_deco_miami: ["rose", "aqua", "amber", "warm-gray"],
+  south_beach_colors: ["fuchsia", "aqua", "rose", "teal"],
+
+  // Soft romantic / wedding
+  bridal_palette: ["blush", "rose", "iris", "amber"],
+  lavender_blush: ["blush", "iris", "rose"],
+  soft_romantic: ["blush", "iris", "rose", "amber", "warm-gray"],
+  feminine_palette: ["blush", "rose", "iris", "fuchsia"],
+  love_palette: ["rose", "blush", "garnet", "warm-gray"],
+
+  // Deep ocean
+  deep_ocean: ["aqua", "teal", "cobalt", "cool-gray"],
+  abyssal_palette: ["cobalt", "teal", "cool-gray"],
+  marine_deep: ["cobalt", "teal", "aqua", "cool-gray"],
+  deep_blue_ocean: ["cobalt", "aqua", "teal", "cool-gray"],
+  ocean_floor: ["cobalt", "teal", "cool-gray"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

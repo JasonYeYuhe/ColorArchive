@@ -12485,3 +12485,121 @@ export const extraGuides52: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides52);
+
+
+export const extraGuides53: LandingGuide[] = [
+  {
+    slug: "color-palette-for-app-design",
+    title: "How to Choose a Color Palette for App Design",
+    summary: "App color palettes are functional systems — not mood boards. Learn how to build a complete color system for mobile and web apps, from brand hue to semantic tokens, states, and dark mode.",
+    eyebrow: "App Color Design Guide",
+    searchIntent: "how to choose color palette for app design",
+    priority: 93,
+    category: "Color Systems",
+    tags: ["App Design", "Color Systems", "UI Design", "Design Tokens", "Dark Mode"],
+    highlights: [
+      "Build a tonal scale of your primary color with at least 9 steps — use mid-range steps for interactive elements, light steps for backgrounds, and dark steps for text and icons.",
+      "Design both light and dark mode from day one — trying to invert a light-mode palette later requires rethinking nearly every decision.",
+      "Brand color and system color are different things — your signature hue may need adjusting to work reliably as a functional UI color across all states and surfaces.",
+    ],
+    sections: [
+      {
+        heading: "Start with semantic roles, not colors",
+        body: "The most common mistake in app color design is starting with a favorite color and trying to make it work everywhere. Start instead by defining the semantic roles your palette needs to fill: primary action, secondary action, surface background, surface elevated, destructive, success, warning, info, text primary, text secondary, text disabled. Each role gets a color token. The brand color fills the primary action role and informs the palette — it doesn't fill every role. This semantic-first approach makes dark mode, theming, and future brand updates dramatically easier.",
+      },
+      {
+        heading: "Build a tonal scale from your brand hue",
+        body: "Once your brand hue is established, generate a tonal scale with at least 9 steps from near-white to near-black. Tools like Tailwind's color scale (50-950) or Material's tonal palette provide a useful reference model. Light values (50-200) work for backgrounds and tinted surfaces. Mid values (300-600) work for interactive elements and accents. Dark values (700-950) work for text and high-contrast elements. Verify that adjacent steps have at least 1.3:1 contrast ratio for legible surface layering, and that your interactive color achieves 4.5:1 against both white and your darkest surface.",
+      },
+      {
+        heading: "Define semantic colors for system states",
+        body: "Beyond your brand color, every app needs a consistent set of semantic state colors: destructive/error (typically a red), success (a green), warning (an amber or orange), and informational (often a blue). These colors communicate system status and user feedback — they must be immediately recognizable across cultural contexts. Avoid using a saturated version of your brand color as your error color unless your brand color is red, as users have strong associations with red for errors. Test state colors against your surface palette in both light and dark modes.",
+      },
+      {
+        heading: "Test at device scale and real brightness",
+        body: "Colors that look balanced in Figma at 100% on a calibrated monitor frequently misbehave at actual device sizes and real-world brightness levels. Colors that are too similar collapse together at small text sizes. Saturated colors become harsh on high-brightness displays and muted on low-brightness. Test your palette on actual devices with screen brightness varied from 30% to 100%. iOS and Android both have specific safe zones for colors near navigation bars and status bars — review platform HIG guidelines for your target platform before finalizing colors for those areas.",
+      },
+    ],
+    links: [
+      { label: "Browse UI-ready collections", href: "/collections" },
+      { label: "Test contrast ratios", href: "/contrast" },
+      { label: "Explore dark mode UI kit", href: "/packs/dark-mode-ui-kit" },
+    ],
+  },
+  {
+    slug: "earthy-color-palette-guide",
+    title: "Earthy Color Palettes: Building with Natural Tones",
+    summary: "A complete guide to earthy color palettes — terracotta, ochre, clay, moss, and warm neutral — covering how to use them in branding, product design, and digital applications without going muddy.",
+    eyebrow: "Earthy Color Guide",
+    searchIntent: "earthy color palette guide for branding design",
+    priority: 88,
+    category: "Color Theory",
+    tags: ["Earthy", "Natural", "Terracotta", "Warm Neutrals", "Branding"],
+    highlights: [
+      "Earthy tones share a characteristic that pure synthetic hues lack — they all contain some admixture of the underlying brown that natural pigments produce, giving them warmth and optical complexity.",
+      "On screen, earthy tones can appear muddy if they cluster in the mid-value range — build your digital earth palette with a near-white warm tone, mid-value earth, and deep warm anchor for text.",
+      "The strength of earthy palettes is restraint — one or two saturated earth tones against warm neutrals reads as sophisticated; many saturated earth tones together reads as chaotic.",
+    ],
+    sections: [
+      {
+        heading: "The materials history behind earthy palettes",
+        body: "Earthy color palettes draw from the pigments that grounded the history of art before synthetic dyes: yellow ochre, burnt sienna, raw umber, terracotta clay, and iron oxide red. These pigments were available everywhere and required minimal processing — grind the earth, mix with binder, apply. The characteristic optical property of earth pigments is complex, multi-spectral scattering that pure synthetic hues don't replicate. This gives earthy tones their depth — they shift subtly as light conditions change in ways that highly saturated synthetic colors do not.",
+      },
+      {
+        heading: "Building an earthy palette",
+        body: "Start with a dominant warm neutral as your palette foundation: warm white (cream), soft sand, or a warm light gray. Add depth with one accent earth tone — terracotta, burnt orange, or ochre — that provides the dominant warm color. Optionally add a muted green (sage, moss, or olive) for balance, and a deep warm anchor (deep brown or near-black warm gray) for text and contrast. This four-part structure — light neutral, warm earth accent, muted green, deep anchor — is the most reliable earthy palette architecture for branding. Avoid mixing multiple saturated earth tones without a strong neutral to ground them.",
+      },
+      {
+        heading: "Earthy palettes in digital design",
+        body: "Earth tones present a specific challenge in digital design: the mid-value zone (where many earthy tones live) lacks contrast. A palette of four mid-value earth tones may feel cohesive but fail accessibility requirements and lack clear visual hierarchy. Digital earthy palettes need to deliberately span a wider value range than they might in print: push the lightest tones toward very light (whisper or pearl level), and push the deepest tones toward genuinely dark values. The earthy quality is preserved by the warmth and slight desaturation of the hues, not by clustering them in the same value zone.",
+      },
+      {
+        heading: "Industries where earthy palettes excel",
+        body: "Earth tone palettes work particularly well for categories where natural, organic, artisanal, or traditional values are relevant: food and beverage (especially natural, organic, or artisan food), wellness and spa, home goods and furniture, ceramics and craft, sustainable brands, architecture and interior design, and fashion brands positioning on quality over trend. They are generally a poor fit for technology brands wanting to communicate cutting-edge modernity, financial brands wanting to communicate precision, or medical brands where clinical associations matter.",
+      },
+    ],
+    links: [
+      { label: "Browse earthy collections", href: "/collections" },
+      { label: "Explore natural packs", href: "/packs" },
+    ],
+  },
+  {
+    slug: "color-psychology-marketing-guide",
+    title: "Color Psychology in Marketing: What the Research Actually Shows",
+    summary: "The popular version of color psychology in marketing dramatically oversimplifies what the research supports. Here is what is actually well-evidenced about color's effects on brand perception, purchase intent, and recall.",
+    eyebrow: "Marketing Color Psychology",
+    searchIntent: "color psychology in marketing research guide",
+    priority: 91,
+    category: "Branding",
+    tags: ["Color Psychology", "Marketing", "Branding", "Consumer Behavior", "Research"],
+    highlights: [
+      "The most well-supported finding is that color affects perceived appropriateness — does this color fit what I expect from this product type — before it affects any more specific emotional response.",
+      "Blue tests better than most colors for trust metrics in Western markets partly because it has accumulated appropriate associations in finance and healthcare, not because blue intrinsically signals trust.",
+      "Color consistency over time builds associations that override any intrinsic color psychology effect — a brand's specific color becomes meaningful primarily through repetition and context.",
+    ],
+    sections: [
+      {
+        heading: "What the research actually supports",
+        body: "Color psychology in marketing is a field where confident claims outrun actual evidence. The popular version — red creates urgency, blue builds trust, green means organic — captures real tendencies at a very rough level but breaks down when applied to specific contexts. The most robust finding in the research literature (particularly Labrecque and Milne, Elliot and others) is that color affects perceived appropriateness before it affects specific emotions: consumers first evaluate whether a color matches their expectations for a product category. A bank using bright orange reads as inappropriate before it reads as energetic. The appropriateness effect is stronger and more reliable than any direct color-to-emotion mapping.",
+      },
+      {
+        heading: "Distinctiveness beats color symbolism",
+        body: "Brands that break category color conventions — Cadbury's purple in chocolate, Tiffany's blue in jewelry — create strong recall precisely because they are distinctive within their category. But distinctiveness only works when the brand has sufficient exposure to build the convention. A small startup using an unconventional color in its category often reads as wrong or amateur rather than distinctive. The practical implication: established brands with distribution and marketing budget can profitably use distinctive, unconventional colors. Early-stage brands should generally prioritize category-appropriate color that feels professional over distinctive color that risks reading as off.",
+      },
+      {
+        heading: "Cultural variation in color associations",
+        body: "Color associations vary significantly across cultures in ways that undermine universal color psychology claims. White signifies purity in Western contexts but mourning in many East Asian contexts. Green carries religious significance in parts of the Middle East that goes beyond the environmental associations it has in the West. Red means luck and celebration in Chinese ceremonial contexts and danger or urgency in Western traffic and warning systems. Global brands cannot apply a single color psychology framework across all markets. Market-specific testing is the only reliable approach when cultural diversity matters.",
+      },
+      {
+        heading: "When color psychology does and doesn't matter",
+        body: "Color psychology has the most practical relevance in contexts where color is the primary communicative variable: in a row of identical products on a shelf, color drives differentiation and recognition. In a complex digital product with navigation, imagery, and copy, color is one of many signals and its independent effect is smaller. The clearest evidence for color effects in marketing comes from low-involvement contexts where attention is low and processing is fast — retail shelf, banner ads, packaging — rather than high-involvement contexts where people read carefully and evaluate deliberately. Match your investment in color decision-making to the actual role color plays in your specific context.",
+      },
+    ],
+    links: [
+      { label: "Explore brand identity palettes", href: "/collections" },
+      { label: "Brand color packs", href: "/packs" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides53);
