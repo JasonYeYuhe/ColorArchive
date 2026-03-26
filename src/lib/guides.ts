@@ -10083,3 +10083,183 @@ const extraGuides37: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides37);
+
+export const extraGuides38: LandingGuide[] = [
+  {
+    category: "Color History",
+    slug: "1970s-earth-tone-color-guide",
+    title: "1970s Earth Tone Colors: Harvest Gold, Avocado Green & Burnt Orange Palettes",
+    summary: "The 1970s earth tone palette — harvest gold, avocado green, burnt orange, chocolate brown — is one of the most cyclically revived aesthetics in design. A guide to using the decade's colors with historical accuracy and contemporary relevance.",
+    eyebrow: "Decade Color Guide",
+    priority: 79,
+    searchIntent: "1970s color palette earth tones harvest gold avocado green",
+    tags: ["Color History", "1970s", "Earth Tones", "Retro"],
+    highlights: [
+      "Harvest gold sits at approximately HSL 38–45°, medium-high saturation, medium lightness — distinct from pure yellow by its warmth and reduced brightness.",
+      "Avocado green occupies the 90–110° hue range at medium saturation and medium lightness — an olive-green with notable warmth from the yellow influence.",
+      "Burnt orange is approximately 18–25° hue — redder and darker than standard orange, with a dry, earthy quality from reduced saturation.",
+      "Contemporary updates of 1970s colors typically reduce saturation by 15–25% and increase lightness slightly, producing the 'warm minimalist' versions that dominated 2020s interiors.",
+    ],
+    sections: [
+      {
+        heading: "The Three Signature Colors",
+        body: "Harvest gold, avocado green, and burnt orange are the three colors most immediately identified with 1970s American design — specifically with appliance colors (Frigidaire, GE) and interior design. Harvest gold is a warm, medium-deep yellow-orange; avocado green is an olive-influenced yellow-green; burnt orange is a dark, dry orange-red. These three, together with chocolate brown and rust, form the complete earth tone vocabulary.",
+      },
+      {
+        heading: "Why These Colors Return",
+        body: "The 40-50 year nostalgia cycle means 1970s earth tones have returned roughly every generation since the 1980s. The 1990s cottage-core aesthetics, the 2000s retro revival, the 2021-2023 'warm minimalism' all drew from the same chromatic territory. Each revival desaturates and refines the original — the 2020s terracotta and sage are the 1970s earth palette run through fifty years of taste refinement.",
+      },
+      {
+        heading: "Using Earth Tones in Contemporary Design",
+        body: "Contemporary earth tone palettes work best when the originals are adjusted: reduce saturation by 15-20%, increase lightness by 10%, and pair with sophisticated neutrals (warm white, unbleached linen) rather than the dark browns that anchored the 1970s originals. The result reads as 'warm and grounded' without reading as 'dated appliance color.'",
+      },
+    ],
+    links: [
+      { label: "Browse Orange Colors", href: "/families/orange/" },
+      { label: "Browse Green Colors", href: "/families/green/" },
+      { label: "Color History by Decade", href: "/decades/" },
+    ],
+  },
+  {
+    category: "Color History",
+    slug: "1950s-pastel-color-palette-guide",
+    title: "1950s Pastel Color Palettes: Mid-Century Mint, Coral Pink & Butter Yellow",
+    summary: "Mint green, coral pink, butter yellow, powder blue — the 1950s atomic age pastel palette is the most recognizable decade aesthetic in American design history. Learn how to use these colors with fidelity and contemporary adaptability.",
+    eyebrow: "Decade Color Guide",
+    priority: 76,
+    searchIntent: "1950s color palette pastel mid century modern mint coral pink",
+    tags: ["Color History", "1950s", "Mid-Century", "Pastels"],
+    highlights: [
+      "1950s mint green sits at approximately HSL 140–155°, 25–40% saturation, 75–85% lightness — distinctly cooler and softer than contemporary sage green.",
+      "Coral pink is approximately 10–20° hue at 50–65% saturation, medium-high lightness — more orange than contemporary rose, warmer than modern coral.",
+      "Butter yellow is 50–60° hue at 60–75% saturation, very high lightness (85–90%) — extremely pale, more cream than yellow when reduced in saturation.",
+      "The 1950s palette works as a full system; individual colors pulled out of context read as generically pastel, not distinctly mid-century.",
+    ],
+    sections: [
+      {
+        heading: "Appliance Colors as Design Language",
+        body: "The 1950s pastel palette entered mass consciousness through appliances — Frigidaire's Color Styling program (1955) offered refrigerators in pink, yellow, turquoise, and green. This mass distribution made the colors inseparable from the decade's specific optimism and consumer culture. When you use these colors today, you are referencing not just an era but a specific cultural moment of postwar abundance.",
+      },
+      {
+        heading: "The Atomic Age Undertone",
+        body: "1950s pastels carry an uncanny quality that distinguishes them from generic soft colors: the same palette was used in civil defense materials, suburban architecture, and consumer products simultaneously. The colors performed optimism in a context of genuine nuclear anxiety. This psychological complexity — cheerfulness over fear — is why the palette has such lasting resonance.",
+      },
+      {
+        heading: "Using 1950s Colors Today",
+        body: "Mid-century pastel palettes work best in retro-themed applications (diners, packaging, branding for nostalgic products) or as ironic references in contemporary design. The key is using the full system — mint, coral, butter, powder blue — rather than isolated colors, and pairing with charcoal gray or black rather than white to maintain the era's chromatic logic.",
+      },
+    ],
+    links: [
+      { label: "Browse Green Colors", href: "/families/green/" },
+      { label: "Browse Red & Coral Colors", href: "/families/red/" },
+      { label: "Color History by Decade", href: "/decades/" },
+    ],
+  },
+  {
+    category: "Color History",
+    slug: "1980s-neon-color-palette-guide",
+    title: "1980s Neon & Memphis Color Palettes: Synthwave, Miami Vice & Power Colors",
+    summary: "The 1980s palette divides into two incompatible systems — fluorescent neons of Memphis Design and synth culture versus the luminous pastels of Miami Vice's production design. A guide to using both correctly and understanding their differences.",
+    eyebrow: "Decade Color Guide",
+    priority: 82,
+    searchIntent: "1980s neon color palette synthwave miami vice memphis design",
+    tags: ["Color History", "1980s", "Neon", "Synthwave", "Memphis"],
+    highlights: [
+      "True 1980s fluorescent neons (hot magenta, electric cyan, acid yellow) exceed the sRGB gamut — modern screens approximate them but cannot fully reproduce the physical day-glo effect.",
+      "Miami Vice pastels are medium saturation (40–60%), medium-high lightness — distinctly not fluorescent, achieving luminosity through contrast with dark backgrounds rather than intrinsic brightness.",
+      "Memphis Design used primary and secondary colors at full saturation but conventional lightness — the impact came from pattern conflict, not extreme chroma.",
+      "Retrowave and synthwave palettes are contemporary digital interpretations — they push saturation and add gradients and glow effects that didn't exist in original 1980s materials.",
+    ],
+    sections: [
+      {
+        heading: "Two 1980s Palettes",
+        body: "The 1980s contained at least two distinct color systems. Memphis Design (1981+) used clashing primaries on geometric pattern fields — color as argument and disruption. Miami Vice (1984-1989) used cool pastels against dark backgrounds to create luminous contrast — color as atmosphere and mood. Both are now called '1980s' but they share almost no colors and have completely different logics.",
+      },
+      {
+        heading: "Synthwave's Contemporary Interpretation",
+        body: "Contemporary synthwave and retrowave aesthetics are not direct revivals of 1980s design but digital interpretations of 1980s nostalgia. They add gradient transitions, glow effects, and deep space backgrounds that reflect digital rendering capabilities unavailable in the 1980s. When referencing 1980s colors, clarify which system you are drawing from and whether you want historical accuracy or contemporary retrowave.",
+      },
+      {
+        heading: "Using 1980s Colors Without Parody",
+        body: "The risk with 1980s color references is falling into pastiche — the palette is so strongly coded that uninformed use reads as costume rather than reference. Successful applications use one element of the 1980s vocabulary (neon accents against dark; or Memphis conflict; or pastel-against-dark) rather than all simultaneously, and ground the reference in contemporary form language.",
+      },
+    ],
+    links: [
+      { label: "Browse Magenta Colors", href: "/families/magenta/" },
+      { label: "Browse Cyan Colors", href: "/families/blue/" },
+      { label: "Color History by Decade", href: "/decades/" },
+    ],
+  },
+  {
+    category: "Color History",
+    slug: "art-deco-color-palette-guide",
+    title: "Art Deco Color Palettes: Gold, Black & Jewel Tones for Luxury Design",
+    summary: "Art Deco's palette — gold, jet black, cream, deep jewel tones in geometric arrangements — has maintained its luxury signaling function for a century. A guide to using Art Deco colors with historical understanding and contemporary precision.",
+    eyebrow: "Decade Color Guide",
+    priority: 77,
+    searchIntent: "art deco color palette gold black jewel tones luxury design 1920s",
+    tags: ["Color History", "Art Deco", "Luxury", "Gold", "1920s"],
+    highlights: [
+      "Art Deco gold ranges from champagne (#C5A028 area) to deep antique gold (#8B6914 area) — never yellow-gold, always warm and slightly aged.",
+      "The palette draws from three historical sources: Egyptian Revival, East Asian lacquerware, and machine-age metallics — all permanently coded as luxury across cultures.",
+      "Geometric application is as important as color choice — Art Deco colors in organic or flowing forms lose their historical coding and read as generic.",
+      "Contemporary Art Deco references work best in three-color applications: gold + black + one neutral (cream, ivory, or warm white).",
+    ],
+    sections: [
+      {
+        heading: "The Three Source Palettes",
+        body: "Art Deco's color vocabulary fused three historical references. Egyptian Revival (triggered by Tutankhamun's tomb discovery in 1922) brought gold, jet black, turquoise, and ivory. East Asian lacquerware contributed deep reds, lacquer blacks, and gold leaf. Machine-age design added chrome, platinum, and industrial metallic surfaces. Understanding these sources helps clarify which specific combination of gold and black you need for a given application.",
+      },
+      {
+        heading: "Gold in Modern Media",
+        body: "Physical gold — metal leaf, gilt frame, gilded surface — cannot be fully reproduced in digital media. Screen gold is necessarily an approximation using warm yellows in the 40–55° hue range at medium saturation and medium-high lightness. The best digital Art Deco gold sits around HSL 40–48°, 60–75% saturation, 40–55% lightness — deep enough to suggest metal weight, warm enough to suggest genuine gold rather than yellow.",
+      },
+      {
+        heading: "When Art Deco References Fail",
+        body: "Art Deco references fail when they use the colors without the proportional and geometric system. Scattered gold accents on black without geometric structure read as generic 'fancy,' not Art Deco. The palette requires bold, geometric fields — substantial areas of each color in precise angular arrangements. Applied timidly, the palette loses its confidence; applied without geometry, it loses its historical legibility.",
+      },
+    ],
+    links: [
+      { label: "Browse Yellow Colors", href: "/families/yellow/" },
+      { label: "Browse Black & Dark Colors", href: "/all-colors/" },
+      { label: "Color History by Decade", href: "/decades/" },
+    ],
+  },
+  {
+    category: "Color History",
+    slug: "millennial-pink-color-guide",
+    title: "Millennial Pink: What It Is, Where It Came From, and Why It Won't Go Away",
+    summary: "Millennial Pink — the specific desaturated rose-pink that defined 2010s visual culture — is one of the most analyzed colors of the twenty-first century. A precise guide to its hue characteristics, cultural origins, and how to use it without anachronism.",
+    eyebrow: "Decade Color Guide",
+    priority: 84,
+    searchIntent: "millennial pink color code hex what is millennial pink palette 2010s",
+    tags: ["Color History", "Millennial Pink", "2010s", "Pink", "Fashion"],
+    highlights: [
+      "Millennial Pink is not a single color but a range: approximately HSL 350–15°, 20–45% saturation, 70–85% lightness — desaturated, warm, somewhere between pink and peach-beige.",
+      "The most referenced specific version (#F4C5C5 area) is paler and more neutral than conventional baby pink, with a warm undertone rather than a cool one.",
+      "Rose gold (the metal, popularized by the iPhone 6 in 2014) normalized the pink-warm-neutral aesthetic in technology, accelerating the palette's cultural dominance.",
+      "The color's neutrality — its refusal to be either clearly pink or clearly beige — was central to its appeal: it could serve as background, accent, or dominant color in the same palette.",
+    ],
+    sections: [
+      {
+        heading: "The Technical Definition",
+        body: "Millennial Pink is best understood as a hue range rather than a specific color. The range spans from warm blush (15° hue, low saturation) through desaturated rose (350° hue, medium-low saturation) to pink-beige (25° hue, very low saturation). What unites these variants is the desaturation — Millennial Pink is never vivid — and the warm undertone that prevents it reading as the cool pinks of earlier decades.",
+      },
+      {
+        heading: "Glossier, Rose Gold, and Instagram",
+        body: "Three forces converged to make Millennial Pink the 2010s' dominant color. Glossier's 2014 launch used a specific blush pink in its branding that proved extraordinarily influential in beauty and lifestyle design. Apple's rose gold iPhone 6 (2014) normalized warm pink in technology. Instagram's square grid aesthetic, which compressed images into similar color temperatures, rewarded palettes with warmth and softness. These three reinforced each other until the color was everywhere.",
+      },
+      {
+        heading: "Using Millennial Pink Today",
+        body: "Used sincerely in 2031, Millennial Pink reads as dated — it is too strongly associated with its decade. But it works well in three contemporary applications: as a historical reference in retro-2010s contexts; as an ironic element in design that knowingly engages its cultural baggage; or in the evolved 'dusty rose' and 'old rose' versions that preserve the warmth and desaturation while moving away from the specific 2015-2019 associations.",
+      },
+    ],
+    links: [
+      { label: "Browse Rose Colors", href: "/families/rose/" },
+      { label: "Browse Blush & Pink Colors", href: "/families/red/" },
+      { label: "Color History by Decade", href: "/decades/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides38);

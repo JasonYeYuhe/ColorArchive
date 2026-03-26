@@ -2160,6 +2160,11 @@ const translations: Record<string, Record<string, string>> = {
   "famousPalettes.subtitle": { en: "Iconic palettes from the most recognized brands, art movements, films, and design systems in history — with hex codes, cultural context, and the stories behind each color choice.", zh: "历史上最具代表性品牌、艺术流派、电影和设计系统的标志性配色方案，附 hex 代码、文化背景及每种颜色背后的故事。" },
   "tools.famousPalettes.name": { en: "Famous Palettes", zh: "知名配色" },
   "tools.famousPalettes.desc": { en: "35+ iconic color palettes from Google, Apple, Bauhaus, Matrix, and more. With hex codes and cultural history.", zh: "35 套以上标志性配色方案，涵盖谷歌、苹果、包豪斯、黑客帝国等。附 hex 代码和文化历史。" },
+  "tools.decades.name": { en: "Color by Decade", zh: "年代配色" },
+  "tools.decades.desc": { en: "100 years of design color history — Art Deco, 1950s pastels, 1970s earth tones, 1980s neon, Millennial Pink, and more. Copy hex codes.", zh: "100年设计色彩史——装饰艺术、50年代粉彩、70年代大地色、80年代霓虹、千禧粉等，可复制 hex 代码。" },
+  "colorDecades.eyebrow": { en: "Color History Reference", zh: "色彩历史参考" },
+  "colorDecades.title": { en: "Color Through the Decades", zh: "色彩年代：百年设计配色史" },
+  "colorDecades.subtitle": { en: "Explore how each decade from the 1920s Jazz Age to the 2020s Biophilic era shaped its own color aesthetic — and how those palettes continue to influence contemporary design.", zh: "探索从1920年代爵士时代到2020年代亲生物设计，每个十年如何形成其独特的色彩美学——以及这些色彩今天如何影响当代设计。" },
 };
 
 export function t(key: string, locale: Locale): string {

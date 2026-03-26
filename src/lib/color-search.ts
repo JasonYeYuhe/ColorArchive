@@ -993,6 +993,27 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   tropical_rain: ["jade", "moss", "emerald", "lime", "warm-gray"],
   rainforest_floor: ["moss", "shadow", "jade", "amber", "olive"],
   humid: ["jade", "teal", "lime", "moss", "warm-gray"],
+  // Decade color history
+  "1920s": ["honey", "shadow", "ivory", "garnet", "emerald"],
+  jazz_age: ["honey", "shadow", "ivory", "mulberry", "garnet"],
+  "1950s": ["mint", "coral", "honey", "cerulean", "cool-gray"],
+  atomic_age: ["mint", "coral", "cerulean", "honey", "warm-gray"],
+  "1960s": ["honey", "fuchsia", "cobalt", "lime", "violet"],
+  "1970s": ["amber", "olive", "ember", "honey", "moss"],
+  earth_tone: ["amber", "olive", "ember", "honey", "moss"],
+  harvest_gold: ["amber", "honey", "citrine", "warm-gray"],
+  avocado_green: ["olive", "moss", "lime", "leaf"],
+  burnt_orange: ["ember", "coral", "amber", "ruby"],
+  "1980s": ["fuchsia", "cerulean", "lime", "citrine", "violet"],
+  neon_palette: ["fuchsia", "cerulean", "lime", "citrine", "magenta"],
+  miami_vice: ["cerulean", "rose", "blush", "teal", "shadow"],
+  "1990s": ["cool-gray", "olive", "garnet", "teal", "blush"],
+  grunge: ["cool-gray", "shadow", "olive", "garnet", "muted"],
+  "2000s": ["blush", "cerulean", "lime", "coral", "cool-gray"],
+  millennial_pink: ["blush", "rose", "apricot", "warm-gray"],
+  "2020s": ["iris", "leaf", "coral", "apricot", "cobalt"],
+  very_peri: ["iris", "violet", "cobalt", "periwinkle", "indigo"],
+  sage_green: ["leaf", "mint", "moss", "olive", "jade"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

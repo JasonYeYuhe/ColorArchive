@@ -65,7 +65,8 @@ interface SiteHeaderProps {
     | "/use-cases"
     | "/name"
     | "/css-colors"
-    | "/famous-palettes";
+    | "/famous-palettes"
+    | "/decades";
 }
 
 interface NavItem {

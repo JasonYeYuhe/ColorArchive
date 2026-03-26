@@ -3539,3 +3539,133 @@ const extraCollections36: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections36);
+
+const extraCollections37: ColorCollection[] = [
+  createCollection(
+    "art-deco-gold",
+    "Art Deco Gold",
+    "Rich gold, jet black, ivory cream, and deep jewel tones — the opulent geometric palette of the Jazz Age.",
+    "The color vocabulary of Art Deco in its purest form: the warm antique gold of gilt frames and embossed metalwork, jet black for contrast and drama, ivory cream for background warmth, and deep jewel accents (emerald, garnet, violet) arranged in precise geometric fields. The palette of 1920s luxury, cinema palaces, and the confidence of the modern world discovering itself.",
+    ["Art Deco", "Luxury", "Historical", "Gold"],
+    [
+      "honey-deep-core",
+      "true-gray-deep",
+      "honey-whisper-soft",
+      "emerald-deep-vivid",
+      "garnet-deep-core",
+      "violet-deep-muted",
+    ],
+    {
+      editorialNote:
+        "Art Deco Gold draws from the three historical sources of Art Deco chromatics: Egyptian Revival gold and black, East Asian lacquerware jewel tones, and machine-age metallic contrast. The palette requires bold geometric application to read as Art Deco rather than generic luxury — the colors are not sufficient alone, the geometric precision of their application is equally important. Effective for luxury packaging, hotel and hospitality branding, jewelry and fashion.",
+      promptWords: [
+        "Art Deco luxury brand in gold and jet black geometric",
+        "1920s jazz age palette in antique gold and emerald",
+        "hotel lobby design in gold black and deep jewel tones",
+      ],
+      useCases: ["Luxury brand identity", "Hotel and hospitality design", "Jewelry and fashion packaging"],
+    },
+  ),
+  createCollection(
+    "atomic-pastels",
+    "Atomic Pastels",
+    "Mint green, coral pink, butter yellow, powder blue — the mid-century American pastel palette of 1950s atomic age optimism.",
+    "The color world of the 1950s suburban ideal: mint green appliances, coral pink dinette sets, butter yellow kitchens, powder blue automobiles. The postwar American consumer palette that performed optimism through soft color, made possible by new synthetic dyes and mass consumer prosperity. A palette that carries both genuine warmth and its era's specific atomic-age tension.",
+    ["Mid-Century", "1950s", "Pastels", "Retro"],
+    [
+      "mint-bloom-muted",
+      "coral-bloom-soft",
+      "honey-whisper-muted",
+      "cerulean-bloom-soft",
+      "true-gray-tone",
+      "amber-veil-soft",
+    ],
+    {
+      editorialNote:
+        "Atomic Pastels captures the specific 1950s American palette — distinct from generic pastels by its particular combination of colors and their medium-soft saturation (not faded, not vivid). The palette works as a complete system: using individual colors without the full set loses the mid-century specificity. Most effective in retro-themed applications, diner branding, packaging with vintage nostalgia, and editorial contexts that knowingly reference the era's complex optimism.",
+      promptWords: [
+        "1950s American diner branding in mint and coral pastel",
+        "mid-century modern palette in butter yellow and powder blue",
+        "atomic age design in pastel mint coral and charcoal",
+      ],
+      useCases: ["Retro branding and packaging", "Diner and food service", "Vintage-inspired product design"],
+    },
+  ),
+  createCollection(
+    "harvest-earth",
+    "Harvest Earth",
+    "Harvest gold, avocado green, burnt orange, chocolate brown — the warm earth tone palette of 1970s organic design.",
+    "The color world of the 1970s: harvest gold catching afternoon light, avocado green of kitchen tile, burnt orange of macramé and sunset, chocolate brown of wood paneling and leather. The decade's most distinctive aesthetic — simultaneously the product of environmental consciousness, synthetic dye availability, and a cultural retreat from 1960s chromatic intensity into natural warmth.",
+    ["Earth Tones", "1970s", "Warm", "Organic"],
+    [
+      "amber-tone-vivid",
+      "olive-tone-core",
+      "ember-tone-vivid",
+      "ember-deep-muted",
+      "honey-tone-muted",
+      "moss-tone-core",
+    ],
+    {
+      editorialNote:
+        "Harvest Earth is a historically specific palette — these colors together immediately evoke the 1970s. Used knowingly, they carry warmth, organic quality, and a specific retro character. Used without awareness, they risk reading as dated. The contemporary update (desaturate by 15-20%, increase lightness slightly) produces the 'warm minimalist' version that dominated 2020s interiors without the decade-specificity. Both approaches are valid for different applications.",
+      promptWords: [
+        "1970s earth tone palette in harvest gold and avocado green",
+        "warm organic design in burnt orange and chocolate brown",
+        "retro autumn palette in amber olive and rust",
+      ],
+      useCases: ["Retro and vintage branding", "Warm interior and lifestyle brands", "Autumn and harvest seasonal design"],
+    },
+  ),
+  createCollection(
+    "y2k-chrome",
+    "Y2K Chrome",
+    "Baby pink, ice blue, chrome silver, digital lime, Y2K orange — the translucent, candy-colored palette of early 2000s optimism.",
+    "The color world of Y2K: baby pink velour and bubblegum, ice blue translucent plastic, chrome silver and reflective surfaces, digital lime green of early screens, Y2K orange energy. The hyperoptimistic palette of the early 2000s — smooth surfaces, candy translucency, the visual language of a world that hadn't yet developed aesthetic complexity about technology.",
+    ["Y2K", "2000s", "Retro", "Digital"],
+    [
+      "blush-bloom-soft",
+      "cerulean-whisper-soft",
+      "true-gray-bloom",
+      "lime-vivid-core",
+      "coral-tone-vivid",
+      "blush-veil-soft",
+    ],
+    {
+      editorialNote:
+        "Y2K Chrome captures the specific early-2000s aesthetic that revived strongly in 2020-2023 — baby pink and ice blue with chrome silver accents, the translucent candy color of consumer technology design. The palette works for Y2K-themed fashion and music visuals, nostalgia-driven brand campaigns, and any application that wants to signal early-digital-era optimism. Use the chrome silver (light gray) as a metallic analogue rather than a neutral.",
+      promptWords: [
+        "Y2K aesthetic palette in baby pink ice blue and chrome",
+        "early 2000s digital design in candy colors and silver",
+        "millennial nostalgia brand in pink lime and Y2K orange",
+      ],
+      useCases: ["Y2K-themed fashion and music", "Nostalgia campaigns", "Pop culture and entertainment design"],
+    },
+  ),
+  createCollection(
+    "biophilic-calm",
+    "Biophilic Calm",
+    "Very peri blue-violet, sage green, terracotta, warm sand, storm blue — the introspective nature-grounded palette of the 2020s.",
+    "The color world of the 2020s: Very Peri's blue-violet (Pantone 2022), the sage green of every kitchen renovation, warm terracotta and dusty rose, soft sand and cream neutrals, the storm blue of interior uncertainty. The decade's longing for the natural, the grounded, the calm — a palette formed during lockdown and still evolving as the decade processes its particular combination of anxiety and renewal.",
+    ["Biophilic", "2020s", "Contemporary", "Calm"],
+    [
+      "iris-tone-muted",
+      "leaf-bloom-muted",
+      "coral-tone-muted",
+      "apricot-whisper-muted",
+      "cobalt-tone-muted",
+      "amber-whisper-muted",
+    ],
+    {
+      editorialNote:
+        "Biophilic Calm is a contemporary palette in the process of becoming historical — we are still within the decade that formed it. The blue-violet (approximating Very Peri) paired with sage green, terracotta, and warm neutrals represents the 2020s' characteristic emotional register: seeking groundedness and natural connection after disruption. Most effective for wellness, interior design, botanical products, and any brand that wants to signal contemporary but not trend-chasing design awareness.",
+      promptWords: [
+        "2020s biophilic design in sage green and terracotta",
+        "contemporary calm palette in periwinkle and warm sand",
+        "modern organic brand in blue-violet and natural tones",
+      ],
+      useCases: ["Wellness and mindfulness brands", "Contemporary interior and home design", "Botanical and natural products"],
+    },
+  ),
+];
+
+collections.push(...extraCollections37);
