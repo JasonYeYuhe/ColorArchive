@@ -1,5 +1,5 @@
 // ColorArchive Service Worker — offline caching for static assets
-const CACHE_NAME = "colorarchive-v1";
+const CACHE_NAME = "colorarchive-v2";
 const STATIC_ASSETS = [
   "/",
   "/all-colors/",
@@ -31,8 +31,8 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const { request } = event;
 
-  // Skip non-GET and API requests
-  if (request.method !== "GET" || request.url.includes("/api/") || request.url.includes("api.colorarchive.me")) {
+  // Skip non-GET, non-http(s), and API requests
+  if (request.method !== "GET" || !request.url.startsWith("http") || request.url.includes("/api/") || request.url.includes("api.colorarchive.me")) {
     return;
   }
 
