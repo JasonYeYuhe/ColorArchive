@@ -12719,3 +12719,119 @@ export const extraGuides54: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides54);
+
+const extraGuides55: LandingGuide[] = [
+  {
+    slug: "color-palette-for-social-media",
+    title: "Color Palette for Social Media: Standing Out in the Scroll",
+    summary: "Social media imposes extreme viewing conditions on color: small screens, competitive feeds, split-second attention windows. A designer's guide to palette choices that stop the scroll.",
+    eyebrow: "Social Media Color Guide",
+    searchIntent: "color palette for social media design",
+    priority: 92,
+    category: "Digital Design",
+    tags: ["Social Media", "Digital Design", "Brand Identity", "Color Theory", "Marketing"],
+    highlights: [
+      "Social media color strategy begins with your platform context: Instagram's visual culture favors editorial, curated palettes; TikTok rewards high-contrast, energetic colors that read at small scale; LinkedIn's professional context makes saturated colors unusual and therefore more attention-capturing.",
+      "Thumb-stopping contrast — the difference between your content and the surrounding feed — matters more than brand purity on social. The most beautiful on-brand palette fails if it disappears into the visual noise of the platform.",
+      "Consistent background color in your social media content is one of the highest-leverage decisions for building recognizable visual identity without a large production budget.",
+    ],
+    sections: [
+      {
+        heading: "Platform context determines palette strategy",
+        body: "Each major social platform has a distinct visual culture that shapes how color works. Instagram's algorithmic and cultural evolution has produced a strong aesthetic of editorial photography, lifestyle imagery, and visual curation — palettes that succeed there tend to be coherent, somewhat muted, and visually consistent across posts. The grid matters on Instagram; individual post colors interact with adjacent posts' colors, creating a visual context for each new piece of content. TikTok's full-screen vertical video format rewards different palette choices: high-contrast, energetic colors that read clearly on small phone screens in short time windows, with less pressure for grid coherence since content is consumed serially rather than as a grid. Pinterest functions more like a discovery search engine than a social feed, which means thumbnail legibility at small scale is critical — strong contrast between subject and background, clear color boundaries, and palette choices that signal category (recipe content reads warm and appetizing; home design content reads neutral and aspirational). LinkedIn's professional culture makes saturated, bright color unusual in content, which means it captures more attention when used deliberately — a single vivid accent color in a data visualization or card design stands out against a feed of neutral photography.",
+      },
+      {
+        heading: "Thumb-stopping contrast and competitive visibility",
+        body: "On social media, your color competition is not your own brand guidelines — it is the content immediately surrounding your post in the user's feed at the moment they encounter it. This competitive visual context is impossible to fully predict, but you can make strategic assumptions: feeds on visual platforms tend to be saturated with warm photography (lifestyle, food, fashion), which means cooler palettes and higher value contrasts can stand out. Feeds on professional platforms trend toward photography and neutral brand assets, which means vivid color becomes an attention signal. The practical design implication is that you should evaluate your social media palette not in isolation but in simulated feed context — place your content mockup in a collage of typical feed content from your platform and evaluate whether it stands out or disappears. Palettes that look compelling in isolation often disappear in feed context because they match the visual average; palettes that look almost too bold in isolation often perform better in actual feed competition.",
+      },
+      {
+        heading: "Background color as brand signature",
+        body: "The most effective low-production social media brand identity tool is a consistent background color. Brands that use the same background color across 80-90% of their social content create immediate visual recognition at feed glance — before the viewer has read text or recognized a logo, the background color identifies the brand. This works because the human visual system processes low-level color information faster than semantic content: you recognize 'the brand that always uses that warm terracotta background' in a peripheral-vision glance before you consciously identify the brand name. The background color functions as a brand signature that requires no additional design budget — just consistency. Choose a background color that is distinct from competitors in your category, consistently reproducible across your production workflow (specify exact hex values), and versatile enough to work as a frame for your typical content types.",
+      },
+      {
+        heading: "Palette consistency across formats and formats",
+        body: "Social media brand palettes must translate across a wider range of formats than almost any other design context: square posts, vertical stories, horizontal banners, circular profile photos, small avatar thumbnails, and animated motion content. This multi-format requirement imposes specific constraints. Your primary brand color must work at sizes as small as 100px in a circular profile photo — gradients, fine details, and complex color interactions fail at this scale. Your palette must function in both static image and video/motion contexts, since most platforms support both; colors that look vivid in static image can appear to 'buzz' or create moire patterns in video compression. Test your palette in motion context before committing: apply it to a simple animated card or transition and export it at platform-appropriate bitrates to check for compression artifacts that affect color quality.",
+      },
+    ],
+    links: [
+      { label: "Browse social media brand palettes", href: "/collections" },
+      { label: "Explore digital design color packs", href: "/packs" },
+    ],
+  },
+  {
+    slug: "purple-color-palette-guide",
+    title: "Purple Color Palette Guide: Violet, Lavender, Plum, and Beyond",
+    summary: "Purple is the most complex hue family in design — spanning royal authority to digital tech, spiritual mystery to luxury beauty. A practical guide to using purple palettes effectively.",
+    eyebrow: "Purple Color Guide",
+    searchIntent: "purple color palette guide design",
+    priority: 88,
+    category: "Color Theory",
+    tags: ["Purple", "Violet", "Lavender", "Color Theory", "Palette Design"],
+    highlights: [
+      "Purple occupies the narrow band between blue and red on the color wheel, making it inherently complex: slight shifts toward blue produce cool, digital, trustworthy purples; slight shifts toward red produce warm, luxurious, romantic purples.",
+      "Lavender (light, desaturated purple) and deep plum (dark, rich purple) are both purples, but they carry almost opposite associations — lavender reads as soft, feminine, and fragrant; plum reads as rich, sophisticated, and indulgent.",
+      "Purple is rare in nature (no common natural pigment produces purple easily), which historically made purple dye extraordinarily expensive and associated with royalty — cultural weight that persists in contemporary purple associations with luxury and distinction.",
+    ],
+    sections: [
+      {
+        heading: "The purple hue range and its sub-families",
+        body: "Purple occupies the transition zone between blue and red, typically spanning roughly 270° to 320° on the standard color wheel. Within this range, significant perceptual sub-families emerge. Violet (270°-285°) sits closest to blue and has a cool, almost electric quality — the color of the visible spectrum's shortest wavelengths, which the human visual system finds slightly unusual and attention-capturing. Indigo (255°-270°) bridges blue and violet, with a deep, contemplative quality. Mid-range purple (285°-310°) is what most people mean when they say 'purple' — a balanced blue-red mixture with high versatility. Amethyst and orchid occupy the warm side (310°-320°), leaning toward red with a more romantic, feminine quality. Magenta (beyond 320°) crosses into a distinct territory that most color systems classify separately. Understanding which part of the purple range you are working in determines which cultural and perceptual associations you are activating.",
+      },
+      {
+        heading: "Saturation and value management in purple palettes",
+        body: "Purple presents specific saturation management challenges that differ from other hue families. Fully saturated mid-purple (vivid violet) is visually intense in ways that can feel garish in large applications — it is most effective as an accent color rather than a dominant one. Desaturated purple (lavender, mauve, soft lilac) is far more versatile for large-area applications and is associated with softness, fragrance, and calm rather than the intensity of vivid violet. The value range also produces dramatically different associations: light purples (lavender, wisteria, pale violet) feel delicate and feminine in the contemporary design context; mid-value purples feel regal or artistic; dark purples (plum, aubergine, deep violet) feel rich, luxurious, and sophisticated. Building a purple palette that works across multiple contexts typically involves using a muted or darkened purple as the dominant tone and reserving vivid purple for strategic accent applications.",
+      },
+      {
+        heading: "Purple's dual associations: luxury versus technology",
+        body: "Purple carries two dominant contemporary associations that seem contradictory: royal luxury (inherited from the historical rarity of purple dye, made from sea snails and prohibitively expensive in antiquity) and digital technology (Twitch, Yahoo, FedEx, and a wave of tech brands adopted purple in the 2010s as a distinctive alternative to the blue that dominated tech). These two registers coexist and can be navigated by palette composition. Purple combined with gold, cream, and rich textures reads as luxury and heritage. Purple combined with white, dark backgrounds, and clean geometry reads as technology and digital. Purple combined with black and electric accents reads as premium gaming and esports. Purple combined with soft warm neutrals reads as beauty and personal care. The distinction between these territories is not primarily the purple hue itself but the palette company it keeps and the typographic and visual systems it appears within.",
+      },
+      {
+        heading: "Industry applications for purple palettes",
+        body: "Purple palettes have natural category fits: beauty and personal care (luxury beauty brands from Cadbury's Heritage to Benefit use purple as a primary brand color), creative industries and arts organizations (purple's association with imagination and nonconformity makes it a natural fit for design studios, galleries, and creative agencies), gaming and esports (the vivid, premium quality of saturated purple works well against dark backgrounds in gaming contexts), spirituality and wellness (purple's associations with contemplation and higher consciousness make it common in yoga, meditation, and holistic wellness branding), and food where it signals indulgence (chocolate, wine, premium sweet brands). Purple is an unusual and therefore attention-capturing choice in categories where competitors default to blue, green, or red — an underused differentiation opportunity in sectors like finance, B2B software, and education.",
+      },
+    ],
+    links: [
+      { label: "Explore purple color palettes", href: "/colors?family=Violet" },
+      { label: "Browse purple-themed collections", href: "/collections" },
+    ],
+  },
+  {
+    slug: "dark-color-palette-guide",
+    title: "Dark Color Palette Guide: Building Low-Luminance Palettes That Work",
+    summary: "Dark palettes are harder to build well than light ones — contrast, hierarchy, and saturation all behave differently at low luminance. A practical guide to dark palette architecture for UI, branding, and editorial design.",
+    eyebrow: "Dark Color Guide",
+    searchIntent: "dark color palette guide design",
+    priority: 90,
+    category: "Color Theory",
+    tags: ["Dark Mode", "Dark Palette", "Color Theory", "UI Design", "Digital Design"],
+    highlights: [
+      "Dark doesn't mean black: the most functional dark palettes use a range of near-dark tones (deep charcoal, dark blue-gray, dark warm gray) rather than pure black, creating the depth layering that dark mode UI requires.",
+      "Saturation behaves differently in dark palettes: colors that appear medium-saturation on white backgrounds look highly saturated on dark backgrounds, requiring recalibration of accent color choices.",
+      "Light text on dark backgrounds requires different contrast management than dark text on light — the same luminance contrast ratio produces different perceptual results depending on polarity, so dark mode designs need their own contrast verification.",
+    ],
+    sections: [
+      {
+        heading: "Dark palette architecture: layers and depth",
+        body: "The foundation of a functional dark palette is not a single dark color but a system of dark tones that create visual depth through subtle lightness variation. An effective dark UI palette typically has 4-6 distinct surface levels: the darkest background (usually not pure black — pure black is visually harsh and creates extreme contrast with any lighter element), a slightly lighter background for elevated surfaces (cards, modals, panels), a further step for interactive element backgrounds, a border/separator level, and sometimes an emphasized surface for tooltips or highest-elevation elements. This layered system is how dark mode interfaces create visual hierarchy without the luminance contrast tools available in light palettes. The lightness steps between layers are typically small — 5-10 lightness points in HSL terms — which requires careful calibration. Steps that are too small read as identical; steps that are too large create excessive contrast between surface levels.",
+      },
+      {
+        heading: "Saturation recalibration for dark backgrounds",
+        body: "One of the most common failures in dark palette design is importing accent colors from a light palette without recalibration. A color that appears appropriately vivid at 60% saturation against a white background will appear extremely saturated against a dark background, potentially reading as neon or garish in the low-luminance context. Dark palettes need desaturated accent colors — typically reduced by 15-25% saturation compared to their light-mode equivalents — to achieve the same perceptual weight. This recalibration is particularly important for warm colors (reds, oranges, yellows) which become more visually intense against dark backgrounds. Blues and cool colors are more tolerant of higher saturation in dark contexts. The test for correct saturation calibration: your accent colors in dark palette should feel like accent colors (distinctive but not jarring), not like error states or warning signals.",
+      },
+      {
+        heading: "Contrast and accessibility in dark mode",
+        body: "WCAG 2.1's contrast ratio formula works the same way in dark mode as in light mode — it is polarity-agnostic. But the perceptual experience of equivalent contrast ratios differs between light and dark polarity. Research underlying APCA (the contrast algorithm being developed for WCAG 3.0) suggests that light text on a dark background requires somewhat different contrast thresholds than dark text on a light background to achieve equivalent legibility. Practically, this means that a color combination meeting 4.5:1 in dark mode (white text on dark background) may feel easier or harder to read than a 4.5:1 combination in light mode, depending on the specific hues involved. The safest approach for dark mode accessibility is to verify contrast ratios specifically in dark context and add a margin buffer — targeting 5.5:1 or 6:1 rather than the 4.5:1 minimum — to account for real-world viewing conditions (reduced brightness, non-standard displays) that disproportionately affect dark mode legibility.",
+      },
+      {
+        heading: "Dark palettes in brand and editorial contexts",
+        body: "Dark palettes in non-UI contexts — brand identity, editorial design, packaging — operate differently than in UI contexts because the layering and depth requirements are less systematic. For branding, dark palettes signal sophistication, luxury, premium positioning, or category differentiation in markets where competitors use light backgrounds. A black or deep charcoal brand background immediately reads as premium in categories where light backgrounds dominate (wellness, consumer packaged goods, fashion at accessible price points). Dark editorial palettes work well for content aimed at mature audiences, premium content platforms, and subjects that benefit from a cinematic or atmospheric visual register. The key design principle for dark branding palettes is the same as for dark UI: the primary dark should not be pure black. A dark navy, deep charcoal, warm near-black, or dark plum creates a richer, more sophisticated foundation than pure black, which tends to feel flat and undesigned in large areas.",
+      },
+    ],
+    links: [
+      { label: "Explore dark color collections", href: "/collections" },
+      { label: "Browse dark mode color packs", href: "/packs" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides55);
