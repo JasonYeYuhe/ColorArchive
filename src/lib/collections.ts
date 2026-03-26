@@ -3918,3 +3918,128 @@ const extraCollections39: ColorCollection[] = [
   ),
 ];
 collections.push(...extraCollections39);
+
+const extraCollections40: ColorCollection[] = [
+  createCollection(
+    "hotel-lobby-warmth",
+    "Hotel Lobby Warmth",
+    "The palette of approachable hotel lobbies — amber, honey, warm ivory, and soft coral that welcomes without intimidating.",
+    "Approachable luxury hospitality color is built on amber, honey, and warm ivory — colors that photograph beautifully and read as generous rather than exclusive. This palette works for hospitality brands, lifestyle product photography, and any environment where warmth and welcome are the primary emotional goals.",
+    ["Warm", "Hospitality", "Interior"],
+    [
+      "amber-tone-soft",
+      "honey-silk-soft",
+      "amber-whisper-soft",
+      "coral-bloom-muted",
+      "ivory-pearl-soft",
+    ],
+    {
+      editorialNote:
+        "Warm hospitality palette anchored in amber and honey. Works for hotel brand identities, lifestyle photography, restaurant interiors positioned at accessible luxury, and any design context where warmth is the primary signal.",
+      promptWords: [
+        "hotel lobby interior in warm amber and ivory",
+        "luxury hospitality brand in honey and coral",
+        "welcoming interior palette for boutique hotel",
+      ],
+      useCases: ["Hotel brand identity", "Restaurant interior color scheme", "Hospitality product photography"],
+    },
+  ),
+  createCollection(
+    "heritage-navy-anchor",
+    "Heritage Navy",
+    "The deep navy palette of heritage brands — navy core, deep cobalt, and slate anchored by ivory and warm neutral.",
+    "Heritage brand color is built on navy as anchor. Deep, slightly complex navy paired with ivory, warm neutral, and a restrained accent creates the palette of institutions, legacy fashion brands, and family businesses with multigenerational presence.",
+    ["Cool", "Heritage", "Classic"],
+    [
+      "cobalt-ink-muted",
+      "cobalt-shadow-muted",
+      "cobalt-dusk-muted",
+      "cool-gray-whisper",
+      "ivory-pearl-soft",
+    ],
+    {
+      editorialNote:
+        "Heritage brand navy palette with institutional authority. Works for financial services, heritage fashion, family businesses, and any brand identity that needs to signal longevity and trust.",
+      promptWords: [
+        "heritage brand identity in deep navy and ivory",
+        "institutional design system in cobalt and cream",
+        "classic brand palette anchored by navy",
+      ],
+      useCases: ["Heritage brand identity", "Financial services design", "Classic menswear brand system"],
+    },
+  ),
+  createCollection(
+    "spa-stone-calm",
+    "Spa Stone",
+    "The cool stone palette of wellness interiors — warm gray, pale sage, soft mist, and clean ivory that signals rest.",
+    "Wellness and spa interiors use color to communicate safety, cleanliness, and calm. The palette is built on warm-leaning neutrals, pale sage, and clean ivory — saturated enough to feel alive but not energetic enough to disturb the rest state these environments are trying to create.",
+    ["Neutral", "Wellness", "Calm"],
+    [
+      "warm-gray-whisper",
+      "sage-bloom-muted",
+      "cool-gray-whisper",
+      "mint-veil-soft",
+      "ivory-pearl-soft",
+    ],
+    {
+      editorialNote:
+        "Wellness and spa neutral palette with calming undertones. Works for spa brand identities, wellness product packaging, healthcare interior direction, and any context where rest and restoration are the primary emotional goals.",
+      promptWords: [
+        "spa interior in warm stone and sage",
+        "wellness brand palette in pale neutral and mint",
+        "rest-focused interior design in soft gray and ivory",
+      ],
+      useCases: ["Spa brand identity", "Wellness product packaging", "Healthcare interior color scheme"],
+    },
+  ),
+  createCollection(
+    "dark-editorial-night",
+    "Dark Editorial",
+    "Midnight editorial palette — deep ink, dark violet, shadow navy, and restrained neutral for high-fashion dark aesthetics.",
+    "Dark editorial is not all-black — it is a composed system of deep values with subtle hue variation. Ink navy, deep violet, muted shadow, and a single restrained neutral create the palette of fashion editorial, luxury night environments, and premium dark brand identities.",
+    ["Dark", "Editorial", "Fashion"],
+    [
+      "cobalt-ink-muted",
+      "violet-nocturne-muted",
+      "plum-shadow-muted",
+      "cool-gray-ink",
+      "ivory-pearl-soft",
+    ],
+    {
+      editorialNote:
+        "Dark editorial palette with depth and hue variation. Works for fashion editorial photography, luxury nightclub or bar brand identities, high-end cosmetics dark packaging, and any creative direction that needs darkness with sophistication rather than just black.",
+      promptWords: [
+        "fashion editorial in deep navy and violet",
+        "luxury dark brand identity with depth and variation",
+        "midnight editorial photography palette",
+      ],
+      useCases: ["Fashion editorial direction", "Luxury dark brand identity", "Premium nightlife venue branding"],
+    },
+  ),
+  createCollection(
+    "alpine-clarity",
+    "Alpine Clarity",
+    "High-altitude color — cerulean sky, clean frost white, slate gray, and a single warm accent like amber lichen.",
+    "Alpine environments have a distinctive color quality: the clarity of thin air produces unusually saturated blue sky against clean white snow and gray-blue stone. This palette captures that quality — cool, high-contrast, clean — with a single warm accent that references lichen, aged wood, and golden afternoon light.",
+    ["Cool", "Nature", "Clean"],
+    [
+      "cerulean-core-clear",
+      "cerulean-whisper-muted",
+      "cool-gray-mid-muted",
+      "frost-pearl-soft",
+      "amber-tone-soft",
+    ],
+    {
+      editorialNote:
+        "Alpine high-altitude palette with clean cool contrast. Works for outdoor brand identities, premium ski resort brands, adventure lifestyle photography, and any design context that needs clarity and altitude without aggressiveness.",
+      promptWords: [
+        "alpine landscape palette in cerulean and frost",
+        "mountain resort brand in cool blue and clean white",
+        "high-altitude outdoor lifestyle palette",
+      ],
+      useCases: ["Outdoor brand identity", "Ski resort visual design", "Alpine lifestyle product photography"],
+    },
+  ),
+];
+
+collections.push(...extraCollections40);

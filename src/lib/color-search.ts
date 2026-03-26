@@ -1053,6 +1053,29 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   nostalgic: ["amber", "warm-gray", "blush", "caramel", "ivory"],
   memory: ["blush", "amber", "caramel", "warm-gray", "rose"],
   analog: ["amber", "caramel", "warm-gray", "blush", "olive"],
+  // Print production and press
+  press_ready: ["ivory", "muted", "pearl", "ink", "amber"],
+  spot_printing: ["vivid", "crimson", "cobalt", "emerald", "amber"],
+  substrate_neutral: ["ivory", "pearl", "muted", "warm-gray", "whisper"],
+
+  // Hospitality color contexts
+  hotel_lobby: ["amber", "honey", "ivory", "coral", "warm-gray"],
+  hotel_room: ["ivory", "warm-gray", "amber", "muted", "whisper"],
+  restaurant_interior: ["ember", "amber", "garnet", "ivory", "warm-gray"],
+  fine_dining: ["ivory", "pearl", "onyx", "garnet", "muted"],
+  bar_color: ["shadow", "amber", "garnet", "merlot", "ink"],
+
+  // Data visualization specifics
+  sequential_palette: ["cobalt", "cerulean", "azure", "mist", "whisper"],
+  diverging_palette: ["cobalt", "frost", "crimson", "teal", "ivory"],
+  chart_background: ["ivory", "frost", "whisper", "pearl", "veil"],
+
+  // Lighting and environment
+  warm_interior: ["amber", "honey", "ivory", "coral", "warm-gray"],
+  cool_interior: ["frost", "cerulean", "azure", "cobalt", "cool-gray"],
+  daylight_color: ["frost", "veil", "whisper", "cerulean", "ivory"],
+  candlelight: ["amber", "ember", "honey", "apricot", "warm-gray"],
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {

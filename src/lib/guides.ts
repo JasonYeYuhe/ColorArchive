@@ -10645,3 +10645,198 @@ export const extraGuides40: LandingGuide[] = [
   },
 ];
 landingGuides.push(...extraGuides40);
+
+export const extraGuides41: LandingGuide[] = [
+  {
+    category: "Print & Production",
+    slug: "print-color-management-guide",
+    title: "Print Color Management Guide: From Screen to Press Without Surprises",
+    summary: "Colors that look correct on screen routinely come out wrong in print. Understanding the reasons — and the technical steps that prevent them — is one of the most practical skills a designer who works with printed materials can develop.",
+    eyebrow: "Print & Production",
+    priority: 82,
+    searchIntent: "print color management CMYK color profile screen to print",
+    tags: ["Print", "Color Management", "CMYK", "Production"],
+    highlights: [
+      "Screen color is additive (RGB light); print is subtractive (CMYK ink). The gamut of print is smaller than screen, so some screen colors physically cannot be reproduced in ink.",
+      "Soft-proofing — simulating the printed output within Photoshop or Illustrator using the press profile — is the most efficient way to identify out-of-gamut colors before they go to print.",
+      "Coated and uncoated paper absorb ink differently. The same CMYK values will appear significantly darker and more saturated on coated stock than on uncoated.",
+      "Black in print is not a single color. Rich black (built from C+M+Y+K) prints darker and warmer than 100K black but causes registration issues on thin text.",
+    ],
+    sections: [
+      {
+        heading: "Why Screen and Print Colors Differ",
+        body: "Screens produce color by emitting light — mixing red, green, and blue light additively produces white at full intensity. Print produces color by absorbing light — cyan, magenta, yellow, and black inks subtract wavelengths from reflected white light. These are fundamentally different physical processes with different color gamuts. The sRGB gamut of a typical monitor contains many colors — vivid blues, bright greens, neon oranges — that no combination of CMYK ink can reproduce. These are out-of-gamut colors, and when they are sent to print, the press must substitute the nearest printable value. If you do not control this substitution, the press software will make automatic choices that often look wrong.",
+      },
+      {
+        heading: "ICC Profiles and Color Spaces",
+        body: "ICC profiles are the technical mechanism that describes how colors are mapped between color spaces. A press profile (such as FOGRA39 for European coated offset) describes exactly what CMYK values produce what visual colors on that press and paper combination. Working in the correct color space from the beginning — or converting correctly when required — is what keeps color predictable across devices. The most common mistake is working in RGB throughout the design process and converting to CMYK only at the last step before output. The conversion at that point is automatic and often incorrect for specific problem colors.",
+      },
+      {
+        heading: "Paper Stock and Ink Absorption",
+        body: "The same CMYK values produce visually different results on different paper. Coated papers (gloss or silk) have a clay coating that seals the surface, reducing ink spread and allowing more saturated, sharper color reproduction. Uncoated papers (offset bond, newsprint) absorb ink into the fiber, causing dot gain — ink spreads and becomes larger than intended, making colors darker and less saturated. When designing for uncoated print, colors typically need to be lightened and desaturated relative to what looks correct for coated stock. Uncoated profiles (FOGRA47 in Europe, SWOP uncoated in the US) account for this, but only if used from the beginning of the design process.",
+      },
+      {
+        heading: "Soft Proofing Workflow",
+        body: "Soft proofing simulates what a specific press will produce, within your monitor, using the press ICC profile. In Photoshop, this is View > Proof Colors, after setting the correct profile and rendering intent under View > Proof Setup. Soft proofing is not perfect — monitors with sRGB gamuts cannot show the full range of press color, and the simulation quality depends on monitor calibration — but it reliably reveals the most problematic out-of-gamut colors. The goal is to see which colors will shift significantly and to decide whether to adjust them or accept the shift before the file goes to press.",
+      },
+    ],
+    links: [
+      { label: "Browse all collections", href: "/collections/" },
+      { label: "Open contrast checker", href: "/contrast/" },
+    ],
+  },
+  {
+    category: "Hospitality & Interior",
+    slug: "hospitality-interior-color-guide",
+    title: "Hospitality Interior Color: What Hotels and Restaurants Get Right That Offices Don't",
+    summary: "Hotels and high-end restaurants use color differently from offices and retail environments — the goal is not productivity or purchase, but sustained comfort and a specific emotional register. The principles behind successful hospitality color are transferable to any environment where people need to feel at ease.",
+    eyebrow: "Hospitality & Interior",
+    priority: 76,
+    searchIntent: "hotel interior color palette restaurant color design hospitality design",
+    tags: ["Hospitality", "Interior Design", "Color Psychology", "Brand"],
+    highlights: [
+      "Successful hotel lobbies use color to signal the property's positioning — warm and saturated for approachable luxury, cool and restrained for aspirational luxury, eclectic and layered for design-forward properties.",
+      "Restaurant color affects dwell time. Warm, saturated colors stimulate appetite and increase turnover; cooler, softer colors encourage longer stays appropriate for fine dining.",
+      "Guestrooms in hotels are almost universally low-saturation environments because saturation is tiring over extended periods. The visual stimulation of a lobby does not translate to a space where guests need to sleep.",
+      "Lighting color temperature and wall color interact strongly — a warm amber light can make a cool-toned palette read entirely differently. Hospitality designers specify color under the actual planned lighting, not under daylight.",
+    ],
+    sections: [
+      {
+        heading: "Lobbies as Brand Statements",
+        body: "The lobby is the most photographed, most scrutinized, and most brand-expressive part of a hotel. Its color communicates positioning faster than any written description. Budget and limited-service properties often use high-contrast, saturated palettes that read as energetic and accessible. Luxury properties typically use desaturated, layered palettes where the luxury is signaled by the quality and restraint of the color combination rather than its vibrancy. Design-forward boutique hotels use bold, unusual palettes as a distinguishing brand signal. The key insight is that the color choice communicates tier and personality before any guest has read a review or checked the price.",
+      },
+      {
+        heading: "Restaurant Zones and Dwell Time",
+        body: "Restaurant color strategy is explicitly calibrated to dwell time. Fast casual and quick-service operators know that warm, high-saturation environments (the McDonald's and In-N-Out color systems are built on this principle) feel energetic but slightly uncomfortable over long periods, which supports table turnover. Fine dining environments use exactly the opposite logic — lower saturation, warmer values, more visual complexity through materials and texture rather than hue contrast — to create an environment that rewards lingering. This is not incidental; it is the designed outcome. A fast-casual restaurant with a fine-dining color palette would confuse customers about the expected pace and price point.",
+      },
+      {
+        heading: "Guestroom Color Logic",
+        body: "Guestroom palettes in successful hotels are almost universally restrained compared to public spaces. The reasons are both physiological and practical. Sustained exposure to high-saturation color is fatiguing — a vivid turquoise lobby works for a 90-second transit but would be maddening for an eight-hour stay. Guestrooms also need to photograph well across a wide range of lighting conditions and at different times of day, which favors neutral, adaptable palettes that look good in morning light, evening lamp light, and overcast afternoon light. The typical successful guestroom palette runs in neutrals with one warm or cool accent — the accent appears in textiles, artwork, and small furniture rather than on walls.",
+      },
+      {
+        heading: "Lighting and Color Interaction",
+        body: "Hospitality color design cannot be separated from lighting design because incandescent, LED warm-white, and daylight sources transform the same surface colors dramatically. A paint color selected under cool fluorescent light will read entirely differently under the warm 2700K LED downlights typical of hotel corridors. Professional hospitality designers mock up materials and finishes under the actual planned light sources before specifying final colors — not under paint-store fluorescents. This seems obvious but is skipped surprisingly often in smaller projects, leading to colors that were selected in one condition and installed in another.",
+      },
+    ],
+    links: [
+      { label: "Browse all collections", href: "/collections/" },
+      { label: "Browse warm palettes", href: "/colors/?sort=warm" },
+    ],
+  },
+  {
+    category: "Lighting & Environment",
+    slug: "color-temperature-lighting-design-guide",
+    title: "Color Temperature in Lighting: What 2700K vs 5000K Actually Means for Design",
+    summary: "Color temperature — measured in Kelvin — describes the warmth or coolness of a light source and has a direct effect on how all surface colors appear in a space. Understanding it is essential for anyone designing for interiors, photography, or screen media.",
+    eyebrow: "Lighting & Environment",
+    priority: 79,
+    searchIntent: "color temperature lighting design 2700K 5000K warm cool light",
+    tags: ["Lighting", "Color Temperature", "Interior Design", "Photography"],
+    highlights: [
+      "2700K (warm white) amplifies warm tones in a space — reds, oranges, ambers appear richer while blues and greens become muddier. 5000K+ (cool/daylight) does the opposite.",
+      "Photography and video color grading is built around color temperature correction: 'warming' a shot means reducing its Kelvin value, 'cooling' it means raising it.",
+      "The standard for most office environments is 3500–4000K, considered neutral enough for task work without the fatigue of very cool light. Retail and hospitality typically run warmer (2700–3000K).",
+      "Human circadian rhythms respond to color temperature — high-CCT light in the evening suppresses melatonin production and disrupts sleep. Good lighting design accounts for time of day.",
+    ],
+    sections: [
+      {
+        heading: "What Color Temperature Measures",
+        body: "Color temperature (CCT, correlated color temperature) is measured in Kelvin and describes the color of light emitted by a theoretical blackbody radiator at that temperature. Counterintuitively, low Kelvin values correspond to warm (reddish) light — a candle is about 1800K, incandescent bulbs are 2700K — and high Kelvin values correspond to cool (bluish) light — overcast daylight is 6500K, clear blue sky is 9000K+. This naming convention comes from physics, not everyday usage where 'warm' and 'cool' describe the subjective quality of light. When a lighting specification says 2700K, it means incandescent-like warm light; 5000K means a bright, clinical, daylight-like cool light.",
+      },
+      {
+        heading: "How CCT Affects Surface Color Perception",
+        body: "Every surface color in a space is perceived through the chromatic filter of the ambient light source. Under warm light (2700K), the warm components of a surface color are amplified — an amber wall appears richer and more saturated; a sage green may appear slightly warmer and more muted. Under cool light (5000K), cool components are emphasized — blues and greens appear more vibrant while warm tones look flatter and potentially gray. This has a direct implication for interior design: colors selected under neutral daylight or cool-white store conditions may look significantly different when installed under the warm-white downlights typical of residential and hospitality interiors. Always evaluate finish colors under the planned light source.",
+      },
+      {
+        heading: "Application by Context",
+        body: "Different environments use different color temperature conventions based on the activities and moods they support. Hospitality and residential spaces almost universally use warm light (2700–3000K) because it creates flattering conditions for human skin and encourages relaxation. Office and task environments typically use neutral to cool-neutral light (3500–4000K) to support concentration and reduce eye strain from screen glare. Retail uses various strategies depending on product: fashion and beauty tend toward warmer light that flatters skin; grocery produce sections often use higher-CCT light to make greens and reds appear vivid; jewelry and watches require very bright, high-CCT light for sparkle.",
+      },
+      {
+        heading: "Photography and Video White Balance",
+        body: "White balance in photography is the process of correcting for the color temperature of the ambient light source. When a camera is set to daylight white balance under tungsten light (2700K), the image appears very orange; when set to tungsten under daylight, it appears very blue. Correct white balance makes neutral surfaces appear neutral. In post-production, color temperature is one of the primary grading tools: adding warmth to a scene (reducing Kelvin) creates intimacy and nostalgia; adding coolness (raising Kelvin) creates clinical distance or tension. The conventions of film color grading — the teal-orange look, the desaturated-cool thriller aesthetic — are built entirely on color temperature manipulation.",
+      },
+    ],
+    links: [
+      { label: "Open contrast checker", href: "/contrast/" },
+      { label: "Browse neutral palettes", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Typography & Layout",
+    slug: "typographic-color-hierarchy-guide",
+    title: "Typographic Color Hierarchy: How Color Creates Reading Structure Without Font Changes",
+    summary: "Color is an underused typographic tool. Most designers rely on weight, size, and position to create hierarchy — but color can establish structure more efficiently, with less visual noise. This guide explains how to use color to create clear reading hierarchies in type-heavy layouts.",
+    eyebrow: "Typography & Layout",
+    priority: 77,
+    searchIntent: "typographic color hierarchy color for typography text color design",
+    tags: ["Typography", "Layout", "Color Hierarchy", "Design"],
+    highlights: [
+      "Three color values — a dark primary, a medium secondary, and a light tertiary — can establish reading hierarchy as effectively as three font weights, with less visual weight.",
+      "Body text color is not the same decision as headline color. Body text requires higher contrast (WCAG 4.5:1 minimum) than decorative display text because it is read continuously.",
+      "Colored text on colored backgrounds reduces contrast in ways that are easy to underestimate. Evaluating color combinations in grayscale first reveals contrast issues before they are embedded in a design.",
+      "Caption and label text that must communicate quickly (form labels, captions, navigation) benefits from slightly higher contrast than body text, because these are read in interrupted conditions with less cognitive context.",
+    ],
+    sections: [
+      {
+        heading: "Value as the Primary Hierarchy Tool",
+        body: "In typography, value (lightness) is a more reliable hierarchy signal than hue. Dark text reads as primary; lighter text reads as secondary or supplementary. This reflects how the eye prioritizes contrast: high-contrast elements demand attention, lower-contrast elements recede. A three-level hierarchy using a near-black primary, a medium gray secondary, and a lighter gray tertiary creates clear reading structure with no font changes, no color shifts, and no risk of hue combinations that clash. The system works because it uses the same underlying perceptual mechanism as bold/regular/light weight hierarchies — contrast level — but through the color dimension rather than the stroke dimension.",
+      },
+      {
+        heading: "Accent Color for Wayfinding",
+        body: "A single accent color in a type-heavy layout functions as a wayfinding tool: the eye uses it as an anchor to find key information. Links are the most obvious application, but headings, callouts, pull quotes, and key terms can use accent color to speed scanning. The important constraint is that accent color should be reserved for genuinely important elements — using it too frequently degrades the signal. If a quarter of the text on a page is colored, the accent communicates 'this is the look' rather than 'this matters'. One to three accent color applications per screenful of content is the approximate threshold above which the wayfinding value starts to drop.",
+      },
+      {
+        heading: "Dark Mode Typography Color",
+        body: "Dark mode typography reverses the value hierarchy but maintains the same underlying logic. Body text on dark backgrounds should not be pure white — pure white on dark produces harsh halation that is fatiguing over long reading sessions. Off-white values in the 90-95% lightness range are the standard for body text in dark interfaces. Secondary text drops to 60-70% lightness and tertiary to 40-50%. The full range from light to dark available in dark mode is actually larger than in light mode because the background can be any value from near-black to a medium neutral. The challenge is maintaining sufficient contrast at each level while creating a legible hierarchy that does not feel blinding at the primary level.",
+      },
+      {
+        heading: "Color Contrast and Readability Standards",
+        body: "WCAG 2.1 requires a minimum 4.5:1 contrast ratio for normal text and 3:1 for large text (18pt+ or 14pt bold). These minimums are functional thresholds: below them, a measurable percentage of users with low vision or average vision in poor conditions cannot reliably read the text. Higher contrast (7:1+) is recommended for critical body text and is the standard for government and healthcare interfaces. Colored text on colored backgrounds requires contrast measurement between the two colors specifically — background-neutral assumptions do not apply. A dark blue text on medium blue background that reads clearly on a calibrated monitor may be unreadable for low-vision users or in bright ambient light conditions.",
+      },
+    ],
+    links: [
+      { label: "Open contrast checker", href: "/contrast/" },
+      { label: "Browse all colors", href: "/colors/" },
+    ],
+  },
+  {
+    category: "Packaging & Brand",
+    slug: "luxury-packaging-color-guide",
+    title: "Luxury Packaging Color: How Premium Brands Use Color to Signal Value Before the Box Opens",
+    summary: "The color of luxury packaging does a significant amount of brand work before the product is encountered. The palette conventions of luxury are specific and learnable — and they are built on concrete psychological and cultural mechanisms, not arbitrary taste.",
+    eyebrow: "Packaging & Brand",
+    priority: 80,
+    searchIntent: "luxury packaging color premium brand color packaging design",
+    tags: ["Packaging", "Luxury", "Brand Design", "Color Psychology"],
+    highlights: [
+      "Luxury packaging color signals differ sharply by category: fashion uses black/white/neutral as the primary luxury signal; beauty uses rose gold, ivory, and jewel tones; spirits and wine use deep jewel tones and gold; jewelry uses navy, burgundy, and dark green.",
+      "Color finish matters as much as hue in luxury packaging — matte finishes read as more contemporary and understated; high-gloss reads as accessible luxury; foil and metallic reads as traditional premium.",
+      "Low saturation is the most reliable luxury signal in color — highly saturated colors read as high energy and democratic, the opposite of exclusive. Desaturated, complex color combinations signal refinement.",
+      "Unboxing experience creates sequential color reveals. Luxury brands manage the color palette across layers — outer box, inner tissue, product packaging — as a designed visual sequence.",
+    ],
+    sections: [
+      {
+        heading: "Category Color Conventions",
+        body: "Each luxury category has its own color conventions that are maintained so consistently they function as category codes. French haute couture uses black and white almost exclusively — Chanel's identity is built on this — with the occasional red or gold accent. British luxury fashion favors navy, bottle green, and burgundy. Beauty and cosmetics luxury uses rose gold, ivory, and pale blush, with occasional jewel tones for holiday collections. Luxury spirits use deep amber, navy, burgundy, and black with gold foil. Jewelry uses navy, hunter green, and deep burgundy — the interior color of a jewelry box is a meaningful signal (Tiffany's robin's egg blue, Cartier's red, Van Cleef's olive green). Knowing these conventions is prerequisite to working within them or making informed decisions to break them.",
+      },
+      {
+        heading: "Surface and Finish as Color Amplifiers",
+        body: "The finish applied to packaging color changes its meaning as much as the underlying hue. Matte finishes on dark colors read as restrained and contemporary — the current default for premium independent brands. Gloss finishes on the same colors read as more accessible and commercial. Soft-touch matte (velvet lamination) on a deep navy or forest green is one of the strongest luxury signals in current packaging because it combines color exclusivity with material tactility. Foil stamping — particularly gold and silver hot foil — communicates traditional luxury and is the primary visual signal for spirits, candles, and heritage cosmetics. The combination of matte substrate and foil detail is the dominant luxury packaging technique of the past decade.",
+      },
+      {
+        heading: "The Saturation Rule in Luxury",
+        body: "Across luxury categories, low saturation is the most consistent color signal. Fully saturated colors — vivid red, electric blue, bright yellow — read as energetic, approachable, and mass-market. These are not characteristics that luxury brands want to signal. Desaturated versions of the same hues — a dusty rose, a slate blue, a muted gold — read as more refined, complex, and exclusive. The perceptual mechanism seems to be that saturated colors are processed quickly and easily (they are highly legible visual signals), while desaturated, complex colors reward closer attention. Luxury is a slow category — its color should reward looking, not demand it.",
+      },
+      {
+        heading: "Sequential Color Reveals in Unboxing",
+        body: "The unboxing experience has become a designed sequence for luxury brands. The outer packaging — typically a branded box or sleeve — establishes the brand color. Opening the box reveals a secondary environment: tissue paper, ribbons, or inner trays in a coordinating or contrasting color. The product itself may use a third color layer. This sequence creates a progressive reveal that builds anticipation and increases the perceived value of the contents. The color sequence is usually designed to move from one register to another: an exterior in restrained dark color opens to reveal a warm or pastel interior, creating a contrast that enhances the sensation of discovery. The mismatch between outside and inside is part of the designed experience.",
+      },
+    ],
+    links: [
+      { label: "Browse all collections", href: "/collections/" },
+      { label: "Browse packs", href: "/packs/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides41);
