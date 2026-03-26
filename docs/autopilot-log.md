@@ -2974,3 +2974,49 @@ winter_holiday, winter_festive, winter_ice, winter_minimal, seasonal_palette
 - `src/lib/collections.ts` — extraCollections42 (5 collections, 169 total)
 - `src/lib/color-search.ts` — 14 new seasonal aliases
 - `app/sitemap.ts` — /seasonal/ entry
+
+---
+
+## Run #5 — 2026-03-26T05:33Z — Normal Run
+
+**Type:** Normal (recovered stale content + new additions)  
+**Commit:** 834dec3  
+**Categories:** Content, Search, Collections  
+**Note:** Stale lock from crashed previous run — recovered 6 newsletter issues + extraGuides44 + extraCollections43 that were pending, then added new content on top.
+
+### Newsletter Issues (300–305)
+- `mar-2032-color-in-motion-design` — Color in Motion: How Animation Changes Color Perception
+- `mar-2032-color-spatial-design` — Color in Physical Space: Architecture vs Screens
+- `mar-2032-accessible-color-beyond-wcag` — Accessible Color Beyond WCAG: What the Standard Misses
+- `apr-2032-color-contrast-dark-mode` — Dark Mode Color Design: Why Inverting Light Mode Fails
+- `apr-2032-color-data-visualization` — Color in Data Visualization: Encoding Without Confusion
+- `apr-2032-color-cultural-variation` — Color Meaning Across Cultures: Global Design Guide
+
+### Guides Added (extraGuides44 + extraGuides45 — 10 total)
+- `logo-color-design-guide` (recovered)
+- `color-temperature-photography-guide` (recovered)
+- `color-in-motion-design-guide` (new)
+- `architectural-color-guide` (new)
+- `accessible-color-beyond-wcag-guide` (new)
+- `dark-mode-color-design-guide` (new)
+- `data-visualization-color-guide` (new)
+
+### Collections Added (extraCollections43 + extraCollections44 — 10 total)
+- `logo-brand-primary-bold` (recovered)
+- `warm-photo-grade` (recovered)
+- `social-content-vivid-feed` (recovered)
+- `dark-mode-ui-surfaces` (new)
+- `aurora-borealis-vivid` (new)
+- `warm-architectural-interior` (new)
+- `data-viz-sequential-teal` (new)
+- `cultural-celebration-east-asia` (new)
+
+### Search Aliases (+36 new)
+Architecture, dark mode UI, cultural, UI states (success/error/warning/info), natural phenomena, materials, gemstones, photography imaging.
+
+### Files Changed
+- `src/data/newsletter-issues.json` — 6 new issues (305 total)
+- `src/lib/guides.ts` — extraGuides44 + extraGuides45 
+- `src/lib/collections.ts` — extraCollections43 + extraCollections44
+- `src/lib/color-search.ts` — 36 new unique aliases added
+- `.claude/session-lock.json` — released
