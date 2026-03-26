@@ -4740,3 +4740,152 @@ const extraCollections45: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections45);
+
+const extraCollections46: ColorCollection[] = [
+  createCollection(
+    "midnight-cobalt-violet",
+    "Midnight Cobalt + Violet",
+    "Deep cobalt and electric violet — the night-mode palette for AI interfaces, developer tools, and next-generation tech brands.",
+    "The palette that defines contemporary AI and developer tool aesthetics: deep cobalt night, electric violet intelligence, and ink ground. This combination emerged from the intersection of dark mode design standards and the violet-as-AI-color convention that has been building since 2020. The darkness creates depth and focus; the violet signals intelligence and forward motion; the cobalt provides the familiar tech trust signal in its most refined, nocturnal form. Ideal for AI products, developer dashboards, and technology brands competing on sophistication rather than approachability.",
+    ["Technology", "AI", "Dark Mode", "Violet", "Cobalt"],
+    [
+      "cobalt-nocturne-soft",
+      "violet-nocturne-clear",
+      "indigo-ink-muted",
+      "iris-dusk-clear",
+      "cobalt-shadow-vivid",
+      "violet-shadow-soft",
+    ],
+    {
+      editorialNote: "The AI-and-developer-tool night palette: deep cobalt, electric violet, and ink. Emerged from the convergence of dark mode standards and violet-as-AI conventions. Sophistication over approachability.",
+      promptWords: [
+        "AI interface dark mode palette",
+        "developer tool dark color scheme",
+        "technology brand cobalt violet palette",
+      ],
+      useCases: ["AI product interface design", "Developer tool brand identity", "Technology SaaS dark mode"],
+    },
+  ),
+  createCollection(
+    "spring-mint-blush",
+    "Spring Mint + Blush",
+    "Fresh mint and delicate blush for spring campaigns, beauty launches, and seasonal brand refreshes.",
+    "The canonical spring palette: fresh mint, soft blush, and whisper white. These three color families define the visual grammar of spring across fashion, beauty, hospitality, and consumer brand campaigns. The mint provides the freshness signal — new growth, morning air, opened windows — while the blush delivers warmth and softness that prevents the palette from reading as clinical. The balance between cool freshness and warm softness is the technical challenge and the achievement of every successful spring campaign palette.",
+    ["Spring", "Seasonal", "Mint", "Blush", "Campaign"],
+    [
+      "mint-whisper-soft",
+      "blush-pearl-faint",
+      "mint-bloom-clear",
+      "rose-veil-faint",
+      "seafoam-whisper-soft",
+      "peony-pearl-soft",
+    ],
+    {
+      editorialNote: "The canonical spring campaign palette: fresh mint, soft blush, and whisper white. Cool freshness balanced against warm softness — the technical and aesthetic challenge every spring campaign solves.",
+      promptWords: [
+        "spring color palette mint blush",
+        "seasonal campaign spring colors",
+        "beauty spring launch palette",
+      ],
+      useCases: ["Spring campaign design", "Beauty product launch", "Seasonal retail refresh"],
+    },
+  ),
+  createCollection(
+    "desert-amber-rust",
+    "Desert Amber + Rust",
+    "Scorched amber, terracotta rust, and sun-bleached ivory — the arid landscape palette for western brands and outdoor design.",
+    "The palette of arid landscapes: amber sand, terracotta rust, and bleached ivory, with just enough sage and slate to reference desert plant life and shadow. This is not a generic earth tone palette — it is specifically structured around the light and color experience of desert environments: the golden quality of late-afternoon sun, the deep rust of sandstone cliffs, the washed-out warmth of pale caliche soil. Brands rooted in southwestern, western, or desert-influenced aesthetics — outdoor gear, artisan crafts, hospitality, and regional identity work — use this palette to signal authenticity rather than aesthetic trend.",
+    ["Desert", "Southwest", "Earth Tones", "Rust", "Outdoor"],
+    [
+      "amber-tone-muted",
+      "coral-shadow-soft",
+      "ember-dusk-soft",
+      "amber-silk-soft",
+      "olive-dusk-muted",
+      "warm-gray-pearl",
+    ],
+    {
+      editorialNote: "Arid landscape palette: amber sand, terracotta rust, bleached ivory. Structured around desert light and color — golden afternoon, sandstone rust, pale caliche. Authentic rather than trend-driven.",
+      promptWords: [
+        "desert color palette amber rust",
+        "southwestern earth tone palette",
+        "outdoor brand western palette",
+      ],
+      useCases: ["Southwestern brand identity", "Outdoor gear design", "Artisan craft brand packaging"],
+    },
+  ),
+  createCollection(
+    "jewel-tones-deep",
+    "Deep Jewel Tones",
+    "Ruby, sapphire, and emerald at full chromatic depth — the maximalist celebration palette for festive, luxury, and editorial contexts.",
+    "Jewel tones at maximum saturation and depth: ruby red, sapphire cobalt, emerald jade, and amethyst violet. These are the colors of stained glass, illuminated manuscripts, and the gemstone collections that gave them their names. As a palette they are inherently maximalist — rich, layered, and unapologetically celebratory. The challenge of working with jewel tones is maintaining harmony across hues that each carry their own strong personality. The key is consistent depth: keeping all colors in the same luminosity range prevents any single hue from dominating the palette and allows the whole to read as a coherent system.",
+    ["Jewel Tones", "Luxury", "Rich Colors", "Festive", "Maximalist"],
+    [
+      "ruby-shadow-vivid",
+      "sapphire-shadow-vivid",
+      "emerald-shadow-clear",
+      "violet-velvet-clear",
+      "garnet-shadow-vivid",
+      "teal-dusk-clear",
+    ],
+    {
+      editorialNote: "Jewel tones at maximum depth: ruby, sapphire, emerald, amethyst. The stained-glass, illuminated-manuscript palette. Inherently maximalist — the key is maintaining consistent luminosity across all hues.",
+      promptWords: [
+        "jewel tones deep color palette",
+        "luxury rich saturated palette",
+        "festive maximalist color scheme",
+      ],
+      useCases: ["Festive campaign design", "Luxury editorial", "Holiday brand activation"],
+    },
+  ),
+  createCollection(
+    "nordic-minimal-frost",
+    "Nordic Minimal Frost",
+    "White frost, pale cerulean, and cool warm-gray for Scandinavian-influenced design systems and minimalist brands.",
+    "The Nordic minimal palette: frost white, pale cerulean, and cool gray — with the specific temperature of Scandinavian winter light. This is not mere minimalism but minimalism with a climatic reference: the muted, diffuse quality of northern light filtering through cloud cover, the pale blue of midwinter sky, the warm gray of weathered birch. Nordic aesthetics in design have proven exceptionally durable because they are rooted in a specific environmental experience rather than a trend — they age as environments age, not as fashions age. Appropriate for Scandinavian brands, architectural firms, wellness contexts, and any brand identity that needs to signal restraint without sacrificing warmth.",
+    ["Nordic", "Scandinavian", "Minimal", "Frost", "Cool"],
+    [
+      "cool-gray-whisper",
+      "cerulean-veil-faint",
+      "azure-pearl-faint",
+      "warm-gray-veil",
+      "cool-gray-mist",
+      "cerulean-whisper-soft",
+    ],
+    {
+      editorialNote: "Nordic minimal: frost white, pale cerulean, and cool gray with Scandinavian winter light. Rooted in environmental experience rather than trend — ages as environments age, not as fashions age.",
+      promptWords: [
+        "nordic minimal color palette",
+        "scandinavian frost palette",
+        "minimalist cool gray blue palette",
+      ],
+      useCases: ["Scandinavian brand identity", "Architectural firm branding", "Wellness brand minimalist palette"],
+    },
+  ),
+  createCollection(
+    "citrus-vivid-burst",
+    "Citrus Vivid Burst",
+    "Electric lime, vivid citrine, and bright coral — the maximum-energy palette for food brands, sports, and summer campaigns.",
+    "Maximum energy through saturated citrus: electric lime, vivid citrine, coral, and aqua. This is the palette of summer heat, fresh produce, and high-performance product design. The citrus family shares a biological basis — these are the colors of foods at peak ripeness and energy, which gives them an inherent vitality that is difficult to achieve through any other palette strategy. In brand contexts, citrus palettes signal speed, freshness, and optimism. They are inherently high-stop-power at shelf and high-engagement in digital feed environments. The risk is oversaturation — too much citrus becomes aggressive. The solution is to anchor the palette with a single dark value (ink or deep teal) that provides contrast and prevents eye fatigue.",
+    ["Citrus", "Vivid", "Summer", "Energy", "Food & Beverage"],
+    [
+      "lime-bloom-vivid",
+      "citrine-radiant-vivid",
+      "coral-radiant-vivid",
+      "aqua-bloom-vivid",
+      "citrine-bloom-clear",
+      "lime-tone-clear",
+    ],
+    {
+      editorialNote: "Maximum-energy citrus palette: electric lime, vivid citrine, coral, aqua. Colors of peak-ripeness produce — inherent vitality that is biologically based. Anchor with dark value to prevent eye fatigue.",
+      promptWords: [
+        "citrus color palette vivid bright",
+        "summer energy brand palette",
+        "food brand vivid citrus colors",
+      ],
+      useCases: ["Food brand packaging design", "Summer campaign design", "Sports nutrition brand identity"],
+    },
+  ),
+];
+
+collections.push(...extraCollections46);

@@ -11762,3 +11762,116 @@ export const extraGuides46: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides46);
+
+export const extraGuides47: LandingGuide[] = [
+  {
+    category: "Design & Color Theory",
+    slug: "color-accessibility-guide",
+    title: "Color Accessibility Design Guide: Beyond WCAG Contrast Ratios",
+    summary:
+      "Complete guide to designing accessible color systems — color blindness types and how they affect design, building palettes that work across all color vision, the myth of contrast-ratio-only accessibility, and practical tools for testing.",
+    eyebrow: "Accessibility Guide",
+    priority: 90,
+    searchIntent: "color accessibility design guide",
+    tags: ["Accessibility", "Color Blindness", "UI Design", "Inclusive Design"],
+    highlights: [
+      "8% of men and 0.5% of women have some form of color vision deficiency — at scale, every digital product serves significant numbers of color blind users.",
+      "WCAG contrast ratios are the floor, not the ceiling of color accessibility.",
+      "Color-only encoding (red for error, green for success) fails for colorblind users — always add a secondary signal: shape, icon, or position.",
+      "Accessible color design produces cleaner, more intentional palettes by eliminating redundancy and forcing functional clarity.",
+    ],
+    sections: [
+      {
+        heading: "Understanding Color Vision Deficiency",
+        body: "Color vision deficiency comes in several forms. Deuteranopia (reduced green sensitivity) and protanopia (reduced red sensitivity) are the most common, collectively affecting roughly 8% of men. For people with deuteranopia, red and green may appear as the same brownish-amber — making the near-universal convention of red-for-error and green-for-success entirely inaccessible. Tritanopia (reduced blue sensitivity) is rarer but also important to address in blue-heavy design systems. Understanding which types you are designing for determines which simulation tools and palette tests you need to run.",
+      },
+      {
+        heading: "What Contrast Ratios Miss",
+        body: "WCAG 2.1's 4.5:1 contrast ratio requirement for text addresses luminance contrast — how different two colors appear in terms of lightness. This is important and necessary, but it does not address hue confusion. Two colors can have excellent contrast ratios while being indistinguishable to someone with deuteranopia if they sit in the same red-green confusion axis. A red warning message on a green success background may pass all contrast checks while communicating nothing to a deuteranomalous user. The correct approach is to design with both luminance contrast AND hue separation from the primary confusion axes.",
+      },
+      {
+        heading: "Building an Accessible Color System",
+        body: "The practical starting points for accessible color design are: (1) Never use color as the sole carrier of meaning — always add a secondary encoding (icon, shape, label, or position). (2) Run your full palette through deuteranopia and protanopia simulation filters before committing. (3) Test all interactive states (hover, focus, active, error, success) under simulation to ensure they remain distinguishable. (4) Choose UI-safe functional colors that separate clearly under simulation for your design system's semantic tokens. Blues, oranges, and blue-purples are generally safer than red-green pairs in functional UI contexts.",
+      },
+    ],
+    links: [
+      { label: "Browse all color palettes", href: "/colors" },
+      { label: "Color for UI design guide", href: "/guides/color-ui-design-guide" },
+      { label: "Color in data visualization", href: "/guides/data-visualization-color-guide" },
+    ],
+  },
+  {
+    category: "Design & Color Theory",
+    slug: "wayfinding-color-design-guide",
+    title: "Color in Wayfinding Design: Environmental Color Systems for Spaces That Think",
+    summary:
+      "How wayfinding systems use color to navigate people through complex environments — airports, hospitals, transit systems — the rules of environmental color that differ completely from brand color, and how to apply them in spatial design.",
+    eyebrow: "Environmental Design Guide",
+    priority: 82,
+    searchIntent: "wayfinding color design guide",
+    tags: ["Wayfinding", "Environmental Design", "Signage", "Architecture"],
+    highlights: [
+      "Color in wayfinding operates before language — a visitor who cannot read English can still navigate a well-designed transit system through color logic alone.",
+      "The categorical consistency rule: one color means one zone, always. The moment a color carries two meanings, the wayfinding system breaks.",
+      "Chromatic saturation in wayfinding inverts the brand logic — higher saturation signals higher urgency, not higher prestige.",
+      "Hospitals require color that simultaneously communicates spatial orientation and emotional tone — the 'clinical warmth' challenge.",
+    ],
+    sections: [
+      {
+        heading: "Categorical Consistency as the Foundation",
+        body: "The cardinal rule of wayfinding color is that each color means exactly one thing in each environment. Terminal A is blue. Terminal B is orange. This remains true across every surface, every sign, every floor marking, every elevator button. The moment a color carries two meanings — when blue means both Terminal A and the general passenger services level — the cognitive load on users spikes, confidence in the system erodes, and navigation errors multiply. Wayfinding systems are not designed to be interesting; they are designed to be unambiguous.",
+      },
+      {
+        heading: "The Saturation Hierarchy",
+        body: "Wayfinding color operates by a saturation hierarchy that inverts conventional brand logic. The most saturated, highest-contrast colors mark the most urgent or critical systems: emergency exits in safety green, fire suppression in red, hazard zones in safety yellow. Mid-saturation colors mark navigational zones. Low-saturation, chromatic-neutral colors mark ambient space and non-navigational architecture. This hierarchy is intuitive because it matches the evolutionary rule that saturated, high-contrast signals indicate urgency — a rule that holds across cultures and can be exploited predictably in environmental design.",
+      },
+      {
+        heading: "Healthcare Color's Dual Challenge",
+        body: "Hospital wayfinding must solve two problems simultaneously that pull in opposite directions. Navigational clarity requires high contrast, categorical consistency, and enough saturation to distinguish zones reliably. Emotional environment requires enough warmth to reduce patient and visitor anxiety — hard saturated colors in high quantities can increase stress in clinical settings. The solution most contemporary healthcare designers use is a chromatic neutral base — warm gray floors and walls that are not demanding — with controlled, medium-saturation navigational accent colors (sage green, muted teal, warm amber) that read clearly without being aggressive. The goal is invisible guidance: people navigate without consciously noticing the system.",
+      },
+    ],
+    links: [
+      { label: "Color Palettes by Industry", href: "/industry/" },
+      { label: "Browse teal color palettes", href: "/families/teal/" },
+      { label: "Color psychology guide", href: "/guides/color-psychology-brand-guide" },
+    ],
+  },
+  {
+    category: "Brand & Marketing",
+    slug: "packaging-shelf-impact-color-guide",
+    title: "Packaging Color Strategy: How Shelf Impact Works and How to Engineer It",
+    summary:
+      "The complete system for packaging color strategy — shelf stop power, category color conventions, light vs. dark background psychology, multi-SKU color system design, and how purchase decisions form in under 400 milliseconds.",
+    eyebrow: "Packaging Design Guide",
+    priority: 87,
+    searchIntent: "packaging color design shelf impact",
+    tags: ["Packaging", "Brand Strategy", "Retail", "Marketing"],
+    highlights: [
+      "Purchase preference decisions begin within 400 milliseconds of shelf view — before brand names or claims are consciously processed.",
+      "Stop power correlates with two properties: relative brightness contrast against category neighbors, and chromatic departure from category norms.",
+      "Dark packaging signals premium through scarcity and the confidence to conceal; white signals purity and ingredient quality.",
+      "The most successful category disruptors often look wrong at first — that initial wrongness is exactly what creates the visual pause that drives purchase.",
+    ],
+    sections: [
+      {
+        heading: "Engineering Shelf Stop Power",
+        body: "Stop power is the probability that a package will attract visual attention in a shelf scanning context. Shelf eye-tracking research consistently shows that packages with high stop power share two properties: they have higher brightness contrast against their immediate neighbors than the category average, and they depart from the primary hue used by category leaders. This creates a paradox for new brands entering established categories: the most effective stop power strategy often requires looking deliberately different from the category norm — but different enough to pause, not different enough to confuse about which category the product belongs to.",
+      },
+      {
+        heading: "Category Convention vs. Disruption",
+        body: "Every category has established color conventions built by decades of market leadership. Dark green means premium and natural in beverage. Black means performance and protein in supplements. Blue means clean and refreshing in personal care. These conventions exist because they work as shorthand — they communicate positioning before claims are read. The strategic decision for every new brand is whether to adopt conventions (lower stop power but immediate category legibility) or disrupt them (higher differentiation but requires heavier marketing investment to establish the new association). There is no correct answer — it depends entirely on category growth stage, budget, and positioning ambition.",
+      },
+      {
+        heading: "Multi-SKU Color System Design",
+        body: "When a brand extends across multiple products, the color logic must be learnable at retail. Three primary architectures apply: (1) shared base color with variant accents — the same background color with different-colored accent elements for each flavor or variety, making the brand immediately recognizable while allowing navigation across the range; (2) shared structural elements with variant hero colors — each product has its own lead color, but they share logo treatment, material, and layout creating harmony without uniformity; (3) full color family range — each product in a related but distinct color, designed to look cohesive as a set on shelf. The right choice depends on how the products are sold and displayed together versus separately.",
+      },
+    ],
+    links: [
+      { label: "Color Palettes by Industry", href: "/industry/" },
+      { label: "Browse warm color palettes", href: "/families/amber/" },
+      { label: "Browse all collections", href: "/collections" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides47);

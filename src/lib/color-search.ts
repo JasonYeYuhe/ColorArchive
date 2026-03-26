@@ -1170,6 +1170,82 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   black_white: ["ink", "ash", "fog", "coal", "ivory"],
   sepia_tone: ["honey", "amber", "sienna", "ivory", "muted"],
 
+  // Craft beer and beverage branding
+  craft_beer: ["amber", "ember", "honey", "sienna", "garnet"],
+  brewery: ["amber", "honey", "ember", "sienna", "ivory"],
+  beer_label: ["amber", "garnet", "honey", "cobalt", "ivory"],
+  lager: ["amber", "citrine", "honey", "vivid", "ivory"],
+  stout: ["shadow", "amber", "ember", "garnet", "ivory"],
+  ipa: ["amber", "citrine", "honey", "ember", "ivory"],
+
+  // Wine and winery aesthetics
+  wine_label: ["merlot", "garnet", "amber", "ivory", "shadow"],
+  winery: ["merlot", "garnet", "amber", "ivory", "olive"],
+  vineyard: ["merlot", "olive", "amber", "garnet", "shadow"],
+  rose_wine: ["blush", "apricot", "rose", "muted", "whisper"],
+
+  // Automotive and transportation
+  automotive: ["ink", "slate", "cobalt", "amber", "crimson"],
+  car_design: ["ink", "slate", "amber", "cobalt", "crimson"],
+  electric_vehicle: ["cobalt", "azure", "mint", "vivid", "ivory"],
+  ev_color: ["cobalt", "mint", "azure", "vivid", "teal"],
+  racing_color: ["crimson", "vivid", "amber", "cobalt", "ink"],
+
+  // Esports and gaming aesthetics
+  esports: ["vivid", "cobalt", "violet", "lime", "ink"],
+  gaming_brand: ["vivid", "cobalt", "violet", "lime", "ink"],
+  pixel_art: ["cobalt", "crimson", "citrine", "emerald", "vivid"],
+  arena_color: ["vivid", "cobalt", "ink", "violet", "crimson"],
+
+  // Streetwear and skateboarding
+  streetwear: ["ink", "cobalt", "crimson", "citrine", "ivory"],
+  skateboard: ["vivid", "cobalt", "crimson", "lime", "ink"],
+  surf_color: ["aqua", "cobalt", "coral", "citrine", "ivory"],
+  sneaker: ["crimson", "cobalt", "citrine", "vivid", "ivory"],
+
+  // Gender and identity expression
+  menswear: ["cobalt", "ink", "olive", "garnet", "slate"],
+  womenswear: ["blush", "rose", "ivory", "garnet", "plum"],
+  gender_neutral: ["olive", "cobalt", "slate", "ivory", "muted"],
+  unisex: ["olive", "slate", "cobalt", "ivory", "amber"],
+
+  // Festive and cultural occasions
+  diwali: ["amber", "citrine", "crimson", "vivid", "cobalt"],
+  hanukkah: ["cobalt", "azure", "pearl", "ivory", "vivid"],
+  eid_palette: ["teal", "jade", "amber", "ivory", "vivid"],
+  carnival: ["vivid", "crimson", "citrine", "cobalt", "coral"],
+  mardi_gras: ["violet", "citrine", "emerald", "vivid", "cobalt"],
+  st_patricks: ["emerald", "lime", "leaf", "vivid", "ivory"],
+  easter_palette: ["blush", "mint", "lavender", "citrine", "pearl"],
+
+  // Luxury watches and timepieces
+  timepiece: ["cobalt", "amber", "shadow", "ivory", "garnet"],
+  watch_dial: ["cobalt", "shadow", "ivory", "amber", "teal"],
+  horology: ["cobalt", "amber", "shadow", "garnet", "ivory"],
+  dress_watch: ["cobalt", "ivory", "shadow", "amber", "slate"],
+
+  // Environmental and biophilic design
+  living_wall: ["emerald", "moss", "leaf", "jade", "lime"],
+  plant_based: ["moss", "leaf", "jade", "olive", "ivory"],
+  vegan_brand: ["moss", "jade", "olive", "ivory", "amber"],
+  zero_waste: ["moss", "olive", "ivory", "amber", "teal"],
+
+  // Poster and graphic design contexts
+  poster_design: ["crimson", "cobalt", "citrine", "ink", "ivory"],
+  screen_print: ["crimson", "cobalt", "citrine", "ink", "vivid"],
+  risograph: ["coral", "cobalt", "citrine", "blush", "ivory"],
+  zine: ["ink", "crimson", "citrine", "ivory", "coral"],
+  editorial_poster: ["ink", "ivory", "cobalt", "garnet", "amber"],
+
+  // Seasonal holiday campaigns
+  black_friday: ["ink", "vivid", "cobalt", "crimson", "amber"],
+  cyber_monday: ["cobalt", "vivid", "azure", "ink", "ivory"],
+  back_to_school: ["cobalt", "citrine", "crimson", "emerald", "ivory"],
+  mothers_day: ["blush", "rose", "peony", "ivory", "lavender"],
+  fathers_day: ["cobalt", "slate", "amber", "ivory", "olive"],
+  new_year_palette: ["amber", "ivory", "cobalt", "vivid", "shadow"],
+
+
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
