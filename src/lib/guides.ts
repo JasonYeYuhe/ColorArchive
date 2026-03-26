@@ -10446,3 +10446,202 @@ export const extraGuides39: LandingGuide[] = [
   },
 ];
 landingGuides.push(...extraGuides39);
+
+export const extraGuides40: LandingGuide[] = [
+  {
+    category: "Fashion & Style",
+    slug: "fashion-color-palette-guide",
+    title: "Fashion Color Palette Guide: Building a Wardrobe with Color Coherence",
+    summary: "Fashion color works differently from graphic design color — your wardrobe has to combine across seasons, across occasions, and under unpredictable lighting. This guide explains how to build a coherent personal color system for clothing using the same principles that make design systems work.",
+    eyebrow: "Fashion & Style",
+    priority: 78,
+    searchIntent: "fashion color palette wardrobe color system",
+    tags: ["Fashion", "Color Theory", "Personal Styling", "Wardrobe"],
+    highlights: [
+      "A capsule wardrobe works because its colors share undertone — all warm or all cool. Mixing undertones is the most common reason random clothing combinations look 'off'.",
+      "Neutrals (navy, camel, cream, charcoal) are the infrastructure of a wardrobe; accent colors are the content. Getting the neutrals right matters more than the accents.",
+      "A three-tone wardrobe system — one dark neutral, one light neutral, one accent family — covers most combination needs with minimal effort.",
+      "Seasonal fashion color trends are predictable up to 18 months out because they are coordinated by industry forecasters, not created organically by consumers.",
+    ],
+    sections: [
+      {
+        heading: "Undertone Is the Foundation",
+        body: "The single most important attribute of a clothing color is its undertone — whether it leans warm (yellow, orange, red) or cool (blue, green, violet). Warm and cool undertones fight each other: a warm camel coat with a cool gray suit creates an underlying tension that the eye registers as 'something's off' even without being able to articulate it. Building a wardrobe around consistent undertone — all warm or all cool — is the primary rule that makes clothes combine easily.",
+      },
+      {
+        heading: "Neutrals as Infrastructure",
+        body: "Neutrals are the structural layer of a wardrobe. Navy, camel, cream, charcoal, white, and black are neutrals because they combine with almost anything, but they are not interchangeable — warm neutrals (camel, cream, warm white, tan) combine with warm accents, and cool neutrals (charcoal, cool white, true black, navy) combine with cool accents. Mixing warm and cool neutrals within a single outfit creates the same undertone conflict as mixing accent colors of different temperatures.",
+      },
+      {
+        heading: "Building a Three-Tone System",
+        body: "A practical wardrobe system uses three color zones: a dark neutral (navy, charcoal, or black), a light neutral (cream, ivory, or light gray), and an accent family (a single hue family like terracotta-to-rust, or sage-to-olive, or cobalt-to-teal). The dark and light neutrals combine with each other and with the accent family. The accent family brings interest without creating combination complexity. This system is essentially a monochromatic plus neutral design system applied to clothing.",
+      },
+      {
+        heading: "Reading Fashion Forecasts",
+        body: "Seasonal fashion colors are not spontaneous — they are decided 18-24 months in advance by forecasting organizations that coordinate production across fiber mills, fabric manufacturers, and retail buyers. This means the colors in stores this season were settled before the previous season's trends were even visible to the public. Understanding this pipeline clarifies that 'trend' colors are not expressions of emerging collective preference — they are production decisions made under significant economic and coordination constraints.",
+      },
+    ],
+    links: [
+      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse Warm Neutrals", href: "/families/neutral/" },
+      { label: "Browse Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Color Theory",
+    slug: "seasonal-color-analysis-guide",
+    title: "Seasonal Color Analysis Guide: Understanding Your Personal Color Season",
+    summary: "The seasonal color analysis system classifies personal coloring into Spring, Summer, Autumn, and Winter types, each with a palette of flattering colors. This guide explains the system's logic, its real science, and its practical limitations.",
+    eyebrow: "Color Theory",
+    priority: 74,
+    searchIntent: "seasonal color analysis spring summer autumn winter palette",
+    tags: ["Color Analysis", "Personal Styling", "Color Theory", "Fashion"],
+    highlights: [
+      "The system works because colors interact with adjacent colors — your skin, hair, and eyes are always adjacent to your clothes, and undertone mismatch creates visible dissonance.",
+      "Warm seasons (Spring, Autumn) have yellow-orange undertones; cool seasons (Summer, Winter) have blue-violet undertones. This is the primary axis.",
+      "Spring and Summer are lighter/clearer; Autumn and Winter are deeper/richer. This is the secondary contrast axis.",
+      "The 4-season system is a simplification of continuous variation — 12 and 16-season extensions exist but are harder to self-diagnose reliably.",
+    ],
+    sections: [
+      {
+        heading: "The Logic of the System",
+        body: "Seasonal color analysis is based on a real principle: colors interact with the colors adjacent to them, and your natural coloring — skin, hair, eyes — is always adjacent to your clothing. When a warm-undertoned person wears a cool-undertoned garment, the visual system detects an undertone conflict that reads as 'something's not quite right.' The seasonal system encodes undertone and intensity into four archetypes to make this principle navigable for non-specialists.",
+      },
+      {
+        heading: "The Four Season Types",
+        body: "Spring (warm, light, clear): warm undertones, light hair, bright eyes — colors are warm, bright, and relatively light. Summer (cool, light, muted): cool undertones, light hair, soft features — colors are cool, soft, and low-saturation. Autumn (warm, deep, muted): warm undertones, darker hair, earthy features — colors are warm, rich, and complex. Winter (cool, deep, clear): cool undertones, high contrast between hair and skin — colors are cool, dark or vivid, and pure.",
+      },
+      {
+        heading: "Finding Your Undertone",
+        body: "The primary diagnostic is undertone. Check the inside of your wrist in natural light: if the veins look green, your undertone is warm; if they look blue or purple, your undertone is cool. Check whether gold or silver jewelry looks better against your skin. Check whether ivory or bright white works better near your face. These tests are not infallible but are more reliable than attempting to classify hair or skin color directly, which is confounded by dye, tan, and subjective perception.",
+      },
+      {
+        heading: "Using the System Practically",
+        body: "The practical application is not strict adherence to a season's prescribed palette — it is using the system to understand your undertone direction and contrast level. If you are warm, lean toward clothing with yellow-orange undertones in its neutrals and accents. If you have low contrast between your features, avoid strong contrast combinations (black and white) that will overwhelm your coloring. The system is a heuristic, not a prescription — your own testing with specific garments under specific conditions will always be more accurate than theoretical season assignment.",
+      },
+    ],
+    links: [
+      { label: "Browse Warm Tones", href: "/families/orange/" },
+      { label: "Browse Cool Tones", href: "/families/blue/" },
+      { label: "Browse Neutral Colors", href: "/families/neutral/" },
+    ],
+  },
+  {
+    category: "Branding",
+    slug: "brand-color-refresh-guide",
+    title: "Brand Color Refresh Guide: When and How to Update Your Brand's Color System",
+    summary: "A brand color refresh is one of the highest-stakes design decisions an organization can make. Done well, it updates the brand's signal without destroying accumulated recognition. Done poorly, it erases years of brand equity. This guide explains the decision framework and implementation process.",
+    eyebrow: "Branding",
+    priority: 83,
+    searchIntent: "brand color refresh rebrand color system update",
+    tags: ["Branding", "Color Systems", "Design Strategy", "Rebrand"],
+    highlights: [
+      "Color refreshes succeed when they update the shade while preserving the hue family — moving from cobalt to navy keeps brand recognition while signaling evolution.",
+      "Full hue changes are high-risk and require 3-5 years of consistent reinforcement before the new color achieves equivalent recognition to the old one.",
+      "A brand that has owned a color for 10+ years is trading away enormous accumulated equity — the value of that equity should be explicitly calculated before proceeding.",
+      "The safest refresh is a system extension: add one or two new accent colors while keeping the primary brand color intact.",
+    ],
+    sections: [
+      {
+        heading: "The Cost of Color Change",
+        body: "Brand colors accumulate recognition over time through consistent repetition. Every time a customer sees your brand color paired with your brand name, the association strengthens in memory. After a decade of consistent use, a brand color becomes an indexical pointer to the brand — recognizable before the logo is processed. Changing that color discards those accumulated associations. The cost is not visible as a line item, but it is real: you are resetting the clock on color recognition and asking customers to re-learn the association.",
+      },
+      {
+        heading: "Shade Refresh vs. Hue Change",
+        body: "A shade refresh — updating the specific value within a hue family — is lower risk than a hue change. Moving from a saturated royal blue to a slightly deeper, more sophisticated navy preserves the blue association while signaling evolution. Customers' memory of 'your brand is blue' survives the transition. A hue change — from blue to orange, or from red to green — is much higher risk because it discards the hue association entirely. The few successful hue changes in brand history (usually technology companies growing out of their early-stage palette) required years of marketing investment to establish the new association.",
+      },
+      {
+        heading: "When a Refresh Is Justified",
+        body: "Valid reasons for a color refresh include: the original color no longer reproduces acceptably in digital environments (many legacy brand colors were specified for print and look wrong on screen); the color has become strongly associated with a competitor who entered the market after you; the color is inaccessible and fails WCAG contrast requirements at scale; or the brand is making a genuine strategic repositioning that the color system should reflect. Boredom, internal preference shifts, and following trend cycles are not valid reasons — they impose a large cost on brand equity for no external benefit.",
+      },
+      {
+        heading: "Safe Refresh Strategies",
+        body: "The safest approach is a system extension rather than replacement: keep the primary brand color exactly as it is, but add one or two new secondary or accent colors to expand the palette's expressiveness. This approach adds flexibility without touching the core recognition asset. If a full primary color update is necessary, commission a transition plan that specifies the overlap period (both old and new colors visible), the specific pantone and hex specifications for the new color, and a rollout sequence from owned digital properties first (easiest to update, highest visibility) to physical applications (packaging, signage) last.",
+      },
+    ],
+    links: [
+      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse Brand Collections", href: "/collections/" },
+      { label: "Color Contrast Checker", href: "/tools/contrast/" },
+    ],
+  },
+  {
+    category: "Environmental Design",
+    slug: "wayfinding-color-systems-guide",
+    title: "Wayfinding Color Systems Guide: Designing Color for Navigation and Space",
+    summary: "Wayfinding color has to perform under constraints that most design work never faces: high stress users, diverse visual abilities, poor lighting, and genuinely high-stakes navigation failures. This guide explains the principles that separate effective wayfinding color from decorative color.",
+    eyebrow: "Environmental Design",
+    priority: 75,
+    searchIntent: "wayfinding color system signage environmental design",
+    tags: ["Wayfinding", "Environmental Design", "Color Systems", "Accessibility"],
+    highlights: [
+      "Wayfinding colors must differ in both hue and value — same-value hues become indistinguishable in low light and for color vision deficient users.",
+      "Emotional neutrality is a design goal: wayfinding color should be invisible as color and visible only as category marker. Vivid colors draw attention to themselves.",
+      "Healthcare wayfinding adds anxiety-reduction to the requirements — warm, muted colors are preferable to cool, saturated, high-contrast environments.",
+      "A 4-6 color wayfinding system is practical; more than 6 colors exceeds user recall limits and creates navigation errors.",
+    ],
+    sections: [
+      {
+        heading: "The Core Constraints",
+        body: "Wayfinding color must be discriminable (different destinations should be different colors), accessible (distinguishable by people with color vision deficiencies), legible at distance (sufficient contrast against backgrounds), consistent across lighting conditions (daylight, fluorescent, artificial), and emotionally neutral (not distracting from its information function). These constraints together significantly limit the color space compared to graphic design or brand work, where the constraints are primarily aesthetic.",
+      },
+      {
+        heading: "Hue and Value Both Matter",
+        body: "The most common failure in wayfinding color is selecting colors that differ in hue but share value (lightness). Two colors that look different at full saturation under ideal lighting will become indistinguishable under fluorescent lighting, from a distance, or for a deuteranomalous (red-green deficient) viewer. Effective wayfinding palettes ensure that every color in the system differs from every other color in both hue and value — so that even if hue perception is compromised, value distinction remains.",
+      },
+      {
+        heading: "The Emotional Neutrality Principle",
+        body: "Brand color and wayfinding color have opposite design goals. Brand color should be noticed, associated, and remembered. Wayfinding color should be processed, acted upon, and forgotten — it should enable navigation without drawing conscious attention to the color itself. Vivid, highly saturated colors are appropriate for brand because they demand attention; they are inappropriate for wayfinding because they compete with the information content of the signage. Muted, institutional versions of clear hues work better because they encode category distinction without aesthetic assertion.",
+      },
+      {
+        heading: "Healthcare Wayfinding Specifics",
+        body: "Hospital and healthcare wayfinding adds physiological comfort requirements to the standard discriminability and accessibility requirements. Research shows that warm, low-saturation palettes (dusty rose, warm taupe, sage green, warm ivory) reduce measurable anxiety responses in hospital environments. This means healthcare wayfinding should use muted warm-neutrals as backgrounds and low-intensity hues as category colors — not the saturated blues and reds common in other institutional wayfinding. The design goal is navigation that does not add to the stress of being in a medical facility.",
+      },
+    ],
+    links: [
+      { label: "Browse Muted Colors", href: "/colors/" },
+      { label: "Color Contrast Checker", href: "/tools/contrast/" },
+      { label: "Browse Collections", href: "/collections/" },
+    ],
+  },
+  {
+    category: "Color Psychology",
+    slug: "color-memory-brand-recognition-guide",
+    title: "Color Memory and Brand Recognition: How Brands Own Colors Over Time",
+    summary: "A small number of brands have achieved something remarkable: their color is recognized before their logo. Understanding how color ownership develops — and what destroys it — is essential for any brand making long-term color decisions.",
+    eyebrow: "Color Psychology",
+    priority: 81,
+    searchIntent: "brand color recognition color memory brand identity",
+    tags: ["Color Psychology", "Branding", "Memory", "Brand Identity"],
+    highlights: [
+      "Color recognition develops through three factors: consistency (same exact shade), ubiquity (sufficient exposure volume), and time (minimum 7-10 years of consistent use).",
+      "Pre-attentive recognition — brand identification before conscious attention — is the unique value of owned colors. Logos require focal attention; owned colors do not.",
+      "Every color variation, seasonal update, or 'refresh' depletes accumulated associative memory that took years to build.",
+      "Color ownership is geographically and demographically specific — Tiffany blue is not equally 'owned' in every market, and ownership requires active maintenance.",
+    ],
+    sections: [
+      {
+        heading: "What Color Ownership Actually Means",
+        body: "Color ownership — in the practical brand sense — means that a significant portion of your target audience will correctly identify your brand from color alone, without any logo, wordmark, or other identifying element. This is not a legal standard (color trademarks exist but are difficult to obtain and narrow in scope); it is a cognitive one. Tiffany blue, Hermès orange, UPS brown are the canonical examples. In controlled research, subjects shown only the color, without context, correctly name the brand at rates far above chance.",
+      },
+      {
+        heading: "The Memory Consolidation Process",
+        body: "Color ownership develops through repeated co-presentation of the color and the brand across enough encounters that the association consolidates in long-term memory. This is the same mechanism by which any paired association forms in memory — through repetition and reinforcement. The process is slow: color recognition research suggests that consistent, high-frequency exposure over minimum seven to ten years is needed before recognition reliably achieves the pre-attentive level (brand identified before conscious processing). Consistency of the specific shade is critical — slight variations across applications slow the process because each variation is a slightly different stimulus.",
+      },
+      {
+        heading: "Pre-Attentive Recognition",
+        body: "The strategic value of color ownership is pre-attentive recognition: the brand is identified before the viewer consciously decides to look at it. This operates through the peripheral vision and low-level visual processing that runs continuously without requiring attention. A Tiffany-blue box in a shop window triggers brand recognition in a passerby who was not looking at the shop. This is fundamentally different from logo recognition, which requires focal attention and sufficient time to decode the visual mark. Color recognition is therefore available under conditions — glancing, peripheral, time-pressured — where logo recognition is not.",
+      },
+      {
+        heading: "Protecting Color Equity",
+        body: "The primary threats to accumulated color equity are inconsistency and variation. Every deviation from the canonical shade — a production variation, a seasonal palette extension, a trend-driven update — weakens the associative link between that specific color and the brand. Brands that own colors tend to be almost obsessive about shade consistency: Tiffany has a specific PMS specification and approved suppliers; Hermès maintains the same orange across 170 years of production. This consistency is not stubbornness — it is the maintenance work that color equity requires.",
+      },
+    ],
+    links: [
+      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse Brand Collections", href: "/collections/" },
+      { label: "Browse Color Psychology Guides", href: "/guides/" },
+    ],
+  },
+];
+landingGuides.push(...extraGuides40);

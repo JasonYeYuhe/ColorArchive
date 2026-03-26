@@ -3794,3 +3794,127 @@ const extraCollections38: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections38);
+
+const extraCollections39: ColorCollection[] = [
+  createCollection(
+    "runway-neutrals",
+    "Runway Neutrals",
+    "The understated palette that anchors every fashion season — camel, ivory, charcoal, and warm taupe.",
+    "Fashion neutrals are not colorless — each one has a precise undertone that determines what it can and cannot work with. This palette collects the warm neutrals that recur in editorial fashion: camel, ivory, warm taupe, and the soft white that works against warm skin tones.",
+    ["Warm", "Neutral", "Fashion"],
+    [
+      "amber-whisper-soft",
+      "apricot-whisper-soft",
+      "amber-silk-soft",
+      "amber-tone-soft",
+      "amber-velvet-soft",
+    ],
+    {
+      editorialNote:
+        "Warm fashion neutrals that share undertone and combine easily. This palette works for editorial fashion photography, luxury brand identities, and lifestyle products positioned at a fashion-forward audience.",
+      promptWords: [
+        "fashion editorial in warm camel and ivory",
+        "luxury fashion lookbook in warm neutrals",
+        "autumn wardrobe in camel and taupe",
+      ],
+      useCases: ["Fashion brand identity", "Editorial photography styling", "Luxury lifestyle product branding"],
+    },
+  ),
+  createCollection(
+    "spring-editorial",
+    "Spring Editorial",
+    "Fresh pastels with warm undertones — the editorial palette for spring launches and seasonal design.",
+    "Spring editorial color is not candy-bright — it is soft, slightly warm, and precisely balanced. Blush, peach, warm sage, and butter yellow create a fresh palette that avoids the infantile quality of full-saturation pastels.",
+    ["Pastel", "Warm", "Spring"],
+    [
+      "blush-whisper-muted",
+      "apricot-pearl-soft",
+      "leaf-bloom-muted",
+      "citrine-tone-muted",
+      "coral-bloom-muted",
+    ],
+    {
+      editorialNote:
+        "Warm-toned spring pastels with editorial restraint. Works for beauty brand spring launches, lifestyle product photography, and any creative direction that needs freshness without childlike energy.",
+      promptWords: [
+        "spring beauty editorial in blush and peach",
+        "warm pastel product photography for spring launch",
+        "spring capsule wardrobe in soft pastels",
+      ],
+      useCases: ["Spring product launches", "Beauty brand seasonal campaigns", "Fashion editorial"],
+    },
+  ),
+  createCollection(
+    "scandi-winter",
+    "Scandi Winter",
+    "The Nordic minimalist palette of ice blue, birch gray, and warm white that defines Scandinavian winter design.",
+    "Scandinavian winter design is not cold — it is specifically about the warmth found inside cool surroundings. Warm birch white, cool ice blue, and structured gray with a single amber accent create the hygge palette that defines Nordic interiors and design.",
+    ["Cool", "Minimal", "Nordic"],
+    [
+      "cobalt-whisper-soft",
+      "azure-mist-muted",
+      "cerulean-whisper-muted",
+      "cool-gray-whisper",
+      "amber-tone-soft",
+    ],
+    {
+      editorialNote:
+        "A Scandinavian winter palette with the precise coolness and quiet warmth of Nordic design. Useful for home goods, winter lifestyle brands, and design system projects with a clean, minimal visual voice.",
+      promptWords: [
+        "Scandinavian interior design in birch and ice blue",
+        "Nordic winter home goods in cool gray and white",
+        "hygge lifestyle in warm white and cool neutrals",
+      ],
+      useCases: ["Scandinavian-inspired home goods brands", "Winter lifestyle product photography", "Minimal design system UI"],
+    },
+  ),
+  createCollection(
+    "capsule-cool",
+    "Capsule Cool",
+    "Navy, cool white, and slate — the cool-toned capsule wardrobe system for design and fashion.",
+    "Cool-toned wardrobes anchor in navy and cool white rather than black and ivory. This palette collects the cool neutrals that combine naturally: navy, slate, cool-white, soft dove, and a single cool accent in sage-teal.",
+    ["Cool", "Neutral", "Fashion"],
+    [
+      "cobalt-ink-muted",
+      "cobalt-shadow-muted",
+      "cool-gray-whisper",
+      "cobalt-whisper-soft",
+      "teal-tone-muted",
+    ],
+    {
+      editorialNote:
+        "Cool-toned neutrals anchored by navy ink and punctuated by a single teal accent. Designed for contexts that need sophisticated restraint — fashion editorials, professional branding, and minimal product photography.",
+      promptWords: [
+        "cool minimal wardrobe in navy and white",
+        "professional editorial in slate and cool gray",
+        "capsule collection in structured cool neutrals",
+      ],
+      useCases: ["Professional brand identity", "Cool-toned fashion editorial", "Minimal product design"],
+    },
+  ),
+  createCollection(
+    "nostalgia-amber",
+    "Nostalgia Amber",
+    "The warm, slightly faded palette of memory — amber, sepia, warm gray, and dusty rose.",
+    "Nostalgic palettes work because they are slightly desaturated and warm — they look like they've been in the light for years. Amber, soft gold, dusty rose, and warm gray create the tonal quality of old photographs and analog media without resorting to literal sepia filters.",
+    ["Warm", "Vintage", "Nostalgic"],
+    [
+      "amber-silk-soft",
+      "amber-velvet-soft",
+      "blush-pearl-soft",
+      "apricot-whisper-soft",
+      "warm-gray-tone",
+    ],
+    {
+      editorialNote:
+        "A warm, slightly faded palette that reads as nostalgic without being literal about it. Use when the creative brief asks for memory, analog, warmth, or the particular emotional quality of things that have aged.",
+      promptWords: [
+        "nostalgic warm palette in amber and dusty rose",
+        "vintage memory in sepia and warm gray",
+        "analog aesthetic in soft gold and faded warmth",
+      ],
+      useCases: ["Vintage brand positioning", "Memory and storytelling campaigns", "Warm-toned editorial photography"],
+    },
+  ),
+];
+collections.push(...extraCollections39);

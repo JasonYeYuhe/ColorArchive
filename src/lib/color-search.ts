@@ -1038,6 +1038,21 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   hospitality: ["amber", "ivory", "garnet", "ember", "sage"],
   interior_design: ["ivory", "amber", "sage", "terracotta", "olive"],
   branding: ["cobalt", "garnet", "amber", "ink", "ivory"],
+
+  // Fashion and wardrobe
+  wardrobe: ["caramel", "ivory", "cobalt", "cool-gray", "blush"],
+  capsule: ["ivory", "caramel", "cobalt", "cool-gray", "teal"],
+  lookbook: ["ivory", "blush", "caramel", "garnet", "olive"],
+
+  // Nordic and Scandinavian
+  scandinavian: ["cool-gray", "birch", "arctic", "pewter", "ivory"],
+  minimalist: ["cool-gray", "ivory", "ink", "pewter", "arctic"],
+
+  // Nostalgia and vintage memory
+  nostalgia: ["amber", "caramel", "blush", "warm-gray", "ivory"],
+  nostalgic: ["amber", "warm-gray", "blush", "caramel", "ivory"],
+  memory: ["blush", "amber", "caramel", "warm-gray", "rose"],
+  analog: ["amber", "caramel", "warm-gray", "blush", "olive"],
 };
 
 function fuzzyMatch(text: string, query: string): boolean {
