@@ -2894,3 +2894,83 @@ Cultural/festive: celebration_color, chinese_red, festive_palette, global_red, n
 - `src/lib/guides.ts` — extraGuides42 (5 guides, 270 total)
 - `src/lib/collections.ts` — extraCollections41 (5 collections, 164 total)
 - `src/lib/color-search.ts` — 15 new aliases (2 deduped/renamed)
+
+---
+
+## 2026-03-26 — Big Run #3 (5th since last big run)
+
+**Run Type:** Big Run (5th normal since last big run → triggered big run threshold)
+**Commit:** 6ee75d8
+**Timestamp:** 2026-03-26T (big run)
+
+### New Feature: /seasonal/ — Color by Season Page
+
+A comprehensive seasonal color reference page covering all four seasons with curated palettes.
+
+**src/lib/color-seasons.ts** (new):
+- 4 seasons: Spring, Summer, Autumn, Winter
+- Each season: 6 signature colors with hex codes, role labels
+- Full EN/ZH metadata: name, tagline, description, cultural context, design tips
+- Nature sources and industry uses (both languages)
+- Gradient colors for header display
+
+**src/components/color-seasons-page.tsx** (new):
+- Seasonal card grid with swatch strips (hover expand animation)
+- Copy hex code buttons per individual color
+- "More detail" expand/collapse toggle for cultural context, design tips, nature sources, industry uses
+- "Open in Palette Builder" quick action link
+- Bottom CTA section with links to collections, decades, stories
+- SEO content section with 4 educational subsections
+- Full EN/ZH i18n throughout
+
+**app/seasonal/page.tsx** (new):
+- Next.js App Router route with full metadata
+- Structured data (CollectionPage + BreadcrumbList)
+- Canonical URL: /seasonal/
+
+**src/components/site-header.tsx** (modified):
+- Added "/seasonal" to SiteHeaderProps currentPath type union
+
+**app/sitemap.ts** (modified):
+- Added /seasonal/ entry (priority 0.87, monthly changeFrequency)
+
+### Category A — 5 New Newsletter Issues (290–294, 294 total)
+
+- **oct-2031-seasonal-color-design-strategy**: How brands should build seasonal color systems with structural + accent palettes
+- **nov-2031-dark-mode-color-design-principles**: Why palette inversion fails — halation, saturation shifts, elevation systems
+- **nov-2031-color-in-wayfinding-signage**: Hospital, transit, and digital navigation color coding principles
+- **nov-2031-metallic-color-design-use**: Digital gold gradient construction, metallic accent vs fill rule
+- **dec-2031-color-white-space-breathing-room**: How warm vs cool backgrounds affect simultaneous contrast
+
+### Category A — 5 New SEO Guides (extraGuides43, 275 total)
+
+- **seasonal-color-palettes-design-guide**: 4-season design reference, chromatic adaptation theory, seasonal brand systems (priority 84)
+- **dark-mode-color-design-guide**: Palette inversion failure, halation, elevation systems, brand color adaptation (priority 86)
+- **color-wayfinding-signage-guide**: Categorical distinctness, colorblind accessibility, hospital conventions (priority 78)
+- **metallic-color-design-guide**: Digital gold gradient, silver vs gray distinction, print metallic restraint (priority 77)
+- **color-background-negative-space-guide**: Simultaneous contrast, warm/cool background effects, why pure white isn't optimal (priority 80)
+
+### Category D — 5 New Collections (extraCollections42, 169 total)
+
+- **spring-blossom-fresh**: Blush bloom soft, mint bloom soft, azure bloom soft, orchid pearl soft — spring pastels
+- **summer-coastal-vivid**: Coral bloom vivid, teal tone vivid, amber bloom vivid, sapphire shadow clear — coastal summer
+- **autumn-harvest-deep**: Garnet core vivid, ember core vivid, amber silk vivid, jade dusk clear — earth-tone harvest
+- **winter-jewel-nocturnal**: Indigo shadow vivid, crimson core vivid, jade dusk clear, amber silk vivid — holiday jewels
+- **winter-ice-minimal**: Azure bloom soft, cerulean bloom soft, cobalt mist soft, sapphire pearl soft — Nordic minimal
+
+### Category D — 14 New Search Aliases
+
+Seasonal design: spring_blossom, spring_pastel, spring_campaign, summer_coastal,
+summer_tropical, summer_festival, autumn_harvest, autumn_earth, autumn_premium,
+winter_holiday, winter_festive, winter_ice, winter_minimal, seasonal_palette
+
+### Files Modified (9 total)
+- `app/seasonal/page.tsx` — new seasonal page route
+- `src/lib/color-seasons.ts` — seasonal data
+- `src/components/color-seasons-page.tsx` — seasonal page UI
+- `src/components/site-header.tsx` — added /seasonal type
+- `src/data/newsletter-issues.json` — 5 new issues (290–294)
+- `src/lib/guides.ts` — extraGuides43 (5 guides, 275 total)
+- `src/lib/collections.ts` — extraCollections42 (5 collections, 169 total)
+- `src/lib/color-search.ts` — 14 new seasonal aliases
+- `app/sitemap.ts` — /seasonal/ entry

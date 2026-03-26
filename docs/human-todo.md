@@ -1,7 +1,7 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-03-26T autopilot normal run #4
+> Last updated: 2026-03-26T autopilot big run #3
 
 ## High Priority
 
@@ -17,6 +17,7 @@
 - [ ] **Twitter/X content cadence** — API is configured; set up or review scheduled posts for color content
 - [ ] **Pinterest boards** — integration is live; review board performance and add seasonal/trending content
 - [ ] **YouTube channel** — first video is published; plan next video topic (tutorial, color theory, ColorArchive walkthrough)
+- [ ] **Add /seasonal to navigation** — the new seasonal page is live but not linked from the main nav. Consider adding to the "Reference" or "Archive" nav group so users can discover it
 
 ## Low Priority / Nice to Have
 
@@ -26,10 +27,11 @@
 
 ## Done
 
+- [x] Color by Season page built and deployed (/seasonal/) — 2026-03-26
 - [x] Color by Decade page built and deployed — 2026-03-26
-- [x] Newsletter infrastructure (289+ issues) — 2026-03-26
-- [x] 270+ SEO landing guides — ongoing
-- [x] 164 curated collections — 2026-03-26
+- [x] Newsletter infrastructure (294+ issues) — 2026-03-26
+- [x] 275+ SEO landing guides — ongoing
+- [x] 169 curated collections — 2026-03-26
 - [x] Famous Palettes page — prior run
 - [x] Use Cases page — prior run
 - [x] Projects/workspace page — prior run

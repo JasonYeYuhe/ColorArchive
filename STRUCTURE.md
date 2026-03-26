@@ -93,6 +93,7 @@ ColorArchive/
 │   ├── analyze/                   # /analyze/ — Brand color analyzer (URL extraction)
 │   ├── famous-palettes/           # /famous-palettes/ — Famous color palettes reference library
 │   ├── decades/                   # /decades/ — Color palettes by decade (1920s–2020s, 11 eras)
+│   ├── seasonal/                  # /seasonal/ — Color by Season (Spring/Summer/Autumn/Winter, 4 seasons × 6 colors)
 │   ├── admin/tiktok/              # /admin/tiktok/ — TikTok publishing admin
 │
 ├── src/
@@ -338,10 +339,10 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Colors | 3,066 (3,024 chromatic + 42 neutral grays) |
 | Saturation bands | 6 (Faint 10%, Muted 18%, Soft 34%, Clear 54%, Vivid 74%, Pure 92%) |
 | Neutral groups | 3 (Warm Gray, Cool Gray, True Gray) |
-| Collections | 145 |
+| Collections | 169 |
 | Palette packs | 7 (USD $9–$129) |
-| SEO guides | 250+ |
-| Newsletter issues | 269 |
+| SEO guides | 275+ |
+| Newsletter issues | 294 |
 | Color families | 9 |
 | Industry use cases | 10 (saas-tech, healthcare, luxury, food, finance, education, creative, sustainability, beauty, nonprofit) |
 | Tool pages | 23+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name) |
