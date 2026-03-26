@@ -92,6 +92,7 @@ ColorArchive/
 │   │   └── [slug]/               # 10 static industry detail pages
 │   ├── analyze/                   # /analyze/ — Brand color analyzer (URL extraction)
 │   ├── famous-palettes/           # /famous-palettes/ — Famous color palettes reference library
+│   ├── decades/                   # /decades/ — Color palettes by decade (1920s–2020s, 11 eras)
 │   ├── admin/tiktok/              # /admin/tiktok/ — TikTok publishing admin
 │
 ├── src/
@@ -195,7 +196,8 @@ ColorArchive/
 │   │   ├── use-cases-page.tsx          # Color palettes by industry index
 │   │   └── use-case-detail-page.tsx    # Individual industry palette guide
 │   │   ├── referral-card.tsx           # Referral link + credits display
-│   │   └── ai-usage-badge.tsx          # AI usage counter badge
+│   │   ├── ai-usage-badge.tsx          # AI usage counter badge
+│   │   └── color-decades-page.tsx      # Color by Decade page (11 decades × 6 colors)
 │   │
 │   ├── data/
 │   │   ├── colors.ts                     # Algorithmic generation of 3,066 colors
@@ -336,10 +338,10 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Colors | 3,066 (3,024 chromatic + 42 neutral grays) |
 | Saturation bands | 6 (Faint 10%, Muted 18%, Soft 34%, Clear 54%, Vivid 74%, Pure 92%) |
 | Neutral groups | 3 (Warm Gray, Cool Gray, True Gray) |
-| Collections | 126 |
+| Collections | 145 |
 | Palette packs | 7 (USD $9–$129) |
-| SEO guides | 230+ |
-| Newsletter issues | 249 |
+| SEO guides | 250+ |
+| Newsletter issues | 269 |
 | Color families | 9 |
 | Industry use cases | 10 (saas-tech, healthcare, luxury, food, finance, education, creative, sustainability, beauty, nonprofit) |
 | Tool pages | 23+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name) |

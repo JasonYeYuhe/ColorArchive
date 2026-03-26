@@ -2624,3 +2624,77 @@ New SEARCH_CHIPS groups: Film & Art, Craft, Industry
 - `src/lib/collections.ts` — extraCollections36 (5 collections, 140 total)
 - `src/lib/color-search.ts` — 28 new aliases + 3 new SEARCH_CHIPS groups (760 total)
 - `src/lib/palette-builder.ts` — expanded MOOD_WORDS (8→12) and SCENE_WORDS (8→12)
+
+---
+
+## 2026-03-26 — Big Run #2
+
+**Run type:** Big Run (4th normal since last big run → triggered big run threshold)
+**Commit:** 4e655c0
+**Typecheck:** ✓ clean (fixed 8 duplicate SEARCH_ALIASES keys from new decade additions)
+
+### New Page: /decades/ — Color Palettes by Decade
+
+A major new reference page covering the signature color palettes of each decade from the 1920s to the 2020s:
+
+- **11 decades** with 6 signature colors each: 1920s Art Deco, 1930s Depression-era, 1940s WWII, 1950s Atomic Age, 1960s Pop Art, 1970s Earth Tones, 1980s Neon, 1990s Grunge, 2000s Y2K, 2010s Flat Design, 2020s Biophilic
+- Full cultural context, design movement analysis, historical influence per decade
+- Expandable "show context" cards with historical + modern influence notes
+- One-click "Open palette →" loads hex codes into palette viewer
+- Movement filter bar (11 design movements)
+- ZH/EN translations throughout
+- Structured data (CollectionPage schema), canonical, OG/Twitter metadata
+
+**Files created (3):**
+- `src/lib/color-decades.ts` — 11 decade data structures + movement labels EN/ZH
+- `src/components/color-decades-page.tsx` — full UI with filter, cards, expand
+- `app/decades/page.tsx` — server component with metadata
+
+### Category A — 5 New Newsletter Issues (269 total, Feb-Mar 2031 batch)
+
+- **feb-2031-1970s-earth-tone-revival**: Why earth tones cycle back every ~45 years — generational distance, nostalgia mechanics, the difference between harvest gold and 2023 terracotta
+- **feb-2031-1950s-pastel-atomic-age**: Mid-century pastels as dual-purpose optimism + civil defense color management — the uncanny layer under the cheerfulness
+- **feb-2031-1980s-neon-vs-pastels**: Memphis vs Miami Vice — two incompatible 1980s palettes that both read as "the 1980s" because they share structural confidence
+- **mar-2031-art-deco-color-revival**: Why Art Deco's palette is permanently available for luxury design — three historical source palettes that carry cross-cultural luxury coding
+- **mar-2031-y2k-color-revival-2020s**: Y2K revival as grief and emotional antithesis — reaching for hyperoptimistic aesthetics during pandemic uncertainty
+
+### Category A — 5 New SEO Guides (extraGuides38, ~250 total)
+
+- **1970s-earth-tone-color-guide**: Harvest gold/avocado/burnt orange palette guide (priority 79)
+- **1950s-pastel-color-palette-guide**: Mid-century mint/coral/butter yellow guide (priority 76)
+- **1980s-neon-color-palette-guide**: Memphis vs Miami Vice, synthwave guide (priority 82)
+- **art-deco-color-palette-guide**: Gold/black jewel tone luxury design guide (priority 77)
+- **millennial-pink-color-guide**: Millennial pink cultural history + precision guide (priority 84)
+
+### Category D — 5 New Collections (extraCollections37, 145 total)
+
+- **art-deco-gold**: Jazz Age gold, jet black, ivory cream, deep jewel tones
+- **atomic-pastels**: 1950s mint, coral, butter yellow, powder blue system
+- **harvest-earth**: 1970s harvest gold, avocado green, burnt orange, brown
+- **y2k-chrome**: Baby pink, ice blue, chrome silver, digital lime
+- **biophilic-calm**: Very Peri blue-violet, sage green, terracotta, warm sand
+
+### Category D — 20 New Search Aliases (color-search.ts)
+
+Decade indexes: "1920s", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2020s"
+Era terms: jazz_age, atomic_age, earth_tone, harvest_gold, avocado_green, burnt_orange
+Style terms: neon_palette, miami_vice, grunge, millennial_pink, very_peri, sage_green
+
+### Supporting Updates
+- `app/sitemap.ts` — /decades/ added at priority 0.87
+- `src/components/site-header.tsx` — /decades added to currentPath type union
+- `src/components/tools-page.tsx` — decades entry in Explore category
+- `src/lib/i18n.ts` — 5 new keys (tools.decades.name/desc, colorDecades.*)
+
+### Files Modified (11 total)
+- NEW: `src/lib/color-decades.ts`
+- NEW: `src/components/color-decades-page.tsx`
+- NEW: `app/decades/page.tsx`
+- `app/sitemap.ts`
+- `src/components/site-header.tsx`
+- `src/components/tools-page.tsx`
+- `src/lib/i18n.ts`
+- `src/data/newsletter-issues.json` — 5 new issues (265-269)
+- `src/lib/guides.ts` — extraGuides38 (5 guides, ~250 total)
+- `src/lib/collections.ts` — extraCollections37 (5 collections, 145 total)
+- `src/lib/color-search.ts` — 20 new decade aliases
