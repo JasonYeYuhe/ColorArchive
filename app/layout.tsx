@@ -10,6 +10,7 @@ import { PHLaunchBanner } from "@/src/components/ph-launch-banner";
 import { BackToTop } from "@/src/components/back-to-top";
 import { CopyUpsellToast } from "@/src/components/copy-upsell-toast";
 import { ErrorBoundary } from "@/src/components/error-boundary";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const siteTitle = "ColorArchive";
@@ -130,6 +131,7 @@ export default function RootLayout({
               <BackToTop />
               <CopyUpsellToast />
               <PageTracker />
+              <Analytics />
             </AuthProvider>
           </LocaleProvider>
         </ThemeProvider>
