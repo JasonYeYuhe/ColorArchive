@@ -4293,3 +4293,253 @@ const extraCollections42: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections42);
+
+const extraCollections43: ColorCollection[] = [
+  createCollection(
+    "logo-brand-primary-bold",
+    "Logo Brand Primary Bold",
+    "High-distinctiveness single-anchor brand palettes for logo and primary identity use — cobalt, garnet, and deep emerald with neutral counterparts.",
+    "Three single-anchor brand palettes designed for logo and primary identity work. Each pairs a distinctive, highly saturated anchor color with neutral counterparts that support it at every scale and reproduction context. These palettes prioritize cross-media reproduction fidelity and distinctiveness over complexity — a single dominant hue that can function as a proprietary color with sustained use. Chosen for maximum gamut compatibility between RGB, CMYK, and Pantone production contexts.",
+    ["Brand Identity", "Logo Design", "Bold", "Proprietary Color"],
+    [
+      "cobalt-core-vivid",
+      "cobalt-shadow-clear",
+      "ink-core-vivid",
+      "ivory-bloom-soft",
+      "garnet-core-vivid",
+    ],
+    {
+      editorialNote:
+        "Bold single-anchor palettes for logo and brand identity work. Each anchor color is chosen for high cross-media reproduction fidelity and category distinctiveness. Suitable for startups and established brands establishing or refreshing a proprietary brand color.",
+      promptWords: [
+        "bold brand identity with cobalt anchor color",
+        "distinctive logo color palette for technology brand",
+        "garnet brand identity for premium services",
+      ],
+      useCases: ["Brand identity design", "Logo color system", "Brand guidelines"],
+    },
+  ),
+  createCollection(
+    "warm-photo-grade",
+    "Warm Photo Grade",
+    "Cinematic warm color grading palette — amber-gold highlights, warm ivory midtones, and teal-shifted shadow for split-tone photography.",
+    "The classic warm cinematic grade palette used in food, lifestyle, and portrait photography. Amber and honey in the highlights, warm ivory for midtones, and a subtle cool-teal in deep shadows to create the split-tone warmth-coolness opposition that gives images depth and dimension. This is the palette of artisan food photography, lifestyle brand content, and editorial portrait work — not the desaturated amber-and-teal of action cinema, but the softer, richer version optimized for still photography and brand imagery.",
+    ["Photography", "Warm Grade", "Cinematic", "Color Grading"],
+    [
+      "amber-tone-soft",
+      "honey-bloom-soft",
+      "apricot-bloom-soft",
+      "ivory-bloom-soft",
+      "teal-mist-soft",
+    ],
+    {
+      editorialNote:
+        "Warm photography grade palette for food, lifestyle, and portrait work. Amber-gold highlights, warm ivory midtones, and subtle teal in shadows. Essential reference for photo retouchers and art directors working in warm brand registers.",
+      promptWords: [
+        "warm cinematic grade food photography palette",
+        "golden hour lifestyle photography color palette",
+        "artisan food photography warm amber tones",
+      ],
+      useCases: ["Food photography", "Lifestyle brand content", "Portrait photography grade reference"],
+    },
+  ),
+  createCollection(
+    "social-content-vivid-feed",
+    "Social Content Vivid Feed",
+    "High-saturation, high-contrast palette for social media content — coral, vivid cobalt, citrine, and strong emerald optimized for feed scroll-stop performance.",
+    "Deliberately vivid palette engineered for performance in algorithmic social media feeds where each post competes independently for attention. High saturation, high contrast, strong color identity. Coral and vivid cobalt are the anchor pair — a warm-cool opposition that creates maximum visual energy. Citrine and emerald provide secondary contrast. Designed for acquisition content and wide-reach posts where initial scroll-stop rate matters more than ambient mood. Not a sustained-use palette — rotate with a moderated variant for retention content.",
+    ["Social Media", "Content Design", "Vivid", "High Contrast"],
+    [
+      "coral-core-vivid",
+      "cobalt-core-vivid",
+      "citrine-core-vivid",
+      "emerald-core-vivid",
+      "fuchsia-core-vivid",
+    ],
+    {
+      editorialNote:
+        "High-saturation social media feed palette for scroll-stop performance. Coral, cobalt, citrine, and emerald — the maximum-contrast palette for acquisition and reach content. Pair with a moderated variant for retention content targeting existing audiences.",
+      promptWords: [
+        "vivid social media content palette for Instagram feed",
+        "high contrast social media brand colors",
+        "bold content creator palette for feed performance",
+      ],
+      useCases: ["Social media content design", "Paid social creative", "Content creator branding"],
+    },
+  ),
+  createCollection(
+    "information-hierarchy-clear",
+    "Information Hierarchy Clear",
+    "Three-level information design palette — vivid cobalt primary, teal secondary, soft azure tertiary, with near-neutral for labels and ink for text.",
+    "Purpose-built for information design and data visualization contexts where color must signal reading hierarchy rather than just identify categories. Vivid cobalt as the primary attention anchor (key findings, alerts, callouts), teal as secondary (supporting data, comparison series), azure whisper as tertiary (labels, reference lines, background structure), and ink for all text. A clear three-step hierarchy that gives dense data displays a legible visual structure and makes the most important information immediately findable.",
+    ["Information Design", "Data Visualization", "Hierarchy", "Dashboard"],
+    [
+      "cobalt-core-vivid",
+      "teal-core-vivid",
+      "azure-bloom-soft",
+      "azure-whisper-soft",
+      "ink-core-vivid",
+    ],
+    {
+      editorialNote:
+        "Three-level hierarchy palette for dashboards, reports, and data visualizations. Cobalt primary (key findings), teal secondary (supporting data), azure tertiary (labels/gridlines), ink for text. Designed for functional visual hierarchy rather than aesthetic cohesion.",
+      promptWords: [
+        "data visualization palette with clear hierarchy levels",
+        "dashboard color system for three-tier hierarchy",
+        "information design palette for reports and charts",
+      ],
+      useCases: ["Dashboard design", "Data visualization", "Annual report design"],
+    },
+  ),
+  createCollection(
+    "botanical-apothecary-dark",
+    "Botanical Apothecary Dark",
+    "Dark botanical identity palette — deep emerald, moss, jade, violet plum, and warm ivory for herbalist, apothecary, and botanical luxury brands.",
+    "The dark botanical register — deep, saturated greens with enough depth to feel medicinal and earthy, paired with violet-plum for drama and warm ivory as the single light counterpoint. This is not the light, airy botanical palette of wellness startups; it is the darker, more serious register of apothecaries, herbal medicine brands, botanical perfumers, and luxury plant-based brands that want to communicate expertise and depth over approachability. Emerald and jade carry the botanical identity; violet and plum add the alchemical, mysterious register; ivory anchors it without lightening it.",
+    ["Botanical", "Apothecary", "Dark", "Luxury"],
+    [
+      "emerald-shadow-clear",
+      "moss-shadow-soft",
+      "jade-shadow-clear",
+      "violet-shadow-clear",
+      "ivory-bloom-soft",
+    ],
+    {
+      editorialNote:
+        "Dark botanical apothecary palette. Deep emerald, moss, jade, violet, and ivory. For herbalist, botanical perfume, luxury plant-based, and apothecary brands that want depth and expertise over lightness.",
+      promptWords: [
+        "dark botanical apothecary brand palette",
+        "herbalist luxury brand in deep emerald and violet",
+        "botanical perfume identity in dark green and plum",
+      ],
+      useCases: ["Apothecary brand identity", "Botanical luxury packaging", "Herbalist product design"],
+    },
+  ),
+];
+
+collections.push(...extraCollections43);
+
+const extraCollections44: ColorCollection[] = [
+  createCollection(
+    "dark-mode-ui-surfaces",
+    "Dark Mode UI Surfaces",
+    "A systematic dark mode surface palette — near-black, dark gray, elevated surface, and accent tones for building complete dark UI color systems.",
+    "Dark mode surface palette designed around the layered elevation system used by iOS, Android Material, and premium web applications. Near-black base, progressively lighter gray surfaces for elevation, with a restrained accent blue and high-legibility text tones. Built around the principle that true black backgrounds amplify saturation — all surfaces use dark gray to keep foreground colors perceptually controlled. Suitable for design system dark mode token definitions.",
+    ["Dark Mode", "UI Design", "Design Systems", "Night Mode"],
+    [
+      "ink-core-vivid",
+      "ink-shadow-soft",
+      "ink-mist-soft",
+      "slate-core-muted",
+      "cobalt-bloom-soft",
+    ],
+    {
+      editorialNote:
+        "Layered dark mode surface palette following iOS and Material Design elevation principles. Near-black to dark-gray range for surface hierarchy, with cobalt accent. Useful for design token documentation and dark UI component design.",
+      promptWords: [
+        "dark mode UI surface color system",
+        "dark theme design system palette",
+        "night mode app interface colors",
+      ],
+      useCases: ["Dark mode design systems", "UI component design", "Night mode interfaces"],
+    },
+  ),
+  createCollection(
+    "aurora-borealis-vivid",
+    "Aurora Borealis",
+    "Vivid aurora palette — electric teal, arctic violet, ice blue, and deep night sky for high-energy brand identities and digital art.",
+    "Inspired by the natural light display of the aurora borealis — vivid teal and electric cyan against deep violet-black, with ice blue as a highlight and mint as an accent. High-saturation and high-contrast by design: this palette is for brands and campaigns that want to communicate natural wonder, energy, and premium digital sophistication. Effective for gaming, tech, and experiential brand identities.",
+    ["Nature", "Vivid", "Electric", "Night"],
+    [
+      "teal-core-vivid",
+      "mint-core-vivid",
+      "azure-core-vivid",
+      "violet-core-vivid",
+      "ink-core-vivid",
+    ],
+    {
+      editorialNote:
+        "High-saturation aurora palette for brand identities that want vivid natural energy. Teal and violet anchored in deep night. Strong for gaming, tech, and premium digital brand applications.",
+      promptWords: [
+        "aurora borealis color palette vivid",
+        "northern lights electric teal violet palette",
+        "arctic night vivid brand palette",
+      ],
+      useCases: ["Gaming brand identity", "Tech brand design", "Digital art and illustration"],
+    },
+  ),
+  createCollection(
+    "warm-architectural-interior",
+    "Warm Architectural Interior",
+    "A residential interior palette — warm ivory walls, honey wood tones, amber accents, and warm gray for a cohesive living space.",
+    "Residential interior palette built around the warm neutrals that define comfortable, livable spaces: warm ivory walls that shift toward cream in morning light, honey and amber tones that evoke warm wood and natural materials, with a warm gray counterbalance that reads as sophisticated without coldness. This is the palette of Japandi-influenced interiors, Nordic-warm aesthetics, and crafted residential spaces. Equally at home in home decor lookbooks, interior architecture presentations, and furniture brand imagery.",
+    ["Interior Design", "Architecture", "Warm Neutrals", "Residential"],
+    [
+      "ivory-bloom-soft",
+      "honey-bloom-soft",
+      "amber-tone-soft",
+      "amber-mist-soft",
+      "slate-mist-soft",
+    ],
+    {
+      editorialNote:
+        "Warm residential interior palette. Ivory-to-amber range with warm gray balance. Ideal for interior design presentations, home decor brands, and architectural photography art direction.",
+      promptWords: [
+        "warm interior design color palette",
+        "residential home decor warm neutral palette",
+        "Japandi interior color scheme warm",
+      ],
+      useCases: ["Interior design presentations", "Home decor brand design", "Residential architecture"],
+    },
+  ),
+  createCollection(
+    "data-viz-sequential-teal",
+    "Data Viz: Sequential Teal",
+    "A perceptually sequential teal palette for data visualization — from near-white through medium teal to deep navy, designed for quantitative color encoding.",
+    "Sequential color palette for quantitative data visualization using the teal-to-navy range. Designed with perceptual uniformity in mind: each step reads as a clear increase in value from the lightest end to the darkest. The teal-to-navy range works well for both light-background and dark-background chart contexts, and the hue range is distinguishable by most types of color vision deficiency. Suitable for choropleth maps, heatmaps, and single-variable quantitative charts.",
+    ["Data Visualization", "Information Design", "Sequential", "Charts"],
+    [
+      "teal-veil-soft",
+      "teal-mist-soft",
+      "teal-bloom-soft",
+      "teal-core-muted",
+      "teal-shadow-clear",
+    ],
+    {
+      editorialNote:
+        "Sequential teal palette for quantitative data visualization. Each step is a clear perceptual increase in value. Works on light and dark chart backgrounds. Distinguishable under common color vision deficiency types.",
+      promptWords: [
+        "sequential color scale data visualization teal",
+        "choropleth map color palette teal",
+        "data viz quantitative color encoding teal navy",
+      ],
+      useCases: ["Choropleth maps", "Heatmaps", "Quantitative chart color scales"],
+    },
+  ),
+  createCollection(
+    "cultural-celebration-east-asia",
+    "East Asian Celebration",
+    "A celebratory palette rooted in East Asian cultural color — crimson, vermilion, amber, and gold for Lunar New Year, weddings, and festive brand campaigns.",
+    "Celebration palette built around the colors of East Asian festive culture: crimson red as the primary lucky color, vermilion as a warmer companion, amber and honey as gold equivalents in accessible form. These are the colors of Lunar New Year red envelopes, Chinese wedding decor, and traditional festival imagery across China, Vietnam, Korea, and the broader East Asian diaspora. Suitable for culturally relevant brand campaigns, packaging for gift products, and event design for Asian-facing markets.",
+    ["Cultural", "Celebration", "Festive", "East Asian"],
+    [
+      "crimson-core-vivid",
+      "ember-core-vivid",
+      "amber-core-vivid",
+      "honey-core-vivid",
+      "ivory-bloom-soft",
+    ],
+    {
+      editorialNote:
+        "East Asian celebration palette centered on crimson and amber. Suitable for Lunar New Year, wedding, and festive campaign design. Culturally relevant for Chinese, Vietnamese, Korean, and broader East Asian audiences.",
+      promptWords: [
+        "Chinese New Year color palette red gold",
+        "East Asian celebration festive color palette",
+        "Lunar New Year brand campaign colors",
+      ],
+      useCases: ["Lunar New Year campaigns", "East Asian wedding design", "Festive packaging design"],
+    },
+  ),
+];
+
+collections.push(...extraCollections44);

@@ -1113,6 +1113,62 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   winter_ice: ["pale", "frost", "azure", "silver", "cobalt"],
   winter_minimal: ["frost", "silver", "pale", "navy", "ice"],
   seasonal_palette: ["amber", "coral", "mint", "frost", "olive"],
+  // Motion and animation
+  morph: ["vivid", "cobalt", "teal", "violet", "bloom"],
+  kinetic: ["vivid", "electric", "cobalt", "coral", "amber"],
+
+  // Architecture and spatial
+  architecture: ["ivory", "slate", "ash", "fog", "stone"],
+  interior: ["ivory", "ash", "fog", "amber", "slate"],
+  paint: ["ivory", "sage", "ash", "fog", "muted"],
+  wall: ["ivory", "fog", "ash", "mist", "veil"],
+  flooring: ["sienna", "honey", "amber", "ash", "ivory"],
+
+  // Dark mode and UI themes
+  surface: ["ivory", "frost", "veil", "ash", "fog"],
+  glass: ["frost", "veil", "whisper", "mist", "azure"],
+  frosted: ["frost", "veil", "whisper", "mist", "pearl"],
+  elevation: ["ash", "fog", "slate", "ivory", "frost"],
+
+  // Cultural colors
+  chinese: ["crimson", "vermilion", "scarlet", "coral", "amber"],
+  japanese_aesthetic: ["moss", "ink", "plum", "muted", "ivory"],
+  indian: ["amber", "saffron", "crimson", "teal", "coral"],
+  nordic_design: ["fog", "ash", "ivory", "cobalt", "frost"],
+
+  // Functional UI states
+  success: ["moss", "leaf", "jade", "emerald", "mint"],
+  error: ["crimson", "ruby", "garnet", "ember", "coral"],
+  warning: ["amber", "marigold", "honey", "citrine", "ember"],
+  info: ["azure", "cobalt", "cerulean", "teal", "frost"],
+  disabled: ["fog", "ash", "mist", "slate", "veil"],
+  active: ["cobalt", "vivid", "azure", "coral", "amber"],
+  hover: ["azure", "cobalt", "clear", "vivid", "bloom"],
+  focus: ["cobalt", "azure", "vivid", "clear", "violet"],
+
+  // Natural phenomena
+  rainbow: ["coral", "amber", "citrine", "teal", "violet"],
+  fog_weather: ["mist", "fog", "veil", "ash", "slate"],
+  rain: ["slate", "cobalt", "mist", "fog", "azure"],
+
+  // Material and texture
+  silk: ["ivory", "pearl", "blush", "veil", "whisper"],
+  wood: ["sienna", "honey", "amber", "clay", "rust"],
+  metal: ["slate", "ash", "fog", "cobalt", "steel"],
+
+  // Gemstone colors
+  ruby_gem: ["ruby", "crimson", "garnet", "merlot", "coral"],
+  sapphire_gem: ["sapphire", "cobalt", "azure", "vivid", "navy"],
+  emerald_gem: ["emerald", "jade", "teal", "moss", "vivid"],
+  amethyst_gem: ["amethyst", "violet", "plum", "lavender", "orchid"],
+  opal: ["blush", "azure", "lavender", "frost", "veil"],
+
+  // Photography and imaging
+  blue_hour: ["cobalt", "azure", "shadow", "slate", "mist"],
+  overexposed: ["ivory", "frost", "pearl", "veil", "whisper"],
+  underexposed: ["shadow", "ink", "coal", "nocturne", "slate"],
+  black_white: ["ink", "ash", "fog", "coal", "ivory"],
+  sepia_tone: ["honey", "amber", "sienna", "ivory", "muted"],
 
 };
 

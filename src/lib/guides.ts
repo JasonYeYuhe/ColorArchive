@@ -11229,3 +11229,417 @@ export const extraGuides43: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides43);
+
+export const extraGuides44: LandingGuide[] = [
+  {
+    category: "Brand & Identity",
+    slug: "logo-color-design-guide",
+    title: "Logo Color Design: How to Choose Brand Colors That Work Everywhere",
+    summary: "How to select and test brand colors for logo use — cross-media reproduction, scale behavior, proprietary color strategy, and why logo color has different rules than any other design context.",
+    eyebrow: "Brand Identity",
+    priority: 87,
+    searchIntent: "logo color design brand color identity logo color choice logo color rules color in logo",
+    tags: ["Brand Identity", "Logo Design", "Color Strategy", "Design Systems"],
+    highlights: [
+      "Logo colors must be specifiable in Pantone, CMYK, RGB, and hex — and these conversions are not lossless. Colors near the edge of a gamut (ultra-saturated, very dark) carry the highest reproduction risk across media.",
+      "At small sizes, complex color relationships collapse. Define a minimum-size color rule where the palette simplifies to its most essential element below a specific threshold (typically below 32-40px).",
+      "A single anchor color compounded over years of exposure creates stronger brand association than a complex palette. New brands benefit from starting with one distinctive color before expanding the system.",
+    ],
+    sections: [
+      {
+        heading: "Cross-Media Reproduction",
+        body: "Logo color must be specifiable in every color model: Pantone spot for print, CMYK for offset, RGB for screens, hex for web, and sometimes additional specifications for embroidery, vinyl cutting, or screen printing. These conversions are not lossless — a vivid cobalt or electric cyan in RGB will shift noticeably when converted to CMYK for offset printing, as the CMYK gamut cannot reproduce highly saturated colors in the cyan-blue range. Colors that sit near the center of the gamut (moderate saturation, middle lightness) translate most reliably across media. Colors at the edge of any color space are highest risk. Before finalizing a logo color, always proof it in print and check the Pantone-to-CMYK conversion to verify acceptable match.",
+      },
+      {
+        heading: "Scale Behavior",
+        body: "A logo must function as a 16px favicon and as a building-side installation. Complex color relationships at full size collapse at small sizes — a two-color mark that reads cleanly at 300px may become an indistinct blur at 32px. This is why strong logo color systems define a minimum-size rule: below a certain threshold, the full palette simplifies to a single color on white. This simplified version should be specified explicitly and distributed with the brand system, not left to individual discretion. Testing a proposed logo color at 32px, 16px, and in grayscale before finalizing is not optional — these are standard use contexts.",
+      },
+      {
+        heading: "Proprietary Color Strategy",
+        body: "A color becomes proprietary when it is associated strongly enough with a single brand that audiences identify the brand from the color alone, without the logo mark. Tiffany Blue, Hermès Orange, and UPS Brown are examples of proprietary colors. This association is built through consistent, repeated application over time — it is not achievable in the first year or two of a brand's life, but it is achievable over five to ten years of disciplined color use. The prerequisite is distinctiveness: the color must be meaningfully different from competitors' primary colors. A cobalt blue that is similar to dozens of other tech brands will not become proprietary. A specific violet or an unexpected amber that no competitor uses has the potential to.",
+      },
+      {
+        heading: "Color and Logo Psychology",
+        body: "Color in logos activates categorical associations faster than shape or typography. Blue activates trust and reliability associations that have been built across decades of financial services and technology brand use. Red activates urgency and appetite associations built across retail and food service. Green activates environmental and wellness associations, which have become somewhat diluted through overuse in sustainability contexts. Distinctive colors — unexpected hues for their category — can disrupt expectations productively, but only if the brand has the resources to invest in educating customers about the new association over time. Disruptive color choice is a bet on having enough distribution and longevity to make the new association stick.",
+      },
+      {
+        heading: "Single-Color and Reversed Versions",
+        body: "Every logo color system must include a single-color version (black or white) and a reversed version (logo on dark background). Single-color versions are required for embossing, engraving, single-color print runs, legal filings, and many digital contexts where color is not available. Reversed versions are required for use on brand-colored backgrounds and dark photography. The single-color version should be tested for readability at minimum logo size — some marks that read well in color lose critical detail in black. For reversed versions, ensure the white or light version has sufficient weight; fine lines in a color mark sometimes become too thin to read when reversed to white.",
+      },
+    ],
+    links: [
+      { label: "Browse brand color palettes", href: "/collections/" },
+      { label: "Explore all color families", href: "/families/" },
+      { label: "Build a color palette", href: "/palette-builder/" },
+    ],
+  },
+  {
+    category: "Photography & Visual",
+    slug: "color-temperature-photography-guide",
+    title: "Color Temperature in Photography: Warm and Cool Light as Mood Tools",
+    summary: "Color temperature in photography is a primary mood-setting tool, not just a technical correction problem. Understanding how warm (amber/orange) and cool (blue/blue-gray) light creates different emotional registers helps photographers and retouchers make deliberate choices.",
+    eyebrow: "Photography & Visual",
+    priority: 79,
+    searchIntent: "color temperature photography warm cool light photo mood color grading photography color guide",
+    tags: ["Photography", "Color Temperature", "Color Grading", "Visual Storytelling"],
+    highlights: [
+      "Warm light (2000-3500K) reads as amber-orange and signals warmth, intimacy, and endings or beginnings. Cool light (7000-9000K) reads as blue-lavender and signals precision, distance, and clinical contexts.",
+      "Split-toning technique applies opposing temperatures to highlights and shadows. Warm highlights + cool shadows = natural outdoor feel. Cool highlights + warm shadows = the standard grade for action and thriller content.",
+      "Food photography consistently uses warm grading because warm light makes food look appetizing. Tech product photography uses neutral-to-cool grading because cool light reads as precise and modern.",
+    ],
+    sections: [
+      {
+        heading: "Kelvin Scale Basics",
+        body: "Color temperature is measured in Kelvin and describes the hue of a light source. Noon daylight (5500-6500K) renders as neutral white — the baseline for most white balance presets. Sunrise and golden hour (2000-3500K) renders as warm amber-orange. Open shade and overcast (7000-9000K) renders as cool blue-lavender. Tungsten and incandescent light (2800-3200K) is warm orange, appearing strongly amber when unbalanced. Fluorescent light varies but is often neutral-to-cool with a slight green cast. Understanding where a scene's light falls on this scale, and whether the camera's white balance is correcting toward neutral or preserving the source temperature, is the first step in deliberate color temperature use.",
+      },
+      {
+        heading: "Emotional Register of Warm and Cool",
+        body: "Warm light associations are rooted in physical experience: sunrise, sunset, candles, hearths, warm climates. It signals intimacy, safety, nostalgia, and warmth. Cool light associations: winter sky, shade, clinical environments, technology. It signals precision, distance, clarity, and authority. These associations are consistent across cultures because they are based on universal physical experiences rather than learned cultural codes. In photography and retouching, you can deploy these associations deliberately — not by simulating a particular light source, but by grading the color balance of the image toward warm or cool to activate the associated emotional register.",
+      },
+      {
+        heading: "Split-Toning Technique",
+        body: "Split-toning applies one color temperature to shadows and a different temperature to highlights. The most common split is warm highlights and slightly cool shadows, which reads as natural outdoor light — it matches the way sunlight (warm) contrasts with open sky (cool) that fills shadows. The reverse split — cool highlights and warm shadows — is the standard narrative film grade for action, thriller, and prestige television content. The cool highlight creates a desaturated, precise feel for skin and neutral surfaces; the warm shadow creates depth and richness. Both techniques use the temperature opposition to create visual interest and dimensional depth that is absent in flat, single-temperature grades.",
+      },
+      {
+        heading: "Category Applications",
+        body: "Food photography benefits from warm grading (amber highlights, neutral-warm shadows) because it activates appetite associations and makes warm food tones — bread, meat, sauce — appear rich and appealing. Product photography for technology and medical contexts benefits from neutral-to-cool grading because it reinforces precision and modernity. Portrait photography for beauty and wellness brands benefits from warm-neutral grading that makes skin tones glow without appearing overly golden. Fashion editorial often uses the full temperature range deliberately — a stark cool grade for minimalist ready-to-wear, warm golden for lifestyle and aspirational content.",
+      },
+      {
+        heading: "White Balance vs. Grade",
+        body: "White balance (set in-camera or in RAW processing) corrects for the temperature of the primary light source to render it as neutral white. Grading is a creative operation applied on top of a color-corrected baseline that pushes the image away from neutral toward a desired temperature. These are two separate operations and should be kept separate in the workflow. A common mistake is using white balance correction to achieve a warm or cool look, which ties a creative choice to a technical parameter. The correct workflow is: white balance corrects toward neutral (matches the scene), then grading intentionally adds the creative temperature direction. This keeps the grade portable and adjustable without re-balancing for light source shifts.",
+      },
+    ],
+    links: [
+      { label: "Explore warm color palettes", href: "/collections/" },
+      { label: "Browse cool color families", href: "/families/blue/" },
+      { label: "Color tints and shades reference", href: "/tints/" },
+    ],
+  },
+  {
+    category: "Digital & Social Media",
+    slug: "color-social-media-design-guide",
+    title: "Social Media Color Strategy: How to Design for Feeds, Not Profiles",
+    summary: "Social media color strategy in 2025 is about feed performance, not grid aesthetics. Algorithmic feeds, dark mode adoption, and the collapse of the grid as a viewing format have changed what colors work and why.",
+    eyebrow: "Digital & Social",
+    priority: 82,
+    searchIntent: "social media color strategy color design social media Instagram color feed color content color strategy",
+    tags: ["Social Media", "Content Design", "Color Strategy", "Digital Marketing"],
+    highlights: [
+      "Each post competes independently in a feed — visibility against the dynamically varying surrounding content matters more than consistency within your own palette.",
+      "High-saturation colors drive scroll-stop for initial reach, but sustained exposure to high saturation creates fatigue. Two-tier strategy: higher saturation for acquisition content, moderate saturation for retention content.",
+      "40-60% of Instagram and TikTok sessions occur in dark mode. Pale, high-key images that look clean on white can wash out or feel harsh on dark UI. Test content in both modes.",
+    ],
+    sections: [
+      {
+        heading: "Feed vs. Grid: A Structural Shift",
+        body: "Early social media brand strategy focused on the profile grid as a coherent color surface. Brands invested in unified 3x3 and 6x9 grid strategies with consistent palette across all posts. This strategy has minimal relevance in 2025. Algorithmic feeds deliver individual images without grid context. Users rarely visit brand profiles intentionally — they encounter brand content while scrolling through algorithmically curated feeds that interleave posts from hundreds of different accounts. The primary evaluation unit is the individual post, not the portfolio. Color decisions should optimize for individual post performance while maintaining enough consistency for brand recognition over accumulated exposure.",
+      },
+      {
+        heading: "Contrast and Scroll-Stop",
+        body: "In a feed, an image has approximately 100-200 milliseconds to register as worth stopping for before a scroll continues. The primary driver of scroll-stop is contrast against surrounding content — visual differentiation from whatever precedes and follows the post. This creates a fundamental tension: your brand palette may not be the highest-contrast option against a dynamically varying feed. High-contrast, high-saturation colors consistently outperform muted or low-contrast options for initial scroll-stop in platform performance data. However, algorithmic feeds also reward engagement quality, not just initial stop rates, which means content that performs well for the right audience typically incorporates brand signals even when using high-contrast approaches.",
+      },
+      {
+        heading: "Two-Tier Saturation Strategy",
+        body: "High saturation is effective for attention capture but creates fatigue at sustained exposure. Audiences associate very high saturation (vivid, maximally colorful) with loud, promotional, or low-quality content when it appears consistently. A two-tier approach separates acquisition content from retention content by saturation: higher saturation for wide-reach posts targeting new audiences (paid and organic viral content, trend participation), moderate saturation for posts targeting existing audiences who already have brand awareness (educational content, storytelling, community engagement). The acquisition content earns the reach; the retention content builds the affinity. Relying exclusively on high saturation for all content maximizes short-term scroll-stop while eroding the brand equity that justifies sustained audience attention.",
+      },
+      {
+        heading: "Dark Mode Considerations",
+        body: "Dark mode adoption varies by platform, demographic, and time of day. On Instagram and TikTok, approximately 40-60% of sessions occur in dark mode for many user segments. Images designed for white backgrounds may perform significantly differently on dark UI. Light, high-key images with pale backgrounds can look washed out or float uncomfortably against dark mode UI. Images with strong internal contrast — a defined subject against a defined background — perform more consistently across both modes than images that rely on the feed background for compositional contrast. For brands with very light palettes, testing how signature content looks against both light and dark UI is a necessary step, not an afterthought.",
+      },
+      {
+        heading: "Proprietary Color and Brand Recall",
+        body: "Trend-based color strategy (using whatever palette is culturally current) generates scroll-stop through relevance but builds zero brand recall. An image using the current muted-sage-and-cream aesthetic looks appropriate but does not add to a viewer's association between that palette and your brand. Proprietary color — a color combination distinctly and consistently owned by your brand — builds recall over accumulated exposure even when individual post reach is lower. Brands with the highest unaided color-brand association scores are almost always those with the most distinctive, consistent color applied over the longest time periods. The investment in defining and consistently applying a proprietary palette is a long-term brand asset that earns returns at scale.",
+      },
+    ],
+    links: [
+      { label: "Browse brand color palettes", href: "/collections/" },
+      { label: "Build a custom palette", href: "/palette-builder/" },
+      { label: "Explore vivid color families", href: "/families/" },
+    ],
+  },
+  {
+    category: "Information Design",
+    slug: "color-hierarchy-information-design-guide",
+    title: "Color Hierarchy in Information Design: Signal What Matters Most",
+    summary: "How to use color to establish reading order and importance hierarchy in dashboards, reports, and data visualizations. Color hierarchy is invisible when done well and chaotic when done poorly.",
+    eyebrow: "Data & Information Design",
+    priority: 76,
+    searchIntent: "color hierarchy information design data visualization color priority color in dashboards chart color hierarchy",
+    tags: ["Information Design", "Data Visualization", "Color Hierarchy", "Dashboard Design"],
+    highlights: [
+      "Color hierarchy does in information design what type hierarchy does in typography — it tells the reader what order to read in and what importance each element carries. The most important information must have the highest contrast.",
+      "A functional three-level hierarchy: primary (high contrast, full saturation, key finding), secondary (moderate contrast, supporting data), tertiary (very low contrast, labels, gridlines, background elements).",
+      "Keep categorical color (differentiating groups) separate from hierarchy signals. If your alert state uses red and your first data series also uses red, readers conflate category identity with urgency.",
+    ],
+    sections: [
+      {
+        heading: "What Color Hierarchy Does",
+        body: "Color hierarchy in information design is the systematic use of color to signal the relative importance, category membership, and reading order of visual elements. It is distinct from color identity (which groups belong to which hue) and from color coding (how quantitative values map to colors in scales). Color hierarchy is specifically about attention sequence: making the most important information the most visually prominent through color, so a reader can extract key conclusions without having to read all the detail first. Done correctly, hierarchy is invisible — the reader simply absorbs the structure without consciously noticing how their attention was directed. Done incorrectly, all elements compete equally for attention and the reader must do the work of discovering the structure manually.",
+      },
+      {
+        heading: "Contrast as the Primary Tool",
+        body: "Contrast — specifically the difference in lightness between a color and its background — is the primary mechanism for establishing hierarchy in information design. The element that should draw first attention must have the highest contrast against the background. Everything else should be visually subordinate: lower contrast, less saturated, or lighter. The most common failure is treating all elements as equal priority and giving them similar visual weight — similar lightness, similar saturation — which forces the reader to actively work through the data rather than having the structure revealed by the visual hierarchy. This mistake is especially common when palettes are chosen for aesthetic consistency rather than hierarchical function.",
+      },
+      {
+        heading: "Three-Level Hierarchy Framework",
+        body: "A functional three-level hierarchy covers most information design contexts. Primary level: the most important finding, alert, or key number — high contrast against background, full or near-full saturation, typically one or two accent colors that draw immediate attention. Secondary level: supporting categories, comparison data, and dimensional breakdowns — moderate contrast, slightly muted or lighter than primary, clearly subordinate but legible. Tertiary level: axis labels, gridlines, annotations, and background elements — very low contrast, near-neutral or very light, designed to recede as much as possible while remaining legible at the expected viewing distance. The visual system processes contrast differences within approximately 100 milliseconds, which means a well-constructed hierarchy delivers its structure before conscious reading begins.",
+      },
+      {
+        heading: "Separating Category Color from Hierarchy",
+        body: "Categorical color in information design differentiates groups, series, or types — each category receives a distinct hue for identification purposes. This system must be carefully separated from the hierarchy signal. If the primary alert state uses vivid red and the first data series also uses red, readers will conflate category identity with urgency or importance. The cleanest approach is to use distinct hues for categorical distinctions (differentiating series or groups) while using saturation and lightness to encode the hierarchy within each hue. Full saturation for primary elements, muted for secondary, very light for tertiary — while maintaining the hue identity for each category throughout. This preserves categorical identification while communicating hierarchy through perceptual prominence.",
+      },
+      {
+        heading: "Alert States and Status Colors",
+        body: "Alert states (error, warning, success, informational) require their own reserved colors that are not part of the categorical data palette. These status colors should be consistent across an entire design system and should not be reused for other purposes. The traditional red-amber-green traffic light model is widely understood but can be problematic for colorblind users (approximately 8% of men have some form of red-green color vision deficiency). A more accessible approach uses a blue-amber-red model for informational-warning-error, and relies on iconographic reinforcement (check mark, warning triangle, X) in addition to color alone. Status colors should appear at the primary hierarchy level — high contrast, immediately noticeable — since their function is to interrupt the normal reading flow when action is required.",
+      },
+    ],
+    links: [
+      { label: "Explore color palettes for data", href: "/collections/" },
+      { label: "Browse neutral color families", href: "/families/" },
+      { label: "Color tints and shades reference", href: "/tints/" },
+    ],
+  },
+  {
+    category: "Design Systems",
+    slug: "color-naming-design-systems-guide",
+    title: "Naming Colors in Design Systems: Semantic vs. Scale vs. Primitive",
+    summary: "How you name colors in a design system shapes how your team reasons about color for years. Semantic names encode intent. Scale names encode position. The two-tier approach separates both concerns. Here is how to choose the right architecture.",
+    eyebrow: "Design Systems",
+    priority: 81,
+    searchIntent: "color naming design systems design token color semantic color names color system naming scale colors tokens",
+    tags: ["Design Systems", "Color Tokens", "Naming Conventions", "Frontend Development"],
+    highlights: [
+      "Scale-based naming (blue-100 to blue-900) is flexible and composable but requires external documentation to tell developers which value to use for which context. It drifts over time as teams make different choices.",
+      "Semantic naming (success, error, background-primary) encodes intent into the name, preventing misuse — but proliferates tokens over time as edge cases accumulate.",
+      "The two-tier approach separates primitives (blue-50 maps to a hex value) from semantics (background-primary maps to blue-50). Themes are made by remapping the semantic layer to different primitives, with zero changes to component code.",
+    ],
+    sections: [
+      {
+        heading: "Why Naming Decisions Have Long-Term Consequences",
+        body: "Color naming in a design system is an architectural decision, not a stylistic one. Once a naming convention is established and adopted across a codebase and component library, changing it is expensive: every usage must be updated, every contributor must be re-educated, and the migration period where both old and new names coexist creates confusion. The naming convention chosen at the start shapes how the team reasons about color for as long as the system runs. Choosing the wrong model is recoverable, but only at significant cost. The decision deserves proportionate attention at system founding.",
+      },
+      {
+        heading: "Scale-Based Naming",
+        body: "Scale-based naming assigns color positions along a lightness scale, typically using numbers (blue-100 through blue-900) or descriptive scales (blue-lightest through blue-darkest). The numbers or descriptors encode position without encoding intent — blue-600 says nothing about whether this value should be used for text, borders, backgrounds, or interactive states. This approach is flexible and composable: any component can use any scale value without violating a semantic rule. The weakness is that the appropriate use of each scale value must be documented externally and learned by contributors. Scale-based systems are susceptible to drift as different teams make independent choices about which value maps to which role. The advantage is that adding new colors or reorganizing the palette is straightforward — you are only rearranging primitives.",
+      },
+      {
+        heading: "Semantic Naming",
+        body: "Semantic naming encodes the intended use directly into the token name: success, error, warning, background-primary, text-secondary, border-interactive. The name carries the usage contract — a developer using success-default knows it is for success states and cannot accidentally apply it to a background context without visibly violating the semantic convention. This approach reduces drift and makes the system self-documenting. The weakness is proliferation: as components multiply and edge cases accumulate, semantic systems grow large. A color used for both an interactive border and a focus ring may need two separate tokens to preserve semantic clarity, even if both point to the same underlying hex value. Large semantic systems can become difficult to navigate.",
+      },
+      {
+        heading: "Two-Tier Architecture",
+        body: "The modern best practice is a two-tier approach that separates concerns: a primitive layer and a semantic layer. Primitives map meaningful names to raw values — blue-50 maps to #EFF6FF, blue-900 maps to #1E3A5F. Semantics map intent names to primitives — background-primary maps to blue-50, text-interactive maps to blue-700. Component code references only semantic tokens, never primitives directly. This separation enables theme changes (light to dark mode) by remapping the semantic layer to different primitives without changing any component code. Background-primary maps to blue-50 in light mode and to gray-950 in dark mode; components using background-primary automatically get the correct value in each theme.",
+      },
+      {
+        heading: "Practical Naming Conventions",
+        body: "For the semantic layer, a consistent naming structure improves navigability: [component/context]-[role]-[variant]-[state]. For example: button-background-primary-default, button-background-primary-hover, text-heading-primary, border-input-default, border-input-error. For the primitive layer, a simple numeric scale works well: [hue]-[scale-number], where scale-number increases with lightness (50 very light, 900 very dark) or decreases with lightness (100 dark, 900 light) — choose one convention and be consistent. Document which convention your scale uses; both exist in the wild and mixing them across systems creates confusion. For semantic neutrals, warm-gray and cool-gray should be separate scales — treating all grays as a single scale obscures important temperature distinctions that affect visual tone.",
+      },
+    ],
+    links: [
+      { label: "Browse color system palettes", href: "/collections/" },
+      { label: "Build a palette", href: "/palette-builder/" },
+      { label: "Explore neutral color families", href: "/families/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides44);
+
+export const extraGuides45: LandingGuide[] = [
+  {
+    category: "Motion & Animation",
+    slug: "color-in-motion-design-guide",
+    title: "Color in Motion Design: Temporal Color and Animation Principles",
+    summary: "Color behaves differently when it moves. Understanding how transitions, flickers, and sequences create emotional arcs — and what perceptually uniform color spaces enable in animation — helps motion designers use color as a narrative tool.",
+    eyebrow: "Motion Design",
+    priority: 81,
+    searchIntent: "color motion design animation color transitions motion graphics color theory",
+    tags: ["Motion Design", "Animation", "Color Theory", "UI Animation"],
+    highlights: [
+      "Color transitions have directional meaning: dark-to-light reads as emergence, desaturated-to-saturated reads as intensification. These are consistent because they parallel physical experience.",
+      "WCAG 2.1 limits flicker to 3 flashes per second for colors that exceed the general flash threshold — rapid red-to-dark alternation at higher rates can trigger photosensitive seizures.",
+      "Linear RGB interpolation in animation produces uneven intermediate hues. Working in OKLCH gives smoother, more perceptually consistent color transitions.",
+    ],
+    sections: [
+      {
+        heading: "Time as a Color Dimension",
+        body: "Static design works with spatial relationships between colors — which colors appear next to each other, at what scale, in what hierarchy. Motion design adds a temporal dimension: the sequence in which colors appear and the transitions between them carry meaning that static compositions cannot. A color transition from deep blue to warm amber over three seconds reads as a dawn, as a warming, as positive resolution. A flash of red in an otherwise neutral UI for 200 milliseconds activates an alarm response that the same red placed statically would not produce. Temporal color relationships are as significant as spatial ones.",
+      },
+      {
+        heading: "Color Transition Direction",
+        body: "Color transitions have inherent directional meaning: light-to-dark reads as deepening, heaviness, or seriousness. Dark-to-light reads as emergence or uplift. Desaturated-to-saturated reads as intensification or heightening energy. Saturated-to-desaturated reads as resolution or settling. These directional associations are consistent across audiences because they parallel physical experience: dusk darkens, dawn brightens, excitement heightens color perception. Motion designers who internalize these associations can encode narrative meaning directly into color transitions, communicating without typography.",
+      },
+      {
+        heading: "Flicker, Flash, and Accessibility",
+        body: "Rapid alternation between complementary colors creates a vibrating, aggressive optical effect. The WCAG 2.1 guideline on flicker exists for a specific neurological reason: red-to-dark flicker at rates above 3Hz can trigger photosensitive seizures in susceptible viewers. The threshold is defined by the luminance change rate and the area of the visual field affected. Motion designers working on web animations and broadcast content must be aware of this constraint. Tools like the Photosensitive Epilepsy Analysis Tool (PEAT) can test video content for compliance. Even below this threshold, rapid alternation can cause visual discomfort — test animations with multiple reviewers before releasing.",
+      },
+      {
+        heading: "Perceptually Uniform Interpolation",
+        body: "Linear RGB interpolation between two colors produces intermediate values that are perceptually uneven. A transition from red to blue through linear RGB passes through an unsaturated, grayish purple at the midpoint — not the vivid violet that many designers expect. Working in a perceptually uniform color space (OKLCH or LAB) produces intermediate colors that look equally saturated throughout the transition and whose hue progression is predictable. CSS now supports color-mix() with oklch, enabling perceptually uniform blends in web animation. After Effects workflows can achieve similar results with plugin support for color space management.",
+      },
+      {
+        heading: "Brand Color in Motion",
+        body: "Brand color applied to motion requires decisions about how it behaves during transitions, not just at start and end states. A brand that owns cobalt blue must decide: when transitioning from cobalt to white, does it pass through cyan (which reads as a competing brand color)? Does it pass through navy (which reads as somber)? The path through color space during a transition is a design decision. Motion guidelines in brand systems should specify transition directions and color spaces, not just start/end values.",
+      },
+    ],
+    links: [
+      { label: "Explore cobalt blue shades", href: "/colors/?sort=hue" },
+      { label: "Browse collections", href: "/collections/" },
+      { label: "Color families", href: "/families/" },
+    ],
+  },
+  {
+    category: "Architecture & Space",
+    slug: "architectural-color-guide",
+    title: "Color in Physical Space: Architectural and Interior Color Principles",
+    summary: "Color in physical space is subject to real light, material interaction, and viewer movement — none of which have equivalents in screen design. How to evaluate paint colors under changing daylight, understand material reflections, and design color sequences through space.",
+    eyebrow: "Architecture & Space",
+    priority: 76,
+    searchIntent: "architectural color design interior color guide paint color selection spatial color",
+    tags: ["Architecture", "Interior Design", "Color Theory", "Spatial Design"],
+    highlights: [
+      "Paint colors change throughout the day as light temperature shifts from warm morning (2700K) to neutral noon (5500K) to cool overcast (7000K+). Always evaluate paint samples across a full day cycle.",
+      "Adjacent materials create reflected color: a warm wood floor adds warmth to white walls through reflected light. A cobalt rug casts blue onto neutral surfaces. Select colors in context, not in isolation.",
+      "Sample size matters radically: a color that looks moderately saturated on a 5x5cm swatch often feels overwhelming on a 4x3m wall. Always test at minimum 30x30cm before committing.",
+    ],
+    sections: [
+      {
+        heading: "Daylight and Its Color Temperature Cycle",
+        body: "Ambient daylight changes color temperature continuously. Morning sunlight (2700-3500K) is warm orange-amber. Noon daylight (5500-6500K) is neutral white. Overcast sky and open shade (7000-9000K) is cool blue-lavender. A paint color that reads as warm cream at noon may read as distinctly yellow in morning sun and nearly gray under overcast. Interior color should be evaluated under all lighting conditions present in the space: morning direct sun, noon diffuse, overcast day, and whatever artificial lighting will be used in evenings. Paint samples often look significantly different in-store under fluorescent light versus in the actual room.",
+      },
+      {
+        heading: "Material Interaction and Reflected Color",
+        body: "Adjacent materials affect each other's perceived color through reflected light. A warm hardwood floor reflects amber-orange into white walls, warming them perceptibly. A saturated cobalt rug casts blue onto adjacent neutral surfaces. A glossy surface reflects the colors of surrounding objects and becomes partly a mirror of its environment. Matte surfaces absorb light more uniformly and hold their color more consistently in changing light. Translucent materials (frosted glass, sheer curtain) blend their color with what is visible behind them. This means architectural color cannot be selected from a swatch book in isolation — the final color is the interaction of paint pigment, material, light source, and adjacent materials working together.",
+      },
+      {
+        heading: "Scale Effects",
+        body: "Color behaves differently at scale. A moderate-saturation color on a small swatch can feel overwhelming applied to a large wall. The reason is perceptual: when a color fills a large portion of the visual field, the eye cannot look away from it to calibrate against neutral, making the saturation feel higher than on a small swatch surrounded by white. Experienced color consultants use at minimum A3-size (30x42cm) paint-out samples and ideally paint 1x1m test patches on the wall. For high-saturation or dark colors, the scale effect is particularly pronounced. Lean toward lower saturation and lighter values than your swatch preview suggests for large surfaces.",
+      },
+      {
+        heading: "Color Sequence Through Space",
+        body: "Architectural color design considers the sequence of colors experienced as a viewer moves through a building, not just individual room palettes. The transition from a warm-toned entry to a cool-toned living room to a warm-toned bedroom creates a spatial rhythm — a color journey that affects mood and experience of the space. Common approaches: use consistent light values across connected spaces with hue variation to differentiate zones; use a consistent hue family with lightness transitions to create flow; or use deliberate contrast between rooms to create distinct atmospheric zones. The transition color — often a hallway or threshold — is the most critical choice as it bridges adjacent spaces.",
+      },
+    ],
+    links: [
+      { label: "Browse warm color palettes", href: "/families/warm/" },
+      { label: "Explore neutral collections", href: "/collections/" },
+      { label: "Find your palette", href: "/palette-builder/" },
+    ],
+  },
+  {
+    category: "Accessibility",
+    slug: "accessible-color-beyond-wcag-guide",
+    title: "Accessible Color Design: Beyond WCAG Contrast Ratios",
+    summary: "WCAG contrast ratios are the floor for accessibility, not the ceiling. What the standard doesn't measure — hue-based discrimination difficulty, font weight interaction, simultaneous contrast effects, and contextual viewing conditions — and how to go further.",
+    eyebrow: "Accessibility",
+    priority: 88,
+    searchIntent: "accessible color design wcag contrast accessibility color blindness color design",
+    tags: ["Accessibility", "Color Theory", "UI Design", "Inclusive Design"],
+    highlights: [
+      "WCAG contrast ratios measure luminance contrast only — two colors can pass the ratio but still be difficult to read if they're similar in hue and saturation, creating chromatic vibration at their edge.",
+      "Red-green color vision deficiency affects approximately 8% of males. Luminance contrast passing WCAG does not guarantee these users can distinguish hue-based categorical differences.",
+      "Very high contrast (pure white on black) causes 'blooming' in dark environments due to pupil dilation — most dark mode systems reduce text to 85-90% white (#E0E0E0 to #F0F0F0) to reduce this effect.",
+    ],
+    sections: [
+      {
+        heading: "What WCAG Measures and What It Doesn't",
+        body: "WCAG contrast ratios calculate the luminance difference between foreground and background using a formula derived from vision research. A ratio of 4.5:1 for normal text is the AA standard. Passing means the luminance difference is sufficient for most users under standard conditions. It does not guarantee legibility when colors are similar in hue and saturation, does not account for font weight and letterform interaction, does not test for hue-based discrimination difficulty (relevant for color vision deficiency), and does not account for contextual factors like surrounding colors, viewing angle, or ambient lighting.",
+      },
+      {
+        heading: "Hue and Saturation as Legibility Factors",
+        body: "Two colors can have a 4.5:1 luminance ratio and still be fatiguing to read if they are similar in hue and saturation — for instance, blue-green text on a blue background at the correct luminance ratio creates a chromatic edge vibration (chromatic aberration) that is uncomfortable to read. Additionally, users with red-green color vision deficiency (protanopia, deuteranopia — approximately 8% of males) cannot distinguish red from green even when luminance contrast is sufficient. WCAG compliance does not test for this. Design teams should test color palettes against simulated color vision deficiency using tools like Colour Oracle or browser DevTools accessibility features.",
+      },
+      {
+        heading: "Font Weight and the Contrast Ratio",
+        body: "Font weight and letterform significantly affect practical legibility at the same contrast ratio. A thin-weight typeface at 4.5:1 is substantially harder to read than a medium-weight typeface at 4.5:1. WCAG partially addresses this through the large text exception (3:1 for text over 18pt or 14pt bold), but the weight variable is not fully modeled. A practical approach: target 5.5-7:1 for thin-weight text and small UI labels, not just the 4.5:1 minimum. Use the AAA threshold (7:1) as a target for body text in critical reading contexts like medical or legal applications.",
+      },
+      {
+        heading: "Contextual Factors",
+        body: "The contrast ratio is measured under idealized conditions that do not reflect all real-world viewing contexts. Simultaneous contrast can make text appear to have lower contrast than calculated — dark text on a patterned background has varying effective contrast across its extent. Text on photographs requires ensuring the contrast ratio holds across the variable background tones. High ambient brightness (outdoor or window-lit environments) may require higher-than-calculated contrast because glare reduces perceived contrast. Dark mode environments cause pupil dilation that makes very high contrast text 'bloom' — most dark mode text systems use 85-90% white rather than pure white to reduce this effect.",
+      },
+    ],
+    links: [
+      { label: "WCAG contrast checker", href: "/contrast/" },
+      { label: "WCAG batch audit", href: "/wcag-audit/" },
+      { label: "Color blindness simulator", href: "/colorblind/" },
+    ],
+  },
+  {
+    category: "UI/UX Design",
+    slug: "dark-mode-color-design-guide",
+    title: "Dark Mode Color Design: Why Inverting Light Mode Fails",
+    summary: "Dark mode is not light mode inverted. The perceptual, physiological, and aesthetic requirements of dark mode create distinct constraints — including surface gray selection, text luminance, brand color adaptation, and elevation hierarchy — that require dedicated design rather than automated inversion.",
+    eyebrow: "UI/UX Design",
+    priority: 85,
+    searchIntent: "dark mode color design dark mode palette dark UI color dark theme design",
+    tags: ["Dark Mode", "UI Design", "Color Theory", "Design Systems"],
+    highlights: [
+      "True black (#000000) backgrounds amplify saturation — colors that read as controlled on white can look garish on black. Most dark mode surfaces use dark gray (#1C1C1E or similar) to reduce this effect.",
+      "Very high contrast text (white on black) 'blooms' in dark environments due to pupil dilation. Reduce text to approximately #E0E0E0 to eliminate the glow effect at full dark mode.",
+      "Dark mode hierarchy must be redesigned — the light-mode mechanism of using darker colors for importance is inverted, and shadows become invisible against dark surfaces.",
+    ],
+    sections: [
+      {
+        heading: "Background Gray, Not Black",
+        body: "The first mistake in dark mode design is using true black (#000000) as the background. Highly saturated colors placed on true black appear significantly more saturated and vivid than the same color on a dark gray. A medium-saturation blue that reads as professional and controlled on white can look electric or garish on black. This is why virtually all well-designed dark mode systems use dark gray backgrounds: iOS dark mode is approximately #1C1C1E, Google Material dark mode uses #121212, and most premium apps settle in the range of #18-#28 hex value. The dark gray reduces the saturation amplification effect while maintaining the dark mode aesthetic.",
+      },
+      {
+        heading: "Text Luminance and Bloom",
+        body: "In dark environments, the eye's pupil dilates, decreasing depth of field and introducing slight edge blurring. Very high luminance text (pure white #FFFFFF) on dark backgrounds appears to 'bloom' or 'glow' — the high-luminance white edge bleeds into the dark background due to this optical effect. Most dark mode text systems reduce text luminance to approximately 85-90% white (#E0E0E0 to #F0F0F0) rather than pure white. This small reduction eliminates the bloom effect while maintaining more than sufficient contrast against dark gray surfaces. Secondary text typically drops to 60-70% white for hierarchy.",
+      },
+      {
+        heading: "Hierarchy Without Shadow",
+        body: "Light mode hierarchy uses shadows to indicate elevation and darkness to indicate importance. Neither of these mechanisms works as effectively in dark mode. Shadows are invisible against dark backgrounds. The light-mode principle of 'darker = more important' is inverted in dark mode. Dark mode hierarchy is typically achieved through elevation (lighter surfaces at higher elevations, following Android Material Design's specification) and saturation — elements with higher importance receive slightly more saturated color treatment rather than darker color. This means dark mode color systems cannot simply mirror light mode hierarchy with adjusted values.",
+      },
+      {
+        heading: "Brand Color in Dark Mode",
+        body: "A brand color chosen for light backgrounds often fails in dark contexts. A fully saturated brand blue that reads as bold and confident on white can look overwhelming on dark gray. A mid-value brand amber that works as an accent on white may be indistinguishable from the dark surface. Dark mode brand color variants are not simply lighter versions of the light mode color — they are hue- and saturation-adjusted variants that maintain the color's identity while functioning correctly in the dark context. The most common adjustment: increase lightness and reduce saturation slightly, and optionally adjust hue toward a slightly more vivid position that reads correctly in dark ambient light.",
+      },
+    ],
+    links: [
+      { label: "Browse dark color palettes", href: "/collections/" },
+      { label: "Find deep color families", href: "/families/" },
+      { label: "Contrast checker tool", href: "/contrast/" },
+    ],
+  },
+  {
+    category: "Data & Information",
+    slug: "data-visualization-color-guide",
+    title: "Color in Data Visualization: Encoding Information Without Ambiguity",
+    summary: "Data visualization uses color as an information channel, not an aesthetic choice. The constraints — perceptual uniformity, colorblind accessibility, categorical distinctiveness, and avoiding spurious emphasis — require different color decisions than brand or product design.",
+    eyebrow: "Information Design",
+    priority: 83,
+    searchIntent: "data visualization color guide charts color coding data viz palette visualization color",
+    tags: ["Data Visualization", "Information Design", "Color Theory", "Charts"],
+    highlights: [
+      "Perceptually uniform color scales (OKLCH-interpolated, Viridis, Cividis) ensure equal data differences produce equal visual differences. Linear RGB gradients are not perceptually uniform.",
+      "Maximum reliably distinguishable categorical colors: 8-10 for full-color-vision audiences, fewer for color-vision-deficient audiences. Beyond this threshold, adding categories creates confusion.",
+      "Rainbow gradients for quantitative data create artificial visual emphasis at hue boundaries (cyan-green, yellow-green) where there is no corresponding data threshold.",
+    ],
+    sections: [
+      {
+        heading: "Color as a Data Channel",
+        body: "In data visualization, color is not decoration — it is a data channel that encodes quantitative magnitude or categorical identity. When a viewer reads a map where darker areas represent higher values, they are decoding color. If the color encoding is ambiguous (perceptually uneven steps, hues that are difficult to distinguish) the viewer gets incorrect information from the data. This is the fundamental difference between data visualization color and brand color: in visualization, perceptual accuracy is a functional requirement, not an aesthetic preference.",
+      },
+      {
+        heading: "Perceptually Uniform Scales",
+        body: "Quantitative color scales must be perceptually uniform: equal steps in data value must produce equal perceived differences in color. RGB linear interpolation fails this requirement because human color perception is not uniform across the spectrum. A transition from yellow to green to blue in linear RGB appears uneven — some ranges look compressed, others expanded. Perceptually uniform scales like Viridis, Plasma, Cividis (designed for scientific visualization and colorblind accessibility) and OKLCH-interpolated custom gradients ensure even perceptual steps. CSS color-mix() with oklch and visualization libraries like D3 (with appropriate color scale selection) support perceptually uniform encoding.",
+      },
+      {
+        heading: "Categorical Color Limits",
+        body: "Categorical color encoding (differentiating groups, categories, or series) has a practical limit. Human preattentive color perception can reliably distinguish approximately 8-10 hue-distinct colors in a visualization — beyond this number, viewers cannot reliably match legend items to chart elements without close examination. For audiences with color vision deficiency, this limit is lower. Categorical palettes designed for data visualization (ColorBrewer qualitative, Tableau 10, IBM Design Palette) are specifically designed to maximize pairwise distinctiveness and maintain accessibility under common types of color vision deficiency. When more than 10 categories are required, use pattern, shape, or label encoding as primary differentiators and use color as secondary.",
+      },
+      {
+        heading: "Common Mistakes in Data Color",
+        body: "Rainbow gradients for quantitative data are the most widespread mistake in data visualization color. Rainbow scales create artificial visual emphasis at hue boundaries — the cyan-green and yellow-green transitions attract attention that has no relationship to the underlying data values. Brand colors applied to data encoding is the second most common mistake: brand colors are chosen for brand reasons, not perceptual distinctiveness. Color as the only differentiator for colorblind-critical data is third — always include shape, pattern, or label redundancy for data that color-vision-deficient users must read accurately. Finally, overly saturated colors for multiple concurrent data series create visual competition that makes comparison impossible.",
+      },
+    ],
+    links: [
+      { label: "Browse data viz color palettes", href: "/collections/" },
+      { label: "Explore teal and blue palettes", href: "/families/teal/" },
+      { label: "Color blindness simulator", href: "/colorblind/" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides45);
