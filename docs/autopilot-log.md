@@ -3341,3 +3341,46 @@ New alias groups: terracotta/clay/Mediterranean earth, boreal/northern forest, P
 - `src/lib/color-search.ts` — ~1615 lines total
 - `STRUCTURE.md` — updated counts
 - `.claude/session-lock.json` — released
+
+## 2026-03-26 — Normal Run #8 (post big run #5)
+
+**Type:** Normal Run  
+**Commit:** 3dd3c8c  
+**Timestamp:** 2026-03-26T (after big run #5, normal run #3)  
+**Categories:** Content (A), Collections (D), Aliases (D), Email (E)
+
+### Category A — 4 Newsletter Issues (338–341, total 341)
+- `jul-2033-color-and-memory` — Encoding specificity in color memory, brand color-memory research, emotional salience for durable recall, experiential vs digital context differences
+- `jul-2033-interior-color-systems` — 60-30-10 rule properly demystified (visual dominance not surface area), LRV priority over hue, undertone conflict failures, multi-room color sequencing, ceiling color strategy
+- `aug-2033-color-accessibility-beyond-wcag` — Color blindness simulation tools, APCA vs WCAG 2.1 limitations, cognitive accessibility load theory, contrast margin buffer for real-world conditions
+- `aug-2033-brand-color-evolution` — Kodak yellow spec management, Apple rainbow→mono strategic shift, McDonald's red demotion, Gap 2010 revert case study
+
+### Category A — 3 SEO Guides (extraGuides54, 312 total)
+- `best-colors-for-bedroom-walls` (priority 90) — Sleep science, LRV vs hue priority, tonal/neutral-plus-one/dark room palette structures
+- `color-palette-for-logo-design` (priority 93) — Logo≠brand palette, Pantone/CMYK/sRGB/hex discipline, grayscale-first rule, category convention vs distinctiveness
+- `warm-color-palette-guide` (priority 89) — Warm hue range 0°-70°, saturation management (muted dominant + vivid accent), warm neutral anchor requirement, industry fit guide
+
+### Category D — 8 Collections (extraCollections53, 248 total)
+- `bauhaus-primary` — Itten/Albers primary color theory: crimson/citrine/cobalt/true-gray
+- `cyberpunk-neon` — Electric magenta, cyan, violet against near-black neon dark aesthetic
+- `stone-and-sage` — Cool gray + moss/leaf mineral restraint for wellness/interiors
+- `autumn-harvest` — Amber/ember/citrine/olive at peak fall saturation
+- `rose-quartz-mauve` — Dusty rose/mauve/iris in translucent mineral register
+- `midnight-garden` — Dark leaf/plum/cobalt botanicals for premium beauty/hospitality
+- `vintage-paper` — Amber/warm-gray sepia/heritage document palette
+- `citrus-burst` — Citrine/amber/ember/lime vivid food/beverage palette
+
+### Category D — ~80 Search Aliases (~1710 lines total)
+New alias groups: Bauhaus/Mondrian/primary, cyberpunk/synthwave/retrowave/vaporwave, stone+sage/mineral/lichen, autumn harvest/fall foliage/pumpkin, rose quartz/mauve/crystal/muted pink, midnight garden/dark botanical/gothic garden, vintage paper/sepia/heritage/parchment, citrus/lemon/lime/tangerine/blood orange, bedroom/sleep palette keywords
+
+### Category E — Email
+- `server/email.js`: Added `sendWeeklyDigestEmail()` — weekly round-up email with recent notes + featured collection; properly exported in module.exports
+
+### Files Modified (6 total)
+- `src/data/newsletter-issues.json` — 341 total
+- `src/lib/guides.ts` — extraGuides54 (312 total)
+- `src/lib/collections.ts` — extraCollections53 (248 total)
+- `src/lib/color-search.ts` — ~1710 lines total
+- `server/email.js` — +sendWeeklyDigestEmail()
+- `STRUCTURE.md` — updated counts (341 newsletters, 248 collections, 312 guides)
+- `.claude/session-lock.json` — released
