@@ -3140,3 +3140,41 @@ New alias groups: real estate/home staging, wedding/events, children's brand, me
 - `src/lib/guides.ts` — extraGuides48 (292 total)
 - `src/lib/color-search.ts` — ~1399 lines total
 - `.claude/session-lock.json` — released
+
+## 2026-03-26 — Normal Run #3 (post big run #4)
+
+**Type:** Normal Run  
+**Commit:** 4946bfa  
+**Timestamp:** 2026-03-26T (after big run #4, normal runs #1 and #2)  
+**Categories:** Content (A), Collections (D), Aliases (D)
+
+### Category A — 4 Newsletter Issues (318–321)
+- `nov-2032-color-contrast` — Color Contrast in Design: Legibility, Accessibility, and Hierarchy
+- `nov-2032-brand-color-evolution` — When Brands Change Their Colors: The Psychology of Visual Identity Pivots
+- `dec-2032-craft-materials-color` — Color in Craft: How Materials Determine What Color Can Do
+- `dec-2032-color-memory` — Color Memory: Why We Remember Some Colors and Forget Others
+
+### Category A — 3 SEO Guides (extraGuides49, 295 total)
+- `brand-identity-color-guide` (priority 91) — Choosing brand primary color: strategy, competitive mapping, functional testing
+- `typography-color-pairing-guide` (priority 84) — Typography + color pairing: contrast, temperature, weight tradeoffs
+- `dark-mode-color-palette-guide` (priority 88) — Dark mode adaptive color: surfaces, elevation, brand color adaptation, tokens
+
+### Category D — 8 Collections (extraCollections48, 207 total)
+- `editorial-black-white-red` — Classic editorial triad: near-black, crisp white, bold crimson
+- `mediterranean-tile-blues` — Hand-painted azulejos blues: cobalt, cerulean, azure, teal
+- `forest-dusk-palette` — Twilight forest: moss nocturne, deep indigo, amber last-light
+- `candy-pop-pastel` — High-energy candy pastels: bubblegum pink, lemon, sky blue, mint, lavender
+- `retro-americana-palette` — 1950s diner: cherry red, teal, mustard, cream, chrome
+- `minimalist-gray-study` — Refined gray value study from near-white to near-black + blue-gray accent
+- `sunbaked-clay-terracotta` — Adobe earth: fired clay orange, dusty adobe red, warm sand, bone
+- `deep-ocean-trench` — Abyssal ocean: deep navy, midnight indigo, bioluminescent aqua, seafoam
+
+### Category D — 46 Search Aliases (1451 lines)
+New alias groups: UI/light-mode, editorial (magazine, newspaper, poster), materials (ceramic, pottery, terracotta, adobe, clay, wood, linen, wool), psychology (nostalgia, retro aesthetic, y2k, candy, pastel pop), science/nature (bioluminescent, deep sea, ocean trench, forest dusk, twilight, dawn), brand psychology (trustworthy, innovative, premium, approachable, authoritative, playful, sustainable, artisan brand)
+
+### Files Modified (4 total)
+- `src/data/newsletter-issues.json` — 321 total
+- `src/lib/guides.ts` — extraGuides49 (295 total)
+- `src/lib/collections.ts` — extraCollections48 (207 total)
+- `src/lib/color-search.ts` — 1451 lines total
+- `.claude/session-lock.json` — released
