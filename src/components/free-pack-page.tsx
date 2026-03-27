@@ -8,6 +8,7 @@ import type { ColorCollection } from "@/src/lib/collections";
 import { checkoutConfig, type WaitlistConfig } from "@/src/lib/checkout-config";
 import { getGuidesForCollection, getGuidesForPack } from "@/src/lib/guides";
 import { computeBundleSavings, type PalettePack } from "@/src/lib/palette-packs";
+import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
 
 interface FreePackPageProps {
   featuredCollection: ColorCollection;
@@ -327,7 +328,7 @@ export function FreePackPage({
           </section>
         ) : null}
 
-        {checkoutConfig["all-access-bundle"].url && (
+        {checkoutConfig["all-access-bundle"].stripePriceId && (
           <section className="rounded-[1.75rem] border border-emerald-300/40 bg-gradient-to-br from-emerald-50/80 to-white/90 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)] dark:from-emerald-950/30 dark:to-neutral-900/80 dark:border-emerald-700/30">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -341,14 +342,12 @@ export function FreePackPage({
                   Save {savingsPct}% vs individual packs
                 </p>
               </div>
-              <a
-                href={checkoutConfig["all-access-bundle"].url}
-                target="_blank"
-                rel="noreferrer"
+              <StripeCheckoutButton
+                priceId={checkoutConfig["all-access-bundle"].stripePriceId}
                 className="shrink-0 rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
               >
                 {t("freePack.getAllAccess")}
-              </a>
+              </StripeCheckoutButton>
             </div>
           </section>
         )}

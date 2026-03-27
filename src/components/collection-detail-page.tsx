@@ -4,6 +4,7 @@ import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-but
 import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForCollection } from "@/src/lib/guides";
 import type { PalettePack } from "@/src/lib/palette-packs";
+import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
 
 interface CollectionDetailPageProps {
   collection: ColorCollection;
@@ -188,13 +189,13 @@ export function CollectionDetailPage({
                     <div className="mt-1 text-sm font-medium text-neutral-500">{pack.priceHint}</div>
                     <div className="mt-2 text-sm leading-6 text-neutral-500">{pack.detail}</div>
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {pack.checkoutUrl && pack.checkoutStatus === "ready" ? (
-                        <a
-                          href={pack.checkoutUrl}
+                      {pack.stripePriceId && pack.checkoutStatus === "ready" ? (
+                        <StripeCheckoutButton
+                          priceId={pack.stripePriceId}
                           className="rounded-full bg-neutral-950 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
                         >
                           Buy — {pack.priceHint}
-                        </a>
+                        </StripeCheckoutButton>
                       ) : null}
                       <Link
                         href={`/packs/${pack.id}/`}

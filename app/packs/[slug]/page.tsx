@@ -71,7 +71,7 @@ export default async function PackDetailRoute({ params }: PackDetailRouteProps) 
       priceCurrency: "JPY",
       price: pack.priceHint.replace(/[^\d]/g, ""),
       availability: "https://schema.org/InStock",
-      url: pack.checkoutUrl ?? `https://colorarchive.me/packs/${pack.id}/`,
+      url: `https://colorarchive.me/packs/${pack.id}/`,
     },
     isRelatedTo: relatedCollections.map((collection) => ({
       "@type": "CreativeWork",

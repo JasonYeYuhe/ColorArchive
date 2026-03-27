@@ -5,6 +5,7 @@ import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
 import { useLocale } from "@/src/components/locale-provider";
 import { landingGuides } from "@/src/lib/guides";
 import { computeBundleSavings, type PalettePack } from "@/src/lib/palette-packs";
+import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
 
 interface PalettePacksPageProps {
   packs: readonly PalettePack[];
@@ -86,15 +87,13 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                   </p>
                 </div>
                 <div className="flex shrink-0 flex-wrap gap-2">
-                  {bundle.checkoutUrl ? (
-                    <a
-                      href={bundle.checkoutUrl}
-                      target="_blank"
-                      rel="noreferrer"
+                  {bundle.stripePriceId ? (
+                    <StripeCheckoutButton
+                      priceId={bundle.stripePriceId}
                       className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
                     >
                       {t("packs.buyAllAccess")} — {bundle.priceHint}
-                    </a>
+                    </StripeCheckoutButton>
                   ) : (
                     <Link
                       href={`/packs/${bundle.id}/`}
@@ -252,15 +251,13 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                   {t("packs.checkout")}
                 </div>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
-                  {pack.checkoutUrl ? (
-                    <a
-                      href={pack.checkoutUrl}
-                      target="_blank"
-                      rel="noreferrer"
+                  {pack.stripePriceId ? (
+                    <StripeCheckoutButton
+                      priceId={pack.stripePriceId}
                       className="rounded-full border border-neutral-950/10 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                     >
                       {t("packs.buyNow")}
-                    </a>
+                    </StripeCheckoutButton>
                   ) : (
                     <button
                       type="button"
@@ -332,7 +329,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
               </p>
               <p>
                 This page is now the bridge between the archive and hosted checkout. Each pack
-                already points to Lemon Squeezy while keeping the core site static.
+                links to Stripe Checkout while keeping the core site static.
               </p>
               <p>
                 If a payment provider asks for concrete product examples, use the dedicated product

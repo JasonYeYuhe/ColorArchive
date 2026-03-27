@@ -12,7 +12,7 @@ export interface PalettePack {
   checkoutNote: string;
   checkoutProvider: CheckoutProvider;
   checkoutStatus: "ready" | "pending";
-  checkoutUrl: string | null;
+  stripePriceId: string | null;
   ctaLabel: string;
   deliverables: string[];
   detail: string;
@@ -49,7 +49,7 @@ export const palettePacks: PalettePack[] = [
     audience: "Designers and founders who want polished palettes they can apply immediately.",
     checkoutProvider: checkoutConfig["palette-pack-vol-1"].provider,
     checkoutStatus: checkoutConfig["palette-pack-vol-1"].status,
-    checkoutUrl: checkoutConfig["palette-pack-vol-1"].url,
+    stripePriceId: checkoutConfig["palette-pack-vol-1"].stripePriceId,
     checkoutNote: checkoutConfig["palette-pack-vol-1"].note,
     previewCollections: ["Quiet Luxury", "Modern Seaside", "Editorial Warmth", "Forest Terrain"],
     previewCollectionIds: ["quiet-luxury", "modern-seaside", "editorial-warmth", "forest-terrain"],
@@ -78,7 +78,7 @@ export const palettePacks: PalettePack[] = [
       method: "Instant download via checkout provider",
       timeline: "Delivered immediately after payment confirmation",
       steps: [
-        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Complete checkout via Stripe.",
         "Receive a confirmation email with a secure download link.",
         "Download the ZIP bundle — no account required.",
         "Unzip to find palette boards, CSS tokens, JSON data, and the usage guide.",
@@ -128,7 +128,7 @@ export const palettePacks: PalettePack[] = [
     audience: "Solo founders, small studios, and landing-page builders who need a coherent starting system.",
     checkoutProvider: checkoutConfig["brand-starter-kit"].provider,
     checkoutStatus: checkoutConfig["brand-starter-kit"].status,
-    checkoutUrl: checkoutConfig["brand-starter-kit"].url,
+    stripePriceId: checkoutConfig["brand-starter-kit"].stripePriceId,
     checkoutNote: checkoutConfig["brand-starter-kit"].note,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Orchid Bloom", "Nordic Frost"],
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "orchid-bloom", "nordic-frost"],
@@ -158,7 +158,7 @@ export const palettePacks: PalettePack[] = [
       method: "Instant download via checkout provider",
       timeline: "Delivered immediately after payment confirmation",
       steps: [
-        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Complete checkout via Stripe.",
         "Receive a confirmation email with a secure download link.",
         "Download the ZIP bundle — no account required.",
         "Unzip to find palette sets, pairing guides, token sheets, and usage notes.",
@@ -198,7 +198,7 @@ export const palettePacks: PalettePack[] = [
     audience: "Creators, marketers, and social designers who need visually consistent color sets fast.",
     checkoutProvider: checkoutConfig["content-creator-bundle"].provider,
     checkoutStatus: checkoutConfig["content-creator-bundle"].status,
-    checkoutUrl: checkoutConfig["content-creator-bundle"].url,
+    stripePriceId: checkoutConfig["content-creator-bundle"].stripePriceId,
     checkoutNote: checkoutConfig["content-creator-bundle"].note,
     previewCollections: ["Modern Seaside", "Orchid Bloom", "Candy Pop"],
     previewCollectionIds: ["modern-seaside", "orchid-bloom", "candy-pop"],
@@ -227,7 +227,7 @@ export const palettePacks: PalettePack[] = [
       method: "Instant download via checkout provider",
       timeline: "Delivered immediately after payment confirmation",
       steps: [
-        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Complete checkout via Stripe.",
         "Receive a confirmation email with a secure download link.",
         "Download the ZIP bundle — no account required.",
         "Unzip to find palette cards, wallpaper sets, prompt notes, and the mini guide.",
@@ -267,7 +267,7 @@ export const palettePacks: PalettePack[] = [
     audience: "Design system leads and developers who need a comprehensive, production-ready color token library.",
     checkoutProvider: checkoutConfig["complete-archive"].provider,
     checkoutStatus: checkoutConfig["complete-archive"].status,
-    checkoutUrl: checkoutConfig["complete-archive"].url,
+    stripePriceId: checkoutConfig["complete-archive"].stripePriceId,
     checkoutNote: checkoutConfig["complete-archive"].note,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Sunset Boulevard", "Neon After Dark"],
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "neon-after-dark"],
@@ -302,7 +302,7 @@ export const palettePacks: PalettePack[] = [
       method: "Instant download via checkout provider",
       timeline: "Delivered immediately after payment confirmation",
       steps: [
-        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Complete checkout via Stripe.",
         "Receive a confirmation email with a secure download link.",
         "Download the ZIP bundle — no account required.",
         "Unzip to find CSS variables, Tailwind tokens, JSON data, and SCSS maps for all 3,000+ colors.",
@@ -362,7 +362,7 @@ export const palettePacks: PalettePack[] = [
     audience: "SaaS builders and product designers who need ready-made light/dark paired token sets.",
     checkoutProvider: checkoutConfig["dark-mode-ui-kit"].provider,
     checkoutStatus: checkoutConfig["dark-mode-ui-kit"].status,
-    checkoutUrl: checkoutConfig["dark-mode-ui-kit"].url,
+    stripePriceId: checkoutConfig["dark-mode-ui-kit"].stripePriceId,
     checkoutNote: checkoutConfig["dark-mode-ui-kit"].note,
     previewCollections: ["Nocturne Tech", "Nordic Frost", "Monochrome Studio"],
     previewCollectionIds: ["nocturne-tech", "nordic-frost", "monochrome-studio"],
@@ -391,7 +391,7 @@ export const palettePacks: PalettePack[] = [
       method: "Instant download via checkout provider",
       timeline: "Delivered immediately after payment confirmation",
       steps: [
-        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Complete checkout via Stripe.",
         "Receive a confirmation email with a secure download link.",
         "Download the ZIP bundle — no account required.",
         "Unzip to find paired light/dark token files, Tailwind config, and the usage guide.",
@@ -432,7 +432,7 @@ export const palettePacks: PalettePack[] = [
     audience: "Designers and creators looking for fresh, seasonal color inspiration.",
     checkoutProvider: checkoutConfig["seasonal-spring-2026"].provider,
     checkoutStatus: checkoutConfig["seasonal-spring-2026"].status,
-    checkoutUrl: checkoutConfig["seasonal-spring-2026"].url,
+    stripePriceId: checkoutConfig["seasonal-spring-2026"].stripePriceId,
     checkoutNote: checkoutConfig["seasonal-spring-2026"].note,
     previewCollections: ["Orchid Bloom", "Matcha & Linen", "Sunset Boulevard"],
     previewCollectionIds: ["orchid-bloom", "matcha-linen", "sunset-boulevard"],
@@ -459,7 +459,7 @@ export const palettePacks: PalettePack[] = [
       method: "Instant download via checkout provider",
       timeline: "Delivered immediately after payment confirmation",
       steps: [
-        "Complete checkout on the provider page (Lemon Squeezy or Stripe).",
+        "Complete checkout via Stripe.",
         "Receive a confirmation email with a secure download link.",
         "Download the ZIP bundle — no account required.",
         "Unzip to find seasonal palette tokens, JSON data, and mood board notes.",
@@ -499,7 +499,7 @@ export const palettePacks: PalettePack[] = [
     audience: "Designers and developers who want everything — all 6 packs in one download at a significant discount.",
     checkoutProvider: checkoutConfig["all-access-bundle"].provider,
     checkoutStatus: checkoutConfig["all-access-bundle"].status,
-    checkoutUrl: checkoutConfig["all-access-bundle"].url,
+    stripePriceId: checkoutConfig["all-access-bundle"].stripePriceId,
     checkoutNote: checkoutConfig["all-access-bundle"].note,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Sunset Boulevard", "Matcha & Linen"],
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "matcha-linen"],
@@ -531,7 +531,7 @@ export const palettePacks: PalettePack[] = [
       method: "Instant download via checkout provider",
       timeline: "Delivered immediately after payment confirmation",
       steps: [
-        "Complete checkout on the provider page (Lemon Squeezy).",
+        "Complete checkout via Stripe.",
         "Receive a confirmation email with a secure download link.",
         "Download the mega ZIP bundle — no account required.",
         "Unzip to find organized folders for each pack with all formats included.",

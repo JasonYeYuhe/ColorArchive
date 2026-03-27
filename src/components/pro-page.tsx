@@ -5,6 +5,7 @@ import Link from "next/link";
 import { fetchSession, type AuthSession } from "@/src/lib/auth-client";
 import { proSubscriptionConfig } from "@/src/lib/checkout-config";
 import { useLocale } from "@/src/components/locale-provider";
+import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
 
 const FEATURE_ICONS = [
   (
@@ -105,13 +106,13 @@ export function ProPage() {
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-semibold">
               <span>&#10003;</span> {t("pro.youreOnPro")}
             </div>
-          ) : plan.url ? (
-            <a
-              href={plan.url}
+          ) : plan.stripePriceId ? (
+            <StripeCheckoutButton
+              priceId={plan.stripePriceId}
               className="inline-block px-8 py-3 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
             >
               {t("pro.subscribeToPro")}
-            </a>
+            </StripeCheckoutButton>
           ) : (
             <div className="space-y-3">
               <p className="text-sm text-slate-500 dark:text-slate-400">

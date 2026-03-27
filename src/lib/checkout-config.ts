@@ -1,18 +1,14 @@
 // Checkout configuration for all products.
-// All 7 products are published in Lemon Squeezy with JPY pricing and hosted checkout URLs.
-// The store is still in review while Test mode remains enabled, so treat these as checkout-ready
-// links pending store activation rather than fully public live checkout.
-// Test mode can be switched from the bottom-left toggle in the Lemon Squeezy dashboard once the store is approved.
-// For hosted product checkouts, set the Confirmation modal button link and receipt CTA to https://colorarchive.me/thanks/
-// Do not assume a product-level cancel redirect exists in the current hosted product UI.
-// To switch providers: update `provider` and `url` per entry below.
-export type CheckoutProvider = "Lemon Squeezy" | "Stripe Payment Link";
+// All products are configured with Stripe Checkout (JPY pricing).
+// To switch providers: update `provider` and `stripePriceId` per entry below.
+
+export type CheckoutProvider = "Stripe";
 
 export interface CheckoutConfigEntry {
   note: string;
   provider: CheckoutProvider;
   status: "ready" | "pending";
-  url: string | null;
+  stripePriceId: string;
 }
 
 export interface WaitlistConfig {
@@ -28,65 +24,67 @@ export interface CheckoutFlowConfig {
 }
 
 export const checkoutConfig = {
-  "brand-starter-kit": {
-    provider: "Lemon Squeezy",
-    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/99e20a70-b3b6-4cc6-95c0-3eda68e1bfe4",
+  "palette-pack-vol-1": {
+    provider: "Stripe",
+    stripePriceId: "price_1TFR1pGzX2t5YKIzymEBf5Wc",
     status: "ready",
-    note: "Brand Color Starter Kit — published in Lemon Squeezy, pending store activation.",
+    note: "Palette Pack Vol. 1 — ¥599",
+  },
+  "brand-starter-kit": {
+    provider: "Stripe",
+    stripePriceId: "price_1TFR1qGzX2t5YKIz01JvhSc1",
+    status: "ready",
+    note: "Brand Color Starter Kit — ¥1,499",
   },
   "content-creator-bundle": {
-    provider: "Lemon Squeezy",
-    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/3e147f06-4f49-48f2-b404-a92ed4d2b905",
+    provider: "Stripe",
+    stripePriceId: "price_1TFR1qGzX2t5YKIzNSZljxBi",
     status: "ready",
-    note: "Creator Bundle — published in Lemon Squeezy, pending store activation.",
-  },
-  "palette-pack-vol-1": {
-    provider: "Lemon Squeezy",
-    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/99c655d3-7408-4cbd-b4ed-b04fa15af1f6",
-    status: "ready",
-    note: "Palette Pack Vol. 1 — published in Lemon Squeezy, pending store activation.",
+    note: "Creator Bundle — ¥999",
   },
   "complete-archive": {
-    provider: "Lemon Squeezy",
-    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/78609f8d-1a2b-45da-ba39-af50f8fa0795",
+    provider: "Stripe",
+    stripePriceId: "price_1TFR1rGzX2t5YKIzzq74qnH8",
     status: "ready",
-    note: "Complete Archive Token Set — published in Lemon Squeezy, pending store activation.",
+    note: "Complete Archive Token Set — ¥2,499",
   },
   "dark-mode-ui-kit": {
-    provider: "Lemon Squeezy",
-    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/5dca2881-8d8d-457e-8b74-89a1444ef517",
+    provider: "Stripe",
+    stripePriceId: "price_1TFR1rGzX2t5YKIzmHmxxJZI",
     status: "ready",
-    note: "Dark Mode UI Kit — published in Lemon Squeezy, pending store activation.",
+    note: "Dark Mode UI Kit — ¥999",
   },
   "seasonal-spring-2026": {
-    provider: "Lemon Squeezy",
-    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/b10990ee-3a5c-430c-b6bf-0bfbb2d37d6d",
+    provider: "Stripe",
+    stripePriceId: "price_1TFR1sGzX2t5YKIzBu5zuMSJ",
     status: "ready",
-    note: "Seasonal: Spring 2026 — published in Lemon Squeezy, pending store activation.",
+    note: "Seasonal: Spring 2026 — ¥299",
   },
   "all-access-bundle": {
-    provider: "Lemon Squeezy",
-    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/320433d4-537a-4f5e-b1ca-40e3cf0ea97c",
+    provider: "Stripe",
+    stripePriceId: "price_1TFR1sGzX2t5YKIzUvpoOKZp",
     status: "ready",
-    note: "All Access Bundle — published in Lemon Squeezy, pending store activation.",
+    note: "All Access Bundle — ¥3,999",
   },
 } satisfies Record<string, CheckoutConfigEntry>;
+
+export type CheckoutProductId = keyof typeof checkoutConfig;
 
 export const proSubscriptionConfig = {
   monthly: {
     price: "¥499",
     period: "month",
     trialDays: 3,
-    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/59d0c0b3-a368-440b-942c-0c53a8f3d64b",
-    note: "Pro monthly subscription — published in Lemon Squeezy, pending store activation.",
+    stripePriceId: "price_1TFR1tGzX2t5YKIzi3MGUVxy",
+    note: "Pro monthly subscription",
   },
   yearly: {
     price: "¥3,999",
     period: "year",
     trialDays: 3,
     savings: "33%",
-    url: "https://colorarchive.lemonsqueezy.com/checkout/buy/72fe6359-636e-4675-a0d6-c03b70154b68",
-    note: "Pro yearly subscription — published in Lemon Squeezy, pending store activation.",
+    stripePriceId: "price_1TFR1tGzX2t5YKIzlj8hT5za",
+    note: "Pro yearly subscription",
   },
 } as const;
 

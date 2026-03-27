@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
 import type { CheckoutFlowConfig } from "@/src/lib/checkout-config";
 import type { PalettePack } from "@/src/lib/palette-packs";
+import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
 
 interface CancelPageProps {
   checkoutFlow: CheckoutFlowConfig;
@@ -40,7 +41,7 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
           </div>
         </section>
 
-        {starterPack?.checkoutUrl ? (
+        {starterPack?.stripePriceId ? (
           <section className="rounded-[1.75rem] border border-amber-200/60 bg-amber-50/60 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -59,12 +60,12 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
                 </p>
               </div>
               <div className="flex shrink-0 flex-wrap gap-2">
-                <a
-                  href={`${starterPack.checkoutUrl}?discount=FIRSTPACK`}
+                <StripeCheckoutButton
+                  priceId={starterPack.stripePriceId}
                   className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
                 >
                   Try {starterPack.title} — {starterPack.priceHint}
-                </a>
+                </StripeCheckoutButton>
                 <Link
                   href="/packs/"
                   className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
@@ -88,12 +89,14 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
               <div className="mt-2 text-sm font-medium text-neutral-500">{starterPack.priceHint}</div>
               <p className="mt-3 text-sm leading-6 text-neutral-600">{starterPack.detail}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                <a
-                  href={`${starterPack.checkoutUrl}?discount=FIRSTPACK`}
-                  className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-                >
-                  Buy with FIRSTPACK
-                </a>
+                {starterPack.stripePriceId ? (
+                  <StripeCheckoutButton
+                    priceId={starterPack.stripePriceId}
+                    className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+                  >
+                    Buy with FIRSTPACK
+                  </StripeCheckoutButton>
+                ) : null}
                 <Link
                   href={`/packs/${starterPack.id}/`}
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
@@ -142,13 +145,13 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
               <div className="mt-2 text-sm font-medium text-emerald-700">{bundlePack.priceHint}</div>
               <p className="mt-3 text-sm leading-6 text-neutral-600">{bundlePack.detail}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {bundlePack.checkoutUrl ? (
-                  <a
-                    href={bundlePack.checkoutUrl}
+                {bundlePack.stripePriceId ? (
+                  <StripeCheckoutButton
+                    priceId={bundlePack.stripePriceId}
                     className="rounded-full border border-emerald-700/10 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                   >
                     {t("cancel.bundle.cta")}
-                  </a>
+                  </StripeCheckoutButton>
                 ) : null}
                 <Link
                   href={`/packs/${bundlePack.id}/`}

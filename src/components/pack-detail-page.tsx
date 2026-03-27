@@ -7,6 +7,7 @@ import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForPack } from "@/src/lib/guides";
 import { licenseTiers } from "@/src/lib/license-tiers";
 import { palettePacks, parsePriceYen, type PalettePack } from "@/src/lib/palette-packs";
+import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
 
 interface PackDetailPageProps {
   pack: PalettePack;
@@ -88,15 +89,13 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
                   </div>
                 </div>
               ) : null}
-              {pack.checkoutUrl ? (
-                <a
-                  href={pack.checkoutUrl}
-                  target="_blank"
-                  rel="noreferrer"
+              {pack.stripePriceId ? (
+                <StripeCheckoutButton
+                  priceId={pack.stripePriceId}
                   className={`${isAllAccessBundle ? "sm:col-span-3" : "sm:col-span-2"} flex items-center justify-center gap-2 rounded-[1.25rem] bg-neutral-950 px-6 py-4 text-sm font-semibold text-white transition hover:bg-neutral-800`}
                 >
                   {isAllAccessBundle ? `${t("packDetail.getAllPacks")} ${pack.priceHint}` : `${t("packDetail.buyNow")} ${pack.title}`}
-                </a>
+                </StripeCheckoutButton>
               ) : null}
             </div>
           </div>
@@ -360,7 +359,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
           </aside>
         </section>
 
-        {pack.checkoutUrl ? (
+        {pack.stripePriceId ? (
           <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
               {t("packDetail.readyToDownload")}
@@ -370,14 +369,12 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
               {pack.priceHint} · {pack.checkoutProvider} · {t("packDetail.instantDownload")}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <a
-                href={pack.checkoutUrl}
-                target="_blank"
-                rel="noreferrer"
+              <StripeCheckoutButton
+                priceId={pack.stripePriceId}
                 className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
               >
                 {isAllAccessBundle ? t("packDetail.getFullCatalog") : t("packDetail.buyNow")}
-              </a>
+              </StripeCheckoutButton>
               <Link
                 href={isAllAccessBundle ? "/packs/" : "/free-pack/"}
                 className="rounded-full border border-white/16 px-5 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
