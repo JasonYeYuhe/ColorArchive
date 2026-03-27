@@ -4,9 +4,12 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { LandingGuide } from "@/src/lib/guides";
 
+const GUIDES_PER_PAGE = 24;
+
 export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(GUIDES_PER_PAGE);
 
   const categories = useMemo(() => {
     const cats = new Set<string>();
@@ -34,16 +37,38 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
   const popularGuides = [...guides].sort((a, b) => b.priority - a.priority).slice(0, 4);
 
   const groupedFiltered = useMemo(() => {
-    return Object.entries(
+    const allGroups = Object.entries(
       filteredGuides.reduce<Record<string, LandingGuide[]>>((groups, guide) => {
         groups[guide.category] ??= [];
         groups[guide.category].push(guide);
         return groups;
       }, {}),
     );
-  }, [filteredGuides]);
+    // Paginate: count guides across groups up to visibleCount
+    let count = 0;
+    const result: [string, LandingGuide[]][] = [];
+    for (const [cat, items] of allGroups) {
+      if (count >= visibleCount) break;
+      const remaining = visibleCount - count;
+      const slice = items.slice(0, remaining);
+      result.push([cat, slice]);
+      count += slice.length;
+    }
+    return result;
+  }, [filteredGuides, visibleCount]);
 
+  const hasMore = filteredGuides.length > visibleCount;
   const showPopular = !search.trim() && !activeCategory;
+
+  // Reset pagination when filters change
+  const handleSearch = (value: string) => {
+    setSearch(value);
+    setVisibleCount(GUIDES_PER_PAGE);
+  };
+  const handleCategory = (cat: string | null) => {
+    setActiveCategory(cat);
+    setVisibleCount(GUIDES_PER_PAGE);
+  };
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -69,14 +94,14 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
               <input
                 type="search"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => handleSearch(e.target.value)}
                 placeholder="Search guides by keyword, tag, or topic..."
                 className="w-full max-w-lg rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
               />
               <div className="flex flex-wrap gap-1.5">
                 <button
                   type="button"
-                  onClick={() => setActiveCategory(null)}
+                  onClick={() => handleCategory(null)}
                   className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${!activeCategory ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
                 >
                   All ({guides.length})
@@ -85,7 +110,7 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
                   <button
                     key={cat}
                     type="button"
-                    onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
+                    onClick={() => handleCategory(activeCategory === cat ? null : cat)}
                     className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${activeCategory === cat ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
                   >
                     {cat}
@@ -188,7 +213,7 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
             <p className="mt-2 text-sm text-neutral-500">Try a different keyword or clear the filter.</p>
             <button
               type="button"
-              onClick={() => { setSearch(""); setActiveCategory(null); }}
+              onClick={() => { handleSearch(""); handleCategory(null); }}
               className="mt-4 rounded-full bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
             >
               Clear filters
@@ -263,6 +288,18 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
                 </div>
               </div>
             ))}
+
+            {hasMore && (
+              <div className="flex justify-center pt-2">
+                <button
+                  type="button"
+                  onClick={() => setVisibleCount((c) => c + GUIDES_PER_PAGE)}
+                  className="rounded-full border border-black/8 bg-white px-6 py-3 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+                >
+                  Load more guides ({filteredGuides.length - visibleCount} remaining)
+                </button>
+              </div>
+            )}
           </section>
         )}
 

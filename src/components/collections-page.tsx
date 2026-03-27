@@ -68,9 +68,12 @@ function AddCollectionToPaletteButton({ collection }: { collection: ColorCollect
   );
 }
 
+const COLLECTIONS_PER_PAGE = 30;
+
 export function CollectionsPage({ collections }: CollectionsPageProps) {
   const [activeCollectionId, setActiveCollectionId] = useState<string>(collections[0]?.id ?? "");
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [sidebarCount, setSidebarCount] = useState(COLLECTIONS_PER_PAGE);
 
   const allTags = useMemo(() => {
     const tags = new Set<string>();
@@ -148,7 +151,7 @@ export function CollectionsPage({ collections }: CollectionsPageProps) {
             <div className="mt-3 flex flex-wrap gap-1.5">
               <button
                 type="button"
-                onClick={() => setActiveTag(null)}
+                onClick={() => { setActiveTag(null); setSidebarCount(COLLECTIONS_PER_PAGE); }}
                 className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${!activeTag ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
               >
                 All
@@ -157,7 +160,7 @@ export function CollectionsPage({ collections }: CollectionsPageProps) {
                 <button
                   key={tag}
                   type="button"
-                  onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+                  onClick={() => { setActiveTag(activeTag === tag ? null : tag); setSidebarCount(COLLECTIONS_PER_PAGE); }}
                   className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${activeTag === tag ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
                 >
                   {tag}
@@ -165,7 +168,7 @@ export function CollectionsPage({ collections }: CollectionsPageProps) {
               ))}
             </div>
             <div className="mt-4 space-y-3">
-              {filteredCollections.map((collection) => {
+              {filteredCollections.slice(0, sidebarCount).map((collection) => {
                 const isActive = collection.id === activeCollection.id;
 
                 return (
@@ -195,6 +198,15 @@ export function CollectionsPage({ collections }: CollectionsPageProps) {
                   </button>
                 );
               })}
+              {filteredCollections.length > sidebarCount && (
+                <button
+                  type="button"
+                  onClick={() => setSidebarCount((c) => c + COLLECTIONS_PER_PAGE)}
+                  className="w-full rounded-[1.4rem] border border-dashed border-black/12 px-4 py-3 text-center text-sm font-medium text-neutral-500 transition hover:border-neutral-950 hover:text-neutral-950"
+                >
+                  Show more ({filteredCollections.length - sidebarCount} remaining)
+                </button>
+              )}
             </div>
           </aside>
 

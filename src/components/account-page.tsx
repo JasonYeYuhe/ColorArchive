@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useAuth } from "@/src/components/auth-provider";
 import { fetchUsage, type UsageStats, API_URL } from "@/src/lib/auth-client";
@@ -105,6 +105,105 @@ function ApiKeySection() {
   );
 }
 
+interface SubscriptionInfo {
+  plan: string;
+  status: string;
+  currentPeriodEnd: string | null;
+  cancelAtPeriodEnd: boolean;
+  stripeCustomerId: string | null;
+}
+
+function SubscriptionSection() {
+  const { t } = useLocale();
+  const [sub, setSub] = useState<SubscriptionInfo | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [portalLoading, setPortalLoading] = useState(false);
+
+  useEffect(() => {
+    fetch(`${API_URL}/me/subscription`, { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => setSub(data))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const openPortal = useCallback(async () => {
+    if (!sub?.stripeCustomerId) return;
+    setPortalLoading(true);
+    try {
+      const res = await fetch("/api/billing-portal/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ customerId: sub.stripeCustomerId }),
+      });
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+    } catch {
+      // ignore
+    } finally {
+      setPortalLoading(false);
+    }
+  }, [sub]);
+
+  if (loading) {
+    return (
+      <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6">
+        <div className="h-16 bg-slate-100 dark:bg-white/5 rounded-xl animate-pulse" />
+      </div>
+    );
+  }
+
+  if (!sub) return null;
+
+  const renewDate = sub.currentPeriodEnd
+    ? new Date(typeof sub.currentPeriodEnd === "number" ? sub.currentPeriodEnd * 1000 : sub.currentPeriodEnd).toLocaleDateString()
+    : null;
+
+  return (
+    <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6">
+      <h2 className="text-sm font-semibold text-slate-800 dark:text-white mb-3">Subscription</h2>
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-slate-500 dark:text-slate-400">Plan</span>
+          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 capitalize">{sub.plan}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-slate-500 dark:text-slate-400">Status</span>
+          <span className={`text-xs font-semibold capitalize ${
+            sub.status === "active" || sub.status === "trialing"
+              ? "text-emerald-600 dark:text-emerald-400"
+              : "text-orange-600 dark:text-orange-400"
+          }`}>
+            {sub.status}
+          </span>
+        </div>
+        {renewDate && (
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-slate-500 dark:text-slate-400">
+              {sub.cancelAtPeriodEnd ? "Expires" : "Renews"}
+            </span>
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{renewDate}</span>
+          </div>
+        )}
+        {sub.cancelAtPeriodEnd && (
+          <p className="text-xs text-orange-600 dark:text-orange-400 pt-1">
+            Your subscription will not renew. You retain access until the expiry date.
+          </p>
+        )}
+      </div>
+      {sub.stripeCustomerId && (
+        <button
+          onClick={openPortal}
+          disabled={portalLoading}
+          className="mt-4 w-full py-2.5 text-xs font-semibold rounded-xl border border-slate-200 dark:border-white/15 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors disabled:opacity-50"
+        >
+          {portalLoading ? "Opening..." : "Manage subscription"}
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function AccountPage() {
   const { t } = useLocale();
   const { user, status, tier, logout } = useAuth();
@@ -184,6 +283,9 @@ export function AccountPage() {
             </p>
           )}
         </div>
+
+        {/* Subscription management (Pro users) */}
+        {isPro && <SubscriptionSection />}
 
         {/* Usage stats */}
         {loading ? (
