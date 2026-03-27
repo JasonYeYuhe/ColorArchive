@@ -68,6 +68,13 @@ export function SiteFooter() {
             <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
             {t("footer.readyForExport")}
           </div>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs uppercase tracking-[0.16em] text-neutral-400 sm:justify-end">
+            <Link href="/privacy/" className="transition hover:text-neutral-600 dark:hover:text-neutral-300">Privacy</Link>
+            <span>·</span>
+            <Link href="/terms/" className="transition hover:text-neutral-600 dark:hover:text-neutral-300">Terms</Link>
+            <span>·</span>
+            <Link href="/commerce-disclosure/" className="transition hover:text-neutral-600 dark:hover:text-neutral-300">Commerce Disclosure</Link>
+          </div>
           <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">
             colorarchive.me · © 2026 ColorArchive
           </div>

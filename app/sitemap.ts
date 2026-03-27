@@ -356,6 +356,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    {
+      url: "https://colorarchive.me/commerce-disclosure/",
+      lastModified: BUILD_DATE,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
   ];
 
   const colorRoutes: MetadataRoute.Sitemap = colors.map((color) => ({

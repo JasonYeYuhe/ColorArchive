@@ -1,4 +1,4 @@
-const LAST_UPDATED = "March 22, 2026";
+const LAST_UPDATED = "March 27, 2026";
 
 const sections = [
   {
@@ -27,7 +27,7 @@ We reserve the right to suspend or terminate accounts that violate these terms.`
   },
   {
     title: "4. Purchases and Refunds",
-    content: `Digital products are sold through our checkout provider (Lemon Squeezy). All purchases are subject to Lemon Squeezy's terms of service.
+    content: `Digital products are sold through our checkout provider (Stripe). All purchases are subject to Stripe's terms of service.
 
 - **Digital products**: All sales of digital downloads are final. Due to the nature of digital goods, refunds are generally not available once the product has been delivered.
 - **Exceptions**: If you experience a technical issue preventing you from accessing a purchased product, contact us and we will work to resolve it or issue a refund at our discretion.
