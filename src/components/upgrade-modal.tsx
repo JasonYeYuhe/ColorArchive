@@ -21,12 +21,13 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" role="presentation" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-6 space-y-5">
+      <div className="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-6 space-y-5" role="dialog" aria-modal="true" aria-labelledby="upgrade-modal-title">
         <button
           onClick={onClose}
+          aria-label="Close"
           className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg"
         >
           &times;
@@ -40,7 +41,7 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
         </div>
 
         <div className="text-center">
-          <h3 className="text-lg font-bold text-slate-900">
+          <h3 id="upgrade-modal-title" className="text-lg font-bold text-slate-900">
             {isAnonymous ? "Sign in to continue" : "Upgrade to Pro"}
           </h3>
           {typeof used === "number" && typeof limit === "number" && (

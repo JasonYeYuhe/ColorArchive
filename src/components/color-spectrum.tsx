@@ -132,6 +132,7 @@ export function ColorSpectrum() {
             max={100}
             value={saturation}
             onChange={(e) => setSaturation(Number(e.target.value))}
+            aria-label="Saturation"
             className="h-1.5 w-36 cursor-pointer appearance-none rounded-full bg-neutral-200 accent-neutral-900 sm:w-48 dark:bg-neutral-700 dark:accent-white"
           />
         </label>

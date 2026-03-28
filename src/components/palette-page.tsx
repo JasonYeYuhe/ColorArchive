@@ -8,6 +8,7 @@ import { ShareOnXButton } from "@/src/components/share-link-button";
 import { ProGate } from "@/src/components/pro-gate";
 import { hexToRgb } from "@/src/lib/color-utils";
 import { colors as allColors } from "@/src/data/colors";
+import { CopyButton } from "@/src/components/copy-button";
 import {
   addToPalette,
   addManyToPalette,
@@ -207,35 +208,6 @@ function DownloadPaletteSvgButton({ colors }: { colors: { id: string; name: stri
   return (
     <button type="button" onClick={handleDownload} className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white">
       Download SVG
-    </button>
-  );
-}
-
-function CopyButton({ value, label }: { value: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (!copied) return undefined;
-    const t = window.setTimeout(() => setCopied(false), 1400);
-    return () => window.clearTimeout(t);
-  }, [copied]);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-    } catch {
-      setCopied(false);
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={() => void handleCopy()}
-      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
-    >
-      {copied ? `${label} copied` : `Copy ${label}`}
     </button>
   );
 }

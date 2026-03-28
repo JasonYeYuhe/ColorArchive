@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
 import {
   colorSeasons,
@@ -10,33 +11,6 @@ import {
   type ColorSeason,
   type SeasonMood,
 } from "@/src/lib/color-seasons";
-
-function CopyButton({ value, label }: { value: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      timerRef.current = setTimeout(() => setCopied(false), 1400);
-    } catch {
-      setCopied(false);
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="font-mono text-[10px] uppercase tracking-wider text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
-      title={`Copy ${value}`}
-    >
-      {copied ? "✓" : label}
-    </button>
-  );
-}
 
 function SeasonCard({
   season,
@@ -128,7 +102,7 @@ function SeasonCard({
                 {color.name}
               </p>
               <div className="flex items-center gap-1">
-                <CopyButton value={color.hex} label={color.hex.toUpperCase()} />
+                <CopyButton value={color.hex} label={color.hex.toUpperCase()} variant="compact" />
               </div>
             </div>
           ))}

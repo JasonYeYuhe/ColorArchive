@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import { CopyButton } from "@/src/components/copy-button";
 import {
   generateBrandPalette,
   buildBrandCssVariables,
@@ -14,26 +15,6 @@ import {
 } from "@/src/lib/brand-palette";
 
 // ─── Small helpers ──────────────────────────────────────────────────────────
-
-function CopyButton({ value, label }: { value: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-  useEffect(() => {
-    if (!copied) return undefined;
-    const id = window.setTimeout(() => setCopied(false), 1400);
-    return () => window.clearTimeout(id);
-  }, [copied]);
-  return (
-    <button
-      type="button"
-      onClick={async () => {
-        try { await navigator.clipboard.writeText(value); setCopied(true); } catch { /* noop */ }
-      }}
-      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
-    >
-      {copied ? `${label} Copied` : `Copy ${label}`}
-    </button>
-  );
-}
 
 function wcagBadge(ratio: number) {
   const label = wcagLabel(ratio);

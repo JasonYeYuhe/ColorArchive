@@ -5,6 +5,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { generateColorName, nearestColor } from "@/src/lib/color-naming";
 import { colors } from "@/src/data/colors";
+import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
 
 /* ─── Constants ─────────────────────────────────────────────────────────────── */
@@ -26,28 +27,6 @@ const colorCandidates = colors.slice(0, 3066).map((c) => ({
   name: c.name,
   slug: c.id,
 }));
-
-/* ─── Copy Button ────────────────────────────────────────────────────────────── */
-
-function CopyButton({ value, label }: { value: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-  useEffect(() => {
-    if (!copied) return undefined;
-    const t = window.setTimeout(() => setCopied(false), 1400);
-    return () => window.clearTimeout(t);
-  }, [copied]);
-  return (
-    <button
-      type="button"
-      onClick={async () => {
-        try { await navigator.clipboard.writeText(value); setCopied(true); } catch { /* ignore */ }
-      }}
-      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
-    >
-      {copied ? "Copied!" : `Copy ${label}`}
-    </button>
-  );
-}
 
 /* ─── Hex Input ──────────────────────────────────────────────────────────────── */
 

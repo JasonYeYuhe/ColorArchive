@@ -172,6 +172,7 @@ export function MeshGradientPage() {
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Base Color</p>
             <div className="flex items-center gap-2">
               <input type="color" value={base} onChange={(e) => setBase(e.target.value)}
+                aria-label="Base color"
                 className="w-8 h-8 rounded-lg cursor-pointer border border-slate-200" />
               <span className="font-mono text-xs text-slate-600 dark:text-slate-300">{base.toUpperCase()}</span>
             </div>
@@ -199,6 +200,7 @@ export function MeshGradientPage() {
                 <div className="flex items-center gap-2">
                   <input type="color" value={s.color}
                     onChange={(e) => updateStop(activeStop, { color: e.target.value })}
+                    aria-label="Stop color"
                     className="w-8 h-8 rounded-lg cursor-pointer border border-slate-200" />
                   <span className="font-mono text-xs text-slate-600 dark:text-slate-300">{s.color.toUpperCase()}</span>
                 </div>
@@ -215,6 +217,7 @@ export function MeshGradientPage() {
                     <input
                       type="range" min={min} max={max} value={s[key]}
                       onChange={(e) => updateStop(activeStop, { [key]: Number(e.target.value) })}
+                      aria-label={label}
                       className="w-full accent-neutral-950 dark:accent-white"
                     />
                   </div>

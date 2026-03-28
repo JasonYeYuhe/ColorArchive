@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/src/components/site-header";
+import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ColorStoryPage } from "@/src/components/color-story-page";
 import stories from "@/src/data/color-stories.json";
 
@@ -53,9 +54,35 @@ export default async function StoryRoute({
   const story = (stories as Record<string, Story>)[slug];
   if (!story) notFound();
 
+  const storyStructuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: story.headline,
+      description: story.summary,
+      url: `https://colorarchive.me/stories/${slug}/`,
+      publisher: {
+        "@type": "Organization",
+        name: "ColorArchive",
+        url: "https://colorarchive.me",
+        logo: "https://colorarchive.me/og-image-v1.png",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
+        { "@type": "ListItem", position: 2, name: "Color Stories", item: "https://colorarchive.me/stories/" },
+        { "@type": "ListItem", position: 3, name: story.name, item: `https://colorarchive.me/stories/${slug}/` },
+      ],
+    },
+  ];
+
   return (
     <>
       <SiteHeader currentPath="/stories" />
+      <StructuredDataScript data={storyStructuredData} />
       <ColorStoryPage story={story} />
     </>
   );

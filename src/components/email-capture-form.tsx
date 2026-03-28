@@ -6,8 +6,7 @@ import { useState } from "react";
 import { track } from "@/src/lib/track";
 import { useLocale } from "@/src/components/locale-provider";
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+import { API_URL } from "@/src/lib/api-config";
 
 type State = "idle" | "loading" | "success" | "error";
 
@@ -98,6 +97,7 @@ export function EmailCaptureForm({
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder={resolvedPlaceholder}
+        aria-label="Email address"
         className="h-9 rounded-full border border-black/10 bg-white px-4 text-sm text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/20"
       />
       <button

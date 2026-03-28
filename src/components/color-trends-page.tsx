@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
 import {
   colorTrends2026,
@@ -19,33 +20,6 @@ const ALL_CATEGORIES: TrendCategory[] = [
   "editorial",
   "universal",
 ];
-
-function CopyButton({ hex }: { hex: string }) {
-  const [copied, setCopied] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(hex);
-      setCopied(true);
-      timerRef.current = setTimeout(() => setCopied(false), 1400);
-    } catch {
-      setCopied(false);
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="font-mono text-[10px] uppercase tracking-wider text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
-      title={`Copy ${hex}`}
-    >
-      {copied ? "✓ Copied" : hex}
-    </button>
-  );
-}
 
 function TrendCard({ trend, locale }: { trend: ColorTrend; locale: string }) {
   const [expanded, setExpanded] = useState(false);
@@ -120,7 +94,7 @@ function TrendCard({ trend, locale }: { trend: ColorTrend; locale: string }) {
                 <div className="truncate text-[10px] font-medium text-neutral-700 dark:text-neutral-300">
                   {color.name}
                 </div>
-                <CopyButton hex={color.hex} />
+                <CopyButton value={color.hex} label={color.hex} variant="compact" copiedLabel="\u2713 Copied" />
               </div>
             </div>
           ))}

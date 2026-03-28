@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
 import {
   famousPalettes,
@@ -20,33 +21,6 @@ const ALL_CATEGORIES: FamousPaletteCategory[] = [
 
 function hexToSearch(hex: string): string {
   return hex.replace("#", "").toLowerCase();
-}
-
-function CopyButton({ value, label }: { value: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      timerRef.current = setTimeout(() => setCopied(false), 1400);
-    } catch {
-      setCopied(false);
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="font-mono text-[10px] uppercase tracking-wider text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
-      title={`Copy ${value}`}
-    >
-      {copied ? "✓" : label}
-    </button>
-  );
 }
 
 function PaletteCard({ palette, locale }: { palette: FamousPalette; locale: string }) {
@@ -118,7 +92,7 @@ function PaletteCard({ palette, locale }: { palette: FamousPalette; locale: stri
                 className="h-3 w-3 shrink-0 rounded-full border border-black/10 dark:border-white/10"
                 style={{ backgroundColor: color.hex }}
               />
-              <CopyButton value={color.hex} label={color.hex} />
+              <CopyButton value={color.hex} label={color.hex} variant="compact" />
             </a>
           ))}
         </div>

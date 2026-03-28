@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
+import { CopyButton } from "@/src/components/copy-button";
 import { generateColorFromWord } from "@/src/lib/word-color";
 
 const PROMPT_SUGGESTIONS = [
@@ -13,38 +14,6 @@ const PROMPT_SUGGESTIONS = [
   "soft archive",
   "electric plum",
 ] as const;
-
-function CopyButton({ value, label }: { value: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (!copied) {
-      return undefined;
-    }
-
-    const timeoutId = window.setTimeout(() => setCopied(false), 1400);
-    return () => window.clearTimeout(timeoutId);
-  }, [copied]);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-    } catch {
-      setCopied(false);
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
-    >
-      {copied ? `${label} copied` : `Copy ${label}`}
-    </button>
-  );
-}
 
 export function WordColorGeneratorPage() {
   const router = useRouter();

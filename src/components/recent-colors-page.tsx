@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ColorGrid } from "@/src/components/color-grid";
+import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
 import { RecommendedColorsSection } from "@/src/components/recommended-colors-section";
 import { clearRecentColors, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
@@ -10,38 +11,6 @@ import type { ColorRecord } from "@/src/types/color";
 
 interface RecentColorsPageProps {
   colors: readonly ColorRecord[];
-}
-
-function CopyButton({ label, value }: { label: string; value: string }) {
-  const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (!copied) {
-      return undefined;
-    }
-
-    const timeoutId = window.setTimeout(() => setCopied(false), 1400);
-    return () => window.clearTimeout(timeoutId);
-  }, [copied]);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-    } catch {
-      setCopied(false);
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
-    >
-      {copied ? `${label} copied` : `Copy ${label}`}
-    </button>
-  );
 }
 
 export function RecentColorsPage({ colors }: RecentColorsPageProps) {

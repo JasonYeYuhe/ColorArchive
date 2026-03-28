@@ -1,7 +1,27 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/src/components/site-header";
+import { StructuredDataScript } from "@/src/components/structured-data-script";
 import stories from "@/src/data/color-stories.json";
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Color Stories | ColorArchive",
+    description:
+      "Explore the history, psychology, and cultural significance of every color family. From the passion of Red to the calm of Teal.",
+    url: "https://colorarchive.me/stories/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
+      { "@type": "ListItem", position: 2, name: "Color Stories", item: "https://colorarchive.me/stories/" },
+    ],
+  },
+];
 
 export const metadata: Metadata = {
   title: { absolute: "Color Stories | ColorArchive" },
@@ -30,6 +50,7 @@ export default function StoriesIndexRoute() {
   return (
     <>
       <SiteHeader currentPath="/stories" />
+      <StructuredDataScript data={structuredData} />
       <main className="min-h-screen bg-white dark:bg-neutral-950">
         <section className="max-w-2xl mx-auto px-4 pt-12 pb-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">Editorial</p>

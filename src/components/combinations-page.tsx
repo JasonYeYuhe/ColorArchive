@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
 import type { ColorCombination, HarmonyType } from "@/src/lib/combinations";
 
@@ -18,32 +19,6 @@ const HARMONY_LABELS: Record<HarmonyType, string> = {
   monochromatic: "Monochromatic",
   custom: "Custom",
 };
-
-function CopyButton({ hex }: { hex: string }) {
-  const [copied, setCopied] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(hex);
-      setCopied(true);
-      timerRef.current = setTimeout(() => setCopied(false), 1400);
-    } catch {
-      setCopied(false);
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="font-mono text-[10px] uppercase tracking-wider text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
-    >
-      {copied ? "✓" : hex}
-    </button>
-  );
-}
 
 function CombinationCard({ combo }: { combo: ColorCombination }) {
   return (
@@ -93,7 +68,7 @@ function CombinationCard({ combo }: { combo: ColorCombination }) {
               className="h-3 w-3 rounded-full border border-black/10 dark:border-white/10"
               style={{ backgroundColor: color.hex }}
             />
-            <CopyButton hex={color.hex} />
+            <CopyButton value={color.hex} label={color.hex} variant="compact" />
           </Link>
         ))}
       </div>

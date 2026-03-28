@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
 import {
   colorDecades,
@@ -9,33 +10,6 @@ import {
   type ColorDecade,
   type DecadeMovement,
 } from "@/src/lib/color-decades";
-
-function CopyButton({ value, label }: { value: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      timerRef.current = setTimeout(() => setCopied(false), 1400);
-    } catch {
-      setCopied(false);
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="font-mono text-[10px] uppercase tracking-wider text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
-      title={`Copy ${value}`}
-    >
-      {copied ? "✓" : label}
-    </button>
-  );
-}
 
 function DecadeCard({
   decade,
@@ -111,7 +85,7 @@ function DecadeCard({
                 <p className="truncate text-[11px] font-medium text-neutral-700 dark:text-neutral-300">
                   {color.name}
                 </p>
-                <CopyButton value={color.hex} label={color.hex} />
+                <CopyButton value={color.hex} label={color.hex} variant="compact" />
               </div>
             </div>
           ))}

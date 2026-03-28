@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { CopyButton } from "@/src/components/copy-button";
 
 /* ─── CSS Named Colors Data ──────────────────────────────────────────────────── */
 
@@ -211,27 +212,6 @@ function isLight(hex: string): boolean {
   return (0.299 * r + 0.587 * g + 0.114 * b) > 128;
 }
 
-function CopyButton({ text, label }: { text: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
-  const handleCopy = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      timerRef.current = setTimeout(() => setCopied(false), 1400);
-    } catch { /* ignore */ }
-  }, [text]);
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="rounded border border-black/8 bg-neutral-50 px-2 py-0.5 font-mono text-[10px] text-neutral-600 transition hover:bg-neutral-900 hover:text-white dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
-    >
-      {copied ? "✓" : label}
-    </button>
-  );
-}
 
 function ColorCard({ color }: { color: CssColor }) {
   const [hovered, setHovered] = useState(false);
@@ -252,8 +232,8 @@ function ColorCard({ color }: { color: CssColor }) {
       >
         {hovered && color.hex.length <= 7 && (
           <div className={`absolute inset-0 flex items-center justify-center gap-1.5 bg-black/10`}>
-            <CopyButton text={color.name} label="name" />
-            <CopyButton text={color.hex} label="hex" />
+            <CopyButton value={color.name} label="name" variant="compact" className="rounded border border-black/8 bg-neutral-50 px-2 py-0.5 font-mono text-[10px] text-neutral-600 transition hover:bg-neutral-900 hover:text-white dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950" />
+            <CopyButton value={color.hex} label="hex" variant="compact" className="rounded border border-black/8 bg-neutral-50 px-2 py-0.5 font-mono text-[10px] text-neutral-600 transition hover:bg-neutral-900 hover:text-white dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950" />
           </div>
         )}
       </div>

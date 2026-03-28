@@ -1,29 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-
-// ─── Copy button ─────────────────────────────────────────────────────────────
-
-function CopyButton({ value, label }: { value: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
-  return (
-    <button
-      type="button"
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(value);
-          setCopied(true);
-          timerRef.current = setTimeout(() => setCopied(false), 1400);
-        } catch { /* noop */ }
-      }}
-      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
-    >
-      {copied ? "Copied" : label}
-    </button>
-  );
-}
+import { CopyButton } from "@/src/components/copy-button";
 
 // ─── Try-it panel ────────────────────────────────────────────────────────────
 
@@ -70,7 +48,7 @@ function TryIt({ baseUrl }: { baseUrl: string }) {
       {result && (
         <div className="relative">
           <div className="absolute right-3 top-3">
-            <CopyButton value={result} label="Copy" />
+            <CopyButton value={result} label="Copy" variant="compact" copiedLabel="Copied" className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950" />
           </div>
           <pre className="max-h-80 overflow-auto p-4 text-xs leading-relaxed text-neutral-700 dark:text-neutral-300">
             <code>{result}</code>
@@ -190,7 +168,7 @@ export function ApiDocsPage() {
         <code className="font-mono text-sm text-neutral-800 dark:text-neutral-200">
           https://colorarchive.me/api
         </code>
-        <CopyButton value="https://colorarchive.me/api" label="Copy" />
+        <CopyButton value="https://colorarchive.me/api" label="Copy" variant="compact" copiedLabel="Copied" className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950" />
       </div>
 
       <div className="space-y-10">
