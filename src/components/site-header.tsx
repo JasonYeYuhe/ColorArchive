@@ -69,7 +69,8 @@ interface SiteHeaderProps {
     | "/decades"
     | "/seasonal"
     | "/industry"
-    | "/trends";
+    | "/trends"
+    | "/validate";
 }
 
 interface NavItem {
