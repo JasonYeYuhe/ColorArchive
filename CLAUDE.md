@@ -59,7 +59,7 @@ Dynamic routes (e.g., `app/colors/[slug]/page.tsx`) use `generateStaticParams()`
 
 - `src/lib/collections.ts` — 68+ curated palette collections (editorial metadata + color IDs).
 - `src/lib/palette-packs.ts` — 7 product pack definitions (USD $9–$129) + All Access bundle.
-- `src/lib/checkout-config.ts` — Checkout provider + URLs (Lemon Squeezy / Stripe) + Pro subscription config ($4.99/mo, $39.99/yr).
+- `src/lib/checkout-config.ts` — Stripe Checkout config + Pro subscription pricing (¥499/mo, ¥3,999/yr).
 - `src/lib/auth-client.ts` — Client API for auth, projects, usage stats, referral, API keys.
 - `src/lib/word-color.ts` — Deterministic word→color hash algorithm (string hash → hue/saturation/lightness → 5 color variants).
 

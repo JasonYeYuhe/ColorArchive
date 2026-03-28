@@ -23,7 +23,7 @@ db.exec(`
 
   CREATE TABLE IF NOT EXISTS orders (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    ls_order_id TEXT UNIQUE NOT NULL,
+    order_id TEXT UNIQUE NOT NULL,
     email       TEXT NOT NULL,
     product     TEXT NOT NULL,
     amount      INTEGER NOT NULL,

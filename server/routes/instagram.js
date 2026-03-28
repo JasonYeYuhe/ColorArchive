@@ -428,7 +428,8 @@ router.get("/status", (req, res) => {
 
 /* ── Webhooks ────────────────────────────────────────────── */
 
-const WEBHOOK_VERIFY_TOKEN = process.env.INSTAGRAM_WEBHOOK_VERIFY_TOKEN || "colorarchive_ig_webhook_2026";
+const WEBHOOK_VERIFY_TOKEN = process.env.INSTAGRAM_WEBHOOK_VERIFY_TOKEN;
+if (!WEBHOOK_VERIFY_TOKEN) console.warn("INSTAGRAM_WEBHOOK_VERIFY_TOKEN not set — webhook verification disabled");
 
 /**
  * GET /instagram/webhook

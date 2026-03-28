@@ -9,7 +9,7 @@ _Written: 2026-03-19_
 
 | 问题 | 影响 |
 |------|------|
-| 结账全部 pending（Lemon Squeezy 待审核）| 无法实际产生收入，流量白白流失 |
+| ~~结账全部 pending~~ **已解决** — Stripe Checkout 已全面接入 | ~~无法实际产生收入~~ |
 | 免费包直接提供下载链接，不需要邮箱 | 没有在积累邮件列表，最重要的资产被浪费 |
 | 没有邮件名单 = 产品上线没有渠道通知任何人 | 上线当天没有人会知道 |
 | 价格档位不够清晰（$12–24 这种范围显得不自信）| 用户不知道该期待多少，转化率低 |
@@ -42,15 +42,9 @@ _Written: 2026-03-19_
 
 ### M2 ★★★ 产品上线前：立刻接入 Gumroad
 
-**现状：** Lemon Squeezy 审核中，Stripe 链接未配置，结账全部 pending。
+**现状：** ~~Lemon Squeezy 审核中~~ **已解决** — Stripe Checkout 已全面接入，9 个产品（7 单品 + 2 订阅）均已配置 live price ID。
 
-**改法：** Gumroad 无需审核，注册即可卖。5 分钟上线。
-- 在 Gumroad 创建 "Palette Pack Vol. 1"，定价 **$14**（单一固定价格，不要范围）
-- 上传目前已有的预览 CSS/JSON 文件作为"早鸟版"（可以后续补全物料）
-- 把 `checkoutConfig` 中的 URL 填进去，按钮立刻变成可点击的
-- Lemon Squeezy 审核通过后再迁移
-
-**收益：** 从 0 收入变成有可能产生收入，测试真实需求。
+**当前状态：** 结账流程已可用，webhook fulfillment 已接入。需要做端到端购买测试确认一切正常。
 
 ---
 
@@ -67,7 +61,7 @@ Creator Bundle        — $19  Personal  |  $38  Commercial
 - "Personal" = 个人/副业项目使用
 - "Commercial" = 客户项目/商业产品使用
 - 这是设计资源行业的标准做法（Creative Market、Design+Code 都这样）
-- 实现上：Gumroad/Lemon Squeezy 支持多价格档位
+- 实现上：Stripe 支持多价格档位
 
 **收益：** 同样的产品，商业用途客户自然会选贵的，ARPU 提升 40–80%。
 

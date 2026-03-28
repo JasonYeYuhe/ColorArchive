@@ -42,7 +42,7 @@ router.get("/orders", (req, res) => {
     .prepare(
       `
         SELECT
-          ls_order_id,
+          order_id,
           email,
           product,
           amount,
@@ -63,7 +63,7 @@ router.get("/orders", (req, res) => {
     const matchedProduct = findCatalogProduct(order.product);
     const packId = order.pack_id || matchedProduct?.packId || null;
     return {
-      orderId: order.ls_order_id,
+      orderId: order.order_id,
       email: order.email,
       product: order.product,
       amount: order.amount,
@@ -83,9 +83,9 @@ router.post("/orders/:orderId/resend", async (req, res) => {
   const order = db
     .prepare(
       `
-        SELECT ls_order_id, email, product, download_url, receipt_url
+        SELECT order_id, email, product, download_url, receipt_url
         FROM orders
-        WHERE ls_order_id = ?
+        WHERE order_id = ?
       `,
     )
     .get(req.params.orderId);
@@ -98,7 +98,7 @@ router.post("/orders/:orderId/resend", async (req, res) => {
     await sendOrderConfirmationEmail(order.email, {
       productName: order.product,
       downloadUrl: order.download_url || order.receipt_url || getDownloadUrl(order.product),
-      orderId: order.ls_order_id,
+      orderId: order.order_id,
     });
     return res.json({ ok: true });
   } catch (error) {

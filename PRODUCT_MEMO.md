@@ -267,7 +267,7 @@ MVP 阶段不追求“真正所有颜色”，而是做一个足够完整的视�
 
 - `Packs`
 - 把 collection 进一步产品化
-- 面向未来接 Lemon Squeezy / Stripe Payment Links 之类的静态友好结账方式
+- 已接入 Stripe Checkout 结账方式
 - 当前阶段先保留 checkout placeholder，后面替换成真实外链
 - checkout 配置应集中在单独配置层，而不是散落在组件里
 
@@ -530,17 +530,18 @@ Codex 当前方向：
   - Azure credit: 200 USD（GitHub Student Developer Pack）
   - DigitalOcean credit: 200 USD（GitHub Student Developer Pack）
   - Heroku credit: 13 USD / month
-- Lemon Squeezy 店铺已创建，7 个产品（6 个单品 + All Access Bundle，JPY 定价，2026-03-19 调价）：
-  - 当前状态：产品已在 LS 配置完成，但 store 仍在 review，Test mode 尚未关闭
-  - Seasonal: Spring 2026: ¥99 ✅ configured（限时季节包）
-  - Palette Pack Vol. 1: ¥299 ✅ configured（新手入门）
-  - Dark Mode UI Kit: ¥499 ✅ configured
-  - Creator Bundle: ¥799 ✅ configured
-  - Brand Color Starter Kit: ¥999 ✅ configured
-  - Complete Archive Token Set: ¥1,499 ✅ configured（旗舰）
-  - 折扣码 FIRSTPACK（10% off，全产品可用）已创建，用于 /cancel 页面挽回
-  - 全部 7 个 Checkout URL 已写入 `checkout-config.ts`，待 store activation 后可做真实购买验证
-  - Webhook 已配置（api.colorarchive.me/webhook/ls → order_created）
+- Stripe Checkout 已全面接入，7 个产品 + 2 个订阅计划（JPY 定价，2026-03-28 更新）：
+  - Seasonal: Spring 2026: ¥299 ✅ live
+  - Palette Pack Vol. 1: ¥599 ✅ live
+  - Dark Mode UI Kit: ¥999 ✅ live
+  - Creator Bundle: ¥999 ✅ live
+  - Brand Color Starter Kit: ¥1,499 ✅ live
+  - Complete Archive Token Set: ¥2,499 ✅ live
+  - All Access Bundle: ¥3,999 ✅ live
+  - Pro Monthly: ¥499/月（3 天试用）✅ live
+  - Pro Yearly: ¥3,999/年（3 天试用，省 33%）✅ live
+  - 全部 Price ID 已写入 `checkout-config.ts`
+  - Webhook 已配置（colorarchive.me/api/webhook → Stripe events）
 - 后端服务器已部署（DigitalOcean Droplet $4/month，SGP1）：
   - 域名：api.colorarchive.me（HTTPS，Let's Encrypt）
   - IP：143.198.85.72
@@ -548,7 +549,7 @@ Codex 当前方向：
   - POST /subscribe — 邮箱捕获：
     - `free-pack` → 发下载链接邮件
     - `waitlist` → 发更新订阅确认邮件
-  - POST /webhook/ls — LS 付款 webhook → 发确认邮件 + 存订单
+  - POST /webhook/ls — Legacy LS webhook（保留兼容旧订单）
   - GET /analytics — 订阅者 / 订单统计
   - PM2 进程管理，开机自启
 - 免费包 + 7 个付费包 ZIP 文件已生成（prebuild 脚本自动打包，含 SCSS maps、dark mode pairs、seasonal mood notes）
@@ -575,7 +576,7 @@ Codex 当前方向：
 
 ### 已完成
 
-- ✅ Lemon Squeezy 7 产品已配置完成（6 个单品 + bundle，JPY 定价）
+- ✅ Stripe Checkout 9 个产品已配置完成（7 个单品 + 2 个订阅计划，JPY 定价）
 - ✅ DigitalOcean 后端部署（邮箱捕获 + webhook + analytics）
 - ✅ 免费包 + 7 付费包 ZIP 打包（prebuild 自动生成）
 - ✅ free-pack 邮箱捕获流程（填邮箱 → 发下载链接）
@@ -723,7 +724,7 @@ ColorArchive 的核心不是“功能很多”，而是：
 ColorArchive 已从静态展示项目进化为完整的颜色产品：
 - 前端：Next.js 静态站（GitHub Pages），含 archive / tools / packs / families / analytics / login
 - 后端：Node.js API 服务器（DigitalOcean），处理邮箱捕获、支付 webhook、分析、magic link 登录与偏好同步
-- 商业：Lemon Squeezy 七产品上架（6 个单品 + All Access Bundle，JPY），自动交付 ZIP 包
+- 商业：Stripe Checkout 九产品上架（7 个单品 + 2 个订阅计划，JPY），webhook 自动交付
 - 定价（2026-03-19 调整）：¥99 / ¥299 / ¥499 / ¥799 / ¥999 / ¥1,499 / ¥2,799（bundle）
 - 折扣码 FIRSTPACK（10% off）用于 /cancel 挽回流失用户
 - 增长：邮件列表（Day 0/3/7 自动 nurture sequence）、SEO 长尾页面、社交分享按钮（X/copy link）、可分享调色板 URL、登录后跨设备偏好同步

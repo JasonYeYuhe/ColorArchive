@@ -16,3 +16,6 @@ server/.env.twitter
 server/.env.youtube
 server/.env.instagram
 .claude/autopilot-tasks.md
+demo-video/
+*.tmp
+tts-samples/

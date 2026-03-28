@@ -35,11 +35,8 @@ app.use("/generated", express.static(path.join(__dirname, "generated"), {
   immutable: true,
 }));
 
-// JSON body parser for all routes except the raw webhook
-app.use((req, res, next) => {
-  if (req.path === "/webhook/ls") return next();
-  express.json()(req, res, next);
-});
+// JSON body parser for all routes
+app.use(express.json());
 
 app.use("/subscribe", require("./routes/subscribe"));
 app.use("/auth", require("./routes/auth"));

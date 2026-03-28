@@ -14,7 +14,7 @@ ColorArchive is a static-export-first color product built with Next.js, TypeScri
 ## Architecture
 
 - `app/` contains the exported routes, metadata, and global styles.
-- `server/` contains the API for email capture, auth, Lemon Squeezy webhooks, admin tooling, and analytics.
+- `server/` contains the API for email capture, auth, Stripe webhooks, admin tooling, and analytics.
 - `src/data/colors.ts` generates a local dataset of 2016 colors with name, hex, rgb, hsl, hue, saturation, lightness, and family.
 - `src/components/` contains reusable UI building blocks for the hero, filters, grid, and cards.
 - `app/all-colors/page.tsx` renders the full 2016-color archive in a denser single-page layout.
@@ -33,7 +33,7 @@ ColorArchive is a static-export-first color product built with Next.js, TypeScri
 - `app/search/page.tsx` adds a dedicated static search route for fast color lookup.
 - `app/support/page.tsx` captures the project’s practical monetization paths and support channels.
 - `app/waitlist/page.tsx` is the public email-updates route for future drops and project updates.
-- `app/thanks/page.tsx` adds a static post-checkout return page for Lemon Squeezy or Stripe redirects.
+- `app/thanks/page.tsx` adds a static post-checkout return page for Stripe redirects.
 - `app/cancel/page.tsx` adds a static checkout-cancelled return page for off-site commerce flows.
 - `app/colors/[slug]/page.tsx` statically exports individual color detail pages.
 - `app/word-to-color/page.tsx` adds a second static route that deterministically maps any word or phrase to a color.
@@ -167,14 +167,14 @@ GitHub documents the current records here:
 - The home archive now surfaces a local Recent / Favorites hub so users can continue browsing without digging through navigation.
 - The `Recent` route stores recently viewed colors in `localStorage`, making it easier to resume browsing without an account.
 - Both `Favorites` and `Recent` now support JSON export in addition to text-based palette export.
-- The `Packs` route turns the archive into product-ready offers and points to hosted Lemon Squeezy checkout URLs that are ready for store activation.
+- The `Packs` route turns the archive into product-ready offers and points to Stripe Checkout URLs that are ready for purchases.
 - The `Free Sample Pack` route acts as the permanent free layer and lead-in to the paid catalog.
 - The free sample route now includes claim guidance plus a free-versus-paid comparison block so the upgrade path is explicit.
 - `src/lib/checkout-config.ts` is the main file to update when checkout or return-path settings change.
 - Individual pack detail routes deepen the product layer while staying static-export friendly.
 - The `Waitlist` route is now wired to the API-backed updates email flow.
 - The `Thanks` route is ready to use as a post-purchase return URL from off-site checkout.
-- The `Cancel` route gives Lemon Squeezy or Stripe a branded cancellation return page instead of a dead end.
+- The `Cancel` route gives Stripe a branded cancellation return page instead of a dead end.
 - The `Product Examples` route provides concrete pack deliverables, collection previews, and export examples that can be shared during payment-provider onboarding.
 - The hosted catalog currently includes 7 products: 6 standalone packs plus the All Access Bundle.
 - `public/downloads/` now contains sample CSS, JSON, and TXT assets so each pack has something concrete to preview before checkout is wired.

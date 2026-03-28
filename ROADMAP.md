@@ -27,13 +27,12 @@ Codex scope:
 
 Needs user:
 
-- If the store has been approved, switch Lemon Squeezy from Test mode to Live mode with the bottom-left toggle.
-- Set each product's confirmation/receipt CTA to `https://colorarchive.me/thanks/`.
+- Verify all Stripe price IDs match between `checkout-config.ts` and Stripe Dashboard.
 - Run one real purchase smoke test and one cancelled checkout pass.
 
 Definition of done:
 
-- Store mode and product post-purchase settings are correct in Lemon Squeezy.
+- All Stripe products and subscriptions are active and correctly priced.
 - Successful checkout gives the buyer a clear path to `/thanks/`.
 - Cancel behavior is observed and documented accurately.
 - Receipt and download emails arrive correctly.
@@ -132,13 +131,11 @@ Repo status update on 2026-03-20:
 
 These are the actions only you can complete outside the repo:
 
-1. In Lemon Squeezy, disable `Test mode`.
-2. For all 7 products, set:
-   - `Confirmation modal` button link → `https://colorarchive.me/thanks/`
-   - `Email receipt` CTA link → `https://colorarchive.me/thanks/`
-3. Complete one real purchase using any hosted checkout link after store activation.
+1. Verify all 9 Stripe prices (7 packs + 2 subscriptions) in Stripe Dashboard.
+2. Ensure `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` are set in Vercel env vars.
+3. Complete one real purchase using Stripe test card after verification.
 4. Confirm:
-   - buyer can reach `/thanks/` from the confirmation flow
+   - buyer is redirected to `/thanks/` after successful checkout
    - receipt email arrives
    - download email arrives
    - `/login/` shows the order

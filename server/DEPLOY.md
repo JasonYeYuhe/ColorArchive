@@ -81,12 +81,12 @@ sudo certbot --nginx -d api.colorarchive.me
 
 等几分钟 DNS 生效后，`https://api.colorarchive.me/health` 应该返回 `{"ok":true}`。
 
-## 6. 配置 Lemon Squeezy Webhook
+## 6. 配置 Stripe Webhook
 
-LS Dashboard → Settings → Webhooks → Add webhook：
+Stripe Dashboard → Developers → Webhooks → Add endpoint：
 
-- URL: `https://api.colorarchive.me/webhook/ls`
-- Events: `order_created`
-- 复制 Signing secret → 填入 `.env` 的 `LS_WEBHOOK_SECRET`
+- URL: `https://colorarchive.me/api/webhook`
+- Events: `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`
+- 复制 Signing secret → 填入 Vercel 环境变量 `STRIPE_WEBHOOK_SECRET`
 
-然后重启服务：`pm2 restart colorarchive-server`
+Next.js API route `/api/webhook/route.ts` 处理所有 Stripe 事件。

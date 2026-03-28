@@ -1,7 +1,7 @@
 {
   "name": "colorarchive-server",
   "version": "1.0.0",
-  "description": "ColorArchive backend: email capture + Lemon Squeezy webhooks",
+  "description": "ColorArchive backend: email capture + Stripe webhooks",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

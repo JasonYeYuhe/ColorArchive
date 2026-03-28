@@ -14,7 +14,7 @@
 | Backend | Node.js / Express on DigitalOcean Droplet (143.198.85.72) |
 | Database | SQLite (better-sqlite3) |
 | Email | Resend |
-| Commerce | Lemon Squeezy |
+| Commerce | Stripe |
 | Analytics | Umami Cloud |
 | i18n | Custom (`src/lib/i18n.ts`) — EN / ZH |
 
@@ -221,7 +221,7 @@ ColorArchive/
 │   │   ├── favorites.ts                  # localStorage favorites + subscriptions
 │   │   ├── recent-colors.ts              # localStorage recent history
 │   │   ├── pinterest.ts                  # Pinterest OAuth + API proxy helpers
-│   │   ├── checkout-config.ts            # Lemon Squeezy checkout URLs + Pro subscription config
+│   │   ├── checkout-config.ts            # Stripe checkout config + Pro subscription pricing
 │   │   ├── auth-client.ts               # Client API: session, projects, usage, referral, types
 │   │   ├── brand-palette.ts             # Single-hex → 11-step design system + semantic colors
 │   │   ├── color-relationships.ts       # Color relationships (analogous, complementary, triadic, tonal)
@@ -252,7 +252,7 @@ ColorArchive/
 │   ├── ig-image-generator.js             # Instagram image generation
 │   └── routes/
 │       ├── subscribe.js                  # POST /subscribe — email capture + referral tracking
-│       ├── webhook.js                    # POST /webhook — Lemon Squeezy events
+│       ├── webhook.js                    # Legacy webhook stub (Stripe webhooks via Next.js /api/webhook)
 │       ├── auth.js                       # Magic link + Google OAuth + session (with tier)
 │       ├── me.js                         # GET /me, /me/usage, /me/referral, /me/api-key,
 │       │                                 #   /me/preferences, /me/orders

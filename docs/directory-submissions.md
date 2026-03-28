@@ -43,7 +43,7 @@ hex color codes, color palette generator, design color library, Figma color toke
 ### Tier 3 — Community / Long Tail
 | # | Directory | Submit URL | Status |
 |---|-----------|-----------|--------|
-| 9 | Indie Hackers | https://www.indiehackers.com/product/colorarchive | ✅ Listed |
+| 9 | Indie Hackers | https://www.indiehackers.com/product/colorarchive | ✅ Fully set up (profile, launch post, revenue) |
 | 10 | Fazier | https://fazier.com/ | ⛔ Skipped (comment UI non-functional) |
 | 11 | Launching Next | https://www.launchingnext.com/submit/ | ✅ Submitted (ID: 129304) |
 | 12 | Open Launch | https://open-launch.com/ | ✅ Submitted (free launch, Dec 15 2026) |

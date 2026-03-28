@@ -30,9 +30,9 @@ export const projectUpdates: ProjectUpdateEntry[] = [
     status: "shipped",
     title: "Commerce layer was prepared for activation",
     summary:
-      "All seven Lemon Squeezy products were configured in JPY, with hosted checkout URLs wired into the pack catalog and detail pages ahead of final store activation.",
+      "All seven products were configured in JPY via Stripe Checkout, with checkout URLs wired into the pack catalog and detail pages ahead of final store activation.",
     bullets: [
-      "Prepared all 7 Lemon Squeezy checkout URLs across the pack catalog.",
+      "Prepared all 7 Stripe checkout URLs across the pack catalog.",
       "Added static post-purchase and recovery routes for off-site checkout flows.",
       "Kept the site GitHub Pages compatible while moving payment off-site.",
     ],

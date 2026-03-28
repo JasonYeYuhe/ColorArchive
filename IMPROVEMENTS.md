@@ -14,7 +14,7 @@ The project tries to be three things at once: a color tool, a content platform, 
 
 - 44 routes, 73 components — high surface area, shallow depth
 - Feature overlap: `/search/` vs `/all-colors/`, three separate palette flows, `/trending/` with no real data
-- Commerce integration half-built (Lemon Squeezy test mode, store pending approval)
+- Commerce integration complete (Stripe Checkout fully wired)
 - Content layer thin (few guides, few notes)
 
 ### Action Items
@@ -74,12 +74,12 @@ The project tries to be three things at once: a color tool, a content platform, 
 
 ### Problem
 
-Seven product packs are defined with pricing, descriptions, FAQs, and proof points — but Lemon Squeezy is still in test mode and the store is pending approval. There's no evidence of real user demand for paid design token packages, especially when tools like Tailwind's default palette, Open Color, and Radix Colors are free.
+Seven product packs are defined with pricing, descriptions, FAQs, and proof points. Stripe Checkout is fully wired with live price IDs. There's no evidence of real user demand for paid design token packages, especially when tools like Tailwind's default palette, Open Color, and Radix Colors are free.
 
 ### Current State
 
-- `src/lib/palette-packs.ts` — 7 packs, ¥299–¥1299 pricing
-- `src/lib/checkout-config.ts` — Lemon Squeezy test URLs, Stripe fallback placeholder
+- `src/lib/palette-packs.ts` — 7 packs, ¥299–¥3,999 pricing
+- `src/lib/checkout-config.ts` — Stripe Checkout with live price IDs
 - `/packs/quiz/` — Product recommendation quiz built but checkout doesn't work
 - `/free-pack/` — Free sample exists but download flow unclear
 
@@ -208,7 +208,7 @@ Start with Option B now. Move to Option A later if analytics show significant tr
 
 - `next.config.ts`: `output: "export"`, deployed to GitHub Pages
 - `src/components/auth-provider.tsx` — Magic link auth, calls external API
-- `src/lib/checkout-config.ts` — Lemon Squeezy webhooks need a server endpoint
+- `src/lib/checkout-config.ts` — Stripe Checkout configured with webhook at `/api/webhook`
 - `/admin/orders/` — Order data must come from somewhere
 
 ### Action Items (when the time comes)

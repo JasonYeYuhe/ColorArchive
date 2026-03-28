@@ -71,7 +71,7 @@ router.get("/orders", (req, res) => {
     .prepare(
       `
         SELECT
-          ls_order_id,
+          order_id,
           product,
           amount,
           currency,
@@ -97,7 +97,7 @@ router.get("/orders", (req, res) => {
       const packId = order.pack_id || matchedProduct?.packId || null;
 
       return {
-        orderId: order.ls_order_id,
+        orderId: order.order_id,
         product: order.product,
         amount: order.amount,
         currency: order.currency,
@@ -125,9 +125,9 @@ router.post("/orders/:orderId/resend", async (req, res) => {
   const order = db
     .prepare(
       `
-        SELECT ls_order_id, email, product, download_url, receipt_url
+        SELECT order_id, email, product, download_url, receipt_url
         FROM orders
-        WHERE ls_order_id = ? AND lower(email) = lower(?)
+        WHERE order_id = ? AND lower(email) = lower(?)
       `,
     )
     .get(req.params.orderId, req.user.email);
@@ -140,7 +140,7 @@ router.post("/orders/:orderId/resend", async (req, res) => {
     await sendOrderConfirmationEmail(order.email, {
       productName: order.product,
       downloadUrl: order.download_url || order.receipt_url || getDownloadUrl(order.product),
-      orderId: order.ls_order_id,
+      orderId: order.order_id,
     });
     return res.json({ ok: true });
   } catch (error) {

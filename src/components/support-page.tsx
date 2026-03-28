@@ -54,9 +54,9 @@ const upgradeComparison = [
 
 const staticFriendlyTools = [
   {
-    title: "Lemon Squeezy",
-    summary: "Merchant-of-record flow for digital products and software without building checkout yourself.",
-    href: "https://www.lemonsqueezy.com/",
+    title: "Stripe Checkout",
+    summary: "Hosted checkout pages with built-in fraud protection, subscriptions, and global payment methods.",
+    href: "https://docs.stripe.com/payments/checkout",
   },
   {
     title: "Stripe Payment Links",
@@ -294,7 +294,7 @@ export function SupportPage() {
             </div>
             <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
               <p>
-                If Lemon Squeezy, Stripe, or another provider asks for product proof, use the live
+                If Stripe or another provider asks for product proof, use the live
                 site itself: the packs page, collections page, and dedicated product examples page
                 now show concrete digital deliverables rather than generic promises.
               </p>
