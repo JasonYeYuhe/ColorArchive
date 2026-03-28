@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorGrid } from "@/src/components/color-grid";
@@ -60,7 +60,9 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
   const initialSelected = searchParams.get("selected");
   const hasExplicitSelection = !!(initialSelected && colors.some((color) => color.id === initialSelected));
 
+  const [, startTransition] = useTransition();
   const [searchQuery, setSearchQuery] = useState(initialQuery);
+  const [deferredQuery, setDeferredQuery] = useState(initialQuery);
   const [sortBy, setSortBy] = useState<SortOption>(
     initialSort === "lightness" || initialSort === "name" ? initialSort : "hue",
   );
@@ -75,7 +77,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
   // Track whether the user explicitly selected a color (vs auto-fallback to first)
   const [userSelectedExplicitly, setUserSelectedExplicitly] = useState(hasExplicitSelection);
 
-  const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
+  const searchResults = useMemo(() => filterColors(colors, deferredQuery, "All"), [colors, deferredQuery]);
 
   const familyCounts = useMemo(
     () =>
@@ -103,7 +105,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
 
   useEffect(() => {
     setDisplayLimit(PAGE_SIZE);
-  }, [activeFamily, searchQuery, sortBy]);
+  }, [activeFamily, deferredQuery, sortBy]);
 
   useEffect(() => {
     if (visibleColors.length === 0) {
@@ -159,17 +161,27 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
 
   useEffect(() => {
     const params = buildArchiveStateParams({
-      searchQuery,
+      searchQuery: deferredQuery,
       sortBy,
       activeFamily,
       selectedColorId: userSelectedExplicitly ? selectedColorId : null,
     });
     const queryString = params.toString();
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
-  }, [activeFamily, pathname, router, searchQuery, selectedColorId, sortBy, userSelectedExplicitly]);
+  }, [activeFamily, deferredQuery, pathname, router, selectedColorId, sortBy, userSelectedExplicitly]);
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    startTransition(() => {
+      setDeferredQuery(value);
+    });
+  };
 
   const handleReset = () => {
     setSearchQuery("");
+    startTransition(() => {
+      setDeferredQuery("");
+    });
     setSortBy("hue");
     setActiveFamily("All");
   };
@@ -195,7 +207,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
           totalColors={colors.length}
           visibleColors={visibleColors.length}
           onFamilyChange={setActiveFamily}
-          onSearchChange={setSearchQuery}
+          onSearchChange={handleSearchChange}
           onSortChange={setSortBy}
           onReset={handleReset}
         />
@@ -220,7 +232,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
             <ArchiveEmptyState
               searchQuery={searchQuery}
               activeFamily={activeFamily}
-              onClearSearch={() => setSearchQuery("")}
+              onClearSearch={() => handleSearchChange("")}
               onClearFamily={() => setActiveFamily("All")}
               onReset={handleReset}
             />

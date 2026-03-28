@@ -115,6 +115,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="QMvWjTTdo973FLMy5VZMA4lDZcirOQK8LUjLAHFD5eo" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://api.colorarchive.me" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://api.colorarchive.me" />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-11416473237"
           strategy="afterInteractive"

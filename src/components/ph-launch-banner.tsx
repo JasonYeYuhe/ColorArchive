@@ -24,8 +24,6 @@ export function PHLaunchBanner() {
     }
   }, []);
 
-  if (!visible) return null;
-
   function dismiss() {
     setVisible(false);
     try {
@@ -36,6 +34,10 @@ export function PHLaunchBanner() {
   }
 
   return (
+    <div
+      className={`overflow-hidden transition-all duration-300 ease-in-out ${visible ? "max-h-16 opacity-100" : "max-h-0 opacity-0"}`}
+      aria-hidden={!visible}
+    >
     <div className="relative z-50 flex items-center justify-center gap-3 border-b border-black/6 bg-white/80 px-4 py-2.5 text-sm backdrop-blur-lg dark:border-white/8 dark:bg-neutral-900/80">
       <span className="text-neutral-600 dark:text-neutral-400">
         We&apos;re live on Product Hunt!
@@ -60,6 +62,7 @@ export function PHLaunchBanner() {
           <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
         </svg>
       </button>
+    </div>
     </div>
   );
 }

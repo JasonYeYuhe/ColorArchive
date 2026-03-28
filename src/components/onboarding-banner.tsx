@@ -16,14 +16,16 @@ export function OnboardingBanner() {
     }
   }, []);
 
-  if (!visible) return null;
-
   const dismiss = () => {
     localStorage.setItem(DISMISSED_KEY, "1");
     setVisible(false);
   };
 
   return (
+    <div
+      className={`overflow-hidden transition-all duration-300 ease-in-out ${visible ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
+      aria-hidden={!visible}
+    >
     <div className="mx-auto max-w-[1600px] px-4 pt-4">
       <div className="relative rounded-2xl border border-indigo-100 dark:border-indigo-900/30 bg-indigo-50/60 dark:bg-indigo-950/20 p-5">
         <button
@@ -65,6 +67,7 @@ export function OnboardingBanner() {
           </Link>
         </div>
       </div>
+    </div>
     </div>
   );
 }
