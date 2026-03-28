@@ -35,20 +35,21 @@ hex color codes, color palette generator, design color library, Figma color toke
 ### Tier 2 — Good Backlinks
 | # | Directory | Submit URL | Status |
 |---|-----------|-----------|--------|
-| 5 | Uneed.best | https://www.uneed.best/submit-a-tool | ✅ Submitted (launch scheduled) |
-| 6 | MicroLaunch | https://microlaunch.net/ | ⛔ Skipped (paid only, $49+) |
-| 7 | DevHunt | https://devhunt.org/ | ⛔ Skipped (free slots full until 2028) |
-| 8 | BetaList | https://betalist.com/submit | ⛔ Skipped (no Google OAuth, email/password only) |
+| 5 | PeerPush | https://peerpush.net/p/colorarchive | ✅ Submitted (free queue #1703, ~25 days, DR 72+ dofollow) |
+| 6 | Uneed.best | https://www.uneed.best/submit-a-tool | ✅ Submitted (launch scheduled) |
+| 7 | MicroLaunch | https://microlaunch.net/ | ⛔ Skipped (paid only, $49+) |
+| 8 | DevHunt | https://devhunt.org/ | ⛔ Skipped (free slots full until 2028) |
+| 9 | BetaList | https://betalist.com/submit | ⛔ Skipped (no Google OAuth, email/password only) |
 
 ### Tier 3 — Community / Long Tail
 | # | Directory | Submit URL | Status |
 |---|-----------|-----------|--------|
-| 9 | Indie Hackers | https://www.indiehackers.com/product/colorarchive | ✅ Fully set up (profile, launch post, revenue) |
-| 10 | Fazier | https://fazier.com/ | ⛔ Skipped (comment UI non-functional) |
-| 11 | Launching Next | https://www.launchingnext.com/submit/ | ✅ Submitted (ID: 129304) |
-| 12 | Open Launch | https://open-launch.com/ | ✅ Submitted (free launch, Dec 15 2026) |
-| 13 | Peerlist | https://peerlist.io/ | ⛔ Skipped (no Google OAuth, email/password only) |
-| 14 | StackShare | https://stackshare.io/colorarchive | ✅ Listed |
+| 10 | Indie Hackers | https://www.indiehackers.com/product/colorarchive | ✅ Fully set up (profile, launch post, revenue) |
+| 11 | Fazier | https://fazier.com/ | ⛔ Skipped (comment UI non-functional) |
+| 12 | Launching Next | https://www.launchingnext.com/submit/ | ✅ Submitted (ID: 129304) |
+| 13 | Open Launch | https://open-launch.com/ | ✅ Submitted (free launch, Dec 15 2026) |
+| 14 | Peerlist | https://peerlist.io/ | ⛔ Skipped (no Google OAuth, email/password only) |
+| 15 | StackShare | https://stackshare.io/colorarchive | ✅ Listed |
 
 ### Position As Alternative To
 - Coolors (coolors.co)
