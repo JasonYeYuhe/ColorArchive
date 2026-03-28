@@ -104,7 +104,7 @@ function WcagMatrix({ palette }: { palette: BrandPalette }) {
               </span>
               <div className="flex flex-col items-center gap-1">
                 {wcagBadge(ratio)}
-                <span className="text-[9px]" style={{ color: p.fg, opacity: 0.7 }}>
+                <span className="text-[9px] opacity-70" style={{ color: p.fg }}>
                   {p.fgLabel} on {p.bg.step}
                 </span>
               </div>

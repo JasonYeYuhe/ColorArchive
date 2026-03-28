@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { COLOR_FAMILIES } from "@/src/lib/color-utils";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { useLocale } from "@/src/components/locale-provider";
@@ -19,7 +20,7 @@ interface FilterToolbarProps {
   onReset: () => void;
 }
 
-export function FilterToolbar({
+export const FilterToolbar = memo(function FilterToolbar({
   activeFamily,
   familyCounts,
   searchQuery,
@@ -159,4 +160,4 @@ export function FilterToolbar({
       </div>
     </section>
   );
-}
+});

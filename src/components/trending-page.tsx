@@ -173,11 +173,10 @@ export function TrendingPage() {
                       className="block h-6 rounded-full bg-neutral-100 transition group-hover:bg-neutral-200"
                     >
                       <span
-                        className="block h-6 rounded-full"
+                        className="block h-6 rounded-full opacity-70"
                         style={{
                           width: `${pct}%`,
                           backgroundColor: entry.topColor.hex,
-                          opacity: 0.7,
                         }}
                       />
                     </span>

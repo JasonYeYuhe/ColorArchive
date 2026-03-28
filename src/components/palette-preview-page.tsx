@@ -75,8 +75,8 @@ function readable(bg: string): string {
 function HeroPreview({ roles }: { roles: Roles }) {
   return (
     <div
-      className="rounded-2xl overflow-hidden shadow-sm"
-      style={{ backgroundColor: roles.bg, minHeight: 260 }}
+      className="rounded-2xl overflow-hidden shadow-sm min-h-[260px]"
+      style={{ backgroundColor: roles.bg }}
     >
       {/* Nav */}
       <div
@@ -411,9 +411,9 @@ function MiniPreview({ roles }: { roles: Roles }) {
       </div>
       {/* Card */}
       <div className="rounded-lg p-3" style={{ backgroundColor: roles.surface, border: `1px solid ${roles.text}12` }}>
-        <div className="h-1.5 w-16 rounded-full mb-2" style={{ backgroundColor: roles.text, opacity: 0.8 }} />
-        <div className="h-1 w-24 rounded-full mb-1.5" style={{ backgroundColor: roles.text, opacity: 0.3 }} />
-        <div className="h-1 w-20 rounded-full" style={{ backgroundColor: roles.text, opacity: 0.2 }} />
+        <div className="h-1.5 w-16 rounded-full mb-2 opacity-80" style={{ backgroundColor: roles.text }} />
+        <div className="h-1 w-24 rounded-full mb-1.5 opacity-30" style={{ backgroundColor: roles.text }} />
+        <div className="h-1 w-20 rounded-full opacity-20" style={{ backgroundColor: roles.text }} />
         <div className="mt-2 flex gap-1.5">
           <span
             className="text-[7px] font-semibold px-1.5 py-0.5 rounded"

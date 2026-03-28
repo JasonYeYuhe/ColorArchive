@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorCard } from "@/src/components/color-card";
 import { useLocale } from "@/src/components/locale-provider";
@@ -13,7 +13,7 @@ interface ColorGridProps {
   emptyState?: ReactNode;
 }
 
-export function ColorGrid({ colors, selectedColorId, onSelectColor, emptyState }: ColorGridProps) {
+export const ColorGrid = memo(function ColorGrid({ colors, selectedColorId, onSelectColor, emptyState }: ColorGridProps) {
   const { t } = useLocale();
 
   if (colors.length === 0) {
@@ -44,4 +44,4 @@ export function ColorGrid({ colors, selectedColorId, onSelectColor, emptyState }
       </div>
     </section>
   );
-}
+});

@@ -220,7 +220,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
     }
   }, [colors, router]);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setSortBy("hue");
     setActiveFamily("All");
     setDensity("compact");
@@ -231,7 +231,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
     setMaxSaturation(100);
     setMinLightness(0);
     setMaxLightness(100);
-  };
+  }, []);
 
   const densityGridClass =
     density === "expanded"

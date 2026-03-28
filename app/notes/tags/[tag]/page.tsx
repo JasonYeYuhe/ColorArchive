@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
+import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { TagNotesPage } from "@/src/components/tag-notes-page";
 import { getAllTags, getIssuesByTag, slugToTag, tagToSlug } from "@/src/lib/newsletter-issues";
 
@@ -49,9 +50,28 @@ export default async function TagRoute({ params }: TagPageProps) {
 
   const issues = getIssuesByTag(tag);
 
+  const collectionData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${tag} — Color Notes & Updates`,
+    description: `${issues.length} ColorArchive note${issues.length !== 1 ? "s" : ""} tagged with ${tag}. Discover color palettes, design insights, and curated swatches.`,
+    url: `https://colorarchive.me/notes/tags/${tagSlug}/`,
+  };
+
+  const breadcrumbData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
+      { "@type": "ListItem", position: 2, name: "Notes", item: "https://colorarchive.me/notes/" },
+      { "@type": "ListItem", position: 3, name: tag, item: `https://colorarchive.me/notes/tags/${tagSlug}/` },
+    ],
+  };
+
   return (
     <>
       <SiteHeader currentPath="/notes" />
+      <StructuredDataScript data={[collectionData, breadcrumbData]} />
       <TagNotesPage tag={tag} issues={issues} />
     </>
   );
