@@ -257,7 +257,7 @@ async function sendMagicLinkEmail(to, { loginUrl, expiresInMinutes }) {
   return result;
 }
 
-// Order confirmation email after LS purchase
+// Order confirmation email after Stripe purchase
 async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderId, amount, currency }) {
   const formattedAmount = amount
     ? (currency === "JPY" ? `¥${amount.toLocaleString()}` : `$${(amount / 100).toFixed(2)}`)
