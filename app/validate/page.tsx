@@ -4,22 +4,23 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ValidatePage } from "@/src/components/validate-page";
 
 export const metadata: Metadata = {
-  title: { absolute: "Palette Validator — ColorArchive" },
+  title: { absolute: "Palette Validator — Check Contrast & Accessibility | ColorArchive" },
   description:
-    "Paste your hex colors and get a full palette analysis: contrast matrix, harmony detection, colorblind simulation, and an overall quality score. Free, instant, no sign-up.",
+    "Validate any color palette: contrast matrix, harmony detection, colorblind simulation, and quality score. Comprehensive palette accessibility checker. Free.",
   alternates: {
     canonical: "/validate/",
   },
+  keywords: ["color palette checker", "palette accessibility", "contrast matrix", "palette validator", "color quality score"],
   openGraph: {
-    title: "Palette Validator — ColorArchive",
+    title: "Palette Validator — Check Contrast & Accessibility | ColorArchive",
     description:
-      "Comprehensive palette analysis tool. Check contrast, detect color harmony, preview colorblind simulations, and get a quality score for any set of hex colors.",
+      "Validate any color palette: contrast matrix, harmony detection, colorblind simulation, and quality score. Comprehensive palette accessibility checker. Free.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
   twitter: {
-    title: "Palette Validator — ColorArchive",
+    title: "Palette Validator — Check Contrast & Accessibility | ColorArchive",
     description:
-      "Free palette validator: paste hex colors, get contrast matrix, harmony analysis, colorblind preview, and overall quality score. Instant results.",
+      "Validate any color palette: contrast matrix, harmony detection, colorblind simulation, and quality score. Comprehensive palette accessibility checker. Free.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
 };

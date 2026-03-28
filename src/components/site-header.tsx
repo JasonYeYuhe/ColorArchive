@@ -70,7 +70,8 @@ interface SiteHeaderProps {
     | "/seasonal"
     | "/industry"
     | "/trends"
-    | "/validate";
+    | "/validate"
+    | "/embed/embed-code";
 }
 
 interface NavItem {

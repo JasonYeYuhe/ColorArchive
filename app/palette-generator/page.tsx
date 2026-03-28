@@ -4,9 +4,20 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { PaletteGeneratorPage } from "@/src/components/palette-generator-page";
 
 export const metadata: Metadata = {
-  title: { absolute: "Color Palette Generator — Create Harmonious Palettes | ColorArchive" },
-  description: "Generate beautiful color palettes from any seed color. Get complementary, analogous, triadic, and split-complementary harmonies with CSS, Tailwind, and JSON exports.",
+  title: { absolute: "Free Color Palette Generator — Create & Export | ColorArchive" },
+  description: "Generate beautiful color palettes instantly. Choose complementary, analogous, or triadic harmonies. Export to CSS, Tailwind, JSON. Free online tool, no sign-up.",
   alternates: { canonical: "/palette-generator/" },
+  keywords: ["color palette generator", "palette maker", "color harmony", "CSS palette", "Tailwind colors", "free color tool"],
+  openGraph: {
+    title: "Free Color Palette Generator — Create & Export | ColorArchive",
+    description: "Generate beautiful color palettes instantly. Choose complementary, analogous, or triadic harmonies. Export to CSS, Tailwind, JSON. Free online tool, no sign-up.",
+    images: ["https://colorarchive.me/og-image-v1.png"],
+  },
+  twitter: {
+    title: "Free Color Palette Generator — Create & Export | ColorArchive",
+    description: "Generate beautiful color palettes instantly. Choose complementary, analogous, or triadic harmonies. Export to CSS, Tailwind, JSON. Free online tool, no sign-up.",
+    images: ["https://colorarchive.me/og-image-v1.png"],
+  },
 };
 
 const structuredData = {

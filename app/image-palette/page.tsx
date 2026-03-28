@@ -4,20 +4,21 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ImagePalettePage } from "@/src/components/image-palette-page";
 
 export const metadata: Metadata = {
-  title: { absolute: "Image Color Extractor — Extract Palette from Any Photo | ColorArchive" },
+  title: { absolute: "Extract Colors from Image — Image Palette Generator | ColorArchive" },
   description:
-    "Upload any image to instantly extract its dominant color palette. Get hex, RGB, and HSL values. Find the closest ColorArchive match for each color. Free, private, runs in your browser.",
+    "Upload an image to extract its color palette. Get hex, RGB, and HSL values for dominant colors. Runs locally in your browser — no upload needed. Free.",
   alternates: { canonical: "/image-palette/" },
+  keywords: ["extract colors from image", "image color picker", "image palette generator", "color extraction", "dominant colors"],
   openGraph: {
-    title: "Image Color Extractor — Extract Palette from Any Photo | ColorArchive",
+    title: "Extract Colors from Image — Image Palette Generator | ColorArchive",
     description:
-      "Extract dominant colors from any image. Get hex/RGB/HSL values and find matching ColorArchive colors. Free and private — no uploads.",
+      "Upload an image to extract its color palette. Get hex, RGB, and HSL values for dominant colors. Runs locally in your browser — no upload needed. Free.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
   twitter: {
-    title: "Image Color Extractor | ColorArchive",
+    title: "Extract Colors from Image — Image Palette Generator | ColorArchive",
     description:
-      "Extract a color palette from any photo or design. Find the closest ColorArchive match for each dominant color.",
+      "Upload an image to extract its color palette. Get hex, RGB, and HSL values for dominant colors. Runs locally in your browser — no upload needed. Free.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useCallback, useRef, useEffect } from "react";
 
 /* ------------------------------------------------------------------ */
@@ -269,6 +270,40 @@ export function GradientGeneratorPage() {
             </pre>
           </div>
         </div>
+
+        {/* ─── About this tool ─── */}
+        <section className="mt-8 rounded-[2rem] border border-black/6 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-neutral-900/80">
+          <h2 className="text-lg font-semibold text-neutral-950 dark:text-white">
+            How it works
+          </h2>
+          <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            CSS gradients create smooth transitions between two or more colors directly in the browser, with no images required. Linear gradients flow along an angle you define, while radial gradients expand outward from a center point. Both are resolution-independent and render crisply on any screen size.
+          </p>
+          <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            Use gradients for hero backgrounds, button states, overlay effects, and decorative accents. This tool lets you pick colors, adjust the angle, and instantly copy production-ready CSS or Tailwind markup. Swap or randomize colors to discover unexpected combinations.
+          </p>
+        </section>
+
+        {/* ─── Related tools ─── */}
+        <section className="mt-6 rounded-[2rem] border border-black/6 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-neutral-900/80">
+          <h2 className="mb-4 text-lg font-semibold text-neutral-950 dark:text-white">
+            Related tools
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/mixer/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Color Mixer
+            </Link>
+            <Link href="/tints/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Tints &amp; Shades
+            </Link>
+            <Link href="/palette-generator/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Palette Generator
+            </Link>
+            <Link href="/css-colors/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              CSS Colors
+            </Link>
+          </div>
+        </section>
       </div>
     </main>
   );

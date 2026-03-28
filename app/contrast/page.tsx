@@ -5,22 +5,23 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ContrastCheckerPage } from "@/src/components/contrast-page";
 
 export const metadata: Metadata = {
-  title: { absolute: "WCAG Contrast Checker — ColorArchive" },
+  title: { absolute: "Color Contrast Checker — WCAG AA/AAA Compliance | ColorArchive" },
   description:
-    "Free WCAG contrast ratio checker. Enter any two hex colors and see AA/AAA compliance for normal text, large text, and UI components in real time.",
+    "Check WCAG contrast ratios between any two colors. See AA and AAA compliance for text, large text, and UI. Real-time results. Free accessibility tool.",
   alternates: {
     canonical: "/contrast/",
   },
+  keywords: ["color contrast checker", "WCAG contrast", "contrast ratio", "AA AAA compliance", "accessibility checker"],
   openGraph: {
-    title: "WCAG Contrast Checker — ColorArchive",
+    title: "Color Contrast Checker — WCAG AA/AAA Compliance | ColorArchive",
     description:
-      "Free WCAG contrast ratio checker. Enter any two hex colors and see AA/AAA compliance for normal text, large text, and UI components in real time.",
+      "Check WCAG contrast ratios between any two colors. See AA and AAA compliance for text, large text, and UI. Real-time results. Free accessibility tool.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
   twitter: {
-    title: "WCAG Contrast Checker — ColorArchive",
+    title: "Color Contrast Checker — WCAG AA/AAA Compliance | ColorArchive",
     description:
-      "Free WCAG contrast ratio checker. Enter any two hex colors and see AA/AAA compliance in real time.",
+      "Check WCAG contrast ratios between any two colors. See AA and AAA compliance for text, large text, and UI. Real-time results. Free accessibility tool.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
 };

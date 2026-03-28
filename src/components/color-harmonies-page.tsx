@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useMemo, useState, useRef, useEffect } from "react";
 import { useLocale } from "@/src/components/locale-provider";
 
@@ -424,6 +425,40 @@ export function ColorHarmoniesPage() {
             ))}
           </section>
         )}
+
+        {/* ─── About this tool ─── */}
+        <section className="mt-14 rounded-[2rem] border border-black/6 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-neutral-900/80">
+          <h2 className="text-lg font-semibold text-neutral-950 dark:text-white">
+            About color harmonies
+          </h2>
+          <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            Color harmonies are combinations of colors derived from their positions on the color wheel. Complementary colors sit opposite each other for maximum contrast, analogous colors are neighbors that create smooth, cohesive palettes, and triadic colors are evenly spaced for vibrant balance.
+          </p>
+          <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            This calculator supports six harmony types: complementary, analogous, triadic, tetradic (square), split-complementary, and monochromatic. Understanding these relationships helps designers build palettes that feel intentional rather than random. Enter any hex color to see all six harmonies visualized on an interactive color wheel with exportable CSS and Tailwind code.
+          </p>
+        </section>
+
+        {/* ─── Related tools ─── */}
+        <section className="mt-6 rounded-[2rem] border border-black/6 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-neutral-900/80">
+          <h2 className="mb-4 text-lg font-semibold text-neutral-950 dark:text-white">
+            Related tools
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/palette-generator/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Palette Generator
+            </Link>
+            <Link href="/contrast/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Contrast Checker
+            </Link>
+            <Link href="/mixer/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Color Mixer
+            </Link>
+            <Link href="/all-colors/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              All Colors
+            </Link>
+          </div>
+        </section>
       </div>
     </main>
   );

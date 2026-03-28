@@ -5,22 +5,23 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ColorBlindSimulatorPage } from "@/src/components/colorblind-page";
 
 export const metadata: Metadata = {
-  title: { absolute: "Color Blindness Simulator — ColorArchive" },
+  title: { absolute: "Color Blindness Simulator — Test Color Accessibility | ColorArchive" },
   description:
-    "Simulate how your colors appear to people with deuteranopia, protanopia, tritanopia, and achromatopsia. Test single colors or full palettes for accessibility.",
+    "Simulate how colors appear with protanopia, deuteranopia, tritanopia, and achromatopsia. Test palettes for color blindness accessibility. Free online tool.",
   alternates: {
     canonical: "/colorblind/",
   },
+  keywords: ["color blindness simulator", "color blind test", "protanopia", "deuteranopia", "color accessibility"],
   openGraph: {
-    title: "Color Blindness Simulator — ColorArchive",
+    title: "Color Blindness Simulator — Test Color Accessibility | ColorArchive",
     description:
-      "Simulate how your colors appear to people with deuteranopia, protanopia, tritanopia, and achromatopsia. Test single colors or full palettes.",
+      "Simulate how colors appear with protanopia, deuteranopia, tritanopia, and achromatopsia. Test palettes for color blindness accessibility. Free online tool.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
   twitter: {
-    title: "Color Blindness Simulator — ColorArchive",
+    title: "Color Blindness Simulator — Test Color Accessibility | ColorArchive",
     description:
-      "Simulate deuteranopia, protanopia, tritanopia, and achromatopsia. Test your palette for color-blind accessibility.",
+      "Simulate how colors appear with protanopia, deuteranopia, tritanopia, and achromatopsia. Test palettes for color blindness accessibility. Free online tool.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
 };

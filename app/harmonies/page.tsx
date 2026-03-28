@@ -4,9 +4,20 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ColorHarmoniesPage } from "@/src/components/color-harmonies-page";
 
 export const metadata: Metadata = {
-  title: { absolute: "Color Harmonies Calculator — Complementary, Triadic, Analogous | ColorArchive" },
-  description: "Calculate color harmonies from any hex color. See complementary, analogous, triadic, tetradic, split-complementary, and monochromatic relationships on an interactive color wheel.",
+  title: { absolute: "Color Harmonies Calculator — Color Wheel Tool | ColorArchive" },
+  description: "Find complementary, analogous, triadic, and split-complementary color harmonies. Interactive color wheel with hex/RGB/HSL values. Free online tool.",
   alternates: { canonical: "/harmonies/" },
+  keywords: ["color harmonies", "color wheel", "complementary colors", "triadic colors", "analogous colors", "color theory"],
+  openGraph: {
+    title: "Color Harmonies Calculator — Color Wheel Tool | ColorArchive",
+    description: "Find complementary, analogous, triadic, and split-complementary color harmonies. Interactive color wheel with hex/RGB/HSL values. Free online tool.",
+    images: ["https://colorarchive.me/og-image-v1.png"],
+  },
+  twitter: {
+    title: "Color Harmonies Calculator — Color Wheel Tool | ColorArchive",
+    description: "Find complementary, analogous, triadic, and split-complementary color harmonies. Interactive color wheel with hex/RGB/HSL values. Free online tool.",
+    images: ["https://colorarchive.me/og-image-v1.png"],
+  },
 };
 
 const structuredData = {

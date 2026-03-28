@@ -25,13 +25,18 @@ const structuredData = [
 ];
 
 export const metadata: Metadata = {
-  title: "All 3,000+ Hex Colors",
-  description: "Browse the complete ColorArchive — all 3,000+ curated hex color codes in a single dense view, organized by hue across the full spectrum.",
+  title: { absolute: "3,066 Hex Color Codes — Browse All Colors | ColorArchive" },
+  description: "Browse 3,066 hex color codes organized by hue, lightness, and family. Search by name, hex value, or mood. Copy any color code instantly. Free color reference.",
   alternates: { canonical: "/all-colors/" },
+  keywords: ["hex color codes", "color codes list", "all colors", "hex colors", "color reference", "color names"],
   openGraph: {
+    title: "3,066 Hex Color Codes — Browse All Colors | ColorArchive",
+    description: "Browse 3,066 hex color codes organized by hue, lightness, and family. Search by name, hex value, or mood. Copy any color code instantly. Free color reference.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
   twitter: {
+    title: "3,066 Hex Color Codes — Browse All Colors | ColorArchive",
+    description: "Browse 3,066 hex color codes organized by hue, lightness, and family. Search by name, hex value, or mood. Copy any color code instantly. Free color reference.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
   robots: { index: true, follow: true },

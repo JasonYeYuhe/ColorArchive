@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useMemo, useState, useRef, useEffect } from "react";
 import { useLocale } from "@/src/components/locale-provider";
 
@@ -333,6 +334,43 @@ export function PaletteGeneratorPage() {
             ))}
           </section>
         )}
+
+        {/* ─── About this tool ─── */}
+        <section className="mt-14 rounded-[2rem] border border-black/6 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-neutral-900/80">
+          <h2 className="text-lg font-semibold text-neutral-950 dark:text-white">
+            About this tool
+          </h2>
+          <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            The Palette Generator creates harmonious color palettes from any hex color you provide. It calculates five classic harmony types — complementary, analogous, triadic, split-complementary, and monochromatic — so you can quickly explore color relationships without manual math.
+          </p>
+          <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            Designers use palette generators to speed up the early stages of branding, UI design, and web development. Instead of guessing which colors work together, you start with a single seed color and let color theory do the rest. Every swatch is click-to-copy, and you can export palettes as CSS variables or Tailwind config.
+          </p>
+        </section>
+
+        {/* ─── Related tools ─── */}
+        <section className="mt-6 rounded-[2rem] border border-black/6 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-neutral-900/80">
+          <h2 className="mb-4 text-lg font-semibold text-neutral-950 dark:text-white">
+            Related tools
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/mixer/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Color Mixer
+            </Link>
+            <Link href="/harmonies/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Color Harmonies
+            </Link>
+            <Link href="/tints/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Tints &amp; Shades
+            </Link>
+            <Link href="/image-palette/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Image Palette
+            </Link>
+            <Link href="/validate/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+              Palette Validator
+            </Link>
+          </div>
+        </section>
       </div>
     </main>
   );

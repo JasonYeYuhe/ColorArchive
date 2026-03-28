@@ -623,6 +623,27 @@ export function ColorConverterPage() {
           ))}
         </div>
       </div>
+
+      {/* ─── Related tools ─── */}
+      <section className="mt-8 rounded-[2rem] border border-black/6 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-neutral-900/80">
+        <h2 className="mb-4 text-lg font-semibold text-neutral-950 dark:text-white">
+          Related tools
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          <Link href="/contrast/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            Contrast Checker
+          </Link>
+          <Link href="/css-colors/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            CSS Colors
+          </Link>
+          <Link href="/name/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            Color Name Generator
+          </Link>
+          <Link href="/all-colors/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            All Colors
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

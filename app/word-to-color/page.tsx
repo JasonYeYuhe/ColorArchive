@@ -5,14 +5,18 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { WordColorGeneratorPage } from "@/src/components/word-color-generator-page";
 
 export const metadata: Metadata = {
-  title: "Word to Color Generator",
-  description:
-    "Type any word or phrase and instantly get a unique hex color code. A deterministic word-to-color algorithm — same word always produces the same color, with 5 tonal variants.",
+  title: { absolute: "Word to Color Generator — Turn Text into Colors | ColorArchive" },
+  description: "Convert any word or phrase into a unique hex color. Deterministic algorithm — same text always produces the same color with 5 tonal variants. Free tool.",
   alternates: { canonical: "/word-to-color/" },
+  keywords: ["word to color", "text to color", "word color generator", "text to hex", "color from text"],
   openGraph: {
+    title: "Word to Color Generator — Turn Text into Colors | ColorArchive",
+    description: "Convert any word or phrase into a unique hex color. Deterministic algorithm — same text always produces the same color with 5 tonal variants. Free tool.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
   twitter: {
+    title: "Word to Color Generator — Turn Text into Colors | ColorArchive",
+    description: "Convert any word or phrase into a unique hex color. Deterministic algorithm — same text always produces the same color with 5 tonal variants. Free tool.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
 };
