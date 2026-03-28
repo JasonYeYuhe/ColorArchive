@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
 /* ─── CSS Named Colors Data ──────────────────────────────────────────────────── */
@@ -213,11 +213,13 @@ function isLight(hex: string): boolean {
 
 function CopyButton({ text, label }: { text: string; label: string }) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1400);
+      timerRef.current = setTimeout(() => setCopied(false), 1400);
     } catch { /* ignore */ }
   }, [text]);
   return (

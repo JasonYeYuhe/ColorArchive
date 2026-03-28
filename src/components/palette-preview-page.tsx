@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ProGate } from "@/src/components/pro-gate";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 
@@ -456,6 +456,9 @@ export function PalettePreviewPage() {
   const [inputs, setInputs] = useState(["#e8f4f8", "#b8d8e8", "#2d7dd2", "#1a1a2e", "#38b2ac"]);
   const [activeScene, setActiveScene] = useState<Scene>("Landing Page");
   const [copied, setCopied] = useState(false);
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const twCopiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(copiedTimerRef.current); clearTimeout(twCopiedTimerRef.current); }, []);
 
   const roles = assignRoles(inputs);
 
@@ -486,7 +489,7 @@ export function PalettePreviewPage() {
   const copyCss = useCallback(() => {
     navigator.clipboard.writeText(`:root {\n  ${cssVars.split("\n").join("\n  ")}\n}`);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1400);
+    copiedTimerRef.current = setTimeout(() => setCopied(false), 1400);
   }, [cssVars]);
 
   const [twCopied, setTwCopied] = useState(false);
@@ -508,7 +511,7 @@ module.exports = {
   const copyTailwind = useCallback(() => {
     navigator.clipboard.writeText(tailwindConfig);
     setTwCopied(true);
-    setTimeout(() => setTwCopied(false), 1400);
+    twCopiedTimerRef.current = setTimeout(() => setTwCopied(false), 1400);
   }, [tailwindConfig]);
 
   return (

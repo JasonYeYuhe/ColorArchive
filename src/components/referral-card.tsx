@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { API_URL } from "@/src/lib/auth-client";
 import { useAuth } from "@/src/components/auth-provider";
 
@@ -15,6 +15,8 @@ export function ReferralCard() {
   const { status } = useAuth();
   const [data, setData] = useState<ReferralData | null>(null);
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
 
   useEffect(() => {
     if (status !== "authenticated") return;
@@ -29,7 +31,7 @@ export function ReferralCard() {
   const copyLink = () => {
     navigator.clipboard.writeText(data.link);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    timerRef.current = setTimeout(() => setCopied(false), 2000);
   };
 
   return (

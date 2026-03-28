@@ -1,6 +1,7 @@
 "use client";
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+import { API_URL } from "@/src/lib/api-config";
+export { API_URL };
 
 export interface AuthUser {
   id: number;

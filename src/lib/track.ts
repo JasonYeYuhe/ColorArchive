@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+import { API_URL } from "@/src/lib/api-config";
 
 /**
  * Fire-and-forget event tracking. Never throws, never blocks UI.

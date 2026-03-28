@@ -13,6 +13,8 @@ interface HoveredColor {
 }
 
 export function ColorSpectrum() {
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(copiedTimerRef.current); }, []);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [saturation, setSaturation] = useState(80);
@@ -103,7 +105,7 @@ export function ColorSpectrum() {
     try {
       await navigator.clipboard.writeText(color.hex);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1200);
+      copiedTimerRef.current = setTimeout(() => setCopied(false), 1200);
     } catch {
       // clipboard not available
     }

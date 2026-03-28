@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+import { API_URL } from "@/src/lib/api-config";
 const ZERO_DECIMAL_CURRENCIES = new Set(["JPY", "KRW"]);
 type LoadState = "idle" | "loading" | "success" | "error";
 

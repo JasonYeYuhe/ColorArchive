@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
         subscriptionId: subscription.id,
         customerId,
         status: subscription.status,
-        currentPeriodEnd: (subscription as unknown as Record<string, unknown>).current_period_end ?? null,
+        currentPeriodEnd: (subscription as unknown as { current_period_end?: number }).current_period_end ?? null,
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
         priceId: subscription.items?.data[0]?.price?.id ?? null,
       });

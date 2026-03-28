@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
 import {
@@ -22,12 +22,14 @@ const ALL_CATEGORIES: TrendCategory[] = [
 
 function CopyButton({ hex }: { hex: string }) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(hex);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1400);
+      timerRef.current = setTimeout(() => setCopied(false), 1400);
     } catch {
       setCopied(false);
     }

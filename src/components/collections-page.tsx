@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import type { ColorCollection } from "@/src/lib/collections";
@@ -45,10 +45,12 @@ function CopyButton({ label, value }: { label: string; value: string }) {
 
 function AddCollectionToPaletteButton({ collection }: { collection: ColorCollection }) {
   const [added, setAdded] = useState(false);
+  const addedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(addedTimerRef.current); }, []);
   const handleAdd = () => {
     addManyToPalette(collection.palette.map((c) => c.id));
     setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+    addedTimerRef.current = setTimeout(() => setAdded(false), 2000);
   };
   return added ? (
     <Link

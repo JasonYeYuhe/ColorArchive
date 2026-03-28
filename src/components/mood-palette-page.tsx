@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-button";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
@@ -12,7 +12,7 @@ import { track } from "@/src/lib/track";
 import { toggleFavoriteColor, getFavoriteColorIds } from "@/src/lib/favorites";
 import { colors as archiveColors } from "@/src/data/colors";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+import { API_URL } from "@/src/lib/api-config";
 
 const PRESETS = [
   "深夜咖啡馆",
@@ -52,6 +52,8 @@ export function MoodPalettePage() {
   const [error, setError] = useState("");
   const [result, setResult] = useState<MoodResult | null>(null);
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(copiedTimerRef.current); }, []);
   const [savedIdx, setSavedIdx] = useState<Set<number>>(new Set());
   const [shareUrl, setShareUrl] = useState("/mood-palette/");
   const upgrade = useUpgradeModal();
@@ -133,7 +135,7 @@ export function MoodPalettePage() {
   const copyHex = (hex: string, idx: number) => {
     navigator.clipboard.writeText(hex);
     setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 1400);
+    copiedTimerRef.current = setTimeout(() => setCopiedIdx(null), 1400);
   };
 
   const saveColor = (color: MoodColor, idx: number) => {

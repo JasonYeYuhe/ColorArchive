@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useRef, useEffect } from "react";
 import { useLocale } from "@/src/components/locale-provider";
 
 /* ------------------------------------------------------------------ */
@@ -124,6 +124,8 @@ function harmonyToTailwind(harmony: Harmony): string {
 
 function CopyButton({ value, label }: { value: string; label: string }) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
   return (
     <button
       type="button"
@@ -131,7 +133,7 @@ function CopyButton({ value, label }: { value: string; label: string }) {
         try {
           await navigator.clipboard.writeText(value);
           setCopied(true);
-          setTimeout(() => setCopied(false), 1500);
+          timerRef.current = setTimeout(() => setCopied(false), 1500);
         } catch {
           /* clipboard not available */
         }
@@ -149,6 +151,8 @@ function CopyButton({ value, label }: { value: string; label: string }) {
 
 function Swatch({ hex, label }: { hex: string; label: string }) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
 
   const isLight = (() => {
     const match = hex.match(/^#([0-9a-f]{6})$/i);
@@ -166,7 +170,7 @@ function Swatch({ hex, label }: { hex: string; label: string }) {
         try {
           await navigator.clipboard.writeText(hex);
           setCopied(true);
-          setTimeout(() => setCopied(false), 1200);
+          timerRef.current = setTimeout(() => setCopied(false), 1200);
         } catch {
           /* clipboard not available */
         }

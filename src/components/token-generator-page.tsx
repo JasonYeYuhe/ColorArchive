@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { hexToRgb, rgbToHsl, hslToRgb, rgbToHex } from "@/src/lib/color-utils";
 import { useLocale } from "@/src/components/locale-provider";
 import { ProGate } from "@/src/components/pro-gate";
@@ -182,10 +182,12 @@ function buildJSON(tokens: TokenSystem, varName: string): string {
 
 function CopyButton({ value, label }: { value: string; label?: string }) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(value).catch(() => {});
     setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    timerRef.current = setTimeout(() => setCopied(false), 1500);
   }, [value]);
   return (
     <button

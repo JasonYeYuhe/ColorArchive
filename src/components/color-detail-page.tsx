@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
 import { PinterestSaveButton } from "@/src/components/pinterest-save-button";
@@ -201,6 +201,8 @@ function AiColorNaming({ color }: { color: ColorRecord }) {
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [names, setNames] = useState<AiName[]>([]);
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(copiedTimerRef.current); }, []);
 
   const handleGenerate = async () => {
     setState("loading");
@@ -222,7 +224,7 @@ function AiColorNaming({ color }: { color: ColorRecord }) {
   const handleCopy = (idx: number, text: string) => {
     navigator.clipboard.writeText(text).then(() => {
       setCopiedIdx(idx);
-      setTimeout(() => setCopiedIdx(null), 1500);
+      copiedTimerRef.current = setTimeout(() => setCopiedIdx(null), 1500);
     });
   };
 

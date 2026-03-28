@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import { hexToRgb, findClosestArchiveColor } from "@/src/lib/color-utils";
 import { classifyError } from "@/src/lib/error-utils";
@@ -16,7 +16,7 @@ import { DownloadPaletteImage } from "@/src/components/download-palette-image";
 import { WhatsNext } from "@/src/components/whats-next";
 import { collections } from "@/src/lib/collections";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+import { API_URL } from "@/src/lib/api-config";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -87,10 +87,12 @@ function textColorFor(hex: string): string {
 
 function CopyButton({ text, label }: { text: string; label: string }) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
   const handle = () => {
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
+      timerRef.current = setTimeout(() => setCopied(false), 1800);
     });
   };
   return (

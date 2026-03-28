@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   simulateColorBlindness,
   hexToRgbCB,
@@ -41,10 +41,12 @@ function textColor(hex: string): string {
 
 function CopyButton({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(value).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 1200);
+      timerRef.current = setTimeout(() => setCopied(false), 1200);
     });
   }, [value]);
   return (

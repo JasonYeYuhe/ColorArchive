@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useRef, useEffect } from "react";
 import { colors } from "@/src/data/colors";
 import {
   hexToRgb,
@@ -117,12 +117,14 @@ function parseCmykInput(c: string, m: string, y: string, k: string): ParsedColor
 
 function CopyButton({ text, label }: { text: string; label: string }) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
 
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      timerRef.current = setTimeout(() => setCopied(false), 1500);
     } catch {
       // fallback: ignore
     }
@@ -146,6 +148,8 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 
 function CopyAllButton({ conversions }: { conversions: { hex: string; r: number; g: number; b: number; hsl: { h: number; s: number; l: number }; hsb: { h: number; s: number; b: number }; cmyk: { c: number; m: number; y: number; k: number } } }) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
   const allText = [
     `HEX: ${conversions.hex}`,
     `RGB: rgb(${conversions.r}, ${conversions.g}, ${conversions.b})`,
@@ -156,7 +160,7 @@ function CopyAllButton({ conversions }: { conversions: { hex: string; r: number;
   return (
     <button
       type="button"
-      onClick={async () => { try { await navigator.clipboard.writeText(allText); setCopied(true); setTimeout(() => setCopied(false), 1500); } catch {} }}
+      onClick={async () => { try { await navigator.clipboard.writeText(allText); setCopied(true); timerRef.current = setTimeout(() => setCopied(false), 1500); } catch {} }}
       className="w-full rounded-xl border border-black/8 bg-neutral-950 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100"
     >
       {copied ? "Copied!" : "Copy all formats"}

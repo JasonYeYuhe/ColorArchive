@@ -21,8 +21,10 @@ export interface ColorCombination {
   colors: ColorRecord[];
 }
 
+const colorMap = new Map(colors.map((c) => [c.id, c]));
+
 function getColorById(id: string): ColorRecord {
-  const color = colors.find((c) => c.id === id);
+  const color = colorMap.get(id);
   if (!color) throw new Error(`Unknown color id: ${id}`);
   return color;
 }

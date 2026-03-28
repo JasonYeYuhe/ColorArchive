@@ -57,6 +57,8 @@ function normalizeHex(hex: string): string {
 /* ------------------------------------------------------------------ */
 
 function ResultPanel({ result, onClear }: { result: IdentifiedColor; onClear: () => void }) {
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(copiedTimerRef.current); }, []);
   const [copied, setCopied] = useState<string | null>(null);
   const [favorited, setFavorited] = useState(() =>
     result.match ? isFavoriteColor(result.match.id) : false
@@ -67,7 +69,7 @@ function ResultPanel({ result, onClear }: { result: IdentifiedColor; onClear: ()
     window.history.replaceState(null, "", `/identify/?hex=${result.hex.replace("#", "")}`);
     navigator.clipboard.writeText(url).then(() => {
       setCopied("share");
-      setTimeout(() => setCopied(null), 1800);
+      copiedTimerRef.current = setTimeout(() => setCopied(null), 1800);
     });
   };
 
@@ -82,7 +84,7 @@ function ResultPanel({ result, onClear }: { result: IdentifiedColor; onClear: ()
   const copy = (text: string, key: string) => {
     navigator.clipboard.writeText(text).then(() => {
       setCopied(key);
-      setTimeout(() => setCopied(null), 1600);
+      copiedTimerRef.current = setTimeout(() => setCopied(null), 1600);
     });
   };
 
@@ -634,12 +636,14 @@ function HexInputMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) 
 
 function AddHistoryToPaletteButton({ history }: { history: IdentifiedColor[] }) {
   const [added, setAdded] = useState(false);
+  const addedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(addedTimerRef.current); }, []);
   const ids = history.map((h) => h.match?.id).filter((id): id is string => Boolean(id));
   if (ids.length === 0) return null;
   const handleAdd = () => {
     addManyToPalette(ids);
     setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+    addedTimerRef.current = setTimeout(() => setAdded(false), 2000);
   };
   return added ? (
     <Link href="/palette/" className="text-xs text-indigo-600 hover:underline">

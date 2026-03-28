@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 interface Stop {
   color: string;
@@ -92,6 +92,8 @@ export function MeshGradientPage() {
   const [stops, setStops] = useState<Stop[]>(PRESETS[0].stops);
   const [activeStop, setActiveStop] = useState(0);
   const [copied, setCopied] = useState(false);
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(copiedTimerRef.current); }, []);
   const previewRef = useRef<HTMLDivElement>(null);
 
   const css = buildCss(base, stops);
@@ -113,7 +115,7 @@ export function MeshGradientPage() {
   const copyCss = useCallback(() => {
     navigator.clipboard.writeText(css);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1400);
+    copiedTimerRef.current = setTimeout(() => setCopied(false), 1400);
   }, [css]);
 
   const downloadPng = useCallback(async () => {

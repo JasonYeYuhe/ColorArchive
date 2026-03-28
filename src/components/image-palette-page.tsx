@@ -246,12 +246,14 @@ function generatePaletteSvg(matched: MatchedColor[]): string {
 
 function AddMatchesToPaletteButton({ matchedColors }: { matchedColors: { archiveId: string | null }[] }) {
   const [added, setAdded] = useState(false);
+  const addedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(addedTimerRef.current); }, []);
   const ids = matchedColors.map((m) => m.archiveId).filter((id): id is string => Boolean(id));
   if (ids.length === 0) return null;
   const handleAdd = () => {
     addManyToPalette(ids);
     setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+    addedTimerRef.current = setTimeout(() => setAdded(false), 2000);
   };
   return added ? (
     <Link href="/palette/" className="text-sm text-indigo-600 hover:underline font-medium">
@@ -279,6 +281,9 @@ export function ImagePalettePage() {
   const [exportFormat, setExportFormat] = useState<ExportFormat>("hex");
   const [exportCopied, setExportCopied] = useState(false);
   const [copyStates, setCopyStates] = useState<CopyState>({});
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const exportCopiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(copyTimerRef.current); clearTimeout(exportCopiedTimerRef.current); }, []);
   const [showMatches, setShowMatches] = useState(true);
   const [sampleUrlInput, setSampleUrlInput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -413,7 +418,7 @@ export function ImagePalettePage() {
   const handleCopyHex = useCallback((hex: string) => {
     navigator.clipboard.writeText(hex).then(() => {
       setCopyStates((prev) => ({ ...prev, [hex]: "copied" }));
-      setTimeout(() => setCopyStates((prev) => ({ ...prev, [hex]: "idle" })), 1800);
+      copyTimerRef.current = setTimeout(() => setCopyStates((prev) => ({ ...prev, [hex]: "idle" })), 1800);
     });
   }, []);
 
@@ -421,7 +426,7 @@ export function ImagePalettePage() {
     const text = formatForExport(extractedColors, exportFormat);
     navigator.clipboard.writeText(text).then(() => {
       setExportCopied(true);
-      setTimeout(() => setExportCopied(false), 2000);
+      exportCopiedTimerRef.current = setTimeout(() => setExportCopied(false), 2000);
     });
   }, [extractedColors, exportFormat]);
 

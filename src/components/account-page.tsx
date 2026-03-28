@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useAuth } from "@/src/components/auth-provider";
 import { fetchUsage, type UsageStats, API_URL } from "@/src/lib/auth-client";
@@ -44,6 +44,8 @@ function ApiKeySection() {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(timerRef.current); }, []);
 
   useEffect(() => {
     fetch(`${API_URL}/me/api-key`, { credentials: "include" })
@@ -69,7 +71,7 @@ function ApiKeySection() {
     if (!apiKey) return;
     navigator.clipboard.writeText(apiKey);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    timerRef.current = setTimeout(() => setCopied(false), 2000);
   };
 
   return (

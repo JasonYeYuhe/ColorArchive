@@ -10,7 +10,7 @@ import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import type { ColorRecord } from "@/src/types/color";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+import { API_URL } from "@/src/lib/api-config";
 
 interface ExtractedColor {
   hex: string;
