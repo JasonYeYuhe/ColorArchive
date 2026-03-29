@@ -71,6 +71,7 @@ interface SiteHeaderProps {
     | "/industry"
     | "/trends"
     | "/validate"
+    | "/pick-for-me"
     | "/embed/embed-code";
 }
 
