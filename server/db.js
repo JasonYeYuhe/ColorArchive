@@ -148,4 +148,16 @@ db.exec(`
   );
 `);
 
+// Stripe subscription tracking
+ensureColumn("users", "stripe_customer_id TEXT");
+ensureColumn("users", "stripe_subscription_id TEXT");
+ensureColumn("users", "subscription_status TEXT");
+ensureColumn("users", "subscription_plan TEXT");
+ensureColumn("users", "subscription_current_period_end TEXT");
+ensureColumn("users", "subscription_cancel_at_period_end INTEGER DEFAULT 0");
+
+// Stripe order support
+ensureColumn("orders", "stripe_session_id TEXT");
+ensureColumn("orders", "payment_intent TEXT");
+
 module.exports = db;

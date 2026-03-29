@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const { findCatalogProduct, getDownloadUrl } = require("../catalog");
+const { findCatalogProduct, getDownloadUrl, getPackUrl } = require("../catalog");
 const { sendOrderConfirmationEmail } = require("../email");
 
 const INTERNAL_SECRET = process.env.INTERNAL_WEBHOOK_SECRET || "";
 
 /** Verify requests come from our own Next.js webhook forwarder */
-function requireInternalSecret(req, res, next) {
+function verifyInternal(req, res, next) {
   if (!INTERNAL_SECRET) {
     console.warn("[webhook] INTERNAL_WEBHOOK_SECRET not set — allowing request");
     return next();
@@ -18,9 +18,10 @@ function requireInternalSecret(req, res, next) {
   next();
 }
 
-router.use(requireInternalSecret);
+router.use(verifyInternal);
 
-// --- Pack purchase fulfilled ---
+// POST /webhooks/order-completed
+// Called by Next.js webhook route after Stripe checkout.session.completed
 router.post("/order-completed", async (req, res) => {
   const { sessionId, email, packId, amountTotal, currency, paymentIntent } = req.body;
 
@@ -28,10 +29,10 @@ router.post("/order-completed", async (req, res) => {
     return res.status(400).json({ error: "Missing email or packId" });
   }
 
-  const orderId = paymentIntent || sessionId || `stripe_${Date.now()}`;
+  const orderId = paymentIntent || `stripe_${sessionId}` || `stripe_${Date.now()}`;
   const catalogProduct = findCatalogProduct(packId);
   const productName = catalogProduct?.title || packId;
-  const downloadUrl = getDownloadUrl(packId);
+  const downloadUrl = getDownloadUrl(packId) || "https://colorarchive.me/packs";
 
   // Check for duplicate
   const existing = db.prepare("SELECT id FROM orders WHERE order_id = ?").get(orderId);
@@ -40,11 +41,49 @@ router.post("/order-completed", async (req, res) => {
     return res.json({ ok: true, duplicate: true });
   }
 
-  // Insert order
-  db.prepare(
-    `INSERT INTO orders (order_id, email, product, amount, currency, pack_id, download_url)
-     VALUES (?, ?, ?, ?, ?, ?, ?)`
-  ).run(orderId, email, productName, amountTotal || 0, currency || "jpy", packId, downloadUrl);
+  // Look up subscriber attribution
+  const subscriberAttribution = db
+    .prepare(
+      "SELECT source, utm_source, utm_medium, utm_campaign, utm_term, utm_content, landing_path FROM subscribers WHERE lower(email) = lower(?)"
+    )
+    .get(email);
+
+  // Insert order with attribution
+  try {
+    db.prepare(
+      `INSERT OR IGNORE INTO orders (
+        order_id, email, product, amount, currency, pack_id,
+        download_url, stripe_session_id, payment_intent,
+        attributed_source, attributed_utm_source, attributed_utm_medium,
+        attributed_utm_campaign, attributed_utm_term, attributed_utm_content,
+        attributed_landing_path
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).run(
+      orderId,
+      email,
+      productName,
+      amountTotal || 0,
+      currency || "jpy",
+      packId,
+      downloadUrl,
+      sessionId || null,
+      paymentIntent || null,
+      subscriberAttribution?.source || null,
+      subscriberAttribution?.utm_source || null,
+      subscriberAttribution?.utm_medium || null,
+      subscriberAttribution?.utm_campaign || null,
+      subscriberAttribution?.utm_term || null,
+      subscriberAttribution?.utm_content || null,
+      subscriberAttribution?.landing_path || null
+    );
+
+    // Add buyer to subscribers if not already
+    db.prepare(
+      "INSERT OR IGNORE INTO subscribers (email, source) VALUES (?, ?)"
+    ).run(email, "stripe-purchase");
+  } catch (err) {
+    console.error("[webhook] DB error (order):", err);
+  }
 
   console.log(`[webhook] Order recorded: ${orderId} — ${productName} for ${email}`);
 
@@ -65,7 +104,8 @@ router.post("/order-completed", async (req, res) => {
   return res.json({ ok: true });
 });
 
-// --- Subscription checkout completed ---
+// POST /webhooks/subscription-checkout
+// Called after a subscription checkout completes
 router.post("/subscription-checkout", (req, res) => {
   const { sessionId, email, plan, subscriptionId } = req.body;
 
@@ -75,14 +115,24 @@ router.post("/subscription-checkout", (req, res) => {
 
   console.log(`[webhook] Subscription checkout: ${plan} for ${email} (sub=${subscriptionId})`);
 
-  // Activate pro tier for this user (if they exist)
-  const user = db.prepare("SELECT id FROM users WHERE LOWER(email) = LOWER(?)").get(email);
-  if (user) {
-    db.prepare("UPDATE users SET tier = 'pro' WHERE id = ?").run(user.id);
-    console.log(`[webhook] User ${email} upgraded to pro`);
-  } else {
-    console.log(`[webhook] No user account found for ${email} — pro will activate on login`);
+  // Find or create user, activate pro
+  let user = db.prepare("SELECT id FROM users WHERE LOWER(email) = LOWER(?)").get(email);
+  if (!user) {
+    db.prepare("INSERT INTO users (email) VALUES (?)").run(email);
+    user = db.prepare("SELECT id FROM users WHERE LOWER(email) = LOWER(?)").get(email);
   }
+
+  if (user) {
+    db.prepare(
+      "UPDATE users SET tier = 'pro', subscription_plan = ?, stripe_subscription_id = ? WHERE id = ?"
+    ).run(plan || "monthly", subscriptionId || null, user.id);
+    console.log(`[webhook] User ${email} upgraded to pro`);
+  }
+
+  // Add to subscribers
+  db.prepare(
+    "INSERT OR IGNORE INTO subscribers (email, source) VALUES (?, ?)"
+  ).run(email, "stripe-subscription");
 
   // Record as order for tracking
   const orderId = subscriptionId || sessionId || `sub_${Date.now()}`;
@@ -97,44 +147,79 @@ router.post("/subscription-checkout", (req, res) => {
   return res.json({ ok: true });
 });
 
-// --- Subscription updated ---
+// POST /webhooks/subscription-updated
+// Called on customer.subscription.created / updated
 router.post("/subscription-updated", (req, res) => {
   const { subscriptionId, customerId, status, currentPeriodEnd, cancelAtPeriodEnd, priceId } = req.body;
 
-  console.log(`[webhook] Subscription updated: ${subscriptionId} status=${status} cancelAtEnd=${cancelAtPeriodEnd}`);
-
-  // If subscription is active/trialing, keep pro. If past_due/unpaid, downgrade.
-  if (status === "active" || status === "trialing") {
-    // Update pro_expires_at if we have the period end
-    if (currentPeriodEnd) {
-      const expiresAt = new Date(currentPeriodEnd * 1000).toISOString();
-      db.prepare(
-        "UPDATE users SET tier = 'pro', pro_expires_at = ? WHERE LOWER(email) IN (SELECT LOWER(email) FROM orders WHERE order_id = ?)"
-      ).run(expiresAt, subscriptionId);
-    }
-  } else if (status === "past_due" || status === "unpaid") {
-    console.log(`[webhook] Subscription ${subscriptionId} is ${status} — will downgrade if not resolved`);
+  if (!subscriptionId) {
+    return res.status(400).json({ error: "Missing subscriptionId" });
   }
 
+  console.log(`[webhook] Subscription updated: ${subscriptionId} status=${status} cancelAtEnd=${cancelAtPeriodEnd}`);
+
+  // Find user by stripe_subscription_id or stripe_customer_id
+  const user = db.prepare(
+    "SELECT id FROM users WHERE stripe_subscription_id = ? OR stripe_customer_id = ?"
+  ).get(subscriptionId, customerId);
+
+  if (!user) {
+    console.log(`[webhook] subscription-updated: no user found for sub=${subscriptionId} cust=${customerId}`);
+    return res.json({ ok: true, skipped: true });
+  }
+
+  const isPro = ["active", "trialing"].includes(status);
+
+  db.prepare(
+    `UPDATE users SET
+      tier = ?,
+      subscription_status = ?,
+      stripe_customer_id = ?,
+      stripe_subscription_id = ?,
+      subscription_current_period_end = ?,
+      subscription_cancel_at_period_end = ?,
+      pro_expires_at = ?
+    WHERE id = ?`
+  ).run(
+    isPro ? "pro" : "free",
+    status,
+    customerId || null,
+    subscriptionId,
+    currentPeriodEnd ? new Date(currentPeriodEnd * 1000).toISOString() : null,
+    cancelAtPeriodEnd ? 1 : 0,
+    currentPeriodEnd ? new Date(currentPeriodEnd * 1000).toISOString() : null,
+    user.id
+  );
+
+  console.log(`[webhook] subscription-updated: user=${user.id} status=${status} pro=${isPro}`);
   return res.json({ ok: true });
 });
 
-// --- Subscription cancelled ---
+// POST /webhooks/subscription-cancelled
+// Called on customer.subscription.deleted
 router.post("/subscription-cancelled", (req, res) => {
   const { subscriptionId, customerId } = req.body;
 
   console.log(`[webhook] Subscription cancelled: ${subscriptionId}`);
 
-  // Find orders with this subscription ID and downgrade the user
-  const order = db.prepare("SELECT email FROM orders WHERE order_id = ?").get(subscriptionId);
-  if (order) {
-    const user = db.prepare("SELECT id FROM users WHERE LOWER(email) = LOWER(?)").get(order.email);
-    if (user) {
-      db.prepare("UPDATE users SET tier = 'free', pro_expires_at = NULL WHERE id = ?").run(user.id);
-      console.log(`[webhook] User ${order.email} downgraded to free`);
-    }
+  const user = db.prepare(
+    "SELECT id FROM users WHERE stripe_subscription_id = ? OR stripe_customer_id = ?"
+  ).get(subscriptionId, customerId);
+
+  if (!user) {
+    console.log(`[webhook] subscription-cancelled: no user found for sub=${subscriptionId}`);
+    return res.json({ ok: true, skipped: true });
   }
 
+  db.prepare(
+    `UPDATE users SET
+      tier = 'free',
+      subscription_status = 'cancelled',
+      subscription_cancel_at_period_end = 1
+    WHERE id = ?`
+  ).run(user.id);
+
+  console.log(`[webhook] subscription-cancelled: user=${user.id}`);
   return res.json({ ok: true });
 });
 
