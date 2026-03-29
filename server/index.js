@@ -43,6 +43,7 @@ app.use("/auth", require("./routes/auth"));
 app.use("/me", require("./routes/me"));
 app.use("/admin", require("./routes/admin"));
 app.use("/webhook", require("./routes/webhook"));
+app.use("/webhooks", require("./routes/webhook"));
 app.use("/analytics", require("./routes/analytics"));
 app.use("/pageviews", require("./routes/pageviews"));
 app.use("/instagram", require("./routes/instagram"));
