@@ -16,7 +16,7 @@ import {
 import { collections } from "@/src/lib/collections";
 import { colors } from "@/src/data/colors";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 interface ColorPageProps {
   params: Promise<{
@@ -29,7 +29,29 @@ function getColorBySlug(slug: string) {
 }
 
 export async function generateStaticParams() {
-  return colors.map((color) => ({
+  // Pre-render a representative subset at build time to stay within Vercel's
+  // 80 MB deployment output limit. The remaining pages are rendered on-demand
+  // via dynamicParams = true and cached by the CDN after first visit.
+  const ORIGINAL_HUE_ROOTS = [
+    "crimson", "ruby", "ember", "coral", "apricot", "amber",
+    "citrine", "honey", "olive", "lime", "moss", "leaf",
+    "emerald", "mint", "seafoam", "jade", "teal", "lagoon",
+    "aqua", "cerulean", "azure", "sapphire", "cobalt", "indigo",
+    "iris", "violet", "orchid", "plum", "mulberry", "magenta",
+    "fuchsia", "peony", "rose", "blush", "garnet", "merlot",
+  ];
+  const ORIGINAL_CHROMA = ["faint", "muted", "soft", "clear", "vivid", "pure"];
+  const NEUTRAL_ROOTS = ["warm-gray", "true-gray", "cool-gray"];
+
+  const subset = colors.filter((c) => {
+    // All original neutrals (3 groups)
+    if (NEUTRAL_ROOTS.some((r) => c.id.startsWith(r))) return true;
+    // Original 36 hues × original 6 chromas only
+    const parts = c.id.split("-");
+    return ORIGINAL_HUE_ROOTS.includes(parts[0]) && ORIGINAL_CHROMA.includes(parts[2]);
+  });
+
+  return subset.map((color) => ({
     slug: color.id,
   }));
 }
