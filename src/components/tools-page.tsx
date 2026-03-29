@@ -155,6 +155,15 @@ const TOOLS: Tool[] = [
     accent: "bg-purple-100 text-purple-700",
   },
   {
+    href: "/pick-for-me/",
+    icon: "✦",
+    nameKey: "tools.pickForMe.name",
+    descKey: "tools.pickForMe.desc",
+    categoryKey: "tools.cat.creative",
+    badgeKey: "tools.badge.new",
+    accent: "bg-amber-100 text-amber-700",
+  },
+  {
     href: "/mood-palette/",
     icon: "✿",
     nameKey: "tools.moodPalette.name",

@@ -16,6 +16,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.collections": { en: "Collections", zh: "合集" },
   "nav.notes": { en: "Notes", zh: "笔记" },
   "nav.guides": { en: "Guides", zh: "指南" },
+  "nav.pickForMe": { en: "Pick For Me", zh: "帮我选色" },
   "nav.spectrum": { en: "Spectrum", zh: "色谱" },
   "nav.wordToColor": { en: "Word \u2192 Color", zh: "文字 → 颜色" },
   "nav.contrast": { en: "Contrast", zh: "对比度" },
@@ -1940,6 +1941,11 @@ const translations: Record<string, Record<string, string>> = {
   "tools.colorQuiz.desc": {
     en: "Answer 5 questions and discover your color personality type. Get a custom palette and shareable result card.",
     zh: "5 道题测出你的颜色性格，获得专属调色板与可分享结果卡。",
+  },
+  "tools.pickForMe.name": { en: "Pick Colors For Me", zh: "帮我选色" },
+  "tools.pickForMe.desc": {
+    en: "Describe your project and get instant color palette suggestions from 5,000+ curated colors.",
+    zh: "描述你的项目，从 5,000+ 精选色彩中即时获得配色建议。",
   },
   "tools.moodPalette.name": { en: "AI Mood Palette", zh: "AI 心情调色板" },
   "tools.moodPalette.desc": {

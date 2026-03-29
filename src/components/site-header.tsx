@@ -108,6 +108,7 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
     labelKey: "nav.tools",
     items: [
       { href: "/tools/", labelKey: "nav.tools.all" },
+      { href: "/pick-for-me/", labelKey: "nav.pickForMe" },
       { href: "/spectrum/", labelKey: "nav.spectrum" },
       { href: "/word-to-color/", labelKey: "nav.wordToColor" },
       { href: "/contrast/", labelKey: "nav.contrast" },
