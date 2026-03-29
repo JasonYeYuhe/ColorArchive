@@ -252,7 +252,7 @@ export function ColorTrendsPage() {
       {/* Bottom CTA */}
       <div className="mt-16 rounded-2xl bg-neutral-50 p-8 text-center dark:bg-neutral-900">
         <h2 className="mb-2 text-lg font-bold text-neutral-900 dark:text-neutral-100">
-          {locale === "zh" ? "探索所有3066种颜色" : "Explore All 3,066 Colors"}
+          {locale === "zh" ? "探索所有5446种颜色" : "Explore All 5,446 Colors"}
         </h2>
         <p className="mb-4 text-[13px] text-neutral-500 dark:text-neutral-400">
           {locale === "zh"

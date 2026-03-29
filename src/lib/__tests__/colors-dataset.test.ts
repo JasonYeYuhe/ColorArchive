@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import { colors } from "@/src/data/colors";
 
 describe("colors dataset", () => {
-  it("generates exactly 3,066 colors", () => {
-    expect(colors.length).toBe(3066);
+  it("generates exactly 5,446 colors", () => {
+    expect(colors.length).toBe(5446);
   });
 
   it("has no duplicate IDs", () => {
@@ -34,25 +34,29 @@ describe("colors dataset", () => {
     }
   });
 
-  it("includes all 6 saturation bands", () => {
+  it("includes all 8 saturation bands", () => {
     const sats = new Set(colors.map((c) => c.saturation));
     expect(sats.has(10)).toBe(true);  // Faint
     expect(sats.has(18)).toBe(true);  // Muted
+    expect(sats.has(26)).toBe(true);  // Dust
     expect(sats.has(34)).toBe(true);  // Soft
     expect(sats.has(54)).toBe(true);  // Clear
     expect(sats.has(74)).toBe(true);  // Vivid
+    expect(sats.has(84)).toBe(true);  // Bright
     expect(sats.has(92)).toBe(true);  // Pure
   });
 
   it("includes neutral grays", () => {
     const neutrals = colors.filter((c) => c.name.includes("Gray"));
-    expect(neutrals.length).toBe(42); // 3 groups × 14 lightness
+    expect(neutrals.length).toBe(70); // 5 groups × 14 lightness
     expect(neutrals.some((c) => c.name.startsWith("Warm Gray"))).toBe(true);
-    expect(neutrals.some((c) => c.name.startsWith("Cool Gray"))).toBe(true);
+    expect(neutrals.some((c) => c.name.startsWith("Taupe Gray"))).toBe(true);
     expect(neutrals.some((c) => c.name.startsWith("True Gray"))).toBe(true);
+    expect(neutrals.some((c) => c.name.startsWith("Sage Gray"))).toBe(true);
+    expect(neutrals.some((c) => c.name.startsWith("Cool Gray"))).toBe(true);
   });
 
-  it("preserves original 2016 color IDs (backward compatible)", () => {
+  it("preserves original color IDs (backward compatible)", () => {
     // Spot check a few known original colors
     const known = [
       "crimson-veil-muted",
@@ -62,6 +66,20 @@ describe("colors dataset", () => {
       "amber-pearl-muted",
     ];
     for (const id of known) {
+      expect(colors.find((c) => c.id === id)).toBeTruthy();
+    }
+  });
+
+  it("includes new expansion colors", () => {
+    const newColors = [
+      "scarlet-core-bright",
+      "steel-bloom-dust",
+      "mauve-silk-vivid",
+      "celadon-pearl-soft",
+      "taupe-gray-tone",
+      "sage-gray-whisper",
+    ];
+    for (const id of newColors) {
       expect(colors.find((c) => c.id === id)).toBeTruthy();
     }
   });

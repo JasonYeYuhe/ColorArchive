@@ -51,8 +51,8 @@ const generationSteps = [
   },
   {
     label: "Total colors",
-    value: "3,066",
-    detail: "36 × 7 × 8 + bonus ranges = 3,066 unique HSL entries. All generated in colors.ts at build time.",
+    value: "5,446",
+    detail: "48 hues × 14 lightness × 8 chroma + 5 neutral groups × 14 = 5,446 unique HSL entries. All generated in colors.ts at build time.",
   },
 ] as const;
 
@@ -121,7 +121,7 @@ export function AboutPage() {
           </div>
           <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             {([
-              ["3,066", "Colors"],
+              ["5,446", "Colors"],
               ["14", "Collections"],
               ["7", "Packs"],
               ["23", "Guides"],
@@ -139,7 +139,7 @@ export function AboutPage() {
         {/* Color generation algorithm */}
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-            How the 3,066 colors are generated
+            How the 5,446 colors are generated
           </div>
           <p className="mt-4 text-sm leading-6 text-neutral-600">
             Every color in the archive is produced algorithmically in{" "}

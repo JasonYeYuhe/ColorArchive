@@ -273,7 +273,7 @@ export const palettePacks: PalettePack[] = [
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "neon-after-dark"],
     formatList: ["CSS variables", "Tailwind tokens", "Figma tokens", "Style Dictionary", "SCSS maps", "SwiftUI", "Android XML", "Flutter Dart", "CSS-in-JS", "Contrast reports"],
     deliverables: [
-      "All 3,000+ colors in CSS variable format",
+      "All 5,000+ colors in CSS variable format",
       "Complete Tailwind CSS 4 theme tokens",
       "Figma-friendly token JSON export",
       "Style Dictionary token JSON for build pipelines",
@@ -290,7 +290,7 @@ export const palettePacks: PalettePack[] = [
       {
         question: "Does this include every color on the site?",
         answer:
-          "Yes. The complete archive ships all 3,000+ colors across every hue, lightness, and chroma combination in four production-ready formats.",
+          "Yes. The complete archive ships all 5,000+ colors across every hue, lightness, and chroma combination in four production-ready formats.",
       },
       {
         question: "Can I use these tokens in my design system?",
@@ -305,10 +305,10 @@ export const palettePacks: PalettePack[] = [
         "Complete checkout via Stripe.",
         "Receive a confirmation email with a secure download link.",
         "Download the ZIP bundle — no account required.",
-        "Unzip to find CSS variables, Tailwind tokens, JSON data, and SCSS maps for all 3,000+ colors.",
+        "Unzip to find CSS variables, Tailwind tokens, JSON data, and SCSS maps for all 5,000+ colors.",
       ],
       fileNote:
-        "The bundle includes: complete CSS variables file, Tailwind CSS 4 theme tokens, structured JSON export with hex/HSL/RGB, and SCSS maps organized by hue family. All 3,000+ colors included.",
+        "The bundle includes: complete CSS variables file, Tailwind CSS 4 theme tokens, structured JSON export with hex/HSL/RGB, and SCSS maps organized by hue family. All 5,000+ colors included.",
     },
     launchAssets: ["Full color catalog", "Collection previews", "Token format samples"],
     proofPoints: [
@@ -317,7 +317,7 @@ export const palettePacks: PalettePack[] = [
       "The most comprehensive color token set available from ColorArchive.",
     ],
     reviewNote:
-      "The premium tier product — highest price point justified by comprehensive coverage of the entire 3,000+ color catalog.",
+      "The premium tier product — highest price point justified by comprehensive coverage of the entire 5,000+ color catalog.",
     sampleDownloads: [
       {
         label: "Preview CSS tokens",
@@ -506,7 +506,7 @@ export const palettePacks: PalettePack[] = [
     formatList: ["CSS variables", "Tailwind tokens", "Figma tokens", "SCSS maps", "JSON data", "Dark mode pairs", "Seasonal tokens", "SVG boards", "Mobile tokens", "Contrast reports", "AI prompts"],
     deliverables: [
       "Everything from all 6 individual packs combined",
-      "All 3,000+ colors in CSS, Tailwind, Figma, SCSS, and JSON formats",
+      "All 5,000+ colors in CSS, Tailwind, Figma, SCSS, and JSON formats",
       "Light/dark mode paired token sets",
       "Seasonal spring palettes with mood board notes",
       "SVG palette boards and gradient wallpapers for every collection",

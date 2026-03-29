@@ -259,31 +259,31 @@ describe("Color ID validation", () => {
     "fuchsia", "peony", "rose", "blush", "garnet", "merlot",
   ];
 
-  const NEUTRAL_ROOTS = ["warm-gray", "cool-gray", "true-gray"];
+  const NEUTRAL_ROOTS = ["warm-gray", "taupe-gray", "true-gray", "sage-gray", "cool-gray"];
 
   const LIGHTNESS_BANDS = [
     "veil", "whisper", "mist", "pearl", "bloom", "silk", "tone",
     "radiant", "core", "velvet", "dusk", "shadow", "nocturne", "ink",
   ];
 
-  const CHROMA_BANDS = ["faint", "muted", "soft", "clear", "vivid", "pure"];
+  const CHROMA_BANDS = ["faint", "muted", "dust", "soft", "clear", "vivid", "bright", "pure"];
 
-  it("generates exactly 3066 colors", () => {
-    expect(colors).toHaveLength(3066);
+  it("generates exactly 5446 colors", () => {
+    expect(colors).toHaveLength(5446);
   });
 
-  it("generates 3024 chromatic colors", () => {
+  it("generates 5376 chromatic colors", () => {
     const chromatic = colors.filter(
       (c) => !NEUTRAL_ROOTS.some((root) => c.id.startsWith(root)),
     );
-    expect(chromatic).toHaveLength(3024);
+    expect(chromatic).toHaveLength(5376);
   });
 
-  it("generates 42 neutral colors", () => {
+  it("generates 70 neutral colors", () => {
     const neutrals = colors.filter((c) =>
       NEUTRAL_ROOTS.some((root) => c.id.startsWith(root)),
     );
-    expect(neutrals).toHaveLength(42);
+    expect(neutrals).toHaveLength(70);
   });
 
   it("all chromatic IDs match {root}-{lightness}-{chroma} pattern", () => {

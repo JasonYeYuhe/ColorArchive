@@ -18,24 +18,24 @@ There is no test suite. Use `typecheck` to validate changes.
 
 ### Data & Core Logic
 
-- `src/data/colors.ts` — Generates all 3,066 colors algorithmically (36 hue roots × 14 lightness bands × 6 chroma bands + 3 neutral gray groups × 14). Never stored externally.
+- `src/data/colors.ts` — Generates all 5,446 colors algorithmically (48 hue roots × 14 lightness bands × 8 chroma bands + 5 neutral gray groups × 14). Never stored externally.
 - `src/lib/color-utils.ts` — Pure functions for HSL↔RGB↔HEX conversion, color family classification, filtering, sorting, and finding color relationships (analogous, complementary, tonal companions).
 - `src/types/color.ts` — Core `ColorRecord` interface and enums (`ColorFamily`, `SortOption`).
 
 ### Color ID Naming Rules (CRITICAL for collections/guides)
 
-All 3,066 color IDs are generated algorithmically. **Do NOT invent color IDs.** Only use IDs that match these exact patterns:
+All 5,446 color IDs are generated algorithmically. **Do NOT invent color IDs.** Only use IDs that match these exact patterns:
 
-**Chromatic colors (3,024):** `{root}-{lightness}-{chroma}`
-- **36 roots:** Crimson, Ruby, Ember, Coral, Apricot, Amber, Citrine, Honey, Olive, Lime, Moss, Leaf, Emerald, Mint, Seafoam, Jade, Teal, Lagoon, Aqua, Cerulean, Azure, Sapphire, Cobalt, Indigo, Iris, Violet, Orchid, Plum, Mulberry, Magenta, Fuchsia, Peony, Rose, Blush, Garnet, Merlot
+**Chromatic colors (5,376):** `{root}-{lightness}-{chroma}`
+- **48 roots:** Crimson, Scarlet, Ruby, Vermillion, Ember, Tangerine, Coral, Apricot, Saffron, Amber, Canary, Citrine, Honey, Chartreuse, Olive, Lime, Moss, Leaf, Clover, Emerald, Mint, Seafoam, Celadon, Jade, Teal, Lagoon, Cyan, Aqua, Cerulean, Azure, Steel, Sapphire, Cobalt, Indigo, Iris, Amethyst, Violet, Orchid, Plum, Mulberry, Magenta, Fuchsia, Mauve, Peony, Rose, Blush, Garnet, Merlot
 - **14 lightness bands:** Veil (98), Whisper (94), Mist (90), Pearl (84), Bloom (76), Silk (68), Tone (60), Radiant (54), Core (48), Velvet (42), Dusk (34), Shadow (28), Nocturne (20), Ink (14)
-- **6 chroma bands:** Faint (10), Muted (18), Soft (34), Clear (54), Vivid (74), Pure (92)
-- Examples: `amber-pearl-muted`, `cobalt-shadow-vivid`, `emerald-bloom-clear`
+- **8 chroma bands:** Faint (10), Muted (18), Dust (26), Soft (34), Clear (54), Vivid (74), Bright (84), Pure (92)
+- Examples: `amber-pearl-muted`, `cobalt-shadow-vivid`, `steel-bloom-dust`, `scarlet-core-bright`
 
-**Neutral grays (42):** `{root}-{lightness}` — **NO chroma suffix**
-- **3 roots:** Warm Gray, Cool Gray, True Gray
+**Neutral grays (70):** `{root}-{lightness}` — **NO chroma suffix**
+- **5 roots:** Warm Gray, Taupe Gray, True Gray, Sage Gray, Cool Gray
 - **14 lightness bands:** same as above
-- Examples: `warm-gray-whisper`, `cool-gray-shadow`, `true-gray-tone`
+- Examples: `warm-gray-whisper`, `cool-gray-shadow`, `taupe-gray-tone`, `sage-gray-bloom`
 
 **Common mistakes to avoid:**
 - ❌ `warm-gray-whisper-soft` — neutrals have NO chroma suffix → ✅ `warm-gray-whisper`

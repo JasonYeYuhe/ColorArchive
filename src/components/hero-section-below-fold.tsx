@@ -114,7 +114,7 @@ export function HeroSectionBelowFold() {
             {[
               { quote: "Finally, a color tool that gets naming right. The poetic names make client presentations so much easier.", author: "Brand Designer", org: "Freelance" },
               { quote: "The AI brand generator saved us hours. We went from brief to tokens in under 5 minutes.", author: "Product Lead", org: "SaaS Startup" },
-              { quote: "3,000+ colors with real structure, not random hex codes. This is what Coolors should have been.", author: "UI Engineer", org: "Design Studio" },
+              { quote: "5,000+ colors with real structure, not random hex codes. This is what Coolors should have been.", author: "UI Engineer", org: "Design Studio" },
             ].map(({ quote, author, org }) => (
               <div key={author} className="rounded-xl border border-black/4 bg-white/80 p-4 dark:border-white/8 dark:bg-white/5">
                 <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 italic mb-3">&ldquo;{quote}&rdquo;</p>
@@ -126,7 +126,7 @@ export function HeroSectionBelowFold() {
           <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] text-neutral-400">
             <span>Product Hunt #1 Color Tool</span>
             <span className="hidden sm:inline">&#183;</span>
-            <span>3,066 curated colors</span>
+            <span>5,446 curated colors</span>
             <span className="hidden sm:inline">&#183;</span>
             <span>Figma plugin available</span>
           </div>

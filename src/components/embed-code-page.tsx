@@ -22,7 +22,7 @@ export function EmbedCodePage() {
       <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
         Add a powerful color picker to your website for free. The embed widget lets your visitors
         explore hex, RGB, and HSL values, discover color families, and browse related colors from
-        the ColorArchive collection of 3,000+ curated colors.
+        the ColorArchive collection of 5,000+ curated colors.
       </p>
 
       {/* Live preview */}
@@ -115,7 +115,7 @@ export function EmbedCodePage() {
           The embed widget includes a small &ldquo;Powered by ColorArchive&rdquo; link at the
           bottom. This attribution must remain visible per the terms of use. The link helps support
           the free service and directs interested users to the full ColorArchive experience with
-          3,066 curated colors, palette collections, and design tools.
+          5,446 curated colors, palette collections, and design tools.
         </p>
       </section>
     </main>

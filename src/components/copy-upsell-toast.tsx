@@ -46,7 +46,7 @@ export function CopyUpsellToast() {
             You&apos;ve been copying colors!
           </div>
           <p className="mt-1 text-xs leading-5 text-neutral-500">
-            Get all 3,000+ colors in CSS, Tailwind, Figma, SwiftUI, and 12 more formats with the Complete Archive.
+            Get all 5,000+ colors in CSS, Tailwind, Figma, SwiftUI, and 12 more formats with the Complete Archive.
           </p>
           <div className="mt-3 flex gap-2">
             <Link

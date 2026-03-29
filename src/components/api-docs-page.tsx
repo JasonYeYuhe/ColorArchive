@@ -156,7 +156,7 @@ export function ApiDocsPage() {
           Color API
         </h1>
         <p className="mt-3 max-w-xl text-neutral-500 dark:text-neutral-400">
-          Access all 3,000+ curated ColorArchive colors via a simple REST API. Free, no auth required, CORS enabled.
+          Access all 5,000+ curated ColorArchive colors via a simple REST API. Free, no auth required, CORS enabled.
         </p>
       </div>
 
@@ -183,7 +183,7 @@ export function ApiDocsPage() {
             </code>
           </div>
           <p className="mb-5 text-sm text-neutral-600 dark:text-neutral-400">
-            Search, filter, and paginate through 3,000+ colors. Supports semantic search — try queries like &quot;sunset&quot;, &quot;ocean&quot;, or &quot;minimal&quot;.
+            Search, filter, and paginate through 5,000+ colors. Supports semantic search — try queries like &quot;sunset&quot;, &quot;ocean&quot;, or &quot;minimal&quot;.
           </p>
 
           <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400">
@@ -281,7 +281,7 @@ console.log(colors[0].hex); // "#8B2500"`}</code>
             <li>Responses are cached for 24 hours at the edge (CDN).</li>
             <li>No authentication required. No rate limiting (be reasonable).</li>
             <li>CORS is enabled for all origins.</li>
-            <li>All 3,000+ colors are generated algorithmically — the dataset is stable and deterministic.</li>
+            <li>All 5,000+ colors are generated algorithmically — the dataset is stable and deterministic.</li>
           </ul>
         </section>
       </div>
