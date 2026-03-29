@@ -74,6 +74,7 @@ const translations: Record<string, Record<string, string>> = {
   },
   "hero.getStartedFree": { en: "Get started free", zh: "免费开始" },
   "hero.browseArchive": { en: "Browse archive", zh: "浏览色彩库" },
+  "hero.pickForMe": { en: "Pick colors for me", zh: "帮我选色" },
   "hero.browsePacks": { en: "Browse packs", zh: "浏览色彩包" },
   "hero.readGuides": { en: "Read guides", zh: "阅读指南" },
   "hero.colorOfTheDay": { en: "Color of the day", zh: "今日色彩" },

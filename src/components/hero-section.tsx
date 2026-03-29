@@ -98,6 +98,12 @@ export function HeroSection({
               {t("hero.browseArchive")}
             </a>
             <Link
+              href="/pick-for-me/"
+              className="rounded-full border border-amber-200/60 bg-amber-50/80 px-5 py-2.5 text-sm font-medium text-amber-700 transition hover:bg-amber-100 dark:border-amber-800/50 dark:bg-amber-950/30 dark:text-amber-400"
+            >
+              {t("hero.pickForMe")}
+            </Link>
+            <Link
               href="/brand-generator/"
               className="rounded-full border border-black/8 bg-white/88 px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-neutral-900/10 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
             >
