@@ -5,6 +5,8 @@ export interface TrendColor {
   hex: string;
   name: string;
   role: string;
+  /** Optional ColorArchive color ID — enables linking to /colors/{colorId}/ */
+  colorId?: string;
 }
 
 export type TrendCategory =
@@ -318,5 +320,161 @@ export const colorTrends2026: ColorTrend[] = [
     industries: ["Interior design", "Architecture", "Web design", "Hospitality", "Photography"],
     relatedCollectionSlug: "japandi-neutral-study",
     tags: ["neutral", "warm", "minimal", "interior", "cream", "white", "2026"],
+  },
+  // ── ColorArchive-linked trends (using actual color IDs) ──
+  {
+    id: "digital-calm",
+    slug: "digital-calm",
+    name: "Digital Calm",
+    nameZh: "数字宁静",
+    tagline: "Soft, muted blues and greens for wellness and mindfulness applications.",
+    taglineZh: "柔和低饱和的蓝绿色调，适用于健康与正念应用。",
+    category: "tech",
+    heroHex: "#DDE8EE",
+    colors: [
+      { hex: "#DDE8EE", name: "Azure Mist Soft", role: "Hero", colorId: "azure-mist-soft" },
+      { hex: "#CFDBDE", name: "Cerulean Pearl Muted", role: "Mid", colorId: "cerulean-pearl-muted" },
+      { hex: "#ADD7BB", name: "Seafoam Bloom Soft", role: "Accent", colorId: "seafoam-bloom-soft" },
+      { hex: "#EEF1EF", name: "Celadon Whisper Faint", role: "Base", colorId: "celadon-whisper-faint" },
+      { hex: "#9FBCB2", name: "Teal Silk Muted", role: "Dark", colorId: "teal-silk-muted" },
+    ],
+    description:
+      "As screen time reaches saturation, the design response is deliberate calm. Digital Calm uses the softest registers of blue and green — colors that lower visual noise, reduce cognitive load, and signal respite. These are the background colors of meditation apps, sleep trackers, and wellness dashboards.",
+    descriptionZh:
+      "随着屏幕时间达到饱和，设计的回应是刻意的平静。数字宁静使用最柔和的蓝绿色调——降低视觉噪音、减少认知负荷、传递休憩信号的颜色。这些是冥想应用、睡眠追踪器和健康仪表板的背景色。",
+    context:
+      "Wellness technology is the fastest-growing app category in 2026. Designers are moving beyond 'calm blue' clichés toward nuanced palettes that combine cool blues with organic greens, creating environments that feel both digital and natural.",
+    contextZh:
+      "健康科技是2026年增长最快的应用类别。设计师正在超越'平静蓝'的陈词滥调，转向将冷调蓝与有机绿结合的细腻调色板，创造既数字化又自然的环境。",
+    designGuidance:
+      "Use celadon whisper faint as a near-white base, with azure mist soft as card backgrounds. Teal silk muted works well for secondary text and borders. Keep chroma low throughout — the palette's power is in its restraint.",
+    designGuidanceZh:
+      "以青瓷耳语淡作为近白底色，天蓝雾柔作为卡片背景。青绿丝哑适合用于辅助文字和边框。全程保持低彩度——调色板的力量在于克制。",
+    industries: ["Wellness", "Health tech", "Meditation apps", "Sleep tech", "Mental health"],
+    tags: ["calm", "blue", "green", "wellness", "soft", "muted", "2026"],
+  },
+  {
+    id: "warm-minimalism-linked",
+    slug: "warm-minimalism-linked",
+    name: "Warm Minimalism II",
+    nameZh: "暖调极简 II",
+    tagline: "Earthy warm tones for premium brands seeking grounded sophistication.",
+    taglineZh: "温暖大地色调，适用于追求沉稳精致的高端品牌。",
+    category: "branding",
+    heroHex: "#DEDBCF",
+    colors: [
+      { hex: "#DEDBCF", name: "Amber Pearl Muted", role: "Hero", colorId: "amber-pearl-muted" },
+      { hex: "#D7C2AD", name: "Coral Bloom Soft", role: "Mid", colorId: "coral-bloom-soft" },
+      { hex: "#C0C992", name: "Honey Silk Soft", role: "Accent", colorId: "honey-silk-soft" },
+      { hex: "#9E9B94", name: "Taupe Gray Tone", role: "Dark", colorId: "taupe-gray-tone" },
+      { hex: "#F1F0EF", name: "Warm Gray Whisper", role: "Base", colorId: "warm-gray-whisper" },
+    ],
+    description:
+      "Premium brands in 2026 are gravitating toward earthy warmth as a counterbalance to years of cold, sterile design. This palette centers on muted ambers, soft corals, and warm grays that feel handmade and honest — luxury through subtlety rather than saturation.",
+    descriptionZh:
+      "2026年高端品牌正在向温暖大地色调靠拢，以此对抗多年的冷调无菌设计。这个调色板以低饱和琥珀、柔和珊瑚和暖灰为核心，感觉手工且真诚——通过微妙而非饱和来传递奢华。",
+    context:
+      "The shift from cold minimalism to warm minimalism accelerates across packaging, web design, and physical retail. Consumers respond to palettes that feel organic and inviting, especially in premium food, skincare, and lifestyle categories.",
+    contextZh:
+      "从冷调极简到暖调极简的转变在包装、网页设计和实体零售中加速。消费者对有机而亲切的调色板作出回应，尤其在高端食品、护肤和生活方式类别中。",
+    designGuidance:
+      "Use warm gray whisper as the dominant background. Layer amber pearl muted and coral bloom soft for section differentiation. Taupe gray tone anchors text and UI elements. The honey silk soft adds an unexpected organic accent.",
+    designGuidanceZh:
+      "以暖灰耳语作为主导背景。用琥珀珍珠哑光和珊瑚绽放柔和进行版块区分。灰褐灰色调锚定文字和UI元素。蜂蜜丝柔增添意想不到的有机点缀。",
+    industries: ["Premium food", "Skincare", "Lifestyle brands", "Hospitality", "Architecture"],
+    tags: ["warm", "earthy", "premium", "minimal", "amber", "coral", "2026"],
+  },
+  {
+    id: "neo-vibrant",
+    slug: "neo-vibrant",
+    name: "Neo Vibrant",
+    nameZh: "新锐鲜彩",
+    tagline: "Bold saturated colors for Gen-Z products that demand attention.",
+    taglineZh: "大胆饱和色彩，适用于要求关注的Z世代产品。",
+    category: "branding",
+    heroHex: "#D520D5",
+    colors: [
+      { hex: "#D520D5", name: "Fuchsia Core Vivid", role: "Hero", colorId: "fuchsia-core-vivid" },
+      { hex: "#27ECDC", name: "Cyan Radiant Bright", role: "Accent", colorId: "cyan-radiant-bright" },
+      { hex: "#D8EF95", name: "Chartreuse Bloom Vivid", role: "Light", colorId: "chartreuse-bloom-vivid" },
+      { hex: "#3B7AF7", name: "Cobalt Tone Pure", role: "Mid", colorId: "cobalt-tone-pure" },
+      { hex: "#E14133", name: "Scarlet Radiant Vivid", role: "Dark", colorId: "scarlet-radiant-vivid" },
+    ],
+    description:
+      "Gen-Z brands are rejecting the muted, desaturated palettes of millennial design. Neo Vibrant is unapologetically loud — vivid fuchsia, electric cyan, acid chartreuse — colors that compete for attention in crowded social feeds and signal youthful confidence.",
+    descriptionZh:
+      "Z世代品牌正在拒绝千禧一代设计的低饱和色调。新锐鲜彩毫无歉意地响亮——鲜艳紫红、电光青、酸性黄绿——在拥挤的社交信息流中争夺注意力，传递年轻自信。",
+    context:
+      "Social-first brands, gaming interfaces, and music platforms drive the Neo Vibrant trend. These are colors designed for OLED screens and dark mode, where saturation hits hardest. The aesthetic borrows from Y2K nostalgia but pushes further into fluorescent territory.",
+    contextZh:
+      "社交优先品牌、游戏界面和音乐平台推动新锐鲜彩趋势。这些颜色为OLED屏幕和深色模式设计，饱和度冲击最强。美学借鉴Y2K怀旧但进一步推入荧光领域。",
+    designGuidance:
+      "Use on dark backgrounds for maximum impact. Pair no more than two vivid colors per composition to avoid visual fatigue. Cobalt tone pure works as a stabilizing anchor among the more electric hues. White space is essential — let each color breathe.",
+    designGuidanceZh:
+      "在深色背景上使用以获得最大冲击力。每个构图中搭配不超过两种鲜艳色以避免视觉疲劳。钴蓝调纯在更具电感的色调中充当稳定锚点。留白至关重要——让每种颜色呼吸。",
+    industries: ["Gaming", "Social media", "Music", "Streetwear", "Gen-Z DTC brands"],
+    tags: ["vibrant", "bold", "gen-z", "fuchsia", "cyan", "saturated", "2026"],
+  },
+  {
+    id: "soft-industrial",
+    slug: "soft-industrial",
+    name: "Soft Industrial",
+    nameZh: "柔和工业",
+    tagline: "Cool neutrals with subtle warmth for contemporary spaces and products.",
+    taglineZh: "带有微妙温暖的冷中性色，适用于当代空间与产品。",
+    category: "interior",
+    heroHex: "#B2C4D2",
+    colors: [
+      { hex: "#B2C4D2", name: "Steel Bloom Dust", role: "Hero", colorId: "steel-bloom-dust" },
+      { hex: "#A9ADB2", name: "Cool Gray Silk", role: "Mid", colorId: "cool-gray-silk" },
+      { hex: "#BFC5C2", name: "Sage Gray Bloom", role: "Accent", colorId: "sage-gray-bloom" },
+      { hex: "#D6D6D6", name: "True Gray Pearl", role: "Light", colorId: "true-gray-pearl" },
+      { hex: "#474C66", name: "Indigo Dusk Muted", role: "Dark", colorId: "indigo-dusk-muted" },
+    ],
+    description:
+      "Industrial design softens in 2026, trading harsh concrete gray for nuanced cool neutrals with just enough color to feel alive. Steel blues, sage-touched grays, and deep muted indigo create environments that are modern and minimal but never cold or sterile.",
+    descriptionZh:
+      "工业设计在2026年变得柔和，用细腻的冷中性色替代刺眼的混凝土灰。钢蓝、鼠尾草灰和深沉低饱和靛蓝营造出现代极简但绝不冰冷无菌的环境。",
+    context:
+      "The post-industrial aesthetic evolves as co-working spaces, tech offices, and urban apartments seek warmth without sacrificing the clean lines and material honesty of industrial design. This palette bridges the gap between brutalist and biophilic.",
+    contextZh:
+      "后工业美学在共享办公空间、科技办公室和城市公寓寻求温暖而不牺牲工业设计的干净线条和材质诚实性中演变。这个调色板在粗野主义和亲生物设计之间搭起桥梁。",
+    designGuidance:
+      "Layer steel bloom dust over true gray pearl for depth without contrast. Use indigo dusk muted sparingly for headlines and anchoring elements. Sage gray bloom adds the crucial organic warmth that prevents the palette from feeling clinical.",
+    designGuidanceZh:
+      "在真灰珍珠上叠加钢绽放尘以获得深度而无强烈对比。谨慎使用靛蓝黄昏哑光用于标题和锚定元素。鼠尾草灰绽放增添关键的有机温暖，防止调色板显得临床化。",
+    industries: ["Architecture", "Co-working", "Tech offices", "Urban residential", "Product design"],
+    tags: ["industrial", "neutral", "cool", "steel", "gray", "modern", "2026"],
+  },
+  {
+    id: "sunset-palette",
+    slug: "sunset-palette",
+    name: "Sunset Palette",
+    nameZh: "日落色盘",
+    tagline: "Warm gradient-inspired colors capturing golden hour warmth and optimism.",
+    taglineZh: "受暖色渐变启发的色彩，捕捉黄金时段的温暖与乐观。",
+    category: "editorial",
+    heroHex: "#D99F81",
+    colors: [
+      { hex: "#D99F81", name: "Ember Silk Clear", role: "Hero", colorId: "ember-silk-clear" },
+      { hex: "#D7C9AD", name: "Apricot Bloom Soft", role: "Mid", colorId: "apricot-bloom-soft" },
+      { hex: "#E4C8DB", name: "Rose Pearl Soft", role: "Light", colorId: "rose-pearl-soft" },
+      { hex: "#EAE1E9", name: "Peony Mist Muted", role: "Base", colorId: "peony-mist-muted" },
+      { hex: "#E1B533", name: "Saffron Radiant Vivid", role: "Accent", colorId: "saffron-radiant-vivid" },
+    ],
+    description:
+      "Sunset Palette captures the emotional warmth of golden hour photography — the moment when every surface glows amber, rose, and gold. These colors evoke optimism, nostalgia, and the romantic quality of natural light that no filter can replicate.",
+    descriptionZh:
+      "日落色盘捕捉了黄金时段摄影的情感温暖——每个表面都闪耀着琥珀、玫瑰和金色的时刻。这些颜色唤起乐观、怀旧和自然光线的浪漫品质，是任何滤镜都无法复制的。",
+    context:
+      "The 'golden hour' aesthetic continues to dominate editorial photography, social content, and lifestyle branding. In 2026, designers are translating this photographic trend into functional palettes for packaging, web design, and physical spaces.",
+    contextZh:
+      "'黄金时段'美学继续主导编辑摄影、社交内容和生活方式品牌。2026年，设计师将这种摄影趋势转化为包装、网页设计和物理空间的功能性调色板。",
+    designGuidance:
+      "Build gradients from peony mist muted through ember silk clear to saffron radiant vivid for hero sections. Use apricot bloom soft as a warm neutral background. Rose pearl soft brings the romantic purple-pink undertone. Keep the saffron accent focused — it's the highlight, not the foundation.",
+    designGuidanceZh:
+      "从牡丹雾哑光经由余烬丝清澈到藏红花光彩鲜艳构建英雄区域渐变。以杏花绽放柔和作为暖中性背景。玫瑰珍珠柔和带来浪漫的紫粉底色调。保持藏红花点缀集中——它是亮点，不是基础。",
+    industries: ["Lifestyle", "Travel", "Beauty", "Editorial", "Food photography"],
+    tags: ["sunset", "warm", "golden", "rose", "amber", "editorial", "2026"],
   },
 ];

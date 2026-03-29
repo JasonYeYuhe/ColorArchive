@@ -162,13 +162,25 @@ export default async function ColorPage({ params }: ColorPageProps) {
   const darkerCompanion = getToneCompanion(colors, color, "darker");
   const wcagPairings = getWcagPairings(colors, color, 6);
   const usedInCollections = collections.filter((c) => c.palette.some((p) => p.id === color.id));
+  const temperature = getTemperatureLabel(color.hue);
+  const lightnessLabel = getLightnessLabel(color.lightness);
+  const saturationLabel = getSaturationLabel(color.saturation);
+  const familyLower = color.family.toLowerCase();
+  const usageHint = getUsageHint(color.lightness, color.saturation);
+
   const colorStructuredData = {
     "@context": "https://schema.org",
-    "@type": "Thing",
-    name: `${color.name} ${color.hex}`,
-    description: `${color.hex} is a ${color.family.toLowerCase()} hex color code named ${color.name}. ${getUsageHint(color.lightness, color.saturation)}`,
+    "@type": "CreativeWork",
+    name: color.name,
+    description: `${color.name} (${color.hex}) is a ${temperature}, ${lightnessLabel}, ${saturationLabel} ${familyLower} color. ${usageHint}`,
     url: `https://colorarchive.me/colors/${color.id}/`,
     identifier: color.hex,
+    color: color.hex,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "ColorArchive",
+      url: "https://colorarchive.me",
+    },
     additionalProperty: [
       { "@type": "PropertyValue", name: "HEX", value: color.hex },
       { "@type": "PropertyValue", name: "RGB", value: color.rgb },
@@ -180,14 +192,14 @@ export default async function ColorPage({ params }: ColorPageProps) {
     ],
     isSimilarTo: [
       ...analogousColors.map((entry) => ({
-        "@type": "Thing",
+        "@type": "CreativeWork",
         name: entry.name,
         url: `https://colorarchive.me/colors/${entry.id}/`,
       })),
       ...(complementaryColor
         ? [
             {
-              "@type": "Thing",
+              "@type": "CreativeWork",
               name: complementaryColor.name,
               url: `https://colorarchive.me/colors/${complementaryColor.id}/`,
             },

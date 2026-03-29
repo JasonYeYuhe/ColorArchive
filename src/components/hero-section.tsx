@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { colors } from "@/src/data/colors";
 import { checkoutConfig } from "@/src/lib/checkout-config";
+import { EmailSubscribe } from "@/src/components/email-subscribe";
 import { useLocale } from "@/src/components/locale-provider";
 
 // Fixed hue-spanning strip: Tone (L=60) at Clear (S=54), one per hue across the spectrum
@@ -263,6 +264,9 @@ export function HeroSection({
 
       {/* Below-fold sections: lazy loaded */}
       <HeroSectionBelowFold />
+
+      {/* Newsletter subscribe */}
+      <EmailSubscribe />
     </div>
   );
 }

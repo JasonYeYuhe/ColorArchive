@@ -43,6 +43,8 @@ const translations: Record<string, Record<string, string>> = {
   "nav.seasonal": { en: "Color by Season", zh: "四季色彩" },
   "nav.decades": { en: "Color by Decade", zh: "年代色彩" },
   "nav.trends": { en: "Color Trends 2026", zh: "2026年色彩趋势" },
+  "trends.title": { en: "2026 Color Trends", zh: "2026 色彩趋势" },
+  "trends.subtitle": { en: "The colors shaping design this year", zh: "定义今年设计的色彩" },
   "nav.apiDocs": { en: "Color API", zh: "颜色 API" },
   "nav.figmaPlugin": { en: "Figma Plugin", zh: "Figma 插件" },
   "nav.surprise": { en: "Surprise", zh: "随机发现" },
@@ -2173,9 +2175,35 @@ const translations: Record<string, Record<string, string>> = {
   "tools.famousPalettes.desc": { en: "35+ iconic color palettes from Google, Apple, Bauhaus, Matrix, and more. With hex codes and cultural history.", zh: "35 套以上标志性配色方案，涵盖谷歌、苹果、包豪斯、黑客帝国等。附 hex 代码和文化历史。" },
   "tools.decades.name": { en: "Color by Decade", zh: "年代配色" },
   "tools.decades.desc": { en: "100 years of design color history — Art Deco, 1950s pastels, 1970s earth tones, 1980s neon, Millennial Pink, and more. Copy hex codes.", zh: "100年设计色彩史——装饰艺术、50年代粉彩、70年代大地色、80年代霓虹、千禧粉等，可复制 hex 代码。" },
+  "tools.trends.name": { en: "2026 Color Trends", zh: "2026 色彩趋势" },
+  "tools.trends.desc": { en: "13 curated color trends shaping design in 2026 — from digital calm to neo vibrant. With palettes, hex codes, and design guidance.", zh: "13组定义2026年设计语言的色彩趋势——从数字宁静到新锐鲜彩。含调色板、hex代码和设计指导。" },
   "colorDecades.eyebrow": { en: "Color History Reference", zh: "色彩历史参考" },
   "colorDecades.title": { en: "Color Through the Decades", zh: "色彩年代：百年设计配色史" },
   "colorDecades.subtitle": { en: "Explore how each decade from the 1920s Jazz Age to the 2020s Biophilic era shaped its own color aesthetic — and how those palettes continue to influence contemporary design.", zh: "探索从1920年代爵士时代到2020年代亲生物设计，每个十年如何形成其独特的色彩美学——以及这些色彩今天如何影响当代设计。" },
+
+  // Onboarding banner
+  "onboarding.text": {
+    en: "New! Tell us your project and get perfect color recommendations",
+    zh: "全新功能！描述你的项目，获取完美配色推荐",
+  },
+  "onboarding.cta": { en: "Try Pick For Me", zh: "试试帮我选色" },
+
+  // Newsletter subscribe
+  "newsletter.title": { en: "Weekly Color Digest", zh: "每周色彩精选" },
+  "newsletter.subtitle": {
+    en: "Get curated color palettes and design inspiration every week.",
+    zh: "每周获取精选配色和设计灵感",
+  },
+  "newsletter.placeholder": { en: "your@email.com", zh: "your@email.com" },
+  "newsletter.subscribe": { en: "Subscribe", zh: "订阅" },
+  "newsletter.success": {
+    en: "You're in! Check your inbox \u{1F3A8}",
+    zh: "订阅成功！查看收件箱 \u{1F3A8}",
+  },
+  "newsletter.error": {
+    en: "Something went wrong. Try again.",
+    zh: "出了点问题，请重试",
+  },
 };
 
 export function t(key: string, locale: Locale): string {

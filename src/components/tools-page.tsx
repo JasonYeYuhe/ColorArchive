@@ -261,6 +261,15 @@ const TOOLS: Tool[] = [
     badgeKey: "tools.badge.new",
     accent: "bg-stone-100 text-stone-700",
   },
+  {
+    href: "/trends/",
+    icon: "◈",
+    nameKey: "tools.trends.name",
+    descKey: "tools.trends.desc",
+    categoryKey: "tools.cat.explore",
+    badgeKey: "tools.badge.new",
+    accent: "bg-rose-100 text-rose-700",
+  },
   // Developer
   {
     href: "/api-docs/",

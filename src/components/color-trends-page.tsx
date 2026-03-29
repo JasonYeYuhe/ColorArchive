@@ -84,20 +84,36 @@ function TrendCard({ trend, locale }: { trend: ColorTrend; locale: string }) {
 
         {/* Color swatches */}
         <div className="mb-4 grid grid-cols-3 gap-2">
-          {trend.colors.map((color) => (
-            <div key={color.hex} className="flex items-center gap-2">
-              <div
-                className="h-7 w-7 flex-shrink-0 rounded-lg ring-1 ring-black/10 dark:ring-white/10"
-                style={{ backgroundColor: color.hex }}
-              />
-              <div className="min-w-0">
-                <div className="truncate text-[10px] font-medium text-neutral-700 dark:text-neutral-300">
-                  {color.name}
+          {trend.colors.map((color) => {
+            const swatchContent = (
+              <>
+                <div
+                  className="h-7 w-7 flex-shrink-0 rounded-lg ring-1 ring-black/10 dark:ring-white/10 transition-transform group-hover/swatch:scale-110"
+                  style={{ backgroundColor: color.hex }}
+                />
+                <div className="min-w-0">
+                  <div className="truncate text-[10px] font-medium text-neutral-700 dark:text-neutral-300">
+                    {color.name}
+                  </div>
+                  <CopyButton value={color.hex} label={color.hex} variant="compact" copiedLabel="\u2713 Copied" />
                 </div>
-                <CopyButton value={color.hex} label={color.hex} variant="compact" copiedLabel="\u2713 Copied" />
+              </>
+            );
+
+            return color.colorId ? (
+              <Link
+                key={color.hex}
+                href={`/colors/${color.colorId}/`}
+                className="group/swatch flex items-center gap-2 rounded-lg p-0.5 -m-0.5 transition hover:bg-neutral-50 dark:hover:bg-neutral-800"
+              >
+                {swatchContent}
+              </Link>
+            ) : (
+              <div key={color.hex} className="group/swatch flex items-center gap-2">
+                {swatchContent}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Expand/collapse */}
@@ -202,8 +218,8 @@ export function ColorTrendsPage() {
         </h1>
         <p className="max-w-2xl text-[15px] leading-relaxed text-neutral-500 dark:text-neutral-400">
           {locale === "zh"
-            ? "八种定义2026年设计语言的色彩趋势——跨越时尚、室内、科技与品牌领域。每种趋势包含精选调色板、设计背景与使用指导。"
-            : "Eight color trends defining the design language of 2026 — across fashion, interior, tech, and branding. Each trend includes a curated palette, cultural context, and design guidance."}
+            ? "十三种定义2026年设计语言的色彩趋势——跨越时尚、室内、科技与品牌领域。每种趋势包含精选调色板、设计背景与使用指导。"
+            : "Thirteen color trends defining the design language of 2026 — across fashion, interior, tech, and branding. Each trend includes a curated palette, cultural context, and design guidance."}
         </p>
       </header>
 

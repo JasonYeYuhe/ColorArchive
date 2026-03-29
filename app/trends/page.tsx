@@ -9,20 +9,20 @@ export const metadata: Metadata = {
       "Color Trends 2026 — Forecast Palettes for Design, Fashion & Branding | ColorArchive",
   },
   description:
-    "Explore the 8 defining color trends of 2026: Warm Earth Revival, Digital Sage, Quiet Luxury Neutrals, Cobalt Confidence, Neo-Botanica, Evolved Coral, Midnight Plum, and Warm Minimalism. Curated palettes with hex codes, design guidance, and cultural context.",
+    "Explore 13 defining color trends of 2026: Digital Calm, Neo Vibrant, Soft Industrial, Sunset Palette, Warm Earth Revival, Digital Sage, Quiet Luxury Neutrals, and more. Curated palettes with hex codes, design guidance, and cultural context.",
   alternates: {
     canonical: "/trends/",
   },
   openGraph: {
     title: "Color Trends 2026 — Forecast Palettes for Design, Fashion & Branding",
     description:
-      "8 curated color trends shaping design in 2026: earth tones, digital sage, quiet luxury, cobalt, botanica, coral, plum, and warm minimalism. With hex codes and design guidance.",
+      "13 curated color trends shaping design in 2026 — from digital calm to neo vibrant. With hex codes, palettes, and design guidance.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
   twitter: {
     title: "Color Trends 2026 — Design Color Forecast",
     description:
-      "8 curated color trends for 2026 with palettes, hex codes, and design guidance. From quiet luxury neutrals to cobalt confidence.",
+      "13 curated color trends for 2026 with palettes, hex codes, and design guidance. From digital calm to neo vibrant.",
     images: ["https://colorarchive.me/og-image-v1.png"],
   },
 };
@@ -32,7 +32,7 @@ const structuredData = {
   "@type": "CollectionPage",
   name: "Color Trends 2026 — Forecast Palettes for Design, Fashion & Branding",
   description:
-    "A curated reference of the 8 defining color trends of 2026 across fashion, interior design, technology, and branding — with hex-code palettes, cultural context, and practical design guidance.",
+    "A curated reference of 13 defining color trends of 2026 across fashion, interior design, technology, and branding — with hex-code palettes, cultural context, and practical design guidance.",
   url: "https://colorarchive.me/trends/",
   breadcrumb: {
     "@type": "BreadcrumbList",
