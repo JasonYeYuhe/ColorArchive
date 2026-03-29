@@ -31,7 +31,9 @@ We reserve the right to suspend or terminate accounts that violate these terms.`
 
 - **Digital products**: All sales of digital downloads are final. Due to the nature of digital goods, refunds are generally not available once the product has been delivered.
 - **Exceptions**: If you experience a technical issue preventing you from accessing a purchased product, contact us and we will work to resolve it or issue a refund at our discretion.
-- **Pricing**: We reserve the right to change pricing at any time. Price changes do not affect previously completed purchases.`,
+- **Pricing**: We reserve the right to change pricing at any time. Price changes do not affect previously completed purchases.
+- **Subscriptions**: Pro subscriptions (monthly or yearly) renew automatically. You may cancel at any time through your account's billing portal — go to Account → Manage Subscription. Cancellation takes effect at the end of the current billing period; you retain access until then. No partial refunds are issued for the remaining period.
+- **Free trials**: Pro subscriptions include a 3-day free trial. You will not be charged if you cancel before the trial ends.`,
   },
   {
     title: "5. Intellectual Property",
