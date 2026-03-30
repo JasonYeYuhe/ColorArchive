@@ -35,5 +35,55 @@ struct ColorCardView: View {
             }
         }
         .buttonStyle(.plain)
+        .contextMenu {
+            Button {
+                copyToClipboard(color.hex)
+                HapticManager.success()
+            } label: {
+                Label("Copy HEX", systemImage: "number")
+            }
+
+            Button {
+                copyToClipboard(color.rgbString)
+                HapticManager.success()
+            } label: {
+                Label("Copy RGB", systemImage: "paintpalette")
+            }
+
+            Button {
+                copyToClipboard(color.hslString)
+                HapticManager.success()
+            } label: {
+                Label("Copy HSL", systemImage: "circle.lefthalf.filled")
+            }
+
+            Divider()
+
+            Button {
+                onFavorite()
+            } label: {
+                Label(
+                    isFavorite ? "Remove Favorite" : "Add Favorite",
+                    systemImage: isFavorite ? "heart.slash" : "heart"
+                )
+            }
+
+            #if os(iOS)
+            if let image = ShareHelper.colorCardImage(for: color) {
+                ShareLink(item: image, preview: SharePreview(color.name, image: image)) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                }
+            }
+            #endif
+        }
+    }
+
+    private func copyToClipboard(_ value: String) {
+        #if os(iOS)
+        UIPasteboard.general.string = value
+        #elseif os(macOS)
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(value, forType: .string)
+        #endif
     }
 }

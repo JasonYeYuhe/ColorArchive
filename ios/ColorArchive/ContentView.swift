@@ -8,6 +8,7 @@ struct ContentView: View {
         case search = "Search"
         case tools = "Tools"
         case favorites = "Favorites"
+        case profile = "Profile"
     }
 
     var body: some View {
@@ -35,6 +36,12 @@ struct ContentView: View {
                     Label("Favorites", systemImage: "heart.fill")
                 }
                 .tag(Tab.favorites)
+
+            ProfileView()
+                .tabItem {
+                    Label("Profile", systemImage: "person.crop.circle")
+                }
+                .tag(Tab.profile)
         }
         .tint(Color(red: 0.1, green: 0.1, blue: 0.18))
     }
