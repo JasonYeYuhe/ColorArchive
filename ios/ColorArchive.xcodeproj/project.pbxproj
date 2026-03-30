@@ -7,45 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A10001 /* ColorArchiveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001; };
-		A10002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002; };
-		A10003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10003; };
-		A10004 /* ColorRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10004; };
-		A10005 /* ColorGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10005; };
-		A10006 /* ColorConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10006; };
-		A10007 /* ColorFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10007; };
-		A10008 /* ColorBrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10008; };
-		A10009 /* ColorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10009; };
-		A10010 /* ColorSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10010; };
-		A10011 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10011; };
-		A10012 /* ColorCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10012; };
-		A10013 /* ColorStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
-		A10014 /* FavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014; };
-		A10015 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
-		A10016 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10016; };
-		A10017 /* ColorRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017; };
-		A10018 /* ColorContrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018; };
-		A10019 /* ColorBlindSim.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10019; };
-		A10020 /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10020; };
-		A10021 /* SemanticSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10021; };
-		A10022 /* ColorOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10022; };
-		A10023 /* ToolsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10023; };
-		A10024 /* HarmoniesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10024; };
-		A10025 /* ContrastCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10025; };
-		A10026 /* ColorBlindSimView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10026; };
-		A10027 /* TintsShadesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10027; };
-		A10028 /* ConverterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10028; };
-		A10029 /* MixerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10029; };
-		A10030 /* GradientBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10030; };
-		A10031 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10031; };
-		A10032 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10032; };
-		A10033 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10033; };
-		A10034 /* SpotlightIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10034; };
-		A10035 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10035; };
+		A10001 /* ColorArchiveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001 /* ColorArchiveApp.swift */; };
+		A10002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002 /* ContentView.swift */; };
+		A10003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10003 /* Assets.xcassets */; };
+		A10004 /* ColorRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10004 /* ColorRecord.swift */; };
+		A10005 /* ColorGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10005 /* ColorGenerator.swift */; };
+		A10006 /* ColorConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10006 /* ColorConvert.swift */; };
+		A10007 /* ColorFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10007 /* ColorFamily.swift */; };
+		A10008 /* ColorBrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10008 /* ColorBrowseView.swift */; };
+		A10009 /* ColorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10009 /* ColorDetailView.swift */; };
+		A10010 /* ColorSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10010 /* ColorSearchView.swift */; };
+		A10011 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10011 /* FavoritesView.swift */; };
+		A10012 /* ColorCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10012 /* ColorCardView.swift */; };
+		A10013 /* ColorStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013 /* ColorStore.swift */; };
+		A10014 /* FavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014 /* FavoritesStore.swift */; };
+		A10015 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015 /* APIService.swift */; };
+		A10017 /* ColorRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017 /* ColorRelationships.swift */; };
+		A10018 /* ColorContrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018 /* ColorContrast.swift */; };
+		A10019 /* ColorBlindSim.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10019 /* ColorBlindSim.swift */; };
+		A10020 /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10020 /* ColorMixer.swift */; };
+		A10021 /* SemanticSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10021 /* SemanticSearch.swift */; };
+		A10022 /* ColorOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10022 /* ColorOfDay.swift */; };
+		A10023 /* ToolsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10023 /* ToolsHomeView.swift */; };
+		A10024 /* HarmoniesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10024 /* HarmoniesView.swift */; };
+		A10025 /* ContrastCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10025 /* ContrastCheckerView.swift */; };
+		A10026 /* ColorBlindSimView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10026 /* ColorBlindSimView.swift */; };
+		A10027 /* TintsShadesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10027 /* TintsShadesView.swift */; };
+		A10028 /* ConverterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10028 /* ConverterView.swift */; };
+		A10029 /* MixerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10029 /* MixerView.swift */; };
+		A10030 /* GradientBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10030 /* GradientBuilderView.swift */; };
+		A10031 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10031 /* ProfileView.swift */; };
+		A10032 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10032 /* SettingsView.swift */; };
+		A10033 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10033 /* ShareSheet.swift */; };
+		A10034 /* SpotlightIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10034 /* SpotlightIndexer.swift */; };
+		A10035 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10035 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C10001 /* ColorArchive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorArchive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B10001 /* ColorArchiveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorArchiveApp.swift; sourceTree = "<group>"; };
 		B10002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B10003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,7 +59,6 @@
 		B10013 /* ColorStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorStore.swift; sourceTree = "<group>"; };
 		B10014 /* FavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStore.swift; sourceTree = "<group>"; };
 		B10015 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		B10016 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		B10017 /* ColorRelationships.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRelationships.swift; sourceTree = "<group>"; };
 		B10018 /* ColorContrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorContrast.swift; sourceTree = "<group>"; };
 		B10019 /* ColorBlindSim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlindSim.swift; sourceTree = "<group>"; };
@@ -81,10 +78,11 @@
 		B10033 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		B10034 /* SpotlightIndexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightIndexer.swift; sourceTree = "<group>"; };
 		B10035 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C10001 /* ColorArchive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorArchive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D10001 = {
+		D10001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -156,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				B10015 /* APIService.swift */,
-				B10016 /* HapticManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -237,7 +234,7 @@
 /* Begin PBXNativeTarget section */
 		F10001 /* ColorArchive */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = G10003;
+			buildConfigurationList = G10003 /* Build configuration list for PBXNativeTarget "ColorArchive" */;
 			buildPhases = (
 				D10002 /* Sources */,
 				D10001 /* Frameworks */,
@@ -260,14 +257,14 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					F10001 = {
 						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
-			buildConfigurationList = G10006;
+			buildConfigurationList = G10006 /* Build configuration list for PBXProject "ColorArchive" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -288,7 +285,7 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D10003 = {
+		D10003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -299,7 +296,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D10002 = {
+		D10002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -317,7 +314,6 @@
 				A10013 /* ColorStore.swift in Sources */,
 				A10014 /* FavoritesStore.swift in Sources */,
 				A10015 /* APIService.swift in Sources */,
-				A10016 /* HapticManager.swift in Sources */,
 				A10017 /* ColorRelationships.swift in Sources */,
 				A10018 /* ColorContrast.swift in Sources */,
 				A10019 /* ColorBlindSim.swift in Sources */,
@@ -351,7 +347,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ColorArchive/Preview Content\"";
-				DEVELOPMENT_TEAM = KHMK6Q3L3K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = ColorArchive;
@@ -385,7 +380,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ColorArchive/Preview Content\"";
-				DEVELOPMENT_TEAM = KHMK6Q3L3K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = ColorArchive;
@@ -416,6 +410,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -446,6 +441,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = KHMK6Q3L3K;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -469,6 +465,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -479,6 +476,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -509,6 +507,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = KHMK6Q3L3K;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -525,6 +524,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -552,7 +552,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
 	};
 	rootObject = F10002 /* Project object */;
 }

@@ -1,6 +1,10 @@
 import Foundation
+#if canImport(CoreSpotlight)
 import CoreSpotlight
-import MobileCoreServices
+#endif
+#if canImport(UniformTypeIdentifiers)
+import UniformTypeIdentifiers
+#endif
 
 enum SpotlightIndexer {
 
@@ -8,9 +12,10 @@ enum SpotlightIndexer {
 
     /// Index all colors for Spotlight search
     static func indexColors(_ colors: [ColorRecord]) {
+        #if canImport(CoreSpotlight)
         Task.detached(priority: .background) {
             let items = colors.map { color -> CSSearchableItem in
-                let attrs = CSSearchableItemAttributeSet(contentType: .data)
+                let attrs = CSSearchableItemAttributeSet(contentType: UTType.data)
                 attrs.title = color.name
                 attrs.contentDescription = "\(color.hex) · \(color.family.rawValue) · \(color.hslString)"
                 attrs.keywords = [
@@ -36,19 +41,26 @@ enum SpotlightIndexer {
                 try? await CSSearchableIndex.default().indexSearchableItems(batch)
             }
         }
+        #endif
     }
 
     /// Remove all indexed items
     static func removeAll() {
+        #if canImport(CoreSpotlight)
         CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [domainId]) { _ in }
+        #endif
     }
 
     /// Parse a Spotlight activity to get the color ID
     static func colorId(from userActivity: NSUserActivity) -> String? {
+        #if canImport(CoreSpotlight)
         guard userActivity.activityType == CSSearchableItemActionType,
               let identifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String else {
             return nil
         }
         return identifier.replacingOccurrences(of: "color-", with: "")
+        #else
+        return nil
+        #endif
     }
 }
