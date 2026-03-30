@@ -5,8 +5,8 @@ import AppKit
 
 struct ColorDetailView: View {
     let color: ColorRecord
-    @EnvironmentObject var favoritesStore: FavoritesStore
-    @EnvironmentObject var colorStore: ColorStore
+    @Environment(FavoritesStore.self) var favoritesStore
+    @Environment(ColorStore.self) var colorStore
     @State private var copiedField: String?
 
     var body: some View {

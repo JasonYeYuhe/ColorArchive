@@ -6,6 +6,7 @@ struct ContentView: View {
     enum Tab: String, CaseIterable {
         case browse = "Browse"
         case search = "Search"
+        case tools = "Tools"
         case favorites = "Favorites"
     }
 
@@ -23,6 +24,12 @@ struct ContentView: View {
                 }
                 .tag(Tab.search)
 
+            ToolsHomeView()
+                .tabItem {
+                    Label("Tools", systemImage: "wrench.and.screwdriver.fill")
+                }
+                .tag(Tab.tools)
+
             FavoritesView()
                 .tabItem {
                     Label("Favorites", systemImage: "heart.fill")
@@ -35,6 +42,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .environmentObject(ColorStore())
-        .environmentObject(FavoritesStore())
+        .environment(ColorStore())
+        .environment(FavoritesStore())
 }

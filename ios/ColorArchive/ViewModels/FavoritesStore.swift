@@ -1,10 +1,14 @@
 import Foundation
+import Observation
 
+@Observable
 @MainActor
-class FavoritesStore: ObservableObject {
-    @Published private(set) var favoriteIds: Set<String> = []
+final class FavoritesStore {
+    private(set) var favoriteIds: Set<String> = []
 
     private let storageKey = "colorarchive-favorites"
+
+    var count: Int { favoriteIds.count }
 
     init() {
         load()
@@ -20,7 +24,12 @@ class FavoritesStore: ObservableObject {
         } else {
             favoriteIds.insert(id)
         }
+        HapticManager.light()
         save()
+    }
+
+    func favoriteColors(from allColors: [ColorRecord]) -> [ColorRecord] {
+        allColors.filter { favoriteIds.contains($0.id) }
     }
 
     private func load() {

@@ -1,12 +1,16 @@
 import Foundation
-import Combine
+import Observation
 
+@Observable
 @MainActor
-class ColorStore: ObservableObject {
-    @Published var colors: [ColorRecord] = []
-    @Published var isLoading = true
-    @Published var selectedFamily: ColorFamily?
-    @Published var sortOption: SortOption = .hue
+final class ColorStore {
+    var colors: [ColorRecord] = []
+    var isLoading = true
+    var selectedFamily: ColorFamily?
+    var sortOption: SortOption = .hue
+
+    /// Hue-bucketed index for fast harmony lookups
+    private var hueIndex: [Int: [ColorRecord]] = [:]
 
     enum SortOption: String, CaseIterable {
         case hue = "Hue"
@@ -28,9 +32,12 @@ class ColorStore: ObservableObject {
                 ColorGenerator.generateAll()
             }.value
             self.colors = generated
+            self.buildHueIndex()
             self.isLoading = false
         }
     }
+
+    // MARK: - Lookup
 
     func color(byId id: String) -> ColorRecord? {
         colors.first { $0.id == id }
@@ -38,6 +45,36 @@ class ColorStore: ObservableObject {
 
     func colorsInFamily(_ family: ColorFamily) -> [ColorRecord] {
         colors.filter { $0.family == family }
+    }
+
+    /// Get colors in a hue range (±tolerance) for faster harmony searches
+    func colorsNearHue(_ targetHue: Int, tolerance: Int = 30) -> [ColorRecord] {
+        var result: [ColorRecord] = []
+        for offset in -tolerance...tolerance {
+            let hue = ((targetHue + offset) % 360 + 360) % 360
+            if let bucket = hueIndex[hue] {
+                result.append(contentsOf: bucket)
+            }
+        }
+        return result
+    }
+
+    // MARK: - Search
+
+    func search(_ query: String) -> [ColorRecord] {
+        SemanticSearch.search(colors, query: query)
+    }
+
+    // MARK: - Color of Day
+
+    func colorOfDay(date: Date = Date()) -> ColorRecord? {
+        ColorOfDay.pick(from: colors, date: date)
+    }
+
+    // MARK: - Private
+
+    private func buildHueIndex() {
+        hueIndex = Dictionary(grouping: colors) { $0.hue }
     }
 
     private func sorted(_ colors: [ColorRecord]) -> [ColorRecord] {

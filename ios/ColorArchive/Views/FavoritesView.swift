@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @EnvironmentObject var colorStore: ColorStore
-    @EnvironmentObject var favoritesStore: FavoritesStore
+    @Environment(ColorStore.self) var colorStore
+    @Environment(FavoritesStore.self) var favoritesStore
     @State private var selectedColor: ColorRecord?
 
     private let columns = [
@@ -10,7 +10,7 @@ struct FavoritesView: View {
     ]
 
     var favoriteColors: [ColorRecord] {
-        colorStore.colors.filter { favoritesStore.isFavorite($0.id) }
+        favoritesStore.favoriteColors(from: colorStore.colors)
     }
 
     var body: some View {
@@ -45,6 +45,24 @@ struct FavoritesView: View {
                                     onTap: { selectedColor = color },
                                     onFavorite: { favoritesStore.toggle(color.id) }
                                 )
+                                .contextMenu {
+                                    Button {
+                                        #if os(iOS)
+                                        UIPasteboard.general.string = color.hex
+                                        #elseif os(macOS)
+                                        NSPasteboard.general.clearContents()
+                                        NSPasteboard.general.setString(color.hex, forType: .string)
+                                        #endif
+                                        HapticManager.success()
+                                    } label: {
+                                        Label("Copy HEX", systemImage: "doc.on.doc")
+                                    }
+                                    Button(role: .destructive) {
+                                        favoritesStore.toggle(color.id)
+                                    } label: {
+                                        Label("Remove", systemImage: "heart.slash")
+                                    }
+                                }
                             }
                         }
                         .padding(.horizontal)

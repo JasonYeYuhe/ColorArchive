@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct ColorBrowseView: View {
-    @EnvironmentObject var colorStore: ColorStore
-    @EnvironmentObject var favoritesStore: FavoritesStore
+    @Environment(ColorStore.self) var colorStore
+    @Environment(FavoritesStore.self) var favoritesStore
     @State private var selectedColor: ColorRecord?
 
     private let columns = [
@@ -10,6 +10,7 @@ struct ColorBrowseView: View {
     ]
 
     var body: some View {
+        @Bindable var colorStore = colorStore
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
