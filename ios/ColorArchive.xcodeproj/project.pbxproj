@@ -22,6 +22,26 @@
 		A10013 /* ColorStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
 		A10014 /* FavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014; };
 		A10015 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
+		A10016 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10016; };
+		A10017 /* ColorRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017; };
+		A10018 /* ColorContrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018; };
+		A10019 /* ColorBlindSim.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10019; };
+		A10020 /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10020; };
+		A10021 /* SemanticSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10021; };
+		A10022 /* ColorOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10022; };
+		A10023 /* ToolsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10023; };
+		A10024 /* HarmoniesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10024; };
+		A10025 /* ContrastCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10025; };
+		A10026 /* ColorBlindSimView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10026; };
+		A10027 /* TintsShadesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10027; };
+		A10028 /* ConverterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10028; };
+		A10029 /* MixerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10029; };
+		A10030 /* GradientBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10030; };
+		A10031 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10031; };
+		A10032 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10032; };
+		A10033 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10033; };
+		A10034 /* SpotlightIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10034; };
+		A10035 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10035; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +61,26 @@
 		B10013 /* ColorStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorStore.swift; sourceTree = "<group>"; };
 		B10014 /* FavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStore.swift; sourceTree = "<group>"; };
 		B10015 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		B10016 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		B10017 /* ColorRelationships.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRelationships.swift; sourceTree = "<group>"; };
+		B10018 /* ColorContrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorContrast.swift; sourceTree = "<group>"; };
+		B10019 /* ColorBlindSim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlindSim.swift; sourceTree = "<group>"; };
+		B10020 /* ColorMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMixer.swift; sourceTree = "<group>"; };
+		B10021 /* SemanticSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearch.swift; sourceTree = "<group>"; };
+		B10022 /* ColorOfDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOfDay.swift; sourceTree = "<group>"; };
+		B10023 /* ToolsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsHomeView.swift; sourceTree = "<group>"; };
+		B10024 /* HarmoniesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarmoniesView.swift; sourceTree = "<group>"; };
+		B10025 /* ContrastCheckerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContrastCheckerView.swift; sourceTree = "<group>"; };
+		B10026 /* ColorBlindSimView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlindSimView.swift; sourceTree = "<group>"; };
+		B10027 /* TintsShadesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintsShadesView.swift; sourceTree = "<group>"; };
+		B10028 /* ConverterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterView.swift; sourceTree = "<group>"; };
+		B10029 /* MixerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerView.swift; sourceTree = "<group>"; };
+		B10030 /* GradientBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBuilderView.swift; sourceTree = "<group>"; };
+		B10031 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		B10032 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B10033 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		B10034 /* SpotlightIndexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightIndexer.swift; sourceTree = "<group>"; };
+		B10035 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +112,7 @@
 				E10005 /* ViewModels */,
 				E10006 /* Services */,
 				E10007 /* Utils */,
+				E10010 /* Extensions */,
 				B10003 /* Assets.xcassets */,
 			);
 			path = ColorArchive;
@@ -94,6 +135,10 @@
 				B10010 /* ColorSearchView.swift */,
 				B10011 /* FavoritesView.swift */,
 				B10012 /* ColorCardView.swift */,
+				E10011 /* Tools */,
+				E10012 /* Profile */,
+				E10013 /* Components */,
+				E10014 /* Auth */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -111,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				B10015 /* APIService.swift */,
+				B10016 /* HapticManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -120,6 +166,12 @@
 			children = (
 				B10005 /* ColorGenerator.swift */,
 				B10006 /* ColorConvert.swift */,
+				B10017 /* ColorRelationships.swift */,
+				B10018 /* ColorContrast.swift */,
+				B10019 /* ColorBlindSim.swift */,
+				B10020 /* ColorMixer.swift */,
+				B10021 /* SemanticSearch.swift */,
+				B10022 /* ColorOfDay.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -130,6 +182,54 @@
 				C10001 /* ColorArchive.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E10010 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B10034 /* SpotlightIndexer.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E10011 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				B10023 /* ToolsHomeView.swift */,
+				B10024 /* HarmoniesView.swift */,
+				B10025 /* ContrastCheckerView.swift */,
+				B10026 /* ColorBlindSimView.swift */,
+				B10027 /* TintsShadesView.swift */,
+				B10028 /* ConverterView.swift */,
+				B10029 /* MixerView.swift */,
+				B10030 /* GradientBuilderView.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		E10012 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B10031 /* ProfileView.swift */,
+				B10032 /* SettingsView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		E10013 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B10033 /* ShareSheet.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E10014 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				B10035 /* LoginView.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +317,26 @@
 				A10013 /* ColorStore.swift in Sources */,
 				A10014 /* FavoritesStore.swift in Sources */,
 				A10015 /* APIService.swift in Sources */,
+				A10016 /* HapticManager.swift in Sources */,
+				A10017 /* ColorRelationships.swift in Sources */,
+				A10018 /* ColorContrast.swift in Sources */,
+				A10019 /* ColorBlindSim.swift in Sources */,
+				A10020 /* ColorMixer.swift in Sources */,
+				A10021 /* SemanticSearch.swift in Sources */,
+				A10022 /* ColorOfDay.swift in Sources */,
+				A10023 /* ToolsHomeView.swift in Sources */,
+				A10024 /* HarmoniesView.swift in Sources */,
+				A10025 /* ContrastCheckerView.swift in Sources */,
+				A10026 /* ColorBlindSimView.swift in Sources */,
+				A10027 /* TintsShadesView.swift in Sources */,
+				A10028 /* ConverterView.swift in Sources */,
+				A10029 /* MixerView.swift in Sources */,
+				A10030 /* GradientBuilderView.swift in Sources */,
+				A10031 /* ProfileView.swift in Sources */,
+				A10032 /* SettingsView.swift in Sources */,
+				A10033 /* ShareSheet.swift in Sources */,
+				A10034 /* SpotlightIndexer.swift in Sources */,
+				A10035 /* LoginView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +368,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.colorarchive.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx appletvos appletvsimulator watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -282,7 +402,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.colorarchive.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx appletvos appletvsimulator watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
