@@ -45,8 +45,8 @@ struct LoginView: View {
                 VStack(spacing: 16) {
                     TextField("Email address", text: $email)
                         .textFieldStyle(.roundedBorder)
-                        .keyboardType(.emailAddress)
                         #if os(iOS)
+                        .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         #endif
                         .autocorrectionDisabled()
