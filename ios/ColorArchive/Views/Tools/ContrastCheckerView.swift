@@ -58,7 +58,7 @@ struct ContrastCheckerView: View {
                         .background(bg.swiftUIColor, in: RoundedRectangle(cornerRadius: 16))
 
                         // Ratio display
-                        if let ratio = contrastRatio, let grade = wcagGrade {
+                        if let ratio = contrastRatio, wcagGrade != nil {
                             HStack(spacing: 16) {
                                 VStack(spacing: 4) {
                                     Text(String(format: "%.1f:1", ratio))
@@ -226,7 +226,9 @@ struct ColorPickerSheet: View {
                 .padding()
             }
             .navigationTitle("Pick a Color")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .searchable(text: $searchText, prompt: "Name, HEX, or mood...")
         }
     }
