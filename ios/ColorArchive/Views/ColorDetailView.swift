@@ -17,6 +17,10 @@ struct ColorDetailView: View {
                 // Large color swatch
                 color.swiftUIColor
                     .frame(height: 220)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 0)
+                            .stroke(Color.gray.opacity(color.lightness > 90 ? 0.2 : 0), lineWidth: 1)
+                    )
                     .overlay(alignment: .bottomLeading) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(color.name)

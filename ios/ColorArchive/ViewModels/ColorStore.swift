@@ -81,8 +81,12 @@ final class ColorStore {
         switch sortOption {
         case .hue:
             return colors.sorted { a, b in
+                // Chromatic colors first (saturation > 10), grays last
+                let aChromatic = a.saturation > 10
+                let bChromatic = b.saturation > 10
+                if aChromatic != bChromatic { return aChromatic }
                 if a.hue != b.hue { return a.hue < b.hue }
-                if a.saturation != b.saturation { return a.saturation < b.saturation }
+                if a.saturation != b.saturation { return a.saturation > b.saturation }
                 return a.lightness < b.lightness
             }
         case .lightness:
