@@ -29,7 +29,8 @@ router.post("/order-completed", async (req, res) => {
     return res.status(400).json({ error: "Missing email or packId" });
   }
 
-  const orderId = paymentIntent || `stripe_${sessionId}` || `stripe_${Date.now()}`;
+  const provider = req.body.provider || "stripe";
+  const orderId = paymentIntent || `${provider}_${sessionId}` || `${provider}_${Date.now()}`;
   const catalogProduct = findCatalogProduct(packId);
   const productName = catalogProduct?.title || packId;
   const downloadUrl = getDownloadUrl(packId) || "https://colorarchive.me/packs";
@@ -80,7 +81,7 @@ router.post("/order-completed", async (req, res) => {
     // Add buyer to subscribers if not already
     db.prepare(
       "INSERT OR IGNORE INTO subscribers (email, source) VALUES (?, ?)"
-    ).run(email, "stripe-purchase");
+    ).run(email, `${provider}-purchase`);
   } catch (err) {
     console.error("[webhook] DB error (order):", err);
   }
