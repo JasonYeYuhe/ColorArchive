@@ -12,12 +12,15 @@ struct ToolsHomeView: View {
     @Environment(ColorStore.self) var colorStore
 
     private let tools: [ToolItem] = [
-        ToolItem(title: "Harmonies", subtitle: "Find complementary, analogous & triadic colors", icon: "circle.hexagongrid.fill", color: .purple),
-        ToolItem(title: "Contrast", subtitle: "WCAG accessibility checker", icon: "eye.fill", color: .blue),
+        ToolItem(title: "Palettes", subtitle: "Create, save & export custom palettes", icon: "paintpalette.fill", color: .orange),
+        ToolItem(title: "AI Mood", subtitle: "Generate palette from mood or scene", icon: "sparkles", color: .purple),
+        ToolItem(title: "Image Palette", subtitle: "Extract colors from photos", icon: "photo.on.rectangle.angled", color: .blue),
+        ToolItem(title: "Harmonies", subtitle: "Complementary, analogous & triadic", icon: "circle.hexagongrid.fill", color: .pink),
+        ToolItem(title: "Contrast", subtitle: "WCAG accessibility checker", icon: "eye.fill", color: .cyan),
         ToolItem(title: "Colorblind", subtitle: "Simulate color vision deficiency", icon: "eyeglasses", color: .teal),
-        ToolItem(title: "Tints & Shades", subtitle: "Generate lightness variations", icon: "slider.horizontal.3", color: .orange),
+        ToolItem(title: "Tints & Shades", subtitle: "Generate lightness variations", icon: "slider.horizontal.3", color: .yellow),
         ToolItem(title: "Converter", subtitle: "HEX ↔ RGB ↔ HSL ↔ CMYK", icon: "arrow.triangle.2.circlepath", color: .green),
-        ToolItem(title: "Mixer", subtitle: "Blend two colors together", icon: "drop.fill", color: .pink),
+        ToolItem(title: "Mixer", subtitle: "Blend two colors together", icon: "drop.fill", color: .red),
         ToolItem(title: "Gradient", subtitle: "Build CSS gradients", icon: "rectangle.fill", color: .indigo),
     ]
 
@@ -89,6 +92,12 @@ struct ToolsHomeView: View {
             .navigationTitle("Tools")
             .navigationDestination(for: String.self) { toolName in
                 switch toolName {
+                case "Palettes":
+                    PaletteBuilderView()
+                case "AI Mood":
+                    AIMoodPaletteView()
+                case "Image Palette":
+                    ImagePaletteView()
                 case "Harmonies":
                     HarmoniesView()
                 case "Contrast":

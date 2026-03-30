@@ -7,7 +7,7 @@ struct ContentView: View {
         case browse = "Browse"
         case search = "Search"
         case tools = "Tools"
-        case favorites = "Favorites"
+        case collections = "Collections"
         case profile = "Profile"
     }
 
@@ -31,11 +31,11 @@ struct ContentView: View {
                 }
                 .tag(Tab.tools)
 
-            FavoritesView()
+            CollectionsView()
                 .tabItem {
-                    Label("Favorites", systemImage: "heart.fill")
+                    Label("Collections", systemImage: "rectangle.stack.fill")
                 }
-                .tag(Tab.favorites)
+                .tag(Tab.collections)
 
             ProfileView()
                 .tabItem {
@@ -51,4 +51,5 @@ struct ContentView: View {
     ContentView()
         .environment(ColorStore())
         .environment(FavoritesStore())
+        .environment(RecentColorsStore())
 }

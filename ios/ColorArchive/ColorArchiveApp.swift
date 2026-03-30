@@ -1,9 +1,11 @@
 import SwiftUI
+import SwiftData
 
 @main
 struct ColorArchiveApp: App {
     @State private var colorStore = ColorStore()
     @State private var favoritesStore = FavoritesStore()
+    @State private var recentColorsStore = RecentColorsStore()
     @State private var spotlightColorId: String?
 
     var body: some Scene {
@@ -11,6 +13,8 @@ struct ColorArchiveApp: App {
             ContentView()
                 .environment(colorStore)
                 .environment(favoritesStore)
+                .environment(recentColorsStore)
+                .modelContainer(for: Palette.self)
                 .onContinueUserActivity("com.apple.corespotlightitem") { activity in
                     if let id = SpotlightIndexer.colorId(from: activity) {
                         spotlightColorId = id
@@ -25,9 +29,9 @@ struct ColorArchiveApp: App {
                     }
                     .environment(colorStore)
                     .environment(favoritesStore)
+                    .environment(recentColorsStore)
                 }
                 .task {
-                    // Index colors for Spotlight when they're ready
                     while colorStore.isLoading {
                         try? await Task.sleep(for: .milliseconds(100))
                     }

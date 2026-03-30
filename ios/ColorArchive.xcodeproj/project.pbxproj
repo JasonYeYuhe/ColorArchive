@@ -41,6 +41,15 @@
 		A10033 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10033 /* ShareSheet.swift */; };
 		A10034 /* SpotlightIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10034 /* SpotlightIndexer.swift */; };
 		A10035 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10035 /* LoginView.swift */; };
+		A10036 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10036 /* Palette.swift */; };
+		A10037 /* ExportFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10037 /* ExportFormats.swift */; };
+		A10038 /* PaletteBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10038 /* PaletteBuilderView.swift */; };
+		A10039 /* ImagePaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10039 /* ImagePaletteView.swift */; };
+		A10040 /* AIMoodPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10040 /* AIMoodPaletteView.swift */; };
+		A10041 /* RecentColorsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10041 /* RecentColorsStore.swift */; };
+		A10042 /* ColorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10042 /* ColorCollection.swift */; };
+		A10043 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10043 /* Collections.swift */; };
+		A10044 /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10044 /* CollectionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +87,15 @@
 		B10033 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		B10034 /* SpotlightIndexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightIndexer.swift; sourceTree = "<group>"; };
 		B10035 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B10036 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		B10037 /* ExportFormats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportFormats.swift; sourceTree = "<group>"; };
+		B10038 /* PaletteBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteBuilderView.swift; sourceTree = "<group>"; };
+		B10039 /* ImagePaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePaletteView.swift; sourceTree = "<group>"; };
+		B10040 /* AIMoodPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIMoodPaletteView.swift; sourceTree = "<group>"; };
+		B10041 /* RecentColorsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentColorsStore.swift; sourceTree = "<group>"; };
+		B10042 /* ColorCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollection.swift; sourceTree = "<group>"; };
+		B10043 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
+		B10044 /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
 		C10001 /* ColorArchive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorArchive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -111,6 +129,7 @@
 				E10006 /* Services */,
 				E10007 /* Utils */,
 				E10010 /* Extensions */,
+				E10015 /* Data */,
 				B10003 /* Assets.xcassets */,
 			);
 			path = ColorArchive;
@@ -121,6 +140,8 @@
 			children = (
 				B10004 /* ColorRecord.swift */,
 				B10007 /* ColorFamily.swift */,
+				B10036 /* Palette.swift */,
+				B10042 /* ColorCollection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -137,6 +158,7 @@
 				E10012 /* Profile */,
 				E10013 /* Components */,
 				E10014 /* Auth */,
+				E10016 /* Collections */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -146,6 +168,7 @@
 			children = (
 				B10013 /* ColorStore.swift */,
 				B10014 /* FavoritesStore.swift */,
+				B10041 /* RecentColorsStore.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -169,6 +192,7 @@
 				B10020 /* ColorMixer.swift */,
 				B10021 /* SemanticSearch.swift */,
 				B10022 /* ColorOfDay.swift */,
+				B10037 /* ExportFormats.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -200,6 +224,9 @@
 				B10028 /* ConverterView.swift */,
 				B10029 /* MixerView.swift */,
 				B10030 /* GradientBuilderView.swift */,
+				B10038 /* PaletteBuilderView.swift */,
+				B10039 /* ImagePaletteView.swift */,
+				B10040 /* AIMoodPaletteView.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -227,6 +254,22 @@
 				B10035 /* LoginView.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		E10015 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				B10043 /* Collections.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E10016 /* Collections */ = {
+			isa = PBXGroup;
+			children = (
+				B10044 /* CollectionsView.swift */,
+			);
+			path = Collections;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,6 +376,15 @@
 				A10033 /* ShareSheet.swift in Sources */,
 				A10034 /* SpotlightIndexer.swift in Sources */,
 				A10035 /* LoginView.swift in Sources */,
+				A10036 /* Palette.swift in Sources */,
+				A10037 /* ExportFormats.swift in Sources */,
+				A10038 /* PaletteBuilderView.swift in Sources */,
+				A10039 /* ImagePaletteView.swift in Sources */,
+				A10040 /* AIMoodPaletteView.swift in Sources */,
+				A10041 /* RecentColorsStore.swift in Sources */,
+				A10042 /* ColorCollection.swift in Sources */,
+				A10043 /* Collections.swift in Sources */,
+				A10044 /* CollectionsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,6 +3,7 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(ColorStore.self) var colorStore
     @Environment(FavoritesStore.self) var favoritesStore
+    @Environment(RecentColorsStore.self) var recentColorsStore
     @State private var showingSettings = false
 
     var body: some View {
@@ -63,12 +64,44 @@ struct ProfileView: View {
                     }
                 }
 
+                // Recent Colors
+                if !recentColorsStore.recentIds.isEmpty {
+                    Section("Recently Viewed") {
+                        let recents = recentColorsStore.recentColors(from: colorStore.colors).prefix(6)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 8) {
+                                ForEach(Array(recents)) { color in
+                                    NavigationLink(value: color) {
+                                        VStack(spacing: 4) {
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .fill(color.swiftUIColor)
+                                                .frame(width: 50, height: 50)
+                                            Text(color.hex)
+                                                .font(.system(size: 8))
+                                                .monospaced()
+                                                .foregroundStyle(.secondary)
+                                        }
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                        }
+                        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    }
+                }
+
                 // Quick Actions
                 Section("Quick Actions") {
                     NavigationLink {
                         FavoritesView()
                     } label: {
-                        Label("My Favorites", systemImage: "heart.fill")
+                        Label("My Favorites (\(favoritesStore.count))", systemImage: "heart.fill")
+                    }
+
+                    NavigationLink {
+                        PaletteBuilderView()
+                    } label: {
+                        Label("My Palettes", systemImage: "paintpalette.fill")
                     }
 
                     NavigationLink {

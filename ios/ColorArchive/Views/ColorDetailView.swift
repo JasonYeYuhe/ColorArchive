@@ -7,6 +7,7 @@ struct ColorDetailView: View {
     let color: ColorRecord
     @Environment(FavoritesStore.self) var favoritesStore
     @Environment(ColorStore.self) var colorStore
+    @Environment(RecentColorsStore.self) var recentColorsStore
     @State private var copiedField: String?
     @State private var showColorblind = false
 
@@ -94,6 +95,7 @@ struct ColorDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         #endif
         .background(Color.gray.opacity(0.1))
+        .onAppear { recentColorsStore.add(color.id) }
     }
 
     // MARK: - WCAG Section
