@@ -1,4 +1,7 @@
 import SwiftUI
+#if os(macOS)
+import AppKit
+#endif
 
 struct ColorDetailView: View {
     let color: ColorRecord
@@ -44,7 +47,7 @@ struct ColorDetailView: View {
                         Divider()
                         colorValueRow("HSL", value: color.hslString)
                     }
-                    .background(Color(.systemBackground))
+                    .background(.background)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .shadow(color: .black.opacity(0.05), radius: 8, y: 2)
 
@@ -58,7 +61,7 @@ struct ColorDetailView: View {
                         Divider()
                         propertyRow("Family", value: color.family.rawValue)
                     }
-                    .background(Color(.systemBackground))
+                    .background(.background)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .shadow(color: .black.opacity(0.05), radius: 8, y: 2)
 
@@ -68,13 +71,20 @@ struct ColorDetailView: View {
                 .padding(16)
             }
         }
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color(.systemGroupedBackground))
+        #endif
+        .background(Color.gray.opacity(0.1))
     }
 
     private func colorValueRow(_ label: String, value: String) -> some View {
         Button {
+            #if os(iOS)
             UIPasteboard.general.string = value
+            #elseif os(macOS)
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(value, forType: .string)
+            #endif
             copiedField = label
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 if copiedField == label { copiedField = nil }

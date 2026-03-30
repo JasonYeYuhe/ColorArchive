@@ -94,7 +94,7 @@ struct FilterChip: View {
                 .padding(.vertical, 7)
                 .background(
                     Capsule()
-                        .fill(isSelected ? color.opacity(0.15) : Color(.systemGray6))
+                        .fill(isSelected ? color.opacity(0.15) : Color.gray.opacity(0.12))
                 )
                 .foregroundStyle(isSelected ? color : .primary)
         }
