@@ -13,6 +13,7 @@ export interface PalettePack {
   checkoutProvider: CheckoutProvider;
   checkoutStatus: "ready" | "pending";
   stripePriceId: string | null;
+  gumroadProductUrl: string | null;
   ctaLabel: string;
   deliverables: string[];
   detail: string;
@@ -50,6 +51,7 @@ export const palettePacks: PalettePack[] = [
     checkoutProvider: checkoutConfig["palette-pack-vol-1"].provider,
     checkoutStatus: checkoutConfig["palette-pack-vol-1"].status,
     stripePriceId: checkoutConfig["palette-pack-vol-1"].stripePriceId,
+    gumroadProductUrl: checkoutConfig["palette-pack-vol-1"].gumroadProductUrl,
     checkoutNote: checkoutConfig["palette-pack-vol-1"].note,
     previewCollections: ["Quiet Luxury", "Modern Seaside", "Editorial Warmth", "Forest Terrain"],
     previewCollectionIds: ["quiet-luxury", "modern-seaside", "editorial-warmth", "forest-terrain"],
@@ -129,6 +131,7 @@ export const palettePacks: PalettePack[] = [
     checkoutProvider: checkoutConfig["brand-starter-kit"].provider,
     checkoutStatus: checkoutConfig["brand-starter-kit"].status,
     stripePriceId: checkoutConfig["brand-starter-kit"].stripePriceId,
+    gumroadProductUrl: checkoutConfig["brand-starter-kit"].gumroadProductUrl,
     checkoutNote: checkoutConfig["brand-starter-kit"].note,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Orchid Bloom", "Nordic Frost"],
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "orchid-bloom", "nordic-frost"],
@@ -199,6 +202,7 @@ export const palettePacks: PalettePack[] = [
     checkoutProvider: checkoutConfig["content-creator-bundle"].provider,
     checkoutStatus: checkoutConfig["content-creator-bundle"].status,
     stripePriceId: checkoutConfig["content-creator-bundle"].stripePriceId,
+    gumroadProductUrl: checkoutConfig["content-creator-bundle"].gumroadProductUrl,
     checkoutNote: checkoutConfig["content-creator-bundle"].note,
     previewCollections: ["Modern Seaside", "Orchid Bloom", "Candy Pop"],
     previewCollectionIds: ["modern-seaside", "orchid-bloom", "candy-pop"],
@@ -268,6 +272,7 @@ export const palettePacks: PalettePack[] = [
     checkoutProvider: checkoutConfig["complete-archive"].provider,
     checkoutStatus: checkoutConfig["complete-archive"].status,
     stripePriceId: checkoutConfig["complete-archive"].stripePriceId,
+    gumroadProductUrl: checkoutConfig["complete-archive"].gumroadProductUrl,
     checkoutNote: checkoutConfig["complete-archive"].note,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Sunset Boulevard", "Neon After Dark"],
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "neon-after-dark"],
@@ -363,6 +368,7 @@ export const palettePacks: PalettePack[] = [
     checkoutProvider: checkoutConfig["dark-mode-ui-kit"].provider,
     checkoutStatus: checkoutConfig["dark-mode-ui-kit"].status,
     stripePriceId: checkoutConfig["dark-mode-ui-kit"].stripePriceId,
+    gumroadProductUrl: checkoutConfig["dark-mode-ui-kit"].gumroadProductUrl,
     checkoutNote: checkoutConfig["dark-mode-ui-kit"].note,
     previewCollections: ["Nocturne Tech", "Nordic Frost", "Monochrome Studio"],
     previewCollectionIds: ["nocturne-tech", "nordic-frost", "monochrome-studio"],
@@ -433,6 +439,7 @@ export const palettePacks: PalettePack[] = [
     checkoutProvider: checkoutConfig["seasonal-spring-2026"].provider,
     checkoutStatus: checkoutConfig["seasonal-spring-2026"].status,
     stripePriceId: checkoutConfig["seasonal-spring-2026"].stripePriceId,
+    gumroadProductUrl: checkoutConfig["seasonal-spring-2026"].gumroadProductUrl,
     checkoutNote: checkoutConfig["seasonal-spring-2026"].note,
     previewCollections: ["Orchid Bloom", "Matcha & Linen", "Sunset Boulevard"],
     previewCollectionIds: ["orchid-bloom", "matcha-linen", "sunset-boulevard"],
@@ -500,6 +507,7 @@ export const palettePacks: PalettePack[] = [
     checkoutProvider: checkoutConfig["all-access-bundle"].provider,
     checkoutStatus: checkoutConfig["all-access-bundle"].status,
     stripePriceId: checkoutConfig["all-access-bundle"].stripePriceId,
+    gumroadProductUrl: checkoutConfig["all-access-bundle"].gumroadProductUrl,
     checkoutNote: checkoutConfig["all-access-bundle"].note,
     previewCollections: ["Quiet Luxury", "Nocturne Tech", "Sunset Boulevard", "Matcha & Linen"],
     previewCollectionIds: ["quiet-luxury", "nocturne-tech", "sunset-boulevard", "matcha-linen"],

@@ -8,7 +8,7 @@ import type { ColorCollection } from "@/src/lib/collections";
 import { checkoutConfig, type WaitlistConfig } from "@/src/lib/checkout-config";
 import { getGuidesForCollection, getGuidesForPack } from "@/src/lib/guides";
 import { computeBundleSavings, type PalettePack } from "@/src/lib/palette-packs";
-import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
+import { CheckoutButton } from "@/src/components/checkout-button";
 
 interface FreePackPageProps {
   featuredCollection: ColorCollection;
@@ -342,12 +342,13 @@ export function FreePackPage({
                   Save {savingsPct}% vs individual packs
                 </p>
               </div>
-              <StripeCheckoutButton
+              <CheckoutButton
                 priceId={checkoutConfig["all-access-bundle"].stripePriceId}
+                gumroadUrl={checkoutConfig["all-access-bundle"].gumroadProductUrl}
                 className="shrink-0 rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
               >
                 {t("freePack.getAllAccess")}
-              </StripeCheckoutButton>
+              </CheckoutButton>
             </div>
           </section>
         )}

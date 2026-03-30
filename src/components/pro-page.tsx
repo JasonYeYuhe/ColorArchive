@@ -5,7 +5,7 @@ import Link from "next/link";
 import { fetchSession, type AuthSession } from "@/src/lib/auth-client";
 import { proSubscriptionConfig } from "@/src/lib/checkout-config";
 import { useLocale } from "@/src/components/locale-provider";
-import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
+import { CheckoutButton } from "@/src/components/checkout-button";
 
 const FEATURE_ICONS = [
   (
@@ -107,12 +107,13 @@ export function ProPage() {
               <span>&#10003;</span> {t("pro.youreOnPro")}
             </div>
           ) : plan.stripePriceId ? (
-            <StripeCheckoutButton
+            <CheckoutButton
               priceId={plan.stripePriceId}
+              gumroadUrl={null}
               className="inline-block px-8 py-3 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
             >
               {t("pro.subscribeToPro")}
-            </StripeCheckoutButton>
+            </CheckoutButton>
           ) : (
             <div className="space-y-3">
               <p className="text-sm text-slate-500 dark:text-slate-400">

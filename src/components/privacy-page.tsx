@@ -8,7 +8,7 @@ const sections = [
 - **Usage data**: Pages visited, features used, and interaction patterns to improve the product.
 - **Favorites and preferences**: Colors you save or mark as favorites, synced to your account if logged in, or stored locally in your browser if not.
 - **Purchase information**: When you buy a product through our checkout provider (Stripe), we receive your name, email, and transaction details. We do not store payment card numbers.
-- **Cookies**: We use a session cookie to keep you logged in. We do not use third-party tracking cookies.`,
+- **Cookies**: We use a session cookie to keep you logged in. We do not use third-party tracking cookies. For details, see our [Cookie Policy](/cookie-policy/).`,
   },
   {
     title: "2. How We Use Your Information",

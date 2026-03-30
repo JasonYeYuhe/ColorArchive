@@ -1,14 +1,18 @@
 // Checkout configuration for all products.
-// All products are configured with Stripe Checkout (JPY pricing).
-// To switch providers: update `provider` and `stripePriceId` per entry below.
+// Supports Stripe and Gumroad. Set `activeProvider` to switch globally.
+// Gumroad product URLs must be configured on gumroad.com first.
 
-export type CheckoutProvider = "Stripe";
+export type CheckoutProvider = "Stripe" | "Gumroad";
+
+/** Change this to switch the active payment provider site-wide. */
+export const activeProvider: CheckoutProvider = "Stripe";
 
 export interface CheckoutConfigEntry {
   note: string;
   provider: CheckoutProvider;
   status: "ready" | "pending";
   stripePriceId: string;
+  gumroadProductUrl: string | null;
 }
 
 export interface WaitlistConfig {
@@ -25,44 +29,51 @@ export interface CheckoutFlowConfig {
 
 export const checkoutConfig = {
   "palette-pack-vol-1": {
-    provider: "Stripe",
+    provider: activeProvider,
     stripePriceId: "price_1TFR1pGzX2t5YKIzymEBf5Wc",
+    gumroadProductUrl: null, // TODO: set after creating product on Gumroad
     status: "ready",
     note: "Palette Pack Vol. 1 — ¥599",
   },
   "brand-starter-kit": {
-    provider: "Stripe",
+    provider: activeProvider,
     stripePriceId: "price_1TFR1qGzX2t5YKIz01JvhSc1",
+    gumroadProductUrl: null,
     status: "ready",
     note: "Brand Color Starter Kit — ¥1,499",
   },
   "content-creator-bundle": {
-    provider: "Stripe",
+    provider: activeProvider,
     stripePriceId: "price_1TFR1qGzX2t5YKIzNSZljxBi",
+    gumroadProductUrl: null,
     status: "ready",
     note: "Creator Bundle — ¥999",
   },
   "complete-archive": {
-    provider: "Stripe",
+    provider: activeProvider,
     stripePriceId: "price_1TFR1rGzX2t5YKIzzq74qnH8",
+    gumroadProductUrl: null,
     status: "ready",
     note: "Complete Archive Token Set — ¥2,499",
   },
   "dark-mode-ui-kit": {
-    provider: "Stripe",
+    provider: activeProvider,
     stripePriceId: "price_1TFR1rGzX2t5YKIzmHmxxJZI",
+    gumroadProductUrl: null,
     status: "ready",
     note: "Dark Mode UI Kit — ¥999",
   },
   "seasonal-spring-2026": {
-    provider: "Stripe",
+    provider: activeProvider,
     stripePriceId: "price_1TFR1sGzX2t5YKIzBu5zuMSJ",
+    gumroadProductUrl: null,
     status: "ready",
     note: "Seasonal: Spring 2026 — ¥299",
   },
   "all-access-bundle": {
-    provider: "Stripe",
+    provider: activeProvider,
     stripePriceId: "price_1TFR1sGzX2t5YKIzUvpoOKZp",
+    gumroadProductUrl: null,
     status: "ready",
     note: "All Access Bundle — ¥3,999",
   },

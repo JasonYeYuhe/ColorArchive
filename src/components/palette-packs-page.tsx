@@ -5,7 +5,7 @@ import { SeasonalCountdown } from "@/src/components/seasonal-countdown";
 import { useLocale } from "@/src/components/locale-provider";
 import { landingGuides } from "@/src/lib/guides";
 import { computeBundleSavings, type PalettePack } from "@/src/lib/palette-packs";
-import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
+import { CheckoutButton } from "@/src/components/checkout-button";
 
 interface PalettePacksPageProps {
   packs: readonly PalettePack[];
@@ -88,12 +88,13 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                 </div>
                 <div className="flex shrink-0 flex-wrap gap-2">
                   {bundle.stripePriceId ? (
-                    <StripeCheckoutButton
+                    <CheckoutButton
                       priceId={bundle.stripePriceId}
+                      gumroadUrl={bundle.gumroadProductUrl}
                       className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
                     >
                       {t("packs.buyAllAccess")} — {bundle.priceHint}
-                    </StripeCheckoutButton>
+                    </CheckoutButton>
                   ) : (
                     <Link
                       href={`/packs/${bundle.id}/`}
@@ -252,12 +253,13 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                 </div>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   {pack.stripePriceId ? (
-                    <StripeCheckoutButton
+                    <CheckoutButton
                       priceId={pack.stripePriceId}
+                      gumroadUrl={pack.gumroadProductUrl}
                       className="rounded-full border border-neutral-950/10 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                     >
                       {t("packs.buyNow")}
-                    </StripeCheckoutButton>
+                    </CheckoutButton>
                   ) : (
                     <button
                       type="button"

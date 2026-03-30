@@ -4,7 +4,7 @@ import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-but
 import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForCollection } from "@/src/lib/guides";
 import type { PalettePack } from "@/src/lib/palette-packs";
-import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
+import { CheckoutButton } from "@/src/components/checkout-button";
 
 interface CollectionDetailPageProps {
   collection: ColorCollection;
@@ -190,12 +190,13 @@ export function CollectionDetailPage({
                     <div className="mt-2 text-sm leading-6 text-neutral-500">{pack.detail}</div>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {pack.stripePriceId && pack.checkoutStatus === "ready" ? (
-                        <StripeCheckoutButton
+                        <CheckoutButton
                           priceId={pack.stripePriceId}
+                          gumroadUrl={pack.gumroadProductUrl}
                           className="rounded-full bg-neutral-950 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
                         >
                           Buy — {pack.priceHint}
-                        </StripeCheckoutButton>
+                        </CheckoutButton>
                       ) : null}
                       <Link
                         href={`/packs/${pack.id}/`}
