@@ -25,10 +25,21 @@ struct ToolsHomeView: View {
     ]
 
     @State private var selectedTool: String?
+    var embedded = false
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
+        if embedded {
+            content
+        } else {
+            NavigationStack {
+                content
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        ScrollView {
                 // Color of the Day banner
                 if let cotd = colorStore.colorOfDay() {
                     NavigationLink(value: cotd) {
@@ -93,7 +104,7 @@ struct ToolsHomeView: View {
             .navigationDestination(for: String.self) { toolName in
                 switch toolName {
                 case "Palettes":
-                    PaletteBuilderView()
+                    PaletteBuilderView(embedded: true)
                 case "AI Mood":
                     AIMoodPaletteView()
                 case "Image Palette":
@@ -116,9 +127,8 @@ struct ToolsHomeView: View {
                     Text("Coming Soon")
                 }
             }
-            .navigationDestination(for: ColorRecord.self) { color in
-                ColorDetailView(color: color)
-            }
+        .navigationDestination(for: ColorRecord.self) { color in
+            ColorDetailView(color: color)
         }
     }
 }

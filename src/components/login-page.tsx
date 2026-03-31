@@ -142,6 +142,19 @@ export function LoginPage() {
     let cancelled = false;
 
     async function handleToken() {
+      // On mobile, try to hand the token to the iOS app first.
+      // If the app handles it, the user leaves this page and the token
+      // gets consumed by the app. If the app is not installed, the
+      // custom-scheme navigation silently fails and we fall through
+      // to web verification after a short delay.
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.location.href = `colorarchive://login?token=${encodeURIComponent(loginToken)}`;
+        await new Promise((r) => window.setTimeout(r, 1500));
+        // If we're still here, the app didn't handle it — continue with web verify.
+        if (cancelled) return;
+      }
+
       setVerifyState("loading");
       setError("");
 

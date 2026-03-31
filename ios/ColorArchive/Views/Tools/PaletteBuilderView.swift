@@ -8,10 +8,21 @@ struct PaletteBuilderView: View {
 
     @State private var showingNew = false
     @State private var selectedPalette: Palette?
+    var embedded = false
 
     var body: some View {
-        NavigationStack {
-            Group {
+        if embedded {
+            content
+        } else {
+            NavigationStack {
+                content
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        Group {
                 if palettes.isEmpty {
                     VStack(spacing: 16) {
                         Image(systemName: "paintpalette.fill")
@@ -46,9 +57,8 @@ struct PaletteBuilderView: View {
                     }
                 }
             }
-            .navigationDestination(for: Palette.self) { palette in
-                PaletteDetailView(palette: palette)
-            }
+        .navigationDestination(for: Palette.self) { palette in
+            PaletteDetailView(palette: palette)
         }
     }
 

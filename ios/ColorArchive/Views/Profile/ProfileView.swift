@@ -4,6 +4,7 @@ struct ProfileView: View {
     @Environment(ColorStore.self) var colorStore
     @Environment(FavoritesStore.self) var favoritesStore
     @Environment(RecentColorsStore.self) var recentColorsStore
+    @Environment(AuthStore.self) var authStore
     @State private var showingSettings = false
 
     var body: some View {
@@ -93,21 +94,45 @@ struct ProfileView: View {
                 // Quick Actions
                 Section("Quick Actions") {
                     NavigationLink {
-                        FavoritesView()
+                        FavoritesView(embedded: true)
                     } label: {
                         Label("My Favorites (\(favoritesStore.count))", systemImage: "heart.fill")
                     }
 
                     NavigationLink {
-                        PaletteBuilderView()
+                        PaletteBuilderView(embedded: true)
                     } label: {
                         Label("My Palettes", systemImage: "paintpalette.fill")
                     }
 
                     NavigationLink {
-                        ToolsHomeView()
+                        ToolsHomeView(embedded: true)
                     } label: {
                         Label("Color Tools", systemImage: "wrench.and.screwdriver.fill")
+                    }
+                }
+
+                // Account
+                Section("Account") {
+                    if authStore.isLoggedIn, let user = authStore.user {
+                        HStack {
+                            Label(user.email, systemImage: "person.crop.circle.fill")
+                            Spacer()
+                            Text(authStore.tier)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        Button(role: .destructive) {
+                            authStore.logout()
+                        } label: {
+                            Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
+                        }
+                    } else {
+                        NavigationLink {
+                            LoginView()
+                        } label: {
+                            Label("Sign In", systemImage: "person.crop.circle")
+                        }
                     }
                 }
 
@@ -143,6 +168,7 @@ struct ProfileView: View {
                 }
             }
             .navigationTitle("Profile")
+            .onAppear { authStore.checkSession() }
             .navigationDestination(for: ColorRecord.self) { color in
                 ColorDetailView(color: color)
             }

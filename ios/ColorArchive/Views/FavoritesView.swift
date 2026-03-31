@@ -4,6 +4,7 @@ struct FavoritesView: View {
     @Environment(ColorStore.self) var colorStore
     @Environment(FavoritesStore.self) var favoritesStore
     @State private var selectedColor: ColorRecord?
+    var embedded = false
 
     private let columns = [
         GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 12)
@@ -14,8 +15,18 @@ struct FavoritesView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            Group {
+        if embedded {
+            content
+        } else {
+            NavigationStack {
+                content
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        Group {
                 if favoriteColors.isEmpty {
                     VStack(spacing: 16) {
                         Image(systemName: "heart")
@@ -70,9 +81,8 @@ struct FavoritesView: View {
                 }
             }
             .navigationTitle("Favorites")
-            .navigationDestination(item: $selectedColor) { color in
-                ColorDetailView(color: color)
-            }
+        .navigationDestination(item: $selectedColor) { color in
+            ColorDetailView(color: color)
         }
     }
 }

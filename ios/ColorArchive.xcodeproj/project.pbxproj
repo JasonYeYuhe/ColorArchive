@@ -22,6 +22,7 @@
 		A10013 /* ColorStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013 /* ColorStore.swift */; };
 		A10014 /* FavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014 /* FavoritesStore.swift */; };
 		A10015 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015 /* APIService.swift */; };
+		A10045 /* AuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10045 /* AuthStore.swift */; };
 		A10017 /* ColorRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017 /* ColorRelationships.swift */; };
 		A10018 /* ColorContrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018 /* ColorContrast.swift */; };
 		A10019 /* ColorBlindSim.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10019 /* ColorBlindSim.swift */; };
@@ -68,6 +69,7 @@
 		B10013 /* ColorStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorStore.swift; sourceTree = "<group>"; };
 		B10014 /* FavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStore.swift; sourceTree = "<group>"; };
 		B10015 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		B10045 /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
 		B10017 /* ColorRelationships.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRelationships.swift; sourceTree = "<group>"; };
 		B10018 /* ColorContrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorContrast.swift; sourceTree = "<group>"; };
 		B10019 /* ColorBlindSim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlindSim.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				B10015 /* APIService.swift */,
+				B10045 /* AuthStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				A10013 /* ColorStore.swift in Sources */,
 				A10014 /* FavoritesStore.swift in Sources */,
 				A10015 /* APIService.swift in Sources */,
+				A10045 /* AuthStore.swift in Sources */,
 				A10017 /* ColorRelationships.swift in Sources */,
 				A10018 /* ColorContrast.swift in Sources */,
 				A10019 /* ColorBlindSim.swift in Sources */,
@@ -401,6 +405,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ColorArchive/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ColorArchive/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ColorArchive;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -434,6 +439,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ColorArchive/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ColorArchive/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ColorArchive;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

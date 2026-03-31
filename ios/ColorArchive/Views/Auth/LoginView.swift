@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct LoginView: View {
+    @Environment(AuthStore.self) var authStore
+    @Environment(\.dismiss) var dismiss
     @State private var email = ""
     @State private var isSending = false
     @State private var sentSuccess = false
@@ -18,7 +20,7 @@ struct LoginView: View {
                 Text("ColorArchive")
                     .font(.title)
                     .fontWeight(.bold)
-                Text("Sign in to sync favorites and access Pro features")
+                Text("Sign in to sync your color archive")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
