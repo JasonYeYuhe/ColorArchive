@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
 import type { CheckoutFlowConfig } from "@/src/lib/checkout-config";
 import type { PalettePack } from "@/src/lib/palette-packs";
-import { StripeCheckoutButton } from "@/src/components/stripe-checkout-button";
+import { CheckoutButton } from "@/src/components/checkout-button";
 
 interface CancelPageProps {
   checkoutFlow: CheckoutFlowConfig;
@@ -60,12 +60,13 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
                 </p>
               </div>
               <div className="flex shrink-0 flex-wrap gap-2">
-                <StripeCheckoutButton
+                <CheckoutButton
                   priceId={starterPack.stripePriceId}
+                  gumroadUrl={starterPack.gumroadProductUrl}
                   className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
                 >
                   Try {starterPack.title} — {starterPack.priceHint}
-                </StripeCheckoutButton>
+                </CheckoutButton>
                 <Link
                   href="/packs/"
                   className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
@@ -90,12 +91,13 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
               <p className="mt-3 text-sm leading-6 text-neutral-600">{starterPack.detail}</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {starterPack.stripePriceId ? (
-                  <StripeCheckoutButton
+                  <CheckoutButton
                     priceId={starterPack.stripePriceId}
+                    gumroadUrl={starterPack.gumroadProductUrl}
                     className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                   >
                     Buy with FIRSTPACK
-                  </StripeCheckoutButton>
+                  </CheckoutButton>
                 ) : null}
                 <Link
                   href={`/packs/${starterPack.id}/`}
@@ -146,12 +148,13 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
               <p className="mt-3 text-sm leading-6 text-neutral-600">{bundlePack.detail}</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {bundlePack.stripePriceId ? (
-                  <StripeCheckoutButton
+                  <CheckoutButton
                     priceId={bundlePack.stripePriceId}
+                    gumroadUrl={bundlePack.gumroadProductUrl}
                     className="rounded-full border border-emerald-700/10 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                   >
                     {t("cancel.bundle.cta")}
-                  </StripeCheckoutButton>
+                  </CheckoutButton>
                 ) : null}
                 <Link
                   href={`/packs/${bundlePack.id}/`}

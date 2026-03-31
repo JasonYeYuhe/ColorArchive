@@ -27,13 +27,15 @@ We reserve the right to suspend or terminate accounts that violate these terms.`
   },
   {
     title: "4. Purchases and Refunds",
-    content: `Digital products are sold through our checkout provider (Stripe). All purchases are subject to Stripe's terms of service.
+    content: `Digital products are sold through our checkout provider. All purchases are subject to the applicable provider's terms of service.
 
 - **Digital products**: All sales of digital downloads are final. Due to the nature of digital goods, refunds are generally not available once the product has been delivered.
 - **Exceptions**: If you experience a technical issue preventing you from accessing a purchased product, contact us and we will work to resolve it or issue a refund at our discretion.
 - **Pricing**: We reserve the right to change pricing at any time. Price changes do not affect previously completed purchases.
 - **Subscriptions**: Pro subscriptions (monthly or yearly) renew automatically. You may cancel at any time through your account's billing portal — go to Account → Manage Subscription. Cancellation takes effect at the end of the current billing period; you retain access until then. No partial refunds are issued for the remaining period.
-- **Free trials**: Pro subscriptions include a 3-day free trial. You will not be charged if you cancel before the trial ends.`,
+- **Free trials**: Pro subscriptions include a 3-day free trial. You will not be charged if you cancel before the trial ends.
+
+For full details, see our [Refund Policy](/refund-policy/).`,
   },
   {
     title: "5. Intellectual Property",
