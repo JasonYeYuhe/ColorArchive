@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/src/lib/stripe";
 
 const API_URL = process.env.BACKEND_API_URL ?? "https://api.colorarchive.me";
+const FRONTEND_URL = process.env.FRONTEND_URL || "https://colorarchive.me";
 
 export async function POST(req: NextRequest) {
   try {
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No subscription found" }, { status: 404 });
     }
 
-    const origin = req.headers.get("origin") || "https://colorarchive.me";
+    const origin = FRONTEND_URL;
 
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: subscription.stripeCustomerId,

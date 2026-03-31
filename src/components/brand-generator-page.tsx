@@ -5,7 +5,7 @@ import Link from "next/link";
 import { hexToRgb, findClosestArchiveColor } from "@/src/lib/color-utils";
 import { classifyError } from "@/src/lib/error-utils";
 import { track } from "@/src/lib/track";
-import { colors as archiveColors } from "@/src/data/colors";
+import type { ColorRecord } from "@/src/types/color";
 import { ShareOnXButton } from "@/src/components/share-link-button";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { ProGate } from "@/src/components/pro-gate";
@@ -14,7 +14,6 @@ import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 import { DownloadPaletteImage } from "@/src/components/download-palette-image";
 import { WhatsNext } from "@/src/components/whats-next";
-import { collections } from "@/src/lib/collections";
 
 import { API_URL } from "@/src/lib/api-config";
 
@@ -112,8 +111,10 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 function PaletteResult({
   generated,
   inputs,
+  archiveColors,
 }: {
   generated: GeneratedPalette;
+  archiveColors: ColorRecord[];
   inputs: { industry: string; style: string; audience: string; keywords: string };
 }) {
   const [exportMode, setExportMode] = useState<"css" | "tailwind">("css");
@@ -250,14 +251,8 @@ function PaletteResult({
 
 const STYLE_PRESETS = ["Minimal", "Bold", "Elegant", "Playful", "Natural", "Tech", "Luxury", "Warm"];
 const INDUSTRY_PRESETS = ["SaaS / Tech", "Fashion", "Health & Wellness", "Food & Beverage", "Finance", "Creative Agency", "Education", "Real Estate"];
-const COLLECTION_PRESETS = collections.slice(0, 8).map((c) => ({
-  id: c.id,
-  title: c.title,
-  style: c.promptWords.slice(0, 3).join(", "),
-  summary: c.summary,
-}));
-
-export function BrandGeneratorPage() {
+export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archiveColors: ColorRecord[]; collectionPresets: { id: string; title: string; style: string; summary: string }[] }) {
+  const COLLECTION_PRESETS = collectionPresets;
   const [industry, setIndustry] = useState("");
   const [style, setStyle] = useState("");
   const [audience, setAudience] = useState("");
@@ -444,6 +439,7 @@ export function BrandGeneratorPage() {
           <PaletteResult
             generated={result}
             inputs={{ industry, style, audience, keywords }}
+            archiveColors={archiveColors}
           />
         )}
 

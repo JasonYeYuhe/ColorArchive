@@ -12,7 +12,7 @@ const homepageStructuredData = [
     name: "ColorArchive",
     url: "https://colorarchive.me",
     description:
-      "A searchable archive of 3,000+ curated hex colors with palette tools and design token exports.",
+      "A searchable archive of 5,400+ curated hex colors with palette tools and design token exports.",
     potentialAction: {
       "@type": "SearchAction",
       target: {

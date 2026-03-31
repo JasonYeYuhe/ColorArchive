@@ -17,9 +17,11 @@ function requireUserOrApiKey(req, res, next) {
 
   // Try API key
   const authHeader = req.headers.authorization;
-  const apiKey = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : req.query.api_key;
+  const apiKey = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null;
   if (apiKey) {
-    const user = db.prepare("SELECT id, email, created_at, tier FROM users WHERE api_key = ?").get(apiKey);
+    const crypto = require("crypto");
+    const hash = crypto.createHash("sha256").update(apiKey).digest("hex");
+    const user = db.prepare("SELECT id, email, created_at, tier FROM users WHERE api_key_hash = ?").get(hash);
     if (user) {
       req.user = user;
       return next();

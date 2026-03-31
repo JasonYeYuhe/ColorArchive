@@ -13,6 +13,8 @@ const SUBSCRIPTION_PRICE_IDS: Set<string> = new Set([
   proSubscriptionConfig.yearly.stripePriceId,
 ]);
 
+const FRONTEND_URL = process.env.FRONTEND_URL || "https://colorarchive.me";
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -22,7 +24,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid price ID" }, { status: 400 });
     }
 
-    const origin = req.headers.get("origin") || "https://colorarchive.me";
+    const origin = FRONTEND_URL;
     const isSubscription = SUBSCRIPTION_PRICE_IDS.has(priceId);
 
     const session = await stripe.checkout.sessions.create({

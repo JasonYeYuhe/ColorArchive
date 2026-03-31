@@ -3,8 +3,19 @@ const db = require("../db");
 const { requireAnalyticsAccess } = require("../auth");
 const router = express.Router();
 
+// Simple in-memory rate limiter: max 60 writes per IP per minute
+const writeCounters = new Map();
+setInterval(() => writeCounters.clear(), 60_000);
+function rateLimitWrite(req, res, next) {
+  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress || "unknown";
+  const count = writeCounters.get(ip) || 0;
+  if (count >= 60) return res.status(429).json({ error: "Rate limit exceeded" });
+  writeCounters.set(ip, count + 1);
+  next();
+}
+
 // POST /pageviews — record a page view (fire-and-forget beacon)
-router.post("/", (req, res) => {
+router.post("/", rateLimitWrite, (req, res) => {
   const { path, referrer, screen } = req.body || {};
   if (!path || typeof path !== "string") {
     return res.status(400).json({ error: "path required" });

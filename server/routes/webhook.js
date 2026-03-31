@@ -9,7 +9,11 @@ const INTERNAL_SECRET = process.env.INTERNAL_WEBHOOK_SECRET || "";
 /** Verify requests come from our own Next.js webhook forwarder */
 function verifyInternal(req, res, next) {
   if (!INTERNAL_SECRET) {
-    console.warn("[webhook] INTERNAL_WEBHOOK_SECRET not set — allowing request");
+    if (process.env.NODE_ENV === "production") {
+      console.error("[webhook] INTERNAL_WEBHOOK_SECRET not set — rejecting request");
+      return res.status(500).json({ error: "Server misconfiguration" });
+    }
+    console.warn("[webhook] INTERNAL_WEBHOOK_SECRET not set — allowing request (dev mode)");
     return next();
   }
   if (req.headers["x-internal-secret"] !== INTERNAL_SECRET) {

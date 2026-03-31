@@ -2121,6 +2121,9 @@ const translations: Record<string, Record<string, string>> = {
   "account.copied": { en: "Copied!", zh: "已复制！" },
   "account.generating": { en: "Generating...", zh: "生成中..." },
   "account.generateApiKey": { en: "Generate API Key", zh: "生成 API 密钥" },
+  "account.regenerateApiKey": { en: "Regenerate", zh: "重新生成" },
+  "account.revokeApiKey": { en: "Revoke", zh: "撤销" },
+  "account.apiKeyCopyWarning": { en: "Copy this key now — it won't be shown again.", zh: "请立即复制此密钥，之后将无法再次查看。" },
 
   // Onboarding banner
   "onboarding.title": { en: "New here? 3 ways to start:", zh: "初来乍到？3 种方式开始：" },

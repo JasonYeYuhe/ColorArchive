@@ -1772,34 +1772,53 @@ export function filterColors(
   searchQuery: string,
   activeFamily: ColorFamily | "All",
 ): ColorRecord[] {
+  return filterColorsWithCounts(colors, searchQuery, activeFamily).results;
+}
+
+/** Filter colors and compute per-family counts in a single pass (avoids O(n × families) recount). */
+export function filterColorsWithCounts(
+  colors: readonly ColorRecord[],
+  searchQuery: string,
+  activeFamily: ColorFamily | "All",
+): { results: ColorRecord[]; familyCounts: Record<string, number> } {
   const normalizedQuery = normalizeSearchValue(searchQuery);
+  const familyCounts: Record<string, number> = {};
 
   if (normalizedQuery.length === 0) {
-    return activeFamily === "All"
-      ? [...colors]
-      : colors.filter((color) => color.family === activeFamily);
+    if (activeFamily === "All") {
+      for (const c of colors) familyCounts[c.family] = (familyCounts[c.family] || 0) + 1;
+      return { results: [...colors], familyCounts };
+    }
+    const results: ColorRecord[] = [];
+    for (const c of colors) {
+      familyCounts[c.family] = (familyCounts[c.family] || 0) + 1;
+      if (c.family === activeFamily) results.push(c);
+    }
+    return { results, familyCounts };
   }
 
   // Expand aliases for semantic search
   const aliasFragments = SEARCH_ALIASES[normalizedQuery] ?? [];
+  const results: ColorRecord[] = [];
 
-  return colors.filter((color) => {
-    const matchesFamily = activeFamily === "All" || color.family === activeFamily;
-    if (!matchesFamily) return false;
-
+  for (const color of colors) {
     const nameLower = color.name.toLowerCase();
     const hexLower = color.hex.toLowerCase();
 
-    // Direct match (fuzzy)
+    let matchesSearch = false;
     if (fuzzyMatch(nameLower, normalizedQuery) || hexLower.includes(normalizedQuery)) {
-      return true;
+      matchesSearch = true;
+    } else if (aliasFragments.length > 0 && aliasFragments.some((frag) => nameLower.includes(frag))) {
+      matchesSearch = true;
     }
 
-    // Alias match
-    if (aliasFragments.length > 0) {
-      return aliasFragments.some((frag) => nameLower.includes(frag));
+    if (matchesSearch) {
+      familyCounts[color.family] = (familyCounts[color.family] || 0) + 1;
+      if (activeFamily === "All" || color.family === activeFamily) {
+        results.push(color);
+      }
     }
+  }
 
-    return false;
-  });
+  return { results, familyCounts };
 }

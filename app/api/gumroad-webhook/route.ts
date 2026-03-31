@@ -17,27 +17,22 @@ function resolveGumroadProduct(
   return null;
 }
 
-/** Forward fulfillment to backend */
+/** Forward fulfillment to backend. Throws on failure so caller returns 500. */
 async function notifyBackend(
   path: string,
   payload: Record<string, unknown>
 ): Promise<void> {
-  try {
-    const res = await fetch(`${API_URL}${path}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(INTERNAL_SECRET ? { "x-internal-secret": INTERNAL_SECRET } : {}),
-      },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      console.error(
-        `Backend ${path} responded ${res.status}: ${await res.text()}`
-      );
-    }
-  } catch (err) {
-    console.error(`Failed to notify backend ${path}:`, err);
+  const res = await fetch(`${API_URL}${path}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(INTERNAL_SECRET ? { "x-internal-secret": INTERNAL_SECRET } : {}),
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Backend ${path} responded ${res.status}: ${text}`);
   }
 }
 
@@ -101,15 +96,20 @@ export async function POST(req: NextRequest) {
   // Convert price string (e.g. "9.99") to cents/smallest unit
   const amountTotal = Math.round(parseFloat(price) * 100) || 0;
 
-  await notifyBackend("/webhooks/order-completed", {
-    sessionId: saleId,
-    email,
-    packId,
-    amountTotal,
-    currency,
-    paymentIntent: `gumroad_${saleId}`,
-    provider: "gumroad",
-  });
+  try {
+    await notifyBackend("/webhooks/order-completed", {
+      sessionId: saleId,
+      email,
+      packId,
+      amountTotal,
+      currency,
+      paymentIntent: `gumroad_${saleId}`,
+      provider: "gumroad",
+    });
+  } catch (err) {
+    console.error("[gumroad-webhook] Fulfillment failed:", err);
+    return NextResponse.json({ error: "Fulfillment failed" }, { status: 500 });
+  }
 
   return NextResponse.json({ received: true });
 }

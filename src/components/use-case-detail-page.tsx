@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { collections, getCollectionById } from "@/src/lib/collections";
+import type { ColorCollection } from "@/src/lib/collections";
 import { landingGuides } from "@/src/lib/guides";
 import type { UseCase } from "@/src/lib/use-cases";
 import { useCases } from "@/src/lib/use-cases";
@@ -11,9 +11,10 @@ import type { Locale } from "@/src/lib/i18n";
 
 interface UseCaseDetailPageProps {
   useCase: UseCase;
+  relatedCollections: ColorCollection[];
 }
 
-export function UseCaseDetailPage({ useCase }: UseCaseDetailPageProps) {
+export function UseCaseDetailPage({ useCase, relatedCollections }: UseCaseDetailPageProps) {
   const [locale, setLocale] = useState<Locale>("en");
 
   useEffect(() => {
@@ -22,10 +23,6 @@ export function UseCaseDetailPage({ useCase }: UseCaseDetailPageProps) {
     window.addEventListener("colorarchive-locale-change", handler);
     return () => window.removeEventListener("colorarchive-locale-change", handler);
   }, []);
-
-  const relatedCollections = useCase.collectionIds
-    .map((id) => getCollectionById(id))
-    .filter(Boolean);
 
   const relatedGuides = landingGuides
     .filter((g) =>

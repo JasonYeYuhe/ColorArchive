@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { PickForMePage } from "@/src/components/pick-for-me-page";
+import { colors } from "@/src/data/colors";
+import { collections } from "@/src/lib/collections";
 
 export const metadata: Metadata = {
   title: { absolute: "Pick Colors For Me — AI Color Suggestion | ColorArchive" },
@@ -41,7 +43,7 @@ export default function PickForMeRoute() {
     <>
       <SiteHeader currentPath="/pick-for-me" />
       <StructuredDataScript data={[structuredData, breadcrumbData]} />
-      <PickForMePage />
+      <PickForMePage colors={colors} collections={collections} />
     </>
   );
 }

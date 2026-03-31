@@ -537,7 +537,7 @@ async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
       "Brand Starter Kit (¥1,499) — Primary + secondary + accent groups for landing pages and brands.",
       "https://colorarchive.me/packs/brand-starter-kit/",
       "",
-      "Complete Archive Token Set (¥2,499) — All 3,000+ colors as CSS, JSON, Tailwind, Figma tokens.",
+      "Complete Archive Token Set (¥2,499) — All 5,400+ colors as CSS, JSON, Tailwind, Figma tokens.",
       "https://colorarchive.me/packs/complete-archive/",
       "",
       "All Access Bundle (¥3,999) — Everything above in one download. Save 40%.",
@@ -558,7 +558,7 @@ async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
           { id: "dark-mode-ui-kit", title: "Dark Mode UI Kit", price: "¥999", desc: "Pre-tested light/dark pairings, contrast-checked, Tailwind ready.", bg: "#f5f3ff", border: "#ddd6fe", titleColor: "#6d28d9", textColor: "#5b21b6" },
           { id: "content-creator-bundle", title: "Creator Bundle", price: "¥999", desc: "Social-ready palette boards and wallpaper sets for visual content.", bg: "#fff7ed", border: "#fed7aa", titleColor: "#9a3412", textColor: "#7c2d12" },
           { id: "brand-starter-kit", title: "Brand Color Starter Kit", price: "¥1,499", desc: "Primary + secondary + accent groups for landing pages and brands.", bg: "#eff6ff", border: "#bfdbfe", titleColor: "#1d4ed8", textColor: "#1e3a8a" },
-          { id: "complete-archive", title: "Complete Archive Token Set", price: "¥2,499", desc: "All 3,000+ colors as CSS, JSON, Tailwind, and Figma tokens.", bg: "#fafafa", border: "#e5e7eb", titleColor: "#111827", textColor: "#374151" },
+          { id: "complete-archive", title: "Complete Archive Token Set", price: "¥2,499", desc: "All 5,400+ colors as CSS, JSON, Tailwind, and Figma tokens.", bg: "#fafafa", border: "#e5e7eb", titleColor: "#111827", textColor: "#374151" },
           { id: "all-access-bundle", title: "All Access Bundle", price: "¥3,999", desc: "Everything above in one download. Save 40%.", bg: "#f0fdf4", border: "#86efac", titleColor: "#14532d", textColor: "#166534" },
         ].map(p => `
         <div style="background:${p.bg};border:1px solid ${p.border};border-radius:16px;padding:14px 16px;margin:12px 0">
@@ -1012,7 +1012,7 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
       referrerPhrase,
       "",
       "Here is what you can do right now for free:",
-      "- Browse 3,066 named colors at colorarchive.me/all-colors",
+      "- Browse 5,446 named colors at colorarchive.me/all-colors",
       "- Generate an AI brand palette from a text description",
       "- Extract colors from any image",
       "- Run a WCAG accessibility audit on any color pair",
@@ -1031,7 +1031,7 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
         <p style="color:#555;font-size:14px;line-height:1.6;">${referrerPhrase}</p>
         <p style="color:#555;font-size:14px;line-height:1.6;">Here is what you can do right now, for free:</p>
         <ul style="color:#374151;font-size:14px;line-height:1.9;padding-left:20px;">
-          <li>Browse <strong>3,066 named colors</strong> — filterable by family, mood, and lightness</li>
+          <li>Browse <strong>5,446 named colors</strong> — filterable by family, mood, and lightness</li>
           <li>Generate an <strong>AI brand palette</strong> from a text description</li>
           <li>Extract colors from any image</li>
           <li>Run a <strong>WCAG accessibility audit</strong> on any color pair</li>
@@ -1042,7 +1042,7 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
         </div>
         <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:16px 18px;margin:20px 0;">
           <div style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#14532d;font-weight:700;">Pro — unlimited everything</div>
-          <p style="margin:8px 0 0;color:#166534;font-size:14px;line-height:1.6;">Unlimited AI generations, WCAG reports, exports in every format, and access to the complete 3,066-color token set. From <strong>$4.99/month</strong>.</p>
+          <p style="margin:8px 0 0;color:#166534;font-size:14px;line-height:1.6;">Unlimited AI generations, WCAG reports, exports in every format, and access to the complete 5,446-color token set. From <strong>$4.99/month</strong>.</p>
           <p style="margin:10px 0 0;"><a href="https://colorarchive.me/pro" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none;">View Pro plans →</a></p>
         </div>
         <p style="color:#ccc;font-size:11px;margin-top:24px;">ColorArchive · hello@colorarchive.me</p>

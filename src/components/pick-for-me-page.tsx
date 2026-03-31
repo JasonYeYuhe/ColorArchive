@@ -2,8 +2,6 @@
 
 import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
-import { colors } from "@/src/data/colors";
-import { collections } from "@/src/lib/collections";
 import type { ColorRecord } from "@/src/types/color";
 import type { ColorCollection } from "@/src/lib/collections";
 import { useLocale } from "@/src/components/locale-provider";
@@ -174,7 +172,7 @@ function matchScenarioToFragments(input: string): string[] {
     .map(([frag]) => frag);
 }
 
-function matchCollections(input: string): ColorCollection[] {
+function matchCollections(input: string, collections: ColorCollection[]): ColorCollection[] {
   const tokens = tokenize(input);
   if (tokens.length === 0) return [];
 
@@ -210,7 +208,7 @@ function matchCollections(input: string): ColorCollection[] {
     .map((s) => s.col);
 }
 
-function pickColorsFromFragments(fragments: string[]): ColorRecord[] {
+function pickColorsFromFragments(fragments: string[], colors: ColorRecord[]): ColorRecord[] {
   if (fragments.length === 0) return [];
 
   const scored = colors.map((c) => {
@@ -320,7 +318,7 @@ function CopyableColor({ color }: { color: ColorRecord }) {
   );
 }
 
-export function PickForMePage() {
+export function PickForMePage({ colors, collections }: { colors: ColorRecord[]; collections: ColorCollection[] }) {
   const { locale } = useLocale();
   const t = TEXT[locale] || TEXT.en;
   const quickPrompts = locale === "zh" ? QUICK_PROMPTS_ZH : QUICK_PROMPTS_EN;
@@ -349,10 +347,10 @@ export function PickForMePage() {
   const results = useMemo(() => {
     if (!query) return null;
     const fragments = matchScenarioToFragments(query);
-    const pickedColors = pickColorsFromFragments(fragments);
-    const matchedCols = matchCollections(query);
+    const pickedColors = pickColorsFromFragments(fragments, colors);
+    const matchedCols = matchCollections(query, collections);
     return { pickedColors, matchedCols, fragments };
-  }, [query]);
+  }, [query, colors, collections]);
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">

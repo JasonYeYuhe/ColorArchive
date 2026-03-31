@@ -16,22 +16,20 @@ function resolvePriceId(priceId: string): { type: "pack"; packId: string } | { t
   return null;
 }
 
-/** Forward fulfillment events to the backend API (Express on DO) */
+/** Forward fulfillment events to the backend API (Express on DO).
+ *  Throws on failure so the caller can return 500 to Stripe (triggering retry). */
 async function notifyBackend(path: string, payload: Record<string, unknown>): Promise<void> {
-  try {
-    const res = await fetch(`${API_URL}${path}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(INTERNAL_SECRET ? { "x-internal-secret": INTERNAL_SECRET } : {}),
-      },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      console.error(`Backend ${path} responded ${res.status}: ${await res.text()}`);
-    }
-  } catch (err) {
-    console.error(`Failed to notify backend ${path}:`, err);
+  const res = await fetch(`${API_URL}${path}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(INTERNAL_SECRET ? { "x-internal-secret": INTERNAL_SECRET } : {}),
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Backend ${path} responded ${res.status}: ${text}`);
   }
 }
 
@@ -54,73 +52,76 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  switch (event.type) {
-    case "checkout.session.completed": {
-      const session = event.data.object;
-      const email = session.customer_email ?? session.customer_details?.email ?? null;
-      const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 5 });
-      const priceId = lineItems.data[0]?.price?.id ?? "";
-      const product = resolvePriceId(priceId);
+  try {
+    switch (event.type) {
+      case "checkout.session.completed": {
+        const session = event.data.object;
+        const email = session.customer_email ?? session.customer_details?.email ?? null;
+        const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 5 });
+        const priceId = lineItems.data[0]?.price?.id ?? "";
+        const product = resolvePriceId(priceId);
 
-      console.log(
-        `Payment completed: session=${session.id} email=${email} amount=${session.amount_total} product=${JSON.stringify(product)}`
-      );
+        console.log(
+          `Payment completed: session=${session.id} email=${email} amount=${session.amount_total} product=${JSON.stringify(product)}`
+        );
 
-      if (product?.type === "pack") {
-        // Fulfill pack purchase: record order + trigger download email via backend
-        await notifyBackend("/webhooks/order-completed", {
-          sessionId: session.id,
-          email,
-          packId: product.packId,
-          amountTotal: session.amount_total,
-          currency: session.currency,
-          paymentIntent: typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null,
-        });
-      } else if (product?.type === "subscription") {
-        // Subscription checkout — backend handles pro activation via subscription events
-        await notifyBackend("/webhooks/subscription-checkout", {
-          sessionId: session.id,
-          email,
-          plan: product.plan,
-          subscriptionId: typeof session.subscription === "string" ? session.subscription : session.subscription?.id ?? null,
-        });
+        if (product?.type === "pack") {
+          await notifyBackend("/webhooks/order-completed", {
+            sessionId: session.id,
+            email,
+            packId: product.packId,
+            amountTotal: session.amount_total,
+            currency: session.currency,
+            paymentIntent: typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null,
+          });
+        } else if (product?.type === "subscription") {
+          await notifyBackend("/webhooks/subscription-checkout", {
+            sessionId: session.id,
+            email,
+            plan: product.plan,
+            subscriptionId: typeof session.subscription === "string" ? session.subscription : session.subscription?.id ?? null,
+          });
+        }
+        break;
       }
-      break;
+
+      case "customer.subscription.created":
+      case "customer.subscription.updated": {
+        const subscription = event.data.object;
+        const customerId = typeof subscription.customer === "string" ? subscription.customer : subscription.customer?.id ?? "";
+        console.log(
+          `Subscription ${event.type}: id=${subscription.id} status=${subscription.status} customer=${customerId}`
+        );
+
+        await notifyBackend("/webhooks/subscription-updated", {
+          subscriptionId: subscription.id,
+          customerId,
+          status: subscription.status,
+          currentPeriodEnd: (subscription as unknown as { current_period_end?: number }).current_period_end ?? null,
+          cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          priceId: subscription.items?.data[0]?.price?.id ?? null,
+        });
+        break;
+      }
+
+      case "customer.subscription.deleted": {
+        const subscription = event.data.object;
+        const customerId = typeof subscription.customer === "string" ? subscription.customer : subscription.customer?.id ?? "";
+        console.log(`Subscription cancelled: id=${subscription.id} customer=${customerId}`);
+
+        await notifyBackend("/webhooks/subscription-cancelled", {
+          subscriptionId: subscription.id,
+          customerId,
+        });
+        break;
+      }
+
+      default:
+        console.log(`Unhandled Stripe event: ${event.type}`);
     }
-
-    case "customer.subscription.created":
-    case "customer.subscription.updated": {
-      const subscription = event.data.object;
-      const customerId = typeof subscription.customer === "string" ? subscription.customer : subscription.customer?.id ?? "";
-      console.log(
-        `Subscription ${event.type}: id=${subscription.id} status=${subscription.status} customer=${customerId}`
-      );
-
-      await notifyBackend("/webhooks/subscription-updated", {
-        subscriptionId: subscription.id,
-        customerId,
-        status: subscription.status,
-        currentPeriodEnd: (subscription as unknown as { current_period_end?: number }).current_period_end ?? null,
-        cancelAtPeriodEnd: subscription.cancel_at_period_end,
-        priceId: subscription.items?.data[0]?.price?.id ?? null,
-      });
-      break;
-    }
-
-    case "customer.subscription.deleted": {
-      const subscription = event.data.object;
-      const customerId = typeof subscription.customer === "string" ? subscription.customer : subscription.customer?.id ?? "";
-      console.log(`Subscription cancelled: id=${subscription.id} customer=${customerId}`);
-
-      await notifyBackend("/webhooks/subscription-cancelled", {
-        subscriptionId: subscription.id,
-        customerId,
-      });
-      break;
-    }
-
-    default:
-      console.log(`Unhandled Stripe event: ${event.type}`);
+  } catch (err) {
+    console.error(`Webhook fulfillment failed for ${event.type}:`, err);
+    return NextResponse.json({ error: "Fulfillment failed" }, { status: 500 });
   }
 
   return NextResponse.json({ received: true });

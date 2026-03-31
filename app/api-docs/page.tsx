@@ -6,7 +6,7 @@ import { ApiDocsPage } from "@/src/components/api-docs-page";
 export const metadata: Metadata = {
   title: { absolute: "Color API Documentation — ColorArchive" },
   description:
-    "Free REST API for 3,000+ curated hex colors. Search by name, hex, or mood. Filter by color family. Get color relationships. No auth required.",
+    "Free REST API for 5,400+ curated hex colors. Search by name, hex, or mood. Filter by color family. Get color relationships. No auth required.",
   alternates: {
     canonical: "/api-docs/",
   },

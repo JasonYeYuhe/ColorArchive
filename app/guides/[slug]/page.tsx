@@ -4,6 +4,7 @@ import { GuideDetailPage } from "@/src/components/guide-detail-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { getLandingGuide, getRelatedGuides, landingGuides } from "@/src/lib/guides";
+import { getCollectionById } from "@/src/lib/collections";
 
 interface GuidePageProps {
   params: Promise<{ slug: string }>;
@@ -79,7 +80,11 @@ export default async function GuideRoute({ params }: GuidePageProps) {
     <>
       <SiteHeader currentPath="/guides" />
       <StructuredDataScript data={structuredData} />
-      <GuideDetailPage guide={guide} relatedGuides={relatedGuides} />
+      <GuideDetailPage
+        guide={guide}
+        relatedGuides={relatedGuides}
+        featuredCollection={guide.featuredCollectionId ? getCollectionById(guide.featuredCollectionId) ?? null : null}
+      />
     </>
   );
 }

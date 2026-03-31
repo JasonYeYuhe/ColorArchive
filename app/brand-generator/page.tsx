@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { BrandGeneratorPage } from "@/src/components/brand-generator-page";
+import { colors } from "@/src/data/colors";
+import { collections } from "@/src/lib/collections";
 
 export const metadata: Metadata = {
   title: { absolute: "AI Brand Color Generator — Generate Your Brand Palette | ColorArchive" },
@@ -48,7 +50,15 @@ export default function BrandGeneratorRoute() {
     <>
       <SiteHeader currentPath="/brand-generator" />
       <StructuredDataScript data={[structuredData, breadcrumbData]} />
-      <BrandGeneratorPage />
+      <BrandGeneratorPage
+        archiveColors={colors}
+        collectionPresets={collections.slice(0, 8).map((c) => ({
+          id: c.id,
+          title: c.title,
+          style: c.promptWords.slice(0, 3).join(", "),
+          summary: c.summary,
+        }))}
+      />
     </>
   );
 }

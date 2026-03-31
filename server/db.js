@@ -2,7 +2,10 @@ const Database = require("better-sqlite3");
 const path = require("path");
 
 const db = new Database(path.join(__dirname, "data.db"));
+db.pragma("foreign_keys = ON");
 
+// Migration helper — adequate for current scale. Consider better-sqlite3-migrations
+// or umzug if schema changes become more complex or need rollback support.
 function ensureColumn(tableName, definition) {
   try {
     db.exec(`ALTER TABLE ${tableName} ADD COLUMN ${definition}`);
@@ -110,6 +113,8 @@ ensureColumn("users", "pro_expires_at TEXT");
 ensureColumn("users", "credits INTEGER DEFAULT 0");
 ensureColumn("users", "referral_code TEXT");
 ensureColumn("users", "api_key TEXT");
+ensureColumn("users", "api_key_hash TEXT");
+ensureColumn("users", "api_key_prefix TEXT");
 
 ensureColumn("subscribers", "referred_by TEXT");
 
@@ -160,4 +165,39 @@ ensureColumn("users", "subscription_cancel_at_period_end INTEGER DEFAULT 0");
 ensureColumn("orders", "stripe_session_id TEXT");
 ensureColumn("orders", "payment_intent TEXT");
 
+// Performance indexes
+db.exec(`
+  CREATE INDEX IF NOT EXISTS idx_orders_email ON orders(email);
+  CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders(created_at);
+  CREATE INDEX IF NOT EXISTS idx_pageviews_created_at ON pageviews(created_at);
+  CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at);
+  CREATE INDEX IF NOT EXISTS idx_events_event_name ON events(event_name);
+  CREATE INDEX IF NOT EXISTS idx_subscribers_email ON subscribers(email);
+  CREATE INDEX IF NOT EXISTS idx_users_api_key_hash ON users(api_key_hash);
+  CREATE INDEX IF NOT EXISTS idx_users_stripe_subscription_id ON users(stripe_subscription_id);
+  CREATE INDEX IF NOT EXISTS idx_users_stripe_customer_id ON users(stripe_customer_id);
+  CREATE INDEX IF NOT EXISTS idx_users_referral_code ON users(referral_code);
+  CREATE INDEX IF NOT EXISTS idx_projects_user_id ON projects(user_id);
+  CREATE INDEX IF NOT EXISTS idx_ai_usage_identifier_date ON ai_usage(identifier, date);
+`);
+
+// Migrate plaintext API keys to hashed storage
+const crypto = require("crypto");
+function hashApiKey(key) {
+  return crypto.createHash("sha256").update(key).digest("hex");
+}
+
+const plaintextKeys = db.prepare("SELECT id, api_key FROM users WHERE api_key IS NOT NULL AND api_key_hash IS NULL").all();
+if (plaintextKeys.length > 0) {
+  const migrate = db.prepare("UPDATE users SET api_key_hash = ?, api_key_prefix = ?, api_key = NULL WHERE id = ?");
+  const tx = db.transaction(() => {
+    for (const row of plaintextKeys) {
+      migrate.run(hashApiKey(row.api_key), row.api_key.slice(0, 7) + "...", row.id);
+    }
+  });
+  tx();
+  console.log(`[db] Migrated ${plaintextKeys.length} API keys to hashed storage`);
+}
+
 module.exports = db;
+module.exports.hashApiKey = hashApiKey;

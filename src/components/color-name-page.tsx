@@ -21,7 +21,7 @@ const PRESET_COLORS = [
   { label: "Mint Fresh", hex: "#34D399" },
 ];
 
-const colorCandidates = colors.slice(0, 3066).map((c) => ({
+const colorCandidates = colors.map((c) => ({
   id: c.id,
   hex: c.hex,
   name: c.name,

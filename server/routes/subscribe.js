@@ -71,15 +71,19 @@ router.post("/", async (req, res) => {
         .run(email.trim().toLowerCase());
     }
 
-    // Referral credit: if ref code provided, credit the referrer +5 AI credits
+    // Referral credit: if ref code provided, credit the referrer +5 AI credits (idempotent)
     const refCode = sanitizeString(ref, 20);
     if (refCode) {
-      db.prepare("UPDATE subscribers SET referred_by = ? WHERE email = ?")
-        .run(refCode, email.trim().toLowerCase());
-      // Credit the referrer (find user by referral_code)
-      const referrerUser = db.prepare("SELECT id FROM users WHERE referral_code = ?").get(refCode);
-      if (referrerUser) {
-        db.prepare("UPDATE users SET credits = credits + 5 WHERE id = ?").run(referrerUser.id);
+      const subscriber = db.prepare("SELECT referred_by FROM subscribers WHERE email = ?")
+        .get(email.trim().toLowerCase());
+      // Only credit if this subscriber hasn't already been credited to a referrer
+      if (!subscriber?.referred_by) {
+        db.prepare("UPDATE subscribers SET referred_by = ? WHERE email = ?")
+          .run(refCode, email.trim().toLowerCase());
+        const referrerUser = db.prepare("SELECT id FROM users WHERE referral_code = ?").get(refCode);
+        if (referrerUser) {
+          db.prepare("UPDATE users SET credits = credits + 5 WHERE id = ?").run(referrerUser.id);
+        }
       }
     }
 

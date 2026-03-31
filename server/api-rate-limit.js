@@ -33,7 +33,8 @@ function incrementApiUsage(identifier, hour) {
 
 function lookupApiKey(key) {
   if (!key) return null;
-  return db.prepare("SELECT id, tier FROM users WHERE api_key = ?").get(key);
+  const hash = crypto.createHash("sha256").update(key).digest("hex");
+  return db.prepare("SELECT id, tier FROM users WHERE api_key_hash = ?").get(hash);
 }
 
 /**
@@ -44,7 +45,7 @@ function lookupApiKey(key) {
 function apiRateLimit(req, res, next) {
   // Extract API key
   const authHeader = req.headers.authorization;
-  const key = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : req.query.api_key;
+  const key = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null;
 
   let tier = "anonymous";
   let identifier;

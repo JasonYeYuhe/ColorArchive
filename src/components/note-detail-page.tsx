@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import { useLocale } from "@/src/components/locale-provider";
-import { collections } from "@/src/lib/collections";
+import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForCollection, getGuidesForPack } from "@/src/lib/guides";
 import { palettePacks } from "@/src/lib/palette-packs";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
@@ -14,15 +14,14 @@ export function NoteDetailPage({
   issue,
   previousIssue,
   nextIssue,
+  featuredCollection,
 }: {
   issue: NewsletterIssue;
   previousIssue: NewsletterIssue | null;
   nextIssue: NewsletterIssue | null;
+  featuredCollection: ColorCollection | null;
 }) {
   const { t } = useLocale();
-  const featuredCollection = issue.featuredCollectionId
-    ? collections.find((collection) => collection.id === issue.featuredCollectionId) ?? null
-    : null;
   const featuredPack = issue.featuredPackId
     ? palettePacks.find((pack) => pack.id === issue.featuredPackId) ?? null
     : null;

@@ -211,23 +211,28 @@ router.post("/referral/share", (req, res) => {
 // --- API Key Management ---
 
 router.get("/api-key", (req, res) => {
-  const user = db.prepare("SELECT api_key FROM users WHERE id = ?").get(req.user.id);
-  return res.json({ apiKey: user.api_key || null });
+  const user = db.prepare("SELECT api_key_hash, api_key_prefix FROM users WHERE id = ?").get(req.user.id);
+  return res.json({
+    hasKey: !!user.api_key_hash,
+    prefix: user.api_key_prefix || null,
+  });
 });
 
 router.post("/api-key", (req, res) => {
-  const existing = db.prepare("SELECT api_key FROM users WHERE id = ?").get(req.user.id);
-  if (existing.api_key) {
-    return res.json({ apiKey: existing.api_key });
+  const existing = db.prepare("SELECT api_key_hash FROM users WHERE id = ?").get(req.user.id);
+  if (existing.api_key_hash) {
+    return res.status(409).json({ error: "API key already exists. Delete it first to generate a new one." });
   }
 
   const key = `ca_${crypto.randomBytes(16).toString("hex")}`;
-  db.prepare("UPDATE users SET api_key = ? WHERE id = ?").run(key, req.user.id);
+  const { hashApiKey } = require("../db");
+  db.prepare("UPDATE users SET api_key_hash = ?, api_key_prefix = ?, api_key = NULL WHERE id = ?")
+    .run(hashApiKey(key), key.slice(0, 7) + "...", req.user.id);
   return res.json({ apiKey: key });
 });
 
 router.delete("/api-key", (req, res) => {
-  db.prepare("UPDATE users SET api_key = NULL WHERE id = ?").run(req.user.id);
+  db.prepare("UPDATE users SET api_key_hash = NULL, api_key_prefix = NULL, api_key = NULL WHERE id = ?").run(req.user.id);
   return res.json({ ok: true });
 });
 

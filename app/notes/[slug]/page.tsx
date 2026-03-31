@@ -8,6 +8,7 @@ import {
   getNewsletterNeighbors,
   newsletterIssues,
 } from "@/src/lib/newsletter-issues";
+import { getCollectionById } from "@/src/lib/collections";
 
 interface NotePageProps {
   params: Promise<{ slug: string }>;
@@ -94,7 +95,12 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
     <>
       <SiteHeader currentPath="/notes" />
       <StructuredDataScript data={structuredData} />
-      <NoteDetailPage issue={issue} previousIssue={previous} nextIssue={next} />
+      <NoteDetailPage
+        issue={issue}
+        previousIssue={previous}
+        nextIssue={next}
+        featuredCollection={issue.featuredCollectionId ? getCollectionById(issue.featuredCollectionId) ?? null : null}
+      />
     </>
   );
 }

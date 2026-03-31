@@ -4,7 +4,8 @@ import { AuthProvider } from "@/src/components/auth-provider";
 import { ThemeProvider } from "@/src/components/theme-provider";
 import { SiteFooter } from "@/src/components/site-footer";
 import { PageTracker } from "@/src/components/page-tracker";
-import { PaletteBuilderTray } from "@/src/components/palette-builder-tray";
+import dynamic from "next/dynamic";
+const PaletteBuilderTray = dynamic(() => import("@/src/components/palette-builder-tray").then((m) => m.PaletteBuilderTray), { ssr: false });
 import { LocaleProvider } from "@/src/components/locale-provider";
 import { PHLaunchBanner } from "@/src/components/ph-launch-banner";
 import { BackToTop } from "@/src/components/back-to-top";
@@ -16,7 +17,7 @@ import "./globals.css";
 
 const siteTitle = "ColorArchive";
 const siteDescription =
-  "ColorArchive — 3,000+ curated hex color codes organized by family and hue. Search, copy, build palettes, and export design tokens for Figma, CSS, and Tailwind.";
+  "ColorArchive — 5,400+ curated hex color codes organized by family and hue. Search, copy, build palettes, and export design tokens for Figma, CSS, and Tailwind.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://colorarchive.me"),

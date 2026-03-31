@@ -1,10 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const { getSessionUser } = require("../auth");
+const { getSessionUser, isAnalyticsAdmin } = require("../auth");
+
+// Simple in-memory rate limiter: max 60 writes per IP per minute
+const writeCounters = new Map();
+setInterval(() => writeCounters.clear(), 60_000);
+function rateLimitWrite(req, res, next) {
+  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress || "unknown";
+  const count = writeCounters.get(ip) || 0;
+  if (count >= 60) return res.status(429).json({ error: "Rate limit exceeded" });
+  writeCounters.set(ip, count + 1);
+  next();
+}
 
 // POST /events — fire-and-forget event tracking
-router.post("/", (req, res) => {
+router.post("/", rateLimitWrite, (req, res) => {
   const { event, props = {}, path } = req.body ?? {};
 
   if (!event || typeof event !== "string") {
@@ -33,6 +44,7 @@ router.post("/", (req, res) => {
 router.get("/summary", (req, res) => {
   const user = getSessionUser(req);
   if (!user) return res.status(401).json({ error: "Unauthorized" });
+  if (!isAnalyticsAdmin(user)) return res.status(403).json({ error: "Forbidden" });
 
   const days = parseInt(String(req.query.days)) || 30;
   const since = new Date(Date.now() - days * 86400000).toISOString();

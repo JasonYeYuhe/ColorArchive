@@ -2,21 +2,20 @@
 
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
-import { collections } from "@/src/lib/collections";
+import type { ColorCollection } from "@/src/lib/collections";
 import { palettePacks } from "@/src/lib/palette-packs";
 import type { LandingGuide } from "@/src/lib/guides";
 
 export function GuideDetailPage({
   guide,
   relatedGuides,
+  featuredCollection,
 }: {
   guide: LandingGuide;
   relatedGuides: LandingGuide[];
+  featuredCollection: ColorCollection | null;
 }) {
   const { t } = useLocale();
-  const featuredCollection = guide.featuredCollectionId
-    ? collections.find((collection) => collection.id === guide.featuredCollectionId) ?? null
-    : null;
   const featuredPack = guide.featuredPackId
     ? palettePacks.find((pack) => pack.id === guide.featuredPackId) ?? null
     : null;

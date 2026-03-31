@@ -1,7 +1,7 @@
 {
   "name": "ColorArchive",
   "short_name": "ColorArchive",
-  "description": "3,000+ curated colors with AI palette tools, design tokens, and WCAG accessibility checks.",
+  "description": "5,400+ curated colors with AI palette tools, design tokens, and WCAG accessibility checks.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fafafa",

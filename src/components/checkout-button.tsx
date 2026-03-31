@@ -23,13 +23,15 @@ export function CheckoutButton({
 }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
 
+  const useGumroad = activeProvider === "Gumroad" && !!gumroadUrl;
+
   async function handleClick() {
-    if (activeProvider === "Gumroad" && gumroadUrl) {
-      window.open(gumroadUrl, "_blank", "noopener,noreferrer");
+    if (useGumroad) {
+      window.open(gumroadUrl!, "_blank", "noopener,noreferrer");
       return;
     }
 
-    // Fallback to Stripe
+    // Stripe checkout (primary or fallback when no Gumroad URL)
     setLoading(true);
     try {
       await startCheckout(priceId);
@@ -38,7 +40,7 @@ export function CheckoutButton({
     }
   }
 
-  const disabled = activeProvider === "Gumroad" ? !gumroadUrl : loading;
+  const disabled = loading;
 
   return (
     <button

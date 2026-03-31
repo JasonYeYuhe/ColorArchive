@@ -35,10 +35,8 @@ function normalizeNextPath(value) {
   return value;
 }
 
-function getLoginOrigin(req) {
-  return typeof req.headers.origin === "string" && req.headers.origin
-    ? req.headers.origin
-    : FRONTEND_ORIGIN;
+function getLoginOrigin() {
+  return FRONTEND_ORIGIN;
 }
 
 router.post("/request-link", async (req, res) => {
@@ -50,7 +48,7 @@ router.post("/request-link", async (req, res) => {
 
   try {
     const { token } = createMagicLinkToken(email);
-    const loginOrigin = getLoginOrigin(req);
+    const loginOrigin = getLoginOrigin();
     const nextPath = normalizeNextPath(next);
     const loginUrl = `${loginOrigin}/login?token=${encodeURIComponent(token)}&next=${encodeURIComponent(nextPath)}`;
     await sendMagicLinkEmail(email, {

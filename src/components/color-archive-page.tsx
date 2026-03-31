@@ -11,7 +11,7 @@ import { LocalArchiveHub } from "@/src/components/local-archive-hub";
 import { OnboardingBanner } from "@/src/components/onboarding-banner";
 import { SelectedColorPanel } from "@/src/components/selected-color-panel";
 import { useLocale } from "@/src/components/locale-provider";
-import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
+import { COLOR_FAMILIES, filterColorsWithCounts, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
 interface ColorArchivePageProps {
@@ -78,18 +78,15 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
   // Track whether the user explicitly selected a color (vs auto-fallback to first)
   const [userSelectedExplicitly, setUserSelectedExplicitly] = useState(hasExplicitSelection);
 
-  const searchResults = useMemo(() => filterColors(colors, deferredQuery, "All"), [colors, deferredQuery]);
-
-  const familyCounts = useMemo(
-    () =>
-      Object.fromEntries(
-        COLOR_FAMILIES.map((family) => [
-          family,
-          searchResults.filter((color) => color.family === family).length,
-        ]),
+  const { results: searchResults, familyCounts } = useMemo(() => {
+    const { results, familyCounts: counts } = filterColorsWithCounts(colors, deferredQuery, "All");
+    return {
+      results,
+      familyCounts: Object.fromEntries(
+        COLOR_FAMILIES.map((family) => [family, counts[family] || 0]),
       ) as Record<ColorFamily, number>,
-    [searchResults],
-  );
+    };
+  }, [colors, deferredQuery]);
 
   const visibleColors = useMemo(() => {
     const filtered =

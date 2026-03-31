@@ -4,6 +4,7 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { UseCaseDetailPage } from "@/src/components/use-case-detail-page";
 import { useCases, getUseCaseById } from "@/src/lib/use-cases";
+import { getCollectionById } from "@/src/lib/collections";
 
 interface UseCaseDetailRouteProps {
   params: Promise<{ slug: string }>;
@@ -66,7 +67,10 @@ export default async function UseCaseDetailRoute({ params }: UseCaseDetailRouteP
     <>
       <SiteHeader currentPath="/use-cases" />
       <StructuredDataScript data={useCaseStructuredData} />
-      <UseCaseDetailPage useCase={useCase} />
+      <UseCaseDetailPage
+        useCase={useCase}
+        relatedCollections={useCase.collectionIds.map((id) => getCollectionById(id)).filter((c): c is NonNullable<typeof c> => !!c)}
+      />
     </>
   );
 }
