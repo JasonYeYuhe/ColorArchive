@@ -47,7 +47,7 @@ export function CheckoutButton({
       disabled={disabled}
       className={className}
     >
-      {loading && activeProvider === "Stripe" ? "Redirecting…" : children}
+      {loading ? "Redirecting…" : children}
     </button>
   );
 }

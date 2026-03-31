@@ -25,7 +25,11 @@ export interface NewsletterIssue {
   body?: string;
 }
 
-export const newsletterIssues = issues as NewsletterIssue[];
+/** Only expose issues up to end of current year to avoid future-dated content in public site */
+const CUTOFF = "2026-12-31";
+export const newsletterIssues = (issues as NewsletterIssue[]).filter(
+  (issue) => issue.date <= CUTOFF
+);
 
 export function getNewsletterIssue(slug: string) {
   return newsletterIssues.find((issue) => issue.slug === slug) ?? null;

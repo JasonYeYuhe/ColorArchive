@@ -54,14 +54,14 @@ const upgradeComparison = [
 
 const staticFriendlyTools = [
   {
-    title: "Stripe Checkout",
-    summary: "Hosted checkout pages with built-in fraud protection, subscriptions, and global payment methods.",
-    href: "https://docs.stripe.com/payments/checkout",
+    title: "Hosted Checkout",
+    summary: "Secure hosted checkout pages with built-in fraud protection and global payment methods.",
+    href: "https://colorarchive.me/packs/",
   },
   {
-    title: "Stripe Payment Links",
-    summary: "No-code payment pages you can link from a static site or embed as buy buttons.",
-    href: "https://docs.stripe.com/payment-links",
+    title: "Digital Delivery",
+    summary: "Instant email delivery of download links after purchase — no accounts required.",
+    href: "https://colorarchive.me/product-examples/",
   },
   {
     title: "GitHub Sponsors",
@@ -294,15 +294,12 @@ export function SupportPage() {
             </div>
             <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
               <p>
-                If Stripe or another provider asks for product proof, use the live
-                site itself: the packs page, collections page, and dedicated product examples page
-                now show concrete digital deliverables rather than generic promises.
+                Product details, deliverables, and file contents are documented on each
+                pack page, the collections page, and the dedicated product examples page.
               </p>
               <p>
-                The important point is that ColorArchive already has a business URL, public
-                examples, checkout-ready product links, and a lightweight fulfillment flow. The
-                next step is store activation plus conversion and trust optimization, not proving
-                the product exists.
+                ColorArchive has a public business URL, product examples with file previews,
+                working checkout and fulfillment, and documented refund and delivery policies.
               </p>
             </div>
           </div>

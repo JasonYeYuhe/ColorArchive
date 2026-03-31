@@ -7,7 +7,7 @@ const sections = [
 
 - **Usage data**: Pages visited, features used, and interaction patterns to improve the product.
 - **Favorites and preferences**: Colors you save or mark as favorites, synced to your account if logged in, or stored locally in your browser if not.
-- **Purchase information**: When you buy a product through our checkout provider (Stripe), we receive your name, email, and transaction details. We do not store payment card numbers.
+- **Purchase information**: When you buy a product through our checkout provider, we receive your name, email, and transaction details. We do not store payment card numbers.
 - **Cookies**: We use a session cookie to keep you logged in. We do not use third-party tracking cookies. For details, see our [Cookie Policy](/cookie-policy/).`,
   },
   {
@@ -26,7 +26,7 @@ We do not sell your personal information to third parties.`,
     title: "3. Third-Party Services",
     content: `ColorArchive integrates with the following third-party services:
 
-- **Stripe** — Payment processing. Subject to [Stripe's Privacy Policy](https://stripe.com/privacy).
+- **Payment processing** — Purchases are handled by our third-party checkout provider. We do not store payment card details.
 - **Google OAuth** — Optional sign-in. Subject to [Google's Privacy Policy](https://policies.google.com/privacy).
 - **Vercel** — Hosting and analytics. Subject to [Vercel's Privacy Policy](https://vercel.com/legal/privacy-policy).
 - **Pinterest API** — Optional integration that allows users to save color palettes and pins to their own Pinterest boards. We access only the data explicitly authorized by the user via Pinterest OAuth. We do not store, cache, or retain any Pinterest user data on our servers beyond the active session. We do not sell, share, or transfer Pinterest data to any third party. Subject to [Pinterest's Privacy Policy](https://policy.pinterest.com/privacy-policy) and [Pinterest Developer Guidelines](https://policy.pinterest.com/developer-guidelines).
