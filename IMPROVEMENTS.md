@@ -20,13 +20,13 @@ The project tries to be three things at once: a color tool, a content platform, 
 ### Action Items
 
 - [x] **Define the one primary use case.** Chosen: "the best color exploration tool for designers." Commerce routes kept but removed from main nav.
-- [x] **Audit and consolidate routes.** Merged overlapping pages:
-  - Merged `/search/` into `/all-colors/` — unified browse page with search, advanced filters (hue/tone bands, sat/light ranges), mood presets, and density modes
-  - Merged `/palette-generator/` into `/palette/` — added collapsible harmony generator section to palette page
-  - Removed `/trending/` — deleted route and component
-  - Converted `/surprise/` to a "Random Color" button on `/all-colors/` — deleted standalone route
-  - Removed `/packs/` (Shop group) from header nav; routes preserved
-  - Updated all internal links, sitemap, structured data, and nav
+- [ ] **Audit and consolidate routes.** Planned merges (routes still exist as standalone pages):
+  - [ ] Merge `/search/` into `/all-colors/` — `/all-colors/` already has search + advanced filters, but `app/search/page.tsx` still exists
+  - [ ] Merge `/palette-generator/` into `/palette/` — `app/palette-generator/page.tsx` still exists
+  - [ ] Remove `/trending/` — `app/trending/page.tsx` still exists
+  - [ ] Remove `/surprise/` — `app/surprise/page.tsx` still exists (random color button exists on `/all-colors/`)
+  - [x] Removed `/packs/` (Shop group) from header nav; routes preserved
+  - [ ] Update all internal links, sitemap, structured data after route removal
 - [x] **Map the core user journey.** Landing → `/all-colors/` (discovery + search + random) → color detail (value) → palette builder (retention). Nav streamlined to Explore + Tools.
 
 ### Files to Touch
@@ -54,7 +54,7 @@ The project tries to be three things at once: a color tool, a content platform, 
 
 - [x] **Install vitest** — installed vitest, created vitest.config.ts with path aliases
 - [x] **Add test script** — added "test" and "test:watch" scripts to package.json
-- [x] **Write tests for `src/lib/color-utils.ts`** — 204 total tests across all files. color-utils covers: HSL↔RGB round-trip, rgbToHex/hexToRgb known pairs, getColorFamily boundaries, getContrastRatio (black/white=21:1), WCAG grading, analogous/complementary hue offsets, filterColors, sortColors
+- [x] **Write tests for `src/lib/color-utils.ts`** — 465 total tests across all files. color-utils covers: HSL↔RGB round-trip, rgbToHex/hexToRgb known pairs, getColorFamily boundaries, getContrastRatio (black/white=21:1), WCAG grading, analogous/complementary hue offsets, filterColors, sortColors
 - [x] **Write tests for `src/lib/colorblind.ts`** — protanopia red shift, achromatopsia grayscale, identity for normal input, hex conversion round-trips
 - [x] **Write tests for `src/lib/word-color.ts`** — determinism, collision resistance, valid hex output, 5 variants
 - [x] **Write tests for `src/lib/palette-builder.ts`** — max 6 enforced, add/remove/replace/clear, duplicate prevention, localStorage mock
@@ -340,7 +340,7 @@ Several routes serve no active purpose and add maintenance cost + sitemap bloat.
 
 ### Action Items
 
-- [x] **Deferred** — Evaluate when next UI refactor happens. Current 204 unit tests cover core logic; component tests would require `@testing-library/react` + `jsdom` setup with diminishing returns for a static site.
+- [x] **Deferred** — Evaluate when next UI refactor happens. Current 465 unit tests cover core logic; component tests would require `@testing-library/react` + `jsdom` setup with diminishing returns for a static site.
 
 ---
 
