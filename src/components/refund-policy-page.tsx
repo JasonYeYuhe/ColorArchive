@@ -22,8 +22,7 @@ This is consistent with the digital product refund provisions under Japan's Act 
     content: `Pro subscriptions (monthly or yearly) renew automatically at the end of each billing period.
 
 - **Cancellation**: You may cancel your subscription at any time through your account's billing portal (Account → Manage Subscription). Cancellation takes effect at the end of the current billing period — you retain full access until then.
-- **No partial refunds**: We do not issue prorated refunds for the remaining portion of a billing period after cancellation.
-- **Free trial**: Pro subscriptions include a 3-day free trial. You will not be charged if you cancel before the trial period ends.`,
+- **No partial refunds**: We do not issue prorated refunds for the remaining portion of a billing period after cancellation.`,
   },
   {
     title: "4. How to Request a Refund",

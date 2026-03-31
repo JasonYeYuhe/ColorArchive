@@ -38,6 +38,7 @@ export interface PalettePack {
     label: string;
   }[];
   title: string;
+  zipContents: string[];
 }
 
 export const palettePacks: PalettePack[] = [
@@ -118,6 +119,17 @@ export const palettePacks: PalettePack[] = [
         href: "/downloads/colorarchive-framer-tokens.css",
       },
     ],
+    zipContents: [
+      "palette-pack-vol-1-preview.css",
+      "palette-pack-vol-1-preview.json",
+      "colorarchive-all-collections.css",
+      "colorarchive-tailwind-tokens.css",
+      "quiet-luxury-palette-board.svg",
+      "quiet-luxury-gradient-wallpaper.svg",
+      "quiet-luxury-swiftui.swift",
+      "quiet-luxury-colors.xml",
+      "(+ boards, wallpapers & tokens per collection)",
+    ],
     detail:
       "A first paid drop built from your strongest collections. Small enough to ship quickly, concrete enough to test demand.",
   },
@@ -189,6 +201,17 @@ export const palettePacks: PalettePack[] = [
         href: "/downloads/brand-starter-kit-preview.txt",
       },
     ],
+    zipContents: [
+      "brand-starter-kit-preview.css",
+      "brand-starter-kit-preview.json",
+      "brand-starter-kit-preview.txt",
+      "colorarchive-all-collections.css",
+      "colorarchive-tailwind-tokens.css",
+      "quiet-luxury-brand-guide.md",
+      "quiet-luxury-color-psychology.md",
+      "quiet-luxury-swiftui.swift",
+      "(+ brand guides, psychology & tokens per collection)",
+    ],
     detail:
       "A more premium pack aimed at founders and designers who need a coherent starting point rather than one-off swatches.",
   },
@@ -258,6 +281,17 @@ export const palettePacks: PalettePack[] = [
         format: "TXT",
         href: "/downloads/content-creator-bundle-preview.txt",
       },
+    ],
+    zipContents: [
+      "content-creator-bundle-preview.css",
+      "content-creator-bundle-preview.json",
+      "content-creator-bundle-preview.txt",
+      "colorarchive-all-collections.css",
+      "modern-seaside-palette-board.svg",
+      "modern-seaside-gradient-wallpaper.svg",
+      "modern-seaside-ai-prompts.md",
+      "modern-seaside-brand-guide.md",
+      "(+ boards, wallpapers, prompts & guides per collection)",
     ],
     detail:
       "More visual and shareable. Good for creators, social designers, and as a list-building product.",
@@ -355,6 +389,18 @@ export const palettePacks: PalettePack[] = [
         href: "/downloads/complete-archive-framer-tokens.css",
       },
     ],
+    zipContents: [
+      "complete-archive-all-colors.css",
+      "complete-archive-tailwind-tokens.css",
+      "complete-archive-all-colors.json",
+      "complete-archive-scss-maps.scss",
+      "complete-archive-figma-tokens.json",
+      "complete-archive-style-dictionary.json",
+      "complete-archive-swiftui.swift",
+      "complete-archive-colors.xml",
+      "complete-archive.ase",
+      "(+ contrast matrices per collection)",
+    ],
     detail:
       "The full archive in every token format. Built for design system teams that want comprehensive, production-ready color infrastructure.",
   },
@@ -425,6 +471,17 @@ export const palettePacks: PalettePack[] = [
         href: "/downloads/dark-mode-ui-kit-preview.json",
       },
     ],
+    zipContents: [
+      "dark-mode-ui-kit-paired.css",
+      "dark-mode-ui-kit-tailwind.css",
+      "dark-mode-ui-kit-paired.json",
+      "dark-mode-ui-kit-preview.css",
+      "nocturne-tech-contrast-matrix.json",
+      "nocturne-tech-contrast-report.md",
+      "nordic-frost-contrast-matrix.json",
+      "monochrome-studio-contrast-report.md",
+      "README-dark-mode-ui-kit.txt",
+    ],
     detail:
       "Pre-paired light and dark token sets for product teams that need dark mode without the manual mapping work.",
   },
@@ -493,6 +550,15 @@ export const palettePacks: PalettePack[] = [
         format: "JSON",
         href: "/downloads/seasonal-spring-2026-preview.json",
       },
+    ],
+    zipContents: [
+      "seasonal-spring-2026-tokens.css",
+      "seasonal-spring-2026-tailwind.css",
+      "seasonal-spring-2026-data.json",
+      "seasonal-spring-2026-mood-notes.txt",
+      "seasonal-spring-2026-preview.css",
+      "seasonal-spring-2026-preview.json",
+      "README-seasonal-spring-2026.txt",
     ],
     detail:
       "A lightweight seasonal drop with curated spring palettes. Low price, high shareability, and a reason to come back each quarter.",
@@ -571,6 +637,15 @@ export const palettePacks: PalettePack[] = [
         format: "CSS",
         href: "/downloads/seasonal-spring-2026-preview.css",
       },
+    ],
+    zipContents: [
+      "palette-pack-vol-1/ (all Vol. 1 files)",
+      "brand-starter-kit/ (all Brand Kit files)",
+      "content-creator-bundle/ (all Creator files)",
+      "complete-archive/ (all Archive files)",
+      "dark-mode-ui-kit/ (all Dark Mode files)",
+      "seasonal-spring-2026/ (all Spring files)",
+      "Everything from all 6 packs above",
     ],
     detail:
       "All 6 packs in one bundle at 40% off. The simplest way to get everything ColorArchive offers.",

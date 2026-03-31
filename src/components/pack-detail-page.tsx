@@ -217,6 +217,21 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
           </aside>
         </section>
 
+        {pack.zipContents.length > 0 ? (
+          <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40">
+              What&apos;s in the ZIP
+            </div>
+            <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-white">
+              <span className="text-base">&#128193;</span>
+              <span>{pack.id}.zip</span>
+            </div>
+            <pre className="mt-3 overflow-x-auto font-mono text-[13px] leading-6 text-white/70">
+              {pack.zipContents.map((file) => `  - ${file}`).join("\n")}
+            </pre>
+          </section>
+        ) : null}
+
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)]">
           <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="flex items-center justify-between gap-3">

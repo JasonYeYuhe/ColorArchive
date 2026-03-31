@@ -85,14 +85,14 @@ export const proSubscriptionConfig = {
   monthly: {
     price: "¥499",
     period: "month",
-    trialDays: 3,
+    trialDays: 0,
     stripePriceId: "price_1TFR1tGzX2t5YKIzi3MGUVxy",
     note: "Pro monthly subscription",
   },
   yearly: {
     price: "¥3,999",
     period: "year",
-    trialDays: 3,
+    trialDays: 0,
     savings: "33%",
     stripePriceId: "price_1TFR1tGzX2t5YKIzlj8hT5za",
     note: "Pro yearly subscription",

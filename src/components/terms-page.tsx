@@ -33,7 +33,6 @@ We reserve the right to suspend or terminate accounts that violate these terms.`
 - **Exceptions**: If you experience a technical issue preventing you from accessing a purchased product, contact us and we will work to resolve it or issue a refund at our discretion.
 - **Pricing**: We reserve the right to change pricing at any time. Price changes do not affect previously completed purchases.
 - **Subscriptions**: Pro subscriptions (monthly or yearly) renew automatically. You may cancel at any time through your account's billing portal — go to Account → Manage Subscription. Cancellation takes effect at the end of the current billing period; you retain access until then. No partial refunds are issued for the remaining period.
-- **Free trials**: Pro subscriptions include a 3-day free trial. You will not be charged if you cancel before the trial ends.
 
 For full details, see our [Refund Policy](/refund-policy/).`,
   },
