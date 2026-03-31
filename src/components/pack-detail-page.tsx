@@ -75,7 +75,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
               </div>
               <div className="rounded-[1.25rem] border border-black/6 bg-white/86 px-4 py-4">
                 <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{t("packDetail.checkout")}</div>
-                <div className="mt-2 text-sm leading-6 text-neutral-600">{pack.checkoutProvider}</div>
+                <div className="mt-2 text-sm leading-6 text-neutral-600">Secure checkout</div>
                 <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
                   {pack.checkoutStatus === "ready" ? t("packDetail.checkoutReady") : pack.checkoutStatus}
                 </div>
@@ -382,7 +382,7 @@ export function PackDetailPage({ pack, relatedCollections }: PackDetailPageProps
             </div>
             <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">{pack.title}</p>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
-              {pack.priceHint} · {pack.checkoutProvider} · {t("packDetail.instantDownload")}
+              {pack.priceHint} · {t("packDetail.instantDownload")}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <CheckoutButton

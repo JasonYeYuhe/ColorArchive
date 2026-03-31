@@ -422,7 +422,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
                       </span>
                     </td>
                     <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                      {pack.checkoutProvider}
+                      Secure checkout
                       <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
                         {pack.checkoutStatus === "ready" ? t("packs.checkoutReady") : pack.checkoutStatus}
                       </div>
