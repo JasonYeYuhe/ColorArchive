@@ -1173,25 +1173,58 @@ createProcreateSwatches("colorarchive.swatches", ALL_ARCHIVE_COLORS, "ColorArchi
 createProcreateSwatches("complete-archive.swatches", ALL_ARCHIVE_COLORS, "ColorArchive — Complete Archive");
 
 // Free palette pack ZIP (preview files from Vol.1 + usage guide)
-const freePackReadme = `ColorArchive — Free Palette Pack
+const freePackReadme = `═══════════════════════════════════════════
+  ColorArchive — Free Palette Pack
+═══════════════════════════════════════════
 
-Thank you for downloading the free sample pack.
+QUICK START
+───────────
+1. Open palette-pack-vol-1-preview.css — copy the :root { ... } block into your stylesheet
+2. For Tailwind: paste colorarchive-tailwind-tokens.css into your @theme block
+3. For Figma/Sketch: import palette-pack-vol-1-preview.json as a color token set
 
-WHAT'S INCLUDED
-- CSS variables for 3 curated collections (Quiet Luxury, Modern Seaside, Editorial Warmth)
-- JSON data export with hex, HSL, and color metadata
-- Tailwind CSS 4 theme tokens
+FILE GUIDE
+──────────
+palette-pack-vol-1-preview.css     — CSS custom properties for 3 sample collections
+palette-pack-vol-1-preview.json    — JSON data with hex, HSL, and color metadata
+colorarchive-tailwind-tokens.css   — Tailwind CSS v4 theme tokens
+README-free-pack.txt               — This file
 
-HOW TO USE
-1. Copy the CSS variables from the .css file into your project
-2. Use the JSON data for programmatic access or design tool import
-3. For Tailwind, paste the @theme block from the tokens file
+PALETTES INCLUDED
+─────────────────
+Quiet Luxury
+  Soft neutrals and muted warm surfaces for editorial, beauty, and premium product work.
+  Suggested use: Editorial landing pages, beauty products, luxury product UI
 
-UPGRADE TO THE FULL PACK
-Visit https://colorarchive.me/packs for the complete palette system
-with more collections, usage guides, and structured token exports.
+Modern Seaside
+  Clear coastal blues and seafoam accents with enough structure for UI and brand systems.
+  Suggested use: Travel tools, wellness brands, dashboard refreshes
 
-— ColorArchive · https://colorarchive.me
+Editorial Warmth
+  Paper-like warm colors for publishing, writing, storytelling, and thoughtful landing pages.
+  Suggested use: Publishing sites, blogs, narrative landing pages
+
+COLOR NUMBERING
+───────────────
+Each palette has 5 colors numbered 1-5:
+  1 = Primary surface / background
+  2 = Secondary panel / card
+  3 = Supporting neutral / text
+  4 = Accent / call-to-action
+  5 = Contrast / deep accent
+
+UPGRADE
+───────
+This is a free sample. For the full system with SVG boards, gradient
+wallpapers, brand guides, AI prompts, and multi-platform tokens, visit:
+https://colorarchive.me/packs
+
+NEED HELP?
+──────────
+support@colorarchive.me
+https://colorarchive.me/packs
+
+© ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-free-pack.txt"), freePackReadme, "utf8");
 createZip("free-palette-pack.zip", [
@@ -1202,36 +1235,68 @@ createZip("free-palette-pack.zip", [
 ]);
 
 // Palette Pack Vol. 1 ZIP (full)
-const vol1Readme = `ColorArchive — Palette Pack Vol. 1
+const vol1Readme = `═══════════════════════════════════════════
+  ColorArchive — Palette Pack Vol. 1
+═══════════════════════════════════════════
 
-INCLUDED COLLECTIONS
-- Quiet Luxury: Soft neutrals and muted warm surfaces
-- Modern Seaside: Clear coastal blues and seafoam accents
-- Editorial Warmth: Paper-like warm colors for publishing
-- Forest Terrain: Deep greens, moss, and earthy browns
+QUICK START
+───────────
+1. Open colorarchive-all-collections.css — copy the :root { ... } block into your stylesheet
+2. For Tailwind: paste colorarchive-tailwind-tokens.css into your @theme block
+3. For Figma/Sketch: import colorarchive-all-collections.json as a color token set
+4. Browse the SVG palette boards for a visual overview of each collection
 
-FORMATS
-- CSS variables (copy into any project)
-- JSON data (for design tools and automation)
-- Tailwind CSS 4 theme tokens
-- Full archive export (all collections)
-- SVG palette boards (visual color cards per collection)
-- SVG gradient wallpapers (horizontal + diagonal per collection)
-- SwiftUI / Android XML / Flutter Dart / CSS-in-JS tokens
+FILE GUIDE
+──────────
+colorarchive-all-collections.css          — CSS custom properties for all collections
+colorarchive-all-collections.json         — JSON data with hex, HSL, and color metadata
+colorarchive-tailwind-tokens.css          — Tailwind CSS v4 theme tokens
+{collection}-palette-board.svg            — Visual color swatch board (per collection)
+{collection}-gradient-wallpaper.svg       — Horizontal gradient wallpaper (per collection)
+{collection}-gradient-wallpaper-diagonal.svg — Diagonal gradient wallpaper (per collection)
+{collection}-swiftui.swift                — SwiftUI Color extension (per collection)
+{collection}-colors.xml                   — Android colors.xml resource (per collection)
+{collection}-colors.dart                  — Flutter Dart color constants (per collection)
+{collection}-theme.js                     — CSS-in-JS theme object (per collection)
+README-palette-pack-vol-1.txt             — This file
 
-USAGE
-Each collection has 5 curated colors numbered -1 through -5:
-  -1 = Primary surface     -4 = Accent / CTA
-  -2 = Secondary panel     -5 = Deep contrast
-  -3 = Supporting neutral
+PALETTES INCLUDED
+─────────────────
+Quiet Luxury
+  Soft neutrals and muted warm surfaces for editorial, beauty, and premium product work.
+  Suggested use: Editorial landing pages, beauty products, luxury product UI
 
-— ColorArchive · https://colorarchive.me
+Modern Seaside
+  Clear coastal blues and seafoam accents with enough structure for UI and brand systems.
+  Suggested use: Travel tools, wellness brands, dashboard refreshes
+
+Editorial Warmth
+  Paper-like warm colors for publishing, writing, storytelling, and thoughtful landing pages.
+  Suggested use: Publishing sites, blogs, narrative landing pages
+
+Forest Terrain
+  Deep greens, moss, earthy browns, and stone for outdoor, editorial, and natural brand work.
+  Suggested use: Outdoor brands, environmental campaigns, editorial layout
+
+COLOR NUMBERING
+───────────────
+Each palette has 5 colors numbered 1-5:
+  1 = Primary surface / background
+  2 = Secondary panel / card
+  3 = Supporting neutral / text
+  4 = Accent / call-to-action
+  5 = Contrast / deep accent
+
+NEED HELP?
+──────────
+support@colorarchive.me
+https://colorarchive.me/packs
+
+© ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-palette-pack-vol-1.txt"), vol1Readme, "utf8");
 const vol1CollIds = ["quiet-luxury", "modern-seaside", "editorial-warmth", "forest-terrain"];
 createZip("palette-pack-vol-1.zip", [
-  "palette-pack-vol-1-preview.css",
-  "palette-pack-vol-1-preview.json",
   "colorarchive-all-collections.css",
   "colorarchive-all-collections.json",
   "colorarchive-tailwind-tokens.css",
@@ -1243,37 +1308,64 @@ createZip("palette-pack-vol-1.zip", [
 ]);
 
 // Brand Color Starter Kit ZIP
-const brandReadme = `ColorArchive — Brand Color Starter Kit
+const brandReadme = `═══════════════════════════════════════════
+  ColorArchive — Brand Color Starter Kit
+═══════════════════════════════════════════
 
-INCLUDED COLLECTIONS
-- Quiet Luxury: Premium brand surfaces
-- Nocturne Tech: Dark-spectrum product colors
-- Orchid Bloom: Expressive pinks and violets
+QUICK START
+───────────
+1. Open colorarchive-all-collections.css — copy the :root { ... } block into your stylesheet
+2. For Tailwind: paste colorarchive-tailwind-tokens.css into your @theme block
+3. For Figma/Sketch: import colorarchive-all-collections.json as a color token set
+4. Read the brand-guide.md files for application guidance per collection
 
-FORMATS
-- CSS variables with brand-role annotations
-- JSON data export
-- Tailwind CSS 4 theme tokens
-- Full archive export (all collections)
-- Usage notes with application guidance
-- Brand usage guides (per collection)
-- Color psychology notes
-- SwiftUI / Android XML / Flutter Dart / CSS-in-JS tokens
+FILE GUIDE
+──────────
+colorarchive-all-collections.css          — CSS custom properties for all collections
+colorarchive-all-collections.json         — JSON data with hex, HSL, and color metadata
+colorarchive-tailwind-tokens.css          — Tailwind CSS v4 theme tokens
+brand-starter-kit-preview.txt             — Plain-text color preview with hex values
+{collection}-brand-guide.md               — Brand usage guide (per collection)
+{collection}-color-psychology.md          — Color psychology notes (per collection)
+{collection}-swiftui.swift                — SwiftUI Color extension (per collection)
+{collection}-colors.xml                   — Android colors.xml resource (per collection)
+{collection}-colors.dart                  — Flutter Dart color constants (per collection)
+{collection}-theme.js                     — CSS-in-JS theme object (per collection)
+README-brand-starter-kit.txt              — This file
 
-BRAND APPLICATION
-  -1 = Primary (backgrounds, hero surfaces)
-  -2 = Secondary (UI panels, borders)
-  -3 = Tertiary (supporting neutrals)
-  -4 = Accent (buttons, CTAs, highlights)
-  -5 = Deep base (text, strong contrast)
+PALETTES INCLUDED
+─────────────────
+Quiet Luxury
+  Soft neutrals and muted warm surfaces for editorial, beauty, and premium product work.
+  Suggested use: Premium brand surfaces, editorial landing pages, luxury product UI
 
-— ColorArchive · https://colorarchive.me
+Nocturne Tech
+  Dark-spectrum product colors with enough neon contrast to feel modern, not generic.
+  Suggested use: AI tools, music products, dark-mode launches
+
+Orchid Bloom
+  Blooming pinks and violets with a soft green counterpoint for beauty, culture, and campaign work.
+  Suggested use: Campaign art direction, beauty brands, social launches
+
+COLOR NUMBERING
+───────────────
+Each palette has 5 colors numbered 1-5:
+  1 = Primary surface / background
+  2 = Secondary panel / card
+  3 = Supporting neutral / text
+  4 = Accent / call-to-action
+  5 = Contrast / deep accent
+
+NEED HELP?
+──────────
+support@colorarchive.me
+https://colorarchive.me/packs
+
+© ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-brand-starter-kit.txt"), brandReadme, "utf8");
 const brandCollIds = ["quiet-luxury", "nocturne-tech", "orchid-bloom"];
 createZip("brand-starter-kit.zip", [
-  "brand-starter-kit-preview.css",
-  "brand-starter-kit-preview.json",
   "brand-starter-kit-preview.txt",
   "colorarchive-all-collections.css",
   "colorarchive-all-collections.json",
@@ -1286,38 +1378,64 @@ createZip("brand-starter-kit.zip", [
 ]);
 
 // Creator Bundle ZIP
-const creatorReadme = `ColorArchive — Creator Bundle
+const creatorReadme = `═══════════════════════════════════════════
+  ColorArchive — Content Creator Bundle
+═══════════════════════════════════════════
 
-INCLUDED COLLECTIONS
-- Modern Seaside: Fresh coastal tones for lifestyle content
-- Orchid Bloom: Vibrant pinks and violets for beauty and culture
-- Candy Pop: Saturated accents for social and D2C
+QUICK START
+───────────
+1. Open colorarchive-all-collections.css — copy the :root { ... } block into your stylesheet
+2. For Tailwind: paste colorarchive-tailwind-tokens.css into your @theme block
+3. For Figma/Sketch: import colorarchive-all-collections.json as a color token set
+4. Read the ai-prompts.md files for AI-ready color descriptions
 
-FORMATS
-- CSS variables
-- JSON data export
-- Tailwind CSS 4 theme tokens
-- Full archive export (all collections)
-- Prompt-friendly color descriptions
-- SVG palette boards (visual color cards)
-- SVG gradient wallpapers (horizontal + diagonal)
-- AI prompt templates per collection
-- Color psychology notes
-- Brand usage guides
+FILE GUIDE
+──────────
+colorarchive-all-collections.css          — CSS custom properties for all collections
+colorarchive-all-collections.json         — JSON data with hex, HSL, and color metadata
+colorarchive-tailwind-tokens.css          — Tailwind CSS v4 theme tokens
+content-creator-bundle-preview.txt        — Plain-text color preview with hex values
+{collection}-palette-board.svg            — Visual color swatch board (per collection)
+{collection}-gradient-wallpaper.svg       — Horizontal gradient wallpaper (per collection)
+{collection}-gradient-wallpaper-diagonal.svg — Diagonal gradient wallpaper (per collection)
+{collection}-ai-prompts.md               — AI prompt templates with color descriptions (per collection)
+{collection}-color-psychology.md          — Color psychology notes (per collection)
+{collection}-brand-guide.md              — Brand usage guide (per collection)
+README-creator-bundle.txt                — This file
 
-USE CASES
-- Social media graphics and story cards
-- Background and wallpaper color sets
-- AI prompt color descriptions
-- Brand-consistent content palettes
+PALETTES INCLUDED
+─────────────────
+Modern Seaside
+  Clear coastal blues and seafoam accents with enough structure for UI and brand systems.
+  Suggested use: Travel tools, wellness brands, lifestyle content
 
-— ColorArchive · https://colorarchive.me
+Orchid Bloom
+  Blooming pinks and violets with a soft green counterpoint for beauty, culture, and campaign work.
+  Suggested use: Beauty campaigns, culture pieces, social launches
+
+Candy Pop
+  Coral, lemon, mint, lavender, and sky — saturated accents for social, D2C, and campaign work.
+  Suggested use: Social media graphics, D2C brands, campaign pages
+
+COLOR NUMBERING
+───────────────
+Each palette has 5 colors numbered 1-5:
+  1 = Primary surface / background
+  2 = Secondary panel / card
+  3 = Supporting neutral / text
+  4 = Accent / call-to-action
+  5 = Contrast / deep accent
+
+NEED HELP?
+──────────
+support@colorarchive.me
+https://colorarchive.me/packs
+
+© ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-creator-bundle.txt"), creatorReadme, "utf8");
 const creatorCollIds = ["modern-seaside", "orchid-bloom", "candy-pop"];
 createZip("content-creator-bundle.zip", [
-  "content-creator-bundle-preview.css",
-  "content-creator-bundle-preview.json",
   "content-creator-bundle-preview.txt",
   "colorarchive-all-collections.css",
   "colorarchive-all-collections.json",
@@ -1413,44 +1531,61 @@ writeFileSync(join(OUT_DIR, "complete-archive-tailwind-tokens.css"), generateFul
 writeFileSync(join(OUT_DIR, "complete-archive-all-colors.json"), generateFullArchiveJson(), "utf8");
 writeFileSync(join(OUT_DIR, "complete-archive-scss-maps.scss"), generateScss(), "utf8");
 
-const completeArchiveReadme = `ColorArchive — Complete Archive Token Set
+const completeArchiveReadme = `═══════════════════════════════════════════
+  ColorArchive — Complete Archive Token Set
+═══════════════════════════════════════════
 
-ALL 2016 COLORS IN MULTIPLE FORMATS
+QUICK START
+───────────
+1. Open complete-archive-all-colors.css — copy the :root { ... } block into your stylesheet
+2. For Tailwind: paste complete-archive-tailwind-tokens.css into your @theme block
+3. For Figma/Sketch: import complete-archive-figma-tokens.json as a color token set
+4. For SCSS: @use complete-archive-scss-maps.scss and access colors via map-get()
 
-FORMATS INCLUDED
-- CSS variables (complete-archive-all-colors.css)
-- Tailwind CSS 4 theme tokens (complete-archive-tailwind-tokens.css)
-- Structured JSON with hex, HSL, RGB (complete-archive-all-colors.json)
-- SCSS color maps by hue family (complete-archive-scss-maps.scss)
-- GIMP palette (complete-archive.gpl)
-- Sketch palette JSON (complete-archive-sketchpalette.json)
-- Adobe Swatch Exchange (complete-archive.ase)
-- Adobe Color / Photoshop ACO (complete-archive.aco)
-- Procreate swatches (complete-archive.swatches)
-- Framer design tokens CSS (complete-archive-framer-tokens.css)
-- Figma / Tokens Studio JSON — nested by family (complete-archive-figma-tokens.json)
-- Style Dictionary tokens (complete-archive-style-dictionary.json)
-- SwiftUI Color extension (complete-archive-swiftui.swift)
-- Android colors.xml resource (complete-archive-colors.xml)
-- Flutter Dart color constants (complete-archive-colors.dart)
-- CSS-in-JS theme object (complete-archive-theme.js)
-- WCAG contrast reports for all collections
+FILE GUIDE
+──────────
+complete-archive-all-colors.css           — CSS custom properties for all 2016 colors
+complete-archive-tailwind-tokens.css      — Tailwind CSS v4 theme tokens (all colors)
+complete-archive-all-colors.json          — JSON data with hex, HSL, RGB for all colors
+complete-archive-scss-maps.scss           — SCSS color maps organized by hue family
+complete-archive.gpl                      — GIMP palette file
+complete-archive-sketchpalette.json       — Sketch palette JSON
+complete-archive.ase                      — Adobe Swatch Exchange file
+complete-archive.aco                      — Adobe Color / Photoshop ACO file
+complete-archive-framer-tokens.css        — Framer design tokens CSS
+complete-archive-figma-tokens.json        — Figma / Tokens Studio JSON (nested by family)
+complete-archive-style-dictionary.json    — Style Dictionary token format
+complete-archive-swiftui.swift            — SwiftUI Color extension (all colors)
+complete-archive-colors.xml               — Android colors.xml resource (all colors)
+complete-archive-colors.dart              — Flutter Dart color constants (all colors)
+complete-archive-theme.js                 — CSS-in-JS theme object (all colors)
+{collection}-contrast-matrix.json         — WCAG contrast ratio matrix (per collection)
+{collection}-contrast-report.md           — AA/AAA compliance report (per collection)
+README-complete-archive.txt               — This file
 
-COLOR NAMING
-Each color follows the pattern: {hue}-{lightness}-{chroma}
+PALETTES INCLUDED
+─────────────────
+All ${COLLECTIONS.length} curated collections plus the full 2016-color library
+organized by hue family, lightness band, and chroma level.
+
+COLOR NUMBERING
+───────────────
+Each palette has 5 colors numbered 1-5:
+  1 = Primary surface / background
+  2 = Secondary panel / card
+  3 = Supporting neutral / text
+  4 = Accent / call-to-action
+  5 = Contrast / deep accent
+
+Individual colors follow the pattern: {hue}-{lightness}-{chroma}
   36 hues x 14 lightness levels x 4 chroma bands = 2016 colors
 
-USAGE
-- CSS: copy variables into your :root {} block
-- Tailwind: paste the @theme block into your config
-- JSON: import for programmatic access or design tool integration
-- SCSS: @use the maps and access colors via map-get()
-- SwiftUI: add the .swift file to your Xcode project
-- Android: copy colors.xml to res/values/
-- Flutter: import the .dart file
-- CSS-in-JS: import { caTheme } from the .js file
+NEED HELP?
+──────────
+support@colorarchive.me
+https://colorarchive.me/packs
 
-— ColorArchive · https://colorarchive.me
+© ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-complete-archive.txt"), completeArchiveReadme, "utf8");
 createZip("complete-archive.zip", [
@@ -1471,8 +1606,6 @@ createZip("complete-archive.zip", [
   "complete-archive-theme.js",
   ...COLLECTIONS.map((c) => `${c.id}-contrast-matrix.json`),
   ...COLLECTIONS.map((c) => `${c.id}-contrast-report.md`),
-  "complete-archive-preview.css",
-  "complete-archive-preview.json",
   "README-complete-archive.txt",
 ]);
 
@@ -1548,29 +1681,60 @@ writeFileSync(join(OUT_DIR, "dark-mode-ui-kit-paired.css"), generateDarkModeCss(
 writeFileSync(join(OUT_DIR, "dark-mode-ui-kit-tailwind.css"), generateDarkModeTailwind(), "utf8");
 writeFileSync(join(OUT_DIR, "dark-mode-ui-kit-paired.json"), generateDarkModeJson(), "utf8");
 
-const darkModeReadme = `ColorArchive — Dark Mode UI Kit
+const darkModeReadme = `═══════════════════════════════════════════
+  ColorArchive — Dark Mode UI Kit
+═══════════════════════════════════════════
 
-PAIRED LIGHT/DARK TOKEN SETS
+QUICK START
+───────────
+1. Open dark-mode-ui-kit-paired.css — copy the :root { ... } block and [data-theme='dark'] block into your stylesheet
+2. For Tailwind: paste dark-mode-ui-kit-tailwind.css into your @theme block
+3. For Figma/Sketch: import dark-mode-ui-kit-paired.json as a color token set
+4. Read the contrast-report.md files for WCAG compliance guidance
 
-FORMATS INCLUDED
-- Paired CSS variables with data-theme switching (dark-mode-ui-kit-paired.css)
-- Tailwind CSS 4 dark mode tokens (dark-mode-ui-kit-tailwind.css)
-- JSON with light/dark value pairs (dark-mode-ui-kit-paired.json)
-- WCAG contrast ratio matrices (per collection)
-- AA/AAA compliance reports with recommended text/background combos
+FILE GUIDE
+──────────
+dark-mode-ui-kit-paired.css               — CSS custom properties with light/dark theme switching
+dark-mode-ui-kit-tailwind.css             — Tailwind CSS v4 dark mode token pairs
+dark-mode-ui-kit-paired.json              — JSON with light/dark hex and HSL value pairs
+{collection}-contrast-matrix.json         — WCAG contrast ratio matrix (per collection)
+{collection}-contrast-report.md           — AA/AAA compliance report (per collection)
+README-dark-mode-ui-kit.txt               — This file
 
-HOW IT WORKS
+PALETTES INCLUDED
+─────────────────
+Nocturne Tech
+  Dark-spectrum product colors with enough neon contrast to feel modern, not generic.
+  Suggested use: AI tools, music products, dark-mode launches
+
+Nordic Frost
+  Ice blue, pale grey, and soft lavender for minimal UI, SaaS products, and clean landing pages.
+  Suggested use: SaaS UI, tech landing pages, minimal dashboards
+
+Monochrome Studio
+  Pure grayscale with micro-warm and micro-cool shifts for editorial, typography, and minimal UI.
+  Suggested use: Typography layouts, minimal UI systems, editorial design
+
+COLOR NUMBERING
+───────────────
+Each palette has 5 colors numbered 1-5:
+  1 = Primary surface / background
+  2 = Secondary panel / card
+  3 = Supporting neutral / text
+  4 = Accent / call-to-action
+  5 = Contrast / deep accent
+
+Dark values are generated by inverting lightness while preserving
+hue and saturation, giving you perceptually consistent pairs.
 Light mode: use variables as-is (default)
 Dark mode: add data-theme="dark" to your <html> element
 
-The dark values are generated by inverting lightness while preserving
-hue and saturation, giving you perceptually consistent pairs.
+NEED HELP?
+──────────
+support@colorarchive.me
+https://colorarchive.me/packs
 
-TAILWIND USAGE
-Use --color-{collection}-{slot} for light and
---color-{collection}-dark-{slot} for dark mode values.
-
-— ColorArchive · https://colorarchive.me
+© ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-dark-mode-ui-kit.txt"), darkModeReadme, "utf8");
 const darkModeCollIds = ["nocturne-tech", "nordic-frost", "monochrome-studio"];
@@ -1578,8 +1742,6 @@ createZip("dark-mode-ui-kit.zip", [
   "dark-mode-ui-kit-paired.css",
   "dark-mode-ui-kit-tailwind.css",
   "dark-mode-ui-kit-paired.json",
-  "dark-mode-ui-kit-preview.css",
-  "dark-mode-ui-kit-preview.json",
   ...darkModeCollIds.flatMap((id) => [`${id}-contrast-matrix.json`, `${id}-contrast-report.md`]),
   "README-dark-mode-ui-kit.txt",
 ]);
@@ -1624,22 +1786,54 @@ writeFileSync(join(OUT_DIR, "seasonal-spring-2026-tokens.css"), generateCss(spri
 writeFileSync(join(OUT_DIR, "seasonal-spring-2026-tailwind.css"), generateTailwindSnippet(springCols), "utf8");
 writeFileSync(join(OUT_DIR, "seasonal-spring-2026-data.json"), generateJson(springCols), "utf8");
 
-const springReadme = `ColorArchive — Seasonal: Spring 2026
+const springReadme = `═══════════════════════════════════════════
+  ColorArchive — Seasonal: Spring 2026
+═══════════════════════════════════════════
 
-SPRING-CURATED PALETTES
+QUICK START
+───────────
+1. Open seasonal-spring-2026-tokens.css — copy the :root { ... } block into your stylesheet
+2. For Tailwind: paste seasonal-spring-2026-tailwind.css into your @theme block
+3. For Figma/Sketch: import seasonal-spring-2026-data.json as a color token set
+4. Read seasonal-spring-2026-mood-notes.txt for usage guidance
 
-COLLECTIONS
-- Orchid Bloom: Blooming pinks and violets
-- Matcha & Linen: Matcha greens with warm linen tones
-- Sunset Boulevard: Warm sunset gradient colors
+FILE GUIDE
+──────────
+seasonal-spring-2026-tokens.css           — CSS custom properties for spring collections
+seasonal-spring-2026-tailwind.css         — Tailwind CSS v4 theme tokens
+seasonal-spring-2026-data.json            — JSON data with hex, HSL, and color metadata
+seasonal-spring-2026-mood-notes.txt       — Mood board notes and application guidance
+README-seasonal-spring-2026.txt           — This file
 
-FORMATS
-- CSS variables (seasonal-spring-2026-tokens.css)
-- Tailwind CSS 4 theme tokens (seasonal-spring-2026-tailwind.css)
-- JSON data (seasonal-spring-2026-data.json)
-- Mood board notes (seasonal-spring-2026-mood-notes.txt)
+PALETTES INCLUDED
+─────────────────
+Orchid Bloom
+  Blooming pinks and violets with a soft green counterpoint for beauty, culture, and campaign work.
+  Suggested use: Beauty campaigns, culture pieces, social launches
 
-— ColorArchive · https://colorarchive.me
+Matcha & Linen
+  Soft matcha greens with warm paper and linen tones for wellness, tea, and artisan brands.
+  Suggested use: Wellness brands, tea and food packaging, artisan product pages
+
+Sunset Boulevard
+  Warm coral-to-rose gradient with amber highlights for travel, lifestyle, and editorial work.
+  Suggested use: Travel campaigns, lifestyle brands, editorial hero sections
+
+COLOR NUMBERING
+───────────────
+Each palette has 5 colors numbered 1-5:
+  1 = Primary surface / background
+  2 = Secondary panel / card
+  3 = Supporting neutral / text
+  4 = Accent / call-to-action
+  5 = Contrast / deep accent
+
+NEED HELP?
+──────────
+support@colorarchive.me
+https://colorarchive.me/packs
+
+© ColorArchive · https://colorarchive.me
 `;
 writeFileSync(join(OUT_DIR, "README-seasonal-spring-2026.txt"), springReadme, "utf8");
 createZip("seasonal-spring-2026.zip", [
@@ -1647,7 +1841,5 @@ createZip("seasonal-spring-2026.zip", [
   "seasonal-spring-2026-tailwind.css",
   "seasonal-spring-2026-data.json",
   "seasonal-spring-2026-mood-notes.txt",
-  "seasonal-spring-2026-preview.css",
-  "seasonal-spring-2026-preview.json",
   "README-seasonal-spring-2026.txt",
 ]);

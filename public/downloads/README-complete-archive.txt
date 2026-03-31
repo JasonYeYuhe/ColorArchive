@@ -1,38 +1,55 @@
-ColorArchive — Complete Archive Token Set
+═══════════════════════════════════════════
+  ColorArchive — Complete Archive Token Set
+═══════════════════════════════════════════
 
-ALL 2016 COLORS IN MULTIPLE FORMATS
+QUICK START
+───────────
+1. Open complete-archive-all-colors.css — copy the :root { ... } block into your stylesheet
+2. For Tailwind: paste complete-archive-tailwind-tokens.css into your @theme block
+3. For Figma/Sketch: import complete-archive-figma-tokens.json as a color token set
+4. For SCSS: @use complete-archive-scss-maps.scss and access colors via map-get()
 
-FORMATS INCLUDED
-- CSS variables (complete-archive-all-colors.css)
-- Tailwind CSS 4 theme tokens (complete-archive-tailwind-tokens.css)
-- Structured JSON with hex, HSL, RGB (complete-archive-all-colors.json)
-- SCSS color maps by hue family (complete-archive-scss-maps.scss)
-- GIMP palette (complete-archive.gpl)
-- Sketch palette JSON (complete-archive-sketchpalette.json)
-- Adobe Swatch Exchange (complete-archive.ase)
-- Adobe Color / Photoshop ACO (complete-archive.aco)
-- Procreate swatches (complete-archive.swatches)
-- Framer design tokens CSS (complete-archive-framer-tokens.css)
-- Figma / Tokens Studio JSON — nested by family (complete-archive-figma-tokens.json)
-- Style Dictionary tokens (complete-archive-style-dictionary.json)
-- SwiftUI Color extension (complete-archive-swiftui.swift)
-- Android colors.xml resource (complete-archive-colors.xml)
-- Flutter Dart color constants (complete-archive-colors.dart)
-- CSS-in-JS theme object (complete-archive-theme.js)
-- WCAG contrast reports for all collections
+FILE GUIDE
+──────────
+complete-archive-all-colors.css           — CSS custom properties for all 2016 colors
+complete-archive-tailwind-tokens.css      — Tailwind CSS v4 theme tokens (all colors)
+complete-archive-all-colors.json          — JSON data with hex, HSL, RGB for all colors
+complete-archive-scss-maps.scss           — SCSS color maps organized by hue family
+complete-archive.gpl                      — GIMP palette file
+complete-archive-sketchpalette.json       — Sketch palette JSON
+complete-archive.ase                      — Adobe Swatch Exchange file
+complete-archive.aco                      — Adobe Color / Photoshop ACO file
+complete-archive-framer-tokens.css        — Framer design tokens CSS
+complete-archive-figma-tokens.json        — Figma / Tokens Studio JSON (nested by family)
+complete-archive-style-dictionary.json    — Style Dictionary token format
+complete-archive-swiftui.swift            — SwiftUI Color extension (all colors)
+complete-archive-colors.xml               — Android colors.xml resource (all colors)
+complete-archive-colors.dart              — Flutter Dart color constants (all colors)
+complete-archive-theme.js                 — CSS-in-JS theme object (all colors)
+{collection}-contrast-matrix.json         — WCAG contrast ratio matrix (per collection)
+{collection}-contrast-report.md           — AA/AAA compliance report (per collection)
+README-complete-archive.txt               — This file
 
-COLOR NAMING
-Each color follows the pattern: {hue}-{lightness}-{chroma}
+PALETTES INCLUDED
+─────────────────
+All 14 curated collections plus the full 2016-color library
+organized by hue family, lightness band, and chroma level.
+
+COLOR NUMBERING
+───────────────
+Each palette has 5 colors numbered 1-5:
+  1 = Primary surface / background
+  2 = Secondary panel / card
+  3 = Supporting neutral / text
+  4 = Accent / call-to-action
+  5 = Contrast / deep accent
+
+Individual colors follow the pattern: {hue}-{lightness}-{chroma}
   36 hues x 14 lightness levels x 4 chroma bands = 2016 colors
 
-USAGE
-- CSS: copy variables into your :root {} block
-- Tailwind: paste the @theme block into your config
-- JSON: import for programmatic access or design tool integration
-- SCSS: @use the maps and access colors via map-get()
-- SwiftUI: add the .swift file to your Xcode project
-- Android: copy colors.xml to res/values/
-- Flutter: import the .dart file
-- CSS-in-JS: import { caTheme } from the .js file
+NEED HELP?
+──────────
+support@colorarchive.me
+https://colorarchive.me/packs
 
-— ColorArchive · https://colorarchive.me
+© ColorArchive · https://colorarchive.me
