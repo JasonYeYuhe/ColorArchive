@@ -5,17 +5,26 @@ const API_URL = process.env.BACKEND_API_URL ?? "https://api.colorarchive.me";
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { customerId } = body as { customerId: string };
+    // Forward the user's session cookie to the backend to authenticate
+    const cookie = req.headers.get("cookie") || "";
+    const meRes = await fetch(`${API_URL}/me/subscription`, {
+      headers: { cookie },
+    });
 
-    if (!customerId) {
-      return NextResponse.json({ error: "Missing customer ID" }, { status: 400 });
+    if (!meRes.ok) {
+      return NextResponse.json({ error: "Authentication required" }, { status: 401 });
+    }
+
+    const subscription = await meRes.json();
+
+    if (!subscription?.stripeCustomerId) {
+      return NextResponse.json({ error: "No subscription found" }, { status: 404 });
     }
 
     const origin = req.headers.get("origin") || "https://colorarchive.me";
 
     const portalSession = await stripe.billingPortal.sessions.create({
-      customer: customerId,
+      customer: subscription.stripeCustomerId,
       return_url: `${origin}/account/`,
     });
 

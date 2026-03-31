@@ -84,7 +84,7 @@ function getOrCreateUser(email) {
 }
 
 function isAnalyticsAdmin(user) {
-  return Boolean(user && (ADMIN_EMAILS.size === 0 || ADMIN_EMAILS.has(user.email)));
+  return Boolean(user && ADMIN_EMAILS.size > 0 && ADMIN_EMAILS.has(user.email));
 }
 
 function createMagicLinkToken(email) {

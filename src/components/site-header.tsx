@@ -135,15 +135,6 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/favorites/", labelKey: "nav.favorites" },
     ],
   },
-  {
-    labelKey: "nav.shop",
-    items: [
-      { href: "/packs/", labelKey: "nav.packs" },
-      { href: "/free-pack/", labelKey: "nav.freePack" },
-      { href: "/pro/", labelKey: "nav.pro" },
-      { href: "/projects/", labelKey: "nav.projects" },
-    ],
-  },
 ];
 
 const MOBILE_PRIMARY_ITEMS: NavItem[] = [

@@ -331,7 +331,7 @@ export function PalettePacksPage({ packs }: PalettePacksPageProps) {
               </p>
               <p>
                 This page is now the bridge between the archive and hosted checkout. Each pack
-                links to Stripe Checkout while keeping the core site static.
+                links to hosted checkout while keeping the core site static.
               </p>
               <p>
                 If a payment provider asks for concrete product examples, use the dedicated product

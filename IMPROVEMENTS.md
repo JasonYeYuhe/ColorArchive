@@ -42,7 +42,7 @@ The project tries to be three things at once: a color tool, a content platform, 
 
 ### Problem
 
-`color-utils.ts` (843 lines), `colorblind.ts`, `word-color.ts`, and `palette-builder.ts` contain pure functions with zero test coverage. These functions generate every color in the system, calculate WCAG contrast, and handle color space conversions. A single bug here silently breaks all 2016 color pages.
+`color-utils.ts` (843 lines), `colorblind.ts`, `word-color.ts`, and `palette-builder.ts` contain pure functions with zero test coverage. These functions generate every color in the system, calculate WCAG contrast, and handle color space conversions. A single bug here silently breaks all 5,446 color pages.
 
 ### Current State
 
@@ -103,11 +103,11 @@ Seven product packs are defined with pricing, descriptions, FAQs, and proof poin
 
 ### Problem
 
-The `/all-colors/` page renders all 2016 color cards in one pass. Every filter/sort operation re-renders the entire list. The full `colors` array (2016 objects) is imported and held in memory by every page that uses it.
+The `/all-colors/` page renders all 5,446 color cards in one pass. Every filter/sort operation re-renders the entire list. The full `colors` array (5,446 objects) is imported and held in memory by every page that uses it.
 
 ### Current State
 
-- `src/data/colors.ts` — Generates 2016 `ColorRecord` objects at module load
+- `src/data/colors.ts` — Generates 5,446 `ColorRecord` objects at module load
 - `src/components/all-colors-page.tsx` — Maps over full array, no virtualization
 - `src/components/color-grid.tsx` — Renders all cards passed to it
 - No `React.memo`, no `useMemo` on filter/sort operations
@@ -172,15 +172,15 @@ Start with Option B now. Move to Option A later if analytics show significant tr
 
 ---
 
-## P2-C: The 2016-Color Problem
+## P2-C: The 5,446-Color Problem
 
 ### Problem
 
-2016 is an awkward number. It's too many for "curated" (users can't browse 2016 colors meaningfully) and too few for "comprehensive" (designers expect to input any hex and get results). The 4-level saturation resolution is particularly coarse — many practical colors fall between the bands.
+5,446 is an awkward number. It's too many for "curated" (users can't browse 5,446 colors meaningfully) and too few for "comprehensive" (designers expect to input any hex and get results). The 4-level saturation resolution is particularly coarse — many practical colors fall between the bands.
 
 ### Current State
 
-- `src/data/colors.ts`: 36 hue roots × 14 lightness × 4 saturation = 2016
+- `src/data/colors.ts`: 48 hue roots × 14 lightness × 8 chroma = 5,376 chromatic + 5 neutral groups × 14 = 5,446
 - Each color gets a generated name like "Crimson Veil Muted"
 - Individual color pages show relationships, WCAG pairings, usage hints
 
@@ -188,7 +188,7 @@ Start with Option B now. Move to Option A later if analytics show significant tr
 
 - [x] **Add an "any hex" input mode** — Hex input box on `/all-colors/` hero section. Navigates to `/colors/hex/?c=RRGGBB` which renders a full client-side color detail page (WCAG contrast, tonal scale, relationships, accessible pairings, nearest archive colors). New files: `app/colors/hex/page.tsx`, `src/components/custom-color-page.tsx`.
 - [ ] **Consider increasing saturation bands** — Deferred; not needed now that any hex can be explored.
-- [x] **Reframe the 2016 as "featured" colors** — The 2016 are pre-built pages; any hex gets the same detail experience via the new `/colors/hex/` route.
+- [x] **Reframe the 5,446 as "featured" colors** — The 5,446 are pre-built pages; any hex gets the same detail experience via the new `/colors/hex/` route.
 
 ### Files to Touch
 
@@ -198,27 +198,18 @@ Start with Option B now. Move to Option A later if analytics show significant tr
 
 ---
 
-## P3: Evaluate Static Export Limitations
+## P3: Deployment & Server Architecture (Resolved)
 
-### Problem
+### Previous State
 
-`output: "export"` (GitHub Pages) means no server-side logic. But the codebase already contains auth (`auth-provider.tsx`), analytics (`/analytics/`), admin orders (`/admin/orders/`), and remote data sync — all of which need a server. These features either don't work or depend on an external backend that adds complexity.
+Originally deployed to GitHub Pages with `output: "export"`. Migrated to Vercel with full server-side support.
 
 ### Current State
 
-- `next.config.ts`: `output: "export"`, deployed to GitHub Pages
-- `src/components/auth-provider.tsx` — Magic link auth, calls external API
-- `src/lib/checkout-config.ts` — Stripe Checkout configured with webhook at `/api/webhook`
-- `/admin/orders/` — Order data must come from somewhere
-
-### Action Items (when the time comes)
-
-- [ ] **List what actually needs a server** — Auth, webhook handlers, order data, analytics writes. Be specific.
-- [ ] **Evaluate deployment options**:
-  - **Vercel** — Free tier, supports API routes, edge functions, ISR. Easiest migration from Next.js.
-  - **Cloudflare Pages** — Free tier, supports workers for server logic. Slightly more setup.
-  - **Keep GitHub Pages + external API** — Current approach. Works but splits the codebase.
-- [ ] **Don't migrate preemptively** — Only move when a server-dependent feature is actively blocking a paying user's need. Until then, static export is simpler and cheaper.
+- [x] **Deployed to Vercel** — `next.config.ts` no longer uses `output: "export"`. Auto-deploys on push to `main`.
+- [x] **Express API on DigitalOcean** — `api.colorarchive.me` handles auth, webhooks, admin, analytics via PM2.
+- [x] **GitHub Pages workflow disabled** — `.github/workflows/deploy-pages.yml.disabled`
+- [x] **Payments via Gumroad** (active) with Stripe as fallback infrastructure.
 
 ---
 
@@ -236,7 +227,7 @@ Some files are growing large and mixing concerns. Not urgent but will slow down 
   - `color-relationships.ts` — analogous, complementary, triadic, split-comp, tonal strip, nearest colors
   - `color-search.ts` — search aliases, fuzzy match, filterColors
   - `color-filter.ts` — COLOR_FAMILIES, getColorFamily, sortColors
-  - `color-utils.ts` → barrel re-export (`export *` from all 5). All 204 tests pass unchanged.
+  - `color-utils.ts` → barrel re-export (`export *` from all 5). All 465 tests pass unchanged.
 - [ ] **Extract translation files** — Skipped: with only 2 locales (EN/ZH), the single `i18n.ts` file is manageable.
 - [ ] **Group components by feature** — Skipped: would break many import paths across 40+ files with high risk of regressions for minimal benefit. Can revisit when component count grows further.
 
@@ -275,11 +266,11 @@ Some files are growing large and mixing concerns. Not urgent but will slow down 
 
 ---
 
-## R2-P1A: Fix themeColor Deprecation Warnings (×2016)
+## R2-P1A: Fix themeColor Deprecation Warnings (×5,446)
 
 ### Problem
 
-Every `/colors/[slug]` page exports `themeColor` inside `metadata`, but Next.js 16 requires it in a separate `generateViewport` export. This produces 2016 duplicate warnings per build, drowning out real errors.
+Every `/colors/[slug]` page exports `themeColor` inside `metadata`, but Next.js 16 requires it in a separate `generateViewport` export. This produces 5,446 duplicate warnings per build, drowning out real errors.
 
 ### Action Items
 
@@ -303,7 +294,7 @@ Every `/colors/[slug]` page exports `themeColor` inside `metadata`, but Next.js 
 ### Action Items
 
 - [x] `npm uninstall @tanstack/react-virtual` — removed, no imports existed
-- [x] Typecheck + 204 tests pass
+- [x] Typecheck + 465 tests pass
 
 ---
 
@@ -345,7 +336,7 @@ Several routes serve no active purpose and add maintenance cost + sitemap bloat.
 
 ### Problem
 
-204 tests exist but all cover pure `src/lib/` functions. Zero component/interaction tests. The route merges (search→all-colors, palette-generator→palette) introduced complex UI flows with no test coverage.
+465 tests exist but all cover pure `src/lib/` functions. Zero component/interaction tests. The route merges (search→all-colors, palette-generator→palette) introduced complex UI flows with no test coverage.
 
 ### Action Items
 
@@ -361,7 +352,7 @@ Several routes serve no active purpose and add maintenance cost + sitemap bloat.
 
 ### Action Items
 
-- [x] **Deferred** — React 19 compiler handles most cases automatically; revisit if profiling shows issues. Manual `useMemo` calls are on genuinely expensive operations (color filtering/sorting 2016 items).
+- [x] **Deferred** — React 19 compiler handles most cases automatically; revisit if profiling shows issues. Manual `useMemo` calls are on genuinely expensive operations (color filtering/sorting 5,446 items).
 
 ---
 

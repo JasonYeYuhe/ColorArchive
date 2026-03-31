@@ -66,6 +66,30 @@ router.put("/preferences", (req, res) => {
   return res.json(saveUserPreferences(req.user.id, { favorites, palette }));
 });
 
+router.get("/subscription", (req, res) => {
+  const user = db
+    .prepare(
+      `SELECT tier, stripe_customer_id, stripe_subscription_id,
+              subscription_status, subscription_plan,
+              subscription_current_period_end, subscription_cancel_at_period_end
+       FROM users WHERE id = ?`
+    )
+    .get(req.user.id);
+
+  if (!user || !user.stripe_subscription_id) {
+    return res.json(null);
+  }
+
+  return res.json({
+    tier: user.tier,
+    status: user.subscription_status,
+    plan: user.subscription_plan,
+    currentPeriodEnd: user.subscription_current_period_end,
+    cancelAtPeriodEnd: !!user.subscription_cancel_at_period_end,
+    stripeCustomerId: user.stripe_customer_id,
+  });
+});
+
 router.get("/orders", (req, res) => {
   const orders = db
     .prepare(

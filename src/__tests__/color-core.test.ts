@@ -251,12 +251,14 @@ describe("WCAG contrast", () => {
 // ---------------------------------------------------------------------------
 describe("Color ID validation", () => {
   const CHROMATIC_ROOTS = [
-    "crimson", "ruby", "ember", "coral", "apricot", "amber",
-    "citrine", "honey", "olive", "lime", "moss", "leaf",
-    "emerald", "mint", "seafoam", "jade", "teal", "lagoon",
-    "aqua", "cerulean", "azure", "sapphire", "cobalt", "indigo",
-    "iris", "violet", "orchid", "plum", "mulberry", "magenta",
-    "fuchsia", "peony", "rose", "blush", "garnet", "merlot",
+    "crimson", "scarlet", "ruby", "vermillion", "ember", "tangerine",
+    "coral", "apricot", "saffron", "amber", "canary", "citrine",
+    "honey", "chartreuse", "olive", "lime", "moss", "leaf",
+    "clover", "emerald", "mint", "seafoam", "celadon", "jade",
+    "teal", "lagoon", "cyan", "aqua", "cerulean", "azure",
+    "steel", "sapphire", "cobalt", "indigo", "iris", "amethyst",
+    "violet", "orchid", "plum", "mulberry", "magenta", "fuchsia",
+    "mauve", "peony", "rose", "blush", "garnet", "merlot",
   ];
 
   const NEUTRAL_ROOTS = ["warm-gray", "taupe-gray", "true-gray", "sage-gray", "cool-gray"];
@@ -305,12 +307,9 @@ describe("Color ID validation", () => {
       NEUTRAL_ROOTS.some((root) => c.id.startsWith(root)),
     );
     for (const color of neutrals) {
-      // Neutral IDs: "warm-gray-whisper", "cool-gray-shadow", "true-gray-tone"
+      // Neutral IDs: "warm-gray-whisper", "cool-gray-shadow", "true-gray-tone", etc.
       // The root itself contains a hyphen, so split and validate accordingly
-      const matchesWarm = color.id.match(/^warm-gray-(\w+)$/);
-      const matchesCool = color.id.match(/^cool-gray-(\w+)$/);
-      const matchesTrue = color.id.match(/^true-gray-(\w+)$/);
-      const match = matchesWarm || matchesCool || matchesTrue;
+      const match = color.id.match(/^(?:warm|taupe|true|sage|cool)-gray-(\w+)$/);
       expect(match).not.toBeNull();
       const lightnessLabel = match![1];
       expect(LIGHTNESS_BANDS).toContain(lightnessLabel);

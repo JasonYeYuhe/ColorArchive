@@ -135,8 +135,9 @@ function SubscriptionSection() {
     try {
       const res = await fetch("/api/billing-portal/", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ customerId: sub.stripeCustomerId }),
+        body: "{}",
       });
       const data = await res.json();
       if (data.url) window.location.href = data.url;

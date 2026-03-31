@@ -1,5 +1,6 @@
 const express = require("express");
 const db = require("../db");
+const { requireAnalyticsAccess } = require("../auth");
 const router = express.Router();
 
 // POST /pageviews — record a page view (fire-and-forget beacon)
@@ -26,7 +27,7 @@ router.post("/", (req, res) => {
 });
 
 // GET /pageviews/stats — page view analytics (protected, same as /analytics)
-router.get("/stats", (req, res) => {
+router.get("/stats", requireAnalyticsAccess, (req, res) => {
   const days = Math.min(parseInt(req.query.days) || 30, 365);
   const since = new Date(Date.now() - days * 86400000).toISOString();
 
