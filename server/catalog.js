@@ -41,6 +41,13 @@ const productCatalog = [
     packPath: "/packs/seasonal-spring-2026",
     productNames: ["seasonal: spring 2026", "seasonal spring 2026"],
   },
+  {
+    packId: "all-access-bundle",
+    title: "All Access Bundle",
+    downloadPath: "/downloads/complete-archive.zip",
+    packPath: "/packs/all-access-bundle",
+    productNames: ["all access bundle"],
+  },
 ];
 
 function normalizeProductName(value) {
@@ -54,6 +61,7 @@ function getFrontendOrigin() {
 function findCatalogProduct(productName) {
   const normalized = normalizeProductName(productName);
   return (
+    productCatalog.find((entry) => entry.packId === normalized) ??
     productCatalog.find((entry) => entry.productNames.includes(normalized)) ??
     productCatalog.find((entry) => normalized.includes(entry.packId.replaceAll("-", " "))) ??
     null
