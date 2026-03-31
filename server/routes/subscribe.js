@@ -77,11 +77,12 @@ router.post("/", async (req, res) => {
       const subscriber = db.prepare("SELECT referred_by FROM subscribers WHERE email = ?")
         .get(email.trim().toLowerCase());
       // Only credit if this subscriber hasn't already been credited to a referrer
+      // and the refCode maps to a real user (prevents invalid codes from locking the slot)
       if (!subscriber?.referred_by) {
-        db.prepare("UPDATE subscribers SET referred_by = ? WHERE email = ?")
-          .run(refCode, email.trim().toLowerCase());
         const referrerUser = db.prepare("SELECT id FROM users WHERE referral_code = ?").get(refCode);
         if (referrerUser) {
+          db.prepare("UPDATE subscribers SET referred_by = ? WHERE email = ?")
+            .run(refCode, email.trim().toLowerCase());
           db.prepare("UPDATE users SET credits = credits + 5 WHERE id = ?").run(referrerUser.id);
         }
       }

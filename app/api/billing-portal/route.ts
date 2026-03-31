@@ -3,6 +3,13 @@ import { stripe } from "@/src/lib/stripe";
 
 const API_URL = process.env.BACKEND_API_URL ?? "https://api.colorarchive.me";
 const FRONTEND_URL = process.env.FRONTEND_URL || "https://colorarchive.me";
+const ALLOWED_ORIGIN_RE = /^https:\/\/[\w-]+\.colorarchive\.me$|^https:\/\/colorarchive\.me$/;
+
+function resolveOrigin(req: NextRequest): string {
+  const reqOrigin = req.headers.get("origin") ?? "";
+  if (reqOrigin && ALLOWED_ORIGIN_RE.test(reqOrigin)) return reqOrigin;
+  return FRONTEND_URL;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,7 +29,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No subscription found" }, { status: 404 });
     }
 
-    const origin = FRONTEND_URL;
+    const origin = resolveOrigin(req);
 
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: subscription.stripeCustomerId,

@@ -7,7 +7,7 @@ const { getSessionUser, isAnalyticsAdmin } = require("../auth");
 const writeCounters = new Map();
 setInterval(() => writeCounters.clear(), 60_000);
 function rateLimitWrite(req, res, next) {
-  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress || "unknown";
+  const ip = req.ip || "unknown";
   const count = writeCounters.get(ip) || 0;
   if (count >= 60) return res.status(429).json({ error: "Rate limit exceeded" });
   writeCounters.set(ip, count + 1);

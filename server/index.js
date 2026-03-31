@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 3001;
 const allowedOrigins = new Set([
   process.env.FRONTEND_ORIGIN || "https://colorarchive.me",
@@ -11,10 +12,12 @@ const allowedOrigins = new Set([
     : []),
 ]);
 
+const ALLOWED_ORIGIN_RE = /^https:\/\/[\w-]+\.colorarchive\.me$/;
+
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.has(origin)) {
+      if (!origin || allowedOrigins.has(origin) || ALLOWED_ORIGIN_RE.test(origin)) {
         return callback(null, true);
       }
 

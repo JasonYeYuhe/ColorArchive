@@ -60,9 +60,11 @@ function ApiKeySection() {
     setLoading(true);
     try {
       if (hasKey) {
-        await fetch(`${API_URL}/me/api-key`, { method: "DELETE", credentials: "include" });
+        const delRes = await fetch(`${API_URL}/me/api-key`, { method: "DELETE", credentials: "include" });
+        if (!delRes.ok) return;
       }
       const res = await fetch(`${API_URL}/me/api-key`, { method: "POST", credentials: "include" });
+      if (!res.ok) return;
       const data = await res.json();
       if (data.apiKey) {
         setNewKey(data.apiKey);
@@ -77,7 +79,8 @@ function ApiKeySection() {
   };
 
   const revokeKey = async () => {
-    await fetch(`${API_URL}/me/api-key`, { method: "DELETE", credentials: "include" });
+    const res = await fetch(`${API_URL}/me/api-key`, { method: "DELETE", credentials: "include" });
+    if (!res.ok) return;
     setHasKey(false);
     setPrefix(null);
     setNewKey(null);

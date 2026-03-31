@@ -35,7 +35,11 @@ function normalizeNextPath(value) {
   return value;
 }
 
-function getLoginOrigin() {
+const ALLOWED_ORIGIN_RE = /^https:\/\/[\w-]+\.colorarchive\.me$|^https:\/\/colorarchive\.me$/;
+
+function getLoginOrigin(req) {
+  const reqOrigin = req?.headers?.origin;
+  if (reqOrigin && ALLOWED_ORIGIN_RE.test(reqOrigin)) return reqOrigin;
   return FRONTEND_ORIGIN;
 }
 
@@ -48,7 +52,7 @@ router.post("/request-link", async (req, res) => {
 
   try {
     const { token } = createMagicLinkToken(email);
-    const loginOrigin = getLoginOrigin();
+    const loginOrigin = getLoginOrigin(req);
     const nextPath = normalizeNextPath(next);
     const loginUrl = `${loginOrigin}/login?token=${encodeURIComponent(token)}&next=${encodeURIComponent(nextPath)}`;
     await sendMagicLinkEmail(email, {
