@@ -6,7 +6,17 @@ struct ColorArchiveApp: App {
     @State private var colorStore = ColorStore()
     @State private var favoritesStore = FavoritesStore()
     @State private var recentColorsStore = RecentColorsStore()
-    @State private var authStore = AuthStore()
+    @State private var authStore: AuthStore
+    @State private var storeManager: StoreManager
+    @State private var proAccess: ProAccessManager
+
+    init() {
+        let auth = AuthStore()
+        let store = StoreManager()
+        _authStore = State(initialValue: auth)
+        _storeManager = State(initialValue: store)
+        _proAccess = State(initialValue: ProAccessManager(storeManager: store, authStore: auth))
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -15,15 +25,23 @@ struct ColorArchiveApp: App {
                 .environment(favoritesStore)
                 .environment(recentColorsStore)
                 .environment(authStore)
+                .environment(storeManager)
+                .environment(proAccess)
                 .modelContainer(for: Palette.self)
+                .onAppear {
+                    authStore.checkSession()
+                }
                 .onOpenURL { url in
                     handleDeepLink(url)
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                    authStore.checkSession()
+                    Task { await storeManager.updatePurchasedProducts() }
                 }
         }
     }
 
     private func handleDeepLink(_ url: URL) {
-        // Handle colorarchive://login?token=X
         guard url.scheme == "colorarchive",
               url.host == "login",
               let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
@@ -35,6 +53,7 @@ struct ColorArchiveApp: App {
                 let user = try await APIService.verifyMagicLink(token: token)
                 await MainActor.run {
                     authStore.user = user
+                    authStore.checkSession()
                 }
             } catch {
                 print("Deep link login failed:", error)

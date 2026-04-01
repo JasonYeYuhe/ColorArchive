@@ -5,7 +5,10 @@ struct ProfileView: View {
     @Environment(FavoritesStore.self) var favoritesStore
     @Environment(RecentColorsStore.self) var recentColorsStore
     @Environment(AuthStore.self) var authStore
+    @Environment(StoreManager.self) var storeManager
+    @Environment(ProAccessManager.self) var proAccess
     @State private var showingSettings = false
+    @State private var showingPaywall = false
 
     var body: some View {
         NavigationStack {
@@ -39,6 +42,35 @@ struct ProfileView: View {
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets())
                     .padding(.vertical, 8)
+                }
+
+                // Pro Status
+                Section {
+                    if proAccess.isPro {
+                        HStack {
+                            Label("Pro Active", systemImage: "crown.fill")
+                                .foregroundStyle(.orange)
+                            Spacer()
+                            if let source = proAccess.proSource {
+                                Text(source)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    } else {
+                        Button {
+                            showingPaywall = true
+                        } label: {
+                            HStack {
+                                Label("Upgrade to Pro", systemImage: "crown.fill")
+                                    .foregroundStyle(.orange)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundStyle(.tertiary)
+                            }
+                        }
+                    }
                 }
 
                 // Color of the Day
@@ -118,9 +150,16 @@ struct ProfileView: View {
                         HStack {
                             Label(user.email, systemImage: "person.crop.circle.fill")
                             Spacer()
-                            Text(authStore.tier)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                            if proAccess.isPro {
+                                Text("Pro")
+                                    .font(.caption)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(.orange)
+                            } else {
+                                Text(authStore.tier)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
                         }
                         Button(role: .destructive) {
                             authStore.logout()
@@ -169,6 +208,9 @@ struct ProfileView: View {
             }
             .navigationTitle("Profile")
             .onAppear { authStore.checkSession() }
+            .sheet(isPresented: $showingPaywall) {
+                ProPaywallView()
+            }
             .navigationDestination(for: ColorRecord.self) { color in
                 ColorDetailView(color: color)
             }

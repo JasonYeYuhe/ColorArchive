@@ -1,1 +1,1 @@
-{ "active": null, "lockedBy": null, "lockedAt": null, "message": null }
+{ "active": true, "lockedBy": "remote", "lockedAt": "2026-04-01T04:04:03Z", "message": "iOS StoreKit 2 IAP integration + backend apple-purchase endpoint" }

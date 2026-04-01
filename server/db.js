@@ -181,6 +181,26 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_ai_usage_identifier_date ON ai_usage(identifier, date);
 `);
 
+// Apple IAP purchases
+db.exec(`
+  CREATE TABLE IF NOT EXISTS apple_purchases (
+    id                      INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id                 INTEGER NOT NULL,
+    product_id              TEXT NOT NULL,
+    original_transaction_id TEXT UNIQUE NOT NULL,
+    transaction_date        TEXT NOT NULL,
+    environment             TEXT NOT NULL DEFAULT 'Production',
+    status                  TEXT NOT NULL DEFAULT 'active',
+    created_at              TEXT NOT NULL DEFAULT (datetime('now')),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+  );
+  CREATE INDEX IF NOT EXISTS idx_apple_purchases_user_id ON apple_purchases(user_id);
+  CREATE INDEX IF NOT EXISTS idx_apple_purchases_original_txn ON apple_purchases(original_transaction_id);
+`);
+
+// Apple-specific columns on users
+ensureColumn("users", "apple_original_transaction_id TEXT");
+
 // Migrate plaintext API keys to hashed storage
 const crypto = require("crypto");
 function hashApiKey(key) {

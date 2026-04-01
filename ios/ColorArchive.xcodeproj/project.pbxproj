@@ -51,6 +51,11 @@
 		A10042 /* ColorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10042 /* ColorCollection.swift */; };
 		A10043 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10043 /* Collections.swift */; };
 		A10044 /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10044 /* CollectionsView.swift */; };
+		A10046 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10046 /* StoreManager.swift */; };
+		A10047 /* ProAccessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10047 /* ProAccessManager.swift */; };
+		A10048 /* ProPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10048 /* ProPaywallView.swift */; };
+		A10049 /* ProGateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10049 /* ProGateView.swift */; };
+		A10050 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B10050 /* Products.storekit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +103,11 @@
 		B10042 /* ColorCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollection.swift; sourceTree = "<group>"; };
 		B10043 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
 		B10044 /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
+		B10046 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		B10047 /* ProAccessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProAccessManager.swift; sourceTree = "<group>"; };
+		B10048 /* ProPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPaywallView.swift; sourceTree = "<group>"; };
+		B10049 /* ProGateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProGateView.swift; sourceTree = "<group>"; };
+		B10050 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 		C10001 /* ColorArchive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorArchive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -133,6 +143,7 @@
 				E10010 /* Extensions */,
 				E10015 /* Data */,
 				B10003 /* Assets.xcassets */,
+				B10050 /* Products.storekit */,
 			);
 			path = ColorArchive;
 			sourceTree = "<group>";
@@ -161,8 +172,18 @@
 				E10013 /* Components */,
 				E10014 /* Auth */,
 				E10016 /* Collections */,
+				E10017 /* Pro */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E10017 /* Pro */ = {
+			isa = PBXGroup;
+			children = (
+				B10048 /* ProPaywallView.swift */,
+				B10049 /* ProGateView.swift */,
+			);
+			path = Pro;
 			sourceTree = "<group>";
 		};
 		E10005 /* ViewModels */ = {
@@ -180,6 +201,8 @@
 			children = (
 				B10015 /* APIService.swift */,
 				B10045 /* AuthStore.swift */,
+				B10046 /* StoreManager.swift */,
+				B10047 /* ProAccessManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -336,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10003 /* Assets.xcassets in Resources */,
+				A10050 /* Products.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +413,10 @@
 				A10042 /* ColorCollection.swift in Sources */,
 				A10043 /* Collections.swift in Sources */,
 				A10044 /* CollectionsView.swift in Sources */,
+				A10046 /* StoreManager.swift in Sources */,
+				A10047 /* ProAccessManager.swift in Sources */,
+				A10048 /* ProPaywallView.swift in Sources */,
+				A10049 /* ProGateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -202,4 +202,107 @@ router.get("/google/callback", async (req, res) => {
   }
 });
 
+// ---- Apple IAP Purchase Verification ----
+
+const db = require("../db");
+
+/**
+ * Called by the iOS app after a successful StoreKit 2 purchase.
+ * Links the Apple transaction to the authenticated user and grants Pro tier.
+ *
+ * In production, you should also verify the transaction with Apple's
+ * App Store Server API (https://developer.apple.com/documentation/appstoreserverapi).
+ * For now we trust the client-side StoreKit 2 verification (JWS-signed by Apple).
+ */
+router.post("/apple-purchase", (req, res) => {
+  const user = getSessionUser(req);
+  if (!user) {
+    return res.status(401).json({ error: "Authentication required" });
+  }
+
+  const { productId, originalTransactionId, transactionDate, environment } = req.body;
+
+  if (!productId || !originalTransactionId) {
+    return res.status(400).json({ error: "Missing productId or originalTransactionId" });
+  }
+
+  const validProducts = [
+    "me.colorarchive.pro.monthly",
+    "me.colorarchive.pro.yearly",
+    "me.colorarchive.pro.lifetime",
+  ];
+
+  if (!validProducts.includes(productId)) {
+    return res.status(400).json({ error: "Invalid product ID" });
+  }
+
+  const txnId = String(originalTransactionId);
+
+  try {
+    // Fix #3: Check if this transaction is already linked to a different user
+    const existing = db.prepare(
+      "SELECT user_id FROM apple_purchases WHERE original_transaction_id = ?"
+    ).get(txnId);
+
+    if (existing && existing.user_id !== user.id) {
+      return res.status(409).json({
+        error: "This purchase is already linked to a different account",
+      });
+    }
+
+    // Upsert the purchase record (within a transaction for atomicity)
+    const applyPurchase = db.transaction(() => {
+      db.prepare(`
+        INSERT INTO apple_purchases (user_id, product_id, original_transaction_id, transaction_date, environment)
+        VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(original_transaction_id) DO UPDATE SET
+          status = 'active',
+          product_id = excluded.product_id
+      `).run(
+        user.id,
+        productId,
+        txnId,
+        transactionDate || new Date().toISOString(),
+        environment || "Production"
+      );
+
+      // Calculate pro expiration
+      let proExpiresAt = null;
+      if (productId === "me.colorarchive.pro.monthly") {
+        const d = new Date();
+        d.setMonth(d.getMonth() + 1);
+        d.setDate(d.getDate() + 3); // 3-day grace
+        proExpiresAt = d.toISOString();
+      } else if (productId === "me.colorarchive.pro.yearly") {
+        const d = new Date();
+        d.setFullYear(d.getFullYear() + 1);
+        d.setDate(d.getDate() + 3);
+        proExpiresAt = d.toISOString();
+      }
+      // lifetime → proExpiresAt stays null (no expiration)
+
+      db.prepare(`
+        UPDATE users SET
+          tier = 'pro',
+          pro_expires_at = ?,
+          apple_original_transaction_id = ?
+        WHERE id = ?
+      `).run(proExpiresAt, txnId, user.id);
+
+      return proExpiresAt;
+    });
+
+    const proExpiresAt = applyPurchase();
+
+    // TODO (#1): For production hardening, verify the transaction JWS with
+    // Apple's App Store Server API before trusting client-supplied data.
+    // See: https://developer.apple.com/documentation/appstoreserverapi
+
+    return res.json({ ok: true, tier: "pro", proExpiresAt });
+  } catch (err) {
+    console.error("apple-purchase error:", err);
+    return res.status(500).json({ error: "Failed to process purchase" });
+  }
+});
+
 module.exports = router;

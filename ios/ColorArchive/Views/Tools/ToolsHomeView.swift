@@ -6,22 +6,29 @@ struct ToolItem: Identifiable {
     let subtitle: String
     let icon: String
     let color: Color
+    var requiresPro: Bool = false
 }
+
+private let proToolNames: Set<String> = [
+    "AI Mood", "Image Palette", "Harmonies",
+    "Colorblind", "Tints & Shades", "Mixer", "Gradient"
+]
 
 struct ToolsHomeView: View {
     @Environment(ColorStore.self) var colorStore
+    @Environment(ProAccessManager.self) var proAccess
 
     private let tools: [ToolItem] = [
         ToolItem(title: "Palettes", subtitle: "Create, save & export custom palettes", icon: "paintpalette.fill", color: .orange),
-        ToolItem(title: "AI Mood", subtitle: "Generate palette from mood or scene", icon: "sparkles", color: .purple),
-        ToolItem(title: "Image Palette", subtitle: "Extract colors from photos", icon: "photo.on.rectangle.angled", color: .blue),
-        ToolItem(title: "Harmonies", subtitle: "Complementary, analogous & triadic", icon: "circle.hexagongrid.fill", color: .pink),
+        ToolItem(title: "AI Mood", subtitle: "Generate palette from mood or scene", icon: "sparkles", color: .purple, requiresPro: true),
+        ToolItem(title: "Image Palette", subtitle: "Extract colors from photos", icon: "photo.on.rectangle.angled", color: .blue, requiresPro: true),
+        ToolItem(title: "Harmonies", subtitle: "Complementary, analogous & triadic", icon: "circle.hexagongrid.fill", color: .pink, requiresPro: true),
         ToolItem(title: "Contrast", subtitle: "WCAG accessibility checker", icon: "eye.fill", color: .cyan),
-        ToolItem(title: "Colorblind", subtitle: "Simulate color vision deficiency", icon: "eyeglasses", color: .teal),
-        ToolItem(title: "Tints & Shades", subtitle: "Generate lightness variations", icon: "slider.horizontal.3", color: .yellow),
+        ToolItem(title: "Colorblind", subtitle: "Simulate color vision deficiency", icon: "eyeglasses", color: .teal, requiresPro: true),
+        ToolItem(title: "Tints & Shades", subtitle: "Generate lightness variations", icon: "slider.horizontal.3", color: .yellow, requiresPro: true),
         ToolItem(title: "Converter", subtitle: "HEX ↔ RGB ↔ HSL ↔ CMYK", icon: "arrow.triangle.2.circlepath", color: .green),
-        ToolItem(title: "Mixer", subtitle: "Blend two colors together", icon: "drop.fill", color: .red),
-        ToolItem(title: "Gradient", subtitle: "Build CSS gradients", icon: "rectangle.fill", color: .indigo),
+        ToolItem(title: "Mixer", subtitle: "Blend two colors together", icon: "drop.fill", color: .red, requiresPro: true),
+        ToolItem(title: "Gradient", subtitle: "Build CSS gradients", icon: "rectangle.fill", color: .indigo, requiresPro: true),
     ]
 
     @State private var selectedTool: String?
@@ -74,16 +81,25 @@ struct ToolsHomeView: View {
                 // Tool grid
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 14) {
                     ForEach(tools) { tool in
+                        let locked = tool.requiresPro && !proAccess.isPro
                         NavigationLink(value: tool.title) {
                             VStack(alignment: .leading, spacing: 10) {
-                                Image(systemName: tool.icon)
-                                    .font(.title2)
-                                    .foregroundStyle(tool.color)
+                                HStack {
+                                    Image(systemName: tool.icon)
+                                        .font(.title2)
+                                        .foregroundStyle(locked ? .secondary : tool.color)
+                                    Spacer()
+                                    if locked {
+                                        Image(systemName: "lock.fill")
+                                            .font(.caption)
+                                            .foregroundStyle(.orange)
+                                    }
+                                }
 
                                 Text(tool.title)
                                     .font(.subheadline)
                                     .fontWeight(.semibold)
-                                    .foregroundStyle(.primary)
+                                    .foregroundStyle(locked ? .secondary : .primary)
 
                                 Text(tool.subtitle)
                                     .font(.caption2)
@@ -102,33 +118,45 @@ struct ToolsHomeView: View {
             }
             .navigationTitle("Tools")
             .navigationDestination(for: String.self) { toolName in
-                switch toolName {
-                case "Palettes":
-                    PaletteBuilderView(embedded: true)
-                case "AI Mood":
-                    AIMoodPaletteView()
-                case "Image Palette":
-                    ImagePaletteView()
-                case "Harmonies":
-                    HarmoniesView()
-                case "Contrast":
-                    ContrastCheckerView()
-                case "Colorblind":
-                    ColorBlindSimView()
-                case "Tints & Shades":
-                    TintsShadesView()
-                case "Converter":
-                    ConverterView()
-                case "Mixer":
-                    MixerView()
-                case "Gradient":
-                    GradientBuilderView()
-                default:
-                    Text("Coming Soon")
+                let needsPro = proToolNames.contains(toolName)
+                if needsPro {
+                    ProGateView(featureName: toolName) {
+                        toolView(for: toolName)
+                    }
+                } else {
+                    toolView(for: toolName)
                 }
             }
         .navigationDestination(for: ColorRecord.self) { color in
             ColorDetailView(color: color)
+        }
+    }
+
+    @ViewBuilder
+    private func toolView(for name: String) -> some View {
+        switch name {
+        case "Palettes":
+            PaletteBuilderView(embedded: true)
+        case "AI Mood":
+            AIMoodPaletteView()
+        case "Image Palette":
+            ImagePaletteView()
+        case "Harmonies":
+            HarmoniesView()
+        case "Contrast":
+            ContrastCheckerView()
+        case "Colorblind":
+            ColorBlindSimView()
+        case "Tints & Shades":
+            TintsShadesView()
+        case "Converter":
+            ConverterView()
+        case "Mixer":
+            MixerView()
+        case "Gradient":
+            GradientBuilderView()
+        default:
+            Text("Coming Soon")
         }
     }
 }
