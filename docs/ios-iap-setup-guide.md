@@ -103,15 +103,125 @@ The `apple_purchases` table will be auto-created on first server start (via `db.
 
 ---
 
-## Step 5: Submit for Review
+## Step 5: Build, Upload, and Submit for Review
 
-1. Bump version to 1.1.0 in Xcode (General → Version)
-2. Archive and upload to App Store Connect
-3. In the submission form:
-   - Add the 3 IAP products to the build
-   - Add review notes: "New in-app purchases for Pro subscription. Test account credentials: [provide sandbox test account]"
-4. Create a Sandbox Test Account in App Store Connect → Users & Access → Sandbox Testers
-5. Submit for review
+### 5a. Bump Version in Xcode Project
+
+Edit `project.pbxproj` or use Xcode GUI:
+- `MARKETING_VERSION` → `1.1` (or next version)
+- `CURRENT_PROJECT_VERSION` → `2` (or next build number)
+
+### 5b. Create Entitlements File
+
+Create `ColorArchive/ColorArchive.entitlements`:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict/>
+</plist>
+```
+
+**Important:** StoreKit 2 IAP does NOT need entitlement keys in the file. The capability is managed via the provisioning profile. Adding `com.apple.developer.in-app-payments` will cause a "Provisioning profile doesn't include the Apple Pay capability" error — that key is for Apple Pay, not StoreKit.
+
+Add to both Debug and Release build configs in pbxproj:
+```
+CODE_SIGN_ENTITLEMENTS = ColorArchive/ColorArchive.entitlements;
+```
+
+### 5c. Archive the App
+
+```bash
+xcodebuild -project ColorArchive.xcodeproj \
+  -scheme ColorArchive \
+  -configuration Release \
+  -archivePath /tmp/ColorArchive.xcarchive \
+  -destination "generic/platform=iOS" \
+  archive \
+  CODE_SIGN_STYLE=Automatic \
+  DEVELOPMENT_TEAM=KHMK6Q3L3K
+```
+
+### 5d. Upload via Xcode Organizer (Recommended)
+
+**Why not CLI?** `xcodebuild -exportArchive` requires an iOS Distribution certificate already installed. Xcode Organizer's "Distribute App" flow can **automatically create** the distribution certificate and provisioning profile.
+
+1. Open the archive: `open /tmp/ColorArchive.xcarchive` (opens in Xcode Organizer)
+2. In Organizer (Window → Organizer → Archives), select the archive
+3. Click **"Distribute App"**
+4. Select **"App Store Connect"** → Click **"Distribute"**
+5. Xcode will automatically:
+   - Create an iOS Distribution certificate (if none exists)
+   - Generate an App Store provisioning profile
+   - Upload the build to App Store Connect
+6. Wait for "Uploading" → "Waiting for App Store Connect analysis response..." → Complete
+
+**Alternative CLI method** (if you already have distribution certificate):
+```bash
+cat > /tmp/ExportOptions.plist << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>app-store-connect</string>
+    <key>signingStyle</key>
+    <string>automatic</string>
+    <key>teamID</key>
+    <string>KHMK6Q3L3K</string>
+    <key>uploadSymbols</key>
+    <true/>
+    <key>destination</key>
+    <string>upload</string>
+</dict>
+</plist>
+EOF
+
+xcodebuild -exportArchive \
+  -archivePath /tmp/ColorArchive.xcarchive \
+  -exportOptionsPlist /tmp/ExportOptions.plist \
+  -exportPath /tmp/ColorArchiveExport \
+  -allowProvisioningUpdates
+```
+
+### 5e. Process the Build in App Store Connect
+
+After upload, the build takes ~5-15 minutes to process:
+
+1. Go to **TestFlight → iOS Builds** to monitor processing status
+2. Once "Processing" → "Complete", handle **Export Compliance**:
+   - Click "Manage" next to "Missing Compliance"
+   - Select **"None of the algorithms mentioned above"** (if no custom encryption, only standard HTTPS)
+   - Click Save
+3. Build status changes to **"Ready to Submit"**
+
+### 5f. Select Build and Submit
+
+1. Go to **Distribution → iOS App → Version X.X**
+2. Scroll to **Build** section → Click **"Add Build"**
+3. Select the uploaded build → Click **"Done"**
+4. Verify all sections are complete:
+   - Screenshots uploaded
+   - What's New text filled
+   - IAP products associated (In-App Purchases and Subscriptions section)
+   - App Review Information (contact info)
+5. Click **"Save"** then **"Add for Review"**
+
+### 5g. Create Sandbox Test Account (before or during review)
+
+1. App Store Connect → Users and Access → Sandbox → Testers
+2. Create a test account with a unique email
+3. Use this account on a test device (Settings → App Store → Sandbox Account) to test purchases
+
+### Troubleshooting
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| "Provisioning profile doesn't include Apple Pay" | Wrong entitlements key | Use empty `<dict/>` in entitlements, not `com.apple.developer.in-app-payments` |
+| "No signing certificate 'iOS Distribution' found" | Missing distribution cert | Use Xcode Organizer instead of CLI — it auto-creates certs |
+| "Failed to Use Accounts" | CLI auth issue | Use Xcode Organizer GUI which has proper auth |
+| Build not appearing in Version page | Still processing | Wait 5-15 min, check TestFlight → Build Uploads |
+| "Missing Compliance" warning | Export compliance not set | Click Manage → select encryption type → Save |
 
 ---
 
