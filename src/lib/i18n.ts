@@ -208,7 +208,7 @@ const translations: Record<string, Record<string, string>> = {
   "login.signedIn": { en: "Signed in", zh: "已登录" },
   "login.openFavorites": { en: "Open favorites", zh: "打开收藏" },
   "login.openPalette": { en: "Open palette", zh: "打开调色板" },
-  "login.browsePacks": { en: "Browse packs", zh: "浏览套装" },
+  "login.browsePacks": { en: "Upgrade to Pro", zh: "升级到 Pro" },
   "login.openAnalytics": { en: "Open analytics", zh: "打开分析" },
   "login.adminOrders": { en: "Admin orders", zh: "管理员订单" },
   "login.logOut": { en: "Log out", zh: "退出登录" },
@@ -237,7 +237,7 @@ const translations: Record<string, Record<string, string>> = {
   "login.whatSyncs": { en: "What syncs", zh: "同步内容" },
   "login.favorites": { en: "Favorites", zh: "收藏" },
   "login.paletteBuilder": { en: "Palette builder", zh: "调色板构建器" },
-  "login.packs": { en: "Packs", zh: "套装" },
+  "login.packs": { en: "Pro", zh: "Pro" },
   "login.analytics": { en: "Analytics", zh: "分析" },
   "login.licenseSupport": { en: "License & support", zh: "许可与支持" },
   "login.purchaseSupport": { en: "Purchase support", zh: "购买支持" },
@@ -437,10 +437,10 @@ const translations: Record<string, Record<string, string>> = {
   "search.ctaLabel": { en: "Take your palette further", zh: "进一步利用你的调色板" },
   "search.ctaTitle": { en: "From search to production-ready tokens", zh: "从搜索到生产级令牌" },
   "search.ctaDesc": {
-    en: "ColorArchive packs include CSS variables, Figma tokens, Tailwind config, and Procreate swatches built around curated color directions.",
-    zh: "ColorArchive 套装包含 CSS 变量、Figma 令牌、Tailwind 配置和基于精选色彩方案的 Procreate 色板。",
+    en: "ColorArchive Pro includes CSS variables, Figma tokens, Tailwind config, and Procreate swatches built around curated color directions.",
+    zh: "ColorArchive Pro 包含 CSS 变量、Figma 令牌、Tailwind 配置和基于精选色彩方案的 Procreate 色板。",
   },
-  "search.browsePacks": { en: "Browse packs", zh: "浏览套装" },
+  "search.browsePacks": { en: "Upgrade to Pro", zh: "升级到 Pro" },
   "search.viewCollections": { en: "View collections", zh: "查看合集" },
   "search.freeDownload": { en: "Free download", zh: "免费下载" },
   "search.mood": { en: "Mood", zh: "情绪" },
@@ -919,12 +919,12 @@ const translations: Record<string, Record<string, string>> = {
     zh: "从指南进入具体的调色板方案",
   },
   "guide.ctaDesc": {
-    en: "Guides explain the use case. Collections prove the taste. Packs handle the export and implementation layer.",
-    zh: "指南解释用例，系列展示品味，套装处理导出和实施。",
+    en: "Guides explain the use case. Collections prove the taste. Pro handles the export and implementation layer.",
+    zh: "指南解释用例，系列展示品味，Pro 处理导出和实施。",
   },
   "guide.browsePacks": {
-    en: "Browse packs",
-    zh: "浏览套装",
+    en: "Upgrade to Pro",
+    zh: "升级到 Pro",
   },
   "guide.moreGuides": {
     en: "More guides",
@@ -1323,12 +1323,12 @@ const translations: Record<string, Record<string, string>> = {
     zh: "将这些颜色转换为设计 Token",
   },
   "colorDetail.buildDesc": {
-    en: "ColorArchive packs include CSS variables, Figma tokens, Tailwind config, and Procreate swatches — ready to drop into any project.",
-    zh: "ColorArchive 套装包含 CSS 变量、Figma Token、Tailwind 配置和 Procreate 色板——可直接用于任何项目。",
+    en: "ColorArchive Pro includes CSS variables, Figma tokens, Tailwind config, and Procreate swatches — ready to drop into any project.",
+    zh: "ColorArchive Pro 包含 CSS 变量、Figma Token、Tailwind 配置和 Procreate 色板——可直接用于任何项目。",
   },
   "colorDetail.browsePacks": {
-    en: "Browse packs",
-    zh: "浏览套装",
+    en: "Upgrade to Pro",
+    zh: "升级到 Pro",
   },
   "colorDetail.freeDownload": {
     en: "Free download",
@@ -1477,12 +1477,12 @@ const translations: Record<string, Record<string, string>> = {
     zh: "将流行色转换为生产 Token",
   },
   "trending.ctaDesc": {
-    en: "ColorArchive packs include CSS variables, Figma tokens, Tailwind config, and Procreate swatches — ready for any project.",
-    zh: "ColorArchive 套装包含 CSS 变量、Figma Token、Tailwind 配置和 Procreate 色板——适用于任何项目。",
+    en: "ColorArchive Pro includes CSS variables, Figma tokens, Tailwind config, and Procreate swatches — ready for any project.",
+    zh: "ColorArchive Pro 包含 CSS 变量、Figma Token、Tailwind 配置和 Procreate 色板——适用于任何项目。",
   },
   "trending.browsePacks": {
-    en: "Browse packs",
-    zh: "浏览套装",
+    en: "Upgrade to Pro",
+    zh: "升级到 Pro",
   },
   "trending.freeDownload": {
     en: "Free download",
@@ -1719,12 +1719,12 @@ const translations: Record<string, Record<string, string>> = {
     zh: "如果信任是障碍而非产品本身，请使用免费示例。",
   },
   "cancel.nextSteps.3": {
-    en: "Use FIRSTPACK on the starter lane if price is the blocker and you want the fastest paid path.",
-    zh: "如果价格是障碍且您希望走最快的付费路径，在入门方案上使用 FIRSTPACK。",
+    en: "Try the monthly plan if price is the blocker and you want the fastest paid path.",
+    zh: "如果价格是障碍且您希望走最快的付费路径，请尝试月付方案。",
   },
   "cancel.nextSteps.4": {
-    en: "Open the bundle page if you were comparing multiple packs and decision fatigue slowed you down.",
-    zh: "如果您在比较多个套装时决策疲劳拖慢了进度，请打开套装页面。",
+    en: "Visit the Pro page if you were still comparing options and decision fatigue slowed you down.",
+    zh: "如果您在比较选项时决策疲劳拖慢了进度，请访问 Pro 页面。",
   },
   "cancel.questions.label": {
     en: "Questions before buying",

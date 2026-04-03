@@ -282,13 +282,13 @@ export function TrendingPage() {
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
-              href="/packs/"
+              href="/pro/"
               className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200"
             >
               {t("trending.browsePacks")}
             </Link>
             <Link
-              href="/free-pack/"
+              href="/free-resources/"
               className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white"
             >
               {t("trending.freeDownload")}

@@ -86,7 +86,7 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
               These pages connect common color questions to concrete ColorArchive routes: collections,
-              packs, free downloads, notes, and implementation assets.
+              Pro resources, free downloads, notes, and implementation assets.
             </p>
 
             {/* Search + category filter */}
@@ -136,10 +136,10 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
                     Read featured guide
                   </Link>
                   <Link
-                    href="/packs/"
+                    href="/pro/"
                     className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
                   >
-                    Browse packs
+                    Upgrade to Pro
                   </Link>
                 </div>
               </div>
@@ -160,10 +160,10 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
                 </p>
               </div>
               <Link
-                href="/packs/"
+                href="/pro/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
-                Browse packs
+                Upgrade to Pro
               </Link>
             </div>
 
@@ -308,24 +308,24 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
             Next step
           </div>
           <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
-            Guides are the bridge. Packs are the implementation layer.
+            Guides are the bridge. Pro is the implementation layer.
           </p>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
             If one of these guides matches your use case, move directly into the related collection,
-            free pack, or paid pack while the context is still clear.
+            free resource, or Pro subscription while the context is still clear.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
-              href="/packs/"
+              href="/pro/"
               className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
             >
-              Browse packs
+              Upgrade to Pro
             </Link>
             <Link
-              href="/free-pack/"
+              href="/free-resources/"
               className="rounded-full border border-white/16 px-4 py-2 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
             >
-              Get free pack
+              Try free resources
             </Link>
           </div>
         </section>

@@ -198,7 +198,7 @@ export function PaletteBuilderTray() {
             {paletteColors.length >= 3 && (
               <div className="mt-3 border-t border-black/6 pt-3">
                 <Link
-                  href="/packs/complete-archive/"
+                  href="/pro/"
                   className="text-[11px] text-neutral-400 transition hover:text-neutral-600"
                 >
                   {t("tray.turnIntoTokenPack")} →

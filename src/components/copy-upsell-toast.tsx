@@ -50,11 +50,11 @@ export function CopyUpsellToast() {
           </p>
           <div className="mt-3 flex gap-2">
             <Link
-              href="/packs/"
+              href="/pro/"
               onClick={dismiss}
               className="rounded-full bg-neutral-950 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-neutral-800 dark:bg-white dark:text-neutral-950"
             >
-              Browse packs
+              Upgrade to Pro
             </Link>
             <button
               type="button"

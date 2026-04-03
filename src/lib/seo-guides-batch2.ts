@@ -37,7 +37,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Modern Seaside Collection", href: "/collections/modern-seaside/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -76,7 +76,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Midnight Forest Collection", href: "/collections/midnight-forest/" },
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
     ],
   },
@@ -116,7 +116,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
       { label: "Stone & Teal Collection", href: "/collections/stone-and-teal/" },
-      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Complete Archive", href: "/pro/" },
     ],
   },
   {
@@ -154,7 +154,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Golden Hour Collection", href: "/collections/golden-hour/" },
-      { label: "Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Content Creator Bundle", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -194,7 +194,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Design Token Export", href: "/tokens/" },
       { label: "Candy Pop Collection", href: "/collections/candy-pop/" },
-      { label: "Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Palette Pack Vol. 1", href: "/pro/" },
     ],
   },
 
@@ -234,7 +234,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -273,7 +273,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
     ],
   },
@@ -313,7 +313,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
       { label: "Cobalt Morning Collection", href: "/collections/cobalt-morning/" },
-      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Complete Archive", href: "/pro/" },
     ],
   },
   {
@@ -351,7 +351,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Copper Patina Collection", href: "/collections/copper-patina/" },
-      { label: "Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Content Creator Bundle", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -391,7 +391,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Design Token Export", href: "/tokens/" },
       { label: "Monochrome Studio Collection", href: "/collections/monochrome-studio/" },
-      { label: "Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Palette Pack Vol. 1", href: "/pro/" },
     ],
   },
 // Travel / Hospitality — 5 guides
@@ -430,7 +430,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Browse Sunset Boulevard", href: "/collections/sunset-boulevard/" },
-    { label: "Get Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    { label: "Get Brand Starter Kit", href: "/pro/" },
     { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
@@ -469,7 +469,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Browse Ocean Abyss", href: "/collections/ocean-abyss/" },
-    { label: "Get Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+    { label: "Get Dark Mode UI Kit", href: "/pro/" },
     { label: "Run contrast audit", href: "/wcag-audit/" },
   ],
 },
@@ -508,7 +508,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Browse Nordic Frost", href: "/collections/nordic-frost/" },
-    { label: "Get Palette Pack Vol 1", href: "/packs/palette-pack-vol-1/" },
+    { label: "Get Palette Pack Vol 1", href: "/pro/" },
     { label: "Audit your colors", href: "/wcag-audit/" },
   ],
 },
@@ -547,7 +547,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Browse Desert Dusk", href: "/collections/desert-dusk/" },
-    { label: "Get Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+    { label: "Get Content Creator Bundle", href: "/pro/" },
     { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
@@ -586,7 +586,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Browse Cobalt Morning", href: "/collections/cobalt-morning/" },
-    { label: "Get Complete Archive", href: "/packs/complete-archive/" },
+    { label: "Get Complete Archive", href: "/pro/" },
     { label: "Export design tokens", href: "/tokens/" },
   ],
 },
@@ -626,7 +626,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Browse Neon After Dark", href: "/collections/neon-after-dark/" },
-    { label: "Get Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    { label: "Get Brand Starter Kit", href: "/pro/" },
     { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
@@ -665,7 +665,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Browse Digital Night", href: "/collections/digital-night/" },
-    { label: "Get Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+    { label: "Get Dark Mode UI Kit", href: "/pro/" },
     { label: "Export design tokens", href: "/tokens/" },
   ],
 },
@@ -704,7 +704,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Browse Candy Pop", href: "/collections/candy-pop/" },
-    { label: "Get Palette Pack Vol 1", href: "/packs/palette-pack-vol-1/" },
+    { label: "Get Palette Pack Vol 1", href: "/pro/" },
     { label: "Audit your colors", href: "/wcag-audit/" },
   ],
 },
@@ -743,7 +743,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Browse Electric Mint", href: "/collections/electric-mint/" },
-    { label: "Get Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+    { label: "Get Content Creator Bundle", href: "/pro/" },
     { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
@@ -782,7 +782,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Browse Nocturne Tech", href: "/collections/nocturne-tech/" },
-    { label: "Get Complete Archive", href: "/packs/complete-archive/" },
+    { label: "Get Complete Archive", href: "/pro/" },
     { label: "Export design tokens", href: "/tokens/" },
   ],
 },
@@ -822,7 +822,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Open Terracotta Loft", href: "/collections/terracotta-loft/" },
-    { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    { label: "Open Brand Starter Kit", href: "/pro/" },
     { label: "Try the brand generator", href: "/brand-generator/" },
   ],
 },
@@ -863,7 +863,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Open Desert Canyon", href: "/collections/desert-canyon/" },
-    { label: "Open Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+    { label: "Open Dark Mode UI Kit", href: "/pro/" },
     { label: "Check contrast ratios", href: "/wcag-audit/" },
   ],
 },
@@ -905,7 +905,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Open Stone and Teal", href: "/collections/stone-and-teal/" },
     { label: "Run a WCAG color audit", href: "/wcag-audit/" },
-    { label: "Download Palette Pack Vol 1", href: "/packs/palette-pack-vol-1/" },
+    { label: "Download Palette Pack Vol 1", href: "/pro/" },
   ],
 },
 
@@ -945,7 +945,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Open Golden Hour", href: "/collections/golden-hour/" },
-    { label: "Open Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+    { label: "Open Content Creator Bundle", href: "/pro/" },
     { label: "Generate a palette", href: "/brand-generator/" },
   ],
 },
@@ -986,7 +986,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
-    { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    { label: "Open Brand Starter Kit", href: "/pro/" },
     { label: "Export design tokens", href: "/tokens/" },
   ],
 },
@@ -1027,7 +1027,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Open Cobalt Morning", href: "/collections/cobalt-morning/" },
-    { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    { label: "Open Brand Starter Kit", href: "/pro/" },
     { label: "Try the brand generator", href: "/brand-generator/" },
   ],
 },
@@ -1068,7 +1068,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Open Nocturne Tech", href: "/collections/nocturne-tech/" },
-    { label: "Open Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+    { label: "Open Dark Mode UI Kit", href: "/pro/" },
     { label: "Check contrast ratios", href: "/wcag-audit/" },
   ],
 },
@@ -1110,7 +1110,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Open Candy Pop", href: "/collections/candy-pop/" },
     { label: "Run a WCAG color audit", href: "/wcag-audit/" },
-    { label: "Download Palette Pack Vol 1", href: "/packs/palette-pack-vol-1/" },
+    { label: "Download Palette Pack Vol 1", href: "/pro/" },
   ],
 },
 
@@ -1150,7 +1150,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Open Monochrome Studio", href: "/collections/monochrome-studio/" },
-    { label: "Open Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+    { label: "Open Content Creator Bundle", href: "/pro/" },
     { label: "Generate a palette", href: "/brand-generator/" },
   ],
 },
@@ -1191,7 +1191,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Open Midnight Forest", href: "/collections/midnight-forest/" },
-    { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    { label: "Open Brand Starter Kit", href: "/pro/" },
     { label: "Export design tokens", href: "/tokens/" },
   ],
 },
@@ -1231,7 +1231,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Explore Concrete Modernism", href: "/collections/concrete-modernism/" },
-    { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    { label: "Get the Brand Starter Kit", href: "/pro/" },
     { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
@@ -1270,7 +1270,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Explore Monochrome Studio", href: "/collections/monochrome-studio/" },
-    { label: "Get the Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+    { label: "Get the Dark Mode UI Kit", href: "/pro/" },
     { label: "Run a contrast audit", href: "/wcag-audit/" },
   ],
 },
@@ -1310,7 +1310,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Explore Stone and Teal", href: "/collections/stone-and-teal/" },
     { label: "Run a WCAG audit", href: "/wcag-audit/" },
-    { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    { label: "Get the Brand Starter Kit", href: "/pro/" },
   ],
 },
 {
@@ -1348,7 +1348,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Explore Terracotta Workshop", href: "/collections/terracotta-workshop/" },
-    { label: "Get the Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+    { label: "Get the Content Creator Bundle", href: "/pro/" },
     { label: "Browse all collections", href: "/collections/" },
   ],
 },
@@ -1387,7 +1387,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Explore Film Neutral", href: "/collections/film-neutral/" },
-    { label: "Get the Complete Archive", href: "/packs/complete-archive/" },
+    { label: "Get the Complete Archive", href: "/pro/" },
     { label: "Set up design tokens", href: "/tokens/" },
   ],
 },
@@ -1427,7 +1427,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Explore Velvet Dusk", href: "/collections/velvet-dusk/" },
-    { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    { label: "Get the Brand Starter Kit", href: "/pro/" },
     { label: "Generate custom palette", href: "/brand-generator/" },
   ],
 },
@@ -1466,7 +1466,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Explore Neon After Dark", href: "/collections/neon-after-dark/" },
-    { label: "Get the Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+    { label: "Get the Dark Mode UI Kit", href: "/pro/" },
     { label: "Run a contrast audit", href: "/wcag-audit/" },
   ],
 },
@@ -1506,7 +1506,7 @@ export const seoGuides2: LandingGuide[] = [
   links: [
     { label: "Explore Candy Pop", href: "/collections/candy-pop/" },
     { label: "Run a WCAG audit", href: "/wcag-audit/" },
-    { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+    { label: "Get the Brand Starter Kit", href: "/pro/" },
   ],
 },
 {
@@ -1544,7 +1544,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Explore Electric Mint", href: "/collections/electric-mint/" },
-    { label: "Get the Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+    { label: "Get the Content Creator Bundle", href: "/pro/" },
     { label: "Browse all collections", href: "/collections/" },
   ],
 },
@@ -1583,7 +1583,7 @@ export const seoGuides2: LandingGuide[] = [
   ],
   links: [
     { label: "Explore Aurora Veil", href: "/collections/aurora-veil/" },
-    { label: "Get the Complete Archive", href: "/packs/complete-archive/" },
+    { label: "Get the Complete Archive", href: "/pro/" },
     { label: "Set up design tokens", href: "/tokens/" },
   ],
 },
@@ -1622,7 +1622,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Blossom Season", href: "/collections/blossom-season/" },
-      { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Get the Brand Starter Kit", href: "/pro/" },
       { label: "Generate custom palette", href: "/brand-generator/" },
     ],
   },
@@ -1661,7 +1661,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Midnight Forest", href: "/collections/midnight-forest/" },
-      { label: "Get the Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Get the Dark Mode UI Kit", href: "/pro/" },
       { label: "Run a contrast audit", href: "/wcag-audit/" },
     ],
   },
@@ -1739,7 +1739,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Golden Hour", href: "/collections/golden-hour/" },
-      { label: "Get the Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Get the Content Creator Bundle", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -1779,7 +1779,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Browse Editorial Warmth", href: "/collections/editorial-warmth/" },
       { label: "Export design tokens", href: "/tokens/" },
-      { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Get the Brand Starter Kit", href: "/pro/" },
     ],
   },
   {
@@ -1817,7 +1817,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Nocturne Tech", href: "/collections/nocturne-tech/" },
-      { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Get the Brand Starter Kit", href: "/pro/" },
       { label: "Generate custom palette", href: "/brand-generator/" },
     ],
   },
@@ -1856,7 +1856,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Digital Night", href: "/collections/digital-night/" },
-      { label: "Get the Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Get the Dark Mode UI Kit", href: "/pro/" },
       { label: "Run a contrast audit", href: "/wcag-audit/" },
     ],
   },
@@ -1934,7 +1934,7 @@ export const seoGuides2: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Cobalt Spectrum", href: "/collections/cobalt-spectrum/" },
-      { label: "Get the Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Get the Content Creator Bundle", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -1974,7 +1974,7 @@ export const seoGuides2: LandingGuide[] = [
     links: [
       { label: "Browse Data Dashboard", href: "/collections/data-dashboard/" },
       { label: "Export design tokens", href: "/tokens/" },
-      { label: "Get the Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Get the Brand Starter Kit", href: "/pro/" },
     ],
   },
 ];

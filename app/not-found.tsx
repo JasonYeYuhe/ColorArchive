@@ -47,16 +47,16 @@ export default function NotFound() {
                 Collections
               </Link>
               <Link
-                href="/packs/"
+                href="/pro/"
                 className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Packs
+                Pro
               </Link>
               <Link
-                href="/free-pack/"
+                href="/free-resources/"
                 className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Free pack
+                Free resources
               </Link>
             </div>
           </section>

@@ -30,7 +30,7 @@ const structuredData = [
       },
       {
         "@type": "Offer",
-        price: "9800",
+        price: "9999",
         priceCurrency: "JPY",
         name: "Lifetime",
         url: "https://colorarchive.me/pro/",

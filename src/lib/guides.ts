@@ -61,7 +61,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
-      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Open Brand Starter Kit", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -100,7 +100,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Nocturne Tech", href: "/collections/nocturne-tech/" },
-      { label: "Open Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Open Dark Mode UI Kit", href: "/pro/" },
       { label: "Open contrast checker", href: "/contrast/" },
     ],
   },
@@ -138,8 +138,8 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Get the Free Sample Pack", href: "/free-pack/" },
-      { label: "Open Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Try Free Resources", href: "/free-resources/" },
+      { label: "Open Creator Bundle", href: "/pro/" },
       { label: "Browse collections", href: "/collections/" },
     ],
   },
@@ -177,8 +177,8 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Open All Access Bundle", href: "/packs/all-access-bundle/" },
-      { label: "Open Complete Archive Token Set", href: "/packs/complete-archive/" },
+      { label: "Open All Access Bundle", href: "/pro/" },
+      { label: "Open Complete Archive Token Set", href: "/pro/" },
       { label: "Read notes on token workflow", href: "/notes/june-2026-design-tokens-that-dont-drift/" },
     ],
   },
@@ -217,7 +217,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Nordic Frost", href: "/collections/nordic-frost/" },
-      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Open Brand Starter Kit", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -256,8 +256,8 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Modern Seaside", href: "/collections/modern-seaside/" },
-      { label: "Open Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
-      { label: "Open free pack", href: "/free-pack/" },
+      { label: "Open Palette Pack Vol. 1", href: "/pro/" },
+      { label: "Try Free Resources", href: "/free-resources/" },
     ],
   },
   {
@@ -295,7 +295,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
-      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Open Brand Starter Kit", href: "/pro/" },
       { label: "Read brand palette guide", href: "/guides/brand-color-palette/" },
     ],
   },
@@ -333,8 +333,8 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Open Complete Archive Token Set", href: "/packs/complete-archive/" },
-      { label: "Open All Access Bundle", href: "/packs/all-access-bundle/" },
+      { label: "Open Complete Archive Token Set", href: "/pro/" },
+      { label: "Open All Access Bundle", href: "/pro/" },
       { label: "Read Figma token guide", href: "/guides/figma-color-tokens/" },
     ],
   },
@@ -372,7 +372,7 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Open Brand Starter Kit", href: "/pro/" },
       { label: "Read brand palette guide", href: "/guides/brand-color-palette/" },
       { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
     ],
@@ -411,7 +411,7 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Open Complete Archive Token Set", href: "/packs/complete-archive/" },
+      { label: "Open Complete Archive Token Set", href: "/pro/" },
       { label: "Open Monochrome Studio", href: "/collections/monochrome-studio/" },
       { label: "Read Tailwind token guide", href: "/guides/tailwind-color-tokens/" },
     ],
@@ -451,7 +451,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Nordic Frost", href: "/collections/nordic-frost/" },
-      { label: "Open Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Open Palette Pack Vol. 1", href: "/pro/" },
       { label: "Read website palette guide", href: "/guides/website-color-palette/" },
     ],
   },
@@ -489,8 +489,8 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Get the Free Sample Pack", href: "/free-pack/" },
-      { label: "Open Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Try Free Resources", href: "/free-resources/" },
+      { label: "Open Creator Bundle", href: "/pro/" },
       { label: "Read Figma token guide", href: "/guides/figma-color-tokens/" },
     ],
   },
@@ -529,7 +529,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Try Word-to-Color", href: "/word-to-color/" },
-      { label: "Get the Free Palette Pack", href: "/free-pack/" },
+      { label: "Try Free Resources", href: "/free-resources/" },
       { label: "Browse the full archive", href: "/all-colors/" },
     ],
   },
@@ -567,7 +567,7 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Get the Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Get the Content Creator Bundle", href: "/pro/" },
       { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
       { label: "Browse all colors", href: "/all-colors/" },
     ],
@@ -606,7 +606,7 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Open Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Open Dark Mode UI Kit", href: "/pro/" },
       { label: "Open Nocturne Tech", href: "/collections/nocturne-tech/" },
       { label: "Read dark mode palette guide", href: "/guides/dark-mode-color-palette/" },
     ],
@@ -647,7 +647,7 @@ export const landingGuides: LandingGuide[] = [
     links: [
       { label: "Open contrast checker", href: "/contrast/" },
       { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
-      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Open Brand Starter Kit", href: "/pro/" },
     ],
   },
   {
@@ -684,7 +684,7 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Open Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Open Palette Pack Vol. 1", href: "/pro/" },
       { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
@@ -723,9 +723,9 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Open Seasonal Spring 2026", href: "/packs/seasonal-spring-2026/" },
+      { label: "Open Seasonal Spring 2026", href: "/pro/" },
       { label: "Open Candy Gradient", href: "/collections/candy-pop/" },
-      { label: "Get the Free Sample Pack", href: "/free-pack/" },
+      { label: "Try Free Resources", href: "/free-resources/" },
     ],
   },
   {
@@ -763,8 +763,8 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Nordic Frost", href: "/collections/nordic-frost/" },
-      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
-      { label: "Get the Free Sample Pack", href: "/free-pack/" },
+      { label: "Open Brand Starter Kit", href: "/pro/" },
+      { label: "Try Free Resources", href: "/free-resources/" },
     ],
   },
   {
@@ -802,8 +802,8 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
-      { label: "Open Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
-      { label: "Get the Free Sample Pack", href: "/free-pack/" },
+      { label: "Open Palette Pack Vol. 1", href: "/pro/" },
+      { label: "Try Free Resources", href: "/free-resources/" },
     ],
   },
   {
@@ -841,8 +841,8 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Monochrome Studio", href: "/collections/monochrome-studio/" },
-      { label: "Open Complete Archive", href: "/packs/complete-archive/" },
-      { label: "Get the Free Sample Pack", href: "/free-pack/" },
+      { label: "Open Complete Archive", href: "/pro/" },
+      { label: "Try Free Resources", href: "/free-resources/" },
     ],
   },
   {
@@ -880,7 +880,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Orchid Bloom collection", href: "/collections/orchid-bloom/" },
-      { label: "Browse Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Browse Brand Starter Kit", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -919,8 +919,8 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Editorial Warmth collection", href: "/collections/editorial-warmth/" },
-      { label: "Explore Content Creator Bundle", href: "/packs/content-creator-bundle/" },
-      { label: "Browse all packs", href: "/packs/" },
+      { label: "Explore Content Creator Bundle", href: "/pro/" },
+      { label: "Upgrade to Pro", href: "/pro/" },
     ],
   },
   {
@@ -958,7 +958,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Terracotta Loft", href: "/collections/terracotta-loft/" },
-      { label: "Open Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Open Brand Starter Kit", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -997,7 +997,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Sunset Boulevard", href: "/collections/sunset-boulevard/" },
-      { label: "Open Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Open Content Creator Bundle", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -1036,7 +1036,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Monochrome Studio", href: "/collections/monochrome-studio/" },
-      { label: "Open Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Open Palette Pack Vol. 1", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -1075,7 +1075,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Neon After Dark", href: "/collections/neon-after-dark/" },
-      { label: "Open Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Open Dark Mode UI Kit", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -1114,7 +1114,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Concrete Modernism", href: "/collections/concrete-modernism/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
       { label: "Browse all color families", href: "/families/" },
     ],
   },
@@ -1153,7 +1153,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Nocturne Tech", href: "/collections/nocturne-tech/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
       { label: "Browse all guides", href: "/guides/" },
     ],
   },
@@ -1192,7 +1192,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Blossom Season", href: "/collections/blossom-season/" },
-      { label: "Explore Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Explore Content Creator Bundle", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -1232,7 +1232,7 @@ export const landingGuides: LandingGuide[] = [
     links: [
       { label: "Simulate color blindness", href: "/colorblind/" },
       { label: "Check contrast ratios", href: "/contrast/" },
-      { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Explore Dark Mode UI Kit", href: "/pro/" },
     ],
   },
   {
@@ -1270,7 +1270,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Blossom Season", href: "/collections/blossom-season/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
       { label: "Build a palette", href: "/palette/" },
     ],
   },
@@ -1309,7 +1309,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
       { label: "Browse all colors", href: "/" },
     ],
   },
@@ -1348,7 +1348,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Terracotta Loft", href: "/collections/terracotta-loft/" },
-      { label: "Explore Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Explore Palette Pack Vol. 1", href: "/pro/" },
       { label: "Browse red colors", href: "/families/red/" },
     ],
   },
@@ -1387,7 +1387,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
       { label: "Browse all collections", href: "/collections/" },
     ],
   },
@@ -1426,7 +1426,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Quiet Luxury", href: "/collections/quiet-luxury/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
       { label: "Check contrast ratios", href: "/contrast/" },
     ],
   },
@@ -1465,7 +1465,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Open Editorial Warmth", href: "/collections/editorial-warmth/" },
-      { label: "Explore Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Explore Palette Pack Vol. 1", href: "/pro/" },
       { label: "Browse all color families", href: "/families/" },
     ],
   },
@@ -1505,7 +1505,7 @@ export const landingGuides: LandingGuide[] = [
     links: [
       { label: "Explore Monochrome Studio", href: "/collections/monochrome-studio/" },
       { label: "Browse all families", href: "/families/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
     ],
   },
   {
@@ -1542,7 +1542,7 @@ export const landingGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Explore Dark Mode UI Kit", href: "/pro/" },
       { label: "Check contrast ratios", href: "/contrast/" },
       { label: "Explore Nocturne Tech", href: "/collections/nocturne-tech/" },
     ],
@@ -1583,7 +1583,7 @@ export const landingGuides: LandingGuide[] = [
     links: [
       { label: "Explore Blossom Season", href: "/collections/blossom-season/" },
       { label: "Browse pink family", href: "/families/pink/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
     ],
   },
   {
@@ -1621,7 +1621,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Nocturne Tech", href: "/collections/nocturne-tech/" },
-      { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Explore Dark Mode UI Kit", href: "/pro/" },
       { label: "Try the gradient tool", href: "/gradient/" },
     ],
   },
@@ -1660,7 +1660,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Quiet Luxury", href: "/collections/quiet-luxury/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
       { label: "Browse all families", href: "/families/" },
     ],
   },
@@ -1696,7 +1696,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Monochrome Studio", href: "/collections/monochrome-studio/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
       { label: "Browse all color families", href: "/families/" },
     ],
   },
@@ -1732,7 +1732,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Quiet Luxury palette", href: "/collections/quiet-luxury/" },
-      { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Explore Dark Mode UI Kit", href: "/pro/" },
       { label: "Browse all design system guides", href: "/guides/" },
     ],
   },
@@ -1771,7 +1771,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Monochrome Studio", href: "/collections/monochrome-studio/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
       { label: "Browse all color families", href: "/families/" },
     ],
   },
@@ -1810,7 +1810,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Quiet Luxury", href: "/collections/quiet-luxury/" },
-      { label: "Explore Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Explore Brand Starter Kit", href: "/pro/" },
       { label: "Check contrast ratios", href: "/contrast/" },
     ],
   },
@@ -1849,7 +1849,7 @@ export const landingGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Nocturne Tech", href: "/collections/nocturne-tech/" },
-      { label: "Explore Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Explore Dark Mode UI Kit", href: "/pro/" },
       { label: "Browse color families", href: "/families/" },
     ],
   },
@@ -2134,7 +2134,7 @@ export const additionalGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Nocturne Tech palette", href: "/collections/nocturne-tech/" },
-      { label: "Browse Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Browse Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG contrast checker", href: "/contrast/" },
     ],
   },
@@ -2178,7 +2178,7 @@ export const additionalGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Editorial Warmth palette", href: "/collections/editorial-warmth/" },
-      { label: "Browse Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Browse Complete Archive", href: "/pro/" },
       { label: "Try the palette generator", href: "/palette/" },
     ],
   },
@@ -2228,7 +2228,7 @@ export const moreGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Nocturne Tech palette", href: "/collections/nocturne-tech/" },
-      { label: "Browse Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Browse Complete Archive", href: "/pro/" },
       { label: "Try the color converter", href: "/convert/" },
     ],
   },
@@ -2272,7 +2272,7 @@ export const moreGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Quiet Luxury palette", href: "/collections/quiet-luxury/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Browse color families", href: "/families/" },
     ],
   },
@@ -2322,7 +2322,7 @@ export const extraGuides3: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Quiet Luxury palette", href: "/collections/quiet-luxury/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Browse color families", href: "/families/" },
     ],
   },
@@ -2366,7 +2366,7 @@ export const extraGuides3: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Editorial Warmth palette", href: "/collections/editorial-warmth/" },
-      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Complete Archive", href: "/pro/" },
       { label: "Browse color families", href: "/families/" },
     ],
   },
@@ -2415,7 +2415,7 @@ export const extraGuides4: LandingGuide[] = [
     ],
     links: [
       { label: "Explore Electric Mint palette", href: "/collections/electric-mint/" },
-      { label: "Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Content Creator Bundle", href: "/pro/" },
       { label: "Browse all tools", href: "/tools/" },
     ],
   },
@@ -2551,7 +2551,7 @@ export const extraGuides5: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Audit Tool", href: "/wcag-audit/" },
       { label: "Nocturne Tech collection", href: "/collections/nocturne-tech/" },
     ],
@@ -2644,7 +2644,7 @@ export const extraGuides6: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Contrast Checker", href: "/contrast/" },
       { label: "Deep Ocean collection", href: "/collections/ocean-abyss/" },
     ],
@@ -2738,7 +2738,7 @@ const extraGuides7: LandingGuide[] = [
     ],
     links: [
       { label: "WCAG Contrast Checker", href: "/contrast/" },
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "Monochrome Studio collection", href: "/collections/monochrome-studio/" },
     ],
   },
@@ -2781,7 +2781,7 @@ const extraGuides7: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Complete Archive Token Set", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Token Set", href: "/pro/" },
       { label: "Color Converter Tool", href: "/convert/" },
       { label: "Color Family Browser", href: "/colors/" },
     ],
@@ -2825,7 +2825,7 @@ const extraGuides7: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Palette Pack Vol. 1", href: "/pro/" },
       { label: "Color Converter Tool", href: "/convert/" },
       { label: "Neon After Dark collection", href: "/collections/neon-after-dark/" },
     ],
@@ -2877,7 +2877,7 @@ const extraGuides8: LandingGuide[] = [
     links: [
       { label: "Aurora Veil collection", href: "/collections/aurora-veil/" },
       { label: "Color Converter Tool", href: "/convert/" },
-      { label: "Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Palette Pack Vol. 1", href: "/pro/" },
     ],
   },
   {
@@ -2921,7 +2921,7 @@ const extraGuides8: LandingGuide[] = [
     links: [
       { label: "Neon After Dark collection", href: "/collections/neon-after-dark/" },
       { label: "Color Converter Tool", href: "/convert/" },
-      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Complete Archive", href: "/pro/" },
     ],
   },
   {
@@ -2964,7 +2964,7 @@ const extraGuides8: LandingGuide[] = [
     ],
     links: [
       { label: "Nocturne Tech collection", href: "/collections/nocturne-tech/" },
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Contrast Checker", href: "/contrast/" },
     ],
   },
@@ -3013,7 +3013,7 @@ const extraGuides9: LandingGuide[] = [
     ],
     links: [
       { label: "Golden Hour collection", href: "/collections/golden-hour/" },
-      { label: "Complete Archive pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive pack", href: "/pro/" },
       { label: "Browse all color families", href: "/colors/" },
     ],
   },
@@ -3056,7 +3056,7 @@ const extraGuides9: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Cobalt Morning collection", href: "/collections/cobalt-morning/" },
       { label: "Brand Color Palette guide", href: "/guides/brand-color-palette/" },
     ],
@@ -3101,7 +3101,7 @@ const extraGuides9: LandingGuide[] = [
     ],
     links: [
       { label: "WCAG Contrast Checker", href: "/contrast/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Monochrome Studio collection", href: "/collections/monochrome-studio/" },
     ],
   },
@@ -3179,7 +3179,7 @@ const extraGuides10: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Color Contrast Checker", href: "/contrast/" },
       { label: "Nordic Winter collection", href: "/collections/nordic-morning/" },
     ],
@@ -3215,7 +3215,7 @@ const extraGuides10: LandingGuide[] = [
     links: [
       { label: "Minimal Workspace collection", href: "/collections/arctic-minimal/" },
       { label: "WCAG Contrast Checker", href: "/contrast/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
     ],
   },
 ];
@@ -3288,7 +3288,7 @@ const extraGuides11: LandingGuide[] = [
     links: [
       { label: "Color Contrast Checker", href: "/contrast/" },
       { label: "Signal Bright collection", href: "/collections/candy-pop/" },
-      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Complete Archive", href: "/pro/" },
     ],
   },
   {
@@ -3321,7 +3321,7 @@ const extraGuides11: LandingGuide[] = [
     ],
     links: [
       { label: "OKLCH guide", href: "/guides/oklch-perceptual-color-design-guide/" },
-      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Complete Archive", href: "/pro/" },
       { label: "Color guides", href: "/guides/" },
     ],
   },
@@ -3359,7 +3359,7 @@ const extraGuides12: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Complete Archive", href: "/pro/" },
       { label: "Cinematic Earth collection", href: "/collections/desert-canyon/" },
       { label: "Color guides", href: "/guides/" },
     ],
@@ -3393,7 +3393,7 @@ const extraGuides12: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Complete Archive", href: "/pro/" },
       { label: "Minimal Workspace collection", href: "/collections/arctic-minimal/" },
       { label: "Design Token Generator", href: "/tokens/" },
     ],
@@ -3427,7 +3427,7 @@ const extraGuides12: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Color Contrast Checker", href: "/contrast/" },
       { label: "Browse all colors", href: "/colors/" },
     ],
@@ -3466,7 +3466,7 @@ const extraGuides13: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Quiet Luxury collection", href: "/collections/quiet-luxury/" },
       { label: "Color guides", href: "/guides/" },
     ],
@@ -3534,7 +3534,7 @@ const extraGuides13: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Complete Archive", href: "/packs/complete-archive/" },
+      { label: "Complete Archive", href: "/pro/" },
       { label: "Deep Focus collection", href: "/collections/midnight-forest/" },
       { label: "Color Contrast Checker", href: "/contrast/" },
     ],
@@ -3823,7 +3823,7 @@ const extraGuides16: LandingGuide[] = [
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
       { label: "WCAG Contrast Auditor", href: "/wcag-audit/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
     ],
   },
   {
@@ -3855,7 +3855,7 @@ const extraGuides16: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Contrast Auditor", href: "/wcag-audit/" },
       { label: "Color Converter", href: "/convert/" },
     ],
@@ -3896,7 +3896,7 @@ const extraGuides17: LandingGuide[] = [
     links: [
       { label: "Brand System Generator", href: "/brand/" },
       { label: "WCAG Contrast Auditor", href: "/wcag-audit/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
     ],
   },
   {
@@ -3964,7 +3964,7 @@ const extraGuides17: LandingGuide[] = [
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
       { label: "WCAG Contrast Auditor", href: "/wcag-audit/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
     ],
   },
 ];
@@ -4035,7 +4035,7 @@ export const extraGuides18: LandingGuide[] = [
     links: [
       { label: "Tints & Shades Generator", href: "/tints/" },
       { label: "Color Combinations", href: "/combinations/" },
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
     ],
   },
   {
@@ -4068,7 +4068,7 @@ export const extraGuides18: LandingGuide[] = [
     links: [
       { label: "Color Format Converter", href: "/convert/" },
       { label: "WCAG Contrast Auditor", href: "/wcag-audit/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
     ],
   },
   {
@@ -4182,7 +4182,7 @@ export const seoGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
     ],
@@ -4299,7 +4299,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
-      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Pack", href: "/pro/" },
       { label: "Tints & Shades Generator", href: "/tints/" },
     ],
   },
@@ -4340,7 +4340,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Brand Color Generator", href: "/brand-generator/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
     ],
   },
@@ -4377,7 +4377,7 @@ export const seoGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
       { label: "Color Combinations", href: "/combinations/" },
     ],
@@ -4493,7 +4493,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
-      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Pack", href: "/pro/" },
       { label: "WCAG Contrast Auditor", href: "/wcag-audit/" },
     ],
   },
@@ -4534,7 +4534,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Modern Seaside Collection", href: "/collections/modern-seaside/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -4571,7 +4571,7 @@ export const seoGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Contrast Auditor", href: "/wcag-audit/" },
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
     ],
@@ -4687,7 +4687,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
-      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Pack", href: "/pro/" },
       { label: "Color Detail Pages", href: "/colors/" },
     ],
   },
@@ -4728,7 +4728,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -4765,7 +4765,7 @@ export const seoGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
     ],
@@ -4880,7 +4880,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
-      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Pack", href: "/pro/" },
       { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
     ],
   },
@@ -4921,7 +4921,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -4958,7 +4958,7 @@ export const seoGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
       { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
     ],
@@ -5074,7 +5074,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
-      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Pack", href: "/pro/" },
       { label: "WCAG Contrast Auditor", href: "/wcag-audit/" },
     ],
   },
@@ -5115,7 +5115,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -5152,7 +5152,7 @@ export const seoGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
       { label: "Color Combinations", href: "/combinations/" },
     ],
@@ -5267,7 +5267,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
-      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Pack", href: "/pro/" },
       { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
     ],
   },
@@ -5308,7 +5308,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -5345,7 +5345,7 @@ export const seoGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
       { label: "Color Combinations", href: "/combinations/" },
     ],
@@ -5460,7 +5460,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
-      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Pack", href: "/pro/" },
       { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
     ],
   },
@@ -5501,7 +5501,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -5538,7 +5538,7 @@ export const seoGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
       { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
     ],
@@ -5653,7 +5653,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
-      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Pack", href: "/pro/" },
       { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
     ],
   },
@@ -5694,7 +5694,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -5731,7 +5731,7 @@ export const seoGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
       { label: "Color Combinations", href: "/combinations/" },
     ],
@@ -5846,7 +5846,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
-      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Pack", href: "/pro/" },
       { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
     ],
   },
@@ -5887,7 +5887,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
     ],
   },
@@ -5924,7 +5924,7 @@ export const seoGuides: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "Nocturne Tech Collection", href: "/collections/nocturne-tech/" },
       { label: "WCAG Contrast Checker", href: "/wcag-audit/" },
     ],
@@ -6039,7 +6039,7 @@ export const seoGuides: LandingGuide[] = [
     ],
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
-      { label: "Complete Archive Pack", href: "/packs/complete-archive/" },
+      { label: "Complete Archive Pack", href: "/pro/" },
       { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
     ],
   },
@@ -6195,7 +6195,7 @@ export const extraGuides19: LandingGuide[] = [
     links: [
       { label: "Brand Color Generator", href: "/brand-generator/" },
       { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
     ],
   },
 ];
@@ -6249,7 +6249,7 @@ export const extraGuides20: LandingGuide[] = [
     links: [
       { label: "Brand Color Generator", href: "/brand-generator/" },
       { label: "Color Combinations", href: "/combinations/" },
-      { label: "Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Content Creator Bundle", href: "/pro/" },
     ],
   },
   {
@@ -6298,7 +6298,7 @@ export const extraGuides20: LandingGuide[] = [
     links: [
       { label: "Palette Builder", href: "/palette-builder/" },
       { label: "Color Combinations", href: "/combinations/" },
-      { label: "Content Creator Bundle", href: "/packs/content-creator-bundle/" },
+      { label: "Content Creator Bundle", href: "/pro/" },
     ],
   },
   {
@@ -6347,7 +6347,7 @@ export const extraGuides20: LandingGuide[] = [
     links: [
       { label: "Palette Builder", href: "/palette-builder/" },
       { label: "Color Combinations", href: "/combinations/" },
-      { label: "Palette Pack Vol. 1", href: "/packs/palette-pack-vol-1/" },
+      { label: "Palette Pack Vol. 1", href: "/pro/" },
     ],
   },
 ];
@@ -6510,7 +6510,7 @@ export const extraGuides21: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "Color contrast checker", href: "/contrast/" },
       { label: "Tints and shades generator", href: "/tints/" },
     ],
@@ -6676,7 +6676,7 @@ const extraGuides22: LandingGuide[] = [
     ],
     links: [
       { label: "Export CSS tokens", href: "/all-colors/" },
-      { label: "UI Design System Kit", href: "/packs/ui-design-system-kit/" },
+      { label: "UI Design System Kit", href: "/pro/" },
       { label: "Color contrast checker", href: "/contrast/" },
     ],
   },
@@ -8591,7 +8591,7 @@ const extraGuides31: LandingGuide[] = [
     links: [
       { label: "Color Converter", href: "/tools/color-converter/" },
       { label: "Color Palettes by Use Case", href: "/use-cases/" },
-      { label: "Download Color Packs", href: "/packs/" },
+      { label: "Upgrade to Pro", href: "/pro/" },
     ],
   },
   {
@@ -8918,7 +8918,7 @@ const extraGuides33: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "WCAG Contrast Checker", href: "/tools/contrast/" },
       { label: "Color Accessibility Guide", href: "/guides/color-accessibility-design-guide/" },
     ],
@@ -8958,7 +8958,7 @@ const extraGuides33: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Brand Starter Kit", href: "/packs/brand-starter-kit/" },
+      { label: "Brand Starter Kit", href: "/pro/" },
       { label: "WCAG Audit Tool", href: "/tools/wcag-audit/" },
       { label: "Adaptive Color Guide", href: "/guides/adaptive-color-systems-guide/" },
     ],
@@ -9548,7 +9548,7 @@ const extraGuides36: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Dark Mode UI Kit", href: "/packs/dark-mode-ui-kit/" },
+      { label: "Dark Mode UI Kit", href: "/pro/" },
       { label: "Browse Dark Palettes", href: "/colors/?family=Blue" },
       { label: "Design Systems Guide", href: "/guides/design-system-color-tokens-guide/" },
     ],
@@ -10587,7 +10587,7 @@ export const extraGuides41: LandingGuide[] = [
     ],
     links: [
       { label: "Browse all collections", href: "/collections/" },
-      { label: "Browse packs", href: "/packs/" },
+      { label: "Upgrade to Pro", href: "/pro/" },
     ],
   },
 ];
@@ -10658,7 +10658,7 @@ export const extraGuides42: LandingGuide[] = [
     ],
     links: [
       { label: "Browse all collections", href: "/collections/" },
-      { label: "Browse packs", href: "/packs/" },
+      { label: "Upgrade to Pro", href: "/pro/" },
     ],
   },
   {
@@ -12156,7 +12156,7 @@ export const extraGuides52: LandingGuide[] = [
     links: [
       { label: "Test contrast ratios", href: "/contrast" },
       { label: "Browse dark mode collections", href: "/collections" },
-      { label: "Explore dark mode UI kit", href: "/packs/dark-mode-ui-kit" },
+      { label: "Explore dark mode UI kit", href: "/pro/" },
     ],
   },
   {
@@ -12276,7 +12276,7 @@ export const extraGuides53: LandingGuide[] = [
     links: [
       { label: "Browse UI-ready collections", href: "/collections" },
       { label: "Test contrast ratios", href: "/contrast" },
-      { label: "Explore dark mode UI kit", href: "/packs/dark-mode-ui-kit" },
+      { label: "Explore dark mode UI kit", href: "/pro/" },
     ],
   },
   {

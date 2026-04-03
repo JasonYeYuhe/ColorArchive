@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const API_URL = process.env.BACKEND_API_URL ?? "https://api.colorarchive.me";
 const FRONTEND_URL = process.env.FRONTEND_URL || "https://colorarchive.me";
-const LS_STORE_SLUG = process.env.NEXT_PUBLIC_LS_STORE_SLUG ?? "";
+const LS_STORE_SLUG = "colorarchive";
 
 export async function POST(req: NextRequest) {
   try {

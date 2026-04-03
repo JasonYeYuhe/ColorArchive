@@ -776,13 +776,13 @@ export function ColorDetailPage({
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
-                    href="/packs/"
+                    href="/pro/"
                     className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
                   >
                     {t("colorDetail.browsePacks")}
                   </Link>
                   <Link
-                    href="/free-pack/"
+                    href="/free-resources/"
                     className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
                   >
                     {t("colorDetail.freeDownload")}

@@ -629,10 +629,10 @@ export function AnalyticsPage() {
                 </div>
                 <div className="mt-4 grid gap-3">
                   <div className="rounded-[1rem] border border-black/6 bg-neutral-50 px-4 py-4">
-                    <div className="text-sm font-medium text-neutral-950">Free pack → purchase</div>
+                    <div className="text-sm font-medium text-neutral-950">Free resources → purchase</div>
                     <div className="mt-2 text-sm text-neutral-500">
                       {data.funnel.freePackPurchasers} of {data.funnel.freePackSubscribers} known
-                      free-pack subscribers later purchased.
+                      free-resources subscribers later purchased.
                     </div>
                     <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
                       {formatPercent(data.funnel.freePackConversionRate)}

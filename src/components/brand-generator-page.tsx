@@ -232,7 +232,7 @@ function PaletteResult({
           />
         </div>
         <Link
-          href="/packs/brand-starter-kit/"
+          href="/pro/"
           className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-xs font-medium rounded-lg hover:bg-slate-700 transition-colors"
         >
           Get Brand Color Starter Kit →
@@ -468,7 +468,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
         <WhatsNext items={[
           { href: "/contrast/", label: "Audit Contrast", desc: "Check WCAG compliance for your new palette" },
           { href: "/tokens/", label: "Export Tokens", desc: "Generate a full design system from your primary color" },
-          { href: "/packs/brand-starter-kit/", label: "Brand Starter Kit", desc: "Get the complete brand system with guides and templates" },
+          { href: "/pro/", label: "Brand Starter Kit", desc: "Get the complete brand system with guides and templates" },
         ]} />
       </div>
 
