@@ -100,19 +100,22 @@ export function BrandSystemPanel({ primaryHex }: BrandSystemPanelProps) {
 
   if (!palette) return null;
 
-  const darkPairs = buildDarkModePairs(
-    palette.primary.colors.filter((c) => [50, 100, 500, 900, 950].includes(c.step)).map((c) => ({ name: `primary-${c.step}`, hex: c.hex })),
-    "brand",
-  );
-  const darkModeCss = buildDarkModeCss(darkPairs, "brand");
-
-  const exports: Record<ExportFormat, string> = {
-    css: buildBrandCssVariables(palette),
-    tailwind: buildBrandTailwindConfig(palette),
-    figma: buildBrandFigmaTokens(palette),
-    "style-dict": buildBrandStyleDictionary(palette),
-    "dark-mode": darkModeCss,
-  };
+  // Lazy export generation — only compute the selected format
+  const exportText = useMemo(() => {
+    switch (format) {
+      case "css": return buildBrandCssVariables(palette);
+      case "tailwind": return buildBrandTailwindConfig(palette);
+      case "figma": return buildBrandFigmaTokens(palette);
+      case "style-dict": return buildBrandStyleDictionary(palette);
+      case "dark-mode": {
+        const darkPairs = buildDarkModePairs(
+          palette.primary.colors.filter((c) => [50, 100, 500, 900, 950].includes(c.step)).map((c) => ({ name: `primary-${c.step}`, hex: c.hex })),
+          "brand",
+        );
+        return buildDarkModeCss(darkPairs, "brand");
+      }
+    }
+  }, [palette, format]);
 
   const formatLabels: Record<ExportFormat, string> = {
     css: "CSS",
@@ -158,10 +161,10 @@ export function BrandSystemPanel({ primaryHex }: BrandSystemPanelProps) {
       {/* Code output */}
       <div className="relative">
         <pre className="overflow-x-auto whitespace-pre-wrap rounded-xl border border-black/6 bg-neutral-50 dark:bg-neutral-900 px-4 py-4 text-xs leading-6 text-neutral-600 dark:text-neutral-400 max-h-72 overflow-y-auto">
-          {exports[format]}
+          {exportText}
         </pre>
         <div className="absolute top-2 right-2">
-          <CopyActionButton value={exports[format]} label="Copy" />
+          <CopyActionButton value={exportText} label="Copy" />
         </div>
       </div>
     </div>

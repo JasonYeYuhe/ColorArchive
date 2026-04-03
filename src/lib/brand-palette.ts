@@ -95,8 +95,10 @@ export function generateNeutralScale(hex: string): ColorScale | null {
   };
 }
 
-/** Semantic hues: fixed, but shifted slightly toward the brand hue for harmony. */
-function harmoniseHue(targetHue: number, brandHue: number, weight = 0.12): number {
+/** Semantic hues: fixed, but shifted very subtly toward the brand hue for harmony.
+ *  Weight kept low (6%) to preserve functional recognizability — especially when
+ *  the brand hue is close to a semantic hue (e.g., red brand + error). */
+function harmoniseHue(targetHue: number, brandHue: number, weight = 0.06): number {
   const diff = ((brandHue - targetHue + 540) % 360) - 180;
   return Math.round((targetHue + diff * weight + 360) % 360);
 }
