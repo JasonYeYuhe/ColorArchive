@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { CopyActionButton } from "@/src/components/copy-action-button";
 import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-button";
+import { BulkExportButton } from "@/src/components/bulk-export-button";
+import { DarkModePairsCard } from "@/src/components/dark-mode-pairs-card";
+import { ProGate } from "@/src/components/pro-gate";
 import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForCollection } from "@/src/lib/guides";
 
@@ -109,6 +112,20 @@ export function CollectionDetailPage({
             <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
               {buildCssExport(collection)}
             </pre>
+            <div className="mt-4">
+              <ProGate label="Bulk export">
+                <BulkExportButton collection={collection} />
+              </ProGate>
+            </div>
+          </aside>
+
+          <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              Dark mode pairs
+            </div>
+            <ProGate label="Dark mode tokens">
+              <DarkModePairsCard collection={collection} />
+            </ProGate>
           </aside>
         </section>
 

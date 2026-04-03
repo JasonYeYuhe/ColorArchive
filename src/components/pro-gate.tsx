@@ -6,7 +6,7 @@ import { fetchSession, type UserTier } from "@/src/lib/auth-client";
 
 const EXPORT_LIMIT_KEY = "colorarchive_export_count";
 const EXPORT_DATE_KEY = "colorarchive_export_date";
-const FREE_EXPORTS_PER_DAY = 1;
+const FREE_EXPORTS_PER_DAY = 3;
 
 function today() {
   return new Date().toISOString().slice(0, 10);

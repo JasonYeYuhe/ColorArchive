@@ -186,7 +186,7 @@ export function ProjectsPage() {
               href="/pro"
               className="text-xs text-indigo-600 hover:text-indigo-500 font-medium"
             >
-              {projects.length}/3 {t("projects.freeUpgrade")} &middot; {t("projects.upgrade")}
+              {projects.length}/5 {t("projects.freeUpgrade")} &middot; {t("projects.upgrade")}
             </Link>
           )}
         </div>

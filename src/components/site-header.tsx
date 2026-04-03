@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
 import { useLocale } from "@/src/components/locale-provider";
+import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 import { ThemeToggle } from "./theme-toggle";
 import type { Locale } from "@/src/lib/i18n";
 
@@ -212,12 +213,15 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
 
           <div className="flex shrink-0 items-center gap-2">
             {tier !== "pro" && (
-              <Link
-                href="/pro/"
-                className="hidden rounded-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-indigo-500 sm:inline-flex"
-              >
-                Pro
-              </Link>
+              <>
+                <AiUsageBadge />
+                <Link
+                  href="/pro/"
+                  className="hidden rounded-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-indigo-500 sm:inline-flex"
+                >
+                  Pro
+                </Link>
+              </>
             )}
             <Link
               href={status === "authenticated" ? "/account" : loginHref}
