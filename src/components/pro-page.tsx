@@ -91,7 +91,8 @@ export function ProPage() {
                 <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.monthly.price}</span>
                 <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {proSubscriptionConfig.monthly.period}</span>
               </div>
-              <p className="text-xs text-slate-400 mb-6">{t("pro.cancelAnytime")}</p>
+              <p className="text-xs text-slate-400 mb-1">{t("pro.cancelAnytime")}</p>
+              <p className="text-xs text-indigo-500 font-medium mb-5">3-day free trial</p>
               <div className="mt-auto">
                 <CheckoutButton
                   plan="monthly"
@@ -114,7 +115,8 @@ export function ProPage() {
                 <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.yearly.price}</span>
                 <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {proSubscriptionConfig.yearly.period}</span>
               </div>
-              <p className="text-xs text-slate-400 mb-6">{t("pro.cancelAnytime")}</p>
+              <p className="text-xs text-slate-400 mb-1">{t("pro.cancelAnytime")}</p>
+              <p className="text-xs text-indigo-500 font-medium mb-5">3-day free trial</p>
               <div className="mt-auto">
                 <CheckoutButton
                   plan="yearly"
