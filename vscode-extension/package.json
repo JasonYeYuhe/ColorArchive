@@ -1,0 +1,42 @@
+{
+  "name": "colorarchive",
+  "displayName": "ColorArchive — Color Palette & Token Helper",
+  "description": "Browse 5,400+ curated colors, generate palettes, and insert design tokens directly in your editor.",
+  "version": "0.1.0",
+  "publisher": "colorarchive",
+  "engines": { "vscode": "^1.80.0" },
+  "categories": ["Other", "Snippets"],
+  "keywords": ["color", "palette", "design tokens", "css", "tailwind", "figma"],
+  "icon": "icon.png",
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "colorarchive.pickColor",
+        "title": "ColorArchive: Pick a Color"
+      },
+      {
+        "command": "colorarchive.insertCSSVar",
+        "title": "ColorArchive: Insert CSS Variable"
+      },
+      {
+        "command": "colorarchive.insertTailwind",
+        "title": "ColorArchive: Insert Tailwind Class"
+      },
+      {
+        "command": "colorarchive.generateScale",
+        "title": "ColorArchive: Generate Color Scale"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./tsconfig.json",
+    "watch": "tsc -watch -p ./tsconfig.json",
+    "package": "npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0"
+  }
+}

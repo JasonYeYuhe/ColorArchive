@@ -107,6 +107,24 @@ export async function POST(req: NextRequest) {
         break;
       }
 
+      // Subscription expired (past due, no recovery)
+      case "subscription_expired": {
+        await notifyBackend("/webhooks/subscription-cancelled", {
+          subscriptionId: String(event.data.id),
+          customerId: String(attrs.customer_id ?? ""),
+          provider: "lemonsqueezy",
+          reason: "expired",
+        });
+        break;
+      }
+
+      // Payment events (for analytics / dunning)
+      case "subscription_payment_success":
+      case "subscription_payment_failed": {
+        console.log(`[ls-webhook] Payment ${eventName}: subscription=${event.data.id} customer=${attrs.customer_id}`);
+        break;
+      }
+
       // One-time purchase (lifetime Pro)
       case "order_created": {
         const isLifetime = (attrs.first_order_item as Record<string, unknown>)?.variant_name

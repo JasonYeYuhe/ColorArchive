@@ -80,7 +80,7 @@ interface BrandStyle {
 }
 
 /** Shift a semantic hue toward the brand hue for visual harmony. */
-function harmoniseHue(targetHue: number, brandHue: number, weight = 0.12): number {
+function harmoniseHue(targetHue: number, brandHue: number, weight = 0.06): number {
   const diff = ((brandHue - targetHue + 540) % 360) - 180;
   return Math.round((targetHue + diff * weight + 360) % 360);
 }

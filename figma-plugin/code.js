@@ -72,7 +72,7 @@ const STEP_SAT_FACTOR = {
     600: 0.97, 700: 0.90, 800: 0.80, 900: 0.68, 950: 0.55,
 };
 /** Shift a semantic hue toward the brand hue for visual harmony. */
-function harmoniseHue(targetHue, brandHue, weight = 0.12) {
+function harmoniseHue(targetHue, brandHue, weight = 0.06) {
     const diff = ((brandHue - targetHue + 540) % 360) - 180;
     return Math.round((targetHue + diff * weight + 360) % 360);
 }
@@ -211,25 +211,6 @@ figma.ui.onmessage = (msg) => {
         }
         figma.notify(`Created ${brandStyles.length} brand styles from ${hex}`);
         figma.ui.postMessage({ type: 'brand-scale-done', count: brandStyles.length, hex });
-    }
-    if (msg.type === 'create-project-styles' && msg.palette && msg.name) {
-        const projectName = msg.name;
-        const palette = msg.palette;
-        let created = 0;
-        for (let i = 0; i < palette.length; i++) {
-            const hex = palette[i];
-            if (typeof hex !== 'string' || !hex.startsWith('#'))
-                continue;
-            const r = parseInt(hex.slice(1, 3), 16) / 255;
-            const g = parseInt(hex.slice(3, 5), 16) / 255;
-            const b = parseInt(hex.slice(5, 7), 16) / 255;
-            const style = figma.createPaintStyle();
-            style.name = `${projectName}/${i + 1}`;
-            style.paints = [{ type: 'SOLID', color: { r, g, b } }];
-            created++;
-        }
-        figma.notify(`Created ${created} styles from "${projectName}"`);
-        figma.ui.postMessage({ type: 'project-styles-done', count: created, name: projectName });
     }
     if (msg.type === 'close') {
         figma.closePlugin();

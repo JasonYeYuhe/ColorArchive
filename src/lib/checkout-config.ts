@@ -34,6 +34,24 @@ export const proSubscriptionConfig = {
   },
 } as const;
 
+export const teamPlanConfig = {
+  monthly: {
+    price: "¥1,499",
+    period: "month" as const,
+    seats: 5,
+    note: "Team Pro — 5 seats",
+    variantId: "", // pending LS product creation
+  },
+  yearly: {
+    price: "¥11,999",
+    period: "year" as const,
+    seats: 5,
+    savings: "33%",
+    note: "Team Pro yearly — 5 seats",
+    variantId: "", // pending LS product creation
+  },
+} as const;
+
 export type ProPlan = keyof typeof proSubscriptionConfig;
 
 export const checkoutFlowConfig: CheckoutFlowConfig = {
