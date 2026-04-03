@@ -5,7 +5,7 @@ import { RefundPolicyPage } from "@/src/components/refund-policy-page";
 export const metadata: Metadata = {
   title: "Refund Policy — ColorArchive",
   description:
-    "Refund Policy for ColorArchive. Learn about our refund terms for digital products and subscriptions.",
+    "Refund Policy for ColorArchive Pro subscriptions and lifetime purchases. 7-day money-back guarantee.",
   alternates: {
     canonical: "/refund-policy/",
   },

@@ -13,7 +13,7 @@ import { WhatsNext } from "@/src/components/whats-next";
 const SCALE_STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
 type ScaleStep = (typeof SCALE_STEPS)[number];
 
-type ExportFormat = "css" | "tailwind" | "scss" | "json";
+type ExportFormat = "css" | "tailwind" | "scss" | "json" | "figma" | "style-dict";
 
 const PRESETS = [
   { name: "Ocean Blue",   primary: "#2563EB" },
@@ -176,6 +176,32 @@ function buildJSON(tokens: TokenSystem, varName: string): string {
   return JSON.stringify(out, null, 2);
 }
 
+function buildFigmaTokens(tokens: TokenSystem, varName: string): string {
+  const out: Record<string, Record<string, { $type: string; $value: string }>> = {};
+  const scales = Object.entries(tokens) as [string, ScaleEntry[]][];
+  for (const [name, scale] of scales) {
+    const key = name === "primary" ? varName : name;
+    out[key] = {};
+    for (const e of scale) {
+      out[key][String(e.step)] = { $type: "color", $value: e.hex };
+    }
+  }
+  return JSON.stringify(out, null, 2);
+}
+
+function buildStyleDictionary(tokens: TokenSystem, varName: string): string {
+  const out: Record<string, Record<string, Record<string, { value: string; type: string }>>> = { color: {} };
+  const scales = Object.entries(tokens) as [string, ScaleEntry[]][];
+  for (const [name, scale] of scales) {
+    const key = name === "primary" ? varName : name;
+    out.color[key] = {};
+    for (const e of scale) {
+      out.color[key][String(e.step)] = { value: e.hex, type: "color" };
+    }
+  }
+  return JSON.stringify(out, null, 2);
+}
+
 /* ------------------------------------------------------------------ */
 /*  Sub-components                                                      */
 /* ------------------------------------------------------------------ */
@@ -272,10 +298,12 @@ export function TokenGeneratorPage() {
   const exportCode = useMemo(() => {
     if (!tokens.primary.length) return "";
     switch (activeFormat) {
-      case "css":      return buildCSS(tokens, varName);
-      case "tailwind": return buildTailwind(tokens, varName);
-      case "scss":     return buildSCSS(tokens, varName);
-      case "json":     return buildJSON(tokens, varName);
+      case "css":         return buildCSS(tokens, varName);
+      case "tailwind":    return buildTailwind(tokens, varName);
+      case "scss":        return buildSCSS(tokens, varName);
+      case "json":        return buildJSON(tokens, varName);
+      case "figma":       return buildFigmaTokens(tokens, varName);
+      case "style-dict":  return buildStyleDictionary(tokens, varName);
     }
   }, [tokens, activeFormat, varName]);
 
@@ -475,7 +503,7 @@ export function TokenGeneratorPage() {
             </div>
 
             {/* Export */}
-            <ProGate label="Export Tokens">
+            <ProGate label="Export all 6 scales in CSS, Tailwind, SCSS, and JSON">
             <div className="mb-8 rounded-[2rem] border border-black/6 bg-white/74 p-6 backdrop-blur-xl sm:p-8 dark:border-white/8 dark:bg-neutral-900/60">
               <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                 <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-neutral-400">Export Tokens</h2>
@@ -484,7 +512,12 @@ export function TokenGeneratorPage() {
 
               {/* Format tabs */}
               <div className="mb-4 inline-flex overflow-hidden rounded-full border border-black/8 dark:border-white/10">
-                {(["css", "tailwind", "scss", "json"] as const).map((fmt) => (
+                {(["css", "tailwind", "scss", "json", "figma", "style-dict"] as const).map((fmt) => {
+                  const labels: Record<ExportFormat, string> = {
+                    css: "CSS Vars", tailwind: "Tailwind", scss: "SCSS",
+                    json: "JSON (W3C)", figma: "Figma", "style-dict": "Style Dict",
+                  };
+                  return (
                   <button
                     key={fmt}
                     type="button"
@@ -496,9 +529,10 @@ export function TokenGeneratorPage() {
                         : "bg-white text-neutral-500 hover:bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700"
                     }`}
                   >
-                    {fmt === "tailwind" ? "Tailwind" : fmt === "css" ? "CSS Vars" : fmt === "scss" ? "SCSS" : "JSON (W3C)"}
+                    {labels[fmt]}
                   </button>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Code block */}
