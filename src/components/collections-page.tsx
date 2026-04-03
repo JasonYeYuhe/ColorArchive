@@ -284,27 +284,27 @@ export function CollectionsPage({ collections }: CollectionsPageProps) {
 
             <div className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
-                Ready-made tokens
+                Export tokens
               </div>
               <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
                 Take this palette further
               </p>
               <p className="mt-2 text-sm leading-6 text-white/60 dark:text-neutral-500">
-                Palette packs include Figma tokens, Tailwind config, Procreate swatches, and more
+                Pro includes exports in CSS, Tailwind, Figma tokens, SCSS, SwiftUI, Android, Flutter, and more
                 — designed to drop straight into your workflow.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <Link
-                  href="/packs/"
+                  href="/pro/"
                   className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
                 >
-                  Browse packs
+                  Upgrade to Pro
                 </Link>
                 <Link
-                  href="/free-pack/"
+                  href="/free-resources/"
                   className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
                 >
-                  Free download
+                  Free resources
                 </Link>
               </div>
             </div>

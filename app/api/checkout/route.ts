@@ -1,59 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/src/lib/stripe";
-import { checkoutConfig, proSubscriptionConfig, checkoutFlowConfig, type CheckoutProductId } from "@/src/lib/checkout-config";
+import { NextResponse } from "next/server";
 
-const VALID_PRICE_IDS = new Set([
-  ...Object.values(checkoutConfig).map((c) => c.stripePriceId),
-  proSubscriptionConfig.monthly.stripePriceId,
-  proSubscriptionConfig.yearly.stripePriceId,
-]);
+// Checkout sessions are now handled client-side via Lemon Squeezy hosted checkout.
+// This route is kept as a stub to avoid 404 if any old client code calls it.
 
-const SUBSCRIPTION_PRICE_IDS: Set<string> = new Set([
-  proSubscriptionConfig.monthly.stripePriceId,
-  proSubscriptionConfig.yearly.stripePriceId,
-]);
-
-const FRONTEND_URL = process.env.FRONTEND_URL || "https://colorarchive.me";
-const ALLOWED_ORIGIN_RE = /^https:\/\/[\w-]+\.colorarchive\.me$|^https:\/\/colorarchive\.me$/;
-
-function resolveOrigin(req: NextRequest): string {
-  const reqOrigin = req.headers.get("origin") ?? "";
-  if (reqOrigin && ALLOWED_ORIGIN_RE.test(reqOrigin)) return reqOrigin;
-  return FRONTEND_URL;
-}
-
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
-    const { priceId } = body as { priceId: string };
-
-    if (!priceId || !VALID_PRICE_IDS.has(priceId)) {
-      return NextResponse.json({ error: "Invalid price ID" }, { status: 400 });
-    }
-
-    const origin = resolveOrigin(req);
-    const isSubscription = SUBSCRIPTION_PRICE_IDS.has(priceId);
-
-    const session = await stripe.checkout.sessions.create({
-      mode: isSubscription ? "subscription" : "payment",
-      line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${origin}${checkoutFlowConfig.successPath}/?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}${checkoutFlowConfig.cancelPath}/`,
-      ...(isSubscription && proSubscriptionConfig.monthly.trialDays > 0
-        ? {
-            subscription_data: {
-              trial_period_days: proSubscriptionConfig.monthly.trialDays,
-            },
-          }
-        : {}),
-    });
-
-    return NextResponse.json({ url: session.url });
-  } catch (err) {
-    console.error("Stripe checkout error:", err);
-    return NextResponse.json(
-      { error: "Failed to create checkout session" },
-      { status: 500 }
-    );
-  }
+export async function POST() {
+  return NextResponse.json(
+    { error: "Checkout has moved to Lemon Squeezy. Use the hosted checkout URL instead." },
+    { status: 410 }
+  );
 }

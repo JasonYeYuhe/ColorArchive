@@ -2,17 +2,8 @@
 
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
-import type { CheckoutFlowConfig } from "@/src/lib/checkout-config";
-import type { PalettePack } from "@/src/lib/palette-packs";
-import { CheckoutButton } from "@/src/components/checkout-button";
 
-interface CancelPageProps {
-  checkoutFlow: CheckoutFlowConfig;
-  bundlePack?: PalettePack;
-  starterPack?: PalettePack;
-}
-
-export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPageProps) {
+export function CancelPage() {
   const { t } = useLocale();
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -31,84 +22,10 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
               {t("cancel.subtitle")}
             </p>
-            <div className="mt-5 rounded-[1.2rem] border border-black/6 bg-white/85 px-4 py-4 text-sm leading-6 text-neutral-600">
-              If a hosted checkout is closed or cancelled before payment, this
-              {" "}
-              <span className="font-medium text-neutral-950">{checkoutFlow.cancelPath}</span>
-              {" "}route is the intended recovery page. Actual hosted-provider behavior should be
-              verified during the first smoke test.
-            </div>
           </div>
         </section>
 
-        {starterPack?.stripePriceId ? (
-          <section className="rounded-[1.75rem] border border-amber-200/60 bg-amber-50/60 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
-                  {t("cancel.discount.label")}
-                </div>
-                <p className="mt-2 text-lg font-semibold tracking-[-0.02em] text-neutral-950">
-                  {t("cancel.discount.title")}
-                </p>
-                <p className="mt-1.5 text-sm leading-6 text-neutral-600">
-                  {t("cancel.discount.useCode")}{" "}
-                  <span className="rounded-lg border border-amber-300 bg-white px-2.5 py-1 font-mono text-sm font-bold tracking-widest text-amber-800">
-                    FIRSTPACK
-                  </span>{" "}
-                  {t("cancel.discount.note")}
-                </p>
-              </div>
-              <div className="flex shrink-0 flex-wrap gap-2">
-                <CheckoutButton
-                  priceId={starterPack.stripePriceId}
-                  gumroadUrl={starterPack.gumroadProductUrl}
-                  className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
-                >
-                  Try {starterPack.title} — {starterPack.priceHint}
-                </CheckoutButton>
-                <Link
-                  href="/packs/"
-                  className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                >
-                  {t("cancel.discount.cta")}
-                </Link>
-              </div>
-            </div>
-          </section>
-        ) : null}
-
-        <section className="grid gap-4 lg:grid-cols-3">
-          {starterPack ? (
-            <article className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
-                {t("cancel.starter.label")}
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                {starterPack.title}
-              </h2>
-              <div className="mt-2 text-sm font-medium text-neutral-500">{starterPack.priceHint}</div>
-              <p className="mt-3 text-sm leading-6 text-neutral-600">{starterPack.detail}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {starterPack.stripePriceId ? (
-                  <CheckoutButton
-                    priceId={starterPack.stripePriceId}
-                    gumroadUrl={starterPack.gumroadProductUrl}
-                    className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-                  >
-                    Buy with FIRSTPACK
-                  </CheckoutButton>
-                ) : null}
-                <Link
-                  href={`/packs/${starterPack.id}/`}
-                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                >
-                  {t("cancel.starter.cta")}
-                </Link>
-              </div>
-            </article>
-          ) : null}
-
+        <section className="grid gap-4 lg:grid-cols-2">
           <article className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
               {t("cancel.free.label")}
@@ -116,55 +33,44 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
             <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
               {t("cancel.free.title")}
             </h2>
-            <div className="mt-2 text-sm font-medium text-neutral-500">{t("cancel.free.price")}</div>
             <p className="mt-3 text-sm leading-6 text-neutral-600">
               {t("cancel.free.desc")}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
-                href="/free-pack/"
+                href="/collections/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
-                {t("cancel.free.cta")}
+                {t("cancel.free.proof")}
               </Link>
               <Link
-                href="/collections/"
+                href="/free-resources/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                {t("cancel.free.proof")}
+                {t("cancel.free.cta")}
               </Link>
             </div>
           </article>
 
-          {bundlePack ? (
-            <article className="rounded-[1.75rem] border border-emerald-300/40 bg-gradient-to-br from-emerald-50/80 to-white/90 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
-              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">
-                {t("cancel.bundle.label")}
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                {bundlePack.title}
-              </h2>
-              <div className="mt-2 text-sm font-medium text-emerald-700">{bundlePack.priceHint}</div>
-              <p className="mt-3 text-sm leading-6 text-neutral-600">{bundlePack.detail}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {bundlePack.stripePriceId ? (
-                  <CheckoutButton
-                    priceId={bundlePack.stripePriceId}
-                    gumroadUrl={bundlePack.gumroadProductUrl}
-                    className="rounded-full border border-emerald-700/10 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-                  >
-                    {t("cancel.bundle.cta")}
-                  </CheckoutButton>
-                ) : null}
-                <Link
-                  href={`/packs/${bundlePack.id}/`}
-                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                >
-                  {t("cancel.bundle.details")}
-                </Link>
-              </div>
-            </article>
-          ) : null}
+          <article className="rounded-[1.75rem] border border-emerald-300/40 bg-gradient-to-br from-emerald-50/80 to-white/90 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">
+              Pro
+            </div>
+            <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+              Unlock the full archive
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-neutral-600">
+              Unlimited AI generations, exports in every format, WCAG reports, and full token generation.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link
+                href="/pro/"
+                className="rounded-full border border-emerald-700/10 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+              >
+                View Pro plans
+              </Link>
+            </div>
+          </article>
         </section>
 
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
@@ -201,16 +107,10 @@ export function CancelPage({ checkoutFlow, bundlePack, starterPack }: CancelPage
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
-                href="/packs/"
+                href="/pro/"
                 className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               >
-                {t("cancel.questions.compareAll")}
-              </Link>
-              <Link
-                href="/free-pack/"
-                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-              >
-                {t("cancel.questions.freeSample")}
+                View Pro plans
               </Link>
               <Link
                 href="/collections/"

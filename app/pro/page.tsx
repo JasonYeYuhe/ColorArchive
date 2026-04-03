@@ -28,6 +28,13 @@ const structuredData = [
         name: "Yearly",
         url: "https://colorarchive.me/pro/",
       },
+      {
+        "@type": "Offer",
+        price: "9800",
+        priceCurrency: "JPY",
+        name: "Lifetime",
+        url: "https://colorarchive.me/pro/",
+      },
     ],
   },
   {

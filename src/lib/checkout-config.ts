@@ -1,113 +1,51 @@
-// Checkout configuration for all products.
-// Supports Stripe and Gumroad. Set `activeProvider` to switch globally.
-// Gumroad product URLs must be configured on gumroad.com first.
-
-export type CheckoutProvider = "Stripe" | "Gumroad";
-
-/** Change this to switch the active payment provider site-wide. */
-export const activeProvider: CheckoutProvider = "Gumroad";
-
-export interface CheckoutConfigEntry {
-  note: string;
-  provider: CheckoutProvider;
-  status: "ready" | "pending";
-  stripePriceId: string;
-  gumroadProductUrl: string | null;
-}
-
-export interface WaitlistConfig {
-  contactEmail: string;
-  note: string;
-  provider: "Email" | "Buttondown" | "ConvertKit" | "Mailchimp";
-  url: string | null;
-}
+// Checkout configuration — Lemon Squeezy subscription-only model.
+// Variant IDs will be filled in after Lemon Squeezy store approval.
 
 export interface CheckoutFlowConfig {
   cancelPath: string;
   successPath: string;
 }
 
-export const checkoutConfig = {
-  "palette-pack-vol-1": {
-    provider: activeProvider,
-    stripePriceId: "price_1TFR1pGzX2t5YKIzymEBf5Wc",
-    gumroadProductUrl: "https://5465438432684.gumroad.com/l/palette-pack-vol-1",
-    status: "ready",
-    note: "Palette Pack Vol. 1 — ¥599",
-  },
-  "brand-starter-kit": {
-    provider: activeProvider,
-    stripePriceId: "price_1TFR1qGzX2t5YKIz01JvhSc1",
-    gumroadProductUrl: "https://5465438432684.gumroad.com/l/brand-starter-kit",
-    status: "ready",
-    note: "Brand Color Starter Kit — ¥1,499",
-  },
-  "content-creator-bundle": {
-    provider: activeProvider,
-    stripePriceId: "price_1TFR1qGzX2t5YKIzNSZljxBi",
-    gumroadProductUrl: "https://5465438432684.gumroad.com/l/content-creator-bundle",
-    status: "ready",
-    note: "Creator Bundle — ¥999",
-  },
-  "complete-archive": {
-    provider: activeProvider,
-    stripePriceId: "price_1TFR1rGzX2t5YKIzzq74qnH8",
-    gumroadProductUrl: "https://5465438432684.gumroad.com/l/complete-archive",
-    status: "ready",
-    note: "Complete Archive Token Set — ¥2,499",
-  },
-  "dark-mode-ui-kit": {
-    provider: activeProvider,
-    stripePriceId: "price_1TFR1rGzX2t5YKIzmHmxxJZI",
-    gumroadProductUrl: "https://5465438432684.gumroad.com/l/dark-mode-ui-kit",
-    status: "ready",
-    note: "Dark Mode UI Kit — ¥999",
-  },
-  "seasonal-spring-2026": {
-    provider: activeProvider,
-    stripePriceId: "price_1TFR1sGzX2t5YKIzBu5zuMSJ",
-    gumroadProductUrl: "https://5465438432684.gumroad.com/l/seasonal-spring-2026",
-    status: "ready",
-    note: "Seasonal: Spring 2026 — ¥299",
-  },
-  "all-access-bundle": {
-    provider: activeProvider,
-    stripePriceId: "price_1TFR1sGzX2t5YKIzUvpoOKZp",
-    gumroadProductUrl: "https://5465438432684.gumroad.com/l/all-access-bundle",
-    status: "ready",
-    note: "All Access Bundle — ¥3,999",
-  },
-} satisfies Record<string, CheckoutConfigEntry>;
-
-export type CheckoutProductId = keyof typeof checkoutConfig;
-
 export const proSubscriptionConfig = {
   monthly: {
     price: "¥499",
-    period: "month",
+    period: "month" as const,
     trialDays: 0,
-    stripePriceId: "price_1TFR1tGzX2t5YKIzi3MGUVxy",
+    variantId: "", // Lemon Squeezy variant ID — pending approval
     note: "Pro monthly subscription",
   },
   yearly: {
     price: "¥3,999",
-    period: "year",
+    period: "year" as const,
     trialDays: 0,
     savings: "33%",
-    stripePriceId: "price_1TFR1tGzX2t5YKIzlj8hT5za",
+    variantId: "", // Lemon Squeezy variant ID — pending approval
     note: "Pro yearly subscription",
   },
+  lifetime: {
+    price: "¥9,999",
+    period: "lifetime" as const,
+    earlyBird: true,
+    regularPrice: "¥12,999",
+    variantId: "", // Lemon Squeezy variant ID — pending approval
+    note: "Pro lifetime — early bird pricing",
+  },
 } as const;
+
+export type ProPlan = keyof typeof proSubscriptionConfig;
 
 export const checkoutFlowConfig: CheckoutFlowConfig = {
   successPath: "/thanks",
   cancelPath: "/cancel",
 };
 
-export const waitlistConfig: WaitlistConfig = {
-  provider: "Email",
-  url: null,
-  contactEmail: "hello@colorarchive.me",
-  note:
-    "Use direct email capture until a dedicated waitlist provider is connected. Replace this with a hosted form URL later if needed.",
-};
+/**
+ * Generate a Lemon Squeezy checkout URL for a given variant.
+ * Once the store is approved, this will return the hosted checkout overlay URL.
+ */
+export function getCheckoutUrl(plan: ProPlan): string | null {
+  const storeSlug = process.env.NEXT_PUBLIC_LS_STORE_SLUG ?? "";
+  const variantId = proSubscriptionConfig[plan].variantId;
+  if (!storeSlug || !variantId) return null;
+  return `https://${storeSlug}.lemonsqueezy.com/checkout/buy/${variantId}`;
+}

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
 import type { ColorCollection } from "@/src/lib/collections";
-import { palettePacks } from "@/src/lib/palette-packs";
 import type { LandingGuide } from "@/src/lib/guides";
 
 export function GuideDetailPage({
@@ -16,9 +15,6 @@ export function GuideDetailPage({
   featuredCollection: ColorCollection | null;
 }) {
   const { t } = useLocale();
-  const featuredPack = guide.featuredPackId
-    ? palettePacks.find((pack) => pack.id === guide.featuredPackId) ?? null
-    : null;
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -107,33 +103,6 @@ export function GuideDetailPage({
               </aside>
             ) : null}
 
-            {featuredPack ? (
-              <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-                  {t("guide.featuredPack")}
-                </div>
-                <div className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                  {featuredPack.title}
-                </div>
-                <div className="mt-2 text-sm font-medium text-neutral-500">{featuredPack.priceHint}</div>
-                <p className="mt-3 text-sm leading-6 text-neutral-600">{featuredPack.detail}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Link
-                    href={`/packs/${featuredPack.id}/`}
-                    className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-                  >
-                    {t("guide.openPack")}
-                  </Link>
-                  <Link
-                    href="/free-pack/"
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                  >
-                    {t("guide.tryFreeLayer")}
-                  </Link>
-                </div>
-              </aside>
-            ) : null}
-
             <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 {t("guide.openNext")}
@@ -165,7 +134,7 @@ export function GuideDetailPage({
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
-              href="/packs/"
+              href="/pro/"
               className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
             >
               {t("guide.browsePacks")}

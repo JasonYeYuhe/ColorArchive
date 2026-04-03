@@ -142,11 +142,11 @@ export function AboutPage() {
             How the 5,446 colors are generated
           </div>
           <p className="mt-4 text-sm leading-6 text-neutral-600">
-            Every color in the archive is produced algorithmically in{" "}
+            Every color in the archive is 100% procedurally generated via our proprietary algorithm in{" "}
             <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs text-neutral-700">
               src/data/colors.ts
             </code>{" "}
-            at build time — no database, no external color API. The generation
+            at build time — no database, no external color API, no scraped or copyrighted data. The generation
             multiplies three HSL dimensions: hue roots, lightness bands, and chroma bands.
           </p>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

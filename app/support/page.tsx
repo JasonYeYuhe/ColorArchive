@@ -8,7 +8,7 @@ const structuredData = {
   "@type": "ContactPage",
   name: "Support — ColorArchive",
   description:
-    "Get help with ColorArchive products, palette packs, exports, and Pro subscriptions.",
+    "Get help with ColorArchive products, exports, and Pro subscriptions.",
   url: "https://colorarchive.me/support/",
   mainEntity: {
     "@type": "Organization",
@@ -24,7 +24,7 @@ const structuredData = {
 
 export const metadata: Metadata = {
   title: "Support",
-  description: "See the strongest monetization paths for ColorArchive without adding backend complexity.",
+  description: "Get help with ColorArchive — FAQs, Pro subscription, free tools, and customer support.",
 };
 
 export default function SupportRoute() {

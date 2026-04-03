@@ -19,7 +19,6 @@ export interface LandingGuide {
   priority: number;
   searchIntent: string;
   featuredCollectionId?: string;
-  featuredPackId?: string;
   tags: string[];
   highlights: string[];
   sections: GuideSection[];
@@ -37,7 +36,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 100,
     searchIntent: "brand color palette ideas",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Brand", "Palette", "Systems"],
     highlights: [
       "A brand palette needs roles, not just pretty colors.",
@@ -77,7 +75,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 95,
     searchIntent: "dark mode color palette",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Dark mode", "UI", "Contrast"],
     highlights: [
       "Dark mode palettes fail when every surface collapses into the same black.",
@@ -117,7 +114,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 96,
     searchIntent: "free color palette download",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "content-creator-bundle",
     tags: ["Free", "Download", "Conversion"],
     highlights: [
       "A free pack should prove structure and file quality, not just hand over a few colors.",
@@ -157,7 +153,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 93,
     searchIntent: "figma color tokens",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "all-access-bundle",
     tags: ["Figma", "Tokens", "Workflow"],
     highlights: [
       "Token drift is usually a workflow problem, not a color problem.",
@@ -197,7 +192,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 89,
     searchIntent: "ui color palette",
     featuredCollectionId: "nordic-frost",
-    featuredPackId: "brand-starter-kit",
     tags: ["UI", "Palette", "Product"],
     highlights: [
       "Strong UI palettes define surfaces, borders, text, and accents as separate jobs.",
@@ -237,7 +231,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 92,
     searchIntent: "website color palette",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Website", "Landing pages", "Palette"],
     highlights: [
       "Landing page color has to support hierarchy before it supports personality.",
@@ -277,7 +270,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 88,
     searchIntent: "luxury neutral color palette",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Luxury", "Neutral", "Brand"],
     highlights: [
       "Premium palettes often work better with warmth than with pure grayscale minimalism.",
@@ -317,7 +309,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 91,
     searchIntent: "tailwind color tokens",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "complete-archive",
     tags: ["Tailwind", "Tokens", "Implementation"],
     highlights: [
       "Tailwind becomes fragile when token names mirror raw values instead of semantic roles.",
@@ -357,7 +348,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 94,
     searchIntent: "brand color tokens",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Brand", "Tokens", "Systems"],
     highlights: [
       "Brand tokens are what keep the landing page palette from splitting away from product UI.",
@@ -397,7 +387,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 90,
     searchIntent: "design system palette",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "complete-archive",
     tags: ["Design systems", "UI", "Tokens"],
     highlights: [
       "A design system palette has to scale across states, surfaces, and component density.",
@@ -437,7 +426,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 90,
     searchIntent: "website color scheme for saas",
     featuredCollectionId: "nordic-frost",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["SaaS", "Website", "UI"],
     highlights: [
       "SaaS landing pages need trust and hierarchy before they need novelty.",
@@ -477,7 +465,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 87,
     searchIntent: "free figma color palette",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "content-creator-bundle",
     tags: ["Free", "Figma", "Download"],
     highlights: [
       "A free Figma palette should feel organized enough to use in a real mockup immediately.",
@@ -517,7 +504,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 93,
     searchIntent: "color palette generator",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Tools", "Workflow", "Palette"],
     highlights: [
       "Concept-first generation produces more coherent palettes than random hue picking.",
@@ -557,7 +543,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 88,
     searchIntent: "procreate color palette",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "content-creator-bundle",
     tags: ["Procreate", "Download", "Illustration"],
     highlights: [
       "Procreate uses the .swatches format — ColorArchive exports this directly from the full archive.",
@@ -597,7 +582,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 91,
     searchIntent: "color scheme for app",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["UI", "Product", "Dark mode"],
     highlights: [
       "Mobile palettes need higher contrast ratios than desktop because rendering and ambient light vary more.",
@@ -637,7 +621,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 92,
     searchIntent: "accessible color palette",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "brand-starter-kit",
     tags: ["Accessibility", "Contrast", "WCAG"],
     highlights: [
       "WCAG compliance is a contrast ratio problem, not a color restriction — most hues can work if lightness is managed.",
@@ -677,7 +660,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 80,
     searchIntent: "color palette for portfolio website",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Portfolio", "Web Design", "Minimal"],
     highlights: [
       "A portfolio palette should frame work, not fight it — restraint is usually the smarter move.",
@@ -717,7 +699,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 82,
     searchIntent: "pastel color palette for branding",
     featuredCollectionId: "candy-pop",
-    featuredPackId: "seasonal-spring-2026",
     tags: ["Pastel", "Brand", "Modern"],
     highlights: [
       "Pastels read as modern when paired with dark anchors and confident typography — softness needs a frame.",
@@ -757,7 +738,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 83,
     searchIntent: "minimalist color palette",
     featuredCollectionId: "nordic-frost",
-    featuredPackId: "brand-starter-kit",
     tags: ["Minimal", "UI", "Brand"],
     highlights: [
       "Minimalism is not about using gray everywhere — it is about using each color with clear intent and generous white space.",
@@ -797,7 +777,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 81,
     searchIntent: "retro color palette",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Retro", "Vintage", "Warm"],
     highlights: [
       "Retro palettes work because of how colors age — hues shift warm, saturation drops, and darks go brown rather than black.",
@@ -837,7 +816,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 80,
     searchIntent: "color palette for print design",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "complete-archive",
     tags: ["Print", "Design", "Professional"],
     highlights: [
       "CMYK has a smaller gamut than RGB — vivid screen colors often need to be adjusted before they print correctly.",
@@ -877,7 +855,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 72,
     searchIntent: "wedding color palette ideas",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "brand-starter-kit",
     tags: ["Events", "Palette", "Print"],
     highlights: [
       "Wedding palettes function across more substrates than almost any other design context — paper, fabric, flowers, candles, lighting gels, and digital screens all interpret color differently.",
@@ -917,7 +894,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 68,
     searchIntent: "color grading palette photography",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "content-creator-bundle",
     tags: ["Photography", "Palette", "Brand"],
     highlights: [
       "A color grade is a palette operation applied to time-based media — it sets the dominant hue, establishes shadow and highlight temperatures, and constrains the saturation envelope of the entire piece.",
@@ -957,7 +933,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 67,
     searchIntent: "interior design color palette",
     featuredCollectionId: "terracotta-loft",
-    featuredPackId: "brand-starter-kit",
     tags: ["Interior", "Home", "Warm"],
     highlights: [
       "Light changes throughout the day — a color that reads warm at noon may shift cool by late afternoon in north-facing rooms.",
@@ -997,7 +972,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 66,
     searchIntent: "photography color palette",
     featuredCollectionId: "sunset-boulevard",
-    featuredPackId: "content-creator-bundle",
     tags: ["Photography", "Brand", "Warm"],
     highlights: [
       "A consistent photography palette is defined by three variables: highlight temperature, shadow temperature, and midtone saturation.",
@@ -1037,7 +1011,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 65,
     searchIntent: "monochromatic color palette",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Minimal", "Systems", "UI"],
     highlights: [
       "Monochromatic palettes succeed by maximizing lightness contrast within a single hue — not by adding more colors.",
@@ -1077,7 +1050,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 63,
     searchIntent: "game UI color palette",
     featuredCollectionId: "neon-after-dark",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Gaming", "Dark mode", "UI"],
     highlights: [
       "Game UIs are typically read in 200-400ms — contrast ratios for interactive elements need to be significantly higher than standard WCAG AA minimums.",
@@ -1117,7 +1089,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 61,
     searchIntent: "architecture color palette",
     featuredCollectionId: "concrete-modernism",
-    featuredPackId: "brand-starter-kit",
     tags: ["Architecture", "Brand", "Neutral"],
     highlights: [
       "Architecture portfolios fail when the palette competes with the photography. The strongest architecture brand palettes are near-neutral — they frame the work rather than fight it.",
@@ -1157,7 +1128,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 59,
     searchIntent: "startup brand color palette",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "brand-starter-kit",
     tags: ["Brand", "Startup", "Systems"],
     highlights: [
       "The single most important startup palette decision is: one primary, one accent, one neutral. Three colors with clear roles produce more coherent products than ten colors without them.",
@@ -1197,7 +1167,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 57,
     searchIntent: "fashion brand color palette",
     featuredCollectionId: "blossom-season",
-    featuredPackId: "content-creator-bundle",
     tags: ["Fashion", "Brand", "Editorial"],
     highlights: [
       "Fashion palettes work differently because color is the product. The brand palette has to create space for merchandise colors rather than compete with them — which means fashion brand neutrals are more important than fashion brand accents.",
@@ -1237,7 +1206,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 80,
     searchIntent: "color blind friendly color palette",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Accessibility", "UI Design", "Color Theory"],
     highlights: [
       "Deuteranopia — missing green-sensitive cones — affects roughly 6% of males and is the most common color vision deficiency. Red-green combinations are the highest-risk pair in most UI systems.",
@@ -1277,7 +1245,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 70,
     searchIntent: "color palette for social media branding",
     featuredCollectionId: "blossom-season",
-    featuredPackId: "brand-starter-kit",
     tags: ["Social Media", "Branding", "Content Creation"],
     highlights: [
       "Feed-level visual cohesion comes from consistent background color and lighting treatment, not from individual post colors. Posts look cohesive when they share a surface treatment — warm cream backgrounds, cool dark surfaces — more than when they share accent colors.",
@@ -1317,7 +1284,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 69,
     searchIntent: "neutral color palette for design systems",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Neutral Colors", "Design Systems", "UI Design"],
     highlights: [
       "Most design system grays have an unintentional color cast — cool blue-grays from copying Material Design defaults, or warm beige-grays from Tailwind's stone scale. Both are opinionated choices even if they feel 'neutral.' Choose your gray cast deliberately.",
@@ -1357,7 +1323,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 67,
     searchIntent: "earth tone color palette for design",
     featuredCollectionId: "terracotta-loft",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Earth Tones", "Branding", "Nature-Inspired"],
     highlights: [
       "Earth tones are not just browns and tans: the earth-tone family includes terracotta reds, sage and olive greens, slate and stone blues, ochre yellows, and clay oranges — all sharing the key characteristic of reduced saturation and medium-low lightness.",
@@ -1397,7 +1362,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 82,
     searchIntent: "color psychology branding",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Color Psychology", "Branding", "Research"],
     highlights: [
       "The research on color-emotion associations is real but modest: colors nudge emotional associations rather than causing them. Context, surrounding colors, and personal history consistently outweigh hue alone.",
@@ -1437,7 +1401,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 78,
     searchIntent: "color palette for e-commerce website",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["E-Commerce", "Conversion", "Web Design"],
     highlights: [
       "Product photography determines your neutral palette: if your products are photographed on white backgrounds, a warm-cream site surface creates harmony; a cool-gray site surface makes the same white-background photos look slightly yellow.",
@@ -1477,7 +1440,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 75,
     searchIntent: "color temperature palette design",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Color Theory", "Temperature", "Palette Building"],
     highlights: [
       "Warm colors (red, orange, yellow) appear to advance toward the viewer; cool colors (blue, green, violet) appear to recede. This spatial property is directly usable for creating visual hierarchy without changing lightness or size.",
@@ -1517,7 +1479,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 73,
     searchIntent: "monochromatic color palette design",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "brand-starter-kit",
     tags: ["Monochromatic", "Color Theory", "Design Systems"],
     highlights: [
       "A monochromatic palette is not just one color — it is a system of lightness and saturation variations on a single hue. The range from near-white to near-black gives you enough contrast to build a complete UI without any additional hues.",
@@ -1557,7 +1518,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 76,
     searchIntent: "color palette for app UI design",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["UI/UX", "App Design", "Design Systems", "Web Design"],
     highlights: [
       "A brand palette has 3-5 colors. A functional app color system needs 30-50 distinct values: interactive states, semantic feedback colors, elevation layers, and text role variants. These are not the same thing — the brand palette is the input, and the app color system is the engineered output.",
@@ -1597,7 +1557,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 71,
     searchIntent: "pastel color palette design",
     featuredCollectionId: "blossom-season",
-    featuredPackId: "brand-starter-kit",
     tags: ["Pastel", "Color Theory", "Brand"],
     highlights: [
       "Pastel colors live at the high-lightness end of the HSL scale (L:75-95%). Their defining characteristic is that they read as soft and approachable rather than intense. But high lightness also means low contrast against white — which makes them unusable as text colors and forces all contrast work onto dark neutral anchor values.",
@@ -1637,7 +1596,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 69,
     searchIntent: "gradient color palette design",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Gradient", "Color Theory", "UI/UX"],
     highlights: [
       "The most common gradient mistake is interpolating through gray. A gradient from warm orange to cool blue that passes through the RGB midpoint creates a muddy gray band. The fix: route through a connecting hue, or use perceptual interpolation (OKLCH) instead of RGB.",
@@ -1677,7 +1635,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 72,
     searchIntent: "logo color palette design",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Brand", "Logo", "Color Theory"],
     highlights: [
       "Design the logo in black first. If a logo only works in color, it is not a finished logo. The black version reveals whether the form carries the identity — color should enhance the form, not compensate for a weak form.",
@@ -1717,7 +1674,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 67,
     searchIntent: "color typography hierarchy design",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "brand-starter-kit",
     tags: ["Typography", "UI/UX", "Systems"],
     highlights: [
       "Near-black text at lightness 12–18% is more readable for long-form content than pure black (#000000). Pure black creates the harshest contrast on white, causing eye fatigue. Slightly warm or cool near-black aligns with your palette's temperature while reducing visual strain across extended reading.",
@@ -1754,7 +1710,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 71,
     searchIntent: "design token color naming system",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Design Systems", "UI/UX", "Brand"],
     highlights: [
       "Primitive color tokens define what a color is (blue-60, amber-30). Semantic tokens define what it does (action-primary, surface-default). UI code should only reference semantic tokens — this means a complete rebrand changes one mapping file, not hundreds of component references.",
@@ -1791,7 +1746,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 68,
     searchIntent: "color palette for presentations slides",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "brand-starter-kit",
     tags: ["Presentations", "Brand", "UI/UX"],
     highlights: [
       "Use near-neutral backgrounds rather than pure white or pure black. Pure white causes eye fatigue in dim conference rooms; pure black creates harsh contrast. Off-white (L: 96-98%) and near-black (L: 8-12%) read as neutral while being easier on the eyes across a full presentation.",
@@ -1832,7 +1786,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 72,
     searchIntent: "how to design a brand color system",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     highlights: [
       "A complete brand color system assigns every color to one of five roles before choosing any individual color: primary, secondary accent, neutral field, text, and functional indicators.",
       "A full 12-15 color palette can be derived algorithmically from a single anchor color by generating tonal ranges, finding complements, and tinting neutrals from the anchor hue.",
@@ -1872,7 +1825,6 @@ export const landingGuides: LandingGuide[] = [
     priority: 73,
     searchIntent: "color psychology in UX design",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     highlights: [
       "The most reliable color effect in digital UX is contrast-driven hierarchy, not specific hue associations — users follow high-contrast paths first regardless of which color is used.",
       "Most color-conversion studies are confounded by contrast changes; the honest conclusion is that contrast and visual distinctiveness drive performance, not specific hue choices.",
@@ -1917,7 +1869,6 @@ export const landingGuides: LandingGuide[] = [
       "Do not force your brand color into step 500. Identify its natural lightness position (400, 500, 600, etc.) and anchor the scale there. The step number is a label, not a constraint.",
     ],
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     sections: [
       {
         heading: "Tints, shades, and tones: understanding the difference",
@@ -1962,7 +1913,6 @@ export const landingGuides: LandingGuide[] = [
       "Never use color as the sole differentiator. Add a secondary encoding — shape, position, pattern, or label — for every color-based distinction. This covers color-blind users, print, grayscale, and high-glare environments.",
     ],
     featuredCollectionId: "studio-neutral",
-    featuredPackId: "complete-archive",
     sections: [
       {
         heading: "The three types of data visualization color scales",
@@ -2008,7 +1958,6 @@ export const landingGuides: LandingGuide[] = [
       "Analogous schemes lack natural contrast because the colors share temperature. Add visual interest through lightness variation — a light, medium, and dark step within the analogous range — rather than introducing a non-analogous accent.",
     ],
     featuredCollectionId: "blossom-season",
-    featuredPackId: "brand-starter-kit",
     sections: [
       {
         heading: "Defining the analogous range",
@@ -2053,7 +2002,6 @@ export const landingGuides: LandingGuide[] = [
       "Healthcare interfaces should target WCAG AAA (7:1) contrast for primary text where possible, not just AA (4.5:1), given an older-than-average user base with higher rates of visual impairment. Text size also matters: do not reduce text below 16px in patient-facing interfaces.",
     ],
     featuredCollectionId: "nordic-frost",
-    featuredPackId: "complete-archive",
     sections: [
       {
         heading: "Why blue dominates healthcare",
@@ -2097,15 +2045,7 @@ export function getGuidesForCollection(collectionId?: string | null, limit = 3) 
     .slice(0, limit);
 }
 
-export function getGuidesForPack(packId?: string | null, limit = 3) {
-  if (!packId) {
-    return [];
-  }
 
-  return landingGuides
-    .filter((guide) => guide.featuredPackId === packId)
-    .slice(0, limit);
-}
 
 export function getRelatedGuides(slug: string, limit = 3) {
   const guide = getLandingGuide(slug);
@@ -2120,10 +2060,6 @@ export function getRelatedGuides(slug: string, limit = 3) {
       let score = 0;
 
       if (entry.category === guide.category) {
-        score += 3;
-      }
-
-      if (guide.featuredPackId && entry.featuredPackId === guide.featuredPackId) {
         score += 3;
       }
 
@@ -2168,7 +2104,6 @@ export const additionalGuides: LandingGuide[] = [
     priority: 76,
     searchIntent: "dark mode color palette, dark theme colors, dark UI design, night mode color scheme",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["UI/UX Design", "Accessibility", "Color Systems"],
     highlights: [
       "Dark mode surfaces should be layered — use 3-4 distinct lightness levels (L:10, 14, 18, 22%) rather than a single flat dark gray. The Nocturne Tech collection demonstrates this range from cobalt-ink through violet-dusk.",
@@ -2213,7 +2148,6 @@ export const additionalGuides: LandingGuide[] = [
     priority: 73,
     searchIntent: "neutral color palette, warm gray color palette, cool gray design, off white color scheme, neutral colors UI",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "complete-archive",
     tags: ["UI/UX Design", "Color Systems", "Brand"],
     highlights: [
       "Neutral temperature is hidden in the HSL hue value: a gray with hue 40-60° at low saturation is warm; a gray with hue 200-240° is cool. Tailwind's slate and zinc scales are cool-neutral; stone and warm scales lean warm. Know what temperature you are inheriting from your framework.",
@@ -2264,7 +2198,6 @@ export const moreGuides: LandingGuide[] = [
     priority: 74,
     searchIntent: "gradient color palette, CSS gradient design, mesh gradient tool, gradient color picker, how to design gradients",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "complete-archive",
     tags: ["UI/UX Design", "Color Theory", "Web Design"],
     highlights: [
       "Gradients that look natural to the eye always travel through the perceptual midpoint of their two endpoint colors. A direct CSS linear-gradient from blue to yellow often produces a muddy gray center — traveling through HSL or OKLCH color space instead of RGB produces vivid, luminous transitions. Use oklch() gradients in CSS for the cleanest transitions between colors with large hue differences.",
@@ -2309,7 +2242,6 @@ export const moreGuides: LandingGuide[] = [
     priority: 71,
     searchIntent: "e-commerce color palette, website color scheme for online store, CTA button color conversion, product page color design, trust color design",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Industry Palettes", "Brand", "UI/UX Design"],
     highlights: [
       "Product photography background color is the most impactful e-commerce color decision. Pure white (#FFFFFF) maximizes product edge clarity but reads as sterile for lifestyle categories. Off-white or warm light gray (L: 95-97%, warm hue) adds warmth while maintaining product legibility. Dark backgrounds increase drama and premium perception but require products with defined light edges — products without clear contrast to the background disappear.",
@@ -2360,7 +2292,6 @@ export const extraGuides3: LandingGuide[] = [
     priority: 69,
     searchIntent: "real estate color palette, property brand colors, realtor brand design, luxury real estate colors, real estate website color scheme",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Industry Palettes", "Brand Design"],
     highlights: [
       "The dominant real estate color conventions by market segment: corporate/national agencies (navy, white, red accents — authority, national reach), luxury residential (dark green, cream, gold — heritage, wealth, landscape), modern boutique agencies (warm neutrals, black, off-white — editorial, taste-making), and proptech/digital-first (cobalt, white, vivid accents — technology, speed, modernity). Each palette signals a different value proposition before a word of copy is read.",
@@ -2405,7 +2336,6 @@ export const extraGuides3: LandingGuide[] = [
     priority: 68,
     searchIntent: "packaging color design, product packaging color palette, CMYK color for packaging, brand color in print, packaging color psychology",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "complete-archive",
     tags: ["Brand Design", "Industry Palettes"],
     highlights: [
       "CMYK print cannot reproduce all colors visible on screen. The most commonly out-of-gamut colors for packaging: vivid cyan, bright orange, electric green, and highly saturated magenta. Before finalizing a packaging palette, check each color against the CMYK gamut using a color proof tool (Adobe Acrobat's CMYK soft-proof, Pantone's color finder) to verify the printed color will match the intended design. For brand-critical colors, specifying a Pantone (PMS) color alongside CMYK guarantees color accuracy regardless of print conditions — this is standard practice for brand colors used on packaging.",
@@ -2455,7 +2385,6 @@ export const extraGuides4: LandingGuide[] = [
     priority: 67,
     searchIntent: "social media color palette, Instagram color scheme, TikTok brand colors, Pinterest color strategy, social media design colors",
     featuredCollectionId: "electric-mint",
-    featuredPackId: "content-creator-bundle",
     tags: ["Digital Design", "Brand Design"],
     highlights: [
       "Instagram rewards visual consistency: the most-followed brand accounts have recognizable color signatures that make each post identifiable as belonging to that account before the user reads the handle. This color consistency functions as a form of attention training — users who repeatedly see a specific color combination learn to associate it with a brand and are more likely to pause on future content. The practical implication: choose 3-5 brand colors and apply them consistently across every piece of content. The palette does not need to be unusual — it needs to be consistent.",
@@ -2500,7 +2429,6 @@ export const extraGuides4: LandingGuide[] = [
     priority: 66,
     searchIntent: "OKLCH color space, oklch css, perceptually uniform color, oklch vs hsl, oklch color picker, oklch gradient, oklch color system",
     featuredCollectionId: "cerulean-depth",
-    featuredPackId: "brand-starter-kit",
     tags: ["Developer Tools", "Color Theory"],
     highlights: [
       "The key insight of OKLCH: L (lightness) is perceptually uniform. In HSL, a color at 50% lightness may appear much darker or lighter than another color at 50% lightness — compare HSL(60, 100%, 50%) (vivid yellow) with HSL(240, 100%, 50%) (vivid blue). The yellow appears significantly lighter to the eye despite identical HSL lightness values. In OKLCH, oklch(0.7, -, -) yellow and oklch(0.7, -, -) blue will appear equally light to the human eye regardless of hue. This makes OKLCH dramatically better for generating color scales, gradients, and accessible color combinations.",
@@ -2550,7 +2478,6 @@ export const extraGuides5: LandingGuide[] = [
     priority: 65,
     searchIntent: "monochromatic color palette, single hue design, monochrome color scheme designer, monochromatic UI colors, build tonal scale",
     featuredCollectionId: "cerulean-depth",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Color Theory", "UI Design"],
     highlights: [
       "Adjusting lightness alone produces a flat, lifeless scale — professional monochromatic palettes also modulate saturation (lower at extremes, peak at mid-tone) and allow a subtle temperature arc (warm shift at light end, cool shift at dark end) that mimics how real surfaces look under changing light.",
@@ -2595,7 +2522,6 @@ export const extraGuides5: LandingGuide[] = [
     priority: 64,
     searchIntent: "dark mode color palette, dark mode UI design, dark theme colors, dark mode color system, how to design dark mode",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["UI Design", "Accessibility"],
     highlights: [
       "Dark mode backgrounds should not be pure black (#000000). Pure black creates excessive contrast with almost any foreground, causing \"blooming\" where bright text appears to glow and edges vibrate. The recommended dark mode base background is L:8-12% with slight desaturation and a subtle cool undertone — typically around #141416 for neutral-cool or #121214 for a warmer dark.",
@@ -2645,7 +2571,6 @@ export const extraGuides6: LandingGuide[] = [
     priority: 85,
     searchIntent: "color wheel guide for designers",
     featuredCollectionId: "terracotta-loft",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Color Theory", "Palette", "Fundamentals"],
     highlights: [
       "The color wheel is structured around hue, which is the 360° property of color that determines whether it reads as red, orange, yellow, green, blue, or violet. Hue is independent of lightness (how dark or bright a color is) and saturation (how vivid or muted it is). Color relationships are defined entirely by hue angle differences — complementary colors are 180° apart, analogous colors are 30° apart, triadic colors are 120° apart. Understanding this means you can derive any harmonic relationship mathematically from any starting color.",
@@ -2690,7 +2615,6 @@ export const extraGuides6: LandingGuide[] = [
     priority: 78,
     searchIntent: "color for mobile app design",
     featuredCollectionId: "ocean-abyss",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Mobile", "UI Design", "Color Systems"],
     highlights: [
       "OLED displays (used in all premium smartphones since 2017) have a fundamentally different characteristic from LCD: each pixel emits its own light, meaning black pixels draw zero power. This gives pure black (#000000) a functional advantage in OLED mobile apps beyond aesthetics — it is a battery optimization. Apps with dark modes on OLED screens can reduce display power consumption by 30-60% at low brightness levels. This is why dark mode is disproportionately popular on mobile: users unconsciously associate it with longer battery life, and on OLED they are correct.",
@@ -2735,7 +2659,6 @@ export const extraGuides6: LandingGuide[] = [
     priority: 72,
     searchIntent: "warm vs cool colors design",
     featuredCollectionId: "golden-hour",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Color Theory", "Psychology", "Brand"],
     highlights: [
       "The warm-cool distinction is rooted in the physics of light. Warm light sources (fire, incandescent bulbs, sunrise/sunset) have color temperatures below 3500K and shift light toward the red-orange-yellow spectrum. Cool light sources (sky, daylight, LED panels) have color temperatures above 5000K and shift toward the blue-white spectrum. Human visual processing has evolved to interpret warm-hued environments as lower-light and lower-energy situations (dusk, firelight, enclosed spaces) and cool-hued environments as higher-light and higher-energy situations (midday, open sky, active alertness). This evolutionary context is why warm colors feel intimate and cool colors feel expansive — it is a learned environmental association built over 200,000 years of hominid visual experience.",
@@ -2785,7 +2708,6 @@ const extraGuides7: LandingGuide[] = [
     priority: 80,
     searchIntent: "color contrast accessibility guide designers",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Accessibility", "WCAG", "Color Contrast"],
     highlights: [
       "WCAG 2.1 contrast ratio is calculated from the relative luminance of two colors using the formula CR = (L1 + 0.05) / (L2 + 0.05), where L1 is the lighter color's relative luminance. A ratio of 4.5:1 is required for normal text (under 18pt or 14pt bold) to meet Level AA compliance. A ratio of 3:1 applies to large text and UI components like form borders and active indicators. Level AAA requires 7:1 for normal text. These thresholds were established in the early 2000s based on research into legibility for users with low vision; they represent minimum requirements, not design targets. Designing to 4.6:1 gives you no margin for production variation or substrate shifts.",
@@ -2830,7 +2752,6 @@ const extraGuides7: LandingGuide[] = [
     priority: 71,
     searchIntent: "color in data visualization design",
     featuredCollectionId: "neon-after-dark",
-    featuredPackId: "complete-archive",
     tags: ["Data Visualization", "Accessibility", "Color Theory"],
     highlights: [
       "Data visualization uses three distinct types of color encoding, each with different design requirements. Categorical encoding uses color to distinguish unordered groups (product categories, countries, species) — the colors should be maximally distinguishable from each other while avoiding any implication of ordering. Sequential encoding uses color lightness or saturation to represent a continuous ordered variable (temperature, population density, probability) — the color progression should be perceptually uniform so that equal data differences produce equal perceived color differences. Diverging encoding represents variables with a meaningful midpoint (positive vs. negative deviation, comparison to average) — two hue sequences meet at a neutral midpoint color, showing direction as well as magnitude.",
@@ -2875,7 +2796,6 @@ const extraGuides7: LandingGuide[] = [
     priority: 70,
     searchIntent: "saturation chroma color design guide",
     featuredCollectionId: "neon-after-dark",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Color Theory", "Saturation", "Chroma"],
     highlights: [
       "HSL saturation is a mathematical property, not a perceptual one. Two colors with the same HSL saturation value (e.g., 80%) can appear dramatically different in perceived colorfulness if they have different hues or lightness values. Yellow at S:80% appears extremely vivid; blue-violet at S:80% at the same lightness appears only moderately vivid. This discrepancy exists because the HSL model was designed for computational simplicity, not perceptual accuracy. Perceptual chroma — the measure of colorfulness that matches human perception — varies significantly by hue even at constant HSL saturation. Working in HSL gives you mathematical consistency but perceptual inconsistency; working in OKLCH gives you perceptual consistency at the cost of some computational complexity.",
@@ -3063,7 +2983,6 @@ const extraGuides9: LandingGuide[] = [
     priority: 80,
     searchIntent: "color psychology marketing design",
     featuredCollectionId: "golden-hour",
-    featuredPackId: "complete-archive",
     tags: ["Color Psychology", "Marketing", "Brand Design"],
     highlights: [
       "The research on color and emotion is real but context-dependent. Studies consistently show that color affects first impressions, emotional valence (positive/negative), and arousal levels (calm/stimulating). But the specific emotional association of a color depends heavily on context, culture, saturation, and what colors surround it. The same red reads as exciting in a consumer electronics ad, dangerous in a security alert, and romantic in a Valentine's Day campaign. The implication: color psychology cannot be applied by looking up 'what red means' and selecting accordingly. It requires understanding the specific associations your audience holds for that color in that category in that cultural context.",
@@ -3108,7 +3027,6 @@ const extraGuides9: LandingGuide[] = [
     priority: 78,
     searchIntent: "startup brand color guide design",
     featuredCollectionId: "cobalt-morning",
-    featuredPackId: "brand-starter-kit",
     tags: ["Brand Design", "Startup", "Color Systems"],
     highlights: [
       "The most expensive startup color mistake is choosing a color that is indistinguishable from competitors. Category convention exists for a reason — users learn to associate color with function (fintech is blue, health is green, food delivery is orange) — but category convention also creates color sameness that makes differentiation impossible. The right approach: understand the dominant color conventions in your category, then make a deliberate choice about whether to follow them (for trust and recognition) or violate them (for differentiation and memorability). Following convention is the lower-risk short-term choice; violating it with a well-reasoned alternative can create strong differentiation, but only if the chosen color is appropriate to the product and consistently executed.",
@@ -3153,7 +3071,6 @@ const extraGuides9: LandingGuide[] = [
     priority: 79,
     searchIntent: "color in typography design guide legibility",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "brand-starter-kit",
     tags: ["Typography", "Legibility", "Color Systems"],
     highlights: [
       "Body text color is not black — it is near-black. Pure #000000 text on pure #FFFFFF white creates maximum contrast (21:1) but produces a harsh, optically aggressive reading experience on modern backlit screens. The optimal body text color for extended reading is in the L8–16% range with slight chromatic warmth (2–8% saturation in the direction of the brand primary or a warm neutral). This produces contrast ratios of 14:1 to 18:1 against white — well above the WCAG AAA requirement of 7:1 — while eliminating the optical harshness of pure black. The difference is subtle in isolation but significant in extended reading contexts: a 2,000-word article in near-black text causes less eye fatigue than the same article in pure black.",
@@ -3204,7 +3121,6 @@ const extraGuides10: LandingGuide[] = [
     priority: 82,
     searchIntent: "design token color system guide designers",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "brand-starter-kit",
     tags: ["Design Systems", "Tokens", "Color Systems"],
     highlights: [
       "A color token system has three tiers, and the distinction between tiers is the single most important concept in token architecture. Tier 1 (Primitive / Global tokens): the raw color values from your palette — `--color-blue-500: #3B82F6`. These tokens have no semantic meaning; they just name colors. They are never used directly in component code. Tier 2 (Semantic / Alias tokens): tokens that express intent rather than value — `--color-action-primary: var(--color-blue-500)`. These are the tokens components actually reference. Semantic tokens are what makes theming possible: to switch from blue to green primary, you change one semantic token, not hundreds of component-level hard-codes. Tier 3 (Component tokens, optional): component-specific tokens for large design systems — `--button-primary-background: var(--color-action-primary)`. Most projects do not need Tier 3 initially; add it when component-level overrides become necessary. The common mistake is to use only Tier 1 (raw hex) in components, which produces fragile systems that break on any rebrand.",
@@ -3244,7 +3160,6 @@ const extraGuides10: LandingGuide[] = [
     priority: 80,
     searchIntent: "color palette for landing page conversion",
     featuredCollectionId: "nordic-morning",
-    featuredPackId: "brand-starter-kit",
     tags: ["Landing Pages", "Conversion", "Color Strategy"],
     highlights: [
       "The CTA button color question — 'what color converts best?' — is the wrong question. The research consensus on CTA color: the highest-converting CTA button is the one with the highest contrast against the surrounding content, regardless of its hue. An orange button on a white page converts well not because orange is a conversion color but because orange creates maximum contrast against white and typical page surroundings. A red button on a red page converts poorly for the same reason: zero contrast, zero attention. The practical rule: make your CTA the most visually prominent element on the page. This means high contrast against background, high contrast against surrounding text and graphics, and sufficient size. Hue is secondary to contrast every time.",
@@ -3279,7 +3194,6 @@ const extraGuides10: LandingGuide[] = [
     priority: 76,
     searchIntent: "color in icon design icon color system",
     featuredCollectionId: "arctic-minimal",
-    featuredPackId: "brand-starter-kit",
     tags: ["Icons", "UI Design", "Color Systems"],
     highlights: [
       "Single-color icons — icons rendered in one color, typically the current text color or a specified interface color — are the most versatile and scalable icon type for UI systems. By accepting the current color context (via `currentColor` in SVG), they automatically adapt to dark/light mode, themed surfaces, and disabled states without separate icon variants. The constraint: single-color icons communicate function through form alone, without color as a signal. This is sufficient for most UI navigation and action icons. The design requirement for single-color icons is higher: form must communicate unambiguously without color cues. The common mistake: designing icons in a specific color (dark on white) and assuming they will work in all contexts — test every single-color icon in four states: default (light mode), dark mode, on a colored background, and in a disabled (50% opacity) state.",
@@ -3319,7 +3233,6 @@ const extraGuides11: LandingGuide[] = [
     priority: 77,
     searchIntent: "data visualization color palette design",
     featuredCollectionId: "candy-pop",
-    featuredPackId: "complete-archive",
     tags: ["Data Visualization", "Color Systems", "Accessibility"],
     highlights: [
       "Match palette type to data type: sequential for ordered data (light to dark), categorical for distinct groups (maximally different hues), diverging for data with a meaningful center point (two-hue ramp with neutral middle). Using the wrong type makes charts misleading rather than merely ugly.",
@@ -3354,7 +3267,6 @@ const extraGuides11: LandingGuide[] = [
     priority: 74,
     searchIntent: "color wayfinding design environmental signage color system",
     featuredCollectionId: "candy-pop",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Wayfinding", "Environmental Design", "Accessibility"],
     highlights: [
       "The cognitive ceiling for color-coded categories is 6-8 distinct colors. Above this, users make systematic identification errors, particularly under time pressure or anxiety. If your system requires more codes, combine color with shape, number, or letter to create redundant differentiation.",
@@ -3389,7 +3301,6 @@ const extraGuides11: LandingGuide[] = [
     priority: 72,
     searchIntent: "wide gamut color design P3 HDR display designer guide",
     featuredCollectionId: "candy-pop",
-    featuredPackId: "complete-archive",
     tags: ["Color Management", "HDR", "Advanced Color"],
     highlights: [
       "Wide gamut matters most for highly saturated colors — reds, oranges, and vivid greens above 85% HSL saturation. Muted, pastel, and neutral palettes are almost entirely within sRGB and require no wide-gamut treatment.",
@@ -3429,7 +3340,6 @@ const extraGuides12: LandingGuide[] = [
     priority: 71,
     searchIntent: "film color grading design brand photography cinematic palette",
     featuredCollectionId: "desert-canyon",
-    featuredPackId: "complete-archive",
     tags: ["Color Grading", "Photography", "Visual Direction"],
     highlights: [
       "Film grading operates on three tone zones: shadows (lift), midtones (gamma), and highlights (gain). Pushing these zones in opposite directions on the color wheel creates color contrast — the ubiquitous teal-shadow/orange-highlight combination works because warm skin tones are separated from cool backgrounds, making subjects step forward from the frame.",
@@ -3464,7 +3374,6 @@ const extraGuides12: LandingGuide[] = [
     priority: 70,
     searchIntent: "chromatic neutral palette warm gray cool gray design system guide",
     featuredCollectionId: "arctic-minimal",
-    featuredPackId: "complete-archive",
     tags: ["Neutral Colors", "Color Systems", "Palette Design"],
     highlights: [
       "Pure achromatic gray reads as cold and digitally unprocessed — it is the default state of unconfigured design tools. Chromatic neutrals with 5-12% chroma in a specific hue direction feel temperature-appropriate and designed because human vision calibrates gray relative to lighting context.",
@@ -3499,7 +3408,6 @@ const extraGuides12: LandingGuide[] = [
     priority: 69,
     searchIntent: "startup brand color guide choosing brand color early stage",
     featuredCollectionId: "candy-pop",
-    featuredPackId: "brand-starter-kit",
     tags: ["Brand Color", "Startups", "Color Strategy"],
     highlights: [
       "Map your top 5-8 competitors' primary colors before choosing yours. Identify the white space — hue territory no credible competitor owns. In most B2B/SaaS categories, blue dominates; orange, purple, and green are often underrepresented. Entering a blue-saturated category with a blue brand requires competing on non-color differentiation; entering with an unused credible hue makes color a differentiation asset.",
@@ -3539,7 +3447,6 @@ const extraGuides13: LandingGuide[] = [
     priority: 72,
     searchIntent: "color specification physical production packaging print materials pantone",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Material Design", "Print", "Pantone", "Brand Color"],
     highlights: [
       "Surface finish is the most underestimated variable in material color specification. The same Pantone applied to glossy and matte substrates can differ by 5-8 perceived lightness points and 15-20% in apparent saturation. Always specify finish (gloss units at 60°) alongside the Pantone reference.",
@@ -3574,7 +3481,6 @@ const extraGuides13: LandingGuide[] = [
     priority: 73,
     searchIntent: "color animation css transition oklch hover states loading skeleton screen design",
     featuredCollectionId: "candy-pop",
-    featuredPackId: "complete-archive",
     tags: ["Motion Design", "CSS", "OKLCH", "Animation"],
     highlights: [
       "CSS interpolates transitions and gradients in sRGB by default, which creates visible brightness dips (muddy gray intermediates) when transitioning between saturated hues. Use `transition: color 200ms` with OKLCH interpolation via CSS Color Level 4: `background: oklch(from var(--color-a) l c h / 1)` combined with `color-mix(in oklch, color-a, color-b)` for correct perceptual interpolation.",
@@ -3609,7 +3515,6 @@ const extraGuides13: LandingGuide[] = [
     priority: 74,
     searchIntent: "color psychology product design UX research trust brand conversion evidence",
     featuredCollectionId: "midnight-forest",
-    featuredPackId: "complete-archive",
     tags: ["Color Psychology", "UX Research", "Brand Strategy"],
     highlights: [
       "Button color does not determine conversion in isolation. The highest-quality A/B research shows luminance contrast with the surrounding color environment is the actual driver — a red button outperforms a green button on a green background, but the same result would reverse in a red-dominant environment. The implication: maximize CTA luminance contrast against its immediate background, not its hue.",
@@ -3649,7 +3554,6 @@ const extraGuides14: LandingGuide[] = [
     priority: 76,
     searchIntent: "extract color from image photo brand color photography palette reference",
     featuredCollectionId: "desert-dusk",
-    featuredPackId: "brand-starter-kit",
     tags: ["Photography", "Brand Color", "Color Extraction"],
     highlights: [
       "Photography reads color in context: the same extracted hex value will look completely different as an isolated swatch than it did in the photograph. Always test extracted colors against neutral backgrounds at multiple scales before deciding if the extraction is accurate.",
@@ -3684,7 +3588,6 @@ const extraGuides14: LandingGuide[] = [
     priority: 77,
     searchIntent: "data visualization color palette chart color scheme categorical sequential diverging dashboard",
     featuredCollectionId: "data-dashboard",
-    featuredPackId: "complete-archive",
     tags: ["Data Visualization", "Charts", "Color Theory"],
     highlights: [
       "The four semantic color roles in dataviz: categorical (group membership — must be maximally distinguishable), sequential (ordered quantity — must increase uniformly in lightness), diverging (deviation from a midpoint — must be balanced), and highlight (selected/anomalous values). Confusing these roles is the most common chart color failure.",
@@ -3719,7 +3622,6 @@ const extraGuides14: LandingGuide[] = [
     priority: 75,
     searchIntent: "image color extraction tool workflow extract palette from photo design",
     featuredCollectionId: "film-neutral",
-    featuredPackId: "complete-archive",
     tags: ["Color Extraction", "Workflow", "Tools"],
     highlights: [
       "Extraction tools give you pixel-level color averages, not design intent. An extracted hex value from an image is a measurement — it becomes a design decision only after you interpret it in context and apply appropriate production corrections.",
@@ -3759,7 +3661,6 @@ const extraGuides15: LandingGuide[] = [
     priority: 78,
     searchIntent: "packaging design color substrate print production pantone cmyk specification",
     featuredCollectionId: "copper-patina",
-    featuredPackId: "complete-archive",
     tags: ["Packaging", "Print", "Production", "Pantone", "CMYK"],
     highlights: [
       "Substrate is the first color decision in packaging — it sets the gamut available to every subsequent ink choice. Coated white stock maximizes gamut; kraft and natural boards add a warm brown cast to every color printed on them. Design against a substrate-accurate simulation, not a default white screen.",
@@ -3794,7 +3695,6 @@ const extraGuides15: LandingGuide[] = [
     priority: 76,
     searchIntent: "color typography readability hierarchy text contrast design system accessible",
     featuredCollectionId: "studio-neutral",
-    featuredPackId: "complete-archive",
     tags: ["Typography", "Readability", "Hierarchy", "Accessibility"],
     highlights: [
       "Typographic color — the term for a block of text's overall perceived lightness — is primarily determined by font weight, not hue. Chromatic color should reinforce luminance hierarchy, not substitute for it. Establish weight-based hierarchy first; apply hue within that structure.",
@@ -3829,7 +3729,6 @@ const extraGuides15: LandingGuide[] = [
     priority: 82,
     searchIntent: "color accessibility wcag apca contrast ratio 2025 standard audit accessible design",
     featuredCollectionId: "data-dashboard",
-    featuredPackId: "complete-archive",
     tags: ["Accessibility", "WCAG", "APCA", "Contrast", "Standards"],
     highlights: [
       "WCAG 2.1 requires a 4.5:1 contrast ratio for normal text regardless of font size or weight. APCA requires a minimum Lc 75 for small body text (16px 400-weight) but allows Lc 45 for large bold headings (32px 700-weight). The same color pair can pass one standard and fail the other depending on the type role.",
@@ -3869,7 +3768,6 @@ const extraGuides16: LandingGuide[] = [
     priority: 80,
     searchIntent: "data visualization color palette sequential diverging categorical chart accessible colorblind",
     featuredCollectionId: "data-dashboard",
-    featuredPackId: "complete-archive",
     tags: ["Data Visualization", "Charts", "Accessibility", "Color Theory"],
     highlights: [
       "Sequential, diverging, and categorical are the three fundamental data visualization palette types. Using the wrong type — categorical colors for ordered data, or sequential colors for unordered categories — creates false implied ordering and is one of the most common data visualization color errors.",
@@ -3904,7 +3802,6 @@ const extraGuides16: LandingGuide[] = [
     priority: 78,
     searchIntent: "color system documentation design tokens semantic naming documentation layer design system guide",
     featuredCollectionId: "data-dashboard",
-    featuredPackId: "brand-starter-kit",
     tags: ["Documentation", "Design Systems", "Color Tokens", "Process"],
     highlights: [
       "Color system documentation has three distinct audiences: designers need intent (why this color, what emotion, what context); engineers need implementation (token name, value, override rules); QA and accessibility reviewers need constraints (minimum contrast ratios, which roles require WCAG AA vs AAA). Writing one document for all three audiences produces a document that serves none of them.",
@@ -3939,7 +3836,6 @@ const extraGuides16: LandingGuide[] = [
     priority: 76,
     searchIntent: "mobile UI color design OLED dark mode contrast touch states cross-device color consistency phone",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Mobile", "OLED", "Dark Mode", "UI Design"],
     highlights: [
       "Pixel density changes perceptual color. The same hex value looks visibly different on a 3x Retina display versus a 1x desktop monitor — colors appear slightly more saturated and darker at 3x because subpixel rendering has less impact. Colors that look appropriately saturated on desktop often look aggressive on high-DPI mobile. Always evaluate mobile palette decisions on an actual device.",
@@ -3979,7 +3875,6 @@ const extraGuides17: LandingGuide[] = [
     priority: 77,
     searchIntent: "color psychology marketing branding conversion CTA button color brand identity trust consumer behavior purchase intent",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Marketing", "Color Psychology", "Branding", "Conversion"],
     highlights: [
       "The most replicated finding in color-brand research: perceived color-category fit predicts purchase intent more reliably than specific color choices. Red works for clearance sales because urgency is already expected there — not because red is inherently urgent. Context dominates color meaning in every reliable study.",
@@ -4014,7 +3909,6 @@ const extraGuides17: LandingGuide[] = [
     priority: 75,
     searchIntent: "color wayfinding navigation signage system design hospital airport transit map zone coding color coding navigation UX",
     featuredCollectionId: "digital-night",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Wayfinding", "Navigation", "Signage", "System Design"],
     highlights: [
       "Harry Beck's 1931 London Underground map established the core rule: each line gets one color, that color means only 'this is that line', and no color has a secondary meaning in the system. This single-meaning rule is violated constantly in digital design, where the same blue is simultaneously a link color, an information state, a brand color, and a navigation highlight.",
@@ -4049,7 +3943,6 @@ const extraGuides17: LandingGuide[] = [
     priority: 78,
     searchIntent: "design tokens color token architecture CSS variables semantic tokens primitive tokens dark mode Tailwind Style Dictionary DTCG design system",
     featuredCollectionId: "velvet-dusk",
-    featuredPackId: "brand-starter-kit",
     tags: ["Design Tokens", "Design Systems", "CSS Variables", "Tailwind"],
     highlights: [
       "The two-tier primitive/semantic split is the minimum viable token architecture. Primitive tokens are raw values (--color-blue-500: #3b82f6). Semantic tokens are intent references (--color-interactive-primary: var(--color-blue-500)). Components use the semantic tier only — this means changing blue-500's hex updates everything that references interactive-primary automatically.",
@@ -4088,7 +3981,6 @@ export const extraGuides18: LandingGuide[] = [
     priority: 72,
     searchIntent: "color combinations design complementary analogous triadic color harmony how to choose colors palette 60 30 10 rule color wheel",
     featuredCollectionId: "cobalt-spectrum",
-    featuredPackId: "brand-starter-kit",
     tags: ["Color Harmony", "Palette Design", "Color Theory"],
     highlights: [
       "The 60-30-10 rule is the most reliable starting proportion for a 3-color combination: 60% dominant (usually a neutral or near-neutral), 30% secondary, 10% accent. The dominant color sets the mood; the accent color gets remembered. Reversing these proportions — a small amount of neutral with a large area of vivid color — is one of the most common causes of palettes that feel overwhelming in real applications.",
@@ -4122,7 +4014,6 @@ export const extraGuides18: LandingGuide[] = [
     priority: 71,
     searchIntent: "monochromatic color palette design single hue tints shades tones scale blue palette red palette color scheme same color",
     featuredCollectionId: "cobalt-spectrum",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Monochromatic", "Color Scales", "Palette Design"],
     highlights: [
       "A monochromatic palette is not simply varying lightness of a single color. True monochromatic design also varies saturation (chroma) across the scale — light steps are typically less saturated, darker steps are typically more saturated, and the most saturated version of the hue falls somewhere in the mid-range. A scale that's uniformly saturated throughout reads as flat and synthetic; natural chroma variation is what makes scales feel like they belong to the same family.",
@@ -4156,7 +4047,6 @@ export const extraGuides18: LandingGuide[] = [
     priority: 70,
     searchIntent: "color packaging design product branding shelf impact print CMYK brand color physical product label design consumer goods",
     featuredCollectionId: "terracotta-workshop",
-    featuredPackId: "brand-starter-kit",
     tags: ["Packaging", "Print", "Branding"],
     highlights: [
       "Shelf impact is a completely different design constraint from screen legibility. On shelf, you have approximately 300ms of moving, peripheral vision to capture attention. High contrast (light/dark) and brand color consistency beat fine typographic detail every time in the peripheral attention zone. The color that 'reads' from 10 feet in a glance is your packaging's most critical design decision — and it must be optimized for peripheral, not foveal, vision.",
@@ -4190,7 +4080,6 @@ export const extraGuides18: LandingGuide[] = [
     priority: 73,
     searchIntent: "neutral color palette design system gray scale warm gray cool gray off white design tokens neutral system UI design",
     featuredCollectionId: "stone-and-teal",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Neutral Colors", "Design Systems", "Color Scales"],
     highlights: [
       "Most design systems fail at neutrals, not at accent colors. The neutral palette carries 80% of the visual weight in a typical UI — backgrounds, surfaces, dividers, secondary text, placeholder text, disabled states. If the neutral scale is too flat (steps too close together) or too warm-cold mismatched (warm accent, cool neutral), the system feels off in ways that are difficult to diagnose but immediately visible.",
@@ -4231,7 +4120,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for SaaS startups",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "brand-starter-kit",
     tags: ["SaaS", "Brand", "Startup", "Palette"],
     highlights: [
       "Blue dominates SaaS for good reason — it reads as stable and trustworthy — but differentiation requires pushing into adjacent hues like teal or indigo.",
@@ -4271,7 +4159,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode color scheme for SaaS dashboard",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["SaaS", "Dark Mode", "UI", "Dashboard"],
     highlights: [
       "SaaS users who work in dark mode spend an average of 4+ hours per session — surface contrast matters more than accent vibrancy.",
@@ -4310,7 +4197,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible color palette for SaaS products",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "brand-starter-kit",
     tags: ["SaaS", "Accessibility", "WCAG", "Contrast"],
     highlights: [
       "Enterprise SaaS buyers increasingly require WCAG AA compliance in procurement evaluations — accessibility is a revenue issue.",
@@ -4350,7 +4236,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "SaaS website color inspiration ideas",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "brand-starter-kit",
     tags: ["SaaS", "Website", "Inspiration", "Marketing"],
     highlights: [
       "The best SaaS sites use color to direct attention to one CTA per viewport — not to decorate.",
@@ -4389,7 +4274,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "design token system for SaaS color management",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "complete-archive",
     tags: ["SaaS", "Design Tokens", "Systems", "CSS"],
     highlights: [
       "Three-layer token architecture — primitive, semantic, component — prevents color drift as your product grows.",
@@ -4431,7 +4315,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for fintech apps",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "brand-starter-kit",
     tags: ["Fintech", "Brand", "Trust", "Palette"],
     highlights: [
       "Navy and deep teal dominate fintech because they combine the trust of blue with enough distinctiveness to avoid looking like a legacy bank.",
@@ -4471,7 +4354,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode colors for fintech trading dashboard",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Fintech", "Dark Mode", "Trading", "Dashboard"],
     highlights: [
       "Trading interfaces in dark mode need at least 5 distinct status colors that remain distinguishable at small sizes.",
@@ -4510,7 +4392,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible colors for banking and financial apps",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Fintech", "Accessibility", "WCAG", "Banking"],
     highlights: [
       "Financial accessibility is a regulatory concern in many jurisdictions — not just a design preference.",
@@ -4550,7 +4431,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "fintech website color design inspiration",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Fintech", "Website", "Marketing", "Inspiration"],
     highlights: [
       "High-trust fintech sites use ample white space with a single confident brand color rather than multi-color gradients.",
@@ -4589,7 +4469,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "design tokens for fintech multi-platform color system",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "complete-archive",
     tags: ["Fintech", "Design Tokens", "Multi-platform", "Systems"],
     highlights: [
       "Fintech products ship on more surfaces than most — web, native apps, email notifications, PDF statements, and physical cards.",
@@ -4630,7 +4509,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for healthcare companies",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "brand-starter-kit",
     tags: ["Healthcare", "Brand", "Calming", "Medical"],
     highlights: [
       "Cool blues and greens dominate healthcare branding because they physiologically reduce stress responses — this is backed by environmental psychology research.",
@@ -4670,7 +4548,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode design for healthcare apps",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Healthcare", "Dark Mode", "Patient Portal", "Safety"],
     highlights: [
       "Night-shift clinicians and patients checking results at 2 AM both benefit from dark mode — but medical text demands higher contrast ratios than typical UI.",
@@ -4709,7 +4586,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "WCAG accessible colors for healthcare medical apps",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "brand-starter-kit",
     tags: ["Healthcare", "WCAG", "Accessibility", "Patient Safety"],
     highlights: [
       "Healthcare accessibility failures can have life-safety consequences — a missed allergy warning or misread dosage.",
@@ -4749,7 +4625,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "healthcare website color design ideas",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "brand-starter-kit",
     tags: ["Healthcare", "Website", "Trust", "Patient Experience"],
     highlights: [
       "Healthcare visitors arrive with higher anxiety than most website users — color should de-escalate, not stimulate.",
@@ -4788,7 +4663,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "design token system for healthcare digital products",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "complete-archive",
     tags: ["Healthcare", "Design Tokens", "Systems", "Multi-platform"],
     highlights: [
       "Healthcare design systems often serve 5+ product surfaces: patient web, patient mobile, clinician desktop, kiosks, and print.",
@@ -4829,7 +4703,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for e-commerce online stores",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "brand-starter-kit",
     tags: ["E-commerce", "Brand", "Conversion", "Retail"],
     highlights: [
       "E-commerce palettes must support both brand identity and product photography — colors that clash with product images reduce conversion.",
@@ -4869,7 +4742,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode color scheme for e-commerce stores",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["E-commerce", "Dark Mode", "Product Display", "UI"],
     highlights: [
       "Dark backgrounds make product images pop — especially for tech, jewelry, and luxury goods.",
@@ -4908,7 +4780,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible color scheme for online stores WCAG",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "brand-starter-kit",
     tags: ["E-commerce", "Accessibility", "WCAG", "Conversion"],
     highlights: [
       "Accessible e-commerce sites reach 15–20% more potential customers — people with disabilities have $490 billion in disposable income in the US alone.",
@@ -4947,7 +4818,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "e-commerce website color inspiration best examples",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "brand-starter-kit",
     tags: ["E-commerce", "Website", "Inspiration", "Conversion"],
     highlights: [
       "The best e-commerce color palettes fade into the background — literally — letting products and CTAs dominate the visual hierarchy.",
@@ -4986,7 +4856,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "design tokens for e-commerce color system at scale",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "complete-archive",
     tags: ["E-commerce", "Design Tokens", "Scale", "Systems"],
     highlights: [
       "E-commerce sites can have thousands of pages generated from templates — tokens are the only way to maintain color consistency at this scale.",
@@ -5027,7 +4896,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for education platforms",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "brand-starter-kit",
     tags: ["Education", "Brand", "Learning", "Engagement"],
     highlights: [
       "Education palettes need to span a wide emotional range: serious enough for professional certification, friendly enough for K-12.",
@@ -5067,7 +4935,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode colors for education learning platforms",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Education", "Dark Mode", "Reading", "Study"],
     highlights: [
       "Students studying at night are your largest dark-mode user group — comfort during extended reading sessions is the top priority.",
@@ -5106,7 +4973,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible colors for education platforms WCAG",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "brand-starter-kit",
     tags: ["Education", "Accessibility", "WCAG", "Inclusive Design"],
     highlights: [
       "12–15% of school-age children have some form of learning difference — accessible color helps many of them.",
@@ -5146,7 +5012,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "education website color design inspiration",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "brand-starter-kit",
     tags: ["Education", "Website", "Inspiration", "Enrollment"],
     highlights: [
       "Education websites serve dual audiences — students and decision-makers (parents, administrators) — who respond to different color signals.",
@@ -5185,7 +5050,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "design token system for education technology platforms",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "complete-archive",
     tags: ["Education", "Design Tokens", "EdTech", "Theming"],
     highlights: [
       "EdTech token systems need to support per-course theming — each course can have its own accent color without rebuilding the component library.",
@@ -5226,7 +5090,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for restaurants and food businesses",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "brand-starter-kit",
     tags: ["Restaurant", "Brand", "Food", "Appetite"],
     highlights: [
       "Warm colors (red, orange, amber, terracotta) are proven to stimulate appetite — there's a reason fast food uses them universally.",
@@ -5266,7 +5129,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode design for restaurant food ordering apps",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Restaurant", "Dark Mode", "Food App", "Ordering"],
     highlights: [
       "Food photography looks strikingly good on dark backgrounds — it's why premium restaurant websites often use dark layouts by default.",
@@ -5305,7 +5167,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible colors for restaurant websites and apps",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "brand-starter-kit",
     tags: ["Restaurant", "Accessibility", "WCAG", "Menu Design"],
     highlights: [
       "Digital menu accessibility is increasingly required by law — ADA lawsuits against restaurants with inaccessible websites have increased dramatically.",
@@ -5344,7 +5205,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "restaurant website color palette inspiration",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "brand-starter-kit",
     tags: ["Restaurant", "Website", "Inspiration", "Reservations"],
     highlights: [
       "The best restaurant websites use no more than three colors: a warm neutral for surfaces, a deep tone for text, and a single action color for CTAs.",
@@ -5383,7 +5243,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "design tokens for restaurant brand color management",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "complete-archive",
     tags: ["Restaurant", "Design Tokens", "Branding", "Multi-channel"],
     highlights: [
       "Restaurant brands touch more physical surfaces than almost any other industry — tokens need to bridge digital and print.",
@@ -5424,7 +5283,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for real estate companies",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Real Estate", "Brand", "Luxury", "Trust"],
     highlights: [
       "Real estate brand colors appear on signage, business cards, property listings, and open house materials — versatility is essential.",
@@ -5464,7 +5322,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode design for real estate property apps",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Real Estate", "Dark Mode", "Property", "Listings"],
     highlights: [
       "Property browsing is often an evening activity — dark mode isn't optional for real estate apps.",
@@ -5503,7 +5360,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible colors for real estate websites WCAG",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Real Estate", "Accessibility", "WCAG", "Property"],
     highlights: [
       "Fair Housing laws require equal access to housing information — inaccessible websites can create legal liability.",
@@ -5542,7 +5398,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "real estate website color design inspiration",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Real Estate", "Website", "Inspiration", "Lead Generation"],
     highlights: [
       "Luxury real estate sites use the most restrained palettes — cream, charcoal, and one metallic accent.",
@@ -5581,7 +5436,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "design tokens for real estate brand management",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "complete-archive",
     tags: ["Real Estate", "Design Tokens", "MLS", "Multi-channel"],
     highlights: [
       "Real estate brands appear on owned websites, MLS listings, Zillow/Realtor.com profiles, print flyers, and yard signs — tokens unify them all.",
@@ -5622,7 +5476,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for fashion brands and clothing",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Fashion", "Brand", "Identity", "Clothing"],
     highlights: [
       "Fashion brands have a unique constraint: the brand palette must work on garments, packaging, retail space, and digital — simultaneously.",
@@ -5662,7 +5515,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode color scheme for fashion e-commerce websites",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Fashion", "Dark Mode", "E-commerce", "Lookbook"],
     highlights: [
       "Dark backgrounds make fashion photography more editorial — like flipping through a high-end magazine.",
@@ -5701,7 +5553,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible color design for fashion e-commerce",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Fashion", "Accessibility", "WCAG", "E-commerce"],
     highlights: [
       "Fashion brands often sacrifice accessibility for aesthetic — light gray text on white, thin fonts — but this excludes customers and reduces conversion.",
@@ -5740,7 +5591,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "fashion website color palette inspiration ideas",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Fashion", "Website", "Inspiration", "Branding"],
     highlights: [
       "The best fashion websites use the fewest colors — white space and photography carry the emotional weight.",
@@ -5779,7 +5629,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "design tokens for fashion brand color management",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "complete-archive",
     tags: ["Fashion", "Design Tokens", "Seasonal", "Brand Systems"],
     highlights: [
       "Fashion needs the most flexible token architecture of any industry — seasonal color stories change every 3-6 months.",
@@ -5820,7 +5669,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for creative design agencies",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "brand-starter-kit",
     tags: ["Creative Agency", "Brand", "Portfolio", "Identity"],
     highlights: [
       "Your agency's palette is a live portfolio piece — it should demonstrate the level of craft you sell to clients.",
@@ -5860,7 +5708,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode portfolio design for creative agencies",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Creative Agency", "Dark Mode", "Portfolio", "Showcase"],
     highlights: [
       "Dark portfolio sites are the industry standard for a reason — they create a gallery experience that elevates every project.",
@@ -5899,7 +5746,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible color design for creative agency websites",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "brand-starter-kit",
     tags: ["Creative Agency", "Accessibility", "WCAG", "Best Practice"],
     highlights: [
       "Agencies that build accessibility into their process command higher fees and avoid costly retrofits.",
@@ -5938,7 +5784,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "creative agency website color palette inspiration",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "brand-starter-kit",
     tags: ["Creative Agency", "Website", "Inspiration", "New Business"],
     highlights: [
       "Agency websites have approximately 3 seconds to signal design credibility — color is the fastest signal.",
@@ -5977,7 +5822,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "design tokens for creative agency workflow",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "complete-archive",
     tags: ["Creative Agency", "Design Tokens", "Client Delivery", "Workflow"],
     highlights: [
       "Agencies that deliver token-based color systems create ongoing value — and ongoing retainer relationships.",
@@ -6018,7 +5862,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for fitness gym brands",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "brand-starter-kit",
     tags: ["Fitness", "Brand", "Energy", "Motivation"],
     highlights: [
       "High-energy fitness brands use saturated warm colors (red, orange, electric blue) while wellness brands use softer, cooler tones (sage, teal, lavender).",
@@ -6058,7 +5901,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode colors for fitness workout tracking apps",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Fitness", "Dark Mode", "Workout App", "Tracking"],
     highlights: [
       "Gym environments are often dimly lit — dark mode isn't a preference for fitness apps, it's a necessity.",
@@ -6097,7 +5939,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible colors for fitness wellness apps",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "brand-starter-kit",
     tags: ["Fitness", "Accessibility", "WCAG", "Wellness"],
     highlights: [
       "Fitness apps serve users of all ages and abilities — accessibility is essential, not just for compliance but for market reach.",
@@ -6136,7 +5977,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "fitness gym website color inspiration ideas",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "brand-starter-kit",
     tags: ["Fitness", "Website", "Inspiration", "Membership"],
     highlights: [
       "Fitness website color should match the intensity of the workout experience you offer.",
@@ -6175,7 +6015,6 @@ export const seoGuides: LandingGuide[] = [
     priority: 50,
     searchIntent: "design tokens for fitness brand color system",
     featuredCollectionId: "orchid-bloom",
-    featuredPackId: "complete-archive",
     tags: ["Fitness", "Design Tokens", "Wearables", "Multi-platform"],
     highlights: [
       "Fitness brands appear on phone screens, wearable watches, gym displays, apparel, and social media — tokens keep them unified.",
@@ -6222,7 +6061,6 @@ export const extraGuides19: LandingGuide[] = [
     priority: 70,
     searchIntent: "color contrast accessibility WCAG guide",
     featuredCollectionId: "studio-neutral",
-    featuredPackId: "brand-starter-kit",
     tags: ["Accessibility", "WCAG", "Color Contrast", "Inclusive Design"],
     highlights: [
       "WCAG 2.1 AA requires 4.5:1 contrast for normal text and 3:1 for large text — but these ratios are minimums, not targets.",
@@ -6272,7 +6110,6 @@ export const extraGuides19: LandingGuide[] = [
     priority: 65,
     searchIntent: "color token naming conventions design system",
     featuredCollectionId: "data-dashboard",
-    featuredPackId: "brand-starter-kit",
     tags: ["Design Tokens", "Design Systems", "Naming Conventions", "Component Library"],
     highlights: [
       "A two-layer system (primitive + semantic) solves most single-product needs; multi-brand systems require a third component layer.",
@@ -6322,7 +6159,6 @@ export const extraGuides19: LandingGuide[] = [
     priority: 65,
     searchIntent: "how to choose logo colors brand identity",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Logo Design", "Brand Identity", "Color Reproduction", "Print"],
     highlights: [
       "Logo colors must work in full color, single color (black), single color (white), and reduced palette — before you choose, test all four versions.",
@@ -6377,7 +6213,6 @@ export const extraGuides20: LandingGuide[] = [
     priority: 72,
     searchIntent: "ecommerce color psychology conversion optimization",
     featuredCollectionId: "vivid-spectrum",
-    featuredPackId: "content-creator-bundle",
     tags: ["E-Commerce", "Color Psychology", "Conversion", "UX Design"],
     highlights: [
       "Product background color is the single highest-impact color decision in e-commerce — it determines how the product reads at thumbnail scale.",
@@ -6427,7 +6262,6 @@ export const extraGuides20: LandingGuide[] = [
     priority: 68,
     searchIntent: "social media color palette brand consistency",
     featuredCollectionId: "candy-pop",
-    featuredPackId: "content-creator-bundle",
     tags: ["Social Media", "Brand Identity", "Visual Consistency", "Content Strategy"],
     highlights: [
       "A social feed is a grid: colors that look good individually can clash or blend into a monotone mass when seen together. Design for the grid, not just the individual post.",
@@ -6477,7 +6311,6 @@ export const extraGuides20: LandingGuide[] = [
     priority: 65,
     searchIntent: "color palette digital illustration guide",
     featuredCollectionId: "berry-harvest",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Illustration", "Digital Art", "Color Palettes", "Design"],
     highlights: [
       "Most professional illustrators work with a restricted palette of 5-7 colors — unlimited color choices rarely produce better illustrations, and often produce worse ones.",
@@ -6532,7 +6365,6 @@ export const extraGuides21: LandingGuide[] = [
     priority: 74,
     searchIntent: "healthcare color palette medical app design hospital colors",
     featuredCollectionId: "sage-terracotta",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Healthcare", "Color Psychology", "UX Design", "Accessibility"],
     highlights: [
       "Teal and seafoam communicate clinical cleanliness without the coldness of pure white or industrial gray — the most versatile healthcare hue families.",
@@ -6573,7 +6405,6 @@ export const extraGuides21: LandingGuide[] = [
     priority: 71,
     searchIntent: "rebrand color change brand refresh color update",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Rebranding", "Brand Strategy", "Color Systems", "Brand Identity"],
     highlights: [
       "High-equity brand colors should evolve, not be replaced — shift lightness or saturation before shifting hue to preserve recognition while modernizing.",
@@ -6614,7 +6445,6 @@ export const extraGuides21: LandingGuide[] = [
     priority: 70,
     searchIntent: "warm cool color temperature design palette",
     featuredCollectionId: "citrus-grove",
-    featuredPackId: "complete-archive",
     tags: ["Color Theory", "Color Psychology", "UI Design", "Brand Design"],
     highlights: [
       "Warm colors (reds, oranges, yellows) advance in the visual field — they appear closer than they are and create energy and urgency.",
@@ -6655,7 +6485,6 @@ export const extraGuides21: LandingGuide[] = [
     priority: 76,
     searchIntent: "dark mode color palette design UI dark theme",
     featuredCollectionId: "neon-after-dark",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Dark Mode", "UI Design", "Color Systems", "Design Systems"],
     highlights: [
       "Pure black (#000000) is almost never the right dark mode background — near-blacks in the 8-12% lightness range are more comfortable for extended use.",
@@ -6696,7 +6525,6 @@ export const extraGuides21: LandingGuide[] = [
     priority: 68,
     searchIntent: "color saturation chroma design palette vivid muted",
     featuredCollectionId: "vivid-spectrum",
-    featuredPackId: "complete-archive",
     tags: ["Color Theory", "Color Psychology", "Design Principles"],
     highlights: [
       "Saturation is the most overused lever in amateur color work and the most underused in professional work — restraint in saturation almost always improves clarity.",
@@ -6742,7 +6570,6 @@ const extraGuides22: LandingGuide[] = [
     priority: 80,
     searchIntent: "ecommerce color design conversion CTA color online store palette",
     featuredCollectionId: "terracotta-loft",
-    featuredPackId: "complete-archive",
     tags: ["E-Commerce", "Color Psychology", "UI Design", "Conversion"],
     highlights: [
       "CTA button contrast against its surrounding surface drives conversion more reliably than specific hue choice — always test the highest-contrast option first.",
@@ -6783,7 +6610,6 @@ const extraGuides22: LandingGuide[] = [
     priority: 58,
     searchIntent: "wayfinding color design signage environmental color architectural color",
     featuredCollectionId: "forest-terrain",
-    featuredPackId: "complete-archive",
     tags: ["Environmental Design", "Wayfinding", "Color Systems", "Architecture"],
     highlights: [
       "Hue differentiation alone fails at architectural distances — lightness contrast must always support hue in large-scale color systems.",
@@ -6824,7 +6650,6 @@ const extraGuides22: LandingGuide[] = [
     priority: 75,
     searchIntent: "design token naming color tokens semantic tokens design system",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "ui-design-system-kit",
     tags: ["Design Systems", "Design Engineering", "Color Tokens", "CSS Variables"],
     highlights: [
       "Semantic token names must express meaning (what is this for?) not appearance (what does it look like?) — names including color values like 'blue-500' are broken semantic tokens.",
@@ -6865,7 +6690,6 @@ const extraGuides22: LandingGuide[] = [
     priority: 65,
     searchIntent: "gradient design UI CSS gradient background gradient palette",
     featuredCollectionId: "neon-after-dark",
-    featuredPackId: "complete-archive",
     tags: ["UI Design", "CSS", "Color Theory", "Visual Design"],
     highlights: [
       "Gradients transitioning between hues via HSL interpolation often produce a desaturated 'muddy middle' — OKLCH interpolation solves this with perceptually uniform transitions.",
@@ -6906,7 +6730,6 @@ const extraGuides22: LandingGuide[] = [
     priority: 62,
     searchIntent: "color animation UI motion design transition color loading state",
     featuredCollectionId: "vivid-spectrum",
-    featuredPackId: "complete-archive",
     tags: ["Motion Design", "UI Design", "Color Theory", "Interaction Design"],
     highlights: [
       "Temporal contrast — a brief color flash or shift — draws the eye more reliably than a static color accent, making color-in-motion more powerful than static color for attention direction.",
@@ -6952,7 +6775,6 @@ const extraGuides23: LandingGuide[] = [
     priority: 79,
     searchIntent: "accessible data table color design row states contrast enterprise UI",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "complete-archive",
     tags: ["Accessibility", "Data Visualization", "Enterprise UI", "Design Systems"],
     highlights: [
       "Every foreground color in a table needs contrast verification against all row state backgrounds — not just the default white row.",
@@ -6993,7 +6815,6 @@ const extraGuides23: LandingGuide[] = [
     priority: 78,
     searchIntent: "onboarding UI color design new user flow progress color attention",
     featuredCollectionId: "calm-tech",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["UX Design", "Onboarding", "UI Design", "Color Psychology"],
     highlights: [
       "Progressive color introduction — starting restrained and revealing more as users advance — reduces cognitive load at the most unfamiliar moment.",
@@ -7034,7 +6855,6 @@ const extraGuides23: LandingGuide[] = [
     priority: 77,
     searchIntent: "color typography pairing text color weight typeface digital design",
     featuredCollectionId: "editorial-neutrals",
-    featuredPackId: "brand-starter-kit",
     tags: ["Typography", "Color Theory", "Design Systems", "UI Design"],
     highlights: [
       "Light-weight type appears lighter than its hex value due to counter negative space mixing with the page background perceptually.",
@@ -7075,7 +6895,6 @@ const extraGuides23: LandingGuide[] = [
     priority: 76,
     searchIntent: "color system documentation design tokens changelog design system docs",
     featuredCollectionId: "neutral-ground",
-    featuredPackId: "complete-archive",
     tags: ["Design Systems", "Color Tokens", "Documentation", "Team Process"],
     highlights: [
       "Color system documentation has four layers with different decay rates: decisions (slowest), semantics, implementation (fastest), and usage.",
@@ -7116,7 +6935,6 @@ const extraGuides23: LandingGuide[] = [
     priority: 75,
     searchIntent: "mobile UI color design iOS Android OLED dark mode platform conventions",
     featuredCollectionId: "midnight-form",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Mobile Design", "UI Design", "Accessibility", "iOS", "Android"],
     highlights: [
       "OLED true black (#000000) creates a qualitatively different dark mode than LCD near-black — but mixing the two looks muddy on LCD while looking correct on OLED.",
@@ -7163,7 +6981,6 @@ const extraGuides24: LandingGuide[] = [
     priority: 77,
     searchIntent: "AI interface color design generative state streaming LLM chat UI",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "complete-archive",
     tags: ["AI", "UI Design", "Design Systems", "Color Systems"],
     highlights: [
       "A generative state is distinct from a loading state — color and motion for AI generation should feel active and open-ended, not passive and waiting.",
@@ -7208,7 +7025,6 @@ const extraGuides24: LandingGuide[] = [
     priority: 76,
     searchIntent: "Pantone to hex print to digital color translation CMYK RGB brand color",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "complete-archive",
     tags: ["Print Design", "Color Management", "Brand Color", "CMYK"],
     highlights: [
       "Pantone sRGB hex values are official calibrated approximations — use them as the correct starting point rather than trying to visually match a printed swatch on screen.",
@@ -7253,7 +7069,6 @@ const extraGuides24: LandingGuide[] = [
     priority: 75,
     searchIntent: "financial UI color design red green profit loss accessibility data viz",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "complete-archive",
     tags: ["Finance UI", "Data Visualization", "Accessibility", "Color Blindness"],
     highlights: [
       "Red-green color blindness affects ~8% of males — profit/loss must always be encoded through a second channel (arrow, sign, parentheses) alongside color.",
@@ -7298,7 +7113,6 @@ const extraGuides24: LandingGuide[] = [
     priority: 74,
     searchIntent: "video streaming UI color dark mode thumbnail hierarchy netflix design",
     featuredCollectionId: "midnight-form",
-    featuredPackId: "complete-archive",
     tags: ["UI Design", "Dark Mode", "Visual Hierarchy", "Product Design"],
     highlights: [
       "Streaming UIs are dark-first because dark backgrounds reduce luminance contrast with video content and reduce viewer eye fatigue in dimly lit environments.",
@@ -7343,7 +7157,6 @@ const extraGuides24: LandingGuide[] = [
     priority: 73,
     searchIntent: "ambient display color design smart TV digital frame always-on screen",
     featuredCollectionId: "sand-dune",
-    featuredPackId: "complete-archive",
     tags: ["Color Theory", "Environmental Design", "UI Design"],
     highlights: [
       "Ambient displays should target lower average luminance (25-40% APL) than interactive UI — brightness appropriate for focused use is fatiguing over extended passive presence.",
@@ -7393,7 +7206,6 @@ const extraGuides25: LandingGuide[] = [
     priority: 74,
     searchIntent: "color naming design system token names CSS variables Tailwind semantic",
     featuredCollectionId: "pearl-cloud",
-    featuredPackId: "complete-archive",
     tags: ["Design Systems", "Color Theory", "Naming"],
     highlights: [
       "Design systems need two color name tiers: primitive names (blue-500) that describe what the color is, and semantic names (interactive-default) that describe what the color does.",
@@ -7438,7 +7250,6 @@ const extraGuides25: LandingGuide[] = [
     priority: 75,
     searchIntent: "dark mode color design system CSS tokens OLED saturation surface elevation",
     featuredCollectionId: "deep-ocean",
-    featuredPackId: "complete-archive",
     tags: ["Dark Mode", "UI Design", "Design Systems"],
     highlights: [
       "OLED dark mode should avoid pure black (#000000) as a general background — near-black (#111, #1C1C1E) is less fatiguing and more legible for extended use.",
@@ -7483,7 +7294,6 @@ const extraGuides25: LandingGuide[] = [
     priority: 76,
     searchIntent: "trust color design finance healthcare legal brand blue credibility palette",
     featuredCollectionId: "nordic-morning",
-    featuredPackId: "complete-archive",
     tags: ["Brand Design", "Color Psychology", "Trust"],
     highlights: [
       "Navy and dark blue signal established institutional reliability; bright or electric blue signals modern technical credibility; warm blues and teal signal approachable professionalism.",
@@ -7524,7 +7334,6 @@ const extraGuides25: LandingGuide[] = [
     priority: 77,
     searchIntent: "dashboard color data visualization chart color palette accessible design system",
     featuredCollectionId: "golden-harvest",
-    featuredPackId: "complete-archive",
     tags: ["Data Visualization", "Dashboard Design", "UI Design"],
     highlights: [
       "Use categorical color (distinct hues) only for data series users need to track across multiple charts — single-series charts should use a single color with lightness encoding for value differences.",
@@ -7565,7 +7374,6 @@ const extraGuides25: LandingGuide[] = [
     priority: 78,
     searchIntent: "seasonal color UI design system holiday brand palette spring summer autumn winter",
     featuredCollectionId: "ember-hearth",
-    featuredPackId: "complete-archive",
     tags: ["Brand Design", "Seasonal Design", "Color Psychology"],
     highlights: [
       "Seasonal color should only appear in non-functional UI elements (banners, illustrations, hero images) — navigations, form controls, and status indicators must remain on-brand.",
@@ -7611,7 +7419,6 @@ const extraGuides26: LandingGuide[] = [
     priority: 76,
     searchIntent: "gradient design color guide UI mesh gradient chromatic progression tonal gradient CSS",
     featuredCollectionId: "misty-harbor",
-    featuredPackId: "complete-archive",
     tags: ["Gradients", "UI Design", "Color Theory"],
     highlights: [
       "Chromatic gradients (cross-hue progression) carry more energy than tonal gradients (single-hue lightness shift) — but require careful hue-space interpolation to avoid muddy intermediate colors.",
@@ -7652,7 +7459,6 @@ const extraGuides26: LandingGuide[] = [
     priority: 75,
     searchIntent: "dark mode mobile design color OLED display P3 system theming iOS Android CSS color management",
     featuredCollectionId: "storm-silver",
-    featuredPackId: "data-viz",
     tags: ["Dark Mode", "Mobile Design", "Accessibility"],
     highlights: [
       "OLED true black (#000000) creates pixel-off halos at component edges — use #0A0A0A or #111111 as the dark surface minimum to avoid edge artifacts while preserving battery savings.",
@@ -7693,7 +7499,6 @@ const extraGuides26: LandingGuide[] = [
     priority: 74,
     searchIntent: "SaaS product color strategy pricing page feature tier trust colors B2B design system",
     featuredCollectionId: "corporate-slate",
-    featuredPackId: "complete-archive",
     tags: ["SaaS Design", "Product Design", "Color Strategy"],
     highlights: [
       "Conservative blue and blue-gray palettes outperform colorful or playful primaries in enterprise B2B trust research — keep the neutral core stable and carry brand personality in a single accent.",
@@ -7734,7 +7539,6 @@ const extraGuides26: LandingGuide[] = [
     priority: 73,
     searchIntent: "typography color pairing guide design brand identity type weight color saturation harmony",
     featuredCollectionId: "editorial-gray",
-    featuredPackId: "complete-archive",
     tags: ["Typography", "Brand Design", "Color Theory"],
     highlights: [
       "Heavy-weight type + highly saturated color creates visual collision; cross-modal pairings work better: heavy type with neutral color (type carries the weight) or thin type with saturated accent (color carries the energy).",
@@ -7775,7 +7579,6 @@ const extraGuides26: LandingGuide[] = [
     priority: 72,
     searchIntent: "color accessibility beyond WCAG contrast ratio color blindness focus state motion accessibility design",
     featuredCollectionId: "nordic-morning",
-    featuredPackId: "complete-archive",
     tags: ["Accessibility", "Color Theory", "UX Design"],
     highlights: [
       "Red-green color blindness affects ~8% of men — any UI using red vs green as the only signal (error vs success, up vs down) is inaccessible to this population; always add a secondary signal: icon, label, or pattern.",
@@ -7821,7 +7624,6 @@ const extraGuides27: LandingGuide[] = [
     priority: 75,
     searchIntent: "color motion design animation color theory UI animation color interpolation OKLCH gradient easing",
     featuredCollectionId: "aurora-shift",
-    featuredPackId: "complete-archive",
     tags: ["Motion Design", "UI Animation", "Color Theory"],
     highlights: [
       "Fast color transitions require higher chromatic contrast to read as deliberate change — temporal contrast is a function of both color difference and transition duration.",
@@ -7862,7 +7664,6 @@ const extraGuides27: LandingGuide[] = [
     priority: 74,
     searchIntent: "print vs digital color brand color management CMYK hex Pantone cross-media color specification",
     featuredCollectionId: "natural-linen",
-    featuredPackId: "complete-archive",
     tags: ["Brand Design", "Print Design", "Color Management"],
     highlights: [
       "Hex codes describe light-emitting display behavior — they don't translate to print without colorimetric conversion via ICC profiles.",
@@ -7903,7 +7704,6 @@ const extraGuides27: LandingGuide[] = [
     priority: 73,
     searchIntent: "design token color system CSS variables semantic tokens primitive tokens dark mode Figma design system",
     featuredCollectionId: "midnight-forge",
-    featuredPackId: "complete-archive",
     tags: ["Design Systems", "Design Tokens", "Color Architecture"],
     highlights: [
       "Two-tier token architecture (primitive → semantic) enables dark mode through remapping alone — no component-level changes needed.",
@@ -7944,7 +7744,6 @@ const extraGuides27: LandingGuide[] = [
     priority: 72,
     searchIntent: "ecommerce color psychology conversion rate CTA button color trust color online store color strategy",
     featuredCollectionId: "blush-garden",
-    featuredPackId: "complete-archive",
     tags: ["E-Commerce", "Color Psychology", "Conversion"],
     highlights: [
       "Context-appropriateness (color fit) consistently outperforms specific hue associations — category color norms matter more than universal color meaning.",
@@ -7985,7 +7784,6 @@ const extraGuides27: LandingGuide[] = [
     priority: 71,
     searchIntent: "AI interface color design system chatbot UI color generation state loading state trust color AI product design",
     featuredCollectionId: "electric-violet",
-    featuredPackId: "complete-archive",
     tags: ["AI Design", "UI Design", "Color Strategy"],
     highlights: [
       "Generative states benefit from calm, low-urgency color — subtle blue or green reads as 'active but not alarming' versus anxiety-inducing animated gradients.",
@@ -8031,7 +7829,6 @@ const extraGuides28: LandingGuide[] = [
     priority: 72,
     searchIntent: "wayfinding color signage color system transit map color environmental design color accessibility",
     featuredCollectionId: "cobalt-system",
-    featuredPackId: "complete-archive",
     tags: ["Wayfinding", "Accessibility", "Environmental Design"],
     highlights: [
       "Wayfinding color requires maximum distinctiveness between system categories, not just sufficient contrast against background — similar hues for different zones create classification errors.",
@@ -8072,7 +7869,6 @@ const extraGuides28: LandingGuide[] = [
     priority: 74,
     searchIntent: "luxury brand color premium brand color color exclusivity brand color equity heritage color",
     featuredCollectionId: "pearl-oyster",
-    featuredPackId: "complete-archive",
     tags: ["Luxury", "Brand Identity", "Color Strategy"],
     highlights: [
       "Genuine luxury color logic is built on specificity and repeatability over decades, not on maximum psychological impact or intrinsic color associations.",
@@ -8113,7 +7909,6 @@ const extraGuides28: LandingGuide[] = [
     priority: 76,
     searchIntent: "data visualization color chart color scale sequential diverging categorical color accessibility color blindness dataviz",
     featuredCollectionId: "cobalt-system",
-    featuredPackId: "complete-archive",
     tags: ["Data Visualization", "Color Science", "Accessibility"],
     highlights: [
       "Sequential scales encode ordered data: use single-hue progressions from light to saturated, constructed in OKLCH for perceptually consistent lightness steps.",
@@ -8154,7 +7949,6 @@ const extraGuides28: LandingGuide[] = [
     priority: 73,
     searchIntent: "packaging color design product packaging color retail color shelf impact packaging design color conventions",
     featuredCollectionId: "spring-herb",
-    featuredPackId: "complete-archive",
     tags: ["Packaging", "Retail", "Product Design"],
     highlights: [
       "Category color conventions exist because they communicate membership to shoppers scanning shelves — new entrants should differentiate through accent color and finish rather than full palette rebellion.",
@@ -8195,7 +7989,6 @@ const extraGuides28: LandingGuide[] = [
     priority: 71,
     searchIntent: "sustainable brand color green brand design eco brand color environmental design greenwashing color natural palette",
     featuredCollectionId: "coastal-sage",
-    featuredPackId: "complete-archive",
     tags: ["Sustainability", "Brand Identity", "Color Strategy"],
     highlights: [
       "The natural aesthetic (kraft, earthy green, muted tones) now has negative evidentiary value for sustainability claims — it signals design familiarity with category aesthetics, not environmental credentials.",
@@ -8241,7 +8034,6 @@ const extraGuides29: LandingGuide[] = [
     priority: 70,
     searchIntent: "fashion color forecasting color trends color of the year pantone forecast color trend prediction design color trends",
     featuredCollectionId: "candy-gradient",
-    featuredPackId: "complete-archive",
     tags: ["Trending", "Industry", "Color Strategy"],
     highlights: [
       "Color forecasting agencies publish their palettes 12–24 months ahead of retail because manufacturers need lead time for textile dyeing, packaging ink formulation, and production planning.",
@@ -8282,7 +8074,6 @@ const extraGuides29: LandingGuide[] = [
     priority: 68,
     searchIntent: "healthcare color design hospital color palette medical environment color clinical color design patient room color",
     featuredCollectionId: "coastal-sage",
-    featuredPackId: "complete-archive",
     tags: ["Healthcare", "Environmental Design", "Color Science"],
     highlights: [
       "Patient satisfaction surveys favor warm residential palettes, but procedure rooms require high-CRI neutral daylight lighting for accurate clinical assessment — the two goals are not always compatible.",
@@ -8323,7 +8114,6 @@ const extraGuides29: LandingGuide[] = [
     priority: 67,
     searchIntent: "film color grading color theory cinema color palette movie color grade color cinematography visual storytelling color",
     featuredCollectionId: "midnight-noir",
-    featuredPackId: "complete-archive",
     tags: ["Film", "Color Theory", "Visual Design"],
     highlights: [
       "Cinematographers apply color at multiple timescales: scene-level emotional temperature, story-arc chromatic progressions, and timeline-level color coding to distinguish flashbacks or parallel narratives.",
@@ -8364,7 +8154,6 @@ const extraGuides29: LandingGuide[] = [
     priority: 66,
     searchIntent: "spatial color design interior color theory color in architecture color perception space room color psychology spatial design",
     featuredCollectionId: "nordic-mist",
-    featuredPackId: "complete-archive",
     tags: ["Interior Design", "Environmental Design", "Color Psychology"],
     highlights: [
       "Color influences perceived room dimensions: warm, saturated, and dark colors advance visually, making walls appear closer; cool, light, and low-saturation colors recede, making spaces feel larger.",
@@ -8405,7 +8194,6 @@ const extraGuides29: LandingGuide[] = [
     priority: 65,
     searchIntent: "brand color consistency color standards brand guidelines color management color equity brand color system color specification",
     featuredCollectionId: "neutral-ground",
-    featuredPackId: "complete-archive",
     tags: ["Brand Identity", "Color Strategy", "Design Systems"],
     highlights: [
       "Production drift — the cumulative divergence of color values across vendors, materials, and batches — is the most common and most preventable source of brand color dilution.",
@@ -8451,7 +8239,6 @@ const extraGuides30: LandingGuide[] = [
     priority: 70,
     searchIntent: "css color names css named colors css color list css color keywords oklch css color spaces web color reference",
     featuredCollectionId: "deep-ocean",
-    featuredPackId: "complete-archive",
     tags: ["CSS", "Developer", "Digital Design"],
     highlights: [
       "The 148 CSS named color keywords are historical artifacts — CSS1's 16 colors came from the Windows VGA palette, and CSS3's expansion to 147 came from the Unix X11 system rather than any aesthetic design logic.",
@@ -8492,7 +8279,6 @@ const extraGuides30: LandingGuide[] = [
     priority: 68,
     searchIntent: "motion design color color transitions animation color theory color in video color narrative UI animation color",
     featuredCollectionId: "deep-ocean",
-    featuredPackId: "complete-archive",
     tags: ["Motion Design", "Animation", "Color Theory"],
     highlights: [
       "Transition speed communicates meaning: under 200ms feels responsive and technical, 300-600ms feels natural and refined, 800ms+ feels cinematic and deliberate.",
@@ -8533,7 +8319,6 @@ const extraGuides30: LandingGuide[] = [
     priority: 67,
     searchIntent: "color and typography colored text design chromatic type typographic color brand typography type color pairing text color design",
     featuredCollectionId: "neutral-ground",
-    featuredPackId: "complete-archive",
     tags: ["Typography", "Brand Design", "Color Theory"],
     highlights: [
       "Type set in warm, saturated colors appears visually heavier than the same weight in cool, desaturated colors — compensation via weight or size adjustment is often required when changing type color.",
@@ -8574,7 +8359,6 @@ const extraGuides30: LandingGuide[] = [
     priority: 66,
     searchIntent: "material color design color finishes product color matte gloss color packaging color physical color psychology material design color",
     featuredCollectionId: "platinum-edge",
-    featuredPackId: "complete-archive",
     tags: ["Product Design", "Packaging", "Color Psychology"],
     highlights: [
       "Gloss finish amplifies perceived saturation and premium positioning; matte communicates restraint and sophistication — the dominance of matte in premium packaging is a deliberate counter-signal to commodity gloss.",
@@ -8615,7 +8399,6 @@ const extraGuides30: LandingGuide[] = [
     priority: 65,
     searchIntent: "color design process color iteration design workflow color review color approval process design color evaluation color system process",
     featuredCollectionId: "nordic-mist",
-    featuredPackId: "complete-archive",
     tags: ["Design Process", "Color Systems", "Design Workflow"],
     highlights: [
       "Context simulation -- evaluating color across all actual use environments before committing -- is the highest-leverage early-stage investment in color quality and costs least when done before stakeholders are attached to specific values.",
@@ -8661,7 +8444,6 @@ const extraGuides31: LandingGuide[] = [
     priority: 75,
     searchIntent: "color accessibility wcag contrast ratio accessible palette color blindness inclusive design a11y accessible colors",
     featuredCollectionId: "cool-professionals",
-    featuredPackId: "complete-archive",
     tags: ["Accessibility", "Digital Design", "Color Systems"],
     highlights: [
       "WCAG 2.1 defines two contrast tiers: AA (4.5:1 for normal text) is the legal baseline in most jurisdictions, while AAA (7:1) is the target for critical content contexts like healthcare or education.",
@@ -8702,7 +8484,6 @@ const extraGuides31: LandingGuide[] = [
     priority: 72,
     searchIntent: "dark mode color palette dark theme design dark mode colors semantic tokens dark UI color system night mode",
     featuredCollectionId: "deep-ocean",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["UI Design", "Color Systems", "Digital Design"],
     highlights: [
       "Dark mode is a parallel design system, not a transformation — colors that work in light mode do not work at the same saturation values in dark mode because perceptual color relationships shift significantly with background luminance.",
@@ -8743,7 +8524,6 @@ const extraGuides31: LandingGuide[] = [
     priority: 65,
     searchIntent: "color meaning across cultures cultural color symbolism color psychology cultural color guide global design color associations international",
     featuredCollectionId: "golden-ratio",
-    featuredPackId: "complete-archive",
     tags: ["Global Design", "Color Theory", "Brand Strategy"],
     highlights: [
       "Blue has the most consistent cross-cultural positive associations of any chromatic color — trusted and competent across an unusually wide range of cultural contexts — which explains its dominance in global tech and financial branding.",
@@ -8784,7 +8564,6 @@ const extraGuides31: LandingGuide[] = [
     priority: 68,
     searchIntent: "print color guide cmyk color management icc profiles print design color offset printing pantone print production",
     featuredCollectionId: "midnight-library",
-    featuredPackId: "brand-starter-kit",
     tags: ["Print Design", "Color Production", "Design Workflow"],
     highlights: [
       "CMYK is a smaller gamut than RGB — vivid electric blues, saturated greens, and neon oranges that look striking on screen frequently become dull or muddy in print, making soft-proofing with the correct ICC profile essential before finalizing print palettes.",
@@ -8825,7 +8604,6 @@ const extraGuides31: LandingGuide[] = [
     priority: 70,
     searchIntent: "ai color palette generator ai color design generative color palette ai palette tool color ai design tool ai generated palette",
     featuredCollectionId: "aurora-borealis",
-    featuredPackId: "complete-archive",
     tags: ["AI Design", "Color Systems", "Design Process"],
     highlights: [
       "The most productive use of generative color AI is not replacement of palette design but acceleration of the exploration phase — generating fifty candidate directions in the time that manual work produces five, so that human judgment can be applied to a much larger search space.",
@@ -8871,7 +8649,6 @@ const extraGuides32: LandingGuide[] = [
     priority: 60,
     searchIntent: "restaurant color design hospitality interior color dining room color palette restaurant branding interior color psychology",
     featuredCollectionId: "terracotta-valley",
-    featuredPackId: "warm-neutrals",
     tags: ["Interior Design", "Color Psychology", "Hospitality"],
     highlights: [
       "Fast-food brands converged on red and yellow because these warm colors increase food drive and eating speed — a behavioral engineering decision, not an aesthetic one.",
@@ -8912,7 +8689,6 @@ const extraGuides32: LandingGuide[] = [
     priority: 58,
     searchIntent: "sports brand color team identity sports design color psychology sports branding team color rebrand",
     featuredCollectionId: "cobalt-authority",
-    featuredPackId: "brand-palette-kit",
     tags: ["Brand Strategy", "Color Psychology", "Sports Design"],
     highlights: [
       "Sports color is tribal signaling before it is brand communication — the relevant question is not whether a palette is refined but whether it is unmistakably distinct from rivals.",
@@ -8953,7 +8729,6 @@ const extraGuides32: LandingGuide[] = [
     priority: 62,
     searchIntent: "color and memory color learning recall color psychology educational color design cognitive color design",
     featuredCollectionId: "nordic-signal",
-    featuredPackId: "complete-archive",
     tags: ["Color Psychology", "UX Design", "Educational Design"],
     highlights: [
       "The isolation effect is the most reliable mechanism: items that are visually distinctive within their context are better encoded and recalled, which means selective color use outperforms heavy color use.",
@@ -8994,7 +8769,6 @@ const extraGuides32: LandingGuide[] = [
     priority: 55,
     searchIntent: "wayfinding design color system navigation color environmental design signage color information architecture color wayfinding",
     featuredCollectionId: "cobalt-authority",
-    featuredPackId: "complete-archive",
     tags: ["Wayfinding Design", "Environmental Design", "Systems Design"],
     highlights: [
       "The primary criterion for wayfinding color is inter-color discriminability — colors must be maximally distinguishable from each other under varied lighting and at speed, not just on a desktop monitor.",
@@ -9035,7 +8809,6 @@ const extraGuides32: LandingGuide[] = [
     priority: 85,
     searchIntent: "color theory fundamentals color wheel color harmony complementary colors analogous colors color theory guide design",
     featuredCollectionId: "spectrum-study",
-    featuredPackId: "complete-archive",
     tags: ["Color Theory", "Design Fundamentals", "Education"],
     highlights: [
       "Of the three dimensions of color — hue, saturation, and value — value is the most important for readability and hierarchy, and should be evaluated by checking designs in grayscale.",
@@ -9080,7 +8853,6 @@ const extraGuides33: LandingGuide[] = [
     priority: 82,
     searchIntent: "packaging color design shelf impact consumer packaging color psychology purchase decision packaging design guide",
     featuredCollectionId: "solar-flare",
-    featuredPackId: "complete-archive",
     tags: ["Packaging", "Consumer Psychology", "Brand Strategy"],
     highlights: [
       "Consumers evaluate fast-moving consumer goods packaging in under three seconds — color must accomplish category identification, brand differentiation, and purchase trigger in a single visual glance.",
@@ -9121,7 +8893,6 @@ const extraGuides33: LandingGuide[] = [
     priority: 88,
     searchIntent: "dark mode color design adaptive color system light dark mode design tokens semantic color variables dark mode palette guide",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Dark Mode", "Design Systems", "Digital Design"],
     highlights: [
       "A palette designed for light mode does not invert to dark mode — contrast relationships, saturation, and surface layering all require independent design decisions for each mode.",
@@ -9162,7 +8933,6 @@ const extraGuides33: LandingGuide[] = [
     priority: 85,
     searchIntent: "design tokens color design system token architecture semantic tokens primitive tokens color variables figma tokens design system color guide",
     featuredCollectionId: "data-dashboard",
-    featuredPackId: "brand-starter-kit",
     tags: ["Design Tokens", "Design Systems", "Architecture"],
     highlights: [
       "The three-tier token architecture (primitive → semantic → component) enables brand refreshes through a single file change — components never reference raw color values, only roles.",
@@ -9203,7 +8973,6 @@ const extraGuides33: LandingGuide[] = [
     priority: 80,
     searchIntent: "color trend forecasting pantone color of the year color trends 2025 2026 color forecast design trends color trend guide",
     featuredCollectionId: "morning-light",
-    featuredPackId: "complete-archive",
     tags: ["Trends", "Color Forecasting", "Brand Strategy"],
     highlights: [
       "Major color forecasters work 18-24 months ahead of consumer markets — by the time a trend reaches peak mainstream visibility, design leaders have been tracking it for over a year.",
@@ -9244,7 +9013,6 @@ const extraGuides33: LandingGuide[] = [
     priority: 78,
     searchIntent: "color grading photography film look visual tone LUT presets photo editing color correction photography color guide cinematic color",
     featuredCollectionId: "golden-harvest",
-    featuredPackId: "complete-archive",
     tags: ["Photography", "Color Grading", "Visual Media"],
     highlights: [
       "Shadow lift — raising the black point so shadows are a slightly elevated dark value rather than pure black — is the single characteristic that most distinguishes the 'film look' from digital photography.",
@@ -9290,7 +9058,6 @@ const extraGuides34: LandingGuide[] = [
     priority: 83,
     searchIntent: "data visualization color color charts color scales categorical sequential diverging data viz color accessibility",
     featuredCollectionId: "cloud-nine",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Data Visualization", "Accessibility", "Information Design"],
     highlights: [
       "The three fundamental scales — categorical (unordered groups), sequential (magnitude), and diverging (two-direction from a center) — each have distinct requirements for discriminability, perceptual uniformity, and accessibility.",
@@ -9326,7 +9093,6 @@ const extraGuides34: LandingGuide[] = [
     priority: 79,
     searchIntent: "historical pigments color history ultramarine lapis lazuli tyrian purple color art history pigment history",
     featuredCollectionId: "art-deco",
-    featuredPackId: "complete-archive",
     tags: ["Color History", "Art History", "Pigments"],
     highlights: [
       "Ultramarine cost more than gold throughout the Renaissance — produced exclusively from lapis lazuli mined in Afghanistan. Synthetic ultramarine (1826) dropped the price by 99% and its luxury associations nearly as fast.",
@@ -9362,7 +9128,6 @@ const extraGuides34: LandingGuide[] = [
     priority: 81,
     searchIntent: "negative space color design color restraint white space color 60 30 10 rule color proportion background color design",
     featuredCollectionId: "cloud-nine",
-    featuredPackId: "complete-archive",
     tags: ["Design Principles", "Minimalism", "Color Theory"],
     highlights: [
       "The 60-30-10 rule: 60% neutral background, 30% secondary structural elements, 10% accent color. When more than 15% of visual space is saturated color, palettes read as busy regardless of how good the individual colors are.",
@@ -9398,7 +9163,6 @@ const extraGuides34: LandingGuide[] = [
     priority: 85,
     searchIntent: "brand color system design tokens semantic color tokens primitive color tokens color architecture design system color",
     featuredCollectionId: "cloud-nine",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Brand Strategy", "Design Systems", "Tokens"],
     highlights: [
       "The three-tier architecture — primitive (Blue 100–900), semantic (color.background.primary), component (button.primary.background) — is how IBM Carbon, Material 3, and Apple HIG all structure color at scale.",
@@ -9434,7 +9198,6 @@ const extraGuides34: LandingGuide[] = [
     priority: 78,
     searchIntent: "color user research color testing A/B testing color eye tracking color color user testing ux color research",
     featuredCollectionId: "electric-dreams",
-    featuredPackId: "complete-archive",
     tags: ["UX Research", "Color Testing", "Evidence-Based Design"],
     highlights: [
       "A/B testing measures behavioral outcomes (click-through, conversion) for specific interface elements — most valuable for high-traffic CTAs, checkout buttons, and form fields. It tells you which color performs, not why.",
@@ -9475,7 +9238,6 @@ const extraGuides35: LandingGuide[] = [
     priority: 82,
     searchIntent: "color ecommerce conversion button color shop color palette product photography color",
     featuredCollectionId: "electric-blue",
-    featuredPackId: "brand-starter-kit",
     tags: ["E-Commerce", "Conversion", "Color Psychology"],
     highlights: [
       "Contrast matters more than hue: visual salience — how strongly an element stands out from context — predicts click behavior better than any specific button color.",
@@ -9516,7 +9278,6 @@ const extraGuides35: LandingGuide[] = [
     priority: 78,
     searchIntent: "wayfinding color system signage design hospital color transit color map color navigation design",
     featuredCollectionId: "transit-authority",
-    featuredPackId: "complete-archive",
     tags: ["Wayfinding", "Signage", "Systems Design"],
     highlights: [
       "The Washington DC Metro (unique color per line) is consistently rated easier to navigate than the NYC Subway (multiple lines sharing colors). Color uniqueness compounds in value as systems scale.",
@@ -9557,7 +9318,6 @@ const extraGuides35: LandingGuide[] = [
     priority: 80,
     searchIntent: "color typography pairing typeface color palette font color design system type hierarchy",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "editorial-print",
     tags: ["Typography", "Color Pairing", "Design Systems"],
     highlights: [
       "High-contrast typefaces (Bodoni, Didot, Playfair) need restrained palettes. The typeface carries visual weight — the palette provides context. Saturated backgrounds destroy their personality.",
@@ -9598,7 +9358,6 @@ const extraGuides35: LandingGuide[] = [
     priority: 77,
     searchIntent: "color trend forecasting pantone color of the year color trends design trends WGSN color forecast",
     featuredCollectionId: "famous-palettes",
-    featuredPackId: "complete-archive",
     tags: ["Color Trends", "Pantone", "Forecasting"],
     highlights: [
       "Color forecasters like WGSN and Pantone operate on 18-to-24-month lead times. A color designated as trending for 2026 was identified as emerging in 2024, through social media analysis, runway attendance, and early-adopter market data.",
@@ -9639,7 +9398,6 @@ const extraGuides35: LandingGuide[] = [
     priority: 76,
     searchIntent: "synesthesia color perception cross modal color psychology color neuroscience color and sound color feeling",
     featuredCollectionId: "dreamlike",
-    featuredPackId: "complete-archive",
     tags: ["Color Psychology", "Neuroscience", "Synesthesia"],
     highlights: [
       "Cross-modal color associations appear in everyone below conscious awareness — not just synesthetes. The Bouba/Kiki effect shows automatic sound-shape associations across cultures. High-pitched sounds map to lighter, more saturated colors; low-pitched sounds to darker, neutral palettes.",
@@ -9685,7 +9443,6 @@ const extraGuides36: LandingGuide[] = [
     priority: 74,
     searchIntent: "color memory nostalgia nostalgic palette retro color psychology emotional color design memory trigger",
     featuredCollectionId: "faded-earth",
-    featuredPackId: "complete-archive",
     tags: ["Color Psychology", "Nostalgia", "Branding"],
     highlights: [
       "Color is stored in the brain alongside spatial, temporal, and emotional memory — encountering a color later reactivates the full encoded experience, not just a visual cue.",
@@ -9726,7 +9483,6 @@ const extraGuides36: LandingGuide[] = [
     priority: 73,
     searchIntent: "packaging color design shelf impact product packaging color print color pantone packaging palette brand packaging",
     featuredCollectionId: "natural-remedy",
-    featuredPackId: "palette-pack-vol-2",
     tags: ["Packaging", "Print Design", "Production"],
     highlights: [
       "Shelf impact depends on contrast with competitors, not absolute color quality. Start every packaging project with a physical competitive shelf audit.",
@@ -9767,7 +9523,6 @@ const extraGuides36: LandingGuide[] = [
     priority: 82,
     searchIntent: "dark mode color system dark mode design tokens dark ui palette dark mode design dark color system OLED dark mode",
     featuredCollectionId: "midnight-coast",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Dark Mode", "Design Systems", "UI Color"],
     highlights: [
       "Dark mode is not inverted light mode. Every surface hierarchy encoded through lightness in light mode must be independently re-encoded for dark environments.",
@@ -9808,7 +9563,6 @@ const extraGuides36: LandingGuide[] = [
     priority: 85,
     searchIntent: "color accessibility WCAG contrast color blindness accessible color design inclusive design colorblind safe palette accessible UI color",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "brand-starter-kit",
     tags: ["Accessibility", "WCAG", "Inclusive Design"],
     highlights: [
       "WCAG contrast ratios measure luminance contrast only. They do not test color differentiation for colorblind users or account for aging vision, reduced contrast sensitivity, or cognitive color load.",
@@ -9849,7 +9603,6 @@ const extraGuides36: LandingGuide[] = [
     priority: 70,
     searchIntent: "fluorescent color design neon colors extreme chroma vivid color saturated palette neon design DayGlo bright color production",
     featuredCollectionId: "vivid-signal",
-    featuredPackId: "complete-archive",
     tags: ["Color Theory", "Neon", "Production"],
     highlights: [
       "Fluorescent pigments absorb UV light and re-emit it as visible light — producing a perceived brightness that exceeds the illuminating light source. Standard CMYK gamut cannot contain most fluorescent hues.",

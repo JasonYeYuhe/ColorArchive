@@ -5,7 +5,6 @@ import { collections } from "@/src/lib/collections";
 import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
 import { landingGuides } from "@/src/lib/guides";
 import { getAllTags, newsletterIssues, tagToSlug } from "@/src/lib/newsletter-issues";
-import { palettePacks } from "@/src/lib/palette-packs";
 import { useCases } from "@/src/lib/use-cases";
 
 export const dynamic = "force-static";
@@ -97,18 +96,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",
       priority: 0.8,
-    },
-    {
-      url: "https://colorarchive.me/packs/",
-      lastModified: BUILD_DATE,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: "https://colorarchive.me/packs/quiz/",
-      lastModified: BUILD_DATE,
-      changeFrequency: "monthly",
-      priority: 0.78,
     },
     {
       url: "https://colorarchive.me/gradient/",
@@ -237,7 +224,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.82,
     },
     {
-      url: "https://colorarchive.me/free-pack/",
+      url: "https://colorarchive.me/free-resources/",
       lastModified: BUILD_DATE,
       changeFrequency: "weekly",
       priority: 0.8,
@@ -252,7 +239,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: "https://colorarchive.me/pro/",
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.9,
     },
     {
       url: "https://colorarchive.me/projects/",
@@ -371,13 +358,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const packRoutes: MetadataRoute.Sitemap = palettePacks.map((pack) => ({
-    url: `https://colorarchive.me/packs/${pack.id}/`,
-    lastModified: BUILD_DATE,
-    changeFrequency: "monthly",
-    priority: 0.75,
-  }));
-
   const collectionRoutes: MetadataRoute.Sitemap = collections.map((collection) => ({
     url: `https://colorarchive.me/collections/${collection.id}/`,
     lastModified: BUILD_DATE,
@@ -435,7 +415,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...storyRoutes,
     ...familyRoutes,
     ...collectionRoutes,
-    ...packRoutes,
     ...useCaseRoutes,
     ...colorRoutes,
   ];

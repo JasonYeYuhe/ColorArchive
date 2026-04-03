@@ -12,7 +12,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for nonprofit organizations",
     featuredCollectionId: "modern-seaside",
-    featuredPackId: "brand-starter-kit",
     tags: ["Nonprofit", "Brand", "Donor Trust", "Palette"],
     highlights: [
       "Nonprofits need colors that sit between corporate cold and grassroots chaos — muted teals and warm earth tones signal credibility without stiffness.",
@@ -52,7 +51,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode color palette for nonprofit website",
     featuredCollectionId: "midnight-forest",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Nonprofit", "Dark Mode", "Campaigns", "Portal"],
     highlights: [
       "Donor portals in dark mode need elevated surface layers rather than flat black — this prevents the interface from feeling cold or impersonal.",
@@ -92,7 +90,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible color scheme for nonprofit website ADA",
     featuredCollectionId: "stone-and-teal",
-    featuredPackId: "complete-archive",
     tags: ["Nonprofit", "Accessibility", "WCAG", "ADA"],
     highlights: [
       "Government-funded nonprofits face Section 508 requirements — failing contrast ratios can jeopardize funding, not just user experience.",
@@ -132,7 +129,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "nonprofit website color inspiration ideas",
     featuredCollectionId: "golden-hour",
-    featuredPackId: "content-creator-bundle",
     tags: ["Nonprofit", "Website", "Inspiration", "Empathy"],
     highlights: [
       "Warm amber and golden tones trigger hope and optimism — a more effective emotional driver than the urgency-red most nonprofits default to.",
@@ -172,7 +168,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "design token system for nonprofit multi-chapter brand",
     featuredCollectionId: "candy-pop",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Nonprofit", "Design Tokens", "Multi-Chapter", "Consistency"],
     highlights: [
       "Multi-chapter nonprofits lose 30–50% of brand consistency within two years without a token system — every office drifts toward its own interpretation.",
@@ -214,7 +209,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "best brand colors for law firm website",
     featuredCollectionId: "quiet-luxury",
-    featuredPackId: "brand-starter-kit",
     tags: ["Legal", "Brand", "Authority", "Law Firm"],
     highlights: [
       "The legal industry defaults to navy, burgundy, and gold — a palette that signals tradition but says nothing about the specific firm's positioning.",
@@ -254,7 +248,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "dark mode color scheme for legal tech product",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Legal", "Dark Mode", "Legal Tech", "Portal"],
     highlights: [
       "Attorneys reviewing contracts in dark mode need surface differentiation — clauses, redlines, and comments must be instantly distinguishable without color alone.",
@@ -294,7 +287,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "accessible color scheme for law firm website WCAG",
     featuredCollectionId: "cobalt-morning",
-    featuredPackId: "complete-archive",
     tags: ["Legal", "Accessibility", "WCAG", "Compliance"],
     highlights: [
       "Law firms advising clients on ADA compliance face reputational risk if their own websites fail accessibility standards — it is the digital equivalent of a cobbler's children having no shoes.",
@@ -334,7 +326,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "law firm website color ideas inspiration",
     featuredCollectionId: "copper-patina",
-    featuredPackId: "content-creator-bundle",
     tags: ["Legal", "Website", "Inspiration", "Authority"],
     highlights: [
       "Copper and patina tones reference the materiality of established institutions — brass nameplates, leather-bound books, aged wood — without being literally brown and gold.",
@@ -374,7 +365,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "design token system for law firm multi-office brand",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "palette-pack-vol-1",
     tags: ["Legal", "Design Tokens", "Multi-Office", "Brand System"],
     highlights: [
       "Large law firms with 5+ offices inevitably drift into visual inconsistency — each office's marketing coordinator interprets the brand deck differently.",
@@ -415,7 +405,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "travel brand color palette",
   featuredCollectionId: "sunset-boulevard",
-  featuredPackId: "brand-starter-kit",
   tags: ["Travel", "Brand", "Hospitality", "Palette"],
   highlights: [
     "Travel brands need warmth and aspiration without sacrificing the trust signals that drive bookings.",
@@ -455,7 +444,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "travel app dark mode colors",
   featuredCollectionId: "ocean-abyss",
-  featuredPackId: "dark-mode-ui-kit",
   tags: ["Travel", "Dark Mode", "Mobile", "UI"],
   highlights: [
     "Travelers use booking apps in dimly lit planes, hotel rooms, and airport lounges — dark mode is not optional.",
@@ -495,7 +483,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "accessible color scheme travel website",
   featuredCollectionId: "nordic-frost",
-  featuredPackId: "palette-pack-vol-1",
   tags: ["Travel", "Accessibility", "WCAG", "Inclusive"],
   highlights: [
     "Travel sites serve the widest possible audience — accessibility is not a compliance box, it is a revenue multiplier.",
@@ -535,7 +522,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "travel website color inspiration",
   featuredCollectionId: "desert-dusk",
-  featuredPackId: "content-creator-bundle",
   tags: ["Travel", "Website", "Inspiration", "Design"],
   highlights: [
     "The best travel website palettes create a sense of place before the user reads a single word.",
@@ -575,7 +561,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "design tokens travel hospitality brand",
   featuredCollectionId: "cobalt-morning",
-  featuredPackId: "complete-archive",
   tags: ["Travel", "Tokens", "Systems", "Multi-brand"],
   highlights: [
     "Multi-property travel brands lose visual coherence when each team manages color independently.",
@@ -616,7 +601,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "gaming brand color palette",
   featuredCollectionId: "neon-after-dark",
-  featuredPackId: "brand-starter-kit",
   tags: ["Gaming", "Brand", "Esports", "Palette"],
   highlights: [
     "Gaming brands default to neon and black — standing out now means having more range than your competitors.",
@@ -656,7 +640,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "gaming UI dark mode colors",
   featuredCollectionId: "digital-night",
-  featuredPackId: "dark-mode-ui-kit",
   tags: ["Gaming", "Dark Mode", "UI", "Eye Strain"],
   highlights: [
     "Gaming interfaces are used in dark rooms for hours — dark mode is the default, and it needs to be exceptional.",
@@ -696,7 +679,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "accessible color scheme gaming esports",
   featuredCollectionId: "candy-pop",
-  featuredPackId: "palette-pack-vol-1",
   tags: ["Gaming", "Accessibility", "WCAG", "Platform"],
   highlights: [
     "Xbox and PlayStation now require accessibility features — color-only information encoding fails certification.",
@@ -736,7 +718,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "gaming website color inspiration",
   featuredCollectionId: "electric-mint",
-  featuredPackId: "content-creator-bundle",
   tags: ["Gaming", "Website", "Inspiration", "Esports"],
   highlights: [
     "Gaming websites need to feel high-energy without making text unreadable or causing visual fatigue.",
@@ -776,7 +757,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "design tokens gaming esports brand",
   featuredCollectionId: "nocturne-tech",
-  featuredPackId: "complete-archive",
   tags: ["Gaming", "Tokens", "Systems", "Multi-title"],
   highlights: [
     "Game studios managing multiple titles need token systems that flex per game while maintaining studio-level brand coherence.",
@@ -817,7 +797,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "best brand colors for food and beverage companies",
   featuredCollectionId: "terracotta-loft",
-  featuredPackId: "brand-starter-kit",
   tags: ["Food", "Beverage", "Brand", "Packaging"],
   highlights: [
     "Warm reds, oranges, and yellows dominate food branding because they activate appetite response — but differentiation comes from unexpected pairings with earthy neutrals.",
@@ -859,7 +838,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "dark mode color scheme for food delivery app",
   featuredCollectionId: "desert-canyon",
-  featuredPackId: "dark-mode-ui-kit",
   tags: ["Food", "Dark Mode", "App", "Delivery"],
   highlights: [
     "Food photography loses its appetite appeal against pure black backgrounds — warm dark surfaces preserve the emotional pull of the imagery.",
@@ -901,7 +879,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "accessible color scheme for food packaging labels",
   featuredCollectionId: "stone-and-teal",
-  featuredPackId: "palette-pack-vol-1",
   tags: ["Food", "Accessibility", "Packaging", "WCAG"],
   highlights: [
     "Nearly 40% of grocery shoppers are over 50 — if your label color contrast fails under fluorescent lighting, you are losing a massive customer segment.",
@@ -943,7 +920,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "color palette for food website design",
   featuredCollectionId: "golden-hour",
-  featuredPackId: "content-creator-bundle",
   tags: ["Food", "Website", "Photography", "E-commerce"],
   highlights: [
     "The background color of a food website is a lighting decision — it determines whether product photography looks warm and inviting or flat and institutional.",
@@ -985,7 +961,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "design token system for food brand color consistency",
   featuredCollectionId: "editorial-warmth",
-  featuredPackId: "brand-starter-kit",
   tags: ["Food", "Design Tokens", "Systems", "Consistency"],
   highlights: [
     "CPG brands operate across more surfaces than almost any other industry — physical packaging, e-commerce, mobile apps, social media, in-store displays — and tokens are the only way to keep them aligned.",
@@ -1027,7 +1002,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "best brand colors for automotive companies",
   featuredCollectionId: "cobalt-morning",
-  featuredPackId: "brand-starter-kit",
   tags: ["Automotive", "Brand", "Luxury", "Performance"],
   highlights: [
     "Automotive branding operates in an extremely narrow color space — blues for trust, blacks for luxury, reds for performance — and differentiation requires precision within those lanes rather than departure from them.",
@@ -1069,7 +1043,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "dark mode color palette for car interface design",
   featuredCollectionId: "nocturne-tech",
-  featuredPackId: "dark-mode-ui-kit",
   tags: ["Automotive", "Dark Mode", "HMI", "Configurator"],
   highlights: [
     "In-car interfaces operate in the most extreme ambient light range of any product — from direct sunlight to pitch-black highway driving — and the dark mode palette must handle both.",
@@ -1111,7 +1084,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "accessible color scheme for automotive dashboard UI",
   featuredCollectionId: "candy-pop",
-  featuredPackId: "palette-pack-vol-1",
   tags: ["Automotive", "Accessibility", "Dashboard", "Safety"],
   highlights: [
     "Dashboard accessibility in vehicles is not a compliance checkbox — it is a safety-critical design constraint where color confusion at 120 km/h can have fatal consequences.",
@@ -1153,7 +1125,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "color palette for automotive website design",
   featuredCollectionId: "monochrome-studio",
-  featuredPackId: "content-creator-bundle",
   tags: ["Automotive", "Website", "Showroom", "Digital"],
   highlights: [
     "Automotive websites must create desire — the color palette should make vehicles look dramatic and aspirational while keeping utility pages like inventory search and financing tools clean and functional.",
@@ -1195,7 +1166,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "design token system for automotive brand consistency",
   featuredCollectionId: "midnight-forest",
-  featuredPackId: "brand-starter-kit",
   tags: ["Automotive", "Design Tokens", "Systems", "Multi-platform"],
   highlights: [
     "Automotive brands span more platform diversity than almost any industry — in-car displays, configurator apps, dealer management systems, consumer websites, and print advertising all need the same palette speaking different technical languages.",
@@ -1236,7 +1206,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "architecture firm brand color palette",
   featuredCollectionId: "concrete-modernism",
-  featuredPackId: "brand-starter-kit",
   tags: ["Architecture", "Brand", "Materials", "Spatial"],
   highlights: [
     "Architecture palettes gain credibility when they reference real material tones rather than arbitrary hues.",
@@ -1276,7 +1245,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "architecture portfolio dark mode colors",
   featuredCollectionId: "monochrome-studio",
-  featuredPackId: "dark-mode-ui-kit",
   tags: ["Architecture", "Dark Mode", "Portfolio", "Visualization"],
   highlights: [
     "Dark portfolio backgrounds must enhance project imagery, not flatten it with competing contrast.",
@@ -1316,7 +1284,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "accessible colors for architecture presentations",
   featuredCollectionId: "stone-and-teal",
-  featuredPackId: "brand-starter-kit",
   tags: ["Architecture", "Accessibility", "Presentations", "WCAG"],
   highlights: [
     "Presentation boards reviewed by building committees must pass contrast checks regardless of audience.",
@@ -1356,7 +1323,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "architecture website color inspiration",
   featuredCollectionId: "terracotta-workshop",
-  featuredPackId: "content-creator-bundle",
   tags: ["Architecture", "Website", "Photography", "Interior Design"],
   highlights: [
     "The best architecture websites use color as infrastructure, not decoration — letting project imagery do the talking.",
@@ -1396,7 +1362,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "design tokens for architecture firm branding",
   featuredCollectionId: "film-neutral",
-  featuredPackId: "complete-archive",
   tags: ["Architecture", "Design Tokens", "Consistency", "Branding"],
   highlights: [
     "Architecture firms output across more formats than most industries — tokens eliminate per-deliverable color drift.",
@@ -1437,7 +1402,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "music brand color palette",
   featuredCollectionId: "velvet-dusk",
-  featuredPackId: "brand-starter-kit",
   tags: ["Music", "Brand", "Genre", "Entertainment"],
   highlights: [
     "Music color palettes must survive the jump from album art to stage lighting to merch printing without losing identity.",
@@ -1477,7 +1441,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "dark mode colors for music apps",
   featuredCollectionId: "neon-after-dark",
-  featuredPackId: "dark-mode-ui-kit",
   tags: ["Music", "Dark Mode", "Streaming", "Production"],
   highlights: [
     "Dark mode is the default expectation in music — every major streaming and production app uses it as the primary interface.",
@@ -1517,7 +1480,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "accessible colors for music events and apps",
   featuredCollectionId: "candy-pop",
-  featuredPackId: "brand-starter-kit",
   tags: ["Music", "Accessibility", "Events", "Signage"],
   highlights: [
     "Live event signage must be readable at distance, in dim lighting, and by attendees with color vision deficiency.",
@@ -1557,7 +1519,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "music website color inspiration",
   featuredCollectionId: "electric-mint",
-  featuredPackId: "content-creator-bundle",
   tags: ["Music", "Website", "Emotion", "Entertainment"],
   highlights: [
     "Music websites need color that creates mood instantly — visitors decide within seconds whether the vibe matches their expectations.",
@@ -1597,7 +1558,6 @@ export const seoGuides2: LandingGuide[] = [
   priority: 50,
   searchIntent: "design tokens for music brand",
   featuredCollectionId: "aurora-veil",
-  featuredPackId: "complete-archive",
   tags: ["Music", "Design Tokens", "Scaling", "Multi-platform"],
   highlights: [
     "Music brands touch more surfaces than almost any industry — tokens are the only way to maintain coherence across all of them.",
@@ -1637,7 +1597,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "pet care brand color palette",
     featuredCollectionId: "blossom-season",
-    featuredPackId: "brand-starter-kit",
     tags: ["Pet Care", "Brand", "Warm Tones", "Playful"],
     highlights: [
       "Pet brands that default to generic teal and lime look interchangeable on the shelf and in the app store.",
@@ -1677,7 +1636,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "pet care dark mode colors",
     featuredCollectionId: "midnight-forest",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Pet Care", "Dark Mode", "Health Apps", "UI"],
     highlights: [
       "Pet owners check health trackers at 2 AM when their dog is sick — dark mode is not optional.",
@@ -1717,7 +1675,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "pet care accessible color scheme",
     featuredCollectionId: "nordic-frost",
-    featuredPackId: "brand-starter-kit",
     tags: ["Pet Care", "Accessibility", "Contrast", "Inclusive"],
     highlights: [
       "A significant portion of pet owners are over 55 and need larger text with stronger contrast ratios.",
@@ -1757,7 +1714,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "pet care website color inspiration",
     featuredCollectionId: "golden-hour",
-    featuredPackId: "content-creator-bundle",
     tags: ["Pet Care", "Website", "Warm Colors", "Inspiration"],
     highlights: [
       "Pet care websites convert better when they feel emotionally warm rather than clinically efficient.",
@@ -1797,7 +1753,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "pet care design token system",
     featuredCollectionId: "editorial-warmth",
-    featuredPackId: "brand-starter-kit",
     tags: ["Pet Care", "Design Tokens", "Systems", "Multi-Channel"],
     highlights: [
       "Pet brands that lack tokens end up with a different shade of teal on every touchpoint.",
@@ -1837,7 +1792,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "crypto brand color palette",
     featuredCollectionId: "nocturne-tech",
-    featuredPackId: "brand-starter-kit",
     tags: ["Crypto", "Brand", "Trust", "Innovation"],
     highlights: [
       "Most crypto brands default to neon gradients that now signal pump-and-dump rather than innovation.",
@@ -1877,7 +1831,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "crypto dark mode colors",
     featuredCollectionId: "digital-night",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Crypto", "Dark Mode", "Trading UI", "Dashboard"],
     highlights: [
       "Crypto traders spend 8+ hours daily on dark dashboards — poor dark mode causes real eye strain.",
@@ -1917,7 +1870,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "crypto accessible color scheme",
     featuredCollectionId: "monochrome-studio",
-    featuredPackId: "dark-mode-ui-kit",
     tags: ["Crypto", "Accessibility", "Finance", "Data Clarity"],
     highlights: [
       "Financial misreads caused by poor color contrast can cost users real money in crypto.",
@@ -1957,7 +1909,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "crypto website color inspiration",
     featuredCollectionId: "cobalt-spectrum",
-    featuredPackId: "content-creator-bundle",
     tags: ["Crypto", "Website", "Trust", "Tech Design"],
     highlights: [
       "Crypto websites must pass the three-second trust test with both retail and institutional visitors.",
@@ -1997,7 +1948,6 @@ export const seoGuides2: LandingGuide[] = [
     priority: 50,
     searchIntent: "crypto design token system",
     featuredCollectionId: "data-dashboard",
-    featuredPackId: "brand-starter-kit",
     tags: ["Crypto", "Design Tokens", "Systems", "Scalability"],
     highlights: [
       "Crypto products that lack tokens end up with a different brand on every chain and every interface.",

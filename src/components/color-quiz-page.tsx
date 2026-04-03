@@ -81,9 +81,6 @@ interface ResultType {
   tagline: string;
   description: string;
   traits: string[];
-  packId: string;
-  packName: string;
-  packSlug: string;
 }
 
 const RESULT_TYPES: ResultType[] = [
@@ -94,9 +91,6 @@ const RESULT_TYPES: ResultType[] = [
     tagline: "Bold, driven, and impossible to ignore.",
     description: "You don't wait for permission. Your color palette is as direct as you are — deep reds and charged magentas that signal confidence and make every design unforgettable.",
     traits: ["Decisive", "Energetic", "Bold"],
-    packId: "content-creator-bundle",
-    packName: "Content Creator Bundle",
-    packSlug: "content-creator-bundle",
   },
   {
     family: "Orange",
@@ -105,9 +99,6 @@ const RESULT_TYPES: ResultType[] = [
     tagline: "Warm, magnetic, and always in the room.",
     description: "You bring people together. Your palette runs in sunset tones and firelit ambers — colors that feel approachable, joyful, and brimming with possibility.",
     traits: ["Social", "Optimistic", "Warm"],
-    packId: "content-creator-bundle",
-    packName: "Content Creator Bundle",
-    packSlug: "content-creator-bundle",
   },
   {
     family: "Yellow",
@@ -116,9 +107,6 @@ const RESULT_TYPES: ResultType[] = [
     tagline: "Curious, quick, and full of ideas.",
     description: "You see connections others miss. Your palette captures that spark — honeyed golds and bright citrine that radiate intelligence and delight.",
     traits: ["Creative", "Curious", "Playful"],
-    packId: "palette-pack-vol-1",
-    packName: "Palette Pack Vol. 1",
-    packSlug: "palette-pack-vol-1",
   },
   {
     family: "Lime",
@@ -127,9 +115,6 @@ const RESULT_TYPES: ResultType[] = [
     tagline: "Fresh, fearless, and always moving forward.",
     description: "You thrive at the frontier. Your colors are the fresh greens of new growth — lively, optimistic, and full of forward momentum.",
     traits: ["Adventurous", "Fresh", "Independent"],
-    packId: "palette-pack-vol-1",
-    packName: "Palette Pack Vol. 1",
-    packSlug: "palette-pack-vol-1",
   },
   {
     family: "Green",
@@ -138,9 +123,6 @@ const RESULT_TYPES: ResultType[] = [
     tagline: "Calm, rooted, and quietly powerful.",
     description: "You don't rush. Your palette draws from deep forest greens and sage — colors that communicate trust, growth, and enduring quality.",
     traits: ["Calm", "Reliable", "Natural"],
-    packId: "palette-pack-vol-1",
-    packName: "Palette Pack Vol. 1",
-    packSlug: "palette-pack-vol-1",
   },
   {
     family: "Teal",
@@ -149,9 +131,6 @@ const RESULT_TYPES: ResultType[] = [
     tagline: "Balanced, discerning, and effortlessly cool.",
     description: "You have an eye for the just-right. Your palette blends the precision of blue with the freshness of green — sophisticated, versatile, and always considered.",
     traits: ["Elegant", "Balanced", "Versatile"],
-    packId: "dark-mode-ui-kit",
-    packName: "Dark Mode UI Kit",
-    packSlug: "dark-mode-ui-kit",
   },
   {
     family: "Blue",
@@ -160,9 +139,6 @@ const RESULT_TYPES: ResultType[] = [
     tagline: "Clear-minded, focused, and built to last.",
     description: "You think before you act — and that's your advantage. Your palette moves through cool sapphires and serene ceruleans, signaling clarity and quiet authority.",
     traits: ["Logical", "Trustworthy", "Focused"],
-    packId: "brand-starter-kit",
-    packName: "Brand Color Starter Kit",
-    packSlug: "brand-starter-kit",
   },
   {
     family: "Purple",
@@ -171,9 +147,6 @@ const RESULT_TYPES: ResultType[] = [
     tagline: "Introspective, artistic, and quietly intense.",
     description: "You see things others feel but can't name. Your palette runs in deep violets and twilight plums — colors that hold mystery, imagination, and depth.",
     traits: ["Artistic", "Introspective", "Mysterious"],
-    packId: "dark-mode-ui-kit",
-    packName: "Dark Mode UI Kit",
-    packSlug: "dark-mode-ui-kit",
   },
   {
     family: "Pink",
@@ -182,9 +155,6 @@ const RESULT_TYPES: ResultType[] = [
     tagline: "Empathetic, expressive, and deeply attuned.",
     description: "You sense the room before anyone speaks. Your palette blooms in soft roses and warm blushes — colors that speak care, warmth, and emotional intelligence.",
     traits: ["Empathetic", "Gentle", "Expressive"],
-    packId: "palette-pack-vol-1",
-    packName: "Palette Pack Vol. 1",
-    packSlug: "palette-pack-vol-1",
   },
 ];
 
@@ -314,18 +284,18 @@ function QuizResult({ result, onRetake }: { result: ResultType; onRetake: () => 
             <ShareOnXButton text={xText} href={shareUrl} />
           </div>
 
-          {/* Pack CTA */}
+          {/* Pro CTA */}
           <div className="rounded-xl bg-slate-50 border border-slate-100 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
-              <p className="text-xs text-slate-400 mb-0.5">Recommended for you</p>
-              <p className="text-sm font-semibold text-slate-800">{result.packName}</p>
-              <p className="text-xs text-slate-500">Curated palettes that match your color personality</p>
+              <p className="text-xs text-slate-400 mb-0.5">Take it further</p>
+              <p className="text-sm font-semibold text-slate-800">Upgrade to Pro</p>
+              <p className="text-xs text-slate-500">Unlimited exports, AI generation, and WCAG reports</p>
             </div>
             <Link
-              href={`/packs/${result.packSlug}/`}
+              href="/pro/"
               className="shrink-0 px-4 py-2 bg-slate-900 text-white text-xs font-medium rounded-lg hover:bg-slate-700 transition-colors"
             >
-              View pack
+              View Pro plans
             </Link>
           </div>
 

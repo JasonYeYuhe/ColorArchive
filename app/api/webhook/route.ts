@@ -1,23 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/src/lib/stripe";
-import { checkoutConfig, proSubscriptionConfig } from "@/src/lib/checkout-config";
+import crypto from "crypto";
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const WEBHOOK_SECRET = process.env.LEMONSQUEEZY_WEBHOOK_SECRET ?? "";
 const API_URL = process.env.BACKEND_API_URL ?? "https://api.colorarchive.me";
 const INTERNAL_SECRET = process.env.INTERNAL_WEBHOOK_SECRET ?? "";
 
-/** Map Stripe price IDs back to product/pack identifiers */
-function resolvePriceId(priceId: string): { type: "pack"; packId: string } | { type: "subscription"; plan: "monthly" | "yearly" } | null {
-  for (const [packId, cfg] of Object.entries(checkoutConfig)) {
-    if (cfg.stripePriceId === priceId) return { type: "pack", packId };
+/** Verify Lemon Squeezy webhook signature (HMAC SHA-256) */
+function verifySignature(body: string, signature: string | null): boolean {
+  if (!WEBHOOK_SECRET || !signature) return false;
+  const expected = crypto
+    .createHmac("sha256", WEBHOOK_SECRET)
+    .update(body)
+    .digest("hex");
+  try {
+    return crypto.timingSafeEqual(
+      Buffer.from(expected, "hex"),
+      Buffer.from(signature, "hex")
+    );
+  } catch {
+    return false;
   }
-  if (priceId === proSubscriptionConfig.monthly.stripePriceId) return { type: "subscription", plan: "monthly" };
-  if (priceId === proSubscriptionConfig.yearly.stripePriceId) return { type: "subscription", plan: "yearly" };
-  return null;
 }
 
-/** Forward fulfillment events to the backend API (Express on DO).
- *  Throws on failure so the caller can return 500 to Stripe (triggering retry). */
+/** Forward events to the backend API (Express on DO). */
 async function notifyBackend(path: string, payload: Record<string, unknown>): Promise<void> {
   const res = await fetch(`${API_URL}${path}`, {
     method: "POST",
@@ -35,92 +40,98 @@ async function notifyBackend(path: string, payload: Record<string, unknown>): Pr
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
-  const sig = req.headers.get("stripe-signature");
+  const signature = req.headers.get("x-signature");
 
-  if (!sig || !webhookSecret) {
-    return NextResponse.json(
-      { error: "Missing signature or webhook secret" },
-      { status: 400 }
-    );
-  }
-
-  let event;
-  try {
-    event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
-  } catch (err) {
-    console.error("Webhook signature verification failed:", err);
+  if (!verifySignature(body, signature)) {
+    console.error("[ls-webhook] Invalid signature");
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
+  let event: {
+    meta: { event_name: string; custom_data?: Record<string, string> };
+    data: {
+      id: string;
+      attributes: Record<string, unknown>;
+    };
+  };
+
   try {
-    switch (event.type) {
-      case "checkout.session.completed": {
-        const session = event.data.object;
-        const email = session.customer_email ?? session.customer_details?.email ?? null;
-        const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 5 });
-        const priceId = lineItems.data[0]?.price?.id ?? "";
-        const product = resolvePriceId(priceId);
+    event = JSON.parse(body);
+  } catch {
+    return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+  }
 
-        console.log(
-          `Payment completed: session=${session.id} email=${email} amount=${session.amount_total} product=${JSON.stringify(product)}`
-        );
+  const eventName = event.meta.event_name;
+  const attrs = event.data.attributes;
+  const email = (attrs.user_email as string) ?? null;
+  const customData = event.meta.custom_data ?? {};
 
-        if (product?.type === "pack") {
-          await notifyBackend("/webhooks/order-completed", {
-            sessionId: session.id,
-            email,
-            packId: product.packId,
-            amountTotal: session.amount_total,
-            currency: session.currency,
-            paymentIntent: typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null,
-          });
-        } else if (product?.type === "subscription") {
+  console.log(`[ls-webhook] Event: ${eventName} email=${email}`);
+
+  try {
+    switch (eventName) {
+      // Subscription created (monthly/yearly)
+      case "subscription_created": {
+        const plan = (attrs.variant_name as string)?.toLowerCase().includes("year") ? "yearly" : "monthly";
+        await notifyBackend("/webhooks/subscription-checkout", {
+          email,
+          plan,
+          subscriptionId: String(event.data.id),
+          provider: "lemonsqueezy",
+          customerId: String(attrs.customer_id ?? ""),
+          ...customData,
+        });
+        break;
+      }
+
+      // Subscription updated (plan change, renewal)
+      case "subscription_updated": {
+        await notifyBackend("/webhooks/subscription-updated", {
+          subscriptionId: String(event.data.id),
+          customerId: String(attrs.customer_id ?? ""),
+          status: attrs.status,
+          renewsAt: attrs.renews_at ?? null,
+          endsAt: attrs.ends_at ?? null,
+          provider: "lemonsqueezy",
+        });
+        break;
+      }
+
+      // Subscription cancelled
+      case "subscription_cancelled": {
+        await notifyBackend("/webhooks/subscription-cancelled", {
+          subscriptionId: String(event.data.id),
+          customerId: String(attrs.customer_id ?? ""),
+          provider: "lemonsqueezy",
+        });
+        break;
+      }
+
+      // One-time purchase (lifetime Pro)
+      case "order_created": {
+        const isLifetime = (attrs.first_order_item as Record<string, unknown>)?.variant_name
+          ?.toString().toLowerCase().includes("lifetime")
+          ?? (attrs.variant_name as string)?.toLowerCase().includes("lifetime")
+          ?? false;
+
+        if (isLifetime) {
           await notifyBackend("/webhooks/subscription-checkout", {
-            sessionId: session.id,
             email,
-            plan: product.plan,
-            subscriptionId: typeof session.subscription === "string" ? session.subscription : session.subscription?.id ?? null,
+            plan: "lifetime",
+            subscriptionId: `lifetime_${event.data.id}`,
+            provider: "lemonsqueezy",
+            customerId: String(attrs.customer_id ?? ""),
+            ...customData,
           });
         }
         break;
       }
 
-      case "customer.subscription.created":
-      case "customer.subscription.updated": {
-        const subscription = event.data.object;
-        const customerId = typeof subscription.customer === "string" ? subscription.customer : subscription.customer?.id ?? "";
-        console.log(
-          `Subscription ${event.type}: id=${subscription.id} status=${subscription.status} customer=${customerId}`
-        );
-
-        await notifyBackend("/webhooks/subscription-updated", {
-          subscriptionId: subscription.id,
-          customerId,
-          status: subscription.status,
-          currentPeriodEnd: (subscription as unknown as { current_period_end?: number }).current_period_end ?? null,
-          cancelAtPeriodEnd: subscription.cancel_at_period_end,
-          priceId: subscription.items?.data[0]?.price?.id ?? null,
-        });
-        break;
-      }
-
-      case "customer.subscription.deleted": {
-        const subscription = event.data.object;
-        const customerId = typeof subscription.customer === "string" ? subscription.customer : subscription.customer?.id ?? "";
-        console.log(`Subscription cancelled: id=${subscription.id} customer=${customerId}`);
-
-        await notifyBackend("/webhooks/subscription-cancelled", {
-          subscriptionId: subscription.id,
-          customerId,
-        });
-        break;
-      }
-
       default:
-        console.log(`Unhandled Stripe event: ${event.type}`);
+        console.log(`[ls-webhook] Unhandled event: ${eventName}`);
     }
   } catch (err) {
-    console.error(`Webhook fulfillment failed for ${event.type}:`, err);
+    console.error(`[ls-webhook] Fulfillment failed for ${eventName}:`, err);
     return NextResponse.json({ error: "Fulfillment failed" }, { status: 500 });
   }
 

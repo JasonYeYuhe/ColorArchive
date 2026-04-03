@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { colors } from "@/src/data/colors";
-import { checkoutConfig } from "@/src/lib/checkout-config";
+
 import { EmailSubscribe } from "@/src/components/email-subscribe";
 import { useLocale } from "@/src/components/locale-provider";
 
@@ -117,10 +117,10 @@ export function HeroSection({
               Random Palette
             </Link>
             <Link
-              href="/packs/"
+              href="/collections/"
               className="text-sm font-medium text-neutral-500 transition hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
             >
-              {t("hero.browsePacks")} &rarr;
+              {t("hero.browseCollections")} &rarr;
             </Link>
           </div>
 

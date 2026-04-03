@@ -18,7 +18,6 @@ export interface NewsletterIssue {
   eyebrow?: string;
   tags: string[];
   featuredCollectionId?: string;
-  featuredPackId?: string;
   highlights?: string[];
   sections?: NewsletterIssueSection[];
   links?: NewsletterIssueLink[];

@@ -12,7 +12,6 @@ import {
 } from "@/src/lib/color-family-pages";
 import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
-import { palettePacks } from "@/src/lib/palette-packs";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 
 interface FamilyRouteProps {
@@ -65,10 +64,6 @@ export default async function FamilyDetailRoute({ params }: FamilyRouteProps) {
   const familyPage = getFamilyPageData(family);
   const familyColors = getColorsForFamily(colors, family);
   const relatedCollections = getCollectionsForFamily(collections, family);
-  const collectionIds = new Set(relatedCollections.map((entry) => entry.collection.id));
-  const relatedPacks = palettePacks.filter((pack) =>
-    pack.previewCollectionIds.some((collectionId) => collectionIds.has(collectionId)),
-  );
 
   const structuredData = [
     {
@@ -107,7 +102,6 @@ export default async function FamilyDetailRoute({ params }: FamilyRouteProps) {
         familyPage={familyPage}
         familyColors={familyColors}
         relatedCollections={relatedCollections}
-        relatedPacks={relatedPacks}
       />
     </>
   );

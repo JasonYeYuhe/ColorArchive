@@ -39,7 +39,6 @@ const FEATURE_KEYS = [
 
 export function ProPage() {
   const { t } = useLocale();
-  const [billing, setBilling] = useState<"monthly" | "yearly">("yearly");
   const [session, setSession] = useState<AuthSession | null>(null);
 
   useEffect(() => {
@@ -47,7 +46,6 @@ export function ProPage() {
   }, []);
 
   const isPro = session?.auth.tier === "pro";
-  const plan = proSubscriptionConfig[billing];
 
   const COMPARISON: { featureKey: string; free: boolean | string; pro: boolean | string }[] = [
     { featureKey: "pro.comparison.row1", free: true, pro: true },
@@ -74,62 +72,84 @@ export function ProPage() {
         </p>
       </section>
 
-      <div className="max-w-3xl mx-auto px-4 space-y-10">
-        {/* Pricing card */}
-        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-8 text-center">
-          {/* Billing toggle */}
-          <div className="inline-flex items-center bg-slate-100 dark:bg-white/10 rounded-xl p-1 mb-6">
-            <button
-              onClick={() => setBilling("monthly")}
-              className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                billing === "monthly" ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm" : "text-slate-500 dark:text-slate-400"
-              }`}
-            >
-              {t("pro.monthly")}
-            </button>
-            <button
-              onClick={() => setBilling("yearly")}
-              className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                billing === "yearly" ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm" : "text-slate-500 dark:text-slate-400"
-              }`}
-            >
-              {t("pro.yearly")} <span className="text-indigo-600 text-xs font-semibold ml-1">{t("pro.yearlySave")}</span>
-            </button>
-          </div>
-
-          <div className="mb-6">
-            <span className="text-4xl font-bold text-slate-900 dark:text-white">{plan.price}</span>
-            <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {plan.period}</span>
-          </div>
-
-          {isPro ? (
+      <div className="max-w-4xl mx-auto px-4 space-y-10">
+        {/* Pricing cards — 3 tiers */}
+        {isPro ? (
+          <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-8 text-center">
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-semibold">
               <span>&#10003;</span> {t("pro.youreOnPro")}
             </div>
-          ) : plan.stripePriceId ? (
-            <CheckoutButton
-              priceId={plan.stripePriceId}
-              gumroadUrl={null}
-              className="inline-block px-8 py-3 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
-            >
-              {t("pro.subscribeToPro")}
-            </CheckoutButton>
-          ) : (
-            <div className="space-y-3">
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                {t("pro.launchingSoon")}
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-3 gap-4">
+            {/* Monthly */}
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6 text-center flex flex-col">
+              <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
+                {t("pro.monthly")}
               </p>
-              <Link
-                href="/free-pack"
-                className="inline-block px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-700 transition-colors"
-              >
-                {t("pro.joinWaitlist")}
-              </Link>
+              <div className="mb-4">
+                <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.monthly.price}</span>
+                <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {proSubscriptionConfig.monthly.period}</span>
+              </div>
+              <p className="text-xs text-slate-400 mb-6">{t("pro.cancelAnytime")}</p>
+              <div className="mt-auto">
+                <CheckoutButton
+                  plan="monthly"
+                  className="w-full px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-semibold rounded-xl hover:bg-slate-700 dark:hover:bg-slate-100 transition-colors"
+                >
+                  {t("pro.subscribeToPro")}
+                </CheckoutButton>
+              </div>
             </div>
-          )}
 
-          <p className="text-xs text-slate-400 mt-3">{t("pro.cancelAnytime")}</p>
-        </div>
+            {/* Yearly — recommended */}
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl border-2 border-indigo-500 shadow-sm p-6 text-center flex flex-col relative">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-indigo-600 text-white text-xs font-semibold rounded-full">
+                {t("pro.yearlySave")}
+              </span>
+              <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
+                {t("pro.yearly")}
+              </p>
+              <div className="mb-4">
+                <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.yearly.price}</span>
+                <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {proSubscriptionConfig.yearly.period}</span>
+              </div>
+              <p className="text-xs text-slate-400 mb-6">{t("pro.cancelAnytime")}</p>
+              <div className="mt-auto">
+                <CheckoutButton
+                  plan="yearly"
+                  className="w-full px-6 py-3 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
+                >
+                  {t("pro.subscribeToPro")}
+                </CheckoutButton>
+              </div>
+            </div>
+
+            {/* Lifetime */}
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6 text-center flex flex-col relative">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded-full whitespace-nowrap">
+                Early Bird
+              </span>
+              <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
+                Lifetime
+              </p>
+              <div className="mb-2">
+                <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.lifetime.price}</span>
+              </div>
+              <p className="text-xs text-slate-400 line-through mb-1">{proSubscriptionConfig.lifetime.regularPrice}</p>
+              <p className="text-xs text-amber-600 dark:text-amber-400 font-medium mb-1">Pay once, keep forever*</p>
+              <p className="text-[10px] text-slate-400 mb-5">*Lifetime of the ColorArchive product</p>
+              <div className="mt-auto">
+                <CheckoutButton
+                  plan="lifetime"
+                  className="w-full px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-semibold rounded-xl hover:bg-slate-700 dark:hover:bg-slate-100 transition-colors"
+                >
+                  Get Lifetime Access
+                </CheckoutButton>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Features grid */}
         <div className="grid sm:grid-cols-2 gap-4">

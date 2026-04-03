@@ -50,7 +50,7 @@ const translations: Record<string, Record<string, string>> = {
   "nav.surprise": { en: "Surprise", zh: "随机发现" },
   "nav.favorites": { en: "Favorites", zh: "收藏" },
   "nav.packs": { en: "Packs", zh: "色彩包" },
-  "nav.freePack": { en: "Free Pack", zh: "免费包" },
+  "nav.freeResources": { en: "Free Resources", zh: "免费资源" },
   "nav.pro": { en: "Pro", zh: "Pro" },
   "nav.projects": { en: "Projects", zh: "项目" },
   "nav.analyze": { en: "Brand Analyzer", zh: "品牌分析" },
@@ -77,7 +77,7 @@ const translations: Record<string, Record<string, string>> = {
   "hero.getStartedFree": { en: "Get started free", zh: "免费开始" },
   "hero.browseArchive": { en: "Browse archive", zh: "浏览色彩库" },
   "hero.pickForMe": { en: "Pick colors for me", zh: "帮我选色" },
-  "hero.browsePacks": { en: "Browse packs", zh: "浏览色彩包" },
+  "hero.browseCollections": { en: "Browse collections", zh: "浏览合集" },
   "hero.readGuides": { en: "Read guides", zh: "阅读指南" },
   "hero.colorOfTheDay": { en: "Color of the day", zh: "今日色彩" },
   "hero.convertColors": { en: "Convert colors", zh: "颜色转换" },
@@ -372,7 +372,7 @@ const translations: Record<string, Record<string, string>> = {
     en: "Check your inbox \u2014 download link sent.",
     zh: "请查收邮箱——下载链接已发送。",
   },
-  "capture.browsePacks": { en: "Browse paid packs", zh: "浏览付费套装" },
+  "capture.browseCollections": { en: "Browse collections", zh: "浏览合集" },
 
   // Pagination (shared across archive/search/all-colors)
   "pagination.showing": { en: "Showing", zh: "显示" },

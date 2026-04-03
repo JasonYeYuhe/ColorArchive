@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { ColorRecord, ColorFamily } from "@/src/types/color";
 import type { ColorCollection } from "@/src/lib/collections";
-import type { PalettePack } from "@/src/lib/palette-packs";
 import type { ColorFamilyPageData } from "@/src/lib/color-family-pages";
 
 interface FamilyDetailPageProps {
@@ -12,7 +11,6 @@ interface FamilyDetailPageProps {
     collection: ColorCollection;
     matchingColors: ColorRecord[];
   }>;
-  relatedPacks: readonly PalettePack[];
 }
 
 export function FamilyDetailPage({
@@ -20,11 +18,9 @@ export function FamilyDetailPage({
   familyPage,
   familyColors,
   relatedCollections,
-  relatedPacks,
 }: FamilyDetailPageProps) {
   const featuredColors = familyColors.slice(0, 24);
   const primaryCollection = relatedCollections[0]?.collection ?? null;
-  const primaryPack = relatedPacks[0] ?? null;
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -103,13 +99,13 @@ export function FamilyDetailPage({
           </article>
           <article className="rounded-[1.7rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Related packs
+              Export formats
             </div>
             <div className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-neutral-950">
-              {relatedPacks.length}
+              7+
             </div>
             <div className="mt-2 text-sm text-neutral-500">
-              Productized packs that use this family in their source collections.
+              CSS, Tailwind, Figma JSON, SCSS, Style Dictionary, Procreate, and more with Pro.
             </div>
           </article>
         </section>
@@ -136,11 +132,9 @@ export function FamilyDetailPage({
                 </div>
               </div>
               <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
-                <div className="text-sm font-semibold text-neutral-950">3. Upgrade into a pack</div>
+                <div className="text-sm font-semibold text-neutral-950">3. Upgrade to Pro</div>
                 <div className="mt-2 text-sm leading-6 text-neutral-600">
-                  {primaryPack
-                    ? `${primaryPack.title} is the nearest paid step if you want tokens, exports, and usage guidance around this family direction.`
-                    : `If the family is only partially represented in packs today, use the free layer first and then compare the closest live pack.`}
+                  Pro members get advanced token exports, downloadable assets, and usage guidance to take this family direction into production.
                 </div>
               </div>
             </div>
@@ -159,19 +153,11 @@ export function FamilyDetailPage({
                   Open {primaryCollection.title}
                 </Link>
               ) : null}
-              {primaryPack ? (
-                <Link
-                  href={`/packs/${primaryPack.id}`}
-                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                >
-                  Open {primaryPack.title}
-                </Link>
-              ) : null}
               <Link
-                href="/free-pack/"
+                href="/pro/"
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
-                Try free layer
+                Upgrade to Pro
               </Link>
               <Link
                 href={`/palette?ids=${featuredColors.slice(0, 6).map((color) => color.id).join(",")}`}
@@ -292,26 +278,21 @@ export function FamilyDetailPage({
 
           <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Related packs
+              Go further
             </div>
-            <div className="mt-4 space-y-3">
-              {relatedPacks.length > 0 ? (
-                relatedPacks.map((pack) => (
-                  <Link
-                    key={pack.id}
-                    href={`/packs/${pack.id}`}
-                    className="block rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 transition hover:bg-white"
-                  >
-                    <div className="text-sm font-semibold text-neutral-950">{pack.title}</div>
-                    <div className="mt-1 text-sm text-neutral-500">{pack.priceHint}</div>
-                    <div className="mt-2 text-sm leading-6 text-neutral-600">{pack.detail}</div>
-                  </Link>
-                ))
-              ) : (
-                <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
-                  No pack is dominated by this family yet, but the matching collections still act as strong public proof.
-                </div>
-              )}
+            <div className="mt-4 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+              <div className="text-sm font-semibold text-neutral-950">Unlock Pro</div>
+              <div className="mt-2 text-sm leading-6 text-neutral-600">
+                Pro members get unlimited exports, advanced token formats, and priority access to new collections in the {family.toLowerCase()} family.
+              </div>
+              <div className="mt-3">
+                <Link
+                  href="/pro/"
+                  className="rounded-full bg-neutral-950 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
+                >
+                  Learn about Pro
+                </Link>
+              </div>
             </div>
           </aside>
         </section>

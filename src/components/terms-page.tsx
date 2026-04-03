@@ -8,12 +8,12 @@ const sections = [
   },
   {
     title: "2. Description of Service",
-    content: `ColorArchive provides a curated color reference library, palette tools, and related digital products. The service includes:
+    content: `ColorArchive is a design productivity platform offering color tools and a curated color reference library. The service includes:
 
-- **Free tools**: Color browsing, palette generation, brand color tools, WCAG audit, and gradient creation.
-- **Digital products**: Downloadable palette packs available for purchase.
+- **Free tools**: Color browsing, palette generation, brand color tools, WCAG audit, contrast checker, gradient builder, and more.
+- **Pro subscription**: Unlock unlimited AI palette generations, exports in all formats, WCAG audit reports, and full token generation.
 - **API access**: Programmatic access to color data for developers.
-- **Account features**: Favorites sync, preferences, and purchase history when signed in.`,
+- **Account features**: Favorites sync, preferences, usage stats, and subscription management when signed in.`,
   },
   {
     title: "3. User Accounts",
@@ -27,21 +27,21 @@ We reserve the right to suspend or terminate accounts that violate these terms.`
   },
   {
     title: "4. Purchases and Refunds",
-    content: `Digital products are sold through our checkout provider. All purchases are subject to the applicable provider's terms of service.
+    content: `Pro subscriptions are sold through our checkout provider. All purchases are subject to the applicable provider's terms of service.
 
-- **Digital products**: All sales of digital downloads are final. Due to the nature of digital goods, refunds are generally not available once the product has been delivered.
-- **Exceptions**: If you experience a technical issue preventing you from accessing a purchased product, contact us and we will work to resolve it or issue a refund at our discretion.
-- **Pricing**: We reserve the right to change pricing at any time. Price changes do not affect previously completed purchases.
 - **Subscriptions**: Pro subscriptions (monthly or yearly) renew automatically. You may cancel at any time through your account's billing portal — go to Account → Manage Subscription. Cancellation takes effect at the end of the current billing period; you retain access until then. No partial refunds are issued for the remaining period.
+- **Lifetime purchase**: The Pro Lifetime option is a one-time purchase that grants permanent Pro access. No recurring charges apply. "Lifetime" refers to the lifetime of the ColorArchive product/service.
+- **Exceptions**: If you experience a technical issue preventing you from accessing Pro features, contact us and we will work to resolve it or issue a refund at our discretion.
+- **Pricing**: We reserve the right to change pricing at any time. Price changes do not affect active subscriptions or completed purchases.
 
 For full details, see our [Refund Policy](/refund-policy/).`,
   },
   {
     title: "5. Intellectual Property",
-    content: `All content on ColorArchive — including but not limited to text, graphics, logos, design, code, and digital products — is the property of ColorArchive or its content creators and is protected by applicable intellectual property laws.
+    content: `All content on ColorArchive — including but not limited to text, graphics, logos, design, code, and color data — is the property of ColorArchive and is protected by applicable intellectual property laws.
 
 - You may use our free tools for personal and commercial projects.
-- Purchased palette packs are licensed for your personal and commercial use, but may not be resold or redistributed as standalone products.
+- Colors and palettes exported via Pro are licensed for your personal and commercial use. Exported assets remain yours even after cancellation.
 - You may not reproduce, distribute, or create derivative works from the ColorArchive platform itself.`,
   },
   {
@@ -62,7 +62,7 @@ For full details, see our [Refund Policy](/refund-policy/).`,
 - Interfere with or disrupt the service or its infrastructure.
 - Use automated scripts to access the service in a way that exceeds reasonable usage.
 - Upload or transmit malicious code, viruses, or harmful data.
-- Resell or redistribute our digital products without authorization.`,
+- Use the service to build a competing product or scrape data for commercial redistribution.`,
   },
   {
     title: "8. Disclaimer of Warranties",

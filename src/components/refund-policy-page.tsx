@@ -4,25 +4,28 @@ const LAST_UPDATED = "March 30, 2026";
 
 const sections = [
   {
-    title: "1. Digital Products",
-    content: `All digital products sold on ColorArchive — including palette packs, color token sets, and downloadable bundles — are delivered instantly upon purchase. Due to the nature of digital goods, **all sales are final** and refunds are generally not available once the product has been delivered.
-
-This is consistent with the digital product refund provisions under Japan's Act on Specified Commercial Transactions (特定商取引法). For full details, see our [Commerce Disclosure](/commerce-disclosure/).`,
-  },
-  {
-    title: "2. Exceptions",
-    content: `We will consider a refund or resolution in the following cases:
-
-- **Technical issues**: If a technical problem on our end prevents you from accessing or downloading a purchased product, contact us and we will work to resolve the issue or issue a full refund.
-- **Duplicate purchase**: If you accidentally purchased the same product twice, contact us for a refund of the duplicate.
-- **Product not as described**: If the delivered product is materially different from what was described on the product page, we will review your case and offer a refund or replacement.`,
-  },
-  {
-    title: "3. Pro Subscriptions",
+    title: "1. Pro Subscriptions",
     content: `Pro subscriptions (monthly or yearly) renew automatically at the end of each billing period.
 
 - **Cancellation**: You may cancel your subscription at any time through your account's billing portal (Account → Manage Subscription). Cancellation takes effect at the end of the current billing period — you retain full access until then.
-- **No partial refunds**: We do not issue prorated refunds for the remaining portion of a billing period after cancellation.`,
+- **No partial refunds**: We do not issue prorated refunds for the remaining portion of a billing period after cancellation.
+- **7-day guarantee**: If you are not satisfied with Pro within 7 days of your first subscription payment, contact us for a full refund.
+
+This is consistent with the consumer protection provisions under Japan's Act on Specified Commercial Transactions (特定商取引法). For full details, see our [Commerce Disclosure](/commerce-disclosure/).`,
+  },
+  {
+    title: "2. Pro Lifetime",
+    content: `The Pro Lifetime option is a one-time purchase granting permanent Pro access.
+
+- **7-day guarantee**: If you are not satisfied within 7 days of purchase, contact us for a full refund.
+- **After 7 days**: All lifetime purchases are final. Since Pro features are accessible immediately upon purchase, refunds are not available after the 7-day window.`,
+  },
+  {
+    title: "3. Exceptions",
+    content: `We will consider a refund or resolution in the following cases:
+
+- **Technical issues**: If a technical problem on our end prevents you from accessing Pro features, contact us and we will work to resolve the issue or issue a full refund.
+- **Duplicate purchase**: If you accidentally purchased the same plan twice, contact us for a refund of the duplicate.`,
   },
   {
     title: "4. How to Request a Refund",

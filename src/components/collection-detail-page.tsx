@@ -3,12 +3,9 @@ import { CopyActionButton } from "@/src/components/copy-action-button";
 import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-button";
 import type { ColorCollection } from "@/src/lib/collections";
 import { getGuidesForCollection } from "@/src/lib/guides";
-import type { PalettePack } from "@/src/lib/palette-packs";
-import { CheckoutButton } from "@/src/components/checkout-button";
 
 interface CollectionDetailPageProps {
   collection: ColorCollection;
-  relatedPacks: readonly PalettePack[];
 }
 
 function buildPaletteExport(collection: ColorCollection) {
@@ -27,7 +24,6 @@ function buildTailwindExport(collection: ColorCollection) {
 
 export function CollectionDetailPage({
   collection,
-  relatedPacks,
 }: CollectionDetailPageProps) {
   const relatedGuides = getGuidesForCollection(collection.id, 3);
   return (
@@ -176,42 +172,21 @@ export function CollectionDetailPage({
 
           <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Related packs
+              Go further
             </div>
-            <div className="mt-4 space-y-3">
-              {relatedPacks.length > 0 ? (
-                relatedPacks.map((pack) => (
-                  <div
-                    key={pack.id}
-                    className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4"
-                  >
-                    <div className="text-sm font-semibold text-neutral-950">{pack.title}</div>
-                    <div className="mt-1 text-sm font-medium text-neutral-500">{pack.priceHint}</div>
-                    <div className="mt-2 text-sm leading-6 text-neutral-500">{pack.detail}</div>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {pack.stripePriceId && pack.checkoutStatus === "ready" ? (
-                        <CheckoutButton
-                          priceId={pack.stripePriceId}
-                          gumroadUrl={pack.gumroadProductUrl}
-                          className="rounded-full bg-neutral-950 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
-                        >
-                          Buy — {pack.priceHint}
-                        </CheckoutButton>
-                      ) : null}
-                      <Link
-                        href={`/packs/${pack.id}/`}
-                        className="rounded-full border border-black/8 bg-white px-4 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
-                      >
-                        View details
-                      </Link>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
-                  No related pack is linked yet. This collection can still be used as public product proof.
-                </div>
-              )}
+            <div className="mt-4 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
+              <div className="text-sm font-semibold text-neutral-950">Unlock Pro</div>
+              <div className="mt-2 text-sm leading-6 text-neutral-600">
+                Pro members get unlimited exports, advanced token formats, and priority access to new collections.
+              </div>
+              <div className="mt-3">
+                <Link
+                  href="/pro/"
+                  className="rounded-full bg-neutral-950 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
+                >
+                  Learn about Pro
+                </Link>
+              </div>
             </div>
           </aside>
         </section>
@@ -224,21 +199,21 @@ export function CollectionDetailPage({
             Ready-made tokens for {collection.title}
           </p>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
-            Palette packs extend these colors into Figma tokens, CSS variables, Tailwind config, and
+            Pro members can export these colors as Figma tokens, CSS variables, Tailwind config, and
             Procreate swatches — structured to drop directly into your project.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
-              href="/packs/"
+              href="/pro/"
               className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
             >
-              Browse packs
+              Upgrade to Pro
             </Link>
             <Link
-              href="/free-pack/"
+              href="/collections/"
               className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
             >
-              Free download
+              Browse collections
             </Link>
           </div>
         </section>
@@ -250,11 +225,11 @@ export function CollectionDetailPage({
                 Upgrade path
               </div>
               <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                From one collection to a full pack
+                From collection to Pro
               </h2>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-                This collection proves the taste and color direction. The related packs add more
-                collections, token exports, and usage guidance so the palette can move from reference
+                This collection proves the taste and color direction. Pro members get advanced token
+                exports, usage guidance, and downloadable assets so the palette can move from reference
                 to implementation.
               </p>
             </div>
@@ -271,7 +246,7 @@ export function CollectionDetailPage({
                     What you have here
                   </th>
                   <th className="rounded-r-[1rem] border border-black/6 bg-neutral-50 px-4 py-3 font-medium text-neutral-500">
-                    What the related packs add
+                    What Pro adds
                   </th>
                 </tr>
               </thead>
@@ -284,7 +259,7 @@ export function CollectionDetailPage({
                     One curated five-color editorial direction.
                   </td>
                   <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                    More collections, broader token coverage, and a fuller working set.
+                    Unlimited access to all collections, broader token coverage, and advanced exports.
                   </td>
                 </tr>
                 <tr>
@@ -295,7 +270,7 @@ export function CollectionDetailPage({
                     Visual palette, copyable CSS preview, and per-color archive pages.
                   </td>
                   <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                    Downloadable CSS, JSON, Tailwind, and pack-specific asset bundles.
+                    Downloadable CSS, JSON, Tailwind, Figma tokens, and Procreate swatches.
                   </td>
                 </tr>
                 <tr>
@@ -306,7 +281,7 @@ export function CollectionDetailPage({
                     Direction finding, inspiration, and public proof.
                   </td>
                   <td className="border border-black/6 bg-white px-4 py-4 align-top">
-                    Real project handoff, implementation, and reusable product assets.
+                    Real project handoff, implementation, and reusable production assets.
                   </td>
                 </tr>
               </tbody>

@@ -1,3 +1,12 @@
+/**
+ * Famous Palettes — Editorial Reference
+ *
+ * All brand names, trademarks, and trade dress mentioned in this file are the property
+ * of their respective owners and are used here solely for editorial and educational purposes.
+ * ColorArchive is not affiliated with, endorsed by, or sponsored by any of these brands.
+ * The hex values shown are approximate representations for educational reference only.
+ */
+
 export type FamousPaletteCategory =
   | "brand"
   | "art"

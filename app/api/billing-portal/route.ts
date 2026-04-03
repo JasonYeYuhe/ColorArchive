@@ -1,19 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/src/lib/stripe";
 
 const API_URL = process.env.BACKEND_API_URL ?? "https://api.colorarchive.me";
 const FRONTEND_URL = process.env.FRONTEND_URL || "https://colorarchive.me";
-const ALLOWED_ORIGIN_RE = /^https:\/\/[\w-]+\.colorarchive\.me$|^https:\/\/colorarchive\.me$/;
-
-function resolveOrigin(req: NextRequest): string {
-  const reqOrigin = req.headers.get("origin") ?? "";
-  if (reqOrigin && ALLOWED_ORIGIN_RE.test(reqOrigin)) return reqOrigin;
-  return FRONTEND_URL;
-}
+const LS_STORE_SLUG = process.env.NEXT_PUBLIC_LS_STORE_SLUG ?? "";
 
 export async function POST(req: NextRequest) {
   try {
-    // Forward the user's session cookie to the backend to authenticate
+    // Authenticate via backend session cookie
     const cookie = req.headers.get("cookie") || "";
     const meRes = await fetch(`${API_URL}/me/subscription`, {
       headers: { cookie },
@@ -25,18 +18,23 @@ export async function POST(req: NextRequest) {
 
     const subscription = await meRes.json();
 
-    if (!subscription?.stripeCustomerId) {
-      return NextResponse.json({ error: "No subscription found" }, { status: 404 });
+    // Lifetime users don't need a billing portal
+    if (subscription?.plan === "lifetime") {
+      return NextResponse.json({
+        url: `${FRONTEND_URL}/account/?message=lifetime-active`,
+      });
     }
 
-    const origin = resolveOrigin(req);
+    // Lemon Squeezy Customer Portal URL
+    // LS provides a hosted portal at: https://STORE.lemonsqueezy.com/billing
+    // Users manage their subscription there with their email
+    if (LS_STORE_SLUG) {
+      return NextResponse.json({
+        url: `https://${LS_STORE_SLUG}.lemonsqueezy.com/billing`,
+      });
+    }
 
-    const portalSession = await stripe.billingPortal.sessions.create({
-      customer: subscription.stripeCustomerId,
-      return_url: `${origin}/account/`,
-    });
-
-    return NextResponse.json({ url: portalSession.url });
+    return NextResponse.json({ error: "Billing portal not configured" }, { status: 404 });
   } catch (err) {
     console.error("Billing portal error:", err);
     return NextResponse.json(

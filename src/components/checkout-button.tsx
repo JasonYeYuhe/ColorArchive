@@ -1,55 +1,39 @@
 "use client";
 
-import { useState } from "react";
-import { activeProvider } from "@/src/lib/checkout-config";
-import { startCheckout } from "@/src/lib/stripe-checkout";
+import { type ProPlan, getCheckoutUrl } from "@/src/lib/checkout-config";
 
 interface CheckoutButtonProps {
-  priceId: string;
-  gumroadUrl: string | null;
+  plan: ProPlan;
   className?: string;
   children: React.ReactNode;
 }
 
 /**
- * Provider-agnostic checkout button.
- * Renders a Stripe or Gumroad checkout flow based on `activeProvider`.
+ * Lemon Squeezy checkout button.
+ * Opens the hosted checkout page for the selected Pro plan.
  */
 export function CheckoutButton({
-  priceId,
-  gumroadUrl,
+  plan,
   className,
   children,
 }: CheckoutButtonProps) {
-  const [loading, setLoading] = useState(false);
-
-  const useGumroad = activeProvider === "Gumroad" && !!gumroadUrl;
-
-  async function handleClick() {
-    if (useGumroad) {
-      window.open(gumroadUrl!, "_blank", "noopener,noreferrer");
-      return;
-    }
-
-    // Stripe checkout (primary or fallback when no Gumroad URL)
-    setLoading(true);
-    try {
-      await startCheckout(priceId);
-    } catch {
-      setLoading(false);
+  function handleClick() {
+    const url = getCheckoutUrl(plan);
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer");
     }
   }
 
-  const disabled = loading;
+  const url = getCheckoutUrl(plan);
 
   return (
     <button
       type="button"
       onClick={handleClick}
-      disabled={disabled}
+      disabled={!url}
       className={className}
     >
-      {loading ? "Redirecting…" : children}
+      {!url ? "Coming soon" : children}
     </button>
   );
 }

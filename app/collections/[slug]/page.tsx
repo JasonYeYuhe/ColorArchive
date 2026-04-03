@@ -4,7 +4,6 @@ import { CollectionDetailPage } from "@/src/components/collection-detail-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { collections, getCollectionById } from "@/src/lib/collections";
-import { palettePacks } from "@/src/lib/palette-packs";
 
 interface CollectionDetailRouteProps {
   params: Promise<{
@@ -55,9 +54,6 @@ export default async function CollectionDetailRoute({
     notFound();
   }
 
-  const relatedPacks = palettePacks.filter((pack) =>
-    pack.previewCollectionIds.includes(collection.id),
-  );
   const collectionStructuredData = [
     {
       "@context": "https://schema.org",
@@ -95,7 +91,7 @@ export default async function CollectionDetailRoute({
     <>
       <SiteHeader currentPath="/collections" />
       <StructuredDataScript data={collectionStructuredData} />
-      <CollectionDetailPage collection={collection} relatedPacks={relatedPacks} />
+      <CollectionDetailPage collection={collection} />
     </>
   );
 }

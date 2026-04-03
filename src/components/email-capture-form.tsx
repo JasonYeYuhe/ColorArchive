@@ -18,7 +18,7 @@ interface EmailCaptureFormProps {
 }
 
 export function EmailCaptureForm({
-  source = "free-pack",
+  source = "free-resources",
   successMessage,
   placeholder,
   buttonLabel,
@@ -80,9 +80,9 @@ export function EmailCaptureForm({
           {resolvedSuccessMessage}
         </div>
         <p className="text-xs text-neutral-400">
-          {t("capture.browsePacks")} →{" "}
-          <Link href="/packs/" className="underline underline-offset-2 hover:text-neutral-600">
-            colorarchive.me/packs
+          {t("capture.browseCollections")} →{" "}
+          <Link href="/collections/" className="underline underline-offset-2 hover:text-neutral-600">
+            colorarchive.me/collections
           </Link>
         </p>
       </div>
