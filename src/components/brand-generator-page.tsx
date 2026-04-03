@@ -14,6 +14,8 @@ import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 import { DownloadPaletteImage } from "@/src/components/download-palette-image";
 import { BrandSystemPanel } from "@/src/components/brand-system-panel";
+import { PaletteHistoryPanel } from "@/src/components/palette-history-panel";
+import { addToHistory, type PaletteHistoryEntry } from "@/src/lib/palette-history";
 import { WhatsNext } from "@/src/components/whats-next";
 
 import { API_URL } from "@/src/lib/api-config";
@@ -286,6 +288,14 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
       }
       if (!res.ok) throw new Error(data.error || "Failed to generate palette");
       setResult(data);
+      addToHistory({
+        source: "brand",
+        inputs: { industry, style, audience, keywords },
+        palette: data.palette.map((c: { role: string; hex: string; name: string }) => ({
+          role: c.role, hex: c.hex, name: c.name,
+        })),
+        summary: data.summary,
+      });
       track("ai_generated", { tool: "brand_generator", industry, style });
     } catch (err) {
       setError(classifyError(err));
@@ -453,6 +463,20 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
             )}
           </>
         )}
+
+        {/* Palette history */}
+        <PaletteHistoryPanel
+          onRestore={(entry: PaletteHistoryEntry) => {
+            setResult({
+              palette: entry.palette.map((c) => ({ ...c, rationale: "" })),
+              summary: entry.summary ?? "",
+            });
+            if (entry.inputs.industry) setIndustry(entry.inputs.industry);
+            if (entry.inputs.style) setStyle(entry.inputs.style);
+            if (entry.inputs.audience) setAudience(entry.inputs.audience);
+            if (entry.inputs.keywords) setKeywords(entry.inputs.keywords);
+          }}
+        />
 
         {/* How it works */}
         {!result && (
