@@ -13,6 +13,7 @@ import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 import { DownloadPaletteImage } from "@/src/components/download-palette-image";
+import { BrandSystemPanel } from "@/src/components/brand-system-panel";
 import { WhatsNext } from "@/src/components/whats-next";
 
 import { API_URL } from "@/src/lib/api-config";
@@ -436,11 +437,21 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
 
         {/* Result */}
         {result && (
-          <PaletteResult
-            generated={result}
-            inputs={{ industry, style, audience, keywords }}
-            archiveColors={archiveColors}
-          />
+          <>
+            <PaletteResult
+              generated={result}
+              inputs={{ industry, style, audience, keywords }}
+              archiveColors={archiveColors}
+            />
+            {/* Full brand system — Pro only */}
+            {result.palette[0]?.hex && (
+              <section className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6">
+                <ProGate label="Full brand system">
+                  <BrandSystemPanel primaryHex={result.palette[0].hex} />
+                </ProGate>
+              </section>
+            )}
+          </>
         )}
 
         {/* How it works */}
