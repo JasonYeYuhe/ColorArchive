@@ -29,6 +29,7 @@ struct ColorArchiveApp: App {
                 .environment(proAccess)
                 .modelContainer(for: Palette.self)
                 .onAppear {
+                    setupSyncHandler()
                     authStore.checkSession()
                 }
                 .onOpenURL { url in
@@ -38,6 +39,12 @@ struct ColorArchiveApp: App {
                     authStore.checkSession()
                     Task { await storeManager.updatePurchasedProducts() }
                 }
+        }
+    }
+
+    private func setupSyncHandler() {
+        authStore.onLoginSync = { [favoritesStore] in
+            await favoritesStore.syncFromCloud()
         }
     }
 

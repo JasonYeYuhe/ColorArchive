@@ -91,4 +91,40 @@ enum APIService {
             throw URLError(.badServerResponse)
         }
     }
+
+    // MARK: - Preferences (Cloud Sync)
+
+    struct UserPreferences: Codable {
+        var favorites: [String]
+        var palette: [String]
+    }
+
+    static func fetchPreferences() async throws -> UserPreferences {
+        guard let url = URL(string: "\(baseURL)/me/preferences") else {
+            throw URLError(.badURL)
+        }
+        let (data, response) = try await session.data(from: url)
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        return try JSONDecoder().decode(UserPreferences.self, from: data)
+    }
+
+    static func savePreferences(favorites: [String], palette: [String]) async throws -> UserPreferences {
+        guard let url = URL(string: "\(baseURL)/me/preferences") else {
+            throw URLError(.badURL)
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body = UserPreferences(favorites: Array(favorites.prefix(64)), palette: Array(palette.prefix(6)))
+        request.httpBody = try JSONEncoder().encode(body)
+        let (data, response) = try await session.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        return try JSONDecoder().decode(UserPreferences.self, from: data)
+    }
 }

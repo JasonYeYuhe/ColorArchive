@@ -6,6 +6,8 @@ import SwiftUI
 @MainActor
 final class FavoritesStore {
     private(set) var favoriteIds: Set<String> = []
+    private(set) var isSyncing = false
+    private(set) var syncError: String?
 
     private let storageKey = "colorarchive-favorites"
 
@@ -32,6 +34,39 @@ final class FavoritesStore {
     func favoriteColors(from allColors: [ColorRecord]) -> [ColorRecord] {
         allColors.filter { favoriteIds.contains($0.id) }
     }
+
+    // MARK: - Cloud Sync
+
+    /// Merge cloud favorites with local (union). Called after login or foreground return.
+    /// Uses isSyncing guard to prevent concurrent sync operations.
+    func syncFromCloud() async {
+        guard !isSyncing else { return }
+        isSyncing = true
+        syncError = nil
+        defer { isSyncing = false }
+
+        do {
+            let prefs = try await APIService.fetchPreferences()
+            let cloudIds = Set(prefs.favorites)
+            let merged = favoriteIds.union(cloudIds)
+            if merged != favoriteIds {
+                favoriteIds = merged
+                save()
+            }
+            // Push merged set back to cloud if local had extras
+            if merged != cloudIds {
+                _ = try await APIService.savePreferences(
+                    favorites: Array(merged),
+                    palette: prefs.palette
+                )
+            }
+        } catch {
+            syncError = error.localizedDescription
+            print("[FavoritesStore] Cloud sync failed:", error)
+        }
+    }
+
+    // MARK: - Local Persistence
 
     private func load() {
         guard let data = UserDefaults.standard.data(forKey: storageKey),

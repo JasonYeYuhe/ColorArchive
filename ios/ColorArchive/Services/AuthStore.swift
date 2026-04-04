@@ -6,6 +6,9 @@ final class AuthStore {
     var tier: String = "anonymous"
     var isLoading = false
 
+    /// Set by the app to enable sync after login.
+    var onLoginSync: (() async -> Void)?
+
     var isLoggedIn: Bool { user != nil }
 
     func checkSession() {
@@ -14,10 +17,15 @@ final class AuthStore {
         Task {
             do {
                 let session = try await APIService.fetchSession()
+                let wasLoggedIn = await MainActor.run { self.isLoggedIn }
                 await MainActor.run {
                     self.user = session.user
                     self.tier = session.auth?.tier ?? "anonymous"
                     self.isLoading = false
+                }
+                // Trigger cloud sync when user is logged in
+                if session.user != nil {
+                    await onLoginSync?()
                 }
             } catch {
                 await MainActor.run {

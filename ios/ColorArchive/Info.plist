@@ -13,5 +13,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>ColorArchive uses your photo library to extract dominant colors from images.</string>
 </dict>
 </plist>
