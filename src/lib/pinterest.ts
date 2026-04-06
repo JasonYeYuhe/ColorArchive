@@ -11,7 +11,7 @@
  * to avoid CORS issues (Pinterest API does not support browser-origin requests).
  */
 
-const PINTEREST_APP_ID = "1555251";
+const PINTEREST_APP_ID = "1559553";
 const REDIRECT_URI = "https://colorarchive.me/pinterest/callback/";
 const API_PROXY = "https://api.colorarchive.me/pinterest";
 

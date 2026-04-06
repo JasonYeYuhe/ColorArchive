@@ -50,6 +50,7 @@ app.use("/webhooks", require("./routes/webhook"));
 app.use("/analytics", require("./routes/analytics"));
 app.use("/pageviews", require("./routes/pageviews"));
 app.use("/instagram", require("./routes/instagram"));
+app.use("/pinterest", require("./routes/pinterest"));
 app.use("/ai", require("./routes/ai"));
 app.use("/projects", require("./routes/projects"));
 app.use("/events", require("./routes/events"));
