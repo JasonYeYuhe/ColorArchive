@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const dynamic = "force-static";
 
@@ -7,8 +8,18 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/admin/", "/analytics/", "/login/"],
+      disallow: [
+        "/admin/",
+        "/analytics/",
+        "/login/",
+        "/account/",
+        "/favorites/",
+        "/recent/",
+        "/palette/",
+        "/projects/",
+        "/api/",
+      ],
     },
-    sitemap: "https://colorarchive.me/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

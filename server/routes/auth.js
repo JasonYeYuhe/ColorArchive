@@ -18,6 +18,46 @@ const {
 } = require("../auth");
 const { sendMagicLinkEmail } = require("../email");
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.me";
+
+// --- Simple in-memory rate limiter for auth endpoints ---
+const authAttempts = new Map();
+const AUTH_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const AUTH_MAX_ATTEMPTS = 5; // 5 attempts per window
+
+function authRateLimit(req, res, next) {
+  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress || "unknown";
+  // For /request-link: rate-limits by IP+email; for /verify: by IP only (no email in body)
+  const email = (req.body?.email || "").toLowerCase();
+  const key = `${ip}:${email}`;
+  const now = Date.now();
+
+  const entry = authAttempts.get(key);
+  if (entry) {
+    // Purge expired entries
+    if (now - entry.firstAttempt > AUTH_WINDOW_MS) {
+      authAttempts.set(key, { count: 1, firstAttempt: now });
+      return next();
+    }
+    if (entry.count >= AUTH_MAX_ATTEMPTS) {
+      const retryAfter = Math.ceil((entry.firstAttempt + AUTH_WINDOW_MS - now) / 1000);
+      return res.status(429).json({ error: "Too many attempts. Please try again later.", retryAfter });
+    }
+    entry.count++;
+  } else {
+    authAttempts.set(key, { count: 1, firstAttempt: now });
+  }
+
+  return next();
+}
+
+// Cleanup stale entries every 30 minutes
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, entry] of authAttempts) {
+    if (now - entry.firstAttempt > AUTH_WINDOW_MS) authAttempts.delete(key);
+  }
+}, 30 * 60 * 1000);
+
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
 const GOOGLE_REDIRECT_URI =
@@ -43,7 +83,7 @@ function getLoginOrigin(req) {
   return FRONTEND_ORIGIN;
 }
 
-router.post("/request-link", async (req, res) => {
+router.post("/request-link", authRateLimit, async (req, res) => {
   const { email, next } = req.body;
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -66,7 +106,7 @@ router.post("/request-link", async (req, res) => {
   }
 });
 
-router.post("/verify", (req, res) => {
+router.post("/verify", authRateLimit, (req, res) => {
   const { token } = req.body;
 
   if (!token || typeof token !== "string") {

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const crypto = require("crypto");
 const db = require("../db");
 const { findCatalogProduct, getDownloadUrl, getPackUrl } = require("../catalog");
 const { sendOrderConfirmationEmail } = require("../email");
@@ -16,7 +17,10 @@ function verifyInternal(req, res, next) {
     console.warn("[webhook] INTERNAL_WEBHOOK_SECRET not set — allowing request (dev mode)");
     return next();
   }
-  if (req.headers["x-internal-secret"] !== INTERNAL_SECRET) {
+  const provided = req.headers["x-internal-secret"] || "";
+  const expected = Buffer.from(INTERNAL_SECRET);
+  const received = Buffer.from(provided);
+  if (expected.length !== received.length || !crypto.timingSafeEqual(expected, received)) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   next();
@@ -37,7 +41,7 @@ router.post("/order-completed", async (req, res) => {
   const orderId = paymentIntent || `${provider}_${sessionId}` || `${provider}_${Date.now()}`;
   const catalogProduct = findCatalogProduct(packId);
   const productName = catalogProduct?.title || packId;
-  const downloadUrl = getDownloadUrl(packId) || "https://colorarchive.me/packs";
+  const downloadUrl = getDownloadUrl(packId) || `${process.env.FRONTEND_ORIGIN || "https://colorarchive.me"}/packs`;
 
   // Check for duplicate
   const existing = db.prepare("SELECT id FROM orders WHERE order_id = ?").get(orderId);

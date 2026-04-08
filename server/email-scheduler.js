@@ -29,18 +29,21 @@ function ensureVariant(row) {
   return row.ab_variant;
 }
 
-async function runFollowUps() {
-  const now = Date.now();
+// Compute cutoff ISO string so SQLite can use an index on created_at directly
+function cutoffISO(ms) {
+  return new Date(Date.now() - ms).toISOString();
+}
 
+async function runFollowUps() {
   // Day-3: free-pack subscribers who haven't received it yet, subscribed 3+ days ago
   const due3d = db
     .prepare(
       `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
          AND follow_up_3d_sent IS NULL
-         AND (strftime('%s', 'now') - strftime('%s', created_at)) * 1000 >= ?`,
+         AND created_at <= ?`,
     )
-    .all(THREE_DAYS_MS);
+    .all(cutoffISO(THREE_DAYS_MS));
 
   for (const row of due3d) {
     try {
@@ -61,9 +64,9 @@ async function runFollowUps() {
       `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
          AND follow_up_7d_sent IS NULL
-         AND (strftime('%s', 'now') - strftime('%s', created_at)) * 1000 >= ?`,
+         AND created_at <= ?`,
     )
-    .all(SEVEN_DAYS_MS);
+    .all(cutoffISO(SEVEN_DAYS_MS));
 
   for (const row of due7d) {
     try {
@@ -84,9 +87,9 @@ async function runFollowUps() {
       `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
          AND follow_up_14d_sent IS NULL
-         AND (strftime('%s', 'now') - strftime('%s', created_at)) * 1000 >= ?`,
+         AND created_at <= ?`,
     )
-    .all(FOURTEEN_DAYS_MS);
+    .all(cutoffISO(FOURTEEN_DAYS_MS));
 
   for (const row of due14d) {
     try {
@@ -107,9 +110,9 @@ async function runFollowUps() {
       `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
          AND follow_up_21d_sent IS NULL
-         AND (strftime('%s', 'now') - strftime('%s', created_at)) * 1000 >= ?`,
+         AND created_at <= ?`,
     )
-    .all(TWENTYONE_DAYS_MS);
+    .all(cutoffISO(TWENTYONE_DAYS_MS));
 
   for (const row of due21d) {
     try {
@@ -130,9 +133,9 @@ async function runFollowUps() {
       `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
          AND follow_up_30d_sent IS NULL
-         AND (strftime('%s', 'now') - strftime('%s', created_at)) * 1000 >= ?`,
+         AND created_at <= ?`,
     )
-    .all(THIRTY_DAYS_MS);
+    .all(cutoffISO(THIRTY_DAYS_MS));
 
   for (const row of due30d) {
     try {
