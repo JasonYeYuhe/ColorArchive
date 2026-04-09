@@ -116,13 +116,14 @@ router.post("/order-completed", async (req, res) => {
 // POST /webhooks/subscription-checkout
 // Called after a subscription checkout completes
 router.post("/subscription-checkout", (req, res) => {
-  const { sessionId, email, plan, subscriptionId } = req.body;
+  const { sessionId, email, plan, subscriptionId, provider } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: "Missing email" });
   }
 
-  console.log(`[webhook] Subscription checkout: ${plan} for ${email} (sub=${subscriptionId})`);
+  const paymentProvider = provider || "stripe";
+  console.log(`[webhook] Subscription checkout: ${plan} for ${email} (sub=${subscriptionId}, provider=${paymentProvider})`);
 
   // Find or create user, activate pro
   let user = db.prepare("SELECT id FROM users WHERE LOWER(email) = LOWER(?)").get(email);
@@ -133,9 +134,15 @@ router.post("/subscription-checkout", (req, res) => {
 
   if (user) {
     db.prepare(
-      "UPDATE users SET tier = 'pro', subscription_plan = ?, stripe_subscription_id = ? WHERE id = ?"
-    ).run(plan || "monthly", subscriptionId || null, user.id);
-    console.log(`[webhook] User ${email} upgraded to pro`);
+      `UPDATE users SET
+        tier = 'pro',
+        subscription_plan = ?,
+        stripe_subscription_id = ?,
+        payment_provider = ?,
+        provider_subscription_id = ?
+      WHERE id = ?`
+    ).run(plan || "monthly", subscriptionId || null, paymentProvider, subscriptionId || null, user.id);
+    console.log(`[webhook] User ${email} upgraded to pro via ${paymentProvider}`);
   }
 
   // Add to subscribers

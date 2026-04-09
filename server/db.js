@@ -201,6 +201,15 @@ db.exec(`
 // Apple-specific columns on users
 ensureColumn("users", "apple_original_transaction_id TEXT");
 
+// Apple subscription lifecycle tracking
+ensureColumn("apple_purchases", "expires_date TEXT");
+ensureColumn("apple_purchases", "auto_renew_status INTEGER DEFAULT 1");
+
+// Multi-provider payment support
+ensureColumn("users", "payment_provider TEXT");
+ensureColumn("users", "provider_customer_id TEXT");
+ensureColumn("users", "provider_subscription_id TEXT");
+
 // Migrate plaintext API keys to hashed storage
 const crypto = require("crypto");
 function hashApiKey(key) {

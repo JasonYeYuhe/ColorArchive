@@ -71,12 +71,22 @@ router.get("/subscription", (req, res) => {
     .prepare(
       `SELECT tier, stripe_customer_id, stripe_subscription_id,
               subscription_status, subscription_plan,
-              subscription_current_period_end, subscription_cancel_at_period_end
+              subscription_current_period_end, subscription_cancel_at_period_end,
+              payment_provider, provider_subscription_id,
+              apple_original_transaction_id, pro_expires_at
        FROM users WHERE id = ?`
     )
     .get(req.user.id);
 
-  if (!user || !user.stripe_subscription_id) {
+  // Check both legacy and new provider columns
+  const hasSubscription =
+    user &&
+    (user.stripe_subscription_id ||
+      user.provider_subscription_id ||
+      user.apple_original_transaction_id ||
+      user.tier === "pro");
+
+  if (!hasSubscription) {
     return res.json(null);
   }
 
@@ -86,7 +96,8 @@ router.get("/subscription", (req, res) => {
     plan: user.subscription_plan,
     currentPeriodEnd: user.subscription_current_period_end,
     cancelAtPeriodEnd: !!user.subscription_cancel_at_period_end,
-    stripeCustomerId: user.stripe_customer_id,
+    provider: user.payment_provider || "stripe",
+    proExpiresAt: user.pro_expires_at,
   });
 });
 
@@ -196,7 +207,7 @@ router.get("/referral", (req, res) => {
     code,
     credits: user.credits || 0,
     referrals: referrals.count,
-    link: `https://colorarchive.me/?ref=${code}`,
+    link: `${process.env.FRONTEND_ORIGIN || "https://colorarchive.me"}/?ref=${code}`,
   });
 });
 

@@ -245,40 +245,62 @@ router.get("/google/callback", async (req, res) => {
 // ---- Apple IAP Purchase Verification ----
 
 const db = require("../db");
+const { verifySignedTransaction } = require("../apple-jws");
+
+const VALID_APPLE_PRODUCTS = [
+  "me.colorarchive.pro.monthly",
+  "me.colorarchive.pro.yearly",
+  "me.colorarchive.pro.lifetime",
+];
 
 /**
  * Called by the iOS app after a successful StoreKit 2 purchase.
  * Links the Apple transaction to the authenticated user and grants Pro tier.
  *
- * In production, you should also verify the transaction with Apple's
- * App Store Server API (https://developer.apple.com/documentation/appstoreserverapi).
- * For now we trust the client-side StoreKit 2 verification (JWS-signed by Apple).
+ * Accepts two modes:
+ * 1. signedTransaction (preferred) — JWS from Transaction.jwsRepresentation,
+ *    verified server-side against Apple's certificate chain.
+ * 2. Legacy fields (productId, originalTransactionId, etc.) — backward
+ *    compatible with older iOS app versions. Logs a deprecation warning.
  */
-router.post("/apple-purchase", (req, res) => {
+router.post("/apple-purchase", async (req, res) => {
   const user = getSessionUser(req);
   if (!user) {
     return res.status(401).json({ error: "Authentication required" });
   }
 
-  const { productId, originalTransactionId, transactionDate, environment } = req.body;
-
-  if (!productId || !originalTransactionId) {
-    return res.status(400).json({ error: "Missing productId or originalTransactionId" });
-  }
-
-  const validProducts = [
-    "me.colorarchive.pro.monthly",
-    "me.colorarchive.pro.yearly",
-    "me.colorarchive.pro.lifetime",
-  ];
-
-  if (!validProducts.includes(productId)) {
-    return res.status(400).json({ error: "Invalid product ID" });
-  }
-
-  const txnId = String(originalTransactionId);
+  let productId, originalTransactionId, transactionDate, environment, expiresDate;
+  let verified = false;
 
   try {
+    // Preferred path: verify the Apple-signed JWS
+    if (req.body.signedTransaction) {
+      const txn = await verifySignedTransaction(req.body.signedTransaction);
+      productId = txn.productId;
+      originalTransactionId = txn.originalTransactionId;
+      transactionDate = txn.purchaseDate;
+      environment = txn.environment;
+      expiresDate = txn.expiresDate;
+      verified = true;
+    } else {
+      // Legacy path: trust client-supplied data (backward compat)
+      console.warn(
+        `[DEPRECATION] apple-purchase called without signedTransaction (user ${user.id}). ` +
+        "Update the iOS app to send transaction.jwsRepresentation."
+      );
+      ({ productId, originalTransactionId, transactionDate, environment } = req.body);
+    }
+
+    if (!productId || !originalTransactionId) {
+      return res.status(400).json({ error: "Missing productId or originalTransactionId" });
+    }
+
+    if (!VALID_APPLE_PRODUCTS.includes(productId)) {
+      return res.status(400).json({ error: "Invalid product ID" });
+    }
+
+    const txnId = String(originalTransactionId);
+
     // Fix #3: Check if this transaction is already linked to a different user
     const existing = db.prepare(
       "SELECT user_id FROM apple_purchases WHERE original_transaction_id = ?"
@@ -293,22 +315,29 @@ router.post("/apple-purchase", (req, res) => {
     // Upsert the purchase record (within a transaction for atomicity)
     const applyPurchase = db.transaction(() => {
       db.prepare(`
-        INSERT INTO apple_purchases (user_id, product_id, original_transaction_id, transaction_date, environment)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO apple_purchases (user_id, product_id, original_transaction_id, transaction_date, environment, expires_date)
+        VALUES (?, ?, ?, ?, ?, ?)
         ON CONFLICT(original_transaction_id) DO UPDATE SET
           status = 'active',
-          product_id = excluded.product_id
+          product_id = excluded.product_id,
+          expires_date = excluded.expires_date
       `).run(
         user.id,
         productId,
         txnId,
         transactionDate || new Date().toISOString(),
-        environment || "Production"
+        environment || "Production",
+        expiresDate || null
       );
 
       // Calculate pro expiration
       let proExpiresAt = null;
-      if (productId === "me.colorarchive.pro.monthly") {
+      if (expiresDate && verified) {
+        // Use Apple-provided expiration date when available (most accurate)
+        const d = new Date(expiresDate);
+        d.setDate(d.getDate() + 3); // 3-day grace
+        proExpiresAt = d.toISOString();
+      } else if (productId === "me.colorarchive.pro.monthly") {
         const d = new Date();
         d.setMonth(d.getMonth() + 1);
         d.setDate(d.getDate() + 3); // 3-day grace
@@ -325,7 +354,8 @@ router.post("/apple-purchase", (req, res) => {
         UPDATE users SET
           tier = 'pro',
           pro_expires_at = ?,
-          apple_original_transaction_id = ?
+          apple_original_transaction_id = ?,
+          payment_provider = 'apple'
         WHERE id = ?
       `).run(proExpiresAt, txnId, user.id);
 
@@ -334,12 +364,13 @@ router.post("/apple-purchase", (req, res) => {
 
     const proExpiresAt = applyPurchase();
 
-    // TODO (#1): For production hardening, verify the transaction JWS with
-    // Apple's App Store Server API before trusting client-supplied data.
-    // See: https://developer.apple.com/documentation/appstoreserverapi
-
-    return res.json({ ok: true, tier: "pro", proExpiresAt });
+    return res.json({ ok: true, tier: "pro", proExpiresAt, verified });
   } catch (err) {
+    // Distinguish JWS verification failures from other errors
+    if (err.message && err.message.includes("Apple")) {
+      console.error("apple-purchase JWS verification failed:", err.message);
+      return res.status(403).json({ error: "Transaction verification failed" });
+    }
     console.error("apple-purchase error:", err);
     return res.status(500).json({ error: "Failed to process purchase" });
   }

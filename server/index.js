@@ -54,6 +54,7 @@ app.use("/pinterest", require("./routes/pinterest"));
 app.use("/ai", require("./routes/ai"));
 app.use("/projects", require("./routes/projects"));
 app.use("/events", require("./routes/events"));
+app.use("/apple-notifications", require("./routes/apple-notifications"));
 
 app.get("/health", (_, res) => res.json({ ok: true, uptime: process.uptime() }));
 
