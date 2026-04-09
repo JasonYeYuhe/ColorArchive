@@ -33,7 +33,7 @@ const APPLE_ROOT_CA_G3_BASE64 =
   "at+qIxUCMG1mihDK1A3UT82NQz60imOlM27jbdoXt2QfyFMm+YhidDkLF1vLUagM" +
   "6BgD56KyKA==";
 
-const EXPECTED_BUNDLE_ID = process.env.APPLE_BUNDLE_ID || "me.colorarchive";
+const EXPECTED_BUNDLE_ID = process.env.APPLE_BUNDLE_ID || "me.colorarchive.app";
 
 /**
  * Parse a PEM or base64 DER certificate to a crypto.X509Certificate.
