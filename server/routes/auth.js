@@ -75,7 +75,11 @@ function normalizeNextPath(value) {
   return value;
 }
 
-const ALLOWED_ORIGIN_RE = /^https:\/\/[\w-]+\.colorarchive\.me$|^https:\/\/colorarchive\.me$/;
+// Dynamically match the configured domain + its subdomains
+const _authDomain = (FRONTEND_ORIGIN).replace(/^https?:\/\//, "").replace(/\/$/, "");
+const ALLOWED_ORIGIN_RE = new RegExp(
+  `^https:\\/\\/[\\w-]+\\.${_authDomain.replace(/\./g, "\\.")}$|^https:\\/\\/${_authDomain.replace(/\./g, "\\.")}$`
+);
 
 function getLoginOrigin(req) {
   const reqOrigin = req?.headers?.origin;

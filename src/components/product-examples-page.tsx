@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { ColorCollection } from "@/src/lib/collections";
+import { SITE_URL, SITE_DOMAIN } from "@/src/lib/site-config";
 
 interface ProductExamplesPageProps {
   collections: readonly ColorCollection[];
@@ -40,7 +41,7 @@ export function ProductExamplesPage({ collections }: ProductExamplesPageProps) {
                 Upgrade to Pro
               </Link>
               <a
-                href="https://colorarchive.me/product-examples"
+                href={`${SITE_URL}/product-examples`}
                 className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
               >
                 Public URL
@@ -56,7 +57,7 @@ export function ProductExamplesPage({ collections }: ProductExamplesPageProps) {
             </div>
             <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
               <p>
-                ColorArchive is a public static website at <span className="font-medium text-neutral-950">colorarchive.me</span>.
+                ColorArchive is a public static website at <span className="font-medium text-neutral-950">{SITE_DOMAIN}</span>.
                 The site already contains the underlying archive, curated collections, and export
                 flows used to shape these paid digital products.
               </p>

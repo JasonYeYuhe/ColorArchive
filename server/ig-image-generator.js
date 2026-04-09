@@ -23,6 +23,11 @@ if (!fs.existsSync(GENERATED_DIR)) {
   fs.mkdirSync(GENERATED_DIR, { recursive: true });
 }
 
+// Bare domain for watermark text in generated images
+const SITE_DOMAIN = (process.env.FRONTEND_ORIGIN || "https://${SITE_DOMAIN}")
+  .replace(/^https?:\/\//, "")
+  .replace(/\/$/, "");
+
 function escapeXml(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
@@ -75,7 +80,7 @@ function colorOfDayStorySvg(color) {
   <text x="540" y="1120" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="26" fill="${sc}" opacity="0.5">H ${color.hue}°  S ${color.saturation}%  L ${color.lightness}%</text>
 
   <!-- Bottom CTA -->
-  <text x="540" y="1700" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-size="24" font-weight="500" fill="${tc}" opacity="0.5">colorarchive.me</text>
+  <text x="540" y="1700" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-size="24" font-weight="500" fill="${tc}" opacity="0.5">${SITE_DOMAIN}</text>
 
   <!-- "Color of the Day" label -->
   <text x="540" y="1760" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-size="22" font-weight="300" letter-spacing="4" fill="${sc}" opacity="0.4">COLOR OF THE DAY</text>
@@ -107,7 +112,7 @@ function paletteStorySvg(paletteColors, title) {
   ${bands}
 
   <!-- Footer -->
-  <text x="540" y="1820" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-size="24" fill="#666666">colorarchive.me</text>
+  <text x="540" y="1820" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-size="24" fill="#666666">${SITE_DOMAIN}</text>
 </svg>`;
 }
 
@@ -139,7 +144,7 @@ function colorPostSvg(color) {
   <text x="540" y="660" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-size="28" fill="${sc}" opacity="0.6">${escapeXml(color.family)}  ·  H${color.hue} S${color.saturation} L${color.lightness}</text>
 
   <!-- Bottom -->
-  <text x="540" y="1000" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-size="22" fill="${tc}" opacity="0.4">colorarchive.me</text>
+  <text x="540" y="1000" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-size="22" fill="${tc}" opacity="0.4">${SITE_DOMAIN}</text>
 </svg>`;
 }
 
@@ -169,7 +174,7 @@ function palettePostSvg(paletteColors, title) {
   ${bands}
 
   <!-- Footer -->
-  <text x="540" y="1040" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-size="20" fill="#555555">colorarchive.me</text>
+  <text x="540" y="1040" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-size="20" fill="#555555">${SITE_DOMAIN}</text>
 </svg>`;
 }
 

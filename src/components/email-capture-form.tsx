@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { SITE_DOMAIN } from "@/src/lib/site-config";
 import { track } from "@/src/lib/track";
 import { useLocale } from "@/src/components/locale-provider";
 
@@ -82,7 +83,7 @@ export function EmailCaptureForm({
         <p className="text-xs text-neutral-400">
           {t("capture.browseCollections")} →{" "}
           <Link href="/collections/" className="underline underline-offset-2 hover:text-neutral-600">
-            colorarchive.me/collections
+            {SITE_DOMAIN}/collections
           </Link>
         </p>
       </div>

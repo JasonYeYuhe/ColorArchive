@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { ProGate } from "@/src/components/pro-gate";
+import { SITE_DOMAIN } from "@/src/lib/site-config";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { hexToRgb, rgbToHsl, rgbToHex } from "@/src/lib/color-utils";
 import { colors as archiveColors } from "@/src/data/colors";
@@ -236,7 +237,7 @@ function generatePaletteSvg(matched: MatchedColor[]): string {
   <rect width="${W}" height="${H}" fill="#f8fafc"/>
   ${rects}
   ${labels}
-  <text x="${W - 8}" y="${H - 6}" text-anchor="end" font-family="system-ui,sans-serif" font-size="8" fill="#9ca3af">colorarchive.me</text>
+  <text x="${W - 8}" y="${H - 6}" text-anchor="end" font-family="system-ui,sans-serif" font-size="8" fill="#9ca3af">${SITE_DOMAIN}</text>
 </svg>`;
 }
 

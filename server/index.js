@@ -12,7 +12,13 @@ const allowedOrigins = new Set([
     : []),
 ]);
 
-const ALLOWED_ORIGIN_RE = /^https:\/\/[\w-]+\.colorarchive\.me$/;
+// Match subdomains of the configured domain (e.g. preview.colorarchive.me)
+const SITE_DOMAIN = (process.env.FRONTEND_ORIGIN || "https://colorarchive.me")
+  .replace(/^https?:\/\//, "")
+  .replace(/\/$/, "");
+const ALLOWED_ORIGIN_RE = new RegExp(
+  `^https:\\/\\/[\\w-]+\\.${SITE_DOMAIN.replace(/\./g, "\\.")}$`
+);
 
 app.use(
   cors({

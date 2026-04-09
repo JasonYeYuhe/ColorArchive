@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { colors } from "@/src/data/colors";
+import { SITE_DOMAIN } from "@/src/lib/site-config";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -78,7 +79,7 @@ export default async function Image({
               textTransform: "uppercase",
             }}
           >
-            colorarchive.me
+            {SITE_DOMAIN}
           </div>
         </div>
       </div>

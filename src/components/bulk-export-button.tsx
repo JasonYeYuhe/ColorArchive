@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { ColorCollection } from "@/src/lib/collections";
+import { SITE_DOMAIN } from "@/src/lib/site-config";
 
 /**
  * Bulk export a collection as a ZIP containing CSS, Tailwind, JSON, and SCSS tokens.
@@ -54,7 +55,7 @@ export function BulkExportButton({ collection }: { collection: ColorCollection }
       // README
       const readme = `${collection.title}\n${"=".repeat(collection.title.length)}\n\n${collection.summary}\n\nColors:\n${colors
         .map((c, i) => `  ${i + 1}. ${c.name} — ${c.hex}`)
-        .join("\n")}\n\nExported from ColorArchive (colorarchive.me)\n`;
+        .join("\n")}\n\nExported from ColorArchive (${SITE_DOMAIN})\n`;
       zip.file("README.txt", readme);
 
       const blob = await zip.generateAsync({ type: "blob" });

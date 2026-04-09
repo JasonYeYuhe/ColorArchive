@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CONTACT_EMAIL } from "@/src/lib/site-config";
 
 export function ThanksPage() {
   return (
@@ -108,7 +109,7 @@ export function ThanksPage() {
               <div className="relative">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">Need help</div>
                 <p className="mt-3 text-sm leading-6 text-neutral-600">
-                  Questions about your Pro subscription? Visit your account page or email hello@colorarchive.me.
+                  Questions about your Pro subscription? Visit your account page or email {CONTACT_EMAIL}.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link

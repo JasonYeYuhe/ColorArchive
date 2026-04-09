@@ -4,6 +4,9 @@ const newsletterIssues = require("../src/data/newsletter-issues.json");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.FROM_EMAIL || "hello@colorarchive.me";
+const SITE_URL = process.env.FRONTEND_ORIGIN || "https://colorarchive.me";
+// Bare domain for display text in emails (e.g. "colorarchive.me")
+const SITE_DOMAIN = SITE_URL.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
 // CAN-SPAM compliant email send wrapper
 async function sendEmail(options) {
@@ -33,22 +36,22 @@ async function sendFreePackEmail(to) {
       "Thanks for your interest in ColorArchive.",
       "",
       "Download your palette pack here:",
-      "https://colorarchive.me/downloads/free-palette-pack.zip",
+      `${SITE_URL}/downloads/free-palette-pack.zip`,
       "",
       "The pack includes 3 curated palettes with CSS variables and PNG swatches.",
       "",
       "Want the full library? The All Access Bundle includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for ¥2,799.",
-      "https://colorarchive.me/packs/all-access-bundle/",
+      `${SITE_URL}/packs/all-access-bundle/`,
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
     ].join("\n"),
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
         <h2 style="color:#1a1a1a">Your palette pack is ready</h2>
         <p>Thanks for your interest in ColorArchive.</p>
         <p>
-          <a href="https://colorarchive.me/downloads/free-palette-pack.zip"
+          <a href="${SITE_URL}/downloads/free-palette-pack.zip"
              style="display:inline-block;background:#1a1a1a;color:#fff;
                     padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600">
             Download Palette Pack
@@ -63,13 +66,13 @@ async function sendFreePackEmail(to) {
             The <strong>All Access Bundle</strong> includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for <strong>¥2,799</strong>.
           </p>
           <p style="margin:12px 0 0">
-            <a href="https://colorarchive.me/packs/all-access-bundle/"
+            <a href="${SITE_URL}/packs/all-access-bundle/"
                style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none">View All Access Bundle →</a>
           </p>
         </div>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
-          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+          ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a>
         </p>
       </div>
     `,
@@ -97,8 +100,8 @@ async function sendWaitlistConfirmationEmail(to) {
       "Thanks for following ColorArchive.",
       "",
       "Current status:",
-      "- all packs are live and available at colorarchive.me/packs",
-      "- the free sample pack is available at colorarchive.me/free-pack",
+      `- all packs are live and available at ${SITE_URL}/packs`,
+      `- the free sample pack is available at ${SITE_URL}/free-pack`,
       "- seasonal releases and archive updates will be announced here",
       "",
       "What these emails will contain:",
@@ -115,17 +118,17 @@ async function sendWaitlistConfirmationEmail(to) {
       featuredPack.url,
       "",
       "Useful links:",
-      "Packs: https://colorarchive.me/packs",
-      "Free sample: https://colorarchive.me/free-pack",
+      `Packs: ${SITE_URL}/packs`,
+      `Free sample: ${SITE_URL}/free-pack`,
       latestIssue
-        ? `Latest note: ${latestIssue.title} — https://colorarchive.me/notes/${latestIssue.slug}`
+        ? `Latest note: ${latestIssue.title} — ${SITE_URL}/notes/${latestIssue.slug}`
         : null,
-      "Updates: https://colorarchive.me/updates",
+      `Updates: ${SITE_URL}/updates`,
       "",
       "Questions? Reply to this email.",
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
     ].join("\n"),
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
@@ -133,8 +136,8 @@ async function sendWaitlistConfirmationEmail(to) {
         <p>Thanks for following ColorArchive.</p>
         <p style="color:#444;line-height:1.6">
           Current status:<br>
-          • all packs are live at <a href="https://colorarchive.me/packs/" style="color:#374151">colorarchive.me/packs</a><br>
-          • the free sample pack is available at <a href="https://colorarchive.me/free-pack/" style="color:#374151">colorarchive.me/free-pack</a><br>
+          • all packs are live at <a href="${SITE_URL}/packs/" style="color:#374151">${SITE_DOMAIN}/packs</a><br>
+          • the free sample pack is available at <a href="${SITE_URL}/free-pack/" style="color:#374151">${SITE_DOMAIN}/free-pack</a><br>
           • seasonal releases and archive updates will be announced here
         </p>
         <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:16px 18px;margin:20px 0">
@@ -166,7 +169,7 @@ async function sendWaitlistConfirmationEmail(to) {
           </p>
         </div>
         <p style="margin:20px 0">
-          <a href="https://colorarchive.me/packs"
+          <a href="${SITE_URL}/packs"
              style="display:inline-block;background:#1a1a1a;color:#fff;
                     padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600">
             Browse Live Packs
@@ -174,7 +177,7 @@ async function sendWaitlistConfirmationEmail(to) {
         </p>
         <p style="color:#666;font-size:14px">
           You can also grab the free sample here:
-          <a href="https://colorarchive.me/free-pack">colorarchive.me/free-pack</a>
+          <a href="${SITE_URL}/free-pack">${SITE_DOMAIN}/free-pack</a>
         </p>
         ${
           latestIssue
@@ -185,7 +188,7 @@ async function sendWaitlistConfirmationEmail(to) {
             ${latestIssue.summary}
           </p>
           <p style="margin:12px 0 0">
-            <a href="https://colorarchive.me/notes/${latestIssue.slug}" style="color:#6d28d9;font-weight:600;text-decoration:none">Read the note</a>
+            <a href="${SITE_URL}/notes/${latestIssue.slug}" style="color:#6d28d9;font-weight:600;text-decoration:none">Read the note</a>
           </p>
         </div>`
             : ""
@@ -193,7 +196,7 @@ async function sendWaitlistConfirmationEmail(to) {
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
           Questions? Reply to this email. · ColorArchive ·
-          <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+          <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a>
         </p>
       </div>
     `,
@@ -224,7 +227,7 @@ async function sendMagicLinkEmail(to, { loginUrl, expiresInMinutes }) {
       "If you did not request this email, you can ignore it.",
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
     ].join("\n"),
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
@@ -245,7 +248,7 @@ async function sendMagicLinkEmail(to, { loginUrl, expiresInMinutes }) {
         </p>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
-          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+          ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a>
         </p>
       </div>
     `,
@@ -299,7 +302,7 @@ async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderI
       "Need help? Reply to this email.",
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
     ].filter(Boolean).join("\n"),
     html: `
       <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:0 auto;color:#1a1a1a">
@@ -369,11 +372,11 @@ async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderI
 
         <div style="text-align:center;margin:28px 0">
           <p style="color:#6b7280;font-size:14px;margin:0 0 12px">Explore more from ColorArchive</p>
-          <a href="https://colorarchive.me/packs/" style="color:#1d4ed8;font-weight:600;font-size:14px;text-decoration:none;margin:0 8px">All packs</a>
+          <a href="${SITE_URL}/packs/" style="color:#1d4ed8;font-weight:600;font-size:14px;text-decoration:none;margin:0 8px">All packs</a>
           <span style="color:#d1d5db">·</span>
-          <a href="https://colorarchive.me/collections/" style="color:#1d4ed8;font-weight:600;font-size:14px;text-decoration:none;margin:0 8px">Collections</a>
+          <a href="${SITE_URL}/collections/" style="color:#1d4ed8;font-weight:600;font-size:14px;text-decoration:none;margin:0 8px">Collections</a>
           <span style="color:#d1d5db">·</span>
-          <a href="https://colorarchive.me/free-pack/" style="color:#1d4ed8;font-weight:600;font-size:14px;text-decoration:none;margin:0 8px">Free pack</a>
+          <a href="${SITE_URL}/free-pack/" style="color:#1d4ed8;font-weight:600;font-size:14px;text-decoration:none;margin:0 8px">Free pack</a>
         </div>
 
         <hr style="border:none;border-top:1px solid #e5e7eb;margin:28px 0">
@@ -382,7 +385,7 @@ async function sendOrderConfirmationEmail(to, { productName, downloadUrl, orderI
             Questions? Reply to this email anytime.
           </p>
           <p style="color:#9ca3af;font-size:12px;margin:0">
-            ColorArchive · <a href="https://colorarchive.me" style="color:#9ca3af">colorarchive.me</a>
+            ColorArchive · <a href="${SITE_URL}" style="color:#9ca3af">${SITE_DOMAIN}</a>
           </p>
         </div>
       </div>
@@ -463,10 +466,10 @@ async function sendFollowUp3DayEmail(to, { variant = "A" } = {}) {
       "That's it. The JSON file works the same way in Figma — import it as a token set.",
       "",
       "If you want pre-tested dark/light pairings and Tailwind config out of the box, the Dark Mode UI Kit has that covered:",
-      "https://colorarchive.me/packs/dark-mode-ui-kit/",
+      `${SITE_URL}/packs/dark-mode-ui-kit/`,
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
     ].join("\n"),
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
@@ -486,18 +489,18 @@ async function sendFollowUp3DayEmail(to, { variant = "A" } = {}) {
             The <strong>Dark Mode UI Kit</strong> ships contrast-checked light and dark pairings with CSS variables, Figma tokens, and Tailwind config ready to use.
           </p>
           <p style="margin:12px 0 0">
-            <a href="https://colorarchive.me/packs/dark-mode-ui-kit/"
+            <a href="${SITE_URL}/packs/dark-mode-ui-kit/"
                style="display:inline-block;background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
               View Dark Mode UI Kit
             </a>
           </p>
         </div>
         <p style="color:#666;font-size:14px">
-          Browse all packs: <a href="https://colorarchive.me/packs/" style="color:#444">colorarchive.me/packs</a>
+          Browse all packs: <a href="${SITE_URL}/packs/" style="color:#444">${SITE_DOMAIN}/packs</a>
         </p>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
-          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+          ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a>
         </p>
       </div>
     `,
@@ -523,30 +526,30 @@ async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
       "You've had the free pack for a week. Here's a quick guide to the paid packs in case one fits:",
       "",
       "Seasonal: Spring 2026 (¥299) — Limited edition seasonal palettes with mood notes.",
-      "https://colorarchive.me/packs/seasonal-spring-2026/",
+      `${SITE_URL}/packs/seasonal-spring-2026/`,
       "",
       "Palette Pack Vol. 1 (¥599) — Best starter pack. 8 curated palettes, CSS + Tailwind tokens.",
-      "https://colorarchive.me/packs/palette-pack-vol-1/",
+      `${SITE_URL}/packs/palette-pack-vol-1/`,
       "",
       "Dark Mode UI Kit (¥999) — Pre-tested light/dark pairings, contrast-checked, Tailwind ready.",
-      "https://colorarchive.me/packs/dark-mode-ui-kit/",
+      `${SITE_URL}/packs/dark-mode-ui-kit/`,
       "",
       "Creator Bundle (¥999) — Social-ready palette boards + wallpaper sets for visual content.",
-      "https://colorarchive.me/packs/content-creator-bundle/",
+      `${SITE_URL}/packs/content-creator-bundle/`,
       "",
       "Brand Starter Kit (¥1,499) — Primary + secondary + accent groups for landing pages and brands.",
-      "https://colorarchive.me/packs/brand-starter-kit/",
+      `${SITE_URL}/packs/brand-starter-kit/`,
       "",
       "Complete Archive Token Set (¥2,499) — All 5,400+ colors as CSS, JSON, Tailwind, Figma tokens.",
-      "https://colorarchive.me/packs/complete-archive/",
+      `${SITE_URL}/packs/complete-archive/`,
       "",
       "All Access Bundle (¥3,999) — Everything above in one download. Save 40%.",
-      "https://colorarchive.me/packs/all-access-bundle/",
+      `${SITE_URL}/packs/all-access-bundle/`,
       "",
       "Questions? Reply here.",
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
     ].join("\n"),
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
@@ -567,12 +570,12 @@ async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
             <span style="color:${p.titleColor};font-size:13px;font-weight:700">${p.price}</span>
           </div>
           <p style="margin:8px 0 10px;color:${p.textColor};font-size:14px;line-height:1.5">${p.desc}</p>
-          <a href="https://colorarchive.me/packs/${p.id}/" style="color:${p.titleColor};font-weight:600;font-size:13px;text-decoration:none">View pack →</a>
+          <a href="${SITE_URL}/packs/${p.id}/" style="color:${p.titleColor};font-weight:600;font-size:13px;text-decoration:none">View pack →</a>
         </div>`).join("")}
         <p style="color:#666;font-size:14px;margin-top:20px">Questions? Just reply to this email.</p>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
-          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+          ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a>
         </p>
       </div>
     `,
@@ -602,18 +605,18 @@ async function sendFollowUp14DayEmail(to, { variant = "A" } = {}) {
       "A few popular picks:",
       "",
       "Palette Pack Vol. 1 (¥299 → ¥269) — 8 curated palettes, CSS + Tailwind tokens.",
-      "https://colorarchive.me/packs/palette-pack-vol-1/",
+      `${SITE_URL}/packs/palette-pack-vol-1/`,
       "",
       "Dark Mode UI Kit (¥499 → ¥449) — Pre-tested light/dark pairings, Tailwind ready.",
-      "https://colorarchive.me/packs/dark-mode-ui-kit/",
+      `${SITE_URL}/packs/dark-mode-ui-kit/`,
       "",
       "All Access Bundle (¥2,799 → ¥2,519) — Every pack in one download.",
-      "https://colorarchive.me/packs/all-access-bundle/",
+      `${SITE_URL}/packs/all-access-bundle/`,
       "",
       "The code is valid for 7 days.",
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
     ].join("\n"),
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
@@ -634,7 +637,7 @@ async function sendFollowUp14DayEmail(to, { variant = "A" } = {}) {
             <span style="color:#14532d;font-size:13px"><s style="color:#9ca3af">¥299</s> <strong>¥269</strong></span>
           </div>
           <p style="margin:8px 0 10px;color:#166534;font-size:14px;line-height:1.5">8 curated palettes with CSS variables and Tailwind tokens.</p>
-          <a href="https://colorarchive.me/packs/palette-pack-vol-1/" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none">View pack →</a>
+          <a href="${SITE_URL}/packs/palette-pack-vol-1/" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none">View pack →</a>
         </div>
 
         <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:16px;padding:14px 16px;margin:12px 0">
@@ -643,7 +646,7 @@ async function sendFollowUp14DayEmail(to, { variant = "A" } = {}) {
             <span style="color:#6d28d9;font-size:13px"><s style="color:#9ca3af">¥499</s> <strong>¥449</strong></span>
           </div>
           <p style="margin:8px 0 10px;color:#5b21b6;font-size:14px;line-height:1.5">Pre-tested light/dark pairings, contrast-checked, Tailwind ready.</p>
-          <a href="https://colorarchive.me/packs/dark-mode-ui-kit/" style="color:#6d28d9;font-weight:600;font-size:13px;text-decoration:none">View pack →</a>
+          <a href="${SITE_URL}/packs/dark-mode-ui-kit/" style="color:#6d28d9;font-weight:600;font-size:13px;text-decoration:none">View pack →</a>
         </div>
 
         <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:14px 16px;margin:12px 0">
@@ -652,13 +655,13 @@ async function sendFollowUp14DayEmail(to, { variant = "A" } = {}) {
             <span style="color:#14532d;font-size:13px"><s style="color:#9ca3af">¥2,799</s> <strong>¥2,519</strong></span>
           </div>
           <p style="margin:8px 0 10px;color:#166534;font-size:14px;line-height:1.5">Every pack in one download. The best value.</p>
-          <a href="https://colorarchive.me/packs/all-access-bundle/" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none">View bundle →</a>
+          <a href="${SITE_URL}/packs/all-access-bundle/" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none">View bundle →</a>
         </div>
 
         <p style="color:#666;font-size:14px;margin-top:20px">Questions? Just reply to this email.</p>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
-          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+          ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a>
         </p>
       </div>
     `,
@@ -692,12 +695,12 @@ async function sendFollowUp21DayEmail(to, { variant = "A" } = {}) {
       "3. A social media post template",
       "Use one dominant palette color as the background, one accent for type or graphic elements, and one near-neutral for any secondary information. Applied consistently across a dozen posts, it creates a feed that looks intentional and considered.",
       "",
-      "Browse more palettes and collections: https://colorarchive.me/collections/",
+      "Browse more palettes and collections: ${SITE_URL}/collections/",
       "",
-      "Or if you want ready-made CSS, JSON, and Figma tokens: https://colorarchive.me/packs/",
+      "Or if you want ready-made CSS, JSON, and Figma tokens: ${SITE_URL}/packs/",
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
     ].join("\n"),
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
@@ -716,18 +719,18 @@ async function sendFollowUp21DayEmail(to, { variant = "A" } = {}) {
           <p style="margin:0;color:#374151;font-size:14px;line-height:1.6">One dominant background color, one accent for type or graphics, one near-neutral for secondary info. Applied consistently across a dozen posts, it creates a feed that looks intentional.</p>
         </div>
         <div style="margin:24px 0;display:flex;gap:10px;flex-wrap:wrap">
-          <a href="https://colorarchive.me/collections/"
+          <a href="${SITE_URL}/collections/"
              style="display:inline-block;background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
             Browse Collections
           </a>
-          <a href="https://colorarchive.me/packs/"
+          <a href="${SITE_URL}/packs/"
              style="display:inline-block;background:#f8fafc;border:1px solid #e5e7eb;color:#1a1a1a;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
             View Packs →
           </a>
         </div>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
-          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+          ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a>
         </p>
       </div>
     `,
@@ -760,7 +763,7 @@ async function sendFollowUp30DayEmail(to, { variant = "A" } = {}) {
       "",
       "Both are one-time purchases with no subscription.",
       "",
-      "Browse the full catalog: https://colorarchive.me/packs/",
+      "Browse the full catalog: ${SITE_URL}/packs/",
       "",
       "— ColorArchive",
     ].join("\n"),
@@ -772,23 +775,23 @@ async function sendFollowUp30DayEmail(to, { variant = "A" } = {}) {
         <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;margin:20px 0">
           <p style="margin:0 0 4px;font-weight:700;color:#111">Complete Archive</p>
           <p style="margin:0 0 10px;color:#374151;font-size:14px;line-height:1.6">All 2016 colors in HEX, RGB, HSL, CSS variables, and Figma tokens. The full reference collection for when you need the entire spectrum on hand.</p>
-          <a href="https://colorarchive.me/packs/complete-archive/" style="display:inline-block;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:13px">View Complete Archive →</a>
+          <a href="${SITE_URL}/packs/complete-archive/" style="display:inline-block;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:13px">View Complete Archive →</a>
         </div>
         <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;margin:12px 0">
           <p style="margin:0 0 4px;font-weight:700;color:#111">Brand Starter Kit</p>
           <p style="margin:0 0 10px;color:#374151;font-size:14px;line-height:1.6">Fewer colors, organized by role. Primary, surface, accent, text — already structured for brand systems and implementation handoff.</p>
-          <a href="https://colorarchive.me/packs/brand-starter-kit/" style="display:inline-block;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:13px">View Brand Starter Kit →</a>
+          <a href="${SITE_URL}/packs/brand-starter-kit/" style="display:inline-block;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:13px">View Brand Starter Kit →</a>
         </div>
         <p style="color:#666;font-size:14px;line-height:1.6">Both are one-time purchases. No subscription. Download once, use forever.</p>
         <div style="margin:20px 0">
-          <a href="https://colorarchive.me/packs/"
+          <a href="${SITE_URL}/packs/"
              style="display:inline-block;background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
             Browse the full catalog
           </a>
         </div>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
-          ColorArchive · <a href="https://colorarchive.me" style="color:#999">colorarchive.me</a>
+          ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a>
         </p>
       </div>
     `,
@@ -805,10 +808,10 @@ async function sendNewsletterIssueAlert(to, { issue, unsubscribeToken = null } =
   if (!issue || !issue.slug || !issue.title) {
     throw new Error("sendNewsletterIssueAlert: issue must have slug and title");
   }
-  const issueUrl = `https://colorarchive.me/notes/${issue.slug}`;
+  const issueUrl = `${SITE_URL}/notes/${issue.slug}`;
   const unsubscribeUrl = unsubscribeToken
-    ? `https://colorarchive.me/unsubscribe?token=${unsubscribeToken}`
-    : "https://colorarchive.me/unsubscribe";
+    ? `${SITE_URL}/unsubscribe?token=${unsubscribeToken}`
+    : `${SITE_URL}/unsubscribe`;
 
   const highlightLines = Array.isArray(issue.highlights) && issue.highlights.length > 0
     ? issue.highlights.slice(0, 3).map((h) => `• ${h}`).join("\n")
@@ -831,7 +834,7 @@ async function sendNewsletterIssueAlert(to, { issue, unsubscribeToken = null } =
       `Read the full note: ${issueUrl}`,
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
       "",
       `Unsubscribe: ${unsubscribeUrl}`,
     ].filter((l) => l !== null).join("\n"),
@@ -852,7 +855,7 @@ async function sendNewsletterIssueAlert(to, { issue, unsubscribeToken = null } =
         </a>
         <hr style="border:none;border-top:1px solid #f3f4f6;margin:28px 0">
         <p style="color:#9ca3af;font-size:11px;line-height:1.6">
-          ColorArchive · <a href="https://colorarchive.me" style="color:#9ca3af">colorarchive.me</a>
+          ColorArchive · <a href="${SITE_URL}" style="color:#9ca3af">${SITE_DOMAIN}</a>
           &nbsp;·&nbsp;
           <a href="${unsubscribeUrl}" style="color:#9ca3af">Unsubscribe</a>
         </p>
@@ -876,8 +879,8 @@ async function sendCotdEmail(to, color, dateStr) {
   const formattedDate = new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", {
     weekday: "long", year: "numeric", month: "long", day: "numeric",
   });
-  const archiveUrl = `https://colorarchive.me/colors/${color.id}/`;
-  const unsubUrl = `https://colorarchive.me/unsubscribe/?email=${encodeURIComponent(to)}`;
+  const archiveUrl = `${SITE_URL}/colors/${color.id}/`;
+  const unsubUrl = `${SITE_URL}/unsubscribe/?email=${encodeURIComponent(to)}`;
   const luminance = parseInt(color.hex.slice(1, 3), 16) * 0.299 +
     parseInt(color.hex.slice(3, 5), 16) * 0.587 +
     parseInt(color.hex.slice(5, 7), 16) * 0.114;
@@ -899,7 +902,7 @@ async function sendCotdEmail(to, color, dateStr) {
       `View in Archive: ${archiveUrl}`,
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
       "",
       `Unsubscribe: ${unsubUrl}`,
     ].join("\n"),
@@ -943,7 +946,7 @@ async function sendCotdEmail(to, color, dateStr) {
 
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#bbb;font-size:11px;text-align:center">
-          ColorArchive · <a href="https://colorarchive.me" style="color:#bbb">colorarchive.me</a>
+          ColorArchive · <a href="${SITE_URL}" style="color:#bbb">${SITE_DOMAIN}</a>
           &nbsp;·&nbsp;
           <a href="${unsubUrl}" style="color:#bbb">Unsubscribe</a>
         </p>
@@ -976,7 +979,7 @@ async function sendProUpsellEmail(email) {
           With <strong>Pro</strong>, you get <strong>unlimited</strong> AI palette generations, exports, WCAG reports, and more — for just $4.99/month.
         </p>
         <div style="text-align:center;margin:24px 0;">
-          <a href="https://colorarchive.me/pro" style="display:inline-block;background:#6366f1;color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">
+          <a href="${SITE_URL}/pro" style="display:inline-block;background:#6366f1;color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">
             Upgrade to Pro
           </a>
         </div>
@@ -984,7 +987,7 @@ async function sendProUpsellEmail(email) {
           Your free generations reset tomorrow. Or share your referral link to earn bonus AI credits!
         </p>
         <p style="color:#ccc;font-size:11px;margin-top:24px;">
-          ColorArchive · hello@colorarchive.me
+          ColorArchive · ${FROM}
         </p>
       </div>
     `,
@@ -1012,7 +1015,7 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
       referrerPhrase,
       "",
       "Here is what you can do right now for free:",
-      "- Browse 5,446 named colors at colorarchive.me/all-colors",
+      `- Browse 5,446 named colors at ${SITE_URL}/all-colors`,
       "- Generate an AI brand palette from a text description",
       "- Extract colors from any image",
       "- Run a WCAG accessibility audit on any color pair",
@@ -1020,10 +1023,10 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
       "Your free account gives you 10 AI generations per day — no credit card required.",
       "",
       "Want unlimited AI generations, exports, and every color format? Pro is $4.99/month.",
-      "https://colorarchive.me/pro",
+      `${SITE_URL}/pro`,
       "",
       "— ColorArchive",
-      "https://colorarchive.me",
+      SITE_URL,
     ].join("\n"),
     html: `
       <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
@@ -1038,14 +1041,14 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
         </ul>
         <p style="color:#555;font-size:14px;line-height:1.6;">Your free account includes 10 AI generations per day — no credit card needed.</p>
         <div style="text-align:center;margin:24px 0;">
-          <a href="https://colorarchive.me" style="display:inline-block;background:#1a1a1a;color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">Explore ColorArchive</a>
+          <a href="${SITE_URL}" style="display:inline-block;background:#1a1a1a;color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">Explore ColorArchive</a>
         </div>
         <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:16px 18px;margin:20px 0;">
           <div style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#14532d;font-weight:700;">Pro — unlimited everything</div>
           <p style="margin:8px 0 0;color:#166534;font-size:14px;line-height:1.6;">Unlimited AI generations, WCAG reports, exports in every format, and access to the complete 5,446-color token set. From <strong>$4.99/month</strong>.</p>
-          <p style="margin:10px 0 0;"><a href="https://colorarchive.me/pro" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none;">View Pro plans →</a></p>
+          <p style="margin:10px 0 0;"><a href="${SITE_URL}/pro" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none;">View Pro plans →</a></p>
         </div>
-        <p style="color:#ccc;font-size:11px;margin-top:24px;">ColorArchive · hello@colorarchive.me</p>
+        <p style="color:#ccc;font-size:11px;margin-top:24px;">ColorArchive · ${FROM}</p>
       </div>
     `,
   });
@@ -1063,15 +1066,15 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
  */
 async function sendWeeklyDigestEmail(to, { issues = [], collections = [], unsubscribeToken = null } = {}) {
   const unsubUrl = unsubscribeToken
-    ? `https://colorarchive.me/unsubscribe?token=${unsubscribeToken}`
-    : `https://colorarchive.me/unsubscribe`;
+    ? `${SITE_URL}/unsubscribe?token=${unsubscribeToken}`
+    : `${SITE_URL}/unsubscribe`;
   const weekStr = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
   const recentIssues = issues.slice(0, 3);
   const featuredCollection = collections[0] || null;
 
   const issueHtml = recentIssues.map((issue) => {
-    const url = `https://colorarchive.me/notes/${issue.slug}`;
+    const url = `${SITE_URL}/notes/${issue.slug}`;
     return `
       <tr>
         <td style="padding:12px 0;border-bottom:1px solid #f3f4f6;">
@@ -1084,7 +1087,7 @@ async function sendWeeklyDigestEmail(to, { issues = [], collections = [], unsubs
   }).join("");
 
   const issueText = recentIssues.map((issue) =>
-    `• ${issue.title}\n  https://colorarchive.me/notes/${issue.slug}`
+    `• ${issue.title}\n  ${SITE_URL}/notes/${issue.slug}`
   ).join("\n\n");
 
   const collectionHtml = featuredCollection ? `
@@ -1092,7 +1095,7 @@ async function sendWeeklyDigestEmail(to, { issues = [], collections = [], unsubs
       <div style="font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#6b7280;font-weight:600;margin-bottom:6px;">Featured Collection</div>
       <div style="font-size:15px;font-weight:700;color:#111827;margin-bottom:4px;">${featuredCollection.name}</div>
       <div style="font-size:13px;color:#6b7280;line-height:1.5;margin-bottom:12px;">${(featuredCollection.description || featuredCollection.longDescription || "").slice(0, 160)}…</div>
-      <a href="https://colorarchive.me/collections/${featuredCollection.slug}/" style="font-size:13px;font-weight:600;color:#4f46e5;text-decoration:none;">View collection →</a>
+      <a href="${SITE_URL}/collections/${featuredCollection.slug}/" style="font-size:13px;font-weight:600;color:#4f46e5;text-decoration:none;">View collection →</a>
     </div>
   ` : "";
 
@@ -1109,9 +1112,9 @@ async function sendWeeklyDigestEmail(to, { issues = [], collections = [], unsubs
       issueText,
       "",
       featuredCollection ? `Featured collection: ${featuredCollection.name}` : "",
-      featuredCollection ? `https://colorarchive.me/collections/${featuredCollection.slug}/` : "",
+      featuredCollection ? `${SITE_URL}/collections/${featuredCollection.slug}/` : "",
       "",
-      "Browse the full archive: https://colorarchive.me",
+      "Browse the full archive: ${SITE_URL}",
       "",
       "— ColorArchive",
       `Unsubscribe: ${unsubUrl}`,
@@ -1130,7 +1133,7 @@ async function sendWeeklyDigestEmail(to, { issues = [], collections = [], unsubs
         ${collectionHtml}
 
         <div style="text-align:center;margin:24px 0;">
-          <a href="https://colorarchive.me/notes/"
+          <a href="${SITE_URL}/notes/"
              style="display:inline-block;background:#111827;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:13px;">
             Browse all notes →
           </a>
@@ -1138,7 +1141,7 @@ async function sendWeeklyDigestEmail(to, { issues = [], collections = [], unsubs
 
         <hr style="border:none;border-top:1px solid #f3f4f6;margin:24px 0;">
         <p style="color:#9ca3af;font-size:11px;line-height:1.6;">
-          ColorArchive · <a href="https://colorarchive.me" style="color:#9ca3af;">colorarchive.me</a>
+          ColorArchive · <a href="${SITE_URL}" style="color:#9ca3af;">${SITE_DOMAIN}</a>
           &nbsp;·&nbsp;
           <a href="${unsubUrl}" style="color:#9ca3af;">Unsubscribe</a>
         </p>

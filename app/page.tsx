@@ -4,20 +4,21 @@ import { OnboardingBanner } from "@/src/components/onboarding-banner";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { colors } from "@/src/data/colors";
+import { SITE_URL, CONTACT_EMAIL } from "@/src/lib/site-config";
 
 const homepageStructuredData = [
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "ColorArchive",
-    url: "https://colorarchive.me",
+    url: SITE_URL,
     description:
       "A searchable archive of 5,400+ curated hex colors with palette tools and design token exports.",
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://colorarchive.me/all-colors?q={search_term_string}",
+        urlTemplate: `${SITE_URL}/all-colors?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
@@ -26,11 +27,11 @@ const homepageStructuredData = [
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "ColorArchive",
-    url: "https://colorarchive.me",
-    logo: "https://colorarchive.me/og-image-v1.png",
+    url: SITE_URL,
+    logo: `${SITE_URL}/og-image-v1.png`,
     contactPoint: {
       "@type": "ContactPoint",
-      email: "hello@colorarchive.me",
+      email: CONTACT_EMAIL,
       contactType: "customer support",
     },
   },

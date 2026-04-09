@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { SupportPage } from "@/src/components/support-page";
+import { SITE_URL, SUPPORT_EMAIL } from "@/src/lib/site-config";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -9,14 +10,14 @@ const structuredData = {
   name: "Support — ColorArchive",
   description:
     "Get help with ColorArchive products, exports, and Pro subscriptions.",
-  url: "https://colorarchive.me/support/",
+  url: `${SITE_URL}/support/`,
   mainEntity: {
     "@type": "Organization",
     name: "ColorArchive",
-    url: "https://colorarchive.me",
+    url: SITE_URL,
     contactPoint: {
       "@type": "ContactPoint",
-      email: "support@colorarchive.me",
+      email: SUPPORT_EMAIL,
       contactType: "customer support",
     },
   },

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
+import { SITE_DOMAIN } from "@/src/lib/site-config";
 
 interface PaletteColor {
   hex: string;
@@ -83,7 +84,7 @@ export function DownloadPaletteImage({ colors, title, subtitle }: DownloadPalett
               )}
             </div>
             <div style={{ fontSize: 11, color: "#bbb", fontWeight: 600, letterSpacing: "0.05em" }}>
-              colorarchive.me
+              {SITE_DOMAIN}
             </div>
           </div>
 

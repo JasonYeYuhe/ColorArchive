@@ -26,6 +26,10 @@ const {
 const TOKEN_FILE = path.join(__dirname, ".env.instagram");
 // Images are served from the API server, not the frontend
 const API_ORIGIN = process.env.API_ORIGIN || "https://api.colorarchive.me";
+// Bare domain for display in captions
+const SITE_DOMAIN = (process.env.FRONTEND_ORIGIN || "https://colorarchive.me")
+  .replace(/^https?:\/\//, "")
+  .replace(/\/$/, "");
 
 // Track what we've already posted (persisted per-day)
 const POSTED_LOG = path.join(__dirname, "generated", ".post-log.json");
@@ -152,14 +156,14 @@ function colorCaption(color) {
   return `🎨 ${color.name}\n\n` +
     `${color.hex} · ${color.family}\n` +
     `H${color.hue}° S${color.saturation}% L${color.lightness}%\n\n` +
-    `Explore this color and 2000+ more at colorarchive.me/colors/${color.id}\n\n` +
+    `Explore this color and 2000+ more at ${SITE_DOMAIN}/colors/${color.id}\n\n` +
     HASHTAGS;
 }
 
 function paletteCaption(title, paletteColors) {
   const swatches = paletteColors.map((c) => `${c.hex} ${c.name}`).join("\n");
   return `🎨 ${title}\n\n${swatches}\n\n` +
-    `Browse all palettes at colorarchive.me/collections\n\n` +
+    `Browse all palettes at ${SITE_DOMAIN}/collections\n\n` +
     HASHTAGS;
 }
 

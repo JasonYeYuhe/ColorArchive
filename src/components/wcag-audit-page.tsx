@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef, useCallback } from "react";
 import { hexContrastRatio, wcagLabel } from "@/src/lib/brand-palette";
 import { getPaletteIds } from "@/src/lib/palette-builder";
+import { SITE_DOMAIN } from "@/src/lib/site-config";
 import { ProGate } from "@/src/components/pro-gate";
 import { colors as allColors } from "@/src/data/colors";
 
@@ -340,7 +341,7 @@ export function WcagAuditPage() {
                 </div>
               </div>
               <div style={{ fontSize: 12, color: "#bbb", fontWeight: 600, letterSpacing: "0.05em" }}>
-                colorarchive.me
+                {SITE_DOMAIN}
               </div>
             </div>
 
