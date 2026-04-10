@@ -110,7 +110,7 @@
 <body>
   <div class="header">
     <h1>ColorArchive</h1>
-    <p>3,000+ curated colors — browse, apply, export</p>
+    <p>5,400+ curated colors — browse, apply, export</p>
   </div>
 
   <div class="tabs">
@@ -133,6 +133,16 @@
       <button class="btn primary" id="btnApply">Apply fill</button>
       <button class="btn" id="btnSwatch">Swatch</button>
       <button class="btn" id="btnStyle">Style</button>
+      <button class="btn" id="btnExport">Export</button>
+    </div>
+    <div id="exportPanel" style="display:none;padding:6px 16px;border-top:1px solid #f0f0f0;">
+      <div style="font-size:10px;color:#888;margin-bottom:4px;">Export filtered colors as:</div>
+      <div style="display:flex;gap:4px;">
+        <button class="btn" style="flex:1;font-size:10px" onclick="exportColors('css')">CSS Vars</button>
+        <button class="btn" style="flex:1;font-size:10px" onclick="exportColors('tailwind')">Tailwind</button>
+        <button class="btn" style="flex:1;font-size:10px" onclick="exportColors('json')">JSON</button>
+      </div>
+      <div id="exportStatus" style="font-size:10px;color:#4ade80;text-align:center;margin-top:4px;"></div>
     </div>
   </div>
 
@@ -203,17 +213,21 @@
 // Minimal color generation mirroring src/data/colors.ts
 // Must match src/data/colors.ts exactly
 const HUE_ROOTS = [
-  { hue: 0, name: "Crimson" }, { hue: 10, name: "Ruby" }, { hue: 20, name: "Ember" },
-  { hue: 30, name: "Coral" }, { hue: 40, name: "Apricot" }, { hue: 50, name: "Amber" },
-  { hue: 60, name: "Citrine" }, { hue: 70, name: "Honey" }, { hue: 80, name: "Olive" },
+  { hue: 0, name: "Crimson" }, { hue: 5, name: "Scarlet" }, { hue: 10, name: "Ruby" },
+  { hue: 15, name: "Vermillion" }, { hue: 20, name: "Ember" }, { hue: 25, name: "Tangerine" },
+  { hue: 30, name: "Coral" }, { hue: 40, name: "Apricot" }, { hue: 45, name: "Saffron" },
+  { hue: 50, name: "Amber" }, { hue: 55, name: "Canary" }, { hue: 60, name: "Citrine" },
+  { hue: 70, name: "Honey" }, { hue: 75, name: "Chartreuse" }, { hue: 80, name: "Olive" },
   { hue: 90, name: "Lime" }, { hue: 100, name: "Moss" }, { hue: 110, name: "Leaf" },
-  { hue: 120, name: "Emerald" }, { hue: 130, name: "Mint" }, { hue: 140, name: "Seafoam" },
-  { hue: 150, name: "Jade" }, { hue: 160, name: "Teal" }, { hue: 170, name: "Lagoon" },
+  { hue: 115, name: "Clover" }, { hue: 120, name: "Emerald" }, { hue: 130, name: "Mint" },
+  { hue: 140, name: "Seafoam" }, { hue: 145, name: "Celadon" }, { hue: 150, name: "Jade" },
+  { hue: 160, name: "Teal" }, { hue: 170, name: "Lagoon" }, { hue: 175, name: "Cyan" },
   { hue: 180, name: "Aqua" }, { hue: 190, name: "Cerulean" }, { hue: 200, name: "Azure" },
-  { hue: 210, name: "Sapphire" }, { hue: 220, name: "Cobalt" }, { hue: 230, name: "Indigo" },
-  { hue: 240, name: "Iris" }, { hue: 250, name: "Violet" }, { hue: 260, name: "Orchid" },
-  { hue: 270, name: "Plum" }, { hue: 280, name: "Mulberry" }, { hue: 290, name: "Magenta" },
-  { hue: 300, name: "Fuchsia" }, { hue: 310, name: "Peony" }, { hue: 320, name: "Rose" },
+  { hue: 205, name: "Steel" }, { hue: 210, name: "Sapphire" }, { hue: 220, name: "Cobalt" },
+  { hue: 230, name: "Indigo" }, { hue: 240, name: "Iris" }, { hue: 245, name: "Amethyst" },
+  { hue: 250, name: "Violet" }, { hue: 260, name: "Orchid" }, { hue: 270, name: "Plum" },
+  { hue: 280, name: "Mulberry" }, { hue: 290, name: "Magenta" }, { hue: 300, name: "Fuchsia" },
+  { hue: 305, name: "Mauve" }, { hue: 310, name: "Peony" }, { hue: 320, name: "Rose" },
   { hue: 330, name: "Blush" }, { hue: 340, name: "Garnet" }, { hue: 350, name: "Merlot" },
 ];
 const LIGHTNESS_BANDS = [
@@ -224,7 +238,8 @@ const LIGHTNESS_BANDS = [
   { l: 20, name: "Nocturne" }, { l: 14, name: "Ink" },
 ];
 const SAT_BANDS = [
-  { s: 10, name: "Faint" }, { s: 18, name: "Muted" }, { s: 34, name: "Soft" }, { s: 54, name: "Clear" }, { s: 74, name: "Vivid" }, { s: 92, name: "Pure" },
+  { s: 10, name: "Faint" }, { s: 18, name: "Muted" }, { s: 26, name: "Dust" }, { s: 34, name: "Soft" },
+  { s: 54, name: "Clear" }, { s: 74, name: "Vivid" }, { s: 84, name: "Bright" }, { s: 92, name: "Pure" },
 ];
 const FAMILIES = ["Red","Orange","Yellow","Lime","Green","Teal","Blue","Purple","Pink"];
 
@@ -249,7 +264,7 @@ function getFamily(hue) {
   return "Pink";
 }
 
-// Generate chromatic colors (36 × 14 × 6 = 3,024)
+// Generate chromatic colors (48 × 14 × 8 = 5,376)
 const allColors = [];
 for (const root of HUE_ROOTS) {
   for (const lb of LIGHTNESS_BANDS) {
@@ -260,11 +275,13 @@ for (const root of HUE_ROOTS) {
     }
   }
 }
-// Generate neutral grays (3 × 14 = 42)
+// Generate neutral grays (5 × 14 = 70)
 const NEUTRAL_ROOTS = [
   { name: "Warm Gray", hue: 30, s: 6 },
-  { name: "Cool Gray", hue: 210, s: 6 },
+  { name: "Taupe Gray", hue: 40, s: 5 },
   { name: "True Gray", hue: 0, s: 0 },
+  { name: "Sage Gray", hue: 150, s: 5 },
+  { name: "Cool Gray", hue: 210, s: 6 },
 ];
 for (const nr of NEUTRAL_ROOTS) {
   for (const lb of LIGHTNESS_BANDS) {
@@ -278,17 +295,24 @@ for (const nr of NEUTRAL_ROOTS) {
 let searchQuery = "";
 let activeFamily = "All";
 let selectedColor = null;
+let currentPage = 1;
+const PAGE_SIZE = 100;
 
 // Render
-function render() {
+function getFiltered() {
   let filtered = allColors;
   if (activeFamily !== "All") filtered = filtered.filter(c => c.family === activeFamily);
   if (searchQuery) {
     const q = searchQuery.toLowerCase();
     filtered = filtered.filter(c => c.name.toLowerCase().includes(q) || c.hex.toLowerCase().includes(q));
   }
-  // Show first 100 for performance
-  const shown = filtered.slice(0, 100);
+  return filtered;
+}
+
+function render() {
+  const filtered = getFiltered();
+  const shown = filtered.slice(0, currentPage * PAGE_SIZE);
+  const remaining = filtered.length - shown.length;
 
   const grid = document.getElementById("colorGrid");
   grid.innerHTML = shown.map(c => `
@@ -299,7 +323,9 @@ function render() {
         <div class="color-hex">${c.hex}</div>
       </div>
     </div>
-  `).join("");
+  `).join("") + (remaining > 0 ? `<div style="grid-column:1/-1;text-align:center;padding:8px 0">
+    <button class="btn" onclick="showMore()" style="width:100%;font-size:10px">Show more (${remaining} remaining)</button>
+  </div>` : '');
 }
 
 function renderFamilyTabs() {
@@ -320,12 +346,19 @@ window.selectColor = function(id) {
 
 window.setFamily = function(f) {
   activeFamily = f;
+  currentPage = 1;
   renderFamilyTabs();
+  render();
+};
+
+window.showMore = function() {
+  currentPage++;
   render();
 };
 
 document.getElementById("search").addEventListener("input", (e) => {
   searchQuery = e.target.value;
+  currentPage = 1;
   render();
 });
 
@@ -343,6 +376,30 @@ document.getElementById("btnStyle").addEventListener("click", () => {
   if (!selectedColor) return;
   parent.postMessage({ pluginMessage: { type: "create-style", hex: selectedColor.hex, name: selectedColor.name, family: selectedColor.family } }, "*");
 });
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  const panel = document.getElementById("exportPanel");
+  panel.style.display = panel.style.display === "none" ? "block" : "none";
+});
+
+window.exportColors = function(format) {
+  const filtered = getFiltered();
+  let output = "";
+  if (format === "css") {
+    output = ":root {\n" + filtered.map(c => `  --color-${c.id}: ${c.hex};`).join("\n") + "\n}";
+  } else if (format === "tailwind") {
+    output = "module.exports = {\n  theme: {\n    extend: {\n      colors: {\n" +
+      filtered.map(c => `        '${c.id}': '${c.hex}',`).join("\n") +
+      "\n      },\n    },\n  },\n};";
+  } else {
+    output = JSON.stringify(filtered.map(c => ({ id: c.id, name: c.name, hex: c.hex })), null, 2);
+  }
+  navigator.clipboard.writeText(output).then(() => {
+    const el = document.getElementById("exportStatus");
+    el.textContent = `Copied ${filtered.length} colors as ${format.toUpperCase()}`;
+    setTimeout(() => { el.textContent = ""; }, 2500);
+  }).catch(() => {});
+};
 
 renderFamilyTabs();
 render();
