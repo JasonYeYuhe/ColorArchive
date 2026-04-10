@@ -18,10 +18,54 @@ const LIGHTNESS_BANDS = [
 
 const CHROMA_BANDS = ["Faint", "Muted", "Dust", "Soft", "Clear", "Vivid", "Bright", "Pure"];
 
+// Hue degrees for local color generation (matching canonical data)
+const HUE_DEGREES: Record<string, number> = {
+  Crimson: 0, Scarlet: 5, Ruby: 10, Vermillion: 15, Ember: 20, Tangerine: 25,
+  Coral: 30, Apricot: 40, Saffron: 45, Amber: 50, Canary: 55, Citrine: 60,
+  Honey: 70, Chartreuse: 75, Olive: 80, Lime: 90, Moss: 100, Leaf: 110,
+  Clover: 115, Emerald: 120, Mint: 130, Seafoam: 140, Celadon: 145, Jade: 150,
+  Teal: 160, Lagoon: 170, Cyan: 175, Aqua: 180, Cerulean: 190, Azure: 200,
+  Steel: 205, Sapphire: 210, Cobalt: 220, Indigo: 230, Iris: 240, Amethyst: 245,
+  Violet: 250, Orchid: 260, Plum: 270, Mulberry: 280, Magenta: 290, Fuchsia: 300,
+  Mauve: 305, Peony: 310, Rose: 320, Blush: 330, Garnet: 340, Merlot: 350,
+};
+
+const LIGHTNESS_VALUES: Record<string, number> = {
+  Veil: 98, Whisper: 94, Mist: 90, Pearl: 84, Bloom: 76, Silk: 68, Tone: 60,
+  Radiant: 54, Core: 48, Velvet: 42, Dusk: 34, Shadow: 28, Nocturne: 20, Ink: 14,
+};
+
+const CHROMA_VALUES: Record<string, number> = {
+  Faint: 10, Muted: 18, Dust: 26, Soft: 34, Clear: 54, Vivid: 74, Bright: 84, Pure: 92,
+};
+
 interface PickedColor {
   id: string;
   name: string;
   hex: string;
+}
+
+// Generate all 5,376 chromatic colors locally
+function generateAllColors(): PickedColor[] {
+  const colors: PickedColor[] = [];
+  for (const root of HUE_ROOTS) {
+    const hue = HUE_DEGREES[root];
+    for (const light of LIGHTNESS_BANDS) {
+      for (const chroma of CHROMA_BANDS) {
+        const name = `${root} ${light} ${chroma}`;
+        const id = `${root.toLowerCase()}-${light.toLowerCase()}-${chroma.toLowerCase()}`;
+        const hex = hslToHex(hue, CHROMA_VALUES[chroma], LIGHTNESS_VALUES[light]);
+        colors.push({ id, name, hex });
+      }
+    }
+  }
+  return colors;
+}
+
+let cachedColors: PickedColor[] | null = null;
+function getAllColors(): PickedColor[] {
+  if (!cachedColors) cachedColors = generateAllColors();
+  return cachedColors;
 }
 
 // ─── Scale generation (same algo as main site) ──────────────────────────────
@@ -112,36 +156,79 @@ async function pickColor(): Promise<PickedColor | undefined> {
   return undefined;
 }
 
+// Shared action menu for a picked color
+async function showColorActions(color: PickedColor, context: vscode.ExtensionContext): Promise<void> {
+  // Save to recent
+  const recent: PickedColor[] = context.globalState.get("recentColors", []);
+  const updated = [color, ...recent.filter(c => c.id !== color.id)].slice(0, 20);
+  await context.globalState.update("recentColors", updated);
+
+  const action = await vscode.window.showQuickPick(
+    [
+      { label: "Copy HEX", value: color.hex },
+      { label: "Copy CSS Variable", value: `var(--color-${color.id})` },
+      { label: "Copy Tailwind Class", value: `text-[${color.hex}]` },
+      { label: "Insert at Cursor", value: color.hex },
+    ],
+    { placeHolder: `${color.name} — ${color.hex}` },
+  );
+  if (!action) return;
+
+  if (action.label === "Insert at Cursor") {
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+      editor.edit((edit) => { edit.replace(editor.selection, action.value); });
+    }
+  } else {
+    await vscode.env.clipboard.writeText(action.value);
+    vscode.window.showInformationMessage(`Copied: ${action.value}`);
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
-  // Command: Pick a Color
+  // Command: Search Colors (instant search across all 5,376 colors)
+  context.subscriptions.push(
+    vscode.commands.registerCommand("colorarchive.searchColor", async () => {
+      const colors = getAllColors();
+      const items = colors.map(c => ({
+        label: c.name,
+        description: c.hex,
+        color: c,
+      }));
+      const pick = await vscode.window.showQuickPick(items, {
+        placeHolder: "Type to search 5,300+ colors by name or hex...",
+        matchOnDescription: true,
+      });
+      if (pick) await showColorActions(pick.color, context);
+    }),
+  );
+
+  // Command: Recent Colors
+  context.subscriptions.push(
+    vscode.commands.registerCommand("colorarchive.recentColors", async () => {
+      const recent: PickedColor[] = context.globalState.get("recentColors", []);
+      if (recent.length === 0) {
+        vscode.window.showInformationMessage("No recent colors. Pick a color first.");
+        return;
+      }
+      const items = recent.map(c => ({
+        label: c.name,
+        description: c.hex,
+        color: c,
+      }));
+      const pick = await vscode.window.showQuickPick(items, {
+        placeHolder: "Recent colors",
+      });
+      if (pick) await showColorActions(pick.color, context);
+    }),
+  );
+
+  // Command: Pick a Color (3-level drill-down, also saves to recent)
   context.subscriptions.push(
     vscode.commands.registerCommand("colorarchive.pickColor", async () => {
       const color = await pickColor();
       if (!color) return;
-
-      const action = await vscode.window.showQuickPick(
-        [
-          { label: "Copy HEX", value: color.hex },
-          { label: "Copy CSS Variable", value: `var(--color-${color.id})` },
-          { label: "Copy Tailwind Class", value: `text-[${color.hex}]` },
-          { label: "Insert at Cursor", value: color.hex },
-        ],
-        { placeHolder: `${color.name} — ${color.hex}` },
-      );
-
-      if (!action) return;
-
-      if (action.label === "Insert at Cursor") {
-        const editor = vscode.window.activeTextEditor;
-        if (editor) {
-          editor.edit((edit) => {
-            edit.replace(editor.selection, action.value);
-          });
-        }
-      } else {
-        await vscode.env.clipboard.writeText(action.value);
-        vscode.window.showInformationMessage(`Copied: ${action.value}`);
-      }
+      await showColorActions(color, context);
     }),
   );
 
@@ -188,20 +275,30 @@ export function activate(context: vscode.ExtensionContext) {
       });
       if (!hex) return;
 
+      const prefix = await vscode.window.showInputBox({
+        value: "brand",
+        prompt: "Scale name prefix (used in variable names)",
+      });
+      if (!prefix) return;
+
       const clean = hex.startsWith("#") ? hex : `#${hex}`;
       const scale = generateScale(clean);
 
       const format = await vscode.window.showQuickPick(
-        ["CSS Variables", "Tailwind Config", "JSON"],
+        ["CSS Variables", "Tailwind Config", "JSON", "SCSS Variables", "LESS Variables"],
         { placeHolder: "Export format" },
       );
       if (!format) return;
 
       let output: string;
       if (format === "CSS Variables") {
-        output = `:root {\n${scale.map((s) => `  --color-brand-${s.step}: ${s.hex};`).join("\n")}\n}`;
+        output = `:root {\n${scale.map((s) => `  --color-${prefix}-${s.step}: ${s.hex};`).join("\n")}\n}`;
       } else if (format === "Tailwind Config") {
-        output = `brand: {\n${scale.map((s) => `  ${s.step}: "${s.hex}",`).join("\n")}\n}`;
+        output = `${prefix}: {\n${scale.map((s) => `  ${s.step}: "${s.hex}",`).join("\n")}\n}`;
+      } else if (format === "SCSS Variables") {
+        output = scale.map((s) => `$color-${prefix}-${s.step}: ${s.hex};`).join("\n");
+      } else if (format === "LESS Variables") {
+        output = scale.map((s) => `@color-${prefix}-${s.step}: ${s.hex};`).join("\n");
       } else {
         output = JSON.stringify(Object.fromEntries(scale.map((s) => [s.step, s.hex])), null, 2);
       }
@@ -211,7 +308,7 @@ export function activate(context: vscode.ExtensionContext) {
         editor.edit((edit) => {
           edit.replace(editor.selection, output);
         });
-        vscode.window.showInformationMessage(`Generated ${scale.length}-step scale from ${clean}`);
+        vscode.window.showInformationMessage(`Generated ${scale.length}-step ${prefix} scale from ${clean}`);
       } else {
         await vscode.env.clipboard.writeText(output);
         vscode.window.showInformationMessage("Scale copied to clipboard");

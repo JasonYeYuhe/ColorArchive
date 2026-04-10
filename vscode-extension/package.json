@@ -2,13 +2,20 @@
   "name": "colorarchive",
   "displayName": "ColorArchive — Color Palette & Token Helper",
   "description": "Browse 5,400+ curated colors, generate palettes, and insert design tokens directly in your editor.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "colorarchive",
   "engines": { "vscode": "^1.80.0" },
   "categories": ["Other", "Snippets"],
   "keywords": ["color", "palette", "design tokens", "css", "tailwind", "figma"],
   "icon": "icon.png",
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:colorarchive.pickColor",
+    "onCommand:colorarchive.searchColor",
+    "onCommand:colorarchive.recentColors",
+    "onCommand:colorarchive.insertCSSVar",
+    "onCommand:colorarchive.insertTailwind",
+    "onCommand:colorarchive.generateScale"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -27,6 +34,14 @@
       {
         "command": "colorarchive.generateScale",
         "title": "ColorArchive: Generate Color Scale"
+      },
+      {
+        "command": "colorarchive.searchColor",
+        "title": "ColorArchive: Search Colors"
+      },
+      {
+        "command": "colorarchive.recentColors",
+        "title": "ColorArchive: Recent Colors"
       }
     ]
   },
