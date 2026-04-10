@@ -4595,15 +4595,15 @@
     "links": [
       {
         "label": "Color Mixer tool — test OKLCH vs RGB blending",
-        "href": "https://colorarchive.me/mixer/"
+        "href": "https://colorarchive.org/mixer/"
       },
       {
         "label": "OKLCH color space guide",
-        "href": "https://colorarchive.me/guides/oklch-color-space-guide/"
+        "href": "https://colorarchive.org/guides/oklch-color-space-guide/"
       },
       {
         "label": "ColorArchive gradient generator",
-        "href": "https://colorarchive.me/gradient/"
+        "href": "https://colorarchive.org/gradient/"
       }
     ]
   },
@@ -4648,15 +4648,15 @@
     "links": [
       {
         "label": "ColorArchive Tints & Shades Generator",
-        "href": "https://colorarchive.me/tints/"
+        "href": "https://colorarchive.org/tints/"
       },
       {
         "label": "WCAG Contrast Checker",
-        "href": "https://colorarchive.me/contrast/"
+        "href": "https://colorarchive.org/contrast/"
       },
       {
         "label": "Color Harmonies calculator",
-        "href": "https://colorarchive.me/harmonies/"
+        "href": "https://colorarchive.org/harmonies/"
       }
     ]
   },
@@ -4705,11 +4705,11 @@
       },
       {
         "label": "WCAG Audit Tool",
-        "href": "https://colorarchive.me/wcag-audit/"
+        "href": "https://colorarchive.org/wcag-audit/"
       },
       {
         "label": "ColorArchive Tints & Shades Generator",
-        "href": "https://colorarchive.me/tints/"
+        "href": "https://colorarchive.org/tints/"
       }
     ]
   },
@@ -4754,15 +4754,15 @@
     "links": [
       {
         "label": "Color Blindness Simulator",
-        "href": "https://colorarchive.me/colorblind/"
+        "href": "https://colorarchive.org/colorblind/"
       },
       {
         "label": "ColorArchive Color Mixer — OKLCH mode",
-        "href": "https://colorarchive.me/mixer/"
+        "href": "https://colorarchive.org/mixer/"
       },
       {
         "label": "Color Compare tool",
-        "href": "https://colorarchive.me/compare/"
+        "href": "https://colorarchive.org/compare/"
       }
     ]
   },
@@ -4807,15 +4807,15 @@
     "links": [
       {
         "label": "Brand Color System Generator",
-        "href": "https://colorarchive.me/brand/"
+        "href": "https://colorarchive.org/brand/"
       },
       {
         "label": "ColorArchive WCAG Audit tool",
-        "href": "https://colorarchive.me/wcag-audit/"
+        "href": "https://colorarchive.org/wcag-audit/"
       },
       {
         "label": "Color Compare tool",
-        "href": "https://colorarchive.me/compare/"
+        "href": "https://colorarchive.org/compare/"
       }
     ]
   },

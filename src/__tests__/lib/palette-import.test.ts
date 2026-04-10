@@ -48,27 +48,27 @@ describe("parsePaletteInput — empty input", () => {
 // ---------------------------------------------------------------------------
 describe("parsePaletteInput — URL mode", () => {
   it("extracts valid ids from URL query param", () => {
-    const url = "https://colorarchive.me/palette?ids=amber-pearl-muted,cobalt-shadow-vivid";
+    const url = "https://colorarchive.org/palette?ids=amber-pearl-muted,cobalt-shadow-vivid";
     const result = parsePaletteInput(url, colors);
     expect(result.ids).toEqual(["amber-pearl-muted", "cobalt-shadow-vivid"]);
     expect(result.error).toBe("");
   });
 
   it("ignores unknown ids in URL", () => {
-    const url = "https://colorarchive.me/palette?ids=amber-pearl-muted,unknown-color-id";
+    const url = "https://colorarchive.org/palette?ids=amber-pearl-muted,unknown-color-id";
     const result = parsePaletteInput(url, colors);
     expect(result.ids).toEqual(["amber-pearl-muted"]);
   });
 
   it("returns error when URL has ids param but none match", () => {
-    const url = "https://colorarchive.me/palette?ids=fake-one,fake-two";
+    const url = "https://colorarchive.org/palette?ids=fake-one,fake-two";
     const result = parsePaletteInput(url, colors);
     expect(result.ids).toEqual([]);
     expect(result.error).toBeTruthy();
   });
 
   it("deduplicates ids from URL", () => {
-    const url = "https://colorarchive.me/palette?ids=amber-pearl-muted,amber-pearl-muted";
+    const url = "https://colorarchive.org/palette?ids=amber-pearl-muted,amber-pearl-muted";
     const result = parsePaletteInput(url, colors);
     expect(result.ids).toEqual(["amber-pearl-muted"]);
   });
