@@ -8,6 +8,11 @@
   "categories": ["Other", "Snippets"],
   "keywords": ["color", "palette", "design tokens", "css", "tailwind", "figma"],
   "icon": "icon.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JasonYeYuhe/ColorArchive"
+  },
   "activationEvents": [
     "onCommand:colorarchive.pickColor",
     "onCommand:colorarchive.searchColor",
