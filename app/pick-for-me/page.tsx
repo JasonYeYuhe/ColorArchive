@@ -4,6 +4,7 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { PickForMePage } from "@/src/components/pick-for-me-page";
 import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Pick Colors For Me — AI Color Suggestion | ColorArchive" },
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pick Colors For Me | ColorArchive",
     description: "Describe your project and get instant color palette suggestions from 5,000+ curated colors.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -24,7 +25,7 @@ const structuredData = {
   applicationCategory: "DesignApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  url: "https://colorarchive.me/pick-for-me/",
+  url: `${SITE_URL}/pick-for-me/`,
   description:
     "Describe what you're designing and get curated color palette suggestions instantly. Powered by 5,000+ algorithmically named colors.",
 };
@@ -33,8 +34,8 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-    { "@type": "ListItem", position: 2, name: "Pick For Me", item: "https://colorarchive.me/pick-for-me/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Pick For Me", item: `${SITE_URL}/pick-for-me/` },
   ],
 };
 

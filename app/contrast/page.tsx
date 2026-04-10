@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ContrastCheckerPage } from "@/src/components/contrast-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Color Contrast Checker — WCAG AA/AAA Compliance | ColorArchive" },
@@ -16,13 +17,13 @@ export const metadata: Metadata = {
     title: "Color Contrast Checker — WCAG AA/AAA Compliance | ColorArchive",
     description:
       "Check WCAG contrast ratios between any two colors. See AA and AAA compliance for text, large text, and UI. Real-time results. Free accessibility tool.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Color Contrast Checker — WCAG AA/AAA Compliance | ColorArchive",
     description:
       "Check WCAG contrast ratios between any two colors. See AA and AAA compliance for text, large text, and UI. Real-time results. Free accessibility tool.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -33,7 +34,7 @@ const contrastStructuredData = {
   applicationCategory: "DesignApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  url: "https://colorarchive.me/contrast/",
+  url: `${SITE_URL}/contrast/`,
   description:
     "Free WCAG contrast ratio checker. Enter any two hex colors and see AA/AAA compliance for normal text, large text, and UI components in real time.",
 };
@@ -42,8 +43,8 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-    { "@type": "ListItem", position: 2, name: "Contrast Checker", item: "https://colorarchive.me/contrast/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Contrast Checker", item: `${SITE_URL}/contrast/` },
   ],
 };
 

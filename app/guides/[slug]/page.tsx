@@ -5,6 +5,7 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { getLandingGuide, getRelatedGuides, landingGuides } from "@/src/lib/guides";
 import { getCollectionById } from "@/src/lib/collections";
+import { SITE_URL } from "@/src/lib/site-config";
 
 interface GuidePageProps {
   params: Promise<{ slug: string }>;
@@ -33,13 +34,13 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
     openGraph: {
       title: guide.title,
       description: guide.summary,
-      url: `https://colorarchive.me/guides/${guide.slug}/`,
-      images: ["https://colorarchive.me/og-image-v1.png"],
+      url: `${SITE_URL}/guides/${guide.slug}/`,
+      images: [`${SITE_URL}/og-image-v1.png`],
     },
     twitter: {
       title: guide.title,
       description: guide.summary,
-      images: ["https://colorarchive.me/og-image-v1.png"],
+      images: [`${SITE_URL}/og-image-v1.png`],
     },
   };
 }
@@ -61,17 +62,17 @@ export default async function GuideRoute({ params }: GuidePageProps) {
       headline: guide.title,
       description: guide.summary,
       keywords: guide.tags.join(", "),
-      url: `https://colorarchive.me/guides/${guide.slug}/`,
-      author: { "@type": "Organization", name: "ColorArchive", url: "https://colorarchive.me" },
-      publisher: { "@type": "Organization", name: "ColorArchive", url: "https://colorarchive.me" },
+      url: `${SITE_URL}/guides/${guide.slug}/`,
+      author: { "@type": "Organization", name: "ColorArchive", url: SITE_URL },
+      publisher: { "@type": "Organization", name: "ColorArchive", url: SITE_URL },
     },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-        { "@type": "ListItem", position: 2, name: "Guides", item: "https://colorarchive.me/guides/" },
-        { "@type": "ListItem", position: 3, name: guide.title, item: `https://colorarchive.me/guides/${guide.slug}/` },
+        { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Guides", item: `${SITE_URL}/guides/` },
+        { "@type": "ListItem", position: 3, name: guide.title, item: `${SITE_URL}/guides/${guide.slug}/` },
       ],
     },
   ];

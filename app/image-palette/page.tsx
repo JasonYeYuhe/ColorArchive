@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ImagePalettePage } from "@/src/components/image-palette-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Extract Colors from Image — Image Palette Generator | ColorArchive" },
@@ -13,13 +14,13 @@ export const metadata: Metadata = {
     title: "Extract Colors from Image — Image Palette Generator | ColorArchive",
     description:
       "Upload an image to extract its color palette. Get hex, RGB, and HSL values for dominant colors. Runs locally in your browser — no upload needed. Free.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Extract Colors from Image — Image Palette Generator | ColorArchive",
     description:
       "Upload an image to extract its color palette. Get hex, RGB, and HSL values for dominant colors. Runs locally in your browser — no upload needed. Free.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -30,7 +31,7 @@ const structuredData = {
   applicationCategory: "DesignApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  url: "https://colorarchive.me/image-palette/",
+  url: `${SITE_URL}/image-palette/`,
   description:
     "Extract the dominant color palette from any image. Get hex, RGB, and HSL values. Find the closest ColorArchive match for each extracted color.",
 };
@@ -39,9 +40,9 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-    { "@type": "ListItem", position: 2, name: "Tools", item: "https://colorarchive.me/tools/" },
-    { "@type": "ListItem", position: 3, name: "Image Color Extractor", item: "https://colorarchive.me/image-palette/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Tools", item: `${SITE_URL}/tools/` },
+    { "@type": "ListItem", position: 3, name: "Image Color Extractor", item: `${SITE_URL}/image-palette/` },
   ],
 };
 

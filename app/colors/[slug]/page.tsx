@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ColorDetailPage } from "@/src/components/color-detail-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
+import { SITE_URL } from "@/src/lib/site-config";
 import {
   getAnalogousColors,
   getComplementaryColor,
@@ -173,13 +174,13 @@ export default async function ColorPage({ params }: ColorPageProps) {
     "@type": "CreativeWork",
     name: color.name,
     description: `${color.name} (${color.hex}) is a ${temperature}, ${lightnessLabel}, ${saturationLabel} ${familyLower} color. ${usageHint}`,
-    url: `https://colorarchive.me/colors/${color.id}/`,
+    url: `${SITE_URL}/colors/${color.id}/`,
     identifier: color.hex,
     color: color.hex,
     isPartOf: {
       "@type": "WebSite",
       name: "ColorArchive",
-      url: "https://colorarchive.me",
+      url: SITE_URL,
     },
     additionalProperty: [
       { "@type": "PropertyValue", name: "HEX", value: color.hex },
@@ -194,14 +195,14 @@ export default async function ColorPage({ params }: ColorPageProps) {
       ...analogousColors.map((entry) => ({
         "@type": "CreativeWork",
         name: entry.name,
-        url: `https://colorarchive.me/colors/${entry.id}/`,
+        url: `${SITE_URL}/colors/${entry.id}/`,
       })),
       ...(complementaryColor
         ? [
             {
               "@type": "CreativeWork",
               name: complementaryColor.name,
-              url: `https://colorarchive.me/colors/${complementaryColor.id}/`,
+              url: `${SITE_URL}/colors/${complementaryColor.id}/`,
             },
           ]
         : []),
@@ -216,25 +217,25 @@ export default async function ColorPage({ params }: ColorPageProps) {
         "@type": "ListItem",
         position: 1,
         name: "ColorArchive",
-        item: "https://colorarchive.me/",
+        item: `${SITE_URL}/`,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Colors",
-        item: "https://colorarchive.me/colors/",
+        item: `${SITE_URL}/colors/`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: color.family,
-        item: `https://colorarchive.me/colors/?family=${encodeURIComponent(color.family)}`,
+        item: `${SITE_URL}/colors/?family=${encodeURIComponent(color.family)}`,
       },
       {
         "@type": "ListItem",
         position: 4,
         name: `${color.name} ${color.hex}`,
-        item: `https://colorarchive.me/colors/${color.id}/`,
+        item: `${SITE_URL}/colors/${color.id}/`,
       },
     ],
   };

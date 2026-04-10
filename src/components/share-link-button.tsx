@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLocale } from "@/src/components/locale-provider";
+import { SITE_URL } from "@/src/lib/site-config";
 
 interface ShareLinkButtonProps {
   href: string;
@@ -12,7 +13,7 @@ export function ShareOnXButton({ text, href }: { text: string; href: string }) {
   const { t } = useLocale();
 
   function handleShare() {
-    const url = new URL(href, typeof window !== "undefined" ? window.location.origin : "https://colorarchive.me").toString();
+    const url = new URL(href, typeof window !== "undefined" ? window.location.origin : SITE_URL).toString();
     const shareUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
     window.open(shareUrl, "_blank", "noopener,noreferrer,width=550,height=420");
   }

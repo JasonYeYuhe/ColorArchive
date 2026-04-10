@@ -7,13 +7,16 @@
  *   3. Callback page exchanges code for access_token via our backend proxy
  *   4. Token stored in localStorage; user picks a board; pin is created
  *
- * All Pinterest API calls go through our backend proxy at api.colorarchive.me
+ * All Pinterest API calls go through our backend proxy
  * to avoid CORS issues (Pinterest API does not support browser-origin requests).
  */
 
+import { SITE_URL } from "@/src/lib/site-config";
+import { API_URL } from "@/src/lib/api-config";
+
 const PINTEREST_APP_ID = "1559553";
-const REDIRECT_URI = "https://colorarchive.me/pinterest/callback/";
-const API_PROXY = "https://api.colorarchive.me/pinterest";
+const REDIRECT_URI = `${SITE_URL}/pinterest/callback/`;
+const API_PROXY = `${API_URL}/pinterest`;
 
 const SCOPES = "boards:read,pins:read,pins:write,boards:write";
 const LS_KEY = "colorarchive-pinterest-token";

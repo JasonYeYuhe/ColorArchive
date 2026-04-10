@@ -5,6 +5,7 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { UseCaseDetailPage } from "@/src/components/use-case-detail-page";
 import { useCases, getUseCaseById } from "@/src/lib/use-cases";
 import { getCollectionById } from "@/src/lib/collections";
+import { SITE_URL } from "@/src/lib/site-config";
 
 interface UseCaseDetailRouteProps {
   params: Promise<{ slug: string }>;
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: UseCaseDetailRouteProps): Pro
     openGraph: {
       title: `${useCase.title} Color Palettes | ColorArchive`,
       description: useCase.tagline,
-      images: ["https://colorarchive.me/og-image-v1.png"],
+      images: [`${SITE_URL}/og-image-v1.png`],
     },
   };
 }
@@ -44,21 +45,21 @@ export default async function UseCaseDetailRoute({ params }: UseCaseDetailRouteP
       "@type": "Article",
       headline: `${useCase.title} Color Palettes — Design Guide`,
       description: `${useCase.tagline}. ${useCase.description.slice(0, 150)}...`,
-      url: `https://colorarchive.me/use-cases/${useCase.id}/`,
+      url: `${SITE_URL}/use-cases/${useCase.id}/`,
       publisher: {
         "@type": "Organization",
         name: "ColorArchive",
-        url: "https://colorarchive.me",
-        logo: "https://colorarchive.me/og-image-v1.png",
+        url: SITE_URL,
+        logo: `${SITE_URL}/og-image-v1.png`,
       },
     },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-        { "@type": "ListItem", position: 2, name: "Use Cases", item: "https://colorarchive.me/use-cases/" },
-        { "@type": "ListItem", position: 3, name: useCase.title, item: `https://colorarchive.me/use-cases/${useCase.id}/` },
+        { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Use Cases", item: `${SITE_URL}/use-cases/` },
+        { "@type": "ListItem", position: 3, name: useCase.title, item: `${SITE_URL}/use-cases/${useCase.id}/` },
       ],
     },
   ];

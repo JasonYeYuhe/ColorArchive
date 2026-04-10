@@ -12,6 +12,7 @@ import {
   setReturnPath,
 } from "@/src/lib/pinterest";
 import type { ColorRecord } from "@/src/types/color";
+import { SITE_URL } from "@/src/lib/site-config";
 
 /* ── Pinterest icon (simplified P logo) ─────────────────── */
 function PinterestIcon({ className }: { className?: string }) {
@@ -218,9 +219,9 @@ export function PinterestSaveButton({ color }: { color: ColorRecord }) {
     if (!token) return;
     setSaving(true);
     try {
-      const pageUrl = `https://colorarchive.me/colors/${color.id}/`;
+      const pageUrl = `${SITE_URL}/colors/${color.id}/`;
       // Use the OG image as pin image
-      const imageUrl = `https://colorarchive.me/colors/${color.id}/opengraph-image`;
+      const imageUrl = `${SITE_URL}/colors/${color.id}/opengraph-image`;
 
       await createPin({
         token,

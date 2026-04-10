@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { FamousPalettesPage } from "@/src/components/famous-palettes-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: {
@@ -17,13 +18,13 @@ export const metadata: Metadata = {
     title: "Famous Color Palettes — Iconic Brand, Art & Film Colors",
     description:
       "35+ iconic palettes from Google, Apple, Bauhaus, The Matrix, and more. With hex codes, history, and cultural context.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Famous Color Palettes — Iconic Brand, Art & Film Colors",
     description:
       "35+ iconic palettes from Google, Apple, Bauhaus, The Matrix, and more. Copy hex codes, explore history.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -33,7 +34,7 @@ const structuredData = {
   name: "Famous Color Palettes — Iconic Brand, Art & Film Colors",
   description:
     "A reference library of 35+ iconic color palettes from famous brands, art movements, films, design systems, and fashion trends — with hex codes and cultural context.",
-  url: "https://colorarchive.me/famous-palettes/",
+  url: `${SITE_URL}/famous-palettes/`,
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -41,13 +42,13 @@ const structuredData = {
         "@type": "ListItem",
         position: 1,
         name: "ColorArchive",
-        item: "https://colorarchive.me/",
+        item: `${SITE_URL}/`,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Famous Palettes",
-        item: "https://colorarchive.me/famous-palettes/",
+        item: `${SITE_URL}/famous-palettes/`,
       },
     ],
   },

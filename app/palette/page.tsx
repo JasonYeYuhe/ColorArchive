@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { PalettePage } from "@/src/components/palette-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Color Palette Builder — Design & Export Palettes | ColorArchive" },
@@ -13,12 +14,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Color Palette Builder — Design & Export Palettes | ColorArchive",
     description: "Build custom color palettes with drag and drop. Export to CSS variables, Tailwind config, JSON, or Figma tokens. Share palettes with a link.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Color Palette Builder — Design & Export Palettes | ColorArchive",
     description: "Build custom color palettes with drag and drop. Export to CSS variables, Tailwind config, JSON, or Figma tokens. Share palettes with a link.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -26,8 +27,8 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-    { "@type": "ListItem", position: 2, name: "Palette Builder", item: "https://colorarchive.me/palette/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Palette Builder", item: `${SITE_URL}/palette/` },
   ],
 };
 

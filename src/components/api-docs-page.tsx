@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { CopyButton } from "@/src/components/copy-button";
+import { SITE_URL } from "@/src/lib/site-config";
 
 // ─── Try-it panel ────────────────────────────────────────────────────────────
 
@@ -166,9 +167,9 @@ export function ApiDocsPage() {
           Base URL
         </span>
         <code className="font-mono text-sm text-neutral-800 dark:text-neutral-200">
-          https://colorarchive.me/api
+          {`${SITE_URL}/api`}
         </code>
-        <CopyButton value="https://colorarchive.me/api" label="Copy" variant="compact" copiedLabel="Copied" className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950" />
+        <CopyButton value={`${SITE_URL}/api`} label="Copy" variant="compact" copiedLabel="Copied" className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950" />
       </div>
 
       <div className="space-y-10">
@@ -256,7 +257,7 @@ export function ApiDocsPage() {
                 JavaScript / fetch
               </div>
               <pre className="rounded-xl bg-neutral-50 p-4 text-xs leading-relaxed text-neutral-700 dark:bg-neutral-900/60 dark:text-neutral-300">
-                <code>{`const res = await fetch("https://colorarchive.me/api/colors?q=sunset&limit=10");
+                <code>{`const res = await fetch("${SITE_URL}/api/colors?q=sunset&limit=10");
 const { colors } = await res.json();
 console.log(colors[0].hex); // "#8B2500"`}</code>
               </pre>
@@ -266,7 +267,7 @@ console.log(colors[0].hex); // "#8B2500"`}</code>
                 curl
               </div>
               <pre className="rounded-xl bg-neutral-50 p-4 text-xs leading-relaxed text-neutral-700 dark:bg-neutral-900/60 dark:text-neutral-300">
-                <code>{`curl "https://colorarchive.me/api/colors?family=Blue&sort=lightness&limit=5"`}</code>
+                <code>{`curl "${SITE_URL}/api/colors?family=Blue&sort=lightness&limit=5"`}</code>
               </pre>
             </div>
           </div>

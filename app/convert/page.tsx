@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ColorConverterPage } from "@/src/components/color-converter-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Color Converter — HEX, RGB, HSL, HSB, CMYK | ColorArchive" },
@@ -15,13 +16,13 @@ export const metadata: Metadata = {
     title: "Color Converter — HEX, RGB, HSL, HSB, CMYK | ColorArchive",
     description:
       "Free online color converter. Instantly convert any color between HEX, RGB, HSL, HSB/HSV, and CMYK formats with live preview.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Color Converter — HEX to RGB, HSL, HSB, CMYK | ColorArchive",
     description:
       "Free online color converter. Convert HEX, RGB, HSL, HSB, and CMYK instantly with live preview.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -32,7 +33,7 @@ const converterStructuredData = {
   applicationCategory: "DesignApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  url: "https://colorarchive.me/convert/",
+  url: `${SITE_URL}/convert/`,
   description:
     "Free online color converter. Convert any color between HEX, RGB, HSL, HSB/HSV, and CMYK formats with instant live preview.",
 };
@@ -41,8 +42,8 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-    { "@type": "ListItem", position: 2, name: "Color Converter", item: "https://colorarchive.me/convert/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Color Converter", item: `${SITE_URL}/convert/` },
   ],
 };
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ProPage } from "@/src/components/pro-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 const structuredData = [
   {
@@ -10,7 +11,7 @@ const structuredData = [
     name: "ColorArchive Pro",
     description:
       "Unlock unlimited AI palette generations, full exports, WCAG reports, and more with ColorArchive Pro.",
-    url: "https://colorarchive.me/pro/",
+    url: `${SITE_URL}/pro/`,
     applicationCategory: "DesignApplication",
     operatingSystem: "Web",
     offers: [
@@ -19,21 +20,21 @@ const structuredData = [
         price: "499",
         priceCurrency: "JPY",
         name: "Monthly",
-        url: "https://colorarchive.me/pro/",
+        url: `${SITE_URL}/pro/`,
       },
       {
         "@type": "Offer",
         price: "3999",
         priceCurrency: "JPY",
         name: "Yearly",
-        url: "https://colorarchive.me/pro/",
+        url: `${SITE_URL}/pro/`,
       },
       {
         "@type": "Offer",
         price: "9999",
         priceCurrency: "JPY",
         name: "Lifetime",
-        url: "https://colorarchive.me/pro/",
+        url: `${SITE_URL}/pro/`,
       },
     ],
   },
@@ -41,8 +42,8 @@ const structuredData = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-      { "@type": "ListItem", position: 2, name: "Pro", item: "https://colorarchive.me/pro/" },
+      { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Pro", item: `${SITE_URL}/pro/` },
     ],
   },
 ];

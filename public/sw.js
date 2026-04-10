@@ -32,7 +32,7 @@ self.addEventListener("fetch", (event) => {
   const { request } = event;
 
   // Skip non-GET, non-http(s), and API requests
-  if (request.method !== "GET" || !request.url.startsWith("http") || request.url.includes("/api/") || request.url.includes("api.colorarchive.me")) {
+  if (request.method !== "GET" || !request.url.startsWith("http") || request.url.includes("/api/") || request.url.includes("api.colorarchive.")) {
     return;
   }
 

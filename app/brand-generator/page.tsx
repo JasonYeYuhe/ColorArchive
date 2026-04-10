@@ -4,6 +4,7 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { BrandGeneratorPage } from "@/src/components/brand-generator-page";
 import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "AI Brand Color Generator — Generate Your Brand Palette | ColorArchive" },
@@ -14,13 +15,13 @@ export const metadata: Metadata = {
     title: "AI Brand Color Generator | ColorArchive",
     description:
       "Describe your brand and get a complete AI-generated brand palette with primary, accent, and neutral colors. Free to try.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "AI Brand Color Generator | ColorArchive",
     description:
       "Input your brand keywords and get a 6-color AI-generated palette with rationale for every color.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -31,7 +32,7 @@ const structuredData = {
   applicationCategory: "DesignApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  url: "https://colorarchive.me/brand-generator/",
+  url: `${SITE_URL}/brand-generator/`,
   description:
     "Describe your brand and let AI generate a full 6-color brand palette — primary, secondary, neutrals, and highlight. Get hex codes, names, and rationale for every color.",
 };
@@ -40,8 +41,8 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-    { "@type": "ListItem", position: 2, name: "Brand Generator", item: "https://colorarchive.me/brand-generator/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Brand Generator", item: `${SITE_URL}/brand-generator/` },
   ],
 };
 

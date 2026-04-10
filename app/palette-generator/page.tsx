@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { PaletteGeneratorPage } from "@/src/components/palette-generator-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Free Color Palette Generator — Create & Export | ColorArchive" },
@@ -11,12 +12,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Free Color Palette Generator — Create & Export | ColorArchive",
     description: "Generate beautiful color palettes instantly. Choose complementary, analogous, or triadic harmonies. Export to CSS, Tailwind, JSON. Free online tool, no sign-up.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Free Color Palette Generator — Create & Export | ColorArchive",
     description: "Generate beautiful color palettes instantly. Choose complementary, analogous, or triadic harmonies. Export to CSS, Tailwind, JSON. Free online tool, no sign-up.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -27,13 +28,13 @@ const structuredData = {
   applicationCategory: "DesignApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "JPY" },
-  url: "https://colorarchive.me/palette-generator/",
+  url: `${SITE_URL}/palette-generator/`,
   description: "Generate harmonious color palettes from any seed color with complementary, analogous, triadic, and split-complementary harmonies.",
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://colorarchive.me" },
-      { "@type": "ListItem", position: 2, name: "Palette Generator", item: "https://colorarchive.me/palette-generator/" },
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Palette Generator", item: `${SITE_URL}/palette-generator/` },
     ],
   },
 };

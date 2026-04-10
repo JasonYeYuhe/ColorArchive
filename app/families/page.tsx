@@ -4,6 +4,7 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
+import { SITE_URL } from "@/src/lib/site-config";
 
 const structuredData = [
   {
@@ -12,14 +13,14 @@ const structuredData = [
     name: "Color Families — ColorArchive",
     description:
       "Explore hex colors by hue family — Red, Orange, Yellow, Green, Teal, Blue, Purple, and Pink. Each family page includes all shades, tones, and design-ready swatches.",
-    url: "https://colorarchive.me/families/",
+    url: `${SITE_URL}/families/`,
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-      { "@type": "ListItem", position: 2, name: "Color Families", item: "https://colorarchive.me/families/" },
+      { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Color Families", item: `${SITE_URL}/families/` },
     ],
   },
 ];
@@ -31,10 +32,10 @@ export const metadata: Metadata = {
     canonical: "/families/",
   },
   openGraph: {
-    images: ["https://colorarchive.me/generated/og/families/index.svg"],
+    images: [`${SITE_URL}/generated/og/families/index.svg`],
   },
   twitter: {
-    images: ["https://colorarchive.me/generated/og/families/index.svg"],
+    images: [`${SITE_URL}/generated/og/families/index.svg`],
   },
 };
 

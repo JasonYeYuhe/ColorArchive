@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { colors } from "@/src/data/colors";
 import { hexToRgb, rgbToHsl } from "@/src/lib/color-convert";
 import { getColorFamily } from "@/src/lib/color-filter";
+import { SITE_URL } from "@/src/lib/site-config";
 import { findClosestArchiveColor, getNearestColors } from "@/src/lib/color-relationships";
 
 export function EmbedWidget() {
@@ -190,7 +191,7 @@ export function EmbedWidget() {
             {related.map((c) => (
               <a
                 key={c.id}
-                href={`https://colorarchive.me/colors/${c.id}/`}
+                href={`${SITE_URL}/colors/${c.id}/`}
                 target="_blank"
                 rel="noopener noreferrer"
                 title={`${c.name} ${c.hex}`}
@@ -213,7 +214,7 @@ export function EmbedWidget() {
       {/* Powered by */}
       <div style={{ textAlign: "center", marginTop: 4 }}>
         <a
-          href="https://colorarchive.me?ref=embed"
+          href="${SITE_URL}?ref=embed"
           target="_blank"
           rel="noopener noreferrer"
           style={{

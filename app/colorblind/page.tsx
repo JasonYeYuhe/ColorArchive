@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ColorBlindSimulatorPage } from "@/src/components/colorblind-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Color Blindness Simulator — Test Color Accessibility | ColorArchive" },
@@ -16,13 +17,13 @@ export const metadata: Metadata = {
     title: "Color Blindness Simulator — Test Color Accessibility | ColorArchive",
     description:
       "Simulate how colors appear with protanopia, deuteranopia, tritanopia, and achromatopsia. Test palettes for color blindness accessibility. Free online tool.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Color Blindness Simulator — Test Color Accessibility | ColorArchive",
     description:
       "Simulate how colors appear with protanopia, deuteranopia, tritanopia, and achromatopsia. Test palettes for color blindness accessibility. Free online tool.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -33,7 +34,7 @@ const toolStructuredData = {
   applicationCategory: "DesignApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  url: "https://colorarchive.me/colorblind/",
+  url: `${SITE_URL}/colorblind/`,
   description:
     "Simulate how colors appear to people with deuteranopia, protanopia, tritanopia, and achromatopsia. Free color accessibility tool for designers.",
 };
@@ -42,12 +43,12 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
     {
       "@type": "ListItem",
       position: 2,
       name: "Color Blindness Simulator",
-      item: "https://colorarchive.me/colorblind/",
+      item: `${SITE_URL}/colorblind/`,
     },
   ],
 };

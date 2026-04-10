@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ApiDocsPage } from "@/src/components/api-docs-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Color API Documentation — ColorArchive" },
@@ -19,9 +20,9 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-    { "@type": "ListItem", position: 2, name: "Tools", item: "https://colorarchive.me/tools/" },
-    { "@type": "ListItem", position: 3, name: "Color API", item: "https://colorarchive.me/api-docs/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Tools", item: `${SITE_URL}/tools/` },
+    { "@type": "ListItem", position: 3, name: "Color API", item: `${SITE_URL}/api-docs/` },
   ],
 };
 

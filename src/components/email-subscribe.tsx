@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useLocale } from "@/src/components/locale-provider";
+import { API_URL } from "@/src/lib/api-config";
 
 type SubscribeState = "idle" | "loading" | "success" | "error";
 
@@ -17,7 +18,7 @@ export function EmailSubscribe() {
     setState("loading");
     try {
       const res = await fetch(
-        "https://api.colorarchive.me/api/newsletter/subscribe",
+        `${API_URL}/api/newsletter/subscribe`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

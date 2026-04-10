@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { SITE_URL } from "@/src/lib/site-config";
 
-const EMBED_CODE = `<iframe src="https://colorarchive.me/embed/" width="360" height="500" frameborder="0" style="border-radius:12px;border:1px solid #e5e7eb"></iframe>`;
+const EMBED_CODE = `<iframe src="${SITE_URL}/embed/" width="360" height="500" frameborder="0" style="border-radius:12px;border:1px solid #e5e7eb"></iframe>`;
 
 export function EmbedCodePage() {
   const [copied, setCopied] = useState(false);
@@ -82,7 +83,7 @@ export function EmbedCodePage() {
               parameter with a hex code (without the #):
             </p>
             <pre className="overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
-              <code>{`<iframe src="https://colorarchive.me/embed/?color=FF5733" width="360" height="500" frameborder="0" style="border-radius:12px;border:1px solid #e5e7eb"></iframe>`}</code>
+              <code>{`<iframe src="${SITE_URL}/embed/?color=FF5733" width="360" height="500" frameborder="0" style="border-radius:12px;border:1px solid #e5e7eb"></iframe>`}</code>
             </pre>
           </div>
 

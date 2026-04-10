@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { WordColorGeneratorPage } from "@/src/components/word-color-generator-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Word to Color Generator — Turn Text into Colors | ColorArchive" },
@@ -12,12 +13,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Word to Color Generator — Turn Text into Colors | ColorArchive",
     description: "Convert any word or phrase into a unique hex color. Deterministic algorithm — same text always produces the same color with 5 tonal variants. Free tool.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Word to Color Generator — Turn Text into Colors | ColorArchive",
     description: "Convert any word or phrase into a unique hex color. Deterministic algorithm — same text always produces the same color with 5 tonal variants. Free tool.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -28,7 +29,7 @@ const generatorStructuredData = {
   applicationCategory: "DesignApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  url: "https://colorarchive.me/word-to-color/",
+  url: `${SITE_URL}/word-to-color/`,
   description:
     "Type any word or phrase and instantly get a unique hex color code. A deterministic word-to-color algorithm — same word always produces the same color, with 5 tonal variants.",
 };
@@ -37,8 +38,8 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-    { "@type": "ListItem", position: 2, name: "Word → Color", item: "https://colorarchive.me/word-to-color/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Word → Color", item: `${SITE_URL}/word-to-color/` },
   ],
 };
 

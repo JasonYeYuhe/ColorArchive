@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import stories from "@/src/data/color-stories.json";
+import { SITE_URL } from "@/src/lib/site-config";
 
 const structuredData = [
   {
@@ -11,14 +12,14 @@ const structuredData = [
     name: "Color Stories | ColorArchive",
     description:
       "Explore the history, psychology, and cultural significance of every color family. From the passion of Red to the calm of Teal.",
-    url: "https://colorarchive.me/stories/",
+    url: `${SITE_URL}/stories/`,
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-      { "@type": "ListItem", position: 2, name: "Color Stories", item: "https://colorarchive.me/stories/" },
+      { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Color Stories", item: `${SITE_URL}/stories/` },
     ],
   },
 ];
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Color Stories | ColorArchive",
     description: "The history and psychology behind every color family.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 

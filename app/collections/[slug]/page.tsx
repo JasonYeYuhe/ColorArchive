@@ -4,6 +4,7 @@ import { CollectionDetailPage } from "@/src/components/collection-detail-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { collections, getCollectionById } from "@/src/lib/collections";
+import { SITE_URL } from "@/src/lib/site-config";
 
 interface CollectionDetailRouteProps {
   params: Promise<{
@@ -36,10 +37,10 @@ export async function generateMetadata({
       canonical: `/collections/${collection.id}/`,
     },
     openGraph: {
-      images: [`https://colorarchive.me/generated/og/collections/${collection.id}.svg`],
+      images: [`${SITE_URL}/generated/og/collections/${collection.id}.svg`],
     },
     twitter: {
-      images: [`https://colorarchive.me/generated/og/collections/${collection.id}.svg`],
+      images: [`${SITE_URL}/generated/og/collections/${collection.id}.svg`],
     },
   };
 }
@@ -61,7 +62,7 @@ export default async function CollectionDetailRoute({
       name: collection.title,
       description: collection.description,
       keywords: [...collection.tags, ...collection.promptWords].join(", "),
-      url: `https://colorarchive.me/collections/${collection.id}/`,
+      url: `${SITE_URL}/collections/${collection.id}/`,
     },
     {
       "@context": "https://schema.org",
@@ -72,7 +73,7 @@ export default async function CollectionDetailRoute({
       itemListElement: collection.palette.map((color, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `https://colorarchive.me/colors/${color.id}/`,
+        url: `${SITE_URL}/colors/${color.id}/`,
         name: color.name,
       })),
     },
@@ -80,9 +81,9 @@ export default async function CollectionDetailRoute({
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-        { "@type": "ListItem", position: 2, name: "Collections", item: "https://colorarchive.me/collections/" },
-        { "@type": "ListItem", position: 3, name: collection.title, item: `https://colorarchive.me/collections/${collection.id}/` },
+        { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Collections", item: `${SITE_URL}/collections/` },
+        { "@type": "ListItem", position: 3, name: collection.title, item: `${SITE_URL}/collections/${collection.id}/` },
       ],
     },
   ];

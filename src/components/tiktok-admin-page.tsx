@@ -1,4 +1,5 @@
 "use client";
+import { SITE_URL } from "@/src/lib/site-config";
 
 import { useState, useCallback } from "react";
 
@@ -122,7 +123,7 @@ export function TikTokAdminPage() {
                       <code className="rounded bg-neutral-100 px-1.5 py-0.5">video.upload</code>
                     </p>
                     <p className="mt-1">
-                      → Redirect URI: <code className="rounded bg-neutral-100 px-1.5 py-0.5">https://colorarchive.me/api/auth/tiktok/callback</code>
+                      → Redirect URI: <code className="rounded bg-neutral-100 px-1.5 py-0.5">{`${SITE_URL}/api/auth/tiktok/callback`}</code>
                     </p>
                   </div>
                 </div>

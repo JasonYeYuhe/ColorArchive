@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ColorIndustriesPage } from "@/src/components/color-industries-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: {
@@ -17,13 +18,13 @@ export const metadata: Metadata = {
     title: "Color Palettes by Industry — Brand Color Psychology Guide",
     description:
       "Industry-specific color palettes for designers: Technology blues, Food & Restaurant reds, Healthcare teals, Fashion blacks, Outdoor greens, Finance navy, Education blues, Beauty roses, Architecture terracottas. With brand psychology and design tips.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Color Palettes by Industry — Brand Color Psychology",
     description:
       "9 industry color palettes: Tech, Food, Healthcare, Luxury, Outdoor, Finance, Education, Beauty, Architecture — with brand context and design guidance.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -33,7 +34,7 @@ const structuredData = {
   name: "Color Palettes by Industry",
   description:
     "Curated color palettes for 9 major design industries with brand psychology context, industry conventions, and practical design guidance.",
-  url: "https://colorarchive.me/industry/",
+  url: `${SITE_URL}/industry/`,
   mainEntity: {
     "@type": "ItemList",
     itemListElement: [
@@ -112,13 +113,13 @@ const breadcrumbData = {
       "@type": "ListItem",
       position: 1,
       name: "ColorArchive",
-      item: "https://colorarchive.me/",
+      item: `${SITE_URL}/`,
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Color by Industry",
-      item: "https://colorarchive.me/industry/",
+      item: `${SITE_URL}/industry/`,
     },
   ],
 };

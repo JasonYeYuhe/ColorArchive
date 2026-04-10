@@ -3,6 +3,7 @@ import { GuidesPage } from "@/src/components/guides-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { landingGuides } from "@/src/lib/guides";
+import { SITE_URL } from "@/src/lib/site-config";
 
 const structuredData = [
   {
@@ -11,14 +12,14 @@ const structuredData = [
     name: "Color Guides — Palettes, Tokens & Design Systems | ColorArchive",
     description:
       "290+ practical guides for color palettes, dark mode UI, Figma color tokens, Tailwind themes, brand color systems, and accessible design. Free tools and downloadable palettes included.",
-    url: "https://colorarchive.me/guides/",
+    url: `${SITE_URL}/guides/`,
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-      { "@type": "ListItem", position: 2, name: "Guides", item: "https://colorarchive.me/guides/" },
+      { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Guides", item: `${SITE_URL}/guides/` },
     ],
   },
 ];

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ColorTrendsPage } from "@/src/components/color-trends-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: {
@@ -17,13 +18,13 @@ export const metadata: Metadata = {
     title: "Color Trends 2026 — Forecast Palettes for Design, Fashion & Branding",
     description:
       "13 curated color trends shaping design in 2026 — from digital calm to neo vibrant. With hex codes, palettes, and design guidance.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Color Trends 2026 — Design Color Forecast",
     description:
       "13 curated color trends for 2026 with palettes, hex codes, and design guidance. From digital calm to neo vibrant.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -33,7 +34,7 @@ const structuredData = {
   name: "Color Trends 2026 — Forecast Palettes for Design, Fashion & Branding",
   description:
     "A curated reference of 13 defining color trends of 2026 across fashion, interior design, technology, and branding — with hex-code palettes, cultural context, and practical design guidance.",
-  url: "https://colorarchive.me/trends/",
+  url: `${SITE_URL}/trends/`,
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -41,13 +42,13 @@ const structuredData = {
         "@type": "ListItem",
         position: 1,
         name: "ColorArchive",
-        item: "https://colorarchive.me/",
+        item: `${SITE_URL}/`,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Color Trends 2026",
-        item: "https://colorarchive.me/trends/",
+        item: `${SITE_URL}/trends/`,
       },
     ],
   },

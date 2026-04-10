@@ -4,6 +4,7 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ColorStoryPage } from "@/src/components/color-story-page";
 import stories from "@/src/data/color-stories.json";
+import { SITE_URL } from "@/src/lib/site-config";
 
 type Story = {
   slug: string;
@@ -40,7 +41,7 @@ export async function generateMetadata({
     openGraph: {
       title: story.headline,
       description: story.summary,
-      images: ["https://colorarchive.me/og-image-v1.png"],
+      images: [`${SITE_URL}/og-image-v1.png`],
     },
   };
 }
@@ -60,21 +61,21 @@ export default async function StoryRoute({
       "@type": "Article",
       headline: story.headline,
       description: story.summary,
-      url: `https://colorarchive.me/stories/${slug}/`,
+      url: `${SITE_URL}/stories/${slug}/`,
       publisher: {
         "@type": "Organization",
         name: "ColorArchive",
-        url: "https://colorarchive.me",
-        logo: "https://colorarchive.me/og-image-v1.png",
+        url: SITE_URL,
+        logo: `${SITE_URL}/og-image-v1.png`,
       },
     },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-        { "@type": "ListItem", position: 2, name: "Color Stories", item: "https://colorarchive.me/stories/" },
-        { "@type": "ListItem", position: 3, name: story.name, item: `https://colorarchive.me/stories/${slug}/` },
+        { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Color Stories", item: `${SITE_URL}/stories/` },
+        { "@type": "ListItem", position: 3, name: story.name, item: `${SITE_URL}/stories/${slug}/` },
       ],
     },
   ];

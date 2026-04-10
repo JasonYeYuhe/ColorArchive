@@ -1,4 +1,5 @@
 "use client";
+import { SITE_URL } from "@/src/lib/site-config";
 
 import Link from "next/link";
 import { useEffect, useState, useMemo, useCallback, Suspense } from "react";
@@ -518,7 +519,7 @@ function PaletteContent() {
           value={importValue}
           onChange={(event) => setImportValue(event.target.value)}
           placeholder={`Examples:
-https://colorarchive.me/palette?ids=orchid-bloom-clear,rose-core-soft
+/palette?ids=orchid-bloom-clear,rose-core-soft
 
 orchid-bloom-clear
 rose-core-soft

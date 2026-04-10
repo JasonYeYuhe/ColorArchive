@@ -4,6 +4,7 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { TagNotesPage } from "@/src/components/tag-notes-page";
 import { getAllTags, getIssuesByTag, slugToTag, tagToSlug } from "@/src/lib/newsletter-issues";
+import { SITE_URL } from "@/src/lib/site-config";
 
 interface TagPageProps {
   params: Promise<{ tag: string }>;
@@ -32,12 +33,12 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
     openGraph: {
       title: `${tag} — Color Notes & Updates | ColorArchive`,
       description,
-      images: ["https://colorarchive.me/og-image-v1.png"],
+      images: [`${SITE_URL}/og-image-v1.png`],
     },
     twitter: {
       title: `${tag} — Color Notes`,
       description,
-      images: ["https://colorarchive.me/og-image-v1.png"],
+      images: [`${SITE_URL}/og-image-v1.png`],
     },
   };
 }
@@ -55,16 +56,16 @@ export default async function TagRoute({ params }: TagPageProps) {
     "@type": "CollectionPage",
     name: `${tag} — Color Notes & Updates`,
     description: `${issues.length} ColorArchive note${issues.length !== 1 ? "s" : ""} tagged with ${tag}. Discover color palettes, design insights, and curated swatches.`,
-    url: `https://colorarchive.me/notes/tags/${tagSlug}/`,
+    url: `${SITE_URL}/notes/tags/${tagSlug}/`,
   };
 
   const breadcrumbData = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-      { "@type": "ListItem", position: 2, name: "Notes", item: "https://colorarchive.me/notes/" },
-      { "@type": "ListItem", position: 3, name: tag, item: `https://colorarchive.me/notes/tags/${tagSlug}/` },
+      { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Notes", item: `${SITE_URL}/notes/` },
+      { "@type": "ListItem", position: 3, name: tag, item: `${SITE_URL}/notes/tags/${tagSlug}/` },
     ],
   };
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { PalettePreviewPage } from "@/src/components/palette-preview-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Palette UI Preview | ColorArchive" },
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Palette UI Preview | ColorArchive",
     description: "Visualize any palette on real UI components in seconds.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 

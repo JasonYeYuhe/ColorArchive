@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ValidatePage } from "@/src/components/validate-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Palette Validator — Check Contrast & Accessibility | ColorArchive" },
@@ -15,13 +16,13 @@ export const metadata: Metadata = {
     title: "Palette Validator — Check Contrast & Accessibility | ColorArchive",
     description:
       "Validate any color palette: contrast matrix, harmony detection, colorblind simulation, and quality score. Comprehensive palette accessibility checker. Free.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Palette Validator — Check Contrast & Accessibility | ColorArchive",
     description:
       "Validate any color palette: contrast matrix, harmony detection, colorblind simulation, and quality score. Comprehensive palette accessibility checker. Free.",
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -29,9 +30,9 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-    { "@type": "ListItem", position: 2, name: "Tools", item: "https://colorarchive.me/tools/" },
-    { "@type": "ListItem", position: 3, name: "Palette Validator", item: "https://colorarchive.me/validate/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Tools", item: `${SITE_URL}/tools/` },
+    { "@type": "ListItem", position: 3, name: "Palette Validator", item: `${SITE_URL}/validate/` },
   ],
 };
 
@@ -39,7 +40,7 @@ const webAppData = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "Palette Validator",
-  url: "https://colorarchive.me/validate/",
+  url: `${SITE_URL}/validate/`,
   applicationCategory: "DesignApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },

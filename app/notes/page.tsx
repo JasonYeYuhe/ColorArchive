@@ -3,6 +3,7 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { NotesPage } from "@/src/components/notes-page";
 import { newsletterIssues } from "@/src/lib/newsletter-issues";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Color Notes & Newsletter",
@@ -18,15 +19,15 @@ const collectionData = {
   name: "Color Notes & Newsletter",
   description:
     "Monthly notes from ColorArchive — featuring curated palettes, WCAG accessibility tips, seasonal color trends, and design token updates. Free to read.",
-  url: "https://colorarchive.me/notes/",
+  url: `${SITE_URL}/notes/`,
 };
 
 const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-    { "@type": "ListItem", position: 2, name: "Notes", item: "https://colorarchive.me/notes/" },
+    { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Notes", item: `${SITE_URL}/notes/` },
   ],
 };
 

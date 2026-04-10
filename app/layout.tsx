@@ -12,6 +12,8 @@ import { CopyUpsellToast } from "@/src/components/copy-upsell-toast";
 import { ErrorBoundary } from "@/src/components/error-boundary";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
+import { SITE_URL } from "@/src/lib/site-config";
+import { API_URL } from "@/src/lib/api-config";
 import "./globals.css";
 
 const siteTitle = "ColorArchive";
@@ -19,7 +21,7 @@ const siteDescription =
   "ColorArchive — 5,400+ curated hex color codes organized by family and hue. Search, copy, build palettes, and export design tokens for Figma, CSS, and Tailwind.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://colorarchive.me"),
+  metadataBase: new URL(SITE_URL),
   category: "design",
   title: {
     default: siteTitle,
@@ -45,12 +47,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteTitle,
     description: siteDescription,
-    url: "https://colorarchive.me",
+    url: SITE_URL,
     siteName: siteTitle,
     type: "website",
     images: [
       {
-        url: "https://colorarchive.me/og-image-v1.png",
+        url: `${SITE_URL}/og-image-v1.png`,
         width: 1200,
         height: 630,
         alt: "ColorArchive logo and social preview",
@@ -61,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["https://colorarchive.me/og-image-v1.png"],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   robots: {
     index: true,
@@ -116,9 +118,9 @@ export default function RootLayout({
       <head>
         <meta name="google-site-verification" content="QMvWjTTdo973FLMy5VZMA4lDZcirOQK8LUjLAHFD5eo" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://api.colorarchive.me" />
+        <link rel="preconnect" href={API_URL} />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://api.colorarchive.me" />
+        <link rel="dns-prefetch" href={API_URL} />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-11416473237"
           strategy="afterInteractive"

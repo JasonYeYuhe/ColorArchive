@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ColorComparePage } from "@/src/components/color-compare-page";
+import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Compare Two Colors Side by Side | ColorArchive" },
@@ -17,13 +18,13 @@ const structuredData = {
   applicationCategory: "DesignApplication",
   operatingSystem: "Any",
   offers: { "@type": "Offer", price: "0", priceCurrency: "JPY" },
-  url: "https://colorarchive.me/compare/",
+  url: `${SITE_URL}/compare/`,
   description: "Compare any two colors side by side with HEX, RGB, HSL values and WCAG contrast ratio.",
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://colorarchive.me" },
-      { "@type": "ListItem", position: 2, name: "Compare Colors", item: "https://colorarchive.me/compare/" },
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Compare Colors", item: `${SITE_URL}/compare/` },
     ],
   },
 };

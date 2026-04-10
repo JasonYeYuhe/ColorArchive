@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { NoteDetailPage } from "@/src/components/note-detail-page";
+import { SITE_URL } from "@/src/lib/site-config";
 import {
   getNewsletterIssue,
   getNewsletterNeighbors,
@@ -37,17 +38,17 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
     openGraph: {
       title: issue.title,
       description: issue.summary,
-      url: `https://colorarchive.me/notes/${issue.slug}/`,
+      url: `${SITE_URL}/notes/${issue.slug}/`,
       type: "article",
       publishedTime: issue.date,
       authors: ["ColorArchive"],
-      images: [`https://colorarchive.me/generated/og/notes/${issue.slug}.svg`],
+      images: [`${SITE_URL}/generated/og/notes/${issue.slug}.svg`],
     },
     twitter: {
       card: "summary_large_image",
       title: issue.title,
       description: issue.summary,
-      images: [`https://colorarchive.me/generated/og/notes/${issue.slug}.svg`],
+      images: [`${SITE_URL}/generated/og/notes/${issue.slug}.svg`],
     },
   };
 }
@@ -71,22 +72,22 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
       datePublished: issue.date,
       dateModified: issue.date,
       keywords: (issue.tags ?? []).join(", "),
-      url: `https://colorarchive.me/notes/${issue.slug}/`,
-      image: `https://colorarchive.me/generated/og/notes/${issue.slug}.svg`,
+      url: `${SITE_URL}/notes/${issue.slug}/`,
+      image: `${SITE_URL}/generated/og/notes/${issue.slug}.svg`,
       mainEntityOfPage: {
         "@type": "WebPage",
-        "@id": `https://colorarchive.me/notes/${issue.slug}/`,
+        "@id": `${SITE_URL}/notes/${issue.slug}/`,
       },
-      author: { "@type": "Organization", name: "ColorArchive", url: "https://colorarchive.me", logo: { "@type": "ImageObject", url: "https://colorarchive.me/icon-512.png" } },
-      publisher: { "@type": "Organization", name: "ColorArchive", url: "https://colorarchive.me", logo: { "@type": "ImageObject", url: "https://colorarchive.me/icon-512.png" } },
+      author: { "@type": "Organization", name: "ColorArchive", url: SITE_URL, logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png` } },
+      publisher: { "@type": "Organization", name: "ColorArchive", url: SITE_URL, logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png` } },
     },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-        { "@type": "ListItem", position: 2, name: "Notes", item: "https://colorarchive.me/notes/" },
-        { "@type": "ListItem", position: 3, name: issue.title, item: `https://colorarchive.me/notes/${issue.slug}/` },
+        { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Notes", item: `${SITE_URL}/notes/` },
+        { "@type": "ListItem", position: 3, name: issue.title, item: `${SITE_URL}/notes/${issue.slug}/` },
       ],
     },
   ];

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FamilyDetailPage } from "@/src/components/family-detail-page";
 import { SiteHeader } from "@/src/components/site-header";
+import { SITE_URL } from "@/src/lib/site-config";
 import {
   COLOR_FAMILY_PAGES,
   getCollectionsForFamily,
@@ -45,10 +46,10 @@ export async function generateMetadata({ params }: FamilyRouteProps): Promise<Me
       canonical: `/families/${page.slug}/`,
     },
     openGraph: {
-      images: [`https://colorarchive.me/generated/og/families/${page.slug}.svg`],
+      images: [`${SITE_URL}/generated/og/families/${page.slug}.svg`],
     },
     twitter: {
-      images: [`https://colorarchive.me/generated/og/families/${page.slug}.svg`],
+      images: [`${SITE_URL}/generated/og/families/${page.slug}.svg`],
     },
   };
 }
@@ -71,14 +72,14 @@ export default async function FamilyDetailRoute({ params }: FamilyRouteProps) {
       "@type": "CollectionPage",
       name: familyPage.title,
       description: familyPage.description,
-      url: `https://colorarchive.me/families/${getFamilySlug(family)}/`,
+      url: `${SITE_URL}/families/${getFamilySlug(family)}/`,
       mainEntity: {
         "@type": "ItemList",
         itemListElement: familyColors.slice(0, 24).map((color, index) => ({
           "@type": "ListItem",
           position: index + 1,
           name: `${color.name} ${color.hex}`,
-          url: `https://colorarchive.me/colors/${color.id}/`,
+          url: `${SITE_URL}/colors/${color.id}/`,
         })),
       },
     },
@@ -86,9 +87,9 @@ export default async function FamilyDetailRoute({ params }: FamilyRouteProps) {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "ColorArchive", item: "https://colorarchive.me/" },
-        { "@type": "ListItem", position: 2, name: "Color Families", item: "https://colorarchive.me/families/" },
-        { "@type": "ListItem", position: 3, name: familyPage.title, item: `https://colorarchive.me/families/${getFamilySlug(family)}/` },
+        { "@type": "ListItem", position: 1, name: "ColorArchive", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Color Families", item: `${SITE_URL}/families/` },
+        { "@type": "ListItem", position: 3, name: familyPage.title, item: `${SITE_URL}/families/${getFamilySlug(family)}/` },
       ],
     },
   ];
