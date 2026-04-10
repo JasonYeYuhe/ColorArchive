@@ -139,8 +139,8 @@ struct ProPaywallView: View {
                         .disabled(isRestoring || isPurchasing)
 
                         HStack(spacing: 16) {
-                            Link("Terms of Use", destination: URL(string: "https://colorarchive.me/terms/")!)
-                            Link("Privacy Policy", destination: URL(string: "https://colorarchive.me/privacy/")!)
+                            Link("Terms of Use", destination: URL(string: "https://colorarchive.org/terms/")!)
+                            Link("Privacy Policy", destination: URL(string: "https://colorarchive.org/privacy/")!)
                         }
                         .font(.caption2)
                         .foregroundStyle(.secondary)

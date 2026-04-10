@@ -172,7 +172,7 @@ struct MoodPaletteResult: Codable {
 }
 
 enum AIService {
-    static let baseURL = "https://api.colorarchive.me"
+    static let baseURL = "https://api.colorarchive.org"
 
     static func generateMoodPalette(prompt: String) async throws -> MoodPaletteResult {
         guard let url = URL(string: "\(baseURL)/ai/mood-palette") else { throw URLError(.badURL) }

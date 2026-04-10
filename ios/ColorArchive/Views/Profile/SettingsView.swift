@@ -55,7 +55,7 @@ struct SettingsView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                Link(destination: URL(string: "https://colorarchive.me/about/")!) {
+                Link(destination: URL(string: "https://colorarchive.org/about/")!) {
                     HStack {
                         Text("About Us")
                         Spacer()
@@ -64,7 +64,7 @@ struct SettingsView: View {
                     }
                 }
 
-                Link(destination: URL(string: "https://colorarchive.me/terms/")!) {
+                Link(destination: URL(string: "https://colorarchive.org/terms/")!) {
                     HStack {
                         Text("Terms of Service")
                         Spacer()

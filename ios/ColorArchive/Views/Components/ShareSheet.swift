@@ -59,7 +59,7 @@ struct ShareColorCard: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
-                Text("colorarchive.me")
+                Text("colorarchive.org")
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
             }
@@ -92,7 +92,7 @@ struct SharePaletteCard: View {
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
-                Text("colorarchive.me")
+                Text("colorarchive.org")
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
             }

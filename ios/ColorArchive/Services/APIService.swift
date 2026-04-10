@@ -1,7 +1,7 @@
 import Foundation
 
 enum APIService {
-    static let baseURL = "https://api.colorarchive.me"
+    static let baseURL = "https://api.colorarchive.org"
 
     struct AuthUser: Codable {
         let id: Int

@@ -183,15 +183,15 @@ struct ProfileView: View {
                         Label("Settings", systemImage: "gear")
                     }
 
-                    Link(destination: URL(string: "https://colorarchive.me")!) {
+                    Link(destination: URL(string: "https://colorarchive.org")!) {
                         Label("ColorArchive Web", systemImage: "globe")
                     }
 
-                    Link(destination: URL(string: "https://colorarchive.me/support/")!) {
+                    Link(destination: URL(string: "https://colorarchive.org/support/")!) {
                         Label("Support", systemImage: "questionmark.circle")
                     }
 
-                    Link(destination: URL(string: "https://colorarchive.me/privacy/")!) {
+                    Link(destination: URL(string: "https://colorarchive.org/privacy/")!) {
                         Label("Privacy Policy", systemImage: "hand.raised")
                     }
                 }
