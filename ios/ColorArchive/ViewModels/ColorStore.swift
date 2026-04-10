@@ -34,6 +34,7 @@ final class ColorStore {
             self.colors = generated
             self.buildHueIndex()
             self.isLoading = false
+            SpotlightIndexer.indexColors(generated)
         }
     }
 

@@ -3,6 +3,7 @@ import SwiftUI
 struct ColorBrowseView: View {
     @Environment(ColorStore.self) var colorStore
     @Environment(FavoritesStore.self) var favoritesStore
+    @Environment(RecentColorsStore.self) var recentColorsStore
     @State private var selectedColor: ColorRecord?
 
     private let columns = [
@@ -52,6 +53,40 @@ struct ColorBrowseView: View {
                         .pickerStyle(.menu)
                     }
                     .padding(.horizontal)
+
+                    // Recent colors
+                    if !recentColorsStore.recentIds.isEmpty {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Recent")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.secondary)
+                                .padding(.horizontal)
+
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 8) {
+                                    ForEach(recentColorsStore.recentColors(from: colorStore.colors).prefix(10)) { color in
+                                        Button { selectedColor = color } label: {
+                                            VStack(spacing: 4) {
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .fill(color.swiftUIColor)
+                                                    .frame(width: 48, height: 48)
+                                                    .overlay(
+                                                        RoundedRectangle(cornerRadius: 10)
+                                                            .strokeBorder(.black.opacity(0.06), lineWidth: 1)
+                                                    )
+                                                Text(color.hex)
+                                                    .font(.system(size: 9, design: .monospaced))
+                                                    .foregroundStyle(.secondary)
+                                            }
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+                        }
+                    }
 
                     if colorStore.isLoading {
                         ProgressView("Generating 5,446 colors...")

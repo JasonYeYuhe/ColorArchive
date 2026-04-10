@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import CoreSpotlight
 
 @main
 struct ColorArchiveApp: App {
@@ -9,6 +10,7 @@ struct ColorArchiveApp: App {
     @State private var authStore: AuthStore
     @State private var storeManager: StoreManager
     @State private var proAccess: ProAccessManager
+    @State private var spotlightColor: ColorRecord?
 
     init() {
         let auth = AuthStore()
@@ -38,6 +40,17 @@ struct ColorArchiveApp: App {
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                     authStore.checkSession()
                     Task { await storeManager.updatePurchasedProducts() }
+                }
+                .onContinueUserActivity(CSSearchableItemActionType) { activity in
+                    if let colorId = SpotlightIndexer.colorId(from: activity),
+                       let color = colorStore.color(byId: colorId) {
+                        spotlightColor = color
+                    }
+                }
+                .sheet(item: $spotlightColor) { color in
+                    NavigationStack {
+                        ColorDetailView(color: color)
+                    }
                 }
         }
     }
