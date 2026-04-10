@@ -165,7 +165,7 @@ final class StoreManager {
             "originalTransactionId": String(transaction.originalID),
             "transactionDate": transaction.purchaseDate.ISO8601Format(),
             "environment": transaction.environment.rawValue,
-            "signedTransaction": transaction.jwsRepresentation,
+            "signedTransaction": String(data: transaction.jsonRepresentation, encoding: .utf8) ?? "",
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
