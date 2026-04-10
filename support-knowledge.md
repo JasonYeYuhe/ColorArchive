@@ -4,7 +4,7 @@ This file is used by the automated support email system. It contains product inf
 
 ## About ColorArchive
 
-ColorArchive is a curated color reference library with 3,066 algorithmically generated colors across 36 hue families, 14 lightness bands, and 6 chroma levels. The website (colorarchive.me) offers:
+ColorArchive is a curated color reference library with 3,066 algorithmically generated colors across 36 hue families, 14 lightness bands, and 6 chroma levels. The website (colorarchive.org) offers:
 
 - Free browsing of all 3,066 colors with hex, HSL, RGB values
 - 68+ curated palette collections (editorial themes like "Quiet Luxury", "Nocturne Tech", etc.)
@@ -54,11 +54,11 @@ All products are digital downloads delivered instantly after payment via Stripe 
 
 ## Refund & Return Policy
 
-Digital products cannot be returned, exchanged, or cancelled after purchase due to their digital nature. If a product has defects, customers should contact support@colorarchive.me.
+Digital products cannot be returned, exchanged, or cancelled after purchase due to their digital nature. If a product has defects, customers should contact support@colorarchive.org.
 
 ## Free Resources
 
-- Free palette pack available at colorarchive.me/free-pack/ (no purchase required)
+- Free palette pack available at colorarchive.org/free-pack/ (no purchase required)
 - All 3,066 colors are freely browsable on the website
 - Color of the Day daily email newsletter
 - Weekly digest newsletter
@@ -78,7 +78,7 @@ Yes. All purchased packs include a commercial license for use in client and pers
 - Want everything? All Access Bundle (¥3,999) saves ~40%
 
 ### "Do you offer bulk/team pricing?"
-Contact support@colorarchive.me for team licensing inquiries.
+Contact support@colorarchive.org for team licensing inquiries.
 
 ### "I didn't receive my download"
 Check your spam/junk folder. The download link is sent to the email used at checkout. If still missing, reply with your order details and we'll resend.
@@ -91,8 +91,8 @@ Yes, Pro subscribers get API access for programmatic color lookups and palette g
 
 ## Contact
 
-- Email: support@colorarchive.me
-- Website: https://colorarchive.me
+- Email: support@colorarchive.org
+- Website: https://colorarchive.org
 
 ## Response Tone Guidelines
 

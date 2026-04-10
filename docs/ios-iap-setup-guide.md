@@ -232,8 +232,8 @@ After upload, the build takes ~5-15 minutes to process:
 Set up App Store Server Notifications V2 so Apple pushes subscription events (renewals, cancellations, refunds) to your server:
 
 1. In App Store Connect → App → General → App Store Server Notifications
-2. Set Production URL: `https://api.colorarchive.me/webhook/apple`
-3. Set Sandbox URL: `https://api.colorarchive.me/webhook/apple`
+2. Set Production URL: `https://api.colorarchive.org/webhook/apple`
+3. Set Sandbox URL: `https://api.colorarchive.org/webhook/apple`
 4. Implement the webhook endpoint (not yet implemented — handle `DID_RENEW`, `DID_CHANGE_RENEWAL_STATUS`, `REFUND`, etc.)
 
 ### Regional Pricing Adjustments

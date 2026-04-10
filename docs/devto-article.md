@@ -5,7 +5,7 @@ description: "A deep dive into how ColorArchive generates a complete color syste
 tags: [color, design, nextjs, webdev]
 ---
 
-Most color tools ship with a hand-picked palette of a few hundred swatches stored in a database or JSON file. We took a different approach with [ColorArchive](https://colorarchive.me): every single color is generated at build time from three small arrays and some HSL math. No database, no API call, no JSON blob checked into the repo. Just code.
+Most color tools ship with a hand-picked palette of a few hundred swatches stored in a database or JSON file. We took a different approach with [ColorArchive](https://colorarchive.org): every single color is generated at build time from three small arrays and some HSL math. No database, no API call, no JSON blob checked into the repo. Just code.
 
 Here's how — and what we learned along the way.
 
@@ -130,4 +130,4 @@ Once your colors are algorithmic, interesting things become possible:
 
 ColorArchive is free to browse, no signup required. Explore the full spectrum, grab export snippets for your stack, or build palettes with the interactive tools.
 
-Check it out at [colorarchive.me](https://colorarchive.me).
+Check it out at [colorarchive.org](https://colorarchive.org).

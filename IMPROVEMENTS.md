@@ -207,7 +207,7 @@ Originally deployed to GitHub Pages with `output: "export"`. Migrated to Vercel 
 ### Current State
 
 - [x] **Deployed to Vercel** — `next.config.ts` no longer uses `output: "export"`. Auto-deploys on push to `main`.
-- [x] **Express API on DigitalOcean** — `api.colorarchive.me` handles auth, webhooks, admin, analytics via PM2.
+- [x] **Express API on DigitalOcean** — `api.colorarchive.org` handles auth, webhooks, admin, analytics via PM2.
 - [x] **GitHub Pages workflow disabled** — `.github/workflows/deploy-pages.yml.disabled`
 - [x] **Payments via Gumroad** (active) with Stripe as fallback infrastructure.
 

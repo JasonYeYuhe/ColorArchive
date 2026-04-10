@@ -1,4 +1,4 @@
-# Domain Migration Checklist: colorarchive.me → colorarchive.org
+# Domain Migration Checklist: colorarchive.org → colorarchive.org
 
 > Last updated: 2026-04-10
 > Status: Phase 1 (code prep) complete. Phase 2–4 pending.
@@ -35,7 +35,7 @@
 
 ### SSL Certificate (requires DNS above)
 - [ ] SSH into DO Droplet: `ssh root@143.198.85.72`
-- [ ] Update Nginx config: `server_name api.colorarchive.org api.colorarchive.me;`
+- [ ] Update Nginx config: `server_name api.colorarchive.org api.colorarchive.org;`
 - [ ] Run: `sudo certbot --nginx -d api.colorarchive.org`
 - [ ] Verify: `curl https://api.colorarchive.org/health`
 
@@ -79,7 +79,7 @@ API_ORIGIN=https://api.colorarchive.org
 
 ```bash
 # Update Nginx
-sudo sed -i 's/server_name api.colorarchive.me;/server_name api.colorarchive.org api.colorarchive.me;/' /etc/nginx/sites-available/colorarchive
+sudo sed -i 's/server_name api.colorarchive.org;/server_name api.colorarchive.org api.colorarchive.org;/' /etc/nginx/sites-available/colorarchive
 sudo nginx -t && sudo systemctl reload nginx
 
 # Restart Express
@@ -122,16 +122,16 @@ Set `colorarchive.org` (apex, no www) as the **canonical** domain in Vercel. Ver
 
 **Critical for SEO** — must be path-preserving (e.g. `/colors/amber-core-vivid/` → same path on .org):
 
-In Vercel Dashboard → Domains: add `colorarchive.me` and configure it to redirect to `colorarchive.org` (Vercel handles path-preserving 301s automatically).
+In Vercel Dashboard → Domains: add `colorarchive.org` and configure it to redirect to `colorarchive.org` (Vercel handles path-preserving 301s automatically).
 
 ### API Domain Overlap Policy
 
-**`api.colorarchive.me` MUST remain live** until all shipped clients are updated:
+**`api.colorarchive.org` MUST remain live** until all shipped clients are updated:
 - iOS app: ~1-2 weeks for App Store review
 - Figma plugin: ~1 week for Figma review
 - VSCode extension: ~1-2 days for marketplace review
 
-Keep both `api.colorarchive.me` and `api.colorarchive.org` pointing to the same Droplet (Nginx `server_name` handles both). Remove old domain only after confirming all clients are updated.
+Keep both `api.colorarchive.org` and `api.colorarchive.org` pointing to the same Droplet (Nginx `server_name` handles both). Remove old domain only after confirming all clients are updated.
 
 ### Step 5: Trigger Vercel Rebuild
 
@@ -156,30 +156,30 @@ These files still have hardcoded `.me` email addresses in content strings. Run f
 
 | File | Find | Replace With |
 |------|------|-------------|
-| `src/components/terms-page.tsx` | `support@colorarchive.me` (2x) | `support@colorarchive.org` |
-| `src/components/privacy-page.tsx` | `privacy@colorarchive.me` (3x) | `privacy@colorarchive.org` |
-| `src/components/refund-policy-page.tsx` | `support@colorarchive.me` (2x) | `support@colorarchive.org` |
-| `src/components/cookie-policy-page.tsx` | `support@colorarchive.me` (1x) | `support@colorarchive.org` |
-| `src/components/commerce-disclosure-page.tsx` | `support@colorarchive.me` (4x) | `support@colorarchive.org` |
-| `src/components/support-page.tsx` | `support@colorarchive.me` (3x) | `support@colorarchive.org` |
-| `src/components/login-page.tsx` | `hello@colorarchive.me` (1x) | `hello@colorarchive.org` |
-| `src/lib/i18n.ts` | `hello@colorarchive.me` (4x, EN+ZH) | `hello@colorarchive.org` |
+| `src/components/terms-page.tsx` | `support@colorarchive.org` (2x) | `support@colorarchive.org` |
+| `src/components/privacy-page.tsx` | `privacy@colorarchive.org` (3x) | `privacy@colorarchive.org` |
+| `src/components/refund-policy-page.tsx` | `support@colorarchive.org` (2x) | `support@colorarchive.org` |
+| `src/components/cookie-policy-page.tsx` | `support@colorarchive.org` (1x) | `support@colorarchive.org` |
+| `src/components/commerce-disclosure-page.tsx` | `support@colorarchive.org` (4x) | `support@colorarchive.org` |
+| `src/components/support-page.tsx` | `support@colorarchive.org` (3x) | `support@colorarchive.org` |
+| `src/components/login-page.tsx` | `hello@colorarchive.org` (1x) | `hello@colorarchive.org` |
+| `src/lib/i18n.ts` | `hello@colorarchive.org` (4x, EN+ZH) | `hello@colorarchive.org` |
 
 **Legal pages — footer display domain:**
 
 | File | Find | Replace With |
 |------|------|-------------|
-| `src/components/terms-page.tsx:145` | `colorarchive.me` | `colorarchive.org` |
-| `src/components/privacy-page.tsx:167` | `colorarchive.me` | `colorarchive.org` |
-| `src/components/refund-policy-page.tsx:100` | `colorarchive.me` | `colorarchive.org` |
-| `src/components/cookie-policy-page.tsx:97` | `colorarchive.me` | `colorarchive.org` |
+| `src/components/terms-page.tsx:145` | `colorarchive.org` | `colorarchive.org` |
+| `src/components/privacy-page.tsx:167` | `colorarchive.org` | `colorarchive.org` |
+| `src/components/refund-policy-page.tsx:100` | `colorarchive.org` | `colorarchive.org` |
+| `src/components/cookie-policy-page.tsx:97` | `colorarchive.org` | `colorarchive.org` |
 
 **Other components:**
 
 | File | Find | Replace With |
 |------|------|-------------|
-| `src/components/color-detail-page.tsx:196` | `"https://api.colorarchive.me"` | use `API_URL` from api-config |
-| `src/lib/project-updates.ts:49` | `colorarchive.me` | `colorarchive.org` |
+| `src/components/color-detail-page.tsx:196` | `"https://api.colorarchive.org"` | use `API_URL` from api-config |
+| `src/lib/project-updates.ts:49` | `colorarchive.org` | `colorarchive.org` |
 
 ### Regenerate Download Files
 
@@ -194,7 +194,7 @@ node scripts/generate-downloads.mjs
 
 | File | Action |
 |------|--------|
-| `public/promo-xiaohongshu.html:105` | Update `colorarchive.me` → `colorarchive.org` |
+| `public/promo-xiaohongshu.html:105` | Update `colorarchive.org` → `colorarchive.org` |
 
 ### External Services (Manual)
 
@@ -241,7 +241,7 @@ Update these Swift files:
 | `ios/ColorArchive/Services/APIService.swift` | 4 | `baseURL = "https://api.colorarchive.org"` |
 | `ios/ColorArchive/Views/Tools/AIMoodPaletteView.swift` | 175 | `baseURL = "https://api.colorarchive.org"` |
 | `ios/ColorArchive/Views/Pro/ProPaywallView.swift` | 142-143 | Update terms/privacy URLs to `.org` |
-| `ios/ColorArchive/Views/Profile/ProfileView.swift` | 186,190,194 | Update all `colorarchive.me` links to `.org` |
+| `ios/ColorArchive/Views/Profile/ProfileView.swift` | 186,190,194 | Update all `colorarchive.org` links to `.org` |
 | `ios/ColorArchive/Views/Components/ShareSheet.swift` | 62,95 | Update display domain text |
 
 Then:
@@ -277,7 +277,7 @@ Then republish to VS Code Marketplace.
 
 ## Phase 5 — Documentation (Within 1 Week)
 
-Global find-and-replace `colorarchive.me` → `colorarchive.org` in:
+Global find-and-replace `colorarchive.org` → `colorarchive.org` in:
 
 - [ ] `README.md`
 - [ ] `CLAUDE.md`
@@ -305,9 +305,9 @@ Also update:
 
 - [ ] Visit `https://colorarchive.org` — homepage loads correctly
 - [ ] Visit `https://api.colorarchive.org/health` — returns `{"ok":true}`
-- [ ] Visit `https://colorarchive.me` — 301 redirects to `.org`
-- [ ] Visit `https://colorarchive.me/colors/amber-core-vivid/` — path-preserving 301 to `.org/colors/amber-core-vivid/`
-- [ ] Visit `https://api.colorarchive.me/health` — still works (overlap period for old clients)
+- [ ] Visit `https://colorarchive.org` — 301 redirects to `.org`
+- [ ] Visit `https://colorarchive.org/colors/amber-core-vivid/` — path-preserving 301 to `.org/colors/amber-core-vivid/`
+- [ ] Visit `https://api.colorarchive.org/health` — still works (overlap period for old clients)
 - [ ] Test magic link login → email arrives from `@colorarchive.org`, link points to `.org`
 - [ ] Test Google OAuth login → redirects work
 - [ ] Test a color page OG image → watermark shows `.org`

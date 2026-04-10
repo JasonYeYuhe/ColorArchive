@@ -72,7 +72,7 @@ Tailwind CSS 4 with utility-first classes. Key design patterns:
 
 ### Static Export Notes
 
-`next.config.ts` sets `trailingSlash: true`. The site is deployed to Vercel automatically on push to `main`. Backend API at `api.colorarchive.me` runs on a DigitalOcean Droplet via PM2.
+`next.config.ts` sets `trailingSlash: true`. The site is deployed to Vercel automatically on push to `main`. Backend API at `api.colorarchive.org` runs on a DigitalOcean Droplet via PM2.
 
 ## Session Coordination (Autopilot ↔ Remote Control)
 

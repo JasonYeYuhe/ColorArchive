@@ -141,10 +141,10 @@ Last updated: 2026-03-21
 - FIRSTPACK 10% discount code on /cancel page (auto-applied to checkout URL)
 - ShareOnXButton added to color detail, collection detail, word-to-color, palette pages
 - Lightweight page view analytics (PageTracker beacon → SQLite → analytics dashboard)
-- Dynamic OG images for all 2016 color pages (api.colorarchive.me/og/color/:hex)
+- Dynamic OG images for all 2016 color pages (api.colorarchive.org/og/color/:hex)
 - Fixed email scheduler (was missing on server, now deployed + running hourly)
-- Resend domain verified (colorarchive.me DKIM/SPF/MX/DMARC)
-- colorarchive.org bought and redirecting to colorarchive.me
+- Resend domain verified (colorarchive.org DKIM/SPF/MX/DMARC)
+- colorarchive.org bought and redirecting to colorarchive.org
 
 **Previously done (Codex SEO sessions):**
 - ACO, Procreate .swatches, Framer tokens, nested Figma tokens added to generate-downloads.mjs
@@ -179,9 +179,9 @@ Last updated: 2026-03-21
 
 ### Pending / Next Steps
 - LS store: if approved, switch out of Test mode via the bottom-left dashboard toggle (see `docs/commerce-ops-checklist.md`)
-- LS products: set `Confirmation modal` and `Email receipt` CTA links to `https://colorarchive.me/thanks/` for all 7 products; do a smoke test purchase
+- LS products: set `Confirmation modal` and `Email receipt` CTA links to `https://colorarchive.org/thanks/` for all 7 products; do a smoke test purchase
 - Google auth: magic-link login now preserves `next`, Google sign-in now shows a brief success state on `/login`, and the remaining task is one real allowlisted first-login smoke test
-- Google Search Console: verify colorarchive.me and submit sitemap
+- Google Search Console: verify colorarchive.org and submit sitemap
 - Product Hunt launch preparation
 - `/notes` content expansion (Issues 008+)
 - Japanese localization (future)
@@ -189,7 +189,7 @@ Last updated: 2026-03-21
 
 ### Server State (DigitalOcean)
 - IP: 143.198.85.72 (SSH as root)
-- Domain: api.colorarchive.me (HTTPS via Let's Encrypt)
+- Domain: api.colorarchive.org (HTTPS via Let's Encrypt)
 - Stack: Node.js + Express + SQLite + Resend
 - PM2 process: `colorarchive-server`
 - Routes:

@@ -20,7 +20,7 @@ Complete these steps for store activation and live handoff:
 1. Verify all 7 product prices exist in Stripe Dashboard → Products and match `checkout-config.ts`.
 2. Verify the 2 subscription prices (monthly ¥499, yearly ¥3,999) exist and match `proSubscriptionConfig`.
 3. Confirm the webhook endpoint is configured:
-   - URL: `https://colorarchive.me/api/webhook`
+   - URL: `https://colorarchive.org/api/webhook`
    - Events: `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`
 4. Confirm `STRIPE_WEBHOOK_SECRET` is set in Vercel environment variables.
 5. Confirm `STRIPE_SECRET_KEY` is set in Vercel environment variables.
@@ -45,8 +45,8 @@ After the smoke test, note the result in:
 
 ## Search Console
 
-1. Verify `https://colorarchive.me/` in Google Search Console.
-2. Submit sitemap: `https://colorarchive.me/sitemap.xml`
+1. Verify `https://colorarchive.org/` in Google Search Console.
+2. Submit sitemap: `https://colorarchive.org/sitemap.xml`
 3. Check:
    - indexing coverage
    - canonical selection

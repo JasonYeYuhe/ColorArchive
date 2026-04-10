@@ -38,9 +38,9 @@ The entire frontend is a static Next.js site on GitHub Pages with zero backend d
 ```
 
 Apply to all inbound links from PH listing:
-- Homepage: `https://colorarchive.me/?utm_source=producthunt&utm_medium=referral&utm_campaign=launch`
-- Launch page: `https://colorarchive.me/launch/?utm_source=producthunt&utm_medium=referral&utm_campaign=launch`
-- Free pack: `https://colorarchive.me/free-pack/?utm_source=producthunt&utm_medium=referral&utm_campaign=launch`
+- Homepage: `https://colorarchive.org/?utm_source=producthunt&utm_medium=referral&utm_campaign=launch`
+- Launch page: `https://colorarchive.org/launch/?utm_source=producthunt&utm_medium=referral&utm_campaign=launch`
+- Free pack: `https://colorarchive.org/free-pack/?utm_source=producthunt&utm_medium=referral&utm_campaign=launch`
 
 ## Launch-Day Checklist
 

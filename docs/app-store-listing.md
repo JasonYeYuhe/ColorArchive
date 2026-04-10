@@ -35,7 +35,7 @@ SEARCH
 BUILT FOR DESIGNERS
 • Every color is generated from a systematic naming convention used by professional designers
 • Consistent hue/lightness/chroma grid ensures colors work together harmoniously
-• Perfect companion to the full ColorArchive web platform at colorarchive.me
+• Perfect companion to the full ColorArchive web platform at colorarchive.org
 
 COMING SOON
 • Palette creation and export
@@ -53,15 +53,15 @@ Initial release! Browse, search, and save your favorite colors from the ColorArc
 
 ## Support URL
 
-https://colorarchive.me/support/
+https://colorarchive.org/support/
 
 ## Marketing URL
 
-https://colorarchive.me
+https://colorarchive.org
 
 ## Privacy Policy URL
 
-https://colorarchive.me/privacy/
+https://colorarchive.org/privacy/
 
 ## Screenshot Specifications
 
@@ -83,6 +83,6 @@ https://colorarchive.me/privacy/
 
 ## App Review Notes
 
-This app is a companion to the ColorArchive web platform (colorarchive.me). It generates all 5,446 colors algorithmically on-device — no network connection is required for core functionality. The app is a color reference tool for designers and developers.
+This app is a companion to the ColorArchive web platform (colorarchive.org). It generates all 5,446 colors algorithmically on-device — no network connection is required for core functionality. The app is a color reference tool for designers and developers.
 
 There is an existing app called "Color Archive" (with a space) by Colin Wright. Our app "ColorArchive" (one word) is a different product with different functionality — it's a comprehensive color encyclopedia vs. a simple palette saver.

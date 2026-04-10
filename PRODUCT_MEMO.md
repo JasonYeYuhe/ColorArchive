@@ -69,7 +69,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 
 ## 当前已确定事项
 
-- 域名已购买：`colorarchive.me`（主域名）、`colorarchive.org`（品牌保护 / 重定向）
+- 域名已购买：`colorarchive.org`（主域名）、`colorarchive.org`（品牌保护 / 重定向）
 - 域名注册商：Namecheap
 - 当前计划部署方式：GitHub Pages
 - 技术方向：Next.js + TypeScript + Tailwind CSS
@@ -77,7 +77,7 @@ ColorArchive 的核心概念是“颜色档案馆 / Color Library”。
 - 产品形态：以档案主页为核心，逐步增加少量静态工具页
 - 品牌名：`ColorArchive`
 - 当前已接入 `logo_v1` 资产作为站点 header / footer / icon / social preview 的基础品牌素材
-- 当前已接入独立 API（`api.colorarchive.me`）处理邮箱、webhook、analytics 与账号同步
+- 当前已接入独立 API（`api.colorarchive.org`）处理邮箱、webhook、analytics 与账号同步
 
 ## 为什么选择这个方向
 
@@ -541,9 +541,9 @@ Codex 当前方向：
   - Pro Monthly: ¥499/月（3 天试用）✅ live
   - Pro Yearly: ¥3,999/年（3 天试用，省 33%）✅ live
   - 全部 Price ID 已写入 `checkout-config.ts`
-  - Webhook 已配置（colorarchive.me/api/webhook → Stripe events）
+  - Webhook 已配置（colorarchive.org/api/webhook → Stripe events）
 - 后端服务器已部署（DigitalOcean Droplet $4/month，SGP1）：
-  - 域名：api.colorarchive.me（HTTPS，Let's Encrypt）
+  - 域名：api.colorarchive.org（HTTPS，Let's Encrypt）
   - IP：143.198.85.72
   - 技术栈：Node.js + Express + SQLite + Resend
   - POST /subscribe — 邮箱捕获：
@@ -555,7 +555,7 @@ Codex 当前方向：
 - 免费包 + 7 个付费包 ZIP 文件已生成（prebuild 脚本自动打包，含 SCSS maps、dark mode pairs、seasonal mood notes）
 - free-pack 页面已改为邮箱捕获 → 发下载链接（不再直接下载）
 - waitlist 页面已接入后端 EmailCaptureForm
-- GitHub Actions build 注入 NEXT_PUBLIC_API_URL=https://api.colorarchive.me
+- GitHub Actions build 注入 NEXT_PUBLIC_API_URL=https://api.colorarchive.org
 - 新增 /contrast 页面：WCAG 对比度检查器（AA/AAA 评级，实时预览）
 - 新增 /palette?ids=... 页面：可分享的调色板 URL
 - Palette Builder 添加 Share 按钮，生成分享链接
@@ -594,7 +594,7 @@ Codex 当前方向：
 - ✅ Complete Archive Token Set 产品（2016 色 CSS/JSON/Tailwind/SCSS）
 - ✅ Dark Mode UI Kit 产品（明暗配对 token）
 - ✅ Seasonal: Spring 2026 产品（限定季节调色板 + mood notes）
-- ✅ Resend 域名验证完成（colorarchive.me，Tokyo region）
+- ✅ Resend 域名验证完成（colorarchive.org，Tokyo region）
 - ✅ All Colors 页面新增 Canvas 全色谱（HSL 色彩空间，饱和度滑块，点击复制 hex）
 - ✅ waitlist 邮件链路与 free-pack 邮件链路拆分，避免 waitlist 用户收到错误的下载邮件
 - ✅ 首页 Archive 支持 URL 状态同步与分享恢复
@@ -667,7 +667,7 @@ Codex 当前方向：
 ### 当前优先级
 
 - 当前执行路线见仓库根目录 `ROADMAP.md`
-- ✅ Resend 域名验证完成（colorarchive.me verified，邮件可正常发送）
+- ✅ Resend 域名验证完成（colorarchive.org verified，邮件可正常发送）
 - ✅ 7 个产品 checkout URL 已填入，待 store activation
 - 当前已知阻塞：LS store 仍在审核中，Test mode 暂时无法关闭
 - Google 登录准备已补强：magic link 现已保留 `next path`，server `.env.example` 已补 `GOOGLE_*` 与 `ADMIN_EMAILS`，并新增 `docs/google-auth-checklist.md`
@@ -730,7 +730,7 @@ ColorArchive 已从静态展示项目进化为完整的颜色产品：
 - 增长：邮件列表（Day 0/3/7 自动 nurture sequence）、SEO 长尾页面、社交分享按钮（X/copy link）、可分享调色板 URL、登录后跨设备偏好同步
 - 工具：WCAG 对比度检查器、Palette Builder、Word → Color、Spectrum
 - 分析：自建 page view tracking（PageTracker beacon → SQLite），analytics 页面展示 top pages / referrers / device breakdown
-- 社交：动态 OG 图片（api.colorarchive.me/og/color/:hex），颜色详情页分享到 X 时显示颜色色块
-- 域名：colorarchive.me（主站）、colorarchive.org（redirect）、api.colorarchive.me（API）
+- 社交：动态 OG 图片（api.colorarchive.org/og/color/:hex），颜色详情页分享到 X 时显示颜色色块
+- 域名：colorarchive.org（主站）、colorarchive.org（redirect）、api.colorarchive.org（API）
 
 用户可以浏览、搜索、收藏、登录同步、生成调色板、检查对比度、分享到 X、下载免费包、购买付费包——全链路闭环。

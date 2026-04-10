@@ -55,7 +55,7 @@ sudo nano /etc/nginx/sites-available/colorarchive
 ```nginx
 server {
     listen 80;
-    server_name api.colorarchive.me;  # 或直接用 IP
+    server_name api.colorarchive.org;  # 或直接用 IP
 
     location / {
         proxy_pass http://localhost:3001;
@@ -70,7 +70,7 @@ sudo ln -s /etc/nginx/sites-available/colorarchive /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 
 # HTTPS（需要域名指向 Droplet IP）
-sudo certbot --nginx -d api.colorarchive.me
+sudo certbot --nginx -d api.colorarchive.org
 ```
 
 ## 5. 在 Namecheap 加 DNS 记录
@@ -79,13 +79,13 @@ sudo certbot --nginx -d api.colorarchive.me
 |------|------|-------|
 | A | api | YOUR_DROPLET_IP |
 
-等几分钟 DNS 生效后，`https://api.colorarchive.me/health` 应该返回 `{"ok":true}`。
+等几分钟 DNS 生效后，`https://api.colorarchive.org/health` 应该返回 `{"ok":true}`。
 
 ## 6. 配置 Stripe Webhook
 
 Stripe Dashboard → Developers → Webhooks → Add endpoint：
 
-- URL: `https://colorarchive.me/api/webhook`
+- URL: `https://colorarchive.org/api/webhook`
 - Events: `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`
 - 复制 Signing secret → 填入 Vercel 环境变量 `STRIPE_WEBHOOK_SECRET`
 

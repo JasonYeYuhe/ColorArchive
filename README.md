@@ -40,5 +40,5 @@ npm run dev
 ## Deployment
 
 - **Frontend**: Vercel (auto-deploy on push to `main`). `next.config.ts` uses `trailingSlash: true`.
-- **API**: DigitalOcean Droplet at `api.colorarchive.me`, managed via PM2.
+- **API**: DigitalOcean Droplet at `api.colorarchive.org`, managed via PM2.
 - **Payments**: Gumroad (active provider) with Stripe as fallback. Configured in `src/lib/checkout-config.ts`.

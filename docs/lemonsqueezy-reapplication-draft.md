@@ -7,7 +7,7 @@
 
 Hi Kashish,
 
-I hope you're well. I'm writing to request a re-evaluation of our store application for **ColorArchive** (colorarchive.me).
+I hope you're well. I'm writing to request a re-evaluation of our store application for **ColorArchive** (colorarchive.org).
 
 Since our last application, we've **completely restructured our business model** based on customer feedback. We are no longer selling downloadable asset packs. ColorArchive is now a **design productivity SaaS tool** with subscription-based access.
 
@@ -53,11 +53,11 @@ ColorArchive is a **design infrastructure platform** with 20+ free tools for des
 
 ## Evidence of Product Maturity
 
-- **Website:** https://colorarchive.me (live, 80+ pages, 3,000+ statically generated color pages)
+- **Website:** https://colorarchive.org (live, 80+ pages, 3,000+ statically generated color pages)
 - **iOS app:** Submitted to App Store with StoreKit 2 IAP integration
 - **Product Hunt:** https://www.producthunt.com/posts/colorarchive
 - **YouTube:** https://youtube.com/@colorarchiveme
-- **Instagram:** https://instagram.com/colorarchive.me
+- **Instagram:** https://instagram.com/colorarchive.org
 
 ## Technical Details
 
@@ -74,4 +74,4 @@ Thank you for considering our reapplication.
 
 Best regards,
 Jason (Yuhe Ye)
-colorarchive.me
+colorarchive.org

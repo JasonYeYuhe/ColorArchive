@@ -9,9 +9,9 @@ Use this when verifying the first real Google sign-in flow for ColorArchive.
 In Google Cloud Console, confirm the OAuth client is configured with:
 
 - Authorized JavaScript origin:
-  - `https://colorarchive.me`
+  - `https://colorarchive.org`
 - Authorized redirect URI:
-  - `https://api.colorarchive.me/auth/google/callback`
+  - `https://api.colorarchive.org/auth/google/callback`
 
 If you test locally, also add:
 
@@ -22,10 +22,10 @@ If you test locally, also add:
 
 Confirm these variables exist on the API server:
 
-- `FRONTEND_ORIGIN=https://colorarchive.me`
+- `FRONTEND_ORIGIN=https://colorarchive.org`
 - `GOOGLE_CLIENT_ID=...`
 - `GOOGLE_CLIENT_SECRET=...`
-- `GOOGLE_REDIRECT_URI=https://api.colorarchive.me/auth/google/callback`
+- `GOOGLE_REDIRECT_URI=https://api.colorarchive.org/auth/google/callback`
 - `ADMIN_EMAILS=...` if analytics should stay limited to specific accounts
 
 ## First-Pass Smoke Test
