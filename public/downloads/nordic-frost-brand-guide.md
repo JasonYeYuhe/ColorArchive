@@ -39,4 +39,4 @@ A cool, restrained palette that feels precise and airy. Works for technical prod
 - **Card layout:** Cerulean Whisper Soft card background + Cobalt Bloom Soft heading + Sapphire Pearl Muted border
 - **Dark mode:** Invert Cobalt Bloom Soft as background, Azure Mist Muted as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

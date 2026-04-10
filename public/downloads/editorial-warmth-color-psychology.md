@@ -34,4 +34,4 @@ The palette leans into apricot, amber, garnet, and muted olive so the page feels
 **Associations:** Nature, renewal, youth. Lime bridges the energy of yellow with the calm of green.
 **Caution:** Can feel acidic or jarring in large areas.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

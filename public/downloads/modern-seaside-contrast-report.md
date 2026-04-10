@@ -35,4 +35,4 @@
 | Azure Core Vivid (#2099D5) | 6.58:1 | PASS | FAIL | PASS |
 | Indigo Nocturne Soft (#222744) | 1.44:1 | FAIL | FAIL | FAIL |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

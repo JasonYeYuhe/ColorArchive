@@ -39,4 +39,4 @@ This set is intentionally expressive: floral, polished, and bright enough for so
 - **Card layout:** Plum Radiant Clear card background + Mint Whisper Muted heading + Peony Bloom Vivid border
 - **Dark mode:** Invert Mint Whisper Muted as background, Orchid Bloom Clear as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

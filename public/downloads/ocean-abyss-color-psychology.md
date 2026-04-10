@@ -34,4 +34,4 @@ A palette built around the pressure and light of deep water — dark teal bases,
 **Associations:** Professionalism, security, calm. Blue is the most universally preferred color.
 **Caution:** Overuse creates coldness; warm it with complementary tones.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

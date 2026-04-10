@@ -39,4 +39,4 @@ A palette rooted in organic outdoor materials — bark, moss, amber soil, and li
 - **Card layout:** Leaf Dusk Soft card background + Honey Shadow Muted heading + Olive Silk Muted border
 - **Dark mode:** Invert Honey Shadow Muted as background, Moss Tone Muted as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

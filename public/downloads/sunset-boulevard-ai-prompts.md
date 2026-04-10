@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Sunset Boulevard" palette (
 ## Editorial Note
 Use this when the page needs golden-hour warmth. It works best on lifestyle, travel, and editorial surfaces that should feel aspirational and sun-touched.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

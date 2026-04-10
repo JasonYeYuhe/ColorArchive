@@ -39,4 +39,4 @@ The palette leans into apricot, amber, garnet, and muted olive so the page feels
 - **Card layout:** Amber Silk Soft card background + Olive Dusk Muted heading + Citrine Tone Muted border
 - **Dark mode:** Invert Olive Dusk Muted as background, Apricot Whisper Soft as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

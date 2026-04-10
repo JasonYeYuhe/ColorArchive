@@ -39,4 +39,4 @@ Electric contrast between deep nocturne bases and vivid neon accents. Built for 
 - **Card layout:** Aqua Bloom Vivid card background + Cobalt Ink Soft heading + Lime Bloom Clear border
 - **Dark mode:** Invert Cobalt Ink Soft as background, Fuchsia Radiant Vivid as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

@@ -35,4 +35,4 @@
 | Lagoon Silk Vivid (#71EAD6) | 14.44:1 | PASS | PASS | PASS |
 | Cobalt Velvet Clear (#3158A5) | 3.07:1 | FAIL | FAIL | PASS |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

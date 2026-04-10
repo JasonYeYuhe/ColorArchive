@@ -39,4 +39,4 @@ A near-neutral palette spanning pale mist to deep ink with subtle warm and cool 
 - **Card layout:** Azure Mist Muted card background + Merlot Ink Muted heading + Olive Silk Muted border
 - **Dark mode:** Invert Merlot Ink Muted as background, Honey Whisper Muted as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

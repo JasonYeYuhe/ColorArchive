@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Forest Terrain" palette (Mo
 ## Editorial Note
 A natural palette for outdoor gear, environmental brands, editorial spreads, and any project that needs to feel rooted in the physical world.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

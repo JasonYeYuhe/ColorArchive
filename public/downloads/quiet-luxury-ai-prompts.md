@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Quiet Luxury" palette (Blus
 ## Editorial Note
 Use this when you need a product page or editorial surface to feel expensive, restrained, and warm rather than aggressively minimal.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

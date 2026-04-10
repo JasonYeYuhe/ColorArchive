@@ -34,4 +34,4 @@ A near-black base with electric violet, cobalt, and magenta accents. Good for AI
 **Associations:** Trust, serenity, emotional balance. Teal combines blue's stability with green's freshness.
 **Caution:** Very dark teals can feel heavy without light counterpoints.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

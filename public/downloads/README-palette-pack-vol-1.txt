@@ -52,7 +52,7 @@ Each palette has 5 colors numbered 1-5:
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 

@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Neon After Dark" palette (F
 ## Editorial Note
 High-voltage contrast for dark interfaces. Use the vivid accents sparingly against the deep bases to create neon glow effects without becoming garish.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

@@ -35,4 +35,4 @@
 | Amber Tone Soft (#BCB076) | 9.61:1 | PASS | PASS | PASS |
 | Honey Silk Muted (#B7BC9F) | 10.71:1 | PASS | PASS | PASS |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

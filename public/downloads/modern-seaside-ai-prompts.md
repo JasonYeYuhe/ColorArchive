@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Modern Seaside" palette (Se
 ## Editorial Note
 This set balances freshness and structure. It works when the product should feel open and coastal without becoming childish.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

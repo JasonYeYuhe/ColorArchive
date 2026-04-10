@@ -35,4 +35,4 @@
 | Rose Pearl Soft (#E4C8DB) | 13.58:1 | PASS | PASS | PASS |
 | Garnet Tone Clear (#D06287) | 5.78:1 | PASS | FAIL | PASS |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

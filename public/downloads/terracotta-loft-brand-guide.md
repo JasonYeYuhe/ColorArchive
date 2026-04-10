@@ -39,4 +39,4 @@ A palette drawn from kiln-fired materials — terracotta, warm stucco, dried rus
 - **Card layout:** Ember Dusk Muted card background + Honey Silk Muted heading + Ruby Shadow Muted border
 - **Dark mode:** Invert Honey Silk Muted as background, Coral Velvet Soft as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

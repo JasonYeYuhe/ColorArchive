@@ -34,4 +34,4 @@ A gradient palette that moves from coral glow through amber warmth to rose-tinge
 **Associations:** Playfulness, romance, softness. Modern pinks range from bold fuchsia to quiet blush.
 **Caution:** Stereotypical use feels dated; pair with unexpected neutrals.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

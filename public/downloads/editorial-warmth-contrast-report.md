@@ -35,4 +35,4 @@
 | Garnet Velvet Soft (#90475F) | 3.25:1 | FAIL | FAIL | PASS |
 | Olive Dusk Muted (#5C6647) | 3.45:1 | FAIL | FAIL | PASS |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

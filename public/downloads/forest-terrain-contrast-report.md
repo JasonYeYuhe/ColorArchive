@@ -35,4 +35,4 @@
 | Amber Velvet Soft (#908347) | 5.52:1 | PASS | FAIL | PASS |
 | Honey Shadow Muted (#50543B) | 2.67:1 | FAIL | FAIL | FAIL |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

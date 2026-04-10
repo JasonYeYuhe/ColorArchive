@@ -35,4 +35,4 @@
 | Cobalt Dusk Muted (#475166) | 2.64:1 | FAIL | FAIL | FAIL |
 | Merlot Ink Muted (#2A1D1F) | 1.29:1 | FAIL | FAIL | FAIL |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

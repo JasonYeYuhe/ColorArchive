@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Ocean Abyss" palette (Teal 
 ## Editorial Note
 Use this when the product needs to feel deep, technical, and precise. The vivid aqua accent creates bioluminescent contrast against the deep bases.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

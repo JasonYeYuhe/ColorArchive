@@ -34,4 +34,4 @@ A cool, restrained palette that feels precise and airy. Works for technical prod
 **Associations:** Professionalism, security, calm. Blue is the most universally preferred color.
 **Caution:** Overuse creates coldness; warm it with complementary tones.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

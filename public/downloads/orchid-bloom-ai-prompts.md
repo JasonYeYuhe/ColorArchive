@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Orchid Bloom" palette (Orch
 ## Editorial Note
 A brighter, campaign-ready palette with enough softness to stay curated. Good for beauty, culture, and expressive product storytelling.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

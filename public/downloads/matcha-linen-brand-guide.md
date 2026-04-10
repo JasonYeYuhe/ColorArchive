@@ -39,4 +39,4 @@ A calm, crafted palette pairing soft matcha greens with warm paper tones. Design
 - **Card layout:** Leaf Bloom Muted card background + Honey Whisper Soft heading + Olive Pearl Muted border
 - **Dark mode:** Invert Honey Whisper Soft as background, Moss Silk Soft as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

@@ -35,4 +35,4 @@
 | Peony Core Vivid (#D520B7) | 4.72:1 | PASS | FAIL | PASS |
 | Azure Bloom Clear (#A1CDE3) | 12.36:1 | PASS | PASS | PASS |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

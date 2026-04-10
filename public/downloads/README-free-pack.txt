@@ -42,11 +42,11 @@ UPGRADE
 ───────
 This is a free sample. For the full system with SVG boards, gradient
 wallpapers, brand guides, AI prompts, and multi-platform tokens, visit:
-https://colorarchive.me/packs
+/packs
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 

@@ -34,4 +34,4 @@ A restrained palette built around pale blush, sand, oat, and deep grounding neut
 **Associations:** Power, love, danger, excitement. Red draws attention and creates a sense of immediacy.
 **Caution:** Overuse can feel aggressive or alarming.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

@@ -39,4 +39,4 @@ This collection balances air, water, and contrast. It works for dashboards, trav
 - **Card layout:** Lagoon Bloom Clear card background + Indigo Nocturne Soft heading + Cerulean Silk Clear border
 - **Dark mode:** Invert Indigo Nocturne Soft as background, Seafoam Whisper Soft as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

@@ -35,4 +35,4 @@
 | Apricot Veil Muted (#FBFAF9) | 20.14:1 | PASS | PASS | PASS |
 | Honey Whisper Soft (#F3F5EA) | 19.06:1 | PASS | PASS | PASS |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

@@ -39,4 +39,4 @@ A near-black base with electric violet, cobalt, and magenta accents. Good for AI
 - **Card layout:** Violet Dusk Clear card background + Aqua Bloom Soft heading + Cobalt Core Vivid border
 - **Dark mode:** Invert Aqua Bloom Soft as background, Indigo Ink Muted as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

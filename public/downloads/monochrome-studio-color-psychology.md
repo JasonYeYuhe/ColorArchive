@@ -34,4 +34,4 @@ A near-neutral palette spanning pale mist to deep ink with subtle warm and cool 
 **Associations:** Power, love, danger, excitement. Red draws attention and creates a sense of immediacy.
 **Caution:** Overuse can feel aggressive or alarming.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

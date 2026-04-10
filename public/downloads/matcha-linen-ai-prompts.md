@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Matcha & Linen" palette (Mo
 ## Editorial Note
 A restrained, craft-forward palette inspired by Japanese tea aesthetics. Works when the surface needs to feel handmade, organic, and quietly considered.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

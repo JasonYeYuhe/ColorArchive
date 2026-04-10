@@ -34,4 +34,4 @@ This set is intentionally expressive: floral, polished, and bright enough for so
 **Associations:** Nature, health, prosperity, stability. Green is the easiest color for eyes to process.
 **Caution:** Murky greens can suggest decay; keep saturation intentional.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

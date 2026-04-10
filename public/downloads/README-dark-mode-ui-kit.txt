@@ -48,7 +48,7 @@ Dark mode: add data-theme="dark" to your <html> element
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 

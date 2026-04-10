@@ -39,4 +39,4 @@ A restrained palette built around pale blush, sand, oat, and deep grounding neut
 - **Card layout:** Apricot Pearl Soft card background + Merlot Ink Muted heading + Honey Bloom Muted border
 - **Dark mode:** Invert Merlot Ink Muted as background, Blush Whisper Muted as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

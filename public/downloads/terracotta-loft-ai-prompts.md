@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Terracotta Loft" palette (C
 ## Editorial Note
 A material-forward palette for surfaces that should feel fired, aged, and handmade. Works best for interior design, architecture portfolios, home goods, and artisan food brands.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

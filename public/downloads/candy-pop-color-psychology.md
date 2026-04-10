@@ -34,4 +34,4 @@ Bright, playful, and deliberately high-energy. Built for maximum visual impact o
 **Associations:** Professionalism, security, calm. Blue is the most universally preferred color.
 **Caution:** Overuse creates coldness; warm it with complementary tones.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Candy Pop" palette (Coral R
 ## Editorial Note
 For when the work needs to pop. Use this palette on social surfaces, product launches, and anywhere that needs energy and immediacy.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

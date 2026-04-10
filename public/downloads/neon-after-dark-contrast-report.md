@@ -35,4 +35,4 @@
 | Violet Nocturne Clear (#21174F) | 1.3:1 | FAIL | FAIL | FAIL |
 | Cobalt Ink Soft (#182030) | 1.29:1 | FAIL | FAIL | FAIL |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

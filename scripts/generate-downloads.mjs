@@ -11,6 +11,8 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://colorarchive.org";
+const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL ?? "support@colorarchive.org";
 const OUT_DIR = join(ROOT, "public", "downloads");
 const GENERATED_DIR = join(ROOT, "public", "generated");
 const OG_DIR = join(GENERATED_DIR, "og");
@@ -573,7 +575,7 @@ function createOgSvg({ eyebrow, title, summary, swatches, accent = "#171717" }) 
     </div>
   </foreignObject>
   <rect x="86" y="428" width="214" height="44" rx="22" fill="#111827"/>
-  <text x="123" y="457" fill="white" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">colorarchive.me</text>
+  <text x="123" y="457" fill="white" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">colorarchive.org</text>
   ${swatchRects}
 </svg>`;
 }
@@ -1008,7 +1010,7 @@ function formatContrastReport(data) {
   for (const c of data.vsBlack) {
     lines.push(`| ${c.name} (${c.hex}) | ${c.ratio}:1 | ${flag(c.passAA)} | ${flag(c.passAAA)} | ${flag(c.passAALarge)} |`);
   }
-  lines.push("", `— ColorArchive · https://colorarchive.me`);
+  lines.push("", `— ColorArchive · `);
   return lines.join("\n");
 }
 
@@ -1078,7 +1080,7 @@ Design a set of Instagram story templates using the "${collection.title}" palett
 ## Editorial Note
 ${collection.editorialNote || ""}
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 
 `;
 }
 
@@ -1102,7 +1104,7 @@ function generateColorPsychologyNotes(collection) {
     lines.push(`**Caution:** ${psych.avoid}`);
     lines.push("");
   }
-  lines.push("— ColorArchive · https://colorarchive.me");
+  lines.push("— ColorArchive · ");
   return lines.join("\n");
 }
 
@@ -1144,7 +1146,7 @@ function generateBrandUsageGuide(collection) {
   lines.push(`- **Card layout:** ${palette[1].name} card background + ${palette[4].name} heading + ${palette[2].name} border`);
   lines.push(`- **Dark mode:** Invert ${palette[4].name} as background, ${palette[0].name} as text`);
   lines.push("");
-  lines.push("— ColorArchive · https://colorarchive.me");
+  lines.push("— ColorArchive · ");
   return lines.join("\n");
 }
 
@@ -1217,14 +1219,14 @@ UPGRADE
 ───────
 This is a free sample. For the full system with SVG boards, gradient
 wallpapers, brand guides, AI prompts, and multi-platform tokens, visit:
-https://colorarchive.me/packs
+/packs
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 
 `;
 writeFileSync(join(OUT_DIR, "README-free-pack.txt"), freePackReadme, "utf8");
 createZip("free-palette-pack.zip", [
@@ -1289,10 +1291,10 @@ Each palette has 5 colors numbered 1-5:
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 
 `;
 writeFileSync(join(OUT_DIR, "README-palette-pack-vol-1.txt"), vol1Readme, "utf8");
 const vol1CollIds = ["quiet-luxury", "modern-seaside", "editorial-warmth", "forest-terrain"];
@@ -1358,10 +1360,10 @@ Each palette has 5 colors numbered 1-5:
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 
 `;
 writeFileSync(join(OUT_DIR, "README-brand-starter-kit.txt"), brandReadme, "utf8");
 const brandCollIds = ["quiet-luxury", "nocturne-tech", "orchid-bloom"];
@@ -1428,10 +1430,10 @@ Each palette has 5 colors numbered 1-5:
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 
 `;
 writeFileSync(join(OUT_DIR, "README-creator-bundle.txt"), creatorReadme, "utf8");
 const creatorCollIds = ["modern-seaside", "orchid-bloom", "candy-pop"];
@@ -1582,10 +1584,10 @@ Individual colors follow the pattern: {hue}-{lightness}-{chroma}
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 
 `;
 writeFileSync(join(OUT_DIR, "README-complete-archive.txt"), completeArchiveReadme, "utf8");
 createZip("complete-archive.zip", [
@@ -1731,10 +1733,10 @@ Dark mode: add data-theme="dark" to your <html> element
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 
 `;
 writeFileSync(join(OUT_DIR, "README-dark-mode-ui-kit.txt"), darkModeReadme, "utf8");
 const darkModeCollIds = ["nocturne-tech", "nordic-frost", "monochrome-studio"];
@@ -1778,7 +1780,7 @@ APPLICATION GUIDANCE
 - Use Sunset Boulevard as a warm hero palette with Matcha & Linen as supporting neutrals
 - All three collections work together for a comprehensive spring campaign system
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 
 `;
 
 writeFileSync(join(OUT_DIR, "seasonal-spring-2026-mood-notes.txt"), springMoodNotes, "utf8");
@@ -1830,10 +1832,10 @@ Each palette has 5 colors numbered 1-5:
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 
 `;
 writeFileSync(join(OUT_DIR, "README-seasonal-spring-2026.txt"), springReadme, "utf8");
 createZip("seasonal-spring-2026.zip", [

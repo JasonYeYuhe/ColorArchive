@@ -39,4 +39,4 @@ A gradient palette that moves from coral glow through amber warmth to rose-tinge
 - **Card layout:** Amber Silk Clear card background + Garnet Tone Clear heading + Ruby Radiant Soft border
 - **Dark mode:** Invert Garnet Tone Clear as background, Coral Bloom Clear as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

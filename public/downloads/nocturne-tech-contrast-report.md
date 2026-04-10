@@ -35,4 +35,4 @@
 | Fuchsia Radiant Vivid (#E133E1) | 5.76:1 | PASS | FAIL | PASS |
 | Aqua Bloom Soft (#ADD7D7) | 13.48:1 | PASS | PASS | PASS |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

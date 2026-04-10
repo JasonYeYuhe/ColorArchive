@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Monochrome Studio" palette 
 ## Editorial Note
 A studio-grade grayscale set with just enough temperature to avoid feeling dead. Good for type-heavy layouts and minimal UI where pure gray feels lifeless.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Nordic Frost" palette (Azur
 ## Editorial Note
 Precision and restraint. A palette for interfaces that need to communicate clarity, focus, and intentional minimalism.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

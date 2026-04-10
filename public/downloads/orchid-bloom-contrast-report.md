@@ -35,4 +35,4 @@
 | Rose Core Soft (#A45188) | 4.11:1 | FAIL | FAIL | PASS |
 | Mint Whisper Muted (#EDF2EE) | 18.54:1 | PASS | PASS | PASS |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

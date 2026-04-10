@@ -39,4 +39,4 @@ A palette built around the pressure and light of deep water — dark teal bases,
 - **Card layout:** Aqua Dusk Soft card background + Cobalt Velvet Clear heading + Cerulean Nocturne Soft border
 - **Dark mode:** Invert Cobalt Velvet Clear as background, Teal Shadow Clear as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

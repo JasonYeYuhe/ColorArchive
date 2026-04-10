@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Nocturne Tech" palette (Ind
 ## Editorial Note
 A dark-spectrum launch palette for technical products that need contrast and energy without falling back to generic neon-on-black styling.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

@@ -29,4 +29,4 @@ Design a set of Instagram story templates using the "Editorial Warmth" palette (
 ## Editorial Note
 This palette introduces warmth and paper-like tactility. It is useful when the page should feel written, reflective, and human.
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

@@ -39,4 +39,4 @@ Bright, playful, and deliberately high-energy. Built for maximum visual impact o
 - **Card layout:** Citrine Tone Vivid card background + Azure Bloom Clear heading + Mint Core Clear border
 - **Dark mode:** Invert Azure Bloom Clear as background, Coral Radiant Vivid as text
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 

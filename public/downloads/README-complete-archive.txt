@@ -49,7 +49,7 @@ Individual colors follow the pattern: {hue}-{lightness}-{chroma}
 
 NEED HELP?
 ──────────
-support@colorarchive.me
-https://colorarchive.me/packs
 
-© ColorArchive · https://colorarchive.me
+/packs
+
+© ColorArchive · 

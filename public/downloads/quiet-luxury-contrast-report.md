@@ -35,4 +35,4 @@
 | Olive Tone Muted (#9FAB87) | 8.65:1 | PASS | PASS | PASS |
 | Merlot Ink Muted (#2A1D1F) | 1.29:1 | FAIL | FAIL | FAIL |
 
-— ColorArchive · https://colorarchive.me
+— ColorArchive · 
