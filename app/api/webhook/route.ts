@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 
 const WEBHOOK_SECRET = process.env.LEMONSQUEEZY_WEBHOOK_SECRET ?? "";
-const API_URL = process.env.BACKEND_API_URL ?? "https://api.colorarchive.me";
+const API_URL = process.env.BACKEND_API_URL ?? "https://api.colorarchive.org";
 const INTERNAL_SECRET = process.env.INTERNAL_WEBHOOK_SECRET ?? "";
 
 /** Verify Lemon Squeezy webhook signature (HMAC SHA-256) */

@@ -17,7 +17,7 @@ const {
   setSessionCookie,
 } = require("../auth");
 const { sendMagicLinkEmail } = require("../email");
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.me";
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.org";
 
 // --- Simple in-memory rate limiter for auth endpoints ---
 const authAttempts = new Map();
@@ -61,7 +61,7 @@ setInterval(() => {
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
 const GOOGLE_REDIRECT_URI =
-  process.env.GOOGLE_REDIRECT_URI || "https://api.colorarchive.me/auth/google/callback";
+  process.env.GOOGLE_REDIRECT_URI || "https://api.colorarchive.org/auth/google/callback";
 
 function isGoogleEnabled() {
   return Boolean(GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET && GOOGLE_REDIRECT_URI);

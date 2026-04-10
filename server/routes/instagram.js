@@ -23,7 +23,7 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.me";
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.org";
 
 // Manual cookie helpers (matches existing server pattern — no cookie-parser dep)
 function parseCookies(req) {
@@ -55,7 +55,7 @@ const FB_APP_SECRET = process.env.FB_APP_SECRET || process.env.INSTAGRAM_APP_SEC
 const IG_APP_ID = process.env.INSTAGRAM_APP_ID || "";
 const IG_APP_SECRET = process.env.INSTAGRAM_APP_SECRET || "";
 const IG_REDIRECT_URI =
-  process.env.INSTAGRAM_REDIRECT_URI || "https://api.colorarchive.me/instagram/auth/callback";
+  process.env.INSTAGRAM_REDIRECT_URI || "https://api.colorarchive.org/instagram/auth/callback";
 const IG_CONFIG_ID = process.env.INSTAGRAM_CONFIG_ID || "1662120915240411";
 
 // Graph API base URLs

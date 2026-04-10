@@ -3,9 +3,9 @@ const updateBrief = require("./content/update-brief");
 const newsletterIssues = require("../src/data/newsletter-issues.json");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM = process.env.FROM_EMAIL || "hello@colorarchive.me";
-const SITE_URL = process.env.FRONTEND_ORIGIN || "https://colorarchive.me";
-// Bare domain for display text in emails (e.g. "colorarchive.me")
+const FROM = process.env.FROM_EMAIL || "hello@colorarchive.org";
+const SITE_URL = process.env.FRONTEND_ORIGIN || "https://colorarchive.org";
+// Bare domain for display text in emails (e.g. "colorarchive.org")
 const SITE_DOMAIN = SITE_URL.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
 // CAN-SPAM compliant email send wrapper

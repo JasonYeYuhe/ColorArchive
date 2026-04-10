@@ -41,7 +41,7 @@ router.post("/order-completed", async (req, res) => {
   const orderId = paymentIntent || `${provider}_${sessionId}` || `${provider}_${Date.now()}`;
   const catalogProduct = findCatalogProduct(packId);
   const productName = catalogProduct?.title || packId;
-  const downloadUrl = getDownloadUrl(packId) || `${process.env.FRONTEND_ORIGIN || "https://colorarchive.me"}/packs`;
+  const downloadUrl = getDownloadUrl(packId) || `${process.env.FRONTEND_ORIGIN || "https://colorarchive.org"}/packs`;
 
   // Check for duplicate
   const existing = db.prepare("SELECT id FROM orders WHERE order_id = ?").get(orderId);

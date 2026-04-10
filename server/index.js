@@ -6,14 +6,14 @@ const app = express();
 app.set("trust proxy", 1);
 const PORT = process.env.PORT || 3001;
 const allowedOrigins = new Set([
-  process.env.FRONTEND_ORIGIN || "https://colorarchive.me",
+  process.env.FRONTEND_ORIGIN || "https://colorarchive.org",
   ...(process.env.NODE_ENV !== "production"
     ? ["http://localhost:3000", "http://127.0.0.1:3000"]
     : []),
 ]);
 
-// Match subdomains of the configured domain (e.g. preview.colorarchive.me)
-const SITE_DOMAIN = (process.env.FRONTEND_ORIGIN || "https://colorarchive.me")
+// Match subdomains of the configured domain (e.g. preview.colorarchive.org)
+const SITE_DOMAIN = (process.env.FRONTEND_ORIGIN || "https://colorarchive.org")
   .replace(/^https?:\/\//, "")
   .replace(/\/$/, "");
 const ALLOWED_ORIGIN_RE = new RegExp(

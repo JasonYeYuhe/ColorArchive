@@ -1,2 +1,2 @@
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+  process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.org";

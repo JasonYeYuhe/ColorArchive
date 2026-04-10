@@ -193,7 +193,7 @@ function RecommendationCard({
   );
 }
 
-const AI_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.me";
+const AI_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.colorarchive.org";
 
 interface AiName { en: string; zh: string; description: string; }
 

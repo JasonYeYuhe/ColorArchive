@@ -5,7 +5,7 @@
  * events occur (renewal, expiration, refund, etc.).
  *
  * Setup: In App Store Connect → App → App Store Server Notifications:
- *   URL: https://api.colorarchive.me/apple-notifications/v2
+ *   URL: https://api.colorarchive.org/apple-notifications/v2
  *   Version: Version 2 Notifications
  *
  * Reference: https://developer.apple.com/documentation/appstoreservernotifications

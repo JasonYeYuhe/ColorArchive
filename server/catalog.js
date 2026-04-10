@@ -55,7 +55,7 @@ function normalizeProductName(value) {
 }
 
 function getFrontendOrigin() {
-  return process.env.FRONTEND_ORIGIN || "https://colorarchive.me";
+  return process.env.FRONTEND_ORIGIN || "https://colorarchive.org";
 }
 
 function findCatalogProduct(productName) {

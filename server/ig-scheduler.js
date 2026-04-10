@@ -25,9 +25,9 @@ const {
 
 const TOKEN_FILE = path.join(__dirname, ".env.instagram");
 // Images are served from the API server, not the frontend
-const API_ORIGIN = process.env.API_ORIGIN || "https://api.colorarchive.me";
+const API_ORIGIN = process.env.API_ORIGIN || "https://api.colorarchive.org";
 // Bare domain for display in captions
-const SITE_DOMAIN = (process.env.FRONTEND_ORIGIN || "https://colorarchive.me")
+const SITE_DOMAIN = (process.env.FRONTEND_ORIGIN || "https://colorarchive.org")
   .replace(/^https?:\/\//, "")
   .replace(/\/$/, "");
 

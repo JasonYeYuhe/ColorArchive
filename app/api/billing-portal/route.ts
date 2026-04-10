@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getBillingPortalUrl } from "@/src/lib/checkout-config";
 
-const API_URL = process.env.BACKEND_API_URL ?? "https://api.colorarchive.me";
-const FRONTEND_URL = process.env.FRONTEND_URL || "https://colorarchive.me";
+const API_URL = process.env.BACKEND_API_URL ?? "https://api.colorarchive.org";
+const FRONTEND_URL = process.env.FRONTEND_URL || "https://colorarchive.org";
 
 export async function POST(req: NextRequest) {
   try {

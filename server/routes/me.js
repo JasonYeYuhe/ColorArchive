@@ -207,7 +207,7 @@ router.get("/referral", (req, res) => {
     code,
     credits: user.credits || 0,
     referrals: referrals.count,
-    link: `${process.env.FRONTEND_ORIGIN || "https://colorarchive.me"}/?ref=${code}`,
+    link: `${process.env.FRONTEND_ORIGIN || "https://colorarchive.org"}/?ref=${code}`,
   });
 });
 
