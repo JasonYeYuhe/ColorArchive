@@ -99,14 +99,26 @@ function hexToHSL(hex: string): { h: number; s: number; l: number } {
 }
 
 function hslToHex(h: number, s: number, l: number): string {
-  const sN = s / 100, lN = l / 100;
-  const a = sN * Math.min(lN, 1 - lN);
-  const f = (n: number) => {
-    const k = (n + h / 30) % 12;
-    const color = lN - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-    return Math.round(255 * color).toString(16).padStart(2, "0");
-  };
-  return `#${f(0)}${f(8)}${f(4)}`.toUpperCase();
+  const hN = h / 360, sN = s / 100, lN = l / 100;
+  if (sN === 0) {
+    const v = Math.round(lN * 255).toString(16).padStart(2, "0");
+    return `#${v}${v}${v}`.toUpperCase();
+  }
+  const q = lN < 0.5 ? lN * (1 + sN) : lN + sN - lN * sN;
+  const p = 2 * lN - q;
+  function hue2rgb(pp: number, qq: number, t: number): number {
+    let adj = t;
+    if (adj < 0) adj += 1;
+    if (adj > 1) adj -= 1;
+    if (adj < 1 / 6) return pp + (qq - pp) * 6 * adj;
+    if (adj < 1 / 2) return qq;
+    if (adj < 2 / 3) return pp + (qq - pp) * (2 / 3 - adj) * 6;
+    return pp;
+  }
+  const r = Math.round(hue2rgb(p, q, hN + 1 / 3) * 255);
+  const g = Math.round(hue2rgb(p, q, hN) * 255);
+  const b = Math.round(hue2rgb(p, q, hN - 1 / 3) * 255);
+  return `#${[r, g, b].map(c => c.toString(16).padStart(2, "0")).join("").toUpperCase()}`;
 }
 
 function generateScale(hex: string): { step: number; hex: string }[] {
@@ -278,6 +290,7 @@ export function activate(context: vscode.ExtensionContext) {
       const prefix = await vscode.window.showInputBox({
         value: "brand",
         prompt: "Scale name prefix (used in variable names)",
+        validateInput: (v) => /^[a-zA-Z_][a-zA-Z0-9_-]*$/.test(v) ? null : "Use letters, numbers, hyphens, or underscores only",
       });
       if (!prefix) return;
 
@@ -294,7 +307,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (format === "CSS Variables") {
         output = `:root {\n${scale.map((s) => `  --color-${prefix}-${s.step}: ${s.hex};`).join("\n")}\n}`;
       } else if (format === "Tailwind Config") {
-        output = `${prefix}: {\n${scale.map((s) => `  ${s.step}: "${s.hex}",`).join("\n")}\n}`;
+        output = `"${prefix}": {\n${scale.map((s) => `  ${s.step}: "${s.hex}",`).join("\n")}\n}`;
       } else if (format === "SCSS Variables") {
         output = scale.map((s) => `$color-${prefix}-${s.step}: ${s.hex};`).join("\n");
       } else if (format === "LESS Variables") {
