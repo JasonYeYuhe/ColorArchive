@@ -782,7 +782,7 @@ export function LoginPage() {
               </div>
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
-                  href="mailto:hello@colorarchive.me?subject=ColorArchive%20purchase%20support"
+                  href="mailto:hello@colorarchive.org?subject=ColorArchive%20purchase%20support"
                   className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                 >
                   {t("login.purchaseSupport")}

@@ -1,48 +1,66 @@
-const LAST_UPDATED = "March 27, 2026";
+const LAST_UPDATED = "April 7, 2026";
 
 const rows = [
-  { label: "販売業者", value: "ColorArchive（個人事業）" },
-  { label: "運営責任者", value: "叶宇和 YE YUHE"},
+  {
+    label: "販売業者",
+    value: "ColorArchive（個人事業）",
+    en: "Business name: ColorArchive (sole proprietorship)",
+  },
+  {
+    label: "運営責任者",
+    value: "叶宇和 YE YUHE",
+    en: "Operator: Ye Yuhe",
+  },
   {
     label: "所在地",
     value: "請求があった場合は遅滞なく開示いたします。",
+    en: "Address: Disclosed upon request without delay.",
   },
   {
     label: "連絡先",
     value:
-      "メール: support@colorarchive.me\n請求があった場合は遅滞なく電話番号を開示いたします。",
+      "メール: support@colorarchive.org\n請求があった場合は遅滞なく電話番号を開示いたします。",
+    en: "Email: support@colorarchive.org. Phone number disclosed upon request.",
   },
   {
     label: "販売価格",
     value: "各商品ページに表示された価格（税込）に準じます。",
+    en: "Pricing: As displayed on each product page (tax included).",
   },
   {
     label: "商品代金以外の必要料金",
     value:
       "なし（インターネット接続料金はお客様のご負担となります）",
+    en: "Additional fees: None (internet connection costs borne by the customer).",
   },
   {
     label: "支払方法",
-    value: "クレジットカード（Visa, Mastercard, American Express, JCB）",
+    value:
+      "クレジットカード（Visa, Mastercard, American Express, JCB）— 決済代行: Stripe, Inc.",
+    en: "Payment: Credit card (Visa, Mastercard, Amex, JCB) via Stripe, Inc.",
   },
   {
     label: "支払時期",
     value: "ご注文時に即時決済されます。",
+    en: "Payment timing: Charged immediately upon order.",
   },
   {
     label: "商品の引渡し時期",
     value:
       "決済完了後、即時ダウンロードまたはアカウントへの即時反映。",
+    en: "Delivery: Instant download or immediate account activation after payment.",
   },
   {
     label: "返品・交換・キャンセル",
     value:
-      "デジタル商品の性質上、購入後の返品・交換・キャンセルはお受けできません。商品に欠陥がある場合は support@colorarchive.me までご連絡ください。\nサブスクリプション（Pro プラン）はアカウントの請求ポータルからいつでも解約可能です。解約は現在の請求期間終了時に有効となり、残存期間の返金はいたしません。",
+      "デジタル商品の性質上、購入後の返品・交換・キャンセルはお受けできません。商品に欠陥がある場合は support@colorarchive.org までご連絡ください。\nサブスクリプション（Pro プラン）はアカウントの請求ポータルからいつでも解約可能です。解約は現在の請求期間終了時に有効となり、残存期間の返金はいたしません。サブスクリプションは自動更新されます。",
+    en: "Returns: Digital goods are non-refundable. Contact support for defective products. Pro subscriptions auto-renew and can be cancelled anytime; cancellation takes effect at the end of the current billing period.",
   },
   {
     label: "動作環境",
     value:
-      "最新版の Chrome, Firefox, Safari, Edge 等のモダンブラウザ。",
+      "最新版の Chrome, Firefox, Safari, Edge 等のモダンブラウザ。iOS アプリは iOS 16 以降対応。",
+    en: "Requirements: Modern browsers (Chrome, Firefox, Safari, Edge). iOS app requires iOS 16+.",
   },
 ];
 
@@ -80,8 +98,11 @@ export function CommerceDisclosurePage() {
                 <div className="min-w-[200px] text-sm font-semibold text-neutral-950 shrink-0">
                   {row.label}
                 </div>
-                <div className="text-sm leading-7 text-neutral-600 whitespace-pre-line">
-                  {row.value}
+                <div className="text-sm leading-7 text-neutral-600">
+                  <div className="whitespace-pre-line">{row.value}</div>
+                  <div className="mt-1 text-xs text-neutral-400 italic">
+                    {row.en}
+                  </div>
                 </div>
               </div>
             ))}
@@ -92,10 +113,10 @@ export function CommerceDisclosurePage() {
             Specified Commercial Transactions (特定商取引法). For questions,
             contact{" "}
             <a
-              href="mailto:support@colorarchive.me"
+              href="mailto:support@colorarchive.org"
               className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-950"
             >
-              support@colorarchive.me
+              support@colorarchive.org
             </a>
             .
           </p>

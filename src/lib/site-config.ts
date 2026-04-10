@@ -1,7 +1,7 @@
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://colorarchive.me";
 
-/** Bare domain for display text (e.g. "colorarchive.me") */
+/** Bare domain for display text (e.g. "colorarchive.org") */
 export const SITE_DOMAIN = SITE_URL.replace(/^https?:\/\//, "").replace(
   /\/$/,
   "",

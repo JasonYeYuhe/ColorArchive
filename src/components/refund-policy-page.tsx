@@ -1,6 +1,8 @@
 "use client";
 
-const LAST_UPDATED = "March 30, 2026";
+import { SITE_URL } from "@/src/lib/site-config";
+
+const LAST_UPDATED = "April 7, 2026";
 
 const sections = [
   {
@@ -21,15 +23,31 @@ This is consistent with the consumer protection provisions under Japan's Act on 
 - **After 7 days**: All lifetime purchases are final. Since Pro features are accessible immediately upon purchase, refunds are not available after the 7-day window.`,
   },
   {
-    title: "3. Exceptions",
+    title: "3. Apple App Store Purchases",
+    content: `If you purchased Pro through the ColorArchive iOS app, your transaction was processed by Apple, not directly by us.
+
+- **Refund requests**: All refund requests for App Store purchases must be submitted to Apple directly through [reportaproblem.apple.com](https://reportaproblem.apple.com) or by contacting Apple Support.
+- **We cannot process refunds** for purchases made through the App Store, as Apple controls the billing relationship.
+- **Subscription management**: You can manage or cancel App Store subscriptions in your iPhone Settings → Apple ID → Subscriptions.`,
+  },
+  {
+    title: "4. Exceptions",
     content: `We will consider a refund or resolution in the following cases:
 
 - **Technical issues**: If a technical problem on our end prevents you from accessing Pro features, contact us and we will work to resolve the issue or issue a full refund.
 - **Duplicate purchase**: If you accidentally purchased the same plan twice, contact us for a refund of the duplicate.`,
   },
   {
-    title: "4. How to Request a Refund",
-    content: `To request a refund, please contact us at **support@colorarchive.me** with:
+    title: "5. EU Consumer Rights",
+    content: `If you are a consumer in the European Union, you may have a 14-day cooling-off period under the Consumer Rights Directive (2011/83/EU) for online purchases.
+
+By purchasing Pro and immediately accessing digital content, you acknowledge that the digital content is delivered immediately upon purchase and that you thereby waive your right of withdrawal under Article 16(m) of the Directive, to the extent permitted by law.
+
+If you did not receive access or the product is defective, your statutory rights under EU consumer protection law remain unaffected. In such cases, please contact us for a resolution.`,
+  },
+  {
+    title: "6. How to Request a Refund",
+    content: `To request a refund (for web purchases via Stripe), please contact us at **support@colorarchive.org** with:
 
 - Your order confirmation email or order ID.
 - A description of the issue you experienced.
@@ -38,19 +56,19 @@ This is consistent with the consumer protection provisions under Japan's Act on 
 We aim to respond to all refund requests within 2 business days.`,
   },
   {
-    title: "5. Payment Provider",
+    title: "7. Payment Provider",
     content:
-      "Refunds are processed through the same payment method used for the original purchase. Depending on your payment provider and financial institution, it may take 5–10 business days for the refund to appear on your statement.",
+      "Web purchases are processed through Stripe. Refunds are returned to the same payment method used for the original purchase. Depending on your payment provider and financial institution, it may take 5–10 business days for the refund to appear on your statement.",
   },
   {
-    title: "6. Changes to This Policy",
+    title: "8. Changes to This Policy",
     content:
       "We may update this Refund Policy from time to time. The updated policy will be posted on this page with a revised date. Material changes will be communicated to registered users via email.",
   },
   {
-    title: "7. Contact",
+    title: "9. Contact",
     content:
-      "If you have questions about our refund policy, please contact us at **support@colorarchive.me**.",
+      "If you have questions about our refund policy, please contact us at **support@colorarchive.org**.",
   },
 ];
 
@@ -76,12 +94,12 @@ export function RefundPolicyPage() {
             This Refund Policy outlines the terms for refunds and cancellations
             for products and services purchased on{" "}
             <a
-              href="https://colorarchive.me"
+              href={SITE_URL}
               className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-950"
             >
-              colorarchive.me
-            </a>
-            .
+              colorarchive.org
+            </a>{" "}
+            and the ColorArchive iOS app.
           </p>
 
           <div className="mt-10 space-y-8">

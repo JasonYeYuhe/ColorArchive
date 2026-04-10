@@ -1,4 +1,6 @@
-const LAST_UPDATED = "March 27, 2026";
+import { SITE_URL } from "@/src/lib/site-config";
+
+const LAST_UPDATED = "April 7, 2026";
 
 const sections = [
   {
@@ -13,11 +15,14 @@ const sections = [
 - **Free tools**: Color browsing, palette generation, brand color tools, WCAG audit, contrast checker, gradient builder, and more.
 - **Pro subscription**: Unlock unlimited AI palette generations, exports in all formats, WCAG audit reports, and full token generation.
 - **API access**: Programmatic access to color data for developers.
+- **iOS app**: A mobile companion app available on the Apple App Store.
 - **Account features**: Favorites sync, preferences, usage stats, and subscription management when signed in.`,
   },
   {
-    title: "3. User Accounts",
-    content: `You may create an account using a magic link or Google OAuth. You are responsible for maintaining the security of your account. You agree to:
+    title: "3. Eligibility and User Accounts",
+    content: `You must be at least 13 years old to use ColorArchive or create an account. By using the service, you represent that you meet this age requirement.
+
+You may create an account using a magic link or Google OAuth. You are responsible for maintaining the security of your account. You agree to:
 
 - Provide accurate information when creating your account.
 - Notify us immediately of any unauthorized use of your account.
@@ -27,12 +32,13 @@ We reserve the right to suspend or terminate accounts that violate these terms.`
   },
   {
     title: "4. Purchases and Refunds",
-    content: `Pro subscriptions are sold through our checkout provider. All purchases are subject to the applicable provider's terms of service.
+    content: `Pro subscriptions and products are sold through Stripe, our payment processor. All purchases are subject to Stripe's terms of service.
 
 - **Subscriptions**: Pro subscriptions (monthly or yearly) renew automatically. You may cancel at any time through your account's billing portal — go to Account → Manage Subscription. Cancellation takes effect at the end of the current billing period; you retain access until then. No partial refunds are issued for the remaining period.
 - **Lifetime purchase**: The Pro Lifetime option is a one-time purchase that grants permanent Pro access. No recurring charges apply. "Lifetime" refers to the lifetime of the ColorArchive product/service.
 - **Exceptions**: If you experience a technical issue preventing you from accessing Pro features, contact us and we will work to resolve it or issue a refund at our discretion.
 - **Pricing**: We reserve the right to change pricing at any time. Price changes do not affect active subscriptions or completed purchases.
+- **Apple App Store purchases**: If you purchase Pro through the ColorArchive iOS app, the transaction is processed by Apple. App Store purchases are governed by Apple's terms and conditions, including Apple's refund policies. To request a refund for an App Store purchase, please contact Apple Support directly.
 
 For full details, see our [Refund Policy](/refund-policy/).`,
   },
@@ -75,19 +81,39 @@ For full details, see our [Refund Policy](/refund-policy/).`,
       "To the maximum extent permitted by law, ColorArchive and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the service, including but not limited to loss of data, revenue, or profits.",
   },
   {
-    title: "10. Changes to These Terms",
+    title: "10. Indemnification",
+    content:
+      "You agree to indemnify, defend, and hold harmless ColorArchive and its operator from any claims, damages, losses, liabilities, and expenses (including reasonable legal fees) arising out of or related to your use of the service, your violation of these Terms, or your violation of any third-party rights.",
+  },
+  {
+    title: "11. Dispute Resolution",
+    content: `In the event of any dispute arising from these Terms or your use of ColorArchive, you agree to first attempt to resolve the dispute informally by contacting us at **support@colorarchive.org**. We will attempt to resolve the dispute within 30 days.
+
+If the dispute is not resolved informally, both parties agree to submit the dispute to binding arbitration administered under the rules of the Japan Commercial Arbitration Association (JCAA), with the seat of arbitration in Tokyo, Japan. The language of arbitration shall be English or Japanese at the claimant's election.
+
+Notwithstanding the above, either party may seek injunctive or equitable relief in any court of competent jurisdiction. Nothing in this section limits your right to bring claims in small claims court if eligible.`,
+  },
+  {
+    title: "12. Changes to These Terms",
     content:
       "We may update these Terms of Service from time to time. We will notify registered users of material changes via email. Continued use of the service after changes are posted constitutes acceptance of the updated terms.",
   },
   {
-    title: "11. Governing Law",
+    title: "13. Governing Law",
     content:
-      "These Terms of Service shall be governed by and construed in accordance with the laws of the United States, without regard to conflict of law principles.",
+      "These Terms of Service shall be governed by and construed in accordance with the laws of Japan. For consumers in the European Union, nothing in these Terms shall affect your mandatory consumer protection rights under the laws of your country of residence.",
   },
   {
-    title: "12. Contact",
+    title: "14. General Provisions",
+    content: `- **Severability**: If any provision of these Terms is found to be unenforceable, the remaining provisions shall remain in full force and effect.
+- **Force Majeure**: We shall not be liable for any failure to perform due to causes beyond our reasonable control, including natural disasters, war, terrorism, pandemics, power outages, or internet disruptions.
+- **Entire Agreement**: These Terms, together with the Privacy Policy and Refund Policy, constitute the entire agreement between you and ColorArchive.
+- **No Waiver**: Our failure to enforce any provision of these Terms shall not be deemed a waiver of that provision.`,
+  },
+  {
+    title: "15. Contact",
     content:
-      "If you have questions about these Terms of Service, please contact us at **support@colorarchive.me**.",
+      "If you have questions about these Terms of Service, please contact us at **support@colorarchive.org**.",
   },
 ];
 
@@ -113,13 +139,14 @@ export function TermsPage() {
             Welcome to ColorArchive. These Terms of Service (&quot;Terms&quot;)
             govern your access to and use of the website{" "}
             <a
-              href="https://colorarchive.me"
+              href={SITE_URL}
               className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-950"
             >
-              colorarchive.me
-            </a>{" "}
-            and all related services, tools, and products provided by
-            ColorArchive (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;).
+              colorarchive.org
+            </a>
+            , the ColorArchive iOS app, and all related services, tools, and
+            products provided by ColorArchive (&quot;we&quot;, &quot;us&quot;,
+            &quot;our&quot;).
           </p>
 
           <div className="mt-10 space-y-8">

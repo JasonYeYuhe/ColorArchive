@@ -46,7 +46,7 @@ export const projectUpdates: ProjectUpdateEntry[] = [
     summary:
       "The API server, Resend domain verification, and purchase/download email flows are live for both free capture and paid checkout.",
     bullets: [
-      "Verified the `colorarchive.me` sending domain in Resend.",
+      "Verified the `colorarchive.org` sending domain in Resend.",
       "Deployed the API server for free-pack capture, checkout webhooks, and analytics.",
       "Separated free-pack delivery from waitlist/update confirmation email flows.",
     ],

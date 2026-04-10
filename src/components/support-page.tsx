@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     q: "How do I contact support?",
-    a: "Email support@colorarchive.me with your issue. We aim to respond within 2 business days.",
+    a: "Email support@colorarchive.org with your issue. We aim to respond within 2 business days.",
   },
 ] as const;
 
@@ -116,10 +116,10 @@ export function SupportPage() {
               <div className="mt-4 space-y-3 text-sm leading-6 text-neutral-600">
                 <p>For billing, technical issues, or general questions:</p>
                 <a
-                  href="mailto:support@colorarchive.me"
+                  href="mailto:support@colorarchive.org"
                   className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
                 >
-                  support@colorarchive.me
+                  support@colorarchive.org
                 </a>
                 <p className="text-xs text-neutral-400">Response time: within 2 business days</p>
               </div>
