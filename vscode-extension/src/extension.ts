@@ -98,7 +98,7 @@ async function pickColor(): Promise<PickedColor | undefined> {
 
   // Fetch hex from API
   try {
-    const res = await fetch(`https://api.colorarchive.me/colors/${id}`);
+    const res = await fetch(`https://api.colorarchive.org/colors/${id}`);
     if (res.ok) {
       const data = (await res.json()) as { hex?: string };
       if (data.hex) return { id, name, hex: data.hex };

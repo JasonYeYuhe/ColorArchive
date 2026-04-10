@@ -9,6 +9,6 @@
   "editorType": ["figma"],
   "documentAccess": "dynamic-page",
   "networkAccess": {
-    "allowedDomains": ["https://colorarchive.me", "https://api.colorarchive.me"]
+    "allowedDomains": ["https://colorarchive.org", "https://api.colorarchive.org"]
   }
 }

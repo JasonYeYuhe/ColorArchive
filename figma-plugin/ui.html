@@ -180,10 +180,10 @@
   <div class="tab-panel" id="panelProjects">
     <div id="projectsAuth" class="projects-auth">
       <p>Connect your ColorArchive account to sync projects.</p>
-      <input type="text" class="api-key-input" id="apiKeyInput" placeholder="Paste your API key (from colorarchive.me/account)" />
+      <input type="text" class="api-key-input" id="apiKeyInput" placeholder="Paste your API key (from colorarchive.org/account)" />
       <button class="btn primary" style="width:100%" onclick="connectApiKey()">Connect</button>
       <p style="margin-top:8px;font-size:10px;color:#bbb">
-        Get your API key at <a href="https://colorarchive.me/account" target="_blank" style="color:#6366f1">colorarchive.me/account</a>
+        Get your API key at <a href="https://colorarchive.org/account" target="_blank" style="color:#6366f1">colorarchive.org/account</a>
       </p>
     </div>
     <div id="projectsList" style="display:none">
@@ -196,7 +196,7 @@
   </div>
 
   <div class="footer">
-    <a href="https://colorarchive.me" target="_blank">colorarchive.me</a>
+    <a href="https://colorarchive.org" target="_blank">colorarchive.org</a>
   </div>
 
 <script>
@@ -359,7 +359,7 @@ window.switchTab = function(tab) {
 };
 
 // ─── Projects logic ──────────────────────────────────────────────────────────
-const API_BASE = 'https://api.colorarchive.me';
+const API_BASE = 'https://api.colorarchive.org';
 let storedApiKey = localStorage.getItem('ca_api_key') || '';
 let projectsData = [];
 
@@ -414,7 +414,7 @@ function loadProjects() {
 function renderProjects() {
   const container = document.getElementById('projectsContent');
   if (projectsData.length === 0) {
-    container.innerHTML = '<div class="projects-empty">No projects yet. Save a palette on colorarchive.me first.</div>';
+    container.innerHTML = '<div class="projects-empty">No projects yet. Save a palette on colorarchive.org first.</div>';
     return;
   }
   container.innerHTML = projectsData.map((p, i) => `
@@ -487,7 +487,7 @@ window.onmessage = function(event) {
     document.getElementById('badgeVsBlack').innerHTML = renderBadge(wcagGrade(vsBlack));
 
     const clean = hex.replace('#', '');
-    document.getElementById('linkColorarchive').href = `https://colorarchive.me/colors/hex/?c=${clean}`;
+    document.getElementById('linkColorarchive').href = `https://colorarchive.org/colors/hex/?c=${clean}`;
     document.getElementById('btnApplyBest').textContent = `Use ${bestTextColor === '#111111' ? 'black' : 'white'} text`;
 
     switchTab('inspect');
