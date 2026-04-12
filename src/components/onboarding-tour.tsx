@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { isOnboardingDismissed, dismissOnboarding } from "@/src/lib/onboarding";
 
@@ -41,6 +41,8 @@ export function OnboardingTour() {
   const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(false);
   const [exiting, setExiting] = useState(false);
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isOnboardingDismissed()) {
@@ -49,9 +51,22 @@ export function OnboardingTour() {
     }
   }, []);
 
+  // Cleanup exit timer on unmount
+  useEffect(() => () => clearTimeout(exitTimerRef.current), []);
+
+  // Escape key to dismiss
+  useEffect(() => {
+    if (!visible) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") finish();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  });
+
   const finish = useCallback(() => {
     setExiting(true);
-    setTimeout(() => {
+    exitTimerRef.current = setTimeout(() => {
       dismissOnboarding();
       setVisible(false);
     }, 300);
@@ -76,7 +91,13 @@ export function OnboardingTour() {
         exiting ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
       }`}
     >
-      <div className="rounded-2xl border border-indigo-200/60 bg-white/90 p-5 shadow-[0_12px_48px_rgba(0,0,0,0.15)] backdrop-blur-xl dark:border-indigo-800/40 dark:bg-neutral-900/90">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Onboarding step ${step + 1} of ${TOUR_STEPS.length}: ${current.title}`}
+        className="rounded-2xl border border-indigo-200/60 bg-white/90 p-5 shadow-[0_12px_48px_rgba(0,0,0,0.15)] backdrop-blur-xl dark:border-indigo-800/40 dark:bg-neutral-900/90"
+      >
         {/* Progress dots */}
         <div className="mb-3 flex items-center justify-between">
           <div className="flex gap-1.5">
@@ -117,18 +138,22 @@ export function OnboardingTour() {
           </button>
 
           <div className="flex gap-2">
-            {current.action && (
-              <button
-                type="button"
-                onClick={() => {
-                  finish();
-                  router.push(current.action!.href);
-                }}
-                className="rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-2 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100 dark:border-indigo-800 dark:bg-indigo-950/30 dark:text-indigo-300 dark:hover:bg-indigo-900/40"
-              >
-                {current.action.label}
-              </button>
-            )}
+            {current.action && (() => {
+              const actionHref = current.action.href;
+              const actionLabel = current.action.label;
+              return (
+                <button
+                  type="button"
+                  onClick={() => {
+                    finish();
+                    router.push(actionHref);
+                  }}
+                  className="rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-2 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100 dark:border-indigo-800 dark:bg-indigo-950/30 dark:text-indigo-300 dark:hover:bg-indigo-900/40"
+                >
+                  {actionLabel}
+                </button>
+              );
+            })()}
             <button
               type="button"
               onClick={next}
