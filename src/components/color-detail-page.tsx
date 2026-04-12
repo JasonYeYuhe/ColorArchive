@@ -7,6 +7,7 @@ import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-but
 import { PinterestSaveButton } from "@/src/components/pinterest-save-button";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { SendToTool } from "@/src/components/send-to-tool";
+import { StickyColorBar } from "@/src/components/sticky-color-bar";
 import { useLocale } from "@/src/components/locale-provider";
 import {
   addManyToPalette,
@@ -401,6 +402,7 @@ export function ColorDetailPage({
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
+        <StickyColorBar name={color.name} hex={color.hex} rgb={color.rgb} hsl={color.hsl} />
         <section className="overflow-hidden rounded-[2rem] border border-black/6 bg-white/78 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           {(() => {
             const isLight = color.lightness > 65;
