@@ -476,19 +476,15 @@ function PaletteContent() {
           )}
         </div>
         <div className="flex flex-wrap gap-2">
-          <ProGate label="Export">
-            <CopyButton value={cssExport} label="CSS" />
-          </ProGate>
-          <ProGate label="Export">
-            <CopyButton value={jsonExport} label="JSON" />
-          </ProGate>
-          <ProGate label="Download">
+          <CopyButton value={cssExport} label="CSS" />
+          <CopyButton value={jsonExport} label="JSON" />
+          <ProGate label="Download SVG">
             <DownloadPaletteSvgButton colors={paletteColors} />
           </ProGate>
-          <ProGate label="Download">
+          <ProGate label="Download Procreate">
             <DownloadProcreateButton colors={paletteColors} />
           </ProGate>
-          <ProGate label="Download">
+          <ProGate label="Download ASE">
             <DownloadAseButton colors={paletteColors} />
           </ProGate>
           <ShareUrlButton ids={paletteColors.map((c) => c.id)} />
@@ -576,39 +572,48 @@ rose-core-soft
         </pre>
       </div>
 
-      {/* Tailwind preview */}
+      {/* Tailwind preview — Pro */}
       <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
         <div className="flex items-center justify-between">
-          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
             Tailwind Config
+            <span className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-[9px] font-bold text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400">PRO</span>
           </div>
-          <CopyButton value={tailwindExport} label="Tailwind" />
+          <ProGate label="Tailwind">
+            <CopyButton value={tailwindExport} label="Tailwind" />
+          </ProGate>
         </div>
         <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
           {tailwindExport}
         </pre>
       </div>
 
-      {/* Figma tokens preview */}
+      {/* Figma tokens preview — Pro */}
       <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
         <div className="flex items-center justify-between">
-          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
             Figma Design Tokens
+            <span className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-[9px] font-bold text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400">PRO</span>
           </div>
-          <CopyButton value={figmaExport} label="Figma" />
+          <ProGate label="Figma">
+            <CopyButton value={figmaExport} label="Figma" />
+          </ProGate>
         </div>
         <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
           {figmaExport}
         </pre>
       </div>
 
-      {/* Style Dictionary preview */}
+      {/* Style Dictionary preview — Pro */}
       <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
         <div className="flex items-center justify-between">
-          <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
             Style Dictionary
+            <span className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-[9px] font-bold text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400">PRO</span>
           </div>
-          <CopyButton value={styleDictExport} label="Style Dict" />
+          <ProGate label="Style Dict">
+            <CopyButton value={styleDictExport} label="Style Dict" />
+          </ProGate>
         </div>
         <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-sm leading-6 text-neutral-600">
           {styleDictExport}

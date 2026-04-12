@@ -8,6 +8,7 @@ import { PaletteBuilderTray } from "@/src/components/palette-builder-tray";
 import { LocaleProvider } from "@/src/components/locale-provider";
 import { PHLaunchBanner } from "@/src/components/ph-launch-banner";
 import { BackToTop } from "@/src/components/back-to-top";
+import { KeyboardShortcuts } from "@/src/components/keyboard-shortcuts";
 import { CopyUpsellToast } from "@/src/components/copy-upsell-toast";
 import { ErrorBoundary } from "@/src/components/error-boundary";
 import { Analytics } from "@vercel/analytics/react";
@@ -146,6 +147,7 @@ gtag('config', 'AW-11416473237');`}
               <PaletteBuilderTray />
               <BackToTop />
               <CopyUpsellToast />
+              <KeyboardShortcuts />
               <PageTracker />
               <Analytics />
             </AuthProvider>

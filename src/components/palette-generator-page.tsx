@@ -3,6 +3,10 @@
 import Link from "next/link";
 import { useCallback, useMemo, useState, useRef, useEffect } from "react";
 import { useLocale } from "@/src/components/locale-provider";
+import { addManyToPalette } from "@/src/lib/palette-builder";
+import { ProGate } from "@/src/components/pro-gate";
+import { ToolUpsellBanner } from "@/src/components/tool-upsell-banner";
+import { PaletteExportPanel } from "@/src/components/palette-export-panel";
 
 /* ------------------------------------------------------------------ */
 /*  Color conversion helpers                                           */
@@ -120,6 +124,230 @@ function harmonyToTailwind(harmony: Harmony): string {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Quick Generate — press spacebar to generate random palettes        */
+/* ------------------------------------------------------------------ */
+
+interface QuickColor {
+  hex: string;
+  locked: boolean;
+}
+
+function randomHsl(): { h: number; s: number; l: number } {
+  return {
+    h: Math.floor(Math.random() * 360),
+    s: 40 + Math.floor(Math.random() * 50), // 40-89 — avoids washed-out or neon
+    l: 30 + Math.floor(Math.random() * 45), // 30-74 — avoids near-white/near-black
+  };
+}
+
+function generateQuickPalette(prev: QuickColor[]): QuickColor[] {
+  return prev.map((c) => {
+    if (c.locked) return c;
+    const { h, s, l } = randomHsl();
+    return { hex: hslToHex(h, s, l), locked: false };
+  });
+}
+
+function initQuickPalette(): QuickColor[] {
+  return Array.from({ length: 5 }, () => {
+    const { h, s, l } = randomHsl();
+    return { hex: hslToHex(h, s, l), locked: false };
+  });
+}
+
+function isLightColor(hex: string): boolean {
+  const m = hex.match(/^#([0-9a-f]{6})$/i);
+  if (!m) return false;
+  const r = parseInt(m[1].slice(0, 2), 16);
+  const g = parseInt(m[1].slice(2, 4), 16);
+  const b = parseInt(m[1].slice(4, 6), 16);
+  return (r * 299 + g * 587 + b * 114) / 1000 > 160;
+}
+
+function QuickGenerate() {
+  const { t } = useLocale();
+  const [colors, setColors] = useState<QuickColor[]>(initQuickPalette);
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const [savedFlash, setSavedFlash] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  const generate = useCallback(() => {
+    setColors((prev) => generateQuickPalette(prev));
+  }, []);
+
+  const toggleLock = useCallback((idx: number) => {
+    setColors((prev) =>
+      prev.map((c, i) => (i === idx ? { ...c, locked: !c.locked } : c)),
+    );
+  }, []);
+
+  const copyHex = useCallback(async (hex: string, idx: number) => {
+    try {
+      await navigator.clipboard.writeText(hex);
+      setCopiedIdx(idx);
+      clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => setCopiedIdx(null), 1200);
+    } catch {
+      /* clipboard not available */
+    }
+  }, []);
+
+  const saveAll = useCallback(() => {
+    addManyToPalette(
+      colors.map((c) => c.hex.toLowerCase().replace("#", "")),
+    );
+    setSavedFlash(true);
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setSavedFlash(false), 1500);
+  }, [colors]);
+
+  const copyAllHex = useCallback(async () => {
+    const text = colors.map((c) => c.hex).join(", ");
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      /* clipboard not available */
+    }
+  }, [colors]);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+      if (e.code === "Space") {
+        e.preventDefault();
+        generate();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [generate]);
+
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  const cssExport = colors.map((c, i) => `  --quick-${i + 1}: ${c.hex};`).join("\n");
+
+  return (
+    <div ref={containerRef} className="rounded-[2rem] border border-black/6 bg-white/74 p-6 backdrop-blur-xl sm:p-8 dark:border-white/8 dark:bg-white/5">
+      {/* Title row */}
+      <div className="mb-2 flex items-center justify-between">
+        <h2 className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-white">
+          {t("quick_generate") || "Quick Generate"}
+        </h2>
+        <span className="hidden text-xs text-neutral-400 sm:inline dark:text-neutral-500">
+          {t("press_spacebar") || "Press spacebar to generate"}
+        </span>
+      </div>
+
+      {/* Color bars */}
+      <div className="mb-4 flex gap-1.5 overflow-hidden rounded-2xl sm:gap-2" style={{ height: "180px" }}>
+        {colors.map((c, i) => {
+          const light = isLightColor(c.hex);
+          const textClass = light ? "text-neutral-800" : "text-white";
+          const hoverBg = light ? "hover:bg-black/10" : "hover:bg-white/15";
+          return (
+            <div
+              key={i}
+              className="group relative flex flex-1 flex-col items-center justify-end transition-all duration-300"
+              style={{ backgroundColor: c.hex }}
+            >
+              {/* Lock button */}
+              <button
+                type="button"
+                onClick={() => toggleLock(i)}
+                className={`absolute top-2 rounded-lg p-1.5 text-xs opacity-0 transition group-hover:opacity-100 ${hoverBg} ${textClass}`}
+                title={c.locked ? "Unlock" : "Lock"}
+              >
+                {c.locked ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                    <path fillRule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                    <path d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5a3 3 0 10-6 0v.5a.75.75 0 001.5 0v-.5a1.5 1.5 0 113 0V9h-6z" />
+                  </svg>
+                )}
+              </button>
+
+              {/* Lock indicator (always visible when locked) */}
+              {c.locked && (
+                <div className={`absolute top-2 rounded-lg p-1.5 text-xs group-hover:opacity-0 ${textClass}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                    <path fillRule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              )}
+
+              {/* Copy hex on click */}
+              <button
+                type="button"
+                onClick={() => copyHex(c.hex, i)}
+                className={`mb-3 rounded-lg px-2 py-1 text-xs font-mono font-medium transition ${textClass} ${hoverBg}`}
+              >
+                {copiedIdx === i ? "Copied!" : c.hex}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Action row */}
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={generate}
+          className="rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+        >
+          {t("generate") || "Generate"}
+          <kbd className="ml-2 hidden rounded bg-white/20 px-1.5 py-0.5 text-[10px] font-semibold sm:inline dark:bg-black/20">
+            Space
+          </kbd>
+        </button>
+
+        <button
+          type="button"
+          onClick={copyAllHex}
+          className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/10 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-900"
+        >
+          Copy All
+        </button>
+
+        <CopyButton value={`:root {\n${cssExport}\n}`} label="CSS" />
+
+        <button
+          type="button"
+          onClick={saveAll}
+          className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/10 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-900"
+        >
+          {savedFlash ? "Saved!" : "Save to Palette"}
+        </button>
+      </div>
+
+      {/* Mobile hint */}
+      <p className="mt-3 text-center text-xs text-neutral-400 sm:hidden dark:text-neutral-500">
+        {t("tap_generate") || "Tap Generate or press spacebar on desktop"}
+      </p>
+
+      {/* Expandable export panel */}
+      <details className="mt-5 group">
+        <summary className="cursor-pointer text-xs font-medium uppercase tracking-wider text-neutral-400 transition hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300">
+          {t("export_palette") || "Export this palette"} <span className="ml-1 inline-block transition-transform group-open:rotate-90">&#9654;</span>
+        </summary>
+        <div className="mt-3">
+          <PaletteExportPanel
+            colors={colors.map((c, i) => ({ name: `Color ${i + 1}`, hex: c.hex }))}
+            prefix="quick"
+          />
+        </div>
+      </details>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  CopyButton                                                         */
 /* ------------------------------------------------------------------ */
 
@@ -224,7 +452,9 @@ function HarmonyCard({ harmony }: { harmony: Harmony }) {
       {/* Export buttons */}
       <div className="flex flex-wrap gap-2">
         <CopyButton value={cssValue} label="CSS" />
-        <CopyButton value={tailwindValue} label="Tailwind" />
+        <ProGate label="Tailwind">
+          <CopyButton value={tailwindValue} label="Tailwind" />
+        </ProGate>
       </div>
     </div>
   );
@@ -271,6 +501,20 @@ export function PaletteGeneratorPage() {
               "Enter a seed color and explore harmonious palettes instantly. Click any swatch to copy its hex code."}
           </p>
         </section>
+
+        {/* Quick Generate */}
+        <section className="mb-10">
+          <QuickGenerate />
+        </section>
+
+        {/* Divider */}
+        <div className="mb-10 flex items-center gap-4">
+          <div className="h-px flex-1 bg-black/6 dark:bg-white/8" />
+          <span className="text-xs font-medium uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+            {t("or_explore_harmonies") || "Or explore harmonies from a seed color"}
+          </span>
+          <div className="h-px flex-1 bg-black/6 dark:bg-white/8" />
+        </div>
 
         {/* Seed color input */}
         <section className="mx-auto mb-14 max-w-md">
@@ -334,6 +578,9 @@ export function PaletteGeneratorPage() {
             ))}
           </section>
         )}
+
+        {/* Upsell banner */}
+        <ToolUpsellBanner toolName="Palette Generator" />
 
         {/* ─── About this tool ─── */}
         <section className="mt-14 rounded-[2rem] border border-black/6 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-neutral-900/80">

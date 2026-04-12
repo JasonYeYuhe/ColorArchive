@@ -15,6 +15,7 @@ import {
   type RGB,
 } from "@/src/lib/colorblind";
 import { colors as allColors } from "@/src/data/colors";
+import { ToolUpsellBanner } from "@/src/components/tool-upsell-banner";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -623,6 +624,8 @@ export function ValidatePage() {
           <p className="text-sm text-red-400">No valid hex colors found in input</p>
         </div>
       )}
+
+      <ToolUpsellBanner toolName="Palette Validator" />
     </main>
   );
 }

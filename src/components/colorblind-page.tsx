@@ -12,6 +12,7 @@ import {
   type ColorBlindType,
 } from "@/src/lib/colorblind";
 import { useLocale } from "@/src/components/locale-provider";
+import { ToolUpsellBanner } from "@/src/components/tool-upsell-banner";
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -609,6 +610,8 @@ export function ColorBlindSimulatorPage() {
           → Color Harmonies
         </Link>
       </div>
+
+      <ToolUpsellBanner toolName="Colorblind Simulator" />
     </main>
   );
 }
