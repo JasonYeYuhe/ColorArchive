@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
@@ -53,7 +54,9 @@ export default function ValidateRoute() {
     <>
       <SiteHeader currentPath="/validate" />
       <StructuredDataScript data={[breadcrumbData, webAppData]} />
-      <ValidatePage />
+      <Suspense fallback={<main className="px-4 py-8 text-sm text-neutral-500">Loading...</main>}>
+        <ValidatePage />
+      </Suspense>
     </>
   );
 }

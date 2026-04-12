@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { hexToRgb, rgbToHsl, hslToRgb, rgbToHex } from "@/src/lib/color-utils";
 
 /* ------------------------------------------------------------------ */
@@ -184,7 +185,17 @@ function CopyButton({ value, label, small }: { value: string; label: string; sma
 /* ------------------------------------------------------------------ */
 
 export function TintsShadesPage() {
-  const [hexInput, setHexInput] = useState("#2563EB");
+  const searchParams = useSearchParams();
+  const [hexInput, setHexInput] = useState(() => {
+    if (typeof window === "undefined") return "#2563EB";
+    const hex = new URLSearchParams(window.location.search).get("hex");
+    return hex && /^[0-9a-f]{6}$/i.test(hex) ? `#${hex.toUpperCase()}` : "#2563EB";
+  });
+
+  useEffect(() => {
+    const hex = searchParams.get("hex");
+    if (hex && /^[0-9a-f]{6}$/i.test(hex)) setHexInput(`#${hex.toUpperCase()}`);
+  }, [searchParams]);
   const [paletteName, setPaletteName] = useState("primary");
   const [activeFormat, setActiveFormat] = useState<ExportFormat>("css");
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);

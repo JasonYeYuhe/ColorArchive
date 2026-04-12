@@ -6,6 +6,7 @@ import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
 import { PinterestSaveButton } from "@/src/components/pinterest-save-button";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
+import { SendToTool } from "@/src/components/send-to-tool";
 import { useLocale } from "@/src/components/locale-provider";
 import {
   addManyToPalette,
@@ -642,9 +643,12 @@ export function ColorDetailPage({
                 <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                   Compare
                 </h2>
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
-                  See how {color.name} compares side by side with related colors.
-                </p>
+                <div className="mt-3 flex items-center justify-between">
+                  <p className="max-w-2xl text-sm leading-6 text-neutral-600">
+                    See how {color.name} compares side by side with related colors.
+                  </p>
+                  <SendToTool hexColors={[color.hex, ...(complementaryColor ? [complementaryColor.hex] : [])]} />
+                </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {paletteMoves.slice(0, 6).map((item) => (
                     <Link

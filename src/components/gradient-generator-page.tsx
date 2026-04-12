@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useCallback, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 /* ------------------------------------------------------------------ */
 /*  Local CopyButton                                                   */
@@ -46,8 +47,24 @@ function randomHex(): string {
 /* ------------------------------------------------------------------ */
 
 export function GradientGeneratorPage() {
-  const [color1, setColor1] = useState("#4A90D9");
-  const [color2, setColor2] = useState("#E74C3C");
+  const searchParams = useSearchParams();
+  const [color1, setColor1] = useState(() => {
+    if (typeof window === "undefined") return "#4A90D9";
+    const c = new URLSearchParams(window.location.search).get("from");
+    return c && /^[0-9a-f]{6}$/i.test(c) ? `#${c.toUpperCase()}` : "#4A90D9";
+  });
+  const [color2, setColor2] = useState(() => {
+    if (typeof window === "undefined") return "#E74C3C";
+    const c = new URLSearchParams(window.location.search).get("to");
+    return c && /^[0-9a-f]{6}$/i.test(c) ? `#${c.toUpperCase()}` : "#E74C3C";
+  });
+
+  useEffect(() => {
+    const from = searchParams.get("from");
+    const to = searchParams.get("to");
+    if (from && /^[0-9a-f]{6}$/i.test(from)) setColor1(`#${from.toUpperCase()}`);
+    if (to && /^[0-9a-f]{6}$/i.test(to)) setColor2(`#${to.toUpperCase()}`);
+  }, [searchParams]);
   const [gradientType, setGradientType] = useState<"linear" | "radial">("linear");
   const [angle, setAngle] = useState(90);
 

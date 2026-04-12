@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { hexToRgb, rgbToHsl, rgbToHex, hslToRgb } from "@/src/lib/color-convert";
 import { hexContrastRatio, wcagLabel } from "@/src/lib/brand-palette";
 import { getColorFamily } from "@/src/lib/color-filter";
@@ -235,8 +236,23 @@ const CB_TYPES: ColorBlindType[] = ["protanopia", "deuteranopia", "tritanopia", 
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export function ValidatePage() {
-  const [input, setInput] = useState("");
-  const [submitted, setSubmitted] = useState("");
+  const searchParams = useSearchParams();
+  const [input, setInput] = useState(() => {
+    if (typeof window === "undefined") return "";
+    return new URLSearchParams(window.location.search).get("colors") ?? "";
+  });
+  const [submitted, setSubmitted] = useState(() => {
+    if (typeof window === "undefined") return "";
+    return new URLSearchParams(window.location.search).get("colors") ?? "";
+  });
+
+  useEffect(() => {
+    const colors = searchParams.get("colors");
+    if (colors) {
+      setInput(colors);
+      setSubmitted(colors);
+    }
+  }, [searchParams]);
 
   const hexes = useMemo(() => (submitted ? parseHexColors(submitted) : []), [submitted]);
   const parsed = useMemo(() => analyzeColors(hexes), [hexes]);

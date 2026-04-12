@@ -7,6 +7,7 @@ import { addManyToPalette } from "@/src/lib/palette-builder";
 import { ProGate } from "@/src/components/pro-gate";
 import { ToolUpsellBanner } from "@/src/components/tool-upsell-banner";
 import { PaletteExportPanel } from "@/src/components/palette-export-panel";
+import { SendToTool } from "@/src/components/send-to-tool";
 
 /* ------------------------------------------------------------------ */
 /*  Color conversion helpers                                           */
@@ -324,6 +325,8 @@ function QuickGenerate() {
         >
           {savedFlash ? "Saved!" : "Save to Palette"}
         </button>
+
+        <SendToTool hexColors={colors.map((c) => c.hex)} />
       </div>
 
       {/* Mobile hint */}

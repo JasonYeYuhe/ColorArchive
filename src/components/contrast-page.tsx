@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { colors } from "@/src/data/colors";
 import { hslToRgb, rgbToHex } from "@/src/lib/color-utils";
 import { useLocale } from "@/src/components/locale-provider";
@@ -372,8 +373,25 @@ function ColorPickerPanel({
 
 export function ContrastCheckerPage() {
   const { t } = useLocale();
-  const [fgHex, setFgHex] = useState("#1A1A2E");
-  const [bgHex, setBgHex] = useState("#F5F5F0");
+  const searchParams = useSearchParams();
+  const [fgHex, setFgHex] = useState(() => {
+    if (typeof window === "undefined") return "#1A1A2E";
+    const fg = new URLSearchParams(window.location.search).get("fg");
+    return fg && /^[0-9a-f]{6}$/i.test(fg) ? `#${fg.toUpperCase()}` : "#1A1A2E";
+  });
+  const [bgHex, setBgHex] = useState(() => {
+    if (typeof window === "undefined") return "#F5F5F0";
+    const bg = new URLSearchParams(window.location.search).get("bg");
+    return bg && /^[0-9a-f]{6}$/i.test(bg) ? `#${bg.toUpperCase()}` : "#F5F5F0";
+  });
+
+  // Sync from URL params when navigating in
+  useEffect(() => {
+    const fg = searchParams.get("fg");
+    const bg = searchParams.get("bg");
+    if (fg && /^[0-9a-f]{6}$/i.test(fg)) setFgHex(`#${fg.toUpperCase()}`);
+    if (bg && /^[0-9a-f]{6}$/i.test(bg)) setBgHex(`#${bg.toUpperCase()}`);
+  }, [searchParams]);
 
   const wcag = useMemo(() => evaluateWcag(fgHex, bgHex), [fgHex, bgHex]);
 
