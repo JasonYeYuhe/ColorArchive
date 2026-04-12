@@ -6,6 +6,7 @@ import { useLocale } from "@/src/components/locale-provider";
 import { colors as allColors } from "@/src/data/colors";
 import { getRecentColorIds } from "@/src/lib/recent-colors";
 import { getFamilySlug } from "@/src/lib/color-family-pages";
+import { API_URL } from "@/src/lib/api-config";
 import type { ColorRecord, ColorFamily } from "@/src/types/color";
 import { addToPalette, getPaletteIds, subscribeToPalette, MAX_SIZE } from "@/src/lib/palette-builder";
 
@@ -92,18 +93,42 @@ function generateFamilyTrends(seed: number): { family: ColorFamily; count: numbe
 export function TrendingPage() {
   const { t } = useLocale();
   const [recentIds, setRecentIds] = useState<string[]>([]);
+  const [apiTrending, setApiTrending] = useState<TrendingColor[] | null>(null);
+  const [apiDataSource, setApiDataSource] = useState<"live" | "generated">("generated");
 
   useEffect(() => {
     setRecentIds(getRecentColorIds());
   }, []);
 
-  // Seed changes weekly for fresh trending content
+  // Try to fetch real trending data from API
+  useEffect(() => {
+    fetch(`${API_URL}/trending?days=7&limit=24`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.trending && data.trending.length > 0) {
+          const resolved: TrendingColor[] = [];
+          for (const item of data.trending as { color_id: string; views: number }[]) {
+            const color = allColors.find((c) => c.id === item.color_id);
+            if (color) resolved.push({ color, score: item.views });
+          }
+          if (resolved.length >= 6) {
+            setApiTrending(resolved);
+            setApiDataSource("live");
+          }
+        }
+      })
+      .catch(() => {
+        // Fallback to generated
+      });
+  }, []);
+
+  // Seed changes weekly for fallback trending content
   const weekSeed = useMemo(() => {
     const now = new Date();
     return Math.floor(now.getTime() / (7 * 24 * 60 * 60 * 1000));
   }, []);
 
-  const trending = useMemo(() => generateTrendingColors(weekSeed), [weekSeed]);
+  const trending = apiTrending ?? generateTrendingColors(weekSeed);
   const familyTrends = useMemo(() => generateFamilyTrends(weekSeed), [weekSeed]);
   const weekRange = useMemo(() => {
     const start = new Date(weekSeed * 7 * 24 * 60 * 60 * 1000);
@@ -121,8 +146,13 @@ export function TrendingPage() {
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
         {/* Hero */}
         <section className="rounded-[2rem] border border-black/6 bg-white/78 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
-          <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-400">
+          <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-400">
             {t("trending.badge")}
+            {apiDataSource === "live" && (
+              <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[9px] font-bold normal-case tracking-normal text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+                Live data
+              </span>
+            )}
           </div>
           <h1 className="mt-3 flex flex-wrap items-baseline gap-3 text-3xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-4xl">
             {t("trending.title")}
