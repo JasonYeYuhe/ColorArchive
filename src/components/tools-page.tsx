@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useMemo, useState } from "react";
 import { useLocale } from "@/src/components/locale-provider";
 
 interface Tool {
@@ -312,56 +313,137 @@ const CATEGORIES = [
 
 export function ToolsPage() {
   const { t } = useLocale();
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  const filteredTools = useMemo(() => {
+    let result = TOOLS;
+    if (activeCategory) {
+      result = result.filter((tool) => tool.categoryKey === activeCategory);
+    }
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      result = result.filter(
+        (tool) =>
+          t(tool.nameKey).toLowerCase().includes(q) ||
+          t(tool.descKey).toLowerCase().includes(q),
+      );
+    }
+    return result;
+  }, [search, activeCategory, t]);
+
+  // Group filtered tools by category
+  const groupedTools = useMemo(() => {
+    const groups: Array<{ category: string; tools: Tool[] }> = [];
+    for (const cat of CATEGORIES) {
+      const catTools = filteredTools.filter((tool) => tool.categoryKey === cat);
+      if (catTools.length > 0) groups.push({ category: cat, tools: catTools });
+    }
+    return groups;
+  }, [filteredTools]);
 
   return (
     <main id="main-content" className="px-4 pb-20 pt-6 sm:px-6 sm:pt-8">
       <div className="mx-auto max-w-5xl space-y-8">
         {/* Header */}
-        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/72 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
-          <div className="pointer-events-none absolute -left-16 top-8 h-48 w-48 rounded-full bg-violet-200/40 blur-3xl" />
-          <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-sky-200/35 blur-3xl" />
-          <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/72 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/8 dark:bg-white/5 sm:px-10 sm:py-14">
+          <div className="pointer-events-none absolute -left-16 top-8 h-48 w-48 rounded-full bg-violet-200/40 blur-3xl dark:bg-violet-900/20" />
+          <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-sky-200/35 blur-3xl dark:bg-sky-900/15" />
+          <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-black/10 to-transparent dark:via-white/10" />
 
           <div className="relative">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
-              <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase dark:border-white/10 dark:bg-white/10 dark:text-neutral-400">
+              <span className="inline-block h-2 w-2 rounded-full bg-neutral-900 dark:bg-white" />
               {t("tools.badge")}
             </div>
 
-            <h1 className="text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-5xl">
+            <h1 className="text-4xl font-semibold tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-5xl">
               {t("tools.heading")}
             </h1>
 
-            <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg">
+            <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600 dark:text-neutral-400 sm:text-lg">
               {t("tools.subheading")}
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              {CATEGORIES.map((cat) => (
-                <a
-                  key={cat}
-                  href={`#${cat.replace("tools.cat.", "")}`}
-                  className="rounded-full border border-black/8 bg-white/85 px-4 py-1.5 text-sm font-medium text-neutral-600 transition hover:bg-white"
-                >
-                  {t(cat)}
-                </a>
-              ))}
+            {/* Search box */}
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <div className="relative flex-1 max-w-md">
+                <svg className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder={t("tools.searchPlaceholder") || "Search tools..."}
+                  className="w-full rounded-xl border border-black/8 bg-white py-2.5 pl-10 pr-4 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-400 focus:ring-2 focus:ring-blue-500 dark:border-white/10 dark:bg-white/10 dark:text-white dark:placeholder:text-neutral-500"
+                />
+                {search && (
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400">
+                    {filteredTools.length} {filteredTools.length === 1 ? "tool" : "tools"}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Category filter tabs */}
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setActiveCategory(null)}
+                aria-pressed={activeCategory === null}
+                className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
+                  activeCategory === null
+                    ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"
+                    : "border border-black/8 bg-white/85 text-neutral-600 hover:bg-white dark:border-white/10 dark:bg-white/10 dark:text-neutral-300 dark:hover:bg-white/15"
+                }`}
+              >
+                {t("tools.allCategories") || "All"}
+                <span className="ml-1.5 text-xs opacity-60">{filteredTools.length}</span>
+              </button>
+              {CATEGORIES.map((cat) => {
+                const count = filteredTools.filter((tool) => tool.categoryKey === cat).length;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
+                    aria-pressed={activeCategory === cat}
+                    className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
+                      activeCategory === cat
+                        ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"
+                        : "border border-black/8 bg-white/85 text-neutral-600 hover:bg-white dark:border-white/10 dark:bg-white/10 dark:text-neutral-300 dark:hover:bg-white/15"
+                    }`}
+                  >
+                    {t(cat)}
+                    <span className="ml-1.5 text-xs opacity-60">{count}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </section>
 
+        {/* No results */}
+        {groupedTools.length === 0 && (
+          <div className="flex h-32 items-center justify-center rounded-2xl border border-dashed border-black/10 dark:border-white/10">
+            <p className="text-sm text-neutral-400 dark:text-neutral-500">
+              No tools match &quot;{search}&quot;
+            </p>
+          </div>
+        )}
+
         {/* Tool categories */}
-        {CATEGORIES.map((category) => {
-          const catTools = TOOLS.filter((tool) => tool.categoryKey === category);
+        {groupedTools.map(({ category, tools: catTools }) => {
           const catId = category.replace("tools.cat.", "");
 
           return (
             <section key={category} id={catId}>
               <div className="mb-4 flex items-center gap-3">
-                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
+                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400 dark:text-neutral-500">
                   {t(category)}
                 </div>
-                <div className="h-px flex-1 bg-black/6" />
+                <div className="h-px flex-1 bg-black/6 dark:bg-white/8" />
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -374,10 +456,10 @@ export function ToolsPage() {
                     key={tool.href}
                     href={tool.href}
                     {...extraProps}
-                    className="group relative flex flex-col gap-4 rounded-[1.5rem] border border-black/6 bg-white/80 p-6 shadow-[0_8px_32px_rgba(15,23,42,0.05)] transition hover:shadow-[0_12px_40px_rgba(15,23,42,0.10)] hover:bg-white backdrop-blur-sm"
+                    className="group relative flex flex-col gap-4 rounded-[1.5rem] border border-black/6 bg-white/80 p-5 shadow-[0_8px_32px_rgba(15,23,42,0.05)] transition hover:shadow-[0_12px_40px_rgba(15,23,42,0.10)] hover:bg-white backdrop-blur-sm dark:border-white/8 dark:bg-white/5 dark:hover:bg-white/8 sm:p-6"
                   >
                     {tool.badgeKey ? (
-                      <div className="absolute right-4 top-4 rounded-full bg-neutral-950 px-2.5 py-0.5 text-[10px] font-semibold tracking-[0.14em] text-white uppercase">
+                      <div className="absolute right-4 top-4 rounded-full bg-neutral-950 px-2.5 py-0.5 text-[10px] font-semibold tracking-[0.14em] text-white uppercase dark:bg-white dark:text-neutral-900">
                         {t(tool.badgeKey)}
                       </div>
                     ) : null}
@@ -387,15 +469,15 @@ export function ToolsPage() {
                     </div>
 
                     <div className="flex-1">
-                      <h2 className="text-base font-semibold text-neutral-950 group-hover:text-neutral-700 transition">
+                      <h2 className="text-base font-semibold text-neutral-950 group-hover:text-neutral-700 transition dark:text-white dark:group-hover:text-neutral-200">
                         {t(tool.nameKey)}
                       </h2>
-                      <p className="mt-1.5 text-sm leading-6 text-neutral-500">
+                      <p className="mt-1.5 text-sm leading-6 text-neutral-500 dark:text-neutral-400">
                         {t(tool.descKey)}
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-1 text-xs font-medium text-neutral-400 transition group-hover:text-neutral-600">
+                    <div className="flex items-center gap-1 text-xs font-medium text-neutral-400 transition group-hover:text-neutral-600 dark:text-neutral-500 dark:group-hover:text-neutral-300">
                       <span>{t("tools.openTool")}</span>
                       <span className="transition group-hover:translate-x-0.5">→</span>
                     </div>
