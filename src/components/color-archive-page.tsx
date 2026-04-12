@@ -8,7 +8,7 @@ import { FamilyOverview } from "@/src/components/family-overview";
 import { FilterToolbar } from "@/src/components/filter-toolbar";
 import { HeroSection } from "@/src/components/hero-section";
 import { LocalArchiveHub } from "@/src/components/local-archive-hub";
-import { OnboardingBanner } from "@/src/components/onboarding-banner";
+import { OnboardingTour } from "@/src/components/onboarding-tour";
 import { SelectedColorPanel } from "@/src/components/selected-color-panel";
 import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, filterColorsWithCounts, sortColors } from "@/src/lib/color-utils";
@@ -252,7 +252,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
           </div>
         )}
       </div>
-      <OnboardingBanner />
+      <OnboardingTour />
     </main>
   );
 }
