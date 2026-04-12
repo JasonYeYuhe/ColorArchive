@@ -54,7 +54,7 @@ export function CopyButton({
       onClick={handleCopy}
       className={
         className ??
-        "rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
+        "rounded-full border border-black/8 bg-white px-3 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
       }
     >
       {copied ? (copiedLabel ?? `${label} copied`) : `Copy ${label}`}

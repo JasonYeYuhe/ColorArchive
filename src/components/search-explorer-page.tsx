@@ -462,7 +462,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
         </section>
 
         <section className="rounded-[1.75rem] border border-black/6 bg-white/78 p-4 shadow-[0_18px_48px_rgba(15,23,42,0.04)] sm:p-5">
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
             <label className="flex flex-col gap-2">
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 {t("search.hueBand")}
@@ -511,7 +511,7 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
             </div>
           </div>
 
-          <div className="mt-4 grid gap-4 xl:grid-cols-3">
+          <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             <label className="flex flex-col gap-2">
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 {t("search.satRange")}

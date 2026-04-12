@@ -128,7 +128,7 @@ export function KeyboardShortcuts() {
 
       {/* Modal */}
       <div
-        className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl dark:bg-neutral-900"
+        className="relative w-full max-w-lg max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl dark:bg-neutral-900"
         role="dialog"
         aria-modal="true"
         aria-label="Keyboard shortcuts"
@@ -159,7 +159,7 @@ export function KeyboardShortcuts() {
                 {shortcuts.map((s) => (
                   <div
                     key={s.label}
-                    className="flex items-center justify-between rounded-lg px-2 py-1.5"
+                    className="flex items-center justify-between rounded-lg px-3 py-2"
                   >
                     <span className="text-sm text-neutral-600 dark:text-neutral-300">
                       {s.label}

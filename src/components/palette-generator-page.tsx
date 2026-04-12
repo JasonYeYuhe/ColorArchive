@@ -286,7 +286,7 @@ function QuickGenerate() {
               <button
                 type="button"
                 onClick={() => copyHex(c.hex, i)}
-                className={`mb-3 rounded-lg px-2 py-1 text-xs font-mono font-medium transition ${textClass} ${hoverBg}`}
+                className={`mb-3 rounded-lg px-3 py-1.5 text-xs font-mono font-medium transition ${textClass} ${hoverBg}`}
               >
                 {copiedIdx === i ? "Copied!" : c.hex}
               </button>
