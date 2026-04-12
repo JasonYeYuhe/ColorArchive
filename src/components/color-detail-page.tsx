@@ -22,6 +22,7 @@ import { simulateColorBlindness, hexToRgbCB, rgbToHexCB } from "@/src/lib/colorb
 import type { WcagPairing } from "@/src/lib/color-utils";
 import { getFamilySlug } from "@/src/lib/color-family-pages";
 import type { ColorRecord } from "@/src/types/color";
+import { getColorPsychology } from "@/src/data/color-psychology";
 
 interface ColorDetailPageProps {
   allColors: readonly ColorRecord[];
@@ -575,6 +576,70 @@ export function ColorDetailPage({
 
               {/* AI Color Naming */}
               <AiColorNaming color={color} />
+
+              {/* Design Context — Color Psychology */}
+              {(() => {
+                const psych = getColorPsychology(color.family, color.lightness);
+                return (
+                  <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5 dark:border-white/8 dark:bg-white/5">
+                    <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
+                      Design Context
+                    </h2>
+                    <div className="mt-4 space-y-4">
+                      {/* Mood */}
+                      <div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {psych.mood.map((m) => (
+                            <span key={m} className="rounded-full bg-neutral-100 px-2.5 py-1 text-xs font-medium text-neutral-600 dark:bg-white/8 dark:text-neutral-300">
+                              {m}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Industries */}
+                      <div>
+                        <div className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+                          Common in
+                        </div>
+                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                          {psych.industries.join(" · ")}
+                        </p>
+                      </div>
+
+                      {/* Pairs with */}
+                      <div>
+                        <div className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+                          Pairs well with
+                        </div>
+                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                          {psych.pairsWith}
+                        </p>
+                      </div>
+
+                      {/* Design tip */}
+                      <div className="rounded-xl bg-neutral-50 p-4 dark:bg-white/5">
+                        <div className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+                          Design tip
+                        </div>
+                        <p className="mt-1 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
+                          {psych.designTip}
+                        </p>
+                      </div>
+
+                      {/* Cultural note */}
+                      <details className="group">
+                        <summary className="cursor-pointer text-xs font-medium text-neutral-400 transition hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300">
+                          Cultural context <span className="ml-1 inline-block transition-transform group-open:rotate-90">&#9654;</span>
+                        </summary>
+                        <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                          {psych.culture}
+                        </p>
+                      </details>
+                    </div>
+                  </div>
+                );
+              })()}
 
               {(() => {
                 const tonalStrip = getTonalStrip(allColors, color);
