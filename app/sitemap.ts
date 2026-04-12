@@ -6,6 +6,7 @@ import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
 import { landingGuides } from "@/src/lib/guides";
 import { getAllTags, newsletterIssues, tagToSlug } from "@/src/lib/newsletter-issues";
 import { useCases } from "@/src/lib/use-cases";
+import { getComplementaryColor, getAnalogousColors } from "@/src/lib/color-relationships";
 import { SITE_URL } from "@/src/lib/site-config";
 
 export const dynamic = "force-static";
@@ -408,6 +409,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.72,
   }));
 
+  // VS comparison pages — pre-render complementary + analogous for key roots
+  const VS_ROOTS = [
+    "crimson", "ember", "amber", "honey", "olive", "emerald",
+    "teal", "azure", "cobalt", "indigo", "violet", "magenta",
+    "rose", "garnet",
+  ];
+  const vsRoutes: MetadataRoute.Sitemap = [];
+  const vsSeen = new Set<string>();
+  for (const root of VS_ROOTS) {
+    const seed = colors.find((c) => c.id === `${root}-core-vivid`);
+    if (!seed) continue;
+    const comp = getComplementaryColor(colors, seed);
+    if (comp && !vsSeen.has(`${seed.id}:${comp.id}`)) {
+      vsSeen.add(`${seed.id}:${comp.id}`);
+      vsRoutes.push({
+        url: `${SITE_URL}/colors/${seed.id}/vs/${comp.id}/`,
+        lastModified: BUILD_DATE,
+        changeFrequency: "monthly",
+        priority: 0.55,
+      });
+    }
+    for (const a of getAnalogousColors(colors, seed, 1)) {
+      if (!vsSeen.has(`${seed.id}:${a.id}`)) {
+        vsSeen.add(`${seed.id}:${a.id}`);
+        vsRoutes.push({
+          url: `${SITE_URL}/colors/${seed.id}/vs/${a.id}/`,
+          lastModified: BUILD_DATE,
+          changeFrequency: "monthly",
+          priority: 0.5,
+        });
+      }
+    }
+  }
+
   return [
     ...topLevelRoutes,
     ...guideRoutes,
@@ -418,5 +453,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...collectionRoutes,
     ...useCaseRoutes,
     ...colorRoutes,
+    ...vsRoutes,
   ];
 }

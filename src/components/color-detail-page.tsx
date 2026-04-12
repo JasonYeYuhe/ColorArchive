@@ -637,6 +637,30 @@ export function ColorDetailPage({
                 </div>
               </div>
 
+              {/* Compare with — VS links */}
+              <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+                <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Compare
+                </h2>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
+                  See how {color.name} compares side by side with related colors.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {paletteMoves.slice(0, 6).map((item) => (
+                    <Link
+                      key={item.value.id}
+                      href={`/colors/${color.id}/vs/${item.value.id}/`}
+                      className="inline-flex items-center gap-2 rounded-xl border border-black/6 bg-white/60 px-3 py-2 text-xs font-medium text-neutral-600 transition hover:shadow-sm dark:border-white/8 dark:bg-white/5 dark:text-neutral-300"
+                    >
+                      <span className="inline-block h-4 w-4 rounded" style={{ backgroundColor: color.hex }} />
+                      <span>vs</span>
+                      <span className="inline-block h-4 w-4 rounded" style={{ backgroundColor: item.value.hex }} />
+                      <span>{item.value.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
               <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>
