@@ -1,7 +1,9 @@
 "use client";
 
+import { useMemo } from "react";
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
+import { getDidYouMean } from "@/src/components/search-autocomplete";
 
 const SEARCH_SUGGESTIONS = [
   "sunset", "ocean", "forest", "blush", "midnight",
@@ -32,6 +34,10 @@ export function ArchiveEmptyState({
   const { t } = useLocale();
   const resolvedTitle = title ?? t("empty.noResults");
   const resolvedDescription = description ?? t("empty.description");
+  const didYouMean = useMemo(
+    () => (searchQuery?.trim() ? getDidYouMean(searchQuery.trim()) : null),
+    [searchQuery],
+  );
 
   const hasSearch = Boolean(searchQuery?.trim());
   const hasFamily = Boolean(activeFamily && activeFamily !== "All");
@@ -44,8 +50,27 @@ export function ArchiveEmptyState({
           <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
           {t("empty.recovery")}
         </div>
-        <h2 className="mt-4 text-xl font-semibold tracking-[-0.03em] text-neutral-950">{resolvedTitle}</h2>
-        <p className="mt-2 text-sm leading-6 text-neutral-500">{resolvedDescription}</p>
+        <h2 className="mt-4 text-xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">{resolvedTitle}</h2>
+        <p className="mt-2 text-sm leading-6 text-neutral-500 dark:text-neutral-400">{resolvedDescription}</p>
+
+        {didYouMean && onSuggest && (
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={() => onSuggest(didYouMean.name)}
+              className="inline-flex items-center gap-2 rounded-xl border border-blue-200 bg-blue-50 px-4 py-2.5 text-sm transition hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/30 dark:hover:bg-blue-900/40"
+            >
+              <span className="text-blue-600 dark:text-blue-400">Did you mean</span>
+              <span
+                className="inline-block h-5 w-5 rounded-md ring-1 ring-inset ring-black/10"
+                style={{ backgroundColor: didYouMean.hex }}
+              />
+              <span className="font-semibold text-blue-800 dark:text-blue-300">{didYouMean.name}</span>
+              <span className="font-mono text-xs text-blue-500 dark:text-blue-400">{didYouMean.hex}</span>
+              <span className="text-blue-600 dark:text-blue-400">?</span>
+            </button>
+          </div>
+        )}
 
         {(hasSearch || hasFamily) && (
           <div className="mt-4 flex flex-wrap justify-center gap-2 text-sm text-neutral-500">

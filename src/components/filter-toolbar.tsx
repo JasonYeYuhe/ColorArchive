@@ -1,8 +1,9 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { COLOR_FAMILIES } from "@/src/lib/color-utils";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import { SearchAutocomplete } from "@/src/components/search-autocomplete";
 import { useLocale } from "@/src/components/locale-provider";
 import type { ColorFamily, SortOption } from "@/src/types/color";
 
@@ -34,6 +35,7 @@ export const FilterToolbar = memo(function FilterToolbar({
   onReset,
 }: FilterToolbarProps) {
   const { t } = useLocale();
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const hasActiveFilters = activeFamily !== "All" || searchQuery.length > 0 || sortBy !== "hue";
 
   return (
@@ -67,14 +69,21 @@ export const FilterToolbar = memo(function FilterToolbar({
               ⌕
             </span>
             <input
+              ref={searchInputRef}
               type="search"
               id="color-search"
               name="color-search"
               data-search-input
+              autoComplete="off"
               value={searchQuery}
               onChange={(event) => onSearchChange(event.target.value)}
               placeholder={t("filter.searchPlaceholder")}
               className="w-full rounded-2xl border border-black/8 bg-white/85 px-11 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8 dark:border-white/10 dark:bg-white/8 dark:text-white dark:placeholder-neutral-500 dark:focus:border-white/20 dark:focus:ring-white/8"
+            />
+            <SearchAutocomplete
+              query={searchQuery}
+              onSelect={(term) => onSearchChange(term)}
+              inputRef={searchInputRef}
             />
             {searchQuery.length > 0 ? (
               <button
