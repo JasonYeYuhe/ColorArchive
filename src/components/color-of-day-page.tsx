@@ -78,7 +78,7 @@ export function ColorOfDayPage() {
       {/* Analogous companions */}
       {analogous.length > 0 && (
         <section className="max-w-2xl mx-auto px-4 py-10">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4 text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-4 text-center">
             Today&apos;s palette companions
           </p>
           <div className="grid grid-cols-3 gap-3">
@@ -88,17 +88,17 @@ export function ColorOfDayPage() {
                 if (!m) return 128;
                 return 0.299 * Number(m[1]) + 0.587 * Number(m[2]) + 0.114 * Number(m[3]);
               })();
-              const cText = cLum > 150 ? "#1a1a1a" : "#ffffff";
+              const cIsLight = cLum > 150;
               return (
                 <Link key={c.id} href={`/colors/${c.id}/`}>
                   <div
                     className="h-24 rounded-xl shadow-sm hover:scale-105 transition-transform flex flex-col justify-end p-2.5"
                     style={{ backgroundColor: c.hex }}
                   >
-                    <span className="text-[10px] font-medium truncate" style={{ color: cText, opacity: 0.8 }}>
+                    <span className={`text-[10px] font-medium truncate ${cIsLight ? "text-neutral-800/80" : "text-white/80"}`}>
                       {c.name}
                     </span>
-                    <span className="text-[9px] font-mono" style={{ color: cText, opacity: 0.6 }}>
+                    <span className={`text-[9px] font-mono ${cIsLight ? "text-neutral-700/60" : "text-white/60"}`}>
                       {c.hex}
                     </span>
                   </div>
@@ -111,8 +111,8 @@ export function ColorOfDayPage() {
 
       {/* Color values */}
       <section className="max-w-2xl mx-auto px-4 pb-8">
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Color values</p>
+        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-100 dark:border-neutral-800 shadow-sm p-5">
+          <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-3">Color values</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
               { label: "HEX", value: color.hex.toUpperCase() },
@@ -122,10 +122,10 @@ export function ColorOfDayPage() {
               <button
                 key={label}
                 onClick={() => navigator.clipboard.writeText(value)}
-                className="text-left p-3 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
+                className="text-left p-3 bg-neutral-50 hover:bg-neutral-100 dark:bg-white/5 dark:hover:bg-white/10 rounded-xl transition-colors"
               >
-                <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">{label}</div>
-                <div className="text-xs font-mono text-slate-700 truncate">{value}</div>
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-1">{label}</div>
+                <div className="text-xs font-mono text-neutral-700 dark:text-neutral-300 truncate">{value}</div>
               </button>
             ))}
           </div>
