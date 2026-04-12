@@ -102,13 +102,17 @@ export function TrendingPage() {
 
   // Try to fetch real trending data from API
   useEffect(() => {
+    const colorMap = new Map(allColors.map((c) => [c.id, c]));
     fetch(`${API_URL}/trending?days=7&limit=24`)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
       .then((data) => {
         if (data.trending && data.trending.length > 0) {
           const resolved: TrendingColor[] = [];
           for (const item of data.trending as { color_id: string; views: number }[]) {
-            const color = allColors.find((c) => c.id === item.color_id);
+            const color = colorMap.get(item.color_id);
             if (color) resolved.push({ color, score: item.views });
           }
           if (resolved.length >= 6) {
@@ -118,7 +122,7 @@ export function TrendingPage() {
         }
       })
       .catch(() => {
-        // Fallback to generated
+        // Fallback to generated — no action needed
       });
   }, []);
 
