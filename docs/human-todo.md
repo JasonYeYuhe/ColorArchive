@@ -4,9 +4,7 @@
 > Last updated: 2026-04-13
 
 ## High Priority
-- [ ] **Namecheap DNS fix**: VS Marketplace TXT record host is wrong. Change host from `_visual-studio-marketplace-colorarchiveorg.colorarchive.org` to `_visual-studio-marketplace-colorarchiveorg` (Namecheap auto-appends domain). Then go to VS Marketplace → Details → Verify.
 - [ ] **ASC v1.2 submission**: Upload new build binary + submit for review (URLs already updated: marketing, support, privacy, review email all point to .org)
-- [ ] **Apple Notifications URL**: In ASC → App Information, update Production Server URL from `api.colorarchive.me` to `api.colorarchive.org`
 - [ ] Test full Stripe purchase flow end-to-end (palette pack + Pro subscription) before marketing push
 - [ ] Verify Stripe webhook endpoint is receiving events in production (check Stripe Dashboard → Webhooks → Logs)
 - [ ] Confirm all 9 Stripe price IDs in `checkout-config.ts` match live Stripe Dashboard products
@@ -48,4 +46,5 @@
 - [x] VS Marketplace — extension v0.2.0 published (ColorArchiveorg publisher)
 - [x] ASC v1.2 — created version, URLs updated to .org (marketing, support, privacy, review email)
 - [x] ASC Privacy Policy URL — updated to colorarchive.org/privacy/
-- [x] VS Marketplace DNS TXT record — added (needs host fix, see High Priority)
+- [x] VS Marketplace DNS TXT record — verified, domain ownership confirmed
+- [x] Apple Notifications URLs — Production + Sandbox both updated to api.colorarchive.org
