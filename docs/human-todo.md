@@ -1,10 +1,9 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-04-13
+> Last updated: 2026-04-14
 
 ## High Priority
-- [ ] **ASC v1.2 submission**: Upload new build binary + submit for review (URLs already updated: marketing, support, privacy, review email all point to .org)
 - [ ] Test full Stripe purchase flow end-to-end (palette pack + Pro subscription) before marketing push
 - [ ] Verify Stripe webhook endpoint is receiving events in production (check Stripe Dashboard → Webhooks → Logs)
 - [ ] Confirm all 9 Stripe price IDs in `checkout-config.ts` match live Stripe Dashboard products
@@ -48,3 +47,4 @@
 - [x] ASC Privacy Policy URL — updated to colorarchive.org/privacy/
 - [x] VS Marketplace DNS TXT record — verified, domain ownership confirmed
 - [x] Apple Notifications URLs — Production + Sandbox both updated to api.colorarchive.org
+- [x] iOS v1.2 (build 3) — built, uploaded, submitted for App Review (2026-04-14)
