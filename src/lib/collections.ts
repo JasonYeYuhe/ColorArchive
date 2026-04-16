@@ -6464,3 +6464,86 @@ const extraCollections54: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections54);
+
+const extraCollections55: ColorCollection[] = [
+  createCollection(
+    "forest-rain",
+    "Forest Rain",
+    "Pacific Northwest rain forest after a downpour — deep moss, wet cedar, slate fog, and pale lichen.",
+    "The temperate rain forests of the Pacific Northwest produce one of the most distinctive color environments on earth: saturated mosses and ferns against grey-green bark, the almost silver light through fog, the deep mahogany red of wet cedar, the unexpected pale lichen at the edges of stone. This palette captures the forest immediately after rain, when every surface is wet and color saturation is at its highest while the light remains uniformly diffuse. It works for brands in the Pacific Northwest context, outdoor and hiking visual systems, editorial work on sustainability and conservation, and any design context that needs depth and complexity within a cool, naturalistic palette.",
+    ["Forest", "Pacific Northwest", "Rain", "Nature", "Earthy"],
+    [
+      "moss-dusk-soft",
+      "leaf-shadow-muted",
+      "jade-velvet-muted",
+      "steel-tone-muted",
+      "cool-gray-shadow",
+      "teal-shadow-soft",
+    ],
+    {
+      editorialNote: "The Olympic Peninsula, November. Everything is wet and the light is flat — not gray exactly, but the kind of saturated green-gray that only happens here. The ferns are almost fluorescent against the dark cedar. It smells like earth and cold water.",
+      promptWords: [
+        "pacific northwest forest palette",
+        "rain forest color scheme",
+        "wet forest green palette",
+        "seattle nature colors",
+        "temperate forest palette",
+      ],
+      useCases: ["Pacific Northwest brand identity and outdoor products", "Conservation and environmental organization design", "Editorial work on forests, hiking, and nature"],
+    },
+  ),
+  createCollection(
+    "harvest-amber",
+    "Harvest Amber",
+    "Autumn harvest palette — amber grain, warm wheat, burnt sienna soil, and the last green of late-season leaves.",
+    "The agricultural harvest palette is one of the most universally resonant seasonal color sequences: the gold of ripe wheat, the amber of dried corn, the burnt sienna of turned earth, the warm brown of barn wood, and the occasional deep red of late-season fruit or foliage. This palette captures those colors in design-ready proportions — warm and grounded, with enough variation between the yellow-amber and the burnt-sienna range to support both primary and secondary palette roles. It works for food and agricultural brands, autumn editorial and campaign work, harvest festival and seasonal event design, and any context that needs warmth, abundance, and autumnal grounding.",
+    ["Autumn", "Harvest", "Warm", "Earthy", "Seasonal"],
+    [
+      "amber-tone-soft",
+      "honey-dusk-muted",
+      "saffron-velvet-muted",
+      "ember-shadow-soft",
+      "olive-dusk-muted",
+      "warm-gray-tone",
+    ],
+    {
+      editorialNote: "A farm stand at the edge of a field in October. The light is low and golden — autumn afternoon — and everything in the stand is some version of amber, from the pale gold of winter squash to the deep burnt sienna of a dried corn husk. It smells like cold earth and apples.",
+      promptWords: [
+        "harvest autumn palette",
+        "autumn amber color scheme",
+        "fall harvest colors",
+        "warm autumn palette",
+        "agricultural seasonal palette",
+      ],
+      useCases: ["Food and agricultural brand design", "Autumn seasonal campaign and event materials", "Farm-to-table restaurant and packaging identity"],
+    },
+  ),
+  createCollection(
+    "night-bloom",
+    "Night Bloom",
+    "A garden at midnight — deep indigo sky, pale moon-white flowers, dusty sage, and the subtle warmth of candlelight.",
+    "Night-blooming flowers — jasmine, moonflower, evening primrose — are adapted to attract pollinators in low light and tend toward white, pale cream, and very pale pink hues that are visible in moonlight when warm colors lose their saturation. This palette builds from that biological fact: the dominant tones are a deep indigo sky, pale and slightly luminous flower whites and creams, and the muted greens of leaves in low light. A small amount of warm amber provides the candlelight or lantern note that makes the composition feel inhabited rather than cold. It works for evening event design, luxury brand identity, perfume and beauty packaging, and any context that needs elegance, depth, and nocturnal romance.",
+    ["Night", "Garden", "Floral", "Elegant", "Dark"],
+    [
+      "indigo-nocturne-soft",
+      "violet-shadow-muted",
+      "blush-veil-faint",
+      "sage-gray-whisper",
+      "amber-whisper-muted",
+      "plum-velvet-soft",
+    ],
+    {
+      editorialNote: "A walled garden in July at 11 PM. The moonflowers have opened — they are almost luminous against the dark stone — and the jasmine smell is overwhelming. The indigo sky is just barely lighter than the hedge. Somewhere behind the wall there is a candle.",
+      promptWords: [
+        "night garden palette",
+        "midnight floral color scheme",
+        "nocturnal palette dark indigo",
+        "moonlight garden colors",
+        "evening garden palette",
+      ],
+      useCases: ["Luxury fragrance and beauty brand packaging", "Evening event and wedding invitation design", "Dark editorial and night-themed campaign work"],
+    },
+  ),
+];
+
+collections.push(...extraCollections55);

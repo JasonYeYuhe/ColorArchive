@@ -1,4 +1,37 @@
 
+## 2026-04-16 — Auto-dev Run: Newsletter 346-349 (Oct 2033) + 3 collections + 2 guides
+
+**Run type:** Auto-dev rotation (Group A, slot 2 — ColorArchive)
+
+**Categories:** A. SEO & Content (newsletter + guides), D. Data & Collections
+
+### Category A — Newsletter Issues 346–349 (October 2033)
+
+- **Issue 346** (oct-2033-color-in-craft-design, 2033-10-01): Color in craft and artisan design — constraint as a design system, batch variation and dye lot management, ceramic glaze color specification (oxidation vs reduction firing), cross-medium specification (screen to craft)
+- **Issue 347** (oct-2033-color-material-perception, 2033-10-07): Surface finish and color perception — specular vs diffuse reflection, why matte appears less saturated than gloss, satin as practical middle ground, transparency and layering effects, building a material reference library
+- **Issue 348** (oct-2033-color-urban-environments, 2033-10-14): Color in urban environments — transit system color design (London Underground model), historic district color guidelines, temporary color installation in urban space, color for psychological space design
+- **Issue 349** (oct-2033-color-consumer-behavior, 2033-10-21): Color and consumer behavior research — the "85% of purchasing decisions" myth debunked, what attention/categorization research shows, contested quality perception findings, color-category fit as the reliable principle
+
+Total newsletter issues: **349** (was 345, +4 this run)
+
+### Category D — 3 New Collections (now 259)
+
+- **forest-rain**: Pacific Northwest rain forest — moss-dusk-soft, leaf-shadow-muted, jade-velvet-muted, steel-tone-muted, cool-gray-shadow, teal-shadow-soft. After a downpour: saturated mosses against grey-green bark, silver fog light, deep mahogany wet cedar.
+- **harvest-amber**: Autumn harvest — amber-tone-soft, honey-dusk-muted, saffron-velvet-muted, ember-shadow-soft, olive-dusk-muted, warm-gray-tone. Gold of ripe wheat, amber of dried corn, burnt sienna of turned earth, barn wood, late-season foliage.
+- **night-bloom**: Night-blooming garden — indigo-nocturne-soft, violet-shadow-muted, blush-veil-faint, sage-gray-whisper, amber-whisper-muted, plum-velvet-soft. Deep indigo sky, pale moon-white flowers, muted sage leaves, warm candlelight note.
+
+### Category A — 2 New SEO Guides (now 317)
+
+- **color-in-craft-artisan-design-guide**: Craft color systems — constraint as aesthetic, batch variation, ceramic specification, cross-medium workflows
+- **color-surface-finish-perception-guide**: Surface finish and color — matte vs gloss physics, satin middle ground, transparency/layering, material reference library practice
+
+**Files modified (5):**
+- src/data/newsletter-issues.json (349 issues, was 345)
+- src/lib/collections.ts (+forest-rain, +harvest-amber, +night-bloom, now 259)
+- src/lib/guides.ts (+2 guides in extraGuides56, now 317 total)
+- STRUCTURE.md (updated all counts)
+- autopilot-log.md (this entry)
+
 ## 2026-03-23 — Normal Run: Newsletter 118-121 + 2 collections + 3 guides (commit 716e493)
 
 **Run type:** Normal (run #3 since last big run `55fb5f9`)
