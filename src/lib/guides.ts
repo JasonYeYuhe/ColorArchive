@@ -12588,3 +12588,82 @@ const extraGuides55: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides55);
+
+const extraGuides56: LandingGuide[] = [
+  {
+    slug: "color-in-craft-artisan-design-guide",
+    title: "Color in Craft and Artisan Design: Working with Material Constraints",
+    summary: "Craft and artisan design handle color under constraints digital design never encounters — dye lots, kiln variation, natural fiber. Understanding these constraints teaches principles that apply across every color medium.",
+    eyebrow: "Craft Color Guide",
+    searchIntent: "color in craft artisan design",
+    priority: 72,
+    category: "Color Theory",
+    tags: ["Craft Design", "Artisan", "Materials", "Color Theory", "Traditional Arts"],
+    highlights: [
+      "Batch variation is craft color's fundamental constraint: every dye lot, kiln firing, and hand-application technique produces slight variation that skilled craft practitioners design with rather than against.",
+      "Ceramic glaze color is specified as a system (formula + firing conditions + atmosphere), not a target HEX — the same pigment oxide produces different colors in oxidation versus reduction firing.",
+      "Cross-medium color specification (screen-to-craft) requires defining acceptable variation ranges, not single-target matches, and using physical samples rather than screen references as production benchmarks.",
+    ],
+    sections: [
+      {
+        heading: "Constraint as a design system",
+        body: "The history of craft color is largely a history of constraint management. Before synthetic dyes, every color available to a weaver, potter, or woodworker was bounded by what the natural world and local materials could provide — and the gap between desired outcomes and material limitations drove centuries of technical innovation. Indigo required a complex fermentation chemistry to become a fiber dye. Vermillion demanded careful handling of mercury and sulfur compounds. The specific greens of Japanese lacquerware required layering transparent pigments over extended time periods because no single material produced the required depth. Contemporary craft practitioners working with natural dyes, traditional ceramics, or handmade papers inherit this constraint landscape. Their sophisticated management of limitation produces color results that digitally composed palettes rarely achieve — partly because the constraint forces solutions that become the aesthetic.",
+      },
+      {
+        heading: "Batch variation and dye lot management",
+        body: "Unlike a HEX code or Pantone reference — which are definitionally invariant — a natural dye lot shifts based on water chemistry, mordant concentration, fiber preparation, and immersion time. A ceramic glaze fires differently across a kiln load due to temperature gradients. Professional craft practitioners develop systematic approaches to managing this variation: swatching every batch against a reference standard, documenting production variables that influence color outcome, and designing work that treats variation as a designed feature rather than a defect. The slight variation between pieces in a handmade ceramic set, the tonal depth achieved in natural indigo textile through multiple dip-and-oxidize cycles, the irregular gradients that hand-applied wax resist creates in batik — these are craft's color advantages. Recognizing and leveraging them, rather than attempting to eliminate variation entirely, is a mark of craft sophistication.",
+      },
+      {
+        heading: "Ceramic color: the most technically demanding craft system",
+        body: "Ceramic glazes are mixtures of metallic oxides, silica, alumina, and fluxes that transform at kiln temperatures between 1,000°C and 1,300°C. The color in the fired object is not the color of the unfired glaze — it is the result of chemical transformations depending on firing temperature, oxidation or reduction atmosphere, glaze thickness, and the interaction between glaze and clay body. Copper oxide in oxidation produces greens and turquoise; in reduction it produces red. Iron oxide yields yellows and tans in oxidation, celadons in reduction. Ceramic color specification therefore requires specifying not just glaze formula but complete firing conditions — a specification system with no analog in digital or print color work. Designers collaborating with ceramic makers need enough technical vocabulary to specify intent within the process's parameters rather than specifying a color target the process cannot reproduce.",
+      },
+      {
+        heading: "Cross-medium specification: screen to craft",
+        body: "Design teams working with craft manufacturers — in product design, interior objects, packaging, or fashion — regularly experience the gap between screen color specification and material production as a source of friction and failed expectations. The most effective cross-medium color workflows establish clear rules for which aspects of a color specification are fixed (usually hue direction and general value range) and which are subject to material variation (chroma, exact texture interaction, surface quality). Rather than specifying a single target HEX and treating any deviation as failure, effective craft-digital workflows define an acceptable range across meaningful variables, use physical samples as production targets, and treat material-specific variations as part of the designed result. This approach requires more sophisticated communication between designers and craft makers, but produces results that honor what each medium does well rather than forcing one medium to imperfectly imitate another.",
+      },
+    ],
+    links: [
+      { label: "Explore earthy color collections", href: "/collections" },
+      { label: "Browse craft-inspired color palettes", href: "/all-colors" },
+    ],
+  },
+  {
+    slug: "color-surface-finish-perception-guide",
+    title: "Surface Finish and Color Perception: How Matte, Satin, and Gloss Change What You See",
+    summary: "The same pigment looks completely different on a matte, satin, or glossy surface. Material finish is a color variable most designers underestimate — until a production sample comes back looking nothing like the screen reference.",
+    eyebrow: "Materials Color Guide",
+    searchIntent: "how surface finish affects color perception",
+    priority: 74,
+    category: "Color Theory",
+    tags: ["Color Perception", "Materials", "Product Design", "Finish", "Color Theory"],
+    highlights: [
+      "The same pigment appears lighter and less saturated on matte surfaces than on gloss — not because the pigment changed, but because the surface microstructure changes how light scatters from the colorant.",
+      "Gloss finishes appear to increase chroma depth by showing purer spectral reflection outside the specular highlight zone; the highlight itself provides contrast that makes chromatic areas appear richer.",
+      "Cross-substrate color specification (paper, plastic, metal, textile) requires physical reference samples — screen-to-print ICC profiles only address the coated paper problem, not material-to-material shifts.",
+    ],
+    sections: [
+      {
+        heading: "Why finish changes color appearance",
+        body: "Color does not exist on a surface — it exists in the light that the surface reflects, scatters, or transmits. The identical pigment concentration on a matte paper stock versus a high-gloss coated stock produces two visually distinct colors: the matte version appears slightly desaturated and lighter, the gloss version more saturated and darker. The pigment chemistry is identical; the visual experience differs because the surface microstructure changes how light interacts with the colorant. A matte surface scatters incoming light in many directions, producing uniform appearance across viewing angles but limiting apparent chroma because scattered light dilutes pure spectral reflection. A glossy surface reflects both a directional specular highlight (which appears white or near-white) and a diffuse component; outside the highlight angle, the glossy surface reflects the substrate color with higher apparent saturation than its matte counterpart. Understanding this mechanism allows designers to predict finish-induced color shifts rather than treating production variation as unexplained mystery.",
+      },
+      {
+        heading: "Satin and the practical middle ground",
+        body: "Satin and semi-gloss finishes occupy the perceptual middle ground between matte and gloss, with surface roughness that produces partial specular reflection. These finishes are preferred in many interior and product contexts precisely because they manage this balance: enough specular component to show color depth, but not enough directional highlight to create reflections that make reading surfaces glossy and distracting in variable lighting. The choice between matte, satin, and gloss for interior paint involves predicting dominant lighting conditions (diffuse daylight versus directed artificial light) and viewing distances. A matte paint at close range reads as having more texture and tactile depth; a gloss paint in directional lighting creates strong reflections that may dominate the visual experience over the color itself. The practical decision framework: diffuse light environments favor satin or matte; directed or spotlit environments need careful evaluation of how specular highlights will interact with the spatial layout.",
+      },
+      {
+        heading: "Transparency, layering, and substrate contribution",
+        body: "Transparent and semi-transparent coatings allow the substrate color to contribute to the final visual result — printing transparent inks on different paper stocks changes the final perceived color even when ink formulation is identical. Automotive painting, which involves multiple layers of primer, base coat, and clear coat, requires designing the color at system level: the clear coat's refractive index and thickness contribute to apparent depth and chroma even though the clear coat is colorless. The metallic sparkle in automotive metallics comes from aluminum flake particles within the base coat that reflect directional light; the color design must account for how flake density and orientation interact with chromatic pigments in the same layer. In packaging and product contexts, the same principle applies to foil lamination, varnish patterns, and embossing — each layer that modifies surface finish also modifies apparent color, and designing for multi-layer surfaces requires testing the complete assembly rather than any individual component.",
+      },
+      {
+        heading: "Building a material reference library",
+        body: "For packaging and product designers specifying color across different material substrates, systematic swatch testing is not optional — it is the baseline methodology. A color that reads as a specific warm gray on coated board may read as cooler on uncoated kraft substrate, warmer and darker on a matte plastic surface treatment, and differently again on metal with a brushed finish. Screen-to-print color management (ICC profiles, proofing workflows) handles the coated paper problem reasonably well but does not address the perceptual shift between paper and plastic, paper and textile, or paper and metal. These cross-substrate shifts require physical reference samples and designer judgment calibrated through seeing material results in context. Building a material reference library — physical samples of target colors on each substrate and finish combination used in production — is the practical infrastructure for design teams that work across multiple material categories. The investment in this library pays recurring dividends across projects by reducing the surprise in production and enabling more confident specification.",
+      },
+    ],
+    links: [
+      { label: "Explore color collections", href: "/collections" },
+      { label: "Browse color palettes by family", href: "/families" },
+    ],
+  },
+];
+
+landingGuides.push(...extraGuides56);
