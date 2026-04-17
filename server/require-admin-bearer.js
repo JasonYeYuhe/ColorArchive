@@ -10,18 +10,7 @@
  * rather than accidentally opening the route.
  */
 
-const crypto = require("crypto");
-
-// Compare two strings in constant time. We hash both to a fixed-length
-// digest first so that any length difference in the inputs does not
-// leak through the comparison runtime — node's crypto.timingSafeEqual
-// throws on length mismatch, which would otherwise be a timing oracle.
-function constantTimeEqual(a, b) {
-  if (typeof a !== "string" || typeof b !== "string") return false;
-  const ah = crypto.createHash("sha256").update(a).digest();
-  const bh = crypto.createHash("sha256").update(b).digest();
-  return crypto.timingSafeEqual(ah, bh);
-}
+const { constantTimeEqual } = require("./constant-time-eq");
 
 function requireAdminBearer(req, res, next) {
   const expected = process.env.ADMIN_API_TOKEN;

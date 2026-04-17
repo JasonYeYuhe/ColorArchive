@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const crypto = require("crypto");
 const db = require("../db");
 const { findCatalogProduct, getDownloadUrl, getPackUrl } = require("../catalog");
 const { sendOrderConfirmationEmail } = require("../email");
+const { constantTimeEqual } = require("../constant-time-eq");
 
 const INTERNAL_SECRET = process.env.INTERNAL_WEBHOOK_SECRET || "";
+// Minimum secret strength. A misconfigured short secret is nearly as
+// dangerous as no secret at all; fail-closed here rather than accept
+// whitespace or placeholder values.
+const MIN_SECRET_LENGTH = 16;
 
 /** Verify requests come from our own Next.js webhook forwarder.
  *  Fail-closed in all environments. Previously a dev-mode branch
@@ -15,14 +19,18 @@ const INTERNAL_SECRET = process.env.INTERNAL_WEBHOOK_SECRET || "";
  *  (2026-04-17 incident, docs/ls-commerce-validation-2026-04-17.md).
  */
 function verifyInternal(req, res, next) {
-  if (!INTERNAL_SECRET) {
-    console.error("[webhook] INTERNAL_WEBHOOK_SECRET not set — refusing to serve");
+  if (!INTERNAL_SECRET || INTERNAL_SECRET.length < MIN_SECRET_LENGTH) {
+    console.error(
+      "[webhook] INTERNAL_WEBHOOK_SECRET missing or too short — refusing to serve"
+    );
     return res.status(500).json({ error: "Server misconfiguration" });
   }
-  const provided = req.headers["x-internal-secret"] || "";
-  const expected = Buffer.from(INTERNAL_SECRET);
-  const received = Buffer.from(provided);
-  if (expected.length !== received.length || !crypto.timingSafeEqual(expected, received)) {
+  // req.headers can return a string | string[]; coerce to a single string
+  // so Buffer.from() never throws on an array and the comparison helper
+  // gets well-typed input.
+  const raw = req.headers["x-internal-secret"];
+  const provided = Array.isArray(raw) ? raw[0] || "" : raw || "";
+  if (!constantTimeEqual(provided, INTERNAL_SECRET)) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   next();
