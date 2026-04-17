@@ -284,3 +284,50 @@ export async function resendAdminOrderEmail(orderId: string): Promise<void> {
 
   await parseResponse<{ ok: true }>(response);
 }
+
+export interface AutopilotPinEntry {
+  at: string;
+  type: "color" | "collection" | "guide" | string;
+  slug: string;
+  title: string;
+  link: string;
+  pinId?: string;
+  dryRun: boolean;
+}
+
+export interface AutopilotCommerceOrder {
+  order_id: string;
+  email: string;
+  product: string;
+  amount: number;
+  currency: string;
+  created_at: string;
+}
+
+export interface AutopilotStatus {
+  generated_at: string;
+  pinterest: {
+    connected: boolean;
+    username: string | null;
+    expires_at: number | null;
+    updated_at: string | null;
+    last_pin_at: string | null;
+    sandbox: boolean;
+    pins_today: number;
+    pins_last_7d: number;
+    recent_pins: AutopilotPinEntry[];
+  };
+  commerce: {
+    pro_users_total: number;
+    new_pro_last_7d: number;
+    orders_last_7d: number;
+    recent_orders: AutopilotCommerceOrder[];
+  };
+}
+
+export async function fetchAdminAutopilotStatus(): Promise<AutopilotStatus> {
+  const response = await fetch(`${API_URL}/admin/autopilot-status`, {
+    credentials: "include",
+  });
+  return parseResponse<AutopilotStatus>(response);
+}

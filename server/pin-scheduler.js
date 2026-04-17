@@ -406,4 +406,6 @@ module.exports = {
   buildCollectionPayload,
   buildGuidePayload,
   pickForType,
+  loadPinLog,
+  pinsTodayFromLog,
 };

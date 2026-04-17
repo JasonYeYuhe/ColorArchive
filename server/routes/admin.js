@@ -4,6 +4,8 @@ const db = require("../db");
 const { requireAnalyticsAccess } = require("../auth");
 const { findCatalogProduct, getDownloadUrl, getPackUrl } = require("../catalog");
 const { sendOrderConfirmationEmail } = require("../email");
+const pinterestAdmin = require("../pinterest-admin");
+const pinScheduler = require("../pin-scheduler");
 
 router.use(requireAnalyticsAccess);
 
@@ -105,6 +107,68 @@ router.post("/orders/:orderId/resend", async (req, res) => {
     console.error("admin resend order email error:", error);
     return res.status(500).json({ error: "Could not resend download email" });
   }
+});
+
+/**
+ * GET /admin/autopilot-status
+ *
+ * Read-only health/metrics for the autopilot surfaces (Pinterest
+ * pinning, commerce webhook activity, recent Pro activations).
+ * Gated by requireAnalyticsAccess (same session as admin/orders),
+ * so the browser admin page can reach it without a bearer.
+ */
+router.get("/autopilot-status", (req, res) => {
+  const now = Date.now();
+  const sevenDaysAgo = new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString();
+
+  // Pinterest: live token status + recent pins from the scheduler's log
+  const pinterest = pinterestAdmin.getStatus();
+  const log = pinScheduler.loadPinLog();
+  const pinEntries = Object.entries(log)
+    .map(([key, entry]) => ({ key, ...entry }))
+    .filter((e) => Date.parse(e.at || "") >= now - 7 * 24 * 60 * 60 * 1000)
+    .sort((a, b) => Date.parse(b.at || "") - Date.parse(a.at || ""));
+  const today = new Date().toISOString().slice(0, 10);
+  pinterest.pins_today = pinScheduler.pinsTodayFromLog(log, today);
+  pinterest.pins_last_7d = pinEntries.filter((e) => !e.dryRun).length;
+  pinterest.recent_pins = pinEntries.slice(0, 10).map((e) => ({
+    at: e.at,
+    type: e.type,
+    slug: e.slug,
+    title: e.title,
+    link: e.link,
+    pinId: e.pinId,
+    dryRun: Boolean(e.dryRun),
+  }));
+
+  // Commerce: pulled from the DB that webhook.js writes to on every LS event
+  const proUsersTotal = db
+    .prepare("SELECT COUNT(*) AS n FROM users WHERE tier = 'pro'")
+    .get().n;
+  const newProLast7d = db
+    .prepare(
+      "SELECT COUNT(*) AS n FROM users WHERE tier = 'pro' AND created_at >= ?"
+    )
+    .get(sevenDaysAgo).n;
+  const ordersLast7d = db
+    .prepare("SELECT COUNT(*) AS n FROM orders WHERE created_at >= ?")
+    .get(sevenDaysAgo).n;
+  const recentOrders = db
+    .prepare(
+      "SELECT order_id, email, product, amount, currency, created_at FROM orders ORDER BY created_at DESC LIMIT 5"
+    )
+    .all();
+
+  return res.json({
+    generated_at: new Date().toISOString(),
+    pinterest,
+    commerce: {
+      pro_users_total: proUsersTotal,
+      new_pro_last_7d: newProLast7d,
+      orders_last_7d: ordersLast7d,
+      recent_orders: recentOrders,
+    },
+  });
 });
 
 module.exports = router;
