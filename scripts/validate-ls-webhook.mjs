@@ -2,19 +2,26 @@
 /**
  * Synthetic Lemon Squeezy webhook validator.
  *
- * Fires HMAC-signed payloads at the production webhook endpoint and
- * confirms each one flows through our full stack (Vercel forwarder →
- * Express fulfillment → DB row → receipt email). Does NOT require a
- * real LS purchase — usable any time commerce code changes.
+ * MANUAL USE ONLY — this script writes real rows (is_test=1) to the
+ * prod DB and sends real (test-mode-prefixed) receipt emails via
+ * Resend. It is not safe to run in a CI pipeline against the prod
+ * endpoint. If we ever need CI coverage, stand up a staging instance
+ * that points to a throwaway DB + a Resend test key.
+ *
+ * What it does: fires HMAC-signed payloads at the production webhook
+ * endpoint and confirms each one flows through our full stack
+ * (Vercel forwarder → Express fulfillment → DB row → receipt email).
+ * Does NOT require a real LS purchase — usable any time commerce
+ * code changes.
  *
  * Usage:
  *   node scripts/validate-ls-webhook.mjs
- *     Runs all 4 core events as test_mode: true
+ *     Runs all 5 core events as test_mode: true
  *
  *   node scripts/validate-ls-webhook.mjs --replay path/to/raw.json
- *     Replays a real captured LS payload from the raw-log file.
- *     The payload is HMAC-signed with our local secret, so the
- *     receiving endpoint still gates the request correctly.
+ *     Replays a real captured LS payload from the raw-log file. The
+ *     raw body is re-signed with our local secret and sent byte-for-
+ *     byte, so fulfillment sees the exact payload LS originally sent.
  *
  * Env vars:
  *   LEMONSQUEEZY_WEBHOOK_SECRET  — HMAC key (required)
@@ -23,6 +30,12 @@
  *                                  (default: test+ls-validate@colorarchive.org)
  *
  * Exit code 0 iff all events returned 200. Any 4xx/5xx → exit 1.
+ *
+ * Cleanup after a run:
+ *   ssh root@<droplet> "sqlite3 /root/.../data.db
+ *     \"DELETE FROM orders WHERE email LIKE 'test+%';
+ *       DELETE FROM users WHERE email LIKE 'test+%';
+ *       DELETE FROM subscribers WHERE email LIKE 'test+%'\""
  */
 
 import { readFileSync, existsSync } from "node:fs";
@@ -156,8 +169,13 @@ function sign(body) {
   return createHmac("sha256", SECRET).update(body).digest("hex");
 }
 
-async function post(event, label) {
-  const body = JSON.stringify(event);
+/**
+ * Send a pre-formed raw body + signature header. Caller is responsible
+ * for providing the exact bytes that should be signed. This keeps
+ * replay faithful to the original LS payload (no JSON.stringify round-
+ * trip that could mutate field order / whitespace / number precision).
+ */
+async function postRaw(body, label) {
   const signature = sign(body);
   const res = await fetch(ENDPOINT, {
     method: "POST",
@@ -172,6 +190,10 @@ async function post(event, label) {
   const mark = ok ? "✓" : "✗";
   console.log(`${mark} ${label.padEnd(36)} → ${res.status} ${text.slice(0, 120)}`);
   return ok;
+}
+
+async function post(event, label) {
+  return postRaw(JSON.stringify(event), label);
 }
 
 /* ── Orchestrate ────────────────────────────────────────── */
@@ -230,14 +252,19 @@ async function runReplay(replayPath) {
     : path.resolve(process.cwd(), replayPath);
   const raw = readFileSync(fullPath, "utf8");
   const entry = JSON.parse(raw);
-  const body = typeof entry.raw === "string" ? entry.raw : JSON.stringify(entry.raw);
+  // Keep entry.raw as a string throughout — no JSON.parse round-trip,
+  // so we preserve byte-for-byte what LS originally sent (whitespace,
+  // field order, big-int precision on subscription IDs, etc.).
+  const body = typeof entry.raw === "string"
+    ? entry.raw
+    : JSON.stringify(entry.raw);
 
   console.log(`Replaying captured event from ${replayPath}`);
   console.log(`Event:     ${entry.event_name}`);
   console.log(`Captured:  ${entry.at}`);
   console.log("");
 
-  const ok = await post(JSON.parse(body), `REPLAY ${entry.event_name}`);
+  const ok = await postRaw(body, `REPLAY ${entry.event_name}`);
   if (!ok) process.exit(1);
   console.log("✓ Replay succeeded.");
 }
