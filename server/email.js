@@ -1155,6 +1155,92 @@ async function sendWeeklyDigestEmail(to, { issues = [], collections = [], unsubs
   return result;
 }
 
+/**
+ * Pro subscription / lifetime purchase confirmation email.
+ * Sent when a Lemon Squeezy subscription_created or order_created
+ * (Lifetime) webhook succeeds. Unlike sendOrderConfirmationEmail,
+ * which is built for one-time pack downloads, this is for SaaS
+ * access — no download link, just thank-you + account link.
+ */
+async function sendProSubscriptionEmail(to, { plan, orderId, amount, currency, isTest = false }) {
+  const planDisplay = plan === "lifetime"
+    ? "Pro Lifetime"
+    : plan === "yearly" ? "Pro Yearly" : "Pro Monthly";
+  const formattedAmount = amount
+    ? (currency && currency.toUpperCase() === "JPY"
+        ? `¥${amount.toLocaleString()}`
+        : `$${(amount / 100).toFixed(2)}`)
+    : null;
+  const orderDate = new Date().toLocaleDateString("en-US", {
+    year: "numeric", month: "long", day: "numeric",
+  });
+
+  const subjectPrefix = isTest ? "[TEST] " : "";
+  const result = await sendEmail({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject: `${subjectPrefix}Welcome to ColorArchive ${planDisplay}`,
+    text: [
+      `Welcome to ColorArchive ${planDisplay}`,
+      "",
+      "Your Pro access is now active. All the Pro features are unlocked on your account immediately — no further setup needed.",
+      "",
+      "Plan details:",
+      `  Plan: ${planDisplay}`,
+      formattedAmount ? `  Amount: ${formattedAmount}` : null,
+      `  Order ID: ${orderId}`,
+      `  Date: ${orderDate}`,
+      "",
+      "What's unlocked:",
+      "  - Unlimited AI palette generations",
+      "  - Unlimited exports in every format (CSS, Tailwind, Figma, SwiftUI, Android, Flutter)",
+      "  - WCAG audit reports with full contrast matrices",
+      "  - Token generation (50–950 scale)",
+      "",
+      "Start using Pro:",
+      `${SITE_URL}/thanks/`,
+      "",
+      plan === "lifetime"
+        ? "Lifetime purchases are one-time. We'll keep you updated as new Pro features ship."
+        : "Manage your subscription, cancel, or change plans anytime at the link below.",
+      plan === "lifetime" ? "" : `${SITE_URL}/account/`,
+      "",
+      "Need help? Reply to this email.",
+      "",
+      "— ColorArchive",
+      SITE_URL,
+    ].filter((l) => l !== null).join("\n"),
+    html: `
+      <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:0 auto;color:#1a1a1a">
+        <div style="text-align:center;padding:32px 0 24px">
+          <div style="font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:#6b7280;font-weight:600">Welcome to Pro</div>
+          <h1 style="margin:12px 0 0;font-size:24px;font-weight:700;color:#111">Your ${escapeHtml(planDisplay)} access is active</h1>
+        </div>
+        <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;margin:0 0 20px">
+          <table style="width:100%;border-collapse:collapse;font-size:14px">
+            <tr><td style="padding:6px 0;color:#6b7280">Plan</td><td style="padding:6px 0;text-align:right;font-weight:600">${escapeHtml(planDisplay)}</td></tr>
+            ${formattedAmount ? `<tr><td style="padding:6px 0;color:#6b7280">Amount</td><td style="padding:6px 0;text-align:right;font-weight:600">${formattedAmount}</td></tr>` : ""}
+            <tr><td style="padding:6px 0;color:#6b7280">Order</td><td style="padding:6px 0;text-align:right;font-family:monospace;font-size:12px">${escapeHtml(orderId || "—")}</td></tr>
+            <tr><td style="padding:6px 0;color:#6b7280">Date</td><td style="padding:6px 0;text-align:right">${orderDate}</td></tr>
+          </table>
+        </div>
+        <div style="text-align:center;margin:24px 0">
+          <a href="${SITE_URL}/thanks/" style="display:inline-block;background:#1a1a1a;color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px">Start using Pro</a>
+        </div>
+        ${plan === "lifetime"
+          ? `<p style="color:#6b7280;font-size:13px;line-height:1.6;text-align:center">Lifetime purchases are one-time. We'll keep you updated as new Pro features ship.</p>`
+          : `<p style="color:#6b7280;font-size:13px;line-height:1.6;text-align:center">Manage, cancel, or change your subscription at <a href="${SITE_URL}/account/" style="color:#1a1a1a">${SITE_DOMAIN}/account</a>.</p>`}
+        <p style="color:#9ca3af;font-size:11px;margin-top:32px;text-align:center">ColorArchive · ${FROM}</p>
+      </div>
+    `,
+  });
+  if (result?.error) {
+    console.error("Resend error (pro subscription):", JSON.stringify(result.error));
+  }
+  return result;
+}
+
 module.exports = {
   sendFreePackEmail,
   sendFollowUp3DayEmail,
@@ -1164,6 +1250,7 @@ module.exports = {
   sendFollowUp30DayEmail,
   sendMagicLinkEmail,
   sendOrderConfirmationEmail,
+  sendProSubscriptionEmail,
   sendWaitlistConfirmationEmail,
   sendNewsletterIssueAlert,
   sendCotdEmail,

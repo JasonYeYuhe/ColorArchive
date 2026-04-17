@@ -302,10 +302,13 @@ export interface AutopilotCommerceOrder {
   amount: number;
   currency: string;
   created_at: string;
+  is_test?: number;
 }
 
 export interface AutopilotStatus {
   generated_at: string;
+  include_test: boolean;
+  test_rows_hidden: number;
   pinterest: {
     connected: boolean;
     username: string | null;
@@ -325,8 +328,11 @@ export interface AutopilotStatus {
   };
 }
 
-export async function fetchAdminAutopilotStatus(): Promise<AutopilotStatus> {
-  const response = await fetch(`${API_URL}/admin/autopilot-status`, {
+export async function fetchAdminAutopilotStatus(
+  options: { includeTest?: boolean } = {},
+): Promise<AutopilotStatus> {
+  const qs = options.includeTest ? "?includeTest=true" : "";
+  const response = await fetch(`${API_URL}/admin/autopilot-status${qs}`, {
     credentials: "include",
   });
   return parseResponse<AutopilotStatus>(response);

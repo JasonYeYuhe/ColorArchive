@@ -1,9 +1,14 @@
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 const router = express.Router();
 const db = require("../db");
 const { findCatalogProduct, getDownloadUrl, getPackUrl } = require("../catalog");
-const { sendOrderConfirmationEmail } = require("../email");
+const { sendOrderConfirmationEmail, sendProSubscriptionEmail } = require("../email");
 const { constantTimeEqual } = require("../constant-time-eq");
+
+const RAW_LOG_FILE = path.join(__dirname, "..", ".ls-event-log.jsonl");
+const RAW_LOG_MAX_ENTRIES = 50;
 
 const INTERNAL_SECRET = process.env.INTERNAL_WEBHOOK_SECRET || "";
 // Minimum secret strength. A misconfigured short secret is nearly as
@@ -125,20 +130,23 @@ router.post("/order-completed", async (req, res) => {
 
 // POST /webhooks/subscription-checkout
 // Called after a subscription checkout completes
-router.post("/subscription-checkout", (req, res) => {
-  const { sessionId, email, plan, subscriptionId, provider } = req.body;
+router.post("/subscription-checkout", async (req, res) => {
+  const { sessionId, email, plan, subscriptionId, provider, amount, currency, testMode } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: "Missing email" });
   }
 
   const paymentProvider = provider || "stripe";
-  console.log(`[webhook] Subscription checkout: ${plan} for ${email} (sub=${subscriptionId}, provider=${paymentProvider})`);
+  const isTest = testMode ? 1 : 0;
+  console.log(
+    `[webhook] Subscription checkout: ${plan} for ${email} (sub=${subscriptionId}, provider=${paymentProvider}, test=${isTest})`
+  );
 
   // Find or create user, activate pro
   let user = db.prepare("SELECT id FROM users WHERE LOWER(email) = LOWER(?)").get(email);
   if (!user) {
-    db.prepare("INSERT INTO users (email) VALUES (?)").run(email);
+    db.prepare("INSERT INTO users (email, is_test) VALUES (?, ?)").run(email, isTest);
     user = db.prepare("SELECT id FROM users WHERE LOWER(email) = LOWER(?)").get(email);
   }
 
@@ -149,25 +157,52 @@ router.post("/subscription-checkout", (req, res) => {
         subscription_plan = ?,
         stripe_subscription_id = ?,
         payment_provider = ?,
-        provider_subscription_id = ?
+        provider_subscription_id = ?,
+        is_test = ?
       WHERE id = ?`
-    ).run(plan || "monthly", subscriptionId || null, paymentProvider, subscriptionId || null, user.id);
+    ).run(plan || "monthly", subscriptionId || null, paymentProvider, subscriptionId || null, isTest, user.id);
     console.log(`[webhook] User ${email} upgraded to pro via ${paymentProvider}`);
   }
 
-  // Add to subscribers
+  // Add to subscribers (tagged with is_test so subscriber-growth metrics can filter)
   db.prepare(
-    "INSERT OR IGNORE INTO subscribers (email, source) VALUES (?, ?)"
-  ).run(email, "stripe-subscription");
+    "INSERT OR IGNORE INTO subscribers (email, source, is_test) VALUES (?, ?, ?)"
+  ).run(email, `${paymentProvider}-subscription`, isTest);
 
   // Record as order for tracking
   const orderId = subscriptionId || sessionId || `sub_${Date.now()}`;
   const existing = db.prepare("SELECT id FROM orders WHERE order_id = ?").get(orderId);
   if (!existing) {
     db.prepare(
-      `INSERT INTO orders (order_id, email, product, amount, currency, pack_id)
-       VALUES (?, ?, ?, 0, 'jpy', ?)`
-    ).run(orderId, email, `Pro ${plan}`, `pro-${plan}`);
+      `INSERT INTO orders (order_id, email, product, amount, currency, pack_id, is_test)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`
+    ).run(
+      orderId,
+      email,
+      `Pro ${plan}`,
+      amount || 0,
+      (currency || "JPY").toLowerCase(),
+      `pro-${plan}`,
+      isTest,
+    );
+  }
+
+  // Send receipt email. Pre-fix LS commerce silently skipped this — only
+  // the legacy Stripe one-time pack path called it. For a SaaS purchase
+  // the receipt is simpler (no download link).
+  try {
+    await sendProSubscriptionEmail(email, {
+      plan: plan || "monthly",
+      orderId,
+      amount: amount || null,
+      currency: currency || "JPY",
+      isTest: Boolean(testMode),
+    });
+    console.log(`[webhook] Pro subscription email sent to ${email}`);
+  } catch (err) {
+    console.error(`[webhook] Failed to send Pro email to ${email}:`, err?.message || err);
+    // Fall through with 200 — the DB state is the source of truth; LS
+    // should not retry just because our outbound SMTP blipped.
   }
 
   return res.json({ ok: true });
@@ -176,13 +211,40 @@ router.post("/subscription-checkout", (req, res) => {
 // POST /webhooks/subscription-updated
 // Called on customer.subscription.created / updated
 router.post("/subscription-updated", (req, res) => {
-  const { subscriptionId, customerId, status, currentPeriodEnd, cancelAtPeriodEnd, priceId } = req.body;
+  const {
+    subscriptionId,
+    customerId,
+    status,
+    currentPeriodEnd,      // legacy Stripe name (unix seconds)
+    cancelAtPeriodEnd,     // legacy Stripe name (boolean)
+    renewsAt,              // Lemon Squeezy name (ISO string)
+    endsAt,                // Lemon Squeezy name (ISO string, null when not cancelling)
+    priceId,
+  } = req.body;
 
   if (!subscriptionId) {
     return res.status(400).json({ error: "Missing subscriptionId" });
   }
 
-  console.log(`[webhook] Subscription updated: ${subscriptionId} status=${status} cancelAtEnd=${cancelAtPeriodEnd}`);
+  // Normalise across the two provider shapes. LS sends renewsAt/endsAt
+  // as ISO strings; the legacy Stripe path sends unix-seconds numbers.
+  // Pre-fix, the LS route.ts handler forwarded renewsAt/endsAt but
+  // Express only consumed currentPeriodEnd/cancelAtPeriodEnd — every
+  // LS update was silently dropping the period/cancel fields.
+  const periodEndIso = renewsAt
+    ? new Date(renewsAt).toISOString()
+    : currentPeriodEnd
+      ? new Date(currentPeriodEnd * 1000).toISOString()
+      : null;
+  const cancelAtEnd = endsAt
+    ? 1
+    : cancelAtPeriodEnd
+      ? 1
+      : 0;
+
+  console.log(
+    `[webhook] Subscription updated: ${subscriptionId} status=${status} cancelAtEnd=${cancelAtEnd} period=${periodEndIso}`
+  );
 
   // Find user by stripe_subscription_id or stripe_customer_id
   const user = db.prepare(
@@ -194,7 +256,7 @@ router.post("/subscription-updated", (req, res) => {
     return res.json({ ok: true, skipped: true });
   }
 
-  const isPro = ["active", "trialing"].includes(status);
+  const isPro = ["active", "trialing", "on_trial", "past_due"].includes(status);
 
   db.prepare(
     `UPDATE users SET
@@ -211,9 +273,9 @@ router.post("/subscription-updated", (req, res) => {
     status,
     customerId || null,
     subscriptionId,
-    currentPeriodEnd ? new Date(currentPeriodEnd * 1000).toISOString() : null,
-    cancelAtPeriodEnd ? 1 : 0,
-    currentPeriodEnd ? new Date(currentPeriodEnd * 1000).toISOString() : null,
+    periodEndIso,
+    cancelAtEnd,
+    periodEndIso,
     user.id
   );
 
@@ -246,6 +308,37 @@ router.post("/subscription-cancelled", (req, res) => {
   ).run(user.id);
 
   console.log(`[webhook] subscription-cancelled: user=${user.id}`);
+  return res.json({ ok: true });
+});
+
+/**
+ * POST /webhooks/raw-log
+ * Capture raw LS payloads (forwarded by the Next.js route.ts handler)
+ * so the Phase B validator script can replay a REAL payload instead
+ * of a synthetic model. Rolling JSONL, last N entries; oldest pruned.
+ * Bearer-equivalent protected by the same INTERNAL secret as the
+ * rest of /webhooks.
+ */
+router.post("/raw-log", (req, res) => {
+  const entry = {
+    at: new Date().toISOString(),
+    event_name: req.body?.event_name || "unknown",
+    test_mode: Boolean(req.body?.test_mode),
+    raw: typeof req.body?.raw === "string" ? req.body.raw : JSON.stringify(req.body?.raw || {}),
+  };
+  try {
+    let lines = [];
+    if (fs.existsSync(RAW_LOG_FILE)) {
+      lines = fs.readFileSync(RAW_LOG_FILE, "utf8").split("\n").filter(Boolean);
+    }
+    lines.push(JSON.stringify(entry));
+    if (lines.length > RAW_LOG_MAX_ENTRIES) {
+      lines = lines.slice(lines.length - RAW_LOG_MAX_ENTRIES);
+    }
+    fs.writeFileSync(RAW_LOG_FILE, lines.join("\n") + "\n", { encoding: "utf8", mode: 0o600 });
+  } catch (err) {
+    console.error("[webhook] raw-log write failed:", err.message);
+  }
   return res.json({ ok: true });
 });
 

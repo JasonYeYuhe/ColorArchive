@@ -42,20 +42,21 @@ export function AdminAutopilotPage() {
   const [state, setState] = useState<LoadState>("idle");
   const [data, setData] = useState<AutopilotStatus | null>(null);
   const [error, setError] = useState("");
+  const [includeTest, setIncludeTest] = useState(false);
 
   const load = useCallback(async () => {
     if (!analyticsAccess) return;
     setState("loading");
     setError("");
     try {
-      const json = await fetchAdminAutopilotStatus();
+      const json = await fetchAdminAutopilotStatus({ includeTest });
       setData(json);
       setState("success");
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
       setState("error");
     }
-  }, [analyticsAccess]);
+  }, [analyticsAccess, includeTest]);
 
   useEffect(() => {
     load();
@@ -90,15 +91,32 @@ export function AdminAutopilotPage() {
             commerce webhooks.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={load}
-          disabled={state === "loading"}
-          className="rounded-full border border-neutral-300 bg-white px-4 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-50 disabled:opacity-50"
-        >
-          {state === "loading" ? "Refreshing…" : "Refresh"}
-        </button>
+        <div className="flex items-center gap-3">
+          <label className="flex items-center gap-1.5 text-xs text-neutral-600">
+            <input
+              type="checkbox"
+              checked={includeTest}
+              onChange={(e) => setIncludeTest(e.target.checked)}
+              className="h-3.5 w-3.5"
+            />
+            show test rows
+          </label>
+          <button
+            type="button"
+            onClick={load}
+            disabled={state === "loading"}
+            className="rounded-full border border-neutral-300 bg-white px-4 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-50 disabled:opacity-50"
+          >
+            {state === "loading" ? "Refreshing…" : "Refresh"}
+          </button>
+        </div>
       </header>
+
+      {data && data.test_rows_hidden > 0 && !includeTest && (
+        <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2 text-[11px] text-amber-700">
+          {data.test_rows_hidden} test row{data.test_rows_hidden === 1 ? "" : "s"} hidden. Toggle above to include.
+        </div>
+      )}
 
       {state === "error" && (
         <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-xs text-red-700">
@@ -229,6 +247,11 @@ export function AdminAutopilotPage() {
                           <span className="ml-2 text-neutral-400">
                             {o.email}
                           </span>
+                          {o.is_test === 1 && (
+                            <span className="ml-2 rounded bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium uppercase text-amber-700">
+                              test
+                            </span>
+                          )}
                         </div>
                         <div className="ml-4 shrink-0 text-neutral-400">
                           {formatCurrency(o.amount, o.currency)} ·{" "}

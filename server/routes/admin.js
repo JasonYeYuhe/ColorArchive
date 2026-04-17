@@ -120,6 +120,8 @@ router.post("/orders/:orderId/resend", async (req, res) => {
 router.get("/autopilot-status", (req, res) => {
   const now = Date.now();
   const sevenDaysAgo = new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString();
+  const includeTest = req.query.includeTest === "true";
+  const testFilter = includeTest ? "" : " AND is_test = 0";
 
   // Pinterest: live token status + recent pins from the scheduler's log
   const pinterest = pinterestAdmin.getStatus();
@@ -147,26 +149,34 @@ router.get("/autopilot-status", (req, res) => {
     dryRun: Boolean(e.dryRun),
   }));
 
-  // Commerce: pulled from the DB that webhook.js writes to on every LS event
+  // Commerce: pulled from the DB that webhook.js writes to on every LS event.
+  // Defaults to real rows only; pass ?includeTest=true to see test-mode too.
   const proUsersTotal = db
-    .prepare("SELECT COUNT(*) AS n FROM users WHERE tier = 'pro'")
+    .prepare(`SELECT COUNT(*) AS n FROM users WHERE tier = 'pro'${testFilter}`)
     .get().n;
   const newProLast7d = db
     .prepare(
-      "SELECT COUNT(*) AS n FROM users WHERE tier = 'pro' AND created_at >= ?"
+      `SELECT COUNT(*) AS n FROM users WHERE tier = 'pro' AND created_at >= ?${testFilter}`
     )
     .get(sevenDaysAgo).n;
   const ordersLast7d = db
-    .prepare("SELECT COUNT(*) AS n FROM orders WHERE created_at >= ?")
+    .prepare(`SELECT COUNT(*) AS n FROM orders WHERE created_at >= ?${testFilter}`)
     .get(sevenDaysAgo).n;
   const recentOrders = db
     .prepare(
-      "SELECT order_id, email, product, amount, currency, created_at FROM orders ORDER BY created_at DESC LIMIT 5"
+      `SELECT order_id, email, product, amount, currency, created_at, is_test FROM orders
+       WHERE 1=1${testFilter}
+       ORDER BY created_at DESC LIMIT 10`
     )
     .all();
+  const testRowsHidden = includeTest
+    ? 0
+    : db.prepare("SELECT COUNT(*) AS n FROM orders WHERE is_test = 1").get().n;
 
   return res.json({
     generated_at: new Date().toISOString(),
+    include_test: includeTest,
+    test_rows_hidden: testRowsHidden,
     pinterest,
     commerce: {
       pro_users_total: proUsersTotal,

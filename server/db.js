@@ -210,6 +210,13 @@ ensureColumn("users", "payment_provider TEXT");
 ensureColumn("users", "provider_customer_id TEXT");
 ensureColumn("users", "provider_subscription_id TEXT");
 
+// Test-mode flag for LS (and any future provider) — lets admin
+// dashboards + growth metrics filter synthetic/test-mode activity
+// out of the real numbers. 0 = real, 1 = test.
+ensureColumn("orders", "is_test INTEGER DEFAULT 0");
+ensureColumn("users", "is_test INTEGER DEFAULT 0");
+ensureColumn("subscribers", "is_test INTEGER DEFAULT 0");
+
 // Migrate plaintext API keys to hashed storage
 const crypto = require("crypto");
 function hashApiKey(key) {

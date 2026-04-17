@@ -65,8 +65,35 @@ export async function POST(req: NextRequest) {
   const attrs = event.data.attributes;
   const email = (attrs.user_email as string) ?? null;
   const customData = event.meta.custom_data ?? {};
+  const testMode = Boolean(attrs.test_mode);
 
-  console.log(`[ls-webhook] Event: ${eventName} email=${email}`);
+  console.log(`[ls-webhook] Event: ${eventName} email=${email} test=${testMode}`);
+
+  // Fire-and-forget raw payload capture to the Express raw-log endpoint,
+  // so Phase B's validator can replay a real LS payload (not just a
+  // synthetic one). Best-effort — failures are swallowed and never
+  // affect the LS response.
+  notifyBackend("/webhooks/raw-log", {
+    event_name: eventName,
+    test_mode: testMode,
+    raw: body,
+  }).catch((err) => {
+    console.error("[ls-webhook] raw-log capture failed (non-fatal):", err?.message || err);
+  });
+
+  // Pull first-order amount for subscription-created events — LS
+  // includes it on the signup event so our receipt email can show
+  // the amount charged (or the trial-zero).
+  const orderItem = (attrs.first_order_item as Record<string, unknown> | undefined) ?? {};
+  const firstAmount =
+    (orderItem.price_formatted as number | undefined) ??
+    (attrs.total as number | undefined) ??
+    (attrs.subtotal as number | undefined) ??
+    null;
+  const firstCurrency =
+    (attrs.currency as string | undefined) ??
+    (orderItem.currency as string | undefined) ??
+    "JPY";
 
   try {
     switch (eventName) {
@@ -79,6 +106,9 @@ export async function POST(req: NextRequest) {
           subscriptionId: String(event.data.id),
           provider: "lemonsqueezy",
           customerId: String(attrs.customer_id ?? ""),
+          testMode,
+          amount: firstAmount,
+          currency: firstCurrency,
           ...customData,
         });
         break;
@@ -93,6 +123,7 @@ export async function POST(req: NextRequest) {
           renewsAt: attrs.renews_at ?? null,
           endsAt: attrs.ends_at ?? null,
           provider: "lemonsqueezy",
+          testMode,
         });
         break;
       }
@@ -103,6 +134,7 @@ export async function POST(req: NextRequest) {
           subscriptionId: String(event.data.id),
           customerId: String(attrs.customer_id ?? ""),
           provider: "lemonsqueezy",
+          testMode,
         });
         break;
       }
@@ -114,6 +146,7 @@ export async function POST(req: NextRequest) {
           customerId: String(attrs.customer_id ?? ""),
           provider: "lemonsqueezy",
           reason: "expired",
+          testMode,
         });
         break;
       }
@@ -121,7 +154,7 @@ export async function POST(req: NextRequest) {
       // Payment events (for analytics / dunning)
       case "subscription_payment_success":
       case "subscription_payment_failed": {
-        console.log(`[ls-webhook] Payment ${eventName}: subscription=${event.data.id} customer=${attrs.customer_id}`);
+        console.log(`[ls-webhook] Payment ${eventName}: subscription=${event.data.id} customer=${attrs.customer_id} test=${testMode}`);
         break;
       }
 
@@ -139,6 +172,9 @@ export async function POST(req: NextRequest) {
             subscriptionId: `lifetime_${event.data.id}`,
             provider: "lemonsqueezy",
             customerId: String(attrs.customer_id ?? ""),
+            testMode,
+            amount: firstAmount,
+            currency: firstCurrency,
             ...customData,
           });
         }
