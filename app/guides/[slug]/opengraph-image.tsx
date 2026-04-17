@@ -124,7 +124,7 @@ export default async function Image({
               textTransform: "uppercase",
             }}
           >
-            {SITE_DOMAIN} · guide
+            {`${SITE_DOMAIN} · guide`}
           </div>
         </div>
       </div>
