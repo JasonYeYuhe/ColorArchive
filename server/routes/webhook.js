@@ -151,20 +151,28 @@ router.post("/subscription-checkout", async (req, res) => {
     user = db.prepare("SELECT id FROM users WHERE LOWER(email) = LOWER(?)").get(email);
   }
 
-  // Duplicate detection — look for OTHER pro users with the same card
-  // fingerprint created in the last 30d. Soft-flag only (never rejects
-  // the checkout); operator reviews flagged pairs via admin dashboard.
+  // Duplicate detection — look for OTHER users currently on Pro with
+  // the same card fingerprint. Soft-flag only (never rejects the
+  // checkout); operator reviews flagged pairs via admin dashboard.
+  // Intentionally no time window: a returning customer whose account
+  // is old but subscription is new should still trip the flag. The
+  // `tier='pro'` filter plus the admin-side cancellation check are
+  // what keeps the list current, not an artificial age limit.
+  //
+  // Known blind spots (Gemini P1 review, 2026-04-18):
+  //   - Virtual card services (Privacy.com, Apple Card, Revolut) mint
+  //     unique PANs per merchant → last-four differs → bypass.
+  //   - Two genuinely different physical cards → bypass.
+  // This is a cheap net for casual abuse, not a shield.
   let duplicateSuspects = [];
   let isDuplicate = 0;
   if (fingerprint && user) {
-    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     duplicateSuspects = db.prepare(
       `SELECT id, email FROM users
        WHERE card_fingerprint = ?
          AND id != ?
-         AND tier = 'pro'
-         AND created_at >= ?`
-    ).all(fingerprint, user.id, thirtyDaysAgo);
+         AND tier = 'pro'`
+    ).all(fingerprint, user.id);
     if (duplicateSuspects.length > 0) {
       isDuplicate = 1;
       console.warn(
