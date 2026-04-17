@@ -19,3 +19,13 @@ server/.env.instagram
 demo-video/
 *.tmp
 tts-samples/
+
+# Test output
+playwright-report/
+test-results/
+
+# Extension build artifacts
+*.vsix
+
+# Local MCP config
+.mcp.json
