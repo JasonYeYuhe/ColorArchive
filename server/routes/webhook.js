@@ -7,15 +7,17 @@ const { sendOrderConfirmationEmail } = require("../email");
 
 const INTERNAL_SECRET = process.env.INTERNAL_WEBHOOK_SECRET || "";
 
-/** Verify requests come from our own Next.js webhook forwarder */
+/** Verify requests come from our own Next.js webhook forwarder.
+ *  Fail-closed in all environments. Previously a dev-mode branch
+ *  allowed unauthenticated requests when INTERNAL_SECRET was unset —
+ *  that branch was silently shipping to prod because NODE_ENV also
+ *  wasn't set, allowing anonymous fraudulent Pro activations
+ *  (2026-04-17 incident, docs/ls-commerce-validation-2026-04-17.md).
+ */
 function verifyInternal(req, res, next) {
   if (!INTERNAL_SECRET) {
-    if (process.env.NODE_ENV === "production") {
-      console.error("[webhook] INTERNAL_WEBHOOK_SECRET not set — rejecting request");
-      return res.status(500).json({ error: "Server misconfiguration" });
-    }
-    console.warn("[webhook] INTERNAL_WEBHOOK_SECRET not set — allowing request (dev mode)");
-    return next();
+    console.error("[webhook] INTERNAL_WEBHOOK_SECRET not set — refusing to serve");
+    return res.status(500).json({ error: "Server misconfiguration" });
   }
   const provided = req.headers["x-internal-secret"] || "";
   const expected = Buffer.from(INTERNAL_SECRET);
