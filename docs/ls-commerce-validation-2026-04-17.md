@@ -116,3 +116,108 @@ This commit push forces one. After the deploy completes:
 - 11:42 UTC — Vercel env var added
 - 11:42 UTC — DB cleaned
 - 11:45 UTC — this doc committed to trigger Vercel redeploy
+
+---
+
+## Post-P0 — Phase A + B commerce validation (same day, 13:00 UTC)
+
+After the P0 fix, ran the full commerce-validation plan
+(`docs/commerce-validation-plan-2026-04-17.md`). Codex caught TWO
+more pre-existing P0s during plan review, both fixed inline:
+
+1. `/webhooks/subscription-checkout` never sent a receipt email
+   (`server/routes/webhook.js` only called `sendOrderConfirmationEmail`
+   on the legacy Stripe `/order-completed` route). Added a new
+   `sendProSubscriptionEmail()` function + wired it into the LS path.
+2. `subscription_updated` contract mismatch. Vercel forwards
+   `renewsAt`/`endsAt`; Express was reading `currentPeriodEnd`/
+   `cancelAtPeriodEnd`. Aligned Express to accept both shapes.
+
+Plus:
+- Added `is_test` columns on orders/users/subscribers (Gemini P1) so
+  synthetic test rows don't pollute real metrics.
+- `/admin/autopilot-status` defaults to hiding `is_test=1` rows;
+  `?includeTest=true` to show them. Admin page gained a checkbox +
+  amber "test" chip.
+- Added `/webhooks/raw-log` endpoint that captures forwarded LS
+  payloads to `server/.ls-event-log.jsonl` (rolling, cap 50 entries,
+  0o600). Gives the validator script a real payload to replay
+  against in the future.
+- Wrote `scripts/validate-ls-webhook.mjs` — HMAC-signs 5 synthetic
+  events (Monthly/Yearly subscription_created, Lifetime order_created,
+  subscription_updated active, subscription_cancelled) and fires at
+  prod. Supports `--replay` against a captured real payload with
+  byte-faithful resigning.
+
+### First full-chain validation — 13:14 UTC (passed)
+
+Ran `node scripts/validate-ls-webhook.mjs`. All 5 events returned
+200. DB check:
+- `users` row created with tier=pro, is_test=1
+- 3 `orders` rows: Monthly 499 JPY, Yearly 3999, Lifetime 19999 —
+  all is_test=1
+- `subscribers` row with source=lemonsqueezy-subscription, is_test=1
+- PM2 logs show 3 successful receipt email sends via Resend
+- `subscription_updated` correctly populated period + cancelAtEnd
+  fields
+- `subscription_cancelled` correctly downgraded
+
+Test rows cleaned immediately after; prod DB back to 0 Pro users
+awaiting the first real buyer.
+
+---
+
+## Phase C — user-driven real test purchase (TODO)
+
+Final go-live gate. Human-in-the-loop because LS test-mode checkouts
+require clicking through the LS-hosted page with a test card.
+
+### Steps
+
+1. In the LS dashboard, toggle **Test mode** on (left-side rail →
+   the store profile → Settings → "Test mode"). All checkouts done
+   while in test mode produce real events that hit our webhook but
+   no real money moves.
+
+2. In an **incognito** window (avoid cached Pro state), open:
+   ```
+   https://colorarchive.lemonsqueezy.com/checkout/buy/771b252b-14d2-45ed-b4d5-b9f39f0883f8
+   ```
+
+3. Pick **Monthly**. Pay with test card `4242 4242 4242 4242`,
+   any future expiry, any CVC, any ZIP.
+
+4. Expect to land on `https://colorarchive.org/thanks/`.
+
+5. Jason pings Claude (or anyone present): "Monthly done."
+   Claude tails `pm2 logs colorarchive-server` and reports whether
+   the webhook reached Express, the DB row landed, and the email
+   fired.
+
+6. Repeat with **Yearly** and **Lifetime**.
+
+7. Cancel the Monthly subscription from the LS test-mode dashboard.
+   Confirm the `/admin/autopilot/` dashboard's `recent_orders` shows
+   the cancel event (via subscription_updated fields).
+
+8. Delete the 3 test rows from the DB after all observations captured:
+
+   ```bash
+   ssh root@143.198.85.72 "sqlite3 /root/ColorArchive/server/data.db \
+     'DELETE FROM orders WHERE is_test = 1;
+      DELETE FROM users WHERE is_test = 1;
+      DELETE FROM subscribers WHERE is_test = 1;'"
+   ```
+
+### Why this is still needed after Phase B passed
+
+Phase B proved our fulfillment chain handles HMAC-signed, valid
+payloads through to DB + email. It did NOT prove:
+- Real LS-hosted checkout flow actually triggers the webhook (could
+  be misconfigured in dashboard)
+- Thanks-page redirect renders Pro-active state to the browser
+- Payment processor (LS) sees a successful test charge
+- Return-customer flow on second attempt
+
+Those four surface areas are only exercised by a real end-to-end
+purchase through the LS-hosted checkout page.
