@@ -92,4 +92,10 @@ app.listen(PORT, () => {
   } catch (err) {
     console.error("[WARN] Instagram scheduler failed to start:", err);
   }
+
+  try {
+    require("./pin-scheduler").startScheduler();
+  } catch (err) {
+    console.error("[WARN] Pinterest scheduler failed to start:", err);
+  }
 });
