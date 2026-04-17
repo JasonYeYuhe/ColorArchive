@@ -43,6 +43,11 @@ let tokenStore = {
 
 let lastPinAt = null;
 let refreshTimer = null;
+// In-flight refresh promise — prevents thundering-herd when multiple
+// concurrent 401s all try to refresh at the same time, which would
+// otherwise produce concurrent OAuth exchanges and corrupted file
+// writes. All callers wait on the same promise.
+let refreshPromise = null;
 
 /* ── Token persistence ────────────────────────────────────── */
 
@@ -69,7 +74,19 @@ function loadTokenStore() {
 
 function saveTokenStore() {
   try {
-    fs.writeFileSync(TOKEN_FILE, JSON.stringify(tokenStore, null, 2), "utf8");
+    // Explicit 0o600 so the plaintext OAuth token isn't world-readable
+    // to any other user/process on the host.
+    fs.writeFileSync(TOKEN_FILE, JSON.stringify(tokenStore, null, 2), {
+      encoding: "utf8",
+      mode: 0o600,
+    });
+    // writeFileSync only sets the mode on CREATE; chmod in case the
+    // file already existed with a looser permission bit.
+    try {
+      fs.chmodSync(TOKEN_FILE, 0o600);
+    } catch {
+      /* ignore */
+    }
   } catch (err) {
     console.error("[pinterest-admin] failed to write token file:", err.message);
   }
@@ -129,11 +146,12 @@ async function exchangeAuthCode(code, redirectUri) {
 
 /* ── Token refresh ────────────────────────────────────────── */
 
-async function autoRefreshToken() {
+async function doRefresh() {
   if (!tokenStore.refresh_token) {
     // Nothing to refresh — the token was likely seeded from env
     // (long-lived user token). Pinterest will surface a 401 when it
-    // actually expires; we refresh reactively then.
+    // actually expires; at that point exchangeAuthCode needs to be
+    // rerun via /admin/auth/start.
     return;
   }
 
@@ -170,6 +188,17 @@ async function autoRefreshToken() {
   } catch (err) {
     console.error("[pinterest-admin] refresh error:", err.message);
   }
+}
+
+// Public refresh entrypoint. Coalesces concurrent callers onto a single
+// in-flight refresh so we never issue duplicate OAuth exchanges or race
+// on the token file write.
+function autoRefreshToken() {
+  if (refreshPromise) return refreshPromise;
+  refreshPromise = doRefresh().finally(() => {
+    refreshPromise = null;
+  });
+  return refreshPromise;
 }
 
 function scheduleAutoRefresh() {

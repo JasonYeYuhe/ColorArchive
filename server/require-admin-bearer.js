@@ -10,15 +10,17 @@
  * rather than accidentally opening the route.
  */
 
-function timingSafeEqual(a, b) {
-  if (typeof a !== "string" || typeof b !== "string" || a.length !== b.length) {
-    return false;
-  }
-  let mismatch = 0;
-  for (let i = 0; i < a.length; i++) {
-    mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  }
-  return mismatch === 0;
+const crypto = require("crypto");
+
+// Compare two strings in constant time. We hash both to a fixed-length
+// digest first so that any length difference in the inputs does not
+// leak through the comparison runtime — node's crypto.timingSafeEqual
+// throws on length mismatch, which would otherwise be a timing oracle.
+function constantTimeEqual(a, b) {
+  if (typeof a !== "string" || typeof b !== "string") return false;
+  const ah = crypto.createHash("sha256").update(a).digest();
+  const bh = crypto.createHash("sha256").update(b).digest();
+  return crypto.timingSafeEqual(ah, bh);
 }
 
 function requireAdminBearer(req, res, next) {
@@ -32,7 +34,7 @@ function requireAdminBearer(req, res, next) {
   const m = /^Bearer\s+(.+)$/i.exec(header);
   const provided = m ? m[1].trim() : "";
 
-  if (!timingSafeEqual(provided, expected)) {
+  if (!constantTimeEqual(provided, expected)) {
     return res.status(401).json({ error: "Admin bearer token required" });
   }
 
