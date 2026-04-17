@@ -220,8 +220,10 @@ export function PinterestSaveButton({ color }: { color: ColorRecord }) {
     setSaving(true);
     try {
       const pageUrl = `${SITE_URL}/colors/${color.id}/`;
-      // Use the OG image as pin image
-      const imageUrl = `${SITE_URL}/colors/${color.id}/opengraph-image`;
+      // Use the OG image as pin image. Trailing slash matters: next.config.ts
+      // enforces trailingSlash:true, and Pinterest's image fetcher (2786 error)
+      // does not follow the 308 redirect from the unslashed form.
+      const imageUrl = `${SITE_URL}/colors/${color.id}/opengraph-image/`;
 
       await createPin({
         token,
