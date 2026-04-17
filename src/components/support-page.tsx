@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     q: "What's the Lifetime option?",
-    a: "Pro Lifetime is a one-time purchase that gives you permanent Pro access — no recurring charges. Early bird pricing is ¥9,999 (regular ¥12,999).",
+    a: "Pro Lifetime is a one-time purchase that gives you permanent Pro access — no recurring charges. ¥19,999 / $199.99.",
   },
   {
     q: "Do you offer refunds?",

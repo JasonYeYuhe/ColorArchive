@@ -42,12 +42,10 @@ export const proSubscriptionConfig = {
     note: "Pro yearly subscription",
   },
   lifetime: {
-    price: "¥9,999",
-    priceUsd: "$99.99",
+    price: "¥19,999",
+    priceUsd: "$199.99",
     period: "lifetime" as const,
-    earlyBird: true,
-    regularPrice: "¥12,999",
-    note: "Pro lifetime — early bird pricing",
+    note: "Pro lifetime — one-time purchase",
   },
 } as const;
 
@@ -74,21 +72,15 @@ export const checkoutFlowConfig: CheckoutFlowConfig = {
 
 // ---- Provider implementations ----
 
-/** Lemon Squeezy */
+/** Lemon Squeezy — single product with 3 variants; customer picks on checkout page */
 const LS_STORE_SLUG = "colorarchive";
-const lsVariantIds: Record<ProPlan, string> = {
-  monthly: "59d0c0b3-a368-440b-942c-0c53a8f3d64b",
-  yearly: "72fe6359-636e-4675-a0d6-c03b70154b68",
-  lifetime: "235af9d9-2263-47e5-8de9-29712ed39965",
-};
+const LS_CHECKOUT_URL = `https://${LS_STORE_SLUG}.lemonsqueezy.com/checkout/buy/771b252b-14d2-45ed-b4d5-b9f39f0883f8`;
 
 const lemonsqueezyProvider: ProviderConfig = {
   name: "Lemon Squeezy",
   checkoutMode: "redirect",
-  getCheckoutUrl(plan) {
-    const variantId = lsVariantIds[plan];
-    if (!variantId) return null;
-    return `https://${LS_STORE_SLUG}.lemonsqueezy.com/checkout/buy/${variantId}`;
+  getCheckoutUrl() {
+    return LS_CHECKOUT_URL;
   },
   getBillingPortalUrl() {
     return `https://${LS_STORE_SLUG}.lemonsqueezy.com/billing`;

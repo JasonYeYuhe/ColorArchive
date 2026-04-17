@@ -129,16 +129,12 @@ export function ProPage() {
 
             {/* Lifetime */}
             <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6 text-center flex flex-col relative">
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded-full whitespace-nowrap">
-                Early Bird
-              </span>
               <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
                 Lifetime
               </p>
               <div className="mb-2">
                 <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.lifetime.price}</span>
               </div>
-              <p className="text-xs text-slate-400 line-through mb-1">{proSubscriptionConfig.lifetime.regularPrice}</p>
               <p className="text-xs text-amber-600 dark:text-amber-400 font-medium mb-1">Pay once, keep forever*</p>
               <p className="text-[10px] text-slate-400 mb-5">*Lifetime of the ColorArchive product</p>
               <div className="mt-auto">
