@@ -175,12 +175,15 @@ router.get("/autopilot-status", (req, res) => {
 
   // Suspected-duplicate subscriptions (same card fingerprint flagged
   // by the webhook handler). Operator-visible as an advisory; real rows
-  // stay pro, never auto-cancelled.
+  // stay pro, never auto-cancelled. Only shows rows that are CURRENTLY
+  // on Pro — if a cancel downgrades one side, the alert clears on its
+  // own next refresh.
   const duplicates = db
     .prepare(
       `SELECT id, email, subscription_plan, card_fingerprint, duplicate_suspects, created_at
        FROM users
-       WHERE is_duplicate = 1${testFilter}
+       WHERE is_duplicate = 1
+         AND tier = 'pro'${testFilter}
        ORDER BY created_at DESC LIMIT 25`
     )
     .all()

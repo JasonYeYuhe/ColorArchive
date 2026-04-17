@@ -78,7 +78,7 @@ if (!SECRET) {
 // consumes in app/api/webhook/route.ts. Fields not read by our code
 // are omitted — synthetic minimalism over structural fidelity.
 
-function makeSubscriptionCreated({ plan, email, subId }) {
+function makeSubscriptionCreated({ plan, email, subId, cardLastFour = "4242" }) {
   const variantName = plan === "yearly" ? "ColorArchive Pro — Yearly" : "ColorArchive Pro — Monthly";
   return {
     meta: {
@@ -96,6 +96,8 @@ function makeSubscriptionCreated({ plan, email, subId }) {
         total: plan === "yearly" ? 3999 : 499,
         subtotal: plan === "yearly" ? 3999 : 499,
         currency: "JPY",
+        card_brand: "visa",
+        card_last_four: cardLastFour,
         first_order_item: {
           variant_name: variantName,
           total: plan === "yearly" ? 3999 : 499,
@@ -105,7 +107,7 @@ function makeSubscriptionCreated({ plan, email, subId }) {
   };
 }
 
-function makeOrderCreatedLifetime({ email, orderId }) {
+function makeOrderCreatedLifetime({ email, orderId, cardLastFour = "4242" }) {
   return {
     meta: {
       event_name: "order_created",
@@ -121,6 +123,8 @@ function makeOrderCreatedLifetime({ email, orderId }) {
         total: 19999,
         subtotal: 19999,
         currency: "JPY",
+        card_brand: "visa",
+        card_last_four: cardLastFour,
         first_order_item: {
           variant_name: "ColorArchive Pro — Lifetime",
           total: 19999,
@@ -201,24 +205,29 @@ async function post(event, label) {
 async function runSynthetic() {
   console.log(`Endpoint:  ${ENDPOINT}`);
   console.log(`Buyer:     ${EMAIL}`);
-  console.log("Firing 4 synthetic test-mode events…\n");
+  console.log("Firing 5 synthetic test-mode events (same card across three buyers to exercise dup detection)…\n");
 
-  const subMonthly = `test-sub-${Date.now()}-m`;
-  const subYearly = `test-sub-${Date.now()}-y`;
-  const orderLifetime = `test-order-${Date.now()}-l`;
+  const stamp = Date.now();
+  const subMonthly = `test-sub-${stamp}-m`;
+  const subYearly = `test-sub-${stamp}-y`;
+  const orderLifetime = `test-order-${stamp}-l`;
 
   const results = [];
+  // Each synthetic purchase uses the same card_last_four (4242) so the
+  // second and third subscription_created events SHOULD be flagged as
+  // duplicates of the first. Third party emails to isolate them as
+  // distinct users in our DB.
   results.push(await post(
-    makeSubscriptionCreated({ plan: "monthly", email: EMAIL, subId: subMonthly }),
+    makeSubscriptionCreated({ plan: "monthly", email: EMAIL, subId: subMonthly, cardLastFour: "4242" }),
     "subscription_created (Monthly)",
   ));
   results.push(await post(
-    makeSubscriptionCreated({ plan: "yearly", email: EMAIL, subId: subYearly }),
-    "subscription_created (Yearly)",
+    makeSubscriptionCreated({ plan: "yearly", email: `test+y-${stamp}@colorarchive.org`, subId: subYearly, cardLastFour: "4242" }),
+    "subscription_created (Yearly, dup card)",
   ));
   results.push(await post(
-    makeOrderCreatedLifetime({ email: EMAIL, orderId: orderLifetime }),
-    "order_created (Lifetime)",
+    makeOrderCreatedLifetime({ email: `test+l-${stamp}@colorarchive.org`, orderId: orderLifetime, cardLastFour: "4242" }),
+    "order_created (Lifetime, dup card)",
   ));
   results.push(await post(
     makeSubscriptionUpdated({ subId: subMonthly, status: "active" }),
