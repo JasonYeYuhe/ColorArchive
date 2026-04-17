@@ -140,7 +140,20 @@ router.post("/pins", async (req, res) => {
   }
 
   try {
-    const pinBody = { board_id, title, description, link, media_source };
+    // Defensive normalization: colorarchive.org enforces trailingSlash:true,
+    // so any /colors/:slug/opengraph-image without a trailing slash 308-redirects.
+    // Pinterest's image fetcher does not follow that redirect (error 2786).
+    // Older clients or service-worker-cached builds may send the unslashed form —
+    // fix it here so the proxy is robust regardless of what the client sent.
+    const normalizedMedia = { ...media_source };
+    if (
+      normalizedMedia?.url &&
+      typeof normalizedMedia.url === "string" &&
+      /\/opengraph-image$/.test(normalizedMedia.url)
+    ) {
+      normalizedMedia.url = normalizedMedia.url + "/";
+    }
+    const pinBody = { board_id, title, description, link, media_source: normalizedMedia };
     if (alt_text) pinBody.alt_text = alt_text;
 
     const pinRes = await fetch(`${PINTEREST_API_BASE}/pins`, {
