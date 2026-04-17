@@ -265,6 +265,49 @@ export function AdminAutopilotPage() {
             )}
           </section>
 
+          {data.commerce.suspected_duplicates && data.commerce.suspected_duplicates.length > 0 && (
+            <section className="rounded-2xl border border-amber-200 bg-amber-50 p-6">
+              <div className="mb-3 flex items-center gap-2">
+                <h2 className="text-base font-semibold text-amber-900">
+                  Suspected duplicate subscriptions
+                </h2>
+                <span className="rounded-full bg-amber-200 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-amber-800">
+                  {data.commerce.suspected_duplicates.length}
+                </span>
+              </div>
+              <p className="mb-4 text-[11px] text-amber-700">
+                These Pro users share a card fingerprint (brand + last-four)
+                with another active Pro user within the last 30 days. Not
+                auto-cancelled — review and decide per row.
+              </p>
+              <ul className="divide-y divide-amber-200">
+                {data.commerce.suspected_duplicates.map((dup) => (
+                  <li key={dup.user_id} className="py-3 text-xs">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <span className="font-medium text-amber-900">
+                          user #{dup.user_id}
+                        </span>
+                        <span className="ml-2 text-amber-800">{dup.email}</span>
+                        <span className="ml-2 text-amber-600">
+                          · {dup.plan || "—"} · card {dup.card_fingerprint || "—"}
+                        </span>
+                      </div>
+                      <div className="shrink-0 text-amber-600">
+                        {formatRelative(dup.created_at)}
+                      </div>
+                    </div>
+                    {dup.suspects.length > 0 && (
+                      <div className="mt-1 text-amber-700">
+                        ↳ matches: {dup.suspects.map((s) => `#${s.id} ${s.email}`).join(", ")}
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <footer className="text-[11px] text-neutral-400">
             fetched {formatRelative(data.generated_at)}
           </footer>

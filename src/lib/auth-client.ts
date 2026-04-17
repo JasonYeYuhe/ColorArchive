@@ -305,6 +305,15 @@ export interface AutopilotCommerceOrder {
   is_test?: number;
 }
 
+export interface AutopilotSuspectedDuplicate {
+  user_id: number;
+  email: string;
+  plan: string | null;
+  card_fingerprint: string | null;
+  created_at: string;
+  suspects: Array<{ id: number; email: string }>;
+}
+
 export interface AutopilotStatus {
   generated_at: string;
   include_test: boolean;
@@ -325,6 +334,7 @@ export interface AutopilotStatus {
     new_pro_last_7d: number;
     orders_last_7d: number;
     recent_orders: AutopilotCommerceOrder[];
+    suspected_duplicates?: AutopilotSuspectedDuplicate[];
   };
 }
 

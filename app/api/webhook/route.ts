@@ -100,6 +100,14 @@ export async function POST(req: NextRequest) {
     (orderItem.currency as string | undefined) ??
     "JPY";
 
+  // Weak card fingerprint for duplicate-subscription detection on the
+  // Express side. LS subscription events include card_brand +
+  // card_last_four (receipts already expose both; no PCI concern).
+  // We concat into a single string; the backend compares + soft-flags.
+  const cardBrand = typeof attrs.card_brand === "string" ? attrs.card_brand.toLowerCase() : null;
+  const cardLastFour = typeof attrs.card_last_four === "string" ? attrs.card_last_four : null;
+  const cardFingerprint = cardBrand && cardLastFour ? `${cardBrand}:${cardLastFour}` : null;
+
   try {
     switch (eventName) {
       // Subscription created (monthly/yearly)
@@ -114,6 +122,7 @@ export async function POST(req: NextRequest) {
           testMode,
           amount: firstAmount,
           currency: firstCurrency,
+          cardFingerprint,
           ...customData,
         });
         break;
@@ -180,6 +189,7 @@ export async function POST(req: NextRequest) {
             testMode,
             amount: firstAmount,
             currency: firstCurrency,
+            cardFingerprint,
             ...customData,
           });
         }

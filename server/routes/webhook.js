@@ -131,7 +131,7 @@ router.post("/order-completed", async (req, res) => {
 // POST /webhooks/subscription-checkout
 // Called after a subscription checkout completes
 router.post("/subscription-checkout", async (req, res) => {
-  const { sessionId, email, plan, subscriptionId, provider, amount, currency, testMode } = req.body;
+  const { sessionId, email, plan, subscriptionId, provider, amount, currency, testMode, cardFingerprint } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: "Missing email" });
@@ -139,8 +139,9 @@ router.post("/subscription-checkout", async (req, res) => {
 
   const paymentProvider = provider || "stripe";
   const isTest = testMode ? 1 : 0;
+  const fingerprint = typeof cardFingerprint === "string" && cardFingerprint.length > 2 ? cardFingerprint : null;
   console.log(
-    `[webhook] Subscription checkout: ${plan} for ${email} (sub=${subscriptionId}, provider=${paymentProvider}, test=${isTest})`
+    `[webhook] Subscription checkout: ${plan} for ${email} (sub=${subscriptionId}, provider=${paymentProvider}, test=${isTest}, fp=${fingerprint || "none"})`
   );
 
   // Find or create user, activate pro
@@ -148,6 +149,29 @@ router.post("/subscription-checkout", async (req, res) => {
   if (!user) {
     db.prepare("INSERT INTO users (email, is_test) VALUES (?, ?)").run(email, isTest);
     user = db.prepare("SELECT id FROM users WHERE LOWER(email) = LOWER(?)").get(email);
+  }
+
+  // Duplicate detection — look for OTHER pro users with the same card
+  // fingerprint created in the last 30d. Soft-flag only (never rejects
+  // the checkout); operator reviews flagged pairs via admin dashboard.
+  let duplicateSuspects = [];
+  let isDuplicate = 0;
+  if (fingerprint && user) {
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    duplicateSuspects = db.prepare(
+      `SELECT id, email FROM users
+       WHERE card_fingerprint = ?
+         AND id != ?
+         AND tier = 'pro'
+         AND created_at >= ?`
+    ).all(fingerprint, user.id, thirtyDaysAgo);
+    if (duplicateSuspects.length > 0) {
+      isDuplicate = 1;
+      console.warn(
+        `[webhook] Duplicate-subscription suspicion: user=${user.id} (${email}) shares card ${fingerprint} with ${duplicateSuspects.length} other pro user(s):`,
+        duplicateSuspects.map((s) => `${s.id}/${s.email}`).join(", ")
+      );
+    }
   }
 
   if (user) {
@@ -158,9 +182,22 @@ router.post("/subscription-checkout", async (req, res) => {
         stripe_subscription_id = ?,
         payment_provider = ?,
         provider_subscription_id = ?,
-        is_test = ?
+        is_test = ?,
+        card_fingerprint = COALESCE(?, card_fingerprint),
+        is_duplicate = ?,
+        duplicate_suspects = ?
       WHERE id = ?`
-    ).run(plan || "monthly", subscriptionId || null, paymentProvider, subscriptionId || null, isTest, user.id);
+    ).run(
+      plan || "monthly",
+      subscriptionId || null,
+      paymentProvider,
+      subscriptionId || null,
+      isTest,
+      fingerprint,
+      isDuplicate,
+      duplicateSuspects.length > 0 ? JSON.stringify(duplicateSuspects.map((s) => s.id)) : null,
+      user.id,
+    );
     console.log(`[webhook] User ${email} upgraded to pro via ${paymentProvider}`);
   }
 

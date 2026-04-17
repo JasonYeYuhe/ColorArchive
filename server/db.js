@@ -217,6 +217,17 @@ ensureColumn("orders", "is_test INTEGER DEFAULT 0");
 ensureColumn("users", "is_test INTEGER DEFAULT 0");
 ensureColumn("subscribers", "is_test INTEGER DEFAULT 0");
 
+// Card fingerprint for weak cross-account duplicate detection.
+// LS webhook subscription.attrs exposes card_brand + card_last_four
+// (not PCI-sensitive — receipts already show them). We concat and
+// store on the user. On a new subscription-checkout, scan for any
+// other active Pro user with the same fingerprint inside the last
+// 30 days → soft-flag as a suspected duplicate (trial abuse). Never
+// hard-blocks; legitimate family-card / gift scenarios stay alive.
+ensureColumn("users", "card_fingerprint TEXT");
+ensureColumn("users", "is_duplicate INTEGER DEFAULT 0");
+ensureColumn("users", "duplicate_suspects TEXT"); // JSON array of user ids
+
 // Migrate plaintext API keys to hashed storage
 const crypto = require("crypto");
 function hashApiKey(key) {

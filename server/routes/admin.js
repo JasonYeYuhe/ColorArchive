@@ -173,6 +173,35 @@ router.get("/autopilot-status", (req, res) => {
     ? 0
     : db.prepare("SELECT COUNT(*) AS n FROM orders WHERE is_test = 1").get().n;
 
+  // Suspected-duplicate subscriptions (same card fingerprint flagged
+  // by the webhook handler). Operator-visible as an advisory; real rows
+  // stay pro, never auto-cancelled.
+  const duplicates = db
+    .prepare(
+      `SELECT id, email, subscription_plan, card_fingerprint, duplicate_suspects, created_at
+       FROM users
+       WHERE is_duplicate = 1${testFilter}
+       ORDER BY created_at DESC LIMIT 25`
+    )
+    .all()
+    .map((row) => {
+      let suspectIds = [];
+      try { suspectIds = JSON.parse(row.duplicate_suspects || "[]"); } catch { /* ignore */ }
+      const suspects = suspectIds.length
+        ? db.prepare(
+            `SELECT id, email FROM users WHERE id IN (${suspectIds.map(() => "?").join(",")})`,
+          ).all(...suspectIds)
+        : [];
+      return {
+        user_id: row.id,
+        email: row.email,
+        plan: row.subscription_plan,
+        card_fingerprint: row.card_fingerprint,
+        created_at: row.created_at,
+        suspects, // [{id, email}]
+      };
+    });
+
   return res.json({
     generated_at: new Date().toISOString(),
     include_test: includeTest,
@@ -183,6 +212,7 @@ router.get("/autopilot-status", (req, res) => {
       new_pro_last_7d: newProLast7d,
       orders_last_7d: ordersLast7d,
       recent_orders: recentOrders,
+      suspected_duplicates: duplicates,
     },
   });
 });
