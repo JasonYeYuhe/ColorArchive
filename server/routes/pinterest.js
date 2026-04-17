@@ -17,14 +17,12 @@ const router = express.Router();
 
 const PINTEREST_APP_ID = process.env.PINTEREST_APP_ID || "1559553";
 const PINTEREST_APP_SECRET = process.env.PINTEREST_APP_SECRET || "";
-// Trial access: read endpoints (boards) use production, write endpoints (pins) use sandbox
+// App has Standard access (approved 2026-04-15). Reads + writes both hit production.
+// PINTEREST_SANDBOX=true is a dev escape hatch for local testing against the sandbox cluster.
 const USE_SANDBOX = process.env.PINTEREST_SANDBOX === "true";
-const PINTEREST_API_PROD = "https://api.pinterest.com/v5";
-const PINTEREST_API_SANDBOX = "https://api-sandbox.pinterest.com/v5";
-// Token exchange and reads always use production
-const PINTEREST_READ_API = PINTEREST_API_PROD;
-// Writes (pin creation) use sandbox during trial, production after standard access
-const PINTEREST_WRITE_API = USE_SANDBOX ? PINTEREST_API_SANDBOX : PINTEREST_API_PROD;
+const PINTEREST_API_BASE = USE_SANDBOX
+  ? "https://api-sandbox.pinterest.com/v5"
+  : "https://api.pinterest.com/v5";
 
 function isConfigured() {
   return Boolean(PINTEREST_APP_ID && PINTEREST_APP_SECRET);
@@ -62,7 +60,7 @@ router.post("/token", async (req, res) => {
       redirect_uri,
     });
 
-    const tokenRes = await fetch(`${PINTEREST_READ_API}/oauth/token`, {
+    const tokenRes = await fetch(`${PINTEREST_API_BASE}/oauth/token`, {
       method: "POST",
       headers: {
         Authorization: basicAuthHeader(),
@@ -99,7 +97,7 @@ router.get("/boards", async (req, res) => {
   }
 
   try {
-    const url = new URL(`${PINTEREST_READ_API}/boards`);
+    const url = new URL(`${PINTEREST_API_BASE}/boards`);
     url.searchParams.set("page_size", "50");
     if (req.query.bookmark) {
       url.searchParams.set("bookmark", req.query.bookmark);
@@ -145,7 +143,7 @@ router.post("/pins", async (req, res) => {
     const pinBody = { board_id, title, description, link, media_source };
     if (alt_text) pinBody.alt_text = alt_text;
 
-    const pinRes = await fetch(`${PINTEREST_WRITE_API}/pins`, {
+    const pinRes = await fetch(`${PINTEREST_API_BASE}/pins`, {
       method: "POST",
       headers: {
         Authorization: token,
@@ -175,8 +173,7 @@ router.get("/status", (req, res) => {
     configured: isConfigured(),
     app_id: PINTEREST_APP_ID,
     sandbox: USE_SANDBOX,
-    read_api: PINTEREST_READ_API,
-    write_api: PINTEREST_WRITE_API,
+    api_base: PINTEREST_API_BASE,
   });
 });
 
