@@ -22,6 +22,7 @@ const router = express.Router();
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
+const { requireAdminBearer } = require("../require-admin-bearer");
 
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.org";
 
@@ -351,7 +352,7 @@ router.get("/media", async (req, res) => {
  *   1. Create media container (POST /{ig-user-id}/media)
  *   2. Publish container (POST /{ig-user-id}/media_publish)
  */
-router.post("/publish", async (req, res) => {
+router.post("/publish", requireAdminBearer, async (req, res) => {
   if (!hasToken()) {
     return res.status(401).json({ error: "Instagram not connected" });
   }

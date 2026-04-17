@@ -57,6 +57,9 @@ app.use("/analytics", require("./routes/analytics"));
 app.use("/pageviews", require("./routes/pageviews"));
 app.use("/instagram", require("./routes/instagram"));
 app.use("/pinterest", require("./routes/pinterest"));
+// Boot the Pinterest admin helper so the org token is loaded/refreshed
+// before the autopilot (Phase 2b) tries to publish.
+require("./pinterest-admin").init();
 app.use("/ai", require("./routes/ai"));
 app.use("/projects", require("./routes/projects"));
 app.use("/events", require("./routes/events"));

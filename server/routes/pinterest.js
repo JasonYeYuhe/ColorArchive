@@ -2,18 +2,33 @@
  * Pinterest API proxy routes (v5)
  *
  * Acts as a backend proxy for Pinterest API calls to avoid CORS issues.
- * The frontend handles the OAuth redirect flow; this server exchanges
- * the authorization code for an access token and proxies board/pin API calls.
+ * Two logically-distinct surfaces share this module:
  *
- * Endpoints:
- *   POST /pinterest/token   — Exchange auth code for access token
- *   GET  /pinterest/boards  — Fetch user's boards (proxied)
- *   POST /pinterest/pins    — Create a pin (proxied)
- *   GET  /pinterest/status  — Health check
+ *   User flow (browser → their own account):
+ *     POST /pinterest/token   — exchange auth code for the visitor's token
+ *     GET  /pinterest/boards  — fetch the visitor's boards
+ *     POST /pinterest/pins    — create a pin on the visitor's board
+ *     GET  /pinterest/status  — health check
+ *
+ *   Admin flow (server-initiated, publishes on OUR Pinterest account):
+ *     GET    /pinterest/admin/auth/start    — OAuth bootstrap (admin-only)
+ *     GET    /pinterest/admin/auth/callback — store admin token
+ *     POST   /pinterest/admin/publish       — create pin on org board
+ *     DELETE /pinterest/admin/pins/:id      — un-publish a pin
+ *     GET    /pinterest/admin/boards        — list org boards
+ *     POST   /pinterest/admin/boards        — create a new org board
+ *     GET    /pinterest/admin/status        — token freshness + last pin
+ *
+ *   Admin routes are guarded by requireAdminBearer (Authorization:
+ *   Bearer ${ADMIN_API_TOKEN}). Autopilot scripts should NOT hit these
+ *   HTTP endpoints — require("../pinterest-admin") directly instead.
  */
 
 const express = require("express");
+const crypto = require("crypto");
 const router = express.Router();
+const { requireAdminBearer } = require("../require-admin-bearer");
+const pinterestAdmin = require("../pinterest-admin");
 
 const PINTEREST_APP_ID = process.env.PINTEREST_APP_ID || "1559553";
 const PINTEREST_APP_SECRET = process.env.PINTEREST_APP_SECRET || "";
@@ -188,6 +203,142 @@ router.get("/status", (req, res) => {
     sandbox: USE_SANDBOX,
     api_base: PINTEREST_API_BASE,
   });
+});
+
+/* ── Admin flow ─────────────────────────────────────────────
+ *
+ * All /admin/* routes require Authorization: Bearer ${ADMIN_API_TOKEN}.
+ * Except for the OAuth callback, which has its own CSRF defense via
+ * a server-generated state cookie.
+ */
+
+const ADMIN_REDIRECT_URI =
+  process.env.PINTEREST_ADMIN_REDIRECT_URI ||
+  "https://api.colorarchive.org/pinterest/admin/auth/callback";
+const ADMIN_OAUTH_STATE_COOKIE = "pin_admin_oauth_state";
+
+// Manual cookie helpers (matches existing server pattern — no cookie-parser dep)
+function parseCookies(req) {
+  const header = req.headers.cookie;
+  if (!header) return {};
+  return Object.fromEntries(
+    header.split(";").map((part) => {
+      const [name, ...rest] = part.trim().split("=");
+      return [name, decodeURIComponent(rest.join("="))];
+    })
+  );
+}
+
+function setShortCookie(res, name, value, maxAgeMs) {
+  const parts = [
+    `${name}=${encodeURIComponent(value)}`,
+    "Path=/",
+    "HttpOnly",
+    "Secure",
+    "SameSite=Lax",
+    `Max-Age=${Math.floor(maxAgeMs / 1000)}`,
+  ];
+  res.setHeader("Set-Cookie", parts.join("; "));
+}
+
+/**
+ * GET /pinterest/admin/auth/start
+ * Admin-gated OAuth kickoff. Returns 302 to Pinterest authorize URL.
+ * Bootstrap path for refreshing the org token when it expires.
+ */
+router.get("/admin/auth/start", requireAdminBearer, (req, res) => {
+  if (!isConfigured()) {
+    return res.status(500).json({ error: "Pinterest app not configured" });
+  }
+  const state = crypto.randomBytes(16).toString("hex");
+  setShortCookie(res, ADMIN_OAUTH_STATE_COOKIE, state, 10 * 60 * 1000);
+
+  const url = new URL("https://www.pinterest.com/oauth/");
+  url.searchParams.set("client_id", PINTEREST_APP_ID);
+  url.searchParams.set("redirect_uri", ADMIN_REDIRECT_URI);
+  url.searchParams.set("response_type", "code");
+  url.searchParams.set("scope", "boards:read,boards:write,pins:read,pins:write");
+  url.searchParams.set("state", state);
+  return res.redirect(url.toString());
+});
+
+/**
+ * GET /pinterest/admin/auth/callback
+ * OAuth redirect target. Verifies state cookie, exchanges code,
+ * persists token via pinterest-admin helper. No bearer required
+ * because Pinterest is the caller; state cookie is the CSRF defense.
+ */
+router.get("/admin/auth/callback", async (req, res) => {
+  const { code, state, error } = req.query;
+  if (error) return res.status(400).send(`Pinterest OAuth error: ${String(error)}`);
+  if (!code) return res.status(400).send("Missing code");
+
+  const cookies = parseCookies(req);
+  if (!cookies[ADMIN_OAUTH_STATE_COOKIE] || cookies[ADMIN_OAUTH_STATE_COOKIE] !== state) {
+    return res.status(400).send("Invalid state — CSRF check failed");
+  }
+
+  try {
+    await pinterestAdmin.exchangeAuthCode(String(code), ADMIN_REDIRECT_URI);
+    return res.status(200).send("Pinterest admin token stored. You can close this tab.");
+  } catch (err) {
+    console.error("[pinterest-admin] callback error:", err);
+    return res.status(500).send("Token exchange failed: " + err.message);
+  }
+});
+
+router.get("/admin/status", requireAdminBearer, (req, res) => {
+  return res.json(pinterestAdmin.getStatus());
+});
+
+router.get("/admin/boards", requireAdminBearer, async (req, res) => {
+  try {
+    const boards = await pinterestAdmin.listBoards();
+    return res.json({ items: boards });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+router.post("/admin/boards", requireAdminBearer, async (req, res) => {
+  const { name, description, privacy } = req.body || {};
+  if (!name) return res.status(400).json({ error: "name is required" });
+  try {
+    const board = await pinterestAdmin.createBoard({ name, description, privacy });
+    return res.status(201).json(board);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+router.post("/admin/publish", requireAdminBearer, async (req, res) => {
+  const { board_id, title, description, link, image_url, alt_text } = req.body || {};
+  if (!board_id || !image_url) {
+    return res.status(400).json({ error: "board_id and image_url are required" });
+  }
+  try {
+    const pin = await pinterestAdmin.publishPin({
+      boardId: board_id,
+      title,
+      description,
+      link,
+      imageUrl: image_url,
+      altText: alt_text,
+    });
+    return res.status(201).json(pin);
+  } catch (err) {
+    console.error("[pinterest-admin] publish error:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+router.delete("/admin/pins/:id", requireAdminBearer, async (req, res) => {
+  try {
+    const result = await pinterestAdmin.deletePin(req.params.id);
+    return res.json(result);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;
