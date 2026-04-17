@@ -129,6 +129,12 @@ router.get("/autopilot-status", (req, res) => {
     .filter((e) => Date.parse(e.at || "") >= now - 7 * 24 * 60 * 60 * 1000)
     .sort((a, b) => Date.parse(b.at || "") - Date.parse(a.at || ""));
   const today = new Date().toISOString().slice(0, 10);
+  // Source last_pin_at from the durable log, not the in-memory value on
+  // pinterest-admin. getStatus() resets to null on every pm2 restart,
+  // which would show "never" to an operator right after a deploy even
+  // when pins happened minutes earlier (Gemini P1, 2026-04-17).
+  const lastRealPin = pinEntries.find((e) => !e.dryRun);
+  pinterest.last_pin_at = lastRealPin?.at || pinterest.last_pin_at;
   pinterest.pins_today = pinScheduler.pinsTodayFromLog(log, today);
   pinterest.pins_last_7d = pinEntries.filter((e) => !e.dryRun).length;
   pinterest.recent_pins = pinEntries.slice(0, 10).map((e) => ({
