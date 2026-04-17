@@ -47,12 +47,13 @@ const MAX_PER_DAY = Math.max(1, Math.min(5, Number.isFinite(RAW_MAX) ? RAW_MAX :
 const RAW_REPEAT = parseInt(process.env.PIN_REPEAT_DAYS || "30", 10);
 const REPEAT_DAYS = Math.max(1, Math.min(365, Number.isFinite(RAW_REPEAT) ? RAW_REPEAT : 30));
 
-// Content snapshot fetched from the Next.js app. Cached in memory for
-// 24h; first use triggers the fetch on demand.
+// Content snapshot fetched from the Next.js app. TTL matches the
+// Next.js route's revalidate=3600 — longer on the Droplet side would
+// defeat the freshness ISR provides (Gemini P1, 2026-04-17).
 const CONTENT_URL = `${SITE_ORIGIN}/api/autopilot/content/`;
 let contentCache = null;
 let contentCacheAt = 0;
-const CONTENT_TTL_MS = 24 * 60 * 60 * 1000;
+const CONTENT_TTL_MS = 60 * 60 * 1000;
 
 const HOURLY = 60 * 60 * 1000;
 const PIN_UTC_HOUR = 2;
@@ -97,7 +98,10 @@ function alreadyPinnedToday(key) {
  * if the dedup key (which includes the date) wouldn't catch it.
  */
 function recentlyPinned(type, slug) {
-  const log = loadPinLog();
+  return recentlyPinnedInLog(loadPinLog(), type, slug);
+}
+
+function recentlyPinnedInLog(log, type, slug) {
   const cutoffMs = Date.now() - REPEAT_DAYS * 24 * 60 * 60 * 1000;
   for (const [key, entry] of Object.entries(log)) {
     // key shape: YYYY-MM-DD-{type}-{slug}
@@ -106,6 +110,23 @@ function recentlyPinned(type, slug) {
     if (Number.isFinite(t) && t >= cutoffMs) return true;
   }
   return false;
+}
+
+/**
+ * Count pins already produced today for quota enforcement. Must be
+ * sourced from the pin-log (not an in-process counter) because the
+ * scheduler's hourly tick can fire twice inside the daily window
+ * (UTC hour 02 AND 03) — a fresh in-process counter would reset
+ * and leak past MAX_PER_DAY (Gemini P0, 2026-04-17).
+ */
+function pinsTodayFromLog(log, date) {
+  let count = 0;
+  for (const [key, entry] of Object.entries(log)) {
+    if (!key.startsWith(`${date}-`)) continue;
+    if (entry?.dryRun) continue; // dry-run entries don't consume quota
+    count += 1;
+  }
+  return count;
 }
 
 /* ── Content snapshot ────────────────────────────────────── */
@@ -208,11 +229,37 @@ function buildGuidePayload(guide) {
 
 /* ── Rotation ────────────────────────────────────────────── */
 
-async function pickForType(type, date) {
+/**
+ * Pick an eligible (not recently-pinned) item from `list`, starting at
+ * the deterministic hash offset and advancing until we find one that
+ * passes recentlyPinned. If every slug in `list` is blocked, returns
+ * null and the caller falls through to the next content type.
+ *
+ * Previously the picker returned at offset+0 only, so a collision with
+ * the 30-day blocklist stalled the rotation entirely for that type
+ * even when other slugs were eligible (Gemini P0, 2026-04-17).
+ */
+function pickEligible(list, type, seed, log) {
+  if (!list || list.length === 0) return null;
+  const start = hashString(seed) % list.length;
+  for (let i = 0; i < list.length; i++) {
+    const item = list[(start + i) % list.length];
+    const slug = item.slug || item.id;
+    if (!recentlyPinnedInLog(log, type, slug)) return item;
+  }
+  return null;
+}
+
+async function pickForType(type, date, log) {
   if (type === "color") {
     const cod = getColorOfDay(date);
     if (!cod) return null;
     const color = colors.find((c) => c.id === cod.id) || cod;
+    // For colors we don't walk through the 5,446 list on collision — the
+    // daily-hash collision probability is already tiny and mixing COTD
+    // determinism with the autopilot skip would diverge from Instagram
+    // (which pins the same COTD). If blocked, skip color for the day.
+    if (recentlyPinnedInLog(log, "color", color.id)) return null;
     return buildColorPayload(color);
   }
 
@@ -220,14 +267,13 @@ async function pickForType(type, date) {
   if (!snapshot) return null;
 
   if (type === "collection") {
-    // Seed: date + type so same day picks the same but different from color picker
-    const candidate = pickDeterministic(snapshot.collections, `${date}-collection`);
+    const candidate = pickEligible(snapshot.collections, "collection", `${date}-collection`, log);
     if (!candidate) return null;
     return buildCollectionPayload(candidate);
   }
 
   if (type === "guide") {
-    const candidate = pickDeterministic(snapshot.guides, `${date}-guide`);
+    const candidate = pickEligible(snapshot.guides, "guide", `${date}-guide`, log);
     if (!candidate) return null;
     return buildGuidePayload(candidate);
   }
@@ -273,7 +319,17 @@ async function pinOne(payload, dedupKey) {
 
 async function runDailyRotation() {
   const date = todayStr();
-  let pinsToday = 0;
+  // Quota is sourced from the pin-log so hourly ticks that fire twice
+  // in the same window never exceed MAX_PER_DAY.
+  const log = loadPinLog();
+  let pinsToday = pinsTodayFromLog(log, date);
+
+  if (pinsToday >= MAX_PER_DAY) {
+    console.log(
+      `[pin-scheduler] already at ${pinsToday}/${MAX_PER_DAY} pins today, nothing to do`
+    );
+    return { pinsToday };
+  }
 
   for (const type of ENABLED_TYPES) {
     if (pinsToday >= MAX_PER_DAY) {
@@ -283,18 +339,18 @@ async function runDailyRotation() {
       break;
     }
 
-    const payload = await pickForType(type, date);
-    if (!payload) continue;
-
-    const dedupKey = `${date}-${payload.type}-${payload.slug}`;
-    if (alreadyPinnedToday(dedupKey)) {
-      console.log(`[pin-scheduler] already pinned today: ${dedupKey}`);
+    // Reload the log each iteration so previously-pinned items in THIS
+    // rotation show up in recentlyPinned and same-day dedup checks.
+    const currentLog = loadPinLog();
+    const payload = await pickForType(type, date, currentLog);
+    if (!payload) {
+      console.log(`[pin-scheduler] no eligible ${type} for ${date}`);
       continue;
     }
-    if (recentlyPinned(payload.type, payload.slug)) {
-      console.log(
-        `[pin-scheduler] ${payload.type}:${payload.slug} pinned within last ${REPEAT_DAYS}d, skipping`
-      );
+
+    const dedupKey = `${date}-${payload.type}-${payload.slug}`;
+    if (currentLog[dedupKey]) {
+      console.log(`[pin-scheduler] already pinned today: ${dedupKey}`);
       continue;
     }
 
