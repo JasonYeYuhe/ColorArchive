@@ -84,12 +84,17 @@ export async function POST(req: NextRequest) {
   // Pull first-order amount for subscription-created events — LS
   // includes it on the signup event so our receipt email can show
   // the amount charged (or the trial-zero).
+  //
+  // IMPORTANT: prefer numeric fields (total, subtotal) over
+  // price_formatted, which LS ships as a string like "$9.99".
+  // Validate with Number.isFinite so a stringly-typed field never
+  // propagates to the email template as "null JPY" or "undefined".
+  // (Gemini P1, 2026-04-17).
   const orderItem = (attrs.first_order_item as Record<string, unknown> | undefined) ?? {};
-  const firstAmount =
-    (orderItem.price_formatted as number | undefined) ??
-    (attrs.total as number | undefined) ??
-    (attrs.subtotal as number | undefined) ??
-    null;
+  const amountCandidates = [attrs.total, attrs.subtotal, orderItem.total, orderItem.subtotal];
+  const firstAmount = amountCandidates.find(
+    (v): v is number => typeof v === "number" && Number.isFinite(v),
+  ) ?? null;
   const firstCurrency =
     (attrs.currency as string | undefined) ??
     (orderItem.currency as string | undefined) ??

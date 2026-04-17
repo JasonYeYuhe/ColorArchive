@@ -1166,10 +1166,17 @@ async function sendProSubscriptionEmail(to, { plan, orderId, amount, currency, i
   const planDisplay = plan === "lifetime"
     ? "Pro Lifetime"
     : plan === "yearly" ? "Pro Yearly" : "Pro Monthly";
-  const formattedAmount = amount
+  // Validate amount strictly — LS occasionally ships stringly-typed
+  // fields (e.g. price_formatted = "$9.99") that would render as
+  // "null JPY" or "NaN" if we trust the cast. Keep null on any
+  // non-finite input and drop the line from the receipt entirely.
+  const safeAmount = typeof amount === "number" && Number.isFinite(amount) && amount > 0
+    ? amount
+    : null;
+  const formattedAmount = safeAmount
     ? (currency && currency.toUpperCase() === "JPY"
-        ? `¥${amount.toLocaleString()}`
-        : `$${(amount / 100).toFixed(2)}`)
+        ? `¥${safeAmount.toLocaleString()}`
+        : `$${(safeAmount / 100).toFixed(2)}`)
     : null;
   const orderDate = new Date().toLocaleDateString("en-US", {
     year: "numeric", month: "long", day: "numeric",
