@@ -5,12 +5,11 @@ import { SITE_DOMAIN } from "@/src/lib/site-config";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Parent collection page has dynamicParams=false, so every slug must
-// be pre-rendered. Without this the OG route 500s at runtime for any
-// slug because Next can't match it.
-export async function generateStaticParams() {
-  return collections.map((c) => ({ slug: c.id }));
-}
+// Render on demand. Statically prerendering ~256 satori images per
+// build was too expensive (Gemini P0, 2026-04-17). Vercel's CDN
+// caches the PNG after the first request, so Pinterest's fetcher
+// never waits twice on the same slug.
+export const dynamic = "force-dynamic";
 
 export default async function Image({
   params,

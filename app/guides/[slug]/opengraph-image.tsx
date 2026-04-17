@@ -1,16 +1,15 @@
 import { ImageResponse } from "next/og";
-import { getLandingGuide, landingGuides } from "@/src/lib/guides";
+import { getLandingGuide } from "@/src/lib/guides";
 import { getCollectionById } from "@/src/lib/collections";
 import { SITE_DOMAIN } from "@/src/lib/site-config";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Parent guide page has dynamicParams=false. Pre-render all slugs so
-// the OG route doesn't 500 at runtime.
-export async function generateStaticParams() {
-  return landingGuides.map((g) => ({ slug: g.slug }));
-}
+// Render on demand. Prerendering 570+ satori PNGs was too expensive
+// at build time (Gemini P0, 2026-04-17). Vercel's CDN caches the
+// response after the first request.
+export const dynamic = "force-dynamic";
 
 export default async function Image({
   params,
