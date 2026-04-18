@@ -1,3 +1,9 @@
+## 2026-04-18 06:45 UTC — ESLint + Prettier config (auto-dev rotation, focus_priority #2)
+
+Added ESLint 9 flat config + Prettier 3. eslint.config.mjs, .prettierrc, .prettierignore, package.json devDeps + scripts. 506 tests pass. ESLint surfaces 174 pre-existing issues (not regressions).
+
+---
+
 ## 2026-03-22 01:44 — Newsletter 039–042, 3 SEO guides, 20 search aliases, day-30 email (commit e649c5f)
 
 **Run type:** Normal (3rd run since last big run)
