@@ -6547,3 +6547,86 @@ const extraCollections55: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections55);
+
+const extraCollections56: ColorCollection[] = [
+  createCollection(
+    "arctic-frost",
+    "Arctic Frost",
+    "Ice-shelf blues, pale lavender mist, and cool silver whites — a palette of polar light and glacial clarity.",
+    "The high Arctic in late spring produces a color environment found nowhere else on earth: the pale blue of sea ice underlit by refracted sky, the near-white of snow fields in diffuse overcast light, the faint lavender that appears at the horizon where ice meets atmosphere, and the cool silver-gray of frozen water surfaces. This palette translates that specific color logic — cold, luminous, high-key — into proportions that work for design systems. It is useful for technology brands that need to signal clarity and precision, for health and wellness products oriented toward cleanliness and calm, for editorial work on climate and environment, and for any interface that should feel expansive and unhurried.",
+    ["Arctic", "Ice", "Cool", "Minimal", "Clean"],
+    [
+      "steel-veil-faint",
+      "azure-whisper-muted",
+      "cerulean-pearl-dust",
+      "cool-gray-whisper",
+      "iris-mist-faint",
+      "aqua-pearl-dust",
+    ],
+    {
+      editorialNote: "Svalbard in May, 2 AM with the sun still above the horizon. The ice is not white — it is blue, pale blue, blue-gray, and at the edges a color you could call lavender if you squinted. The light is absolutely flat. Nothing casts a shadow.",
+      promptWords: [
+        "arctic palette cool blue",
+        "glacial ice color scheme",
+        "polar light palette",
+        "icy minimal palette",
+        "nordic frost color palette",
+      ],
+      useCases: ["Technology brand identity requiring clarity and precision", "Health, wellness, and clean-beauty product packaging", "Environmental editorial and climate-focused campaign design"],
+    },
+  ),
+  createCollection(
+    "tokyo-neon-night",
+    "Tokyo Neon Night",
+    "Magenta, cyan, and amber neon against deep urban darkness — the visual language of Tokyo at 11 PM.",
+    "The intersection of Shinjuku or Shibuya at night creates one of the most dense and specific color environments in the world: signage in magenta, cyan, and hot amber layered over deep gray-blue street-level shadow, the occasional violet or cobalt spill from a pachinko parlor or electronics store. The palette is not garish — in context, each neon reads as a precise signal against the dark — and it translates to design contexts that need energy, modernity, and a certain studied intensity. It works for technology and gaming brands, nightlife and entertainment visual systems, editorial work on urban Asia and city culture, and dark-mode interfaces that need chromatic punctuation rather than generic color.",
+    ["Urban", "Neon", "Dark", "Japan", "Night"],
+    [
+      "magenta-radiant-vivid",
+      "cyan-core-bright",
+      "amber-silk-vivid",
+      "cobalt-dusk-clear",
+      "violet-nocturne-clear",
+      "true-gray-nocturne",
+    ],
+    {
+      editorialNote: "Kabukicho at midnight. The magenta sign is for a karaoke bar; the cyan is reflecting off wet pavement three stories below it. The amber is from a ramen shop that has been there since 1978. The dark between the signs is not black — it is a very deep gray-blue — and it makes the neon colors look like they are floating.",
+      promptWords: [
+        "tokyo neon palette",
+        "japan night color scheme",
+        "urban neon dark palette",
+        "cyberpunk tokyo colors",
+        "japanese city night palette",
+      ],
+      useCases: ["Gaming, entertainment, and nightlife brand visual systems", "Dark-mode UI with chromatic accent colors", "Urban culture editorial and Asia-focused campaign design"],
+    },
+  ),
+  createCollection(
+    "cafe-creme",
+    "Café Crème",
+    "Warm cream, honey, faded terracotta, and a dark espresso anchor — the color of a Parisian café at mid-morning.",
+    "The classic Parisian café interior has a specific color logic: the warm cream of old marble table tops, the honey amber of cane chair seats, the faded terracotta of tiled floors that have been mopped ten thousand times, the dark deep brown of espresso in a white cup, and the particular soft coral-pink of a paper napkin. This palette captures those proportions — warm, slightly aged, intentionally imperfect — in a way that translates to brand and editorial contexts. It works for food and hospitality brands oriented toward warmth and European heritage, for publishing and writing products that want to feel reflective and unhurried, for lifestyle editorial and home goods design, and for any interface where the dominant feeling should be welcome and ease.",
+    ["Café", "Warm", "French", "Hospitality", "Heritage"],
+    [
+      "amber-veil-muted",
+      "honey-pearl-soft",
+      "coral-whisper-muted",
+      "taupe-gray-tone",
+      "garnet-dusk-muted",
+      "citrine-veil-faint",
+    ],
+    {
+      editorialNote: "A corner table at Les Deux Magots, 10 AM on a Tuesday in October. The marble is warm and slightly yellowed. The coffee is perfect. The light through the window is the particular amber-gray of a Paris autumn morning and it makes everything look like a film still.",
+      promptWords: [
+        "parisian cafe palette",
+        "french cafe color scheme",
+        "warm cream espresso palette",
+        "cafe aesthetic colors",
+        "french bistro design palette",
+      ],
+      useCases: ["Food, hospitality, and café brand identity", "Publishing, writing, and editorial product design", "European lifestyle brand and home goods visual systems"],
+    },
+  ),
+];
+
+collections.push(...extraCollections56);
