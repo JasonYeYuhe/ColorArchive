@@ -292,14 +292,17 @@ describe("Color ID validation", () => {
     const chromatic = colors.filter(
       (c) => !NEUTRAL_ROOTS.some((root) => c.id.startsWith(root)),
     );
-    for (const color of chromatic) {
+    const invalid = chromatic.filter((color) => {
       const parts = color.id.split("-");
-      expect(parts).toHaveLength(3);
+      if (parts.length !== 3) return true;
       const [root, light, chroma] = parts;
-      expect(CHROMATIC_ROOTS).toContain(root);
-      expect(LIGHTNESS_BANDS).toContain(light);
-      expect(CHROMA_BANDS).toContain(chroma);
-    }
+      return (
+        !CHROMATIC_ROOTS.includes(root) ||
+        !LIGHTNESS_BANDS.includes(light) ||
+        !CHROMA_BANDS.includes(chroma)
+      );
+    });
+    expect(invalid).toHaveLength(0);
   });
 
   it("all neutral IDs match {root}-{lightness} with no chroma suffix", () => {

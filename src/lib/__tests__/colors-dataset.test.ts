@@ -22,18 +22,20 @@ describe("colors dataset", () => {
   });
 
   it("every color has required fields", () => {
-    for (const c of colors) {
-      expect(c.id).toBeTruthy();
-      expect(c.name).toBeTruthy();
-      expect(c.hex).toMatch(/^#[0-9A-F]{6}$/i);
-      expect(c.hue).toBeGreaterThanOrEqual(0);
-      expect(c.hue).toBeLessThan(360);
-      expect(c.saturation).toBeGreaterThanOrEqual(0);
-      expect(c.saturation).toBeLessThanOrEqual(100);
-      expect(c.lightness).toBeGreaterThanOrEqual(0);
-      expect(c.lightness).toBeLessThanOrEqual(100);
-      expect(c.family).toBeTruthy();
-    }
+    const invalid = colors.filter(
+      (c) =>
+        !c.id ||
+        !c.name ||
+        !/^#[0-9A-F]{6}$/i.test(c.hex) ||
+        c.hue < 0 ||
+        c.hue >= 360 ||
+        c.saturation < 0 ||
+        c.saturation > 100 ||
+        c.lightness < 0 ||
+        c.lightness > 100 ||
+        !c.family,
+    );
+    expect(invalid).toHaveLength(0);
   });
 
   it("includes all 8 saturation bands", () => {
