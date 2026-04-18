@@ -1,4 +1,22 @@
 
+## 2026-04-18 — Auto-dev Run: Add ESLint + Prettier config
+
+**Run type:** Auto-dev rotation (Group A, slot 2 — ColorArchive)
+
+**Task:** focus_priority #2 — Add ESLint + Prettier config
+
+Added ESLint 9 + Prettier 3 configuration to standardize code quality tooling:
+- `eslint.config.mjs` — Flat config with typescript-eslint, @next/eslint-plugin-next, react-hooks, jsx-a11y, prettier integration
+- `.prettierrc` — Standard formatting: 100 char width, double quotes, trailing commas
+- `.prettierignore` — Excludes .next/, node_modules/, generated files, next-env.d.ts
+- `package.json` — Added devDependencies + `lint` / `format` scripts
+
+ESLint surfaces 174 existing issues (106 errors, 68 warnings) — pre-existing findings, not regressions. All 506 Vitest tests pass.
+
+**Next run suggestion:** Fix ESLint errors in batches (jsx-a11y label issues, react-hooks setState-in-effect, typescript-eslint unused-vars).
+
+---
+
 ## 2026-04-16 — Auto-dev Run: Newsletter 346-349 (Oct 2033) + 3 collections + 2 guides
 
 **Run type:** Auto-dev rotation (Group A, slot 2 — ColorArchive)
