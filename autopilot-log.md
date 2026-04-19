@@ -1,4 +1,33 @@
 
+## 2026-04-19 — XHS Phase 2: daily mood-palette generator
+
+**Run type:** Remote (user-requested, same session as COTD v2)
+
+**Goal:** Xiaohongshu daily posts now use a 4-color mood palette (primary + 2 analogous + 1 complementary) instead of a single-color swatch, matching XHS audience preference for saveable 配色灵感 boards. Each day's image is visually distinct from the previous day's at both the hue level (Phase 1) and the composition level (Phase 2).
+
+Files:
+- `server/xhs-image-generator.js` — 1242×1656 (3:4) PNG generator; `buildMoodPalette()` returns 4 guaranteed-distinct colors with a tolerance-widening fallback ladder
+- `server/routes/xhs.js` — public GET `/xhs/today.png`, `/xhs/:date.png`, `/xhs/:date.json`; dates bounded to ±2y of today with real-date parsing
+- `scripts/save-xhs-to-desktop.mjs` — local script writing `~/Desktop/小红书素材/YYYY-MM-DD/图片.png`, emits JSON palette on stdout for the daily routine to consume
+- `server/ig-scheduler.js` — hooks `cleanOldXhsFiles()` into the existing daily cleanup interval (30-day retention)
+- `~/.claude/scheduled-tasks/xiaohongshu-daily/SKILL.md` — updated to use the new script + new COTD v2 algorithm; keeps Chinese 文案 generation and feature-spotlight rotation
+
+**Gemini 2.5 Pro review:** flagged 3 defects, all fixed before merge:
+1. `buildMoodPalette` could collapse multiple fallback slots onto the same color — fixed with sequential exclusion (0/100 dup rate on random sample)
+2. `/xhs/:date.png` could be enumerated to fill disk — fixed with ±2y date bounds + real-date parsing (rejects `2026-02-30`)
+3. Script `--dir` accepted any path — fixed to refuse paths outside `$HOME` or `$TMPDIR`
+
+**Droplet manual step:** `apt-get install -y fonts-noto-cjk` — without Noto CJK the Ubuntu libvips falls back to a no-CJK font and renders `今日色卡` / `配色灵感` as tofu boxes. SVG font stack updated to include `'Noto Sans CJK SC'` as fallback so macOS keeps PingFang SC.
+
+**Shipped commits:** `b8d7df3` (Phase 2), `3386e35` (CJK font stack fix).
+
+**Verified:**
+- Local HTTP smoke test on all 3 endpoints — PNG + JSON + 400 on invalid dates
+- Droplet smoke test post-restart — identical output
+- Public `https://api.colorarchive.org/xhs/today.png` returns valid rendered image with proper CJK glyphs
+
+---
+
 ## 2026-04-19 — Color-of-the-Day v2: golden-angle hue rotation
 
 **Run type:** Remote (user-requested)
