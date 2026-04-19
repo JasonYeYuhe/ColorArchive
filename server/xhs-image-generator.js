@@ -164,7 +164,7 @@ function xhsMoodPaletteSvg(palette, dateStr) {
       return `
     <rect x="${x}" y="960" width="${colW}" height="420" fill="${c.hex}"/>
     <text x="${x + colW / 2}" y="1130" text-anchor="middle"
-          font-family="'PingFang SC', 'Hiragino Sans GB', system-ui, sans-serif"
+          font-family="'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Noto Sans SC', system-ui, sans-serif"
           font-size="36" font-weight="600" fill="${tc}">${escapeXml(c.name)}</text>
     <text x="${x + colW / 2}" y="1188" text-anchor="middle"
           font-family="ui-monospace, 'SF Mono', Menlo, monospace"
@@ -192,7 +192,7 @@ function xhsMoodPaletteSvg(palette, dateStr) {
         font-family="system-ui, -apple-system, sans-serif"
         font-size="26" font-weight="500" letter-spacing="6" fill="#1a1a1a">COLOR ARCHIVE</text>
   <text x="${XHS_W / 2}" y="92" text-anchor="middle"
-        font-family="'PingFang SC', 'Hiragino Sans GB', system-ui, sans-serif"
+        font-family="'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Noto Sans SC', system-ui, sans-serif"
         font-size="22" font-weight="400" fill="#666666">今日色卡 · ${escapeXml(dateStr)}</text>
 
   <!-- Main primary swatch -->
@@ -205,7 +205,7 @@ function xhsMoodPaletteSvg(palette, dateStr) {
 
   <!-- Primary color name — large, centered vertically -->
   <text x="${XHS_W / 2}" y="540" text-anchor="middle"
-        font-family="'PingFang SC', 'Hiragino Sans GB', system-ui, sans-serif"
+        font-family="'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Noto Sans SC', system-ui, sans-serif"
         font-size="88" font-weight="700" fill="${tcPrimary}">${escapeXml(p.name)}</text>
 
   <!-- Hex code -->
@@ -235,7 +235,7 @@ function xhsMoodPaletteSvg(palette, dateStr) {
   <!-- Footer band -->
   <rect x="0" y="1380" width="${XHS_W}" height="276" fill="#f8f6f2"/>
   <text x="${XHS_W / 2}" y="1464" text-anchor="middle"
-        font-family="'PingFang SC', 'Hiragino Sans GB', system-ui, sans-serif"
+        font-family="'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Noto Sans SC', system-ui, sans-serif"
         font-size="32" font-weight="500" fill="#1a1a1a">MOOD PALETTE · 配色灵感</text>
   <text x="${XHS_W / 2}" y="1508" text-anchor="middle"
         font-family="system-ui, sans-serif"
