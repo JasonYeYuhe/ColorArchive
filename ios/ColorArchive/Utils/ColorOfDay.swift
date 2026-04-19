@@ -53,10 +53,17 @@ enum ColorOfDay {
 
     /// Select today's color from a list of `ColorRecord`s.
     /// Filters to hero colors internally — caller passes the full catalog.
+    ///
+    /// Date-string generation intentionally uses the device's **local** time zone,
+    /// matching `src/lib/color-of-day.ts#todayDateStr()`, so the color rolls over
+    /// at local midnight. The downstream parser in `parseDateStrToUtcMs`
+    /// re-interprets the string as UTC midnight purely to compute a deterministic
+    /// integer seed — parity with the server / Next.js is maintained because all
+    /// platforms feed the same "YYYY-MM-DD" string through the same parser.
     static func pick(from colors: [ColorRecord], date: Date = Date()) -> ColorRecord? {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = TimeZone(identifier: "UTC")
+        // NO timeZone override — use device locale; matches web behavior.
         let dateString = formatter.string(from: date)
         return pick(from: colors, dateString: dateString)
     }
