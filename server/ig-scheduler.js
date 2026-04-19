@@ -22,6 +22,7 @@ const {
   generatePalettePost,
   cleanOldFiles,
 } = require("./ig-image-generator");
+const { cleanOldXhsFiles } = require("./xhs-image-generator");
 
 const TOKEN_FILE = path.join(__dirname, ".env.instagram");
 // Images are served from the API server, not the frontend
@@ -276,7 +277,10 @@ function startScheduler() {
   }, POST_INTERVAL);
 
   // Clean old generated images daily
-  setInterval(() => cleanOldFiles(), 24 * 60 * 60 * 1000);
+  setInterval(() => {
+    cleanOldFiles();
+    cleanOldXhsFiles();
+  }, 24 * 60 * 60 * 1000);
 
   // Initial run after 30 seconds (for testing / restart recovery)
   setTimeout(async () => {
