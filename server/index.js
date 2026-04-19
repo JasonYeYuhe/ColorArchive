@@ -64,6 +64,7 @@ app.use("/ai", require("./routes/ai"));
 app.use("/projects", require("./routes/projects"));
 app.use("/events", require("./routes/events"));
 app.use("/apple-notifications", require("./routes/apple-notifications"));
+app.use("/trending", require("./routes/trending"));
 
 app.get("/health", (_, res) => res.json({ ok: true, uptime: process.uptime() }));
 
