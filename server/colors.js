@@ -172,13 +172,81 @@ const heroColors = colors.filter(
   (c) => c.lightness >= 30 && c.lightness <= 75 && c.saturation >= 34
 );
 
-/** Get a deterministic "random" color for a given date string (YYYY-MM-DD). */
+/**
+ * COTD v2 — golden-angle hue rotation with weighted nearest-neighbor snap.
+ *
+ * Replaces the previous djb2-hash-on-date-string, which produced near-sequential
+ * hashes across adjacent days and landed on adjacent indices in a root-ordered
+ * heroColors array, causing 7–9 consecutive days within the same hue family.
+ *
+ * The golden angle (137.508°) is a low-discrepancy step: each day's target hue
+ * is maximally spread from yesterday's. A ~13-day cycle covers every 30° arc of
+ * the hue wheel. Lightness and saturation rotate on independent integer cycles.
+ *
+ * Integer-first arithmetic (per Gemini 2.5 Pro design review, 2026-04-19) to
+ * guarantee byte-for-byte parity across Node / Next.js / iOS Swift — float
+ * multiplication of large daysSinceEpoch could drift between IEEE-754
+ * implementations at day 10000+.
+ *
+ * Distance uses circular (shortest-arc) hue diff — hue 0° and 359° are
+ * neighbors, not opposites.
+ *
+ * See docs/color-of-day-redesign.md for full rationale.
+ */
+
+const COTD_EPOCH_MS = Date.UTC(2026, 0, 1); // 2026-01-01 UTC
+const COTD_GOLDEN_ANGLE_SCALED = 137508;    // 137.508° × 1000, integer-exact
+const COTD_HUE_MOD_SCALED = 360000;         // 360° × 1000
+const COTD_MS_PER_DAY = 86400000;
+const COTD_W_HUE = 0.60;
+const COTD_W_LIGHT = 0.25;
+const COTD_W_SAT = 0.15;
+
+/** Non-negative modulo — JS `%` can return negative for negative operands. */
+function cotdMod(n, m) {
+  return ((n % m) + m) % m;
+}
+
+function cotdParseDateUtcMs(dateStr) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return Date.UTC(y, m - 1, d);
+}
+
+/** Shortest angular distance on the hue wheel, in degrees (0..180). */
+function cotdCircularHueDistance(a, b) {
+  const diff = Math.abs(a - b);
+  return diff > 180 ? 360 - diff : diff;
+}
+
+/** Get a deterministic "color of the day" for a given date string (YYYY-MM-DD). */
 function getColorOfDay(dateStr) {
-  let hash = 0;
-  for (let i = 0; i < dateStr.length; i++) {
-    hash = ((hash << 5) - hash + dateStr.charCodeAt(i)) | 0;
+  const dateMs = cotdParseDateUtcMs(dateStr);
+  const daysSinceEpoch = Math.floor((dateMs - COTD_EPOCH_MS) / COTD_MS_PER_DAY);
+
+  // Integer-first target generation (stable across platforms)
+  const targetHueScaled = cotdMod(
+    daysSinceEpoch * COTD_GOLDEN_ANGLE_SCALED,
+    COTD_HUE_MOD_SCALED
+  );
+  const targetHue = targetHueScaled / 1000;                     // 0..359.999
+  const targetLight = 42 + cotdMod(daysSinceEpoch * 23, 34);    // 42..75
+  const targetSat = 55 + cotdMod(daysSinceEpoch * 29, 38);      // 55..92
+
+  // Weighted nearest-neighbor with circular hue distance
+  let best = heroColors[0];
+  let bestScore = Infinity;
+  for (let i = 0; i < heroColors.length; i++) {
+    const c = heroColors[i];
+    const dHue = cotdCircularHueDistance(c.hue, targetHue) / 180;
+    const dLight = Math.abs(c.lightness - targetLight) / 100;
+    const dSat = Math.abs(c.saturation - targetSat) / 100;
+    const score = COTD_W_HUE * dHue + COTD_W_LIGHT * dLight + COTD_W_SAT * dSat;
+    if (score < bestScore) {
+      bestScore = score;
+      best = c;
+    }
   }
-  return heroColors[Math.abs(hash) % heroColors.length];
+  return best;
 }
 
 /** Get analogous colors (±24° hue) for a base color. */

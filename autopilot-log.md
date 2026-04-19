@@ -1,4 +1,32 @@
 
+## 2026-04-19 — Color-of-the-Day v2: golden-angle hue rotation
+
+**Run type:** Remote (user-requested)
+
+**Problem:** Daily COTD selections were visually monotonous — 9 consecutive days (2026-04-01 to 04-09) all fell in the Clover/Emerald/Mint hue family. Root cause: djb2 hash on `YYYY-MM-DD` (which differ by 1 char/day) produced near-sequential hashes → adjacent indices in a root-ordered `heroColors` array → same hue family for 7–9 days in a row.
+
+**Fix:** Replaced the date-hash selection with a golden-angle (137.508°) hue rotation + weighted nearest-neighbor snap with circular hue distance. Integer-first arithmetic (per Gemini 2.5 Pro review) guarantees Node / Next.js / iOS Swift return byte-identical results for any date.
+
+Files:
+- `server/colors.js` — new `getColorOfDay()` algorithm
+- `src/lib/color-of-day.ts` — mirror
+- `ios/ColorArchive/Utils/ColorOfDay.swift` — Swift port with `Int64` math
+- `docs/color-of-day-redesign.md` — full design doc (Codex + Gemini review log)
+- `scripts/verify-cotd.mjs` — parity + diversity verification
+
+**Verified:**
+- Parity: 10/10 sample dates match server vs TS reference (incl. pre-epoch 2020-01-01)
+- Diversity (30 days starting 2026-04-19): min consecutive-day hue gap **130°**, mean **137.6°**, zero 3-in-a-row same-root runs
+- `npm run typecheck` passes
+
+**Impact:** Instagram, Pinterest, email newsletter, Xiaohongshu manual posts, and iOS app all pick visibly different colors every day going forward. Existing stored references (historical pins, posts) still point to specific color IDs and remain valid.
+
+**Phase 2 (queued, separate PR):** Xiaohongshu mood palette (4-color board with analogous + complementary companions) to further differentiate XHS feed visually. Gemini & Codex both recommended shipping Phase 1 alone first.
+
+**Droplet next step (manual):** `ssh root@143.198.85.72 'cd /root/colorarchive/server && git pull && pm2 restart colorarchive-api'`
+
+---
+
 ## 2026-04-18 — Auto-dev Run: Add ESLint + Prettier config
 
 **Run type:** Auto-dev rotation (Group A, slot 2 — ColorArchive)

@@ -226,7 +226,7 @@ ColorArchive/
 │   │   ├── brand-palette.ts             # Single-hex → 11-step design system + semantic colors
 │   │   ├── color-relationships.ts       # Color relationships (analogous, complementary, triadic, tonal)
 │   │   ├── color-contrast.ts            # WCAG contrast ratio + relative luminance
-│   │   ├── color-of-day.ts              # Deterministic daily color selection
+│   │   ├── color-of-day.ts              # Deterministic daily color selection (v2: golden-angle hue rotation, integer-exact across Node/TS/Swift)
 │   │   ├── license-tiers.ts             # License tier definitions
 │   │   ├── color-family-pages.ts         # Color family page slug/metadata
 │   │   ├── colorblind.ts                 # Viénot (1999) color blindness simulation matrices

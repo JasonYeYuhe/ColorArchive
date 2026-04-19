@@ -10,15 +10,67 @@ const heroColors: ColorRecord[] = archiveColors.filter(
 );
 
 /**
+ * COTD v2 — golden-angle hue rotation with weighted nearest-neighbor snap.
+ * Mirrors server/colors.js#getColorOfDay exactly. See docs/color-of-day-redesign.md.
+ *
+ * Integer-first arithmetic guarantees byte-for-byte parity with the Node server
+ * and iOS Swift implementations (per Gemini 2.5 Pro review, 2026-04-19).
+ */
+
+const COTD_EPOCH_MS = Date.UTC(2026, 0, 1); // 2026-01-01 UTC
+const COTD_GOLDEN_ANGLE_SCALED = 137508;    // 137.508° × 1000
+const COTD_HUE_MOD_SCALED = 360000;         // 360° × 1000
+const COTD_MS_PER_DAY = 86400000;
+const COTD_W_HUE = 0.60;
+const COTD_W_LIGHT = 0.25;
+const COTD_W_SAT = 0.15;
+
+/** Non-negative modulo. */
+function cotdMod(n: number, m: number): number {
+  return ((n % m) + m) % m;
+}
+
+function cotdParseDateUtcMs(dateStr: string): number {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return Date.UTC(y, m - 1, d);
+}
+
+/** Shortest angular distance on the hue wheel (0..180). */
+function cotdCircularHueDistance(a: number, b: number): number {
+  const diff = Math.abs(a - b);
+  return diff > 180 ? 360 - diff : diff;
+}
+
+/**
  * Returns a deterministic "color of the day" for a given date string (YYYY-MM-DD).
- * Uses the same bit-shift hash as server/colors.js so results are identical.
+ * Uses golden-angle hue rotation + weighted circular nearest-neighbor.
  */
 export function getColorOfDay(dateStr: string): ColorRecord {
-  let hash = 0;
-  for (let i = 0; i < dateStr.length; i++) {
-    hash = ((hash << 5) - hash + dateStr.charCodeAt(i)) | 0;
+  const dateMs = cotdParseDateUtcMs(dateStr);
+  const daysSinceEpoch = Math.floor((dateMs - COTD_EPOCH_MS) / COTD_MS_PER_DAY);
+
+  const targetHueScaled = cotdMod(
+    daysSinceEpoch * COTD_GOLDEN_ANGLE_SCALED,
+    COTD_HUE_MOD_SCALED
+  );
+  const targetHue = targetHueScaled / 1000;
+  const targetLight = 42 + cotdMod(daysSinceEpoch * 23, 34); // 42..75
+  const targetSat = 55 + cotdMod(daysSinceEpoch * 29, 38);   // 55..92
+
+  let best = heroColors[0];
+  let bestScore = Infinity;
+  for (let i = 0; i < heroColors.length; i++) {
+    const c = heroColors[i];
+    const dHue = cotdCircularHueDistance(c.hue, targetHue) / 180;
+    const dLight = Math.abs(c.lightness - targetLight) / 100;
+    const dSat = Math.abs(c.saturation - targetSat) / 100;
+    const score = COTD_W_HUE * dHue + COTD_W_LIGHT * dLight + COTD_W_SAT * dSat;
+    if (score < bestScore) {
+      bestScore = score;
+      best = c;
+    }
   }
-  return heroColors[Math.abs(hash) % heroColors.length];
+  return best;
 }
 
 /**
