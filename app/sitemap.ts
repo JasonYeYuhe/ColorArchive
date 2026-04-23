@@ -57,18 +57,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.77,
     },
-    {
-      url: `${SITE_URL}/favorites/`,
-      lastModified: BUILD_DATE,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${SITE_URL}/recent/`,
-      lastModified: BUILD_DATE,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
+    // /favorites/, /recent/, /palette/, /projects/, /account/ are user-state
+    // routes — disallowed in robots.ts, so they don't belong in sitemap either.
+    // Do not re-add without updating robots.ts.
     {
       url: `${SITE_URL}/spectrum/`,
       lastModified: BUILD_DATE,
@@ -242,12 +233,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",
       priority: 0.9,
-    },
-    {
-      url: `${SITE_URL}/projects/`,
-      lastModified: BUILD_DATE,
-      changeFrequency: "weekly",
-      priority: 0.6,
     },
     {
       url: `${SITE_URL}/analyze/`,

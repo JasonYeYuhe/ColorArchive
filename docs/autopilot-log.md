@@ -1,3 +1,77 @@
+## 2026-04-24 00:40 UTC — Week 1 止血周: 5 of 6 P0 + 3 P1 landed (remote, full autonomy)
+
+User gave full autonomy ("你全权负责") to execute the 2026-04-23 dev plan Week 1. All
+Week-1 code-scope P0s plus three NEW-P1s landed in one commit. Remaining manual items
+flagged to user (GCP redirect URI, StoreKit sandbox payload capture). 508 tests pass,
+typecheck clean.
+
+**P0-2 — iOS StoreKit payload contract**: iOS was sending `Transaction.jsonRepresentation`
+(plain JSON) as `signedTransaction` but backend verifier expected JWS. Fixed both sides:
+iOS now passes `VerificationResult.jwsRepresentation` (the real JWS) via a new `jws:`
+parameter on `syncPurchaseWithBackend`. Backend added `detectTransactionShape()` that
+distinguishes JWS / JSON / unknown and falls back gracefully with explicit
+`INVALID_RECEIPT_SIGNATURE` / `SANDBOX_RECEIPT_IN_PRODUCTION` error codes. Also added
+production-env policy that rejects Sandbox receipts unless the user is on
+`APPLE_SANDBOX_ALLOWED_USER_IDS` allow-list. Files: ios/ColorArchive/Services/StoreManager.swift,
+server/apple-jws.js, server/routes/auth.js. iOS change needs v1.2 App Store submission.
+
+**P0-3 — LS billing UI unblocked**: `/me/subscription` now returns `providerCustomerId`
+resolved by provider (LS → `provider_customer_id`, Stripe legacy → `stripe_customer_id`,
+Apple → `original_transaction_id`). Backend webhook routes now persist `customer_id`
+from LS events into `provider_customer_id` (was silently discarded). Account page
+refactored to dispatch "Manage subscription" by provider: LS → LS customer portal, Apple
+→ Apple App Store subscription page, Stripe → existing `/api/billing-portal` flow. Files:
+server/routes/me.js, server/routes/webhook.js, src/components/account-page.tsx.
+
+**P0-4 — SQLite backup paths unified**: SSH'd into Droplet — confirmed real DB at
+`/root/ColorArchive/server/data.db` (3.9 MB), 32 healthy backups on disk, cron running
+every 6h and overriding the script's defaults. Script defaults pointed at the wrong
+`/root/colorarchive-api/...` path — now corrected. Wrote full runbook at
+docs/backup-runbook.md with production layout, cron config, restore drill procedure,
+rollback step, quarterly drill schedule. Offsite backup remains a known gap (R2 proposed).
+
+**P0-5 — Legal / payment doc drift resolved**: Updated src/components/privacy-page.tsx
+(Stripe → Lemon Squeezy as MoR), terms-page.tsx, refund-policy-page.tsx (added Apple IAP
+refund path via reportaproblem.apple.com), commerce-disclosure-page.tsx (Japanese + EN),
+and README.md (Gumroad/Stripe → LS + Apple StoreKit reality).
+
+**P0-6 — Color data duplication resolved**: scripts/generate-downloads.mjs catalog was
+shrunk to 36 hues / 4 chroma bands (vs real 48/8) and missing neutrals entirely. Expanded
+to all 48 chromatic roots + 8 chroma bands + 5 neutral gray compound roots, matching
+src/data/colors.ts exactly. Added `assertCatalogContract()` that fails build if counts
+drift, plus a runtime assertion that the colorMap builds to exactly 5,446 IDs.
+
+**NEW-P1-A — Instagram webhook authenticated**: Previously the POST `/instagram/webhook`
+accepted any request unauthenticated and only logged the body. Added `x-hub-signature-256`
+HMAC verification against `FB_APP_SECRET`, with `express.raw` scoped to the route for
+byte-exact signature matching, timing-safe comparison, and fail-closed 503 when the
+secret isn't set.
+
+**NEW-P1-D — Sitemap ↔ robots contradiction fixed**: Removed `/favorites/`, `/recent/`,
+`/projects/` from sitemap (robots.ts already disallowed them). Left a comment to prevent
+regression.
+
+**NEW-P1-E — Collection prose lint**: Added
+src/lib/__tests__/collections-prose-lint.test.ts with two assertions: (a) every resolved
+palette entry's ID exists in the real color set; (b) every 3-segment `{root}-{lightness}-
+{chroma}` token in descriptions resolves. Fixed 5 prose mismatches (Data Dashboard had
+`amber-glow-soft` / `slate-tone-muted` which don't exist; Film Neutral had `pearl-blush-soft`
+/ `slate-veil-muted` / `obsidian-tone-soft`; three collections referenced non-existent
+`sage-mist-*` / `sage-bloom-*` — swapped to `moss-*` equivalents).
+
+**Deferred / awaiting user**:
+- **P0-1**: GCP OAuth Console — add `.org` redirect URI (3-min manual step, from
+  docs/oauth-redirect-fix-plan.md; every Google sign-in still 400s without this)
+- **P0-2 verification**: Run one StoreKit sandbox purchase on iOS simulator, capture the
+  payload, confirm the defensive backend parser correctly identifies it as JWS. If yes,
+  ship v1.2 to App Store; if no, backend still accepts JSON legacy path.
+
+**Tests**: 508 pass (was 506; +2 from prose lint). Typecheck clean. Build pending.
+
+**Lint**: 174 problems unchanged — on Week 3 target per dev plan.
+
+---
+
 ## 2026-04-18 06:45 UTC — ESLint + Prettier config (auto-dev rotation, focus_priority #2)
 
 Added ESLint 9 flat config + Prettier 3. eslint.config.mjs, .prettierrc, .prettierignore, package.json devDeps + scripts. 506 tests pass. ESLint surfaces 174 pre-existing issues (not regressions).

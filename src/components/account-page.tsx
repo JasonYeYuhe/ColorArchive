@@ -146,13 +146,20 @@ function ApiKeySection() {
   );
 }
 
+type BillingProvider = "stripe" | "lemonsqueezy" | "paddle" | "apple" | "paypal";
+
 interface SubscriptionInfo {
   plan: string;
   status: string;
   currentPeriodEnd: string | null;
   cancelAtPeriodEnd: boolean;
+  provider: BillingProvider;
+  providerCustomerId: string | null;
+  /** Legacy alias — prefer providerCustomerId. Kept for the old Stripe portal path. */
   stripeCustomerId: string | null;
 }
+
+const LS_CUSTOMER_PORTAL = "https://colorarchive.lemonsqueezy.com/billing";
 
 function SubscriptionSection() {
   const { t } = useLocale();
@@ -168,18 +175,47 @@ function SubscriptionSection() {
       .finally(() => setLoading(false));
   }, []);
 
+  /**
+   * "Manage subscription" dispatches by provider:
+   *   stripe       → POST /api/billing-portal (returns Stripe portal URL)
+   *   lemonsqueezy → redirect to LS customer portal (customer_id embedded in their magic link)
+   *   apple        → show hint (StoreKit subscriptions can only be managed in iOS Settings)
+   *   paddle       → redirect to Paddle customer portal (future)
+   */
+  const hasManageAction = !!(
+    sub &&
+    (sub.provider === "stripe"
+      ? sub.stripeCustomerId
+      : sub.provider === "lemonsqueezy"
+        ? sub.providerCustomerId
+        : sub.provider === "apple"
+          ? true
+          : sub.providerCustomerId)
+  );
+
   const openPortal = useCallback(async () => {
-    if (!sub?.stripeCustomerId) return;
+    if (!sub) return;
     setPortalLoading(true);
     try {
-      const res = await fetch("/api/billing-portal/", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: "{}",
-      });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
+      if (sub.provider === "stripe") {
+        const res = await fetch("/api/billing-portal/", {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: "{}",
+        });
+        const data = await res.json();
+        if (data.url) window.location.href = data.url;
+      } else if (sub.provider === "lemonsqueezy") {
+        // LS exposes a self-serve customer portal; the magic-link variant is
+        // emailed from LS on signup. Fall back to the generic portal if we
+        // don't have a direct link — user will authenticate via email there.
+        window.location.href = LS_CUSTOMER_PORTAL;
+      } else if (sub.provider === "apple") {
+        // iOS subscriptions are managed in the App Store settings — there's
+        // no web portal. Deep-link to it if on iOS, otherwise show instructions.
+        window.location.href = "https://apps.apple.com/account/subscriptions";
+      }
     } catch {
       // ignore
     } finally {
@@ -233,13 +269,17 @@ function SubscriptionSection() {
           </p>
         )}
       </div>
-      {sub.stripeCustomerId && (
+      {hasManageAction && (
         <button
           onClick={openPortal}
           disabled={portalLoading}
           className="mt-4 w-full py-2.5 text-xs font-semibold rounded-xl border border-slate-200 dark:border-white/15 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors disabled:opacity-50"
         >
-          {portalLoading ? "Opening..." : "Manage subscription"}
+          {portalLoading
+            ? "Opening..."
+            : sub.provider === "apple"
+              ? "Manage in App Store"
+              : "Manage subscription"}
         </button>
       )}
     </div>

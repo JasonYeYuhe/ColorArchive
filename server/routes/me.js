@@ -72,7 +72,7 @@ router.get("/subscription", (req, res) => {
       `SELECT tier, stripe_customer_id, stripe_subscription_id,
               subscription_status, subscription_plan,
               subscription_current_period_end, subscription_cancel_at_period_end,
-              payment_provider, provider_subscription_id,
+              payment_provider, provider_subscription_id, provider_customer_id,
               apple_original_transaction_id, pro_expires_at
        FROM users WHERE id = ?`
     )
@@ -90,13 +90,33 @@ router.get("/subscription", (req, res) => {
     return res.json(null);
   }
 
+  const provider = user.payment_provider || "stripe";
+
+  // Resolve the correct customer identifier by provider:
+  //   stripe       → stripe_customer_id (legacy column)
+  //   lemonsqueezy → provider_customer_id (populated by LS webhook)
+  //   apple        → apple_original_transaction_id (used only for display;
+  //                  actual subscription management happens in iOS Settings)
+  //   paddle       → provider_customer_id (when we ship Paddle)
+  let providerCustomerId = null;
+  if (provider === "stripe") {
+    providerCustomerId = user.stripe_customer_id || null;
+  } else if (provider === "apple") {
+    providerCustomerId = user.apple_original_transaction_id || null;
+  } else {
+    providerCustomerId = user.provider_customer_id || user.stripe_customer_id || null;
+  }
+
   return res.json({
     tier: user.tier,
     status: user.subscription_status,
     plan: user.subscription_plan,
     currentPeriodEnd: user.subscription_current_period_end,
     cancelAtPeriodEnd: !!user.subscription_cancel_at_period_end,
-    provider: user.payment_provider || "stripe",
+    provider,
+    providerCustomerId,
+    // Legacy alias for old clients that haven't upgraded yet; do not use in new code
+    stripeCustomerId: provider === "stripe" ? user.stripe_customer_id : null,
     proExpiresAt: user.pro_expires_at,
   });
 });

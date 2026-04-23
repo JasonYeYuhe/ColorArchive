@@ -6,16 +6,25 @@ set -euo pipefail
 # ============================================================================
 # Safe hot-backup of a live SQLite database using the .backup command.
 #
-# Cron setup (every 6 hours):
-#   0 */6 * * * /root/colorarchive-api/scripts/backup-sqlite.sh >> /root/colorarchive-api/logs/backup.log 2>&1
+# Production install (Droplet 143.198.85.72):
+#   Repo:      /root/ColorArchive
+#   Live DB:   /root/ColorArchive/server/data.db
+#   Backups:   /root/ColorArchive/server/backups/
+#   Logs:      /root/ColorArchive/server/logs/backup.log
+#   Retention: 7 days, every 6 hours
 #
-# Make sure the logs directory exists:
-#   mkdir -p /root/colorarchive-api/logs
+# Cron (installed, do not edit defaults below without updating cron too):
+#   0 */6 * * * DB_PATH=/root/ColorArchive/server/data.db \
+#               BACKUP_DIR=/root/ColorArchive/server/backups \
+#               /root/ColorArchive/server/scripts/backup-sqlite.sh \
+#               >> /root/ColorArchive/server/logs/backup.log 2>&1
+#
+# Restore:  docs/backup-runbook.md
 # ============================================================================
 
-# --- Configuration ---
-DB_PATH="${DB_PATH:-/root/colorarchive-api/data/colorarchive.db}"
-BACKUP_DIR="${BACKUP_DIR:-/root/colorarchive-api/backups}"
+# --- Configuration (defaults match Droplet layout) ---
+DB_PATH="${DB_PATH:-/root/ColorArchive/server/data.db}"
+BACKUP_DIR="${BACKUP_DIR:-/root/ColorArchive/server/backups}"
 RETENTION_DAYS="${RETENTION_DAYS:-7}"
 
 # --- Helpers ---

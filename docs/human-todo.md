@@ -1,12 +1,25 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-04-14
+> Last updated: 2026-04-24
 
-## High Priority
-- [ ] Test full Stripe purchase flow end-to-end (palette pack + Pro subscription) before marketing push
-- [ ] Verify Stripe webhook endpoint is receiving events in production (check Stripe Dashboard → Webhooks → Logs)
-- [ ] Confirm all 9 Stripe price IDs in `checkout-config.ts` match live Stripe Dashboard products
+## P0 — Blocking real users today
+- [ ] **GCP OAuth Console**: add `https://api.colorarchive.org/auth/google/callback` to
+      authorized redirect URIs (and `colorarchive.org` under Authorized domains if not
+      present). Full steps in [docs/oauth-redirect-fix-plan.md](./oauth-redirect-fix-plan.md).
+      3 min. Every Google sign-in currently errors with 400 redirect_uri_mismatch.
+- [ ] **StoreKit sandbox purchase test**: open Xcode → run iOS app against sandbox tester
+      → attempt Pro purchase. Watch `ssh root@143.198.85.72 'pm2 logs colorarchive-api
+      --lines 40 --nostream'` for `[DEPRECATION] apple-purchase got JSON (not JWS)`.
+      If that line appears the backend defensive parser is covering for field iOS
+      builds — confirm current iOS HEAD sends real JWS, then submit v1.2 to App Store.
+
+## Week 1 done (2026-04-24) — reference only
+- [x] LS account-page "Manage subscription" unblocked (provider-aware routing)
+- [x] SQLite backups confirmed on Droplet; runbook at [docs/backup-runbook.md](./backup-runbook.md)
+- [x] Privacy / Terms / Refund / Commerce-Disclosure / README rewritten to LS + Apple
+- [x] Instagram webhook HMAC verified (was unauth'd — plugged 2026-04-24)
+- [x] ~~Stripe flow / webhook / price IDs~~ — replaced by Lemon Squeezy; validated 2026-04-17
 
 ## Medium Priority — Domain Migration (Phase 2+)
 - [ ] Complete Phase 2 migration day execution (see `docs/domain-migration-checklist.md`)

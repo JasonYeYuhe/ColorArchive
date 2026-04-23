@@ -36,8 +36,8 @@ const rows = [
   {
     label: "支払方法",
     value:
-      "クレジットカード（Visa, Mastercard, American Express, JCB）— 決済代行: Stripe, Inc.",
-    en: "Payment: Credit card (Visa, Mastercard, Amex, JCB) via Stripe, Inc.",
+      "クレジットカード（Visa, Mastercard, American Express, JCB）— 決済代行: Lemon Squeezy, Inc.（Merchant of Record）。iOS アプリ内課金は Apple Inc. が処理します。",
+    en: "Payment: Credit card (Visa, Mastercard, Amex, JCB) via Lemon Squeezy, Inc. (Merchant of Record). iOS in-app purchases are processed by Apple Inc.",
   },
   {
     label: "支払時期",

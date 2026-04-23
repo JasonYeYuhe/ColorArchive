@@ -9,7 +9,7 @@ const sections = [
 
 - **Usage data**: Pages visited, features used, and interaction patterns to improve the product.
 - **Favorites and preferences**: Colors you save or mark as favorites, synced to your account if logged in, or stored locally in your browser if not.
-- **Purchase information**: When you buy a product through Stripe (our payment processor), we receive your name, email, and transaction details. We do not store payment card numbers.
+- **Purchase information**: When you buy a product, we receive your name, email, and transaction details from our payment processor (Lemon Squeezy for web purchases; Apple for iOS in-app purchases). We do not store payment card numbers.
 - **Cookies**: We use a session cookie to keep you logged in. We do not use third-party tracking cookies. For details, see our [Cookie Policy](/cookie-policy/).
 - **Mobile app data**: If you use the ColorArchive iOS app, we may collect device identifiers and purchase data through Apple StoreKit for in-app purchases. We do not collect location data, contacts, or health data.`,
   },
@@ -29,7 +29,7 @@ We do not sell your personal information to third parties.`,
     title: "3. Third-Party Services",
     content: `ColorArchive integrates with the following third-party services:
 
-- **Stripe** — Payment processing. We do not store payment card details. Subject to [Stripe's Privacy Policy](https://stripe.com/privacy).
+- **Lemon Squeezy** — Web payment processing (Merchant of Record). Handles credit card processing, VAT, and invoicing. We do not store payment card details. Subject to [Lemon Squeezy's Privacy Policy](https://www.lemonsqueezy.com/privacy).
 - **Google OAuth** — Optional sign-in. We receive your email and display name. Subject to [Google's Privacy Policy](https://policies.google.com/privacy).
 - **Vercel** — Hosting and analytics. Subject to [Vercel's Privacy Policy](https://vercel.com/legal/privacy-policy).
 - **DigitalOcean** — Backend server hosting. Subject to [DigitalOcean's Privacy Policy](https://www.digitalocean.com/legal/privacy-policy).
@@ -65,7 +65,7 @@ These services may collect information as described in their respective privacy 
 
 We rely on the following safeguards for international data transfers:
 
-- Our service providers (Stripe, Vercel, DigitalOcean) maintain Standard Contractual Clauses (SCCs) and/or other approved transfer mechanisms as required by GDPR Chapter V.
+- Our service providers (Lemon Squeezy, Vercel, DigitalOcean) maintain Standard Contractual Clauses (SCCs) and/or other approved transfer mechanisms as required by GDPR Chapter V.
 - We ensure that all data transfers are subject to appropriate technical and organizational security measures.`,
   },
   {

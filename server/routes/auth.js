@@ -249,7 +249,7 @@ router.get("/google/callback", async (req, res) => {
 // ---- Apple IAP Purchase Verification ----
 
 const db = require("../db");
-const { verifySignedTransaction } = require("../apple-jws");
+const { verifySignedTransaction, detectTransactionShape } = require("../apple-jws");
 
 const VALID_APPLE_PRODUCTS = [
   "me.colorarchive.pro.monthly",
@@ -257,15 +257,29 @@ const VALID_APPLE_PRODUCTS = [
   "me.colorarchive.pro.lifetime",
 ];
 
+// Accept sandbox receipts in production only for explicitly allow-listed user IDs
+// (TestFlight QA, internal testers). Comma-separated numeric IDs.
+const SANDBOX_ALLOWED_USER_IDS = new Set(
+  (process.env.APPLE_SANDBOX_ALLOWED_USER_IDS || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+);
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
+
 /**
  * Called by the iOS app after a successful StoreKit 2 purchase.
  * Links the Apple transaction to the authenticated user and grants Pro tier.
  *
- * Accepts two modes:
- * 1. signedTransaction (preferred) — JWS from Transaction.jwsRepresentation,
- *    verified server-side against Apple's certificate chain.
- * 2. Legacy fields (productId, originalTransactionId, etc.) — backward
- *    compatible with older iOS app versions. Logs a deprecation warning.
+ * Accepts two shapes of `signedTransaction`:
+ * 1. JWS (preferred) — from `VerificationResult.jwsRepresentation`. Three dot-separated
+ *    base64url parts. Verified server-side against Apple's certificate chain.
+ * 2. JSON (legacy / deprecated) — from `Transaction.jsonRepresentation`. Plain JSON,
+ *    not cryptographically verifiable. Accepted with `verified=false` and a deprecation
+ *    log for backward compat with iOS builds < 1.2. Will be rejected in a future release.
+ *
+ * Policy: in production, reject Sandbox environment receipts unless the user is on the
+ * APPLE_SANDBOX_ALLOWED_USER_IDS allow-list (TestFlight / QA).
  */
 router.post("/apple-purchase", async (req, res) => {
   const user = getSessionUser(req);
@@ -277,22 +291,63 @@ router.post("/apple-purchase", async (req, res) => {
   let verified = false;
 
   try {
-    // Preferred path: verify the Apple-signed JWS
-    if (req.body.signedTransaction) {
-      const txn = await verifySignedTransaction(req.body.signedTransaction);
+    const signedTxn = req.body.signedTransaction;
+    const shape = detectTransactionShape(signedTxn);
+
+    if (shape === "jws") {
+      // Preferred path: verify the Apple-signed JWS
+      const txn = await verifySignedTransaction(signedTxn);
       productId = txn.productId;
       originalTransactionId = txn.originalTransactionId;
       transactionDate = txn.purchaseDate;
       environment = txn.environment;
       expiresDate = txn.expiresDate;
       verified = true;
-    } else {
-      // Legacy path: trust client-supplied data (backward compat)
+    } else if (shape === "json") {
+      // Known misuse: iOS sending Transaction.jsonRepresentation instead of
+      // VerificationResult.jwsRepresentation. Treat as legacy unverified path.
       console.warn(
-        `[DEPRECATION] apple-purchase called without signedTransaction (user ${user.id}). ` +
-        "Update the iOS app to send transaction.jwsRepresentation."
+        `[DEPRECATION] apple-purchase got JSON (not JWS) in signedTransaction (user ${user.id}). ` +
+        "Update the iOS app to pass VerificationResult.jwsRepresentation."
+      );
+      try {
+        const parsed = JSON.parse(signedTxn);
+        productId = parsed.productId || parsed.productID || req.body.productId;
+        originalTransactionId = String(
+          parsed.originalTransactionId || parsed.originalTransactionID || req.body.originalTransactionId || ""
+        );
+        transactionDate = parsed.purchaseDate
+          ? new Date(parsed.purchaseDate).toISOString()
+          : req.body.transactionDate;
+        environment = parsed.environment || req.body.environment;
+        expiresDate = parsed.expiresDate
+          ? new Date(parsed.expiresDate).toISOString()
+          : null;
+      } catch (_) {
+        // Fall through to legacy client-fields path
+        ({ productId, originalTransactionId, transactionDate, environment } = req.body);
+      }
+    } else {
+      // Legacy path: no signedTransaction at all — trust client-supplied data
+      console.warn(
+        `[DEPRECATION] apple-purchase called without signedTransaction (user ${user.id}).`
       );
       ({ productId, originalTransactionId, transactionDate, environment } = req.body);
+    }
+
+    // Sandbox / Production policy: reject sandbox receipts in production unless allow-listed
+    if (
+      IS_PRODUCTION &&
+      environment === "Sandbox" &&
+      !SANDBOX_ALLOWED_USER_IDS.has(String(user.id))
+    ) {
+      console.warn(
+        `[policy] rejecting sandbox receipt in production for user ${user.id}`
+      );
+      return res.status(403).json({
+        error: "Sandbox receipts are not accepted in production",
+        code: "SANDBOX_RECEIPT_IN_PRODUCTION",
+      });
     }
 
     if (!productId || !originalTransactionId) {
@@ -371,9 +426,18 @@ router.post("/apple-purchase", async (req, res) => {
     return res.json({ ok: true, tier: "pro", proExpiresAt, verified });
   } catch (err) {
     // Distinguish JWS verification failures from other errors
-    if (err.message && err.message.includes("Apple")) {
-      console.error("apple-purchase JWS verification failed:", err.message);
-      return res.status(403).json({ error: "Transaction verification failed" });
+    const msg = err && err.message ? err.message : "";
+    if (
+      msg.includes("Apple") ||
+      msg.includes("JWS") ||
+      msg.includes("Certificate") ||
+      msg.includes("Bundle ID")
+    ) {
+      console.error("apple-purchase JWS verification failed:", msg);
+      return res.status(403).json({
+        error: "Transaction verification failed",
+        code: "INVALID_RECEIPT_SIGNATURE",
+      });
     }
     console.error("apple-purchase error:", err);
     return res.status(500).json({ error: "Failed to process purchase" });

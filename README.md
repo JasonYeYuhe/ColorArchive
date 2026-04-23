@@ -13,7 +13,7 @@ ColorArchive is a color exploration and design-token product built with Next.js 
 ## Architecture
 
 - `app/` — Next.js routes (80+ pages, 3,800+ statically generated at build time)
-- `server/` — Express API for auth (magic link + Google OAuth), Stripe/Gumroad webhooks, admin, analytics
+- `server/` — Express API for auth (magic link + Google OAuth), Lemon Squeezy + Apple IAP webhooks, admin, analytics
 - `src/data/colors.ts` — Generates all 5,446 colors algorithmically (48 hue roots × 14 lightness × 8 chroma + 5 neutral gray groups × 14)
 - `src/components/` — 127+ TSX components
 - `src/lib/` — Pure utility modules for color conversion, contrast, relationships, filtering, search, palette building, i18n (EN/ZH)
@@ -41,4 +41,4 @@ npm run dev
 
 - **Frontend**: Vercel (auto-deploy on push to `main`). `next.config.ts` uses `trailingSlash: true`.
 - **API**: DigitalOcean Droplet at `api.colorarchive.org`, managed via PM2.
-- **Payments**: Gumroad (active provider) with Stripe as fallback. Configured in `src/lib/checkout-config.ts`.
+- **Payments**: Lemon Squeezy for web (Merchant of Record — handles VAT + invoicing); Apple StoreKit 2 for iOS IAP. Legacy Stripe / Paddle / PayPal paths are sunset but stubs remain for backward compat. Configured in `src/lib/checkout-config.ts`.

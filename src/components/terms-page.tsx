@@ -32,7 +32,7 @@ We reserve the right to suspend or terminate accounts that violate these terms.`
   },
   {
     title: "4. Purchases and Refunds",
-    content: `Pro subscriptions and products are sold through Stripe, our payment processor. All purchases are subject to Stripe's terms of service.
+    content: `Pro subscriptions and products on the web are sold through Lemon Squeezy, our Merchant of Record and payment processor. iOS in-app purchases are processed by Apple. All web purchases are subject to Lemon Squeezy's terms of service; iOS purchases are subject to Apple's.
 
 - **Subscriptions**: Pro subscriptions (monthly or yearly) renew automatically. You may cancel at any time through your account's billing portal — go to Account → Manage Subscription. Cancellation takes effect at the end of the current billing period; you retain access until then. No partial refunds are issued for the remaining period.
 - **Lifetime purchase**: The Pro Lifetime option is a one-time purchase that grants permanent Pro access. No recurring charges apply. "Lifetime" refers to the lifetime of the ColorArchive product/service.

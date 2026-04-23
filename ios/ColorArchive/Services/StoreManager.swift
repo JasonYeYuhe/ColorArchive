@@ -83,7 +83,7 @@ final class StoreManager {
             let transaction = try checkVerified(verification)
             await updatePurchasedProducts()
             await transaction.finish()
-            await syncPurchaseWithBackend(transaction)
+            await syncPurchaseWithBackend(transaction, jws: verification.jwsRepresentation)
             return .success
         case .userCancelled:
             return .cancelled
@@ -127,7 +127,7 @@ final class StoreManager {
             for await result in Transaction.updates {
                 if case .verified(let transaction) = result {
                     await self?.updatePurchasedProducts()
-                    await self?.syncPurchaseWithBackend(transaction)
+                    await self?.syncPurchaseWithBackend(transaction, jws: result.jwsRepresentation)
                     await transaction.finish()
                 }
             }
@@ -155,7 +155,11 @@ final class StoreManager {
     }()
 
     /// Syncs a single transaction to the backend.
-    private func syncPurchaseWithBackend(_ transaction: Transaction) async {
+    ///
+    /// Pass `jws` from the originating `VerificationResult.jwsRepresentation` — this is the
+    /// Apple-signed JWS string that the backend cryptographically verifies.
+    /// `Transaction.jsonRepresentation` is plain JSON (not signed) and will fail verification.
+    private func syncPurchaseWithBackend(_ transaction: Transaction, jws: String) async {
         guard let url = URL(string: "\(APIService.baseURL)/auth/apple-purchase") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -165,7 +169,7 @@ final class StoreManager {
             "originalTransactionId": String(transaction.originalID),
             "transactionDate": transaction.purchaseDate.ISO8601Format(),
             "environment": transaction.environment.rawValue,
-            "signedTransaction": String(data: transaction.jsonRepresentation, encoding: .utf8) ?? "",
+            "signedTransaction": jws,
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
@@ -185,8 +189,8 @@ final class StoreManager {
     /// Syncs all current entitlements to backend (used after restore).
     private func syncAllEntitlementsToBackend() async {
         for await result in Transaction.currentEntitlements {
-            if let transaction = try? checkVerified(result) {
-                await syncPurchaseWithBackend(transaction)
+            if case .verified(let transaction) = result {
+                await syncPurchaseWithBackend(transaction, jws: result.jwsRepresentation)
             }
         }
     }

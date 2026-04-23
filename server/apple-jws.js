@@ -189,8 +189,29 @@ async function verifyNotificationPayload(signedPayload) {
   };
 }
 
+/**
+ * Shape detection for StoreKit-provided `signedTransaction` strings.
+ *
+ * iOS `Transaction.jsonRepresentation` returns plain JSON (not a JWS) — a common
+ * mistake that would fail JWS cryptographic verification. The correct field is
+ * `VerificationResult.jwsRepresentation`. This helper distinguishes them so we can:
+ *   - verify real JWS cryptographically, or
+ *   - accept legacy JSON with an explicit `verified=false` flag and deprecation warning.
+ *
+ * Returns one of: "jws" | "json" | "unknown".
+ */
+function detectTransactionShape(s) {
+  if (typeof s !== "string" || s.length === 0) return "unknown";
+  const trimmed = s.trim();
+  if (trimmed.startsWith("{")) return "json";
+  const parts = trimmed.split(".");
+  if (parts.length === 3 && parts.every((p) => p.length > 0)) return "jws";
+  return "unknown";
+}
+
 module.exports = {
   verifySignedTransaction,
   verifyNotificationPayload,
   verifyAppleJWS,
+  detectTransactionShape,
 };

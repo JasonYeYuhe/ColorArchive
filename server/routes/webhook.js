@@ -131,7 +131,7 @@ router.post("/order-completed", async (req, res) => {
 // POST /webhooks/subscription-checkout
 // Called after a subscription checkout completes
 router.post("/subscription-checkout", async (req, res) => {
-  const { sessionId, email, plan, subscriptionId, provider, amount, currency, testMode, cardFingerprint } = req.body;
+  const { sessionId, email, plan, subscriptionId, provider, customerId, amount, currency, testMode, cardFingerprint } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: "Missing email" });
@@ -140,6 +140,8 @@ router.post("/subscription-checkout", async (req, res) => {
   const paymentProvider = provider || "stripe";
   const isTest = testMode ? 1 : 0;
   const fingerprint = typeof cardFingerprint === "string" && cardFingerprint.length > 2 ? cardFingerprint : null;
+  const providerCustomerId =
+    typeof customerId === "string" && customerId.length > 0 ? customerId : null;
   console.log(
     `[webhook] Subscription checkout: ${plan} for ${email} (sub=${subscriptionId}, provider=${paymentProvider}, test=${isTest}, fp=${fingerprint || "none"})`
   );
@@ -190,6 +192,7 @@ router.post("/subscription-checkout", async (req, res) => {
         stripe_subscription_id = ?,
         payment_provider = ?,
         provider_subscription_id = ?,
+        provider_customer_id = COALESCE(?, provider_customer_id),
         is_test = ?,
         card_fingerprint = COALESCE(?, card_fingerprint),
         is_duplicate = ?,
@@ -200,13 +203,14 @@ router.post("/subscription-checkout", async (req, res) => {
       subscriptionId || null,
       paymentProvider,
       subscriptionId || null,
+      providerCustomerId,
       isTest,
       fingerprint,
       isDuplicate,
       duplicateSuspects.length > 0 ? JSON.stringify(duplicateSuspects.map((s) => s.id)) : null,
       user.id,
     );
-    console.log(`[webhook] User ${email} upgraded to pro via ${paymentProvider}`);
+    console.log(`[webhook] User ${email} upgraded to pro via ${paymentProvider} (customer=${providerCustomerId || "n/a"})`);
   }
 
   // Add to subscribers (tagged with is_test so subscriber-growth metrics can filter)
@@ -291,10 +295,14 @@ router.post("/subscription-updated", (req, res) => {
     `[webhook] Subscription updated: ${subscriptionId} status=${status} cancelAtEnd=${cancelAtEnd} period=${periodEndIso}`
   );
 
-  // Find user by stripe_subscription_id or stripe_customer_id
+  // Find user by any provider subscription id / customer id
   const user = db.prepare(
-    "SELECT id FROM users WHERE stripe_subscription_id = ? OR stripe_customer_id = ?"
-  ).get(subscriptionId, customerId);
+    `SELECT id FROM users
+     WHERE stripe_subscription_id = ?
+        OR provider_subscription_id = ?
+        OR stripe_customer_id = ?
+        OR provider_customer_id = ?`
+  ).get(subscriptionId, subscriptionId, customerId, customerId);
 
   if (!user) {
     console.log(`[webhook] subscription-updated: no user found for sub=${subscriptionId} cust=${customerId}`);
@@ -309,6 +317,8 @@ router.post("/subscription-updated", (req, res) => {
       subscription_status = ?,
       stripe_customer_id = ?,
       stripe_subscription_id = ?,
+      provider_subscription_id = COALESCE(?, provider_subscription_id),
+      provider_customer_id = COALESCE(?, provider_customer_id),
       subscription_current_period_end = ?,
       subscription_cancel_at_period_end = ?,
       pro_expires_at = ?
@@ -318,6 +328,8 @@ router.post("/subscription-updated", (req, res) => {
     status,
     customerId || null,
     subscriptionId,
+    subscriptionId || null,
+    customerId || null,
     periodEndIso,
     cancelAtEnd,
     periodEndIso,

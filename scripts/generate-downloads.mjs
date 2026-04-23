@@ -39,19 +39,34 @@ function hslToHex(h, s, l) {
   return `#${[r, g, b].map((c) => c.toString(16).padStart(2, "0")).join("").toUpperCase()}`;
 }
 
-// Color catalog (mirrors src/data/colors.ts)
+// ---------------------------------------------------------------------------
+// Color catalog — MUST stay in sync with src/data/colors.ts
+//
+// Contract (enforced by `assertCatalogContract()` below):
+//   - 48 chromatic hue roots, 14 lightness bands, 8 chroma bands → 5,376 IDs
+//   - 5 neutral gray roots, 14 lightness bands (no chroma suffix) → 70 IDs
+//   - Total: 5,446 color IDs
+//
+// This file is .mjs so Next.js prebuild can call it without ts-node / tsx.
+// If you add or rename roots, update src/data/colors.ts AND this file, or the
+// contract test at `assertCatalogContract()` will fail the build.
+// ---------------------------------------------------------------------------
 const HUE_CATALOG = [
-  { name: "Crimson", hue: 0 }, { name: "Ruby", hue: 10 }, { name: "Ember", hue: 20 },
-  { name: "Coral", hue: 30 }, { name: "Apricot", hue: 40 }, { name: "Amber", hue: 50 },
-  { name: "Citrine", hue: 60 }, { name: "Honey", hue: 70 }, { name: "Olive", hue: 80 },
+  { name: "Crimson", hue: 0 }, { name: "Scarlet", hue: 5 }, { name: "Ruby", hue: 10 },
+  { name: "Vermillion", hue: 15 }, { name: "Ember", hue: 20 }, { name: "Tangerine", hue: 25 },
+  { name: "Coral", hue: 30 }, { name: "Apricot", hue: 40 }, { name: "Saffron", hue: 45 },
+  { name: "Amber", hue: 50 }, { name: "Canary", hue: 55 }, { name: "Citrine", hue: 60 },
+  { name: "Honey", hue: 70 }, { name: "Chartreuse", hue: 75 }, { name: "Olive", hue: 80 },
   { name: "Lime", hue: 90 }, { name: "Moss", hue: 100 }, { name: "Leaf", hue: 110 },
-  { name: "Emerald", hue: 120 }, { name: "Mint", hue: 130 }, { name: "Seafoam", hue: 140 },
-  { name: "Jade", hue: 150 }, { name: "Teal", hue: 160 }, { name: "Lagoon", hue: 170 },
+  { name: "Clover", hue: 115 }, { name: "Emerald", hue: 120 }, { name: "Mint", hue: 130 },
+  { name: "Seafoam", hue: 140 }, { name: "Celadon", hue: 145 }, { name: "Jade", hue: 150 },
+  { name: "Teal", hue: 160 }, { name: "Lagoon", hue: 170 }, { name: "Cyan", hue: 175 },
   { name: "Aqua", hue: 180 }, { name: "Cerulean", hue: 190 }, { name: "Azure", hue: 200 },
-  { name: "Sapphire", hue: 210 }, { name: "Cobalt", hue: 220 }, { name: "Indigo", hue: 230 },
-  { name: "Iris", hue: 240 }, { name: "Violet", hue: 250 }, { name: "Orchid", hue: 260 },
-  { name: "Plum", hue: 270 }, { name: "Mulberry", hue: 280 }, { name: "Magenta", hue: 290 },
-  { name: "Fuchsia", hue: 300 }, { name: "Peony", hue: 310 }, { name: "Rose", hue: 320 },
+  { name: "Steel", hue: 205 }, { name: "Sapphire", hue: 210 }, { name: "Cobalt", hue: 220 },
+  { name: "Indigo", hue: 230 }, { name: "Iris", hue: 240 }, { name: "Amethyst", hue: 245 },
+  { name: "Violet", hue: 250 }, { name: "Orchid", hue: 260 }, { name: "Plum", hue: 270 },
+  { name: "Mulberry", hue: 280 }, { name: "Magenta", hue: 290 }, { name: "Fuchsia", hue: 300 },
+  { name: "Mauve", hue: 305 }, { name: "Peony", hue: 310 }, { name: "Rose", hue: 320 },
   { name: "Blush", hue: 330 }, { name: "Garnet", hue: 340 }, { name: "Merlot", hue: 350 },
 ];
 const LIGHTNESS_CATALOG = [
@@ -62,8 +77,33 @@ const LIGHTNESS_CATALOG = [
   { name: "Nocturne", l: 20 }, { name: "Ink", l: 14 },
 ];
 const CHROMA_CATALOG = [
-  { name: "Muted", s: 18 }, { name: "Soft", s: 34 }, { name: "Clear", s: 54 }, { name: "Vivid", s: 74 },
+  { name: "Faint", s: 10 }, { name: "Muted", s: 18 }, { name: "Dust", s: 26 },
+  { name: "Soft", s: 34 }, { name: "Clear", s: 54 }, { name: "Vivid", s: 74 },
+  { name: "Bright", s: 84 }, { name: "Pure", s: 92 },
 ];
+const NEUTRAL_CATALOG = [
+  { name: "Warm Gray", hue: 30, saturation: 6 },
+  { name: "Taupe Gray", hue: 40, saturation: 5 },
+  { name: "True Gray", hue: 0, saturation: 0 },
+  { name: "Sage Gray", hue: 150, saturation: 5 },
+  { name: "Cool Gray", hue: 210, saturation: 6 },
+];
+
+function assertCatalogContract() {
+  if (HUE_CATALOG.length !== 48) {
+    throw new Error(`[catalog] expected 48 chromatic roots, got ${HUE_CATALOG.length} — src/data/colors.ts drift`);
+  }
+  if (LIGHTNESS_CATALOG.length !== 14) {
+    throw new Error(`[catalog] expected 14 lightness bands, got ${LIGHTNESS_CATALOG.length}`);
+  }
+  if (CHROMA_CATALOG.length !== 8) {
+    throw new Error(`[catalog] expected 8 chroma bands, got ${CHROMA_CATALOG.length}`);
+  }
+  if (NEUTRAL_CATALOG.length !== 5) {
+    throw new Error(`[catalog] expected 5 neutral gray roots, got ${NEUTRAL_CATALOG.length}`);
+  }
+}
+assertCatalogContract();
 
 function createId(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -78,7 +118,7 @@ function escapeXml(value) {
     .replaceAll("'", "&apos;");
 }
 
-// Build color lookup map
+// Build color lookup map — 5,446 IDs total (5,376 chromatic + 70 neutral)
 const colorMap = new Map();
 for (const { name: hueName, hue } of HUE_CATALOG) {
   for (const { name: lName, l } of LIGHTNESS_CATALOG) {
@@ -88,6 +128,18 @@ for (const { name: hueName, hue } of HUE_CATALOG) {
       colorMap.set(id, { name: colorName, hex: hslToHex(hue, s, l), hsl: `hsl(${hue}, ${s}%, ${l}%)`, hue, saturation: s, lightness: l });
     }
   }
+}
+// Neutrals: no chroma suffix
+for (const { name: neutralName, hue, saturation: s } of NEUTRAL_CATALOG) {
+  for (const { name: lName, l } of LIGHTNESS_CATALOG) {
+    const colorName = `${neutralName} ${lName}`;
+    const id = createId(colorName);
+    colorMap.set(id, { name: colorName, hex: hslToHex(hue, s, l), hsl: `hsl(${hue}, ${s}%, ${l}%)`, hue, saturation: s, lightness: l });
+  }
+}
+// Contract: 48×14×8 + 5×14 = 5376 + 70 = 5446
+if (colorMap.size !== 5446) {
+  throw new Error(`[catalog] expected 5446 colors, built ${colorMap.size} — review catalog`);
 }
 
 // Collection definitions (mirrors src/lib/collections.ts)

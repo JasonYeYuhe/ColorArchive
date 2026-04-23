@@ -452,14 +452,64 @@ router.get("/webhook", (req, res) => {
 /**
  * POST /instagram/webhook
  * Receives webhook events (comments, messages, etc).
- * Logs them for now; can be extended to trigger actions.
+ *
+ * Meta signs the payload body with HMAC SHA-256 using the Facebook app secret,
+ * and sends the digest as `x-hub-signature-256: sha256=<hex>`. We verify the
+ * signature before trusting any field. Requests that don't match are dropped
+ * with 403.
+ *
+ * Missing / empty FB_APP_SECRET → fail closed with 503 (don't silently accept).
  */
-router.post("/webhook", (req, res) => {
-  const body = req.body;
-  console.log("[instagram] Webhook event:", JSON.stringify(body).slice(0, 500));
-  // Always return 200 quickly to acknowledge receipt
-  return res.sendStatus(200);
-});
+router.post(
+  "/webhook",
+  express.raw({ type: "*/*", limit: "1mb" }),
+  (req, res) => {
+    if (!FB_APP_SECRET) {
+      console.error("[instagram] FB_APP_SECRET not configured; refusing webhook");
+      return res.status(503).json({ error: "Webhook receiver not configured" });
+    }
+
+    const signatureHeader = req.get("x-hub-signature-256");
+    if (!signatureHeader || !signatureHeader.startsWith("sha256=")) {
+      console.warn("[instagram] Missing or malformed x-hub-signature-256 header");
+      return res.sendStatus(403);
+    }
+
+    const expected = crypto
+      .createHmac("sha256", FB_APP_SECRET)
+      .update(req.body)
+      .digest("hex");
+    const received = signatureHeader.slice("sha256=".length);
+
+    let valid = false;
+    try {
+      valid = crypto.timingSafeEqual(
+        Buffer.from(expected, "hex"),
+        Buffer.from(received, "hex")
+      );
+    } catch {
+      valid = false;
+    }
+
+    if (!valid) {
+      console.warn("[instagram] Webhook HMAC mismatch — dropping event");
+      return res.sendStatus(403);
+    }
+
+    let body;
+    try {
+      body = JSON.parse(req.body.toString("utf8"));
+    } catch {
+      return res.status(400).json({ error: "Invalid JSON" });
+    }
+
+    console.log(
+      "[instagram] Webhook event (verified):",
+      JSON.stringify(body).slice(0, 500)
+    );
+    return res.sendStatus(200);
+  }
+);
 
 /* ── Auto Token Refresh ──────────────────────────────────── */
 

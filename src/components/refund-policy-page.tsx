@@ -47,18 +47,20 @@ If you did not receive access or the product is defective, your statutory rights
   },
   {
     title: "6. How to Request a Refund",
-    content: `To request a refund (for web purchases via Stripe), please contact us at **support@colorarchive.org** with:
+    content: `To request a refund for a web purchase (processed by Lemon Squeezy), please contact us at **support@colorarchive.org** with:
 
 - Your order confirmation email or order ID.
 - A description of the issue you experienced.
 - Any relevant screenshots or error messages.
 
-We aim to respond to all refund requests within 2 business days.`,
+For iOS in-app purchases, refunds must be requested directly through Apple at [reportaproblem.apple.com](https://reportaproblem.apple.com) — we cannot process App Store refunds on your behalf.
+
+We aim to respond to all web refund requests within 2 business days.`,
   },
   {
     title: "7. Payment Provider",
     content:
-      "Web purchases are processed through Stripe. Refunds are returned to the same payment method used for the original purchase. Depending on your payment provider and financial institution, it may take 5–10 business days for the refund to appear on your statement.",
+      "Web purchases are processed through Lemon Squeezy (our Merchant of Record). Refunds are returned to the same payment method used for the original purchase. Depending on your card issuer and bank, it may take 5–10 business days for the refund to appear on your statement. iOS in-app purchases are handled by Apple under Apple's refund policy.",
   },
   {
     title: "8. Changes to This Policy",
