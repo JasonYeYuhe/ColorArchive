@@ -1,3 +1,58 @@
+## 2026-04-24 17:50 UTC — Known issues parked, review session terminates
+
+Stopping the debug spiral after peeling four layers on Sentry client init.
+Server-side Sentry on Droplet IS working (confirmed `[sentry] initialized`
+and Gemini 404 errors are now captured). Frontend Sentry is still not
+creating a hub/client despite:
+
+- DSN correctly set on Vercel prod as non-sensitive, visible in `vercel env pull`
+- DSN inlined into the deployed bundle (verified: bundle contains the org ID
+  `4511263220891648`, project ID `4511272715812864`, and DSN prefix)
+- File renamed from `sentry.client.config.ts` to `instrumentation-client.ts`
+  per @sentry/nextjs v10's documented convention
+  (`buildTime.d.ts`: "Reads the project's instrumentation-client.(js|ts)")
+- Our config markers (`replaysOnErrorSampleRate:1`, `onRouterTransitionStart`)
+  present in the built chunk at /_next/static/chunks/95b8550d*.js
+- Sentry's Next.js integration globals set (`_sentryRouteManifest`,
+  `_sentryRewritesTunnelPath`, `__sentry_instrumentation_handlers__`,
+  `__SENTRY__["10.50.0"]` populated with SDK internal scope)
+
+But `__SENTRY__["10.50.0"].globalClient` is absent — meaning `Sentry.init()`
+never actually completed. Our module-level code IS in the bundle. Either
+the Next.js `require('private-next-instrumentation-client')` alias isn't
+firing for our file, or init is throwing silently.
+
+**KNOWN ISSUE 1**: Frontend Sentry not capturing. Needs a fresh look with
+@sentry/nextjs's debug mode on, or a Sentry support ticket. Not debug spiraling
+further today — 4+ hours already spent on observability that still isn't
+observing. Docs and tests unblock; server observability works.
+
+**KNOWN ISSUE 2**: React hydration error #418 on /palette-audit/ (and
+possibly other pages — not audited). Pre-existing, surfaced during the
+Chrome MCP verification. Separate from Sentry wiring — a real user bug
+we should fix. Candidates: a SAMPLE_INPUT mismatch pattern, a locale
+hydration mismatch, or a Week 3 a11y change producing different
+server/client output. Also parked for a fresh session.
+
+### Three-round review meta-lesson
+
+Starting count of "things that claimed to work": 4 (Sentry front+back,
+Gemini, LS billing, checkout funnel). After three rounds:
+- Gemini: broken since 2026-04-23, now fixed + verified end-to-end
+- Sentry server: **actually** worked the whole time (confirmed from logs)
+- Sentry frontend: completely inert since Week 2; partial fix (renamed +
+  env vars) but still not initializing — parked
+- LS billing UI: fixed Week 1; no way to verify without a real LS
+  subscriber testing Manage button
+- Checkout funnel: endpoint works (curl-verified); no real traffic to
+  confirm frontend integration
+
+Pattern: "logs say initialized" / "deploy Ready" / "tests pass" are weak
+signals. Actual verification = use the feature end-to-end. For a solo
+dev this is brutal time-wise but the only way.
+
+---
+
 ## 2026-04-24 16:15 UTC — Review round 3: silent Sentry DSN bug in Vercel prod
 
 User kept asking me to review. This round found the single biggest bug of

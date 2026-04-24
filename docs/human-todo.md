@@ -3,6 +3,25 @@
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 > Last updated: 2026-04-24
 
+## Parked from 2026-04-24 review marathon
+
+- [ ] **Frontend Sentry still not capturing events despite 4 layers of fixes.**
+      DSN correctly set on Vercel; bundle contains our config + DSN IDs;
+      Sentry SDK loaded at runtime; but `Sentry.init()` never creates a
+      hub. Likely a @sentry/nextjs v10 + Next.js 16 + Turbopack
+      interaction. Next step: enable Sentry `debug: true` in the config
+      and inspect console; or open a Sentry support ticket with the
+      deploy-id repro. Server-side Sentry on Droplet works fine.
+      See [docs/autopilot-log.md](./autopilot-log.md) 2026-04-24 17:50
+      for full trail.
+
+- [ ] **React hydration error #418 on /palette-audit/** (possibly
+      other pages — unaudited). Surfaced in Chrome MCP during the Sentry
+      verification. Separate bug, not caused by Sentry wiring. Candidates:
+      locale mismatch, SAMPLE_INPUT render-time divergence, or a Week 3
+      a11y change producing different server/client output. Needs fresh
+      eyes.
+
 ## P0 — Blocking real users today
 - [x] **GCP OAuth Console** — ~~add `.org` redirect URI~~ **VERIFIED RESOLVED
       2026-04-24**. Redirect URI, JS origin, and Authorized domain all already
