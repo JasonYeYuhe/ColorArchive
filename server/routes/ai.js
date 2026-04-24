@@ -4,12 +4,16 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { aiRateLimit } = require("../ai-rate-limit");
 
 // Default model name. Previously hardcoded to `gemini-3-flash` across five
-// call sites — that model does not exist and the Droplet logs showed it
-// 404-ing on every real AI request since at least 2026-04-23. Defaulting to
-// `gemini-1.5-flash` which is widely available, cheap, and supported by
-// @google/generative-ai ^0.21. Overridable via env var so we can flip without
-// redeploying when the next-gen model ships (set GEMINI_MODEL on the Droplet).
-const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+// call sites — that exact model name does not exist and the Droplet logs
+// showed it 404-ing on every real AI request since at least 2026-04-23.
+//
+// The live API-key inventory (curl .../v1beta/models) has: gemini-2.5-flash,
+// gemini-2.5-pro, gemini-2.0-flash, gemini-3-flash-preview, gemini-3-pro-preview,
+// gemini-3.1-pro-preview, and aliases gemini-flash-latest / gemini-pro-latest.
+// No 1.5 series at all. Defaulting to gemini-2.5-flash — GA, cheap, widely
+// documented. Overridable via GEMINI_MODEL env var so we can flip to
+// gemini-3-flash-preview or gemini-3.1-* later without a redeploy.
+const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
 function getClient() {
   return new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);

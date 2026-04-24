@@ -1,6 +1,6 @@
 {
-  "active": null,
-  "lockedBy": null,
-  "lockedAt": null,
-  "message": null
+  "active": true,
+  "lockedBy": "remote",
+  "lockedAt": "2026-04-24T04:12:15Z",
+  "message": "rotation-automation"
 }
