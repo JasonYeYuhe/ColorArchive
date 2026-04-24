@@ -4,7 +4,7 @@
     "date": "2026-06-04",
     "title": "Palette Audit: named-nearest matching against 5,446 colors, free and client-side",
     "summary": "We just shipped a tool that takes any block of CSS, Tailwind config, or token JSON and returns: the named ColorArchive match for every color, near-duplicate clusters, every pairwise WCAG AA contrast failure, and specific swap-to-fix suggestions. Runs entirely in your browser.",
-    "eyebrow": "Issue 029",
+    "eyebrow": "Product Update",
     "tags": [
       "Design Tokens",
       "Accessibility",

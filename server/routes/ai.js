@@ -3,6 +3,14 @@ const router = express.Router();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { aiRateLimit } = require("../ai-rate-limit");
 
+// Default model name. Previously hardcoded to `gemini-3-flash` across five
+// call sites — that model does not exist and the Droplet logs showed it
+// 404-ing on every real AI request since at least 2026-04-23. Defaulting to
+// `gemini-1.5-flash` which is widely available, cheap, and supported by
+// @google/generative-ai ^0.21. Overridable via env var so we can flip without
+// redeploying when the next-gen model ships (set GEMINI_MODEL on the Droplet).
+const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+
 function getClient() {
   return new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
 }
@@ -60,7 +68,7 @@ Respond ONLY with a valid JSON object in this exact format:
 No markdown, no explanation outside the JSON. Pure JSON only.`;
 
   try {
-    const model = getClient().getGenerativeModel({ model: "gemini-3-flash" });
+    const model = getClient().getGenerativeModel({ model: DEFAULT_GEMINI_MODEL });
     const result = await model.generateContent(prompt);
     const text = result.response.text();
 
@@ -133,7 +141,7 @@ Respond ONLY with valid JSON in this exact format:
 No markdown, no explanation outside the JSON. Pure JSON only.`;
 
   try {
-    const model = getClient().getGenerativeModel({ model: "gemini-3-flash" });
+    const model = getClient().getGenerativeModel({ model: DEFAULT_GEMINI_MODEL });
     const result = await model.generateContent(prompt);
     const text = result.response.text();
 
@@ -208,7 +216,7 @@ Respond ONLY with valid JSON in this exact format:
 No markdown, no explanation outside the JSON. Pure JSON only.`;
 
   try {
-    const model = getClient().getGenerativeModel({ model: "gemini-3-flash" });
+    const model = getClient().getGenerativeModel({ model: DEFAULT_GEMINI_MODEL });
     const result = await model.generateContent(instruction);
     const text = result.response.text();
 
@@ -326,7 +334,7 @@ Respond ONLY with valid JSON in this exact format:
 No markdown, no explanation outside the JSON. Pure JSON only.`;
 
   try {
-    const model = getClient().getGenerativeModel({ model: "gemini-3-flash" });
+    const model = getClient().getGenerativeModel({ model: DEFAULT_GEMINI_MODEL });
     const result = await model.generateContent(prompt);
     const text = result.response.text();
 

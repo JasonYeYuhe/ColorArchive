@@ -23,6 +23,9 @@ const nextConfig: NextConfig = {
 // so the server/edge runtimes register Sentry via instrumentation.ts.
 // Source-map upload is a no-op unless SENTRY_AUTH_TOKEN is set — keeps local
 // builds fast and the CI / Vercel build path the same.
+//
+// disableLogger + automaticVercelMonitors moved under webpack.* per the
+// @sentry/nextjs deprecation warnings that surfaced in dev server output.
 export default withSentryConfig(nextConfig, {
   org: "jason-yeyuhe",
   project: "colorarchive-web",
@@ -31,6 +34,10 @@ export default withSentryConfig(nextConfig, {
   // Tunnel to dodge aggressive ad-blockers; safe to enable because events
   // go through our own /monitoring route before Sentry.
   tunnelRoute: "/monitoring",
-  disableLogger: true,
-  automaticVercelMonitors: true,
+  webpack: {
+    treeshake: {
+      removeDebugLogging: true,
+    },
+    automaticVercelMonitors: true,
+  },
 });
