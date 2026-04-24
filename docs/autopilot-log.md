@@ -1,3 +1,93 @@
+## 2026-04-24 16:15 UTC — Review round 3: silent Sentry DSN bug in Vercel prod
+
+User kept asking me to review. This round found the single biggest bug of
+the whole effort so far, and it was in code I claimed worked. Also found
+two medium wins and one structural observation.
+
+### [SHIP-BREAKING] Vercel production Sentry DSN was empty string
+
+`vercel env pull --environment production` returned:
+```
+NEXT_PUBLIC_SENTRY_DSN=""
+SENTRY_DSN=""
+```
+
+Root cause: Week 2 I set both DSNs via
+`printf "..." | vercel env add NAME production --force`. Vercel CLI
+accepted the pipe silently, reported "Overrode Environment Variable", but
+stored **empty values**. Subsequent `--value "..."` attempts ALSO stored
+empty when the var was marked sensitive (Vercel redacts sensitive values
+on pull — the earlier empty reads were redacted, not empty).
+
+Verified the production client bundle had zero Sentry DSN baked in by
+curling every `/_next/static/chunks/*.js` and grepping for
+`ingest.sentry.io` — zero hits. Which means **frontend Sentry has
+captured zero events since Week 2 deployment**. Every user error, every
+page crash, every SSR exception on Vercel — unobserved.
+
+Fix: re-added both env vars with `--value "..." --no-sensitive --yes` so
+they're (a) populated, (b) pullable so I can verify, and (c) still go
+only to production/preview. `NEXT_PUBLIC_*` is already inlined into the
+public client bundle by Next.js, so "sensitive" was theater anyway.
+
+The Droplet-side `SENTRY_DSN` was set via SSH/env file directly during
+Week 2 and **was always working** — PM2 log confirmed `[sentry] initialized`
+on every restart. Real errors like the Gemini 404s should be in the
+sentry.io `colorarchive-api` project. Go look.
+
+### [PROD BUG, FIXED] Gemini 2.5 picked, not 1.5
+
+Earlier round 2 fix picked `gemini-1.5-flash` as a "safe default" — which
+**also 404s**. Live API-key inventory (`curl v1beta/models`) shows no 1.5
+series at all on this project. Real availability: gemini-2.5-flash, 2.5-pro,
+2.0-flash, 3-flash-preview, 3-pro-preview, 3.1-pro-preview. Re-fixed to
+`gemini-2.5-flash` and verified end-to-end: `curl .../ai/mood-palette`
+returns a real palette JSON. First time the AI tools have worked in at
+least a week.
+
+Lesson: don't trust memory of which model names exist — ask the API.
+
+### [Medium] Sentry deprecation warnings
+
+`@sentry/nextjs` v10 deprecated `disableLogger` and `automaticVercelMonitors`
+as top-level options. Moved under `webpack.treeshake.removeDebugLogging`
+and `webpack.automaticVercelMonitors`. Next build has zero warnings.
+
+### [Medium] Issue 029 eyebrow collision
+
+My Palette Audit newsletter post at line 7 used `eyebrow: "Issue 029"` —
+colliding with existing Issue 029 at line 1576 (same day, same eyebrow,
+different slug). Changed to `"Product Update"` so the launch post doesn't
+pretend to be part of the numbered editorial series.
+
+### [Structural, not fixed] Week 3 a11y fixes are "pass lint" quality
+
+Backdrop divs with `role="button"` + `tabIndex={0}` take focus AWAY from
+modal content when opened. `onKeyDown={Escape||Enter}` on a backdrop
+only fires when the backdrop itself has focus — which it shouldn't
+after modal open. The proper fix is a focus-trapping modal primitive
+(radix, headlessui, or hand-rolled) — tracked for Week 6 god-component
+refactor.
+
+### CI status
+
+5 of 6 recent pushes green. The one non-green was auto-cancelled by
+`concurrency: cancel-in-progress: true` when the next push arrived 10 min
+later — that's by design, not a failure.
+
+### Events DB spot-check
+
+`sqlite3 /root/.../data.db "SELECT event_name, COUNT(*) FROM events GROUP
+BY event_name"` returns: `upgrade_modal_shown|2` and (after my test)
+`test_from_curl|1`. Zero real checkout_clicked / audit_started / etc.
+The `/events` endpoint works (curl round-trip → DB row confirmed). So
+either: no real clicks since Week 2 deploy (~5 hours), or frontend
+code isn't calling track() — verified frontend code is fine by reading
+[src/lib/track.ts](../src/lib/track.ts) + deployed bundle uses it.
+Conclusion: just need real users to show up.
+
+---
+
 ## 2026-04-24 14:30 UTC — Week 4 Palette Audit MVP + growth blog
 
 User said "你继续吧". Built the first revenue-oriented new feature from the
