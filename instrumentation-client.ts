@@ -1,3 +1,13 @@
+// This file is the Next.js 15+ client-runtime instrumentation entry for
+// @sentry/nextjs v10. Previously named `sentry.client.config.ts` — that
+// legacy name was silently ignored by the v10 bundler, so Sentry never
+// initialized on the client and we were blind to every browser-side error
+// from Week 2 (deploy 2026-04-17) until this fix (2026-04-24).
+//
+// Renaming to `instrumentation-client.ts` (plus exporting onRouterTransitionStart)
+// is the canonical v10 wiring per node_modules/@sentry/nextjs/build/types/
+// config/withSentryConfig/buildTime.d.ts.
+
 import * as Sentry from "@sentry/nextjs";
 
 const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
@@ -30,3 +40,7 @@ if (dsn) {
       typeof window !== "undefined",
   });
 }
+
+// Required export for Next.js 15+ app-router instrumentation so Sentry
+// can attach router-transition spans to page navigations.
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
