@@ -4,7 +4,8 @@ import path from "path";
 export default defineConfig({
   test: {
     globals: true,
-    exclude: ["node_modules", "e2e"],
+    // server/__tests__ runs via `npm run test:server` using node:test, not vitest.
+    exclude: ["node_modules", "e2e", "server/**"],
     testTimeout: 15000,
   },
   resolve: {
