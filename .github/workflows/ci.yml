@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install server dependencies
+        run: npm ci --prefix server
+
+      # Type-check the full Next.js project. Fast (~15s), catches API
+      # regressions that tests would miss.
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Lint is allowed to fail until the Week-3 cleanup (see dev-plan-2026-04-23).
+      # Report via echo so the job stays green; flip `continue-on-error` to
+      # false once the baseline hits 0.
+      - name: Lint (non-blocking)
+        run: npm run lint
+        continue-on-error: true
+
+      # Full test suite: 508 vitest + 11 node:test = 519 assertions as of
+      # 2026-04-24. Covers color data, color utilities, collection prose lint,
+      # and the StoreKit JWS contract.
+      - name: Tests
+        run: npm test
+
+      # Smoke: make sure the production build still succeeds (catches breakage
+      # that only shows up at build time — static page generation, sitemap,
+      # Sentry source-map upload, etc.).
+      - name: Production build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://colorarchive.org
+          NEXT_PUBLIC_API_URL: https://api.colorarchive.org
+          # Sentry auth token is intentionally omitted in CI — source maps
+          # still upload from Vercel deploys where the token is set. Omitting
+          # here keeps CI from needing an org-level secret.

@@ -1,4 +1,9 @@
 require("dotenv").config();
+
+// IMPORTANT: Sentry must load BEFORE express + route modules so it can patch
+// Node's http/https for auto-instrumentation. Idempotent + safe when DSN unset.
+const { Sentry, enabled: sentryEnabled } = require("./sentry");
+
 const express = require("express");
 const cors = require("cors");
 
@@ -71,13 +76,27 @@ app.get("/health", (_, res) => res.json({ ok: true, uptime: process.uptime() }))
 // Global error handlers
 process.on("unhandledRejection", (reason) => {
   console.error("[FATAL] Unhandled rejection:", reason);
+  if (sentryEnabled) {
+    Sentry.captureException(reason);
+  }
 });
 
 process.on("uncaughtException", (err) => {
   console.error("[FATAL] Uncaught exception:", err);
-  // Let PM2 restart the process
-  process.exit(1);
+  if (sentryEnabled) {
+    Sentry.captureException(err);
+    // Best-effort flush before exit — PM2 will restart us.
+    Sentry.close(2000).finally(() => process.exit(1));
+  } else {
+    process.exit(1);
+  }
 });
+
+// Sentry error handler must be the LAST middleware before any custom error
+// handler. Captures any error that bubbles out of a route.
+if (sentryEnabled) {
+  Sentry.setupExpressErrorHandler(app);
+}
 
 app.listen(PORT, () => {
   console.log(`ColorArchive server running on port ${PORT}`);

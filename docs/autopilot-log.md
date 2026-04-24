@@ -1,3 +1,59 @@
+## 2026-04-24 12:00 UTC — Week 2 observability: Sentry wired frontend + backend + checkout funnel + CI
+
+User said "你直接开始吧 你可以直接用我的chrome来配置sentry". Executed Week 2 plan
+in full autonomy.
+
+**Sentry projects (Chrome MCP + sentry.io UI)**:
+- Created `colorarchive-web` (Next.js) — DSN ending `/4511272715812864`
+- Created `colorarchive-api` (Express/Node) — DSN ending `/4511272720924672`
+- Both under org `jason-yeyuhe`, team `#jason-yeyuhe`, alert on high-priority issues
+
+**Next.js wiring**:
+- Installed `@sentry/nextjs`, wrapped `next.config.ts` with `withSentryConfig`
+- Created `sentry.client.config.ts` (browser; replay on-error-only; 10% tracing in prod)
+- Created `sentry.server.config.ts` + `sentry.edge.config.ts`
+- Added `instrumentation.ts` registering Sentry via Next.js 15+ convention
+- Tunnel route `/monitoring` to dodge ad-blockers; source maps upload when
+  `SENTRY_AUTH_TOKEN` set (no-op otherwise, keeps local builds fast)
+- Env vars added to Vercel production via Vercel CLI:
+  - `NEXT_PUBLIC_SENTRY_DSN` (browser; public by design)
+  - `SENTRY_DSN` (server runtime + edge)
+
+**Express wiring**:
+- Installed `@sentry/node` in `server/`
+- `server/sentry.js` idempotent init (no-DSN = Sentry disabled, boots fine)
+- Required at the TOP of `server/index.js` BEFORE any route modules — so the
+  SDK can patch http/https for auto-instrumentation
+- Wired `Sentry.setupExpressErrorHandler(app)` after all routes
+- Extended `process.on("uncaughtException"|"unhandledRejection")` to capture
+  to Sentry with a 2s flush before exit
+- Added `SENTRY_DSN` to Droplet `.env` (deploy still pending on Droplet side)
+
+**Checkout funnel instrumentation** (`src/components/checkout-button.tsx`):
+- Emits `checkout_clicked`, `checkout_redirected`, `checkout_failed` events with
+  plan + provider + mode as props. Uses existing `src/lib/track.ts` (sendBeacon,
+  fire-and-forget). Events land in `server/routes/events.js` → `events` table;
+  queryable by `/events/summary`.
+- This is the first funnel measurement point in the project — previously
+  Checkout was 0-instrumented. Week 3 will wire the admin dashboard.
+
+**CI restored** (`.github/workflows/ci.yml`):
+- Runs on push + PR to `main`, plus `workflow_dispatch`
+- Jobs: typecheck → lint (non-blocking, flips to blocking after Week 3 cleanup)
+  → test (519 assertions) → production build
+- Installs both root + server npm deps
+- Replaces the old `deploy-pages.yml.disabled` (which was for GitHub Pages,
+  obsolete since Vercel migration); file deleted.
+
+**Manual follow-up for Droplet**:
+- SSH `root@143.198.85.72`, `cd /root/ColorArchive`, `git pull`,
+  `cd server && npm install && pm2 restart colorarchive-server`.
+  Until that's done, backend Sentry is disabled even though the DSN is in `.env`
+  (the code requiring Sentry isn't deployed yet). Next committed push will
+  deploy automatically if there's a deploy hook; otherwise manual.
+
+---
+
 ## 2026-04-24 02:10 UTC — GCP OAuth redirect_uri fix verified (remote, Chrome MCP)
 
 User asked Claude to handle the remaining manual items via Chrome MCP. Verified the GCP
