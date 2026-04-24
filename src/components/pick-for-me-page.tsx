@@ -376,6 +376,7 @@ export function PickForMePage({ colors, collections }: { colors: ColorRecord[]; 
               onChange={(e) => setInput(e.target.value)}
               placeholder={t.placeholder}
               className="flex-1 rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/20 dark:bg-neutral-800 dark:border-white/10 dark:text-white dark:placeholder:text-neutral-500"
+              // eslint-disable-next-line jsx-a11y/no-autofocus -- primary input on a dedicated tool page; expected behavior
               autoFocus
             />
             <button

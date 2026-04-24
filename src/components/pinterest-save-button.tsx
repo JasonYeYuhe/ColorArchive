@@ -47,10 +47,19 @@ function BoardPickerModal({
   const { t } = useLocale();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" onClick={onClose}>
+    <div
+      role="button"
+      tabIndex={0}
+      aria-label="Close"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+      onClick={onClose}
+      onKeyDown={(e) => { if (e.key === "Escape" || e.key === "Enter") { e.preventDefault(); onClose(); } }}
+    >
       <div
+        role="presentation"
         className="relative mx-4 w-full max-w-sm rounded-3xl border border-black/8 bg-white p-6 shadow-2xl dark:border-white/10 dark:bg-neutral-900"
         onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
       >
         {/* Close button */}
         <button

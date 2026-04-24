@@ -489,10 +489,11 @@ export function ColorBlindSimulatorPage() {
         <div>
           {/* Palette input */}
           <div className="mb-8">
-            <label className="block text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-2">
+            <label htmlFor="colorblind-palette-input" className="block text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-2">
               Hex colors — one per line, comma-separated, or space-separated (max 8)
             </label>
             <textarea
+              id="colorblind-palette-input"
               value={paletteInput}
               onChange={(e) => setPaletteInput(e.target.value)}
               rows={4}

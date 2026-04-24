@@ -187,8 +187,9 @@ function FormatRow({ label, value, copyText }: { label: string; value: string; c
 function HexInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">HEX</label>
+      <label htmlFor="converter-hex" className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">HEX</label>
       <input
+        id="converter-hex"
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -208,8 +209,8 @@ function RgbInput({
   onChange: (field: "r" | "g" | "b", v: string) => void;
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">RGB</label>
+    <div className="flex flex-col gap-1.5" role="group" aria-label="RGB">
+      <div className="text-xs font-semibold text-neutral-500 dark:text-neutral-400" aria-hidden="true">RGB</div>
       <div className="grid grid-cols-3 gap-2">
         {(["r", "g", "b"] as const).map((field, idx) => (
           <div key={field} className="flex flex-col gap-1">
@@ -246,8 +247,8 @@ function ThreeChannelInput({
   onChange: (idx: 0 | 1 | 2, v: string) => void;
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">{label}</label>
+    <div className="flex flex-col gap-1.5" role="group" aria-label={label}>
+      <div className="text-xs font-semibold text-neutral-500 dark:text-neutral-400" aria-hidden="true">{label}</div>
       <div className="grid grid-cols-3 gap-2">
         {labels.map((lbl, idx) => (
           <div key={lbl} className="flex flex-col gap-1">
@@ -274,8 +275,8 @@ function CmykInput({
   onChange: (field: "c" | "m" | "y" | "k", v: string) => void;
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">CMYK</label>
+    <div className="flex flex-col gap-1.5" role="group" aria-label="CMYK">
+      <div className="text-xs font-semibold text-neutral-500 dark:text-neutral-400" aria-hidden="true">CMYK</div>
       <div className="grid grid-cols-4 gap-2">
         {(["c", "m", "y", "k"] as const).map((field) => (
           <div key={field} className="flex flex-col gap-1">

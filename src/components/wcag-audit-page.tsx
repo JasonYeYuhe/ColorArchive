@@ -169,10 +169,11 @@ export function WcagAuditPage() {
       {/* Input */}
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="rounded-2xl border border-black/6 bg-white/60 p-5 dark:border-white/8 dark:bg-white/4">
-          <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400">
+          <label htmlFor="wcag-hex-input" className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400">
             Hex Colors (up to 10)
           </label>
           <textarea
+            id="wcag-hex-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             rows={5}

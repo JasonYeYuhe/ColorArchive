@@ -354,7 +354,7 @@ export function TokenGeneratorPage() {
           <div className="grid gap-6 sm:grid-cols-2">
             {/* Color picker */}
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              <label htmlFor="token-primary-hex" className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 Brand Primary Color
               </label>
               <div className="flex items-center gap-3">
@@ -368,6 +368,7 @@ export function TokenGeneratorPage() {
                   />
                 </div>
                 <input
+                  id="token-primary-hex"
                   type="text"
                   value={inputHex}
                   onChange={(e) => handleHexChange(e.target.value)}
@@ -388,10 +389,11 @@ export function TokenGeneratorPage() {
 
             {/* Variable name */}
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              <label htmlFor="token-var-name" className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 Token Name (for primary scale)
               </label>
               <input
+                id="token-var-name"
                 type="text"
                 value={varName}
                 onChange={(e) => setVarName(e.target.value.replace(/[^a-zA-Z0-9-_]/g, "").toLowerCase() || "brand")}

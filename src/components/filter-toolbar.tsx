@@ -42,7 +42,6 @@ export const FilterToolbar = memo(function FilterToolbar({
     <section
       id="archive"
       className="glass-panel rounded-[1.75rem] p-4 sm:p-5 lg:sticky lg:top-4 lg:z-10"
-      role="region"
       aria-label="Color filters"
     >
       <div className="flex flex-col gap-4">

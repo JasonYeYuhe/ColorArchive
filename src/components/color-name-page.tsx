@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { generateColorName, nearestColor } from "@/src/lib/color-naming";
@@ -96,7 +96,7 @@ export function ColorNamePage() {
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start">
         <div className="flex flex-1 gap-2">
           {/* Color picker */}
-          <label className="relative flex h-10 w-10 shrink-0 cursor-pointer overflow-hidden rounded-lg border border-black/10 dark:border-white/10">
+          <label aria-label="Pick a color" className="relative flex h-10 w-10 shrink-0 cursor-pointer overflow-hidden rounded-lg border border-black/10 dark:border-white/10">
             <input
               type="color"
               value={isValidHex(input) ? normalizeHex(input) : "#2563EB"}

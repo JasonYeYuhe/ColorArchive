@@ -436,18 +436,21 @@ function PaletteContent() {
     [importValue],
   );
 
-  if (paletteColors.length === 0) {
-    return <EmptyState colors={allColors} />;
-  }
+  const paletteName =
+    paletteColors.length > 0 ? generatePaletteName(paletteColors) : "";
 
-  const paletteName = generatePaletteName(paletteColors);
-
+  // Keep this effect ABOVE the empty-state early return so hook order stays
+  // stable when the palette empties / refills.
   useEffect(() => {
-    if (isFromUrl) {
+    if (isFromUrl && paletteName) {
       document.title = `${paletteName} — ColorArchive`;
       return () => { document.title = "Palette Builder — ColorArchive"; };
     }
   }, [isFromUrl, paletteName]);
+
+  if (paletteColors.length === 0) {
+    return <EmptyState colors={allColors} />;
+  }
 
   const cssExport = buildPaletteCssExport(paletteColors);
   const jsonExport = buildPaletteJsonExport(paletteColors);

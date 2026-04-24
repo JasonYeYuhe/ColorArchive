@@ -243,9 +243,13 @@ export function MoodPalettePage() {
               return (
                 <div key={i} className="flex flex-col gap-1.5">
                   <div
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Copy ${color.hex}`}
                     className="h-32 sm:h-40 rounded-2xl shadow-sm relative group cursor-pointer"
                     style={{ backgroundColor: color.hex }}
                     onClick={() => copyHex(color.hex, i)}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); copyHex(color.hex, i); } }}
                   >
                     <div
                       className="absolute inset-0 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs font-semibold"

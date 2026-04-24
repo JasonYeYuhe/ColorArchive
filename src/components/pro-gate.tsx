@@ -61,15 +61,17 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
 
   if (!locked) {
     const remaining = tier !== "pro" ? FREE_EXPORTS_PER_DAY - getExportCount() : null;
+    const handleActivate = () => {
+      if (tier !== "pro") {
+        incrementExportCount();
+        if (getExportCount() >= FREE_EXPORTS_PER_DAY) setLocked(true);
+      }
+    };
     return (
       <div
-        onClick={() => {
-          if (tier !== "pro") {
-            incrementExportCount();
-            // Re-check lock after increment
-            if (getExportCount() >= FREE_EXPORTS_PER_DAY) setLocked(true);
-          }
-        }}
+        role="presentation"
+        onClick={handleActivate}
+        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleActivate(); }}
       >
         {children}
         {remaining !== null && remaining <= FREE_EXPORTS_PER_DAY && (

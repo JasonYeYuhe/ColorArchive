@@ -291,10 +291,11 @@ export function ValidatePage() {
       {/* Input */}
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="rounded-2xl border border-black/6 bg-white/60 p-5 backdrop-blur-sm dark:border-white/8 dark:bg-white/4">
-          <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400">
+          <label htmlFor="validate-hex-input" className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400">
             Hex Colors (up to 8)
           </label>
           <textarea
+            id="validate-hex-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             rows={4}

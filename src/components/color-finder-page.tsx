@@ -283,6 +283,9 @@ function ImageMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) {
         </div>
       ) : (
         <div
+          role="button"
+          tabIndex={0}
+          aria-label="Drop an image or click to upload"
           className={`rounded-xl border-2 border-dashed transition-all cursor-pointer flex flex-col items-center justify-center py-16 px-8 text-center ${
             isDragging ? "border-indigo-400 bg-indigo-50" : "border-slate-200 hover:border-slate-300 bg-white"
           }`}
@@ -290,6 +293,7 @@ function ImageMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) {
           onDragLeave={() => setIsDragging(false)}
           onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files[0]; if (f) handleFile(f); }}
           onClick={() => fileInputRef.current?.click()}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInputRef.current?.click(); } }}
         >
           <div className="text-3xl mb-3">🖼</div>
           <p className="text-slate-700 font-medium mb-1">Drop an image or click to upload</p>
@@ -417,7 +421,7 @@ function CameraMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) {
   return (
     <div className="space-y-3">
       <div className="relative rounded-xl overflow-hidden border border-slate-200 bg-black">
-        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+        { }
         <video
           ref={videoRef}
           className="w-full h-auto block max-h-[480px] object-cover"

@@ -80,25 +80,35 @@ export function SaveToProjectButton({ palette, defaultName = "" }: SaveToProject
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setOpen(false)} />
+          <div
+            role="button"
+            tabIndex={0}
+            aria-label="Close"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
+            onKeyDown={(e) => { if (e.key === "Escape" || e.key === "Enter") { e.preventDefault(); setOpen(false); } }}
+          />
           <div className="relative bg-white dark:bg-neutral-900 rounded-2xl shadow-xl max-w-sm w-full p-6 space-y-4">
             <h3 className="text-base font-semibold text-slate-900 dark:text-white">Save to Projects</h3>
 
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Project Name</label>
+              <label htmlFor="save-project-name" className="block text-xs font-medium text-slate-500 mb-1">Project Name</label>
               <input
+                id="save-project-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Acme Brand Refresh"
                 className="w-full text-sm border border-slate-200 dark:border-white/15 rounded-xl px-3 py-2 bg-white dark:bg-transparent text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                // eslint-disable-next-line jsx-a11y/no-autofocus -- intentional: modal opens specifically for this field
                 autoFocus
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Tags <span className="text-slate-300 font-normal">(comma-separated)</span></label>
+              <label htmlFor="save-project-tags" className="block text-xs font-medium text-slate-500 mb-1">Tags <span className="text-slate-300 font-normal">(comma-separated)</span></label>
               <input
+                id="save-project-tags"
                 type="text"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
@@ -108,8 +118,9 @@ export function SaveToProjectButton({ palette, defaultName = "" }: SaveToProject
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Notes <span className="text-slate-300 font-normal">(optional)</span></label>
+              <label htmlFor="save-project-notes" className="block text-xs font-medium text-slate-500 mb-1">Notes <span className="text-slate-300 font-normal">(optional)</span></label>
               <textarea
+                id="save-project-notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={2}

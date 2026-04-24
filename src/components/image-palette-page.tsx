@@ -386,7 +386,7 @@ export function ImagePalettePage() {
       const url = `/image-palette/?ids=${idList.join(",")}`;
       setShareUrl(url);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
 
   const handleFile = useCallback((file: File) => {
@@ -483,6 +483,9 @@ export function ImagePalettePage() {
       <div className="max-w-5xl mx-auto px-4 space-y-8">
         {/* Upload Area */}
         <div
+          role="button"
+          tabIndex={0}
+          aria-label="Drop an image or click to upload"
           className={`relative rounded-2xl border-2 border-dashed transition-all duration-200 cursor-pointer bg-white ${
             isDragging
               ? "border-indigo-400 bg-indigo-50"
@@ -492,6 +495,7 @@ export function ImagePalettePage() {
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInputRef.current?.click(); } }}
         >
           <input
             ref={fileInputRef}
@@ -509,7 +513,7 @@ export function ImagePalettePage() {
                 <img
                   ref={imageRef}
                   src={imageUrl}
-                  alt="Uploaded image"
+                  alt="Uploaded source"
                   className="w-full sm:w-56 h-40 object-cover rounded-xl shadow-sm"
                 />
                 <p className="text-xs text-slate-400 mt-1 truncate max-w-[14rem]">{imageName}</p>
@@ -528,9 +532,13 @@ export function ImagePalettePage() {
                         style={{ minWidth: 52 }}
                       >
                         <div
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`Copy ${color.hex}`}
                           className="w-12 h-12 rounded-lg shadow-sm cursor-pointer hover:scale-110 transition-transform"
                           style={{ backgroundColor: color.hex }}
                           onClick={(e) => { e.stopPropagation(); handleCopyHex(color.hex); }}
+                          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.stopPropagation(); e.preventDefault(); handleCopyHex(color.hex); } }}
                           title={`Copy ${color.hex}`}
                         />
                         <span className="text-[10px] font-mono text-slate-500 group-hover:text-slate-700">
@@ -580,8 +588,9 @@ export function ImagePalettePage() {
         {/* Controls */}
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
-            <label className="text-sm text-slate-500 font-medium whitespace-nowrap">Colors to extract:</label>
+            <label htmlFor="image-palette-color-count" className="text-sm text-slate-500 font-medium whitespace-nowrap">Colors to extract:</label>
             <select
+              id="image-palette-color-count"
               value={colorCount}
               onChange={(e) => setColorCount(Number(e.target.value))}
               className="text-sm border border-slate-200 rounded-lg px-2 py-1 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-300"

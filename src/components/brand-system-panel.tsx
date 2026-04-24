@@ -98,10 +98,10 @@ export function BrandSystemPanel({ primaryHex }: BrandSystemPanelProps) {
   const [format, setFormat] = useState<ExportFormat>("css");
   const palette = useMemo(() => generateBrandPalette(primaryHex), [primaryHex]);
 
-  if (!palette) return null;
-
-  // Lazy export generation — only compute the selected format
+  // Lazy export generation — only compute the selected format.
+  // Keep this useMemo BEFORE any early return so hook order stays stable.
   const exportText = useMemo(() => {
+    if (!palette) return "";
     switch (format) {
       case "css": return buildBrandCssVariables(palette);
       case "tailwind": return buildBrandTailwindConfig(palette);
@@ -116,6 +116,8 @@ export function BrandSystemPanel({ primaryHex }: BrandSystemPanelProps) {
       }
     }
   }, [palette, format]);
+
+  if (!palette) return null;
 
   const formatLabels: Record<ExportFormat, string> = {
     css: "CSS",

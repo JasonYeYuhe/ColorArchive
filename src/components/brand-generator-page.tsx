@@ -325,10 +325,11 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
         <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-5">
           {/* Industry */}
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <label htmlFor="brand-industry" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
               Industry / Category
             </label>
             <input
+              id="brand-industry"
               type="text"
               value={industry}
               onChange={(e) => setIndustry(e.target.value)}
@@ -350,10 +351,11 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
 
           {/* Style */}
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <label htmlFor="brand-style" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
               Visual Style / Aesthetic
             </label>
             <input
+              id="brand-style"
               type="text"
               value={style}
               onChange={(e) => setStyle(e.target.value)}
@@ -375,10 +377,11 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
 
           {/* Audience */}
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <label htmlFor="brand-audience" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
               Target Audience <span className="text-slate-300 font-normal normal-case">(optional)</span>
             </label>
             <input
+              id="brand-audience"
               type="text"
               value={audience}
               onChange={(e) => setAudience(e.target.value)}
@@ -389,10 +392,11 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
 
           {/* Keywords */}
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <label htmlFor="brand-keywords" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
               Brand Values / Keywords <span className="text-slate-300 font-normal normal-case">(optional)</span>
             </label>
             <input
+              id="brand-keywords"
               type="text"
               value={keywords}
               onChange={(e) => setKeywords(e.target.value)}
@@ -403,9 +407,9 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
 
           {/* Start from a collection */}
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <div className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
               Or start from a collection
-            </label>
+            </div>
             <div className="flex flex-wrap gap-1.5">
               {COLLECTION_PRESETS.map((c) => (
                 <button

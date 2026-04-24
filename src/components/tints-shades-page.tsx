@@ -272,10 +272,11 @@ export function TintsShadesPage() {
                 />
               </label>
               <div>
-                <label className="mb-1 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                <label htmlFor="tints-hex" className="mb-1 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                   HEX Color
                 </label>
                 <input
+                  id="tints-hex"
                   type="text"
                   value={hexInput}
                   onChange={handleHexChange}
@@ -296,10 +297,11 @@ export function TintsShadesPage() {
 
             {/* Palette name */}
             <div className="flex-1">
-              <label className="mb-1 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              <label htmlFor="tints-palette-name" className="mb-1 block text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 Palette Name
               </label>
               <input
+                id="tints-palette-name"
                 type="text"
                 value={paletteName}
                 onChange={(e) => setPaletteName(e.target.value.replace(/[^a-zA-Z0-9-_]/g, ""))}

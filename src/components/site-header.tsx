@@ -434,6 +434,7 @@ function NavDropdown({ group, currentPath, t }: { group: NavGroup; currentPath: 
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
           role="menu"
+          tabIndex={-1}
           aria-label={t(group.labelKey)}
         >
           {group.items.map((item) => (

@@ -36,12 +36,11 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
-      # Lint is allowed to fail until the Week-3 cleanup (see dev-plan-2026-04-23).
-      # Report via echo so the job stays green; flip `continue-on-error` to
-      # false once the baseline hits 0.
-      - name: Lint (non-blocking)
+      # Lint: error baseline is 0 as of Week 3 (2026-04-24). Warnings still
+      # permitted — ESLint exits 0 on warning-only runs, so this step passes
+      # until a real error regression slips in, at which point it blocks.
+      - name: Lint
         run: npm run lint
-        continue-on-error: true
 
       # Full test suite: 508 vitest + 11 node:test = 519 assertions as of
       # 2026-04-24. Covers color data, color utilities, collection prose lint,

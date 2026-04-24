@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
+import Link from "next/link";
 import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
 import {
@@ -291,12 +292,12 @@ export function FamousPalettesPage() {
             >
               Color Harmonies →
             </a>
-            <a
+            <Link
               href="/collections/"
               className="rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-sm text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
             >
               Curated Collections →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

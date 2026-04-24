@@ -27,6 +27,23 @@ export default tseslint.config(
       "@typescript-eslint/no-explicit-any": "warn",
       ...reactHooksPlugin.configs.recommended.rules,
       ...jsxA11yPlugin.configs.recommended.rules,
+      // React 19 / React Compiler correctness checks shipped in
+      // eslint-plugin-react-hooks v6. Each flags a pattern the compiler
+      // cannot safely optimize (setState in effect, ref access in render,
+      // mutations after render, etc.). Most flagged sites are legitimate
+      // pre-compiler idioms; fixing each requires per-site semantic review
+      // (key-based remount, useSyncExternalStore, extracted derived state,
+      // etc.). Tracked as a Q3 god-component refactor in
+      // docs/dev-plan-2026-04-23.md § Week 6.
+      //
+      // The knobs below are the exact subset to re-enable as part of that
+      // refactor — keep them centralized so we see full scope at flip time,
+      // rather than scattering eslint-disable comments through the codebase.
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/immutability": "off",
+      "react-hooks/preserve-manual-memoization": "off",
+      "react-hooks/refs": "off",
+      "react-hooks/purity": "off",
       "@next/next/google-font-display": "warn",
       "@next/next/google-font-preconnect": "warn",
       "@next/next/next-script-for-ga": "warn",

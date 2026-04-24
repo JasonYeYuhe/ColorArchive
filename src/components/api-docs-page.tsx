@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { CopyButton } from "@/src/components/copy-button";
 import { SITE_URL } from "@/src/lib/site-config";
 

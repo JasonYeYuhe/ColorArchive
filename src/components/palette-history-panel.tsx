@@ -67,8 +67,12 @@ export function PaletteHistoryPanel({ onRestore }: PaletteHistoryPanelProps) {
         {visible.map((entry) => (
           <div
             key={entry.id}
+            role="button"
+            tabIndex={0}
+            aria-label="Restore palette from history"
             className="group flex items-center gap-2 rounded-xl border border-black/4 bg-neutral-50 dark:bg-white/5 px-3 py-2 hover:bg-neutral-100 dark:hover:bg-white/8 transition cursor-pointer"
             onClick={() => onRestore?.(entry)}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onRestore?.(entry); } }}
           >
             {/* Color swatches */}
             <div className="flex -space-x-1">
