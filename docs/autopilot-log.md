@@ -32,12 +32,35 @@ documents the correct verification method so we don't chase this again.
 
 ### P0-B — Hydration error #418 on /palette-audit/
 
-Not reproducible on the current deploy. Opened a fresh Chrome tab, navigated to
-`/palette-audit/`, captured every console message from page load: 0 React
-errors, 0 hydration warnings. Same result on `/`. The rebuild that landed with
-the `instrumentation-client.ts` rename (commit 1917320) likely fixed it — the
-Sentry file rename triggered a full Turbopack rebuild which cleared whatever
-stale HMR/SSR state was producing the mismatch. Marked closed in human-todo.
+First pass with default English locale: clean. 0 hydration errors on
+`/palette-audit/` or `/` after multiple reloads. Was about to close it.
+
+Second pass with `localStorage["colorarchive-locale"] = "zh"`: the error
+reproduces. One reload produced `Minified React error #418; args[]=HTML` with
+a stack ending in `ud → s9 → uB → MessagePort.N` (hydration commit path).
+`/all-colors/` with the same locale: clean. So the defect is scoped to
+`/palette-audit/` and only fires when the head-script flips `<html lang>` to
+`zh` pre-React. Later reloads stopped firing — it's intermittent, which is
+consistent with a race between the inline `localeScript`
+(`app/layout.tsx:102-110`) that sets `document.documentElement.lang = 'zh'`
+synchronously and the LocaleProvider initial state `"en"` that hydrates first.
+
+Not fully fixed this session. **Reopened in human-todo.md** with the repro
+steps. Low user impact (English users never hit it; Chinese users hit it
+intermittently on this one page). The right fix is either (a) remove the
+head `localeScript` entirely and let LocaleProvider be the only source of
+truth, accepting a brief EN flash for zh users, or (b) move the locale into
+a cookie that Next.js reads server-side so SSR matches the head-script
+attribute. Neither is a 30-min change — park it for the next Week 5 tick.
+
+### Deployment follow-up
+
+Post-commit, noticed the Droplet was on `0202320` — the cache-warmer I'd
+committed would sit idle in the repo until someone SSH'd in. Ran
+`git pull && npm install && pm2 restart colorarchive-server` on the Droplet.
+PM2 log now shows `[cache-warmer] started (site=https://colorarchive.org,
+batch=250, weekday=Mon 3:00 UTC, dryRun=false)`. First real pass fires
+next Monday 03:00 UTC.
 
 ### Week 5 Day 4-5 — Color page cache warmer
 

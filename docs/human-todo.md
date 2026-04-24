@@ -16,13 +16,21 @@
       The empty-DSN bug fixed in review round 3 was real — Sentry has
       been capturing since that redeploy. Only the verification was broken.
 
-- [x] **React hydration error #418 on /palette-audit/** — NOT REPRODUCIBLE
-      on current production. Loaded /palette-audit/ in a fresh tab and
-      captured all console messages: 0 hydration errors, 0 React
-      warnings. Most likely the rebuild that landed with the
-      `instrumentation-client.ts` rename (commit 1917320) fixed it as a
-      side effect, or it was a transient DOM-hydration race that no
-      longer fires. If it resurfaces, reopen with repro steps.
+- [ ] **React hydration error #418 on /palette-audit/** — REOPENED.
+      Initial pass with default (English) locale showed 0 errors, so I
+      closed it. Follow-up with `localStorage["colorarchive-locale"]="zh"`
+      reproduced `Minified React error #418; args[]=HTML` in the console
+      on a subsequent reload (stack points to chunk
+      `8df248f72ed30c99.js`). Other pages with the same locale
+      (`/all-colors/`, `/`) did NOT error — so the mismatch is scoped to
+      `/palette-audit/`. On further reloads after fixing locale state
+      the error stopped firing, suggesting an intermittent race between
+      the head `localeScript` (flips `<html lang>` to `zh` pre-React)
+      and LocaleProvider (initial state `"en"`, swaps in `useEffect`).
+      Not a blocker for English users; zh users hit it sporadically.
+      Next step: add the Chinese-locale path to `e2e/` or manually
+      bisect by temporarily removing the head `localeScript` and seeing
+      if the error disappears.
 
 ## P0 — Blocking real users today
 - [x] **GCP OAuth Console** — ~~add `.org` redirect URI~~ **VERIFIED RESOLVED
