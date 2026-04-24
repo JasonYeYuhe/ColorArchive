@@ -1,3 +1,59 @@
+## 2026-04-24 14:30 UTC — Week 4 Palette Audit MVP + growth blog
+
+User said "你继续吧". Built the first revenue-oriented new feature from the
+dev plan — scope-capped per Gemini review to core-algorithm-only (no PDF,
+no Pro gate, no watermark; those go Week 5+ driven by real funnel data).
+
+**Core algorithm** ([src/lib/palette-audit.ts](../src/lib/palette-audit.ts)):
+pure functional module. Parses hex/rgb/hsl from any text blob, normalizes +
+dedupes, matches each color to its nearest ColorArchive entry via the same
+HSL-weighted scoring the color-detail pages use, clusters near-duplicates
+by sRGB distance (24-unit threshold catches "#2563EB vs #2564EB" drift),
+builds a full pairwise contrast matrix using the standard sRGB luminance
+formula, then ranks suggestions by actionability (duplicates first, then
+WCAG failures, then off-system drift).
+
+**Tests** ([src/lib/__tests__/palette-audit.test.ts](../src/lib/__tests__/palette-audit.test.ts)):
+22 new vitest cases covering extraction (hex/rgb/hsl, shorthand, alpha
+strip, de-dupe across notation), contrast math (black-white = 21,
+self = 1, symmetry), duplicate clustering (threshold sensitivity), archive
+matching (never null, rgb distance finite), and the top-level `audit()`
+function end-to-end. Full suite now 541 passing (530 vitest + 11 node:test).
+
+**UI** ([src/components/palette-audit-page.tsx](../src/components/palette-audit-page.tsx)):
+dead-simple textarea + Run button. Shows a 5-metric summary tile row (unique
+colors / duplicates / low-contrast / off-system / total issues), a ranked
+suggestion list with deep-links to ColorArchive color-detail pages, every
+extracted color with its nearest named match, and every low-contrast pair
+with its WCAG grade. Sample input preloaded with a realistic drifty token
+file (two near-dupes + one low-contrast pair) so first-time visitors see a
+populated result.
+
+**Route + nav** ([app/palette-audit/page.tsx](../app/palette-audit/page.tsx)):
+standard metadata + breadcrumb structured data. Added to sitemap at
+priority 0.88, to header Tools dropdown after WCAG Audit, and to i18n
+dictionary (en: Palette Audit / zh: 色板审计).
+
+**Funnel events**: `audit_started` (first textarea edit) and
+`audit_completed` (Run button click, with summary counts as props). Lands
+in the existing `events` table — queryable via `/events/summary` today,
+which we'll use in Week 5 to decide what to gate behind Pro.
+
+**Growth content**: newsletter Issue 029
+(["Palette Audit: named-nearest matching against 5,446 colors, free and
+client-side"](../src/data/newsletter-issues.json)) written in the same
+voice as existing issues, dated 2026-06-04. Covers why 5,446 and not a
+preset library, the algorithm in one paragraph, what "off-system" actually
+means, and what the audit deliberately won't tell you. Three outbound
+links to /palette-audit/, /all-colors/, /wcag-audit/.
+
+**Tests**: 530 vitest + 11 node:test = 541 passing. Typecheck clean.
+
+Next: ship, watch `audit_completed` counts for a week in Sentry +
+`/events/summary`, then decide Week 5 based on real conversion data.
+
+---
+
 ## 2026-04-24 13:30 UTC — Week 3 lint clean-up: 106 errors → 0
 
 User said "继续吧". Cleaned every error-level lint issue; CI lint step flipped

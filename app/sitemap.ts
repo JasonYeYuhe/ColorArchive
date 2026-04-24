@@ -151,6 +151,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.84,
     },
     {
+      url: `${SITE_URL}/palette-audit/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.88,
+    },
+    {
       url: `${SITE_URL}/combinations/`,
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",

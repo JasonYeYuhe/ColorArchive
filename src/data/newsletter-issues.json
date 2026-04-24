@@ -1,5 +1,56 @@
 [
   {
+    "slug": "june-2026-palette-audit-launch",
+    "date": "2026-06-04",
+    "title": "Palette Audit: named-nearest matching against 5,446 colors, free and client-side",
+    "summary": "We just shipped a tool that takes any block of CSS, Tailwind config, or token JSON and returns: the named ColorArchive match for every color, near-duplicate clusters, every pairwise WCAG AA contrast failure, and specific swap-to-fix suggestions. Runs entirely in your browser.",
+    "eyebrow": "Issue 029",
+    "tags": [
+      "Design Tokens",
+      "Accessibility",
+      "Color Systems",
+      "Tools"
+    ],
+    "featuredCollectionId": "nordic-frost",
+    "highlights": [
+      "Most 'contrast checker' tools require one pair at a time. Palette Audit takes the whole system at once and returns every cross-pair, so the real offenders — secondary text on surface-2, placeholder on card, disabled-state on background — aren't hidden by a focused-on-primary test.",
+      "Off-system drift is usually invisible until a designer spots 'did we add a new color?' six months later. Matching each input color against the 5,446-color ColorArchive lattice surfaces drift the moment it lands.",
+      "Runs entirely client-side. Your token file never leaves the browser — no upload endpoint, no account, no rate limit."
+    ],
+    "sections": [
+      {
+        "heading": "Why 5,446 and not a preset library",
+        "body": "Most color systems match inputs against a curated 100-200-color library. That works for broad categorization ('this is a blue') but fails at the precision needed for token design: when a designer picks #2563EB, they want to know *which* blue it is, not just 'blue'. The ColorArchive system is algorithmic — 48 hue roots × 14 lightness bands × 8 chroma bands for chromatic colors, plus 5 neutral gray roots × 14 lightness bands for neutrals, total 5,446 named cells. That density means almost any color you've chosen intentionally has a named neighbor within ~18 sRGB units: Cobalt Core Vivid, Apricot Pearl Muted, Cool Gray Shadow. The names become the tokens. Once your palette maps cleanly to a small subset of these cells, you have a design system. Until it does, you have a bag of hex values."
+      },
+      {
+        "heading": "The audit algorithm in one paragraph",
+        "body": "Parse the input with three regex passes: hex (#RGB, #RRGGBB, #RRGGBBAA), rgb(), and hsl() — collapsing shorthand, dropping alpha, and counting duplicates. For each unique color, compute the nearest ColorArchive entry by HSL-weighted distance (hue × 1.8 + saturation × 0.7 + lightness × 1.15 — the same scoring our color-detail pages use). Cluster colors within 24 sRGB units of each other as probable duplicates. Build a pairwise contrast matrix using the standard sRGB luminance formula, flag every pair below 4.5:1 as an AA failure, then rank suggestions by actionability: duplicate consolidation first (biggest systemic win per fix), then WCAG failures (compliance risk), then off-system colors (organizational drift). Every suggestion with a named replacement links to its ColorArchive color-detail page."
+      },
+      {
+        "heading": "What 'off-system' actually means",
+        "body": "An off-system flag doesn't mean 'bad color' — the ColorArchive lattice is reference, not law. It means the color is far enough from every named cell (>18 sRGB units) that two designers would make different guesses about its identity. That's the exact source of drift: one PR calls it 'Cobalt Core Vivid,' another calls it 'new blue,' and within a year the token file has three near-identical blues from three PRs. Snapping off-system colors to their nearest named entry early is cheap; reconciling the drift later is not. We're not prescribing a fix — we're showing where the drift is."
+      },
+      {
+        "heading": "What the audit won't tell you",
+        "body": "It is a static scanner, not an opinion machine. It doesn't know your brand rationale, whether your primary needs to stay a specific hue for contractual reasons, or whether two 'near-duplicate' colors are actually semantic siblings (base and hover). The output is a punch list, not a prescription — specific, citation-heavy, and meant to be read against your own design intent. The PDF-export and Pro-gated team-report features are coming in a later release once we see how real teams actually use the free audit."
+      }
+    ],
+    "links": [
+      {
+        "label": "Run Palette Audit now",
+        "href": "/palette-audit/"
+      },
+      {
+        "label": "Browse the full 5,446 colors",
+        "href": "/all-colors/"
+      },
+      {
+        "label": "Pair with the WCAG Contrast Auditor",
+        "href": "/wcag-audit/"
+      }
+    ]
+  },
+  {
     "slug": "may-2026-dark-mode-color-systems",
     "date": "2026-05-28",
     "title": "Dark mode color systems: why most implementations get it wrong",
