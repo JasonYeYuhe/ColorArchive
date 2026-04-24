@@ -1,3 +1,24 @@
+## 2026-04-24 02:10 UTC — GCP OAuth redirect_uri fix verified (remote, Chrome MCP)
+
+User asked Claude to handle the remaining manual items via Chrome MCP. Verified the GCP
+OAuth client `546004192441-qcgog7153c5lsu1qesm771n21oeshm72` in project
+`main-analog-442915-s5` already has everything the 2026-04-20 oauth-redirect-fix-plan
+required: `.org` redirect URI, all four JS origins, `colorarchive.org` as authorized
+domain. Client "Last used" 2026-04-15 — meaning the fix was actually applied before
+the 2026-04-20 bug report, so the user's reported 400 was most likely stale browser
+state.
+
+End-to-end verification: `curl -sI https://api.colorarchive.org/auth/google/start`
+sends `redirect_uri=https%3A%2F%2Fapi.colorarchive.org%2Fauth%2Fgoogle%2Fcallback`;
+visiting that Location in a fresh tab renders the Google consent screen ("to continue
+to colorarchive.org") — no 400. Updated docs/oauth-redirect-fix-plan.md with a
+"RESOLVED" banner + verification evidence, and checked off the GCP P0 in
+docs/human-todo.md.
+
+StoreKit sandbox test still requires Xcode — not Chrome-addressable.
+
+---
+
 ## 2026-04-24 00:40 UTC — Week 1 止血周: 5 of 6 P0 + 3 P1 landed (remote, full autonomy)
 
 User gave full autonomy ("你全权负责") to execute the 2026-04-23 dev plan Week 1. All

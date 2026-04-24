@@ -4,10 +4,13 @@
 > Last updated: 2026-04-24
 
 ## P0 — Blocking real users today
-- [ ] **GCP OAuth Console**: add `https://api.colorarchive.org/auth/google/callback` to
-      authorized redirect URIs (and `colorarchive.org` under Authorized domains if not
-      present). Full steps in [docs/oauth-redirect-fix-plan.md](./oauth-redirect-fix-plan.md).
-      3 min. Every Google sign-in currently errors with 400 redirect_uri_mismatch.
+- [x] **GCP OAuth Console** — ~~add `.org` redirect URI~~ **VERIFIED RESOLVED
+      2026-04-24**. Redirect URI, JS origin, and Authorized domain all already
+      registered (last used 2026-04-15). Consent screen renders cleanly at
+      `https://api.colorarchive.org/auth/google/start`. See
+      [docs/oauth-redirect-fix-plan.md](./oauth-redirect-fix-plan.md) top banner for
+      verification evidence. If a user still reports the 400, have them hard-refresh
+      or clear `accounts.google.com` cookies — cached error page.
 - [ ] **StoreKit sandbox purchase test**: open Xcode → run iOS app against sandbox tester
       → attempt Pro purchase. Watch `ssh root@143.198.85.72 'pm2 logs colorarchive-api
       --lines 40 --nostream'` for `[DEPRECATION] apple-purchase got JSON (not JWS)`.

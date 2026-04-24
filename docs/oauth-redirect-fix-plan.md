@@ -1,5 +1,37 @@
 # Fix Plan — Google OAuth `redirect_uri_mismatch` (2026-04-20)
 
+> **STATUS (2026-04-24 via Chrome MCP verification): RESOLVED. No further action required.**
+>
+> Claude verified GCP OAuth client `546004192441-qcgog7153c5lsu1qesm771n21oeshm72` in
+> the `main-analog-442915-s5` project (labeled "ColorArchive Web Login"):
+>
+> - **Authorized redirect URIs** — both `.me` (URI 1) and `.org` (URI 2) present:
+>   - `https://api.colorarchive.me/auth/google/callback`
+>   - `https://api.colorarchive.org/auth/google/callback`
+> - **Authorized JavaScript origins** — all four present: `.me`, `api.me`, `.org`, `api.org`
+> - **Authorized domains** (consent screen / Branding tab) — both `colorarchive.me` and
+>   `colorarchive.org` registered
+> - **Client "Last used"**: 2026-04-15 — the `.org` entry was added on or before that date,
+>   predating the 2026-04-20 bug report
+>
+> End-to-end verification (2026-04-24 02:06 UTC):
+>
+> ```
+> curl -sI 'https://api.colorarchive.org/auth/google/start' | grep Location
+> → Location: https://accounts.google.com/o/oauth2/v2/auth?...&redirect_uri=https%3A%2F%2Fapi.colorarchive.org%2Fauth%2Fgoogle%2Fcallback&...
+> ```
+>
+> Navigating that Location URL in a fresh browser renders the Google "Choose an account"
+> consent screen with the heading "to continue to **colorarchive.org**" — no 400 error.
+>
+> If the user still sees a 400, it is almost certainly stale browser state (cached OAuth
+> error page). Fix: hard-refresh, or clear cookies for `accounts.google.com`.
+>
+> **Soak cleanup (Part 3 below) — still optional:** consider removing the legacy `.me`
+> entries from the client once no `.me` OAuth hits show up in Droplet logs for 30 days.
+
+---
+
 ## Symptom
 User taps "Sign in with Google" (web, rendered on any browser incl. mobile Safari on iOS) → Google returns **Error 400: redirect_uri_mismatch**. Reported from iPhone but **not iOS-specific**; any browser hitting the flow right now will fail.
 
