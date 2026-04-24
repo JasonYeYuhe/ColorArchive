@@ -165,6 +165,23 @@ describe("audit", () => {
     expect(low!.colors).toHaveLength(2);
   });
 
+  it("does NOT flag AA Large-passing pairs as failures — regression for the 'cry wolf' bug where heading-grade pairs were bucketed as low-contrast", () => {
+    // #757575 on #FFFFFF = ~4.5 (just under AA Large pass threshold for normal)
+    // #808080 on #FFFFFF = ~3.95 — passes AA Large (≥3) but fails AA normal (<4.5).
+    // Only the normal-text failure should surface, matching the rule
+    // "pair.ratio < 4.5" in palette-audit.ts. If the filter ever regresses
+    // to include `grade === "AA Large"` without the ratio guard, this
+    // test will still pass because "AA Large" ratios are < 4.5. So we
+    // add a STRICT pass case: #767676 on #FFFFFF ≈ 4.54 — above 4.5 —
+    // must NOT appear.
+    const result = audit("#767676 #FFFFFF");
+    // 4.54:1 passes AA for normal text; must not be listed as low-contrast.
+    expect(result.lowContrastPairs).toEqual([]);
+    expect(
+      result.suggestions.find((s) => s.kind === "low-contrast"),
+    ).toBeUndefined();
+  });
+
   it("returns an empty result gracefully on empty input", () => {
     const result = audit("");
     expect(result.summary.uniqueColors).toBe(0);

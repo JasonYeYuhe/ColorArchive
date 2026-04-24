@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { audit, type AuditResult } from "@/src/lib/palette-audit";
 import { track } from "@/src/lib/track";
@@ -233,13 +233,22 @@ export function PaletteAuditPage() {
 
   const result = useMemo(() => audit(submitted), [submitted]);
 
+  // Fire `audit_started` at most once per page load — the server rate-limits
+  // /events to 60/min/IP, and the previous per-keystroke version would
+  // exhaust that on any pasted token file.
+  const startedFiredRef = useRef(false);
+
   const runAudit = () => {
+    // Re-compute synchronously so the tracked payload reflects the run the
+    // user just triggered (not the previous `submitted` value that
+    // useMemo is still holding).
+    const freshResult = audit(input);
     setSubmitted(input);
     track("audit_completed", {
-      unique_colors: result.summary.uniqueColors,
-      duplicate_groups: result.summary.duplicateGroups,
-      low_contrast_count: result.summary.lowContrastCount,
-      non_archive_count: result.summary.nonArchiveCount,
+      unique_colors: freshResult.summary.uniqueColors,
+      duplicate_groups: freshResult.summary.duplicateGroups,
+      low_contrast_count: freshResult.summary.lowContrastCount,
+      non_archive_count: freshResult.summary.nonArchiveCount,
     });
   };
 
@@ -270,9 +279,18 @@ export function PaletteAuditPage() {
           value={input}
           onChange={(e) => {
             setInput(e.target.value);
-            // Fire a single "started" event the first time a real edit happens;
-            // the track helper is idempotent enough that double-fires are cheap.
-            if (e.target.value.length > 0) track("audit_started", {});
+            // Fire a single "started" event the first time the user actually
+            // edits the textarea (replacing the preloaded sample). Guarded
+            // against per-keystroke spam that would blow the server's
+            // 60/min/IP /events rate limit.
+            if (
+              !startedFiredRef.current &&
+              e.target.value.length > 0 &&
+              e.target.value !== SAMPLE_INPUT
+            ) {
+              startedFiredRef.current = true;
+              track("audit_started", {});
+            }
           }}
           rows={10}
           className="w-full rounded-xl border border-black/10 bg-white px-3 py-2.5 font-mono text-xs text-neutral-900 outline-none focus:border-neutral-400 focus:ring-2 focus:ring-neutral-200 dark:border-white/10 dark:bg-neutral-950/70 dark:text-neutral-100 dark:focus:border-white/30 dark:focus:ring-white/10"

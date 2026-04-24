@@ -1,5 +1,5 @@
 import { colors as archiveColors } from "@/src/data/colors";
-import { hexToRgb, rgbToHex, rgbToHsl } from "@/src/lib/color-utils";
+import { hexToRgb, hslToRgb, rgbToHex, rgbToHsl } from "@/src/lib/color-utils";
 import type { ColorRecord } from "@/src/types/color";
 
 /**
@@ -107,28 +107,6 @@ function normalizeHex(raw: string): string | null {
   return null;
 }
 
-function hslToHex(h: number, s: number, l: number): string {
-  // Minimal inline HSL → hex; parallel implementation to color-utils to
-  // avoid a circular-import-looking hop during extraction.
-  const sNorm = Math.min(100, Math.max(0, s)) / 100;
-  const lNorm = Math.min(100, Math.max(0, l)) / 100;
-  const c = (1 - Math.abs(2 * lNorm - 1)) * sNorm;
-  const hp = (((h % 360) + 360) % 360) / 60;
-  const x = c * (1 - Math.abs((hp % 2) - 1));
-  const m = lNorm - c / 2;
-  let r1 = 0, g1 = 0, b1 = 0;
-  if (hp >= 0 && hp < 1) [r1, g1, b1] = [c, x, 0];
-  else if (hp < 2) [r1, g1, b1] = [x, c, 0];
-  else if (hp < 3) [r1, g1, b1] = [0, c, x];
-  else if (hp < 4) [r1, g1, b1] = [0, x, c];
-  else if (hp < 5) [r1, g1, b1] = [x, 0, c];
-  else if (hp < 6) [r1, g1, b1] = [c, 0, x];
-  const r = Math.round((r1 + m) * 255);
-  const g = Math.round((g1 + m) * 255);
-  const b = Math.round((b1 + m) * 255);
-  return rgbToHex({ r, g, b });
-}
-
 /**
  * Parse an arbitrary blob of text and return every hex/rgb/hsl value found.
  * Duplicates are collapsed into a single ExtractedColor with an incremented
@@ -164,8 +142,8 @@ export function extractColorsFromText(input: string): ExtractedColor[] {
 
   HSL_PATTERN.lastIndex = 0;
   while ((m = HSL_PATTERN.exec(input)) !== null) {
-    const hex = hslToHex(Number(m[1]), Number(m[2]), Number(m[3]));
-    push(m[0], hex);
+    const rgb = hslToRgb(Number(m[1]), Number(m[2]), Number(m[3]));
+    push(m[0], rgbToHex(rgb));
   }
 
   return Array.from(buckets.values()).sort((a, b) => b.count - a.count);
@@ -342,9 +320,13 @@ function buildSuggestions(
   }
 
   for (const pair of lowContrastPairs.slice(0, 10)) {
+    const severity =
+      pair.grade === "fail"
+        ? "fails WCAG AA for normal AND large text"
+        : "passes AA Large (≥3) but fails AA for normal text (<4.5)";
     suggestions.push({
       kind: "low-contrast",
-      message: `Contrast ${pair.ratio}:1 between ${pair.a.hex} and ${pair.b.hex} fails WCAG AA for normal text.`,
+      message: `Contrast ${pair.ratio}:1 between ${pair.a.hex} and ${pair.b.hex} ${severity}.`,
       colors: [pair.a, pair.b],
     });
   }
@@ -377,8 +359,12 @@ export function audit(input: string): AuditResult {
   const matches = matchToArchive(extracted);
   const duplicates = findDuplicates(extracted);
   const contrastMatrix = buildContrastMatrix(extracted);
+  // "low-contrast" means "fails WCAG AA for normal text" — strictly ratio < 4.5.
+  // Pairs that reach AA Large (≥3) still pass for 18pt+ or bold 14pt+ text and
+  // must NOT be flagged as failures or the audit will cry wolf on perfectly
+  // compliant heading colors.
   const lowContrastPairs = contrastMatrix
-    .filter((p) => p.grade === "fail" || p.grade === "AA Large")
+    .filter((p) => p.ratio < 4.5)
     .sort((a, b) => a.ratio - b.ratio);
   const suggestions = buildSuggestions(
     extracted,
