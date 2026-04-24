@@ -118,4 +118,10 @@ app.listen(PORT, () => {
   } catch (err) {
     console.error("[WARN] Pinterest scheduler failed to start:", err);
   }
+
+  try {
+    require("./cache-warmer").startScheduler();
+  } catch (err) {
+    console.error("[WARN] Cache warmer failed to start:", err);
+  }
 });

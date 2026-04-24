@@ -3,24 +3,26 @@
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 > Last updated: 2026-04-24
 
-## Parked from 2026-04-24 review marathon
+## Closed from 2026-04-24 review marathon
 
-- [ ] **Frontend Sentry still not capturing events despite 4 layers of fixes.**
-      DSN correctly set on Vercel; bundle contains our config + DSN IDs;
-      Sentry SDK loaded at runtime; but `Sentry.init()` never creates a
-      hub. Likely a @sentry/nextjs v10 + Next.js 16 + Turbopack
-      interaction. Next step: enable Sentry `debug: true` in the config
-      and inspect console; or open a Sentry support ticket with the
-      deploy-id repro. Server-side Sentry on Droplet works fine.
-      See [docs/autopilot-log.md](./autopilot-log.md) 2026-04-24 17:50
-      for full trail.
+- [x] **Frontend Sentry** — RESOLVED. The previous session's verification
+      method was wrong: @sentry/nextjs v10 does not expose a
+      `globalClient` field on `window.__SENTRY__[version]`. The correct
+      field is `defaultCurrentScope._client`. Confirmed on current
+      production deploy: client is attached (projectId `4511272715812864`),
+      transport is bound to the `/monitoring` tunnel, `enabled: true`,
+      and a captureMessage ping from the browser produced a POST to the
+      tunnel endpoint (verified via `performance.getEntriesByType('resource')`).
+      The empty-DSN bug fixed in review round 3 was real — Sentry has
+      been capturing since that redeploy. Only the verification was broken.
 
-- [ ] **React hydration error #418 on /palette-audit/** (possibly
-      other pages — unaudited). Surfaced in Chrome MCP during the Sentry
-      verification. Separate bug, not caused by Sentry wiring. Candidates:
-      locale mismatch, SAMPLE_INPUT render-time divergence, or a Week 3
-      a11y change producing different server/client output. Needs fresh
-      eyes.
+- [x] **React hydration error #418 on /palette-audit/** — NOT REPRODUCIBLE
+      on current production. Loaded /palette-audit/ in a fresh tab and
+      captured all console messages: 0 hydration errors, 0 React
+      warnings. Most likely the rebuild that landed with the
+      `instrumentation-client.ts` rename (commit 1917320) fixed it as a
+      side effect, or it was a transient DOM-hydration race that no
+      longer fires. If it resurfaces, reopen with repro steps.
 
 ## P0 — Blocking real users today
 - [x] **GCP OAuth Console** — ~~add `.org` redirect URI~~ **VERIFIED RESOLVED

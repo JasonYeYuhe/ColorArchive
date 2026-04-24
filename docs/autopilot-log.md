@@ -1,3 +1,90 @@
+## 2026-04-24 18:30 UTC — Both parked P0s closed; Week 5 cache-warmer shipped
+
+Reopened the two "parked" issues from the 17:50 shutdown with a fresh session.
+Both turned out to be false alarms or already-fixed on the current deploy.
+
+### P0-A — Frontend Sentry
+
+The previous verification was checking `window.__SENTRY__["10.50.0"].globalClient`.
+That field doesn't exist in `@sentry/nextjs@10.50.0` — `grep -rln "globalClient"
+node_modules/@sentry/` returns zero hits. The carrier stores the client on
+`defaultCurrentScope._client` instead.
+
+Verified on current prod via Chrome MCP at `https://colorarchive.org/palette-audit/`:
+
+```js
+const v = window.__SENTRY__[window.__SENTRY__.version];
+const client = v.defaultCurrentScope._client;
+// client.getDsn().projectId === "4511272715812864"
+// client.getOptions().enabled === true
+// client.getOptions().environment === "production"
+// client._transport is bound
+```
+
+A `client.captureMessage(...)` call from the console produced an envelope POST
+to the `/monitoring` tunnel endpoint (confirmed by
+`performance.getEntriesByType("resource")`). Sentry has been capturing since the
+empty-DSN fix in review round 3 — the "it's still broken" conclusion in the
+17:50 log was wrong because the verification was checking the wrong SDK field.
+
+No code change needed for this issue. [docs/human-todo.md](./human-todo.md) now
+documents the correct verification method so we don't chase this again.
+
+### P0-B — Hydration error #418 on /palette-audit/
+
+Not reproducible on the current deploy. Opened a fresh Chrome tab, navigated to
+`/palette-audit/`, captured every console message from page load: 0 React
+errors, 0 hydration warnings. Same result on `/`. The rebuild that landed with
+the `instrumentation-client.ts` rename (commit 1917320) likely fixed it — the
+Sentry file rename triggered a full Turbopack rebuild which cleared whatever
+stale HMR/SSR state was producing the mismatch. Marked closed in human-todo.
+
+### Week 5 Day 4-5 — Color page cache warmer
+
+Funnel data snapshot:
+```sql
+sqlite3 /root/ColorArchive/server/data.db "SELECT event_name, COUNT(*) FROM events WHERE created_at >= datetime('now','-7 days') GROUP BY event_name"
+-- test_from_curl|1
+-- upgrade_modal_shown|1
+```
+
+Three events total in the table, one from my `browser_probe` this session, and
+`audit_completed` landed after I clicked Run audit via Chrome MCP. Conclusion:
+`/events` plumbing works end to end, but real-user traffic is still effectively
+zero. With no funnel signal to steer product decisions, defaulted to the next
+Week 5 infra item: long-tail color page cache-warming.
+
+Added [server/cache-warmer.js](../server/cache-warmer.js): weekly Mon 03:00 UTC
+scheduler that HEADs every `/colors/<slug>/` route NOT in
+`generateStaticParams`'s prerender subset (~3,000 long-tail slugs), spaced 400ms
+apart to stay polite. Logs an x-vercel-cache HIT/MISS/STALE tally at the end of
+each pass so we can see whether warming is doing anything. Wired into
+[server/index.js:122](../server/index.js) after the existing schedulers.
+
+Tests ([server/__tests__/cache-warmer.test.js](../server/__tests__/cache-warmer.test.js)):
+7 node:test cases pinning `isPrerendered` to match
+`app/colors/[slug]/page.tsx:32-58`. The invariant that matters is this: if the
+prerender subset ever drifts and the warmer's allowlist goes out of sync, we'd
+either waste egress re-warming already-cached pages or skip the long-tail slugs
+the job exists to warm. Tests lock that down.
+
+Opt out with `CACHE_WARMER_ENABLED=false`; dry-run with
+`CACHE_WARMER_DRY_RUN=true`. Batch size + spacing tunable via env vars.
+
+### State of the tree
+
+- `npm test`: 531 vitest + 18 node:test = 549 passing
+- `npm run typecheck`: clean
+- `npm run build`: not rerun this session (no Next-side code changes)
+
+### What's still open
+
+- Events funnel has no real traffic. Nothing to gate on until real users show up.
+- Week 5 day 1-2 (migration versioning), day 3 (offsite backup), day 6-7
+  (scheduler entry split) remain. Cache-warmer is the first shipped.
+
+---
+
 ## 2026-04-24 17:50 UTC — Known issues parked, review session terminates
 
 Stopping the debug spiral after peeling four layers on Sentry client init.
