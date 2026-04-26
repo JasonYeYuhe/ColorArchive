@@ -60,6 +60,53 @@ Explore 5,446 curated colors → colorarchive.org
 
 ---
 
+## Weekly Roundup — 2026-04-26
+
+### Facebook
+
+🎨 **This week at ColorArchive** — a brand-new tool, smarter daily colors, and a quieter, faster site.
+
+**🆕 Palette Audit — new free tool**
+Paste any block of CSS, a Tailwind config, or a design-token JSON file, and we'll instantly:
+- Map every color to its nearest ColorArchive entry (named, not just nearest hex)
+- Cluster near-duplicates so you can collapse a sprawling palette
+- Run a full pairwise WCAG AA contrast matrix and flag every failing pair
+- Suggest specific swap-to-fix replacements
+
+Runs entirely client-side. No upload, no signup, no rate limit. Try it → colorarchive.org/palette-audit/
+
+**☀️ Color of the Day — redesigned algorithm**
+We rebuilt the daily-color selection to use golden-angle hue rotation, so consecutive days feel genuinely different — no more two warm yellows in a row. iOS users also get the COTD in their local timezone now (no more "today's color" being yesterday's).
+
+**📈 /trending API — upstreamed**
+The Trending page's backing API is now in the main repo and properly versioned, so trending data stays fresh and reproducible.
+
+**⚡ Quietly faster + more reliable**
+Under the hood we shipped a cache-warmer for the heaviest pages, wired Sentry into the front and back end (so we catch issues before users have to report them), made CI lint blocking (106 errors → 0), and locked down the Apple in-app-purchase JWS contract with shape + cert-chain tests. Less drama, more uptime.
+
+Explore 5,446 curated colors → colorarchive.org
+
+#ColorArchive #DesignTools #ColorPalette #UIDesign #Accessibility #WCAG #DesignTokens #PaletteAudit #ColorOfTheDay #WeeklyUpdate
+
+---
+
+### Twitter / X
+
+🎨 This week at ColorArchive:
+
+🆕 Palette Audit — paste CSS/Tailwind/tokens, get named matches, duplicate clusters & full WCAG AA contrast report. Free, client-side → colorarchive.org/palette-audit/
+☀️ Color of the Day rebuilt with golden-angle hue rotation (no more two yellows in a row)
+📱 iOS COTD now respects your local timezone
+📈 /trending API upstreamed and versioned
+⚡ Cache-warmer + Sentry + blocking CI lint = quietly faster, fewer surprises
+
+5,446 colors. New tools every week.
+→ colorarchive.org
+
+#ColorArchive #DesignTools #PaletteAudit #UIDesign #WCAG #DesignTokens
+
+---
+
 ## Weekly Roundup — 2026-04-19
 
 ### Facebook
