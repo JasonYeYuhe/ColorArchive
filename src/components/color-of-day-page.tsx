@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getColorOfDay, getAnalogousColors, todayDateStr, formatDateStr } from "@/src/lib/color-of-day";
 import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-button";
 import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
+import { LogToJournalButton } from "@/src/components/log-to-journal-button";
 
 export function ColorOfDayPage() {
   const dateStr = useMemo(() => todayDateStr(), []);
@@ -72,6 +73,7 @@ export function ColorOfDayPage() {
           </Link>
           <ShareLinkButton href={shareUrl} label="Copy link" />
           <ShareOnXButton text={xText} href={shareUrl} />
+          <LogToJournalButton color={color} variant="primary" />
         </div>
       </section>
 

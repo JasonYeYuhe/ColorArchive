@@ -97,6 +97,7 @@ ColorArchive/
 │   ├── trends/                   # /trends/ — Color Trends 2026 (8 trend palettes with design guidance)
 │   ├── admin/tiktok/              # /admin/tiktok/ — TikTok publishing admin
 │   ├── brands/                    # /brands/ + /brands/[slug]/ — Famous brand color palettes (24 brands × hex codes, programmatic SEO)
+│   ├── journal/                   # /journal/ — Color Journal: daily check-in + streak (localStorage-first)
 │
 ├── src/
 │   ├── components/               # "use client" UI components (one per page + shared)
@@ -200,6 +201,8 @@ ColorArchive/
 │   │   ├── brands-index-page.tsx       # Brand palettes index (grouped by category)
 │   │   ├── brand-detail-page.tsx       # Single brand detail (palette, CSS export, archive matches, siblings)
 │   │   ├── color-origins-section.tsx   # "Color Origins" — heritage / cultures / wild / reads section, used on every color detail page
+│   │   ├── journal-page.tsx            # /journal/ — daily check-in calendar + streak tiles + entry list (B1+B3 merged)
+│   │   ├── log-to-journal-button.tsx   # "Save to journal" toggle button, used on color detail + /today/
 │   │   └── use-case-detail-page.tsx    # Individual industry palette guide
 │   │   ├── referral-card.tsx           # Referral link + credits display
 │   │   ├── ai-usage-badge.tsx          # AI usage counter badge
@@ -237,6 +240,7 @@ ColorArchive/
 │   │   ├── combinations.ts               # 30+ curated color combinations (complementary, analogous, triadic, monochromatic, neutral+accent)
 │   │   ├── brand-palettes.ts             # 24 famous-brand palettes (Apple, Google, Notion, Stripe, Spotify, etc.) for programmatic SEO
 │   │   ├── color-origins.ts              # 10 family heritage articles (Heritage / Cultures / In the wild / How it reads) + per-color modifier prose generator
+│   │   ├── color-journal.ts              # Daily check-in (localStorage): one entry/day, streak calc, subscribe pattern
 │   │   ├── export-watermark.ts           # SVG watermark helper (Free/anon get "colorarchive.org" stamp on exports; Pro is clean)
 │   └── word-color.ts                 # Deterministic word→color hash
 │   │

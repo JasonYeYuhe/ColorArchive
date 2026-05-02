@@ -26,6 +26,7 @@ import { getColorPsychology } from "@/src/data/color-psychology";
 import { ColorOriginsSection } from "@/src/components/color-origins-section";
 import { useAuth } from "@/src/components/auth-provider";
 import { withSvgWatermark } from "@/src/lib/export-watermark";
+import { LogToJournalButton } from "@/src/components/log-to-journal-button";
 
 interface ColorDetailPageProps {
   allColors: readonly ColorRecord[];
@@ -513,6 +514,7 @@ export function ColorDetailPage({
                 <PaletteAddButton colorId={color.id} />
                 <PaletteBundleButton colorIds={exportPaletteIds} label={t("colorDetail.addRecommendedPalette")} />
                 <FavoriteButton colorId={color.id} />
+                <LogToJournalButton color={color} />
                 <ShareLinkButton href={`/colors/${color.id}/`} />
                 <ShareOnXButton href={`/colors/${color.id}/`} text={`${color.name} ${color.hex} — from the ColorArchive`} />
                 <PinterestSaveButton color={color} />

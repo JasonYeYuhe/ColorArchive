@@ -1,4 +1,71 @@
 
+## 2026-05-03 (later) — Sprint 2 v1: Color Journal (B1 + B3 merged) + droplet deploy
+
+**Run type:** Remote (user-requested, "你直接控制 droplet 吧 — 全权负责")
+
+### 1. Droplet deploy of Sprint 1 server changes
+
+SSH'd into the DO droplet (143.198.85.72), located the actual repo at `/root/ColorArchive` (memory had the wrong path), stashed a stale `server/package-lock.json` working-tree change, `git pull origin main` (b9cba9c → 971c5a0, 11 commits), `pm2 restart colorarchive-server` (process name was `colorarchive-server` not `colorarchive-api`). Verified `GET /ai/usage` is live:
+
+```
+$ curl -s https://api.colorarchive.org/ai/usage
+{"tier":"anonymous","used":0,"limit":3}
+```
+
+`AiUsageBadge` will now return real numbers for anonymous visitors site-wide.
+
+### 2. Color Journal v1 (B1 + B3 merged)
+
+Per Gemini review: "Streaks without recorded value collapse fast — merge B1 and B3 into a single check-in surface." This v1 ships exactly that: one journaled color per day, with an optional one-line note, and a streak counter that rewards continuity without punishing a missed day too aggressively.
+
+**Data layer** (`src/lib/color-journal.ts`):
+- localStorage-first (Sprint 2 v1 has no cloud sync; queued for v2 once we see real usage shape).
+- One entry per local day (last-write-wins for same-day re-saves).
+- Hex is snapshotted at write time so deletion of an archive entry won't break old journal entries.
+- Notes capped at 280 chars.
+- Streak with **grace period**: if today is empty but yesterday is filled, the current streak is preserved (gives the user until end-of-day to log without dread).
+
+**UI**:
+- New route `/journal/` — header with 3 streak tiles (current / longest / total), today's entry slot, recent-entries list with inline edit + delete.
+- New `<LogToJournalButton>` — toggle button (Save → "Logged today" with checkmark, click again to undo). Pre-mount renders skeleton-shaped HTML to keep SSR/hydrate identical.
+- Wired into:
+  - color detail page (every one of 5,446 pages)
+  - `/today/` (the daily-recommended-color hero)
+
+**Tests** (`src/lib/__tests__/color-journal.test.ts`, 18 cases):
+- `previousDay` correctness across month/year boundaries (incl. leap year)
+- last-write-wins on same-day re-saves
+- note clamping at NOTE_MAX_LENGTH
+- empty / single-day / consecutive / grace-period / gap / multi-run streak scenarios
+
+**Files:**
+- `src/lib/color-journal.ts` (new)
+- `src/lib/__tests__/color-journal.test.ts` (new, 18 tests)
+- `src/components/journal-page.tsx` (new)
+- `src/components/log-to-journal-button.tsx` (new)
+- `app/journal/page.tsx` (new route)
+- `app/sitemap.ts` — `/journal/` priority 0.7 daily
+- `src/components/site-header.tsx` — `/journal` in `currentPath` union
+- `src/components/site-footer.tsx` — Journal chip
+- `src/components/color-detail-page.tsx` — LogToJournalButton next to FavoriteButton
+- `src/components/color-of-day-page.tsx` — LogToJournalButton (primary variant) in hero
+- `STRUCTURE.md`
+
+### Verified
+
+- typecheck clean
+- 565 vitest tests pass (547 prior + 18 new journal tests)
+
+### Sprint 2 status
+
+- [x] B1+B3 merged "Color Journal" v1 (localStorage)
+- [ ] Cloud sync (logged-in users) — v2
+- [ ] Calendar grid view (30/90/365-day) — v2
+- [ ] PNG export of journal calendar — v2 (high virality potential per the plan)
+- [ ] Streak rewards (Pro 7-day trial at 30 streak; 30% off at 100) — v2
+
+---
+
 ## 2026-05-03 — Sprint 1 final: C1 Free/Pro paywall — visible quota + export watermark
 
 **Run type:** Remote (user-requested, "继续吧 — 全权负责")

@@ -45,6 +45,7 @@ interface SiteHeaderProps {
     | "/tints"
     | "/brand"
     | "/brands"
+    | "/journal"
     | "/wcag-audit"
     | "/palette-audit"
     | "/api-docs"

@@ -408,6 +408,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.78,
     },
+    {
+      url: `${SITE_URL}/journal/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "daily",
+      priority: 0.7,
+    },
   ];
   const brandRoutes: MetadataRoute.Sitemap = brandPalettes.map((b) => ({
     url: `${SITE_URL}/brands/${b.slug}/`,
