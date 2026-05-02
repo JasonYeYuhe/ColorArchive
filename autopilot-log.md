@@ -1,4 +1,47 @@
 
+## 2026-05-03 (later 2) — E2 expansion: 24 → 51 brand palettes
+
+**Run type:** Remote (user-requested, "你继续吧")
+
+The cheapest and longest-windowed SEO surface in the project right now is the `/brands/` programmatic-SEO layer. Tripled the catalog from 24 to **51 brands** (+27 entries) across 9 categories — same data shape, no new code paths, but 27 new static pages indexable as soon as Vercel + Google catch up.
+
+### What's new (27 brands)
+
+**China internet (10)** — the biggest gap in v1. Adds: Douyin 抖音, Xiaohongshu 小红书, Bilibili 哔哩哔哩, Zhihu 知乎, JD 京东, Taobao 淘宝, Meituan 美团, Didi 滴滴, Alipay 支付宝. (WeChat was already in v1.) These open up substantial Chinese long-tail SEO ("淘宝品牌色", "B站颜色", "支付宝蓝") that the English-only v1 had no chance of capturing.
+
+**AI / dev tooling (4)**: Anthropic, OpenAI, Cloudflare, Hugging Face. The first two anchor the increasingly searched "[AI brand] color palette" terms; the latter two fill the developer-tools side.
+
+**Design tools (3)**: Adobe (the canonical red), Canva (chromatic playful), Webflow + Framer (modern web tooling). These complement the existing Figma entry and form a complete "design app palette" cluster.
+
+**Consumer / retail (5)**: Sephora (B&W), Lululemon (red), Patagonia (sky-blue gradient), Glossier (millennial pink), Aesop (apothecary brown), Uniqlo (pure red). High organic traffic, solid disclaimers.
+
+**Media / gaming (3)**: Disney+ (deep navy), PlayStation (4-button quartet), Nintendo (mono-red).
+
+Plus an Alipay China-internet entry to round out the fintech / payments lane.
+
+### Why this is the move now
+
+- SEO needs ramp-up time. Every week we delay shipping a new programmatic-SEO surface is a week of foregone Google indexing.
+- Each brand page is also a discovery surface — every brand color renders a "closest in ColorArchive" link via `findClosestArchiveColor`, turning external search traffic into internal exploration of the 5,446-color archive.
+- Cost is essentially zero — no new components, no new infrastructure. Pure data.
+- Chinese-internet entries should specifically push 中文 SEO and give us a more credible footprint on Baidu / Bing-CN.
+
+### Verification
+
+- 13 new vitest tests on the data set: total ≥ 50, slug uniqueness, valid hex regex, valid role union, non-trivial tagline + description, source URL + as-of date present, every category has a label, getBrandBySlug round-trips, brandsByCategory partitions completely, ≥ 5 categories non-empty.
+- typecheck clean
+- 588 vitest pass total (575 prior + 13 new)
+
+### Files
+
+- `src/lib/brand-palettes.ts` — +27 entries
+- `src/lib/__tests__/brand-palettes.test.ts` (new, 13 tests)
+- `STRUCTURE.md` — count updated
+
+Sitemap auto-picks them up via the existing `brandPalettes.map(...)` glob; same with `generateStaticParams` in `app/brands/[slug]/page.tsx`. 27 new static pages on next deploy.
+
+---
+
 ## 2026-05-03 (yet later) — Sprint 2 v2: Journal calendar grid + PNG export
 
 **Run type:** Remote (user-requested, "你直接继续做吧")

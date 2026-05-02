@@ -427,6 +427,374 @@ export const brandPalettes: BrandPalette[] = [
     ],
     source: { url: "https://wechat.com/en/", asOf: "2026-05-02" },
   },
+  {
+    slug: "douyin",
+    name: "Douyin 抖音",
+    category: "china",
+    tagline: "China's TikTok — chromatic-aberration cyan + magenta on black.",
+    description:
+      "Douyin (the China-market sibling of TikTok) shares the same chromatic-aberration aesthetic — cyan and magenta ghosts around a white musical note on black — but the local brand operates as a separate identity, with its own typography and Chinese-language wordmark. The two-accent palette translates well from short-video thumbnails to in-app UI to physical event signage.",
+    colors: [
+      { role: "primary", name: "Douyin Black", hex: "#000000" },
+      { role: "accent", name: "Cyan", hex: "#25F4EE" },
+      { role: "accent", name: "Red Magenta", hex: "#FE2C55" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+    ],
+    source: { url: "https://www.douyin.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "xiaohongshu",
+    name: "Xiaohongshu 小红书",
+    category: "china",
+    tagline: "Little Red Book — pure red, the most decisive brand in Chinese social commerce.",
+    description:
+      "Xiaohongshu's identity is built on a single, uncompromising red (#FF2442). Where most lifestyle apps soften their primary hue with gradients or shades, Xiaohongshu uses pure red flat-fill across the icon, the share-sheet button, and every campaign — a confidence move that signals 'this is where shopping decisions get made'. The platform's pivot from cosmetics community to general lifestyle search has not changed the red.",
+    colors: [
+      { role: "primary", name: "Xiaohongshu Red", hex: "#FF2442" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+      { role: "neutral", name: "Slate Text", hex: "#333333" },
+    ],
+    source: { url: "https://www.xiaohongshu.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "bilibili",
+    name: "Bilibili 哔哩哔哩",
+    category: "china",
+    tagline: "B 站 pink — the color of Chinese youth culture and ACG community.",
+    description:
+      "Bilibili's #FB7299 pink is the unofficial color of an entire generation of Chinese internet users who came of age inside the platform's anime-comics-games (ACG) community. The pink is calibrated warm enough to feel community-friendly without skewing girly — the company's positioning has always been gender-neutral despite the hue's historical associations. The supporting #00A1D6 cyan-blue is the secondary action color, used for buttons and links.",
+    colors: [
+      { role: "primary", name: "Bilibili Pink", hex: "#FB7299" },
+      { role: "secondary", name: "Bilibili Blue", hex: "#00A1D6" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+    ],
+    source: { url: "https://www.bilibili.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "zhihu",
+    name: "Zhihu 知乎",
+    category: "china",
+    tagline: "Q&A platform blue — the China internet's de facto knowledge color.",
+    description:
+      "Zhihu chose its #0084FF azure to signal 'professional, calm, knowledge-led' — a deliberate departure from the warmer reds that dominate Chinese consumer apps. The platform's logo, primary buttons, and upvote arrows all use the same value, giving the product a distinctly clinical, encyclopedic feel that mirrors its positioning as China's answer to Quora.",
+    colors: [
+      { role: "primary", name: "Zhihu Blue", hex: "#0084FF" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+      { role: "neutral", name: "Body Text", hex: "#1A1A1A" },
+    ],
+    source: { url: "https://www.zhihu.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "jd",
+    name: "JD.com 京东",
+    category: "china",
+    tagline: "JD red — the color of China's largest direct-retail platform.",
+    description:
+      "JD's #E1251B red is the canonical Chinese e-commerce red, applied with the discipline of a fast-moving consumer goods brand. The mascot dog (Joy) wears the same red collar across every campaign. The red is calibrated slightly warmer than Coca-Cola's, signaling vitality and trust simultaneously — the qualities a self-operated retailer needs over a marketplace.",
+    colors: [
+      { role: "primary", name: "JD Red", hex: "#E1251B" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+      { role: "neutral", name: "Slate", hex: "#333333" },
+    ],
+    source: { url: "https://about.jd.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "taobao",
+    name: "Taobao 淘宝",
+    category: "china",
+    tagline: "Taobao orange — China's largest marketplace, painted in fresh-citrus.",
+    description:
+      "Taobao's #FF4400 orange is brighter and more saturated than most international consumer reds — a deliberate signal that the platform is energetic, festive, and youth-oriented. The orange dominates the app icon, the search bar fill, and every promotional banner. Alibaba Group's unified brand uses a softer orange for its corporate identity; Taobao's is intentionally louder.",
+    colors: [
+      { role: "primary", name: "Taobao Orange", hex: "#FF4400" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+      { role: "neutral", name: "Slate", hex: "#333333" },
+    ],
+    source: { url: "https://www.taobao.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "meituan",
+    name: "Meituan 美团",
+    category: "china",
+    tagline: "Yellow scooter helmets — the color of Chinese delivery infrastructure.",
+    description:
+      "Meituan's #FFC300 yellow has become so visible across Chinese cities — couriers, scooter helmets, food bags, ad banners — that it functions as urban street furniture. The yellow was chosen for safety-vest visibility and high-contrast legibility on every surface, then carried back into digital UI. The mascot kangaroo holds the brand's secondary identity.",
+    colors: [
+      { role: "primary", name: "Meituan Yellow", hex: "#FFC300" },
+      { role: "neutral", name: "Slate Black", hex: "#222222" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+    ],
+    source: { url: "https://about.meituan.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "didi",
+    name: "Didi 滴滴",
+    category: "china",
+    tagline: "Didi orange — China's super-app for mobility, anchored on a single saturated hue.",
+    description:
+      "Didi's #FF7733 orange is one shade warmer than the typical ride-hailing palette (Uber Black, Lyft Pink, Bolt Green), placing it in a friendly middle ground. The supporting design system uses a deep navy (#0E1733) for app chrome and dark-mode surfaces — a quiet anchor that lets the orange CTAs do the work.",
+    colors: [
+      { role: "primary", name: "Didi Orange", hex: "#FF7733" },
+      { role: "neutral", name: "Didi Navy", hex: "#0E1733" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+    ],
+    source: { url: "https://www.didiglobal.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "alipay",
+    name: "Alipay 支付宝",
+    category: "china",
+    tagline: "Alipay blue — the color of payment trust for over a billion users.",
+    description:
+      "Alipay's #1677FF (the modern, slightly cooler revision of its original blue) is engineered for the same job as Stripe's indigo or Visa's blue: trust, calm, and competence at the moment of payment. Ant Group revised the value subtly in 2020 to better match dark-mode and OLED screens. The blue dominates every transaction confirmation surface across the Chinese fintech ecosystem.",
+    colors: [
+      { role: "primary", name: "Alipay Blue", hex: "#1677FF" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+      { role: "neutral", name: "Charcoal", hex: "#1F1F1F" },
+    ],
+    source: { url: "https://www.alipay.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "anthropic",
+    name: "Anthropic",
+    category: "tech",
+    tagline: "Off-white on warm cream — the color of a research lab that values craft over flash.",
+    description:
+      "Anthropic (the maker of Claude) chose a deliberately understated palette — warm cream backgrounds and soft black text — to signal seriousness in a market crowded with neon-tech aesthetics. The accent #C96442 brick orange is used sparingly, mostly for primary actions and the wordmark's flame motif. The result reads as research-led and considered, rather than consumer-AI-loud.",
+    colors: [
+      { role: "primary", name: "Cream Canvas", hex: "#F0EEE6" },
+      { role: "neutral", name: "Soft Black", hex: "#191919" },
+      { role: "accent", name: "Anthropic Brick", hex: "#C96442" },
+    ],
+    source: { url: "https://www.anthropic.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "openai",
+    name: "OpenAI",
+    category: "tech",
+    tagline: "Off-white, charcoal, and a single signature green for the most-talked-about AI brand.",
+    description:
+      "OpenAI's brand expression centers on the spiral / hexagon mark in pure black on near-white, with the signature #10A37F green as the only chromatic accent — visible on the ChatGPT 'Send' button, on streaming-response indicators, and on the wordmark in some compositions. The restraint is deliberate; in a market full of neon-purple AI brands, OpenAI's near-monochrome reads as the steady incumbent.",
+    colors: [
+      { role: "primary", name: "OpenAI Black", hex: "#0F0F0F" },
+      { role: "neutral", name: "Off White", hex: "#FAFAFA" },
+      { role: "accent", name: "ChatGPT Green", hex: "#10A37F" },
+    ],
+    source: { url: "https://openai.com/brand/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "cloudflare",
+    name: "Cloudflare",
+    category: "dev",
+    tagline: "Orange like the internet's safety vest — fast, visible, slightly punk.",
+    description:
+      "Cloudflare's #F38020 orange is unique among internet-infrastructure companies, most of which default to corporate blue. The choice signals approachability and accessibility — the company's positioning as 'making the internet safer for everyone' benefits from a non-intimidating brand color. The orange is paired with deep slate (#1D1D1F) for app chrome.",
+    colors: [
+      { role: "primary", name: "Cloudflare Orange", hex: "#F38020" },
+      { role: "neutral", name: "Slate Black", hex: "#1D1D1F" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+    ],
+    source: { url: "https://www.cloudflare.com/brand/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "huggingface",
+    name: "Hugging Face",
+    category: "dev",
+    tagline: "Yellow with a hugging emoji — the friendliest brand in machine learning.",
+    description:
+      "Hugging Face built its identity around the literal 🤗 emoji, which doubles as the company's mascot, logo, and tonal compass. The #FFD21E yellow is a direct color match to the Apple emoji rendering — a deliberate choice that signals the company belongs to ordinary developers rather than enterprise sales teams. The result has become the de facto color of open-source machine learning.",
+    colors: [
+      { role: "primary", name: "Hugging Yellow", hex: "#FFD21E" },
+      { role: "neutral", name: "Slate Text", hex: "#1F1F1F" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+    ],
+    source: { url: "https://huggingface.co/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "adobe",
+    name: "Adobe",
+    category: "design",
+    tagline: "The red 'A' that defined 40 years of creative software.",
+    description:
+      "Adobe's #FA0F00 red is one of the most-imitated identity colors in software, dating to John Warnock and Chuck Geschke's 1982 founding. The red is intentionally aggressive — Adobe Creative Cloud's product mark is red, every Save dialog cue is red — but the supporting palette across each product family is deeply considered, with photoshop blue, illustrator orange, and indesign pink all carving out distinct sub-identities.",
+    colors: [
+      { role: "primary", name: "Adobe Red", hex: "#FA0F00" },
+      { role: "neutral", name: "Adobe Black", hex: "#000000" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+    ],
+    source: { url: "https://www.adobe.com/about-adobe/brand-guidelines.html", asOf: "2026-05-03" },
+  },
+  {
+    slug: "canva",
+    name: "Canva",
+    category: "design",
+    tagline: "A four-color logo that recolors itself across every campaign.",
+    description:
+      "Canva's brand uses a quartet of equally-weighted hues that the company often re-orders, swaps, or tints depending on the campaign. The teal-to-violet gradient on the logo is the canonical mark, but the surrounding system is intentionally chromatic and playful — a visual demonstration of the design freedom Canva sells.",
+    colors: [
+      { role: "primary", name: "Canva Cyan", hex: "#00C4CC" },
+      { role: "primary", name: "Canva Violet", hex: "#7D2AE7" },
+      { role: "secondary", name: "Canva Pink", hex: "#FE6F61" },
+      { role: "neutral", name: "Charcoal", hex: "#0E1318" },
+    ],
+    source: { url: "https://www.canva.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "webflow",
+    name: "Webflow",
+    category: "design",
+    tagline: "Blue-violet tech that signals visual web-building, not no-code.",
+    description:
+      "Webflow's #4353FF blue-violet sits in the same modern-tech zone as Stripe and Linear, but pushed slightly toward purple to differentiate from its competitor stack. The positioning is deliberate: Webflow targets professional designers and developers, not the broader 'no-code' market, and the brand color is calibrated to feel serious rather than playful.",
+    colors: [
+      { role: "primary", name: "Webflow Blue", hex: "#4353FF" },
+      { role: "neutral", name: "Charcoal", hex: "#1D1F26" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+    ],
+    source: { url: "https://webflow.com/brand", asOf: "2026-05-03" },
+  },
+  {
+    slug: "framer",
+    name: "Framer",
+    category: "design",
+    tagline: "Pure black on white with a sky-blue accent — Bauhaus minimalism for design tools.",
+    description:
+      "Framer's identity is among the most disciplined in design software: black text on white background, with a single #0099FF blue used for primary actions. The wordmark is a custom geometric typeface that doubles as the brand's tonal anchor — every illustration, every UI surface returns to those proportions.",
+    colors: [
+      { role: "primary", name: "Framer Black", hex: "#000000" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+      { role: "accent", name: "Framer Blue", hex: "#0099FF" },
+    ],
+    source: { url: "https://www.framer.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "sephora",
+    name: "Sephora",
+    category: "consumer",
+    tagline: "Pure black-and-white striped retail — the most disciplined identity in beauty.",
+    description:
+      "Sephora's brand is built on uncompromising black-and-white verticals — store walls, shopping bags, packaging, the iconic flame logo. Every product brand in the store wears its own color, so Sephora's role is to be the achromatic gallery wall. The flame mark, in pure black, has barely changed since 1969.",
+    colors: [
+      { role: "primary", name: "Sephora Black", hex: "#000000" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+    ],
+    source: { url: "https://www.sephora.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "lululemon",
+    name: "Lululemon",
+    category: "consumer",
+    tagline: "Coral-red against off-white — the color of premium athleisure.",
+    description:
+      "Lululemon's #D1141A red is one of the most consistently applied brand colors in retail apparel — visible on the storefront, the shopping bag, the Omega-shaped logo, and every campaign. The supporting palette is heavily neutral, letting the red stand alone as the only chromatic accent against minimalist photography of the products themselves.",
+    colors: [
+      { role: "primary", name: "Lululemon Red", hex: "#D1141A" },
+      { role: "neutral", name: "Off White", hex: "#F5F5F5" },
+      { role: "neutral", name: "Charcoal", hex: "#1A1A1A" },
+    ],
+    source: { url: "https://corporate.lululemon.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "patagonia",
+    name: "Patagonia",
+    category: "consumer",
+    tagline: "Blue-violet sky over the Fitz Roy silhouette — the color of outdoor environmentalism.",
+    description:
+      "Patagonia's logo is a literal painting: the silhouette of Mount Fitz Roy in Argentina, sky behind it gradient-shifting from yellow at the horizon to blue-violet up top. The brand permits the full gradient on print, but in digital contexts the dominant value is the deep sky blue (#0061AC). The palette signals the outdoors first, the brand second — exactly the inversion most apparel companies avoid.",
+    colors: [
+      { role: "primary", name: "Patagonia Sky Blue", hex: "#0061AC" },
+      { role: "secondary", name: "Sunset Yellow", hex: "#F4D54F" },
+      { role: "secondary", name: "Mountain Orange", hex: "#E94E1B" },
+      { role: "neutral", name: "Forest Black", hex: "#0F1F2E" },
+    ],
+    source: { url: "https://www.patagonia.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "glossier",
+    name: "Glossier",
+    category: "consumer",
+    tagline: "Millennial pink before millennial pink had a name.",
+    description:
+      "Glossier launched in 2014 with a baby-pink palette so distinctive that it shaped the next decade of beauty branding. The pink (#F8D6CD) is paired with a stark black sans-serif wordmark and unbleached cardboard packaging, creating a contrast between feminine softness and editorial directness. By the time 'millennial pink' was named, Glossier had already monopolized it.",
+    colors: [
+      { role: "primary", name: "Glossier Pink", hex: "#F8D6CD" },
+      { role: "neutral", name: "Glossier Black", hex: "#000000" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+    ],
+    source: { url: "https://www.glossier.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "aesop",
+    name: "Aesop",
+    category: "consumer",
+    tagline: "Apothecary brown on cream — the most-imitated luxury skincare aesthetic.",
+    description:
+      "Aesop's identity is engineered to feel like an old chemist's shop: amber-brown bottles (#5C2E1F), cream paper labels with serif typography, and uncompromising restraint elsewhere. The palette is so successful at signaling 'considered, expensive, masculine-friendly' that an entire generation of skincare brands has copied it. Aesop's stores worldwide are calibrated to the same chromatic vocabulary.",
+    colors: [
+      { role: "primary", name: "Aesop Amber", hex: "#5C2E1F" },
+      { role: "neutral", name: "Cream Paper", hex: "#EFE4D2" },
+      { role: "neutral", name: "Soft Black", hex: "#1A1A1A" },
+    ],
+    source: { url: "https://www.aesop.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "uniqlo",
+    name: "Uniqlo",
+    category: "consumer",
+    tagline: "Pure red on white — Japanese retail discipline applied to clothing identity.",
+    description:
+      "Uniqlo's #FF0000 red is mathematically pure (full-saturation, full-brightness) — a rare choice in retail, where most brands soften their reds. The decision mirrors the brand's positioning: clothes engineered for utility and durability, with no decorative compromise. The katakana wordmark within the red square has barely changed since the 1984 founding.",
+    colors: [
+      { role: "primary", name: "Uniqlo Red", hex: "#FF0000" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+      { role: "neutral", name: "Black", hex: "#000000" },
+    ],
+    source: { url: "https://www.uniqlo.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "disney-plus",
+    name: "Disney+",
+    category: "media",
+    tagline: "Deep navy with a single arc-curve wordmark — streaming gravitas.",
+    description:
+      "Disney+ launched in 2019 with a palette engineered for the dark-mode TV environment: deep navy (#01153E) backgrounds, the single arc-curved wordmark in #FFFFFF white. The choice intentionally departs from the multi-color Disney parent brand — the streaming product needed to feel premium and cinematic, not theme-park bright. The navy has become one of the most-recognized streaming-service identities.",
+    colors: [
+      { role: "primary", name: "Disney+ Navy", hex: "#01153E" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+      { role: "accent", name: "Hover Cyan", hex: "#1A8FFF" },
+    ],
+    source: { url: "https://www.disneyplus.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "playstation",
+    name: "PlayStation",
+    category: "media",
+    tagline: "Four shapes, four hues — the most enduring gamepad identity in console history.",
+    description:
+      "PlayStation's four controller-button colors — green triangle, pink circle, blue X, purple square — have remained essentially unchanged since 1994. The palette doubles as Sony Interactive Entertainment's brand vocabulary: the four hues appear in marketing illustrations, packaging, and event signage. The supporting brand color is the cobalt blue (#003791) of the PlayStation wordmark.",
+    colors: [
+      { role: "primary", name: "PlayStation Blue", hex: "#003791" },
+      { role: "accent", name: "Triangle Green", hex: "#1FAA8C" },
+      { role: "accent", name: "Circle Pink", hex: "#E83287" },
+      { role: "accent", name: "X Blue", hex: "#0070D1" },
+      { role: "accent", name: "Square Purple", hex: "#A363D9" },
+    ],
+    source: { url: "https://www.playstation.com/", asOf: "2026-05-03" },
+  },
+  {
+    slug: "nintendo",
+    name: "Nintendo",
+    category: "media",
+    tagline: "One red wordmark — Kyoto-disciplined, family-friendly, 130+ years old.",
+    description:
+      "Nintendo (founded 1889 as a hanafuda card maker) has used variations on the same red since the 1980s — currently #E60012, calibrated to be slightly warmer than Coca-Cola's red. The wordmark within the red oval is one of the most recognized branding elements in entertainment. Sub-brands (Switch, Mario, Zelda) get their own colors, but Nintendo as a corporate identity stays mono-red.",
+    colors: [
+      { role: "primary", name: "Nintendo Red", hex: "#E60012" },
+      { role: "neutral", name: "White", hex: "#FFFFFF" },
+      { role: "neutral", name: "Charcoal", hex: "#1A1A1A" },
+    ],
+    source: { url: "https://www.nintendo.com/", asOf: "2026-05-03" },
+  },
 ];
 
 // ---- Helpers ----
