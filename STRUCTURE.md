@@ -199,6 +199,7 @@ ColorArchive/
 │   │   ├── use-cases-page.tsx          # Color palettes by industry index
 │   │   ├── brands-index-page.tsx       # Brand palettes index (grouped by category)
 │   │   ├── brand-detail-page.tsx       # Single brand detail (palette, CSS export, archive matches, siblings)
+│   │   ├── color-origins-section.tsx   # "Color Origins" — heritage / cultures / wild / reads section, used on every color detail page
 │   │   └── use-case-detail-page.tsx    # Individual industry palette guide
 │   │   ├── referral-card.tsx           # Referral link + credits display
 │   │   ├── ai-usage-badge.tsx          # AI usage counter badge
@@ -235,6 +236,7 @@ ColorArchive/
 │   │   ├── colorblind.ts                 # Viénot (1999) color blindness simulation matrices
 │   │   ├── combinations.ts               # 30+ curated color combinations (complementary, analogous, triadic, monochromatic, neutral+accent)
 │   │   ├── brand-palettes.ts             # 24 famous-brand palettes (Apple, Google, Notion, Stripe, Spotify, etc.) for programmatic SEO
+│   │   ├── color-origins.ts              # 10 family heritage articles (Heritage / Cultures / In the wild / How it reads) + per-color modifier prose generator
 │   └── word-color.ts                 # Deterministic word→color hash
 │   │
 │   └── types/

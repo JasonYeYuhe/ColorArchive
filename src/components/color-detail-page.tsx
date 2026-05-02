@@ -23,6 +23,7 @@ import type { WcagPairing } from "@/src/lib/color-utils";
 import { getFamilySlug } from "@/src/lib/color-family-pages";
 import type { ColorRecord } from "@/src/types/color";
 import { getColorPsychology } from "@/src/data/color-psychology";
+import { ColorOriginsSection } from "@/src/components/color-origins-section";
 
 interface ColorDetailPageProps {
   allColors: readonly ColorRecord[];
@@ -640,6 +641,9 @@ export function ColorDetailPage({
                   </div>
                 );
               })()}
+
+              {/* Color Origins — heritage / cultures / wild / reads */}
+              <ColorOriginsSection color={color} />
 
               {(() => {
                 const tonalStrip = getTonalStrip(allColors, color);

@@ -1,4 +1,44 @@
 
+## 2026-05-02 (yet later) — Sprint 1 cont: D1 Color Origins on every color page
+
+**Run type:** Remote (user-requested, "继续做 — 全权负责")
+
+### D1 — Color Origins narrative on all 5,446 color detail pages
+
+Per Gemini review: "D1 (Color Origins) is a stroke of genius — the absolute moat against pure-tool competitors. Make it Wikipedia-grade." Shipped a v1 that gives every one of the 5,446 static color pages ~600+ words of unique narrative content on top of the existing Color Psychology / WCAG / relationships sections.
+
+**Strategy** (avoiding the trap of 5,446 hand-written articles):
+- One rich "family heritage" piece per of the 10 color families (the 9 `ColorFamily` values + Neutral). Each piece has 4 sections — **Heritage**, **Across cultures**, **In the wild**, **How it reads** — each 80–500 chars.
+- Per-color **modifier prose** generated at runtime from the color's lightness × saturation band (3 × 3 = 9 composite phrasings, plus standalone lightness and saturation reads). Composed with the family piece, every page gets unique copy.
+
+**Source discipline:** psychology claims limited to associations supported by repeated cross-cultural research. Where research is contested or culture-specific, framed as "in [region]" rather than universal.
+
+**Key content choices** (sample):
+- Red — opens with cinnabar/Tyrian/cochineal trade, closes with Christian Louboutin's Pantone 18-1663 trademark.
+- Blue — leads with the lapis-lazuli scarcity story, ends with "blue is the default of digital trust to the point of UX cliché".
+- Green — the John Deere 1837 longest-continuous-brand-color note + the 555nm visual-system efficiency angle.
+- Neutral — Vermeer's grays-from-spectrum-not-tube, Apple's "religion of neutrals", Muji's identity-of-no-identity.
+
+**Files:**
+- `src/lib/color-origins.ts` — `FAMILY_HERITAGES`, `getOriginFamily`, `getFamilyHeritage`, `getModifierProse`. Pure data + pure helpers, no React.
+- `src/components/color-origins-section.tsx` — pure-display section, 4-up grid + a "this particular tone" callout.
+- `src/components/color-detail-page.tsx` — injected `<ColorOriginsSection />` directly after the Design Context (Color Psychology) block.
+- `src/lib/__tests__/color-origins.test.ts` — 8 new tests: every family covered; every section non-empty; `getOriginFamily` collapses sat<10 to Neutral; classification doesn't throw on any of the 5,446 colors; sample band-matching for extreme high/low saturation cases.
+
+**Verified:** typecheck clean. 539 vitest tests pass (531 prior + 8 new).
+
+**SEO impact estimation:** Each of 5,446 color pages gains roughly 600+ words of curated, family-tagged narrative content. Combined with existing JSON-LD Article schema, the pages should now compete on long-tail searches like "[color name] meaning", "history of [color]", and per-family terms ("history of crimson", "what cobalt means in design").
+
+### Sprint 1 status
+
+- [x] JPY label
+- [x] Hydration fix
+- [x] E2 Brand palettes v1
+- [x] D1 Color Origins v1
+- [ ] C1 Free/Pro paywall tightening (next session)
+
+---
+
 ## 2026-05-02 (later) — Sprint 1 partial: JPY label + hydration fix + brand palettes SEO v1
 
 **Run type:** Remote (user-requested, "全权负责")
