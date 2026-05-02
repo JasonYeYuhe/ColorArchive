@@ -1,4 +1,29 @@
 
+## 2026-05-02 — Growth-oriented dev plan + Gemini 3.1 Pro review
+
+**Run type:** Remote (user-requested)
+
+**Output:**
+- [docs/dev-plan-2026-05-02-growth.md](./docs/dev-plan-2026-05-02-growth.md) — 90-day plan reframing focus from "more features" to "viral coefficient + retention + conversion". 3 main tracks (A growth / B retention / C revenue) + 2 side tracks (D signature / E discovery), with Sprint 1–6 schedule, north-star metrics, and explicit "do-not-do" list.
+- [docs/gemini-review-2026-05-02.md](./docs/gemini-review-2026-05-02.md) — Gemini Pro review (7.5/10) via `gemini -m pro` stdin pipe. Surfaced 3 must-fix items the original plan missed:
+  1. **Cut A1 (Your Year Color)** — ToC-style virality has no LTV when retention is broken; concentrate on A2.
+  2. **Promote D1 + E2 (programmatic SEO) to Sprint 1–2** — SEO needs ramp-up time; the longer it waits the longer the dry spell.
+  3. **Add F-track: Figma plugin + VS Code extension as the Pro Aha moment** — biggest blind spot. Web-app daily streaks won't beat "ColorArchive Palette syncs into the Figma frame I'm editing right now". Already-built plugin + extension are unused growth assets.
+
+**Other findings worth acting on:**
+- B1 (Streak) and B3 (Color Journal) should be **merged** — pure streaks without recorded value collapse fast.
+- Pro pricing UI displays `¥499` (JPY) but Chinese users default-read `¥` as RMB. Add `JPY` / `日元` annotation in localized copy.
+- E1 (Xiaohongshu content factory) downgraded to "single-template per week", not a full content shop — solo dev can't run it.
+
+**Decision matrix recorded** in the review doc; next session can pick up the revised Sprint plan directly.
+
+**Files modified (3):**
+- docs/dev-plan-2026-05-02-growth.md (new)
+- docs/gemini-review-2026-05-02.md (new)
+- autopilot-log.md (this entry)
+
+---
+
 ## 2026-04-19 — Color-of-the-Day v2: golden-angle hue rotation
 
 **Run type:** Remote (user-requested)
