@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { audit, type AuditResult } from "@/src/lib/palette-audit";
 import { track } from "@/src/lib/track";
@@ -230,6 +230,13 @@ function SuggestionsList({ result }: { result: AuditResult }) {
 export function PaletteAuditPage() {
   const [input, setInput] = useState(SAMPLE_INPUT);
   const [submitted, setSubmitted] = useState(SAMPLE_INPUT);
+  // Defer audit render to post-mount so the SSR HTML and the first client
+  // hydrate both emit the same skeleton (avoids React #418 mismatches that
+  // varied with locale/extensions/font swaps). The audit itself is a pure
+  // sync function — this only delays rendering the *result tree*, not the
+  // computation.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const result = useMemo(() => audit(submitted), [submitted]);
 
@@ -320,7 +327,11 @@ export function PaletteAuditPage() {
         </div>
       </section>
 
-      {result.summary.uniqueColors === 0 ? (
+      {!mounted ? (
+        <div className="rounded-2xl border border-black/8 bg-white/70 p-5 text-sm text-neutral-500 backdrop-blur dark:border-white/10 dark:bg-neutral-900/60">
+          Loading audit…
+        </div>
+      ) : result.summary.uniqueColors === 0 ? (
         <div className="rounded-2xl border border-black/8 bg-white/70 p-5 text-sm text-neutral-500 backdrop-blur dark:border-white/10 dark:bg-neutral-900/60">
           No colors detected. Paste CSS/Tailwind/JSON with hex, rgb(), or hsl()
           values.

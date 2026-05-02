@@ -1,4 +1,69 @@
 
+## 2026-05-02 (later) — Sprint 1 partial: JPY label + hydration fix + brand palettes SEO v1
+
+**Run type:** Remote (user-requested, "全权负责")
+
+**Context:** Acting on the Gemini-revised plan ([dev-plan-2026-05-02-growth.md](./docs/dev-plan-2026-05-02-growth.md) + [gemini-review-2026-05-02.md](./docs/gemini-review-2026-05-02.md)). Sprint 1 was reordered to put programmatic SEO assets first (longest ramp time → ship earliest).
+
+### 1. JPY currency annotation (quick win)
+
+`¥499` could be misread as RMB by Chinese visitors when it's actually JPY (≈ $6.99 USD). Added explicit `currency: "JPY"` field to `proSubscriptionConfig` and `teamPlanConfig`, and rendered the JPY label + USD equivalent next to every price on `/pro/`, in the upgrade modal, and on `/support/` FAQ.
+
+Files: `src/lib/checkout-config.ts`, `src/components/pro-page.tsx`, `src/components/upgrade-modal.tsx`, `src/components/support-page.tsx`.
+
+### 2. React #418 hydration fix on /palette-audit/ (zh locale)
+
+[docs/human-todo.md](./docs/human-todo.md) had this reopened — intermittent `Minified React error #418` only on `/palette-audit/` under zh locale. Root cause guess from human-todo was a localeScript ↔ LocaleProvider race, but the page itself doesn't use `useLocale()`. Real fix: move the audit-result render tree behind a `mounted` flag so SSR + first hydrate emit the same skeleton, regardless of any race condition (locale, font swap, extension injection).
+
+Files: `src/components/palette-audit-page.tsx`.
+
+### 3. E2 — Brand color palettes SEO landing pages v1
+
+The biggest single growth lever per Gemini's review: programmatic SEO targeting "[Brand X] color palette" long-tail queries.
+
+- **24 brands** across 9 categories (Tech, SaaS, Design, Dev, Social, Media, Consumer, Fintech, China Internet) — Apple, Google, Microsoft, Notion, Linear, Figma, GitHub, Stripe, Vercel, Supabase, Spotify, Netflix, Airbnb, Discord, Slack, X (Twitter), Instagram, TikTok, Reddit, Pinterest, Coca-Cola, Starbucks, McDonald's, Nike, WeChat.
+- Each palette includes named colors with role tags (primary/secondary/accent/neutral/background), design rationale, source URL + as-of date, and an unofficial-reference disclaimer with takedown path.
+- Detail page renders a "Closest in ColorArchive" link for every brand color (via `findClosestArchiveColor`), turning each brand page into a discovery surface for the 5,446-color archive.
+- Static generation: `generateStaticParams()` pre-renders all 24 brand pages + the index. Routes added to `app/sitemap.ts` (priority 0.78 / 0.72).
+- Internal linking: footer chip + sibling-brands grid on each detail page.
+
+New routes:
+- `app/brands/page.tsx` — index
+- `app/brands/[slug]/page.tsx` — 24 detail pages
+
+New components:
+- `src/components/brands-index-page.tsx`
+- `src/components/brand-detail-page.tsx`
+
+New lib:
+- `src/lib/brand-palettes.ts` — typed palette data + helpers
+
+Other:
+- `src/components/site-header.tsx` — added `/brands` to `currentPath` union
+- `src/components/site-footer.tsx` — added Brands chip
+- `STRUCTURE.md` — recorded new routes / components / data file
+
+### Verified
+
+- `npm run typecheck` ✓ (clean)
+- `npx vitest run` ✓ (531 tests pass, 19 files)
+
+### What we deliberately did NOT do (per revised plan)
+
+- ❌ A1 Your Year Color (cut by Gemini; ToC virality without retention is a leaky bucket)
+- ❌ B1 Streak system (deferred to Sprint 3-4; merge with B3 Color Journal at that point)
+- ❌ Figma plugin / VS Code Pro sync (F-track, planned for Sprint 5-6 once SEO + paywall are validated)
+
+### Sprint 1 status
+
+- [x] JPY label
+- [x] Hydration fix
+- [x] E2 Brand palettes v1
+- [ ] D1 Color Origins v1 (next session)
+- [ ] C1 Free/Pro paywall tightening (next session)
+
+---
+
 ## 2026-05-02 — Growth-oriented dev plan + Gemini 3.1 Pro review
 
 **Run type:** Remote (user-requested)

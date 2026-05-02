@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     q: "What's the Lifetime option?",
-    a: "Pro Lifetime is a one-time purchase that gives you permanent Pro access — no recurring charges. ¥19,999 / $199.99.",
+    a: "Pro Lifetime is a one-time purchase that gives you permanent Pro access — no recurring charges. ¥19,999 JPY (≈ $199.99 USD).",
   },
   {
     q: "Do you offer refunds?",

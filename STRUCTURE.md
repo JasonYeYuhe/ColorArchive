@@ -96,6 +96,7 @@ ColorArchive/
 │   ├── seasonal/                  # /seasonal/ — Color by Season (Spring/Summer/Autumn/Winter, 4 seasons × 6 colors)
 │   ├── trends/                   # /trends/ — Color Trends 2026 (8 trend palettes with design guidance)
 │   ├── admin/tiktok/              # /admin/tiktok/ — TikTok publishing admin
+│   ├── brands/                    # /brands/ + /brands/[slug]/ — Famous brand color palettes (24 brands × hex codes, programmatic SEO)
 │
 ├── src/
 │   ├── components/               # "use client" UI components (one per page + shared)
@@ -196,6 +197,8 @@ ColorArchive/
 │   │   ├── palette-critique-panel.tsx  # AI design critique panel
 │   │   ├── url-analyzer-page.tsx       # Brand color analyzer (URL extraction)
 │   │   ├── use-cases-page.tsx          # Color palettes by industry index
+│   │   ├── brands-index-page.tsx       # Brand palettes index (grouped by category)
+│   │   ├── brand-detail-page.tsx       # Single brand detail (palette, CSS export, archive matches, siblings)
 │   │   └── use-case-detail-page.tsx    # Individual industry palette guide
 │   │   ├── referral-card.tsx           # Referral link + credits display
 │   │   ├── ai-usage-badge.tsx          # AI usage counter badge
@@ -231,6 +234,7 @@ ColorArchive/
 │   │   ├── color-family-pages.ts         # Color family page slug/metadata
 │   │   ├── colorblind.ts                 # Viénot (1999) color blindness simulation matrices
 │   │   ├── combinations.ts               # 30+ curated color combinations (complementary, analogous, triadic, monochromatic, neutral+accent)
+│   │   ├── brand-palettes.ts             # 24 famous-brand palettes (Apple, Google, Notion, Stripe, Spotify, etc.) for programmatic SEO
 │   └── word-color.ts                 # Deterministic word→color hash
 │   │
 │   └── types/

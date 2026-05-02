@@ -6,6 +6,7 @@ import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
 import { landingGuides } from "@/src/lib/guides";
 import { getAllTags, newsletterIssues, tagToSlug } from "@/src/lib/newsletter-issues";
 import { useCases } from "@/src/lib/use-cases";
+import { brandPalettes } from "@/src/lib/brand-palettes";
 import { getComplementaryColor, getAnalogousColors } from "@/src/lib/color-relationships";
 import { SITE_URL } from "@/src/lib/site-config";
 
@@ -400,6 +401,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.72,
   }));
 
+  const brandIndexRoute: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/brands/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.78,
+    },
+  ];
+  const brandRoutes: MetadataRoute.Sitemap = brandPalettes.map((b) => ({
+    url: `${SITE_URL}/brands/${b.slug}/`,
+    lastModified: BUILD_DATE,
+    changeFrequency: "monthly" as const,
+    priority: 0.72,
+  }));
+
   // VS comparison pages — pre-render complementary + analogous for key roots
   const VS_ROOTS = [
     "crimson", "ember", "amber", "honey", "olive", "emerald",
@@ -443,6 +459,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...familyRoutes,
     ...collectionRoutes,
     ...useCaseRoutes,
+    ...brandIndexRoute,
+    ...brandRoutes,
     ...colorRoutes,
     ...vsRoutes,
   ];

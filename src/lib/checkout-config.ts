@@ -28,6 +28,7 @@ interface ProviderConfig {
 export const proSubscriptionConfig = {
   monthly: {
     price: "¥499",
+    currency: "JPY" as const,
     priceUsd: "$6.99",
     period: "month" as const,
     trialDays: 3,
@@ -35,6 +36,7 @@ export const proSubscriptionConfig = {
   },
   yearly: {
     price: "¥3,999",
+    currency: "JPY" as const,
     priceUsd: "$49.99",
     period: "year" as const,
     trialDays: 3,
@@ -43,6 +45,7 @@ export const proSubscriptionConfig = {
   },
   lifetime: {
     price: "¥19,999",
+    currency: "JPY" as const,
     priceUsd: "$199.99",
     period: "lifetime" as const,
     note: "Pro lifetime — one-time purchase",
@@ -52,12 +55,14 @@ export const proSubscriptionConfig = {
 export const teamPlanConfig = {
   monthly: {
     price: "¥1,499",
+    currency: "JPY" as const,
     period: "month" as const,
     seats: 5,
     note: "Team Pro — 5 seats",
   },
   yearly: {
     price: "¥11,999",
+    currency: "JPY" as const,
     period: "year" as const,
     seats: 5,
     savings: "33%",

@@ -89,7 +89,9 @@ export function ProPage() {
               </p>
               <div className="mb-4">
                 <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.monthly.price}</span>
+                <span className="text-[10px] text-slate-400 ml-1 align-top">{proSubscriptionConfig.monthly.currency}</span>
                 <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {proSubscriptionConfig.monthly.period}</span>
+                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.monthly.priceUsd} USD</p>
               </div>
               <p className="text-xs text-slate-400 mb-1">{t("pro.cancelAnytime")}</p>
               <p className="text-xs text-indigo-500 font-medium mb-5">3-day free trial</p>
@@ -113,7 +115,9 @@ export function ProPage() {
               </p>
               <div className="mb-4">
                 <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.yearly.price}</span>
+                <span className="text-[10px] text-slate-400 ml-1 align-top">{proSubscriptionConfig.yearly.currency}</span>
                 <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {proSubscriptionConfig.yearly.period}</span>
+                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.yearly.priceUsd} USD</p>
               </div>
               <p className="text-xs text-slate-400 mb-1">{t("pro.cancelAnytime")}</p>
               <p className="text-xs text-indigo-500 font-medium mb-5">3-day free trial</p>
@@ -134,6 +138,8 @@ export function ProPage() {
               </p>
               <div className="mb-2">
                 <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.lifetime.price}</span>
+                <span className="text-[10px] text-slate-400 ml-1 align-top">{proSubscriptionConfig.lifetime.currency}</span>
+                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.lifetime.priceUsd} USD</p>
               </div>
               <p className="text-xs text-amber-600 dark:text-amber-400 font-medium mb-1">Pay once, keep forever*</p>
               <p className="text-[10px] text-slate-400 mb-5">*Lifetime of the ColorArchive product</p>
