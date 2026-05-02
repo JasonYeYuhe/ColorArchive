@@ -8,6 +8,7 @@ import { colors as archiveColors } from "@/src/data/colors";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
+import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 import type { ColorRecord } from "@/src/types/color";
 
 import { API_URL } from "@/src/lib/api-config";
@@ -78,13 +79,18 @@ export function UrlAnalyzerPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 pb-24">
       <section className="max-w-3xl mx-auto px-4 pt-10 pb-8">
-        <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">AI Tool</p>
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight mb-2">
-          Brand Color Analyzer
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm max-w-lg">
-          Paste any URL to extract its color palette, find matching ColorArchive colors, and get a design critique.
-        </p>
+        <div className="flex items-start justify-between gap-3 flex-wrap">
+          <div>
+            <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">AI Tool</p>
+            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight mb-2">
+              Brand Color Analyzer
+            </h1>
+            <p className="text-slate-500 dark:text-slate-400 text-sm max-w-lg">
+              Paste any URL to extract its color palette, find matching ColorArchive colors, and get a design critique.
+            </p>
+          </div>
+          <AiUsageBadge />
+        </div>
       </section>
 
       <div className="max-w-3xl mx-auto px-4 space-y-8">

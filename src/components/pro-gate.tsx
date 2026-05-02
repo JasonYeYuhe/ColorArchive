@@ -29,6 +29,51 @@ function incrementExportCount() {
   localStorage.setItem(EXPORT_LIMIT_KEY, String(current + 1));
 }
 
+/** Tiny inline counter — render it next to a "Download / Export" header
+ *  so the user sees the daily quota BEFORE clicking, not after. Pro
+ *  users see nothing. */
+export function ProGateCounter({ className = "" }: { className?: string }) {
+  const [tier, setTier] = useState<UserTier | null>(null);
+  const [, force] = useState(0);
+
+  useEffect(() => {
+    fetchSession()
+      .then((s) => setTier(s.auth.tier))
+      .catch(() => setTier("anonymous"));
+    // Re-render daily so the counter resets at the day boundary.
+    const interval = window.setInterval(() => force((n) => n + 1), 60_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  if (tier === null || tier === "pro") return null;
+
+  const used = getExportCount();
+  const remaining = Math.max(FREE_EXPORTS_PER_DAY - used, 0);
+  const isOut = remaining === 0;
+  const isLow = remaining === 1;
+
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wider rounded-full px-2.5 py-1 ${
+        isOut
+          ? "bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300"
+          : isLow
+            ? "bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400"
+            : "bg-slate-100 dark:bg-white/8 text-slate-500 dark:text-slate-400"
+      } ${className}`}
+    >
+      <span>
+        Free: {used}/{FREE_EXPORTS_PER_DAY} today
+      </span>
+      {(isLow || isOut) && (
+        <Link href="/pro" className="font-semibold underline hover:opacity-80">
+          {isOut ? "Go Pro" : "Last one"}
+        </Link>
+      )}
+    </span>
+  );
+}
+
 interface ProGateProps {
   /** The gated action — rendered when user has access */
   children: ReactNode;
@@ -60,7 +105,8 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
   }, []);
 
   if (!locked) {
-    const remaining = tier !== "pro" ? FREE_EXPORTS_PER_DAY - getExportCount() : null;
+    const used = getExportCount();
+    const remaining = tier !== "pro" ? FREE_EXPORTS_PER_DAY - used : null;
     const handleActivate = () => {
       if (tier !== "pro") {
         incrementExportCount();
@@ -74,12 +120,28 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
         onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleActivate(); }}
       >
         {children}
-        {remaining !== null && remaining <= FREE_EXPORTS_PER_DAY && (
-          <p className="mt-2 text-[10px] text-neutral-400 text-center">
+        {remaining !== null && (
+          <p
+            className={`mt-2 text-[10px] text-center ${
+              remaining <= 1
+                ? "text-amber-600 dark:text-amber-400 font-medium"
+                : "text-neutral-400"
+            }`}
+          >
             {remaining <= 1 ? (
-              <span className="text-amber-500">Last free export today — <Link href="/pro" className="underline font-medium">Go Pro for unlimited</Link></span>
+              <>
+                {remaining === 1 ? "Last free export today — " : "Daily limit hit — "}
+                <Link href="/pro" className="underline font-semibold">
+                  Go Pro for unlimited
+                </Link>
+              </>
             ) : (
-              <>{remaining}/{FREE_EXPORTS_PER_DAY} free exports remaining today</>
+              <>
+                Free: {used}/{FREE_EXPORTS_PER_DAY} today ·{" "}
+                <Link href="/pro" className="underline hover:text-neutral-600">
+                  unlock unlimited
+                </Link>
+              </>
             )}
           </p>
         )}

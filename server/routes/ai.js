@@ -1,7 +1,46 @@
 const express = require("express");
+const crypto = require("crypto");
+const db = require("../db");
+const { getSessionUser } = require("../auth");
 const router = express.Router();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const { aiRateLimit } = require("../ai-rate-limit");
+const { aiRateLimit, TIER_LIMITS } = require("../ai-rate-limit");
+
+/**
+ * GET /ai/usage — public, includes anonymous users.
+ *
+ * Mirrors the identifier logic in ai-rate-limit.js so that an
+ * unauthenticated client can ask "how much of my anonymous quota have
+ * I used today?" and surface the answer as a visible badge BEFORE the
+ * user hits a 429. Authenticated users get the same shape as
+ * /me/usage's `ai` field, so the client can use one fetch path.
+ */
+router.get("/usage", (req, res) => {
+  const user = getSessionUser(req);
+  let tier = "anonymous";
+  let identifier;
+
+  if (user) {
+    tier = user.tier || "free";
+    identifier = "user:" + user.id;
+  } else {
+    const ip =
+      req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+      req.socket.remoteAddress ||
+      "unknown";
+    identifier = "ip:" + crypto.createHash("sha256").update(ip).digest("hex").slice(0, 16);
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const row = db
+    .prepare("SELECT count FROM ai_usage WHERE identifier = ? AND date = ?")
+    .get(identifier, today);
+  const used = row ? row.count : 0;
+  const rawLimit = TIER_LIMITS[tier];
+  const limit = rawLimit === Infinity ? null : rawLimit;
+
+  return res.json({ tier, used, limit });
+});
 
 // Default model name. Previously hardcoded to `gemini-3-flash` across five
 // call sites — that exact model name does not exist and the Droplet logs

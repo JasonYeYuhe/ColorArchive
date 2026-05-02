@@ -7,6 +7,8 @@ import { useSearchParams } from "next/navigation";
 import { useLocale } from "@/src/components/locale-provider";
 import { ShareOnXButton } from "@/src/components/share-link-button";
 import { ProGate } from "@/src/components/pro-gate";
+import { useAuth } from "@/src/components/auth-provider";
+import { withSvgWatermark } from "@/src/lib/export-watermark";
 import { hexToRgb } from "@/src/lib/color-utils";
 import { colors as allColors } from "@/src/data/colors";
 import { CopyButton } from "@/src/components/copy-button";
@@ -188,6 +190,7 @@ function DownloadAseButton({ colors }: { colors: { name: string; hex: string }[]
 /* ------------------------------------------------------------------ */
 
 function DownloadPaletteSvgButton({ colors }: { colors: { id: string; name: string; hex: string }[] }) {
+  const { tier } = useAuth();
   function handleDownload() {
     const count = colors.length || 1;
     const w = 1200;
@@ -196,7 +199,8 @@ function DownloadPaletteSvgButton({ colors }: { colors: { id: string; name: stri
     const rects = colors.map((c, i) => `<rect x="${i * sw}" y="0" width="${sw}" height="${h - 60}" fill="${c.hex}"/>
 <text x="${i * sw + sw / 2}" y="${h - 35}" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">${c.name.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</text>
 <text x="${i * sw + sw / 2}" y="${h - 15}" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">${c.hex}</text>`).join("\n");
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"><rect width="${w}" height="${h}" fill="#fafaf9"/>${rects}</svg>`;
+    const rawSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"><rect width="${w}" height="${h}" fill="#fafaf9"/>${rects}</svg>`;
+    const svg = withSvgWatermark(rawSvg, tier);
     const blob = new Blob([svg], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

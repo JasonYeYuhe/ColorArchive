@@ -1,4 +1,85 @@
 
+## 2026-05-03 — Sprint 1 final: C1 Free/Pro paywall — visible quota + export watermark
+
+**Run type:** Remote (user-requested, "继续吧 — 全权负责")
+
+Closed Sprint 1 by tightening the Free/Pro differentiation per the Gemini-revised plan: not "ban Free users from things they need" (which would just drive them away when DAU is already low) but "make the Free vs Pro contrast visible at the moment of value creation".
+
+### 1. Anonymous AI quota visibility
+
+`AiUsageBadge` previously hid itself for anonymous users — they only learned about the limit by hitting a 429. Fixed by:
+
+- Adding `GET /ai/usage` to the server (public, mirrors the IP-hash identifier logic from `ai-rate-limit.js` so anonymous quota is queryable without auth).
+- Adding `fetchAiUsage()` to the client — returns `{ tier, used, limit }`, works for any caller.
+- `AiUsageBadge` now renders for anonymous + free users, with a 3-state colour (slate / amber / rose) and a contextual upgrade CTA (`/login` for anon, `/pro` for free).
+
+### 2. Badge on every AI surface
+
+Previously only `brand-generator` and `mood-palette` showed the badge. Added it to:
+
+- `url-analyzer-page.tsx` (Brand Color Analyzer)
+- `palette-critique-panel.tsx` (the AI critique CTA, used inside the URL analyzer + palette page)
+
+### 3. Export watermark for non-Pro tiers
+
+The biggest single Free/Pro diff lever, per Gemini's review. New `src/lib/export-watermark.ts` `withSvgWatermark(svg, tier)` helper:
+
+- Pro: returns the SVG untouched.
+- Free + anonymous: appends a small "colorarchive.org" tag in the bottom-right corner, scaled to SVG size, before `</svg>`.
+- Robust against missing dimensions (returns original; doesn't ship broken SVG).
+- Wired into all 3 SVG export paths: single-color swatch (color detail page), shared palette (`/palette`), and image-extracted palette (`/image-palette`).
+
+Two effects in one move:
+
+- Every Free download becomes a passive marketing asset (recipient sees the URL).
+- Removing the watermark becomes a concrete, visible reason to upgrade — far more concrete than abstract feature lists.
+
+### 4. ProGate counter rendered upfront
+
+Previously the Free quota counter only appeared *after* the user clicked. Now `<ProGate>` shows `Free: X/3 today · unlock unlimited` (slate), `Last free export today — Go Pro for unlimited` (amber), or `Daily limit hit — Go Pro for unlimited` (still amber, but locked) immediately on mount. Also exported a standalone `<ProGateCounter />` for headers / sidebars (unused yet; available for next sprint).
+
+### Files
+
+- `server/routes/ai.js` — `GET /ai/usage` endpoint
+- `src/lib/auth-client.ts` — `fetchAiUsage`, `AiUsage` type
+- `src/components/ai-usage-badge.tsx` — anon support + 3-state colour
+- `src/components/url-analyzer-page.tsx` — badge in header
+- `src/components/palette-critique-panel.tsx` — badge above CTA
+- `src/lib/export-watermark.ts` — `withSvgWatermark`, `EXPORT_WATERMARK_TEXT`
+- `src/lib/__tests__/export-watermark.test.ts` — 8 new tests
+- `src/components/color-detail-page.tsx` — wired watermark into single-swatch SVG
+- `src/components/palette-page.tsx` — wired watermark into palette SVG export
+- `src/components/image-palette-page.tsx` — wired watermark into image-derived palette SVG
+- `src/components/pro-gate.tsx` — upfront counter + tri-state messaging + new `ProGateCounter` export
+- `STRUCTURE.md`
+
+### Verified
+
+- `npm run typecheck` clean
+- `npx vitest run` — 547 tests pass (539 prior + 8 new watermark tests)
+
+### Sprint 1 status — DONE
+
+- [x] JPY currency labels
+- [x] /palette-audit/ React #418 hydration fix
+- [x] E2 Brand palettes SEO v1 (24 brand pages)
+- [x] D1 Color Origins on all 5,446 color pages
+- [x] **C1 Free/Pro paywall — visible AI quota + export watermark + upfront ProGate counter**
+
+### Server next step (manual deploy)
+
+The `GET /ai/usage` endpoint requires a Droplet pull + PM2 restart before the new badge will return real numbers for anonymous users:
+```
+ssh root@143.198.85.72 'cd /root/colorarchive/server && git pull && pm2 restart colorarchive-api'
+```
+Until then, `AiUsageBadge` will silently fail-fast (no badge rendered) — same behaviour as before.
+
+### Next: Sprint 2
+
+Per the revised plan: B1 Streak + B3 Color Journal **merged** ("打卡日记" — record today's color + a one-line note, drives daily return).
+
+---
+
 ## 2026-05-02 (yet later) — Sprint 1 cont: D1 Color Origins on every color page
 
 **Run type:** Remote (user-requested, "继续做 — 全权负责")

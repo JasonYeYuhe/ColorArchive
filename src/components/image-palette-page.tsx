@@ -3,6 +3,8 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { ProGate } from "@/src/components/pro-gate";
+import { useAuth } from "@/src/components/auth-provider";
+import { withSvgWatermark } from "@/src/lib/export-watermark";
 import { SITE_DOMAIN } from "@/src/lib/site-config";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { hexToRgb, rgbToHsl, rgbToHex } from "@/src/lib/color-utils";
@@ -272,6 +274,7 @@ function AddMatchesToPaletteButton({ matchedColors }: { matchedColors: { archive
 
 export function ImagePalettePage() {
   const { locale } = useLocale();
+  const { tier } = useAuth();
   const [isDragging, setIsDragging] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [imageName, setImageName] = useState<string>("");
@@ -437,7 +440,8 @@ export function ImagePalettePage() {
   );
 
   const handleDownloadSvg = useCallback(() => {
-    const svg = generatePaletteSvg(matchedColors);
+    const rawSvg = generatePaletteSvg(matchedColors);
+    const svg = withSvgWatermark(rawSvg, tier);
     const blob = new Blob([svg], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -445,7 +449,7 @@ export function ImagePalettePage() {
     a.download = "colorarchive-palette.svg";
     a.click();
     URL.revokeObjectURL(url);
-  }, [matchedColors]);
+  }, [matchedColors, tier]);
 
   const xShareText = useMemo(() => {
     if (!shareUrl || matchedColors.length === 0) return "";

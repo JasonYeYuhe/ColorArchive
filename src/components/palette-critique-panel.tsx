@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { API_URL, type CritiqueResult } from "@/src/lib/auth-client";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
+import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 
 interface PaletteCritiquePanelProps {
   palette: string[];
@@ -61,6 +62,11 @@ export function PaletteCritiquePanel({ palette, onReplace }: PaletteCritiquePane
 
   return (
     <div className="space-y-4">
+      {!result && (
+        <div className="flex justify-end">
+          <AiUsageBadge />
+        </div>
+      )}
       {!result && (
         <button
           onClick={handleCritique}

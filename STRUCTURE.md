@@ -237,6 +237,7 @@ ColorArchive/
 │   │   ├── combinations.ts               # 30+ curated color combinations (complementary, analogous, triadic, monochromatic, neutral+accent)
 │   │   ├── brand-palettes.ts             # 24 famous-brand palettes (Apple, Google, Notion, Stripe, Spotify, etc.) for programmatic SEO
 │   │   ├── color-origins.ts              # 10 family heritage articles (Heritage / Cultures / In the wild / How it reads) + per-color modifier prose generator
+│   │   ├── export-watermark.ts           # SVG watermark helper (Free/anon get "colorarchive.org" stamp on exports; Pro is clean)
 │   └── word-color.ts                 # Deterministic word→color hash
 │   │
 │   └── types/
@@ -264,7 +265,8 @@ ColorArchive/
 │       │                                 #   /me/preferences, /me/orders
 │       ├── projects.js                   # CRUD /projects + GET /projects/shared/:id
 │       ├── ai.js                         # POST /ai/brand-palette, /ai/mood-palette,
-│       │                                 #   /ai/name-color, /ai/critique, /ai/analyze-url
+│       │                                 #   /ai/name-color, /ai/critique, /ai/analyze-url,
+│       │                                 #   GET /ai/usage (public, includes anonymous IP-tracked quota)
 │       ├── admin.js                      # GET /admin/* — orders dashboard
 │       ├── analytics.js                  # GET /analytics/* — internal stats
 │       ├── pageviews.js                  # POST /pageviews — page tracking

@@ -24,6 +24,8 @@ import { getFamilySlug } from "@/src/lib/color-family-pages";
 import type { ColorRecord } from "@/src/types/color";
 import { getColorPsychology } from "@/src/data/color-psychology";
 import { ColorOriginsSection } from "@/src/components/color-origins-section";
+import { useAuth } from "@/src/components/auth-provider";
+import { withSvgWatermark } from "@/src/lib/export-watermark";
 
 interface ColorDetailPageProps {
   allColors: readonly ColorRecord[];
@@ -46,13 +48,15 @@ interface PaletteEntry {
 }
 
 function DownloadSwatchButton({ color }: { color: ColorRecord }) {
+  const { tier } = useAuth();
   function handleDownload() {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+    const rawSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
 <rect width="400" height="240" fill="${color.hex}"/>
 <rect y="240" width="400" height="60" fill="#fafaf9"/>
 <text x="200" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#1a1a1a">${color.name}</text>
 <text x="200" y="288" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">${color.hex}</text>
 </svg>`;
+    const svg = withSvgWatermark(rawSvg, tier);
     const blob = new Blob([svg], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

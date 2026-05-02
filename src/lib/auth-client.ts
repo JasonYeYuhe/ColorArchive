@@ -220,6 +220,25 @@ export async function fetchUsage(): Promise<UsageStats> {
   return parseResponse<UsageStats>(response);
 }
 
+export interface AiUsage {
+  tier: UserTier;
+  used: number;
+  limit: number | null;
+}
+
+/**
+ * Public AI usage — works for anonymous users too. Use this when you
+ * only need the AI quota counter (no projects/favorites). Lets the
+ * AiUsageBadge show a meaningful number to anonymous visitors so they
+ * see the wall before they hit it.
+ */
+export async function fetchAiUsage(): Promise<AiUsage> {
+  const response = await fetch(`${API_URL}/ai/usage`, {
+    credentials: "include",
+  });
+  return parseResponse<AiUsage>(response);
+}
+
 export async function fetchProjects(): Promise<{ projects: Project[] }> {
   const response = await fetch(`${API_URL}/projects`, {
     credentials: "include",
