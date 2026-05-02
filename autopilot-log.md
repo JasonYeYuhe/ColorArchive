@@ -1,4 +1,55 @@
 
+## 2026-05-03 (later 4) — D2: Region/Culture color palettes (12 new programmatic-SEO pages)
+
+**Run type:** Remote (user-requested, "你把你觉得需要做的都做掉吧")
+
+After surveying the existing content surfaces (industry, decades, seasonal, trends, famous-palettes, brands, stories, use-cases) the largest unexploited SEO long-tail surface was **regions / cultures**. Searches like "Japanese color palette", "Moroccan colors hex", "Scandinavian color scheme" are high-volume and were 100% un-served by the project. Built the full surface in one shot, mirroring the proven /brands/ pattern.
+
+### What's new
+
+**`/regions/`** index + 12 detail pages, sourced from documented dye, pigment, and architectural traditions (not generic flag-color clichés):
+
+- **Asia** (5): Japan (indigo/sumi/persimmon), India (saffron/Holi/Mughal), China-Traditional (cinnabar/imperial yellow/celadon), Korea (Obangsaek 5-direction), Vietnam (lacquer/áo dài/rice paddy).
+- **Europe** (4): Greece-Aegean, Italy-Tuscany, Scandinavia (hygge), Iceland (basalt/glacial/lichen).
+- **Africa** (2): Morocco (Majorelle/Chefchaouen), Egypt (lapis lazuli/malachite/kohl).
+- **Americas** (1): Mexico (Frida pink, Barragán, Día de los Muertos).
+
+Each detail page:
+- 5-7 named colors with **named source** for each (e.g. "Persicaria tinctoria fermentation dye", "Sun-dried earth wall construction", "Crocus sativus stigma + flag heritage").
+- 1-2 paragraphs of cultural framing — original synthesis, not generic prose.
+- Use-case tags ("hospitality design", "wellness packaging", etc.) — match commercial intent.
+- "Closest in ColorArchive" link for every color (cross-link into the 5,446-color archive).
+- "Further reading" with citations to UNESCO, Wikipedia, museum / studio sites.
+- Sibling-region grid for continued exploration on the same continent.
+
+### Source discipline
+
+- Color values are factual sRGB hex codes; not subject to copyright.
+- Cultural paragraphs are original synthesis. References cite museum / studio / Wikipedia entries.
+- No claims about "official national colors" beyond actual flag heritage where relevant.
+
+### Verification
+
+- typecheck clean
+- 611 vitest pass total (598 prior + 13 new region-data tests covering: scale ≥ 10, slug uniqueness, hex regex validity, color count bounds 4-10, source field presence, tagline + description length, ≥ 1 use-case + reference, ≥ 4 continents covered, getRegionBySlug round-trips, regionsByContinent partition completeness)
+
+### Files
+
+- `src/lib/region-palettes.ts` (new)
+- `src/lib/__tests__/region-palettes.test.ts` (new, 13 tests)
+- `app/regions/page.tsx` (new)
+- `app/regions/[slug]/page.tsx` (new — generateStaticParams emits 12 pages)
+- `src/components/regions-index-page.tsx` (new)
+- `src/components/region-detail-page.tsx` (new)
+- `src/components/site-header.tsx` — `/regions` in `currentPath` union
+- `src/components/site-footer.tsx` — Regions chip
+- `app/sitemap.ts` — index + 12 detail pages, priority 0.78 / 0.72
+- `STRUCTURE.md`
+
+13 new static pages total on next deploy.
+
+---
+
 ## 2026-05-03 (later 3) — Bidirectional brand↔color graph + Journal one-click COTD
 
 **Run type:** Remote (user-requested, "你直接继续吧")

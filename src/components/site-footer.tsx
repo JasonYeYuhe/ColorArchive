@@ -34,6 +34,9 @@ export function SiteFooter() {
             <Link href="/brands/" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
               Brands
             </Link>
+            <Link href="/regions/" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
+              Regions
+            </Link>
             <Link href="/journal/" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
               Journal
             </Link>

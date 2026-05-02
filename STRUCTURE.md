@@ -96,7 +96,8 @@ ColorArchive/
 │   ├── seasonal/                  # /seasonal/ — Color by Season (Spring/Summer/Autumn/Winter, 4 seasons × 6 colors)
 │   ├── trends/                   # /trends/ — Color Trends 2026 (8 trend palettes with design guidance)
 │   ├── admin/tiktok/              # /admin/tiktok/ — TikTok publishing admin
-│   ├── brands/                    # /brands/ + /brands/[slug]/ — Famous brand color palettes (24 brands × hex codes, programmatic SEO)
+│   ├── brands/                    # /brands/ + /brands/[slug]/ — Famous brand color palettes (51 brands × hex codes, programmatic SEO)
+│   ├── regions/                   # /regions/ + /regions/[slug]/ — Color palettes by region & culture (12 cultures with named pigment sources, programmatic SEO)
 │   ├── journal/                   # /journal/ — Color Journal: daily check-in + streak (localStorage-first)
 │
 ├── src/
@@ -206,6 +207,8 @@ ColorArchive/
 │   │   ├── journal-export-button.tsx   # 1080×1080 PNG export of the journal month (Free gets watermark, Pro is clean)
 │   │   ├── log-to-journal-button.tsx   # "Save to journal" toggle button, used on color detail + /today/
 │   │   ├── brands-using-color-section.tsx # Reverse-index "Brands using a similar color" block, on every color detail page
+│   │   ├── regions-index-page.tsx      # /regions/ index, grouped by continent
+│   │   ├── region-detail-page.tsx      # /regions/[slug]/ — palette + cultural context + archive matches + references
 │   │   └── use-case-detail-page.tsx    # Individual industry palette guide
 │   │   ├── referral-card.tsx           # Referral link + credits display
 │   │   ├── ai-usage-badge.tsx          # AI usage counter badge
@@ -242,6 +245,7 @@ ColorArchive/
 │   │   ├── colorblind.ts                 # Viénot (1999) color blindness simulation matrices
 │   │   ├── combinations.ts               # 30+ curated color combinations (complementary, analogous, triadic, monochromatic, neutral+accent)
 │   │   ├── brand-palettes.ts             # 51 famous-brand palettes across 9 categories (Apple/Google/Notion/Stripe/Anthropic/OpenAI/HuggingFace/Adobe/Canva/Webflow/Framer/Sephora/Lululemon/Patagonia/Glossier/Aesop/Uniqlo/Disney+/PlayStation/Nintendo/Douyin/Xiaohongshu/Bilibili/Zhihu/JD/Taobao/Meituan/Didi/Alipay/Cloudflare/etc.) for programmatic SEO
+│   │   ├── region-palettes.ts            # 12 region/culture palettes (Japan/Morocco/Greece/Italy/Mexico/India/Scandinavia/China/Korea/Egypt/Iceland/Vietnam) with named pigment sources + cultural context
 │   │   ├── color-origins.ts              # 10 family heritage articles (Heritage / Cultures / In the wild / How it reads) + per-color modifier prose generator
 │   │   ├── color-journal.ts              # Daily check-in (localStorage): one entry/day, streak calc, subscribe pattern, calendar grid generator
 │   │   ├── color-brand-matches.ts        # Reverse index: given any hex, find brand-catalog colors within distance threshold (used by every color detail page)
