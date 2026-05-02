@@ -1,4 +1,51 @@
 
+## 2026-05-03 (later 5) — Regions 12→18 + region reverse-index on color pages
+
+**Run type:** Remote (user-requested, "continue")
+
+Two paired surface upgrades on top of yesterday's regions launch:
+
+### 1. Regions catalog expanded 12 → 18
+
+Added 6 new high-search regional palettes, evenly distributed across continents:
+
+- **France (Paris)** — Lutetian limestone + zinc roof + Hermès orange + IKB
+- **Brazil** — Amazon green + Carnaval saturation + Açaí purple + Salvador terracotta
+- **Turkey (Istanbul)** — Iznik tile blue + Bosphorus turquoise + Byzantine gold
+- **England (London)** — Underground red + Royal Navy + Plane tree green + pub-tile dado
+- **Ireland** — Celtic green + peat brown + Aran cream + pub-door red
+- **Australia** — Uluru ochre + eucalyptus + Reef coral + Outback night navy
+
+Same data shape as v1 — every color carries a documented cultural source, every page cites museum/UNESCO/studio references. **6 new static pages** on next deploy.
+
+### 2. Region reverse-index on every color detail page
+
+Until now, the relationship between the regions catalog and the 5,446 archive entries was one-way (region page → closest archive matches). Added the reverse direction matching the existing `BrandsUsingColorSection` pattern:
+
+- `src/lib/color-region-matches.ts` — `findRegionsNearColor(hex)` with `REGION_MATCH_DISTANCE_THRESHOLD = 60` cutoff, dedup per region, sorted ascending.
+- `<RegionsUsingColorSection />` — pure read of the catalog, renders nothing if no match within threshold (so unrelated regions don't show up on weird tones).
+- Wired into `color-detail-page.tsx` immediately after `BrandsUsingColorSection` — visually paired so the user reads "Brands using this color" + "Cultures using this color" as a unit.
+
+7 new vitest cases on the helper: closest-match-first, limit respect, region dedup, threshold cutoff, empty-result safety, real-data sanity (Iznik Blue → turkey-istanbul, distance 0), malformed-hex returns empty array.
+
+**Net effect:** every one of 5,446 color detail pages now links into both the brand catalog and the regions catalog. The internal-link graph density per color page is now 3-6 outbound links to programmatic-SEO surfaces, on top of all existing relationship links (analogous, complementary, tonal, archive matches).
+
+### Verification
+
+- typecheck clean
+- 618 vitest tests pass (611 prior + 7 new region-matches)
+
+### Files
+
+- `src/lib/region-palettes.ts` — +6 entries (now 18)
+- `src/lib/color-region-matches.ts` (new)
+- `src/lib/__tests__/color-region-matches.test.ts` (new, 7 tests)
+- `src/components/regions-using-color-section.tsx` (new)
+- `src/components/color-detail-page.tsx` — wired RegionsUsingColorSection
+- `STRUCTURE.md`
+
+---
+
 ## 2026-05-03 (later 4) — D2: Region/Culture color palettes (12 new programmatic-SEO pages)
 
 **Run type:** Remote (user-requested, "你把你觉得需要做的都做掉吧")

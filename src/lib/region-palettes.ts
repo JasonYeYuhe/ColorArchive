@@ -313,6 +313,137 @@ export const regionPalettes: RegionPalette[] = [
       { label: "Hội An Ancient Town (UNESCO)", url: "https://whc.unesco.org/en/list/948/" },
     ],
   },
+  {
+    slug: "france-paris",
+    name: "France (Paris)",
+    continent: "europe",
+    tagline: "Limestone facades, slate-grey roofs, and Hermès orange — the most disciplined urban palette in Europe.",
+    description:
+      "Paris is built from a near-monochrome of cream Lutetian limestone (the buildings are required by law to stay within a defined hue range) and dark zinc roofs, with the Seine reading as cool steel. The fashion tradition adds the controlled chromatic accents — Chanel black, Hermès orange #FF7B00 (a wartime cardboard improvisation that became a brand asset), Yves Klein International Blue, and the deep wine of Bordeaux. The discipline at the architecture level lets the accent colors carry maximum weight.",
+    colors: [
+      { name: "Lutetian Limestone", hex: "#E5DDC8", source: "Paris facade stone (Haussmannian-era buildings)" },
+      { name: "Zinc Roof Grey", hex: "#5E6566", source: "Oxidized zinc roof tiles, central Paris" },
+      { name: "Hermès Orange", hex: "#FF7B00", source: "Hermès brand box, since 1942" },
+      { name: "Chanel Black", hex: "#0A0A0A", source: "Coco Chanel's 'little black dress' palette anchor" },
+      { name: "Bordeaux Wine", hex: "#5C2E2A", source: "Bordeaux region red wine" },
+      { name: "Yves Klein Blue (IKB)", hex: "#002FA7", source: "Patented by Yves Klein, 1960" },
+      { name: "Seine Steel", hex: "#7E8A93", source: "River reflectivity in winter" },
+    ],
+    useCases: ["Luxury fashion branding", "Heritage hospitality", "Editorial photography", "Restaurant design"],
+    references: [
+      { label: "Plan Local d'Urbanisme de Paris (facade rules)", url: "https://www.paris.fr/" },
+      { label: "Hermès brand history", url: "https://www.hermes.com/" },
+    ],
+  },
+  {
+    slug: "brazil",
+    name: "Brazil",
+    continent: "americas",
+    tagline: "Carnaval saturation against Amazon green — the highest-chroma national palette in the Americas.",
+    description:
+      "Brazil's color culture moves between the deep ecological greens of the Amazon and Pantanal and the maximalist saturation of Carnaval — feathered samba costumes, Bahia tile blues, and the yellow-green-blue of the flag. The Tropicália movement of the 1960s codified this contrast as a national aesthetic; contemporary Brazilian design (Burle Marx landscapes, Lina Bo Bardi architecture) builds on it. The supporting palette includes açaí purple, dendê palm-oil orange, and the warm terracotta of Salvador's colonial old town.",
+    colors: [
+      { name: "Amazon Green", hex: "#1B6D3F", source: "Tropical rainforest canopy" },
+      { name: "Carnaval Yellow", hex: "#FFCC29", source: "Brazilian flag + samba costumes" },
+      { name: "Brazil Blue", hex: "#002776", source: "Brazilian flag — celestial sphere" },
+      { name: "Açaí Purple", hex: "#3D1F4D", source: "Euterpe oleracea berry" },
+      { name: "Dendê Orange", hex: "#E97132", source: "Palm-oil cooking traditions of Bahia" },
+      { name: "Salvador Terracotta", hex: "#B85B40", source: "Colonial Pelourinho district" },
+      { name: "Tropical Pink", hex: "#FF1B6B", source: "Bougainvillea + Carnaval costume" },
+    ],
+    useCases: ["Festival design", "Travel branding", "Fashion swimwear", "Beverage packaging"],
+    references: [
+      { label: "Brazilian Tropicália movement", url: "https://en.wikipedia.org/wiki/Tropic%C3%A1lia" },
+      { label: "Roberto Burle Marx Foundation", url: "https://www.sitio.com.br/" },
+    ],
+  },
+  {
+    slug: "turkey-istanbul",
+    name: "Turkey (Istanbul)",
+    continent: "middle-east",
+    tagline: "Iznik tile blue, Bosphorus water, and Turkish red — three civilizations layered into one palette.",
+    description:
+      "Istanbul's palette absorbs three thousand years of layered civilization: Byzantine gold mosaics, Ottoman Iznik tile blue and tomato red, and the perpetual cool turquoise of the Bosphorus and Marmara Sea. The signature Iznik blue (a cobalt-and-tin-glaze formula perfected in the 16th century) fills the Sultan Ahmed Mosque interior and is now copied globally as 'Ottoman blue'. Turkish red (kırmızı) — the bright tomato red of carpet borders and the modern flag — anchors the warm half. Apple tea amber and saffron round out the working palette.",
+    colors: [
+      { name: "Iznik Blue", hex: "#1E5599", source: "Ottoman Iznik tile cobalt-glaze, 16th c." },
+      { name: "Turkish Red", hex: "#E30A17", source: "Crescent-and-star flag + carpet border" },
+      { name: "Bosphorus Turquoise", hex: "#4DA8AC", source: "Marmara strait water" },
+      { name: "Byzantine Gold", hex: "#D4AF37", source: "Hagia Sophia mosaic ground" },
+      { name: "Apple Tea Amber", hex: "#C77D4D", source: "Çay glass tea, ubiquitous Istanbul tradition" },
+      { name: "Saffron Yellow", hex: "#F4C430", source: "Anatolian saffron + spice market color" },
+      { name: "Marble White", hex: "#F0EBE0", source: "Marmara marble, used since Roman era" },
+    ],
+    useCases: ["Hotel and restaurant branding", "Travel publishing", "Cosmetics packaging", "Heritage retail"],
+    references: [
+      { label: "Iznik pottery tradition", url: "https://en.wikipedia.org/wiki/%C4%B0znik_pottery" },
+      { label: "Sultan Ahmed Mosque (Blue Mosque)", url: "https://en.wikipedia.org/wiki/Blue_Mosque,_Istanbul" },
+    ],
+  },
+  {
+    slug: "england-london",
+    name: "England (London)",
+    continent: "europe",
+    tagline: "Underground roundel red, royal navy, and pub-tile green — the codified colors of the British capital.",
+    description:
+      "London is one of the few cities whose palette is partly enforced by transport authority. Underground red (the roundel red, technically Pantone 485), Underground blue, Buckingham red, royal navy and Cambridge blue all appear on official documents. The vernacular layer adds Victorian garden brick (#9F4A3C), London Plane tree green, and the deep enamelled green of pub tile dadoes — all present across Hampstead, Bloomsbury, Marylebone, and the City. Even the typeface (Edward Johnston's, 1916) is owned by Transport for London.",
+    colors: [
+      { name: "Underground Red", hex: "#DC241F", source: "TfL roundel — Edward Johnston, 1908" },
+      { name: "Underground Blue", hex: "#1C3F95", source: "TfL roundel + Piccadilly line" },
+      { name: "Royal Navy", hex: "#0A2351", source: "Royal Navy / Royal Mail livery" },
+      { name: "Buckingham Red", hex: "#A4262C", source: "Royal guard uniforms + post boxes" },
+      { name: "Plane Tree Green", hex: "#5C7A5A", source: "Platanus × hispanica, London street tree" },
+      { name: "Pub Tile Green", hex: "#1F4D2E", source: "Victorian pub interior dado tiling" },
+      { name: "Garden Brick", hex: "#9F4A3C", source: "London stock brick + clay" },
+    ],
+    useCases: ["Heritage hospitality", "Editorial publishing", "Menswear / British outfitters", "Gallery branding"],
+    references: [
+      { label: "Transport for London brand standards", url: "https://tfl.gov.uk/" },
+      { label: "Pantone 485 (Underground Red)", url: "https://en.wikipedia.org/wiki/London_Underground" },
+    ],
+  },
+  {
+    slug: "ireland",
+    name: "Ireland",
+    continent: "europe",
+    tagline: "Forty shades of green — peat, Atlantic spray, and Aran wool ivory.",
+    description:
+      "Irish color culture is shaped by the country's notorious chromatic narrowness — over 40 documented shades of green from limestone-pasture sage to peat-bog moss to Atlantic-edge sea. The Celtic cross green of the modern flag (Pantone 347) is one specific reading; the everyday landscape ranges much darker and softer. The supporting palette includes Aran wool ivory, peat brown, Connemara marble grey-green, and the sudden saturated orange of fishing buoys and pub doors that punctuate the green.",
+    colors: [
+      { name: "Celtic Cross Green", hex: "#169B62", source: "Irish flag — Pantone 347" },
+      { name: "Pasture Green", hex: "#7C9A4C", source: "Limestone-base pastureland, the West" },
+      { name: "Peat Brown", hex: "#604024", source: "Cut turf bog, Mayo + Connemara" },
+      { name: "Aran Cream", hex: "#F0E8D2", source: "Undyed Aran wool sweater tradition" },
+      { name: "Connemara Marble", hex: "#8DA48A", source: "Mottled green-grey native marble" },
+      { name: "Pub Door Red", hex: "#B4292B", source: "Saturated street accent against grey stone" },
+      { name: "Atlantic Slate", hex: "#5A6770", source: "Cliff face + winter sea" },
+    ],
+    useCases: ["Whiskey and stout packaging", "Premium knitwear", "Travel publishing", "Pub / restaurant design"],
+    references: [
+      { label: "National Folklore Collection (UCD)", url: "https://www.duchas.ie/" },
+    ],
+  },
+  {
+    slug: "australia",
+    name: "Australia",
+    continent: "oceania",
+    tagline: "Uluru ochre, eucalyptus blue-green, and Great Barrier Reef coral — earth at one extreme, sea at the other.",
+    description:
+      "The Australian palette is as widely separated as the continent itself: the saturated Uluru ochre + Pilbara red of the Outback against the cool eucalyptus blue-green of the bushland and the high-key coral and turquoise of the Great Barrier Reef. Indigenous Australian art, with its dot-painting tradition rooted in iron-oxide ochres, is the country's longest continuous color tradition (40,000+ years). The supporting palette adds the bleached cream of summer beach sand, the warm pink of summer-evening light over Perth and Sydney, and the deep navy of the southern night sky.",
+    colors: [
+      { name: "Uluru Ochre", hex: "#C9472B", source: "Iron-oxide weathering, Uluru sandstone" },
+      { name: "Eucalyptus Blue-Green", hex: "#7EA08C", source: "Eucalyptus regnans / globulus foliage" },
+      { name: "Reef Coral", hex: "#FF7E6F", source: "Great Barrier Reef coral — Acropora" },
+      { name: "Reef Turquoise", hex: "#3FBFB9", source: "Whitsunday lagoons" },
+      { name: "Bush Khaki", hex: "#8E895C", source: "Outback grassland in dry season" },
+      { name: "Beach Cream", hex: "#F2EFE1", source: "Western Australian quartz sand" },
+      { name: "Southern Sky Navy", hex: "#0C1E3F", source: "Outback night sky" },
+    ],
+    useCases: ["Outdoor / adventure gear", "Wine and food packaging (Margaret River, Hunter Valley)", "Tourism branding", "Surf-wear"],
+    references: [
+      { label: "Aboriginal Australian art tradition", url: "https://www.nma.gov.au/explore/topics/art" },
+      { label: "Great Barrier Reef Marine Park Authority", url: "https://www2.gbrmpa.gov.au/" },
+    ],
+  },
 ];
 
 // ---- Helpers ----

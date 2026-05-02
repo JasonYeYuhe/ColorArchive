@@ -25,6 +25,7 @@ import type { ColorRecord } from "@/src/types/color";
 import { getColorPsychology } from "@/src/data/color-psychology";
 import { ColorOriginsSection } from "@/src/components/color-origins-section";
 import { BrandsUsingColorSection } from "@/src/components/brands-using-color-section";
+import { RegionsUsingColorSection } from "@/src/components/regions-using-color-section";
 import { useAuth } from "@/src/components/auth-provider";
 import { withSvgWatermark } from "@/src/lib/export-watermark";
 import { LogToJournalButton } from "@/src/components/log-to-journal-button";
@@ -654,6 +655,9 @@ export function ColorDetailPage({
 
               {/* Reverse-index: which brands use a similar color (links to /brands/[slug]/) */}
               <BrandsUsingColorSection color={color} />
+
+              {/* Reverse-index: which cultures feature a similar color (links to /regions/[slug]/) */}
+              <RegionsUsingColorSection color={color} />
 
               {(() => {
                 const tonalStrip = getTonalStrip(allColors, color);

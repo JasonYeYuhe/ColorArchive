@@ -209,6 +209,7 @@ ColorArchive/
 │   │   ├── brands-using-color-section.tsx # Reverse-index "Brands using a similar color" block, on every color detail page
 │   │   ├── regions-index-page.tsx      # /regions/ index, grouped by continent
 │   │   ├── region-detail-page.tsx      # /regions/[slug]/ — palette + cultural context + archive matches + references
+│   │   ├── regions-using-color-section.tsx # Reverse-index "Cultures using a similar color" block, on every color detail page
 │   │   └── use-case-detail-page.tsx    # Individual industry palette guide
 │   │   ├── referral-card.tsx           # Referral link + credits display
 │   │   ├── ai-usage-badge.tsx          # AI usage counter badge
@@ -245,7 +246,8 @@ ColorArchive/
 │   │   ├── colorblind.ts                 # Viénot (1999) color blindness simulation matrices
 │   │   ├── combinations.ts               # 30+ curated color combinations (complementary, analogous, triadic, monochromatic, neutral+accent)
 │   │   ├── brand-palettes.ts             # 51 famous-brand palettes across 9 categories (Apple/Google/Notion/Stripe/Anthropic/OpenAI/HuggingFace/Adobe/Canva/Webflow/Framer/Sephora/Lululemon/Patagonia/Glossier/Aesop/Uniqlo/Disney+/PlayStation/Nintendo/Douyin/Xiaohongshu/Bilibili/Zhihu/JD/Taobao/Meituan/Didi/Alipay/Cloudflare/etc.) for programmatic SEO
-│   │   ├── region-palettes.ts            # 12 region/culture palettes (Japan/Morocco/Greece/Italy/Mexico/India/Scandinavia/China/Korea/Egypt/Iceland/Vietnam) with named pigment sources + cultural context
+│   │   ├── region-palettes.ts            # 18 region/culture palettes across 6 continents (Japan/Morocco/Greece/Italy/Mexico/India/Scandinavia/China/Korea/Egypt/Iceland/Vietnam/France-Paris/Brazil/Turkey-Istanbul/England-London/Ireland/Australia) with named pigment sources + cultural context
+│   │   ├── color-region-matches.ts       # Reverse index: given any hex, find region-catalog colors within distance threshold
 │   │   ├── color-origins.ts              # 10 family heritage articles (Heritage / Cultures / In the wild / How it reads) + per-color modifier prose generator
 │   │   ├── color-journal.ts              # Daily check-in (localStorage): one entry/day, streak calc, subscribe pattern, calendar grid generator
 │   │   ├── color-brand-matches.ts        # Reverse index: given any hex, find brand-catalog colors within distance threshold (used by every color detail page)
