@@ -205,6 +205,80 @@ export function getStreak(todayOverride?: string): StreakInfo {
   return computeStreak(readRaw(), todayOverride);
 }
 
+// ---- Calendar grid generator ----
+
+export interface CalendarCell {
+  /** YYYY-MM-DD; null if this slot is padding (out of month). */
+  date: string | null;
+  /** 1..31 if in-month; null otherwise. */
+  day: number | null;
+  /** Whether this cell is the rendered month's date (vs leading/trailing padding). */
+  inMonth: boolean;
+}
+
+export interface CalendarGrid {
+  /** "YYYY-MM" of the rendered month. */
+  monthKey: string;
+  /** "January 2026" etc — already localized to Intl default. */
+  label: string;
+  /** Sunday-first 7-column grid, padded to whole weeks. */
+  cells: CalendarCell[];
+  /** Previous/next month keys for navigation. */
+  prevMonthKey: string;
+  nextMonthKey: string;
+}
+
+/**
+ * Build a Sunday-first month grid for display. Always emits whole
+ * weeks (multiple of 7 cells), padding leading/trailing slots with
+ * `inMonth: false` cells so the UI can render a tidy 7-col grid.
+ */
+export function buildCalendarGrid(monthKey: string): CalendarGrid {
+  const [yStr, mStr] = monthKey.split("-");
+  const year = Number.parseInt(yStr, 10);
+  const month = Number.parseInt(mStr, 10); // 1-12
+  if (!Number.isFinite(year) || !Number.isFinite(month) || month < 1 || month > 12) {
+    throw new Error(`Invalid monthKey: ${monthKey}`);
+  }
+  const firstOfMonth = new Date(year, month - 1, 1);
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const leadingPadding = firstOfMonth.getDay(); // 0 (Sun) .. 6 (Sat)
+
+  const cells: CalendarCell[] = [];
+  for (let i = 0; i < leadingPadding; i += 1) {
+    cells.push({ date: null, day: null, inMonth: false });
+  }
+  for (let d = 1; d <= daysInMonth; d += 1) {
+    cells.push({
+      date: `${year}-${String(month).padStart(2, "0")}-${String(d).padStart(2, "0")}`,
+      day: d,
+      inMonth: true,
+    });
+  }
+  while (cells.length % 7 !== 0) {
+    cells.push({ date: null, day: null, inMonth: false });
+  }
+
+  const prevMonthDate = new Date(year, month - 2, 1);
+  const nextMonthDate = new Date(year, month, 1);
+  const prevMonthKey = `${prevMonthDate.getFullYear()}-${String(prevMonthDate.getMonth() + 1).padStart(2, "0")}`;
+  const nextMonthKey = `${nextMonthDate.getFullYear()}-${String(nextMonthDate.getMonth() + 1).padStart(2, "0")}`;
+
+  const label = firstOfMonth.toLocaleString("en-US", { month: "long", year: "numeric" });
+
+  return { monthKey, label, cells, prevMonthKey, nextMonthKey };
+}
+
+/** Convert a YYYY-MM-DD into a YYYY-MM month key. */
+export function toMonthKey(date: string): string {
+  return date.slice(0, 7);
+}
+
+/** "YYYY-MM" for the local current month. */
+export function currentMonthKey(): string {
+  return toMonthKey(localToday());
+}
+
 export function subscribeToJournal(listener: (entries: JournalEntry[]) => void) {
   if (!hasWindow()) return () => undefined;
   const handle = () => listener(readRaw());

@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import {
+  buildCalendarGrid,
   computeStreak,
+  currentMonthKey,
   deleteJournalEntry,
+  getJournalByDate,
   getJournalEntries,
   localToday,
   saveJournalEntry,
@@ -14,6 +17,8 @@ import {
 } from "@/src/lib/color-journal";
 import { colors as archiveColors } from "@/src/data/colors";
 import type { ColorRecord } from "@/src/types/color";
+import { JournalCalendarGrid, MonthPicker } from "@/src/components/journal-calendar-grid";
+import { JournalExportButton } from "@/src/components/journal-export-button";
 
 const archiveById = new Map(archiveColors.map((c) => [c.id, c]));
 
@@ -23,6 +28,8 @@ export function JournalPage() {
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [editingDate, setEditingDate] = useState<string | null>(null);
   const [draftNote, setDraftNote] = useState("");
+  // Calendar nav state — month being viewed in the grid.
+  const [viewMonth, setViewMonth] = useState<string>(currentMonthKey());
 
   useEffect(() => {
     setMounted(true);
@@ -35,6 +42,17 @@ export function JournalPage() {
   const todayEntry = useMemo(
     () => entries.find((e) => e.date === today),
     [entries, today],
+  );
+  const entriesByDate = useMemo(() => {
+    const m = new Map<string, JournalEntry>();
+    for (const e of entries) m.set(e.date, e);
+    return m;
+  }, [entries]);
+  const monthGrid = useMemo(() => buildCalendarGrid(viewMonth), [viewMonth]);
+  const monthEntryCount = useMemo(
+    () =>
+      Array.from(entriesByDate.keys()).filter((k) => k.startsWith(viewMonth)).length,
+    [entriesByDate, viewMonth],
   );
 
   return (
@@ -70,6 +88,34 @@ export function JournalPage() {
               label="Total entries"
               value={entries.length}
               suffix="logged"
+            />
+          </div>
+        </section>
+      )}
+
+      {mounted && (
+        <section className="max-w-3xl mx-auto px-4 mb-8">
+          <div className="mb-3">
+            <MonthPicker
+              monthKey={viewMonth}
+              label={monthGrid.label}
+              prevMonthKey={monthGrid.prevMonthKey}
+              nextMonthKey={monthGrid.nextMonthKey}
+              onChange={setViewMonth}
+            />
+          </div>
+          <JournalCalendarGrid
+            entriesByDate={entriesByDate}
+            today={today}
+            monthKey={viewMonth}
+          />
+          <div className="mt-3 flex items-center justify-end gap-2">
+            <JournalExportButton
+              entriesByDate={entriesByDate}
+              today={today}
+              monthKey={viewMonth}
+              monthLabel={monthGrid.label}
+              countOverride={monthEntryCount}
             />
           </div>
         </section>

@@ -1,12 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  buildCalendarGrid,
   computeStreak,
+  currentMonthKey,
   deleteJournalEntry,
   getJournalByDate,
   getJournalEntries,
   localToday,
   previousDay,
   saveJournalEntry,
+  toMonthKey,
   clearJournal,
   NOTE_MAX_LENGTH,
 } from "@/src/lib/color-journal";
@@ -188,5 +191,67 @@ describe("computeStreak", () => {
     }));
     const s = computeStreak(entries, today);
     expect(s.longest).toBeGreaterThanOrEqual(s.current);
+  });
+});
+
+describe("buildCalendarGrid", () => {
+  it("emits whole weeks (cells.length is a multiple of 7)", () => {
+    const grid = buildCalendarGrid("2026-05");
+    expect(grid.cells.length % 7).toBe(0);
+  });
+
+  it("contains exactly the right number of in-month cells", () => {
+    // May 2026 has 31 days
+    const may = buildCalendarGrid("2026-05");
+    expect(may.cells.filter((c) => c.inMonth).length).toBe(31);
+    // February 2026 (non-leap) has 28 days
+    const feb = buildCalendarGrid("2026-02");
+    expect(feb.cells.filter((c) => c.inMonth).length).toBe(28);
+    // February 2024 (leap year) has 29 days
+    const feb24 = buildCalendarGrid("2024-02");
+    expect(feb24.cells.filter((c) => c.inMonth).length).toBe(29);
+  });
+
+  it("aligns the first day of the month under the correct weekday column", () => {
+    // May 1, 2026 is a Friday → should be column 5 (Sun=0..Sat=6)
+    const grid = buildCalendarGrid("2026-05");
+    const firstInMonth = grid.cells.findIndex((c) => c.day === 1);
+    expect(firstInMonth).toBe(5);
+  });
+
+  it("rolls back to December across the year boundary for prevMonthKey", () => {
+    expect(buildCalendarGrid("2026-01").prevMonthKey).toBe("2025-12");
+  });
+
+  it("rolls forward to January across the year boundary for nextMonthKey", () => {
+    expect(buildCalendarGrid("2025-12").nextMonthKey).toBe("2026-01");
+  });
+
+  it("emits a human-readable label", () => {
+    expect(buildCalendarGrid("2026-05").label).toMatch(/May 2026/);
+  });
+
+  it("padding cells have null date + null day + inMonth false", () => {
+    const grid = buildCalendarGrid("2026-05");
+    for (const c of grid.cells.filter((c) => !c.inMonth)) {
+      expect(c.date).toBeNull();
+      expect(c.day).toBeNull();
+    }
+  });
+
+  it("rejects malformed monthKey", () => {
+    expect(() => buildCalendarGrid("not-a-month")).toThrow();
+    expect(() => buildCalendarGrid("2026-13")).toThrow();
+    expect(() => buildCalendarGrid("2026-00")).toThrow();
+  });
+});
+
+describe("toMonthKey / currentMonthKey", () => {
+  it("toMonthKey strips the day component", () => {
+    expect(toMonthKey("2026-05-03")).toBe("2026-05");
+  });
+
+  it("currentMonthKey returns YYYY-MM in local time", () => {
+    expect(currentMonthKey()).toMatch(/^\d{4}-\d{2}$/);
   });
 });

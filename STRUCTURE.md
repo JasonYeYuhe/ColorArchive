@@ -202,6 +202,8 @@ ColorArchive/
 │   │   ├── brand-detail-page.tsx       # Single brand detail (palette, CSS export, archive matches, siblings)
 │   │   ├── color-origins-section.tsx   # "Color Origins" — heritage / cultures / wild / reads section, used on every color detail page
 │   │   ├── journal-page.tsx            # /journal/ — daily check-in calendar + streak tiles + entry list (B1+B3 merged)
+│   │   ├── journal-calendar-grid.tsx   # Sunday-first month grid + MonthPicker + useMonthNav hook (used by both live UI and PNG export)
+│   │   ├── journal-export-button.tsx   # 1080×1080 PNG export of the journal month (Free gets watermark, Pro is clean)
 │   │   ├── log-to-journal-button.tsx   # "Save to journal" toggle button, used on color detail + /today/
 │   │   └── use-case-detail-page.tsx    # Individual industry palette guide
 │   │   ├── referral-card.tsx           # Referral link + credits display
@@ -240,7 +242,7 @@ ColorArchive/
 │   │   ├── combinations.ts               # 30+ curated color combinations (complementary, analogous, triadic, monochromatic, neutral+accent)
 │   │   ├── brand-palettes.ts             # 24 famous-brand palettes (Apple, Google, Notion, Stripe, Spotify, etc.) for programmatic SEO
 │   │   ├── color-origins.ts              # 10 family heritage articles (Heritage / Cultures / In the wild / How it reads) + per-color modifier prose generator
-│   │   ├── color-journal.ts              # Daily check-in (localStorage): one entry/day, streak calc, subscribe pattern
+│   │   ├── color-journal.ts              # Daily check-in (localStorage): one entry/day, streak calc, subscribe pattern, calendar grid generator
 │   │   ├── export-watermark.ts           # SVG watermark helper (Free/anon get "colorarchive.org" stamp on exports; Pro is clean)
 │   └── word-color.ts                 # Deterministic word→color hash
 │   │

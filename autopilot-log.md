@@ -1,4 +1,70 @@
 
+## 2026-05-03 (yet later) — Sprint 2 v2: Journal calendar grid + PNG export
+
+**Run type:** Remote (user-requested, "你直接继续做吧")
+
+Continuation of Sprint 2. Per Gemini: "the output is the marketing — make every Free download a passive ad". This shipment turns the journal from a list view into an exportable monthly calendar.
+
+### 1. Calendar grid (`buildCalendarGrid` + JournalCalendarGrid)
+
+- Pure function `buildCalendarGrid(monthKey)` returns Sunday-first 7-column grid padded to whole weeks.
+- Validates malformed input (rejects "2026-13", "2026-00", etc.).
+- Walks across year boundaries cleanly (`buildCalendarGrid("2026-01").prevMonthKey === "2025-12"`).
+- Pure function ⇒ identical SSR + hydrate render (no #418 risk).
+
+`<JournalCalendarGrid>`:
+- Receives entries map + today + monthKey as props (no localStorage reads inside) so the export surface and the live surface share the same component without state divergence.
+- Each filled cell is a colored `<Link>` to that entry's color page (clicking the calendar opens the original color).
+- Today's cell gets an amber ring; padding cells render aria-hidden.
+
+`<MonthPicker>` + `useMonthNav` hook for prev/next navigation.
+
+### 2. PNG export (`<JournalExportButton>`)
+
+- Renders an off-screen 1080×1080 export tile (positioned at -9999px) with a header ("Color Journal · {Month Year} · N colors logged"), the calendar grid, and a footer caption.
+- `html-to-image` (already a dep from mesh-gradient) at `pixelRatio: 2` for sharp Instagram-friendly output.
+- **Free + anon**: footer reads "Made with colorarchive.org" — every shared image is a passive ad.
+- **Pro**: footer is blank — clean export.
+- Filename: `colorarchive-journal-2026-05.png`
+
+### 3. Journal page wired up
+
+`/journal/` now shows: streak tiles → month picker → calendar grid → export button → today entry → recent list. Mounting gate kept (defers to client to avoid hydration mismatches).
+
+### Tests
+
+10 new vitest cases on `buildCalendarGrid`:
+- whole-week padding invariant
+- correct in-month day count for May 2026 (31), Feb 2026 non-leap (28), Feb 2024 leap (29)
+- weekday alignment (May 1, 2026 = Friday → column 5)
+- year-boundary prev/next
+- label string format
+- padding cell shape
+- malformed input rejection
+
+Plus 2 cases on `toMonthKey` / `currentMonthKey`.
+
+**575 vitest tests pass total** (565 prior + 10 new). Typecheck clean.
+
+### Sprint 2 status
+
+- [x] B1+B3 merged "Color Journal" v1
+- [x] **Calendar month grid view** (this commit)
+- [x] **PNG export with Free/Pro watermark** (this commit)
+- [ ] Cloud sync — v3
+- [ ] Streak rewards (Pro 7-day trial / 30%-off coupon at thresholds) — v3
+
+### Files
+
+- `src/lib/color-journal.ts` — added `buildCalendarGrid`, `toMonthKey`, `currentMonthKey`, `CalendarCell`, `CalendarGrid` types
+- `src/lib/__tests__/color-journal.test.ts` — +10 calendar cases, +2 month-key cases
+- `src/components/journal-calendar-grid.tsx` (new) — grid + MonthPicker + useMonthNav
+- `src/components/journal-export-button.tsx` (new) — 1080×1080 PNG export
+- `src/components/journal-page.tsx` — wired calendar + month picker + export above the entry list
+- `STRUCTURE.md`
+
+---
+
 ## 2026-05-03 (later) — Sprint 2 v1: Color Journal (B1 + B3 merged) + droplet deploy
 
 **Run type:** Remote (user-requested, "你直接控制 droplet 吧 — 全权负责")
