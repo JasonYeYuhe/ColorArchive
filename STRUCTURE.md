@@ -205,6 +205,7 @@ ColorArchive/
 │   │   ├── journal-calendar-grid.tsx   # Sunday-first month grid + MonthPicker + useMonthNav hook (used by both live UI and PNG export)
 │   │   ├── journal-export-button.tsx   # 1080×1080 PNG export of the journal month (Free gets watermark, Pro is clean)
 │   │   ├── log-to-journal-button.tsx   # "Save to journal" toggle button, used on color detail + /today/
+│   │   ├── brands-using-color-section.tsx # Reverse-index "Brands using a similar color" block, on every color detail page
 │   │   └── use-case-detail-page.tsx    # Individual industry palette guide
 │   │   ├── referral-card.tsx           # Referral link + credits display
 │   │   ├── ai-usage-badge.tsx          # AI usage counter badge
@@ -243,6 +244,7 @@ ColorArchive/
 │   │   ├── brand-palettes.ts             # 51 famous-brand palettes across 9 categories (Apple/Google/Notion/Stripe/Anthropic/OpenAI/HuggingFace/Adobe/Canva/Webflow/Framer/Sephora/Lululemon/Patagonia/Glossier/Aesop/Uniqlo/Disney+/PlayStation/Nintendo/Douyin/Xiaohongshu/Bilibili/Zhihu/JD/Taobao/Meituan/Didi/Alipay/Cloudflare/etc.) for programmatic SEO
 │   │   ├── color-origins.ts              # 10 family heritage articles (Heritage / Cultures / In the wild / How it reads) + per-color modifier prose generator
 │   │   ├── color-journal.ts              # Daily check-in (localStorage): one entry/day, streak calc, subscribe pattern, calendar grid generator
+│   │   ├── color-brand-matches.ts        # Reverse index: given any hex, find brand-catalog colors within distance threshold (used by every color detail page)
 │   │   ├── export-watermark.ts           # SVG watermark helper (Free/anon get "colorarchive.org" stamp on exports; Pro is clean)
 │   └── word-color.ts                 # Deterministic word→color hash
 │   │

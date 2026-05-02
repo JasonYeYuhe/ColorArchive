@@ -19,6 +19,7 @@ import { colors as archiveColors } from "@/src/data/colors";
 import type { ColorRecord } from "@/src/types/color";
 import { JournalCalendarGrid, MonthPicker } from "@/src/components/journal-calendar-grid";
 import { JournalExportButton } from "@/src/components/journal-export-button";
+import { getColorOfDay, todayDateStr } from "@/src/lib/color-of-day";
 
 const archiveById = new Map(archiveColors.map((c) => [c.id, c]));
 
@@ -158,17 +159,9 @@ export function JournalPage() {
               onDelete={() => deleteJournalEntry(today)}
             />
           ) : (
-            <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-              Pick a color from{" "}
-              <Link href="/all-colors/" className="underline hover:text-neutral-700">
-                the archive
-              </Link>{" "}
-              or{" "}
-              <Link href="/today/" className="underline hover:text-neutral-700">
-                today&apos;s suggested color
-              </Link>{" "}
-              and click <span className="font-medium">Save to journal</span>.
-            </p>
+            <QuickAddCotd
+              onLog={(colorId, hex) => saveJournalEntry({ colorId, hex })}
+            />
           )}
         </div>
       </section>
@@ -216,6 +209,43 @@ export function JournalPage() {
         )}
       </section>
     </main>
+  );
+}
+
+function QuickAddCotd({ onLog }: { onLog: (colorId: string, hex: string) => void }) {
+  const cotd = useMemo(() => getColorOfDay(todayDateStr()), []);
+  return (
+    <div className="space-y-3">
+      <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+        Pick a color from{" "}
+        <Link href="/all-colors/" className="underline hover:text-neutral-700">
+          the archive
+        </Link>
+        , or one-click today&apos;s recommended color:
+      </p>
+      <button
+        type="button"
+        onClick={() => onLog(cotd.id, cotd.hex)}
+        className="flex items-center gap-3 w-full rounded-xl border border-amber-300 bg-amber-50/40 dark:border-amber-900/40 dark:bg-amber-950/10 px-3 py-2.5 hover:bg-amber-50 dark:hover:bg-amber-950/30 transition-colors text-left"
+      >
+        <span
+          className="h-10 w-10 shrink-0 rounded-lg border border-black/10 dark:border-white/15"
+          style={{ backgroundColor: cotd.hex }}
+          aria-hidden="true"
+        />
+        <span className="flex-1 min-w-0">
+          <span className="block text-sm font-semibold text-neutral-900 dark:text-white">
+            {cotd.name}
+          </span>
+          <span className="block font-mono text-[11px] text-slate-500 dark:text-slate-400">
+            {cotd.hex.toUpperCase()} · today&apos;s color
+          </span>
+        </span>
+        <span className="text-xs font-medium text-amber-700 dark:text-amber-400 uppercase tracking-wider">
+          Log it →
+        </span>
+      </button>
+    </div>
   );
 }
 

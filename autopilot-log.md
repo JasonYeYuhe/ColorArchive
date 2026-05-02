@@ -1,4 +1,52 @@
 
+## 2026-05-03 (later 3) — Bidirectional brand↔color graph + Journal one-click COTD
+
+**Run type:** Remote (user-requested, "你直接继续吧")
+
+Two complementary surface upgrades on top of yesterday's brand-catalog expansion. Both are pure-frontend, low-risk, high-leverage.
+
+### 1. "Brands using a similar color" reverse index (5,446 → 51 cross-link)
+
+Until now the relationship between the 51-brand catalog and the 5,446 archive entries was **one-way**: a brand page told you the closest archive match for each of its colors. The reverse — "which brands use a color similar to this archive entry?" — was missing, leaving half the SEO graph unbuilt.
+
+`src/lib/color-brand-matches.ts`:
+- `findBrandsNearColor(hex, limit, catalog?)` — weighted-Euclidean RGB distance with a `BRAND_MATCH_DISTANCE_THRESHOLD = 60` cutoff (tighter than `findClosestArchiveColor`, which always returns the nearest — here we want only *visually plausible* matches).
+- Deduplicated per brand (one match per brand, the closest of that brand's colors).
+- Sorted ascending; sliced to `limit` (default 3).
+
+`<BrandsUsingColorSection>`:
+- Pure read of the catalog (no localStorage / async).
+- Renders nothing if no match is within threshold (so "Olive Veil Faint" pages don't end up with weird unrelated brands).
+- Each match links to `/brands/[slug]/` with the matched brand color shown alongside.
+
+Wired into `color-detail-page.tsx` immediately after the Color Origins block. **Net effect: every visit to any of 5,446 color pages can now click through to up to 3 relevant brand pages, and vice-versa.**
+
+10 vitest cases on the helper: identical-hex distance is 0, monotonic on similarity, malformed input handling, dedup per brand, threshold cutoff, empty result for distant inputs, real-data sanity check (Twitter legacy blue → twitter-x distance 0).
+
+### 2. Journal one-click "Today's color" CTA
+
+Previously, when the user opened `/journal/` and hadn't logged today, the empty state was just a paragraph with two links to elsewhere. Now it's a single tactile button: today's deterministic Color-of-the-Day swatch, name, hex, and a "Log it →" CTA. One click = today's entry written, streak preserved.
+
+The COTD generator is the same `getColorOfDay()` used by `/today/` and the email scheduler, so the journal stays in sync with whatever was just sent in this morning's daily email.
+
+`src/components/journal-page.tsx` — added `<QuickAddCotd>` inline component.
+
+### Verified
+
+- typecheck clean
+- 598 vitest tests pass (588 prior + 10 new brand-matches)
+
+### Files
+
+- `src/lib/color-brand-matches.ts` (new)
+- `src/lib/__tests__/color-brand-matches.test.ts` (new, 10 tests)
+- `src/components/brands-using-color-section.tsx` (new)
+- `src/components/color-detail-page.tsx` — wired BrandsUsingColorSection
+- `src/components/journal-page.tsx` — added QuickAddCotd inline component
+- `STRUCTURE.md`
+
+---
+
 ## 2026-05-03 (later 2) — E2 expansion: 24 → 51 brand palettes
 
 **Run type:** Remote (user-requested, "你继续吧")
