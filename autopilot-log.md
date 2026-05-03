@@ -1,4 +1,22 @@
 
+## 2026-05-03 (later 7) — Drop Vercel Web Analytics ($0.32/cycle)
+
+**Run type:** Remote (user-requested, "2 关了吧 — 1/3/4 不做")
+
+User reviewed the proposed cost-saving menu and chose to drop Vercel Web Analytics only. Skipping the prerender expansion (#1) because build minutes are also billed and the trade-off may not pay back; skipping OG migration (#3) and Cache-Control tweak (#4) per user request.
+
+Changes:
+- `app/layout.tsx` — removed `<Analytics />` and the `@vercel/analytics/react` import
+- `package.json` — removed `@vercel/analytics` dep via `npm uninstall`
+
+Note: a separate `app/analytics/` admin page (the internal stats dashboard) is **not** related — that pulls from our own DigitalOcean droplet's `/analytics/*` endpoints, not from Vercel Web Analytics. It stays untouched.
+
+Verified: typecheck clean, 618 vitest tests pass.
+
+Estimated saving: $0.32/cycle (matches the line item).
+
+---
+
 ## 2026-05-03 (later 6) — Vercel cost diagnosis + ignoreCommand regex fix
 
 **Run type:** Remote (user-requested, "为什么这个月 vercel 用了这么多 credit")
