@@ -1,4 +1,16 @@
 
+## 2026-05-10 — Weekly content roundup
+
+**Run type:** Autopilot (scheduled task `weekly-content-roundup`)
+
+Generated the May 3–10 weekly social roundup from `git log --since="8 days ago"`. Coverage window picked up 12 commits, all on May 2–3 — last week's feature push (Color Journal, Color Origins, Cultural Regions 12 → 18, brand palettes 24 → 51, visible AI quota / export watermark / ProGate counter). No commits May 4–10, so this roundup leans entirely on the May 3 batch.
+
+Wrote new "Weekly Roundup — 2026-05-10" section to top of `docs/daily-posts-queue.md` (Facebook + Twitter copy). Did not auto-post to Meta Business Suite — file is still labeled "(Manual)" and there's no API integration in repo, so left it queued for the user.
+
+No code touched, no typecheck needed.
+
+---
+
 ## 2026-05-03 (later 7) — Drop Vercel Web Analytics ($0.32/cycle)
 
 **Run type:** Remote (user-requested, "2 关了吧 — 1/3/4 不做")

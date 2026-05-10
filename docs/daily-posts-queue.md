@@ -4,6 +4,52 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-05-10
+
+### Facebook
+
+🎨 **This week at ColorArchive** — a journaling tool, world-tour palettes, and the story behind every color.
+
+**📓 Color Journal — daily check-in (Pro)**
+Pick a color each day to capture how a project, a mood, or a moment felt. Now with a calendar month grid, one-click "use today's COTD" entry, and 1080×1080 PNG export so you can share a finished month as a single image.
+
+**🌍 Cultural Regions — 18 palettes from around the world**
+We expanded our cultural color library from 12 to 18 regions — Japan, Morocco, Mexico, Scandinavia, India, West Africa, the Mediterranean, and more — each curated from local textiles, architecture, and craft. Every one of our 5,446 color pages now shows which regional palettes it appears in, so you can trace any shade back to where it lives in the world.
+
+**📖 Color Origins — heritage on every color page**
+All 5,446 color pages now carry an Origins section: where the name comes from, which cultures have used the shade historically, and where it shows up in the wild (textiles, ceramics, signage, nature). It's the difference between "Saffron Core Vivid" as a hex code and Saffron as a 3,000-year-old story.
+
+**🏷 Brand palettes — 24 → 51**
+We more than doubled the brand-palette catalog — 51 major brands now have dedicated SEO landing pages with their primary, secondary, and accent colors mapped to ColorArchive entries. And the brand↔color graph is bidirectional: from any color page, see which brands use that exact shade.
+
+**✨ Pro polish**
+- Visible AI quota counter so you always know what's left
+- Export watermark for free tier (clean export stays a Pro perk)
+- Upfront ProGate counter — no surprise paywalls mid-flow
+
+Explore 5,446 curated colors → colorarchive.org
+
+#ColorArchive #DesignTools #ColorPalette #UIDesign #ColorTheory #BrandColors #DesignInspiration #CulturalColors #WeeklyUpdate
+
+---
+
+### Twitter / X
+
+🎨 This week at ColorArchive:
+
+✅ Color Journal — daily check-in + month grid + PNG export (Pro)
+✅ Cultural Regions: 12 → 18 (Japan, Morocco, Mexico, India, Scandinavia…)
+✅ Color Origins on all 5,446 pages — heritage, cultures, wild
+✅ Brand palettes 24 → 51 + bidirectional brand↔color graph
+✅ Visible AI quota + cleaner ProGate
+
+5,446 colors. More story behind every one.
+→ colorarchive.org
+
+#ColorArchive #DesignTools #ColorPalette #BrandColors #UIDesign
+
+---
+
 ## Weekly Roundup — 2026-04-05
 
 ### Facebook
