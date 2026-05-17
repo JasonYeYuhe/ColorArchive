@@ -4,6 +4,39 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-05-17
+
+> Quiet build week — no new features shipped (May 10–17). This is a **feature spotlight** instead of a changelog, so it doesn't repeat last week's launch post. Post one or skip the week; do not frame as "new."
+
+### Facebook
+
+🎨 **Feature spotlight: the Word to Color Generator** — a tiny free tool that's quietly one of our favorites.
+
+Type any word, name, or phrase and ColorArchive turns it into a unique hex color — plus 5 tonal variants you can actually build a palette from. It's deterministic, which is the fun part: the same text *always* produces the same color. Your name has a color. Your brand has a color. Your dog's name has a color. They never change.
+
+Why it's more than a toy:
+• Pick a brand name and instantly get a consistent, repeatable color signature
+• Use the 5 tonal variants as a ready-made light→dark scale
+• Every result links straight into our 5,446-color library to find the nearest curated match
+
+No login, no paywall. Try your own name → colorarchive.org/word-to-color
+
+#ColorArchive #DesignTools #ColorPalette #FreeTools #BrandColors #UIDesign #ColorTheory #DesignInspiration
+
+---
+
+### Twitter / X
+
+🎨 Underrated free tool on ColorArchive: the Word to Color Generator.
+
+Type any word → get a unique hex + 5 tonal variants. Deterministic, so your name always maps to the same color. Yes, your dog's name has a color too.
+
+No login. Try it → colorarchive.org/word-to-color
+
+#ColorArchive #DesignTools #FreeTools #ColorPalette
+
+---
+
 ## Weekly Roundup — 2026-05-10
 
 ### Facebook

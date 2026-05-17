@@ -1,4 +1,18 @@
 
+## 2026-05-17 — Weekly content roundup
+
+**Run type:** Autopilot (scheduled task `weekly-content-roundup`)
+
+`git log --since="7 days ago"` returned exactly one commit — last week's roundup itself (d34270f). `--since="14 days ago"` confirms zero feature/content commits May 4–17; the last real feature push was the May 2–3 batch, already announced in the 2026-05-10 roundup. So this is a genuinely quiet build week with nothing new to announce.
+
+Decision: did **not** fabricate a "this week we shipped X" post and did **not** re-announce the May 3 batch as new (dishonest + repetitive for followers who saw last week's post). Instead wrote a "Weekly Roundup — 2026-05-17" section framed as a one-feature **spotlight** — the free Word to Color Generator (`/word-to-color`), an evergreen shareable tool not covered in recent roundups. Added an explicit blockquote note telling the human it's a quiet-week spotlight (post or skip; don't frame as new). FB + Twitter copy both written.
+
+Facebook auto-post: not attempted. No API integration in repo; FB Page token in `server/.env.facebook` has been expired since 2026-03-29 (would fail); `docs/daily-posts-queue.md` remains a manual queue. Same precedent as the 2026-05-10 run. Left queued for the user.
+
+No code touched, no typecheck needed.
+
+---
+
 ## 2026-05-10 — Weekly content roundup
 
 **Run type:** Autopilot (scheduled task `weekly-content-roundup`)
