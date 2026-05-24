@@ -1,4 +1,18 @@
 
+## 2026-05-24 — Weekly content roundup
+
+**Run type:** Autopilot (scheduled task `weekly-content-roundup`)
+
+`git log --since="7 days ago"` returned exactly one commit again — last week's roundup itself (f85084c). Confirmed via `--since="14 days ago"`: zero feature/content commits May 17–24 (and only the May 10 + May 17 roundup commits in the prior week). Two consecutive quiet build weeks; the last real feature push remains the May 2–3 batch already covered in the 2026-05-10 roundup.
+
+Decision: held the "no fabrication" line from last week. Did **not** invent a "this week we shipped X" post and did **not** rerun the Word to Color spotlight from 2026-05-17. Picked a different evergreen free tool — the **Image Palette Extractor** (`/image-palette`) — and wrote a one-feature spotlight for it. Verified the tool actually exists at `app/image-palette/page.tsx` and that the spotlight claims match the implementation (extracts colors + maps each to a named ColorArchive entry; export HEX/RGB/HSL/CSS/JSON; save-to-project + favorites integration). Added the same quiet-week note to the human telling them to post or skip; do not frame as "new."
+
+Facebook auto-post: not attempted. No API integration in repo; FB Page token in `server/.env.facebook` expired 2026-03-29 (would fail); `docs/daily-posts-queue.md` remains a manual queue. Same as the last two runs. Left queued for the user.
+
+No code touched, no typecheck needed.
+
+---
+
 ## 2026-05-17 — Weekly content roundup
 
 **Run type:** Autopilot (scheduled task `weekly-content-roundup`)

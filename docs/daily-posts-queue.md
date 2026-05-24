@@ -4,6 +4,40 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-05-24
+
+> Second quiet build week in a row (May 17–24, no feature commits). This is another **feature spotlight** — different tool from last week's Word to Color post, so it can run as a standalone or be skipped. Do not frame as "new."
+
+### Facebook
+
+🎨 **Feature spotlight: the Image Palette Extractor** — turn any photo into a buildable palette in seconds.
+
+Drop in a photo — a sunset, a textile, a movie still, your morning coffee — and ColorArchive pulls out the dominant colors *and* maps each one to its closest match in our 5,446-color library. The result isn't just a list of hex codes; it's a palette you can actually work with.
+
+What it does that most extractors don't:
+• Every extracted color gets matched to a named ColorArchive entry (so "that warm orange" becomes Amber Bloom Vivid)
+• Click any color → jump to its full page (tonal companions, brand uses, cultural origins)
+• Export the palette as HEX, RGB, HSL, CSS variables, or JSON
+• Save straight into a palette project, or add to your favorites
+
+No login required for the basic extract. Try it with your camera roll → colorarchive.org/image-palette
+
+#ColorArchive #DesignTools #ColorPalette #FreeTools #ImageToPalette #UIDesign #ColorTheory #DesignInspiration
+
+---
+
+### Twitter / X
+
+🎨 Underrated free tool on ColorArchive: the Image Palette Extractor.
+
+Drop a photo → get the dominant colors + each one matched to a named entry from our 5,446-color library. Export as HEX, RGB, HSL, CSS, or JSON.
+
+No login. Try it → colorarchive.org/image-palette
+
+#ColorArchive #DesignTools #FreeTools #ColorPalette
+
+---
+
 ## Weekly Roundup — 2026-05-17
 
 > Quiet build week — no new features shipped (May 10–17). This is a **feature spotlight** instead of a changelog, so it doesn't repeat last week's launch post. Post one or skip the week; do not frame as "new."
