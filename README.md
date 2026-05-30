@@ -8,7 +8,7 @@ ColorArchive is a color exploration and design-token product built with Next.js 
 - TypeScript
 - Tailwind CSS 4
 - Express API + SQLite on DigitalOcean (auth, webhooks, analytics)
-- Vitest (465 tests)
+- Vitest + server node:test (636 tests)
 
 ## Architecture
 

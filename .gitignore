@@ -15,7 +15,14 @@ server/generated/
 server/.env.twitter
 server/.env.youtube
 server/.env.instagram
+server/.env.facebook
+server/.env.*
+!server/.env.example
 .claude/autopilot-tasks.md
+.claude/worktrees/
+.claude/scheduled-tasks/
+.claude/session-lock [0-9]*.json
+.claude/scheduled_tasks*.lock
 demo-video/
 *.tmp
 tts-samples/

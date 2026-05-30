@@ -57,9 +57,9 @@ Dynamic routes (e.g., `app/colors/[slug]/page.tsx`) use `generateStaticParams()`
 
 ### Content / Commerce
 
-- `src/lib/collections.ts` — 68+ curated palette collections (editorial metadata + color IDs).
-- `src/lib/palette-packs.ts` — 7 product pack definitions (USD $9–$129) + All Access bundle.
-- `src/lib/checkout-config.ts` — Stripe Checkout config + Pro subscription pricing (¥499/mo, ¥3,999/yr).
+- `src/lib/collections.ts` — 261 curated palette collections (editorial metadata + color IDs).
+- `scripts/generate-downloads.mjs` — generates the downloadable palette-pack bundles (zips + token formats) into `public/downloads` at prebuild. (The former `src/lib/palette-packs.ts` module was removed; the product model is now the Pro subscription configured in `checkout-config.ts`.)
+- `src/lib/checkout-config.ts` — Lemon Squeezy (web, Merchant of Record) + Apple StoreKit 2 (iOS) config + Pro subscription pricing (¥499/mo, ¥3,999/yr).
 - `src/lib/auth-client.ts` — Client API for auth, projects, usage stats, referral, API keys.
 - `src/lib/word-color.ts` — Deterministic word→color hash algorithm (string hash → hue/saturation/lightness → 5 color variants).
 

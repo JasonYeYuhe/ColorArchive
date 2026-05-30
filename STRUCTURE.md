@@ -8,14 +8,14 @@
 
 | Layer | Tech |
 |-------|------|
-| Framework | Next.js 15 (App Router, `output: "export"`) |
+| Framework | Next.js 16 (App Router) |
 | Styling | Tailwind CSS 4 |
-| Hosting | GitHub Pages (static) |
+| Hosting | Vercel (auto-deploy on push to `main`) |
 | Backend | Node.js / Express on DigitalOcean Droplet (143.198.85.72) |
 | Database | SQLite (better-sqlite3) |
 | Email | Resend |
-| Commerce | Stripe |
-| Analytics | Umami Cloud |
+| Commerce | Lemon Squeezy (web, Merchant of Record) + Apple StoreKit 2 (iOS IAP) |
+| Analytics | Sentry (errors); lightweight first-party page views |
 | i18n | Custom (`src/lib/i18n.ts`) — EN / ZH |
 
 ---
@@ -119,7 +119,7 @@ ColorArchive/
 │   │   ├── collection-detail-page.tsx    # Curated collection detail
 │   │   ├── collections-page.tsx          # All collections listing
 │   │   ├── pack-detail-page.tsx          # Individual pack product page
-│   │   ├── palette-packs-page.tsx        # All packs listing + comparison
+│   │   ├── pro-page.tsx                  # Pro subscription landing + pricing
 │   │   ├── free-pack-page.tsx            # Free sample download page
 │   │   ├── guide-detail-page.tsx         # SEO guide article page
 │   │   ├── guides-page.tsx               # All guides listing
@@ -216,18 +216,17 @@ ColorArchive/
 │   │   └── color-decades-page.tsx      # Color by Decade page (11 decades × 6 colors)
 │   │
 │   ├── data/
-│   │   ├── colors.ts                     # Algorithmic generation of 3,066 colors
-│   │   │                                 # (36 hues × 14 lightness × 6 chroma + 3 neutral groups × 14)
+│   │   ├── colors.ts                     # Algorithmic generation of 5,446 colors
+│   │   │                                 # (48 hues × 14 lightness × 8 chroma + 5 neutral groups × 14)
 │   │   ├── color-stories.json            # Color stories (cultural/psychological content)
-│   │   └── newsletter-issues.json        # 349 newsletter issues
+│   │   └── newsletter-issues.json        # 350 newsletter issues
 │   │
 │   ├── lib/
 │   │   ├── color-utils.ts                # HSL↔RGB↔HEX, family classification,
 │   │   │                                 # sorting, analogous/complementary/tonal,
 │   │   │                                 # fuzzy search, WCAG contrast pairings
-│   │   ├── collections.ts                # 259 curated palette collections
-│   │   ├── palette-packs.ts              # 7 product pack definitions + metadata
-│   │   ├── guides.ts                     # 317 SEO landing guides
+│   │   ├── collections.ts                # 261 curated palette collections
+│   │   ├── guides.ts                     # 364 SEO landing guides (+ seo-guides-batch2.ts)
 │   │   ├── newsletter-issues.ts          # Newsletter data helpers + tagToSlug
 │   │   ├── i18n.ts                       # EN/ZH translations (~710+ keys)
 │   │   ├── palette-builder.ts            # localStorage palette + subscriptions,
@@ -235,7 +234,7 @@ ColorArchive/
 │   │   ├── favorites.ts                  # localStorage favorites + subscriptions
 │   │   ├── recent-colors.ts              # localStorage recent history
 │   │   ├── pinterest.ts                  # Pinterest OAuth + API proxy helpers
-│   │   ├── checkout-config.ts            # Stripe checkout config + Pro subscription pricing
+│   │   ├── checkout-config.ts            # Lemon Squeezy + Apple IAP config + Pro subscription pricing
 │   │   ├── auth-client.ts               # Client API: session, projects, usage, referral, types
 │   │   ├── brand-palette.ts             # Single-hex → 11-step design system + semantic colors
 │   │   ├── color-relationships.ts       # Color relationships (analogous, complementary, triadic, tonal)
@@ -265,7 +264,7 @@ ColorArchive/
 │   │                                     #   projects, ai_usage, user_preferences)
 │   ├── auth.js                           # Magic link + Google OAuth auth, tier management
 │   ├── catalog.js                        # Pack catalog data
-│   ├── colors.js                         # Server-side 3,066 color generation (mirrors client)
+│   ├── colors.js                         # Server-side 5,446 color generation (mirrors client)
 │   ├── ai-rate-limit.js                  # AI rate limiting middleware (anon 3/day, free 10/day,
 │   │                                     #   pro unlimited, credit consumption)
 │   ├── api-rate-limit.js                 # API rate limiting middleware (60/1k/10k per hour)
@@ -273,7 +272,7 @@ ColorArchive/
 │   ├── ig-image-generator.js             # Instagram image generation
 │   └── routes/
 │       ├── subscribe.js                  # POST /subscribe — email capture + referral tracking
-│       ├── webhook.js                    # Legacy webhook stub (Stripe webhooks via Next.js /api/webhook)
+│       ├── webhook.js                    # Lemon Squeezy fulfillment (via Next.js /api/webhook → /webhooks/*)
 │       ├── auth.js                       # Magic link + Google OAuth + session (with tier)
 │       ├── me.js                         # GET /me, /me/usage, /me/referral, /me/api-key,
 │       │                                 #   /me/preferences, /me/orders
@@ -322,7 +321,7 @@ app/colors/[slug]/page.tsx  →  src/components/color-detail-page.tsx
 ```
 
 ### Static Generation
-`generateStaticParams()` in dynamic routes pre-renders all pages at build time. 3,066 color pages + family/collection/pack/guide/note pages = ~3,200+ total pages.
+`generateStaticParams()` in dynamic routes pre-renders all pages at build time. 5,446 color pages + family/collection/guide/note/region/brand pages = ~3,800+ total pages.
 
 ### localStorage Persistence
 Three independent stores, each with a subscription pattern for cross-component reactivity:
@@ -355,17 +354,17 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 
 ---
 
-## Content Counts (as of 2026-03-24)
+## Content Counts (as of 2026-05-30)
 
 | Content | Count |
 |---------|-------|
-| Colors | 3,066 (3,024 chromatic + 42 neutral grays) |
-| Saturation bands | 6 (Faint 10%, Muted 18%, Soft 34%, Clear 54%, Vivid 74%, Pure 92%) |
-| Neutral groups | 3 (Warm Gray, Cool Gray, True Gray) |
-| Collections | 169 |
-| Palette packs | 7 (USD $9–$129) |
-| SEO guides | 317 |
-| Newsletter issues | 349 |
+| Colors | 5,446 (5,376 chromatic + 70 neutral grays) |
+| Chroma bands | 8 (Faint 10, Muted 18, Dust 26, Soft 34, Clear 54, Vivid 74, Bright 84, Pure 92) |
+| Neutral groups | 5 (Warm Gray, Taupe Gray, True Gray, Sage Gray, Cool Gray) |
+| Collections | 261 |
+| Palette packs | generated at prebuild → public/downloads (scripts/generate-downloads.mjs) |
+| SEO guides | 364 |
+| Newsletter issues | 350 |
 | Color families | 9 |
 | Industry use cases | 10 (saas-tech, healthcare, luxury, food, finance, education, creative, sustainability, beauty, nonprofit) |
 | Tool pages | 23+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name) |

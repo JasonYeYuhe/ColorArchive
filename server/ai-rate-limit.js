@@ -27,7 +27,10 @@ function today() {
 }
 
 function ipHash(req) {
-  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress || "unknown";
+  // Use req.ip (Express resolves the real client IP via `trust proxy`). Do NOT
+  // read the left-most X-Forwarded-For entry — that value is client-controlled
+  // and lets an attacker mint a fresh rate-limit bucket per request.
+  const ip = req.ip || req.socket?.remoteAddress || "unknown";
   return "ip:" + crypto.createHash("sha256").update(ip).digest("hex").slice(0, 16);
 }
 

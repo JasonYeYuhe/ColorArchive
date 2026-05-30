@@ -5,6 +5,7 @@ const { getSessionUser } = require("../auth");
 const router = express.Router();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { aiRateLimit, TIER_LIMITS } = require("../ai-rate-limit");
+const { assertSafeUrl } = require("../ssrf-guard");
 
 /**
  * GET /ai/usage — public, includes anonymous users.
@@ -416,29 +417,67 @@ router.post("/analyze-url", aiRateLimit, async (req, res) => {
     return res.status(400).json({ error: "Please provide a URL." });
   }
 
-  // Validate URL format
+  // Validate URL format + SSRF guard (block private/loopback/link-local/metadata hosts)
   let parsedUrl;
   try {
-    parsedUrl = new URL(url.startsWith("http") ? url : `https://${url}`);
-  } catch {
+    parsedUrl = await assertSafeUrl(url);
+  } catch (err) {
+    if (err.message === "BLOCKED_HOST" || err.message === "BLOCKED_SCHEME") {
+      return res.status(400).json({ error: "That URL points to a disallowed address." });
+    }
+    if (err.message === "DNS_FAILED") {
+      return res.status(400).json({ error: "Could not resolve that URL." });
+    }
     return res.status(400).json({ error: "Invalid URL format." });
   }
 
   try {
-    // Fetch the page
+    // Fetch the page. Redirects are handled manually so each hop is re-validated
+    // through the SSRF guard (a public URL can otherwise 30x into an internal one).
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
-    const response = await fetch(parsedUrl.toString(), {
-      signal: controller.signal,
-      headers: { "User-Agent": "ColorArchive Bot/1.0 (color analysis)" },
-    });
+    let response;
+    let nextUrl = parsedUrl;
+    let hops = 0;
+    while (true) {
+      response = await fetch(nextUrl.toString(), {
+        signal: controller.signal,
+        redirect: "manual",
+        headers: { "User-Agent": "ColorArchive Bot/1.0 (color analysis)" },
+      });
+      const location = response.headers.get("location");
+      if (response.status >= 300 && response.status < 400 && location) {
+        if (++hops > 3) {
+          clearTimeout(timeout);
+          return res.status(400).json({ error: "Too many redirects." });
+        }
+        try {
+          nextUrl = await assertSafeUrl(new URL(location, nextUrl).toString());
+        } catch {
+          clearTimeout(timeout);
+          return res.status(400).json({ error: "Redirect to a disallowed address." });
+        }
+        continue;
+      }
+      break;
+    }
     clearTimeout(timeout);
 
     if (!response.ok) {
       return res.status(400).json({ error: `Could not fetch URL (${response.status}).` });
     }
 
-    const html = await response.text();
+    // Cap body size (~2 MB) to avoid memory abuse from a hostile/huge response.
+    const MAX_BYTES = 2 * 1024 * 1024;
+    const declared = Number(response.headers.get("content-length") || 0);
+    if (declared > MAX_BYTES) {
+      return res.status(400).json({ error: "Page too large to analyze." });
+    }
+    const buf = Buffer.from(await response.arrayBuffer());
+    if (buf.byteLength > MAX_BYTES) {
+      return res.status(400).json({ error: "Page too large to analyze." });
+    }
+    const html = buf.toString("utf8");
 
     // Extract colors from CSS and inline styles
     const colorRegex = /#(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b/g;
