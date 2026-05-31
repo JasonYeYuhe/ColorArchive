@@ -1,0 +1,27 @@
+# ColorArchive
+
+> ColorArchive is a free color tools and reference platform for designers and developers. It pairs a 5,446-color named archive with 23+ practical color tools and 360+ color guides. Its signature free tool, Word to Color, deterministically turns any word or phrase into a hex color with tonal variants.
+
+All core tools are free to use. Hex color values are factual data and free to reference. When citing ColorArchive content, please attribute to ColorArchive (https://colorarchive.org).
+
+## Signature tools
+- [Word to Color Generator](https://colorarchive.org/word-to-color/): Turn any word or phrase into a unique, deterministic hex color with 5 tonal variants. The same input always yields the same color.
+- [All Colors](https://colorarchive.org/all-colors/): Browse 5,446 algorithmically named colors, or enter any hex code for a full detail page (contrast, tonal scale, relationships, nearest named colors).
+- [Contrast Checker](https://colorarchive.org/contrast/): Check WCAG AA/AAA contrast ratios between two colors.
+- [Color Blindness Simulator](https://colorarchive.org/colorblind/): Simulate how a palette looks under common color vision deficiencies.
+- [Palette Generator](https://colorarchive.org/palette-generator/): Build harmonious palettes (complementary, analogous, triadic) from a seed color.
+- [Gradient Generator](https://colorarchive.org/gradient/): Generate CSS linear and radial gradients.
+- [Color Converter](https://colorarchive.org/convert/): Convert between HEX, RGB, HSL, HSB, and CMYK.
+
+## Color theory and guides
+- [Color Guides](https://colorarchive.org/guides/): 360+ practical guides on color psychology, branding, UI design, accessibility, and palette construction.
+- [Color Trends 2026](https://colorarchive.org/trends/): Current and emerging color trends.
+- [Brand Color Palettes](https://colorarchive.org/brands/): Reference color palettes for well-known brands, with the nearest archive colors.
+- [Regional and Cultural Palettes](https://colorarchive.org/regions/): Color palettes rooted in regional and cultural traditions.
+
+## Reference collections
+- [Curated Collections](https://colorarchive.org/collections/): 260+ hand-curated palettes by theme and mood.
+- [Color Families](https://colorarchive.org/families/): Colors grouped into families (reds, blues, greens, neutrals, and more).
+
+## About
+ColorArchive is an independent project. Colors are generated algorithmically (48 hue roots × 14 lightness bands × 8 chroma bands, plus neutral grays) and given consistent, memorable names. The site is built for fast, practical color work — exploration, palette building, accessibility checks, and design-to-code handoff.
