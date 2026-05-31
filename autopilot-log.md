@@ -1,4 +1,20 @@
 
+## 2026-05-31 — Weekly content roundup
+
+**Run type:** Autopilot (scheduled task `weekly-content-roundup`)
+
+`git log --since="7 days ago"` returned exactly one commit: the security-hardening commit `4d3f0ab` (May 30), which lives on branch `fix/security-hardening-2026-05-30`, not `main`. `--since="14 days ago"` confirms the only other recent commit is last week's roundup (`ba94545`, May 24). So this is the **third consecutive quiet build week** — and the one change that *did* land is an internal security/reliability pass (untracked a leaked FB token, SSRF guard on `/ai/analyze-url`, XFF rate-limit keying fix, Apple IAP verification gate). Security fixes must never be publicized, so there is genuinely nothing user-facing to announce.
+
+Branch handling: started on `fix/security-hardening-2026-05-30` (the security work is committed there but not merged to `main`). Did **not** merge or push that security branch as a side effect of a content run. Switched to `main`, `git pull --rebase origin main` (already up to date), and did all roundup work there to keep content separate from the pending security review/token-rotation work.
+
+Decision: held the "no fabrication" line for the third week running. Did **not** invent a "this week we shipped X" post and did **not** rerun the last two spotlights (05-24 Image Palette Extractor, 05-17 Word to Color). Picked a different evergreen free tool — the **Contrast Checker** (`/contrast`) — and wrote a one-feature spotlight. Verified the tool exists (`app/contrast/page.tsx` + `src/components/contrast-page.tsx`) and that the copy matches its actual capability (live WCAG ratio, AA/AAA pass-fail for normal/large text + UI, maps against the 5,446-color library, free/no-login). FB + Twitter copy both written, with an explicit quiet-week blockquote telling the human to post or skip and not frame as "new."
+
+Facebook auto-post: not attempted. No FB posting API integration exists in the repo; `docs/daily-posts-queue.md` remains a manual queue. Additionally the FB token area is mid-rotation — `server/.env.facebook` was just untracked from git (commit `4d3f0ab`) and the leaked token still needs manual rotation — so this is the wrong week to touch FB programmatically even if an integration existed. Left queued for the user.
+
+No code touched, no typecheck needed.
+
+---
+
 ## 2026-05-24 — Weekly content roundup
 
 **Run type:** Autopilot (scheduled task `weekly-content-roundup`)

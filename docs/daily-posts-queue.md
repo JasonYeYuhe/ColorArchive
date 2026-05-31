@@ -4,6 +4,40 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-05-31
+
+> Third quiet build week in a row (May 24–31). The only change this week was an **internal security & reliability hardening pass** — nothing user-facing, and security fixes should never be publicized. So this is another **feature spotlight**, a different tool from the last two weeks (05-24 Image Palette Extractor, 05-17 Word to Color). Do NOT frame as "new." Optional to post — can be skipped if we'd rather stay quiet until there's real news.
+
+### Facebook
+
+♿ **Feature spotlight: the Contrast Checker** — make sure your colors are actually readable.
+
+Beautiful palettes that fail accessibility help no one. ColorArchive's free Contrast Checker tells you in real time whether any two colors pass WCAG — for body text, large text, and UI elements — so you can ship interfaces everyone can read.
+
+What it gives you:
+• Live WCAG contrast ratio between any foreground/background pair
+• Instant AA / AAA pass-fail for normal text, large text, and UI components
+• Pulls from our 5,446 named colors — swap "that gray on white" for one that actually passes
+• No login, no paywall on the basic check
+
+Accessibility isn't a nice-to-have — it's the difference between a design that works and one that locks people out. Test your combos → colorarchive.org/contrast
+
+#ColorArchive #Accessibility #WCAG #DesignTools #ColorContrast #UIDesign #a11y #ColorPalette #InclusiveDesign
+
+---
+
+### Twitter / X
+
+♿ This week's spotlight: the ColorArchive Contrast Checker.
+
+Drop in any two colors → instant WCAG ratio + AA/AAA pass-fail for text, large text & UI. Pulls from 5,446 named colors so you can swap a failing pair for one that passes.
+
+Free, no login → colorarchive.org/contrast
+
+#ColorArchive #Accessibility #WCAG #UIDesign #a11y
+
+---
+
 ## Weekly Roundup — 2026-05-24
 
 > Second quiet build week in a row (May 17–24, no feature commits). This is another **feature spotlight** — different tool from last week's Word to Color post, so it can run as a standalone or be skipped. Do not frame as "new."
