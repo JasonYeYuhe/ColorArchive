@@ -7,6 +7,7 @@ import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-but
 import { CopyButton } from "@/src/components/copy-button";
 import { generateColorFromWord } from "@/src/lib/word-color";
 import { wordToColorFaq } from "@/src/lib/word-color-faq";
+import { WordColorShareCard } from "@/src/components/word-color-share-card";
 
 const PROMPT_SUGGESTIONS = [
   "ocean memory",
@@ -189,6 +190,12 @@ export function WordColorGeneratorPage() {
                       <CopyButton label="palette" value={paletteExport} />
                       <CopyButton label="CSS vars" value={cssVariableExport} />
                       <CopyButton label="Tailwind" value={tailwindExport} />
+                      <WordColorShareCard
+                        word={input}
+                        hex={generated.hex}
+                        family={generated.family}
+                        variants={generated.variants}
+                      />
                     </div>
                   </div>
                 </div>
