@@ -158,7 +158,7 @@ export function WcagAuditPage() {
         <div className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
           Accessibility
         </div>
-        <h1 className="text-3xl font-bold tracking-[-0.03em] text-neutral-950 dark:text-white sm:text-4xl">
+        <h1 className="font-display text-3xl font-light tracking-[-0.03em] text-neutral-950 dark:text-white sm:text-4xl">
           WCAG Contrast Auditor
         </h1>
         <p className="mt-3 max-w-xl text-neutral-500 dark:text-neutral-400">

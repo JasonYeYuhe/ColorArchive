@@ -62,7 +62,7 @@ export function JournalPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
           Daily check-in
         </p>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-light tracking-tight text-neutral-900 dark:text-white mb-3">
           Color Journal
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm max-w-lg mx-auto leading-relaxed">

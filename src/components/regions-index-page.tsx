@@ -20,7 +20,7 @@ export function RegionsIndexPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
           Cultural color reference
         </p>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-4">
+        <h1 className="text-3xl sm:text-4xl font-display font-light tracking-tight text-neutral-900 dark:text-white mb-4">
           Color Palettes by Region & Culture
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">

@@ -213,7 +213,7 @@ export function ColorTrendsPage() {
             2026
           </span>
         </div>
-        <h1 className="mb-3 text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-100">
+        <h1 className="mb-3 font-display text-3xl font-light tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-100">
           {locale === "zh" ? "2026年色彩趋势" : "Color Trends 2026"}
         </h1>
         <p className="max-w-2xl text-[15px] leading-relaxed text-neutral-500 dark:text-neutral-400">

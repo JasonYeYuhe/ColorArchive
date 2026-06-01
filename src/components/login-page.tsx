@@ -345,7 +345,7 @@ export function LoginPage() {
             <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
             {t("login.accountSync")}
           </div>
-          <h1 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-5xl">
+          <h1 className="mt-6 font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-5xl">
             {verifyState === "loading" ? t("login.signingYouIn") : t("login.loginComplete")}
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600">
@@ -366,7 +366,7 @@ export function LoginPage() {
             <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
             {t("login.accountSync")}
           </div>
-          <h1 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-5xl">
+          <h1 className="mt-6 font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-5xl">
             {status === "loading" ? t("login.finishingGoogle") : t("login.googleComplete")}
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600">
@@ -388,7 +388,7 @@ export function LoginPage() {
             {t("login.accountSync")}
           </div>
 
-          <h1 className="mt-6 max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+          <h1 className="mt-6 max-w-3xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
             {t("login.heading")}
           </h1>
 

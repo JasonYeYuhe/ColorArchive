@@ -168,7 +168,7 @@ export function ColorDecadesPage() {
           <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-neutral-400 dark:text-neutral-600">
             {locale === "zh" ? "色彩历史参考" : "Color History Reference"}
           </p>
-          <h1 className="mb-4 text-4xl font-black tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-5xl">
+          <h1 className="mb-4 font-display text-4xl font-light tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-5xl">
             {locale === "zh"
               ? "色彩年代：百年设计配色史"
               : "Color Through the Decades"}

@@ -6,14 +6,12 @@ export function ThanksPage() {
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
         <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
-          <div className="pointer-events-none absolute left-0 top-8 h-48 w-48 rounded-full bg-emerald-200/30 blur-3xl" />
-          <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-sky-200/24 blur-3xl" />
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
               Welcome to Pro
             </div>
-            <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+            <h1 className="font-display max-w-3xl text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
               Your Pro access is now active.
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
@@ -104,9 +102,8 @@ export function ThanksPage() {
               </div>
             </aside>
 
-            <aside className="relative overflow-hidden rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-              <div className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-emerald-200/20 blur-2xl" />
-              <div className="relative">
+            <aside className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div>
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">Need help</div>
                 <p className="mt-3 text-sm leading-6 text-neutral-600">
                   Questions about your Pro subscription? Visit your account page or email {CONTACT_EMAIL}.

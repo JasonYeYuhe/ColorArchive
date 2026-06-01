@@ -204,7 +204,7 @@ function PaletteResult({
                   onClick={() => setExportMode(fmt)}
                   className={`px-3 py-1 text-xs font-mono rounded-lg transition-colors ${
                     exportMode === fmt
-                      ? "bg-indigo-600 text-white"
+                      ? "bg-neutral-900 text-white"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   }`}
                 >
@@ -312,7 +312,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
           <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">AI Tool</p>
           <AiUsageBadge />
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-2">
+        <h1 className="text-3xl sm:text-4xl font-display font-light text-slate-900 leading-tight mb-2">
           Brand Color Generator
         </h1>
         <p className="text-slate-500 text-sm max-w-lg">

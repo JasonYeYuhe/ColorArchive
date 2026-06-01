@@ -18,7 +18,7 @@ export function TagNotesPage({ tag, issues }: TagNotesPageProps) {
             <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
             Notes · {tag}
           </div>
-          <h1 className="mt-6 max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+          <h1 className="mt-6 max-w-4xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
             {tag}
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-500">

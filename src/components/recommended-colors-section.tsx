@@ -34,7 +34,7 @@ export function RecommendedColorsSection({
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
             Recommended next
           </div>
-          <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+          <h2 className="mt-2 font-display text-2xl font-light tracking-[-0.03em] text-neutral-950">
             {title}
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">{description}</p>

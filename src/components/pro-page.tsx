@@ -61,10 +61,10 @@ export function ProPage() {
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 pb-24">
       {/* Hero */}
       <section className="max-w-3xl mx-auto px-4 pt-12 pb-10 text-center">
-        <span className="inline-block px-3 py-1 text-xs font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 rounded-full mb-4">
+        <span className="inline-block px-3 py-1 text-xs font-semibold bg-black/5 dark:bg-white/10 text-slate-700 dark:text-slate-300 rounded-full mb-4">
           {t("pro.badge")}
         </span>
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight mb-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-light text-slate-900 dark:text-white leading-tight mb-3">
           {t("pro.heroTitle")}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base max-w-lg mx-auto">
@@ -94,7 +94,7 @@ export function ProPage() {
                 <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.monthly.priceUsd} USD</p>
               </div>
               <p className="text-xs text-slate-400 mb-1">{t("pro.cancelAnytime")}</p>
-              <p className="text-xs text-indigo-500 font-medium mb-5">3-day free trial</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-5">3-day free trial</p>
               <div className="mt-auto">
                 <CheckoutButton
                   plan="monthly"
@@ -106,8 +106,8 @@ export function ProPage() {
             </div>
 
             {/* Yearly — recommended */}
-            <div className="bg-white dark:bg-neutral-900 rounded-2xl border-2 border-indigo-500 shadow-sm p-6 text-center flex flex-col relative">
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-indigo-600 text-white text-xs font-semibold rounded-full">
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl border-2 border-neutral-900 dark:border-white/40 shadow-sm p-6 text-center flex flex-col relative">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-semibold rounded-full">
                 {t("pro.yearlySave")}
               </span>
               <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
@@ -120,11 +120,11 @@ export function ProPage() {
                 <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.yearly.priceUsd} USD</p>
               </div>
               <p className="text-xs text-slate-400 mb-1">{t("pro.cancelAnytime")}</p>
-              <p className="text-xs text-indigo-500 font-medium mb-5">3-day free trial</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-5">3-day free trial</p>
               <div className="mt-auto">
                 <CheckoutButton
                   plan="yearly"
-                  className="w-full px-6 py-3 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
+                  className="w-full px-6 py-3 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-semibold rounded-xl hover:bg-neutral-700 dark:hover:bg-slate-100 transition-colors"
                 >
                   {t("pro.subscribeToPro")}
                 </CheckoutButton>
@@ -159,7 +159,7 @@ export function ProPage() {
         <div className="grid sm:grid-cols-2 gap-4">
           {FEATURE_KEYS.map((f, i) => (
             <div key={f.titleKey} className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-100 dark:border-white/10 shadow-sm p-5 flex gap-4">
-              <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-black/5 dark:bg-white/10 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0">
                 {FEATURE_ICONS[i]}
               </div>
               <div>
@@ -201,11 +201,11 @@ export function ProPage() {
         </div>
 
         {/* Testimonial */}
-        <div className="bg-indigo-50/60 dark:bg-indigo-950/20 rounded-2xl border border-indigo-100 dark:border-indigo-900/30 p-6 text-center">
-          <p className="text-sm text-indigo-900 dark:text-indigo-300 italic leading-relaxed mb-3">
+        <div className="bg-black/[0.03] dark:bg-white/[0.04] rounded-2xl border border-black/8 dark:border-white/10 p-6 text-center">
+          <p className="text-sm text-slate-700 dark:text-slate-300 italic leading-relaxed mb-3">
             &ldquo;{t("pro.testimonial")}&rdquo;
           </p>
-          <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-400">{t("pro.testimonialAuthor")}</p>
+          <p className="text-xs font-semibold text-slate-600 dark:text-slate-400">{t("pro.testimonialAuthor")}</p>
         </div>
 
         {/* FAQ */}

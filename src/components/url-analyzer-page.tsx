@@ -82,7 +82,7 @@ export function UrlAnalyzerPage() {
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
             <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">AI Tool</p>
-            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight mb-2">
+            <h1 className="text-3xl sm:text-4xl font-display font-light text-slate-900 dark:text-white leading-tight mb-2">
               Brand Color Analyzer
             </h1>
             <p className="text-slate-500 dark:text-slate-400 text-sm max-w-lg">

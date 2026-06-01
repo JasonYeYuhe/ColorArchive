@@ -427,7 +427,7 @@ export function ColorDetailPage({
                 </div>
                 <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
                   <div>
-                    <h1 className={`text-4xl font-semibold tracking-[-0.04em] sm:text-5xl ${isLight ? "text-neutral-900" : "text-white"}`}>
+                    <h1 className={`font-display text-4xl font-light tracking-[-0.04em] sm:text-5xl ${isLight ? "text-neutral-900" : "text-white"}`}>
                       {color.name}
                     </h1>
                     <div className={`mt-3 text-sm uppercase tracking-[0.22em] ${isLight ? "text-neutral-500" : "text-white/75"}`}>
@@ -523,7 +523,7 @@ export function ColorDetailPage({
                 <SaveToProjectButton palette={[color.hex]} defaultName={color.name} />
                 <Link
                   href={`/brand/?primary=${encodeURIComponent(color.hex)}`}
-                  className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-xs font-medium text-indigo-700 transition hover:bg-indigo-100 dark:border-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400"
+                  className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                 >
                   {t("colorDetail.startPalette")}
                 </Link>

@@ -84,7 +84,7 @@ export function ColorNamePage() {
     <main id="main-content" className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight text-neutral-950 dark:text-white sm:text-3xl">
+        <h1 className="font-display text-2xl font-light tracking-tight text-neutral-950 dark:text-white sm:text-3xl">
           Color Name Generator
         </h1>
         <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">

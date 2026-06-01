@@ -59,7 +59,7 @@ export function UseCaseDetailPage({ useCase, relatedCollections }: UseCaseDetail
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-1">
               {t("useCases.industryGuide", locale)}
             </p>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
+            <h1 className="font-display text-2xl sm:text-3xl font-light tracking-tight text-neutral-900 dark:text-white">
               {useCase.title}
             </h1>
           </div>

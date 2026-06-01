@@ -79,15 +79,13 @@ export function WordColorGeneratorPage() {
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
         <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
-          <div className="pointer-events-none absolute -right-10 top-0 h-64 w-64 rounded-full bg-violet-200/45 blur-3xl" />
-          <div className="pointer-events-none absolute left-0 top-10 h-48 w-48 rounded-full bg-amber-200/30 blur-3xl" />
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
               Deterministic word palette
             </div>
 
-            <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+            <h1 className="font-display max-w-3xl text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
               Turn a word into color
             </h1>
 

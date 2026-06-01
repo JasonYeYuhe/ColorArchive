@@ -27,7 +27,7 @@ export function GuideDetailPage({
           <div className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
             {t("guide.searchIntent")} {guide.searchIntent}
           </div>
-          <h1 className="mt-3 max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+          <h1 className="mt-3 max-w-4xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
             {guide.title}
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">

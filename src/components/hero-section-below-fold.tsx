@@ -19,7 +19,7 @@ export function HeroSectionBelowFold() {
           <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
             {t("hero.tokenPipeline")}
           </div>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl dark:text-white">
+          <h2 className="font-display text-2xl font-light tracking-[-0.03em] text-neutral-950 sm:text-3xl dark:text-white">
             {t("hero.tokenHeading")}
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base dark:text-neutral-400">
@@ -59,7 +59,7 @@ export function HeroSectionBelowFold() {
           <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
             {t("hero.guides")}
           </div>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl dark:text-white">
+          <h2 className="font-display text-2xl font-light tracking-[-0.03em] text-neutral-950 sm:text-3xl dark:text-white">
             {t("hero.guidesHeading")}
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base dark:text-neutral-400">
@@ -107,7 +107,7 @@ export function HeroSectionBelowFold() {
       </section>
 
       {/* Social proof */}
-      <section className="rounded-[2rem] border border-black/6 bg-gradient-to-br from-indigo-50/40 to-white/60 px-6 py-6 shadow-sm backdrop-blur-xl sm:px-10 dark:border-white/10 dark:from-indigo-950/20 dark:to-neutral-900/60">
+      <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-6 shadow-sm backdrop-blur-xl sm:px-10 dark:border-white/10 dark:bg-neutral-900/80">
         <div className="mx-auto max-w-4xl">
           <div className="grid gap-4 sm:grid-cols-3">
             {[
@@ -138,7 +138,7 @@ export function HeroSectionBelowFold() {
           <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
             {t("hero.toolsSection")}
           </div>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl dark:text-white">
+          <h2 className="font-display text-2xl font-light tracking-[-0.03em] text-neutral-950 sm:text-3xl dark:text-white">
             {t("hero.toolsHeading")}
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base dark:text-neutral-400">
@@ -146,12 +146,12 @@ export function HeroSectionBelowFold() {
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { href: "/contrast/", label: t("tools.contrast.name"), desc: "WCAG AA/AAA", accent: "bg-violet-100 text-violet-700", icon: "◑" },
-              { href: "/convert/", label: t("tools.convert.name"), desc: "HEX · RGB · HSL · CMYK", accent: "bg-sky-100 text-sky-700", icon: "⇄" },
-              { href: "/colorblind/", label: t("tools.colorblind.name"), desc: "8 vision types", accent: "bg-indigo-100 text-indigo-700", icon: "◎" },
-              { href: "/gradient/", label: t("tools.gradient.name"), desc: "CSS · linear · radial", accent: "bg-rose-100 text-rose-700", icon: "▣" },
-              { href: "/harmonies/", label: t("tools.harmonies.name"), desc: "Complementary · analogous", accent: "bg-teal-100 text-teal-700", icon: "◇" },
-              { href: "/palette/", label: t("tools.paletteGen.name"), desc: "Algorithmic palettes", accent: "bg-orange-100 text-orange-700", icon: "▦" },
+              { href: "/contrast/", label: t("tools.contrast.name"), desc: "WCAG AA/AAA", accent: "bg-neutral-100 text-neutral-700", icon: "◑" },
+              { href: "/convert/", label: t("tools.convert.name"), desc: "HEX · RGB · HSL · CMYK", accent: "bg-neutral-100 text-neutral-700", icon: "⇄" },
+              { href: "/colorblind/", label: t("tools.colorblind.name"), desc: "8 vision types", accent: "bg-neutral-100 text-neutral-700", icon: "◎" },
+              { href: "/gradient/", label: t("tools.gradient.name"), desc: "CSS · linear · radial", accent: "bg-neutral-100 text-neutral-700", icon: "▣" },
+              { href: "/harmonies/", label: t("tools.harmonies.name"), desc: "Complementary · analogous", accent: "bg-neutral-100 text-neutral-700", icon: "◇" },
+              { href: "/palette/", label: t("tools.paletteGen.name"), desc: "Algorithmic palettes", accent: "bg-neutral-100 text-neutral-700", icon: "▦" },
             ].map((tool) => (
               <Link key={tool.href} href={tool.href}
                 className="group flex items-center gap-3 rounded-[1.3rem] border border-black/6 bg-white/85 p-4 transition hover:shadow-md hover:bg-white dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/12"
@@ -178,7 +178,7 @@ export function HeroSectionBelowFold() {
           <div className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-400">
             {t("hero.latestNotes")}
           </div>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl dark:text-white">
+          <h2 className="font-display text-2xl font-light tracking-[-0.03em] text-neutral-950 sm:text-3xl dark:text-white">
             {t("hero.latestNotesHeading")}
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">

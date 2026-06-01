@@ -236,14 +236,10 @@ export function TintsShadesPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-neutral-50 pb-24 pt-28 dark:bg-neutral-950">
-      {/* Decorative blobs */}
-      <div className="pointer-events-none absolute -left-40 -top-40 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-blue-200/40 to-violet-200/30 blur-3xl dark:from-blue-900/20 dark:to-violet-900/15" />
-      <div className="pointer-events-none absolute -right-32 top-40 h-[500px] w-[500px] rounded-full bg-gradient-to-bl from-emerald-200/40 to-teal-100/30 blur-3xl dark:from-emerald-900/20 dark:to-teal-900/15" />
-
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
         {/* Hero */}
         <section className="mb-10 text-center">
-          <h1 className="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl dark:text-white">
+          <h1 className="font-display text-4xl font-light tracking-tight text-neutral-900 sm:text-5xl dark:text-white">
             Tints &amp; Shades Generator
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-neutral-500 dark:text-neutral-400">

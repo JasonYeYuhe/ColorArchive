@@ -136,7 +136,7 @@ export function ColorVsPage({ colorA, colorB, relatedPairs }: ColorVsPageProps) 
         </section>
 
         {/* Title */}
-        <h1 className="mb-2 text-center text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl dark:text-white">
+        <h1 className="mb-2 text-center text-3xl font-display font-light tracking-tight text-neutral-900 sm:text-4xl dark:text-white">
           {colorA.name} vs {colorB.name}
         </h1>
         <p className="mb-10 text-center text-sm text-neutral-500 dark:text-neutral-400">

@@ -158,7 +158,7 @@ export function TrendingPage() {
               </span>
             )}
           </div>
-          <h1 className="mt-3 flex flex-wrap items-baseline gap-3 text-3xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-4xl">
+          <h1 className="mt-3 flex flex-wrap items-baseline gap-3 font-display text-3xl font-light tracking-[-0.04em] text-neutral-950 sm:text-4xl">
             {t("trending.title")}
             <span className="text-sm font-normal tracking-normal text-neutral-400">{weekRange}</span>
           </h1>

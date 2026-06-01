@@ -17,14 +17,12 @@ export function FamiliesPage({ colors, collections }: FamiliesPageProps) {
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
         <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
-          <div className="pointer-events-none absolute left-0 top-0 h-56 w-56 rounded-full bg-rose-200/28 blur-3xl" />
-          <div className="pointer-events-none absolute right-0 top-8 h-64 w-64 rounded-full bg-sky-200/24 blur-3xl" />
           <div className="relative mx-auto max-w-5xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-neutral-500">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
               Family directory
             </div>
-            <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+            <h1 className="max-w-4xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
               Explore ColorArchive by hue family
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">

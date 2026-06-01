@@ -17,7 +17,7 @@ export function EmbedCodePage() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-      <h1 className="mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+      <h1 className="mb-4 text-3xl font-display font-light tracking-tight text-gray-900 dark:text-white sm:text-4xl">
         Embed ColorArchive — Free Color Picker Widget
       </h1>
       <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
@@ -52,7 +52,7 @@ export function EmbedCodePage() {
           </pre>
           <button
             onClick={copyCode}
-            className="absolute right-3 top-3 rounded-md bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 transition-colors"
+            className="absolute right-3 top-3 rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors"
           >
             {copied ? "Copied!" : "Copy"}
           </button>

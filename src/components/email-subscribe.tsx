@@ -35,9 +35,6 @@ export function EmailSubscribe() {
 
   return (
     <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/72 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/60 sm:px-10 sm:py-12">
-      {/* Decorative blurs */}
-      <div className="pointer-events-none absolute -left-12 top-6 h-40 w-40 rounded-full bg-amber-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute -right-8 bottom-4 h-48 w-48 rounded-full bg-rose-200/30 blur-3xl" />
       <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-black/10 to-transparent" />
 
       <div className="relative mx-auto max-w-xl text-center">
@@ -46,7 +43,7 @@ export function EmailSubscribe() {
           Weekly
         </div>
 
-        <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white sm:text-3xl">
+        <h2 className="font-display text-2xl font-light tracking-[-0.03em] text-neutral-950 dark:text-white sm:text-3xl">
           {t("newsletter.title")}
         </h2>
 
@@ -74,7 +71,7 @@ export function EmailSubscribe() {
             <button
               type="submit"
               disabled={state === "loading"}
-              className="rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-500/20 disabled:opacity-60 disabled:cursor-not-allowed dark:bg-amber-600 dark:hover:bg-amber-500"
+              className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-800 focus:outline-none focus:ring-4 focus:ring-neutral-900/20 disabled:opacity-60 disabled:cursor-not-allowed dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
             >
               {state === "loading" ? "..." : t("newsletter.subscribe")}
             </button>

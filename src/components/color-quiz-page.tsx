@@ -234,7 +234,7 @@ function QuizResult({ result, onRetake }: { result: ResultType; onRetake: () => 
             Your color personality
           </p>
           <h1
-            className="text-3xl sm:text-4xl font-bold"
+            className="text-3xl sm:text-4xl font-display font-light"
             style={{ color: (primaryColor?.lightness ?? 50) > 55 ? "#1a1a1a" : "#ffffff" }}
           >
             {result.name}
@@ -372,7 +372,7 @@ export function ColorQuizPage() {
         {/* Header */}
         <div className="mb-8 text-center">
           <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-2">Color Personality Quiz</p>
-          <h1 className="text-3xl font-bold text-slate-900">What color type are you?</h1>
+          <h1 className="text-3xl font-display font-light text-slate-900">What color type are you?</h1>
           <p className="text-slate-500 text-sm mt-2">5 questions. One palette that&apos;s entirely you.</p>
         </div>
 

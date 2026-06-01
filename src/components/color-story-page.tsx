@@ -54,7 +54,7 @@ export function ColorStoryPage({ story }: { story: Story }) {
         <p className="text-[11px] font-semibold uppercase tracking-[0.25em] mb-4 opacity-70" style={{ color: textOnHero }}>
           Color Story
         </p>
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 max-w-2xl" style={{ color: textOnHero }}>
+        <h1 className="text-3xl sm:text-5xl font-display font-light tracking-tight mb-4 max-w-2xl" style={{ color: textOnHero }}>
           {story.headline}
         </h1>
         <p className="text-sm max-w-lg opacity-75" style={{ color: textOnHero }}>
