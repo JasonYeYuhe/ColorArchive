@@ -4,6 +4,7 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { WordColorGeneratorPage } from "@/src/components/word-color-generator-page";
 import { SITE_URL } from "@/src/lib/site-config";
+import { wordToColorFaq } from "@/src/lib/word-color-faq";
 
 export const metadata: Metadata = {
   title: { absolute: "Word to Color Generator — Turn Text into Colors | ColorArchive" },
@@ -43,11 +44,21 @@ const breadcrumbData = {
   ],
 };
 
+const faqStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: wordToColorFaq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
 export default function WordToColorPage() {
   return (
     <>
       <SiteHeader currentPath="/word-to-color" />
-      <StructuredDataScript data={[generatorStructuredData, breadcrumbData]} />
+      <StructuredDataScript data={[generatorStructuredData, breadcrumbData, faqStructuredData]} />
       <Suspense fallback={<main className="px-4 py-8 text-sm text-neutral-500">Loading generator…</main>}>
         <WordColorGeneratorPage />
       </Suspense>
