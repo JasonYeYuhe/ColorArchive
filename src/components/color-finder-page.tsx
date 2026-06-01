@@ -408,7 +408,7 @@ function CameraMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) {
         )}
         <button
           onClick={startCamera}
-          className="px-6 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-full hover:bg-indigo-700 transition-colors"
+          className="px-6 py-2.5 bg-neutral-900 text-white text-sm font-medium rounded-full hover:bg-neutral-800 transition-colors"
         >
           Open Camera
         </button>
@@ -471,7 +471,7 @@ function CameraMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) {
       <button
         onClick={handleCapture}
         disabled={!liveColor}
-        className="w-full py-3 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+        className="w-full py-3 bg-neutral-900 text-white text-sm font-medium rounded-xl hover:bg-neutral-800 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
       >
         {liveColor ? (
           <>
@@ -540,7 +540,7 @@ function EyeDropperMode({ onResult }: { onResult: (r: IdentifiedColor) => void }
       <button
         onClick={handlePick}
         disabled={picking}
-        className="px-6 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-full hover:bg-indigo-700 transition-colors disabled:opacity-60 flex items-center gap-2"
+        className="px-6 py-2.5 bg-neutral-900 text-white text-sm font-medium rounded-full hover:bg-neutral-800 transition-colors disabled:opacity-60 flex items-center gap-2"
       >
         {picking ? (
           <>
@@ -706,7 +706,7 @@ export function ColorFinderPage() {
       {/* Hero */}
       <section className="max-w-3xl mx-auto px-4 pt-10 pb-6">
         <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">Tool</p>
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-2">
+        <h1 className="text-3xl sm:text-4xl font-display font-light text-slate-900 leading-tight mb-2">
           Color Finder
         </h1>
         <p className="text-slate-500 text-sm max-w-lg">
@@ -723,7 +723,7 @@ export function ColorFinderPage() {
               onClick={() => { setMode(tab.id); setResult(null); }}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
                 mode === tab.id
-                  ? "bg-indigo-600 text-white shadow-sm"
+                  ? "bg-neutral-900 text-white shadow-sm"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
               }`}
             >

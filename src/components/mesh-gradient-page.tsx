@@ -139,7 +139,7 @@ export function MeshGradientPage() {
       {/* Header */}
       <section className="max-w-5xl mx-auto px-4 pt-12 pb-6 text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">Design Tool</p>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-light tracking-tight text-neutral-900 dark:text-white mb-3">
           Mesh Gradient Generator
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm">

@@ -404,7 +404,7 @@ export function ColorConverterPage() {
     <main className="mx-auto max-w-[900px] px-4 py-8 sm:px-6">
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="mb-2 text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl">
+        <h1 className="mb-2 font-display text-2xl font-light tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl">
           {t("converter.title")}
         </h1>
         <p className="max-w-xl text-sm text-neutral-500 dark:text-neutral-400">

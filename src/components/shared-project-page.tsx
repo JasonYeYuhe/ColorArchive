@@ -65,7 +65,7 @@ export function SharedProjectPage() {
       <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 flex items-center justify-center p-4">
         <div className="text-center space-y-3">
           <p className="text-slate-600 dark:text-slate-400">{error || "Project not found."}</p>
-          <Link href="/projects" className="text-sm text-indigo-600 hover:underline">Go to Projects</Link>
+          <Link href="/projects" className="text-sm text-slate-600 hover:underline">Go to Projects</Link>
         </div>
       </main>
     );
@@ -75,7 +75,7 @@ export function SharedProjectPage() {
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 pb-24">
       <section className="max-w-3xl mx-auto px-4 pt-10 pb-6">
         <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">Shared Project</p>
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white leading-tight mb-2">
+        <h1 className="text-3xl font-display font-light text-slate-900 dark:text-white leading-tight mb-2">
           {project.name}
         </h1>
         {project.tags.length > 0 && (
@@ -119,7 +119,7 @@ export function SharedProjectPage() {
                     <div className="w-7 h-7 rounded-lg border border-black/10 dark:border-white/10 shrink-0" style={{ backgroundColor: hex }} />
                     <span className="text-sm font-mono text-slate-700 dark:text-slate-300">{hex.toUpperCase()}</span>
                     {match && (
-                      <Link href={`/colors/${match.id}/`} className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline ml-auto">
+                      <Link href={`/colors/${match.id}/`} className="text-xs text-slate-500 dark:text-slate-400 hover:underline ml-auto">
                         {match.name}
                       </Link>
                     )}

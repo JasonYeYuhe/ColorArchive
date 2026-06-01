@@ -366,7 +366,7 @@ export function ColorBlindSimulatorPage() {
           <span>/</span>
           <span className="text-neutral-600 dark:text-neutral-300">Color Blindness Simulator</span>
         </nav>
-        <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-3">
+        <h1 className="text-3xl font-display font-light text-neutral-900 dark:text-neutral-100 mb-3">
           Color Blindness Simulator
         </h1>
         <p className="text-base text-neutral-500 dark:text-neutral-400 max-w-2xl">
@@ -557,7 +557,7 @@ export function ColorBlindSimulatorPage() {
 
       {/* Design tips */}
       <div className="mt-16 border-t border-black/8 dark:border-white/10 pt-10">
-        <h2 className="text-lg font-bold text-neutral-800 dark:text-neutral-200 mb-5">
+        <h2 className="text-lg font-display font-normal text-neutral-800 dark:text-neutral-200 mb-5">
           Designing for color blindness
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">

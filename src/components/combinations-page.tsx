@@ -121,7 +121,7 @@ export function CombinationsPage({ combinations }: CombinationsPageProps) {
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
             Color Combinations
           </p>
-          <h1 className="mb-3 text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+          <h1 className="mb-3 font-display text-3xl font-light tracking-tight text-neutral-900 dark:text-neutral-100">
             Curated Color Combinations
           </h1>
           <p className="max-w-xl text-base text-neutral-600 dark:text-neutral-400">

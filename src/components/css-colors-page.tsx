@@ -179,10 +179,10 @@ const FAMILIES = ["All", "Red", "Pink", "Orange", "Yellow", "Green", "Cyan", "Bl
 const CSS_LEVELS = ["All", "CSS1", "CSS2", "CSS3", "CSS4"];
 
 const LEVEL_COLORS: Record<string, string> = {
-  CSS1: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  CSS2: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
-  CSS3: "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
-  CSS4: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
+  CSS1: "bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
+  CSS2: "bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
+  CSS3: "bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
+  CSS4: "bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
 };
 
 function hexToHsl(hex: string): string {
@@ -289,7 +289,7 @@ export function CssColorsPage() {
       {/* Header */}
       <div className="mb-8">
         <p className="mb-1 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-400">Developer Reference</p>
-        <h1 className="mb-3 text-3xl font-bold tracking-tight text-neutral-950 dark:text-white sm:text-4xl">
+        <h1 className="mb-3 font-display text-3xl font-light tracking-tight text-neutral-950 dark:text-white sm:text-4xl">
           CSS Named Colors
         </h1>
         <p className="max-w-2xl text-base text-neutral-600 dark:text-neutral-400">

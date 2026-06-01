@@ -1,5 +1,5 @@
 // ColorArchive Service Worker — offline caching for static assets
-const CACHE_NAME = "colorarchive-v3";
+const CACHE_NAME = "colorarchive-v4";
 const STATIC_ASSETS = [
   "/",
   "/all-colors/",

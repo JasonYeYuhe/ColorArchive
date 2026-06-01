@@ -95,14 +95,10 @@ export function GradientGeneratorPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-neutral-50 pb-24 pt-28 dark:bg-neutral-950">
-      {/* ---- decorative blobs ---- */}
-      <div className="pointer-events-none absolute -left-40 -top-40 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-violet-200/40 to-fuchsia-200/30 blur-3xl dark:from-violet-900/20 dark:to-fuchsia-900/15" />
-      <div className="pointer-events-none absolute -right-32 top-40 h-[500px] w-[500px] rounded-full bg-gradient-to-bl from-sky-200/40 to-cyan-100/30 blur-3xl dark:from-sky-900/20 dark:to-cyan-900/15" />
-
       <div className="relative mx-auto max-w-3xl px-4 sm:px-6">
         {/* ---- hero ---- */}
         <section className="mb-12 text-center">
-          <h1 className="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl dark:text-white">
+          <h1 className="font-display text-4xl font-light tracking-tight text-neutral-900 sm:text-5xl dark:text-white">
             CSS Gradient Generator
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-neutral-500 dark:text-neutral-400">

@@ -584,7 +584,7 @@ rose-core-soft
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
             Tailwind Config
-            <span className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-[9px] font-bold text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400">PRO</span>
+            <span className="rounded-full bg-neutral-900 px-1.5 py-0.5 text-[9px] font-bold text-white">PRO</span>
           </div>
           <ProGate label="Tailwind">
             <CopyButton value={tailwindExport} label="Tailwind" />
@@ -600,7 +600,7 @@ rose-core-soft
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
             Figma Design Tokens
-            <span className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-[9px] font-bold text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400">PRO</span>
+            <span className="rounded-full bg-neutral-900 px-1.5 py-0.5 text-[9px] font-bold text-white">PRO</span>
           </div>
           <ProGate label="Figma">
             <CopyButton value={figmaExport} label="Figma" />
@@ -616,7 +616,7 @@ rose-core-soft
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
             Style Dictionary
-            <span className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-[9px] font-bold text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400">PRO</span>
+            <span className="rounded-full bg-neutral-900 px-1.5 py-0.5 text-[9px] font-bold text-white">PRO</span>
           </div>
           <ProGate label="Style Dict">
             <CopyButton value={styleDictExport} label="Style Dict" />
@@ -746,7 +746,7 @@ function PaletteGeneratorSection() {
         className="flex w-full items-center justify-between"
       >
         <div>
-          <h2 className="text-2xl font-semibold tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-3xl">
+          <h2 className="font-display text-2xl font-light tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-3xl">
             {t("palette_generator_title") || "Palette Generator"}
           </h2>
           <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
@@ -827,7 +827,7 @@ export function PalettePage() {
         </nav>
         <section className="rounded-[2rem] border border-black/6 bg-white/78 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           <div className="mb-6">
-            <h1 className="text-3xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-4xl">
+            <h1 className="font-display text-3xl font-light tracking-[-0.04em] text-neutral-950 sm:text-4xl">
               {t("palette.heading")}
             </h1>
             <p className="mt-2 max-w-xl text-sm leading-6 text-neutral-500">

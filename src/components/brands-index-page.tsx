@@ -20,7 +20,7 @@ export function BrandsIndexPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
           Brand color reference
         </p>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-4">
+        <h1 className="font-display text-3xl sm:text-4xl font-light tracking-tight text-neutral-900 dark:text-white mb-4">
           Famous Brand Color Palettes
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">

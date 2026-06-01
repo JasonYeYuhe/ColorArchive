@@ -204,7 +204,7 @@ export function ColorSeasonsPage() {
     <main className="mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
       {/* Page header */}
       <div className="mb-10 max-w-2xl">
-        <h1 className="mb-3 text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-100">
+        <h1 className="mb-3 text-3xl font-light font-display tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-100">
           {heading}
         </h1>
         <p className="text-base leading-relaxed text-neutral-500 dark:text-neutral-400">

@@ -160,7 +160,7 @@ export function MoodPalettePage() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">AI Tool</p>
           <AiUsageBadge />
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-light tracking-tight text-neutral-900 dark:text-white mb-3">
           Mood Palette Generator
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">
@@ -231,7 +231,7 @@ export function MoodPalettePage() {
         <section className="max-w-2xl mx-auto px-4 pb-12">
           {/* Palette name + mood */}
           <div className="text-center mb-5">
-            <h2 className="text-xl font-bold text-neutral-900 dark:text-white">{result.palette_name}</h2>
+            <h2 className="text-xl font-display font-normal text-neutral-900 dark:text-white">{result.palette_name}</h2>
             <span className="text-xs text-slate-400 italic">{result.mood_tag}</span>
           </div>
 

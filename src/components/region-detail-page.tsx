@@ -64,7 +64,7 @@ export function RegionDetailPage({ region }: Props) {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-2">
           {CONTINENT_LABELS[region.continent]}
         </p>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-light tracking-tight text-neutral-900 dark:text-white mb-3">
           {region.name} Color Palette
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-2">

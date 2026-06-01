@@ -341,7 +341,7 @@ export function TokenGeneratorPage() {
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/80 px-3 py-1 backdrop-blur dark:border-white/10 dark:bg-neutral-900/60">
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">Free Tool</span>
           </div>
-          <h1 className="mb-3 text-3xl font-bold text-neutral-900 sm:text-4xl dark:text-white">
+          <h1 className="mb-3 text-3xl font-display font-light text-neutral-900 sm:text-4xl dark:text-white">
             Design Token Generator
           </h1>
           <p className="mx-auto max-w-xl text-base text-neutral-500 dark:text-neutral-400">

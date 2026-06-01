@@ -69,7 +69,7 @@ function ProjectCard({
               {palette.length} {t("projects.colors")}
             </span>
             {project.hasCritique && (
-              <span className="text-[10px] px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full">
+              <span className="text-[10px] px-1.5 py-0.5 bg-neutral-100 dark:bg-white/10 text-neutral-600 dark:text-neutral-400 rounded-full">
                 {t("projects.reviewed")}
               </span>
             )}
@@ -77,7 +77,7 @@ function ProjectCard({
           <div className="flex items-center gap-1">
             <button
               onClick={() => onShare(project.id)}
-              className="text-[10px] px-2 py-1 text-slate-500 hover:text-indigo-600 transition-colors"
+              className="text-[10px] px-2 py-1 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors"
               title={t("projects.share")}
             >
               {t("projects.share")}
@@ -177,14 +177,14 @@ export function ProjectsPage() {
         <div className="flex items-center justify-between mb-1">
           <div>
             <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">{t("projects.workspace")}</p>
-            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-display font-light text-slate-900 dark:text-white leading-tight">
               {t("projects.title")}
             </h1>
           </div>
           {tier !== "pro" && (
             <Link
               href="/pro"
-              className="text-xs text-indigo-600 hover:text-indigo-500 font-medium"
+              className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-white font-medium transition-colors"
             >
               {projects.length}/5 {t("projects.freeUpgrade")} &middot; {t("projects.upgrade")}
             </Link>
@@ -223,7 +223,7 @@ export function ProjectsPage() {
               <Link href="/brand-generator/" className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-700 transition-colors">
                 {t("projects.brandGenerator")}
               </Link>
-              <Link href="/mood-palette/" className="px-4 py-2 bg-indigo-600 text-white text-xs font-semibold rounded-xl hover:bg-indigo-500 transition-colors">
+              <Link href="/mood-palette/" className="px-4 py-2 bg-neutral-900 text-white text-xs font-semibold rounded-xl hover:bg-neutral-800 transition-colors">
                 {t("projects.moodPalette")}
               </Link>
             </div>

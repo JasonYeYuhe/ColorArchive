@@ -474,7 +474,7 @@ export function ImagePalettePage() {
         <div className="flex flex-col sm:flex-row sm:items-end gap-4 mb-2">
           <div>
             <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-1">Tool</p>
-            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-display font-light text-slate-900 leading-tight">
               Image Color Extractor
             </h1>
           </div>
@@ -756,7 +756,7 @@ export function ImagePalettePage() {
                     onClick={() => setExportFormat(fmt)}
                     className={`px-3 py-1 text-xs font-mono rounded-lg transition-colors ${
                       exportFormat === fmt
-                        ? "bg-indigo-600 text-white"
+                        ? "bg-neutral-900 text-white"
                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                     }`}
                   >
@@ -765,7 +765,7 @@ export function ImagePalettePage() {
                 ))}
                 <button
                   onClick={handleExport}
-                  className="px-4 py-1.5 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors ml-2"
+                  className="px-4 py-1.5 text-xs bg-neutral-900 text-white rounded-lg hover:bg-neutral-950 transition-colors ml-2"
                 >
                   {exportCopied ? "✓ Copied!" : "Copy"}
                 </button>

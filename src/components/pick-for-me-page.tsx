@@ -358,10 +358,10 @@ export function PickForMePage({ colors, collections }: { colors: ColorRecord[]; 
         {/* Hero */}
         <section className="rounded-[2rem] border border-black/6 bg-white/80 px-6 py-12 text-center shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10 sm:py-16 dark:bg-neutral-900 dark:border-white/10">
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-neutral-500 dark:bg-white/10 dark:border-white/10">
-            <span className="inline-block h-2 w-2 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500" />
+            <span className="inline-block h-2 w-2 rounded-full bg-neutral-400" />
             {t.badge}
           </div>
-          <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-5xl dark:text-white">
+          <h1 className="font-display mt-4 text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-5xl dark:text-white">
             {t.title}
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-base leading-7 text-neutral-600 dark:text-neutral-400">
@@ -375,7 +375,7 @@ export function PickForMePage({ colors, collections }: { colors: ColorRecord[]; 
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={t.placeholder}
-              className="flex-1 rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/20 dark:bg-neutral-800 dark:border-white/10 dark:text-white dark:placeholder:text-neutral-500"
+              className="flex-1 rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:bg-neutral-800 dark:border-white/10 dark:text-white dark:placeholder:text-neutral-500"
               // eslint-disable-next-line jsx-a11y/no-autofocus -- primary input on a dedicated tool page; expected behavior
               autoFocus
             />
@@ -407,7 +407,7 @@ export function PickForMePage({ colors, collections }: { colors: ColorRecord[]; 
                   <button
                     key={prompt}
                     onClick={() => handleQuickPrompt(prompt)}
-                    className="rounded-full border border-black/6 bg-white/80 px-3.5 py-1.5 text-sm text-neutral-600 transition hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700 dark:bg-white/5 dark:border-white/10 dark:text-neutral-400 dark:hover:bg-violet-950/30 dark:hover:text-violet-300"
+                    className="rounded-full border border-black/6 bg-white/80 px-3.5 py-1.5 text-sm text-neutral-600 transition hover:border-black/12 hover:bg-neutral-50 hover:text-neutral-900 dark:bg-white/5 dark:border-white/10 dark:text-neutral-400 dark:hover:bg-white/10 dark:hover:text-white"
                   >
                     {prompt}
                   </button>
@@ -474,7 +474,7 @@ export function PickForMePage({ colors, collections }: { colors: ColorRecord[]; 
                           />
                         ))}
                       </div>
-                      <h3 className="mt-3 text-sm font-semibold text-neutral-900 group-hover:text-violet-700 dark:text-white dark:group-hover:text-violet-400">
+                      <h3 className="mt-3 text-sm font-semibold text-neutral-900 group-hover:text-neutral-600 dark:text-white dark:group-hover:text-neutral-300">
                         {col.title}
                       </h3>
                       <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-neutral-500">

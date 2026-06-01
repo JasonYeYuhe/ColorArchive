@@ -320,14 +320,11 @@ export function ColorHarmoniesPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-neutral-50 dark:bg-neutral-950">
-      {/* Decorative gradient blobs */}
-      <div className="pointer-events-none absolute -top-40 left-1/3 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-blue-200/40 to-purple-200/30 blur-3xl dark:from-blue-900/20 dark:to-purple-900/15" />
-      <div className="pointer-events-none absolute -bottom-32 right-1/4 h-[400px] w-[400px] rounded-full bg-gradient-to-tr from-rose-200/30 to-orange-200/20 blur-3xl dark:from-rose-900/15 dark:to-orange-900/10" />
 
       <div className="relative mx-auto max-w-5xl px-4 pb-24 pt-12 sm:px-6 lg:px-8">
         {/* Header */}
         <section className="mb-12 text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight text-neutral-900 sm:text-5xl dark:text-white">
+          <h1 className="font-display text-4xl font-light tracking-tight text-neutral-900 sm:text-5xl dark:text-white">
             {t("harmonies_title") || "Color Harmonies Calculator"}
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-neutral-500 dark:text-neutral-400">

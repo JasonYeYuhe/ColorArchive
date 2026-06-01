@@ -121,7 +121,7 @@ export function CustomColorPage() {
     return (
       <main className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex w-full max-w-[1600px] flex-col items-center gap-6 py-20 text-center">
-          <h1 className="text-3xl font-semibold tracking-[-0.04em] text-neutral-950 dark:text-white">
+          <h1 className="font-display text-3xl font-light tracking-[-0.04em] text-neutral-950 dark:text-white">
             Invalid Hex Color
           </h1>
           <p className="text-neutral-500 dark:text-neutral-400">
@@ -161,7 +161,7 @@ export function CustomColorPage() {
             <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
               <div>
                 <h1
-                  className={`text-4xl font-semibold tracking-[-0.04em] sm:text-5xl ${isLight ? "text-neutral-900" : "text-white"}`}
+                  className={`font-display text-4xl font-light tracking-[-0.04em] sm:text-5xl ${isLight ? "text-neutral-900" : "text-white"}`}
                 >
                   {color.hex}
                 </h1>

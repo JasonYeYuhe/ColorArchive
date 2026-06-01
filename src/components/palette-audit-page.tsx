@@ -187,7 +187,7 @@ function SuggestionsList({ result }: { result: AuditResult }) {
                   s.kind === "low-contrast"
                     ? "bg-amber-100 text-amber-900 dark:bg-amber-950/40 dark:text-amber-300"
                     : s.kind === "duplicate"
-                      ? "bg-indigo-100 text-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-300"
+                      ? "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-300"
                       : "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-300"
                 }`}
               >
@@ -262,7 +262,7 @@ export function PaletteAuditPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
       <header className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
+        <h1 className="font-display text-3xl font-light tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
           Palette Audit
         </h1>
         <p className="mt-3 max-w-2xl text-sm text-neutral-600 dark:text-neutral-400">

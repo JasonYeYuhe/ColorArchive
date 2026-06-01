@@ -126,15 +126,13 @@ export function CollectionsPage({ collections }: CollectionsPageProps) {
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
         <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/80 sm:px-10 sm:py-14">
-          <div className="pointer-events-none absolute left-0 top-0 h-56 w-56 rounded-full bg-pink-200/28 blur-3xl dark:bg-pink-900/20" />
-          <div className="pointer-events-none absolute right-0 top-10 h-64 w-64 rounded-full bg-sky-200/28 blur-3xl dark:bg-sky-900/20" />
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
               Curated palette collections
             </div>
 
-            <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+            <h1 className="max-w-3xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
               Collection sets built for real use
             </h1>
 

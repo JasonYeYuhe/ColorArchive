@@ -242,8 +242,6 @@ export function MixerPage() {
 
         {/* ─── Header ─── */}
         <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/72 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:bg-neutral-900/70 sm:px-10 sm:py-12">
-          <div className="pointer-events-none absolute -left-16 top-8 h-48 w-48 rounded-full bg-sky-200/40 blur-3xl" />
-          <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-pink-200/35 blur-3xl" />
           <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-black/10 to-transparent" />
 
           <div className="relative">
@@ -251,7 +249,7 @@ export function MixerPage() {
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900 dark:bg-neutral-200" />
               Color Tool
             </div>
-            <h1 className="text-4xl font-semibold tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-5xl">
+            <h1 className="font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-5xl">
               Color Mixer
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-7 text-neutral-600 dark:text-neutral-400 sm:text-lg">

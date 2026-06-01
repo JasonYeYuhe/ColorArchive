@@ -40,7 +40,7 @@ export function ColorOfDayPage() {
         </div>
 
         {/* Color name */}
-        <h1 className={`text-4xl sm:text-6xl font-bold tracking-tight mb-3 ${textColorStrong}`}>
+        <h1 className={`font-display text-4xl sm:text-6xl font-light tracking-tight mb-3 ${textColorStrong}`}>
           {color.name}
         </h1>
 

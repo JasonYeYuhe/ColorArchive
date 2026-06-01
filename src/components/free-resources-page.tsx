@@ -33,7 +33,7 @@ export function FreeResourcesPage() {
         <span className="inline-block px-3 py-1 text-xs font-semibold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full mb-4">
           100% Free
         </span>
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight mb-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-light text-slate-900 dark:text-white leading-tight mb-3">
           Free Color Resources
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base max-w-lg mx-auto">
@@ -91,7 +91,7 @@ export function FreeResourcesPage() {
         </section>
 
         {/* Pro Upgrade CTA */}
-        <section className="bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-950/30 dark:to-neutral-900 rounded-2xl border border-indigo-100 dark:border-indigo-900/30 p-8 text-center">
+        <section className="bg-white dark:bg-neutral-900 rounded-2xl border border-black/8 dark:border-white/10 p-8 text-center">
           <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
             Need unlimited exports?
           </h2>
@@ -100,7 +100,7 @@ export function FreeResourcesPage() {
           </p>
           <Link
             href="/pro/"
-            className="inline-block px-8 py-3 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
+            className="inline-block px-8 py-3 bg-neutral-900 text-white text-sm font-semibold rounded-xl hover:bg-neutral-700 transition-colors"
           >
             View Pro Plans
           </Link>

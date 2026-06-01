@@ -222,7 +222,7 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
                 <AiUsageBadge />
                 <Link
                   href="/pro/"
-                  className="hidden rounded-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-indigo-500 sm:inline-flex"
+                  className="hidden rounded-full bg-neutral-900 px-3.5 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 sm:inline-flex"
                 >
                   Pro
                 </Link>

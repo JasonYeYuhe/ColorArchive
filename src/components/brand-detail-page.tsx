@@ -75,7 +75,7 @@ export function BrandDetailPage({ brand }: Props) {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-2">
           {BRAND_CATEGORY_LABELS[brand.category]}
         </p>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-3">
+        <h1 className="font-display text-3xl sm:text-4xl font-light tracking-tight text-neutral-900 dark:text-white mb-3">
           {brand.name} Color Palette
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-2">
