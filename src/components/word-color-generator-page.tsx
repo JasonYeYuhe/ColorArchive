@@ -6,6 +6,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
 import { CopyButton } from "@/src/components/copy-button";
 import { generateColorFromWord } from "@/src/lib/word-color";
+import { wordToColorFaq } from "@/src/lib/word-color-faq";
+import { WordColorShareCard } from "@/src/components/word-color-share-card";
 
 const PROMPT_SUGGESTIONS = [
   "ocean memory",
@@ -188,6 +190,12 @@ export function WordColorGeneratorPage() {
                       <CopyButton label="palette" value={paletteExport} />
                       <CopyButton label="CSS vars" value={cssVariableExport} />
                       <CopyButton label="Tailwind" value={tailwindExport} />
+                      <WordColorShareCard
+                        word={input}
+                        hex={generated.hex}
+                        family={generated.family}
+                        variants={generated.variants}
+                      />
                     </div>
                   </div>
                 </div>
@@ -325,6 +333,23 @@ export function WordColorGeneratorPage() {
             </div>
           </section>
         ) : null}
+
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-8">
+          <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-2xl">
+            Word to Color — frequently asked questions
+          </h2>
+          <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+            {wordToColorFaq.map((item) => (
+              <div
+                key={item.question}
+                className="rounded-[1.4rem] border border-black/6 bg-neutral-50/70 p-5"
+              >
+                <dt className="text-base font-semibold text-neutral-900">{item.question}</dt>
+                <dd className="mt-2 text-sm leading-6 text-neutral-600">{item.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
       </div>
     </main>
   );
