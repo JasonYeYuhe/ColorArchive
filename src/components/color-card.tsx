@@ -62,7 +62,7 @@ export const ColorCard = memo(function ColorCard({ color, isSelected = false, on
           handleSelect();
         }
       }}
-      className={`group cursor-pointer overflow-hidden rounded-[1.6rem] border bg-white/90 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.11)] focus:outline-none focus:ring-4 focus:ring-neutral-900/10 dark:bg-neutral-900/80 dark:shadow-none ${
+      className={`group cursor-pointer overflow-hidden rounded-[1.6rem] border bg-white/90 shadow-[0_8px_28px_rgba(28,25,23,0.05)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_44px_rgba(28,25,23,0.09)] focus:outline-none focus:ring-4 focus:ring-neutral-900/10 dark:bg-neutral-900/80 dark:shadow-none ${
         isSelected ? "border-neutral-950/14 ring-2 ring-neutral-900/6 dark:border-white/14" : "border-black/6 dark:border-white/10"
       }`}
       aria-label={`${t("color.select")} ${color.name}`}
@@ -87,7 +87,7 @@ export const ColorCard = memo(function ColorCard({ color, isSelected = false, on
       <div className="space-y-4 p-4">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="text-base font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
+            <div className="font-display text-lg font-normal leading-snug tracking-[-0.01em] text-neutral-950 dark:text-white">
               {color.name}
             </div>
             <div className="mt-1 text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">
