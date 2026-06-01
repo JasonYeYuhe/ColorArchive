@@ -4,15 +4,17 @@
 
 :root {
   color-scheme: light;
-  --background: #f6f4ef;
-  --background-elevated: rgba(255, 255, 255, 0.82);
-  --background-strong: rgba(255, 255, 255, 0.94);
-  --surface-border: rgba(17, 24, 39, 0.08);
-  --surface-shadow: 0 24px 60px rgba(17, 24, 39, 0.08);
-  --text-primary: #171717;
-  --text-secondary: #5f6470;
-  --text-tertiary: #8b909b;
-  --accent: #111827;
+  /* Gallery white — paper-calm. Color belongs to the content (the swatches),
+     not the chrome. Warm near-black ink instead of cool gray. */
+  --background: #f7f5f0;
+  --background-elevated: rgba(255, 255, 255, 0.86);
+  --background-strong: rgba(255, 255, 255, 0.96);
+  --surface-border: rgba(28, 25, 23, 0.1);
+  --surface-shadow: 0 18px 50px rgba(28, 25, 23, 0.07);
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-tertiary: #8c857e;
+  --accent: #1c1917;
 }
 
 .dark {
@@ -39,30 +41,32 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(254, 226, 226, 0.42), transparent 24%),
-    radial-gradient(circle at 85% 10%, rgba(219, 234, 254, 0.48), transparent 26%),
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.9), transparent 38%),
-    linear-gradient(180deg, #faf9f6 0%, #f4f1eb 100%);
+  /* Quiet paper wash — no colored glows. The archive itself supplies the color. */
+  background: linear-gradient(180deg, #faf9f5 0%, #f3f0e9 100%);
   color: var(--text-primary);
   font-family:
+    var(--font-inter),
     Inter,
     ui-sans-serif,
     -apple-system,
     BlinkMacSystemFont,
-    "SF Pro Display",
-    "SF Pro Text",
     "Segoe UI",
     sans-serif;
+  font-feature-settings: "cv11", "ss01";
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .dark body {
-  background:
-    radial-gradient(circle at 15% 20%, rgba(127, 29, 29, 0.15), transparent 24%),
-    radial-gradient(circle at 85% 10%, rgba(30, 58, 138, 0.15), transparent 26%),
-    radial-gradient(circle at top, rgba(23, 23, 23, 0.9), transparent 38%),
-    linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
+  background: linear-gradient(180deg, #0a0a0a 0%, #0f0f0e 100%);
+}
+
+/* Editorial serif display — Fraunces. Use on hero + section titles. */
+.font-display {
+  font-family: var(--font-fraunces), ui-serif, Georgia, "Times New Roman", serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
 }
 
 .sr-only {
@@ -91,7 +95,7 @@ select {
 }
 
 ::selection {
-  background: rgba(17, 24, 39, 0.12);
+  background: rgba(28, 25, 23, 0.12);
 }
 
 .dark ::selection {
@@ -108,7 +112,7 @@ select {
 .swatch-shadow {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1px 0 rgba(17, 24, 39, 0.06);
+    inset 0 -1px 0 rgba(28, 25, 23, 0.06);
 }
 
 @keyframes slideUp {

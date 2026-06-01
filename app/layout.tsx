@@ -14,7 +14,12 @@ import { ErrorBoundary } from "@/src/components/error-boundary";
 import Script from "next/script";
 import { SITE_URL } from "@/src/lib/site-config";
 import { API_URL } from "@/src/lib/api-config";
+import { Inter, Fraunces } from "next/font/google";
 import "./globals.css";
+
+// Editorial type system: Inter for UI/body, Fraunces (serif display) for headings.
+const sans = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const serif = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
 
 const siteTitle = "ColorArchive";
 const siteDescription =
@@ -114,7 +119,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="QMvWjTTdo973FLMy5VZMA4lDZcirOQK8LUjLAHFD5eo" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
