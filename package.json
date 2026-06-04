@@ -17,6 +17,7 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
+    "@newrelic/browser-agent": "^1.316.0",
     "@sentry/nextjs": "^10.50.0",
     "html-to-image": "^1.11.13",
     "jszip": "^3.10.1",

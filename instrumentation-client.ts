@@ -9,6 +9,7 @@
 // config/withSentryConfig/buildTime.d.ts.
 
 import * as Sentry from "@sentry/nextjs";
+import { BrowserAgent } from "@newrelic/browser-agent/loaders/browser-agent";
 
 const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
 
@@ -38,6 +39,38 @@ if (dsn) {
     enabled:
       process.env.NEXT_PUBLIC_SENTRY_ENABLED !== "false" &&
       typeof window !== "undefined",
+  });
+}
+
+// New Relic Browser (RUM): Core Web Vitals, page-load / SPA route timing, JS errors.
+// The identifiers below are PUBLIC browser-agent values — they ship in client JS by
+// design (not secrets), so committing them is expected. Account 8123978 (US, beacon
+// bam.nr-data.net), app "ColorArchive" (applicationID 1120537094). Complements Sentry
+// (errors) with RUM; tune overlap in the NR dashboard if needed.
+if (typeof window !== "undefined") {
+  const NR_APP_ID = "1120537094";
+  const NR_BROWSER_KEY =
+    "9253281111BA9CF8B6829A0B314E3CBD113D064B9CE890C5646A6D57F79867D3";
+  new BrowserAgent({
+    init: {
+      distributed_tracing: { enabled: true },
+      privacy: { cookies_enabled: true },
+      ajax: { deny_list: ["bam.nr-data.net"] },
+    },
+    info: {
+      beacon: "bam.nr-data.net",
+      errorBeacon: "bam.nr-data.net",
+      licenseKey: NR_BROWSER_KEY,
+      applicationID: NR_APP_ID,
+      sa: 1,
+    },
+    loader_config: {
+      accountID: "8123978",
+      trustKey: "8123978",
+      agentID: NR_APP_ID,
+      licenseKey: NR_BROWSER_KEY,
+      applicationID: NR_APP_ID,
+    },
   });
 }
 
