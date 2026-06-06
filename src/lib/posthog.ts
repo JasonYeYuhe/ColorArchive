@@ -33,7 +33,7 @@ export function initPosthog(): void {
   if (!key) return; // unconfigured → stay a no-op
 
   posthog.init(key, {
-    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://eu.i.posthog.com",
+    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
     // Cookieless: persist the distinct_id in localStorage only (no cookie banner needed
     // for storage in most readings; final consent call is the operator's).
     persistence: "localStorage",

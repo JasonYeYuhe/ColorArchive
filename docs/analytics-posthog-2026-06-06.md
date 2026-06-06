@@ -7,7 +7,9 @@
 
 ## Tooling decision
 
-PostHog Cloud **EU** (`https://eu.i.posthog.com`), free tier (1M events/mo). Chosen over
+PostHog Cloud **US** (`https://us.i.posthog.com`), free tier (1M events/mo), project `456902`.
+(We'd planned EU for GDPR, but the account was registered on US — kept US for consistency with
+the Sentry / New Relic / Datadog US stack.) Chosen over
 Datadog/New Relic because those are observability tools billed per host/session: bending them
 to product analytics means hand-built NRQL retention + the web(Browser)/iOS(Mobile) event models
 don't unify, and Datadog RUM would double-instrument the web frontend (violating the documented
@@ -61,21 +63,24 @@ because `src/lib/track.ts` fans out to both destinations under the same event na
 
 ## Verification done
 
-- ✅ `npm run typecheck` passes.
+- ✅ CI `quality` green on PR #5: `typecheck` + `lint` + 519 tests + production `next build`.
 - ✅ Local `next dev` boots clean; `/` and `/word-to-color/` render 200; no SSR error from the
   `posthog-js` import; integration no-ops gracefully with an empty key.
+- ✅ **Live, end-to-end (2026-06-06):** with the real key wired, the local app fired events into
+  PostHog **US project 456902** — `POST us.i.posthog.com/e/` → 200; events API confirms
+  `$pageview` (`/`, `/word-to-color/`), `tool_used`, `$pageleave`; key recognized (`config.js` 200).
 - ✅ `plutil -lint` on `project.pbxproj` = OK; all new SPM/source references resolve internally.
-- ⚠️ **iOS needs Xcode build verification** (pbxproj/SPM changes) — not done here by design.
+- ⚠️ **iOS still needs Xcode build verification** (pbxproj/SPM changes) — not done here by design.
 
 ## What you still need to do
 
-1. **Create a free PostHog project** (EU Cloud) → copy the **Project API Key** (`phc_…`).
-2. **Web:** set `NEXT_PUBLIC_POSTHOG_KEY` (+ optional `NEXT_PUBLIC_POSTHOG_HOST`) in **Vercel**
-   env (Production/Preview) *and* your local `.env.local`. Redeploy. Then open the site and watch
-   PostHog → **Activity → Live events** for `$pageview`, `tool_used`, etc.
-3. **iOS:** open the project in **Xcode** → let SPM resolve `posthog-ios` → set the
-   `PostHogAPIKey` build setting (Info.plist `INFOPLIST_KEY_PostHogAPIKey`, currently empty) to the
-   same key → **build & run** to confirm. This is the next build's only analytics wiring step.
+1. ✅ **Done** — PostHog project created (US, `456902`), key wired.
+2. ✅ **Done (web)** — `NEXT_PUBLIC_POSTHOG_KEY` + `NEXT_PUBLIC_POSTHOG_HOST` set in **Vercel
+   Production** (preview/dev intentionally no-op) and local `.env.local`; live events confirmed.
+   Production picks them up on the **next deploy / when PR #5 merges**.
+3. **iOS — open in Xcode** → let SPM resolve `posthog-ios` → **build & run**. The key is already in
+   the `PostHogAPIKey` build setting (committed, publishable — same as the Sentry DSN), so there's
+   no manual key step; just confirm it compiles and events appear.
 4. **iOS privacy (before submitting a build with the key set):** add a **Product Interaction**
    entry to `PrivacyInfo.xcprivacy` and the App Store privacy label. The manifest is intentionally
    left accurate for the empty-key (no-collection) state today. Snippet to add:

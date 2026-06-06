@@ -30,7 +30,7 @@ enum AnalyticsBootstrap {
             !apiKey.isEmpty
         else { return }
 
-        var host = "https://eu.i.posthog.com"
+        var host = "https://us.i.posthog.com"
         if let configured = Bundle.main.object(forInfoDictionaryKey: "PostHogHost") as? String,
            !configured.isEmpty {
             host = configured
