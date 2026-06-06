@@ -15,5 +15,9 @@
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>ColorArchive uses your photo library to extract dominant colors from images.</string>
+	<!-- App only uses exempt encryption (standard HTTPS) — no custom crypto. Skips the
+	     per-build export-compliance prompt in App Store Connect. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>
