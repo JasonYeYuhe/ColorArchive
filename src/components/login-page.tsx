@@ -195,7 +195,13 @@ export function LoginPage() {
 
     if (!googleTrackedRef.current && user) {
       googleTrackedRef.current = true;
-      trackAuthSuccess(user.created_at, "google");
+      // Dedupe across reloads of /login?auth=google-success within this browser session,
+      // so revisiting that URL while already signed in doesn't re-fire a google login.
+      const seenKey = `ca_glogin_${user.id}`;
+      if (typeof sessionStorage !== "undefined" && !sessionStorage.getItem(seenKey)) {
+        sessionStorage.setItem(seenKey, "1");
+        trackAuthSuccess(user.created_at, "google");
+      }
     }
 
     const timeoutId = window.setTimeout(() => {

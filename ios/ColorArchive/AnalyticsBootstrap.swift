@@ -81,7 +81,10 @@ enum AnalyticsBootstrap {
         guard let createdAt,
               let created = ISO8601DateFormatter().date(from: createdAt)
         else { return }
-        if Date().timeIntervalSince(created) < 120 {
+        // "Just created" = within the last 2 min; the lower bound tolerates ~5 min of
+        // clock skew so a device clock running behind can't mark every login as a sign_up.
+        let diff = Date().timeIntervalSince(created)
+        if diff > -300 && diff < 120 {
             capture("sign_up", ["method": method])
         }
     }

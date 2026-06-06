@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 import { initPosthog, phCapture, TOOL_SLUGS } from "@/src/lib/posthog";
@@ -19,10 +19,14 @@ import { initPosthog, phCapture, TOOL_SLUGS } from "@/src/lib/posthog";
  */
 export function PostHogProvider() {
   const pathname = usePathname();
+  // Dedupe by path: avoids double-firing under React StrictMode (dev) and any re-render
+  // that re-runs the effect without an actual route change. Mirrors PageTracker.
+  const lastPath = useRef<string | null>(null);
 
   useEffect(() => {
     initPosthog();
-    if (!pathname) return;
+    if (!pathname || lastPath.current === pathname) return;
+    lastPath.current = pathname;
 
     phCapture("$pageview", { path: pathname });
 

@@ -26,6 +26,22 @@ function ready(): boolean {
   return initialized && typeof window !== "undefined";
 }
 
+// Defense-in-depth against PII. The signed-in user's email is rendered in the DOM
+// (account / profile pages), and PostHog autocapture can pick rendered text up via
+// `$el_text` / `$elements`. Redact any email-like substring from EVERY captured property
+// (recursively, so nested autocapture `$elements` are covered) before it leaves the browser.
+const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+function scrubPII(value: unknown): unknown {
+  if (typeof value === "string") return value.replace(EMAIL_RE, "[redacted]");
+  if (Array.isArray(value)) return value.map(scrubPII);
+  if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>;
+    for (const k in obj) obj[k] = scrubPII(obj[k]);
+    return obj;
+  }
+  return value;
+}
+
 export function initPosthog(): void {
   if (initialized || typeof window === "undefined") return;
 
@@ -47,6 +63,8 @@ export function initPosthog(): void {
     autocapture: true,
     // Privacy: no session replay.
     disable_session_recording: true,
+    // Privacy: strip any email that slips into a property (esp. autocapture $el_text).
+    sanitize_properties: (properties) => scrubPII(properties) as typeof properties,
   });
 
   initialized = true;

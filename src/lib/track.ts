@@ -47,7 +47,12 @@ export function trackAuthSuccess(createdAt: string | null | undefined, method: s
 
   if (!createdAt) return;
   const createdMs = new Date(createdAt).getTime();
-  if (Number.isFinite(createdMs) && Date.now() - createdMs < 2 * 60 * 1000) {
+  if (!Number.isFinite(createdMs)) return;
+  // "Just created" = within the last 2 min. The lower bound tolerates ~5 min of
+  // client/server clock skew; without it, a device clock running behind the server
+  // makes `diff` negative (always < 2min) and marks EVERY login as a sign_up.
+  const diff = Date.now() - createdMs;
+  if (diff > -5 * 60 * 1000 && diff < 2 * 60 * 1000) {
     track("sign_up", { method });
   }
 }
