@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import { ProGate } from "@/src/components/pro-gate";
+import { track } from "@/src/lib/track";
 
 type ExportFormat = "css" | "tailwind" | "sass" | "json" | "figma" | "style-dict";
 
@@ -93,6 +94,7 @@ export function PaletteExportPanel({ colors, prefix = "palette" }: PaletteExport
     try {
       await navigator.clipboard.writeText(code);
       setCopied(true);
+      track("export", { format: activeFormat, method: "copy" });
       clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => setCopied(false), 1400);
     } catch {

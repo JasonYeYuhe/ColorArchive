@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
+import { track } from "@/src/lib/track";
 import { JournalCalendarGrid } from "@/src/components/journal-calendar-grid";
 import type { JournalEntry } from "@/src/lib/color-journal";
 
@@ -53,6 +54,7 @@ export function JournalExportButton({
       a.href = dataUrl;
       a.download = `colorarchive-journal-${monthKey}.png`;
       a.click();
+      track("export", { format: "png", method: "download", type: "journal", tier });
     } catch (err) {
       console.warn("Journal export failed:", err);
       alert("Export failed. Please try again.");

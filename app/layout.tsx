@@ -4,6 +4,7 @@ import { AuthProvider } from "@/src/components/auth-provider";
 import { ThemeProvider } from "@/src/components/theme-provider";
 import { SiteFooter } from "@/src/components/site-footer";
 import { PageTracker } from "@/src/components/page-tracker";
+import { PostHogProvider } from "@/src/components/posthog-provider";
 import { PaletteBuilderTray } from "@/src/components/palette-builder-tray";
 import { LocaleProvider } from "@/src/components/locale-provider";
 import { PHLaunchBanner } from "@/src/components/ph-launch-banner";
@@ -153,6 +154,7 @@ gtag('config', 'AW-11416473237');`}
               <CopyUpsellToast />
               <KeyboardShortcuts />
               <PageTracker />
+              <PostHogProvider />
             </AuthProvider>
           </LocaleProvider>
         </ThemeProvider>

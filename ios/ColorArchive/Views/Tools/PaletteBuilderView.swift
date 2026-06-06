@@ -269,6 +269,7 @@ struct ExportSheet: View {
                     NSPasteboard.general.clearContents()
                     NSPasteboard.general.setString(exportCode, forType: .string)
                     #endif
+                    AnalyticsBootstrap.capture("export", ["format": selectedFormat.rawValue, "method": "copy"])
                     HapticManager.success()
                     copied = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) { copied = false }

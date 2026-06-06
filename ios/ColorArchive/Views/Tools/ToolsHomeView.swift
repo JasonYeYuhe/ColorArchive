@@ -119,13 +119,18 @@ struct ToolsHomeView: View {
             .navigationTitle("Tools")
             .navigationDestination(for: String.self) { toolName in
                 let needsPro = proToolNames.contains(toolName)
-                if needsPro {
-                    ProGateView(featureName: toolName) {
+                Group {
+                    if needsPro {
+                        ProGateView(featureName: toolName) {
+                            toolView(for: toolName)
+                        }
+                    } else {
                         toolView(for: toolName)
                     }
-                } else {
-                    toolView(for: toolName)
                 }
+                // Single chokepoint for all tools — fires `tool_used` with the tool name
+                // when any tool is opened (aligned by event name with the web tool_used).
+                .onAppear { AnalyticsBootstrap.capture("tool_used", ["tool": toolName]) }
             }
         .navigationDestination(for: ColorRecord.self) { color in
             ColorDetailView(color: color)

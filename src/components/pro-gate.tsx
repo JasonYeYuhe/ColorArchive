@@ -3,6 +3,7 @@
 import { useState, useEffect, type ReactNode } from "react";
 import Link from "next/link";
 import { fetchSession, type UserTier } from "@/src/lib/auth-client";
+import { track } from "@/src/lib/track";
 
 const EXPORT_LIMIT_KEY = "colorarchive_export_count";
 const EXPORT_DATE_KEY = "colorarchive_export_date";
@@ -66,7 +67,11 @@ export function ProGateCounter({ className = "" }: { className?: string }) {
         Free: {used}/{FREE_EXPORTS_PER_DAY} today
       </span>
       {(isLow || isOut) && (
-        <Link href="/pro" className="font-semibold underline hover:opacity-80">
+        <Link
+          href="/pro"
+          onClick={() => track("upgrade_clicked", { source: "export_counter" })}
+          className="font-semibold underline hover:opacity-80"
+        >
           {isOut ? "Go Pro" : "Last one"}
         </Link>
       )}
@@ -131,14 +136,22 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
             {remaining <= 1 ? (
               <>
                 {remaining === 1 ? "Last free export today — " : "Daily limit hit — "}
-                <Link href="/pro" className="underline font-semibold">
+                <Link
+                  href="/pro"
+                  onClick={() => track("upgrade_clicked", { source: "export_inline" })}
+                  className="underline font-semibold"
+                >
                   Go Pro for unlimited
                 </Link>
               </>
             ) : (
               <>
                 Free: {used}/{FREE_EXPORTS_PER_DAY} today ·{" "}
-                <Link href="/pro" className="underline hover:text-neutral-600">
+                <Link
+                  href="/pro"
+                  onClick={() => track("upgrade_clicked", { source: "export_inline" })}
+                  className="underline hover:text-neutral-600"
+                >
                   unlock unlimited
                 </Link>
               </>
@@ -155,6 +168,7 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
       <div className="absolute inset-0 flex items-center justify-center">
         <Link
           href="/pro"
+          onClick={() => track("upgrade_clicked", { source: "export_locked" })}
           className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-indigo-500 transition-colors"
         >
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">

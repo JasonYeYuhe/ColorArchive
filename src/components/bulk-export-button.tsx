@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { ColorCollection } from "@/src/lib/collections";
 import { SITE_DOMAIN } from "@/src/lib/site-config";
+import { track } from "@/src/lib/track";
 
 /**
  * Bulk export a collection as a ZIP containing CSS, Tailwind, JSON, and SCSS tokens.
@@ -65,6 +66,7 @@ export function BulkExportButton({ collection }: { collection: ColorCollection }
       a.download = `${slug}-tokens.zip`;
       a.click();
       URL.revokeObjectURL(url);
+      track("export", { format: "zip", method: "download", collection: slug });
     } catch (err) {
       console.error("Bulk export failed:", err);
     } finally {

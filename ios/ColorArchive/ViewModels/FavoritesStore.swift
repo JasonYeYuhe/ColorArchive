@@ -22,11 +22,15 @@ final class FavoritesStore {
     }
 
     func toggle(_ id: String) {
+        let nowFavorite: Bool
         if favoriteIds.contains(id) {
             favoriteIds.remove(id)
+            nowFavorite = false
         } else {
             favoriteIds.insert(id)
+            nowFavorite = true
         }
+        AnalyticsBootstrap.capture("favorite_toggled", ["action": nowFavorite ? "add" : "remove", "color_id": id])
         HapticManager.light()
         save()
     }

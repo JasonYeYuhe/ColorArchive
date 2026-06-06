@@ -14,6 +14,7 @@ struct ColorArchiveApp: App {
 
     init() {
         SentryBootstrap.start()
+        AnalyticsBootstrap.start()
         let auth = AuthStore()
         let store = StoreManager()
         _authStore = State(initialValue: auth)
@@ -76,6 +77,7 @@ struct ColorArchiveApp: App {
                     authStore.user = user
                     authStore.checkSession()
                 }
+                AnalyticsBootstrap.trackAuthSuccess(method: "magic_link", createdAt: user.createdAt)
             } catch {
                 print("Deep link login failed:", error)
             }

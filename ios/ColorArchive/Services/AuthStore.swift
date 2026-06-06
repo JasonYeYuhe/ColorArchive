@@ -23,6 +23,11 @@ final class AuthStore {
                     self.tier = session.auth?.tier ?? "anonymous"
                     self.isLoading = false
                 }
+                // Identify for PostHog on the opaque numeric backend id (never the email).
+                // Idempotent, so running on every session check — including silent restore — is fine.
+                if let user = session.user {
+                    AnalyticsBootstrap.identify(String(user.id), tier: session.auth?.tier ?? "anonymous")
+                }
                 // Trigger cloud sync when user is logged in
                 if session.user != nil {
                     await onLoginSync?()
@@ -44,6 +49,7 @@ final class AuthStore {
                 self.user = nil
                 self.tier = "anonymous"
             }
+            AnalyticsBootstrap.reset()
         }
     }
 }

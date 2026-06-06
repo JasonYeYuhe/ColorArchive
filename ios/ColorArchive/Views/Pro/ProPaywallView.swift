@@ -149,6 +149,7 @@ struct ProPaywallView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear { AnalyticsBootstrap.screen("pro_paywall") }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Close") { dismiss() }

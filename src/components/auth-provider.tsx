@@ -33,6 +33,8 @@ import {
   replacePalette,
   subscribeToPalette,
 } from "@/src/lib/palette-builder";
+import { phIdentify, phReset } from "@/src/lib/posthog";
+import { trackAuthSuccess } from "@/src/lib/track";
 
 type AuthStatus = "loading" | "authenticated" | "anonymous";
 
@@ -111,6 +113,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setGoogleEnabled(session.auth.googleEnabled);
     setAnalyticsAccess(session.auth.analyticsAccess);
     setStatus(session.user ? "authenticated" : "anonymous");
+
+    // Identity for PostHog: key on the opaque numeric backend id (never the email),
+    // and carry tier as a (non-PII) person property for segmentation. Idempotent, so
+    // calling on every session — including silent restore — is fine.
+    if (session.user) {
+      phIdentify(String(session.user.id), { tier: session.auth.tier });
+    }
   }, []);
 
   const schedulePersist = useCallback(() => {
@@ -215,6 +224,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await verifyMagicLinkRequest(token);
     const session = await fetchSession();
     applySession(session);
+    // Fresh magic-link login (restore is handled in initializeSession, which does NOT
+    // fire login). created_at recency distinguishes sign_up from login.
+    if (session.user) {
+      trackAuthSuccess(session.user.created_at, "magic_link");
+    }
     await applyRemotePreferences();
     syncEnabledRef.current = true;
   }, [applyRemotePreferences, applySession]);
@@ -230,6 +244,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLastSyncAt(null);
     setAnalyticsAccess(false);
     syncEnabledRef.current = false;
+    phReset();
   }, []);
 
   const value = useMemo<AuthContextValue>(
