@@ -13,6 +13,7 @@ struct ColorArchiveApp: App {
     @State private var spotlightColor: ColorRecord?
 
     init() {
+        SentryBootstrap.start()
         let auth = AuthStore()
         let store = StoreManager()
         _authStore = State(initialValue: auth)

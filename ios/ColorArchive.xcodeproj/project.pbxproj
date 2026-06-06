@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2BEEEA700D4BD83A7BC3B4AC /* SentryBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370494CA197F7BB4EC23B8 /* SentryBootstrap.swift */; };
+		43F0B733611ED215547FF625 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 79E6AEB1894B29710437596F /* PrivacyInfo.xcprivacy */; };
 		A10001 /* ColorArchiveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001 /* ColorArchiveApp.swift */; };
 		A10002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002 /* ContentView.swift */; };
 		A10003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10003 /* Assets.xcassets */; };
@@ -22,7 +24,6 @@
 		A10013 /* ColorStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013 /* ColorStore.swift */; };
 		A10014 /* FavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014 /* FavoritesStore.swift */; };
 		A10015 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015 /* APIService.swift */; };
-		A10045 /* AuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10045 /* AuthStore.swift */; };
 		A10017 /* ColorRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017 /* ColorRelationships.swift */; };
 		A10018 /* ColorContrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018 /* ColorContrast.swift */; };
 		A10019 /* ColorBlindSim.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10019 /* ColorBlindSim.swift */; };
@@ -51,14 +52,18 @@
 		A10042 /* ColorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10042 /* ColorCollection.swift */; };
 		A10043 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10043 /* Collections.swift */; };
 		A10044 /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10044 /* CollectionsView.swift */; };
+		A10045 /* AuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10045 /* AuthStore.swift */; };
 		A10046 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10046 /* StoreManager.swift */; };
 		A10047 /* ProAccessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10047 /* ProAccessManager.swift */; };
 		A10048 /* ProPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10048 /* ProPaywallView.swift */; };
 		A10049 /* ProGateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10049 /* ProGateView.swift */; };
 		A10050 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B10050 /* Products.storekit */; };
+		A201ADC8916EEE0D4EF70E81 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAA6BC8EB85035E8D6932C7 /* Sentry */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E370494CA197F7BB4EC23B8 /* SentryBootstrap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SentryBootstrap.swift; sourceTree = "<group>"; };
+		79E6AEB1894B29710437596F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B10001 /* ColorArchiveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorArchiveApp.swift; sourceTree = "<group>"; };
 		B10002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B10003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,7 +79,6 @@
 		B10013 /* ColorStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorStore.swift; sourceTree = "<group>"; };
 		B10014 /* FavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStore.swift; sourceTree = "<group>"; };
 		B10015 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		B10045 /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
 		B10017 /* ColorRelationships.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRelationships.swift; sourceTree = "<group>"; };
 		B10018 /* ColorContrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorContrast.swift; sourceTree = "<group>"; };
 		B10019 /* ColorBlindSim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlindSim.swift; sourceTree = "<group>"; };
@@ -103,6 +107,7 @@
 		B10042 /* ColorCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollection.swift; sourceTree = "<group>"; };
 		B10043 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
 		B10044 /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
+		B10045 /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
 		B10046 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		B10047 /* ProAccessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProAccessManager.swift; sourceTree = "<group>"; };
 		B10048 /* ProPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPaywallView.swift; sourceTree = "<group>"; };
@@ -117,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A201ADC8916EEE0D4EF70E81 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +152,8 @@
 				B10003 /* Assets.xcassets */,
 				B10050 /* Products.storekit */,
 				B10051 /* ColorArchive.entitlements */,
+				0E370494CA197F7BB4EC23B8 /* SentryBootstrap.swift */,
+				79E6AEB1894B29710437596F /* PrivacyInfo.xcprivacy */,
 			);
 			path = ColorArchive;
 			sourceTree = "<group>";
@@ -177,15 +185,6 @@
 				E10017 /* Pro */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		E10017 /* Pro */ = {
-			isa = PBXGroup;
-			children = (
-				B10048 /* ProPaywallView.swift */,
-				B10049 /* ProGateView.swift */,
-			);
-			path = Pro;
 			sourceTree = "<group>";
 		};
 		E10005 /* ViewModels */ = {
@@ -300,6 +299,15 @@
 			path = Collections;
 			sourceTree = "<group>";
 		};
+		E10017 /* Pro */ = {
+			isa = PBXGroup;
+			children = (
+				B10048 /* ProPaywallView.swift */,
+				B10049 /* ProGateView.swift */,
+			);
+			path = Pro;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -316,6 +324,9 @@
 			dependencies = (
 			);
 			name = ColorArchive;
+			packageProductDependencies = (
+				4EAA6BC8EB85035E8D6932C7 /* Sentry */,
+			);
 			productName = ColorArchive;
 			productReference = C10001 /* ColorArchive.app */;
 			productType = "com.apple.product-type.application";
@@ -346,6 +357,9 @@
 				ja,
 			);
 			mainGroup = E10001;
+			packageReferences = (
+				D15F7365829864E9ECE6BE1E /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+			);
 			productRefGroup = E10009 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -362,6 +376,7 @@
 			files = (
 				A10003 /* Assets.xcassets in Resources */,
 				A10050 /* Products.storekit in Resources */,
+				43F0B733611ED215547FF625 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +434,7 @@
 				A10047 /* ProAccessManager.swift in Sources */,
 				A10048 /* ProPaywallView.swift in Sources */,
 				A10049 /* ProGateView.swift in Sources */,
+				2BEEEA700D4BD83A7BC3B4AC /* SentryBootstrap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +455,7 @@
 				INFOPLIST_FILE = ColorArchive/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ColorArchive;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
+				INFOPLIST_KEY_SentryDSN = "https://9a2d2b4b13dc8c97441492952b86689d@o4511263220891648.ingest.us.sentry.io/4511513693716480";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -474,6 +491,7 @@
 				INFOPLIST_FILE = ColorArchive/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ColorArchive;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
+				INFOPLIST_KEY_SentryDSN = "https://9a2d2b4b13dc8c97441492952b86689d@o4511263220891648.ingest.us.sentry.io/4511513693716480";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -642,6 +660,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D15F7365829864E9ECE6BE1E /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.45.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4EAA6BC8EB85035E8D6932C7 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D15F7365829864E9ECE6BE1E /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F10002 /* Project object */;
 }
