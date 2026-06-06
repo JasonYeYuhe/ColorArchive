@@ -87,13 +87,19 @@ because `src/lib/track.ts` fans out to both destinations under the same event na
 4. ✅ **PostHog backend** — project renamed **"ColorArchive"**; dashboard **"ColorArchive Analytics"**
    + 3 insights: **DAU** (`N6yxdP3T`), **Weekly Retention** (`Zeq5b4Pd`), **Activation funnel** (`EX9xE0HM`).
 
-**⚠️ Remaining — App Privacy nutrition label.** Build 4 collects **Product Interaction** (PostHog),
-but the App Store **App Privacy** declaration (ASC → your app → App Privacy) was not updated. Add
-**Product Interaction** → purpose **Analytics** (+ App Functionality), **not** linked to identity,
-**not** used for tracking (matches the no-PII / pseudonymous / first-party posture). Editable during
-review — do it before approval. The app's own `PrivacyInfo.xcprivacy` was left declaring only
-Sentry crash/diagnostic data; PostHog's SDK ships its own manifest, but the nutrition-label
-questionnaire is a separate, manual developer declaration. If you also want it in the app manifest:
+5. ✅ **App Privacy nutrition label (2026-06-07)** — was "Data Not Collected"; updated via ASC to
+   declare build 4's collection accurately:
+   - **Product Interaction** (PostHog) → **Analytics**, **Linked to identity = Yes** (we
+     `identify()` logged-in users by their account id — Apple's test treats that as linked even
+     though no PII reaches PostHog), tracking = No.
+   - **Crash Data** (Sentry) → **App Functionality**, linked = No (`sendDefaultPii=false`, no
+     `setUser()`), tracking = No.
+
+   (The "linked = Yes" on Product Interaction refines the earlier "not linked" note — it's the
+   accurate/rejection-safe reading; flip it in ASC → App Privacy → Edit if you prefer the
+   pseudonymity argument.) The app's own `PrivacyInfo.xcprivacy` still declares only Sentry crash/
+   diagnostic; the nutrition label is the separate, now-correct, manual declaration. If you ever
+   also want the Product Interaction type in the app manifest:
 ```xml
 <dict>
     <key>NSPrivacyCollectedDataType</key>
