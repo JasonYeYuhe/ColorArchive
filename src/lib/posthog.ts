@@ -31,13 +31,16 @@ function ready(): boolean {
 // `$el_text` / `$elements`. Redact any email-like substring from EVERY captured property
 // (recursively, so nested autocapture `$elements` are covered) before it leaves the browser.
 const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+// Pure: never mutates its input. PostHog may hand `sanitize_properties` objects we must not
+// write to (frozen / shared super-property refs), so we build and return fresh copies.
 function scrubPII(value: unknown): unknown {
   if (typeof value === "string") return value.replace(EMAIL_RE, "[redacted]");
   if (Array.isArray(value)) return value.map(scrubPII);
   if (value && typeof value === "object") {
-    const obj = value as Record<string, unknown>;
-    for (const k in obj) obj[k] = scrubPII(obj[k]);
-    return obj;
+    const src = value as Record<string, unknown>;
+    const out: Record<string, unknown> = {};
+    for (const k of Object.keys(src)) out[k] = scrubPII(src[k]);
+    return out;
   }
   return value;
 }
