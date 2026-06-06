@@ -70,33 +70,58 @@ because `src/lib/track.ts` fans out to both destinations under the same event na
   PostHog **US project 456902** — `POST us.i.posthog.com/e/` → 200; events API confirms
   `$pageview` (`/`, `/word-to-color/`), `tool_used`, `$pageleave`; key recognized (`config.js` 200).
 - ✅ `plutil -lint` on `project.pbxproj` = OK; all new SPM/source references resolve internally.
-- ⚠️ **iOS still needs Xcode build verification** (pbxproj/SPM changes) — not done here by design.
+- ✅ **iOS built + submitted (2026-06-07):** `xcodebuild` simulator build **SUCCEEDED** against
+  posthog-ios **3.59.3** (the `AnalyticsBootstrap` API is correct); build 4 archived,
+  distribution-signed, uploaded via `altool`, attached to **v1.2**, and submitted →
+  **`WAITING_FOR_REVIEW`**.
+- ✅ **Pre-merge review** (Gemini 3 Pro + Codex, 2 passes each): fixed clock-skew `sign_up`
+  window, autocapture email-PII redaction (pure `sanitize_properties`), `$pageview` dedupe,
+  google-login dedupe. SSR `posthog-js` import confirmed safe by both.
 
-## What you still need to do
+## Status & what remains
 
-1. ✅ **Done** — PostHog project created (US, `456902`), key wired.
-2. ✅ **Done (web)** — `NEXT_PUBLIC_POSTHOG_KEY` + `NEXT_PUBLIC_POSTHOG_HOST` set in **Vercel
-   Production** (preview/dev intentionally no-op) and local `.env.local`; live events confirmed.
-   Production picks them up on the **next deploy / when PR #5 merges**.
-3. **iOS — open in Xcode** → let SPM resolve `posthog-ios` → **build & run**. The key is already in
-   the `PostHogAPIKey` build setting (committed, publishable — same as the Sentry DSN), so there's
-   no manual key step; just confirm it compiles and events appear.
-4. **iOS privacy (before submitting a build with the key set):** add a **Product Interaction**
-   entry to `PrivacyInfo.xcprivacy` and the App Store privacy label. The manifest is intentionally
-   left accurate for the empty-key (no-collection) state today. Snippet to add:
-   ```xml
-   <dict>
-       <key>NSPrivacyCollectedDataType</key>
-       <string>NSPrivacyCollectedDataTypeProductInteraction</string>
-       <key>NSPrivacyCollectedDataTypeLinked</key>
-       <false/>
-       <key>NSPrivacyCollectedDataTypeTracking</key>
-       <false/>
-       <key>NSPrivacyCollectedDataTypePurposes</key>
-       <array>
-           <string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
-       </array>
-   </dict>
-   ```
-5. **Optional:** in PostHog project settings, toggle "Discard client IP data" for stricter privacy
-   (loses country-level geo). Consider a reverse proxy if ad-blockers prove to be an issue.
+1. ✅ **PostHog project** — US `456902`; key wired in Vercel **Production** env + local `.env.local`; live events confirmed.
+2. ✅ **Web** — merged (PR #5 → `cd70d3b`), deployed to production, live-verified.
+3. ✅ **iOS** — **build 4** (first build with analytics) **submitted to App Store review** (v1.2,
+   `WAITING_FOR_REVIEW`, auto-release after approval). Build config committed in `1352596`.
+4. ✅ **PostHog backend** — project renamed **"ColorArchive"**; dashboard **"ColorArchive Analytics"**
+   + 3 insights: **DAU** (`N6yxdP3T`), **Weekly Retention** (`Zeq5b4Pd`), **Activation funnel** (`EX9xE0HM`).
+
+**⚠️ Remaining — App Privacy nutrition label.** Build 4 collects **Product Interaction** (PostHog),
+but the App Store **App Privacy** declaration (ASC → your app → App Privacy) was not updated. Add
+**Product Interaction** → purpose **Analytics** (+ App Functionality), **not** linked to identity,
+**not** used for tracking (matches the no-PII / pseudonymous / first-party posture). Editable during
+review — do it before approval. The app's own `PrivacyInfo.xcprivacy` was left declaring only
+Sentry crash/diagnostic data; PostHog's SDK ships its own manifest, but the nutrition-label
+questionnaire is a separate, manual developer declaration. If you also want it in the app manifest:
+```xml
+<dict>
+    <key>NSPrivacyCollectedDataType</key>
+    <string>NSPrivacyCollectedDataTypeProductInteraction</string>
+    <key>NSPrivacyCollectedDataTypeLinked</key><false/>
+    <key>NSPrivacyCollectedDataTypeTracking</key><false/>
+    <key>NSPrivacyCollectedDataTypePurposes</key>
+    <array><string>NSPrivacyCollectedDataTypePurposeAnalytics</string></array>
+</dict>
+```
+
+**Optional:** PostHog settings → "Discard client IP data" for stricter privacy (loses country geo);
+reverse proxy if ad-blockers prove an issue.
+
+## iOS release — reusable headless CLI flow (how build 4 shipped)
+
+Done entirely from the CLI via the **team App Store Connect API key** (creds exported as `ASC_*`
+in `~/.zshrc`: `ASC_API_KEY_ID` / `ASC_API_ISSUER` / `ASC_TEAM_ID`; the `.p8` lives in
+`~/.appstoreconnect/private_keys/`). **The key is team-level and manages ColorArchive** (app id
+`6761363087`), not just TokyoHelp — so future releases need no 2FA / Xcode UI.
+
+1. Bump `CURRENT_PROJECT_VERSION` in `ios/ColorArchive.xcodeproj/project.pbxproj`.
+2. `xcodebuild archive` (Release, `generic/platform=iOS`) with `-allowProvisioningUpdates` +
+   `-authenticationKeyPath/-authenticationKeyID/-authenticationKeyIssuerID` (auto-provisions;
+   needs the **Apple Distribution** cert in the Keychain).
+3. `xcodebuild -exportArchive` with an `ExportOptions.plist` (`method = app-store-connect`,
+   `destination = export`) → IPA.
+4. `xcrun altool --upload-app -f <ipa> -t ios --apiKey $ASC_API_KEY_ID --apiIssuer $ASC_API_ISSUER`.
+5. ASC REST API (JWT ES256 signed with the `.p8`): set build `usesNonExemptEncryption=false` →
+   attach build to the version (`PATCH /v1/appStoreVersions/{id}/relationships/build`) → submit
+   (`POST /v1/reviewSubmissions` + `reviewSubmissionItems` → `PATCH {submitted:true}`).
