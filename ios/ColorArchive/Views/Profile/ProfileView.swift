@@ -59,6 +59,7 @@ struct ProfileView: View {
                         }
                     } else {
                         Button {
+                            AnalyticsBootstrap.capture("upgrade_clicked", ["source": "profile"])
                             showingPaywall = true
                         } label: {
                             HStack {

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback } from "react";
 import { SITE_DOMAIN } from "@/src/lib/site-config";
+import { track } from "@/src/lib/track";
 
 interface PaletteColor {
   hex: string;
@@ -39,6 +40,7 @@ export function DownloadPaletteImage({ colors, title, subtitle }: DownloadPalett
       link.download = `${(title || "palette").toLowerCase().replace(/\s+/g, "-")}.png`;
       link.href = dataUrl;
       link.click();
+      track("export", { format: "png", method: "download", type: "palette_image" });
     } catch {
       // Fallback: just ignore if export fails
     } finally {

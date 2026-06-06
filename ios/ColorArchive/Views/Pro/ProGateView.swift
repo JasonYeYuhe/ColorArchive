@@ -28,6 +28,7 @@ struct ProGateView<Content: View>: View {
                     .padding(.horizontal)
 
                 Button {
+                    AnalyticsBootstrap.capture("upgrade_clicked", ["source": "tool_gate", "feature": featureName])
                     showingPaywall = true
                 } label: {
                     Label("Upgrade to Pro", systemImage: "crown.fill")

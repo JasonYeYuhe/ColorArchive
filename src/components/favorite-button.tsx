@@ -4,6 +4,7 @@ import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { useLocale } from "@/src/components/locale-provider";
 import { isFavoriteColor, subscribeToFavorites, toggleFavoriteColor } from "@/src/lib/favorites";
+import { track } from "@/src/lib/track";
 
 interface FavoriteButtonProps {
   colorId: string;
@@ -25,7 +26,9 @@ export function FavoriteButton({ colorId, className }: FavoriteButtonProps) {
   const handleToggle = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     const nextIds = toggleFavoriteColor(colorId);
-    setIsFavorite(nextIds.includes(colorId));
+    const nowFavorite = nextIds.includes(colorId);
+    setIsFavorite(nowFavorite);
+    track("favorite_toggled", { action: nowFavorite ? "add" : "remove", color_id: colorId });
   };
 
   return (

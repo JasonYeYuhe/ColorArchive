@@ -59,10 +59,13 @@
 		A10049 /* ProGateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10049 /* ProGateView.swift */; };
 		A10050 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B10050 /* Products.storekit */; };
 		A201ADC8916EEE0D4EF70E81 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAA6BC8EB85035E8D6932C7 /* Sentry */; };
+		A10061 /* AnalyticsBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10061 /* AnalyticsBootstrap.swift */; };
+		A10062 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = H10001 /* PostHog */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E370494CA197F7BB4EC23B8 /* SentryBootstrap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SentryBootstrap.swift; sourceTree = "<group>"; };
+		B10061 /* AnalyticsBootstrap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnalyticsBootstrap.swift; sourceTree = "<group>"; };
 		79E6AEB1894B29710437596F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B10001 /* ColorArchiveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorArchiveApp.swift; sourceTree = "<group>"; };
 		B10002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -123,6 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A201ADC8916EEE0D4EF70E81 /* Sentry in Frameworks */,
+				A10062 /* PostHog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +157,7 @@
 				B10050 /* Products.storekit */,
 				B10051 /* ColorArchive.entitlements */,
 				0E370494CA197F7BB4EC23B8 /* SentryBootstrap.swift */,
+				B10061 /* AnalyticsBootstrap.swift */,
 				79E6AEB1894B29710437596F /* PrivacyInfo.xcprivacy */,
 			);
 			path = ColorArchive;
@@ -326,6 +331,7 @@
 			name = ColorArchive;
 			packageProductDependencies = (
 				4EAA6BC8EB85035E8D6932C7 /* Sentry */,
+				H10001 /* PostHog */,
 			);
 			productName = ColorArchive;
 			productReference = C10001 /* ColorArchive.app */;
@@ -359,6 +365,7 @@
 			mainGroup = E10001;
 			packageReferences = (
 				D15F7365829864E9ECE6BE1E /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				H10002 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 			);
 			productRefGroup = E10009 /* Products */;
 			projectDirPath = "";
@@ -435,6 +442,7 @@
 				A10048 /* ProPaywallView.swift in Sources */,
 				A10049 /* ProGateView.swift in Sources */,
 				2BEEEA700D4BD83A7BC3B4AC /* SentryBootstrap.swift in Sources */,
+				A10061 /* AnalyticsBootstrap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +464,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = ColorArchive;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
 				INFOPLIST_KEY_SentryDSN = "https://9a2d2b4b13dc8c97441492952b86689d@o4511263220891648.ingest.us.sentry.io/4511513693716480";
+				INFOPLIST_KEY_PostHogAPIKey = "phc_mRWL5VHwuZuj4jS8djbqmzjnNLiD8ychwudvShqkByKY";
+				INFOPLIST_KEY_PostHogHost = "https://us.i.posthog.com";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -492,6 +502,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = ColorArchive;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
 				INFOPLIST_KEY_SentryDSN = "https://9a2d2b4b13dc8c97441492952b86689d@o4511263220891648.ingest.us.sentry.io/4511513693716480";
+				INFOPLIST_KEY_PostHogAPIKey = "phc_mRWL5VHwuZuj4jS8djbqmzjnNLiD8ychwudvShqkByKY";
+				INFOPLIST_KEY_PostHogHost = "https://us.i.posthog.com";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -670,6 +682,14 @@
 				minimumVersion = 8.45.0;
 			};
 		};
+		H10002 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PostHog/posthog-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -677,6 +697,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D15F7365829864E9ECE6BE1E /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
+		};
+		H10001 /* PostHog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = H10002 /* XCRemoteSwiftPackageReference "posthog-ios" */;
+			productName = PostHog;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

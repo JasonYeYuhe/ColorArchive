@@ -44,6 +44,10 @@ struct ContentView: View {
                 .tag(Tab.profile)
         }
         .tint(Color(red: 0.1, green: 0.1, blue: 0.18))
+        .onAppear { AnalyticsBootstrap.screen(selectedTab.rawValue) }
+        .onChange(of: selectedTab) { _, newTab in
+            AnalyticsBootstrap.screen(newTab.rawValue)
+        }
     }
 }
 

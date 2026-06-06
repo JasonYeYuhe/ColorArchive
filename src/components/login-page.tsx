@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   API_URL,
   fetchAdminOrders,
@@ -14,6 +14,7 @@ import {
 } from "@/src/lib/auth-client";
 import { useAuth } from "@/src/components/auth-provider";
 import { useLocale } from "@/src/components/locale-provider";
+import { trackAuthSuccess } from "@/src/lib/track";
 import { licenseTiers, supportPolicy } from "@/src/lib/license-tiers";
 
 type FormState = "idle" | "loading" | "success" | "error";
@@ -101,6 +102,8 @@ export function LoginPage() {
   const [adminState, setAdminState] = useState<AdminState>("idle");
   const [adminError, setAdminError] = useState("");
   const [resendState, setResendState] = useState<Record<string, "idle" | "sending" | "sent">>({});
+  // Fire the Google `login` event at most once per redirect return.
+  const googleTrackedRef = useRef(false);
 
   const token = searchParams.get("token");
   const loginError = searchParams.get("error");
@@ -190,6 +193,17 @@ export function LoginPage() {
       return;
     }
 
+    if (!googleTrackedRef.current && user) {
+      googleTrackedRef.current = true;
+      // Dedupe across reloads of /login?auth=google-success within this browser session,
+      // so revisiting that URL while already signed in doesn't re-fire a google login.
+      const seenKey = `ca_glogin_${user.id}`;
+      if (typeof sessionStorage !== "undefined" && !sessionStorage.getItem(seenKey)) {
+        sessionStorage.setItem(seenKey, "1");
+        trackAuthSuccess(user.created_at, "google");
+      }
+    }
+
     const timeoutId = window.setTimeout(() => {
       router.replace(nextPath);
     }, 1400);
@@ -197,7 +211,7 @@ export function LoginPage() {
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [googleSuccess, nextPath, router, status]);
+  }, [googleSuccess, nextPath, router, status, user]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

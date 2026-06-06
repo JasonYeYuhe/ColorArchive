@@ -141,7 +141,8 @@ ColorArchive/
 │   │   ├── locale-provider.tsx           # i18n context + useLocale() hook
 │   │   ├── theme-provider.tsx            # Dark/light mode context
 │   │   ├── auth-provider.tsx             # Auth session context
-│   │   ├── page-tracker.tsx              # Client-side page view tracking
+│   │   ├── page-tracker.tsx              # First-party page view tracking (backend /pageviews)
+│   │   ├── posthog-provider.tsx          # PostHog init + $pageview/tool_used per route (no-op w/o key)
 │   │   ├── ph-launch-banner.tsx          # Product Hunt launch banner
 │   │   ├── seasonal-countdown.tsx        # Seasonal pack countdown
 │   │   ├── structured-data-script.tsx    # JSON-LD schema injection
@@ -237,6 +238,8 @@ ColorArchive/
 │   │   ├── pinterest.ts                  # Pinterest OAuth + API proxy helpers
 │   │   ├── checkout-config.ts            # Stripe checkout config + Pro subscription pricing
 │   │   ├── auth-client.ts               # Client API: session, projects, usage, referral, types
+│   │   ├── track.ts                      # Fire-and-forget events → backend /events + PostHog
+│   │   ├── posthog.ts                    # PostHog product-analytics singleton (cookieless, no-op w/o key)
 │   │   ├── brand-palette.ts             # Single-hex → 11-step design system + semantic colors
 │   │   ├── color-relationships.ts       # Color relationships (analogous, complementary, triadic, tonal)
 │   │   ├── color-contrast.ts            # WCAG contrast ratio + relative luminance

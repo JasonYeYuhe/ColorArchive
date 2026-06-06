@@ -77,6 +77,8 @@ final class StoreManager {
     // MARK: - Purchase
 
     func purchase(_ product: Product) async throws -> PurchaseResult {
+        // Aligned with the web `checkout_clicked` (StoreKit IAP is the iOS checkout).
+        AnalyticsBootstrap.capture("checkout_clicked", ["product": product.id, "provider": "apple_iap"])
         let result = try await product.purchase()
         switch result {
         case .success(let verification):
@@ -84,10 +86,13 @@ final class StoreManager {
             await updatePurchasedProducts()
             await transaction.finish()
             await syncPurchaseWithBackend(transaction, jws: verification.jwsRepresentation)
+            AnalyticsBootstrap.capture("purchase", ["product": product.id, "result": "success"])
             return .success
         case .userCancelled:
+            AnalyticsBootstrap.capture("purchase", ["product": product.id, "result": "cancelled"])
             return .cancelled
         case .pending:
+            AnalyticsBootstrap.capture("purchase", ["product": product.id, "result": "pending"])
             return .pending
         @unknown default:
             return .cancelled
