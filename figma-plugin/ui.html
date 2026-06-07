@@ -368,12 +368,12 @@ document.getElementById("btnApply").addEventListener("click", () => {
 });
 
 document.getElementById("btnSwatch").addEventListener("click", () => {
-  if (!selectedColor) return;
+  if (figmaOnly || !selectedColor) return;
   parent.postMessage({ pluginMessage: { type: "create-swatch", hex: selectedColor.hex, name: selectedColor.name } }, "*");
 });
 
 document.getElementById("btnStyle").addEventListener("click", () => {
-  if (!selectedColor) return;
+  if (figmaOnly || !selectedColor) return;
   parent.postMessage({ pluginMessage: { type: "create-style", hex: selectedColor.hex, name: selectedColor.name, family: selectedColor.family } }, "*");
 });
 
@@ -381,6 +381,35 @@ document.getElementById("btnExport").addEventListener("click", () => {
   const panel = document.getElementById("exportPanel");
   panel.style.display = panel.style.display === "none" ? "block" : "none";
 });
+
+// Robust clipboard copy for the sandboxed plugin iframe, where
+// navigator.clipboard is often undefined. Falls back to a hidden <textarea>
+// + document.execCommand("copy"). Returns a Promise<boolean>.
+function copyText(text) {
+  if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+    return navigator.clipboard.writeText(text).then(() => true).catch(() => fallbackCopy(text));
+  }
+  return Promise.resolve(fallbackCopy(text));
+}
+
+function fallbackCopy(text) {
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.top = "-9999px";
+    ta.style.left = "-9999px";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
 
 window.exportColors = function(format) {
   const filtered = getFiltered();
@@ -394,11 +423,13 @@ window.exportColors = function(format) {
   } else {
     output = JSON.stringify(filtered.map(c => ({ id: c.id, name: c.name, hex: c.hex })), null, 2);
   }
-  navigator.clipboard.writeText(output).then(() => {
+  copyText(output).then((ok) => {
     const el = document.getElementById("exportStatus");
-    el.textContent = `Copied ${filtered.length} colors as ${format.toUpperCase()}`;
+    el.textContent = ok
+      ? `Copied ${filtered.length} colors as ${format.toUpperCase()}`
+      : `Couldn’t access clipboard`;
     setTimeout(() => { el.textContent = ""; }, 2500);
-  }).catch(() => {});
+  });
 };
 
 renderFamilyTabs();
@@ -491,6 +522,14 @@ function renderProjects() {
 }
 
 window.applyProject = function(index) {
+  if (figmaOnly) {
+    const status = document.getElementById('projectsStatus');
+    if (status) {
+      status.textContent = 'Color styles can only be created in Figma Design.';
+      status.style.color = '#f87171';
+    }
+    return;
+  }
   const project = projectsData[index];
   if (!project || !project.palette || project.palette.length === 0) return;
   parent.postMessage({ pluginMessage: {
@@ -499,6 +538,29 @@ window.applyProject = function(index) {
     palette: project.palette,
   }}, '*');
 };
+
+// ─── Editor mode ───────────────────────────────────────────────────────────────
+// The main thread reports figma.editorType via an 'init' message. In FigJam,
+// paint-style and rectangle creation throw, so we disable those actions.
+let figmaOnly = false; // true once we know we are NOT in Figma Design
+
+function disableFigmaOnlyButton(id, reason) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.disabled = true;
+  el.style.opacity = '0.4';
+  el.style.cursor = 'not-allowed';
+  el.title = reason;
+}
+
+function applyFigjamMode() {
+  figmaOnly = true;
+  disableFigmaOnlyButton('btnSwatch', 'Swatches can only be created in Figma Design');
+  disableFigmaOnlyButton('btnStyle', 'Color styles can only be created in Figma Design');
+  disableFigmaOnlyButton('btnBrandScale', 'Brand styles can only be created in Figma Design');
+  const note = document.getElementById('brandScaleNote');
+  if (note) note.textContent = 'Style creation is available in Figma Design only.';
+}
 
 // ─── Inspect logic ────────────────────────────────────────────────────────────
 let currentInspectHex = null;
@@ -518,6 +580,20 @@ function renderBadge(grade) {
 window.onmessage = function(event) {
   const msg = event.data.pluginMessage;
   if (!msg) return;
+
+  if (msg.type === 'init') {
+    if (msg.editorType && msg.editorType !== 'figma') applyFigjamMode();
+    return;
+  }
+
+  if (msg.type === 'project-styles-unavailable') {
+    const status = document.getElementById('projectsStatus');
+    if (status) {
+      status.textContent = 'Color styles can only be created in Figma Design.';
+      status.style.color = '#f87171';
+    }
+    return;
+  }
 
   if (msg.type === 'selection-empty' || msg.type === 'selection-no-fill') {
     document.getElementById('inspectEmpty').style.display = 'block';
@@ -561,11 +637,11 @@ window.onmessage = function(event) {
 
 document.getElementById('inspectCopy').addEventListener('click', () => {
   if (!currentInspectHex) return;
-  navigator.clipboard.writeText(currentInspectHex).then(() => {
+  copyText(currentInspectHex).then((ok) => {
     const el = document.getElementById('inspectCopy');
-    el.textContent = 'Copied!';
+    el.textContent = ok ? 'Copied!' : 'Failed';
     setTimeout(() => { el.textContent = 'Copy'; }, 1400);
-  }).catch(() => {});
+  });
 });
 
 document.getElementById('btnApplyBest').addEventListener('click', () => {
@@ -573,9 +649,17 @@ document.getElementById('btnApplyBest').addEventListener('click', () => {
 });
 
 document.getElementById('btnBrandScale').addEventListener('click', () => {
+  if (figmaOnly) return;
   parent.postMessage({ pluginMessage: { type: 'generate-brand-scale' } }, '*');
   document.getElementById('brandScaleNote').textContent = 'Creating styles\u2026';
 });
+
+// --- Ready handshake ---------------------------------------------------------
+// Tell the main thread the UI is wired up. It replies with 'init' (editorType)
+// and replays the current selection, so the Inspect tab populates even when a
+// layer was selected before the plugin opened (the 'run' event can fire before
+// this iframe's onmessage handler exists, losing that first message).
+parent.postMessage({ pluginMessage: { type: 'ui-ready' } }, '*');
 </script>
 </body>
 </html>
