@@ -3950,3 +3950,20 @@ New alias groups: scandinavian/nordic winter, golden hour/magic hour, forest bat
 - `src/lib/color-search.ts` — ~1805 lines total
 - `STRUCTURE.md` — updated counts (345 newsletters, 256 collections, 315 guides)
 - `.claude/session-lock.json` — released
+
+---
+
+## 2026-06-07 — Weekly Content Roundup (scheduled task)
+
+Reviewed `git log --since="7 days ago"`. Real user-facing news this week (broke 3-week quiet streak):
+- **Editorial redesign** rolled out across 80 inner-page components (Fraunces serif titles, gallery-white canvas, redesigned color cards + header, decorative glows removed).
+- **Word to Color downloadable share card** (1080×1350 PNG, free/no-login) — self-attributing organic sharing.
+
+Internal-only (not posted): PostHog/Sentry/Datadog/New Relic analytics, GEO robots.txt for AI crawlers, word-to-color FAQ schema.
+
+Generated FB + Twitter "This week at ColorArchive" posts, queued to `docs/daily-posts-queue.md` under **Weekly Roundup — 2026-06-07** (lead = redesign, framed as new). FB API auto-post not possible (token expired since Mar 29 — see project_facebook_token_expired memory); queued for manual posting.
+
+### Files Modified
+- `docs/daily-posts-queue.md` — added Weekly Roundup — 2026-06-07
+- `docs/autopilot-log.md` — this entry
+- `.claude/session-lock.json` — released

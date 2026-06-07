@@ -4,6 +4,40 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-06-07
+
+> Real news this week (May 31 – Jun 7), breaking a 3-week quiet streak. Two genuinely user-facing shipments: (1) an **editorial redesign** rolled out across the whole site — Fraunces serif page titles, a cleaner gallery-white canvas, redesigned color cards/header, decorative glows removed; (2) **downloadable share cards for Word to Color** (1080×1350 PNG, free, no login). The rest of the week was internal (PostHog/Sentry/Datadog/New Relic analytics, GEO/robots.txt for AI crawlers) — not for public posting. Lead with the redesign; it's safe to frame as "new."
+
+### Facebook
+
+✨ **A fresh look for ColorArchive — and a new way to share your colors.**
+
+We just rolled out an editorial redesign across the whole site. Cleaner gallery-white canvas, elegant serif page titles, redesigned color cards and header — the focus is now fully on the color, with the decorative noise stripped away. Same 5,446 named colors, a calmer place to explore them.
+
+And if you use **Word to Color** — type any word, get a palette — you can now download your result as a share card:
+• 1080×1350 portrait PNG, made for Xiaohongshu / Instagram / X
+• A real visual artifact to save and post, not just a link
+• Free for everyone, no login, no Pro gate
+
+Take the new look for a spin → colorarchive.org
+Turn a word into a shareable palette → colorarchive.org/word-to-color
+
+#ColorArchive #DesignTools #ColorPalette #WordToColor #UIDesign #ColorTheory #DesignInspiration #ColorOfTheDay
+
+---
+
+### Twitter / X
+
+✨ ColorArchive got a fresh editorial redesign this week — cleaner gallery-white canvas, serif titles, redesigned color cards. All the focus on the color.
+
+Plus: Word to Color now exports a 1080×1350 share card (PNG, free, no login). Type a word → get a palette → post it.
+
+Explore → colorarchive.org
+
+#ColorArchive #DesignTools #ColorPalette #UIDesign
+
+---
+
 ## Weekly Roundup — 2026-05-31
 
 > Third quiet build week in a row (May 24–31). The only change this week was an **internal security & reliability hardening pass** — nothing user-facing, and security fixes should never be publicized. So this is another **feature spotlight**, a different tool from the last two weeks (05-24 Image Palette Extractor, 05-17 Word to Color). Do NOT frame as "new." Optional to post — can be skipped if we'd rather stay quiet until there's real news.
