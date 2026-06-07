@@ -4,6 +4,22 @@
 
 figma.showUI(__html__, { width: 340, height: 560, themeColors: true });
 
+// ─── Editor capability guards ────────────────────────────────────────────────
+// createPaintStyle() and createRectangle() only exist in Figma Design — they
+// throw "not a function" in FigJam/Slides/Dev Mode. Gate every use behind these.
+
+function isFigmaDesign(): boolean {
+  return figma.editorType === 'figma';
+}
+
+function paintStylesAvailable(): boolean {
+  return isFigmaDesign() && typeof figma.createPaintStyle === 'function';
+}
+
+function rectanglesAvailable(): boolean {
+  return isFigmaDesign() && typeof figma.createRectangle === 'function';
+}
+
 // ─── Color conversion helpers ────────────────────────────────────────────────
 
 function rgbToHex(r: number, g: number, b: number): string {
@@ -127,6 +143,9 @@ function generateBrandStyles(hex: string): BrandStyle[] {
 }
 
 // ─── Selection inspector ────────────────────────────────────────────────────
+// Works in both Figma Design and FigJam — only reads fills off the current
+// selection (a synchronous, current-page read that is allowed in dynamic-page
+// documentAccess mode).
 
 function sendSelectionInfo(): void {
   const selection = figma.currentPage.selection;
@@ -142,6 +161,7 @@ function sendSelectionInfo(): void {
   }
 
   const fills = (node as GeometryMixin).fills;
+  // fills can be figma.mixed (a Symbol) when a node has multiple differing fills.
   const solid = Array.isArray(fills)
     ? (fills as Paint[]).find((f): f is SolidPaint => f.type === 'SOLID' && f.visible !== false)
     : undefined;
@@ -160,6 +180,9 @@ function sendSelectionInfo(): void {
 }
 
 figma.on('selectionchange', sendSelectionInfo);
+// Note: the 'run' event can fire before the UI iframe has registered its
+// onmessage handler, so its first message may be lost. The 'ui-ready'
+// handshake below is the reliable path for the initial selection.
 figma.on('run', sendSelectionInfo);
 
 // ─── UI messages ────────────────────────────────────────────────────────────
@@ -172,106 +195,145 @@ interface PluginMessage {
   palette?: string[];
 }
 
+function hexToRgb(hex: string): { r: number; g: number; b: number } {
+  return {
+    r: parseInt(hex.slice(1, 3), 16) / 255,
+    g: parseInt(hex.slice(3, 5), 16) / 255,
+    b: parseInt(hex.slice(5, 7), 16) / 255,
+  };
+}
+
 figma.ui.onmessage = (msg: PluginMessage) => {
-  if (msg.type === 'apply-fill' && msg.hex) {
-    const hex = msg.hex;
-    const r = parseInt(hex.slice(1, 3), 16) / 255;
-    const g = parseInt(hex.slice(3, 5), 16) / 255;
-    const b = parseInt(hex.slice(5, 7), 16) / 255;
-
-    const selection = figma.currentPage.selection;
-    if (selection.length === 0) {
-      figma.notify('Select a layer first, then apply a color.');
+  try {
+    // UI finished loading → tell it which editor we're in and replay the
+    // current selection so the Inspect tab populates even when a layer was
+    // already selected before the plugin opened.
+    if (msg.type === 'ui-ready') {
+      figma.ui.postMessage({ type: 'init', editorType: figma.editorType });
+      sendSelectionInfo();
       return;
     }
-    for (const node of selection) {
-      if ('fills' in node) {
-        (node as GeometryMixin).fills = [{ type: 'SOLID', color: { r, g, b } }];
+
+    if (msg.type === 'apply-fill' && msg.hex) {
+      const { r, g, b } = hexToRgb(msg.hex);
+      const selection = figma.currentPage.selection;
+      if (selection.length === 0) {
+        figma.notify('Select a layer first, then apply a color.');
+        return;
       }
-    }
-    figma.notify(`Applied ${msg.name ?? ''} (${hex})`);
-  }
-
-  if (msg.type === 'create-swatch' && msg.hex) {
-    const hex = msg.hex;
-    const r = parseInt(hex.slice(1, 3), 16) / 255;
-    const g = parseInt(hex.slice(3, 5), 16) / 255;
-    const b = parseInt(hex.slice(5, 7), 16) / 255;
-
-    const rect = figma.createRectangle();
-    rect.name = `${msg.name ?? ''} ${hex}`;
-    rect.resize(120, 120);
-    rect.cornerRadius = 16;
-    rect.fills = [{ type: 'SOLID', color: { r, g, b } }];
-
-    const viewport = figma.viewport.center;
-    rect.x = viewport.x - 60;
-    rect.y = viewport.y - 60;
-
-    figma.currentPage.appendChild(rect);
-    figma.currentPage.selection = [rect];
-    figma.viewport.scrollAndZoomIntoView([rect]);
-    figma.notify(`Created swatch: ${msg.name ?? hex}`);
-  }
-
-  if (msg.type === 'create-style' && msg.hex) {
-    const hex = msg.hex;
-    const r = parseInt(hex.slice(1, 3), 16) / 255;
-    const g = parseInt(hex.slice(3, 5), 16) / 255;
-    const b = parseInt(hex.slice(5, 7), 16) / 255;
-
-    const style = figma.createPaintStyle();
-    style.name = `ColorArchive/${msg.family ?? 'Color'}/${msg.name ?? hex}`;
-    style.paints = [{ type: 'SOLID', color: { r, g, b } }];
-    figma.notify(`Created local style: ${style.name}`);
-  }
-
-  if (msg.type === 'generate-brand-scale') {
-    const selection = figma.currentPage.selection;
-    if (selection.length === 0) {
-      figma.notify('Select a layer with a fill to generate brand scale.');
+      let applied = 0;
+      for (const node of selection) {
+        if ('fills' in node) {
+          (node as GeometryMixin).fills = [{ type: 'SOLID', color: { r, g, b } }];
+          applied++;
+        }
+      }
+      if (applied === 0) {
+        figma.notify('The selected layer can’t take a color fill.');
+        return;
+      }
+      figma.notify(`Applied ${msg.name ?? ''} (${msg.hex})`);
       return;
     }
-    const node = selection[0];
-    const fills = 'fills' in node ? (node as GeometryMixin).fills : null;
-    const solid = Array.isArray(fills)
-      ? (fills as Paint[]).find((f): f is SolidPaint => f.type === 'SOLID' && f.visible !== false)
-      : null;
-    if (!solid) {
-      figma.notify('Selected layer has no solid fill.');
+
+    if (msg.type === 'create-swatch' && msg.hex) {
+      if (!rectanglesAvailable()) {
+        figma.notify('Swatches can only be created in Figma Design.');
+        return;
+      }
+      const { r, g, b } = hexToRgb(msg.hex);
+      const rect = figma.createRectangle();
+      rect.name = `${msg.name ?? ''} ${msg.hex}`;
+      rect.resize(120, 120);
+      rect.cornerRadius = 16;
+      rect.fills = [{ type: 'SOLID', color: { r, g, b } }];
+
+      const viewport = figma.viewport.center;
+      rect.x = viewport.x - 60;
+      rect.y = viewport.y - 60;
+
+      figma.currentPage.appendChild(rect);
+      figma.currentPage.selection = [rect];
+      figma.viewport.scrollAndZoomIntoView([rect]);
+      figma.notify(`Created swatch: ${msg.name ?? msg.hex}`);
       return;
     }
-    const { r, g, b } = solid.color;
-    const hex = rgbToHex(r, g, b);
-    const brandStyles = generateBrandStyles(hex);
 
-    for (const s of brandStyles) {
+    if (msg.type === 'create-style' && msg.hex) {
+      if (!paintStylesAvailable()) {
+        figma.notify('Color styles can only be created in Figma Design.');
+        return;
+      }
+      const { r, g, b } = hexToRgb(msg.hex);
       const style = figma.createPaintStyle();
-      style.name = s.name;
-      style.paints = [{ type: 'SOLID', color: { r: s.r, g: s.g, b: s.b } }];
-    }
-
-    figma.notify(`Created ${brandStyles.length} brand styles from ${hex}`);
-    figma.ui.postMessage({ type: 'brand-scale-done', count: brandStyles.length, hex });
-  }
-
-  if (msg.type === 'create-project-styles' && msg.palette && msg.name) {
-    let count = 0;
-    for (let i = 0; i < msg.palette.length; i++) {
-      const hex = msg.palette[i];
-      if (!hex || !hex.startsWith('#')) continue;
-      const r = parseInt(hex.slice(1, 3), 16) / 255;
-      const g = parseInt(hex.slice(3, 5), 16) / 255;
-      const b = parseInt(hex.slice(5, 7), 16) / 255;
-      const style = figma.createPaintStyle();
-      style.name = `Project/${msg.name}/${i + 1} ${hex}`;
+      style.name = `ColorArchive/${msg.family ?? 'Color'}/${msg.name ?? msg.hex}`;
       style.paints = [{ type: 'SOLID', color: { r, g, b } }];
-      count++;
+      figma.notify(`Created local style: ${style.name}`);
+      return;
     }
-    figma.notify(`Created ${count} styles from project "${msg.name}"`);
-  }
 
-  if (msg.type === 'close') {
-    figma.closePlugin();
+    if (msg.type === 'generate-brand-scale') {
+      if (!paintStylesAvailable()) {
+        figma.notify('Brand styles can only be created in Figma Design.');
+        return;
+      }
+      const selection = figma.currentPage.selection;
+      if (selection.length === 0) {
+        figma.notify('Select a layer with a fill to generate brand scale.');
+        return;
+      }
+      const node = selection[0];
+      const fills = 'fills' in node ? (node as GeometryMixin).fills : null;
+      const solid = Array.isArray(fills)
+        ? (fills as Paint[]).find((f): f is SolidPaint => f.type === 'SOLID' && f.visible !== false)
+        : null;
+      if (!solid) {
+        figma.notify('Selected layer has no solid fill.');
+        return;
+      }
+      const { r, g, b } = solid.color;
+      const hex = rgbToHex(r, g, b);
+      const brandStyles = generateBrandStyles(hex);
+
+      for (const s of brandStyles) {
+        const style = figma.createPaintStyle();
+        style.name = s.name;
+        style.paints = [{ type: 'SOLID', color: { r: s.r, g: s.g, b: s.b } }];
+      }
+
+      figma.notify(`Created ${brandStyles.length} brand styles from ${hex}`);
+      figma.ui.postMessage({ type: 'brand-scale-done', count: brandStyles.length, hex });
+      return;
+    }
+
+    if (msg.type === 'create-project-styles' && msg.palette && msg.name) {
+      if (!paintStylesAvailable()) {
+        figma.notify('Color styles can only be created in Figma Design.');
+        figma.ui.postMessage({ type: 'project-styles-unavailable' });
+        return;
+      }
+      let count = 0;
+      for (let i = 0; i < msg.palette.length; i++) {
+        const hex = msg.palette[i];
+        if (!hex || !hex.startsWith('#')) continue;
+        const { r, g, b } = hexToRgb(hex);
+        const style = figma.createPaintStyle();
+        style.name = `Project/${msg.name}/${i + 1} ${hex}`;
+        style.paints = [{ type: 'SOLID', color: { r, g, b } }];
+        count++;
+      }
+      figma.notify(`Created ${count} styles from project "${msg.name}"`);
+      return;
+    }
+
+    if (msg.type === 'close') {
+      figma.closePlugin();
+      return;
+    }
+  } catch (err) {
+    // Last-resort backstop so no handler can surface an uncaught TypeError
+    // to the user (or a reviewer) — degrade to a friendly notice instead.
+    const detail = err instanceof Error ? err.message : String(err);
+    figma.notify(`ColorArchive: action not available here (${detail})`);
   }
 };
