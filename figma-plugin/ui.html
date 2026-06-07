@@ -291,6 +291,39 @@ for (const nr of NEUTRAL_ROOTS) {
   }
 }
 
+// ─── Safe storage ──────────────────────────────────────────────────────────
+// Figma loads the plugin UI as a data: URL, where localStorage throws a
+// SecurityError ("Storage is disabled inside 'data:' URLs"). Accessing it
+// unguarded at load halts the ENTIRE script — which is what left window.onmessage
+// unattached (Inspect stuck on placeholder) and figmaOnly uninitialized. Always
+// go through these guards.
+function safeGetItem(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+function safeSetItem(key, value) { try { localStorage.setItem(key, value); } catch (e) {} }
+function safeRemoveItem(key) { try { localStorage.removeItem(key); } catch (e) {} }
+
+// ─── Editor mode (declared early so click handlers never hit a TDZ) ───────────
+// The main thread reports figma.editorType via an 'init' message. In FigJam,
+// paint-style and rectangle creation throw, so we disable those actions.
+let figmaOnly = false; // true once we know we are NOT in Figma Design
+
+function disableFigmaOnlyButton(id, reason) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.disabled = true;
+  el.style.opacity = '0.4';
+  el.style.cursor = 'not-allowed';
+  el.title = reason;
+}
+
+function applyFigjamMode() {
+  figmaOnly = true;
+  disableFigmaOnlyButton('btnSwatch', 'Swatches can only be created in Figma Design');
+  disableFigmaOnlyButton('btnStyle', 'Color styles can only be created in Figma Design');
+  disableFigmaOnlyButton('btnBrandScale', 'Brand styles can only be created in Figma Design');
+  const note = document.getElementById('brandScaleNote');
+  if (note) note.textContent = 'Style creation is available in Figma Design only.';
+}
+
 // State
 let searchQuery = "";
 let activeFamily = "All";
@@ -448,7 +481,7 @@ window.switchTab = function(tab) {
 
 // ─── Projects logic ──────────────────────────────────────────────────────────
 const API_BASE = 'https://api.colorarchive.org';
-let storedApiKey = localStorage.getItem('ca_api_key') || '';
+let storedApiKey = safeGetItem('ca_api_key') || '';
 let projectsData = [];
 
 if (storedApiKey) {
@@ -460,7 +493,7 @@ window.connectApiKey = function() {
   const key = document.getElementById('apiKeyInput').value.trim();
   if (!key) return;
   storedApiKey = key;
-  localStorage.setItem('ca_api_key', key);
+  safeSetItem('ca_api_key', key);
   document.getElementById('projectsAuth').style.display = 'none';
   document.getElementById('projectsList').style.display = 'block';
   loadProjects();
@@ -468,7 +501,7 @@ window.connectApiKey = function() {
 
 window.disconnectApiKey = function() {
   storedApiKey = '';
-  localStorage.removeItem('ca_api_key');
+  safeRemoveItem('ca_api_key');
   document.getElementById('projectsAuth').style.display = 'block';
   document.getElementById('projectsList').style.display = 'none';
   document.getElementById('apiKeyInput').value = '';
@@ -538,29 +571,6 @@ window.applyProject = function(index) {
     palette: project.palette,
   }}, '*');
 };
-
-// ─── Editor mode ───────────────────────────────────────────────────────────────
-// The main thread reports figma.editorType via an 'init' message. In FigJam,
-// paint-style and rectangle creation throw, so we disable those actions.
-let figmaOnly = false; // true once we know we are NOT in Figma Design
-
-function disableFigmaOnlyButton(id, reason) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.disabled = true;
-  el.style.opacity = '0.4';
-  el.style.cursor = 'not-allowed';
-  el.title = reason;
-}
-
-function applyFigjamMode() {
-  figmaOnly = true;
-  disableFigmaOnlyButton('btnSwatch', 'Swatches can only be created in Figma Design');
-  disableFigmaOnlyButton('btnStyle', 'Color styles can only be created in Figma Design');
-  disableFigmaOnlyButton('btnBrandScale', 'Brand styles can only be created in Figma Design');
-  const note = document.getElementById('brandScaleNote');
-  if (note) note.textContent = 'Style creation is available in Figma Design only.';
-}
 
 // ─── Inspect logic ────────────────────────────────────────────────────────────
 let currentInspectHex = null;
