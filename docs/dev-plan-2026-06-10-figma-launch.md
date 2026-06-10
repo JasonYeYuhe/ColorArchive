@@ -88,6 +88,16 @@ S2 的 10 个访谈没做,ICP 仍未收敛。插件渠道再热闹,**S2 退出�
 
 > **发版纪律**:P0.1 的 a/b/c 必须**一个版本一次过审**。Listing 资产(P0.2)与代码发版解耦,文本/图片编辑不触发重审;**data-security 答案一个字都不改**(改了重审,见 §5)。
 
+#### ✅ P0 执行结果(2026-06-10,Claude remote session;代码见 PR #7)
+
+- [x] **P0.0** 基线已记录(§6:V2 / 2 users / 0 likes)
+- [x] **P0.1** v1.1.0 一次打包发版 → **Community Version 3 已 Publish(2026-06-10 19:57 JST,待 Figma 复审)**:clientStorage key 持久化(桌面实测:连接→关闭→重开仍连接;断开同样持久)、3 处 UTM 外链(PostHog 已收到带 utm_source=figma-plugin 的 $pageview,归因闭环实测打通)、README/package.json 1.1.0/thumbnail 入库
+- [x] **P0.2** Listing 资产齐:playground file(swatch 墙 + Inspect 演示层 + 步骤说明)、16:9 封面 + 2 张 carousel(figma-plugin/listing-assets/)、tags = design tokens/color palette/accessibility/tailwind/wcag(自定义 tag 上限 5)、描述改为与实际功能一致、**support 邮箱拼写错误已修**
+- [x] **P0.3** Launch wave:X + IG 已发(见 §6 注);**FB/Pinterest 因 token 失效跳过 → human-todo**;tools 页插件文案强化(i18n.ts);PH/IH/Reddit 备稿 docs/figma-plugin-launch-posts-2026-06-10.md
+- [x] **P0.4** CI figma-plugin job(tsc --noEmit + ui.html node --check + 裸 localStorage 拦截)
+- [x] **P0.5** PostHog funnel 建好:https://us.posthog.com/project/456902/insights/8dStedB9 + autopilot 周检任务(.claude/autopilot-tasks.md)
+- **额外修复**:api.colorarchive.org CORS 拒绝插件 iframe 的 `Origin: null` → Projects 功能在线上从未真正工作过;已修(server/index.js)+ 热部署 Droplet。桌面双编辑器全量回归全绿(明细见 figma-plugin/README.md checklist 与 session 报告)。
+
 ### P1 — 渠道深化(第 2–3 周,限时盒,不挤占 S2)
 
 | # | 任务 | 价值 |
@@ -136,9 +146,17 @@ S2 的 10 个访谈没做,ICP 仍未收敛。插件渠道再热闹,**S2 退出�
 
 ## 6. 渠道数据记录(滚动更新)
 
+**怎么读数(P0.5 已建好):** PostHog US 项目 456902 → insight「Figma plugin funnel — visit → sign up → checkout」
+https://us.posthog.com/project/456902/insights/8dStedB9
+- Step 1(`$pageview` 且 `utm_source=figma-plugin`)= 插件带来的 sessions —— 填本表 utm 列
+- Step 2 `sign_up`、Step 3 `checkout_clicked`(14 天转化窗口)
+- ⚠️ web 端真实付款由 LS webhook 在服务端确认,**不是**前端事件:`checkout_clicked` 只是 web 代理指标;首笔"该渠道支付"以 LS 后台订单 + 时间对照为准
+- 周检:autopilot 每周一附加任务自动补一行(见 .claude/autopilot-tasks.md「Recurring」)
+
 | 日期 | Version | Installs | Likes | utm sessions(7d) | 备注 |
 |---|---|---|---|---|---|
-| 2026-06-10 | 2 | 2 | 0 | 0 | 过审上线初值(P0.0 实测:2 users / 0 likes / 0 comments;listing 发现 support 邮箱拼写错误 `support@coloarchive.org`,P0.2 一并修) |
+| 2026-06-10 | 2 | 2 | 0 | 0 | 过审上线初值(P0.0 实测:2 users / 0 likes / 0 comments;listing 发现 support 邮箱拼写错误 `support@coloarchive.org`,当日已修) |
+| 2026-06-10 | 3 已提交 | 2 | 0 | 1* | v1.1.0 Publish(clientStorage+UTM,待复审);listing 资产/tags/描述当日上线。*1 条 utm session 为本机回归测试产生,非真实用户。Launch wave:X tweet 2064653503738659311 + IG media 18598880383063302 已发;FB/Pinterest 待 re-auth |
 
 ---
 
@@ -147,10 +165,11 @@ S2 的 10 个访谈没做,ICP 仍未收敛。插件渠道再热闹,**S2 退出�
 **Claude 可全权执行**:P0.1/P0.4/P0.5 全部代码、P0.2(Figma MCP 造 playground + computer-use 截图/发版)、P0.3 文案与自动渠道排队、P1 全部代码、human-todo.md 刷新。
 **只有 Jason 能做**:
 - [ ] 🔴 Facebook token 人工 re-auth(launch wave 缺的一臂)
-- [ ] Reddit / 设计师社区人工发帖(账号信任度,Claude 备稿)
+- [ ] 🔴 Pinterest token re-auth(**2026-06-10 新发现**:token 缺 pins:write/boards:write,日常 pin 轮播已 401 数周;launch pin 素材已备好)
+- [ ] Reddit / 设计师社区人工发帖(账号信任度,稿在 docs/figma-plugin-launch-posts-2026-06-10.md)
 - [ ] **S2 的 10 个用户访谈**(脚本已备,这是 V2 关键路径)
 - [ ] StoreKit sandbox 购买测试(human-todo 遗留)
-- [ ] 发版向导最后一步 Publish 的确认点击(或继续授权 Claude 代点)
+- [x] 发版向导最后一步 Publish 的确认点击 —— 2026-06-10 已授权 Claude 代点,V3 已提交
 
 ---
 

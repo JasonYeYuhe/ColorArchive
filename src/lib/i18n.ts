@@ -1983,8 +1983,8 @@ const translations: Record<string, Record<string, string>> = {
   },
   "tools.figmaPlugin.name": { en: "Figma Plugin", zh: "Figma 插件" },
   "tools.figmaPlugin.desc": {
-    en: "Browse 5,000+ colors, inspect WCAG contrast, and generate brand scales with 30 paint styles — directly inside Figma.",
-    zh: "在 Figma 中浏览 5,000+ 种颜色、检查 WCAG 对比度、生成 30 个品牌色 paint style。",
+    en: "Free plugin for Figma & FigJam — browse all 5,446 colors, apply fills in one click, check WCAG contrast on any layer, generate 30-style brand scales, and export CSS/Tailwind without leaving your canvas.",
+    zh: "Figma / FigJam 免费插件 — 浏览全部 5,446 种颜色、一键应用填充、检查任意图层的 WCAG 对比度、生成 30 个品牌色样式,还能直接导出 CSS/Tailwind。",
   },
   "tools.ctaBadge": {
     en: "More to explore",
