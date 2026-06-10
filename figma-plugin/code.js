@@ -158,6 +158,21 @@ figma.on('selectionchange', sendSelectionInfo);
 // onmessage handler, so its first message may be lost. The 'ui-ready'
 // handshake below is the reliable path for the initial selection.
 figma.on('run', sendSelectionInfo);
+// ─── API key persistence ────────────────────────────────────────────────────
+// The UI iframe is a data: URL where localStorage/sessionStorage always throw
+// SecurityError, so the API key must live in figma.clientStorage on this
+// (main) thread. The UI asks for it via 'ui-ready' and mutates it via
+// 'save-api-key' / 'clear-api-key'.
+const API_KEY_STORAGE = 'ca_api_key';
+async function readStoredApiKey() {
+    try {
+        const stored = await figma.clientStorage.getAsync(API_KEY_STORAGE);
+        return typeof stored === 'string' && stored.length > 0 ? stored : null;
+    }
+    catch (e) {
+        return null; // storage unavailable — treat as not connected
+    }
+}
 function hexToRgb(hex) {
     return {
         r: parseInt(hex.slice(1, 3), 16) / 255,
@@ -165,15 +180,27 @@ function hexToRgb(hex) {
         b: parseInt(hex.slice(5, 7), 16) / 255,
     };
 }
-figma.ui.onmessage = (msg) => {
+figma.ui.onmessage = async (msg) => {
     var _a, _b, _c, _d, _e;
     try {
-        // UI finished loading → tell it which editor we're in and replay the
-        // current selection so the Inspect tab populates even when a layer was
-        // already selected before the plugin opened.
+        // UI finished loading → tell it which editor we're in, hand over the
+        // stored API key, and replay the current selection so the Inspect tab
+        // populates even when a layer was already selected before the plugin
+        // opened.
         if (msg.type === 'ui-ready') {
-            figma.ui.postMessage({ type: 'init', editorType: figma.editorType });
+            const apiKey = await readStoredApiKey();
+            figma.ui.postMessage({ type: 'init', editorType: figma.editorType, apiKey });
             sendSelectionInfo();
+            return;
+        }
+        if (msg.type === 'save-api-key') {
+            if (typeof msg.key === 'string' && msg.key.length > 0) {
+                await figma.clientStorage.setAsync(API_KEY_STORAGE, msg.key);
+            }
+            return;
+        }
+        if (msg.type === 'clear-api-key') {
+            await figma.clientStorage.deleteAsync(API_KEY_STORAGE);
             return;
         }
         if (msg.type === 'apply-fill' && msg.hex) {

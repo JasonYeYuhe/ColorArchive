@@ -138,7 +138,7 @@ S2 的 10 个访谈没做,ICP 仍未收敛。插件渠道再热闹,**S2 退出�
 
 | 日期 | Version | Installs | Likes | utm sessions(7d) | 备注 |
 |---|---|---|---|---|---|
-| 2026-06-10 | 2 | (P0.0 填) | (P0.0 填) | 0 | 过审上线初值 |
+| 2026-06-10 | 2 | 2 | 0 | 0 | 过审上线初值(P0.0 实测:2 users / 0 likes / 0 comments;listing 发现 support 邮箱拼写错误 `support@coloarchive.org`,P0.2 一并修) |
 
 ---
 
