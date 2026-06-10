@@ -1,7 +1,7 @@
 {
   "name": "colorarchive-figma-plugin",
-  "version": "1.0.0",
-  "description": "ColorArchive Figma plugin — browse 2016 curated colors and inspect WCAG contrast",
+  "version": "1.1.0",
+  "description": "ColorArchive Figma plugin — browse 5,446 curated colors, apply fills, create styles, and inspect WCAG contrast",
   "scripts": {
     "build": "tsc && cp dist/code.js code.js",
     "watch": "tsc --watch"

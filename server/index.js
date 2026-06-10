@@ -28,7 +28,10 @@ const ALLOWED_ORIGIN_RE = new RegExp(
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.has(origin) || ALLOWED_ORIGIN_RE.test(origin)) {
+      // The Figma plugin UI is a data: URL iframe, which sends the literal
+      // string "null" as its Origin. Auth on these endpoints is bearer-token,
+      // not cookie, so reflecting the null origin is safe.
+      if (!origin || origin === "null" || allowedOrigins.has(origin) || ALLOWED_ORIGIN_RE.test(origin)) {
         return callback(null, true);
       }
 

@@ -193,7 +193,7 @@
       <input type="text" class="api-key-input" id="apiKeyInput" placeholder="Paste your API key (from colorarchive.org/account)" />
       <button class="btn primary" style="width:100%" onclick="connectApiKey()">Connect</button>
       <p style="margin-top:8px;font-size:10px;color:#bbb">
-        Get your API key at <a href="https://colorarchive.org/account" target="_blank" style="color:#6366f1">colorarchive.org/account</a>
+        Get your API key at <a href="https://colorarchive.org/account/?utm_source=figma-plugin&utm_medium=plugin&utm_campaign=v1_1" target="_blank" style="color:#6366f1">colorarchive.org/account</a>
       </p>
     </div>
     <div id="projectsList" style="display:none">
@@ -206,7 +206,7 @@
   </div>
 
   <div class="footer">
-    <a href="https://colorarchive.org" target="_blank">colorarchive.org</a>
+    <a href="https://colorarchive.org/?utm_source=figma-plugin&utm_medium=plugin&utm_campaign=v1_1" target="_blank">colorarchive.org</a>
   </div>
 
 <script>
@@ -480,30 +480,37 @@ window.switchTab = function(tab) {
 };
 
 // ─── Projects logic ──────────────────────────────────────────────────────────
+// The API key is persisted in figma.clientStorage on the MAIN thread (this
+// iframe is a data: URL — localStorage always throws, see safe* above). The
+// main thread sends the stored key with 'init'; we mutate it by posting
+// 'save-api-key' / 'clear-api-key'. The safeGetItem read below only serves
+// pre-1.1.0 environments where localStorage happened to work, so an old key
+// can be migrated up to clientStorage on first run (see the 'init' handler).
 const API_BASE = 'https://api.colorarchive.org';
 let storedApiKey = safeGetItem('ca_api_key') || '';
 let projectsData = [];
 
-if (storedApiKey) {
-  document.getElementById('projectsAuth').style.display = 'none';
-  document.getElementById('projectsList').style.display = 'block';
+function setProjectsConnected(connected) {
+  document.getElementById('projectsAuth').style.display = connected ? 'none' : 'block';
+  document.getElementById('projectsList').style.display = connected ? 'block' : 'none';
 }
+
+if (storedApiKey) setProjectsConnected(true);
 
 window.connectApiKey = function() {
   const key = document.getElementById('apiKeyInput').value.trim();
   if (!key) return;
   storedApiKey = key;
-  safeSetItem('ca_api_key', key);
-  document.getElementById('projectsAuth').style.display = 'none';
-  document.getElementById('projectsList').style.display = 'block';
+  parent.postMessage({ pluginMessage: { type: 'save-api-key', key } }, '*');
+  setProjectsConnected(true);
   loadProjects();
 };
 
 window.disconnectApiKey = function() {
   storedApiKey = '';
-  safeRemoveItem('ca_api_key');
-  document.getElementById('projectsAuth').style.display = 'block';
-  document.getElementById('projectsList').style.display = 'none';
+  parent.postMessage({ pluginMessage: { type: 'clear-api-key' } }, '*');
+  safeRemoveItem('ca_api_key'); // clear any pre-1.1.0 leftover so it can't re-migrate
+  setProjectsConnected(false);
   document.getElementById('apiKeyInput').value = '';
 };
 
@@ -593,6 +600,17 @@ window.onmessage = function(event) {
 
   if (msg.type === 'init') {
     if (msg.editorType && msg.editorType !== 'figma') applyFigjamMode();
+    if (msg.apiKey && !storedApiKey) {
+      // Key arrived from figma.clientStorage (the persistent path).
+      storedApiKey = msg.apiKey;
+      setProjectsConnected(true);
+      if (document.getElementById('panelProjects').classList.contains('active')) loadProjects();
+    } else if (!msg.apiKey && storedApiKey) {
+      // One-time upgrade: a pre-1.1.0 key found in localStorage moves up to
+      // clientStorage, then the legacy copy is removed.
+      parent.postMessage({ pluginMessage: { type: 'save-api-key', key: storedApiKey } }, '*');
+      safeRemoveItem('ca_api_key');
+    }
     return;
   }
 
@@ -630,7 +648,7 @@ window.onmessage = function(event) {
     document.getElementById('badgeVsBlack').innerHTML = renderBadge(wcagGrade(vsBlack));
 
     const clean = hex.replace('#', '');
-    document.getElementById('linkColorarchive').href = `https://colorarchive.org/colors/hex/?c=${clean}`;
+    document.getElementById('linkColorarchive').href = `https://colorarchive.org/colors/hex/?c=${clean}&utm_source=figma-plugin&utm_medium=plugin&utm_campaign=v1_1`;
     document.getElementById('btnApplyBest').textContent = `Use ${bestTextColor === '#111111' ? 'black' : 'white'} text`;
 
     switchTab('inspect');

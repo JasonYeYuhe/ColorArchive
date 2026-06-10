@@ -1,3 +1,22 @@
+## 2026-06-10 — Figma plugin launch week: v1.1.0 published (Community V3), launch wave, funnel
+
+**Run type:** Remote Control (human-supervised; computer-use authorized for Figma desktop)
+
+Executed P0.0–P0.5 of docs/dev-plan-2026-06-10-figma-launch.md. Code on PR #7 (feat/figma-plugin-v1.1.0), merged after full desktop regression.
+
+- **P0.0 baseline**: Community V2 / 2 users / 0 likes recorded in plan §6.
+- **P0.1 v1.1.0 → Community Version 3 published 19:57 JST** (one bundled change set, now in Figma review): API key migrated to `figma.clientStorage` (main-thread ui-ready/init round-trip + save/clear-api-key messages; legacy localStorage key migrates once); UTM (`utm_source=figma-plugin&utm_medium=plugin&utm_campaign=v1_1`) on all 3 outbound links; README rewritten with regression checklist + publish runbook; package.json 1.1.0; thumbnail tracked.
+- **Regression (Figma desktop, both editors) all green** — Design: apply fill / swatch / style / 3-format export verified via real clipboard / inspect incl. pre-selected layer / 30-style brand scale / **key survives close+reopen, disconnect survives too**. FigJam: no crash, gated buttons disabled with note, apply fill (orange→green), export, projects. Console: zero plugin errors.
+- **Found + fixed a production bug**: api.colorarchive.org rejected the plugin iframe's literal `Origin: null` → /projects CORS-blocked → the Projects feature NEVER worked in the published plugin. Fixed in server/index.js, hot-deployed to Droplet, e2e re-verified from inside the plugin (clean 401 for a dummy key, no CORS errors).
+- **P0.2 listing**: playground file built via Figma MCP (file 2Jsr4gasCLLcPxVxz9J908) and attached; 16:9 hero cover + 2 carousel images (Figma rejects 2:1 — rendered at 1920×1080 via headless Chrome, sources in figma-plugin/listing-assets/); tags → design tokens / color palette / accessibility / tailwind / wcag (custom-tag cap is 5); description rewritten to match actual features; **support email typo fixed** (coloarchive→colorarchive).
+- **P0.3 launch wave**: X tweet 2064653503738659311 (URL-free per cost policy) + IG media 18598880383063302 (image hosted via api generated/). **Facebook skipped (token dead, known)**; **Pinterest skipped — NEW finding: token lacks pins:write/boards:write, daily rotation has been 401-ing for weeks** → both in human-todo. Tools-page plugin copy strengthened (i18n.ts). PH/IH/Reddit drafts in docs/figma-plugin-launch-posts-2026-06-10.md.
+- **P0.4 CI**: new figma-plugin job — npm ci, tsc --noEmit, ui.html inline-script `node --check`, grep that fails bare `localStorage.` outside safe* wrappers.
+- **P0.5 funnel**: PostHog insight "Figma plugin funnel — visit → sign up → checkout" (us.posthog.com/project/456902/insights/8dStedB9, 14-day window; checkout_clicked is the web proxy — real purchases confirm via LS webhook server-side). **Attribution verified end-to-end**: clicking "View on ColorArchive" in the plugin produced a $pageview with utm_source=figma-plugin in PostHog. Weekly check added to .claude/autopilot-tasks.md (appends a §6 row each Monday).
+
+Vercel builds: one preview (branch push) + one production (merge). Lock released at end of session.
+
+---
+
 
 ## 2026-05-31 — Weekly content roundup
 

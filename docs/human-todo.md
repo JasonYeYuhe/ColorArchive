@@ -1,95 +1,83 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-04-24
+> Last updated: 2026-06-10 (Figma plugin launch-week session)
 
-## Closed from 2026-04-24 review marathon
+## 🔴 P0 — this week (Figma launch window)
 
-- [x] **Frontend Sentry** — RESOLVED. The previous session's verification
-      method was wrong: @sentry/nextjs v10 does not expose a
-      `globalClient` field on `window.__SENTRY__[version]`. The correct
-      field is `defaultCurrentScope._client`. Confirmed on current
-      production deploy: client is attached (projectId `4511272715812864`),
-      transport is bound to the `/monitoring` tunnel, `enabled: true`,
-      and a captureMessage ping from the browser produced a POST to the
-      tunnel endpoint (verified via `performance.getEntriesByType('resource')`).
-      The empty-DSN bug fixed in review round 3 was real — Sentry has
-      been capturing since that redeploy. Only the verification was broken.
+- [ ] **Facebook token re-auth** — broken again since ~Jun 2–3 (both page tokens expired
+      Mar 29; merge clobbered the durable token; self-heal can't run). Manual re-auth in
+      Meta console → write new token into `server/.env.facebook` on the Droplet. Until
+      then the launch wave + daily color posts have no Facebook leg.
+- [ ] **Pinterest token re-auth with write scopes** — NEW FINDING 2026-06-10: the stored
+      token lacks `pins:write` + `boards:write`, so the daily pin rotation has been
+      failing with 401s for weeks (see `pm2 logs colorarchive-server | grep pinterest`)
+      and the plugin-launch pin could not be published. Re-run the Pinterest OAuth
+      connect flow (admin dashboard /admin/autopilot or pinterest-admin exchangeAuthCode)
+      and make sure the consent screen includes pins:write/boards:write. Launch-pin
+      assets are ready: image at `figma-plugin/listing-assets/pin-launch.png` (also
+      hosted at api.colorarchive.org/generated/figma-launch-pin.png), copy in
+      docs/figma-plugin-launch-posts-2026-06-10.md.
+- [ ] **Watch for the Figma v1.1.0 (Community Version 3) review email** — published
+      2026-06-10 with clientStorage key persistence + UTM links. If rejected, the fix
+      playbook from review 1842708 applies (figma-plugin/README.md → publish runbook).
+- [ ] **Reddit / designer-community posts** — drafts ready in
+      docs/figma-plugin-launch-posts-2026-06-10.md §3 (r/FigmaDesign + r/web_design).
+      Claude can't post from your accounts; disclose maker status.
+- [ ] **Product Hunt + Indie Hackers updates** — copy ready in
+      docs/figma-plugin-launch-posts-2026-06-10.md §1–2; gallery images in
+      figma-plugin/listing-assets/.
 
-- [ ] **React hydration error #418 on /palette-audit/** — REOPENED.
-      Initial pass with default (English) locale showed 0 errors, so I
-      closed it. Follow-up with `localStorage["colorarchive-locale"]="zh"`
-      reproduced `Minified React error #418; args[]=HTML` in the console
-      on a subsequent reload (stack points to chunk
-      `8df248f72ed30c99.js`). Other pages with the same locale
-      (`/all-colors/`, `/`) did NOT error — so the mismatch is scoped to
-      `/palette-audit/`. On further reloads after fixing locale state
-      the error stopped firing, suggesting an intermittent race between
-      the head `localeScript` (flips `<html lang>` to `zh` pre-React)
-      and LocaleProvider (initial state `"en"`, swaps in `useEffect`).
-      Not a blocker for English users; zh users hit it sporadically.
-      Next step: add the Chinese-locale path to `e2e/` or manually
-      bisect by temporarily removing the head `localeScript` and seeing
-      if the error disappears.
+## 🟠 P1 — strategy critical path (V2 plan)
 
-## P0 — Blocking real users today
-- [x] **GCP OAuth Console** — ~~add `.org` redirect URI~~ **VERIFIED RESOLVED
-      2026-04-24**. Redirect URI, JS origin, and Authorized domain all already
-      registered (last used 2026-04-15). Consent screen renders cleanly at
-      `https://api.colorarchive.org/auth/google/start`. See
-      [docs/oauth-redirect-fix-plan.md](./oauth-redirect-fix-plan.md) top banner for
-      verification evidence. If a user still reports the 400, have them hard-refresh
-      or clear `accounts.google.com` cookies — cached error page.
-- [ ] **StoreKit sandbox purchase test**: open Xcode → run iOS app against sandbox tester
-      → attempt Pro purchase. Watch `ssh root@143.198.85.72 'pm2 logs colorarchive-api
-      --lines 40 --nostream'` for `[DEPRECATION] apple-purchase got JSON (not JWS)`.
-      If that line appears the backend defensive parser is covering for field iOS
-      builds — confirm current iOS HEAD sends real JWS, then submit v1.2 to App Store.
+- [ ] **S2: the 10 user interviews** — still not started; script ready at
+      docs/user-interview-script.md. This is the V2 exit-gate input; the plugin only
+      adds a recruiting channel, it does not replace interviews.
+- [ ] **StoreKit sandbox purchase test** (carried over): Xcode → sandbox tester → Pro
+      purchase; watch `ssh root@143.198.85.72 'pm2 logs colorarchive-api --lines 40
+      --nostream'` for `[DEPRECATION] apple-purchase got JSON (not JWS)`.
+      iOS v1.2 build 4 is in App Store review (submitted 2026-06-07).
+- [ ] **App Privacy label** — add "Product Interaction" for the PostHog iOS SDK
+      (ASC → App Privacy) before/with the v1.2 release.
 
-## Week 1 done (2026-04-24) — reference only
-- [x] LS account-page "Manage subscription" unblocked (provider-aware routing)
-- [x] SQLite backups confirmed on Droplet; runbook at [docs/backup-runbook.md](./backup-runbook.md)
-- [x] Privacy / Terms / Refund / Commerce-Disclosure / README rewritten to LS + Apple
-- [x] Instagram webhook HMAC verified (was unauth'd — plugged 2026-04-24)
-- [x] ~~Stripe flow / webhook / price IDs~~ — replaced by Lemon Squeezy; validated 2026-04-17
+## 🟡 Carried over (still open)
 
-## Medium Priority — Domain Migration (Phase 2+)
-- [ ] Complete Phase 2 migration day execution (see `docs/domain-migration-checklist.md`)
-- [ ] Update DO Droplet `.env` with .org values + restart PM2
-- [ ] Update Vercel env vars to .org
-- [ ] DNS cutover: point colorarchive.org to Vercel
-- [ ] Set up 301 redirects from .me to .org
-- [ ] Update Google OAuth redirect URIs in Cloud Console
-- [ ] Update Instagram API redirect URI in Meta Developer Console
-- [ ] Resend: add colorarchive.org domain + SPF/DKIM/DMARC DNS records
-- [ ] Google Search Console: add .org property, submit sitemap, domain change tool
-- [ ] Lemon Squeezy webhook: update endpoint URL
-- [ ] Update external listings: Product Hunt, Indie Hackers, AlternativeTo
+- [ ] **React hydration error #418 on /palette-audit/** with zh locale — intermittent
+      race between head localeScript and LocaleProvider; scoped to that page. Next step:
+      add a zh-locale e2e path or bisect by removing the head localeScript.
+- [ ] **Domain migration Phase 2 leftovers** (see docs/domain-migration-checklist.md):
+      Droplet `.env` final pass, Meta/Instagram redirect URI, Resend DNS, GSC domain
+      change, LS webhook URL, external listings (PH/IH/AlternativeTo).
+- [ ] TikTok video still "in review"? Follow up if stuck.
+- [ ] Indie Hackers logo manual upload (pending since ~05-01).
 
-## Medium Priority — Marketing
-- [ ] TikTok video review — posted but "in review"; follow up if stuck > 48 hours
-- [ ] Twitter/X: Post first content thread now that API is configured
-- [ ] Pinterest: Verify boards are populating via RSS integration
-- [ ] Product Hunt: respond to comments, request reviews from early users
-- [ ] YouTube: Consider posting 2nd video (palette walkthrough or color theory explainer)
+## ✅ Closed this session (2026-06-10) — reference
 
-## Low Priority / Nice to Have
-- [ ] Record demo video showing color search, palette builder, export flow
-- [ ] Create affiliate/referral landing page for newsletter subscribers
-- [ ] Add Google Analytics / Plausible for traffic visibility
+- [x] Figma plugin v1.1.0 published (Community Version 3): API key persists via
+      figma.clientStorage; UTM attribution on all outbound links; desktop regression
+      passed in Design + FigJam (see figma-plugin/README.md checklist).
+- [x] Community listing refreshed without re-review: truthful description, playground
+      file attached, 16:9 cover + 2 carousel images, tags = design tokens / color
+      palette / accessibility / tailwind / wcag, support email typo fixed
+      (support@coloarchive.org → support@colorarchive.org).
+- [x] Launch posts: X (tweet 2064653503738659311) + Instagram (media 18598880383063302)
+      published 2026-06-10. Facebook + Pinterest blocked on the re-auths above.
+- [x] PostHog funnel "Figma plugin funnel — visit → sign up → checkout"
+      (us.posthog.com/project/456902/insights/8dStedB9) + weekly autopilot check
+      (.claude/autopilot-tasks.md). UTM → PostHog attribution verified end-to-end.
+- [x] api.colorarchive.org CORS: plugin iframe sends `Origin: null` and was blocked —
+      /projects (and all bearer-auth routes) now allow it; deployed to Droplet + in repo.
+- [x] figma-plugin CI job (tsc, ui.html syntax check, bare-localStorage guard).
 
-## Done
+## Done (older)
 - [x] YouTube video — published
-- [x] Twitter/X API — configured
-- [x] Pinterest — integrated
+- [x] Twitter/X API — configured (URL-free posts only: $0.015 vs $0.20)
+- [x] Pinterest — integrated (Standard access 2026-04-17; write scopes now broken, see P0)
 - [x] Product Hunt — live listing created
-- [x] /trends page — Color Trends 2026 feature page added
-- [x] Server email — weekly digest email template added
-- [x] Stripe Checkout — fully integrated for all 7 packs + 2 subscription plans
-- [x] Stripe webhook fulfillment — backend notification + email confirmation
-- [x] VS Marketplace — extension v0.2.0 published (ColorArchiveorg publisher)
-- [x] ASC v1.2 — created version, URLs updated to .org (marketing, support, privacy, review email)
-- [x] ASC Privacy Policy URL — updated to colorarchive.org/privacy/
-- [x] VS Marketplace DNS TXT record — verified, domain ownership confirmed
-- [x] Apple Notifications URLs — Production + Sandbox both updated to api.colorarchive.org
-- [x] iOS v1.2 (build 3) — built, uploaded, submitted for App Review (2026-04-14)
+- [x] VS Marketplace — extension v0.2.0 published; DNS TXT verified
+- [x] iOS v1.1 approved; v1.2 build 4 submitted 2026-06-07 (PostHog + fixes)
+- [x] LS live + first real purchase validated 2026-04-17/18
+- [x] Frontend Sentry verified capturing (2026-04-24)
+- [x] GCP OAuth .org redirect verified (2026-04-24)
+- [x] SQLite backups on Droplet (docs/backup-runbook.md)
+- [x] Figma plugin Community V2 approved 2026-06-09 (rejection fixes via PR #6)

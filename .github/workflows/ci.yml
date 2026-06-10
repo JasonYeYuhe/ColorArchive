@@ -59,3 +59,57 @@ jobs:
           # Sentry auth token is intentionally omitted in CI — source maps
           # still upload from Vercel deploys where the token is set. Omitting
           # here keeps CI from needing an org-level secret.
+
+  # The Figma plugin ships from this repo (figma-plugin/). All three bugs in
+  # the 2026-05-12 review rejection were of the "one CI command would have
+  # caught it" variety — this job is that command.
+  figma-plugin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: figma-plugin
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: figma-plugin/package-lock.json
+
+      - name: Install plugin dependencies
+        run: npm ci
+
+      # Type-check the main-thread source (src/code.ts) without emitting.
+      - name: Typecheck plugin
+        run: npx tsc --noEmit
+
+      # ui.html is not compiled — a syntax error in its inline <script> only
+      # surfaces at runtime inside Figma. Extract the script and parse it.
+      - name: Syntax-check ui.html script
+        run: |
+          node -e '
+            const fs = require("fs");
+            const html = fs.readFileSync("ui.html", "utf8");
+            const blocks = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];
+            if (blocks.length === 0) { console.error("No <script> block found in ui.html"); process.exit(1); }
+            fs.writeFileSync("/tmp/ui-script.js", blocks.map(b => b[1]).join("\n;\n"));
+          '
+          node --check /tmp/ui-script.js
+
+      # The plugin UI iframe is a data: URL where localStorage ALWAYS throws
+      # SecurityError, and one unguarded touch at load kills the whole script
+      # (root cause of the 2026-05-12 rejection). Only the safe* wrapper
+      # definitions may reference it.
+      - name: Forbid bare localStorage in ui.html
+        run: |
+          BARE=$(grep -nE 'localStorage\s*\.' ui.html | grep -vE 'function safe(Get|Set|Remove)Item' || true)
+          if [ -n "$BARE" ]; then
+            echo "::error::Bare localStorage usage in ui.html — route it through the safe* wrappers (see figma-plugin/README.md):"
+            echo "$BARE"
+            exit 1
+          fi
+          echo "OK: no bare localStorage usage outside safe* wrappers"
