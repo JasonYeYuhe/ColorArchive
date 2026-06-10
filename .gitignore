@@ -30,3 +30,4 @@ test-results/
 # Local MCP config
 .mcp.json
 .vercel
+server/.env.facebook

@@ -1,3 +1,18 @@
+## 2026-06-10 (evening) — Launch follow-up: Pinterest+FB re-auth fixed, IH/PH posted
+
+**Run type:** Remote Control (Jason live-assisting OAuth consents)
+
+- **Pinterest UNBROKEN**: admin OAuth callback (api.colorarchive.org/.../callback) was never registered in the Pinterest app — the documented /admin/auth/start bootstrap could never work. Re-authed through the registered frontend callback + a one-shot temp patch on POST /pinterest/token persisting the exchange into the admin token store (patch reverted; droplet hard-reset to origin/main which includes the CORS fix). Token now carries boards:read/boards:write/pins:read/pins:write; boot-refresh verified. Launch pin published (855683997995147303, board ColorArchive Pro). Weeks-dead daily rotation is back.
+- **Facebook UNBROKEN**: root cause was TWO-layer — expired tokens AND a rotated app secret (May leak remediation) still stale in droplet .env. New secret in, 60-day long-lived user token + page token written to droplet AND local server/.env.facebook. Launch post published (1014363318430170_122113574726881547).
+- **Indie Hackers**: product-timeline post published (account lacks global posting rights; product posts bypass the gate). Product page tagline/description... left as-is (stale 3,066 wording there too — minor).
+- **Product Hunt**: product page refreshed (tagline + description now 5,446 + Figma plugin), maker-update comment posted on the live launch thread. Deliberately did NOT burn a re-launch at 4 AM PT.
+- **ASC**: App Privacy already published days ago (memo stale); discovered iOS v1.2 = "Ready for Distribution" — review PASSED.
+- **Reddit**: extension domain-blocks reddit.com — genuinely manual, drafts ready.
+
+Launch wave final score: X + IG + Pinterest + FB + IH + PH = 6 channels live; Reddit pending Jason.
+
+---
+
 ## 2026-06-10 — Figma plugin launch week: v1.1.0 published (Community V3), launch wave, funnel
 
 **Run type:** Remote Control (human-supervised; computer-use authorized for Figma desktop)

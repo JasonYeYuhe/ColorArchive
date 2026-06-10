@@ -5,28 +5,33 @@
 
 ## 🔴 P0 — this week (Figma launch window)
 
-- [ ] **Facebook token re-auth** — broken again since ~Jun 2–3 (both page tokens expired
-      Mar 29; merge clobbered the durable token; self-heal can't run). Manual re-auth in
-      Meta console → write new token into `server/.env.facebook` on the Droplet. Until
-      then the launch wave + daily color posts have no Facebook leg.
-- [ ] **Pinterest token re-auth with write scopes** — NEW FINDING 2026-06-10: the stored
-      token lacks `pins:write` + `boards:write`, so the daily pin rotation has been
-      failing with 401s for weeks (see `pm2 logs colorarchive-server | grep pinterest`)
-      and the plugin-launch pin could not be published. Re-run the Pinterest OAuth
-      connect flow (admin dashboard /admin/autopilot or pinterest-admin exchangeAuthCode)
-      and make sure the consent screen includes pins:write/boards:write. Launch-pin
-      assets are ready: image at `figma-plugin/listing-assets/pin-launch.png` (also
-      hosted at api.colorarchive.org/generated/figma-launch-pin.png), copy in
-      docs/figma-plugin-launch-posts-2026-06-10.md.
+- [x] ~~Facebook token re-auth~~ — **DONE 2026-06-10 evening** (with Jason assisting the
+      OAuth clicks): fresh Graph Explorer user token → discovered the app secret had been
+      rotated in Meta console (old one in .env was dead) → new `FB_APP_SECRET` written to
+      Droplet .env → 60-day long-lived user token + page token in `server/.env.facebook`
+      (Droplet + local synced). **FB launch post published**: post id
+      `1014363318430170_122113574726881547`. Daily pipeline restored.
+- [x] ~~Pinterest token re-auth with write scopes~~ — **DONE 2026-06-10 evening**: the
+      api.colorarchive.org admin OAuth callback turned out to be unregistered in the
+      Pinterest app (that flow can never have worked); re-authed via the registered
+      frontend callback (`colorarchive.org/pinterest/callback/`) + a temporary one-shot
+      server patch that persisted the exchange into the admin token store (patch
+      reverted, droplet reset to origin/main). Token now has all 4 scopes incl. writes,
+      refresh works (boot-refresh confirmed). **Launch pin published**: pin id
+      `855683997995147303` on board ColorArchive Pro. Daily rotation restored.
 - [ ] **Watch for the Figma v1.1.0 (Community Version 3) review email** — published
       2026-06-10 with clientStorage key persistence + UTM links. If rejected, the fix
       playbook from review 1842708 applies (figma-plugin/README.md → publish runbook).
-- [ ] **Reddit / designer-community posts** — drafts ready in
-      docs/figma-plugin-launch-posts-2026-06-10.md §3 (r/FigmaDesign + r/web_design).
-      Claude can't post from your accounts; disclose maker status.
-- [ ] **Product Hunt + Indie Hackers updates** — copy ready in
-      docs/figma-plugin-launch-posts-2026-06-10.md §1–2; gallery images in
-      figma-plugin/listing-assets/.
+- [ ] **Reddit posts** — the ONLY remaining launch-wave leg. Claude's browser extension
+      domain-blocks reddit.com (automation policy), so this is genuinely manual: drafts
+      in docs/figma-plugin-launch-posts-2026-06-10.md §3 (r/FigmaDesign now;
+      r/web_design a day or two later to avoid same-link spam filters). Disclose maker.
+- [x] ~~Product Hunt + Indie Hackers updates~~ — **DONE 2026-06-10 evening**:
+      IH product-timeline post published (the global "create posts" gate doesn't apply
+      to product posts); PH product page tagline/description refreshed (was "3066
+      colors") + maker-update comment posted on the live launch thread. NOTE: a full PH
+      *re-launch* was deliberately NOT fired (it was 4 AM PT — wasted slot); if wanted,
+      schedule one for 12:01 AM PT with proper assets.
 
 ## 🟠 P1 — strategy critical path (V2 plan)
 
@@ -37,8 +42,9 @@
       purchase; watch `ssh root@143.198.85.72 'pm2 logs colorarchive-api --lines 40
       --nostream'` for `[DEPRECATION] apple-purchase got JSON (not JWS)`.
       iOS v1.2 build 4 is in App Store review (submitted 2026-06-07).
-- [ ] **App Privacy label** — add "Product Interaction" for the PostHog iOS SDK
-      (ASC → App Privacy) before/with the v1.2 release.
+- [x] ~~App Privacy label~~ — **already done** (verified 2026-06-10: App Privacy published
+      4 days ago with Crash Data + Product Interaction; the memo was stale). Bonus
+      finding: **iOS v1.2 shows "Ready for Distribution" in ASC — the review passed.**
 
 ## 🟡 Carried over (still open)
 
