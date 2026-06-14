@@ -60,10 +60,22 @@ Shipped (code, safe + verdict-independent):
       $199.99. Your LS variants bill in **JPY**. Decide: (a) what the real prices should be,
       and (b) whether to bill in USD at all (JPY billing is friction for a global/US ICP —
       the actual designer you're selling to). I can implement once you decide.
-- [ ] **Run a real willingness-to-pay test** (the audit's core — nobody has ever paid):
-      1. *Pre-order a specific Pro feature* — card-required "Pre-order $X" on ONE concrete
-         capability (e.g. "AI-audit my whole palette for WCAG + export fixes"). Needs an LS
-         product; I can build the landing + gating. Kill criterion: <10 pre-orders in 30 days.
+- [ ] **Run the willingness-to-pay test** (the audit's core — nobody has ever paid):
+      1. *Pre-order landing page* — **BUILT + live at `/preorder/`** (Accessibility Auditor,
+         founder $49 / reg $99, ships Q3 2026, refund if not shipped). Linked from `/pro/`.
+         Fires `preorder_view` / `preorder_checkout_clicked` events (first-party + PostHog).
+         **To turn on the REAL card-required test (3 steps, ~15 min):**
+         - a) In Lemon Squeezy, create a one-time "Accessibility Auditor — Pre-order" product
+              at $49, get its checkout URL.
+         - b) Set `NEXT_PUBLIC_PREORDER_CHECKOUT_URL=<that url>` in Vercel Production env.
+         - c) Redeploy. The page auto-flips from the email fallback to a card-required
+              "Pre-order — $49" button. (Until then it's collecting email reservations tagged
+              `source: "preorder"` — a weaker but live signal.)
+         - Drive traffic: it's linked from `/pro/`; also post about it (the distribution
+           drafts), and consider a CTA on `/palette-audit/` + `/wcag-audit/` (the exact ICP).
+         - **KILL CRITERION: < 10 real card pre-orders in 30 days → the designer-Pro theory
+           is not validated; do not keep building Pro features.** (Email reservations are NOT
+           pass — only card-required pre-orders count.)
       2. *Paywall /word-to-color/ after N free generations* — the pain IS the signal. This
          WILL cut traffic; that's the point of the test. I can build it behind a flag, but
          it's your call since it touches your #1 traffic asset.

@@ -75,6 +75,26 @@ export const checkoutFlowConfig: CheckoutFlowConfig = {
   cancelPath: "/cancel",
 };
 
+// ---- Willingness-to-pay experiment: pre-order a future Pro feature ----
+//
+// This is a validation test, not a live product. The goal is a REAL signal that a
+// designer will commit money to an upcoming capability — which a free email waitlist
+// does not give. When `checkoutUrl` is set (create a Lemon Squeezy "pre-order" product,
+// then put its checkout URL in NEXT_PUBLIC_PREORDER_CHECKOUT_URL), the page shows a
+// card-required "Pre-order" button = the real test. Until then it falls back to an
+// email capture ("reserve your founder price") = a weaker, but live, signal.
+//
+// Pre-order is honest: an upcoming feature with a ship-by date and a full refund if it
+// doesn't ship. Kill criterion lives in docs/human-todo.md.
+export const preorderConfig = {
+  feature: "Accessibility Auditor",
+  tagline: "Audit an entire palette or design system for accessibility in one pass.",
+  priceUsd: "$49",
+  regularUsd: "$99",
+  shipBy: "Q3 2026",
+  checkoutUrl: process.env.NEXT_PUBLIC_PREORDER_CHECKOUT_URL || null,
+} as const;
+
 // ---- Provider implementations ----
 
 /** Lemon Squeezy — single product with 3 variants; customer picks on checkout page */

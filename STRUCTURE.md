@@ -381,6 +381,10 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 >   dead-end (`CotdSubscribeForm` gained `source`/`heading` props). Open decisions for the
 >   owner: reconcile `priceUsd` vs JPY in checkout-config + run a real WTP test
 >   (see docs/human-todo.md).
+> - **WTP experiment**: `/preorder/` landing (`src/components/preorder-page.tsx`,
+>   `preorderConfig` in checkout-config) — pre-order the "Accessibility Auditor" Pro feature
+>   ($49 founder). Card-required when `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` is set; email
+>   fallback otherwise. noindex (time-boxed). Fires `preorder_*` funnel events. Linked from `/pro/`.
 
 | Content | Count |
 |---------|-------|

@@ -207,6 +207,25 @@ export function ProPage() {
           </div>
         </div>
 
+        {/* Pre-order promo — WTP experiment entry point */}
+        <Link
+          href="/preorder/"
+          className="block rounded-2xl border border-amber-200 bg-amber-50/60 p-6 transition hover:border-amber-300 dark:border-amber-900/50 dark:bg-amber-950/20"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+                Coming soon · pre-order
+              </span>
+              <p className="mt-1 text-base font-semibold text-slate-900 dark:text-white">Accessibility Auditor</p>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                Audit a whole palette for WCAG + color-blindness and export accessible fixes. Founder price $49.
+              </p>
+            </div>
+            <span className="shrink-0 text-sm font-semibold text-amber-700 dark:text-amber-400">Pre-order &rarr;</span>
+          </div>
+        </Link>
+
         {/* FAQ */}
         <section>
           <h2 className="text-lg font-semibold text-slate-800 dark:text-white mb-4">{t("pro.faqTitle")}</h2>
