@@ -9,10 +9,14 @@ export function GuideDetailPage({
   guide,
   relatedGuides,
   featuredCollection,
+  faqs = [],
 }: {
   guide: LandingGuide;
   relatedGuides: LandingGuide[];
   featuredCollection: ColorCollection | null;
+  // Hand-written FAQ for high-traffic guides (src/lib/guide-seo.ts); plain data
+  // so the module never reaches the client bundle. Empty for most guides.
+  faqs?: { question: string; answer: string }[];
 }) {
   const { t } = useLocale();
 
@@ -121,6 +125,22 @@ export function GuideDetailPage({
             </aside>
           </div>
         </section>
+
+        {faqs.length > 0 ? (
+          <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-6">
+            <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+              Frequently asked questions
+            </h2>
+            <dl className="mt-5 grid gap-4 md:grid-cols-2">
+              {faqs.map((item) => (
+                <div key={item.question} className="rounded-[1.2rem] border border-black/6 bg-neutral-50/70 p-5">
+                  <dt className="text-base font-semibold text-neutral-900">{item.question}</dt>
+                  <dd className="mt-2 text-sm leading-6 text-neutral-600">{item.answer}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ) : null}
 
         <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">

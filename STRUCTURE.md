@@ -358,11 +358,25 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 
 ---
 
-## Content Counts (as of 2026-03-24)
+## Content Counts (as of 2026-06-14)
+
+> **2026-06-14 SEO/exposure batch** (`src/lib/color-guide-links.ts`, `guide-seo.ts`,
+> `word-to-color-seeds.ts`, `og-card.tsx`, `scripts/indexnow-ping.mjs`):
+> - **Color pages now link out to 3 relevant guides each** (was 0) — internal-link
+>   authority to push page-2 guides up.
+> - **301 static per-word pages** at `/word-to-color/[word]/` (+ dynamic OG) targeting
+>   the site's #1 query family.
+> - **Guide FAQ + query-optimized titles** for the top ~12 guides (FAQPage JSON-LD).
+> - **Guide slugs deduped** at module load (`guides.ts` tail) — 31 dead duplicate
+>   objects (21 colliding slugs) dropped; build-time warn guards regressions.
+> - **Dynamic OG** added for word-to-color, brands, regions, families (color/guide/
+>   collection already had it). **IndexNow** auto-pings Bing/ChatGPT on prod deploy.
+> - Hero color-of-the-day fixed to use canonical `getColorOfDay()`.
 
 | Content | Count |
 |---------|-------|
-| Colors | 3,066 (3,024 chromatic + 42 neutral grays) |
+| Colors | 5,446 (5,376 chromatic + 70 neutral grays) |
+| Word-to-color pages | 301 static (`/word-to-color/[word]/`) |
 | Saturation bands | 6 (Faint 10%, Muted 18%, Soft 34%, Clear 54%, Vivid 74%, Pure 92%) |
 | Neutral groups | 3 (Warm Gray, Cool Gray, True Gray) |
 | Collections | 169 |

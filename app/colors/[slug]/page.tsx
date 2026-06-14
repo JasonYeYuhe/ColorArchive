@@ -16,6 +16,7 @@ import {
 } from "@/src/lib/color-utils";
 import { collections } from "@/src/lib/collections";
 import { colors } from "@/src/data/colors";
+import { getGuidesForColor } from "@/src/lib/color-guide-links";
 
 export const dynamicParams = true;
 
@@ -163,6 +164,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
   const darkerCompanion = getToneCompanion(colors, color, "darker");
   const wcagPairings = getWcagPairings(colors, color, 6);
   const usedInCollections = collections.filter((c) => c.palette.some((p) => p.id === color.id));
+  const relatedGuides = getGuidesForColor(color, 3);
   const temperature = getTemperatureLabel(color.hue);
   const lightnessLabel = getLightnessLabel(color.lightness);
   const saturationLabel = getSaturationLabel(color.saturation);
@@ -257,6 +259,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
         darkerCompanion={darkerCompanion}
         wcagPairings={wcagPairings}
         usedInCollections={usedInCollections}
+        relatedGuides={relatedGuides}
       />
     </>
   );

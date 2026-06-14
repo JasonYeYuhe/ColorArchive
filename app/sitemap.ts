@@ -9,6 +9,7 @@ import { useCases } from "@/src/lib/use-cases";
 import { brandPalettes } from "@/src/lib/brand-palettes";
 import { regionPalettes } from "@/src/lib/region-palettes";
 import { getComplementaryColor, getAnalogousColors } from "@/src/lib/color-relationships";
+import { wordToColorSeeds, slugifyWord } from "@/src/lib/word-to-color-seeds";
 import { SITE_URL } from "@/src/lib/site-config";
 
 export const dynamic = "force-static";
@@ -395,6 +396,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // Static per-word pages — /word-to-color/[word]/ — the site's #1 query family.
+  const wordColorRoutes: MetadataRoute.Sitemap = wordToColorSeeds.map((word) => ({
+    url: `${SITE_URL}/word-to-color/${slugifyWord(word)}/`,
+    lastModified: BUILD_DATE,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const useCaseRoutes: MetadataRoute.Sitemap = useCases.map((uc) => ({
     url: `${SITE_URL}/use-cases/${uc.id}/`,
     lastModified: BUILD_DATE,
@@ -475,6 +484,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...topLevelRoutes,
     ...guideRoutes,
+    ...wordColorRoutes,
     ...noteRoutes,
     ...tagRoutes,
     ...storyRoutes,

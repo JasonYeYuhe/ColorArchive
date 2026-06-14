@@ -6,6 +6,9 @@ import { WordColorGeneratorPage } from "@/src/components/word-color-generator-pa
 import { SITE_URL } from "@/src/lib/site-config";
 import { wordToColorFaq } from "@/src/lib/word-color-faq";
 
+// NOTE: openGraph/twitter images are intentionally omitted so Next uses the
+// file-convention dynamic OG at app/word-to-color/opengraph-image.tsx. Setting
+// images here would override (and disable) that generated card.
 export const metadata: Metadata = {
   title: { absolute: "Word to Color Generator — Turn Text into Colors | ColorArchive" },
   description: "Convert any word or phrase into a unique hex color. Deterministic algorithm — same text always produces the same color with 5 tonal variants. Free tool.",
@@ -14,12 +17,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Word to Color Generator — Turn Text into Colors | ColorArchive",
     description: "Convert any word or phrase into a unique hex color. Deterministic algorithm — same text always produces the same color with 5 tonal variants. Free tool.",
-    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Word to Color Generator — Turn Text into Colors | ColorArchive",
     description: "Convert any word or phrase into a unique hex color. Deterministic algorithm — same text always produces the same color with 5 tonal variants. Free tool.",
-    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 

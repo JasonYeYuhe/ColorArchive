@@ -5,6 +5,7 @@ import Link from "next/link";
 import { colors } from "@/src/data/colors";
 
 import { EmailSubscribe } from "@/src/components/email-subscribe";
+import { getColorOfDay, todayDateStr } from "@/src/lib/color-of-day";
 import { useLocale } from "@/src/components/locale-provider";
 
 // Fixed hue-spanning strip: Tone (L=60) at Clear (S=54), one per hue across the spectrum
@@ -164,9 +165,9 @@ export function HeroSection({
 
       {/* Color of the Day */}
       {(() => {
-        const today = new Date();
-        const dayHash = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-        const todayColor = colors[dayHash % colors.length];
+        // Canonical color-of-the-day — golden-angle rotation shared byte-for-byte
+        // with /today/, the daily email, and iOS (src/lib/color-of-day.ts).
+        const todayColor = getColorOfDay(todayDateStr());
         return (
           <section className="rounded-[1.75rem] border border-black/8 bg-white/75 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/70">
             <div className="flex items-center gap-5 sm:gap-6">

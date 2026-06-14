@@ -6,6 +6,8 @@
     "dev": "next dev",
     "prebuild": "node scripts/generate-downloads.mjs",
     "build": "next build",
+    "postbuild": "node scripts/indexnow-ping.mjs",
+    "indexnow": "node scripts/indexnow-ping.mjs",
     "generate-downloads": "node scripts/generate-downloads.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",

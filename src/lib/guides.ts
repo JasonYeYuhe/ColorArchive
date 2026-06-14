@@ -12667,3 +12667,39 @@ const extraGuides56: LandingGuide[] = [
 ];
 
 landingGuides.push(...extraGuides56);
+
+// ---------------------------------------------------------------------------
+// De-duplicate by slug — keep the FIRST occurrence of each slug.
+//
+// The autopilot occasionally appended a fresh rewrite of an existing guide
+// under a slug that already existed (e.g. three different rewrites of
+// "data-visualization-color-guide"). Because getLandingGuide() resolves with
+// .find(), only the first occurrence was ever served — the later rewrites were
+// dead, unreachable, near-duplicate content. Leaving them in also made
+// generateStaticParams() emit duplicate route params.
+//
+// We dedupe silently (rather than throwing) so the autopilot's daily commits
+// can never break the production build by accidentally colliding a slug; the
+// dropped slugs are logged so the collision is still visible in build output.
+// ---------------------------------------------------------------------------
+{
+  const seenSlugs = new Set<string>();
+  const dropped: string[] = [];
+  const deduped = landingGuides.filter((guide) => {
+    if (seenSlugs.has(guide.slug)) {
+      dropped.push(guide.slug);
+      return false;
+    }
+    seenSlugs.add(guide.slug);
+    return true;
+  });
+  if (dropped.length > 0) {
+    landingGuides.length = 0;
+    landingGuides.push(...deduped);
+    if (typeof console !== "undefined") {
+      console.warn(
+        `[guides] dropped ${dropped.length} duplicate-slug guide(s): ${[...new Set(dropped)].join(", ")}`,
+      );
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { getLandingGuide, getRelatedGuides, landingGuides } from "@/src/lib/guides";
 import { getCollectionById } from "@/src/lib/collections";
+import { guideFaqs, guideSeoTitles } from "@/src/lib/guide-seo";
 import { SITE_URL } from "@/src/lib/site-config";
 
 interface GuidePageProps {
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
   }
 
   return {
-    title: { absolute: `${guide.title} — ColorArchive Guides` },
+    title: { absolute: guideSeoTitles[slug] ?? `${guide.title} — ColorArchive Guides` },
     description: guide.summary,
     alternates: {
       canonical: `/guides/${guide.slug}/`,
@@ -54,6 +55,7 @@ export default async function GuideRoute({ params }: GuidePageProps) {
   }
 
   const relatedGuides = getRelatedGuides(slug, 3);
+  const faqs = guideFaqs[slug] ?? [];
 
   const structuredData = [
     {
@@ -85,6 +87,19 @@ export default async function GuideRoute({ params }: GuidePageProps) {
         { "@type": "ListItem", position: 3, name: guide.title, item: `${SITE_URL}/guides/${guide.slug}/` },
       ],
     },
+    ...(faqs.length > 0
+      ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: { "@type": "Answer", text: item.answer },
+            })),
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -95,6 +110,7 @@ export default async function GuideRoute({ params }: GuidePageProps) {
         guide={guide}
         relatedGuides={relatedGuides}
         featuredCollection={guide.featuredCollectionId ? getCollectionById(guide.featuredCollectionId) ?? null : null}
+        faqs={faqs}
       />
     </>
   );

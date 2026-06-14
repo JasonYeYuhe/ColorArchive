@@ -348,6 +348,30 @@ export function WordColorGeneratorPage() {
             ))}
           </dl>
         </section>
+
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-8">
+          <h2 className="text-base font-semibold tracking-[-0.02em] text-neutral-950">
+            Popular word colors
+          </h2>
+          <p className="mt-1 text-sm text-neutral-500">
+            Ready-made pages for words people look up most.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {[
+              "quiet luxury", "ocean", "sunset", "lavender", "emerald", "midnight",
+              "forest", "rose", "sky", "espresso", "honey", "sage",
+              "twilight", "peach", "ruby", "storm",
+            ].map((w) => (
+              <Link
+                key={w}
+                href={`/word-to-color/${w.replace(/\s+/g, "-")}/`}
+                className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+              >
+                {w.replace(/\b\w/g, (c) => c.toUpperCase())}
+              </Link>
+            ))}
+          </div>
+        </section>
       </div>
     </main>
   );

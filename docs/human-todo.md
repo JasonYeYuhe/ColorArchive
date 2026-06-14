@@ -1,7 +1,23 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-10 (Figma plugin launch-week session)
+> Last updated: 2026-06-14 (SEO/exposure batch — page-1 + traffic push)
+
+## 🟢 SEO/exposure batch shipped 2026-06-14 — measure & follow up
+> Goal: push page-2 pages to page 1 + grow traffic (Google + AI engines). All code
+> is live; these are the human-only measurement/verification steps.
+- [ ] **GSC: confirm the new /word-to-color/[word]/ pages get indexed** (301 pages,
+      now in sitemap.xml). Check Coverage + the "word to color" query family in 2–3 weeks.
+- [ ] **GSC: watch avg position on the top guides** (blue-color-psychology-branding-guide,
+      film-cinematography-color-guide, color-trends-2026-design-guide) — they got
+      query-optimized titles + FAQ rich-result eligibility; expect CTR lift first.
+- [ ] **Bing Webmaster Tools (optional):** IndexNow key `c0107a3b9f2d4e8a8b6c1d5e7f0a2b34`
+      is auto-served at /<key>.txt and pinged on every prod deploy (postbuild). Nothing
+      required, but you can verify submissions in Bing WMT → IndexNow.
+- [ ] **Validate rich results:** run a couple guide URLs + a /word-to-color/[word]/ URL
+      through Google's Rich Results Test to confirm FAQ/DefinedTerm markup is picked up.
+- [ ] (Optional) Add more entries to `src/lib/guide-seo.ts` (FAQ/titles) and
+      `src/lib/word-to-color-seeds.ts` (more words) — both are append-only and safe.
 
 ## 🔴 P0 — this week (Figma launch window)
 

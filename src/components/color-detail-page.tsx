@@ -43,6 +43,9 @@ interface ColorDetailPageProps {
   darkerCompanion: ColorRecord | null;
   wcagPairings: WcagPairing[];
   usedInCollections: { id: string; title: string }[];
+  // Computed server-side (src/lib/color-guide-links.ts) and passed in as plain
+  // data so the heavy guides.ts dataset never reaches the client bundle.
+  relatedGuides: { slug: string; title: string; eyebrow: string }[];
 }
 
 interface PaletteEntry {
@@ -334,6 +337,7 @@ export function ColorDetailPage({
   darkerCompanion,
   wcagPairings,
   usedInCollections,
+  relatedGuides,
 }: ColorDetailPageProps) {
   const { t } = useLocale();
   const [recentColorIds, setRecentColorIds] = useState<string[]>([]);
@@ -658,6 +662,34 @@ export function ColorDetailPage({
 
               {/* Reverse-index: which cultures feature a similar color (links to /regions/[slug]/) */}
               <RegionsUsingColorSection color={color} />
+
+              {/* Editorial guides — internal links to /guides/[slug]/ for SEO + depth */}
+              {relatedGuides.length > 0 && (
+                <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+                  <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                    Color guides
+                  </h2>
+                  <p className="mt-2 text-sm leading-6 text-neutral-500">
+                    Go deeper on using {color.family.toLowerCase()} and color in design.
+                  </p>
+                  <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                    {relatedGuides.map((guide) => (
+                      <Link
+                        key={guide.slug}
+                        href={`/guides/${guide.slug}/`}
+                        className="group flex flex-col rounded-2xl border border-black/6 bg-white px-4 py-3 transition hover:-translate-y-0.5 hover:border-black/12 hover:shadow-sm"
+                      >
+                        <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-400">
+                          {guide.eyebrow}
+                        </span>
+                        <span className="mt-1 text-sm font-medium leading-snug text-neutral-800 group-hover:text-neutral-950">
+                          {guide.title}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {(() => {
                 const tonalStrip = getTonalStrip(allColors, color);
