@@ -2080,11 +2080,6 @@ const translations: Record<string, Record<string, string>> = {
   "pro.comparison.row6free": { en: "Preview", zh: "预览" },
   "pro.comparison.row6pro": { en: "Full", zh: "完整" },
   "pro.comparison.row7": { en: "Image palette save", zh: "图片调色板保存" },
-  "pro.testimonial": {
-    en: "Pro paid for itself in the first week. Unlimited AI generations + Tailwind export means I ship brand systems in hours, not days.",
-    zh: "Pro 第一周就值回票价了。无限 AI 生成 + Tailwind 导出，让我几小时就能交付品牌系统。",
-  },
-  "pro.testimonialAuthor": { en: "Product Designer, SaaS Startup", zh: "产品设计师，SaaS 创业公司" },
   "pro.faqTitle": { en: "Frequently asked questions", zh: "常见问题" },
   "pro.faq.q1": { en: "Can I try before I subscribe?", zh: "订阅前可以试用吗？" },
   "pro.faq.a1": { en: "Yes! Free accounts get 10 AI generations per day and 3 exports per day. No credit card required.", zh: "当然！免费账户每天可使用 10 次 AI 生成和 3 次导出，无需绑定信用卡。" },

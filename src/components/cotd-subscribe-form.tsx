@@ -6,7 +6,16 @@ import { API_URL } from "@/src/lib/api-config";
 
 type State = "idle" | "loading" | "success" | "error";
 
-export function CotdSubscribeForm({ colorHex }: { colorHex?: string }) {
+export function CotdSubscribeForm({
+  colorHex,
+  source = "cotd",
+  heading = "Get a color every morning",
+}: {
+  colorHex?: string;
+  /** attribution tag stored with the subscriber (e.g. "word-to-color") */
+  source?: string;
+  heading?: string;
+}) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<State>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -26,7 +35,7 @@ export function CotdSubscribeForm({ colorHex }: { colorHex?: string }) {
       const res = await fetch(`${API_URL}/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: "cotd", cotd: true }),
+        body: JSON.stringify({ email, source, cotd: true }),
       });
       if (!res.ok) throw new Error("Server error");
       setState("success");
@@ -51,7 +60,7 @@ export function CotdSubscribeForm({ colorHex }: { colorHex?: string }) {
       style={{ borderColor: `${borderColor}30` }}
     >
       <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
-        Get a color every morning
+        {heading}
       </p>
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input

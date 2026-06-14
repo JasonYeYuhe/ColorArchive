@@ -9,6 +9,7 @@ import { generateColorFromWord } from "@/src/lib/word-color";
 import { wordToColorFaq } from "@/src/lib/word-color-faq";
 import { wordToColorSeeds, slugifyWord, titleCaseWord } from "@/src/lib/word-to-color-seeds";
 import { WordColorShareCard } from "@/src/components/word-color-share-card";
+import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 
 const PROMPT_SUGGESTIONS = [
   "ocean memory",
@@ -309,27 +310,29 @@ export function WordColorGeneratorPage() {
                 </pre>
               </div>
 
-              <div className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
-                  Want production-ready tokens?
-                </div>
-                <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
-                  Take it further with Pro
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+                <p className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">
+                  Save your word colors
                 </p>
-                <p className="mt-2 text-sm leading-6 text-white/60 dark:text-neutral-500">
-                  ColorArchive Pro goes beyond generated colors — structured CSS variables, Figma
-                  tokens, Tailwind config, and editorial palette directions built for real projects.
+                <p className="mt-1 mb-3 text-sm leading-6 text-neutral-600">
+                  Get one curated color in your inbox each morning — and a standing reason to come
+                  back. Free, one email a day.
                 </p>
+                <CotdSubscribeForm
+                  colorHex={generated.hex}
+                  source="word-to-color"
+                  heading="Email me a color every morning"
+                />
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
                     href="/pro/"
-                    className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                   >
-                    Upgrade to Pro
+                    Production-ready tokens with Pro
                   </Link>
                   <Link
                     href="/free-resources/"
-                    className="rounded-full border border-white/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                   >
                     Free resources
                   </Link>

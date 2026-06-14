@@ -88,10 +88,9 @@ export function ProPage() {
                 {t("pro.monthly")}
               </p>
               <div className="mb-4">
-                <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.monthly.price}</span>
-                <span className="text-[10px] text-slate-400 ml-1 align-top">{proSubscriptionConfig.monthly.currency}</span>
+                <span className="text-3xl font-bold text-slate-900 dark:text-white">JP{proSubscriptionConfig.monthly.price}</span>
                 <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {proSubscriptionConfig.monthly.period}</span>
-                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.monthly.priceUsd} USD</p>
+                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.monthly.priceUsd} USD · billed in Japanese yen</p>
               </div>
               <p className="text-xs text-slate-400 mb-1">{t("pro.cancelAnytime")}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-5">3-day free trial</p>
@@ -114,10 +113,9 @@ export function ProPage() {
                 {t("pro.yearly")}
               </p>
               <div className="mb-4">
-                <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.yearly.price}</span>
-                <span className="text-[10px] text-slate-400 ml-1 align-top">{proSubscriptionConfig.yearly.currency}</span>
+                <span className="text-3xl font-bold text-slate-900 dark:text-white">JP{proSubscriptionConfig.yearly.price}</span>
                 <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {proSubscriptionConfig.yearly.period}</span>
-                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.yearly.priceUsd} USD</p>
+                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.yearly.priceUsd} USD · billed in Japanese yen</p>
               </div>
               <p className="text-xs text-slate-400 mb-1">{t("pro.cancelAnytime")}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-5">3-day free trial</p>
@@ -137,9 +135,8 @@ export function ProPage() {
                 Lifetime
               </p>
               <div className="mb-2">
-                <span className="text-3xl font-bold text-slate-900 dark:text-white">{proSubscriptionConfig.lifetime.price}</span>
-                <span className="text-[10px] text-slate-400 ml-1 align-top">{proSubscriptionConfig.lifetime.currency}</span>
-                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.lifetime.priceUsd} USD</p>
+                <span className="text-3xl font-bold text-slate-900 dark:text-white">JP{proSubscriptionConfig.lifetime.price}</span>
+                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.lifetime.priceUsd} USD · billed in Japanese yen</p>
               </div>
               <p className="text-xs text-amber-600 dark:text-amber-400 font-medium mb-1">Pay once, keep forever*</p>
               <p className="text-[10px] text-slate-400 mb-5">*Lifetime of the ColorArchive product</p>
@@ -200,12 +197,14 @@ export function ProPage() {
           ))}
         </div>
 
-        {/* Testimonial */}
-        <div className="bg-black/[0.03] dark:bg-white/[0.04] rounded-2xl border border-black/8 dark:border-white/10 p-6 text-center">
-          <p className="text-sm text-slate-700 dark:text-slate-300 italic leading-relaxed mb-3">
-            &ldquo;{t("pro.testimonial")}&rdquo;
-          </p>
-          <p className="text-xs font-semibold text-slate-600 dark:text-slate-400">{t("pro.testimonialAuthor")}</p>
+        {/* Trust row — honest, verifiable guarantees (no fabricated testimonial) */}
+        <div className="bg-black/[0.03] dark:bg-white/[0.04] rounded-2xl border border-black/8 dark:border-white/10 p-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-600 dark:text-slate-400">
+            <span>&#10003; 3-day free trial</span>
+            <span>&#10003; 7-day money-back guarantee</span>
+            <span>&#10003; Cancel anytime</span>
+            <span>&#10003; No credit card for the free tier</span>
+          </div>
         </div>
 
         {/* FAQ */}

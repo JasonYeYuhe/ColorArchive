@@ -100,20 +100,20 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
                 href="/pro"
                 className="text-center py-2.5 bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-200 transition-colors"
               >
-                ¥499 <span className="text-[10px] text-slate-500">JPY</span>/mo
+                JP¥499 <span className="text-[10px] text-slate-500">/mo</span>
               </Link>
               <Link
                 href="/pro"
                 className="text-center py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
               >
-                ¥3,999 <span className="text-[10px] text-indigo-200">JPY</span>/yr <span className="text-indigo-200 text-xs">Save 33%</span>
+                JP¥3,999 <span className="text-[10px] text-indigo-200">/yr</span> <span className="text-indigo-200 text-xs">Save 33%</span>
               </Link>
             </div>
           </div>
         )}
 
         <p className="text-[10px] text-slate-400 text-center">
-          Cancel anytime. No credit card required for free tier. Prices shown in JPY.
+          Cancel anytime. No credit card required for free tier. Prices in Japanese yen (JPY).
         </p>
       </div>
     </div>

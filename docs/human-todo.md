@@ -45,6 +45,31 @@
       actual backlinks; the code just makes them easy to create.
 - [ ] (Optional) PR ColorArchive into an "awesome-design-tools" GitHub list (durable backlink).
 
+## 🟢 Conversion batch shipped 2026-06-14 + decisions for you
+Shipped (code, safe + verdict-independent):
+- Removed the **fabricated Pro testimonial** ("paid for itself in the first week" — false
+  advertising with 0 real customers); replaced with an honest trust row (real guarantees).
+- **`¥` → `JP¥`** on /pro/ + upgrade modal so it can't be misread as RMB (zh users were
+  seeing ¥3,999 as ~$560 instead of ~$50).
+- **Email capture on /word-to-color/** (the #1 page's dead-end) — builds the only durable
+  handle on casual traffic. Subscribes tagged `source: "word-to-color"`.
+
+🔴 **Decisions only you can make (I did NOT guess these):**
+- [ ] **Fix the pricing numbers.** `priceUsd` in `src/lib/checkout-config.ts` is inconsistent
+      with the JPY amounts: ¥499 ≈ US$3.34 but `priceUsd` says $6.99; ¥19,999 ≈ $134 but says
+      $199.99. Your LS variants bill in **JPY**. Decide: (a) what the real prices should be,
+      and (b) whether to bill in USD at all (JPY billing is friction for a global/US ICP —
+      the actual designer you're selling to). I can implement once you decide.
+- [ ] **Run a real willingness-to-pay test** (the audit's core — nobody has ever paid):
+      1. *Pre-order a specific Pro feature* — card-required "Pre-order $X" on ONE concrete
+         capability (e.g. "AI-audit my whole palette for WCAG + export fixes"). Needs an LS
+         product; I can build the landing + gating. Kill criterion: <10 pre-orders in 30 days.
+      2. *Paywall /word-to-color/ after N free generations* — the pain IS the signal. This
+         WILL cut traffic; that's the point of the test. I can build it behind a flag, but
+         it's your call since it touches your #1 traffic asset.
+      The audit explicitly rejected a "$9 export of free color data" as validation theater —
+      don't run that one.
+
 ## 🔴 P0 — this week (Figma launch window)
 
 - [x] ~~Facebook token re-auth~~ — **DONE 2026-06-10 evening** (with Jason assisting the

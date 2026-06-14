@@ -376,6 +376,11 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 >   on every color page + the embed landing; fixed the broken widget attribution link;
 >   `/embed/embed-code/` now in sitemap + footer (was an orphan). CWV pass: Sentry Replay
 >   off, gtag lazyOnload, stale PH banner off.
+> - **Conversion**: removed a fabricated Pro testimonial (→ honest trust row); `¥`→`JP¥`
+>   on /pro/ + upgrade modal (RMB-misread fix); email capture on the /word-to-color/
+>   dead-end (`CotdSubscribeForm` gained `source`/`heading` props). Open decisions for the
+>   owner: reconcile `priceUsd` vs JPY in checkout-config + run a real WTP test
+>   (see docs/human-todo.md).
 
 | Content | Count |
 |---------|-------|
