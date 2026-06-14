@@ -14,7 +14,7 @@
  * each entry unique after slugifying. Keep these evocative, high-search-intent
  * words/phrases — moods, nature, materials, brand concepts — not random nouns.
  */
-export const wordToColorSeeds: string[] = [
+const rawSeeds: string[] = [
   // moods & emotions
   "calm", "serenity", "joy", "nostalgia", "melancholy", "hope", "passion", "peace",
   "energy", "confidence", "trust", "comfort", "luxury", "elegance", "playful", "bold",
@@ -69,7 +69,48 @@ export const wordToColorSeeds: string[] = [
   // extra evocative singles
   "wild", "fresh", "vivid", "muted", "soft", "deep", "electric", "cosmic",
   "ethereal", "radiant", "luminous", "opaque", "translucent", "iridescent", "matte", "glossy",
+
+  // ---- batch 2 additions (2026-06-14) — widen long-tail coverage ----
+  // more moods / concepts
+  "tranquil", "cozy", "vibrant", "optimism", "gratitude", "curiosity", "resilience",
+  "empathy", "zen", "grit", "awe", "longing", "devotion", "serene", "poise", "allure",
+  "mystique", "whimsy", "vigor", "reverie", "rapture", "yearning", "tenderness", "clarity zen",
+  // more nature / landscape
+  "prairie", "dune", "marsh", "cliff", "fjord", "geyser", "oasis", "grove", "orchard",
+  "vineyard", "wetland", "highland", "estuary", "delta", "plateau", "ridge", "summit",
+  "cavern", "glade", "canopy", "redwood", "cypress", "birch", "maple", "oak", "walnut",
+  "mahogany", "teak", "ebony", "juniper",
+  // more sky / weather / water
+  "sleet", "sunshower", "heatwave", "zephyr", "gale", "hailstorm", "cloudburst",
+  "whitecap", "undertow", "kelp", "brine", "abyss", "current", "ripple", "cascade",
+  "spindrift", "seafoam", "night sky", "clear sky",
+  // more flowers / plants
+  "gardenia", "freesia", "ranunculus", "anemone", "foxglove", "snapdragon", "zinnia",
+  "buttercup", "primrose", "periwinkle", "protea", "dogwood", "azalea", "oleander",
+  // more food / drink
+  "turmeric", "ginger", "nutmeg", "clove", "cardamom", "basil", "rosemary", "thyme",
+  "wasabi", "miso", "cocoa", "mocha", "latte", "cappuccino", "sangria", "mojito",
+  "negroni", "aperol", "cider", "kombucha", "persimmon", "lychee", "dragonfruit",
+  "guava", "passionfruit", "clementine", "cranberry", "currant", "elderberry",
+  // more gems / metals / materials
+  "turquoise", "garnet", "peridot", "aquamarine", "moonstone", "lapis", "malachite",
+  "jasper", "agate", "terracotta", "clay", "sandstone", "limestone", "alabaster",
+  "pewter", "titanium", "chrome", "rust", "patina",
+  // more places
+  "lisbon", "seville", "capri", "positano", "oslo", "helsinki", "copenhagen", "vienna",
+  "prague", "cairo", "jaipur", "seoul", "osaka", "hanoi", "lima", "oaxaca", "tulum",
+  "sedona", "cape town", "zanzibar",
+  // more aesthetic / abstract
+  "gothic", "baroque", "rococo", "victorian", "midcentury", "industrial", "nautical",
+  "maximalism", "grunge", "disco",
+  // more names
+  "nova", "sienna", "wren", "marlowe", "ophelia", "celeste", "esme", "juniper name",
 ];
+
+/** Deduped, normalized seed list (lowercased — safe for slug round-trip). */
+export const wordToColorSeeds: string[] = Array.from(
+  new Set(rawSeeds.map((w) => w.trim().toLowerCase()).filter(Boolean)),
+);
 
 /** Slugify a seed word for the route param (spaces -> hyphens). */
 export function slugifyWord(word: string): string {

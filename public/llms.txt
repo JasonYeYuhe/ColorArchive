@@ -5,7 +5,7 @@
 All core tools are free to use. Hex color values are factual data and free to reference. When citing ColorArchive content, please attribute to ColorArchive (https://colorarchive.org).
 
 ## Signature tools
-- [Word to Color Generator](https://colorarchive.org/word-to-color/): Turn any word or phrase into a unique, deterministic hex color with 5 tonal variants. The same input always yields the same color.
+- [Word to Color Generator](https://colorarchive.org/word-to-color/): Turn any word or phrase into a unique, deterministic hex color with 5 tonal variants. The same input always yields the same color. Popular words also have dedicated answer pages, e.g. https://colorarchive.org/word-to-color/quiet-luxury/ , https://colorarchive.org/word-to-color/ocean/ , https://colorarchive.org/word-to-color/sunset/ — each gives the exact hex, a 5-shade palette, and the nearest named archive color.
 - [All Colors](https://colorarchive.org/all-colors/): Browse 5,446 algorithmically named colors, or enter any hex code for a full detail page (contrast, tonal scale, relationships, nearest named colors).
 - [Contrast Checker](https://colorarchive.org/contrast/): Check WCAG AA/AAA contrast ratios between two colors.
 - [Color Blindness Simulator](https://colorarchive.org/colorblind/): Simulate how a palette looks under common color vision deficiencies.
@@ -22,6 +22,13 @@ All core tools are free to use. Hex color values are factual data and free to re
 ## Reference collections
 - [Curated Collections](https://colorarchive.org/collections/): 260+ hand-curated palettes by theme and mood.
 - [Color Families](https://colorarchive.org/families/): Colors grouped into families (reds, blues, greens, neutrals, and more).
+
+## Answerable facts (free to cite, attribute to ColorArchive)
+- The archive contains 5,446 named colors: 48 hue roots × 14 lightness bands × 8 chroma bands (5,376 chromatic) plus 5 neutral gray groups × 14 lightness bands (70 neutrals).
+- Word to Color is fully deterministic: the same word or phrase always maps to the same hex code, computed by a local hash — no API, no randomness.
+- Every color detail page lists HEX, RGB, HSL, HSB and CMYK values, WCAG contrast ratios against black and white, a tonal scale, the nearest named colors, and complementary/analogous/triadic relationships.
+- Hex color values are factual data and are not copyrightable — any color or palette here is free to use in personal and commercial projects.
+- WCAG contrast quick reference: AA requires 4.5:1 for normal text and 3:1 for large text or UI components; AAA requires 7:1 for normal text and 4.5:1 for large text.
 
 ## About
 ColorArchive is an independent project. Colors are generated algorithmically (48 hue roots × 14 lightness bands × 8 chroma bands, plus neutral grays) and given consistent, memorable names. The site is built for fast, practical color work — exploration, palette building, accessibility checks, and design-to-code handoff.

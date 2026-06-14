@@ -364,8 +364,8 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 > `word-to-color-seeds.ts`, `og-card.tsx`, `scripts/indexnow-ping.mjs`):
 > - **Color pages now link out to 3 relevant guides each** (was 0) — internal-link
 >   authority to push page-2 guides up.
-> - **301 static per-word pages** at `/word-to-color/[word]/` (+ dynamic OG) targeting
->   the site's #1 query family.
+> - **474 static per-word pages** at `/word-to-color/[word]/` (+ dynamic OG), linked
+>   from a hub on the generator index, targeting the site's #1 query family.
 > - **Guide FAQ + query-optimized titles** for the top ~12 guides (FAQPage JSON-LD).
 > - **Guide slugs deduped** at module load (`guides.ts` tail) — 31 dead duplicate
 >   objects (21 colliding slugs) dropped; build-time warn guards regressions.
@@ -376,7 +376,7 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Content | Count |
 |---------|-------|
 | Colors | 5,446 (5,376 chromatic + 70 neutral grays) |
-| Word-to-color pages | 301 static (`/word-to-color/[word]/`) |
+| Word-to-color pages | 474 static (`/word-to-color/[word]/`) |
 | Saturation bands | 6 (Faint 10%, Muted 18%, Soft 34%, Clear 54%, Vivid 74%, Pure 92%) |
 | Neutral groups | 3 (Warm Gray, Cool Gray, True Gray) |
 | Collections | 169 |

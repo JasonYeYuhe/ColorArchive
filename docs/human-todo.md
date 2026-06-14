@@ -6,8 +6,9 @@
 ## 🟢 SEO/exposure batch shipped 2026-06-14 — measure & follow up
 > Goal: push page-2 pages to page 1 + grow traffic (Google + AI engines). All code
 > is live; these are the human-only measurement/verification steps.
-- [ ] **GSC: confirm the new /word-to-color/[word]/ pages get indexed** (301 pages,
-      now in sitemap.xml). Check Coverage + the "word to color" query family in 2–3 weeks.
+- [ ] **GSC: confirm the new /word-to-color/[word]/ pages get indexed** (474 pages,
+      now in sitemap.xml + linked from a hub on the generator). Check Coverage + the
+      "word to color" query family in 2–3 weeks.
 - [ ] **GSC: watch avg position on the top guides** (blue-color-psychology-branding-guide,
       film-cinematography-color-guide, color-trends-2026-design-guide) — they got
       query-optimized titles + FAQ rich-result eligibility; expect CTR lift first.

@@ -7,6 +7,7 @@ import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-but
 import { CopyButton } from "@/src/components/copy-button";
 import { generateColorFromWord } from "@/src/lib/word-color";
 import { wordToColorFaq } from "@/src/lib/word-color-faq";
+import { wordToColorSeeds, slugifyWord, titleCaseWord } from "@/src/lib/word-to-color-seeds";
 import { WordColorShareCard } from "@/src/components/word-color-share-card";
 
 const PROMPT_SUGGESTIONS = [
@@ -16,6 +17,12 @@ const PROMPT_SUGGESTIONS = [
   "soft archive",
   "electric plum",
 ] as const;
+
+// A diverse spread of ~60 word pages for the index hub — links the static
+// /word-to-color/[word]/ pages from the highest-traffic page in one hop.
+const BROWSE_WORDS = wordToColorSeeds.filter(
+  (_, i) => i % Math.ceil(wordToColorSeeds.length / 60) === 0,
+);
 
 export function WordColorGeneratorPage() {
   const router = useRouter();
@@ -351,23 +358,20 @@ export function WordColorGeneratorPage() {
 
         <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-8">
           <h2 className="text-base font-semibold tracking-[-0.02em] text-neutral-950">
-            Popular word colors
+            Browse word colors
           </h2>
           <p className="mt-1 text-sm text-neutral-500">
-            Ready-made pages for words people look up most.
+            Ready-made pages with the exact hex, a 5-shade palette, and the nearest
+            named color for popular words.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
-            {[
-              "quiet luxury", "ocean", "sunset", "lavender", "emerald", "midnight",
-              "forest", "rose", "sky", "espresso", "honey", "sage",
-              "twilight", "peach", "ruby", "storm",
-            ].map((w) => (
+            {BROWSE_WORDS.map((w) => (
               <Link
                 key={w}
-                href={`/word-to-color/${w.replace(/\s+/g, "-")}/`}
+                href={`/word-to-color/${slugifyWord(w)}/`}
                 className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
               >
-                {w.replace(/\b\w/g, (c) => c.toUpperCase())}
+                {titleCaseWord(w)}
               </Link>
             ))}
           </div>
