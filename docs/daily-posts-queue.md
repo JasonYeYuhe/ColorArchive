@@ -4,6 +4,47 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-06-14
+
+> Real news this week (Jun 7 – Jun 14): the **ColorArchive Figma plugin v1.1.0 shipped to Figma Community** and we ran a full launch wave across 7 channels (X, Instagram, Pinterest, Facebook, Indie Hackers, Product Hunt, Reddit r/FigmaDesign). v1.1.0 adds API-key persistence (clientStorage) so you stay signed in between sessions, plus a couple of review-rejection bugfixes (localStorage guard, FigJam compatibility) and a CORS fix for the plugin's `Origin: null` calls. The rest was internal (UTM attribution plumbing, CI guard, launch docs). Lead with the plugin — it's the one genuinely new, user-facing thing.
+
+### Facebook
+
+🎨 **ColorArchive is now a Figma plugin.**
+
+You no longer have to leave your canvas to find the right color. The ColorArchive plugin is live in the Figma Community — search all 5,446 named colors, inspect any swatch, and drop it straight into your design.
+
+What's new in v1.1.0:
+• 🔑 Stays signed in — your API key now persists between sessions, no re-entering it every time
+• 🧩 Works in both Figma and FigJam
+• ⚡️ Faster, more reliable color lookups inside the plugin
+
+Same curated 5,446-color library you know from the site — now one click away inside Figma.
+
+Get the plugin → search "ColorArchive" in the Figma Community
+Explore the full library → colorarchive.org
+
+#ColorArchive #Figma #FigmaPlugin #DesignTools #ColorPalette #UIDesign #ProductDesign #DesignWorkflow #ColorInspiration
+
+---
+
+### Twitter / X
+
+🎨 This week at ColorArchive: our Figma plugin is live 🎉
+
+All 5,446 named colors, right inside your canvas:
+🔑 v1.1.0 — stays signed in (API key persistence)
+🧩 Works in Figma + FigJam
+⚡️ Faster, more reliable color lookups
+
+No more tab-switching to find the right color.
+→ Search "ColorArchive" in the Figma Community
+→ colorarchive.org
+
+#ColorArchive #Figma #FigmaPlugin #DesignTools #UIDesign
+
+---
+
 ## Weekly Roundup — 2026-06-07
 
 > Real news this week (May 31 – Jun 7), breaking a 3-week quiet streak. Two genuinely user-facing shipments: (1) an **editorial redesign** rolled out across the whole site — Fraunces serif page titles, a cleaner gallery-white canvas, redesigned color cards/header, decorative glows removed; (2) **downloadable share cards for Word to Color** (1080×1350 PNG, free, no login). The rest of the week was internal (PostHog/Sentry/Datadog/New Relic analytics, GEO/robots.txt for AI crawlers) — not for public posting. Lead with the redesign; it's safe to frame as "new."

@@ -1,3 +1,11 @@
+## 2026-06-14 — [autopilot] weekly content roundup
+
+Scheduled weekly roundup for Jun 7–14.
+
+- `git log --since="7 days ago"`: the week was the **Figma plugin v1.1.0 launch** (shipped to Figma Community + 7-channel launch wave). No new colors/collections/guides this cycle; remaining commits were bugfixes (localStorage guard, FigJam rejection fixes), a CORS fix, UTM/CI plumbing, and launch docs.
+- Wrote a "This week at ColorArchive" post (Facebook + Twitter/X) leading with the plugin going live, added to `docs/daily-posts-queue.md` under **Weekly Roundup — 2026-06-14**.
+- Did **not** auto-post to Facebook: the plugin launch post already went live on FB this week (launch wave, post 122113574726881547), so a roundup would duplicate it. Left in the manual queue for review.
+
 ## 2026-06-10 (evening, Jason live-assisted) — launch wave completed: Pinterest + FB re-auth, IH/PH, Reddit
 
 Closed out the launch wave that the afternoon P0 session left blocked on token re-auth.
