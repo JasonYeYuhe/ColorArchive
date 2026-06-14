@@ -4,9 +4,9 @@ import { EmbedCodePage } from "@/src/components/embed-code-page";
 import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
-  title: { absolute: "Embed ColorArchive — Free Color Picker Widget" },
+  title: { absolute: "Embed a Free Color Widget or Color Badge — ColorArchive" },
   description:
-    "Add a free color picker widget to your website. Embed the ColorArchive color picker with hex, RGB, HSL values and 5,400+ curated colors in a single iframe.",
+    "Add a free color tool to your site: an interactive color-picker widget (iframe) or a lightweight HTML color badge for blogs and docs. Hex, RGB, HSL and 5,446 curated colors.",
   alternates: {
     canonical: "/embed/embed-code/",
   },

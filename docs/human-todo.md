@@ -35,6 +35,16 @@
   crashes, PostHog product, GTM ads.
 - [ ] Optional: confirm CWV improved in NewRelic RUM / PageSpeed Insights in ~1 week.
 
+## 🟢 Backlink engine shipped 2026-06-14 — post the drafts
+- Code live: static HTML color-badge on every color page (the "Embed" button) + the
+  embed landing (`/embed/embed-code/`, now discoverable in sitemap + footer); fixed the
+  previously-broken widget attribution backlink.
+- [ ] **Post the distribution drafts** in `docs/backlink-distribution-drafts-2026-06-14.md`
+      (Dev.to article, Show HN, Reddit r/web_design, free-tool directories, Pinterest) —
+      ~1/day to avoid same-link spam filters; disclose maker where required. These are the
+      actual backlinks; the code just makes them easy to create.
+- [ ] (Optional) PR ColorArchive into an "awesome-design-tools" GitHub list (durable backlink).
+
 ## 🔴 P0 — this week (Figma launch window)
 
 - [x] ~~Facebook token re-auth~~ — **DONE 2026-06-10 evening** (with Jason assisting the

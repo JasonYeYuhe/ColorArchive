@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
+import { EmbedBadgeButton } from "@/src/components/embed-badge-button";
 import { PinterestSaveButton } from "@/src/components/pinterest-save-button";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { SendToTool } from "@/src/components/send-to-tool";
@@ -523,6 +524,7 @@ export function ColorDetailPage({
                 <LogToJournalButton color={color} />
                 <ShareLinkButton href={`/colors/${color.id}/`} />
                 <ShareOnXButton href={`/colors/${color.id}/`} text={`${color.name} ${color.hex} — from the ColorArchive`} />
+                <EmbedBadgeButton hex={color.hex} name={color.name} id={color.id} />
                 <PinterestSaveButton color={color} />
                 <SaveToProjectButton palette={[color.hex]} defaultName={color.name} />
                 <Link

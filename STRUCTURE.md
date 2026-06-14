@@ -372,6 +372,10 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 > - **Dynamic OG** added for word-to-color, brands, regions, families (color/guide/
 >   collection already had it). **IndexNow** auto-pings Bing/ChatGPT on prod deploy.
 > - Hero color-of-the-day fixed to use canonical `getColorOfDay()`.
+> - **Backlink engine**: static HTML color-badge (`src/components/embed-badge-button.tsx`)
+>   on every color page + the embed landing; fixed the broken widget attribution link;
+>   `/embed/embed-code/` now in sitemap + footer (was an orphan). CWV pass: Sentry Replay
+>   off, gtag lazyOnload, stale PH banner off.
 
 | Content | Count |
 |---------|-------|

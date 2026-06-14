@@ -118,6 +118,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.88,
     },
     {
+      url: `${SITE_URL}/embed/embed-code/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${SITE_URL}/colorblind/`,
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",

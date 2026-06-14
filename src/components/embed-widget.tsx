@@ -191,7 +191,7 @@ export function EmbedWidget() {
             {related.map((c) => (
               <a
                 key={c.id}
-                href={`${SITE_URL}/colors/${c.id}/`}
+                href={`${SITE_URL}/colors/${c.id}/?utm_source=embed&utm_medium=widget`}
                 target="_blank"
                 rel="noopener noreferrer"
                 title={`${c.name} ${c.hex}`}
@@ -214,9 +214,9 @@ export function EmbedWidget() {
       {/* Powered by */}
       <div style={{ textAlign: "center", marginTop: 4 }}>
         <a
-          href="${SITE_URL}?ref=embed"
+          href={`${SITE_URL}/?utm_source=embed&utm_medium=widget`}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener"
           style={{
             fontSize: 11,
             color: "#9ca3af",
