@@ -21,10 +21,12 @@ if (dsn) {
     // 10% trace sampling in prod, 100% in dev — keeps quota sane on the free tier.
     tracesSampleRate: process.env.NODE_ENV === "production" ? 0.1 : 1.0,
 
-    // Session replay is OFF by default; error-only replay catches the 30s before a
-    // crash without recording every healthy session. Sampling is trivial if OFF.
+    // Replay disabled (2026-06-14) so the ~50KB Sentry Replay bundle stops
+    // loading on every page — a Core Web Vitals win. Error capture, stack traces,
+    // and 10% perf tracing remain on; only the visual before-crash session replay
+    // is gone. Re-enable by raising replaysOnErrorSampleRate above 0.
     replaysSessionSampleRate: 0,
-    replaysOnErrorSampleRate: 1.0,
+    replaysOnErrorSampleRate: 0,
 
     // Filter out noisy browser extensions + third-party script errors that we cannot fix.
     // Expand this list as real noise shows up in the dashboard.

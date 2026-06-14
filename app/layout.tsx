@@ -123,15 +123,23 @@ export default function RootLayout({
     <html lang="en" className={`${sans.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="QMvWjTTdo973FLMy5VZMA4lDZcirOQK8LUjLAHFD5eo" />
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href={API_URL} />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href={API_URL} />
+        {/* Google Ads tag is now lazyOnload, so a DNS hint is enough (no early connection reserved) */}
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        {/* New Relic browser RUM beacon loads early — preconnect it */}
+        <link rel="preconnect" href="https://bam.nr-data.net" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://bam.nr-data.net" />
+        {/* PostHog (product analytics) — lighter DNS hints */}
+        <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+        <link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
+        {/* Google Ads conversion tag — lazyOnload keeps it off the critical path;
+            dataLayer queues events until gtag.js loads during idle. */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-11416473237"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-ads-gtag" strategy="afterInteractive">
+        <Script id="google-ads-gtag" strategy="lazyOnload">
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());

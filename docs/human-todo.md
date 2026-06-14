@@ -20,6 +20,21 @@
 - [ ] (Optional) Add more entries to `src/lib/guide-seo.ts` (FAQ/titles) and
       `src/lib/word-to-color-seeds.ts` (more words) — both are append-only and safe.
 
+## 🟢 Core Web Vitals batch shipped 2026-06-14
+- **Sentry session/error Replay turned OFF** (`instrumentation-client.ts`,
+  `replaysOnErrorSampleRate: 0`) to drop ~50KB from every page. Error capture +
+  10% perf tracing still on; only the visual before-crash replay is gone. Re-enable
+  by raising that rate if you ever need replay debugging.
+- **Google Ads gtag → `lazyOnload`** (`app/layout.tsx`) — off the critical path;
+  conversions still queue via `dataLayer`. If you notice conversion under-reporting
+  in Google Ads, switch it back to `afterInteractive`.
+- **Product Hunt launch banner turned off** (`ph-launch-banner.tsx`,
+  `PH_LAUNCH_ACTIVE=false`) — stale since the April launch + caused a layout shift.
+  Flip back to `true` for any future launch.
+- Kept intentionally (per credits.md observability split): NewRelic RUM, Sentry
+  crashes, PostHog product, GTM ads.
+- [ ] Optional: confirm CWV improved in NewRelic RUM / PageSpeed Insights in ~1 week.
+
 ## 🔴 P0 — this week (Figma launch window)
 
 - [x] ~~Facebook token re-auth~~ — **DONE 2026-06-10 evening** (with Jason assisting the
