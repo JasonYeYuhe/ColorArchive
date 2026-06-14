@@ -384,7 +384,9 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 > - **WTP experiment**: `/preorder/` landing (`src/components/preorder-page.tsx`,
 >   `preorderConfig` in checkout-config) — pre-order the "Accessibility Auditor" Pro feature
 >   ($49 founder). Card-required when `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` is set; email
->   fallback otherwise. noindex (time-boxed). Fires `preorder_*` funnel events. Linked from `/pro/`.
+>   fallback otherwise. noindex (time-boxed). Fires `preorder_*` funnel events. Entry points:
+>   `/pro/` + contextual `AuditorPreorderCta` on `/palette-audit/` and `/wcag-audit/`
+>   (tracked via `preorder_cta_click {from}` for source attribution).
 
 | Content | Count |
 |---------|-------|

@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef, useCallback } from "react";
 import { hexContrastRatio, wcagLabel } from "@/src/lib/brand-palette";
 import { getPaletteIds } from "@/src/lib/palette-builder";
+import { AuditorPreorderCta } from "@/src/components/auditor-preorder-cta";
 import { SITE_DOMAIN } from "@/src/lib/site-config";
 import { ProGate } from "@/src/components/pro-gate";
 import { colors as allColors } from "@/src/data/colors";
@@ -215,6 +216,10 @@ export function WcagAuditPage() {
           </div>
         </div>
       </form>
+
+      <div className="mb-6">
+        <AuditorPreorderCta from="wcag-audit" />
+      </div>
 
       {/* Results */}
       {colors.length >= 2 && (

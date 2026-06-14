@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { audit, type AuditResult } from "@/src/lib/palette-audit";
+import { AuditorPreorderCta } from "@/src/components/auditor-preorder-cta";
 import { track } from "@/src/lib/track";
 
 const SAMPLE_INPUT = `/* Paste your CSS vars, Tailwind config, or a raw list of colors. */
@@ -273,6 +274,10 @@ export function PaletteAuditPage() {
           account, no upload limit, no watermark.
         </p>
       </header>
+
+      <div className="mb-6">
+        <AuditorPreorderCta from="palette-audit" />
+      </div>
 
       <section className="mb-6 rounded-2xl border border-black/8 bg-white/70 p-5 backdrop-blur dark:border-white/10 dark:bg-neutral-900/60">
         <label

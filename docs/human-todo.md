@@ -71,8 +71,9 @@ Shipped (code, safe + verdict-independent):
          - c) Redeploy. The page auto-flips from the email fallback to a card-required
               "Pre-order — $49" button. (Until then it's collecting email reservations tagged
               `source: "preorder"` — a weaker but live signal.)
-         - Drive traffic: it's linked from `/pro/`; also post about it (the distribution
-           drafts), and consider a CTA on `/palette-audit/` + `/wcag-audit/` (the exact ICP).
+         - Drive traffic: linked from `/pro/` + contextual CTAs now live on `/palette-audit/`
+           and `/wcag-audit/` (the exact ICP; clicks tracked as `preorder_cta_click {from}` so
+           you can see which surface converts). Also post about it (the distribution drafts).
          - **KILL CRITERION: < 10 real card pre-orders in 30 days → the designer-Pro theory
            is not validated; do not keep building Pro features.** (Email reservations are NOT
            pass — only card-required pre-orders count.)
