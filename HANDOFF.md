@@ -22,12 +22,19 @@ everything else is now genuinely validation + distribution + time.
   (counts only new user-typed words; crawlers / shared `?q=` links / the 474 static pages
   never hit it). Toggle: `WORD_PAYWALL_ENABLED` in `word-color-generator-page.tsx`. Events:
   `word_paywall_hit` / `word_paywall_pro_click` / `word_paywall_email_unlock`.
-- **$49 pre-order enablement kit**: `docs/preorder-ls-setup-2026-06-15.md` — the only
-  remaining step is in the owner's Lemon Squeezy account (create the product, paste the
-  URL into Vercel, redeploy). Code side was already done.
-- **Owner's immediate move**: do the 5-min LS step above (unlocks the card test), then post
-  the distribution drafts (`docs/backlink-distribution-drafts-2026-06-14.md`) to feed both
-  funnels. Then let GSC + the funnels mature ~2–3 weeks before the S2 exit-gate decision.
+- **Pre-order card test — LIVE 2026-06-15.** Store is JPY, so priced **¥4,999 founder /
+  ¥9,999 regular** (referenced the existing Pro scale). Owner created the LS one-time product;
+  `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` set in Vercel via `vercel` CLI → `/preorder/` shows the
+  card button (verified). **Kill criterion: <10 real card pre-orders by ~2026-07-15 → stop
+  building Pro** (LS → Orders, live mode). Setup notes: `docs/preorder-ls-setup-2026-06-15.md`.
+- **LS/Stripe cleanup**: duplicate LS store "Color Archive" (empty) being deleted via
+  hello@lemonsqueezy.com; the separate paused Stripe acct is unrelated to the live MoR flow.
+- **Owner's immediate move** (both have execution docs now, written 2026-06-15):
+  1. **Distribution** — `docs/distribution-plan-2026-06-15.md` (14-day cadence, CTAs routed to
+     the live paywall/preorder). This is what feeds the empty funnels.
+  2. **10 user interviews** — `docs/user-interview-recruitment-2026-06-15.md` (copy + channels +
+     7-day outreach). Set up a booking link, start with the 5 registered users.
+  Then let GSC + the funnels mature ~2–3 weeks before the S2 exit-gate decision. **Don't add features.**
 
 The 2026-06-14 notes below remain accurate as the underlying state.
 

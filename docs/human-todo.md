@@ -31,8 +31,12 @@
 - **Measured 2026-06-15**: the preorder funnel had **0 events / 0 reservations** since the
   06-14 launch — NOT a tracking bug (pageviews ~800–1000/day, `track()` events do land).
   `/preorder/` just gets no traffic (buried behind low-traffic pages). It needs the paywall
-  + the distribution drafts to feed it. Posting those drafts is still the highest-leverage
-  human task.
+  + distribution to feed it. **The two highest-leverage human tasks now have execution docs:**
+  - [ ] **Post the distribution drafts** on a cadence → `docs/distribution-plan-2026-06-15.md`
+        (14-day schedule, CTAs routed to the live paywall/preorder, disclosure + anti-spam rules).
+  - [ ] **Run the 10 user interviews** → recruitment copy + channels + 7-day outreach in
+        `docs/user-interview-recruitment-2026-06-15.md` (script stays in `user-interview-script.md`).
+        Set up a Cal.com/Calendly booking link first; start with the 5 registered users.
 
 ## 🟢 SEO/exposure batch shipped 2026-06-14 — measure & follow up
 > Goal: push page-2 pages to page 1 + grow traffic (Google + AI engines). All code
