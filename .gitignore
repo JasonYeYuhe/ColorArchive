@@ -31,3 +31,10 @@ test-results/
 .mcp.json
 .vercel
 server/.env.facebook
+
+# iCloud/cloud-sync conflict copies, e.g. "file 2.ext" / "file 3.ext"
+**/* 2.*
+**/* 3.*
+# ...but keep these legitimately-numbered files that resemble conflict copies
+!colorarchive_logo_v1_assets/screenshot website 2.png
+!colorarchive_logo_v1_assets/screenshot website 3.png
