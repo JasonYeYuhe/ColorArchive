@@ -19,6 +19,35 @@ verbatim quotes. Quality > quantity — 10 real users beats 100 survey fillers.
 
 ---
 
+## Self-serve survey — LIVE (2026-06-15)
+
+A 9-question Google Form is published and public ("Anyone with the link"). It's the
+**breadth** instrument that complements the 1:1 interviews (the **depth** instrument):
+Q9 "open to a 20-min call?" funnels willing respondents straight into interviews.
+
+**Live link (drop into emails + distribution posts):**
+`https://docs.google.com/forms/d/e/1FAIpQLSf5dTPy9ccPgXdKx2SOf7ICKu5AHucxkm3VoWzBfaZXEZOm2Q/viewform`
+
+Questions (behavioral, per the script): role · how they found us · what they were working on ·
+which tool used most · what they did next · ever paid for a design tool (past behavior) ·
+what would make it worth paying for · email · open to a call.
+
+**Reward = 1 free month of Pro, via a Lemon Squeezy 100%-off code** (keeps it off-code, scales):
+- LS → **Discounts → New discount**: name e.g. `SURVEY1MO`, **100% off**, applies to **Pro monthly
+  (first payment)**, cap total redemptions (~50), set a 60-day expiry.
+- Put it in the form's **confirmation message** (`Settings → Presentation → Confirmation message`):
+  *"Thanks! Here's your free month of Pro — use code SURVEY1MO at checkout: https://colorarchive.org/pro"*
+
+**⚠️ Don't contaminate the WTP test:** make it **1 month only** (not lifetime); keep this free
+code **off** `/pro`, `/preorder`, and the paywall — distribute it only via the survey/emails. The
+paywall + preorder "will they pay" signal must stay clean. Treat survey answers to the pay
+question as *stated* preference (weaker than the *revealed* signal from the paid surfaces).
+
+**Two owner finishing toggles** (the Chrome automation couldn't type into Google's fields):
+- Settings → Responses → **Collect email addresses → "Do not collect"** (Q8 already captures email;
+  avoids forcing a Google login that would tank cold-traffic completion).
+- Set the confirmation message above.
+
 ## The pool — recruit in this priority order
 
 | Priority | Source | Why first | Size today |
