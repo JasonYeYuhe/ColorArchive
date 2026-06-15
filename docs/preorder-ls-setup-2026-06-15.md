@@ -1,9 +1,14 @@
-# $49 Pre-order — Lemon Squeezy setup kit (2026-06-15)
+# Pre-order — Lemon Squeezy setup kit (2026-06-15)
 
-> Purpose: flip `/preorder/` from the **email-reservation fallback** to the **real,
-> card-required $49 test**. This is the prerequisite for the WTP kill criterion
-> (<10 real card pre-orders in 30 days → designer-Pro theory not validated).
-> The page already auto-detects the URL — **the only thing left is in your LS account.**
+> ✅ **DONE 2026-06-15.** Product created in the **ColorArchive** store, priced in **JPY**
+> (store currency): **¥4,999 founder / ¥9,999 regular** — "$49" couldn't be billed because
+> the store is JPY; we referenced the existing Pro price scale instead. The Buy link is wired
+> into `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` (Vercel Production, set via CLI) and `/preorder/`
+> now shows a real card button. The steps below are kept as reference / for the next time.
+>
+> Original purpose: flip `/preorder/` from the **email-reservation fallback** to the **real,
+> card-required test** — the prerequisite for the WTP kill criterion (<10 real card pre-orders
+> in 30 days → designer-Pro theory not validated).
 
 The code side is done: `src/lib/checkout-config.ts` reads
 `NEXT_PUBLIC_PREORDER_CHECKOUT_URL`. When it's set, `src/components/preorder-page.tsx`

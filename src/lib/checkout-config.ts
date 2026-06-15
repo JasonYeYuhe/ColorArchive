@@ -89,8 +89,10 @@ export const checkoutFlowConfig: CheckoutFlowConfig = {
 export const preorderConfig = {
   feature: "Accessibility Auditor",
   tagline: "Audit an entire palette or design system for accessibility in one pass.",
-  priceUsd: "$49",
-  regularUsd: "$99",
+  // Billed in JPY (the store currency), referencing the existing Pro price scale
+  // (¥3,999/yr ≈ the "$49.99" tier). Founder ¥4,999, regular ¥9,999 at launch.
+  price: "¥4,999",
+  regularPrice: "¥9,999",
   shipBy: "Q3 2026",
   checkoutUrl: process.env.NEXT_PUBLIC_PREORDER_CHECKOUT_URL || null,
 } as const;

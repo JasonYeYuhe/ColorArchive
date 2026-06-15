@@ -5,7 +5,7 @@ import { preorderConfig } from "@/src/lib/checkout-config";
 
 export const metadata: Metadata = {
   title: { absolute: `Pre-order the ${preorderConfig.feature} — ColorArchive Pro` },
-  description: `Pre-order the ColorArchive ${preorderConfig.feature}: audit a whole palette for WCAG + color-blindness, get accessible fixes from the archive, and export a report. Founder price ${preorderConfig.priceUsd}.`,
+  description: `Pre-order the ColorArchive ${preorderConfig.feature}: audit a whole palette for WCAG + color-blindness, get accessible fixes from the archive, and export a report. Founder price ${preorderConfig.price}.`,
   // Time-boxed willingness-to-pay experiment — keep it out of the index so a
   // pulled experiment doesn't leave a dead ranked URL. Traffic comes from internal
   // links + posts, not SEO.

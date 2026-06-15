@@ -7,12 +7,19 @@
 > Code-doable growth levers are basically done; the remaining signal is validation +
 > distribution + time. This batch wired the two remaining code probes; the rest is yours.
 
-- [ ] **Turn on the real $49 card test (~5 min)** — full copy-paste runbook now at
-      `docs/preorder-ls-setup-2026-06-15.md`. Create the Lemon Squeezy "Accessibility
-      Auditor — Pre-order" one-time $49 product → copy its Buy link → set
-      `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` in Vercel Production → redeploy. The page
-      auto-flips to a card button. **Until then `/preorder/` is email-only (weak signal).**
-      Kill criterion unchanged: <10 real card pre-orders in 30 days → stop building Pro.
+- [x] **Real card pre-order test — LIVE 2026-06-15.** LS one-time product created in the
+      **ColorArchive** store, priced **¥4,999 founder / ¥9,999 regular** (JPY, the store
+      currency — referenced the existing Pro scale; "$49" couldn't be billed since the store
+      is JPY). `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` set in Vercel Production via CLI; page now
+      shows a card-required "Pre-order — ¥4,999" button. **Kill criterion: <10 real card
+      pre-orders in 30 days (by ~2026-07-15) → stop building Pro.** Read orders in LS →
+      Orders (live mode). Needs traffic — see the paywall + distribution drafts.
+- [ ] **Delete the duplicate LS store "Color Archive"** (the one with a space — empty, ¥0,
+      never activated, test-mode). Keep **"ColorArchive"** (the active one). Self-serve delete
+      may not exist → email **hello@lemonsqueezy.com** (draft in the 2026-06-15 chat). The
+      separate paused **Stripe account "Color Archive"** (`acct_1TFOUMGzX2t5YKlz`, payments
+      paused / verification overdue) is unrelated to the live LS flow (LS is MoR, pays out to
+      your bank) — leave it dormant unless you decide to go direct-Stripe later.
 - [x] **word-to-color WTP paywall — BUILT + ENABLED** (your call "建并直接开"). After 5
       distinct word generations the result gates behind Pro + an email-unlock. SEO-safe
       (crawlers / shared links / the 474 static pages never hit it). Toggle off any time

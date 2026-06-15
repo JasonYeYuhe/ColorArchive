@@ -40,7 +40,7 @@ const FAQ = [
   },
   {
     q: "Is this a subscription?",
-    a: `No — the ${preorderConfig.feature} pre-order is a one-time founder price (${preorderConfig.priceUsd}, regularly ${preorderConfig.regularUsd} at launch).`,
+    a: `No — the ${preorderConfig.feature} pre-order is a one-time founder price (${preorderConfig.price}, regularly ${preorderConfig.regularPrice} at launch).`,
   },
   {
     q: "How is this different from the free contrast checker?",
@@ -62,7 +62,7 @@ function PreorderCTA() {
         }}
         className="w-full rounded-xl bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
       >
-        Pre-order — {preorderConfig.priceUsd} (founder price)
+        Pre-order — {preorderConfig.price} (founder price)
       </button>
     );
   }
@@ -72,7 +72,7 @@ function PreorderCTA() {
     <div>
       <CotdSubscribeForm
         source="preorder"
-        heading={`Reserve your founder price (${preorderConfig.priceUsd})`}
+        heading={`Reserve your founder price (${preorderConfig.price})`}
       />
       <p className="mt-2 text-[11px] text-slate-400">
         We&rsquo;ll email you the moment pre-orders open at the founder price.
@@ -106,8 +106,8 @@ export function PreorderPage() {
         {/* Pre-order box */}
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-neutral-900 sm:p-8">
           <div className="flex flex-wrap items-baseline justify-center gap-2 text-center">
-            <span className="text-4xl font-bold text-slate-900 dark:text-white">{preorderConfig.priceUsd}</span>
-            <span className="text-sm text-slate-400 line-through">{preorderConfig.regularUsd}</span>
+            <span className="text-4xl font-bold text-slate-900 dark:text-white">{preorderConfig.price}</span>
+            <span className="text-sm text-slate-400 line-through">{preorderConfig.regularPrice}</span>
             <span className="text-sm text-slate-500 dark:text-slate-400">one-time · founder price</span>
           </div>
           <p className="mb-5 mt-1 text-center text-xs text-slate-400">
@@ -157,7 +157,7 @@ export function PreorderPage() {
         {/* Repeat CTA */}
         <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-white/10 dark:bg-neutral-900">
           <p className="mb-4 text-sm text-slate-600 dark:text-slate-400">
-            Founder price {preorderConfig.priceUsd} (regularly {preorderConfig.regularUsd}). Refund anytime before launch.
+            Founder price {preorderConfig.price} (regularly {preorderConfig.regularPrice}). Refund anytime before launch.
           </p>
           <div className="mx-auto max-w-sm">
             <PreorderCTA />
