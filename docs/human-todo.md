@@ -1,7 +1,31 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-14 (SEO/exposure batch — page-1 + traffic push)
+> Last updated: 2026-06-15 (WTP batch — word-to-color paywall live + $49 pre-order kit)
+
+## 🟢 WTP batch shipped 2026-06-15 — 1 quick human step + measure
+> Code-doable growth levers are basically done; the remaining signal is validation +
+> distribution + time. This batch wired the two remaining code probes; the rest is yours.
+
+- [ ] **Turn on the real $49 card test (~5 min)** — full copy-paste runbook now at
+      `docs/preorder-ls-setup-2026-06-15.md`. Create the Lemon Squeezy "Accessibility
+      Auditor — Pre-order" one-time $49 product → copy its Buy link → set
+      `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` in Vercel Production → redeploy. The page
+      auto-flips to a card button. **Until then `/preorder/` is email-only (weak signal).**
+      Kill criterion unchanged: <10 real card pre-orders in 30 days → stop building Pro.
+- [x] **word-to-color WTP paywall — BUILT + ENABLED** (your call "建并直接开"). After 5
+      distinct word generations the result gates behind Pro + an email-unlock. SEO-safe
+      (crawlers / shared links / the 474 static pages never hit it). Toggle off any time
+      via the `WORD_PAYWALL_ENABLED` constant in `word-color-generator-page.tsx`.
+- [ ] **Measure the new funnels (PostHog / first-party events), 2–3 weeks:**
+      `word_paywall_hit` → `word_paywall_pro_click` (paid intent) vs `word_paywall_email_unlock`
+      (lead). And the preorder funnel once the card test is on. First-party query is in the
+      pre-order kit doc.
+- **Measured 2026-06-15**: the preorder funnel had **0 events / 0 reservations** since the
+  06-14 launch — NOT a tracking bug (pageviews ~800–1000/day, `track()` events do land).
+  `/preorder/` just gets no traffic (buried behind low-traffic pages). It needs the paywall
+  + the distribution drafts to feed it. Posting those drafts is still the highest-leverage
+  human task.
 
 ## 🟢 SEO/exposure batch shipped 2026-06-14 — measure & follow up
 > Goal: push page-2 pages to page 1 + grow traffic (Google + AI engines). All code

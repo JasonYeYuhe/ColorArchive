@@ -10,11 +10,14 @@ export function CotdSubscribeForm({
   colorHex,
   source = "cotd",
   heading = "Get a color every morning",
+  onSuccess,
 }: {
   colorHex?: string;
   /** attribution tag stored with the subscriber (e.g. "word-to-color") */
   source?: string;
   heading?: string;
+  /** fired once after a successful subscribe (e.g. to lift a paywall gate) */
+  onSuccess?: () => void;
 }) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<State>("idle");
@@ -39,6 +42,7 @@ export function CotdSubscribeForm({
       });
       if (!res.ok) throw new Error("Server error");
       setState("success");
+      onSuccess?.();
     } catch {
       setErrorMsg("Something went wrong. Please try again.");
       setState("error");

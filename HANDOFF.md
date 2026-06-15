@@ -1,9 +1,35 @@
 # Handoff — Growth + Conversion Session (2026-06-14)
 
-Last updated: 2026-06-14 · Author: Claude Code (Opus 4.8) · Branch: `main`
+Last updated: 2026-06-15 · Author: Claude Code (Opus 4.8) · Branch: `main`
 
 > Purpose: let the next session pick up seamlessly. Read this + `docs/human-todo.md`
 > + `docs/dev-plan-2026-05-31.md` (the validated V2 strategy) + `STRUCTURE.md` first.
+
+---
+
+## 2026-06-15 update (remote session)
+
+Confirmed with the owner before coding. Shipped the **last two code-doable WTP probes**;
+everything else is now genuinely validation + distribution + time.
+
+- **Looked at real funnel data** (first-party DB on the Droplet): pipeline is healthy
+  (`pageviews` ~800–1000/day, `track()` events land), but the **preorder funnel has 0
+  events / 0 reservations** since the 06-14 launch — `/preorder/` just gets no traffic
+  (it's buried behind low-traffic pages). GSC at T+1 day cannot yet show the 474 word
+  pages (indexing takes days–weeks; report lags 2–3 days), so no GSC read yet.
+- **word-to-color WTP paywall — BUILT + ENABLED** (owner: "建并直接开"). After 5 distinct
+  word lookups the palette/exports gate behind a `/pro/` CTA + email-unlock. SEO-safe
+  (counts only new user-typed words; crawlers / shared `?q=` links / the 474 static pages
+  never hit it). Toggle: `WORD_PAYWALL_ENABLED` in `word-color-generator-page.tsx`. Events:
+  `word_paywall_hit` / `word_paywall_pro_click` / `word_paywall_email_unlock`.
+- **$49 pre-order enablement kit**: `docs/preorder-ls-setup-2026-06-15.md` — the only
+  remaining step is in the owner's Lemon Squeezy account (create the product, paste the
+  URL into Vercel, redeploy). Code side was already done.
+- **Owner's immediate move**: do the 5-min LS step above (unlocks the card test), then post
+  the distribution drafts (`docs/backlink-distribution-drafts-2026-06-14.md`) to feed both
+  funnels. Then let GSC + the funnels mature ~2–3 weeks before the S2 exit-gate decision.
+
+The 2026-06-14 notes below remain accurate as the underlying state.
 
 ---
 

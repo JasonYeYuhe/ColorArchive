@@ -358,7 +358,23 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 
 ---
 
-## Content Counts (as of 2026-06-14)
+## Content Counts (as of 2026-06-15)
+
+> **2026-06-15 WTP batch** (`src/components/word-color-generator-page.tsx`,
+> `cotd-subscribe-form.tsx`):
+> - **Word-to-color free-preview paywall (LIVE)** — after 5 distinct user-typed words,
+>   the generated palette + exports gate behind a `/pro/` CTA + an email-unlock escape
+>   hatch (`CotdSubscribeForm` gained an `onSuccess` callback; unlock persists in
+>   `localStorage`). Client-side & counts only NEW words, so the initial `?q=`/default
+>   word, shared links, crawlers, and the 474 static `[word]` pages are unaffected
+>   (SEO-safe). Toggle via `WORD_PAYWALL_ENABLED` / `FREE_GENERATIONS` constants. Fires
+>   `word_paywall_hit` / `word_paywall_pro_click` / `word_paywall_email_unlock`.
+> - **$49 pre-order enablement kit**: `docs/preorder-ls-setup-2026-06-15.md` (LS product
+>   + `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` + verify + how to read the signal). Code side
+>   was already done; only the LS-account step remains for the owner.
+> - Measured: first-party funnel had **0 preorder events / 0 reservations** since the
+>   06-14 launch — pipeline is healthy (~800–1000 PV/day), but `/preorder/` simply has no
+>   traffic yet. The paywall + posting the distribution drafts are what feed it.
 
 > **2026-06-14 SEO/exposure batch** (`src/lib/color-guide-links.ts`, `guide-seo.ts`,
 > `word-to-color-seeds.ts`, `og-card.tsx`, `scripts/indexnow-ping.mjs`):
