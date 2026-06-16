@@ -32,21 +32,22 @@ Questions (behavioral, per the script): role · how they found us · what they w
 which tool used most · what they did next · ever paid for a design tool (past behavior) ·
 what would make it worth paying for · email · open to a call.
 
-**Reward = 1 free month of Pro, via a Lemon Squeezy 100%-off code** (keeps it off-code, scales):
-- LS → **Discounts → New discount**: name e.g. `SURVEY1MO`, **100% off**, applies to **Pro monthly
-  (first payment)**, cap total redemptions (~50), set a 60-day expiry.
-- Put it in the form's **confirmation message** (`Settings → Presentation → Confirmation message`):
-  *"Thanks! Here's your free month of Pro — use code SURVEY1MO at checkout: https://colorarchive.org/pro"*
+**Reward = 1 free month of Pro, via a Lemon Squeezy 100%-off code — LIVE:**
+- Code **`SURVEY1MON`** (LS → Discounts, Active), **100% off**, scoped to **ColorArchive Pro —
+  Monthly variant** only — so a redeemer gets one ¥499 month free, NOT a free year/lifetime.
+- Wired into the form's **confirmation message**: *"Thanks! Here's your free month of Pro — use
+  code SURVEY1MON at checkout: https://colorarchive.org/pro"*
+- To verify in the discount's **Settings**: redemption cap + expiry, and first-payment-only (so
+  it's not free-monthly-forever). An older `SURVEY1MO` discount is Draft/inactive — safe to delete.
 
 **⚠️ Don't contaminate the WTP test:** make it **1 month only** (not lifetime); keep this free
 code **off** `/pro`, `/preorder`, and the paywall — distribute it only via the survey/emails. The
 paywall + preorder "will they pay" signal must stay clean. Treat survey answers to the pay
 question as *stated* preference (weaker than the *revealed* signal from the paid surfaces).
 
-**Two owner finishing toggles** (the Chrome automation couldn't type into Google's fields):
-- Settings → Responses → **Collect email addresses → "Do not collect"** (Q8 already captures email;
-  avoids forcing a Google login that would tank cold-traffic completion).
-- Set the confirmation message above.
+**Owner finishing toggles — DONE:** email-collect set to "Do not collect" (Q8 captures email, no
+forced Google login); confirmation message set with the `SURVEY1MON` code. **The survey is fully
+live and ready to distribute** — drop the link into recruitment emails + distribution posts.
 
 ## The pool — recruit in this priority order
 
