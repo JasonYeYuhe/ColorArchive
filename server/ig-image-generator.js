@@ -24,7 +24,7 @@ if (!fs.existsSync(GENERATED_DIR)) {
 }
 
 // Bare domain for watermark text in generated images
-const SITE_DOMAIN = (process.env.FRONTEND_ORIGIN || "https://${SITE_DOMAIN}")
+const SITE_DOMAIN = (process.env.FRONTEND_ORIGIN || "https://colorarchive.org")
   .replace(/^https?:\/\//, "")
   .replace(/\/$/, "");
 

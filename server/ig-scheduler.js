@@ -3,7 +3,7 @@
  *
  * Schedule:
  *   - Daily Story at ~10:00 AM JST (01:00 UTC)
- *   - Feed Post every 3 days at ~12:00 PM JST (03:00 UTC)
+ *   - Daily Feed Post at ~12:00 PM JST (03:00 UTC) — named template, color/palette alternating
  *
  * Content rotation:
  *   Stories — Color of the Day (60%), Palette from collection (40%)
@@ -156,7 +156,7 @@ function colorCaption(color) {
   return `🎨 ${color.name}\n\n` +
     `${color.hex} · ${color.family}\n` +
     `H${color.hue}° S${color.saturation}% L${color.lightness}%\n\n` +
-    `Explore this color and 2000+ more at ${SITE_DOMAIN}/colors/${color.id}\n\n` +
+    `Explore this color and 5,400+ more at ${SITE_DOMAIN}/colors/${color.id}\n\n` +
     HASHTAGS;
 }
 
@@ -206,8 +206,9 @@ async function runDailyStory() {
 
 async function runPeriodicPost() {
   const day = dayOfYear();
-  // Post every 3 days
-  if (day % 3 !== 0) return;
+  // Post a named feed post DAILY (was every 3 days). The daily cadence used to be
+  // filled by the daily-color-post skill's bare solid-color swatch (no name) — that
+  // path is removed, so the server now owns IG with a consistent named template.
 
   const key = `post-${todayStr()}`;
   if (alreadyPosted(key)) {
@@ -217,7 +218,7 @@ async function runPeriodicPost() {
 
   try {
     let filename, caption;
-    const cycle = Math.floor(day / 3) % 2;
+    const cycle = day % 2;
 
     if (cycle === 0) {
       // Featured Color
@@ -227,7 +228,7 @@ async function runPeriodicPost() {
       console.log(`[ig-scheduler] Post: Featured Color — ${color.name}`);
     } else {
       // Palette Post
-      const collection = collections[Math.floor(day / 3) % collections.length];
+      const collection = collections[day % collections.length];
       filename = await generatePalettePost(collection.palette, collection.title);
       caption = paletteCaption(collection.title, collection.palette);
       console.log(`[ig-scheduler] Post: Palette — ${collection.title}`);
@@ -255,7 +256,7 @@ let postTimer = null;
 
 function startScheduler() {
   console.log("[ig-scheduler] Instagram auto-posting scheduler started");
-  console.log("[ig-scheduler] Story: daily ~10 AM JST | Post: every 3 days ~12 PM JST");
+  console.log("[ig-scheduler] Story: daily ~10 AM JST | Post: daily ~12 PM JST");
 
   // Run story check every hour (will skip if already posted today)
   storyTimer = setInterval(async () => {
