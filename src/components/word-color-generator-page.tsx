@@ -76,6 +76,16 @@ function isUnlocked(): boolean {
   }
 }
 
+// --- Interview/feedback recruitment banner (B4) -------------------------------
+// A small, dismissible strip on the #1 traffic page that routes engaged visitors to
+// the 2-min survey (which itself funnels to interviews via its "open to a call?" Q).
+// Rendered only after mount (no SSR/first-paint output → no hydration mismatch, no flash
+// for people who already dismissed it). Flip RECRUIT_BANNER_ENABLED to remove instantly.
+const RECRUIT_BANNER_ENABLED = true;
+const RECRUIT_SURVEY_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSf5dTPy9ccPgXdKx2SOf7ICKu5AHucxkm3VoWzBfaZXEZOm2Q/viewform";
+const RECRUIT_DISMISS_KEY = "colorarchive-recruit-banner-dismissed";
+
 export function WordColorGeneratorPage() {
   const router = useRouter();
   const pathname = usePathname();
@@ -91,6 +101,7 @@ export function WordColorGeneratorPage() {
   // spent their free lookups. The word the visitor landed on is captured ONCE (the route
   // rewrites ?q= as the user types, so we can't recompute it) and is always free + viewable.
   const [gated, setGated] = useState(false);
+  const [showRecruit, setShowRecruit] = useState(false);
   const landingWordRef = useRef(normalizeWord(initialWord));
   const countedWordsRef = useRef<Set<string> | null>(null);
   const getCountedWords = () => {
@@ -190,6 +201,20 @@ export function WordColorGeneratorPage() {
     setTimeout(() => setGated(false), 1400);
   };
 
+  // Recruitment banner: show only after mount, and only if not previously dismissed.
+  useEffect(() => {
+    if (!RECRUIT_BANNER_ENABLED) return;
+    try {
+      if (localStorage.getItem(RECRUIT_DISMISS_KEY) !== "1") setShowRecruit(true);
+    } catch {}
+  }, []);
+
+  const dismissRecruit = () => {
+    setShowRecruit(false);
+    try { localStorage.setItem(RECRUIT_DISMISS_KEY, "1"); } catch {}
+    track("recruit_banner_dismiss", {});
+  };
+
   // The landing word is always viewable; the gate only replaces the result once the
   // visitor moves on to a different word while gated. Conditions are written inline as
   // `generated && (...)` so TypeScript narrows `generated` to non-null inside each branch.
@@ -198,6 +223,32 @@ export function WordColorGeneratorPage() {
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
+        {showRecruit && (
+          <div className="flex items-center justify-between gap-3 rounded-2xl border border-black/8 bg-neutral-950 px-4 py-2.5 text-sm text-white">
+            <span className="min-w-0">
+              <span aria-hidden="true">🎨 </span>
+              Did ColorArchive help? Tell us in a 2-min survey —{" "}
+              <a
+                href={RECRUIT_SURVEY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track("recruit_banner_click", {})}
+                className="font-semibold underline underline-offset-2 hover:text-neutral-200"
+              >
+                get a free month of Pro
+              </a>
+              .
+            </span>
+            <button
+              type="button"
+              onClick={dismissRecruit}
+              aria-label="Dismiss"
+              className="shrink-0 rounded-full px-2 py-0.5 text-lg leading-none text-neutral-400 transition hover:bg-white/10 hover:text-white"
+            >
+              ×
+            </button>
+          </div>
+        )}
         <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
