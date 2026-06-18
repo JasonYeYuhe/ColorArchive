@@ -29,7 +29,8 @@ export const proSubscriptionConfig = {
   monthly: {
     price: "¥499",
     currency: "JPY" as const,
-    priceUsd: "$6.99",
+    // USD labels are approximate (billing is JPY) at ~150 JPY/USD — keep in sync if FX drifts a lot.
+    priceUsd: "$3.49",
     period: "month" as const,
     trialDays: 3,
     note: "Pro monthly subscription",
@@ -37,7 +38,7 @@ export const proSubscriptionConfig = {
   yearly: {
     price: "¥3,999",
     currency: "JPY" as const,
-    priceUsd: "$49.99",
+    priceUsd: "$26.99",
     period: "year" as const,
     trialDays: 3,
     savings: "33%",
@@ -46,7 +47,7 @@ export const proSubscriptionConfig = {
   lifetime: {
     price: "¥19,999",
     currency: "JPY" as const,
-    priceUsd: "$199.99",
+    priceUsd: "$129",
     period: "lifetime" as const,
     note: "Pro lifetime — one-time purchase",
   },
@@ -89,10 +90,12 @@ export const checkoutFlowConfig: CheckoutFlowConfig = {
 export const preorderConfig = {
   feature: "Accessibility Auditor",
   tagline: "Audit an entire palette or design system for accessibility in one pass.",
-  // Billed in JPY (the store currency), referencing the existing Pro price scale
-  // (¥3,999/yr ≈ the "$49.99" tier). Founder ¥4,999, regular ¥9,999 at launch.
+  // Billed in JPY (the store currency). Founder ¥4,999 (≈ $33), regular ¥9,999 (≈ $67) at launch.
   price: "¥4,999",
   regularPrice: "¥9,999",
+  // Approximate USD (billing is JPY) at ~150 JPY/USD — for display only.
+  priceUsd: "$33",
+  regularPriceUsd: "$67",
   shipBy: "Q3 2026",
   checkoutUrl: process.env.NEXT_PUBLIC_PREORDER_CHECKOUT_URL || null,
 } as const;

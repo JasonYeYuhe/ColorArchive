@@ -351,7 +351,7 @@ export function AccountPage() {
             </div>
             {!isPro && (
               <Link
-                href="/pro"
+                href="/pro/"
                 className="px-4 py-2 bg-neutral-900 text-white text-xs font-semibold rounded-xl hover:bg-neutral-700 transition-colors dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200"
               >
                 {t("account.upgradeToPro")}

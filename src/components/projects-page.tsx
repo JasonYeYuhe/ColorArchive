@@ -183,7 +183,7 @@ export function ProjectsPage() {
           </div>
           {tier !== "pro" && (
             <Link
-              href="/pro"
+              href="/pro/"
               className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-white font-medium transition-colors"
             >
               {projects.length}/5 {t("projects.freeUpgrade")} &middot; {t("projects.upgrade")}

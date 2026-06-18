@@ -85,7 +85,7 @@ export function ToolUpsellBanner({ toolName }: ToolUpsellBannerProps) {
       </div>
       <div className="mt-4 flex gap-3">
         <Link
-          href="/pro"
+          href="/pro/"
           className="rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-indigo-500"
         >
           View Pro Plans

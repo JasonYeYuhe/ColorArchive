@@ -1,7 +1,29 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-15 (WTP batch — word-to-color paywall live + $49 pre-order kit)
+> Last updated: 2026-06-19 (B3 pricing口径 decided + B5 conversion-hygiene sweep)
+
+## 🟢 B3 + B5 shipped 2026-06-19 (remote) — pricing口径 fixed, conversion hygiene
+> Owner decided the B3 pricing口径: **JPY-primary + corrected approximate USD** (keep
+> billing in JPY; show an honest ≈USD at ~150 JPY/USD). Code-only, no LS changes needed.
+> A read-only multi-agent audit (adversarially verified) then surfaced 5 low-regret
+> conversion-hygiene fixes, all shipped in the same commit:
+> - **B3**: fixed `priceUsd` in `checkout-config.ts` (monthly $6.99→**$3.49**, yearly
+>   $49.99→**$26.99**, lifetime $199.99→**$129**); added preorder `priceUsd $33` /
+>   `regularPriceUsd $67`. Reconciled stale USD on `/pro` promo card ("$49"→JP¥4,999 ≈$33)
+>   and support FAQ ("$199.99"→$129).
+> - **B5-1**: `/pro` JSON-LD `SoftwareApplication` Lifetime Offer price was **¥9,999**
+>   (half the real ¥19,999) — a machine-readable price Google/Bing index. Fixed → 19999.
+> - **B5-2**: 10 bare `href="/pro"` across upgrade-modal / pro-gate / projects / account /
+>   tool-upsell-banner forced a 308 redirect (next.config `trailingSlash:true`) on the
+>   paywall CTA — all → `/pro/`.
+> - **B5-3**: `/preorder` + auditor CTA rendered bare `¥4,999` (zh users misread as RMB,
+>   ~7× inflated) — propagated the existing `JP¥` disambiguation + added the ≈USD line.
+> - **Deliberately NOT done**: the audit suggested dropping the `JP¥` prefix on /pro as
+>   "non-standard"; rejected — `JP¥` is the intentional 2026-06-14 anti-RMB-misread fix.
+>   Standardized the whole site ON `JP¥` instead. Mock-dashboard `¥48,200` on
+>   palette-preview left as-is (decorative, not a price).
+> typecheck + build both green.
 
 ## 🟢 WTP batch shipped 2026-06-15 — 1 quick human step + measure
 > Code-doable growth levers are basically done; the remaining signal is validation +
@@ -90,11 +112,12 @@ Shipped (code, safe + verdict-independent):
   handle on casual traffic. Subscribes tagged `source: "word-to-color"`.
 
 🔴 **Decisions only you can make (I did NOT guess these):**
-- [ ] **Fix the pricing numbers.** `priceUsd` in `src/lib/checkout-config.ts` is inconsistent
-      with the JPY amounts: ¥499 ≈ US$3.34 but `priceUsd` says $6.99; ¥19,999 ≈ $134 but says
-      $199.99. Your LS variants bill in **JPY**. Decide: (a) what the real prices should be,
-      and (b) whether to bill in USD at all (JPY billing is friction for a global/US ICP —
-      the actual designer you're selling to). I can implement once you decide.
+- [x] **Fix the pricing numbers — RESOLVED 2026-06-19 (B3).** Owner chose **JPY-primary +
+      corrected approximate USD** (keep JPY billing; show an honest ≈USD). Implemented in
+      `checkout-config.ts` + reconciled all stale USD surfaces — see the 2026-06-19 batch
+      at the top of this file. Open sub-question still yours if you want it: **whether to
+      bill in USD at all** (JPY billing is friction for a global/US ICP) — that needs new
+      LS variants in USD, not a code change, so left for you to decide later.
 - [ ] **Run the willingness-to-pay test** (the audit's core — nobody has ever paid):
       1. *Pre-order landing page* — **BUILT + live at `/preorder/`** (Accessibility Auditor,
          founder $49 / reg $99, ships Q3 2026, refund if not shipped). Linked from `/pro/`.

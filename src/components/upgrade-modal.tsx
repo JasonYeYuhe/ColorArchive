@@ -68,7 +68,7 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
               <div className="flex-1 h-px bg-slate-200" />
             </div>
             <Link
-              href="/pro"
+              href="/pro/"
               className="block w-full text-center py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
             >
               Go Pro — Unlimited AI
@@ -97,13 +97,13 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
 
             <div className="grid grid-cols-2 gap-3">
               <Link
-                href="/pro"
+                href="/pro/"
                 className="text-center py-2.5 bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-200 transition-colors"
               >
                 JP¥499 <span className="text-[10px] text-slate-500">/mo</span>
               </Link>
               <Link
-                href="/pro"
+                href="/pro/"
                 className="text-center py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
               >
                 JP¥3,999 <span className="text-[10px] text-indigo-200">/yr</span> <span className="text-indigo-200 text-xs">Save 33%</span>

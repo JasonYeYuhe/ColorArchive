@@ -28,7 +28,7 @@ export function AuditorPreorderCta({ from }: { from: string }) {
           </p>
           <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
             The {preorderConfig.feature} checks every pair for WCAG + color-blindness and exports
-            accessible fixes from the archive — plus a shareable report. Founder {preorderConfig.price}.
+            accessible fixes from the archive — plus a shareable report. Founder JP{preorderConfig.price}.
           </p>
         </div>
         <span className="shrink-0 text-sm font-semibold text-amber-700 dark:text-amber-400">

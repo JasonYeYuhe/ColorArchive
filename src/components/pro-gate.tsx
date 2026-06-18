@@ -68,7 +68,7 @@ export function ProGateCounter({ className = "" }: { className?: string }) {
       </span>
       {(isLow || isOut) && (
         <Link
-          href="/pro"
+          href="/pro/"
           onClick={() => track("upgrade_clicked", { source: "export_counter" })}
           className="font-semibold underline hover:opacity-80"
         >
@@ -137,7 +137,7 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
               <>
                 {remaining === 1 ? "Last free export today — " : "Daily limit hit — "}
                 <Link
-                  href="/pro"
+                  href="/pro/"
                   onClick={() => track("upgrade_clicked", { source: "export_inline" })}
                   className="underline font-semibold"
                 >
@@ -148,7 +148,7 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
               <>
                 Free: {used}/{FREE_EXPORTS_PER_DAY} today ·{" "}
                 <Link
-                  href="/pro"
+                  href="/pro/"
                   onClick={() => track("upgrade_clicked", { source: "export_inline" })}
                   className="underline hover:text-neutral-600"
                 >
@@ -167,7 +167,7 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
       <div className="opacity-40 pointer-events-none select-none">{children}</div>
       <div className="absolute inset-0 flex items-center justify-center">
         <Link
-          href="/pro"
+          href="/pro/"
           onClick={() => track("upgrade_clicked", { source: "export_locked" })}
           className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-indigo-500 transition-colors"
         >

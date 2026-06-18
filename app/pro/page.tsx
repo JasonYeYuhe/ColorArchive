@@ -31,7 +31,7 @@ const structuredData = [
       },
       {
         "@type": "Offer",
-        price: "9999",
+        price: "19999",
         priceCurrency: "JPY",
         name: "Lifetime",
         url: `${SITE_URL}/pro/`,

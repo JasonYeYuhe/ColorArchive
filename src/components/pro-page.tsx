@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchSession, type AuthSession } from "@/src/lib/auth-client";
-import { proSubscriptionConfig } from "@/src/lib/checkout-config";
+import { proSubscriptionConfig, preorderConfig } from "@/src/lib/checkout-config";
 import { useLocale } from "@/src/components/locale-provider";
 import { CheckoutButton } from "@/src/components/checkout-button";
 
@@ -219,7 +219,7 @@ export function ProPage() {
               </span>
               <p className="mt-1 text-base font-semibold text-slate-900 dark:text-white">Accessibility Auditor</p>
               <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                Audit a whole palette for WCAG + color-blindness and export accessible fixes. Founder price $49.
+                Audit a whole palette for WCAG + color-blindness and export accessible fixes. Founder price JP{preorderConfig.price} (≈ {preorderConfig.priceUsd}).
               </p>
             </div>
             <span className="shrink-0 text-sm font-semibold text-amber-700 dark:text-amber-400">Pre-order &rarr;</span>
