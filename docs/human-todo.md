@@ -171,9 +171,13 @@ Shipped (code, safe + verdict-independent):
 
 ## 🟡 Carried over (still open)
 
-- [ ] **React hydration error #418 on /palette-audit/** with zh locale — intermittent
-      race between head localeScript and LocaleProvider; scoped to that page. Next step:
-      add a zh-locale e2e path or bisect by removing the head localeScript.
+- [x] **React hydration #418 on /palette-audit/** — FIXED 2026-06-18 (B1). Root cause was
+      NOT the locale race (the locale system is hydration-safe — en-first, deferred via
+      effect; `<html>` has suppressHydrationWarning; content is ErrorBoundary-wrapped). It's
+      **browser extensions (Grammarly etc.) injecting into the page's `<textarea>`** before
+      hydration — classic intermittent #418 on the only page with a prominent paste box.
+      Fixed with `suppressHydrationWarning` on the textarea (`palette-audit-page.tsx`). Same
+      pattern would apply to any other big textarea if one appears.
 - [ ] **Domain migration Phase 2 leftovers** (see docs/domain-migration-checklist.md):
       Droplet `.env` final pass, Meta/Instagram redirect URI, Resend DNS, GSC domain
       change, LS webhook URL, external listings (PH/IH/AlternativeTo).

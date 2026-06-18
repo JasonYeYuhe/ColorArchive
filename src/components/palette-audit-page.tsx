@@ -288,6 +288,11 @@ export function PaletteAuditPage() {
         </label>
         <textarea
           id="audit-input"
+          // Browser extensions (Grammarly, etc.) inject attributes/nodes into textareas
+          // before React hydrates, which intermittently triggers hydration error #418 on
+          // this page (the only one with a prominent paste box). suppressHydrationWarning
+          // tells React to tolerate the extension-mutated DOM here.
+          suppressHydrationWarning
           value={input}
           onChange={(e) => {
             setInput(e.target.value);
