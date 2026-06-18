@@ -10,6 +10,8 @@ import {
   newsletterIssues,
 } from "@/src/lib/newsletter-issues";
 import { getCollectionById } from "@/src/lib/collections";
+import { getGuidesForCollection } from "@/src/lib/guides";
+import type { NoteRelatedGuide } from "@/src/components/note-detail-page";
 
 interface NotePageProps {
   params: Promise<{ slug: string }>;
@@ -63,6 +65,17 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
 
   const { previous, next } = getNewsletterNeighbors(slug);
 
+  const relatedGuides: NoteRelatedGuide[] = getGuidesForCollection(issue.featuredCollectionId, 2)
+    .map((guide) => ({
+      slug: guide.slug,
+      title: guide.title,
+      summary: guide.summary,
+      searchIntent: guide.searchIntent,
+    }))
+    .filter(
+      (guide, index, array) => array.findIndex((entry) => entry.slug === guide.slug) === index
+    );
+
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -101,6 +114,7 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
         previousIssue={previous}
         nextIssue={next}
         featuredCollection={issue.featuredCollectionId ? getCollectionById(issue.featuredCollectionId) ?? null : null}
+        relatedGuides={relatedGuides}
       />
     </>
   );

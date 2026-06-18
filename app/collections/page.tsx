@@ -3,6 +3,7 @@ import { CollectionsPage } from "@/src/components/collections-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { collections } from "@/src/lib/collections";
+import { getGuidesForCollection } from "@/src/lib/guides";
 import { SITE_URL } from "@/src/lib/site-config";
 
 const structuredData = [
@@ -38,11 +39,34 @@ export const metadata: Metadata = {
 };
 
 export default function CollectionsRoute() {
+  const guidesByCollection: Record<
+    string,
+    { slug: string; title: string; summary: string; searchIntent: string }[]
+  > = {};
+  for (const c of collections) {
+    guidesByCollection[c.id] = getGuidesForCollection(c.id, 2).map((guide) => ({
+      slug: guide.slug,
+      title: guide.title,
+      summary: guide.summary,
+      searchIntent: guide.searchIntent,
+    }));
+  }
+
   return (
     <>
       <SiteHeader currentPath="/collections" />
       <StructuredDataScript data={structuredData} />
-      <CollectionsPage collections={collections} />
+      <CollectionsPage
+        collections={collections.map((c) => ({
+          id: c.id,
+          title: c.title,
+          summary: c.summary,
+          description: c.description,
+          tags: c.tags,
+          palette: c.palette,
+        }))}
+        guidesByCollection={guidesByCollection}
+      />
     </>
   );
 }

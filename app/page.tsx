@@ -4,7 +4,26 @@ import { OnboardingTour } from "@/src/components/onboarding-tour";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { colors } from "@/src/data/colors";
+import { landingGuides } from "@/src/lib/guides";
+import { newsletterIssues } from "@/src/lib/newsletter-issues";
 import { SITE_URL, CONTACT_EMAIL } from "@/src/lib/site-config";
+
+// Pre-trim the two 1.4MB content datasets to only the fields the below-fold
+// hero renders, so the full datasets never leak into the client/RSC payload.
+const featuredGuides = landingGuides.slice(0, 4).map((g) => ({
+  slug: g.slug,
+  eyebrow: g.eyebrow,
+  searchIntent: g.searchIntent,
+  title: g.title,
+  summary: g.summary,
+}));
+
+const recentNotes = newsletterIssues.slice(0, 3).map((n) => ({
+  slug: n.slug,
+  eyebrow: n.eyebrow,
+  title: n.title,
+  summary: n.summary,
+}));
 
 const homepageStructuredData = [
   {
@@ -61,7 +80,7 @@ export default function HomePage() {
           </div>
         </div>
       }>
-        <ColorArchivePage colors={colors} />
+        <ColorArchivePage colors={colors} featuredGuides={featuredGuides} recentNotes={recentNotes} />
       </Suspense>
     </>
   );

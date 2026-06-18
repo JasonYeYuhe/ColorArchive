@@ -7,6 +7,7 @@ import { colors } from "@/src/data/colors";
 import { EmailSubscribe } from "@/src/components/email-subscribe";
 import { getColorOfDay, todayDateStr } from "@/src/lib/color-of-day";
 import { useLocale } from "@/src/components/locale-provider";
+import type { FeaturedGuide, RecentNote } from "@/src/components/hero-section-below-fold";
 
 // Fixed hue-spanning strip: Tone (L=60) at Clear (S=54), one per hue across the spectrum
 const HERO_STRIP = colors
@@ -47,6 +48,8 @@ interface HeroSectionProps {
   searchQuery: string;
   totalColors: number;
   visibleColors: number;
+  featuredGuides: FeaturedGuide[];
+  recentNotes: RecentNote[];
 }
 
 const FEATURES = [
@@ -60,6 +63,8 @@ export function HeroSection({
   searchQuery,
   totalColors,
   visibleColors,
+  featuredGuides,
+  recentNotes,
 }: HeroSectionProps) {
   const { t } = useLocale();
   const searchSummary =
@@ -194,7 +199,7 @@ export function HeroSection({
       })()}
 
       {/* Below-fold sections: lazy loaded */}
-      <HeroSectionBelowFold />
+      <HeroSectionBelowFold featuredGuides={featuredGuides} recentNotes={recentNotes} />
 
       {/* Newsletter subscribe */}
       <EmailSubscribe />

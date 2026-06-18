@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { ColorCollection } from "@/src/lib/collections";
-import { landingGuides } from "@/src/lib/guides";
+import type { LandingGuide } from "@/src/lib/guides";
 import type { UseCase } from "@/src/lib/use-cases";
 import { useCases } from "@/src/lib/use-cases";
 import { t, getLocaleFromStorage } from "@/src/lib/i18n";
@@ -12,9 +12,10 @@ import type { Locale } from "@/src/lib/i18n";
 interface UseCaseDetailPageProps {
   useCase: UseCase;
   relatedCollections: ColorCollection[];
+  relatedGuides: Pick<LandingGuide, "slug" | "title" | "eyebrow">[];
 }
 
-export function UseCaseDetailPage({ useCase, relatedCollections }: UseCaseDetailPageProps) {
+export function UseCaseDetailPage({ useCase, relatedCollections, relatedGuides }: UseCaseDetailPageProps) {
   const [locale, setLocale] = useState<Locale>("en");
 
   useEffect(() => {
@@ -23,17 +24,6 @@ export function UseCaseDetailPage({ useCase, relatedCollections }: UseCaseDetail
     window.addEventListener("colorarchive-locale-change", handler);
     return () => window.removeEventListener("colorarchive-locale-change", handler);
   }, []);
-
-  const relatedGuides = landingGuides
-    .filter((g) =>
-      useCase.guideSlugKeywords.some(
-        (kw) =>
-          g.slug.includes(kw) ||
-          g.tags.some((t) => t.toLowerCase().includes(kw)) ||
-          g.searchIntent.toLowerCase().includes(kw),
-      ),
-    )
-    .slice(0, 4);
 
   const otherUseCases = useCases.filter((uc) => uc.id !== useCase.id).slice(0, 4);
 

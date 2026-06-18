@@ -17,6 +17,19 @@ const nextConfig: NextConfig = {
       { source: "/free-pack/", destination: "/free-resources/", permanent: true },
     ];
   },
+  async headers() {
+    return [
+      {
+        source: "/downloads/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 // withSentryConfig uploads source maps at build time and wires Next.js

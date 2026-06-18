@@ -18,7 +18,6 @@ export function SiteFooter() {
               width={512}
               height={341}
               className="h-auto w-[160px] dark:invert"
-              priority
             />
           </Link>
           <p className="max-w-2xl leading-6">

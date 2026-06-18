@@ -1,4 +1,7 @@
 import issues from "@/src/data/newsletter-issues.json";
+import { tagToSlug } from "./newsletter-slug";
+
+export { tagToSlug } from "./newsletter-slug";
 
 export interface NewsletterIssueLink {
   label: string;
@@ -54,10 +57,6 @@ export function getNewsletterNeighbors(slug: string) {
 }
 
 export const latestNewsletterIssue = newsletterIssues[0] ?? null;
-
-export function tagToSlug(tag: string) {
-  return tag.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-}
 
 export function slugToTag(slug: string) {
   const allTags = newsletterIssues.flatMap((issue) => issue.tags);

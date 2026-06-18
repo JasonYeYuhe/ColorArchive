@@ -2,11 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import type { LandingGuide } from "@/src/lib/guides";
+import type { GuideListItem } from "@/src/lib/guides";
 
 const GUIDES_PER_PAGE = 24;
 
-export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
+export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(GUIDES_PER_PAGE);
@@ -38,7 +38,7 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
 
   const groupedFiltered = useMemo(() => {
     const allGroups = Object.entries(
-      filteredGuides.reduce<Record<string, LandingGuide[]>>((groups, guide) => {
+      filteredGuides.reduce<Record<string, GuideListItem[]>>((groups, guide) => {
         groups[guide.category] ??= [];
         groups[guide.category].push(guide);
         return groups;
@@ -46,7 +46,7 @@ export function GuidesPage({ guides }: { guides: LandingGuide[] }) {
     );
     // Paginate: count guides across groups up to visibleCount
     let count = 0;
-    const result: [string, LandingGuide[]][] = [];
+    const result: [string, GuideListItem[]][] = [];
     for (const [cat, items] of allGroups) {
       if (count >= visibleCount) break;
       const remaining = visibleCount - count;

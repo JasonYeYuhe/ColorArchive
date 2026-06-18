@@ -5,6 +5,7 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { UseCaseDetailPage } from "@/src/components/use-case-detail-page";
 import { useCases, getUseCaseById } from "@/src/lib/use-cases";
 import { getCollectionById } from "@/src/lib/collections";
+import { landingGuides } from "@/src/lib/guides";
 import { SITE_URL } from "@/src/lib/site-config";
 
 interface UseCaseDetailRouteProps {
@@ -39,6 +40,18 @@ export default async function UseCaseDetailRoute({ params }: UseCaseDetailRouteP
   const useCase = getUseCaseById(slug);
   if (!useCase) notFound();
 
+  const relatedGuides = landingGuides
+    .filter((g) =>
+      useCase.guideSlugKeywords.some(
+        (kw) =>
+          g.slug.includes(kw) ||
+          g.tags.some((tag) => tag.toLowerCase().includes(kw)) ||
+          g.searchIntent.toLowerCase().includes(kw),
+      ),
+    )
+    .slice(0, 4)
+    .map(({ slug, title, eyebrow }) => ({ slug, title, eyebrow }));
+
   const useCaseStructuredData = [
     {
       "@context": "https://schema.org",
@@ -71,6 +84,7 @@ export default async function UseCaseDetailRoute({ params }: UseCaseDetailRouteP
       <UseCaseDetailPage
         useCase={useCase}
         relatedCollections={useCase.collectionIds.map((id) => getCollectionById(id)).filter((c): c is NonNullable<typeof c> => !!c)}
+        relatedGuides={relatedGuides}
       />
     </>
   );

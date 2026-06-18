@@ -149,3 +149,5 @@ function createColorDataset(): ColorRecord[] {
 }
 
 export const colors: ColorRecord[] = createColorDataset();
+
+export const colorsById: ReadonlyMap<string, ColorRecord> = new Map(colors.map((c) => [c.id, c]));

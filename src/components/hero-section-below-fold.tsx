@@ -1,14 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { landingGuides } from "@/src/lib/guides";
-import { newsletterIssues } from "@/src/lib/newsletter-issues";
 import { useLocale } from "@/src/components/locale-provider";
 
-const featuredGuides = landingGuides.slice(0, 4);
-const recentNotes = newsletterIssues.slice(0, 3);
+// Slim shapes: ONLY the fields rendered below. The full guides/newsletter
+// datasets (~1.4MB each) are trimmed server-side in app/page.tsx and threaded
+// through as props so they never enter the homepage client/RSC payload.
+export interface FeaturedGuide {
+  slug: string;
+  eyebrow: string;
+  searchIntent: string;
+  title: string;
+  summary: string;
+}
 
-export function HeroSectionBelowFold() {
+export interface RecentNote {
+  slug: string;
+  eyebrow?: string;
+  title: string;
+  summary: string;
+}
+
+interface HeroSectionBelowFoldProps {
+  featuredGuides: FeaturedGuide[];
+  recentNotes: RecentNote[];
+}
+
+export function HeroSectionBelowFold({ featuredGuides, recentNotes }: HeroSectionBelowFoldProps) {
   const { t } = useLocale();
 
   return (

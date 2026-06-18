@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { GuidesPage } from "@/src/components/guides-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
-import { landingGuides } from "@/src/lib/guides";
+import { landingGuidesList } from "@/src/lib/guides";
 import { SITE_URL } from "@/src/lib/site-config";
 
 const structuredData = [
@@ -36,7 +36,7 @@ export default function GuidesRoute() {
     <>
       <SiteHeader currentPath="/guides" />
       <StructuredDataScript data={structuredData} />
-      <GuidesPage guides={landingGuides} />
+      <GuidesPage guides={landingGuidesList} />
     </>
   );
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useDeferredValue, useEffect, useMemo, useState } from "react";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorGrid } from "@/src/components/color-grid";
 import { ColorSpectrum } from "@/src/components/color-spectrum";
@@ -73,6 +73,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
     return v === "comfortable" || v === "expanded" ? v : "compact";
   });
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
+  const deferredQuery = useDeferredValue(searchQuery);
 
   // Advanced filter state
   const [hueBand, setHueBand] = useState<HueBand>(() => {
@@ -115,21 +116,23 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
   }, []);
 
   // Filtering
-  const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
+  const searchResults = useMemo(() => filterColors(colors, deferredQuery, "All"), [colors, deferredQuery]);
 
   const familyCounts = useMemo(() => {
-    const advancedFiltered = searchResults.filter(
-      (color) =>
+    const counts = Object.fromEntries(COLOR_FAMILIES.map((family) => [family, 0])) as Record<ColorFamily, number>;
+    for (const color of searchResults) {
+      if (
         matchesHueBand(color, hueBand) &&
         matchesToneBand(color, toneBand) &&
         color.saturation >= minSaturation &&
         color.saturation <= maxSaturation &&
         color.lightness >= minLightness &&
-        color.lightness <= maxLightness,
-    );
-    return Object.fromEntries(
-      COLOR_FAMILIES.map((family) => [family, advancedFiltered.filter((color) => color.family === family).length]),
-    ) as Record<ColorFamily, number>;
+        color.lightness <= maxLightness
+      ) {
+        counts[color.family] += 1;
+      }
+    }
+    return counts;
   }, [searchResults, hueBand, toneBand, minSaturation, maxSaturation, minLightness, maxLightness]);
 
   const visibleColors = useMemo(() => {

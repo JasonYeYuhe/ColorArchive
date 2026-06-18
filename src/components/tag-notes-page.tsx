@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
-import { tagToSlug } from "@/src/lib/newsletter-issues";
+import { tagToSlug } from "@/src/lib/newsletter-slug";
 
 interface TagNotesPageProps {
   tag: string;

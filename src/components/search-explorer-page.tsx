@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
@@ -9,7 +9,7 @@ import { FilterToolbar } from "@/src/components/filter-toolbar";
 import { SelectedColorPanel } from "@/src/components/selected-color-panel";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { useLocale } from "@/src/components/locale-provider";
-import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
+import { COLOR_FAMILIES, filterColorsWithCounts, sortColors } from "@/src/lib/color-utils";
 import { SEARCH_CHIPS } from "@/src/lib/color-search";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
@@ -210,18 +210,17 @@ export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
+  const deferredQuery = useDeferredValue(searchQuery);
 
-  const familyCounts = useMemo(
-    () =>
-      Object.fromEntries(
-        COLOR_FAMILIES.map((family) => [
-          family,
-          searchResults.filter((color) => color.family === family).length,
-        ]),
+  const { results: searchResults, familyCounts } = useMemo(() => {
+    const { results, familyCounts: counts } = filterColorsWithCounts(colors, deferredQuery, "All");
+    return {
+      results,
+      familyCounts: Object.fromEntries(
+        COLOR_FAMILIES.map((family) => [family, counts[family] || 0]),
       ) as Record<ColorFamily, number>,
-    [searchResults],
-  );
+    };
+  }, [colors, deferredQuery]);
 
   const visibleColors = useMemo(() => {
     const filtered =

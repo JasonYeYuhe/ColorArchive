@@ -18,11 +18,12 @@ import {
   subscribeToPalette,
 } from "@/src/lib/palette-builder";
 import { addRecentColor, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
-import { getWcagContrast, getTonalStrip, hexToRgb, rgbToCmyk } from "@/src/lib/color-utils";
+import { getWcagContrast, hexToRgb, rgbToCmyk } from "@/src/lib/color-utils";
 import { simulateColorBlindness, hexToRgbCB, rgbToHexCB } from "@/src/lib/colorblind";
 import type { WcagPairing } from "@/src/lib/color-utils";
 import { getFamilySlug } from "@/src/lib/color-family-pages";
 import type { ColorRecord } from "@/src/types/color";
+import { colors } from "@/src/data/colors";
 import { getColorPsychology } from "@/src/data/color-psychology";
 import { ColorOriginsSection } from "@/src/components/color-origins-section";
 import { BrandsUsingColorSection } from "@/src/components/brands-using-color-section";
@@ -32,7 +33,7 @@ import { withSvgWatermark } from "@/src/lib/export-watermark";
 import { LogToJournalButton } from "@/src/components/log-to-journal-button";
 
 interface ColorDetailPageProps {
-  allColors: readonly ColorRecord[];
+  tonalStrip: readonly ColorRecord[];
   color: ColorRecord;
   relatedColors: readonly ColorRecord[];
   nearestColors: readonly ColorRecord[];
@@ -326,7 +327,7 @@ function buildCssVariableExport(entries: readonly PaletteEntry[]) {
 }
 
 export function ColorDetailPage({
-  allColors,
+  tonalStrip,
   color,
   relatedColors,
   nearestColors,
@@ -409,7 +410,7 @@ export function ColorDetailPage({
   const exportPaletteIds = exportPalette.map((entry) => entry.value.id);
   const recentTrail = recentColorIds
     .filter((id) => id !== color.id)
-    .map((id) => allColors.find((entry) => entry.id === id))
+    .map((id) => colors.find((entry) => entry.id === id))
     .filter((entry): entry is ColorRecord => Boolean(entry))
     .slice(0, 4);
 
@@ -694,7 +695,6 @@ export function ColorDetailPage({
               )}
 
               {(() => {
-                const tonalStrip = getTonalStrip(allColors, color);
                 if (tonalStrip.length < 2) return null;
                 return (
                   <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">

@@ -1,7 +1,44 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-19 (B3/B5 pricing + 28-fix product-optimization batch)
+> Last updated: 2026-06-19 (deep perf/bundle batch + B3/B5 + 28-fix product batch)
+
+## 🟢 Deep performance batch shipped 2026-06-19 (remote) — bundle + RSC payload
+> A deep perf/structural audit (8 dims, adversarially verified, 34 findings) then a
+> parallel apply pass. Root cause of the two ~1.38MB client chunks: **content datasets
+> leaking into client bundles** because a pure helper (`tagToSlug`) / value-import sat in
+> the same module as a 1.48MB JSON (newsletter) / 1.36MB array (guides), so tree-shaking
+> kept the data. Fixes (typecheck + build green, wins measured from the build artifacts):
+> - **Two ~1.38MB client content chunks ELIMINATED** (newsletter-issues.json + guides.ts)
+>   from /notes, /use-cases, /collections, AND the homepage. Verified: `grep` for the
+>   dataset markers in `.next/static/chunks/*.js` → **0 hits**; largest chunk now 448KB
+>   (Sentry). Method: extracted `tagToSlug` to `src/lib/newsletter-slug.ts`; server-derive
+>   related/featured guides and pass SLIMMED props (only rendered fields) from the server
+>   pages into the client components (notes, use-cases, homepage hero, collections).
+> - **RSC payloads slimmed**: `guides.rsc` 1322KB→**372KB** (−72%, dropped detail-only
+>   `sections` prose); `collections.rsc` 611KB→**456KB** (−25%, dropped editorialNote/
+>   promptWords/useCases); **every color page `.rsc` 1MB→36KB (−96%)** by computing the
+>   tonal strip server-side and passing it instead of the full 5,446-color array (×3,066
+>   pages ≈ ~3GB less build output, much smaller per-page payload).
+> - **Render/algo**: single-pass family counts + `useDeferredValue` on /all-colors and
+>   /search (no more 9–48 full scans + blocking keystroke on the 5,446 set); `colorsById`
+>   Map for O(1) slug lookup. **Config/asset**: Cache-Control on /downloads, footer logo
+>   `priority` removed, color OG route `force-dynamic` for consistency.
+> - ⏸ **Still flagged (NOT done this batch)** — the audit's remaining high-value items:
+>   - **🔴 SVG og:image rejected by social crawlers → blank share cards on ~374 pages**
+>     (notes/collections/families). Real distribution bug (relevant to the dist. bottleneck);
+>     needs the og:image to be a PNG/dynamic-OG route. Medium effort across page.tsx files.
+>   - Homepage still serializes the full 5,446-color array into its RSC (~1MB) — the same
+>     deferred #29 dataset-payload issue (needs `/api/colors` lazy-load + benchmark).
+>   - color-relationship helpers do `[...colors].filter().sort()[0]` (~13ms/page build CPU)
+>     → single-pass min-scan (output-identical) would cut build CPU; deferred (touches core,
+>     no test suite — wants careful output-equivalence checks).
+>   - posthog-js (~72KB gz) eager on every page — deferrable like New Relic, but NOT done
+>     (deferring risks losing the pageview/funnel data the validation period needs).
+>   - **Backend (server/*) — needs droplet deploy (ssh + pm2), NOT Vercel**: BACK1 = add
+>     SQLite `WAL` + `busy_timeout=5000` + `synchronous=NORMAL` in `server/db.js` (prevents
+>     event-write drops under concurrent read/write — worth doing); plus minor missing
+>     indexes + a /trending cache. Owner to confirm before I deploy to the droplet.
 
 ## 🟢 Product-optimization batch shipped 2026-06-19 (remote) — 28 verified fixes
 > Owner steer: "keep optimizing existing features" (not just distribute + wait). Ran a

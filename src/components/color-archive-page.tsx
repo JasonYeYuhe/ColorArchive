@@ -13,9 +13,12 @@ import { SelectedColorPanel } from "@/src/components/selected-color-panel";
 import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, filterColorsWithCounts, sortColors } from "@/src/lib/color-utils";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
+import type { FeaturedGuide, RecentNote } from "@/src/components/hero-section-below-fold";
 
 interface ColorArchivePageProps {
   colors: readonly ColorRecord[];
+  featuredGuides: FeaturedGuide[];
+  recentNotes: RecentNote[];
 }
 
 function buildArchiveStateParams({
@@ -50,7 +53,7 @@ function buildArchiveStateParams({
   return params;
 }
 
-export function ColorArchivePage({ colors }: ColorArchivePageProps) {
+export function ColorArchivePage({ colors, featuredGuides, recentNotes }: ColorArchivePageProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -192,6 +195,8 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
           searchQuery={searchQuery}
           totalColors={colors.length}
           visibleColors={visibleColors.length}
+          featuredGuides={featuredGuides}
+          recentNotes={recentNotes}
         />
 
         <LocalArchiveHub colors={colors} />

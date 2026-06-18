@@ -3,12 +3,28 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ShareLinkButton } from "@/src/components/share-link-button";
-import type { ColorCollection } from "@/src/lib/collections";
-import { getGuidesForCollection } from "@/src/lib/guides";
 import { addManyToPalette } from "@/src/lib/palette-builder";
+import type { ColorRecord } from "@/src/types/color";
+
+export interface CollectionListItem {
+  id: string;
+  title: string;
+  summary: string;
+  description: string;
+  tags: string[];
+  palette: ColorRecord[];
+}
+
+export interface CollectionGuideItem {
+  slug: string;
+  title: string;
+  summary: string;
+  searchIntent: string;
+}
 
 interface CollectionsPageProps {
-  collections: readonly ColorCollection[];
+  collections: readonly CollectionListItem[];
+  guidesByCollection: Record<string, CollectionGuideItem[]>;
 }
 
 function CopyButton({ label, value }: { label: string; value: string }) {
@@ -43,7 +59,7 @@ function CopyButton({ label, value }: { label: string; value: string }) {
   );
 }
 
-function AddCollectionToPaletteButton({ collection }: { collection: ColorCollection }) {
+function AddCollectionToPaletteButton({ collection }: { collection: CollectionListItem }) {
   const [added, setAdded] = useState(false);
   const addedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => { clearTimeout(addedTimerRef.current); }, []);
@@ -72,7 +88,7 @@ function AddCollectionToPaletteButton({ collection }: { collection: ColorCollect
 
 const COLLECTIONS_PER_PAGE = 30;
 
-export function CollectionsPage({ collections }: CollectionsPageProps) {
+export function CollectionsPage({ collections, guidesByCollection }: CollectionsPageProps) {
   const [activeCollectionId, setActiveCollectionId] = useState<string>(collections[0]?.id ?? "");
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [sidebarCount, setSidebarCount] = useState(COLLECTIONS_PER_PAGE);
@@ -114,8 +130,8 @@ export function CollectionsPage({ collections }: CollectionsPageProps) {
   }, [activeCollection]);
 
   const matchingGuides = useMemo(
-    () => getGuidesForCollection(activeCollection?.id, 2),
-    [activeCollection],
+    () => (activeCollection ? guidesByCollection[activeCollection.id] ?? [] : []),
+    [activeCollection, guidesByCollection],
   );
 
   if (!activeCollection) {

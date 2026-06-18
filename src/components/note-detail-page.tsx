@@ -5,25 +5,30 @@ import Link from "next/link";
 import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import { useLocale } from "@/src/components/locale-provider";
 import type { ColorCollection } from "@/src/lib/collections";
-import { getGuidesForCollection } from "@/src/lib/guides";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
-import { tagToSlug } from "@/src/lib/newsletter-issues";
+import { tagToSlug } from "@/src/lib/newsletter-slug";
+
+export interface NoteRelatedGuide {
+  slug: string;
+  title: string;
+  summary: string;
+  searchIntent: string;
+}
 
 export function NoteDetailPage({
   issue,
   previousIssue,
   nextIssue,
   featuredCollection,
+  relatedGuides,
 }: {
   issue: NewsletterIssue;
   previousIssue: NewsletterIssue | null;
   nextIssue: NewsletterIssue | null;
   featuredCollection: ColorCollection | null;
+  relatedGuides: NoteRelatedGuide[];
 }) {
   const { t } = useLocale();
-  const relatedGuides = [
-    ...getGuidesForCollection(issue.featuredCollectionId, 2),
-  ].filter((guide, index, array) => array.findIndex((entry) => entry.slug === guide.slug) === index);
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">

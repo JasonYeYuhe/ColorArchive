@@ -3,7 +3,7 @@ import Link from "next/link";
 import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import { landingGuides } from "@/src/lib/guides";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
-import { tagToSlug } from "@/src/lib/newsletter-issues";
+import { tagToSlug } from "@/src/lib/newsletter-slug";
 
 export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
   const latestIssue = issues[0];

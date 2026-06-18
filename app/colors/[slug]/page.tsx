@@ -10,12 +10,13 @@ import {
   getNearestColors,
   getToneCompanion,
   getSplitComplementaryColors,
+  getTonalStrip,
   getTriadicColors,
   getWcagPairings,
   sortColors,
 } from "@/src/lib/color-utils";
 import { collections } from "@/src/lib/collections";
-import { colors } from "@/src/data/colors";
+import { colors, colorsById } from "@/src/data/colors";
 import { getGuidesForColor } from "@/src/lib/color-guide-links";
 
 export const dynamicParams = true;
@@ -27,7 +28,7 @@ interface ColorPageProps {
 }
 
 function getColorBySlug(slug: string) {
-  return colors.find((color) => color.id === slug) ?? null;
+  return colorsById.get(slug) ?? null;
 }
 
 export async function generateStaticParams() {
@@ -162,6 +163,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
   const splitCompColors = getSplitComplementaryColors(colors, color);
   const lighterCompanion = getToneCompanion(colors, color, "lighter");
   const darkerCompanion = getToneCompanion(colors, color, "darker");
+  const tonalStrip = getTonalStrip(colors, color);
   const wcagPairings = getWcagPairings(colors, color, 6);
   const usedInCollections = collections.filter((c) => c.palette.some((p) => p.id === color.id));
   const relatedGuides = getGuidesForColor(color, 3);
@@ -247,7 +249,6 @@ export default async function ColorPage({ params }: ColorPageProps) {
       <SiteHeader currentPath="/colors" />
       <StructuredDataScript data={[colorStructuredData, breadcrumbStructuredData]} />
       <ColorDetailPage
-        allColors={colors}
         color={color}
         relatedColors={relatedColors}
         nearestColors={nearestColors}
@@ -257,6 +258,7 @@ export default async function ColorPage({ params }: ColorPageProps) {
         complementaryColor={complementaryColor}
         lighterCompanion={lighterCompanion}
         darkerCompanion={darkerCompanion}
+        tonalStrip={tonalStrip}
         wcagPairings={wcagPairings}
         usedInCollections={usedInCollections}
         relatedGuides={relatedGuides}

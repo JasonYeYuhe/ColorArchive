@@ -12703,3 +12703,38 @@ landingGuides.push(...extraGuides56);
     }
   }
 }
+
+// ---------------------------------------------------------------------------
+// Slim list projection for the /guides index.
+//
+// The index page (src/components/guides-page.tsx) only renders a handful of
+// fields per guide and never touches `.sections` (the long-form prose) or any
+// links beyond the first. Shipping the full LandingGuide[] to the client
+// serialized ~876KB of detail-only prose into the RSC payload that the index
+// never renders. landingGuidesList keeps only what the index uses.
+// ---------------------------------------------------------------------------
+export type GuideListItem = Pick<
+  LandingGuide,
+  | "slug"
+  | "title"
+  | "summary"
+  | "eyebrow"
+  | "category"
+  | "searchIntent"
+  | "tags"
+  | "highlights"
+  | "priority"
+> & { links: GuideLink[] };
+
+export const landingGuidesList: GuideListItem[] = landingGuides.map((g) => ({
+  slug: g.slug,
+  title: g.title,
+  summary: g.summary,
+  eyebrow: g.eyebrow,
+  category: g.category,
+  searchIntent: g.searchIntent,
+  tags: g.tags,
+  highlights: g.highlights.slice(0, 2),
+  links: g.links.slice(0, 1),
+  priority: g.priority,
+}));
