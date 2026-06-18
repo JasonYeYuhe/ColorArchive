@@ -108,7 +108,7 @@ export function PaletteBuilderTray() {
       className={`fixed z-40 ${
         isOpen
           ? "inset-x-3 bottom-3 sm:bottom-6 sm:left-1/2 sm:right-auto sm:inset-x-auto sm:-translate-x-1/2"
-          : "bottom-3 right-3 sm:bottom-6 sm:left-1/2 sm:right-auto sm:-translate-x-1/2"
+          : "bottom-3 left-3 sm:bottom-6 sm:left-1/2 sm:right-auto sm:-translate-x-1/2"
       }`}
       role="region"
       aria-label="Palette builder"

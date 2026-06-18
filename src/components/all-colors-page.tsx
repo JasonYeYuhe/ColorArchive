@@ -117,13 +117,20 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
   // Filtering
   const searchResults = useMemo(() => filterColors(colors, searchQuery, "All"), [colors, searchQuery]);
 
-  const familyCounts = useMemo(
-    () =>
-      Object.fromEntries(
-        COLOR_FAMILIES.map((family) => [family, searchResults.filter((color) => color.family === family).length]),
-      ) as Record<ColorFamily, number>,
-    [searchResults],
-  );
+  const familyCounts = useMemo(() => {
+    const advancedFiltered = searchResults.filter(
+      (color) =>
+        matchesHueBand(color, hueBand) &&
+        matchesToneBand(color, toneBand) &&
+        color.saturation >= minSaturation &&
+        color.saturation <= maxSaturation &&
+        color.lightness >= minLightness &&
+        color.lightness <= maxLightness,
+    );
+    return Object.fromEntries(
+      COLOR_FAMILIES.map((family) => [family, advancedFiltered.filter((color) => color.family === family).length]),
+    ) as Record<ColorFamily, number>;
+  }, [searchResults, hueBand, toneBand, minSaturation, maxSaturation, minLightness, maxLightness]);
 
   const visibleColors = useMemo(() => {
     const filtered = activeFamily === "All" ? searchResults : searchResults.filter((color) => color.family === activeFamily);
@@ -144,7 +151,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
 
   // Pagination
   const PAGE_SIZE = 240;
-  const MAX_DISPLAY = 960; // Cap at ~1000 for performance
+  const MAX_DISPLAY = colors.length;
   const [displayLimit, setDisplayLimit] = useState(PAGE_SIZE);
 
   useEffect(() => {
@@ -586,6 +593,7 @@ export function AllColorsPage({ colors }: AllColorsPageProps) {
               onClearSearch={() => setSearchQuery("")}
               onClearFamily={() => setActiveFamily("All")}
               onReset={handleReset}
+              onSuggest={(term) => setSearchQuery(term)}
             />
           ) : (
             <>

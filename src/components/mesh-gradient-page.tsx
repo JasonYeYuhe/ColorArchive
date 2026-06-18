@@ -92,6 +92,7 @@ export function MeshGradientPage() {
   const [stops, setStops] = useState<Stop[]>(PRESETS[0].stops);
   const [activeStop, setActiveStop] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [downloadError, setDownloadError] = useState<string | null>(null);
   const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => { clearTimeout(copiedTimerRef.current); }, []);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -121,6 +122,7 @@ export function MeshGradientPage() {
   const downloadPng = useCallback(async () => {
     if (!previewRef.current) return;
     try {
+      setDownloadError(null);
       const { toPng } = await import("html-to-image");
       const dataUrl = await toPng(previewRef.current, { width: 800, height: 800 });
       const a = document.createElement("a");
@@ -128,7 +130,7 @@ export function MeshGradientPage() {
       a.download = "mesh-gradient.png";
       a.click();
     } catch {
-      alert("Download failed. Try copying the CSS instead.");
+      setDownloadError("Download failed. Try copying the CSS instead.");
     }
   }, []);
 
@@ -240,6 +242,7 @@ export function MeshGradientPage() {
               className="w-full text-xs font-semibold py-2.5 rounded-xl border border-slate-200 dark:border-white/15 text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-white/8 transition-colors">
               Download PNG
             </button>
+            {downloadError && <p className="text-xs text-red-500 mt-1">{downloadError}</p>}
           </div>
         </div>
 

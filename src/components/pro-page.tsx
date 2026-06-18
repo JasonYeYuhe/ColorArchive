@@ -175,18 +175,18 @@ export function ProPage() {
             <span className="text-center">{t("pro.comparison.pro")}</span>
           </div>
           {COMPARISON.map((row) => (
-            <div key={row.featureKey} className="grid grid-cols-3 text-sm px-6 py-3 border-b border-slate-50 last:border-0">
-              <span className="text-slate-700">{t(row.featureKey)}</span>
-              <span className="text-center text-slate-500">
+            <div key={row.featureKey} className="grid grid-cols-3 text-sm px-6 py-3 border-b border-slate-50 dark:border-white/10 last:border-0">
+              <span className="text-slate-700 dark:text-slate-200">{t(row.featureKey)}</span>
+              <span className="text-center text-slate-500 dark:text-slate-400">
                 {row.free === true ? (
                   <span className="text-emerald-500">&#10003;</span>
                 ) : row.free === false ? (
-                  <span className="text-slate-300">&mdash;</span>
+                  <span className="text-slate-300 dark:text-slate-600">&mdash;</span>
                 ) : (
                   row.free
                 )}
               </span>
-              <span className="text-center text-slate-700 font-medium">
+              <span className="text-center text-slate-700 dark:text-slate-200 font-medium">
                 {row.pro === true ? (
                   <span className="text-emerald-500">&#10003;</span>
                 ) : (

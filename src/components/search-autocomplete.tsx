@@ -129,17 +129,45 @@ export function SearchAutocomplete({ query, onSelect, inputRef }: SearchAutocomp
     return () => input.removeEventListener("keydown", handleKeyDown);
   }, [inputRef, handleKeyDown]);
 
+  // Imperatively expose combobox ARIA on the driving input (which lives in the parent).
+  useEffect(() => {
+    const input = inputRef?.current;
+    if (!input) return;
+    const expanded = focused && suggestions.length > 0 && query.length >= 2;
+    input.setAttribute("role", "combobox");
+    input.setAttribute("aria-autocomplete", "list");
+    input.setAttribute("aria-controls", "color-search-listbox");
+    input.setAttribute("aria-expanded", expanded ? "true" : "false");
+    if (activeIndex >= 0 && suggestions[activeIndex]) {
+      input.setAttribute(
+        "aria-activedescendant",
+        `color-search-option-${suggestions[activeIndex].id}`,
+      );
+    } else {
+      input.setAttribute("aria-activedescendant", "");
+    }
+    return () => {
+      input.removeAttribute("role");
+      input.removeAttribute("aria-autocomplete");
+      input.removeAttribute("aria-controls");
+      input.removeAttribute("aria-expanded");
+      input.removeAttribute("aria-activedescendant");
+    };
+  }, [focused, suggestions, activeIndex, query, inputRef]);
+
   if (!focused || suggestions.length === 0 || query.length < 2) return null;
 
   return (
     <div
       ref={containerRef}
+      id="color-search-listbox"
       className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl border border-black/8 bg-white shadow-xl dark:border-white/10 dark:bg-neutral-900"
       role="listbox"
     >
       {suggestions.map((s, i) => (
         <button
           key={s.id}
+          id={`color-search-option-${s.id}`}
           type="button"
           role="option"
           aria-selected={i === activeIndex}

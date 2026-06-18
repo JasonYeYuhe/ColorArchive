@@ -523,7 +523,7 @@ export function TokenGeneratorPage() {
                   <button
                     key={fmt}
                     type="button"
-                    onClick={() => setActiveFormat(fmt)}
+                    onClick={(e) => { e.stopPropagation(); setActiveFormat(fmt); }}
                     aria-pressed={activeFormat === fmt}
                     className={`px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] transition ${
                       activeFormat === fmt

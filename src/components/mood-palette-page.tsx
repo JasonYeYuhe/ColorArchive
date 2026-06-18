@@ -10,6 +10,7 @@ import { DownloadPaletteImage } from "@/src/components/download-palette-image";
 import { classifyError } from "@/src/lib/error-utils";
 import { track } from "@/src/lib/track";
 import { toggleFavoriteColor, getFavoriteColorIds } from "@/src/lib/favorites";
+import { findClosestArchiveColor } from "@/src/lib/color-utils";
 import { colors as archiveColors } from "@/src/data/colors";
 
 import { API_URL } from "@/src/lib/api-config";
@@ -139,12 +140,9 @@ export function MoodPalettePage() {
   };
 
   const saveColor = (color: MoodColor, idx: number) => {
-    // Find nearest archive color by hex match
-    const match = archiveColors.find((c) => c.hex.toLowerCase() === color.hex.toLowerCase());
-    if (match) {
-      const already = getFavoriteColorIds().includes(match.id);
-      if (!already) toggleFavoriteColor(match.id);
-    }
+    const match = findClosestArchiveColor(archiveColors, color.hex);
+    if (!match) return;
+    if (!getFavoriteColorIds().includes(match.id)) toggleFavoriteColor(match.id);
     setSavedIdx((prev) => new Set(prev).add(idx));
   };
 

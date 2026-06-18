@@ -39,7 +39,7 @@ export function CopyUpsellToast() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-20 right-6 z-50 max-w-sm animate-in slide-in-from-bottom-4 rounded-2xl border border-black/8 bg-white/95 p-4 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/95">
+    <div className="fixed bottom-20 right-4 left-4 sm:left-auto sm:right-6 z-50 sm:max-w-sm animate-in slide-in-from-bottom-4 rounded-2xl border border-black/8 bg-white/95 p-4 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/95">
       <div className="flex items-start gap-3">
         <div className="min-w-0">
           <div className="text-sm font-semibold text-neutral-950 dark:text-white">

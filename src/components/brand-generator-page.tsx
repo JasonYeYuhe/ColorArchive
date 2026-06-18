@@ -100,7 +100,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
   return (
     <button
       onClick={handle}
-      className="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition-colors"
+      className="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-white/5 dark:hover:bg-white/10 dark:text-slate-300 rounded-lg transition-colors"
     >
       {copied ? "✓ Copied" : label}
     </button>
@@ -132,7 +132,7 @@ function PaletteResult({
     <div className="space-y-8">
       {/* Summary */}
       {generated.summary && (
-        <p className="text-slate-600 text-sm leading-relaxed italic border-l-2 border-slate-300 pl-4">
+        <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed italic border-l-2 border-slate-300 dark:border-white/15 pl-4">
           {generated.summary}
         </p>
       )}
@@ -143,7 +143,7 @@ function PaletteResult({
           const tc = textColorFor(c.hex);
           const closest = findClosestArchiveColor(archiveColors, c.hex);
           return (
-            <div key={c.role} className="rounded-xl overflow-hidden border border-slate-100 shadow-sm bg-white">
+            <div key={c.role} className="rounded-xl overflow-hidden border border-slate-100 dark:border-white/10 shadow-sm bg-white dark:bg-neutral-950">
               <div
                 className="h-28 relative flex items-end p-3"
                 style={{ backgroundColor: c.hex }}
@@ -170,17 +170,17 @@ function PaletteResult({
                 </button>
               </div>
               <div className="p-3 space-y-1.5">
-                <p className="text-sm font-semibold text-slate-800">{c.name}</p>
-                <p className="text-xs text-slate-500 leading-relaxed">{c.rationale}</p>
+                <p className="text-sm font-semibold text-slate-800 dark:text-white">{c.name}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{c.rationale}</p>
                 {closest && (
-                  <div className="pt-1.5 border-t border-slate-100 flex items-center gap-1.5">
+                  <div className="pt-1.5 border-t border-slate-100 dark:border-white/10 flex items-center gap-1.5">
                     <div
                       className="w-3.5 h-3.5 rounded-sm shrink-0"
                       style={{ backgroundColor: closest.hex }}
                     />
                     <Link
                       href={`/colors/${closest.id}/`}
-                      className="text-[10px] text-indigo-600 hover:underline truncate"
+                      className="text-[10px] text-indigo-600 dark:text-indigo-400 hover:underline truncate"
                     >
                       Closest: {closest.name}
                     </Link>
@@ -194,18 +194,18 @@ function PaletteResult({
 
       {/* Export section */}
       <ProGate label="Export">
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-            <h3 className="text-base font-semibold text-slate-800">Export</h3>
+            <h3 className="text-base font-semibold text-slate-800 dark:text-white">Export</h3>
             <div className="flex items-center gap-2">
               {(["css", "tailwind"] as const).map((fmt) => (
                 <button
                   key={fmt}
-                  onClick={() => setExportMode(fmt)}
+                  onClick={(e) => { e.stopPropagation(); setExportMode(fmt); }}
                   className={`px-3 py-1 text-xs font-mono rounded-lg transition-colors ${
                     exportMode === fmt
                       ? "bg-neutral-900 text-white"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
                   }`}
                 >
                   {fmt === "css" ? "CSS Variables" : "Tailwind"}
@@ -214,7 +214,7 @@ function PaletteResult({
               <CopyButton text={exportText} label="Copy" />
             </div>
           </div>
-          <pre className="text-xs font-mono text-slate-600 bg-slate-50 rounded-xl p-4 overflow-auto whitespace-pre-wrap max-h-48">
+          <pre className="text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-white/5 rounded-xl p-4 overflow-auto whitespace-pre-wrap max-h-48">
             {exportText}
           </pre>
         </div>
@@ -236,7 +236,7 @@ function PaletteResult({
         </div>
         <Link
           href="/pro/"
-          className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-xs font-medium rounded-lg hover:bg-slate-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-xs font-medium rounded-lg hover:bg-slate-700 transition-colors dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100"
         >
           Get Brand Color Starter Kit →
         </Link>
@@ -305,27 +305,27 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
   }, [industry, style, audience, keywords, upgrade]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 pb-24">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 pb-24">
       {/* Hero */}
       <section className="max-w-3xl mx-auto px-4 pt-10 pb-8">
         <div className="flex items-center gap-3 mb-1">
-          <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">AI Tool</p>
+          <p className="text-xs font-semibold tracking-widest text-slate-400 dark:text-slate-500 uppercase">AI Tool</p>
           <AiUsageBadge />
         </div>
-        <h1 className="text-3xl sm:text-4xl font-display font-light text-slate-900 leading-tight mb-2">
+        <h1 className="text-3xl sm:text-4xl font-display font-light text-slate-900 dark:text-white leading-tight mb-2">
           Brand Color Generator
         </h1>
-        <p className="text-slate-500 text-sm max-w-lg">
+        <p className="text-slate-500 dark:text-slate-400 text-sm max-w-lg">
           Describe your brand and get a complete 6-color palette — primary, accents, neutrals, and highlight — with rationale for every choice.
         </p>
       </section>
 
       <div className="max-w-3xl mx-auto px-4 space-y-8">
         {/* Input form */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-5">
+        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6 space-y-5">
           {/* Industry */}
           <div>
-            <label htmlFor="brand-industry" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <label htmlFor="brand-industry" className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
               Industry / Category
             </label>
             <input
@@ -334,14 +334,14 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
               value={industry}
               onChange={(e) => setIndustry(e.target.value)}
               placeholder="e.g. SaaS startup, organic skincare, architecture firm"
-              className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 bg-white text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              className="w-full text-sm border border-slate-200 dark:border-white/15 rounded-xl px-3.5 py-2.5 bg-white dark:bg-transparent text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
             />
             <div className="flex flex-wrap gap-1.5 mt-2">
               {INDUSTRY_PRESETS.map((p) => (
                 <button
                   key={p}
                   onClick={() => setIndustry(p)}
-                  className="px-2.5 py-0.5 text-xs bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 rounded-full transition-colors"
+                  className="px-2.5 py-0.5 text-xs bg-slate-100 dark:bg-white/5 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 dark:text-slate-300 rounded-full transition-colors"
                 >
                   {p}
                 </button>
@@ -351,7 +351,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
 
           {/* Style */}
           <div>
-            <label htmlFor="brand-style" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <label htmlFor="brand-style" className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
               Visual Style / Aesthetic
             </label>
             <input
@@ -360,14 +360,14 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
               value={style}
               onChange={(e) => setStyle(e.target.value)}
               placeholder="e.g. minimal and clean, bold and modern, soft and approachable"
-              className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 bg-white text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              className="w-full text-sm border border-slate-200 dark:border-white/15 rounded-xl px-3.5 py-2.5 bg-white dark:bg-transparent text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
             />
             <div className="flex flex-wrap gap-1.5 mt-2">
               {STYLE_PRESETS.map((p) => (
                 <button
                   key={p}
                   onClick={() => setStyle(p)}
-                  className="px-2.5 py-0.5 text-xs bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 rounded-full transition-colors"
+                  className="px-2.5 py-0.5 text-xs bg-slate-100 dark:bg-white/5 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 dark:text-slate-300 rounded-full transition-colors"
                 >
                   {p}
                 </button>
@@ -377,8 +377,8 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
 
           {/* Audience */}
           <div>
-            <label htmlFor="brand-audience" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-              Target Audience <span className="text-slate-300 font-normal normal-case">(optional)</span>
+            <label htmlFor="brand-audience" className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+              Target Audience <span className="text-slate-300 dark:text-slate-600 font-normal normal-case">(optional)</span>
             </label>
             <input
               id="brand-audience"
@@ -386,14 +386,14 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
               value={audience}
               onChange={(e) => setAudience(e.target.value)}
               placeholder="e.g. young professionals, luxury consumers, creative freelancers"
-              className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 bg-white text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              className="w-full text-sm border border-slate-200 dark:border-white/15 rounded-xl px-3.5 py-2.5 bg-white dark:bg-transparent text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
             />
           </div>
 
           {/* Keywords */}
           <div>
-            <label htmlFor="brand-keywords" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-              Brand Values / Keywords <span className="text-slate-300 font-normal normal-case">(optional)</span>
+            <label htmlFor="brand-keywords" className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+              Brand Values / Keywords <span className="text-slate-300 dark:text-slate-600 font-normal normal-case">(optional)</span>
             </label>
             <input
               id="brand-keywords"
@@ -401,13 +401,13 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
               value={keywords}
               onChange={(e) => setKeywords(e.target.value)}
               placeholder="e.g. trustworthy, innovative, sustainable, premium"
-              className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 bg-white text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              className="w-full text-sm border border-slate-200 dark:border-white/15 rounded-xl px-3.5 py-2.5 bg-white dark:bg-transparent text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
             />
           </div>
 
           {/* Start from a collection */}
           <div>
-            <div className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <div className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
               Or start from a collection
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -415,7 +415,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
                 <button
                   key={c.id}
                   onClick={() => { setStyle(c.style); setKeywords(c.summary.split(".")[0]); }}
-                  className="px-2.5 py-1 text-xs bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 rounded-full transition-colors"
+                  className="px-2.5 py-1 text-xs bg-slate-100 dark:bg-white/5 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 dark:text-slate-300 rounded-full transition-colors"
                 >
                   {c.title}
                 </button>
@@ -424,7 +424,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
           </div>
 
           {error && (
-            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5">
+            <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-xl px-4 py-2.5">
               {error}
             </p>
           )}
@@ -434,8 +434,8 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
             disabled={isLoading}
             className={`w-full py-3 rounded-xl text-sm font-semibold transition-all duration-150 ${
               isLoading
-                ? "bg-slate-200 text-slate-400 cursor-not-allowed"
-                : "bg-slate-900 text-white hover:bg-slate-700"
+                ? "bg-slate-200 text-slate-400 cursor-not-allowed dark:bg-white/10 dark:text-slate-500"
+                : "bg-slate-900 text-white hover:bg-slate-700 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100"
             }`}
           >
             {isLoading ? (
@@ -484,19 +484,19 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
 
         {/* How it works */}
         {!result && (
-          <section className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
-            <h2 className="text-base font-semibold text-slate-800 mb-3">How it works</h2>
-            <div className="grid sm:grid-cols-3 gap-4 text-sm text-slate-500">
+          <section className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6">
+            <h2 className="text-base font-semibold text-slate-800 dark:text-white mb-3">How it works</h2>
+            <div className="grid sm:grid-cols-3 gap-4 text-sm text-slate-500 dark:text-slate-400">
               <div>
-                <p className="font-medium text-slate-700 mb-1">1. Describe</p>
+                <p className="font-medium text-slate-700 dark:text-slate-300 mb-1">1. Describe</p>
                 <p>Tell us your industry, aesthetic, and what your brand stands for. The more detail, the better the result.</p>
               </div>
               <div>
-                <p className="font-medium text-slate-700 mb-1">2. Generate</p>
+                <p className="font-medium text-slate-700 dark:text-slate-300 mb-1">2. Generate</p>
                 <p>AI analyzes your inputs against color psychology and design principles to build a 6-color system.</p>
               </div>
               <div>
-                <p className="font-medium text-slate-700 mb-1">3. Export</p>
+                <p className="font-medium text-slate-700 dark:text-slate-300 mb-1">3. Export</p>
                 <p>Copy CSS variables or Tailwind config. Each color links to the closest ColorArchive match for exploration.</p>
               </div>
             </div>

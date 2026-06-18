@@ -120,10 +120,10 @@ export const ColorCard = memo(function ColorCard({ color, isSelected = false, on
             title={inPalette ? t("color.alreadyInPalette") : paletteSize >= MAX_SIZE ? `${t("color.paletteFull")} (${MAX_SIZE})` : t("color.addToPalette")}
             className={`rounded-full border px-3 py-1.5 text-xs font-medium transition focus:outline-none focus:ring-4 focus:ring-neutral-900/10 ${
               inPalette
-                ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-400/10 dark:text-emerald-300"
                 : paletteSize >= MAX_SIZE
-                  ? "cursor-not-allowed border-black/8 bg-neutral-50 text-neutral-300"
-                  : "border-black/8 bg-white text-neutral-600 hover:border-neutral-950/10 hover:bg-neutral-950 hover:text-white"
+                  ? "cursor-not-allowed border-black/8 bg-neutral-50 text-neutral-300 dark:border-white/10 dark:bg-white/5 dark:text-neutral-600"
+                  : "border-black/8 bg-white text-neutral-600 hover:border-neutral-950/10 hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
             }`}
             aria-label={inPalette ? t("color.inPalette") : t("color.addToPalette")}
           >

@@ -753,7 +753,7 @@ export function ImagePalettePage() {
                 {(["hex", "rgb", "hsl", "css", "json"] as ExportFormat[]).map((fmt) => (
                   <button
                     key={fmt}
-                    onClick={() => setExportFormat(fmt)}
+                    onClick={(e) => { e.stopPropagation(); setExportFormat(fmt); }}
                     className={`px-3 py-1 text-xs font-mono rounded-lg transition-colors ${
                       exportFormat === fmt
                         ? "bg-neutral-900 text-white"

@@ -127,8 +127,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href={API_URL} />
         {/* Google Ads tag is now lazyOnload, so a DNS hint is enough (no early connection reserved) */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        {/* New Relic browser RUM beacon loads early — preconnect it */}
-        <link rel="preconnect" href="https://bam.nr-data.net" crossOrigin="" />
+        {/* New Relic browser RUM beacon now loads at idle — a DNS hint is enough */}
         <link rel="dns-prefetch" href="https://bam.nr-data.net" />
         {/* PostHog (product analytics) — lighter DNS hints */}
         <link rel="dns-prefetch" href="https://us.i.posthog.com" />

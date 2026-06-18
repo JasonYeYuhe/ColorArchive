@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { CheckoutButton } from "@/src/components/checkout-button";
 import type { UserTier } from "@/src/lib/auth-client";
 import { track } from "@/src/lib/track";
 
@@ -24,11 +25,11 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" role="presentation" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-6 space-y-5" role="dialog" aria-modal="true" aria-labelledby="upgrade-modal-title">
+      <div className="relative bg-white dark:bg-neutral-900 rounded-2xl shadow-xl max-w-md w-full p-6 space-y-5" role="dialog" aria-modal="true" aria-labelledby="upgrade-modal-title">
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg"
+          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 text-lg"
         >
           &times;
         </button>
@@ -41,11 +42,11 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
         </div>
 
         <div className="text-center">
-          <h3 id="upgrade-modal-title" className="text-lg font-bold text-slate-900">
+          <h3 id="upgrade-modal-title" className="text-lg font-bold text-slate-900 dark:text-white">
             {isAnonymous ? "Sign in to continue" : "Upgrade to Pro"}
           </h3>
           {typeof used === "number" && typeof limit === "number" && (
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
               You&apos;ve used {used}/{limit} AI generations today.
             </p>
           )}
@@ -53,7 +54,7 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
 
         {isAnonymous ? (
           <div className="space-y-3">
-            <p className="text-sm text-slate-600 text-center">
+            <p className="text-sm text-slate-600 dark:text-slate-300 text-center">
               Sign in with your email to get <strong>10 free AI generations per day</strong>.
             </p>
             <Link
@@ -63,9 +64,9 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
               Sign in
             </Link>
             <div className="relative flex items-center gap-3 py-1">
-              <div className="flex-1 h-px bg-slate-200" />
-              <span className="text-xs text-slate-400">or</span>
-              <div className="flex-1 h-px bg-slate-200" />
+              <div className="flex-1 h-px bg-slate-200 dark:bg-white/10" />
+              <span className="text-xs text-slate-400 dark:text-slate-400">or</span>
+              <div className="flex-1 h-px bg-slate-200 dark:bg-white/10" />
             </div>
             <Link
               href="/pro/"
@@ -76,7 +77,7 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
           </div>
         ) : (
           <div className="space-y-4">
-            <ul className="space-y-2 text-sm text-slate-600">
+            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li className="flex items-start gap-2">
                 <span className="text-indigo-600 mt-0.5">&#10003;</span>
                 Unlimited AI palette generations
@@ -96,23 +97,23 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
             </ul>
 
             <div className="grid grid-cols-2 gap-3">
-              <Link
-                href="/pro/"
-                className="text-center py-2.5 bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-200 transition-colors"
+              <CheckoutButton
+                plan="monthly"
+                className="text-center py-2.5 bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-200 transition-colors dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/15"
               >
-                JP¥499 <span className="text-[10px] text-slate-500">/mo</span>
-              </Link>
-              <Link
-                href="/pro/"
+                JP¥499 <span className="text-[10px] text-slate-500 dark:text-slate-400">/mo</span>
+              </CheckoutButton>
+              <CheckoutButton
+                plan="yearly"
                 className="text-center py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
               >
                 JP¥3,999 <span className="text-[10px] text-indigo-200">/yr</span> <span className="text-indigo-200 text-xs">Save 33%</span>
-              </Link>
+              </CheckoutButton>
             </div>
           </div>
         )}
 
-        <p className="text-[10px] text-slate-400 text-center">
+        <p className="text-[10px] text-slate-400 dark:text-slate-400 text-center">
           Cancel anytime. No credit card required for free tier. Prices in Japanese yen (JPY).
         </p>
       </div>

@@ -158,7 +158,7 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
                   Open, copy &amp; share in the generator
                 </Link>
                 <Link
-                  href={`/all-colors?hex=${encodeURIComponent(generated.hex)}`}
+                  href={`/colors/hex/?c=${encodeURIComponent(generated.hex.replace('#',''))}`}
                   className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                 >
                   Find nearest archive colors

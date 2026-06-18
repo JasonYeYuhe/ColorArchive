@@ -70,24 +70,24 @@ export function RecentColorsPage({ colors }: RecentColorsPageProps) {
           <span className="mx-2">&rsaquo;</span>
           <span className="text-neutral-600">Recent Colors</span>
         </nav>
-        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
+        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/74 sm:px-10 sm:py-14">
           <div className="relative mx-auto max-w-4xl">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase dark:border-white/10 dark:bg-white/10 dark:text-neutral-400">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
               {t("recent.badge")}
             </div>
-            <h1 className="max-w-3xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+            <h1 className="max-w-3xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-6xl">
               {t("recent.heading")}
             </h1>
-            <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
+            <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 dark:text-neutral-400 sm:text-lg">
               This page keeps a local trail of the colors you opened while browsing the archive. It
               makes it easier to resume exploration without an account or backend.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
+              <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3 dark:border-white/10 dark:bg-white/8">
                 <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">{t("recent.recentLabel")}</div>
-                <div className="mt-1 text-lg font-semibold text-neutral-950">
+                <div className="mt-1 text-lg font-semibold text-neutral-950 dark:text-white">
                   {recentColors.length} {t("recent.colors")}
                 </div>
               </div>
@@ -100,7 +100,7 @@ export function RecentColorsPage({ colors }: RecentColorsPageProps) {
                   <button
                     type="button"
                     onClick={() => clearRecentColors()}
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
                   >
                     {t("recent.clearRecent")}
                   </button>
@@ -114,7 +114,7 @@ export function RecentColorsPage({ colors }: RecentColorsPageProps) {
               </Link>
               <Link
                 href="/all-colors"
-                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
               >
                 {t("recent.searchArchive")}
               </Link>
@@ -123,11 +123,11 @@ export function RecentColorsPage({ colors }: RecentColorsPageProps) {
         </section>
 
         {recentColors.length === 0 ? (
-          <section className="rounded-[1.75rem] border border-black/6 bg-white/80 px-6 py-12 text-center shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
+          <section className="rounded-[1.75rem] border border-black/6 bg-white/80 px-6 py-12 text-center shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/78">
+            <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
               {t("recent.noRecentYet")}
             </h2>
-            <p className="mt-3 text-sm leading-6 text-neutral-600">
+            <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
               Open a color detail page or inspect colors on the archive to build a local recent
               trail.
             </p>
@@ -141,11 +141,11 @@ export function RecentColorsPage({ colors }: RecentColorsPageProps) {
               description="These suggestions lean on the families and tonal jumps you opened most recently, so you can branch naturally instead of restarting from the full archive."
             />
 
-            <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/78">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 {t("recent.exportPreview")}
               </div>
-              <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
+              <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600 dark:bg-white/8 dark:text-neutral-300">
                 {paletteExport}
               </pre>
               <div className="mt-4 text-xs uppercase tracking-[0.16em] text-neutral-400">

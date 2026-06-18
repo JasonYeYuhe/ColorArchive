@@ -1,7 +1,36 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-19 (B3 pricing口径 decided + B5 conversion-hygiene sweep)
+> Last updated: 2026-06-19 (B3/B5 pricing + 28-fix product-optimization batch)
+
+## 🟢 Product-optimization batch shipped 2026-06-19 (remote) — 28 verified fixes
+> Owner steer: "keep optimizing existing features" (not just distribute + wait). Ran a
+> read-only multi-agent audit of all 70+ routes (adversarially verified, ranked), then a
+> parallel implementation pass. **28 low-regret fixes to EXISTING features; no new features
+> (red line held). typecheck + build both green.** Highlights:
+> - **Real bugs**: word-to-color "Search by hex" CTA dead-ended on an ignored `?hex=` param
+>   → now `/colors/hex/?c=` (the #1 page's highest-intent step); /all-colors + /archive
+>   "Show more" capped at 960/720 so 82% of colors were unreachable (inert button) → cap =
+>   full set; family-pill counts overstated when advanced filters active → count the filtered
+>   set; AI Mood Palette "+ Save" showed "✓ Saved" but favorited nothing (exact-hex match) →
+>   nearest-archive-color; ProGate burned the free-export quota on *format-toggle* clicks
+>   (paywall slammed shut without exporting) → stopPropagation on toggles only.
+> - **Dark mode** (a product that markets WCAG shipping unreadable dark pages): word-to-color
+>   (#1 page, had ZERO dark: classes), brand-generator, favorites, recent, /pro comparison
+>   table, upgrade modal, color-card palette chips — all given additive `dark:` variants.
+> - **Conversion**: upgrade-modal price buttons were a fake plan-picker (both → /pro/) → real
+>   CheckoutButtons that go straight to checkout; ProGate locked-overlay now gives anonymous
+>   users a "Sign in for more" step before the paywall; /pro "Save 31%"→33% + FAQ 3-day-trial
+>   copy + word-to-color "completely free" FAQ corrected; tool-upsell secondary CTA demoted.
+> - **Perf**: New Relic browser agent was eager on every page's critical path → deferred to
+>   requestIdleCallback (RUM unchanged). **A11y**: email-capture form + search combobox ARIA;
+>   bigger tap targets. **Mobile**: copy-upsell toast no longer clips off 380px screens;
+>   back-to-top no longer overlaps the palette pill.
+> - ⏸ **Deferred (NOT shipped)**: the one "bigger" finding — the full 5,446-color dataset is
+>   serialized into the home + /all-colors HTML payload (~120–180KB gzip). Real, but the audit
+>   re-scored it **L-effort + INP-regression risk** (rgb/hsl/family are consumed across the
+>   whole set by ~40 components), so it needs the `/api/colors` lazy-load path + benchmarking,
+>   not a quick patch. Left as a separate follow-up for a deliberate session.
 
 ## 🟢 B3 + B5 shipped 2026-06-19 (remote) — pricing口径 fixed, conversion hygiene
 > Owner decided the B3 pricing口径: **JPY-primary + corrected approximate USD** (keep
@@ -56,9 +85,10 @@
   + distribution to feed it. **The two highest-leverage human tasks now have execution docs:**
   - [ ] **Post the distribution drafts** on a cadence → `docs/distribution-plan-2026-06-15.md`
         (14-day schedule, CTAs routed to the live paywall/preorder, disclosure + anti-spam rules).
-  - [ ] **Run the 10 user interviews** → recruitment copy + channels + 7-day outreach in
-        `docs/user-interview-recruitment-2026-06-15.md` (script stays in `user-interview-script.md`).
-        Set up a Cal.com/Calendly booking link first; start with the 5 registered users.
+  - [x] **User interviews → DROPPED in favor of the self-serve SURVEY (decided 2026-06-19).**
+        No more scheduled 1:1 interviews. The survey (SURVEY1MON = free month of Pro), recruited
+        via the /word-to-color banner (B4), is now the qualitative exit-gate input. Just keep
+        survey responses flowing; no booking link / outreach needed.
 
 ## 🟢 SEO/exposure batch shipped 2026-06-14 — measure & follow up
 > Goal: push page-2 pages to page 1 + grow traffic (Google + AI engines). All code
@@ -181,9 +211,10 @@ Shipped (code, safe + verdict-independent):
 
 ## 🟠 P1 — strategy critical path (V2 plan)
 
-- [ ] **S2: the 10 user interviews** — still not started; script ready at
-      docs/user-interview-script.md. This is the V2 exit-gate input; the plugin only
-      adds a recruiting channel, it does not replace interviews.
+- [x] **S2 qualitative input = the self-serve SURVEY, not interviews (decided 2026-06-19).**
+      1:1 interviews dropped. The survey (SURVEY1MON reward, recruited from the #1 traffic page)
+      is the exit-gate qualitative signal; the borderline 7–9-preorder tiebreaker in the dev
+      plan §5 now reads survey responses for a clear ICP + shared pain point.
 - [ ] **StoreKit sandbox purchase test** (carried over): Xcode → sandbox tester → Pro
       purchase; watch `ssh root@143.198.85.72 'pm2 logs colorarchive-api --lines 40
       --nostream'` for `[DEPRECATION] apple-purchase got JSON (not JWS)`.

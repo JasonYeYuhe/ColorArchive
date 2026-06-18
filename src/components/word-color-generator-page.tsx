@@ -224,7 +224,7 @@ export function WordColorGeneratorPage() {
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
         {showRecruit && (
-          <div className="flex items-center justify-between gap-3 rounded-2xl border border-black/8 bg-neutral-950 px-4 py-2.5 text-sm text-white">
+          <div className="flex items-start sm:items-center justify-between gap-3 rounded-2xl border border-black/8 bg-neutral-950 px-4 py-2.5 text-xs sm:text-sm text-white">
             <span className="min-w-0">
               <span aria-hidden="true">🎨 </span>
               Did ColorArchive help? Tell us in a 2-min survey —{" "}
@@ -243,32 +243,32 @@ export function WordColorGeneratorPage() {
               type="button"
               onClick={dismissRecruit}
               aria-label="Dismiss"
-              className="shrink-0 rounded-full px-2 py-0.5 text-lg leading-none text-neutral-400 transition hover:bg-white/10 hover:text-white"
+              className="shrink-0 -mr-1 rounded-full p-2 text-lg leading-none text-neutral-400 transition hover:bg-white/10 hover:text-white"
             >
               ×
             </button>
           </div>
         )}
-        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
+        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 dark:border-white/10 bg-white/74 dark:bg-neutral-900/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
           <div className="relative mx-auto max-w-4xl">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 dark:border-white/10 bg-white/85 dark:bg-white/8 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 dark:text-neutral-400 uppercase">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
               Deterministic word palette
             </div>
 
-            <h1 className="font-display max-w-3xl text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+            <h1 className="font-display max-w-3xl text-4xl font-light tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-6xl">
               Turn a word into color
             </h1>
 
-            <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
+            <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 dark:text-neutral-300 sm:text-lg">
               Enter any word or phrase. ColorArchive maps it to a repeatable color signature using
               a local deterministic hash, with no API and no backend.
             </p>
 
             <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.8fr)]">
-              <div className="rounded-[1.7rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="rounded-[1.7rem] border border-black/6 dark:border-white/10 bg-white/82 dark:bg-neutral-900/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
                 <label className="block">
-                  <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
                     Input
                   </span>
                   <input
@@ -276,7 +276,7 @@ export function WordColorGeneratorPage() {
                     value={input}
                     onChange={(event) => setInput(event.target.value)}
                     placeholder="Type a word, phrase, or mood"
-                    className="mt-3 w-full rounded-2xl border border-black/8 bg-white px-4 py-3 text-base text-neutral-950 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+                    className="mt-3 w-full rounded-2xl border border-black/8 bg-white px-4 py-3 text-base text-neutral-950 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8 dark:bg-white/5 dark:text-white dark:border-white/10"
                   />
                 </label>
 
@@ -286,7 +286,7 @@ export function WordColorGeneratorPage() {
                       key={suggestion}
                       type="button"
                       onClick={() => setInput(suggestion)}
-                      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+                      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
                     >
                       {suggestion}
                     </button>
@@ -307,9 +307,9 @@ export function WordColorGeneratorPage() {
                 </div>
                 {wordHistory.length > 0 && (
                   <div className="mt-3 flex flex-wrap items-center gap-1.5">
-                    <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-400">Recent</span>
+                    <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">Recent</span>
                     {wordHistory.filter((w) => w !== input.trim()).slice(0, 6).map((w) => (
-                      <button key={w} type="button" onClick={() => setInput(w)} className="rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-100">
+                      <button key={w} type="button" onClick={() => setInput(w)} className="rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-100 dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white/12">
                         {w}
                       </button>
                     ))}
@@ -318,35 +318,35 @@ export function WordColorGeneratorPage() {
               </div>
 
               {generated && resultVisible ? (
-                <div className="overflow-hidden rounded-[1.7rem] border border-black/6 bg-white/82 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
-                  <div className="h-52 border-b border-black/6" style={{ backgroundColor: generated.hex }} />
+                <div className="overflow-hidden rounded-[1.7rem] border border-black/6 dark:border-white/10 bg-white/82 dark:bg-neutral-900/80 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
+                  <div className="h-52 border-b border-black/6 dark:border-white/10" style={{ backgroundColor: generated.hex }} />
                   <div className="space-y-4 p-5">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">
+                        <div className="text-xs uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
                           Token
                         </div>
-                        <div className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                        <div className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
                           {generated.token}
                         </div>
                       </div>
-                      <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+                      <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500 dark:border-white/10 dark:bg-white/8 dark:text-neutral-400">
                         {generated.family}
                       </div>
                     </div>
 
                     <div className="grid gap-3 sm:grid-cols-3">
-                      <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-                        <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">Hex</div>
-                        <div className="mt-1 font-medium text-neutral-950">{generated.hex}</div>
+                      <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 dark:border-white/10 dark:bg-white/8">
+                        <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">Hex</div>
+                        <div className="mt-1 font-medium text-neutral-950 dark:text-white">{generated.hex}</div>
                       </div>
-                      <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-                        <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">RGB</div>
-                        <div className="mt-1 font-medium text-neutral-950">{generated.rgb}</div>
+                      <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 dark:border-white/10 dark:bg-white/8">
+                        <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">RGB</div>
+                        <div className="mt-1 font-medium text-neutral-950 dark:text-white">{generated.rgb}</div>
                       </div>
-                      <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-                        <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">HSL</div>
-                        <div className="mt-1 font-medium text-neutral-950">{generated.hsl}</div>
+                      <div className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 dark:border-white/10 dark:bg-white/8">
+                        <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">HSL</div>
+                        <div className="mt-1 font-medium text-neutral-950 dark:text-white">{generated.hsl}</div>
                       </div>
                     </div>
 
@@ -367,15 +367,15 @@ export function WordColorGeneratorPage() {
                   </div>
                 </div>
               ) : generated && gated ? (
-                <div className="overflow-hidden rounded-[1.7rem] border border-black/6 bg-white/82 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-neutral-50 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-500">
+                <div className="overflow-hidden rounded-[1.7rem] border border-black/6 dark:border-white/10 bg-white/82 dark:bg-neutral-900/80 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-neutral-50 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-500 dark:border-white/10 dark:bg-white/8 dark:text-neutral-400">
                     <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
                     Free preview limit
                   </div>
-                  <div className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                  <div className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
                     You&rsquo;ve explored {FREE_GENERATIONS} free word palettes
                   </div>
-                  <p className="mt-2 text-sm leading-6 text-neutral-600">
+                  <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                     Keep going with unlimited word&rarr;color, full 5-shade palettes, and
                     production-ready CSS, Tailwind, and Figma token exports.
                   </p>
@@ -386,8 +386,8 @@ export function WordColorGeneratorPage() {
                   >
                     Unlock unlimited with Pro
                   </Link>
-                  <div className="mt-5 border-t border-black/6 pt-4">
-                    <p className="mb-2 text-xs leading-5 text-neutral-500">
+                  <div className="mt-5 border-t border-black/6 pt-4 dark:border-white/10">
+                    <p className="mb-2 text-xs leading-5 text-neutral-500 dark:text-neutral-400">
                       Or keep generating free &mdash; get one curated color in your inbox each
                       morning and your palettes unlock right away.
                     </p>
@@ -405,17 +405,17 @@ export function WordColorGeneratorPage() {
 
         {generated && resultVisible ? (
           <section className="grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(22rem,0.8fr)]">
-            <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
+                  <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
                     Generated palette
                   </h2>
-                  <p className="mt-1 text-sm text-neutral-500">
+                  <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
                     Five linked colors around the same generated signature.
                   </p>
                 </div>
-                <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+                <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500 dark:border-white/10 dark:bg-white/8 dark:text-neutral-400">
                   Hue {generated.hue}
                 </div>
               </div>
@@ -424,16 +424,14 @@ export function WordColorGeneratorPage() {
                 {generated.variants.map((variant) => (
                   <div
                     key={variant.label}
-                    className="overflow-hidden rounded-[1.4rem] border border-black/6 bg-white shadow-sm"
+                    className="overflow-hidden rounded-[1.4rem] border border-black/6 bg-white shadow-sm dark:border-white/10 dark:bg-neutral-900/80"
                   >
-                    <div className="h-28 border-b border-black/6" style={{ backgroundColor: variant.hex }} />
+                    <div className="h-28 border-b border-black/6 dark:border-white/10" style={{ backgroundColor: variant.hex }} />
                     <div className="p-4">
-                      <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">
+                      <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">
                         {variant.label}
                       </div>
-                      <div className="mt-2 text-lg font-semibold tracking-[0.02em] text-neutral-950">
-                        {variant.hex}
-                      </div>
+                      <CopyButton variant="compact" value={variant.hex} label={variant.hex} copiedLabel="Copied ✓" className="mt-2 text-lg font-semibold tracking-[0.02em] text-neutral-950 dark:text-white transition hover:text-neutral-500" />
                     </div>
                   </div>
                 ))}
@@ -441,11 +439,11 @@ export function WordColorGeneratorPage() {
             </div>
 
             <div className="space-y-4">
-              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
                   How it works
                 </div>
-                <div className="mt-3 space-y-3 text-sm leading-6 text-neutral-600">
+                <div className="mt-3 space-y-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                   <p>
                     The input string is normalized and hashed locally in the browser.
                   </p>
@@ -459,55 +457,58 @@ export function WordColorGeneratorPage() {
                 </div>
               </div>
 
-              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
                   Find in archive
                 </div>
-                <p className="mt-2 text-sm leading-6 text-neutral-600">
+                <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                   Search the curated ColorArchive for colors nearest to this generated hex.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
-                    href={`/all-colors?hex=${encodeURIComponent(generated.hex)}`}
+                    href={`/colors/hex/?c=${encodeURIComponent(generated.hex.replace('#',''))}`}
                     className="rounded-full border border-black/8 bg-neutral-950 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-neutral-800"
                   >
                     Search by hex
                   </Link>
                   <Link
                     href="/all-colors/"
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
                   >
                     Browse archive
                   </Link>
                 </div>
               </div>
 
-              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                    <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
                       Export pack
                     </div>
-                    <p className="mt-2 text-sm leading-6 text-neutral-600">
+                    <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                       Copy this generated palette as plain text or CSS variables and drop it into a
                       design doc, prompt, or codebase.
                     </p>
                   </div>
-                  <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
-                    Static
+                  <div className="flex shrink-0 items-center gap-2">
+                    <CopyButton label="palette" value={paletteExport} />
+                    <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500 dark:bg-white/8 dark:text-neutral-400">
+                      Static
+                    </div>
                   </div>
                 </div>
 
-                <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
+                <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600 dark:border-white/10 dark:bg-white/8 dark:text-neutral-400">
                   {paletteExport}
                 </pre>
               </div>
 
-              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-                <p className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80">
+                <p className="text-lg font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
                   Save your word colors
                 </p>
-                <p className="mt-1 mb-3 text-sm leading-6 text-neutral-600">
+                <p className="mt-1 mb-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                   Get one curated color in your inbox each morning — and a standing reason to come
                   back. Free, one email a day.
                 </p>
@@ -520,13 +521,13 @@ export function WordColorGeneratorPage() {
                   <Link
                     href="/pro/"
                     onClick={() => track("word_pro_click", { placement: "lower" })}
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
                   >
                     Production-ready tokens with Pro
                   </Link>
                   <Link
                     href="/free-resources/"
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
                   >
                     Free resources
                   </Link>
@@ -536,28 +537,28 @@ export function WordColorGeneratorPage() {
           </section>
         ) : null}
 
-        <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-8">
-          <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-2xl">
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-8 dark:border-white/10 dark:bg-neutral-900/80">
+          <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-2xl dark:text-white">
             Word to Color — frequently asked questions
           </h2>
           <dl className="mt-5 grid gap-4 sm:grid-cols-2">
             {wordToColorFaq.map((item) => (
               <div
                 key={item.question}
-                className="rounded-[1.4rem] border border-black/6 bg-neutral-50/70 p-5"
+                className="rounded-[1.4rem] border border-black/6 bg-neutral-50/70 p-5 dark:border-white/10 dark:bg-white/8"
               >
-                <dt className="text-base font-semibold text-neutral-900">{item.question}</dt>
-                <dd className="mt-2 text-sm leading-6 text-neutral-600">{item.answer}</dd>
+                <dt className="text-base font-semibold text-neutral-900 dark:text-white">{item.question}</dt>
+                <dd className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">{item.answer}</dd>
               </div>
             ))}
           </dl>
         </section>
 
-        <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-8">
-          <h2 className="text-base font-semibold tracking-[-0.02em] text-neutral-950">
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-8 dark:border-white/10 dark:bg-neutral-900/80">
+          <h2 className="text-base font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
             Browse word colors
           </h2>
-          <p className="mt-1 text-sm text-neutral-500">
+          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
             Ready-made pages with the exact hex, a 5-shade palette, and the nearest
             named color for popular words.
           </p>
@@ -566,7 +567,7 @@ export function WordColorGeneratorPage() {
               <Link
                 key={w}
                 href={`/word-to-color/${slugifyWord(w)}/`}
-                className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+                className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-neutral-950"
               >
                 {titleCaseWord(w)}
               </Link>

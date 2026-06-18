@@ -38,7 +38,7 @@ function CopyButton({ label, value }: { label: string; value: string }) {
     <button
       type="button"
       onClick={handleCopy}
-      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+      className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
     >
       {copied ? `${label} copied` : `Copy ${label}`}
     </button>
@@ -112,26 +112,26 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
           <span className="mx-2">&rsaquo;</span>
           <span className="text-neutral-600">Favorites</span>
         </nav>
-        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
+        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/74 sm:px-10 sm:py-14">
           <div className="relative mx-auto max-w-4xl">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase dark:border-white/10 dark:bg-white/10 dark:text-neutral-400">
               <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
               {t("favorites.badge")}
             </div>
 
-            <h1 className="max-w-3xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+            <h1 className="max-w-3xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-6xl">
               {t("favorites.heading")}
             </h1>
 
-            <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
+            <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 dark:text-neutral-400 sm:text-lg">
               Favorites always work locally, and signed-in accounts now sync them across devices
               without changing the browsing flow.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3">
+              <div className="rounded-2xl border border-black/6 bg-white/85 px-4 py-3 dark:border-white/10 dark:bg-white/8">
                 <div className="text-xs uppercase tracking-[0.18em] text-neutral-400">{t("favorites.saved")}</div>
-                <div className="mt-1 text-lg font-semibold text-neutral-950">
+                <div className="mt-1 text-lg font-semibold text-neutral-950 dark:text-white">
                   {favoriteColors.length} {t("favorites.colors")}
                 </div>
               </div>
@@ -157,7 +157,7 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
               </Link>
               <Link
                 href="/all-colors"
-                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/14"
               >
                 {t("favorites.findMoreColors")}
               </Link>
@@ -166,11 +166,11 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
         </section>
 
         {favoriteColors.length === 0 ? (
-          <section className="rounded-[1.75rem] border border-black/6 bg-white/80 px-6 py-12 text-center shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
+          <section className="rounded-[1.75rem] border border-black/6 bg-white/80 px-6 py-12 text-center shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/78">
+            <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
               {t("favorites.noSavedYet")}
             </h2>
-            <p className="mt-3 text-sm leading-6 text-neutral-600">
+            <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
               Use the Save button on archive cards, selected colors, or detail pages to build a
               personal color shelf.
             </p>
@@ -184,11 +184,11 @@ export function FavoritesPage({ colors }: FavoritesPageProps) {
               description="These picks stay close to your saved families and tonal range, while still widening the palette enough to keep the archive useful."
             />
 
-            <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/78">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 {t("favorites.exportPreview")}
               </div>
-              <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600">
+              <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-600 dark:bg-white/8 dark:text-neutral-300">
                 {paletteExport}
               </pre>
               <div className="mt-4 text-xs uppercase tracking-[0.16em] text-neutral-400">

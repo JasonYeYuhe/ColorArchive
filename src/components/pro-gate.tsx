@@ -87,7 +87,7 @@ interface ProGateProps {
 }
 
 /**
- * Wraps an export/download action. Free users get 1 export per day;
+ * Wraps an export/download action. Free users get 3 exports per day;
  * Pro users get unlimited. Shows upgrade prompt when limit reached.
  */
 export function ProGate({ children, label = "Export" }: ProGateProps) {
@@ -165,17 +165,39 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
   return (
     <div className="relative group">
       <div className="opacity-40 pointer-events-none select-none">{children}</div>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <Link
-          href="/pro/"
-          onClick={() => track("upgrade_clicked", { source: "export_locked" })}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-indigo-500 transition-colors"
-        >
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-          </svg>
-          Upgrade to Pro
-        </Link>
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
+        {tier === "anonymous" ? (
+          <>
+            <Link
+              href="/login?next=/pro"
+              onClick={() => track("upgrade_clicked", { source: "export_locked_signin" })}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-slate-700 transition-colors"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+              </svg>
+              Sign in for more
+            </Link>
+            <Link
+              href="/pro/"
+              onClick={() => track("upgrade_clicked", { source: "export_locked" })}
+              className="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 underline hover:opacity-80 transition-opacity"
+            >
+              Go Pro
+            </Link>
+          </>
+        ) : (
+          <Link
+            href="/pro/"
+            onClick={() => track("upgrade_clicked", { source: "export_locked" })}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-indigo-500 transition-colors"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+            Upgrade to Pro
+          </Link>
+        )}
       </div>
     </div>
   );

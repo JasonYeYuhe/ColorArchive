@@ -98,7 +98,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
   }, [activeFamily, searchResults, sortBy]);
 
   const PAGE_SIZE = 120;
-  const MAX_DISPLAY = 720;
+  const MAX_DISPLAY = colors.length;
   const [displayLimit, setDisplayLimit] = useState(PAGE_SIZE);
 
   useEffect(() => {
@@ -233,6 +233,7 @@ export function ColorArchivePage({ colors }: ColorArchivePageProps) {
               onClearSearch={() => handleSearchChange("")}
               onClearFamily={() => setActiveFamily("All")}
               onReset={handleReset}
+              onSuggest={(term) => handleSearchChange(term)}
             />
           }
         />

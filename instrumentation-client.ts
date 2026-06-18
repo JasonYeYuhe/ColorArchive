@@ -9,7 +9,6 @@
 // config/withSentryConfig/buildTime.d.ts.
 
 import * as Sentry from "@sentry/nextjs";
-import { BrowserAgent } from "@newrelic/browser-agent/loaders/browser-agent";
 
 const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
 
@@ -53,27 +52,34 @@ if (typeof window !== "undefined") {
   const NR_APP_ID = "1120537094";
   const NR_BROWSER_KEY =
     "9253281111BA9CF8B6829A0B314E3CBD113D064B9CE890C5646A6D57F79867D3";
-  new BrowserAgent({
-    init: {
-      distributed_tracing: { enabled: true },
-      privacy: { cookies_enabled: true },
-      ajax: { deny_list: ["bam.nr-data.net"] },
-    },
-    info: {
-      beacon: "bam.nr-data.net",
-      errorBeacon: "bam.nr-data.net",
-      licenseKey: NR_BROWSER_KEY,
-      applicationID: NR_APP_ID,
-      sa: 1,
-    },
-    loader_config: {
-      accountID: "8123978",
-      trustKey: "8123978",
-      agentID: NR_APP_ID,
-      licenseKey: NR_BROWSER_KEY,
-      applicationID: NR_APP_ID,
-    },
-  });
+  const startNR = () =>
+    import("@newrelic/browser-agent/loaders/browser-agent")
+      .then(({ BrowserAgent }) => {
+        new BrowserAgent({
+          init: {
+            distributed_tracing: { enabled: true },
+            privacy: { cookies_enabled: true },
+            ajax: { deny_list: ["bam.nr-data.net"] },
+          },
+          info: {
+            beacon: "bam.nr-data.net",
+            errorBeacon: "bam.nr-data.net",
+            licenseKey: NR_BROWSER_KEY,
+            applicationID: NR_APP_ID,
+            sa: 1,
+          },
+          loader_config: {
+            accountID: "8123978",
+            trustKey: "8123978",
+            agentID: NR_APP_ID,
+            licenseKey: NR_BROWSER_KEY,
+            applicationID: NR_APP_ID,
+          },
+        });
+      })
+      .catch(() => {});
+  if ("requestIdleCallback" in window) requestIdleCallback(startNR);
+  else setTimeout(startNR, 2000);
 }
 
 // Required export for Next.js 15+ app-router instrumentation so Sentry

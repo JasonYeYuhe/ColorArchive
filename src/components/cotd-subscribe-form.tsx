@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 
 import { API_URL } from "@/src/lib/api-config";
 
@@ -22,6 +22,10 @@ export function CotdSubscribeForm({
   const [email, setEmail] = useState("");
   const [state, setState] = useState<State>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+
+  const reactId = useId();
+  const headingId = `cotd-form-heading-${reactId}`;
+  const errorId = `cotd-form-error-${reactId}`;
 
   const borderColor = colorHex ?? "#6366f1";
 
@@ -51,7 +55,7 @@ export function CotdSubscribeForm({
 
   if (state === "success") {
     return (
-      <div className="rounded-2xl border border-black/8 bg-white/80 px-5 py-4 text-center backdrop-blur-sm">
+      <div role="status" className="rounded-2xl border border-black/8 bg-white/80 px-5 py-4 text-center backdrop-blur-sm">
         <p className="text-sm font-medium text-slate-800">You&apos;re in!</p>
         <p className="text-xs text-slate-500 mt-0.5">One color, delivered to your inbox each morning.</p>
       </div>
@@ -63,7 +67,7 @@ export function CotdSubscribeForm({
       className="rounded-2xl border bg-white/80 px-5 py-4 backdrop-blur-sm"
       style={{ borderColor: `${borderColor}30` }}
     >
-      <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
+      <p id={headingId} className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
         {heading}
       </p>
       <form onSubmit={handleSubmit} className="flex gap-2">
@@ -72,6 +76,9 @@ export function CotdSubscribeForm({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your@email.com"
+          aria-labelledby={headingId}
+          aria-invalid={state === "error"}
+          aria-describedby={state === "error" ? errorId : undefined}
           className="flex-1 min-w-0 text-sm border border-slate-200 rounded-xl px-3 py-2 bg-white text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-300"
         />
         <button
@@ -84,7 +91,7 @@ export function CotdSubscribeForm({
         </button>
       </form>
       {state === "error" && (
-        <p className="text-xs text-red-500 mt-1.5">{errorMsg}</p>
+        <p id={errorId} role="alert" className="text-xs text-red-500 mt-1.5">{errorMsg}</p>
       )}
       <p className="text-[10px] text-slate-400 mt-2">One email per day. Unsubscribe anytime.</p>
     </div>

@@ -68,7 +68,7 @@ export function ToolUpsellBanner({ toolName }: ToolUpsellBannerProps) {
               Enjoying {toolName || "our tools"}?
             </p>
             <p className="mt-1 text-xs text-indigo-700/70 dark:text-indigo-300/60">
-              Go Pro for unlimited exports, AI palettes, WCAG reports, and cloud sync across all devices.
+              Go Pro for unlimited exports, AI palettes, WCAG reports, and cloud sync across all devices. Includes a 3-day free trial — cancel anytime.
             </p>
           </div>
         </div>
@@ -91,8 +91,8 @@ export function ToolUpsellBanner({ toolName }: ToolUpsellBannerProps) {
           View Pro Plans
         </Link>
         <Link
-          href="/free-resources"
-          className="rounded-lg bg-white px-4 py-2 text-xs font-medium text-indigo-700 transition hover:bg-indigo-50 dark:bg-white/10 dark:text-indigo-300 dark:hover:bg-white/15"
+          href="/free-resources/"
+          className="self-center text-xs underline text-slate-500 transition hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
         >
           Free Resources
         </Link>
