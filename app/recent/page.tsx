@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { RecentColorsPage } from "@/src/components/recent-colors-page";
-import { colors } from "@/src/data/colors";
 import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
@@ -25,7 +24,7 @@ export default function RecentRoute() {
     <>
       <StructuredDataScript data={breadcrumbData} />
       <SiteHeader currentPath="/recent" />
-      <RecentColorsPage colors={colors} />
+      <RecentColorsPage />
     </>
   );
 }

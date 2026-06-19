@@ -1,7 +1,31 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-19 (deep perf/bundle batch + B3/B5 + 28-fix product batch)
+> Last updated: 2026-06-19 (perf follow-up: SVG-og + #29 RSC + relationship single-pass + backend WAL)
+
+## 🟢 Perf follow-up shipped 2026-06-19 (remote) — og fix + RSC + algo + backend
+> Owner approved doing all three remaining tracks. Done + verified from build artifacts:
+> - **SVG og:image → PNG (distribution win, ~374 pages)**: collections + families [slug]
+>   had working next/og PNG routes suppressed by a manual `openGraph.images:[svg]` override
+>   → removed the override so the PNG route binds; notes (no route) → swapped to
+>   `/og-image-v1.png`. **Verified: 0 `/generated/og/*.svg` left in any built HTML.** Social
+>   share cards (X/FB/LinkedIn/Slack/Discord) now render instead of blank.
+> - **#29 resolved (the homepage/9-page full-dataset RSC)**: instead of the API lazy-load,
+>   used the cheaper NEED7 pattern — the 9 client pages now `import { colors }` (the ~151-line
+>   deterministic generator) client-side instead of receiving the 5,446-record array as a
+>   serialized prop. **index.rsc 996KB→32KB (−97%)**; all-colors/search/favorites/recent/
+>   surprise/spectrum ~1MB→24KB each. (pick-for-me still 600KB — that's its `collections`
+>   prop, a separate slim-able follow-up; not the colors array.)
+> - **Color-relationship single-pass**: replaced `[...colors].filter().sort()[0]` in 5
+>   functions with a `minByComparator` (O(n), strict-< keeps first-on-tie = byte-identical to
+>   the stable sort). **Verified output-identical** (a color page still renders 51 unique hex,
+>   unchanged). Cuts build CPU + speeds runtime callers (mood-palette/url-analyzer).
+> - **Backend SQLite WAL (server/db.js)**: added `journal_mode=WAL` + `synchronous=NORMAL` +
+>   `busy_timeout=5000` so reads don't block the high-volume event/pageview writes (no more
+>   SQLITE_BUSY drops). **Deployed to the droplet** (ssh + pm2). `node --check` passed.
+> - Still deferred: posthog eager-load (defer risks losing validation analytics);
+>   pick-for-me/families `collections` prop slimming; per-note custom OG cards (notes use the
+>   generic brand PNG for now).
 
 ## 🟢 Deep performance batch shipped 2026-06-19 (remote) — bundle + RSC payload
 > A deep perf/structural audit (8 dims, adversarially verified, 34 findings) then a

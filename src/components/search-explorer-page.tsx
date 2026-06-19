@@ -11,11 +11,8 @@ import { ShareLinkButton } from "@/src/components/share-link-button";
 import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, filterColorsWithCounts, sortColors } from "@/src/lib/color-utils";
 import { SEARCH_CHIPS } from "@/src/lib/color-search";
+import { colors } from "@/src/data/colors";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
-
-interface SearchExplorerPageProps {
-  colors: readonly ColorRecord[];
-}
 
 const SEARCH_PROMPTS = ["moss", "rose", "#7F", "azure", "velvet"] as const;
 
@@ -136,7 +133,7 @@ function matchesToneBand(color: ColorRecord, toneBand: ToneBand) {
   return color.lightness < 38;
 }
 
-export function SearchExplorerPage({ colors }: SearchExplorerPageProps) {
+export function SearchExplorerPage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

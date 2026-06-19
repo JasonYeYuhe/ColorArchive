@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
 import type { ColorRecord } from "@/src/types/color";
 import type { ColorCollection } from "@/src/lib/collections";
+import { colors } from "@/src/data/colors";
 import { useLocale } from "@/src/components/locale-provider";
 
 /* ------------------------------------------------------------------ */
@@ -318,7 +319,7 @@ function CopyableColor({ color }: { color: ColorRecord }) {
   );
 }
 
-export function PickForMePage({ colors, collections }: { colors: ColorRecord[]; collections: ColorCollection[] }) {
+export function PickForMePage({ collections }: { collections: ColorCollection[] }) {
   const { locale } = useLocale();
   const t = TEXT[locale] || TEXT.en;
   const quickPrompts = locale === "zh" ? QUICK_PROMPTS_ZH : QUICK_PROMPTS_EN;

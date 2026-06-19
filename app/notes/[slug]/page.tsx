@@ -44,13 +44,13 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
       type: "article",
       publishedTime: issue.date,
       authors: ["ColorArchive"],
-      images: [`${SITE_URL}/generated/og/notes/${issue.slug}.svg`],
+      images: [`${SITE_URL}/og-image-v1.png`],
     },
     twitter: {
       card: "summary_large_image",
       title: issue.title,
       description: issue.summary,
-      images: [`${SITE_URL}/generated/og/notes/${issue.slug}.svg`],
+      images: [`${SITE_URL}/og-image-v1.png`],
     },
   };
 }
@@ -86,7 +86,7 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
       dateModified: issue.date,
       keywords: (issue.tags ?? []).join(", "),
       url: `${SITE_URL}/notes/${issue.slug}/`,
-      image: `${SITE_URL}/generated/og/notes/${issue.slug}.svg`,
+      image: `${SITE_URL}/og-image-v1.png`,
       mainEntityOfPage: {
         "@type": "WebPage",
         "@id": `${SITE_URL}/notes/${issue.slug}/`,

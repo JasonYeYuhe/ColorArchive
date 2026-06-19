@@ -45,12 +45,8 @@ export async function generateMetadata({ params }: FamilyRouteProps): Promise<Me
     alternates: {
       canonical: `/families/${page.slug}/`,
     },
-    openGraph: {
-      images: [`${SITE_URL}/generated/og/families/${page.slug}.svg`],
-    },
-    twitter: {
-      images: [`${SITE_URL}/generated/og/families/${page.slug}.svg`],
-    },
+    openGraph: {},
+    twitter: {},
   };
 }
 

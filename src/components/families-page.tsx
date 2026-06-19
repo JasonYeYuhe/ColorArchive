@@ -1,18 +1,17 @@
 import Link from "next/link";
-import type { ColorRecord } from "@/src/types/color";
 import type { ColorCollection } from "@/src/lib/collections";
 import {
   COLOR_FAMILY_PAGES,
   getColorsForFamily,
   getCollectionsForFamily,
 } from "@/src/lib/color-family-pages";
+import { colors } from "@/src/data/colors";
 
 interface FamiliesPageProps {
-  colors: readonly ColorRecord[];
   collections: readonly ColorCollection[];
 }
 
-export function FamiliesPage({ colors, collections }: FamiliesPageProps) {
+export function FamiliesPage({ collections }: FamiliesPageProps) {
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">

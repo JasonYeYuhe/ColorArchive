@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { FamiliesPage } from "@/src/components/families-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
-import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
 import { SITE_URL } from "@/src/lib/site-config";
 
@@ -32,10 +31,10 @@ export const metadata: Metadata = {
     canonical: "/families/",
   },
   openGraph: {
-    images: [`${SITE_URL}/generated/og/families/index.svg`],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
-    images: [`${SITE_URL}/generated/og/families/index.svg`],
+    images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
 
@@ -44,7 +43,7 @@ export default function FamiliesRoute() {
     <>
       <SiteHeader currentPath="/families" />
       <StructuredDataScript data={structuredData} />
-      <FamiliesPage colors={colors} collections={collections} />
+      <FamiliesPage collections={collections} />
     </>
   );
 }

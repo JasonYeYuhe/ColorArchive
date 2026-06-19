@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { FavoritesPage } from "@/src/components/favorites-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
-import { colors } from "@/src/data/colors";
 import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
@@ -25,7 +24,7 @@ export default function FavoritesRoute() {
     <>
       <StructuredDataScript data={breadcrumbData} />
       <SiteHeader currentPath="/favorites" />
-      <FavoritesPage colors={colors} />
+      <FavoritesPage />
     </>
   );
 }

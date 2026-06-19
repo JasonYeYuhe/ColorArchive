@@ -3,6 +3,12 @@ const path = require("path");
 
 const db = new Database(path.join(__dirname, "data.db"));
 db.pragma("foreign_keys = ON");
+// WAL + relaxed sync + busy timeout: readers (admin dashboards) no longer block the
+// high-volume event/pageview writers and vice versa, and a busy writer waits up to 5s
+// instead of dropping the write on SQLITE_BUSY. Standard config for concurrent web load.
+db.pragma("journal_mode = WAL");
+db.pragma("synchronous = NORMAL");
+db.pragma("busy_timeout = 5000");
 
 // Migration helper — adequate for current scale. Consider better-sqlite3-migrations
 // or umzug if schema changes become more complex or need rollback support.

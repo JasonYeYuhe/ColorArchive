@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { SpectrumExplorerPage } from "@/src/components/spectrum-explorer-page";
-import { colors } from "@/src/data/colors";
 import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
@@ -43,7 +42,7 @@ export default function SpectrumPage() {
     <>
       <SiteHeader currentPath="/spectrum" />
       <StructuredDataScript data={[structuredData, breadcrumbData]} />
-      <SpectrumExplorerPage colors={colors} />
+      <SpectrumExplorerPage />
     </>
   );
 }

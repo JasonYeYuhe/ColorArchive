@@ -3,7 +3,6 @@ import { ColorArchivePage } from "@/src/components/color-archive-page";
 import { OnboardingTour } from "@/src/components/onboarding-tour";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
-import { colors } from "@/src/data/colors";
 import { landingGuides } from "@/src/lib/guides";
 import { newsletterIssues } from "@/src/lib/newsletter-issues";
 import { SITE_URL, CONTACT_EMAIL } from "@/src/lib/site-config";
@@ -80,7 +79,7 @@ export default function HomePage() {
           </div>
         </div>
       }>
-        <ColorArchivePage colors={colors} featuredGuides={featuredGuides} recentNotes={recentNotes} />
+        <ColorArchivePage featuredGuides={featuredGuides} recentNotes={recentNotes} />
       </Suspense>
     </>
   );

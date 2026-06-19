@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { AllColorsPage } from "@/src/components/all-colors-page";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
-import { colors } from "@/src/data/colors";
 import { SITE_URL } from "@/src/lib/site-config";
 
 const structuredData = [
@@ -49,7 +48,7 @@ export default function AllColorsRoute() {
       <SiteHeader currentPath="/all-colors" />
       <StructuredDataScript data={structuredData} />
       <Suspense fallback={null}>
-        <AllColorsPage colors={colors} />
+        <AllColorsPage />
       </Suspense>
     </>
   );

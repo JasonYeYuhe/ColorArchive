@@ -12,11 +12,10 @@ import { ShareLinkButton } from "@/src/components/share-link-button";
 import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import { findNearestArchiveColor } from "@/src/lib/color-relationships";
+import { colors } from "@/src/data/colors";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
-interface AllColorsPageProps {
-  colors: readonly ColorRecord[];
-}
+type AllColorsPageProps = Record<string, never>;
 
 type DensityMode = "compact" | "comfortable" | "expanded";
 type HueBand = "all" | "warm" | "fresh" | "cool" | "violet";
@@ -53,7 +52,7 @@ function matchesToneBand(color: ColorRecord, toneBand: ToneBand) {
   return color.lightness < 38;
 }
 
-export function AllColorsPage({ colors }: AllColorsPageProps) {
+export function AllColorsPage({}: AllColorsPageProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

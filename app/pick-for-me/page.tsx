@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { PickForMePage } from "@/src/components/pick-for-me-page";
-import { colors } from "@/src/data/colors";
 import { collections } from "@/src/lib/collections";
 import { SITE_URL } from "@/src/lib/site-config";
 
@@ -44,7 +43,7 @@ export default function PickForMeRoute() {
     <>
       <SiteHeader currentPath="/pick-for-me" />
       <StructuredDataScript data={[structuredData, breadcrumbData]} />
-      <PickForMePage colors={colors} collections={collections} />
+      <PickForMePage collections={collections} />
     </>
   );
 }

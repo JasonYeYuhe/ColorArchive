@@ -7,11 +7,8 @@ import { useLocale } from "@/src/components/locale-provider";
 import { RecommendedColorsSection } from "@/src/components/recommended-colors-section";
 import { getFavoriteColorIds, subscribeToFavorites } from "@/src/lib/favorites";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
+import { colors } from "@/src/data/colors";
 import type { ColorRecord } from "@/src/types/color";
-
-interface FavoritesPageProps {
-  colors: readonly ColorRecord[];
-}
 
 function CopyButton({ label, value }: { label: string; value: string }) {
   const [copied, setCopied] = useState(false);
@@ -45,7 +42,7 @@ function CopyButton({ label, value }: { label: string; value: string }) {
   );
 }
 
-export function FavoritesPage({ colors }: FavoritesPageProps) {
+export function FavoritesPage() {
   const { t } = useLocale();
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
 

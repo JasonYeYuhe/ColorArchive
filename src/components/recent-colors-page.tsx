@@ -7,13 +7,10 @@ import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
 import { RecommendedColorsSection } from "@/src/components/recommended-colors-section";
 import { clearRecentColors, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
+import { colors } from "@/src/data/colors";
 import type { ColorRecord } from "@/src/types/color";
 
-interface RecentColorsPageProps {
-  colors: readonly ColorRecord[];
-}
-
-export function RecentColorsPage({ colors }: RecentColorsPageProps) {
+export function RecentColorsPage() {
   const { t } = useLocale();
   const [recentIds, setRecentIds] = useState<string[]>([]);
 

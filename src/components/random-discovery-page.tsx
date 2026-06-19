@@ -7,16 +7,13 @@ import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { sortColors } from "@/src/lib/color-utils";
 import type { ColorRecord } from "@/src/types/color";
-
-interface RandomDiscoveryPageProps {
-  colors: readonly ColorRecord[];
-}
+import { colors } from "@/src/data/colors";
 
 function pickRandomColor(colors: readonly ColorRecord[]) {
   return colors[Math.floor(Math.random() * colors.length)] ?? null;
 }
 
-export function RandomDiscoveryPage({ colors }: RandomDiscoveryPageProps) {
+export function RandomDiscoveryPage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

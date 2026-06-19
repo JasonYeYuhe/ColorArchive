@@ -3,17 +3,14 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import { colors } from "@/src/data/colors";
 import type { ColorRecord } from "@/src/types/color";
-
-interface SpectrumExplorerPageProps {
-  colors: readonly ColorRecord[];
-}
 
 function uniqueSorted(values: readonly number[]) {
   return [...new Set(values)].sort((left, right) => left - right);
 }
 
-export function SpectrumExplorerPage({ colors }: SpectrumExplorerPageProps) {
+export function SpectrumExplorerPage() {
   const saturationBands = useMemo(
     () =>
       uniqueSorted(colors.map((color) => color.saturation)).map((saturation) => ({
