@@ -306,6 +306,11 @@ export function ColorVsPage({ colorA, colorB, relatedPairs }: ColorVsPageProps) 
                 <Link
                   key={`${a.id}-${b.id}`}
                   href={`/colors/${a.id}/vs/${b.id}/`}
+                  // nofollow: vs pages are on-demand (ISR) over a ~29M combinatorial space.
+                  // Letting crawlers spider vs→vs→vs generated millions of on-demand renders /
+                  // ISR writes (the #1 ISR cost). Color→vs entry links stay followable; this
+                  // just caps the exponential deep crawl. Users can still click through.
+                  rel="nofollow"
                   className="flex items-center gap-3 rounded-xl border border-black/5 bg-white/60 p-3 transition hover:shadow-sm dark:border-white/5 dark:bg-white/3"
                 >
                   <div className="flex gap-1">

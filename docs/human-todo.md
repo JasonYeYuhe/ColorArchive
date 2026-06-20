@@ -1,7 +1,47 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-20 (B-meas source-split funnel + D1 OG hygiene — exit-gate now readable by channel)
+> Last updated: 2026-06-20 (Vercel cost diagnosis + 2 fixes; B-meas + D1)
+
+## 💸 Vercel cost 2026-06-20 (remote) — diagnosed + 2 fixes shipped
+> Owner asked why Vercel cost spiked. Pulled the actual usage dashboard (Pro, billing
+> 5/25–6/25): **$73.93 total = $20 Pro + $53.93 on-demand overage.** Drivers, ranked:
+> | Item | Usage | $ |
+> |---|---|---|
+> | Build CPU Minutes | 145 h | **$30.51** |
+> | ISR Writes | 4.78M | **$19.13** |
+> | Fast Origin Transfer | 199 GB | $12.01 |
+> | ISR Reads | 20.65M | $8.26 |
+> | Fluid CPU / Func Invocations / Mem | — | $3.90 |
+>
+> **Root causes:** (1) **~45 production builds since 6/1** of a 4,461-page site → 145
+> build-CPU-h. (2) **Crawler traffic × on-demand pages**: 20.65M ISR reads + 4.78M writes +
+> 1.03M fn calls + 199GB vs only ~26k human pageviews — almost all bots (incl. AI crawlers;
+> saw PerplexityBot). The `/colors/[slug]/vs/[slug2]/` route (dynamicParams=true, ~28
+> prebuilt of a ~29M combinatorial space) let crawlers spider color→vs→vs→vs → millions of
+> on-demand ISR writes, **re-invalidated on every deploy**.
+>
+> **Shipped (this commit):**
+> - **#1 — `scripts/vercel-ignore.sh`**: blanket-skip ALL `docs/*.md` + `.claude/*` (was an
+>   enumerated list that silently built on any new/unlisted doc). Cuts future build count +
+>   ISR re-write storms. Safe (build imports nothing from docs/.claude, no .md/mdx; verified).
+> - **#2 — vs→vs links `rel="nofollow"`** (`src/components/color-vs-page.tsx`): caps the
+>   exponential combinatorial crawl that drives the ISR writes. Color→vs entry links stay
+>   followable; users can still click through. Zero deindex / no 404s / reversible.
+>
+> **Owner levers NOT yet done (need your call — they touch deploy cadence / SEO):**
+> 1. **Cut deploy frequency further** — the autopilot's near-daily content roundups + multi-push
+>    sessions are the build-cost multiplier (the ignore script only helps metadata-only pushes;
+>    content/code pushes still do a full 4,461-page build). Batch autopilot content to e.g.
+>    2×/week. Biggest remaining $ lever (~$20/mo). This is autopilot-cadence config (local), not repo.
+> 2. **Build "mode" can't be made cheaper** — Vercel's default build container is already the
+>    cheapest tier (enhanced machines cost MORE). The only real build-cost levers are fewer
+>    builds (above) + fewer pages/build. Moving the 4,461 SSG pages → ISR would cut build time
+>    but RAISE ISR writes (the #2 line item) — a wash, not a win. So: reduce frequency, not mode.
+> 3. **If ISR writes stay high after #2**: stronger options = `noindex` the non-seed vs pages, or
+>    `force-dynamic` the vs route (moves cost from ISR writes → cheaper fn invocations), or
+>    robots-disallow `/colors/*/vs/`. All trade against SEO/crawl — pick one if monitoring shows need.
+> **→ Re-check the usage dashboard ~6/24 to confirm ISR writes + build minutes dropped.**
 
 ## 🔴 NEW 2026-06-20 (remote) — owner action items (B-meas + D1 done in code)
 
