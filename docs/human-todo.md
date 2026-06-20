@@ -41,7 +41,19 @@
 > 3. **If ISR writes stay high after #2**: stronger options = `noindex` the non-seed vs pages, or
 >    `force-dynamic` the vs route (moves cost from ISR writes → cheaper fn invocations), or
 >    robots-disallow `/colors/*/vs/`. All trade against SEO/crawl — pick one if monitoring shows need.
-> **→ Re-check the usage dashboard ~6/24 to confirm ISR writes + build minutes dropped.**
+> **→ Re-check SCHEDULED for 2026-06-24 10:00 JST** (one-time task `vercel-cost-recheck-2026-06-24`;
+>   runs the deploy-count proxy via Vercel MCP + dashboard if Chrome's up; auto-disables after).
+
+## 📣 Distribution kit 2026-06-21 (remote) → `docs/distribution-kit-2026-06-21.md`
+> The actual lever for the 07-15 gate. Hard data: 26k pageviews/30d, ~13k/wk to /word-to-color,
+> but **0 /preorder visits ever, 0 orders** — pure distribution gap, not code. v3-aligned kit
+> (supersedes the v2 06-15 plan's free-tool→HN hook): **hook = a11y-audit pain → /preorder**;
+> **channels = a11y + design-systems communities + direct ICP outreach** (LinkedIn/X DMs, cold
+> email). Has ready-to-send DM/email/post copy, an ICP target list, content-post angles, weekly
+> quotas (≥40 ICP touches + ≥20 community contributions + ≥2 posts/wk → ~145 qualified UV/wk), and
+> **pre-built UTM /preorder links per channel** that auto-attribute in the new `/analytics` gate +
+> PostHog dashboard (r/accessibility tagged `a11y-community` so it counts as qualified, not generic
+> reddit). Execution is yours (DMs/posts/emails); the prep is done. Tripwire ~07-02, gate ~07-15.
 
 ## 🔴 NEW 2026-06-20 (remote) — owner action items (B-meas + D1 done in code)
 
