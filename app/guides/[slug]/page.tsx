@@ -32,16 +32,18 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
     alternates: {
       canonical: `/guides/${guide.slug}/`,
     },
+    // No explicit `images` — lets the colocated opengraph-image.tsx route bind (per-guide
+    // PNG card with the guide title). An explicit images array would override and suppress
+    // it (the 9885f5b bug — that commit fixed collections/families but missed guides).
     openGraph: {
       title: guide.title,
       description: guide.summary,
       url: `${SITE_URL}/guides/${guide.slug}/`,
-      images: [`${SITE_URL}/og-image-v1.png`],
     },
     twitter: {
+      card: "summary_large_image",
       title: guide.title,
       description: guide.summary,
-      images: [`${SITE_URL}/og-image-v1.png`],
     },
   };
 }

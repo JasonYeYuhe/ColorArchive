@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: FamilyRouteProps): Promise<Me
       canonical: `/families/${page.slug}/`,
     },
     openGraph: {},
-    twitter: {},
+    twitter: { card: "summary_large_image" },
   };
 }
 

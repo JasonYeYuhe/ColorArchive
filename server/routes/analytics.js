@@ -379,6 +379,129 @@ router.get("/buyers", (req, res) => {
   return res.json({ buyers, source: source ?? "all", days });
 });
 
+/**
+ * GET /analytics/gate — the exit-gate funnel, split by channel.
+ *
+ * One screen that answers the 2026-07-15 gate question directly: did we get ≥500 QUALIFIED
+ * UV to /preorder (or ≥1000 paywall triggers), and from WHICH channels — so a "floor met but
+ * 0 preorders" reading can be diagnosed as fed-the-wrong-people vs. no-demand. Reads the
+ * first-party pageviews + events (now channel-stamped) and orders (the numerator).
+ */
+router.get("/gate", (req, res) => {
+  const days = Math.min(Math.max(parseInt(req.query.days) || 30, 1), 365);
+  // Bind the window as a relative SQLite modifier and compare with datetime() on both sides.
+  // (Comparing created_at — stored as 'YYYY-MM-DD HH:MM:SS' via datetime('now') — against a
+  // raw ISO string '...T...Z' silently drops boundary-day rows: ' ' < 'T' lexically.)
+  const sinceParam = `-${days} days`;
+
+  const byChannel = (sql) =>
+    db
+      .prepare(sql)
+      .all(sinceParam)
+      .map((r) => ({ channel: r.channel || "unknown", count: r.count }));
+
+  // Denominator A: qualified UV to /preorder, by channel.
+  const preorderUvByChannel = byChannel(
+    `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, COUNT(*) as count
+     FROM pageviews
+     WHERE datetime(created_at) >= datetime('now', ?) AND path LIKE '/preorder%'
+     GROUP BY channel ORDER BY count DESC`,
+  );
+
+  // Denominator B: paywall triggers (hit + restored), by channel.
+  const paywallByChannel = byChannel(
+    `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, COUNT(*) as count
+     FROM events
+     WHERE datetime(created_at) >= datetime('now', ?) AND event_name IN ('word_paywall_hit', 'word_paywall_restored')
+     GROUP BY channel ORDER BY count DESC`,
+  );
+
+  // Conversion steps, by event × channel.
+  const GATE_EVENTS = [
+    "preorder_view",
+    "preorder_cta_click",
+    "preorder_checkout_clicked",
+    "preorder_checkout_redirected",
+    "word_paywall_hit",
+    "word_paywall_restored",
+    "word_paywall_pro_click",
+    "word_paywall_email_unlock",
+    "word_pro_click",
+  ];
+  const placeholders = GATE_EVENTS.map(() => "?").join(", ");
+  const stepRows = db
+    .prepare(
+      `SELECT event_name,
+              COALESCE(NULLIF(channel, ''), 'unknown') as channel,
+              COUNT(*) as count
+       FROM events
+       WHERE datetime(created_at) >= datetime('now', ?) AND event_name IN (${placeholders})
+       GROUP BY event_name, channel
+       ORDER BY event_name ASC, count DESC`,
+    )
+    .all(sinceParam, ...GATE_EVENTS);
+
+  const stepsByEvent = {};
+  for (const ev of GATE_EVENTS) stepsByEvent[ev] = { total: 0, byChannel: {} };
+  for (const row of stepRows) {
+    stepsByEvent[row.event_name].total += row.count;
+    stepsByEvent[row.event_name].byChannel[row.channel] = row.count;
+  }
+
+  // Numerator: real orders in the window (the thing the gate ultimately counts).
+  const ordersTotal = db
+    .prepare(`SELECT COUNT(*) as count FROM orders WHERE datetime(created_at) >= datetime('now', ?)`)
+    .get(sinceParam).count;
+  const ordersByProduct = db
+    .prepare(
+      `SELECT product, COUNT(*) as count, COALESCE(SUM(amount), 0) as revenue
+       FROM orders WHERE datetime(created_at) >= datetime('now', ?)
+       GROUP BY product ORDER BY count DESC`,
+    )
+    .all(sinceParam);
+  // NB: orders are attributed by SIGN-UP SOURCE tag (free-pack / waitlist / preorder / …),
+  // NOT the first-touch acquisition channel — orders.attributed_source comes from the form's
+  // `source`, not classifyChannel. So this is a different axis than the channel-keyed
+  // denominators above and can't be joined to them. True acquisition-channel attribution on
+  // the numerator would require threading `channel` through the purchase webhook (deferred —
+  // out of scope this sprint; the gate decision uses orders.total, not the per-source split).
+  const ordersBySource = db
+    .prepare(
+      `SELECT COALESCE(NULLIF(attributed_source, ''), 'unknown') as source, COUNT(*) as count
+       FROM orders WHERE datetime(created_at) >= datetime('now', ?)
+       GROUP BY source ORDER BY count DESC`,
+    )
+    .all(sinceParam)
+    .map((r) => ({ source: r.source, count: r.count }));
+
+  const sum = (rows) => rows.reduce((n, r) => n + r.count, 0);
+  const preorderUvTotal = sum(preorderUvByChannel);
+  const paywallTotal = sum(paywallByChannel);
+
+  // Generic-traffic channels do NOT count toward the qualified floor (dev-plan §5 channel
+  // hygiene). Unknown referral domains ('referral:*') are also treated as generic — a random
+  // referral shouldn't inflate the qualified count. Explicit campaign tags ('utm:*') DO count
+  // (the operator set them deliberately). This is advisory: the owner sees raw + qualified.
+  const GENERIC = new Set(["hackernews", "organic-search", "direct", "unknown", "reddit"]);
+  const isGeneric = (ch) => GENERIC.has(ch) || ch.startsWith("referral:");
+  const qualifiedPreorderUv = preorderUvByChannel
+    .filter((r) => !isGeneric(r.channel))
+    .reduce((n, r) => n + r.count, 0);
+
+  return res.json({
+    days,
+    floors: {
+      preorderUv: { total: preorderUvTotal, qualified: qualifiedPreorderUv, target: 500 },
+      paywallTriggers: { total: paywallTotal, target: 1000 },
+      genericChannels: [...GENERIC, "referral:*"],
+    },
+    preorderUvByChannel,
+    paywallByChannel,
+    steps: stepsByEvent,
+    orders: { total: ordersTotal, target: 10, byProduct: ordersByProduct, bySource: ordersBySource },
+  });
+});
+
 // A/B test results — shows conversion rates per variant per follow-up stage
 router.get("/ab-results", (req, res) => {
   const stages = ["3d", "7d", "14d"];

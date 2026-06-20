@@ -38,10 +38,16 @@ export async function generateMetadata({
     title: { absolute: `${story.headline} | ColorArchive` },
     description: story.summary,
     alternates: { canonical: `/stories/${slug}/` },
+    // No explicit `images` — lets the colocated opengraph-image.tsx route bind (per-story
+    // PNG card). An explicit images array would override and suppress it (the 9885f5b bug).
     openGraph: {
       title: story.headline,
       description: story.summary,
-      images: [`${SITE_URL}/og-image-v1.png`],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: story.headline,
+      description: story.summary,
     },
   };
 }

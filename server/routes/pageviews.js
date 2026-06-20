@@ -16,19 +16,31 @@ function rateLimitWrite(req, res, next) {
 
 // POST /pageviews — record a page view (fire-and-forget beacon)
 router.post("/", rateLimitWrite, (req, res) => {
-  const { path, referrer, screen } = req.body || {};
+  const body = req.body || {};
+  const { path, referrer, screen } = body;
   if (!path || typeof path !== "string") {
     return res.status(400).json({ error: "path required" });
   }
 
+  // Redact email-like substrings from free-text attribution before plaintext storage.
+  const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+  const str = (v, max) => (typeof v === "string" && v ? v.replace(EMAIL_RE, "[redacted]").slice(0, max) : null);
+
   try {
     db.prepare(
-      `INSERT INTO pageviews (path, referrer, screen_width)
-       VALUES (?, ?, ?)`
+      `INSERT INTO pageviews
+         (path, referrer, screen_width, channel, utm_source, utm_medium, utm_campaign, referrer_domain, landing_path)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).run(
       path.slice(0, 512),
       (referrer || "").slice(0, 512) || null,
-      typeof screen === "number" ? screen : null
+      typeof screen === "number" ? screen : null,
+      str(body.channel, 60),
+      str(body.utm_source, 120),
+      str(body.utm_medium, 120),
+      str(body.utm_campaign, 120),
+      str(body.referrer_domain, 120),
+      str(body.landing_path, 200)
     );
   } catch (err) {
     console.error("[pageviews] insert error:", err.message);
@@ -89,6 +101,23 @@ router.get("/stats", requireAnalyticsAccess, (req, res) => {
     )
     .all(since);
 
+  // Channel breakdown of all views + the exit-gate denominator: /preorder views by channel.
+  const byChannel = db
+    .prepare(
+      `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, COUNT(*) as views
+       FROM pageviews WHERE created_at >= ?
+       GROUP BY channel ORDER BY views DESC`
+    )
+    .all(since);
+
+  const preorderByChannel = db
+    .prepare(
+      `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, COUNT(*) as views
+       FROM pageviews WHERE created_at >= ? AND path LIKE '/preorder%'
+       GROUP BY channel ORDER BY views DESC`
+    )
+    .all(since);
+
   return res.json({
     totalViews,
     uniquePaths,
@@ -96,6 +125,8 @@ router.get("/stats", requireAnalyticsAccess, (req, res) => {
     dailyViews,
     topReferrers,
     deviceBreakdown,
+    byChannel,
+    preorderByChannel,
     days,
   });
 });

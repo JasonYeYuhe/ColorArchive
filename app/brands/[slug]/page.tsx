@@ -28,15 +28,16 @@ export async function generateMetadata({ params }: BrandRouteProps): Promise<Met
     title: { absolute: `${brand.name} Color Palette — Hex Codes & Brand Colors | ColorArchive` },
     description,
     alternates: { canonical: `/brands/${brand.slug}/` },
+    // No explicit `images` — lets the colocated opengraph-image.tsx route bind (per-brand
+    // PNG card). An explicit images array would override and suppress it (the 9885f5b bug).
     openGraph: {
       title: `${brand.name} Color Palette | ColorArchive`,
       description: brand.tagline,
-      images: [`${SITE_URL}/og-image-v1.png`],
     },
     twitter: {
+      card: "summary_large_image",
       title: `${brand.name} Color Palette | ColorArchive`,
       description: brand.tagline,
-      images: [`${SITE_URL}/og-image-v1.png`],
     },
   };
 }

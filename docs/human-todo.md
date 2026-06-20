@@ -1,7 +1,71 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-19 (perf follow-up: SVG-og + #29 RSC + relationship single-pass + backend WAL)
+> Last updated: 2026-06-20 (B-meas source-split funnel + D1 OG hygiene — exit-gate now readable by channel)
+
+## 🔴 NEW 2026-06-20 (remote) — owner action items (B-meas + D1 done in code)
+
+> This session shipped the two remaining code tracks (B-meas + D1) from the 2026-06-19 dev plan
+> (distribution-first, exit-gate validation). **After this, code is done — the rest is YOUR
+> distribution (Track A), ~3 weeks to the 07-15 gate.** Three things only you can do:
+>
+> 1. **Force-refresh social-card caches (~10 min, do before you start posting links).** The OG
+>    fix changes what's served, but X/Facebook/LinkedIn cache the OLD card per URL. Paste each
+>    URL you'll share into the validators to bust their cache + see the new card:
+>    - X (Twitter): https://cards-dev.twitter.com/validator (login required)
+>    - Facebook: https://developers.facebook.com/tools/debug/ → "Scrape Again"
+>    - LinkedIn: https://www.linkedin.com/post-inspector/
+>    Check at least: `/preorder/`, `/word-to-color/`, one `/guides/<slug>/`, one `/notes/<slug>/`,
+>    one `/collections/<slug>/`. (All now serve a real per-page PNG card — verified in the build
+>    + live for the already-deployed ones.)
+>
+> 2. **Build the PostHog dashboard (the "把看板做实" step — UI only, can't be coded).** Every event
+>    now carries first-touch source as super-properties: `channel`, `utm_source`, `utm_medium`,
+>    `utm_campaign`, `referrer_domain`, `landing_path`. In PostHog:
+>    - **Funnel** (Product Analytics → Funnels): `$pageview` (path = /preorder…) → `preorder_view`
+>      → `preorder_cta_click` → `preorder_checkout_clicked`. Add a **breakdown by `channel`**.
+>    - Second funnel for the paywall: `word_paywall_hit`/`word_paywall_restored` →
+>      `word_paywall_pro_click` / `word_paywall_email_unlock`, breakdown by `channel`.
+>    - A trend of `$pageview` where path=/preorder, broken down by `channel` = the qualified-UV floor.
+>
+> 3. **Use the new first-party gate dashboard** at `/analytics` (admin login). There's now an
+>    **"Exit-gate funnel (by channel)"** card at the top: /preorder UV (raw + qualified), paywall
+>    triggers, real orders — each with the per-channel split. This is the 07-15 decision screen,
+>    readable without PostHog. (Generic channels — hackernews / organic-search / direct / reddit /
+>    unknown / unknown-referrals — are excluded from the *qualified* UV count per dev-plan §5
+>    channel hygiene, so junk traffic can't silently meet the 500 floor.)
+>
+> **Caveat (known, deferred):** orders in the gate are split by **sign-up source tag**
+> (free-pack / waitlist / preorder), NOT first-touch acquisition channel — labelled honestly in
+> the UI. True channel attribution on the *numerator* would mean threading `channel` through the
+> Stripe/LS purchase webhook; skipped this sprint (payment-path risk, no test suite, near-zero
+> orders, and the gate decision uses orders.*total* anyway). Post-gate follow-up if needed.
+>
+> **Server deploy:** the backend changes (events/pageviews source columns + `/analytics/gate`
+> endpoint) were deployed to the droplet this session (ssh + `pm2 restart colorarchive-server`);
+> db.js migrations (ensureColumn) re-run idempotently on boot. Vercel auto-deploys the frontend.
+
+## 🟢 B-meas + D1 shipped 2026-06-20 (remote) — exit-gate funnel readable by source + OG hygiene
+> The 2026-06-19 dev plan's only two remaining code tracks. Adversarially reviewed (4-dim
+> Workflow, 3 confirmed-high findings fixed before commit). typecheck + build green.
+> - **B-meas (source-split funnel, end-to-end):** new `src/lib/attribution.ts` captures
+>   first-touch UTM + referrer + landing ONCE on first load (persisted localStorage), derives a
+>   `channel` bucket (linkedin/x/reddit/hackernews/producthunt/email/a11y-community/design-systems/
+>   organic-search/direct/…). Threaded through `track()` (every funnel event), the `/pageviews`
+>   beacon (the /preorder UV denominator), and PostHog super-properties (`phRegister`, so even
+>   autocapture events break down by source — $pageview capture preserved). Server: `events` +
+>   `pageviews` got channel/utm_*/referrer_domain/landing_path columns + indexes; new admin
+>   `GET /analytics/gate` returns the exit-gate funnel split by channel; admin `/analytics` page
+>   renders it. Subscriber attribution (`email-capture-form`, `cotd-subscribe-form`) switched from
+>   lossy submit-time `searchParams` to persisted first-touch. **Why it mattered:** the funnel
+>   carried ZERO source before — the gate's "≥500 *qualified* UV, split by source" was unreadable.
+> - **D1 (post hygiene — no blank/small/generic share cards):** verified 9885f5b's PNG fix is live
+>   (0 SVG og:image; /preorder + /word-to-color serve valid PNG). Added per-note OG cards
+>   (`app/notes/[slug]/opengraph-image.tsx`). Fixed **8 page families** whose per-page dynamic OG
+>   card was suppressed by a generic-PNG `images` override and/or rendered a small `summary` card:
+>   word-to-color, guides, regions, brands, families, **stories, use-cases** (last two found by the
+>   review), + notes. 9885f5b had only fixed collections+families; now all 9 dynamic-OG families
+>   bind their per-page card with `summary_large_image`. Verified across the built HTML.
 
 ## 🟢 Perf follow-up shipped 2026-06-19 (remote) — og fix + RSC + algo + backend
 > Owner approved doing all three remaining tracks. Done + verified from build artifacts:

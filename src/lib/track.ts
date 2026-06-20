@@ -1,5 +1,6 @@
 import { API_URL } from "@/src/lib/api-config";
 import { phCapture } from "@/src/lib/posthog";
+import { attributionEventProps } from "@/src/lib/attribution";
 
 /**
  * Fire-and-forget event tracking. Never throws, never blocks UI.
@@ -8,16 +9,24 @@ import { phCapture } from "@/src/lib/posthog";
  *  - the first-party backend `events` table (sendBeacon → /events), and
  *  - PostHog (product analytics: DAU / retention / funnels).
  * PostHog is a no-op until NEXT_PUBLIC_POSTHOG_KEY is configured.
+ *
+ * Every event carries the browser's first-touch acquisition attribution (channel + UTM +
+ * referrer domain). This is what lets the exit-gate funnel be split by source: the same
+ * `channel` rides on `word_paywall_*`, `preorder_*`, and every conversion event, so we can
+ * tell qualified ICP traffic apart from generic gawkers. Explicit event props win over the
+ * attribution fields on the (non-existent) key collision.
  */
 export function track(event: string, props?: Record<string, string | number | boolean>) {
   if (typeof window === "undefined") return;
 
-  phCapture(event, props);
+  const enriched = { ...attributionEventProps(), ...(props ?? {}) };
+
+  phCapture(event, enriched);
 
   const path = window.location.pathname;
 
   try {
-    const body = JSON.stringify({ event, props: props ?? {}, path });
+    const body = JSON.stringify({ event, props: enriched, path });
 
     if (navigator.sendBeacon) {
       navigator.sendBeacon(`${API_URL}/events`, new Blob([body], { type: "application/json" }));

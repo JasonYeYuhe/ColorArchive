@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { SITE_DOMAIN } from "@/src/lib/site-config";
 import { track } from "@/src/lib/track";
+import { attributionForSubscribe } from "@/src/lib/attribution";
 import { useLocale } from "@/src/components/locale-provider";
 
 import { API_URL } from "@/src/lib/api-config";
@@ -24,7 +25,6 @@ export function EmailCaptureForm({
   placeholder,
   buttonLabel,
 }: EmailCaptureFormProps) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const { t } = useLocale();
   const [email, setEmail] = useState("");
@@ -49,13 +49,9 @@ export function EmailCaptureForm({
         body: JSON.stringify({
           email,
           source,
-          landingPath: pathname,
-          referrer: typeof document !== "undefined" ? document.referrer || null : null,
-          utmSource: searchParams.get("utm_source"),
-          utmMedium: searchParams.get("utm_medium"),
-          utmCampaign: searchParams.get("utm_campaign"),
-          utmTerm: searchParams.get("utm_term"),
-          utmContent: searchParams.get("utm_content"),
+          // First-touch attribution (persisted) — accurate even when the user landed via a
+          // UTM link, browsed, then subscribed on a different page.
+          ...attributionForSubscribe(),
           ref: searchParams.get("ref"),
         }),
       });

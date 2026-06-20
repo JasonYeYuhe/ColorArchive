@@ -171,6 +171,23 @@ ensureColumn("users", "subscription_cancel_at_period_end INTEGER DEFAULT 0");
 ensureColumn("orders", "stripe_session_id TEXT");
 ensureColumn("orders", "payment_intent TEXT");
 
+// Source/channel attribution on the acquisition funnel (events + pageviews). Lets the exit
+// gate split the funnel by channel — qualified ICP traffic vs. generic gawkers — instead of
+// only knowing total counts. Written from the client's first-touch attribution.
+ensureColumn("events", "channel TEXT");
+ensureColumn("events", "utm_source TEXT");
+ensureColumn("events", "utm_medium TEXT");
+ensureColumn("events", "utm_campaign TEXT");
+ensureColumn("events", "referrer_domain TEXT");
+ensureColumn("events", "landing_path TEXT");
+
+ensureColumn("pageviews", "channel TEXT");
+ensureColumn("pageviews", "utm_source TEXT");
+ensureColumn("pageviews", "utm_medium TEXT");
+ensureColumn("pageviews", "utm_campaign TEXT");
+ensureColumn("pageviews", "referrer_domain TEXT");
+ensureColumn("pageviews", "landing_path TEXT");
+
 // Performance indexes
 db.exec(`
   CREATE INDEX IF NOT EXISTS idx_orders_email ON orders(email);
@@ -178,6 +195,9 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_pageviews_created_at ON pageviews(created_at);
   CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at);
   CREATE INDEX IF NOT EXISTS idx_events_event_name ON events(event_name);
+  CREATE INDEX IF NOT EXISTS idx_events_channel ON events(channel);
+  CREATE INDEX IF NOT EXISTS idx_pageviews_channel ON pageviews(channel);
+  CREATE INDEX IF NOT EXISTS idx_pageviews_path ON pageviews(path);
   CREATE INDEX IF NOT EXISTS idx_subscribers_email ON subscribers(email);
   CREATE INDEX IF NOT EXISTS idx_users_api_key_hash ON users(api_key_hash);
   CREATE INDEX IF NOT EXISTS idx_users_stripe_subscription_id ON users(stripe_subscription_id);

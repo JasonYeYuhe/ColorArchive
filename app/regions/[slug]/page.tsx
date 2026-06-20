@@ -28,15 +28,16 @@ export async function generateMetadata({ params }: RegionRouteProps): Promise<Me
     title: { absolute: `${region.name} Color Palette — Hex Codes & Cultural Context | ColorArchive` },
     description,
     alternates: { canonical: `/regions/${region.slug}/` },
+    // No explicit `images` — lets the colocated opengraph-image.tsx route bind (per-region
+    // PNG card). An explicit images array would override and suppress it (the 9885f5b bug).
     openGraph: {
       title: `${region.name} Color Palette | ColorArchive`,
       description: region.tagline,
-      images: [`${SITE_URL}/og-image-v1.png`],
     },
     twitter: {
+      card: "summary_large_image",
       title: `${region.name} Color Palette | ColorArchive`,
       description: region.tagline,
-      images: [`${SITE_URL}/og-image-v1.png`],
     },
   };
 }

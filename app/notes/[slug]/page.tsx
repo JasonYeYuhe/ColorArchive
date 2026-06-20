@@ -37,6 +37,9 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
     alternates: {
       canonical: `/notes/${issue.slug}/`,
     },
+    // NOTE: no explicit `images` here — that lets the colocated opengraph-image.tsx route
+    // bind automatically (a per-note PNG card). An explicit images array would override and
+    // suppress it (the 9885f5b bug). Same for twitter below.
     openGraph: {
       title: issue.title,
       description: issue.summary,
@@ -44,13 +47,11 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
       type: "article",
       publishedTime: issue.date,
       authors: ["ColorArchive"],
-      images: [`${SITE_URL}/og-image-v1.png`],
     },
     twitter: {
       card: "summary_large_image",
       title: issue.title,
       description: issue.summary,
-      images: [`${SITE_URL}/og-image-v1.png`],
     },
   };
 }
@@ -86,7 +87,7 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
       dateModified: issue.date,
       keywords: (issue.tags ?? []).join(", "),
       url: `${SITE_URL}/notes/${issue.slug}/`,
-      image: `${SITE_URL}/og-image-v1.png`,
+      image: `${SITE_URL}/notes/${issue.slug}/opengraph-image`,
       mainEntityOfPage: {
         "@type": "WebPage",
         "@id": `${SITE_URL}/notes/${issue.slug}/`,

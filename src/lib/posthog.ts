@@ -83,6 +83,21 @@ export function phCapture(event: string, props?: Record<string, unknown>): void 
   }
 }
 
+/**
+ * Register super-properties — attached to EVERY subsequent capture, including PostHog's
+ * own autocapture events (clicks / form submits) that never pass through `track()`. Used
+ * to stamp first-touch acquisition source (channel / utm_source / referring_domain) onto
+ * all events so PostHog funnels can be broken down by source. No-op until configured.
+ */
+export function phRegister(props: Record<string, unknown>): void {
+  if (!ready()) return;
+  try {
+    posthog.register(props);
+  } catch {
+    /* ignore */
+  }
+}
+
 /** Associate subsequent events with a stable, non-PII user id (the backend user id). */
 export function phIdentify(distinctId: string, props?: Record<string, unknown>): void {
   if (!ready()) return;

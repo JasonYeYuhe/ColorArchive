@@ -3,7 +3,8 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-import { initPosthog, phCapture, TOOL_SLUGS } from "@/src/lib/posthog";
+import { initPosthog, phCapture, phRegister, TOOL_SLUGS } from "@/src/lib/posthog";
+import { attributionEventProps } from "@/src/lib/attribution";
 
 /**
  * Initializes PostHog on mount and emits a manual `$pageview` on every App Router
@@ -25,6 +26,10 @@ export function PostHogProvider() {
 
   useEffect(() => {
     initPosthog();
+    // Stamp first-touch acquisition source onto every event as super-properties, so even
+    // PostHog autocapture events break down by channel. Cheap + idempotent; register() just
+    // overwrites with the same persisted value on each route change.
+    phRegister(attributionEventProps());
     if (!pathname || lastPath.current === pathname) return;
     lastPath.current = pathname;
 

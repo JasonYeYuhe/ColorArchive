@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     description: "Convert any word or phrase into a unique hex color. Deterministic algorithm — same text always produces the same color with 5 tonal variants. Free tool.",
   },
   twitter: {
+    card: "summary_large_image",
     title: "Word to Color Generator — Turn Text into Colors | ColorArchive",
     description: "Convert any word or phrase into a unique hex color. Deterministic algorithm — same text always produces the same color with 5 tonal variants. Free tool.",
   },

@@ -182,6 +182,108 @@ function MetricCard({
   );
 }
 
+function FloorBar({ label, value, qualified, target }: { label: string; value: number; qualified?: number; target: number }) {
+  const pct = Math.min((value / target) * 100, 100);
+  const qpct = qualified != null ? Math.min((qualified / target) * 100, 100) : null;
+  const met = (qualified ?? value) >= target;
+  return (
+    <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-3">
+      <div className="flex items-baseline justify-between">
+        <span className="text-xs font-medium uppercase tracking-[0.14em] text-neutral-500">{label}</span>
+        <span className={`text-sm font-semibold ${met ? "text-emerald-600" : "text-neutral-900"}`}>
+          {qualified != null ? `${qualified} qual / ${value}` : value} <span className="text-neutral-400">/ {target}</span>
+        </span>
+      </div>
+      <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-neutral-200">
+        <div className={`h-full ${met ? "bg-emerald-500" : "bg-amber-400"}`} style={{ width: `${qpct ?? pct}%` }} />
+      </div>
+    </div>
+  );
+}
+
+function GateFunnel({ gate }: { gate: GateResponse }) {
+  const topChannels = (rows: Array<{ channel: string; count: number }>) =>
+    rows.slice(0, 8);
+  return (
+    <section className="rounded-[1.75rem] border border-indigo-200 bg-indigo-50/60 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
+      <div className="flex items-center justify-between">
+        <h2 className="font-display text-xl font-medium tracking-[-0.02em] text-neutral-950">
+          Exit-gate funnel (by channel)
+        </h2>
+        <span className="text-xs uppercase tracking-[0.14em] text-neutral-400">{gate.days}-day window</span>
+      </div>
+      <p className="mt-1 text-xs text-neutral-500">
+        Floor = ≥500 qualified /preorder UV OR ≥1000 paywall triggers, then ≥10 real orders. Generic channels
+        ({gate.floors.genericChannels.join(", ")}) excluded from the qualified count.
+      </p>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        <FloorBar
+          label="/preorder UV"
+          value={gate.floors.preorderUv.total}
+          qualified={gate.floors.preorderUv.qualified}
+          target={gate.floors.preorderUv.target}
+        />
+        <FloorBar label="Paywall triggers" value={gate.floors.paywallTriggers.total} target={gate.floors.paywallTriggers.target} />
+        <FloorBar label="Real orders" value={gate.orders.total} target={gate.orders.target} />
+      </div>
+
+      <div className="mt-5 grid gap-5 md:grid-cols-2">
+        <div>
+          <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">/preorder UV by channel</div>
+          <div className="mt-2 grid gap-1.5">
+            {topChannels(gate.preorderUvByChannel).map((r) => (
+              <div key={r.channel} className="flex items-center justify-between text-sm">
+                <span className="truncate text-neutral-700">{r.channel}</span>
+                <span className="font-medium text-neutral-950">{r.count}</span>
+              </div>
+            ))}
+            {gate.preorderUvByChannel.length === 0 && <div className="text-sm text-neutral-400">No /preorder views yet.</div>}
+          </div>
+        </div>
+        <div>
+          <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">Paywall triggers by channel</div>
+          <div className="mt-2 grid gap-1.5">
+            {topChannels(gate.paywallByChannel).map((r) => (
+              <div key={r.channel} className="flex items-center justify-between text-sm">
+                <span className="truncate text-neutral-700">{r.channel}</span>
+                <span className="font-medium text-neutral-950">{r.count}</span>
+              </div>
+            ))}
+            {gate.paywallByChannel.length === 0 && <div className="text-sm text-neutral-400">No paywall events yet.</div>}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">Conversion steps (total)</div>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {Object.entries(gate.steps).map(([ev, s]) => (
+            <span key={ev} className="rounded-full border border-black/6 bg-white px-3 py-1 text-xs text-neutral-600">
+              {ev}: <span className="font-semibold text-neutral-950">{s.total}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {gate.orders.bySource.length > 0 ? (
+        <div className="mt-5">
+          <div className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+            Orders by sign-up source <span className="normal-case tracking-normal text-neutral-300">(form tag, not acquisition channel)</span>
+          </div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {gate.orders.bySource.map((r) => (
+              <span key={r.source} className="rounded-full border border-black/6 bg-white px-3 py-1 text-xs text-neutral-600">
+                {r.source}: <span className="font-semibold text-neutral-950">{r.count}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </section>
+  );
+}
+
 function MiniBarChart({
   data,
   colorClass,
@@ -231,6 +333,26 @@ interface BuyerEntry {
   products: string[];
 }
 
+interface GateResponse {
+  days: number;
+  floors: {
+    preorderUv: { total: number; qualified: number; target: number };
+    paywallTriggers: { total: number; target: number };
+    genericChannels: string[];
+  };
+  preorderUvByChannel: Array<{ channel: string; count: number }>;
+  paywallByChannel: Array<{ channel: string; count: number }>;
+  steps: Record<string, { total: number; byChannel: Record<string, number> }>;
+  orders: {
+    total: number;
+    target: number;
+    byProduct: Array<{ product: string; count: number; revenue: number }>;
+    // Attributed by sign-up source tag (free-pack / waitlist / preorder …), NOT first-touch
+    // acquisition channel — a different axis than the channel-keyed denominators above.
+    bySource: Array<{ source: string; count: number }>;
+  };
+}
+
 export function AnalyticsPage() {
   const { analyticsAccess, status } = useAuth();
   const pathname = usePathname();
@@ -252,6 +374,8 @@ export function AnalyticsPage() {
     topReferrers: { referrer: string; views: number }[];
     deviceBreakdown: { device: string; views: number }[];
   } | null>(null);
+
+  const [gateData, setGateData] = useState<GateResponse | null>(null);
 
   const filters = useMemo(
     () => ({
@@ -319,6 +443,17 @@ export function AnalyticsPage() {
             setPageviewData(await pvRes.json());
           }
         } catch { /* pageview stats are optional */ }
+
+        // Exit-gate funnel by channel (non-blocking).
+        try {
+          const gateRes = await fetch(`${API_URL}/analytics/gate?days=${filters.days}`, {
+            credentials: "include",
+            headers: { Accept: "application/json" },
+          });
+          if (gateRes.ok && !cancelled) {
+            setGateData((await gateRes.json()) as GateResponse);
+          }
+        } catch { /* gate funnel is optional */ }
       } catch (err) {
         if (!cancelled) {
           setState("error");
@@ -513,6 +648,8 @@ export function AnalyticsPage() {
 
         {data ? (
           <>
+            {gateData ? <GateFunnel gate={gateData} /> : null}
+
             <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               <MetricCard
                 label="Subscribers"

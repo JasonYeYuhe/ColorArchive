@@ -27,10 +27,16 @@ export async function generateMetadata({ params }: UseCaseDetailRouteProps): Pro
     title: { absolute: `${useCase.title} Color Palettes — Design Guide | ColorArchive` },
     description: `${useCase.tagline}. ${useCase.description.slice(0, 150)}...`,
     alternates: { canonical: `/use-cases/${useCase.id}/` },
+    // No explicit `images` — lets the colocated opengraph-image.tsx route bind (per-use-case
+    // PNG card). An explicit images array would override and suppress it (the 9885f5b bug).
     openGraph: {
       title: `${useCase.title} Color Palettes | ColorArchive`,
       description: useCase.tagline,
-      images: [`${SITE_URL}/og-image-v1.png`],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${useCase.title} Color Palettes | ColorArchive`,
+      description: useCase.tagline,
     },
   };
 }

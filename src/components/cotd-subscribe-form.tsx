@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 
 import { API_URL } from "@/src/lib/api-config";
+import { attributionForSubscribe } from "@/src/lib/attribution";
 
 type State = "idle" | "loading" | "success" | "error";
 
@@ -42,7 +43,7 @@ export function CotdSubscribeForm({
       const res = await fetch(`${API_URL}/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source, cotd: true }),
+        body: JSON.stringify({ email, source, cotd: true, ...attributionForSubscribe() }),
       });
       if (!res.ok) throw new Error("Server error");
       setState("success");
