@@ -8,14 +8,14 @@
 
 | Layer | Tech |
 |-------|------|
-| Framework | Next.js 15 (App Router, `output: "export"`) |
+| Framework | Next.js 15 (App Router; SSG + ISR + dynamic routes — NOT static export) |
 | Styling | Tailwind CSS 4 |
-| Hosting | GitHub Pages (static) |
+| Hosting | Vercel (auto-deploy on push to `main`; `vercel.json` ignoreCommand skips docs/.claude-only pushes) |
 | Backend | Node.js / Express on DigitalOcean Droplet (143.198.85.72) |
-| Database | SQLite (better-sqlite3) |
+| Database | SQLite (better-sqlite3, WAL) |
 | Email | Resend |
-| Commerce | Stripe |
-| Analytics | Umami Cloud |
+| Commerce | Lemon Squeezy (Merchant of Record; JPY). Apple IAP on iOS. Stripe deprecated |
+| Analytics | PostHog (product) + first-party `events`/`pageviews` (Droplet SQLite) + New Relic RUM + Sentry |
 | i18n | Custom (`src/lib/i18n.ts`) — EN / ZH |
 
 ---
@@ -37,7 +37,7 @@ ColorArchive/
 │   ├── families/                 # /families/ + /families/[slug]/
 │   ├── packs/                    # /packs/ + /packs/[slug]/
 │   ├── guides/                   # /guides/ + /guides/[slug]/
-│   ├── notes/                    # /notes/ + /notes/[slug]/ + /notes/tags/[tag]/
+│   ├── notes/                    # /notes/ + /notes/[slug]/ (+ per-note opengraph-image.tsx) + /notes/tags/[tag]/
 │   ├── search/                   # /search/
 │   ├── contrast/                 # /contrast/ — WCAG contrast checker
 │   ├── free-pack/                # /free-pack/ — free sample download page
@@ -141,7 +141,7 @@ ColorArchive/
 │   │   ├── locale-provider.tsx           # i18n context + useLocale() hook
 │   │   ├── theme-provider.tsx            # Dark/light mode context
 │   │   ├── auth-provider.tsx             # Auth session context
-│   │   ├── page-tracker.tsx              # First-party page view tracking (backend /pageviews)
+│   │   ├── page-tracker.tsx              # First-party page view tracking (backend /pageviews) + first-touch channel/UTM
 │   │   ├── posthog-provider.tsx          # PostHog init + $pageview/tool_used per route (no-op w/o key)
 │   │   ├── ph-launch-banner.tsx          # Product Hunt launch banner
 │   │   ├── seasonal-countdown.tsx        # Seasonal pack countdown
@@ -164,7 +164,7 @@ ColorArchive/
 │   │   ├── thanks-page.tsx               # Post-purchase page
 │   │   ├── cancel-page.tsx               # Checkout cancel page
 │   │   ├── admin-orders-page.tsx         # Internal orders dashboard
-│   │   ├── analytics-page.tsx            # Internal analytics dashboard
+│   │   ├── analytics-page.tsx            # Internal analytics dashboard + exit-gate funnel by channel (GateFunnel)
 │   │   ├── trending-page.tsx             # Weekly trending colors page
 │   │   ├── color-converter-page.tsx      # Color format converter (HEX↔RGB↔HSL↔HSB↔CMYK)
 │   │   ├── palette-generator-page.tsx   # Palette generator (5 harmony types from seed color)
@@ -238,8 +238,9 @@ ColorArchive/
 │   │   ├── pinterest.ts                  # Pinterest OAuth + API proxy helpers
 │   │   ├── checkout-config.ts            # Stripe checkout config + Pro subscription pricing
 │   │   ├── auth-client.ts               # Client API: session, projects, usage, referral, types
-│   │   ├── track.ts                      # Fire-and-forget events → backend /events + PostHog
-│   │   ├── posthog.ts                    # PostHog product-analytics singleton (cookieless, no-op w/o key)
+│   │   ├── track.ts                      # Fire-and-forget events → backend /events + PostHog; merges first-touch attribution
+│   │   ├── attribution.ts                # First-touch UTM/referrer/landing (localStorage) → derived `channel` bucket; eager capture
+│   │   ├── posthog.ts                    # PostHog product-analytics singleton (cookieless, no-op w/o key); phRegister super-props
 │   │   ├── brand-palette.ts             # Single-hex → 11-step design system + semantic colors
 │   │   ├── color-relationships.ts       # Color relationships (analogous, complementary, triadic, tonal)
 │   │   ├── color-contrast.ts            # WCAG contrast ratio + relative luminance
@@ -285,7 +286,7 @@ ColorArchive/
 │       │                                 #   /ai/name-color, /ai/critique, /ai/analyze-url,
 │       │                                 #   GET /ai/usage (public, includes anonymous IP-tracked quota)
 │       ├── admin.js                      # GET /admin/* — orders dashboard
-│       ├── analytics.js                  # GET /analytics/* — internal stats
+│       ├── analytics.js                  # GET /analytics/* — internal stats; /analytics/gate = exit-gate funnel split by channel
 │       ├── pageviews.js                  # POST /pageviews — page tracking
 │       ├── og.js                         # GET /og — OG image generation
 │       └── instagram.js                  # Instagram API (OAuth, publish, media feed)
