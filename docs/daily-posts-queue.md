@@ -4,6 +4,42 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-06-21
+
+> Real news this week (Jun 14 – Jun 21): a quieter, under-the-hood week — no headline new feature, mostly speed and polish. The two genuinely user-facing wins: **(1) the site got noticeably faster** — we eliminated two oversized JavaScript bundles and slimmed page payloads dramatically (a typical color page's data dropped ~96%, from ~1MB to ~36KB), so pages load and feel snappier; **(2) shared links now look right everywhere** — previously some pages (notes, stories, use-cases, regions, brands, families) showed a blank card when shared on social; every page type now generates a proper preview image. The rest was internal: first-touch attribution/analytics plumbing and Vercel cost optimization. Lead with speed + link previews; keep it honest and modest.
+
+### Facebook
+
+🎨 **This week at ColorArchive — faster, and better to share.**
+
+No big new toy this week — we spent it making the things you already use feel better.
+
+⚡️ **The site is noticeably faster.** We trimmed a lot of dead weight from the pages — a typical color page now ships about 96% less data than before. Browsing, searching, and jumping between colors all feel snappier, especially on slower connections.
+
+🔗 **Shared links finally look right everywhere.** If you've ever pasted a ColorArchive link into a chat or a post and gotten a blank, sad-looking preview — that's fixed. Every page now generates a proper preview image, so colors, collections, guides, and stories all show up beautifully when you share them.
+
+Same 5,446 curated colors. Just smoother.
+
+Explore the library → colorarchive.org
+
+#ColorArchive #DesignTools #ColorPalette #UIDesign #WebPerformance #ColorInspiration #WeeklyUpdate
+
+---
+
+### Twitter / X
+
+🎨 This week at ColorArchive — quiet but worth it:
+
+⚡️ Site is noticeably faster — typical color page now ships ~96% less data
+🔗 Shared links look right everywhere now — every page generates a proper preview image (no more blank cards)
+
+Same 5,446 colors. Just smoother.
+→ colorarchive.org
+
+#ColorArchive #DesignTools #UIDesign #ColorPalette
+
+---
+
 ## Weekly Roundup — 2026-06-14
 
 > Real news this week (Jun 7 – Jun 14): the **ColorArchive Figma plugin v1.1.0 shipped to Figma Community** and we ran a full launch wave across 7 channels (X, Instagram, Pinterest, Facebook, Indie Hackers, Product Hunt, Reddit r/FigmaDesign). v1.1.0 adds API-key persistence (clientStorage) so you stay signed in between sessions, plus a couple of review-rejection bugfixes (localStorage guard, FigJam compatibility) and a CORS fix for the plugin's `Origin: null` calls. The rest was internal (UTM attribution plumbing, CI guard, launch docs). Lead with the plugin — it's the one genuinely new, user-facing thing.
