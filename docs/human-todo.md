@@ -15,16 +15,26 @@
 > on `word-to-color`, `color-detail`, `collections` (channel-stamped via `from`). Now real
 > traffic can reach the offer; conversions read split by surface.
 >
-> **What needs a human / a decision:**
-> - **~2026-07-02 (tripwire) & ~2026-07-15 (gate):** read `GET /analytics/gate` (or the admin
->   gate card). Decision rule unchanged (dev-plan-2026-06-19 §5): real pre-orders ≥10 → build
->   the Auditor; still ~0 after traffic is connected → evidence-based off-ramp. **I can set up
->   an automated weekly droplet read + report if you want — just say so.**
-> - **High-EV lever (your call):** email the existing subscriber list a short a11y-Auditor
->   pre-order announcement (warm traffic converts better than cold). Resend is wired. I did
->   NOT auto-send (outward email to real people = your approval).
-> - **Optional volume escalation:** if word-to-color/color-detail CTAs get clicks but few
->   pre-orders, add the CTA to home `/` (1k/10d) and the other browse pages.
+> **Automation shipped (droplet, not in repo — operational scripts like the backups):**
+> - **Weekly gate report → your email.** `server/scripts/gate-report.cjs` + cron
+>   `0 9 * * 1` (Mon 09:00 UTC). Reuses the `/analytics/gate` SQL + the §0 matrix, emails
+>   yyyyy.yeyuhe@gmail.com a verdict (PROCEED/STOP) + numbers + on-site CTA clicks by surface.
+>   First report already sent 2026-06-24 (STOP). Fires ~06-29 / 07-06 / 07-13 → covers the
+>   07-02 tripwire window and the 07-15 gate. Log: `server/logs/gate-report.cron.log`.
+> - **Pre-order broadcast — drafted + ready, NOT sent.** `server/scripts/send-preorder-broadcast.cjs`
+>   (dry-run by default; `--send [--source=…] [--to=…] [--limit=…]`). Holding the send for your
+>   approval (outward email to real people).
+>
+> **⚠️ Decision / finding:**
+> - **The subscriber list is ~empty: 5 rows total (cotd 2, free-pack 1, test 1, debug 1) — only
+>   ~3 real.** So the "email the warm list" lever has ~zero EV right now; nothing meaningful to
+>   send to. The real upstream issue: huge anonymous traffic (13.4k/10d) but almost no captured
+>   emails — email capture isn't converting. The broadcast is ready to fire the moment a real
+>   list exists. **Say "send it" and I'll fire it (you can pick the source segment).**
+> - **~07-02 / ~07-15:** read the weekly email (or admin `/analytics/gate`). Rule unchanged
+>   (dev-plan-2026-06-19 §5): pre-orders ≥10 → build the Auditor; still ~0 → evidence-based off-ramp.
+> - **Optional volume escalation:** if the word-to-color/color-detail/collections CTAs get clicks
+>   but few pre-orders, add the CTA to home `/` (1k/10d) and the other browse pages.
 
 ## 💸 Vercel cost 2026-06-20 (remote) — diagnosed + 2 fixes shipped
 > Owner asked why Vercel cost spiked. Pulled the actual usage dashboard (Pro, billing
