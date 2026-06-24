@@ -119,6 +119,14 @@ export function PreorderPage() {
           <div className="mx-auto max-w-sm">
             <PreorderCTA />
           </div>
+          {preorderConfig.checkoutUrl ? (
+            <div className="mx-auto mt-5 max-w-sm border-t border-slate-100 pt-5 dark:border-white/10">
+              <p className="mb-2 text-center text-xs text-slate-500 dark:text-slate-400">
+                Not ready to pre-order? We&rsquo;ll email you the moment it ships — and honor the founder price.
+              </p>
+              <CotdSubscribeForm source="preorder" heading="Email me when the Auditor launches" />
+            </div>
+          ) : null}
         </div>
 
         {/* Problem */}

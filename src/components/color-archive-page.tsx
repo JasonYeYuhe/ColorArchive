@@ -10,6 +10,7 @@ import { HeroSection } from "@/src/components/hero-section";
 import { LocalArchiveHub } from "@/src/components/local-archive-hub";
 import { OnboardingTour } from "@/src/components/onboarding-tour";
 import { SelectedColorPanel } from "@/src/components/selected-color-panel";
+import { AuditorPreorderCta } from "@/src/components/auditor-preorder-cta";
 import { useLocale } from "@/src/components/locale-provider";
 import { colors } from "@/src/data/colors";
 import { COLOR_FAMILIES, filterColorsWithCounts, sortColors } from "@/src/lib/color-utils";
@@ -226,6 +227,8 @@ export function ColorArchivePage({ featuredGuides, recentNotes }: ColorArchivePa
           nearbyColors={nearbyColors}
           onSelectColor={handleSelectColor}
         />
+
+        <AuditorPreorderCta from="home" />
 
         <ColorGrid
           colors={visibleColors.slice(0, displayLimit)}
