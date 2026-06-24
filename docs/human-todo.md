@@ -1,7 +1,30 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-20 (Vercel cost diagnosis + 2 fixes; B-meas + D1)
+> Last updated: 2026-06-24 (Phase-2 gate=STOP-build; wired /preorder CTA into real traffic)
+
+## 🎯 2026-06-24 (remote) — Phase-2 gate ran = STOP-build; connected the offer to traffic
+> Ran the Auditor §0 gate check on the prod DB. **Verdict: do NOT build the Auditor yet**
+> (qualified /preorder UV 0 / target 500, paywall 32 / target 1000, orders 0 / target 10;
+> /preorder = 0 views EVER). Root cause = the WTP experiment was never connected to traffic:
+> the pre-order CTA only sat on `/palette-audit` + `/wcag-audit` (≈0 traffic), while the real
+> firehose (`/word-to-color/` 13.4k/10d) had no link to the offer. Commercial loop is LIVE
+> (prod /preorder shows a real card pre-order button → real LS order).
+>
+> **Shipped this commit (code, no Auditor build):** placed the existing `AuditorPreorderCta`
+> on `word-to-color`, `color-detail`, `collections` (channel-stamped via `from`). Now real
+> traffic can reach the offer; conversions read split by surface.
+>
+> **What needs a human / a decision:**
+> - **~2026-07-02 (tripwire) & ~2026-07-15 (gate):** read `GET /analytics/gate` (or the admin
+>   gate card). Decision rule unchanged (dev-plan-2026-06-19 §5): real pre-orders ≥10 → build
+>   the Auditor; still ~0 after traffic is connected → evidence-based off-ramp. **I can set up
+>   an automated weekly droplet read + report if you want — just say so.**
+> - **High-EV lever (your call):** email the existing subscriber list a short a11y-Auditor
+>   pre-order announcement (warm traffic converts better than cold). Resend is wired. I did
+>   NOT auto-send (outward email to real people = your approval).
+> - **Optional volume escalation:** if word-to-color/color-detail CTAs get clicks but few
+>   pre-orders, add the CTA to home `/` (1k/10d) and the other browse pages.
 
 ## 💸 Vercel cost 2026-06-20 (remote) — diagnosed + 2 fixes shipped
 > Owner asked why Vercel cost spiked. Pulled the actual usage dashboard (Pro, billing

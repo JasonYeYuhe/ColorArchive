@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import { AuditorPreorderCta } from "@/src/components/auditor-preorder-cta";
 import { addManyToPalette } from "@/src/lib/palette-builder";
 import type { ColorRecord } from "@/src/types/color";
 
@@ -158,6 +159,9 @@ export function CollectionsPage({ collections, guidesByCollection }: Collections
             </p>
           </div>
         </section>
+
+        {/* Design-context hook: browsing curated palettes → audit one for accessibility */}
+        <AuditorPreorderCta from="collections" />
 
         <section className="grid gap-6 xl:grid-cols-[minmax(18rem,0.85fr)_minmax(0,1.15fr)]">
           <aside className="rounded-[1.75rem] border border-black/6 bg-white/80 p-4 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-5">

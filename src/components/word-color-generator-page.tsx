@@ -10,6 +10,7 @@ import { wordToColorFaq } from "@/src/lib/word-color-faq";
 import { wordToColorSeeds, slugifyWord, titleCaseWord } from "@/src/lib/word-to-color-seeds";
 import { WordColorShareCard } from "@/src/components/word-color-share-card";
 import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
+import { AuditorPreorderCta } from "@/src/components/auditor-preorder-cta";
 import { track } from "@/src/lib/track";
 
 const PROMPT_SUGGESTIONS = [
@@ -533,6 +534,9 @@ export function WordColorGeneratorPage() {
                   </Link>
                 </div>
               </div>
+
+              {/* Contextual hook: you just generated a palette — will it pass WCAG? */}
+              <AuditorPreorderCta from="word-to-color" />
             </div>
           </section>
         ) : null}
