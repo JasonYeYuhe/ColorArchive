@@ -112,19 +112,36 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
   if (!locked) {
     const used = getExportCount();
     const remaining = tier !== "pro" ? FREE_EXPORTS_PER_DAY - used : null;
-    const handleActivate = () => {
-      if (tier !== "pro") {
-        incrementExportCount();
-        if (getExportCount() >= FREE_EXPORTS_PER_DAY) setLocked(true);
-      }
+    // Only charge a daily export when the click/keypress lands on an actual
+    // export control inside the wrapped subtree — not on padding, labels, help
+    // text, or the upgrade notice below. Previously ANY click in the wrapper
+    // burned a free export (med #6). (Format toggles also stopPropagation.)
+    const EXPORT_TRIGGER =
+      'button, a, [role="button"], input[type="submit"], input[type="button"], summary, [data-export]';
+    const countIfExport = (target: EventTarget | null) => {
+      if (tier === "pro") return;
+      if (!(target instanceof Element) || !target.closest(EXPORT_TRIGGER)) return;
+      incrementExportCount();
+      if (getExportCount() >= FREE_EXPORTS_PER_DAY) setLocked(true);
     };
     return (
-      <div
-        role="presentation"
-        onClick={handleActivate}
-        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleActivate(); }}
-      >
-        {children}
+      <>
+        <div
+          role="presentation"
+          onClick={(e) => countIfExport(e.target)}
+          onKeyDown={(e) => {
+            if (e.key !== "Enter" && e.key !== " ") return;
+            // Native controls (button/link/input/summary) already synthesize a
+            // click from Enter/Space — counted by onClick above. Only count here
+            // for non-native role=button/[data-export] controls, so a keyboard
+            // export isn't double-charged.
+            const el = e.target;
+            if (el instanceof Element && el.closest("button, a[href], input, summary")) return;
+            countIfExport(e.target);
+          }}
+        >
+          {children}
+        </div>
         {remaining !== null && (
           <p
             className={`mt-2 text-[10px] text-center ${
@@ -158,7 +175,7 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
             )}
           </p>
         )}
-      </div>
+      </>
     );
   }
 

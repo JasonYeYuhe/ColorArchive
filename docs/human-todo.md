@@ -43,6 +43,18 @@
 > `pack_id=preorder-auditor` (+ `attributed_source=preorder`). The webhook also name-matches as a
 > fallback, so a missed custom-data field won't drop the order — but the redirect is what makes the
 > on-site purchase-confirmed conversion readable in the gate.
+>
+> **P1 (same session, WS-C — conversion/quality/a11y polish, frontend-only, no droplet):**
+> - **palette-audit perf:** a big paste no longer freezes the tab — `audit()` caps analysis to the
+>   60 most-used colors (the O(n²) contrast matrix + O(n×5,446) matching were the freeze); a notice
+>   shows when truncated. Text-only mitigation added to the contrast list ("all pairwise combinations")
+>   — role-aware FG×BG inference stays deferred to post-gate (it's Auditor scope).
+> - **ProGate quota:** free daily export was charged on *any* click in the wrapper (and on the upgrade
+>   link) — now only a real export control counts, no keyboard double-charge, upsell link moved out.
+> - **contrast checker a11y:** results region is now an `aria-live` status; hex/search inputs + archive
+>   swatch buttons got accessible names. Pre-order CTA card got a visible keyboard focus ring.
+> - Verified: typecheck + build green, **vitest 618/618**. (Codex review was rate-limited this run →
+>   self-review + full test suite instead.)
 
 
 ## 🎯 2026-06-24 (remote) — Phase-2 gate ran = STOP-build; connected the offer to traffic

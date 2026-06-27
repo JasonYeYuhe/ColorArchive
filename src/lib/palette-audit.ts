@@ -72,15 +72,31 @@ export interface AuditResult {
   /** Contrast pairs that fail AA for normal text (< 4.5). */
   lowContrastPairs: ContrastPair[];
   suggestions: AuditSuggestion[];
+  /** True when the input had more unique colors than MAX_AUDIT_COLORS and the
+   *  analysis was capped to the most-used ones (keeps the O(n²) contrast matrix
+   *  + O(n×archive) matching bounded so a huge paste can't freeze the tab). */
+  truncated: boolean;
   /** Short top-line verdict for the UI. */
   summary: {
     totalColors: number;
+    /** Unique colors actually analyzed (≤ MAX_AUDIT_COLORS). */
     uniqueColors: number;
+    /** Total unique colors found in the input, before any cap. */
+    totalUniqueColors: number;
     duplicateGroups: number;
     lowContrastCount: number;
     nonArchiveCount: number;
   };
 }
+
+/**
+ * Hard cap on how many unique colors we fully analyze. The contrast matrix is
+ * O(n²) and archive matching is O(n × 5,446); a pasted token dump with hundreds
+ * of colors would otherwise run hundreds of millions of synchronous ops and
+ * freeze the page (this is the highest-intent page feeding the pre-order funnel).
+ * Colors are ranked by occurrence count, so the cap keeps the most-used ones.
+ */
+export const MAX_AUDIT_COLORS = 60;
 
 // -------------------------------------------------------------------------
 // Color extraction
@@ -354,8 +370,13 @@ function buildSuggestions(
   return suggestions;
 }
 
-export function audit(input: string): AuditResult {
-  const extracted = extractColorsFromText(input);
+export function audit(input: string, maxColors: number = MAX_AUDIT_COLORS): AuditResult {
+  const allExtracted = extractColorsFromText(input);
+  // Cap to the most-used colors BEFORE the expensive matrix/matching steps.
+  // extractColorsFromText already sorts by count desc, so slice keeps signal.
+  const extracted =
+    allExtracted.length > maxColors ? allExtracted.slice(0, maxColors) : allExtracted;
+  const truncated = allExtracted.length > extracted.length;
   const matches = matchToArchive(extracted);
   const duplicates = findDuplicates(extracted);
   const contrastMatrix = buildContrastMatrix(extracted);
@@ -383,9 +404,11 @@ export function audit(input: string): AuditResult {
     contrastMatrix,
     lowContrastPairs,
     suggestions,
+    truncated,
     summary: {
       totalColors: extracted.reduce((a, c) => a + c.count, 0),
       uniqueColors: extracted.length,
+      totalUniqueColors: allExtracted.length,
       duplicateGroups: duplicates.length,
       lowContrastCount: lowContrastPairs.length,
       nonArchiveCount,

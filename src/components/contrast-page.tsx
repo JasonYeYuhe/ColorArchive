@@ -320,6 +320,7 @@ function ColorPickerPanel({
           value={inputValue}
           onChange={(e) => handleInputChange(e.target.value)}
           placeholder="#000000"
+          aria-label={`${label} hex value`}
           className="w-full rounded-2xl border border-black/8 bg-white px-4 py-3 text-base font-medium text-neutral-950 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
         />
       </div>
@@ -341,6 +342,7 @@ function ColorPickerPanel({
             value={paletteSearch}
             onChange={(e) => setPaletteSearch(e.target.value)}
             placeholder={t("contrast.searchPlaceholder")}
+            aria-label={t("contrast.searchPlaceholder")}
             className="mb-3 w-full rounded-2xl border border-black/8 bg-white px-4 py-2.5 text-sm text-neutral-950 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
           />
           <div className="grid max-h-48 grid-cols-6 gap-1.5 overflow-y-auto sm:grid-cols-8">
@@ -352,6 +354,7 @@ function ColorPickerPanel({
                   type="button"
                   onClick={() => handleSelectColor(color)}
                   title={`${color.name} — ${colorHex}`}
+                  aria-label={`Use ${color.name} (${colorHex})`}
                   className="aspect-square rounded-lg border border-black/8 transition hover:scale-110 hover:shadow-md"
                   style={{ backgroundColor: colorHex }}
                 />
@@ -516,8 +519,9 @@ export function ContrastCheckerPage() {
             </div>
           </div>
 
-          {/* WCAG results */}
-          <div className="space-y-4">
+          {/* WCAG results — live region so screen readers announce the updated
+              ratio + compliance when the foreground/background colors change. */}
+          <div className="space-y-4" role="status" aria-live="polite" aria-atomic="true">
             <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                 {t("contrast.contrastRatio")}

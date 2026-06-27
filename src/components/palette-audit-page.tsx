@@ -145,9 +145,13 @@ function ContrastList({ result }: { result: AuditResult }) {
   }
   return (
     <section className="rounded-2xl border border-black/8 bg-white/70 p-5 backdrop-blur dark:border-white/10 dark:bg-neutral-900/60">
-      <h2 className="mb-3 text-sm font-semibold text-neutral-900 dark:text-white">
+      <h2 className="mb-1 text-sm font-semibold text-neutral-900 dark:text-white">
         Low-contrast pairs
       </h2>
+      <p className="mb-3 text-xs text-neutral-500 dark:text-neutral-400">
+        These are all pairwise combinations of your colors — not every pair is
+        necessarily used together as text on a background.
+      </p>
       <ul className="space-y-2">
         {failed.map((p, i) => (
           <li
@@ -348,6 +352,12 @@ export function PaletteAuditPage() {
         </div>
       ) : (
         <div className="space-y-6">
+          {result.truncated && (
+            <p className="rounded-2xl border border-amber-200/60 bg-amber-50/60 px-4 py-3 text-xs text-amber-800 dark:border-amber-900/40 dark:bg-amber-950/20 dark:text-amber-300">
+              Large input — analyzing the {result.summary.uniqueColors} most-used of{" "}
+              {result.summary.totalUniqueColors} colors found, so the audit stays fast.
+            </p>
+          )}
           <SummaryCard result={result} />
           <SuggestionsList result={result} />
           <ExtractedList result={result} />
