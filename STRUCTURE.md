@@ -304,8 +304,10 @@ ColorArchive/
 │   └── scripts/                          # Operational scripts (run on droplet via cron / manually)
 │       ├── gate-report.cjs               # Weekly exit-gate report → owner email (cron Mon 09:00 UTC);
 │       │                                 #   mirrors /analytics/gate SQL — keep in sync
-│       └── verify-preorder.cjs           # Repeatable integration check for the pre-order loop
-│                                         #   (order-completed + gate + /subscribe; self-cleans)
+│       ├── verify-preorder.cjs           # Repeatable integration check for the pre-order loop
+│       │                                 #   (order-completed + gate + /subscribe; self-cleans)
+│       └── send-preorder-broadcast.cjs   # Manual pre-order announcement to subscribers
+│                                         #   (dry-run by default; --send; CAN-SPAM unsubscribe)
 │
 ├── public/
 │   └── downloads/                        # Pack download files (.zip, .swatches)

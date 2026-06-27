@@ -55,6 +55,20 @@
 >   swatch buttons got accessible names. Pre-order CTA card got a visible keyboard focus ring.
 > - Verified: typecheck + build green, **vitest 618/618**. (Codex review was rate-limited this run →
 >   self-review + full test suite instead.)
+>
+> **P2 (same session, WS-D — cost/hygiene, final batch):**
+> - **vs pages `noindex`:** `/colors/[a]/vs/[b]` (≈29M on-demand pairs) was indexable — crawlers
+>   spidering it drove ISR-write cost ([[reference_vercel_cost]]). Now `robots:{index:false,follow:true}`
+>   (still usable for humans; pairs with intent are reached via color pages). `/preorder/` added to
+>   robots.ts Disallow (it's meta-noindex + acquires via on-site CTAs/posts, not search — real-user
+>   UV is unaffected). These reduce crawler cost; **pre-gate cost red line kept** (no new ISR/routes).
+> - **`.env.local.example`:** added `NEXT_PUBLIC_PAYMENT_PROVIDER` + `NEXT_PUBLIC_PREORDER_CHECKOUT_URL`;
+>   dropped the stale Stripe comment.
+> - **D3:** `send-preorder-broadcast.cjs` is now version-controlled in `server/scripts/` (was droplet-only,
+>   like gate-report.cjs). Still dry-run by default; the actual `--send` is held for your approval.
+> - `.gitignore` now also ignores `* 4.*` iCloud copies; ~1.9MB of stray `public/downloads/* N.*` dupes
+>   removed locally. Verified typecheck + build green. **WS-A–D all done — only the manual card-checkout
+>   flip + the distribution sprint remain (both yours).**
 
 
 ## 🎯 2026-06-24 (remote) — Phase-2 gate ran = STOP-build; connected the offer to traffic

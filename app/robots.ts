@@ -14,6 +14,9 @@ export default function robots(): MetadataRoute.Robots {
     "/palette/",
     "/projects/",
     "/api/",
+    // /preorder is meta-noindex and acquires via on-site CTAs + posts, not search
+    // (its UV is real-user pageviews, unaffected by robots). Keep crawlers off it.
+    "/preorder/",
   ];
 
   // Explicitly welcome AI / LLM crawlers. ChatGPT is already this site's

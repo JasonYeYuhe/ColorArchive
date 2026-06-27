@@ -74,6 +74,12 @@ export async function generateMetadata({ params }: VsPageProps): Promise<Metadat
     title: { absolute: title },
     description,
     alternates: { canonical: `/colors/${colorA.id}/vs/${colorB.id}/` },
+    // noindex: the vs route spans ~29M color pairs and is rendered on-demand
+    // (dynamicParams). Letting crawlers spider that combinatorial space drove the
+    // ISR-write cost (reference_vercel_cost). Keep it usable for humans + followable
+    // (entry links carry equity) but out of the index. Pairs with real intent are
+    // reached via the color pages, not search.
+    robots: { index: false, follow: true },
     openGraph: {
       title: `${colorA.name} vs ${colorB.name} | ColorArchive`,
       description,
