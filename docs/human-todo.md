@@ -67,8 +67,23 @@
 > - **D3:** `send-preorder-broadcast.cjs` is now version-controlled in `server/scripts/` (was droplet-only,
 >   like gate-report.cjs). Still dry-run by default; the actual `--send` is held for your approval.
 > - `.gitignore` now also ignores `* 4.*` iCloud copies; ~1.9MB of stray `public/downloads/* N.*` dupes
->   removed locally. Verified typecheck + build green. **WS-A–D all done — only the manual card-checkout
->   flip + the distribution sprint remain (both yours).**
+>   removed locally. Verified typecheck + build green.
+>
+> **Card checkout — it's ALREADY live** (the `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` env var was set back on
+> 06-15; I confirmed prod `/preorder` shows the card button, not the email fallback). So there's nothing
+> to "flip on" — and that's exactly why P0 mattered: until today a real card pre-order would've been
+> silently dropped. While I had the LS dashboard open I also:
+> - **Set the LS Confirmation modal** (product → Confirmation modal): button "Back to ColorArchive" →
+>   `https://colorarchive.org/preorder/?purchased=1` + a pre-order-accurate title/message. So a buyer now
+>   returns to the site and the `preorder_purchase_confirmed` funnel event fires (was: no return at all).
+> - **Hardened the webhook detection** (`app/api/webhook/route.ts`): it now matches on `product_name` too,
+>   so a real LS order is recognized regardless of how LS names the single variant (e.g. "Default"). This
+>   removes any residual silent-drop risk → **`custom_data` is NOT needed.**
+>
+> **Genuinely remaining (yours):** (1) optionally run one LS **test-mode** purchase to watch the full live
+> pipeline record an order (is_test=1, attributed_source=preorder, pre-order confirmation mail) — backend
+> already verified via `verify-preorder.cjs`; (2) the distribution sprint to drive real /preorder traffic
+> (the gate's real bottleneck); (3) approve `send-preorder-broadcast.cjs --send` if you want it sent.
 
 
 ## 🎯 2026-06-24 (remote) — Phase-2 gate ran = STOP-build; connected the offer to traffic

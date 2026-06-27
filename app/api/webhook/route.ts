@@ -36,15 +36,18 @@ function isPreorderOrder(
   customData: Record<string, string>,
 ): boolean {
   if (customData.pack_id === "preorder-auditor") return true;
-  const item = attrs.first_order_item as Record<string, unknown> | undefined;
-  const name = (
-    (item?.variant_name as string | undefined) ??
-    (attrs.variant_name as string | undefined) ??
-    (item?.product_name as string | undefined) ??
-    ""
-  ).toLowerCase();
-  if (name.includes("lifetime")) return false;
-  return name.includes("auditor") || name.includes("pre-order") || name.includes("preorder");
+  const item = (attrs.first_order_item as Record<string, unknown> | undefined) ?? {};
+  // Check ALL candidate name fields, not just the first non-null one: LS may set a
+  // single-variant order's variant_name to "Default" while product_name still carries
+  // "…Accessibility Auditor — Pre-order". Missing it = a silently dropped paid order.
+  const names = [item.variant_name, attrs.variant_name, item.product_name, attrs.product_name]
+    .filter((v): v is string => typeof v === "string")
+    .map((s) => s.toLowerCase());
+  // Never mis-fulfill the lifetime Pro one-time order as a pre-order.
+  if (names.some((n) => n.includes("lifetime"))) return false;
+  return names.some(
+    (n) => n.includes("auditor") || n.includes("pre-order") || n.includes("preorder"),
+  );
 }
 
 /** Forward events to the backend API (Express on DO). */
