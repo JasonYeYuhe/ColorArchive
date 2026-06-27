@@ -1248,8 +1248,143 @@ async function sendProSubscriptionEmail(to, { plan, orderId, amount, currency, i
   return result;
 }
 
+// Pre-order EMAIL RESERVATION (no payment) — sent when a visitor leaves their
+// email on /preorder while card checkout is still gated. Distinct from the
+// free-pack mail: there is nothing to download, just a reserved founder price.
+async function sendPreorderReserveEmail(to) {
+  const result = await sendEmail({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject: "Your Accessibility Auditor founder price is reserved",
+    text: [
+      "Your founder price is reserved",
+      "",
+      "Thanks for your interest in the ColorArchive Accessibility Auditor.",
+      "",
+      "We've noted your email. You'll be the first to hear when the Auditor",
+      "launches, and your founder pricing is held for you until then.",
+      "",
+      "There's nothing to download yet — this is a pre-launch reservation,",
+      "not a purchase. We'll reach out the moment it's ready.",
+      "",
+      "Questions or what you'd want it to check? Just reply to this email.",
+      "",
+      "— ColorArchive",
+      SITE_URL,
+    ].join("\n"),
+    html: `
+      <div style="font-family:system-ui,-apple-system,sans-serif;max-width:480px;margin:0 auto;color:#1a1a1a">
+        <div style="font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:#6b7280;font-weight:600">Pre-order reserved</div>
+        <h2 style="margin:10px 0 0;color:#111">Your founder price is reserved</h2>
+        <p style="color:#444;line-height:1.6">Thanks for your interest in the <strong>ColorArchive Accessibility Auditor</strong>.</p>
+        <p style="color:#444;line-height:1.6">
+          We've noted your email — you'll be the first to hear when it launches, and your
+          founder pricing is held for you until then.
+        </p>
+        <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:16px 18px;margin:20px 0;color:#4b5563;line-height:1.6;font-size:14px">
+          There's nothing to download yet — this is a pre-launch reservation, not a purchase.
+          We'll reach out the moment it's ready.
+        </div>
+        <p style="color:#444;line-height:1.6">Questions, or what you'd want it to check? Just reply to this email.</p>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
+        <p style="color:#999;font-size:12px">ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a></p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (preorder reserve):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
+// Pre-order PURCHASE confirmation (card payment captured via Lemon Squeezy).
+// A receipt for a not-yet-shipped product — NO download link (unlike
+// sendOrderConfirmationEmail, which delivers an instant-download pack).
+async function sendPreorderConfirmationEmail(to, { productName, orderId, amount, currency, isTest = false }) {
+  const cur = (currency || "JPY").toUpperCase();
+  const formattedAmount = amount
+    ? (cur === "JPY" ? `¥${amount.toLocaleString()}` : `$${(amount / 100).toFixed(2)}`)
+    : null;
+  const orderDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  const testTag = isTest ? " [TEST]" : "";
+
+  const result = await sendEmail({
+    from: `ColorArchive <${FROM}>`,
+    reply_to: FROM,
+    to,
+    subject: `Your ${productName} pre-order is confirmed${testTag}`,
+    text: [
+      `Your ${productName} pre-order is confirmed${testTag}`,
+      "",
+      "Thanks for pre-ordering from ColorArchive. Your founder price is locked in.",
+      "",
+      "Order details:",
+      `  Product: ${productName}`,
+      formattedAmount ? `  Amount: ${formattedAmount} ${cur}` : null,
+      `  Order ID: ${orderId}`,
+      `  Date: ${orderDate}`,
+      "",
+      "This is a pre-order for a product that hasn't shipped yet, so there is",
+      "no download today. We'll email you the moment the Auditor is ready, and",
+      "you'll get access at no extra cost.",
+      "",
+      "Questions? Reply to this email.",
+      "",
+      "— ColorArchive",
+      SITE_URL,
+    ].filter(Boolean).join("\n"),
+    html: `
+      <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:0 auto;color:#1a1a1a">
+        <div style="text-align:center;padding:32px 0 24px">
+          <div style="font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:#6b7280;font-weight:600">Pre-order Confirmation${escapeHtml(testTag)}</div>
+          <h1 style="margin:12px 0 0;font-size:24px;font-weight:700;color:#111">Your ${escapeHtml(productName)} is reserved</h1>
+        </div>
+        <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;margin:0 0 20px">
+          <table style="width:100%;border-collapse:collapse;font-size:14px">
+            <tr>
+              <td style="padding:6px 0;color:#6b7280">Product</td>
+              <td style="padding:6px 0;text-align:right;font-weight:600">${escapeHtml(productName)}</td>
+            </tr>
+            ${formattedAmount ? `<tr>
+              <td style="padding:6px 0;color:#6b7280">Amount</td>
+              <td style="padding:6px 0;text-align:right;font-weight:600">${formattedAmount}</td>
+            </tr>` : ""}
+            <tr>
+              <td style="padding:6px 0;color:#6b7280">Order ID</td>
+              <td style="padding:6px 0;text-align:right;font-family:ui-monospace,monospace;font-size:12px">${escapeHtml(orderId)}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;color:#6b7280">Date</td>
+              <td style="padding:6px 0;text-align:right">${orderDate}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;color:#6b7280">Status</td>
+              <td style="padding:6px 0;text-align:right;color:#b45309;font-weight:600">Pre-order — ships later</td>
+            </tr>
+          </table>
+        </div>
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:16px;padding:18px 20px;margin:24px 0;color:#7c2d12;line-height:1.6;font-size:14px">
+          This is a pre-order for a product that hasn't shipped yet, so there's no download today.
+          We'll email you the moment the Auditor is ready — you'll get access at no extra cost.
+        </div>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
+        <p style="color:#999;font-size:12px">ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a></p>
+      </div>
+    `,
+  });
+  if (result.error) {
+    console.error("Resend error (preorder confirmation):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
 module.exports = {
   sendFreePackEmail,
+  sendPreorderReserveEmail,
+  sendPreorderConfirmationEmail,
   sendFollowUp3DayEmail,
   sendFollowUp7DayEmail,
   sendFollowUp14DayEmail,

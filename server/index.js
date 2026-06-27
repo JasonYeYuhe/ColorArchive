@@ -52,8 +52,10 @@ app.use("/generated", express.static(path.join(__dirname, "generated"), {
   immutable: true,
 }));
 
-// JSON body parser for all routes
-app.use(express.json());
+// JSON body parser for all routes. Cap the body so a hostile client can't
+// exhaust memory with a giant payload (the webhook raw-log forwards full LS
+// event bodies, which are well under this); oversized bodies get a 413.
+app.use(express.json({ limit: "100kb" }));
 
 app.use("/subscribe", require("./routes/subscribe"));
 app.use("/auth", require("./routes/auth"));

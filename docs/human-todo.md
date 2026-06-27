@@ -1,7 +1,49 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-24 (Phase-2 gate=STOP-build; wired /preorder CTA into real traffic)
+> Last updated: 2026-06-27 (remote — pre-gate hardening P0: fixed dropped-preorder loop + security debt)
+
+## 🎯 2026-06-27 (remote) — Pre-gate hardening P0 (WS-A measurement/fulfillment + WS-B security)
+> Executed `docs/dev-plan-2026-06-27-pre-gate-hardening.md` P0. **No Auditor build — gate STOP still holds.**
+> All gate_safe (fixed broken wiring + live security holes; no net-new product features, no new ISR/routes).
+>
+> **WS-A — the pre-order loop now actually measures + fulfills:**
+> - **Headline bug fixed:** the Next LS webhook (`app/api/webhook/route.ts`) only forwarded *lifetime*
+>   orders → every real ¥4,999 Auditor pre-order was silently dropped (no order row, no receipt, gate
+>   stuck at 0). Now it detects the pre-order variant (custom_data.pack_id **or** variant-name match)
+>   and forwards to `/webhooks/order-completed`, which writes `is_test`, takes an explicit
+>   `attributed_source='preorder'`, skips the bogus download link, returns **500 on DB error** (so LS
+>   retries; idempotent on the LS order id), and sends a dedicated **pre-order confirmation** mail.
+> - Gate now **excludes test-mode orders** and exposes a **secondary numerator** (distinct email
+>   reservers, `subscribers.source='preorder'`). Email reserve form fires `preorder_email_reserve`.
+> - **⚠️ Gate semantics changed (please note):** the PROCEED criterion is now **Auditor pre-orders
+>   specifically** (`orders.preorder` / `pack_id='preorder-auditor'`), not *all* orders — a stray
+>   pack/Pro sale can no longer falsely trip "≥10 real pre-orders". All-orders count still shown as context.
+> - Pre-order email form: no longer dumps reservers into the daily COTD list or sends the wrong
+>   free-pack mail; dark-mode styling fixed; `/preorder?purchased=1` fires `preorder_purchase_confirmed`.
+>
+> **WS-B — un-merged security debt from `fix/security-hardening-2026-05-30` cherry-picked to main + deployed:**
+> - **SSRF guard** on `/ai/analyze-url` (blocks private/loopback/link-local/metadata IPs v4+v6,
+>   per-redirect re-validation, 2 MB streamed cap). Hardened beyond the original (closed an IPv6
+>   `::ffff:7f00:1` localhost bypass Codex caught). 7 unit tests.
+> - **Apple IAP:** production now rejects unverified (non-JWS) transactions (403) — closes self-grant-Pro.
+> - **XFF spoofing:** all rate limiters + `/ai/usage` now key on `req.ip` (shared `getClientIp`), not the
+>   spoofable `X-Forwarded-For[0]`.
+> - **/subscribe:** per-IP rate limit + 100 kb JSON body cap + welcome mail only on first signup (was an
+>   open email-bomb relay / subscriber-table flood vector).
+> - B5: old FB token already rotated (see `project_facebook_token_expired`) — **no action needed**.
+>
+> **Droplet ops:** `server/scripts/gate-report.cjs` is now **version-controlled** (its is_test filter +
+> pre-order numerator must stay in sync with `analytics.js`). The droplet had an untracked copy — it was
+> removed during deploy so the tracked one takes over. New `server/scripts/verify-preorder.cjs` is a
+> repeatable integration test for the loop (run on the droplet; self-cleans its test rows).
+>
+> **Manual when you flip on card checkout** (`NEXT_PUBLIC_PREORDER_CHECKOUT_URL`): set the LS checkout
+> link's post-purchase redirect to `…/preorder?purchased=1`, and ideally add custom data
+> `pack_id=preorder-auditor` (+ `attributed_source=preorder`). The webhook also name-matches as a
+> fallback, so a missed custom-data field won't drop the order — but the redirect is what makes the
+> on-site purchase-confirmed conversion readable in the gate.
+
 
 ## 🎯 2026-06-24 (remote) — Phase-2 gate ran = STOP-build; connected the offer to traffic
 > Ran the Auditor §0 gate check on the prod DB. **Verdict: do NOT build the Auditor yet**

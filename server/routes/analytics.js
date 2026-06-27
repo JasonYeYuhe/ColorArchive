@@ -420,8 +420,10 @@ router.get("/gate", (req, res) => {
   const GATE_EVENTS = [
     "preorder_view",
     "preorder_cta_click",
+    "preorder_email_reserve",
     "preorder_checkout_clicked",
     "preorder_checkout_redirected",
+    "preorder_purchase_confirmed",
     "word_paywall_hit",
     "word_paywall_restored",
     "word_paywall_pro_click",
@@ -449,13 +451,22 @@ router.get("/gate", (req, res) => {
   }
 
   // Numerator: real orders in the window (the thing the gate ultimately counts).
+  // COALESCE(is_test,0)=0 excludes owner/QA test-mode orders, which would
+  // otherwise falsely satisfy the PROCEED threshold. is_test is written by the
+  // order-completed / subscription-checkout webhook handlers.
   const ordersTotal = db
-    .prepare(`SELECT COUNT(*) as count FROM orders WHERE datetime(created_at) >= datetime('now', ?)`)
+    .prepare(`SELECT COUNT(*) as count FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test, 0) = 0`)
+    .get(sinceParam).count;
+  // The gate's real PROCEED criterion is Auditor PRE-orders specifically — an
+  // unrelated pack/Pro sale must not satisfy "≥10 real pre-orders". ordersTotal
+  // stays as the all-products context number; preorder is what the verdict keys on.
+  const preorderOrders = db
+    .prepare(`SELECT COUNT(*) as count FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test, 0) = 0 AND pack_id = 'preorder-auditor'`)
     .get(sinceParam).count;
   const ordersByProduct = db
     .prepare(
       `SELECT product, COUNT(*) as count, COALESCE(SUM(amount), 0) as revenue
-       FROM orders WHERE datetime(created_at) >= datetime('now', ?)
+       FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test, 0) = 0
        GROUP BY product ORDER BY count DESC`,
     )
     .all(sinceParam);
@@ -468,11 +479,21 @@ router.get("/gate", (req, res) => {
   const ordersBySource = db
     .prepare(
       `SELECT COALESCE(NULLIF(attributed_source, ''), 'unknown') as source, COUNT(*) as count
-       FROM orders WHERE datetime(created_at) >= datetime('now', ?)
+       FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test, 0) = 0
        GROUP BY source ORDER BY count DESC`,
     )
     .all(sinceParam)
     .map((r) => ({ source: r.source, count: r.count }));
+
+  // Secondary signal: distinct people who left a paid-INTENT email reservation
+  // (subscribers.source='preorder'). NOT the gate's primary count (real
+  // pre-orders is) but, while card checkout is gated, the funnel's one live
+  // signal. Counted to-date, NOT windowed: an upsert that flips an older
+  // subscriber to source='preorder' keeps the original created_at, so a window
+  // filter would silently miss them. Test rows excluded.
+  const emailReservesTotal = db
+    .prepare(`SELECT COUNT(*) as count FROM subscribers WHERE source = 'preorder' AND COALESCE(is_test, 0) = 0`)
+    .get().count;
 
   const sum = (rows) => rows.reduce((n, r) => n + r.count, 0);
   const preorderUvTotal = sum(preorderUvByChannel);
@@ -498,7 +519,16 @@ router.get("/gate", (req, res) => {
     preorderUvByChannel,
     paywallByChannel,
     steps: stepsByEvent,
-    orders: { total: ordersTotal, target: 10, byProduct: ordersByProduct, bySource: ordersBySource },
+    orders: {
+      total: ordersTotal,
+      // Auditor pre-orders only — this is the gate's PROCEED criterion (≥10).
+      preorder: preorderOrders,
+      target: 10,
+      byProduct: ordersByProduct,
+      bySource: ordersBySource,
+      // Secondary signal only — distinct paid-intent email reservers, not orders.
+      emailReserves: emailReservesTotal,
+    },
   });
 });
 

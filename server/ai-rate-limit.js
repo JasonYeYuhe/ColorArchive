@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const db = require("./db");
 const { getSessionUser } = require("./auth");
+const { getClientIp } = require("./client-ip");
 
 // Lazy-load email to avoid circular deps
 let sendProUpsellEmail = null;
@@ -27,7 +28,10 @@ function today() {
 }
 
 function ipHash(req) {
-  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress || "unknown";
+  // getClientIp() uses req.ip (honors `trust proxy`); the raw left-most
+  // X-Forwarded-For entry is client-spoofable and would let an attacker mint a
+  // fresh rate-limit bucket per request. Must match /ai/usage's keying.
+  const ip = getClientIp(req);
   return "ip:" + crypto.createHash("sha256").update(ip).digest("hex").slice(0, 16);
 }
 

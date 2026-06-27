@@ -73,6 +73,10 @@ function PreorderCTA() {
       <CotdSubscribeForm
         source="preorder"
         heading={`Reserve your founder price (JP${preorderConfig.price})`}
+        cotd={false}
+        onSuccess={() => track("preorder_email_reserve", { from: "preorder" })}
+        successNote="We'll email you the moment pre-orders open at the founder price."
+        footnote="We'll only email you about the Auditor. Unsubscribe anytime."
       />
       <p className="mt-2 text-[11px] text-slate-400">
         We&rsquo;ll email you the moment pre-orders open at the founder price.
@@ -84,6 +88,13 @@ function PreorderCTA() {
 export function PreorderPage() {
   useEffect(() => {
     track("preorder_view", { feature: preorderConfig.feature });
+    // A7: confirm a completed paid pre-order when LS redirects back with
+    // ?purchased=1. Pure client-side (no new route) — the order itself is
+    // recorded by the webhook; this just makes the conversion readable in the gate.
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("purchased") === "1") {
+      track("preorder_purchase_confirmed", { feature: preorderConfig.feature });
+    }
   }, []);
 
   return (
@@ -124,7 +135,14 @@ export function PreorderPage() {
               <p className="mb-2 text-center text-xs text-slate-500 dark:text-slate-400">
                 Not ready to pre-order? We&rsquo;ll email you the moment it ships — and honor the founder price.
               </p>
-              <CotdSubscribeForm source="preorder" heading="Email me when the Auditor launches" />
+              <CotdSubscribeForm
+                source="preorder"
+                heading="Email me when the Auditor launches"
+                cotd={false}
+                onSuccess={() => track("preorder_email_reserve", { from: "preorder-upsell" })}
+                successNote="You're on the list — we'll email you when the Auditor launches."
+                footnote="We'll only email you about the Auditor. Unsubscribe anytime."
+              />
             </div>
           ) : null}
         </div>

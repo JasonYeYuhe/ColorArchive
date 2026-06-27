@@ -263,7 +263,8 @@ ColorArchive/
 │
 ├── server/                               # Express backend — DO Droplet
 │   ├── index.js                          # Entry point, routes registration
-│   ├── email.js                          # Resend email functions (11 types incl. Pro upsell)
+│   ├── email.js                          # Resend email functions (13 types incl. Pro upsell,
+│   │                                     #   pre-order reserve + pre-order purchase confirmation)
 │   ├── email-scheduler.js                # Hourly cron: Day-3/7/14/21/30 follow-ups + COTD + A/B
 │   ├── db.js                             # SQLite setup (subscribers, orders, sessions, users,
 │   │                                     #   projects, ai_usage, user_preferences)
@@ -273,11 +274,19 @@ ColorArchive/
 │   ├── ai-rate-limit.js                  # AI rate limiting middleware (anon 3/day, free 10/day,
 │   │                                     #   pro unlimited, credit consumption)
 │   ├── api-rate-limit.js                 # API rate limiting middleware (60/1k/10k per hour)
+│   ├── client-ip.js                      # getClientIp(req) — req.ip (trust proxy), shared by all
+│   │                                     #   rate limiters + /ai/usage (anti X-Forwarded-For spoof)
+│   ├── ssrf-guard.js                     # assertSafeUrl() — blocks private/loopback/link-local/
+│   │                                     #   metadata IPs (v4+v6) for /ai/analyze-url
 │   ├── ig-scheduler.js                   # Instagram auto-posting scheduler
 │   ├── ig-image-generator.js             # Instagram image generation
 │   └── routes/
 │       ├── subscribe.js                  # POST /subscribe — email capture + referral tracking
-│       ├── webhook.js                    # Legacy webhook stub (Stripe webhooks via Next.js /api/webhook)
+│       │                                 #   (per-IP rate limited; welcome mail only on first insert;
+│       │                                 #   source='preorder' → reserve mail, no COTD opt-in)
+│       ├── webhook.js                    # Internal webhooks from Next.js /api/webhook (LS forwarder):
+│       │                                 #   /webhooks/order-completed (packs + Auditor pre-order w/
+│       │                                 #   is_test + attribution), /subscription-checkout (Pro/lifetime)
 │       ├── auth.js                       # Magic link + Google OAuth + session (with tier)
 │       ├── me.js                         # GET /me, /me/usage, /me/referral, /me/api-key,
 │       │                                 #   /me/preferences, /me/orders
@@ -286,10 +295,17 @@ ColorArchive/
 │       │                                 #   /ai/name-color, /ai/critique, /ai/analyze-url,
 │       │                                 #   GET /ai/usage (public, includes anonymous IP-tracked quota)
 │       ├── admin.js                      # GET /admin/* — orders dashboard
-│       ├── analytics.js                  # GET /analytics/* — internal stats; /analytics/gate = exit-gate funnel split by channel
+│       ├── analytics.js                  # GET /analytics/* — internal stats; /analytics/gate =
+│       │                                 #   exit-gate funnel (is_test-filtered; orders.preorder is the
+│       │                                 #   PROCEED criterion; emailReserves secondary signal)
 │       ├── pageviews.js                  # POST /pageviews — page tracking
 │       ├── og.js                         # GET /og — OG image generation
 │       └── instagram.js                  # Instagram API (OAuth, publish, media feed)
+│   └── scripts/                          # Operational scripts (run on droplet via cron / manually)
+│       ├── gate-report.cjs               # Weekly exit-gate report → owner email (cron Mon 09:00 UTC);
+│       │                                 #   mirrors /analytics/gate SQL — keep in sync
+│       └── verify-preorder.cjs           # Repeatable integration check for the pre-order loop
+│                                         #   (order-completed + gate + /subscribe; self-cleans)
 │
 ├── public/
 │   └── downloads/                        # Pack download files (.zip, .swatches)

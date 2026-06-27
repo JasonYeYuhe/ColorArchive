@@ -22,6 +22,31 @@ function verifySignature(body: string, signature: string | null): boolean {
   }
 }
 
+/**
+ * Detect the Accessibility Auditor pre-order — a NON-lifetime one-time LS order.
+ * Without this, real pre-order payments hit `break` in order_created and are
+ * silently dropped (no order row, no receipt, gate numerator stuck at 0).
+ *
+ * Match ONLY the pre-order so future unrelated one-time products aren't
+ * mis-fulfilled as pre-orders. Primary signal: `custom_data.pack_id` set on the
+ * checkout link (most robust); fallback: the LS variant / product name.
+ */
+function isPreorderOrder(
+  attrs: Record<string, unknown>,
+  customData: Record<string, string>,
+): boolean {
+  if (customData.pack_id === "preorder-auditor") return true;
+  const item = attrs.first_order_item as Record<string, unknown> | undefined;
+  const name = (
+    (item?.variant_name as string | undefined) ??
+    (attrs.variant_name as string | undefined) ??
+    (item?.product_name as string | undefined) ??
+    ""
+  ).toLowerCase();
+  if (name.includes("lifetime")) return false;
+  return name.includes("auditor") || name.includes("pre-order") || name.includes("preorder");
+}
+
 /** Forward events to the backend API (Express on DO). */
 async function notifyBackend(path: string, payload: Record<string, unknown>): Promise<void> {
   const res = await fetch(`${API_URL}${path}`, {
@@ -191,6 +216,20 @@ export async function POST(req: NextRequest) {
             currency: firstCurrency,
             cardFingerprint,
             ...customData,
+          });
+        } else if (isPreorderOrder(attrs, customData)) {
+          // Pre-order: record the paid order so it enters the gate numerator and
+          // the buyer gets a receipt. paymentIntent carries the real LS order id
+          // so backend de-dupes LS retries; attributed_source pins the channel.
+          await notifyBackend("/webhooks/order-completed", {
+            email,
+            packId: "preorder-auditor",
+            paymentIntent: String(event.data.id),
+            provider: "lemonsqueezy",
+            amountTotal: firstAmount,
+            currency: firstCurrency,
+            testMode,
+            attributedSource: "preorder",
           });
         }
         break;

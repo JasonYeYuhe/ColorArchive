@@ -1,15 +1,36 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const { sendFreePackEmail, sendWaitlistConfirmationEmail } = require("../email");
+const {
+  sendFreePackEmail,
+  sendWaitlistConfirmationEmail,
+  sendPreorderReserveEmail,
+} = require("../email");
+const { getClientIp } = require("../client-ip");
 
 function sanitizeString(value, limit = 240) {
   return typeof value === "string" && value.trim() ? value.trim().slice(0, limit) : null;
 }
 
+// Per-IP rate limit: max 10 subscribe attempts per minute. Without it, /subscribe
+// is an open email-bomb relay (each first-time signup sends a welcome mail) and a
+// script can flood the subscribers table with junk that pollutes the validation
+// funnel (the exit gate reads subscribers.source). Mirrors events.js's limiter.
+const subAttempts = new Map();
+setInterval(() => subAttempts.clear(), 60_000);
+function subscribeRateLimit(req, res, next) {
+  const ip = getClientIp(req);
+  const count = (subAttempts.get(ip) || 0) + 1;
+  subAttempts.set(ip, count);
+  if (count > 10) {
+    return res.status(429).json({ error: "Too many requests. Please try again shortly." });
+  }
+  next();
+}
+
 // POST /subscribe
 // Body: { email: string, source?: string, cotd?: boolean }
-router.post("/", async (req, res) => {
+router.post("/", subscribeRateLimit, async (req, res) => {
   const {
     email,
     source = "free-pack",
@@ -28,7 +49,18 @@ router.post("/", async (req, res) => {
     return res.status(400).json({ error: "Invalid email" });
   }
 
+  const emailNorm = email.trim().toLowerCase();
+  const cleanSource = sanitizeString(source, 80) || "free-pack";
+
   try {
+    // Only send a welcome/confirmation email on the FIRST signup. Re-sending on
+    // every POST (the prior behavior) is an email-bomb vector and spams returning
+    // subscribers. The source still upserts so the gate's source attribution and
+    // the preorder secondary numerator stay correct on repeat submits.
+    const isNewSubscriber = !db
+      .prepare("SELECT 1 FROM subscribers WHERE email = ?")
+      .get(emailNorm);
+
     db.prepare(
       `
         INSERT INTO subscribers (
@@ -54,8 +86,8 @@ router.post("/", async (req, res) => {
           utm_content = COALESCE(excluded.utm_content, subscribers.utm_content)
       `,
     ).run(
-      email.trim().toLowerCase(),
-      sanitizeString(source, 80) || "free-pack",
+      emailNorm,
+      cleanSource,
       sanitizeString(landingPath),
       sanitizeString(referrer),
       sanitizeString(utmSource, 120),
@@ -65,33 +97,41 @@ router.post("/", async (req, res) => {
       sanitizeString(utmContent, 160),
     );
 
-    // Enable COTD if requested (separate update to handle existing subscribers too)
-    if (cotd) {
+    // Enable COTD if requested (separate update to handle existing subscribers too).
+    // Never opt a pre-order reserver into the daily color list — they asked about
+    // the Auditor, not a daily email (defense-in-depth; the form also sends cotd:false).
+    if (cotd && cleanSource !== "preorder") {
       db.prepare(`UPDATE subscribers SET cotd_subscribed = 1 WHERE email = ?`)
-        .run(email.trim().toLowerCase());
+        .run(emailNorm);
     }
 
     // Referral credit: if ref code provided, credit the referrer +5 AI credits (idempotent)
     const refCode = sanitizeString(ref, 20);
     if (refCode) {
       const subscriber = db.prepare("SELECT referred_by FROM subscribers WHERE email = ?")
-        .get(email.trim().toLowerCase());
+        .get(emailNorm);
       // Only credit if this subscriber hasn't already been credited to a referrer
       // and the refCode maps to a real user (prevents invalid codes from locking the slot)
       if (!subscriber?.referred_by) {
         const referrerUser = db.prepare("SELECT id FROM users WHERE referral_code = ?").get(refCode);
         if (referrerUser) {
           db.prepare("UPDATE subscribers SET referred_by = ? WHERE email = ?")
-            .run(refCode, email.trim().toLowerCase());
+            .run(refCode, emailNorm);
           db.prepare("UPDATE users SET credits = credits + 5 WHERE id = ?").run(referrerUser.id);
         }
       }
     }
 
-    if (source === "waitlist") {
-      await sendWaitlistConfirmationEmail(email);
-    } else {
-      await sendFreePackEmail(email);
+    if (isNewSubscriber) {
+      if (cleanSource === "waitlist") {
+        await sendWaitlistConfirmationEmail(email);
+      } else if (cleanSource === "preorder") {
+        // Pre-order reservers must NOT get the free-pack "your download is ready"
+        // mail — they reserved a not-yet-shipped product. Send the reserve note.
+        await sendPreorderReserveEmail(email);
+      } else {
+        await sendFreePackEmail(email);
+      }
     }
     res.json({ ok: true });
   } catch (err) {

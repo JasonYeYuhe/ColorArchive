@@ -225,8 +225,16 @@ function GateFunnel({ gate }: { gate: GateResponse }) {
           target={gate.floors.preorderUv.target}
         />
         <FloorBar label="Paywall triggers" value={gate.floors.paywallTriggers.total} target={gate.floors.paywallTriggers.target} />
-        <FloorBar label="Real orders" value={gate.orders.total} target={gate.orders.target} />
+        <FloorBar label="Auditor pre-orders" value={gate.orders.preorder} target={gate.orders.target} />
       </div>
+
+      <p className="mt-2 text-xs text-neutral-500">
+        Gate counts Auditor pre-orders only. All real orders (any product):{" "}
+        <span className="font-semibold text-neutral-700">{gate.orders.total}</span>. Email reservations
+        (secondary, paid-intent):{" "}
+        <span className="font-semibold text-neutral-700">{gate.orders.emailReserves}</span>{" "}
+        <span className="text-neutral-400">(test excluded)</span>
+      </p>
 
       <div className="mt-5 grid gap-5 md:grid-cols-2">
         <div>
@@ -345,11 +353,15 @@ interface GateResponse {
   steps: Record<string, { total: number; byChannel: Record<string, number> }>;
   orders: {
     total: number;
+    // Auditor pre-orders only — the gate's PROCEED criterion.
+    preorder: number;
     target: number;
     byProduct: Array<{ product: string; count: number; revenue: number }>;
     // Attributed by sign-up source tag (free-pack / waitlist / preorder …), NOT first-touch
     // acquisition channel — a different axis than the channel-keyed denominators above.
     bySource: Array<{ source: string; count: number }>;
+    // Secondary signal only: paid-intent email reservations (subscribers.source='preorder').
+    emailReserves: number;
   };
 }
 

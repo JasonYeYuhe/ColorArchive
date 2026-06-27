@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const db = require("./db");
+const { getClientIp } = require("./client-ip");
 
 // API rate limits per hour
 const API_TIER_LIMITS = {
@@ -9,7 +10,9 @@ const API_TIER_LIMITS = {
 };
 
 function ipHash(req) {
-  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress || "unknown";
+  // getClientIp() uses req.ip (honors `trust proxy`); the left-most
+  // X-Forwarded-For entry is client-controlled and spoofable.
+  const ip = getClientIp(req);
   return "api_ip:" + crypto.createHash("sha256").update(ip).digest("hex").slice(0, 16);
 }
 

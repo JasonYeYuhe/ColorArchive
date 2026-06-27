@@ -17,6 +17,7 @@ const {
   setSessionCookie,
 } = require("../auth");
 const { sendMagicLinkEmail } = require("../email");
+const { getClientIp } = require("../client-ip");
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.org";
 
 // --- Simple in-memory rate limiter for auth endpoints ---
@@ -25,7 +26,9 @@ const AUTH_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 const AUTH_MAX_ATTEMPTS = 5; // 5 attempts per window
 
 function authRateLimit(req, res, next) {
-  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress || "unknown";
+  // req.ip honors `trust proxy`; the raw left-most X-Forwarded-For entry is
+  // client-spoofable and would let an attacker bypass this throttle.
+  const ip = getClientIp(req);
   // For /request-link: rate-limits by IP+email; for /verify: by IP only (no email in body)
   const email = (req.body?.email || "").toLowerCase();
   const key = `${ip}:${email}`;
@@ -356,6 +359,23 @@ router.post("/apple-purchase", async (req, res) => {
 
     if (!VALID_APPLE_PRODUCTS.includes(productId)) {
       return res.status(400).json({ error: "Invalid product ID" });
+    }
+
+    // Security: in production, never grant Pro from an unverified transaction.
+    // iOS >= 1.2 sends VerificationResult.jwsRepresentation (cryptographically
+    // verified above → verified=true). The legacy JSON / no-signedTransaction
+    // shapes are logged as [DEPRECATION] and rejected here so an authenticated
+    // client cannot self-grant Pro with forged transaction fields. Allow-listed
+    // sandbox/QA users (TestFlight) keep the legacy path.
+    if (
+      IS_PRODUCTION &&
+      !verified &&
+      !SANDBOX_ALLOWED_USER_IDS.has(String(user.id))
+    ) {
+      return res.status(403).json({
+        error: "Unverified transaction. Please update to the latest app version.",
+        code: "UNVERIFIED_TRANSACTION",
+      });
     }
 
     const txnId = String(originalTransactionId);

@@ -4,7 +4,13 @@ const path = require("path");
 const router = express.Router();
 const db = require("../db");
 const { findCatalogProduct, getDownloadUrl, getPackUrl } = require("../catalog");
-const { sendOrderConfirmationEmail, sendProSubscriptionEmail } = require("../email");
+const { sendOrderConfirmationEmail, sendProSubscriptionEmail, sendPreorderConfirmationEmail } = require("../email");
+
+// Pack id used for the Accessibility Auditor pre-order (a not-yet-shipped
+// product with no download). The Next.js LS webhook forwarder tags real
+// pre-order payments with this id; everything keyed on it gets pre-order
+// treatment (no download link, a dedicated confirmation mail).
+const PREORDER_PACK_ID = "preorder-auditor";
 const { constantTimeEqual } = require("../constant-time-eq");
 
 const RAW_LOG_FILE = path.join(__dirname, "..", ".ls-event-log.jsonl");
@@ -46,17 +52,28 @@ router.use(verifyInternal);
 // POST /webhooks/order-completed
 // Called by Next.js webhook route after Stripe checkout.session.completed
 router.post("/order-completed", async (req, res) => {
-  const { sessionId, email, packId, amountTotal, currency, paymentIntent } = req.body;
+  const { sessionId, email, packId, amountTotal, currency, paymentIntent, attributedSource } = req.body;
 
   if (!email || !packId) {
     return res.status(400).json({ error: "Missing email or packId" });
   }
 
   const provider = req.body.provider || "stripe";
+  // Idempotency key. The Next webhook forwarder passes the real Lemon Squeezy
+  // order id as paymentIntent, so LS retries of the same event de-dupe here.
   const orderId = paymentIntent || `${provider}_${sessionId}` || `${provider}_${Date.now()}`;
+  const isTest = req.body.testMode ? 1 : 0;
+  const isPreorder = packId === PREORDER_PACK_ID;
+
   const catalogProduct = findCatalogProduct(packId);
-  const productName = catalogProduct?.title || packId;
-  const downloadUrl = getDownloadUrl(packId) || `${process.env.FRONTEND_ORIGIN || "https://colorarchive.org"}/packs`;
+  const productName = isPreorder
+    ? "ColorArchive Accessibility Auditor (Pre-order)"
+    : catalogProduct?.title || packId;
+  // A pre-order has no shippable download yet — never synthesize a /packs link
+  // for it (that mail would dead-end the buyer). Real packs keep the fallback.
+  const downloadUrl = isPreorder
+    ? null
+    : getDownloadUrl(packId) || `${process.env.FRONTEND_ORIGIN || "https://colorarchive.org"}/packs`;
 
   // Check for duplicate
   const existing = db.prepare("SELECT id FROM orders WHERE order_id = ?").get(orderId);
@@ -65,23 +82,30 @@ router.post("/order-completed", async (req, res) => {
     return res.json({ ok: true, duplicate: true });
   }
 
-  // Look up subscriber attribution
+  // Look up subscriber attribution (reverse-lookup from a prior email signup).
   const subscriberAttribution = db
     .prepare(
       "SELECT source, utm_source, utm_medium, utm_campaign, utm_term, utm_content, landing_path FROM subscribers WHERE lower(email) = lower(?)"
     )
     .get(email);
+  // Prefer an explicit attributed_source from the payload (the pre-order forwarder
+  // sends 'preorder') so the order carries the right channel even when the buyer
+  // never left an email first; fall back to the subscriber reverse-lookup.
+  const resolvedSource = attributedSource || subscriberAttribution?.source || null;
 
-  // Insert order with attribution
+  // Insert order with attribution. A DB failure here must NOT 200 — returning
+  // non-2xx makes the Next forwarder (and Lemon Squeezy) retry, and the
+  // duplicate guard above keeps the retry idempotent. Silently dropping a paid
+  // order is the exact failure this loop is meant to fix.
   try {
     db.prepare(
       `INSERT OR IGNORE INTO orders (
         order_id, email, product, amount, currency, pack_id,
-        download_url, stripe_session_id, payment_intent,
+        download_url, stripe_session_id, payment_intent, is_test,
         attributed_source, attributed_utm_source, attributed_utm_medium,
         attributed_utm_campaign, attributed_utm_term, attributed_utm_content,
         attributed_landing_path
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).run(
       orderId,
       email,
@@ -92,7 +116,8 @@ router.post("/order-completed", async (req, res) => {
       downloadUrl,
       sessionId || null,
       paymentIntent || null,
-      subscriberAttribution?.source || null,
+      isTest,
+      resolvedSource,
       subscriberAttribution?.utm_source || null,
       subscriberAttribution?.utm_medium || null,
       subscriberAttribution?.utm_campaign || null,
@@ -101,25 +126,38 @@ router.post("/order-completed", async (req, res) => {
       subscriberAttribution?.landing_path || null
     );
 
-    // Add buyer to subscribers if not already
+    // Add buyer to subscribers if not already (OR IGNORE preserves a prior
+    // source='preorder' row so the gate's secondary numerator still counts them).
     db.prepare(
-      "INSERT OR IGNORE INTO subscribers (email, source) VALUES (?, ?)"
-    ).run(email, `${provider}-purchase`);
+      "INSERT OR IGNORE INTO subscribers (email, source, is_test) VALUES (?, ?, ?)"
+    ).run(email, `${provider}-purchase`, isTest);
   } catch (err) {
     console.error("[webhook] DB error (order):", err);
+    return res.status(500).json({ error: "Failed to record order" });
   }
 
-  console.log(`[webhook] Order recorded: ${orderId} — ${productName} for ${email}`);
+  console.log(`[webhook] Order recorded: ${orderId} — ${productName} for ${email} (test=${isTest})`);
 
-  // Send confirmation email
+  // Send confirmation email. Pre-orders get a dedicated "reservation confirmed"
+  // mail (no download), not the generic "your download is ready" template.
   try {
-    await sendOrderConfirmationEmail(email, {
-      productName,
-      downloadUrl,
-      orderId,
-      amount: amountTotal,
-      currency: currency || "jpy",
-    });
+    if (isPreorder) {
+      await sendPreorderConfirmationEmail(email, {
+        productName,
+        orderId,
+        amount: amountTotal,
+        currency: currency || "jpy",
+        isTest: Boolean(isTest),
+      });
+    } else {
+      await sendOrderConfirmationEmail(email, {
+        productName,
+        downloadUrl,
+        orderId,
+        amount: amountTotal,
+        currency: currency || "jpy",
+      });
+    }
     console.log(`[webhook] Confirmation email sent to ${email}`);
   } catch (err) {
     console.error(`[webhook] Failed to send email to ${email}:`, err);
