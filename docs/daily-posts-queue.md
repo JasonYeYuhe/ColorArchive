@@ -4,6 +4,44 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-06-28
+
+> Real news this week (Jun 21 – Jun 28): another under-the-hood week — the bulk was security hardening and back-end measurement plumbing, no headline new feature. The honest user-facing theme is **accessibility**: the tools got an a11y polish pass (better text contrast and visible keyboard focus rings on the Contrast checker and other tool pages), and the **Palette Audit** tool no longer chokes on big palettes — it now caps analysis at 60 colors so it stays responsive instead of freezing. We're also quietly opening early reservations for an upcoming **Accessibility Auditor**. No new colors, collections, or guides this week. Lead with the accessibility polish; keep the Auditor a soft, optional teaser — don't overcommit since it's still validation-stage.
+
+### Facebook
+
+🎨 **This week at ColorArchive — making the tools work for everyone.**
+
+No flashy new feature this week — instead we spent it on accessibility, which honestly matters more.
+
+♿️ **The tools got an accessibility pass.** Better text contrast and clear, visible focus outlines when you navigate with a keyboard — so the Contrast checker and our other tools are easier to use for everyone, however you get around the page.
+
+⚡️ **Palette Audit handles big palettes now.** Drop in a large set of colors and it stays smooth instead of grinding to a halt — analysis is capped at 60 colors so the tool stays fast and responsive.
+
+👀 **Coming soon: an Accessibility Auditor.** We're exploring a tool to check whole palettes against accessibility standards. If that'd be useful to you, you can reserve early at colorarchive.org/preorder.
+
+Same 5,446 curated colors. Now a little more usable for everyone.
+
+Explore the library → colorarchive.org
+
+#ColorArchive #DesignTools #Accessibility #a11y #ColorContrast #UIDesign #ColorPalette #WeeklyUpdate
+
+---
+
+### Twitter / X
+
+🎨 This week at ColorArchive — accessibility focus:
+
+♿️ Tools got an a11y pass — better contrast + visible keyboard focus rings
+⚡️ Palette Audit no longer freezes on big palettes (now capped at 60 colors)
+👀 Reserving early for an upcoming Accessibility Auditor → colorarchive.org/preorder
+
+Same 5,446 colors, now more usable for everyone.
+
+#ColorArchive #a11y #DesignTools #UIDesign
+
+---
+
 ## Weekly Roundup — 2026-06-21
 
 > Real news this week (Jun 14 – Jun 21): a quieter, under-the-hood week — no headline new feature, mostly speed and polish. The two genuinely user-facing wins: **(1) the site got noticeably faster** — we eliminated two oversized JavaScript bundles and slimmed page payloads dramatically (a typical color page's data dropped ~96%, from ~1MB to ~36KB), so pages load and feel snappier; **(2) shared links now look right everywhere** — previously some pages (notes, stories, use-cases, regions, brands, families) showed a blank card when shared on social; every page type now generates a proper preview image. The rest was internal: first-touch attribution/analytics plumbing and Vercel cost optimization. Lead with speed + link previews; keep it honest and modest.
