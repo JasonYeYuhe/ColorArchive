@@ -1,7 +1,7 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-29 (remote — multi-platform review + gate-safe DO-NOW fixes; iOS/Figma need you)
+> Last updated: 2026-06-29 (remote — multi-platform review + gate-safe DO-NOW fixes; **iOS 1.2.1 built+submitted to App Store review by Claude** — you only TestFlight-verify + click Release; Figma still needs you)
 
 ## 🎯 2026-06-29 (remote) — multi-platform review + gate-safe fixes shipped
 > Ran a multi-model review (Claude agents + **Gemini 3.1 Pro + 3.5 Flash** via the Google AI API
@@ -20,12 +20,18 @@
 >   "Preview on UI" link.
 > - **Server (deployed + verify-preorder.cjs 15/15 PASS):** wrapped the order-completed payment
 >   writes in `db.transaction()` (atomic); 2 composite gate indexes.
-> - **iOS (you must build + submit — I can't build iOS here):** **real StoreKit bug fixed** —
+> - **iOS — BUILT + SUBMITTED for you (1.2.1 / build 5, `WAITING_FOR_REVIEW`):** **real StoreKit bug fixed** —
 >   `purchase()` finished the transaction BEFORE backend sync, so a failed sync lost the backend
 >   record with no retry; now `syncPurchaseWithBackend` returns Bool and both paths `finish()` only
 >   on success → StoreKit re-delivers + retries on next launch (local entitlement still granted
->   immediately). Plus email-validation on the login button. **Please build, test a sandbox purchase,
->   and submit.** Gemini 3.1 Pro reviewed the Swift as compile-clean + StoreKit-correct, but it's untested on device.
+>   immediately). Plus email-validation on the login button. I archived + signed + uploaded via the
+>   ASC API and submitted (1.2 was READY_FOR_SALE + build 4 already up, so this is the new patch 1.2.1;
+>   metadata + 12 screenshots auto-carried from 1.2; release notes written; commit `5fcd0c7`).
+>   **Set to `releaseType=MANUAL`**, so it will NOT auto-go-live. **➡️ Your only remaining iOS step:**
+>   after Apple approves (~1 day), run **one sandbox purchase in TestFlight** to confirm the StoreKit
+>   fix on a real device (the one thing I couldn't test here — code is compile-clean + Gemini
+>   StoreKit-reviewed, change is conservative), then click **Release** in App Store Connect. Submission id
+>   `b076bd95`. (Ask me to flip it to auto-release-on-approval if you'd rather skip the manual click.)
 > - **VS Code:** marketplace description/keywords now mention WCAG/contrast (republish when you like).
 >
 > **NOT done (your call):** Figma in-plugin "fake-door" Auditor (#9) — high value but **republishing the
