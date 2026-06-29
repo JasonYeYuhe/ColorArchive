@@ -61,27 +61,45 @@ interface WcagResult {
   aaUi: WcagLevel;
 }
 
+// APCA-W3 0.1.9 (constants 4g). Screen luminance uses a SIMPLE 2.4 exponent
+// (not the WCAG-2 piecewise curve) — APCA is a perceptual model, not a ratio.
+const APCA = {
+  exp: 2.4,
+  Rco: 0.2126729, Gco: 0.7151522, Bco: 0.0721750,
+  normBG: 0.56, normTXT: 0.57, revTXT: 0.62, revBG: 0.65,
+  blkThrs: 0.022, blkClmp: 1.414, scale: 1.14,
+  loOffset: 0.027, loClip: 0.1, deltaYmin: 0.0005,
+} as const;
+
 function sRGBtoY(hex: string): number {
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
-  // Piecewise sRGB linearization (simplified APCA)
-  const [rL, gL, bL] = [r, g, b].map((c) => {
-    const s = c / 255;
-    return s <= 0.04045 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
-  });
-  return 0.2126729 * rL + 0.7151522 * gL + 0.0721750 * bL;
+  const lin = (c: number) => Math.pow(c / 255, APCA.exp);
+  return APCA.Rco * lin(r) + APCA.Gco * lin(g) + APCA.Bco * lin(b);
 }
 
+/** APCA Lc (lightness contrast), roughly -108..+106. Positive = dark text on a
+ *  light background (normal polarity); negative = light text on dark. */
 function getApcaContrast(textHex: string, bgHex: string): number {
-  const txtY = sRGBtoY(textHex);
-  const bgY = sRGBtoY(bgHex);
-  // Simplified APCA-W3 (Silver level approximation)
-  const normBG = Math.pow(bgY, 0.56);
-  const normTXT = Math.pow(txtY, 0.57);
-  const rawContrast = (normBG - normTXT) * 1.14;
-  if (Math.abs(rawContrast) < 0.1) return 0;
-  return Math.round(rawContrast * 100) / 100;
+  let txtY = sRGBtoY(textHex);
+  let bgY = sRGBtoY(bgHex);
+  // Soft-clamp near-black so tiny luminance differences don't explode.
+  txtY = txtY > APCA.blkThrs ? txtY : txtY + Math.pow(APCA.blkThrs - txtY, APCA.blkClmp);
+  bgY = bgY > APCA.blkThrs ? bgY : bgY + Math.pow(APCA.blkThrs - bgY, APCA.blkClmp);
+  if (Math.abs(bgY - txtY) < APCA.deltaYmin) return 0;
+
+  let outputContrast: number;
+  if (bgY > txtY) {
+    // Normal polarity: dark text on a light background.
+    const sapc = (Math.pow(bgY, APCA.normBG) - Math.pow(txtY, APCA.normTXT)) * APCA.scale;
+    outputContrast = sapc < APCA.loClip ? 0 : sapc - APCA.loOffset;
+  } else {
+    // Reverse polarity: light text on a dark background.
+    const sapc = (Math.pow(bgY, APCA.revBG) - Math.pow(txtY, APCA.revTXT)) * APCA.scale;
+    outputContrast = sapc > -APCA.loClip ? 0 : sapc + APCA.loOffset;
+  }
+  return Math.round(outputContrast * 100 * 10) / 10;
 }
 
 function evaluateWcag(hex1: string, hex2: string): WcagResult {
@@ -466,7 +484,7 @@ export function ContrastCheckerPage() {
                 <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
                   {wcag.ratio} : 1
                 </div>
-                <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500" title="APCA Lightness Contrast (approximate)">
+                <div className="rounded-full border border-black/6 bg-neutral-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500" title="APCA-W3 0.1.9 lightness contrast (Lc) — perceptual readability, explored for WCAG 3. Experimental; WCAG 2 ratio remains the compliance floor.">
                   APCA {wcag.apca > 0 ? "+" : ""}{wcag.apca}
                 </div>
               </div>

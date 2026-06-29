@@ -1,7 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect } from "react";
 import { CONTACT_EMAIL } from "@/src/lib/site-config";
+import { track } from "@/src/lib/track";
 
 export function ThanksPage() {
+  // Close the checkout funnel: clicked → redirected → success. Fired on the
+  // post-purchase landing so conversion rate is measurable end-to-end.
+  useEffect(() => {
+    track("checkout_success", {});
+  }, []);
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">

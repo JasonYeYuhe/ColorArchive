@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { useLocale } from "@/src/components/locale-provider";
+import { track } from "@/src/lib/track";
 
 export function CancelPage() {
   const { t } = useLocale();
+  // Funnel completion (abandon side): clicked → redirected → cancelled.
+  useEffect(() => {
+    track("checkout_cancelled", {});
+  }, []);
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">

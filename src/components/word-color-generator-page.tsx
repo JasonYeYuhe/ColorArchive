@@ -206,7 +206,11 @@ export function WordColorGeneratorPage() {
   useEffect(() => {
     if (!RECRUIT_BANNER_ENABLED) return;
     try {
-      if (localStorage.getItem(RECRUIT_DISMISS_KEY) !== "1") setShowRecruit(true);
+      if (localStorage.getItem(RECRUIT_DISMISS_KEY) !== "1") {
+        setShowRecruit(true);
+        // Impression — without it the banner CTR (click/dismiss ÷ impression) is uncomputable.
+        track("recruit_banner_impression", {});
+      }
     } catch {}
   }, []);
 

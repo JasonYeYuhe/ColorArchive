@@ -359,6 +359,11 @@ export function PaletteAuditPage() {
             </p>
           )}
           <SummaryCard result={result} />
+          {(result.summary.lowContrastCount > 0 ||
+            result.summary.duplicateGroups > 0 ||
+            result.summary.nonArchiveCount > 0) && (
+            <AuditorPreorderCta from="palette-audit-results" />
+          )}
           <SuggestionsList result={result} />
           <ExtractedList result={result} />
           <ContrastList result={result} />
