@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import { findClosestArchiveColor } from "@/src/lib/color-utils";
+import { AuditorPreorderCta } from "@/src/components/auditor-preorder-cta";
 import { classifyError } from "@/src/lib/error-utils";
 import { colors as archiveColors } from "@/src/data/colors";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
@@ -24,6 +25,25 @@ function luminance(hex: string): number {
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
   return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+}
+
+// Proper WCAG relative-luminance contrast (sRGB-linearized) for the accessibility
+// snapshot below — the YIQ `luminance` above is only for swatch label legibility.
+function wcagContrast(a: string, b: string): number {
+  const relLum = (hex: string) => {
+    const ch = (v: number) => {
+      const s = v / 255;
+      return s <= 0.04045 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+    };
+    return (
+      0.2126 * ch(parseInt(hex.slice(1, 3), 16)) +
+      0.7152 * ch(parseInt(hex.slice(3, 5), 16)) +
+      0.0722 * ch(parseInt(hex.slice(5, 7), 16))
+    );
+  };
+  const la = relLum(a);
+  const lb = relLum(b);
+  return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
 }
 
 export function UrlAnalyzerPage() {
@@ -75,6 +95,18 @@ export function UrlAnalyzerPage() {
   };
 
   const palette = colors.map((c) => c.hex);
+
+  // Quick accessibility snapshot — how many pairings among the extracted brand
+  // colours fall below WCAG AA. Drives the "scan your site → fix with the Auditor" funnel.
+  const lowContrastPairs = useMemo(() => {
+    let n = 0;
+    for (let i = 0; i < colors.length; i++) {
+      for (let j = i + 1; j < colors.length; j++) {
+        if (wcagContrast(colors[i].hex, colors[j].hex) < 4.5) n++;
+      }
+    }
+    return n;
+  }, [colors]);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900 pb-24">
@@ -182,6 +214,23 @@ export function UrlAnalyzerPage() {
                 ))}
               </div>
             </div>
+
+            {lowContrastPairs > 0 && (
+              <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-5 dark:border-amber-900/40 dark:bg-amber-950/20">
+                <p className="text-sm font-semibold text-amber-900 dark:text-amber-200">
+                  {lowContrastPairs} colour {lowContrastPairs === 1 ? "pair" : "pairs"} in this palette{" "}
+                  {lowContrastPairs === 1 ? "falls" : "fall"} below WCAG AA (4.5:1).
+                </p>
+                <p className="mt-1 text-xs leading-5 text-amber-800/80 dark:text-amber-300/80">
+                  That&rsquo;s a quick pairwise check of the extracted colours. The Accessibility Auditor checks every
+                  foreground/background pairing, simulates colour-blindness, and suggests accessible fixes from the
+                  5,446-colour archive.
+                </p>
+                <div className="mt-3">
+                  <AuditorPreorderCta from="analyze" />
+                </div>
+              </div>
+            )}
 
             {/* AI Critique */}
             <PaletteCritiquePanel palette={palette} />

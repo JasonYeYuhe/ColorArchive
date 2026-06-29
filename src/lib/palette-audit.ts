@@ -308,6 +308,35 @@ export function findDuplicates(
 /** How tight a source color must be to its nearest archive to be "on-system". */
 const ARCHIVE_NEAR_THRESHOLD_RGB = 18;
 
+/**
+ * For a failing pair, find the nearest ColorArchive colour to `targetHex` that
+ * actually CLEARS `minRatio` against `againstHex`. This is the differentiator:
+ * the fix is a named, catalogued, reusable token — not a synthetic hex nudge.
+ * Bounded: one O(archive) scan per failing pair, and only the top ~10 pairs get
+ * suggestions (see caller), so this stays well under the audit's perf budget.
+ */
+function nearestAccessibleArchive(
+  targetHex: string,
+  againstHex: string,
+  minRatio: number,
+): ColorRecord | null {
+  const targetRgb = hexToRgb(targetHex);
+  if (!targetRgb) return null;
+  let best: ColorRecord | null = null;
+  let bestDist = Infinity;
+  for (const c of archiveColors) {
+    if (contrastRatioHex(c.hex, againstHex) < minRatio) continue;
+    const rgb = hexToRgb(c.hex);
+    if (!rgb) continue;
+    const d = rgbDistance(targetRgb, rgb);
+    if (d < bestDist) {
+      bestDist = d;
+      best = c;
+    }
+  }
+  return best;
+}
+
 function buildSuggestions(
   extracted: ExtractedColor[],
   matches: NearestMatch[],
@@ -340,10 +369,23 @@ function buildSuggestions(
       pair.grade === "fail"
         ? "fails WCAG AA for normal AND large text"
         : "passes AA Large (≥3) but fails AA for normal text (<4.5)";
+    // Offer an accessible swap from the archive: nearest named colour to `a`
+    // that clears AA (4.5:1) against `b`. (We suggest changing `a`; the user
+    // applies it to whichever role is the foreground.)
+    const fix = nearestAccessibleArchive(pair.a.hex, pair.b.hex, 4.5);
     suggestions.push({
       kind: "low-contrast",
       message: `Contrast ${pair.ratio}:1 between ${pair.a.hex} and ${pair.b.hex} ${severity}.`,
       colors: [pair.a, pair.b],
+      suggestion: fix
+        ? {
+            fromHex: pair.a.hex,
+            toHex: fix.hex,
+            archiveId: fix.id,
+            archiveName: fix.name,
+            rationale: `Replace ${pair.a.hex} with ${fix.name} (${fix.id}) — the nearest archive colour that clears WCAG AA (4.5:1) against ${pair.b.hex}.`,
+          }
+        : undefined,
     });
   }
 

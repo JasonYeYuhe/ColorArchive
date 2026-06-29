@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { hexToRgb, rgbToHsl, hslToRgb, rgbToHex } from "@/src/lib/color-utils";
+import { generateColorName } from "@/src/lib/color-naming";
 import { useLocale } from "@/src/components/locale-provider";
 import { ProGate } from "@/src/components/pro-gate";
 import { WhatsNext } from "@/src/components/whats-next";
@@ -163,43 +164,37 @@ function buildSCSS(tokens: TokenSystem, varName: string): string {
   return lines.join("\n");
 }
 
+// W3C DTCG (2025.10) token groups: group-level `$type: "color"` inheritance,
+// per-token `$value`, and a self-documenting `$description` = the archive's
+// poetic name for that hex (provenance no anonymous-hex exporter can match).
+function dtcgGroups(tokens: TokenSystem, varName: string): Record<string, Record<string, unknown>> {
+  const out: Record<string, Record<string, unknown>> = {};
+  for (const [name, scale] of Object.entries(tokens) as [string, ScaleEntry[]][]) {
+    const key = name === "primary" ? varName : name;
+    const group: Record<string, unknown> = { $type: "color" };
+    for (const e of scale) {
+      const named = generateColorName(e.hex)?.poeticName;
+      group[String(e.step)] = named ? { $value: e.hex, $description: named } : { $value: e.hex };
+    }
+    out[key] = group;
+  }
+  return out;
+}
+
+// Plain DTCG file (valid `.tokens.json`) — imports directly into Style
+// Dictionary v4+ and Tokens Studio without refactoring.
 function buildJSON(tokens: TokenSystem, varName: string): string {
-  const out: Record<string, Record<string, { $value: string; $type: string }>> = {};
-  const scales = Object.entries(tokens) as [string, ScaleEntry[]][];
-  for (const [name, scale] of scales) {
-    const key = name === "primary" ? varName : name;
-    out[key] = {};
-    for (const e of scale) {
-      out[key][String(e.step)] = { $value: e.hex, $type: "color" };
-    }
-  }
-  return JSON.stringify(out, null, 2);
+  return JSON.stringify(dtcgGroups(tokens, varName), null, 2);
 }
 
+// Tokens Studio for Figma reads the same DTCG `$value/$type/$description` shape.
 function buildFigmaTokens(tokens: TokenSystem, varName: string): string {
-  const out: Record<string, Record<string, { $type: string; $value: string }>> = {};
-  const scales = Object.entries(tokens) as [string, ScaleEntry[]][];
-  for (const [name, scale] of scales) {
-    const key = name === "primary" ? varName : name;
-    out[key] = {};
-    for (const e of scale) {
-      out[key][String(e.step)] = { $type: "color", $value: e.hex };
-    }
-  }
-  return JSON.stringify(out, null, 2);
+  return JSON.stringify(dtcgGroups(tokens, varName), null, 2);
 }
 
+// Style Dictionary v4 reads DTCG natively; wrap under a `color` root group.
 function buildStyleDictionary(tokens: TokenSystem, varName: string): string {
-  const out: Record<string, Record<string, Record<string, { value: string; type: string }>>> = { color: {} };
-  const scales = Object.entries(tokens) as [string, ScaleEntry[]][];
-  for (const [name, scale] of scales) {
-    const key = name === "primary" ? varName : name;
-    out.color[key] = {};
-    for (const e of scale) {
-      out.color[key][String(e.step)] = { value: e.hex, type: "color" };
-    }
-  }
-  return JSON.stringify(out, null, 2);
+  return JSON.stringify({ color: dtcgGroups(tokens, varName) }, null, 2);
 }
 
 /* ------------------------------------------------------------------ */

@@ -327,6 +327,13 @@ function QuickGenerate() {
         </button>
 
         <SendToTool hexColors={colors.map((c) => c.hex)} />
+
+        <Link
+          href={`/preview?colors=${encodeURIComponent(colors.map((c) => c.hex).join(","))}`}
+          className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/10 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-900"
+        >
+          Preview on UI &rarr;
+        </Link>
       </div>
 
       {/* Mobile hint */}
