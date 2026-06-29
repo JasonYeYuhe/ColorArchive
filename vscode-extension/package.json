@@ -1,12 +1,12 @@
 {
   "name": "colorarchive",
   "displayName": "ColorArchive — Color Palette & Token Helper",
-  "description": "Browse 5,400+ curated colors, generate palettes, and insert design tokens directly in your editor.",
+  "description": "Browse 5,400+ curated colors with WCAG contrast info, generate palettes, and insert design tokens (CSS, Tailwind, Figma) — directly in your editor.",
   "version": "0.2.0",
   "publisher": "colorarchive",
   "engines": { "vscode": "^1.80.0" },
   "categories": ["Other", "Snippets"],
-  "keywords": ["color", "palette", "design tokens", "css", "tailwind", "figma"],
+  "keywords": ["color", "palette", "design tokens", "css", "tailwind", "figma", "wcag", "contrast", "accessibility"],
   "icon": "icon.png",
   "license": "MIT",
   "repository": {

@@ -84,8 +84,11 @@ final class StoreManager {
         case .success(let verification):
             let transaction = try checkVerified(verification)
             await updatePurchasedProducts()
-            await transaction.finish()
-            await syncPurchaseWithBackend(transaction, jws: verification.jwsRepresentation)
+            // Sync to the backend BEFORE finishing. If it fails, leave the
+            // transaction unfinished so Transaction.updates retries it next launch
+            // (local entitlement is already granted above, so the user isn't blocked).
+            let synced = await syncPurchaseWithBackend(transaction, jws: verification.jwsRepresentation)
+            if synced { await transaction.finish() }
             AnalyticsBootstrap.capture("purchase", ["product": product.id, "result": "success"])
             return .success
         case .userCancelled:
@@ -132,8 +135,8 @@ final class StoreManager {
             for await result in Transaction.updates {
                 if case .verified(let transaction) = result {
                     await self?.updatePurchasedProducts()
-                    await self?.syncPurchaseWithBackend(transaction, jws: result.jwsRepresentation)
-                    await transaction.finish()
+                    let synced = await self?.syncPurchaseWithBackend(transaction, jws: result.jwsRepresentation) ?? false
+                    if synced { await transaction.finish() }
                 }
             }
         }
@@ -164,8 +167,12 @@ final class StoreManager {
     /// Pass `jws` from the originating `VerificationResult.jwsRepresentation` — this is the
     /// Apple-signed JWS string that the backend cryptographically verifies.
     /// `Transaction.jsonRepresentation` is plain JSON (not signed) and will fail verification.
-    private func syncPurchaseWithBackend(_ transaction: Transaction, jws: String) async {
-        guard let url = URL(string: "\(APIService.baseURL)/auth/apple-purchase") else { return }
+    /// Records the purchase on the backend. Returns true on success — callers only
+    /// finish the transaction when this is true, so a failed sync leaves it for
+    /// Transaction.updates to retry on a later launch (no lost backend record).
+    @discardableResult
+    private func syncPurchaseWithBackend(_ transaction: Transaction, jws: String) async -> Bool {
+        guard let url = URL(string: "\(APIService.baseURL)/auth/apple-purchase") else { return false }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -183,11 +190,13 @@ final class StoreManager {
             if let http = response as? HTTPURLResponse, http.statusCode != 200 {
                 let msg = String(data: data, encoding: .utf8) ?? "HTTP \(http.statusCode)"
                 syncError = "Sync failed: \(msg)"
-            } else {
-                syncError = nil
+                return false
             }
+            syncError = nil
+            return true
         } catch {
             syncError = "Sync failed: \(error.localizedDescription)"
+            return false
         }
     }
 

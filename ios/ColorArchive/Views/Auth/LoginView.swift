@@ -75,7 +75,9 @@ struct LoginView: View {
                         .foregroundStyle(.background)
                         .fontWeight(.semibold)
                     }
-                    .disabled(email.isEmpty || isSending)
+                    // Basic client-side guard so an empty/clearly-invalid address
+                    // can't hit the backend (which then 400s). Server still validates.
+                    .disabled(!email.contains("@") || isSending)
                 }
                 .padding(.horizontal, 24)
             }

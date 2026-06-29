@@ -1,7 +1,37 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-27 (remote — pre-gate hardening P0: fixed dropped-preorder loop + security debt)
+> Last updated: 2026-06-29 (remote — multi-platform review + gate-safe DO-NOW fixes; iOS/Figma need you)
+
+## 🎯 2026-06-29 (remote) — multi-platform review + gate-safe fixes shipped
+> Ran a multi-model review (Claude agents + **Gemini 3.1 Pro + 3.5 Flash** via the Google AI API
+> key — the `gemini` CLI is dead, `IneligibleTierError`) across all 5 platforms + competitors →
+> `docs/review-2026-06-29-multiplatform.md`. Then executed the gate-safe DO-NOW items one-by-one
+> (each typecheck/build + Gemini 3.1 Pro reviewed). **Finding: the review was partly stale** — e.g.
+> color-detail already had the Auditor CTA + colour-blind sim (06-24), the AI rate-limit "race" was a
+> false positive (better-sqlite3 is synchronous), and most DB indexes already existed. So I verified
+> every item against real code and only shipped genuine ones.
+>
+> **Shipped (commits 969ae93, 9d7586f, 6caeded + this one):**
+> - **Web:** palette-audit results CTA; checkout funnel events (success/cancel/impression); real
+>   **APCA-W3 0.1.9** in the contrast checker (was approximate); **archive-sourced auto-fix** for
+>   failing pairs (the moat — a named token, not a synthetic hex); **W3C DTCG** token export with
+>   self-documenting `$description`; `/analyze` contrast snapshot → Auditor funnel; generator
+>   "Preview on UI" link.
+> - **Server (deployed + verify-preorder.cjs 15/15 PASS):** wrapped the order-completed payment
+>   writes in `db.transaction()` (atomic); 2 composite gate indexes.
+> - **iOS (you must build + submit — I can't build iOS here):** **real StoreKit bug fixed** —
+>   `purchase()` finished the transaction BEFORE backend sync, so a failed sync lost the backend
+>   record with no retry; now `syncPurchaseWithBackend` returns Bool and both paths `finish()` only
+>   on success → StoreKit re-delivers + retries on next launch (local entitlement still granted
+>   immediately). Plus email-validation on the login button. **Please build, test a sandbox purchase,
+>   and submit.** Gemini 3.1 Pro reviewed the Swift as compile-clean + StoreKit-correct, but it's untested on device.
+> - **VS Code:** marketplace description/keywords now mention WCAG/contrast (republish when you like).
+>
+> **NOT done (your call):** Figma in-plugin "fake-door" Auditor (#9) — high value but **republishing the
+> plugin triggers a Marketplace re-review** (your red line), so I held it. The remaining review items are
+> mostly post-validation scope (whole-system Auditor, Figma Variables push, CI integration, public API).
+
 
 ## 🎯 2026-06-27 (remote) — Pre-gate hardening P0 (WS-A measurement/fulfillment + WS-B security)
 > Executed `docs/dev-plan-2026-06-27-pre-gate-hardening.md` P0. **No Auditor build — gate STOP still holds.**
