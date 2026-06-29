@@ -205,6 +205,9 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_users_referral_code ON users(referral_code);
   CREATE INDEX IF NOT EXISTS idx_projects_user_id ON projects(user_id);
   CREATE INDEX IF NOT EXISTS idx_ai_usage_identifier_date ON ai_usage(identifier, date);
+  -- Composite indexes for the exit-gate analytics (filter by window + group/filter by name/source).
+  CREATE INDEX IF NOT EXISTS idx_events_event_name_created_at ON events(event_name, created_at);
+  CREATE INDEX IF NOT EXISTS idx_orders_attributed_source_created_at ON orders(attributed_source, created_at);
 `);
 
 // Apple IAP purchases

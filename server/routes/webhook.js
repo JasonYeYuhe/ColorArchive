@@ -96,8 +96,11 @@ router.post("/order-completed", async (req, res) => {
   // Insert order with attribution. A DB failure here must NOT 200 — returning
   // non-2xx makes the Next forwarder (and Lemon Squeezy) retry, and the
   // duplicate guard above keeps the retry idempotent. Silently dropping a paid
-  // order is the exact failure this loop is meant to fix.
+  // order is the exact failure this loop is meant to fix. The two writes run in
+  // one transaction so the order row + the buyer-subscriber row commit together
+  // or both roll back — never a half-recorded payment.
   try {
+    db.transaction(() => {
     db.prepare(
       `INSERT OR IGNORE INTO orders (
         order_id, email, product, amount, currency, pack_id,
@@ -131,6 +134,7 @@ router.post("/order-completed", async (req, res) => {
     db.prepare(
       "INSERT OR IGNORE INTO subscribers (email, source, is_test) VALUES (?, ?, ?)"
     ).run(email, `${provider}-purchase`, isTest);
+    })();
   } catch (err) {
     console.error("[webhook] DB error (order):", err);
     return res.status(500).json({ error: "Failed to record order" });
