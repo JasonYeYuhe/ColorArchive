@@ -4,6 +4,47 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-07-05
+
+> Real news this week (Jun 28 – Jul 5): a genuinely feature-y week on the tools side (commit 9d7586f, Jun 29). The headline is that **Palette Audit stopped just flagging problems and started fixing them** — every failing WCAG contrast pair now gets a concrete suggestion pulled from the 5,446-color archive (a real named color that clears AA, not a random hex). Supporting features: the **token exporter now emits standard W3C DTCG tokens** (with each color's name carried through as documentation), the **/analyze tool now runs a contrast check on any site's brand colors**, and the **palette generator got a "Preview on UI" link**. On mobile, **iOS 1.2.1 was submitted to App Store review** (StoreKit purchase-reliability fix). No new colors, collections, or guides this week. Lead with the Palette Audit auto-fix — it's the real differentiator. Keep the DTCG/token line for the design-tooling crowd; don't overclaim on iOS since it's still in review.
+
+### Facebook
+
+🎨 **This week at ColorArchive — the tools stopped just pointing at problems and started fixing them.**
+
+♿️ **Palette Audit now suggests the fix, not just the fail.** Run a check and any color pair that fails WCAG contrast now comes with a ready-made replacement — pulled straight from our 5,446-color archive. It's always a real, named color that actually clears AA, so you get a fix you can reuse, not a random hex to babysit.
+
+🧩 **Token export is now standard-compliant.** The token generator now outputs proper W3C DTCG design tokens — and every color's name travels with it as built-in documentation. Drop them straight into your design system.
+
+🔍 **Check any site's contrast in seconds.** Paste a URL into /analyze and it now pulls the brand colors *and* runs a WCAG pairwise contrast snapshot — so you can spot accessibility gaps on any site, not just your own palette.
+
+👀 **Preview your palette on a real UI.** The palette generator got a "Preview on UI →" link, so you can see your five colors on an actual interface before you commit.
+
+📱 **iOS update in review.** ColorArchive 1.2.1 is with Apple, carrying a purchase-reliability fix for Pro.
+
+Explore 5,446 curated colors → colorarchive.org
+
+#ColorArchive #DesignTools #Accessibility #a11y #ColorContrast #DesignTokens #DTCG #UIDesign #ColorPalette #WeeklyUpdate
+
+---
+
+### Twitter / X
+
+🎨 This week at ColorArchive — the tools got smarter:
+
+♿️ Palette Audit now suggests fixes, not just fails — every failing contrast pair gets a real named color from the archive that clears WCAG AA
+🧩 Token export is now standard W3C DTCG (names carried as docs)
+🔍 /analyze runs a contrast check on any site's brand colors
+👀 New "Preview on UI" link in the palette generator
+📱 iOS 1.2.1 in App Store review
+
+5,446 colors. Better every week.
+→ colorarchive.org
+
+#ColorArchive #DesignTools #a11y #DesignTokens #ColorContrast
+
+---
+
 ## Weekly Roundup — 2026-06-28
 
 > Real news this week (Jun 21 – Jun 28): another under-the-hood week — the bulk was security hardening and back-end measurement plumbing, no headline new feature. The honest user-facing theme is **accessibility**: the tools got an a11y polish pass (better text contrast and visible keyboard focus rings on the Contrast checker and other tool pages), and the **Palette Audit** tool no longer chokes on big palettes — it now caps analysis at 60 colors so it stays responsive instead of freezing. We're also quietly opening early reservations for an upcoming **Accessibility Auditor**. No new colors, collections, or guides this week. Lead with the accessibility polish; keep the Auditor a soft, optional teaser — don't overcommit since it's still validation-stage.
