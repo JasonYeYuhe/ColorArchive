@@ -4,6 +4,42 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-07-12
+
+> Real news this week (Jul 5 – Jul 12): **no product releases** — zero code commits landed this week (the only commit was last week's roundup itself). The Jun 29 batch (Palette Audit auto-fix, DTCG token export, /analyze contrast, iOS 1.2.1 in review) was already announced in last week's post, so re-announcing it would be dishonest. Rather than manufacture news, this is an evergreen **spotlight** on a real, already-live tool — Word to Color — which is our most-visited page. Kept truthful and low-key: no "new," no fake urgency. If a genuine feature ships next week, go back to a real changelog post.
+
+### Facebook
+
+🎨 **This week at ColorArchive — a quiet week, so here's a favorite worth revisiting.**
+
+No new releases this week — so instead, a spotlight on the tool people keep coming back to: **Word to Color.**
+
+✍️ **Type any word, get a color.** "Ocean," your name, your brand, a mood — Word to Color turns any text into a repeatable color and a small palette to go with it. Same word always gives the same result, so it's stable enough to actually build on.
+
+🎨 **Every result maps into the archive.** The colors you get aren't random one-offs — they connect to our 5,446 curated, named colors, so you can branch out into analogous and complementary shades from there.
+
+Give it a word and see what comes back → colorarchive.org/word-to-color
+
+Explore all 5,446 colors → colorarchive.org
+
+#ColorArchive #DesignTools #ColorPalette #ColorInspiration #WordToColor #BrandColors #UIDesign #WeeklyUpdate
+
+---
+
+### Twitter / X
+
+🎨 Quiet release week at ColorArchive — so here's a favorite worth revisiting:
+
+✍️ Word to Color: type any word — a name, a mood, a brand — and get a repeatable color + palette back. Same word, same result, every time.
+
+Every color maps into our 5,446-color archive, so you can branch into analogous & complementary shades.
+
+Try it → colorarchive.org/word-to-color
+
+#ColorArchive #DesignTools #ColorPalette #WordToColor
+
+---
+
 ## Weekly Roundup — 2026-07-05
 
 > Real news this week (Jun 28 – Jul 5): a genuinely feature-y week on the tools side (commit 9d7586f, Jun 29). The headline is that **Palette Audit stopped just flagging problems and started fixing them** — every failing WCAG contrast pair now gets a concrete suggestion pulled from the 5,446-color archive (a real named color that clears AA, not a random hex). Supporting features: the **token exporter now emits standard W3C DTCG tokens** (with each color's name carried through as documentation), the **/analyze tool now runs a contrast check on any site's brand colors**, and the **palette generator got a "Preview on UI" link**. On mobile, **iOS 1.2.1 was submitted to App Store review** (StoreKit purchase-reliability fix). No new colors, collections, or guides this week. Lead with the Palette Audit auto-fix — it's the real differentiator. Keep the DTCG/token line for the design-tooling crowd; don't overclaim on iOS since it's still in review.
