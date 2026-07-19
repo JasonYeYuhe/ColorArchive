@@ -4,6 +4,44 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-07-19
+
+> Real news this week (Jul 12 – Jul 19): **no product releases** — again zero code commits (the only commit in the window was last week's roundup). This is the **second consecutive quiet week**, so this is another evergreen spotlight, not a changelog. Last week spotlighted Word to Color, so this one goes to a different live tool: the **Color Blindness Simulator** (`/colorblind`) — verified in code this run: 4 deficiency types (protanopia, deuteranopia, tritanopia, achromatopsia) and palette mode accepting up to 8 pasted hex codes. It pairs naturally with Palette Audit for an accessibility angle. No "new," no fake urgency — the tool has been live for a while and the copy says so. **Owner note:** two silent weeks in a row is itself the signal — if nothing ships next week either, consider whether the weekly cadence should drop to monthly rather than keep generating filler.
+
+### Facebook
+
+🎨 **This week at ColorArchive — another quiet release week, so here's a tool worth knowing about.**
+
+No new releases this week. Instead, a spotlight on something already live that too few people use: the **Color Blindness Simulator.**
+
+👁️ **See your colors the way ~300 million people do.** Check any color — or a whole palette — under protanopia, deuteranopia, tritanopia, and achromatopsia. The distinction that looks obvious to you may collapse into one shade for someone else.
+
+🎨 **Palette mode.** Paste up to 8 hex codes and see your entire palette rendered under each type of color vision deficiency, side by side. It's the fastest way to catch a chart or UI state that only works if you can see red and green apart.
+
+♿ **Pairs with Palette Audit.** Simulator shows you what breaks; Palette Audit tells you which contrast pairs fail WCAG and suggests a real named color from the archive that passes.
+
+Test your palette → colorarchive.org/colorblind
+
+Explore all 5,446 colors → colorarchive.org
+
+#ColorArchive #Accessibility #a11y #DesignTools #ColorPalette #ColorBlindness #InclusiveDesign #UIDesign #WCAG
+
+---
+
+### Twitter / X
+
+🎨 Another quiet release week at ColorArchive — so here's an underused tool:
+
+👁️ Color Blindness Simulator: check any color, or paste up to 8 hex codes, and see your whole palette under protanopia, deuteranopia, tritanopia & achromatopsia.
+
+That red/green distinction in your chart? It may not exist for your reader.
+
+Test it → colorarchive.org/colorblind
+
+#ColorArchive #a11y #InclusiveDesign #DesignTools
+
+---
+
 ## Weekly Roundup — 2026-07-12
 
 > Real news this week (Jul 5 – Jul 12): **no product releases** — zero code commits landed this week (the only commit was last week's roundup itself). The Jun 29 batch (Palette Audit auto-fix, DTCG token export, /analyze contrast, iOS 1.2.1 in review) was already announced in last week's post, so re-announcing it would be dishonest. Rather than manufacture news, this is an evergreen **spotlight** on a real, already-live tool — Word to Color — which is our most-visited page. Kept truthful and low-key: no "new," no fake urgency. If a genuine feature ships next week, go back to a real changelog post.
