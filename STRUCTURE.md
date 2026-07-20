@@ -190,10 +190,16 @@ ColorArchive/
 │   │   ├── color-stories-page.tsx       # Color stories page
 │   │   ├── color-of-day-page.tsx        # Color of the Day
 │   │   ├── wcag-audit-page.tsx          # WCAG audit matrix
-│   │   ├── screen-test-page.tsx         # Screen test hub (facts report + wedges + uniformity)
+│   │   ├── screen-test-page.tsx         # Screen test hub (facts report + all subtests + wizard + hue game)
 │   │   ├── dead-pixel-test-page.tsx     # Dead/stuck pixel fullscreen cycler
 │   │   ├── color-screens-page.tsx       # Fullscreen color screens utility
 │   │   ├── screen-test/fullscreen-stage.tsx  # Shared fullscreen engine (wake lock, iOS fallback)
+│   │   ├── screen-test/pattern-canvas.tsx    # DPR-exact canvas for pixel-precise patterns
+│   │   ├── screen-test/canvas-stages.tsx     # Gamma / banding / sharpness stages
+│   │   ├── screen-test/archive-stages.tsx    # Archive color-distance pairs + hue-arrangement game
+│   │   ├── screen-test/wedge-stages.tsx      # Near-black / near-white step wedges (hub + wizard)
+│   │   ├── screen-test/extra-stages.tsx      # Burn-in check + multitouch tester
+│   │   ├── screen-test/wizard.tsx            # Guided test wizard + canvas PNG report card + hash share
 │   │   ├── token-generator-page.tsx     # Design token generator
 │   │   ├── tools-page.tsx              # All tools listing
 │   │   ├── api-docs-page.tsx           # API documentation
@@ -233,6 +239,11 @@ ColorArchive/
 │   │   ├── color-utils.ts                # HSL↔RGB↔HEX, family classification,
 │   │   │                                 # sorting, analogous/complementary/tonal,
 │   │   │                                 # fuzzy search, WCAG contrast pairings
+│   │   ├── screen-test.ts                # Screen-test data + capability detection,
+│   │   │                                 # gamma/banding math, archive pairs, hue game,
+│   │   │                                 # wizard result hash codec
+│   │   ├── color-difference.ts           # sRGB→CIE Lab (D65), ΔE76 + CIEDE2000,
+│   │   │                                 # plain-language interpretation
 │   │   ├── collections.ts                # 259 curated palette collections
 │   │   ├── palette-packs.ts              # 7 product pack definitions + metadata
 │   │   ├── guides.ts                     # 317 SEO landing guides

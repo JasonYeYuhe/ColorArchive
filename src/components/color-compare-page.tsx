@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { deltaE2000, deltaE76, hexToLab, interpretDeltaE } from "@/src/lib/color-difference";
 
 /* ------------------------------------------------------------------ */
 /*  Color conversion helpers                                           */
@@ -291,6 +292,15 @@ export function ColorComparePage() {
   const passAAANormal = ratio >= 7;
   const passAAALarge = ratio >= 4.5;
 
+  // Perceptual difference (CIEDE2000 + CIE76) with a plain-English read
+  const deltaE = useMemo(() => {
+    const labA = hexToLab(colorA);
+    const labB = hexToLab(colorB);
+    if (!labA || !labB) return null;
+    const de2000 = deltaE2000(labA, labB);
+    return { de2000, de76: deltaE76(labA, labB), interpretation: interpretDeltaE(de2000) };
+  }, [colorA, colorB]);
+
   const rgbA = hexToRgb(colorA);
   const rgbB = hexToRgb(colorB);
   const hslA = hexToHsl(colorA);
@@ -301,7 +311,7 @@ Color A: ${colorA} | RGB(${rgbA.r}, ${rgbA.g}, ${rgbA.b}) | HSL(${hslA.h}°, ${h
 Color B: ${colorB} | RGB(${rgbB.r}, ${rgbB.g}, ${rgbB.b}) | HSL(${hslB.h}°, ${hslB.s}%, ${hslB.l}%) | Family: ${getFamily(hslB.h)}
 Contrast Ratio: ${ratio}:1
 WCAG AA Normal: ${passAANormal ? "Pass" : "Fail"} | AA Large: ${passAALarge ? "Pass" : "Fail"}
-WCAG AAA Normal: ${passAAANormal ? "Pass" : "Fail"} | AAA Large: ${passAAALarge ? "Pass" : "Fail"}`;
+WCAG AAA Normal: ${passAAANormal ? "Pass" : "Fail"} | AAA Large: ${passAAALarge ? "Pass" : "Fail"}${deltaE ? `\nDelta E (CIEDE2000): ${deltaE.de2000.toFixed(2)} | Delta E (CIE76): ${deltaE.de76.toFixed(2)} — ${deltaE.interpretation.en}` : ""}`;
 
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
@@ -379,6 +389,24 @@ WCAG AAA Normal: ${passAAANormal ? "Pass" : "Fail"} | AAA Large: ${passAAALarge 
                 <WcagBadge label="AAA Large" pass={passAAALarge} />
               </div>
             </div>
+
+            {/* Perceptual difference (Delta E) */}
+            {deltaE && (
+              <div className="rounded-[1.7rem] border border-black/6 bg-white/82 px-6 py-5 text-center shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/8 dark:bg-white/5">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
+                  Delta E (CIEDE2000)
+                </div>
+                <div className="mt-2 text-3xl font-bold tracking-tight text-neutral-950 dark:text-neutral-50" aria-live="polite">
+                  {deltaE.de2000.toFixed(2)}
+                </div>
+                <p className="mt-2 text-xs leading-5 text-neutral-500 dark:text-neutral-400">
+                  {deltaE.interpretation.en}
+                </p>
+                <div className="mt-2 text-[11px] text-neutral-400 dark:text-neutral-500">
+                  CIE76: {deltaE.de76.toFixed(2)}
+                </div>
+              </div>
+            )}
           </div>
 
           <ColorPanel

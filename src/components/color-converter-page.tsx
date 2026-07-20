@@ -13,6 +13,8 @@ import {
   findNearestArchiveColor,
 } from "@/src/lib/color-utils";
 import { useLocale } from "@/src/components/locale-provider";
+import { rgbToOklch } from "@/src/lib/color-mix";
+import { hexToLab } from "@/src/lib/color-difference";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -146,7 +148,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 /*  Format row                                                         */
 /* ------------------------------------------------------------------ */
 
-function CopyAllButton({ conversions }: { conversions: { hex: string; r: number; g: number; b: number; hsl: { h: number; s: number; l: number }; hsb: { h: number; s: number; b: number }; cmyk: { c: number; m: number; y: number; k: number } } }) {
+function CopyAllButton({ conversions, extraLines }: { conversions: { hex: string; r: number; g: number; b: number; hsl: { h: number; s: number; l: number }; hsb: { h: number; s: number; b: number }; cmyk: { c: number; m: number; y: number; k: number } }; extraLines?: string[] }) {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => { clearTimeout(timerRef.current); }, []);
@@ -156,6 +158,7 @@ function CopyAllButton({ conversions }: { conversions: { hex: string; r: number;
     `HSL: hsl(${conversions.hsl.h}, ${conversions.hsl.s}%, ${conversions.hsl.l}%)`,
     `HSB: hsb(${conversions.hsb.h}, ${conversions.hsb.s}%, ${conversions.hsb.b}%)`,
     `CMYK: cmyk(${conversions.cmyk.c}%, ${conversions.cmyk.m}%, ${conversions.cmyk.y}%, ${conversions.cmyk.k}%)`,
+    ...(extraLines ?? []),
   ].join("\n");
   return (
     <button
@@ -364,6 +367,27 @@ export function ColorConverterPage() {
     return { r, g, b, hsl, hsb, cmyk, hex: parsed.hex };
   }, [parsed]);
 
+  // Modern CSS color spaces (OKLCH / OKLab / CIE Lab / LCH) — CSS Color 4 syntax
+  const modern = useMemo(() => {
+    if (!parsed) return null;
+    const { r, g, b } = parsed;
+    const ok = rgbToOklch(r, g, b);
+    const okA = ok.c * Math.cos((ok.h * Math.PI) / 180);
+    const okB = ok.c * Math.sin((ok.h * Math.PI) / 180);
+    const lab = hexToLab(parsed.hex);
+    if (!lab) return null;
+    const labC = Math.sqrt(lab.a * lab.a + lab.b * lab.b);
+    let labH = (Math.atan2(lab.b, lab.a) * 180) / Math.PI;
+    if (labH < 0) labH += 360;
+    const pct = (v: number) => `${(v * 100).toFixed(1)}%`;
+    return {
+      oklch: `oklch(${pct(ok.l)} ${ok.c.toFixed(3)} ${ok.h.toFixed(1)})`,
+      oklab: `oklab(${pct(ok.l)} ${okA.toFixed(3)} ${okB.toFixed(3)})`,
+      lab: `lab(${lab.L.toFixed(1)}% ${lab.a.toFixed(1)} ${lab.b.toFixed(1)})`,
+      lch: `lch(${lab.L.toFixed(1)}% ${labC.toFixed(1)} ${labH.toFixed(1)})`,
+    };
+  }, [parsed]);
+
   // Nearest archive color
   const nearestColor = useMemo(() => {
     if (!parsed) return null;
@@ -551,9 +575,24 @@ export function ColorConverterPage() {
                 value={`cmyk(${conversions.cmyk.c}%, ${conversions.cmyk.m}%, ${conversions.cmyk.y}%, ${conversions.cmyk.k}%)`}
                 copyText={`cmyk(${conversions.cmyk.c}%, ${conversions.cmyk.m}%, ${conversions.cmyk.y}%, ${conversions.cmyk.k}%)`}
               />
+              {modern && (
+                <>
+                  <FormatRow label="OKLCH" value={modern.oklch} copyText={modern.oklch} />
+                  <FormatRow label="OKLab" value={modern.oklab} copyText={modern.oklab} />
+                  <FormatRow label="CIE Lab" value={modern.lab} copyText={modern.lab} />
+                  <FormatRow label="LCH" value={modern.lch} copyText={modern.lch} />
+                </>
+              )}
 
               {/* Copy all formats */}
-              <CopyAllButton conversions={conversions} />
+              <CopyAllButton
+                conversions={conversions}
+                extraLines={
+                  modern
+                    ? [`OKLCH: ${modern.oklch}`, `OKLab: ${modern.oklab}`, `Lab: ${modern.lab}`, `LCH: ${modern.lch}`]
+                    : undefined
+                }
+              />
 
               {/* CSS snippet */}
               <div className="rounded-xl border border-black/6 bg-neutral-950/3 p-4 dark:border-white/8 dark:bg-white/3">

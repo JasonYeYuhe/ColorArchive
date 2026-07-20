@@ -6,22 +6,31 @@ import { ColorConverterPage } from "@/src/components/color-converter-page";
 import { SITE_URL } from "@/src/lib/site-config";
 
 export const metadata: Metadata = {
-  title: { absolute: "Color Converter — HEX, RGB, HSL, HSB, CMYK | ColorArchive" },
+  title: { absolute: "Color Converter — HEX, RGB, HSL, OKLCH, LAB, CMYK | ColorArchive" },
   description:
-    "Free online color converter. Instantly convert any color between HEX, RGB, HSL, HSB/HSV, and CMYK formats. See live preview and find the nearest color in the ColorArchive palette.",
+    "Free online color converter. Instantly convert any color between HEX, RGB, HSL, HSB/HSV, CMYK, OKLCH, OKLab, CIE Lab and LCH (CSS Color 4). Live preview and nearest archive color.",
   alternates: {
     canonical: "/convert/",
   },
+  keywords: [
+    "color converter",
+    "hex to rgb",
+    "oklch converter",
+    "hex to oklch",
+    "rgb to lab",
+    "hex to hsl",
+    "css color 4",
+  ],
   openGraph: {
-    title: "Color Converter — HEX, RGB, HSL, HSB, CMYK | ColorArchive",
+    title: "Color Converter — HEX, RGB, HSL, OKLCH, LAB, CMYK | ColorArchive",
     description:
-      "Free online color converter. Instantly convert any color between HEX, RGB, HSL, HSB/HSV, and CMYK formats with live preview.",
+      "Free online color converter. Convert between HEX, RGB, HSL, HSB/HSV, CMYK, OKLCH, OKLab, CIE Lab and LCH with live preview.",
     images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
-    title: "Color Converter — HEX to RGB, HSL, HSB, CMYK | ColorArchive",
+    title: "Color Converter — HEX to RGB, HSL, OKLCH, LAB | ColorArchive",
     description:
-      "Free online color converter. Convert HEX, RGB, HSL, HSB, and CMYK instantly with live preview.",
+      "Free online color converter. HEX, RGB, HSL, HSB, CMYK, OKLCH, OKLab, CIE Lab and LCH — instantly, with live preview.",
     images: [`${SITE_URL}/og-image-v1.png`],
   },
 };

@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocale } from "@/src/components/locale-provider";
 import { FullscreenStage } from "@/src/components/screen-test/fullscreen-stage";
+import { GammaStage, BandingStage, SharpnessStage } from "@/src/components/screen-test/canvas-stages";
+import { DistanceStage, HueGame, type DistanceOutcome } from "@/src/components/screen-test/archive-stages";
+import { WedgeStage } from "@/src/components/screen-test/wedge-stages";
+import { BurnInStage, TouchStage } from "@/src/components/screen-test/extra-stages";
+import { ScreenTestWizard } from "@/src/components/screen-test/wizard";
 import {
   detectScreenFacts,
-  grayLevel,
-  NEAR_BLACK_STEPS,
-  NEAR_WHITE_STEPS,
   REACTIVE_SCREEN_QUERIES,
   UNIFORMITY_LEVELS,
   type ScreenFacts,
@@ -82,17 +84,31 @@ const GUIDE = {
 
 /* ------------------------------------------------------------------ */
 
-type StageKind = null | "black-level" | "white-saturation" | "uniformity";
+type StageKind =
+  | null
+  | "black-level"
+  | "white-saturation"
+  | "uniformity"
+  | "gamma"
+  | "banding"
+  | "sharpness"
+  | "distance"
+  | "burn-in"
+  | "touch";
 
 export function ScreenTestPage() {
-  const { locale, t } = useLocale();
-  const guide = GUIDE[locale === "zh" ? "zh" : "en"];
+  const { locale } = useLocale();
+  const zh = locale === "zh";
+  const guide = GUIDE[zh ? "zh" : "en"];
 
   const [facts, setFacts] = useState<ScreenFacts | null>(null);
   const [stage, setStage] = useState<StageKind>(null);
   const [uniformityIndex, setUniformityIndex] = useState(0);
   const [blackReport, setBlackReport] = useState<number | null>(null);
   const [whiteReport, setWhiteReport] = useState<number | null>(null);
+  const [gammaReport, setGammaReport] = useState<number | null>(null);
+  const [bandingReport, setBandingReport] = useState<boolean | null>(null);
+  const [distanceReport, setDistanceReport] = useState<DistanceOutcome | null>(null);
 
   /* Screen facts — initial + reactive (multi-monitor drags, mode switches). */
   useEffect(() => {
@@ -133,10 +149,28 @@ export function ScreenTestPage() {
     if (facts.colorGamut === "rec2020") return "Rec. 2020 (wide)";
     if (facts.colorGamut === "p3") return "Display P3 (wide)";
     if (facts.colorGamut === "srgb") return "sRGB (standard)";
-    return locale === "zh" ? "未报告" : "Not reported";
-  }, [facts, locale]);
+    return zh ? "未报告" : "Not reported";
+  }, [facts, zh]);
 
-  const zh = locale === "zh";
+  const hasObservations =
+    blackReport !== null ||
+    whiteReport !== null ||
+    gammaReport !== null ||
+    bandingReport !== null ||
+    distanceReport !== null;
+
+  /** Launcher card helper for in-page stages. */
+  const launcher = (kind: Exclude<StageKind, null>, title: string, desc: string, note?: string | null) => (
+    <button
+      type="button"
+      onClick={() => startStage(kind)}
+      className="rounded-2xl border border-neutral-200 bg-white/70 p-5 text-left backdrop-blur transition hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-900/70 dark:hover:border-neutral-600"
+    >
+      <div className="text-base font-medium text-neutral-900 dark:text-neutral-100">{title}</div>
+      <p className="mt-1.5 text-sm text-neutral-600 dark:text-neutral-400">{desc}</p>
+      {note && <p className="mt-2 text-xs text-emerald-700 dark:text-emerald-400">{note}</p>}
+    </button>
+  );
 
   return (
     <main className="mx-auto w-full max-w-5xl px-4 pb-20 pt-8 sm:px-6">
@@ -147,8 +181,8 @@ export function ScreenTestPage() {
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600 dark:text-neutral-400">
           {zh
-            ? "在浏览器里检查你的显示器:坏点、背光渗漏、暗部与高光细节,以及浏览器报告的屏幕能力。所有检查都在本地运行,不上传任何数据。"
-            : "Check your display right in the browser: dead pixels, backlight bleed, shadow and highlight detail, plus what your browser reports about the screen. Everything runs locally — nothing is uploaded."}
+            ? "在浏览器里检查你的显示器:坏点、背光渗漏、暗部与高光细节、gamma、色带,以及浏览器报告的屏幕能力。所有检查都在本地运行,不上传任何数据。"
+            : "Check your display right in the browser: dead pixels, backlight bleed, shadow and highlight detail, gamma, banding, plus what your browser reports about the screen. Everything runs locally — nothing is uploaded."}
         </p>
         <p className="mt-2 max-w-2xl text-xs leading-5 text-neutral-500 dark:text-neutral-500">
           {zh
@@ -167,7 +201,7 @@ export function ScreenTestPage() {
       )}
 
       {/* -------- screen report (facts only) -------- */}
-      <section className="mb-10 rounded-2xl border border-neutral-200 bg-white/70 p-5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
+      <section className="mb-8 rounded-2xl border border-neutral-200 bg-white/70 p-5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
         <div className="mb-1 flex items-baseline justify-between gap-4">
           <h2 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
             {zh ? "屏幕报告" : "Screen Report"}
@@ -224,10 +258,28 @@ export function ScreenTestPage() {
         </dl>
       </section>
 
+      {/* -------- guided wizard -------- */}
+      <section className="mb-10">
+        <ScreenTestWizard
+          zh={zh}
+          facts={facts}
+          onComplete={(r, missed) => {
+            // Mirror wizard captures into the standalone observation cards.
+            if (r.black !== undefined) setBlackReport(r.black);
+            if (r.white !== undefined) setWhiteReport(r.white);
+            if (r.gamma !== undefined) setGammaReport(r.gamma);
+            if (r.bandingSmooth !== undefined) setBandingReport(r.bandingSmooth);
+            if (r.distanceSeen !== undefined && r.distanceTotal !== undefined) {
+              setDistanceReport({ seen: r.distanceSeen, total: r.distanceTotal, missed });
+            }
+          }}
+        />
+      </section>
+
       {/* -------- test launchers -------- */}
       <section className="mb-10">
         <h2 className="mb-4 text-lg font-medium text-neutral-900 dark:text-neutral-100">
-          {zh ? "检测项目" : "Tests"}
+          {zh ? "单项检测" : "Individual tests"}
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {/* dedicated routes */}
@@ -261,62 +313,82 @@ export function ScreenTestPage() {
           </Link>
 
           {/* in-page stages */}
-          <button
-            type="button"
-            onClick={() => startStage("black-level")}
-            className="rounded-2xl border border-neutral-200 bg-white/70 p-5 text-left backdrop-blur transition hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-900/70 dark:hover:border-neutral-600"
-          >
-            <div className="text-base font-medium text-neutral-900 dark:text-neutral-100">
-              {zh ? "黑位 / 暗部细节" : "Black Level / Shadow Detail"}
-            </div>
-            <p className="mt-1.5 text-sm text-neutral-600 dark:text-neutral-400">
-              {zh
-                ? "全黑背景上的近黑阶梯 —— 你能分辨到第几阶?"
-                : "A near-black step wedge on pure black — how low can you distinguish?"}
-            </p>
-            {blackReport !== null && (
-              <p className="mt-2 text-xs text-emerald-700 dark:text-emerald-400">
-                {zh
-                  ? `你报告能看到 RGB ${blackReport} 阶`
-                  : `You reported seeing step RGB ${blackReport}`}
-              </p>
-            )}
-          </button>
-          <button
-            type="button"
-            onClick={() => startStage("white-saturation")}
-            className="rounded-2xl border border-neutral-200 bg-white/70 p-5 text-left backdrop-blur transition hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-900/70 dark:hover:border-neutral-600"
-          >
-            <div className="text-base font-medium text-neutral-900 dark:text-neutral-100">
-              {zh ? "白位 / 高光细节" : "White Saturation / Highlight Detail"}
-            </div>
-            <p className="mt-1.5 text-sm text-neutral-600 dark:text-neutral-400">
-              {zh
-                ? "全白背景上的近白阶梯 —— 高光有没有被裁掉?"
-                : "A near-white step wedge on pure white — are highlights clipping?"}
-            </p>
-            {whiteReport !== null && (
-              <p className="mt-2 text-xs text-emerald-700 dark:text-emerald-400">
-                {zh
-                  ? `你报告能看到 RGB ${whiteReport} 阶`
-                  : `You reported seeing step RGB ${whiteReport}`}
-              </p>
-            )}
-          </button>
-          <button
-            type="button"
-            onClick={() => startStage("uniformity")}
-            className="rounded-2xl border border-neutral-200 bg-white/70 p-5 text-left backdrop-blur transition hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-900/70 dark:hover:border-neutral-600"
-          >
-            <div className="text-base font-medium text-neutral-900 dark:text-neutral-100">
-              {zh ? "均匀性 / 背光渗漏" : "Uniformity / Backlight Bleed"}
-            </div>
-            <p className="mt-1.5 text-sm text-neutral-600 dark:text-neutral-400">
-              {zh
-                ? "纯黑与灰场全屏 —— 找云斑、渗漏与偏色。轻微移动头部可区分渗漏(固定)与 IPS 眩光(随视角移动)。"
-                : "Fullscreen black and gray fields — look for clouding, bleed, and tint. Shift your head slightly: bleed stays put, IPS glow moves with your viewing angle."}
-            </p>
-          </button>
+          {launcher(
+            "black-level",
+            zh ? "黑位 / 暗部细节" : "Black Level / Shadow Detail",
+            zh ? "全黑背景上的近黑阶梯 —— 你能分辨到第几阶?" : "A near-black step wedge on pure black — how low can you distinguish?",
+            blackReport !== null ? (zh ? `你报告能看到 RGB ${blackReport} 阶` : `You reported seeing step RGB ${blackReport}`) : null,
+          )}
+          {launcher(
+            "white-saturation",
+            zh ? "白位 / 高光细节" : "White Saturation / Highlight Detail",
+            zh ? "全白背景上的近白阶梯 —— 高光有没有被裁掉?" : "A near-white step wedge on pure white — are highlights clipping?",
+            whiteReport !== null ? (zh ? `你报告能看到 RGB ${whiteReport} 阶` : `You reported seeing step RGB ${whiteReport}`) : null,
+          )}
+          {launcher(
+            "uniformity",
+            zh ? "均匀性 / 背光渗漏" : "Uniformity / Backlight Bleed",
+            zh
+              ? "纯黑与灰场全屏 —— 找云斑、渗漏与偏色。轻微移动头部可区分渗漏(固定)与 IPS 眩光(随视角移动)。"
+              : "Fullscreen black and gray fields — look for clouding, bleed, and tint. Shift your head slightly: bleed stays put, IPS glow moves with your viewing angle.",
+          )}
+          {launcher(
+            "gamma",
+            zh ? "Gamma 检查(≈2.2)" : "Gamma Check (≈2.2)",
+            zh
+              ? "条纹背景 vs 实色补丁:哪块融为一体,就最接近哪个 gamma。"
+              : "Striped field vs solid patches: the one that melts in is your closest gamma.",
+            gammaReport !== null ? (zh ? `你报告最接近 gamma ${gammaReport.toFixed(1)}` : `You reported closest to gamma ${gammaReport.toFixed(1)}`) : null,
+          )}
+          {launcher(
+            "banding",
+            zh ? "色带 / 渐变" : "Banding / Gradients",
+            zh
+              ? "0→255 逐值色带(灰 + RGB 单通道)。平滑与否一眼可见。"
+              : "Exact per-value ramps, 0→255 (gray + each RGB channel). Steps show instantly.",
+            bandingReport !== null
+              ? bandingReport
+                ? zh
+                  ? "你报告渐变平滑"
+                  : "You reported smooth gradients"
+                : zh
+                  ? "你报告能看到阶梯"
+                  : "You reported visible steps"
+              : null,
+          )}
+          {launcher(
+            "sharpness",
+            zh ? "锐度 / 缩放" : "Sharpness / Scaling",
+            zh
+              ? "1 像素棋盘、线对与同心环 —— 摩尔纹或灰糊说明缩放/锐化在插手。"
+              : "1-pixel checkerboards, line pairs and a zone plate — moiré or mush means scaling/sharpening is interfering.",
+          )}
+          {launcher(
+            "distance",
+            zh ? "色差辨别(档案版)" : "Color Distance (archive edition)",
+            zh
+              ? "8 组近似档案色并排 —— 能看出分界线吗?用真实命名色出题。"
+              : "8 near-identical archive pairs side by side — can you see the boundary? Built from real named colors.",
+            distanceReport !== null
+              ? zh
+                ? `你分辨出 ${distanceReport.seen}/${distanceReport.total} 组`
+                : `You separated ${distanceReport.seen}/${distanceReport.total} pairs`
+              : null,
+          )}
+          {launcher(
+            "burn-in",
+            zh ? "残影 / 烧屏检查" : "Burn-in / Image Retention",
+            zh
+              ? "灰场最能暴露 OLED 烧屏与 LCD 残影。永久 vs 暂时,页内有判别指引。"
+              : "Gray fields expose OLED burn-in and LCD retention best. Permanent vs temporary — guidance included.",
+          )}
+          {launcher(
+            "touch",
+            zh ? "触摸测试" : "Touch Test",
+            zh
+              ? "多点触控画布 —— 断线或空洞暴露触摸盲区。"
+              : "A multitouch drawing canvas — gaps and dead zones reveal touch problems.",
+          )}
           <a
             href="https://www.testufo.com/"
             target="_blank"
@@ -336,8 +408,19 @@ export function ScreenTestPage() {
         </div>
       </section>
 
-      {/* -------- step reports -------- */}
-      {(blackReport !== null || whiteReport !== null) && (
+      {/* -------- hue arrangement game -------- */}
+      <section className="mb-10 rounded-2xl border border-neutral-200 bg-white/70 p-5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
+        <h2 className="mb-1 text-lg font-medium text-neutral-900 dark:text-neutral-100">
+          {zh ? "色相排序挑战" : "Hue Arrangement Challenge"}
+        </h2>
+        <HueGame
+          zh={zh}
+          onScore={(score) => track("screen_test_completed", { subtest: "hue-game", score })}
+        />
+      </section>
+
+      {/* -------- observations -------- */}
+      {hasObservations && (
         <section className="mb-10 rounded-2xl border border-neutral-200 bg-white/70 p-5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
           <h2 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
             {zh ? "你的观察" : "Your observations"}
@@ -355,6 +438,34 @@ export function ScreenTestPage() {
                 {zh
                   ? `高光:你报告能分辨到 RGB ${whiteReport}。${whiteReport >= 250 ? "高光细节保留得很好。" : "较亮的阶不可见 —— 亮度或对比度可能设得过高。"}`
                   : `Highlights: you reported distinguishing up to RGB ${whiteReport}. ${whiteReport >= 250 ? "Highlight detail is well preserved." : "Brighter steps were invisible — brightness or contrast may be set too high."}`}
+              </li>
+            )}
+            {gammaReport !== null && (
+              <li>
+                {zh
+                  ? `Gamma:你报告最接近 ${gammaReport.toFixed(1)}(视觉检查;桌面显示器的常见目标是 2.2)。`
+                  : `Gamma: you reported closest to ${gammaReport.toFixed(1)} (visual check; 2.2 is the common desktop target).`}
+              </li>
+            )}
+            {bandingReport !== null && (
+              <li>
+                {zh
+                  ? `渐变:${bandingReport ? "你报告平滑 —— 没有明显色带。" : "你报告能看到阶梯 —— 可能是面板 FRC/6-bit,也可能是浏览器管线;换台设备对比可以缩小范围。"}`
+                  : `Gradients: ${bandingReport ? "you reported smooth ramps — no obvious banding." : "you reported visible steps — could be a 6-bit/FRC panel or the browser pipeline; comparing another device narrows it down."}`}
+              </li>
+            )}
+            {distanceReport !== null && (
+              <li>
+                {zh
+                  ? `档案色分辨:${distanceReport.seen}/${distanceReport.total}。`
+                  : `Archive pairs: ${distanceReport.seen}/${distanceReport.total} separated.`}
+                {distanceReport.missed.length > 0 && (
+                  <span className="text-neutral-500">
+                    {" "}
+                    {zh ? "未能分辨:" : "Couldn't separate: "}
+                    {distanceReport.missed.map((m) => `${m.a} ↔ ${m.b}`).join(" · ")}
+                  </span>
+                )}
               </li>
             )}
           </ul>
@@ -390,73 +501,29 @@ export function ScreenTestPage() {
         </div>
       </section>
 
-      {/* -------- fullscreen stages -------- */}
-      <FullscreenStage
+      {/* -------- fullscreen stages (standalone launches) -------- */}
+      <WedgeStage
+        kind="black"
         active={stage === "black-level"}
-        background="#000000"
+        zh={zh}
         onExit={endStage}
-        hudText={zh ? "黑位测试" : "Black level"}
-      >
-        <div className="flex h-full w-full items-center justify-center">
-          <div className="flex gap-3">
-            {NEAR_BLACK_STEPS.map((v) => (
-              <button
-                key={v}
-                type="button"
-                className="flex h-24 w-14 flex-col items-center justify-end rounded-sm pb-1 sm:h-32 sm:w-16"
-                style={{ background: grayLevel(v) }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setBlackReport(v);
-                  track("screen_test_completed", { subtest: "black-level", step: v });
-                  endStage();
-                }}
-              >
-                <span className="text-[10px]" style={{ color: "rgb(70, 70, 70)" }}>
-                  {v}
-                </span>
-              </button>
-            ))}
-          </div>
-          <div className="pointer-events-none absolute inset-x-0 bottom-8 text-center text-xs" style={{ color: "rgb(90, 90, 90)" }}>
-            {zh ? "点按你能看清的最暗一格" : "Tap the darkest square you can still see"}
-          </div>
-        </div>
-      </FullscreenStage>
-
-      <FullscreenStage
+        onPick={(v) => {
+          setBlackReport(v);
+          track("screen_test_completed", { subtest: "black-level", step: v });
+          endStage();
+        }}
+      />
+      <WedgeStage
+        kind="white"
         active={stage === "white-saturation"}
-        background="#ffffff"
+        zh={zh}
         onExit={endStage}
-        hudText={zh ? "白位测试" : "White saturation"}
-      >
-        <div className="flex h-full w-full items-center justify-center">
-          <div className="flex gap-3">
-            {NEAR_WHITE_STEPS.map((v) => (
-              <button
-                key={v}
-                type="button"
-                className="flex h-24 w-14 flex-col items-center justify-end rounded-sm pb-1 sm:h-32 sm:w-16"
-                style={{ background: grayLevel(v) }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setWhiteReport(v);
-                  track("screen_test_completed", { subtest: "white-saturation", step: v });
-                  endStage();
-                }}
-              >
-                <span className="text-[10px]" style={{ color: "rgb(185, 185, 185)" }}>
-                  {v}
-                </span>
-              </button>
-            ))}
-          </div>
-          <div className="pointer-events-none absolute inset-x-0 bottom-8 text-center text-xs" style={{ color: "rgb(160, 160, 160)" }}>
-            {zh ? "点按你能看清的最亮一格" : "Tap the brightest square you can still see"}
-          </div>
-        </div>
-      </FullscreenStage>
-
+        onPick={(v) => {
+          setWhiteReport(v);
+          track("screen_test_completed", { subtest: "white-saturation", step: v });
+          endStage();
+        }}
+      />
       <FullscreenStage
         active={stage === "uniformity"}
         background={UNIFORMITY_LEVELS[uniformityIndex].hex}
@@ -466,6 +533,62 @@ export function ScreenTestPage() {
         }}
         onAdvance={advanceUniformity}
         hudText={UNIFORMITY_LEVELS[uniformityIndex].name}
+      />
+      <GammaStage
+        active={stage === "gamma"}
+        zh={zh}
+        fractionalDpr={facts?.fractionalDpr ?? false}
+        onExit={endStage}
+        onPick={(g) => {
+          setGammaReport(g);
+          track("screen_test_completed", { subtest: "gamma", gamma: g });
+          endStage();
+        }}
+      />
+      <BandingStage
+        active={stage === "banding"}
+        zh={zh}
+        onExit={endStage}
+        onAnswer={(smooth) => {
+          setBandingReport(smooth);
+          track("screen_test_completed", { subtest: "banding", smooth });
+          endStage();
+        }}
+      />
+      <SharpnessStage
+        active={stage === "sharpness"}
+        zh={zh}
+        fractionalDpr={facts?.fractionalDpr ?? false}
+        onExit={() => {
+          track("screen_test_completed", { subtest: "sharpness" });
+          endStage();
+        }}
+      />
+      <DistanceStage
+        active={stage === "distance"}
+        zh={zh}
+        onExit={endStage}
+        onDone={(outcome) => {
+          setDistanceReport(outcome);
+          track("screen_test_completed", { subtest: "distance", seen: outcome.seen, total: outcome.total });
+          endStage();
+        }}
+      />
+      <BurnInStage
+        active={stage === "burn-in"}
+        zh={zh}
+        onExit={() => {
+          track("screen_test_completed", { subtest: "burn-in" });
+          endStage();
+        }}
+      />
+      <TouchStage
+        active={stage === "touch"}
+        zh={zh}
+        onExit={() => {
+          track("screen_test_completed", { subtest: "touch" });
+          endStage();
+        }}
       />
     </main>
   );
