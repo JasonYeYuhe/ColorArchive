@@ -7,10 +7,14 @@ import {
   hexToRgbCB,
   rgbToHexCB,
   luminance,
+  isDistinguishableSim,
+  findSafeAlternative,
   COLOR_BLIND_INFO,
   SAMPLE_PALETTE,
   type ColorBlindType,
+  type SafeAlternative,
 } from "@/src/lib/colorblind";
+import { colors as archiveColors } from "@/src/data/colors";
 import { useLocale } from "@/src/components/locale-provider";
 import { ToolUpsellBanner } from "@/src/components/tool-upsell-banner";
 
@@ -213,40 +217,115 @@ function PaletteTable({ hexes }: { hexes: string[] }) {
 /*  Distinguishability Check                                           */
 /* ------------------------------------------------------------------ */
 
-function DistinguishabilityPanel({ hexes }: { hexes: string[] }) {
-  if (hexes.length < 2) return null;
+/**
+ * Archive-sourced fixes for pairs a CVD viewer can't separate: for each color
+ * involved in a failure, find the nearest of the 5,446 named archive colors
+ * that stays distinguishable from the REST of the palette under every failing
+ * CVD type. Same moat pattern as palette-audit's nearestAccessibleArchive.
+ */
+function SafeFixSuggestions({ hexes, failing }: { hexes: string[]; failing: Map<string, ColorBlindType[]> }) {
+  // `failing` comes out of the panel's palette-keyed useMemo, so its identity
+  // is stable per palette — safe to key the archive scan on it directly.
+  const suggestions = useMemo(() => {
+    const out: Array<{ hex: string; types: ColorBlindType[]; fix: SafeAlternative | null }> = [];
+    for (const [hex, types] of failing) {
+      const others = hexes.filter((h) => h.toLowerCase() !== hex.toLowerCase());
+      out.push({ hex, types, fix: findSafeAlternative(hex, others, types, archiveColors) });
+    }
+    return out;
+  }, [hexes, failing]);
 
+  if (suggestions.length === 0) return null;
+
+  return (
+    <div className="mt-6 rounded-xl border border-black/8 p-4 dark:border-white/10">
+      <h3 className="mb-1 text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+        Suggested fixes from the archive
+      </h3>
+      <p className="mb-3 text-xs text-neutral-500">
+        The nearest of 5,446 named colors that stays separable from the rest of your palette under the
+        affected vision types.
+      </p>
+      <div className="space-y-2">
+        {suggestions.map(({ hex, types, fix }) => (
+          <div key={hex} className="flex flex-wrap items-center gap-3 text-sm">
+            <span className="swatch-shadow inline-block h-6 w-6 shrink-0 rounded-md" style={{ backgroundColor: hex }} />
+            <span className="font-mono text-xs text-neutral-500">{hex}</span>
+            <span className="text-xs text-neutral-400">({types.join(", ")})</span>
+            <span className="text-neutral-400">→</span>
+            {fix ? (
+              <>
+                <span
+                  className="swatch-shadow inline-block h-6 w-6 shrink-0 rounded-md"
+                  style={{ backgroundColor: fix.candidate.hex }}
+                />
+                <Link
+                  href={`/colors/${fix.candidate.id}/`}
+                  className="font-medium text-neutral-800 underline underline-offset-2 dark:text-neutral-200"
+                >
+                  {fix.candidate.name}
+                </Link>
+                <span className="font-mono text-xs text-neutral-500">{fix.candidate.hex}</span>
+                <button
+                  type="button"
+                  onClick={() => navigator.clipboard?.writeText(fix.candidate.hex).catch(() => {})}
+                  className="rounded-full border border-neutral-300 px-2 py-0.5 text-[11px] text-neutral-600 transition hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-400"
+                >
+                  Copy
+                </button>
+              </>
+            ) : (
+              <span className="text-xs text-neutral-500">
+                no close safe alternative — consider changing lightness instead
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DistinguishabilityPanel({ hexes }: { hexes: string[] }) {
   type Pair = { a: string; b: string; ok: boolean; type: ColorBlindType };
 
-  const pairs: { type: ColorBlindType; label: string; pairs: Pair[] }[] =
-    COLOR_BLIND_INFO.map((info) => {
-      const pairList: Pair[] = [];
-      for (let i = 0; i < hexes.length; i++) {
-        for (let j = i + 1; j < hexes.length; j++) {
-          const rgbA = hexToRgbCB(hexes[i]);
-          const rgbB = hexToRgbCB(hexes[j]);
-          if (!rgbA || !rgbB) continue;
-          const simA = simulateColorBlindness(rgbA, info.type);
-          const simB = simulateColorBlindness(rgbB, info.type);
-          // Perceived luminance difference + rough color distance in linear space
-          const lumA = luminance(simA);
-          const lumB = luminance(simB);
-          const lumDiff = Math.abs(lumA - lumB);
-          // Simple Euclidean delta in linearized RGB
-          const dr =
-            (simA.r / 255 - simB.r / 255) * (simA.r / 255 - simB.r / 255);
-          const dg =
-            (simA.g / 255 - simB.g / 255) * (simA.g / 255 - simB.g / 255);
-          const db =
-            (simA.b / 255 - simB.b / 255) * (simA.b / 255 - simB.b / 255);
-          const colorDist = Math.sqrt(dr + dg + db);
-          // Distinguishable if luminance diff > 0.1 OR color distance > 0.15
-          const ok = lumDiff > 0.1 || colorDist > 0.15;
-          pairList.push({ a: hexes[i], b: hexes[j], ok, type: info.type });
+  // Memoized on the palette content — findSafeAlternative scans 5,446 archive
+  // colors per problem color, so this must not rerun on unrelated renders.
+  const { pairs, failing } = useMemo(() => {
+    const groups: { type: ColorBlindType; label: string; pairs: Pair[] }[] =
+      COLOR_BLIND_INFO.map((info) => {
+        const pairList: Pair[] = [];
+        for (let i = 0; i < hexes.length; i++) {
+          for (let j = i + 1; j < hexes.length; j++) {
+            const rgbA = hexToRgbCB(hexes[i]);
+            const rgbB = hexToRgbCB(hexes[j]);
+            if (!rgbA || !rgbB) continue;
+            const simA = simulateColorBlindness(rgbA, info.type);
+            const simB = simulateColorBlindness(rgbB, info.type);
+            // Shared criterion with findSafeAlternative (src/lib/colorblind.ts)
+            const ok = isDistinguishableSim(simA, simB);
+            pairList.push({ a: hexes[i], b: hexes[j], ok, type: info.type });
+          }
         }
+        return { type: info.type, label: info.label, pairs: pairList };
+      });
+
+    // One suggested change per problem color: attribute each failing pair to its
+    // SECOND color so a single replacement can resolve the pair.
+    const failingMap = new Map<string, ColorBlindType[]>();
+    for (const group of groups) {
+      for (const p of group.pairs) {
+        if (p.ok) continue;
+        const existing = failingMap.get(p.b) ?? [];
+        if (!existing.includes(p.type)) existing.push(p.type);
+        failingMap.set(p.b, existing);
       }
-      return { type: info.type, label: info.label, pairs: pairList };
-    });
+    }
+    return { pairs: groups, failing: failingMap };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hexes.join(",")]);
+
+  if (hexes.length < 2) return null;
 
   return (
     <div className="mt-8">
@@ -307,6 +386,7 @@ function DistinguishabilityPanel({ hexes }: { hexes: string[] }) {
           );
         })}
       </div>
+      <SafeFixSuggestions hexes={hexes} failing={failing} />
     </div>
   );
 }

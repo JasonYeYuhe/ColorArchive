@@ -152,4 +152,7 @@ export const TOOL_SLUGS = new Set<string>([
   "analyze",
   // First-segment match covers /screen-test/, /screen-test/dead-pixel/, /screen-test/color-screens/
   "screen-test",
+  "tailwind-colors",
+  "css-filter",
+  "color-wheel",
 ]);

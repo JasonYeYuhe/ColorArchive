@@ -196,6 +196,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${SITE_URL}/tailwind-colors/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/css-filter/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/color-wheel/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
       url: `${SITE_URL}/combinations/`,
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",

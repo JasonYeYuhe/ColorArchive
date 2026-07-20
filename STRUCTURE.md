@@ -84,6 +84,9 @@ ColorArchive/
 │   ├── screen-test/               # /screen-test/ — Display check hub (black/white level, uniformity, screen report)
 │   │   ├── dead-pixel/            # /screen-test/dead-pixel/ — Dead/stuck pixel test
 │   │   └── color-screens/         # /screen-test/color-screens/ — Fullscreen solid color screens (?color= hex or archive id)
+│   ├── tailwind-colors/           # /tailwind-colors/ — HEX→Tailwind class matcher + v4 palette browser
+│   ├── css-filter/                # /css-filter/ — Black→any-color CSS filter chain generator
+│   ├── color-wheel/               # /color-wheel/ — Interactive harmony wheel (archive-snapped)
 │   ├── brand/                     # /brand/ — Brand palette system builder
 │   ├── tools/                     # /tools/ — All tools listing page
 │   ├── api-docs/                  # /api-docs/ — Public API documentation
@@ -200,6 +203,9 @@ ColorArchive/
 │   │   ├── screen-test/wedge-stages.tsx      # Near-black / near-white step wedges (hub + wizard)
 │   │   ├── screen-test/extra-stages.tsx      # Burn-in check + multitouch tester
 │   │   ├── screen-test/wizard.tsx            # Guided test wizard + canvas PNG report card + hash share
+│   │   ├── tailwind-colors-page.tsx     # HEX→Tailwind matcher + palette browser
+│   │   ├── css-filter-page.tsx          # CSS filter chain generator
+│   │   ├── color-wheel-page.tsx         # Interactive harmony wheel
 │   │   ├── token-generator-page.tsx     # Design token generator
 │   │   ├── tools-page.tsx              # All tools listing
 │   │   ├── api-docs-page.tsx           # API documentation
@@ -244,6 +250,8 @@ ColorArchive/
 │   │   │                                 # wizard result hash codec
 │   │   ├── color-difference.ts           # sRGB→CIE Lab (D65), ΔE76 + CIEDE2000,
 │   │   │                                 # plain-language interpretation
+│   │   ├── tailwind-colors.ts            # Tailwind v4 palette (generated from the package)
+│   │   ├── css-filter.ts                 # Black→color filter chain SPSA solver (seeded)
 │   │   ├── collections.ts                # 259 curated palette collections
 │   │   ├── palette-packs.ts              # 7 product pack definitions + metadata
 │   │   ├── guides.ts                     # 317 SEO landing guides
@@ -453,6 +461,6 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Newsletter issues | 349 |
 | Color families | 9 |
 | Industry use cases | 10 (saas-tech, healthcare, luxury, food, finance, education, creative, sustainability, beauty, nonprofit) |
-| Tool pages | 26+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name, screen-test, screen-test/dead-pixel, screen-test/color-screens) |
+| Tool pages | 29+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name, screen-test, screen-test/dead-pixel, screen-test/color-screens, tailwind-colors, css-filter, color-wheel) |
 | AI endpoints | 5 (brand-palette, mood-palette, name-color, critique, analyze-url) |
 | i18n keys | ~750+ (EN/ZH) |

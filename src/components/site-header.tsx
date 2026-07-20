@@ -77,6 +77,9 @@ interface SiteHeaderProps {
     | "/validate"
     | "/pick-for-me"
     | "/screen-test"
+    | "/tailwind-colors"
+    | "/css-filter"
+    | "/color-wheel"
     | "/embed/embed-code";
 }
 
@@ -121,6 +124,9 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/convert/", labelKey: "nav.convert" },
       { href: "/gradient/", labelKey: "nav.gradient" },
       { href: "/harmonies/", labelKey: "nav.harmonies" },
+      { href: "/color-wheel/", labelKey: "nav.colorWheel" },
+      { href: "/tailwind-colors/", labelKey: "nav.tailwindColors" },
+      { href: "/css-filter/", labelKey: "nav.cssFilter" },
       { href: "/compare/", labelKey: "nav.compare" },
       { href: "/colorblind/", labelKey: "nav.colorblind" },
       { href: "/brand/", labelKey: "nav.brand" },

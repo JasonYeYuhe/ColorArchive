@@ -103,6 +103,76 @@ export function luminance(rgb: RGB): number {
   return 0.2126 * toLinear(rgb.r) + 0.7152 * toLinear(rgb.g) + 0.0722 * toLinear(rgb.b);
 }
 
+/**
+ * Shared distinguishability criterion for two ALREADY-SIMULATED colors:
+ * luminance separation OR euclidean distance in normalized RGB. The same rule
+ * drives both the pair panel and the safe-alternative search so a suggested
+ * fix always passes the check that flagged the problem.
+ */
+export function isDistinguishableSim(simA: RGB, simB: RGB): boolean {
+  const lumDiff = Math.abs(luminance(simA) - luminance(simB));
+  const dr = simA.r / 255 - simB.r / 255;
+  const dg = simA.g / 255 - simB.g / 255;
+  const db = simA.b / 255 - simB.b / 255;
+  const colorDist = Math.sqrt(dr * dr + dg * dg + db * db);
+  return lumDiff > 0.1 || colorDist > 0.15;
+}
+
+export interface SafeAlternativeCandidate {
+  id: string;
+  name: string;
+  hex: string;
+}
+
+export interface SafeAlternative {
+  candidate: SafeAlternativeCandidate;
+  /** Euclidean distance in RGB from the original (lower = closer in normal vision). */
+  distance: number;
+}
+
+/**
+ * Find the candidate (e.g. an archive color) closest in normal vision to
+ * `problemHex` that stays distinguishable — under EVERY given CVD type — from
+ * every other palette color. Returns null when nothing qualifies.
+ *
+ * Pure and injectable: pass the candidate list in (the 5,446-color archive at
+ * the call site) so this stays unit-testable without the dataset.
+ */
+export function findSafeAlternative(
+  problemHex: string,
+  otherHexes: string[],
+  types: ColorBlindType[],
+  candidates: SafeAlternativeCandidate[],
+): SafeAlternative | null {
+  const problemRgb = hexToRgbCB(problemHex);
+  if (!problemRgb) return null;
+  const others = otherHexes
+    .map((h) => hexToRgbCB(h))
+    .filter((r): r is RGB => r !== null);
+  // Pre-simulate the rest of the palette once per type.
+  const simOthers = types.map((t) => others.map((o) => simulateColorBlindness(o, t)));
+
+  let best: SafeAlternative | null = null;
+  for (const cand of candidates) {
+    const rgb = hexToRgbCB(cand.hex);
+    if (!rgb) continue;
+    const dr = rgb.r - problemRgb.r;
+    const dg = rgb.g - problemRgb.g;
+    const db = rgb.b - problemRgb.b;
+    const distance = Math.sqrt(dr * dr + dg * dg + db * db);
+    if (best && distance >= best.distance) continue; // can't beat the current best
+    // Must remain distinguishable from every other color in normal vision too.
+    if (!others.every((o) => isDistinguishableSim(rgb, o))) continue;
+    let ok = true;
+    for (let t = 0; t < types.length && ok; t++) {
+      const simCand = simulateColorBlindness(rgb, types[t]);
+      ok = simOthers[t].every((so) => isDistinguishableSim(simCand, so));
+    }
+    if (ok) best = { candidate: cand, distance };
+  }
+  return best;
+}
+
 export const COLOR_BLIND_INFO: {
   type: ColorBlindType;
   label: string;

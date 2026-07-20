@@ -335,6 +335,35 @@ const TOOLS: Tool[] = [
     categoryKey: "tools.cat.analysis",
     accent: "bg-lime-100 text-lime-700",
   },
+  // Developer (Tier A batch)
+  {
+    href: "/tailwind-colors/",
+    icon: "tw",
+    nameKey: "tools.tailwindColors.name",
+    descKey: "tools.tailwindColors.desc",
+    categoryKey: "tools.cat.developer",
+    badgeKey: "tools.badge.new",
+    accent: "bg-sky-100 text-sky-700",
+  },
+  {
+    href: "/css-filter/",
+    icon: "ƒ",
+    nameKey: "tools.cssFilter.name",
+    descKey: "tools.cssFilter.desc",
+    categoryKey: "tools.cat.developer",
+    badgeKey: "tools.badge.new",
+    accent: "bg-orange-100 text-orange-700",
+  },
+  // Creative (Tier A batch)
+  {
+    href: "/color-wheel/",
+    icon: "◔",
+    nameKey: "tools.colorWheel.name",
+    descKey: "tools.colorWheel.desc",
+    categoryKey: "tools.cat.creative",
+    badgeKey: "tools.badge.new",
+    accent: "bg-rose-100 text-rose-700",
+  },
   // Integrations
   {
     href: "https://www.figma.com/community/plugin/1616829363158218051",

@@ -31,6 +31,9 @@ const translations: Record<string, Record<string, string>> = {
   "nav.paletteAudit": { en: "Palette Audit", zh: "色板审计" },
   "nav.screenTest": { en: "Screen Test", zh: "屏幕检测" },
   "nav.validate": { en: "Palette Validator", zh: "配色验证" },
+  "nav.tailwindColors": { en: "Tailwind Colors", zh: "Tailwind 颜色" },
+  "nav.cssFilter": { en: "CSS Filter", zh: "CSS Filter" },
+  "nav.colorWheel": { en: "Color Wheel", zh: "色轮" },
   "nav.imagePalette": { en: "Image Extractor", zh: "图片取色" },
   "nav.colorFinder": { en: "Color Finder", zh: "颜色识别" },
   "nav.combinations": { en: "Combinations", zh: "配色组合" },
@@ -1826,6 +1829,30 @@ const translations: Record<string, Record<string, string>> = {
   "tools.validate.desc": {
     en: "Score any palette: full contrast matrix, harmony detection, and color-blindness simulation in one pass.",
     zh: "一次性为任意配色打分:完整对比度矩阵、和谐度检测与色盲模拟。",
+  },
+  "tools.tailwindColors.name": {
+    en: "Tailwind Color Finder",
+    zh: "Tailwind 颜色工具",
+  },
+  "tools.tailwindColors.desc": {
+    en: "Match any hex to its closest Tailwind class and browse the full v4 palette, cross-named with archive colors.",
+    zh: "任意 hex 匹配最近的 Tailwind 类,浏览完整 v4 调色板并标注最近档案色。",
+  },
+  "tools.cssFilter.name": {
+    en: "CSS Filter Generator",
+    zh: "CSS Filter 生成器",
+  },
+  "tools.cssFilter.desc": {
+    en: "Recolor black icons with pure CSS — get a generated filter chain for any target color.",
+    zh: "纯 CSS 给黑色图标换色 —— 输入目标色,生成 filter 链。",
+  },
+  "tools.colorWheel.name": {
+    en: "Color Wheel",
+    zh: "色轮",
+  },
+  "tools.colorWheel.desc": {
+    en: "Drag an interactive wheel through five classic harmonies, every point snapped to a named archive color.",
+    zh: "拖动交互色轮探索五种经典和声,每个点位吸附到命名档案色。",
   },
   "tools.cat.analysis": {
     en: "Color Analysis",
