@@ -76,6 +76,7 @@ interface SiteHeaderProps {
     | "/trends"
     | "/validate"
     | "/pick-for-me"
+    | "/screen-test"
     | "/embed/embed-code";
 }
 
@@ -125,6 +126,8 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/brand/", labelKey: "nav.brand" },
       { href: "/wcag-audit/", labelKey: "nav.wcagAudit" },
       { href: "/palette-audit/", labelKey: "nav.paletteAudit" },
+      { href: "/validate/", labelKey: "nav.validate" },
+      { href: "/screen-test/", labelKey: "nav.screenTest" },
       { href: "/image-palette/", labelKey: "nav.imagePalette" },
       { href: "/identify/", labelKey: "nav.colorFinder" },
       { href: "/today/", labelKey: "nav.today" },

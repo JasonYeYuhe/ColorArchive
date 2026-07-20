@@ -29,6 +29,8 @@ const translations: Record<string, Record<string, string>> = {
   "nav.brand": { en: "Brand System", zh: "品牌色系" },
   "nav.wcagAudit": { en: "WCAG Audit", zh: "批量检测" },
   "nav.paletteAudit": { en: "Palette Audit", zh: "色板审计" },
+  "nav.screenTest": { en: "Screen Test", zh: "屏幕检测" },
+  "nav.validate": { en: "Palette Validator", zh: "配色验证" },
   "nav.imagePalette": { en: "Image Extractor", zh: "图片取色" },
   "nav.colorFinder": { en: "Color Finder", zh: "颜色识别" },
   "nav.combinations": { en: "Combinations", zh: "配色组合" },
@@ -1762,8 +1764,12 @@ const translations: Record<string, Record<string, string>> = {
     zh: "免费色彩工具",
   },
   "tools.subheading": {
-    en: "Twelve free tools to help designers work with color more effectively. No account required.",
-    zh: "十二款免费工具，帮助设计师更高效地使用颜色。无需注册。",
+    en: "Free tools to help designers work with color more effectively. No account required.",
+    zh: "一系列免费工具，帮助设计师更高效地使用颜色。无需注册。",
+  },
+  "tools.allCategories": {
+    en: "All",
+    zh: "全部",
   },
   "tools.openTool": {
     en: "Open tool",
@@ -1776,6 +1782,50 @@ const translations: Record<string, Record<string, string>> = {
   "tools.cat.accessibility": {
     en: "Accessibility",
     zh: "无障碍",
+  },
+  "tools.cat.display": {
+    en: "Display Testing",
+    zh: "屏幕检测",
+  },
+  "tools.screenTest.name": {
+    en: "Screen Test",
+    zh: "屏幕检测",
+  },
+  "tools.screenTest.desc": {
+    en: "Check your display for defects: uniformity, black level, highlight detail, plus a browser-reported screen report.",
+    zh: "检查显示器缺陷:均匀性、黑位、高光细节,以及浏览器报告的屏幕信息。",
+  },
+  "tools.deadPixel.name": {
+    en: "Dead Pixel Test",
+    zh: "坏点检测",
+  },
+  "tools.deadPixel.desc": {
+    en: "Cycle fullscreen solid colors to find dead or stuck pixels on any screen.",
+    zh: "全屏纯色循环,找出屏幕上的坏点与卡点。",
+  },
+  "tools.colorScreens.name": {
+    en: "Color Screens",
+    zh: "纯色全屏",
+  },
+  "tools.colorScreens.desc": {
+    en: "Fullscreen white, black, or any color — for cleaning, lighting, tracing, and pixel checks.",
+    zh: "白屏、黑屏或任意颜色全屏 —— 清洁、打光、描图、查坏点都好用。",
+  },
+  "tools.paletteAudit.name": {
+    en: "Palette Audit",
+    zh: "色板审计",
+  },
+  "tools.paletteAudit.desc": {
+    en: "Paste CSS or tokens and audit your palette for contrast failures, duplicates, and off-archive colors.",
+    zh: "粘贴 CSS 或 design tokens,审计配色的对比度问题、重复色与非档案色。",
+  },
+  "tools.validate.name": {
+    en: "Palette Validator",
+    zh: "配色验证器",
+  },
+  "tools.validate.desc": {
+    en: "Score any palette: full contrast matrix, harmony detection, and color-blindness simulation in one pass.",
+    zh: "一次性为任意配色打分:完整对比度矩阵、和谐度检测与色盲模拟。",
   },
   "tools.cat.analysis": {
     en: "Color Analysis",

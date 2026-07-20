@@ -166,6 +166,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.88,
     },
     {
+      url: `${SITE_URL}/validate/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/pick-for-me/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/screen-test/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/screen-test/dead-pixel/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/screen-test/color-screens/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
       url: `${SITE_URL}/combinations/`,
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",

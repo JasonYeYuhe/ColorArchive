@@ -150,4 +150,6 @@ export const TOOL_SLUGS = new Set<string>([
   "pick-for-me",
   "surprise",
   "analyze",
+  // First-segment match covers /screen-test/, /screen-test/dead-pixel/, /screen-test/color-screens/
+  "screen-test",
 ]);

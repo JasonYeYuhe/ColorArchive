@@ -42,6 +42,14 @@ const TOOLS: Tool[] = [
     badgeKey: "tools.badge.new",
     accent: "bg-fuchsia-100 text-fuchsia-700",
   },
+  {
+    href: "/palette-audit/",
+    icon: "✓",
+    nameKey: "tools.paletteAudit.name",
+    descKey: "tools.paletteAudit.desc",
+    categoryKey: "tools.cat.accessibility",
+    accent: "bg-emerald-100 text-emerald-700",
+  },
   // Color Analysis
   {
     href: "/convert/",
@@ -290,6 +298,43 @@ const TOOLS: Tool[] = [
     badgeKey: "tools.badge.new",
     accent: "bg-cyan-100 text-cyan-700",
   },
+  // Display Testing
+  {
+    href: "/screen-test/",
+    icon: "▣",
+    nameKey: "tools.screenTest.name",
+    descKey: "tools.screenTest.desc",
+    categoryKey: "tools.cat.display",
+    badgeKey: "tools.badge.new",
+    accent: "bg-zinc-100 text-zinc-700",
+  },
+  {
+    href: "/screen-test/dead-pixel/",
+    icon: "•",
+    nameKey: "tools.deadPixel.name",
+    descKey: "tools.deadPixel.desc",
+    categoryKey: "tools.cat.display",
+    badgeKey: "tools.badge.new",
+    accent: "bg-stone-100 text-stone-700",
+  },
+  {
+    href: "/screen-test/color-screens/",
+    icon: "▢",
+    nameKey: "tools.colorScreens.name",
+    descKey: "tools.colorScreens.desc",
+    categoryKey: "tools.cat.display",
+    badgeKey: "tools.badge.new",
+    accent: "bg-neutral-100 text-neutral-700",
+  },
+  // Analysis (registry-drift fix: existed as a route, was never listed here)
+  {
+    href: "/validate/",
+    icon: "☑",
+    nameKey: "tools.validate.name",
+    descKey: "tools.validate.desc",
+    categoryKey: "tools.cat.analysis",
+    accent: "bg-lime-100 text-lime-700",
+  },
   // Integrations
   {
     href: "https://www.figma.com/community/plugin/1616829363158218051",
@@ -308,6 +353,7 @@ const CATEGORIES = [
   "tools.cat.creative",
   "tools.cat.explore",
   "tools.cat.developer",
+  "tools.cat.display",
   "tools.cat.integrations",
 ] as const;
 

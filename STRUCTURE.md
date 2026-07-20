@@ -81,6 +81,9 @@ ColorArchive/
 │   ├── today/                     # /today/ — Color of the Day
 │   ├── colorblind/                # /colorblind/ — Color blindness simulator
 │   ├── wcag-audit/                # /wcag-audit/ — Full WCAG audit matrix
+│   ├── screen-test/               # /screen-test/ — Display check hub (black/white level, uniformity, screen report)
+│   │   ├── dead-pixel/            # /screen-test/dead-pixel/ — Dead/stuck pixel test
+│   │   └── color-screens/         # /screen-test/color-screens/ — Fullscreen solid color screens (?color= hex or archive id)
 │   ├── brand/                     # /brand/ — Brand palette system builder
 │   ├── tools/                     # /tools/ — All tools listing page
 │   ├── api-docs/                  # /api-docs/ — Public API documentation
@@ -187,6 +190,10 @@ ColorArchive/
 │   │   ├── color-stories-page.tsx       # Color stories page
 │   │   ├── color-of-day-page.tsx        # Color of the Day
 │   │   ├── wcag-audit-page.tsx          # WCAG audit matrix
+│   │   ├── screen-test-page.tsx         # Screen test hub (facts report + wedges + uniformity)
+│   │   ├── dead-pixel-test-page.tsx     # Dead/stuck pixel fullscreen cycler
+│   │   ├── color-screens-page.tsx       # Fullscreen color screens utility
+│   │   ├── screen-test/fullscreen-stage.tsx  # Shared fullscreen engine (wake lock, iOS fallback)
 │   │   ├── token-generator-page.tsx     # Design token generator
 │   │   ├── tools-page.tsx              # All tools listing
 │   │   ├── api-docs-page.tsx           # API documentation
@@ -435,6 +442,6 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Newsletter issues | 349 |
 | Color families | 9 |
 | Industry use cases | 10 (saas-tech, healthcare, luxury, food, finance, education, creative, sustainability, beauty, nonprofit) |
-| Tool pages | 23+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name) |
+| Tool pages | 26+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name, screen-test, screen-test/dead-pixel, screen-test/color-screens) |
 | AI endpoints | 5 (brand-palette, mood-palette, name-color, critique, analyze-url) |
 | i18n keys | ~750+ (EN/ZH) |
