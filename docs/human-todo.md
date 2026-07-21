@@ -17,13 +17,16 @@
 >       + PostHog qualified actions (screen_test_completed, downstream_click, trial attribution)
 >       per dev-plan-2026-07-20 §4 Phase 3. Ask Claude to run the复盘 — the decision rule is
 >       qualified actions, NOT impressions.
-> - [ ] **iOS v1.3 plan needs 2 one-line decisions** (docs/ios-dev-plan-2026-07-21-v1.3.md §6):
->       (1) ASO name/subtitle A/B choice (Claude will present after pulling live metadata),
->       (2) confirm the data-gate thresholds (daily downloads ≥10 / game completion ≥30% /
->       share-intent ≥10%) — fixed before launch, no moving goalposts after.
->       Then tell Claude to start v1.3 (est. ≤2 sessions; plan already dual-reviewed by Codex + Gemini).
-> - [ ] ASC Analytics ONGOING request `dda726fa` was created 2026-07-21 — real download/session
->       data becomes pullable in a few days (no more vendor-number blocker).
+> - [x] **iOS v1.3 SHIPPED to review 2026-07-22** (owner waived TestFlight + delegated §6 decisions):
+>       Hue Challenge game (web-parity verified) + typed AI errors + ASO refresh
+>       (subtitle "Palettes, Contrast & Hex Codes", keywords rebuilt 94B). Submission
+>       `9d63d863`, releaseType=AFTER_APPROVAL — **goes live automatically on approval**, nothing to click.
+> - [ ] **~2026-08-12: iOS 3-week data gate** — pull ASC analytics (ONGOING request `dda726fa`,
+>       data pullable since ~07-24) + PostHog hue_game events. Thresholds (pre-registered):
+>       daily downloads ≥10 / game completion ≥30% / share-intent ≥10% → invest / maintain / shrink.
+>       Ask Claude to run it.
+> - [ ] Optional: fresh App Store screenshots featuring the Hue Challenge (skipped in v1.3 for
+>       budget — worth doing if the game shows any traction).
 
 ## 🎯 2026-06-29 (remote) — multi-platform review + gate-safe fixes shipped
 > Ran a multi-model review (Claude agents + **Gemini 3.1 Pro + 3.5 Flash** via the Google AI API

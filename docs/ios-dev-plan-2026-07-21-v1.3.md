@@ -1,5 +1,8 @@
 # ColorArchive iOS v1.3 开发计划书(2026-07-21 修订版,已过双评审)
 
+> **执行记录(2026-07-22)**:owner 免除 TestFlight 步骤并授权直接上架,§6 两个决策委托执行。
+> 当日完成:P0-0 parity harness(`ios/scripts/hue-parity-main.swift`,swiftc 编译**与 app 相同的** ColorConvert.swift,20/20 golden 全过)→ P0-1 Hue Challenge(tap-swap,sRGB 钉死,复用 ImageRenderer 分享卡,3 事件)→ P0-3 typed AI 错误(AIServiceError:429/5xx/offline 分支文案)→ P0-2 ASO(name 保留;subtitle → **"Palettes, Contrast & Hex Codes"**;keywords 94B 无重词:rgb,hsl,cmyk,swatch,picker,colorblind,gradient,mixer,harmony,tints,shades,converter,scheme,hue)→ **1.3 (build 6) 已提交审核**(submission `9d63d863`,**releaseType=AFTER_APPROVAL 批准即上架**)。截图未重做(预算取舍,现有截图沿用)。数据门倒计时自上架日起 3 周(约 **2026-08-12** 复盘)。
+
 > 起草:2026-07-21 · 作者:Claude(remote session,owner 授权)
 > 取代:`docs/ios-dev-plan-v1.3.md`(2026-06-06 版,双 review 判定「把已实现当待做」)
 > Review:**Codex(gpt-5.6,read-only 仓库核查)+ Gemini 3.1 Pro (High)** 均 revise-then-ship,修订已全部回写 —— 见文末 Review 记录

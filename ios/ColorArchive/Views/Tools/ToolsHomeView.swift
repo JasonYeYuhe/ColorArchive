@@ -20,6 +20,7 @@ struct ToolsHomeView: View {
 
     private let tools: [ToolItem] = [
         ToolItem(title: "Palettes", subtitle: "Create, save & export custom palettes", icon: "paintpalette.fill", color: .orange),
+        ToolItem(title: "Hue Challenge", subtitle: "Arrange the hues — score 0 is perfect", icon: "gamecontroller.fill", color: .mint),
         ToolItem(title: "AI Mood", subtitle: "Generate palette from mood or scene", icon: "sparkles", color: .purple, requiresPro: true),
         ToolItem(title: "Image Palette", subtitle: "Extract colors from photos", icon: "photo.on.rectangle.angled", color: .blue, requiresPro: true),
         ToolItem(title: "Harmonies", subtitle: "Complementary, analogous & triadic", icon: "circle.hexagongrid.fill", color: .pink, requiresPro: true),
@@ -142,6 +143,8 @@ struct ToolsHomeView: View {
         switch name {
         case "Palettes":
             PaletteBuilderView(embedded: true)
+        case "Hue Challenge":
+            HueArrangementView()
         case "AI Mood":
             AIMoodPaletteView()
         case "Image Palette":

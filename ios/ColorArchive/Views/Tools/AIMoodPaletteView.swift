@@ -143,6 +143,8 @@ struct AIMoodPaletteView: View {
             do {
                 result = try await AIService.generateMoodPalette(prompt: prompt)
                 HapticManager.success()
+            } catch let serviceError as AIServiceError {
+                self.error = serviceError.errorDescription
             } catch {
                 self.error = "Failed to generate. Try again."
             }
@@ -171,38 +173,66 @@ struct MoodPaletteResult: Codable {
     }
 }
 
+/// Typed AI errors (dev-plan-2026-07-21 P0-3): the old code discarded the HTTP
+/// status, so a daily-limit 429 was indistinguishable from a real outage.
+enum AIServiceError: LocalizedError {
+    case rateLimited
+    case server(status: Int)
+    case offline
+
+    var errorDescription: String? {
+        switch self {
+        case .rateLimited:
+            // iOS AI tools are Pro-gated, so this is the PRO daily limit — no upsell copy.
+            return "You've used today's AI generations. The limit resets tomorrow."
+        case .server:
+            return "The AI service is temporarily unavailable. Please try again in a minute."
+        case .offline:
+            return "You're offline. Reconnect and try again."
+        }
+    }
+}
+
 enum AIService {
     static let baseURL = "https://api.colorarchive.org"
 
-    static func generateMoodPalette(prompt: String) async throws -> MoodPaletteResult {
-        guard let url = URL(string: "\(baseURL)/ai/mood-palette") else { throw URLError(.badURL) }
+    private static func post<T: Decodable>(_ path: String, body: Data) async throws -> T {
+        guard let url = URL(string: "\(baseURL)\(path)") else { throw URLError(.badURL) }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONEncoder().encode(["prompt": prompt])
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw URLError(.badServerResponse)
+        request.httpBody = body
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await URLSession.shared.data(for: request)
+        } catch {
+            throw AIServiceError.offline
         }
-        return try JSONDecoder().decode(MoodPaletteResult.self, from: data)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AIServiceError.server(status: 0)
+        }
+        switch httpResponse.statusCode {
+        case 200:
+            return try JSONDecoder().decode(T.self, from: data)
+        case 429:
+            throw AIServiceError.rateLimited
+        default:
+            throw AIServiceError.server(status: httpResponse.statusCode)
+        }
+    }
+
+    static func generateMoodPalette(prompt: String) async throws -> MoodPaletteResult {
+        try await post("/ai/mood-palette", body: JSONEncoder().encode(["prompt": prompt]))
     }
 
     static func generateBrandPalette(industry: String?, style: String?, audience: String?, keywords: String?) async throws -> BrandPaletteResult {
-        guard let url = URL(string: "\(baseURL)/ai/brand-palette") else { throw URLError(.badURL) }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         var body: [String: String] = [:]
         if let industry { body["industry"] = industry }
         if let style { body["style"] = style }
         if let audience { body["audience"] = audience }
         if let keywords { body["keywords"] = keywords }
-        request.httpBody = try JSONEncoder().encode(body)
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw URLError(.badServerResponse)
-        }
-        return try JSONDecoder().decode(BrandPaletteResult.self, from: data)
+        return try await post("/ai/brand-palette", body: JSONEncoder().encode(body))
     }
 }
 

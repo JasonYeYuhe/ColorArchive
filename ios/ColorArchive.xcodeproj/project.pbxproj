@@ -48,6 +48,7 @@
 		A10038 /* PaletteBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10038 /* PaletteBuilderView.swift */; };
 		A10039 /* ImagePaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10039 /* ImagePaletteView.swift */; };
 		A10040 /* AIMoodPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10040 /* AIMoodPaletteView.swift */; };
+		A10070 /* HueArrangementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10070 /* HueArrangementView.swift */; };
 		A10041 /* RecentColorsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10041 /* RecentColorsStore.swift */; };
 		A10042 /* ColorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10042 /* ColorCollection.swift */; };
 		A10043 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10043 /* Collections.swift */; };
@@ -106,6 +107,7 @@
 		B10038 /* PaletteBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteBuilderView.swift; sourceTree = "<group>"; };
 		B10039 /* ImagePaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePaletteView.swift; sourceTree = "<group>"; };
 		B10040 /* AIMoodPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIMoodPaletteView.swift; sourceTree = "<group>"; };
+		B10070 /* HueArrangementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HueArrangementView.swift; sourceTree = "<group>"; };
 		B10041 /* RecentColorsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentColorsStore.swift; sourceTree = "<group>"; };
 		B10042 /* ColorCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollection.swift; sourceTree = "<group>"; };
 		B10043 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				B10038 /* PaletteBuilderView.swift */,
 				B10039 /* ImagePaletteView.swift */,
 				B10040 /* AIMoodPaletteView.swift */,
+				B10070 /* HueArrangementView.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				A10038 /* PaletteBuilderView.swift in Sources */,
 				A10039 /* ImagePaletteView.swift in Sources */,
 				A10040 /* AIMoodPaletteView.swift in Sources */,
+				A10070 /* HueArrangementView.swift in Sources */,
 				A10041 /* RecentColorsStore.swift in Sources */,
 				A10042 /* ColorCollection.swift in Sources */,
 				A10043 /* Collections.swift in Sources */,
@@ -456,7 +460,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ColorArchive/ColorArchive.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"ColorArchive/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -475,7 +479,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = me.colorarchive.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -494,7 +498,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ColorArchive/ColorArchive.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"ColorArchive/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -513,7 +517,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = me.colorarchive.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
