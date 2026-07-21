@@ -364,6 +364,43 @@ const TOOLS: Tool[] = [
     badgeKey: "tools.badge.new",
     accent: "bg-rose-100 text-rose-700",
   },
+  // Tier B batch
+  {
+    href: "/color-temperature/",
+    icon: "K",
+    nameKey: "tools.colorTemperature.name",
+    descKey: "tools.colorTemperature.desc",
+    categoryKey: "tools.cat.analysis",
+    badgeKey: "tools.badge.new",
+    accent: "bg-amber-100 text-amber-700",
+  },
+  {
+    href: "/dark-mode-colors/",
+    icon: "◐",
+    nameKey: "tools.darkModeColors.name",
+    descKey: "tools.darkModeColors.desc",
+    categoryKey: "tools.cat.developer",
+    badgeKey: "tools.badge.new",
+    accent: "bg-indigo-100 text-indigo-700",
+  },
+  {
+    href: "/duotone/",
+    icon: "◒",
+    nameKey: "tools.duotone.name",
+    descKey: "tools.duotone.desc",
+    categoryKey: "tools.cat.creative",
+    badgeKey: "tools.badge.new",
+    accent: "bg-teal-100 text-teal-700",
+  },
+  {
+    href: "/paint-mix/",
+    icon: "🎨",
+    nameKey: "tools.paintMix.name",
+    descKey: "tools.paintMix.desc",
+    categoryKey: "tools.cat.creative",
+    badgeKey: "tools.badge.new",
+    accent: "bg-yellow-100 text-yellow-700",
+  },
   // Integrations
   {
     href: "https://www.figma.com/community/plugin/1616829363158218051",

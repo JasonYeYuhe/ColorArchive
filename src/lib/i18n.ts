@@ -34,6 +34,10 @@ const translations: Record<string, Record<string, string>> = {
   "nav.tailwindColors": { en: "Tailwind Colors", zh: "Tailwind 颜色" },
   "nav.cssFilter": { en: "CSS Filter", zh: "CSS Filter" },
   "nav.colorWheel": { en: "Color Wheel", zh: "色轮" },
+  "nav.colorTemperature": { en: "Color Temperature", zh: "色温" },
+  "nav.darkModeColors": { en: "Dark Mode Colors", zh: "暗色转换" },
+  "nav.duotone": { en: "Duotone", zh: "双色调" },
+  "nav.paintMix": { en: "Paint Mixing", zh: "调色计算" },
   "nav.imagePalette": { en: "Image Extractor", zh: "图片取色" },
   "nav.colorFinder": { en: "Color Finder", zh: "颜色识别" },
   "nav.combinations": { en: "Combinations", zh: "配色组合" },
@@ -1853,6 +1857,38 @@ const translations: Record<string, Record<string, string>> = {
   "tools.colorWheel.desc": {
     en: "Drag an interactive wheel through five classic harmonies, every point snapped to a named archive color.",
     zh: "拖动交互色轮探索五种经典和声,每个点位吸附到命名档案色。",
+  },
+  "tools.colorTemperature.name": {
+    en: "Color Temperature",
+    zh: "色温转换",
+  },
+  "tools.colorTemperature.desc": {
+    en: "Kelvin → RGB/HEX with lighting presets, from candlelight to deep sky.",
+    zh: "Kelvin → RGB/HEX,附烛光到深空的照明预设。",
+  },
+  "tools.darkModeColors.name": {
+    en: "Dark Mode Converter",
+    zh: "暗色模式转换",
+  },
+  "tools.darkModeColors.desc": {
+    en: "Turn a light-mode palette into a tuned dark counterpart, exported as CSS variables or Tailwind config.",
+    zh: "把亮色配色转成调好的暗色版本,导出 CSS 变量或 Tailwind 配置。",
+  },
+  "tools.duotone.name": {
+    en: "Duotone Generator",
+    zh: "Duotone 双色调",
+  },
+  "tools.duotone.desc": {
+    en: "Upload an image, pick two colors, get the duotone look — processed locally, never uploaded.",
+    zh: "上传图片选两色即得双色调效果 —— 本地处理,不上传。",
+  },
+  "tools.paintMix.name": {
+    en: "Paint Mixing Calculator",
+    zh: "颜料调色计算",
+  },
+  "tools.paintMix.desc": {
+    en: "Part-by-part paint recipes for any target color from a classic five-paint set.",
+    zh: "用经典五色颜料按份数调出任意目标色的配方建议。",
   },
   "tools.cat.analysis": {
     en: "Color Analysis",

@@ -4,6 +4,7 @@ import { useMemo, useState, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { generateColorName, nearestColor } from "@/src/lib/color-naming";
+import { deltaE2000Hex, interpretDeltaE } from "@/src/lib/color-difference";
 import { colors } from "@/src/data/colors";
 import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
@@ -56,6 +57,21 @@ export function ColorNamePage() {
 
   const result = useMemo(() => generateColorName(hex), [hex]);
   const nearest = useMemo(() => nearestColor(hex, colorCandidates), [hex]);
+
+  // Perceptually-ranked runners-up (CIEDE2000) — the archive-inverted lookup:
+  // "which named colors IS this hex", not just the single closest. The card
+  // above shows the RGB-nearest color, so exclude that id here (the two
+  // metrics can disagree, so filter by id rather than assuming it ranks #1).
+  const rankedNearest = useMemo(() => {
+    const scored: Array<{ id: string; hex: string; name: string; deltaE: number }> = [];
+    for (const c of colorCandidates) {
+      if (nearest && c.id === nearest.id) continue;
+      const d = deltaE2000Hex(hex, c.hex);
+      if (d !== null) scored.push({ id: c.id, hex: c.hex, name: c.name, deltaE: d });
+    }
+    scored.sort((a, b) => a.deltaE - b.deltaE);
+    return scored.slice(0, 5);
+  }, [hex, nearest]);
 
   const handleCommit = useCallback(() => {
     if (isValidHex(input)) {
@@ -280,6 +296,35 @@ export function ColorNamePage() {
               View color →
             </Link>
           </div>
+
+          {/* ΔE-ranked runners-up */}
+          {rankedNearest.length > 0 && (
+            <div className="mt-4 border-t border-black/6 pt-3 dark:border-white/8">
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
+                Perceptually closest (CIEDE2000)
+              </p>
+              <div className="space-y-1.5">
+                {rankedNearest.map((c) => (
+                  <div key={c.id} className="flex items-center gap-2.5 text-sm">
+                    <span
+                      className="h-5 w-5 shrink-0 rounded-md border border-black/8 dark:border-white/8"
+                      style={{ backgroundColor: c.hex }}
+                    />
+                    <Link
+                      href={`/colors/${c.id}/`}
+                      className="font-medium text-neutral-800 underline-offset-2 hover:underline dark:text-neutral-200"
+                    >
+                      {c.name}
+                    </Link>
+                    <span className="font-mono text-xs text-neutral-500">{c.hex}</span>
+                    <span className="ml-auto text-[11px] text-neutral-400" title={interpretDeltaE(c.deltaE).en}>
+                      ΔE {c.deltaE.toFixed(1)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 

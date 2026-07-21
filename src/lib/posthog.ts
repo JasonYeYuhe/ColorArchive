@@ -155,4 +155,8 @@ export const TOOL_SLUGS = new Set<string>([
   "tailwind-colors",
   "css-filter",
   "color-wheel",
+  "color-temperature",
+  "dark-mode-colors",
+  "duotone",
+  "paint-mix",
 ]);

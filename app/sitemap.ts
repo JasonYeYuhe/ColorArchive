@@ -214,6 +214,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${SITE_URL}/color-temperature/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/dark-mode-colors/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/duotone/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/paint-mix/`,
+      lastModified: BUILD_DATE,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${SITE_URL}/combinations/`,
       lastModified: BUILD_DATE,
       changeFrequency: "monthly",

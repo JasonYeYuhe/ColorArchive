@@ -80,6 +80,10 @@ interface SiteHeaderProps {
     | "/tailwind-colors"
     | "/css-filter"
     | "/color-wheel"
+    | "/color-temperature"
+    | "/dark-mode-colors"
+    | "/duotone"
+    | "/paint-mix"
     | "/embed/embed-code";
 }
 
@@ -127,6 +131,10 @@ const DESKTOP_NAV_GROUPS: NavGroup[] = [
       { href: "/color-wheel/", labelKey: "nav.colorWheel" },
       { href: "/tailwind-colors/", labelKey: "nav.tailwindColors" },
       { href: "/css-filter/", labelKey: "nav.cssFilter" },
+      { href: "/color-temperature/", labelKey: "nav.colorTemperature" },
+      { href: "/dark-mode-colors/", labelKey: "nav.darkModeColors" },
+      { href: "/duotone/", labelKey: "nav.duotone" },
+      { href: "/paint-mix/", labelKey: "nav.paintMix" },
       { href: "/compare/", labelKey: "nav.compare" },
       { href: "/colorblind/", labelKey: "nav.colorblind" },
       { href: "/brand/", labelKey: "nav.brand" },

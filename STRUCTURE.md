@@ -87,6 +87,10 @@ ColorArchive/
 │   ├── tailwind-colors/           # /tailwind-colors/ — HEX→Tailwind class matcher + v4 palette browser
 │   ├── css-filter/                # /css-filter/ — Black→any-color CSS filter chain generator
 │   ├── color-wheel/               # /color-wheel/ — Interactive harmony wheel (archive-snapped)
+│   ├── color-temperature/         # /color-temperature/ — Kelvin→RGB converter with lighting presets
+│   ├── dark-mode-colors/          # /dark-mode-colors/ — Light→dark palette converter (CSS/Tailwind export)
+│   ├── duotone/                   # /duotone/ — Two-color image effect (local canvas processing)
+│   ├── paint-mix/                 # /paint-mix/ — Paint mixing recipe calculator (subtractive approx)
 │   ├── brand/                     # /brand/ — Brand palette system builder
 │   ├── tools/                     # /tools/ — All tools listing page
 │   ├── api-docs/                  # /api-docs/ — Public API documentation
@@ -206,6 +210,10 @@ ColorArchive/
 │   │   ├── tailwind-colors-page.tsx     # HEX→Tailwind matcher + palette browser
 │   │   ├── css-filter-page.tsx          # CSS filter chain generator
 │   │   ├── color-wheel-page.tsx         # Interactive harmony wheel
+│   │   ├── color-temperature-page.tsx   # Kelvin→RGB converter
+│   │   ├── dark-mode-colors-page.tsx    # Light→dark palette converter
+│   │   ├── duotone-page.tsx             # Duotone image effect
+│   │   ├── paint-mix-page.tsx           # Paint mixing recipes
 │   │   ├── token-generator-page.tsx     # Design token generator
 │   │   ├── tools-page.tsx              # All tools listing
 │   │   ├── api-docs-page.tsx           # API documentation
@@ -252,6 +260,9 @@ ColorArchive/
 │   │   │                                 # plain-language interpretation
 │   │   ├── tailwind-colors.ts            # Tailwind v4 palette (generated from the package)
 │   │   ├── css-filter.ts                 # Black→color filter chain SPSA solver (seeded)
+│   │   ├── color-temperature.ts          # Kelvin→RGB (Tanner Helland fit) + presets
+│   │   ├── duotone.ts                    # Luma→two-color-ramp LUT + in-place apply
+│   │   ├── paint-mix.ts                  # Subtractive-approx paint recipe solver
 │   │   ├── collections.ts                # 259 curated palette collections
 │   │   ├── palette-packs.ts              # 7 product pack definitions + metadata
 │   │   ├── guides.ts                     # 317 SEO landing guides
@@ -461,6 +472,6 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Newsletter issues | 349 |
 | Color families | 9 |
 | Industry use cases | 10 (saas-tech, healthcare, luxury, food, finance, education, creative, sustainability, beauty, nonprofit) |
-| Tool pages | 29+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name, screen-test, screen-test/dead-pixel, screen-test/color-screens, tailwind-colors, css-filter, color-wheel) |
+| Tool pages | 33+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name, screen-test ×3, tailwind-colors, css-filter, color-wheel, color-temperature, dark-mode-colors, duotone, paint-mix) |
 | AI endpoints | 5 (brand-palette, mood-palette, name-color, critique, analyze-url) |
 | i18n keys | ~750+ (EN/ZH) |
