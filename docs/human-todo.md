@@ -1,7 +1,29 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-06-29 (remote — multi-platform review + gate-safe DO-NOW fixes; **iOS 1.2.1 built+submitted to App Store review by Claude** — you only TestFlight-verify + click Release; Figma still needs you)
+> Last updated: 2026-07-21 (remote — tools expansion cycle COMPLETE: 4 batches, 11 new routes, 33+ tools; iOS v1.3 plan written + dual-reviewed)
+
+## 🎯 2026-07-21 (remote) — tools cycle shipped, what's left is decisions + data
+
+> **Web tools expansion is code-complete** (commits d025419 → 09f224f → a2507c7 → 4d01923):
+> screen-test suite (hub + dead-pixel + color-screens + gamma/banding/sharpness + archive
+> color-distance + hue game + guided wizard with shareable report card), OKLCH/Lab in /convert/,
+> ΔE in /compare/, /tailwind-colors/, /css-filter/, /color-wheel/, colorblind safe-fixes,
+> /color-temperature/, /dark-mode-colors/, /duotone/, /paint-mix/, /name/ ΔE top-5.
+> vitest 671/671. Every batch adversarially reviewed pre-commit (17 real bugs fixed, 6 false alarms).
+>
+> **Your items:**
+> - [ ] **~2026-08-20: 30-day tools review** — GSC (screen-test/tailwind/css-filter query families)
+>       + PostHog qualified actions (screen_test_completed, downstream_click, trial attribution)
+>       per dev-plan-2026-07-20 §4 Phase 3. Ask Claude to run the复盘 — the decision rule is
+>       qualified actions, NOT impressions.
+> - [ ] **iOS v1.3 plan needs 2 one-line decisions** (docs/ios-dev-plan-2026-07-21-v1.3.md §6):
+>       (1) ASO name/subtitle A/B choice (Claude will present after pulling live metadata),
+>       (2) confirm the data-gate thresholds (daily downloads ≥10 / game completion ≥30% /
+>       share-intent ≥10%) — fixed before launch, no moving goalposts after.
+>       Then tell Claude to start v1.3 (est. ≤2 sessions; plan already dual-reviewed by Codex + Gemini).
+> - [ ] ASC Analytics ONGOING request `dda726fa` was created 2026-07-21 — real download/session
+>       data becomes pullable in a few days (no more vendor-number blocker).
 
 ## 🎯 2026-06-29 (remote) — multi-platform review + gate-safe fixes shipped
 > Ran a multi-model review (Claude agents + **Gemini 3.1 Pro + 3.5 Flash** via the Google AI API
