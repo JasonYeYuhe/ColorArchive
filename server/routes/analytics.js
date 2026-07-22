@@ -60,6 +60,12 @@ function buildSubscriberWhere(filters, previous = false) {
 function buildOrderWhere(filters, previous = false) {
   const { clauses, params } = buildTimeRangeClause(filters.days, previous);
 
+  // Revenue metrics count only real, kept money: exclude test-mode orders and
+  // refunded/disputed rows (the gate queries already did; the admin dashboard
+  // silently included both until 2026-07-22).
+  clauses.push("COALESCE(is_test, 0) = 0");
+  clauses.push("COALESCE(refunded, 0) = 0");
+
   pushFilter(clauses, params, "attributed_source", filters.source);
   pushFilter(clauses, params, "attributed_utm_campaign", filters.utmCampaign);
   pushFilter(clauses, params, "attributed_utm_source", filters.utmSource);

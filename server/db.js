@@ -86,6 +86,8 @@ ensureColumn("orders", "pack_id TEXT");
 ensureColumn("orders", "download_url TEXT");
 ensureColumn("orders", "receipt_url TEXT");
 ensureColumn("orders", "attributed_source TEXT");
+// Refunds/chargebacks flag the row instead of deleting it — history stays, revenue metrics exclude it
+ensureColumn("orders", "refunded INTEGER DEFAULT 0");
 ensureColumn("orders", "attributed_utm_source TEXT");
 ensureColumn("orders", "attributed_utm_medium TEXT");
 ensureColumn("orders", "attributed_utm_campaign TEXT");

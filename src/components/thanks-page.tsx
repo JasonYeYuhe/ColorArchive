@@ -26,6 +26,22 @@ export function ThanksPage() {
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
               You now have unlimited AI palette generations, exports in every format, WCAG audit reports, and full token generation. Start creating.
             </p>
+            {/* The one step buyers actually miss (learned from our first real
+                subscriber, who paid and then bounced off a still-locked tool):
+                Pro lives on the ACCOUNT, so the browser must be signed in. */}
+            <div className="mt-5 max-w-2xl rounded-[1.2rem] border border-emerald-200 bg-emerald-50/80 px-4 py-3.5">
+              <p className="text-sm leading-6 text-emerald-900">
+                <span className="font-semibold">One more step:</span> sign in with your purchase
+                email so this browser knows you&rsquo;re Pro — your tools unlock the moment you do.
+              </p>
+              <Link
+                href="/login/"
+                onClick={() => track("thanks_login_click", {})}
+                className="mt-2.5 inline-flex items-center gap-2 rounded-full bg-emerald-700 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-600"
+              >
+                Sign in to activate this device
+              </Link>
+            </div>
             <div className="mt-6 grid gap-3 md:grid-cols-3">
               {[
                 {

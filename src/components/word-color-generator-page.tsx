@@ -12,6 +12,7 @@ import { WordColorShareCard } from "@/src/components/word-color-share-card";
 import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 import { AuditorPreorderCta } from "@/src/components/auditor-preorder-cta";
 import { track } from "@/src/lib/track";
+import { fetchSession } from "@/src/lib/auth-client";
 
 const PROMPT_SUGGESTIONS = [
   "ocean memory",
@@ -54,6 +55,7 @@ const PAYWALL_EVENT = {
   restored: "word_paywall_restored", // returning visitor re-gated on load (funnel denominator)
   proClick: "word_paywall_pro_click", // clicked the in-gate Pro CTA (paid intent)
   emailUnlock: "word_paywall_email_unlock", // unlocked by subscribing (lead)
+  proBypass: "word_paywall_pro_bypass", // gate opened because the account is Pro
 } as const;
 
 const normalizeWord = (w: string) => w.trim().toLowerCase();
@@ -102,6 +104,12 @@ export function WordColorGeneratorPage() {
   // spent their free lookups. The word the visitor landed on is captured ONCE (the route
   // rewrites ?q= as the user types, so we can't recompute it) and is always free + viewable.
   const [gated, setGated] = useState(false);
+  // Pro accounts pass the gate, period. This was THE bug that locked out our
+  // first real subscriber (2026-07-20): the gate only knew the localStorage
+  // email-unlock flag and never consulted the account tier, so a logged-in
+  // paying Pro user was re-gated forever ("Unlock with Pro" that Pro couldn't
+  // unlock). null = session not resolved yet; never arm the gate for Pro.
+  const [proUser, setProUser] = useState<boolean | null>(null);
   const [showRecruit, setShowRecruit] = useState(false);
   const landingWordRef = useRef(normalizeWord(initialWord));
   const countedWordsRef = useRef<Set<string> | null>(null);
@@ -151,18 +159,45 @@ export function WordColorGeneratorPage() {
     router.replace(href, { scroll: false });
   }, [input, pathname, router]);
 
+  // Resolve the account tier once on mount. Pro (or any future paid tier) opens
+  // the gate immediately — including a gate that was already armed this session.
+  useEffect(() => {
+    let cancelled = false;
+    // 4s cap: a hung session fetch must fall back to "not pro" so the gate can
+    // arm — otherwise a blocked request would leave the paywall open all session.
+    const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), 4000));
+    Promise.race([fetchSession(), timeout])
+      .then((s) => {
+        if (cancelled) return;
+        const pro = s !== null && s.auth.tier === "pro";
+        setProUser(pro);
+        if (pro) {
+          setGated(false);
+          track(PAYWALL_EVENT.proBypass, {});
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setProUser(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   // On mount, arm the gate for a returning visitor who already spent their free lookups
   // (unless they previously unlocked). They still see their landing word (onLandingWord),
   // but the next NEW word gates. `word_paywall_restored` gives the funnel a denominator for
   // these sessions, since `word_paywall_hit` only fires on the first-ever live crossing.
+  // Waits for the session check: never arm for a Pro account (proUser === true skips;
+  // while still null we also wait — the pro effect above un-gates if it resolves pro).
   useEffect(() => {
-    if (!WORD_PAYWALL_ENABLED || isUnlocked()) return;
+    if (!WORD_PAYWALL_ENABLED || proUser !== false || isUnlocked()) return;
     const n = readCountedWords().length;
     if (n >= FREE_GENERATIONS) {
       setGated(true);
       track(PAYWALL_EVENT.restored, { count: n });
     }
-  }, []);
+  }, [proUser]);
 
   // Save word to history after debounce + count it toward the WTP free limit.
   useEffect(() => {
@@ -177,8 +212,8 @@ export function WordColorGeneratorPage() {
 
       // Count only NEW distinct words. The landing word + already-counted words are
       // pre-loaded into the set, so the page the visitor landed on is always free and a
-      // retyped word never double-counts across reloads.
-      if (!WORD_PAYWALL_ENABLED || gated || isUnlocked()) return;
+      // retyped word never double-counts across reloads. Pro accounts never gate.
+      if (!WORD_PAYWALL_ENABLED || proUser !== false || gated || isUnlocked()) return;
       const norm = normalizeWord(trimmed);
       const counted = getCountedWords();
       if (counted.has(norm)) return;
@@ -192,7 +227,7 @@ export function WordColorGeneratorPage() {
       }
     }, 2000);
     return () => clearTimeout(timeout);
-  }, [input, gated]);
+  }, [input, gated, proUser]);
 
   const handleEmailUnlock = () => {
     try { localStorage.setItem(UNLOCK_KEY, "1"); } catch {}
@@ -391,6 +426,17 @@ export function WordColorGeneratorPage() {
                   >
                     Unlock unlimited with Pro
                   </Link>
+                  <p className="mt-2.5 text-center text-xs text-neutral-500 dark:text-neutral-400">
+                    Already Pro?{" "}
+                    <Link
+                      href="/login/?next=%2Fword-to-color%2F"
+                      className="font-medium underline underline-offset-2"
+                      onClick={() => track("word_paywall_login_click", {})}
+                    >
+                      Log in
+                    </Link>{" "}
+                    and this unlocks automatically.
+                  </p>
                   <div className="mt-5 border-t border-black/6 pt-4 dark:border-white/10">
                     <p className="mb-2 text-xs leading-5 text-neutral-500 dark:text-neutral-400">
                       Or keep generating free &mdash; get one curated color in your inbox each

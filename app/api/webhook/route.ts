@@ -141,6 +141,11 @@ export async function POST(req: NextRequest) {
       // Subscription created (monthly/yearly)
       case "subscription_created": {
         const plan = (attrs.variant_name as string)?.toLowerCase().includes("year") ? "yearly" : "monthly";
+        // NB: a `subscriptions` payload carries NO money fields (total/currency
+        // do not exist on it) — the amount arrives via the sibling order_created
+        // and later subscription_payment_success events. What it DOES carry is
+        // the entitlement clock: status / trial_ends_at / renews_at, which the
+        // backend needs so pro_expires_at is never left NULL (failure-open).
         await notifyBackend("/webhooks/subscription-checkout", {
           email,
           plan,
@@ -148,8 +153,9 @@ export async function POST(req: NextRequest) {
           provider: "lemonsqueezy",
           customerId: String(attrs.customer_id ?? ""),
           testMode,
-          amount: firstAmount,
-          currency: firstCurrency,
+          status: (attrs.status as string) ?? null,
+          trialEndsAt: attrs.trial_ends_at ?? null,
+          renewsAt: attrs.renews_at ?? null,
           cardFingerprint,
           ...customData,
         });
@@ -193,10 +199,59 @@ export async function POST(req: NextRequest) {
         break;
       }
 
-      // Payment events (for analytics / dunning)
-      case "subscription_payment_success":
+      // Recurring payment landed — THE money event for months 2..N. The payload
+      // is a subscription-invoice: total/currency are in minor units (JPY ×100).
+      case "subscription_payment_success": {
+        await notifyBackend("/webhooks/subscription-payment", {
+          email,
+          invoiceId: String(event.data.id),
+          subscriptionId: String(attrs.subscription_id ?? ""),
+          customerId: String(attrs.customer_id ?? ""),
+          amountMinor: typeof attrs.total === "number" ? attrs.total : null,
+          currency: (attrs.currency as string) ?? "JPY",
+          billingReason: (attrs.billing_reason as string) ?? null,
+          provider: "lemonsqueezy",
+          testMode,
+        });
+        break;
+      }
+
       case "subscription_payment_failed": {
-        console.log(`[ls-webhook] Payment ${eventName}: subscription=${event.data.id} customer=${attrs.customer_id} test=${testMode}`);
+        console.log(`[ls-webhook] Payment failed: subscription=${attrs.subscription_id} customer=${attrs.customer_id} test=${testMode}`);
+        break;
+      }
+
+      // Money reversed or disputed — revoke Pro and flag the order rows.
+      case "order_refunded":
+      case "subscription_payment_refunded":
+      case "dispute_created": {
+        await notifyBackend("/webhooks/subscription-revoke", {
+          email,
+          reason: eventName,
+          lsId: String(event.data.id),
+          subscriptionId: String(attrs.subscription_id ?? ""),
+          customerId: String(attrs.customer_id ?? ""),
+          provider: "lemonsqueezy",
+          testMode,
+        });
+        break;
+      }
+
+      // Pause/resume: route through subscription-updated so the existing
+      // status → tier mapping applies ("paused" is not a pro status; resume
+      // restores with the fresh renews_at).
+      case "subscription_paused":
+      case "subscription_unpaused":
+      case "subscription_resumed": {
+        await notifyBackend("/webhooks/subscription-updated", {
+          subscriptionId: String(event.data.id),
+          customerId: String(attrs.customer_id ?? ""),
+          status: eventName === "subscription_paused" ? "paused" : ((attrs.status as string) ?? "active"),
+          renewsAt: attrs.renews_at ?? null,
+          endsAt: attrs.ends_at ?? null,
+          provider: "lemonsqueezy",
+          testMode,
+        });
         break;
       }
 
@@ -234,6 +289,29 @@ export async function POST(req: NextRequest) {
             testMode,
             attributedSource: "preorder",
           });
+        } else {
+          // Subscription orders land here (variant "ColorArchive Pro — Monthly/
+          // Yearly"): this is the ONLY signup-time payload that carries the real
+          // charged amount. Previously it was silently dropped, which made every
+          // subscription look like ¥0 forever. Forward it as a payment record;
+          // the backend skips the insert when total is 0 (free-trial signup).
+          const item = (attrs.first_order_item as Record<string, unknown> | undefined) ?? {};
+          const variantName = String(item.variant_name ?? attrs.variant_name ?? "").toLowerCase();
+          if (variantName.includes("pro")) {
+            await notifyBackend("/webhooks/subscription-payment", {
+              email,
+              lsOrderId: String(event.data.id),
+              customerId: String(attrs.customer_id ?? ""),
+              plan: variantName.includes("year") ? "yearly" : "monthly",
+              amountMinor: typeof attrs.total === "number" ? attrs.total : null,
+              currency: firstCurrency,
+              billingReason: "initial",
+              provider: "lemonsqueezy",
+              testMode,
+            });
+          } else {
+            console.log(`[ls-webhook] order_created unmatched variant: "${variantName}" order=${event.data.id}`);
+          }
         }
         break;
       }

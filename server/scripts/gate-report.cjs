@@ -37,12 +37,21 @@ function gate(days) {
      GROUP BY channel ORDER BY count DESC`);
   // Real orders — exclude owner/QA test-mode rows so a test charge can't falsely
   // satisfy the PROCEED threshold (matches analytics.js gate numerator).
-  const ordersTotal = db.prepare(`SELECT COUNT(*) c FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test,0)=0`).get(since).c;
+  // "Orders" = kept money only: amount > 0, non-test, not refunded. A ¥0 trial
+  // signup is NOT an order (the 07-20 Pro trial printed here as "1 order" and
+  // masked the truth); trials are reported separately below.
+  const ordersTotal = db.prepare(`SELECT COUNT(*) c FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test,0)=0 AND COALESCE(refunded,0)=0 AND amount > 0`).get(since).c;
+  const revenueTotal = db.prepare(`SELECT COALESCE(SUM(amount),0) s FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test,0)=0 AND COALESCE(refunded,0)=0 AND amount > 0`).get(since).s;
   // The gate's PROCEED criterion is Auditor PRE-orders specifically — an unrelated
   // pack/Pro sale must not satisfy "≥10 real pre-orders". ordersTotal is context.
   const preorderOrders = db.prepare(`SELECT COUNT(*) c FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test,0)=0 AND pack_id='preorder-auditor'`).get(since).c;
   const ordersByProduct = db.prepare(
-    `SELECT product, COUNT(*) c FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test,0)=0 GROUP BY product ORDER BY c DESC`).all(since);
+    `SELECT product, COUNT(*) c FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test,0)=0 AND COALESCE(refunded,0)=0 AND amount > 0 GROUP BY product ORDER BY c DESC`).all(since);
+  // Subscription funnel truth: active web subs/trials by account state, not order rows.
+  const proSubs = db.prepare(
+    `SELECT COALESCE(subscription_status,'unknown') st, COUNT(*) c FROM users
+     WHERE tier='pro' AND payment_provider='lemonsqueezy' AND COALESCE(is_test,0)=0
+     GROUP BY st ORDER BY c DESC`).all();
   // Secondary signal: distinct people who left a paid-intent email reservation
   // (subscribers.source='preorder'). Counted to-date, NOT windowed — an upsert that
   // flips an older subscriber to source='preorder' keeps its created_at. Test excluded.
@@ -56,7 +65,7 @@ function gate(days) {
   const qualUv = preorderUv.filter((r) => !isGeneric(r.channel)).reduce((n, r) => n + r.count, 0);
   const uvTotal = preorderUv.reduce((n, r) => n + r.count, 0);
   const pwTotal = paywall.reduce((n, r) => n + r.count, 0);
-  return { days, uvTotal, qualUv, pwTotal, ordersTotal, preorderOrders, ordersByProduct, emailReserves, ctaClicks, preorderViews };
+  return { days, uvTotal, qualUv, pwTotal, ordersTotal, revenueTotal, preorderOrders, ordersByProduct, proSubs, emailReserves, ctaClicks, preorderViews };
 }
 
 function verdict(g) {
@@ -79,7 +88,8 @@ const text = [
   `  Qualified /preorder UV : ${g.qualUv}   (target 500)   [raw UV ${g.uvTotal}]`,
   `  Paywall triggers        : ${g.pwTotal}   (target 1000)`,
   `  Auditor pre-orders      : ${g.preorderOrders}   (target 10 — gate criterion)`,
-  `  All orders (any product): ${g.ordersTotal}   (context)`,
+  `  Paid orders (kept money): ${g.ordersTotal}  — ¥${g.revenueTotal} total   (context; excludes ¥0 trials/tests/refunds)`,
+  `  Web Pro subs by status  : ${g.proSubs.length ? g.proSubs.map((r) => `${r.st}=${r.c}`).join(", ") : "none"}`,
   `  Email reservations      : ${g.emailReserves}   (secondary signal, not the gate count)`,
   `  /preorder views         : ${g.preorderViews}`,
   ``,
