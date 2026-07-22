@@ -461,13 +461,14 @@ router.post("/subscription-payment", (req, res) => {
   try {
     db.transaction(() => {
       const inserted = db.prepare(
-        `INSERT OR IGNORE INTO orders (order_id, email, product, amount, currency, pack_id, payment_intent, is_test)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+        `INSERT OR IGNORE INTO orders (order_id, email, product, amount, amount_minor, currency, pack_id, payment_intent, is_test)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
       ).run(
         orderKey,
         email || user?.email || "unknown",
         `Pro ${resolvedPlan}`,
         amount,
+        typeof amountMinor === "number" ? amountMinor : null,
         (currency || "JPY").toLowerCase(),
         `pro-${resolvedPlan}`,
         invoiceId || lsOrderId || null,

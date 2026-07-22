@@ -88,6 +88,10 @@ ensureColumn("orders", "receipt_url TEXT");
 ensureColumn("orders", "attributed_source TEXT");
 // Refunds/chargebacks flag the row instead of deleting it — history stays, revenue metrics exclude it
 ensureColumn("orders", "refunded INTEGER DEFAULT 0");
+// Exact processor amount in minor units (LS sends ×100 for every currency incl.
+// JPY). `amount` stays the rounded major-unit figure for display; this column
+// is the audit-grade truth so decimal currencies (USD $3.47 → amount 3) lose nothing.
+ensureColumn("orders", "amount_minor INTEGER");
 ensureColumn("orders", "attributed_utm_source TEXT");
 ensureColumn("orders", "attributed_utm_medium TEXT");
 ensureColumn("orders", "attributed_utm_campaign TEXT");
