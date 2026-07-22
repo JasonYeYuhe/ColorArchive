@@ -17,12 +17,12 @@
 >       + PostHog qualified actions (screen_test_completed, downstream_click, trial attribution)
 >       per dev-plan-2026-07-20 §4 Phase 3. Ask Claude to run the复盘 — the decision rule is
 >       qualified actions, NOT impressions.
-> - [x] **iOS v1.3 SHIPPED to review 2026-07-22** (owner waived TestFlight + delegated §6 decisions):
->       Hue Challenge game (web-parity verified) + typed AI errors + ASO refresh
->       (subtitle "Palettes, Contrast & Hex Codes", keywords rebuilt 94B). Submission
->       `9d63d863`, releaseType=AFTER_APPROVAL — **goes live automatically on approval**, nothing to click.
-> - [ ] **~2026-08-12: iOS 3-week data gate** — pull ASC analytics (ONGOING request `dda726fa`,
->       data pullable since ~07-24) + PostHog hue_game events. Thresholds (pre-registered):
+> - [x] **iOS v1.3 IS LIVE (approved 2026-07-22, READY_FOR_SALE)** — Hue Challenge game
+>       (web-parity verified) + typed AI errors + ASO refresh (subtitle "Palettes, Contrast
+>       & Hex Codes", keywords rebuilt 94B). Auto-released via AFTER_APPROVAL; submission
+>       `9d63d863` COMPLETE. Nothing left to click.
+> - [ ] **~2026-08-12: iOS 3-week data gate** (clock started 07-22) — pull ASC analytics
+>       (ONGOING request `dda726fa`) + PostHog hue_game events. Thresholds (pre-registered):
 >       daily downloads ≥10 / game completion ≥30% / share-intent ≥10% → invest / maintain / shrink.
 >       Ask Claude to run it.
 > - [ ] Optional: fresh App Store screenshots featuring the Hue Challenge (skipped in v1.3 for
