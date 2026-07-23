@@ -519,7 +519,7 @@ router.post("/subscription-revoke", (req, res) => {
       // one refunded invoice must not erase prior kept revenue from reports).
       if (lsId) {
         db.prepare(
-          "UPDATE orders SET refunded = 1 WHERE order_id IN (?, ?, ?) OR payment_intent = ?"
+          "UPDATE orders SET refunded = 1, refunded_at = datetime('now') WHERE order_id IN (?, ?, ?) OR payment_intent = ?"
         ).run(`lsinv_${lsId}`, `lsord_${lsId}`, String(lsId), String(lsId));
       }
 

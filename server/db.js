@@ -92,6 +92,9 @@ ensureColumn("orders", "refunded INTEGER DEFAULT 0");
 // JPY). `amount` stays the rounded major-unit figure for display; this column
 // is the audit-grade truth so decimal currencies (USD $3.47 → amount 3) lose nothing.
 ensureColumn("orders", "amount_minor INTEGER");
+// When the row was refunded/disputed — lets the daily conversion digest window
+// "money reversed" events, not just count them all-time.
+ensureColumn("orders", "refunded_at TEXT");
 ensureColumn("orders", "attributed_utm_source TEXT");
 ensureColumn("orders", "attributed_utm_medium TEXT");
 ensureColumn("orders", "attributed_utm_campaign TEXT");
