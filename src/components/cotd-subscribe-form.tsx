@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 
 import { API_URL } from "@/src/lib/api-config";
 import { attributionForSubscribe } from "@/src/lib/attribution";
+import { track } from "@/src/lib/track";
 
 type State = "idle" | "loading" | "success" | "error";
 
@@ -13,6 +14,7 @@ export function CotdSubscribeForm({
   heading = "Get a color every morning",
   onSuccess,
   cotd = true,
+  notes = false,
   successNote = "One color, delivered to your inbox each morning.",
   footnote = "One email per day. Unsubscribe anytime.",
 }: {
@@ -25,6 +27,9 @@ export function CotdSubscribeForm({
   /** opt into the daily Color-of-the-Day list. Pre-order reservations pass
    *  false — they're reserving a product, not signing up for a daily email. */
   cotd?: boolean;
+  /** opt into the weekly Design Notes list — the technical counterpart to COTD,
+   *  used on guides, where readers arrive mid-research rather than browsing. */
+  notes?: boolean;
   /** sub-text on the success card (defaults to the COTD message) */
   successNote?: string;
   /** fine print under the form (defaults to the COTD cadence note) */
@@ -53,9 +58,20 @@ export function CotdSubscribeForm({
       const res = await fetch(`${API_URL}/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source, cotd, ...attributionForSubscribe() }),
+        body: JSON.stringify({ email, source, cotd, notes, ...attributionForSubscribe() }),
       });
       if (!res.ok) throw new Error("Server error");
+      // isNewSubscriber separates a genuine capture from an existing subscriber
+      // re-submitting, so capture-rate metrics can't be inflated by re-submits.
+      // Older server builds omit it — treat a missing value as a new capture.
+      let isNew = true;
+      try {
+        const body = await res.json();
+        if (typeof body?.isNewSubscriber === "boolean") isNew = body.isNewSubscriber;
+      } catch {
+        /* non-JSON success — keep the optimistic default */
+      }
+      track("email_subscribed", { source, list: notes ? "notes" : cotd ? "cotd" : "none", isNew });
       setState("success");
       onSuccess?.();
     } catch {

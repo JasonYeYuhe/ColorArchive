@@ -122,6 +122,16 @@ ensureColumn("subscribers", "follow_up_30d_sent TEXT");
 ensureColumn("subscribers", "follow_up_30d_variant TEXT");
 ensureColumn("subscribers", "cotd_subscribed INTEGER DEFAULT 0");
 ensureColumn("subscribers", "cotd_last_sent TEXT");
+// Design Notes — the weekly, technical counterpart to the daily color. Guide
+// readers arrive mid-research (OKLCH, contrast, tokens); a color a day is the
+// wrong promise for them, so they get their own list.
+ensureColumn("subscribers", "notes_subscribed INTEGER DEFAULT 0");
+ensureColumn("subscribers", "notes_last_sent TEXT");
+// `source` is overwritten on every re-subscribe (the pre-order numerator relied
+// on that), which destroys first-touch attribution. `first_source` is written
+// once and never updated, so we can finally answer "which surface earned this
+// subscriber" — the whole point of adding capture to guides vs color-detail.
+ensureColumn("subscribers", "first_source TEXT");
 
 ensureColumn("users", "tier TEXT DEFAULT 'free'");
 ensureColumn("users", "pro_expires_at TEXT");

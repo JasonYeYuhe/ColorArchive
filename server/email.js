@@ -961,6 +961,66 @@ async function sendCotdEmail(to, color, dateStr) {
   return result;
 }
 
+/**
+ * Welcome mail for Design Notes — the weekly list guide readers opt into.
+ *
+ * They arrived mid-research (contrast, OKLCH, tokens), so this deliberately
+ * does NOT push the free pack or a daily color: it confirms exactly what was
+ * promised, and points at the tools that solve what they were reading about.
+ */
+async function sendDesignNotesWelcomeEmail(to) {
+  const unsubUrl = `${SITE_URL}/unsubscribe/?email=${encodeURIComponent(to)}`;
+  const result = await sendEmail({
+    to,
+    subject: "You're in — ColorArchive Design Notes",
+    text: [
+      "You're on the list for Design Notes.",
+      "",
+      "One email a week: a practical note on working with color — contrast and accessibility, color spaces like OKLCH, palette structure, design tokens. Written for people who build things, not colour theory for its own sake.",
+      "",
+      "While you wait, these are the tools behind most of the guides:",
+      `  Contrast checker (WCAG + APCA) — ${SITE_URL}/contrast/`,
+      `  Palette audit (paste CSS or tokens) — ${SITE_URL}/palette-audit/`,
+      `  Color converter (HEX, OKLCH, Lab) — ${SITE_URL}/convert/`,
+      "",
+      "Reply to this email any time — it reaches a person.",
+      "",
+      `Unsubscribe: ${unsubUrl}`,
+    ].join("\n"),
+    html: `
+      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;color:#1f2328;">
+        <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9ca3af;margin:0 0 14px;">ColorArchive Design Notes</p>
+        <p style="font-size:16px;line-height:1.6;margin:0 0 14px;"><strong>You're on the list.</strong></p>
+        <p style="color:#4b5563;font-size:14px;line-height:1.7;margin:0 0 18px;">
+          One email a week: a practical note on working with color &mdash; contrast and accessibility,
+          color spaces like OKLCH, palette structure, design tokens. Written for people who build
+          things, not colour theory for its own sake.
+        </p>
+        <p style="color:#4b5563;font-size:14px;line-height:1.7;margin:0 0 10px;">
+          While you wait, these are the tools behind most of the guides:
+        </p>
+        <div style="line-height:2;font-size:14px;margin:0 0 20px;">
+          <a href="${SITE_URL}/contrast/" style="color:#4f46e5;">Contrast checker (WCAG + APCA)</a><br>
+          <a href="${SITE_URL}/palette-audit/" style="color:#4f46e5;">Palette audit &mdash; paste CSS or tokens</a><br>
+          <a href="${SITE_URL}/convert/" style="color:#4f46e5;">Color converter (HEX, OKLCH, Lab)</a>
+        </div>
+        <p style="color:#4b5563;font-size:14px;line-height:1.7;margin:0 0 22px;">
+          Reply to this email any time &mdash; it reaches a person.
+        </p>
+        <hr style="border:none;border-top:1px solid #eee;margin:22px 0;">
+        <p style="color:#9ca3af;font-size:12px;line-height:1.6;margin:0;">
+          One email a week. <a href="${unsubUrl}" style="color:#9ca3af;">Unsubscribe</a> any time.
+        </p>
+      </div>`,
+  });
+
+  if (result?.error) {
+    console.error("Resend error (design notes welcome):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
 async function sendProUpsellEmail(email) {
   if (!resend) return;
   const result = await sendEmail({
@@ -1396,6 +1456,7 @@ module.exports = {
   sendWaitlistConfirmationEmail,
   sendNewsletterIssueAlert,
   sendCotdEmail,
+  sendDesignNotesWelcomeEmail,
   sendProUpsellEmail,
   sendReferralWelcomeEmail,
   sendWeeklyDigestEmail,

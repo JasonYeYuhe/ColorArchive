@@ -58,6 +58,7 @@ app.use("/generated", express.static(path.join(__dirname, "generated"), {
 app.use(express.json({ limit: "100kb" }));
 
 app.use("/subscribe", require("./routes/subscribe"));
+app.use("/unsubscribe", require("./routes/unsubscribe"));
 app.use("/auth", require("./routes/auth"));
 app.use("/me", require("./routes/me"));
 app.use("/admin", require("./routes/admin"));

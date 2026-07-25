@@ -9,7 +9,9 @@ import { PinterestSaveButton } from "@/src/components/pinterest-save-button";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { SendToTool } from "@/src/components/send-to-tool";
 import { StickyColorBar } from "@/src/components/sticky-color-bar";
+import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 import { useLocale } from "@/src/components/locale-provider";
+import { track } from "@/src/lib/track";
 import {
   addManyToPalette,
   addToPalette,
@@ -911,7 +913,26 @@ export function ColorDetailPage({
                 );
               })()}
 
-              {/* Contextual hook: viewing color-blind simulation → audit the whole palette */}
+              {/* Daily-color capture. This slot used to advertise the cancelled
+                  Auditor; a color a day is the honest fit for someone who came
+                  here to look at one specific color — and it's a promise we
+                  already keep (the COTD scheduler ships every morning). */}
+              <div className="rounded-[1.6rem] border border-black/6 bg-white/70 p-5 backdrop-blur dark:border-white/10 dark:bg-white/5">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                  Color of the Day
+                </div>
+                <p className="mt-2 text-base font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
+                  Like {color.name}? Get one like it every morning.
+                </p>
+                <p className="mt-1.5 mb-3 max-w-xl text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+                  One hand-picked color a day — with its hex, family, and the story behind it.
+                </p>
+                <CotdSubscribeForm
+                  colorHex={color.hex}
+                  source="color-detail"
+                  heading="Get a color every morning"
+                />
+              </div>
 
               <div className="rounded-[1.6rem] border border-black/6 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
@@ -926,6 +947,7 @@ export function ColorDetailPage({
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
                     href="/pro/"
+                    onClick={() => track("pro_cta_click", { surface: "color-detail", color: color.id })}
                     className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
                   >
                     {t("colorDetail.browsePacks")}

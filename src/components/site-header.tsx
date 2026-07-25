@@ -84,6 +84,7 @@ interface SiteHeaderProps {
     | "/dark-mode-colors"
     | "/duotone"
     | "/paint-mix"
+    | "/unsubscribe"
     | "/embed/embed-code";
 }
 

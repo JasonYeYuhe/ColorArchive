@@ -83,7 +83,15 @@ function isUnlocked(): boolean {
 // the 2-min survey (which itself funnels to interviews via its "open to a call?" Q).
 // Rendered only after mount (no SSR/first-paint output → no hydration mismatch, no flash
 // for people who already dismissed it). Flip RECRUIT_BANNER_ENABLED to remove instantly.
-const RECRUIT_BANNER_ENABLED = true;
+//
+// OFF since 2026-07-24. Measured over 30 days: 3,857 impressions on our single
+// best-trafficked surface, against ~0 survey responses and 1 email captured
+// site-wide. Cold search traffic will not do research homework for us — that is
+// what the (opt-in) email list is for, and asking there costs us no attention on
+// the page itself. The banner slot stays reclaimed rather than refilled: this
+// page already carries two subscribe forms (the paywall unlock and the one lower
+// down), so a third ask would be noise, not capture.
+const RECRUIT_BANNER_ENABLED = false;
 const RECRUIT_SURVEY_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSf5dTPy9ccPgXdKx2SOf7ICKu5AHucxkm3VoWzBfaZXEZOm2Q/viewform";
 const RECRUIT_DISMISS_KEY = "colorarchive-recruit-banner-dismissed";

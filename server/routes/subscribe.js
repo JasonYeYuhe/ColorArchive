@@ -5,6 +5,7 @@ const {
   sendFreePackEmail,
   sendWaitlistConfirmationEmail,
   sendPreorderReserveEmail,
+  sendDesignNotesWelcomeEmail,
 } = require("../email");
 const { getClientIp } = require("../client-ip");
 
@@ -35,6 +36,7 @@ router.post("/", subscribeRateLimit, async (req, res) => {
     email,
     source = "free-pack",
     cotd = false,
+    notes = false,
     landingPath,
     referrer,
     ref,
@@ -66,6 +68,7 @@ router.post("/", subscribeRateLimit, async (req, res) => {
         INSERT INTO subscribers (
           email,
           source,
+          first_source,
           landing_path,
           referrer,
           utm_source,
@@ -74,9 +77,15 @@ router.post("/", subscribeRateLimit, async (req, res) => {
           utm_term,
           utm_content
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(email) DO UPDATE SET
           source = excluded.source,
+          -- first_source is write-once: the surface that actually earned this
+          -- subscriber, immune to the source overwrite on the line above. The
+          -- middle term matters for rows that predate this column: their true
+          -- origin still lives in the OLD source, so fall back to that before
+          -- ever accepting the incoming one.
+          first_source = COALESCE(subscribers.first_source, subscribers.source, excluded.source),
           landing_path = COALESCE(excluded.landing_path, subscribers.landing_path),
           referrer = COALESCE(excluded.referrer, subscribers.referrer),
           utm_source = COALESCE(excluded.utm_source, subscribers.utm_source),
@@ -87,6 +96,7 @@ router.post("/", subscribeRateLimit, async (req, res) => {
       `,
     ).run(
       emailNorm,
+      cleanSource,
       cleanSource,
       sanitizeString(landingPath),
       sanitizeString(referrer),
@@ -103,6 +113,23 @@ router.post("/", subscribeRateLimit, async (req, res) => {
     if (cotd && cleanSource !== "preorder") {
       db.prepare(`UPDATE subscribers SET cotd_subscribed = 1 WHERE email = ?`)
         .run(emailNorm);
+    }
+
+    // Design Notes (weekly) — the guide-reader list. Same defense-in-depth as
+    // COTD: only opt in when the form actually asked for it.
+    // `changes` distinguishes a fresh opt-in from a repeat submit, so an EXISTING
+    // subscriber joining the notes list still gets the note that confirms what
+    // they just signed up for (they aren't a new subscriber, but this IS a new
+    // list for them).
+    let newlyJoinedNotes = false;
+    if (notes && cleanSource !== "preorder") {
+      const info = db
+        .prepare(
+          `UPDATE subscribers SET notes_subscribed = 1
+            WHERE email = ? AND COALESCE(notes_subscribed, 0) = 0`,
+        )
+        .run(emailNorm);
+      newlyJoinedNotes = info.changes > 0;
     }
 
     // Referral credit: if ref code provided, credit the referrer +5 AI credits (idempotent)
@@ -122,7 +149,12 @@ router.post("/", subscribeRateLimit, async (req, res) => {
       }
     }
 
-    if (isNewSubscriber) {
+    if (newlyJoinedNotes) {
+      // Confirms the list they actually joined. Gated on the JOIN, not on being
+      // a new subscriber, so a long-time daily-color reader who adds the weekly
+      // notes still hears back. Repeat submits stay silent (no email bombs).
+      await sendDesignNotesWelcomeEmail(email);
+    } else if (isNewSubscriber) {
       if (cleanSource === "waitlist") {
         await sendWaitlistConfirmationEmail(email);
       } else if (cleanSource === "preorder") {
@@ -133,7 +165,10 @@ router.post("/", subscribeRateLimit, async (req, res) => {
         await sendFreePackEmail(email);
       }
     }
-    res.json({ ok: true });
+    // isNewSubscriber lets the client distinguish "captured a new subscriber"
+    // from "an existing subscriber re-submitted", so capture-rate metrics
+    // aren't inflated by re-submits.
+    res.json({ ok: true, isNewSubscriber });
   } catch (err) {
     console.error("subscribe error:", err);
     res.status(500).json({ error: "Failed to process subscription" });
