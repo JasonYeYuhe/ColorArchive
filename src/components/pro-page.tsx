@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchSession, type AuthSession } from "@/src/lib/auth-client";
-import { proSubscriptionConfig, preorderConfig } from "@/src/lib/checkout-config";
+import { proSubscriptionConfig } from "@/src/lib/checkout-config";
 import { useLocale } from "@/src/components/locale-provider";
 import { CheckoutButton } from "@/src/components/checkout-button";
 
@@ -206,25 +206,6 @@ export function ProPage() {
             <span>&#10003; No credit card for the free tier</span>
           </div>
         </div>
-
-        {/* Pre-order promo — WTP experiment entry point */}
-        <Link
-          href="/preorder/"
-          className="block rounded-2xl border border-amber-200 bg-amber-50/60 p-6 transition hover:border-amber-300 dark:border-amber-900/50 dark:bg-amber-950/20"
-        >
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400">
-                Coming soon · pre-order
-              </span>
-              <p className="mt-1 text-base font-semibold text-slate-900 dark:text-white">Accessibility Auditor</p>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                Audit a whole palette for WCAG + color-blindness and export accessible fixes. Founder price JP{preorderConfig.price} (≈ {preorderConfig.priceUsd}).
-              </p>
-            </div>
-            <span className="shrink-0 text-sm font-semibold text-amber-700 dark:text-amber-400">Pre-order &rarr;</span>
-          </div>
-        </Link>
 
         {/* FAQ */}
         <section>

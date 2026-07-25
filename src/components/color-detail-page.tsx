@@ -31,7 +31,6 @@ import { RegionsUsingColorSection } from "@/src/components/regions-using-color-s
 import { useAuth } from "@/src/components/auth-provider";
 import { withSvgWatermark } from "@/src/lib/export-watermark";
 import { LogToJournalButton } from "@/src/components/log-to-journal-button";
-import { AuditorPreorderCta } from "@/src/components/auditor-preorder-cta";
 
 interface ColorDetailPageProps {
   tonalStrip: readonly ColorRecord[];
@@ -913,7 +912,6 @@ export function ColorDetailPage({
               })()}
 
               {/* Contextual hook: viewing color-blind simulation → audit the whole palette */}
-              <AuditorPreorderCta from="color-detail" />
 
               <div className="rounded-[1.6rem] border border-black/6 bg-neutral-950 p-5 text-white dark:border-white/10 dark:bg-white dark:text-neutral-950">
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">

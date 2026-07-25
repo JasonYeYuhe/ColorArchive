@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { findClosestArchiveColor } from "@/src/lib/color-utils";
-import { AuditorPreorderCta } from "@/src/components/auditor-preorder-cta";
 import { classifyError } from "@/src/lib/error-utils";
 import { colors as archiveColors } from "@/src/data/colors";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
@@ -226,9 +225,6 @@ export function UrlAnalyzerPage() {
                   foreground/background pairing, simulates colour-blindness, and suggests accessible fixes from the
                   5,446-colour archive.
                 </p>
-                <div className="mt-3">
-                  <AuditorPreorderCta from="analyze" />
-                </div>
               </div>
             )}
 

@@ -6,12 +6,19 @@ import { track } from "@/src/lib/track";
 
 /**
  * Contextual entry point into the Accessibility Auditor pre-order (the WTP test).
- * Placed on the highest-intent ICP pages (palette-audit, wcag-audit) — someone
- * hand-auditing one palette is exactly who'd pay to audit a whole system.
  *
- * `from` is recorded on the click so we can see which surface drives pre-orders.
+ * DEAD as of 2026-07-24 — the Auditor was off-ramped when the exit gate returned
+ * STOP, so this renders nothing. Every call site has been removed; the guard
+ * below is the belt-and-braces second line of defence in case one is ever
+ * re-added by accident (or by a stale branch). Do not "temporarily" flip
+ * `preorderConfig.closed` to revive this: we are not selling a product we have
+ * no intention of building.
+ *
+ * `from` is retained so the signature stays stable for anything mid-merge.
  */
 export function AuditorPreorderCta({ from }: { from: string }) {
+  if (preorderConfig.closed) return null;
+
   return (
     <Link
       href="/preorder/"

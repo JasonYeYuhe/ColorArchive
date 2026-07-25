@@ -85,8 +85,21 @@ export const checkoutFlowConfig: CheckoutFlowConfig = {
 // card-required "Pre-order" button = the real test. Until then it falls back to an
 // email capture ("reserve your founder price") = a weaker, but live, signal.
 //
-// Pre-order is honest: an upcoming feature with a ship-by date and a full refund if it
-// doesn't ship. Kill criterion lives in docs/human-todo.md.
+// Pre-order was an honest willingness-to-pay test for an upcoming feature.
+//
+// CLOSED 2026-07-24. The 07-15 exit gate returned STOP (0 of the 10 required
+// pre-orders after the traffic was connected), so the Auditor was off-ramped
+// per dev-plan-2026-06-19 §5 — but the sell surfaces stayed live for another
+// four days and 3 people still reached the ¥4,999 checkout. Nobody paying was
+// luck, not design: shipping nothing after taking money is the one outcome we
+// will not risk.
+//
+// `closed` is a hardcoded kill switch ON PURPOSE. `checkoutUrl` comes from a
+// NEXT_PUBLIC_ env var that is baked in at build time, and clearing it merely
+// falls back to the "reserve your founder price" email capture — i.e. still
+// promising a product we are not building. Everything that could take money or
+// collect intent must be gated on `closed` first, in code, so no deploy-time
+// env state can resurrect it.
 export const preorderConfig = {
   feature: "Accessibility Auditor",
   tagline: "Audit an entire palette or design system for accessibility in one pass.",
@@ -97,6 +110,8 @@ export const preorderConfig = {
   priceUsd: "$33",
   regularPriceUsd: "$67",
   shipBy: "Q3 2026",
+  closed: true,
+  closedOn: "2026-07-24",
   checkoutUrl: process.env.NEXT_PUBLIC_PREORDER_CHECKOUT_URL || null,
 } as const;
 
