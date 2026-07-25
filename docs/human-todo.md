@@ -3,6 +3,30 @@
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 > Last updated: 2026-07-21 (remote — tools expansion cycle COMPLETE: 4 batches, 11 new routes, 33+ tools; iOS v1.3 plan written + dual-reviewed)
 
+## 🎯 2026-07-25 (remote) — conversion P0 shipped + a dead unsubscribe fixed
+
+> Executed docs/dev-plan-2026-07-24-conversion.md P0 (commit f4170cd):
+> - **Email capture on the two biggest sections** — guides (8,398/mo) → a new weekly
+>   **Design Notes** list; color-detail (6,133/mo) → the existing daily color, in the slot
+>   the cancelled Auditor CTA vacated. Placed after the content, never popups.
+> - **Instrumented what was blind**: guide_tool_click on the 317 existing guide→tool links,
+>   pro_cta_click on every /pro/ CTA, email_subscribed{source,list,isNew}.
+> - **Survey banner off** (3,857 impressions/30d for ~0 returns on our best surface).
+> - **⚠️ Found and fixed: /unsubscribe did not exist.** Every marketing email we've ever
+>   sent — including the daily color going out right now — linked to a 404. Route + API +
+>   page now live; opt-out is POST-only so inbox scanners can't unsubscribe people.
+>
+> **Design Notes delivery is human-gated by design.** A weekly cloud routine drafts an
+> issue into `docs/design-notes/` (status: draft) and pushes it; nothing can be mailed until
+> a human flips it to `status: approved`. See docs/design-notes/README.md.
+>
+> **Your items:**
+> - [ ] **Each week (~1 min): read the drafted Design Notes issue** and either tell Claude
+>       "approve it" or edit it. First draft arrives Thu 2026-07-30. If you'd rather not do
+>       this weekly, say so — the alternative is dropping the guides hook back to the daily
+>       color, which needs no approval.
+> - [ ] Optional: routine settings at https://claude.ai/code/routines
+
 ## 🎯 2026-07-24 (remote) — Auditor pre-orders CLOSED (bleeding stopped)
 
 > The cancelled Accessibility Auditor was still being sold: its CTA was live in 8 placements
