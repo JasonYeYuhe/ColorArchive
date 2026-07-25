@@ -3,6 +3,24 @@
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 > Last updated: 2026-07-21 (remote — tools expansion cycle COMPLETE: 4 batches, 11 new routes, 33+ tools; iOS v1.3 plan written + dual-reviewed)
 
+## 🎯 2026-07-24 (remote) — Auditor pre-orders CLOSED (bleeding stopped)
+
+> The cancelled Accessibility Auditor was still being sold: its CTA was live in 8 placements
+> across 7 pages plus a /pro/ promo, and **3 people reached the ¥4,999 checkout in 30 days**.
+> All shut down (commit d9fed32):
+> - **Lemon Squeezy product 1146653 unpublished** — API-verified `status: draft`, public
+>   checkout URL now returns 404. (Done merchant-side FIRST: the checkout URL is a build-baked
+>   NEXT_PUBLIC_ env var, so code alone would have left a window where money could still land.)
+> - All 8 CTAs + the /pro/ promo removed; `preorderConfig.closed` is a hardcoded kill switch
+>   (clearing the env var alone would have fallen back to "reserve your founder price").
+> - `/preorder/` is now an honest closed page — explains the bar, that it wasn't met, that
+>   nobody was charged, and routes to the free tools that did ship.
+> - Verified live on all 7 pages: zero pre-order CTAs remain.
+>
+> **Nothing for you to do here.** Next up is the rest of docs/dev-plan-2026-07-24-conversion.md
+> (email capture on guides + color-detail, Pro CTA instrumentation) — it needs your 4 answers
+> in §6 first, except the ones I can decide alone.
+
 ## 🎯 2026-07-21 (remote) — tools cycle shipped, what's left is decisions + data
 
 > **Web tools expansion is code-complete** (commits d025419 → 09f224f → a2507c7 → 4d01923):
