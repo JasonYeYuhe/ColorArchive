@@ -12,6 +12,14 @@
  * heartbeat so silence never gets confused with "the cron broke".
  *
  * Run: node scripts/conversion-digest.cjs [--force] [--days=1]
+ *
+ * NOTE ON COMPARING TWO OF THESE EMAILS ACROSS 2026-07-26: bot filtering went live
+ * that day (server/bot-detect.js) and removed ~31% of writes to the events and
+ * pageviews tables — measured, not estimated: in the first clean window 12 of 39
+ * POSTs to /pageviews were dropped as automated, with every human request still
+ * written. This digest uses a 1-day window and makes no cross-period comparison, so
+ * it cannot itself raise a false alarm; the risk is a person putting two emails side
+ * by side and reading a correction as a collapse.
  */
 
 const path = require("path");
@@ -220,7 +228,7 @@ const text = [
   `Active web Pro subs: ${subsByStatus.length ? subsByStatus.map((r) => `${r.st}=${r.c}`).join(", ") : "none"}`,
   renewalsDue.length ? `Renewals due within 7d: ${renewalsDue.map((r) => `${r.email} (${r.due})`).join(", ")}` : `Renewals due within 7d: none`,
   ``,
-  `Full funnel: admin /analytics/gate · weekly exit-gate report also runs Mondays.`,
+  `Full funnel: admin /analytics/gate · the Monday report now carries the AI gate (the Auditor exit-gate it used to carry was retired with the product on 2026-07-24).`,
 ].join("\n");
 
 const subjectBits = [];

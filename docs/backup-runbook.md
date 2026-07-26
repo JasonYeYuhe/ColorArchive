@@ -74,7 +74,7 @@ pm2 start colorarchive-api
 pm2 logs colorarchive-api --lines 20 --nostream
 
 # 8. Smoke test from a client
-curl -sSf https://api.colorarchive.org/healthz
+curl -sSf https://api.colorarchive.org/health   # NOT /healthz — that route does not exist and 404s
 ```
 
 Rollback the restore if something went wrong:

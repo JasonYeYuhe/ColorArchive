@@ -278,6 +278,15 @@ ColorArchive/
 │   │   ├── track.ts                      # Fire-and-forget events → backend /events + PostHog; merges first-touch attribution
 │   │   ├── attribution.ts                # First-touch UTM/referrer/landing (localStorage) → derived `channel` bucket; eager capture
 │   │   ├── posthog.ts                    # PostHog product-analytics singleton (cookieless, no-op w/o key); phRegister super-props
+│   │   ├── session-id.ts                 # Ephemeral per-tab id (sessionStorage `ca_sid`) → the
+│   │   │                                 #   previously-always-NULL events.session_id column, so
+│   │   │                                 #   analytics ratios are per VISIT. Deliberately NOT a
+│   │   │                                 #   persistent identifier. Disclosed in /cookie-policy/.
+│   │   ├── use-impression.ts             # useImpression() — fires once per page view when an
+│   │   │                                 #   element is 50% visible for 1 continuous SECOND. The
+│   │   │                                 #   exposure denominator for the AI gate. Re-observes on
+│   │   │                                 #   pathname change (client-side nav reuses the node, so
+│   │   │                                 #   without that only the first page of a session counts).
 │   │   ├── brand-palette.ts             # Single-hex → 11-step design system + semantic colors
 │   │   ├── color-relationships.ts       # Color relationships (analogous, complementary, triadic, tonal)
 │   │   ├── color-contrast.ts            # WCAG contrast ratio + relative luminance
@@ -311,8 +320,23 @@ ColorArchive/
 │   ├── ai-rate-limit.js                  # AI rate limiting middleware (anon 3/day, free 10/day,
 │   │                                     #   pro unlimited, credit consumption)
 │   ├── api-rate-limit.js                 # API rate limiting middleware (60/1k/10k per hour)
-│   ├── client-ip.js                      # getClientIp(req) — req.ip (trust proxy), shared by all
-│   │                                     #   rate limiters + /ai/usage (anti X-Forwarded-For spoof)
+│   ├── client-ip.js                      # getClientIp / getRateLimitKey / isLoopbackIp. Shared by
+│   │                                     #   EVERY rate limiter + /ai/usage. IPv6 keyed by /64 so a
+│   │                                     #   suffix rotation can't mint buckets. Read the header
+│   │                                     #   comment before touching: from 2026-04 to 07-26 nginx
+│   │                                     #   omitted X-Forwarded-For and every per-IP limit here
+│   │                                     #   collapsed into ONE global bucket.
+│   ├── ai-budget.js                      # Global daily Gemini spend breaker ($0.50/day, cost
+│   │                                     #   RESERVED before the call so concurrency can't outrun
+│   │                                     #   it) + recordModelOutcome/modelHealth → /health aiModel
+│   ├── bot-detect.js                     # Bot filter for the analytics WRITE path only. Two
+│   │                                     #   independent filters: UA match (22.5% of pageview
+│   │                                     #   writes) + 300/day/caller cap (the UA-invisible half).
+│   │                                     #   ~31% of writes were never human. NEVER mount on a
+│   │                                     #   money or account route.
+│   ├── deploy/
+│   │   └── nginx-colorarchive.conf       # The live nginx site config, in git. It was NOT in git,
+│   │                                     #   which is how a four-month outage went unnoticed.
 │   ├── ssrf-guard.js                     # assertSafeUrl() — blocks private/loopback/link-local/
 │   │                                     #   metadata IPs (v4+v6) for /ai/analyze-url
 │   ├── ig-scheduler.js                   # Instagram auto-posting scheduler
@@ -339,8 +363,19 @@ ColorArchive/
 │       ├── og.js                         # GET /og — OG image generation
 │       └── instagram.js                  # Instagram API (OAuth, publish, media feed)
 │   └── scripts/                          # Operational scripts (run on droplet via cron / manually)
-│       ├── gate-report.cjs               # Weekly exit-gate report → owner email (cron Mon 09:00 UTC);
-│       │                                 #   mirrors /analytics/gate SQL — keep in sync
+│       ├── gate-report.cjs               # Weekly report → owner email (cron Mon 09:00 UTC).
+│       │                                 #   2026-07-26: repurposed from the cancelled Auditor
+│       │                                 #   exit-gate to the AI kill-gate; requires computeAiGate
+│       │                                 #   from ai-gate-report.cjs (ONE decision rule, not two)
+│       ├── ai-gate-report.cjs            # AI kill-gate (dev-plan-2026-07-26-ai §8). CLI + module.
+│       │                                 #   Wilson interval + a one-sided binomial DELETE band so
+│       │                                 #   LOW USAGE CAN FAIL THE GATE (n=150 → ≤1 click deletes).
+│       │                                 #   Earlier drafts made sample size a precondition, which
+│       │                                 #   made the gate unfalsifiable.
+│       ├── conversion-digest.cjs         # Daily money/funnel digest (cron 08:00 UTC); silent on
+│       │                                 #   dead days except a Monday heartbeat
+│       ├── send-design-notes.cjs         # Weekly Design Notes sender — approved-only, per-recipient
+│       │                                 #   delivery ledger so a crash resumes
 │       ├── verify-preorder.cjs           # Repeatable integration check for the pre-order loop
 │       │                                 #   (order-completed + gate + /subscribe; self-cleans)
 │       └── send-preorder-broadcast.cjs   # Manual pre-order announcement to subscribers

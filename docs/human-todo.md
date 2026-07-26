@@ -14,10 +14,15 @@ and both hashes match the two loopback addresses byte for byte.
 
 What it actually cost us — not the AI feature:
 
-- **1,025 analytics writes from real browsers were rejected with 429 in 14 days**
-  (516 `/pageviews` + 509 `/events`), on the exact funnel the last two commits built.
-  **Every conversion rate we computed in that window is understated by an unknown
-  amount.** Treat pre-07-26 funnel numbers as a floor, not a measurement.
+- ~~1,025 analytics writes from real browsers were rejected with 429~~ — **I OVERSTATED
+  THIS AND AM RETRACTING IT.** An audit re-ran the logs: 1,024 of those 1,025 came from a
+  SINGLE address on a SINGLE day (174.173.86.177, 20 Jul), and that address sent 5,561
+  analytics writes in total. It was a flood machine and the limiter was doing exactly its
+  job. The entire 14-day window contains **one** other 429. So our funnel numbers are **not**
+  meaningfully understated by lost writes, and you should not treat pre-07-26 rates as a
+  floor on that basis. What remains true and is separately proven: the buckets really were
+  collapsed for four months (two loopback hashes matched byte-for-byte), and `/auth/verify`
+  really was a site-wide login DoS.
 - `/auth/verify` was a **site-wide magic-link login DoS**: its key collapsed to a
   constant, so 5 verifications per 15 minutes was the ceiling for everyone, and one
   actor could have held all users out. No sign anyone did.
@@ -79,13 +84,19 @@ from self-identified crawlers** — AhrefsBot 3,438 and accelerating to ~750/day
 Baiduspider-render 3,404, bingbot 1,258. A separate single IP wrote 2,781 pageviews
 + 2,780 events behind an ordinary desktop Chrome user-agent. Both are now filtered.
 
-**So from 2026-07-26 the daily row counts in `events` and `pageviews` drop by roughly
-a third. That is the correction, not a collapse.** Do not compare a window after
-today against one before it without accounting for the boundary — the reports warn
-you when a window straddles it.
+**So from 2026-07-26 the daily row counts in `events` and `pageviews` drop.** Two numbers,
+because they measure different things and I ran them together at first:
+- **~31% of REQUESTS** are now dropped — measured in the first clean window, 12 of 39.
+- **~22% fewer ROWS**, which is the figure that matters for any denominator. Lower than the
+  request number because a large share of crawler requests were already being rejected as
+  malformed and never became rows anyway.
 
-Combined with the 429 loss fixed earlier the same day, our funnel numbers were
-simultaneously missing ~1,000 real writes and inflated by ~29% bot writes.
+That is a correction, not a collapse. Do not compare a window after today against one
+before it without accounting for the boundary — the reports warn you when a window
+straddles it.
+
+The honest summary is therefore narrower than what I first told you: our funnel numbers
+were **inflated by bot writes**, not also missing a thousand real ones.
 
 ### Privacy policy was wrong, and I fixed it — worth a read
 
@@ -106,6 +117,38 @@ device unless you are logged in" (untrue since PostHog shipped) and still listed
 
 Nothing for you to do unless you disagree with any wording: `/privacy/` and
 `/cookie-policy/`, both now dated July 26, 2026.
+
+### 🔒 Two things only you can decide (found by the 2026-07-27 audit)
+
+**1. The firewall is still off, and the OTHER app on that droplet is wide open.**
+I bound ColorArchive to loopback, but `ufw status` is still `inactive` — and
+`stride-server` is listening on `*:3002`, reachable from the public internet,
+bypassing nginx and TLS entirely. I did not enable ufw myself: it affects a
+different project of yours, and a misconfigured firewall rule is one of the few
+things that can lock *you* out of the box. Your call. The safe order is: allow 22,
+80, 443 first, verify SSH still works from a second terminal, then enable.
+
+**2. `server/.env` exists only on the droplet.** It is gitignored, absent from the
+Mac, and covered by no backup. `.env.example` documents 19 of the 29 live keys —
+missing ones include **both Lemon Squeezy payment secrets**. The database is backed
+up; the credentials that make it a business are not. If the droplet died today you
+would keep the data and lose the ability to take money. Same for
+`server/scripts/backup-sqlite.sh` and `sync-azure.sh`, which are production cron
+infrastructure that exist only on the droplet and are not in git — the script that
+protects the database is stored solely on the machine it protects.
+
+### ⚠️ Two scheduled things that will misbehave, but not urgently
+
+**Design Notes has no sender cron.** `docs/design-notes/README.md` says an approved
+issue gets copied to the droplet and mailed weekly. That cron does not exist, and
+neither does the directory the sender reads. The first draft is due **Thu 07-30** —
+so you would approve an issue and it would go nowhere. Nothing is broken until then.
+
+**`daily-traffic-check` has a stale baseline.** Its SKILL.md hardcodes "真实流量基线约
+160 PV/天" and flags ">500 PV" as a possible bot anomaly. Actual traffic is ~1,300
+PV/day, so that anomaly rule has been firing every single day for over a week, and
+after today's bot filter it will read the drop as a decline. Worth a 1-line update
+next time you touch it.
 
 **One thing that does need you — 2 minutes in the PostHog console, no code.**
 The project has `session_recording_opt_in=True`, `capture_console_log_opt_in=True`

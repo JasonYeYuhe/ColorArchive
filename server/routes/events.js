@@ -13,9 +13,10 @@ const { rejectBotAnalytics } = require("../bot-detect");
 // became a SITE-WIDE 60 writes/minute cap. It was measurably harmful, not
 // theoretical — nginx logs for 07-12..07-26 show 516 `POST /pageviews` and 509
 // `POST /events` rejections with 429, all from real browser user-agents. Our own
-// funnel measurement was dropping about a thousand real writes a fortnight,
-// which means every conversion rate computed in that window was understated by
-// an unknown amount. Route through getRateLimitKey() so the key is the real
+// funnel measurement looked lossy — but read client-ip.js before repeating that:
+// 1,024 of those 1,025 429s were ONE flooding address on ONE day, correctly
+// throttled. The real defect is that the cap was GLOBAL, so any noisy caller could
+// throttle everyone else. Route through getRateLimitKey() so the key is the real
 // client (and so an IPv6 /64 cannot mint unlimited buckets).
 const writeCounters = new Map();
 setInterval(() => writeCounters.clear(), 60_000);

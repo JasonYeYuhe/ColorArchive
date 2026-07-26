@@ -21,11 +21,17 @@
  * nginx set only `X-Real-IP` and never `X-Forwarded-For`, so `req.ip` fell back
  * to the socket address, which for a loopback reverse-proxy hop is always
  * 127.0.0.1 / ::1. Every per-IP limit in the API therefore collapsed into ONE
- * shared bucket for the entire internet. It was not theoretical: nginx logs for
- * 07-12..07-26 show 1,025 `POST /pageviews` + `POST /events` writes from real
- * browsers rejected with 429, i.e. our own funnel measurement was silently
- * lossy, and `/verify` (5 per 15 min, keyed on an email the request body never
- * carries) was a one-actor site-wide login denial-of-service. `isLoopbackIp()`
+ * shared bucket for the entire internet, and `/verify` (5 per 15 min, keyed on an
+ * email the request body never carries) was a one-actor site-wide login
+ * denial-of-service.
+ *
+ * ON THE DAMAGE FIGURE, because the first version of this comment overstated it:
+ * nginx logs for 07-12..07-26 contain 1,025 429s on those two routes, but 1,024 of
+ * them are one address (174.173.86.177) on one day, and that address sent 5,561
+ * analytics writes in total — a flood being correctly throttled, not real users
+ * losing data. Exactly ONE other 429 appears in the whole fortnight. The collapsed
+ * bucket was real and worth fixing; the claim that it silently cost us a thousand
+ * genuine measurements was not, and should not be repeated. `isLoopbackIp()`
  * exists so index.js can detect a regression at boot instead of us finding out
  * four months later.
  */

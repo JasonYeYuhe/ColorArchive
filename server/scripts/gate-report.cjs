@@ -56,7 +56,26 @@ function gate(days) {
   // signup is NOT an order (the 07-20 Pro trial printed here as "1 order" and
   // masked the truth); trials are reported separately below.
   const ordersTotal = db.prepare(`SELECT COUNT(*) c FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test,0)=0 AND COALESCE(refunded,0)=0 AND amount > 0`).get(since).c;
-  const revenueTotal = db.prepare(`SELECT COALESCE(SUM(amount),0) s FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test,0)=0 AND COALESCE(refunded,0)=0 AND amount > 0`).get(since).s;
+  // Revenue is summed PER CURRENCY and prefers amount_minor, because `amount` is a
+  // truncated integer and this report was printing our only real revenue as "¥3".
+  // The actual charge is $3.47 USD: the row is amount=3, amount_minor=347,
+  // currency=usd. Two bugs stacked — a 100x truncation and a hardcoded ¥ on a USD
+  // sale — on the one number in this email that is money. `amount_minor` was added
+  // for exactly this (2026-07-22, commit b506809) and conversion-digest.cjs already
+  // uses it; this script never got the same treatment.
+  const revenueRows = db.prepare(
+    `SELECT UPPER(COALESCE(currency,'?')) cur,
+            SUM(COALESCE(amount_minor, amount * 100)) minor
+       FROM orders
+      WHERE datetime(created_at) >= datetime('now', ?)
+        AND COALESCE(is_test,0)=0 AND COALESCE(refunded,0)=0 AND amount > 0
+      GROUP BY cur`
+  ).all(since);
+  // JPY has no minor unit, so LS still sends it x100 and it must be divided like
+  // any other currency here — the multiply above keeps pre-amount_minor rows sane.
+  const revenueTotal = revenueRows.length
+    ? revenueRows.map((r) => `${(r.minor / 100).toFixed(2)} ${r.cur}`).join(" + ")
+    : "0";
   // The gate's PROCEED criterion is Auditor PRE-orders specifically — an unrelated
   // pack/Pro sale must not satisfy "≥10 real pre-orders". ordersTotal is context.
   const preorderOrders = db.prepare(`SELECT COUNT(*) c FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test,0)=0 AND pack_id='preorder-auditor'`).get(since).c;
@@ -137,7 +156,7 @@ const text = [
   `  Qualified /preorder UV : ${g.qualUv}   (was target 500 — gate retired)`,
   `  Paywall triggers        : ${g.pwTotal}   (was target 1000 — gate retired)`,
   `  Auditor pre-orders      : ${g.preorderOrders}   (product cancelled; expect 0)`,
-  `  Paid orders (kept money): ${g.ordersTotal}  — ¥${g.revenueTotal} total   (context; excludes ¥0 trials/tests/refunds)`,
+  `  Paid orders (kept money): ${g.ordersTotal}  — ${g.revenueTotal} total   (context; excludes zero-value trials/tests/refunds)`,
   `  Web Pro subs by status  : ${g.proSubs.length ? g.proSubs.map((r) => `${r.st}=${r.c}`).join(", ") : "none"}`,
   `  Email reservations      : ${g.emailReserves}   (secondary signal, not the gate count)`,
   `  /preorder views         : ${g.preorderViews}`,
