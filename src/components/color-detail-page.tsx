@@ -273,7 +273,7 @@ function AiColorNaming({ color }: { color: ColorRecord }) {
       // only signal we have that the output was worth something — without it the
       // gate could only ever measure curiosity, not usefulness. Fired once per
       // copy, deduped per visit at query time via session_id.
-      track("ai_result_copied", { tool: "name_color", surface: "color_detail" });
+      track("ai_result_copied", { tool: "name_color", surface: "color_detail", kind: "name" });
     });
   };
 

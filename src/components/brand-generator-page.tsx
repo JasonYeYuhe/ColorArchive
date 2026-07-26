@@ -166,7 +166,7 @@ function PaletteResult({
                   }}
                   onClick={() => {
                     navigator.clipboard.writeText(c.hex);
-                    track("ai_result_copied", { tool: "brand_generator", surface: "brand_generator" });
+                    track("ai_result_copied", { tool: "brand_generator", surface: "brand_generator", kind: "hex" });
                   }}
                   title={`Copy ${c.hex}`}
                 >

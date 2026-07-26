@@ -6,30 +6,39 @@ import { usePathname } from "next/navigation";
 import { track } from "@/src/lib/track";
 
 /**
- * Fire an event once when an element actually becomes visible.
+ * Fire an event once per page view, when an element is actually seen.
  *
  * WHY AN OBSERVER AND NOT A PAGEVIEW
- * The AI kill-criteria need an EXPOSURE denominator. A pageview is not one: the
- * AI card on the colour-detail page (6,133 views/30d, our highest-traffic
- * template) sits well below the fold, so most of those views never showed it.
- * Dividing requests by pageviews would understate the real conversion rate and
- * make the feature look worse than it is — and a gate that fails for the wrong
- * reason is as useless as one that cannot fail.
+ * The AI kill-criteria need an EXPOSURE denominator. A pageview is not one: the AI
+ * card on the colour-detail page (our highest-traffic template) renders roughly
+ * 1,500px into a 13,000px document — 1.9 viewport heights down — so most views
+ * never showed it. Dividing requests by pageviews would understate the real
+ * conversion rate and fail the feature for the wrong reason.
  *
  * KNOWN LIMITATION, stated rather than hidden: this measures "scrolled far enough
- * to see it", which is exposure conditional on scroll depth. It is the right
+ * to see it", i.e. exposure conditional on scroll depth. It is the right
  * denominator for "of the people who saw this, how many used it" and the WRONG one
- * for "of everyone who landed here, how many used it". The report labels it
- * accordingly.
+ * for "of everyone who landed here, how many used it". The report says so too.
  *
- * IMPLEMENTATION NOTES — both learned the hard way in cotd-subscribe-form.tsx:
- *  - A CALLBACK ref, not a plain ref plus an effect. Components that swap their
- *    root element on state change (loading → result) leave an effect observing a
- *    detached node: the impression is lost and the node leaks.
- *  - The fired-guard resets on `usePathname()` change, because guide → guide and
- *    colour → colour are client-side navigations that REUSE the component
- *    instance. Without the reset, only the first page in a browsing session
- *    reports an impression, and the denominator silently collapses.
+ * TWO DEFECTS THIS FILE HAS ALREADY HAD, both worth knowing before editing it:
+ *
+ *  1. NO RE-OBSERVE ON CLIENT-SIDE NAV. The pathname effect reset `firedRef` but
+ *     nothing started observing again — React only re-invokes a callback ref when
+ *     the DOM node identity changes, and /colors/a → /colors/b reuses both the
+ *     component and the node. So only the FIRST colour page in a browsing session
+ *     ever reported an impression. That deflates the denominator, which inflates
+ *     exposure→request, which biases a kill-gate toward KEEP — the single worst
+ *     direction for a bug in this file to point. Fixed by holding the node in a ref
+ *     and re-arming the observer from the pathname effect.
+ *
+ *  2. NO DWELL. It fired the instant the threshold was crossed, so a fly-by at
+ *     scroll speed counted as exposure, and so did a snapshot renderer.
+ *
+ * Both fixes are also the bot defence. A dwell requirement is worth more than any
+ * user-agent list here — but do NOT over-claim it: crawlers that execute JS DO
+ * reach our analytics endpoints in volume (55 of 84 POSTs to /events in one
+ * measured four-hour window were AhrefsBot), so the dwell is a filter, not a
+ * guarantee. The report carries concentration guards for that reason.
  */
 export function useImpression(
   eventName: string,
@@ -38,83 +47,77 @@ export function useImpression(
 ) {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const dwellTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const nodeRef = useRef<HTMLElement | null>(null);
   const firedRef = useRef(false);
   const pathname = usePathname();
 
-  // Props arrive as a fresh object literal every render, so reading them through
-  // a ref keeps the callback ref stable — otherwise React detaches and reattaches
-  // the observer on every render, and each reattach re-observes from scratch.
+  // Props arrive as a fresh object literal every render, so read them through a ref
+  // to keep the observe callback stable — otherwise every render would tear down
+  // and rebuild the observer, restarting the dwell each time.
   const propsRef = useRef(props);
   propsRef.current = props;
 
+  const cleanup = useCallback(() => {
+    observerRef.current?.disconnect();
+    observerRef.current = null;
+    if (dwellTimerRef.current) {
+      clearTimeout(dwellTimerRef.current);
+      dwellTimerRef.current = null;
+    }
+  }, []);
+
+  const observe = useCallback(() => {
+    cleanup();
+    const node = nodeRef.current;
+    if (!node || firedRef.current) return;
+    // Absent in some embedded webviews. No observer means no impression, which
+    // under-counts the denominator — that can only make a ratio look worse than
+    // reality, never better, so it is the safe direction to fail in.
+    if (typeof IntersectionObserver === "undefined") return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (firedRef.current) return;
+
+        if (entries.some((e) => e.isIntersecting)) {
+          if (dwellTimerRef.current) return; // already counting down
+          dwellTimerRef.current = setTimeout(() => {
+            dwellTimerRef.current = null;
+            if (firedRef.current) return;
+            firedRef.current = true;
+            track(eventName, propsRef.current);
+            io.disconnect();
+          }, dwellMs);
+          return;
+        }
+
+        // Scrolled back out before the dwell elapsed — cancel, do not count.
+        if (dwellTimerRef.current) {
+          clearTimeout(dwellTimerRef.current);
+          dwellTimerRef.current = null;
+        }
+      },
+      { threshold },
+    );
+
+    io.observe(node);
+    observerRef.current = io;
+  }, [cleanup, eventName, threshold, dwellMs]);
+
+  // Same component instance, new page. Reset the guard AND re-arm the observer —
+  // resetting alone was defect (1) above.
   useEffect(() => {
     firedRef.current = false;
-  }, [pathname]);
+    observe();
+  }, [pathname, observe]);
 
-  useEffect(
-    () => () => {
-      observerRef.current?.disconnect();
-      if (dwellTimerRef.current) clearTimeout(dwellTimerRef.current);
-    },
-    [],
-  );
+  useEffect(() => cleanup, [cleanup]);
 
   return useCallback(
     (node: HTMLElement | null) => {
-      observerRef.current?.disconnect();
-      observerRef.current = null;
-      // A pending dwell belongs to the node we just stopped observing.
-      if (dwellTimerRef.current) {
-        clearTimeout(dwellTimerRef.current);
-        dwellTimerRef.current = null;
-      }
-
-      if (!node || firedRef.current) return;
-      // Ancient browsers and some embedded webviews lack it. No observer means no
-      // impression, which under-counts the denominator — the safe direction, since
-      // it can only make a ratio look worse than reality, never better.
-      if (typeof IntersectionObserver === "undefined") return;
-
-      const io = new IntersectionObserver(
-        (entries) => {
-          if (firedRef.current) return;
-          const visible = entries.some((e) => e.isIntersecting);
-
-          // DWELL, not a touch. Half the element visible for one continuous second
-          // — the standard viewability definition — instead of "the observer fired
-          // once". Two reasons, and the second is the reason it is not optional:
-          //
-          //  1. Honesty. Flicking past a card at scroll speed is not exposure. A
-          //     denominator inflated by fly-bys makes the conversion rate look
-          //     worse than it is, which fails the gate for the wrong reason.
-          //  2. It is a free bot filter, and a better one than any user-agent list.
-          //     Automated renderers do not linger: measured over a fortnight, a
-          //     6,753-IP crawler farm rendered 6,555 pages and fired exactly ONE
-          //     interaction event. A dwell requirement is what makes that true.
-          if (visible) {
-            if (dwellTimerRef.current) return; // already counting down
-            dwellTimerRef.current = setTimeout(() => {
-              dwellTimerRef.current = null;
-              if (firedRef.current) return;
-              firedRef.current = true;
-              track(eventName, propsRef.current);
-              io.disconnect();
-            }, dwellMs);
-            return;
-          }
-
-          // Scrolled back out before the second elapsed — cancel, do not count.
-          if (dwellTimerRef.current) {
-            clearTimeout(dwellTimerRef.current);
-            dwellTimerRef.current = null;
-          }
-        },
-        { threshold },
-      );
-
-      io.observe(node);
-      observerRef.current = io;
+      nodeRef.current = node;
+      observe();
     },
-    [eventName, threshold, dwellMs],
+    [observe],
   );
 }

@@ -176,7 +176,7 @@ export function MoodPalettePage() {
     // "Did they keep it" — the second half of the AI gate. Copying is the only
     // evidence the generated colour was worth anything; without it the gate can
     // only measure curiosity. Deduped per visit at query time via session_id.
-    track("ai_result_copied", { tool: "mood_palette", surface: "mood_palette" });
+    track("ai_result_copied", { tool: "mood_palette", surface: "mood_palette", kind: "hex" });
   };
 
   const saveColor = (color: MoodColor, idx: number) => {
@@ -184,6 +184,12 @@ export function MoodPalettePage() {
     if (!match) return;
     if (!getFavoriteColorIds().includes(match.id)) toggleFavoriteColor(match.id);
     setSavedIdx((prev) => new Set(prev).add(idx));
+    // The strongest keep-signal we have on the one AI surface with real historical
+    // usage — roughly 19 of the 30 all-time generations came from here — and it was
+    // invisible. This path calls toggleFavoriteColor() directly instead of going
+    // through favorite-button.tsx, so it never fired that component's event either.
+    // `kind` distinguishes it from the hex copy above; both mean "kept it".
+    track("ai_result_copied", { tool: "mood_palette", surface: "mood_palette", kind: "save" });
   };
 
   const xText = result

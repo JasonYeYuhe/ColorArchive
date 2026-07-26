@@ -266,43 +266,20 @@ function main() {
   // The verdict rests on colour-detail alone, on purpose. It is the only surface
   // where the sample can reach a size that supports a conclusion; averaging it
   // with three surfaces that see single-digit visits would let noise outvote data.
-  const decider = results.color_detail;
+  // ONE verdict, ONE code path. This block used to re-implement the ladder inline
+  // and still referenced DECIDE_RATE_INVEST / DECIDE_RATE_DELETE — constants that
+  // were renamed to TARGET_RATE during the binomial rewrite and no longer exist.
+  // It never threw because the zero-impression branch above short-circuits, so the
+  // crash was scheduled for the exact moment the gate first became decidable. A
+  // second copy of a decision rule is how the report and the email drift apart.
+  const gate = computeAiGate(DAYS);
   console.log("VERDICT");
-  if (!decider || decider.impressions.visits === 0) {
-    console.log("  UNDECIDED — no AI module exposure recorded on colour-detail yet.");
-    console.log("  If this persists more than a few days after deploy, the instrumentation");
-    console.log("  is broken, not the feature. Check that ai_module_impression reaches");
-    console.log("  the events table at all.");
-  } else if (!decider.decidable) {
-    const need = MIN_IMPRESSIONS_TO_DECIDE - decider.impressions.visits;
-    console.log(`  UNDECIDED — ${decider.impressions.visits}/${MIN_IMPRESSIONS_TO_DECIDE} impressions on colour-detail.`);
-    console.log(`  Need ${need} more. Do not act on the raw percentages above.`);
-  } else {
-    const ci = wilson(decider.requests.visits, decider.impressions.visits);
-    // Judge on the interval, not the point estimate: acting on a point estimate
-    // whose lower bound sits under the delete line is how you keep a dead feature.
-    if (ci.low >= DECIDE_RATE_INVEST) {
-      console.log(`  KEEP AND INVEST — exposure→request ${pct(ci.point)}, and even the lower`);
-      console.log(`  bound (${pct(ci.low)}) clears the ${pct(DECIDE_RATE_INVEST)} bar. People want this.`);
-    } else if (ci.high < DECIDE_RATE_DELETE) {
-      console.log(`  DELETE THE AI ENDPOINTS — exposure→request ${pct(ci.point)}, and even the`);
-      console.log(`  upper bound (${pct(ci.high)}) is below ${pct(DECIDE_RATE_DELETE)}.`);
-      console.log("  Fold the deterministic parts into guides / colour-detail and remove");
-      console.log("  five endpoints, three routes, ~1,200 lines and a shared API key.");
-    } else if (ci.point >= DECIDE_RATE_DELETE) {
-      console.log(`  KEEP, DO NOT INVEST — exposure→request ${pct(ci.point)} (CI ${pct(ci.low)}–${pct(ci.high)}).`);
-      console.log("  Real but modest use. Leave it working; spend effort elsewhere.");
-    } else {
-      console.log(`  LEANING DELETE — exposure→request ${pct(ci.point)} (CI ${pct(ci.low)}–${pct(ci.high)}).`);
-      console.log(`  Below ${pct(DECIDE_RATE_DELETE)} but the interval still straddles it. One more window decides.`);
-    }
+  console.log(`  ${gate.tag}`);
+  for (const line of gate.msg.match(/.{1,72}(\s|$)/g) || [gate.msg]) {
+    console.log(`  ${line.trim()}`);
   }
+  const results2 = gate.surfaces;
 
-  // Pre-instrumentation history, reported explicitly. Two of the four call sites
-  // used to fire `ai_generated` without a `surface` prop (brand-generator and
-  // mood-palette; normalised 2026-07-26), so those rows match no surface filter
-  // above and show as 0. Without this line the report would look like the feature
-  // had never once succeeded, when in fact it succeeded 30 times since April.
   const legacy = db
     .prepare(
       `SELECT COUNT(*) c FROM events
@@ -318,7 +295,7 @@ function main() {
     console.log("  all-time trend was Apr 1, May 10, Jun 13, Jul 6 — just not attributable.");
   }
 
-  const unattributed = Object.values(results).reduce(
+  const unattributed = Object.values(results2).reduce(
     (n, r) => n + (r ? r.impressions.unattributed : 0),
     0
   );
