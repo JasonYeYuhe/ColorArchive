@@ -7,7 +7,7 @@ const {
   sendPreorderReserveEmail,
   sendDesignNotesWelcomeEmail,
 } = require("../email");
-const { getClientIp } = require("../client-ip");
+const { getRateLimitKey } = require("../client-ip");
 
 function sanitizeString(value, limit = 240) {
   return typeof value === "string" && value.trim() ? value.trim().slice(0, limit) : null;
@@ -17,10 +17,14 @@ function sanitizeString(value, limit = 240) {
 // is an open email-bomb relay (each first-time signup sends a welcome mail) and a
 // script can flood the subscribers table with junk that pollutes the validation
 // funnel (the exit gate reads subscribers.source). Mirrors events.js's limiter.
+// Until 2026-07-26 this was a SITE-WIDE 10/minute cap, not a per-caller one:
+// nginx never set X-Forwarded-For, so every request resolved to loopback (see
+// client-ip.js). On the exact funnel the last two commits were built to
+// instrument, ten signup attempts a minute was the ceiling for everyone at once.
 const subAttempts = new Map();
 setInterval(() => subAttempts.clear(), 60_000);
 function subscribeRateLimit(req, res, next) {
-  const ip = getClientIp(req);
+  const ip = getRateLimitKey(req);
   const count = (subAttempts.get(ip) || 0) + 1;
   subAttempts.set(ip, count);
   if (count > 10) {

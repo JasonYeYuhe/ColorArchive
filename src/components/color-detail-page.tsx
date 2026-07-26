@@ -11,6 +11,7 @@ import { SendToTool } from "@/src/components/send-to-tool";
 import { StickyColorBar } from "@/src/components/sticky-color-bar";
 import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 import { useLocale } from "@/src/components/locale-provider";
+import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { track } from "@/src/lib/track";
 import {
   addManyToPalette,
@@ -220,20 +221,40 @@ function AiColorNaming({ color }: { color: ColorRecord }) {
   const [names, setNames] = useState<AiName[]>([]);
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
   const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const upgrade = useUpgradeModal();
   useEffect(() => () => { clearTimeout(copiedTimerRef.current); }, []);
 
   const handleGenerate = async () => {
     setState("loading");
+    track("ai_generate_click", { tool: "name_color", surface: "color_detail" });
     try {
       const res = await fetch(`${AI_URL}/ai/name-color`, {
         method: "POST",
+        // This was the ONLY AI call on the site without credentials — the other
+        // four all send them. Without the session cookie the server sees every
+        // caller as anonymous, so a Pro subscriber got the 3/day anonymous quota
+        // on the page with the most traffic on the site (6,133 views/30d), and
+        // the 429 landed on the generic error branch below: a dead end with no
+        // way forward. Both halves are fixed here.
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ hex: color.hex, name: color.name, hsl: color.hsl, family: color.family }),
       });
+
+      if (res.status === 429) {
+        const limitData = await res.json().catch(() => ({}));
+        if (limitData.limit) {
+          upgrade.handleRateLimitError(limitData);
+          setState("idle");
+          return;
+        }
+      }
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed");
       setNames(data.names ?? []);
       setState("done");
+      track("ai_generated", { tool: "name_color", surface: "color_detail" });
     } catch {
       setState("error");
     }
@@ -307,6 +328,14 @@ function AiColorNaming({ color }: { color: ColorRecord }) {
           </button>
         </div>
       )}
+
+      <UpgradeModal
+        open={upgrade.open}
+        onClose={upgrade.close}
+        tier={upgrade.info.tier}
+        used={upgrade.info.used}
+        limit={upgrade.info.limit}
+      />
     </div>
   );
 }

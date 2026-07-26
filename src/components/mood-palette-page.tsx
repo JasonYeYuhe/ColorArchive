@@ -15,6 +15,34 @@ import { colors as archiveColors } from "@/src/data/colors";
 
 import { API_URL } from "@/src/lib/api-config";
 
+/**
+ * UTF-8-safe base64 for the shareable prompt in the URL.
+ *
+ * `btoa()` only accepts Latin-1: it throws InvalidCharacterError on any code
+ * point above U+00FF. The share URL was built with a bare `btoa(promptStr)`,
+ * and the FIRST entry in PRESETS below is "深夜咖啡馆" — so tapping the default
+ * suggestion threw. The generation itself had already succeeded and the palette
+ * rendered, then this threw inside the same try block, so the user was shown a
+ * palette AND an error message, with no share link. Every Chinese or accented
+ * prompt hit it.
+ *
+ * Encode through TextEncoder so each byte is Latin-1-safe before base64, and
+ * decode symmetrically. Pure-ASCII prompts produce byte-identical output to the
+ * old code, so links shared before this fix still resolve.
+ */
+function encodeBase64Utf8(input: string): string {
+  const bytes = new TextEncoder().encode(input);
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary);
+}
+
+function decodeBase64Utf8(input: string): string {
+  const binary = atob(input);
+  const bytes = Uint8Array.from(binary, (ch) => ch.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
 const PRESETS = [
   "深夜咖啡馆",
   "Dark Academia",
@@ -69,7 +97,7 @@ export function MoodPalettePage() {
     const pname = params.get("pname");
     if (p && c) {
       try {
-        const decodedPrompt = atob(p);
+        const decodedPrompt = decodeBase64Utf8(p);
         const hexes = c.split(",");
         const names = n ? n.split("|") : hexes.map(() => "");
         const colors: MoodColor[] = hexes.map((hex, i) => ({
@@ -90,7 +118,7 @@ export function MoodPalettePage() {
   }, []);
 
   const buildShareUrl = useCallback((res: MoodResult, promptStr: string) => {
-    const encoded = btoa(promptStr);
+    const encoded = encodeBase64Utf8(promptStr);
     const hexes = res.colors.map((c) => c.hex).join(",");
     const names = res.colors.map((c) => encodeURIComponent(c.name)).join("|");
     return `/mood-palette/?p=${encoded}&c=${hexes}&n=${names}&pname=${encodeURIComponent(res.palette_name)}&tag=${encodeURIComponent(res.mood_tag)}`;

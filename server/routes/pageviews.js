@@ -1,16 +1,21 @@
 const express = require("express");
 const db = require("../db");
 const { requireAnalyticsAccess } = require("../auth");
+const { getRateLimitKey } = require("../client-ip");
 const router = express.Router();
 
-// Simple in-memory rate limiter: max 60 writes per IP per minute
+// Simple in-memory rate limiter: max 60 writes per IP per minute.
+// Keyed via getRateLimitKey() — reading `req.ip` directly made this a site-wide
+// cap for four months, because nginx never set X-Forwarded-For and every request
+// therefore resolved to loopback. 516 real-browser pageview beacons were 429'd
+// in the 07-12..07-26 log window alone. See client-ip.js for the full history.
 const writeCounters = new Map();
 setInterval(() => writeCounters.clear(), 60_000);
 function rateLimitWrite(req, res, next) {
-  const ip = req.ip || "unknown";
-  const count = writeCounters.get(ip) || 0;
+  const key = getRateLimitKey(req) || "unknown";
+  const count = writeCounters.get(key) || 0;
   if (count >= 60) return res.status(429).json({ error: "Rate limit exceeded" });
-  writeCounters.set(ip, count + 1);
+  writeCounters.set(key, count + 1);
   next();
 }
 

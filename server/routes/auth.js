@@ -17,41 +17,68 @@ const {
   setSessionCookie,
 } = require("../auth");
 const { sendMagicLinkEmail } = require("../email");
-const { getClientIp } = require("../client-ip");
+const { getRateLimitKey } = require("../client-ip");
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.org";
 
 // --- Simple in-memory rate limiter for auth endpoints ---
+//
+// THIS WAS A LIVE SITE-WIDE LOGIN DENIAL-OF-SERVICE until 2026-07-26, and the
+// bug was not in the logic below — it was in the IP. The intent documented in
+// the original comment ("for /verify: by IP only, no email in body") was
+// correct. But nginx never set X-Forwarded-For, so with `trust proxy = 1` every
+// caller resolved to the loopback address (see client-ip.js). The key for
+// /verify therefore collapsed to the single constant `127.0.0.1:` — five magic
+// link verifications per fifteen minutes FOR THE ENTIRE SITE, and any one actor
+// could hold every user out of their account indefinitely. Nothing in the logs
+// suggests anyone did; that is luck, not mitigation.
+//
+// Do NOT "fix" this by folding the token into the key. Keying on the token would
+// give every brute-force guess its own fresh bucket, which is precisely the
+// throttle this exists to provide.
 const authAttempts = new Map();
 const AUTH_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
-const AUTH_MAX_ATTEMPTS = 5; // 5 attempts per window
 
-function authRateLimit(req, res, next) {
-  // req.ip honors `trust proxy`; the raw left-most X-Forwarded-For entry is
-  // client-spoofable and would let an attacker bypass this throttle.
-  const ip = getClientIp(req);
-  // For /request-link: rate-limits by IP+email; for /verify: by IP only (no email in body)
-  const email = (req.body?.email || "").toLowerCase();
-  const key = `${ip}:${email}`;
-  const now = Date.now();
+// Separate ceilings, because the two routes defend against different things.
+// /request-link sends an email per call, so it stays tight and is additionally
+// keyed by address. /verify only checks a high-entropy token — the entropy does
+// the real anti-guessing work — so it gets headroom, since a carrier-NAT or
+// office IP legitimately carries many different people's login clicks.
+const AUTH_MAX_REQUEST_LINK = 5;
+const AUTH_MAX_VERIFY = 20;
 
-  const entry = authAttempts.get(key);
-  if (entry) {
-    // Purge expired entries
-    if (now - entry.firstAttempt > AUTH_WINDOW_MS) {
+function makeAuthRateLimit({ max, keyByEmail }) {
+  return function authRateLimit(req, res, next) {
+    // getRateLimitKey() derives from req.ip (which honors `trust proxy`), never
+    // the raw left-most X-Forwarded-For entry — that value is client-spoofable
+    // and would let an attacker bypass this throttle. It also collapses IPv6 to
+    // its /64, so rotating suffixes inside one allocation cannot mint buckets.
+    const ip = getRateLimitKey(req);
+    const email = keyByEmail ? (req.body?.email || "").toLowerCase() : "";
+    const key = `${max}:${ip}:${email}`;
+    const now = Date.now();
+
+    const entry = authAttempts.get(key);
+    if (entry) {
+      // Purge expired entries
+      if (now - entry.firstAttempt > AUTH_WINDOW_MS) {
+        authAttempts.set(key, { count: 1, firstAttempt: now });
+        return next();
+      }
+      if (entry.count >= max) {
+        const retryAfter = Math.ceil((entry.firstAttempt + AUTH_WINDOW_MS - now) / 1000);
+        return res.status(429).json({ error: "Too many attempts. Please try again later.", retryAfter });
+      }
+      entry.count++;
+    } else {
       authAttempts.set(key, { count: 1, firstAttempt: now });
-      return next();
     }
-    if (entry.count >= AUTH_MAX_ATTEMPTS) {
-      const retryAfter = Math.ceil((entry.firstAttempt + AUTH_WINDOW_MS - now) / 1000);
-      return res.status(429).json({ error: "Too many attempts. Please try again later.", retryAfter });
-    }
-    entry.count++;
-  } else {
-    authAttempts.set(key, { count: 1, firstAttempt: now });
-  }
 
-  return next();
+    return next();
+  };
 }
+
+const requestLinkRateLimit = makeAuthRateLimit({ max: AUTH_MAX_REQUEST_LINK, keyByEmail: true });
+const verifyRateLimit = makeAuthRateLimit({ max: AUTH_MAX_VERIFY, keyByEmail: false });
 
 // Cleanup stale entries every 30 minutes
 setInterval(() => {
@@ -90,7 +117,7 @@ function getLoginOrigin(req) {
   return FRONTEND_ORIGIN;
 }
 
-router.post("/request-link", authRateLimit, async (req, res) => {
+router.post("/request-link", requestLinkRateLimit, async (req, res) => {
   const { email, next } = req.body;
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -113,7 +140,7 @@ router.post("/request-link", authRateLimit, async (req, res) => {
   }
 });
 
-router.post("/verify", authRateLimit, (req, res) => {
+router.post("/verify", verifyRateLimit, (req, res) => {
   const { token } = req.body;
 
   if (!token || typeof token !== "string") {

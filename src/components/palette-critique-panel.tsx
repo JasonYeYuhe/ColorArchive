@@ -6,9 +6,14 @@ import { API_URL, type CritiqueResult } from "@/src/lib/auth-client";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 
+// `onReplace` used to live here, gating an "Apply" button on each suggestion.
+// All three call sites (brand-generator, mood-palette, url-analyzer) omitted it,
+// so the button never rendered once — the feature was never usable by anyone.
+// Removed rather than wired up: applying a suggestion means mutating a palette
+// that each caller owns differently, and there is no evidence anyone wants it on
+// a surface with 29 views a month. Reinstate it with a real caller, or not at all.
 interface PaletteCritiquePanelProps {
   palette: string[];
-  onReplace?: (index: number, newHex: string) => void;
 }
 
 const SCORE_COLORS: Record<string, string> = {
@@ -19,7 +24,7 @@ const SCORE_COLORS: Record<string, string> = {
   F: "bg-red-500",
 };
 
-export function PaletteCritiquePanel({ palette, onReplace }: PaletteCritiquePanelProps) {
+export function PaletteCritiquePanel({ palette }: PaletteCritiquePanelProps) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CritiqueResult | null>(null);
   const [error, setError] = useState("");
@@ -174,14 +179,6 @@ export function PaletteCritiquePanel({ palette, onReplace }: PaletteCritiquePane
                       </p>
                       <p className="text-[11px] text-slate-500 dark:text-slate-400">{s.reason}</p>
                     </div>
-                    {onReplace && (
-                      <button
-                        onClick={() => onReplace(s.index, s.replacement_hex)}
-                        className="shrink-0 text-[10px] px-2 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 font-medium"
-                      >
-                        Apply
-                      </button>
-                    )}
                   </div>
                 ))}
               </div>

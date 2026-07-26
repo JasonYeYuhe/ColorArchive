@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { findClosestArchiveColor } from "@/src/lib/color-utils";
 import { classifyError } from "@/src/lib/error-utils";
+import { track } from "@/src/lib/track";
 import { colors as archiveColors } from "@/src/data/colors";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { PaletteCritiquePanel } from "@/src/components/palette-critique-panel";
@@ -96,7 +97,8 @@ export function UrlAnalyzerPage() {
   const palette = colors.map((c) => c.hex);
 
   // Quick accessibility snapshot — how many pairings among the extracted brand
-  // colours fall below WCAG AA. Drives the "scan your site → fix with the Auditor" funnel.
+  // colours fall below WCAG AA. Routes into the shipped audit/colourblind/contrast
+  // tools — it used to funnel to the Auditor product, which was cancelled 2026-07-24.
   const lowContrastPairs = useMemo(() => {
     let n = 0;
     for (let i = 0; i < colors.length; i++) {
@@ -220,11 +222,33 @@ export function UrlAnalyzerPage() {
                   {lowContrastPairs} colour {lowContrastPairs === 1 ? "pair" : "pairs"} in this palette{" "}
                   {lowContrastPairs === 1 ? "falls" : "fall"} below WCAG AA (4.5:1).
                 </p>
+                {/* This block used to advertise the "Accessibility Auditor", a
+                    product that was cancelled on 2026-07-24 (see
+                    src/lib/checkout-config.ts) — so it was promising something
+                    nobody could buy. Everything it described is shipped and free,
+                    so point at that instead. */}
                 <p className="mt-1 text-xs leading-5 text-amber-800/80 dark:text-amber-300/80">
-                  That&rsquo;s a quick pairwise check of the extracted colours. The Accessibility Auditor checks every
-                  foreground/background pairing, simulates colour-blindness, and suggests accessible fixes from the
-                  5,446-colour archive.
+                  That&rsquo;s a quick pairwise check of the extracted colours. To go deeper: the palette
+                  audit checks every foreground/background pairing, the colourblind simulator shows how
+                  these colours read to the 8% of men with a CVD, and the contrast checker suggests
+                  accessible replacements from the 5,446-colour archive.
                 </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {[
+                    { href: "/palette-audit/", label: "Audit this palette" },
+                    { href: "/colorblind/", label: "Colourblind check" },
+                    { href: "/contrast/", label: "Contrast checker" },
+                  ].map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => track("analyze_fix_cta_click", { target: link.href })}
+                      className="rounded-full border border-amber-300/60 bg-white/70 px-3 py-1.5 text-xs font-semibold text-amber-900 transition hover:bg-white dark:border-amber-800/50 dark:bg-white/5 dark:text-amber-200 dark:hover:bg-white/10"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
 

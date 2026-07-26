@@ -2,15 +2,27 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 const { getSessionUser, isAnalyticsAdmin } = require("../auth");
+const { getRateLimitKey } = require("../client-ip");
 
-// Simple in-memory rate limiter: max 60 writes per IP per minute
+// Simple in-memory rate limiter: max 60 writes per IP per minute.
+//
+// This read `req.ip` directly until 2026-07-26, which sounds equivalent to
+// keying on the client but was not: nginx never set X-Forwarded-For, so with
+// `trust proxy = 1` every request resolved to the loopback address and this
+// became a SITE-WIDE 60 writes/minute cap. It was measurably harmful, not
+// theoretical — nginx logs for 07-12..07-26 show 516 `POST /pageviews` and 509
+// `POST /events` rejections with 429, all from real browser user-agents. Our own
+// funnel measurement was dropping about a thousand real writes a fortnight,
+// which means every conversion rate computed in that window was understated by
+// an unknown amount. Route through getRateLimitKey() so the key is the real
+// client (and so an IPv6 /64 cannot mint unlimited buckets).
 const writeCounters = new Map();
 setInterval(() => writeCounters.clear(), 60_000);
 function rateLimitWrite(req, res, next) {
-  const ip = req.ip || "unknown";
-  const count = writeCounters.get(ip) || 0;
+  const key = getRateLimitKey(req) || "unknown";
+  const count = writeCounters.get(key) || 0;
   if (count >= 60) return res.status(429).json({ error: "Rate limit exceeded" });
-  writeCounters.set(ip, count + 1);
+  writeCounters.set(key, count + 1);
   next();
 }
 
