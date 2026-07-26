@@ -5,6 +5,8 @@ import Link from "next/link";
 import { API_URL, type CritiqueResult } from "@/src/lib/auth-client";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { AiUsageBadge } from "@/src/components/ai-usage-badge";
+import { track } from "@/src/lib/track";
+import { useImpression } from "@/src/lib/use-impression";
 
 // `onReplace` used to live here, gating an "Apply" button on each suggestion.
 // All three call sites (brand-generator, mood-palette, url-analyzer) omitted it,
@@ -29,12 +31,20 @@ export function PaletteCritiquePanel({ palette }: PaletteCritiquePanelProps) {
   const [result, setResult] = useState<CritiqueResult | null>(null);
   const [error, setError] = useState("");
   const upgrade = useUpgradeModal();
+  // This panel is the real AI feature embedded on mood-palette, brand-generator and
+  // url-analyzer (whose own /ai/analyze-url makes no model call). Instrumenting it
+  // here rather than per host page means one definition for three surfaces.
+  const impressionRef = useImpression("ai_module_impression", {
+    tool: "critique",
+    surface: "critique_panel",
+  });
 
   const handleCritique = async () => {
     if (palette.length < 2) {
       setError("Need at least 2 colors for a critique.");
       return;
     }
+    track("ai_generate_click", { tool: "critique", surface: "critique_panel" });
     setLoading(true);
     setError("");
     setResult(null);
@@ -58,6 +68,7 @@ export function PaletteCritiquePanel({ palette }: PaletteCritiquePanelProps) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to generate critique");
       setResult(data);
+      track("ai_generated", { tool: "critique", surface: "critique_panel" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
@@ -66,7 +77,7 @@ export function PaletteCritiquePanel({ palette }: PaletteCritiquePanelProps) {
   };
 
   return (
-    <div className="space-y-4">
+    <div ref={impressionRef} className="space-y-4">
       {!result && (
         <div className="flex justify-end">
           <AiUsageBadge />

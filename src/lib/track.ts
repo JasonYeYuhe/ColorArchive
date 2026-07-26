@@ -1,6 +1,7 @@
 import { API_URL } from "@/src/lib/api-config";
 import { phCapture } from "@/src/lib/posthog";
 import { attributionEventProps } from "@/src/lib/attribution";
+import { getSessionId } from "@/src/lib/session-id";
 
 /**
  * Fire-and-forget event tracking. Never throws, never blocks UI.
@@ -26,7 +27,11 @@ export function track(event: string, props?: Record<string, string | number | bo
   const path = window.location.pathname;
 
   try {
-    const body = JSON.stringify({ event, props: enriched, path });
+    // sessionId rides along so ratios can be computed per VISIT rather than per
+    // event — without it, one enthusiastic scroller looks like fifty visitors.
+    // Ephemeral and per-tab; see src/lib/session-id.ts for why it is deliberately
+    // not a persistent identifier.
+    const body = JSON.stringify({ event, props: enriched, path, sessionId: getSessionId() });
 
     if (navigator.sendBeacon) {
       navigator.sendBeacon(`${API_URL}/events`, new Blob([body], { type: "application/json" }));

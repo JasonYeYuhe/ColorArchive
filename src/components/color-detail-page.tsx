@@ -13,6 +13,7 @@ import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 import { useLocale } from "@/src/components/locale-provider";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
 import { track } from "@/src/lib/track";
+import { useImpression } from "@/src/lib/use-impression";
 import {
   addManyToPalette,
   addToPalette,
@@ -222,6 +223,10 @@ function AiColorNaming({ color }: { color: ColorRecord }) {
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
   const copiedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const upgrade = useUpgradeModal();
+  const impressionRef = useImpression("ai_module_impression", {
+    tool: "name_color",
+    surface: "color_detail",
+  });
   useEffect(() => () => { clearTimeout(copiedTimerRef.current); }, []);
 
   const handleGenerate = async () => {
@@ -264,11 +269,18 @@ function AiColorNaming({ color }: { color: ColorRecord }) {
     navigator.clipboard.writeText(text).then(() => {
       setCopiedIdx(idx);
       copiedTimerRef.current = setTimeout(() => setCopiedIdx(null), 1500);
+      // The "did they keep it" half of the gate. Copying a generated name is the
+      // only signal we have that the output was worth something — without it the
+      // gate could only ever measure curiosity, not usefulness. Fired once per
+      // copy, deduped per visit at query time via session_id.
+      track("ai_result_copied", { tool: "name_color", surface: "color_detail" });
     });
   };
 
   return (
-    <div className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
+    // Exposure denominator. This card renders far below the fold, so a pageview
+    // is not evidence anyone saw it — see src/lib/use-impression.ts.
+    <div ref={impressionRef} className="rounded-[1.6rem] border border-black/6 bg-white/72 p-5">
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
           AI Color Names

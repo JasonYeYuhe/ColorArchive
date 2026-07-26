@@ -1,6 +1,12 @@
 import { SITE_URL } from "@/src/lib/site-config";
 
-const LAST_UPDATED = "April 7, 2026";
+// 2026-07-26: PostHog, Sentry and the Google Gemini API were all live but named
+// nowhere in this document, and section 11 affirmatively stated the iOS app used
+// no third-party analytics SDK while ios/ColorArchive/AnalyticsBootstrap.swift
+// imports PostHog. The Gemini omission was the most consequential: users type
+// brand briefs and mood descriptions into the AI tools and that text goes to
+// Google, which a reader of this page had no way to know.
+const LAST_UPDATED = "July 26, 2026";
 
 const sections = [
   {
@@ -11,7 +17,10 @@ const sections = [
 - **Favorites and preferences**: Colors you save or mark as favorites, synced to your account if logged in, or stored locally in your browser if not.
 - **Purchase information**: When you buy a product, we receive your name, email, and transaction details from our payment processor (Lemon Squeezy for web purchases; Apple for iOS in-app purchases). We do not store payment card numbers.
 - **Cookies**: We use a session cookie to keep you logged in. We do not use third-party tracking cookies. For details, see our [Cookie Policy](/cookie-policy/).
-- **Mobile app data**: If you use the ColorArchive iOS app, we may collect device identifiers and purchase data through Apple StoreKit for in-app purchases. We do not collect location data, contacts, or health data.`,
+- **Product analytics**: We use PostHog to understand which features are used and whether people return. Its anonymous identifier is stored in your browser's localStorage, not a cookie. Session recording is disabled, autocaptured text is scrubbed of anything resembling an email address before it leaves your browser, and anonymous visitors are recorded as events without a person profile. Signed-in users are keyed by an opaque numeric account id, never by email.
+- **AI feature input**: When you use an AI tool (for example the brand palette generator, mood palette, colour naming, or palette critique), the text you type — such as an industry, a style description, or a mood — is sent to Google's Gemini API to generate the response. Do not enter confidential or personal information into these tools. We do not send your account details, email, or browsing history with these requests.
+- **Error reports**: We use Sentry to collect crash and error diagnostics, which may include the page you were on and a stack trace.
+- **Mobile app data**: If you use the ColorArchive iOS app, we may collect device identifiers and purchase data through Apple StoreKit for in-app purchases, plus the same product-analytics and crash-diagnostic data described above. We do not collect location data, contacts, or health data.`,
   },
   {
     title: "2. How We Use Your Information",
@@ -32,6 +41,9 @@ We do not sell your personal information to third parties.`,
 - **Lemon Squeezy** — Web payment processing (Merchant of Record). Handles credit card processing, VAT, and invoicing. We do not store payment card details. Subject to [Lemon Squeezy's Privacy Policy](https://www.lemonsqueezy.com/privacy).
 - **Google OAuth** — Optional sign-in. We receive your email and display name. Subject to [Google's Privacy Policy](https://policies.google.com/privacy).
 - **Vercel** — Hosting and analytics. Subject to [Vercel's Privacy Policy](https://vercel.com/legal/privacy-policy).
+- **PostHog** — Product analytics (which features are used, whether people return). Cookieless, no session recording, no advertising. Subject to [PostHog's Privacy Policy](https://posthog.com/privacy).
+- **Sentry** — Crash and error diagnostics for the website and the iOS app. Subject to [Sentry's Privacy Policy](https://sentry.io/privacy/).
+- **Google Gemini API** — Powers the AI colour tools. Receives only the text you type into those tools, never your account details. Subject to [Google's Privacy Policy](https://policies.google.com/privacy).
 - **DigitalOcean** — Backend server hosting. Subject to [DigitalOcean's Privacy Policy](https://www.digitalocean.com/legal/privacy-policy).
 - **Resend** — Transactional email delivery. Subject to [Resend's Privacy Policy](https://resend.com/legal/privacy-policy).
 - **Apple App Store** — iOS app distribution and in-app purchases. Subject to [Apple's Privacy Policy](https://www.apple.com/legal/privacy/).
@@ -119,8 +131,10 @@ To exercise your rights, contact us at **privacy@colorarchive.org**.`,
 
 - **StoreKit purchase data**: Transaction identifiers and subscription status for in-app purchases, processed through Apple's StoreKit framework.
 - **Device identifiers**: Anonymous identifiers used by Apple for app analytics (only if you have opted in to share analytics with developers in your iOS settings).
+- **Product analytics (PostHog)**: Which screens and tools you open, and whether you return. No session recording, no advertising identifiers, no PII.
+- **Crash diagnostics (Sentry)**: Stack traces and the screen you were on when something failed.
 
-The iOS app does not collect location data, health data, contacts, photos, or any data from other apps. We do not use any third-party advertising or analytics SDKs in the iOS app. All data practices in the iOS app are consistent with our [App Store privacy nutrition labels](https://apps.apple.com).`,
+The iOS app does not collect location data, health data, contacts, photos, or any data from other apps, and we do not use any advertising SDKs or advertising identifiers. All data practices in the iOS app are consistent with our [App Store privacy nutrition labels](https://apps.apple.com) (Crash Data and Product Interaction, neither linked to your identity).`,
   },
   {
     title: "12. Children's Privacy",

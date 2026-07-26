@@ -2,6 +2,7 @@ const express = require("express");
 const db = require("../db");
 const { requireAnalyticsAccess } = require("../auth");
 const { getRateLimitKey } = require("../client-ip");
+const { rejectBotAnalytics } = require("../bot-detect");
 const router = express.Router();
 
 // Simple in-memory rate limiter: max 60 writes per IP per minute.
@@ -20,7 +21,12 @@ function rateLimitWrite(req, res, next) {
 }
 
 // POST /pageviews — record a page view (fire-and-forget beacon)
-router.post("/", rateLimitWrite, (req, res) => {
+// The bot filter runs BEFORE the rate limiter so a dropped write never spends a
+// human's budget. ~28.6% of the writes arriving here were self-identified crawlers
+// (AhrefsBot, Baiduspider-render, bingbot — see bot-detect.js for the counts), so
+// every visitor-count denominator computed from this table before 2026-07-26 is
+// inflated. Expect a step change in daily rows from that date; it is a correction.
+router.post("/", rejectBotAnalytics(204), rateLimitWrite, (req, res) => {
   const body = req.body || {};
   const { path, referrer, screen } = body;
   if (!path || typeof path !== "string") {

@@ -128,6 +128,11 @@ export function UrlAnalyzerPage() {
 
       <div className="max-w-3xl mx-auto px-4 space-y-8">
         {/* URL Input */}
+        {/* Deliberately NOT instrumented as an AI surface. /ai/analyze-url makes
+            ZERO model calls — it is a regex scraper mounted under /ai — so counting
+            it in the AI gate would inflate the denominator with a non-AI tool. The
+            genuine AI feature on this page is the critique panel below, which is
+            instrumented in palette-critique-panel.tsx. */}
         <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6">
           <div className="flex gap-3">
             <input

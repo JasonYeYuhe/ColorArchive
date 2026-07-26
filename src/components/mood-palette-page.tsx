@@ -9,6 +9,7 @@ import { AiUsageBadge } from "@/src/components/ai-usage-badge";
 import { DownloadPaletteImage } from "@/src/components/download-palette-image";
 import { classifyError } from "@/src/lib/error-utils";
 import { track } from "@/src/lib/track";
+import { useImpression } from "@/src/lib/use-impression";
 import { toggleFavoriteColor, getFavoriteColorIds } from "@/src/lib/favorites";
 import { findClosestArchiveColor } from "@/src/lib/color-utils";
 import { colors as archiveColors } from "@/src/data/colors";
@@ -86,6 +87,10 @@ export function MoodPalettePage() {
   const [savedIdx, setSavedIdx] = useState<Set<number>>(new Set());
   const [shareUrl, setShareUrl] = useState("/mood-palette/");
   const upgrade = useUpgradeModal();
+  const impressionRef = useImpression("ai_module_impression", {
+    tool: "mood_palette",
+    surface: "mood_palette",
+  });
 
   // Load from shared URL on mount
   useEffect(() => {
@@ -126,6 +131,9 @@ export function MoodPalettePage() {
 
   const handleGenerate = async () => {
     if (!prompt.trim()) return;
+    // The REQUEST half of the gate ratio. ai_generated only fires on success, so
+    // without this a run of upstream failures would read as "nobody wanted it".
+    track("ai_generate_click", { tool: "mood_palette", surface: "mood_palette" });
     setIsLoading(true);
     setError("");
     setResult(null);
@@ -150,7 +158,7 @@ export function MoodPalettePage() {
       }
       const data: MoodResult = await res.json();
       setResult(data);
-      track("ai_generated", { tool: "mood_palette", mood: data.mood_tag });
+      track("ai_generated", { tool: "mood_palette", surface: "mood_palette", mood: data.mood_tag });
       const url = buildShareUrl(data, prompt.trim());
       setShareUrl(url);
       window.history.replaceState(null, "", url);
@@ -165,6 +173,10 @@ export function MoodPalettePage() {
     navigator.clipboard.writeText(hex);
     setCopiedIdx(idx);
     copiedTimerRef.current = setTimeout(() => setCopiedIdx(null), 1400);
+    // "Did they keep it" — the second half of the AI gate. Copying is the only
+    // evidence the generated colour was worth anything; without it the gate can
+    // only measure curiosity. Deduped per visit at query time via session_id.
+    track("ai_result_copied", { tool: "mood_palette", surface: "mood_palette" });
   };
 
   const saveColor = (color: MoodColor, idx: number) => {
@@ -196,7 +208,7 @@ export function MoodPalettePage() {
 
       {/* Input */}
       <section className="max-w-2xl mx-auto px-4 pb-6">
-        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-5">
+        <div ref={impressionRef} className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-5">
           <textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}

@@ -1,0 +1,183 @@
+/**
+ * User-agent based bot detection for the analytics write path.
+ *
+ * WHY — measured, not assumed. The comfortable belief is that client-side JS
+ * beacons are naturally human-only, because a crawler does not run scripts. That
+ * is false for this site. Counting POSTs to /events and /pageviews across the
+ * available nginx logs (2026-07-12..07-26):
+ *
+ *   total analytics writes           26,420
+ *   from a self-identified crawler    7,567   (28.6%)
+ *     AhrefsBot                       3,438
+ *     Baiduspider-render              3,404   <- renders JS, fires our beacons
+ *     bingbot                         1,258
+ *     HeadlessChrome                     84
+ *     Bytespider                         11
+ *     YandexBot                           2
+ *
+ * So roughly three in every ten rows of our first-party analytics were never a
+ * person. That inflates every denominator we have ever computed, and it lands
+ * hardest on exactly the kind of event this project is about to add: an
+ * IMPRESSION. The `events` table is currently 84% `recruit_banner_impression`
+ * (3,950 of 4,690 rows), which went from 50 in June to 3,900 in July — an
+ * observer-fired event on a high-traffic page is precisely what a JS-rendering
+ * crawler manufactures at scale. An `ai_module_impression` denominator without
+ * this filter would be worthless, and worse, it would look impressive.
+ *
+ * DROP, don't flag. The alternative was an `is_bot` column, which preserves the
+ * rows for auditing. Dropping wins on two grounds: it removes 28.6% of writes
+ * from a better-sqlite3 handle that also carries the subscription lifecycle on a
+ * 1 vCPU droplet, and it means no future query can forget the filter and quietly
+ * report bot numbers as human ones. nginx logs remain the audit trail for bot
+ * behaviour.
+ *
+ * EXPECT A STEP CHANGE. From 2026-07-26 the events and pageviews tables count
+ * roughly 28.6% fewer rows per day than before. That is a correction, not a
+ * traffic collapse — do not compare a post-07-26 window against an earlier one
+ * without accounting for it. The conversion digest says so out loud.
+ *
+ * This is deliberately UA-only: no fingerprinting, no behavioural scoring, no
+ * challenge. It catches crawlers that honestly identify themselves, which is what
+ * the measured contamination consists of. A crawler that lies about its UA gets
+ * counted as human, and that is an acceptable residual — the goal is an honest
+ * denominator, not adversarial bot defence.
+ */
+
+const { getRateLimitKey } = require("./client-ip");
+
+// Kept in sync with the copy in routes/ai.js (that one guards a read path and
+// answers bots from a constant instead of querying).
+const BOT_UA_RE =
+  /bot|spider|crawl|slurp|bingpreview|ahrefs|semrush|mj12|dotbot|petalbot|bytespider|headlesschrome|phantomjs|puppeteer|playwright|python-requests|python-urllib|go-http-client|java\/|okhttp|axios\/|node-fetch|libwww|lwp-|scrapy|curl\/|wget/i;
+
+/**
+ * True when the request looks automated.
+ *
+ * A missing or empty User-Agent counts as a bot: every real browser sends one,
+ * and a beacon with no UA is either a script or a privacy tool aggressive enough
+ * that we cannot claim it as a measured human either way.
+ */
+function isBotRequest(req) {
+  const ua = req.get ? req.get("user-agent") : req.headers?.["user-agent"];
+  if (!ua || typeof ua !== "string" || ua.trim().length === 0) return true;
+  return BOT_UA_RE.test(ua);
+}
+
+// Rolling visibility without storing a row per bot hit. Logged on a long
+// interval rather than per request, so the volume stays observable in PM2 logs
+// without adding noise or database writes.
+let droppedSinceLastReport = 0;
+let reporter = null;
+
+function noteDropped(kind) {
+  droppedSinceLastReport += 1;
+  if (reporter) return;
+  reporter = setInterval(() => {
+    if (droppedSinceLastReport > 0) {
+      console.log(`[bot-filter] dropped ${droppedSinceLastReport} automated analytics writes in the last hour`);
+      droppedSinceLastReport = 0;
+    }
+  }, 3_600_000);
+  // Never hold the event loop open for a counter.
+  if (reporter.unref) reporter.unref();
+  void kind;
+}
+
+/**
+ * Express middleware for analytics write routes ONLY.
+ *
+ * Answers a bot with the route's normal success status so nothing changes from
+ * the caller's perspective — a crawler retrying a "failed" beacon would cost more
+ * than the write we just avoided. Never mount this on anything a user's money or
+ * account depends on.
+ */
+function rejectBotAnalytics(successStatus = 204) {
+  return function botFilter(req, res, next) {
+    // Two independent filters: a self-identified crawler (22.5% of pageview
+    // writes) and an unidentified flood (51.3%). Neither catches the other's half.
+    if (isBotRequest(req) || overDailyCap(getRateLimitKey(req))) {
+      noteDropped(req.path);
+      return successStatus === 204 ? res.status(204).end() : res.json({ ok: true });
+    }
+    return next();
+  };
+}
+
+/**
+ * Per-caller daily write cap for the analytics tables.
+ *
+ * WHY A SECOND FILTER — the user-agent one above is necessary and insufficient.
+ * Measured over 2026-07-12..07-26 against nginx logs and the live DB:
+ *
+ *   POST /pageviews accepted writes           18,206
+ *     self-identified crawlers (UA-visible)    4,095  (22.5%)  <- caught above
+ *     UA-INVISIBLE automated volume           ~9,336  (51.3%)  <- caught here
+ *
+ * The invisible half is the larger half. One address, 174.173.86.177, wrote
+ * 2,781 pageviews and 2,780 events — 5,561 rows from a single caller presenting a
+ * perfectly ordinary desktop Chrome user-agent. A regex cannot see that; a volume
+ * cap can. This is why the site's headline traffic figure has been overstated by
+ * roughly 2.5x: about 59.5% of the 30-day pageviews table is not human.
+ *
+ * WHAT IT CANNOT DO, stated plainly: it does not stop a distributed rotation.
+ * The same window contains a farm of 6,753 distinct IPs, and each one starts at
+ * zero. That farm is, however, almost entirely a PAGEVIEW phenomenon — it rendered
+ * 6,555 pages and fired exactly ONE interaction event — which is the finding that
+ * matters for the AI gate: an event that requires the element to enter the viewport
+ * is intrinsically ~98% bot-resistant, so `/events` crawler share measures at just
+ * 1.5%. The gate's denominator was never the thing in danger. The site's traffic
+ * number was.
+ *
+ * CHOSEN CAP: 300 writes/day/caller. Our entire site serves roughly 1,000 human
+ * pageviews a day, so any single address exceeding 300 is claiming a third of all
+ * traffic — not plausible for an office or a carrier NAT at this scale, while
+ * leaving an enormous margin over a real person's session.
+ */
+const DAILY_WRITE_CAP = Number(process.env.ANALYTICS_DAILY_WRITE_CAP) || 300;
+
+// Bounded so an IP-rotation flood cannot turn this defence into a memory leak.
+// On overflow we stop tracking NEW callers and let them through: failing open for
+// an unknown caller is strictly better than failing closed on a real visitor.
+const MAX_TRACKED_CALLERS = 50_000;
+
+let writeCounts = new Map();
+let windowDay = new Date().toISOString().slice(0, 10);
+let overflowLogged = false;
+
+function overDailyCap(key) {
+  const today = new Date().toISOString().slice(0, 10);
+  if (today !== windowDay) {
+    windowDay = today;
+    writeCounts = new Map();
+    overflowLogged = false;
+  }
+
+  const seen = writeCounts.get(key);
+  if (seen === undefined) {
+    if (writeCounts.size >= MAX_TRACKED_CALLERS) {
+      if (!overflowLogged) {
+        overflowLogged = true;
+        console.error(
+          `[bot-filter] tracking ${writeCounts.size} distinct callers today — cap table full, new callers pass unchecked`
+        );
+      }
+      return false;
+    }
+    writeCounts.set(key, 1);
+    return false;
+  }
+
+  if (seen >= DAILY_WRITE_CAP) {
+    // Log the transition only, not every subsequent request.
+    if (seen === DAILY_WRITE_CAP) {
+      console.error(`[bot-filter] caller hit the ${DAILY_WRITE_CAP}/day analytics write cap`);
+      writeCounts.set(key, seen + 1);
+    }
+    return true;
+  }
+
+  writeCounts.set(key, seen + 1);
+  return false;
+}
+
+module.exports = { isBotRequest, rejectBotAnalytics, overDailyCap, DAILY_WRITE_CAP, BOT_UA_RE };

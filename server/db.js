@@ -214,6 +214,11 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_pageviews_created_at ON pageviews(created_at);
   CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at);
   CREATE INDEX IF NOT EXISTS idx_events_event_name ON events(event_name);
+  -- The AI gate query is COUNT(DISTINCT session_id) GROUP BY event_name over a
+  -- date window (see server/scripts/ai-gate-report.cjs). Composite so that whole
+  -- query is served from the index instead of scanning the table on a 1 vCPU box.
+  CREATE INDEX IF NOT EXISTS idx_events_name_created_session
+    ON events(event_name, created_at, session_id);
   CREATE INDEX IF NOT EXISTS idx_events_channel ON events(channel);
   CREATE INDEX IF NOT EXISTS idx_pageviews_channel ON pageviews(channel);
   CREATE INDEX IF NOT EXISTS idx_pageviews_path ON pageviews(path);

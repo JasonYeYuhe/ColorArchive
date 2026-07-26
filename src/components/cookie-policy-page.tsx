@@ -2,7 +2,11 @@
 
 import { SITE_URL } from "@/src/lib/site-config";
 
-const LAST_UPDATED = "April 7, 2026";
+// 2026-07-26: section 3 claimed localStorage data "never leaves your device unless
+// you are logged in", which stopped being true when PostHog shipped — its anonymous
+// id lives there and rides on every analytics event. Also removed Stripe, which
+// this still listed months after it was replaced by Lemon Squeezy.
+const LAST_UPDATED = "July 26, 2026";
 
 const sections = [
   {
@@ -27,8 +31,9 @@ Because we only use strictly necessary cookies, consent is not required under th
 - **Recent colors**: A list of recently viewed colors for quick access.
 - **UI preferences**: Theme preference and other display settings.
 - **Pinterest token**: If you connect your Pinterest account, the OAuth access token is stored in localStorage for the duration of your session.
+- **Analytics identifier**: PostHog stores a random anonymous id here instead of setting a cookie. It is sent with product-analytics events so we can tell whether people come back, and it contains nothing about you — clearing localStorage resets it.
 
-This data never leaves your device unless you are logged in, in which case favorites are synced to your account on our server.`,
+Favorites, recent colors and UI preferences stay on your device unless you are logged in, in which case favorites are synced to your account on our server. The analytics identifier above is the exception: it is transmitted with analytics events by design.`,
   },
   {
     title: "4. Third-Party Services",
@@ -36,7 +41,8 @@ This data never leaves your device unless you are logged in, in which case favor
 
 - **Google OAuth**: If you sign in with Google, Google may set cookies as part of the authentication flow. See [Google's Privacy Policy](https://policies.google.com/privacy).
 - **Vercel**: Our hosting provider may collect anonymous performance metrics. See [Vercel's Privacy Policy](https://vercel.com/legal/privacy-policy).
-- **Stripe**: When you are redirected to Stripe's checkout page for purchases, Stripe may set cookies for fraud prevention and payment processing. See [Stripe's Privacy Policy](https://stripe.com/privacy).
+- **Lemon Squeezy**: When you are redirected to the checkout page for a purchase, our payment processor may set cookies for fraud prevention and payment processing. See [Lemon Squeezy's Privacy Policy](https://www.lemonsqueezy.com/privacy). (This entry previously named Stripe, which we no longer use.)
+- **PostHog**: Product analytics. Configured to be cookieless — it uses the localStorage identifier described in section 3 rather than setting a cookie. See [PostHog's Privacy Policy](https://posthog.com/privacy).
 - **Pinterest**: If you use the Pinterest integration, Pinterest may set cookies during the OAuth authorization flow. See [Pinterest's Privacy Policy](https://policy.pinterest.com/privacy-policy).
 
 We do not control the cookies set by third-party services. Please refer to their respective privacy policies for more information.`,

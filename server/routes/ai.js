@@ -13,6 +13,7 @@ const {
   recordSpendMicros,
   recordModelOutcome,
 } = require("../ai-budget");
+const { isBotRequest } = require("../bot-detect");
 
 /**
  * GET /ai/usage — public, includes anonymous users.
@@ -41,11 +42,10 @@ const {
  * This is not bot-blocking either — the response is honest and identical in
  * shape. It just declines to spend a read on a caller with no quota to report.
  */
-const BOT_UA_RE =
-  /bot|spider|crawl|slurp|bingpreview|ahrefs|semrush|mj12|dotbot|petalbot|bytespider|headlesschrome|python-requests|curl\/|wget/i;
-
 router.get("/usage", (req, res) => {
-  if (BOT_UA_RE.test(req.get("user-agent") || "")) {
+  // Shared with the analytics write path (server/bot-detect.js) so there is one
+  // definition of "automated" in the codebase rather than two that drift.
+  if (isBotRequest(req)) {
     res.set("Cache-Control", "public, max-age=3600");
     return res.json({ tier: "anonymous", used: 0, limit: TIER_LIMITS.anonymous });
   }

@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require("../db");
 const { getSessionUser, isAnalyticsAdmin } = require("../auth");
 const { getRateLimitKey } = require("../client-ip");
+const { rejectBotAnalytics } = require("../bot-detect");
 
 // Simple in-memory rate limiter: max 60 writes per IP per minute.
 //
@@ -26,9 +27,15 @@ function rateLimitWrite(req, res, next) {
   next();
 }
 
-// POST /events — fire-and-forget event tracking
-router.post("/", rateLimitWrite, (req, res) => {
-  const { event, props = {}, path } = req.body ?? {};
+// POST /events — fire-and-forget event tracking.
+//
+// The bot filter runs FIRST, before the rate limiter, for two reasons: a dropped
+// write should not consume a human's rate-limit budget, and 28.6% of the traffic
+// arriving here was never a person (see bot-detect.js for the measurement).
+// Impression-style events are the worst affected — this table is 84%
+// `recruit_banner_impression`, which jumped from 50 rows in June to 3,900 in July.
+router.post("/", rejectBotAnalytics(200), rateLimitWrite, (req, res) => {
+  const { event, props = {}, path, sessionId } = req.body ?? {};
 
   if (!event || typeof event !== "string") {
     return res.status(400).json({ error: "Missing event name" });
@@ -46,12 +53,18 @@ router.post("/", rateLimitWrite, (req, res) => {
   try {
     db.prepare(
       `INSERT INTO events
-         (event_name, props_json, user_id, path, channel, utm_source, utm_medium, utm_campaign, referrer_domain, landing_path)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+         (event_name, props_json, user_id, session_id, path, channel, utm_source, utm_medium, utm_campaign, referrer_domain, landing_path)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).run(
       event.slice(0, 100),
       JSON.stringify(p),
       user?.id ?? null,
+      // session_id has existed in the schema since the table was created and was
+      // populated in 0 of 4,690 rows. It is what makes a per-visit ratio possible:
+      // COUNT(DISTINCT session_id) instead of COUNT(*), so one person scrolling
+      // past the AI card fifty times counts once. Client-supplied and ephemeral
+      // (sessionStorage) — never trust it for anything but division.
+      typeof sessionId === "string" && sessionId.length <= 64 ? sessionId : null,
       typeof path === "string" ? path.slice(0, 500) : null,
       str(p.channel, 60),
       str(p.utm_source, 120),

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { hexToRgb, findClosestArchiveColor } from "@/src/lib/color-utils";
 import { classifyError } from "@/src/lib/error-utils";
 import { track } from "@/src/lib/track";
+import { useImpression } from "@/src/lib/use-impression";
 import type { ColorRecord } from "@/src/types/color";
 import { ShareOnXButton } from "@/src/components/share-link-button";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
@@ -163,7 +164,10 @@ function PaletteResult({
                     backgroundColor: tc === "#ffffff" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.08)",
                     color: tc,
                   }}
-                  onClick={() => navigator.clipboard.writeText(c.hex)}
+                  onClick={() => {
+                    navigator.clipboard.writeText(c.hex);
+                    track("ai_result_copied", { tool: "brand_generator", surface: "brand_generator" });
+                  }}
                   title={`Copy ${c.hex}`}
                 >
                   {c.hex.toUpperCase()}
@@ -255,6 +259,10 @@ function PaletteResult({
 const STYLE_PRESETS = ["Minimal", "Bold", "Elegant", "Playful", "Natural", "Tech", "Luxury", "Warm"];
 const INDUSTRY_PRESETS = ["SaaS / Tech", "Fashion", "Health & Wellness", "Food & Beverage", "Finance", "Creative Agency", "Education", "Real Estate"];
 export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archiveColors: ColorRecord[]; collectionPresets: { id: string; title: string; style: string; summary: string }[] }) {
+  const impressionRef = useImpression("ai_module_impression", {
+    tool: "brand_generator",
+    surface: "brand_generator",
+  });
   const COLLECTION_PRESETS = collectionPresets;
   const [industry, setIndustry] = useState("");
   const [style, setStyle] = useState("");
@@ -270,6 +278,9 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
       setError("Please fill in at least one field.");
       return;
     }
+    // The REQUEST half of the gate ratio. ai_generated only fires on success, so
+    // without this a run of upstream failures would read as "nobody wanted it".
+    track("ai_generate_click", { tool: "brand_generator", surface: "brand_generator" });
     setIsLoading(true);
     setError(null);
     setResult(null);
@@ -296,7 +307,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
         })),
         summary: data.summary,
       });
-      track("ai_generated", { tool: "brand_generator", industry, style });
+      track("ai_generated", { tool: "brand_generator", surface: "brand_generator", industry, style });
     } catch (err) {
       setError(classifyError(err));
     } finally {
@@ -322,7 +333,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
 
       <div className="max-w-3xl mx-auto px-4 space-y-8">
         {/* Input form */}
-        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6 space-y-5">
+        <div ref={impressionRef} className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6 space-y-5">
           {/* Industry */}
           <div>
             <label htmlFor="brand-industry" className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
