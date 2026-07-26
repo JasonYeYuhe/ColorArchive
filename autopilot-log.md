@@ -1,3 +1,19 @@
+## 2026-07-25 — [autopilot] support email handler
+
+**Run type:** Autopilot (scheduled)
+
+Checked support@colorarchive.me for new unprocessed emails.
+
+- Found 3 threads total (no genuinely new unread threads since last run):
+  - `19d2f8b0cc590ab1` — PeerPush cold outreach/marketing (ip@joinpeerpush.net) → skipped (marketing spam)
+  - `19d2dc9f40e88dec` — Owner test email (icloud.com) already replied to → skipped (internal)
+  - `19d2dbd812b03b8d` — Owner forwarding test → skipped (internal)
+- **No customer support emails to respond to.**
+- Attempted to label threads as `autoprocessed` — **failed: Gmail MCP token expired.** Threads remain unlabeled; they will be re-evaluated next run.
+- **Action needed:** Re-authorize the Gmail MCP connector in an interactive session (`/mcp` or claude.ai connector settings) so labels can be written.
+
+---
+
 ## 2026-06-14 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jun 7–14.
