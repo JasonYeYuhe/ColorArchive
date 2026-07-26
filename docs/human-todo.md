@@ -1,7 +1,57 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-07-26 (autopilot — weekly roundup queued; first real changelog week in three)
+> Last updated: 2026-07-26 (remote — four-month identity bug found and fixed; see below)
+
+## 🚨 2026-07-26 (remote) — our analytics had been silently dropping writes for four months
+
+**Nothing to do here, but you should know what changed.** Deployed and verified end to end.
+
+nginx never set `X-Forwarded-For`, so with `trust proxy = 1` every caller looked like
+`127.0.0.1` and **every per-IP rate limit in the API was one bucket shared by the whole
+internet.** Proof: `ai_usage` held exactly 2 identifiers across all of 2026-04-02..07-26,
+and both hashes match the two loopback addresses byte for byte.
+
+What it actually cost us — not the AI feature:
+
+- **1,025 analytics writes from real browsers were rejected with 429 in 14 days**
+  (516 `/pageviews` + 509 `/events`), on the exact funnel the last two commits built.
+  **Every conversion rate we computed in that window is understated by an unknown
+  amount.** Treat pre-07-26 funnel numbers as a floor, not a measurement.
+- `/auth/verify` was a **site-wide magic-link login DoS**: its key collapsed to a
+  constant, so 5 verifications per 15 minutes was the ceiling for everyone, and one
+  actor could have held all users out. No sign anyone did.
+- Port **3001 answered 200 straight off the public internet** (ufw inactive), so nginx
+  was bypassable — which by itself defeated every rate limit here. Now bound to
+  loopback; verified refused from outside.
+
+Verified after deploy: `/health` reports `proxyHeaders: "ok"`, a **new per-IP bucket
+appeared** (2 → 3, first in four months), **zero 429s** in the following 500 requests
+with 82 analytics writes succeeding, payment webhooks still 401-on-unsigned, AI returns
+200 in 1.8s (was 10.2s).
+
+### Two things worth your attention
+
+1. **I nearly broke a paid promise and backed it out.** I had drafted a 50/day cap for
+   Pro's AI (it was `Infinity`, which is real cost exposure). Codex caught that
+   "unlimited AI" is written into the **Terms of Service**, the Pro page, the upgrade
+   modal, both languages of sales copy and two emails. Silently capping our one paying
+   subscriber would have been a broken contract she'd have discovered from a 429.
+   **Pro stays unlimited.** Containment is a burst limiter + a global $0.50/day spend
+   breaker instead — a system-wide safety valve, not a per-account quota.
+   → If you ever *do* want a Pro cap, set `AI_PRO_DAILY_LIMIT`, but **change all six
+   copy locations in the same deploy.**
+2. **`GOOGLE_AI_API_KEY` is still shared with OpenClaw** (`~/Documents/credits.md`).
+   Per-project spend attribution is impossible, a runaway on either side degrades the
+   other, and the new spend breaker is per-process so it cannot see OpenClaw's usage.
+   → Worth a separate key for ColorArchive when convenient. Not urgent at $0.02/month.
+
+### Still open (needs code, not you)
+
+The AI kill-criteria in `docs/dev-plan-2026-07-26-ai.md` §8 **cannot be evaluated yet**:
+`ai_module_impression` (needs an IntersectionObserver on the color-detail AI card) and a
+"copied the result" event are not instrumented, and `pageviews` has no visitor id. The
+30-day clock starts when those land, not today.
 
 ## 📣 2026-07-26 (autopilot) — weekly roundup queued for manual posting
 

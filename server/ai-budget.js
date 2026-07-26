@@ -33,18 +33,25 @@
 const db = require("./db");
 
 /**
- * USD per 1M tokens, verified 2026-07-26 against ai.google.dev/gemini-api/docs/pricing.
- * Only the two models this codebase can actually select are listed — the 3.x
- * price rows that circulated in research were unverifiable, and one of them
- * ("gemini-3.1-pro-preview") contradicts the project's own note that the valid
- * Pro id is `gemini-3-pro-preview`. An unknown model falls back to the most
- * expensive entry so a typo in an env var cannot silently buy us a bigger bill.
+ * USD per 1M tokens. Only models confirmed callable on OUR key are listed —
+ * being present in the /models listing is not the same as being callable, as the
+ * 2.5-flash-lite note below records. An unknown model falls back to the most
+ * expensive entry, so a typo in GEMINI_MODEL cannot silently buy a bigger bill.
  */
 const PRICING = {
-  "gemini-2.5-flash-lite": { in: 0.1, out: 0.4 },
+  // gemini-2.5-flash-lite is deliberately absent: the models endpoint lists it,
+  // but generateContent answers 404 "no longer available to new users" on our
+  // key. Verified by live call 2026-07-26, which is also how it was caught.
+  "gemini-3.1-flash-lite": { in: 0.3, out: 2.5 },
   "gemini-2.5-flash": { in: 0.3, out: 2.5 },
 };
 const FALLBACK_PRICE = { in: 2.0, out: 12.0 };
+
+// NOTE on the 3.1-flash-lite figure above: circulated research put it at
+// $0.25/$1.50, but every 3.x price row in that research was unverifiable from
+// here, so it is priced at the 2.5-flash rate instead — a deliberate
+// over-estimate. For a circuit breaker, over-charging trips slightly early,
+// which is the safe direction; under-charging is how a breaker gets outrun.
 
 const SPEND_KEY = "global:ai-spend-micros";
 
@@ -140,10 +147,48 @@ function aiBudgetGuard(req, res, next) {
   return next();
 }
 
+/**
+ * Consecutive model-call failures, surfaced through /health.
+ *
+ * THIS EXACT BUG CLASS HAS ALREADY COST THIS PROJECT TWO MONTHS. The model id
+ * was once hardcoded to `gemini-3-flash`, which does not exist; every AI request
+ * 404'd from roughly 2026-04-23 onward and nobody noticed, because a feature
+ * nobody uses fails silently by definition. It recurred while deploying this very
+ * change: `gemini-2.5-flash-lite` is listed by the models endpoint but returns
+ * "no longer available to new users" on generateContent, so the first live call
+ * after deploy 500'd.
+ *
+ * A boot-time probe would cost a paid API call on every restart, so instead the
+ * first real call reports. Nothing here retries or falls back to another model:
+ * silently switching models would hide the very signal this exists to raise.
+ */
+let modelFailStreak = 0;
+let lastModelError = null;
+
+function recordModelOutcome(ok, errorMessage) {
+  if (ok) {
+    modelFailStreak = 0;
+    lastModelError = null;
+    return;
+  }
+  modelFailStreak += 1;
+  lastModelError = String(errorMessage || "unknown").slice(0, 200);
+}
+
+function modelHealth() {
+  if (modelFailStreak === 0) return "ok";
+  // Three in a row is past coincidence: a bad model id fails every time, whereas
+  // a transient upstream blip does not.
+  const severity = modelFailStreak >= 3 ? "failing" : "degraded";
+  return `${severity}: ${modelFailStreak} consecutive model errors (${lastModelError})`;
+}
+
 module.exports = {
   aiBudgetGuard,
   budgetStatus,
   estimateCostMicros,
   recordSpendMicros,
+  recordModelOutcome,
+  modelHealth,
   PRICING,
 };

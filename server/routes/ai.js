@@ -7,7 +7,12 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { aiRateLimit, TIER_LIMITS } = require("../ai-rate-limit");
 const { assertSafeUrl } = require("../ssrf-guard");
 const { getRateLimitKey } = require("../client-ip");
-const { aiBudgetGuard, estimateCostMicros, recordSpendMicros } = require("../ai-budget");
+const {
+  aiBudgetGuard,
+  estimateCostMicros,
+  recordSpendMicros,
+  recordModelOutcome,
+} = require("../ai-budget");
 
 /**
  * GET /ai/usage — public, includes anonymous users.
@@ -84,26 +89,37 @@ router.get("/usage", (req, res) => {
 // gemini-3.1-pro-preview, and aliases gemini-flash-latest / gemini-pro-latest.
 // No 1.5 series at all.
 //
-// 2026-07-26: moved the default from gemini-2.5-flash to gemini-2.5-flash-lite
-// ($0.10/$0.40 per 1M tokens vs $0.30/$2.50). Sell this as blast-radius work,
-// not savings — measured spend is ~$0.02/month, so the saving is pennies. What
-// changes by 15x is the WORST case: cost per request drops from ~$0.00315 (as
-// previously configured, thinking on) to ~$0.00021, which takes the plausible
-// scripted-abuse ceiling from roughly $8,000/month to the hundreds, before the
-// per-minute limiter and daily breaker are even counted.
+// 2026-07-26: default moved to gemini-3.1-flash-lite, and the route there is
+// worth recording because it repeats this project's most expensive mistake.
+//
+// The plan was gemini-2.5-flash-lite ($0.10/$0.40 vs $0.30/$2.50 — a 15x cut in
+// worst-case cost per request). It is LISTED by the /models endpoint, so it looks
+// available. It is not: generateContent answers
+//   404 "This model models/gemini-2.5-flash-lite is no longer available to new users"
+// The first live call after deploy 500'd. gemini-2.0-flash-lite is retired too,
+// and gemini-3.5-flash-lite rejects our generationConfig with a 400.
+// gemini-3.1-flash-lite and gemini-2.5-flash both answer 200 (tested 2026-07-26,
+// including the thinkingConfig field below).
+//
+// So do NOT restate the "15x cheaper" claim: with 3.1-flash-lite priced
+// conservatively at the 2.5-flash rate in ai-budget.js, the honest saving here is
+// unproven. The containment that actually bounds the worst case is the burst
+// limiter, the in-flight cap and the daily spend breaker — not the model choice.
+// Measured spend is ~$0.02/month regardless.
 //
 // The intelligence here is not the model. It picks six colours, names them and
 // emits valid JSON; the actual expertise is 5,446 deterministically generated
-// colours plus real APCA/CIEDE2000 maths in src/lib, all covered by tests.
-// Flash-Lite is comfortably at that level and a Pro model's extra reasoning is
-// invisible in a swatch grid. Flash-Lite also has thinking off by default, which
-// removes the multiplier at the source.
+// colours plus real APCA/CIEDE2000 maths in src/lib, all covered by tests. A
+// flash-lite tier is comfortably at that level, and a Pro model's extra reasoning
+// is invisible in a swatch grid.
 //
-// Deliberately NOT the newest model: the 3.x price rows that circulated in
-// research were unverifiable from here, and one of them contradicts this repo's
-// own note that the valid Pro id is `gemini-3-pro-preview`. Overridable via
-// GEMINI_MODEL so a change needs no redeploy.
-const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash-lite";
+// LESSON, since it has now bitten twice: a wrong model id fails silently, because
+// a feature nobody uses has no one to notice. `gemini-3-flash` (a name that never
+// existed) 404'd every AI request for about two months. Hence
+// recordModelOutcome() below, which surfaces a failure streak through /health.
+// Overridable via GEMINI_MODEL so a change needs no redeploy — but verify a new
+// id with a real call first, because the listing will lie to you.
+const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.1-flash-lite";
 
 function getClient() {
   return new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
@@ -272,6 +288,12 @@ async function callModel({ endpoint, prompt, maxOutputTokens, responseSchema }) 
       { signal: controller.signal }
     );
     text = result.response.text();
+    recordModelOutcome(true);
+  } catch (err) {
+    // Report before rethrowing so /health can show a bad model id immediately,
+    // instead of it hiding for two months the way `gemini-3-flash` did.
+    recordModelOutcome(false, err && err.message);
+    throw err;
   } finally {
     clearTimeout(timer);
     inflight -= 1;

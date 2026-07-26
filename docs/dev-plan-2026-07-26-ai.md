@@ -203,7 +203,7 @@ nginx **可被绕过**。这本身就击穿了本进程里所有限流:`trust pr
 |---|---|---|
 | 1.1 | `generationConfig`:`responseMimeType: "application/json"` + `maxOutputTokens`(900/500/1200)+ `temperature` + **`thinkingConfig: { thinkingBudget: 0 }`** | `ai.js` ×4 |
 | 1.2 | `AbortController` 超时(现无超时,实测健康调用 10.2s) | `ai.js` |
-| 1.3 | 默认模型 → `gemini-2.5-flash-lite`,env 可覆盖。单请求 $0.00315 → $0.00021(**15×**),爆炸半径同步缩 15 倍,结构化 JSON 上无可感知差异 | `ai.js:56` |
+| 1.3 | 默认模型 → **`gemini-3.1-flash-lite`**(见下方 §4.2,计划里的 flash-lite 被现实否掉了)| `ai.js:56` |
 | 1.4 | **每字段**输入截断(现只有 mood-palette 截 200 字;brand-palette 四个字段仅受 100kb body 限制 ≈ 25,000 token 攻击者可控输入 = 50× 成本放大器) | `ai.js` |
 | 1.5 | **`/critique` 请求永久挂起**:对比度矩阵在 try **之外**(`ai.js:307-341`),`{"colors":[{},{}]}` 在 try 前抛错 → Express 不 await async 处理器的 promise → **永不响应,配额已扣**,一条 curl 即可触发。(Codex 纠正:实装 Express 是 **4.22.1** 而非 4.18,且进程级 `unhandledRejection` 会记录 —— 是请求挂起,不必然崩进程)。修法:入口先按 hex 正则校验并 400,再把计算移进 try | `ai.js` |
 | 1.6 | 配额语义(**按 Codex 第 2 条改正**):~~成功后计数~~ 是不安全的 —— 多个并发请求会读到同一个"未用满"状态一起放行,且客户端中断会留下已计费却永不"成功"的模型调用。正确做法是**入场即预留**(保持先扣),**只在明确 5xx 时退还**。幂等性是结构性的:钩子绑在单个 request 对象上、只触发一次、由 `refunded` 标志兜底,所以一次扣减最多对应一次退还;而中断的请求不会产生 5xx 状态,因此走开也刷不到配额。花费同样**改为调用前预留**,否则并发能跑过熔断 | `ai-rate-limit.js` |
@@ -221,6 +221,34 @@ nginx **可被绕过**。这本身就击穿了本进程里所有限流:`trust pr
 | 1.15 | 用回已测过的数学 —— 但**分清两件事(Codex 第 7 条)**:WCAG 对比度**必须**用相对亮度,ΔE 量的是感知色差,**两者不可互换**,v1 把它们混为一谈了。实际做的是:(a) 保留 `relativeLuminance`,但把线性化阈值从 `0.03928` 改成 `0.04045` —— `src/lib/` 里**所有**受测实现都用后者,原值来自旧勘误表,导致我们喂给模型、又作为"事实"展示给用户的对比度,和站内工具自己报的数字对不上;(b) 颜色**匹配**处才换 `deltaE2000`(`color-brand-matches.ts:21` 的加权 RGB) | 2 文件 |
 
 **观测:不建 `ai_calls` 表**(评审第 4 条 + §0.4)。端点/延迟/成败写 stdout → PM2 日志,零 sqlite 争用。
+
+---
+
+### 4.2 模型选择:计划被现实纠正了一次,值得记下来
+
+计划是 `gemini-2.5-flash-lite`($0.10/$0.40 vs $0.30/$2.50,最坏成本降 15×)。它**在 `/models` 列表里**,看起来可用。**它不可用:**
+
+```
+404  This model models/gemini-2.5-flash-lite is no longer available to new users
+```
+
+部署后第一次真实调用就 500 了。逐个实测(2026-07-26,均含本文的 `thinkingConfig`):
+
+| 模型 | 结果 |
+|---|---|
+| `gemini-2.0-flash-lite` | ❌ 404 已退役 |
+| `gemini-2.5-flash-lite` | ❌ 404 对新用户不可用(**但在列表里**) |
+| `gemini-3.5-flash-lite` | ❌ 400 拒绝该 generationConfig |
+| **`gemini-3.1-flash-lite`** | ✅ 200 ← 采用 |
+| `gemini-2.5-flash` | ✅ 200 |
+
+顺带证实:`thinkingConfig: { thinkingBudget: 0 }` **确实能透传**(SDK 0.21.0 无该字段类型,但它把 `generationConfig` 原样序列化进 REST body),且被 2.5-flash 与 3.1-flash-lite 接受。实测延迟 **10.2s → 1.8s**。
+
+→ **因此不再声称"降本 15×"**:`ai-budget.js` 把 3.1-flash-lite 保守地按 2.5-flash 价格计,真实节省未经证实。界定最坏情况的是突发限流 + 并发闸 + 日花费熔断,**不是模型选择**。实测花费本来就是 ~$0.02/月。
+
+**教训(这个病已犯过两次):** 错误的 model id **静默失败** —— 没人用的功能没人会发现。`gemini-3-flash`(一个从不存在的名字)让每个 AI 请求 404 了约两个月。
+→ 新增 `recordModelOutcome()`,连续失败次数暴露在 `/health` 的 `aiModel` 字段(不做自动回退:静默切换模型会掩盖这个哨兵存在的意义)。
+→ **列表会骗你。换 model id 必须先用一次真实调用验证。**
 
 ---
 

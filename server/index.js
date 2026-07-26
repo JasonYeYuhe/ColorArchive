@@ -162,6 +162,16 @@ app.get("/health", (_, res) =>
         ? "ok"
         : "degraded: req.ip is loopback (X-Forwarded-For missing)"
       : "unchecked",
+    // A wrong model id has silently broken AI twice now (see routes/ai.js).
+    // Required lazily so a failure to load the AI stack can't break /health —
+    // that would defeat the isolation the guarded mount above provides.
+    aiModel: (() => {
+      try {
+        return require("./ai-budget").modelHealth();
+      } catch {
+        return "unknown";
+      }
+    })(),
   })
 );
 
