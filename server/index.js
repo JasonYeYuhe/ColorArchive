@@ -63,10 +63,12 @@ app.use(express.json({ limit: "100kb" }));
 // Between 2026-04-02 and 2026-07-26, nginx set X-Real-IP but never
 // X-Forwarded-For. With `trust proxy = 1` above, that made `req.ip` resolve to
 // the loopback address for EVERY caller, so every per-IP rate limit in this API
-// silently became one bucket shared by the whole internet: 1,025 real analytics
-// writes 429'd in a single fortnight, and /auth/verify degraded into a
-// one-actor, site-wide login denial-of-service. It went unnoticed for four
-// months because nothing ever checked.
+// silently became one bucket shared by the whole internet — so any one noisy
+// caller could throttle everybody — and /auth/verify degraded into a one-actor,
+// site-wide login denial-of-service. It went unnoticed for four months because
+// nothing ever checked. (An earlier version of this comment said "1,025 real
+// analytics writes 429'd in a fortnight". That was retracted: 1,024 of those were
+// a single flooding address on a single day, correctly throttled. See client-ip.js.)
 //
 // This is the check. It samples the first request after boot and reports through
 // /health, so a regression surfaces in seconds instead of months. Must be
@@ -77,12 +79,30 @@ app.use(express.json({ limit: "100kb" }));
 // subscription webhooks are served by this same process, and declining to take
 // someone's money because a proxy header is misconfigured would turn a
 // measurement bug into a revenue bug.
-let proxyHeaderState = { checked: false, ok: null };
+// Re-checked periodically, not latched at boot. A one-shot sample cannot see an
+// nginx change that does not also restart Node — which is exactly how the original
+// regression would recur, since `systemctl reload nginx` leaves this process
+// running.
+//
+// The discriminator is the PRESENCE of an X-Forwarded-For header, not the socket
+// address. An earlier attempt skipped callers whose socket was loopback, reasoning
+// that a local `curl 127.0.0.1:3001/health` should not poison the state — but nginx
+// proxies over loopback too, so that condition skipped EVERY request and left the
+// sentinel permanently "unchecked". A sentinel that never fires is worse than the
+// latched one it replaced. A direct local caller sends no XFF and is ignored; a
+// proxied request always carries one, and then `req.ip` is the thing worth judging.
+const PROXY_CHECK_INTERVAL_MS = 10 * 60 * 1000;
+let proxyHeaderState = { checked: false, ok: null, at: 0 };
 app.use((req, _res, next) => {
-  if (!proxyHeaderState.checked) {
+  const due = !proxyHeaderState.checked || Date.now() - proxyHeaderState.at > PROXY_CHECK_INTERVAL_MS;
+  const proxied = Boolean(req.headers["x-forwarded-for"]);
+  if (due && proxied) {
     const loopback = isLoopbackIp(req.ip);
-    proxyHeaderState = { checked: true, ok: !loopback };
-    if (loopback) {
+    const wasOk = proxyHeaderState.ok;
+    proxyHeaderState = { checked: true, ok: !loopback, at: Date.now() };
+    // Only shout on the transition, so a persistent misconfiguration does not
+    // bury the logs at one line per ten minutes forever.
+    if (loopback && wasOk !== false) {
       console.error(
         "[proxy-headers] req.ip resolved to %s — nginx is probably missing " +
           "`proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;`. " +
@@ -90,7 +110,9 @@ app.use((req, _res, next) => {
           "Fix: server/deploy/nginx-colorarchive.conf",
         req.ip
       );
-    } else {
+    } else if (!loopback && wasOk === false) {
+      console.log("[proxy-headers] recovered — req.ip resolves to a real client address again");
+    } else if (!loopback && wasOk === null) {
       console.log("[proxy-headers] ok — req.ip resolves to a real client address");
     }
   }
@@ -134,23 +156,6 @@ app.use("/events", require("./routes/events"));
 app.use("/apple-notifications", require("./routes/apple-notifications"));
 app.use("/trending", require("./routes/trending"));
 
-// --- Proxy-header self-check -------------------------------------------------
-//
-// Between 2026-04-02 and 2026-07-26, nginx set X-Real-IP but never
-// X-Forwarded-For. With `trust proxy = 1` above, that made `req.ip` resolve to
-// the loopback address for EVERY caller, so every per-IP rate limit in this API
-// silently became one bucket shared by the whole internet: 1,025 real analytics
-// writes 429'd in a single fortnight, and /auth/verify degraded into a
-// one-actor, site-wide login denial-of-service. It went unnoticed for four
-// months because nothing ever checked.
-//
-// This is the check. It samples the first request after boot and reports through
-// /health so a regression surfaces in seconds instead of months.
-//
-// It deliberately does NOT throw, exit or refuse traffic. The Lemon Squeezy
-// subscription webhooks are served by this same process, and declining to take
-// someone's money because a proxy header is misconfigured would turn a
-// measurement bug into a revenue bug.
 app.get("/health", (_, res) =>
   res.json({
     ok: true,
