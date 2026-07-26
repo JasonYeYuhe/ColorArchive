@@ -120,22 +120,51 @@ Nothing for you to do unless you disagree with any wording: `/privacy/` and
 
 ### 🔒 Two things only you can decide (found by the 2026-07-27 audit)
 
-**1. The firewall is still off, and the OTHER app on that droplet is wide open.**
-I bound ColorArchive to loopback, but `ufw status` is still `inactive` — and
-`stride-server` is listening on `*:3002`, reachable from the public internet,
-bypassing nginx and TLS entirely. I did not enable ufw myself: it affects a
-different project of yours, and a misconfigured firewall rule is one of the few
-things that can lock *you* out of the box. Your call. The safe order is: allow 22,
-80, 443 first, verify SSH still works from a second terminal, then enable.
+**1. `stride-server` on :3002 is an unauthenticated email-send vector, and it uses
+YOUR SAME RESEND KEY.** I first reported this as "a TLS bypass"; the verification
+pass showed it is considerably worse, so here it is properly:
+
+- `ufw status` → `inactive`, `iptables -S INPUT` → `-P INPUT ACCEPT`, no rules.
+  `curl -I http://143.198.85.72:3002/` from outside → **200**. (ColorArchive is
+  correctly `127.0.0.1:3001` and refuses.)
+- `/root/stride-server/index.js` sets `trust proxy 1` while listening on `0.0.0.0`,
+  so on the direct port `req.ip` is whatever the caller says it is. Demonstrated
+  with read-only GETs: the same forged `X-Forwarded-For` decremented one bucket
+  (`RateLimit-Remaining` 99 → 98); a different forged value got a fresh 99.
+  **Every per-IP limiter there is a no-op.**
+- That includes `magicLinkLimiter` (3 per 15 min) — the only gate on the
+  unauthenticated `POST /auth/request-link`, which sends mail through Resend.
+- **stride's `.env` and ColorArchive's `.env` hold the same `RESEND_API_KEY`**
+  (compared by hash on the droplet; the value was never printed).
+
+So someone who finds :3002 can send unlimited mail on our Resend account. The
+damage lands on **ColorArchive**: burn that key's reputation or quota and our
+magic-link login and every transactional email stop working.
+
+I did not touch it — it is a different project of yours, and a wrong firewall rule
+is one of the few things that can lock *you* out of the box. Suggested order, safest
+first: (a) rebind stride-server to `127.0.0.1` and let nginx front it — zero lockout
+risk, closes the hole immediately; (b) give the two apps separate Resend keys;
+(c) then ufw, allowing 22/80/443 and verifying SSH from a second terminal *before*
+enabling.
 
 **2. `server/.env` exists only on the droplet.** It is gitignored, absent from the
 Mac, and covered by no backup. `.env.example` documents 19 of the 29 live keys —
 missing ones include **both Lemon Squeezy payment secrets**. The database is backed
 up; the credentials that make it a business are not. If the droplet died today you
 would keep the data and lose the ability to take money. Same for
-`server/scripts/backup-sqlite.sh` and `sync-azure.sh`, which are production cron
-infrastructure that exist only on the droplet and are not in git — the script that
-protects the database is stored solely on the machine it protects.
+**Correction to what I said earlier about the backup script:** a copy WAS in git —
+just the wrong one. The tracked copy was an April generation at the repo root; the
+one root's crontab actually runs was a July rewrite living only on the droplet. The
+consequence was real: `docs/backup-runbook.md` documented gzipped
+`colorarchive-*.db.gz` snapshots, and **zero such files exist** — the live script
+writes uncompressed `data-*.sqlite`. Following the runbook during a real restore
+died at step 5. Now fixed: the live script is committed at
+`server/scripts/backup-sqlite.sh`, the stale root copy and its README (which pointed
+at `/root/colorarchive-api/`, a path dead since the domain migration) are deleted,
+and the restore + drill commands are corrected and **tested on the droplet**
+(`integrity_check` → ok, 14 users). Your actual protection was never at risk: 76
+offsite copies on the Mac, newest 19M, integrity ok.
 
 ### ⚠️ Two scheduled things that will misbehave, but not urgently
 
