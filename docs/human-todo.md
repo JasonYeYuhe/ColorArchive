@@ -107,6 +107,22 @@ device unless you are logged in" (untrue since PostHog shipped) and still listed
 Nothing for you to do unless you disagree with any wording: `/privacy/` and
 `/cookie-policy/`, both now dated July 26, 2026.
 
+**One thing that does need you — 2 minutes in the PostHog console, no code.**
+The project has `session_recording_opt_in=True`, `capture_console_log_opt_in=True`
+and `anonymize_ips=False`. Replay is off *only* because of a client-side flag in
+`src/lib/posthog.ts:68`, so the policy sentence "Session recording is disabled" is
+true today but one bad deploy from being false. Flip all three at the project level
+(recording off, console capture off, IP anonymisation on) so the written promise is
+structurally guaranteed rather than depending on a line of our code:
+us.posthog.com → project 456902 → Settings.
+
+**Also cleaned up, and worth knowing because it was in the database:** the AI brand
+generator was storing what people typed. Real rows included
+`"Health & Wellness + Tech (Wearable Technology)"` and
+`"salt air, glass water, seafoam"` — somebody's actual creative brief, kept
+first-party and forwarded to PostHog. Removed; the gate never read those fields.
+The historical rows are still in `events` if you ever want them purged.
+
 ## 📣 2026-07-26 (autopilot) — weekly roundup queued for manual posting
 
 > The Jul 19–26 roundup is written and waiting in `docs/daily-posts-queue.md` under
