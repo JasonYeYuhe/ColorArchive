@@ -203,6 +203,14 @@ export function GuideDetailPage({
                 notes
                 successNote="You're on the list — the next Design Notes lands in your inbox."
                 footnote="One email a week. Unsubscribe anytime."
+                // Route them into the tool this very guide is about, rather than
+                // ending on a confirmation. guide.links is the curated mapping
+                // that already exists (317 entries), so this stays contextual.
+                successCta={
+                  guide.links[0]
+                    ? { href: guide.links[0].href, label: `Try it: ${guide.links[0].label} →` }
+                    : undefined
+                }
               />
             </div>
           </div>

@@ -931,6 +931,12 @@ export function ColorDetailPage({
                   colorHex={color.hex}
                   source="color-detail"
                   heading="Get a color every morning"
+                  // They were looking at one specific color — the natural next
+                  // move is checking it against something, not reading a toast.
+                  successCta={{
+                    href: `/contrast/?fg=${encodeURIComponent(color.hex)}`,
+                    label: "Check this color's contrast →",
+                  }}
                 />
               </div>
 

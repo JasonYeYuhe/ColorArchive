@@ -82,6 +82,40 @@ const funnel = {
   checkoutSuccess: distinctCheckoutSuccess,
 };
 
+/* ---------------- capture funnel (added 2026-07-26) ---------------- */
+
+// Impression → subscribe, per surface. Impressions are viewport-based, so this
+// is a real conversion rate rather than pageviews-over-signups.
+const captureBySurface = db.prepare(
+  `SELECT
+     COALESCE(json_extract(props_json,'$.source'),'?') AS surface,
+     SUM(CASE WHEN event_name='email_form_impression' THEN 1 ELSE 0 END) AS impressions,
+     SUM(CASE WHEN event_name='email_subscribed' AND json_extract(props_json,'$.isNew') IN (1,'true') THEN 1 ELSE 0 END) AS new_subs
+   FROM events
+   WHERE event_name IN ('email_form_impression','email_subscribed')
+     AND datetime(created_at) >= datetime('now', ?)
+   GROUP BY surface
+   HAVING impressions > 0 OR new_subs > 0
+   ORDER BY impressions DESC`,
+).all(since);
+
+// Content → tool, and the Pro CTAs that were invisible until 2026-07-25.
+const contentToTool = ev("guide_tool_click");
+const proCtaClicks = db.prepare(
+  `SELECT COALESCE(json_extract(props_json,'$.surface'),'?') AS surface, COUNT(*) c
+     FROM events WHERE event_name='pro_cta_click' AND datetime(created_at) >= datetime('now', ?)
+    GROUP BY surface ORDER BY c DESC`,
+).all(since);
+const captureCtaClicks = ev("email_capture_cta_click");
+
+// How far people get before the paywall — the drop-off across ordinals says
+// whether 5 free lookups is generous or just more than anyone wants.
+const wordDepth = db.prepare(
+  `SELECT CAST(json_extract(props_json,'$.count') AS INTEGER) AS n, COUNT(*) c
+     FROM events WHERE event_name='word_generated' AND datetime(created_at) >= datetime('now', ?)
+    GROUP BY n ORDER BY n`,
+).all(since);
+
 // Webhook-miss tripwire. A HARD alarm only for the unambiguous case — completed
 // checkout(s) but literally nothing recorded (no paid order, no new sub/trial).
 // A mere gap (checkout_success > recorded) is soft: it's usually an existing
@@ -152,6 +186,18 @@ const funnelBlock = [
   `checkout_success         : ${funnel.checkoutSuccess}`,
 ];
 
+const pct = (n, d) => (d > 0 ? `${((n / d) * 100).toFixed(2)}%` : "—");
+const captureBlock = captureBySurface.length
+  ? captureBySurface.map(
+      (r) =>
+        `${String(r.surface).padEnd(16)} ${String(r.impressions).padStart(6)} seen → ${String(r.new_subs).padStart(3)} new  (${pct(r.new_subs, r.impressions)})`,
+    )
+  : ["(no form impressions yet)"];
+
+const depthBlock = wordDepth.length
+  ? wordDepth.map((r) => `  word #${r.n}: ${r.c}`)
+  : ["  (no word generations recorded yet)"];
+
 const text = [
   `ColorArchive conversion digest — ${now.toISOString().slice(0, 16)}Z · last ${WINDOW_DAYS}d`,
   ``,
@@ -159,6 +205,17 @@ const text = [
   ``,
   `Word-to-color → Pro funnel (${WINDOW_DAYS}d):`,
   ...funnelBlock.map((l) => `  ${l}`),
+  ``,
+  `Email capture — impression → new subscriber (${WINDOW_DAYS}d):`,
+  ...captureBlock.map((l) => `  ${l}`),
+  `  post-capture CTA clicks: ${captureCtaClicks}`,
+  ``,
+  `Content → tool (${WINDOW_DAYS}d):`,
+  `  guide_tool_click: ${contentToTool}`,
+  `  pro_cta_click   : ${proCtaClicks.length ? proCtaClicks.map((r) => `${r.surface}=${r.c}`).join(", ") : "0"}`,
+  ``,
+  `Free lookups used before the paywall (${WINDOW_DAYS}d):`,
+  ...depthBlock,
   ``,
   `Active web Pro subs: ${subsByStatus.length ? subsByStatus.map((r) => `${r.st}=${r.c}`).join(", ") : "none"}`,
   renewalsDue.length ? `Renewals due within 7d: ${renewalsDue.map((r) => `${r.email} (${r.due})`).join(", ")}` : `Renewals due within 7d: none`,
@@ -186,6 +243,14 @@ const html = `
     }
     <p style="margin:0 0 6px;font-weight:700;font-size:13px">Word-to-color → Pro funnel (${WINDOW_DAYS}d)</p>
     <pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7;color:#374151;margin:0 0 18px">${esc(funnelBlock.join("\n"))}</pre>
+    <p style="margin:0 0 6px;font-weight:700;font-size:13px">Email capture — impression → new subscriber (${WINDOW_DAYS}d)</p>
+    <pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7;color:#374151;margin:0 0 18px">${esc(captureBlock.join("\n"))}
+post-capture CTA clicks: ${captureCtaClicks}</pre>
+    <p style="margin:0 0 6px;font-weight:700;font-size:13px">Content → tool (${WINDOW_DAYS}d)</p>
+    <pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7;color:#374151;margin:0 0 18px">guide_tool_click: ${contentToTool}
+pro_cta_click   : ${esc(proCtaClicks.length ? proCtaClicks.map((r) => `${r.surface}=${r.c}`).join(", ") : "0")}</pre>
+    <p style="margin:0 0 6px;font-weight:700;font-size:13px">Free lookups used before the paywall (${WINDOW_DAYS}d)</p>
+    <pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7;color:#374151;margin:0 0 18px">${esc(depthBlock.join("\n"))}</pre>
     <p style="color:#374151;font-size:13px;line-height:1.7;margin:0">
       Active web Pro subs: <strong>${subsByStatus.length ? subsByStatus.map((r) => `${esc(r.st)}=${r.c}`).join(", ") : "none"}</strong><br>
       Renewals due within 7d: ${renewalsDue.length ? renewalsDue.map((r) => `${esc(r.email)} (${r.due})`).join(", ") : "none"}

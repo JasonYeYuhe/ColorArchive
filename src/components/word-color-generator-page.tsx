@@ -55,6 +55,11 @@ const PAYWALL_EVENT = {
   proClick: "word_paywall_pro_click", // clicked the in-gate Pro CTA (paid intent)
   emailUnlock: "word_paywall_email_unlock", // unlocked by subscribing (lead)
   proBypass: "word_paywall_pro_bypass", // gate opened because the account is Pro
+  // One event per NEW word counted, carrying its ordinal (1..FREE_GENERATIONS).
+  // This is the missing denominator behind "only 3.3% of views hit the wall":
+  // the drop-off between ordinal 1 and 5 tells us whether five free lookups is
+  // generous or simply more than anyone wants. Measure first, then tune once.
+  generated: "word_generated",
 } as const;
 
 const normalizeWord = (w: string) => w.trim().toLowerCase();
@@ -228,6 +233,7 @@ export function WordColorGeneratorPage() {
       const words = readCountedWords();
       if (!words.includes(norm)) words.push(norm);
       try { localStorage.setItem(GEN_WORDS_KEY, JSON.stringify(words)); } catch {}
+      track(PAYWALL_EVENT.generated, { count: words.length });
       if (words.length >= FREE_GENERATIONS) {
         setGated(true);
         track(PAYWALL_EVENT.hit, { count: words.length });
