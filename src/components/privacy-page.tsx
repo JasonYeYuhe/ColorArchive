@@ -20,6 +20,7 @@ const sections = [
 - **Product analytics**: We use PostHog to understand which features are used and whether people return. Its anonymous identifier is stored in your browser's localStorage, not a cookie. Session recording is disabled, autocaptured text is scrubbed of anything resembling an email address before it leaves your browser, and anonymous visitors are recorded as events without a person profile. Signed-in users are keyed by an opaque numeric account id, never by email.
 - **AI feature input**: When you use an AI tool (for example the brand palette generator, mood palette, colour naming, or palette critique), the text you type — such as an industry, a style description, or a mood — is sent to Google's Gemini API to generate the response. Do not enter confidential or personal information into these tools. We do not send your account details, email, or browsing history with these requests.
 - **Error reports**: We use Sentry to collect crash and error diagnostics, which may include the page you were on and a stack trace.
+- **Visit grouping**: A random per-tab id is kept in your browser's sessionStorage and sent with analytics events so we can count visits rather than raw clicks. It is discarded when you close the tab and is never linked to your identity. If you sign in part-way through a visit, that visit's earlier events become associated with your account.
 - **Mobile app data**: If you use the ColorArchive iOS app, we may collect device identifiers and purchase data through Apple StoreKit for in-app purchases, plus the same product-analytics and crash-diagnostic data described above. We do not collect location data, contacts, or health data.`,
   },
   {
@@ -95,7 +96,7 @@ We rely on the following safeguards for international data transfers:
     title: "8. Data Storage and Security",
     content: `Your data is stored on secure servers. Account data and preferences are stored on our backend server hosted on DigitalOcean (US). We use HTTPS for all data transmission, encrypt data at rest, and follow industry-standard security practices to protect your information.
 
-If you use ColorArchive without an account, your favorites and recent colors are stored only in your browser's localStorage and never transmitted to our servers.`,
+If you use ColorArchive without an account, your favorites and recent colors are stored in your browser's localStorage and are not synced to any account. One clarification, because the earlier wording overstated this: the *act* of favoriting a color — which color, and whether you added or removed it — is recorded as an analytics event even when you are not signed in. The list itself stays on your device; clearing localStorage removes it.`,
   },
   {
     title: "9. Your Rights (EEA/UK — GDPR)",

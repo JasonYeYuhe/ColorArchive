@@ -21,7 +21,9 @@ const sections = [
 - **Session cookie** (\`ca_session\`): A single authentication cookie that keeps you logged in after signing in via magic link or Google OAuth. Type: first-party, httpOnly. Duration: 7 days. This cookie is essential for account features such as favorites sync, purchase history, and API key management.
 - **No tracking cookies**: We do not use third-party tracking cookies, advertising cookies, or analytics cookies that identify individual users.
 
-Because we only use strictly necessary cookies, consent is not required under the EU ePrivacy Directive. We do not display a cookie consent banner.`,
+The **cookies** we set are limited to what is strictly necessary. We do not display a cookie consent banner.
+
+To be accurate rather than convenient about why: the ePrivacy Directive's Article 5(3) is technology-neutral — it covers storing or reading information in your device generally, not cookies specifically — so localStorage and sessionStorage are not exempt from it just because they are not cookies. Our position rests on the analytics storage described in section 3 being first-party, containing no personal data, setting no advertising identifier, and involving no session recording, not on a technicality about the word "cookie". If you would rather not have it, clearing site data removes all of it and the site continues to work.`,
   },
   {
     title: "3. Local Storage",
@@ -32,6 +34,8 @@ Because we only use strictly necessary cookies, consent is not required under th
 - **UI preferences**: Theme preference and other display settings.
 - **Pinterest token**: If you connect your Pinterest account, the OAuth access token is stored in localStorage for the duration of your session.
 - **Analytics identifier**: PostHog stores a random anonymous id here instead of setting a cookie. It is sent with product-analytics events so we can tell whether people come back, and it contains nothing about you — clearing localStorage resets it.
+- **First-touch source (\`ca_attr_v1\`)**: how you first arrived — the referring URL, the first page you landed on, any campaign parameters in the link, and the date. Stored once and kept, so that if you later subscribe or buy we can tell which channel earned it rather than crediting whatever page you happened to be on. Sent with analytics events.
+- **Analytics session id (\`ca_sid\`)**: a random per-tab id kept in sessionStorage (not localStorage), sent with analytics events so we can count *visits* instead of clicks — one person scrolling past the same card ten times should count once. It is discarded when you close the tab, is never linked to your identity, and cannot connect one visit to another.
 
 Favorites, recent colors and UI preferences stay on your device unless you are logged in, in which case favorites are synced to your account on our server. The analytics identifier above is the exception: it is transmitted with analytics events by design.`,
   },

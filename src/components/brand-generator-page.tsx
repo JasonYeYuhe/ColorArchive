@@ -307,7 +307,17 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
         })),
         summary: data.summary,
       });
-      track("ai_generated", { tool: "brand_generator", surface: "brand_generator", industry, style });
+      // `industry` and `style` were sent here as verbatim props and are sitting in
+      // the analytics DB as raw user text — live rows include
+      // {"industry":"Health & Wellness + Tech (Wearable Technology)"} and
+      // {"style":"salt air, glass water, seafoam"}. Those are unbounded free-text
+      // inputs, i.e. someone's actual creative brief, retained first-party AND
+      // forwarded to PostHog, disclosed in no policy. The AI gate groups by
+      // `surface` and never reads either key, so dropping them costs the
+      // measurement nothing and removes the only free-text retention in the AI
+      // event set. Do not add them back for "colour" — the prompt they came from
+      // is not ours to keep.
+      track("ai_generated", { tool: "brand_generator", surface: "brand_generator" });
     } catch (err) {
       setError(classifyError(err));
     } finally {
