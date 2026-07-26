@@ -46,12 +46,66 @@ with 82 analytics writes succeeding, payment webhooks still 401-on-unsigned, AI 
    other, and the new spend breaker is per-process so it cannot see OpenClaw's usage.
    → Worth a separate key for ColorArchive when convenient. Not urgent at $0.02/month.
 
-### Still open (needs code, not you)
+### ~~Still open (needs code, not you)~~ — DONE, same day
 
-The AI kill-criteria in `docs/dev-plan-2026-07-26-ai.md` §8 **cannot be evaluated yet**:
-`ai_module_impression` (needs an IntersectionObserver on the color-detail AI card) and a
-"copied the result" event are not instrumented, and `pageviews` has no visitor id. The
-30-day clock starts when those land, not today.
+The AI gate is now measurable and, more importantly, **can now return a verdict of
+"delete it"**. Two things you should know:
+
+**1. Your Monday email changes.** `gate-report.cjs` (Mondays 09:00 UTC) was about to
+send another PROCEED/STOP verdict on the Auditor — the product cancelled on 07-20.
+It now carries the AI gate instead. Subject line becomes
+`[ColorArchive] AI gate: <verdict> — impressions N/150, requests N`.
+The acquisition funnel numbers are still in there, labelled as context only.
+
+**2. The gate can fail, which the first two versions could not.** §8 originally
+needed ≥100 successful AI generations before it would judge whether generations
+happen — and the observed peak is 13/month. No demand meant no verdict, forever.
+That is the same mechanism that kept the Auditor alive for months. It is now a
+one-sided binomial test: **if ≤1 of the first 150 people who actually see the AI
+module click it, that deletes the feature** (p=0.010 at zero clicks). Roughly two
+weeks of colour-detail traffic. You can check the threshold by hand: n=150→1,
+200→2, 250→3, 300→4, 400→7.
+
+Run it yourself any time:
+
+```bash
+ssh root@143.198.85.72 'cd /root/ColorArchive/server && node scripts/ai-gate-report.cjs'
+```
+
+### ⚠ Your traffic number has been wrong, and it is about to look like a crash
+
+Measured over 14 days of nginx logs: **7,567 of 26,420 analytics writes (≈29%) came
+from self-identified crawlers** — AhrefsBot 3,438 and accelerating to ~750/day,
+Baiduspider-render 3,404, bingbot 1,258. A separate single IP wrote 2,781 pageviews
++ 2,780 events behind an ordinary desktop Chrome user-agent. Both are now filtered.
+
+**So from 2026-07-26 the daily row counts in `events` and `pageviews` drop by roughly
+a third. That is the correction, not a collapse.** Do not compare a window after
+today against one before it without accounting for the boundary — the reports warn
+you when a window straddles it.
+
+Combined with the 429 loss fixed earlier the same day, our funnel numbers were
+simultaneously missing ~1,000 real writes and inflated by ~29% bot writes.
+
+### Privacy policy was wrong, and I fixed it — worth a read
+
+I was about to add more analytics on top of an analytics stack the policy never
+mentioned, so this came first. Live before today: **PostHog, Sentry and the Google
+Gemini API were named nowhere**, and §11 stated outright that the iOS app used no
+third-party analytics SDK — while `AnalyticsBootstrap.swift` line 3 is
+`import PostHog`, and that sentence is tied to our App Store privacy labels.
+
+The one that actually mattered: **users type brand briefs and mood descriptions into
+the AI tools and that text goes to Google.** A reader of the policy had no way to
+know. Now disclosed, with a plain-language "don't put confidential information in
+these tools" line.
+
+Also fixed in the cookie policy: it claimed localStorage data "never leaves your
+device unless you are logged in" (untrue since PostHog shipped) and still listed
+**Stripe**, months after Lemon Squeezy replaced it.
+
+Nothing for you to do unless you disagree with any wording: `/privacy/` and
+`/cookie-policy/`, both now dated July 26, 2026.
 
 ## 📣 2026-07-26 (autopilot) — weekly roundup queued for manual posting
 
