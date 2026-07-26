@@ -1,7 +1,24 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-07-21 (remote — tools expansion cycle COMPLETE: 4 batches, 11 new routes, 33+ tools; iOS v1.3 plan written + dual-reviewed)
+> Last updated: 2026-07-26 (autopilot — weekly roundup queued; first real changelog week in three)
+
+## 📣 2026-07-26 (autopilot) — weekly roundup queued for manual posting
+
+> The Jul 19–26 roundup is written and waiting in `docs/daily-posts-queue.md` under
+> **Weekly Roundup — 2026-07-26** (Facebook + Twitter/X copy). Unlike the last two weeks,
+> this one is a **real changelog**: 10 new tool routes, CIEDE2000 ΔE in /compare/ and
+> /name/, OKLCH/Lab in /convert/, and iOS v1.3 live. Every number in the copy (including
+> "43 free tools") was verified against the code, not the commit messages.
+>
+> Not auto-posted — the queue file is explicitly manual and publishing is owner-authorized
+> only.
+>
+> **Your items:**
+> - [ ] **Post the roundup to the Facebook Page and X** (copy is ready to paste; ~2 min).
+>       Worth pinning — it's the first post in three weeks with real news in it.
+> - [ ] Optional: a second, standalone Screen Test post later in the week. It's the
+>       strongest SEO-intent tool of the batch and it's currently buried in a 10-item list.
 
 ## 🎯 2026-07-25 (remote) — conversion P0 shipped + a dead unsubscribe fixed
 

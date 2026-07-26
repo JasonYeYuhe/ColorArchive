@@ -4,6 +4,61 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-07-26
+
+> Real news this week (Jul 19 – Jul 26): **the biggest release week in months** — 16 commits after two consecutive silent weeks. Everything claimed below was verified in code this run: 10 new tool pages exist under `app/` (screen-test hub + dead-pixel + color-screens, tailwind-colors, css-filter, color-wheel, color-temperature, dark-mode-colors, duotone, paint-mix); `/convert/` really does emit OKLCH/Lab/LCH; `/compare/` and `/name/` really do use CIEDE2000 ΔE; the tools page lists **43** distinct tools, so that number is safe to publish. iOS v1.3 with the Hue Challenge went live on the App Store Jul 22 (READY_FOR_SALE). **Not in the public post, deliberately:** (a) the Auditor pre-order was cancelled and every pre-order surface closed — zero pre-orders were ever placed, so there is no customer to notify and announcing a cancellation of a product nobody bought only creates confusion; (b) the email-capture/instrumentation/unsubscribe work is internal plumbing, not a user-facing feature. **Owner note:** after two filler weeks, this one is a genuine changelog — worth pinning, and worth a second post later in the week spotlighting Screen Test on its own rather than burying it in a 10-tool list.
+
+### Facebook
+
+🎨 **This week at ColorArchive — 10 new free tools, and a new game on iOS.**
+
+After a couple of quiet weeks, this one made up for it. Everything below is live right now, and all of it is free.
+
+🖥️ **Screen Test — a whole suite for checking your display.** A dead pixel test, fullscreen white / black / solid color screens, plus a guided walkthrough that ends with a shareable report card. Useful whether you're inspecting a monitor you just bought or trying to figure out if that mark is on your screen or your desk.
+
+🎯 **Hue Arrangement Challenge.** Tap to swap a scrambled row of colors back into order, then get a score for how close you got. It's a small thing, and it is genuinely hard.
+
+🛠️ **Seven more tools, each doing one job:**
+• **Tailwind Color Finder** — paste a HEX, get the nearest Tailwind class
+• **CSS Filter Generator** — turn a black icon any color you want, with a real CSS filter string
+• **Color Wheel** — interactive harmony picker
+• **Color Temperature** — Kelvin ↔ RGB
+• **Dark Mode Converter** — take a light palette and get a dark one
+• **Duotone Generator** — two-color image effect, in browser
+• **Paint Mixing Calculator** — "what colors make this?"
+
+🔬 **Sharper color math across the site.** Convert now outputs OKLCH, Lab and LCH. Compare and Color Name now use CIEDE2000 — the perceptual difference standard — so "closest match" means closest to your eye, not closest on paper.
+
+📱 **iOS v1.3 is live on the App Store** with the Hue Challenge built in.
+
+That brings us to **43 free tools**, all of them backed by the same 5,446-color archive.
+
+Try Screen Test → colorarchive.org/screen-test
+
+Browse every tool → colorarchive.org/tools
+
+#ColorArchive #DesignTools #ColorPalette #WebDev #Tailwind #CSS #UIDesign #ScreenTest #ColorTheory #WeeklyUpdate
+
+---
+
+### Twitter / X
+
+🎨 Big week at ColorArchive — 10 new free tools shipped:
+
+🖥️ Screen Test suite (dead pixel, fullscreen color screens, guided check + report card)
+🎯 Hue Arrangement Challenge — harder than it looks
+🎨 Tailwind Color Finder, CSS Filter Generator, Color Wheel, Color Temperature, Dark Mode Converter, Duotone, Paint Mixing
+
+Plus better color math everywhere: Convert now does OKLCH/Lab/LCH, and Compare + Color Name switched to CIEDE2000 ΔE.
+
+iOS v1.3 is live too, with the Hue Challenge in it.
+
+43 free tools now. Start here → colorarchive.org/screen-test
+
+#ColorArchive #DesignTools #WebDev #Tailwind
+
+---
+
 ## Weekly Roundup — 2026-07-19
 
 > Real news this week (Jul 12 – Jul 19): **no product releases** — again zero code commits (the only commit in the window was last week's roundup). This is the **second consecutive quiet week**, so this is another evergreen spotlight, not a changelog. Last week spotlighted Word to Color, so this one goes to a different live tool: the **Color Blindness Simulator** (`/colorblind`) — verified in code this run: 4 deficiency types (protanopia, deuteranopia, tritanopia, achromatopsia) and palette mode accepting up to 8 pasted hex codes. It pairs naturally with Palette Audit for an accessibility angle. No "new," no fake urgency — the tool has been live for a while and the copy says so. **Owner note:** two silent weeks in a row is itself the signal — if nothing ships next week either, consider whether the weekly cadence should drop to monthly rather than keep generating filler.

@@ -1,3 +1,40 @@
+## 2026-07-26 — [autopilot] weekly content roundup
+
+Scheduled weekly roundup for Jul 19–26. **First real changelog week since Jul 12** — the
+two prior roundups were evergreen spotlights because zero code landed; this window had 16
+commits.
+
+- `git log --since="7 days ago"`: two tool batches (`d025419`, `09f224f`, `a2507c7`,
+  `4d01923`), iOS v1.3 ship + approval (`7b422cd`, `be0489f`), payments hardening
+  (`07b379c`, `b506809`), conversion digest (`6ff2297`), Auditor pre-order shutdown
+  (`d9fed32`), email capture + unsubscribe (`f4170cd`), plus dev-plan/archive docs.
+- Verified every publishable claim against the code before writing (the point of this run —
+  past roundups have drifted into announcing things that were already live):
+  - 10 new tool routes exist under `app/`: `screen-test/` (+ `dead-pixel/`,
+    `color-screens/`), `tailwind-colors/`, `css-filter/`, `color-wheel/`,
+    `color-temperature/`, `dark-mode-colors/`, `duotone/`, `paint-mix/`.
+  - `/convert/` emits OKLCH + Lab + LCH; `/compare/` and `/name/` both use CIEDE2000 ΔE.
+  - `src/components/tools-page.tsx` lists **43** distinct tool hrefs → "43 free tools" is
+    safe to publish.
+  - Hue game interaction is **tap-to-swap, not drag** (no `draggable` anywhere in
+    `src/components/screen-test/`) — first draft said "drag", corrected before commit. iOS
+    is tap-to-swap too, deliberately.
+  - iOS v1.3 live on the App Store since 2026-07-22 (READY_FOR_SALE).
+- Wrote FB + Twitter/X "This week at ColorArchive" posts into `docs/daily-posts-queue.md`
+  under **Weekly Roundup — 2026-07-26**, leading with the 10 tools and closing on iOS v1.3.
+- **Deliberately left out of the public copy:** (a) the Auditor pre-order cancellation —
+  zero pre-orders were ever placed, so there is no customer to notify and announcing the
+  cancellation of a product nobody bought only creates confusion; (b) the email
+  capture / instrumentation / unsubscribe work — internal plumbing, not a user-facing
+  feature.
+- **Did NOT auto-post to Facebook.** `docs/daily-posts-queue.md` is headed "Post manually to
+  Facebook Page when ready", every prior roundup followed that convention, and publishing
+  public content is owner-authorized only. Queued for manual review instead.
+
+**Owner action:** this is the first post in three weeks with real news in it — worth posting
+and pinning. Consider a second, standalone Screen Test post later in the week rather than
+leaving it buried in a 10-tool list.
+
 ## 2026-06-14 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jun 7–14.
