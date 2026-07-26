@@ -123,10 +123,16 @@ function rejectBotAnalytics(successStatus = 204) {
  * The same window contains a farm of 6,753 distinct IPs, and each one starts at
  * zero. That farm is, however, almost entirely a PAGEVIEW phenomenon — it rendered
  * 6,555 pages and fired exactly ONE interaction event — which is the finding that
- * matters for the AI gate: an event that requires the element to enter the viewport
- * is intrinsically ~98% bot-resistant, so `/events` crawler share measures at just
- * 1.5%. The gate's denominator was never the thing in danger. The site's traffic
- * number was.
+ * matters for the AI gate: an interaction-gated event is far harder to manufacture
+ * than a page render, so `/events` crawler share measured at 1.5% over the fortnight
+ * versus 22.5% for pageviews.
+ *
+ * DO NOT read that as "the denominator is clean". An earlier version of this comment
+ * claimed ~98% bot resistance, and a narrower window refutes the strong form: in the
+ * four hours 11:00-14:59 on 2026-07-26, 55 of 84 POSTs to /events carried the
+ * AhrefsBot user-agent. The dwell requirement in src/lib/use-impression.ts is a
+ * filter, not a guarantee — which is why the gate report also carries concentration
+ * guards on per-session and per-day share.
  *
  * CHOSEN CAP: 300 writes/day/caller. Our entire site serves roughly 1,000 human
  * pageviews a day, so any single address exceeding 300 is claiming a third of all
