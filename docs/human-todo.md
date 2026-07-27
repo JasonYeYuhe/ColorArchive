@@ -118,35 +118,40 @@ device unless you are logged in" (untrue since PostHog shipped) and still listed
 Nothing for you to do unless you disagree with any wording: `/privacy/` and
 `/cookie-policy/`, both now dated July 26, 2026.
 
-### 🔒 Two things only you can decide (found by the 2026-07-27 audit)
+### 🔒 Security — one fixed, one still yours (2026-07-27 audit)
 
-**1. `stride-server` on :3002 is an unauthenticated email-send vector, and it uses
-YOUR SAME RESEND KEY.** I first reported this as "a TLS bypass"; the verification
-pass showed it is considerably worse, so here it is properly:
+**1. ~~`stride-server` on :3002 is an unauthenticated email-send vector~~ — FIXED
+2026-07-27.** Recording what it was, because the shape is worth remembering:
 
-- `ufw status` → `inactive`, `iptables -S INPUT` → `-P INPUT ACCEPT`, no rules.
-  `curl -I http://143.198.85.72:3002/` from outside → **200**. (ColorArchive is
-  correctly `127.0.0.1:3001` and refuses.)
-- `/root/stride-server/index.js` sets `trust proxy 1` while listening on `0.0.0.0`,
-  so on the direct port `req.ip` is whatever the caller says it is. Demonstrated
-  with read-only GETs: the same forged `X-Forwarded-For` decremented one bucket
-  (`RateLimit-Remaining` 99 → 98); a different forged value got a fresh 99.
-  **Every per-IP limiter there is a no-op.**
-- That includes `magicLinkLimiter` (3 per 15 min) — the only gate on the
-  unauthenticated `POST /auth/request-link`, which sends mail through Resend.
-- **stride's `.env` and ColorArchive's `.env` hold the same `RESEND_API_KEY`**
-  (compared by hash on the droplet; the value was never printed).
+`stride-server` set `trust proxy 1` while listening on `0.0.0.0`, so on the direct
+port `req.ip` was whatever the caller claimed. Proven with read-only GETs: the same
+forged `X-Forwarded-For` decremented one bucket (99 → 98), a different value got a
+fresh 99. That made **every** per-IP limiter there a no-op — including the 3-per-15-min
+gate on the unauthenticated `POST /auth/request-link`, which sends mail via Resend on
+**the same API key ColorArchive uses**. Anyone who found port 3002 had an unmetered
+mail sender, and the damage would have landed on us: burn that key and our magic-link
+login and transactional email stop.
 
-So someone who finds :3002 can send unlimited mail on our Resend account. The
-damage lands on **ColorArchive**: burn that key's reputation or quota and our
-magic-link login and every transactional email stop working.
+What I did, lowest-lockout-risk first:
+- **Bound stride to `127.0.0.1`** (`index.js`, same `BIND_HOST` pattern as
+  ColorArchive; backup at `/root/stride-index.js.bak.*`). nginx already fronted it at
+  `stride-api.colorarchive.me` and already set X-Forwarded-For correctly, so this cost
+  nothing. Verified after: the domain still returns 200, direct `:3002` refuses, and
+  **forged XFF no longer works** — three requests with two different forged values
+  decremented one bucket continuously (98 → 97 → 96).
+- **Enabled ufw** (allow 22/80/443, default deny incoming, enabled at boot). Before
+  touching it I enumerated every listening socket: only 22, 80 and 443 were externally
+  bound; 3001, 3002, 5000, 5001, 5012, 8126 and 53 were already loopback. I installed a
+  5-minute auto-`ufw disable` dead-man's switch first in case I locked us out, verified
+  SSH on a fresh connection plus every service, then removed it. Verified after:
+  ColorArchive API 200, stride API 200, site 200, payment webhook 401, port 80 still
+  301s, and :3001/:3002/:5000/:8126 all refuse from outside.
 
-I did not touch it — it is a different project of yours, and a wrong firewall rule
-is one of the few things that can lock *you* out of the box. Suggested order, safest
-first: (a) rebind stride-server to `127.0.0.1` and let nginx front it — zero lockout
-risk, closes the hole immediately; (b) give the two apps separate Resend keys;
-(c) then ufw, allowing 22/80/443 and verifying SSH from a second terminal *before*
-enabling.
+**Still yours to do, but no longer urgent:** the two apps share one `RESEND_API_KEY`.
+That is now a blast-radius concern rather than an open hole — the mail endpoint is
+properly rate-limited again. I can't create the second key for you (it's an account
+action on Resend), but when convenient: issue a separate key for stride and swap it in
+`/root/stride-server/.env`.
 
 **2. `server/.env` exists only on the droplet.** It is gitignored, absent from the
 Mac, and covered by no backup. `.env.example` documents 19 of the 29 live keys —
