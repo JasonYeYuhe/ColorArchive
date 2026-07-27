@@ -105,7 +105,9 @@ function gate(days) {
 const g = gate(30);
 // The decision this report exists to carry. The old Auditor verdict was removed
 // rather than kept alongside: two verdicts in one email means neither gets read.
-const ai = computeAiGate(30);
+// No argument = cumulative from GATE_START. Passing 30 here would reinstate the
+// rolling window that made the gate permanently undecidable at this traffic level.
+const ai = computeAiGate();
 const v = { tag: ai.tag, msg: ai.msg };
 const ts = new Date().toISOString().replace("T", " ").slice(0, 16) + " UTC";
 

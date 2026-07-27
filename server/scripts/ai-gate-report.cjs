@@ -322,11 +322,23 @@ function main() {
  * One implementation, two callers. The Wilson interval and the minimum-sample
  * refusal must not exist in two copies that can drift apart.
  */
-function computeAiGate(days = 30) {
-  const windowSince = new Date(Date.now() - days * 86400000)
-    .toISOString()
-    .slice(0, 19)
-    .replace("T", " ");
+// The gate window is CUMULATIVE FROM GATE_START, never rolling.
+//
+// This shipped as a rolling 30 days and that was a third instance of the same
+// failure the whole gate exists to prevent. At the surface's real rate — about 2
+// exposed sessions a day once crawler traffic stopped being counted — a rolling
+// 30-day window asymptotes at n≈60 and stays there. deleteBand(60) is -1: too small
+// to reject anything. So the report would have printed NOT ENOUGH DATA forever,
+// which is precisely the "gate that cannot fail" this file's header condemns.
+//
+// Cumulative from the day the instrumentation went live, n only ever grows, so the
+// delete band eventually becomes reachable no matter how thin the traffic is.
+const GATE_START = "2026-07-26";
+
+function computeAiGate(days = null) {
+  const windowSince = days
+    ? new Date(Date.now() - days * 86400000).toISOString().slice(0, 19).replace("T", " ")
+    : `${GATE_START} 00:00:00`;
 
   const surfaces = {};
   for (const [surface, , opts] of GATE_SURFACES) {
