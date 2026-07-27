@@ -134,12 +134,24 @@ function rejectBotAnalytics(successStatus = 204) {
  * filter, not a guarantee — which is why the gate report also carries concentration
  * guards on per-session and per-day share.
  *
- * CHOSEN CAP: 300 writes/day/caller. Our entire site serves roughly 1,000 human
- * pageviews a day, so any single address exceeding 300 is claiming a third of all
- * traffic — not plausible for an office or a carrier NAT at this scale, while
- * leaving an enormous margin over a real person's session.
+ * CHOSEN CAP: 60 writes/day/caller.
+ *
+ * The first version used 300, sized against a believed ~1,000 human pageviews/day.
+ * That baseline was itself crawler-inflated. Measured on the first filtered day, the
+ * largest genuine human session on the whole site was 14 pageviews (82.71.17.231 —
+ * a guide reader who worked through to /pro/), and the next were 11, 9, 7, 6. Real
+ * human traffic is on the order of 300 pageviews a DAY in total, so a 300/day
+ * allowance let a single flooder write the equivalent of the entire site's human
+ * volume and still look compliant. 73.64.29.130 — the same address that produced
+ * 1,024 rate-limit rejections on 07-20 — did exactly that: 441 POSTs on 07-27, of
+ * which the cap admitted 300.
+ *
+ * 60 is still more than 4x the largest real session ever observed here, so it has
+ * generous headroom for an office or carrier NAT at this scale, while cutting a
+ * flooder's contribution by 5x. Revisit if real traffic ever grows an order of
+ * magnitude — this number is tied to the site's size, not to a principle.
  */
-const DAILY_WRITE_CAP = Number(process.env.ANALYTICS_DAILY_WRITE_CAP) || 300;
+const DAILY_WRITE_CAP = Number(process.env.ANALYTICS_DAILY_WRITE_CAP) || 60;
 
 // Bounded so an IP-rotation flood cannot turn this defence into a memory leak.
 // On overflow we stop tracking NEW callers and let them through: failing open for
