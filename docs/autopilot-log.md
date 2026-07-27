@@ -1,3 +1,7 @@
+## 2026-07-27 — [autopilot] support email handler
+
+Searched for unprocessed customer support emails (`to:support@colorarchive.me`, `to:support@colorarchive.org`, broad `colorarchive` unread searches). No new customer support emails found. All unread colorarchive-related emails were internal (GitHub CI notifications, analytics digests, third-party platform notifications). No replies sent, no drafts created.
+
 ## 2026-07-26 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jul 19–26. **First real changelog week since Jul 12** — the
