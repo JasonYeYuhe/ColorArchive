@@ -67,9 +67,21 @@ needed ≥100 successful AI generations before it would judge whether generation
 happen — and the observed peak is 13/month. No demand meant no verdict, forever.
 That is the same mechanism that kept the Auditor alive for months. It is now a
 one-sided binomial test: **if ≤1 of the first 150 people who actually see the AI
-module click it, that deletes the feature** (p=0.010 at zero clicks). Roughly two
-weeks of colour-detail traffic. You can check the threshold by hand: n=150→1,
-200→2, 250→3, 300→4, 400→7.
+module click it, that deletes the feature** (p=0.010 at zero clicks). You can check
+the threshold by hand: n=150→1, 200→2, 250→3, 300→4, 400→7.
+
+**Correction — I said "roughly two weeks" and that was wrong.** I sized it off
+colour-detail's 6,133 views/30d, which we now know was ~97% crawler. On the first
+clean day `/colors/*` took **18** human pageviews, not ~200, and the AI card sits
+~1,500px down a 13,000px page. Measured so far: **3 distinct sessions have seen it
+in ~1.5 days**. At that rate n=150 is **~75 days — a verdict around early October**,
+not mid-August.
+
+The gate is still sound; it is just slower than I told you. It is also already
+working — real traffic has produced `ai_module_impression`, `ai_generate_click` and
+`ai_generated` since the instrumentation went live, so the pipeline is proven end to
+end. Whether to speed it up (move the module above the fold, or judge on a surface
+where humans actually are) is a call for the next phase, and the plan covers it.
 
 Run it yourself any time:
 
