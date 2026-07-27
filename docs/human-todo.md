@@ -118,6 +118,29 @@ device unless you are logged in" (untrue since PostHog shipped) and still listed
 Nothing for you to do unless you disagree with any wording: `/privacy/` and
 `/cookie-policy/`, both now dated July 26, 2026.
 
+### 🔴 ROTATE THE RESEND KEY — found 2026-07-27, only you can do it
+
+Your `support-email-responder` cloud routine has the **Resend API key written in
+plaintext inside its prompt**. I compared fingerprints without printing either value:
+it is byte-identical to the `RESEND_API_KEY` in `/root/ColorArchive/server/.env` —
+which is also the key stride-server uses.
+
+So one key now lives in: ColorArchive's `.env`, stride's `.env`, a cloud routine
+prompt stored on Anthropic's side, **and this conversation's transcript**, because
+listing the routines printed it here.
+
+Treat it as compromised and rotate it. That is a Resend account action, so it is not
+mine to do. Two things to change at the same time, or the new key lands right back in
+the same hole:
+
+1. **Stop the routine needing a key at all.** It already has the Gmail connector
+   attached and already uses `gmail_create_draft` for anything complex — so it can
+   send through Gmail instead of curling Resend with an embedded credential. I did
+   not change it myself: it sends real mail to real customers, and switching how that
+   goes out is your call, not a cleanup I should make quietly.
+2. While you are in there: that routine still targets `support@colorarchive.me` and
+   links `colorarchive.me` URLs throughout — the pre-migration domain.
+
 ### 🔒 Security — one fixed, one still yours (2026-07-27 audit)
 
 **1. ~~`stride-server` on :3002 is an unauthenticated email-send vector~~ — FIXED
@@ -173,10 +196,23 @@ offsite copies on the Mac, newest 19M, integrity ok.
 
 ### ⚠️ Two scheduled things that will misbehave, but not urgently
 
-**Design Notes has no sender cron.** `docs/design-notes/README.md` says an approved
-issue gets copied to the droplet and mailed weekly. That cron does not exist, and
-neither does the directory the sender reads. The first draft is due **Thu 07-30** —
-so you would approve an issue and it would go nowhere. Nothing is broken until then.
+**~~Design Notes has no sender cron~~ — FIXED 2026-07-27.** The drafting routine wrote
+to `docs/design-notes/` in the repo; the sender read a directory on the droplet;
+nothing carried the file between them, and that directory did not exist. The first
+approved issue would have gone nowhere.
+
+Now wired: `server/scripts/send-design-notes-cron.sh`, cron **Fri 10:00 UTC** — the
+draft lands Thu 01:00 UTC, so you get ~33 hours to approve. It stages the issues
+straight out of `origin/main` using `git fetch` + `git archive`, which write only to
+`.git` and stream from the object store — **it never touches the droplet's working
+tree**, because that tree IS production here and a `git pull` would have silently
+reverted the rate-limit fixes. Verified after a live dry run: HEAD still 6caeded,
+32 local modifications intact, today's fixes all still present.
+
+Dry run output: `staged 1 issue file(s)` → `no approved issues (drafts are skipped by
+design)`. So it is live and will keep doing nothing until you flip a
+`status: draft` to `status: approved`. **The approval is still the only thing that
+can send mail** — running on a schedule cannot cause an unapproved send.
 
 **`daily-traffic-check` has a stale baseline.** Its SKILL.md hardcodes "真实流量基线约
 160 PV/天" and flags ">500 PV" as a possible bot anomaly. Actual traffic is ~1,300
