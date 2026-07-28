@@ -5,17 +5,33 @@ const { getRateLimitKey } = require("../client-ip");
 const { rejectBotAnalytics } = require("../bot-detect");
 const router = express.Router();
 
-// Simple in-memory rate limiter: max 60 writes per IP per minute.
+// In-memory per-caller write limiter for the analytics path.
 // Keyed via getRateLimitKey() — reading `req.ip` directly made this a site-wide
-// cap for four months, because nginx never set X-Forwarded-For and every request
+// cap for four months (it was 60/min then), because nginx never set X-Forwarded-For
+// and every request
 // therefore resolved to loopback. 516 real-browser pageview beacons were 429'd
 // in the 07-12..07-26 log window alone. See client-ip.js for the full history.
+// 15 writes/minute/caller.
+//
+// This was 60, which is ~20x what a person can produce. The floods that survive the
+// user-agent filter and the daily cap are RATE events, and a daily volume cap is the
+// wrong shape for them: it resets at UTC midnight AND on every pm2 restart, so a
+// flooder simply collects a fresh allowance. Measured 2026-07-28: 73.64.29.130 sent
+// 1,156 POSTs in a day and still landed 90 rows in one hour after a restart.
+//
+// Rate is the honest discriminator. Observed flood rates were 253/min and 21/min;
+// the largest genuine human SESSION on this entire site was 14 pageviews total,
+// i.e. low single digits per minute. 15/min keeps ~5x headroom over a real person
+// (rapid tab-opening, a burst of client-side navigations) while cutting a 253/min
+// flood by 94% the moment it starts, with no state that a restart can clear.
+const PER_MINUTE_CAP = Number(process.env.ANALYTICS_PER_MINUTE_CAP) || 15;
+
 const writeCounters = new Map();
 setInterval(() => writeCounters.clear(), 60_000);
 function rateLimitWrite(req, res, next) {
   const key = getRateLimitKey(req) || "unknown";
   const count = writeCounters.get(key) || 0;
-  if (count >= 60) return res.status(429).json({ error: "Rate limit exceeded" });
+  if (count >= PER_MINUTE_CAP) return res.status(429).json({ error: "Rate limit exceeded" });
   writeCounters.set(key, count + 1);
   next();
 }

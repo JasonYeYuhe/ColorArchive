@@ -53,9 +53,21 @@ const db = new Database(DB_PATH, { readonly: true });
 // a different measurement regime and cannot be compared like-for-like.
 const CLEAN_DATA_FROM = "2026-07-26";
 
+// The day bot filtering + session_id went live. The gate counts cumulatively from
+// here; see the DAYS comment below for why a rolling window is not an option.
+const GATE_START = "2026-07-26";
+
 const args = process.argv.slice(2);
 const daysArg = args.indexOf("--days");
-const DAYS = daysArg >= 0 ? Math.max(1, parseInt(args[daysArg + 1], 10) || 30) : 30;
+// null = cumulative from GATE_START, which is the DEFAULT and the only mode the
+// gate's statistics are valid in. --days N exists for ad-hoc inspection of a recent
+// slice; it must never become the default again. A rolling window at this surface's
+// real rate (~2 exposed sessions/day) asymptotes at n≈60, and deleteBand(60) is -1,
+// so the report would print NOT ENOUGH DATA forever — the exact "gate that cannot
+// fail" this file exists to prevent. The emailed weekly report was fixed first;
+// this CLI path still had the rolling default, and today it looks identical only
+// because all the data happens to be younger than 30 days.
+const DAYS = daysArg >= 0 ? Math.max(1, parseInt(args[daysArg + 1], 10) || 30) : null;
 
 // 150 viewable impressions is the smallest sample at which observing NO clicks
 // rejects a true 3% rate (p=0.010; one click p=0.058). An earlier draft used 1,000,
@@ -133,7 +145,9 @@ function wilson(successes, total, z = 1.96) {
 
 const pct = (x) => `${(x * 100).toFixed(2)}%`;
 
-const since = new Date(Date.now() - DAYS * 86400000).toISOString().slice(0, 19).replace("T", " ");
+const since = DAYS
+  ? new Date(Date.now() - DAYS * 86400000).toISOString().slice(0, 19).replace("T", " ")
+  : `${GATE_START} 00:00:00`;
 
 // Every surface that actually calls a model. /ai/analyze-url is deliberately
 // absent: it makes zero model calls (a regex scraper mounted under /ai), so
@@ -242,7 +256,7 @@ function main() {
 
   console.log("");
   console.log("AI GATE REPORT");
-  console.log(`window: last ${DAYS} days (since ${since} UTC)`);
+  console.log(DAYS ? `window: last ${DAYS} days (since ${since} UTC) — AD-HOC SLICE, not the gate` : `window: cumulative since ${GATE_START} (the gate window)`);
   console.log("");
 
   if (windowStartsBeforeCleanData) {
@@ -333,8 +347,6 @@ function main() {
 //
 // Cumulative from the day the instrumentation went live, n only ever grows, so the
 // delete band eventually becomes reachable no matter how thin the traffic is.
-const GATE_START = "2026-07-26";
-
 function computeAiGate(days = null) {
   const windowSince = days
     ? new Date(Date.now() - days * 86400000).toISOString().slice(0, 19).replace("T", " ")

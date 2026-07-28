@@ -5,12 +5,12 @@ const { getSessionUser, isAnalyticsAdmin } = require("../auth");
 const { getRateLimitKey } = require("../client-ip");
 const { rejectBotAnalytics } = require("../bot-detect");
 
-// Simple in-memory rate limiter: max 60 writes per IP per minute.
+// In-memory per-caller write limiter for the analytics path.
 //
 // This read `req.ip` directly until 2026-07-26, which sounds equivalent to
 // keying on the client but was not: nginx never set X-Forwarded-For, so with
 // `trust proxy = 1` every request resolved to the loopback address and this
-// became a SITE-WIDE 60 writes/minute cap. It was measurably harmful, not
+// became a SITE-WIDE cap shared by everyone. It was measurably harmful, not
 // theoretical — nginx logs for 07-12..07-26 show 516 `POST /pageviews` and 509
 // `POST /events` rejections with 429, all from real browser user-agents. Our own
 // funnel measurement looked lossy — but read client-ip.js before repeating that:
@@ -18,12 +18,27 @@ const { rejectBotAnalytics } = require("../bot-detect");
 // throttled. The real defect is that the cap was GLOBAL, so any noisy caller could
 // throttle everyone else. Route through getRateLimitKey() so the key is the real
 // client (and so an IPv6 /64 cannot mint unlimited buckets).
+// 15 writes/minute/caller.
+//
+// This was 60, which is ~20x what a person can produce. The floods that survive the
+// user-agent filter and the daily cap are RATE events, and a daily volume cap is the
+// wrong shape for them: it resets at UTC midnight AND on every pm2 restart, so a
+// flooder simply collects a fresh allowance. Measured 2026-07-28: 73.64.29.130 sent
+// 1,156 POSTs in a day and still landed 90 rows in one hour after a restart.
+//
+// Rate is the honest discriminator. Observed flood rates were 253/min and 21/min;
+// the largest genuine human SESSION on this entire site was 14 pageviews total,
+// i.e. low single digits per minute. 15/min keeps ~5x headroom over a real person
+// (rapid tab-opening, a burst of client-side navigations) while cutting a 253/min
+// flood by 94% the moment it starts, with no state that a restart can clear.
+const PER_MINUTE_CAP = Number(process.env.ANALYTICS_PER_MINUTE_CAP) || 15;
+
 const writeCounters = new Map();
 setInterval(() => writeCounters.clear(), 60_000);
 function rateLimitWrite(req, res, next) {
   const key = getRateLimitKey(req) || "unknown";
   const count = writeCounters.get(key) || 0;
-  if (count >= 60) return res.status(429).json({ error: "Rate limit exceeded" });
+  if (count >= PER_MINUTE_CAP) return res.status(429).json({ error: "Rate limit exceeded" });
   writeCounters.set(key, count + 1);
   next();
 }
