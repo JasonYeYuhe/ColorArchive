@@ -2,7 +2,7 @@ const express = require("express");
 const db = require("../db");
 const { requireAnalyticsAccess } = require("../auth");
 const { getRateLimitKey } = require("../client-ip");
-const { rejectBotAnalytics } = require("../bot-detect");
+const { rejectBotAnalytics, dailyCapGuard } = require("../bot-detect");
 const router = express.Router();
 
 // In-memory per-caller write limiter for the analytics path.
@@ -11,20 +11,25 @@ const router = express.Router();
 // and every request
 // therefore resolved to loopback. 516 real-browser pageview beacons were 429'd
 // in the 07-12..07-26 log window alone. See client-ip.js for the full history.
-// 15 writes/minute/caller.
+// 25 writes/minute/caller.
 //
-// This was 60, which is ~20x what a person can produce. The floods that survive the
-// user-agent filter and the daily cap are RATE events, and a daily volume cap is the
-// wrong shape for them: it resets at UTC midnight AND on every pm2 restart, so a
-// flooder simply collects a fresh allowance. Measured 2026-07-28: 73.64.29.130 sent
-// 1,156 POSTs in a day and still landed 90 rows in one hour after a restart.
+// FALSIFIED AT 15 BY OUR OWN LOGS. The comment here claimed "~5x headroom over a
+// real person". On 2026-07-27 20:56, caller 70.112.65.60 — a single Safari UA, the
+// very session elsewhere described as the largest genuine human session on this
+// site — put ALL 14 of its pageviews inside ONE minute. Against a cap of 15 that is
+// one request of headroom, not five times. A tab-restore or a fast scroll through a
+// colour family would have clipped a real visitor.
 //
-// Rate is the honest discriminator. Observed flood rates were 253/min and 21/min;
-// the largest genuine human SESSION on this entire site was 14 pageviews total,
-// i.e. low single digits per minute. 15/min keeps ~5x headroom over a real person
-// (rapid tab-opening, a burst of client-side navigations) while cutting a 253/min
-// flood by 94% the moment it starts, with no state that a restart can clear.
-const PER_MINUTE_CAP = Number(process.env.ANALYTICS_PER_MINUTE_CAP) || 15;
+// Rate still discriminates where daily volume does not, which is why this carries
+// the load: observed floods run 253/min, 55/min and 22/min sustained, while the
+// fastest real callers reach 14/min and 9/min. 25 sits above every human burst seen
+// and still cuts a 253/min flood by 90% from its first second. The sustained-22/min
+// class slips past this one and is caught by the 200/day backstop in bot-detect.js
+// instead — the two limits are layered on purpose, one for bursts and one for
+// patience, because neither separates the populations alone.
+//
+// Derive any future value from COMPLETE UTC days. The 15 came from a partial one.
+const PER_MINUTE_CAP = Number(process.env.ANALYTICS_PER_MINUTE_CAP) || 25;
 
 const writeCounters = new Map();
 setInterval(() => writeCounters.clear(), 60_000);
@@ -42,7 +47,7 @@ function rateLimitWrite(req, res, next) {
 // (AhrefsBot, Baiduspider-render, bingbot — see bot-detect.js for the counts), so
 // every visitor-count denominator computed from this table before 2026-07-26 is
 // inflated. Expect a step change in daily rows from that date; it is a correction.
-router.post("/", rejectBotAnalytics(204), rateLimitWrite, (req, res) => {
+router.post("/", rejectBotAnalytics(204), rateLimitWrite, dailyCapGuard(204), (req, res) => {
   const body = req.body || {};
   const { path, referrer, screen } = body;
   if (!path || typeof path !== "string") {

@@ -93,9 +93,34 @@ function noteDropped(kind) {
  */
 function rejectBotAnalytics(successStatus = 204) {
   return function botFilter(req, res, next) {
-    // Two independent filters: a self-identified crawler (22.5% of pageview
-    // writes) and an unidentified flood (51.3%). Neither catches the other's half.
-    if (isBotRequest(req) || overDailyCap(getRateLimitKey(req))) {
+    // UA check ONLY. The daily cap deliberately does not run here — see
+    // dailyCapGuard below for why the ordering matters.
+    if (isBotRequest(req)) {
+      noteDropped(req.path);
+      return successStatus === 204 ? res.status(204).end() : res.json({ ok: true });
+    }
+    return next();
+  };
+}
+
+/**
+ * The daily cap, as its own middleware, mounted AFTER the per-minute limiter.
+ *
+ * It used to live inside rejectBotAnalytics, which mounts first — so overDailyCap()
+ * incremented a caller's daily budget for requests the per-minute limiter was about
+ * to reject with 429. Measured on 116.89.59.111 (2026-07-28): 15 writes accepted,
+ * then 45 rejected with 429, and 15+45 = exactly the 60/day cap in force at the
+ * time. The flooder consumed its entire daily allowance on requests that were never
+ * stored, after which the bot filter short-circuited every later request with a
+ * success status and the per-minute limiter was never reached again. The two limits
+ * were cancelling each other out instead of layering.
+ *
+ * Correct order: cheap UA reject -> per-minute rate -> daily volume. A request only
+ * spends daily budget if it was actually going to be written.
+ */
+function dailyCapGuard(successStatus = 204) {
+  return function capGuard(req, res, next) {
+    if (overDailyCap(getRateLimitKey(req))) {
       noteDropped(req.path);
       return successStatus === 204 ? res.status(204).end() : res.json({ ok: true });
     }
@@ -134,40 +159,37 @@ function rejectBotAnalytics(successStatus = 204) {
  * filter, not a guarantee — which is why the gate report also carries concentration
  * guards on per-session and per-day share.
  *
- * CHOSEN CAP: 30 writes/day/caller.
+ * CHOSEN CAP: 200 writes/day/caller — a backstop against the egregious, NOT a
+ * discriminator. The two populations OVERLAP on daily volume and no single number
+ * separates them. From the only COMPLETE day available (2026-07-27):
  *
- * The first version used 300, sized against a believed ~1,000 human pageviews/day.
- * That baseline was itself crawler-inflated. Measured on the first filtered day, the
- * largest genuine human session on the whole site was 14 pageviews (82.71.17.231 —
- * a guide reader who worked through to /pro/), and the next were 11, 9, 7, 6. Real
- * human traffic is on the order of 300 pageviews a DAY in total, so a 300/day
- * allowance let a single flooder write the equivalent of the entire site's human
- * volume and still look compliant. 73.64.29.130 — the same address that produced
- * 1,024 rate-limit rejections on 07-20 — did exactly that: 441 POSTs on 07-27, of
- * which the cap admitted 300.
+ *   1194  73.64.29.130     flood
+ *    116  103.111.225.188  flood
+ *     73  31.223.31.46     REAL — a shared/NAT egress carrying three distinct
+ *                          browsers (Samsung Android, macOS Chrome, Android
+ *                          Firefox), sequential sessions over 5h17m, peaking at
+ *                          only 9/min, with 304 revalidations. Several real people.
+ *     55  212.93.144.111   flood
+ *     17, 14, 14, 11, 9, 7, ...  real
  *
- * THIRD VALUE FOR THIS CONSTANT IN TWO DAYS (300 -> 60 -> 30), and the first two
- * were picked the wrong way: from a BELIEVED total traffic level, which was itself
- * crawler-inflated both times. This one comes from the measured per-caller
- * distribution, which turns out to have no ambiguity in it at all:
+ * A real caller at 73 sits ABOVE a flood at 55. So this cap is set to catch the
+ * 1,000-a-day class and nothing finer; the per-minute limiter in the routes is what
+ * actually discriminates, because rate separates cleanly where volume does not.
  *
- *   flood callers      166, 186, 1,156 writes/day
- *   everyone else      1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4   <- the entire rest of the site
+ * FOURTH VALUE IN THREE DAYS (300 -> 60 -> 30 -> 200) AND THE THIRD ONE WAS THE
+ * WORST. I justified 30 with "the largest non-flood caller wrote FOUR" — a
+ * distribution taken from a 6.6-hour PARTIAL day, hours after writing
+ * server/scripts/traffic-truth.cjs whose stated rule is NEVER EXTRAPOLATE A PARTIAL
+ * DAY. At 30, the NAT above would have silently lost 43 of its 73 writes. Any future
+ * change to this number must be derived from complete UTC days only.
  *
- * The largest non-flood caller wrote FOUR. The largest single human session ever
- * observed here was 14 pageviews. Any cap between roughly 20 and 50 separates the
- * two populations perfectly; 30 sits in the middle with ~2x headroom over that
- * 14-pageview session, and halves what each resident flooder can deposit.
- *
- * STRUCTURAL LIMIT, stated so nobody mistakes this for a solution: a per-caller cap
- * cannot stop a flood, only meter it. Three resident flooders at 30/day still
- * deposit 90 rows, and every new address starts with a fresh allowance. The
- * per-minute limiter in the routes does the heavy lifting against bursts; this is
- * the backstop for the slow, patient ones. If the row counts in traffic-truth.cjs
- * still look wrong once 14 clean days exist, the answer is a better signal — not a
- * smaller number here.
+ * WHY SILENT LOSS IS THE REAL HAZARD: an over-cap caller receives 204, identical to
+ * a successful write. That is deliberate — a 429 invites beacon retries — but it
+ * means clipping a real visitor produces no client-side signal at all. Hence the
+ * attributable logging below: if we are going to drop writes invisibly to the
+ * client, they must at least be visible to us.
  */
-const DAILY_WRITE_CAP = Number(process.env.ANALYTICS_DAILY_WRITE_CAP) || 30;
+const DAILY_WRITE_CAP = Number(process.env.ANALYTICS_DAILY_WRITE_CAP) || 200;
 
 // Bounded so an IP-rotation flood cannot turn this defence into a memory leak.
 // On overflow we stop tracking NEW callers and let them through: failing open for
@@ -202,9 +224,14 @@ function overDailyCap(key) {
   }
 
   if (seen >= DAILY_WRITE_CAP) {
-    // Log the transition only, not every subsequent request.
+    // Log the transition only, not every subsequent request — but WITH the caller
+    // key. The previous version logged neither key nor count, so the cap hits in the
+    // pm2 log were unattributable and there was no way to tell a flood from a
+    // clipped office NAT after the fact.
     if (seen === DAILY_WRITE_CAP) {
-      console.error(`[bot-filter] caller hit the ${DAILY_WRITE_CAP}/day analytics write cap`);
+      console.error(
+        `[bot-filter] caller ${key} hit the ${DAILY_WRITE_CAP}/day cap — further writes dropped silently (204) until UTC midnight`
+      );
       writeCounts.set(key, seen + 1);
     }
     return true;
@@ -214,4 +241,4 @@ function overDailyCap(key) {
   return false;
 }
 
-module.exports = { isBotRequest, rejectBotAnalytics, overDailyCap, DAILY_WRITE_CAP, BOT_UA_RE };
+module.exports = { isBotRequest, rejectBotAnalytics, dailyCapGuard, overDailyCap, DAILY_WRITE_CAP, BOT_UA_RE };
