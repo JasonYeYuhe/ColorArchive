@@ -184,6 +184,16 @@ export function FullscreenStage({
   if (!active) return null;
 
   return (
+    // jsx-a11y cannot see keyboard support that lives on `window` rather than on the
+    // element, so it flags this as an inaccessible click target. It is not: focus is
+    // moved into the dialog on open (stageRef.current?.focus() above) and a window
+    // keydown listener handles Escape to exit, ArrowRight/Space/ArrowDown to advance
+    // and ArrowLeft/ArrowUp to go back. The listener is global rather than an
+    // onKeyDown prop deliberately — this is a fullscreen test pattern and must keep
+    // answering the keyboard even if focus lands somewhere unexpected after a browser
+    // fullscreen transition. Suppressed WITH the reason rather than bolting on a
+    // duplicate handler that would exist only to satisfy the linter.
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <div
       ref={stageRef}
       role="dialog"

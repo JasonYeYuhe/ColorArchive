@@ -291,6 +291,13 @@ function DistinguishabilityPanel({ hexes }: { hexes: string[] }) {
 
   // Memoized on the palette content — findSafeAlternative scans 5,446 archive
   // colors per problem color, so this must not rerun on unrelated renders.
+  // Hoisted out of the dependency array on purpose. `[hexes.join(",")]` put a
+  // computed expression in the deps, which eslint-plugin-react-hooks rejects as a
+  // hard ERROR — not a warning exhaustive-deps could silence — and that single line
+  // is why CI had been red on every push for over a week. A named variable is both
+  // what the rule wants and clearer about the intent.
+  const hexKey = hexes.join(",");
+
   const { pairs, failing } = useMemo(() => {
     const groups: { type: ColorBlindType; label: string; pairs: Pair[] }[] =
       COLOR_BLIND_INFO.map((info) => {
@@ -322,8 +329,10 @@ function DistinguishabilityPanel({ hexes }: { hexes: string[] }) {
       }
     }
     return { pairs: groups, failing: failingMap };
+    // hexKey, not hexes: this scans 5,446 archive colours, so it must key on the
+    // palette's CONTENT rather than on a fresh array identity every render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hexes.join(",")]);
+  }, [hexKey]);
 
   if (hexes.length < 2) return null;
 
