@@ -134,7 +134,7 @@ function rejectBotAnalytics(successStatus = 204) {
  * filter, not a guarantee — which is why the gate report also carries concentration
  * guards on per-session and per-day share.
  *
- * CHOSEN CAP: 60 writes/day/caller.
+ * CHOSEN CAP: 30 writes/day/caller.
  *
  * The first version used 300, sized against a believed ~1,000 human pageviews/day.
  * That baseline was itself crawler-inflated. Measured on the first filtered day, the
@@ -146,12 +146,28 @@ function rejectBotAnalytics(successStatus = 204) {
  * 1,024 rate-limit rejections on 07-20 — did exactly that: 441 POSTs on 07-27, of
  * which the cap admitted 300.
  *
- * 60 is still more than 4x the largest real session ever observed here, so it has
- * generous headroom for an office or carrier NAT at this scale, while cutting a
- * flooder's contribution by 5x. Revisit if real traffic ever grows an order of
- * magnitude — this number is tied to the site's size, not to a principle.
+ * THIRD VALUE FOR THIS CONSTANT IN TWO DAYS (300 -> 60 -> 30), and the first two
+ * were picked the wrong way: from a BELIEVED total traffic level, which was itself
+ * crawler-inflated both times. This one comes from the measured per-caller
+ * distribution, which turns out to have no ambiguity in it at all:
+ *
+ *   flood callers      166, 186, 1,156 writes/day
+ *   everyone else      1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4   <- the entire rest of the site
+ *
+ * The largest non-flood caller wrote FOUR. The largest single human session ever
+ * observed here was 14 pageviews. Any cap between roughly 20 and 50 separates the
+ * two populations perfectly; 30 sits in the middle with ~2x headroom over that
+ * 14-pageview session, and halves what each resident flooder can deposit.
+ *
+ * STRUCTURAL LIMIT, stated so nobody mistakes this for a solution: a per-caller cap
+ * cannot stop a flood, only meter it. Three resident flooders at 30/day still
+ * deposit 90 rows, and every new address starts with a fresh allowance. The
+ * per-minute limiter in the routes does the heavy lifting against bursts; this is
+ * the backstop for the slow, patient ones. If the row counts in traffic-truth.cjs
+ * still look wrong once 14 clean days exist, the answer is a better signal — not a
+ * smaller number here.
  */
-const DAILY_WRITE_CAP = Number(process.env.ANALYTICS_DAILY_WRITE_CAP) || 60;
+const DAILY_WRITE_CAP = Number(process.env.ANALYTICS_DAILY_WRITE_CAP) || 30;
 
 // Bounded so an IP-rotation flood cannot turn this defence into a memory leak.
 // On overflow we stop tracking NEW callers and let them through: failing open for
