@@ -146,6 +146,13 @@ const subsByStatus = db.prepare(
 const renewalsDue = db.prepare(
   `SELECT email, substr(pro_expires_at,1,10) AS due
      FROM users WHERE tier='pro' AND ${REAL} AND pro_expires_at IS NOT NULL
+       -- Must match how subsByStatus defines a real subscription, which this query
+       -- did not. Without these two filters, comped/manual pro grants (their
+       -- subscription_status is NULL) counted as upcoming renewals: the digest
+       -- announced 3 renewals due 2026-08-03 when the only real one is a single
+       -- monthly subscriber due 08-22. Announcing phantom revenue as imminent is
+       -- worse than announcing none.
+       AND payment_provider='lemonsqueezy' AND subscription_status='active'
        AND datetime(pro_expires_at) BETWEEN datetime('now') AND datetime('now','+7 day')
     ORDER BY pro_expires_at`
 ).all();

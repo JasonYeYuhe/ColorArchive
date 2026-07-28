@@ -120,7 +120,7 @@ const text = [
   `AI GATE VERDICT: ${v.tag}`,
   `  ${v.msg}`,
   ``,
-  `AI gate detail (window: last ${ai.days} days) — docs/dev-plan-2026-07-26-ai.md §8`,
+  `AI gate detail (window: ${ai.days ? `last ${ai.days} days` : `cumulative since ${String(ai.since).slice(0, 10)}`}) — docs/dev-plan-2026-07-26-ai.md §8`,
   `  Deciding surface: colour-detail /ai/name-color (the only AI surface with`,
   `  enough traffic for a ratio to mean anything — 6,133 views/30d vs 29 across`,
   `  all three AI tool pages combined).`,

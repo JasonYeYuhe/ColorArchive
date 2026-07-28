@@ -58,7 +58,13 @@ A healthy run logs (verbatim from the live log, 2026-07-26):
 ssh root@143.198.85.72
 
 # 2. Stop the API (PM2)
-pm2 stop colorarchive-api
+pm2 stop colorarchive-server
+# Assert it actually stopped. Until 2026-07-28 this said `colorarchive-api`, which
+# is not a process on this box — so pm2 printed a warning, the step silently did
+# NOTHING, and the restore below overwrote a live data.db. That is precisely the
+# WAL corruption the warning above exists to prevent. Never let this fail open.
+pm2 jlist | python3 -c 'import json,sys; ps=json.load(sys.stdin); s=[p for p in ps if p["name"]=="colorarchive-server"]; sys.exit(0 if s and s[0]["pm2_env"]["status"]=="stopped" else 1)' \
+  || { echo "REFUSING TO RESTORE: colorarchive-server is not stopped"; exit 1; }
 
 # 3. Safety: snapshot the current live DB before overwriting
 cp /root/ColorArchive/server/data.db /tmp/data.db.pre-restore.$(date +%s)
@@ -78,8 +84,8 @@ sqlite3 /root/ColorArchive/server/data.db 'PRAGMA integrity_check;'
 # Expect: ok
 
 # 7. Restart the API
-pm2 start colorarchive-api
-pm2 logs colorarchive-api --lines 20 --nostream
+pm2 start colorarchive-server
+pm2 logs colorarchive-server --lines 20 --nostream
 
 # 8. Smoke test from a client
 curl -sSf https://api.colorarchive.org/health   # NOT /healthz — that route does not exist and 404s
@@ -87,9 +93,9 @@ curl -sSf https://api.colorarchive.org/health   # NOT /healthz — that route do
 
 Rollback the restore if something went wrong:
 ```bash
-pm2 stop colorarchive-api
+pm2 stop colorarchive-server
 cp /tmp/data.db.pre-restore.<timestamp> /root/ColorArchive/server/data.db
-pm2 start colorarchive-api
+pm2 start colorarchive-server
 ```
 
 ## Restore drill schedule

@@ -61,7 +61,10 @@ const dailyPv = q(
     WHERE date(created_at) >= date('now', '-' || @days || ' days')
       AND date(created_at) < @today
     GROUP BY d ORDER BY d`,
-  { days: DAYS + 1, today }
+  // DAYS, not DAYS+1: the current day is already excluded by the `< @today`
+  // clause above, so adding one over-counted by exactly a day — in the script whose
+  // whole purpose is that the number stops moving depending on who computes it.
+  { days: DAYS, today }
 );
 
 const SURFACE_CASE = `CASE
