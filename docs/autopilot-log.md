@@ -1,3 +1,9 @@
+## 2026-07-30 — [autopilot] support email handler
+
+Checked for unread support emails at support@colorarchive.me and support@colorarchive.org.
+No unread messages found matching the filter (`-label:autoprocessed -label:needs-review is:unread`).
+No emails processed. No action required.
+
 ## 2026-07-26 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jul 19–26. **First real changelog week since Jul 12** — the
