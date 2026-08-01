@@ -1,3 +1,9 @@
+## 2026-08-01 — [autopilot] support email handler
+
+Ran support email processing routine. Searched `to:support@colorarchive.me -label:autoprocessed -label:needs-review is:unread`. **No new support emails found.** No replies sent, no drafts created.
+
+---
+
 ## 2026-07-26 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jul 19–26. **First real changelog week since Jul 12** — the
