@@ -18,7 +18,25 @@ fi
 # docs/ or .claude/ and no .md/.mdx (verified 2026-06-20), so ALL docs
 # markdown + ALL .claude state are blanket-skipped — no need to enumerate
 # every doc filename (the old list silently built on any new, unlisted doc).
-METADATA='^(\.claude/.*|docs/.*\.md|autopilot-log\.md|STRUCTURE\.md|gemini-review-todo\.md|todo\.md|HANDOFF\.md|README\.md|AGENTS\.md|CLAUDE\.md|IMPROVEMENTS\.md|PRODUCT_MEMO\.md|ROADMAP\.md|support-knowledge\.md)$'
+#
+# server/ is skipped too (added 2026-08-01). It is a separate Express app
+# deployed to the DigitalOcean droplet by scp — Vercel never runs it. Verified
+# before adding: nothing under src/, app/ or next.config.ts imports server/,
+# and server/ contains zero .ts files, so it contributes nothing to `next build`
+# or to the type-check that build performs. Backend-only pushes were burning a
+# full ~3 CPU-hour rebuild of every static page for no artefact change, and this
+# repo pushes backend fixes often.
+#
+# WHY SKIPPING IS NOT LOSING A CHECK: .github/workflows/ci.yml runs on every push
+# to main and executes typecheck, lint, the full test suite AND `npm run build` —
+# it installs server deps too (`npm ci --prefix server`). So the Next build is
+# still compiled and verified on a server-only push; Vercel is merely not asked to
+# render 4,461 pages and re-write the ISR cache for an artefact that cannot have
+# changed. If ci.yml ever stops running `npm run build`, take server/ back out.
+#
+# (tsconfig.json includes "**/*.ts" repo-wide, so a future .ts under server/ would
+# be type-checked by that CI build as well — today there are none.)
+METADATA='^(\.claude/.*|docs/.*\.md|server/.*|autopilot-log\.md|STRUCTURE\.md|gemini-review-todo\.md|todo\.md|HANDOFF\.md|README\.md|AGENTS\.md|CLAUDE\.md|IMPROVEMENTS\.md|PRODUCT_MEMO\.md|ROADMAP\.md|support-knowledge\.md)$'
 
 CHANGED=$(git diff "$VERCEL_GIT_PREVIOUS_SHA" HEAD --name-only)
 

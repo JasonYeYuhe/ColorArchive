@@ -68,11 +68,32 @@ function parseIssue(file) {
   return { meta, body: m[2].trim(), slug: path.basename(file, ".md") };
 }
 
+// An issue is named YYYY-Www.md (the convention the drafting routine follows and
+// docs/design-notes/README.md states). Matching the name POSITIVELY rather than
+// blocklisting README.md is deliberate: every .md in this directory was being
+// parsed as a mailable issue, so any prose file that ever happens to contain a
+// line reading `status: approved` gets mailed to the list. README.md survives
+// today only because its example line is `status: draft   # → approved, ...`,
+// which is luck, not a guard — and the next TEMPLATE.md or IDEAS.md would not
+// have that luck. The allowlist closes the whole class.
+const ISSUE_SLUG_RE = /^\d{4}-W\d{2}$/;
+
 function loadApproved() {
   if (!fs.existsSync(ISSUES_DIR)) return [];
-  return fs
-    .readdirSync(ISSUES_DIR)
-    .filter((f) => f.endsWith(".md"))
+  const files = fs.readdirSync(ISSUES_DIR).filter((f) => f.endsWith(".md"));
+
+  // Say what was skipped. A genuine issue with a typo'd filename must not vanish
+  // in silence — that is the same failure shape as a dropped analytics write that
+  // returns 204: invisible to everyone, including us.
+  const skipped = files.filter((f) => !ISSUE_SLUG_RE.test(path.basename(f, ".md")));
+  if (skipped.length) {
+    console.log(
+      `[design-notes] ignoring ${skipped.length} non-issue file(s) in ${ISSUES_DIR}: ${skipped.join(", ")} (expected YYYY-Www.md)`,
+    );
+  }
+
+  return files
+    .filter((f) => ISSUE_SLUG_RE.test(path.basename(f, ".md")))
     .map((f) => parseIssue(path.join(ISSUES_DIR, f)))
     .filter((i) => i && i.meta.status === "approved")
     .filter((i) => (onlyIssue ? i.slug === onlyIssue : true))
