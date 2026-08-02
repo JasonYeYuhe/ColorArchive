@@ -1,3 +1,7 @@
+## 2026-08-01 — [autopilot] support email handler
+
+Checked support inbox (`to:support@colorarchive.me -label:autoprocessed -label:needs-review is:unread`). No unread support emails found. Gmail account accessible; 3 historical threads exist (all already read/processed). No actions taken.
+
 ## 2026-07-26 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jul 19–26. **First real changelog week since Jul 12** — the
