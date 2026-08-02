@@ -49,8 +49,12 @@ mkdir -p "$STAGING"
 # (nothing drafted yet), not an error worth alerting on.
 if git -C "$REPO" archive origin/main docs/design-notes 2>/dev/null \
    | tar -x -C "$STAGING" --strip-components=2 2>/dev/null; then
+  # Say "markdown file(s)", not "issue file(s)". This counts everything copied out
+  # of docs/design-notes/, which includes README.md — so the old wording reported
+  # "2 issue file(s)" for one issue and a readme. The sender prints the real issue
+  # count on the next line; this one must not pre-empt it with a bigger number.
   COUNT=$(find "$STAGING" -maxdepth 1 -name '*.md' | wc -l | tr -d ' ')
-  log "design-notes: staged $COUNT issue file(s) from origin/main"
+  log "design-notes: staged $COUNT markdown file(s) from origin/main"
 else
   log "design-notes: no docs/design-notes/ in origin/main yet — nothing to stage"
 fi
