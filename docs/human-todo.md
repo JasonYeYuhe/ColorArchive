@@ -2,43 +2,61 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 > Last updated: 2026-08-02 (Design Notes W31 approved + sent to nobody; the "does this
-> format continue" call is deferred to 2026-08-09 by owner decision — see below)
+> format continue" call is deferred to 2026-08-10, and the report now arrives by email
+> on its own — see below)
 
-## 📅 2026-08-09 — DECIDE: does Design Notes continue?
+## 📅 2026-08-10 — DECIDE: does Design Notes continue? (report arrives by email)
 
-**Owner decision, 2026-08-02: do not act on the 0-subscriber signal yet. Revisit on
-2026-08-09.** The reasoning is the same rule `server/scripts/traffic-truth.cjs` enforces:
-one week is too thin, and 08-09 is the 14th clean post-crawler-filter day, which is the
-first date this project has agreed to call a reading trustworthy.
+**Owner decision, 2026-08-02: do not act on the 0-subscriber signal yet.**
 
-What to run on the day:
+**Nothing to run — a one-shot cron mails you the numbers at 09:30 UTC on Mon 2026-08-10**
+(`server/scripts/design-notes-decision.cjs`, verified end to end with `--force --dry-run`
+on 08-02). It fires once and then no-ops; delete the script and its crontab line after
+you decide.
 
-```bash
-ssh root@143.198.85.72 "cd /root/ColorArchive/server && node scripts/traffic-truth.cjs"
-```
+### The date is the 10th, not the 9th
 
-Then check the list itself:
+I first wrote 08-09 here and it was wrong by one day. The 14th clean day *is* 08-09, but
+it does not **finish** until 00:00 UTC on 08-10, and `traffic-truth.cjs` excludes the
+current day by design (never extrapolate a partial day). Run it on the 9th and it sees
+thirteen days and refuses to conclude. Confirmed against live output on 08-02, which
+printed `6/14 clean days` for 07-27..08-01 with 08-02 excluded.
 
-```bash
-ssh root@143.198.85.72 "sqlite3 /root/ColorArchive/server/data.db \
-  \"SELECT COUNT(*) FROM subscribers WHERE notes_subscribed=1 AND COALESCE(is_test,0)=0;\""
-```
+### The number that decides it is not pageviews
 
-The state being judged, as of 2026-08-02: recruitment slot live on guide detail pages
-since Jul 25 (`f4170cd`), **382 filtered guide views across five complete days → 0
-signups**. The pipeline is not the problem — that was verified end to end this session
-(capture → write path → sender → cron), so a still-zero number on 08-09 is a verdict on
-the format or the pitch, not on the plumbing.
+As of 2026-08-02, over the first six clean days:
 
-Two readings, opposite responses — pick one, don't split the difference:
+| measure | value | what it means |
+|---|---|---|
+| **sessions that saw the form** | **122** | viewability-gated: 50% visible for 1 continuous second |
+| **signups** | **0** | |
+| **best case, 95% conf.** | **under 2.5%** | rule of three on 0/122 |
+| guide pageviews | 431 | arrival, not exposure — the weaker number |
+
+The 122 is `email_form_impression` on `/guides/*`, which only fires when someone actually
+scrolled to the slot and stopped on it. Quoting the 431 instead would understate the
+problem by counting people who were never asked.
+
+**That ceiling is the point.** This is not "we haven't seen a signup yet" — it is "the
+true rate cannot be better than ~2.5%, at 95% confidence". A weekly newsletter that
+converts under 2.5% of the people who stop and look at its signup form is not a headline
+you can rewrite your way out of. If the 08-10 numbers hold, that is a real answer, not an
+absence of one.
+
+### What it is not
+
+The pipeline was verified end to end on 08-02 — capture surface, write path, sender,
+Friday cron. A zero on 08-10 is a verdict on the format or the pitch. Do not go looking
+for a plumbing bug again.
+
+### Two readings, opposite responses — pick one, don't split the difference
 
 - **The pitch is wrong** (position, heading, or the promise "one email a week") → rewrite
   the slot and give it another fortnight.
-- **Guide readers don't want weekly email** → retire the format. W31 stays unsent and
-  costs nothing; there is no sunk cost to protect.
+- **Guide readers don't want weekly email** → retire the format.
 
 W31 is approved and idle. It recorded **no** row in `design_notes_deliveries`, so whoever
-subscribes first still receives it — waiting costs nothing.
+subscribes first still receives it — waiting, or stopping, costs nothing.
 
 ## 📮 2026-08-02 — weekly roundup drafted, awaiting your approval before posting
 
