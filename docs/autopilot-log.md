@@ -1,3 +1,9 @@
+## 2026-08-02 — [autopilot] support email handler
+
+Checked support@colorarchive.me for new unread unprocessed emails. **No new customer support emails found.** Only item in inbox: a PeerPush marketing pitch (ip@joinpeerpush.net) — skipped per automated skip rules (marketing outreach, not a customer inquiry). No replies sent, no drafts created.
+
+---
+
 ## 2026-07-26 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jul 19–26. **First real changelog week since Jul 12** — the
