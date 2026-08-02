@@ -1,7 +1,31 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-07-26 (remote — four-month identity bug found and fixed; see below)
+> Last updated: 2026-08-02 (weekly roundup — post drafted, NOT published; see below)
+
+## 📮 2026-08-02 — weekly roundup drafted, awaiting your approval before posting
+
+Drafted in `docs/daily-posts-queue.md` under **Weekly Roundup — 2026-08-02**. **Nothing
+was published** — this file is manual-post-only by convention, and publishing to the
+Facebook Page is a public, irreversible action I won't take unattended.
+
+The thing worth your attention: **this week had no user-facing release.** 27 commits,
+all internal (identity/rate-limit bug, crawler filtering, AI gate, `:3002` email vector +
+firewall, backup runbook, CI). Zero new colors, tools, collections or guides — the tool
+count is still 43, same as the Jul 26 post claimed. So the draft is deliberately **not** a
+changelog; it's a single-topic spotlight on the Delta E explainer pointing at `/compare/`
+(verified: that page really does show CIEDE2000 and CIE76 side by side).
+
+Three things to decide:
+
+1. **Post it, or skip the week?** A tool spotlight with no release behind it is defensible,
+   but skipping is also fine — there's no news pressure here.
+2. **Design Notes has 0 subscribers.** W31 was approved but has no recipients, so no mail
+   went out. The recruitment slot has been live on guide detail pages since Jul 25; ~382
+   guide views over five clean days → 0 signups. That's a conversion problem, and another
+   weekly post won't move it. Worth deciding whether the format continues.
+3. **The X variant must stay URL-free** — a link takes the per-post API cost from ~$0.015
+   to ~$0.20, which is what drained the credits in May.
 
 ## 🚨 2026-07-26 (remote) — our analytics had been silently dropping writes for four months
 

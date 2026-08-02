@@ -4,6 +4,70 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-08-02
+
+> **There was no user-facing release this week, so this is not a changelog.** 27 commits landed between Jul 26 and Aug 2 and every one of them was internal: an identity bug where all per-IP rate limits collapsed into one global bucket, crawler filtering for the traffic numbers, the AI kill-gate, a closed `:3002` email vector plus a host firewall, backup-runbook corrections, and a red CI unblocked. **Zero new colors, tools, collections, or guides** — the tool count is still 43, unchanged from last week's post. Writing a "look what we shipped" post off this week would mean inventing news, so I didn't.
+>
+> Two things this week *are* real and publishable, and both were verified in code this run:
+>
+> 1. **The Delta E piece.** Design Notes issue 2026-W31 was approved (commit 6238e05). Its central claim checks out: `/compare/` genuinely displays **both** CIEDE2000 and CIE76 for a color pair, side by side, with a plain-language read — `src/components/color-compare-page.tsx:406`. So the tool spotlight below is safe to publish. **But the issue itself has no public URL** — Design Notes is email-only (`server/scripts/send-design-notes.cjs`), and `app/notes/` is the separate monthly-newsletter system driven by `src/lib/newsletter-issues.ts`. Do **not** link to the design note; link to `/compare/`.
+> 2. **The privacy fix** (commit f84b59c). The brand generator was retaining verbatim user-typed briefs (`{industry, style}` free text — live rows held real creative briefs) first-party *and* forwarding them to PostHog, disclosed nowhere. That storage is gone, and `ca_sid` / `ca_attr_v1` / PostHog are now disclosed in the cookie and privacy policies. This is worth saying out loud, but it is a **correction of our own past behavior**, not a feature — the honest framing is transparency, not achievement.
+>
+> **Owner notes:** (a) Design Notes still has **0 subscribers** — the W31 issue has no recipients, so no email went out and no draft was burned. The recruitment slot has been on guide detail pages since Jul 25 (f4170cd); ~382 guide views over five clean filtered days produced 0 signups. That's a conversion signal, not a pipeline fault, and it won't be fixed by another weekly post. (b) Per repo convention this file is **manual-post-only** — nothing below has been published. (c) Keep the X variant **URL-free**: a link raises X API cost from ~$0.015 to ~$0.20 per post, which is what drained the credits in May.
+
+### Facebook
+
+🎨 **Two color tools can give you two different Delta E numbers for the exact same pair of colors. Here's why that matters.**
+
+You're checking whether a "near match" is close enough — a vendor's Pantone-to-hex conversion, a dark-mode tint that's meant to read as the same blue, a rebrand tweak. You run both colors through a difference calculator and get back a number. But "Delta E" isn't one formula. It's a family of them, and they disagree.
+
+**CIE76** is the original: plain Euclidean distance between two Lab coordinates. Fast, simple, and built on the assumption that Lab space is perceptually uniform — which it isn't. It overstates differences in saturated colors.
+
+**CIEDE2000** corrects for that. It weights lightness, chroma and hue separately, adds a hue-rotation term for the blue region, and adjusts for how chroma sensitivity shifts with saturation. It's the standard for accessibility and print-matching work because it tracks human judgment more closely.
+
+⚠️ **The trap:** the two are *not* off by a fixed ratio. The gap moves depending on where your colors sit in the gamut, so you can't convert one into the other with a multiplier. A bare "Delta E: 3.2" with no formula attached tells you almost nothing.
+
+📏 **Working thresholds for CIEDE2000** (a practical scale, not a formal standard):
+• Under 1 — imperceptible to most people
+• 1–2 — visible only in close side-by-side comparison
+• 2–10 — a visible shade difference within the same color family
+• Above 10 — reads as a genuinely different color
+
+💡 **If you set a color tolerance for a design system or a QA gate, write down which formula it's measured in.** A CIEDE2000 threshold of 2.0 and a CIE76 threshold of 2.0 are not the same bar — and treating them as interchangeable is exactly how swatches that visibly differ end up "passing."
+
+Our comparison tool shows you both numbers at once, side by side, with a plain-English read of what the difference actually means.
+
+Compare two colors → colorarchive.org/compare
+
+#ColorArchive #ColorTheory #DesignSystems #Accessibility #DeltaE #ColorManagement #UIDesign #WebDev #DesignTools #BrandColors
+
+### X / Twitter (@ColorArxiv — post WITHOUT a URL, see owner note)
+
+Two tools can hand you different Delta E numbers for the same pair of colors.
+
+CIE76: plain Euclidean distance in Lab.
+CIEDE2000: weights lightness, chroma and hue separately.
+
+They're not off by a fixed ratio, so you can't convert between them.
+
+Always ask which formula. 🎨
+
+### Optional secondary post — privacy (Facebook, lower priority)
+
+🔒 **A change we made this week, and why we're telling you about it.**
+
+Our AI brand-palette generator was storing the text you typed into it — the industry and style description that makes up your brief — alongside our analytics, and passing it to our analytics provider. It was never needed: the only thing we actually measure is which tool was used. It should never have been retained, and as of this week it isn't.
+
+We've also written down, in plain language, every piece of storage the site uses — the per-visit session id, the first-touch referrer record, and our analytics. All of it is in the privacy and cookie policies now, including the part people usually leave out: signing in mid-visit links that visit's earlier anonymous activity to your account.
+
+No ad identifiers. No session recording. No selling anything to anyone.
+
+Read the policy → colorarchive.org/privacy
+
+#Privacy #DataProtection #ColorArchive #IndieWeb
+
+---
+
 ## Weekly Roundup — 2026-07-26
 
 > Real news this week (Jul 19 – Jul 26): **the biggest release week in months** — 16 commits after two consecutive silent weeks. Everything claimed below was verified in code this run: 10 new tool pages exist under `app/` (screen-test hub + dead-pixel + color-screens, tailwind-colors, css-filter, color-wheel, color-temperature, dark-mode-colors, duotone, paint-mix); `/convert/` really does emit OKLCH/Lab/LCH; `/compare/` and `/name/` really do use CIEDE2000 ΔE; the tools page lists **43** distinct tools, so that number is safe to publish. iOS v1.3 with the Hue Challenge went live on the App Store Jul 22 (READY_FOR_SALE). **Not in the public post, deliberately:** (a) the Auditor pre-order was cancelled and every pre-order surface closed — zero pre-orders were ever placed, so there is no customer to notify and announcing a cancellation of a product nobody bought only creates confusion; (b) the email-capture/instrumentation/unsubscribe work is internal plumbing, not a user-facing feature. **Owner note:** after two filler weeks, this one is a genuine changelog — worth pinning, and worth a second post later in the week spotlighting Screen Test on its own rather than burying it in a 10-tool list.
