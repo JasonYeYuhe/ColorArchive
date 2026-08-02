@@ -1,7 +1,44 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-08-02 (weekly roundup — post drafted, NOT published; see below)
+> Last updated: 2026-08-02 (Design Notes W31 approved + sent to nobody; the "does this
+> format continue" call is deferred to 2026-08-09 by owner decision — see below)
+
+## 📅 2026-08-09 — DECIDE: does Design Notes continue?
+
+**Owner decision, 2026-08-02: do not act on the 0-subscriber signal yet. Revisit on
+2026-08-09.** The reasoning is the same rule `server/scripts/traffic-truth.cjs` enforces:
+one week is too thin, and 08-09 is the 14th clean post-crawler-filter day, which is the
+first date this project has agreed to call a reading trustworthy.
+
+What to run on the day:
+
+```bash
+ssh root@143.198.85.72 "cd /root/ColorArchive/server && node scripts/traffic-truth.cjs"
+```
+
+Then check the list itself:
+
+```bash
+ssh root@143.198.85.72 "sqlite3 /root/ColorArchive/server/data.db \
+  \"SELECT COUNT(*) FROM subscribers WHERE notes_subscribed=1 AND COALESCE(is_test,0)=0;\""
+```
+
+The state being judged, as of 2026-08-02: recruitment slot live on guide detail pages
+since Jul 25 (`f4170cd`), **382 filtered guide views across five complete days → 0
+signups**. The pipeline is not the problem — that was verified end to end this session
+(capture → write path → sender → cron), so a still-zero number on 08-09 is a verdict on
+the format or the pitch, not on the plumbing.
+
+Two readings, opposite responses — pick one, don't split the difference:
+
+- **The pitch is wrong** (position, heading, or the promise "one email a week") → rewrite
+  the slot and give it another fortnight.
+- **Guide readers don't want weekly email** → retire the format. W31 stays unsent and
+  costs nothing; there is no sunk cost to protect.
+
+W31 is approved and idle. It recorded **no** row in `design_notes_deliveries`, so whoever
+subscribes first still receives it — waiting costs nothing.
 
 ## 📮 2026-08-02 — weekly roundup drafted, awaiting your approval before posting
 
