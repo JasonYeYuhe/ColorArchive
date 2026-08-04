@@ -1,3 +1,7 @@
+## 2026-08-04 — [autopilot] support email handler
+
+Searched for unread support emails to support@colorarchive.me and support@colorarchive.org. No customer support emails found — inbox is clear. No emails processed, no replies sent, no drafts created.
+
 ## 2026-07-26 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jul 19–26. **First real changelog week since Jul 12** — the
