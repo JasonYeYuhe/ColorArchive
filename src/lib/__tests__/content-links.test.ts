@@ -4,6 +4,8 @@ import { describe, expect, it } from "vitest";
 import { collections } from "@/src/lib/collections";
 import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
 import { landingGuides } from "@/src/lib/guides";
+import { newsletterIssues } from "@/src/lib/newsletter-issues";
+import rawIssues from "@/src/data/newsletter-issues.json";
 
 /**
  * Every "Open next" pill on a guide page must point at a route that exists.
@@ -73,7 +75,20 @@ const familySlugs = new Set(COLOR_FAMILY_PAGES.map((page) => page.slug));
 const guideSlugs = new Set(landingGuides.map((guide) => guide.slug));
 
 function resolves(href: string): boolean {
-  const path = href.split("?")[0].split("#")[0];
+  // Same-origin absolute URLs are real links, not dead ones. Content authored as
+  // https://colorarchive.org/contrast/ resolves exactly like /contrast/.
+  const sameOrigin = href.replace(/^https?:\/\/(www\.)?colorarchive\.(org|me)/, "");
+  if (/^https?:\/\//.test(sameOrigin)) return true; // genuinely external — not ours to check
+
+  // A query string can be load-bearing (?family=Blue named a filter that no longer
+  // exists), so it is checked rather than discarded.
+  const [pathPart, query] = sameOrigin.split("#")[0].split("?");
+  if (query) {
+    // The only query the content uses is ?family=, and it maps to a route now.
+    const family = new URLSearchParams(query).get("family");
+    if (family) return false;
+  }
+  const path = pathPart || "/";
   // trailingSlash: true, so compare in that shape.
   const normalized = path.endsWith("/") ? path : `${path}/`;
 
@@ -125,5 +140,76 @@ describe("guide links", () => {
       .filter((guide) => !collectionIds.has(guide.featuredCollectionId as string))
       .map((guide) => `${guide.slug} → ${guide.featuredCollectionId}`);
     expect(broken, `guides pointing at a missing collection:\n${broken.join("\n")}`).toEqual([]);
+  });
+});
+
+describe("newsletter links", () => {
+  /**
+   * The first pass of this guard only covered guides.ts, and the same three
+   * renamed namespaces were still rotting in the newsletter data — 62 dead
+   * hrefs across the /notes/ archive. Fixing one dataset and not the other is
+   * how a "swept" problem comes back, so the guard covers both.
+   */
+  it("every newsletter links[].href resolves to a real route", () => {
+    // Iterates the RAW file, not the exported list. `newsletterIssues` is filtered
+    // to issues whose date has passed — 42 of 350 today — so checking that export
+    // would leave 88% of the corpus unguarded and would only notice a dead link on
+    // the day its issue went live, which is precisely too late. Authoring time is
+    // when the link is wrong; that is when this should fail.
+    const dead: string[] = [];
+    for (const issue of rawIssues as { slug: string; links?: { label: string; href: string }[] }[]) {
+      for (const link of issue.links ?? []) {
+        if (!resolves(link.href)) {
+          dead.push(`${issue.slug} → ${link.href} ("${link.label}")`);
+        }
+      }
+    }
+    expect(dead, `dead newsletter links:\n${dead.join("\n")}`).toEqual([]);
+  });
+
+  it("no issue is dated in the future", () => {
+    // The publish gate compares against the build date. If this ever fails, the
+    // gate has stopped working rather than the data being wrong — it used to
+    // compare against a hardcoded "2026-12-31", which put 16 issues live four
+    // months early.
+    const today = new Date().toISOString().slice(0, 10);
+    const early = newsletterIssues
+      .filter((issue) => issue.date > today)
+      .map((issue) => `${issue.slug} (${issue.date})`);
+    expect(early, `issues published ahead of their date:\n${early.join("\n")}`).toEqual([]);
+  });
+
+  it("featuredCollectionId, when set, names a collection that exists", () => {
+    // Same guard the guides have. Over the raw file, so an issue authored today
+    // with a stale id fails now rather than on the morning it goes live.
+    const broken: string[] = [];
+    for (const issue of rawIssues as { slug: string; featuredCollectionId?: string }[]) {
+      if (issue.featuredCollectionId && !collectionIds.has(issue.featuredCollectionId)) {
+        broken.push(`${issue.slug} → ${issue.featuredCollectionId}`);
+      }
+    }
+    expect(broken, `issues pointing at a missing collection:\n${broken.join("\n")}`).toEqual([]);
+  });
+
+  it("the archive is ordered newest first", () => {
+    // Three things read positional order: the /notes/ index, latestNewsletterIssue,
+    // and getNewsletterNeighbors. Any of them silently misbehaves if the sort goes.
+    const dates = newsletterIssues.map((issue) => issue.date);
+    const sorted = [...dates].sort((a, b) => b.localeCompare(a));
+    expect(dates).toEqual(sorted);
+  });
+});
+
+describe("collections", () => {
+  it("ids are unique — a repeated id makes the later entry unreachable", () => {
+    // getCollectionById uses .find(). 8 repeated ids once hid 10 curated
+    // collections at no URL at all, while the sitemap still emitted duplicates.
+    const seen = new Set<string>();
+    const repeated: string[] = [];
+    for (const collection of collections) {
+      if (seen.has(collection.id)) repeated.push(collection.id);
+      seen.add(collection.id);
+    }
+    expect(repeated, `duplicate collection ids:\n${repeated.join("\n")}`).toEqual([]);
   });
 });

@@ -22,6 +22,60 @@ export interface GeneratedWordColor {
   }[];
 }
 
+/**
+ * Avalanche step (the finalizer from MurmurHash3's fmix32).
+ *
+ * Only applied to hashes that never filled their high bits — see hashString.
+ */
+function avalanche(value: number): number {
+  let x = value >>> 0;
+  x = Math.imul(x ^ (x >>> 16), 0x85ebca6b) >>> 0;
+  x = Math.imul(x ^ (x >>> 13), 0xc2b2ae35) >>> 0;
+  return (x ^ (x >>> 16)) >>> 0;
+}
+
+/**
+ * DO NOT "improve" this by mixing every hash. The site's whole promise is that a
+ * word always returns the same colour — it is in the page copy, in the FAQ, and
+ * in the metadata of 474 pre-rendered /word-to-color/[word]/ pages. Remixing
+ * unconditionally would silently recolour every one of them and break every link
+ * anyone has shared.
+ *
+ * THE CONDITION IS THE BUG ITSELF, NOT A RANGE AROUND IT. Lightness is
+ * `32 + ((hash >>> 8) % 42)`, so the degenerate case is exactly `hash >>> 8 === 0`
+ * — the shift discards the whole hash and lightness lands on 32 every time. That
+ * is true for, and only for, hashes below 256 — a single character below U+0100,
+ * i.e. every ASCII character plus the whole Latin-1 block (é, ñ, ü, ø, ß). All
+ * 26 English letters and all 10 digits came out with lightness
+ * pinned to exactly 32 and a hue equal to their raw char code, i.e. a 93° wedge
+ * of yellow-green: "a" through "z" were the same dark green, "0" through "9" the
+ * same olive.
+ *
+ * TWO THINGS THIS THRESHOLD IS DELIBERATELY NOT:
+ *
+ * It is not 4096. A first attempt used that, reasoning that 2-char ASCII tops out
+ * at 3904 and 3-char starts at 96321, so the gap looked free. It was not: the
+ * published seed list contains the 2-character word "ai" (hash 3112), and the
+ * threshold silently recoloured its live page from #3948A7 to #D6964C — title,
+ * h1, meta description, JSON-LD, OG card and all. Picking a range that "looks
+ * safe" is not the same as checking the corpus, and the pinned-value test at the
+ * time contained no 2-character word so it sailed through.
+ *
+ * It is not 65536 either. An even earlier attempt used that and recoloured every
+ * single-character CJK word — U+4E00 is 19968, so a lone Han character never had
+ * empty high bits and was never degenerate. That matters here: single Han
+ * characters are real words, and Chinese is this site's promotion audience.
+ *
+ * The residual risk is a long input whose hash happens to wrap below 256: about
+ * 1 in 16.7 million. The seed-snapshot test alongside this file pins all 474
+ * published words, so any future change to this function has to face the whole
+ * corpus rather than a handful of hand-picked examples.
+ */
+function isDegenerate(hash: number): boolean {
+  // `hash >>> 8 === 0` — written as the comparison it actually is.
+  return hash < 0x100;
+}
+
 function hashString(input: string): number {
   let hash = 0;
 
@@ -29,7 +83,7 @@ function hashString(input: string): number {
     hash = (hash * 31 + input.charCodeAt(index)) >>> 0;
   }
 
-  return hash;
+  return isDegenerate(hash) ? avalanche(hash) : hash;
 }
 
 function normalizeToken(token: string): string {

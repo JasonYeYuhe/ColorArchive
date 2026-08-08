@@ -50,6 +50,11 @@ const WORD_PAYWALL_ENABLED = true;
 const FREE_GENERATIONS = 5;
 const GEN_WORDS_KEY = "colorarchive-word-gen-words";
 const UNLOCK_KEY = "colorarchive-word-unlocked";
+// Per-TAB, so a reload cannot re-nominate the gated word as the free one.
+const LANDING_WORD_KEY = "colorarchive-word-landing";
+// The last ?q= this component wrote itself. Lets a reload of our own rewrite be
+// told apart from an arrival on someone else's link.
+const LAST_WRITTEN_KEY = "colorarchive-word-last-written";
 
 // Event names live in one place so a typo can't silently split a funnel. All fan out
 // through track() to both the first-party /events table and PostHog under these names.
@@ -148,6 +153,9 @@ export function WordColorGeneratorPage() {
   const [showRecruit, setShowRecruit] = useState(false);
   const landingWordRef = useRef(normalizeWord(DEFAULT_WORD));
   const countedWordsRef = useRef<Set<string> | null>(null);
+  // Words this mount committed, so prefix-refunding can be scoped to the burst
+  // that produced the fragments rather than to all of history.
+  const committedThisMountRef = useRef<Set<string>>(new Set());
   const getCountedWords = () => {
     if (!countedWordsRef.current) {
       // Seed with the persisted counted words + the landing word, so the landed-on word
@@ -193,16 +201,54 @@ export function WordColorGeneratorPage() {
   // otherwise replace the visitor's own ?q= with the default word.
   useEffect(() => {
     const q = new URLSearchParams(window.location.search).get("q");
-    const word = q && q.trim().length > 0 ? q : DEFAULT_WORD;
-    if (word !== DEFAULT_WORD) {
-      setInput(word);
-      // The landing word is the one the paywall never charges for. It has to
-      // move with ?q=, and the counted-word set has to be re-seeded, or a
-      // visitor arriving on a shared link would be charged for the very word
-      // they were sent to look at.
-      landingWordRef.current = normalizeWord(word);
-      countedWordsRef.current = null;
+    const fromUrl = q && q.trim().length > 0 ? q : DEFAULT_WORD;
+
+    // THE LANDING WORD IS PER TAB, NOT PER PAGE LOAD.
+    //
+    // It used to be re-derived from ?q= on every mount, and the component
+    // rewrites ?q= to whatever is in the box as you type. So the moment the wall
+    // appeared for word W, the address bar already said ?q=W — and pressing
+    // Reload made W the "landing word", which is the one word the paywall never
+    // charges for. The wall dismissed itself, for free, with the browser's most
+    // obvious button.
+    //
+    // THE TEST IS NOT "have we been here before", IT IS "did WE write this ?q=".
+    //
+    // A first attempt simply pinned the landing word to the first value the tab
+    // ever saw. That fixed the reload, and broke something worse: arriving at a
+    // shared ?q= link in a tab that had already opened the generator left the
+    // landing word stuck on the earlier word, so the shared word was treated as a
+    // typed lookup — charged against the free limit with no keystroke, and shown
+    // the wall outright to anyone already at the limit. Deep links and shares are
+    // this page's growth loop; breaking them costs more than the leak did.
+    //
+    // The two cases are distinguishable, because this component knows which ?q=
+    // values it wrote itself. The rewrite effect below records its last write; a
+    // ?q= that differs from it came from outside — a share, a chip, an inbound
+    // link — and is a genuine new arrival that earns a fresh free word. A ?q= that
+    // matches is our own rewrite coming back around, which is exactly the reload
+    // case, and there the stored landing word stands.
+    let landing = fromUrl;
+    try {
+      const stored = sessionStorage.getItem(LANDING_WORD_KEY);
+      const lastWritten = sessionStorage.getItem(LAST_WRITTEN_KEY);
+      // Compare against what WE last wrote, including the empty string — the
+      // component writes a bare URL when the box is cleared, so "no ?q=" is a
+      // value we can have written, not a signal to skip the check. An earlier
+      // `q !== null` guard made every query-less arrival look internal, so
+      // clicking the header link to a bare /word-to-color/ left the landing word
+      // stuck on the previous one and charged (or walled) the default word.
+      const arrivedFromOutside = lastWritten === null || (q ?? "") !== lastWritten;
+      if (stored && !arrivedFromOutside) landing = stored;
+      else sessionStorage.setItem(LANDING_WORD_KEY, fromUrl);
+    } catch {
+      // Private mode / storage disabled — fall back to the URL. Degrades to the
+      // pre-existing behaviour rather than locking anyone out.
     }
+
+    if (fromUrl !== DEFAULT_WORD) setInput(fromUrl);
+    landingWordRef.current = normalizeWord(landing);
+    countedWordsRef.current = null;
     setQueryApplied(true);
     // Mount only: ?q= is thereafter owned by this component, not the URL.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -212,6 +258,14 @@ export function WordColorGeneratorPage() {
     if (!queryApplied) return;
     const trimmed = input.trim();
     const href = trimmed.length > 0 ? `${pathname}?q=${encodeURIComponent(trimmed)}` : pathname;
+    // Record what we wrote, so the mount effect above can tell a reload of our own
+    // rewrite apart from a genuine arrival on someone else's link.
+    try {
+      sessionStorage.setItem(LAST_WRITTEN_KEY, trimmed);
+    } catch {
+      // Storage disabled — the mount effect falls back to trusting ?q=, which is
+      // the pre-existing behaviour.
+    }
     router.replace(href, { scroll: false });
   }, [input, pathname, router, queryApplied]);
 
@@ -260,8 +314,20 @@ export function WordColorGeneratorPage() {
     const trimmed = input.trim();
     if (!trimmed || trimmed.length < 2) return;
     const timeout = setTimeout(() => {
+      // Drop the prefixes this word was typed through.
+      //
+      // The only thing separating "a word" from "a keystroke" here is a 2s idle
+      // pause, and typing is not uniform — anyone who pauses to think mid-word
+      // commits a fragment. Typing "midnight jazz" with two natural pauses used
+      // to spend THREE of the five free lookups ("midni", "midnight jaz",
+      // "midnight jazz") and leave two meaningless chips in Recent. Since a
+      // fragment is always a strict prefix of what follows it, superseding
+      // prefixes on commit costs nothing and cleans up both.
+      const supersedes = (older: string) =>
+        older !== trimmed && trimmed.toLowerCase().startsWith(older.toLowerCase());
+
       setWordHistory((prev) => {
-        const next = [trimmed, ...prev.filter((w) => w !== trimmed)].slice(0, 10);
+        const next = [trimmed, ...prev.filter((w) => w !== trimmed && !supersedes(w))].slice(0, 10);
         try { localStorage.setItem("colorarchive-word-history", JSON.stringify(next)); } catch {}
         return next;
       });
@@ -273,8 +339,26 @@ export function WordColorGeneratorPage() {
       const norm = normalizeWord(trimmed);
       const counted = getCountedWords();
       if (counted.has(norm)) return;
+      // Refund the fragments: anything already counted that this word was typed
+      // through was never a lookup the visitor asked for.
+      // Only refund fragments typed in THIS mount. The eviction exists to undo
+      // keystrokes the debounce mistook for words; it must not reach back and
+      // refund a legitimate lookup from a previous visit just because today's
+      // word happens to start with it. Someone who looked up "cat" last week and
+      // types "catalog" today has spent two lookups, not one.
+      for (const older of [...counted]) {
+        if (older === landingWordRef.current) continue;
+        if (!committedThisMountRef.current.has(older)) continue;
+        if (older !== norm && norm.startsWith(older)) counted.delete(older);
+      }
+      committedThisMountRef.current.add(norm);
       counted.add(norm);
-      const words = readCountedWords();
+      const words = readCountedWords().filter(
+        // Mirror the landing-word guard above. Without it the persisted array
+        // could shed the landing word while the in-memory set kept it, and the
+        // two would disagree after the next reload.
+        (w) => w === norm || w === landingWordRef.current || !committedThisMountRef.current.has(w) || !norm.startsWith(w),
+      );
       if (!words.includes(norm)) words.push(norm);
       try { localStorage.setItem(GEN_WORDS_KEY, JSON.stringify(words)); } catch {}
       track(PAYWALL_EVENT.generated, { count: words.length });

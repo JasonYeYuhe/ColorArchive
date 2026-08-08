@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { getRelativeLuminance } from "@/src/lib/color-contrast";
 
 interface StickyColorBarProps {
   name: string;
@@ -53,14 +54,30 @@ export function StickyColorBar({ name, hex, rgb, hsl }: StickyColorBarProps) {
     return () => observer.disconnect();
   }, []);
 
-  // Determine text color based on luminance
+  // Pick the bar's text colour by WCAG relative luminance.
+  //
+  // This used the 1990s YIQ brightness approximation, (r*299 + g*587 + b*114)
+  // / 1000 > 160. YIQ is a perceptual-brightness heuristic for analogue video,
+  // not a contrast metric: it is linear in the raw 0-255 channels, whereas WCAG
+  // relative luminance gamma-expands each channel first. The two disagree most
+  // in the mid-range, which is exactly where this archive lives — measured
+  // across all 5,446 colours, the old threshold handed sub-AA text to 1,283 of
+  // them. On a site that ships a contrast checker.
+  //
+  // The bar paints the colour at 90% alpha, so the swatch dominates what the
+  // text actually sits on; comparing the colour's own luminance against white
+  // and near-black is the right call and matches the hero fix in
+  // color-detail-page.tsx, which keeps the two surfaces from disagreeing.
   const isLight = (() => {
     const m = hex.match(/^#([0-9a-f]{6})$/i);
     if (!m) return false;
     const r = parseInt(m[1].slice(0, 2), 16);
     const g = parseInt(m[1].slice(2, 4), 16);
     const b = parseInt(m[1].slice(4, 6), 16);
-    return (r * 299 + g * 587 + b * 114) / 1000 > 160;
+    const luminance = getRelativeLuminance(r, g, b);
+    const vsWhite = 1.05 / (luminance + 0.05);
+    const vsBlack = (luminance + 0.05) / 0.05;
+    return vsBlack > vsWhite;
   })();
 
   const textClass = isLight ? "text-neutral-900" : "text-white";
@@ -76,6 +93,15 @@ export function StickyColorBar({ name, hex, rgb, hsl }: StickyColorBarProps) {
           visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
         }`}
         aria-hidden={!visible}
+        // `inert` is what actually removes the subtree from the tab order.
+        // aria-hidden hides it from assistive tech, and translate/opacity/
+        // pointer-events hide it visually and from the mouse — but none of them
+        // touch keyboard focus. So every /colors/ page opened with three
+        // invisible, off-screen buttons sitting at the front of the tab order:
+        // a keyboard user pressing Tab landed on a control they could not see,
+        // inside a container announced as hidden. inert keeps focusability in
+        // lockstep with aria-hidden, which is the only way these two can't drift.
+        inert={!visible}
       >
         <div
           className="flex items-center justify-between gap-3 px-4 py-2.5 backdrop-blur-xl sm:px-6"

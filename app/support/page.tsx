@@ -24,6 +24,7 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/support/" },
   title: "Support",
   description: "Get help with ColorArchive — FAQs, Pro subscription, free tools, and customer support.",
 };

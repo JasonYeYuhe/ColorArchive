@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { ColorArchivePage } from "@/src/components/color-archive-page";
 import { OnboardingTour } from "@/src/components/onboarding-tour";
 import { SiteHeader } from "@/src/components/site-header";
@@ -6,6 +7,20 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { landingGuides } from "@/src/lib/guides";
 import { newsletterIssues } from "@/src/lib/newsletter-issues";
 import { SITE_URL, CONTACT_EMAIL } from "@/src/lib/site-config";
+
+// The homepage's own canonical. It used to come from app/layout.tsx, which set
+// `canonical: "/"` for the whole site — correct here and wrong everywhere else,
+// since every page that forgot to override it claimed to be a duplicate of this
+// one. The layout no longer sets it; this does, for the one page it was ever
+// right for.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  // NO openGraph key here. Next REPLACES this object rather than merging it
+  // (resolve-metadata: case 'openGraph'), so declaring `{ url }` here silently
+  // discarded the layout's og:image, og:site_name and og:type — on the single
+  // most-shared URL on the site. Inheriting the layout block whole and simply
+  // having no og:url is correct: consumers fall back to the fetched URL.
+};
 
 // Pre-trim the two 1.4MB content datasets to only the fields the below-fold
 // hero renders, so the full datasets never leak into the client/RSC payload.

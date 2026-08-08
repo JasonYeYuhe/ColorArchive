@@ -39,7 +39,13 @@ export function CopyButton({
         onClick={handleCopy}
         className={
           className ??
-          "font-mono text-[10px] uppercase tracking-wider text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+          // The compact variant was a bare 10px text line box — roughly a 14px
+          // tall hit area, under the 24px WCAG 2.2 AA minimum (2.5.8) and far
+          // under the 44px comfortable-touch figure. The negative margins cancel
+          // the padding visually, so every existing layout is unchanged while the
+          // target grows to ~30px. focus-visible:ring gives it a keyboard
+          // indicator it never had.
+          "-mx-2 -my-2 rounded-md px-2 py-2 font-mono text-[10px] uppercase tracking-wider text-neutral-500 transition hover:text-neutral-900 focus-visible:ring-2 focus-visible:ring-neutral-950 dark:text-neutral-400 dark:hover:text-neutral-100 dark:focus-visible:ring-white"
         }
         title={`Copy ${value}`}
       >

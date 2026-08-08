@@ -47,13 +47,24 @@ export const metadata: Metadata = {
     "hex color picker",
     "design tokens",
   ],
-  alternates: {
-    canonical: "/",
-  },
+  // NO canonical here on purpose — see app/page.tsx, which sets its own.
+  //
+  // This used to be `canonical: "/"`. Next.js inherits metadata, so every page
+  // that did not set its own `alternates` told Google it was a duplicate of the
+  // homepage. Two indexable, sitemap-listed pages were doing exactly that
+  // (/support/ and /colors/hex/), i.e. asking to be de-indexed in favour of a
+  // page with entirely different content.
+  //
+  // Omitting it here inverts the failure mode: a page that forgets its canonical
+  // now emits none and Google self-canonicalises, which is correct. Forgetting is
+  // inevitable; it should degrade to "fine", not to "delete this page".
   openGraph: {
     title: siteTitle,
     description: siteDescription,
-    url: SITE_URL,
+    // No `url` here — same reason the canonical left this block. Inherited
+    // metadata made every page that did not override it advertise og:url as the
+    // homepage. Next omits the tag entirely when unset, and consumers then fall
+    // back to the page's own URL, which is what we want.
     siteName: siteTitle,
     type: "website",
     images: [

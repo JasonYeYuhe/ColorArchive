@@ -6630,3 +6630,50 @@ const extraCollections56: ColorCollection[] = [
 ];
 
 collections.push(...extraCollections56);
+
+// ---------------------------------------------------------------------------
+// De-duplicate by id — keep the FIRST occurrence of each id.
+//
+// Mirrors the slug dedupe in src/lib/guides.ts:12639 and exists for the same
+// reason: getCollectionById() resolves with .find(), so a repeated id meant the
+// later entries rendered at no URL at all. Measured 2026-08-08: 8 ids repeated
+// across 18 entries — golden-hour ×3, deep-ocean ×3, and ×2 each of
+// nordic-morning, midnight-garden, copper-verdigris, desert-dusk,
+// autumn-harvest, forest-bathing — leaving 10 curated collections unreachable.
+//
+// They are NOT identical copies. Each shadowed entry has its own summary and
+// palette (e.g. line 1127 "Copper Verdigris" vs line 2952 "Copper & Verdigris"),
+// so this drops real editorial work. It is still the right call for now: their
+// titles ARE identical, so minting ids for them would publish ten pages with
+// duplicate <title> tags — an SEO problem this same audit flagged separately.
+// Re-titling is authoring, not a mechanical fix; the ten are listed in
+// docs/human-todo.md for the owner to re-publish deliberately if wanted.
+//
+// The user-visible result is unchanged — these already rendered nowhere. What
+// changes is that app/sitemap.ts stops emitting duplicate URLs for them, and
+// generateStaticParams() stops emitting duplicate params.
+//
+// Deduped silently rather than thrown, matching guides.ts: the autopilot commits
+// collections daily and an id collision must never break the production build.
+// The dropped ids are logged so the collision stays visible in build output.
+// ---------------------------------------------------------------------------
+{
+  const seenIds = new Set<string>();
+  const dropped: string[] = [];
+  const deduped = collections.filter((collection) => {
+    if (seenIds.has(collection.id)) {
+      dropped.push(collection.id);
+      return false;
+    }
+    seenIds.add(collection.id);
+    return true;
+  });
+
+  if (dropped.length > 0) {
+    console.warn(
+      `[collections] dropped ${dropped.length} duplicate-id collection(s): ${dropped.join(", ")}`,
+    );
+    collections.length = 0;
+    collections.push(...deduped);
+  }
+}

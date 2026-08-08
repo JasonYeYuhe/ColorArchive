@@ -265,7 +265,6 @@
       "Tools",
       "Industry"
     ],
-    "featuredCollectionId": "candy-gradient",
     "highlights": [
       "Color trends typically take 8–14 months to travel from fashion forecasting agencies to mainstream design tool defaults — but social-media-driven micro-trends can compress that to under 3 months.",
       "Plugin ecosystems like Figma Community act as accelerators: a single popular palette plugin can normalize a color family across thousands of projects within weeks of publishing.",
@@ -288,11 +287,11 @@
     "links": [
       {
         "label": "Browse all 5,000+ colors",
-        "href": "/colors"
+        "href": "/all-colors/"
       },
       {
-        "label": "Open Candy Gradient collection",
-        "href": "/collections/candy-gradient"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Explore Palette Pack Vol. 1",
@@ -383,8 +382,8 @@
         "href": "/pro/"
       },
       {
-        "label": "Browse earth-tone colors",
-        "href": "/colors?family=brown"
+        "label": "Browse the colour archive",
+        "href": "/all-colors/"
       }
     ]
   },
@@ -445,7 +444,6 @@
       "Brand",
       "Production"
     ],
-    "featuredCollectionId": "candy-gradient",
     "highlights": [
       "Pastels cluster in a narrow lightness band (70–85 in OKLCH), which makes it difficult to create sufficient contrast between adjacent UI elements without introducing a non-pastel anchor color.",
       "The most common production failure is pastel text on pastel backgrounds — these combinations almost never pass WCAG AA, forcing last-minute overrides that break the palette's cohesion.",
@@ -467,16 +465,16 @@
     ],
     "links": [
       {
-        "label": "Open Candy Gradient collection",
-        "href": "/collections/candy-gradient"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Get Seasonal Spring 2026",
         "href": "/pro/"
       },
       {
-        "label": "Browse pastel colors",
-        "href": "/colors?family=pastel"
+        "label": "Browse the colour archive",
+        "href": "/all-colors/"
       }
     ]
   },
@@ -1426,7 +1424,7 @@
       },
       {
         "label": "Open color archive",
-        "href": "/colors"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -1518,7 +1516,7 @@
       },
       {
         "label": "Open color archive",
-        "href": "/colors"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -1610,7 +1608,7 @@
       },
       {
         "label": "Browse the color archive",
-        "href": "/colors"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -1656,7 +1654,7 @@
       },
       {
         "label": "Browse the color archive",
-        "href": "/colors"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -1794,7 +1792,7 @@
       },
       {
         "label": "Browse the color archive",
-        "href": "/colors"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -2116,7 +2114,7 @@
       },
       {
         "label": "Browse all colors",
-        "href": "/colors"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -2521,8 +2519,8 @@
     ],
     "links": [
       {
-        "label": "Open Coastal Morning",
-        "href": "/collections/coastal-morning"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Explore Brand Starter Kit",
@@ -2940,7 +2938,7 @@
       },
       {
         "label": "Browse dark family",
-        "href": "/families/black/"
+        "href": "/all-colors/"
       },
       {
         "label": "Explore Dark Mode UI Kit",
@@ -2985,7 +2983,7 @@
       },
       {
         "label": "Browse neutral family",
-        "href": "/families/gray/"
+        "href": "/all-colors/"
       },
       {
         "label": "Explore Brand Starter Kit",
@@ -3076,7 +3074,7 @@
       },
       {
         "label": "Browse neutral grays",
-        "href": "/families/gray/"
+        "href": "/all-colors/"
       },
       {
         "label": "Explore Brand Starter Kit",
@@ -3121,7 +3119,7 @@
       },
       {
         "label": "Browse deep neutral tones",
-        "href": "/families/gray/"
+        "href": "/all-colors/"
       },
       {
         "label": "Explore Brand Starter Kit",
@@ -3184,7 +3182,6 @@
       "UI/UX",
       "Brand"
     ],
-    "featuredCollectionId": "fresh-primary",
     "highlights": [
       "Color coding in wayfinding systems requires hue distinction, not just lightness distinction. Two colors that differ only in lightness (a dark gray and a light gray) become indistinguishable in low-light environments, at distance, and for users with low vision. Effective wayfinding color uses hue as the primary differentiator — the colors in a wayfinding system should be as far apart on the hue wheel as the number of categories allows. For a 4-category system, target hues at 90-degree intervals (0°, 90°, 180°, 270°) as a starting point.",
       "Naming colors in a wayfinding system is as important as choosing them. 'Red line' and 'Blue line' are more memorable than 'Line A' and 'Line B' because the color name and the color stimulus reinforce each other in memory. Systems that use both a name and a visual color encoding are navigated faster and with fewer errors than systems that use only a number or letter. This is why transit systems worldwide have converged on named, color-coded line identities rather than purely numeric ones.",
@@ -3206,8 +3203,8 @@
     ],
     "links": [
       {
-        "label": "Explore Fresh Primary palette",
-        "href": "/collections/fresh-primary/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Browse bold color families",
@@ -3228,7 +3225,6 @@
     "tags": [
       "UI/UX"
     ],
-    "featuredCollectionId": "electric-spectrum",
     "highlights": [
       "Color transitions should travel through perceptually correct intermediate states. A CSS transition from a warm coral to a cool cobalt passing through gray is perceptually correct — the colors desaturate in the middle of the transition, creating a smooth fade through neutral. The same transition interpolated in RGB space travels through a muddy brown-green intermediate, which is perceptually incorrect and visually uncomfortable. OKLCH interpolation (available in modern CSS via `color-mix` and `linear-gradient` with OKLCH color space) eliminates the muddy intermediate problem automatically.",
       "Hover color transitions that exceed 150ms feel slow and cautious; transitions under 80ms feel abrupt and mechanical. The 100–120ms range is the perceptual sweet spot for hover state color changes — fast enough to feel responsive, slow enough to register as intentional. For larger color area changes (background color shifts, theme transitions) 200–350ms is appropriate. The principle: transition duration should scale with the area of the color change.",
@@ -3250,8 +3246,8 @@
     ],
     "links": [
       {
-        "label": "Explore Electric Spectrum",
-        "href": "/collections/electric-spectrum/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Explore Dark Mode UI Kit",
@@ -3320,7 +3316,6 @@
       "Color Psychology",
       "Brand"
     ],
-    "featuredCollectionId": "fresh-primary",
     "highlights": [
       "The most reliably documented color effect in digital UX is not about any specific color — it is about contrast and visual hierarchy. Users follow high-contrast paths first. A CTA with 7:1 contrast against its background will be seen before one with 3:1 contrast, regardless of the CTA's color. The implication: color hierarchy (not just color choice) is the primary driver of user flow, and a well-structured contrast hierarchy matters more than any specific hue selection.",
       "Red does not universally signal danger or urgency in digital products. In contexts where red is the product's primary brand color (Pinterest, YouTube, Coca-Cola), users associate red with the brand rather than with warnings. Functional color associations are learned and contextual, not innate. The same red that signals 'error' in a form input signals 'subscribe' on a YouTube button. Functional colors only work as signals when the surrounding context consistently reinforces the association.",
@@ -3342,8 +3337,8 @@
     ],
     "links": [
       {
-        "label": "Browse fresh primary tones",
-        "href": "/collections/fresh-primary/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Explore Brand Starter Kit",
@@ -3441,7 +3436,7 @@
       },
       {
         "label": "Browse neutral palettes",
-        "href": "/families/gray/"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -3496,7 +3491,6 @@
       "UI/UX Design",
       "Animation"
     ],
-    "featuredCollectionId": "digital-dusk",
     "highlights": [
       "RGB linear interpolation produces the gray problem: transitioning from red to blue through RGB always passes through a desaturated, grayish midpoint. This is because the mathematical midpoint of two high-saturation RGB values often sits near the gray axis of the color space. The solution is to interpolate in HSL or LCH instead. HSL interpolation keeps saturation constant and transitions through the hue arc between the two colors, which reads as vivid and intentional. LCH interpolation maintains perceptual lightness uniformly, which produces transitions that feel photorealistic rather than digital.",
       "The speed of a color transition changes its perceived meaning. Instant color changes (0–50ms) register as state confirmation — a button press, a toggle activation. Fast transitions (100–200ms) read as responsive feedback. Medium transitions (250–400ms) read as scene changes and mode shifts. Slow transitions (500ms+) read as atmospheric or ambient. Applying a 400ms ease to a button press hover state is a mismatch: the timing contradicts the interaction type. Match transition duration to semantic meaning, not to aesthetic preference.",
@@ -3514,8 +3508,8 @@
     ],
     "links": [
       {
-        "label": "Explore Digital Dusk palette",
-        "href": "/collections/digital-dusk/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Dark Mode UI Kit",
@@ -3537,7 +3531,6 @@
       "Color Theory",
       "UI/UX Design"
     ],
-    "featuredCollectionId": "coastal-morning",
     "highlights": [
       "Every display renders RGB values differently because every panel has different phosphor or pixel characteristics. A display running without a color profile is essentially uncalibrated — the operating system applies no correction, and RGB values are sent directly to the panel hardware. A display running with a calibrated ICC profile has its output adjusted so that a measured reference color (e.g., sRGB D65 white point) is rendered accurately. On macOS, most displays use color profiles automatically. On Windows, many displays run without calibration. This means your carefully specified hex values look noticeably different on uncalibrated hardware, and you cannot control this from the design file.",
       "sRGB is the standard color space for web design. It was established in 1996 and is supported by every browser on every device. When you specify a hex color in CSS, browsers assume sRGB. When a display's color profile is set to sRGB (or a manufacturer-mapped equivalent), the hex-to-pixel mapping is consistent and predictable. The design risk arises with wide-gamut displays — Apple's P3, which covers about 25% more color than sRGB. On a P3 display showing sRGB content, colors are mapped correctly and look like sRGB. But images or assets that accidentally include out-of-sRGB colors will appear oversaturated or shifted on non-P3 displays.",
@@ -3555,8 +3548,8 @@
     ],
     "links": [
       {
-        "label": "Explore Coastal Morning",
-        "href": "/collections/coastal-morning/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Browse the complete archive",
@@ -3578,7 +3571,6 @@
       "Color Theory",
       "Design Systems"
     ],
-    "featuredCollectionId": "signal-tones",
     "highlights": [
       "There are three types of color scales in data visualization, and each requires a different color strategy. Sequential scales represent ordered data from low to high (e.g., population density, revenue). They should use a single hue with lightness varying from light (low) to dark (high), or two hues that transition through a neutral. Diverging scales represent data with a meaningful midpoint (e.g., temperature above/below freezing, survey agreement/disagreement). They should use two contrasting hues meeting at a neutral center. Categorical scales represent unordered groups (e.g., product categories, geographic regions). They should use hues that are maximally distinct with equal perceptual weight — avoiding any hue that reads as more important than others.",
       "Rainbow color scales (ROYGBIV) are one of the most persistent mistakes in data visualization. They look like they should encode a range, but they don't: the perceived brightness of rainbow hues is uneven (yellow is much lighter than blue), which creates false visual emphasis. Green appears more important than red or violet simply because of its position in the visual hierarchy. The ordering is not perceptually linear — the gap between red and orange appears larger than the gap between green and teal even if the underlying data gap is identical. Use perceptually uniform color scales (viridis, cividis, plasma) for quantitative sequential data instead.",
@@ -3596,8 +3588,8 @@
     ],
     "links": [
       {
-        "label": "Explore Signal Tones palette",
-        "href": "/collections/signal-tones/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Color blindness simulator",
@@ -4774,7 +4766,6 @@
       "Data Visualization",
       "Color Theory"
     ],
-    "featuredCollectionId": "cobalt-frost",
     "highlights": [
       "The most common data viz color mistake is using a categorical palette for ordered data. A chart showing temperature over months should use a sequential palette — temperature has a natural ordering and the color should encode it. Using five arbitrary colors for five months implies they are unordered when they're part of a continuous sequence.",
       "Diverging palettes (two-hue ramps meeting at a neutral midpoint) encode deviation from a meaningful zero. The midpoint must be neutral — a saturated midpoint visually emphasizes it as significant when it represents null. The two endpoint hues should be perceptually equidistant from neutral: orange-white-purple balances well; red-white-blue doesn't because red appears more intense.",
@@ -4981,7 +4972,6 @@
       "Accessibility",
       "Color Theory"
     ],
-    "featuredCollectionId": "cool-concrete",
     "highlights": [
       "WCAG contrast ratio is calculated using relative luminance — a weighted sum of linearized RGB channels that models human vision's sensitivity to different wavelengths (green contributes most to perceived brightness, blue the least). The formula was designed around standard monitor calibration and sRGB color space. It does not account for hue-based optical effects: two pairs of colors with identical contrast ratios can have very different legibility depending on whether they share a hue component. Color pairs that share a hue (a dark blue on a light blue background) at 4.5:1 are harder to read than neutral-on-neutral pairs at the same ratio.",
       "Research in ophthalmology shows that chromatic aberration — the eye's inability to focus different wavelengths at the same focal plane — makes pure red text on pure blue backgrounds (or vice versa) physically uncomfortable to read for extended periods regardless of luminance contrast. The crystalline lens in the eye cannot simultaneously focus short-wavelength (blue) and long-wavelength (red) light, so the eye is constantly micro-adjusting focus when both hues are present at high saturation. High-saturation complementary color pairings should therefore be avoided for body text even when luminance contrast passes WCAG.",
@@ -5007,8 +4997,8 @@
     ],
     "links": [
       {
-        "label": "Explore Cool Concrete palette",
-        "href": "/collections/cool-concrete/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Complete Archive",
@@ -5054,7 +5044,7 @@
     "links": [
       {
         "label": "Browse all 5,000+ colors",
-        "href": "/colors"
+        "href": "/all-colors/"
       },
       {
         "label": "Nordic Frost collection — clinical trust palette",
@@ -5062,7 +5052,7 @@
       },
       {
         "label": "WCAG Contrast Auditor",
-        "href": "/tools/wcag-audit"
+        "href": "/wcag-audit/"
       }
     ]
   },
@@ -5100,7 +5090,7 @@
     "links": [
       {
         "label": "Browse all 5,000+ colors",
-        "href": "/colors"
+        "href": "/all-colors/"
       },
       {
         "label": "Editorial Warmth collection",
@@ -5146,7 +5136,7 @@
     "links": [
       {
         "label": "Browse all 5,000+ colors",
-        "href": "/colors"
+        "href": "/all-colors/"
       },
       {
         "label": "Candy Pop collection — high-contrast CTA colors",
@@ -5154,7 +5144,7 @@
       },
       {
         "label": "WCAG Contrast Auditor",
-        "href": "/tools/wcag-audit"
+        "href": "/wcag-audit/"
       }
     ]
   },
@@ -5192,7 +5182,7 @@
     "links": [
       {
         "label": "Browse all 5,000+ colors",
-        "href": "/colors"
+        "href": "/all-colors/"
       },
       {
         "label": "Quiet Luxury collection — enduring brand palette",
@@ -5200,7 +5190,7 @@
       },
       {
         "label": "Brand Color System generator",
-        "href": "/tools/brand"
+        "href": "/brand-generator/"
       }
     ]
   },
@@ -5315,7 +5305,6 @@
       "Accessibility",
       "Finance UI"
     ],
-    "featuredCollectionId": "cool-concrete",
     "highlights": [
       "Red-green color vision deficiency (deuteranopia/protanopia) affects approximately 8% of males and 0.5% of females. A financial dashboard that uses only red and green to communicate gain/loss is inaccessible to this population by default. The fix requires layering redundant channels: direction arrows (up/down), sign characters (+/-), position within the table layout (gains column vs. losses column), and pattern fills for color-blind-accessible chart bars. Color then becomes a redundant confirmation channel rather than the sole carrier. This restructuring does not diminish the visual clarity for color-normal users — it enhances it by providing multiple legibility pathways simultaneously.",
       "The extended semantic color set for financial data beyond red/green: yellow-amber for neutral/unchanged states (0.0% change), blue for target/benchmark comparison lines, purple for forecast/projected values, teal for volume/activity metrics, and grey for inactive or historical-period data. These six colors form a complete financial semantic palette when their saturation and lightness are co-calibrated. The most common mistake is creating these six colors independently in isolation, which produces a perceptually non-uniform set where some pairs are easy to distinguish and others are nearly identical.",
@@ -5341,8 +5330,8 @@
     ],
     "links": [
       {
-        "label": "Cool Concrete collection",
-        "href": "/collections/cool-concrete/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "WCAG Audit Tool",
@@ -5365,7 +5354,6 @@
       "International Design",
       "Color Theory"
     ],
-    "featuredCollectionId": "warm-neutrals",
     "highlights": [
       "The most reliably cross-cultural color associations are those grounded in universal physical experience: blue-sky and blue-water (cool, calm, trustworthy), red-fire and red-blood (warning, intensity, heat), green-vegetation (growth, freshness, nature), yellow-sun (warmth, energy, caution). These associations appear across cultures that have had no meaningful historical contact because they derive from shared physical reality rather than cultural transmission. They are not perfectly uniform — the shade, saturation, and secondary meanings vary significantly — but they are stable enough to serve as a baseline for the ‘color floor’ of a globally-deployed product. Colors with strong cultural specificity (white for mourning, saffron for religious significance, green for Islamic identity) should be treated as exceptions that require cultural review.",
       "Red presents the most complex international profile. In China and much of East Asia, red is the color of luck, prosperity, celebration, and good fortune — it is used for wedding envelopes, new year decorations, and premium branding. In the West, red predominantly signals danger, urgency, love, and passion. In financial data, red means loss in Western markets but gain in many East Asian financial displays (where red indicates rising stock prices). A fintech product deploying internationally must decide whether to use a culturally adaptive color system (different semantic color assignments per market) or to build a universal system that avoids the most culturally specific associations. Both approaches have been used successfully by global platforms; the choice depends on whether localization depth is worth the engineering cost.",
@@ -5391,8 +5379,8 @@
     ],
     "links": [
       {
-        "label": "Warm Neutrals collection",
-        "href": "/collections/warm-neutrals/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Complete Archive",
@@ -5415,7 +5403,6 @@
       "Color Management",
       "CMYK"
     ],
-    "featuredCollectionId": "warm-neutrals",
     "highlights": [
       "The gamut mismatch between RGB screens and CMYK print is largest in saturated cyan-greens, electric blues, and neon magentas — colors that exist well within RGB's range but are physically unreproducible by four-color ink. When a designer specifies a vivid electric blue (#0066FF) for a brand that will appear in both digital and print contexts, the print version will be noticeably duller because the ink combination capable of producing that exact color doesn't exist. The practical implication: saturated brand primaries should be reviewed early in CMYK-converted form, not as a final proofing step. Adjust the brand palette toward colors that exist comfortably within CMYK gamut if print fidelity is a meaningful requirement.",
       "Soft-proofing in Photoshop and Illustrator (View → Proof Colors) simulates how a specific print profile will render your design on screen. This is not a perfect simulation — monitor gamut and calibration affect the preview — but it is accurate enough to catch dramatic gamut mismatches early. The most useful profiles to proof with are: US Web Coated SWOP v2 (standard for offset printing in North America), Coated FOGRA39 (European offset standard), and the ICC profile provided by your specific print vendor. Vendor profiles are the most accurate because they account for that press's specific ink densities and paper stock.",
@@ -5450,7 +5437,7 @@
       },
       {
         "label": "WCAG Color Contrast Checker",
-        "href": "/tools/contrast/"
+        "href": "/contrast/"
       }
     ]
   },
@@ -5465,7 +5452,6 @@
       "Neutral Colors",
       "Typography"
     ],
-    "featuredCollectionId": "warm-neutrals",
     "highlights": [
       "The undertone of your neutral scale — warm (yellow/red bias), cool (blue/green bias), or true neutral — should be chosen in relation to your brand primary hue, not independently. A cobalt-blue primary with a warm neutral creates a tension that makes the UI feel inconsistent: the primary screams digital and cool, the background mutters warm and analog. The convention in digital design systems is to use a cool-to-neutral gray scale for blue-primary products (Google, Atlassian, Salesforce) and a warm gray scale for products with warmer primaries (Airbnb's warm gray, Mailchimp's warm off-white). This is not a hard rule, but the more saturated and chromatic your brand primary, the more the neutral scale's undertone creates or destroys coherence.",
       "Most mature design systems use 10-12 neutral steps (Gray-50, Gray-100 ... Gray-900, Gray-950 in Tailwind's convention). The density of steps near the ends of the scale (very light and very dark) is more important than steps in the middle. Very light neutrals (50, 100, 200) define the entire range of background surfaces in light mode — getting these three steps right determines whether the UI feels layered or flat. Very dark neutrals (800, 900, 950) define dark mode surfaces and text-on-light contrast. The middle range (400-600) handles borders, disabled states, and placeholder text. If you can only spend time tuning three areas of a neutral scale, tune the light end, tune the dark end, and make sure your mid-tones are monotonically decreasing in lightness (perceptual lightness jumps between adjacent steps create visual discontinuities in gradients and hover states).",
@@ -5492,7 +5478,7 @@
     "links": [
       {
         "label": "Explore All Colors",
-        "href": "/colors/"
+        "href": "/all-colors/"
       },
       {
         "label": "Complete Archive Pack",
@@ -5500,7 +5486,7 @@
       },
       {
         "label": "WCAG Contrast Checker",
-        "href": "/tools/contrast/"
+        "href": "/contrast/"
       }
     ]
   },
@@ -5515,7 +5501,6 @@
       "Accessibility",
       "Color Contrast"
     ],
-    "featuredCollectionId": "dark-mode-essentials",
     "highlights": [
       "WCAG 2.1's contrast ratio formula weights luminance in a way that makes certain color combinations pass the 4.5:1 standard while still being harder to read than others. The most commonly cited examples: a dark saturated green (#008000) on white produces a contrast ratio of 4.55:1 — technically passing AA, but the simultaneous contrast between highly saturated green and white creates chromatic vibration that makes text tiring to read at body sizes. Similarly, certain blue-black and near-black combinations pass WCAG but produce interference patterns in low-resolution or ClearType-rendered text. The practical guideline: target 7:1 contrast (WCAG AAA) for body text even if AA compliance is the legal requirement, and avoid highly saturated colors for body text regardless of contrast ratio.",
       "The relationship between type size and required contrast is codified in WCAG but often misapplied. Large text (18pt normal or 14pt bold) requires 3:1 contrast; normal text requires 4.5:1. But the optical difference between 14pt and 17pt text at the same contrast ratio is significant — 14pt text at 4.5:1 contrast is notably harder to read than 17pt text at the same ratio. The practical approach for design systems: define a type scale, test each size at your chosen text color, and increase contrast for smaller sizes rather than applying uniform contrast throughout. Text smaller than 14px benefits substantially from increased contrast (5:1 or higher) regardless of what WCAG technically requires.",
@@ -5546,7 +5531,7 @@
       },
       {
         "label": "WCAG Contrast Checker",
-        "href": "/tools/contrast/"
+        "href": "/contrast/"
       },
       {
         "label": "Complete Archive Pack",
@@ -5565,7 +5550,6 @@
       "CSS",
       "OKLCH"
     ],
-    "featuredCollectionId": "vivid-spectrum",
     "highlights": [
       "The sRGB gradient problem is most visible in three specific color transitions: red-to-green (which passes through a muddy brown-yellow band), blue-to-yellow (which passes through a desaturated grayish-green), and any transition between two colors with different hue values in sRGB. The cause is mathematical: sRGB interpolation mixes the raw channel values linearly, which does not correspond to how human perception measures color change. A gradient that looks smooth in a linear interpolation formula often produces a clearly visible dark band at the midpoint when measured perceptually. The fix, available in modern CSS via the `color-interpolation-method` syntax: `background: linear-gradient(in oklch, #hsl1, #hsl2)` — this instructs the browser to perform gradient interpolation in OKLCH space, which is perceptually uniform and produces gradients that stay vibrant and smooth.",
       "Hue interpolation in OKLCH gradients introduces a new choice: which direction to traverse the hue circle between two endpoint colors. The default (shorter arc) is usually correct, but the `increasing` and `decreasing` keywords let you specify clockwise or counterclockwise hue traversal. A gradient from orange to blue-violet in OKLCH shorter arc passes through green (shorter path on the hue wheel); in OKLCH longer arc it passes through red and magenta. Neither is automatically better — the right choice depends on whether the intermediate hues are desirable for your design. The ability to specify hue interpolation direction is one of the key advantages of OKLCH over sRGB gradient interpolation, which gives you no control over the intermediate hue path.",
@@ -5591,12 +5575,12 @@
     ],
     "links": [
       {
-        "label": "Vivid Spectrum collection",
-        "href": "/collections/vivid-spectrum/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Color Converter Tool",
-        "href": "/tools/convert/"
+        "href": "/convert/"
       },
       {
         "label": "Complete Archive Pack",
@@ -5650,7 +5634,7 @@
       },
       {
         "label": "Color Wheel Explorer",
-        "href": "/tools/wheel/"
+        "href": "/color-wheel/"
       }
     ]
   },
@@ -5700,7 +5684,7 @@
       },
       {
         "label": "Color Family Browser",
-        "href": "/colors/"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -5750,7 +5734,7 @@
       },
       {
         "label": "Color Converter Tool",
-        "href": "/tools/convert/"
+        "href": "/convert/"
       }
     ]
   },
@@ -5800,7 +5784,7 @@
       },
       {
         "label": "WCAG Contrast Checker",
-        "href": "/tools/contrast/"
+        "href": "/contrast/"
       }
     ]
   },
@@ -5850,7 +5834,7 @@
       },
       {
         "label": "Color Family Explorer",
-        "href": "/colors/"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -5900,7 +5884,7 @@
       },
       {
         "label": "WCAG Contrast Checker",
-        "href": "/tools/contrast/"
+        "href": "/contrast/"
       }
     ]
   },
@@ -5950,7 +5934,7 @@
       },
       {
         "label": "WCAG Contrast Checker",
-        "href": "/tools/contrast/"
+        "href": "/contrast/"
       }
     ]
   },
@@ -6000,7 +5984,7 @@
       },
       {
         "label": "Color Family Explorer",
-        "href": "/colors/"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -6050,7 +6034,7 @@
       },
       {
         "label": "Color Family Explorer",
-        "href": "/colors/"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -6100,7 +6084,7 @@
       },
       {
         "label": "Color Family Explorer",
-        "href": "/colors/"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -6150,7 +6134,7 @@
       },
       {
         "label": "WCAG Contrast Checker",
-        "href": "/tools/contrast/"
+        "href": "/contrast/"
       }
     ]
   },
@@ -6215,7 +6199,6 @@
       "Palette",
       "Color Theory"
     ],
-    "featuredCollectionId": "pastel-editorial",
     "highlights": [
       "Limited palettes (3-5 colors) are not a constraint to work around — they are a compositional tool. A limited palette forces every color to work harder and generates automatic coherence: all colors share a common relationship (often hue family or temperature) that makes the image read as unified regardless of the complexity of the subject matter. The practical discipline: choose your palette before you begin, not during. Choosing colors mid-illustration optimizes locally and destroys global harmony. The sequence: (1) define temperature bias (warm or cool dominant?); (2) choose light source color (warm or cool?); (3) select 1-2 shadow colors that are opposite in temperature from the light; (4) add 1 accent color at maximum chromatic distance from the dominant. This four-decision sequence produces a palette with inherent temperature contrast and chromatic hierarchy.",
       "Chromatic weight — the visual density and presence of a color — is determined by saturation and value together, not by saturation alone. A vivid yellow (high saturation, high value) is chromatically lightweight: it is visually light even at full saturation. A deep violet (high saturation, low value) is chromatically heavy even at the same saturation level. In illustration, chromatic weight governs where the eye travels: heavy colors attract attention first, light colors recede. Practical application: place your highest chromatic weight (most saturated AND darkest) at the focal point. Secondary focal points get medium chromatic weight. Backgrounds and ambient surfaces should have the lowest chromatic weight — high lightness or low saturation, or both. This creates a natural depth hierarchy without relying on line weight or formal perspective.",
@@ -6237,8 +6220,8 @@
     ],
     "links": [
       {
-        "label": "Pastel Editorial collection",
-        "href": "/collections/pastel-editorial/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Brand Starter Kit",
@@ -6261,7 +6244,6 @@
       "Packaging",
       "Color Strategy"
     ],
-    "featuredCollectionId": "ink-and-clay",
     "highlights": [
       "Subscription packaging is a recurring event, not a static object. Unlike a product seen once in a store, the subscription box arrives at the same household every month, year after year. This changes the color strategy: the primary goal is not 'stand out on the shelf' but 'create a moment I look forward to.' Colors that drive shelf standout (high-chroma, high-contrast, attention-commanding) often become fatiguing in recurring contexts — they stop reading as exciting and start reading as aggressive. The most durable subscription palettes use a restrained primary color (often a sophisticated medium-saturation hue: warm slate, dusty sage, aged brass) with high-quality print production and physical materials that create the 'premium' signal through texture and finish rather than chromatic intensity.",
       "The unboxing experience creates a color sequence: exterior → tissue paper / interior → product → inserts. Each element in this sequence can use a different value or saturation of the brand color, creating a coherent reveal. Strategy: exterior packaging uses the most restrained color application (often a single spot color on kraft, or a white box with a logo); tissue or interior uses the most expressive color application (the brand color at full saturation, or a seasonal variant); product has its own color language that is separated from the packaging; inserts use neutral (white or cream) with brand color as accent. This sequence creates contrast and discovery within a coherent chromatic identity — the subscriber's experience is of unfolding layers within the same color world.",
@@ -6279,8 +6261,8 @@
     ],
     "links": [
       {
-        "label": "Ink & Clay collection",
-        "href": "/collections/ink-and-clay/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Complete Archive",
@@ -6303,7 +6285,6 @@
       "Color Psychology",
       "Color Systems"
     ],
-    "featuredCollectionId": "nordic-winter",
     "highlights": [
       "Background color temperature is the most powerful driver of overall UI temperature because it represents the largest color area on screen. Even a 2-3% hue shift in a nominally 'neutral' background creates a detectable temperature change: a background at HSL(30, 5%, 98%) reads as warm cream; the same value at HSL(220, 5%, 98%) reads as cool white. The choice of background temperature is often made by default — most design tools produce a pure white (#FFFFFF) default — rather than by intention. Recommendation: define your background color temperature explicitly as part of the color system specification, not as a default. Warm backgrounds (hue 20-50, low saturation) suggest handcrafted, organic, artisanal contexts. Cool-neutral backgrounds (hue 200-240, low saturation) suggest precision, clinical, technical contexts. Slightly warm neutral backgrounds (hue 30-40, 2-4% saturation) are the most broadly versatile — they read as 'white' to casual viewers but feel friendlier and more premium than pure white.",
       "The trust-warmth tradeoff is one of the most consistently documented patterns in color psychology applied to digital products. Cool-biased palettes (dominant blue, blue-green, or cool gray) produce higher initial trust ratings in financial, medical, and technical product categories — the color register matches the user's expectations for a 'serious' professional tool. Warm-biased palettes produce higher approachability and friendliness ratings in consumer, social, and lifestyle product categories. The strategic decision is which axis to optimize for in your specific context. Products that need both — a financial app that must feel trustworthy AND approachable — typically solve this by using a cool primary (blue, blue-green) with a warm accent or warm neutral backgrounds, creating temperature contrast that reads as 'professional but human.'",
@@ -6321,8 +6302,8 @@
     ],
     "links": [
       {
-        "label": "Nordic Winter collection",
-        "href": "/collections/nordic-winter/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Dark Mode UI Kit",
@@ -6387,7 +6368,6 @@
       "Environmental Design",
       "Color Systems"
     ],
-    "featuredCollectionId": "signal-bright",
     "highlights": [
       "Color coding in wayfinding — using distinct colors to represent zones, lines, or routes — works when the number of distinct color categories is kept small. The limit from cognitive psychology: humans reliably distinguish 6-8 colors in a wayfinding context; above 8, confusability errors increase significantly, particularly under stress or poor viewing conditions. The practical ceiling for color-coded wayfinding systems is 6-7 distinct codes. Transit systems that exceed this limit (large metro networks with 10+ lines) compensate by combining color with number, letter, or graphic shape codes — the color becomes one signal within a redundant system rather than the sole navigation mechanism. The design implication: if your wayfinding system requires more than 7 color codes, redesign the information architecture before adding more colors.",
       "Contrast in wayfinding must account for environmental variables that studio design cannot simulate. Text on a wayfinding sign must be legible at reading distance (typically 1-5 meters), under ambient light that may be fluorescent, daylight, or sodium vapor, at angles that are not perpendicular to the viewer, and by people with varying visual acuity. WCAG 4.5:1 contrast ratio is a minimum, not a target. Wayfinding best practice targets 7:1 or higher for primary navigation text, particularly in healthcare and transit environments. The color specification must account for substrate: a color that passes 7:1 on white vinyl may fail on brushed aluminum, printed on uncoated stock, or painted on concrete. Test color contrast on every substrate used in the implementation, not just on screen.",
@@ -6405,8 +6385,8 @@
     ],
     "links": [
       {
-        "label": "Signal Bright collection",
-        "href": "/collections/signal-bright/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Color Contrast Checker",
@@ -6429,7 +6409,6 @@
       "Wide Gamut",
       "Color Management"
     ],
-    "featuredCollectionId": "signal-bright",
     "highlights": [
       "The P3 color space — used in Apple's Display P3 standard (Mac, iPhone, iPad) — encompasses approximately 25% more colors than sRGB. The colors that exist in P3 but not sRGB are concentrated in highly saturated greens, reds, and oranges — the chromatic extremes. For most color work (neutrals, pastels, muted palettes), sRGB and P3 produce identical results because the colors fall within both gamuts. The difference appears only in highly saturated values. The practical test: if your brand color or accent color is a highly saturated red, orange, or green, it may appear clipped and duller on wide-gamut displays when specified in sRGB, because the display is rendering a richer version of that hue in P3. Check the current CSS Color Level 4 specification for `color(display-p3 ...)` syntax for specifying P3 colors in CSS.",
       "Tone mapping is the process by which HDR content is rendered on SDR (standard dynamic range) displays, and it creates unexpected color shifts. If you design assets intended for HDR display (product photography with HDR-grade rendering, video thumbnails, high-end editorial imagery), those assets will be tone-mapped when viewed on SDR screens — and the tone mapping process shifts colors, particularly in highlights and saturated areas, in ways that are difficult to predict without testing. The design implication: always test HDR assets on SDR displays as part of your review process, and do not make final color judgments from HDR-only viewing environments. The most common failure mode: highlights that look detailed and rich in HDR appear blown out and flat on SDR.",
@@ -6456,7 +6435,7 @@
       },
       {
         "label": "Browse colors",
-        "href": "/colors/"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -6471,7 +6450,6 @@
       "Color Systems",
       "Accessibility"
     ],
-    "featuredCollectionId": "signal-bright",
     "highlights": [
       "There are three types of data that require three different color encoding strategies. Categorical data (country, product type, category) requires colors that are maximally distinct — hue-based differentiation where each category gets a different hue, all at similar lightness so no category appears more important than others. Sequential data (temperature from low to high, revenue from small to large) requires a single-hue or two-hue ramp that changes in lightness from light (low values) to dark (high values) — the perceptual ordering is reliable because humans judge lightness differences more accurately than hue differences. Diverging data (values centered around a neutral point, like deviations from average, profit vs. loss) requires a two-hue ramp with a neutral center, where each hue encodes direction (positive vs. negative) and lightness encodes magnitude. Using a sequential palette for categorical data, or a categorical palette for sequential data, is one of the most common and most damaging mistakes in data visualization.",
       "The luminance channel carries the most reliable quantitative information in color-encoded data. Humans perceive differences in lightness (luminance) more accurately and consistently than differences in hue or saturation. This is why sequential palettes work: the ordering of light-to-dark reliably conveys low-to-high. The failure mode of many data visualization tools is defaulting to hue-based sequential palettes (e.g., yellow to red to blue) where the hue changes without a consistent lightness progression — the result is a scale where the perceptual ordering depends on the viewer's hue perception, which varies significantly and is systematically disrupted by color vision deficiency. Rule of thumb: any sequential palette you use should pass as a correct ordering when converted to grayscale. If it does not, the lightness encoding is broken.",
@@ -6513,7 +6491,6 @@
       "Color Tokens",
       "Design Process"
     ],
-    "featuredCollectionId": "minimal-workspace",
     "highlights": [
       "The three-tier color naming model separates colors into: (1) Primitive tokens — the raw color values with descriptive names (blue-500, gray-100). These are fixed values that never change meaning. (2) Semantic tokens — purpose-driven names that reference primitives (color-background, color-interactive, color-error). These have stable meaning but can change their underlying primitive across themes. (3) Component tokens — component-specific names that reference semantic tokens (button-background, card-border, nav-text). These are the highest-level abstraction and exist only for components that need fine-grained control. The most common mistake: systems that skip tier 2 (semantic tokens) and map primitive names directly to component names. This collapses when the team needs theming, dark mode, or brand refreshes — without a semantic layer, every theme requires a new primitive-to-component mapping, and the work scales with (primitives x themes).",
       "Primitive token naming should be value-descriptive, never semantic. `blue-500` is correct; `brand-blue` is incorrect for this tier because it encodes meaning (brand association) into a structural name (the 500 step in the blue scale). When the brand color changes from blue to green, `brand-blue` must be renamed everywhere, whereas `blue-500` simply becomes a less frequently referenced value. The numeric scale convention (50-950 or 100-900 in 100-step increments) has become the de facto standard because it is extensible and value-descriptive — `blue-450` clearly represents a value between blue-400 and blue-500. Avoid naming primitives with lightness words (blue-light, blue-dark) because these become ambiguous at the edges and when the scale grows — is `blue-lighter` lighter than `blue-light`? The numeric convention avoids this entirely.",
@@ -6555,7 +6532,6 @@
       "Photography",
       "Visual Direction"
     ],
-    "featuredCollectionId": "cinematic-earth",
     "highlights": [
       "Film color grading operates on three tone zones: shadows (lift), midtones (gamma), and highlights (gain). Pushing these zones in opposite directions on the color wheel creates color contrast — the most common technique is teal shadows with orange-amber highlights, which became ubiquitous in Hollywood blockbusters from the 2000s onward (Pirates of the Caribbean, Mad Max, almost any action film). The reason this grade is so persistent: teal shadows complement the warm orange of human skin, making subjects appear more vivid and separated from the background. For brand designers, this logic translates directly: a palette with warm midtones and cool shadows will photograph in a way that flatters products placed against neutral or muted backgrounds. When briefing photographers, specifying the intended shadow color temperature (warm, neutral, or cool) is more actionable than specifying the overall mood.",
       "Saturation in grading is treated as a dimensional tool, not a single slider. The common grading approach: selective desaturation of secondary colors (backgrounds, supporting elements) while protecting or boosting saturation in primary subjects (skin, hero product). This creates the visual effect of the subject appearing to step forward from the frame without adjusting exposure. For designers working with photography: this is why well-graded product photography often has desaturated or neutral-gray background surfaces — the background serves as a saturation anchor that makes the product color pop. When selecting background materials for a shoot, choose surfaces that will desaturate gracefully in post (warm white, warm gray, aged wood) rather than surfaces that compete for saturation (colored paper, textured fabric in saturated tones).",
@@ -6577,8 +6553,8 @@
         "href": "/pro/"
       },
       {
-        "label": "Cinematic Earth collection",
-        "href": "/collections/cinematic-earth/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Color guides",
@@ -6597,7 +6573,6 @@
       "Startups",
       "Color Strategy"
     ],
-    "featuredCollectionId": "signal-bright",
     "highlights": [
       "The \"own the space\" principle: in any given category, map the colors your top 5-8 competitors use for their primary brand color. This takes 20 minutes and produces the most actionable input you have. The goal is to identify where there is white space — color territory that no credible competitor owns. In most mature categories, blue dominates (fintech, SaaS, health tech, productivity) and green is the second most common (sustainability, wellness, food). Orange is common in energy and creativity categories. If you enter a blue-saturated category with a blue brand color, you are asking users to distinguish you from your competitors on non-color dimensions alone. If you enter with a credible primary that no competitor uses, color becomes a differentiation asset. This analysis does not require data science — a quick screenshot of competitor homepages and their dominant UI color is sufficient.",
       "The three dimensions that make a startup brand color defensible: (1) Category contrast — does it stand apart from the category color field? (2) Functional integrity — does it work at the sizes and contexts where the brand will actually live (app icon, dark mode, small text on white, large fill on dark)? (3) Brand extensibility — does it support a secondary palette and neutral system without looking garish or incoherent? A color can pass the category contrast test but fail on functional integrity (vivid neon fails at small sizes; pale tints fail on dark backgrounds) or extensibility (some hues are difficult to build warm neutral systems around). Test all three before committing. The most common startup brand color mistake: choosing a color for its look in the founder pitch deck on a dark background and discovering later that it fails on white backgrounds, in icons, or in high-visibility marketing contexts.",
@@ -6624,7 +6599,7 @@
       },
       {
         "label": "Browse all colors",
-        "href": "/colors/"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -6639,7 +6614,6 @@
       "Color Systems",
       "Palette Design"
     ],
-    "featuredCollectionId": "minimal-workspace",
     "highlights": [
       "Pure achromatic gray (equal RGB values) reads as cold, industrial, and digitally raw — it is the default state of unconfigured design tools, not the result of considered choices. The perceptual reason: human vision has evolved to interpret gray as a neutral reference point, but in practice the lighting conditions we experience are never perfectly neutral. Natural daylight is slightly blue; incandescent light is warm amber; shade is blue-purple. Our visual system is calibrated to interpret gray relative to context, which means pure gray on a white page reads as cold (because natural whites have slight warmth), and pure gray on a dark screen reads as tonally disconnected (because dark UIs are typically either warm or cool). Chromatic neutrals — grays with 5-15% chroma in a specific hue direction — read as intentional, crafted, and temperature-appropriate because they are harmonically related to the conditions and palette they appear within.",
       "Warm neutrals (grays with amber, yellow-brown, or red-brown chroma) are the most common choice in brand work, editorial design, and premium consumer products. The underlying reason: warm neutrals have the temperature of natural materials — paper, linen, stone, concrete, wood — which human vision has evolved to read as safe, organic, and trustworthy. A UI built on warm-gray neutrals subliminally communicates these material associations without explicitly using texture or imagery. The construction method: start from a mid-lightness warm gray (approximately HSL 35°, 6-10% saturation, 45-55% lightness for the midtone) and build a scale by stepping lightness in even increments while keeping hue and saturation approximately constant. The result is a gray scale that has consistent temperature across all steps. The failure mode: building a gray scale where saturation varies across steps (dark steps have more chroma than light steps, or vice versa) — this makes the scale appear to shift temperature between dark and light contexts.",
@@ -6661,12 +6635,12 @@
         "href": "/pro/"
       },
       {
-        "label": "Minimal Workspace collection",
-        "href": "/collections/minimal-workspace/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Browse neutral tones",
-        "href": "/colors/"
+        "href": "/all-colors/"
       }
     ]
   },
@@ -6681,7 +6655,6 @@
       "Brand Color",
       "Print Design"
     ],
-    "featuredCollectionId": "warm-editorial",
     "highlights": [
       "Packaging color hierarchy works at three levels. Level 1 — Brand anchor: the constant color element that identifies the brand family across all SKUs. This is typically the most distinctive brand color (or a graphic treatment in that color) that appears on every package in the same position. The brand anchor must work on all substrates and in all printing processes used across the product line. Level 2 — Category or product line color: a secondary color that distinguishes between major product lines within the brand (e.g., red for tomato-based products, blue for refrigerated products, green for organic line). This level is where the color system does most of its organizational work. Level 3 — Variant color: the most granular differentiation, distinguishing flavors, sizes, or options within a product line. Variant color changes frequently as the line extends; it must be specifiable in Pantone/CMYK for consistent print production and must achieve sufficient contrast from adjacent variants on shelf.",
       "Shelf impact versus in-hand experience is the central design tension in packaging color. At shelf distance (1.5-2 meters), color reads primarily through value contrast — the relative lightness and darkness of the primary package color versus its immediate shelf neighbors. High-contrast, high-saturation colors (vivid red, vivid yellow, vivid blue) win the shelf-distance competition. In hand (15-30cm), the eye resolves detail, texture, material quality, and chromatic nuance. Colors that look aggressive or cheap at hand-distance may be the right shelf-impact choice; colors that look premium and refined in-hand may disappear at shelf. The resolution: design the shelf-impact layer (background color, hero graphic color) for at-distance performance and the detail layer (typography, secondary graphic, material texture) for in-hand performance. These are different color design problems.",
@@ -6703,8 +6676,8 @@
         "href": "/pro/"
       },
       {
-        "label": "Warm Editorial collection",
-        "href": "/collections/warm-editorial/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Color guides",
@@ -6765,7 +6738,6 @@
       "Color Naming",
       "UI Color"
     ],
-    "featuredCollectionId": "minimal-workspace",
     "highlights": [
       "Descriptive naming (Blue-500, Red-200, Gray-100) is the most common and most brittle naming strategy. It encodes color in the name itself — which means any rebrand or palette update requires renaming every token and every reference in code. When the brand evolves from blue to indigo, 'Blue-500' is now either a lie or a migration project. Descriptive names also leak implementation into the semantic layer: 'Blue-500' tells the consumer what the color is, not what it means or where to use it.",
       "Semantic naming (Primary, Secondary, Destructive, Surface, Muted) solves the rebrand problem and the intent problem simultaneously. The name encodes purpose: Primary is always the brand's primary action color, whatever that color happens to be at any point in the brand lifecycle. The failure mode: semantic names become overloaded when a system has many components. 'Primary' eventually conflicts — primary text? primary surface? primary button? primary icon? The solution is hierarchical semantic naming: tier-one semantic names for the most stable roles, component-scoped semantic names for complex components.",
@@ -6807,7 +6779,6 @@
       "Animation",
       "Color Perception"
     ],
-    "featuredCollectionId": "signal-bright",
     "highlights": [
       "Chromatic flicker is the most overlooked color-in-motion issue for designers outside broadcast. When a hue or luminance value alternates rapidly (above ~4 Hz), the human visual system does not average the alternating states — it perceives flicker that is disproportionately irritating at certain contrast ratios and hue combinations. Red-green flicker at high contrast is the most physiologically activating and the most likely to trigger photosensitive responses. WCAG 2.1 Success Criterion 2.3.1 addresses general flicker; for motion-heavy UIs, also apply the Harding Test criteria (flicker below 3 Hz for large areas, avoidance of saturated red-green transitions).",
       "Transitions between colors of very different saturation levels create a perceptual artifact: the higher-saturation endpoint appears even more saturated during the transition than it does as a static color. This is because the visual system is comparing the two states in rapid succession. A fade from a muted gray to a vivid orange will make the orange appear more vivid than a static field of the same orange. Motion designers exploit this deliberately — use low-saturation entry states and high-saturation exit states to amplify perceived intensity at key reveal moments. The reverse (vivid to muted) creates a landing sensation: things settling into place.",
@@ -6829,8 +6800,8 @@
         "href": "/pro/"
       },
       {
-        "label": "Signal Bright collection",
-        "href": "/collections/signal-bright/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Color Mixer",
@@ -6849,7 +6820,6 @@
       "UX Research",
       "Product Design"
     ],
-    "featuredCollectionId": "deep-focus",
     "highlights": [
       "Color-emotion associations are real but highly context-dependent. Meta-analyses show that color-emotion associations vary significantly by culture (blue is calm in Western contexts, associated with mourning in some East Asian contexts), by specific hue and saturation level (vivid red activates; muted rose does not), and by surrounding context (the same orange reads as energetic in a sports app and as cheap in a luxury context). The practical implication: color-emotion generalizations are starting points for hypotheses, not design rules. The only reliable way to know how your specific audience responds to a color in your specific context is to test it — A/B testing of color palettes for conversion-critical elements has produced meaningful results in multiple documented cases.",
       "Perceived product quality and trust are measurably affected by color. Studies on packaging consistently show that: higher saturation correlates with perceived strength/potency (useful for cleaning products, problematic for premium food brands); color consistency across a product family increases perceived quality by signaling systematic thinking; mismatch between the cultural color associations for a category and a product's palette increases cognitive friction and reduces purchase confidence. The most actionable finding: brands that deviate from category color conventions pay a 'awareness tax' — they must communicate more context to establish category legitimacy that an on-convention brand communicates for free via color alone.",
@@ -6871,8 +6841,8 @@
         "href": "/pro/"
       },
       {
-        "label": "Deep Focus collection",
-        "href": "/collections/deep-focus/"
+        "label": "Browse collections",
+        "href": "/collections/"
       },
       {
         "label": "Color guides",
@@ -6933,7 +6903,6 @@
       "Charts",
       "Accessibility"
     ],
-    "featuredCollectionId": "deep-focus",
     "highlights": [
       "Data visualization has four distinct color roles: categorical (encodes group membership — must be maximally distinguishable), sequential (encodes ordered quantity — must increase uniformly in lightness), diverging (encodes deviation from a midpoint — must be balanced and symmetric), and highlight (marks selected/anomalous values — must not resemble any categorical color). Using brand colors for dataviz without role-mapping is one of the most common failures in design system implementations.",
       "Perceptual uniformity is non-negotiable for sequential and diverging scales. HSL-based color interpolation for sequential scales produces visible brightness bands — a well-known failure mode where certain hue combinations produce a false visual midpoint. Use OKLCH or CIELAB interpolation for all sequential and diverging scales.",
@@ -7079,11 +7048,11 @@
     "links": [
       {
         "label": "WCAG Contrast Auditor",
-        "href": "/tools/wcag-audit/"
+        "href": "/wcag-audit/"
       },
       {
         "label": "Color Compare tool",
-        "href": "/tools/compare/"
+        "href": "/compare/"
       },
       {
         "label": "Accessibility color guide",
@@ -7122,15 +7091,15 @@
     "links": [
       {
         "label": "Color Compare tool",
-        "href": "/tools/compare/"
+        "href": "/compare/"
       },
       {
         "label": "Brand Color System",
-        "href": "/tools/brand/"
+        "href": "/brand-generator/"
       },
       {
         "label": "Color contrast guide",
-        "href": "/guides/color-contrast-design-guide/"
+        "href": "/guides/color-contrast-accessibility-guide/"
       }
     ]
   },
@@ -7165,11 +7134,11 @@
     "links": [
       {
         "label": "Color Converter",
-        "href": "/tools/convert/"
+        "href": "/convert/"
       },
       {
         "label": "Tints & Shades Generator",
-        "href": "/tools/tints/"
+        "href": "/tints/"
       },
       {
         "label": "Print color guide",
@@ -7208,7 +7177,7 @@
     "links": [
       {
         "label": "Color Converter",
-        "href": "/tools/convert/"
+        "href": "/convert/"
       },
       {
         "label": "Complete Archive",
@@ -7251,11 +7220,11 @@
     "links": [
       {
         "label": "Color Compare tool",
-        "href": "/tools/compare/"
+        "href": "/compare/"
       },
       {
         "label": "WCAG Contrast Auditor",
-        "href": "/tools/wcag-audit/"
+        "href": "/wcag-audit/"
       },
       {
         "label": "Data Dashboard collection",
@@ -7294,11 +7263,11 @@
     "links": [
       {
         "label": "Design Token Generator",
-        "href": "/tools/design-tokens/"
+        "href": "/tokens/"
       },
       {
         "label": "WCAG Contrast Auditor",
-        "href": "/tools/wcag-audit/"
+        "href": "/wcag-audit/"
       },
       {
         "label": "Brand Starter Kit",
@@ -7341,11 +7310,11 @@
       },
       {
         "label": "WCAG Contrast Auditor",
-        "href": "/tools/wcag-audit/"
+        "href": "/wcag-audit/"
       },
       {
         "label": "Color Converter",
-        "href": "/tools/convert/"
+        "href": "/convert/"
       }
     ]
   },
@@ -7380,11 +7349,11 @@
     "links": [
       {
         "label": "Color Converter",
-        "href": "/tools/convert/"
+        "href": "/convert/"
       },
       {
         "label": "Color Compare tool",
-        "href": "/tools/compare/"
+        "href": "/compare/"
       },
       {
         "label": "Brand Starter Kit",
@@ -7423,11 +7392,11 @@
     "links": [
       {
         "label": "Brand System Generator",
-        "href": "/tools/brand/"
+        "href": "/brand-generator/"
       },
       {
         "label": "WCAG Contrast Auditor",
-        "href": "/tools/wcag-audit/"
+        "href": "/wcag-audit/"
       },
       {
         "label": "Brand Starter Kit",
@@ -7466,15 +7435,15 @@
     "links": [
       {
         "label": "Color Compare tool",
-        "href": "/tools/compare/"
+        "href": "/compare/"
       },
       {
         "label": "Colorblind Simulator",
-        "href": "/tools/colorblind/"
+        "href": "/colorblind/"
       },
       {
         "label": "Design Token Generator",
-        "href": "/tools/design-tokens/"
+        "href": "/tokens/"
       }
     ]
   },
@@ -7509,11 +7478,11 @@
     "links": [
       {
         "label": "Design Token Generator",
-        "href": "/tools/design-tokens/"
+        "href": "/tokens/"
       },
       {
         "label": "WCAG Contrast Auditor",
-        "href": "/tools/wcag-audit/"
+        "href": "/wcag-audit/"
       },
       {
         "label": "Brand Starter Kit",
@@ -7552,11 +7521,11 @@
     "links": [
       {
         "label": "Harmony Generator",
-        "href": "/tools/harmonies/"
+        "href": "/harmonies/"
       },
       {
         "label": "Palette Generator",
-        "href": "/tools/palette/"
+        "href": "/palette-generator/"
       },
       {
         "label": "Palette Pack Vol. 1",
@@ -7730,7 +7699,6 @@
       "UX Design",
       "Color Psychology"
     ],
-    "featuredCollectionId": "vivid-spectrum",
     "body": "The most repeated piece of CTA color advice — 'make the button red' or 'use green for go' — is mostly myth. What A/B testing at scale actually reveals is more nuanced and more useful.\n\n**Contrast, Not Color, Drives Clicks**\nThe most consistent finding across large-scale button color tests is that contrast ratio between the button and its surrounding background matters more than the specific hue. A high-contrast orange button on a white page outperforms a low-contrast red one. A button that stands out visually from its environment will get more clicks regardless of its specific color — which is why 'the red button wins' often works: red tends to contrast against the blue/white pages it's tested on, not because red is universally superior.\n\nThis insight simplifies your CTA strategy: before picking a CTA color, map your page's dominant color temperatures and values. Your CTA needs to be the highest-contrast element near the action point.\n\n**Expectation and Context**\nColor also communicates context-specific expectations. Green reads as 'safe to proceed' in forms and checkouts, where users are primed for a traffic-light metaphor. Orange reads as 'limited time' in promotional contexts — it triggers a mild urgency response rooted in decades of sale/clearance color conventions. Neither is universally better: the right color depends on what action you're asking users to take and in what emotional context.\n\n**Secondary CTAs and Color Hierarchy**\nPages with multiple actions (primary CTA, secondary link, tertiary option) need a clear value hierarchy in their color system. Primary CTA: your most saturated, highest-contrast accent. Secondary CTA: lower chroma variant or ghost/outline treatment of the primary. Tertiary: text link in your body color, no button frame. When secondary and primary CTAs have similar visual weight, users hesitate — they don't know which to choose. ColorArchive's brand generator exports role-annotated palettes that include CTA hierarchy as a first-class design decision."
   },
   {
@@ -7821,7 +7789,6 @@
       "UI Design",
       "Color Theory"
     ],
-    "featuredCollectionId": "vivid-spectrum",
     "body": "Color design for static layouts and color design for animated interfaces are related disciplines with meaningful differences. When elements move — transition between states, animate in and out, respond to interaction — the eye's perception of color changes in ways that static design tools do not surface.\n\n**Temporal Contrast**\nThe most important animation-specific color phenomenon is temporal contrast: the perceived color of an element immediately after a color change depends partly on what it was before the change. A button transitioning from neutral gray to your brand blue will appear briefly more saturated than a button that was already blue — because the gray creates a complementary contrast afterimage. This is not a bug to be avoided; experienced animators use it intentionally to make state changes feel more alive. The implication for design: specify the start and end color, not just the end color, when designing animated states.\n\n**Transition Easing and Color Speed**\nA color transition at different easing curves produces different perceived results. An ease-in color change (starting slow, ending fast) makes the new color feel abrupt and decisive. An ease-out change (starting fast, ending slow) makes the new color feel settled and natural. Linear color transitions over time look mechanical because human perception is not linear. For emotional UI feedback (loading complete, payment success, error states), ease-out curves on color transitions feel more natural and satisfying than linear ones.\n\n**Saturation and Lightness in Motion**\nHighly saturated colors moving at speed create a strobing or flickering perception at some velocities — particularly when the movement is against a white or light background. This is why high-saturation UI elements are better at rest than in complex motion. When animating vivid colors, adding a slight desaturation during the motion phase (and restoring full saturation when the element settles) reduces visual noise. This technique is common in game UI design and increasingly appears in premium web animation.\n\n**Reduced Motion Considerations**\nFor users with vestibular disorders, color-only transitions (no positional movement) are often acceptable even when positional animations must be removed. When implementing prefers-reduced-motion, use color transitions as an accessible alternative to full animation: instead of a card sliding in, have it fade from transparent to opaque through an intermediary tinted state. This provides meaningful feedback while eliminating the position-based motion that triggers vestibular symptoms."
   },
   {
@@ -7834,7 +7801,6 @@
       "Color Theory",
       "Accessibility"
     ],
-    "featuredCollectionId": "ocean-professional",
     "body": "Color in data visualization serves a fundamentally different purpose than color in brand design. In branding, color communicates personality. In data visualization, color communicates quantitative meaning — and when it does so imprecisely, it introduces systematic error into how readers interpret data.\n\n**Perceptual Uniformity**\nThe most critical property a data visualization color scale can have is perceptual uniformity: equal steps in data value should appear as equal steps in visual difference. Naive rainbow color scales (red → orange → yellow → green → blue → violet) fail this test dramatically — yellow appears lighter and more visually similar to adjacent colors than the jumps between red-orange or blue-violet, creating the false impression that the data has valleys and peaks in the wrong places. Perceptually uniform scales (like Viridis, Inferno, or carefully constructed chroma-lightness ramps) eliminate this distortion.\n\n**Sequential vs. Diverging Scales**\nSequential scales — running from light to dark within a single hue family — work for data that has a meaningful low end and high end with no neutral midpoint. Examples: population density, temperature above zero, revenue. Diverging scales — running from one hue through a neutral midpoint to a different hue — work for data with a meaningful zero or neutral point. Examples: temperature above/below freezing, survey agreement scales, profit/loss. Using a sequential scale on diverging data (or vice versa) systematically misleads readers about the structure of the data.\n\n**Categorical Color in Visualization**\nFor categorical data (group A, B, C…), color needs to be simultaneously distinguishable, not implying order, and accessible to color-blind readers. The practical constraint is that human color discrimination saturates at around 8-10 clearly distinguishable categories — beyond that, charts need supplementary encoding (pattern, shape, label). Within those 8-10, hue spacing should maximize perceptual distance, which usually means distributing around the hue wheel rather than using adjacent hues. Desaturated categorical palettes also work because they reduce competition for attention between data colors and background/axis elements.\n\n**Accessibility in Charts**\nApproximately 8% of men and 0.5% of women experience some form of color vision deficiency. The most common type (deuteranopia/protanopia) affects red-green discrimination — making the most common data visualization convention (red = bad, green = good) partially or fully inaccessible. Accessible chart design combines color with a second encoding: position, shape, or pattern. When color-only encoding is unavoidable, use blue-orange or blue-yellow contrasts instead of red-green pairs."
   },
   {
@@ -7847,7 +7813,6 @@
       "Global Design",
       "Color Psychology"
     ],
-    "featuredCollectionId": "classic-neutrals",
     "body": "Color meaning is not universal. What reads as trustworthy in one cultural context may read as dangerous in another, and brands expanding internationally have encountered this problem repeatedly. The good news is that the most problematic mismatches are well-documented and avoidable with preparation.\n\n**Red: The Most Variable Color**\nRed carries the most culturally variable meanings of any common color. In Western contexts, red signals danger, urgency, and error — plus love, passion, and luxury in the right contexts. In Chinese and many East Asian cultures, red is a primary color of celebration, luck, and prosperity — it is not alarming, but auspicious. In South Africa, red mourning associations exist alongside the Western ones. For brands operating across these contexts, red UI elements (particularly error states) require careful review: an error state that triggers mild alarm in a Western user may feel more dire, or less, in other contexts.\n\n**White and Mourning**\nIn East Asian funeral traditions — China, Japan, Korea — white is a mourning color in the way that black is in Western traditions. This is rarely absolute (global brands have operated in these markets using white successfully for decades), but it shapes perceptions at the margin. All-white minimalist aesthetics carry different connotations in these contexts than in European or American markets. Premium packaging that leans heavily into white may benefit from warm cream or ivory accents to shift the register.\n\n**Green and Religion**\nGreen carries special significance in Islamic contexts as the color of paradise and a sacred color associated with the Prophet. This creates both opportunity (green can signal positive associations) and constraint (using green for negative or frivolous purposes may create friction in Muslim-majority markets). For brands with significant presence in the Middle East and Southeast Asia, green carries more weight than in markets without this association.\n\n**Designing for Translation**\nThe practical approach for global brands: design with a restricted palette of core colors that have clear, documented cultural interpretations for each major market. Maintain a market context library — a brief summary of color associations in each key market — as part of the brand standards. Brief regional teams on how to apply the palette within local context, rather than applying a globally uniform execution. ColorArchive's family and cultural documentation provides useful starting material for building this kind of context library."
   },
   {
@@ -7860,7 +7825,6 @@
       "Color Management",
       "Brand Identity"
     ],
-    "featuredCollectionId": "classic-neutrals",
     "body": "Brand designers increasingly work across digital and physical media — screens, print packaging, signage, merchandise. Color reproduction varies significantly across these outputs, and brands that do not actively manage color across media risk their brand colors looking meaningfully different on a billboard than on their website.\n\n**The Gamut Problem**\nDifferent reproduction systems can render different ranges of color (gamuts). RGB monitors — especially wide-gamut displays common in modern design tools — can display more vivid colors than CMYK printing can reproduce. A saturated teal or vivid orange that looks accurate on screen can shift toward a duller version in CMYK offset printing. The larger the chroma of the color, the larger the potential gamut mismatch. Muted, low-chroma palettes travel across reproduction systems more reliably than vivid, highly saturated ones.\n\n**Pantone Spot Colors**\nFor brand colors that must be reproduced consistently across printed media, Pantone Matching System (PMS) spot colors bypass the CMYK approximation entirely. A PMS color specifies the exact ink formulation — the same Pantone 485 red will look identical whether printed in Tokyo, Berlin, or Chicago. This is why large brands specify their primary brand colors as PMS values alongside the RGB and CMYK equivalents. For ColorArchive users, the most reliable approach is to find the PMS color closest to your chosen hex value (Pantone's color finder tools support this) and use that as your print standard.\n\n**The Color Management Stack**\nProfessional color management uses color profiles — standard files (ICC profiles) that describe how colors in one color space map to another. Designing in a calibrated environment using the correct output profile for each reproduction system prevents the most common reproduction errors. For screen, sRGB (not Adobe RGB or Display P3) is the standard for web delivery. For print, the appropriate CMYK profile depends on the print process (coated stock uses different profiles from uncoated). Asking your print vendor which profile to use before delivering final files prevents the most common reproduction surprises.\n\n**Practical Brand Color Documentation**\nA well-documented brand color system specifies each color in at least four values: HEX (web), RGB (screen), CMYK (print), and PMS (spot printing). The HEX and RGB values should be tested on multiple devices. The CMYK values should be tested on a printed proof before finalizing. The PMS value should be the closest standard ink to the target. ColorArchive exports provide HEX and RGB by default — the CMYK and PMS equivalents require the additional step of conversion and soft-proofing in a color-managed environment."
   },
   {
@@ -7990,7 +7954,6 @@
       "UX Design",
       "Color Psychology"
     ],
-    "featuredCollectionId": "calm-tech",
     "body": "Onboarding flows have a specific color challenge: they must guide attention more aggressively than the product's normal interface (because the user is unfamiliar) while simultaneously establishing the brand's color language (because this is often the user's first extended product exposure). These two requirements pull in opposite directions — aggressive attention direction tends toward high contrast and saturated CTAs; brand-coherent color tends toward restraint and subtlety.\n\n**Progressive color introduction**\nThe most successful onboarding patterns introduce color progressively, beginning with maximum restraint and gradually revealing the full brand palette as the user becomes familiar. Step one of an onboarding flow might be near-monochrome with a single brand accent on the primary CTA. By step four, secondary colors, illustrations, and richer backgrounds appear. This progression gives the user time to orient spatially before the full color environment arrives. It also creates a sense of the interface 'opening up' as onboarding progresses — a subtle but effective metaphor for moving from unknown to familiar.\n\n**Progress and momentum color**\nProgress indicators in onboarding — step counters, progress bars, completion percentages — benefit from using the brand's primary accent color, with completed steps shown in full saturation and upcoming steps in a muted tint of the same hue. This creates a color-coherent progress signal that reads as 'more of this is available' rather than 'you have not done that yet.' The distinction matters for completion rates: forward-looking progress signals (showing what's ahead in a lighter shade of the same color) outperform backward-looking ones (showing only what's been completed) in user testing.\n\n**Error and friction color in onboarding**\nOnboarding has a specific error-color consideration: the standard red for validation errors can feel harsh and punitive during a first impression. Some products soften error states in onboarding specifically, using amber or orange for initial errors and reserving red for persistent or consequential failures (invalid email that blocks progression vs. minor formatting issue). This is a calibration judgment rather than a rule — for products where accuracy is critical from step one (financial, medical, compliance), red errors from the start signals appropriate seriousness.\n\n**Celebrating completion**\nCompletion moments in onboarding are an opportunity to use the brand's highest-energy color moment — a brief animation with the primary accent at full saturation, a green success state, a momentary background shift. These completion color moments serve double duty: they reward the user emotionally and they encode a positive association with the brand's primary color. The key constraint is brevity — the moment should be 300-600ms, long enough to register as intentional, short enough not to delay forward progress."
   },
   {
@@ -8003,7 +7966,6 @@
       "Color Theory",
       "Design Systems"
     ],
-    "featuredCollectionId": "editorial-neutrals",
     "body": "Type weight and color interact in ways that most design guidance ignores. The apparent value (perceived lightness) of a typeface changes significantly with weight — a bold headline in a given color will appear distinctly different from the same color applied to a light-weight body typeface, even if both use the same hex value. Understanding this interaction prevents the most common color-typography calibration error: selecting a text color in isolation, only to find it looks too light at small body sizes and too heavy at large display sizes.\n\n**Why weight changes apparent color**\nAt low weights (thin, light), type has significant negative space within and between letterforms. The white space of the counter and surrounding page mixes perceptually with the ink color, making the type appear lighter than its nominal color value. At heavy weights (semibold, bold, black), the letterforms cover more area with fewer counters, so the color appears closer to its nominal value. The practical implication: a color that looks right at body weight may appear too light at thin display weight and too dark at black display weight. Test any text color at all intended weights before committing.\n\n**Serif vs. sans-serif color response**\nSerif typefaces have high stroke-width variation — thick verticals and thin horizontals. This means a single serif character contains multiple effective weights within itself, and a given text color applied to a serif will appear lighter in the thin strokes than in the thick ones. The visual result is that serif type at the same color and weight as sans-serif appears lighter, because more of the letter area is occupied by thin strokes. For equivalent apparent color intensity, serif type at a given weight needs a slightly darker color than sans-serif. This matters most at small text sizes where the thin strokes approach the legibility threshold.\n\n**Calibrating for screen rendering**\nScreen rendering introduces another variable: subpixel antialiasing and font smoothing differ across operating systems and browsers. On macOS with Retina display, text rendering is sharper and letterforms appear slightly thicker than on non-Retina Windows. A text color calibrated on a Retina display may appear too light on a standard Windows display. The standard mitigation is to test all text colors at the target sizes on both display types, and to bias slightly darker when in doubt — darker text is more accessible and the rendering difference reduces the downside of being slightly darker on Retina.\n\n**Display type and colored backgrounds**\nLarge display type (32px+) on colored backgrounds has more freedom than body type because the letterforms are large enough to hold their own against the background. The WCAG 3:1 contrast requirement for large text (18pt bold or 24pt regular) is a meaningful minimum, not a target — design quality often requires higher contrast at display sizes because the type is meant to be striking, not merely legible. Conversely, colored display type on white backgrounds can use lower saturation than it might appear — the large size creates apparent saturation that a smaller version of the same color lacks."
   },
   {
@@ -8016,7 +7978,6 @@
       "Documentation",
       "Team Process"
     ],
-    "featuredCollectionId": "neutral-ground",
     "body": "Color system documentation has a specific failure mode: it is written once when the system is created, then diverges from the actual implementation as the system evolves, until it becomes actively misleading. The documentation problem for color systems is not writing it — it is keeping it accurate over time. A documentation structure that cannot survive its first quarter of production use is worse than no documentation, because it creates false confidence.\n\n**What to document: the four layers**\nEffective color system documentation covers four layers. The decision layer: why specific colors were chosen, what they are meant to communicate, and what constraints shaped the palette. This layer decays slowest — brand rationale rarely changes. The semantic layer: the meaning assignments, the token hierarchy, and the mapping from primitives to semantics. This layer changes when the semantic vocabulary evolves. The implementation layer: the actual token values, the CSS custom property names, the Figma variable IDs, and the platform-specific representations. This layer changes most frequently and is most often out of date. The usage layer: which tokens to use for which contexts, with examples. This layer changes when patterns evolve.\n\n**Where to keep it: proximity to the code**\nDocumentation kept in a separate wiki or design tool diverges from the codebase fastest. Keeping token documentation in the codebase — as comments in the token definition file, as a generated reference from the tokens themselves — dramatically reduces the cost of updating it when values change. Design system teams that generate a documentation page directly from their token file (parsing the file to render a live reference) maintain accurate documentation almost automatically, because the source of truth and the documentation share the same source.\n\n**The changelog discipline**\nColor systems need a changelog: a dated record of what changed, why, and how to migrate. 'We changed --color-text-secondary from #6b7280 to #71717a because the gray warm-toned neutrals were inconsistent with the blue-toned primary palette' is more useful than a commit message. Changelogs serve three audiences: engineers who need to update component implementations, designers who need to update their tools, and future maintainers who need to understand why past decisions were made. Teams that maintain a color system changelog report faster incident diagnosis and more confident palette evolution.\n\n**Automated consistency checks**\nDocumentation stays current most reliably when consistency is enforced by tooling. Linting rules that flag hard-coded color values in component files (insisting that tokens be used instead), CI checks that verify token names match the documented vocabulary, and design tool sync plugins that keep Figma variables in sync with the code token file — these reduce documentation drift to the boundary conditions where manual documentation remains necessary. The goal is not zero documentation but documentation that covers the decisions and rationale that automation cannot check."
   },
   {
@@ -8029,7 +7990,6 @@
       "UI Design",
       "Accessibility"
     ],
-    "featuredCollectionId": "midnight-form",
     "body": "Mobile UI design creates color constraints that desktop interfaces largely avoid. The dominant constraint is screen size: a color relationship that reads clearly at 1440px wide — a pale tint background with a slightly darker border — may be imperceptible on a 390px phone screen where the spatial separation between elements is compressed. Mobile color design requires higher contrast at every level: higher background-to-border contrast, higher inactive-to-active state contrast, and higher text contrast than the WCAG minimum might imply.\n\n**OLED black and the dark mode floor**\nOLED screens render true black (0, 0, 0) by turning off individual pixels entirely — no light is emitted, resulting in a black of a quality that LCD screens cannot match. This creates a design opportunity that iOS and many Android apps now exploit: true black backgrounds on OLED feel qualitatively different from the near-black dark mode backgrounds used on LCD and web. However, mixing true black with near-black surfaces (a #000000 background with a #121212 card) can look muddy on LCD while looking appropriately layered on OLED. Apple's iOS system dark mode uses #000000 for sheet backgrounds on OLED and relies on its blur effects rather than surface color differences for depth. Applications targeting a premium mobile experience on iPhone often embrace true black; cross-platform applications compromise at near-black to maintain legibility across display types.\n\n**Platform color conventions**\nBoth iOS and Android have established color conventions that users have internalized. On iOS, the system accent color (blue by default, user-adjustable) is used for interactive elements: buttons, links, toggles, and selection states. Applications that deviate from this convention — using a custom color for interactive elements — must teach users a new interaction vocabulary, which creates friction. The tradeoff is between brand expression (using brand colors for interactivity) and learnable familiarity (using platform conventions). For utility-first applications, hewing closer to platform conventions reduces learnability friction; for brand-experience applications, custom interaction color is often worth the tradeoff. Android's Material You system generates a dynamic color palette from the user's wallpaper — any hardcoded brand color may conflict with or harmonize with a user-generated palette in unpredictable ways.\n\n**Touch target color affordance**\nMobile interactive elements must meet the 44×44pt minimum touch target size. Color plays a supporting role in making touch targets visually evident: a button that lacks adequate color contrast with its background will be difficult to perceive as interactive, regardless of size. On mobile, where users navigate by thumb and often do not hover over elements before tapping, there is no hover state to confirm interactivity — the resting state must clearly signal affordance. This means interactive elements need more pronounced default styling on mobile than on desktop: higher contrast fills, more defined borders, or clearer typographic differentiation for text links."
   },
   {
@@ -8071,7 +8031,6 @@
       "Visual Hierarchy",
       "Product Design"
     ],
-    "featuredCollectionId": "midnight-form",
     "body": "Video streaming interfaces — Netflix, Hulu, Apple TV+, Disney+ and their competitors — represent one of the most studied dark-UI design environments in consumer software. They share a set of color constraints that are instructive even for products in other categories.\n\n**Dark-first as the default**\nStreaming UIs are almost universally dark-mode-first or dark-mode-only. The reasons are practical: viewing video content on a bright-white interface creates uncomfortable luminance contrast between the content and the surrounding UI, accelerates eye fatigue in dim environments, and aesthetically positions the product as entertainment-first rather than productivity-first. The dark background recedes, allowing the content imagery to dominate. If your product category is entertainment, media, or any immersive experience, dark-mode-first is the correct default.\n\n**Thumbnail color dominance**\nThe central content of a streaming UI is high-saturation, cinematically color-graded imagery that does not share your brand palette. Thumbnails in a single row may span nearly every hue. This creates a visual chaos problem that streaming UIs solve through spatial containment (fixed cell grids), consistent text treatment (white title text at consistent sizes), and limited UI accent use (brand color appears in selection states, active indicators, and progress bars — not competing with content color at scale). When designing any UI that will display user-submitted or content-database images, study how streaming UIs manage this containment.\n\n**Progress and interactive color**\nIn streaming UIs, the interactive color (typically the brand color: Netflix's red, Disney's blue) is used with high restraint. It appears in progress bars, active selection states, and call-to-action buttons. This restraint makes the brand color pop as a genuine signal of interactivity and state. The risk of overusing brand color in a content-dominant UI is that it competes visually with the content — the red progress bar on a Netflix UI is readable because red is not competing with twenty other red elements.\n\n**Text readability over imagery**\nStreaming UIs regularly render text over cinematically shot imagery with high dynamic range. Text legibility over arbitrary imagery requires either a scrim (semi-transparent gradient overlay on the image), a text shadow, or both. Avoid relying on image lightness to ensure text legibility — the same layout will appear against a dark ocean and a bright snow scene. A consistent scrim pattern ensures readability regardless of the underlying image content. Define scrim opacity and gradient stop values as design tokens, not one-offs."
   },
   {

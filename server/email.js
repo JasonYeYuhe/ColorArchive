@@ -88,7 +88,26 @@ async function sendFreePackEmail(to) {
 async function sendWaitlistConfirmationEmail(to) {
   const featuredPalette = updateBrief.featuredPalette;
   const featuredPack = updateBrief.featuredPack;
-  const latestIssue = newsletterIssues[0];
+  // Newest by DATE, not by position in the JSON — the raw file descends, jumps
+  // back, then ascends, so `newsletterIssues[0]` was simply whichever entry
+  // happened to be first and this email advertised a two-month-old note as the
+  // latest. Duplicated rather than imported because this is the CommonJS server
+  // and that module is TypeScript.
+  //
+  // THE LAG IS DELIBERATE. The site's publish cutoff is evaluated when Vercel
+  // BUILDS; this server evaluates it when the mail is SENT. Those clocks are not
+  // the same, so a plain `date <= today` here can link an issue whose page the
+  // last build did not generate — a hard 404 in a customer's inbox. Requiring the
+  // issue to be a couple of days old keeps the link inside the deployed set: the
+  // repo pushes to main most days, and any push rebuilds the whole site.
+  //
+  // If deploys ever become infrequent, widen this or drop the per-issue link for
+  // the /notes/ index, which cannot 404.
+  const BUILD_LAG_DAYS = 2;
+  const cutoff = new Date(Date.now() - BUILD_LAG_DAYS * 86400000).toISOString().slice(0, 10);
+  const latestIssue = newsletterIssues
+    .filter((issue) => issue.date <= cutoff)
+    .sort((a, b) => b.date.localeCompare(a.date))[0];
   const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,

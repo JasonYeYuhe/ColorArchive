@@ -26,7 +26,7 @@ export function GuideDetailPage({
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
         <section className="rounded-[2rem] border border-black/6 bg-white/80 dark:border-white/10 dark:bg-neutral-900/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10 sm:py-14">
-          <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-neutral-500 dark:text-neutral-400 dark:text-neutral-500">
+          <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-neutral-500 dark:text-neutral-500">
             <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
             {guide.eyebrow}
           </div>
@@ -43,7 +43,7 @@ export function GuideDetailPage({
             {guide.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-500 dark:text-neutral-400 dark:text-neutral-500"
+                className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-500 dark:text-neutral-500"
               >
                 {tag}
               </span>
@@ -150,27 +150,27 @@ export function GuideDetailPage({
           </section>
         ) : null}
 
-        <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950 dark:text-white">
-          <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400 dark:text-neutral-500">
+        <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-600">
             {t("guide.ctaLabel")}
           </div>
           <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
             {t("guide.ctaTitle")}
           </p>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500 dark:text-neutral-400 dark:text-neutral-500">
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
             {t("guide.ctaDesc")}
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
               href="/pro/"
               onClick={() => track("pro_cta_click", { surface: "guide", guide: guide.slug })}
-              className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-neutral-950 dark:text-white transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
+              className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-neutral-950 dark:text-white transition hover:bg-neutral-200 dark:bg-neutral-950 dark:hover:bg-neutral-800"
             >
               {t("guide.browsePacks")}
             </Link>
             <Link
               href="/guides/"
-              className="rounded-full border border-white/16 px-5 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950 dark:text-white"
+              className="rounded-full border border-white/16 px-5 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
             >
               {t("guide.moreGuides")}
             </Link>

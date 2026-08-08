@@ -1,9 +1,43 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-08-02 (Design Notes W31 approved + sent to nobody; the "does this
-> format continue" call is deferred to 2026-08-10, and the report now arrives by email
-> on its own — see below)
+> Last updated: 2026-08-08 (site quality audit shipped; 10 shadowed collections need an
+> editorial call — see immediately below. The 2026-08-10 Design Notes decision still
+> stands and still mails itself.)
+
+## ✍️ Ten collections exist, are written, and render nowhere — do they get titles?
+
+Found in the 2026-08-08 audit. `getCollectionById` resolves with `.find()`, so when two
+entries share an id only the first is ever served. Eight ids were duplicated across
+eighteen entries, leaving **ten fully-written collections at no URL at all** — with their
+own summaries, palettes and editorial notes.
+
+They are now dropped explicitly (`src/lib/collections.ts` epilogue, mirroring the guides
+dedupe) instead of being silently shadowed, and a test fails CI if a duplicate id
+reappears. **Nothing changed for visitors** — these already rendered nowhere. What changed
+is that `sitemap.xml` stopped advertising duplicate URLs for them.
+
+**Why I did not just give them new ids and publish them:** their titles are identical to
+the ones already live — "Golden Hour" ×3, "Deep Ocean" ×3 — so minting ids would ship ten
+pages with duplicate `<title>` tags, which is a real SEO problem and one the same audit
+flagged separately. Re-titling is authoring, not a mechanical fix, so it is your call.
+
+The ten, with the id that shadowed them:
+
+| id | live one | shadowed one(s) |
+|---|---|---|
+| `golden-hour` | "Warm amber, honey, and citrine…" | "…apricot glow, honey silk, ember core"; "the magic hour — warm amber, rose gold" |
+| `deep-ocean` | "pale horizon cerulean to abyssal cobalt" | "Dark navy, teal-black…"; "deep-water marine environments" |
+| `nordic-morning` | "Pale blue mists, cool whisper whites" | "Ice-pale blues and cool bone whites" |
+| `midnight-garden` | "Deep jewel tones — moody violet, plum" | "Dark botanicals at night — deep forest green" |
+| `copper-verdigris` | "Copper Verdigris" | "Copper & Verdigris" |
+| `desert-dusk` | "Warm terracotta, sun-bleached clay" | "Southwestern desert at dusk — mauve…" |
+| `autumn-harvest` | "Deep amber, burnt rust, olive, garnet" | "the full richness of autumn — warm russet" |
+| `forest-bathing` | "A deep woodland palette for wellness brands" | "the restorative palette of shinrin-yoku" |
+
+To publish any of them: give it a distinct id AND a distinct title, then remove it from the
+shadowed set — the dedupe epilogue will stop dropping it and the CI guard will confirm the
+id is unique. To leave them dropped, do nothing; this note is the only cost.
 
 ## 📅 2026-08-10 — DECIDE: does Design Notes continue? (report arrives by email)
 

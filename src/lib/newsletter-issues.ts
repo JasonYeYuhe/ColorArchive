@@ -27,11 +27,32 @@ export interface NewsletterIssue {
   body?: string;
 }
 
-/** Only expose issues up to end of current year to avoid future-dated content in public site */
-const CUTOFF = "2026-12-31";
-export const newsletterIssues = (issues as NewsletterIssue[]).filter(
-  (issue) => issue.date <= CUTOFF
-);
+/**
+ * Publish nothing that is dated in the future, and serve the archive newest-first.
+ *
+ * THE CUTOFF WAS A CONSTANT, NOT A DATE. It read "2026-12-31" under a comment
+ * saying "avoid future-dated content in public site" — so on 2026-08-08 sixteen
+ * issues dated up to 2026-12-24 were already live and in the sitemap, four months
+ * early. Comparing against the build date does what the comment always said, and
+ * needs no maintenance when the year rolls over.
+ *
+ * Note this resolves at BUILD time, not request time: an issue whose date passes
+ * while no deploy happens stays hidden until the next build. That is the right
+ * trade for a statically exported site — every page here is prerendered anyway,
+ * and the alternative (a dynamic route) would cost far more than it buys.
+ *
+ * THE ORDER WAS WHATEVER THE JSON HAPPENED TO BE. The source file descends from
+ * 2026-06-04 to 2026-03-11, then jumps back to 2026-05-07 and ascends. Nothing
+ * sorted it, and three separate things read positional order: the /notes/ index,
+ * `latestNewsletterIssue` (index 0), and getNewsletterNeighbors (index±1). So the
+ * index jumped March → May mid-list, the newest issue was buried, and prev/next
+ * walked the archive in an order no reader could follow. One sort at the source
+ * fixes all three, which is why it belongs here rather than in each caller.
+ */
+const CUTOFF = new Date().toISOString().slice(0, 10);
+export const newsletterIssues = (issues as NewsletterIssue[])
+  .filter((issue) => issue.date <= CUTOFF)
+  .sort((a, b) => b.date.localeCompare(a.date));
 
 export function getNewsletterIssue(slug: string) {
   return newsletterIssues.find((issue) => issue.slug === slug) ?? null;

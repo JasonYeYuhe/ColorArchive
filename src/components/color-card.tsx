@@ -141,7 +141,16 @@ export const ColorCard = memo(function ColorCard({ color, isSelected = false, on
                   event.stopPropagation();
                   void handleCopy();
                 }}
-                className="font-medium text-neutral-950 transition hover:text-neutral-600 focus:outline-none dark:text-white dark:hover:text-neutral-400"
+                // -mx-2 -my-1.5 px-2 py-1.5 — grows the hit area without moving
+                // the text. Copying the hex is the site's headline action, and it
+                // was a bare text line box: 20px tall, under the 44px minimum.
+                // Worse, this button is nested inside the card's own role="button"
+                // wrapper, whose onClick calls onSelect — so a near-miss did not
+                // just do nothing, it silently selected the card instead of
+                // copying the hex. focus-visible:ring restores the focus
+                // indicator that focus:outline-none removed with nothing in its
+                // place.
+                className="-mx-2 -my-1.5 rounded-lg px-2 py-1.5 font-medium text-neutral-950 transition hover:text-neutral-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 dark:text-white dark:hover:text-neutral-400 dark:focus-visible:ring-white"
                 aria-label={`Copy hex value ${color.hex}`}
               >
                 {color.hex}

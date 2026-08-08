@@ -15,7 +15,7 @@ export interface WcagPairing {
   grade: "AAA" | "AA" | "AA Large";
 }
 
-function getRelativeLuminance(r: number, g: number, b: number): number {
+export function getRelativeLuminance(r: number, g: number, b: number): number {
   const toLinear = (c: number) => {
     const sRGB = c / 255;
     return sRGB <= 0.04045 ? sRGB / 12.92 : Math.pow((sRGB + 0.055) / 1.055, 2.4);
