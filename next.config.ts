@@ -21,6 +21,29 @@ const nextConfig: NextConfig = {
       // ever existed as /colors/[slug]/. Every referrer is fixed at source in the
       // same change; this exists for inbound links and anything missed.
       { source: "/colors", destination: "/all-colors/", permanent: true },
+      // The retired /tools/* namespace. Every one of these was linked from our own
+      // guides and newsletters for months before the prefix was dropped, so they
+      // are the URLs most likely to be in an index or someone else's bookmark.
+      // The in-content links were all repointed; this rescues everything outside
+      // our control, which a find-and-replace cannot reach.
+      { source: "/tools/contrast", destination: "/contrast/", permanent: true },
+      { source: "/tools/contrast-checker", destination: "/contrast/", permanent: true },
+      { source: "/tools/wcag-audit", destination: "/wcag-audit/", permanent: true },
+      { source: "/tools/colorblind", destination: "/colorblind/", permanent: true },
+      { source: "/tools/color-converter", destination: "/convert/", permanent: true },
+      { source: "/tools/convert", destination: "/convert/", permanent: true },
+      { source: "/tools/compare", destination: "/compare/", permanent: true },
+      { source: "/tools/design-tokens", destination: "/tokens/", permanent: true },
+      { source: "/tools/tints-shades", destination: "/tints/", permanent: true },
+      { source: "/tools/tints", destination: "/tints/", permanent: true },
+      { source: "/tools/tonal", destination: "/tints/", permanent: true },
+      { source: "/tools/mood", destination: "/mood-palette/", permanent: true },
+      { source: "/tools/brand", destination: "/brand-generator/", permanent: true },
+      { source: "/tools/wheel", destination: "/color-wheel/", permanent: true },
+      { source: "/tools/harmonies", destination: "/harmonies/", permanent: true },
+      { source: "/tools/palette", destination: "/palette-generator/", permanent: true },
+      { source: "/palette-builder", destination: "/palette-generator/", permanent: true },
+      { source: "/builder", destination: "/palette-generator/", permanent: true },
     ];
   },
   async headers() {
