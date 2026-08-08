@@ -525,39 +525,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.72,
   }));
 
-  // VS comparison pages — pre-render complementary + analogous for key roots
-  const VS_ROOTS = [
-    "crimson", "ember", "amber", "honey", "olive", "emerald",
-    "teal", "azure", "cobalt", "indigo", "violet", "magenta",
-    "rose", "garnet",
-  ];
-  const vsRoutes: MetadataRoute.Sitemap = [];
-  const vsSeen = new Set<string>();
-  for (const root of VS_ROOTS) {
-    const seed = colors.find((c) => c.id === `${root}-core-vivid`);
-    if (!seed) continue;
-    const comp = getComplementaryColor(colors, seed);
-    if (comp && !vsSeen.has(`${seed.id}:${comp.id}`)) {
-      vsSeen.add(`${seed.id}:${comp.id}`);
-      vsRoutes.push({
-        url: `${SITE_URL}/colors/${seed.id}/vs/${comp.id}/`,
-        lastModified: BUILD_DATE,
-        changeFrequency: "monthly",
-        priority: 0.55,
-      });
-    }
-    for (const a of getAnalogousColors(colors, seed, 1)) {
-      if (!vsSeen.has(`${seed.id}:${a.id}`)) {
-        vsSeen.add(`${seed.id}:${a.id}`);
-        vsRoutes.push({
-          url: `${SITE_URL}/colors/${seed.id}/vs/${a.id}/`,
-          lastModified: BUILD_DATE,
-          changeFrequency: "monthly",
-          priority: 0.5,
-        });
-      }
-    }
-  }
+  // NO vs routes here. app/colors/[slug]/vs/[slug2]/page.tsx sets
+  // `robots: { index: false }` because the route spans ~29M colour pairs and is
+  // rendered on demand — so submitting 28 of them in the sitemap was asking
+  // Google to crawl pages we simultaneously told it not to index. That wastes
+  // crawl budget on the exact route this project already had to add nofollow to
+  // for cost reasons (commit 9fece2b). The pages stay reachable through internal
+  // links; they just stop being advertised.
 
   return [
     ...topLevelRoutes,
@@ -574,6 +548,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...regionIndexRoute,
     ...regionRoutes,
     ...colorRoutes,
-    ...vsRoutes,
   ];
 }

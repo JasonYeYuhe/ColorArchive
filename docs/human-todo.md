@@ -5,6 +5,19 @@
 > editorial call — see immediately below. The 2026-08-10 Design Notes decision still
 > stands and still mails itself.)
 
+## ✍️ 327 of 333 guide titles are too long for a search result
+
+Median 87 characters against a ~60-character cut. The meta DESCRIPTIONS are now
+trimmed on a sentence boundary in code (app/guides/[slug]/page.tsx), so snippets
+stop ending mid-word — but titles come from `guideSeoTitles` in
+src/lib/guide-seo.ts and shortening 327 of them is writing, not a transform. Each
+one is a deliberate keyword phrase, and mechanically truncating would cut the
+keyword as often as the filler.
+
+Worth doing for the top guides by traffic first — over 12 clean days the whole
+/guides/* family took 272 sessions spread thin, so a handful of slugs carry most
+of it. No rush, and nothing is broken; the titles simply get cut in the SERP.
+
 ## ✍️ Ten collections exist, are written, and render nowhere — do they get titles?
 
 Found in the 2026-08-08 audit. `getCollectionById` resolves with `.find()`, so when two

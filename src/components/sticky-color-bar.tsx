@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { getRelativeLuminance } from "@/src/lib/color-contrast";
+import { prefersDarkText } from "@/src/lib/color-contrast";
 
 interface StickyColorBarProps {
   name: string;
@@ -71,13 +71,11 @@ export function StickyColorBar({ name, hex, rgb, hsl }: StickyColorBarProps) {
   const isLight = (() => {
     const m = hex.match(/^#([0-9a-f]{6})$/i);
     if (!m) return false;
-    const r = parseInt(m[1].slice(0, 2), 16);
-    const g = parseInt(m[1].slice(2, 4), 16);
-    const b = parseInt(m[1].slice(4, 6), 16);
-    const luminance = getRelativeLuminance(r, g, b);
-    const vsWhite = 1.05 / (luminance + 0.05);
-    const vsBlack = (luminance + 0.05) / 0.05;
-    return vsBlack > vsWhite;
+    return prefersDarkText(
+      parseInt(m[1].slice(0, 2), 16),
+      parseInt(m[1].slice(2, 4), 16),
+      parseInt(m[1].slice(4, 6), 16),
+    );
   })();
 
   const textClass = isLight ? "text-neutral-900" : "text-white";

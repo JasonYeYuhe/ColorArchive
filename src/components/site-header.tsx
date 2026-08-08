@@ -234,7 +234,12 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
 
           <div className="flex-1" />
 
-          <div className="flex shrink-0 items-center gap-2">
+          {/* No shrink-0 here. The logo link is shrink-0 at a fixed 120px and this
+              cluster was too, so below ~379px neither could give and the bar
+              pushed the entire page into horizontal scroll. Letting the controls
+              shrink costs nothing — they are icon buttons with their own gaps —
+              and leaves the wordmark untouched at every size. */}
+          <div className="flex min-w-0 items-center gap-2">
             {tier !== "pro" && (
               <>
                 <AiUsageBadge />

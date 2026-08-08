@@ -22,7 +22,8 @@ import {
   subscribeToPalette,
 } from "@/src/lib/palette-builder";
 import { addRecentColor, getRecentColorIds, subscribeToRecentColors } from "@/src/lib/recent-colors";
-import { getWcagContrast, hexToRgb, rgbToCmyk } from "@/src/lib/color-utils";
+import { getWcagContrast, hexToRgb, hslToRgb, rgbToCmyk } from "@/src/lib/color-utils";
+import { prefersDarkText } from "@/src/lib/color-contrast";
 import { simulateColorBlindness, hexToRgbCB, rgbToHexCB } from "@/src/lib/colorblind";
 import type { WcagPairing } from "@/src/lib/color-utils";
 import { getFamilySlug } from "@/src/lib/color-family-pages";
@@ -474,8 +475,8 @@ export function ColorDetailPage({
             // getWcagContrast is already imported and already called further down
             // this component for that panel, so reusing it here is also what stops
             // the hero and the panel from ever disagreeing again.
-            const heroContrast = getWcagContrast(color.hue, color.saturation, color.lightness);
-            const isLight = heroContrast.vsBlack > heroContrast.vsWhite;
+            const heroRgb = hslToRgb(color.hue, color.saturation, color.lightness);
+            const isLight = prefersDarkText(heroRgb.r, heroRgb.g, heroRgb.b);
             return (
               <div
                 className="relative h-72 border-b border-black/6 sm:h-80"

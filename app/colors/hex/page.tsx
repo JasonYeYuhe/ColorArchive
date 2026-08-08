@@ -5,7 +5,9 @@ import { SiteHeader } from "@/src/components/site-header";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/colors/hex/" },
-  title: "Custom Color — ColorArchive",
+  // Just the page name. app/layout.tsx sets a `%s · ColorArchive` template, so
+  // spelling the brand out here rendered "Custom Color — ColorArchive · ColorArchive".
+  title: "Custom Color",
   description:
     "Explore any hex color: see WCAG contrast, tonal scale, nearest archive matches, and harmonic relationships.",
 };

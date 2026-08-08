@@ -3489,7 +3489,11 @@ const extraCollections36: ColorCollection[] = [
     },
   ),
   createCollection(
-    "cinema-verité",
+    // ASCII slug on purpose. The accented id round-tripped through the URL as
+    // percent-encoded UTF-8, which getCollectionById never matched, so the page
+    // returned HTTP 200 with the not-found body — a soft 404 that the sitemap
+    // was actively advertising. The displayed title keeps its accents.
+    "cinema-verite",
     "Cinéma Vérité",
     "Desaturated cool tones, warm skin, muted teal, and gray shadow — the palette of documentary film and handheld realism.",
     "The visual grammar of documentary and observational cinema: the slight desaturation of handheld footage, warm skin tones against cool ambient light, the muted teal of fluorescent-lit interiors, and the compressed shadow of available-light shooting. A palette of restrained realism and human warmth.",
@@ -4448,7 +4452,7 @@ const extraCollections44: ColorCollection[] = [
   ),
   createCollection(
     "aurora-borealis-vivid",
-    "Aurora Borealis",
+    "Aurora Borealis Vivid",
     "Vivid aurora palette — electric teal, arctic violet, ice blue, and deep night sky for high-energy brand identities and digital art.",
     "Inspired by the natural light display of the aurora borealis — vivid teal and electric cyan against deep violet-black, with ice blue as a highlight and mint as an accent. High-saturation and high-contrast by design: this palette is for brands and campaigns that want to communicate natural wonder, energy, and premium digital sophistication. Effective for gaming, tech, and experiential brand identities.",
     ["Nature", "Vivid", "Electric", "Night"],
@@ -5628,7 +5632,7 @@ collections.push(...extraCollections50);
 const extraCollections51: ColorCollection[] = [
   createCollection(
     "coastal-fog-palette",
-    "Coastal Fog",
+    "Coastal Fog Palette",
     "The muted, diffuse palette of a marine layer morning — seafoam, silver, pale aqua, and washed-out sand.",
     "Coastal fog has its own color logic: not the vivid blues of clear ocean days, but the soft silver-greens and pale grays of a marine layer diffusing all light. This palette captures that quiet, washed-out quality — used in coastal architecture, Scandinavian beach houses, and minimal spa environments.",
     ["Coastal", "Fog", "Neutral", "Muted", "Calm"],
@@ -6642,10 +6646,12 @@ collections.push(...extraCollections56);
 // autumn-harvest, forest-bathing — leaving 10 curated collections unreachable.
 //
 // They are NOT identical copies. Each shadowed entry has its own summary and
-// palette (e.g. line 1127 "Copper Verdigris" vs line 2952 "Copper & Verdigris"),
-// so this drops real editorial work. It is still the right call for now: their
-// titles ARE identical, so minting ids for them would publish ten pages with
-// duplicate <title> tags — an SEO problem this same audit flagged separately.
+// palette, so this drops real editorial work. It is still the right call for
+// now, because MOST of their titles are identical — minting ids would publish
+// pages with duplicate <title> tags, an SEO problem this same audit flagged
+// separately. The one exception is copper-verdigris, whose shadowed entry is
+// titled "Copper & Verdigris" against the live "Copper Verdigris"; that one
+// could be re-idded today without the duplicate-title objection.
 // Re-titling is authoring, not a mechanical fix; the ten are listed in
 // docs/human-todo.md for the owner to re-publish deliberately if wanted.
 //

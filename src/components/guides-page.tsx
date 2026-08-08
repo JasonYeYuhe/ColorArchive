@@ -100,6 +100,11 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
                 <button
                   type="button"
                   onClick={() => handleCategory(null)}
+                  // Selected state was carried by background colour alone, so a
+                  // screen-reader user heard an identical list of buttons whichever
+                  // filter was active. aria-pressed matches the convention already
+                  // used by ColorCard and FavoriteButton.
+                  aria-pressed={!activeCategory}
                   className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${!activeCategory ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
                 >
                   All ({guides.length})
@@ -109,6 +114,7 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
                     key={cat}
                     type="button"
                     onClick={() => handleCategory(activeCategory === cat ? null : cat)}
+                    aria-pressed={activeCategory === cat}
                     className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${activeCategory === cat ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
                   >
                     {cat}

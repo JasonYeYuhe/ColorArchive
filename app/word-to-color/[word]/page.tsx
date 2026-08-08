@@ -28,6 +28,13 @@ export function generateStaticParams() {
   return Object.keys(wordSeedBySlug).map((word) => ({ word }));
 }
 
+// "a orange tone" shipped on 40 of these pages, in the meta description, the
+// FAQ answer, the JSON-LD and the visible copy. The article has to agree with
+// the family name, which is data rather than a literal.
+function indefiniteArticle(word: string): "a" | "an" {
+  return /^[aeiou]/i.test(word) ? "an" : "a";
+}
+
 function resolveWord(slug: string): string | null {
   return wordSeedBySlug[slug] ?? null;
 }
@@ -43,9 +50,7 @@ export async function generateMetadata({ params }: WordPageProps): Promise<Metad
   const display = titleCaseWord(word);
   const title = `What Color Is "${display}"? ${generated.hex} — Word to Color | ColorArchive`;
   const familyLower = generated.family.toLowerCase();
-  // "a orange tone" shipped on 40 of these pages. The article has to agree with
-  // the family name, which is data, not a literal.
-  const article = /^[aeiou]/.test(familyLower) ? "an" : "a";
+  const article = indefiniteArticle(familyLower);
   const description = `The word "${word}" maps to ${generated.hex}, ${article} ${familyLower} tone (${generated.rgb}, ${generated.hsl}), plus a 5-shade palette. A deterministic word-to-color result — "${word}" always returns this exact color.`;
 
   return {
@@ -77,6 +82,7 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
   const display = titleCaseWord(word);
   const pageUrl = `${SITE_URL}/word-to-color/${slug}/`;
   const closest = findClosestArchiveColor(colors, generated.hex);
+  const familyArticle = indefiniteArticle(generated.family);
 
   // Sibling links — a rotating window of other word pages so the ~280 pages
   // form a dense internal-link graph (crawlable + spreads authority).
@@ -88,7 +94,7 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
   const faq = [
     {
       question: `What color is the word "${display}"?`,
-      answer: `The word "${word}" maps to ${generated.hex} — a ${generated.family.toLowerCase()} tone (${generated.rgb}, ${generated.hsl}). ColorArchive derives it with a deterministic hash that runs in the browser, so "${word}" always produces this exact hex code and the same five-shade palette on any device.`,
+      answer: `The word "${word}" maps to ${generated.hex} — ${familyArticle} ${generated.family.toLowerCase()} tone (${generated.rgb}, ${generated.hsl}). ColorArchive derives it with a deterministic hash that runs in the browser, so "${word}" always produces this exact hex code and the same five-shade palette on any device.`,
     },
     ...wordToColorFaq,
   ];
@@ -98,7 +104,7 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
       "@context": "https://schema.org",
       "@type": "DefinedTerm",
       name: `${display} color`,
-      description: `The word "${word}" maps to the hex color ${generated.hex} (${generated.rgb}, ${generated.hsl}), a ${generated.family.toLowerCase()} tone, via ColorArchive's deterministic word-to-color algorithm.`,
+      description: `The word "${word}" maps to the hex color ${generated.hex} (${generated.rgb}, ${generated.hsl}), ${familyArticle} ${generated.family.toLowerCase()} tone, via ColorArchive's deterministic word-to-color algorithm.`,
       url: pageUrl,
       inDefinedTermSet: {
         "@type": "DefinedTermSet",
@@ -144,8 +150,8 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600">
                 The word <strong className="font-semibold text-neutral-900">{word}</strong> maps to{" "}
-                <strong className="font-semibold text-neutral-900">{generated.hex}</strong>, a{" "}
-                {generated.family.toLowerCase()} tone ({generated.rgb}, {generated.hsl}). This is a
+                <strong className="font-semibold text-neutral-900">{generated.hex}</strong>,{" "}
+                {familyArticle} {generated.family.toLowerCase()} tone ({generated.rgb}, {generated.hsl}). This is a
                 deterministic result — the same word always produces the same color, plus the five-shade
                 palette below.
               </p>

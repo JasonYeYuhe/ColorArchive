@@ -6,6 +6,7 @@ import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
 import { landingGuides } from "@/src/lib/guides";
 import { newsletterIssues } from "@/src/lib/newsletter-issues";
 import rawIssues from "@/src/data/newsletter-issues.json";
+import { TOOL_COUNT } from "@/src/components/tools-page";
 
 /**
  * Every "Open next" pill on a guide page must point at a route that exists.
@@ -211,5 +212,29 @@ describe("collections", () => {
       seen.add(collection.id);
     }
     expect(repeated, `duplicate collection ids:\n${repeated.join("\n")}`).toEqual([]);
+  });
+});
+
+describe("counts quoted in user-facing copy", () => {
+  /**
+   * public/llms.txt is a static file, so its numbers cannot be interpolated the
+   * way app/tools/page.tsx's now are. Three surfaces claimed 25, 25 and 23+ tools
+   * against an array of 44, and 360+ guides against 333 — understating the tools
+   * and overstating the guides at the same time. A number written by hand drifts
+   * the moment someone adds a tool; this fails the build instead.
+   */
+  it("app/tools/page.tsx quotes the real tool count", () => {
+    const page = readFileSync("app/tools/page.tsx", "utf8");
+    const quoted = [...page.matchAll(/(\d+) free color tools/g)].map((m) => m[1]);
+    expect(quoted.length, "expected the count to appear in all three strings").toBe(3);
+    for (const n of quoted) expect(n).toBe(String(TOOL_COUNT));
+  });
+
+  it("llms.txt quotes the real tool and guide counts", () => {
+    const llms = readFileSync("public/llms.txt", "utf8");
+    const tools = llms.match(/(\d+)\+? practical color tools/);
+    const guides = llms.match(/(\d+)\+? color guides/);
+    expect(tools?.[1], "tool count in public/llms.txt").toBe(String(TOOL_COUNT));
+    expect(guides?.[1], "guide count in public/llms.txt").toBe(String(landingGuides.length));
   });
 });

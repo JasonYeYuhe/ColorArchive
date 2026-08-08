@@ -164,7 +164,14 @@ export function WordColorGeneratorPage() {
     }
     return countedWordsRef.current;
   };
-  const onLandingWord = normalizeWord(input) === landingWordRef.current;
+  // The word that armed the wall was itself one of the five free lookups — it
+  // was counted, so it is paid for. Without this it rendered for the two seconds
+  // of debounce and was then replaced by the paywall, which reads as the fifth
+  // palette being taken back rather than the sixth being withheld.
+  const grantedWordRef = useRef<string | null>(null);
+  const currentWord = normalizeWord(input);
+  const onLandingWord =
+    currentWord === landingWordRef.current || currentWord === grantedWordRef.current;
   const generated = useMemo(() => generateColorFromWord(input), [input]);
   const paletteExport = useMemo(() => {
     if (!generated) {
@@ -183,13 +190,13 @@ export function WordColorGeneratorPage() {
     return generated.variants
       .map((variant) => {
         const slug = variant.label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-        return `--${generated.token.replace(/[^a-z0-9]+/g, "-")}-${slug}: ${variant.hex};`;
+        return `--${generated.tokenSlug}-${slug}: ${variant.hex};`;
       })
       .join("\n");
   }, [generated]);
   const tailwindExport = useMemo(() => {
     if (!generated) return "";
-    const token = generated.token.replace(/[^a-z0-9]+/g, "-");
+    const token = generated.tokenSlug;
     return `@theme {\n${generated.variants.map((v) => {
       const slug = v.label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       return `  --color-${token}-${slug}: ${v.hex};`;
@@ -363,6 +370,7 @@ export function WordColorGeneratorPage() {
       try { localStorage.setItem(GEN_WORDS_KEY, JSON.stringify(words)); } catch {}
       track(PAYWALL_EVENT.generated, { count: words.length });
       if (words.length >= FREE_GENERATIONS) {
+        grantedWordRef.current = norm;
         setGated(true);
         track(PAYWALL_EVENT.hit, { count: words.length });
       }

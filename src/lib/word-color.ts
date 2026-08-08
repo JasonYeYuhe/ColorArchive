@@ -16,6 +16,8 @@ export interface GeneratedWordColor {
   rgb: string;
   saturation: number;
   token: string;
+  /** Safe identifier for CSS variables / Tailwind keys — never empty. */
+  tokenSlug: string;
   variants: {
     hex: string;
     label: string;
@@ -98,6 +100,17 @@ export function generateColorFromWord(token: string): GeneratedWordColor | null 
   }
 
   const hash = hashString(normalizedToken);
+  // Identifier for the CSS-variable and Tailwind exports.
+  //
+  // Both export sites used `token.replace(/[^a-z0-9]+/g, "-")` inline, which is
+  // empty for anything without ASCII alphanumerics — so 咖啡, 爱, привет and 🌊 all
+  // produced the identical, meaningless `----mist` / `----glow` variable names.
+  // That is not an edge case here: Chinese is this site's promotion audience, and
+  // two different words exporting the same variable name is a broken export, not
+  // just an ugly one. Falls back to the hash, which is stable per word and already
+  // computed.
+  const asciiSlug = normalizedToken.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  const tokenSlug = asciiSlug || `word-${hash.toString(36)}`;
   const hue = hash % 360;
   const saturation = 38 + ((hash >>> 3) % 42);
   const lightness = 32 + ((hash >>> 8) % 42);
@@ -152,6 +165,7 @@ export function generateColorFromWord(token: string): GeneratedWordColor | null 
     rgb: formatRgb(rgbValue),
     saturation,
     token: normalizedToken,
+    tokenSlug,
     variants,
   };
 }

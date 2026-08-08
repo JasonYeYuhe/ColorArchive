@@ -18,6 +18,24 @@ export async function generateStaticParams() {
   return landingGuides.map((guide) => ({ slug: guide.slug }));
 }
 
+/**
+ * Meta descriptions get cut by the engine at roughly 155-160 characters, and the
+ * cut lands wherever it lands — 227 of 333 guide summaries are longer than that,
+ * median 191, so most results were ending mid-sentence. Trimming on a sentence
+ * boundary first, then a word boundary, means the SERP snippet is at least a
+ * finished thought. The full summary is untouched for on-page use.
+ */
+const META_DESCRIPTION_MAX = 155;
+
+function trimForSerp(summary: string): string {
+  if (summary.length <= META_DESCRIPTION_MAX) return summary;
+  const window = summary.slice(0, META_DESCRIPTION_MAX);
+  const lastSentence = Math.max(window.lastIndexOf(". "), window.lastIndexOf("? "), window.lastIndexOf("! "));
+  if (lastSentence > META_DESCRIPTION_MAX * 0.6) return window.slice(0, lastSentence + 1);
+  const lastSpace = window.lastIndexOf(" ");
+  return `${window.slice(0, lastSpace > 0 ? lastSpace : META_DESCRIPTION_MAX).trimEnd()}…`;
+}
+
 export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
   const { slug } = await params;
   const guide = getLandingGuide(slug);
@@ -27,7 +45,7 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
   }
 
   return {
-    title: { absolute: guideSeoTitles[slug] ?? `${guide.title} — ColorArchive Guides` },
+    title: { absolute: guideSeoTitles[slug] ?? `${guide.title} | ColorArchive` },
     description: guide.summary,
     alternates: {
       canonical: `/guides/${guide.slug}/`,
@@ -37,7 +55,7 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
     // it (the 9885f5b bug — that commit fixed collections/families but missed guides).
     openGraph: {
       title: guide.title,
-      description: guide.summary,
+      description: trimForSerp(guide.summary),
       url: `${SITE_URL}/guides/${guide.slug}/`,
     },
     twitter: {

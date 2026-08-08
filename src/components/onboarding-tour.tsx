@@ -132,7 +132,10 @@ export function OnboardingTour() {
           <button
             type="button"
             onClick={finish}
-            className="text-xs font-medium text-neutral-400 transition hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300"
+            // -mx-2 -my-2 px-2 py-2 — this was the dialog's ONLY touch dismissal
+              // and it was a bare 12px text line. Escape already closes it, but a
+              // phone has no Escape key.
+              className="-mx-2 -my-2 rounded-lg px-2 py-2 text-xs font-medium text-neutral-400 transition hover:text-neutral-600 focus-visible:ring-2 focus-visible:ring-neutral-950 dark:text-neutral-500 dark:hover:text-neutral-300 dark:focus-visible:ring-white"
           >
             Skip tour
           </button>

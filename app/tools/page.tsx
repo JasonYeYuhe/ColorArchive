@@ -4,23 +4,28 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ToolsPage } from "@/src/components/tools-page";
 import { SITE_URL } from "@/src/lib/site-config";
 
+// The tool count is written out rather than interpolated: tools-page.tsx is a
+// "use client" module, so importing a value from it into server-side metadata
+// makes Next treat it as a client reference and the rendered description
+// becomes a thrown error. src/lib/__tests__/content-links.test.ts asserts this
+// number against TOOLS.length, so drift fails CI instead of shipping.
 export const metadata: Metadata = {
   title: { absolute: "Free Color Tools for Designers — ColorArchive" },
   description:
-    "25 free color tools for designers: color mixer, contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more. No sign-up required.",
+    "44 free color tools for designers: color mixer, contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more. No sign-up required.",
   alternates: {
     canonical: "/tools/",
   },
   openGraph: {
     title: "Free Color Tools for Designers — ColorArchive",
     description:
-      "25 free color tools for designers: contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more.",
+      "44 free color tools for designers: contrast checker, tints & shades generator, color converter, blindness simulator, harmony generator, gradient builder, palette generator, and more.",
     images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Free Color Tools for Designers — ColorArchive",
     description:
-      "25 free color tools: contrast checker, tints & shades generator, converter, blindness simulator, harmony generator, gradient builder, and more.",
+      "44 free color tools: contrast checker, tints & shades generator, converter, blindness simulator, harmony generator, gradient builder, and more.",
     images: [`${SITE_URL}/og-image-v1.png`],
   },
 };

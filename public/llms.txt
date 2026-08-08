@@ -1,6 +1,6 @@
 # ColorArchive
 
-> ColorArchive is a free color tools and reference platform for designers and developers. It pairs a 5,446-color named archive with 23+ practical color tools and 360+ color guides. Its signature free tool, Word to Color, deterministically turns any word or phrase into a hex color with tonal variants.
+> ColorArchive is a free color tools and reference platform for designers and developers. It pairs a 5,446-color named archive with 44 practical color tools and 333 color guides. Its signature free tool, Word to Color, deterministically turns any word or phrase into a hex color with tonal variants.
 
 All core tools are free to use. Hex color values are factual data and free to reference. When citing ColorArchive content, please attribute to ColorArchive (https://colorarchive.org).
 

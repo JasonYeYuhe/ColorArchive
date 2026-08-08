@@ -29,6 +29,23 @@ function wcagGrade(ratio: number): "AA" | "AA Large" | "Fail" {
   return "Fail";
 }
 
+/**
+ * Should text on this colour be dark rather than light?
+ *
+ * One function so two surfaces cannot disagree. The colour detail hero and the
+ * sticky bar each decided this for themselves and differed on 21 of the 5,446
+ * archive colours: the hero compared getWcagContrast's ratios, which are rounded
+ * to one decimal before they are returned, so a pair like 4.55 vs 4.54 came back
+ * as 4.6 vs 4.5 in one place and was compared unrounded in the other. Rounding
+ * belongs in display, not in a branch.
+ */
+export function prefersDarkText(r: number, g: number, b: number): boolean {
+  const luminance = getRelativeLuminance(r, g, b);
+  const vsWhite = 1.05 / (luminance + 0.05);
+  const vsBlack = (luminance + 0.05) / 0.05;
+  return vsBlack > vsWhite;
+}
+
 export function getWcagContrast(hue: number, saturation: number, lightness: number): WcagContrastData {
   const { r, g, b } = hslToRgb(hue, saturation, lightness);
   const colorLum = getRelativeLuminance(r, g, b);

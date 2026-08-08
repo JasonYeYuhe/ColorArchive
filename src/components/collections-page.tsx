@@ -366,6 +366,31 @@ export function CollectionsPage({ collections, guidesByCollection }: Collections
             ) : null}
           </section>
         </section>
+
+        {/* Every collection, as real links.
+            The sidebar above is a preview switcher built from <button>s, and it
+            paginates — so the index page emitted exactly ONE crawlable
+            /collections/<id>/ link (the active one) for 251 detail pages, and a
+            reader with JS off could reach none of them. This block is the plain
+            index that was missing: server-rendered, no interaction, useful to a
+            person scanning for a name and the only path a crawler has. */}
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-6">
+          <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+            All collections ({collections.length})
+          </h2>
+          <nav className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+            {collections.map((collection) => (
+              <Link
+                key={collection.id}
+                href={`/collections/${collection.id}/`}
+                prefetch={false}
+                className="text-sm leading-6 text-neutral-600 underline-offset-4 transition hover:text-neutral-950 hover:underline"
+              >
+                {collection.title}
+              </Link>
+            ))}
+          </nav>
+        </section>
       </div>
     </main>
   );

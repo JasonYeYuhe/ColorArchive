@@ -14,7 +14,7 @@ interface Tool {
   accent: string; // tailwind bg color class for icon bg
 }
 
-const TOOLS: Tool[] = [
+export const TOOLS: Tool[] = [
   // Accessibility
   {
     href: "/contrast/",
@@ -412,6 +412,12 @@ const TOOLS: Tool[] = [
     accent: "bg-purple-100 text-purple-700",
   },
 ];
+
+// Derived, not written down. Three user-facing surfaces claimed 25, 25 and
+// 23+ tools while the array held 44 — numbers in copy drift the moment anyone
+// adds a tool and forgets the prose.
+export const TOOL_COUNT = TOOLS.length;
+
 
 const CATEGORIES = [
   "tools.cat.accessibility",

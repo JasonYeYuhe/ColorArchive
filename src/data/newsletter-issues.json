@@ -2937,7 +2937,7 @@
         "href": "/collections/nocturne-tech/"
       },
       {
-        "label": "Browse dark family",
+        "label": "Browse the colour archive",
         "href": "/all-colors/"
       },
       {
@@ -2982,7 +2982,7 @@
         "href": "/collections/quiet-luxury/"
       },
       {
-        "label": "Browse neutral family",
+        "label": "Browse the colour archive",
         "href": "/all-colors/"
       },
       {
@@ -3073,7 +3073,7 @@
         "href": "/collections/monochrome-studio/"
       },
       {
-        "label": "Browse neutral grays",
+        "label": "Browse the colour archive",
         "href": "/all-colors/"
       },
       {
@@ -3118,7 +3118,7 @@
         "href": "/collections/monochrome-studio/"
       },
       {
-        "label": "Browse deep neutral tones",
+        "label": "Browse the colour archive",
         "href": "/all-colors/"
       },
       {
@@ -3435,7 +3435,7 @@
         "href": "/pro/"
       },
       {
-        "label": "Browse neutral palettes",
+        "label": "Browse the colour archive",
         "href": "/all-colors/"
       }
     ]
@@ -5684,7 +5684,7 @@
       },
       {
         "label": "Color Family Browser",
-        "href": "/all-colors/"
+        "href": "/families/"
       }
     ]
   },
@@ -5834,7 +5834,7 @@
       },
       {
         "label": "Color Family Explorer",
-        "href": "/all-colors/"
+        "href": "/families/"
       }
     ]
   },
@@ -5984,7 +5984,7 @@
       },
       {
         "label": "Color Family Explorer",
-        "href": "/all-colors/"
+        "href": "/families/"
       }
     ]
   },
@@ -6034,7 +6034,7 @@
       },
       {
         "label": "Color Family Explorer",
-        "href": "/all-colors/"
+        "href": "/families/"
       }
     ]
   },
@@ -6084,7 +6084,7 @@
       },
       {
         "label": "Color Family Explorer",
-        "href": "/all-colors/"
+        "href": "/families/"
       }
     ]
   },
@@ -6639,7 +6639,7 @@
         "href": "/collections/"
       },
       {
-        "label": "Browse neutral tones",
+        "label": "Browse the colour archive",
         "href": "/all-colors/"
       }
     ]
