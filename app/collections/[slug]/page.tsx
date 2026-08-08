@@ -36,6 +36,18 @@ export async function generateMetadata({
     alternates: {
       canonical: `/collections/${collection.id}/`,
     },
+    // Was inheriting the root layout's generic card. No `images` key — the
+    // colocated opengraph-image.tsx renders the palette strip.
+    openGraph: {
+      title: collection.title,
+      description: collection.summary,
+      url: `${SITE_URL}/collections/${collection.id}/`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: collection.title,
+      description: collection.summary,
+    },
   };
 }
 

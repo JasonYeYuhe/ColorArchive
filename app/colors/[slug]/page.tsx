@@ -136,8 +136,17 @@ export async function generateMetadata({ params }: ColorPageProps): Promise<Meta
     alternates: {
       canonical: `/colors/${color.id}/`,
     },
+    // 5,446 colour pages were inheriting the root layout's generic OG card text.
+    // No `images` key — the colocated opengraph-image.tsx renders the swatch.
+    openGraph: {
+      title,
+      description,
+      url: `${SITE_URL}/colors/${color.id}/`,
+    },
     twitter: {
       card: "summary_large_image",
+      title,
+      description,
     },
   };
 }

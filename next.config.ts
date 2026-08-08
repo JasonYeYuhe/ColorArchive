@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
       { source: "/packs/:slug/", destination: "/pro/", permanent: true },
       { source: "/free-pack", destination: "/free-resources/", permanent: true },
       { source: "/free-pack/", destination: "/free-resources/", permanent: true },
+      // /colors/ was the single most-linked internal target on the site — 43
+      // references, including two shipped tool pages and 40 guide links — and it
+      // has never been a route. The archive index is /all-colors/; /colors/ only
+      // ever existed as /colors/[slug]/. Every referrer is fixed at source in the
+      // same change; this exists for inbound links and anything missed.
+      { source: "/colors", destination: "/all-colors/", permanent: true },
     ];
   },
   async headers() {

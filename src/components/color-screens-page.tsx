@@ -127,7 +127,7 @@ export function ColorScreensPage() {
             <Link className="underline underline-offset-2" href="/screen-test/color-screens/?color=amber-pearl-muted">
               ?color=amber-pearl-muted
             </Link>
-            。在 <Link className="underline underline-offset-2" href="/colors/">色彩档案</Link> 里找到你要的颜色。
+            。在 <Link className="underline underline-offset-2" href="/all-colors/">色彩档案</Link> 里找到你要的颜色。
           </>
         ) : (
           <>
@@ -135,7 +135,7 @@ export function ColorScreensPage() {
             <Link className="underline underline-offset-2" href="/screen-test/color-screens/?color=amber-pearl-muted">
               ?color=amber-pearl-muted
             </Link>
-            . Find yours in the <Link className="underline underline-offset-2" href="/colors/">color archive</Link>.
+            . Find yours in the <Link className="underline underline-offset-2" href="/all-colors/">color archive</Link>.
           </>
         )}
       </p>

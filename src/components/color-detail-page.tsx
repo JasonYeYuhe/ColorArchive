@@ -463,7 +463,19 @@ export function ColorDetailPage({
         <StickyColorBar name={color.name} hex={color.hex} rgb={color.rgb} hsl={color.hsl} />
         <section className="overflow-hidden rounded-[2rem] border border-black/6 bg-white/78 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           {(() => {
-            const isLight = color.lightness > 65;
+            // Pick the hero's text colour by RELATIVE LUMINANCE, not by HSL
+            // lightness. `color.lightness > 65` is not a contrast test: HSL
+            // lightness ignores that the eye weights green far more than blue,
+            // so saturated yellows read as bright and still got white text while
+            // mid blues got dark text. This page then rendered a WCAG panel a few
+            // hundred pixels below that graded its own hero "1.1:1 Fail" — on a
+            // site whose product is colour and which ships a contrast checker.
+            //
+            // getWcagContrast is already imported and already called further down
+            // this component for that panel, so reusing it here is also what stops
+            // the hero and the panel from ever disagreeing again.
+            const heroContrast = getWcagContrast(color.hue, color.saturation, color.lightness);
+            const isLight = heroContrast.vsBlack > heroContrast.vsWhite;
             return (
               <div
                 className="relative h-72 border-b border-black/6 sm:h-80"
@@ -479,10 +491,10 @@ export function ColorDetailPage({
                     <h1 className={`font-display text-4xl font-light tracking-[-0.04em] sm:text-5xl ${isLight ? "text-neutral-900" : "text-white"}`}>
                       {color.name}
                     </h1>
-                    <div className={`mt-3 text-sm uppercase tracking-[0.22em] ${isLight ? "text-neutral-500" : "text-white/75"}`}>
+                    <div className={`mt-3 text-sm uppercase tracking-[0.22em] ${isLight ? "text-neutral-700" : "text-white/90"}`}>
                       <Link
                         href={`/families/${getFamilySlug(color.family)}/`}
-                        className={`transition-opacity hover:opacity-70 ${isLight ? "text-neutral-500" : "text-white/75"}`}
+                        className={`transition-opacity hover:opacity-70 ${isLight ? "text-neutral-700" : "text-white/90"}`}
                       >
                         {color.family}
                       </Link>
@@ -490,7 +502,7 @@ export function ColorDetailPage({
                     </div>
                   </div>
                   <div className={`rounded-2xl px-4 py-3 text-right backdrop-blur-md ${isLight ? "border border-black/10 bg-white/60 text-neutral-900" : "border border-white/24 bg-black/16 text-white"}`}>
-                    <div className={`text-xs uppercase tracking-[0.16em] ${isLight ? "text-neutral-500" : "text-white/70"}`}>{t("colorDetail.hexLabel")}</div>
+                    <div className={`text-xs uppercase tracking-[0.16em] ${isLight ? "text-neutral-700" : "text-white/90"}`}>{t("colorDetail.hexLabel")}</div>
                     <div className="mt-1 text-2xl font-semibold tracking-[0.04em]">{color.hex}</div>
                   </div>
                 </div>
@@ -498,7 +510,13 @@ export function ColorDetailPage({
             );
           })()}
 
-          <div className="grid gap-6 p-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(22rem,0.8fr)]">
+          {/* [&>*]:min-w-0 — a grid item's default min-width is auto, so its
+              min-content width props the track open. On a 375px phone that made
+              this section 760px wide inside a 341px viewport: ~54% of the body
+              was clipped and 27 controls could not be reached by touch. The
+              wide children (the tonal strip below) scroll on their own once the
+              track stops being forced. */}
+          <div className="grid gap-6 p-6 [&>*]:min-w-0 lg:grid-cols-[minmax(0,1.2fr)_minmax(22rem,0.8fr)]">
             <div className="space-y-5">
               {(() => {
                 const wcag = getWcagContrast(color.hue, color.saturation, color.lightness);

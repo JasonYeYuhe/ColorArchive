@@ -478,7 +478,7 @@ export function ScreenTestPage() {
               {zh ? "顺便查一下配色对比度 →" : "Check your palette's contrast next →"}
             </Link>
             <Link
-              href="/colors/"
+              href="/all-colors/"
               className="text-neutral-600 underline underline-offset-2 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200"
               onClick={() => track("screen_test_downstream_click", { target: "archive" })}
             >

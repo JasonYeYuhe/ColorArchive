@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
 import { CopyButton } from "@/src/components/copy-button";
 import { generateColorFromWord } from "@/src/lib/word-color";
@@ -20,6 +20,10 @@ const PROMPT_SUGGESTIONS = [
   "soft archive",
   "electric plum",
 ] as const;
+
+// The word shown on first paint and in the prerendered HTML. Also the "landing
+// word", which the paywall always leaves free.
+const DEFAULT_WORD = "quiet luxury";
 
 // A diverse spread of ~60 word pages for the index hub — links the static
 // /word-to-color/[word]/ pages from the highest-traffic page in one hop.
@@ -97,6 +101,7 @@ function isUnlocked(): boolean {
 // page already carries two subscribe forms (the paywall unlock and the one lower
 // down), so a third ask would be noise, not capture.
 const RECRUIT_BANNER_ENABLED = false;
+
 const RECRUIT_SURVEY_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSf5dTPy9ccPgXdKx2SOf7ICKu5AHucxkm3VoWzBfaZXEZOm2Q/viewform";
 const RECRUIT_DISMISS_KEY = "colorarchive-recruit-banner-dismissed";
@@ -104,9 +109,27 @@ const RECRUIT_DISMISS_KEY = "colorarchive-recruit-banner-dismissed";
 export function WordColorGeneratorPage() {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const initialWord = searchParams.get("q") ?? "quiet luxury";
-  const [input, setInput] = useState(initialWord);
+  // ?q= is read AFTER mount, from window.location, and deliberately not through
+  // useSearchParams().
+  //
+  // useSearchParams() opts the nearest Suspense boundary out of static
+  // prerendering, and the boundary in app/word-to-color/page.tsx wraps this whole
+  // component — so the prerendered HTML for the site's single highest-traffic
+  // surface was nothing but the string "Loading generator…". Measured on the live
+  // page (x-vercel-cache: HIT, ~6.6 days old, i.e. what everyone actually got):
+  // zero <h1>, zero of the 60 BROWSE_WORDS links this page exists to emit in one
+  // hop, and none of the FAQ answer text — while page.tsx still shipped FAQPage
+  // JSON-LD describing answers that appeared nowhere in the document.
+  //
+  // Reading the query during render instead would hydration-mismatch (the server
+  // prerenders the default word, a client on ?q=cat would render "cat"), so the
+  // swap has to happen in an effect. First paint shows DEFAULT_WORD, then the
+  // effect below applies ?q= if present.
+  const [input, setInput] = useState(DEFAULT_WORD);
+  // Latches once the ?q= handoff is done. The URL-rewrite effect must not fire
+  // before it: that effect runs on mount with the default word still in state and
+  // would router.replace() the visitor's own ?q= away before it had been read.
+  const [queryApplied, setQueryApplied] = useState(false);
   const [wordHistory, setWordHistory] = useState<string[]>(() => {
     if (typeof window === "undefined") return [];
     try { return JSON.parse(localStorage.getItem("colorarchive-word-history") || "[]"); } catch { return []; }
@@ -123,7 +146,7 @@ export function WordColorGeneratorPage() {
   // unlock). null = session not resolved yet; never arm the gate for Pro.
   const [proUser, setProUser] = useState<boolean | null>(null);
   const [showRecruit, setShowRecruit] = useState(false);
-  const landingWordRef = useRef(normalizeWord(initialWord));
+  const landingWordRef = useRef(normalizeWord(DEFAULT_WORD));
   const countedWordsRef = useRef<Set<string> | null>(null);
   const getCountedWords = () => {
     if (!countedWordsRef.current) {
@@ -165,11 +188,32 @@ export function WordColorGeneratorPage() {
     }).join("\n")}\n}`;
   }, [generated]);
 
+  // Apply ?q= once, on mount. Declared BEFORE the URL-rewrite effect below so it
+  // wins the ordering — effects run in declaration order, and the rewrite would
+  // otherwise replace the visitor's own ?q= with the default word.
   useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get("q");
+    const word = q && q.trim().length > 0 ? q : DEFAULT_WORD;
+    if (word !== DEFAULT_WORD) {
+      setInput(word);
+      // The landing word is the one the paywall never charges for. It has to
+      // move with ?q=, and the counted-word set has to be re-seeded, or a
+      // visitor arriving on a shared link would be charged for the very word
+      // they were sent to look at.
+      landingWordRef.current = normalizeWord(word);
+      countedWordsRef.current = null;
+    }
+    setQueryApplied(true);
+    // Mount only: ?q= is thereafter owned by this component, not the URL.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!queryApplied) return;
     const trimmed = input.trim();
     const href = trimmed.length > 0 ? `${pathname}?q=${encodeURIComponent(trimmed)}` : pathname;
     router.replace(href, { scroll: false });
-  }, [input, pathname, router]);
+  }, [input, pathname, router, queryApplied]);
 
   // Resolve the account tier once on mount. Pro (or any future paid tier) opens
   // the gate immediately — including a gate that was already armed this session.
@@ -468,7 +512,10 @@ export function WordColorGeneratorPage() {
         </section>
 
         {generated && resultVisible ? (
-          <section className="grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(22rem,0.8fr)]">
+          // [&>*]:min-w-0 — same grid-item min-width:auto trap as the colour
+          // detail page. Here it pushed the site's highest-traffic surface 54px
+          // wider than a 375px viewport, so the whole page scrolled sideways.
+          <section className="grid gap-4 [&>*]:min-w-0 lg:grid-cols-[minmax(0,1.2fr)_minmax(22rem,0.8fr)]">
             <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80">
               <div className="flex items-center justify-between gap-4">
                 <div>

@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
@@ -61,9 +60,15 @@ export default function WordToColorPage() {
     <>
       <SiteHeader currentPath="/word-to-color" />
       <StructuredDataScript data={[generatorStructuredData, breadcrumbData, faqStructuredData]} />
-      <Suspense fallback={<main className="px-4 py-8 text-sm text-neutral-500">Loading generator…</main>}>
-        <WordColorGeneratorPage />
-      </Suspense>
+      {/* No Suspense boundary here on purpose. It existed only because the
+          generator called useSearchParams(), which opts the enclosing boundary
+          out of static prerendering — and since this boundary wrapped the whole
+          page, the prerendered HTML for the site's top surface was just the
+          fallback string. The generator now reads ?q= from window after mount,
+          so the page prerenders in full. Leaving an unnecessary boundary here
+          would let a future dynamic API silently empty this page again; without
+          one, that mistake fails the build instead. */}
+      <WordColorGeneratorPage />
     </>
   );
 }

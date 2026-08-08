@@ -42,13 +42,27 @@ export async function generateMetadata({ params }: WordPageProps): Promise<Metad
 
   const display = titleCaseWord(word);
   const title = `What Color Is "${display}"? ${generated.hex} — Word to Color | ColorArchive`;
-  const description = `The word "${word}" maps to ${generated.hex}, a ${generated.family.toLowerCase()} tone (${generated.rgb}, ${generated.hsl}), plus a 5-shade palette. A deterministic word-to-color result — "${word}" always returns this exact color.`;
+  const familyLower = generated.family.toLowerCase();
+  // "a orange tone" shipped on 40 of these pages. The article has to agree with
+  // the family name, which is data, not a literal.
+  const article = /^[aeiou]/.test(familyLower) ? "an" : "a";
+  const description = `The word "${word}" maps to ${generated.hex}, ${article} ${familyLower} tone (${generated.rgb}, ${generated.hsl}), plus a 5-shade palette. A deterministic word-to-color result — "${word}" always returns this exact color.`;
 
   return {
     title: { absolute: title },
     description,
     alternates: { canonical: `/word-to-color/${slug}/` },
-    twitter: { card: "summary_large_image" },
+    // Without an openGraph block the root layout's site-wide default is inherited,
+    // so all 474 of these pages shared one generic card title, description and
+    // url. No `images` key on purpose — that lets the colocated
+    // opengraph-image.tsx bind its per-word card; setting images here would
+    // suppress it (the 9885f5b bug).
+    openGraph: {
+      title,
+      description,
+      url: `${SITE_URL}/word-to-color/${slug}/`,
+    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

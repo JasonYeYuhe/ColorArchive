@@ -179,7 +179,7 @@ export const landingGuides: LandingGuide[] = [
     links: [
       { label: "Open All Access Bundle", href: "/pro/" },
       { label: "Open Complete Archive Token Set", href: "/pro/" },
-      { label: "Read notes on token workflow", href: "/notes/june-2026-design-tokens-that-dont-drift/" },
+      { label: "Read notes on token workflow", href: "/notes/" },
     ],
   },
   {
@@ -2783,7 +2783,7 @@ const extraGuides7: LandingGuide[] = [
     links: [
       { label: "Complete Archive Token Set", href: "/pro/" },
       { label: "Color Converter Tool", href: "/convert/" },
-      { label: "Color Family Browser", href: "/colors/" },
+      { label: "Color Family Browser", href: "/all-colors/" },
     ],
   },
   {
@@ -3014,7 +3014,7 @@ const extraGuides9: LandingGuide[] = [
     links: [
       { label: "Golden Hour collection", href: "/collections/golden-hour/" },
       { label: "Complete Archive pack", href: "/pro/" },
-      { label: "Browse all color families", href: "/colors/" },
+      { label: "Browse all color families", href: "/all-colors/" },
     ],
   },
   {
@@ -3429,7 +3429,7 @@ const extraGuides12: LandingGuide[] = [
     links: [
       { label: "Brand Starter Kit", href: "/pro/" },
       { label: "Color Contrast Checker", href: "/contrast/" },
-      { label: "Browse all colors", href: "/colors/" },
+      { label: "Browse all colors", href: "/all-colors/" },
     ],
   },
 ];
@@ -4261,7 +4261,7 @@ export const seoGuides: LandingGuide[] = [
     links: [
       { label: "Modern Seaside Collection", href: "/collections/modern-seaside/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
     ],
   },
   {
@@ -4456,7 +4456,7 @@ export const seoGuides: LandingGuide[] = [
     links: [
       { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
     ],
   },
   {
@@ -4650,7 +4650,7 @@ export const seoGuides: LandingGuide[] = [
     links: [
       { label: "Modern Seaside Collection", href: "/collections/modern-seaside/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
     ],
   },
   {
@@ -4688,7 +4688,7 @@ export const seoGuides: LandingGuide[] = [
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
       { label: "Complete Archive Pack", href: "/pro/" },
-      { label: "Color Detail Pages", href: "/colors/" },
+      { label: "Color Detail Pages", href: "/all-colors/" },
     ],
   },
 
@@ -5037,7 +5037,7 @@ export const seoGuides: LandingGuide[] = [
     links: [
       { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
     ],
   },
   {
@@ -5230,7 +5230,7 @@ export const seoGuides: LandingGuide[] = [
     links: [
       { label: "Editorial Warmth Collection", href: "/collections/editorial-warmth/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
     ],
   },
   {
@@ -5423,7 +5423,7 @@ export const seoGuides: LandingGuide[] = [
     links: [
       { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
     ],
   },
   {
@@ -5616,7 +5616,7 @@ export const seoGuides: LandingGuide[] = [
     links: [
       { label: "Quiet Luxury Collection", href: "/collections/quiet-luxury/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
     ],
   },
   {
@@ -5809,7 +5809,7 @@ export const seoGuides: LandingGuide[] = [
     links: [
       { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
     ],
   },
   {
@@ -6002,7 +6002,7 @@ export const seoGuides: LandingGuide[] = [
     links: [
       { label: "Orchid Bloom Collection", href: "/collections/orchid-bloom/" },
       { label: "Brand Color Generator", href: "/brand-generator/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
     ],
   },
   {
@@ -6097,7 +6097,7 @@ export const extraGuides19: LandingGuide[] = [
     links: [
       { label: "Design Token Generator", href: "/tokens/" },
       { label: "Studio Neutral Collection", href: "/collections/studio-neutral/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
     ],
   },
   {
@@ -6212,7 +6212,6 @@ export const extraGuides20: LandingGuide[] = [
     eyebrow: "E-Commerce",
     priority: 72,
     searchIntent: "ecommerce color psychology conversion optimization",
-    featuredCollectionId: "vivid-spectrum",
     tags: ["E-Commerce", "Color Psychology", "Conversion", "UX Design"],
     highlights: [
       "Product background color is the single highest-impact color decision in e-commerce — it determines how the product reads at thumbnail scale.",
@@ -6296,7 +6295,7 @@ export const extraGuides20: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Palette Builder", href: "/palette-builder/" },
+      { label: "Palette Builder", href: "/palette-generator/" },
       { label: "Color Combinations", href: "/combinations/" },
       { label: "Content Creator Bundle", href: "/pro/" },
     ],
@@ -6345,7 +6344,7 @@ export const extraGuides20: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Palette Builder", href: "/palette-builder/" },
+      { label: "Palette Builder", href: "/palette-generator/" },
       { label: "Color Combinations", href: "/combinations/" },
       { label: "Palette Pack Vol. 1", href: "/pro/" },
     ],
@@ -6364,7 +6363,7 @@ export const extraGuides21: LandingGuide[] = [
     eyebrow: "Healthcare",
     priority: 74,
     searchIntent: "healthcare color palette medical app design hospital colors",
-    featuredCollectionId: "sage-terracotta",
+    featuredCollectionId: "architecture-terracotta-sage",
     tags: ["Healthcare", "Color Psychology", "UX Design", "Accessibility"],
     highlights: [
       "Teal and seafoam communicate clinical cleanliness without the coldness of pure white or industrial gray — the most versatile healthcare hue families.",
@@ -6524,7 +6523,6 @@ export const extraGuides21: LandingGuide[] = [
     eyebrow: "Color Theory",
     priority: 68,
     searchIntent: "color saturation chroma design palette vivid muted",
-    featuredCollectionId: "vivid-spectrum",
     tags: ["Color Theory", "Color Psychology", "Design Principles"],
     highlights: [
       "Saturation is the most overused lever in amateur color work and the most underused in professional work — restraint in saturation almost always improves clarity.",
@@ -6729,7 +6727,6 @@ const extraGuides22: LandingGuide[] = [
     eyebrow: "Motion Design",
     priority: 62,
     searchIntent: "color animation UI motion design transition color loading state",
-    featuredCollectionId: "vivid-spectrum",
     tags: ["Motion Design", "UI Design", "Color Theory", "Interaction Design"],
     highlights: [
       "Temporal contrast — a brief color flash or shift — draws the eye more reliably than a static color accent, making color-in-motion more powerful than static color for attention direction.",
@@ -6757,7 +6754,7 @@ const extraGuides22: LandingGuide[] = [
     links: [
       { label: "Color contrast checker", href: "/contrast/" },
       { label: "All colors", href: "/all-colors/" },
-      { label: "Vivid Spectrum collection", href: "/collections/vivid-spectrum/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
 ];
@@ -6814,7 +6811,6 @@ const extraGuides23: LandingGuide[] = [
     eyebrow: "UX Design",
     priority: 78,
     searchIntent: "onboarding UI color design new user flow progress color attention",
-    featuredCollectionId: "calm-tech",
     tags: ["UX Design", "Onboarding", "UI Design", "Color Psychology"],
     highlights: [
       "Progressive color introduction — starting restrained and revealing more as users advance — reduces cognitive load at the most unfamiliar moment.",
@@ -6842,7 +6838,7 @@ const extraGuides23: LandingGuide[] = [
     links: [
       { label: "Color contrast checker", href: "/contrast/" },
       { label: "Palette generator", href: "/palette-generator/" },
-      { label: "Calm Tech collection", href: "/collections/calm-tech/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
   {
@@ -6854,7 +6850,6 @@ const extraGuides23: LandingGuide[] = [
     eyebrow: "Color Theory",
     priority: 77,
     searchIntent: "color typography pairing text color weight typeface digital design",
-    featuredCollectionId: "editorial-neutrals",
     tags: ["Typography", "Color Theory", "Design Systems", "UI Design"],
     highlights: [
       "Light-weight type appears lighter than its hex value due to counter negative space mixing with the page background perceptually.",
@@ -6882,7 +6877,7 @@ const extraGuides23: LandingGuide[] = [
     links: [
       { label: "Color contrast checker", href: "/contrast/" },
       { label: "WCAG Audit Tool", href: "/wcag-audit/" },
-      { label: "Editorial Neutrals collection", href: "/collections/editorial-neutrals/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
   {
@@ -6894,7 +6889,6 @@ const extraGuides23: LandingGuide[] = [
     eyebrow: "Design Systems",
     priority: 76,
     searchIntent: "color system documentation design tokens changelog design system docs",
-    featuredCollectionId: "neutral-ground",
     tags: ["Design Systems", "Color Tokens", "Documentation", "Team Process"],
     highlights: [
       "Color system documentation has four layers with different decay rates: decisions (slowest), semantics, implementation (fastest), and usage.",
@@ -6922,7 +6916,7 @@ const extraGuides23: LandingGuide[] = [
     links: [
       { label: "Design token generator", href: "/tokens/" },
       { label: "Color contrast checker", href: "/contrast/" },
-      { label: "Neutral Ground collection", href: "/collections/neutral-ground/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
   {
@@ -6934,7 +6928,6 @@ const extraGuides23: LandingGuide[] = [
     eyebrow: "Mobile Design",
     priority: 75,
     searchIntent: "mobile UI color design iOS Android OLED dark mode platform conventions",
-    featuredCollectionId: "midnight-form",
     tags: ["Mobile Design", "UI Design", "Accessibility", "iOS", "Android"],
     highlights: [
       "OLED true black (#000000) creates a qualitatively different dark mode than LCD near-black — but mixing the two looks muddy on LCD while looking correct on OLED.",
@@ -6962,7 +6955,7 @@ const extraGuides23: LandingGuide[] = [
     links: [
       { label: "Dark mode color guide", href: "/guides/dark-mode-palette-guide/" },
       { label: "WCAG Audit Tool", href: "/wcag-audit/" },
-      { label: "Midnight Form collection", href: "/collections/midnight-form/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
 ];
@@ -7011,7 +7004,7 @@ const extraGuides24: LandingGuide[] = [
     ],
     links: [
       { label: "Dark mode color guide", href: "/guides/dark-mode-palette-guide/" },
-      { label: "UI color systems guide", href: "/guides/ui-color-system-guide/" },
+      { label: "UI color systems guide", href: "/guides/color-system-documentation-guide/" },
       { label: "Nocturne Tech collection", href: "/collections/nocturne-tech/" },
     ],
   },
@@ -7054,8 +7047,8 @@ const extraGuides24: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Color systems guide", href: "/guides/color-systems-guide/" },
-      { label: "Color harmony guide", href: "/guides/color-harmony-guide/" },
+      { label: "Color systems guide", href: "/guides/color-system-documentation-guide/" },
+      { label: "Color harmony guide", href: "/guides/color-wheel-guide/" },
       { label: "Editorial Warmth collection", href: "/collections/editorial-warmth/" },
     ],
   },
@@ -7099,7 +7092,7 @@ const extraGuides24: LandingGuide[] = [
     ],
     links: [
       { label: "WCAG Audit Tool", href: "/wcag-audit/" },
-      { label: "Color accessibility guide", href: "/guides/accessible-color-guide/" },
+      { label: "Color accessibility guide", href: "/guides/color-contrast-accessibility-guide/" },
       { label: "Quiet Luxury collection", href: "/collections/quiet-luxury/" },
     ],
   },
@@ -7112,7 +7105,6 @@ const extraGuides24: LandingGuide[] = [
     eyebrow: "Product Design",
     priority: 74,
     searchIntent: "video streaming UI color dark mode thumbnail hierarchy netflix design",
-    featuredCollectionId: "midnight-form",
     tags: ["UI Design", "Dark Mode", "Visual Hierarchy", "Product Design"],
     highlights: [
       "Streaming UIs are dark-first because dark backgrounds reduce luminance contrast with video content and reduce viewer eye fatigue in dimly lit environments.",
@@ -7143,8 +7135,8 @@ const extraGuides24: LandingGuide[] = [
     ],
     links: [
       { label: "Dark mode color guide", href: "/guides/dark-mode-palette-guide/" },
-      { label: "UI color systems guide", href: "/guides/ui-color-system-guide/" },
-      { label: "Midnight Form collection", href: "/collections/midnight-form/" },
+      { label: "UI color systems guide", href: "/guides/color-system-documentation-guide/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
   {
@@ -7186,8 +7178,8 @@ const extraGuides24: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Color in interior design guide", href: "/guides/color-interior-design-guide/" },
-      { label: "Color and light guide", href: "/guides/color-and-light-guide/" },
+      { label: "Color in interior design guide", href: "/guides/interior-design-color-guide/" },
+      { label: "Color and light guide", href: "/guides/" },
       { label: "Sand Dune collection", href: "/collections/sand-dune/" },
     ],
   },
@@ -7319,7 +7311,7 @@ const extraGuides25: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Color psychology guide", href: "/guides/color-psychology-guide/" },
+      { label: "Color psychology guide", href: "/guides/color-psychology-marketing-guide/" },
       { label: "Brand color analyzer", href: "/analyze/" },
       { label: "Nordic Morning collection", href: "/collections/nordic-morning/" },
     ],
@@ -7399,7 +7391,7 @@ const extraGuides25: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Color psychology guide", href: "/guides/color-psychology-guide/" },
+      { label: "Color psychology guide", href: "/guides/color-psychology-marketing-guide/" },
       { label: "Color token naming guide", href: "/guides/color-token-naming-guide/" },
       { label: "Ember Hearth collection", href: "/collections/ember-hearth/" },
     ],
@@ -7418,7 +7410,6 @@ const extraGuides26: LandingGuide[] = [
     eyebrow: "Advanced Color",
     priority: 76,
     searchIntent: "gradient design color guide UI mesh gradient chromatic progression tonal gradient CSS",
-    featuredCollectionId: "misty-harbor",
     tags: ["Gradients", "UI Design", "Color Theory"],
     highlights: [
       "Chromatic gradients (cross-hue progression) carry more energy than tonal gradients (single-hue lightness shift) — but require careful hue-space interpolation to avoid muddy intermediate colors.",
@@ -7446,7 +7437,7 @@ const extraGuides26: LandingGuide[] = [
     links: [
       { label: "Color combinations library", href: "/combinations/" },
       { label: "Brand color analyzer", href: "/analyze/" },
-      { label: "Misty Harbor collection", href: "/collections/misty-harbor/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
   {
@@ -7498,7 +7489,6 @@ const extraGuides26: LandingGuide[] = [
     eyebrow: "SaaS Design",
     priority: 74,
     searchIntent: "SaaS product color strategy pricing page feature tier trust colors B2B design system",
-    featuredCollectionId: "corporate-slate",
     tags: ["SaaS Design", "Product Design", "Color Strategy"],
     highlights: [
       "Conservative blue and blue-gray palettes outperform colorful or playful primaries in enterprise B2B trust research — keep the neutral core stable and carry brand personality in a single accent.",
@@ -7524,9 +7514,9 @@ const extraGuides26: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Color psychology guide", href: "/guides/color-psychology-guide/" },
+      { label: "Color psychology guide", href: "/guides/color-psychology-marketing-guide/" },
       { label: "WCAG contrast auditor", href: "/wcag-audit/" },
-      { label: "Corporate Slate collection", href: "/collections/corporate-slate/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
   {
@@ -7538,7 +7528,6 @@ const extraGuides26: LandingGuide[] = [
     eyebrow: "Type & Color",
     priority: 73,
     searchIntent: "typography color pairing guide design brand identity type weight color saturation harmony",
-    featuredCollectionId: "editorial-gray",
     tags: ["Typography", "Brand Design", "Color Theory"],
     highlights: [
       "Heavy-weight type + highly saturated color creates visual collision; cross-modal pairings work better: heavy type with neutral color (type carries the weight) or thin type with saturated accent (color carries the energy).",
@@ -7566,7 +7555,7 @@ const extraGuides26: LandingGuide[] = [
     links: [
       { label: "Color Name Generator", href: "/name/" },
       { label: "Brand color analyzer", href: "/analyze/" },
-      { label: "Editorial Gray collection", href: "/collections/editorial-gray/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
   {
@@ -7623,7 +7612,6 @@ const extraGuides27: LandingGuide[] = [
     eyebrow: "Advanced Color",
     priority: 75,
     searchIntent: "color motion design animation color theory UI animation color interpolation OKLCH gradient easing",
-    featuredCollectionId: "aurora-shift",
     tags: ["Motion Design", "UI Animation", "Color Theory"],
     highlights: [
       "Fast color transitions require higher chromatic contrast to read as deliberate change — temporal contrast is a function of both color difference and transition duration.",
@@ -7651,7 +7639,7 @@ const extraGuides27: LandingGuide[] = [
     links: [
       { label: "Color combinations library", href: "/combinations/" },
       { label: "WCAG contrast auditor", href: "/wcag-audit/" },
-      { label: "Aurora Shift collection", href: "/collections/aurora-shift/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
   {
@@ -7663,7 +7651,6 @@ const extraGuides27: LandingGuide[] = [
     eyebrow: "Color Management",
     priority: 74,
     searchIntent: "print vs digital color brand color management CMYK hex Pantone cross-media color specification",
-    featuredCollectionId: "natural-linen",
     tags: ["Brand Design", "Print Design", "Color Management"],
     highlights: [
       "Hex codes describe light-emitting display behavior — they don't translate to print without colorimetric conversion via ICC profiles.",
@@ -7689,9 +7676,9 @@ const extraGuides27: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Brand palette builder", href: "/palette-builder/" },
-      { label: "Color families library", href: "/colors/" },
-      { label: "Natural Linen collection", href: "/collections/natural-linen/" },
+      { label: "Brand palette builder", href: "/palette-generator/" },
+      { label: "Color families library", href: "/all-colors/" },
+      { label: "Browse collections", href: "/collections/" },
     ],
   },
   {
@@ -7769,8 +7756,8 @@ const extraGuides27: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Brand palette builder", href: "/palette-builder/" },
-      { label: "Color families library", href: "/colors/" },
+      { label: "Brand palette builder", href: "/palette-generator/" },
+      { label: "Color families library", href: "/all-colors/" },
       { label: "Blush Garden collection", href: "/collections/blush-garden/" },
     ],
   },
@@ -7828,7 +7815,6 @@ const extraGuides28: LandingGuide[] = [
     eyebrow: "Specialized Color",
     priority: 72,
     searchIntent: "wayfinding color signage color system transit map color environmental design color accessibility",
-    featuredCollectionId: "cobalt-system",
     tags: ["Wayfinding", "Accessibility", "Environmental Design"],
     highlights: [
       "Wayfinding color requires maximum distinctiveness between system categories, not just sufficient contrast against background — similar hues for different zones create classification errors.",
@@ -7856,7 +7842,7 @@ const extraGuides28: LandingGuide[] = [
     links: [
       { label: "Color accessibility auditor", href: "/wcag-audit/" },
       { label: "Color combinations library", href: "/combinations/" },
-      { label: "Browse all colors", href: "/colors/" },
+      { label: "Browse all colors", href: "/all-colors/" },
     ],
   },
   {
@@ -7896,7 +7882,7 @@ const extraGuides28: LandingGuide[] = [
     links: [
       { label: "Pearl Oyster collection", href: "/collections/pearl-oyster/" },
       { label: "Color combinations library", href: "/combinations/" },
-      { label: "Export palettes", href: "/palette-builder/" },
+      { label: "Export palettes", href: "/palette-generator/" },
     ],
   },
   {
@@ -7908,7 +7894,6 @@ const extraGuides28: LandingGuide[] = [
     eyebrow: "Data & Color",
     priority: 76,
     searchIntent: "data visualization color chart color scale sequential diverging categorical color accessibility color blindness dataviz",
-    featuredCollectionId: "cobalt-system",
     tags: ["Data Visualization", "Color Science", "Accessibility"],
     highlights: [
       "Sequential scales encode ordered data: use single-hue progressions from light to saturated, constructed in OKLCH for perceptually consistent lightness steps.",
@@ -7936,7 +7921,7 @@ const extraGuides28: LandingGuide[] = [
     links: [
       { label: "WCAG contrast auditor", href: "/wcag-audit/" },
       { label: "Color combinations library", href: "/combinations/" },
-      { label: "Browse all colors", href: "/colors/" },
+      { label: "Browse all colors", href: "/all-colors/" },
     ],
   },
   {
@@ -7975,8 +7960,8 @@ const extraGuides28: LandingGuide[] = [
     ],
     links: [
       { label: "Spring Herb collection", href: "/collections/spring-herb/" },
-      { label: "Color family explorer", href: "/colors/" },
-      { label: "Export palettes", href: "/palette-builder/" },
+      { label: "Color family explorer", href: "/all-colors/" },
+      { label: "Export palettes", href: "/palette-generator/" },
     ],
   },
   {
@@ -8016,7 +8001,7 @@ const extraGuides28: LandingGuide[] = [
     links: [
       { label: "Coastal Sage collection", href: "/collections/coastal-sage/" },
       { label: "Spring Herb collection", href: "/collections/spring-herb/" },
-      { label: "Browse green colors", href: "/colors/" },
+      { label: "Browse green colors", href: "/all-colors/" },
     ],
   },
 ];
@@ -8033,7 +8018,6 @@ const extraGuides29: LandingGuide[] = [
     eyebrow: "Color Trends",
     priority: 70,
     searchIntent: "fashion color forecasting color trends color of the year pantone forecast color trend prediction design color trends",
-    featuredCollectionId: "candy-gradient",
     tags: ["Trending", "Industry", "Color Strategy"],
     highlights: [
       "Color forecasting agencies publish their palettes 12–24 months ahead of retail because manufacturers need lead time for textile dyeing, packaging ink formulation, and production planning.",
@@ -8059,9 +8043,9 @@ const extraGuides29: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse trending palettes", href: "/colors/" },
-      { label: "Candy Gradient collection", href: "/collections/candy-gradient/" },
-      { label: "Build custom palette", href: "/palette-builder/" },
+      { label: "Browse trending palettes", href: "/all-colors/" },
+      { label: "Browse collections", href: "/collections/" },
+      { label: "Build custom palette", href: "/palette-generator/" },
     ],
   },
   {
@@ -8101,7 +8085,7 @@ const extraGuides29: LandingGuide[] = [
     links: [
       { label: "Coastal Sage collection", href: "/collections/coastal-sage/" },
       { label: "Bamboo Grove collection", href: "/collections/bamboo-grove/" },
-      { label: "Browse green colors", href: "/colors/" },
+      { label: "Browse green colors", href: "/all-colors/" },
     ],
   },
   {
@@ -8113,7 +8097,6 @@ const extraGuides29: LandingGuide[] = [
     eyebrow: "Color Theory",
     priority: 67,
     searchIntent: "film color grading color theory cinema color palette movie color grade color cinematography visual storytelling color",
-    featuredCollectionId: "midnight-noir",
     tags: ["Film", "Color Theory", "Visual Design"],
     highlights: [
       "Cinematographers apply color at multiple timescales: scene-level emotional temperature, story-arc chromatic progressions, and timeline-level color coding to distinguish flashbacks or parallel narratives.",
@@ -8139,9 +8122,9 @@ const extraGuides29: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Midnight Noir collection", href: "/collections/midnight-noir/" },
-      { label: "Browse color palettes", href: "/colors/" },
-      { label: "Export palettes", href: "/palette-builder/" },
+      { label: "Browse collections", href: "/collections/" },
+      { label: "Browse color palettes", href: "/all-colors/" },
+      { label: "Export palettes", href: "/palette-generator/" },
     ],
   },
   {
@@ -8153,7 +8136,6 @@ const extraGuides29: LandingGuide[] = [
     eyebrow: "Applied Color",
     priority: 66,
     searchIntent: "spatial color design interior color theory color in architecture color perception space room color psychology spatial design",
-    featuredCollectionId: "nordic-mist",
     tags: ["Interior Design", "Environmental Design", "Color Psychology"],
     highlights: [
       "Color influences perceived room dimensions: warm, saturated, and dark colors advance visually, making walls appear closer; cool, light, and low-saturation colors recede, making spaces feel larger.",
@@ -8179,9 +8161,9 @@ const extraGuides29: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Nordic Mist collection", href: "/collections/nordic-mist/" },
-      { label: "Browse neutral colors", href: "/colors/" },
-      { label: "Color family explorer", href: "/colors/" },
+      { label: "Browse collections", href: "/collections/" },
+      { label: "Browse neutral colors", href: "/all-colors/" },
+      { label: "Color family explorer", href: "/all-colors/" },
     ],
   },
   {
@@ -8193,7 +8175,6 @@ const extraGuides29: LandingGuide[] = [
     eyebrow: "Brand Color",
     priority: 65,
     searchIntent: "brand color consistency color standards brand guidelines color management color equity brand color system color specification",
-    featuredCollectionId: "neutral-ground",
     tags: ["Brand Identity", "Color Strategy", "Design Systems"],
     highlights: [
       "Production drift — the cumulative divergence of color values across vendors, materials, and batches — is the most common and most preventable source of brand color dilution.",
@@ -8219,9 +8200,9 @@ const extraGuides29: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Neutral Ground collection", href: "/collections/neutral-ground/" },
-      { label: "Browse brand palettes", href: "/colors/" },
-      { label: "Export to multiple formats", href: "/palette-builder/" },
+      { label: "Browse collections", href: "/collections/" },
+      { label: "Browse brand palettes", href: "/all-colors/" },
+      { label: "Export to multiple formats", href: "/palette-generator/" },
     ],
   },
 ];
@@ -8318,7 +8299,6 @@ const extraGuides30: LandingGuide[] = [
     eyebrow: "Typography + Color",
     priority: 67,
     searchIntent: "color and typography colored text design chromatic type typographic color brand typography type color pairing text color design",
-    featuredCollectionId: "neutral-ground",
     tags: ["Typography", "Brand Design", "Color Theory"],
     highlights: [
       "Type set in warm, saturated colors appears visually heavier than the same weight in cool, desaturated colors — compensation via weight or size adjustment is often required when changing type color.",
@@ -8398,7 +8378,6 @@ const extraGuides30: LandingGuide[] = [
     eyebrow: "Design Process",
     priority: 65,
     searchIntent: "color design process color iteration design workflow color review color approval process design color evaluation color system process",
-    featuredCollectionId: "nordic-mist",
     tags: ["Design Process", "Color Systems", "Design Workflow"],
     highlights: [
       "Context simulation -- evaluating color across all actual use environments before committing -- is the highest-leverage early-stage investment in color quality and costs least when done before stakeholders are attached to specific values.",
@@ -8443,7 +8422,6 @@ const extraGuides31: LandingGuide[] = [
     eyebrow: "Accessible Design",
     priority: 75,
     searchIntent: "color accessibility wcag contrast ratio accessible palette color blindness inclusive design a11y accessible colors",
-    featuredCollectionId: "cool-professionals",
     tags: ["Accessibility", "Digital Design", "Color Systems"],
     highlights: [
       "WCAG 2.1 defines two contrast tiers: AA (4.5:1 for normal text) is the legal baseline in most jurisdictions, while AAA (7:1) is the target for critical content contexts like healthcare or education.",
@@ -8470,7 +8448,7 @@ const extraGuides31: LandingGuide[] = [
     ],
     links: [
       { label: "CSS Named Colors Reference", href: "/css-colors/" },
-      { label: "Color Contrast Checker", href: "/tools/contrast-checker/" },
+      { label: "Color Contrast Checker", href: "/contrast/" },
       { label: "Color Families", href: "/families/" },
     ],
   },
@@ -8510,7 +8488,7 @@ const extraGuides31: LandingGuide[] = [
     ],
     links: [
       { label: "Tints & Shades Generator", href: "/tools/tints-shades/" },
-      { label: "Color Contrast Checker", href: "/tools/contrast-checker/" },
+      { label: "Color Contrast Checker", href: "/contrast/" },
       { label: "Design Tokens Export", href: "/tools/design-tokens/" },
     ],
   },
@@ -8589,7 +8567,7 @@ const extraGuides31: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Color Converter", href: "/tools/color-converter/" },
+      { label: "Color Converter", href: "/convert/" },
       { label: "Color Palettes by Use Case", href: "/use-cases/" },
       { label: "Upgrade to Pro", href: "/pro/" },
     ],
@@ -8629,8 +8607,8 @@ const extraGuides31: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "AI Brand Palette", href: "/tools/brand/" },
-      { label: "Mood Palette Generator", href: "/tools/mood/" },
+      { label: "AI Brand Palette", href: "/brand-generator/" },
+      { label: "Mood Palette Generator", href: "/mood-palette/" },
       { label: "Color Collections", href: "/collections/" },
     ],
   },
@@ -8648,7 +8626,6 @@ const extraGuides32: LandingGuide[] = [
     eyebrow: "Hospitality Color",
     priority: 60,
     searchIntent: "restaurant color design hospitality interior color dining room color palette restaurant branding interior color psychology",
-    featuredCollectionId: "terracotta-valley",
     tags: ["Interior Design", "Color Psychology", "Hospitality"],
     highlights: [
       "Fast-food brands converged on red and yellow because these warm colors increase food drive and eating speed — a behavioral engineering decision, not an aesthetic one.",
@@ -8674,8 +8651,8 @@ const extraGuides32: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Color Families", href: "/colors/" },
-      { label: "Mood Palette Generator", href: "/tools/mood/" },
+      { label: "Color Families", href: "/all-colors/" },
+      { label: "Mood Palette Generator", href: "/mood-palette/" },
       { label: "Color Collections", href: "/collections/" },
     ],
   },
@@ -8688,7 +8665,6 @@ const extraGuides32: LandingGuide[] = [
     eyebrow: "Sports Branding",
     priority: 58,
     searchIntent: "sports brand color team identity sports design color psychology sports branding team color rebrand",
-    featuredCollectionId: "cobalt-authority",
     tags: ["Brand Strategy", "Color Psychology", "Sports Design"],
     highlights: [
       "Sports color is tribal signaling before it is brand communication — the relevant question is not whether a palette is refined but whether it is unmistakably distinct from rivals.",
@@ -8714,8 +8690,8 @@ const extraGuides32: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Brand Palette Builder", href: "/tools/brand/" },
-      { label: "Color Families", href: "/colors/" },
+      { label: "Brand Palette Builder", href: "/brand-generator/" },
+      { label: "Color Families", href: "/all-colors/" },
       { label: "Collections", href: "/collections/" },
     ],
   },
@@ -8728,7 +8704,6 @@ const extraGuides32: LandingGuide[] = [
     eyebrow: "Cognitive Color",
     priority: 62,
     searchIntent: "color and memory color learning recall color psychology educational color design cognitive color design",
-    featuredCollectionId: "nordic-signal",
     tags: ["Color Psychology", "UX Design", "Educational Design"],
     highlights: [
       "The isolation effect is the most reliable mechanism: items that are visually distinctive within their context are better encoded and recalled, which means selective color use outperforms heavy color use.",
@@ -8755,8 +8730,8 @@ const extraGuides32: LandingGuide[] = [
     ],
     links: [
       { label: "Color Accessibility", href: "/guides/color-accessibility-design-guide/" },
-      { label: "Contrast Checker", href: "/tools/contrast/" },
-      { label: "Color Families", href: "/colors/" },
+      { label: "Contrast Checker", href: "/contrast/" },
+      { label: "Color Families", href: "/all-colors/" },
     ],
   },
   {
@@ -8768,7 +8743,6 @@ const extraGuides32: LandingGuide[] = [
     eyebrow: "Environmental Design",
     priority: 55,
     searchIntent: "wayfinding design color system navigation color environmental design signage color information architecture color wayfinding",
-    featuredCollectionId: "cobalt-authority",
     tags: ["Wayfinding Design", "Environmental Design", "Systems Design"],
     highlights: [
       "The primary criterion for wayfinding color is inter-color discriminability — colors must be maximally distinguishable from each other under varied lighting and at speed, not just on a desktop monitor.",
@@ -8795,7 +8769,7 @@ const extraGuides32: LandingGuide[] = [
     ],
     links: [
       { label: "CSS Named Colors Reference", href: "/css-colors/" },
-      { label: "Contrast Checker", href: "/tools/contrast/" },
+      { label: "Contrast Checker", href: "/contrast/" },
       { label: "Color Accessibility Guide", href: "/guides/color-accessibility-design-guide/" },
     ],
   },
@@ -8808,7 +8782,6 @@ const extraGuides32: LandingGuide[] = [
     eyebrow: "Color Theory Basics",
     priority: 85,
     searchIntent: "color theory fundamentals color wheel color harmony complementary colors analogous colors color theory guide design",
-    featuredCollectionId: "spectrum-study",
     tags: ["Color Theory", "Design Fundamentals", "Education"],
     highlights: [
       "Of the three dimensions of color — hue, saturation, and value — value is the most important for readability and hierarchy, and should be evaluated by checking designs in grayscale.",
@@ -8834,9 +8807,9 @@ const extraGuides32: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Color Families", href: "/colors/" },
-      { label: "Tonal Palette Builder", href: "/tools/tonal/" },
-      { label: "Mood Palette Generator", href: "/tools/mood/" },
+      { label: "Color Families", href: "/all-colors/" },
+      { label: "Tonal Palette Builder", href: "/tints/" },
+      { label: "Mood Palette Generator", href: "/mood-palette/" },
     ],
   },
 ];
@@ -8879,8 +8852,8 @@ const extraGuides33: LandingGuide[] = [
     ],
     links: [
       { label: "Browse all collections", href: "/collections/" },
-      { label: "Color Psychology Guide", href: "/guides/color-psychology-emotion-guide/" },
-      { label: "Brand Color Guide", href: "/guides/brand-color-psychology-guide/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-marketing-guide/" },
+      { label: "Brand Color Guide", href: "/guides/startup-brand-color-guide/" },
     ],
   },
   {
@@ -8919,7 +8892,7 @@ const extraGuides33: LandingGuide[] = [
     ],
     links: [
       { label: "Dark Mode UI Kit", href: "/pro/" },
-      { label: "WCAG Contrast Checker", href: "/tools/contrast/" },
+      { label: "WCAG Contrast Checker", href: "/contrast/" },
       { label: "Color Accessibility Guide", href: "/guides/color-accessibility-design-guide/" },
     ],
   },
@@ -8959,7 +8932,7 @@ const extraGuides33: LandingGuide[] = [
     ],
     links: [
       { label: "Brand Starter Kit", href: "/pro/" },
-      { label: "WCAG Audit Tool", href: "/tools/wcag-audit/" },
+      { label: "WCAG Audit Tool", href: "/wcag-audit/" },
       { label: "Adaptive Color Guide", href: "/guides/adaptive-color-systems-guide/" },
     ],
   },
@@ -8999,8 +8972,8 @@ const extraGuides33: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Collections", href: "/collections/" },
-      { label: "Brand Color Guide", href: "/guides/brand-color-psychology-guide/" },
-      { label: "Color Psychology Guide", href: "/guides/color-psychology-emotion-guide/" },
+      { label: "Brand Color Guide", href: "/guides/startup-brand-color-guide/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-marketing-guide/" },
     ],
   },
   {
@@ -9038,8 +9011,8 @@ const extraGuides33: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse Color Families", href: "/colors/" },
-      { label: "Color Psychology Guide", href: "/guides/color-psychology-emotion-guide/" },
+      { label: "Browse Color Families", href: "/all-colors/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-marketing-guide/" },
       { label: "Golden Harvest Collection", href: "/collections/golden-harvest/" },
     ],
   },
@@ -9092,7 +9065,7 @@ const extraGuides34: LandingGuide[] = [
     eyebrow: "Art History",
     priority: 79,
     searchIntent: "historical pigments color history ultramarine lapis lazuli tyrian purple color art history pigment history",
-    featuredCollectionId: "art-deco",
+    featuredCollectionId: "art-deco-gold",
     tags: ["Color History", "Art History", "Pigments"],
     highlights: [
       "Ultramarine cost more than gold throughout the Renaissance — produced exclusively from lapis lazuli mined in Afghanistan. Synthetic ultramarine (1826) dropped the price by 99% and its luxury associations nearly as fast.",
@@ -9237,7 +9210,6 @@ const extraGuides35: LandingGuide[] = [
     eyebrow: "E-Commerce Design",
     priority: 82,
     searchIntent: "color ecommerce conversion button color shop color palette product photography color",
-    featuredCollectionId: "electric-blue",
     tags: ["E-Commerce", "Conversion", "Color Psychology"],
     highlights: [
       "Contrast matters more than hue: visual salience — how strongly an element stands out from context — predicts click behavior better than any specific button color.",
@@ -9263,8 +9235,8 @@ const extraGuides35: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse Blue Palettes", href: "/colors/?family=Blue" },
-      { label: "Color Psychology Guide", href: "/guides/color-psychology-emotions-guide/" },
+      { label: "Browse Blue Palettes", href: "/families/blue/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-marketing-guide/" },
       { label: "Explore Tools", href: "/tools/" },
     ],
   },
@@ -9385,7 +9357,7 @@ const extraGuides35: LandingGuide[] = [
     links: [
       { label: "Browse Color Collections", href: "/collections/" },
       { label: "Explore Famous Palettes", href: "/famous-palettes/" },
-      { label: "Newsletter on Color Trends", href: "/newsletter/" },
+      { label: "Newsletter on Color Trends", href: "/notes/" },
     ],
   },
   {
@@ -9397,7 +9369,6 @@ const extraGuides35: LandingGuide[] = [
     eyebrow: "Color Neuroscience",
     priority: 76,
     searchIntent: "synesthesia color perception cross modal color psychology color neuroscience color and sound color feeling",
-    featuredCollectionId: "dreamlike",
     tags: ["Color Psychology", "Neuroscience", "Synesthesia"],
     highlights: [
       "Cross-modal color associations appear in everyone below conscious awareness — not just synesthetes. The Bouba/Kiki effect shows automatic sound-shape associations across cultures. High-pitched sounds map to lighter, more saturated colors; low-pitched sounds to darker, neutral palettes.",
@@ -9423,8 +9394,8 @@ const extraGuides35: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Color Psychology Basics", href: "/guides/color-psychology-emotions-guide/" },
-      { label: "Browse Calming Palettes", href: "/colors/?family=Blue" },
+      { label: "Color Psychology Basics", href: "/guides/color-psychology-marketing-guide/" },
+      { label: "Browse Calming Palettes", href: "/families/blue/" },
       { label: "Explore Color Tools", href: "/tools/" },
     ],
   },
@@ -9442,7 +9413,6 @@ const extraGuides36: LandingGuide[] = [
     eyebrow: "Color Psychology",
     priority: 74,
     searchIntent: "color memory nostalgia nostalgic palette retro color psychology emotional color design memory trigger",
-    featuredCollectionId: "faded-earth",
     tags: ["Color Psychology", "Nostalgia", "Branding"],
     highlights: [
       "Color is stored in the brain alongside spatial, temporal, and emotional memory — encountering a color later reactivates the full encoded experience, not just a visual cue.",
@@ -9469,8 +9439,8 @@ const extraGuides36: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Retro Collections", href: "/collections/" },
-      { label: "Color Psychology Guide", href: "/guides/color-psychology-emotions-guide/" },
-      { label: "Newsletter: Color & Memory", href: "/newsletter/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-marketing-guide/" },
+      { label: "Newsletter: Color & Memory", href: "/notes/" },
     ],
   },
   {
@@ -9522,7 +9492,6 @@ const extraGuides36: LandingGuide[] = [
     eyebrow: "Design Systems",
     priority: 82,
     searchIntent: "dark mode color system dark mode design tokens dark ui palette dark mode design dark color system OLED dark mode",
-    featuredCollectionId: "midnight-coast",
     tags: ["Dark Mode", "Design Systems", "UI Color"],
     highlights: [
       "Dark mode is not inverted light mode. Every surface hierarchy encoded through lightness in light mode must be independently re-encoded for dark environments.",
@@ -9549,8 +9518,8 @@ const extraGuides36: LandingGuide[] = [
     ],
     links: [
       { label: "Dark Mode UI Kit", href: "/pro/" },
-      { label: "Browse Dark Palettes", href: "/colors/?family=Blue" },
-      { label: "Design Systems Guide", href: "/guides/design-system-color-tokens-guide/" },
+      { label: "Browse Dark Palettes", href: "/families/blue/" },
+      { label: "Design Systems Guide", href: "/guides/design-token-color-system-guide/" },
     ],
   },
   {
@@ -9588,9 +9557,9 @@ const extraGuides36: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "WCAG Audit Tool", href: "/tools/wcag-audit/" },
-      { label: "Contrast Checker", href: "/tools/contrast/" },
-      { label: "Colorblind Simulator", href: "/tools/colorblind/" },
+      { label: "WCAG Audit Tool", href: "/wcag-audit/" },
+      { label: "Contrast Checker", href: "/contrast/" },
+      { label: "Colorblind Simulator", href: "/colorblind/" },
     ],
   },
   {
@@ -9602,7 +9571,6 @@ const extraGuides36: LandingGuide[] = [
     eyebrow: "Color Production",
     priority: 70,
     searchIntent: "fluorescent color design neon colors extreme chroma vivid color saturated palette neon design DayGlo bright color production",
-    featuredCollectionId: "vivid-signal",
     tags: ["Color Theory", "Neon", "Production"],
     highlights: [
       "Fluorescent pigments absorb UV light and re-emit it as visible light — producing a perceived brightness that exceeds the illuminating light source. Standard CMYK gamut cannot contain most fluorescent hues.",
@@ -9628,8 +9596,8 @@ const extraGuides36: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse Vivid Colors", href: "/colors/" },
-      { label: "Color Theory Guide", href: "/guides/color-theory-basics-guide/" },
+      { label: "Browse Vivid Colors", href: "/all-colors/" },
+      { label: "Color Theory Guide", href: "/guides/color-theory-fundamentals-guide/" },
       { label: "Explore All Collections", href: "/collections/" },
     ],
   },
@@ -9672,8 +9640,8 @@ const extraGuides37: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse All Colors", href: "/colors/" },
-      { label: "Color Theory Basics", href: "/guides/color-theory-basics-guide/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
+      { label: "Color Theory Basics", href: "/guides/color-theory-fundamentals-guide/" },
       { label: "Explore Collections", href: "/collections/" },
     ],
   },
@@ -9712,7 +9680,7 @@ const extraGuides37: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Blue Palettes", href: "/families/blue/" },
-      { label: "Color Contrast Checker", href: "/tools/contrast/" },
+      { label: "Color Contrast Checker", href: "/contrast/" },
       { label: "Explore All Collections", href: "/collections/" },
     ],
   },
@@ -9750,9 +9718,9 @@ const extraGuides37: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
       { label: "Explore Collections", href: "/collections/" },
-      { label: "Color Psychology Guide", href: "/guides/color-psychology-complete-guide/" },
+      { label: "Color Psychology Guide", href: "/guides/color-psychology-marketing-guide/" },
     ],
   },
   {
@@ -9790,7 +9758,7 @@ const extraGuides37: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Blue Colors", href: "/families/blue/" },
-      { label: "Browse Indigo Colors", href: "/colors/" },
+      { label: "Browse Indigo Colors", href: "/all-colors/" },
       { label: "Color History Guides", href: "/guides/" },
     ],
   },
@@ -9829,7 +9797,7 @@ const extraGuides37: LandingGuide[] = [
     ],
     links: [
       { label: "Browse Warm Colors", href: "/families/orange/" },
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
       { label: "Explore Collections", href: "/collections/" },
     ],
   },
@@ -9938,7 +9906,7 @@ export const extraGuides38: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse Magenta Colors", href: "/families/magenta/" },
+      { label: "Browse Magenta Colors", href: "/families/pink/" },
       { label: "Browse Cyan Colors", href: "/families/blue/" },
       { label: "Color History by Decade", href: "/decades/" },
     ],
@@ -10008,7 +9976,7 @@ export const extraGuides38: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse Rose Colors", href: "/families/rose/" },
+      { label: "Browse Rose Colors", href: "/families/pink/" },
       { label: "Browse Blush & Pink Colors", href: "/families/red/" },
       { label: "Color History by Decade", href: "/decades/" },
     ],
@@ -10087,7 +10055,7 @@ export const extraGuides39: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse Dark Colors", href: "/families/neutral/" },
+      { label: "Browse Dark Colors", href: "/families/" },
       { label: "Browse Deep Blue Tones", href: "/colors/cobalt-nocturne-muted/" },
       { label: "Browse All Tools", href: "/tools/" },
     ],
@@ -10192,7 +10160,7 @@ export const extraGuides39: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse Neutral Colors", href: "/families/neutral/" },
+      { label: "Browse Neutral Colors", href: "/families/" },
       { label: "Browse Warm Gray Tones", href: "/colors/warm-gray-mid-muted/" },
       { label: "Browse Cool Gray Tones", href: "/colors/cool-gray-mid-muted/" },
     ],
@@ -10235,8 +10203,8 @@ export const extraGuides40: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse All Colors", href: "/colors/" },
-      { label: "Browse Warm Neutrals", href: "/families/neutral/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
+      { label: "Browse Warm Neutrals", href: "/families/" },
       { label: "Browse Collections", href: "/collections/" },
     ],
   },
@@ -10276,7 +10244,7 @@ export const extraGuides40: LandingGuide[] = [
     links: [
       { label: "Browse Warm Tones", href: "/families/orange/" },
       { label: "Browse Cool Tones", href: "/families/blue/" },
-      { label: "Browse Neutral Colors", href: "/families/neutral/" },
+      { label: "Browse Neutral Colors", href: "/families/" },
     ],
   },
   {
@@ -10313,9 +10281,9 @@ export const extraGuides40: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
       { label: "Browse Brand Collections", href: "/collections/" },
-      { label: "Color Contrast Checker", href: "/tools/contrast/" },
+      { label: "Color Contrast Checker", href: "/contrast/" },
     ],
   },
   {
@@ -10352,8 +10320,8 @@ export const extraGuides40: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse Muted Colors", href: "/colors/" },
-      { label: "Color Contrast Checker", href: "/tools/contrast/" },
+      { label: "Browse Muted Colors", href: "/all-colors/" },
+      { label: "Color Contrast Checker", href: "/contrast/" },
       { label: "Browse Collections", href: "/collections/" },
     ],
   },
@@ -10391,7 +10359,7 @@ export const extraGuides40: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse All Colors", href: "/colors/" },
+      { label: "Browse All Colors", href: "/all-colors/" },
       { label: "Browse Brand Collections", href: "/collections/" },
       { label: "Browse Color Psychology Guides", href: "/guides/" },
     ],
@@ -10473,7 +10441,7 @@ export const extraGuides41: LandingGuide[] = [
     ],
     links: [
       { label: "Browse all collections", href: "/collections/" },
-      { label: "Browse warm palettes", href: "/colors/?sort=warm" },
+      { label: "Browse warm palettes", href: "/color-temperature/" },
     ],
   },
   {
@@ -10549,7 +10517,7 @@ export const extraGuides41: LandingGuide[] = [
     ],
     links: [
       { label: "Open contrast checker", href: "/contrast/" },
-      { label: "Browse all colors", href: "/colors/" },
+      { label: "Browse all colors", href: "/all-colors/" },
     ],
   },
   {
@@ -10624,7 +10592,7 @@ export const extraGuides42: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse all colors", href: "/colors/" },
+      { label: "Browse all colors", href: "/all-colors/" },
       { label: "Browse collections", href: "/collections/" },
     ],
   },
@@ -10690,7 +10658,7 @@ export const extraGuides42: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse all colors", href: "/colors/" },
+      { label: "Browse all colors", href: "/all-colors/" },
       { label: "Browse collections", href: "/collections/" },
     ],
   },
@@ -10724,7 +10692,7 @@ export const extraGuides42: LandingGuide[] = [
     ],
     links: [
       { label: "Browse all collections", href: "/collections/" },
-      { label: "Browse all colors", href: "/colors/" },
+      { label: "Browse all colors", href: "/all-colors/" },
     ],
   },
   {
@@ -10757,7 +10725,7 @@ export const extraGuides42: LandingGuide[] = [
     ],
     links: [
       { label: "Browse all collections", href: "/collections/" },
-      { label: "Browse all colors", href: "/colors/" },
+      { label: "Browse all colors", href: "/all-colors/" },
     ],
   },
 ];
@@ -11023,7 +10991,7 @@ export const extraGuides44: LandingGuide[] = [
     links: [
       { label: "Browse brand color palettes", href: "/collections/" },
       { label: "Explore all color families", href: "/families/" },
-      { label: "Build a color palette", href: "/palette-builder/" },
+      { label: "Build a color palette", href: "/palette-generator/" },
     ],
   },
   {
@@ -11106,7 +11074,7 @@ export const extraGuides44: LandingGuide[] = [
     ],
     links: [
       { label: "Browse brand color palettes", href: "/collections/" },
-      { label: "Build a custom palette", href: "/palette-builder/" },
+      { label: "Build a custom palette", href: "/palette-generator/" },
       { label: "Explore vivid color families", href: "/families/" },
     ],
   },
@@ -11190,7 +11158,7 @@ export const extraGuides44: LandingGuide[] = [
     ],
     links: [
       { label: "Browse color system palettes", href: "/collections/" },
-      { label: "Build a palette", href: "/palette-builder/" },
+      { label: "Build a palette", href: "/palette-generator/" },
       { label: "Explore neutral color families", href: "/families/" },
     ],
   },
@@ -11274,9 +11242,9 @@ export const extraGuides45: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse warm color palettes", href: "/families/warm/" },
+      { label: "Browse warm color palettes", href: "/color-temperature/" },
       { label: "Explore neutral collections", href: "/collections/" },
-      { label: "Find your palette", href: "/palette-builder/" },
+      { label: "Find your palette", href: "/palette-generator/" },
     ],
   },
   {
@@ -11472,7 +11440,7 @@ export const extraGuides46: LandingGuide[] = [
     links: [
       { label: "Color Palettes by Industry", href: "/industry/" },
       { label: "Browse blue palettes", href: "/families/blue/" },
-      { label: "Browse indigo palettes", href: "/families/indigo/" },
+      { label: "Browse indigo palettes", href: "/families/blue/" },
     ],
   },
   {
@@ -11508,8 +11476,8 @@ export const extraGuides46: LandingGuide[] = [
     ],
     links: [
       { label: "Color Palettes by Industry", href: "/industry/" },
-      { label: "Browse neutral palettes", href: "/families/true-gray/" },
-      { label: "Browse plum and burgundy palettes", href: "/families/plum/" },
+      { label: "Browse neutral palettes", href: "/families/" },
+      { label: "Browse plum and burgundy palettes", href: "/families/purple/" },
     ],
   },
 ];
@@ -11548,8 +11516,8 @@ export const extraGuides47: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse all color palettes", href: "/colors" },
-      { label: "Color for UI design guide", href: "/guides/color-ui-design-guide" },
+      { label: "Browse all color palettes", href: "/all-colors/" },
+      { label: "Color for UI design guide", href: "/guides/color-system-documentation-guide/" },
       { label: "Color in data visualization", href: "/guides/data-visualization-color-guide" },
     ],
   },
@@ -11586,7 +11554,7 @@ export const extraGuides47: LandingGuide[] = [
     links: [
       { label: "Color Palettes by Industry", href: "/industry/" },
       { label: "Browse teal color palettes", href: "/families/teal/" },
-      { label: "Color psychology guide", href: "/guides/color-psychology-brand-guide" },
+      { label: "Color psychology guide", href: "/guides/color-psychology-marketing-guide/" },
     ],
   },
   {
@@ -11621,7 +11589,7 @@ export const extraGuides47: LandingGuide[] = [
     ],
     links: [
       { label: "Color Palettes by Industry", href: "/industry/" },
-      { label: "Browse warm color palettes", href: "/families/amber/" },
+      { label: "Browse warm color palettes", href: "/families/orange/" },
       { label: "Browse all collections", href: "/collections" },
     ],
   },
@@ -11665,9 +11633,9 @@ export const extraGuides48: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse warm neutral palettes", href: "/families/amber/" },
+      { label: "Browse warm neutral palettes", href: "/families/orange/" },
       { label: "Explore teal color palettes", href: "/families/teal/" },
-      { label: "Color psychology guide", href: "/guides/color-psychology-brand-guide" },
+      { label: "Color psychology guide", href: "/guides/color-psychology-marketing-guide/" },
     ],
   },
   {
@@ -11705,9 +11673,9 @@ export const extraGuides48: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse warm color palettes", href: "/families/amber/" },
-      { label: "Browse cool color palettes", href: "/families/cobalt/" },
-      { label: "Color psychology guide", href: "/guides/color-psychology-brand-guide" },
+      { label: "Browse warm color palettes", href: "/families/orange/" },
+      { label: "Browse cool color palettes", href: "/families/blue/" },
+      { label: "Color psychology guide", href: "/guides/color-psychology-marketing-guide/" },
     ],
   },
   {
@@ -11745,8 +11713,8 @@ export const extraGuides48: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse blush and rose palettes", href: "/families/blush/" },
-      { label: "Explore sage and green palettes", href: "/families/moss/" },
+      { label: "Browse blush and rose palettes", href: "/families/pink/" },
+      { label: "Explore sage and green palettes", href: "/families/green/" },
       { label: "Browse all color collections", href: "/collections" },
     ],
   },
@@ -11791,7 +11759,7 @@ export const extraGuides49: LandingGuide[] = [
     links: [
       { label: "Explore brand-aligned color palettes", href: "/collections" },
       { label: "Browse by color family", href: "/families" },
-      { label: "Build a custom palette", href: "/builder" },
+      { label: "Build a custom palette", href: "/palette-generator/" },
     ],
   },
   {
@@ -11829,8 +11797,8 @@ export const extraGuides49: LandingGuide[] = [
     ],
     links: [
       { label: "Explore high-contrast color palettes", href: "/collections" },
-      { label: "Browse neutral gray colors", href: "/families/true-gray/" },
-      { label: "Test color contrast in the palette builder", href: "/builder" },
+      { label: "Browse neutral gray colors", href: "/families/" },
+      { label: "Test color contrast in the palette builder", href: "/palette-generator/" },
     ],
   },
   {
@@ -11869,7 +11837,7 @@ export const extraGuides49: LandingGuide[] = [
     links: [
       { label: "Explore dark and moody color palettes", href: "/collections" },
       { label: "Browse near-black color shades", href: "/colors/cool-gray-nocturne" },
-      { label: "Browse neutral gray families", href: "/families/true-gray/" },
+      { label: "Browse neutral gray families", href: "/families/" },
     ],
   },
 ];
@@ -11912,7 +11880,7 @@ export const extraGuides50: LandingGuide[] = [
     ],
     links: [
       { label: "Browse colors by family for logo palette ideas", href: "/families" },
-      { label: "Build a logo color palette", href: "/builder" },
+      { label: "Build a logo color palette", href: "/palette-generator/" },
       { label: "Explore editorial collections", href: "/collections" },
     ],
   },
@@ -11950,9 +11918,9 @@ export const extraGuides50: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Browse warm interior color families", href: "/families/amber" },
+      { label: "Browse warm interior color families", href: "/families/orange/" },
       { label: "Explore interior design collections", href: "/collections" },
-      { label: "Build a room color palette", href: "/builder" },
+      { label: "Build a room color palette", href: "/palette-generator/" },
     ],
   },
   {
@@ -11989,7 +11957,7 @@ export const extraGuides50: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Try the ColorArchive palette builder", href: "/builder" },
+      { label: "Try the ColorArchive palette builder", href: "/palette-generator/" },
       { label: "Browse curated color collections", href: "/collections" },
       { label: "Explore colors by family", href: "/families" },
     ],
@@ -12313,7 +12281,7 @@ export const extraGuides53: LandingGuide[] = [
     ],
     links: [
       { label: "Browse earthy collections", href: "/collections" },
-      { label: "Explore natural packs", href: "/packs" },
+      { label: "Explore natural packs", href: "/pro/" },
     ],
   },
   {
@@ -12350,7 +12318,7 @@ export const extraGuides53: LandingGuide[] = [
     ],
     links: [
       { label: "Explore brand identity palettes", href: "/collections" },
-      { label: "Brand color packs", href: "/packs" },
+      { label: "Brand color packs", href: "/pro/" },
     ],
   },
 ];
@@ -12392,7 +12360,7 @@ export const extraGuides54: LandingGuide[] = [
     ],
     links: [
       { label: "Explore bedroom palette collections", href: "/collections" },
-      { label: "Browse by color family", href: "/colors" },
+      { label: "Browse by color family", href: "/all-colors/" },
     ],
   },
   {
@@ -12429,7 +12397,7 @@ export const extraGuides54: LandingGuide[] = [
     ],
     links: [
       { label: "Browse brand palette collections", href: "/collections" },
-      { label: "Explore brand color packs", href: "/packs" },
+      { label: "Explore brand color packs", href: "/pro/" },
     ],
   },
   {
@@ -12466,7 +12434,7 @@ export const extraGuides54: LandingGuide[] = [
     ],
     links: [
       { label: "Explore warm color collections", href: "/collections" },
-      { label: "Browse warm palette packs", href: "/packs" },
+      { label: "Browse warm palette packs", href: "/pro/" },
     ],
   },
 ];
@@ -12508,7 +12476,7 @@ const extraGuides55: LandingGuide[] = [
     ],
     links: [
       { label: "Browse social media brand palettes", href: "/collections" },
-      { label: "Explore digital design color packs", href: "/packs" },
+      { label: "Explore digital design color packs", href: "/pro/" },
     ],
   },
   {
@@ -12544,7 +12512,7 @@ const extraGuides55: LandingGuide[] = [
       },
     ],
     links: [
-      { label: "Explore purple color palettes", href: "/colors?family=Violet" },
+      { label: "Explore purple color palettes", href: "/families/purple/" },
       { label: "Browse purple-themed collections", href: "/collections" },
     ],
   },
@@ -12582,7 +12550,7 @@ const extraGuides55: LandingGuide[] = [
     ],
     links: [
       { label: "Explore dark color collections", href: "/collections" },
-      { label: "Browse dark mode color packs", href: "/packs" },
+      { label: "Browse dark mode color packs", href: "/pro/" },
     ],
   },
 ];

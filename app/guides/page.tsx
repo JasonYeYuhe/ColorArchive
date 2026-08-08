@@ -29,6 +29,12 @@ export const metadata: Metadata = {
   description:
     "290+ practical guides for color palettes, dark mode UI, Figma color tokens, Tailwind themes, brand color systems, and accessible design. Free tools and downloadable palettes included.",
   alternates: { canonical: "/guides/" },
+  openGraph: {
+    title: "Color Guides — Palettes, Tokens & Design Systems",
+    description:
+      "290+ practical guides for color palettes, dark mode UI, Figma color tokens, Tailwind themes, brand color systems, and accessible design. Free tools and downloadable palettes included.",
+    url: `${SITE_URL}/guides/`,
+  },
 };
 
 export default function GuidesRoute() {
