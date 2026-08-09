@@ -4,6 +4,56 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-08-09
+
+> **No user-facing release this week either — 8 commits, Aug 2 to Aug 9, and every one was a repair.** The bulk of it was a 12-agent quality audit and the three fix batches it produced (`923d4b6` high, `f8cc6a3` medium, `f0bdec2` low, `92a68fa` redirects), plus the Design Notes decision cron. **Zero new colors, tools, collections, or guides.** So this is a spotlight, not a changelog — same call as Jul 12 and Jul 19.
+>
+> **Correct the numbers we've been publishing.** This week's audit found three surfaces claiming 25, 25 and 23+ tools while the array actually held **44**, and `llms.txt` claiming 360+ guides against a real **333**. We were understating the tools and overstating the guides at the same time. Both are now interpolated from the data and locked by a test (`src/lib/__tests__/content-links.test.ts:218`, 10/10 green this run), so they can't drift again. **Publish 44 tools and 333 guides.** Note the Jul 26 post went out saying "43 free tools" — slightly under, not worth a correction post, but don't repeat it.
+>
+> **The spotlight is verified in code this run.** Tailwind Color Finder (`src/components/tailwind-colors-page.tsx`) genuinely does all of what's claimed below: hex → top-5 nearest Tailwind classes ranked by CIEDE2000 ΔE with a plain-language read of each gap (`:17`, `:120`), copy chips for `bg-`/`text-`/`border-`/hex, the full v4 palette browsable by family, and every Tailwind color cross-named with its nearest archive color linking into `/colors/<id>/` (`:56`, `:186`). The palette data is **generated from the installed `tailwindcss/theme.css` OKLCH definitions, not hand-typed** (`src/lib/tailwind-colors.ts:1`) — 22 families × 11 shades plus black and white. It's been mentioned exactly once in this queue, buried in the Jul 26 ten-tool list, so it's fresh.
+>
+> **Owner notes:** (a) The repair work is deliberately *not* the public post — "we fixed 137 dead links" is a confession, not news, and it'd be the second self-correction post in a row after last week's privacy item. The one repair worth a public line is the redirect batch, since it serves anyone holding an old bookmark; it's the last line of the FB post. (b) Per repo convention this file is **manual-post-only — nothing below has been published**, and this run did not post to Facebook (see the run summary). (c) Keep the X variant **URL-free**: a link raises X API cost from ~$0.015 to ~$0.20 per post, which is what drained the credits in May. (d) Design Notes decision mail fires **2026-08-10** via `server/scripts/design-notes-decision.cjs` — unrelated to this post, but it lands the day after.
+
+### Facebook
+
+🎨 **A quiet release week, so here's a tool that deserves more attention than it gets: the Tailwind Color Finder.**
+
+If you build with Tailwind, you know the problem. A brand hands you `#1E90FF`. Tailwind has no `#1E90FF`. So you squint at the palette, pick something that looks close, and move on — or you give up and hardcode an arbitrary hex that breaks every dark-mode and hover utility you'd otherwise get for free.
+
+**Paste the hex. Get the five nearest Tailwind classes, ranked.**
+
+🔬 **Ranked by CIEDE2000, not by eyeballing it.** That's the perceptual color-difference standard — it weights lightness, chroma and hue separately instead of measuring raw distance in a color space that isn't perceptually uniform. "Closest" means closest *to your eye*.
+
+📏 **Each match tells you how close it actually is.** Not just a ΔE number, but what that number means in practice — whether the swap is invisible, visible only side by side, or a genuinely different color. That's the difference between "close enough to ship" and "your designer will notice."
+
+📋 **Copy the utility, not the hex.** One tap for `bg-sky-500`, `text-sky-500`, `border-sky-500`, or the raw hex if you need it.
+
+🎛️ **Or browse the whole v4 palette.** All 22 families, every shade, clickable. Useful when you're picking rather than matching.
+
+🔗 **And every Tailwind color is cross-named with its nearest archive color** — so `sky-500` isn't just a class, it's a doorway into the 5,446-color archive and all of that color's tonal, analogous and complementary relatives.
+
+One detail we're a little proud of: the palette isn't a hand-copied list that goes stale the next time Tailwind ships a release. It's generated straight from the installed Tailwind v4 OKLCH definitions.
+
+Match a hex to Tailwind → colorarchive.org/tailwind-colors
+
+Browse all 44 free tools → colorarchive.org/tools
+
+*Housekeeping: if you've got an old bookmark or an old link of ours that starts with `/tools/`, it now lands where it should instead of on a 404. Sorry it took us this long.*
+
+#ColorArchive #Tailwind #TailwindCSS #WebDev #DesignTools #CSS #Frontend #UIDesign #ColorTheory #DesignSystems
+
+### X / Twitter (@ColorArxiv — post WITHOUT a URL, see owner note)
+
+Quiet release week, so — an underused one:
+
+Brand gives you #1E90FF. Tailwind has no #1E90FF.
+
+Paste the hex, get the 5 nearest Tailwind classes, ranked by CIEDE2000 ΔE, each with a read on whether the swap is actually visible.
+
+Copy `bg-*` / `text-*` and move on. 🎨
+
+---
+
 ## Weekly Roundup — 2026-08-02
 
 > **There was no user-facing release this week, so this is not a changelog.** 27 commits landed between Jul 26 and Aug 2 and every one of them was internal: an identity bug where all per-IP rate limits collapsed into one global bucket, crawler filtering for the traffic numbers, the AI kill-gate, a closed `:3002` email vector plus a host firewall, backup-runbook corrections, and a red CI unblocked. **Zero new colors, tools, collections, or guides** — the tool count is still 43, unchanged from last week's post. Writing a "look what we shipped" post off this week would mean inventing news, so I didn't.

@@ -1,9 +1,9 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-08-08 (site quality audit shipped; 10 shadowed collections need an
-> editorial call — see immediately below. The 2026-08-10 Design Notes decision still
-> stands and still mails itself.)
+> Last updated: 2026-08-09 (weekly roundup drafted + two published counts corrected — 44
+> tools, 333 guides; off-repo copies still need a sweep. 10 shadowed collections still need
+> an editorial call. The 2026-08-10 Design Notes decision still stands and mails itself.)
 
 ## ✍️ 327 of 333 guide titles are too long for a search result
 
@@ -104,6 +104,41 @@ for a plumbing bug again.
 
 W31 is approved and idle. It recorded **no** row in `design_notes_deliveries`, so whoever
 subscribes first still receives it — waiting, or stopping, costs nothing.
+
+## 📮 2026-08-09 — weekly roundup drafted; and we've been publishing two wrong numbers
+
+Drafted in `docs/daily-posts-queue.md` under **Weekly Roundup — 2026-08-09**. **Nothing was
+published** — same reason as last week: this file is manual-post-only by convention, and
+publishing to the Facebook Page is a public, irreversible action I won't take unattended.
+
+**The number correction matters more than the post.** The 2026-08-08 audit found three
+user-facing surfaces claiming **25, 25 and 23+ tools** against an array that actually held
+**44**, and `llms.txt` claiming **360+ guides** against a real **333**. We were selling
+ourselves short on tools and overstating guides simultaneously. Both now interpolate from
+the data and are locked by `src/lib/__tests__/content-links.test.ts` (10/10 green), so they
+can't drift again. Two follow-ons for you:
+
+- **The Jul 26 post went out saying "43 free tools."** Real count is 44 — that entry
+  miscounted the same array. Too small to warrant a correction post, but the number is
+  wrong in a published post, and anything reusing that copy should say 44.
+- **Anywhere off-repo that quotes these counts is still wrong** — the test only guards
+  files in this repo. App Store description, Figma plugin listing, directory submissions
+  (IH / SaaSHub / AlternativeTo), and social bios are all outside it. Worth a sweep.
+
+**Second no-release week in a row.** 8 commits, all repair: the audit's three fix batches
+plus the retired-`/tools/*` redirects and the Design Notes decision cron. So the draft is
+again a spotlight, not a changelog — this time **Tailwind Color Finder**, verified in code
+this run (hex → top-5 nearest classes by CIEDE2000 ΔE, copy chips, full v4 palette, each
+color cross-named into the archive; palette generated from the installed Tailwind OKLCH
+definitions, not hand-typed). It's been mentioned once ever, buried in the Jul 26 list.
+
+To decide: (1) **post it or skip** — third spotlight in four weeks, and spotlights with no
+release behind them have diminishing returns; skipping is fine. (2) **The repair work is
+deliberately not the public lead** — "we fixed 137 dead links" is a confession, and it'd be
+the second self-correction post running after last week's privacy item. Only the redirect
+line made it in, as housekeeping at the foot of the post. (3) **X variant stays URL-free**
+(~$0.015 vs ~$0.20 per post). Note the **2026-08-10 Design Notes decision mails tomorrow** —
+you may want to hold the post until that lands, in case it changes what's worth saying.
 
 ## 📮 2026-08-02 — weekly roundup drafted, awaiting your approval before posting
 

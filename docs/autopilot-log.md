@@ -1,3 +1,52 @@
+## 2026-08-09 — [autopilot] weekly content roundup
+
+Scheduled weekly roundup for Aug 2–9. **Second consecutive no-release week** — 8 commits,
+all repair, zero new colors/tools/collections/guides. Spotlight, not changelog.
+
+- `git log --since="7 days ago"`: the 2026-08-08 audit's three fix batches (`923d4b6` high,
+  `f8cc6a3` medium, `f0bdec2` low), the retired-`/tools/*` redirect rescue (`92a68fa`), the
+  Design Notes decision cron (`ccbdc8b`, `2510ea4`, `ae31c4d`), and last week's own roundup
+  (`fba57c6`).
+- **Found two wrong numbers in published copy, which is the real output of this run.**
+  `src/components/tools-page.tsx` exports `TOOL_COUNT = TOOLS.length` as of `f0bdec2`;
+  counted the array directly at both `fba57c6` and `HEAD` → **44** tools, and `llms.txt`
+  now says **333** guides. Three surfaces had claimed 25/25/23+ tools and 360+ guides.
+  Ran `src/lib/__tests__/content-links.test.ts` → **10/10 green**, so both numbers are now
+  test-locked. **The Jul 26 roundup published "43 free tools" — that entry miscounted the
+  same 44-entry array.** Logged for the owner; too small for a correction post, but the
+  off-repo surfaces (App Store, Figma listing, directories, bios) are outside the test and
+  still need a manual sweep.
+- Picked the spotlight by checking prior queue coverage first, to avoid a repeat: `/compare`
+  ran Aug 2, colorblind palette mode Jul 19, word-to-color Jul 12. `tailwind-colors` had
+  exactly **1** prior mention, buried in the Jul 26 ten-tool list → fresh.
+- Verified every publishable claim against `src/components/tailwind-colors-page.tsx` before
+  writing: hex → top-5 nearest classes ranked by `deltaE2000Hex` with `interpretDeltaE`
+  plain-language read (`:17`, `:120`); copy chips for `bg-`/`text-`/`border-`/hex; full v4
+  palette browsable across 22 families; every color cross-named via
+  `findNearestArchiveColor` linking to `/colors/<id>/` (`:56`, `:186`). Palette data is
+  **generated from the installed `tailwindcss/theme.css` OKLCH definitions**
+  (`src/lib/tailwind-colors.ts:1`) — 245 entries = 22 × 11 plus black and white.
+- Wrote FB + X posts into `docs/daily-posts-queue.md` under **Weekly Roundup — 2026-08-09**.
+- **Deliberately left out of the public copy:** the repair work itself. "We fixed 137 dead
+  links across 95 guides" and "our highest-traffic page was prerendering as the string
+  'Loading generator…'" are confessions, not news, and would be the second self-correction
+  post in a row after last week's privacy item. The one exception is the `/tools/*` redirect
+  batch — it serves anyone holding an old bookmark, so it runs as a one-line housekeeping
+  note at the foot of the FB post.
+- **Did NOT auto-post to Facebook.** `docs/daily-posts-queue.md` is headed "Post manually to
+  Facebook Page when ready"; publishing to a public Page is an irreversible outward-facing
+  action, and this run is unattended with no owner available to approve it. Queued for
+  manual posting instead. Flagged in `docs/human-todo.md` that the 2026-08-10 Design Notes
+  decision mails the next day, so holding the post one day may be worthwhile.
+
+### Files Modified (4)
+- `docs/daily-posts-queue.md` — added **Weekly Roundup — 2026-08-09**
+- `docs/human-todo.md` — new 2026-08-09 entry (count correction + post approval) + header
+- `docs/autopilot-log.md` — this entry
+- `.claude/session-lock.json` — released
+
+---
+
 ## 2026-07-26 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jul 19–26. **First real changelog week since Jul 12** — the
