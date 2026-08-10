@@ -5,26 +5,25 @@
 > tools, 333 guides; off-repo copies still need a sweep. 10 shadowed collections still need
 > an editorial call. The 2026-08-10 Design Notes decision still stands and mails itself.)
 
-## 🌓 74 elements flip to their light colour on hover in dark mode
+## ✅ 2026-08-10 — the hover/dark specificity backlog is cleared (74 → 0)
 
-Not urgent, and not new — it predates the dark-mode work by a long way. The cause
-is one line in app/globals.css:
+All 33 components fixed by inserting a `dark:hover:*` partner beside each
+resting `dark:*` value. `src/lib/__tests__/dark-mode-classes.test.ts` now asserts
+zero rather than ratcheting.
 
-    @custom-variant dark (&:where(.dark, .dark *));
+**One thing left deliberately alone.** Two of the house hover conventions produce
+a change too subtle to perceive on a dark panel:
 
-`:where()` contributes zero specificity, so `dark:bg-x` is (0,1,0) while a plain
-`hover:bg-y` is (0,2,0). The hover wins. Any element that has both, and no
-`dark:hover:` counterpart, snaps back to its light-mode background under the
-cursor. 74 of them across about 15 components.
+| resting | hover | contrast change |
+|---|---|---|
+| `dark:bg-white/5` | `dark:hover:bg-white/10` | 1.17:1 |
+| `dark:bg-neutral-100` | `dark:hover:bg-neutral-300` | 1.09:1 |
 
-`src/lib/__tests__/dark-mode-classes.test.ts` holds the count at 74 as a ratchet:
-it may fall, never rise, so new work has to get it right without anyone needing
-to fix the backlog first. Lower the constant as components get cleaned up.
-
-Fixing one is mechanical — add `dark:hover:bg-*` (and `dark:hover:border-*` where
-a border is the affordance) next to the light hover. Worth doing a component at a
-time rather than in a sweep; a sweep is what caused the regressions this test now
-guards against.
+Both are already used across the codebase — nine and thirteen files respectively
+— so they were followed rather than improved. Changing them only where this pass
+happened to touch would leave two conventions side by side, which is worse than a
+uniformly weak hover. If you want them stronger (`/15` and `neutral-400` measure
+1.37 and 2.37), it should be one deliberate pass over every use.
 
 ## ✅ Both editorial items are done (2026-08-10)
 
