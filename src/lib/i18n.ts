@@ -920,6 +920,10 @@ const translations: Record<string, Record<string, string>> = {
     en: "Open next",
     zh: "打开下一个",
   },
+  "guide.putItToWork": {
+    en: "Put it to work",
+    zh: "动手试试",
+  },
   "guide.ctaLabel": {
     en: "Practical next step",
     zh: "下一步行动",

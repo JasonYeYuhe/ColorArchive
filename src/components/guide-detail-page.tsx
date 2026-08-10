@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
-import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 import { track } from "@/src/lib/track";
 import type { ColorCollection } from "@/src/lib/collections";
 import type { LandingGuide } from "@/src/lib/guides";
@@ -30,10 +29,18 @@ export function GuideDetailPage({
             <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
             {guide.eyebrow}
           </div>
-          <div className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
-            {t("guide.searchIntent")} {guide.searchIntent}
-          </div>
-          <h1 className="mt-3 max-w-4xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-6xl">
+          {/* The "Search intent: <raw keyword>" row that used to sit here is gone.
+              `searchIntent` is the SEO keyword a guide was written to rank for —
+              "brand color palette ideas", "figma color tokens" — and it was the
+              reader's second line of text on all 333 guides, stacked as a second
+              small-caps line before the title. The field still does real work
+              invisibly in the /guides/ index search filter, which is where
+              keyword data belongs.
+
+              (Removed once already in the low-severity batch; a revert during the
+              medium batch undid it and it went unnoticed until the slot below was
+              being rebuilt.) */}
+          <h1 className="mt-4 max-w-4xl font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-6xl">
             {guide.title}
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 dark:text-neutral-300 sm:text-lg">
@@ -183,35 +190,58 @@ export function GuideDetailPage({
             readers in the first place). The hook is deliberately technical:
             someone here is mid-research on contrast or OKLCH, so a daily color
             is the wrong promise — they get the weekly working note instead. */}
+        {/* This slot used to ask for an email — "Design Notes, one practical color
+            note a week". It was measured over the full 14-day clean window:
+            292 sessions had the form in view for a continuous second, and 0
+            subscribed. Rule of three puts the true rate under 1.0% at 95%
+            confidence, so this was not a headline that needed rewriting.
+
+            What these readers DO do is open the tool a guide is about. So the
+            space now carries that, contextually, using the same curated
+            guide.links mapping the sidebar uses — and unlike the sidebar, it sits
+            in the main column, which is where a reader on anything narrower than
+            1280px actually ends up.
+
+            Precedent for reclaiming rather than refilling with another ask: the
+            recruitment banner on /word-to-color/ was retired the same way after
+            3,857 impressions produced ~0 responses. */}
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 dark:border-white/10 dark:bg-neutral-900/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-6">
           <div className="mx-auto max-w-xl text-center">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">
-              Design Notes
+              {t("guide.putItToWork")}
             </div>
             <p className="mt-3 text-lg font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
-              One practical color note a week
+              {guide.links[0].label}
             </p>
-            <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-              Contrast and accessibility, color spaces like OKLCH, palette structure, design
-              tokens — written for people who build things. No daily noise.
-            </p>
-            <div className="mt-4 text-left">
-              <CotdSubscribeForm
-                source="guide"
-                heading="Get Design Notes weekly"
-                cotd={false}
-                notes
-                successNote="You're on the list — the next Design Notes lands in your inbox."
-                footnote="One email a week. Unsubscribe anytime."
-                // Route them into the tool this very guide is about, rather than
-                // ending on a confirmation. guide.links is the curated mapping
-                // that already exists (317 entries), so this stays contextual.
-                successCta={
-                  guide.links[0]
-                    ? { href: guide.links[0].href, label: `Try it: ${guide.links[0].label} →` }
-                    : undefined
+            <div className="mt-5 flex flex-wrap justify-center gap-2">
+              <Link
+                href={guide.links[0].href}
+                onClick={() =>
+                  track("guide_tool_click", {
+                    guide: guide.slug,
+                    target: guide.links[0].href,
+                    placement: "main",
+                  })
                 }
-              />
+                className="rounded-full border border-black/8 bg-neutral-950 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-800"
+              >
+                {guide.links[0].label}
+              </Link>
+              {guide.links[1] ? (
+                <Link
+                  href={guide.links[1].href}
+                  onClick={() =>
+                    track("guide_tool_click", {
+                      guide: guide.slug,
+                      target: guide.links[1].href,
+                      placement: "main",
+                    })
+                  }
+                  className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 dark:border-white/10 dark:bg-white/8 dark:text-neutral-200 dark:hover:bg-white/15 transition hover:bg-neutral-50"
+                >
+                  {guide.links[1].label}
+                </Link>
+              ) : null}
             </div>
           </div>
         </section>

@@ -41,58 +41,49 @@ Desert Last Light, Marine Depth, Abyssal Bioluminescence, Autumn Russet & Gold,
 Shinrin-yoku. 251 -> 261 collections. Tests now fail the build on a duplicate id
 OR a duplicate title.
 
-## 📅 2026-08-10 — DECIDE: does Design Notes continue? (report arrives by email)
+## ✅ 2026-08-10 — Design Notes is retired. Here is the number that decided it.
 
-**Owner decision, 2026-08-02: do not act on the 0-subscriber signal yet.**
+The report fired on schedule. Over the full 14 clean days:
 
-**Nothing to run — a one-shot cron mails you the numbers at 09:30 UTC on Mon 2026-08-10**
-(`server/scripts/design-notes-decision.cjs`, verified end to end with `--force --dry-run`
-on 08-02). It fires once and then no-ops; delete the script and its crontab line after
-you decide.
+| | |
+|---|---|
+| sessions that saw the signup form | **292** |
+| signups | **0** |
+| true rate, 95% confidence | **under 1.0%** |
 
-### The date is the 10th, not the 9th
+That is an answer, not an absence of one. The form was viewability-gated — 292
+people had it in view for a continuous second — and a weak headline still earns
+1–2%. Zero out of 292 is the format, not the pitch, and the rule-of-three ceiling
+says the best case is under one in a hundred.
 
-I first wrote 08-09 here and it was wrong by one day. The 14th clean day *is* 08-09, but
-it does not **finish** until 00:00 UTC on 08-10, and `traffic-truth.cjs` excludes the
-current day by design (never extrapolate a partial day). Run it on the 9th and it sees
-thirteen days and refuses to conclude. Confirmed against live output on 08-02, which
-printed `6/14 clean days` for 07-27..08-01 with 08-02 excluded.
+Consistent with everything else this audience has done: the recruitment banner on
+/word-to-color/ took 3,857 impressions for ~0 responses, and the whole site has 8
+email subscribers after months.
 
-### The number that decides it is not pageviews
+**What changed**
 
-As of 2026-08-02, over the first six clean days:
+- The weekly drafting routine is PAUSED, not deleted — the reason is in its name
+  on claude.ai/code/routines, and flipping `enabled` back on restores it.
+- The slot on guide detail pages now carries the guide's own tool links instead.
+  That is the action these readers demonstrably take: 19 tool clicks against 0
+  subscribes over the same window, and those links were 404ing for a third of
+  guides until last week, so the real rate should be better than 19.
+- Nothing was destroyed. W31 stays approved and unsent, the sender still works,
+  `design_notes_deliveries` is still empty. If you ever want the format back, the
+  pipeline is intact.
 
-| measure | value | what it means |
-|---|---|---|
-| **sessions that saw the form** | **122** | viewability-gated: 50% visible for 1 continuous second |
-| **signups** | **0** | |
-| **best case, 95% conf.** | **under 2.5%** | rule of three on 0/122 |
-| guide pageviews | 431 | arrival, not exposure — the weaker number |
+**If you disagree** — the opposite reading is that the pitch was wrong and
+deserves one more fortnight with new copy. I took the other branch because 0/292
+does not look like a copy problem. Re-enabling is two clicks.
 
-The 122 is `email_form_impression` on `/guides/*`, which only fires when someone actually
-scrolled to the slot and stopped on it. Quoting the 431 instead would understate the
-problem by counting people who were never asked.
+## 🔴 STILL NOT ROTATED — the Resend key is in plaintext in a routine prompt
 
-**That ceiling is the point.** This is not "we haven't seen a signup yet" — it is "the
-true rate cannot be better than ~2.5%, at 95% confidence". A weekly newsletter that
-converts under 2.5% of the people who stop and look at its signup form is not a headline
-you can rewrite your way out of. If the 08-10 numbers hold, that is a real answer, not an
-absence of one.
+Outstanding since 2026-07-27 and confirmed still live today: the
+`support-email-responder` routine embeds a live Resend API key as a literal in
+its prompt, and that prompt is readable to anyone who can see the routine. It is
+the same key the droplet uses, so rotating it means updating `server/.env` too.
 
-### What it is not
-
-The pipeline was verified end to end on 08-02 — capture surface, write path, sender,
-Friday cron. A zero on 08-10 is a verdict on the format or the pitch. Do not go looking
-for a plumbing bug again.
-
-### Two readings, opposite responses — pick one, don't split the difference
-
-- **The pitch is wrong** (position, heading, or the promise "one email a week") → rewrite
-  the slot and give it another fortnight.
-- **Guide readers don't want weekly email** → retire the format.
-
-W31 is approved and idle. It recorded **no** row in `design_notes_deliveries`, so whoever
-subscribes first still receives it — waiting, or stopping, costs nothing.
+Only you can do this — it is an account action on resend.com.
 
 ## 📮 2026-08-09 — weekly roundup drafted; and we've been publishing two wrong numbers
 
