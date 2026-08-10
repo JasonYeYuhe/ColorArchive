@@ -328,7 +328,7 @@ export function AllColorsPage({}: AllColorsPageProps) {
                 type="button"
                 onClick={() => { if (hexInput.length === 6) router.push(`/colors/hex/?c=${hexInput.toLowerCase()}`); }}
                 disabled={hexInput.length !== 6}
-                className="rounded-xl border border-black/8 bg-neutral-950 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-40 dark:border-white/20 dark:bg-white dark:text-neutral-950"
+                className="rounded-xl border border-black/8 bg-neutral-950 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-40 dark:border-white/20 dark:bg-white dark:hover:bg-neutral-200 dark:text-neutral-950"
               >
                 Go
               </button>
@@ -336,7 +336,7 @@ export function AllColorsPage({}: AllColorsPageProps) {
             {nearestToHex && (
               <Link
                 href={`/colors/${nearestToHex.id}/`}
-                className="mt-2 inline-flex items-center gap-2 rounded-xl border border-black/8 bg-white/85 px-3 py-1.5 text-xs text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300"
+                className="mt-2 inline-flex items-center gap-2 rounded-xl border border-black/8 bg-white/85 px-3 py-1.5 text-xs text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/15 dark:text-neutral-300"
               >
                 <span
                   className="h-4 w-4 flex-none rounded-full border border-black/8"

@@ -205,7 +205,7 @@ export function ColorWheelPage() {
                 className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition ${
                   harmony === key
                     ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                    : "border border-neutral-300 text-neutral-600 hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-400"
+                    : "border border-neutral-300 text-neutral-600 hover:border-neutral-500 dark:border-neutral-700 dark:hover:border-neutral-500 dark:text-neutral-400"
                 }`}
               >
                 {zh ? HARMONIES[key].zh : HARMONIES[key].en}
@@ -249,7 +249,7 @@ export function ColorWheelPage() {
                 <button
                   type="button"
                   onClick={() => navigator.clipboard?.writeText(hex).catch(() => {})}
-                  className="rounded-full border border-neutral-300 px-2.5 py-1 text-[11px] text-neutral-600 transition hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-400"
+                  className="rounded-full border border-neutral-300 px-2.5 py-1 text-[11px] text-neutral-600 transition hover:border-neutral-500 dark:border-neutral-700 dark:hover:border-neutral-500 dark:text-neutral-400"
                 >
                   {zh ? "复制" : "Copy"}
                 </button>

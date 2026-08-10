@@ -52,7 +52,7 @@ export function CopyUpsellToast() {
             <Link
               href="/pro/"
               onClick={dismiss}
-              className="rounded-full bg-neutral-950 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-neutral-800 dark:bg-white dark:text-neutral-950"
+              className="rounded-full bg-neutral-950 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-200 dark:text-neutral-950"
             >
               Upgrade to Pro
             </Link>

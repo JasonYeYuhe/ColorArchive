@@ -608,19 +608,19 @@ export function PaletteGeneratorPage() {
             Related tools
           </h2>
           <div className="flex flex-wrap gap-3">
-            <Link href="/mixer/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            <Link href="/mixer/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/15 dark:text-neutral-300">
               Color Mixer
             </Link>
-            <Link href="/harmonies/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            <Link href="/harmonies/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/15 dark:text-neutral-300">
               Color Harmonies
             </Link>
-            <Link href="/tints/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            <Link href="/tints/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/15 dark:text-neutral-300">
               Tints &amp; Shades
             </Link>
-            <Link href="/image-palette/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            <Link href="/image-palette/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/15 dark:text-neutral-300">
               Image Palette
             </Link>
-            <Link href="/validate/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            <Link href="/validate/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/15 dark:text-neutral-300">
               Palette Validator
             </Link>
           </div>

@@ -86,7 +86,7 @@ function PaletteCard({ palette, locale }: { palette: FamousPalette; locale: stri
             <a
               key={i}
               href={`/search/?q=${hexToSearch(color.hex)}`}
-              className="group/chip flex items-center gap-1.5 rounded-full border border-black/8 bg-neutral-50 px-2.5 py-1 transition hover:border-black/16 hover:bg-white dark:border-white/8 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+              className="group/chip flex items-center gap-1.5 rounded-full border border-black/8 bg-neutral-50 px-2.5 py-1 transition hover:border-black/16 hover:bg-white dark:border-white/8 dark:hover:border-white/20 dark:bg-neutral-800 dark:hover:bg-neutral-700"
               title={`Find ${color.name} in ColorArchive`}
             >
               <span
@@ -120,7 +120,7 @@ function PaletteCard({ palette, locale }: { palette: FamousPalette; locale: stri
           <button
             type="button"
             onClick={loadInPalette}
-            className="w-full rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-xs font-medium text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+            className="w-full rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-xs font-medium text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:hover:border-white/30 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
           >
             Open in Palette Builder →
           </button>
@@ -276,25 +276,25 @@ export function FamousPalettesPage() {
           <div className="flex flex-wrap gap-3">
             <a
               href="/palette-generator/"
-              className="rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-sm text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+              className="rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-sm text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:hover:border-white/30 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
             >
               Palette Generator →
             </a>
             <a
               href="/combinations/"
-              className="rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-sm text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+              className="rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-sm text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:hover:border-white/30 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
             >
               Color Combinations →
             </a>
             <a
               href="/harmonies/"
-              className="rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-sm text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+              className="rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-sm text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:hover:border-white/30 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
             >
               Color Harmonies →
             </a>
             <Link
               href="/collections/"
-              className="rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-sm text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+              className="rounded-xl border border-black/10 bg-neutral-50 px-4 py-2 text-sm text-neutral-700 transition hover:border-black/20 hover:bg-white dark:border-white/10 dark:hover:border-white/30 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
             >
               Curated Collections →
             </Link>

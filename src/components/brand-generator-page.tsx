@@ -362,7 +362,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
                 <button
                   key={p}
                   onClick={() => setIndustry(p)}
-                  className="px-2.5 py-0.5 text-xs bg-slate-100 dark:bg-white/5 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 dark:text-slate-300 rounded-full transition-colors"
+                  className="px-2.5 py-0.5 text-xs bg-slate-100 dark:bg-white/5 dark:hover:bg-white/10 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 dark:text-slate-300 rounded-full transition-colors"
                 >
                   {p}
                 </button>
@@ -388,7 +388,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
                 <button
                   key={p}
                   onClick={() => setStyle(p)}
-                  className="px-2.5 py-0.5 text-xs bg-slate-100 dark:bg-white/5 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 dark:text-slate-300 rounded-full transition-colors"
+                  className="px-2.5 py-0.5 text-xs bg-slate-100 dark:bg-white/5 dark:hover:bg-white/10 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 dark:text-slate-300 rounded-full transition-colors"
                 >
                   {p}
                 </button>
@@ -436,7 +436,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
                 <button
                   key={c.id}
                   onClick={() => { setStyle(c.style); setKeywords(c.summary.split(".")[0]); }}
-                  className="px-2.5 py-1 text-xs bg-slate-100 dark:bg-white/5 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 dark:text-slate-300 rounded-full transition-colors"
+                  className="px-2.5 py-1 text-xs bg-slate-100 dark:bg-white/5 dark:hover:bg-white/10 hover:bg-indigo-50 hover:text-indigo-700 text-slate-500 dark:text-slate-300 rounded-full transition-colors"
                 >
                   {c.title}
                 </button>

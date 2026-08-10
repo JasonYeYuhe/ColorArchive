@@ -390,7 +390,7 @@ export function PickForMePage({ collections }: { collections: ColorCollection[] 
               <button
                 type="button"
                 onClick={handleClear}
-                className="rounded-xl border border-black/8 bg-white px-4 py-3 text-sm font-medium text-neutral-600 transition hover:bg-neutral-50 dark:bg-white/10 dark:text-neutral-300 dark:border-white/10"
+                className="rounded-xl border border-black/8 bg-white px-4 py-3 text-sm font-medium text-neutral-600 transition hover:bg-neutral-50 dark:bg-white/10 dark:hover:bg-white/18 dark:text-neutral-300 dark:border-white/10"
               >
                 {t.startOver}
               </button>
@@ -408,7 +408,7 @@ export function PickForMePage({ collections }: { collections: ColorCollection[] 
                   <button
                     key={prompt}
                     onClick={() => handleQuickPrompt(prompt)}
-                    className="rounded-full border border-black/6 bg-white/80 px-3.5 py-1.5 text-sm text-neutral-600 transition hover:border-black/12 hover:bg-neutral-50 hover:text-neutral-900 dark:bg-white/5 dark:border-white/10 dark:text-neutral-400 dark:hover:bg-white/10 dark:hover:text-white"
+                    className="rounded-full border border-black/6 bg-white/80 px-3.5 py-1.5 text-sm text-neutral-600 transition hover:border-black/12 hover:bg-neutral-50 hover:text-neutral-900 dark:bg-white/5 dark:border-white/10 dark:hover:border-white/30 dark:text-neutral-400 dark:hover:bg-white/10 dark:hover:text-white"
                   >
                     {prompt}
                   </button>
@@ -508,13 +508,13 @@ export function PickForMePage({ collections }: { collections: ColorCollection[] 
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 href="/all-colors/"
-                className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:bg-white/10 dark:text-neutral-300 dark:border-white/10"
+                className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:bg-white/10 dark:hover:bg-white/18 dark:text-neutral-300 dark:border-white/10"
               >
                 {t.viewAll}
               </Link>
               <Link
                 href="/collections/"
-                className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:bg-white/10 dark:text-neutral-300 dark:border-white/10"
+                className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:bg-white/10 dark:hover:bg-white/18 dark:text-neutral-300 dark:border-white/10"
               >
                 {t.exploreCollections}
               </Link>

@@ -108,7 +108,7 @@ export function HeroSection({
             </a>
             <Link
               href="/pick-for-me/"
-              className="rounded-full border border-black/12 bg-white/70 px-6 py-3 text-sm font-medium text-neutral-700 transition hover:border-black/25 hover:bg-white dark:border-white/15 dark:bg-white/5 dark:text-neutral-300 dark:hover:bg-white/10"
+              className="rounded-full border border-black/12 bg-white/70 px-6 py-3 text-sm font-medium text-neutral-700 transition hover:border-black/25 hover:bg-white dark:border-white/15 dark:hover:border-white/30 dark:bg-white/5 dark:text-neutral-300 dark:hover:bg-white/10"
             >
               {t("hero.pickForMe")}
             </Link>
@@ -147,7 +147,7 @@ export function HeroSection({
         {FEATURES.map((f) => (
           <div
             key={f.href}
-            className="rounded-[1.75rem] border border-black/8 bg-white/70 p-6 backdrop-blur-xl transition hover:border-black/16 dark:border-white/10 dark:bg-neutral-900/55"
+            className="rounded-[1.75rem] border border-black/8 bg-white/70 p-6 backdrop-blur-xl transition hover:border-black/16 dark:border-white/10 dark:hover:border-white/30 dark:bg-neutral-900/55"
           >
             <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-neutral-400 dark:text-neutral-500">
               {t("hero.new")}
@@ -160,7 +160,7 @@ export function HeroSection({
             </p>
             <Link
               href={f.href}
-              className="mt-4 inline-flex rounded-full border border-black/10 bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/12 dark:bg-white/5 dark:text-neutral-300"
+              className="mt-4 inline-flex rounded-full border border-black/10 bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/12 dark:bg-white/5 dark:hover:bg-white/10 dark:text-neutral-300"
             >
               {t(f.ctaKey)}
             </Link>

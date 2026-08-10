@@ -121,7 +121,7 @@ export function DuotonePage() {
           const f = e.dataTransfer.files?.[0];
           if (f) loadFile(f);
         }}
-        className={`mt-6 flex h-32 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed text-sm transition ${dragOver ? "border-neutral-900 bg-neutral-100 dark:border-neutral-100 dark:bg-neutral-800" : "border-neutral-300 text-neutral-500 hover:border-neutral-500 dark:border-neutral-700"}`}
+        className={`mt-6 flex h-32 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed text-sm transition ${dragOver ? "border-neutral-900 bg-neutral-100 dark:border-neutral-100 dark:bg-neutral-800" : "border-neutral-300 text-neutral-500 hover:border-neutral-500 dark:border-neutral-700 dark:hover:border-neutral-500"}`}
       >
         <span>{zh ? "拖入图片,或点击选择" : "Drop an image here, or click to choose"}</span>
         <span className="mt-1 text-xs text-neutral-400">{zh ? "本地处理 · 不上传" : "Processed locally · never uploaded"}</span>
@@ -193,7 +193,7 @@ export function DuotonePage() {
               setHighlightInput(d.highlight);
               track("tool_action", { tool: "duotone", action: "preset", preset: d.name });
             }}
-            className="flex items-center gap-1.5 rounded-full border border-neutral-300 px-2.5 py-1 text-xs text-neutral-600 transition hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-400"
+            className="flex items-center gap-1.5 rounded-full border border-neutral-300 px-2.5 py-1 text-xs text-neutral-600 transition hover:border-neutral-500 dark:border-neutral-700 dark:hover:border-neutral-500 dark:text-neutral-400"
           >
             <span className="h-4 w-4 rounded-full" style={{ background: `linear-gradient(135deg, ${d.shadow} 50%, ${d.highlight} 50%)` }} />
             {d.name}

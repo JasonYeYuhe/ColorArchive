@@ -154,7 +154,7 @@ export function SharedProjectPage() {
         <div className="text-center pt-4">
           <Link
             href="/brand-generator/"
-            className="inline-block px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-700 transition-colors dark:bg-white dark:text-neutral-950"
+            className="inline-block px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-700 transition-colors dark:bg-white dark:hover:bg-neutral-200 dark:text-neutral-950"
           >
             Create your own palette
           </Link>

@@ -442,16 +442,16 @@ export function ColorHarmoniesPage() {
             Related tools
           </h2>
           <div className="flex flex-wrap gap-3">
-            <Link href="/palette-generator/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            <Link href="/palette-generator/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/15 dark:text-neutral-300">
               Palette Generator
             </Link>
-            <Link href="/contrast/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            <Link href="/contrast/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/15 dark:text-neutral-300">
               Contrast Checker
             </Link>
-            <Link href="/mixer/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            <Link href="/mixer/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/15 dark:text-neutral-300">
               Color Mixer
             </Link>
-            <Link href="/all-colors/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
+            <Link href="/all-colors/" className="rounded-xl border border-black/6 bg-white/60 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-white transition dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/15 dark:text-neutral-300">
               All Colors
             </Link>
           </div>

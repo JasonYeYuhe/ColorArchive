@@ -27,7 +27,7 @@ function CopyChip({ text }: { text: string }) {
           setTimeout(() => setCopied(false), 1200);
         } catch {}
       }}
-      className="rounded-full border border-neutral-300 px-2.5 py-1 font-mono text-[11px] text-neutral-600 transition hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-400"
+      className="rounded-full border border-neutral-300 px-2.5 py-1 font-mono text-[11px] text-neutral-600 transition hover:border-neutral-500 dark:border-neutral-700 dark:hover:border-neutral-500 dark:text-neutral-400"
     >
       {copied ? "✓" : text}
     </button>

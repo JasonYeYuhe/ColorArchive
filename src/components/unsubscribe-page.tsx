@@ -77,7 +77,7 @@ export function UnsubscribePage() {
         </p>
         <Link
           href="/"
-          className="mt-6 inline-block rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900"
+          className="mt-6 inline-block rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-700 dark:bg-neutral-100 dark:hover:bg-neutral-300 dark:text-neutral-900"
         >
           Back to ColorArchive
         </Link>
@@ -122,7 +122,7 @@ export function UnsubscribePage() {
           type="button"
           disabled={state === "working"}
           onClick={() => unsubscribe("all")}
-          className="rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900"
+          className="rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:opacity-50 dark:bg-neutral-100 dark:hover:bg-neutral-300 dark:text-neutral-900"
         >
           {state === "working" ? "Unsubscribing…" : "Unsubscribe from everything"}
         </button>
@@ -134,7 +134,7 @@ export function UnsubscribePage() {
               type="button"
               disabled={state === "working"}
               onClick={() => unsubscribe("cotd")}
-              className="flex-1 rounded-full border border-neutral-300 px-4 py-2 text-xs text-neutral-700 transition hover:border-neutral-500 disabled:opacity-50 dark:border-neutral-700 dark:text-neutral-300"
+              className="flex-1 rounded-full border border-neutral-300 px-4 py-2 text-xs text-neutral-700 transition hover:border-neutral-500 disabled:opacity-50 dark:border-neutral-700 dark:hover:border-neutral-500 dark:text-neutral-300"
             >
               Stop the daily color only
             </button>
@@ -142,7 +142,7 @@ export function UnsubscribePage() {
               type="button"
               disabled={state === "working"}
               onClick={() => unsubscribe("notes")}
-              className="flex-1 rounded-full border border-neutral-300 px-4 py-2 text-xs text-neutral-700 transition hover:border-neutral-500 disabled:opacity-50 dark:border-neutral-700 dark:text-neutral-300"
+              className="flex-1 rounded-full border border-neutral-300 px-4 py-2 text-xs text-neutral-700 transition hover:border-neutral-500 disabled:opacity-50 dark:border-neutral-700 dark:hover:border-neutral-500 dark:text-neutral-300"
             >
               Stop the weekly notes only
             </button>

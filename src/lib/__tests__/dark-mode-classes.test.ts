@@ -108,21 +108,18 @@ describe("dark mode classes", () => {
 
   /**
    * A bare `hover:bg-x` is (0,2,0); `dark:bg-y` is (0,1,0) because :where() adds
-   * nothing. So hovering an element in dark mode flips it back to its light-mode
-   * colour unless a `dark:hover:` partner exists.
+   * nothing. So an element with both, and no `dark:hover:` partner, snaps back to
+   * its LIGHT background under the cursor in dark mode.
    *
-   * A RATCHET, NOT A CLEAN BILL. There are 74 of these across ~15 components and
-   * they predate this test — the dark-mode work that introduced most of them
-   * happened long before anyone noticed the specificity interaction. Fixing all
-   * of them at once would mean touching fifteen live components for a hover
-   * state, which is exactly the opportunistic cleanup that turned a previous
-   * dark-mode pass into a series of regressions. So: the count may fall, never
-   * rise. New work has to get it right; the backlog is written up in
-   * docs/human-todo.md and can come down component by component.
+   * This started as a ratchet at 74 across 33 components — debt that predated the
+   * test, kept from growing while the backlog came down. It is now zero and a
+   * hard assertion. Every one was fixed by INSERTING a dark:hover partner beside
+   * the existing dark: resting value; nothing already written was rewritten,
+   * which is what makes a change of this breadth safe. The resting value decides
+   * the hover value: a background goes one step brighter, a border one step more
+   * visible, mirroring what the light-mode hover does to its own resting colour.
    */
-  const HOVER_VIOLATION_BASELINE = 74;
-
-  it(`no NEW element lets a hover:* state outrank its dark: counterpart (ratchet at ${HOVER_VIOLATION_BASELINE})`, () => {
+  it("no element lets a hover:* state outrank its dark: counterpart", () => {
     // Covers background AND border. Both bit this codebase in the same week: a
     // button whose hover made it darker than its own panel, and a card whose
     // hover border vanished, leaving no affordance at all.
@@ -143,10 +140,8 @@ describe("dark mode classes", () => {
       }
     }
     expect(
-      offenders.length,
-      offenders.length > HOVER_VIOLATION_BASELINE
-        ? `hover:bg-* outranks dark:bg-* on ${offenders.length - HOVER_VIOLATION_BASELINE} NEW element(s):\n${offenders.join("\n")}`
-        : `ratchet can be lowered to ${offenders.length}`,
-    ).toBeLessThanOrEqual(HOVER_VIOLATION_BASELINE);
+      offenders,
+      `these flip to their light-mode colour on hover in dark mode — add a dark:hover:* partner:\n${offenders.join("\n")}`,
+    ).toEqual([]);
   });
 });

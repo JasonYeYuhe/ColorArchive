@@ -296,7 +296,7 @@ export function UrlAnalyzerPage() {
               <Link
                 key={href}
                 href={href}
-                className="px-3 py-1.5 text-sm bg-white dark:bg-white/8 border border-slate-200 dark:border-white/10 rounded-lg text-slate-600 dark:text-slate-300 hover:border-indigo-300 hover:text-indigo-700 transition-colors"
+                className="px-3 py-1.5 text-sm bg-white dark:bg-white/8 border border-slate-200 dark:border-white/10 dark:hover:border-white/30 rounded-lg text-slate-600 dark:text-slate-300 hover:border-indigo-300 hover:text-indigo-700 transition-colors"
               >
                 {label}
               </Link>

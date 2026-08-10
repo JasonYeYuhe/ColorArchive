@@ -62,7 +62,7 @@ function CombinationCard({ combo }: { combo: ColorCombination }) {
           <Link
             key={color.id}
             href={`/colors/${color.id}/`}
-            className="flex items-center gap-1.5 rounded-full border border-black/8 bg-neutral-50 px-2 py-1 transition hover:border-black/16 hover:bg-white dark:border-white/8 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+            className="flex items-center gap-1.5 rounded-full border border-black/8 bg-neutral-50 px-2 py-1 transition hover:border-black/16 hover:bg-white dark:border-white/8 dark:hover:border-white/20 dark:bg-neutral-800 dark:hover:bg-neutral-700"
           >
             <span
               className="h-3 w-3 rounded-full border border-black/10 dark:border-white/10"

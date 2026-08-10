@@ -335,7 +335,7 @@ export function ScreenTestWizard({ zh, facts, onComplete }: ScreenTestWizardProp
               <button
                 type="button"
                 onClick={share}
-                className="rounded-full border border-neutral-300 px-5 py-2 text-sm text-neutral-700 transition hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-300"
+                className="rounded-full border border-neutral-300 px-5 py-2 text-sm text-neutral-700 transition hover:border-neutral-500 dark:border-neutral-700 dark:hover:border-neutral-500 dark:text-neutral-300"
               >
                 {zh ? "分享…" : "Share…"}
               </button>
@@ -343,7 +343,7 @@ export function ScreenTestWizard({ zh, facts, onComplete }: ScreenTestWizardProp
             <button
               type="button"
               onClick={start}
-              className="rounded-full border border-neutral-300 px-5 py-2 text-sm text-neutral-700 transition hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-300"
+              className="rounded-full border border-neutral-300 px-5 py-2 text-sm text-neutral-700 transition hover:border-neutral-500 dark:border-neutral-700 dark:hover:border-neutral-500 dark:text-neutral-300"
             >
               {zh ? "重新测试" : "Run again"}
             </button>

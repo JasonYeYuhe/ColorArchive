@@ -53,7 +53,7 @@ function CopyBtn({ value, label }: { value: string; label: string }) {
 
 function RelatedCard({ color, eyebrow }: { color: ColorRecord; eyebrow: string }) {
   return (
-    <article className="rounded-[1.45rem] border border-black/6 bg-white/84 p-3 transition hover:-translate-y-0.5 hover:border-black/10 hover:shadow-[0_18px_36px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-neutral-900/84">
+    <article className="rounded-[1.45rem] border border-black/6 bg-white/84 p-3 transition hover:-translate-y-0.5 hover:border-black/10 hover:shadow-[0_18px_36px_rgba(15,23,42,0.06)] dark:border-white/10 dark:hover:border-white/30 dark:bg-neutral-900/84">
       <Link href={`/colors/${color.id}/`} className="group block">
         <div
           className="h-24 rounded-[1.1rem] border border-black/6 dark:border-white/10"
@@ -129,7 +129,7 @@ export function CustomColorPage() {
           </p>
           <Link
             href="/all-colors/"
-            className="mt-4 rounded-full border border-black/8 bg-neutral-950 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-800 dark:border-white/20 dark:bg-white dark:text-neutral-950"
+            className="mt-4 rounded-full border border-black/8 bg-neutral-950 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-800 dark:border-white/20 dark:bg-white dark:hover:bg-neutral-200 dark:text-neutral-950"
           >
             Browse All Colors
           </Link>

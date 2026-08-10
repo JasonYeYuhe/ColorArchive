@@ -73,7 +73,7 @@ export function JournalExportButton({
         type="button"
         onClick={handleExport}
         disabled={exporting}
-        className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 disabled:opacity-50"
+        className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:text-neutral-200 disabled:opacity-50"
       >
         {exporting ? "Rendering…" : "Export PNG"}
       </button>

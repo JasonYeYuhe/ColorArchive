@@ -393,7 +393,7 @@ export function ScreenTestPage() {
             href="https://www.testufo.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-2xl border border-dashed border-neutral-300 bg-transparent p-5 text-left transition hover:border-neutral-400 dark:border-neutral-700"
+            className="rounded-2xl border border-dashed border-neutral-300 bg-transparent p-5 text-left transition hover:border-neutral-400 dark:border-neutral-700 dark:hover:border-neutral-500"
             onClick={() => track("screen_test_downstream_click", { target: "testufo" })}
           >
             <div className="text-base font-medium text-neutral-900 dark:text-neutral-100">

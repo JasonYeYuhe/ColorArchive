@@ -110,7 +110,7 @@ function ApiKeySection() {
             />
             <button
               onClick={copyKey}
-              className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-700 transition-colors dark:bg-white dark:text-neutral-950 shrink-0"
+              className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-700 transition-colors dark:bg-white dark:hover:bg-neutral-200 dark:text-neutral-950 shrink-0"
             >
               {copied ? t("account.copied") : t("account.copy")}
             </button>
@@ -137,7 +137,7 @@ function ApiKeySection() {
         <button
           onClick={generateKey}
           disabled={loading}
-          className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-700 transition-colors disabled:opacity-50 dark:bg-white dark:text-neutral-950"
+          className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-700 transition-colors disabled:opacity-50 dark:bg-white dark:hover:bg-neutral-200 dark:text-neutral-950"
         >
           {loading ? t("account.generating") : t("account.generateApiKey")}
         </button>

@@ -274,7 +274,7 @@ export function MixerPage() {
             <button
               type="button"
               onClick={() => { setHexA(hexB); setHexB(hexA); }}
-              className="rounded-full border border-black/8 bg-white px-4 py-1.5 text-xs font-medium text-neutral-600 transition hover:bg-neutral-100 dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-300"
+              className="rounded-full border border-black/8 bg-white px-4 py-1.5 text-xs font-medium text-neutral-600 transition hover:bg-neutral-100 dark:border-white/10 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-300"
             >
               ⇄ Swap Colors
             </button>
@@ -317,7 +317,7 @@ export function MixerPage() {
                 key={p.name}
                 type="button"
                 onClick={() => { setHexA(p.a); setHexB(p.b); }}
-                className="flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-white hover:shadow-sm dark:bg-neutral-800 dark:text-neutral-300"
+                className="flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-white hover:shadow-sm dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-300"
               >
                 <span className="flex gap-0.5">
                   <span className="inline-block h-4 w-4 rounded-l-full" style={{ background: p.a }} />

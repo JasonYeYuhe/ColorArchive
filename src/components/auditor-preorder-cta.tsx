@@ -23,7 +23,7 @@ export function AuditorPreorderCta({ from }: { from: string }) {
     <Link
       href="/preorder/"
       onClick={() => track("preorder_cta_click", { from })}
-      className="block rounded-2xl border border-amber-200 bg-amber-50/60 p-5 transition hover:border-amber-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-amber-900/50 dark:bg-amber-950/20 dark:focus-visible:ring-offset-neutral-950"
+      className="block rounded-2xl border border-amber-200 bg-amber-50/60 p-5 transition hover:border-amber-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-amber-900/50 dark:hover:border-amber-700 dark:bg-amber-950/20 dark:focus-visible:ring-offset-neutral-950"
     >
       <div className="flex items-center justify-between gap-4">
         <div>

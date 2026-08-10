@@ -256,7 +256,7 @@ export function HueGame({ zh, onScore }: HueGameProps) {
             <button
               type="button"
               onClick={reset}
-              className="rounded-full border border-neutral-300 px-4 py-1.5 text-xs text-neutral-700 transition hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-300"
+              className="rounded-full border border-neutral-300 px-4 py-1.5 text-xs text-neutral-700 transition hover:border-neutral-500 dark:border-neutral-700 dark:hover:border-neutral-500 dark:text-neutral-300"
             >
               {zh ? "再来一局" : "Play again"}
             </button>

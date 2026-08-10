@@ -410,7 +410,7 @@ export function TokenGeneratorPage() {
                   key={p.primary}
                   type="button"
                   onClick={() => { handleHexChange(p.primary); }}
-                  className="flex items-center gap-1.5 rounded-full border border-black/8 bg-white/80 px-3 py-1.5 text-xs font-medium text-neutral-600 transition hover:border-black/15 hover:bg-neutral-50 dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                  className="flex items-center gap-1.5 rounded-full border border-black/8 bg-white/80 px-3 py-1.5 text-xs font-medium text-neutral-600 transition hover:border-black/15 hover:bg-neutral-50 dark:border-white/10 dark:hover:border-white/30 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
                 >
                   <span className="h-3 w-3 rounded-full border border-black/10 flex-shrink-0" style={{ backgroundColor: p.primary }} />
                   {p.name}

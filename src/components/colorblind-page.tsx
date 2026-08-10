@@ -269,7 +269,7 @@ function SafeFixSuggestions({ hexes, failing }: { hexes: string[]; failing: Map<
                 <button
                   type="button"
                   onClick={() => navigator.clipboard?.writeText(fix.candidate.hex).catch(() => {})}
-                  className="rounded-full border border-neutral-300 px-2 py-0.5 text-[11px] text-neutral-600 transition hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-400"
+                  className="rounded-full border border-neutral-300 px-2 py-0.5 text-[11px] text-neutral-600 transition hover:border-neutral-500 dark:border-neutral-700 dark:hover:border-neutral-500 dark:text-neutral-400"
                 >
                   Copy
                 </button>
