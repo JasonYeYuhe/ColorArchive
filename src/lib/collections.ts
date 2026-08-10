@@ -1349,8 +1349,8 @@ collections.push(...extraCollections15);
 
 const extraCollections16: ColorCollection[] = [
   createCollection(
-    "golden-hour",
-    "Golden Hour",
+    "golden-hour-amber",
+    "Golden Hour Amber",
     "Warm amber, apricot glow, honey silk, ember core, and amber velvet — the concentrated warmth of late-afternoon light for lifestyle, photography, and editorial brands.",
     "Golden hour is the 45-minute window before sunset when sunlight travels through more atmosphere, scattering blue wavelengths and concentrating warm amber and orange frequencies. The resulting light quality — saturated warmth at medium-high lightness, with deep amber shadows — is one of the most recognizable and commercially desirable color registers in photography, film, food, and lifestyle branding. The palette captures this light in its full range: amber-bloom-clear provides the luminous, slightly saturated amber of direct golden-hour sun — the color of light striking a glass of honey; apricot-silk-soft delivers the warm, peachy-amber of skin and light fabric illuminated from behind; honey-bloom-muted introduces the slightly softer, more golden version of the same warmth — amber where the direct light has diffused; ember-core-soft supplies the deeper, more saturated anchor — the color of direct sunlight on warm stone or the concentrated warmth of backlit leaves; amber-velvet-soft completes the palette with the deep warm-amber shadow value — the color of late shadow in golden light, where warmth persists into the darker values. Together these five colors recreate the luminosity gradient of golden-hour light from highlight to deep warm shadow.",
     ["Warm", "Lifestyle", "Photography"],
@@ -1871,8 +1871,8 @@ const extraCollections22: ColorCollection[] = [
     },
   ),
   createCollection(
-    "nordic-morning",
-    "Nordic Morning",
+    "nordic-ice-light",
+    "Nordic Ice Light",
     "Ice-pale blues and cool bone whites — a cold-light clarity palette for Scandinavian-aesthetic brands, productivity tools, and premium cold-climate design.",
     "Nordic morning captures the quality of light in northern latitudes in early morning: the pale, slightly blue-shifted light that precedes sunrise, where everything is visible but nothing is warm. Azure-veil-faint opens as the barely-blue base — nearly white, with just enough cool blue presence to read as intentional rather than warm-neutral. Cool-gray-whisper provides the secondary surface in near-perfect neutral gray, slightly cooler than warm-gray, adding structural separation without temperature shift. Cerulean-bloom-muted introduces the first clearly defined blue mid-tone — a muted cerulean at medium lightness, the color of a clear northern sky at depth. Azure-tone-soft darkens toward a readable structural blue-gray for secondary text and contained areas, still firmly light and cool. Cobalt-ink-muted closes as the near-dark anchor — a deep muted cobalt that provides full text contrast while maintaining the cool Nordic register.",
     ["Cold", "Scandinavian", "Precision"],
@@ -2622,8 +2622,8 @@ const extraCollections28: ColorCollection[] = [
     }
   ),
   createCollection(
-    "deep-ocean",
-    "Deep Ocean",
+    "marine-depth",
+    "Marine Depth",
     "Dark navy, teal-black, and deep blue tones inspired by the visual register of oceanic depth, marine technology, and high-pressure aquatic environments.",
     "Deep ocean draws from the color register of ocean depth rather than ocean surface: not the vivid turquoise of shallow tropical water but the progressively darkening blue-teal of descending depth, the near-black of bathypelagic zones, and the cold, pressure-heavy quality of abyssal environments. The palette is unified by high value depth and cool temperature — each tone sits in the dark-to-very-dark range, with distinctiveness expressed through subtle shifts between blue, teal, and near-neutral gray-blue. Navy-depth-strong opens as the palette's primary deep navy — a rich, cool dark blue that provides the palette's most recognizable and versatile foundation tone. Teal-depth-strong introduces the blue-green register — a very dark teal that reads as oceanic depth with a trace of green-cyan distinguishing it from pure navy. Cobalt-depth-strong deepens toward pure cool dark blue — a tone with slightly more purple-blue character that reads as deepwater at night. Navy-shadow-muted provides a near-neutral dark blue-gray — the palette's most neutral and versatile dark, functioning as the primary text and background color in dark-mode applications. Teal-shadow-muted closes at the deepest point — a very dark teal-gray that approaches black while retaining just enough chromatic identity to maintain the oceanic register.",
     ["Ocean", "Deep", "Technical"],
@@ -2949,8 +2949,8 @@ const extraCollections31: ColorCollection[] = [
     }
   ),
   createCollection(
-    "copper-verdigris",
-    "Copper & Verdigris",
+    "aged-copper-bronze",
+    "Aged Copper & Bronze",
     "Warm copper tones, deep ember, and oxidized jade-green — the specific palette of aged copper and bronze: the warm metal underneath, the darkened shadow register, and the blue-green patina that builds over decades of exposure.",
     "Copper and verdigris is the palette of aged metal — specifically the three-register color story of copper: the warm orange-red of new copper, the darkened ember of oxidized copper without patina, and the characteristic blue-green of mature verdigris. These colors appear together on copper rooftops, bronze sculpture, architectural details, and aged vessels, and the combination reads as simultaneously warm and sophisticated — the warmth of the copper contrasted against the cool, chemical quality of the patina. Ember-core-soft provides the palette's foundational warm copper — a slightly desaturated ember that reads as burnished metal rather than raw fire. Ember-shadow-muted gives the deep, darkened copper register — the color of copper that has oxidized to brown without yet developing patina, the specific warm dark of aged metal in shadow. Jade-tone-muted provides the characteristic patina register — the specific muted gray-green of copper verdigris, which reads as simultaneously aged, sophisticated, and slightly mysterious. Teal-tone-muted extends the patina into the slightly more chromatic range — the greener, more vivid verdigris seen in areas of more active oxidation. Amber-bloom-soft provides a warm mid-range that bridges the copper and patina registers, reading as burnished highlight and connecting the warm and cool poles of the palette.",
     ["Artisan", "Metallic", "Heritage"],
@@ -5911,8 +5911,8 @@ const extraCollections52: ColorCollection[] = [
     },
   ),
   createCollection(
-    "desert-dusk",
-    "Desert Dusk",
+    "desert-last-light",
+    "Desert Last Light",
     "The brief, vivid window of Southwestern desert at dusk — mauve mesa shadows, amber last light, and cooling violet sky.",
     "Desert color is primarily a story of light. During the day, the bleached intensity flattens everything. But in the thirty minutes after the sun sets below the mesa, the light does something extraordinary: warm amber and gold on lit surfaces, violet and mauve in the shadows, a sky that moves from orange to rose to violet to deep blue in minutes. This palette captures that window.",
     ["Desert", "Southwest", "Dusk", "Warm", "Atmospheric"],
@@ -6014,8 +6014,8 @@ const extraCollections52: ColorCollection[] = [
     },
   ),
   createCollection(
-    "deep-ocean",
-    "Deep Ocean",
+    "abyssal-bioluminescence",
+    "Abyssal Bioluminescence",
     "The palette of deep-water marine environments — abyssal navy, bioluminescent aqua, pearl, and deep shadow.",
     "The ocean's color range varies dramatically with depth. Surface waters are bright aqua and cerulean. Below the photic zone — where photosynthesis stops and light becomes rare — the palette shifts to deep navy, black, and the occasional vivid blue-green of bioluminescence. This palette captures the deeper, darker register of marine environments.",
     ["Ocean", "Marine", "Deep", "Dark", "Aqua"],
@@ -6123,8 +6123,8 @@ const extraCollections53: ColorCollection[] = [
     },
   ),
   createCollection(
-    "autumn-harvest",
-    "Autumn Harvest",
+    "autumn-russet-gold",
+    "Autumn Russet & Gold",
     "The full richness of autumn — deep amber, warm russet, harvest gold, and the last greens before winter.",
     "Autumn harvest palettes draw from the peak of fall foliage before the browns take over: the orange-red of sugar maples, amber of aspen groves, gold of cornfields, and the residual green that makes the warm colors pop by contrast. This is the palette of abundance — rich, full, warm, celebratory.",
     ["Autumn", "Harvest", "Seasonal", "Warm", "Earth"],
@@ -6175,8 +6175,8 @@ const extraCollections53: ColorCollection[] = [
     },
   ),
   createCollection(
-    "midnight-garden",
-    "Midnight Garden",
+    "midnight-botanicals",
+    "Midnight Botanicals",
     "Dark botanicals at night — deep forest green, midnight plum, shadow navy, and the palest gold of a lantern.",
     "The midnight garden is a romantic design register: lush and deep, with botanical richness that glows against the dark background. Inspired by Victorian botanical illustration's combination of scientific accuracy and romantic darkness, this palette works for premium beauty, dark-themed hospitality, and editorial contexts where drama is the goal.",
     ["Midnight", "Garden", "Botanical", "Dark", "Romantic"],
@@ -6284,8 +6284,8 @@ const extraCollections54: ColorCollection[] = [
     },
   ),
   createCollection(
-    "golden-hour",
-    "Golden Hour",
+    "magic-hour",
+    "Magic Hour",
     "The palette of the magic hour — warm amber, rose gold, pale coral, and soft peach — for photography-inspired design with a warmth and glow that stops the scroll.",
     "The hour after sunrise and before sunset produces light with qualities that professional photographers have chased since the first cameras: low angle, warm color temperature (2000-4000K), long shadows, and a quality of diffused warmth that flatters surfaces and subjects alike. The palette of golden hour is not vivid — it is soft, luminous, and suffused with amber and rose. Nothing in the scene is fully saturated; everything is warm.",
     ["Golden Hour", "Warm", "Photography", "Amber", "Rose Gold"],
@@ -6310,8 +6310,8 @@ const extraCollections54: ColorCollection[] = [
     },
   ),
   createCollection(
-    "forest-bathing",
-    "Forest Bathing",
+    "shinrin-yoku",
+    "Shinrin-yoku",
     "The restorative palette of shinrin-yoku — deep forest green, dappled moss, earthy brown, and filtered light — for wellness, biophilic, and nature-immersion design.",
     "Shinrin-yoku — forest bathing, the Japanese practice of restorative immersion in forest environments — produces measurable physiological effects: reduced cortisol, lowered blood pressure, improved mood. The palette of the forest is not bright: it is layered, muted, and deeply varied in green. Sunlight filters through canopy and becomes something else — dappled, indirect, green-shifted. The palette of forest bathing is green at every scale, with earthy brown anchors and the occasional filtered warm light.",
     ["Forest", "Green", "Nature", "Wellness", "Biophilic"],
@@ -6638,30 +6638,22 @@ collections.push(...extraCollections56);
 // ---------------------------------------------------------------------------
 // De-duplicate by id — keep the FIRST occurrence of each id.
 //
-// Mirrors the slug dedupe in src/lib/guides.ts:12639 and exists for the same
-// reason: getCollectionById() resolves with .find(), so a repeated id meant the
-// later entries rendered at no URL at all. Measured 2026-08-08: 8 ids repeated
-// across 18 entries — golden-hour ×3, deep-ocean ×3, and ×2 each of
-// nordic-morning, midnight-garden, copper-verdigris, desert-dusk,
-// autumn-harvest, forest-bathing — leaving 10 curated collections unreachable.
+// Mirrors the slug dedupe in src/lib/guides.ts and exists for the same reason:
+// getCollectionById() resolves with .find(), so a repeated id means the later
+// entries render at no URL at all.
 //
-// They are NOT identical copies. Each shadowed entry has its own summary and
-// palette, so this drops real editorial work. It is still the right call for
-// now, because MOST of their titles are identical — minting ids would publish
-// pages with duplicate <title> tags, an SEO problem this same audit flagged
-// separately. The one exception is copper-verdigris, whose shadowed entry is
-// titled "Copper & Verdigris" against the live "Copper Verdigris"; that one
-// could be re-idded today without the duplicate-title objection.
-// Re-titling is authoring, not a mechanical fix; the ten are listed in
-// docs/human-todo.md for the owner to re-publish deliberately if wanted.
-//
-// The user-visible result is unchanged — these already rendered nowhere. What
-// changes is that app/sitemap.ts stops emitting duplicate URLs for them, and
-// generateStaticParams() stops emitting duplicate params.
+// IT CURRENTLY DROPS NOTHING, AND THAT IS THE POINT. When this guard went in it
+// was silently discarding ten fully-written collections — 8 ids repeated across
+// 18 entries, e.g. three different "Golden Hour" palettes competing for one URL.
+// They were not copies: each had its own summary, palette and editorial note. So
+// they were given ids and titles that say what they actually are
+// (golden-hour-amber, magic-hour, abyssal-bioluminescence, shinrin-yoku, …) and
+// all ten now ship. The guard stays as a backstop, and the test alongside it
+// fails the build if a duplicate id or a duplicate title ever comes back.
 //
 // Deduped silently rather than thrown, matching guides.ts: the autopilot commits
 // collections daily and an id collision must never break the production build.
-// The dropped ids are logged so the collision stays visible in build output.
+// The dropped ids are logged so a collision stays visible in build output.
 // ---------------------------------------------------------------------------
 {
   const seenIds = new Set<string>();

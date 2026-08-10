@@ -5,7 +5,8 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { getLandingGuide, getRelatedGuides, landingGuides } from "@/src/lib/guides";
 import { getCollectionById } from "@/src/lib/collections";
-import { guideFaqs, guideSeoTitles } from "@/src/lib/guide-seo";
+import { guideFaqs } from "@/src/lib/guide-seo";
+import { getGuideSeoTitle } from "@/src/lib/guide-seo-title";
 import { SITE_URL } from "@/src/lib/site-config";
 
 interface GuidePageProps {
@@ -45,7 +46,7 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
   }
 
   return {
-    title: { absolute: guideSeoTitles[slug] ?? `${guide.title} | ColorArchive` },
+    title: { absolute: getGuideSeoTitle(slug, guide.title) },
     description: guide.summary,
     alternates: {
       canonical: `/guides/${guide.slug}/`,

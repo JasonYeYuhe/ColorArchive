@@ -7,6 +7,7 @@ import { landingGuides } from "@/src/lib/guides";
 import { newsletterIssues } from "@/src/lib/newsletter-issues";
 import rawIssues from "@/src/data/newsletter-issues.json";
 import { TOOL_COUNT } from "@/src/components/tools-page";
+import { guideSeoTitleEntries } from "@/src/lib/guide-seo-title";
 
 /**
  * Every "Open next" pill on a guide page must point at a route that exists.
@@ -213,7 +214,6 @@ describe("collections", () => {
     }
     expect(repeated, `duplicate collection ids:\n${repeated.join("\n")}`).toEqual([]);
   });
-});
 
 describe("counts quoted in user-facing copy", () => {
   /**
@@ -236,5 +236,56 @@ describe("counts quoted in user-facing copy", () => {
     const guides = llms.match(/(\d+)\+? color guides/);
     expect(tools?.[1], "tool count in public/llms.txt").toBe(String(TOOL_COUNT));
     expect(guides?.[1], "guide count in public/llms.txt").toBe(String(landingGuides.length));
+  });
+});
+
+describe("guide SEO titles", () => {
+  /**
+   * 327 of 333 guide titles used to run past the point a search result is cut,
+   * median 87 characters. They are now derived from each title's own keyword
+   * phrase rather than truncated — see src/lib/guide-seo-title.ts for why a
+   * blind cut was the wrong fix.
+   *
+   * Both properties matter and they pull against each other: shortening
+   * aggressively makes titles collide, and a duplicate <title> across indexable
+   * pages is the worse failure. A first attempt produced 12 such collisions.
+   */
+  it("no two guides share a title", () => {
+    const seen = new Map<string, string[]>();
+    for (const [slug, title] of guideSeoTitleEntries()) {
+      if (!seen.has(title)) seen.set(title, []);
+      seen.get(title)!.push(slug);
+    }
+    const collisions = [...seen.entries()]
+      .filter(([, slugs]) => slugs.length > 1)
+      .map(([title, slugs]) => `"${title}" ← ${slugs.join(", ")}`);
+    expect(collisions, `guides sharing a <title>:\n${collisions.join("\n")}`).toEqual([]);
+  });
+
+  it("stays within the SERP cut for all but a handful", () => {
+    // A ratchet, not zero: a dozen guides have no clause boundary to cut at and
+    // their full title is the only honest option. The number may fall, not rise.
+    const OVER_LENGTH_BASELINE = 12;
+    const tooLong = guideSeoTitleEntries().filter(([, title]) => title.length > 60);
+    expect(
+      tooLong.length,
+      `titles over 60 chars:\n${tooLong.map(([s, t]) => `${t.length} ${s}: ${t}`).join("\n")}`,
+    ).toBeLessThanOrEqual(OVER_LENGTH_BASELINE);
+  });
+});
+
+  it("no two collections share a title", () => {
+    // Ten collections were unreachable because they shared an id with a live one;
+    // giving them their own ids only helps if the titles distinguish them too,
+    // otherwise the fix trades dead pages for duplicate <title> tags.
+    const seen = new Map<string, string[]>();
+    for (const collection of collections) {
+      if (!seen.has(collection.title)) seen.set(collection.title, []);
+      seen.get(collection.title)!.push(collection.id);
+    }
+    const collisions = [...seen.entries()]
+      .filter(([, ids]) => ids.length > 1)
+      .map(([title, ids]) => `"${title}" ← ${ids.join(", ")}`);
+    expect(collisions, `collections sharing a title:\n${collisions.join("\n")}`).toEqual([]);
   });
 });
