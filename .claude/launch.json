@@ -1,12 +1,6 @@
 {
   "version": "0.0.1",
   "configurations": [
-    {
-      "name": "colorarchive-dev",
-      "runtimeExecutable": "/opt/homebrew/bin/node",
-      "runtimeArgs": ["node_modules/.bin/next", "dev"],
-      "port": 3000
-    }
-  ],
-  "autoVerify": false
+    { "name": "colorarchive-dev", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3000 }
+  ]
 }

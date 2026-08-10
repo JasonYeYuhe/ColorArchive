@@ -139,18 +139,18 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
       <main className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex w-full max-w-[1100px] flex-col gap-6">
           {/* Hero */}
-          <section className="overflow-hidden rounded-[2rem] border border-black/6 bg-white/78 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
+          <section className="overflow-hidden rounded-[2rem] border border-black/6 bg-white/78 shadow-[0_24px_80px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-neutral-900/80">
             <div className="h-56 border-b border-black/6 sm:h-72" style={{ backgroundColor: generated.hex }} aria-hidden="true" />
             <div className="p-6 sm:p-8">
-              <div className="text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-400">
+              <div className="text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-400">
                 Word to Color
               </div>
-              <h1 className="font-display mt-2 text-3xl font-light tracking-[-0.03em] text-neutral-950 sm:text-5xl">
+              <h1 className="font-display mt-2 text-3xl font-light tracking-[-0.03em] text-neutral-950 dark:text-white sm:text-5xl">
                 The color of &ldquo;{display}&rdquo; is {generated.hex}
               </h1>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600">
-                The word <strong className="font-semibold text-neutral-900">{word}</strong> maps to{" "}
-                <strong className="font-semibold text-neutral-900">{generated.hex}</strong>,{" "}
+              <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600 dark:text-neutral-300">
+                The word <strong className="font-semibold text-neutral-900 dark:text-neutral-100">{word}</strong> maps to{" "}
+                <strong className="font-semibold text-neutral-900 dark:text-neutral-100">{generated.hex}</strong>,{" "}
                 {familyArticle} {generated.family.toLowerCase()} tone ({generated.rgb}, {generated.hsl}). This is a
                 deterministic result — the same word always produces the same color, plus the five-shade
                 palette below.
@@ -163,9 +163,9 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
                   { label: "HSL", value: generated.hsl },
                   { label: "Family", value: generated.family },
                 ].map((stat) => (
-                  <div key={stat.label} className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3">
-                    <div className="text-xs uppercase tracking-[0.16em] text-neutral-400">{stat.label}</div>
-                    <div className="mt-1 font-medium text-neutral-950">{stat.value}</div>
+                  <div key={stat.label} className="rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 dark:border-white/10 dark:bg-neutral-950">
+                    <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-400">{stat.label}</div>
+                    <div className="mt-1 font-medium text-neutral-950 dark:text-white">{stat.value}</div>
                   </div>
                 ))}
               </div>
@@ -179,7 +179,7 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
                 </Link>
                 <Link
                   href={`/colors/hex/?c=${encodeURIComponent(generated.hex.replace('#',''))}`}
-                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
+                  className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-600 dark:border-white/10 dark:bg-white/8 dark:text-neutral-200 dark:hover:bg-white dark:hover:text-neutral-950 transition hover:bg-neutral-950 hover:text-white"
                 >
                   Find nearest archive colors
                 </Link>
@@ -188,20 +188,20 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
           </section>
 
           {/* Palette */}
-          <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-6">
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
+          <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80 sm:p-6">
+            <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
               {display} palette — 5 shades
             </h2>
-            <p className="mt-1 text-sm text-neutral-500">
+            <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
               Five linked tones generated around the same color signature.
             </p>
             <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
               {generated.variants.map((variant) => (
-                <div key={variant.label} className="overflow-hidden rounded-[1.4rem] border border-black/6 bg-white shadow-sm">
+                <div key={variant.label} className="overflow-hidden rounded-[1.4rem] border border-black/6 bg-white shadow-sm dark:border-white/10 dark:bg-neutral-950">
                   <div className="h-24 border-b border-black/6" style={{ backgroundColor: variant.hex }} />
                   <div className="p-3">
-                    <div className="text-[10px] uppercase tracking-[0.16em] text-neutral-400">{variant.label}</div>
-                    <div className="mt-1 text-sm font-semibold tracking-[0.02em] text-neutral-950">{variant.hex}</div>
+                    <div className="text-[10px] uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-400">{variant.label}</div>
+                    <div className="mt-1 text-sm font-semibold tracking-[0.02em] text-neutral-950 dark:text-white">{variant.hex}</div>
                   </div>
                 </div>
               ))}
@@ -210,36 +210,36 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
 
           {/* Nearest named color */}
           {closest && (
-            <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-6">
-              <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950">
+            <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80 sm:p-6">
+              <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
                 Nearest named color
               </h2>
-              <p className="mt-1 text-sm text-neutral-500">
+              <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
                 The closest hand-named color in the ColorArchive to {generated.hex}.
               </p>
               <Link
                 href={`/colors/${closest.id}/`}
-                className="group mt-4 flex items-center gap-4 rounded-2xl border border-black/6 bg-white px-4 py-3 transition hover:border-black/12 hover:shadow-sm"
+                className="group mt-4 flex items-center gap-4 rounded-2xl border border-black/6 bg-white px-4 py-3 transition dark:border-white/10 dark:bg-neutral-950 dark:hover:border-white/40 hover:border-black/12 hover:shadow-sm"
               >
                 <span className="h-12 w-12 shrink-0 rounded-xl border border-black/6" style={{ backgroundColor: closest.hex }} aria-hidden="true" />
                 <span className="min-w-0">
-                  <span className="block font-semibold text-neutral-950 group-hover:underline">{closest.name}</span>
-                  <span className="mt-0.5 block text-sm text-neutral-500">{closest.hex} · {closest.hsl}</span>
+                  <span className="block font-semibold text-neutral-950 dark:text-white group-hover:underline">{closest.name}</span>
+                  <span className="mt-0.5 block text-sm text-neutral-500 dark:text-neutral-400">{closest.hex} · {closest.hsl}</span>
                 </span>
               </Link>
             </section>
           )}
 
           {/* FAQ */}
-          <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-8">
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-2xl">
+          <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80 sm:p-8">
+            <h2 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white sm:text-2xl">
               &ldquo;{display}&rdquo; color — frequently asked questions
             </h2>
             <dl className="mt-5 grid gap-4 sm:grid-cols-2">
               {faq.map((item) => (
-                <div key={item.question} className="rounded-[1.4rem] border border-black/6 bg-neutral-50/70 p-5">
-                  <dt className="text-base font-semibold text-neutral-900">{item.question}</dt>
-                  <dd className="mt-2 text-sm leading-6 text-neutral-600">{item.answer}</dd>
+                <div key={item.question} className="rounded-[1.4rem] border border-black/6 bg-neutral-50/70 p-5 dark:border-white/10 dark:bg-neutral-950/70">
+                  <dt className="text-base font-semibold text-neutral-900 dark:text-neutral-100">{item.question}</dt>
+                  <dd className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">{item.answer}</dd>
                 </div>
               ))}
             </dl>
@@ -247,8 +247,8 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
 
           {/* Sibling links — internal-link graph across word pages */}
           {siblings.length > 0 && (
-            <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-6">
-              <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+            <section className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80 sm:p-6">
+              <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-400">
                 More word colors
               </h2>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -256,7 +256,7 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
                   <Link
                     key={w}
                     href={`/word-to-color/${slugifyWord(w)}/`}
-                    className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+                    className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-sm text-neutral-700 transition dark:border-white/10 dark:bg-white/8 dark:text-neutral-200 dark:hover:bg-white dark:hover:text-neutral-950 hover:bg-neutral-950 hover:text-white"
                   >
                     {titleCaseWord(w)}
                   </Link>

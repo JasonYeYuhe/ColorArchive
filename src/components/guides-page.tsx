@@ -73,16 +73,16 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">
-        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
+        <section className="relative overflow-hidden rounded-[2rem] border border-black/6 bg-white/74 px-6 py-10 dark:border-white/10 dark:bg-neutral-900/80 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:px-10 sm:py-14">
           <div className="relative mx-auto max-w-5xl">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] text-neutral-500 uppercase">
-              <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/85 px-3 py-1 text-xs font-medium tracking-[0.22em] dark:border-white/10 dark:bg-white/8 text-neutral-500 dark:text-neutral-300 uppercase">
+              <span className="inline-block h-2 w-2 rounded-full bg-neutral-900 dark:bg-white/40" />
               Practical guides
             </div>
-            <h1 className="font-display max-w-4xl text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-6xl">
+            <h1 className="font-display max-w-4xl text-4xl font-light tracking-[-0.04em] text-neutral-950 dark:text-white sm:text-6xl">
               Search-intent guides built from the live archive
             </h1>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
+            <p className="mt-4 max-w-3xl text-base leading-7 text-neutral-600 dark:text-neutral-300 sm:text-lg">
               These pages connect common color questions to concrete ColorArchive routes: collections,
               Pro resources, free downloads, notes, and implementation assets.
             </p>
@@ -94,7 +94,7 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
                 value={search}
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder="Search guides by keyword, tag, or topic..."
-                className="w-full max-w-lg rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8"
+                className="w-full max-w-lg rounded-2xl border border-black/8 bg-white/85 px-4 py-3 text-sm text-neutral-900 outline-none dark:border-white/10 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-neutral-400 transition focus:border-neutral-900/20 dark:focus:border-white/40 dark:focus:ring-white/40 focus:ring-4 focus:ring-neutral-900/8"
               />
               <div className="flex flex-wrap gap-1.5">
                 <button
@@ -105,7 +105,7 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
                   // filter was active. aria-pressed matches the convention already
                   // used by ColorCard and FavoriteButton.
                   aria-pressed={!activeCategory}
-                  className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${!activeCategory ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
+                  className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${!activeCategory ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/15"}`}
                 >
                   All ({guides.length})
                 </button>
@@ -115,7 +115,7 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
                     type="button"
                     onClick={() => handleCategory(activeCategory === cat ? null : cat)}
                     aria-pressed={activeCategory === cat}
-                    className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${activeCategory === cat ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
+                    className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${activeCategory === cat ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/15"}`}
                   >
                     {cat}
                   </button>
@@ -124,14 +124,14 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
             </div>
 
             {showPopular && featuredGuide ? (
-              <div className="mt-8 rounded-[1.5rem] border border-black/6 bg-white/86 px-5 py-5">
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+              <div className="mt-8 rounded-[1.5rem] border border-black/6 bg-white/86 px-5 py-5 dark:border-white/10 dark:bg-neutral-900/80">
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-400">
                   Featured guide
                 </div>
-                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
                   {featuredGuide.title}
                 </h2>
-                <p className="mt-3 text-sm leading-6 text-neutral-600">{featuredGuide.summary}</p>
+                <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">{featuredGuide.summary}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
                     href={`/guides/${featuredGuide.slug}/`}
@@ -141,7 +141,7 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
                   </Link>
                   <Link
                     href="/pro/"
-                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                    className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-200 dark:hover:bg-white/15"
                   >
                     Upgrade to Pro
                   </Link>
@@ -152,13 +152,13 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
         </section>
 
         {showPopular && (
-          <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+          <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-400">
                   Popular guides
                 </div>
-                <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                   These are the strongest entry points for people looking for a practical palette,
                   token, or download decision rather than browsing the archive cold.
                 </p>
@@ -175,20 +175,20 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
               {popularGuides.map((guide) => (
                 <article
                   key={guide.slug}
-                  className="rounded-[1.5rem] border border-black/6 bg-neutral-50 p-5"
+                  className="rounded-[1.5rem] border border-black/6 bg-neutral-50 p-5 dark:border-white/10 dark:bg-neutral-950"
                 >
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
+                    <span className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-400">
                       {guide.eyebrow}
                     </span>
-                    <span className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500">
+                    <span className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
                       {guide.searchIntent}
                     </span>
                   </div>
-                  <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                  <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
                     {guide.title}
                   </h2>
-                  <p className="mt-3 text-sm leading-6 text-neutral-600">{guide.summary}</p>
+                  <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">{guide.summary}</p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     <Link
                       href={`/guides/${guide.slug}/`}
@@ -199,7 +199,7 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
                     {guide.links[0] ? (
                       <Link
                         href={guide.links[0].href}
-                        className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                        className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-200 dark:hover:bg-white/15"
                       >
                         {guide.links[0].label}
                       </Link>
@@ -212,9 +212,9 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
         )}
 
         {filteredGuides.length === 0 ? (
-          <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-8 text-center shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
-            <h2 className="text-xl font-semibold text-neutral-950">No guides match your search</h2>
-            <p className="mt-2 text-sm text-neutral-500">Try a different keyword or clear the filter.</p>
+          <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-8 text-center dark:border-white/10 dark:bg-neutral-900/80 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
+            <h2 className="text-xl font-semibold text-neutral-950 dark:text-white">No guides match your search</h2>
+            <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Try a different keyword or clear the filter.</p>
             <button
               type="button"
               onClick={() => { handleSearch(""); handleCategory(null); }}
@@ -228,34 +228,34 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
             {groupedFiltered.map(([category, items]) => (
               <div
                 key={category}
-                className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]"
+                className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80"
               >
-                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-400">
                   {category}
                 </div>
                 <div className="mt-5 grid gap-4 xl:grid-cols-2">
                   {items.map((guide) => (
                     <article
                       key={guide.slug}
-                      className="rounded-[1.5rem] border border-black/6 bg-neutral-50 p-5"
+                      className="rounded-[1.5rem] border border-black/6 bg-neutral-50 p-5 dark:border-white/10 dark:bg-neutral-950"
                     >
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
+                        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-400">
                           {guide.eyebrow}
                         </span>
-                        <span className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500">
+                        <span className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300">
                           {guide.searchIntent}
                         </span>
                       </div>
-                      <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
+                      <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
                         {guide.title}
                       </h2>
-                      <p className="mt-3 text-sm leading-6 text-neutral-600">{guide.summary}</p>
+                      <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">{guide.summary}</p>
                       <div className="mt-4 flex flex-wrap gap-2">
                         {guide.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500"
+                            className="rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-500 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300"
                           >
                             {tag}
                           </span>
@@ -265,7 +265,7 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
                         {guide.highlights.slice(0, 2).map((highlight) => (
                           <div
                             key={highlight}
-                            className="rounded-[1rem] border border-black/6 bg-white px-4 py-3 text-sm leading-6 text-neutral-600"
+                            className="rounded-[1rem] border border-black/6 bg-white px-4 py-3 text-sm leading-6 text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300"
                           >
                             {highlight}
                           </div>
@@ -281,7 +281,7 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
                         {guide.links[0] ? (
                           <Link
                             href={guide.links[0].href}
-                            className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                            className="rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-200 dark:hover:bg-white/15"
                           >
                             {guide.links[0].label}
                           </Link>
@@ -298,7 +298,7 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
                 <button
                   type="button"
                   onClick={() => setVisibleCount((c) => c + GUIDES_PER_PAGE)}
-                  className="rounded-full border border-black/8 bg-white px-6 py-3 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+                  className="rounded-full border border-black/8 bg-white px-6 py-3 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-200 dark:hover:bg-white dark:hover:text-neutral-950"
                 >
                   Load more guides ({filteredGuides.length - visibleCount} remaining)
                 </button>
@@ -307,27 +307,30 @@ export function GuidesPage({ guides }: { guides: GuideListItem[] }) {
           </section>
         )}
 
-        <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white dark:text-neutral-950">
-          <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/40 dark:text-neutral-400">
+        <section className="rounded-[1.75rem] border border-black/6 bg-neutral-950 p-5 text-white shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-white/60">
             Next step
           </div>
           <p className="mt-2 text-lg font-semibold tracking-[-0.02em]">
             Guides are the bridge. Pro is the implementation layer.
           </p>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60 dark:text-neutral-500">
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60">
             If one of these guides matches your use case, move directly into the related collection,
             free resource, or Pro subscription while the context is still clear.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
               href="/pro/"
-              className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800"
+              // No dark: variants on purpose — the card above stays dark in dark mode,
+              // so a white button with near-black text is correct in both themes. Adding
+              // dark: here is what previously turned this into white-on-white.
+              className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200"
             >
               Upgrade to Pro
             </Link>
             <Link
               href="/free-resources/"
-              className="rounded-full border border-white/16 px-4 py-2 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white dark:border-black/16 dark:text-neutral-600 dark:hover:border-black/30 dark:hover:text-neutral-950"
+              className="rounded-full border border-white/16 px-4 py-2 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white"
             >
               Try free resources
             </Link>

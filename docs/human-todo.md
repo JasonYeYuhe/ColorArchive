@@ -5,6 +5,27 @@
 > tools, 333 guides; off-repo copies still need a sweep. 10 shadowed collections still need
 > an editorial call. The 2026-08-10 Design Notes decision still stands and mails itself.)
 
+## 🌓 74 elements flip to their light colour on hover in dark mode
+
+Not urgent, and not new — it predates the dark-mode work by a long way. The cause
+is one line in app/globals.css:
+
+    @custom-variant dark (&:where(.dark, .dark *));
+
+`:where()` contributes zero specificity, so `dark:bg-x` is (0,1,0) while a plain
+`hover:bg-y` is (0,2,0). The hover wins. Any element that has both, and no
+`dark:hover:` counterpart, snaps back to its light-mode background under the
+cursor. 74 of them across about 15 components.
+
+`src/lib/__tests__/dark-mode-classes.test.ts` holds the count at 74 as a ratchet:
+it may fall, never rise, so new work has to get it right without anyone needing
+to fix the backlog first. Lower the constant as components get cleaned up.
+
+Fixing one is mechanical — add `dark:hover:bg-*` (and `dark:hover:border-*` where
+a border is the affordance) next to the light hover. Worth doing a component at a
+time rather than in a sweep; a sweep is what caused the regressions this test now
+guards against.
+
 ## ✍️ 327 of 333 guide titles are too long for a search result
 
 Median 87 characters against a ~60-character cut. The meta DESCRIPTIONS are now
