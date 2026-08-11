@@ -83,7 +83,25 @@ in its prompt. Owner reviewed and decided on 2026-08-10 not to rotate it.
 Recorded so it stops being re-raised every audit. If that changes: rotating means
 updating `server/.env` on the droplet too, since it is the same key.
 
-## 📮 2026-08-09 — weekly roundup drafted; and we've been publishing two wrong numbers
+## 📤 Off-repo copy still quotes the old numbers — needs you, per platform
+
+The in-repo counts are fixed and locked by `src/lib/__tests__/copy-counts.test.ts`
+(tools 44, colors 5,446, guides 333, collections 261). That test cannot reach
+anything outside this repo. These say the old numbers and are yours to edit:
+
+| where | likely wrong | correct |
+|---|---|---|
+| App Store description (iOS) | tool/colour counts | 44 tools · 5,446 colours |
+| Figma Community listing | tool/colour counts | same |
+| VS Code Marketplace listing | tool/colour counts | same |
+| Indie Hackers / SaaSHub / AlternativeTo | tool/colour counts | same |
+| X / Instagram / Facebook bios | "5,000+ colors" style | 5,446 |
+| The Jul 26 published post | said "43 free tools" | 44 — too small to correct publicly, but do not reuse that copy |
+
+Nothing here is urgent or broken; it is all understatement rather than
+overstatement now. Worth a pass next time you are in each console.
+
+## 📮 2026-08-09 — weekly roundup drafted; the in-repo number fixes are done
 
 Drafted in `docs/daily-posts-queue.md` under **Weekly Roundup — 2026-08-09**. **Nothing was
 published** — same reason as last week: this file is manual-post-only by convention, and
