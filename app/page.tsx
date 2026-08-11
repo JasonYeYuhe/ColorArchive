@@ -46,7 +46,7 @@ const homepageStructuredData = [
     name: "ColorArchive",
     url: SITE_URL,
     description:
-      "A searchable archive of 5,400+ curated hex colors with palette tools and design token exports.",
+      "A searchable archive of 5,446 curated hex colors with palette tools and design token exports.",
     potentialAction: {
       "@type": "SearchAction",
       target: {

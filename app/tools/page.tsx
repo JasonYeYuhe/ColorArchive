@@ -101,7 +101,7 @@ const toolsListStructuredData = {
         position: 10,
         name: "Spectrum View",
         url: `${SITE_URL}/spectrum/`,
-        description: "Explore all 5,400+ archive colors arranged in a full visual spectrum.",
+        description: "Explore all 5,446 archive colors arranged in a full visual spectrum.",
       },
       {
         "@type": "ListItem",

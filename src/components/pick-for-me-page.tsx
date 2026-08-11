@@ -261,7 +261,7 @@ const TEXT = {
   en: {
     badge: "Color Picker",
     title: "Can't decide on a color?",
-    subtitle: "Describe what you're designing and get instant palette suggestions from 5,000+ curated colors.",
+    subtitle: "Describe what you're designing and get instant palette suggestions from 5,446 curated colors.",
     placeholder: "e.g., coffee shop brand, tech startup, wedding invitation...",
     tryThese: "Try these",
     yourPalette: "Your custom palette",
@@ -270,13 +270,13 @@ const TEXT = {
     viewCollection: "View collection",
     copyHex: "Copied!",
     startOver: "Clear",
-    viewAll: "Browse all 5,000+ colors",
+    viewAll: "Browse all 5,446 colors",
     exploreCollections: "Explore all collections",
   },
   zh: {
     badge: "选色助手",
     title: "不知道该用什么颜色？",
-    subtitle: "描述你正在设计的东西，从 5,000+ 精选颜色中获取即时配色建议。",
+    subtitle: "描述你正在设计的东西，从 5,446 精选颜色中获取即时配色建议。",
     placeholder: "例如：咖啡店品牌、科技创业公司、婚礼请柬...",
     tryThese: "试试这些",
     yourPalette: "为你定制的配色",
@@ -285,7 +285,7 @@ const TEXT = {
     viewCollection: "查看集合",
     copyHex: "已复制！",
     startOver: "清除",
-    viewAll: "浏览全部 5,000+ 颜色",
+    viewAll: "浏览全部 5,446 颜色",
     exploreCollections: "探索所有集合",
   },
 };

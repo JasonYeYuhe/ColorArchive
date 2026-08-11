@@ -37,7 +37,7 @@ export function FreeResourcesPage() {
           Free Color Resources
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base max-w-lg mx-auto">
-          Sample downloads, 20+ design tools, and 5,400+ colors to browse. No account needed.
+          Sample downloads, 20+ design tools, and 5,446 colors to browse. No account needed.
         </p>
       </section>
 
@@ -85,7 +85,7 @@ export function FreeResourcesPage() {
               href="/tools/"
               className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
             >
-              View all 20+ tools &rarr;
+              View all 44 tools &rarr;
             </Link>
           </div>
         </section>

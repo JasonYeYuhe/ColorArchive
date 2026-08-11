@@ -12,7 +12,7 @@ const structuredData = [
     url: SITE_URL,
     logo: `${SITE_URL}/og-image-v1.png`,
     description:
-      "ColorArchive is a curated library of 5,400+ hex color codes for designers and developers. Learn how the archive works, how colors are generated, and what the product layer offers.",
+      "ColorArchive is a curated library of 5,446 hex color codes for designers and developers. Learn how the archive works, how colors are generated, and what the product layer offers.",
     contactPoint: {
       "@type": "ContactPoint",
       email: CONTACT_EMAIL,
@@ -32,7 +32,7 @@ const structuredData = [
 export const metadata: Metadata = {
   title: "About ColorArchive",
   description:
-    "ColorArchive is a curated library of 5,400+ hex color codes for designers and developers. Learn how the archive works, how colors are generated, and what the product layer offers.",
+    "ColorArchive is a curated library of 5,446 hex color codes for designers and developers. Learn how the archive works, how colors are generated, and what the product layer offers.",
   alternates: {
     canonical: "/about/",
   },

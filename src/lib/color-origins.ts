@@ -41,7 +41,7 @@ export const FAMILY_HERITAGES: FamilyHeritage[] = [
     family: "Red",
     tagline: "The first pigment, the loudest signal.",
     heritage:
-      "Red is the oldest pigment in the human visual record. Ochre reds appear in burial sites from 75,000+ years ago; Roman red lead (minium) lit Pompeian walls; cinnabar drove a millennium of trade across Asia and the Mediterranean. Madder, kermes, and cochineal — the three classical reds — built fortunes and emptied empires before synthetic alizarin arrived in 1869 and collapsed the price overnight.",
+      "Red is the oldest pigment in the human visual record. Ochre reds appear in burial sites from 75,446 years ago; Roman red lead (minium) lit Pompeian walls; cinnabar drove a millennium of trade across Asia and the Mediterranean. Madder, kermes, and cochineal — the three classical reds — built fortunes and emptied empires before synthetic alizarin arrived in 1869 and collapsed the price overnight.",
     cultures:
       "In China red signals fortune and weddings, painted on doors and lanterns and given in money envelopes. In much of South Asia red is the bridal color (saris, sindoor) for the same reason. Western traditions split red between love (Valentine's) and danger (stoplights, balance sheets). Across the Christian liturgy red marks martyrdom and Pentecost; across cinema it has long marked the femme fatale.",
     inTheWild:

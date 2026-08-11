@@ -792,7 +792,7 @@ export function ImagePalettePage() {
             </div>
             <div>
               <p className="font-medium text-slate-700 mb-1">3. Match</p>
-              <p>Each cluster centroid is matched against the full 5,000+ color ColorArchive using weighted RGB distance.</p>
+              <p>Each cluster centroid is matched against the full 5,446 color ColorArchive using weighted RGB distance.</p>
             </div>
           </div>
           <p className="text-xs text-slate-400 mt-4">

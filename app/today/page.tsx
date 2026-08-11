@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/today/" },
   openGraph: {
     title: "Color of the Day | ColorArchive",
-    description: "One curated color, every day. Explore today's pick from 5,400+ ColorArchive colors.",
+    description: "One curated color, every day. Explore today's pick from 5,446 ColorArchive colors.",
     images: [`${SITE_URL}/og-image-v1.png`],
   },
 };

@@ -7,7 +7,7 @@ import { SITE_URL } from "@/src/lib/site-config";
 export const metadata: Metadata = {
   title: { absolute: "Color API Documentation — ColorArchive" },
   description:
-    "Free REST API for 5,400+ curated hex colors. Search by name, hex, or mood. Filter by color family. Get color relationships. No auth required.",
+    "Free REST API for 5,446 curated hex colors. Search by name, hex, or mood. Filter by color family. Get color relationships. No auth required.",
   alternates: {
     canonical: "/api-docs/",
   },

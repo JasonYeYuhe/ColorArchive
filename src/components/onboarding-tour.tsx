@@ -24,7 +24,7 @@ const TOUR_STEPS: TourStep[] = [
     action: { label: "Open Generator", href: "/palette-generator/" },
   },
   {
-    title: "25+ Free Tools",
+    title: "44 Free Tools",
     description:
       "From contrast checking to gradient building to AI brand palettes — explore the full toolkit. Press ? anytime for keyboard shortcuts.",
     action: { label: "Browse Tools", href: "/tools/" },

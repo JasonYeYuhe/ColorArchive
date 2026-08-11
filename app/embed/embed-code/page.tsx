@@ -13,13 +13,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Embed ColorArchive — Free Color Picker Widget",
     description:
-      "Add a free color picker widget to your website with hex, RGB, HSL values and 5,400+ curated colors.",
+      "Add a free color picker widget to your website with hex, RGB, HSL values and 5,446 curated colors.",
     images: [`${SITE_URL}/og-image-v1.png`],
   },
   twitter: {
     title: "Embed ColorArchive — Free Color Picker Widget",
     description:
-      "Add a free color picker widget to your website with hex, RGB, HSL values and 5,400+ curated colors.",
+      "Add a free color picker widget to your website with hex, RGB, HSL values and 5,446 curated colors.",
     images: [`${SITE_URL}/og-image-v1.png`],
   },
 };

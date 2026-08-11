@@ -5,7 +5,7 @@ import { SiteHeader } from "@/src/components/site-header";
 
 export const metadata: Metadata = {
   title: "Search Hex Colors",
-  description: "Search 5,400+ curated hex colors by name, hex code, or color family. Filter by hue, lightness, and saturation to find the exact palette color you need.",
+  description: "Search 5,446 curated hex colors by name, hex code, or color family. Filter by hue, lightness, and saturation to find the exact palette color you need.",
   alternates: { canonical: "/search/" },
 };
 

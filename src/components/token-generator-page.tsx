@@ -570,7 +570,7 @@ export function TokenGeneratorPage() {
         <WhatsNext items={[
           { href: "/contrast/", label: "Audit Contrast", desc: "Check WCAG compliance for your token system" },
           { href: "/preview/", label: "Preview in UI", desc: "See your colors applied to real components" },
-          { href: "/pro/", label: "Complete Archive", desc: "All 5,000+ colors as production-ready tokens" },
+          { href: "/pro/", label: "Complete Archive", desc: "All 5,446 colors as production-ready tokens" },
         ]} />
       </div>
     </main>

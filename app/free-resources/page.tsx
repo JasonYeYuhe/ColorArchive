@@ -5,7 +5,7 @@ import { FreeResourcesPage } from "@/src/components/free-resources-page";
 export const metadata: Metadata = {
   title: "Free Resources",
   description:
-    "Download free color palette samples, preview design tokens, and explore 20+ free tools. No account required.",
+    "Download free color palette samples, preview design tokens, and explore 44 free tools. No account required.",
   alternates: { canonical: "/free-resources/" },
 };
 

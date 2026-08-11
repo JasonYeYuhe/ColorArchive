@@ -24,7 +24,7 @@ const serif = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", displa
 
 const siteTitle = "ColorArchive";
 const siteDescription =
-  "ColorArchive — 5,400+ curated hex color codes organized by family and hue. Search, copy, build palettes, and export design tokens for Figma, CSS, and Tailwind.";
+  "ColorArchive — 5,446 curated hex color codes organized by family and hue. Search, copy, build palettes, and export design tokens for Figma, CSS, and Tailwind.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

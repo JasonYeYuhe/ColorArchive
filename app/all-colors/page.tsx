@@ -9,9 +9,9 @@ const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "All 5,400+ Hex Colors — ColorArchive",
+    name: "All 5,446 Hex Colors — ColorArchive",
     description:
-      "Browse the complete ColorArchive — all 5,400+ curated hex color codes in a single dense view, organized by hue across the full spectrum.",
+      "Browse the complete ColorArchive — all 5,446 curated hex color codes in a single dense view, organized by hue across the full spectrum.",
     url: `${SITE_URL}/all-colors/`,
   },
   {

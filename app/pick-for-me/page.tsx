@@ -8,11 +8,11 @@ import { SITE_URL } from "@/src/lib/site-config";
 export const metadata: Metadata = {
   title: { absolute: "Pick Colors For Me — AI Color Suggestion | ColorArchive" },
   description:
-    "Can't decide on a color? Describe what you're designing and get curated palette suggestions from 5,000+ colors. Try 'coffee shop brand', 'tech startup', or 'wedding invitation'.",
+    "Can't decide on a color? Describe what you're designing and get curated palette suggestions from 5,446 colors. Try 'coffee shop brand', 'tech startup', or 'wedding invitation'.",
   alternates: { canonical: "/pick-for-me/" },
   openGraph: {
     title: "Pick Colors For Me | ColorArchive",
-    description: "Describe your project and get instant color palette suggestions from 5,000+ curated colors.",
+    description: "Describe your project and get instant color palette suggestions from 5,446 curated colors.",
     images: [`${SITE_URL}/og-image-v1.png`],
   },
 };
@@ -26,7 +26,7 @@ const structuredData = {
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   url: `${SITE_URL}/pick-for-me/`,
   description:
-    "Describe what you're designing and get curated color palette suggestions instantly. Powered by 5,000+ algorithmically named colors.",
+    "Describe what you're designing and get curated color palette suggestions instantly. Powered by 5,446 algorithmically named colors.",
 };
 
 const breadcrumbData = {

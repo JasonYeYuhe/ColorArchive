@@ -75,14 +75,13 @@ email subscribers after months.
 deserves one more fortnight with new copy. I took the other branch because 0/292
 does not look like a copy problem. Re-enabling is two clicks.
 
-## 🔴 STILL NOT ROTATED — the Resend key is in plaintext in a routine prompt
+## 🤝 Resend key in the routine prompt — owner-acknowledged, not an open action
 
-Outstanding since 2026-07-27 and confirmed still live today: the
-`support-email-responder` routine embeds a live Resend API key as a literal in
-its prompt, and that prompt is readable to anyone who can see the routine. It is
-the same key the droplet uses, so rotating it means updating `server/.env` too.
+The `support-email-responder` routine embeds a live Resend API key as a literal
+in its prompt. Owner reviewed and decided on 2026-08-10 not to rotate it.
 
-Only you can do this — it is an account action on resend.com.
+Recorded so it stops being re-raised every audit. If that changes: rotating means
+updating `server/.env` on the droplet too, since it is the same key.
 
 ## 📮 2026-08-09 — weekly roundup drafted; and we've been publishing two wrong numbers
 
