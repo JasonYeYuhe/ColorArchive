@@ -1,3 +1,13 @@
+## 2026-08-11 — [autopilot] support email handler
+
+Checked for new unread support emails at `support@colorarchive.me` and `support@colorarchive.org`.
+
+- Searched Gmail with `to:support@colorarchive.me -label:autoprocessed -label:needs-review is:unread` — 0 results
+- Searched `to:support@colorarchive.me is:unread` — 0 results
+- Searched `to:support@colorarchive.org is:unread newer_than:30d` — 0 results
+- Verified Gmail connection is healthy (other account emails visible)
+- **No new support emails found. No replies sent. No drafts created.**
+
 ## 2026-07-26 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jul 19–26. **First real changelog week since Jul 12** — the
