@@ -3,6 +3,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
+import { useIsBareRoute } from "@/src/lib/bare-routes";
+
 interface Shortcut {
   keys: string[];
   label: string;
@@ -43,6 +45,7 @@ function isInputFocused(): boolean {
  */
 export function KeyboardShortcuts() {
   const router = useRouter();
+  const isBare = useIsBareRoute();
   const [showHelp, setShowHelp] = useState(false);
   const [pendingG, setPendingG] = useState(false);
   const timerRef = { current: undefined as ReturnType<typeof setTimeout> | undefined };
@@ -96,9 +99,17 @@ export function KeyboardShortcuts() {
   );
 
   useEffect(() => {
+    // Not on the bare routes — see src/lib/bare-routes.ts. The listener has to be
+    // skipped here rather than just rendering null below, because an effect runs
+    // whatever the component renders: returning null would still leave "/" wired to
+    // router.push("/search/"). On a page that deliberately has no links, one stray
+    // keystroke would otherwise be the only way out of it.
+    if (isBare) return;
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleKeyDown]);
+  }, [handleKeyDown, isBare]);
+
+  if (isBare) return null;
 
   if (!showHelp) {
     return pendingG ? (

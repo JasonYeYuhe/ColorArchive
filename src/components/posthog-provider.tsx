@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { initPosthog, phCapture, phRegister, TOOL_SLUGS } from "@/src/lib/posthog";
 import { attributionEventProps } from "@/src/lib/attribution";
+import { useIsBareRoute } from "@/src/lib/bare-routes";
 
 /**
  * Initializes PostHog on mount and emits a manual `$pageview` on every App Router
@@ -20,6 +21,7 @@ import { attributionEventProps } from "@/src/lib/attribution";
  */
 export function PostHogProvider() {
   const pathname = usePathname();
+  const isBare = useIsBareRoute();
   // Dedupe by path: avoids double-firing under React StrictMode (dev) and any re-render
   // that re-runs the effect without an actual route change. Mirrors PageTracker.
   const lastPath = useRef<string | null>(null);
@@ -30,6 +32,11 @@ export function PostHogProvider() {
     // PostHog autocapture events break down by channel. Cheap + idempotent; register() just
     // overwrites with the same persisted value on each route change.
     phRegister(attributionEventProps());
+    // Bare routes send no pageview — see the note in page-tracker.tsx. Kept BELOW
+    // initPosthog() on purpose: the provider is mounted once by the root layout, so
+    // bailing before init would leave PostHog uninitialised for every route the
+    // visitor opens afterwards in the same session.
+    if (isBare) return;
     if (!pathname || lastPath.current === pathname) return;
     lastPath.current = pathname;
 
@@ -39,7 +46,7 @@ export function PostHogProvider() {
     if (segment && TOOL_SLUGS.has(segment)) {
       phCapture("tool_used", { tool: segment });
     }
-  }, [pathname]);
+  }, [pathname, isBare]);
 
   return null;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useIsBareRoute } from "@/src/lib/bare-routes";
 
 /**
  * Set to true on launch day, false after launch week.
@@ -14,6 +15,9 @@ const PH_LISTING_URL = "https://www.producthunt.com/p/colorarchive/colorarchive?
 const DISMISS_KEY = "colorarchive-ph-banner-dismissed";
 
 export function PHLaunchBanner() {
+  // Chrome stays off the bare routes — see src/lib/bare-routes.ts.
+  // The hook runs unconditionally; only the RENDER is skipped, below.
+  const isBare = useIsBareRoute();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -36,6 +40,8 @@ export function PHLaunchBanner() {
     }
   }
 
+
+  if (isBare) return null;
   return (
     <div
       className={`overflow-hidden transition-all duration-300 ease-in-out ${visible ? "max-h-16 opacity-100" : "max-h-0 opacity-0"}`}

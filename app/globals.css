@@ -62,6 +62,17 @@ body {
   background: linear-gradient(180deg, #0a0a0a 0%, #0f0f0e 100%);
 }
 
+/* CJK text stack, declared rather than inherited.
+   Fraunces and Inter carry no CJK glyphs, so any Chinese on this site silently
+   falls through to whatever the OS happens to offer — which means the typography
+   was only ever verified on the machine it was written on. This names the stack:
+   PingFang on Apple, Noto/Source Han elsewhere, MS YaHei on Windows. */
+.font-cjk {
+  font-family: var(--font-inter), -apple-system, "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", "Heiti SC",
+    ui-sans-serif, system-ui, sans-serif;
+}
+
 /* Editorial serif display — Fraunces. Use on hero + section titles. */
 .font-display {
   font-family: var(--font-fraunces), ui-serif, Georgia, "Times New Roman", serif;

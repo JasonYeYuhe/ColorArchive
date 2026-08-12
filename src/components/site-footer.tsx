@@ -4,9 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
 import { SITE_DOMAIN } from "@/src/lib/site-config";
+import { useIsBareRoute } from "@/src/lib/bare-routes";
 
 export function SiteFooter() {
+  const isBare = useIsBareRoute();
   const { t } = useLocale();
+
+  // Chrome stays off the bare routes — see src/lib/bare-routes.ts.
+  //
+  // THIS RETURN MUST STAY BELOW EVERY HOOK. This component is mounted by the root
+  // layout, so navigating between a bare route and a normal one RE-RENDERS it
+  // rather than remounting it. Returning above a hook would make the hook count
+  // differ between two renders of the same component instance, and React responds
+  // by throwing "Rendered fewer hooks than expected" — which takes down the whole
+  // app, on every page, not just the bare one.
+  if (isBare) return null;
   return (
     <footer className="px-4 pb-4 pt-2 sm:px-6 sm:pb-6">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-4 rounded-[1.75rem] border border-black/6 bg-white/66 px-5 py-5 text-sm text-neutral-500 shadow-[0_18px_48px_rgba(15,23,42,0.04)] backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/66 dark:text-neutral-400 dark:shadow-[0_18px_48px_rgba(0,0,0,0.2)] sm:flex-row sm:items-end sm:justify-between sm:px-6">

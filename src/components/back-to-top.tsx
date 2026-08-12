@@ -1,8 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useIsBareRoute } from "@/src/lib/bare-routes";
 
 export function BackToTop() {
+  // Chrome stays off the bare routes — see src/lib/bare-routes.ts.
+  // The hook runs unconditionally; only the RENDER is skipped, below.
+  const isBare = useIsBareRoute();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -15,6 +19,8 @@ export function BackToTop() {
 
   if (!visible) return null;
 
+
+  if (isBare) return null;
   return (
     <button
       type="button"

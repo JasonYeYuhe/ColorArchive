@@ -31,6 +31,8 @@ ColorArchive/
 │   ├── robots.ts                 # robots.txt
 │   ├── globals.css               # Tailwind base + custom utilities
 │   │
+│   ├── 20040303/                 # /20040303/ — personal page, noindex, not in sitemap.
+│   │                             #   Renders with NO site chrome (src/lib/bare-routes.ts)
 │   ├── all-colors/               # /all-colors/ — full color grid
 │   ├── colors/[slug]/            # /colors/:id/ — 2016 static color detail pages
 │   ├── collections/              # /collections/ + /collections/[slug]/

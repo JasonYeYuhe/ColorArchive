@@ -5,13 +5,20 @@ import { usePathname } from "next/navigation";
 
 import { API_URL } from "@/src/lib/api-config";
 import { attributionEventProps } from "@/src/lib/attribution";
+import { useIsBareRoute } from "@/src/lib/bare-routes";
 
 export function PageTracker() {
   const pathname = usePathname();
+  const isBare = useIsBareRoute();
   const lastPath = useRef("");
 
   useEffect(() => {
-    if (!API_URL || pathname === lastPath.current) return;
+    // Bare routes are not product surfaces, so they do not report. This is a
+    // deliberate widening of what src/lib/bare-routes.ts covers, not a bug fix:
+    // the visible chrome was removed first, but a private page still beaconing its
+    // path into the same analytics table as commercial traffic contradicts the point
+    // of having the list at all.
+    if (!API_URL || isBare || pathname === lastPath.current) return;
     lastPath.current = pathname;
 
     // Attach first-touch acquisition source so the /preorder UV denominator (the exit-gate
@@ -37,7 +44,7 @@ export function PageTracker() {
         keepalive: true,
       }).catch(() => {});
     }
-  }, [pathname]);
+  }, [pathname, isBare]);
 
   return null;
 }

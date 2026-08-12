@@ -18,6 +18,7 @@ import {
 import { colors as allColors } from "@/src/data/colors";
 import { useLocale } from "@/src/components/locale-provider";
 import type { ColorRecord } from "@/src/types/color";
+import { useIsBareRoute } from "@/src/lib/bare-routes";
 
 function ShareButton({ colorIds }: { colorIds: string[] }) {
   const [copied, setCopied] = useState(false);
@@ -82,6 +83,7 @@ function CopyButton({ value, label }: { value: string; label: string }) {
 }
 
 export function PaletteBuilderTray() {
+  const isBare = useIsBareRoute();
   const [paletteIds, setPaletteIds] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useLocale();
@@ -95,6 +97,15 @@ export function PaletteBuilderTray() {
     .map((id) => allColors.find((c) => c.id === id))
     .filter((c): c is ColorRecord => Boolean(c));
 
+  // Chrome stays off the bare routes — see src/lib/bare-routes.ts.
+  //
+  // THIS RETURN MUST STAY BELOW EVERY HOOK. This component is mounted by the root
+  // layout, so navigating between a bare route and a normal one RE-RENDERS it
+  // rather than remounting it. Returning above a hook would make the hook count
+  // differ between two renders of the same component instance, and React responds
+  // by throwing "Rendered fewer hooks than expected" — which takes down the whole
+  // app, on every page, not just the bare one.
+  if (isBare) return null;
   if (paletteIds.length === 0) return null;
 
   const paletteName = generatePaletteName(paletteColors);

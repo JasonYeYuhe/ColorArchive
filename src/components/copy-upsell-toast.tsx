@@ -2,12 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useIsBareRoute } from "@/src/lib/bare-routes";
 
 const COPY_THRESHOLD = 5;
 const STORAGE_KEY = "colorarchive-copy-count";
 const DISMISSED_KEY = "colorarchive-upsell-dismissed";
 
 export function CopyUpsellToast() {
+  // Chrome stays off the bare routes — see src/lib/bare-routes.ts.
+  // The hook runs unconditionally; only the RENDER is skipped, below.
+  const isBare = useIsBareRoute();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -38,6 +42,8 @@ export function CopyUpsellToast() {
 
   if (!visible) return null;
 
+
+  if (isBare) return null;
   return (
     <div className="fixed bottom-20 right-4 left-4 sm:left-auto sm:right-6 z-50 sm:max-w-sm animate-in slide-in-from-bottom-4 rounded-2xl border border-black/8 bg-white/95 p-4 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/95">
       <div className="flex items-start gap-3">
