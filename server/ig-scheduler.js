@@ -156,7 +156,7 @@ function colorCaption(color) {
   return `🎨 ${color.name}\n\n` +
     `${color.hex} · ${color.family}\n` +
     `H${color.hue}° S${color.saturation}% L${color.lightness}%\n\n` +
-    `Explore this color and 5,400+ more at ${SITE_DOMAIN}/colors/${color.id}\n\n` +
+    `Explore this color and 5,446 more at ${SITE_DOMAIN}/colors/${color.id}\n\n` +
     HASHTAGS;
 }
 

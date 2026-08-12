@@ -83,23 +83,58 @@ in its prompt. Owner reviewed and decided on 2026-08-10 not to rotate it.
 Recorded so it stops being re-raised every audit. If that changes: rotating means
 updating `server/.env` on the droplet too, since it is the same key.
 
-## 📤 Off-repo copy still quotes the old numbers — needs you, per platform
+## 📤 2026-08-12 — the off-repo sweep, actually checked. Most of it was wrong.
 
-The in-repo counts are fixed and locked by `src/lib/__tests__/copy-counts.test.ts`
-(tools 44, colors 5,446, guides 333, collections 261). That test cannot reach
-anything outside this repo. These say the old numbers and are yours to edit:
+The previous version of this section was a **list of assumptions**, written without
+opening a single listing. Each one is now verified against the live page. Four of the
+six were already correct; the one real defect was somewhere nobody had looked.
 
-| where | likely wrong | correct |
+| where | what it actually says | verdict |
 |---|---|---|
-| App Store description (iOS) | tool/colour counts | 44 tools · 5,446 colours |
-| Figma Community listing | tool/colour counts | same |
-| VS Code Marketplace listing | tool/colour counts | same |
-| Indie Hackers / SaaSHub / AlternativeTo | tool/colour counts | same |
-| X / Instagram / Facebook bios | "5,000+ colors" style | 5,446 |
-| The Jul 26 published post | said "43 free tools" | 44 — too small to correct publicly, but do not reuse that copy |
+| App Store description | "5,446 colors", "9 families" | ✅ **already correct.** The other figures ("10 professional tools", "6 formats", "20+ collections") describe the iOS app, not the website — the old entry confused the two. Changing it needs a whole new version submission. **Leave it.** |
+| Figma Community description | "5,446 algorithmically curated colors" ×2 | ✅ **already correct** |
+| Figma plugin *name* | "ColorArchive — 5,400+ Curated Colors" | ⚠️ true but understated; the name comes from the manifest, so changing it is a code publish → full re-review. Not worth it for 46 colours. |
+| VS Code `package.json` | "5,400+ curated colors" | ⚠️ same trade: republish triggers re-review |
+| **Indie Hackers product page** | **"3,066 curated colors"** ×2 (tagline + description) | ❌ **genuinely stale — 44% below reality.** Free to edit, no review. **The one worth doing.** |
+| **X bio (@ColorArxiv)** | "5,000+ named colors" and **`colorarchive.me`** | ❌ the count is understated, but **the website link is the pre-migration domain**. It 301s to .org today, so it works — it is just wrong, and it depends on a redirect being kept forever. |
+| AlternativeTo | 404 | never listed. The "pending since 04-02" note was optimistic. |
+| SaaSHub | HTTP 522 | site down at time of checking; recheck later |
 
-Nothing here is urgent or broken; it is all understatement rather than
-overstatement now. Worth a pass next time you are in each console.
+Useful thing found while checking: your own 2026-06-10 IH post records that for Figma,
+**"listing text/images don't re-trigger review"** — only code publishes do. So listing
+*copy* is always safe to edit there; only the manifest-derived name is not.
+
+**Two edits are yours** (both need a login, neither needs a review):
+1. IH product tagline + description: `3,066` → `5,446`
+2. X bio: `5,000+` → `5,446`, and `colorarchive.me` → `colorarchive.org`
+
+## 🔴 2026-08-12 — the paid Complete Archive bundle was shipping 5,376 colours, not 5,446
+
+Found while checking whether the "5,400+" marketing line was safe to make exact. It
+was not: **the ¥2,499 bundle was missing all 70 neutral greys**, so "5,400+" was an
+overstatement of what buyers received.
+
+Root cause: four of the flagship exports rebuilt the archive from
+`HUE × LIGHTNESS × CHROMA` (48 × 14 × 8 = 5,376) instead of reading the `colorMap`
+that the other exports use — and `colorMap` is the one with the `!== 5446` assertion
+on it. So the bundle contained **two different colour sets depending on which file you
+opened**:
+
+| file | before | after |
+|---|---|---|
+| `complete-archive-all-colors.json` | 5,376, zero greys | **5,446** |
+| `complete-archive-all-colors.css` | 5,376 | **5,446** |
+| `complete-archive-tailwind-tokens.css` | 5,376 | **5,446** |
+| `complete-archive-scss-maps.scss` | no grey maps | **+5 grey maps** |
+| swift / xml / dart / figma / framer | 5,446 already | unchanged |
+
+The bundled README was worse: it described the archive as
+`36 hues x 14 lightness levels x 4 chroma bands = 2016 colors`. Every number in that
+sentence was wrong. Labels now interpolate from the catalogs, so they cannot say 2016
+again.
+
+Anyone who bought this before today has an incomplete CSS/JSON/SCSS/Tailwind export.
+**Whether to tell them is your call** — I have not contacted any customer.
 
 ## 📮 2026-08-09 — weekly roundup drafted; the in-repo number fixes are done
 

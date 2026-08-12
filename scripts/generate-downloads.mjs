@@ -142,6 +142,13 @@ if (colorMap.size !== 5446) {
   throw new Error(`[catalog] expected 5446 colors, built ${colorMap.size} — review catalog`);
 }
 
+// Every label that quotes a size interpolates this rather than hardcoding a number.
+// The four flagship exports (css / tailwind / json / scss) used to rebuild the archive
+// from HUE × LIGHTNESS × CHROMA only, silently shipping 5,376 and omitting all 70
+// neutral greys — while the swift/xml/dart/figma exports, which read colorMap, shipped
+// all 5,446. One paid bundle, two different colour sets. The labels said "2016".
+const ARCHIVE_SIZE = colorMap.size;
+
 // Collection definitions (mirrors src/lib/collections.ts)
 const COLLECTIONS = [
   {
@@ -979,10 +986,10 @@ ${entries}
 
 // Full archive platform exports
 const allColors = [...colorMap.entries()].map(([id, c]) => ({ id, ...c }));
-writeFileSync(join(OUT_DIR, "complete-archive-swiftui.swift"), generateSwiftUI(allColors, "Complete Archive — All 2016 Colors"), "utf8");
-writeFileSync(join(OUT_DIR, "complete-archive-colors.xml"), generateAndroidXml(allColors, "Complete Archive — All 2016 Colors"), "utf8");
-writeFileSync(join(OUT_DIR, "complete-archive-colors.dart"), generateFlutterDart(allColors, "Complete Archive — All 2016 Colors"), "utf8");
-writeFileSync(join(OUT_DIR, "complete-archive-theme.js"), generateCssInJs(allColors, "Complete Archive — All 2016 Colors"), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-swiftui.swift"), generateSwiftUI(allColors, "Complete Archive — All ${ARCHIVE_SIZE} Colors"), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-colors.xml"), generateAndroidXml(allColors, "Complete Archive — All ${ARCHIVE_SIZE} Colors"), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-colors.dart"), generateFlutterDart(allColors, "Complete Archive — All ${ARCHIVE_SIZE} Colors"), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-theme.js"), generateCssInJs(allColors, "Complete Archive — All ${ARCHIVE_SIZE} Colors"), "utf8");
 
 // Per-collection platform exports
 for (const col of COLLECTIONS) {
@@ -1516,6 +1523,14 @@ function generateScss() {
       }
     }
   }
+  for (const { name: neutralName, hue, saturation: s } of NEUTRAL_CATALOG) {
+    // "Warm Gray" -> "warm-gray", so the SCSS map key stays a valid identifier
+    const familyKey = createId(neutralName);
+    families[familyKey] = [];
+    for (const { name: lName, l } of LIGHTNESS_CATALOG) {
+      families[familyKey].push({ id: createId(`${neutralName} ${lName}`), hex: hslToHex(hue, s, l) });
+    }
+  }
   const lines = ["// ColorArchive — Complete SCSS Color Maps", "// Auto-generated — do not edit", ""];
   for (const [family, colors] of Object.entries(families)) {
     lines.push(`$ca-${family}: (`);
@@ -1527,9 +1542,9 @@ function generateScss() {
   return lines.join("\n");
 }
 
-// Generate full archive CSS with ALL 2016 colors
+// Generate full archive CSS — every colour in the archive, neutrals included
 function generateFullArchiveCss() {
-  const lines = [":root {", "  /* ColorArchive — All 2016 Colors */"];
+  const lines = [":root {", `  /* ColorArchive — All ${ARCHIVE_SIZE} Colors */`];
   for (const { name: hueName, hue } of HUE_CATALOG) {
     lines.push(`\n  /* ${hueName} */`);
     for (const { name: lName, l } of LIGHTNESS_CATALOG) {
@@ -1538,6 +1553,13 @@ function generateFullArchiveCss() {
         const hex = hslToHex(hue, s, l);
         lines.push(`  --ca-${id}: ${hex};`);
       }
+    }
+  }
+  for (const { name: neutralName, hue, saturation: s } of NEUTRAL_CATALOG) {
+    lines.push(`\n  /* ${neutralName} */`);
+    for (const { name: lName, l } of LIGHTNESS_CATALOG) {
+      const id = createId(`${neutralName} ${lName}`);
+      lines.push(`  --ca-${id}: ${hslToHex(hue, s, l)};`);
     }
   }
   lines.push("}");
@@ -1557,6 +1579,13 @@ function generateFullArchiveTailwind() {
       }
     }
   }
+  for (const { name: neutralName, hue, saturation: s } of NEUTRAL_CATALOG) {
+    lines.push(`\n  /* ${neutralName} */`);
+    for (const { name: lName, l } of LIGHTNESS_CATALOG) {
+      const id = createId(`${neutralName} ${lName}`);
+      lines.push(`  --color-${id}: ${hslToHex(hue, s, l)};`);
+    }
+  }
   lines.push("}");
   return lines.join("\n");
 }
@@ -1564,17 +1593,23 @@ function generateFullArchiveTailwind() {
 // Generate full archive JSON
 function generateFullArchiveJson() {
   const data = [];
+  const push = (colorName, hue, s, l) => {
+    const hex = hslToHex(hue, s, l);
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    data.push({ id: createId(colorName), name: colorName, hex, hsl: `hsl(${hue}, ${s}%, ${l}%)`, rgb: `rgb(${r}, ${g}, ${b})`, hue, saturation: s, lightness: l });
+  };
   for (const { name: hueName, hue } of HUE_CATALOG) {
     for (const { name: lName, l } of LIGHTNESS_CATALOG) {
       for (const { name: cName, s } of CHROMA_CATALOG) {
-        const colorName = `${hueName} ${lName} ${cName}`;
-        const id = createId(colorName);
-        const hex = hslToHex(hue, s, l);
-        const r = parseInt(hex.slice(1, 3), 16);
-        const g = parseInt(hex.slice(3, 5), 16);
-        const b = parseInt(hex.slice(5, 7), 16);
-        data.push({ id, name: colorName, hex, hsl: `hsl(${hue}, ${s}%, ${l}%)`, rgb: `rgb(${r}, ${g}, ${b})`, hue, saturation: s, lightness: l });
+        push(`${hueName} ${lName} ${cName}`, hue, s, l);
       }
+    }
+  }
+  for (const { name: neutralName, hue, saturation: s } of NEUTRAL_CATALOG) {
+    for (const { name: lName, l } of LIGHTNESS_CATALOG) {
+      push(`${neutralName} ${lName}`, hue, s, l);
     }
   }
   return JSON.stringify(data, null, 2);
@@ -1598,7 +1633,7 @@ QUICK START
 
 FILE GUIDE
 ──────────
-complete-archive-all-colors.css           — CSS custom properties for all 2016 colors
+complete-archive-all-colors.css           — CSS custom properties for all ${ARCHIVE_SIZE} colors
 complete-archive-tailwind-tokens.css      — Tailwind CSS v4 theme tokens (all colors)
 complete-archive-all-colors.json          — JSON data with hex, HSL, RGB for all colors
 complete-archive-scss-maps.scss           — SCSS color maps organized by hue family
@@ -1619,7 +1654,7 @@ README-complete-archive.txt               — This file
 
 PALETTES INCLUDED
 ─────────────────
-All ${COLLECTIONS.length} curated collections plus the full 2016-color library
+All ${COLLECTIONS.length} curated collections plus the full ${ARCHIVE_SIZE}-color library
 organized by hue family, lightness band, and chroma level.
 
 COLOR NUMBERING
@@ -1631,8 +1666,11 @@ Each palette has 5 colors numbered 1-5:
   4 = Accent / call-to-action
   5 = Contrast / deep accent
 
-Individual colors follow the pattern: {hue}-{lightness}-{chroma}
-  36 hues x 14 lightness levels x 4 chroma bands = 2016 colors
+Chromatic colors follow the pattern: {hue}-{lightness}-{chroma}
+  ${HUE_CATALOG.length} hues x ${LIGHTNESS_CATALOG.length} lightness levels x ${CHROMA_CATALOG.length} chroma bands = ${HUE_CATALOG.length * LIGHTNESS_CATALOG.length * CHROMA_CATALOG.length} colors
+Neutral greys follow {root}-{lightness} and carry no chroma band
+  ${NEUTRAL_CATALOG.length} gray roots x ${LIGHTNESS_CATALOG.length} lightness levels = ${NEUTRAL_CATALOG.length * LIGHTNESS_CATALOG.length} colors
+Total: ${ARCHIVE_SIZE} colors
 
 NEED HELP?
 ──────────

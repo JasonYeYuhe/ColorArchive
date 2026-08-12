@@ -11,7 +11,7 @@ QUICK START
 
 FILE GUIDE
 ──────────
-complete-archive-all-colors.css           — CSS custom properties for all 2016 colors
+complete-archive-all-colors.css           — CSS custom properties for all 5446 colors
 complete-archive-tailwind-tokens.css      — Tailwind CSS v4 theme tokens (all colors)
 complete-archive-all-colors.json          — JSON data with hex, HSL, RGB for all colors
 complete-archive-scss-maps.scss           — SCSS color maps organized by hue family
@@ -32,7 +32,7 @@ README-complete-archive.txt               — This file
 
 PALETTES INCLUDED
 ─────────────────
-All 14 curated collections plus the full 2016-color library
+All 14 curated collections plus the full 5446-color library
 organized by hue family, lightness band, and chroma level.
 
 COLOR NUMBERING
@@ -44,8 +44,11 @@ Each palette has 5 colors numbered 1-5:
   4 = Accent / call-to-action
   5 = Contrast / deep accent
 
-Individual colors follow the pattern: {hue}-{lightness}-{chroma}
-  36 hues x 14 lightness levels x 4 chroma bands = 2016 colors
+Chromatic colors follow the pattern: {hue}-{lightness}-{chroma}
+  48 hues x 14 lightness levels x 8 chroma bands = 5376 colors
+Neutral greys follow {root}-{lightness} and carry no chroma band
+  5 gray roots x 14 lightness levels = 70 colors
+Total: 5446 colors
 
 NEED HELP?
 ──────────

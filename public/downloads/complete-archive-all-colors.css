@@ -1,5 +1,5 @@
 :root {
-  /* ColorArchive — All 2016 Colors */
+  /* ColorArchive — All 5446 Colors */
 
   /* Crimson */
   --ca-crimson-veil-faint: #FAF9F9;
@@ -5472,4 +5472,84 @@
   --ca-merlot-ink-vivid: #3E0912;
   --ca-merlot-ink-bright: #420610;
   --ca-merlot-ink-pure: #45030E;
+
+  /* Warm Gray */
+  --ca-warm-gray-veil: #FAFAFA;
+  --ca-warm-gray-whisper: #F1F0EF;
+  --ca-warm-gray-mist: #E7E6E4;
+  --ca-warm-gray-pearl: #D9D6D4;
+  --ca-warm-gray-bloom: #C5C2BE;
+  --ca-warm-gray-silk: #B2ADA9;
+  --ca-warm-gray-tone: #9F9993;
+  --ca-warm-gray-radiant: #918A83;
+  --ca-warm-gray-core: #827A73;
+  --ca-warm-gray-velvet: #726B65;
+  --ca-warm-gray-dusk: #5C5751;
+  --ca-warm-gray-shadow: #4C4743;
+  --ca-warm-gray-nocturne: #363330;
+  --ca-warm-gray-ink: #262422;
+
+  /* Taupe Gray */
+  --ca-taupe-gray-veil: #FAFAFA;
+  --ca-taupe-gray-whisper: #F0F0EF;
+  --ca-taupe-gray-mist: #E7E6E4;
+  --ca-taupe-gray-pearl: #D8D7D4;
+  --ca-taupe-gray-bloom: #C5C3BF;
+  --ca-taupe-gray-silk: #B1AFA9;
+  --ca-taupe-gray-tone: #9E9B94;
+  --ca-taupe-gray-radiant: #908C84;
+  --ca-taupe-gray-core: #817C74;
+  --ca-taupe-gray-velvet: #706D66;
+  --ca-taupe-gray-dusk: #5B5852;
+  --ca-taupe-gray-shadow: #4B4944;
+  --ca-taupe-gray-nocturne: #363430;
+  --ca-taupe-gray-ink: #252422;
+
+  /* True Gray */
+  --ca-true-gray-veil: #FAFAFA;
+  --ca-true-gray-whisper: #F0F0F0;
+  --ca-true-gray-mist: #E6E6E6;
+  --ca-true-gray-pearl: #D6D6D6;
+  --ca-true-gray-bloom: #C2C2C2;
+  --ca-true-gray-silk: #ADADAD;
+  --ca-true-gray-tone: #999999;
+  --ca-true-gray-radiant: #8A8A8A;
+  --ca-true-gray-core: #7A7A7A;
+  --ca-true-gray-velvet: #6B6B6B;
+  --ca-true-gray-dusk: #575757;
+  --ca-true-gray-shadow: #474747;
+  --ca-true-gray-nocturne: #333333;
+  --ca-true-gray-ink: #242424;
+
+  /* Sage Gray */
+  --ca-sage-gray-veil: #FAFAFA;
+  --ca-sage-gray-whisper: #EFF0F0;
+  --ca-sage-gray-mist: #E4E7E6;
+  --ca-sage-gray-pearl: #D4D8D6;
+  --ca-sage-gray-bloom: #BFC5C2;
+  --ca-sage-gray-silk: #A9B1AD;
+  --ca-sage-gray-tone: #949E99;
+  --ca-sage-gray-radiant: #84908A;
+  --ca-sage-gray-core: #74817A;
+  --ca-sage-gray-velvet: #66706B;
+  --ca-sage-gray-dusk: #525B57;
+  --ca-sage-gray-shadow: #444B47;
+  --ca-sage-gray-nocturne: #303633;
+  --ca-sage-gray-ink: #222524;
+
+  /* Cool Gray */
+  --ca-cool-gray-veil: #FAFAFA;
+  --ca-cool-gray-whisper: #EFF0F1;
+  --ca-cool-gray-mist: #E4E6E7;
+  --ca-cool-gray-pearl: #D4D6D9;
+  --ca-cool-gray-bloom: #BEC2C5;
+  --ca-cool-gray-silk: #A9ADB2;
+  --ca-cool-gray-tone: #93999F;
+  --ca-cool-gray-radiant: #838A91;
+  --ca-cool-gray-core: #737A82;
+  --ca-cool-gray-velvet: #656B72;
+  --ca-cool-gray-dusk: #51575C;
+  --ca-cool-gray-shadow: #43474C;
+  --ca-cool-gray-nocturne: #303336;
+  --ca-cool-gray-ink: #222426;
 }

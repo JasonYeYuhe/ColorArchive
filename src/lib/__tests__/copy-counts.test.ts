@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, statSync } from "fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "fs";
 import { describe, expect, it } from "vitest";
 
 import { colors } from "@/src/data/colors";
@@ -77,15 +77,25 @@ const NOT_A_TOTAL = [
  * src/lib/i18n.ts held eighteen stale claims — a guard with a blind spot reads
  * exactly like a guard without one.
  */
-const SCANNED_DIRS = ["app", "src/components", "src/lib"] as const;
+// server/ and .claude/scheduled-tasks/ are here because they generate copy that
+// goes OUT — Instagram captions, Pinterest descriptions, product emails, the daily
+// post. They were outside this guard while every one of them said "5,400+", and the
+// paid Complete Archive bundle they advertised actually shipped 5,376. Outbound copy
+// is the last place a stale number should be allowed to survive.
+const SCANNED_DIRS = ["app", "src/components", "src/lib", "server", ".claude/scheduled-tasks"] as const;
 
 function sourceFiles(dir: string): string[] {
   const out: string[] = [];
+  // Some scanned roots are machine-local and not in git — .claude/scheduled-tasks/
+  // holds the daily poster and only exists where those tasks are installed. Without
+  // this, a fresh clone or CI dies on ENOENT before running a single assertion, which
+  // is a worse failure than the drift the scan is here to catch.
+  if (!existsSync(dir)) return out;
   for (const entry of readdirSync(dir)) {
-    if (entry === "node_modules" || entry.startsWith(".")) continue;
+    if (entry === "node_modules" || (entry.startsWith(".") && !dir.startsWith(".claude"))) continue;
     const path = `${dir}/${entry}`;
     if (statSync(path).isDirectory()) out.push(...sourceFiles(path));
-    else if (path.endsWith(".tsx") || path.endsWith(".ts")) out.push(path);
+    else if (/\.(tsx?|mjs|cjs|js)$/.test(path)) out.push(path);
   }
   return out;
 }

@@ -174,7 +174,7 @@ function buildColorPayload(color) {
       `${color.name} (${color.hex}) — Color of the Day on ColorArchive.`,
       `Hue ${color.hue}°, saturation ${color.saturation}%, lightness ${color.lightness}%.`,
       `Part of the ${color.family} family.`,
-      "Browse 5,400+ curated colors and export palettes in CSS, Tailwind, Figma tokens.",
+      "Browse 5,446 curated colors and export palettes in CSS, Tailwind, Figma tokens.",
     ]
       .join(" ")
       .slice(0, 500),

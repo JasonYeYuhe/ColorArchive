@@ -559,7 +559,7 @@ async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
       "Brand Starter Kit (¥1,499) — Primary + secondary + accent groups for landing pages and brands.",
       `${SITE_URL}/packs/brand-starter-kit/`,
       "",
-      "Complete Archive Token Set (¥2,499) — All 5,400+ colors as CSS, JSON, Tailwind, Figma tokens.",
+      "Complete Archive Token Set (¥2,499) — All 5,446 colors as CSS, JSON, Tailwind, Figma tokens.",
       `${SITE_URL}/packs/complete-archive/`,
       "",
       "All Access Bundle (¥3,999) — Everything above in one download. Save 40%.",
@@ -580,7 +580,7 @@ async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
           { id: "dark-mode-ui-kit", title: "Dark Mode UI Kit", price: "¥999", desc: "Pre-tested light/dark pairings, contrast-checked, Tailwind ready.", bg: "#f5f3ff", border: "#ddd6fe", titleColor: "#6d28d9", textColor: "#5b21b6" },
           { id: "content-creator-bundle", title: "Creator Bundle", price: "¥999", desc: "Social-ready palette boards and wallpaper sets for visual content.", bg: "#fff7ed", border: "#fed7aa", titleColor: "#9a3412", textColor: "#7c2d12" },
           { id: "brand-starter-kit", title: "Brand Color Starter Kit", price: "¥1,499", desc: "Primary + secondary + accent groups for landing pages and brands.", bg: "#eff6ff", border: "#bfdbfe", titleColor: "#1d4ed8", textColor: "#1e3a8a" },
-          { id: "complete-archive", title: "Complete Archive Token Set", price: "¥2,499", desc: "All 5,400+ colors as CSS, JSON, Tailwind, and Figma tokens.", bg: "#fafafa", border: "#e5e7eb", titleColor: "#111827", textColor: "#374151" },
+          { id: "complete-archive", title: "Complete Archive Token Set", price: "¥2,499", desc: "All 5,446 colors as CSS, JSON, Tailwind, and Figma tokens.", bg: "#fafafa", border: "#e5e7eb", titleColor: "#111827", textColor: "#374151" },
           { id: "all-access-bundle", title: "All Access Bundle", price: "¥3,999", desc: "Everything above in one download. Save 40%.", bg: "#f0fdf4", border: "#86efac", titleColor: "#14532d", textColor: "#166534" },
         ].map(p => `
         <div style="background:${p.bg};border:1px solid ${p.border};border-radius:16px;padding:14px 16px;margin:12px 0">

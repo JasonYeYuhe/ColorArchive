@@ -53758,5 +53758,705 @@
     "hue": 350,
     "saturation": 92,
     "lightness": 14
+  },
+  {
+    "id": "warm-gray-veil",
+    "name": "Warm Gray Veil",
+    "hex": "#FAFAFA",
+    "hsl": "hsl(30, 6%, 98%)",
+    "rgb": "rgb(250, 250, 250)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 98
+  },
+  {
+    "id": "warm-gray-whisper",
+    "name": "Warm Gray Whisper",
+    "hex": "#F1F0EF",
+    "hsl": "hsl(30, 6%, 94%)",
+    "rgb": "rgb(241, 240, 239)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 94
+  },
+  {
+    "id": "warm-gray-mist",
+    "name": "Warm Gray Mist",
+    "hex": "#E7E6E4",
+    "hsl": "hsl(30, 6%, 90%)",
+    "rgb": "rgb(231, 230, 228)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 90
+  },
+  {
+    "id": "warm-gray-pearl",
+    "name": "Warm Gray Pearl",
+    "hex": "#D9D6D4",
+    "hsl": "hsl(30, 6%, 84%)",
+    "rgb": "rgb(217, 214, 212)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 84
+  },
+  {
+    "id": "warm-gray-bloom",
+    "name": "Warm Gray Bloom",
+    "hex": "#C5C2BE",
+    "hsl": "hsl(30, 6%, 76%)",
+    "rgb": "rgb(197, 194, 190)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 76
+  },
+  {
+    "id": "warm-gray-silk",
+    "name": "Warm Gray Silk",
+    "hex": "#B2ADA9",
+    "hsl": "hsl(30, 6%, 68%)",
+    "rgb": "rgb(178, 173, 169)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 68
+  },
+  {
+    "id": "warm-gray-tone",
+    "name": "Warm Gray Tone",
+    "hex": "#9F9993",
+    "hsl": "hsl(30, 6%, 60%)",
+    "rgb": "rgb(159, 153, 147)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 60
+  },
+  {
+    "id": "warm-gray-radiant",
+    "name": "Warm Gray Radiant",
+    "hex": "#918A83",
+    "hsl": "hsl(30, 6%, 54%)",
+    "rgb": "rgb(145, 138, 131)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 54
+  },
+  {
+    "id": "warm-gray-core",
+    "name": "Warm Gray Core",
+    "hex": "#827A73",
+    "hsl": "hsl(30, 6%, 48%)",
+    "rgb": "rgb(130, 122, 115)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 48
+  },
+  {
+    "id": "warm-gray-velvet",
+    "name": "Warm Gray Velvet",
+    "hex": "#726B65",
+    "hsl": "hsl(30, 6%, 42%)",
+    "rgb": "rgb(114, 107, 101)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 42
+  },
+  {
+    "id": "warm-gray-dusk",
+    "name": "Warm Gray Dusk",
+    "hex": "#5C5751",
+    "hsl": "hsl(30, 6%, 34%)",
+    "rgb": "rgb(92, 87, 81)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 34
+  },
+  {
+    "id": "warm-gray-shadow",
+    "name": "Warm Gray Shadow",
+    "hex": "#4C4743",
+    "hsl": "hsl(30, 6%, 28%)",
+    "rgb": "rgb(76, 71, 67)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 28
+  },
+  {
+    "id": "warm-gray-nocturne",
+    "name": "Warm Gray Nocturne",
+    "hex": "#363330",
+    "hsl": "hsl(30, 6%, 20%)",
+    "rgb": "rgb(54, 51, 48)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 20
+  },
+  {
+    "id": "warm-gray-ink",
+    "name": "Warm Gray Ink",
+    "hex": "#262422",
+    "hsl": "hsl(30, 6%, 14%)",
+    "rgb": "rgb(38, 36, 34)",
+    "hue": 30,
+    "saturation": 6,
+    "lightness": 14
+  },
+  {
+    "id": "taupe-gray-veil",
+    "name": "Taupe Gray Veil",
+    "hex": "#FAFAFA",
+    "hsl": "hsl(40, 5%, 98%)",
+    "rgb": "rgb(250, 250, 250)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 98
+  },
+  {
+    "id": "taupe-gray-whisper",
+    "name": "Taupe Gray Whisper",
+    "hex": "#F0F0EF",
+    "hsl": "hsl(40, 5%, 94%)",
+    "rgb": "rgb(240, 240, 239)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 94
+  },
+  {
+    "id": "taupe-gray-mist",
+    "name": "Taupe Gray Mist",
+    "hex": "#E7E6E4",
+    "hsl": "hsl(40, 5%, 90%)",
+    "rgb": "rgb(231, 230, 228)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 90
+  },
+  {
+    "id": "taupe-gray-pearl",
+    "name": "Taupe Gray Pearl",
+    "hex": "#D8D7D4",
+    "hsl": "hsl(40, 5%, 84%)",
+    "rgb": "rgb(216, 215, 212)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 84
+  },
+  {
+    "id": "taupe-gray-bloom",
+    "name": "Taupe Gray Bloom",
+    "hex": "#C5C3BF",
+    "hsl": "hsl(40, 5%, 76%)",
+    "rgb": "rgb(197, 195, 191)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 76
+  },
+  {
+    "id": "taupe-gray-silk",
+    "name": "Taupe Gray Silk",
+    "hex": "#B1AFA9",
+    "hsl": "hsl(40, 5%, 68%)",
+    "rgb": "rgb(177, 175, 169)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 68
+  },
+  {
+    "id": "taupe-gray-tone",
+    "name": "Taupe Gray Tone",
+    "hex": "#9E9B94",
+    "hsl": "hsl(40, 5%, 60%)",
+    "rgb": "rgb(158, 155, 148)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 60
+  },
+  {
+    "id": "taupe-gray-radiant",
+    "name": "Taupe Gray Radiant",
+    "hex": "#908C84",
+    "hsl": "hsl(40, 5%, 54%)",
+    "rgb": "rgb(144, 140, 132)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 54
+  },
+  {
+    "id": "taupe-gray-core",
+    "name": "Taupe Gray Core",
+    "hex": "#817C74",
+    "hsl": "hsl(40, 5%, 48%)",
+    "rgb": "rgb(129, 124, 116)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 48
+  },
+  {
+    "id": "taupe-gray-velvet",
+    "name": "Taupe Gray Velvet",
+    "hex": "#706D66",
+    "hsl": "hsl(40, 5%, 42%)",
+    "rgb": "rgb(112, 109, 102)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 42
+  },
+  {
+    "id": "taupe-gray-dusk",
+    "name": "Taupe Gray Dusk",
+    "hex": "#5B5852",
+    "hsl": "hsl(40, 5%, 34%)",
+    "rgb": "rgb(91, 88, 82)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 34
+  },
+  {
+    "id": "taupe-gray-shadow",
+    "name": "Taupe Gray Shadow",
+    "hex": "#4B4944",
+    "hsl": "hsl(40, 5%, 28%)",
+    "rgb": "rgb(75, 73, 68)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 28
+  },
+  {
+    "id": "taupe-gray-nocturne",
+    "name": "Taupe Gray Nocturne",
+    "hex": "#363430",
+    "hsl": "hsl(40, 5%, 20%)",
+    "rgb": "rgb(54, 52, 48)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 20
+  },
+  {
+    "id": "taupe-gray-ink",
+    "name": "Taupe Gray Ink",
+    "hex": "#252422",
+    "hsl": "hsl(40, 5%, 14%)",
+    "rgb": "rgb(37, 36, 34)",
+    "hue": 40,
+    "saturation": 5,
+    "lightness": 14
+  },
+  {
+    "id": "true-gray-veil",
+    "name": "True Gray Veil",
+    "hex": "#FAFAFA",
+    "hsl": "hsl(0, 0%, 98%)",
+    "rgb": "rgb(250, 250, 250)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 98
+  },
+  {
+    "id": "true-gray-whisper",
+    "name": "True Gray Whisper",
+    "hex": "#F0F0F0",
+    "hsl": "hsl(0, 0%, 94%)",
+    "rgb": "rgb(240, 240, 240)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 94
+  },
+  {
+    "id": "true-gray-mist",
+    "name": "True Gray Mist",
+    "hex": "#E6E6E6",
+    "hsl": "hsl(0, 0%, 90%)",
+    "rgb": "rgb(230, 230, 230)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 90
+  },
+  {
+    "id": "true-gray-pearl",
+    "name": "True Gray Pearl",
+    "hex": "#D6D6D6",
+    "hsl": "hsl(0, 0%, 84%)",
+    "rgb": "rgb(214, 214, 214)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 84
+  },
+  {
+    "id": "true-gray-bloom",
+    "name": "True Gray Bloom",
+    "hex": "#C2C2C2",
+    "hsl": "hsl(0, 0%, 76%)",
+    "rgb": "rgb(194, 194, 194)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 76
+  },
+  {
+    "id": "true-gray-silk",
+    "name": "True Gray Silk",
+    "hex": "#ADADAD",
+    "hsl": "hsl(0, 0%, 68%)",
+    "rgb": "rgb(173, 173, 173)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 68
+  },
+  {
+    "id": "true-gray-tone",
+    "name": "True Gray Tone",
+    "hex": "#999999",
+    "hsl": "hsl(0, 0%, 60%)",
+    "rgb": "rgb(153, 153, 153)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 60
+  },
+  {
+    "id": "true-gray-radiant",
+    "name": "True Gray Radiant",
+    "hex": "#8A8A8A",
+    "hsl": "hsl(0, 0%, 54%)",
+    "rgb": "rgb(138, 138, 138)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 54
+  },
+  {
+    "id": "true-gray-core",
+    "name": "True Gray Core",
+    "hex": "#7A7A7A",
+    "hsl": "hsl(0, 0%, 48%)",
+    "rgb": "rgb(122, 122, 122)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 48
+  },
+  {
+    "id": "true-gray-velvet",
+    "name": "True Gray Velvet",
+    "hex": "#6B6B6B",
+    "hsl": "hsl(0, 0%, 42%)",
+    "rgb": "rgb(107, 107, 107)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 42
+  },
+  {
+    "id": "true-gray-dusk",
+    "name": "True Gray Dusk",
+    "hex": "#575757",
+    "hsl": "hsl(0, 0%, 34%)",
+    "rgb": "rgb(87, 87, 87)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 34
+  },
+  {
+    "id": "true-gray-shadow",
+    "name": "True Gray Shadow",
+    "hex": "#474747",
+    "hsl": "hsl(0, 0%, 28%)",
+    "rgb": "rgb(71, 71, 71)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 28
+  },
+  {
+    "id": "true-gray-nocturne",
+    "name": "True Gray Nocturne",
+    "hex": "#333333",
+    "hsl": "hsl(0, 0%, 20%)",
+    "rgb": "rgb(51, 51, 51)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 20
+  },
+  {
+    "id": "true-gray-ink",
+    "name": "True Gray Ink",
+    "hex": "#242424",
+    "hsl": "hsl(0, 0%, 14%)",
+    "rgb": "rgb(36, 36, 36)",
+    "hue": 0,
+    "saturation": 0,
+    "lightness": 14
+  },
+  {
+    "id": "sage-gray-veil",
+    "name": "Sage Gray Veil",
+    "hex": "#FAFAFA",
+    "hsl": "hsl(150, 5%, 98%)",
+    "rgb": "rgb(250, 250, 250)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 98
+  },
+  {
+    "id": "sage-gray-whisper",
+    "name": "Sage Gray Whisper",
+    "hex": "#EFF0F0",
+    "hsl": "hsl(150, 5%, 94%)",
+    "rgb": "rgb(239, 240, 240)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 94
+  },
+  {
+    "id": "sage-gray-mist",
+    "name": "Sage Gray Mist",
+    "hex": "#E4E7E6",
+    "hsl": "hsl(150, 5%, 90%)",
+    "rgb": "rgb(228, 231, 230)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 90
+  },
+  {
+    "id": "sage-gray-pearl",
+    "name": "Sage Gray Pearl",
+    "hex": "#D4D8D6",
+    "hsl": "hsl(150, 5%, 84%)",
+    "rgb": "rgb(212, 216, 214)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 84
+  },
+  {
+    "id": "sage-gray-bloom",
+    "name": "Sage Gray Bloom",
+    "hex": "#BFC5C2",
+    "hsl": "hsl(150, 5%, 76%)",
+    "rgb": "rgb(191, 197, 194)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 76
+  },
+  {
+    "id": "sage-gray-silk",
+    "name": "Sage Gray Silk",
+    "hex": "#A9B1AD",
+    "hsl": "hsl(150, 5%, 68%)",
+    "rgb": "rgb(169, 177, 173)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 68
+  },
+  {
+    "id": "sage-gray-tone",
+    "name": "Sage Gray Tone",
+    "hex": "#949E99",
+    "hsl": "hsl(150, 5%, 60%)",
+    "rgb": "rgb(148, 158, 153)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 60
+  },
+  {
+    "id": "sage-gray-radiant",
+    "name": "Sage Gray Radiant",
+    "hex": "#84908A",
+    "hsl": "hsl(150, 5%, 54%)",
+    "rgb": "rgb(132, 144, 138)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 54
+  },
+  {
+    "id": "sage-gray-core",
+    "name": "Sage Gray Core",
+    "hex": "#74817A",
+    "hsl": "hsl(150, 5%, 48%)",
+    "rgb": "rgb(116, 129, 122)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 48
+  },
+  {
+    "id": "sage-gray-velvet",
+    "name": "Sage Gray Velvet",
+    "hex": "#66706B",
+    "hsl": "hsl(150, 5%, 42%)",
+    "rgb": "rgb(102, 112, 107)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 42
+  },
+  {
+    "id": "sage-gray-dusk",
+    "name": "Sage Gray Dusk",
+    "hex": "#525B57",
+    "hsl": "hsl(150, 5%, 34%)",
+    "rgb": "rgb(82, 91, 87)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 34
+  },
+  {
+    "id": "sage-gray-shadow",
+    "name": "Sage Gray Shadow",
+    "hex": "#444B47",
+    "hsl": "hsl(150, 5%, 28%)",
+    "rgb": "rgb(68, 75, 71)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 28
+  },
+  {
+    "id": "sage-gray-nocturne",
+    "name": "Sage Gray Nocturne",
+    "hex": "#303633",
+    "hsl": "hsl(150, 5%, 20%)",
+    "rgb": "rgb(48, 54, 51)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 20
+  },
+  {
+    "id": "sage-gray-ink",
+    "name": "Sage Gray Ink",
+    "hex": "#222524",
+    "hsl": "hsl(150, 5%, 14%)",
+    "rgb": "rgb(34, 37, 36)",
+    "hue": 150,
+    "saturation": 5,
+    "lightness": 14
+  },
+  {
+    "id": "cool-gray-veil",
+    "name": "Cool Gray Veil",
+    "hex": "#FAFAFA",
+    "hsl": "hsl(210, 6%, 98%)",
+    "rgb": "rgb(250, 250, 250)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 98
+  },
+  {
+    "id": "cool-gray-whisper",
+    "name": "Cool Gray Whisper",
+    "hex": "#EFF0F1",
+    "hsl": "hsl(210, 6%, 94%)",
+    "rgb": "rgb(239, 240, 241)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 94
+  },
+  {
+    "id": "cool-gray-mist",
+    "name": "Cool Gray Mist",
+    "hex": "#E4E6E7",
+    "hsl": "hsl(210, 6%, 90%)",
+    "rgb": "rgb(228, 230, 231)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 90
+  },
+  {
+    "id": "cool-gray-pearl",
+    "name": "Cool Gray Pearl",
+    "hex": "#D4D6D9",
+    "hsl": "hsl(210, 6%, 84%)",
+    "rgb": "rgb(212, 214, 217)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 84
+  },
+  {
+    "id": "cool-gray-bloom",
+    "name": "Cool Gray Bloom",
+    "hex": "#BEC2C5",
+    "hsl": "hsl(210, 6%, 76%)",
+    "rgb": "rgb(190, 194, 197)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 76
+  },
+  {
+    "id": "cool-gray-silk",
+    "name": "Cool Gray Silk",
+    "hex": "#A9ADB2",
+    "hsl": "hsl(210, 6%, 68%)",
+    "rgb": "rgb(169, 173, 178)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 68
+  },
+  {
+    "id": "cool-gray-tone",
+    "name": "Cool Gray Tone",
+    "hex": "#93999F",
+    "hsl": "hsl(210, 6%, 60%)",
+    "rgb": "rgb(147, 153, 159)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 60
+  },
+  {
+    "id": "cool-gray-radiant",
+    "name": "Cool Gray Radiant",
+    "hex": "#838A91",
+    "hsl": "hsl(210, 6%, 54%)",
+    "rgb": "rgb(131, 138, 145)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 54
+  },
+  {
+    "id": "cool-gray-core",
+    "name": "Cool Gray Core",
+    "hex": "#737A82",
+    "hsl": "hsl(210, 6%, 48%)",
+    "rgb": "rgb(115, 122, 130)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 48
+  },
+  {
+    "id": "cool-gray-velvet",
+    "name": "Cool Gray Velvet",
+    "hex": "#656B72",
+    "hsl": "hsl(210, 6%, 42%)",
+    "rgb": "rgb(101, 107, 114)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 42
+  },
+  {
+    "id": "cool-gray-dusk",
+    "name": "Cool Gray Dusk",
+    "hex": "#51575C",
+    "hsl": "hsl(210, 6%, 34%)",
+    "rgb": "rgb(81, 87, 92)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 34
+  },
+  {
+    "id": "cool-gray-shadow",
+    "name": "Cool Gray Shadow",
+    "hex": "#43474C",
+    "hsl": "hsl(210, 6%, 28%)",
+    "rgb": "rgb(67, 71, 76)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 28
+  },
+  {
+    "id": "cool-gray-nocturne",
+    "name": "Cool Gray Nocturne",
+    "hex": "#303336",
+    "hsl": "hsl(210, 6%, 20%)",
+    "rgb": "rgb(48, 51, 54)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 20
+  },
+  {
+    "id": "cool-gray-ink",
+    "name": "Cool Gray Ink",
+    "hex": "#222426",
+    "hsl": "hsl(210, 6%, 14%)",
+    "rgb": "rgb(34, 36, 38)",
+    "hue": 210,
+    "saturation": 6,
+    "lightness": 14
   }
 ]

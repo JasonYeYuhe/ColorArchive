@@ -5472,4 +5472,84 @@
   --color-merlot-ink-vivid: #3E0912;
   --color-merlot-ink-bright: #420610;
   --color-merlot-ink-pure: #45030E;
+
+  /* Warm Gray */
+  --color-warm-gray-veil: #FAFAFA;
+  --color-warm-gray-whisper: #F1F0EF;
+  --color-warm-gray-mist: #E7E6E4;
+  --color-warm-gray-pearl: #D9D6D4;
+  --color-warm-gray-bloom: #C5C2BE;
+  --color-warm-gray-silk: #B2ADA9;
+  --color-warm-gray-tone: #9F9993;
+  --color-warm-gray-radiant: #918A83;
+  --color-warm-gray-core: #827A73;
+  --color-warm-gray-velvet: #726B65;
+  --color-warm-gray-dusk: #5C5751;
+  --color-warm-gray-shadow: #4C4743;
+  --color-warm-gray-nocturne: #363330;
+  --color-warm-gray-ink: #262422;
+
+  /* Taupe Gray */
+  --color-taupe-gray-veil: #FAFAFA;
+  --color-taupe-gray-whisper: #F0F0EF;
+  --color-taupe-gray-mist: #E7E6E4;
+  --color-taupe-gray-pearl: #D8D7D4;
+  --color-taupe-gray-bloom: #C5C3BF;
+  --color-taupe-gray-silk: #B1AFA9;
+  --color-taupe-gray-tone: #9E9B94;
+  --color-taupe-gray-radiant: #908C84;
+  --color-taupe-gray-core: #817C74;
+  --color-taupe-gray-velvet: #706D66;
+  --color-taupe-gray-dusk: #5B5852;
+  --color-taupe-gray-shadow: #4B4944;
+  --color-taupe-gray-nocturne: #363430;
+  --color-taupe-gray-ink: #252422;
+
+  /* True Gray */
+  --color-true-gray-veil: #FAFAFA;
+  --color-true-gray-whisper: #F0F0F0;
+  --color-true-gray-mist: #E6E6E6;
+  --color-true-gray-pearl: #D6D6D6;
+  --color-true-gray-bloom: #C2C2C2;
+  --color-true-gray-silk: #ADADAD;
+  --color-true-gray-tone: #999999;
+  --color-true-gray-radiant: #8A8A8A;
+  --color-true-gray-core: #7A7A7A;
+  --color-true-gray-velvet: #6B6B6B;
+  --color-true-gray-dusk: #575757;
+  --color-true-gray-shadow: #474747;
+  --color-true-gray-nocturne: #333333;
+  --color-true-gray-ink: #242424;
+
+  /* Sage Gray */
+  --color-sage-gray-veil: #FAFAFA;
+  --color-sage-gray-whisper: #EFF0F0;
+  --color-sage-gray-mist: #E4E7E6;
+  --color-sage-gray-pearl: #D4D8D6;
+  --color-sage-gray-bloom: #BFC5C2;
+  --color-sage-gray-silk: #A9B1AD;
+  --color-sage-gray-tone: #949E99;
+  --color-sage-gray-radiant: #84908A;
+  --color-sage-gray-core: #74817A;
+  --color-sage-gray-velvet: #66706B;
+  --color-sage-gray-dusk: #525B57;
+  --color-sage-gray-shadow: #444B47;
+  --color-sage-gray-nocturne: #303633;
+  --color-sage-gray-ink: #222524;
+
+  /* Cool Gray */
+  --color-cool-gray-veil: #FAFAFA;
+  --color-cool-gray-whisper: #EFF0F1;
+  --color-cool-gray-mist: #E4E6E7;
+  --color-cool-gray-pearl: #D4D6D9;
+  --color-cool-gray-bloom: #BEC2C5;
+  --color-cool-gray-silk: #A9ADB2;
+  --color-cool-gray-tone: #93999F;
+  --color-cool-gray-radiant: #838A91;
+  --color-cool-gray-core: #737A82;
+  --color-cool-gray-velvet: #656B72;
+  --color-cool-gray-dusk: #51575C;
+  --color-cool-gray-shadow: #43474C;
+  --color-cool-gray-nocturne: #303336;
+  --color-cool-gray-ink: #222426;
 }
