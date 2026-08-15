@@ -1,5 +1,5 @@
 // ColorArchive — Flutter Color Constants
-// Complete Archive — All ${ARCHIVE_SIZE} Colors
+// Complete Archive — All 5446 Colors
 // Auto-generated — do not edit
 
 import 'package:flutter/material.dart';

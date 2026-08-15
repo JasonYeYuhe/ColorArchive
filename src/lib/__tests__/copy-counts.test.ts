@@ -82,7 +82,7 @@ const NOT_A_TOTAL = [
 // post. They were outside this guard while every one of them said "5,400+", and the
 // paid Complete Archive bundle they advertised actually shipped 5,376. Outbound copy
 // is the last place a stale number should be allowed to survive.
-const SCANNED_DIRS = ["app", "src/components", "src/lib", "server", ".claude/scheduled-tasks"] as const;
+const SCANNED_DIRS = ["app", "src/components", "src/lib", "server", "scripts", ".claude/scheduled-tasks"] as const;
 
 function sourceFiles(dir: string): string[] {
   const out: string[] = [];
@@ -126,6 +126,15 @@ function claimsIn(file: string, source: string): Claim[] {
       // "2026 color trends" is a year, not a count. Real counts here are 13, 44,
       // 261, 333 and 5,446 — none of which can be confused with a year, and a
       // year never carries a thousands separator in this copy.
+      //
+      // KNOWN BLIND SPOT, and it has already cost us once. This skips ANY bare
+      // four-digit number in 1990–2100, so a stale count that happens to look like
+      // a year sails through. The paid bundle's README described the archive as
+      // "2016 colors" for months and this test would never have flagged it — 2016
+      // is a year. The hyphenated singular it also used, "2016-color library", is
+      // missed twice over, since the matcher wants whitespace and a plural noun.
+      // What actually catches that class is counting the emitted artifact:
+      // assertBundleIntegrity() in scripts/generate-downloads.mjs.
       const looksLikeAYear = !match[1].includes(",") && value >= 1990 && value <= 2100;
       if (looksLikeAYear) continue;
 

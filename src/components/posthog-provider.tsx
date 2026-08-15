@@ -36,9 +36,12 @@ export function PostHogProvider() {
     // initPosthog() on purpose: the provider is mounted once by the root layout, so
     // bailing before init would leave PostHog uninitialised for every route the
     // visitor opens afterwards in the same session.
-    if (isBare) return;
     if (!pathname || lastPath.current === pathname) return;
+    // Same ordering as page-tracker.tsx: record the path as seen, THEN decide whether
+    // to report it. Bailing first would make a return visit to the previous route look
+    // like a duplicate and drop it.
     lastPath.current = pathname;
+    if (isBare) return;
 
     phCapture("$pageview", { path: pathname });
 

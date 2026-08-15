@@ -18,8 +18,13 @@ export function PageTracker() {
     // the visible chrome was removed first, but a private page still beaconing its
     // path into the same analytics table as commercial traffic contradicts the point
     // of having the list at all.
-    if (!API_URL || isBare || pathname === lastPath.current) return;
+    if (!API_URL || pathname === lastPath.current) return;
+    // Advance the dedupe ref BEFORE the bare-route bail, not after. Bailing without
+    // recording the path leaves lastPath pointing at the page the visitor came from,
+    // so returning to it reads as a duplicate and that pageview is dropped —
+    // suppressing one route would quietly cost measurements on the others.
     lastPath.current = pathname;
+    if (isBare) return;
 
     // Attach first-touch acquisition source so the /preorder UV denominator (the exit-gate
     // floor) can be split by channel — qualified ICP vs. generic gawkers.

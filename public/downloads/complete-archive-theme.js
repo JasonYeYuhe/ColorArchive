@@ -1,5 +1,5 @@
 // ColorArchive — CSS-in-JS Theme Object
-// Complete Archive — All ${ARCHIVE_SIZE} Colors
+// Complete Archive — All 5446 Colors
 // Auto-generated — do not edit
 // Usage: import { caTheme } from './colorarchive-theme';
 

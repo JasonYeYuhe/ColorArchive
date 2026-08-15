@@ -986,10 +986,10 @@ ${entries}
 
 // Full archive platform exports
 const allColors = [...colorMap.entries()].map(([id, c]) => ({ id, ...c }));
-writeFileSync(join(OUT_DIR, "complete-archive-swiftui.swift"), generateSwiftUI(allColors, "Complete Archive — All ${ARCHIVE_SIZE} Colors"), "utf8");
-writeFileSync(join(OUT_DIR, "complete-archive-colors.xml"), generateAndroidXml(allColors, "Complete Archive — All ${ARCHIVE_SIZE} Colors"), "utf8");
-writeFileSync(join(OUT_DIR, "complete-archive-colors.dart"), generateFlutterDart(allColors, "Complete Archive — All ${ARCHIVE_SIZE} Colors"), "utf8");
-writeFileSync(join(OUT_DIR, "complete-archive-theme.js"), generateCssInJs(allColors, "Complete Archive — All ${ARCHIVE_SIZE} Colors"), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-swiftui.swift"), generateSwiftUI(allColors, `Complete Archive — All ${ARCHIVE_SIZE} Colors`), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-colors.xml"), generateAndroidXml(allColors, `Complete Archive — All ${ARCHIVE_SIZE} Colors`), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-colors.dart"), generateFlutterDart(allColors, `Complete Archive — All ${ARCHIVE_SIZE} Colors`), "utf8");
+writeFileSync(join(OUT_DIR, "complete-archive-theme.js"), generateCssInJs(allColors, `Complete Archive — All ${ARCHIVE_SIZE} Colors`), "utf8");
 
 // Per-collection platform exports
 for (const col of COLLECTIONS) {
@@ -1680,7 +1680,52 @@ NEED HELP?
 © ColorArchive · 
 `;
 writeFileSync(join(OUT_DIR, "README-complete-archive.txt"), completeArchiveReadme, "utf8");
-createZip("complete-archive.zip", [
+/**
+ * Nothing goes into the paid bundle unchecked.
+ *
+ * Both of the defects this guard encodes shipped to customers. The exports are
+ * built by several independent code paths, and a reviewer reading the diff cannot
+ * see what any of them actually emitted:
+ *
+ *   1. Four exports rebuilt the archive from HUE × LIGHTNESS × CHROMA and silently
+ *      omitted all 70 neutral greys, so the same zip contained 5,376 colours in its
+ *      CSS and 5,446 in its SwiftUI.
+ *   2. Four size labels were written into ordinary double-quoted strings, so the
+ *      delivered files literally read "All ${ARCHIVE_SIZE} Colors".
+ *
+ * Counting the emitted file catches both regardless of how it was produced.
+ */
+function assertBundleIntegrity(bundleFiles) {
+  // The placeholder check has to cover EVERY file in the zip, not just the four
+  // counted below. The first version of this guard checked only those four and
+  // therefore did not catch defect 2 at all — the broken labels were written into
+  // the SwiftUI, XML, Dart and theme.js exports, which it never opened. A guard
+  // aimed at a defect it cannot see is the failure mode this whole function exists
+  // to stop, so it is verified against the real bundle list.
+  for (const file of bundleFiles) {
+    if (readFileSync(join(OUT_DIR, file), "utf8").includes("${")) {
+      throw new Error(`[bundle] ${file} ships an un-interpolated \${...} placeholder`);
+    }
+  }
+
+  const counters = {
+    "complete-archive-all-colors.json": (s) => JSON.parse(s).length,
+    "complete-archive-all-colors.css": (s) => (s.match(/^\s*--ca-/gm) ?? []).length,
+    "complete-archive-tailwind-tokens.css": (s) => (s.match(/^\s*--color-/gm) ?? []).length,
+    "complete-archive-scss-maps.scss": (s) => (s.match(/^\s*"[^"]+":\s*#/gm) ?? []).length,
+  };
+
+  for (const [file, count] of Object.entries(counters)) {
+    const body = readFileSync(join(OUT_DIR, file), "utf8");
+    const found = count(body);
+    if (found !== ARCHIVE_SIZE) {
+      throw new Error(`[bundle] ${file} holds ${found} colours, expected ${ARCHIVE_SIZE}`);
+    }
+  }
+  console.log(`✓ Bundle integrity: 4 flagship exports × ${ARCHIVE_SIZE} colours, no stray placeholders`);
+}
+
+const COMPLETE_ARCHIVE_FILES = [
   "complete-archive-all-colors.css",
   "complete-archive-tailwind-tokens.css",
   "complete-archive-all-colors.json",
@@ -1699,7 +1744,10 @@ createZip("complete-archive.zip", [
   ...COLLECTIONS.map((c) => `${c.id}-contrast-matrix.json`),
   ...COLLECTIONS.map((c) => `${c.id}-contrast-report.md`),
   "README-complete-archive.txt",
-]);
+];
+
+assertBundleIntegrity(COMPLETE_ARCHIVE_FILES);
+createZip("complete-archive.zip", COMPLETE_ARCHIVE_FILES);
 
 // --- Dark Mode UI Kit ---
 // Generate paired light/dark token files

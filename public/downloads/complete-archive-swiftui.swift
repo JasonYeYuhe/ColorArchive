@@ -1,5 +1,5 @@
 // ColorArchive — SwiftUI Color Extension
-// Complete Archive — All ${ARCHIVE_SIZE} Colors
+// Complete Archive — All 5446 Colors
 // Auto-generated — do not edit
 
 import SwiftUI
