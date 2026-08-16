@@ -1,9 +1,48 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-08-09 (weekly roundup drafted + two published counts corrected — 44
-> tools, 333 guides; off-repo copies still need a sweep. 10 shadowed collections still need
-> an editorial call. The 2026-08-10 Design Notes decision still stands and mails itself.)
+> Last updated: 2026-08-16 (weekly roundup drafted — first real changelog since Jul 26.
+> **New and time-sensitive: any Complete Archive customer is holding a bundle with 70
+> colors missing from four of its exports and needs a re-download note.** Off-repo copies
+> of the old counts still need a sweep.)
+
+## ⚠️ 2026-08-16 — Complete Archive buyers may need a re-download email
+
+`0b89daf` and `d19fd68` fixed two defects in the ¥2,499 Complete Archive bundle:
+four flagship exports rebuilt the archive from HUE × LIGHTNESS × CHROMA and so
+held **5,376** colors with all **70 neutral greys missing**, and four shipped a
+literal `${ARCHIVE_SIZE}` in their header comment. Both are fixed, regenerated,
+and now guarded by `assertBundleIntegrity()` before the zip is written.
+
+Verified independently this run: the JSON parses to 5,446, the CSS holds 5,446
+custom properties, and the bundle is free of un-interpolated `${`.
+
+**What only you can do:** check the prod DB for Complete Archive orders. Anyone
+who downloaded before 2026-08-15 has the bad file.
+
+- **If there are buyers** → email them that the bundle was regenerated and ask
+  them to re-download. They paid for 5,446 colors and four of their export
+  formats shipped 5,376.
+- **If there are none** → nothing to do; close this item.
+
+Deliberately kept out of the Facebook post. A public "our paid bundle was
+missing 70 colors" is a confession to an audience that mostly didn't buy it; the
+right channel is a direct note to the people actually affected.
+
+## 📮 2026-08-16 — weekly roundup is drafted and unposted
+
+`docs/daily-posts-queue.md` → **Weekly Roundup — 2026-08-16**. FB + X copy, every
+claim verified against code and the live site (all ten new collection URLs return
+200; counts read from the modules: 5,446 / 261 / 333 / 44). X variant is 276
+characters and URL-free.
+
+Nothing has been published — the queue is manual-post-only and an unattended run
+does not publish to a public Page. Review and post when you're ready.
+
+**Standing exclusion recorded in the queue:** `/20040303/` (`bf331d8`) is private
+and `noindex` and must never enter public copy. It is in the commit log as a
+`feat(...)`, so it will keep looking like a launch to anything reading only the
+log.
 
 ## ✅ 2026-08-10 — the hover/dark specificity backlog is cleared (74 → 0)
 

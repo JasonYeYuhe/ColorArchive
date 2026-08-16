@@ -4,6 +4,65 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-08-16
+
+> **First real changelog since Jul 26 — after three spotlight weeks, this one has user-facing things in it.** 11 commits, Aug 9 to Aug 16. Not a big release, but not a repair-only week either: dark mode reached the last two surfaces that lacked it, ten fully-written collections that resolved to no URL now have pages (**251 → 261**), and guide detail pages now lead with the tool the guide is about.
+>
+> **Every number and claim below was verified against the code and the live site this run**, not from the commit messages: colors **5,446**, collections **261**, guides **333**, tools **44** (`copy-counts.test.ts` + `dark-mode-classes.test.ts` 5/5 green). All ten new collection URLs return **200 on colorarchive.org** — checked individually, so the list in the post is safe to publish as written. The dark-mode work is `65714a8` (74 hover elements, edited one at a time by exact string with expected match counts — no regex, after a regex sweep broke this twice) and `5e09c40` (`/guides/` and `/word-to-color/[word]/`). The guide CTA is `e401e0f`, `src/components/guide-detail-page.tsx:208`.
+>
+> **Why the Design Notes signup vanished from guide pages, in case anyone asks:** the 14-day read came back 0 subscribers out of 292 sessions with the form continuously in view — under 1.0% at 95% confidence by rule of three. The slot now carries the guide's own tool links instead, since the same window produced 19 tool clicks against those 0 subscribes. Nothing was deleted; the weekly drafting routine is paused and W31 stays approved and unsent. **Not in the public post** — an audience does not need to hear that its own non-response killed a feature.
+>
+> **Deliberately excluded, do not add:**
+> 1. **`/20040303/` (`bf331d8`) is private and personal.** It is `noindex`, it is not linked from anywhere, and it must never appear in a public post, a newsletter, a sitemap entry, or any social copy. Flagging it here only so no future roundup reads the commit log and treats it as a launch.
+> 2. **The Complete Archive bundle defect (`0b89daf`, `d19fd68`).** Four flagship exports in the ¥2,499 bundle held 5,376 colors — every one of the 70 neutral greys was missing — and four shipped a literal `${ARCHIVE_SIZE}` in their header comment. Both are fixed and now guarded by `assertBundleIntegrity()` before the zip is written (verified by reproducing both real defects against the guard). This is a paid-product confession, and the right channel is a direct re-download note to whoever bought it, **not** a public Page post. → **Owner action below.**
+> 3. The guide `<title>` rework (327 over the SERP cut → 12, 0 duplicates), the site-wide copy-count sweep, and the off-repo count audit. All plumbing.
+>
+> **Owner actions:** (a) Check whether any Complete Archive orders exist in the prod DB. If any do, email those customers that the bundle was regenerated and ask them to re-download — they are holding a file with 70 colors missing from four of its exports. If there are none, nothing to do. (b) `docs/human-todo.md` still lists off-repo surfaces quoting the old counts (`e28ae02`) — those are outside every test and need the manual sweep.
+>
+> **Standing conventions:** this file is **manual-post-only — nothing below has been published**, and this run did not post to Facebook (publishing to a public Page unattended isn't the agent's call). Keep the X variant **URL-free**: a link raises X API cost from ~$0.015 to ~$0.20 per post, which is what drained the credits in May.
+
+### Facebook
+
+🎨 **This week: dark mode is finally finished, and ten palettes that were written but unreachable now have pages.**
+
+🌙 **Dark mode now covers the whole site.** Two surfaces had been holding out — the guides index and the word-to-color result pages — which happen to be two of the busiest pages we have. A bad pair to leave glowing white at midnight. Both are done.
+
+We also went through the site hover state by hover state. **74 elements** had a hover style that snapped back to its light-mode color when you pointed at it — a button that reads fine until you reach for it, then flashes. Each one was fixed individually rather than swept with a find-and-replace, because a find-and-replace is exactly what broke this on the two previous attempts.
+
+🖌️ **Ten new collections — 251 → 261.** An honest story: these were fully written, palettes and editorial notes and all, and then rendered nowhere. Each was sharing an id with another collection, and the lookup returns the first match, so ten finished collections quietly lived at no URL. They each have their own page now:
+
+• **Shinrin-yoku** — forest bathing: moss, earth, canopy-filtered light
+• **Abyssal Bioluminescence** — abyssal navy with a bioluminescent aqua
+• **Midnight Botanicals** — forest green, midnight plum, lantern gold
+• **Aged Copper & Bronze** — warm copper against oxidised jade
+• **Desert Last Light** — mauve mesa shadow, amber last light, cooling violet
+• **Nordic Ice Light** — ice-pale blue over bone white
+• **Marine Depth** — navy and teal-black
+• **Golden Hour Amber** — amber, honey, ember
+• **Magic Hour** — rose gold, coral, peach
+• **Autumn Russet & Gold** — deep amber, russet, harvest gold
+
+🔧 **Guides now lead with the tool.** If a guide is about contrast ratios, the contrast checker is right there in the article, not only in a sidebar that disappears on anything narrower than a wide desktop. Read the idea, then go do it.
+
+Browse all 261 collections → colorarchive.org/collections
+
+Start with the forest → colorarchive.org/collections/shinrin-yoku
+
+5,446 colors · 261 collections · 333 guides · 44 free tools
+
+#ColorArchive #ColorPalette #DarkMode #Accessibility #WebDev #UIDesign #DesignTools #ColorTheory #DesignSystems #Frontend
+
+### X / Twitter (@ColorArxiv — post WITHOUT a URL, see owner note)
+
+Dark mode is finished on ColorArchive. The guides index and word-to-color pages were the last holdouts — plus 74 hover states that flashed back to a light color when you pointed at them.
+
+Ten collections that shared an id, so they lived at no URL, now have pages. 251 → 261. 🎨
+
+<!-- 276 chars, verified — fits the 280 limit with the em dash and arrow counted as single characters. -->
+
+
+---
+
 ## Weekly Roundup — 2026-08-09
 
 > **No user-facing release this week either — 8 commits, Aug 2 to Aug 9, and every one was a repair.** The bulk of it was a 12-agent quality audit and the three fix batches it produced (`923d4b6` high, `f8cc6a3` medium, `f0bdec2` low, `92a68fa` redirects), plus the Design Notes decision cron. **Zero new colors, tools, collections, or guides.** So this is a spotlight, not a changelog — same call as Jul 12 and Jul 19.

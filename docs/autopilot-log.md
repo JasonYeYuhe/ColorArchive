@@ -1,3 +1,58 @@
+## 2026-08-16 — [autopilot] weekly content roundup
+
+Scheduled weekly roundup for Aug 9–16. **First real changelog since Jul 26** — the three
+prior roundups were spotlights because nothing user-facing landed. 11 commits this window,
+and three of them changed what a visitor sees.
+
+- `git log --since="7 days ago"`: the Complete Archive bundle repairs (`0b89daf`, `d19fd68`),
+  the private `/20040303/` page (`bf331d8`), the site-wide count sweep (`c4630fa`, `e28ae02`),
+  dark mode (`65714a8` 74 hover elements, `5e09c40` `/guides/` + `/word-to-color/[word]/`),
+  the guide SEO/collections batch (`e9c1283`), the Design Notes retirement (`e401e0f`), the
+  hover backlog close-out (`20148b9`), and last week's own roundup (`7068952`).
+- **Counted rather than quoted.** Every number in the post came from the data this run, not
+  from a commit message: `colors.length` **5,446**, `collections.length` **261**,
+  `landingGuides.length` **333**, `TOOL_COUNT` **44** — read by importing the modules, then
+  `copy-counts.test.ts` + `dark-mode-classes.test.ts` **5/5 green**.
+- **Checked the ten new collections resolve on the live site, not just in the source.** All of
+  `golden-hour-amber`, `magic-hour`, `nordic-ice-light`, `midnight-botanicals`,
+  `aged-copper-bronze`, `desert-last-light`, `marine-depth`, `abyssal-bioluminescence`,
+  `autumn-russet-gold`, `shinrin-yoku` return **200** on colorarchive.org. A collection can
+  exist in `collections.ts` and still 404 if the deploy hasn't run — which is close to the
+  exact failure mode `e9c1283` was fixing, so source-only verification would have been the
+  wrong check. Also confirmed `generateStaticParams` maps `slug: collection.id`, so the URLs
+  in the post are the ids.
+- Verified the guide CTA claim against `src/components/guide-detail-page.tsx:208` (main-column
+  section, `guide.links[0..1]`, `track("guide_tool_click", { placement: "main" })`) before
+  writing the "guides now lead with the tool" line.
+- **Two exclusions that matter more than the post:**
+  1. **`/20040303/` is private** — `noindex`, unlinked, personal. It must never enter public
+     copy. Recorded in the queue's owner note as a standing exclusion, because a future run
+     reading only the commit log would see `feat(...)` and treat it as a launch.
+  2. **The Complete Archive bundle defect stays out of the public post.** Four flagship
+     exports in the ¥2,499 bundle shipped 5,376 colors (all 70 neutral greys missing) and
+     four shipped a literal `${ARCHIVE_SIZE}`. Confirmed fixed independently this run:
+     `complete-archive-all-colors.json` parses to **5,446**, the CSS holds **5,446** custom
+     properties, and a scan of the bundle for `${` is clean. But this is a paid-product
+     confession — the channel is a re-download email to whoever bought it, not a Facebook
+     Page. **Owner action raised in `docs/human-todo.md`.**
+  3. Also left out: the guide `<title>` rework, the copy-count sweep, and the Design Notes
+     retirement rationale (0/292 signups). An audience does not need to be told that its own
+     non-response killed a feature.
+- Wrote FB + X posts into `docs/daily-posts-queue.md` under **Weekly Roundup — 2026-08-16**.
+  X variant measured at **276 characters** (limit 280) and kept URL-free per the cost rule.
+- **Did NOT auto-post to Facebook.** Same call as every prior run: the queue file is headed
+  "Post manually to Facebook Page when ready", publishing to a public Page is irreversible and
+  outward-facing, and this run is unattended with no owner available to approve it. The task
+  file's "if possible" does not substitute for that approval.
+
+### Files Modified (4)
+- `docs/daily-posts-queue.md` — added **Weekly Roundup — 2026-08-16**
+- `docs/human-todo.md` — new 2026-08-16 entry (Complete Archive re-download check + post approval)
+- `docs/autopilot-log.md` — this entry
+- `.claude/session-lock.json` — released
+
+---
+
 ## 2026-08-09 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Aug 2–9. **Second consecutive no-release week** — 8 commits,
