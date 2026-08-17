@@ -23,9 +23,21 @@
  *
  * Gumroad already sends `price` in the smallest unit of the sale currency, so
  * that multiply is wrong for every row it ever wrote. Storing 18700 means it
- * received "187". The sale was ~¥187, and `amount` is inflated 100x — the same
- * class of bug as the one fixed for Lemon Squeezy on 2026-07-22 (b506809), which
- * is why `amount_minor` exists.
+ * parsed "187" — the same class of bug as the one fixed for Lemon Squeezy on
+ * 2026-07-22 (b506809), which is why `amount_minor` exists.
+ *
+ * HOW FAR THAT ACTUALLY GOES — the honest limit. Adversarial review (Codex)
+ * pushed back on "the sale was ¥187, case closed", and the pushback holds. The
+ * code proves a duplicated x100 scaling; it does not prove the money that moved.
+ * The stored currency is `jpy`, which rules out the "it was really $187.00 in
+ * cents" reading, but Gumroad also supports discount codes, PPP and
+ * pay-what-you-want, and a seller's own test purchase is not charged at all —
+ * and both of these rows are the owner's addresses. So:
+ *   - certain: `amount` is 100x too large, and the figure is the ~¥187 order of
+ *     magnitude rather than ~¥18,700. That is the decision-relevant part.
+ *   - unverified: the exact yen, and whether any money moved at all.
+ * The Gumroad dashboard for these two sale_ids would settle it. Nothing in the
+ * plan depends on the difference, because both rows are self-purchases.
  *
  * The third March row is Stripe (`pi_...`), amount=299, and matches the pack's
  * listed price of ¥299 exactly (palette-packs.ts at 065b8cd, `priceHint: "¥299"`
@@ -75,30 +87,63 @@ if (!APPLY) {
   console.log("\nDRY RUN — nothing written. Re-run with --apply.");
 }
 
-const run = (label, sql, params = []) => {
-  if (!APPLY) {
-    const n = db.prepare(sql.replace(/^UPDATE orders SET .*? WHERE/is, "SELECT COUNT(*) c FROM orders WHERE")).get(...params);
-    console.log(`  would update ${n.c} row(s) — ${label}`);
-    return;
-  }
-  const info = db.prepare(sql).run(...params);
-  console.log(`  updated ${info.changes} row(s) — ${label}`);
-};
+// Every amount change names the exact order_id and asserts the value it expects
+// to find. A blanket `LIKE 'gumroad_%'` would also rewrite any future row from a
+// re-enabled provider, and a migration that cannot tell "already applied" from
+// "unexpected data" is one that corrupts on a second run. Adversarial review
+// (Codex, 2026-08-17) caught both, plus the bigger one: the first version set
+// amount_minor and left `amount` at 18700, so every JPY display surface would
+// have gone on printing ¥18,700.
+//
+// The repo convention is `amount` = rounded MAJOR unit for display, `amount_minor`
+// = exact processor value which LS sends x100 for every currency including JPY
+// (server/db.js). So ¥187 is amount=187, amount_minor=18700.
+const AMOUNT_FIXES = [
+  { order_id: "gumroad_YJS2j3xeynVUT5EtHzMMYw==", expectAmount: 18700, amount: 187, amount_minor: 18700 },
+  { order_id: "gumroad_P_kAmjSlfVb7K-Zbd4-lgg==", expectAmount: 18700, amount: 187, amount_minor: 18700 },
+  // Stripe JPY: `amount` was already correct whole yen; only amount_minor is missing.
+  { order_id: "pi_3TGCkBGzX2t5YKIz0qs8SaJs", expectAmount: 299, amount: 299, amount_minor: 29900 },
+];
 
 console.log(`\n${APPLY ? "APPLYING" : "PLAN"}:`);
-run(
-  "gumroad rows: amount is 100x, so the real smallest-unit figure IS the stored amount",
-  `UPDATE orders SET amount_minor = amount WHERE order_id LIKE 'gumroad_%' AND amount_minor IS NULL`,
-);
-run(
-  "stripe JPY row: already whole yen, fill amount_minor to match convention",
-  `UPDATE orders SET amount_minor = amount * 100 WHERE order_id LIKE 'pi_%' AND amount_minor IS NULL`,
-);
-run(
-  "owner's own addresses are not customers",
-  `UPDATE orders SET is_test = 1 WHERE email IN (${OWNER_EMAILS.map(() => "?").join(",")})`,
-  OWNER_EMAILS,
-);
+
+const apply = db.transaction(() => {
+  for (const f of AMOUNT_FIXES) {
+    const cur = db.prepare(`SELECT amount, amount_minor FROM orders WHERE order_id = ?`).get(f.order_id);
+    if (!cur) {
+      console.log(`  SKIP  ${f.order_id} — no such order`);
+      continue;
+    }
+    if (cur.amount === f.amount && cur.amount_minor === f.amount_minor) {
+      console.log(`  ok    ${f.order_id} — already corrected`);
+      continue;
+    }
+    if (cur.amount !== f.expectAmount) {
+      throw new Error(
+        `REFUSING: ${f.order_id} has amount=${cur.amount}, expected ${f.expectAmount}. Someone else changed this row; re-derive before writing.`,
+      );
+    }
+    console.log(`  ${APPLY ? "fix  " : "would"} ${f.order_id}: amount ${cur.amount} -> ${f.amount}, amount_minor ${cur.amount_minor ?? "NULL"} -> ${f.amount_minor}`);
+    if (APPLY) {
+      db.prepare(`UPDATE orders SET amount = ?, amount_minor = ? WHERE order_id = ?`).run(f.amount, f.amount_minor, f.order_id);
+    }
+  }
+
+  const owned = db
+    .prepare(`SELECT COUNT(*) c FROM orders WHERE email IN (${OWNER_EMAILS.map(() => "?").join(",")}) AND COALESCE(is_test,0)=0`)
+    .get(...OWNER_EMAILS).c;
+  console.log(`  ${APPLY ? "flag " : "would"} ${owned} owner-owned order(s) as is_test=1`);
+  if (APPLY) {
+    db.prepare(`UPDATE orders SET is_test = 1 WHERE email IN (${OWNER_EMAILS.map(() => "?").join(",")})`).run(...OWNER_EMAILS);
+  }
+});
+
+try {
+  apply();
+} catch (err) {
+  console.error(`\n${err.message}`);
+  process.exit(1);
+}
 
 if (APPLY) {
   const real = db

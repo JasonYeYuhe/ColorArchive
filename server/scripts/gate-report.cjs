@@ -203,11 +203,22 @@ const html = `
     </table>
     <p style="margin:18px 0 6px;font-weight:700;font-size:13px;color:#111">Context — acquisition funnel (no longer a gate)</p>
     <table style="width:100%;border-collapse:collapse;font-size:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:8px">
+      ${row("Engaged visits", g.engagedVisits, "distinct tab-lifetimes that did anything")}
       ${row("Qualified /preorder UV", g.qualUv, "gate retired")}
       ${row("Paywall triggers", g.pwTotal, "gate retired")}
       ${row("All orders (any product)", g.ordersTotal, "")}
       ${row("Email reservations", g.emailReserves, "")}
     </table>
+    ${
+      // The caveats have to ride in BOTH renderings. The first version of this
+      // change put them only in the plaintext part, and the owner reads the HTML
+      // one — a warning nobody sees is the same as no warning.
+      (g.caveats ?? []).length
+        ? `<div style="margin:10px 0 0;padding:10px 12px;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;color:#7c2d12;font-size:12px;line-height:1.6">
+      <strong>Read these numbers with care:</strong><br>${g.caveats.map((c) => `• ${c}`).join("<br>")}
+    </div>`
+        : ""
+    }
     <p style="margin:18px 0 6px;font-weight:700;font-size:13px;color:#111">On-site CTA clicks by surface</p>
     <div style="color:#374151;font-size:13px;line-height:1.7">${g.ctaClicks.length ? g.ctaClicks.map((r) => `${r.src}: <strong>${r.c}</strong>`).join("<br>") : "(none yet)"}</div>
     <p style="margin:18px 0 6px;font-weight:700;font-size:13px;color:#111">Orders by product</p>
