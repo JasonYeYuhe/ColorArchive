@@ -172,8 +172,22 @@ The bundled README was worse: it described the archive as
 sentence was wrong. Labels now interpolate from the catalogs, so they cannot say 2016
 again.
 
-Anyone who bought this before today has an incomplete CSS/JSON/SCSS/Tailwind export.
-**Whether to tell them is your call** — I have not contacted any customer.
+**Nobody has to be told, because nobody bought it.** Both outside reviewers advised
+sending a "we've completed the bundle" email; I checked the orders table before
+drafting one. All eight orders the site has ever taken:
+
+| pack | orders |
+|---|---|
+| `pro-monthly` | 4 |
+| `seasonal-spring-2026` | 4 |
+| **`complete-archive`** | **0** |
+| **`all-access-bundle`** (delivers the same zip) | **0** |
+
+Zero test orders, zero refunds. So the defect was real and shipped, and its blast
+radius was nil. No customer has been contacted and none needs to be. Worth keeping in
+view when weighing how much to invest in the paid packs at all: the ¥2,499 product has
+never sold a copy, and the only things that have sold are a ¥499/mo subscription and a
+¥9-tier seasonal pack.
 
 ## 📮 2026-08-09 — weekly roundup drafted; the in-repo number fixes are done
 

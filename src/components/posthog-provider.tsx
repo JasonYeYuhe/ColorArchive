@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { initPosthog, phCapture, phRegister, TOOL_SLUGS } from "@/src/lib/posthog";
 import { attributionEventProps } from "@/src/lib/attribution";
-import { useIsBareRoute } from "@/src/lib/bare-routes";
+import { useIsAnalyticsExcluded } from "@/src/lib/analytics-routes";
 
 /**
  * Initializes PostHog on mount and emits a manual `$pageview` on every App Router
@@ -21,7 +21,7 @@ import { useIsBareRoute } from "@/src/lib/bare-routes";
  */
 export function PostHogProvider() {
   const pathname = usePathname();
-  const isBare = useIsBareRoute();
+  const isExcluded = useIsAnalyticsExcluded();
   // Dedupe by path: avoids double-firing under React StrictMode (dev) and any re-render
   // that re-runs the effect without an actual route change. Mirrors PageTracker.
   const lastPath = useRef<string | null>(null);
@@ -32,16 +32,16 @@ export function PostHogProvider() {
     // PostHog autocapture events break down by channel. Cheap + idempotent; register() just
     // overwrites with the same persisted value on each route change.
     phRegister(attributionEventProps());
-    // Bare routes send no pageview — see the note in page-tracker.tsx. Kept BELOW
-    // initPosthog() on purpose: the provider is mounted once by the root layout, so
-    // bailing before init would leave PostHog uninitialised for every route the
-    // visitor opens afterwards in the same session.
     if (!pathname || lastPath.current === pathname) return;
-    // Same ordering as page-tracker.tsx: record the path as seen, THEN decide whether
-    // to report it. Bailing first would make a return visit to the previous route look
-    // like a duplicate and drop it.
+    // Record the path as seen, THEN decide whether to report it — same ordering as
+    // page-tracker.tsx. Bailing first would make a return visit to the previous route
+    // look like a duplicate and drop it.
     lastPath.current = pathname;
-    if (isBare) return;
+    // Excluded routes send no pageview. This sits BELOW initPosthog() on purpose: the
+    // provider is mounted once by the root layout, so bailing before init would leave
+    // PostHog uninitialised for every route the visitor opens next. See
+    // src/lib/analytics-routes.ts for why that list is not the chrome list.
+    if (isExcluded) return;
 
     phCapture("$pageview", { path: pathname });
 
@@ -49,7 +49,7 @@ export function PostHogProvider() {
     if (segment && TOOL_SLUGS.has(segment)) {
       phCapture("tool_used", { tool: segment });
     }
-  }, [pathname, isBare]);
+  }, [pathname, isExcluded]);
 
   return null;
 }

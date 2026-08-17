@@ -5,26 +5,24 @@ import { usePathname } from "next/navigation";
 
 import { API_URL } from "@/src/lib/api-config";
 import { attributionEventProps } from "@/src/lib/attribution";
-import { useIsBareRoute } from "@/src/lib/bare-routes";
+import { useIsAnalyticsExcluded } from "@/src/lib/analytics-routes";
 
 export function PageTracker() {
   const pathname = usePathname();
-  const isBare = useIsBareRoute();
+  const isExcluded = useIsAnalyticsExcluded();
   const lastPath = useRef("");
 
   useEffect(() => {
-    // Bare routes are not product surfaces, so they do not report. This is a
-    // deliberate widening of what src/lib/bare-routes.ts covers, not a bug fix:
-    // the visible chrome was removed first, but a private page still beaconing its
-    // path into the same analytics table as commercial traffic contradicts the point
-    // of having the list at all.
+    // Excluded routes are not product surfaces and do not report. The list lives in
+    // src/lib/analytics-routes.ts, separate from the chrome list on purpose — see the
+    // note there.
     if (!API_URL || pathname === lastPath.current) return;
-    // Advance the dedupe ref BEFORE the bare-route bail, not after. Bailing without
+    // Advance the dedupe ref BEFORE the exclusion bail, not after. Bailing without
     // recording the path leaves lastPath pointing at the page the visitor came from,
     // so returning to it reads as a duplicate and that pageview is dropped —
     // suppressing one route would quietly cost measurements on the others.
     lastPath.current = pathname;
-    if (isBare) return;
+    if (isExcluded) return;
 
     // Attach first-touch acquisition source so the /preorder UV denominator (the exit-gate
     // floor) can be split by channel — qualified ICP vs. generic gawkers.
@@ -49,7 +47,7 @@ export function PageTracker() {
         keepalive: true,
       }).catch(() => {});
     }
-  }, [pathname, isBare]);
+  }, [pathname, isExcluded]);
 
   return null;
 }
