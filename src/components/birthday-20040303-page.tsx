@@ -129,7 +129,132 @@ const CHAPTERS: { key: string; text: string }[] = [
   },
 ];
 
-const CHAPTER_COLORS = CHAPTERS.map((chapter) => ({ ...chapter, color: fromWord(chapter.key) }));
+// Characters, spaces removed. Her text uses spaces where punctuation would go, and
+// counting them would make every number on this page slightly wrong.
+const chars = (s: string) => s.replace(/\s/g, "").length;
+
+const CHAPTER_COLORS = CHAPTERS.map((chapter, index) => ({
+  ...chapter,
+  index,
+  length: chars(chapter.text),
+  color: fromWord(chapter.key),
+}));
+
+const STORY_LENGTH = CHAPTER_COLORS.reduce((sum, c) => sum + c.length, 0);
+const LONGEST_TWO = [...CHAPTER_COLORS].sort((a, b) => b.length - a.length).slice(0, 2);
+const LONGEST_TWO_SHARE = (LONGEST_TWO[0].length + LONGEST_TWO[1].length) / STORY_LENGTH;
+
+/**
+ * Where she went, in the order she wrote it.
+ *
+ * NOT a map. A map would need coordinates, and coordinates are not in her story —
+ * the moment this page reaches for a fact she did not write, it stops being made of
+ * her words. This is the sequence of place names as they appear, nothing more.
+ *
+ * The repeats are the point and are not decoration: 上海 and 日本 each occur twice
+ * because she returned to both, so two pairs of swatches come out byte-identical.
+ * JOURNEY_RETURNS below re-checks that at build time rather than trusting the eye.
+ */
+const JOURNEY = ["上海", "日本", "阿姆斯特丹", "比利时", "上海", "日本"].map((place, index) => ({
+  place,
+  index,
+  color: fromWord(place),
+}));
+
+// What this guards is that the route still REPEATS — that stops 1 and 5 are the same
+// place, and 2 and 6 are. Comparing the two hexes instead would be theatre: both come
+// from fromWord("上海"), so a hex check can never fail and would prove only that the
+// hash is a function. The place names are the part a future edit could change.
+const JOURNEY_RETURNS =
+  JOURNEY[0].place === JOURNEY[4].place &&
+  JOURNEY[1].place === JOURNEY[5].place &&
+  JOURNEY[0].color.hex === JOURNEY[4].color.hex &&
+  JOURNEY[1].color.hex === JOURNEY[5].color.hex;
+
+// The two places she has lived longest, and the distance between their colours.
+const HOME_DELTA = deltaE2000Hex(
+  JOURNEY[0].color.generatedHex,
+  JOURNEY[1].color.generatedHex,
+)!;
+const HOME_READING = interpretDeltaE(HOME_DELTA).zh.replace(/。$/, "");
+
+/**
+ * Who appears, and how often.
+ *
+ * Longest match first, no overlaps. A naive substring count says 小猫 appears 19
+ * times, but seven of those are inside 小小猫 — the kittens, not her. An outside
+ * reviewer proposed baking 19 into an assertion, which would have made the page
+ * permanently, confidently wrong about the person it is for.
+ *
+ * 坏哥哥 stays in this list. It is her story and she wrote them into it; dropping
+ * them would be editing her. It is only counted, though — the ΔE between 好哥哥 and
+ * 坏哥哥 is a real number and a birthday page is not the place to feature it.
+ */
+const CAST_NAMES = ["小小猫", "猫妈妈", "好哥哥", "坏哥哥", "小猫", "觉觉", "锵锵"];
+
+function countCast(text: string) {
+  const byLongest = [...CAST_NAMES].sort((a, b) => b.length - a.length);
+  const counts = new Map(CAST_NAMES.map((name) => [name, 0]));
+  let i = 0;
+  while (i < text.length) {
+    const hit = byLongest.find((name) => text.startsWith(name, i));
+    if (hit) {
+      counts.set(hit, counts.get(hit)! + 1);
+      i += hit.length;
+    } else {
+      i += 1;
+    }
+  }
+  return counts;
+}
+
+const CAST_COUNTS = countCast(CHAPTERS.map((c) => c.text).join("").replace(/\s/g, ""));
+const CAST = CAST_NAMES.map((name) => ({ name, count: CAST_COUNTS.get(name)! }))
+  .filter((entry) => entry.count > 0)
+  .sort((a, b) => b.count - a.count);
+const CAST_TOTAL = CAST.reduce((sum, entry) => sum + entry.count, 0);
+
+/**
+ * The whole story as a single input.
+ *
+ * The page hashes the date, the chapter titles and the names — every fragment except
+ * the 627 characters they are fragments OF. Feeding the joined text in as one string
+ * is the one input that is unambiguously hers rather than something someone chose to
+ * extract, so it closes the page instead of opening it.
+ *
+ * It is called what it is: the colour of these 627 characters. Not "her real colour".
+ */
+const STORY_TEXT = CHAPTERS.map((c) => c.text).join("").replace(/\s/g, "");
+const WHOLE_STORY = fromWord(STORY_TEXT);
+
+// Her palette as the site would actually export it — the same custom-property shape
+// the Complete Archive ships. Nothing bespoke; this is the product, pointed at her.
+// Derived from what the page actually shows, not hand-listed — the export and the
+// page cannot disagree about which colours exist. Deduped by archive id, because two
+// different words can land on the same square (上海 appears twice in the route).
+// Named by archive id, which is how the Complete Archive names its tokens; the word
+// that produced each one rides along as a comment.
+const PALETTE_SOURCES: { color: ReturnType<typeof fromWord>; label: string }[] = [
+  { color: DATE_COLOR, label: "20040303" },
+  ...CHAPTER_COLORS.map((c) => ({ color: c.color, label: c.key })),
+  { color: HER, label: "小猫" },
+  { color: JUE, label: "觉觉" },
+  { color: QIANG, label: "锵锵" },
+  ...JOURNEY.map((stop) => ({ color: stop.color, label: stop.place })),
+  // Not `.word` — that is all 627 characters, and it would run into the CSS comment.
+  { color: WHOLE_STORY, label: "整篇故事" },
+];
+
+const PALETTE_TOKENS = PALETTE_SOURCES.filter(
+  (entry, index) =>
+    PALETTE_SOURCES.findIndex((other) => other.color.id === entry.color.id) === index,
+);
+
+const PALETTE_CSS = [
+  ":root {",
+  ...PALETTE_TOKENS.map((e) => `  --ca-${e.color.id}: ${e.color.hex}; /* ${e.label} */`),
+  "}",
+].join("\n");
 
 // text-neutral-600 / dark:text-neutral-400 — the caption tier started at
 // neutral-400 on light, which measured 2.3:1. Small type needs the same 4.5:1 as
@@ -263,6 +388,145 @@ export function Birthday20040303Page() {
               </p>
             ) : null}
           </div>
+        </section>
+
+        {/* Where she went — the order she wrote, nothing added */}
+        <section>
+          <h2 className={EYEBROW_CJK}>她走过的地方</h2>
+          <p className={`mt-3 text-[15px] leading-8 text-neutral-700 dark:text-neutral-200`}>
+            按她写下的先后,一共 {JOURNEY.length} 站。
+          </p>
+
+          <ol className="mt-6 flex flex-wrap gap-x-2 gap-y-4">
+            {JOURNEY.map((stop) => (
+              <li key={stop.index} className="flex min-w-0 flex-1 basis-24 flex-col gap-2">
+                <div
+                  className="h-14 w-full rounded-[0.9rem] border border-black/6 dark:border-white/10"
+                  style={{ backgroundColor: stop.color.hex }}
+                  aria-hidden="true"
+                />
+                <div className="text-[13px] font-medium text-neutral-950 dark:text-white">
+                  {stop.place}
+                </div>
+                <div className={`font-mono text-[10px] ${CAPTION}`}>{stop.color.hex}</div>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-6 flex flex-col gap-4 text-[15px] leading-8 text-neutral-700 dark:text-neutral-200">
+            {JOURNEY_RETURNS ? (
+              <p>
+                第 1 站和第 5 站是同一个 <span className="font-mono text-sm">{JOURNEY[0].color.hex}</span>
+                ,第 2 站和第 6 站是同一个{" "}
+                <span className="font-mono text-sm">{JOURNEY[1].color.hex}</span>
+                ——不是排版重复,是她真的回去了,同样的字算出同样的颜色。
+              </p>
+            ) : null}
+            <p>
+              上海和日本之间的色差是 ΔE {HOME_DELTA.toFixed(1)},按这个网站自己的判读,那是「
+              {HOME_READING}」。她住得最久的两个地方,算出来几乎在色轮的两端。
+            </p>
+          </div>
+        </section>
+
+        {/* The shape of the story — its own proportions, shown rather than evened out */}
+        <section>
+          <h2 className={EYEBROW_CJK}>这个故事的形状</h2>
+          <p className="mt-3 text-[15px] leading-8 text-neutral-700 dark:text-neutral-200">
+            {CHAPTER_COLORS.length} 章,{STORY_LENGTH} 个字。
+            {LONGEST_TWO.map((c) => c.key).join("和")}两章占了{" "}
+            {(LONGEST_TWO_SHARE * 100).toFixed(1)}%——她在那两段里写得最多。
+          </p>
+
+          {/* Segment widths are the real proportions; the bar IS the data */}
+          <div
+            className="mt-6 flex h-10 w-full overflow-hidden rounded-[0.6rem] border border-black/6 dark:border-white/10"
+            role="img"
+            aria-label={`七章篇幅比例:${CHAPTER_COLORS.map((c) => `${c.key} ${c.length} 字`).join("、")}`}
+          >
+            {CHAPTER_COLORS.map((chapter) => (
+              <div
+                key={chapter.key}
+                style={{
+                  backgroundColor: chapter.color.hex,
+                  width: `${(chapter.length / STORY_LENGTH) * 100}%`,
+                }}
+              />
+            ))}
+          </div>
+
+          <ul className={`mt-4 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[11px] ${CAPTION}`}>
+            {CHAPTER_COLORS.map((chapter) => (
+              <li key={chapter.key}>
+                {String(chapter.index + 1).padStart(2, "0")} · {chapter.key} · {chapter.length} 字
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* How often each name is written */}
+        <section>
+          <h2 className={EYEBROW_CJK}>称呼,和它们出现的次数</h2>
+          {/* "称呼" not "角色" on purpose: 小猫 and 猫妈妈 are plainly the same person
+              in two states, and deciding how many people this story contains is not
+              something a word count can do — nor something this page should do for her. */}
+          <p className="mt-3 text-[15px] leading-8 text-neutral-700 dark:text-neutral-200">
+            {CAST.length} 个称呼,一共写了 {CAST_TOTAL} 次。
+          </p>
+
+          <ul className="mt-6 flex flex-col gap-2.5">
+            {CAST.map((entry) => {
+              const color = fromWord(entry.name);
+              return (
+                <li key={entry.name} className="flex items-center gap-3">
+                  <span className="w-16 shrink-0 text-[13px] font-medium text-neutral-950 dark:text-white">
+                    {entry.name}
+                  </span>
+                  <span
+                    className="h-3.5 rounded-full border border-black/6 dark:border-white/10"
+                    style={{
+                      backgroundColor: color.hex,
+                      width: `${(entry.count / CAST[0].count) * 72}%`,
+                      minWidth: "0.875rem",
+                    }}
+                    aria-hidden="true"
+                  />
+                  <span className={`font-mono text-[11px] ${CAPTION}`}>{entry.count}</span>
+                </li>
+              );
+            })}
+          </ul>
+
+          <p className="mt-5 text-[15px] leading-8 text-neutral-700 dark:text-neutral-200">
+            「小猫」写了 {CAST_COUNTS.get("小猫")} 次,「小小猫」写了 {CAST_COUNTS.get("小小猫")}{" "}
+            次。按字面去数会把后者也算进前者,那样「小猫」会变成{" "}
+            {CAST_COUNTS.get("小猫")! + CAST_COUNTS.get("小小猫")!} 次——她们是分开数的。
+          </p>
+        </section>
+
+        {/* The 627 characters themselves, as one input */}
+        <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80 dark:shadow-none sm:p-8">
+          <h2 className={EYEBROW_CJK}>这 {STORY_LENGTH} 个字的颜色</h2>
+          <div
+            className="mt-5 h-24 w-full rounded-[1.2rem] border border-black/6 dark:border-white/10"
+            style={{ backgroundColor: WHOLE_STORY.hex }}
+            aria-hidden="true"
+          />
+          <p className={`mt-4 font-mono text-sm ${CAPTION}`}>
+            {WHOLE_STORY.generatedHex} → {WHOLE_STORY.name} · {WHOLE_STORY.hex}
+          </p>
+          <p className="mt-4 text-[15px] leading-8 text-neutral-700 dark:text-neutral-200">
+            上面每一格颜色都来自故事里的一个词。这一格不一样——它的输入是整篇,一个字都没挑。
+          </p>
+
+          <details className="mt-6">
+            <summary className={`cursor-pointer ${EYEBROW_CJK}`}>
+              这一页用到的 {PALETTE_TOKENS.length} 个颜色
+            </summary>
+            <pre className="mt-4 overflow-x-auto rounded-[0.9rem] bg-neutral-950/4 p-4 font-mono text-[11px] leading-6 text-neutral-700 dark:bg-white/5 dark:text-neutral-300">
+              {PALETTE_CSS}
+            </pre>
+          </details>
         </section>
 
         <section className="text-center">
