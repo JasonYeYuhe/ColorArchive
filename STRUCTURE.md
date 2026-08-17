@@ -274,9 +274,14 @@ ColorArchive/
 │   │   ├── newsletter-date.ts            # issuePublishedAt / issueUpdatedAt.
 │   │   │                                 # NO data import — client components use it,
 │   │   │                                 # so it must not pull the issue dataset in
-│   │   ├── notes-restored.ts             # 23 previously-public /notes/ URLs served
-│   │   │                                 # again, each with its measured referral
-│   │   │                                 # evidence. Guarded by notes-restored.test.ts
+│   │   ├── notes-restored.ts             # 15 previously-public /notes/ URLs served
+│   │   │                                 # again. Evidence is Search Console + days
+│   │   │                                 # public — NOT pageview referrals, which put
+│   │   │                                 # 8 wrong entries here on bot traffic once.
+│   │   │                                 # Guarded by notes-restored.test.ts
+│   │   ├── format-money.ts               # The one money formatter. Takes MINOR units.
+│   │   │                                 # Replaced three near-copies that each divided
+│   │   │                                 # a major-unit figure by 100 ($3.47 -> $0.03)
 │   │   ├── i18n.ts                       # EN/ZH translations (~710+ keys)
 │   │   ├── palette-builder.ts            # localStorage palette + subscriptions,
 │   │   │                                 # Tailwind/Figma/StyleDict exports, naming

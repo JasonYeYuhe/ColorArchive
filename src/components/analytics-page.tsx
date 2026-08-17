@@ -6,7 +6,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/src/components/auth-provider";
 
 import { API_URL } from "@/src/lib/api-config";
-const ZERO_DECIMAL_CURRENCIES = new Set(["JPY", "KRW"]);
+import { formatMinorCurrency } from "@/src/lib/format-money";
+
 type LoadState = "idle" | "loading" | "success" | "error";
 
 interface AnalyticsResponse {
@@ -95,16 +96,6 @@ interface AnalyticsResponse {
   };
 }
 
-function formatCurrency(amount: number, currency: string) {
-  const normalizedCurrency = currency.toUpperCase();
-  const divisor = ZERO_DECIMAL_CURRENCIES.has(normalizedCurrency) ? 1 : 100;
-
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: normalizedCurrency,
-    maximumFractionDigits: ZERO_DECIMAL_CURRENCIES.has(normalizedCurrency) ? 0 : 2,
-  }).format(amount / divisor);
-}
 
 function formatShortDay(value: string) {
   const date = new Date(`${value}T00:00:00Z`);
@@ -677,7 +668,7 @@ export function AnalyticsPage() {
               />
               <MetricCard
                 label="Revenue"
-                value={formatCurrency(data.orders.revenue, dominantCurrency)}
+                value={formatMinorCurrency(data.orders.revenue, dominantCurrency)}
                 detail="Revenue in the selected filter scope."
                 comparison={formatDelta(data.comparisons.revenue.change)}
               />
@@ -730,7 +721,7 @@ export function AnalyticsPage() {
                         <span>{cohort.subscribers} subs</span>
                         <span>{cohort.purchasers} purchasers</span>
                         <span>{cohort.orders} orders</span>
-                        <span>{formatCurrency(cohort.revenue, dominantCurrency)}</span>
+                        <span>{formatMinorCurrency(cohort.revenue, dominantCurrency)}</span>
                       </div>
                     </button>
                   ))}
@@ -759,7 +750,7 @@ export function AnalyticsPage() {
                             </div>
                             <div className="text-right text-xs text-neutral-500">
                               <div>{buyer.orderCount} order{buyer.orderCount !== 1 ? "s" : ""}</div>
-                              <div className="font-semibold text-neutral-900">{formatCurrency(buyer.totalRevenue, dominantCurrency)}</div>
+                              <div className="font-semibold text-neutral-900">{formatMinorCurrency(buyer.totalRevenue, dominantCurrency)}</div>
                               <div className="mt-1">{buyer.firstPurchaseAt.slice(0, 10)}</div>
                             </div>
                           </div>
@@ -824,7 +815,7 @@ export function AnalyticsPage() {
                   day: entry.day,
                   value: entry.revenue,
                 }))}
-                valueFormatter={(value) => formatCurrency(value, dominantCurrency)}
+                valueFormatter={(value) => formatMinorCurrency(value, dominantCurrency)}
               />
             </section>
 
@@ -842,7 +833,7 @@ export function AnalyticsPage() {
                       <div className="text-sm font-medium text-neutral-950">{product.product}</div>
                       <div className="mt-2 flex flex-wrap gap-4 text-sm text-neutral-500">
                         <span>{product.orders} orders</span>
-                        <span>{formatCurrency(product.revenue, product.currency)}</span>
+                        <span>{formatMinorCurrency(product.revenue, product.currency)}</span>
                       </div>
                     </div>
                   ))}
@@ -894,7 +885,7 @@ export function AnalyticsPage() {
                         </div>
                       </div>
                       <div className="text-sm font-medium text-neutral-700">
-                        {formatCurrency(order.amount, order.currency)}
+                        {formatMinorCurrency(order.amount, order.currency)}
                       </div>
                     </div>
                   </div>

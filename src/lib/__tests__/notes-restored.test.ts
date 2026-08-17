@@ -56,11 +56,26 @@ describe("restored notes stay reachable", () => {
     expect(future.map((i) => `${i.slug} (${issuePublishedAt(i)}/${issueUpdatedAt(i)})`)).toEqual([]);
   });
 
-  it("keeps the evidence honest", () => {
-    // A slug earns its place here by measured demand, so an entry with no
-    // requests at all is either a typo or someone restoring on a hunch.
-    const unsupported = RESTORED_NOTES.filter((n) => n.requests30d < 1);
-    expect(unsupported.map((n) => n.slug)).toEqual([]);
+  it("restores only URLs that were actually published for a meaningful time", () => {
+    // The rule that survived Search Console. The first version of this list
+    // ranked by `pageviews` referrals and put eight 2027-2031 articles live on
+    // the strength of a bot with a spoofed google.com referrer — 580 hits, all
+    // at a viewport width of exactly 1919px, zero events ever, and 0 GSC
+    // impressions. Time-public is the durable justification: undoing an
+    // accidental retraction, not chasing a traffic number.
+    const tooBrief = RESTORED_NOTES.filter((n) => n.daysPublic < 30);
+    expect(tooBrief.map((n) => n.slug)).toEqual([]);
     expect(RESTORED_SLUGS.size).toBe(RESTORED_NOTES.length);
+  });
+
+  it("does not serve anything dated more than a year past the retraction", () => {
+    // Cohort A's real tell was the date: articles scheduled for 2027-2031 are
+    // unwritten-future filler, and no amount of referrer traffic makes
+    // publishing them in 2026 correct.
+    const farFuture = RESTORED_NOTES
+      .map((n) => served.get(n.slug))
+      .filter((i): i is NonNullable<typeof i> => Boolean(i))
+      .filter((i) => i.date > "2027-01-01");
+    expect(farFuture.map((i) => `${i.slug} (${i.date})`)).toEqual([]);
   });
 });

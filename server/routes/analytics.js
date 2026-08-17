@@ -4,6 +4,16 @@ const db = require("../db");
 const { requireAnalyticsAccess } = require("../auth");
 const { DISTINCT_VISITS, windowCaveats } = require("../session-denominator");
 
+// Every money figure this route returns is in EXACT MINOR UNITS, never the
+// rounded major-unit `amount` column. `amount` is round(minor/100), so summing it
+// discards cents and then the dashboards divided by 100 a second time — which is
+// how $3.47 reached the screen as $0.03 and stayed there for four months. JPY hid
+// it, because the frontend skipped the divisor for zero-decimal currencies and
+// those rows happened to look right. Consumers must format with
+// src/lib/format-money.ts, which divides by 100 for every currency including JPY
+// (Lemon Squeezy scales yen by 100 too).
+const MONEY_MINOR = "COALESCE(SUM(COALESCE(amount_minor, amount * 100)), 0)";
+
 router.use(requireAnalyticsAccess);
 
 function normalizeDays(value) {
@@ -148,11 +158,11 @@ router.get("/", (req, res) => {
     .get(...previousOrderFilter.params).count;
 
   const totalRevenue = db
-    .prepare(`SELECT COALESCE(SUM(amount), 0) as total FROM orders ${orderFilter.where}`)
+    .prepare(`SELECT ${MONEY_MINOR} as total FROM orders ${orderFilter.where}`)
     .get(...orderFilter.params).total;
 
   const previousRevenue = db
-    .prepare(`SELECT COALESCE(SUM(amount), 0) as total FROM orders ${previousOrderFilter.where}`)
+    .prepare(`SELECT ${MONEY_MINOR} as total FROM orders ${previousOrderFilter.where}`)
     .get(...previousOrderFilter.params).total;
 
   const recentSubscribers = db
@@ -173,7 +183,7 @@ router.get("/", (req, res) => {
         SELECT
           email,
           product,
-          amount,
+          COALESCE(amount_minor, amount * 100) as amount,
           currency,
           attributed_source,
           attributed_utm_source,
@@ -208,7 +218,7 @@ router.get("/", (req, res) => {
       `
         SELECT date(created_at) as day,
                COUNT(*) as count,
-               COALESCE(SUM(amount), 0) as revenue
+               ${MONEY_MINOR} as revenue
         FROM orders
         ${orderFilter.where}
         GROUP BY date(created_at)
@@ -222,7 +232,7 @@ router.get("/", (req, res) => {
       `
         SELECT product,
                COUNT(*) as orders,
-               COALESCE(SUM(amount), 0) as revenue,
+               ${MONEY_MINOR} as revenue,
                MIN(currency) as currency
         FROM orders
         ${orderFilter.where}
@@ -290,7 +300,7 @@ router.get("/", (req, res) => {
       .get(...cohortOrderFilter.params).count;
 
     const revenueForSource = db
-      .prepare(`SELECT COALESCE(SUM(amount), 0) as total FROM orders ${cohortOrderFilter.where}`)
+      .prepare(`SELECT ${MONEY_MINOR} as total FROM orders ${cohortOrderFilter.where}`)
       .get(...cohortOrderFilter.params).total;
 
     return {
@@ -354,7 +364,7 @@ router.get("/buyers", (req, res) => {
         SELECT
           email,
           COUNT(*) as order_count,
-          COALESCE(SUM(amount), 0) as total_revenue,
+          ${MONEY_MINOR} as total_revenue,
           MIN(created_at) as first_purchase_at,
           MAX(created_at) as last_purchase_at,
           GROUP_CONCAT(product, '||') as products_raw
@@ -483,7 +493,7 @@ router.get("/gate", (req, res) => {
     .get(sinceParam).count;
   const ordersByProduct = db
     .prepare(
-      `SELECT product, COUNT(*) as count, COALESCE(SUM(amount), 0) as revenue
+      `SELECT product, COUNT(*) as count, ${MONEY_MINOR} as revenue
        FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test, 0) = 0
        GROUP BY product ORDER BY count DESC`,
     )

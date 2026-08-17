@@ -1,34 +1,52 @@
 /**
- * URLs that were published, then retracted, and are being served again.
+ * URLs that were published, then retracted by accident, and are being served again.
  *
- * WHAT THIS FILE IS FOR
- * A 404 on a page nobody ever linked to costs nothing. A 404 on a page Google
- * has indexed and still sends traffic to costs that traffic, every month, in
- * silence. This list is the second kind, so the loss is visible in the repo
- * instead of only in a referrer table nobody reads.
+ * READ THIS BEFORE ADDING A ROW — the first version of this file used the wrong
+ * evidence, and Search Console caught it.
  *
- * HOW THE SET WAS CHOSEN — evidence, not "everything ever published"
- * Reconstructing git history says 345 of the 350 issues were publicly reachable
- * between 2026-03-22 and 2026-03-31, because no date filter existed yet. Taking
- * "never un-publish a published URL" literally would therefore mean serving 303
- * articles dated as far ahead as 2033, which is not a fix, it is the original
- * mistake at scale. The test is instead: does anything out there still ASK for
- * this URL? Two cohorts pass it.
+ * WHAT WENT WRONG THE FIRST TIME
+ * This list originally held 23 URLs, ranked by "Google referrals in the last 30
+ * days" taken from the first-party `pageviews` table. The flagship entry showed
+ * 580 of them. That number was not people:
  *
- *   Cohort B — dated 2026-08-20..12-24. Public from 2026-03-22 until 2026-08-08
- *   (f8cc6a3), i.e. four and a half months, long enough to be indexed properly.
- *   Retracted nine days ago; recovery odds are highest while the index is fresh.
- *   All fifteen are included, and all fifteen still drew requests in the last 30
- *   days.
+ *   - 540 of 540 recorded requests reported a viewport width of exactly 1919px.
+ *     Real traffic to /word-to-color/ in the same window spans a dozen widths
+ *     (1180, 820, 1920, 1528, 2560, 390, 384...). One constant width is one
+ *     automated client.
+ *   - The requests were spread flat across all 24 hours (10-41 per hour) with no
+ *     day/night cycle.
+ *   - Not one `events` row was ever recorded on that path. Nobody scrolled,
+ *     clicked or typed. Ever.
+ *   - Search Console, for that exact URL over three months: 0 clicks, 0
+ *     impressions. For the WHOLE /notes/ namespace: 28 clicks, 6,370
+ *     impressions, position 12.6.
  *
- *   Cohort A — dated 2027+. Public for only ~9 days in March 2026, and 404 for
- *   four and a half months since. Only the ones with MEASURED Google referrals
- *   in the last 30 days are restored; the other ~280 stay hidden.
+ * So the referrer was spoofed, and 580 "Google referrals" were one bot. The
+ * mistake is worth naming precisely, because the repo had already written the
+ * rule down and I broke it anyway: `pageviews` is the table this project
+ * established is 22.5% automated and unusable as evidence, and
+ * docs/dev-plan-2026-08-15.md §2.1 said in as many words to check GSC BEFORE
+ * deciding how much to invest. Deriving "demand" from a referrer column in that
+ * same table is the banned metric wearing a different hat.
  *
- * `googleReferrals30d` is from the first-party `pageviews` table on the droplet
- * (`referrer_domain='google.com'`, 30 days to 2026-08-17). It proves live demand;
- * it does not prove ranking. GSC is the instrument for that and has not been read
- * yet — see docs/dev-plan-2026-08-15.md §2.1.
+ * WHY THE REMAINING FIFTEEN STILL BELONG HERE
+ * They are cohort B, and their case never rested on the referral counts:
+ *
+ *   - They were publicly reachable from 2026-03-22 until 2026-08-08, four and a
+ *     half months, which is long enough to be indexed properly.
+ *   - `f8cc6a3` retracted them as a SIDE EFFECT of correcting the publish gate.
+ *     Nobody decided to unpublish them; the change was aimed at future-dated
+ *     content and took these with it.
+ *   - They still have search presence: november-2026-color-and-motion alone
+ *     carries 159 impressions in the three months to 2026-08-15, and the /notes/
+ *     index has 1,455.
+ *   - Their scheduled dates are weeks to months away, not years. When each date
+ *     arrives the `status` flag becomes redundant rather than load-bearing.
+ *
+ * The eight cohort-A entries (dated 2027-2031) were removed on 2026-08-17. They
+ * were public for about nine days in March 2026 and have no measurable search
+ * presence. Their content edits were kept — the stale Midjourney/DALL·E version
+ * claims really were wrong — but the articles stay unpublished.
  *
  * `publishedAt` is not a guess: it is the date of the first commit that put the
  * slug into src/data/newsletter-issues.json, which is when the page first built.
@@ -36,45 +54,42 @@
 
 export interface RestoredNote {
   slug: string;
-  /** Google referrals in the 30 days to 2026-08-17, from first-party pageviews. */
-  googleReferrals30d: number;
-  /** Total requests in the same window, any referrer. */
-  requests30d: number;
-  cohort: "A" | "B";
+  /** Search Console impressions, 3 months to 2026-08-15. 0 means "not surfaced". */
+  gscImpressions3mo: number;
+  /** Search Console clicks in the same window. */
+  gscClicks3mo: number;
+  /**
+   * Days the URL was publicly reachable before being retracted. This, not the
+   * traffic, is the primary justification: a page that was live for four months
+   * and then vanished by accident is a regression to undo.
+   */
+  daysPublic: number;
 }
 
 /**
- * Ordered by measured demand. Anything added here MUST exist in
- * newsletter-issues.json with `status: "published"` — notes-restored.test.ts
- * fails the build otherwise.
+ * Cohort B only. Anything added here MUST exist in newsletter-issues.json with
+ * `status: "published"` — notes-restored.test.ts fails the build otherwise.
+ *
+ * Do not add a row on the strength of `pageviews` referrals. Check Search
+ * Console. That is the whole lesson of this file.
  */
 export const RESTORED_NOTES: RestoredNote[] = [
-  // Cohort A — 2027+, indexed during the 9-day March window, 404 since 2026-03-31.
-  { slug: "nov-2027-color-in-ai-generated-design", googleReferrals30d: 580, requests30d: 581, cohort: "A" },
-  { slug: "apr-2028-color-game-ui", googleReferrals30d: 49, requests30d: 50, cohort: "A" },
-  { slug: "sep-2027-color-in-email-design", googleReferrals30d: 42, requests30d: 42, cohort: "A" },
-  { slug: "oct-2027-color-grading-for-photographers", googleReferrals30d: 14, requests30d: 14, cohort: "A" },
-  { slug: "apr-2028-color-ecommerce", googleReferrals30d: 6, requests30d: 6, cohort: "A" },
-  { slug: "may-2028-saas-dashboard-color", googleReferrals30d: 5, requests30d: 6, cohort: "A" },
-  { slug: "jul-2031-neon-color-cycles-cultural", googleReferrals30d: 3, requests30d: 3, cohort: "A" },
-  { slug: "dec-2028-color-consistency-cross-platform", googleReferrals30d: 1, requests30d: 1, cohort: "A" },
-
-  // Cohort B — live 2026-03-22..2026-08-08, retracted by the build-date cutoff.
-  { slug: "december-2026-print-vs-screen-color", googleReferrals30d: 0, requests30d: 8, cohort: "B" },
-  { slug: "october-2026-color-blindness-accessible-palettes", googleReferrals30d: 0, requests30d: 5, cohort: "B" },
-  { slug: "october-2026-color-temperature-design", googleReferrals30d: 1, requests30d: 5, cohort: "B" },
-  { slug: "september-2026-interactive-color-states", googleReferrals30d: 0, requests30d: 5, cohort: "B" },
-  { slug: "november-2026-color-and-motion", googleReferrals30d: 2, requests30d: 4, cohort: "B" },
-  { slug: "november-2026-typography-color-harmony", googleReferrals30d: 1, requests30d: 4, cohort: "B" },
-  { slug: "october-2026-negative-space-color", googleReferrals30d: 2, requests30d: 4, cohort: "B" },
-  { slug: "december-2026-color-contrast-accessibility", googleReferrals30d: 0, requests30d: 3, cohort: "B" },
-  { slug: "november-2026-cultural-color-reading", googleReferrals30d: 0, requests30d: 3, cohort: "B" },
-  { slug: "september-2026-color-visual-hierarchy", googleReferrals30d: 0, requests30d: 3, cohort: "B" },
-  { slug: "september-2026-saturation-control", googleReferrals30d: 0, requests30d: 3, cohort: "B" },
-  { slug: "august-2026-brand-recognition-color", googleReferrals30d: 0, requests30d: 2, cohort: "B" },
-  { slug: "december-2026-dark-mode-design-decisions", googleReferrals30d: 0, requests30d: 2, cohort: "B" },
-  { slug: "september-2026-seasonal-palette-shifts", googleReferrals30d: 0, requests30d: 2, cohort: "B" },
-  { slug: "december-2026-color-palette-documentation", googleReferrals30d: 0, requests30d: 1, cohort: "B" },
+  // Public 2026-03-22 .. 2026-08-08, retracted by f8cc6a3 as a side effect.
+  { slug: "november-2026-color-and-motion", gscImpressions3mo: 159, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "august-2026-brand-recognition-color", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "september-2026-color-visual-hierarchy", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "september-2026-saturation-control", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "september-2026-interactive-color-states", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "september-2026-seasonal-palette-shifts", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "october-2026-color-blindness-accessible-palettes", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "october-2026-color-temperature-design", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "october-2026-negative-space-color", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "november-2026-typography-color-harmony", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "november-2026-cultural-color-reading", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "december-2026-color-palette-documentation", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "december-2026-color-contrast-accessibility", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "december-2026-print-vs-screen-color", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
+  { slug: "december-2026-dark-mode-design-decisions", gscImpressions3mo: 0, gscClicks3mo: 0, daysPublic: 139 },
 ];
 
 export const RESTORED_SLUGS: ReadonlySet<string> = new Set(RESTORED_NOTES.map((n) => n.slug));

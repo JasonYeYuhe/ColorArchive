@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { fetchAdminOrders, resendAdminOrderEmail, type AdminOrder } from "@/src/lib/auth-client";
 import { useAuth } from "@/src/components/auth-provider";
+import { formatMinorCurrency } from "@/src/lib/format-money";
 
 type LoadState = "idle" | "loading" | "success" | "error";
 
@@ -16,14 +17,10 @@ const PRODUCT_OPTIONS = [
   "Seasonal: Spring 2026",
 ];
 
-function formatCurrency(amount: number, currency: string) {
-  const normalizedCurrency = currency.toUpperCase();
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: normalizedCurrency,
-    maximumFractionDigits: normalizedCurrency === "JPY" ? 0 : 2,
-  }).format(normalizedCurrency === "JPY" ? amount : amount / 100);
-}
+// Was a second, subtly different copy of the same formatter — and carried the
+// same defect: it treated `amount` as minor units and divided by 100, while
+// skipping the divide for JPY. See src/lib/format-money.ts.
+
 
 export function AdminOrdersPage() {
   const { analyticsAccess, status } = useAuth();
@@ -242,7 +239,7 @@ export function AdminOrdersPage() {
                             {order.product}
                           </div>
                           <div className="mt-2 text-sm text-neutral-500">
-                            {order.email} · {formatCurrency(order.amount, order.currency)}
+                            {order.email} · {formatMinorCurrency(order.amount, order.currency)}
                           </div>
                           <div className="mt-1 text-xs uppercase tracking-[0.14em] text-neutral-400">
                             Order {order.orderId}

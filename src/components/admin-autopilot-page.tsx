@@ -7,6 +7,7 @@ import {
   fetchAdminAutopilotStatus,
   type AutopilotStatus,
 } from "@/src/lib/auth-client";
+import { formatMinorCurrency } from "@/src/lib/format-money";
 
 type LoadState = "idle" | "loading" | "success" | "error";
 
@@ -24,18 +25,9 @@ function formatRelative(iso: string | null | undefined): string {
   return `${day}d ago`;
 }
 
-function formatCurrency(amount: number, currency: string) {
-  const c = currency.toUpperCase();
-  try {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: c,
-      maximumFractionDigits: c === "JPY" ? 0 : 2,
-    }).format(c === "JPY" ? amount : amount / 100);
-  } catch {
-    return `${amount} ${c}`;
-  }
-}
+// The third copy of this formatter, with the same defect as the other two: it
+// treated `amount` as minor units and divided by 100, except for JPY. All three
+// now share src/lib/format-money.ts, and admin.js feeds them exact minor units.
 
 export function AdminAutopilotPage() {
   const { analyticsAccess, status: authStatus } = useAuth();
@@ -254,7 +246,7 @@ export function AdminAutopilotPage() {
                           )}
                         </div>
                         <div className="ml-4 shrink-0 text-neutral-400">
-                          {formatCurrency(o.amount, o.currency)} ·{" "}
+                          {formatMinorCurrency(o.amount, o.currency)} ·{" "}
                           {formatRelative(o.created_at)}
                         </div>
                       </div>

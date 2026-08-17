@@ -4201,10 +4201,7 @@
         "label": "Browse complete archive",
         "href": "/pro/"
       }
-    ],
-    "status": "published",
-    "publishedAt": "2026-03-22",
-    "updatedAt": "2026-08-17"
+    ]
   },
   {
     "slug": "oct-2027-color-for-data-storytelling",
@@ -4310,10 +4307,7 @@
         "label": "Browse color families",
         "href": "/families/"
       }
-    ],
-    "status": "published",
-    "publishedAt": "2026-03-22",
-    "updatedAt": "2026-08-17"
+    ]
   },
   {
     "slug": "oct-2027-off-white-backgrounds-ui",
@@ -4895,10 +4889,7 @@
         "label": "Color Compare tool",
         "href": "https://colorarchive.org/compare/"
       }
-    ],
-    "status": "published",
-    "publishedAt": "2026-03-23",
-    "updatedAt": "2026-08-17"
+    ]
   },
   {
     "slug": "nov-2027-color-and-illustration",
@@ -6025,9 +6016,7 @@
         "label": "Color Family Explorer",
         "href": "/families/"
       }
-    ],
-    "status": "published",
-    "publishedAt": "2026-03-23"
+    ]
   },
   {
     "slug": "apr-2028-color-game-ui",
@@ -6077,9 +6066,7 @@
         "label": "Color Family Explorer",
         "href": "/families/"
       }
-    ],
-    "status": "published",
-    "publishedAt": "2026-03-23"
+    ]
   },
   {
     "slug": "may-2028-color-cultural-meaning",
@@ -6179,9 +6166,7 @@
         "label": "WCAG Contrast Checker",
         "href": "/contrast/"
       }
-    ],
-    "status": "published",
-    "publishedAt": "2026-03-23"
+    ]
   },
   {
     "slug": "may-2028-color-motion-animation",
@@ -7404,9 +7389,7 @@
         "label": "Brand Starter Kit",
         "href": "/pro/"
       }
-    ],
-    "status": "published",
-    "publishedAt": "2026-03-23"
+    ]
   },
   {
     "slug": "dec-2028-color-psychology-in-marketing",
@@ -9110,9 +9093,7 @@
       "Branding"
     ],
     "date": "2031-07-15",
-    "body": "Ultra-saturated color — the palette sometimes called neon, acid, or rave color — has appeared in mainstream design at predictable intervals: late 1960s psychedelia, early 1980s post-punk and new wave, mid-1990s rave culture, mid-2010s digital maximalism, and now the early 2030s iteration that is currently building. Each resurgence shares structural characteristics, which suggests it is not merely fashion but something more systematic.\n\nThe pattern has a mechanical logic: ultra-saturated color functions as a reaction formation against the dominant aesthetic of the preceding period. The late 1960s neon moment followed a decade of restrained, modernist color. The 1980s neon explosion followed the earth-tone-heavy 1970s. The 1990s rave palette arrived after the sophisticated, desaturated palettes of late 1980s graphic design. In each case, the new palette signals energy, disruption, and opposition to the establishment aesthetic.\n\nTechnology plays an enabling role but not a causal one. Screen-accurate reproduction of high-saturation colors improved dramatically with the CRT monitors of the 1980s, and again with the LED screens of the 2010s. Wide gamut displays that can reproduce colors outside sRGB are enabling the current resurgence — the P3 and Rec. 2020 color spaces allow digital design to display saturation levels that were previously impossible on screens. But technology does not create the cultural appetite for this palette; it removes the technical barrier when the appetite already exists.\n\nBranding use of neon palettes follows rather than leads the cultural cycle. Mass-market consumer brands adopt the palette once the cultural association has been clearly established, usually 3-4 years after the subculture peak. Luxury brands almost never adopt ultra-saturated palettes because high saturation reads as democratic and accessible — the opposite of the exclusivity signal that luxury requires. The brands currently using the most saturated palettes are in gaming, energy beverages, streetwear, and DTC consumer goods — precisely the sectors most attuned to youth culture signals.",
-    "status": "published",
-    "publishedAt": "2026-03-26"
+    "body": "Ultra-saturated color — the palette sometimes called neon, acid, or rave color — has appeared in mainstream design at predictable intervals: late 1960s psychedelia, early 1980s post-punk and new wave, mid-1990s rave culture, mid-2010s digital maximalism, and now the early 2030s iteration that is currently building. Each resurgence shares structural characteristics, which suggests it is not merely fashion but something more systematic.\n\nThe pattern has a mechanical logic: ultra-saturated color functions as a reaction formation against the dominant aesthetic of the preceding period. The late 1960s neon moment followed a decade of restrained, modernist color. The 1980s neon explosion followed the earth-tone-heavy 1970s. The 1990s rave palette arrived after the sophisticated, desaturated palettes of late 1980s graphic design. In each case, the new palette signals energy, disruption, and opposition to the establishment aesthetic.\n\nTechnology plays an enabling role but not a causal one. Screen-accurate reproduction of high-saturation colors improved dramatically with the CRT monitors of the 1980s, and again with the LED screens of the 2010s. Wide gamut displays that can reproduce colors outside sRGB are enabling the current resurgence — the P3 and Rec. 2020 color spaces allow digital design to display saturation levels that were previously impossible on screens. But technology does not create the cultural appetite for this palette; it removes the technical barrier when the appetite already exists.\n\nBranding use of neon palettes follows rather than leads the cultural cycle. Mass-market consumer brands adopt the palette once the cultural association has been clearly established, usually 3-4 years after the subculture peak. Luxury brands almost never adopt ultra-saturated palettes because high saturation reads as democratic and accessible — the opposite of the exclusivity signal that luxury requires. The brands currently using the most saturated palettes are in gaming, energy beverages, streetwear, and DTC consumer goods — precisely the sectors most attuned to youth culture signals."
   },
   {
     "slug": "aug-2031-color-signage-legibility-system",

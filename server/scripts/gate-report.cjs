@@ -59,6 +59,24 @@ function gate(days) {
      GROUP BY channel ORDER BY count DESC`);
   const engagedVisits = db.prepare(
     `SELECT ${DISTINCT_VISITS} c FROM events WHERE datetime(created_at) >= datetime('now', ?)`).get(since).c;
+  // THE §5 ANCHOR. Deliberately NOT total engaged visits: that unit changed
+  // definition on 2026-08-10 when e401e0f removed the only event a read-only
+  // guide page emitted, which cost ~550 sessions a month with no change in
+  // readership. Thresholds denominated in it would have fired on an
+  // instrumentation change — the same way the second draft's 5,000 would have
+  // judged the site into retreat using a number picked out of the air.
+  // `word_generated` is untouched by that change, untouched by the `page_read`
+  // signal added afterwards, and is the one behaviour on this site with real
+  // depth (398 sessions / 1,008 events in the 21 clean days to 2026-08-17).
+  // It measures the product being used, not a page being instrumented.
+  const wordSessions = db.prepare(
+    `SELECT ${DISTINCT_VISITS} c FROM events
+      WHERE datetime(created_at) >= datetime('now', ?) AND event_name='word_generated'`).get(since).c;
+  // Reading reach, from the signal added 2026-08-17 to replace what 08-10 removed.
+  // Reported separately and never added to the series above — see page-tracker.tsx.
+  const readSessions = db.prepare(
+    `SELECT ${DISTINCT_VISITS} c FROM events
+      WHERE datetime(created_at) >= datetime('now', ?) AND event_name='page_read'`).get(since).c;
   // Real orders — exclude owner/QA test-mode rows so a test charge can't falsely
   // satisfy the PROCEED threshold (matches analytics.js gate numerator).
   // "Orders" = kept money only: amount > 0, non-test, not refunded. A ¥0 trial
@@ -108,7 +126,7 @@ function gate(days) {
   const qualUv = preorderUv.filter((r) => !isGeneric(r.channel)).reduce((n, r) => n + r.count, 0);
   const uvTotal = preorderUv.reduce((n, r) => n + r.count, 0);
   const pwTotal = paywall.reduce((n, r) => n + r.count, 0);
-  return { days, uvTotal, qualUv, pwTotal, ordersTotal, revenueTotal, preorderOrders, ordersByProduct, proSubs, emailReserves, ctaClicks, preorderViews, engagedVisits, caveats: windowCaveats(days) };
+  return { days, uvTotal, qualUv, pwTotal, ordersTotal, revenueTotal, preorderOrders, ordersByProduct, proSubs, emailReserves, ctaClicks, preorderViews, engagedVisits, wordSessions, readSessions, caveats: windowCaveats(days) };
 }
 
 const g = gate(30);
@@ -165,6 +183,8 @@ const text = [
   ``,
   `Window: last ${g.days} days`,
   `  ENGAGED VISITS          : ${g.engagedVisits}   (the real size of this site — distinct visits that did anything)`,
+  `  word_generated visits   : ${g.wordSessions}  ≈ ${Math.round((g.wordSessions / g.days) * 30)}/month   ← §5 ANCHOR (utility ≥300/mo · shrink <150/mo two months running)`,
+  `  page_read visits        : ${g.readSessions}   (reading reach; 0 until 2026-08-17, not comparable before that)`,
   ...(g.caveats ?? []).map((c) => `    ⚠ ${c}`),
   `  Qualified /preorder UV : ${g.qualUv}   (was target 500 — gate retired)`,
   `  Paywall triggers        : ${g.pwTotal}   (was target 1000 — gate retired)`,
@@ -204,6 +224,8 @@ const html = `
     <p style="margin:18px 0 6px;font-weight:700;font-size:13px;color:#111">Context — acquisition funnel (no longer a gate)</p>
     <table style="width:100%;border-collapse:collapse;font-size:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:8px">
       ${row("Engaged visits", g.engagedVisits, "distinct tab-lifetimes that did anything")}
+      ${row("word_generated visits", `${g.wordSessions} (≈${Math.round((g.wordSessions / g.days) * 30)}/mo)`, "§5 anchor — utility ≥300/mo, shrink <150/mo")}
+      ${row("page_read visits", g.readSessions, "reading reach, new 2026-08-17")}
       ${row("Qualified /preorder UV", g.qualUv, "gate retired")}
       ${row("Paywall triggers", g.pwTotal, "gate retired")}
       ${row("All orders (any product)", g.ordersTotal, "")}
