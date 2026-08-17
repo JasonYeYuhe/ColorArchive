@@ -7,6 +7,8 @@ import { SITE_URL } from "@/src/lib/site-config";
 import {
   getNewsletterIssue,
   getNewsletterNeighbors,
+  issuePublishedAt,
+  issueUpdatedAt,
   newsletterIssues,
 } from "@/src/lib/newsletter-issues";
 import { getCollectionById } from "@/src/lib/collections";
@@ -45,7 +47,8 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
       description: issue.summary,
       url: `${SITE_URL}/notes/${issue.slug}/`,
       type: "article",
-      publishedTime: issue.date,
+      publishedTime: issuePublishedAt(issue),
+      modifiedTime: issueUpdatedAt(issue),
       authors: ["ColorArchive"],
     },
     twitter: {
@@ -83,8 +86,8 @@ export default async function NoteIssueRoute({ params }: NotePageProps) {
       "@type": "Article",
       headline: issue.title,
       description: issue.summary,
-      datePublished: issue.date,
-      dateModified: issue.date,
+      datePublished: issuePublishedAt(issue),
+      dateModified: issueUpdatedAt(issue),
       keywords: (issue.tags ?? []).join(", "),
       url: `${SITE_URL}/notes/${issue.slug}/`,
       image: `${SITE_URL}/notes/${issue.slug}/opengraph-image`,

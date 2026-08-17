@@ -27,6 +27,7 @@ const SERVER_DIR = path.resolve(__dirname, "..");
 require(path.join(SERVER_DIR, "node_modules/dotenv")).config({ path: path.join(SERVER_DIR, ".env") });
 const Database = require(path.join(SERVER_DIR, "node_modules/better-sqlite3"));
 const { Resend } = require(path.join(SERVER_DIR, "node_modules/resend"));
+const { DISTINCT_VISITS, windowCaveats } = require(path.join(SERVER_DIR, "session-denominator"));
 
 const DB_PATH = process.env.DB_PATH || path.join(SERVER_DIR, "data.db");
 const FROM = process.env.FROM_EMAIL || "hello@colorarchive.org";
@@ -70,8 +71,24 @@ const refunds = db.prepare(
 
 /* ---------------- funnel context ---------------- */
 
+// Raw event rows. Kept, but never shown alone: one visitor who triggers the
+// paywall, reloads, and triggers it again is two rows and one person.
 const ev = (name) =>
   db.prepare(`SELECT COUNT(*) c FROM events WHERE event_name = ? AND datetime(created_at) >= datetime('now', ?)`).get(name, since).c;
+
+// Distinct visits — the denominator this funnel should always have used. See
+// server/session-denominator.js for why events beat pageviews here, and for the
+// two dates that make a raw session count misleading.
+const evVisits = (name) =>
+  db.prepare(
+    `SELECT ${DISTINCT_VISITS} c FROM events WHERE event_name = ? AND datetime(created_at) >= datetime('now', ?)`,
+  ).get(name, since).c;
+
+// Everything anyone did on the site in the window, deduplicated by visit. This
+// is the number that belongs at the top of every ratio on this site.
+const engagedVisits = db.prepare(
+  `SELECT ${DISTINCT_VISITS} c FROM events WHERE datetime(created_at) >= datetime('now', ?)`,
+).get(since).c;
 
 // Dedupe checkout_success by session so a page refresh can't inflate it (the
 // event fires client-side on the /thanks/ landing). Falls back to row id when a
@@ -82,12 +99,22 @@ const distinctCheckoutSuccess = db.prepare(
 ).get(since).c;
 
 const funnel = {
+  paywallHit: evVisits("word_paywall_hit"),
+  paywallRestored: evVisits("word_paywall_restored"),
+  proBypass: evVisits("word_paywall_pro_bypass"),
+  proClick: evVisits("word_paywall_pro_click"),
+  checkoutClicked: evVisits("checkout_clicked"),
+  checkoutSuccess: distinctCheckoutSuccess,
+  copied: evVisits("color_copied"),
+};
+// Raw rows alongside, so a step whose count is one busy visitor is visible as one.
+const funnelRows = {
   paywallHit: ev("word_paywall_hit"),
   paywallRestored: ev("word_paywall_restored"),
   proBypass: ev("word_paywall_pro_bypass"),
   proClick: ev("word_paywall_pro_click"),
   checkoutClicked: ev("checkout_clicked"),
-  checkoutSuccess: distinctCheckoutSuccess,
+  copied: ev("color_copied"),
 };
 
 /* ---------------- capture funnel (added 2026-07-26) ---------------- */
@@ -192,13 +219,20 @@ if (hardWebhookMiss) {
   lines.push(`ℹ️ ${distinctCheckoutSuccess} completed checkouts vs ${recordedConversions} recorded conversion(s) — likely an existing user upgrading (trial) or a test checkout; watch if the gap persists.`);
 }
 
+// Visits, with raw event rows in brackets. Counts are per VISIT — the older
+// version of this block counted rows, so one visitor reloading the paywall read
+// as several people hitting it.
+const step = (visits, rows) => `${String(visits).padStart(4)}${rows === undefined ? "" : ` visits (${rows} events)`}`;
 const funnelBlock = [
-  `word_paywall_hit         : ${funnel.paywallHit}`,
-  `word_paywall_restored    : ${funnel.paywallRestored}`,
-  `word_paywall_pro_click   : ${funnel.proClick}   (paid intent)`,
-  `word_paywall_pro_bypass  : ${funnel.proBypass}   (Pro recognized — fix working)`,
-  `checkout_clicked         : ${funnel.checkoutClicked}`,
-  `checkout_success         : ${funnel.checkoutSuccess}`,
+  `engaged visits           : ${engagedVisits}   (anyone who did anything)`,
+  `color_copied             : ${step(funnel.copied, funnelRows.copied)}   (took a value away)`,
+  `word_paywall_hit         : ${step(funnel.paywallHit, funnelRows.paywallHit)}`,
+  `word_paywall_restored    : ${step(funnel.paywallRestored, funnelRows.paywallRestored)}`,
+  `word_paywall_pro_click   : ${step(funnel.proClick, funnelRows.proClick)}   (paid intent)`,
+  `word_paywall_pro_bypass  : ${step(funnel.proBypass, funnelRows.proBypass)}   (Pro recognized — fix working)`,
+  `checkout_clicked         : ${step(funnel.checkoutClicked, funnelRows.checkoutClicked)}`,
+  `checkout_success         : ${String(funnel.checkoutSuccess).padStart(4)} visits`,
+  ...(windowCaveats(WINDOW_DAYS) ?? []).map((c) => `  ⚠ ${c}`),
 ];
 
 const pct = (n, d) => (d > 0 ? `${((n / d) * 100).toFixed(2)}%` : "—");

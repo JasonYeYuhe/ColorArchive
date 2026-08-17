@@ -2024,7 +2024,9 @@
         "label": "Browse all guides",
         "href": "/guides"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "september-2026-color-visual-hierarchy",
@@ -2070,7 +2072,9 @@
         "label": "Check contrast ratios",
         "href": "/contrast"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "september-2026-saturation-control",
@@ -2116,7 +2120,9 @@
         "label": "Browse all colors",
         "href": "/all-colors/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "september-2026-interactive-color-states",
@@ -2162,7 +2168,9 @@
         "label": "Check contrast ratios",
         "href": "/contrast"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "september-2026-seasonal-palette-shifts",
@@ -2208,7 +2216,9 @@
         "label": "Browse all collections",
         "href": "/collections"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "october-2026-color-blindness-accessible-palettes",
@@ -2254,7 +2264,9 @@
         "label": "Explore Dark Mode UI Kit",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "october-2026-color-temperature-design",
@@ -2300,7 +2312,9 @@
         "label": "Browse by color family",
         "href": "/families"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "october-2026-negative-space-color",
@@ -2346,7 +2360,9 @@
         "label": "Browse all colors",
         "href": "/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "november-2026-typography-color-harmony",
@@ -2392,7 +2408,9 @@
         "label": "Read: Color Contrast Checker",
         "href": "/contrast/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "november-2026-color-and-motion",
@@ -2438,7 +2456,9 @@
         "label": "Browse all colors",
         "href": "/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "november-2026-cultural-color-reading",
@@ -2484,7 +2504,9 @@
         "label": "Browse color families",
         "href": "/families/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "december-2026-color-palette-documentation",
@@ -2530,7 +2552,9 @@
         "label": "Browse all guides",
         "href": "/guides/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "december-2026-color-contrast-accessibility",
@@ -2576,7 +2600,9 @@
         "label": "Simulate color blindness",
         "href": "/colorblind/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "december-2026-print-vs-screen-color",
@@ -2622,7 +2648,9 @@
         "label": "Browse warm color families",
         "href": "/families/orange"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "december-2026-dark-mode-design-decisions",
@@ -2668,7 +2696,9 @@
         "label": "Check contrast ratios",
         "href": "/contrast/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22"
   },
   {
     "slug": "january-2027-color-naming-systems",
@@ -4136,7 +4166,7 @@
     ],
     "featuredCollectionId": "nordic-frost",
     "highlights": [
-      "Outlook (Windows) renders HTML email using Microsoft Word's rendering engine, not a browser engine. This means CSS background images and many CSS background-color properties on div elements do not render. To guarantee background color rendering in Outlook, use table-based layout with bgcolor attributes: `<table bgcolor=\"#F5F0EB\">`. This is the primary reason professionally coded HTML email still uses table layouts in 2027 — not ignorance, but Outlook rendering requirements.",
+      "Outlook (Windows) renders HTML email using Microsoft Word's rendering engine, not a browser engine. This means CSS background images and many CSS background-color properties on div elements do not render. To guarantee background color rendering in Outlook, use table-based layout with bgcolor attributes: `<table bgcolor=\"#F5F0EB\">`. This is the primary reason professionally coded HTML email still uses table layouts today — not ignorance, but Outlook rendering requirements.",
       "Apple Mail's dark mode performs automatic color inversion on detected light-mode email designs. White backgrounds turn near-black, dark text turns light — which often produces readable but completely off-brand emails. The fix is to use the @media (prefers-color-scheme: dark) query, which Apple Mail supports, to specify explicit dark mode colors. Test in Apple Mail dark mode as a first-class requirement if a significant portion of subscribers are Apple Mail users (typically 15-30% for consumer audiences).",
       "Gmail strips or ignores most CSS classes and external stylesheets. Inline styles are the only reliable mechanism for CSS in Gmail. Email design systems should output inline-style HTML rather than class-based HTML. Design tools like Mailchimp, Beehiiv, and campaign-specific tools handle this automatically; custom HTML templates must inline styles manually or use a CSS inliner tool at build time."
     ],
@@ -4171,7 +4201,10 @@
         "label": "Browse complete archive",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22",
+    "updatedAt": "2026-08-17"
   },
   {
     "slug": "oct-2027-color-for-data-storytelling",
@@ -4240,7 +4273,7 @@
     "highlights": [
       "The HSL panel in Lightroom and Capture One operates on eight hue ranges (red, orange, yellow, green, aqua, blue, purple, magenta). Adjustments within each range affect only pixels that fall in that hue band. The most common professional use: pull orange/red skin tones to a preferred warmth without affecting the blues in the sky; shift greens toward yellow or teal to match the editorial mood; desaturate blues for a cooler, editorial register without affecting warm tones. The HSL panel is the precision tool of color grading — it allows surgical adjustments that global tools cannot make.",
       "A LUT (Look-Up Table) is a mathematical transform that maps one set of color values to another. Every major color grading application supports LUT import and export. Professional photographers use LUTs to: enforce a consistent grade across large shoots without manual re-grading, package and sell a signature look as a product, and maintain brand consistency when images are processed by different editors. A LUT encodes all HSL adjustments, tone curves, split toning, and color mixer settings into a single file. Building and exporting a custom LUT from a correctly graded reference image is the most efficient way to apply a consistent editorial look at scale.",
-      "Split toning (called Color Grading in recent Lightroom versions) adds a specific color cast to shadows and a different color to highlights. The classic film emulation effect — warm golden highlights with teal/cyan shadows — is a split toning formula. It works because warm and cool create spatial depth: warm tones advance (foreground, faces, light sources) while cool tones recede (shadows, backgrounds, distance). The contrast between shadow and highlight color temperature creates a filmic quality that straight global adjustments cannot replicate."
+      "Split toning (renamed Color Grading in Lightroom in 2020) adds a specific color cast to shadows and a different color to highlights. The classic film emulation effect — warm golden highlights with teal/cyan shadows — is a split toning formula. It works because warm and cool create spatial depth: warm tones advance (foreground, faces, light sources) while cool tones recede (shadows, backgrounds, distance). The contrast between shadow and highlight color temperature creates a filmic quality that straight global adjustments cannot replicate."
     ],
     "sections": [
       {
@@ -4277,7 +4310,10 @@
         "label": "Browse color families",
         "href": "/families/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-22",
+    "updatedAt": "2026-08-17"
   },
   {
     "slug": "oct-2027-off-white-backgrounds-ui",
@@ -4820,14 +4856,14 @@
     ],
     "featuredCollectionId": "electric-mint",
     "highlights": [
-      "AI image models have trained-in color biases. Midjourney v6 pulls toward desaturated, cinematic palettes with crushed shadows and lifted highlights — an aesthetic that photographs well on social media but diverges significantly from most brand color systems. DALL·E 3 tends toward higher saturation and more literal color interpretation of prompts. Understanding which model's baseline aesthetic is closer to your brand's target saves significant post-processing time and prompt iteration.",
-      "Exact hex color control is not yet natively supported in text-to-image AI tools, but several prompting strategies increase palette accuracy: providing reference image URLs (when supported), using specific color name modifiers ('cobalt blue accent, not teal'), describing the color relationship ('muted warm amber tones, low saturation'), and adding lighting descriptors that imply color temperature ('overcast natural light' for cool muted tones, 'golden hour backlight' for warm amber). No approach delivers precise palette accuracy, but each reduces the correction load.",
+      "AI image models have trained-in color biases. Midjourney's models pull toward desaturated, cinematic palettes with crushed shadows and lifted highlights — an aesthetic that photographs well on social media but diverges significantly from most brand color systems. OpenAI's image models tend toward higher saturation and more literal color interpretation of prompts. Understanding which model's baseline aesthetic is closer to your brand's target saves significant post-processing time and prompt iteration.",
+      "Exact hex color control remains unreliable in text-to-image AI tools, but several prompting strategies increase palette accuracy: providing reference image URLs (when supported), using specific color name modifiers ('cobalt blue accent, not teal'), describing the color relationship ('muted warm amber tones, low saturation'), and adding lighting descriptors that imply color temperature ('overcast natural light' for cool muted tones, 'golden hour backlight' for warm amber). No approach delivers precise palette accuracy, but each reduces the correction load.",
       "Color correction after AI generation can be done efficiently in layers: broad HSL adjustments to shift the overall temperature toward brand values, targeted Hue/Saturation masks to correct specific problem colors (AI-generated greens frequently shift too yellow), and final curves adjustments to match luminance targets. For batch workflows processing many AI-generated images, Lightroom presets or Photoshop actions encoding brand color correction parameters allow consistent palette application at scale without per-image manual work."
     ],
     "sections": [
       {
         "heading": "Understanding AI model color aesthetics",
-        "body": "Every AI image model has a trained aesthetic that includes color preferences derived from its training data distribution. Midjourney's cinematic bias produces images with high contrast, lifted blacks, and slightly desaturated midtones — an aesthetic that looks professional in general editorial contexts but clashes with most corporate brand palettes. DALL·E 3's more literal interpretation makes it better for brand-aligned work where you need specific colors to appear. Stable Diffusion with custom checkpoints offers the most control but requires more technical setup. Understanding these baseline aesthetics before starting a project informs which model to start with and how much color correction budget to allocate."
+        "body": "Every AI image model has a trained aesthetic that includes color preferences derived from its training data distribution. Midjourney's cinematic bias produces images with high contrast, lifted blacks, and slightly desaturated midtones — an aesthetic that looks professional in general editorial contexts but clashes with most corporate brand palettes. OpenAI's more literal interpretation makes it better for brand-aligned work where you need specific colors to appear. Stable Diffusion with custom checkpoints offers the most control but requires more technical setup. Understanding these baseline aesthetics before starting a project informs which model to start with and how much color correction budget to allocate."
       },
       {
         "heading": "Prompting for specific color palettes",
@@ -4843,7 +4879,7 @@
       },
       {
         "heading": "Color and AI design tool integration strategy",
-        "body": "The medium-term trajectory of AI design tools is toward better color control — Midjourney has indicated plans for palette reference inputs, and several research projects demonstrate OKLCH-space color targeting in diffusion models. In the current state, the practical integration strategy is: use AI generation for composition, texture, and concept exploration (where it excels), apply manual or systematized color correction to brand-align the output, and build a library of successfully corrected reference images to use as visual prompts for future generation. As control improves, this correction workflow will shrink — but the underlying skill of understanding AI color biases and correction methods will remain valuable for directing the control interfaces that emerge."
+        "body": "The medium-term trajectory of AI design tools is toward better color control — reference-image and style-reference inputs have already narrowed the gap, and research continues on perceptual-space (OKLCH) color targeting in diffusion models. In the current state, the practical integration strategy is: use AI generation for composition, texture, and concept exploration (where it excels), apply manual or systematized color correction to brand-align the output, and build a library of successfully corrected reference images to use as visual prompts for future generation. As control improves, this correction workflow will shrink — but the underlying skill of understanding AI color biases and correction methods will remain valuable for directing the control interfaces that emerge."
       }
     ],
     "links": [
@@ -4859,7 +4895,10 @@
         "label": "Color Compare tool",
         "href": "https://colorarchive.org/compare/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-23",
+    "updatedAt": "2026-08-17"
   },
   {
     "slug": "nov-2027-color-and-illustration",
@@ -5986,7 +6025,9 @@
         "label": "Color Family Explorer",
         "href": "/families/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-23"
   },
   {
     "slug": "apr-2028-color-game-ui",
@@ -6036,7 +6077,9 @@
         "label": "Color Family Explorer",
         "href": "/families/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-23"
   },
   {
     "slug": "may-2028-color-cultural-meaning",
@@ -6136,7 +6179,9 @@
         "label": "WCAG Contrast Checker",
         "href": "/contrast/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-23"
   },
   {
     "slug": "may-2028-color-motion-animation",
@@ -7359,7 +7404,9 @@
         "label": "Brand Starter Kit",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published",
+    "publishedAt": "2026-03-23"
   },
   {
     "slug": "dec-2028-color-psychology-in-marketing",
@@ -9063,7 +9110,9 @@
       "Branding"
     ],
     "date": "2031-07-15",
-    "body": "Ultra-saturated color — the palette sometimes called neon, acid, or rave color — has appeared in mainstream design at predictable intervals: late 1960s psychedelia, early 1980s post-punk and new wave, mid-1990s rave culture, mid-2010s digital maximalism, and now the early 2030s iteration that is currently building. Each resurgence shares structural characteristics, which suggests it is not merely fashion but something more systematic.\n\nThe pattern has a mechanical logic: ultra-saturated color functions as a reaction formation against the dominant aesthetic of the preceding period. The late 1960s neon moment followed a decade of restrained, modernist color. The 1980s neon explosion followed the earth-tone-heavy 1970s. The 1990s rave palette arrived after the sophisticated, desaturated palettes of late 1980s graphic design. In each case, the new palette signals energy, disruption, and opposition to the establishment aesthetic.\n\nTechnology plays an enabling role but not a causal one. Screen-accurate reproduction of high-saturation colors improved dramatically with the CRT monitors of the 1980s, and again with the LED screens of the 2010s. Wide gamut displays that can reproduce colors outside sRGB are enabling the current resurgence — the P3 and Rec. 2020 color spaces allow digital design to display saturation levels that were previously impossible on screens. But technology does not create the cultural appetite for this palette; it removes the technical barrier when the appetite already exists.\n\nBranding use of neon palettes follows rather than leads the cultural cycle. Mass-market consumer brands adopt the palette once the cultural association has been clearly established, usually 3-4 years after the subculture peak. Luxury brands almost never adopt ultra-saturated palettes because high saturation reads as democratic and accessible — the opposite of the exclusivity signal that luxury requires. The brands currently using the most saturated palettes are in gaming, energy beverages, streetwear, and DTC consumer goods — precisely the sectors most attuned to youth culture signals."
+    "body": "Ultra-saturated color — the palette sometimes called neon, acid, or rave color — has appeared in mainstream design at predictable intervals: late 1960s psychedelia, early 1980s post-punk and new wave, mid-1990s rave culture, mid-2010s digital maximalism, and now the early 2030s iteration that is currently building. Each resurgence shares structural characteristics, which suggests it is not merely fashion but something more systematic.\n\nThe pattern has a mechanical logic: ultra-saturated color functions as a reaction formation against the dominant aesthetic of the preceding period. The late 1960s neon moment followed a decade of restrained, modernist color. The 1980s neon explosion followed the earth-tone-heavy 1970s. The 1990s rave palette arrived after the sophisticated, desaturated palettes of late 1980s graphic design. In each case, the new palette signals energy, disruption, and opposition to the establishment aesthetic.\n\nTechnology plays an enabling role but not a causal one. Screen-accurate reproduction of high-saturation colors improved dramatically with the CRT monitors of the 1980s, and again with the LED screens of the 2010s. Wide gamut displays that can reproduce colors outside sRGB are enabling the current resurgence — the P3 and Rec. 2020 color spaces allow digital design to display saturation levels that were previously impossible on screens. But technology does not create the cultural appetite for this palette; it removes the technical barrier when the appetite already exists.\n\nBranding use of neon palettes follows rather than leads the cultural cycle. Mass-market consumer brands adopt the palette once the cultural association has been clearly established, usually 3-4 years after the subculture peak. Luxury brands almost never adopt ultra-saturated palettes because high saturation reads as democratic and accessible — the opposite of the exclusivity signal that luxury requires. The brands currently using the most saturated palettes are in gaming, energy beverages, streetwear, and DTC consumer goods — precisely the sectors most attuned to youth culture signals.",
+    "status": "published",
+    "publishedAt": "2026-03-26"
   },
   {
     "slug": "aug-2031-color-signage-legibility-system",

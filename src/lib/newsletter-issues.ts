@@ -1,5 +1,6 @@
 import issues from "@/src/data/newsletter-issues.json";
 import { tagToSlug } from "./newsletter-slug";
+import { issuePublishedAt } from "./newsletter-date";
 
 export { tagToSlug } from "./newsletter-slug";
 
@@ -15,7 +16,22 @@ export interface NewsletterIssueSection {
 
 export interface NewsletterIssue {
   slug: string;
+  /**
+   * The SCHEDULING date — when this issue is slated to run. It is not the
+   * publication date and must not be rendered as one; see `publishedAt`.
+   */
   date: string;
+  /**
+   * Explicit publication state. `"published"` means this URL is live regardless
+   * of `date`, and exists for exactly one situation: the page was already public
+   * and search engines already know it. Un-publishing such a URL turns an indexed
+   * page into a 404, which is strictly worse than a stale date.
+   */
+  status?: "published";
+  /** Real first-public date, from git history. Drives display, OG and JSON-LD. */
+  publishedAt?: string;
+  /** Real last-substantive-edit date. Drives JSON-LD dateModified + sitemap. */
+  updatedAt?: string;
   title: string;
   summary: string;
   eyebrow?: string;
@@ -50,9 +66,33 @@ export interface NewsletterIssue {
  * fixes all three, which is why it belongs here rather than in each caller.
  */
 const CUTOFF = new Date().toISOString().slice(0, 10);
+
+/**
+ * `date` alone was carrying five different meanings — publish eligibility, the
+ * date on the page, OG `publishedTime`, JSON-LD `datePublished` AND
+ * `dateModified`, and sitemap `lastModified` — so any change made for one of
+ * them silently rewrote the other four. Re-exported from newsletter-date.ts,
+ * which holds no data and is therefore safe for client components to import.
+ */
+export { issuePublishedAt, issueUpdatedAt } from "./newsletter-date";
+
+/**
+ * WHY `status` CAN OVERRIDE THE CUTOFF.
+ * On 2026-03-31 a cutoff was added to stop future-dated issues going out. It was
+ * correct going forward and wrong backwards: 345 of 350 issues had already been
+ * public since 2026-03-22, so the cutoff did not prevent publication, it
+ * RETRACTED it. 303 URLs became 404s, and 2026-08-08's build-date cutoff
+ * retracted 15 more that had been live and indexed for four and a half months.
+ * Google still sends ~700 visits a month to those 404s.
+ *
+ * So eligibility is now two rules, not one: publish if the schedule slot has
+ * arrived, OR if the URL was already public and search still asks for it. The
+ * second set is enumerated in notes-restored.ts with its evidence, and a test
+ * asserts every entry actually resolves.
+ */
 export const newsletterIssues = (issues as NewsletterIssue[])
-  .filter((issue) => issue.date <= CUTOFF)
-  .sort((a, b) => b.date.localeCompare(a.date));
+  .filter((issue) => issue.status === "published" || issue.date <= CUTOFF)
+  .sort((a, b) => issuePublishedAt(b).localeCompare(issuePublishedAt(a)));
 
 export function getNewsletterIssue(slug: string) {
   return newsletterIssues.find((issue) => issue.slug === slug) ?? null;

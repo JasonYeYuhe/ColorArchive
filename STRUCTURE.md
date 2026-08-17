@@ -268,7 +268,15 @@ ColorArchive/
 │   │   ├── collections.ts                # 259 curated palette collections
 │   │   ├── palette-packs.ts              # 7 product pack definitions + metadata
 │   │   ├── guides.ts                     # 317 SEO landing guides
-│   │   ├── newsletter-issues.ts          # Newsletter data helpers + tagToSlug
+│   │   ├── newsletter-issues.ts          # Newsletter data helpers + tagToSlug.
+│   │   │                                 # Publishes when the schedule slot arrives
+│   │   │                                 # OR status === "published" (restored URLs)
+│   │   ├── newsletter-date.ts            # issuePublishedAt / issueUpdatedAt.
+│   │   │                                 # NO data import — client components use it,
+│   │   │                                 # so it must not pull the issue dataset in
+│   │   ├── notes-restored.ts             # 23 previously-public /notes/ URLs served
+│   │   │                                 # again, each with its measured referral
+│   │   │                                 # evidence. Guarded by notes-restored.test.ts
 │   │   ├── i18n.ts                       # EN/ZH translations (~710+ keys)
 │   │   ├── palette-builder.ts            # localStorage palette + subscriptions,
 │   │   │                                 # Tailwind/Figma/StyleDict exports, naming
@@ -336,6 +344,13 @@ ColorArchive/
 │   │                                     #   writes) + 300/day/caller cap (the UA-invisible half).
 │   │                                     #   ~31% of writes were never human. NEVER mount on a
 │   │                                     #   money or account route.
+│   ├── session-denominator.js            # The denominator every ratio on this site should use:
+│   │                                     #   distinct VISITS from `events`, not rows from
+│   │                                     #   `pageviews`. Documents the two dates that make a naive
+│   │                                     #   session count lie — session_id starts 2026-07-26, and
+│   │                                     #   /guides/ stopped emitting a read-only event 2026-08-10
+│   │                                     #   (e401e0f), which drops guide sessions ~90% with no
+│   │                                     #   change in readership. windowCaveats() prints both.
 │   ├── deploy/
 │   │   └── nginx-colorarchive.conf       # The live nginx site config, in git. It was NOT in git,
 │   │                                     #   which is how a four-month outage went unnoticed.
@@ -360,7 +375,8 @@ ColorArchive/
 │       ├── admin.js                      # GET /admin/* — orders dashboard
 │       ├── analytics.js                  # GET /analytics/* — internal stats; /analytics/gate =
 │       │                                 #   exit-gate funnel (is_test-filtered; orders.preorder is the
-│       │                                 #   PROCEED criterion; emailReserves secondary signal)
+│       │                                 #   PROCEED criterion; emailReserves secondary signal).
+│       │                                 #   Denominators are VISITS from events, never pageviews.
 │       ├── pageviews.js                  # POST /pageviews — page tracking
 │       ├── og.js                         # GET /og — OG image generation
 │       └── instagram.js                  # Instagram API (OAuth, publish, media feed)
@@ -375,7 +391,12 @@ ColorArchive/
 │       │                                 #   Earlier drafts made sample size a precondition, which
 │       │                                 #   made the gate unfalsifiable.
 │       ├── conversion-digest.cjs         # Daily money/funnel digest (cron 08:00 UTC); silent on
-│       │                                 #   dead days except a Monday heartbeat
+│       │                                 #   dead days except a Monday heartbeat. Funnel steps are
+│       │                                 #   counted per VISIT, with raw event rows alongside.
+│       ├── fix-order-attribution.cjs     # One-off: Gumroad's 100x amount bug, and the 6 of 8 order
+│       │                                 #   rows that are the owner's own addresses. --apply to write
+│       ├── send-interview-invites.cjs    # §4 interview invitations. Two letters (customer vs
+│       │                                 #   subscriber); dry-run by default; ledger prevents repeats
 │       ├── send-design-notes.cjs         # Weekly Design Notes sender — approved-only, per-recipient
 │       │                                 #   delivery ledger so a crash resumes
 │       ├── verify-preorder.cjs           # Repeatable integration check for the pre-order loop

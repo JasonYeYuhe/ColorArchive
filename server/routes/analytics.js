@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 const { requireAnalyticsAccess } = require("../auth");
+const { DISTINCT_VISITS, windowCaveats } = require("../session-denominator");
 
 router.use(requireAnalyticsAccess);
 
@@ -406,21 +407,32 @@ router.get("/gate", (req, res) => {
       .all(sinceParam)
       .map((r) => ({ channel: r.channel || "unknown", count: r.count }));
 
-  // Denominator A: qualified UV to /preorder, by channel.
+  // Denominators are VISITS from `events`, not rows. `pageviews` has no caller
+  // identifier and 2026-07-27 measured it as 22.5% automated (vs 1.5% of events),
+  // so it was counting crawlers as prospects; counting event ROWS double-counted
+  // one visitor who reloads. Both fixes are the same expression — see
+  // server/session-denominator.js, which also documents the two dates that make a
+  // session count misleading (session_id starts 2026-07-26; /guides/ stopped
+  // emitting a read-only event on 2026-08-10).
   const preorderUvByChannel = byChannel(
-    `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, COUNT(*) as count
-     FROM pageviews
+    `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, ${DISTINCT_VISITS} as count
+     FROM events
      WHERE datetime(created_at) >= datetime('now', ?) AND path LIKE '/preorder%'
      GROUP BY channel ORDER BY count DESC`,
   );
 
   // Denominator B: paywall triggers (hit + restored), by channel.
   const paywallByChannel = byChannel(
-    `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, COUNT(*) as count
+    `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, ${DISTINCT_VISITS} as count
      FROM events
      WHERE datetime(created_at) >= datetime('now', ?) AND event_name IN ('word_paywall_hit', 'word_paywall_restored')
      GROUP BY channel ORDER BY count DESC`,
   );
+
+  // The site's actual size, on the only denominator that survives scrutiny.
+  const engagedVisits = db
+    .prepare(`SELECT ${DISTINCT_VISITS} as c FROM events WHERE datetime(created_at) >= datetime('now', ?)`)
+    .get(sinceParam).c;
 
   // Conversion steps, by event × channel.
   const GATE_EVENTS = [
@@ -517,6 +529,8 @@ router.get("/gate", (req, res) => {
 
   return res.json({
     days,
+    engagedVisits,
+    caveats: windowCaveats(days),
     floors: {
       preorderUv: { total: preorderUvTotal, qualified: qualifiedPreorderUv, target: 500 },
       paywallTriggers: { total: paywallTotal, target: 1000 },

@@ -2,12 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { track } from "@/src/lib/track";
+
 interface CopyButtonProps {
   value: string;
   label: string;
   copiedLabel?: string;
   variant?: "pill" | "compact";
   className?: string;
+  /**
+   * What to call this button in analytics, when `label` is not a stable name.
+   * The swatch variant passes the hex itself as its label, which would make
+   * every distinct colour its own event category.
+   */
+  trackAs?: string;
 }
 
 export function CopyButton({
@@ -16,6 +24,7 @@ export function CopyButton({
   copiedLabel,
   variant = "pill",
   className,
+  trackAs,
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -27,6 +36,17 @@ export function CopyButton({
       await navigator.clipboard.writeText(value);
       setCopied(true);
       timerRef.current = setTimeout(() => setCopied(false), 1400);
+      // Fired only after writeText resolves, and deliberately after setCopied:
+      // a copy that threw (clipboard permission denied, insecure context, an
+      // embedded webview without the API) shows no confirmation to the user and
+      // must not show one in the funnel either. This was the single missing step
+      // between "generated a palette" and "took it away to use it" — every other
+      // event on this path already existed.
+      //
+      // The copied string is not sent. It is only ever a colour here, but the
+      // component is generic and props_json is readable by the admin surface;
+      // the funnel needs the count, not the contents.
+      track("color_copied", { format: trackAs ?? label, variant });
     } catch {
       /* noop */
     }

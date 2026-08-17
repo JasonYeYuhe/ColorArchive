@@ -4,7 +4,7 @@ import stories from "@/src/data/color-stories.json";
 import { collections } from "@/src/lib/collections";
 import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
 import { landingGuides } from "@/src/lib/guides";
-import { getAllTags, newsletterIssues, tagToSlug } from "@/src/lib/newsletter-issues";
+import { getAllTags, issueUpdatedAt, newsletterIssues, tagToSlug } from "@/src/lib/newsletter-issues";
 import { useCases } from "@/src/lib/use-cases";
 import { brandPalettes } from "@/src/lib/brand-palettes";
 import { regionPalettes } from "@/src/lib/region-palettes";
@@ -448,7 +448,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const noteRoutes: MetadataRoute.Sitemap = newsletterIssues.map((issue) => ({
     url: `${SITE_URL}/notes/${issue.slug}/`,
-    lastModified: new Date(issue.date),
+    lastModified: new Date(issueUpdatedAt(issue)),
     changeFrequency: "monthly",
     priority: 0.68,
   }));

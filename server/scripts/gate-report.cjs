@@ -31,6 +31,7 @@ require(path.join(SERVER_DIR, "node_modules/dotenv")).config({ path: path.join(S
 const Database = require(path.join(SERVER_DIR, "node_modules/better-sqlite3"));
 const { Resend } = require(path.join(SERVER_DIR, "node_modules/resend"));
 const { computeAiGate } = require(path.join(__dirname, "ai-gate-report.cjs"));
+const { DISTINCT_VISITS, windowCaveats } = require(path.join(SERVER_DIR, "session-denominator"));
 
 const OWNER_EMAIL = process.env.GATE_REPORT_TO || "yyyyy.yeyuhe@gmail.com";
 const FROM = process.env.FROM_EMAIL || "hello@colorarchive.org";
@@ -43,13 +44,21 @@ const isGeneric = (ch) => GENERIC.has(ch) || ch.startsWith("referral:");
 function gate(days) {
   const since = `-${days} days`;
   const byCh = (sql) => db.prepare(sql).all(since).map((r) => ({ channel: r.channel || "unknown", count: r.count }));
+  // Both denominators are now VISITS from `events`, not rows from `pageviews`.
+  // The old preorder figure came from a table with no caller identifier, in which
+  // 2026-07-27 measured 97% of colour-page traffic and ~70% of guide traffic as
+  // automated — so it counted crawlers as qualified prospects. The paywall figure
+  // counted event rows, which double-counts one visitor who reloads: measured on
+  // 2026-08-17, word_paywall_restored is 190 rows but 68 visits.
   const preorderUv = byCh(
-    `SELECT COALESCE(NULLIF(channel,''),'unknown') channel, COUNT(*) count FROM pageviews
+    `SELECT COALESCE(NULLIF(channel,''),'unknown') channel, ${DISTINCT_VISITS} count FROM events
      WHERE datetime(created_at) >= datetime('now', ?) AND path LIKE '/preorder%' GROUP BY channel ORDER BY count DESC`);
   const paywall = byCh(
-    `SELECT COALESCE(NULLIF(channel,''),'unknown') channel, COUNT(*) count FROM events
+    `SELECT COALESCE(NULLIF(channel,''),'unknown') channel, ${DISTINCT_VISITS} count FROM events
      WHERE datetime(created_at) >= datetime('now', ?) AND event_name IN ('word_paywall_hit','word_paywall_restored')
      GROUP BY channel ORDER BY count DESC`);
+  const engagedVisits = db.prepare(
+    `SELECT ${DISTINCT_VISITS} c FROM events WHERE datetime(created_at) >= datetime('now', ?)`).get(since).c;
   // Real orders — exclude owner/QA test-mode rows so a test charge can't falsely
   // satisfy the PROCEED threshold (matches analytics.js gate numerator).
   // "Orders" = kept money only: amount > 0, non-test, not refunded. A ¥0 trial
@@ -99,7 +108,7 @@ function gate(days) {
   const qualUv = preorderUv.filter((r) => !isGeneric(r.channel)).reduce((n, r) => n + r.count, 0);
   const uvTotal = preorderUv.reduce((n, r) => n + r.count, 0);
   const pwTotal = paywall.reduce((n, r) => n + r.count, 0);
-  return { days, uvTotal, qualUv, pwTotal, ordersTotal, revenueTotal, preorderOrders, ordersByProduct, proSubs, emailReserves, ctaClicks, preorderViews };
+  return { days, uvTotal, qualUv, pwTotal, ordersTotal, revenueTotal, preorderOrders, ordersByProduct, proSubs, emailReserves, ctaClicks, preorderViews, engagedVisits, caveats: windowCaveats(days) };
 }
 
 const g = gate(30);
@@ -155,6 +164,8 @@ const text = [
   `only because this email is where they get seen.`,
   ``,
   `Window: last ${g.days} days`,
+  `  ENGAGED VISITS          : ${g.engagedVisits}   (the real size of this site — distinct visits that did anything)`,
+  ...(g.caveats ?? []).map((c) => `    ⚠ ${c}`),
   `  Qualified /preorder UV : ${g.qualUv}   (was target 500 — gate retired)`,
   `  Paywall triggers        : ${g.pwTotal}   (was target 1000 — gate retired)`,
   `  Auditor pre-orders      : ${g.preorderOrders}   (product cancelled; expect 0)`,

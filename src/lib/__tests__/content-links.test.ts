@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { collections } from "@/src/lib/collections";
 import { COLOR_FAMILY_PAGES } from "@/src/lib/color-family-pages";
 import { landingGuides } from "@/src/lib/guides";
-import { newsletterIssues } from "@/src/lib/newsletter-issues";
+import { issuePublishedAt, issueUpdatedAt, newsletterIssues } from "@/src/lib/newsletter-issues";
 import rawIssues from "@/src/data/newsletter-issues.json";
 import { TOOL_COUNT } from "@/src/components/tools-page";
 import { guideSeoTitleEntries } from "@/src/lib/guide-seo-title";
@@ -169,16 +169,28 @@ describe("newsletter links", () => {
     expect(dead, `dead newsletter links:\n${dead.join("\n")}`).toEqual([]);
   });
 
-  it("no issue is dated in the future", () => {
-    // The publish gate compares against the build date. If this ever fails, the
-    // gate has stopped working rather than the data being wrong — it used to
-    // compare against a hardcoded "2026-12-31", which put 16 issues live four
-    // months early.
+  it("no issue claims a publication or modification date in the future", () => {
+    // This used to read `issue.date > today`, because `date` was both the
+    // publish gate and the date shown to readers and crawlers. Splitting those
+    // apart (see newsletter-date.ts) means a restored 2028 issue is legitimately
+    // served — it was public and indexed in March 2026 — while still reporting
+    // the March date it actually went live. What must never happen is the site
+    // announcing a date that has not arrived, which is what this now checks.
     const today = new Date().toISOString().slice(0, 10);
     const early = newsletterIssues
-      .filter((issue) => issue.date > today)
+      .filter((issue) => issuePublishedAt(issue) > today || issueUpdatedAt(issue) > today)
+      .map((issue) => `${issue.slug} (${issuePublishedAt(issue)}/${issueUpdatedAt(issue)})`);
+    expect(early, `issues dated ahead of today:\n${early.join("\n")}`).toEqual([]);
+  });
+
+  it("serves an issue only when scheduled or explicitly restored", () => {
+    // The other half of the old assertion, kept: nothing should appear on the
+    // site just because its scheduling date slipped past unnoticed.
+    const today = new Date().toISOString().slice(0, 10);
+    const unexplained = newsletterIssues
+      .filter((issue) => issue.date > today && issue.status !== "published")
       .map((issue) => `${issue.slug} (${issue.date})`);
-    expect(early, `issues published ahead of their date:\n${early.join("\n")}`).toEqual([]);
+    expect(unexplained, `future-dated with no restore record:\n${unexplained.join("\n")}`).toEqual([]);
   });
 
   it("featuredCollectionId, when set, names a collection that exists", () => {
@@ -196,7 +208,9 @@ describe("newsletter links", () => {
   it("the archive is ordered newest first", () => {
     // Three things read positional order: the /notes/ index, latestNewsletterIssue,
     // and getNewsletterNeighbors. Any of them silently misbehaves if the sort goes.
-    const dates = newsletterIssues.map((issue) => issue.date);
+    // Ordered by publication, not by scheduling slot — a restored issue belongs
+    // where the reader met it, not where it was once pencilled in.
+    const dates = newsletterIssues.map((issue) => issuePublishedAt(issue));
     const sorted = [...dates].sort((a, b) => b.localeCompare(a));
     expect(dates).toEqual(sorted);
   });

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { EmailCaptureForm } from "@/src/components/email-capture-form";
 import { landingGuides } from "@/src/lib/guides";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
+import { issuePublishedAt } from "@/src/lib/newsletter-date";
 import { tagToSlug } from "@/src/lib/newsletter-slug";
 
 export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
@@ -83,7 +84,7 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
                   {issue.eyebrow}
                 </div>
                 <div className="mt-2 text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
-                  {issue.date}
+                  {issuePublishedAt(issue)}
                 </div>
                 <div className="mt-2 text-lg font-semibold tracking-[-0.02em] text-neutral-950">
                   {issue.title}
@@ -115,7 +116,7 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
                   {issue.eyebrow}
                 </span>
                 <span className="rounded-full border border-black/8 bg-neutral-50 px-2.5 py-0.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-500">
-                  {issue.date}
+                  {issuePublishedAt(issue)}
                 </span>
               </div>
               <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">

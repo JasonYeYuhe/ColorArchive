@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { NewsletterIssue } from "@/src/lib/newsletter-issues";
+import { issuePublishedAt } from "@/src/lib/newsletter-date";
 import { tagToSlug } from "@/src/lib/newsletter-slug";
 
 interface TagNotesPageProps {
@@ -45,7 +46,7 @@ export function TagNotesPage({ tag, issues }: TagNotesPageProps) {
                 <span className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
                   {issue.eyebrow}
                 </span>
-                <span className="text-xs text-neutral-400">{issue.date}</span>
+                <span className="text-xs text-neutral-400">{issuePublishedAt(issue)}</span>
               </div>
               <h2 className="text-base font-semibold leading-snug tracking-[-0.02em] text-neutral-950 transition group-hover:text-neutral-700">
                 {issue.title}

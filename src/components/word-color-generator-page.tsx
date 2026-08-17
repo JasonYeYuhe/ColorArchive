@@ -634,7 +634,7 @@ export function WordColorGeneratorPage() {
                       <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">
                         {variant.label}
                       </div>
-                      <CopyButton variant="compact" value={variant.hex} label={variant.hex} copiedLabel="Copied ✓" className="mt-2 text-lg font-semibold tracking-[0.02em] text-neutral-950 dark:text-white transition hover:text-neutral-500" />
+                      <CopyButton variant="compact" value={variant.hex} label={variant.hex} trackAs="swatch" copiedLabel="Copied ✓" className="mt-2 text-lg font-semibold tracking-[0.02em] text-neutral-950 dark:text-white transition hover:text-neutral-500" />
                     </div>
                   </div>
                 ))}
