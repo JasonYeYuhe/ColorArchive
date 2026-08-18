@@ -1,4 +1,10 @@
-const LAST_UPDATED = "April 7, 2026";
+import { refundPolicy } from "@/src/lib/checkout-config";
+
+// Bump this whenever a row above changes substantively. A 特定商取引法 notice
+// carrying a stale date is its own kind of misstatement — 2026-08-18 changed
+// the refund row from "digital goods are non-refundable" to the 7-day guarantee
+// /support had been advertising all along.
+const LAST_UPDATED = "August 18, 2026";
 
 const rows = [
   {
@@ -53,8 +59,8 @@ const rows = [
   {
     label: "返品・交換・キャンセル",
     value:
-      "デジタル商品の性質上、購入後の返品・交換・キャンセルはお受けできません。商品に欠陥がある場合は support@colorarchive.org までご連絡ください。\nサブスクリプション（Pro プラン）はアカウントの請求ポータルからいつでも解約可能です。解約は現在の請求期間終了時に有効となり、残存期間の返金はいたしません。サブスクリプションは自動更新されます。",
-    en: "Returns: Digital goods are non-refundable. Contact support for defective products. Pro subscriptions auto-renew and can be cancelled anytime; cancellation takes effect at the end of the current billing period.",
+      `デジタル商品の性質上、原則として購入後の返品・交換はお受けできません。ただし Pro プランについては、購入日から ${refundPolicy.moneyBackDays} 日以内に support@colorarchive.org までご連絡いただいた場合、全額を返金いたします。${refundPolicy.moneyBackDays} 日経過後の返金はいたしかねます。商品に欠陥がある場合は期間を問わずご連絡ください。\nサブスクリプション（Pro プラン）はアカウントの請求ポータルからいつでも解約可能です。解約は現在の請求期間終了時に有効となり、それまでは引き続きご利用いただけます。残存期間の日割り返金はいたしません。サブスクリプションは自動更新されます。`,
+    en: `Returns: Digital goods are generally non-refundable, but Pro purchases carry a ${refundPolicy.moneyBackDays}-day money-back guarantee — email support within ${refundPolicy.moneyBackDays} days of purchase for a full refund. After that, sales are final. Contact support at any time for defective products. Pro subscriptions auto-renew and can be cancelled anytime; cancellation takes effect at the end of the current billing period and you keep access until then. The unused remainder is not prorated.`,
   },
   {
     label: "動作環境",

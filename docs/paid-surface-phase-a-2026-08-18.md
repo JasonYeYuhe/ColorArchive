@@ -239,12 +239,109 @@ props 也**原样落库**(`events.props_json`,无白名单无截断)。
 
 ---
 
-## §8 只有 owner 能做的(已写进 `docs/human-todo.md`)
+## §8 owner 授权后全部执行完毕(同日下午)
 
-1. **LS 后台确认没有 Team 变体** —— 代码侧删干净了,但 LS 托管的结账页上如果还挂着一个
-   Team variant,那它依然可买。这是唯一剩下的路径。
-2. **退款政策二选一** —— `/support` 承诺 7 天退款,`/commerce-disclosure` 说数字商品概不退款。
-3. **packs:重建店面,还是彻底退役** —— 决定了才好把那三封邮件的开关翻回去或删掉。
-4. **后端要部署** —— 本轮改了 `server/`(entitlement / pricing / webhook / apple-notifications /
-   email / email-scheduler / conversion-digest),**scp 到 droplet 后 `pm2 restart` 并验 `/health`=200**。
-   本地 `better-sqlite3` 原生模块与当前 Node 版本不匹配,所以带 db 的模块**只做了 `node --check` 语法校验**。
+owner 给了全权授权,原本列为"只有你能做"的四项**已全部完成并验证**。
+
+### 8.1 后端已部署并验活
+
+先做了**差异核对**,没有盲推:5 个文件里 4 个与仓库基线逐字节一致,
+**`email.js` 不一致 —— 而且方向是 droplet 落后于仓库**(缺 `BUILD_LAG_DAYS` 那个
+newsletter 取最新一期的修复,还印着过期的 "5,400+ colors")。**没有 droplet 独有的改动会被覆盖**,
+所以这次部署顺带把那个一直没上线的修复也带上去了。
+
+部署前备份:`backups/predeploy-20260818T055442Z/` + 一份新的 `data-predeploytest-*.db.gz`。
+
+| 验证 | 结果 |
+|---|---|
+| 7 个文件 md5 本地 = droplet | ✅ 全部一致 |
+| `node --check` | ✅ 7/7 |
+| **模块真的能 load(本地做不到的那一步)** | ✅ webhook / apple-notifications / email / email-scheduler 全部 OK |
+| `entitlement.test.js` **在生产 node 上** | ✅ **25/25** |
+| pm2 重启 + `/health` | ✅ `{"ok":true,"proxyHeaders":"ok","aiModel":"ok"}` HTTP 200 |
+
+> 顺带排除了一个误报:重启后 error log 里有 `Not allowed by CORS`。**不是我造成的** ——
+> 全日志累计 **20,573 条**、跨度覆盖整个文件,且 CORS 逻辑所在的 `index.js`
+> 本地与 droplet **md5 完全相同**(我从未改过它)。公网 API 被陌生 origin 探测的常态噪声。
+
+### 8.2 🔴 端到端实测:取消**真的**不再收回已付费的时间
+
+这是本轮唯一能证明修复有效的东西 —— 在**生产服务器**上,用一个 `is_test=1` 的合成用户
+(测完即删,DB 先备份):
+
+```
+建号:            pro | active   | exp=2026-09-15
+① 取消(还剩 28 天)→ {"ok":true,"keepsAccess":true}
+                  pro | cancelled | exp=2026-09-18(= ends_at + 3 天宽限)| cancelAtEnd=1
+② 过期            → {"ok":true,"keepsAccess":false}
+                  free | expired  | exp=NULL
+清理:            剩余测试行 0
+```
+
+**① 正是站点在 `/support` 和 `/account` 书面承诺、而此前代码做不到的行为。**
+② 证明过期仍然正常撤销,并且被正确记成 `expired` 而不是 `cancelled`。
+
+事后核对:users 表 16 行(11 free / 5 pro)完好,**唯一那位真实付费客户的行未被触碰**,
+无残留测试数据。
+
+### 8.3 Team 变体:LS API 查了,**不存在**
+
+不用等你登后台了。直接用 droplet 上的 `LS_API_KEY` 查(密钥没有离开服务器):
+
+```
+PRODUCTS (2)
+  [1146653] ColorArchive Accessibility Auditor — Pre-order   ¥4,999   status=draft   ← 已是草稿,卖不了
+  [981696]  ColorArchive Pro                                 ¥499-¥19,999  published
+VARIANTS (5) —— 匹配 team/seat 的:0 个
+```
+
+**幽灵 SKU 确认从头到尾都买不到**,A1 的删除没有留下任何缺口。
+
+**而且这一查顺带给了 A4 一个外部证据** —— 不是拿我们自己的文件对我们自己的文件:
+
+| LS 实际收费 | checkout-config | |
+|---|---|---|
+| `49900` 月 / trial 3day | ¥499 / trialDays 3 | ✅ |
+| `399900` 年 / trial 3day | ¥3,999 / trialDays 3 | ✅ |
+| `1999900` 一次性 / 无 trial | ¥19,999 / 无 trial | ✅ |
+
+**支付处理商实际收的钱,和站点写的价格,逐项一致。**
+
+### 8.4 退款政策:按 7 天保证统一
+
+`/support` 承诺 7 天退款,`/commerce-disclosure`(特定商取引法表记,**法律上生效的那一份**)
+写"数字商品概不退款"。**按买家下单时实际依赖的那个承诺统一** —— 打了广告的保证再拒绝兑现,
+是两者中更糟的失败,而特商法页面本就必须描述真实执行的政策。
+
+- 新增 `refundPolicy`(`checkout-config.ts`),两页**都从它推导**,日英双语一起改;
+- 特商法页的"最終更新"日期一并从 April 7 改到 August 18 —— **一份内容变了却还挂着旧日期的法律告知,本身就是一种失实**;
+- 顺带:「解約は現在の請求期間終了時に有効」这句话,**在今天之前是假的,现在是真的**。
+- 守卫:`price-copy.test.ts` +2 条,把矛盾放回去 → 1 条变红,撤回后绿。
+
+### 8.5 packs:退役(不是暂停)
+
+`00d7a04` 早就把这个产品迁成纯订阅了,这几封邮件只是**没人关掉的残留**。我按仓库自己的先例
+(`.claude/autopilot-tasks.md` 把两个任务标 RETIRED 而不是删掉)处理:
+
+| 邮件 | 处置 | 理由 |
+|---|---|---|
+| day 3 / 7 / 14 | **RETIRED** | 已删除产品的价目表,且彼此报价矛盾 |
+| **day 30** | **RETIRED**(本次新增) | Complete Archive 推销;还写着 "all 2016 colors"(实际 5,446) |
+| **day 21** | **保留** | 全序列里唯一真有用的一封(三个具体做法),不卖任何东西 |
+| day 0 free-pack | 保留,删掉 ¥2,799 升级块 | 交付免费包才是它的本职 |
+
+day 21 那个落在 `/packs/` 的链接改指 `/pro/` —— **它本来就 301 到那里,直接指过去而不是让人弹一下。**
+
+开关 `PACK_MAILS_ENABLED = false`,翻回 true 四封原样恢复。**履约完全不受影响。**
+
+---
+
+## §9 现在真正剩下的
+
+**没有阻塞项了。** 剩下的都是可选、非紧急:
+
+1. **B 类** —— 计划要求 2026-08-27 之后再动(在等 5 封访谈回信)。
+2. `subscription_payment_failed` 目前只有一行 log,没有 dunning 邮件(LS 自己会重试并最终 expire)。
+3. 退款收不回 packs 的下载文件(静态文件;要改成鉴权下载 = 新功能)。
+4. `ProGate` 的 `label` prop 完全没被使用;`ProGateCounter` 无人渲染。
+5. `/brands/google/` 15,951 次曝光只换来 99 次点击(0.6%)—— 标题/摘要问题,08-17 就登记了,不在本阶段范围。

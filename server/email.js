@@ -711,7 +711,9 @@ async function sendFollowUp21DayEmail(to, { variant = "A" } = {}) {
       "",
       "Browse more palettes and collections: ${SITE_URL}/collections/",
       "",
-      "Or if you want ready-made CSS, JSON, and Figma tokens: ${SITE_URL}/packs/",
+      // Was ${SITE_URL}/packs/ — retired with the packs (00d7a04); that URL 301s
+      // to /pro/ anyway, so link the real destination instead of bouncing people.
+      "Or if you want ready-made CSS, JSON, and Figma tokens: ${SITE_URL}/pro/",
       "",
       "— ColorArchive",
       SITE_URL,
@@ -737,9 +739,9 @@ async function sendFollowUp21DayEmail(to, { variant = "A" } = {}) {
              style="display:inline-block;background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
             Browse Collections
           </a>
-          <a href="${SITE_URL}/packs/"
+          <a href="${SITE_URL}/pro/"
              style="display:inline-block;background:#f8fafc;border:1px solid #e5e7eb;color:#1a1a1a;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
-            View Packs →
+            Export tokens with Pro →
           </a>
         </div>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">

@@ -60,6 +60,24 @@ export const proSubscriptionConfig = {
 // for a plan before the thing that sells it exists; a price with no checkout is a
 // promise the site cannot keep.
 
+/**
+ * Refund terms. Stated in two places that MUST agree — the /support FAQ and the
+ * 特定商取引法 disclosure at /commerce-disclosure — and they did not:
+ * /support advertised a 7-day money-back guarantee while the legally-binding
+ * disclosure said digital goods were non-refundable. Resolved in favour of the
+ * promise a buyer actually relies on at purchase time; advertising a guarantee
+ * and then refusing it is the worse failure, and the disclosure is required to
+ * describe the policy we actually run.
+ *
+ * `price-copy.test.ts` fails if either page states a different window.
+ */
+export const refundPolicy = {
+  moneyBackDays: 7,
+  /** No proration of the unused remainder — cancelling keeps access to the end
+   *  of the paid period instead (server/entitlement.js enforces that half). */
+  proratesOnCancel: false,
+} as const;
+
 export const checkoutFlowConfig: CheckoutFlowConfig = {
   successPath: "/thanks",
   cancelPath: "/cancel",

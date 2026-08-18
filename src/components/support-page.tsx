@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
-import { proSubscriptionConfig } from "@/src/lib/checkout-config";
+import { proSubscriptionConfig, refundPolicy } from "@/src/lib/checkout-config";
 
 const faqs = [
   {
@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "Do you offer refunds?",
-    a: "We offer a 7-day money-back guarantee on all Pro purchases. After 7 days, sales are final. See our Refund Policy for details.",
+    a: `We offer a ${refundPolicy.moneyBackDays}-day money-back guarantee on all Pro purchases — email support within ${refundPolicy.moneyBackDays} days for a full refund. After that, sales are final. Cancelling is different from refunding: you keep Pro until the end of the period you already paid for.`,
   },
   {
     q: "How do I contact support?",

@@ -9,8 +9,8 @@ const TWENTYONE_DAYS_MS = 21 * 24 * 60 * 60 * 1000;
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 const INTERVAL_MS = 60 * 60 * 1000; // run every hour
 
-// PAUSED 2026-08-18 — the day 3 / 7 / 14 mails are price lists for the palette
-// packs, and the packs no longer exist. Commit 00d7a04 ("Drop product packs,
+// RETIRED 2026-08-18 — the day 3 / 7 / 14 / 30 mails sell the palette packs, and
+// the packs no longer exist. Commit 00d7a04 ("Drop product packs,
 // migrate to pure SaaS subscription model") deleted palette-packs.ts and every
 // /packs/* page, leaving a 301 to /pro/. So a subscriber is quoted a price,
 // clicks "View pack →", and lands on a page selling a ¥499/mo subscription.
@@ -24,18 +24,26 @@ const INTERVAL_MS = 60 * 60 * 1000; // run every hour
 // have honoured even if the storefront still existed.
 //
 // Same rule that closed the Auditor pre-order (checkout-config.ts
-// `preorderConfig.closed`): a sell surface must not outlive the thing it
-// sells. PAUSED, not deleted — flip this to true and all three resume
-// unchanged — because "rebuild the storefront" vs "retire the packs" is the
-// owner's call, not a cleanup decision.
+// `preorderConfig.closed`): a sell surface must not outlive the thing it sells.
 //
-// Day 21 and 30 are deliberately NOT gated: they link to /packs/ but quote no
-// price, and a working redirect is not a false promise. This repo has already
-// been bitten by "treated a live redirect as a dead link".
+// DECIDED (owner authorised, 2026-08-18): the packs are retired. `00d7a04`
+// already migrated this product to a pure subscription; these mails were the
+// leftover that nobody switched off. Day 30 joins them — it is a Complete
+// Archive sales pitch, and it also claimed "all 2016 colors" against a real
+// 5,446.
+//
+// Marked RETIRED rather than deleted, matching how `.claude/autopilot-tasks.md`
+// retired its newsletter-generation tasks: the reasoning stays next to the code,
+// and flipping this to true brings all four back unchanged if the storefront is
+// ever rebuilt.
+//
+// Day 21 is NOT gated — it is the one genuinely useful mail in the sequence
+// (three concrete things to build with a palette) and sells nothing. Its stray
+// /packs/ link now points at /pro/.
 //
 // ⚠️ Fulfilment is NOT affected. Past buyers' downloads are static files under
 // public/downloads, served by catalog.js, and keep working.
-const PACK_PRICE_MAILS_ENABLED = false;
+const PACK_MAILS_ENABLED = false; // RETIRED — see above
 
 // A/B variant assignment — deterministic based on email hash
 // Ensures same subscriber always gets the same variant
@@ -64,7 +72,7 @@ function cutoffISO(ms) {
 
 async function runFollowUps() {
   // Day-3: free-pack subscribers who haven't received it yet, subscribed 3+ days ago
-  const due3d = PACK_PRICE_MAILS_ENABLED ? db
+  const due3d = PACK_MAILS_ENABLED ? db
     .prepare(
       `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
@@ -86,8 +94,8 @@ async function runFollowUps() {
     }
   }
 
-  // Day-7 (pack price list — see PACK_PRICE_MAILS_ENABLED)
-  const due7d = PACK_PRICE_MAILS_ENABLED ? db
+  // Day-7 (pack price list — RETIRED, see PACK_MAILS_ENABLED)
+  const due7d = PACK_MAILS_ENABLED ? db
     .prepare(
       `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
@@ -110,7 +118,7 @@ async function runFollowUps() {
   }
 
   // Day-14: free-pack subscribers who haven't received it yet, subscribed 14+ days ago
-  const due14d = PACK_PRICE_MAILS_ENABLED ? db
+  const due14d = PACK_MAILS_ENABLED ? db
     .prepare(
       `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
@@ -156,14 +164,15 @@ async function runFollowUps() {
   }
 
   // Day-30: final follow-up — catalog conversion email
-  const due30d = db
+  // Day-30 (Complete Archive pitch — RETIRED, see PACK_MAILS_ENABLED)
+  const due30d = PACK_MAILS_ENABLED ? db
     .prepare(
       `SELECT id, email, created_at, ab_variant FROM subscribers
        WHERE source = 'free-pack'
          AND follow_up_30d_sent IS NULL
          AND created_at <= ?`,
     )
-    .all(cutoffISO(THIRTY_DAYS_MS));
+    .all(cutoffISO(THIRTY_DAYS_MS)) : [];
 
   for (const row of due30d) {
     try {

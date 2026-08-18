@@ -340,8 +340,9 @@ ColorArchive/
 │   ├── email.js                          # Resend email functions (13 types incl. Pro upsell,
 │   │                                     #   pre-order reserve + pre-order purchase confirmation)
 │   ├── email-scheduler.js                # Hourly cron: Day-3/7/14/21/30 follow-ups + COTD + A/B.
-│   │                                     #   Day 3/7/14 are PAUSED behind PACK_PRICE_MAILS_ENABLED
-│   │                                     #   (they price deleted packs) — see the header comment.
+│   │                                     #   Day 3/7/14/30 are RETIRED behind PACK_MAILS_ENABLED
+│   │                                     #   (they sell deleted packs). Day 21 is kept — it sells
+│   │                                     #   nothing and is the useful one.
 │   ├── db.js                             # SQLite setup (subscribers, orders, sessions, users,
 │   │                                     #   projects, ai_usage, user_preferences)
 │   ├── auth.js                           # Magic link + Google OAuth auth, tier management
@@ -483,21 +484,22 @@ Three independent stores, each with a subscription pattern for cross-component r
 Triggered by `email-scheduler.js` running hourly on the DO droplet:
 - **Day 0** — Free pack download link (`sendFreePackEmail`). The ¥2,799 All Access Bundle
   upsell was removed 2026-08-18: it quoted a price for a deleted SKU to *every* new subscriber.
-- **Day 3** — ⏸ PAUSED — CSS tokens + Dark Mode UI Kit upsell (prices deleted packs)
-- **Day 7** — ⏸ PAUSED — full catalog overview, 7 pack prices (all deleted)
-- **Day 14** — ⏸ PAUSED — 10% code `FIRSTPACK` on deleted packs
-- **Day 21** — Creative inspiration email
-- **Day 30** — Final conversion email
+- **Day 3** — 🚫 RETIRED — CSS tokens + Dark Mode UI Kit upsell (prices deleted packs)
+- **Day 7** — 🚫 RETIRED — full catalog overview, 7 pack prices (all deleted)
+- **Day 14** — 🚫 RETIRED — 10% code `FIRSTPACK` on deleted packs
+- **Day 21** — **Kept** — three concrete things to build with a palette. Sells nothing; its
+  stray `/packs/` link now points at `/pro/`.
+- **Day 30** — 🚫 RETIRED — Complete Archive pitch (deleted product; also claimed "2016 colors")
 
-> **Why three are paused (2026-08-18).** Commit `00d7a04` deleted the pack storefront and
+> **Why four are retired (2026-08-18).** Commit `00d7a04` deleted the pack storefront and
 > left a 301 from `/packs/*` to `/pro/`. These three mails still quoted prices — and
 > disagreed with each other about them (Palette Pack Vol. 1 was ¥599 on day 3/7 and ¥499
 > on day 14). A recipient was quoted a number, clicked "View pack →", and landed on a page
 > selling a ¥499/mo subscription. Same rule that closed the Auditor pre-order: **a sell
-> surface must not outlive the thing it sells.** Flip `PACK_PRICE_MAILS_ENABLED` in
-> `email-scheduler.js` to resume all three unchanged. Day 21/30 are deliberately NOT gated
-> — they link to `/packs/` but quote no price, and a working redirect is not a false
-> promise. **Fulfilment is unaffected**: past buyers' downloads are static files.
+> surface must not outlive the thing it sells.** `00d7a04` already migrated this product to
+> a pure subscription; these mails were the leftover nobody switched off. Flip
+> `PACK_MAILS_ENABLED` in `email-scheduler.js` to bring all four back unchanged.
+> **Fulfilment is unaffected**: past buyers' downloads are static files.
 - **On AI limit hit** — Pro upsell email (max 1/day per user)
 - **Daily** — Color of the Day (COTD) for opted-in subscribers
 
@@ -512,6 +514,9 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
   is genuinely known — not loading, not errored — a gate neither locks nor charges. Deliberately
   generous while the backend is unreachable, because the cost is not symmetric: over-serving a
   stranger costs a few files, blocking a subscriber costs the subscriber (2026-07-20).
+- **Refund terms** live in `refundPolicy` (checkout-config). `/support` and the 特定商取引法
+  disclosure both derive from it — they used to contradict each other (7-day guarantee vs
+  "digital goods are non-refundable"), which `price-copy.test.ts` now prevents.
 - **Cancellation ≠ expiry**: Lemon Squeezy `cancelled` means "will not renew"; access continues
   to `ends_at`, and LS sends `subscription_expired` when it truly ends. `server/entitlement.js`
   owns that distinction and both webhook paths share it, since LS fires them in no fixed order.

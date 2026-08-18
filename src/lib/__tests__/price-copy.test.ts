@@ -3,7 +3,7 @@ import { readFileSync, readdirSync, statSync } from "fs";
 import { join } from "path";
 import { describe, expect, it } from "vitest";
 
-import { proSubscriptionConfig, preorderConfig } from "@/src/lib/checkout-config";
+import { proSubscriptionConfig, preorderConfig, refundPolicy } from "@/src/lib/checkout-config";
 
 /**
  * Any price the site states must be the price the site charges.
@@ -151,5 +151,45 @@ describe("outbound email", () => {
     const literals = [...body.matchAll(/\$[0-9]+(?:\.[0-9]{2})?\s*\/\s*month/g)].map((m) => m[0]);
     expect(literals, `hardcoded monthly price in server/email.js: ${literals.join(", ")}`).toEqual([]);
     expect(body).toContain("monthlyBlurb");
+  });
+});
+
+describe("refund policy", () => {
+  /**
+   * /support advertised a "7-day money-back guarantee on all Pro purchases"
+   * while /commerce-disclosure — the 特定商取引法 notice, which is the legally
+   * operative one — said digital goods were non-refundable. Both pages now
+   * derive the window from checkout-config, and this fails if either grows a
+   * second number.
+   */
+  const PAGES = [
+    "src/components/support-page.tsx",
+    "src/components/commerce-disclosure-page.tsx",
+  ];
+
+  it("neither page hardcodes a refund window", () => {
+    const offenders: string[] = [];
+    for (const rel of PAGES) {
+      const body = readFileSync(join(ROOT, rel), "utf8");
+      for (const m of body.matchAll(/([0-9]+)[- ](?:day|days)\b(?=[^\n]*(?:refund|money-back))/gi)) {
+        if (Number(m[1]) !== refundPolicy.moneyBackDays) {
+          offenders.push(`${rel}: "${m[0]}" but refundPolicy.moneyBackDays is ${refundPolicy.moneyBackDays}`);
+        }
+      }
+      for (const m of body.matchAll(/購入日から ([0-9]+) 日/g)) {
+        if (Number(m[1]) !== refundPolicy.moneyBackDays) {
+          offenders.push(`${rel}: 日本語 "${m[0]}" but refundPolicy.moneyBackDays is ${refundPolicy.moneyBackDays}`);
+        }
+      }
+    }
+    expect(offenders, offenders.join("\n")).toEqual([]);
+  });
+
+  it("the commerce disclosure no longer claims Pro is simply non-refundable", () => {
+    // The exact contradiction, pinned: this page is the legally operative one,
+    // so it must not deny a guarantee the site advertises.
+    const body = readFileSync(join(ROOT, "src/components/commerce-disclosure-page.tsx"), "utf8");
+    expect(body).toContain("refundPolicy.moneyBackDays");
+    expect(body).not.toContain("Digital goods are non-refundable.");
   });
 });
