@@ -22,10 +22,9 @@ export interface NewsletterIssue {
    */
   date: string;
   /**
-   * Explicit publication state. `"published"` means this URL is live regardless
-   * of `date`, and exists for exactly one situation: the page was already public
-   * and search engines already know it. Un-publishing such a URL turns an indexed
-   * page into a 404, which is strictly worse than a stale date.
+   * Publication state, and the ONLY thing that puts an issue on the site.
+   * Absent means the issue exists in the archive but is not public, whatever its
+   * `date` says. Setting it is a deliberate act by a person; nothing computes it.
    */
   status?: "published";
   /** Real first-public date, from git history. Drives display, OG and JSON-LD. */
@@ -44,18 +43,13 @@ export interface NewsletterIssue {
 }
 
 /**
- * Publish nothing that is dated in the future, and serve the archive newest-first.
+ * Serve what was explicitly published, newest-first.
  *
- * THE CUTOFF WAS A CONSTANT, NOT A DATE. It read "2026-12-31" under a comment
- * saying "avoid future-dated content in public site" — so on 2026-08-08 sixteen
- * issues dated up to 2026-12-24 were already live and in the sitemap, four months
- * early. Comparing against the build date does what the comment always said, and
- * needs no maintenance when the year rolls over.
- *
- * Note this resolves at BUILD time, not request time: an issue whose date passes
- * while no deploy happens stays hidden until the next build. That is the right
- * trade for a statically exported site — every page here is prerendered anyway,
- * and the alternative (a dynamic route) would cost far more than it buys.
+ * THE CUTOFF IS GONE (2026-08-18). It went through three forms — a hardcoded
+ * "2026-12-31", then the build date, then a date-or-flag hybrid — and each one
+ * decided on its own which pages the public could see. History is under the
+ * export below; the short version is that it retracted 318 already-public URLs
+ * across two commits and had 292 more queued to publish themselves.
  *
  * THE ORDER WAS WHATEVER THE JSON HAPPENED TO BE. The source file descends from
  * 2026-06-04 to 2026-03-11, then jumps back to 2026-05-07 and ascends. Nothing
@@ -65,8 +59,6 @@ export interface NewsletterIssue {
  * walked the archive in an order no reader could follow. One sort at the source
  * fixes all three, which is why it belongs here rather than in each caller.
  */
-const CUTOFF = new Date().toISOString().slice(0, 10);
-
 /**
  * `date` alone was carrying five different meanings — publish eligibility, the
  * date on the page, OG `publishedTime`, JSON-LD `datePublished` AND
@@ -77,21 +69,34 @@ const CUTOFF = new Date().toISOString().slice(0, 10);
 export { issuePublishedAt, issueUpdatedAt } from "./newsletter-date";
 
 /**
- * WHY `status` CAN OVERRIDE THE CUTOFF.
- * On 2026-03-31 a cutoff was added to stop future-dated issues going out. It was
- * correct going forward and wrong backwards: 345 of 350 issues had already been
- * public since 2026-03-22, so the cutoff did not prevent publication, it
- * RETRACTED it. 303 URLs became 404s, and 2026-08-08's build-date cutoff
- * retracted 15 more that had been live and indexed for four and a half months.
- * Google still sends ~700 visits a month to those 404s.
+ * PUBLICATION IS AN EXPLICIT ACT. `date` no longer publishes anything.
  *
- * So eligibility is now two rules, not one: publish if the schedule slot has
- * arrived, OR if the URL was already public and search still asks for it. The
- * second set is enumerated in notes-restored.ts with its evidence, and a test
- * asserts every entry actually resolves.
+ * This file has now caused the same class of incident three times, in both
+ * directions, because a date was allowed to decide what the public could see:
+ *
+ *   2026-03-31 (d0f6903) — a cutoff added to stop future-dated issues going out
+ *     RETRACTED 303 URLs that had been public since 2026-03-22.
+ *   2026-08-08 (f8cc6a3) — moving that cutoff to the build date retracted 15
+ *     more that had been live and indexed for four and a half months.
+ *   ...and in the other direction, 292 issues dated 2027-2033 were queued to
+ *     publish THEMSELVES, 53 of them during 2027, starting 2027-01-07, with no
+ *     human deciding anything. The backlog was not inert. It was a timer.
+ *
+ * On 2026-08-18 every one of those 292 was checked against Search Console, by
+ * year cohort: 2027, 2028, 2029, 2030, 2031, 2032 and 2033 each return zero
+ * clicks and zero impressions over the preceding three months. Not "low" — no
+ * data at all. So the backlog would have published itself into an audience that
+ * has never once arrived, while carrying the fact-decay risk this content is
+ * already known to have (the 2027 AI issue asserted Midjourney v6 and DALL·E 3
+ * as current).
+ *
+ * The gate is therefore the flag alone. To publish an issue, say so in the data.
+ * `date` reverts to what it always claimed to be — a scheduling slot — and
+ * content-links.test.ts flags any issue whose slot has passed without a decision,
+ * so nothing is forgotten rather than merely un-published.
  */
 export const newsletterIssues = (issues as NewsletterIssue[])
-  .filter((issue) => issue.status === "published" || issue.date <= CUTOFF)
+  .filter((issue) => issue.status === "published")
   .sort((a, b) => issuePublishedAt(b).localeCompare(issuePublishedAt(a)));
 
 export function getNewsletterIssue(slug: string) {

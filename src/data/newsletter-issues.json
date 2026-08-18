@@ -48,7 +48,8 @@
         "label": "Pair with the WCAG Contrast Auditor",
         "href": "/wcag-audit/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-dark-mode-color-systems",
@@ -99,7 +100,8 @@
         "label": "Browse Dark Mode UI Kit",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-brand-color-persistence",
@@ -150,7 +152,8 @@
         "label": "Build a brand color system",
         "href": "/brand-generator"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-seasonal-color-transitions",
@@ -201,7 +204,8 @@
         "label": "Download Spring 2026 pack",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-color-and-typography-pairing",
@@ -252,7 +256,8 @@
         "label": "WCAG contrast audit tool",
         "href": "/wcag-audit"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "april-2026-trending-colors-spread",
@@ -297,7 +302,8 @@
         "label": "Explore Palette Pack Vol. 1",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "april-2026-color-system-survives-rebrand",
@@ -339,7 +345,8 @@
         "label": "Open Quiet Luxury collection",
         "href": "/collections/quiet-luxury"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "april-2026-earth-tones-digital-interfaces",
@@ -385,7 +392,8 @@
         "label": "Browse the colour archive",
         "href": "/all-colors/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "april-2026-contrast-beyond-black-white",
@@ -431,7 +439,8 @@
         "label": "Read the accessibility guide",
         "href": "/guides/accessible-color-palette"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "april-2026-pastel-palettes-production",
@@ -476,7 +485,8 @@
         "label": "Browse the colour archive",
         "href": "/all-colors/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "march-2026-seasonal-color-shifts",
@@ -522,7 +532,8 @@
         "label": "Read the brand palette guide",
         "href": "/guides/brand-color-palette"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "march-2026-monochrome-systems",
@@ -568,7 +579,8 @@
         "label": "Read the design system palette guide",
         "href": "/guides/design-system-palette"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "march-2026-color-accessibility",
@@ -614,7 +626,8 @@
         "label": "Open Nordic Frost",
         "href": "/collections/nordic-frost"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "august-2026-data-viz-colors",
@@ -660,7 +673,8 @@
         "label": "Try the contrast checker",
         "href": "/contrast"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "august-2026-typography-color-pairing",
@@ -706,7 +720,8 @@
         "label": "Read the brand palette guide",
         "href": "/guides/brand-color-palette"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "july-2026-dark-mode-psychology",
@@ -752,7 +767,8 @@
         "label": "Read the dark mode guide",
         "href": "/guides/dark-mode-color-palette"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "july-2026-color-naming",
@@ -798,7 +814,8 @@
         "label": "Read the brand token guide",
         "href": "/guides/brand-color-tokens"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "july-2026-seasonal-rotation",
@@ -844,7 +861,8 @@
         "label": "Browse all collections",
         "href": "/collections"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "july-2026-accessible-accents",
@@ -890,7 +908,8 @@
         "label": "Try the contrast checker",
         "href": "/contrast"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "july-2026-color-workflow-automation",
@@ -936,7 +955,8 @@
         "label": "Read the Figma tokens guide",
         "href": "/guides/figma-color-tokens"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "june-2026-saas-color-scheme",
@@ -982,7 +1002,8 @@
         "label": "Read the SaaS guide",
         "href": "/guides/saas-website-color-scheme"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "june-2026-brand-color-tokens",
@@ -1028,7 +1049,8 @@
         "label": "Read the brand token guide",
         "href": "/guides/brand-color-tokens"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "june-2026-design-tokens-that-dont-drift",
@@ -1074,7 +1096,8 @@
         "label": "Open Quiet Luxury",
         "href": "/collections/quiet-luxury"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-free-pack-that-sells",
@@ -1120,7 +1143,8 @@
         "label": "Browse all packs",
         "href": "/packs"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-brand-color-systems",
@@ -1166,7 +1190,8 @@
         "label": "Browse all packs",
         "href": "/packs"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-editorial-color",
@@ -1212,7 +1237,8 @@
         "label": "Open all collections",
         "href": "/collections"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "april-2026-wcag-contrast",
@@ -1258,7 +1284,8 @@
         "label": "Open Dark Mode UI Kit",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "april-2026-spring-pastels",
@@ -1300,7 +1327,8 @@
         "label": "Open Matcha & Linen",
         "href": "/collections/matcha-linen"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "march-2026-matcha-linen",
@@ -1342,7 +1370,8 @@
         "label": "Open Complete Archive Token Set",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "march-2026-dark-mode-lane",
@@ -1380,7 +1409,8 @@
         "label": "Open Dark Mode UI Kit",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-palette-constraint",
@@ -1426,7 +1456,8 @@
         "label": "Open color archive",
         "href": "/all-colors/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-dark-mode-saturation",
@@ -1472,7 +1503,8 @@
         "label": "Open contrast checker",
         "href": "/contrast"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-color-naming",
@@ -1518,7 +1550,8 @@
         "label": "Open color archive",
         "href": "/all-colors/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "may-2026-color-temperature-communication",
@@ -1564,7 +1597,8 @@
         "label": "Read the brand color palette guide",
         "href": "/guides/brand-color-palette"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "june-2026-muted-vs-desaturated",
@@ -1610,7 +1644,8 @@
         "label": "Browse the color archive",
         "href": "/all-colors/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "june-2026-palette-hue-span",
@@ -1656,7 +1691,8 @@
         "label": "Browse the color archive",
         "href": "/all-colors/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "june-2026-value-contrast-vs-hue",
@@ -1702,7 +1738,8 @@
         "label": "Try the contrast checker",
         "href": "/contrast"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "june-2026-surface-vs-accent-ratio",
@@ -1748,7 +1785,8 @@
         "label": "Browse color collections",
         "href": "/collections"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "july-2026-semantic-color-tokens",
@@ -1794,7 +1832,8 @@
         "label": "Browse the color archive",
         "href": "/all-colors/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "july-2026-color-and-motion",
@@ -1840,7 +1879,8 @@
         "label": "Browse all collections",
         "href": "/collections"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "july-2026-colorblind-palette-design",
@@ -1886,7 +1926,8 @@
         "label": "Explore Dark Mode UI Kit",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "july-2026-color-navigation-wayfinding",
@@ -1932,7 +1973,8 @@
         "label": "Explore Palette Pack Vol. 1",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "august-2026-yellow-psychology-ui",
@@ -1978,7 +2020,8 @@
         "label": "Explore Brand Starter Kit",
         "href": "/pro/"
       }
-    ]
+    ],
+    "status": "published"
   },
   {
     "slug": "august-2026-brand-recognition-color",

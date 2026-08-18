@@ -183,14 +183,31 @@ describe("newsletter links", () => {
     expect(early, `issues dated ahead of today:\n${early.join("\n")}`).toEqual([]);
   });
 
-  it("serves an issue only when scheduled or explicitly restored", () => {
-    // The other half of the old assertion, kept: nothing should appear on the
-    // site just because its scheduling date slipped past unnoticed.
-    const today = new Date().toISOString().slice(0, 10);
-    const unexplained = newsletterIssues
-      .filter((issue) => issue.date > today && issue.status !== "published")
+  it("serves nothing that was not explicitly published", () => {
+    // Publication is a flag now, not a date. Anything reachable without one is a
+    // page that put itself online.
+    const unflagged = newsletterIssues
+      .filter((issue) => issue.status !== "published")
       .map((issue) => `${issue.slug} (${issue.date})`);
-    expect(unexplained, `future-dated with no restore record:\n${unexplained.join("\n")}`).toEqual([]);
+    expect(unflagged, `served without a published flag:\n${unflagged.join("\n")}`).toEqual([]);
+  });
+
+  it("flags issues whose scheduled slot has passed without a decision", () => {
+    // The counterweight to the strict gate. Un-publishing by accident is the bug
+    // this file keeps reliving; the fix must not quietly create the mirror-image
+    // failure where a finished issue sits unnoticed forever. If this fails, the
+    // answer is a deliberate `status: "published"` or a new date — not deleting
+    // the assertion.
+    //
+    // The 292-issue 2027-2033 backlog is intentionally NOT counted here: it is
+    // dated ahead, and Search Console shows zero clicks and zero impressions for
+    // every year cohort of it (checked 2026-08-18). It should stay unpublished
+    // unless somebody decides otherwise, and this test is not that somebody.
+    const today = new Date().toISOString().slice(0, 10);
+    const overdue = (rawIssues as { slug: string; date: string; status?: string }[])
+      .filter((issue) => issue.status !== "published" && issue.date <= today)
+      .map((issue) => `${issue.slug} (slot ${issue.date} passed)`);
+    expect(overdue, `written, scheduled, never published:\n${overdue.join("\n")}`).toEqual([]);
   });
 
   it("featuredCollectionId, when set, names a collection that exists", () => {

@@ -269,8 +269,12 @@ ColorArchive/
 │   │   ├── palette-packs.ts              # 7 product pack definitions + metadata
 │   │   ├── guides.ts                     # 317 SEO landing guides
 │   │   ├── newsletter-issues.ts          # Newsletter data helpers + tagToSlug.
-│   │   │                                 # Publishes when the schedule slot arrives
-│   │   │                                 # OR status === "published" (restored URLs)
+│   │   │                                 # Publishes ONLY on status === "published".
+│   │   │                                 # `date` is a scheduling slot and publishes
+│   │   │                                 # nothing: 292 issues dated to 2033 were
+│   │   │                                 # queued to go live by themselves, and GSC
+│   │   │                                 # shows 0 clicks / 0 impressions for every
+│   │   │                                 # year cohort of them (checked 2026-08-18)
 │   │   ├── newsletter-date.ts            # issuePublishedAt / issueUpdatedAt.
 │   │   │                                 # NO data import — client components use it,
 │   │   │                                 # so it must not pull the issue dataset in
