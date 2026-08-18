@@ -3,9 +3,10 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useAuth } from "@/src/components/auth-provider";
-import { fetchUsage, type UsageStats, API_URL } from "@/src/lib/auth-client";
+import { fetchUsage, type UsageStats, type UserTier, API_URL } from "@/src/lib/auth-client";
 import { ReferralCard } from "@/src/components/referral-card";
 import { useLocale } from "@/src/components/locale-provider";
+import { track } from "@/src/lib/track";
 
 function UsageBar({ used, limit, label }: { used: number; limit: number | null; label: string }) {
   const { t } = useLocale();
@@ -151,6 +152,9 @@ type BillingProvider = "stripe" | "lemonsqueezy" | "paddle" | "apple" | "paypal"
 interface SubscriptionInfo {
   plan: string;
   status: string;
+  /** Live entitlement, already expiry-corrected server-side by getSessionUser().
+   *  This — not `status` — is what decides whether access is actually gone. */
+  tier: UserTier;
   currentPeriodEnd: string | null;
   cancelAtPeriodEnd: boolean;
   provider: BillingProvider;
@@ -233,6 +237,13 @@ function SubscriptionSection() {
 
   if (!sub) return null;
 
+  // `status` alone is not enough: a cancelled subscription is still Pro until
+  // the paid period runs out, and an expired one is not Pro no matter what
+  // string the provider last sent. Until 2026-08-18 the backend revoked on
+  // cancellation, so the "you retain access" line below was shown to people who
+  // had already been locked out — the copy and the entitlement disagreed.
+  const accessEnded = sub.tier !== "pro";
+
   const renewDate = sub.currentPeriodEnd
     ? new Date(typeof sub.currentPeriodEnd === "number" ? sub.currentPeriodEnd * 1000 : sub.currentPeriodEnd).toLocaleDateString()
     : null;
@@ -258,16 +269,29 @@ function SubscriptionSection() {
         {renewDate && (
           <div className="flex items-center justify-between">
             <span className="text-xs text-slate-500 dark:text-slate-400">
-              {sub.cancelAtPeriodEnd ? "Expires" : "Renews"}
+              {accessEnded ? "Ended" : sub.cancelAtPeriodEnd ? "Expires" : "Renews"}
             </span>
             <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{renewDate}</span>
           </div>
         )}
-        {sub.cancelAtPeriodEnd && (
-          <p className="text-xs text-orange-600 dark:text-orange-400 pt-1">
-            Your subscription will not renew. You retain access until the expiry date.
+        {accessEnded ? (
+          <p className="text-xs text-slate-500 dark:text-slate-400 pt-1">
+            Your Pro access has ended{renewDate ? ` (${renewDate})` : ""} and you&apos;re back on the
+            free plan.{" "}
+            <Link
+              href="/pro/"
+              onClick={() => track("pro_cta_click", { surface: "account-lapsed" })}
+              className="font-semibold text-indigo-600 dark:text-indigo-400 underline hover:opacity-80"
+            >
+              Restart Pro
+            </Link>
           </p>
-        )}
+        ) : sub.cancelAtPeriodEnd ? (
+          <p className="text-xs text-orange-600 dark:text-orange-400 pt-1">
+            Your subscription will not renew. You keep Pro
+            {renewDate ? ` until ${renewDate}` : " until the end of the paid period"}.
+          </p>
+        ) : null}
       </div>
       {hasManageAction && (
         <button
@@ -366,8 +390,15 @@ export function AccountPage() {
           )}
         </div>
 
-        {/* Subscription management (Pro users) */}
-        {isPro && <SubscriptionSection />}
+        {/* Subscription — shown to anyone who has ever had one. Gating this on
+            isPro meant that the instant a subscription lapsed, the billing
+            panel vanished along with the expiry date and the ONLY "Manage
+            subscription" button in the app: a lapsed customer saw an account
+            indistinguishable from someone who had never paid, with no way to
+            reach the billing portal and nothing telling them what happened.
+            The section self-hides for genuine free users — /me/subscription
+            returns null when there is no subscription id of any provider. */}
+        <SubscriptionSection />
 
         {/* Usage stats */}
         {loading ? (

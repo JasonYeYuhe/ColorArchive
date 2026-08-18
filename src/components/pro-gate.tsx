@@ -2,7 +2,8 @@
 
 import { useState, useEffect, type ReactNode } from "react";
 import Link from "next/link";
-import { fetchSession, type UserTier } from "@/src/lib/auth-client";
+import { useAuth } from "@/src/components/auth-provider";
+import { decideGate } from "@/src/lib/pro-gate-policy";
 import { track } from "@/src/lib/track";
 
 const EXPORT_LIMIT_KEY = "colorarchive_export_count";
@@ -34,22 +35,33 @@ function incrementExportCount() {
  *  so the user sees the daily quota BEFORE clicking, not after. Pro
  *  users see nothing. */
 export function ProGateCounter({ className = "" }: { className?: string }) {
-  const [tier, setTier] = useState<UserTier | null>(null);
-  const [, force] = useState(0);
+  // NOTE: nothing renders this today (verified 2026-08-18 — the only occurrence
+  // of the name in the repo is this declaration), so `source: "export_counter"`
+  // can never appear in the analytics. Kept because the intent is right, and
+  // routed through the same policy as ProGate so it cannot drift back into
+  // deciding entitlement on its own.
+  const { tier, status, sessionError } = useAuth();
+  const [used, setUsed] = useState(0);
 
   useEffect(() => {
-    fetchSession()
-      .then((s) => setTier(s.auth.tier))
-      .catch(() => setTier("anonymous"));
-    // Re-render daily so the counter resets at the day boundary.
-    const interval = window.setInterval(() => force((n) => n + 1), 60_000);
+    setUsed(getExportCount());
+    // Re-read at the day boundary so the counter resets without a reload.
+    const interval = window.setInterval(() => setUsed(getExportCount()), 60_000);
     return () => window.clearInterval(interval);
   }, []);
 
-  if (tier === null || tier === "pro") return null;
+  const { remaining } = decideGate({
+    tier,
+    resolved: status !== "loading" && !sessionError,
+    used,
+    limit: FREE_EXPORTS_PER_DAY,
+  });
 
-  const used = getExportCount();
-  const remaining = Math.max(FREE_EXPORTS_PER_DAY - used, 0);
+  // null means "no quota applies" — Pro, or entitlement not yet known. Showing
+  // "0/3 today" to a subscriber, or to anyone we simply have not identified
+  // yet, is the same mistake ProGate itself used to make.
+  if (remaining === null) return null;
+
   const isOut = remaining === 0;
   const isLow = remaining === 1;
 
@@ -91,27 +103,31 @@ interface ProGateProps {
  * Pro users get unlimited. Shows upgrade prompt when limit reached.
  */
 export function ProGate({ children, label = "Export" }: ProGateProps) {
-  const [tier, setTier] = useState<UserTier>("anonymous");
-  const [locked, setLocked] = useState(false);
+  // Entitlement comes from the ONE shared session in AuthProvider, not from a
+  // per-gate fetchSession(). /palette alone renders six of these; each used to
+  // fire its own uncached request and reach its own conclusion, and none of
+  // them ever re-checked after mount, so upgrading in another tab left every
+  // gate on this page locked until a full reload.
+  const { tier, status, sessionError } = useAuth();
+  const [used, setUsed] = useState(0);
 
+  // localStorage is unavailable during SSR, so the count is read after mount.
   useEffect(() => {
-    fetchSession()
-      .then((s) => {
-        setTier(s.auth.tier);
-        if (s.auth.tier === "pro") {
-          setLocked(false);
-        } else {
-          setLocked(getExportCount() >= FREE_EXPORTS_PER_DAY);
-        }
-      })
-      .catch(() => {
-        setLocked(getExportCount() >= FREE_EXPORTS_PER_DAY);
-      });
+    setUsed(getExportCount());
   }, []);
 
+  const { locked, charge, remaining } = decideGate({
+    tier,
+    // `sessionError` is the distinction that matters: AuthProvider reports a
+    // failed session request as tier="anonymous", and treating that as a real
+    // "anonymous" is how a paying subscriber got locked out and then told to
+    // sign in. See src/lib/pro-gate-policy.ts.
+    resolved: status !== "loading" && !sessionError,
+    used,
+    limit: FREE_EXPORTS_PER_DAY,
+  });
+
   if (!locked) {
-    const used = getExportCount();
-    const remaining = tier !== "pro" ? FREE_EXPORTS_PER_DAY - used : null;
     // Only charge a daily export when the click/keypress lands on an actual
     // export control inside the wrapped subtree — not on padding, labels, help
     // text, or the upgrade notice below. Previously ANY click in the wrapper
@@ -119,10 +135,12 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
     const EXPORT_TRIGGER =
       'button, a, [role="button"], input[type="submit"], input[type="button"], summary, [data-export]';
     const countIfExport = (target: EventTarget | null) => {
-      if (tier === "pro") return;
+      // `charge` is false for Pro AND while entitlement is unknown — a click
+      // that lands before the session resolves must not burn a free credit.
+      if (!charge) return;
       if (!(target instanceof Element) || !target.closest(EXPORT_TRIGGER)) return;
       incrementExportCount();
-      if (getExportCount() >= FREE_EXPORTS_PER_DAY) setLocked(true);
+      setUsed(getExportCount());
     };
     return (
       <>

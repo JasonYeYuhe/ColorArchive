@@ -3,6 +3,19 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { ProPage } from "@/src/components/pro-page";
 import { SITE_URL } from "@/src/lib/site-config";
+import { proSubscriptionConfig } from "@/src/lib/checkout-config";
+
+/**
+ * schema.org wants a bare decimal — "¥3,999" is not a price, "3999" is. The
+ * display strings in checkout-config carry a symbol and thousands separators,
+ * so strip everything that is not a digit or a decimal point. Deriving instead
+ * of hardcoding matters more here than anywhere else on the site: this markup
+ * is what Google quotes in search results, and a stale number here is a price
+ * we would be advertising but not charging.
+ */
+function offerPrice(display: string): string {
+  return display.replace(/[^0-9.]/g, "");
+}
 
 const structuredData = [
   {
@@ -17,22 +30,22 @@ const structuredData = [
     offers: [
       {
         "@type": "Offer",
-        price: "499",
-        priceCurrency: "JPY",
+        price: offerPrice(proSubscriptionConfig.monthly.price),
+        priceCurrency: proSubscriptionConfig.monthly.currency,
         name: "Monthly",
         url: `${SITE_URL}/pro/`,
       },
       {
         "@type": "Offer",
-        price: "3999",
-        priceCurrency: "JPY",
+        price: offerPrice(proSubscriptionConfig.yearly.price),
+        priceCurrency: proSubscriptionConfig.yearly.currency,
         name: "Yearly",
         url: `${SITE_URL}/pro/`,
       },
       {
         "@type": "Offer",
-        price: "19999",
-        priceCurrency: "JPY",
+        price: offerPrice(proSubscriptionConfig.lifetime.price),
+        priceCurrency: proSubscriptionConfig.lifetime.currency,
         name: "Lifetime",
         url: `${SITE_URL}/pro/`,
       },

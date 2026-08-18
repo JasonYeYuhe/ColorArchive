@@ -42,6 +42,15 @@ interface AuthContextValue {
   user: AuthUser | null;
   status: AuthStatus;
   tier: UserTier;
+  /**
+   * True when the session request FAILED, as opposed to succeeding and saying
+   * "anonymous". The catch below collapses both into tier="anonymous", which is
+   * correct for rendering a sign-in button and wrong for anything that gates a
+   * paid feature: a Pro subscriber whose session request times out is
+   * indistinguishable from a stranger, and gets treated as one. Consumers that
+   * can take something away from a paying customer must check this first.
+   */
+  sessionError: boolean;
   lastSyncAt: number | null;
   googleEnabled: boolean;
   analyticsAccess: boolean;
@@ -80,6 +89,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<AuthStatus>("loading");
   const [lastSyncAt, setLastSyncAt] = useState<number | null>(null);
   const [tier, setTier] = useState<UserTier>("anonymous");
+  const [sessionError, setSessionError] = useState(false);
   const [googleEnabled, setGoogleEnabled] = useState(false);
   const [analyticsAccess, setAnalyticsAccess] = useState(false);
   const syncEnabledRef = useRef(false);
@@ -110,6 +120,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const applySession = useCallback((session: AuthSession) => {
     setUser(session.user);
     setTier(session.auth.tier);
+    setSessionError(false);
     setGoogleEnabled(session.auth.googleEnabled);
     setAnalyticsAccess(session.auth.analyticsAccess);
     setStatus(session.user ? "authenticated" : "anonymous");
@@ -171,6 +182,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           setUser(null);
           setStatus("anonymous");
           setTier("anonymous");
+          setSessionError(true);
           setGoogleEnabled(false);
           setAnalyticsAccess(false);
           syncEnabledRef.current = false;
@@ -252,6 +264,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user,
       status,
       tier,
+      sessionError,
       lastSyncAt,
       googleEnabled,
       analyticsAccess,
@@ -265,6 +278,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       lastSyncAt,
       logout,
       requestMagicLink,
+      sessionError,
       status,
       tier,
       user,

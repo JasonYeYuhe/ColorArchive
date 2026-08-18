@@ -143,6 +143,22 @@ const proCtaClicks = db.prepare(
 ).all(since);
 const captureCtaClicks = ev("email_capture_cta_click");
 
+// `upgrade_clicked` — the export/quota gates' own CTA. It has carried a
+// `source` prop at every emission site since it was written, but until
+// 2026-08-18 nothing on the server ever read it: absent from GATE_EVENTS,
+// absent from gate-report, absent from here. The data was being collected and
+// thrown away. (The dev plan recorded this as "all clicks land in (none)";
+// that bucket belongs to preorder_cta_click, a retired event — the clicks were
+// attributed all along, just never queried.)
+//
+// NOTE ON READING THIS: at this volume these are raw counts, not rates. They
+// exist to show a cliff — a source going to zero — not to compare sources.
+const upgradeClicks = db.prepare(
+  `SELECT COALESCE(json_extract(props_json,'$.source'),'?') AS source, COUNT(*) c
+     FROM events WHERE event_name='upgrade_clicked' AND datetime(created_at) >= datetime('now', ?)
+    GROUP BY source ORDER BY c DESC`,
+).all(since);
+
 // How far people get before the paywall — the drop-off across ordinals says
 // whether 5 free lookups is generous or just more than anyone wants.
 const wordDepth = db.prepare(
@@ -262,6 +278,7 @@ const text = [
   `Content → tool (${WINDOW_DAYS}d):`,
   `  guide_tool_click: ${contentToTool}`,
   `  pro_cta_click   : ${proCtaClicks.length ? proCtaClicks.map((r) => `${r.surface}=${r.c}`).join(", ") : "0"}`,
+  `  upgrade_clicked : ${upgradeClicks.length ? upgradeClicks.map((r) => `${r.source}=${r.c}`).join(", ") : "0"}`,
   ``,
   `Free lookups used before the paywall (${WINDOW_DAYS}d):`,
   ...depthBlock,
@@ -297,7 +314,8 @@ const html = `
 post-capture CTA clicks: ${captureCtaClicks}</pre>
     <p style="margin:0 0 6px;font-weight:700;font-size:13px">Content → tool (${WINDOW_DAYS}d)</p>
     <pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7;color:#374151;margin:0 0 18px">guide_tool_click: ${contentToTool}
-pro_cta_click   : ${esc(proCtaClicks.length ? proCtaClicks.map((r) => `${r.surface}=${r.c}`).join(", ") : "0")}</pre>
+pro_cta_click   : ${esc(proCtaClicks.length ? proCtaClicks.map((r) => `${r.surface}=${r.c}`).join(", ") : "0")}
+upgrade_clicked : ${esc(upgradeClicks.length ? upgradeClicks.map((r) => `${r.source}=${r.c}`).join(", ") : "0")}</pre>
     <p style="margin:0 0 6px;font-weight:700;font-size:13px">Free lookups used before the paywall (${WINDOW_DAYS}d)</p>
     <pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7;color:#374151;margin:0 0 18px">${esc(depthBlock.join("\n"))}</pre>
     <p style="color:#374151;font-size:13px;line-height:1.7;margin:0">

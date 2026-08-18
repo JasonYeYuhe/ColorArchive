@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { CheckoutButton } from "@/src/components/checkout-button";
+import { proSubscriptionConfig } from "@/src/lib/checkout-config";
 import type { UserTier } from "@/src/lib/auth-client";
 import { track } from "@/src/lib/track";
 
@@ -101,13 +102,13 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
                 plan="monthly"
                 className="text-center py-2.5 bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-200 transition-colors dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/15"
               >
-                JP¥499 <span className="text-[10px] text-slate-500 dark:text-slate-400">/mo</span>
+                JP{proSubscriptionConfig.monthly.price} <span className="text-[10px] text-slate-500 dark:text-slate-400">/mo</span>
               </CheckoutButton>
               <CheckoutButton
                 plan="yearly"
                 className="text-center py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
               >
-                JP¥3,999 <span className="text-[10px] text-indigo-200">/yr</span> <span className="text-indigo-200 text-xs">Save 33%</span>
+                JP{proSubscriptionConfig.yearly.price} <span className="text-[10px] text-indigo-200">/yr</span> <span className="text-indigo-200 text-xs">Save {proSubscriptionConfig.yearly.savings}</span>
               </CheckoutButton>
             </div>
           </div>

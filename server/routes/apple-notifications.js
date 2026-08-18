@@ -13,6 +13,7 @@
 
 const express = require("express");
 const router = express.Router();
+const { renewalExpiry } = require("../entitlement");
 const db = require("../db");
 const {
   verifyNotificationPayload,
@@ -78,13 +79,11 @@ router.post("/v2", async (req, res) => {
     // 4. Handle each notification type
     switch (notificationType) {
       case "DID_RENEW": {
-        // Subscription successfully renewed
-        let proExpiresAt = null;
-        if (txn.expiresDate) {
-          const d = new Date(txn.expiresDate);
-          d.setDate(d.getDate() + 3); // 3-day grace
-          proExpiresAt = d.toISOString();
-        }
+        // Subscription successfully renewed. renewalExpiry() applies the same
+        // 3-day grace as before but NEVER yields null: writing tier='pro' beside
+        // a NULL pro_expires_at means auth.js can never expire this user, which
+        // is the failure-open hole the web checkout path was fixed to close.
+        const proExpiresAt = renewalExpiry(txn.expiresDate);
 
         db.prepare(`
           UPDATE users SET tier = 'pro', pro_expires_at = ? WHERE id = ?
@@ -201,13 +200,9 @@ router.post("/v2", async (req, res) => {
       }
 
       case "SUBSCRIBED": {
-        // Initial subscription or resubscribe
-        let proExpiresAt = null;
-        if (txn.expiresDate) {
-          const d = new Date(txn.expiresDate);
-          d.setDate(d.getDate() + 3);
-          proExpiresAt = d.toISOString();
-        }
+        // Initial subscription or resubscribe. See DID_RENEW above for why this
+        // must not be able to produce null.
+        const proExpiresAt = renewalExpiry(txn.expiresDate);
 
         db.prepare(`
           UPDATE users SET tier = 'pro', pro_expires_at = ? WHERE id = ?

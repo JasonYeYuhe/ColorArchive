@@ -12,6 +12,7 @@ const { sendOrderConfirmationEmail, sendProSubscriptionEmail, sendPreorderConfir
 // treatment (no download link, a dedicated confirmation mail).
 const PREORDER_PACK_ID = "preorder-auditor";
 const { constantTimeEqual } = require("../constant-time-eq");
+const { resolveCancellation, resolveSubscriptionUpdate } = require("../entitlement");
 
 const RAW_LOG_FILE = path.join(__dirname, "..", ".ls-event-log.jsonl");
 const RAW_LOG_MAX_ENTRIES = 50;
@@ -279,17 +280,29 @@ router.post("/subscription-checkout", async (req, res) => {
     "INSERT OR IGNORE INTO subscribers (email, source, is_test) VALUES (?, ?, ?)"
   ).run(email, `${paymentProvider}-subscription`, isTest);
 
+  // Hoisted out of the lifetime block on 2026-08-18. Both were declared with
+  // `const` INSIDE `if (plan === "lifetime")` while the receipt call below
+  // referenced `orderId` from outside it — so evaluating the receipt's argument
+  // object threw ReferenceError on EVERY plan, lifetime included (the block has
+  // already closed by then). The throw landed in the try/catch below, was
+  // logged as "Failed to send Pro email", and the route still returned 200:
+  // no Pro subscriber has ever received a receipt, and nothing ever alarmed.
+  const orderId = subscriptionId || sessionId || `sub_${Date.now()}`;
+  // LS sends minor units (JPY ×100). The DB row was already storing the divided
+  // value while the receipt was handed the raw one — and email.js prints JPY
+  // unscaled, so a ¥19,999 lifetime purchase would have rendered ¥1,999,900.
+  // Same asymmetry as the $3.47→$0.03 bug: exactly one side divides.
+  const normalizedAmount =
+    paymentProvider === "lemonsqueezy" && typeof amount === "number"
+      ? Math.round(amount / 100)
+      : amount || 0;
+
   // Record an order row ONLY for lifetime (a real one-off charge). Recurring
   // subscriptions get their money rows from /webhooks/subscription-payment —
   // the subscription_created payload carries no amount, so inserting here used
   // to materialize every trial as a phantom ¥0 "order" that polluted the gate
-  // and revenue reports. LS amounts arrive in minor units (JPY ×100).
+  // and revenue reports.
   if (plan === "lifetime") {
-    const orderId = subscriptionId || sessionId || `sub_${Date.now()}`;
-    const normalizedAmount =
-      paymentProvider === "lemonsqueezy" && typeof amount === "number"
-        ? Math.round(amount / 100)
-        : amount || 0;
     const existing = db.prepare("SELECT id FROM orders WHERE order_id = ?").get(orderId);
     if (!existing) {
       db.prepare(
@@ -314,7 +327,7 @@ router.post("/subscription-checkout", async (req, res) => {
     await sendProSubscriptionEmail(email, {
       plan: plan || "monthly",
       orderId,
-      amount: amount || null,
+      amount: normalizedAmount || null,
       currency: currency || "JPY",
       isTest: Boolean(testMode),
     });
@@ -380,7 +393,12 @@ router.post("/subscription-updated", (req, res) => {
     return res.json({ ok: true, skipped: true });
   }
 
-  const isPro = ["active", "trialing", "on_trial", "past_due"].includes(status);
+  // "cancelled" is NOT "access ends now" — see ../entitlement.js. This event
+  // races subscription_cancelled for the same subscription, so both paths go
+  // through the same resolver or the customer's expiry date would depend on
+  // which webhook happened to land second.
+  const decision = resolveSubscriptionUpdate({ status, periodEndIso });
+  const isPro = decision.isPro;
 
   db.prepare(
     `UPDATE users SET
@@ -403,7 +421,7 @@ router.post("/subscription-updated", (req, res) => {
     customerId || null,
     periodEndIso,
     cancelAtEnd,
-    periodEndIso,
+    decision.proExpiresAt,
     user.id
   );
 
@@ -551,11 +569,17 @@ router.post("/subscription-revoke", (req, res) => {
 });
 
 // POST /webhooks/subscription-cancelled
-// Called on customer.subscription.deleted
+// Two DIFFERENT provider events land here, told apart only by `reason`:
+//   subscription_cancelled → the customer turned off renewal. They keep the
+//                            period they already paid for, through `endsAt`.
+//   subscription_expired   → reason="expired", the clock ran out. Access ends.
+// Treating both as "revoke now" took paid days away from a paying customer
+// while /support and /account promised in writing that it would not. The
+// decision itself lives in ../entitlement.js so it can be tested.
 router.post("/subscription-cancelled", (req, res) => {
-  const { subscriptionId, customerId } = req.body;
+  const { subscriptionId, customerId, reason, endsAt } = req.body;
 
-  console.log(`[webhook] Subscription cancelled: ${subscriptionId}`);
+  console.log(`[webhook] Subscription ${reason === "expired" ? "expired" : "cancelled"}: ${subscriptionId} endsAt=${endsAt || "-"}`);
 
   const user = findSubscriptionUser({ subscriptionId, customerId });
 
@@ -564,17 +588,29 @@ router.post("/subscription-cancelled", (req, res) => {
     return res.json({ ok: true, skipped: true });
   }
 
+  const decision = resolveCancellation({ reason, endsAt });
+
   db.prepare(
     `UPDATE users SET
-      tier = 'free',
-      subscription_status = 'cancelled',
-      subscription_cancel_at_period_end = 1,
-      pro_expires_at = NULL
+      tier = ?,
+      subscription_status = ?,
+      subscription_cancel_at_period_end = ?,
+      subscription_current_period_end = COALESCE(?, subscription_current_period_end),
+      pro_expires_at = ?
     WHERE id = ?`
-  ).run(user.id);
+  ).run(
+    decision.tier,
+    decision.subscriptionStatus,
+    decision.cancelAtPeriodEnd,
+    decision.currentPeriodEnd,
+    decision.proExpiresAt,
+    user.id,
+  );
 
-  console.log(`[webhook] subscription-cancelled: user=${user.id}`);
-  return res.json({ ok: true });
+  console.log(
+    `[webhook] subscription-cancelled: user=${user.id} tier=${decision.tier} keepsAccess=${decision.keepsAccess} until=${decision.proExpiresAt || "-"}`
+  );
+  return res.json({ ok: true, keepsAccess: decision.keepsAccess });
 });
 
 /**

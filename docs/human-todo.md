@@ -1,10 +1,59 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: 2026-08-16 (weekly roundup drafted — first real changelog since Jul 26.
+> Last updated: **2026-08-18** — 付费面 A 类交付。**最急的一条:后端要部署** —— 在那之前,
+> 取消订阅仍会当场收回客户已付费的时间,而 /support 和 /account 两处都书面承诺了不会。
+> 另外还有 LS 后台的 Team 变体、退款政策冲突、packs 三封邮件的去留。
+>
+> 2026-08-16 (weekly roundup drafted — first real changelog since Jul 26.
 > **New and time-sensitive: any Complete Archive customer is holding a bundle with 70
 > colors missing from four of its exports and needs a re-download note.** Off-repo copies
 > of the old counts still need a sweep.)
+
+## ⚠️ 2026-08-18 — 付费面 A 类做完了,四件事只有你能做
+
+全部细节见 `docs/paid-surface-phase-a-2026-08-18.md`。这四条我做不了:
+
+### 1. 后端要部署(**优先**,本轮改动一半在 server/)
+
+改了:`entitlement.js`(新)、`pricing.js`(新)、`routes/webhook.js`、
+`routes/apple-notifications.js`、`email.js`、`email-scheduler.js`、`scripts/conversion-digest.cjs`。
+
+scp 到 droplet → `pm2 restart colorarchive-server` → 验 `/health` = 200。
+
+**在部署之前,取消订阅仍然会立刻收回客户已经付过钱的时间**(见下)。
+本地 `better-sqlite3` 原生模块和当前 Node 版本不匹配,所以带 db 的模块只做了
+`node --check` 语法校验 —— 部署后请确认 `/health` 与一条真实 webhook 日志。
+
+### 2. Lemon Squeezy 后台:确认没有 Team 变体
+
+代码里的 Team Pro 幽灵 SKU(¥1,499/月 · ¥11,999/年)已删干净。但 LS 是**托管结账页**,
+变体列表在他们后台。**如果那上面还挂着一个 Team variant,它依然可买** —— 而站点这边
+没有任何东西认识它。这是唯一剩下的路径,只有你能看。
+
+### 3. 退款政策:两处文案直接冲突,得你定
+
+| 页面 | 说法 |
+|---|---|
+| `/support` | "We offer a **7-day money-back guarantee** on all Pro purchases." |
+| `/commerce-disclosure` | 数字商品**概不退款** |
+
+我没有替你选 —— 这是政策不是 bug。定了之后两处一起改。
+
+### 4. packs:重建店面,还是彻底退役?
+
+`00d7a04` 删掉了 `palette-packs.ts` 和所有 `/packs/*` 页面,只留了 301 到 `/pro/`。
+但 **day 3/7/14 三封邮件还在报价卖它们,而且互相矛盾**(Palette Pack Vol. 1
+day3/7 报 ¥599、day14 报 ¥499;Complete Archive day7 报 ¥2,499、day14 报 ¥2,799)。
+free-pack 欢迎邮件还在向**每一个新订阅者**报价 ¥2,799 的 All Access Bundle。
+
+我做了最小处置:free-pack 里那段升级块**删掉**;三封报价邮件用
+`PACK_PRICE_MAILS_ENABLED = false` **暂停**(翻回 true 即原样恢复)。
+day 21/30 只链接不报价,**故意没动**(能跳转的 301 不是死链)。
+
+**要你决定的是:把店面建回来,还是把这三封彻底退役。** 履约不受影响,老买家照常能下载。
+
+---
 
 ## ⚠️ 2026-08-16 — Complete Archive buyers may need a re-download email
 

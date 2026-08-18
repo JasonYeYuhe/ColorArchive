@@ -220,7 +220,9 @@ ColorArchive/
 │   │   ├── tools-page.tsx              # All tools listing
 │   │   ├── api-docs-page.tsx           # API documentation
 │   │   ├── pro-page.tsx                # Pro pricing page
-│   │   ├── pro-gate.tsx                # Export gating component (Free: 1/day, Pro: unlimited)
+│   │   ├── pro-gate.tsx                # Export gating (Free: 3/day, Pro: unlimited). Reads the ONE
+│   │   │                                 #   shared AuthProvider session — never its own fetch —
+│   │   │                                 #   and defers to pro-gate-policy.ts for the decision.
 │   │   ├── upgrade-modal.tsx           # Pro upgrade modal + useUpgradeModal hook
 │   │   ├── projects-page.tsx           # Cloud projects list
 │   │   ├── shared-project-page.tsx     # Public shared project view
@@ -292,7 +294,14 @@ ColorArchive/
 │   │   ├── favorites.ts                  # localStorage favorites + subscriptions
 │   │   ├── recent-colors.ts              # localStorage recent history
 │   │   ├── pinterest.ts                  # Pinterest OAuth + API proxy helpers
-│   │   ├── checkout-config.ts            # Stripe checkout config + Pro subscription pricing
+│   │   ├── checkout-config.ts            # THE source of truth for every price on the site. Lemon
+│   │   │                                 #   Squeezy checkout + Pro pricing (¥499/¥3,999/¥19,999)
+│   │   │                                 #   + the closed Auditor pre-order. Guarded by
+│   │   │                                 #   src/lib/__tests__/price-copy.test.ts.
+│   │   ├── pro-gate-policy.ts            # Pure: when the export gate locks and when a click costs
+│   │   │                                 #   a credit. Unknown entitlement never locks and never
+│   │   │                                 #   charges — a failed session request is not an
+│   │   │                                 #   anonymous customer (2026-07-20 incident shape).
 │   │   ├── auth-client.ts               # Client API: session, projects, usage, referral, types
 │   │   ├── track.ts                      # Fire-and-forget events → backend /events + PostHog; merges first-touch attribution
 │   │   ├── attribution.ts                # First-touch UTM/referrer/landing (localStorage) → derived `channel` bucket; eager capture
@@ -330,11 +339,22 @@ ColorArchive/
 │   ├── index.js                          # Entry point, routes registration
 │   ├── email.js                          # Resend email functions (13 types incl. Pro upsell,
 │   │                                     #   pre-order reserve + pre-order purchase confirmation)
-│   ├── email-scheduler.js                # Hourly cron: Day-3/7/14/21/30 follow-ups + COTD + A/B
+│   ├── email-scheduler.js                # Hourly cron: Day-3/7/14/21/30 follow-ups + COTD + A/B.
+│   │                                     #   Day 3/7/14 are PAUSED behind PACK_PRICE_MAILS_ENABLED
+│   │                                     #   (they price deleted packs) — see the header comment.
 │   ├── db.js                             # SQLite setup (subscribers, orders, sessions, users,
 │   │                                     #   projects, ai_usage, user_preferences)
 │   ├── auth.js                           # Magic link + Google OAuth auth, tier management
-│   ├── catalog.js                        # Pack catalog data
+│   ├── catalog.js                        # Pack catalog data. NOTE: packPath points at /packs/*,
+│   │                                     #   which 301s to /pro/ — the storefront was deleted in
+│   │                                     #   00d7a04. Fulfilment (downloadPath) still works.
+│   ├── entitlement.js                    # Pure: what a subscription lifecycle event does to a
+│   │                                     #   user's tier and clock. LS "cancelled" means "will not
+│   │                                     #   renew", NOT "access ends now"; both webhook paths used
+│   │                                     #   to revoke immediately. Never returns pro + NULL clock.
+│   ├── pricing.js                        # Pro prices for the CommonJS side, mirrored from
+│   │                                     #   src/lib/checkout-config.ts and pinned to it by
+│   │                                     #   price-copy.test.ts. Never type a price into email.js.
 │   ├── colors.js                         # Server-side 3,066 color generation (mirrors client)
 │   ├── ai-rate-limit.js                  # AI rate limiting middleware (anon 3/day, free 10/day,
 │   │                                     #   pro unlimited, credit consumption)
@@ -461,12 +481,23 @@ Three independent stores, each with a subscription pattern for cross-component r
 
 ### Email Nurture Sequence
 Triggered by `email-scheduler.js` running hourly on the DO droplet:
-- **Day 0** — Free pack download link (`sendFreePackEmail`)
-- **Day 3** — How to use CSS tokens + Dark Mode UI Kit upsell
-- **Day 7** — Full catalog overview (all 7 packs)
-- **Day 14** — 10% discount code `FIRSTPACK`
+- **Day 0** — Free pack download link (`sendFreePackEmail`). The ¥2,799 All Access Bundle
+  upsell was removed 2026-08-18: it quoted a price for a deleted SKU to *every* new subscriber.
+- **Day 3** — ⏸ PAUSED — CSS tokens + Dark Mode UI Kit upsell (prices deleted packs)
+- **Day 7** — ⏸ PAUSED — full catalog overview, 7 pack prices (all deleted)
+- **Day 14** — ⏸ PAUSED — 10% code `FIRSTPACK` on deleted packs
 - **Day 21** — Creative inspiration email
 - **Day 30** — Final conversion email
+
+> **Why three are paused (2026-08-18).** Commit `00d7a04` deleted the pack storefront and
+> left a 301 from `/packs/*` to `/pro/`. These three mails still quoted prices — and
+> disagreed with each other about them (Palette Pack Vol. 1 was ¥599 on day 3/7 and ¥499
+> on day 14). A recipient was quoted a number, clicked "View pack →", and landed on a page
+> selling a ¥499/mo subscription. Same rule that closed the Auditor pre-order: **a sell
+> surface must not outlive the thing it sells.** Flip `PACK_PRICE_MAILS_ENABLED` in
+> `email-scheduler.js` to resume all three unchanged. Day 21/30 are deliberately NOT gated
+> — they link to `/packs/` but quote no price, and a working redirect is not a false
+> promise. **Fulfilment is unaffected**: past buyers' downloads are static files.
 - **On AI limit hit** — Pro upsell email (max 1/day per user)
 - **Daily** — Color of the Day (COTD) for opted-in subscribers
 
@@ -474,7 +505,17 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 
 ### Pro Subscription & Monetization
 - **Tier system**: anonymous (3 AI/day) → free (10 AI/day, 3 projects) → Pro (unlimited)
-- **ProGate**: Export gating on token generator, WCAG audit, image palette, palette builder, preview
+- **ProGate**: 20 export gates across 9 components (token generator, WCAG audit, image palette,
+  palette builder/preview, collections, brand generator). All 20 read the single AuthProvider
+  session; the lock/charge decision is `src/lib/pro-gate-policy.ts`.
+- **The rule that governs every paid gate**: *"I don't know yet" is not "no."* Until entitlement
+  is genuinely known — not loading, not errored — a gate neither locks nor charges. Deliberately
+  generous while the backend is unreachable, because the cost is not symmetric: over-serving a
+  stranger costs a few files, blocking a subscriber costs the subscriber (2026-07-20).
+- **Cancellation ≠ expiry**: Lemon Squeezy `cancelled` means "will not renew"; access continues
+  to `ends_at`, and LS sends `subscription_expired` when it truly ends. `server/entitlement.js`
+  owns that distinction and both webhook paths share it, since LS fires them in no fixed order.
+  /support and /account both promise the customer exactly this in writing.
 - **Referral credits**: +5 AI credits per referred signup, credits consumed before tier limits
 - **API tiering**: 60/hr (anonymous) → 1,000/hr (free key) → 10,000/hr (Pro key)
 - **Upgrade triggers**: 429 rate limit → modal + email; ProGate lock → /pro link

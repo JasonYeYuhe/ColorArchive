@@ -176,18 +176,26 @@ export async function POST(req: NextRequest) {
         break;
       }
 
-      // Subscription cancelled
+      // Subscription cancelled — the customer turned OFF renewal. In Lemon
+      // Squeezy this does not end access: the subscription stays valid until
+      // `ends_at`, and LS sends `subscription_expired` when it really ends.
+      // `endsAt` must be forwarded or the backend has no way to tell "keeps
+      // access for 28 more days" from "access ends now" — it used to guess the
+      // second, contradicting the promise on /support and /account.
       case "subscription_cancelled": {
         await notifyBackend("/webhooks/subscription-cancelled", {
           subscriptionId: String(event.data.id),
           customerId: String(attrs.customer_id ?? ""),
+          endsAt: attrs.ends_at ?? attrs.renews_at ?? null,
           provider: "lemonsqueezy",
           testMode,
         });
         break;
       }
 
-      // Subscription expired (past due, no recovery)
+      // Subscription expired (the paid period actually ran out, or dunning gave
+      // up). This is the event that revokes — deliberately NOT forwarding
+      // `endsAt`, so `reason: "expired"` is the only thing the backend keys on.
       case "subscription_expired": {
         await notifyBackend("/webhooks/subscription-cancelled", {
           subscriptionId: String(event.data.id),

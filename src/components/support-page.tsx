@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
+import { proSubscriptionConfig } from "@/src/lib/checkout-config";
 
 const faqs = [
   {
@@ -18,7 +19,7 @@ const faqs = [
   },
   {
     q: "What's the Lifetime option?",
-    a: "Pro Lifetime is a one-time purchase that gives you permanent Pro access — no recurring charges. ¥19,999 JPY (≈ $129 USD).",
+    a: `Pro Lifetime is a one-time purchase that gives you permanent Pro access — no recurring charges. ${proSubscriptionConfig.lifetime.price} JPY (≈ ${proSubscriptionConfig.lifetime.priceUsd} USD).`,
   },
   {
     q: "Do you offer refunds?",

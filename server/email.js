@@ -1,6 +1,9 @@
 const { Resend } = require("resend");
 const updateBrief = require("./content/update-brief");
 const newsletterIssues = require("../src/data/newsletter-issues.json");
+// Pro prices live in ONE place (src/lib/checkout-config.ts) and are mirrored
+// into server/pricing.js under test. Never type a price literal into this file.
+const { monthlyBlurb } = require("./pricing");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.FROM_EMAIL || "hello@colorarchive.org";
@@ -40,9 +43,11 @@ async function sendFreePackEmail(to) {
       "",
       "The pack includes 3 curated palettes with CSS variables and PNG swatches.",
       "",
-      "Want the full library? The All Access Bundle includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for ¥2,799.",
-      `${SITE_URL}/packs/all-access-bundle/`,
-      "",
+      // The All Access Bundle upsell (¥2,799) was removed 2026-08-18: the packs
+      // were deleted in 00d7a04 and /packs/* now 301s to /pro/, so this quoted
+      // a price for something nobody could buy — to EVERY new subscriber, since
+      // this is the default branch in routes/subscribe.js. The free-pack
+      // delivery above is the thing we actually promised and is untouched.
       "— ColorArchive",
       SITE_URL,
     ].join("\n"),
@@ -60,16 +65,6 @@ async function sendFreePackEmail(to) {
         <p style="color:#666;font-size:14px">
           The pack includes 3 curated palettes with CSS variables and PNG swatches.
         </p>
-        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:16px 18px;margin:20px 0">
-          <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#14532d;font-weight:700">Want the full library?</div>
-          <p style="margin:10px 0 0;color:#166534;line-height:1.6;font-size:14px">
-            The <strong>All Access Bundle</strong> includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for <strong>¥2,799</strong>.
-          </p>
-          <p style="margin:12px 0 0">
-            <a href="${SITE_URL}/packs/all-access-bundle/"
-               style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none">View All Access Bundle →</a>
-          </p>
-        </div>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
           ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a>
@@ -1055,7 +1050,7 @@ async function sendProUpsellEmail(email) {
           You've used all your free AI generations for today. That means you're getting real value from ColorArchive — nice!
         </p>
         <p style="color:#555;font-size:14px;line-height:1.6;">
-          With <strong>Pro</strong>, you get <strong>unlimited</strong> AI palette generations, exports, WCAG reports, and more — for just $4.99/month.
+          With <strong>Pro</strong>, you get <strong>unlimited</strong> AI palette generations, exports, WCAG reports, and more — for just ${monthlyBlurb()}.
         </p>
         <div style="text-align:center;margin:24px 0;">
           <a href="${SITE_URL}/pro" style="display:inline-block;background:#6366f1;color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">
@@ -1101,7 +1096,7 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
       "",
       "Your free account gives you 10 AI generations per day — no credit card required.",
       "",
-      "Want unlimited AI generations, exports, and every color format? Pro is $4.99/month.",
+      `Want unlimited AI generations, exports, and every color format? Pro is ${monthlyBlurb()}.`,
       `${SITE_URL}/pro`,
       "",
       "— ColorArchive",
@@ -1124,7 +1119,7 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
         </div>
         <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:16px 18px;margin:20px 0;">
           <div style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#14532d;font-weight:700;">Pro — unlimited everything</div>
-          <p style="margin:8px 0 0;color:#166534;font-size:14px;line-height:1.6;">Unlimited AI generations, WCAG reports, exports in every format, and access to the complete 5,446-color token set. From <strong>$4.99/month</strong>.</p>
+          <p style="margin:8px 0 0;color:#166534;font-size:14px;line-height:1.6;">Unlimited AI generations, WCAG reports, exports in every format, and access to the complete 5,446-color token set. From <strong>${monthlyBlurb()}</strong>.</p>
           <p style="margin:10px 0 0;"><a href="${SITE_URL}/pro" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none;">View Pro plans →</a></p>
         </div>
         <p style="color:#ccc;font-size:11px;margin-top:24px;">ColorArchive · ${FROM}</p>

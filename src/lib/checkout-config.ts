@@ -53,23 +53,12 @@ export const proSubscriptionConfig = {
   },
 } as const;
 
-export const teamPlanConfig = {
-  monthly: {
-    price: "¥1,499",
-    currency: "JPY" as const,
-    period: "month" as const,
-    seats: 5,
-    note: "Team Pro — 5 seats",
-  },
-  yearly: {
-    price: "¥11,999",
-    currency: "JPY" as const,
-    period: "year" as const,
-    seats: 5,
-    savings: "33%",
-    note: "Team Pro yearly — 5 seats",
-  },
-} as const;
+// NOTE: a `teamPlanConfig` (Team Pro, ¥1,499/mo · ¥11,999/yr, 5 seats) used to sit
+// here. It was a priced SKU nobody could buy: `ProPlan` has no "team" member, no
+// checkout variant existed, and no page ever rendered it — the only reference in
+// the whole repo was its own definition. Removed 2026-08-18. Do not re-add pricing
+// for a plan before the thing that sells it exists; a price with no checkout is a
+// promise the site cannot keep.
 
 export const checkoutFlowConfig: CheckoutFlowConfig = {
   successPath: "/thanks",
