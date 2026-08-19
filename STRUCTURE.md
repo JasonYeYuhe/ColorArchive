@@ -298,7 +298,10 @@ ColorArchive/
 │   │   │                                 #   Squeezy checkout + Pro pricing (¥499/¥3,999/¥19,999)
 │   │   │                                 #   + the closed Auditor pre-order. Guarded by
 │   │   │                                 #   src/lib/__tests__/price-copy.test.ts.
-│   │   ├── pro-gate-policy.ts            # Pure: when the export gate locks and when a click costs
+│   │   ├── plan-limits.ts                # Free-tier numbers the UI states out loud. /projects said
+│   │   │                                 #   "n/5 free" while the server refused the 4th. Pinned to
+│   │   │                                 #   the server constant by plan-limits.test.ts.
+│   │   ├── pro-gate-policy.ts            # Pure: when the export gate locks, when a click costs
 │   │   │                                 #   a credit. Unknown entitlement never locks and never
 │   │   │                                 #   charges — a failed session request is not an
 │   │   │                                 #   anonymous customer (2026-07-20 incident shape).
@@ -509,7 +512,15 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 - **Tier system**: anonymous (3 AI/day) → free (10 AI/day, 3 projects) → Pro (unlimited)
 - **ProGate**: 20 export gates across 9 components (token generator, WCAG audit, image palette,
   palette builder/preview, collections, brand generator). All 20 read the single AuthProvider
-  session; the lock/charge decision is `src/lib/pro-gate-policy.ts`.
+  session; the lock/charge decision is `src/lib/pro-gate-policy.ts`. The word-to-color paywall and
+  the three SVG-watermark call sites use the same module — the paywall previously ran its own
+  `fetchSession()` raced against a 4s timeout and armed against Pro on a slow connection, and the
+  watermark branded a subscriber's file if they exported before the session resolved.
+- **One expiry rule, server-side**: `users.tier` is a cached column only a webhook writes, so a
+  read path that does not compare it against `pro_expires_at` will hand out stale access.
+  `server/entitlement.js` `effectiveTier()` is that comparison; `auth.js` and `api-rate-limit.js`
+  both call it, because they used to answer differently — the same lapsed account could be free
+  on the web and Pro on the API.
 - **The rule that governs every paid gate**: *"I don't know yet" is not "no."* Until entitlement
   is genuinely known — not loading, not errored — a gate neither locks nor charges. Deliberately
   generous while the backend is unreachable, because the cost is not symmetric: over-serving a
@@ -522,7 +533,10 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
   owns that distinction and both webhook paths share it, since LS fires them in no fixed order.
   /support and /account both promise the customer exactly this in writing.
 - **Referral credits**: +5 AI credits per referred signup, credits consumed before tier limits
-- **API tiering**: 60/hr (anonymous) → 1,000/hr (free key) → 10,000/hr (Pro key)
+- **API tiering**: 60/hr (anonymous) → 1,000/hr (free key) → 10,000/hr (Pro key) —
+  ⚠️ **defined but NOT mounted.** `apiRateLimit` in `server/api-rate-limit.js` is exported and
+  never used by any route (verified 2026-08-19), so no request is tier-limited today. This line
+  described it as a live control for months. Treat it as a capability, not a guarantee.
 - **Upgrade triggers**: 429 rate limit → modal + email; ProGate lock → /pro link
 
 ---

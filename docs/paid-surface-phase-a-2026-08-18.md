@@ -336,12 +336,70 @@ day 21 那个落在 `/packs/` 的链接改指 `/pro/` —— **它本来就 301 
 
 ---
 
-## §9 现在真正剩下的
+## §9 A2 收尾(2026-08-19)—— 我自己那批修复漏掉的四处
 
-**没有阻塞项了。** 剩下的都是可选、非紧急:
+上一轮把"未知不等于不行"这条规则写进了 `pro-gate-policy.ts`,但**只应用到了 20 个 ProGate**。
+对抗复核指出还有四处同族缺陷,**四条我都自己复核过,其中一条复核后降级了**。
+
+| # | 缺陷 | 实况 |
+|---|---|---|
+| 1 | **word-to-color 付费墙对 Pro 用户 fail-closed** | 🔴 真实、在线、**全站第一付费面** |
+| 2 | **水印在 session 解析前给 Pro 用户的导出打标** | 🔴 真实、在线、**不可逆** |
+| 3 | API key 读 `tier` 不看过期 | 🟡 **中间件从未挂载 → 潜伏,不是在线** |
+| 4 | /projects 显示 `/5`,服务端第 4 个就拒 | 🔴 真实、在线、用户可见 |
+
+### 9.1 付费墙:同一个错误的第二版
+
+`word-color-generator-page.tsx` **自己**跑 `fetchSession()`,并 `Promise.race` 一个 **4 秒超时**,
+超时和 `.catch()` **都退回"不是 Pro"**。也就是说:**网络慢的 Pro 订阅者、或 API 不可达时的任何
+Pro 订阅者,都会被自己的付费墙拦住。**
+
+原注释写明这是刻意的:「a hung session fetch must fall back to "not pro" so the gate can arm」。
+**方向是错的** —— 这是 21 天 97 次撞墙的那个面,而且 2026-07-20 的事故原文就是
+"付费用户被自己的墙挡了 20+ 次"。修复的第一版把 tier 接进来了,却给它加了个会退回同样结论的超时。
+
+改成读**唯一那份共享 session**,三态保留(`null` = 还不知道,所有 gating effect 拒绝在 `null` 上开火)。
+
+### 9.2 水印:比锁更糟,因为不可逆
+
+三个 `withSvgWatermark` 调用点直接把 `useAuth()` 的 `tier` 传进去,而 AuthProvider
+**把"还在加载"和"请求失败"都报成 `"anonymous"`** —— Pro 用户在页面刚打开时点下载,
+`colorarchive.org` 就被**写进他已经保存、甚至已经发给客户的文件里**,事后没有任何提示。
+
+**锁可以重试,这个不能。** 新增 `shouldWatermark()`:只在**确知无权**时打标。
+
+### 9.3 API key:复核后降级(但仍修)
+
+`lookupApiKey` 是 `SELECT id, tier`,不看 `pro_expires_at` —— 而 `auth.js` 看。
+同一个过期账号会**在网页是 free、在 API 是 pro**。
+
+**但复核发现 `apiRateLimit` 全服务端只有声明和导出两处引用,从未被任何路由挂载** ——
+所以这是**潜伏缺陷,不是正在发生的事**。我没有按"过期订阅者一直白嫖 Pro 限额"来报,那是夸大。
+
+仍然修了(便宜,且避免以后谁挂上去踩坑):抽出 `effectiveTier()` 放进 `entitlement.js`,
+`auth.js` 和 `api-rate-limit.js` **共用同一条规则**。
+顺带:**STRUCTURE.md 一直把这套 60/1k/10k 限额写成在生效的控制** —— 已改成"能力,不是保证"。
+
+### 9.4 /projects:数到 5,第 4 个就被拒
+
+`projects-page.tsx:189` 渲染 `{projects.length}/5`,而 `FREE_PROJECT_LIMIT = 3`。
+用户看着计数器爬向 5,在第 4 个被拒 —— **发生在专门用来卖升级的那个页面上**。
+新增 `src/lib/plan-limits.ts`,`plan-limits.test.ts` 解析服务端常量比对。
+
+### 9.5 验证
+
+四条**都按协议把缺陷放回去确认变红**:server 2 条红 / client 3 条红,撤回后全绿。
+typecheck 干净 · vitest **741**(上一轮 733)· server **62**(上一轮 56)· eslint 0 error。
+
+---
+
+## §10 现在真正剩下的
+
+**没有阻塞项。** 剩下都是可选、非紧急:
 
 1. **B 类** —— 计划要求 2026-08-27 之后再动(在等 5 封访谈回信)。
-2. `subscription_payment_failed` 目前只有一行 log,没有 dunning 邮件(LS 自己会重试并最终 expire)。
-3. 退款收不回 packs 的下载文件(静态文件;要改成鉴权下载 = 新功能)。
-4. `ProGate` 的 `label` prop 完全没被使用;`ProGateCounter` 无人渲染。
-5. `/brands/google/` 15,951 次曝光只换来 99 次点击(0.6%)—— 标题/摘要问题,08-17 就登记了,不在本阶段范围。
+2. `subscription_payment_failed` 只有一行 log,没有 dunning 邮件(LS 自己会重试并最终 expire)。
+3. 退款收不回 packs 的下载文件(静态文件;改成鉴权下载 = 新功能)。
+4. `apiRateLimit` 中间件**没挂载** —— 挂上去是产品决定(会给所有 API 调用加限额),不是清理。
+5. `ProGate` 的 `label` prop 没被使用;`ProGateCounter` 无人渲染。
+6. `/brands/google/` 15,951 曝光 / 99 点击(0.6%)—— 标题摘要问题,08-17 已登记,不在本阶段。

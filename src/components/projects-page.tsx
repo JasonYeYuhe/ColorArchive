@@ -11,6 +11,7 @@ import {
   type Project,
 } from "@/src/lib/auth-client";
 import { useLocale } from "@/src/components/locale-provider";
+import { FREE_PROJECT_LIMIT } from "@/src/lib/plan-limits";
 
 function ProjectCard({
   project,
@@ -186,7 +187,7 @@ export function ProjectsPage() {
               href="/pro/"
               className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-white font-medium transition-colors"
             >
-              {projects.length}/5 {t("projects.freeUpgrade")} &middot; {t("projects.upgrade")}
+              {projects.length}/{FREE_PROJECT_LIMIT} {t("projects.freeUpgrade")} &middot; {t("projects.upgrade")}
             </Link>
           )}
         </div>

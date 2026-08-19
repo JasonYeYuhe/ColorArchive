@@ -108,6 +108,33 @@ function renewalExpiry(value, { now = Date.now(), graceDays = GRACE_DAYS } = {})
 }
 
 /**
+ * The tier a user ACTUALLY has right now, given the clock.
+ *
+ * `users.tier` is a cached column, not the truth: it is written when a webhook
+ * fires and then sits there. Only a read path that compares it against
+ * `pro_expires_at` can tell you whether the row is still accurate. auth.js has
+ * always done that (and lazily writes the downgrade back); api-rate-limit.js
+ * reads `SELECT id, tier` and does not, so the same account could be free on
+ * the web and Pro on the API. Sharing this function is what keeps a second
+ * read path from inventing a second answer.
+ *
+ * NOT stripped when the timestamp is absent (a lifetime purchase legitimately
+ * has none) or unparseable — that matches auth.js's original behaviour, and
+ * demoting a paying customer because of a malformed date is the wrong
+ * direction to fail.
+ *
+ * @returns {{tier: string, expired: boolean}} `expired` is true only when this
+ *   call actually demoted a 'pro' row, so the caller can persist the downgrade.
+ */
+function effectiveTier({ tier, proExpiresAt, now = Date.now() } = {}) {
+  const current = tier || "free";
+  if (current !== "pro") return { tier: current, expired: false };
+  const ms = parseIso(proExpiresAt);
+  if (ms === null) return { tier: "pro", expired: false };
+  return ms < now ? { tier: "free", expired: true } : { tier: "pro", expired: false };
+}
+
+/**
  * `subscription_cancelled` (customer cancelled — access continues) and
  * `subscription_expired` (the clock ran out — access ends) arrive at the SAME
  * endpoint, distinguished only by `reason`. They are not the same event and
@@ -184,6 +211,7 @@ function resolveSubscriptionUpdate({ status, periodEndIso, now = Date.now() } = 
 
 module.exports = {
   GRACE_DAYS,
+  effectiveTier,
   UNDATED_HORIZON_DAYS,
   renewalExpiry,
   ACTIVE_STATUSES,

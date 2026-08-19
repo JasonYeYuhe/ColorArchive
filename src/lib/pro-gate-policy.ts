@@ -64,3 +64,41 @@ export function decideGate({ tier, resolved, used, limit }: GateInput): GateDeci
   const remaining = Math.max(limit - used, 0);
   return { locked: remaining <= 0, charge: true, remaining };
 }
+
+/**
+ * Should this export carry the free-tier watermark?
+ *
+ * Same rule as decideGate(), applied to a different kind of loss. The three
+ * `withSvgWatermark` call sites read `tier` straight from AuthProvider, which
+ * reports BOTH "still loading" and "the session request failed" as
+ * `"anonymous"` — so a Pro subscriber who hit Download in the first moment of a
+ * page view got "colorarchive.org" burned into the file.
+ *
+ * That one is worse than a lock. A lock is an inconvenience the user can retry
+ * past; a watermark is written into an artifact they have already saved and may
+ * have already sent to a client, and nothing later tells them it happened.
+ *
+ * So: brand it only when we KNOW the user is not entitled.
+ */
+export function shouldWatermark({ tier, resolved }: { tier: GateTier; resolved: boolean }): boolean {
+  if (!resolved) return false;
+  return tier !== "pro";
+}
+
+/**
+ * Is entitlement genuinely known? `status === "loading"` is the obvious half;
+ * `sessionError` is the half that cost a customer, because AuthProvider
+ * collapses a FAILED session request into `tier: "anonymous"`.
+ *
+ * Every paid surface should derive `resolved` from this rather than
+ * re-deriving it, so a new gate cannot quietly reintroduce the old shape.
+ */
+export function isEntitlementResolved({
+  status,
+  sessionError,
+}: {
+  status: "loading" | "authenticated" | "anonymous";
+  sessionError: boolean;
+}): boolean {
+  return status !== "loading" && !sessionError;
+}

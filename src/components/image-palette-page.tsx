@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ProGate } from "@/src/components/pro-gate";
 import { useAuth } from "@/src/components/auth-provider";
 import { withSvgWatermark } from "@/src/lib/export-watermark";
+import { shouldWatermark, isEntitlementResolved } from "@/src/lib/pro-gate-policy";
 import { SITE_DOMAIN } from "@/src/lib/site-config";
 import { SaveToProjectButton } from "@/src/components/save-to-project";
 import { hexToRgb, rgbToHsl, rgbToHex } from "@/src/lib/color-utils";
@@ -274,7 +275,7 @@ function AddMatchesToPaletteButton({ matchedColors }: { matchedColors: { archive
 
 export function ImagePalettePage() {
   const { locale } = useLocale();
-  const { tier } = useAuth();
+  const { tier, status, sessionError } = useAuth();
   const [isDragging, setIsDragging] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [imageName, setImageName] = useState<string>("");
@@ -441,7 +442,7 @@ export function ImagePalettePage() {
 
   const handleDownloadSvg = useCallback(() => {
     const rawSvg = generatePaletteSvg(matchedColors);
-    const svg = withSvgWatermark(rawSvg, tier);
+    const svg = withSvgWatermark(rawSvg, shouldWatermark({ tier, resolved: isEntitlementResolved({ status, sessionError }) }) ? tier : "pro");
     const blob = new Blob([svg], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

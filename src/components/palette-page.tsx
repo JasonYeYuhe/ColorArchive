@@ -9,6 +9,7 @@ import { ShareOnXButton } from "@/src/components/share-link-button";
 import { ProGate } from "@/src/components/pro-gate";
 import { useAuth } from "@/src/components/auth-provider";
 import { withSvgWatermark } from "@/src/lib/export-watermark";
+import { shouldWatermark, isEntitlementResolved } from "@/src/lib/pro-gate-policy";
 import { hexToRgb } from "@/src/lib/color-utils";
 import { colors as allColors } from "@/src/data/colors";
 import { CopyButton } from "@/src/components/copy-button";
@@ -190,7 +191,7 @@ function DownloadAseButton({ colors }: { colors: { name: string; hex: string }[]
 /* ------------------------------------------------------------------ */
 
 function DownloadPaletteSvgButton({ colors }: { colors: { id: string; name: string; hex: string }[] }) {
-  const { tier } = useAuth();
+  const { tier, status, sessionError } = useAuth();
   function handleDownload() {
     const count = colors.length || 1;
     const w = 1200;
@@ -200,7 +201,7 @@ function DownloadPaletteSvgButton({ colors }: { colors: { id: string; name: stri
 <text x="${i * sw + sw / 2}" y="${h - 35}" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1a1a">${c.name.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</text>
 <text x="${i * sw + sw / 2}" y="${h - 15}" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">${c.hex}</text>`).join("\n");
     const rawSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"><rect width="${w}" height="${h}" fill="#fafaf9"/>${rects}</svg>`;
-    const svg = withSvgWatermark(rawSvg, tier);
+    const svg = withSvgWatermark(rawSvg, shouldWatermark({ tier, resolved: isEntitlementResolved({ status, sessionError }) }) ? tier : "pro");
     const blob = new Blob([svg], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { decideGate, type GateTier } from "@/src/lib/pro-gate-policy";
+import {
+  decideGate,
+  shouldWatermark,
+  isEntitlementResolved,
+  type GateTier,
+} from "@/src/lib/pro-gate-policy";
 
 /**
  * Guards for the twenty export gates.
@@ -94,5 +99,43 @@ describe("invariants", () => {
         }
       }
     }
+  });
+});
+
+describe("watermark", () => {
+  it("never brands a Pro export", () => {
+    expect(shouldWatermark({ tier: "pro", resolved: true })).toBe(false);
+  });
+
+  it("brands free and anonymous once entitlement is known", () => {
+    expect(shouldWatermark({ tier: "free", resolved: true })).toBe(true);
+    expect(shouldWatermark({ tier: "anonymous", resolved: true })).toBe(true);
+  });
+
+  it("never brands while entitlement is unknown", () => {
+    // The irreversible one: a Pro subscriber who clicked Download in the first
+    // moment of the page view got "colorarchive.org" written into a file they
+    // then saved and possibly sent on. A lock can be retried; this cannot.
+    for (const tier of ["anonymous", "free", "pro"] as GateTier[]) {
+      expect(shouldWatermark({ tier, resolved: false })).toBe(false);
+    }
+  });
+});
+
+describe("isEntitlementResolved", () => {
+  it("is false while loading", () => {
+    expect(isEntitlementResolved({ status: "loading", sessionError: false })).toBe(false);
+  });
+
+  it("is false when the session request FAILED, even though tier reads anonymous", () => {
+    // AuthProvider collapses a failed request into tier="anonymous". Without
+    // this, every paid surface reads an outage as "this person never paid".
+    expect(isEntitlementResolved({ status: "anonymous", sessionError: true })).toBe(false);
+    expect(isEntitlementResolved({ status: "authenticated", sessionError: true })).toBe(false);
+  });
+
+  it("is true only on a clean, settled session", () => {
+    expect(isEntitlementResolved({ status: "anonymous", sessionError: false })).toBe(true);
+    expect(isEntitlementResolved({ status: "authenticated", sessionError: false })).toBe(true);
   });
 });

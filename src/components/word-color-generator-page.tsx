@@ -11,7 +11,8 @@ import { wordToColorSeeds, slugifyWord, titleCaseWord } from "@/src/lib/word-to-
 import { WordColorShareCard } from "@/src/components/word-color-share-card";
 import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 import { track } from "@/src/lib/track";
-import { fetchSession } from "@/src/lib/auth-client";
+import { useAuth } from "@/src/components/auth-provider";
+import { isEntitlementResolved } from "@/src/lib/pro-gate-policy";
 
 const PROMPT_SUGGESTIONS = [
   "ocean memory",
@@ -148,8 +149,23 @@ export function WordColorGeneratorPage() {
   // first real subscriber (2026-07-20): the gate only knew the localStorage
   // email-unlock flag and never consulted the account tier, so a logged-in
   // paying Pro user was re-gated forever ("Unlock with Pro" that Pro couldn't
-  // unlock). null = session not resolved yet; never arm the gate for Pro.
-  const [proUser, setProUser] = useState<boolean | null>(null);
+  // unlock).
+  //
+  // 2026-08-19: the fix for that bug had a second edition of the same mistake.
+  // This page ran its OWN `fetchSession()` raced against a 4s timeout, and both
+  // the timeout and the catch fell back to "not pro" — so a Pro subscriber on a
+  // slow connection, or any Pro subscriber while the API was unreachable, got
+  // the paywall armed against them anyway. It was written deliberately ("a hung
+  // session fetch must fall back to 'not pro' so the gate can arm"), and it is
+  // the wrong direction: this is the busiest paid surface on the site.
+  //
+  // Now it reads the one shared session and keeps three states. null = we do
+  // not know yet, and every gating effect below refuses to arm on null.
+  const { tier, status, sessionError } = useAuth();
+  const proUser: boolean | null = isEntitlementResolved({ status, sessionError })
+    ? tier === "pro"
+    : null;
+  const proBypassLoggedRef = useRef(false);
   const [showRecruit, setShowRecruit] = useState(false);
   const landingWordRef = useRef(normalizeWord(DEFAULT_WORD));
   const countedWordsRef = useRef<Set<string> | null>(null);
@@ -276,30 +292,16 @@ export function WordColorGeneratorPage() {
     router.replace(href, { scroll: false });
   }, [input, pathname, router, queryApplied]);
 
-  // Resolve the account tier once on mount. Pro (or any future paid tier) opens
-  // the gate immediately — including a gate that was already armed this session.
+  // Pro (or any future paid tier) opens the gate immediately — including a gate
+  // that was already armed this session. Fires once per mount: `proUser` is
+  // derived from context now, so this effect can re-run when the session
+  // refreshes and we do not want a duplicate bypass event each time.
   useEffect(() => {
-    let cancelled = false;
-    // 4s cap: a hung session fetch must fall back to "not pro" so the gate can
-    // arm — otherwise a blocked request would leave the paywall open all session.
-    const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), 4000));
-    Promise.race([fetchSession(), timeout])
-      .then((s) => {
-        if (cancelled) return;
-        const pro = s !== null && s.auth.tier === "pro";
-        setProUser(pro);
-        if (pro) {
-          setGated(false);
-          track(PAYWALL_EVENT.proBypass, {});
-        }
-      })
-      .catch(() => {
-        if (!cancelled) setProUser(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    if (proUser !== true || proBypassLoggedRef.current) return;
+    proBypassLoggedRef.current = true;
+    setGated(false);
+    track(PAYWALL_EVENT.proBypass, {});
+  }, [proUser]);
 
   // On mount, arm the gate for a returning visitor who already spent their free lookups
   // (unless they previously unlocked). They still see their landing word (onLandingWord),

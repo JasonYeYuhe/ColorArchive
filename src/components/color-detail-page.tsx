@@ -35,6 +35,7 @@ import { BrandsUsingColorSection } from "@/src/components/brands-using-color-sec
 import { RegionsUsingColorSection } from "@/src/components/regions-using-color-section";
 import { useAuth } from "@/src/components/auth-provider";
 import { withSvgWatermark } from "@/src/lib/export-watermark";
+import { shouldWatermark, isEntitlementResolved } from "@/src/lib/pro-gate-policy";
 import { LogToJournalButton } from "@/src/components/log-to-journal-button";
 
 interface ColorDetailPageProps {
@@ -61,7 +62,7 @@ interface PaletteEntry {
 }
 
 function DownloadSwatchButton({ color }: { color: ColorRecord }) {
-  const { tier } = useAuth();
+  const { tier, status, sessionError } = useAuth();
   function handleDownload() {
     const rawSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
 <rect width="400" height="240" fill="${color.hex}"/>
@@ -69,7 +70,7 @@ function DownloadSwatchButton({ color }: { color: ColorRecord }) {
 <text x="200" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#1a1a1a">${color.name}</text>
 <text x="200" y="288" text-anchor="middle" font-family="monospace" font-size="12" fill="#666">${color.hex}</text>
 </svg>`;
-    const svg = withSvgWatermark(rawSvg, tier);
+    const svg = withSvgWatermark(rawSvg, shouldWatermark({ tier, resolved: isEntitlementResolved({ status, sessionError }) }) ? tier : "pro");
     const blob = new Blob([svg], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

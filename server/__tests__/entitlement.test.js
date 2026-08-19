@@ -29,6 +29,7 @@ const test = require("node:test");
 const assert = require("node:assert");
 
 const {
+  effectiveTier,
   GRACE_DAYS,
   UNDATED_HORIZON_DAYS,
   paidThrough,
@@ -221,4 +222,48 @@ test("an entitled user is never left without an expiry, across every status", ()
       }
     }
   }
+});
+
+/* ── effectiveTier: one answer for every read path ───────────────────────── */
+
+test("an expired Pro row reads as free, and says so", () => {
+  const d = effectiveTier({ tier: "pro", proExpiresAt: inDays(-1), now: NOW });
+  assert.equal(d.tier, "free");
+  assert.equal(d.expired, true, "callers persist the downgrade off this flag");
+});
+
+test("an unexpired Pro row stays Pro", () => {
+  const d = effectiveTier({ tier: "pro", proExpiresAt: inDays(1), now: NOW });
+  assert.equal(d.tier, "pro");
+  assert.equal(d.expired, false);
+});
+
+test("lifetime (no expiry) is never demoted", () => {
+  // A lifetime purchase legitimately has pro_expires_at = NULL. Demoting it
+  // would be the exact opposite of the failure this module usually guards.
+  for (const v of [null, undefined, ""]) {
+    assert.equal(effectiveTier({ tier: "pro", proExpiresAt: v, now: NOW }).tier, "pro");
+  }
+});
+
+test("an unparseable expiry does not demote a paying customer", () => {
+  assert.equal(effectiveTier({ tier: "pro", proExpiresAt: "garbage", now: NOW }).tier, "pro");
+});
+
+test("non-pro tiers pass through untouched", () => {
+  assert.equal(effectiveTier({ tier: "free", proExpiresAt: inDays(-1), now: NOW }).tier, "free");
+  assert.equal(effectiveTier({ tier: null, now: NOW }).tier, "free");
+});
+
+test("the API-key path and the session path cannot disagree", () => {
+  // api-rate-limit.js used to read `SELECT id, tier` with no expiry check while
+  // auth.js compared against pro_expires_at, so one lapsed account was free on
+  // the web and Pro on the API. Both now call this, so the only way to
+  // reintroduce that split is to stop calling it.
+  const row = { tier: "pro", proExpiresAt: inDays(-3) };
+  assert.deepEqual(
+    effectiveTier({ ...row, now: NOW }),
+    effectiveTier({ ...row, now: NOW }),
+  );
+  assert.equal(effectiveTier({ ...row, now: NOW }).tier, "free");
 });
