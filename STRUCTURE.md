@@ -144,6 +144,7 @@ ColorArchive/
 │   │   ├── palette-builder-tray.tsx      # Floating palette builder (fixed bottom)
 │   │   ├── spectrum-explorer-page.tsx    # Spectrum explorer
 │   │   ├── word-color-generator-page.tsx # Word → color tool
+│   │   ├── word-intent-probe.tsx         # One-tap "what are you making?" probe (dev-plan 08-22 §5.2)
 │   │   ├── recent-colors-page.tsx        # Recently viewed
 │   │   ├── favorites-page.tsx            # Saved favorites
 │   │   ├── random-discovery-page.tsx     # Surprise page

@@ -11,7 +11,7 @@
  * completed checkout, or a refund). Silent on dead days — EXCEPT a Monday
  * heartbeat so silence never gets confused with "the cron broke".
  *
- * Run: node scripts/conversion-digest.cjs [--force] [--days=1]
+ * Run: node scripts/conversion-digest.cjs [--force] [--days=1] [--dry-run]
  *
  * NOTE ON COMPARING TWO OF THESE EMAILS ACROSS 2026-07-26: bot filtering went live
  * that day (server/bot-detect.js) and removed ~31% of writes to the events and
@@ -35,22 +35,69 @@ const TO = process.env.GATE_REPORT_TO || "yyyyy.yeyuhe@gmail.com";
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 const argForce = process.argv.includes("--force");
+// Lets this script be run against production data without emailing the owner.
+// It reports on money, so "just try it and see" cannot be the way you test it.
+const argDryRun = process.argv.includes("--dry-run");
 const daysArg = (process.argv.find((a) => a.startsWith("--days=")) || "").split("=")[1];
 const WINDOW_DAYS = Number(daysArg) > 0 ? Number(daysArg) : 1;
 const since = `-${WINDOW_DAYS} day`;
 const REAL = "COALESCE(is_test,0)=0";
+
+// Owner-owned addresses, from .env — deliberately NOT a module (dev-plan
+// 2026-08-22 §6; two reviewers called the module + guard-test version
+// over-engineering for a nine-row table).
+//
+// WHY THIS EXISTS AT ALL: the only other copy of this list lives inside
+// scripts/fix-order-attribution.cjs, a ONE-SHOT migration that stamps
+// is_test=1 at the moment it runs. It therefore cannot see an order that
+// arrives after it. That is the whole cause of the 2026-08-21 digest going out
+// with the subject "💰 1 payment" for the owner's own ¥549.69 charge on
+// 08-20: the row was real and un-flagged, and this report had exactly one
+// field to describe it with.
+const OWNER_EMAILS = String(process.env.OWNER_EMAILS || "")
+  .split(",")
+  .map((s) => s.trim().toLowerCase())
+  .filter(Boolean);
+const isOwner = (email) => OWNER_EMAILS.includes(String(email || "").toLowerCase());
 
 const db = new Database(DB_PATH, { readonly: true });
 const now = new Date();
 
 /* ---------------- money events (drive the send decision) ---------------- */
 
+// ① PROCESSOR PAYMENTS. Every real, non-refunded, non-zero charge in the
+// window, owner's own included. This set is deliberately NOT filtered: a charge
+// the processor actually took is a fact, and suppressing it because we cannot
+// attribute it would let the measurement validate itself (dev-plan §2.2).
 const paidOrders = db.prepare(
-  `SELECT order_id, email, product, amount, amount_minor, currency, pack_id, substr(created_at,1,16) AS ts
+  `SELECT order_id, email, product, amount, amount_minor, currency, pack_id,
+          attributed_source, created_at AS created_raw, substr(created_at,1,16) AS ts
      FROM orders
     WHERE datetime(created_at) >= datetime('now', ?) AND ${REAL} AND COALESCE(refunded,0)=0 AND amount > 0
     ORDER BY created_at DESC`
 ).all(since);
+
+// ② FIRST-TIME EXTERNAL PAYING CUSTOMERS. Three exclusions, each for its own
+// reason: owner rows (not a customer), and any row with an earlier kept-money
+// order from the same address (a renewal or a second purchase is not a new
+// customer). Counted by DISTINCT EMAIL, not by order row — the 08-18 threshold
+// said "≥2 payments", which one person buying twice would have satisfied.
+const earlierPaidOrders = db.prepare(
+  `SELECT COUNT(*) c FROM orders
+    WHERE LOWER(email) = LOWER(?) AND ${REAL} AND COALESCE(refunded,0)=0 AND amount > 0
+      AND datetime(created_at) < datetime(?)`
+);
+const isFirstEver = (o) => earlierPaidOrders.get(o.email, o.created_raw).c === 0;
+const newExternalEmails = [
+  ...new Set(paidOrders.filter((o) => !isOwner(o.email) && isFirstEver(o)).map((o) => String(o.email).toLowerCase())),
+];
+
+// ③ ATTRIBUTION STATUS. Reported per row and never used as an exclusion.
+// A missing touchpoint means we failed to record where someone came from; it is
+// not evidence the payment is unreal. (The first draft of the plan treated
+// "no checkout_* event that day" as a second, independent proof the ¥549.69
+// charge was the owner's. It is neither independent nor proof.)
+const attributedCount = paidOrders.filter((o) => o.attributed_source).length;
 
 // New web subscribers incl. trials (a trial signup is exactly the signal we
 // missed on 07-20 — flag it day one even before any money moves).
@@ -216,14 +263,35 @@ const money = (o) => {
   return `${o.amount} ${cur}`; // decimal currency, pre-amount_minor row — no ¥
 };
 
+// One row's worth of the three fields, so that "who paid" and "is this a new
+// customer" and "do we know where they came from" can never again collapse into
+// a single count. Every excluded row is still PRINTED — the exclusion is a
+// label, not a deletion.
+const classify = (o) => {
+  if (isOwner(o.email)) return "owner — excluded from ②";
+  if (!isFirstEver(o)) return "returning / renewal — excluded from ②";
+  return "first-time external ✅";
+};
+
 const lines = [];
 if (paidOrders.length) {
-  lines.push("💰 PAYMENTS RECEIVED:");
-  for (const o of paidOrders) lines.push(`  ${o.ts}  ${o.email}  ${o.product}  ${money(o)}`);
+  lines.push(`💰 ① PROCESSOR PAYMENTS (real charges taken, owner's included): ${paidOrders.length}`);
+  for (const o of paidOrders) {
+    lines.push(`  ${o.ts}  ${o.email}  ${o.product}  ${money(o)}`);
+    lines.push(`      ${classify(o)} · attribution: ${o.attributed_source || "none recorded"}`);
+  }
+  lines.push(`🧍 ② FIRST-TIME EXTERNAL PAYING CUSTOMERS: ${newExternalEmails.length}`);
+  lines.push(`   ${newExternalEmails.length ? newExternalEmails.join(", ") : "(none — every row above is owner, returning, or a renewal)"}`);
+  lines.push(`🔗 ③ ATTRIBUTION: ${attributedCount}/${paidOrders.length} of ① carry a recorded source.`);
+  lines.push(`   "none recorded" means the touchpoint was not captured. It is NOT evidence the payment is unreal.`);
+  if (!OWNER_EMAILS.length) {
+    lines.push(`  ⚠ OWNER_EMAILS is unset in server/.env — nobody is being excluded as owner, so ② is overstated by any self-purchase.`);
+  }
 }
 if (newSubs.length) {
   lines.push("🆕 NEW SUBSCRIBERS / TRIALS:");
-  for (const s of newSubs) lines.push(`  ${s.ts}  ${s.email}  Pro ${s.plan || "?"}  [${s.status}]`);
+  for (const s of newSubs)
+    lines.push(`  ${s.ts}  ${s.email}  Pro ${s.plan || "?"}  [${s.status}]${isOwner(s.email) ? "  ← owner" : ""}`);
 }
 if (refunds.length) {
   lines.push("↩︎ REFUNDS / DISPUTES:");
@@ -290,7 +358,16 @@ const text = [
 ].join("\n");
 
 const subjectBits = [];
-if (paidOrders.length) subjectBits.push(`💰 ${paidOrders.length} payment${paidOrders.length > 1 ? "s" : ""}`);
+// The subject line is the part that gets believed without opening the email, so
+// it carries ① and ② together. "1 payment" alone was true of the processor and
+// false of the business, and that is exactly how it misled on 2026-08-21.
+if (paidOrders.length) {
+  const n = paidOrders.length;
+  const ext = newExternalEmails.length;
+  subjectBits.push(
+    `💰 ${n} payment${n > 1 ? "s" : ""} · ${ext ? `🧍 ${ext} new customer${ext > 1 ? "s" : ""}` : "0 new customers"}`,
+  );
+}
 if (newSubs.length) subjectBits.push(`🆕 ${newSubs.length} sub${newSubs.length > 1 ? "s" : ""}`);
 if (refunds.length) subjectBits.push(`↩︎ ${refunds.length} refund${refunds.length > 1 ? "s" : ""}`);
 if (hardWebhookMiss) subjectBits.push(`⚠️ checkout not recorded`);
@@ -330,6 +407,10 @@ upgrade_clicked : ${esc(upgradeClicks.length ? upgradeClicks.map((r) => `${r.sou
 
 (async () => {
   console.log(text);
+  if (argDryRun) {
+    console.log(`\n[digest] --dry-run: nothing emailed. subject would be: "${subject}"`);
+    return;
+  }
   if (!shouldSend) {
     console.log("\n[digest] quiet day, no activity — not emailing.");
     return;

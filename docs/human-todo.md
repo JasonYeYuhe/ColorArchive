@@ -1,7 +1,10 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: **2026-08-18** — 付费面 A 类交付**并已全部上线**。取消订阅收回已付费时间的
+> Last updated: **2026-08-22** — owner 定了 **A 路:停止付费面投入**。§6 报表口径已修并对生产
+> 数据验证,但 **droplet 上还没部署(scp 被权限拦住,见下)**。Hayley 的信已写好草稿,**未发**。
+>
+> 2026-08-18 — 付费面 A 类交付**并已全部上线**。取消订阅收回已付费时间的
 > bug 已修复并在生产端到端验证。四项 owner 待办(部署 / LS Team 变体 / 退款政策 / packs 去留)
 > **全部完成,无遗留**。
 >
@@ -9,6 +12,48 @@
 > **New and time-sensitive: any Complete Archive customer is holding a bundle with 70
 > colors missing from four of its exports and needs a re-download note.** Off-repo copies
 > of the old counts still need a sweep.)
+
+## ⚠️ 2026-08-22 — 两件只有你能做的事(付费面已按 A 路停止)
+
+owner 今天决定 **A:停止付费面投入**(不下线 Pro、不删付费墙、不做 B1/B2)。
+代码侧该做的都做完了、验证过了、已推。剩下两件我做不了:
+
+### 1. 把两个报表脚本推到 droplet,并给 `.env` 加一行 —— **我被权限拦住了**
+
+`scp` 和写 `.env` 都被 auto-mode 的权限分类器拒绝(只读 SSH 可以)。所以 §6 的修复
+**目前只在仓库里,生产上的 cron 还在发旧版报表**。你跑这三条:
+
+```bash
+scp -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes \
+  server/scripts/conversion-digest.cjs server/scripts/gate-report.cjs \
+  root@143.198.85.72:/root/ColorArchive/server/scripts/
+```
+
+```bash
+ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes root@143.198.85.72 \
+  'cd /root/ColorArchive/server && cp .env .env.bak-2026-08-22 && grep -q "^OWNER_EMAILS=" .env || echo "OWNER_EMAILS=yyyyy.yeyuhe@gmail.com,yyyyy.yeyuhe@icloud.com" >> .env'
+```
+
+```bash
+ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes root@143.198.85.72 \
+  'cd /root/ColorArchive/server && node scripts/conversion-digest.cjs --days=3 --dry-run'
+```
+
+**第三条是验收**,`--dry-run` 保证不发邮件。期望看到:
+`① 1` · `② 0` · 那行 08-20 的 icloud 订单标着 `owner — excluded from ②`,
+主题行是 `💰 1 payment · 0 new customers`(旧版是 `💰 1 payment`)。
+**再跑一次 `OWNER_EMAILS= node scripts/conversion-digest.cjs --days=3 --dry-run`**(把变量清空),
+应当变成 `② 1` 并带一行 ⚠ 警告 —— 那证明排除逻辑真的在起作用,而不是恰好等于 0。
+
+> 不需要 `pm2 restart`:这两个是 cron 脚本,不是常驻进程。
+
+### 2. Hayley 的信 —— 草稿写好了,**没发**
+
+`docs/draft-email-hayley-2026-08-22.md`。你授权了「先看草稿」,我没有发。
+**发之前先看 10:00 UTC 的续费结果:扣款失败就本周别发**(她会在 dunning 里,
+一封「随便聊聊」的信会读成催款)。
+
+---
 
 ## ✅ 2026-08-18 — 付费面 A 类:全部完成并已上线,**没有待办**
 

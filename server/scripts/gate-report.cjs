@@ -38,6 +38,15 @@ const FROM = process.env.FROM_EMAIL || "hello@colorarchive.org";
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const db = new Database(path.join(SERVER_DIR, "data.db"), { readonly: true });
 
+// Same list, same reason, same source as conversion-digest.cjs: the owner's own
+// addresses. Both reports read it from .env rather than sharing a module — see
+// the long note in conversion-digest.cjs for why the previous mechanism
+// (a one-shot is_test=1 migration) silently stopped working on 2026-08-20.
+const OWNER_EMAILS = String(process.env.OWNER_EMAILS || "")
+  .split(",")
+  .map((e) => e.trim().toLowerCase())
+  .filter(Boolean);
+
 const GENERIC = new Set(["hackernews", "organic-search", "direct", "unknown", "reddit"]);
 const isGeneric = (ch) => GENERIC.has(ch) || ch.startsWith("referral:");
 
@@ -83,6 +92,25 @@ function gate(days) {
   // signup is NOT an order (the 07-20 Pro trial printed here as "1 order" and
   // masked the truth); trials are reported separately below.
   const ordersTotal = db.prepare(`SELECT COUNT(*) c FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test,0)=0 AND COALESCE(refunded,0)=0 AND amount > 0`).get(since).c;
+  // ② FIRST-TIME EXTERNAL CUSTOMERS — distinct addresses, owner excluded, and a
+  // renewal or repeat purchase does not qualify. ordersTotal above stays as ①
+  // (what the processor actually took) and is never adjusted downwards: the
+  // 2026-08-20 ¥549.69 owner charge was real money, it just was not a customer.
+  const newCustomerRows = db
+    .prepare(
+      `SELECT DISTINCT LOWER(o.email) email FROM orders o
+        WHERE datetime(o.created_at) >= datetime('now', ?)
+          AND COALESCE(o.is_test,0)=0 AND COALESCE(o.refunded,0)=0 AND o.amount > 0
+          AND NOT EXISTS (
+            SELECT 1 FROM orders p
+             WHERE LOWER(p.email) = LOWER(o.email) AND COALESCE(p.is_test,0)=0
+               AND COALESCE(p.refunded,0)=0 AND p.amount > 0
+               AND datetime(p.created_at) < datetime(o.created_at))`,
+    )
+    .all(since)
+    .map((r) => r.email);
+  const newCustomers = newCustomerRows.filter((e) => !OWNER_EMAILS.includes(e));
+  const ownerExcluded = newCustomerRows.filter((e) => OWNER_EMAILS.includes(e));
   // Revenue is summed PER CURRENCY and prefers amount_minor, because `amount` is a
   // truncated integer and this report was printing our only real revenue as "¥3".
   // The actual charge is $3.47 USD: the row is amount=3, amount_minor=347,
@@ -126,7 +154,7 @@ function gate(days) {
   const qualUv = preorderUv.filter((r) => !isGeneric(r.channel)).reduce((n, r) => n + r.count, 0);
   const uvTotal = preorderUv.reduce((n, r) => n + r.count, 0);
   const pwTotal = paywall.reduce((n, r) => n + r.count, 0);
-  return { days, uvTotal, qualUv, pwTotal, ordersTotal, revenueTotal, preorderOrders, ordersByProduct, proSubs, emailReserves, ctaClicks, preorderViews, engagedVisits, wordSessions, readSessions, caveats: windowCaveats(days) };
+  return { days, uvTotal, qualUv, pwTotal, ordersTotal, revenueTotal, newCustomers, ownerExcluded, preorderOrders, ordersByProduct, proSubs, emailReserves, ctaClicks, preorderViews, engagedVisits, wordSessions, readSessions, caveats: windowCaveats(days) };
 }
 
 const g = gate(30);
@@ -189,7 +217,10 @@ const text = [
   `  Qualified /preorder UV : ${g.qualUv}   (was target 500 — gate retired)`,
   `  Paywall triggers        : ${g.pwTotal}   (was target 1000 — gate retired)`,
   `  Auditor pre-orders      : ${g.preorderOrders}   (product cancelled; expect 0)`,
-  `  Paid orders (kept money): ${g.ordersTotal}  — ${g.revenueTotal} total   (context; excludes zero-value trials/tests/refunds)`,
+  `  ① Payments taken        : ${g.ordersTotal}  — ${g.revenueTotal} total   (processor truth; excludes zero-value trials/tests/refunds)`,
+  `  ② New paying customers  : ${g.newCustomers.length}${g.newCustomers.length ? `  (${g.newCustomers.join(", ")})` : ""}   (first-ever payment, owner excluded, renewals excluded)`,
+  ...(g.ownerExcluded.length ? [`      excluded as owner: ${g.ownerExcluded.join(", ")}   (real money, not a customer)`] : []),
+  ...(OWNER_EMAILS.length ? [] : ["      ⚠ OWNER_EMAILS unset in server/.env — ② excludes nobody as owner"]),
   `  Web Pro subs by status  : ${g.proSubs.length ? g.proSubs.map((r) => `${r.st}=${r.c}`).join(", ") : "none"}`,
   `  Email reservations      : ${g.emailReserves}   (secondary signal, not the gate count)`,
   `  /preorder views         : ${g.preorderViews}`,
@@ -228,7 +259,8 @@ const html = `
       ${row("page_read visits", g.readSessions, "reading reach, new 2026-08-17")}
       ${row("Qualified /preorder UV", g.qualUv, "gate retired")}
       ${row("Paywall triggers", g.pwTotal, "gate retired")}
-      ${row("All orders (any product)", g.ordersTotal, "")}
+      ${row("① Payments taken", g.ordersTotal, "processor truth, owner included")}
+      ${row("② New paying customers", g.newCustomers.length, g.ownerExcluded.length ? `${g.ownerExcluded.length} owner row(s) excluded` : "first-ever payment, owner + renewals excluded")}
       ${row("Email reservations", g.emailReserves, "")}
     </table>
     ${

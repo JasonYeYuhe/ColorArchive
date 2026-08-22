@@ -10,6 +10,7 @@ import { wordToColorFaq } from "@/src/lib/word-color-faq";
 import { wordToColorSeeds, slugifyWord, titleCaseWord } from "@/src/lib/word-to-color-seeds";
 import { WordColorShareCard } from "@/src/components/word-color-share-card";
 import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
+import { WordIntentProbe } from "@/src/components/word-intent-probe";
 import { track } from "@/src/lib/track";
 import { useAuth } from "@/src/components/auth-provider";
 import { isEntitlementResolved } from "@/src/lib/pro-gate-policy";
@@ -604,6 +605,17 @@ export function WordColorGeneratorPage() {
             </div>
           </div>
         </section>
+
+        {/* dev-plan-2026-08-22-phase-b §5.2 — first-hand evidence, asked where the
+            person already is. Placed AFTER the result so it only ever interrupts
+            someone who has already been given something, and shown only once the
+            visitor has looked up a word of their own: wordHistory picks up the
+            landing word on its own 2s debounce, so length >= 2 is the cheapest
+            honest test for "did this person actually use the tool". The widget
+            owns all of its own state and touches nothing in the gate above it. */}
+        {generated && resultVisible && wordHistory.length >= 2 ? (
+          <WordIntentProbe word={input} />
+        ) : null}
 
         {generated && resultVisible ? (
           // [&>*]:min-w-0 — same grid-item min-width:auto trap as the colour
