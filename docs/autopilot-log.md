@@ -1,3 +1,74 @@
+## 2026-08-23 — [autopilot] weekly content roundup
+
+Scheduled weekly roundup for Aug 17–23. **Spotlight, not a changelog** — 17 commits since
+last week's roundup and not one of them is visible to a visitor. Fourth spotlight in six
+weeks (Jul 12, Jul 19, Aug 2, Aug 9).
+
+- `git log --since="7 days ago"`: 18 in the window, 17 after `5546f63` (last week's roundup
+  is inside the window and is not part of this week's work — the entry says 17 for that
+  reason). Billing/entitlement repair (`0b3a8ad`, `cf2abb7`, `2fa8773`), reporting split
+  (`fbb0bc1`), the self-publishing newsletter backlog (`b066c39`), analytics/order
+  corrections (`4f2136a`, `7f8b074`, `3054538`, `2584d70`), four plan drafts + handoff
+  (`39410d8`, `fd4c092`, `8ab4154`, `2d20bf0`, `eb775f4`, `ddd6ae7`, `e9ee654`), and the
+  private page (`cb7af88`).
+- **Counted, not quoted.** `TOOL_COUNT` **44**, `collections.length` **261**,
+  `landingGuides.length` **333**, `colors.length` **5,446** — read by importing the modules
+  in a throwaway test, then deleted. `copy-counts.test.ts` **3/3 green**. All four identical
+  to last week, which is the arithmetic behind "zero new colors, tools, collections, guides"
+  rather than an impression from reading commit subjects.
+- **Spotlight chosen from an unpaid debt, not at random.** The Jul 26 post buried Screen Test
+  in a ten-tool list and its own owner note said it deserved a dedicated post "later in the
+  week." Four weeks passed and no such post exists — grepped the queue: Screen Test appears
+  only in that Jul 26 list and its CTAs.
+- **Every publishable claim verified in code this run**, because a spotlight is where a
+  roundup is most likely to invent features:
+  - Six wizard stages in the stated order, `screen-test/wizard.tsx:355-430`.
+  - Report card is a real 1200×630 canvas → PNG download (`:229`), result encoded to the URL
+    hash for sharing (`:219`), Web Share used only when `canShareFiles`.
+  - Individual test counts read from `src/lib/screen-test.ts`: dead pixel **9**, presets
+    **12**, near-black **9**, near-white **7**, uniformity **3**, gamma **5**, banding **4**.
+  - **The 8 archive pairs actually resolve.** `pickDistancePairs(colorsById)` returned 8
+    pairs and I printed their names: Crimson/Amber/Chartreuse/Emerald/Teal/Azure/Indigo/
+    Magenta Tone|Silk|Bloom, each pair one chroma band apart. This is the CLAUDE.md
+    "never invent color ids" rule applied to a social post — the post names these families,
+    so a stale spec list would have put fake colors in public copy.
+  - **No paywall on any screen-test surface** — grepped `ProGate|paywall|requirePro|isPro`
+    across all four components, zero hits. "Free, no signup" is therefore safe to print.
+  - `/screen-test/`, `/screen-test/dead-pixel/`, `/screen-test/color-screens/` all **200 on
+    colorarchive.org**, and the live HTML contains the literal strings the post leans on
+    ("5-minute guided test (with report card)", "Color Distance (archive edition)",
+    "nothing is uploaded", "not calibration"). Source-only checking would not have caught a
+    missed deploy.
+- **Cut a fabricated statistic from my own draft.** The X variant ended "Bet you miss two."
+  There is no measurement anywhere of how many pairs people miss — I made the number up
+  because it read well. Replaced with "Can you see all eight?", which asks the same question
+  without asserting a fact. Final X copy measured **260 weighted / 258 codepoints** and is
+  URL-free per the ~$0.015-vs-$0.20 cost rule.
+- **Four deliberate exclusions, all recorded in the queue entry rather than merely omitted**,
+  so a future run reading `git log` does not resurrect them: the private `/20040303/` page
+  (a `feat()` this week, and exactly what a naive run would announce); the Pro entitlement
+  defects, whose affected population is about one person and whose channel is direct contact,
+  not a Page post; the refund-policy unification, which is buyer-favourable but invites
+  scrutiny of past denials for the benefit of that same one buyer; and the new
+  `WordIntentProbe`, which is user-visible and will look like a feature but is a research
+  instrument on a page that already ran a failed on-page ask (3,857 impressions, ~0 responses).
+- **Raised the thing this task keeps not saying: 18 roundups are queued, Apr 5 → Aug 16, and
+  none has been removed** despite the file's own "Remove entries after posting" instruction.
+  Either nothing has been published in five months or entries are published and never cleared,
+  and those two are indistinguishable from inside this run — which is the actual finding.
+  It corroborates the `e9ee654` blind spot that five reviews never raised: ~500 sessions/month
+  is a distribution problem, and drafting a nineteenth post into an unmeasured channel is not
+  evidence of a channel. Put to the owner as a decision, not a complaint.
+- **NOT POSTED TO FACEBOOK.** The task file says "if possible," which is not owner approval.
+  Publishing to a public Page is irreversible and outward-facing, and this run is unattended.
+  Same call as Aug 16.
+- Wrote the log entry to `docs/autopilot-log.md` only. The root `autopilot-log.md` that
+  CLAUDE.md also names has not been updated since **Jul 26** and is a 64KB partial of the
+  264KB docs copy; reviving a stale fork by duplicating one entry into it is a call for the
+  owner, so it is flagged in human-todo instead of silently done either way.
+- No code touched — docs only, so no typecheck/vitest run beyond `copy-counts` and the two
+  throwaway count probes (both deleted; `git status` clean of them).
+
 ## 2026-08-16 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Aug 9–16. **First real changelog since Jul 26** — the three

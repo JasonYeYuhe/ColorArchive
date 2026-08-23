@@ -4,6 +4,74 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-08-23
+
+> **No user-facing release this week — 17 commits since last week's roundup, Aug 17 to Aug 23, and not one of them adds something a visitor can see.** The counts are byte-identical to last week's post: colors **5,446**, collections **261**, guides **333**, tools **44** (read from `TOOL_COUNT` + `collections` + `landingGuides` + `colors` this run, `copy-counts.test.ts` 3/3 green). **Zero new colors, tools, collections, or guides.** So this is a spotlight, not a changelog — same call as Jul 12, Jul 19, Aug 2 and Aug 9.
+>
+> **What the week actually was:** billing and entitlement repair (`0b3a8ad`, `cf2abb7`, `2fa8773`), reporting corrections (`fbb0bc1`), a newsletter backlog that had been scheduling itself to publish through 2033 (`b066c39`), and four drafts of a next-phase plan that ended with the owner choosing to stop investing in the paid surface (`e9ee654`). Real work, all of it invisible from the outside, and most of it is a confession rather than news.
+>
+> **The spotlight is Screen Test, and it was verified in code and on the live site this run.** Everything claimed below exists: the guided run is six stages in this order — black level → white saturation → uniformity → gamma → gradients → archive color pairs (`src/components/screen-test/wizard.tsx:355-430`), and it ends with a 1200×630 report card drawn on a canvas and downloadable as PNG (`:229`), with the result encoded into the URL hash so it can be shared (`:219`). Eleven individual tests exist beside it: dead pixel (**9** fullscreen colors), color screens (**12** presets), black level (**9** near-black steps), white saturation (**7** near-white steps), uniformity (**3** gray fields), gamma (**5** patches), banding (**4** channels), sharpness, color distance, burn-in, touch. **The archive-pairs stage genuinely resolves to 8 real color pairs** — printed and checked this run, no invented ids: Crimson/Amber/Chartreuse/Emerald/Teal/Azure/Indigo/Magenta, each pair sharing a hue root and lightness band and one chroma step apart (`src/lib/screen-test.ts:189`). `/screen-test/`, `/screen-test/dead-pixel/` and `/screen-test/color-screens/` all return **200 on colorarchive.org**, and the live HTML contains the exact strings the post relies on. **No paywall on any screen-test surface** — grepped for `ProGate`/`isPro`, zero hits — so "free, no signup" is safe to publish.
+>
+> **Why Screen Test:** the Jul 26 post buried it in a ten-tool list and its own owner note said it was "worth a second post later in the week spotlighting Screen Test on its own." That second post never happened. This is it, four weeks late.
+>
+> **Deliberately excluded, do not add:**
+> 1. **`/20040303/` (`cb7af88`) is private and personal.** It appears in this week's log as a `feat()`, which is exactly how a future run reading only `git log` would mistake it for a launch. It is `noindex`, unlinked, and must never appear in a public post, newsletter, sitemap, or social copy. Standing exclusion, repeated from last week on purpose.
+> 2. **The Pro entitlement defects (`0b3a8ad`, `2fa8773`).** Cancelling a subscription took back time the customer had already paid for; the word-to-color paywall armed itself against Pro subscribers on a slow connection; and three download paths burned a "colorarchive.org" watermark into files belonging to Pro users during the first moment of a page load — a thing that cannot be undone after they have already sent the file to a client. All fixed and guarded. All of it is a paid-product confession aimed at an audience that overwhelmingly did not buy, and the affected population is approximately **one person**. Public Page post is the wrong channel; direct contact is the right one.
+> 3. **The refund-policy unification (`cf2abb7`).** `/support` advertised a 7-day guarantee while `/commerce-disclosure` — the 特定商取引法 notice, the legally operative one — called digital goods non-refundable. Now unified on the guarantee, in both languages, derived from one constant and locked by a test. Genuinely buyer-favourable and worth having in writing, but "we now honour the refund we were advertising" invites scrutiny of what happened before, for the benefit of a buyer population of one. It belongs on `/pro/` and `/support` — where it already is — not on Facebook.
+> 4. **The `WordIntentProbe` on `/word-to-color/` (`fbb0bc1`).** It is user-visible, so it will look like a feature to a future run. It is not: it is a one-tap research question shown under a result. Do not announce it. If the owner wants responses, a direct ask is its own post with its own audience, not a line buried in a tool spotlight — and note that this page **already ran an on-page research ask that failed** (the B4 banner: 3,857 impressions, ~0 responses, off since Jul 24), so a near-zero rate here is a repeat of a known result, not a new finding.
+> 5. The 292 self-publishing newsletter issues, the analytics exclusion-list refactor, the order-attribution corrections, and the four plan drafts. All internal.
+>
+> **⚠️ The thing this task should stop ignoring: 18 weekly roundups are sitting in this file, dated 2026-04-05 through 2026-08-16, and not one has been removed.** The file's own instruction at the top is "Remove entries after posting." Either nothing has been posted in nearly five months, or entries are being posted and never cleared — and the two are indistinguishable from here, which is itself the problem. Every one of these posts was drafted, verified, and queued into a channel with no measured reach. That lines up with the `e9ee654` blind spot nobody in five reviews raised: traffic is ~500 sessions/month and **distribution has never actually been run**. Drafting a nineteenth post is cheap; it is not evidence of a distribution channel. **Owner: either publish these and delete them as you go, or say the Facebook Page is dead and this task should stop generating them.**
+>
+> **Owner actions (the two from Aug 22 are still open, not repeated in full here — see `docs/human-todo.md`):** (a) the two report scripts still are not on the droplet, so production cron is still sending the old single-field report; (b) Hayley's letter is still drafted and unsent, gated on the Aug 22 renewal outcome. (c) New, minor: `public/downloads/` has accumulated 22 untracked duplicate build artifacts (`complete-archive 5.zip`, `colorarchive 7.swatches`, …) — harmless, untracked, but they will keep growing and they make `git status` unreadable.
+>
+> **Standing conventions:** this file is **manual-post-only — nothing below has been published**, and this run did **not** post to Facebook. The task file says "if possible," which is not the owner's approval; publishing to a public Page is irreversible and outward-facing and this run is unattended. Keep the X variant **URL-free**: a link raises X API cost from ~$0.015 to ~$0.20 per post, which is what drained the credits in May.
+
+### Facebook
+
+🖥️ **Quiet release week, so here's the tool we've never given its own post: Screen Test.**
+
+You are reading this on a display you have almost certainly never checked. Most people find out something is wrong with a monitor the same way — a grey smudge that turns out not to be dust, a photo that looked fine on the laptop and came out muddy on the desktop, a "black" background that glows in a dark room.
+
+**Screen Test is a five-minute guided run that checks the things that actually go wrong**, in order:
+
+⬛ **Black level** — a near-black step wedge on pure black. How far down can you still tell the steps apart? This is what "my dark scenes are just mush" looks like as a number.
+⬜ **White saturation** — the same thing at the top end, to see whether your highlights are clipping.
+💡 **Uniformity** — full black and grey fields to expose backlight bleed, clouding, and tint in the corners.
+📐 **Gamma** — striped patterns against solid patches. Whichever patch disappears into its stripes tells you your gamma.
+🌈 **Gradients** — a smooth 0→255 ramp. If you see stairs instead of a slope, that's banding.
+🎨 **Color separation** — and this is the part no other screen test has.
+
+That last stage pulls **8 pairs of colors straight out of the archive** — same hue family, same lightness, one single step apart in saturation. The subtlest neighbours in a 5,446-color set. Crimson, Amber, Chartreuse, Emerald, Teal, Azure, Indigo, Magenta, spread around the wheel so a weakness in one region has nowhere to hide. Can you see the line where one becomes the other? On a good panel, all eight. On a tired one, you will find out exactly which hues your screen has given up on.
+
+📋 **It ends with a report card you can download** — a real image, drawn in your browser, with your resolution, gamut, HDR status, and every answer you gave. The page URL carries your result too, so you can send it to someone and they can compare their screen against yours.
+
+🔧 **Eleven separate tests if you'd rather skip the tour:** dead pixel (9 fullscreen colors), plain color screens (12 presets — also just useful for cleaning a screen or lighting a room), sharpness and scaling, burn-in and image retention, and a multi-touch canvas for finding dead zones on a touchscreen.
+
+**Two honest notes,** because the tool says them too: this is a visual check, not calibration — real calibration needs a colorimeter, and nothing in a browser can replace one. And everything runs locally. Your answers are drawn onto a card on your own machine; nothing about your screen is uploaded anywhere.
+
+Free, no signup, no account. It even warns you if your OS has a forced-colors or high-contrast mode switched on, because that quietly rewrites the page and makes every result meaningless.
+
+Test your screen → colorarchive.org/screen-test
+
+Just want a white screen right now → colorarchive.org/screen-test/color-screens
+
+5,446 colors · 261 collections · 333 guides · 44 free tools
+
+#ScreenTest #DeadPixel #MonitorCalibration #ColorArchive #DisplayTest #ColorAccuracy #DesignTools #UIDesign #Photography #WebDev
+
+### X / Twitter (@ColorArxiv — post WITHOUT a URL, see owner note)
+
+Your monitor has a black level, a gamma curve, and probably a stuck pixel you've never looked for.
+
+Screen Test runs six checks in five minutes and hands you a report card.
+
+The last one: 8 archive colors, one saturation step apart. Can you see all eight? 🖥️
+
+<!-- 260 chars weighted (258 codepoints, the monitor emoji counts double on X) — verified this run, URL-free per the cost rule. -->
+
+---
+
 ## Weekly Roundup — 2026-08-16
 
 > **First real changelog since Jul 26 — after three spotlight weeks, this one has user-facing things in it.** 11 commits, Aug 9 to Aug 16. Not a big release, but not a repair-only week either: dark mode reached the last two surfaces that lacked it, ten fully-written collections that resolved to no URL now have pages (**251 → 261**), and guide detail pages now lead with the tool the guide is about.

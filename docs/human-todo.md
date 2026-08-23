@@ -1,8 +1,9 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: **2026-08-22** — owner 定了 **A 路:停止付费面投入**。§6 报表口径已修并对生产
-> 数据验证,但 **droplet 上还没部署(scp 被权限拦住,见下)**。Hayley 的信已写好草稿,**未发**。
+> Last updated: **2026-08-23** — weekly roundup 跑完(spotlight,本周无可发布的新内容)。
+> **一个需要你拍板的新问题:队列里 18 篇周报一篇都没被删过 —— 见下面 §2026-08-23。**
+> 08-22 的两件事仍然未做:报表脚本没部署到 droplet、Hayley 的信仍是草稿未发。
 >
 > 2026-08-18 — 付费面 A 类交付**并已全部上线**。取消订阅收回已付费时间的
 > bug 已修复并在生产端到端验证。四项 owner 待办(部署 / LS Team 变体 / 退款政策 / packs 去留)
@@ -12,6 +13,42 @@
 > **New and time-sensitive: any Complete Archive customer is holding a bundle with 70
 > colors missing from four of its exports and needs a re-download note.** Off-repo copies
 > of the old counts still need a sweep.)
+
+## 📮 2026-08-23 — 周报队列:五个月没清过,需要你决定这条线还要不要跑
+
+本周是 spotlight(Screen Test),因为 17 个 commit 里没有一件是访客看得见的 ——
+颜色/工具/合集/指南四个数字与上周完全一致(5,446 / 261 / 333 / 44,本次从模块读出)。
+文案已写好并全部核对过(代码 + 线上 200),在 `docs/daily-posts-queue.md` 顶部。
+
+### 1. 要你拍板的:这些周报到底有没有在发?
+
+`docs/daily-posts-queue.md` 里现在有 **18 篇周报,从 2026-04-05 到 2026-08-16,一篇都没被删掉**。
+文件自己第一行写着 "Remove entries after posting"。所以从我这边看只有两种可能,而且**无法区分**:
+
+- 五个月一篇都没发过;或者
+- 发了但从来没清理条目。
+
+这正好对上 `e9ee654` 里五轮 review 都没人提的那个盲点:**~500 session/月 是分发问题,
+不是付费面问题**。往一个从没被测量过的渠道里再写第 19 篇,不能算"跑了分发"。
+
+**请二选一:**(a) 发出去并且发一篇删一篇,让这个文件重新变成有意义的队列;
+(b) 明确说 Facebook 主页这条线已经死了,我把这个 scheduled task 停掉 —— 每周生成一篇
+没人发的稿子是纯浪费。
+
+> 本次**没有发到 Facebook**。task 文件写的是 "if possible",那不等于你的授权;
+> 往公开主页发帖不可撤销,而且这次是无人值守运行。与 08-16 同样处理。
+
+### 2. 顺手记下的两件小事(都不急)
+
+- **根目录 `autopilot-log.md` 从 7-26 起就没再更新过**,只有 64KB,而 `docs/autopilot-log.md`
+  是 264KB 的全量。CLAUDE.md 要求两个都写。我这次只写了 docs/ 那个 —— 把一个停更一个月的
+  分叉文件用单条记录"复活",算是你的决定,不该我擅自做。要么删掉根目录那个,要么说清楚
+  它该同步,我下次照办。
+- **`public/downloads/` 堆了 22 个未追踪的重复构建产物**(`complete-archive 5.zip`、
+  `colorarchive 7.swatches` 这种带空格序号的),无害且没进 git,但会一直涨,而且把
+  `git status` 刷得没法看。要么清掉,要么加进 `.gitignore`。
+
+---
 
 ## ⚠️ 2026-08-22 — 两件只有你能做的事(付费面已按 A 路停止)
 
