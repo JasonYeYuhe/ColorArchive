@@ -1,7 +1,11 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: **2026-08-23** — weekly roundup 跑完(spotlight,本周无可发布的新内容)。
+> Last updated: **2026-08-23** — 🔴 **Hayley 现在被锁在 Pro 外面**(LS 没执行 08-22 的续费)。
+> **最上面那条是今天要做的,一条命令。** 另外 08-22 23:42 来了**站史第一个外部试用**
+> (James Watts,08-25 首次扣款)。付费面仍按 A 路停止。
+>
+> weekly roundup 跑完(spotlight,本周无可发布的新内容)。
 > **一个需要你拍板的新问题:队列里 18 篇周报一篇都没被删过 —— 见下面 §2026-08-23。**
 > 08-22 的两件事仍然未做:报表脚本没部署到 droplet、Hayley 的信仍是草稿未发。
 >
@@ -13,6 +17,88 @@
 > **New and time-sensitive: any Complete Archive customer is holding a bundle with 70
 > colors missing from four of its exports and needs a re-download note.** Off-repo copies
 > of the old counts still need a sweep.)
+
+## 🔴 2026-08-23 — Hayley 被锁在 Pro 外面,**先跑第 1 条**
+
+### 1. 恢复她的访问权(一条命令,我被权限分类器拦住了)
+
+她的 `pro_expires_at` 是 `2026-08-22T10:00:00.000Z`,**已经过期 20 小时**。
+`entitlement.js` 的 `effectiveTier()` 是 `ms < now ? free : pro`,`auth.js:190` 和
+`api-rate-limit.js:50` 都走它 —— **网页和 API 两边现在都判她 free**,而且
+`auth.js:197` 会在她下次打开站点时把 `tier='free'` 写回她那一行。
+DB 里她还是 `tier=pro`,说明**她还没回来过** —— 是「随时会踩到」,不是「已经踩到」。
+
+```bash
+ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes root@143.198.85.72 "cd /root/ColorArchive/server && sqlite3 data.db \"UPDATE users SET pro_expires_at='2026-08-29T10:00:00.000Z' WHERE email='hayleyjunefry@gmail.com' AND tier='pro' AND subscription_status='active' AND pro_expires_at='2026-08-22T10:00:00.000Z'; SELECT 'rows_changed=' || changes(); SELECT email,tier,subscription_status,pro_expires_at FROM users WHERE email='hayleyjunefry@gmail.com';\""
+```
+
+`WHERE` 里带了断言:**只有当那一行恰好还是现在这个值时才会改**,所以重复执行无害,
+也不会覆盖掉中途真的续上的续费。期望 `rows_changed=1`。
+
+**不需要事后撤销,它是自愈的**:等 LS 真的续上,`subscription_payment_success` 会走
+`resolveSubscriptionUpdate` 用 `graceDays: 0` 把 `pro_expires_at` 拍回真实的 `renews_at`
+(`entitlement.js:204`),我们手写的日期会被自动覆盖成正确的。
+
+### 2. 去 LS 后台看那笔订阅的扣款尝试记录 —— **API 到此为止了**
+
+**LS 根本没尝试过这次扣款**(不是失败,是没扣):没有第二张发票、`renews_at` 没推进、
+状态从没进 `past_due`、`updated_at` 冻在 07-22。而 `subscription_payment_failed`
+**是我们已订阅的事件**,webhook 也是好的(`last_sent_at=2026-08-22T23:44:21Z`,James 那笔成功投递)
+—— 所以**如果 LS 试过并失败,我们会收到通知。我们什么都没收到。**
+
+唯一的区别:**她是店里唯一一笔 PayPal**(`payment_processor: "paypal"`,
+`update_payment_method` 指向 PayPal billing agreement `I-XE6LE9159DPU`)。
+其余三笔全是 Stripe,**全部按时续**,包括你自己 08-20 那笔。
+
+**API 分辨不了这两种可能**:(a) 她的 PayPal 协议被撤销/失效(用户可以在 PayPal 里
+单方面取消,LS 完全不知情),(b) LS 对 PayPal 订阅的计费卡住了。
+两者符合全部现有证据。**要分辨只能看 LS 后台 → 那笔订阅的 payment attempts / dunning 日志**,
+或 PayPal 那边。必要时拿 subscription id `2357096` 开 LS support ticket。
+
+### 3. 一个设计决定,等你定(我**没有**擅自改)
+
+`GRACE_DAYS = 3` 的注释写着它存在就是为了 "Clock skew and webhook lag must never cut
+access short",但**续费分支写的是 `graceDays: 0`**(`entitlement.js:204`),
+所以处理商延迟/失灵**确确实实会当场切断访问** —— 这次就是。
+
+那个 `0` 是**有意的**,注释也给了理由(`subscription-payment` 故意过度延长,靠这个事件把时钟拍回
+`renews_at`),而且 `entitlement.test.js:230` 明确断言「过期一天 → free」。
+**改它 = 改这个站最安全敏感的那段逻辑,并且要改掉一条现有断言**,方向是 failure-open,
+而模块开头整段就在讲为什么不能 failure-open。所以我没动。
+
+选项:**(a) 维持现状**,靠第 4 条的报警在几小时内发现;
+**(b) 只给续费分支一个有界宽限**(例如 renews_at + 1~3 天),代价是已停付的人多留几天。
+**这是你的决定,不是我的。**
+
+### 4. ✅ 已做:报表现在会自己抓到这件事(但**还没部署**)
+
+`conversion-digest.cjs` 加了 stale-renewal 报警:**处理商说订阅还活着、我们的访问时钟却已经跑完**
+—— 这一对组合永远不正常,意思就是有人在付钱(或以为在付钱)而此刻被锁在外面。
+
+原来那行「Renewals due within 7d」**抓不到**:它是**向前看**的
+(`BETWEEN now AND +7 day`),所以续费日期一过,那行就悄悄从报表里消失了。新的是**向后看**。
+
+它还会**强制发信**(进了 `hasMoneyActivity`)—— 否则安静的非周一根本不发,
+而那正是最需要发的一天;主题行用 `unshift` 排在最前面,压过同窗口里的任何好消息。
+
+对生产数据验过三个方向:**(A)** 只命中 Hayley,20 小时;**(B)** 把时钟拨回她过期之前,
+**返回空**(证明是日期驱动,不是无条件命中她);**(C)** 三个 comped 授权(无 provider)、
+一个 `expired`、两个仍在有效期内(含 James 的 `on_trial`)**全部正确排除**。
+
+**部署和 08-22 那条是同一个 `scp`** —— 跑那条命令时这个报警会一起上线。
+
+### 5. 📌 记一下:08-25 23:42 UTC,James 的首次扣款
+
+`jameswatts0925@gmail.com`,LS `2456821`,`test_mode=false`,真实 mastercard 5466,
+**站史第一个外部试用**,而且漏斗全程有归因:
+`word_paywall_pro_click`(23:39:48)→ `checkout_clicked` → `checkout_success`(23:43:03)
+→ 订阅创建;23:51:37 他回来时 `word_paywall_pro_bypass` 正确放行 ——
+**A 类那个把 Hayley 锁在外面的 bug 的修复,在真人身上生效了。**
+
+**现在是 1 个试用,不是 1 笔付款**(首张发票 ¥0)。按 §6 口径 ① 付款 0、② 首次付费外部客户 0。
+§1 的功效结论一个字都没变。**真正的信息在 08-25。**
+
+---
 
 ## 📮 2026-08-23 — 周报队列:五个月没清过,需要你决定这条线还要不要跑
 

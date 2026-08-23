@@ -233,6 +233,41 @@ const subsByStatus = db.prepare(
     GROUP BY st ORDER BY c DESC`
 ).all();
 
+// 🔴 STALE-RENEWAL TRIPWIRE — added 2026-08-23, the morning after it was needed.
+//
+// WHAT HAPPENED: our only paying customer's renewal fell due 2026-08-22 10:00Z
+// and Lemon Squeezy never billed it — no invoice, no `past_due`, no
+// subscription_payment_failed webhook, `renews_at` never advanced. LS still
+// reported the subscription `active`. Meanwhile entitlement.js compares
+// `pro_expires_at` against the clock with no grace on the renewal branch, so
+// from 10:00Z onward every read path answered "free" and auth.js was one page
+// load away from writing tier='free' back to her row. It went unnoticed for
+// twenty hours, and it was found by hand, not by this report.
+//
+// The existing "renewals due within 7d" line could not catch it: it looks
+// FORWARD (BETWEEN now AND +7 days), so the instant a renewal date passes, the
+// row silently drops out of the only place the digest mentioned it.
+//
+// This looks BACKWARD instead: a row whose provider status still says the
+// subscription is alive, whose access clock has already run out. That pair is
+// never normal — it means somebody is paying (or believes they are) and is
+// locked out right now.
+//
+// The status list is kept in step with ACTIVE_STATUSES in server/entitlement.js
+// on purpose. If those diverge, this stops describing the thing it is named for.
+const staleRenewals = db.prepare(
+  `SELECT email,
+          COALESCE(subscription_status,'unknown') AS status,
+          substr(pro_expires_at,1,19) AS expired_at,
+          CAST((julianday('now') - julianday(pro_expires_at)) * 24 AS INTEGER) AS hours_overdue
+     FROM users
+    WHERE ${REAL} AND tier = 'pro' AND payment_provider = 'lemonsqueezy'
+      AND subscription_status IN ('active','trialing','on_trial','past_due')
+      AND pro_expires_at IS NOT NULL
+      AND datetime(pro_expires_at) < datetime('now')
+    ORDER BY pro_expires_at`
+).all();
+
 const renewalsDue = db.prepare(
   `SELECT email, substr(pro_expires_at,1,10) AS due
      FROM users WHERE tier='pro' AND ${REAL} AND pro_expires_at IS NOT NULL
@@ -250,8 +285,16 @@ const renewalsDue = db.prepare(
 /* ---------------- send decision ---------------- */
 
 const isMonday = now.getUTCDay() === 1;
+// staleRenewals is in here deliberately. It is not "activity" — it is the one
+// condition where SILENCE is the failure. On a quiet non-Monday this digest
+// does not send at all, which is exactly the day a locked-out subscriber would
+// go unmentioned.
 const hasMoneyActivity =
-  paidOrders.length > 0 || newSubs.length > 0 || funnel.checkoutSuccess > 0 || refunds.length > 0;
+  paidOrders.length > 0 ||
+  newSubs.length > 0 ||
+  funnel.checkoutSuccess > 0 ||
+  refunds.length > 0 ||
+  staleRenewals.length > 0;
 const shouldSend = argForce || hasMoneyActivity || isMonday;
 
 /* ---------------- render ---------------- */
@@ -274,6 +317,15 @@ const classify = (o) => {
 };
 
 const lines = [];
+if (staleRenewals.length) {
+  lines.push("🔴 LOCKED OUT RIGHT NOW — provider says active, our access clock has expired:");
+  for (const r of staleRenewals) {
+    lines.push(`  ${r.email}  [${r.status}]  expired ${r.expired_at}Z  (${r.hours_overdue}h ago)`);
+  }
+  lines.push("  This person is being denied Pro on every read path (web + API), and auth.js will");
+  lines.push("  write tier='free' to their row on their next page load. Check the provider first:");
+  lines.push("  a renewal that was never attempted is the provider's problem, not a webhook miss.");
+}
 if (paidOrders.length) {
   lines.push(`💰 ① PROCESSOR PAYMENTS (real charges taken, owner's included): ${paidOrders.length}`);
   for (const o of paidOrders) {
@@ -371,6 +423,9 @@ if (paidOrders.length) {
 if (newSubs.length) subjectBits.push(`🆕 ${newSubs.length} sub${newSubs.length > 1 ? "s" : ""}`);
 if (refunds.length) subjectBits.push(`↩︎ ${refunds.length} refund${refunds.length > 1 ? "s" : ""}`);
 if (hardWebhookMiss) subjectBits.push(`⚠️ checkout not recorded`);
+// Unshifted, not pushed: if a paying customer is locked out, that is the first
+// thing the subject line says, ahead of any good news in the same window.
+if (staleRenewals.length) subjectBits.unshift(`🔴 ${staleRenewals.length} locked out`);
 const subject = subjectBits.length
   ? `[ColorArchive] ${subjectBits.join(" · ")}`
   : `[ColorArchive] conversion digest — quiet (weekly heartbeat)`;
@@ -383,6 +438,19 @@ const html = `
       lines.length
         ? `<pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.7;background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin:0 0 18px">${esc(lines.join("\n"))}</pre>`
         : `<p style="color:#6b7280;margin:0 0 18px">No money-funnel activity in the window.</p>`
+    }
+    ${
+      // The plaintext part carries this too, but the owner reads the HTML one —
+      // the gate-report learned that lesson already (a warning nobody sees is
+      // the same as no warning).
+      staleRenewals.length
+        ? `<div style="margin:0 0 18px;padding:12px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;color:#7f1d1d;font-size:13px;line-height:1.65">
+      <strong>🔴 Locked out right now</strong><br>${staleRenewals
+        .map((r) => `${esc(r.email)} — provider says <strong>${esc(r.status)}</strong>, access expired ${esc(r.expired_at)}Z (${r.hours_overdue}h ago)`)
+        .join("<br>")}<br>
+      Denied Pro on web and API; auth.js writes tier='free' on their next page load.
+    </div>`
+        : ""
     }
     <p style="margin:0 0 6px;font-weight:700;font-size:13px">Word-to-color → Pro funnel (${WINDOW_DAYS}d)</p>
     <pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7;color:#374151;margin:0 0 18px">${esc(funnelBlock.join("\n"))}</pre>
