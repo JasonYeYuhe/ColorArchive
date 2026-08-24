@@ -1,9 +1,12 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: **2026-08-23** — 🔴 **Hayley 现在被锁在 Pro 外面**(LS 没执行 08-22 的续费)。
-> **最上面那条是今天要做的,一条命令。** 另外 08-22 23:42 来了**站史第一个外部试用**
-> (James Watts,08-25 首次扣款)。付费面仍按 A 路停止。
+> Last updated: **2026-08-24** — Hayley 的锁定**已解除并验证**(她全程没踩到);
+> LS 两张工单已发出(续费没执行 / 删重复店 340792),**等回复**。
+> ⏰ **下一个时间点:James Watts 首次扣款 2026-08-25 23:42 UTC** —— 鉴于刚发现这个店的
+> 续费不一定会自己发生,那天要主动看,别等报表。
+> ⚠️ **仍未部署**:§6 口径修正 + stale-renewal 报警只在仓库里,生产 cron 还在跑旧版(scp 被拦)。
+> 付费面仍按 A 路停止。
 >
 > weekly roundup 跑完(spotlight,本周无可发布的新内容)。
 > **一个需要你拍板的新问题:队列里 18 篇周报一篇都没被删过 —— 见下面 §2026-08-23。**
@@ -18,15 +21,24 @@
 > colors missing from four of its exports and needs a re-download note.** Off-repo copies
 > of the old counts still need a sweep.)
 
-## 🔴 2026-08-23 — Hayley 被锁在 Pro 外面,**先跑第 1 条**
+## ✅ 2026-08-23/24 — Hayley 的锁定已解除;LS 两张工单已发出
 
-### 1. 恢复她的访问权(一条命令,我被权限分类器拦住了)
+### 1. ✅ 已完成 —— 访问权已恢复(owner 于 2026-08-24 跑的,我被权限分类器拦了四次)
 
-她的 `pro_expires_at` 是 `2026-08-22T10:00:00.000Z`,**已经过期 20 小时**。
-`entitlement.js` 的 `effectiveTier()` 是 `ms < now ? free : pro`,`auth.js:190` 和
-`api-rate-limit.js:50` 都走它 —— **网页和 API 两边现在都判她 free**,而且
-`auth.js:197` 会在她下次打开站点时把 `tier='free'` 写回她那一行。
-DB 里她还是 `tier=pro`,说明**她还没回来过** —— 是「随时会踩到」,不是「已经踩到」。
+`rows_changed=1`,`pro_expires_at` 现在是 `2026-08-29T10:00:00.000Z`(**剩约 119 小时**)。
+
+**验证方式不是看日期,是直接跑判定函数**(`node -e` 调 `entitlement.js` 的 `effectiveTier`):
+旧值 `2026-08-22T10:00:00.000Z` → `{tier:"free", expired:true}`;
+新值 `2026-08-29T10:00:00.000Z` → `{tier:"pro", expired:false}`。
+`expired:true` 那一半正是关键 —— `auth.js:197` 会据此把 `tier='free'` 写回她那一行。
+
+**stale-renewal 报警现在返回空**(昨天它命中她、显示逾期 20 小时)。一来一回都验过了。
+
+她自始至终**没有回来过**(`tier` 一直是 `pro`,惰性降级从未触发),所以这 48 小时里
+**她实际上没有踩到过锁定** —— 但那是运气,不是设计。
+
+> 原命令保留在下面作为记录。它是自愈的:LS 一旦真的续上,
+> `subscription_payment_success` 会用 `graceDays: 0` 把日期拍回真实的 `renews_at`。
 
 ```bash
 ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes root@143.198.85.72 "cd /root/ColorArchive/server && sqlite3 data.db \"UPDATE users SET pro_expires_at='2026-08-29T10:00:00.000Z' WHERE email='hayleyjunefry@gmail.com' AND tier='pro' AND subscription_status='active' AND pro_expires_at='2026-08-22T10:00:00.000Z'; SELECT 'rows_changed=' || changes(); SELECT email,tier,subscription_status,pro_expires_at FROM users WHERE email='hayleyjunefry@gmail.com';\""
@@ -39,7 +51,7 @@ ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes root@143.19
 `resolveSubscriptionUpdate` 用 `graceDays: 0` 把 `pro_expires_at` 拍回真实的 `renews_at`
 (`entitlement.js:204`),我们手写的日期会被自动覆盖成正确的。
 
-### 2. 去 LS 后台看那笔订阅的扣款尝试记录 —— **API 到此为止了**
+### 2. ✅ 已查完 + 已开工单 —— 后台没有隐藏的重试记录
 
 **LS 根本没尝试过这次扣款**(不是失败,是没扣):没有第二张发票、`renews_at` 没推进、
 状态从没进 `past_due`、`updated_at` 冻在 07-22。而 `subscription_payment_failed`
@@ -50,10 +62,22 @@ ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes root@143.19
 `update_payment_method` 指向 PayPal billing agreement `I-XE6LE9159DPU`)。
 其余三笔全是 Stripe,**全部按时续**,包括你自己 08-20 那笔。
 
-**API 分辨不了这两种可能**:(a) 她的 PayPal 协议被撤销/失效(用户可以在 PayPal 里
-单方面取消,LS 完全不知情),(b) LS 对 PayPal 订阅的计费卡住了。
-两者符合全部现有证据。**要分辨只能看 LS 后台 → 那笔订阅的 payment attempts / dunning 日志**,
-或 PayPal 那边。必要时拿 subscription id `2357096` 开 LS support ticket。
+**2026-08-23 已用 Chrome 看过 LS 后台,查到底了**:Billing History **1 条**;
+**Timeline 恰好 4 条,最后一条停在 22 Jul**;**8 月零条**。
+后台的 Timeline **就是** dunning/尝试记录 —— 不存在「隐藏的重试日志」。
+`status.lemonsqueezy.com` Aug 17–23 **全部 No incidents**。
+**后台也没有任何「重试扣款/立即扣款」按钮**,订阅上唯一操作是 `Cancel subscription`。
+
+→ 因此**「LS 压根没跑这笔计费」比「PayPal 协议被撤销」更有支持**:协议被撤销通常仍会
+*尝试*并失败,留下 `subscription_payment_failed` + dunning —— 而这里一次尝试都没有。
+⚠️ 但**不是确证**(不知道 LS 会不会预检 PayPal 协议后静默跳过)。
+
+**✅ 2026-08-24 已发工单**(Gmail thread `19d534a8f9b56b00` → `hello@lemonsqueezy.com`):
+列了 7 条实测事实 + 4 个具体问题(有没有尝试过/失败原因、PayPal 协议是否仍有效、
+如何重新授权、**我们该怎么在 webhook 层面察觉这种情况**)。**等回复。**
+
+**✅ 同一封线里也确认了挂了两个月的删店问题**:删 `340792`、保留 `319224`。
+(发前用 API 核过:319224 有 2 个产品 4 笔订单和全部收入;340792 查到 0 产品 0 订单。)
 
 ### 3. 一个设计决定,等你定(我**没有**擅自改)
 
