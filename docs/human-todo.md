@@ -5,7 +5,7 @@
 > LS 两张工单已发出(续费没执行 / 删重复店 340792),**等回复**。
 > ⏰ **下一个时间点:James Watts 首次扣款 2026-08-25 23:42 UTC** —— 鉴于刚发现这个店的
 > 续费不一定会自己发生,那天要主动看,别等报表。
-> ⚠️ **仍未部署**:§6 口径修正 + stale-renewal 报警只在仓库里,生产 cron 还在跑旧版(scp 被拦)。
+> ✅ **已部署并在生产上验收**:§6 口径修正 + stale-renewal 报警都已上线,cron 会自己跑。
 > 付费面仍按 A 路停止。
 >
 > weekly roundup 跑完(spotlight,本周无可发布的新内容)。
@@ -94,7 +94,7 @@ access short",但**续费分支写的是 `graceDays: 0`**(`entitlement.js:204`),
 **(b) 只给续费分支一个有界宽限**(例如 renews_at + 1~3 天),代价是已停付的人多留几天。
 **这是你的决定,不是我的。**
 
-### 4. ✅ 已做:报表现在会自己抓到这件事(但**还没部署**)
+### 4. ✅ 已部署并验收 —— 报表现在会自己抓到这件事
 
 `conversion-digest.cjs` 加了 stale-renewal 报警:**处理商说订阅还活着、我们的访问时钟却已经跑完**
 —— 这一对组合永远不正常,意思就是有人在付钱(或以为在付钱)而此刻被锁在外面。
@@ -109,7 +109,18 @@ access short",但**续费分支写的是 `graceDays: 0`**(`entitlement.js:204`),
 **返回空**(证明是日期驱动,不是无条件命中她);**(C)** 三个 comped 授权(无 provider)、
 一个 `expired`、两个仍在有效期内(含 James 的 `on_trial`)**全部正确排除**。
 
-**部署和 08-22 那条是同一个 `scp`** —— 跑那条命令时这个报警会一起上线。
+**✅ 2026-08-24 已部署到 droplet 并在生产上跑过验收**(md5 与仓库 HEAD 逐一核对一致,
+droplet 的 node 上 `node --check` 通过)。cron 已确认:
+`0 8 * * *` conversion-digest · `0 9 * * 1` gate-report。
+
+**报警的渲染路径也验了 —— 用数据库副本,没碰生产数据**:
+把副本里她的 `pro_expires_at` 改回锁定时的值,报表输出
+`🔴 LOCKED OUT RIGHT NOW … (52h ago)`,主题行变成
+`[ColorArchive] 🔴 1 locked out · 💰 1 payment · 0 new customers · 🆕 1 sub` ——
+**🔴 排在最前**,压过同窗口的付款和新订阅。副本用完即删。
+
+> 值得记一句:digest 跑在每天 **08:00 UTC**。她的锁定从 08-22 10:00 UTC 开始 ——
+> **如果这套当时已经部署,08-23 早上那次就会抓到**,而不是靠人翻了 20 小时才发现。
 
 ### 5. 📌 记一下:08-25 23:42 UTC,James 的首次扣款
 
@@ -165,34 +176,36 @@ access short",但**续费分支写的是 `graceDays: 0`**(`entitlement.js:204`),
 owner 今天决定 **A:停止付费面投入**(不下线 Pro、不删付费墙、不做 B1/B2)。
 代码侧该做的都做完了、验证过了、已推。剩下两件我做不了:
 
-### 1. 把两个报表脚本推到 droplet,并给 `.env` 加一行 —— **我被权限拦住了**
+### 1. ✅ 已完成(2026-08-24)—— 报表脚本已部署,`.env` 已加 `OWNER_EMAILS`
 
-`scp` 和写 `.env` 都被 auto-mode 的权限分类器拒绝(只读 SSH 可以)。所以 §6 的修复
-**目前只在仓库里,生产上的 cron 还在发旧版报表**。你跑这三条:
+**2026-08-24 已部署并在生产上跑完验收。** 两个文件 md5 与仓库 HEAD 逐一核对一致,
+droplet 的 node 上 `node --check` 均通过;`.env` 追加了 `OWNER_EMAILS`
+(37 → 38 行,备份 `.env.bak-2026-08-24`)。不需要 `pm2 restart` —— 这两个是 cron 脚本。
 
-```bash
-scp -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes \
-  server/scripts/conversion-digest.cjs server/scripts/gate-report.cjs \
-  root@143.198.85.72:/root/ColorArchive/server/scripts/
+**验收结果(生产数据,5 天窗口,`--dry-run` 全程没发信):**
+
+```
+💰 ① PROCESSOR PAYMENTS (real charges taken, owner's included): 1
+  2026-08-20 14:45  yyyyy.yeyuhe@icloud.com  Pro monthly  ¥550 JPY
+      owner — excluded from ② · attribution: none recorded
+🧍 ② FIRST-TIME EXTERNAL PAYING CUSTOMERS: 0
+🔗 ③ ATTRIBUTION: 0/1 of ① carry a recorded source.
+🆕 NEW SUBSCRIBERS / TRIALS:
+  2026-08-22 23:42  jameswatts0925@gmail.com  Pro monthly  [on_trial]
+subject: "[ColorArchive] 💰 1 payment · 0 new customers · 🆕 1 sub"
 ```
 
-```bash
-ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes root@143.198.85.72 \
-  'cd /root/ColorArchive/server && cp .env .env.bak-2026-08-22 && grep -q "^OWNER_EMAILS=" .env || echo "OWNER_EMAILS=yyyyy.yeyuhe@gmail.com,yyyyy.yeyuhe@icloud.com" >> .env'
-```
+**James 落在 TRIALS 栏而不是付款栏** —— 这正是 §6 要拆开的那件事:他还没付过钱。
 
-```bash
-ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes root@143.198.85.72 \
-  'cd /root/ColorArchive/server && node scripts/conversion-digest.cjs --days=3 --dry-run'
-```
+**把缺陷放回去也验了**:同一条命令加 `OWNER_EMAILS=`(清空)重跑,②
+从 0 变成 **1**、那一行标签从 `owner — excluded` 变成 `first-time external ✅`、
+⚠ 警告出现、主题行变回 `💰 1 payment · 🧍 1 new customer` —— 也就是旧版的谎。
+**排除逻辑确实在做事,不是恰好等于 0。**
 
-**第三条是验收**,`--dry-run` 保证不发邮件。期望看到:
-`① 1` · `② 0` · 那行 08-20 的 icloud 订单标着 `owner — excluded from ②`,
-主题行是 `💰 1 payment · 0 new customers`(旧版是 `💰 1 payment`)。
-**再跑一次 `OWNER_EMAILS= node scripts/conversion-digest.cjs --days=3 --dry-run`**(把变量清空),
-应当变成 `② 1` 并带一行 ⚠ 警告 —— 那证明排除逻辑真的在起作用,而不是恰好等于 0。
-
-> 不需要 `pm2 restart`:这两个是 cron 脚本,不是常驻进程。
+`gate-report.cjs` 同样验过(清空 `RESEND_API_KEY` 只打印,日志按字节还原):
+`① Payments taken : 1 — 549.69 JPY total` / `② New paying customers : 0` /
+`excluded as owner: yyyyy.yeyuhe@icloud.com (real money, not a customer)`。
+金额是精确的 549.69,不是 ¥550 也不是早先那个 ¥3。
 
 ### 2. Hayley 的信 —— 草稿写好了,**没发**
 
