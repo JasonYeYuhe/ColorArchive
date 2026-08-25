@@ -2,6 +2,17 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 const { requireAnalyticsAccess } = require("../auth");
+const { DISTINCT_VISITS, windowCaveats } = require("../session-denominator");
+
+// Every money figure this route returns is in EXACT MINOR UNITS, never the
+// rounded major-unit `amount` column. `amount` is round(minor/100), so summing it
+// discards cents and then the dashboards divided by 100 a second time — which is
+// how $3.47 reached the screen as $0.03 and stayed there for four months. JPY hid
+// it, because the frontend skipped the divisor for zero-decimal currencies and
+// those rows happened to look right. Consumers must format with
+// src/lib/format-money.ts, which divides by 100 for every currency including JPY
+// (Lemon Squeezy scales yen by 100 too).
+const MONEY_MINOR = "COALESCE(SUM(COALESCE(amount_minor, amount * 100)), 0)";
 
 router.use(requireAnalyticsAccess);
 
@@ -59,6 +70,12 @@ function buildSubscriberWhere(filters, previous = false) {
 
 function buildOrderWhere(filters, previous = false) {
   const { clauses, params } = buildTimeRangeClause(filters.days, previous);
+
+  // Revenue metrics count only real, kept money: exclude test-mode orders and
+  // refunded/disputed rows (the gate queries already did; the admin dashboard
+  // silently included both until 2026-07-22).
+  clauses.push("COALESCE(is_test, 0) = 0");
+  clauses.push("COALESCE(refunded, 0) = 0");
 
   pushFilter(clauses, params, "attributed_source", filters.source);
   pushFilter(clauses, params, "attributed_utm_campaign", filters.utmCampaign);
@@ -141,11 +158,11 @@ router.get("/", (req, res) => {
     .get(...previousOrderFilter.params).count;
 
   const totalRevenue = db
-    .prepare(`SELECT COALESCE(SUM(amount), 0) as total FROM orders ${orderFilter.where}`)
+    .prepare(`SELECT ${MONEY_MINOR} as total FROM orders ${orderFilter.where}`)
     .get(...orderFilter.params).total;
 
   const previousRevenue = db
-    .prepare(`SELECT COALESCE(SUM(amount), 0) as total FROM orders ${previousOrderFilter.where}`)
+    .prepare(`SELECT ${MONEY_MINOR} as total FROM orders ${previousOrderFilter.where}`)
     .get(...previousOrderFilter.params).total;
 
   const recentSubscribers = db
@@ -166,7 +183,7 @@ router.get("/", (req, res) => {
         SELECT
           email,
           product,
-          amount,
+          COALESCE(amount_minor, amount * 100) as amount,
           currency,
           attributed_source,
           attributed_utm_source,
@@ -201,7 +218,7 @@ router.get("/", (req, res) => {
       `
         SELECT date(created_at) as day,
                COUNT(*) as count,
-               COALESCE(SUM(amount), 0) as revenue
+               ${MONEY_MINOR} as revenue
         FROM orders
         ${orderFilter.where}
         GROUP BY date(created_at)
@@ -215,7 +232,7 @@ router.get("/", (req, res) => {
       `
         SELECT product,
                COUNT(*) as orders,
-               COALESCE(SUM(amount), 0) as revenue,
+               ${MONEY_MINOR} as revenue,
                MIN(currency) as currency
         FROM orders
         ${orderFilter.where}
@@ -283,7 +300,7 @@ router.get("/", (req, res) => {
       .get(...cohortOrderFilter.params).count;
 
     const revenueForSource = db
-      .prepare(`SELECT COALESCE(SUM(amount), 0) as total FROM orders ${cohortOrderFilter.where}`)
+      .prepare(`SELECT ${MONEY_MINOR} as total FROM orders ${cohortOrderFilter.where}`)
       .get(...cohortOrderFilter.params).total;
 
     return {
@@ -347,7 +364,7 @@ router.get("/buyers", (req, res) => {
         SELECT
           email,
           COUNT(*) as order_count,
-          COALESCE(SUM(amount), 0) as total_revenue,
+          ${MONEY_MINOR} as total_revenue,
           MIN(created_at) as first_purchase_at,
           MAX(created_at) as last_purchase_at,
           GROUP_CONCAT(product, '||') as products_raw
@@ -400,21 +417,32 @@ router.get("/gate", (req, res) => {
       .all(sinceParam)
       .map((r) => ({ channel: r.channel || "unknown", count: r.count }));
 
-  // Denominator A: qualified UV to /preorder, by channel.
+  // Denominators are VISITS from `events`, not rows. `pageviews` has no caller
+  // identifier and 2026-07-27 measured it as 22.5% automated (vs 1.5% of events),
+  // so it was counting crawlers as prospects; counting event ROWS double-counted
+  // one visitor who reloads. Both fixes are the same expression — see
+  // server/session-denominator.js, which also documents the two dates that make a
+  // session count misleading (session_id starts 2026-07-26; /guides/ stopped
+  // emitting a read-only event on 2026-08-10).
   const preorderUvByChannel = byChannel(
-    `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, COUNT(*) as count
-     FROM pageviews
+    `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, ${DISTINCT_VISITS} as count
+     FROM events
      WHERE datetime(created_at) >= datetime('now', ?) AND path LIKE '/preorder%'
      GROUP BY channel ORDER BY count DESC`,
   );
 
   // Denominator B: paywall triggers (hit + restored), by channel.
   const paywallByChannel = byChannel(
-    `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, COUNT(*) as count
+    `SELECT COALESCE(NULLIF(channel, ''), 'unknown') as channel, ${DISTINCT_VISITS} as count
      FROM events
      WHERE datetime(created_at) >= datetime('now', ?) AND event_name IN ('word_paywall_hit', 'word_paywall_restored')
      GROUP BY channel ORDER BY count DESC`,
   );
+
+  // The site's actual size, on the only denominator that survives scrutiny.
+  const engagedVisits = db
+    .prepare(`SELECT ${DISTINCT_VISITS} as c FROM events WHERE datetime(created_at) >= datetime('now', ?)`)
+    .get(sinceParam).c;
 
   // Conversion steps, by event × channel.
   const GATE_EVENTS = [
@@ -465,7 +493,7 @@ router.get("/gate", (req, res) => {
     .get(sinceParam).count;
   const ordersByProduct = db
     .prepare(
-      `SELECT product, COUNT(*) as count, COALESCE(SUM(amount), 0) as revenue
+      `SELECT product, COUNT(*) as count, ${MONEY_MINOR} as revenue
        FROM orders WHERE datetime(created_at) >= datetime('now', ?) AND COALESCE(is_test, 0) = 0
        GROUP BY product ORDER BY count DESC`,
     )
@@ -511,6 +539,8 @@ router.get("/gate", (req, res) => {
 
   return res.json({
     days,
+    engagedVisits,
+    caveats: windowCaveats(days),
     floors: {
       preorderUv: { total: preorderUvTotal, qualified: qualifiedPreorderUv, target: 500 },
       paywallTriggers: { total: paywallTotal, target: 1000 },

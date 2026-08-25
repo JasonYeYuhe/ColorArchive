@@ -12,6 +12,7 @@ const { sendOrderConfirmationEmail, sendProSubscriptionEmail, sendPreorderConfir
 // treatment (no download link, a dedicated confirmation mail).
 const PREORDER_PACK_ID = "preorder-auditor";
 const { constantTimeEqual } = require("../constant-time-eq");
+const { resolveCancellation, resolveSubscriptionUpdate } = require("../entitlement");
 
 const RAW_LOG_FILE = path.join(__dirname, "..", ".ls-event-log.jsonl");
 const RAW_LOG_MAX_ENTRIES = 50;
@@ -173,7 +174,7 @@ router.post("/order-completed", async (req, res) => {
 // POST /webhooks/subscription-checkout
 // Called after a subscription checkout completes
 router.post("/subscription-checkout", async (req, res) => {
-  const { sessionId, email, plan, subscriptionId, provider, customerId, amount, currency, testMode, cardFingerprint } = req.body;
+  const { sessionId, email, plan, subscriptionId, provider, customerId, amount, currency, testMode, cardFingerprint, status, trialEndsAt, renewsAt } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: "Missing email" });
@@ -184,6 +185,21 @@ router.post("/subscription-checkout", async (req, res) => {
   const fingerprint = typeof cardFingerprint === "string" && cardFingerprint.length > 2 ? cardFingerprint : null;
   const providerCustomerId =
     typeof customerId === "string" && customerId.length > 0 ? customerId : null;
+
+  // Entitlement clock (closes the failure-open hole where pro_expires_at stayed
+  // NULL forever and auth.js therefore never expired the tier). Lifetime plans
+  // legitimately have no expiry; subscriptions get trial end / next renewal +
+  // 3-day grace, mirroring the Apple path. Fallback: 35 days for a monthly-ish
+  // cycle so even a payload missing both timestamps is never unbounded.
+  let proExpiresAt = null;
+  if (plan !== "lifetime") {
+    const anchor = trialEndsAt || renewsAt;
+    const base = anchor ? new Date(anchor) : null;
+    const d = base && !Number.isNaN(base.getTime()) ? base : new Date(Date.now() + 32 * 86400000);
+    d.setDate(d.getDate() + 3); // grace
+    proExpiresAt = d.toISOString();
+  }
+  const subscriptionStatus = typeof status === "string" && status.length > 0 ? status : "active";
   console.log(
     `[webhook] Subscription checkout: ${plan} for ${email} (sub=${subscriptionId}, provider=${paymentProvider}, test=${isTest}, fp=${fingerprint || "none"})`
   );
@@ -231,6 +247,8 @@ router.post("/subscription-checkout", async (req, res) => {
       `UPDATE users SET
         tier = 'pro',
         subscription_plan = ?,
+        subscription_status = ?,
+        pro_expires_at = ?,
         stripe_subscription_id = ?,
         payment_provider = ?,
         provider_subscription_id = ?,
@@ -242,6 +260,8 @@ router.post("/subscription-checkout", async (req, res) => {
       WHERE id = ?`
     ).run(
       plan || "monthly",
+      subscriptionStatus,
+      proExpiresAt,
       subscriptionId || null,
       paymentProvider,
       subscriptionId || null,
@@ -252,7 +272,7 @@ router.post("/subscription-checkout", async (req, res) => {
       duplicateSuspects.length > 0 ? JSON.stringify(duplicateSuspects.map((s) => s.id)) : null,
       user.id,
     );
-    console.log(`[webhook] User ${email} upgraded to pro via ${paymentProvider} (customer=${providerCustomerId || "n/a"})`);
+    console.log(`[webhook] User ${email} upgraded to pro via ${paymentProvider} (customer=${providerCustomerId || "n/a"}, status=${subscriptionStatus}, expires=${proExpiresAt || "never"})`);
   }
 
   // Add to subscribers (tagged with is_test so subscriber-growth metrics can filter)
@@ -260,22 +280,44 @@ router.post("/subscription-checkout", async (req, res) => {
     "INSERT OR IGNORE INTO subscribers (email, source, is_test) VALUES (?, ?, ?)"
   ).run(email, `${paymentProvider}-subscription`, isTest);
 
-  // Record as order for tracking
+  // Hoisted out of the lifetime block on 2026-08-18. Both were declared with
+  // `const` INSIDE `if (plan === "lifetime")` while the receipt call below
+  // referenced `orderId` from outside it — so evaluating the receipt's argument
+  // object threw ReferenceError on EVERY plan, lifetime included (the block has
+  // already closed by then). The throw landed in the try/catch below, was
+  // logged as "Failed to send Pro email", and the route still returned 200:
+  // no Pro subscriber has ever received a receipt, and nothing ever alarmed.
   const orderId = subscriptionId || sessionId || `sub_${Date.now()}`;
-  const existing = db.prepare("SELECT id FROM orders WHERE order_id = ?").get(orderId);
-  if (!existing) {
-    db.prepare(
-      `INSERT INTO orders (order_id, email, product, amount, currency, pack_id, is_test)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`
-    ).run(
-      orderId,
-      email,
-      `Pro ${plan}`,
-      amount || 0,
-      (currency || "JPY").toLowerCase(),
-      `pro-${plan}`,
-      isTest,
-    );
+  // LS sends minor units (JPY ×100). The DB row was already storing the divided
+  // value while the receipt was handed the raw one — and email.js prints JPY
+  // unscaled, so a ¥19,999 lifetime purchase would have rendered ¥1,999,900.
+  // Same asymmetry as the $3.47→$0.03 bug: exactly one side divides.
+  const normalizedAmount =
+    paymentProvider === "lemonsqueezy" && typeof amount === "number"
+      ? Math.round(amount / 100)
+      : amount || 0;
+
+  // Record an order row ONLY for lifetime (a real one-off charge). Recurring
+  // subscriptions get their money rows from /webhooks/subscription-payment —
+  // the subscription_created payload carries no amount, so inserting here used
+  // to materialize every trial as a phantom ¥0 "order" that polluted the gate
+  // and revenue reports.
+  if (plan === "lifetime") {
+    const existing = db.prepare("SELECT id FROM orders WHERE order_id = ?").get(orderId);
+    if (!existing) {
+      db.prepare(
+        `INSERT INTO orders (order_id, email, product, amount, currency, pack_id, is_test)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`
+      ).run(
+        orderId,
+        email,
+        `Pro ${plan}`,
+        normalizedAmount,
+        (currency || "JPY").toLowerCase(),
+        `pro-${plan}`,
+        isTest,
+      );
+    }
   }
 
   // Send receipt email. Pre-fix LS commerce silently skipped this — only
@@ -285,7 +327,7 @@ router.post("/subscription-checkout", async (req, res) => {
     await sendProSubscriptionEmail(email, {
       plan: plan || "monthly",
       orderId,
-      amount: amount || null,
+      amount: normalizedAmount || null,
       currency: currency || "JPY",
       isTest: Boolean(testMode),
     });
@@ -351,7 +393,12 @@ router.post("/subscription-updated", (req, res) => {
     return res.json({ ok: true, skipped: true });
   }
 
-  const isPro = ["active", "trialing", "on_trial", "past_due"].includes(status);
+  // "cancelled" is NOT "access ends now" — see ../entitlement.js. This event
+  // races subscription_cancelled for the same subscription, so both paths go
+  // through the same resolver or the customer's expiry date would depend on
+  // which webhook happened to land second.
+  const decision = resolveSubscriptionUpdate({ status, periodEndIso });
+  const isPro = decision.isPro;
 
   db.prepare(
     `UPDATE users SET
@@ -374,7 +421,7 @@ router.post("/subscription-updated", (req, res) => {
     customerId || null,
     periodEndIso,
     cancelAtEnd,
-    periodEndIso,
+    decision.proExpiresAt,
     user.id
   );
 
@@ -382,32 +429,188 @@ router.post("/subscription-updated", (req, res) => {
   return res.json({ ok: true });
 });
 
+// Shared four-column subscriber lookup — LS ids live in the provider_* columns
+// (and are mirrored into the legacy stripe_* ones by subscription-checkout, but
+// never rely on that mirroring alone).
+function findSubscriptionUser({ subscriptionId, customerId, email }) {
+  let user = null;
+  if (subscriptionId) {
+    user = db.prepare(
+      "SELECT id, email FROM users WHERE stripe_subscription_id = ? OR provider_subscription_id = ?"
+    ).get(subscriptionId, subscriptionId);
+  }
+  if (!user && customerId) {
+    user = db.prepare(
+      "SELECT id, email FROM users WHERE stripe_customer_id = ? OR provider_customer_id = ?"
+    ).get(customerId, customerId);
+  }
+  if (!user && email) {
+    user = db.prepare("SELECT id, email FROM users WHERE LOWER(email) = LOWER(?)").get(email);
+  }
+  return user;
+}
+
+// POST /webhooks/subscription-payment
+// A REAL charge: the signup order (order_created with total > 0) or a renewal
+// invoice (subscription_payment_success). Writes the money row and extends the
+// entitlement clock. Amounts arrive in LS minor units (JPY ×100).
+router.post("/subscription-payment", (req, res) => {
+  const { email, invoiceId, lsOrderId, subscriptionId, customerId, plan, amountMinor, currency, billingReason, testMode } = req.body;
+
+  const isTest = testMode ? 1 : 0;
+  const amount = typeof amountMinor === "number" ? Math.round(amountMinor / 100) : 0;
+  const user = findSubscriptionUser({ subscriptionId, customerId, email });
+  const resolvedPlan =
+    plan ||
+    (user
+      ? db.prepare("SELECT subscription_plan FROM users WHERE id = ?").get(user.id)?.subscription_plan
+      : null) ||
+    "monthly";
+
+  // ¥0 initial order = free-trial signup, not money. Never materialize it as an
+  // order row (that phantom was exactly what confused the gate metrics).
+  if (amount <= 0) {
+    console.log(`[webhook] subscription-payment: zero-amount ${billingReason || "?"} for ${email || subscriptionId} — no order row`);
+    return res.json({ ok: true, trial: true });
+  }
+
+  const orderKey = invoiceId ? `lsinv_${invoiceId}` : `lsord_${lsOrderId}`;
+  let isReplay = false;
+  try {
+    db.transaction(() => {
+      const inserted = db.prepare(
+        `INSERT OR IGNORE INTO orders (order_id, email, product, amount, amount_minor, currency, pack_id, payment_intent, is_test)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      ).run(
+        orderKey,
+        email || user?.email || "unknown",
+        `Pro ${resolvedPlan}`,
+        amount,
+        typeof amountMinor === "number" ? amountMinor : null,
+        (currency || "JPY").toLowerCase(),
+        `pro-${resolvedPlan}`,
+        invoiceId || lsOrderId || null,
+        isTest,
+      );
+      // Replay guard: a re-delivered (or maliciously replayed) old invoice hits
+      // INSERT OR IGNORE with changes=0 — record nothing AND touch no
+      // entitlement, otherwise a replay could resurrect a cancelled/refunded
+      // Pro account whose pro_expires_at was NULLed.
+      isReplay = inserted.changes === 0;
+      if (user && !isReplay) {
+        // Extend the clock generously; the follow-up subscription_updated event
+        // snaps it to the exact renews_at. Never SHORTEN an existing expiry.
+        const horizonDays = resolvedPlan === "yearly" ? 370 : 35;
+        const candidate = new Date(Date.now() + horizonDays * 86400000).toISOString();
+        db.prepare(
+          `UPDATE users SET
+            tier = 'pro',
+            subscription_status = 'active',
+            pro_expires_at = CASE
+              WHEN pro_expires_at IS NULL OR pro_expires_at < ? THEN ?
+              ELSE pro_expires_at
+            END
+          WHERE id = ?`
+        ).run(candidate, candidate, user.id);
+      }
+    })();
+  } catch (err) {
+    console.error(`[webhook] subscription-payment DB error:`, err?.message || err);
+    return res.status(500).json({ error: "db" });
+  }
+
+  console.log(`[webhook] subscription-payment: ${orderKey} ¥${amount} ${billingReason || ""} user=${user?.id ?? "unmatched"}${isReplay ? " (replay — ignored)" : ""}`);
+  return res.json({ ok: true, replay: isReplay });
+});
+
+// POST /webhooks/subscription-revoke
+// Refund / chargeback / dispute: money went back, so Pro goes away and the
+// order rows are flagged out of every revenue metric.
+router.post("/subscription-revoke", (req, res) => {
+  const { email, reason, lsId, subscriptionId, customerId } = req.body;
+
+  const user = findSubscriptionUser({ subscriptionId, customerId, email });
+  let downgraded = false;
+  try {
+    db.transaction(() => {
+      // Flag ONLY the specific reversed money row (never the whole history —
+      // one refunded invoice must not erase prior kept revenue from reports).
+      if (lsId) {
+        db.prepare(
+          "UPDATE orders SET refunded = 1, refunded_at = datetime('now') WHERE order_id IN (?, ?, ?) OR payment_intent = ?"
+        ).run(`lsinv_${lsId}`, `lsord_${lsId}`, String(lsId), String(lsId));
+      }
+
+      // Entitlement: order_refunded can be a PACK/pre-order refund found via the
+      // email fallback — that must NOT nuke an unrelated active Pro sub. Only
+      // downgrade for order_refunded when the refunded order itself is a Pro
+      // order; subscription-scoped reasons always downgrade.
+      let shouldDowngrade = reason !== "order_refunded";
+      if (!shouldDowngrade && lsId) {
+        const row = db.prepare(
+          "SELECT pack_id FROM orders WHERE order_id IN (?, ?, ?) OR payment_intent = ?"
+        ).get(`lsinv_${lsId}`, `lsord_${lsId}`, String(lsId), String(lsId));
+        shouldDowngrade = Boolean(row && typeof row.pack_id === "string" && row.pack_id.startsWith("pro-"));
+      }
+      if (user && shouldDowngrade) {
+        db.prepare(
+          `UPDATE users SET tier = 'free', subscription_status = ?, pro_expires_at = NULL WHERE id = ?`
+        ).run(reason || "refunded", user.id);
+        downgraded = true;
+      }
+    })();
+  } catch (err) {
+    console.error(`[webhook] subscription-revoke DB error:`, err?.message || err);
+    return res.status(500).json({ error: "db" });
+  }
+
+  console.log(`[webhook] subscription-revoke: reason=${reason} user=${user?.id ?? "unmatched"} downgraded=${downgraded} lsId=${lsId || "-"}`);
+  return res.json({ ok: true, downgraded });
+});
+
 // POST /webhooks/subscription-cancelled
-// Called on customer.subscription.deleted
+// Two DIFFERENT provider events land here, told apart only by `reason`:
+//   subscription_cancelled → the customer turned off renewal. They keep the
+//                            period they already paid for, through `endsAt`.
+//   subscription_expired   → reason="expired", the clock ran out. Access ends.
+// Treating both as "revoke now" took paid days away from a paying customer
+// while /support and /account promised in writing that it would not. The
+// decision itself lives in ../entitlement.js so it can be tested.
 router.post("/subscription-cancelled", (req, res) => {
-  const { subscriptionId, customerId } = req.body;
+  const { subscriptionId, customerId, reason, endsAt } = req.body;
 
-  console.log(`[webhook] Subscription cancelled: ${subscriptionId}`);
+  console.log(`[webhook] Subscription ${reason === "expired" ? "expired" : "cancelled"}: ${subscriptionId} endsAt=${endsAt || "-"}`);
 
-  const user = db.prepare(
-    "SELECT id FROM users WHERE stripe_subscription_id = ? OR stripe_customer_id = ?"
-  ).get(subscriptionId, customerId);
+  const user = findSubscriptionUser({ subscriptionId, customerId });
 
   if (!user) {
     console.log(`[webhook] subscription-cancelled: no user found for sub=${subscriptionId}`);
     return res.json({ ok: true, skipped: true });
   }
 
+  const decision = resolveCancellation({ reason, endsAt });
+
   db.prepare(
     `UPDATE users SET
-      tier = 'free',
-      subscription_status = 'cancelled',
-      subscription_cancel_at_period_end = 1
+      tier = ?,
+      subscription_status = ?,
+      subscription_cancel_at_period_end = ?,
+      subscription_current_period_end = COALESCE(?, subscription_current_period_end),
+      pro_expires_at = ?
     WHERE id = ?`
-  ).run(user.id);
+  ).run(
+    decision.tier,
+    decision.subscriptionStatus,
+    decision.cancelAtPeriodEnd,
+    decision.currentPeriodEnd,
+    decision.proExpiresAt,
+    user.id,
+  );
 
-  console.log(`[webhook] subscription-cancelled: user=${user.id}`);
-  return res.json({ ok: true });
+  console.log(
+    `[webhook] subscription-cancelled: user=${user.id} tier=${decision.tier} keepsAccess=${decision.keepsAccess} until=${decision.proExpiresAt || "-"}`
+  );
+  return res.json({ ok: true, keepsAccess: decision.keepsAccess });
 });
 
 /**

@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const db = require("./db");
+const { effectiveTier } = require("./entitlement");
 
 const SESSION_COOKIE = "colorarchive_session";
 const GOOGLE_STATE_COOKIE = "colorarchive_google_state";
@@ -184,14 +185,16 @@ function getSessionUser(req) {
     return null;
   }
 
-  // Check if pro has expired
-  let tier = session.tier || "free";
-  if (tier === "pro" && session.pro_expires_at) {
-    const expiresMs = new Date(session.pro_expires_at).getTime();
-    if (expiresMs < now()) {
-      tier = "free";
-      db.prepare("UPDATE users SET tier = 'free' WHERE id = ?").run(session.user_id);
-    }
+  // Check if pro has expired. The rule itself lives in ../entitlement.js so the
+  // API-key path cannot answer this question differently — see effectiveTier().
+  const resolved = effectiveTier({
+    tier: session.tier,
+    proExpiresAt: session.pro_expires_at,
+    now: now(),
+  });
+  const tier = resolved.tier;
+  if (resolved.expired) {
+    db.prepare("UPDATE users SET tier = 'free' WHERE id = ?").run(session.user_id);
   }
 
   return {

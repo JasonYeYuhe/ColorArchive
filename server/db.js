@@ -86,6 +86,15 @@ ensureColumn("orders", "pack_id TEXT");
 ensureColumn("orders", "download_url TEXT");
 ensureColumn("orders", "receipt_url TEXT");
 ensureColumn("orders", "attributed_source TEXT");
+// Refunds/chargebacks flag the row instead of deleting it — history stays, revenue metrics exclude it
+ensureColumn("orders", "refunded INTEGER DEFAULT 0");
+// Exact processor amount in minor units (LS sends ×100 for every currency incl.
+// JPY). `amount` stays the rounded major-unit figure for display; this column
+// is the audit-grade truth so decimal currencies (USD $3.47 → amount 3) lose nothing.
+ensureColumn("orders", "amount_minor INTEGER");
+// When the row was refunded/disputed — lets the daily conversion digest window
+// "money reversed" events, not just count them all-time.
+ensureColumn("orders", "refunded_at TEXT");
 ensureColumn("orders", "attributed_utm_source TEXT");
 ensureColumn("orders", "attributed_utm_medium TEXT");
 ensureColumn("orders", "attributed_utm_campaign TEXT");
@@ -113,6 +122,16 @@ ensureColumn("subscribers", "follow_up_30d_sent TEXT");
 ensureColumn("subscribers", "follow_up_30d_variant TEXT");
 ensureColumn("subscribers", "cotd_subscribed INTEGER DEFAULT 0");
 ensureColumn("subscribers", "cotd_last_sent TEXT");
+// Design Notes — the weekly, technical counterpart to the daily color. Guide
+// readers arrive mid-research (OKLCH, contrast, tokens); a color a day is the
+// wrong promise for them, so they get their own list.
+ensureColumn("subscribers", "notes_subscribed INTEGER DEFAULT 0");
+ensureColumn("subscribers", "notes_last_sent TEXT");
+// `source` is overwritten on every re-subscribe (the pre-order numerator relied
+// on that), which destroys first-touch attribution. `first_source` is written
+// once and never updated, so we can finally answer "which surface earned this
+// subscriber" — the whole point of adding capture to guides vs color-detail.
+ensureColumn("subscribers", "first_source TEXT");
 
 ensureColumn("users", "tier TEXT DEFAULT 'free'");
 ensureColumn("users", "pro_expires_at TEXT");
@@ -195,6 +214,11 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_pageviews_created_at ON pageviews(created_at);
   CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at);
   CREATE INDEX IF NOT EXISTS idx_events_event_name ON events(event_name);
+  -- The AI gate query is COUNT(DISTINCT session_id) GROUP BY event_name over a
+  -- date window (see server/scripts/ai-gate-report.cjs). Composite so that whole
+  -- query is served from the index instead of scanning the table on a 1 vCPU box.
+  CREATE INDEX IF NOT EXISTS idx_events_name_created_session
+    ON events(event_name, created_at, session_id);
   CREATE INDEX IF NOT EXISTS idx_events_channel ON events(channel);
   CREATE INDEX IF NOT EXISTS idx_pageviews_channel ON pageviews(channel);
   CREATE INDEX IF NOT EXISTS idx_pageviews_path ON pageviews(path);

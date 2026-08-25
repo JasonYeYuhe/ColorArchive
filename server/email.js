@@ -1,6 +1,9 @@
 const { Resend } = require("resend");
 const updateBrief = require("./content/update-brief");
 const newsletterIssues = require("../src/data/newsletter-issues.json");
+// Pro prices live in ONE place (src/lib/checkout-config.ts) and are mirrored
+// into server/pricing.js under test. Never type a price literal into this file.
+const { monthlyBlurb } = require("./pricing");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.FROM_EMAIL || "hello@colorarchive.org";
@@ -40,9 +43,11 @@ async function sendFreePackEmail(to) {
       "",
       "The pack includes 3 curated palettes with CSS variables and PNG swatches.",
       "",
-      "Want the full library? The All Access Bundle includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for ¥2,799.",
-      `${SITE_URL}/packs/all-access-bundle/`,
-      "",
+      // The All Access Bundle upsell (¥2,799) was removed 2026-08-18: the packs
+      // were deleted in 00d7a04 and /packs/* now 301s to /pro/, so this quoted
+      // a price for something nobody could buy — to EVERY new subscriber, since
+      // this is the default branch in routes/subscribe.js. The free-pack
+      // delivery above is the thing we actually promised and is untouched.
       "— ColorArchive",
       SITE_URL,
     ].join("\n"),
@@ -60,16 +65,6 @@ async function sendFreePackEmail(to) {
         <p style="color:#666;font-size:14px">
           The pack includes 3 curated palettes with CSS variables and PNG swatches.
         </p>
-        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:16px 18px;margin:20px 0">
-          <div style="font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#14532d;font-weight:700">Want the full library?</div>
-          <p style="margin:10px 0 0;color:#166534;line-height:1.6;font-size:14px">
-            The <strong>All Access Bundle</strong> includes every pack — all 2016 colors, dark mode pairings, brand kits, and more — in one download for <strong>¥2,799</strong>.
-          </p>
-          <p style="margin:12px 0 0">
-            <a href="${SITE_URL}/packs/all-access-bundle/"
-               style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none">View All Access Bundle →</a>
-          </p>
-        </div>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
         <p style="color:#999;font-size:12px">
           ColorArchive · <a href="${SITE_URL}" style="color:#999">${SITE_DOMAIN}</a>
@@ -88,7 +83,26 @@ async function sendFreePackEmail(to) {
 async function sendWaitlistConfirmationEmail(to) {
   const featuredPalette = updateBrief.featuredPalette;
   const featuredPack = updateBrief.featuredPack;
-  const latestIssue = newsletterIssues[0];
+  // Newest by DATE, not by position in the JSON — the raw file descends, jumps
+  // back, then ascends, so `newsletterIssues[0]` was simply whichever entry
+  // happened to be first and this email advertised a two-month-old note as the
+  // latest. Duplicated rather than imported because this is the CommonJS server
+  // and that module is TypeScript.
+  //
+  // THE LAG IS DELIBERATE. The site's publish cutoff is evaluated when Vercel
+  // BUILDS; this server evaluates it when the mail is SENT. Those clocks are not
+  // the same, so a plain `date <= today` here can link an issue whose page the
+  // last build did not generate — a hard 404 in a customer's inbox. Requiring the
+  // issue to be a couple of days old keeps the link inside the deployed set: the
+  // repo pushes to main most days, and any push rebuilds the whole site.
+  //
+  // If deploys ever become infrequent, widen this or drop the per-issue link for
+  // the /notes/ index, which cannot 404.
+  const BUILD_LAG_DAYS = 2;
+  const cutoff = new Date(Date.now() - BUILD_LAG_DAYS * 86400000).toISOString().slice(0, 10);
+  const latestIssue = newsletterIssues
+    .filter((issue) => issue.date <= cutoff)
+    .sort((a, b) => b.date.localeCompare(a.date))[0];
   const result = await sendEmail({
     from: `ColorArchive <${FROM}>`,
     reply_to: FROM,
@@ -540,7 +554,7 @@ async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
       "Brand Starter Kit (¥1,499) — Primary + secondary + accent groups for landing pages and brands.",
       `${SITE_URL}/packs/brand-starter-kit/`,
       "",
-      "Complete Archive Token Set (¥2,499) — All 5,400+ colors as CSS, JSON, Tailwind, Figma tokens.",
+      "Complete Archive Token Set (¥2,499) — All 5,446 colors as CSS, JSON, Tailwind, Figma tokens.",
       `${SITE_URL}/packs/complete-archive/`,
       "",
       "All Access Bundle (¥3,999) — Everything above in one download. Save 40%.",
@@ -561,7 +575,7 @@ async function sendFollowUp7DayEmail(to, { variant = "A" } = {}) {
           { id: "dark-mode-ui-kit", title: "Dark Mode UI Kit", price: "¥999", desc: "Pre-tested light/dark pairings, contrast-checked, Tailwind ready.", bg: "#f5f3ff", border: "#ddd6fe", titleColor: "#6d28d9", textColor: "#5b21b6" },
           { id: "content-creator-bundle", title: "Creator Bundle", price: "¥999", desc: "Social-ready palette boards and wallpaper sets for visual content.", bg: "#fff7ed", border: "#fed7aa", titleColor: "#9a3412", textColor: "#7c2d12" },
           { id: "brand-starter-kit", title: "Brand Color Starter Kit", price: "¥1,499", desc: "Primary + secondary + accent groups for landing pages and brands.", bg: "#eff6ff", border: "#bfdbfe", titleColor: "#1d4ed8", textColor: "#1e3a8a" },
-          { id: "complete-archive", title: "Complete Archive Token Set", price: "¥2,499", desc: "All 5,400+ colors as CSS, JSON, Tailwind, and Figma tokens.", bg: "#fafafa", border: "#e5e7eb", titleColor: "#111827", textColor: "#374151" },
+          { id: "complete-archive", title: "Complete Archive Token Set", price: "¥2,499", desc: "All 5,446 colors as CSS, JSON, Tailwind, and Figma tokens.", bg: "#fafafa", border: "#e5e7eb", titleColor: "#111827", textColor: "#374151" },
           { id: "all-access-bundle", title: "All Access Bundle", price: "¥3,999", desc: "Everything above in one download. Save 40%.", bg: "#f0fdf4", border: "#86efac", titleColor: "#14532d", textColor: "#166534" },
         ].map(p => `
         <div style="background:${p.bg};border:1px solid ${p.border};border-radius:16px;padding:14px 16px;margin:12px 0">
@@ -697,7 +711,9 @@ async function sendFollowUp21DayEmail(to, { variant = "A" } = {}) {
       "",
       "Browse more palettes and collections: ${SITE_URL}/collections/",
       "",
-      "Or if you want ready-made CSS, JSON, and Figma tokens: ${SITE_URL}/packs/",
+      // Was ${SITE_URL}/packs/ — retired with the packs (00d7a04); that URL 301s
+      // to /pro/ anyway, so link the real destination instead of bouncing people.
+      "Or if you want ready-made CSS, JSON, and Figma tokens: ${SITE_URL}/pro/",
       "",
       "— ColorArchive",
       SITE_URL,
@@ -723,9 +739,9 @@ async function sendFollowUp21DayEmail(to, { variant = "A" } = {}) {
              style="display:inline-block;background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
             Browse Collections
           </a>
-          <a href="${SITE_URL}/packs/"
+          <a href="${SITE_URL}/pro/"
              style="display:inline-block;background:#f8fafc;border:1px solid #e5e7eb;color:#1a1a1a;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">
-            View Packs →
+            Export tokens with Pro →
           </a>
         </div>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
@@ -961,6 +977,66 @@ async function sendCotdEmail(to, color, dateStr) {
   return result;
 }
 
+/**
+ * Welcome mail for Design Notes — the weekly list guide readers opt into.
+ *
+ * They arrived mid-research (contrast, OKLCH, tokens), so this deliberately
+ * does NOT push the free pack or a daily color: it confirms exactly what was
+ * promised, and points at the tools that solve what they were reading about.
+ */
+async function sendDesignNotesWelcomeEmail(to) {
+  const unsubUrl = `${SITE_URL}/unsubscribe/?email=${encodeURIComponent(to)}`;
+  const result = await sendEmail({
+    to,
+    subject: "You're in — ColorArchive Design Notes",
+    text: [
+      "You're on the list for Design Notes.",
+      "",
+      "One email a week: a practical note on working with color — contrast and accessibility, color spaces like OKLCH, palette structure, design tokens. Written for people who build things, not colour theory for its own sake.",
+      "",
+      "While you wait, these are the tools behind most of the guides:",
+      `  Contrast checker (WCAG + APCA) — ${SITE_URL}/contrast/`,
+      `  Palette audit (paste CSS or tokens) — ${SITE_URL}/palette-audit/`,
+      `  Color converter (HEX, OKLCH, Lab) — ${SITE_URL}/convert/`,
+      "",
+      "Reply to this email any time — it reaches a person.",
+      "",
+      `Unsubscribe: ${unsubUrl}`,
+    ].join("\n"),
+    html: `
+      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;color:#1f2328;">
+        <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9ca3af;margin:0 0 14px;">ColorArchive Design Notes</p>
+        <p style="font-size:16px;line-height:1.6;margin:0 0 14px;"><strong>You're on the list.</strong></p>
+        <p style="color:#4b5563;font-size:14px;line-height:1.7;margin:0 0 18px;">
+          One email a week: a practical note on working with color &mdash; contrast and accessibility,
+          color spaces like OKLCH, palette structure, design tokens. Written for people who build
+          things, not colour theory for its own sake.
+        </p>
+        <p style="color:#4b5563;font-size:14px;line-height:1.7;margin:0 0 10px;">
+          While you wait, these are the tools behind most of the guides:
+        </p>
+        <div style="line-height:2;font-size:14px;margin:0 0 20px;">
+          <a href="${SITE_URL}/contrast/" style="color:#4f46e5;">Contrast checker (WCAG + APCA)</a><br>
+          <a href="${SITE_URL}/palette-audit/" style="color:#4f46e5;">Palette audit &mdash; paste CSS or tokens</a><br>
+          <a href="${SITE_URL}/convert/" style="color:#4f46e5;">Color converter (HEX, OKLCH, Lab)</a>
+        </div>
+        <p style="color:#4b5563;font-size:14px;line-height:1.7;margin:0 0 22px;">
+          Reply to this email any time &mdash; it reaches a person.
+        </p>
+        <hr style="border:none;border-top:1px solid #eee;margin:22px 0;">
+        <p style="color:#9ca3af;font-size:12px;line-height:1.6;margin:0;">
+          One email a week. <a href="${unsubUrl}" style="color:#9ca3af;">Unsubscribe</a> any time.
+        </p>
+      </div>`,
+  });
+
+  if (result?.error) {
+    console.error("Resend error (design notes welcome):", JSON.stringify(result.error));
+    throw new Error(result.error.message);
+  }
+  return result;
+}
+
 async function sendProUpsellEmail(email) {
   if (!resend) return;
   const result = await sendEmail({
@@ -976,7 +1052,7 @@ async function sendProUpsellEmail(email) {
           You've used all your free AI generations for today. That means you're getting real value from ColorArchive — nice!
         </p>
         <p style="color:#555;font-size:14px;line-height:1.6;">
-          With <strong>Pro</strong>, you get <strong>unlimited</strong> AI palette generations, exports, WCAG reports, and more — for just $4.99/month.
+          With <strong>Pro</strong>, you get <strong>unlimited</strong> AI palette generations, exports, WCAG reports, and more — for just ${monthlyBlurb()}.
         </p>
         <div style="text-align:center;margin:24px 0;">
           <a href="${SITE_URL}/pro" style="display:inline-block;background:#6366f1;color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">
@@ -1022,7 +1098,7 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
       "",
       "Your free account gives you 10 AI generations per day — no credit card required.",
       "",
-      "Want unlimited AI generations, exports, and every color format? Pro is $4.99/month.",
+      `Want unlimited AI generations, exports, and every color format? Pro is ${monthlyBlurb()}.`,
       `${SITE_URL}/pro`,
       "",
       "— ColorArchive",
@@ -1045,7 +1121,7 @@ async function sendReferralWelcomeEmail(to, { referrerName = null } = {}) {
         </div>
         <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:16px 18px;margin:20px 0;">
           <div style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#14532d;font-weight:700;">Pro — unlimited everything</div>
-          <p style="margin:8px 0 0;color:#166534;font-size:14px;line-height:1.6;">Unlimited AI generations, WCAG reports, exports in every format, and access to the complete 5,446-color token set. From <strong>$4.99/month</strong>.</p>
+          <p style="margin:8px 0 0;color:#166534;font-size:14px;line-height:1.6;">Unlimited AI generations, WCAG reports, exports in every format, and access to the complete 5,446-color token set. From <strong>${monthlyBlurb()}</strong>.</p>
           <p style="margin:10px 0 0;"><a href="${SITE_URL}/pro" style="color:#14532d;font-weight:600;font-size:13px;text-decoration:none;">View Pro plans →</a></p>
         </div>
         <p style="color:#ccc;font-size:11px;margin-top:24px;">ColorArchive · ${FROM}</p>
@@ -1396,6 +1472,7 @@ module.exports = {
   sendWaitlistConfirmationEmail,
   sendNewsletterIssueAlert,
   sendCotdEmail,
+  sendDesignNotesWelcomeEmail,
   sendProUpsellEmail,
   sendReferralWelcomeEmail,
   sendWeeklyDigestEmail,

@@ -47,7 +47,7 @@ router.get("/orders", (req, res) => {
           order_id,
           email,
           product,
-          amount,
+          COALESCE(amount_minor, amount * 100) AS amount,
           currency,
           created_at,
           pack_id,
@@ -164,7 +164,7 @@ router.get("/autopilot-status", (req, res) => {
     .get(sevenDaysAgo).n;
   const recentOrders = db
     .prepare(
-      `SELECT order_id, email, product, amount, currency, created_at, is_test FROM orders
+      `SELECT order_id, email, product, COALESCE(amount_minor, amount * 100) AS amount, currency, created_at, is_test FROM orders
        WHERE 1=1${testFilter}
        ORDER BY created_at DESC LIMIT 10`
     )
