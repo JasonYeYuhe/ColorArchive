@@ -68,7 +68,7 @@ function CombinationCard({ combo }: { combo: ColorCombination }) {
               className="h-3 w-3 rounded-full border border-black/10 dark:border-white/10"
               style={{ backgroundColor: color.hex }}
             />
-            <CopyButton value={color.hex} label={color.hex} variant="compact" />
+            <CopyButton value={color.hex} label={color.hex} trackAs="combinations-swatch" variant="compact" />
           </Link>
         ))}
       </div>

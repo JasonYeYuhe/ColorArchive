@@ -102,7 +102,7 @@ function SeasonCard({
                 {color.name}
               </p>
               <div className="flex items-center gap-1">
-                <CopyButton value={color.hex} label={color.hex.toUpperCase()} variant="compact" />
+                <CopyButton value={color.hex} label={color.hex.toUpperCase()} trackAs="seasons-swatch" variant="compact" />
               </div>
             </div>
           ))}

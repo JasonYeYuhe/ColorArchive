@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { writeClipboard } from "@/src/lib/clipboard";
 import { track } from "@/src/lib/track";
 
 interface CopyButtonProps {
@@ -32,24 +33,30 @@ export function CopyButton({
   useEffect(() => () => { clearTimeout(timerRef.current); }, []);
 
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      timerRef.current = setTimeout(() => setCopied(false), 1400);
-      // Fired only after writeText resolves, and deliberately after setCopied:
-      // a copy that threw (clipboard permission denied, insecure context, an
-      // embedded webview without the API) shows no confirmation to the user and
-      // must not show one in the funnel either. This was the single missing step
-      // between "generated a palette" and "took it away to use it" — every other
-      // event on this path already existed.
-      //
-      // The copied string is not sent. It is only ever a colour here, but the
-      // component is generic and props_json is readable by the admin surface;
-      // the funnel needs the count, not the contents.
-      track("color_copied", { format: trackAs ?? label, variant });
-    } catch {
-      /* noop */
+    const format = trackAs ?? label;
+    const result = await writeClipboard(value);
+
+    if (!result.ok) {
+      // The other half of the metric. Previously this branch was an empty catch,
+      // so a browser that refused the write was indistinguishable from a visitor
+      // who never clicked — see src/lib/clipboard.ts for why that made the
+      // take-away rate unusable. Reading `color_copied` alone is still wrong;
+      // the honest denominator is `copied + failed`.
+      track("color_copy_failed", { format, variant, reason: result.reason });
+      return;
     }
+
+    setCopied(true);
+    timerRef.current = setTimeout(() => setCopied(false), 1400);
+    // Fired only on a confirmed write, and deliberately after setCopied: a copy
+    // that failed shows no confirmation to the user and must not show one in the
+    // funnel either. This was the single missing step between "generated a
+    // palette" and "took it away to use it" — every other event already existed.
+    //
+    // The copied string is not sent. It is only ever a colour here, but the
+    // component is generic and props_json is readable by the admin surface;
+    // the funnel needs the count, not the contents.
+    track("color_copied", { format, variant });
   };
 
   if (variant === "compact") {

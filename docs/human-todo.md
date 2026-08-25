@@ -1,7 +1,37 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
-> Last updated: **2026-08-24** — Hayley 的锁定**已解除并验证**(她全程没踩到);
+>
+> ## 🔴 Last updated: **2026-08-25 16:0x UTC** — 三件事,一件是今晚的
+>
+> **1. James 的首扣还没发生。** 交接文档把它当成「已发生、去看结果」,但会话开始时是
+> **08-25 15:40 UTC**,扣款在 **23:42:47 UTC**,当时还有 8 小时。已确认他仍是
+> `on_trial`。**这次没有结果可看,只有风险可控。** 详见 §2026-08-25。
+>
+> **2. Hayley 的额度必须再延一次(截止 08-29 10:00 UTC)。** 判据不是猜的:LS 那边
+> `renews_at` 仍停在 `2026-08-22T10:00Z`、`updated_at` 仍停在 `2026-07-22`,**5 天零动静**;
+> 工单发出 35 小时**未回信**。命令在 §2026-08-23 §1,自愈、可重复执行。
+>
+> **3. ✅ 挂了两个多月的删店问题自己解决了** —— `GET /v1/stores/340792` 现在返回 **404**,
+> `319224` 返回 200。LS 没回信就把重复店删了。**两张工单去掉一张,只剩续费那张。**
+>
+> ---
+>
+> ## ✅ 2026-08-25 owner 的三个决定(已落,不必再问)
+>
+> | 问题 | 决定 |
+> |---|---|
+> | **§0 甲/乙** | **甲 —— A 路继续有效。** W0/W1 照做;W2 的功能改动**明确定位为免费产品的可用性修复**,不挂靠「让人想购买」。付费面投入仍然停止。 |
+> | **W3(分发)** | **先只做诊断,不做实验。** → 诊断已完成:`docs/w3-diagnosis-2026-08-25.md`。**没有启动任何分发动作。** |
+> | **`graceDays: 0`** | **保持 0,不改代码,今晚人工盯。** 代码未动;锁定机制已写成可执行的表征测试(`entitlement.test.js`),报警已验证会抓到 `on_trial` 和 `past_due` 两种状态。 |
+>
+> **W3 诊断的一句话结论**:这个站是**单渠道 + 单次访问** ——
+> Google 一家占 81.5% 的真实使用者,生成深度在各来源之间是平的(没有更好的来源),
+> **98.4% 的读者只来一天**(用不受埋点压制影响的 `page_read` 交叉验证过)。
+> → 「问题是量不是转化」应更准确地表述为:**获取到的人不回来,所以量不会复利。**
+>
+> ---
+> 2026-08-24 — Hayley 的锁定**已解除并验证**(她全程没踩到);
 > LS 两张工单已发出(续费没执行 / 删重复店 340792),**等回复**。
 > ⏰ **下一个时间点:James Watts 首次扣款 2026-08-25 23:42 UTC** —— 鉴于刚发现这个店的
 > 续费不一定会自己发生,那天要主动看,别等报表。
@@ -20,6 +50,104 @@
 > **New and time-sensitive: any Complete Archive customer is holding a bundle with 70
 > colors missing from four of its exports and needs a re-download note.** Off-repo copies
 > of the old counts still need a sweep.)
+
+## 🔴 2026-08-25 — James 的首扣:一份**扣款前**的风险分析(不是结果报告)
+
+### 0. 先纠正一个前提:这件事还没发生
+
+会话开始 **2026-08-25 15:40:09 UTC**(= JST 08-26 00:40,所以「今天是 26 号」是本地时区)。
+扣款时刻 **2026-08-25 23:42:47 UTC**。**当时距离扣款还有 8 小时 02 分。**
+生产库确认他仍是 `on_trial` / `pro_expires_at = 2026-08-25T23:42:47.000Z`。
+
+→ 所以本节不是「扣了没扣」,而是**在扣款前能确定的东西**。
+
+### 1. 🔴 计划 §2.5 说「站史只发生过两次该扣款的时刻」——**这是错的**
+
+拉了全店发票(`GET /v1/subscription-invoices?filter[store_id]=319224`,共 9 张):
+
+| 时间 | 订阅 | 邮箱 | 原因 | 状态 | 金额 |
+|---|---|---|---|---|---|
+| 04-17 | 2070483 | ...@gmail | initial | paid | ¥0(试用) |
+| 04-17 | 2070506 | ...@icloud | initial | paid | ¥0(试用) |
+| **04-20** | 2070506 | ...@icloud | renewal | **paid** | ¥550 visa |
+| **05-20** | 2070506 | ...@icloud | renewal | **paid** | ¥550 visa |
+| **06-20** | 2070506 | ...@icloud | renewal | **paid** | ¥550 visa |
+| **07-20** | 2070506 | ...@icloud | renewal | **paid** | ¥550 visa |
+| **07-22** | 2357096 | hayley | renewal | **paid** | $3.47 |
+| **08-20** | 2070506 | ...@icloud | renewal | **paid** | ¥550 visa |
+| 08-22 | 2456821 | james | initial | paid | ¥0(试用) |
+| **08-22** | **2357096** | **hayley** | **renewal** | **❌ 从来没有这张发票** | — |
+
+**该扣款的时刻是 7 次,不是 2 次;执行了 6 次。** 最近一次成功是 **08-20,5 天前**。
+
+→ **「计费本身是坏的」这个标题写过头了。** 准确的说法是:
+**续费调度器在这个店demonstrably 会跑;没跑的那一笔是店里唯一一笔 PayPal。**
+(这和 §2026-08-23 §2 早就查明的处理商差异是同一个结论,只是计划里没跟上。)
+
+⚠️ **但别把这条读成「所以今晚会成功」。** 那 5 次成功**是同一个订阅、同一张卡**——
+是一个可用配置重复了 5 次,不是 5 次独立试验。它证明的是**机器会转**,
+不是**James 那张 mastercard 会过**。
+
+### 2. 今晚三种走向,以及每一种我们的代码会怎么做
+
+James:`payment_processor: stripe`,`card: mastercard ••5466`,`renews_at 2026-08-25T23:42:47Z`。
+`entitlement.js` / `webhook.js` / `conversion-digest.cjs` 的 droplet md5 **全部等于 HEAD**,
+所以下面是对**正在跑的那份代码**的判断,不是对仓库的判断。
+
+| 走向 | LS 发什么 | 我们怎么处理 | 结果 |
+|---|---|---|---|
+| **A 扣款成功** | `subscription_payment_success`(¥499→amount 499>0)+ `subscription_updated(active, renews_at=09-25)` | 前者把 `pro_expires_at` 推到 +35 天,后者拍回 09-25 | ✅ 正常 |
+| **B 卡被拒,LS 推进 `renews_at`** | `subscription_updated(past_due, renews_at=未来)` | `past_due` 在 `ACTIVE_STATUSES` 里 → 保持 pro | ✅ dunning 期间不断访问 |
+| **C 卡被拒,LS **不**推进 `renews_at`** | `subscription_updated(past_due, renews_at=08-25 23:42)` | `graceDays: 0` 把这个**已过期**的日期原样写进 `pro_expires_at` → `effectiveTier` 读成 free | ❌ **webhook 落地的瞬间被锁** |
+| **D webhook 没送到 / 送达失败** | (什么都没有) | 库里 `pro_expires_at` 仍是 `23:42:47` | ❌ **即使扣款成功也会在 23:42:47 被锁** |
+
+**C 不是假设。** Hayley 的订阅此刻就是「状态说活着 + `renews_at` 停在过去」——
+LS 确实会把日期留在原地。C 和 D 就是 08-22 那次事故的两种形状。
+
+已把 C 写成一条**可执行的**回归测试(`server/__tests__/entitlement.test.js`,
+"STALE renews_at + a live status locks the customer out — today's behaviour"):
+它用 `effectiveTier` 把锁定复现出来。**它 pin 的是现状,不是保证** ——
+owner 若决定加 grace,这条会红,那是有意的。
+
+### 3. 兜底有多快:**最坏 8 小时 17 分**
+
+stale-renewal 报警会抓到 C 和 D —— 这是**跑出来**的,不是读出来的:
+把生产库副本里 James 的 `pro_expires_at` 拨到过去,`--dry-run` 跑部署在 droplet 上的那份
+`conversion-digest.cjs`,`on_trial` 和 `past_due` 两种状态都命中:
+
+```
+🔴 LOCKED OUT RIGHT NOW — provider says active, our access clock has expired:
+  jameswatts0925@gmail.com  [on_trial]  expired ...  (0h ago)
+subject would be: "[ColorArchive] 🔴 1 locked out"
+```
+
+但 cron 是 `0 8 * * *`(UTC)。**23:42:47 出事 → 08:00 才报警 → 最坏盲区 8h17m。**
+(上次 Hayley 是 48 小时,所以这是改善,不是解决。)
+
+### 4. 🔴 因此 `graceDays: 0` 的决定**现在有日期了**
+
+它不再是一条待办,它在 **8 小时后**对站史第二个付费客户生效。两个选项仍在
+§2026-08-22(未改),但请注意这次的权衡是具体的:
+**保持 0** = 走向 C 会当场锁人,靠 8 小时后的邮件发现;
+**加 grace** = 在全站最敏感的逻辑上朝 failure-open 走一步。
+
+**我没有动它。** 需要 owner 点头,交接文档和计划都是这么写的。
+
+### 5. 扣款后要跑的命令(只读)
+
+```bash
+ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes root@143.198.85.72 \
+ 'cd /root/ColorArchive/server && sqlite3 -header -column data.db "SELECT email,tier,subscription_status,pro_expires_at FROM users WHERE email='"'"'jameswatts0925@gmail.com'"'"';" && set -a && . ./.env && set +a && curl -s -H "Authorization: Bearer $LS_API_KEY" -H "Accept: application/vnd.api+json" "https://api.lemonsqueezy.com/v1/subscription-invoices?filter%5Bstore_id%5D=319224" | python3 -c "import sys,json;d=json.load(sys.stdin);[print(x[\"attributes\"][\"created_at\"],x[\"attributes\"][\"user_email\"],x[\"attributes\"][\"billing_reason\"],x[\"attributes\"][\"status\"],x[\"attributes\"][\"total_formatted\"]) for x in d[\"data\"]]"'
+```
+
+**判据(和上次一样,先分清「没扣」和「扣失败」)**:
+- **多出一张 `renewal` 发票 + status `paid`** → 真扣上了。再核对库里 `pro_expires_at` 是否 ≈ 09-25。
+- **多出一张 `renewal` 发票但 `status != paid`**,或收到 `subscription_payment_failed`
+  → **扣了但失败**(卡的问题),LS 会 dunning。
+- **一张新发票都没有 + 状态没进 `past_due`** → **LS 压根没跑**,和 Hayley 同一个病。
+  这一条才需要再开工单。
+
+---
 
 ## ✅ 2026-08-23/24 — Hayley 的锁定已解除;LS 两张工单已发出
 

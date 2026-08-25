@@ -85,7 +85,7 @@ function DecadeCard({
                 <p className="truncate text-[11px] font-medium text-neutral-700 dark:text-neutral-300">
                   {color.name}
                 </p>
-                <CopyButton value={color.hex} label={color.hex} variant="compact" />
+                <CopyButton value={color.hex} label={color.hex} trackAs="decades-swatch" variant="compact" />
               </div>
             </div>
           ))}

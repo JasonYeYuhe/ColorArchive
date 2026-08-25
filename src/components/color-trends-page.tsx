@@ -95,7 +95,7 @@ function TrendCard({ trend, locale }: { trend: ColorTrend; locale: string }) {
                   <div className="truncate text-[10px] font-medium text-neutral-700 dark:text-neutral-300">
                     {color.name}
                   </div>
-                  <CopyButton value={color.hex} label={color.hex} variant="compact" copiedLabel="\u2713 Copied" />
+                  <CopyButton value={color.hex} label={color.hex} trackAs="trends-swatch" variant="compact" copiedLabel="\u2713 Copied" />
                 </div>
               </>
             );

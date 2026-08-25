@@ -93,7 +93,7 @@ function PaletteCard({ palette, locale }: { palette: FamousPalette; locale: stri
                 className="h-3 w-3 shrink-0 rounded-full border border-black/10 dark:border-white/10"
                 style={{ backgroundColor: color.hex }}
               />
-              <CopyButton value={color.hex} label={color.hex} variant="compact" />
+              <CopyButton value={color.hex} label={color.hex} trackAs="famous-palettes-swatch" variant="compact" />
             </a>
           ))}
         </div>

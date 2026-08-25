@@ -128,6 +128,44 @@ test("past_due keeps Pro — the card is still being retried", () => {
   assert.equal(d.isPro, true);
 });
 
+/**
+ * CHARACTERISATION TEST — this pins what the code does TODAY, and today's
+ * behaviour is the open question, not a settled guarantee. Do not "fix" the
+ * assertion to make a change pass; changing it is the decision itself.
+ *
+ * The test above only proves `past_due` is safe when the provider ALSO moved
+ * `renews_at` forward. It never covered the other half, and the other half is
+ * not hypothetical — it is the live state of this store's only paying customer:
+ * subscription 2357096 sits at status `active` with `renews_at` 2026-08-22,
+ * days in the past, because Lemon Squeezy never executed the renewal at all.
+ *
+ * When the status says alive but the date is stale, `graceDays: 0` copies that
+ * stale date verbatim into `pro_expires_at`. `effectiveTier` then reads
+ * tier='pro' next to an expired clock and returns free — the customer is locked
+ * out at the instant the webhook lands, while the provider is still retrying.
+ * That is precisely the 2026-08-22 incident, and it is reachable again by any
+ * subscription whose provider leaves the date behind.
+ *
+ * The `graceDays: 0` on the renewal branch is deliberate (see entitlement.js):
+ * subscription-payment over-extends by design and relies on this event to snap
+ * the clock back to the true renews_at, so grace here would fight that. Adding
+ * grace is a real trade-off — failure-open on the site's most sensitive logic —
+ * and it is an owner decision recorded in docs/human-todo.md, not a drive-by fix.
+ */
+test("STALE renews_at + a live status locks the customer out — today's behaviour", () => {
+  const d = resolveSubscriptionUpdate({ status: "past_due", periodEndIso: inDays(-2), now: NOW });
+
+  assert.equal(d.isPro, true, "the resolver still calls them Pro…");
+  assert.equal(d.proExpiresAt, inDays(-2), "…but writes an already-expired clock beside it");
+
+  // The read path is what the customer actually experiences.
+  assert.deepEqual(
+    effectiveTier({ tier: d.tier, proExpiresAt: d.proExpiresAt, now: NOW }),
+    { tier: "free", expired: true },
+    "so every read path demotes them — this is the lockout, reproduced",
+  );
+});
+
 for (const status of ["paused", "unpaid", "expired", "", undefined]) {
   test(`status=${status === undefined ? "undefined" : status || "(empty)"} is not Pro`, () => {
     const d = resolveSubscriptionUpdate({ status, periodEndIso: inDays(10), now: NOW });

@@ -58,8 +58,8 @@ export function CollectionDetailPage({
                   {tag}
                 </span>
               ))}
-              <CopyActionButton label="Copy CSS" copiedLabel="CSS copied" value={buildCssExport(collection)} />
-              <CopyActionButton label="Copy Tailwind" copiedLabel="Tailwind copied" value={buildTailwindExport(collection)} />
+              <CopyActionButton label="Copy CSS" copiedLabel="CSS copied" trackAs="collection-css" value={buildCssExport(collection)} />
+              <CopyActionButton label="Copy Tailwind" copiedLabel="Tailwind copied" trackAs="collection-tailwind" value={buildTailwindExport(collection)} />
               <ShareOnXButton href={`/collections/${collection.id}/`} text={`${collection.title} — a curated palette from ColorArchive`} />
               <ShareLinkButton href={`/collections/${collection.id}/`} />
             </div>

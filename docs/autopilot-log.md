@@ -4187,3 +4187,54 @@ Generated FB + Twitter "This week at ColorArchive" posts, queued to `docs/daily-
 - `docs/daily-posts-queue.md` — added Weekly Roundup — 2026-06-07
 - `docs/autopilot-log.md` — this entry
 - `.claude/session-lock.json` — released
+
+---
+
+## 2026-08-25 — W0 度量修复(remote session)
+
+**先纠正一个前提**:交接文档把 James 的首扣当成「已发生、去看结果」。会话开始是
+**2026-08-25 15:40 UTC**,扣款在 **23:42:47 UTC** —— 当时还有 8 小时。改为做**扣款前**的风险分析。
+
+**发现的东西比计划预期的严重。**「先读发射点」这条规则在一次会话里又被证明了三次:
+
+1. **`color_copied` 从来不是全站指标。** 全站 ~55 个 clipboard 写入点,只有 2 个组件埋点。
+   `/colors/*`(651 会话的最大参与面)**历史累计 0 次**;14 个文件各自定义了同名的局部
+   `CopyButton`,共 41/75 处调用从不 `track()`。
+2. **「带走率 2.8%」大约低了一半** —— `color_copied` 在 **2026-08-17 12:46:46** 才上线,
+   却被用 21 天当分母。按有效窗口重算是 8.1%(3/37)vs 7.1%(7/99) —— 但那是 3 vs 7 个会话,轶事。
+3. **`word_paywall_hit` ≠「撞墙」**,是「这个浏览器有史以来第一次跨过 5 次」(localStorage);
+   另有 **41 个会话一到站就在墙后**,按 `hit` 过滤完全看不见。
+4. **探针的 241 次「曝光」是 mount 计数**,不是被看到。真实曝光夹在 10–63,**数据不确定**
+   (对抗性复核纠正了调查员自己把下界写成上界的头条结论)。
+5. **`/decades/` 那 14 个「不同 format」全部来自同一个会话** —— 事件级 28%,会话级 5.9%。
+
+**未修、需要决定的两条更深的**:`track.ts:37` 丢掉 `sendBeacon` 的布尔返回(全站每个计数都继承
+一个静默丢弃);`word_generated` 对四类真实用户永久不发,而它是 `gate-report.cjs:214` 的 **§5 锚点**。
+
+**owner 三个决定**:甲(A 路继续有效)· W3 只做诊断不做实验 · `graceDays` 保持 0 不改代码。
+
+**W3 诊断(已完成,无实验)**:单渠道 + 单次访问 —— Google 占 **81.5%** 的真实使用者,
+生成深度各来源持平,**98.4% 的读者只来一天**(用不受埋点压制的 `page_read` 交叉验证)。
+PostHog 侧 `$pageview` 190,347 vs `page_read` 1,004 —— **约 99.5% 的浏览量不是读者。**
+
+**改了什么**:`src/lib/clipboard.ts`(新,单一 clipboard 路径 + `reason`)· `color_copy_failed`
+· 给三个从不埋点的组件补埋点(含 3,066 个颜色页的局部 shadow 组件)· 六处 `trackAs`
+· `word_intent_seen` 真视口曝光 · 报表输出失败率并带两个「0 不等于没有」的护栏
+· 一条复现锁定的表征测试。
+
+**验证**:typecheck 干净 · vitest **749**(+8)· server **63**(+1)· eslint 0 error ·
+`next build` exit 0(4,484 页,`/word-to-color` 与 `/decades` 仍是 Static)·
+浏览器实测三条复制路径 · 报表四个分支在**生产库副本**上跑通 · 报警用**跑规则**证明(不是读日期)。
+
+**部署**:`conversion-digest.cjs` 已 scp 到 droplet(scp 前后都做了 md5 比对,留了 `.bak`);
+前端随本次 push 由 Vercel 部署。
+
+### Files Modified
+- `src/lib/clipboard.ts`(新)· `src/lib/__tests__/clipboard.test.ts`(新)
+- `src/components/`:`copy-button` · `copy-action-button` · `color-detail-page` · `word-intent-probe`
+  · `brand-system-panel` · `collection-detail-page` · `dark-mode-pairs-card`
+  · `color-decades` / `color-seasons` / `color-trends` / `color-industries` / `combinations` / `famous-palettes`
+- `server/scripts/conversion-digest.cjs` · `server/__tests__/entitlement.test.js`
+- `docs/w0-findings-2026-08-25.md`(新)· `docs/w3-diagnosis-2026-08-25.md`(新)
+  · `docs/handoff-2026-08-26.md`(新)· `docs/human-todo.md` · `docs/dev-plan-2026-08-25-next.md`
+- `STRUCTURE.md` · `.claude/session-lock.json` — released

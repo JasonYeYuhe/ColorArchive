@@ -166,7 +166,7 @@ export function BrandSystemPanel({ primaryHex }: BrandSystemPanelProps) {
           {exportText}
         </pre>
         <div className="absolute top-2 right-2">
-          <CopyActionButton value={exportText} label="Copy" />
+          <CopyActionButton value={exportText} label="Copy" trackAs="brand-system-export" />
         </div>
       </div>
     </div>

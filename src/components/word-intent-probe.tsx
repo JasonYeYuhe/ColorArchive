@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { track } from "@/src/lib/track";
+import { useImpression } from "@/src/lib/use-impression";
 
 /**
  * One-tap "what are you making?" probe on /word-to-color/.
@@ -64,6 +65,35 @@ export function WordIntentProbe({ word }: { word: string }) {
   const [note, setNote] = useState("");
   const [noteSent, setNoteSent] = useState(false);
 
+  /**
+   * The DENOMINATOR THAT WAS MISSING (added 2026-08-25).
+   *
+   * `word_intent_impression` below fires from a bare `useEffect(…, [])` — it counts
+   * MOUNTS, not views. So "241 impressions / 62 sessions, 0 answers, 0 dismissals"
+   * never supported "people saw it and ignored it", and the repo already knew the
+   * difference: src/lib/use-impression.ts exists precisely because a mount is not an
+   * exposure, and this component was the one place that did not use it.
+   *
+   * How bad the gap is, measured rather than assumed: two sessions fired 50 and 25
+   * impressions (in 49s and 8s) with zero page_read and zero word_generated — 31% of
+   * all impressions from two probable non-humans — and ~56% of consecutive impression
+   * pairs are ≤5s apart. Meanwhile the true exposure count is bounded only as
+   * 10 ≤ E ≤ 63. At E=10 the rule of three puts the 95% upper bound on the answer
+   * rate near 30%; at E=63 it is near 4.8%. The question is INDETERMINATE on today's
+   * data — not answered in either direction.
+   *
+   * So: keep the mount event (it is the existing series, and breaking it would throw
+   * away the only history) and add a real one beside it. `seen / mounted` is then a
+   * direct reachability measurement, which is what the "is it reachable on real
+   * mobile traffic?" question actually needed. Same threshold/dwell defaults as every
+   * other impression on the site, so the numbers are comparable.
+   *
+   * Hook order matters here: this sits ABOVE the `if (!visible) return null` below.
+   * A hook underneath an early return is the mistake that once whited out the whole
+   * site from the root layout.
+   */
+  const seenRef = useImpression("word_intent_seen", {});
+
   useEffect(() => {
     if (!WORD_INTENT_PROBE_ENABLED) return;
     try {
@@ -107,6 +137,7 @@ export function WordIntentProbe({ word }: { word: string }) {
 
   return (
     <section
+      ref={seenRef}
       aria-label="Quick question"
       className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-neutral-900/80"
     >

@@ -59,7 +59,7 @@ export function DarkModePairsCard({ collection }: { collection: ColorCollection 
             {format === "css" ? cssOutput : twOutput}
           </pre>
           <div className="absolute top-2 right-2">
-            <CopyActionButton value={format === "css" ? cssOutput : twOutput} label="Copy" />
+            <CopyActionButton value={format === "css" ? cssOutput : twOutput} label="Copy" trackAs="dark-mode-pairs" />
           </div>
         </div>
       )}

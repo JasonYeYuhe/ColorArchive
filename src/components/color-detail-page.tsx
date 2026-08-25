@@ -12,6 +12,7 @@ import { StickyColorBar } from "@/src/components/sticky-color-bar";
 import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 import { useLocale } from "@/src/components/locale-provider";
 import { UpgradeModal, useUpgradeModal } from "@/src/components/upgrade-modal";
+import { writeClipboard } from "@/src/lib/clipboard";
 import { track } from "@/src/lib/track";
 import { useImpression } from "@/src/lib/use-impression";
 import {
@@ -103,13 +104,26 @@ function CopyButton({ value, label }: { value: string; label: string }) {
     return () => window.clearTimeout(timeoutId);
   }, [copied]);
 
+  // NB: this is a LOCAL component that shadows src/components/copy-button.tsx — same
+  // name, different file, and until 2026-08-25 it emitted nothing at all. These seven
+  // buttons (hex/rgb/hsl/cmyk/tailwind/all/palette) sit on all 3,066 pre-rendered
+  // colour pages, i.e. the core content surface of the site, and not one of their
+  // copies had ever reached `color_copied`. A production query over 21 days found the
+  // event arriving from exactly five paths — /word-to-color/, /api-docs/, /decades/,
+  // /palette/, /brand/ — and no colour detail page among them.
+  //
+  // `label` is already a stable low-cardinality name here ("hex", "rgb", …), so it is
+  // safe to use directly as `format`; the polluted sites were the ones passing a raw
+  // hex value. `variant: "detail"` keeps this surface separable from the shared pill.
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-    } catch {
+    const result = await writeClipboard(value);
+    if (!result.ok) {
       setCopied(false);
+      track("color_copy_failed", { format: label, variant: "detail", reason: result.reason });
+      return;
     }
+    setCopied(true);
+    track("color_copied", { format: label, variant: "detail" });
   };
 
   return (
@@ -267,16 +281,27 @@ function AiColorNaming({ color }: { color: ColorRecord }) {
     }
   };
 
-  const handleCopy = (idx: number, text: string) => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopiedIdx(idx);
-      copiedTimerRef.current = setTimeout(() => setCopiedIdx(null), 1500);
-      // The "did they keep it" half of the gate. Copying a generated name is the
-      // only signal we have that the output was worth something — without it the
-      // gate could only ever measure curiosity, not usefulness. Fired once per
-      // copy, deduped per visit at query time via session_id.
-      track("ai_result_copied", { tool: "name_color", surface: "color_detail", kind: "name" });
-    });
+  const handleCopy = async (idx: number, text: string) => {
+    // Was a bare `.then()` with no `.catch()`: a rejected write became an unhandled
+    // promise rejection AND lost the event, so `ai_result_copied` carried the same
+    // success-path-only blindness as `color_copied`.
+    const result = await writeClipboard(text);
+    if (!result.ok) {
+      track("ai_result_copy_failed", {
+        tool: "name_color",
+        surface: "color_detail",
+        kind: "name",
+        reason: result.reason,
+      });
+      return;
+    }
+    setCopiedIdx(idx);
+    copiedTimerRef.current = setTimeout(() => setCopiedIdx(null), 1500);
+    // The "did they keep it" half of the gate. Copying a generated name is the
+    // only signal we have that the output was worth something — without it the
+    // gate could only ever measure curiosity, not usefulness. Fired once per
+    // copy, deduped per visit at query time via session_id.
+    track("ai_result_copied", { tool: "name_color", surface: "color_detail", kind: "name" });
   };
 
   return (

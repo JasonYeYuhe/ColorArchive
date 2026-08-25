@@ -308,6 +308,17 @@ ColorArchive/
 │   │   │                                 #   anonymous customer (2026-07-20 incident shape).
 │   │   ├── auth-client.ts               # Client API: session, projects, usage, referral, types
 │   │   ├── track.ts                      # Fire-and-forget events → backend /events + PostHog; merges first-touch attribution
+│   │   ├── clipboard.ts                  # The ONLY clipboard write path. Returns {ok} | {ok:false, reason}
+│   │   │                                 #   instead of throwing, so copy-button.tsx and
+│   │   │                                 #   copy-action-button.tsx can emit `color_copy_failed`.
+│   │   │                                 #   Before 2026-08-25 both swallowed failures in an empty
+│   │   │                                 #   catch, so `color_copied` could not tell "nobody wanted
+│   │   │                                 #   it" from "the browser refused" — and embedded webviews
+│   │   │                                 #   (IG/X/LINE), which have no clipboard API, are exactly
+│   │   │                                 #   the traffic /word-to-color/ receives. Deliberately has
+│   │   │                                 #   NO execCommand fallback: repairing the copy would
+│   │   │                                 #   destroy the measurement being taken. `reason` is a
+│   │   │                                 #   closed set — never widen it to err.message.
 │   │   ├── attribution.ts                # First-touch UTM/referrer/landing (localStorage) → derived `channel` bucket; eager capture
 │   │   ├── posthog.ts                    # PostHog product-analytics singleton (cookieless, no-op w/o key); phRegister super-props
 │   │   ├── session-id.ts                 # Ephemeral per-tab id (sessionStorage `ca_sid`) → the

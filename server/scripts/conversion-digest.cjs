@@ -153,6 +153,7 @@ const funnel = {
   checkoutClicked: evVisits("checkout_clicked"),
   checkoutSuccess: distinctCheckoutSuccess,
   copied: evVisits("color_copied"),
+  copyFailed: evVisits("color_copy_failed"),
 };
 // Raw rows alongside, so a step whose count is one busy visitor is visible as one.
 const funnelRows = {
@@ -162,7 +163,49 @@ const funnelRows = {
   proClick: ev("word_paywall_pro_click"),
   checkoutClicked: ev("checkout_clicked"),
   copied: ev("color_copied"),
+  copyFailed: ev("color_copy_failed"),
 };
+
+/* ---------------- copy reliability (added 2026-08-25, W0) ------------------
+ *
+ * `color_copied` on its own is not a demand signal and never was: until today
+ * it fired only after `clipboard.writeText()` RESOLVED, with an empty catch, so
+ * "17 copies in 21 days" could not distinguish "nobody wanted to take a value
+ * away" from "people tried and the browser refused". Those two readings call
+ * for opposite work. `color_copy_failed` is the missing half.
+ *
+ * THE TRAP THIS BLOCK EXISTS TO AVOID. For the first days after deploy the new
+ * event does not exist yet, so a naive `failed / (copied + failed)` prints a
+ * confident 0.00% — which reads as "clipboard works fine" when it actually
+ * means "no data". That is the exact mistake the event was added to fix, so
+ * the ratio is suppressed entirely until at least one attempt of EITHER kind
+ * has been seen from a build that can emit both.
+ */
+const copyAttemptRows = funnelRows.copied + funnelRows.copyFailed;
+const copyAttemptVisits = funnel.copied + funnel.copyFailed;
+// Has any client on a build that emits the failure event reported in yet? A
+// zero here means "not deployed / not yet observed", never "no failures".
+const copyFailedFirstSeen = db.prepare(
+  "SELECT MIN(created_at) t FROM events WHERE event_name = 'color_copy_failed'",
+).get().t;
+const copyFailedEverSeen = Boolean(copyFailedFirstSeen);
+
+/**
+ * Second trap, subtler than the first. For some days after the deploy the two
+ * events do not come from the same population: a visitor on a cached old bundle
+ * still emits `color_copied` but CANNOT emit `color_copy_failed`, so every one
+ * of them lands in the denominator and never in the numerator. The measured
+ * failure rate is biased DOWNWARD for exactly as long as old bundles are live.
+ *
+ * There is no way to detect a stale bundle from the events table, so instead of
+ * guessing we surface when clean measurement began and let the reader see
+ * whether the window is fully covered by it.
+ */
+const copyWindowFullyCovered =
+  copyFailedEverSeen &&
+  db.prepare(
+    "SELECT datetime(?) <= datetime('now', ?) c",
+  ).get(copyFailedFirstSeen, since).c === 1;
 
 /* ---------------- capture funnel (added 2026-07-26) ---------------- */
 
@@ -362,6 +405,21 @@ const step = (visits, rows) => `${String(visits).padStart(4)}${rows === undefine
 const funnelBlock = [
   `engaged visits           : ${engagedVisits}   (anyone who did anything)`,
   `color_copied             : ${step(funnel.copied, funnelRows.copied)}   (took a value away)`,
+  `color_copy_failed        : ${step(funnel.copyFailed, funnelRows.copyFailed)}   (clicked, browser refused)`,
+  // Per ATTEMPT, not per visit: this is a technical failure rate, so the honest
+  // denominator is attempts. The per-visit figure is reported beside it because
+  // a missing clipboard API is deterministic per browser — one affected visitor
+  // fails every time they click, which inflates the attempt-level rate relative
+  // to the share of PEOPLE affected. The two answer different questions.
+  !copyFailedEverSeen
+    ? `  └ failure rate          :    — no color_copy_failed event has EVER been recorded. That means "not deployed yet / no data", NOT "no failures". Do not read the copy numbers above as a demand signal until this line shows a percentage.`
+    : copyAttemptRows === 0
+      ? `  └ failure rate          :    — nobody attempted a copy in this window (the event exists, so this one really is "no attempts").`
+      : `  └ failure rate          : ${((funnelRows.copyFailed / copyAttemptRows) * 100).toFixed(1)}% of ${copyAttemptRows} attempts · ${((funnel.copyFailed / copyAttemptVisits) * 100).toFixed(1)}% of ${copyAttemptVisits} visits that tried${
+          copyWindowFullyCovered
+            ? ""
+            : `\n    ⚠ measurement only began ${copyFailedFirstSeen} UTC, inside this window. Visitors on a cached older bundle emit color_copied but cannot emit color_copy_failed, so this rate is biased LOW until the window starts after that timestamp.`
+        }`,
   `word_paywall_hit         : ${step(funnel.paywallHit, funnelRows.paywallHit)}`,
   `word_paywall_restored    : ${step(funnel.paywallRestored, funnelRows.paywallRestored)}`,
   `word_paywall_pro_click   : ${step(funnel.proClick, funnelRows.proClick)}   (paid intent)`,
