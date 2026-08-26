@@ -4238,3 +4238,43 @@ PostHog 侧 `$pageview` 190,347 vs `page_read` 1,004 —— **约 99.5% 的浏�
 - `docs/w0-findings-2026-08-25.md`(新)· `docs/w3-diagnosis-2026-08-25.md`(新)
   · `docs/handoff-2026-08-26.md`(新)· `docs/human-todo.md` · `docs/dev-plan-2026-08-25-next.md`
 - `STRUCTURE.md` · `.claude/session-lock.json` — released
+
+---
+
+## 2026-08-26 — Vercel 账单 $99.49 的诊断与两处修复(remote session)
+
+**问题**:8 月账单 $99.49,owner 说负担不起。
+
+**拆解**(Jul 25 – Aug 25,`$90.44 × 1.10` 日本消费税):**color-archive 占 95%**($86.38/$90.44)。
+三个驱动 = 84%:**ISR Writes 8.75M/$34.99** · **Build CPU 124h/$26.17** · **Edge Requests 16.2M/$15.09**。
+历史极不稳定:3月 $20 → 4月 $145.84 → 7月 $24.56 → 8月 $99.49。
+
+**原因一(ISR)**:`/colors/{a}/vs/{b}/` 组合空间 ~29.6M + `dynamicParams=true`,
+爬虫每命中一个新配对就渲染一页并写一条 ISR。8.75M 写入 vs 16.2M 请求 = **约一半流量在建没人要的缓存**。
+🔴 **前两次修都无效的原因**:`9fece2b` 的 nofollow 和 `9a2d0b2` 的 `index:false`
+**都是针对索引的,一次爬取都没减少** —— noindex 必须先抓取才能读到,而抓取才是花钱的动作。
+noindex 之后两个月 ISR 反而 4.78M → 8.75M。
+
+**原因二(Build)**:`vercel-ignore.sh` 第一个守卫 fail-open ——
+`VERCEL_GIT_PREVIOUS_SHA` 在**一次性分支的首次部署**永远为空 → 无条件构建。
+仓库里 **20 个 `claude/admiring-ramanujan-*` 分支,窗口期内 14 个**,
+每个都是「support email check — no new emails」,**每个都跑了一次 4,461 页全站构建**;
+同期真正需要构建的 main 推送只有 7 次。
+
+**修复**:`app/robots.ts` 加 `Disallow: /colors/*/vs/`(拦住爬取本身);
+`vercel-ignore.sh` 拿不到 PREVIOUS_SHA 时改为与 `main` 的 merge-base 比对。
+
+**验证**:脚本在一次性 git 仓库里跑了三个场景 + 把缺陷放回去复现泄漏
+(新分支+docs→跳过 / 新分支+代码→构建 / 老分支→行为不变 / 旧脚本→构建)。
+`next build` exit 0,生成的 robots.txt 两个 rule block 都带 Disallow。
+typecheck 干净 · vitest 749 · server 63。
+
+**未做**:`dynamicParams=false`(owner 原本选了)。实现时发现颜色页每页渲染 6 个 Compare 链接,
+3,066 × 6 ≈ **18,400 条站内链接**,而预渲染的 vs 页只有 **28** 个 → 会当场造出约 18,370 条死链。
+**已退回给 owner 三选一**,见 `docs/human-todo.md`。
+
+**背景**:站点月收入约 $7,Vercel 月成本 $99;修完预计 $30–40,仍是收入的四五倍。
+
+### Files Modified
+- `app/robots.ts` · `scripts/vercel-ignore.sh`
+- `docs/human-todo.md` · `docs/autopilot-log.md` · `.claude/session-lock.json` — released

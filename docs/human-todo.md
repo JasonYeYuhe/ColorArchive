@@ -51,6 +51,94 @@
 > colors missing from four of its exports and needs a re-download note.** Off-repo copies
 > of the old counts still need a sweep.)
 
+## 💸 2026-08-26 — Vercel $99.49 的来源,以及修了什么
+
+### 账单拆解(Jul 25 – Aug 25,含 10% 日本消费税)
+
+`$90.44 × 1.10 ≈ $99.48`。**其中 color-archive 占 $86.38 / $90.44 = 95%**
+(tokyohelp $3.93、kanousei $0.13 —— 三个项目共用一张 Pro 账单)。
+
+| 驱动 | 用量 | 费用 |
+|---|---|---|
+| **ISR Writes** | 8.75M | **$34.99** |
+| **Build CPU** | 124 小时 | **$26.17** |
+| **Edge Requests** | 16.2M(含 10M) | **$15.09** |
+| Fast Origin Transfer | 105 GB | $6.43 |
+| 其余 | — | $7.76 |
+
+历史波动很大:3月 $20 → 4月 $145.84 → 5月 $64.42 → 6月 $98.29 → **7月 $24.56** → 8月 $99.49。
+
+### 原因一:爬虫在「铸造」还不存在的页面 → ISR Writes
+
+`/colors/{a}/vs/{b}/` 的组合空间约 **29.6M**,而路由是 `dynamicParams = true`。
+**每一次爬虫命中一个从没有人请求过的配对,就渲染一页并写一条 ISR。**
+8.75M ISR 写入 vs 16.2M edge requests —— **约一半的站点流量在给没人要的配对建缓存。**
+
+🔴 **为什么前两次修都没用(这条最值得记住)**:
+- `9fece2b`(06-20)加了 `rel="nofollow"`;
+- `9a2d0b2`(06-27)加了页面 `robots: { index: false }`。
+
+**两个都是针对「索引」的。爬取一次都没减少** —— noindex 标签**必须先抓取才能读到**,
+而抓取本身才是花钱的动作。noindex 上线后的两个月里 ISR 写入 **4.78M → 8.75M**。
+**`Disallow` 是第一个真正拦住请求本身的手段。**
+
+### 原因二:autopilot 每次都重建全站 → Build CPU
+
+`scripts/vercel-ignore.sh` 的第一个守卫是 **fail-open** 的:
+
+```bash
+if [ -z "$VERCEL_GIT_PREVIOUS_SHA" ] || ! git cat-file -e "$VERCEL_GIT_PREVIOUS_SHA"; then
+  exit 1   # = 构建
+fi
+```
+
+`VERCEL_GIT_PREVIOUS_SHA` 是**这个分支上一次部署**的 SHA。
+**一次性分支的第一次部署永远没有这个值** → 无条件构建。
+
+仓库里有 **20 个 `claude/admiring-ramanujan-*` 一次性分支**,窗口期内 **14 个**,
+每一个的提交信息都是「support email check — no new emails」的某种写法,
+**每一个都跑了一次 4,461 页的完整构建**。同期真正需要构建的 main 推送只有 **7 次**。
+
+### 已修(本次提交)
+
+| 改动 | 效果 |
+|---|---|
+| `app/robots.ts` 加 `Disallow: /colors/*/vs/` | 拦住爬取本身。**预期省下 $34.99 的大部分 + 一部分 $15.09** |
+| `scripts/vercel-ignore.sh` 新分支不再 fail-open | 拿不到 PREVIOUS_SHA 时改为和 `main` 的 merge-base 比对。**预期省下 $26.17 的大部分** |
+
+**`vercel-ignore.sh` 是跑出来验的,不是读出来的**(三个场景 + 把缺陷放回去):
+
+```
+CASE 1 新分支 + 只改 docs(autopilot 那种)  → exit 0 跳过 ✅
+CASE 2 新分支 + 真改代码                   → exit 1 构建 ✅
+CASE 3 老分支 + 有 PREVIOUS_SHA            → exit 0 跳过(行为不变)✅
+CASE 1 用 HEAD 的旧脚本重跑                → exit 1 构建 ← 泄漏复现
+```
+
+### 🔴 没做的那一半,需要你再定一次
+
+你选的是「`dynamicParams=false` + robots 封掉」。**我只做了 robots,没做 `dynamicParams=false`**,
+因为实现时发现一个你当时没有的信息:
+
+- `color-detail-page.tsx:863` 给**每个颜色页渲染 6 个 Compare 链接**指向 vs 页;
+- 3,066 个颜色页 × 6 = **约 18,400 条站内链接**;
+- 而**预渲染的 vs 页只有 28 个**(`.next` 构建产物里数的)。
+
+→ `dynamicParams = false` 会让**约 18,370 条站内链接当场 404**,
+而且是落在全站核心内容页上。**2026-08-08 那次审计的 137 条死链就是这个形状。**
+
+**三个选项**:
+1. **维持现状(robots-only)**,下周看账单再说 —— 风险最低;
+2. **`dynamicParams=false` + 同时把那 6 个 Compare 链接改成只指向预渲染的配对**(改动更大,但没有死链);
+3. `dynamicParams=false` 硬上,接受 404 —— **不建议**。
+
+### 一句更大的话
+
+**站点月收入约 $7,Vercel 月成本 $99。** 上面两处修完预计落到 $30–40,
+仍然是收入的四五倍。**这是结构问题,不是这个月的意外。**
+
+---
+
 ## 🔴 2026-08-25 — James 的首扣:一份**扣款前**的风险分析(不是结果报告)
 
 ### 0. 先纠正一个前提:这件事还没发生
