@@ -127,10 +127,48 @@ CASE 1 用 HEAD 的旧脚本重跑                → exit 1 构建 ← 泄漏�
 → `dynamicParams = false` 会让**约 18,370 条站内链接当场 404**,
 而且是落在全站核心内容页上。**2026-08-08 那次审计的 137 条死链就是这个形状。**
 
-**三个选项**:
-1. **维持现状(robots-only)**,下周看账单再说 —— 风险最低;
-2. **`dynamicParams=false` + 同时把那 6 个 Compare 链接改成只指向预渲染的配对**(改动更大,但没有死链);
-3. `dynamicParams=false` 硬上,接受 404 —— **不建议**。
+### ✅ 已定并已做(2026-08-26,经 Codex + Gemini 3.7 Flash 双评审)
+
+**两位评审独立都选了 Option 2**,且都说 robots-only 不够:
+> Codex:「robots.txt 是礼貌,不是控制边界」;Gemini:「依赖 robots.txt 拦住计费执行是天真的」。
+
+**但两位都不知道 `/compare/` 已经存在** —— Gemini 甚至把「做一个客户端 `/compare?a=&b=`」
+当成它的「更好的第四选项」提出来。实际它早就在线上,而且构建产物里是 **`○ /compare` = Static**,
+所以查询串不产生任何 ISR 写入。**因此不必像两位评审说的那样删掉 Compare 区块,改指向即可。**
+
+**owner 选:Option 2 改指向 /compare/。已实施:**
+
+| 改动 | 文件 |
+|---|---|
+| `dynamicParams = false` | `app/colors/[slug]/vs/[slug2]/page.tsx` |
+| 6 个 Compare 链接 → `/compare/?a=<hex>&b=<hex>` | `color-detail-page.tsx` |
+| Related Comparisons → 同上(顺带去掉不再需要的 `nofollow`) | `color-vs-page.tsx` |
+
+**只有两处代码链接到 `/vs/`,都是模板生成的** —— 所以「18,400 条死链」是**两行改动**,
+不是 18,400 次编辑。我之前把 Option 2 说成「改动更大」是错的,已更正。
+
+**验证(跑出来的,不是推的)**:
+```
+预渲染配对   /colors/crimson-core-vivid/vs/aqua-core-vivid  -> 200
+非预渲染配对 /colors/amber-pearl-muted/vs/cobalt-shadow-vivid -> 404  ← 洞堵上了
+/compare/?a=DEDBCF&b=EAE9E1                                  -> 200,页面真的渲染这两个色
+构建产物里 6 个 Compare 链接全部是 /compare/?a=…&b=…,没有残留 /vs/ 链接
+28 个预渲染 vs 页保留
+```
+
+### 评审提出、我采纳但**还没做**的一条
+
+`Disallow` + 已索引 URL 有个已知副作用:Google 无法重新抓取,也就读不到 `noindex`/404,
+部分 URL 会以「仅 URL」形式滞留在索引里。**Codex 给了正确的顺序**:
+先结构性关闭(现在 404 已经很便宜)→ **临时放开 Googlebot 让它读到 404** →
+确认移除后再恢复封锁,其它爬虫全程保持封锁。**下个账期看完数据再做。**
+
+### 评审的另一条,规模比 Gemini 说的大得多
+
+Gemini 建议 `output: 'export'` + Cloudflare Pages 做到 $0。**不是它说的 15 分钟**:
+**10 个 `force-dynamic` 的 OG image 路由**、**6 个 API 路由(含支付 webhook)**、
+2 个 `dynamicParams` 路由都要处理,而且动的是刚被证明很脆弱的支付链路。
+**owner 已决定:先只止血,下个账期再谈这一层。**
 
 ### 一句更大的话
 

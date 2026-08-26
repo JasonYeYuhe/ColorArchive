@@ -10,7 +10,36 @@ import {
   getAnalogousColors,
 } from "@/src/lib/color-utils";
 
-export const dynamicParams = true;
+/**
+ * CLOSED 2026-08-26. Only the pre-rendered pairs below exist; every other pair
+ * 404s instead of being rendered on demand.
+ *
+ * This route was the single largest line on the Vercel bill. It spans ~29.6M
+ * pairs (5,446 colours squared) and `dynamicParams = true` meant any crawler
+ * request for a pair nobody had ever asked for rendered a page AND wrote an ISR
+ * entry. Jul 25 – Aug 25: 8.75M ISR writes / $34.99, against 16.2M edge
+ * requests — roughly half of all traffic to the site was minting cache for
+ * pairs no human requested.
+ *
+ * WHY THE TWO EARLIER ATTEMPTS DIDN'T WORK, which is the reusable lesson:
+ *   9fece2b (06-20) added rel="nofollow" to the vs→vs links.
+ *   9a2d0b2 (06-27) added robots: { index: false } to this page's metadata.
+ * Both target INDEXING. Neither reduces CRAWLING — a noindex tag has to be
+ * fetched to be read, and fetching is the billable event. ISR writes went
+ * 4.78M → 8.75M in the two months AFTER noindex shipped. robots.txt Disallow
+ * (caf2f96) stops compliant crawlers; this line stops everyone else, because
+ * robots.txt is a courtesy and not a control boundary.
+ *
+ * THE FEATURE IS NOT LOST. /compare/ has always existed and does the same job:
+ * a "use client" page reading ?a=/?b= hex, and — the part that matters here —
+ * a STATIC route, so query strings on it create no ISR entries at all. Both
+ * former link sites now point there (color-detail-page.tsx, color-vs-page.tsx),
+ * so every pair a visitor could previously reach is still reachable.
+ *
+ * The 28 pre-rendered pairs stay: they are already built, cost nothing extra,
+ * and keep whatever external links and index entries point at them alive.
+ */
+export const dynamicParams = false;
 
 interface VsPageProps {
   params: Promise<{ slug: string; slug2: string }>;

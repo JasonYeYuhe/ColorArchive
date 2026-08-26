@@ -860,7 +860,19 @@ export function ColorDetailPage({
                   {paletteMoves.slice(0, 6).map((item) => (
                     <Link
                       key={item.value.id}
-                      href={`/colors/${color.id}/vs/${item.value.id}/`}
+                      // Was /colors/{a}/vs/{b}/ until 2026-08-26. Six of these render on
+                      // every one of ~3,066 colour pages — ~18,400 links — against only 28
+                      // pre-rendered vs pairs, so closing that route (dynamicParams = false,
+                      // see its header for why) would have dead-linked nearly all of them
+                      // on the site's core template. That is the same shape as the 137 dead
+                      // links the 2026-08-08 audit cleaned up.
+                      //
+                      // /compare/ is a STATIC route reading ?a=/?b=, so it serves any pair
+                      // with no ISR write at all. Hex without the "#": sanitizeHex() in
+                      // color-compare-page.tsx prepends it, and a value that fails
+                      // isValidHex() falls back to a default silently — which is why this
+                      // strips the "#" rather than passing the colour id.
+                      href={`/compare/?a=${color.hex.replace("#", "")}&b=${item.value.hex.replace("#", "")}`}
                       className="inline-flex items-center gap-2 rounded-xl border border-black/6 bg-white/60 px-3 py-2 text-xs font-medium text-neutral-600 transition hover:shadow-sm dark:border-white/8 dark:bg-white/5 dark:text-neutral-300"
                     >
                       <span className="inline-block h-4 w-4 rounded" style={{ backgroundColor: color.hex }} />

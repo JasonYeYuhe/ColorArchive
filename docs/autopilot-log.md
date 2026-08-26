@@ -4278,3 +4278,37 @@ typecheck 干净 · vitest 749 · server 63。
 ### Files Modified
 - `app/robots.ts` · `scripts/vercel-ignore.sh`
 - `docs/human-todo.md` · `docs/autopilot-log.md` · `.claude/session-lock.json` — released
+
+---
+
+## 2026-08-26(续)— Option 2:关掉 vs 的按需渲染,改指向已存在的 /compare/
+
+**双评审(Codex + Gemini 3.7 Flash)独立都选 Option 2**,都判定 robots-only 不够
+(「robots.txt 是礼貌,不是控制边界」)。
+
+🔴 **但两位都不知道 `/compare/` 已经存在** —— Gemini 把「做一个客户端 `/compare?a=&b=`」
+当成它的「更好的第四选项」。实际它早在线上,构建产物是 **`○ /compare` = Static**,
+查询串不产生 ISR 写入。**所以不必按两位说的删掉 Compare 区块,改指向就行,功能一点不丢。**
+
+🔴 **两位也都高估了工作量。** 全站只有**两处**代码链接到 `/vs/`,都是模板生成的 ——
+「18,400 条死链」是**两行改动**。我上一轮把 Option 2 写成「改动更大」,是我错了,已更正。
+
+**改了三处**:`vs/[slug2]/page.tsx` 的 `dynamicParams = false`;
+`color-detail-page.tsx` 和 `color-vs-page.tsx` 的链接改指 `/compare/?a=<hex>&b=<hex>`
+(顺带去掉不再需要的 `nofollow`)。`/compare/` 收 hex 不收色号 id,`sanitizeHex()` 会补 `#`,
+非法值会**静默回落到默认色** —— 所以传的是 `color.hex.replace("#","")`。
+
+**验证**:非预渲染配对 **404**(洞堵上了)· 预渲染配对 200 · `/compare/?a=DEDBCF&b=EAE9E1`
+在浏览器里**真的渲染这两个色、没有回落默认值** · 构建产物 6 个链接全部改对、无残留 ·
+28 个预渲染 vs 页保留 · `next build` exit 0 · typecheck 干净 · vitest 749 · server 63。
+
+**采纳未做**:Codex 指出 `Disallow` + 已索引 URL 会让 Google 读不到 404 →
+正确顺序是「先结构性关闭 → 临时放开 Googlebot 读 404 → 确认后恢复封锁」。下个账期再做。
+
+**owner 另一个决定**:先只止血,静态化/迁 Cloudflare 那一层下个账期再谈
+(实测不是 Gemini 说的 15 分钟:10 个 force-dynamic OG 路由 + 6 个 API 路由含支付 webhook)。
+
+### Files Modified
+- `app/colors/[slug]/vs/[slug2]/page.tsx` · `src/components/color-detail-page.tsx`
+  · `src/components/color-vs-page.tsx`
+- `docs/human-todo.md` · `docs/autopilot-log.md` · `.claude/session-lock.json` — released
