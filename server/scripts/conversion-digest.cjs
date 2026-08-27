@@ -190,6 +190,36 @@ const copyFailedFirstSeen = db.prepare(
 ).get().t;
 const copyFailedEverSeen = Boolean(copyFailedFirstSeen);
 
+/* ---------------- delivery loss (added 2026-08-27) -------------------------
+ *
+ * Everything above this line divides one event count by another, and every one
+ * of those counts silently assumed that an event fired is an event recorded.
+ * `navigator.sendBeacon` signals refusal by RETURNING FALSE rather than
+ * throwing, so src/lib/track.ts discarded that answer for its whole life. What
+ * a browser cannot deliver it now counts and confesses as `_dropped` on the
+ * next event that does get through.
+ *
+ * READ THE ZERO CAREFULLY — it is the same trap as color_copy_failed. Nothing
+ * emits `_dropped` unless there was a loss AND a later success to carry the
+ * report, so an empty result means "nobody reported a backlog", which covers
+ * both "no refusals" and "the change is not live in that browser yet". It is
+ * never proof that delivery is complete.
+ *
+ * AND THE FIX IS ITSELF A DISCONTINUITY — say it before someone reads it as
+ * growth. The same change also makes a refused beacon RETRY over keepalive
+ * fetch, so a browser that was quietly losing events now delivers them. Every
+ * count on this site can therefore step up on 2026-08-27 without one extra
+ * person doing one extra thing. This is the 2026-08-10 failure wearing the
+ * opposite sign, and the number below is the only estimate of its size we get.
+ */
+const dropped = db.prepare(
+  `SELECT COALESCE(SUM(CAST(json_extract(props_json,'$._dropped') AS INTEGER)), 0) lost,
+          COUNT(*) reports,
+          ${DISTINCT_VISITS} visits
+     FROM events WHERE datetime(created_at) >= datetime('now', ?)
+      AND json_extract(props_json,'$._dropped') IS NOT NULL`,
+).get(since);
+
 /**
  * Second trap, subtler than the first. For some days after the deploy the two
  * events do not come from the same population: a visitor on a cached old bundle
@@ -251,9 +281,17 @@ const upgradeClicks = db.prepare(
 
 // How far people get before the paywall — the drop-off across ordinals says
 // whether 5 free lookups is generous or just more than anyone wants.
+//
+// `counted` is load-bearing here, not decoration. From 2026-08-27 `word_generated`
+// also fires for people the quota does not apply to (Pro, already gated, unlocked,
+// entitlement unresolved). Those rows carry no `count`, so without this filter
+// they would all land in a silent `n = NULL` bucket and read as a sixth ordinal.
+// This curve is about spending free lookups, so it wants exactly the rows that
+// spent one. Pre-2026-08-27 rows have no `counted` key and all qualify.
 const wordDepth = db.prepare(
   `SELECT CAST(json_extract(props_json,'$.count') AS INTEGER) AS n, COUNT(*) c
      FROM events WHERE event_name='word_generated' AND datetime(created_at) >= datetime('now', ?)
+      AND COALESCE(json_extract(props_json,'$.counted'), 1) = 1
     GROUP BY n ORDER BY n`,
 ).all(since);
 
@@ -420,6 +458,13 @@ const funnelBlock = [
             ? ""
             : `\n    ⚠ measurement only began ${copyFailedFirstSeen} UTC, inside this window. Visitors on a cached older bundle emit color_copied but cannot emit color_copy_failed, so this rate is biased LOW until the window starts after that timestamp.`
         }`,
+  dropped.lost === 0
+    ? `events never delivered   :    0 reported   (means "no browser reported a backlog" — either no refusals or the 2026-08-27 change not yet live in that browser. NOT proof delivery is complete.)`
+    : `events never delivered   : ${String(dropped.lost).padStart(4)} events, self-reported by ${dropped.visits} visits in ${dropped.reports} confessions
+    ⚠ a LOWER bound three times over: a browser that never delivers again never reports its backlog; a beacon that returned true was only QUEUED; and events the server accepts-and-discards (bot filter, 200/day cap) answer 200 and are invisible here.`,
+  `  ⚠ 2026-08-27 also made a refused beacon retry over fetch. A browser that was`,
+  `    silently losing events now delivers them, so counts above may step up on that`,
+  `    date with no change in behaviour. Do not read the step as growth.`,
   `word_paywall_hit         : ${step(funnel.paywallHit, funnelRows.paywallHit)}`,
   `word_paywall_restored    : ${step(funnel.paywallRestored, funnelRows.paywallRestored)}`,
   `word_paywall_pro_click   : ${step(funnel.proClick, funnelRows.proClick)}   (paid intent)`,

@@ -78,7 +78,26 @@ function gate(days) {
   // signal added afterwards, and is the one behaviour on this site with real
   // depth (398 sessions / 1,008 events in the 21 clean days to 2026-08-17).
   // It measures the product being used, not a page being instrumented.
+  //
+  // PINNED TO THE ORIGINAL DEFINITION ON 2026-08-27, and this is the whole point
+  // of the `counted` filter. On that date the emit site moved ABOVE the
+  // entitlement return that had been suppressing it, so from then on the raw
+  // event also covers Pro visits, already-gated returning visits, email-unlocked
+  // browsers and sessions whose entitlement had not resolved yet. Left unfiltered
+  // this number would step up ~20% overnight for a purely instrumentation reason
+  // — the identical failure to 2026-08-10, which is the reason this anchor was
+  // chosen over engaged visits in the first place. Rows written before the change
+  // carry no `counted` key and were all quota-spending by construction, which is
+  // what the COALESCE encodes.
   const wordSessions = db.prepare(
+    `SELECT ${DISTINCT_VISITS} c FROM events
+      WHERE datetime(created_at) >= datetime('now', ?) AND event_name='word_generated'
+        AND COALESCE(json_extract(props_json,'$.counted'), 1) = 1`).get(since).c;
+  // The same behaviour with the blind spots restored. Reported BESIDE the anchor,
+  // never as the anchor, until it has two clean months of its own: the threshold
+  // (≥300/mo) was calibrated against the narrow series and means nothing against
+  // a wider one. Measured 2026-08-27 the gap was 554 vs 699 visits over 30 days.
+  const wordSessionsAll = db.prepare(
     `SELECT ${DISTINCT_VISITS} c FROM events
       WHERE datetime(created_at) >= datetime('now', ?) AND event_name='word_generated'`).get(since).c;
   // Reading reach, from the signal added 2026-08-17 to replace what 08-10 removed.
@@ -154,7 +173,7 @@ function gate(days) {
   const qualUv = preorderUv.filter((r) => !isGeneric(r.channel)).reduce((n, r) => n + r.count, 0);
   const uvTotal = preorderUv.reduce((n, r) => n + r.count, 0);
   const pwTotal = paywall.reduce((n, r) => n + r.count, 0);
-  return { days, uvTotal, qualUv, pwTotal, ordersTotal, revenueTotal, newCustomers, ownerExcluded, preorderOrders, ordersByProduct, proSubs, emailReserves, ctaClicks, preorderViews, engagedVisits, wordSessions, readSessions, caveats: windowCaveats(days) };
+  return { days, uvTotal, qualUv, pwTotal, ordersTotal, revenueTotal, newCustomers, ownerExcluded, preorderOrders, ordersByProduct, proSubs, emailReserves, ctaClicks, preorderViews, engagedVisits, wordSessions, wordSessionsAll, readSessions, caveats: windowCaveats(days) };
 }
 
 const g = gate(30);
@@ -212,6 +231,11 @@ const text = [
   `Window: last ${g.days} days`,
   `  ENGAGED VISITS          : ${g.engagedVisits}   (the real size of this site — distinct visits that did anything)`,
   `  word_generated visits   : ${g.wordSessions}  ≈ ${Math.round((g.wordSessions / g.days) * 30)}/month   ← §5 ANCHOR (utility ≥300/mo · shrink <150/mo two months running)`,
+  `    └ same, blind spots included: ${g.wordSessionsAll}  ≈ ${Math.round((g.wordSessionsAll / g.days) * 30)}/month   (Pro + already-gated + unlocked + unresolved, visible since 2026-08-27)`,
+  `      NOT the anchor. The ≥300 threshold was calibrated against the narrow`,
+  `      series above; judging it against this wider one would move the bar`,
+  `      without anyone deciding to. Watch the GAP — it is how much usage the`,
+  `      anchor cannot see, and it was 26% of the wider number on 2026-08-27.`,
   `  page_read visits        : ${g.readSessions}   (reading reach; 0 until 2026-08-17, not comparable before that)`,
   ...(g.caveats ?? []).map((c) => `    ⚠ ${c}`),
   `  Qualified /preorder UV : ${g.qualUv}   (was target 500 — gate retired)`,
@@ -256,6 +280,7 @@ const html = `
     <table style="width:100%;border-collapse:collapse;font-size:14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:8px">
       ${row("Engaged visits", g.engagedVisits, "distinct tab-lifetimes that did anything")}
       ${row("word_generated visits", `${g.wordSessions} (≈${Math.round((g.wordSessions / g.days) * 30)}/mo)`, "§5 anchor — utility ≥300/mo, shrink <150/mo")}
+      ${row("└ blind spots included", `${g.wordSessionsAll} (≈${Math.round((g.wordSessionsAll / g.days) * 30)}/mo)`, "context only, NOT the anchor — Pro + gated + unlocked + unresolved, since 2026-08-27")}
       ${row("page_read visits", g.readSessions, "reading reach, new 2026-08-17")}
       ${row("Qualified /preorder UV", g.qualUv, "gate retired")}
       ${row("Paywall triggers", g.pwTotal, "gate retired")}

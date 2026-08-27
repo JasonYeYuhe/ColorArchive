@@ -307,7 +307,7 @@ ColorArchive/
 │   │   │                                 #   charges — a failed session request is not an
 │   │   │                                 #   anonymous customer (2026-07-20 incident shape).
 │   │   ├── auth-client.ts               # Client API: session, projects, usage, referral, types
-│   │   ├── track.ts                      # Fire-and-forget events → backend /events + PostHog; merges first-touch attribution
+│   │   ├── track.ts                      # Fire-and-forget events → backend /events + PostHog; merges first-touch attribution; a REFUSED sendBeacon (returns false, never throws) retries over keepalive fetch and what still cannot be delivered is counted into `_dropped` on the next successful event
 │   │   ├── clipboard.ts                  # The ONLY clipboard write path. Returns {ok} | {ok:false, reason}
 │   │   │                                 #   instead of throwing, so copy-button.tsx and
 │   │   │                                 #   copy-action-button.tsx can emit `color_copy_failed`.

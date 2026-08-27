@@ -66,10 +66,14 @@ const PAYWALL_EVENT = {
   proClick: "word_paywall_pro_click", // clicked the in-gate Pro CTA (paid intent)
   emailUnlock: "word_paywall_email_unlock", // unlocked by subscribing (lead)
   proBypass: "word_paywall_pro_bypass", // gate opened because the account is Pro
-  // One event per NEW word counted, carrying its ordinal (1..FREE_GENERATIONS).
-  // This is the missing denominator behind "only 3.3% of views hit the wall":
-  // the drop-off between ordinal 1 and 5 tells us whether five free lookups is
-  // generous or simply more than anyone wants. Measure first, then tune once.
+  // One event per NEW word, carrying `counted` (did it spend free quota),
+  // `depth` (words this visit, uncapped) and — only when counted — its quota
+  // ordinal `count` (1..FREE_GENERATIONS). The ordinal is the missing
+  // denominator behind "only 3.3% of views hit the wall": the drop-off between
+  // 1 and 5 tells us whether five free lookups is generous or simply more than
+  // anyone wants. `counted:false` rows were added 2026-08-27 and are NOT part of
+  // that curve — see the block at the emit site for why they exist and how to
+  // filter them back out.
   generated: "word_generated",
 } as const;
 
@@ -173,6 +177,13 @@ export function WordColorGeneratorPage() {
   // Words this mount committed, so prefix-refunding can be scoped to the burst
   // that produced the fragments rather than to all of history.
   const committedThisMountRef = useRef<Set<string>>(new Set());
+  // Words this mount has already emitted `word_generated` for, whatever the
+  // entitlement. `committedThisMountRef` above cannot do this job: it is only
+  // populated on the quota-spending path, so it is blind to exactly the people
+  // this ref exists to de-duplicate. It also absorbs a re-run that is otherwise
+  // invisible — the effect below depends on `gated`, so crossing the limit
+  // re-schedules the debounce for the SAME input and would emit it twice.
+  const generatedThisMountRef = useRef<Set<string>>(new Set());
   const getCountedWords = () => {
     if (!countedWordsRef.current) {
       // Seed with the persisted counted words + the landing word, so the landed-on word
@@ -342,11 +353,63 @@ export function WordColorGeneratorPage() {
         return next;
       });
 
+      const norm = normalizeWord(trimmed);
       // Count only NEW distinct words. The landing word + already-counted words are
       // pre-loaded into the set, so the page the visitor landed on is always free and a
       // retyped word never double-counts across reloads. Pro accounts never gate.
-      if (!WORD_PAYWALL_ENABLED || proUser !== false || gated || isUnlocked()) return;
-      const norm = normalizeWord(trimmed);
+      const spendsQuota = WORD_PAYWALL_ENABLED && proUser === false && !gated && !isUnlocked();
+
+      /* ---- THE §5 ANCHOR FIRES ABOVE THE ENTITLEMENT DECISION (2026-08-27) ----
+       *
+       * `word_generated` is the utility anchor the whole feature is judged on
+       * (server/scripts/gate-report.cjs — "utility ≥300/mo, shrink <150/mo two
+       * months running"). Until today it was emitted BELOW the return that
+       * `spendsQuota` now expresses, which quietly made it a measure of FREE
+       * QUOTA SPENT rather than of the product being used.
+       *
+       * Measured on production the same day, 30-day window: 699 visits touched
+       * /word-to-color and 554 emitted the event. The 145 invisible ones were
+       * 64 already-gated returning visitors, 3 email-unlocked browsers, 2 Pro
+       * visits, and 71 that only ever emitted `page_read`. The input is not
+       * disabled while gated — only the RESULT panel is swapped for the paywall —
+       * so those people were typing words the whole time and none of it counted.
+       *
+       * The bias runs toward KILLING the feature, and it hides precisely the
+       * most engaged people (paying, subscribed, or back for a second visit),
+       * which is the worst possible direction for a retention decision.
+       *
+       * This changes no entitlement and no quota — only what gets recorded.
+       *
+       * `counted` reconstructs the old series EXACTLY, so the anchor keeps a
+       * comparable history across the change:
+       *     WHERE event_name='word_generated'
+       *       AND COALESCE(json_extract(props_json,'$.counted'), 1) = 1
+       * Rows written before today carry no `counted` key and were all
+       * quota-spending by construction, which is what the COALESCE encodes.
+       */
+      if (!spendsQuota && !generatedThisMountRef.current.has(norm)) {
+        generatedThisMountRef.current.add(norm);
+        track(PAYWALL_EVENT.generated, {
+          counted: false,
+          // Same precedence as the quota test above, so `reason` always names
+          // the condition that would actually have returned first.
+          reason: !WORD_PAYWALL_ENABLED
+            ? "disabled"
+            : proUser === true
+              ? "pro"
+              : proUser === null
+                ? "unresolved"
+                : gated
+                  ? "gated"
+                  : "unlocked",
+          // Words this VISIT, uncapped. `count` below cannot answer this: it is
+          // the persisted quota ordinal, so it stops dead at FREE_GENERATIONS and
+          // 149 of 554 visits pile up on exactly 5 with nothing visible after it.
+          depth: generatedThisMountRef.current.size,
+        });
+      }
+
+      if (!spendsQuota) return;
       const counted = getCountedWords();
       if (counted.has(norm)) return;
       // Refund the fragments: anything already counted that this word was typed
@@ -371,7 +434,16 @@ export function WordColorGeneratorPage() {
       );
       if (!words.includes(norm)) words.push(norm);
       try { localStorage.setItem(GEN_WORDS_KEY, JSON.stringify(words)); } catch {}
-      track(PAYWALL_EVENT.generated, { count: words.length });
+      generatedThisMountRef.current.add(norm);
+      // `count` keeps its original meaning untouched — the persisted quota
+      // ordinal, 1..FREE_GENERATIONS — because conversion-digest.cjs reads it as
+      // the paywall drop-off curve. `counted:true` is what marks this row as
+      // belonging to the pre-2026-08-27 series.
+      track(PAYWALL_EVENT.generated, {
+        count: words.length,
+        counted: true,
+        depth: generatedThisMountRef.current.size,
+      });
       if (words.length >= FREE_GENERATIONS) {
         grantedWordRef.current = norm;
         setGated(true);
