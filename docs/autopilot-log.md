@@ -4354,3 +4354,28 @@ tokyohelp+kanousei 合计只有 $4.06,**只搬 ColorArchive 剩下的仍然触�
 - `next.config.ts` · `app/robots.ts` · `app/sitemap.ts`
 - 删除:`app/colors/[slug]/vs/` · `src/components/color-vs-page.tsx`
 - `docs/human-todo.md` · `docs/autopilot-log.md` · `.claude/session-lock.json` — released
+
+---
+
+## 2026-08-27(收尾)— 三件时间敏感事全部关闭,Hayley 的续费自己回来了
+
+**收尾巡检时发现 Hayley 的 `pro_expires_at` 从 08-29 变成了 09-22。查 LS:**
+发票 `8299202`,`renewal` / `paid` / **$3.47**,创建于 **2026-08-27 11:44:41 UTC** ——
+**就在我查之前 11 分钟。** 订阅 `updated_at 11:45:42`,`renews_at` 推到 09-22。
+
+🔴 **这改写了 08-23 的诊断。** 当时结论是「LS 压根没跑这笔计费」,并倾向「PayPal 协议被撤销」。
+**实际是延迟了 5 天后自己执行了**,LS 始终没回工单。是**延迟**,不是失败,也不是协议失效。
+**手工额度那个缓冲完全按设计起了作用**:她全程没被锁,真续费一到 `subscription_updated`
+就把日期精确覆盖回 `renews_at`(DB 与 LS 一字不差)。
+**留下的教训:这个店的续费可能迟到 5 天,`graceDays: 0` 下靠的是人工缓冲不是代码。**
+
+**巡检结果**:三个账号跑 `effectiveTier` 全部 `pro` + `expired:false`;
+生产 10 个关键路由全 200;退休的 vs URL 308 跳颜色页;
+`api.colorarchive.org/health` 200;PM2 `colorarchive-server` online(7 天),3001 在听。
+(`/colors` 在 Express 上返回 404 是**正常的** —— 那是 Next 侧的路由,Express 没挂载。)
+
+**文档**:新交接 `docs/handoff-2026-08-27.md`,并在 `handoff-2026-08-26.md` 顶部标了已取代。
+
+### Files Modified
+- `docs/handoff-2026-08-27.md`(新)· `docs/handoff-2026-08-26.md`(标记取代)
+- `docs/human-todo.md` · `docs/autopilot-log.md` · `.claude/session-lock.json` — released
