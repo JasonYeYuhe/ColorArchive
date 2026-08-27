@@ -86,7 +86,13 @@ fi
 #
 # (tsconfig.json includes "**/*.ts" repo-wide, so a future .ts under server/ would
 # be type-checked by that CI build as well — today there are none.)
-METADATA='^(\.claude/.*|docs/.*\.md|server/.*|autopilot-log\.md|STRUCTURE\.md|gemini-review-todo\.md|todo\.md|HANDOFF\.md|README\.md|AGENTS\.md|CLAUDE\.md|IMPROVEMENTS\.md|PRODUCT_MEMO\.md|ROADMAP\.md|support-knowledge\.md)$'
+#
+# .gitignore joined the list 2026-08-27. Vercel builds the files git has already
+# checked out, and an ignore rule cannot add, remove or alter one of them — the
+# artefact is byte-identical by construction. Without this, purging 48 sync
+# conflict copies (a change to .gitignore and nothing else) would have re-rendered
+# all 4,461 pages and re-written the ISR cache to produce exactly the same site.
+METADATA='^(\.claude/.*|docs/.*\.md|server/.*|\.gitignore|autopilot-log\.md|STRUCTURE\.md|gemini-review-todo\.md|todo\.md|HANDOFF\.md|README\.md|AGENTS\.md|CLAUDE\.md|IMPROVEMENTS\.md|PRODUCT_MEMO\.md|ROADMAP\.md|support-knowledge\.md)$'
 
 CHANGED=$(git diff "$BASE" HEAD --name-only)
 

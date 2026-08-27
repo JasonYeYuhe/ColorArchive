@@ -32,10 +32,22 @@ test-results/
 .vercel
 server/.env.facebook
 
-# iCloud/cloud-sync conflict copies, e.g. "file 2.ext" / "file 3.ext" / "file 4.ext"
-**/* 2.*
-**/* 3.*
-**/* 4.*
+# iCloud/cloud-sync conflict copies, e.g. "file 2.ext" / "file 3.ext".
+#
+# This ENUMERATED 2/3/4 until 2026-08-27, by which point the copies had reached
+# 7: 48 files, 4.6MB, untracked in public/downloads/ and noise in every
+# `git status`. None were ever tracked, so none ever shipped — the cost was
+# attention, not bandwidth. A range covers whatever number the next one picks.
+#
+# It deliberately starts at 2, NOT 1. A sync conflict is by definition a SECOND
+# copy, and a [0-9] class would have swallowed two real files that merely look
+# like one: "product picture/Palette Pack Vol. 1.png" and
+# "colorarchive_logo_v1_assets/screenshot website 1.png".
+#
+# These are conflict copies, not build output: scripts/generate-downloads.mjs
+# only ever writes canonical names. Deleting them does not need a rebuild.
+**/* [2-9].*
+**/* [1-9][0-9].*
 # ...but keep these legitimately-numbered files that resemble conflict copies
 !colorarchive_logo_v1_assets/screenshot website 2.png
 !colorarchive_logo_v1_assets/screenshot website 3.png
