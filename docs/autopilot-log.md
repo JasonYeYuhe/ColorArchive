@@ -4312,3 +4312,45 @@ typecheck 干净 · vitest 749 · server 63。
 - `app/colors/[slug]/vs/[slug2]/page.tsx` · `src/components/color-detail-page.tsx`
   · `src/components/color-vs-page.tsx`
 - `docs/human-todo.md` · `docs/autopilot-log.md` · `.claude/session-lock.json` — released
+
+---
+
+## 2026-08-27 — GSC 拆分推翻了昨天的一个结论,vs 路由改成 301 并删除
+
+**owner 要求把 `/vs/` 的 47 次点击按 06-27 的 noindex 拆开。两个发现:**
+
+| 窗口 | 天数 | 点击 | 点击/天 | 曝光 |
+|---|---:|---:|---:|---:|
+| noindex 前 05-25→06-26 | 33 | 16 | **0.48** | 8.3K |
+| noindex 后 06-27→08-24 | 59 | 31 | **0.53** | 9.9K |
+
+1. 🔴 **「47 次被 noindex 污染」不成立** —— 点击前后是平的(曝光掉 33%,点击没掉)。
+   **Codex 和 Gemini 都提了这条,我当时采纳了,是错的。** 47 次就是真实价值。
+2. 🔴 **反过来:08-26 的改动把每月约 16 次真实点击变成了 404。**
+   GSC 列出的 8 个有点击 URL **线上逐个验过全部 404**,且**没有一个在 28 个预渲染页里**
+   (种子全是 `{root}-core-vivid`,有点击的是 `clover-dusk-pure` / `mauve-silk-soft` 这类)。
+3. **意图是查颜色名不是对比**(cloverdusk / mauve nocturne / moss dusk / #fcfbf8;
+   唯一对比意图 "mauve vs fuchsia" 37 曝光 0 点击)→ **跳回颜色页比 vs 页更对口。**
+
+**已做**:`next.config.ts` 加 308 `/colors/:slug/vs/:slug2` → `/colors/:slug/`;
+**删掉整个 vs 路由**(`app/colors/[slug]/vs/` + `src/components/color-vs-page.tsx`)。
+构建页数 **4,484 → 4,456**(正好少 28 个)。
+
+⚠️ **robots.txt 的 Disallow 故意保留**:放开会招来把积压配对重抓一遍(每百万 edge request ~$2.43)。
+**跳转是给人用的,robots.txt 不管人。** 索引合并另做,顺序写在 `app/robots.ts` 注释里。
+
+**Cloudflare 评估(owner 问的,结论:不搬)**:账单结构是
+`bill = max($20 seat, infra) × 1.10`,August 用这个公式算得 $90.44×1.1=$99.48 ✅ ——
+**所以在 Pro 上的下限就是 ~$22/月**。修完预估 infra $16–23 → 账单 $22–25,已经贴着下限。
+tokyohelp+kanousei 合计只有 $4.06,**只搬 ColorArchive 剩下的仍然触发 $20 底价 → 每月只省 $0–3**。
+要省钱只有「三个全搬 + 退掉 Pro」,省 ~$22/月,代价是 6 个 API 路由(含支付 webhook)、
+10 个 force-dynamic OG 路由、5,446 个颜色页全量预渲染。**owner:先看下个账期真实数字。**
+
+**验证**:308 跳转 3 个有点击 URL + 1 个原预渲染 URL 全部落到正确颜色页,end-to-end 200;
+`/compare/`、颜色页、`/all-colors/` 不受影响;typecheck 干净(需先 `rm -rf .next`,
+否则旧 `validator.ts` 还引用已删路由)· vitest 749 · server 63 · build exit 0。
+
+### Files Modified
+- `next.config.ts` · `app/robots.ts` · `app/sitemap.ts`
+- 删除:`app/colors/[slug]/vs/` · `src/components/color-vs-page.tsx`
+- `docs/human-todo.md` · `docs/autopilot-log.md` · `.claude/session-lock.json` — released

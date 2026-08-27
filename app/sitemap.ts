@@ -525,13 +525,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.72,
   }));
 
-  // NO vs routes here. app/colors/[slug]/vs/[slug2]/page.tsx sets
-  // `robots: { index: false }` because the route spans ~29M colour pairs and is
-  // rendered on demand — so submitting 28 of them in the sitemap was asking
-  // Google to crawl pages we simultaneously told it not to index. That wastes
-  // crawl budget on the exact route this project already had to add nofollow to
-  // for cost reasons (commit 9fece2b). The pages stay reachable through internal
-  // links; they just stop being advertised.
+  // NO vs routes here. The /colors/{a}/vs/{b}/ route was REMOVED on 2026-08-27:
+  // it spanned ~29.6M on-demand pairs and crawling that space was the largest
+  // line on the Vercel bill (8.75M ISR writes / $34.99 in one cycle). Its URLs
+  // now 301 to /colors/{a}/ (see next.config.ts, which explains why the colour
+  // page and not /compare/), and the Compare affordance lives on the static
+  // /compare/ route. Nothing to submit.
 
   return [
     ...topLevelRoutes,

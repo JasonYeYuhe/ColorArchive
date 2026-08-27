@@ -21,6 +21,33 @@ const nextConfig: NextConfig = {
       // ever existed as /colors/[slug]/. Every referrer is fixed at source in the
       // same change; this exists for inbound links and anything missed.
       { source: "/colors", destination: "/all-colors/", permanent: true },
+      // The retired /colors/{a}/vs/{b}/ comparison route (removed 2026-08-27).
+      //
+      // It spanned ~29.6M pairs rendered on demand, and crawling that space was
+      // the single largest line on the Vercel bill — 8.75M ISR writes / $34.99 in
+      // one cycle. Closing it with `dynamicParams = false` (5506e32) stopped the
+      // spend but started 404-ing live search traffic: GSC shows ~0.53 clicks/day
+      // still arriving, spread one-click-per-URL across the long tail, and NONE
+      // of them on the 28 pairs that were pre-rendered.
+      //
+      // WHY THE COLOUR PAGE AND NOT /compare/. The queries reaching these URLs are
+      // colour-name lookups, not comparisons — "cloverdusk", "mauve nocturne",
+      // "moss dusk", "#fcfbf8". Exactly one comparison query appears at all
+      // ("mauve vs fuchsia", 37 impressions, 0 clicks). So :slug's own page is a
+      // better answer than the page they were actually landing on, and a far
+      // better one than a 404. The Compare affordance itself lives on /compare/
+      // now, which is a static route and costs nothing to serve.
+      //
+      // NOTE the robots.txt Disallow on this path stays for now, which means
+      // Google will not fetch these and so will not see this 301. That is
+      // deliberate and temporary: un-blocking would invite a re-crawl of every
+      // pair a spider still has queued, and while each is now a cheap redirect
+      // rather than a render, millions of them still bill as edge requests. The
+      // redirect is for PEOPLE clicking stale results — robots.txt never applied
+      // to them. Consolidating the index is a separate, monitored step: unblock
+      // Googlebot only, let it observe the 301s, then restore the block.
+      { source: "/colors/:slug/vs/:slug2", destination: "/colors/:slug/", permanent: true },
+      { source: "/colors/:slug/vs/:slug2/", destination: "/colors/:slug/", permanent: true },
       // The retired /tools/* namespace. Every one of these was linked from our own
       // guides and newsletters for months before the prefix was dropped, so they
       // are the URLs most likely to be in an index or someone else's bookmark.

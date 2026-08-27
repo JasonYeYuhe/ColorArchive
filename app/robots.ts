@@ -34,11 +34,28 @@ export default function robots(): MetadataRoute.Robots {
     // writes went 4.78M → 8.75M in the two months AFTER noindex shipped.
     // Disallow is the first of these that stops the request itself.
     //
-    // Deliberately NOT paired with dynamicParams = false on the route: only ~28
-    // pairs are pre-rendered, while every one of the ~3,066 colour pages renders
-    // six "Compare" links, so switching it off would 404 roughly 18,000 internal
-    // links. Humans reaching a pair through those links still render it normally;
-    // they are a rounding error next to the crawl (~95 engaged visits/day).
+    // 🔴 THIS ENTRY NOW BLOCKS A 301, AND THAT IS DELIBERATE — READ BEFORE REMOVING.
+    //
+    // The route itself was deleted on 2026-08-27; these URLs now 301 to
+    // /colors/{a}/. Because they are Disallowed, Google will NOT fetch them and
+    // therefore will NOT see that redirect, so the old URLs will linger in the
+    // index as URL-only entries rather than consolidating. That is a real cost
+    // and it is being accepted on purpose, for one cycle:
+    //
+    //   Un-blocking invites a re-crawl of every pair a spider still has queued —
+    //   and they clearly queued a lot, since this route reached 8.75M ISR writes
+    //   in a month. Each is now a cheap redirect rather than a render, but at
+    //   ~$2.43 per million EDGE REQUESTS a full re-crawl of that backlog is still
+    //   real money on a site that earns ~$7/month.
+    //
+    // The redirect is not for crawlers. It is for PEOPLE clicking stale search
+    // results — GSC showed ~0.53 clicks/day still landing here — and robots.txt
+    // never governed them.
+    //
+    // The index cleanup is a separate, monitored step, once a cycle of billing
+    // data exists: allow Googlebot ONLY, let it observe the 301s, confirm the
+    // URLs drop, then restore this line. Keep every other crawler blocked
+    // throughout. Do not do it as a side effect of some other change.
     "/colors/*/vs/",
   ];
 
