@@ -154,11 +154,50 @@ raw_all = 554      pinned_old = 554      ← 一样
 
 - `npx vitest run src/lib/__tests__/track.test.ts` → **11 passed**
 - **把缺陷放回去**(还原成丢弃 sendBeacon 返回值)→ **7/11 变红**,恢复后 11 全绿
-- `npm test` → vitest **41 文件全过** + node:test **63/63**
+- `npx vitest run src/lib/__tests__/word-lookup-depth.test.ts` → **8 passed**;
+  **把缺陷放回去 2/8 变红**(见下面「补一条」)
+- `npm test` → vitest **42 文件 / 768 全过** + node:test **63/63**
 - `npm run typecheck` → 干净
 - `npx eslint <改动文件>` → 0 error(1 条 warning 是**改动前就有**的,在 `useEffect` 的 disable 指令上,未动)
-- 浏览器实测:新词发一次、重打旧词**不发**、`depth` 2→3 正确递增
+- 浏览器实测:新词发一次、重打旧词**不发**;**片段折叠后** `ccmid`→2、`ccmidnight`→仍 2、`zzlantern`→3
 - droplet 上两个报表脚本在**真库**上跑通,输出已肉眼核对
+
+---
+
+## 🔴 补一条:上线 4.7 小时后自查发现 `depth` 是错的,已修
+
+上线后回头看真实数据(**UTC 仍是 08-27,本地 JST 才跨日 —— 只跑了约 4.7 小时**),
+生产 session `02b3d2df` 的序列长这样:
+
+```
+cnt=1 depth=1 → cnt=1 depth=2 → cnt=2 depth=3 → cnt=2 depth=4 → cnt=3 depth=5 → cnt=4 depth=6
+```
+
+**`depth=6` 不是「越过付费墙的第 6 个词」**,而是 6 次 debounce 提交里只有 4 个净词。
+2 秒空闲判词,打字停顿会提交前缀("mid" → "midnight"),**额度路径会退掉这些片段,
+而 `depth` 没有退** —— 于是它随打字速度膨胀,恰好是「看起来是 A、实际是 B」的老毛病,
+而且是我自己新造的一个。
+
+**修法**:把前缀折叠抽成 `src/lib/word-lookup-depth.ts` 的 `recordLookup()`,两个发射点共用。
+和额度退款的唯一有意差别:**不豁免落地词** —— 落地词免费是**权限**规则,不是**计数**规则。
+
+- 8 条单测;**把缺陷放回去 2 条变红**(正是两条片段折叠的断言)。
+- 浏览器实测:`ccmid` → depth 2,`ccmidnight` → **仍是 2**,`zzlantern` → 3。
+
+### 已经用旧定义写进库的行(小,但要说清楚)
+
+**13 事件 / 4 会话**,`2026-08-27 13:18:36` → `16:37:45` UTC,其中 **5 行 `depth > count`**(真正被抬高的)。
+没有标记位,**按 `created_at` 早于本次部署排除即可**。量太小,不值得回填。
+
+### ⚠️ 本机 dev server 有个会骗人的坑(排查花了大半程)
+
+改完之后连续三次「验证失败」,一度以为逻辑不对。真相是
+**Turbopack dev 从内存图谱供应 chunk,而这台机器的文件监听没生效** ——
+`.next/dev/static/chunks/*.js` 磁盘上**有**新代码,HTTP 返回的**没有**,`touch` 也不触发。
+
+**判据(别再靠猜)**:在页面里 `fetch(chunkUrl, {cache:"reload"})` 然后 grep 一个只存在于新代码的字符串;
+和磁盘上同名文件对比。**不一致 = 服务器陈旧,不是你的代码错了。**
+**解法:`preview_stop` → `rm -rf .next` → `preview_start`**(单纯 HMR 或重新导航都不够)。
 
 ---
 

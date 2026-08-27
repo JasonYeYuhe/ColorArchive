@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
 import { CopyButton } from "@/src/components/copy-button";
 import { generateColorFromWord } from "@/src/lib/word-color";
+import { recordLookup } from "@/src/lib/word-lookup-depth";
 import { wordToColorFaq } from "@/src/lib/word-color-faq";
 import { wordToColorSeeds, slugifyWord, titleCaseWord } from "@/src/lib/word-to-color-seeds";
 import { WordColorShareCard } from "@/src/components/word-color-share-card";
@@ -184,6 +185,11 @@ export function WordColorGeneratorPage() {
   // invisible — the effect below depends on `gated`, so crossing the limit
   // re-schedules the debounce for the SAME input and would emit it twice.
   const generatedThisMountRef = useRef<Set<string>>(new Set());
+
+  // `depth` must discount the fragments the 2s debounce commits, exactly as the
+  // quota refund below does, or it measures typing speed instead of lookups.
+  // See src/lib/word-lookup-depth.ts for the rule and what it cost to find.
+  const noteGenerated = (word: string) => recordLookup(generatedThisMountRef.current, word);
   const getCountedWords = () => {
     if (!countedWordsRef.current) {
       // Seed with the persisted counted words + the landing word, so the landed-on word
@@ -388,7 +394,7 @@ export function WordColorGeneratorPage() {
        * quota-spending by construction, which is what the COALESCE encodes.
        */
       if (!spendsQuota && !generatedThisMountRef.current.has(norm)) {
-        generatedThisMountRef.current.add(norm);
+        const depth = noteGenerated(norm);
         track(PAYWALL_EVENT.generated, {
           counted: false,
           // Same precedence as the quota test above, so `reason` always names
@@ -402,10 +408,11 @@ export function WordColorGeneratorPage() {
                 : gated
                   ? "gated"
                   : "unlocked",
-          // Words this VISIT, uncapped. `count` below cannot answer this: it is
-          // the persisted quota ordinal, so it stops dead at FREE_GENERATIONS and
-          // 149 of 554 visits pile up on exactly 5 with nothing visible after it.
-          depth: generatedThisMountRef.current.size,
+          // Distinct lookups this VISIT, uncapped and net of typing fragments.
+          // `count` cannot answer this: it is the persisted quota ordinal, so it
+          // stops dead at FREE_GENERATIONS and 149 of 554 visits pile up on
+          // exactly 5 with nothing visible after it.
+          depth,
         });
       }
 
@@ -434,15 +441,16 @@ export function WordColorGeneratorPage() {
       );
       if (!words.includes(norm)) words.push(norm);
       try { localStorage.setItem(GEN_WORDS_KEY, JSON.stringify(words)); } catch {}
-      generatedThisMountRef.current.add(norm);
       // `count` keeps its original meaning untouched — the persisted quota
       // ordinal, 1..FREE_GENERATIONS — because conversion-digest.cjs reads it as
       // the paywall drop-off curve. `counted:true` is what marks this row as
-      // belonging to the pre-2026-08-27 series.
+      // belonging to the pre-2026-08-27 series. On this path `depth` should
+      // track `count`, since both now refund the same fragments; it only pulls
+      // ahead once the gate closes and `count` stops moving.
       track(PAYWALL_EVENT.generated, {
         count: words.length,
         counted: true,
-        depth: generatedThisMountRef.current.size,
+        depth: noteGenerated(norm),
       });
       if (words.length >= FREE_GENERATIONS) {
         grantedWordRef.current = norm;
