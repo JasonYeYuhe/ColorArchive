@@ -16,6 +16,19 @@ server/.env.twitter
 server/.env.youtube
 server/.env.instagram
 .claude/autopilot-tasks.md
+# Scratch left behind by the scheduled tasks in ~/.claude/scheduled-tasks/.
+#
+# Those tasks are SKILL.md prompts, not scripts: the agent writes whatever helper
+# it needs at run time, and its cwd is this repo, so the helpers land here. They
+# are working artefacts of a run, never an entry point — nothing references them.
+#
+# Removed 2026-08-28 after daily-color-post/ accumulated two of them. Keeping
+# them was actively harmful, not just untidy: run-post.mjs still built its links
+# on colorarchive.me, the domain retired in the .org migration, and a future run
+# that found it in the repo could have copied that straight back in. The live
+# SKILL.md has the correct .org — the stale copy was the only thing carrying the
+# old domain.
+.claude/scheduled-tasks/
 demo-video/
 *.tmp
 tts-samples/
