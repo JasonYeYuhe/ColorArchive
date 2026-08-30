@@ -221,29 +221,46 @@ if (sentryEnabled) {
 // bind surface costs nothing. Overridable for container setups that need it.
 const BIND_HOST = process.env.BIND_HOST || "127.0.0.1";
 
+// Every scheduler below has an OUTWARD side effect on startup, which is why
+// they can all be switched off together. email-scheduler's own comment says
+// "Run once on startup" — that is a real send to live subscribers; pin-scheduler
+// posts to Pinterest 45s in; and cache-warmer HEADs every long-tail colour slug
+// against the production domain. Starting this server on a laptop without the
+// switch mails your subscribers and fires ~2,900 requests at the live site.
+//
+// Production deliberately leaves this UNSET, so its behaviour is unchanged.
+const SCHEDULERS_DISABLED = process.env.DISABLE_SCHEDULERS === "1";
+const startScheduler = (label, mod) => {
+  if (SCHEDULERS_DISABLED) {
+    console.log(`[schedulers] ${label} DISABLED (DISABLE_SCHEDULERS=1)`);
+    return;
+  }
+  require(mod).startScheduler();
+};
+
 app.listen(PORT, BIND_HOST, () => {
   console.log(`ColorArchive server running on ${BIND_HOST}:${PORT}`);
 
   try {
-    require("./email-scheduler").startScheduler();
+    startScheduler("email", "./email-scheduler");
   } catch (err) {
     console.error("[WARN] Email scheduler failed to start:", err);
   }
 
   try {
-    require("./ig-scheduler").startScheduler();
+    startScheduler("instagram", "./ig-scheduler");
   } catch (err) {
     console.error("[WARN] Instagram scheduler failed to start:", err);
   }
 
   try {
-    require("./pin-scheduler").startScheduler();
+    startScheduler("pinterest", "./pin-scheduler");
   } catch (err) {
     console.error("[WARN] Pinterest scheduler failed to start:", err);
   }
 
   try {
-    require("./cache-warmer").startScheduler();
+    startScheduler("cache-warmer", "./cache-warmer");
   } catch (err) {
     console.error("[WARN] Cache warmer failed to start:", err);
   }
