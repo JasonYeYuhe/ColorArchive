@@ -4,6 +4,90 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-08-30
+
+> **No user-facing release this week — 15 commits, Aug 23 to Aug 30, and not one of them adds something a visitor can see.** Counts are byte-identical to the last three posts: colors **5,446**, collections **261**, guides **333**, tools **44** (43 on-site + the Figma plugin). **Zero new colors, tools, collections, or guides.** So this is a spotlight, not a changelog — the sixth in the last eight weeks (Jul 12, Jul 19, Aug 2, Aug 9, Aug 23, and now).
+>
+> **How the counts were read this run, and the caveat that goes with it.** `copy-counts.test.ts` was **not** run — see the vitest note in owner actions. The numbers come from a direct `esbuild`+`node` probe importing the same four modules the test imports (`src/data/colors`, `src/lib/collections`, `src/lib/guides`, `TOOLS` in `src/components/tools-page.tsx`), so they are read from the data, not from last week's post. They are safe to publish. What is *not* verified this run is the prose-vs-data guard across the site — but this week's diff touched no collection, guide, or tool data, so nothing moved underneath it.
+>
+> **What the week actually was:** measurement repair (`0fe11dc`, `a406bc6`, `62ba8aa`), Vercel cost (`caf2f96`, `5506e32`), an SEO redirect for the retired `/vs/` route (`879c672`, guarded by `acae07d` after the route came back on its own), repo hygiene (`ffc9e18`, `f7730e4`), and a plan doc (`46e1b27`). Every one of those is either invisible from outside or a confession. Nothing to announce.
+>
+> **The spotlight is Paint Mix (`/paint-mix/`), and it is in exactly the position Screen Test was in last week:** shipped in the Jul 26 ten-tool batch, given one line inside a list, never mentioned again. Same batch still holds `/css-filter/`, `/color-temperature/`, `/dark-mode-colors/`, `/color-wheel/` and `/duotone/` — one each, for the next few quiet weeks, so future runs do not have to invent news.
+>
+> **Everything in the post below was executed this run, not read off the source.** The solver was run against real targets through an esbuild probe and the numbers printed are what it returned:
+> - Five primaries, exactly as named in the post — Cadmium Red `#d32f2f`, Cadmium Yellow `#f9d71c`, Ultramarine Blue `#2b4a9b`, Titanium White `#f8f8f4`, Ivory Black `#221f1e` (`src/lib/paint-mix.ts:22`). Recipes are 2–3 primaries, ≤ 8 total parts, deterministic exhaustive search (`:70`), default 3 results (`:74`), and the page calls it with that default (`src/components/paint-mix-page.tsx:20`).
+> - **The gold recipe is real.** Target `#c9a227` → **1 part Cadmium Red + 6 Cadmium Yellow + 1 Ultramarine Blue**, predicted `#c79e26`, ΔE 1.29. The page renders ΔE with `toFixed(1)`, so the post says **1.3** — write the number the user will actually see.
+> - **The blue+yellow contrast is real.** Naive sRGB average of `#2b4a9b` and `#f9d71c` is `#92915c`, a muddy khaki. The subtractive model returns `#6c8046` at 1:1 and `#909835` at 1:2 — both genuinely green. This is the whole post in two numbers.
+> - **The honest-failure line is real, and load-bearing.** `#4b7f52` comes back at ΔE 6.3 — visibly off — and the page already says so in its own copy, including that saturated cyans/magentas are outside this paint set's gamut and a high ΔE means change paints, not ratios (`paint-mix-page.tsx:105`, `:113`). Keep that paragraph in the post. It is the reason the rest is believable.
+> - **No paywall** — zero `ProGate`/`isPro` hits in `paint-mix-page.tsx`, so "free, no signup" is safe. (Contrast `/wcag-audit/`, which *does* gate its report download at `:249` — do not spotlight that one as free.)
+> - `/paint-mix/` returns **200 on colorarchive.org** and the live HTML contains "Cadmium Red", "Ultramarine", "Titanium White", "Ivory Black", "Kubelka-Munk" and "starting points" — checked this run.
+>
+> **Deliberately excluded, do not add:**
+> 1. **`/20040303/` is private and personal.** Standing exclusion, repeated every week on purpose so no future run reading only `git log` mistakes it for a launch. `noindex`, unlinked, never in a public post, newsletter, sitemap or social copy.
+> 2. **Do NOT say the copy button was fixed.** `src/lib/clipboard.ts` is the most tempting thing in this week's diff to misread — it is a new shared clipboard module with a failure counter, and its own header states in full that it **deliberately does not add a `document.execCommand` fallback**, because repairing the failure would destroy the measurement being taken. Copy still fails in the same in-app browsers it failed in last week; we can now *count* it. "We fixed copying" would be false. Re-read that header before writing anything about clipboards.
+> 3. **The analytics corrections (`0fe11dc`, `a406bc6`, `62ba8aa`).** Three fixes to one bug shape: `color_copied` covered 2 of ~55 copy points, events fired only on the success path, and `word_generated`'s `depth` counted keystrokes instead of lookups. All real, all fixed. All of it is "our own numbers were wrong," addressed to an audience that never saw the numbers.
+> 4. **The `/vs/` retirement (`caf2f96`, `5506e32`, `879c672`).** 3,000+ comparison pages nobody requested were costing build minutes; they now 308 to the color's own page (verified live this run: `/colors/amber-pearl-muted/vs/cobalt-shadow-vivid/` → `308` → `/colors/amber-pearl-muted/`, target `200`). Correct work, but the announcement is "we deleted several thousand pages," which invites the question of why they existed. The feature survives at `/compare/` — already spotlighted Aug 2, so it is not this week's post either.
+> 5. The conflict-copy purge, the scheduled-task scratch cleanup, and the plan draft. Internal.
+>
+> **⚠️ Still unanswered, third week running: this file now holds 20 roundups dated 2026-04-05 through today, and not one has been removed** — the file's own first instruction is "Remove entries after posting." Nothing new to add to the Aug 23 argument, so it is not repeated here. **Owner: either publish these and delete them as you go, or say the Facebook Page is dead and this task should stop drafting them.** A twentieth unpublished post is not a distribution channel.
+>
+> **Owner actions:**
+> (a) **New, and it blocks CI-style verification locally: `vitest` will not start on this machine.** `npx vitest run` on a single 53-line test file hangs indefinitely — killed at 9 minutes, retried non-parallel, retried after `rm -rf node_modules/.vite` — printing the `RUN v4.1.0` banner and then never loading a test file. It emits `DEP0205 module.register() is deprecated` from Vite's module runner first. Local Node is **v26.3.0** against `vitest ^4.1.0`; a Node this new is the first thing I would check, but this run did not confirm the cause and did not change any dependency. Consequence for now: **no roundup can run the repo's guards**, including `copy-counts.test.ts`, so count claims fall back to the probe described above.
+> (b) 🔴 **TIME-SENSITIVE, found this run while checking whether an old item was still open — it isn't, it's a different and worse one. The Aug 27 report-script deployment did not survive the Azure migration, and production cron is running the pre-Aug-27 scripts right now.**
+> `human-todo.md` records the two report scripts as scp'd to the droplet and verified against the real DB on Aug 27, with backups at `scripts/*.cjs.bak-20260827`. The backend moved to Azure `172.207.80.109` on Aug 29 (PM2 `colorarchive-server`, `script path /root/ColorArchive/server/index.js`, up 12h). On that host: **no `.bak-20260827` files exist**, both scripts are dated **Aug 24**, and the line counts are **496 / 310** against the repo's post-`a406bc6` **599 / 335**. So the Aug 27 work went to a host that is now stopped, and the new host came up from a pre-fix copy.
+> Both crons are live there — `0 8 * * *` `conversion-digest.cjs` and `0 9 * * 1` `gate-report.cjs`. As of this run (Sun 2026-08-30 02:04 UTC) that means the **daily digest fires in ~6 hours and the weekly gate report Monday Aug 31 09:00 UTC, both from the old scripts.** The Aug 23 lockout tripwire *is* present in the host's `conversion-digest.cjs` (5 matches for its markers), so the subscriber alarm still works — it is the Aug 27 reporting fix that is missing.
+> **Not deployed by this run, deliberately.** Copying files onto a production host is outward-facing and irreversible-ish, this run is unattended, and this task's remit is a content roundup — finding it is in scope, shipping it is not. It is one `scp` of two files plus a `pm2`-free restartless drop, and it is the owner's to make.
+> Also worth a second look while in there: `/root/ColorArchive` is **not a git checkout** (`fatal: not a git repository`), so nothing on that host can be diffed against `main` without a checksum comparison like the one above.
+> (c) `public/downloads/` still accumulates untracked duplicate build artifacts (flagged Aug 23). Harmless, still growing, still makes `git status` unreadable.
+>
+> **Standing conventions:** this file is **manual-post-only — nothing below has been published**, and this run did **not** post to Facebook. The task file says "if possible," which is not the owner's approval; publishing to a public Page is irreversible, outward-facing, and this run is unattended. Keep the X variant **URL-free**: a link raises X API cost from ~$0.015 to ~$0.20 per post, which is what drained the credits in May.
+
+### Facebook
+
+🎨 **Another quiet release week, so here's a tool that has only ever gotten one line in a list: Paint Mix.**
+
+You learned this at about six years old, and then a screen unlearned it for you: **blue and yellow make green.**
+
+Try it digitally. Take ultramarine `#2b4a9b`, take cadmium yellow `#f9d71c`, average them the way a screen does, and you get `#92915c` — a muddy khaki. Not green. Nothing like green.
+
+That is not paint being mysterious. It is the two things working in opposite directions. **A screen adds light: every color you stack on makes it brighter.** **Paint takes light away: each pigment absorbs part of the spectrum, so a mix is always darker than what went into it, and yellow plus blue leaves green behind.**
+
+**Paint Mix works the second way.** Give it a color you're chasing and it hands back a recipe in whole parts, from five paints you can actually walk into a shop and buy:
+
+🔴 Cadmium Red
+🟡 Cadmium Yellow
+🔵 Ultramarine Blue
+⚪ Titanium White
+⚫ Ivory Black
+
+Two or three of them per recipe, eight parts maximum — something you can measure with a palette knife, not a 24-tube shopping list.
+
+**A real one.** Ask it for that deep mustard gold, `#c9a227`. The answer is **1 part Cadmium Red, 6 parts Cadmium Yellow, 1 part Ultramarine Blue** — and the blue is the part nobody guesses. A whisper of it is what turns bright yellow into *gold* rather than just yellow with the lights dimmed. The predicted mix lands at ΔE 1.3 from the target, which is close enough that most people can't separate the two side by side.
+
+**And when it can't get there, it says so.** Every recipe shows its predicted color next to your target with the gap printed as a number. Greens pulled out of ultramarine come back around ΔE 6 — visibly off, and the tool tells you rather than pretending. Push it toward a saturated cyan or magenta and the number goes higher still, because those are simply outside what five paints can reach. A big number there means *change paints, not ratios.*
+
+We'd rather hand you that than a recipe that quietly doesn't work. This is a subtractive-mixing approximation, not a pigment lab — real tubes vary by brand, medium and how long they've been open — so every recipe is a starting point, not a promise.
+
+Free, runs entirely in your browser, nothing to sign up for.
+
+Mix a color → colorarchive.org/paint-mix/
+
+5,446 colors · 261 collections · 333 guides · 44 free tools
+
+#ColorMixing #ColorTheory #Painting #Acrylic #Watercolor #OilPainting #Gouache #ArtTips #ColorArchive #DesignTools
+
+### X / Twitter (@ColorArxiv — post WITHOUT a URL, see owner note)
+
+A screen adds light. Paint takes it away.
+
+Average ultramarine and cadmium yellow the way a screen does and you get #92915c — a muddy khaki. Mix them the way paint does and you get green.
+
+Paint Mix gives you the recipe in whole parts, and tells you how far off it lands. 🎨
+
+<!-- 274 weighted / 273 codepoints — measured this run (the palette emoji counts double on X, the em dash counts single). Under 280, URL-free per the cost rule. -->
+
+---
+
 ## Weekly Roundup — 2026-08-23
 
 > **No user-facing release this week — 17 commits since last week's roundup, Aug 17 to Aug 23, and not one of them adds something a visitor can see.** The counts are byte-identical to last week's post: colors **5,446**, collections **261**, guides **333**, tools **44** (read from `TOOL_COUNT` + `collections` + `landingGuides` + `colors` this run, `copy-counts.test.ts` 3/3 green). **Zero new colors, tools, collections, or guides.** So this is a spotlight, not a changelog — same call as Jul 12, Jul 19, Aug 2 and Aug 9.

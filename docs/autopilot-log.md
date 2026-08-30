@@ -1,3 +1,91 @@
+## 2026-08-30 — [autopilot] weekly content roundup
+
+Scheduled weekly roundup for Aug 23–30. **Spotlight, not a changelog** — 15 commits in the
+window and not one of them is visible to a visitor. Sixth spotlight in eight weeks
+(Jul 12, Jul 19, Aug 2, Aug 9, Aug 23).
+
+- `git log --since="7 days ago"`: 15 commits. Measurement repair (`0fe11dc`, `a406bc6`,
+  `62ba8aa`), Vercel cost (`caf2f96`, `5506e32`), the retired `/vs/` route redirected and
+  then guarded after it came back on its own (`879c672`, `acae07d`), repo hygiene
+  (`ffc9e18`, `f7730e4`), plan/handoff docs (`46e1b27`, `04602b6`, `61d1673`, `a4d549f`),
+  the digest lockout tripwire (`739d455`), and last week's roundup itself (`0651e00`).
+- **Zero new colors, tools, collections, guides.** Diff over the window touches no
+  `collections.ts`, no `guides.ts`, no `TOOLS` entry — checked by path, not by reading
+  commit subjects.
+- **Counted, not quoted, and the guard could not be run.** `copy-counts.test.ts` was NOT
+  executed — see the vitest blocker below. Counts came from an `esbuild --bundle` +
+  `node` probe importing the same modules the test imports: colors **5,446**,
+  collections **261**, guides **333**; `TOOLS` **44** (43 on-site hrefs + the Figma
+  plugin link) counted out of `tools-page.tsx`. Identical to the last three weeks, which
+  is itself the evidence for "nothing was added".
+
+### Spotlight: Paint Mix, chosen from the same unpaid debt as last week
+
+`/paint-mix/` shipped in the Jul 26 ten-tool batch, got one line inside a list, and was
+never mentioned again — the exact position Screen Test was in before last week's post. The
+remaining members of that batch (`/css-filter/`, `/color-temperature/`,
+`/dark-mode-colors/`, `/color-wheel/`, `/duotone/`) are named in the queue entry so future
+quiet weeks have a list to draw from instead of inventing news.
+
+Every number in the post was **executed**, not read off the source:
+
+- `solvePaintRecipe("#c9a227")` → `1× Cadmium Red + 6× Cadmium Yellow + 1× Ultramarine
+  Blue`, predicted `#c79e26`, ΔE 1.29. The page renders ΔE with `toFixed(1)`, so the post
+  says **1.3** — the number a reader will actually see, not the one the solver returns.
+- Naive sRGB average of `#2b4a9b` and `#f9d71c` is `#92915c` (khaki); `mixPaints` returns
+  `#6c8046` at 1:1 and `#909835` at 1:2 (green). That contrast is the whole post, and both
+  halves were computed rather than asserted from color theory.
+- `#4b7f52` comes back at ΔE 6.3. **Kept in the post on purpose.** The page already prints
+  its own gamut caveat (`paint-mix-page.tsx:113`), and a spotlight that only shows the
+  tool succeeding is the failure mode this task keeps having.
+- Zero `ProGate`/`isPro` in `paint-mix-page.tsx`, so "free, no signup" is safe. Noted the
+  contrast with `/wcag-audit/`, which *does* gate its report download at `:249` — that one
+  must not be spotlighted as free.
+- `/paint-mix/` returns 200 live and the HTML carries the six literal strings the copy
+  leans on.
+
+### The misreading this week's diff invites, written down before it happens
+
+`src/lib/clipboard.ts` is new and looks exactly like a bug fix. It is not. Its header states
+that it **deliberately omits** a `document.execCommand` fallback, because repairing the
+failure would destroy the measurement being taken. Copy still fails in the same in-app
+browsers; we can now count it. "We fixed copying" would be false, and it is the single most
+likely false claim a future run reading only `git log` would make. Recorded as exclusion #2
+in the queue entry.
+
+### Owner findings
+
+1. **`vitest` will not start on this machine.** A single 53-line test file hangs
+   indefinitely — killed at 9 min, retried with `--no-file-parallelism`, retried after
+   `rm -rf node_modules/.vite`. Prints the `RUN v4.1.0` banner, emits
+   `DEP0205 module.register() is deprecated` from Vite's module runner, and never loads a
+   test file. Node **v26.3.0** against `vitest ^4.1.0`. Cause **not** confirmed and no
+   dependency was changed. Consequence: no roundup can run the repo's guards right now.
+2. 🔴 **The Aug 27 report-script deployment did not survive the Azure migration.** Found
+   while checking whether an older todo was still open; it wasn't, but this is worse. On
+   Azure `172.207.80.109` (`/root/ColorArchive/server`, PM2 `colorarchive-server`, up 12h):
+   `conversion-digest.cjs` is **496** lines / mtime **Aug 24** against the repo's **599**,
+   `gate-report.cjs` **310** against **335**, and the `*.cjs.bak-20260827` backups the
+   Aug 27 session left on the droplet **do not exist there**. Both crons are live
+   (`0 8 * * *`, `0 9 * * 1`), so the daily digest and Monday's gate report both run the
+   pre-fix scripts. The Aug 23 lockout tripwire *is* present (5 marker hits), so the
+   subscriber alarm still works. **Not deployed by this run** — pushing files to a
+   production host is outward-facing, this run is unattended, and the remit here is a
+   content roundup. Written up in `docs/human-todo.md`.
+   Side note: `/root/ColorArchive` is not a git checkout, so nothing there can be diffed
+   against `main` without comparing checksums by hand.
+3. **20 roundups now sit unremoved in the queue** (Apr 5 → today) against the file's own
+   "Remove entries after posting". The Aug 23 argument is not repeated; the decision is
+   restated with "stop generating these" as a real option.
+
+**NOT POSTED TO FACEBOOK.** The task file's "if possible" is not the owner's approval;
+publishing to a public Page is irreversible, outward-facing, and this run is unattended.
+
+Docs only; no code touched. Two throwaway probes were written to the scratchpad and one
+temporary test file was created under `src/lib/__tests__/` and deleted — working tree
+verified clean of both before commit. Root `autopilot-log.md` again left alone: still the
+stale month-dead fork flagged on Aug 23.
+
 ## 2026-08-23 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Aug 17–23. **Spotlight, not a changelog** — 17 commits since
