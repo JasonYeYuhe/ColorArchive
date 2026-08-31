@@ -1,3 +1,75 @@
+## 2026-09-01 — [remote] Off-site backup: two of the three "missing" pieces already existed; the third had been failing silently for five months
+
+Picked up the standing P0. The brief said off-site backup did not exist, listing three
+gaps: backups on the same disk as the database, no upload in cron, and no VM snapshots.
+**Measured, only one of those was true.**
+
+| tier | state before | |
+|---|---|---|
+| on-VM local, 6h, 14d, integrity-checked | working | ✅ |
+| Mac rsync-pull, 6h, 60d, restore-tested | **working — 220 snapshots back to 2026-07-08** | ✅ |
+| Azure OS-disk snapshot, weekly | **working — added 2026-08-30** | ✅ |
+| **cloud copy of the database** | **missing since 2026-04-04** | ❌ |
+
+The Mac pull had even been correctly re-pointed at Azure during the 08-29 migration
+(there is a `pull-offsite.sh.bak-before-azure-20260828` next to it). So the data already
+survived losing the VM. What it did not survive was losing the VM *and* the laptop.
+
+**🔴 Why the cloud tier had been dead for five months, which is the part worth keeping.**
+`server/scripts/sync-azure.sh` has been in the VM's crontab at `:10` past every 6h since
+2026-07-08 and uploaded **zero bytes** in that window — the container's newest blob was
+dated **2026-04-04**. It failed in the worst available way: its `skip()` logs one line and
+then `exit 0`, so cron recorded a success on every run while nothing happened. First the
+cached `az` login expired; then the migration moved us to a box where `az` is not installed
+at all. **A backup job that exits 0 without backing anything up is worse than no backup
+job, because it manufactures the belief that the backup exists.**
+
+**What shipped.** The cloud copy now runs from the Mac, inside the LaunchAgent that already
+pulls every 6h — that is where `az` is already authenticated, so **no credential is stored
+on either machine** (the storage key is fetched transiently per call, never written to
+disk). gzip 30MB → 5.3MB, uploaded Cool tier to `colorarchivestu/sqlite-backups`, 180-day
+retention. Both databases (ColorArchive + Stride). Whole run: 30s.
+
+Three properties built specifically against the failure above, each tested:
+
+- **Loud, never silent.** Every failure sets `rc=1` and logs `ERROR`. Verified by running
+  with `az` pointed at a nonexistent path: `ERROR (cloud/colorarchive): ... not found`,
+  `rc=1`. The old script would have exited 0.
+- **Verified, not assumed.** It downloads the blob back, decompresses it, compares md5
+  against the local file and runs `integrity_check` on the result. "The upload returned
+  200" is not evidence a backup is restorable. Round-trip proved byte-identical
+  (`5288a733…`), `integrity_check=ok`, **12,791 `events` rows** — the instrument W1 is
+  writing to, which is the thing that actually had to be protected.
+- **Noticed when it breaks.** `rc=1` from a LaunchAgent is surfaced by macOS precisely
+  nowhere, and a log in `~/Library` is not "loud". It now writes
+  `last-run-status.txt` (`OK`/`FAIL` + timestamp) and raises a macOS notification on
+  failure only — silent on success, because an alert every 6h gets muted and then the real
+  one is muted with it. Plus a staleness alarm at 30h, so a dead credential surfaces in
+  about a day instead of five months.
+
+**Idempotent** — re-running does not re-upload (verified). **Retention is scoped to the new
+`*.sqlite.gz` naming only**, so the 144 legacy `*.db.gz` blobs from 2026-03/04 — the only
+record of that period — are never touched.
+
+**Blocked, and not worked around.** The better design is a system-assigned managed identity
+on `apps-prod-vm` plus `Storage Blob Data Contributor` scoped to the container, letting the
+VM upload with IMDS + `curl`, no secret and no expiry, independent of the Mac being awake.
+The permission classifier declined the Azure identity/RBAC change. Left it to the owner and
+wrote it up as the top open item — it is ~5 minutes.
+
+**Deliberately not committed:** `pull-offsite.sh` itself. **This repo is public**, and the
+script carries the Azure subscription ID and OS-disk resource ID, neither of which appears
+anywhere in the repo today. (The VM's IP does appear in several docs, but that is already
+public via `api.colorarchive.org` DNS, so it is not a leak.)
+
+Also corrected: `docs/backup-runbook.md` still described the DigitalOcean droplet
+`143.198.85.72`, **destroyed 2026-08-30**, said "Offsite: NONE (known gap)", and gave a
+7-day retention that is actually 14. Anyone following it during an incident would have SSH'd
+to a machine that does not exist. Rewritten against measured state, with a
+restore-from-cloud procedure and the four-tier table. `sync-azure.sh`'s header, which
+claimed the Mac pull was the primary and it was merely a ready-to-activate second copy, now
+says what it actually is.
+
 ## 2026-09-01 — [remote] Pinterest: it publishes, nobody sees it, and the plan's blocker did not exist
 
 Worked §6 of `docs/dev-plan-2026-09-01-paid.md`. Two of its premises turned out to be wrong,
