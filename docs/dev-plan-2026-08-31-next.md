@@ -636,7 +636,45 @@ $ ssh azureuser@172.207.80.109 'sudo bash -c "cd /root/ColorArchive && git remot
 ⚠️ **但别把这当成大胜:8 月账单 $99.49 里构建只占 26%,大头是 ISR 写入 $34.99。**
 09-25 要核对的主要是那一项。
 
-**决策**:Codex 查到 Vercel 各档**统一按 $0.0035/CPU-分钟**计价,
+### ✅ A 已执行(2026-08-31 10:15 UTC)—— 但前提被现场推翻了一次
+
+🔴 **原来的框架是错的:没有人「选了 Turbo」。项目用的是 Elastic(自动挡)。**
+
+实际配置(API 读出,不是猜的):
+```
+"buildMachineType": "turbo",
+"buildMachineSelection": "elastic",
+"buildMachineElasticLastUpdated": 1774792994984   // ≈ 2026-03-29
+```
+面板上四个档:**Elastic**(推荐,4–30 vCPU,「auto-scaling hardware to balance speed and cost」)、
+Standard(4 vCPU/8GB)、Enhanced(8/16)、Turbo(30/60)。
+项目选的是 Elastic,而 **Elastic 从 3 月起就一直把这个 2m45s 的构建放在 30 vCPU 的顶档上**,
+面板原话:「Your next deployment will build with a **Turbo** machine, dynamically adjusted based on recent build usage.」
+
+→ 所以这不是「关掉一个手动升级」,是**否决自动挡的判断**。
+Codex 提到过 Elastic「不能隔离扩展性问题,因为机器是 Vercel 动态选的」,但他假设我们没在用它 —— 我们正在用。
+
+**已改为固定 Standard**,API 复核:
+```
+"buildMachineType": "standard",
+"buildMachineSelection": "fixed"
+```
+**并且已经拿到实机确认** —— 之后一次构建的日志头是
+`Build machine configuration: 4 cores, 8 GB`(原来是 `30 cores, 60 GB`)。
+
+⚠️ **但整段构建时长还没测到,要如实说。** 三次强制触发都被项目自己的 `vercel-ignore.sh` 正确跳过了
+(同 commit 重部署 → 无 diff;preview 重部署 → 同理;推一个指向 main 的分支 → Vercel 按 SHA 去重,根本没建)。
+CLI 直传也不行:仓库磁盘上 81,746 个文件而 git 只跟踪 1,025 个,超过 15,000 上传上限。
+**这些「失败」其实都是好消息 —— 跳过逻辑在每个方向上都工作正常。**
+
+**所以下一次真实的代码推送就是这次测量**(autopilot 往 `src/lib/` 加内容也算)。判据:
+- **< 15 分钟 → 留在 Standard**
+- **> 20.6 分钟 → 换回 Elastic**(那是盈亏平衡点:30×2.75 = 82.5 CPU-分钟 ÷ 4 核)
+
+生产未受影响:三次尝试全是 CANCELED 或 preview,`colorarchive.org` 仍在服务 06:53 那次构建
+(`age: 12150` ≈ 3.4 小时)。
+
+**决策依据**:Codex 查到 Vercel 各档**统一按 $0.0035/CPU-分钟**计价,
 所以 4 核 Standard 的盈亏平衡点是 **20.6 分钟**;我们的构建是 2m45s,
 其中约 45 秒是不可并行的(`npm ci`、编译、trace、156MB 缓存上传)。
 → **换 Standard 大概率落在 6–12 分钟,省约 $0.22/次 ≈ $11/月。**
