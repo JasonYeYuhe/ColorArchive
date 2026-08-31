@@ -255,7 +255,22 @@ const captureBySurface = db.prepare(
 ).all(since);
 
 // Content → tool, and the Pro CTAs that were invisible until 2026-07-25.
-const contentToTool = ev("guide_tool_click");
+//
+// SPLIT 2026-08-31, and the split is what keeps this number readable. The W1 card
+// (src/components/guide-word-card.tsx) is a FOURTH `guide_tool_click` emitter,
+// tagged `placement:"w1_card"`, and it only exists for half of guide readers. Left
+// as one unfiltered COUNT(*) this line would step up on deploy day for a purely
+// instrumentation reason — and worse, it would be a number driven by an A/B arm,
+// so it would move again when the experiment ends. Rows written before 08-31 carry
+// no `w1_card` placement, so the first series is continuous across the change.
+const contentToTool = db.prepare(
+  `SELECT COUNT(*) c FROM events WHERE event_name='guide_tool_click'
+     AND datetime(created_at) >= datetime('now', ?)
+     AND COALESCE(json_extract(props_json,'$.placement'),'') <> 'w1_card'`).get(since).c;
+const contentToToolW1 = db.prepare(
+  `SELECT COUNT(*) c FROM events WHERE event_name='guide_tool_click'
+     AND datetime(created_at) >= datetime('now', ?)
+     AND json_extract(props_json,'$.placement') = 'w1_card'`).get(since).c;
 const proCtaClicks = db.prepare(
   `SELECT COALESCE(json_extract(props_json,'$.surface'),'?') AS surface, COUNT(*) c
      FROM events WHERE event_name='pro_cta_click' AND datetime(created_at) >= datetime('now', ?)
@@ -288,10 +303,21 @@ const upgradeClicks = db.prepare(
 // they would all land in a silent `n = NULL` bucket and read as a sixth ordinal.
 // This curve is about spending free lookups, so it wants exactly the rows that
 // spent one. Pre-2026-08-27 rows have no `counted` key and all qualify.
+//
+// `surface` is the same argument one step further out. From 2026-08-31 there is a
+// SECOND emitter — the W1 card inside guide articles
+// (src/components/guide-word-card.tsx) — which by design never spends quota and so
+// never writes `count`. The `counted` filter above therefore already excludes it,
+// and this line changes nothing today. It is here because that exclusion is a side
+// effect of an entitlement rule rather than a statement about which surface this
+// curve measures, and the day someone lets an embed spend quota is the day this
+// curve would start counting article readers as paywall progress without saying so.
+// Rows written before 08-31 carry no `surface` key and were all tool-page.
 const wordDepth = db.prepare(
   `SELECT CAST(json_extract(props_json,'$.count') AS INTEGER) AS n, COUNT(*) c
      FROM events WHERE event_name='word_generated' AND datetime(created_at) >= datetime('now', ?)
       AND COALESCE(json_extract(props_json,'$.counted'), 1) = 1
+      AND COALESCE(json_extract(props_json,'$.surface'), 'word_tool') = 'word_tool'
     GROUP BY n ORDER BY n`,
 ).all(since);
 
@@ -499,7 +525,7 @@ const text = [
   `  post-capture CTA clicks: ${captureCtaClicks}`,
   ``,
   `Content → tool (${WINDOW_DAYS}d):`,
-  `  guide_tool_click: ${contentToTool}`,
+  `  guide_tool_click: ${contentToTool}${contentToToolW1 ? `  (+${contentToToolW1} from the W1 card, arm-driven — see dev-plan §9)` : ""}`,
   `  pro_cta_click   : ${proCtaClicks.length ? proCtaClicks.map((r) => `${r.surface}=${r.c}`).join(", ") : "0"}`,
   `  upgrade_clicked : ${upgradeClicks.length ? upgradeClicks.map((r) => `${r.source}=${r.c}`).join(", ") : "0"}`,
   ``,
@@ -561,7 +587,7 @@ const html = `
     <pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7;color:#374151;margin:0 0 18px">${esc(captureBlock.join("\n"))}
 post-capture CTA clicks: ${captureCtaClicks}</pre>
     <p style="margin:0 0 6px;font-weight:700;font-size:13px">Content → tool (${WINDOW_DAYS}d)</p>
-    <pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7;color:#374151;margin:0 0 18px">guide_tool_click: ${contentToTool}
+    <pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7;color:#374151;margin:0 0 18px">guide_tool_click: ${contentToTool}${contentToToolW1 ? `  (+${contentToToolW1} from the W1 card, arm-driven)` : ""}
 pro_cta_click   : ${esc(proCtaClicks.length ? proCtaClicks.map((r) => `${r.surface}=${r.c}`).join(", ") : "0")}
 upgrade_clicked : ${esc(upgradeClicks.length ? upgradeClicks.map((r) => `${r.source}=${r.c}`).join(", ") : "0")}</pre>
     <p style="margin:0 0 6px;font-weight:700;font-size:13px">Free lookups used before the paywall (${WINDOW_DAYS}d)</p>

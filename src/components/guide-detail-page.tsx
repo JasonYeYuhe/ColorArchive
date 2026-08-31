@@ -1,7 +1,9 @@
 "use client";
 
+import { Fragment } from "react";
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
+import { GuideWordCard } from "@/src/components/guide-word-card";
 import { track } from "@/src/lib/track";
 import type { ColorCollection } from "@/src/lib/collections";
 import type { LandingGuide } from "@/src/lib/guides";
@@ -10,11 +12,17 @@ export function GuideDetailPage({
   guide,
   relatedGuides,
   featuredCollection,
+  seedWord,
   faqs = [],
 }: {
   guide: LandingGuide;
   relatedGuides: LandingGuide[];
   featuredCollection: ColorCollection | null;
+  // Prefill for the W1 card, derived in the Server Component. Passed as a plain
+  // string rather than computed here on purpose: deriving it needs the guide's
+  // tags, and reaching for those from a "use client" file means a value import of
+  // src/lib/guides.ts — 1.42MB that does not tree-shake (see 96ff99e).
+  seedWord: string;
   // Hand-written FAQ for high-traffic guides (src/lib/guide-seo.ts); plain data
   // so the module never reaches the client bundle. Empty for most guides.
   faqs?: { question: string; answer: string }[];
@@ -76,16 +84,37 @@ export function GuideDetailPage({
 
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,0.85fr)]">
           <div className="space-y-4">
-            {guide.sections.map((section) => (
-              <article
-                key={section.heading}
-                className="rounded-[1.75rem] border border-black/6 bg-white/82 dark:border-white/10 dark:bg-neutral-900/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]"
-              >
-                <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
-                  {section.heading}
-                </h2>
-                <p className="mt-3 text-sm leading-7 text-neutral-600 dark:text-neutral-300">{section.body}</p>
-              </article>
+            {guide.sections.map((section, index) => (
+              <Fragment key={section.heading}>
+                <article
+                  className="rounded-[1.75rem] border border-black/6 bg-white/82 dark:border-white/10 dark:bg-neutral-900/80 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]"
+                >
+                  <h2 className="text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
+                    {section.heading}
+                  </h2>
+                  <p className="mt-3 text-sm leading-7 text-neutral-600 dark:text-neutral-300">{section.body}</p>
+                </article>
+                {/* W1 (dev-plan-2026-08-31-next §5). Renders in the treatment arm
+                    only; the component itself is mounted in both and is what
+                    emits the experiment's denominator. AFTER the first section on
+                    purpose — the hero and key-points panels above it clear one
+                    viewport on every breakpoint, so the post-hydration insert is
+                    off-screen and scores no CLS. Every guide has ≥2 sections, so
+                    this is never the last thing in the column. */}
+                {index === 0 ? (
+                  // `key` is load-bearing, not tidiness. On a client-side nav from
+                  // guide A to guide B React reconciles by position, and the card's
+                  // `useState(seedWord)` initialiser only runs on MOUNT — so a
+                  // reused instance would keep showing A's word on B's page, and
+                  // carry A's emitted-words and depth sets into B's measurements.
+                  // It happens to remount today only because all 333 first-section
+                  // headings are distinct, which makes the enclosing Fragment's key
+                  // change. That is a property of the CONTENT, not of this code, and
+                  // autopilot writes new guides into src/lib/guides.ts unattended.
+                  // Keying on the slug makes the remount say so.
+                  <GuideWordCard key={guide.slug} seedWord={seedWord} slug={guide.slug} />
+                ) : null}
+              </Fragment>
             ))}
           </div>
 

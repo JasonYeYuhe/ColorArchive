@@ -89,17 +89,35 @@ function gate(days) {
   // chosen over engaged visits in the first place. Rows written before the change
   // carry no `counted` key and were all quota-spending by construction, which is
   // what the COALESCE encodes.
+  // The `surface` clause is redundant TODAY and deliberately kept anyway: the W1
+  // card always emits `counted:false`, so the line above already excludes it. That
+  // immunity is a side effect of an entitlement rule, not a statement about which
+  // surface this anchor measures, and it survives only until someone makes an
+  // embed spend quota. Saying it outright costs one line and removes the coupling.
   const wordSessions = db.prepare(
     `SELECT ${DISTINCT_VISITS} c FROM events
       WHERE datetime(created_at) >= datetime('now', ?) AND event_name='word_generated'
-        AND COALESCE(json_extract(props_json,'$.counted'), 1) = 1`).get(since).c;
+        AND COALESCE(json_extract(props_json,'$.counted'), 1) = 1
+        AND COALESCE(json_extract(props_json,'$.surface'), 'word_tool') = 'word_tool'`).get(since).c;
   // The same behaviour with the blind spots restored. Reported BESIDE the anchor,
   // never as the anchor, until it has two clean months of its own: the threshold
   // (≥300/mo) was calibrated against the narrow series and means nothing against
   // a wider one. Measured 2026-08-27 the gap was 554 vs 699 visits over 30 days.
+  //
+  // The `surface` clause is NOT decoration. From 2026-08-31 `word_generated` has a
+  // second emitter — the W1 card inside guide articles
+  // (src/components/guide-word-card.tsx) — and this series is the ONLY one that
+  // would have absorbed it. The anchor above is already immune by accident, because
+  // the card never spends quota and so always carries `counted:false`; this one
+  // filters on nothing and would have stepped up for a purely instrumentation
+  // reason during the exact window it is being qualified in. Rows written before
+  // 08-31 carry no `surface` key and were 100% tool-page by construction (verified:
+  // every `word_generated` row in the prior 30 days had path='/word-to-color/'),
+  // which is what the COALESCE default encodes.
   const wordSessionsAll = db.prepare(
     `SELECT ${DISTINCT_VISITS} c FROM events
-      WHERE datetime(created_at) >= datetime('now', ?) AND event_name='word_generated'`).get(since).c;
+      WHERE datetime(created_at) >= datetime('now', ?) AND event_name='word_generated'
+        AND COALESCE(json_extract(props_json,'$.surface'), 'word_tool') = 'word_tool'`).get(since).c;
   // Reading reach, from the signal added 2026-08-17 to replace what 08-10 removed.
   // Reported separately and never added to the series above — see page-tracker.tsx.
   const readSessions = db.prepare(

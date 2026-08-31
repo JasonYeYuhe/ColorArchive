@@ -75,6 +75,12 @@ const PAYWALL_EVENT = {
   // anyone wants. `counted:false` rows were added 2026-08-27 and are NOT part of
   // that curve — see the block at the emit site for why they exist and how to
   // filter them back out.
+  //
+  // NOT THE ONLY EMITTER since 2026-08-31. src/components/guide-word-card.tsx
+  // emits the same event from inside guide articles (W1). Every row now carries
+  // `surface` — "word_tool" here, "guide_card" there — so anything reading this
+  // event as a measure of THIS page must filter on it, defaulting an absent key
+  // to "word_tool". server/scripts/gate-report.cjs does exactly that.
   generated: "word_generated",
 } as const;
 
@@ -396,6 +402,15 @@ export function WordColorGeneratorPage() {
       if (!spendsQuota && !generatedThisMountRef.current.has(norm)) {
         const depth = noteGenerated(norm);
         track(PAYWALL_EVENT.generated, {
+          // Which surface produced the lookup. Added 2026-08-31 with W1, which
+          // put a second `word_generated` emitter on guide pages
+          // (src/components/guide-word-card.tsx). Rows written before that carry
+          // no `surface` key and were 100% this page by construction — verified
+          // against production, every `word_generated` row in the preceding 30
+          // days had path='/word-to-color/'. That is what the COALESCE default in
+          // gate-report.cjs encodes, and it is the same argument the `counted`
+          // change documents below.
+          surface: "word_tool",
           counted: false,
           // Same precedence as the quota test above, so `reason` always names
           // the condition that would actually have returned first.
@@ -448,6 +463,7 @@ export function WordColorGeneratorPage() {
       // track `count`, since both now refund the same fragments; it only pulls
       // ahead once the gate closes and `count` stops moving.
       track(PAYWALL_EVENT.generated, {
+        surface: "word_tool", // see the note at the sibling emit above
         count: words.length,
         counted: true,
         depth: noteGenerated(norm),

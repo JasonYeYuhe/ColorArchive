@@ -949,6 +949,37 @@ const translations: Record<string, Record<string, string>> = {
     zh: "相关指南",
   },
 
+  // W1 in-body word→colour card (src/components/guide-word-card.tsx). The copy
+  // avoids naming the guide's own subject in a sentence, because the prefilled
+  // word is already shown beside the swatch and `t()` has no interpolation.
+  "guideCard.label": {
+    en: "Word to color",
+    zh: "文字转颜色",
+  },
+  "guideCard.eyebrow": {
+    en: "Every word has a color",
+    zh: "每个词都有颜色",
+  },
+  // No spatial references ("the word above", "beside it") — the swatch sits left
+  // of the word on desktop and above it on mobile, so any such phrasing is wrong
+  // at one breakpoint or the other.
+  "guideCard.desc": {
+    en: "Same text, same color, every time. Try your own brand name, product, or mood.",
+    zh: "同样的文字，永远得到同样的颜色。换成你的品牌名、产品名或情绪试试。",
+  },
+  "guideCard.placeholder": {
+    en: "Type any word",
+    zh: "输入任意词",
+  },
+  "guideCard.inputLabel": {
+    en: "Type a word to turn into a color",
+    zh: "输入要转换成颜色的词",
+  },
+  "guideCard.cta": {
+    en: "See all five tones",
+    zh: "查看全部五个色调",
+  },
+
   // Note detail page
   "note.highlights": {
     en: "Highlights",

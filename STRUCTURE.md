@@ -134,6 +134,14 @@ ColorArchive/
 │   │   ├── palette-packs-page.tsx        # All packs listing + comparison
 │   │   ├── free-pack-page.tsx            # Free sample download page
 │   │   ├── guide-detail-page.tsx         # SEO guide article page
+│   │   ├── guide-word-card.tsx           # W1 (2026-08-31): in-body word→colour card spliced
+│   │   │                                 #   after the first article section, plus its A/B
+│   │   │                                 #   wrapper. Mounts in BOTH arms and emits
+│   │   │                                 #   `w1_assigned` (the denominator) once per visit;
+│   │   │                                 #   only the card itself is arm-dependent. NEVER
+│   │   │                                 #   spends the paywall's free quota and NEVER emits
+│   │   │                                 #   `word_generated` for the prefilled seed word —
+│   │   │                                 #   read the header before touching either.
 │   │   ├── guides-page.tsx               # All guides listing
 │   │   ├── note-detail-page.tsx          # Newsletter issue page
 │   │   ├── notes-page.tsx                # All notes listing
@@ -325,6 +333,13 @@ ColorArchive/
 │   │   │                                 #   previously-always-NULL events.session_id column, so
 │   │   │                                 #   analytics ratios are per VISIT. Deliberately NOT a
 │   │   │                                 #   persistent identifier. Disclosed in /cookie-policy/.
+│   │   ├── experiment.ts                 # 50/50 arm assignment (`ca_w1_v1`, localStorage — same
+│   │   │                                 #   lifetime as `ca_attr_v1` so arm and landing page
+│   │   │                                 #   cannot disagree). Reports `persisted:false` for
+│   │   │                                 #   browsers that re-roll. Disclosed in /cookie-policy/.
+│   │   ├── guide-seed-word.ts            # Guide → prefill word for the W1 card. 278/333 use the
+│   │   │                                 #   guide's own subject tag, 55 fall back to a curated
+│   │   │                                 #   seed. SERVER-ONLY (its caller needs guides.ts).
 │   │   ├── use-impression.ts             # useImpression() — fires once per page view when an
 │   │   │                                 #   element is 50% visible for 1 continuous SECOND. The
 │   │   │                                 #   exposure denominator for the AI gate. Re-observes on

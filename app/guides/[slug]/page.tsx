@@ -6,6 +6,7 @@ import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { getLandingGuide, getRelatedGuides, landingGuides } from "@/src/lib/guides";
 import { getCollectionById } from "@/src/lib/collections";
 import { guideFaqs } from "@/src/lib/guide-seo";
+import { getGuideSeedWord } from "@/src/lib/guide-seed-word";
 import { getGuideSeoTitle } from "@/src/lib/guide-seo-title";
 import { SITE_URL } from "@/src/lib/site-config";
 
@@ -131,6 +132,9 @@ export default async function GuideRoute({ params }: GuidePageProps) {
         guide={guide}
         relatedGuides={relatedGuides}
         featuredCollection={guide.featuredCollectionId ? getCollectionById(guide.featuredCollectionId) ?? null : null}
+        // Derived HERE, not in the client component: the mapping reads guide.tags,
+        // and importing that data client-side costs 1.42MB (see 96ff99e).
+        seedWord={getGuideSeedWord(guide.slug, guide.tags)}
         faqs={faqs}
       />
     </>

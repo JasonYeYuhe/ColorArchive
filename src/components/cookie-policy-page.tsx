@@ -6,7 +6,8 @@ import { SITE_URL } from "@/src/lib/site-config";
 // you are logged in", which stopped being true when PostHog shipped — its anonymous
 // id lives there and rides on every analytics event. Also removed Stripe, which
 // this still listed months after it was replaced by Lemon Squeezy.
-const LAST_UPDATED = "July 26, 2026";
+// 2026-08-31: disclosed `ca_w1_v1`, the guide-page layout A/B bucket added in W1.
+const LAST_UPDATED = "August 31, 2026";
 
 const sections = [
   {
@@ -36,6 +37,7 @@ To be accurate rather than convenient about why: the ePrivacy Directive's Articl
 - **Analytics identifier**: PostHog stores a random anonymous id here instead of setting a cookie. It is sent with product-analytics events so we can tell whether people come back, and it contains nothing about you — clearing localStorage resets it.
 - **First-touch source (\`ca_attr_v1\`)**: how you first arrived — the referring URL, the first page you landed on, any campaign parameters in the link, and the date. Stored once and kept, so that if you later subscribe or buy we can tell which channel earned it rather than crediting whatever page you happened to be on. Sent with analytics events.
 - **Analytics session id (\`ca_sid\`)**: a random per-tab id kept in sessionStorage (not localStorage), sent with analytics events so we can count *visits* instead of clicks — one person scrolling past the same card ten times should count once. It is discarded when you close the tab, is never linked to your identity, and cannot connect one visit to another.
+- **Layout test group (\`ca_w1_v1\`)**: the single word \`control\` or \`card\`, decided by a coin flip the first time you open a guide page, and kept so the page does not change shape between visits. It decides whether one guide article shows an extra colour card, and nothing else. It contains no information about you — it is one of two words, assigned at random, and clearing site data reassigns it. Sent with analytics events.
 
 Favorites, recent colors and UI preferences stay on your device unless you are logged in, in which case favorites are synced to your account on our server. The analytics identifier above is the exception: it is transmitted with analytics events by design.`,
   },
