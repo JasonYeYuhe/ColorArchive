@@ -45,10 +45,25 @@
 
 const { getRateLimitKey } = require("./client-ip");
 
-// Kept in sync with the copy in routes/ai.js (that one guards a read path and
-// answers bots from a constant instead of querying).
+// ONE COPY. routes/ai.js used to carry its own and now imports `isBotRequest`
+// from here (routes/ai.js:16), so this is the only definition — an older comment
+// here said "kept in sync with the copy in routes/ai.js", which was an invitation
+// to go and re-create the duplicate.
+//
+// `lightpanda` added 2026-08-31. It is a headless browser built for AI agents and
+// it self-identifies honestly as `Lightpanda/1.0`, which is exactly the population
+// the paragraph above says this filter is for — it was simply missing from the
+// headless cluster next to puppeteer/playwright.
+//
+// NOT A BREAKPOINT WORTH WARNING ABOUT, and that was measured before adding it
+// rather than assumed: nginx shows 18 POSTs to /events from Lightpanda across
+// several days of retained logs, against ~768/day in total from 67 distinct IPs —
+// under 1%. So unlike the 2026-07-26 change above (a 28.6% step), no series moves
+// visibly here, and no report needs a new caveat. Recorded because "we changed
+// what gets counted and told nobody" is how the 08-10 and 08-31 incidents started,
+// not because this one is large.
 const BOT_UA_RE =
-  /bot|spider|crawl|slurp|bingpreview|ahrefs|semrush|mj12|dotbot|petalbot|bytespider|headlesschrome|phantomjs|puppeteer|playwright|python-requests|python-urllib|go-http-client|java\/|okhttp|axios\/|node-fetch|libwww|lwp-|scrapy|curl\/|wget/i;
+  /bot|spider|crawl|slurp|bingpreview|ahrefs|semrush|mj12|dotbot|petalbot|bytespider|headlesschrome|phantomjs|puppeteer|playwright|lightpanda|python-requests|python-urllib|go-http-client|java\/|okhttp|axios\/|node-fetch|libwww|lwp-|scrapy|curl\/|wget/i;
 
 /**
  * True when the request looks automated.
