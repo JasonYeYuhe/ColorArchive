@@ -849,3 +849,44 @@ Codex 指出 Vercel 的 Redeploy 弹窗可以**取消勾选 "Use project's Ignor
   「8 GB 有 OOM 风险」—— 实测都不成立。**它的价值在指出我没看的那一维,不在它的结论。**
 - **Codex**:两处算术都抓对了,60 秒空档的解释也对且可验证。
   但它的 $2.7/月是被我含糊的简报带偏的。**它的价值在核对我的数,而它算的数也要核对。**
+
+---
+
+## §9.11 更正:改之前那是**账号默认**,不是任何人的选择
+
+owner 指出「之前设定的好像是 default,自动分配 CPU」。**核实过,他对,而我 §9.9 少写了一层。**
+
+```
+团队层面:   "buildMachine": { "default": "elastic" }
+项目改之前:  buildMachineSelection = "elastic"    ← 就是这个默认值
+项目现在:    buildMachineSelection = "fixed", buildMachineType = "standard"
+```
+
+而且项目的 `defaultResourceConfig` 里**根本没有 `buildMachine*` 这两个键** ——
+说明它从来没有过自己的覆盖,一直跟着账号默认走。
+
+§9.9 写的「没有人选了 Turbo,是 Elastic 选的」**对但不完整**。完整的说法是:
+**Turbo 没人选,Elastic 也没人选 —— 开箱默认就是 Elastic,而 Elastic 从 3 月起每次都分 30 核 Turbo。**
+(`buildMachineElasticLastUpdated` 停在 2026-03-29,五个月没动过,所以它不是在持续观察后决定,更像选了就粘住。)
+
+### 🔴 由此暴露一个我原本没写的代价
+
+改成 `fixed` 之后,**这个项目不再跟随账号默认**,具体少了一样东西(Codex 当时点过,我没写进文档):
+
+**Elastic 会在构建吃内存 / OOM 之后自动升档;`fixed` 不会 —— 它直接失败。**
+
+这是 `fixed` 唯一真实的代价,而且失败模式是「构建挂掉」不是「构建变慢」。
+放在实测上:峰值 **2.01 GB / 8 GB**(4 倍余量),CI 在 4 核上冷构建三次 57/80/84 秒没出过事 ——
+风险很远,但不是零。
+
+**owner 复核后仍决定保持 Standard。** 判据不变:下次真实构建 **<15 分钟留着,>20.6 分钟或 OOM 就改回 Elastic**。
+
+### 改回默认的一行命令(需要 Vercel CLI 已授权)
+
+```bash
+TOKEN=$(python3 -c "import json;print(json.load(open('$HOME/Library/Application Support/com.vercel.cli/auth.json'))['token'])")
+curl -s -X PATCH -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  "https://api.vercel.com/v9/projects/prj_f10WtJGtxCoJBJf7gWq7mL0rpGDA?teamId=team_OatoTpWJq9l0QIBpM29P91wU" \
+  -d '{"resourceConfig":{"buildMachineSelection":"elastic"}}'
+```
+面板路径同样可以:`Settings → Build and Deployment → Build Machine → Elastic → Save`。
