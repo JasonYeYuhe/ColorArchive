@@ -57,6 +57,26 @@ export default function robots(): MetadataRoute.Robots {
     // URLs drop, then restore this line. Keep every other crawler blocked
     // throughout. Do not do it as a side effect of some other change.
     "/colors/*/vs/",
+    // ── /colors/{slug}/pin-image/ IS DELIBERATELY NOT LISTED (2026-09-01) ──
+    //
+    // It is the obvious candidate: a per-colour satori PNG, 5,446 possible URLs,
+    // rendered on demand, and the entry above is a standing reminder of what a
+    // crawled dynamic /colors/ route can cost. It was added here, then removed
+    // the same day, and the reason is worth keeping.
+    //
+    // Pinterest fetches that URL server-side to ingest the pin image, and
+    // Pinterest's fetcher honours robots.txt. Disallowing it means betting the
+    // entire daily pin pipeline on having guessed the right user-agent token for
+    // the exemption — a bet with no test, no fallback, and a silent failure mode
+    // (pins simply stop, with a generic API error days later).
+    //
+    // The cost it was insuring against is handled properly instead: the route
+    // now sets `s-maxage=31536000`, so each slug renders ONCE and is served from
+    // the CDN thereafter. Worst case is 5,446 renders across the route's life,
+    // not one per request. `X-Robots-Tag: noindex` on the response keeps the
+    // PNGs out of the index without blocking the fetch — the distinction the
+    // /colors/*/vs/ note above had to learn the expensive way, applied in the
+    // other direction.
   ];
 
   // Explicitly welcome AI / LLM crawlers. ChatGPT is already this site's

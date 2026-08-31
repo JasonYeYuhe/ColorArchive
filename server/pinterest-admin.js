@@ -128,6 +128,11 @@ async function exchangeAuthCode(code, redirectUri) {
   tokenStore.expires_at = data.expires_in
     ? Date.now() + data.expires_in * 1000
     : null;
+  // Persist what Pinterest actually granted. Without this there is no way to
+  // answer "does this token have analytics?" except by making a call and
+  // reading the 401 — which is how a whole dev-plan section came to assert a
+  // re-auth was needed when it was not.
+  if (data.scope) tokenStore.scope = data.scope;
   tokenStore.updated_at = new Date().toISOString();
 
   // Fetch username for /status display
@@ -156,10 +161,23 @@ async function doRefresh() {
   }
 
   try {
+    // 🔴 NO `scope` PARAMETER HERE, DELIBERATELY (removed 2026-09-01).
+    //
+    // It used to send scope=boards:read,boards:write,pins:read,pins:write. That
+    // is a booby trap sitting directly under the "re-run OAuth and add a scope"
+    // step the dev plan proposes: the owner would widen the grant, it would work,
+    // and then the next 12h tick — or any `pm2 restart` — would request the OLD
+    // narrow scope on the refresh and persist the narrowed token. The added scope
+    // would evaporate hours later with nothing in the logs connecting the two.
+    //
+    // Omitting scope is the RFC 6749 §6 default: "the scope of the access request
+    // ... MUST NOT include any scope not originally granted, and if omitted is
+    // treated as equal to the scope originally granted." Exactly what is wanted.
+    // The single source of truth for the grant is the authorize URL in
+    // routes/pinterest.js, so the refresh path can never contradict it.
     const body = new URLSearchParams({
       grant_type: "refresh_token",
       refresh_token: tokenStore.refresh_token,
-      scope: "boards:read,boards:write,pins:read,pins:write",
     });
 
     const res = await fetch(`${PINTEREST_API_BASE}/oauth/token`, {
@@ -182,6 +200,14 @@ async function doRefresh() {
     tokenStore.expires_at = data.expires_in
       ? Date.now() + data.expires_in * 1000
       : null;
+    // A refresh that comes back NARROWER than what we held is the failure mode
+    // the missing `scope` above used to cause silently. Say so loudly.
+    if (data.scope && tokenStore.scope && data.scope !== tokenStore.scope) {
+      console.error(
+        `[pinterest-admin] ⚠️ SCOPE CHANGED on refresh: "${tokenStore.scope}" -> "${data.scope}"`
+      );
+    }
+    if (data.scope) tokenStore.scope = data.scope;
     tokenStore.updated_at = new Date().toISOString();
     saveTokenStore();
     console.log("[pinterest-admin] token refreshed");
@@ -208,9 +234,20 @@ function scheduleAutoRefresh() {
 
 /* ── API wrappers ─────────────────────────────────────────── */
 
+/**
+ * next.config.ts sets trailingSlash:true, so an image URL without the trailing
+ * slash 308-redirects — and Pinterest's image fetcher does NOT follow redirects
+ * (it fails the pin with error 2786). Any generated image route we hand to
+ * Pinterest has to end in "/".
+ *
+ * `pin-image` joined this list on 2026-09-01 when colour pins moved off the
+ * 1200x630 OG image onto the dedicated 1000x1500 portrait route.
+ */
+const SLASHLESS_IMAGE_ROUTE = /\/(opengraph-image|pin-image)$/;
+
 function normalizeMediaUrl(media) {
   if (!media?.url || typeof media.url !== "string") return media;
-  if (/\/opengraph-image$/.test(media.url)) {
+  if (SLASHLESS_IMAGE_ROUTE.test(media.url)) {
     return { ...media, url: media.url + "/" };
   }
   return media;
@@ -298,6 +335,7 @@ function getStatus() {
     connected: hasToken(),
     username: tokenStore.username,
     expires_at: tokenStore.expires_at,
+    scope: tokenStore.scope || null,
     updated_at: tokenStore.updated_at,
     last_pin_at: lastPinAt,
     sandbox: process.env.PINTEREST_SANDBOX === "true",
@@ -306,8 +344,24 @@ function getStatus() {
 
 /* ── Init ─────────────────────────────────────────────────── */
 
-function init() {
+/**
+ * @param {{ refresh?: boolean }} options
+ *
+ * `refresh:false` loads the token for READING and does nothing else.
+ *
+ * This split exists because the boot refresh is an OUTWARD side effect on a
+ * shared, single-use credential: Pinterest rotates the refresh token on every
+ * grant, so one unguarded local start retires the production one. init() was
+ * called ~100 lines above the DISABLE_SCHEDULERS gate in index.js and therefore
+ * ran even when every documented scheduler was switched off — the switch whose
+ * whole promise is "safe to start this on a laptop".
+ */
+function init({ refresh = true } = {}) {
   loadTokenStore();
+  if (!refresh) {
+    console.log("[pinterest-admin] token loaded read-only (refresh disabled)");
+    return;
+  }
   // Fire-and-forget boot refresh so startup isn't blocked on Pinterest's API
   autoRefreshToken().catch((err) =>
     console.error("[pinterest-admin] boot refresh failed:", err.message)

@@ -349,11 +349,171 @@ owner 想把 Pinterest 做好。我上一轮写的是「实测 0 会话,所以�
 现在每条 pin 是**一个纯色块 + hex**。Pinterest 上被保存的是**调色板、moodboard、场景搭配** ——
 单个色块几乎没有「值得收藏」的理由。站内已有 261 个 collection,天然就是调色板形态。
 
-### 6.5 🔴 但先解决这个,否则上面全是猜:**现在拿不到 pin 的曝光数据**
+### 6.5 ~~🔴 但先解决这个:现在拿不到 pin 的曝光数据~~ — **这条是错的,2026-09-01 实测**
 
-token scope 是 `boards:read,boards:write,pins:read,pins:write`
-(`pinterest-admin.js:162`),**没有 analytics 权限**,代码里也没有任何拉 analytics 的实现。
+**§6.5 的前提不成立,而且方向反了:pin 级 analytics 用现有 scope 就能读,不需要 owner 重新授权。**
 
-→ **在补上 analytics 之前,分不清「没人看见」和「看见了不点」,而这两种要修的东西完全相反。**
-补的方式:重新走一次 OAuth 并加上 Pinterest 要求的 analytics scope(2026-06-10 做过一次重新授权,
-路径见 `server/routes/pinterest.js`)。
+实测(生产 token,只读):
+
+| 端点 | 结果 |
+|---|---|
+| `GET /v5/pins/{id}/analytics` | **200 ✅** |
+| `GET /v5/user_account/analytics` | 401 `Missing ['user_accounts:read']` |
+| `GET /v5/user_account` | 401 `Missing ['user_accounts:read']` |
+
+Pinterest 把 **账号级** analytics 挡在 `user_accounts:read` 后面,**pin 级**走 `pins:read` ——
+而这个 scope 从 2026-06-10 起就一直在 token 里。v5 里**根本不存在 `analytics:read` 这个 scope**。
+所以 78 条 pin 的完整曝光史一直可读,只是**没人写过这个 fetch**。
+
+让 owner 点一次 OAuth 只能换来账号级汇总(nice-to-have),**改变不了 §6 的任何判断**。
+→ **owner 这一轮不需要做任何事。**
+
+新增:`server/pinterest-analytics.js`(只读模块)+ `server/scripts/pin-analytics-readout.cjs`。
+
+---
+
+### 6.6 数据出来了:**曝光 833,保存 3,出站点击 0**
+
+77 条可测 pin,各自从发布日算到 2026-08-30:
+
+| 指标 | 值 |
+|---|---:|
+| IMPRESSION | **833** |
+| SAVE | **3** |
+| PIN_CLICK | 6 |
+| OUTBOUND_CLICK | **0** |
+| 曝光/pin | 均值 11.0,**中位数 6** |
+| **首 7 天曝光/pin** | **0.05**(74 条里 71 条是 0) |
+| 首 14 天曝光/pin | 1.84,**46% 是 0** |
+
+**整个账号约 10 曝光/天。** 一条 pin 在它上线的第一周里几乎什么也拿不到 ——
+这跟 Pinterest 正常的"新 pin 有一波初始分发"完全相反,说明它**根本没进推荐池**。
+
+**不是被封也不是被降权。** 按周看 impr/pin-day 全程 0.12–0.36,**没有任何断崖**,
+9/81 天全账号 0 曝光。是"从来没被检索过",不是"某天出事了"。
+(这条判据现在固化在 readout 的按周表里,以后真出平台动作能一眼看出来。)
+
+---
+
+### 6.7 🔴 我自己写的判据错了两次,这比结论更值得记
+
+**第 1 版**:`T≥500 → (B) 展示了但没人点`。真实数据 T=833,**直接判到 (B)**,
+会把下一个月指向错误的问题。错在:500 是"预期正好出现 1 次点击"的位置,
+而那恰恰是**观察到 0 次最不意外**的位置 —— 检验被建在了零功效的点上。
+
+**第 2 版**:改成 `T>1500`(rule of three 的 3/T 降到 0.2% CTR 以下)。算术对,但没用:
+- **T 是累计量**,不改进分发、只要继续发,约 **2026-11-08 自动越过 1500**。
+  *靠活得久就能通过的阈值不是检验。*
+- 即使到 1500,对 0.05% CTR 的功效只有 47%;要 80% 功效需要约 **3,900 曝光 ≈ 再发一年**。
+
+**第 3 版(现行)**:**把点击率整个踢出判据**,换成两类不随时间漂移的量:
+- 尺度无关的体量:**中位曝光/pin < 25**,或**固定首 14 天窗口内 0 曝光的比例 > 10%**
+  (实测 6 和 46%)。注意不能用"生命期 0 曝光比例"——那 21% 主要是**年龄**造成的:
+  0 曝光的 pin 平均只上线 27.9 天,非 0 的平均 48.3 天。
+- **SAVE 率**,这才是一直有功效的那个:3/833 = 0.36%,`P(X≤3 | 1%) = 0.034`
+  → **保存数据能在 p≈0.03 上否定"健康的 ≥1% 保存率",而点击数据什么都否定不了。**
+  前两版都把 SAVE 取回来了,然后拿全组里最弱的变量去做判断。
+
+---
+
+### 6.8 §6.3 / §6.4 的二选一是个假分岔
+
+计划把"图片比例"和"内容形态"写成两个分支各配一个解法。**在 Pinterest 上这两件事因果相连**:
+保存是排序信号,**没人保存的创意会导致低分发**。所以 (A) 和 (B) 是同一个故障的两个观测点,
+任何曝光数都分不开它们的解法。三个独立评审视角在这一点上一致。
+
+而且比例这条的**天花板已经能算**:2–3× 提升作用在 10 曝光/天上,
+即使按 1% 出站 CTR,也只有**约 5 次访问/月**。要到"每周 1 个访客"需要 ~500 曝光/周 —— **差约 50×**。
+
+按**预期效果**(不是按成本)排序,比例是最后一名:
+
+| 杠杆 | 状态 |
+|---|---|
+| 1. pin 文案可被搜索 | ✅ **本轮已做** —— 旧标题是 `Teal Silk Bright — #69F2C4`、旧描述是 `Hue 160°, saturation 84%`,都是站内生成的内部标识符,Pinterest 搜索量为 0。而对一个 0 粉丝账号,**搜索是唯一的大流量面** |
+| 2. 认领域名(claim domain) | ⬜ **owner-only,30 分钟**,仓库里没有任何 `p:domain_verify` |
+| 3. 关键词化的 board | ⬜ 78 条全发在一个叫 "ColorArchive Pro" 的 board 上,产品名没有搜索意图 |
+| 4. 发人们真会搜的东西(调色板) | ⬜ 见 §6.9 |
+| 5. 图片比例 | ✅ **本轮已做**(顺带做,不是主力) |
+
+---
+
+### 6.9 本轮实际做了什么
+
+| 改动 | 文件 |
+|---|---|
+| 1000×1500 (2:3) Pinterest 专用图,含 5 档明度色阶 | `app/colors/[slug]/pin-image/route.tsx`(新) |
+| 色阶生成 + 7 条守卫测试 | `src/lib/pin-palette.ts`、`src/lib/__tests__/pin-palette.test.ts`(新) |
+| pin 标题/描述改成可搜索文案 | `server/pin-scheduler.js` |
+| 只读 analytics 模块 + readout | `server/pinterest-analytics.js`、`server/scripts/pin-analytics-readout.cjs`(新) |
+
+**`app/colors/[slug]/opengraph-image.tsx` 一个字没动** —— 它同时供 OG/Twitter 卡片。
+
+顺手修掉的真问题(全部经代码核实):
+
+- 🔴 **`ImageResponse` 硬编码 `cache-control: public, max-age=0, must-revalidate`**
+  (`next/dist/server/og/image-response.js:39`)。**next/og 不缓存**,每次请求都重跑一遍 satori。
+  我第一版注释写的"Vercel CDN 会缓存"是错的,而那正是"per-colour 动态路由不贵"这个论证的支点 ——
+  在一个 `/colors/*/vs/` 曾经吃掉 Vercel 账单大头的站上。已改为 `s-maxage=31536000` +
+  `X-Robots-Tag: noindex`,最坏情况从"每次请求一次渲染"变成"每个 slug 一生一次,上限 5,446"。
+- 🔴 **robots.txt 差点把 pin 管道押在猜对 UA 上**。我先给 `/colors/*/pin-image/` 加了 Disallow
+  再给 Pinterest 开白名单 —— 但 Pinterest 是**服务端抓这个 URL** 且遵守 robots.txt,
+  猜错 UA token = 每天的 pin 全部静默失败。**已撤回**;成本改用上面的缓存头解决,
+  不索引改用 `X-Robots-Tag`。(这正是 `/colors/*/vs/` 那条注释学到的"noindex 要先抓才读得到"的反向应用。)
+- 🔴 **`doRefresh()` 会把 owner 未来加的 scope 悄悄削回去**:它在 refresh_token 授权里硬编码
+  `scope=boards:read,...`。这个陷阱**正好埋在 §6.5 原本建议的那一步下面** ——
+  owner 加宽授权 → 生效 → 12 小时后(或任何一次 `pm2 restart`)被还原,日志里毫无关联线索。
+  已删除该参数(RFC 6749 §6:省略即"与原授权相同"),并在 scope 变窄时报警。
+- 🔴 **`pinterest-admin.init()` 在 `DISABLE_SCHEDULERS` 闸门之外**(`index.js:161` vs 闸门在 `:258`)。
+  Pinterest **每次刷新都轮换 refresh token**,所以在本机起一次服务就会作废生产的凭据 ——
+  而那个开关的全部承诺就是"可以安全地在笔记本上起"。已改为读 token 不设防、刷新走同一个闸。
+- 🔴 **`server/.pinterest-admin-token.json` 没进 `.gitignore`**,而新模块把它解析到**仓库树内**。
+  其他每个凭据文件都单独列了,只有这个没有。已补。
+- **`recentlyPinnedInLog` 用无锚点子串匹配**:pin 了 `art-deco-gold-black` 会让 `art-deco-gold`
+  被误判成"最近发过"并跳过 30 天。261 个 collection 里有 11 对这样的前缀关系。
+  (**色号 id 之间没有前缀冲突 —— 已全量验证**,所以三个月的纯色号发布从没暴露它。)已改为匹配记录字段。
+- **`"Film Emulation Palette palette"`**:标题无条件加 " palette" 后缀,而有两个 collection 标题本就以
+  Palette 结尾。pin 是永久公开的。已加守卫。
+
+---
+
+### 6.10 判读:**2026-10-13**,判据是首 14 天曝光/pin
+
+```bash
+sudo node /root/ColorArchive/server/scripts/pin-analytics-readout.cjs
+```
+
+基线 **1.84 曝光/pin(首 14 天,n=67)**。用经验分布做的蒙特卡洛(不是 Poisson 公式 ——
+实测 var/mean = 3.86,严重过散,负二项 θ=0.64):
+
+| 提升 | 14 天 | 21 天 | 30 天 | 42 天 | 60 天 | 90 天 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1.5× | 20% | 19% | 27% | 30% | 33% | 40% |
+| **2×** | 54% | 58% | 60% | **72%** | 78% | 82% |
+| **3×** | 81% | **90%** | 94% | **98%** | 98% | 100% |
+
+⚠️ 用 Poisson 公式会算出"每组 13 条 pin 就够",**低估 4.6 倍**。这个项目已经在 A/B 的样本量上
+栽过两次(见 08-25、08-31 两份计划),这次用经验分布重算了。
+
+**预登记**:42 天(至 2026-10-13)。**能检出 3×(98%),检不出 1.5×(30%)。**
+读不出提升 ≠ 没有提升,只等于"不到 3×"。
+
+**而且必须写清楚:即便拿到 3×,也就是约 5 次访问/月。** 这一步买的是
+"创意这条轴到底动不动"这个信息,**不是流量**。
+
+### 6.11 明确没做,以及为什么
+
+- **没开 collection pin**(§6.4 / 第三步)。三个理由,按分量:
+  1. **和刚上线的图片改动同时改会让 10-13 的判读作废** —— 两个变量一起动就什么都读不出。
+  2. **它不是"一个 env var"那么便宜**(评审里有一个视角这么说,是错的):`MAX_PER_DAY` 默认 1,
+     `runDailyRotation` 按顺序走 ENABLED_TYPES 并在配额处 break —— 所以 `color` 吃掉当天配额,
+     `collection` **永远轮不到**,日志还会打印 "reached MAX_PER_DAY=1" 看起来一切正常。
+     要加就得同时设 `PIN_SCHEDULER_MAX_PER_DAY=2`(= 提高发布量,owner 明确不要),
+     要替换就设成 `collection` 单独一项。
+  3. **collection 的图还是 1200×630**(`/collections/{slug}/opengraph-image/`),
+     就是色号 pin 刚刚搬离的那个比例。要开得先给 collection 也做一个 `pin-image` 路由。
+  以上三条都已写进 `pin-scheduler.js` 的注释里,免得下次有人以为改个 env 就行。
+- **没提高发布频率**(owner 明确排除)。仍是 1 条/天。
+- **没碰** `/guides/[slug]` 渲染路径、`word_generated` props、`experiment.ts`;**没加任何"页面加载即发"的事件**。
+- **异地备份没做** —— owner 说的触发条件是"如果 Pinterest 卡在等授权就先做这个",
+  而 Pinterest 并没有卡住(见 §6.5)。它仍然是悬着的 P0。
+

@@ -36,6 +36,14 @@ const BOARD_ID = process.env.PINTEREST_BOARD_COLORS || DEFAULT_BOARD_ID;
 const SITE_ORIGIN = (process.env.FRONTEND_ORIGIN || "https://colorarchive.org").replace(/\/$/, "");
 const DRY_RUN = process.env.PIN_SCHEDULER_DRY_RUN === "true";
 
+// ⚠️ SETTING THIS TO "color,collection" ALONE IS A NO-OP. runDailyRotation walks
+// ENABLED_TYPES in order and breaks at MAX_PER_DAY, which defaults to 1 — so
+// "color" consumes the day's quota and "collection" is never reached. It logs
+// "reached MAX_PER_DAY=1, stopping rotation" and looks like it worked.
+// To ADD collections: also set PIN_SCHEDULER_MAX_PER_DAY=2.
+// To SUBSTITUTE them at the same volume: set this to "collection" alone.
+// Either way see the note on buildCollectionPayload's imageUrl first — it still
+// points at the 1200x630 OG image, i.e. the geometry colour pins just moved off.
 const ENABLED_TYPES = (process.env.PIN_SCHEDULER_CONTENT_TYPES || "color")
   .split(",")
   .map((s) => s.trim().toLowerCase())
@@ -104,8 +112,23 @@ function recentlyPinned(type, slug) {
 function recentlyPinnedInLog(log, type, slug) {
   const cutoffMs = Date.now() - REPEAT_DAYS * 24 * 60 * 60 * 1000;
   for (const [key, entry] of Object.entries(log)) {
-    // key shape: YYYY-MM-DD-{type}-{slug}
-    if (!key.includes(`-${type}-${slug}`)) continue;
+    // 🔴 This used to test `key.includes(`-${type}-${slug}`)` against a key
+    // shaped YYYY-MM-DD-{type}-{slug}. Unanchored, so it matched whenever the
+    // slug being probed was a PREFIX of a slug already pinned: pinning
+    // `art-deco-gold-black` made `art-deco-gold` look pinned too, and the
+    // shorter slug was then skipped for the whole 30-day window. 11 such pairs
+    // exist among the live collection ids. (No colour ids collide — every
+    // colour id is root-lightness-chroma and none prefixes another — which is
+    // why this never showed up in three months of colour-only pinning.)
+    //
+    // markPinned writes `type` and `slug` onto every entry, so match those.
+    // Fall back to the key only for pre-2026-09 entries written before... the
+    // fields were always written, so this is belt-and-braces for hand edits.
+    const matches =
+      entry?.type && entry?.slug
+        ? entry.type === type && entry.slug === slug
+        : key.endsWith(`-${type}-${slug}`);
+    if (!matches) continue;
     const t = Date.parse(entry?.at || "");
     if (Number.isFinite(t) && t >= cutoffMs) return true;
   }
@@ -163,35 +186,61 @@ function pickDeterministic(list, seed) {
 
 /* ── Payload builders ────────────────────────────────────── */
 
+/**
+ * ─── THE PIN IMAGE IS NOT THE OG IMAGE (changed 2026-09-01) ────────────────
+ *
+ * `imageUrl` used to point at /colors/{slug}/opengraph-image/, which is
+ * 1200x630 (1.90:1) because that is what Open Graph and Twitter cards want.
+ * Pinterest is a portrait feed and recommends 2:3. Measured from Pinterest's own
+ * API, 78 pins published at 1.90:1 earned 833 impressions, 3 saves and 0 outbound
+ * clicks in 82 days — 0.05 impressions per pin in its first WEEK.
+ *
+ * /colors/{slug}/pin-image/ is a separate 1000x1500 route built for this one
+ * purpose. The OG image is deliberately untouched: it governs how every share of
+ * this site looks everywhere else.
+ *
+ * ⚠️ The trailing slash is load-bearing. next.config.ts sets trailingSlash:true,
+ * so the unslashed form 308-redirects and Pinterest's image fetcher does not
+ * follow redirects (it fails with error 2786). pinterest-admin.normalizeMediaUrl
+ * is a second belt for the same braces.
+ */
 function buildColorPayload(color) {
   const slug = color.id;
   return {
     type: "color",
     slug,
     boardId: BOARD_ID,
-    title: `${color.name} — ${color.hex}`.slice(0, 100),
+    // Pinterest is a search engine before it is a feed, and the title is the
+    // strongest text signal it has. Lead with the terms people actually search.
+    title: `${color.name} ${color.hex} — color palette & hex codes`.slice(0, 100),
     description: [
-      `${color.name} (${color.hex}) — Color of the Day on ColorArchive.`,
+      `${color.name} (${color.hex}) with a five-tone palette — light to dark hex codes ready to copy.`,
       `Hue ${color.hue}°, saturation ${color.saturation}%, lightness ${color.lightness}%.`,
-      `Part of the ${color.family} family.`,
+      `A ${color.family.toLowerCase()} color scheme for branding, interiors, web design and design tokens.`,
       "Browse 5,446 curated colors and export palettes in CSS, Tailwind, Figma tokens.",
     ]
       .join(" ")
       .slice(0, 500),
     link: `${SITE_ORIGIN}/colors/${slug}/`,
-    imageUrl: `${SITE_ORIGIN}/colors/${slug}/opengraph-image/`,
-    altText: `${color.name} color swatch (${color.hex})`.slice(0, 500),
+    imageUrl: `${SITE_ORIGIN}/colors/${slug}/pin-image/`,
+    altText: `${color.name} ${color.hex} color palette with five tones from light to dark`.slice(0, 500),
   };
 }
 
 function buildCollectionPayload(collection) {
   const slug = collection.slug;
   const tags = (collection.tags || []).slice(0, 3).join(" · ");
+  // Two of the live collection titles already end in "Palette" ("Film Emulation
+  // Palette", "Coastal Fog Palette"), and an unconditional suffix published them
+  // as "Film Emulation Palette palette". Pins are permanent and public.
+  const paletteTitle = /palette$/i.test(collection.title)
+    ? collection.title
+    : `${collection.title} palette`;
   return {
     type: "collection",
     slug,
     boardId: BOARD_ID,
-    title: `${collection.title} palette`.slice(0, 100),
+    title: paletteTitle.slice(0, 100),
     description: [
       collection.summary || "",
       tags ? `Tags: ${tags}.` : "",
@@ -201,8 +250,14 @@ function buildCollectionPayload(collection) {
       .join(" ")
       .slice(0, 500),
     link: `${SITE_ORIGIN}/collections/${slug}/`,
+    // ⚠️ STILL 1200x630 — this is the landscape geometry colour pins were moved
+    // OFF on 2026-09-01. Enabling collection pins today would ship the palette
+    // content wearing the creative that earned 833 impressions in 82 days, and
+    // would confound the colour-pin readout at the same time. Build a
+    // /collections/{slug}/pin-image/ sibling of the colour route before turning
+    // this type on. Deliberately left as-is so nothing silently half-changes.
     imageUrl: `${SITE_ORIGIN}/collections/${slug}/opengraph-image/`,
-    altText: `${collection.title} palette preview`.slice(0, 500),
+    altText: `${paletteTitle} preview`.slice(0, 500),
   };
 }
 

@@ -158,7 +158,15 @@ app.use("/instagram", require("./routes/instagram"));
 app.use("/pinterest", require("./routes/pinterest"));
 // Boot the Pinterest admin helper so the org token is loaded/refreshed
 // before the autopilot (Phase 2b) tries to publish.
-require("./pinterest-admin").init();
+//
+// ⚠️ The refresh half is an OUTWARD side effect and belongs to the same family
+// as the schedulers below — Pinterest ROTATES the refresh token on every grant,
+// so a local `node index.js` without this guard retires production's credential.
+// This sits ~100 lines above SCHEDULERS_DISABLED and used to ignore it entirely.
+// Reading the token stays unguarded; only the refresh + 12h timer are gated.
+require("./pinterest-admin").init({
+  refresh: process.env.DISABLE_SCHEDULERS !== "1",
+});
 // AI is mounted defensively, unlike everything else in this list.
 //
 // This one process also carries the Lemon Squeezy subscription webhooks, the
@@ -248,7 +256,9 @@ if (sentryEnabled) {
 const BIND_HOST = process.env.BIND_HOST || "127.0.0.1";
 
 // Every scheduler below has an OUTWARD side effect on startup, which is why
-// they can all be switched off together. email-scheduler's own comment says
+// they can all be switched off together. So does the Pinterest token refresh,
+// which is NOT below — it is up at the pinterest-admin.init() call and reads the
+// same switch from there. email-scheduler's own comment says
 // "Run once on startup" — that is a real send to live subscribers; pin-scheduler
 // posts to Pinterest 45s in; and cache-warmer HEADs every long-tail colour slug
 // against the production domain. Starting this server on a laptop without the

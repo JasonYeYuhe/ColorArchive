@@ -1,3 +1,77 @@
+## 2026-09-01 — [remote] Pinterest: it publishes, nobody sees it, and the plan's blocker did not exist
+
+Worked §6 of `docs/dev-plan-2026-09-01-paid.md`. Two of its premises turned out to be wrong,
+and one of my own replacements for them was wrong twice before it was right.
+
+**The blocker was not a blocker.** §6.5 said the impression data needed a fresh OAuth with an
+"analytics scope" and an owner click. Measured against production: `GET /v5/pins/{id}/analytics`
+returns **200 on the existing `pins:read`**. Only `/v5/user_account/analytics` needs
+`user_accounts:read`, and there is no `analytics:read` scope in Pinterest v5 at all. Three
+months of per-pin history was readable the whole time; nobody had written the fetch.
+**Owner had nothing to do this round.**
+
+**What 78 pins bought, 2026-06-10 → 08-30:** 833 impressions, 3 saves, 6 pin clicks,
+**0 outbound clicks**, 0 sessions. Median 6 impressions per pin. Age-fair, a pin earns
+**0.05 impressions in its first week** — 71 of 74 get exactly zero. About 10 impressions a day
+for the whole account. Weekly impressions-per-live-pin-day runs a flat 0.12–0.36 with **no
+cliff anywhere**, so this is "never retrieved", not "suppressed on a date".
+
+**I got my own decision rule wrong twice, and the first version fired the wrong branch.**
+v1 (`T≥500`) judged the real data (T=833) as "shown but not clicked" and would have aimed the
+next month at click-through. 500 is where you *expect* one click — exactly where seeing zero is
+unsurprising, i.e. a test with no power by construction. v2 (`T>1500`) was arithmetically right
+and still useless: **T is cumulative, so it becomes true around 2026-11-08 just by continuing
+to post.** A threshold you pass by surviving is not a test. v3 drops the click rate entirely for
+scale-free volume (median impressions/pin; share earning zero in a *fixed* 14-day window — the
+raw 21% lifetime-zero figure is mostly youth: those pins average 27.9 days live vs 48.3) plus
+**SAVE**, which had the power all along: 3/833 = 0.36%, `P(X≤3 | 1%) = 0.034`. Both earlier
+versions fetched SAVE and then decided on the weakest variable in the set.
+
+**§6.3-vs-§6.4 was a false choice.** Saves drive distribution, so creative nobody saves *causes*
+low impressions; no impression count separates the two remedies. Ranked by expected effect
+rather than by cost, aspect ratio is **last**: searchable pin text > claimed domain >
+keyword-themed boards > palettes > geometry. Shipped #1 and #5.
+
+**Shipped:** `app/colors/[slug]/pin-image/route.tsx` (1000×1500, five-tone ramp),
+`src/lib/pin-palette.ts` + 7 guard tests, searchable pin title/description,
+`server/pinterest-analytics.js` + `server/scripts/pin-analytics-readout.cjs`.
+`opengraph-image.tsx` untouched.
+
+**Six real defects found on the way, all verified in code before fixing:**
+
+- `next/og` **does not cache** — `ImageResponse` hardcodes `max-age=0, must-revalidate`
+  (`image-response.js:39`), so every hit re-ran satori. My own first comment claimed the
+  opposite, and that claim was load-bearing for "a per-colour dynamic route is cheap" on the
+  site where `/colors/*/vs/` once led the Vercel bill. Now `s-maxage=31536000` + `noindex`.
+- I nearly **staked the whole pin pipeline on guessing Pinterest's user-agent**: a robots.txt
+  `Disallow` on the pin image plus a UA allowlist. Pinterest fetches that URL server-side and
+  obeys robots.txt, so a wrong guess = every pin fails silently. Reverted; the cache header
+  handles the cost it was insuring against.
+- `doRefresh()` hardcoded `scope=` on the refresh grant, so **any scope the owner ever added
+  would be narrowed away within 12h** — a trap sitting directly under the step §6.5 proposed.
+  Removed (RFC 6749 §6: omitted = originally granted) + a loud warning if scope shrinks.
+- `pinterest-admin.init()` sat ~100 lines **above** the `DISABLE_SCHEDULERS` gate while
+  Pinterest rotates the refresh token on every grant — so one local server start retires
+  production's credential, under the switch whose whole promise is "safe on a laptop".
+- `server/.pinterest-admin-token.json` was **not gitignored**, and the new module resolves it
+  *inside the repo tree*. Every other credential file was listed individually.
+- `recentlyPinnedInLog` matched by unanchored substring: pinning `art-deco-gold-black` made
+  `art-deco-gold` look pinned. 11 such pairs among 261 collections; **zero among colour ids**
+  (verified exhaustively), which is why colour-only pinning never exposed it.
+
+**Read-out pre-registered for 2026-10-13** (42 days), on first-14-day impressions per pin.
+Baseline 1.84. Monte-Carlo on the empirical distribution — var/mean = 3.86, negative-binomial
+θ = 0.64 — gives **98% power for 3×, 72% for 2×, 30% for 1.5×**. The Poisson formula says
+13 pins per arm; that **understates by 4.6×**, and this project has already mis-sized two A/Bs.
+And the honest ceiling: even a 3× win is **~5 sessions a month**. This buys information about
+whether the creative axis moves at all, not traffic.
+
+**Deliberately not done:** collection pins (would confound the 10-13 read-out; also *not* the
+one-env-var change one reviewer claimed — `MAX_PER_DAY=1` means `collection` is never reached,
+and its image is still 1200×630); no frequency increase; no guides/`word_generated`/experiment
+changes; no page-load events. **Off-site backup still not done** — its stated trigger was
+"if Pinterest is blocked on owner auth", and it wasn't. Still an open P0.
+
 ## 2026-07-26 — [autopilot] weekly content roundup
 
 Scheduled weekly roundup for Jul 19–26. **First real changelog week since Jul 12** — the

@@ -34,7 +34,10 @@ ColorArchive/
 │   ├── 20040303/                 # /20040303/ — personal page, noindex, not in sitemap.
 │   │                             #   Renders with NO site chrome (src/lib/bare-routes.ts)
 │   ├── all-colors/               # /all-colors/ — full color grid
-│   ├── colors/[slug]/            # /colors/:id/ — 2016 static color detail pages
+│   ├── colors/[slug]/            # /colors/:id/ — 3,066 of 5,446 prerendered, rest on-demand ISR
+│   │   ├── opengraph-image.tsx   #   1200×630 OG/Twitter card (force-dynamic)
+│   │   └── pin-image/route.tsx   #   1000×1500 (2:3) PINTEREST-ONLY image + 5-tone palette.
+│   │                             #   Separate from the OG image on purpose; s-maxage=1y.
 │   ├── collections/              # /collections/ + /collections/[slug]/
 │   ├── families/                 # /families/ + /families/[slug]/
 │   ├── packs/                    # /packs/ + /packs/[slug]/

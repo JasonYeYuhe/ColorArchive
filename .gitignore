@@ -64,3 +64,13 @@ server/.env.facebook
 # ...but keep these legitimately-numbered files that resemble conflict copies
 !colorarchive_logo_v1_assets/screenshot website 2.png
 !colorarchive_logo_v1_assets/screenshot website 3.png
+
+# Pinterest org OAuth token + publish log.
+# Every other credential file here is listed individually; these two were never
+# added because they only ever existed on the server. server/pinterest-analytics.js
+# resolves the token as path.join(__dirname, ".pinterest-admin-token.json"), i.e.
+# INSIDE this working tree — so the moment anyone copies prod's token here to run
+# the read-out locally, it is a `git add .` away from being committed. The token
+# is single-use and rotating; a leak is not revocable by editing history alone.
+server/.pinterest-admin-token.json
+server/.pin-log.json
