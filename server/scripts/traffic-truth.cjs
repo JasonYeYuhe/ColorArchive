@@ -174,15 +174,20 @@ console.log("");
 // Concentration: the check that was missing when "~900/day" was reported. If a
 // handful of callers account for most of a surface, the surface is not popular.
 console.log("CONCENTRATION CHECK — is any one visit dominating?");
+// Same `NOT_PAGE_LOAD` exclusion as the block above — and here it matters in the
+// opposite direction: one page-load event per session, added uniformly, makes every
+// surface look LESS concentrated than it is, which is the direction that hides the
+// thing this check exists to catch.
 const topSessions = q(
   `SELECT session_id, COUNT(*) c
      FROM events
-    WHERE session_id IS NOT NULL AND date(created_at) >= @first
+    WHERE session_id IS NOT NULL AND ${NOT_PAGE_LOAD} AND date(created_at) >= @first
     GROUP BY session_id ORDER BY c DESC LIMIT 3`,
   { first: FIRST_CLEAN_DAY }
 );
 const totalEvents = q(
-  `SELECT COUNT(*) c FROM events WHERE session_id IS NOT NULL AND date(created_at) >= @first`,
+  `SELECT COUNT(*) c FROM events
+    WHERE session_id IS NOT NULL AND ${NOT_PAGE_LOAD} AND date(created_at) >= @first`,
   { first: FIRST_CLEAN_DAY }
 )[0].c;
 if (totalEvents > 0) {

@@ -10,7 +10,7 @@ npm run build      # Build for Vercel deployment
 npm run typecheck  # Run TypeScript type checking (no emit)
 ```
 
-There IS a test suite — 45 files under `src/lib/__tests__/` and `src/__tests__/`, run in CI by
+There IS a test suite — 43 files under `src/lib/__tests__/` and `src/__tests__/`, plus 6 under `server/__tests__/`, run in CI by
 `npm test` (`vitest run && npm run test:server`). What is true is that the FULL run hangs on this
 Mac (an I/O-starvation problem, not a repo problem), which is how "there is no test suite" got
 written here. **A single file runs fine in ~400ms** and that is the habit to have:

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 const { requireAnalyticsAccess } = require("../auth");
-const { DISTINCT_VISITS, windowCaveats } = require("../session-denominator");
+const { DISTINCT_VISITS, NOT_PAGE_LOAD, windowCaveats } = require("../session-denominator");
 
 // Every money figure this route returns is in EXACT MINOR UNITS, never the
 // rounded major-unit `amount` column. `amount` is round(minor/100), so summing it
@@ -440,8 +440,14 @@ router.get("/gate", (req, res) => {
   );
 
   // The site's actual size, on the only denominator that survives scrutiny.
+  // `NOT_PAGE_LOAD` for the same reason as gate-report.cjs and conversion-digest.cjs:
+  // this is the one query here with no event_name filter, and `w1_assigned` fires on
+  // every /guides/ mount in both arms. See TRAP 4 in server/session-denominator.js.
   const engagedVisits = db
-    .prepare(`SELECT ${DISTINCT_VISITS} as c FROM events WHERE datetime(created_at) >= datetime('now', ?)`)
+    .prepare(
+      `SELECT ${DISTINCT_VISITS} as c FROM events
+        WHERE datetime(created_at) >= datetime('now', ?) AND ${NOT_PAGE_LOAD}`,
+    )
     .get(sinceParam).c;
 
   // Conversion steps, by event × channel.

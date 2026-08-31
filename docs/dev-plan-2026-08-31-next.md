@@ -550,11 +550,11 @@ $ ssh azureuser@172.207.80.109 'sudo bash -c "cd /root/ColorArchive && git remot
 
 | 文件 | md5 |
 |---|---|
-| `server/session-denominator.js` | `99073b28f9b4dc5d1a62004b927cee4c` |
+| `server/session-denominator.js` | ~~`99073b28…`~~ → **`1f85588e1fe0f114a426637984d4f851`**(`120b448` 又改过一次) |
 | `server/scripts/gate-report.cjs` | `e83c54efca023545f25700ff809d0f87` |
 | `server/scripts/conversion-digest.cjs` | `705117f35e2ba3c747551883848562e3` |
 | `server/scripts/traffic-truth.cjs` | `27ca4a4234fa48c718aabda52fe1e8b3` |
-| `server/scripts/w1-readout.cjs` | `43b5db32a30008877d43c352058ae88c` |
+| `server/scripts/w1-readout.cjs` | ~~`43b5db32…`~~ → **`83693e250183a62fdd8a7546391dead2`**(§9.14 又改过一次) |
 
 部署后在生产上实跑 `w1-readout.cjs`,输出正常(两臂 0 会话 —— 正确,我自己的两次测试访问
 没有 `page_read`,被分母正确排除)。**10-12 跑之前先 `md5sum` 核对上表,不符就从仓库重发。**

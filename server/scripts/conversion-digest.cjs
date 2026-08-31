@@ -27,7 +27,7 @@ const SERVER_DIR = path.resolve(__dirname, "..");
 require(path.join(SERVER_DIR, "node_modules/dotenv")).config({ path: path.join(SERVER_DIR, ".env") });
 const Database = require(path.join(SERVER_DIR, "node_modules/better-sqlite3"));
 const { Resend } = require(path.join(SERVER_DIR, "node_modules/resend"));
-const { DISTINCT_VISITS, windowCaveats } = require(path.join(SERVER_DIR, "session-denominator"));
+const { DISTINCT_VISITS, NOT_PAGE_LOAD, windowCaveats } = require(path.join(SERVER_DIR, "session-denominator"));
 
 const DB_PATH = process.env.DB_PATH || path.join(SERVER_DIR, "data.db");
 const FROM = process.env.FROM_EMAIL || "hello@colorarchive.org";
@@ -133,8 +133,13 @@ const evVisits = (name) =>
 
 // Everything anyone did on the site in the window, deduplicated by visit. This
 // is the number that belongs at the top of every ratio on this site.
+// Same guard as gate-report.cjs. This query has no event_name filter, so it is the
+// one a new event silently moves — `w1_assigned` fires on every /guides/ mount in
+// both arms. Measured 7.4h after W1 shipped: 12 of 146 one-day sessions existed only
+// because of it (+8.9%). See TRAP 4 in server/session-denominator.js.
 const engagedVisits = db.prepare(
-  `SELECT ${DISTINCT_VISITS} c FROM events WHERE datetime(created_at) >= datetime('now', ?)`,
+  `SELECT ${DISTINCT_VISITS} c FROM events WHERE datetime(created_at) >= datetime('now', ?)
+      AND ${NOT_PAGE_LOAD}`,
 ).get(since).c;
 
 // Dedupe checkout_success by session so a page refresh can't inflate it (the

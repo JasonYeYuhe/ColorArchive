@@ -56,7 +56,17 @@ const SERVER_DIR = "/root/ColorArchive/server";
 const Database = require(path.join(SERVER_DIR, "node_modules/better-sqlite3"));
 
 const argSince = process.argv.indexOf("--since");
-const SINCE = argSince > -1 ? process.argv[argSince + 1] : "-42 days";
+/**
+ * The default is the EXPERIMENT'S OWN START, not a rolling 42 days.
+ *
+ * A relative default silently truncates the front of the experiment the later it is
+ * run: on day 50 a "-42 days" window has already discarded the first 8 days of both
+ * arms, and it discards more every day after. Since the stopping rule allows reading
+ * on day 42 OR at 589/arm — whichever lands first — a late read is the expected case,
+ * not the exception. Anchoring to MIN(created_at) of w1_assigned makes the window the
+ * whole experiment by construction. `--since` still overrides for ad-hoc slices.
+ */
+const SINCE = argSince > -1 ? process.argv[argSince + 1] : null;
 
 const db = new Database(path.join(SERVER_DIR, "data.db"), { readonly: true });
 
@@ -67,9 +77,23 @@ const db = new Database(path.join(SERVER_DIR, "data.db"), { readonly: true });
  * returns zero rows and the script would report that as "not enough data yet".
  * A typo must fail loudly, not read as a null result.
  */
-const win = db.prepare("SELECT datetime('now', ?) t, datetime('now') n").get(SINCE);
+let SINCE_MOD = SINCE;
+if (SINCE_MOD === null) {
+  const first = db
+    .prepare("SELECT MIN(created_at) t FROM events WHERE event_name='w1_assigned'")
+    .get().t;
+  if (!first) {
+    console.log("\nNo w1_assigned rows yet — the experiment has not started collecting.\n");
+    process.exit(0);
+  }
+  // One extra day of slack so the very first rows cannot fall outside a boundary.
+  const days = Math.ceil((Date.now() - Date.parse(first + "Z")) / 86400000) + 1;
+  SINCE_MOD = `-${days} days`;
+  console.log(`(window: experiment start ${first} → now, i.e. ${SINCE_MOD})`);
+}
+const win = db.prepare("SELECT datetime('now', ?) t, datetime('now') n").get(SINCE_MOD);
 if (!win.t || win.t >= win.n) {
-  console.error(`--since '${SINCE}' resolves to ${win.t ?? "NULL"}, which is not in the past.`);
+  console.error(`--since '${SINCE_MOD}' resolves to ${win.t ?? "NULL"}, which is not in the past.`);
   console.error(`Use a negative SQLite modifier, e.g. --since '-42 days'.`);
   process.exit(1);
 }
@@ -154,18 +178,18 @@ const pct = (x, n) => (n ? ((100 * x) / n).toFixed(2) + "%" : "—");
 const TARGET_N = 589; // 6 weeks × 425/arm/month ÷ 4.33 — see dev-plan §9.4
 const STOP_DAYS = 42;
 
-console.log(`\nW1 — in-body word→colour card on /guides/*   (window: now ${SINCE})`);
+console.log(`\nW1 — in-body word→colour card on /guides/*   (window: ${SINCE_MOD})`);
 console.log(`Pre-registered rule: docs/dev-plan-2026-08-31-next.md §9.6`);
 console.log(`  stop at ${STOP_DAYS} days OR ${TARGET_N}/arm, whichever first`);
 console.log(`  >=3.4x = ship  ·  <2x = remove the card  ·  2-3.4x = treat as negative\n`);
 
 const rows = ARMS.map((arm) => ({
   arm,
-  d: denom.get(SINCE, arm).c,
-  reached: reached.get(SINCE, arm).c,
-  tool: numer.get(SINCE, arm, "word_generated", "word_tool", "word_tool").c,
-  any: numer.get(SINCE, arm, "word_generated", "", "").c,
-  click: cardClick.get(SINCE, arm).c,
+  d: denom.get(SINCE_MOD, arm).c,
+  reached: reached.get(SINCE_MOD, arm).c,
+  tool: numer.get(SINCE_MOD, arm, "word_generated", "word_tool", "word_tool").c,
+  any: numer.get(SINCE_MOD, arm, "word_generated", "", "").c,
+  click: cardClick.get(SINCE_MOD, arm).c,
 }));
 
 console.log("arm       sessions   →reached tool   →generated(tool) →generated(any) →card CTA");
@@ -241,7 +265,7 @@ const health = db.prepare(`
              AND COALESCE(session_id,'') <> ''
            GROUP BY session_id) a
     JOIN events e ON e.session_id = a.session_id
-   GROUP BY arm`).all(SINCE);
+   GROUP BY arm`).all(SINCE_MOD);
 console.log("\nHEALTH — asymmetric event loss would invalidate the comparison:");
 for (const h of health) {
   console.log(`  ${String(h.arm).padEnd(8)} ${(h.events / (h.sessions || 1)).toFixed(1)} events/session   _dropped=${h.dropped}`);
@@ -249,5 +273,5 @@ for (const h of health) {
 const unstable = db.prepare(
   `SELECT COUNT(DISTINCT session_id) c FROM events
     WHERE event_name='w1_assigned' AND datetime(created_at) >= datetime('now', ?)
-      AND COALESCE(json_extract(props_json,'$.persisted'), 1) = 0`).get(SINCE).c;
+      AND COALESCE(json_extract(props_json,'$.persisted'), 1) = 0`).get(SINCE_MOD).c;
 console.log(`  ${unstable} sessions excluded for an unstable arm (persisted:false)\n`);
