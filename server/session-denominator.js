@@ -126,24 +126,35 @@ const SESSIONLESS_EVENTS = `SUM(CASE WHEN COALESCE(session_id,'')='' THEN 1 ELSE
  */
 function windowCaveats(days, now = new Date()) {
   const start = new Date(now.getTime() - days * 86400000).toISOString().slice(0, 10);
+  const today = now.toISOString().slice(0, 10);
+  /**
+   * A breakpoint matters only when it falls INSIDE the window — at or after the
+   * start AND at or before the end. The two original checks tested `start <= date`
+   * alone, which is equivalent only while every breakpoint is safely in the past.
+   * The 2026-08-31 one broke that assumption the day it was added: a window ending
+   * 2026-08-17 does not span it, but `start <= "2026-08-31"` is still true, so it
+   * warned about a change that had not happened yet. Caught by
+   * server/__tests__/session-denominator.test.js — the "spans both" case went to 3.
+   */
+  const spans = (date) => start <= date && date <= today;
   const notes = [];
   // `<=`, not `<`. Both breakpoints happened partway through their day —
   // session_id at 14:50 UTC, the guides change at 18:25 UTC — so a window
   // starting ON the breakpoint date still contains hours of the old behaviour.
   // Comparing dates with a strict `<` silently passed exactly those windows.
-  if (start <= SESSION_ID_SINCE) {
+  if (spans(SESSION_ID_SINCE)) {
     notes.push(
       `window starts ${start}, before session_id existed (${SESSION_ID_SINCE}) — events before that date carry no session and are EXCLUDED from the visit count entirely, so this number covers only part of the window`,
     );
   }
-  if (start <= GUIDES_EVENTS_RETIRED) {
+  if (spans(GUIDES_EVENTS_RETIRED)) {
     notes.push(
       `window spans ${GUIDES_EVENTS_RETIRED}, when /guides/ stopped emitting a read-only event (e401e0f) — guide sessions drop ~90% on that date with no change in guide readership`,
     );
   }
   // The mirror image of the line above, and just as easy to misread — in the
   // flattering direction this time, which is the one nobody questions.
-  if (start <= GUIDES_PAGELOAD_EVENT_ADDED) {
+  if (spans(GUIDES_PAGELOAD_EVENT_ADDED)) {
     notes.push(
       `window spans ${GUIDES_PAGELOAD_EVENT_ADDED}, when /guides/ started emitting a page-load event again (\`w1_assigned\`, W1) — any UNFILTERED visit count steps up ~15-20% on that date with no change in readership. Counts in this report already exclude it; a hand-written query must add \`AND ${NOT_PAGE_LOAD}\``,
     );
