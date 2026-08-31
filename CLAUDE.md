@@ -10,7 +10,18 @@ npm run build      # Build for Vercel deployment
 npm run typecheck  # Run TypeScript type checking (no emit)
 ```
 
-There is no test suite. Use `typecheck` to validate changes.
+There IS a test suite — 45 files under `src/lib/__tests__/` and `src/__tests__/`, run in CI by
+`npm test` (`vitest run && npm run test:server`). What is true is that the FULL run hangs on this
+Mac (an I/O-starvation problem, not a repo problem), which is how "there is no test suite" got
+written here. **A single file runs fine in ~400ms** and that is the habit to have:
+
+```bash
+npx vitest run src/lib/__tests__/dark-mode-classes.test.ts
+```
+
+After touching a `.tsx`, run at least `dark-mode-classes`, `copy-counts`, `content-links` and
+`retired-routes` — those are real gates that will otherwise fail in CI. `npm run typecheck` is
+necessary and not sufficient.
 
 ## Architecture
 
@@ -49,7 +60,12 @@ When creating collections, **always verify** color IDs exist by checking against
 
 Pages in `app/` are Next.js Server Components. Each page imports a corresponding `*-page.tsx` component from `src/components/` that holds the actual UI and is marked `"use client"`. This keeps the App Router data/metadata layer separate from interactive client logic.
 
-Dynamic routes (e.g., `app/colors/[slug]/page.tsx`) use `generateStaticParams()` to pre-render all 3,066 color pages at build time.
+Dynamic routes use `generateStaticParams()`. `app/colors/[slug]/page.tsx` deliberately pre-renders only a
+**subset — 3,066 of the 5,446 colors** — to stay under Vercel's 80 MB deployment-output limit; the other
+**2,380 render on demand** (`dynamicParams = true`) and are CDN-cached after first visit. Do not read this
+as "every colour page is static": those 2,380 are the ISR-write surface behind the Vercel bill, and the
+cache-warmer walks them 250 at a time. `app/guides/[slug]/page.tsx` is the opposite — `dynamicParams = false`,
+all 333 guides baked at build time.
 
 ### Persistence (localStorage)
 
@@ -57,7 +73,7 @@ Dynamic routes (e.g., `app/colors/[slug]/page.tsx`) use `generateStaticParams()`
 
 ### Content / Commerce
 
-- `src/lib/collections.ts` — 68+ curated palette collections (editorial metadata + color IDs).
+- `src/lib/collections.ts` — 261 curated palette collections (editorial metadata + color IDs). Count verified 2026-08-31; it grows with autopilot runs, so re-count rather than trusting this line.
 - `src/lib/palette-packs.ts` — 7 product pack definitions (USD $9–$129) + All Access bundle.
 - `src/lib/checkout-config.ts` — Stripe Checkout config + Pro subscription pricing (¥499/mo, ¥3,999/yr).
 - `src/lib/auth-client.ts` — Client API for auth, projects, usage stats, referral, API keys.

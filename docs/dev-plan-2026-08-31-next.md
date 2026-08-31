@@ -141,6 +141,17 @@ AI 与搜索在内容页上的差(0/217 vs 13/811)按 rule of three,AI 的 95% �
 
 ### W1 · 立刻 — 内容页到工具的路由(**本阶段唯一的主要开发项**)
 
+> 🔴 **已于 2026-08-31 实施,而实施过程推翻了本节的三个数字。先读 §9,再读本节。**
+> 本节保持原样是为了留下推理链(和 §7 一样的处置),**但下面这些数字不要拿去用**:
+>
+> | 本节说 | 实测 | 在哪 |
+> |---|---|---|
+> | 基线 1.6% | **guides 是 0.34%**;1.6% 是被首页抬起来的混合基线(13 次转化里 7 次落在 `/`) | §9.1 |
+> | 内容页 = guides / `/brand-generator/` / `/css-colors/` | 后两个是 **22 和 6 个会话**,约占分母 1%;实际只做了 guides | §9.2 |
+> | 3 倍 / 1.2 个月 | 判据已换成「**到达工具页**」(基线 1.02%),**6 周检出 3.4 倍** | §9.6 |
+>
+> 判据换掉的原因不是嫌它慢,是它**看不见处理组的成功路径** —— 见 §9.7 第 1 条。
+
 **问题**:1,028 会话/月落在内容页(guides / `/brand-generator/` / `/css-colors/` 等),
 **98.4% 从不碰工具**;而落在工具页的人 78% 会用。
 
@@ -248,13 +259,19 @@ ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMod
   azureuser@172.207.80.109 'sudo sqlite3 /root/ColorArchive/server/data.db' <<'SQL'
 .mode column
 .headers on
--- W1 的判据:内容页落地 → 是否用了工具
+-- 🔴 W1 的判据不在这里了。这一段原本的查询【不要再跑】,它按 landing_path 分组,
+-- 而 landing_path 是 localStorage 里的「首次触达」、终身不变(src/lib/attribution.ts),
+-- 所以它算的是「这个浏览器有史以来第一页不是工具页」,不是「这次访问落在内容页」。
+-- 它还把 word_generated 当分子,而卡片带 ?q= 过去的词是免费落地词、永不发事件(§9.7 第 1 条)。
+-- 改用:  node /root/ColorArchive/server/scripts/w1-readout.cjs
+-- 下面这条只用来看「内容页 vs 工具页」的历史形状,不作 W1 判据:
 WITH s AS (SELECT DISTINCT session_id,
     CASE WHEN landing_path='/word-to-color/' THEN 'tool' ELSE 'content' END lt
   FROM events WHERE datetime(created_at)>=datetime('now','-30 days')
    AND COALESCE(session_id,'')<>'' AND COALESCE(landing_path,'')<>''),
  g AS (SELECT DISTINCT session_id FROM events
-  WHERE datetime(created_at)>=datetime('now','-30 days') AND event_name='word_generated')
+  WHERE datetime(created_at)>=datetime('now','-30 days') AND event_name='word_generated'
+    AND COALESCE(json_extract(props_json,'$.surface'),'word_tool')='word_tool')
 SELECT lt, COUNT(*) sessions,
        SUM(CASE WHEN session_id IN (SELECT session_id FROM g) THEN 1 ELSE 0 END) generated,
        ROUND(100.0*SUM(CASE WHEN session_id IN (SELECT session_id FROM g) THEN 1 ELSE 0 END)/COUNT(*),2) pct
@@ -266,14 +283,22 @@ SELECT event_name, path, COUNT(*) ev, COUNT(DISTINCT NULLIF(session_id,'')) s FR
 SELECT event_name, COUNT(DISTINCT NULLIF(session_id,'')) s FROM events
  WHERE event_name IN ('word_intent_impression','word_intent_seen')
    AND datetime(created_at)>=datetime('now','-14 days') GROUP BY event_name;
+-- 🔴 surface 过滤是 2026-08-31 加的,不能删。W1 的卡片(guide-word-card.tsx)是
+-- word_generated 的第二个发出方,它也带 depth —— 但那是「文章里查了几个词」,
+-- 和这条曲线要问的「付费墙前走了多深」是两回事。09-08 的 14 天窗口正好包含 W1 上线后的
+-- 那几天,不过滤就会把两种语义混进同一条曲线,而这条曲线是 W3(动不动免费额度)的输入。
 SELECT CAST(json_extract(props_json,'$.depth') AS INT) depth,
        COUNT(DISTINCT NULLIF(session_id,'')) sessions FROM events
  WHERE event_name='word_generated' AND json_extract(props_json,'$.depth') IS NOT NULL
+   AND COALESCE(json_extract(props_json,'$.surface'),'word_tool')='word_tool'
    AND datetime(created_at)>=datetime('now','-14 days') GROUP BY depth ORDER BY depth;
 -- 锚点(必须钉死旧定义)
+-- 与 server/scripts/gate-report.cjs 保持逐字一致(含 surface)。counted=0 今天已经
+-- 挡掉了卡片,但那是「实体权限规则」的副作用,不是「这个锚点测的是哪个面」的声明。
 SELECT COUNT(DISTINCT NULLIF(session_id,'')) anchor FROM events
  WHERE datetime(created_at)>=datetime('now','-30 days') AND event_name='word_generated'
-   AND COALESCE(json_extract(props_json,'$.counted'),1)=1;
+   AND COALESCE(json_extract(props_json,'$.counted'),1)=1
+   AND COALESCE(json_extract(props_json,'$.surface'),'word_tool')='word_tool';
 SQL
 ```
 
@@ -429,12 +454,14 @@ guide 落地会话按周:203 / 189 / 17 / 151 / 146 / 8。
   `/word-to-color/` 的招募横幅(3,857 次曝光 → ~0)和 guides 的 Design Notes 邮件表单
   (292 个曝光会话 → 0)已经各自证明过一次「重写文案再试」在这个站上不成立
 - 2x–3.4x 之间 → 真实但太小。**当作否定处理**,理由写进日志
-- ⚠️ **p 值是乐观的**:分臂单位是浏览器(localStorage),计数单位是标签页(sessionStorage),
-  一个浏览器可以贡献多个完全相关的会话,而 z 检验假设独立。
-  **p 刚好压线(略小于 0.05)按「未成立」处理。** 倍数不受聚类影响,只有 p 受影响。
-  脚本每次运行都会打印这条
+- ⚠️ **p 值略微乐观,但幅度已实测,不要过度惩罚**:分臂单位是浏览器、计数单位是标签页,
+  z 检验假设独立。**实测设计效应约 1.05**(标准误抬高约 2.3%)—— 因为这个站每个浏览器
+  的会话数非常接近 1。
+  🔴 **原来写的「p 刚好压线按未成立处理」是错的,已撤回**:589/组 正好只买到 3.4x @ 80% power,
+  为了修正 2.3% 而丢掉 p=0.048 的结果,代价远大于收益。**按面值读 p,心里减一点信心就够了。**
+  倍数不受聚类影响,只有 p 受影响。脚本每次运行都会打印实测数字
 
-**读数**:`node /root/ColorArchive/server/scripts/w1-readout.cjs` —— 两个停止条件、
+**读数**:`sudo node /root/ColorArchive/server/scripts/w1-readout.cjs`(**要 sudo** —— `/root` 是 700,azureuser 读不到 `data.db`) —— 两个停止条件、
 主/次判据、漏斗中间步、健康度全部自己算好并打印。
 
 ---
@@ -485,3 +512,105 @@ guide 落地会话按周:203 / 189 / 17 / 151 / 146 / 8。
 
 **方法论**:这一轮的价值几乎全在第 1 条,而它不是「代码写错了」,
 是**判据和产品行为的交互**——单看任何一个文件都看不出来。
+
+---
+
+## §9.8 上线后再扫一轮:31 条候选,17 条成立 —— 最大的一条是「修了但没部署」
+
+§9.7 那轮是**代码**评审。这一轮问的是「上线之后还剩什么」,而它挖出的头号问题不在代码里。
+
+### 🔴 1. `/root/ColorArchive` **没有 git remote** —— 推 GitHub 不会动服务器
+
+```
+$ ssh azureuser@172.207.80.109 'sudo bash -c "cd /root/ColorArchive && git remote -v"'
+(空)
+```
+
+所以 §9.5 表格里写的「`gate-report.cjs` / `conversion-digest.cjs` 已加 surface 过滤」
+**对仓库成立,对生产不成立**。实测 md5:
+
+| 文件 | 生产(部署前) | 仓库 | |
+|---|---|---|---|
+| `conversion-digest.cjs` | `a39f1de5…` | `705117f3…` | 陈旧 |
+| `gate-report.cjs` | `5d77cf34…` | `e83c54ef…` | 陈旧 |
+| `session-denominator.js` | `ff0b1bd5…` | `99073b28…` | 陈旧 |
+| `w1-readout.cjs` | **不存在** | `43b5db32…` | 缺失 |
+
+后果按紧急程度:
+1. `conversion-digest.cjs` **每天 08:00 UTC 跑**,缺 surface 过滤 → **从第二天起**就会把卡片的
+   `word_generated` 混进付费墙深度曲线。这正是 §8 注释里写「不能删」的那个过滤。
+2. `gate-report.cjs` 周一 09:00 跑,缺 surface 过滤和新的 `NOT_PAGE_LOAD`。
+3. `w1-readout.cjs` 不存在 → 10-12 那条「一条命令,不需要判断」会直接报 file not found。
+
+⚠️ **这是 memory 里那条「迁移会静默回退脚本,迁后必须逐个 md5 比对」的第二次发作,
+而这次不是迁移,是「我以为 git push 就等于部署」。** 服务器脚本没有任何自动同步。
+
+**✅ 已于 2026-08-31 部署**(先备份为 `.bak-w1-20260831`,`node --check` 全过,md5 与仓库逐字一致,
+**没有 `pm2 restart`,所以没有触发任何订阅邮件**):
+
+| 文件 | md5 |
+|---|---|
+| `server/session-denominator.js` | `99073b28f9b4dc5d1a62004b927cee4c` |
+| `server/scripts/gate-report.cjs` | `e83c54efca023545f25700ff809d0f87` |
+| `server/scripts/conversion-digest.cjs` | `705117f35e2ba3c747551883848562e3` |
+| `server/scripts/traffic-truth.cjs` | `27ca4a4234fa48c718aabda52fe1e8b3` |
+| `server/scripts/w1-readout.cjs` | `43b5db32a30008877d43c352058ae88c` |
+
+部署后在生产上实跑 `w1-readout.cjs`,输出正常(两臂 0 会话 —— 正确,我自己的两次测试访问
+没有 `page_read`,被分母正确排除)。**10-12 跑之前先 `md5sum` 核对上表,不符就从仓库重发。**
+
+### 🔴 2. `w1_assigned` 是 `session-denominator.js` 明文禁止的那种「页面加载事件」
+
+那个文件的 TRAP 2 结尾写着:不要「靠加一个页面加载事件来修」guides 的会话数,
+「那会把当初要排除的自动化流量重新放进来」。而 `w1_assigned` 正是:挂载即发、无停留、无手势。
+
+实测规模:`/guides/` 30 天 **1,703 次浏览 vs 605 个发事件的会话**,
+而全站 engagedVisits 是 **2,912** —— 不过滤就是 **15–20% 的台阶**,和 08-10 那次一模一样,只是方向相反。
+**向上的台阶没人会去质疑,这才是它更危险的地方。**
+
+✅ 已修:`session-denominator.js` 新增 TRAP 4 + `PAGE_LOAD_EVENTS` / `NOT_PAGE_LOAD` 导出 +
+`GUIDES_PAGELOAD_EVENT_ADDED` 断点提示;`gate-report.cjs` 的 `engagedVisits`(全站唯一没有事件过滤的查询)
+和 `traffic-truth.cjs` 的「DID SOMETHING」都加了过滤。实测过滤前后 2912 → 2910
+(**差的 2 个正是我自己的测试访问**)。
+
+### 3. 我自己写的读数脚本里有三个真 bug
+
+1. 🔴 **分子没有相对 `w1_assigned` 的时间下界。** `ca_sid` 是每标签页且无超时,所以一个会话可以
+   先用工具、后逛 guide。没有下界就把「先用了工具」算成「guide 把他路由过去了」。
+   实测对照组 5/394 里有 1 个是这种 → 约 **0.25pp 的地板,两臂都有**。
+   而 §9.6 判的是**倍数**,地板会确定性地压缩它:真实 3.4x 会读成
+   `(1.02%×3.4 + 0.25%) / 1.27% = 2.9x` —— **正好掉进「2–3.4x 当作否定 → 撤掉卡片」那一档。**
+   已加 `AND <e>.created_at >= a.created_at`。
+2. **HEALTH 块的 join 把每个会话的事件数乘以它的分配行数**,而 N>1 恰好只发生在
+   「写不了 sessionStorage」的浏览器 —— 也正是最可能丢 beacon 的那批。
+   即这个块会在它本来要监测的那批会话上制造出它要监测的异常。已改成先按会话去重再 join。
+3. **聚类告诫被我夸大了约 20 倍。** 实测设计效应 **1.05**(标准误 +2.3%),
+   而我写的规则是「p 刚好压线按未成立处理」。589/组 正好只买到 3.4x @ 80% power,
+   为修正 2.3% 而丢掉 p=0.048 的结果,代价远大于收益。**规则已撤回**,改成报实测数字。
+
+### 4. 其余已修
+
+- §5 W1 原文没改过,读者读到那里会拿到四个已被推翻的数字 → 已加醒目更正横幅指向 §9
+- §8「直接可跑」的三条查询:W1 判据那条是旧的错查询(按 first-touch 的 `landing_path` 分组)、
+  depth 查询没有 surface 过滤(**09-08 的窗口正好覆盖 W1 上线后几天**)、锚点查询与 `gate-report.cjs` 不一致 → 全部修正并**逐字跑过一遍**
+- 文档里的读数命令**漏了 `sudo`**(`/root` 是 700,azureuser 读不到 `data.db`)→ 已补
+- `CLAUDE.md` 写着「There is no test suite」—— **假的**,有 45 个测试文件,而且单文件跑得动。
+  这条假陈述是 §9.7 第 2 条那个 CI 事故的**上游原因**,已改写成「单文件怎么跑 + 改 .tsx 后至少跑哪四个」
+- `STRUCTURE.md` / `CLAUDE.md` 的计数陈旧:Collections 169→**261**、SEO guides 317→**333**、
+  i18n keys ~750+→**931**、newsletter 349→**350**;
+  `CLAUDE.md` 的「68+ collections」→ **261**;
+  「pre-render **all** 3,066 color pages」→ 实际是 **5,446 里的 3,066**,
+  **另外 2,380 是按需渲染** —— 而那 2,380 正是 Vercel 账单上 ISR 写入的那部分,
+  说成「all」会让人以为没有这块敞口
+
+### 5. 报告但**没有**动的(留给 owner 决定)
+
+- **`bot-detect.js` 的 UA 正则没有 `lightpanda`。** Lightpanda 是给 AI agent 用的无头浏览器,
+  而且**它老实自报 `Lightpanda/1.0`** —— 正则里有 `headlesschrome|phantomjs|puppeteer|playwright`,
+  唯独漏了这个。属于「加一个词就能挡」的那类,但改过滤器会改变所有历史序列的可比性,**不该顺手改**
+- **`screen_width` 是唯一能干净分开机器与人的信号**(30 天:direct 的 21,036 次浏览里
+  15,841 次恰好报 1280px = 75.3%,而搜索只有 2.7%),**但它在 `pageviews` 表,而那张表没有 `session_id`**,
+  所以任何按会话的读数都用不上它。要用就得加列,是独立的一件事
+- 🔵 **但 W1 的分母不受机器人稀释**:那波爬虫扫的是 `/colors/*` 不是 `/guides/*`,
+  guide 的 `page_read` 日序列在爬虫期间是平的(7/34/35/41/30/17/21/30/34/29/15/26)。
+  **589/组 和 6 周不需要因此调整。**

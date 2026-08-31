@@ -61,6 +61,40 @@ const SESSION_ID_SINCE = "2026-07-26";
 /** The day guide pages stopped emitting a read-only event (e401e0f). */
 const GUIDES_EVENTS_RETIRED = "2026-08-10";
 
+/** The day guide pages started emitting one again — `w1_assigned` (W1, 7716be8). */
+const GUIDES_PAGELOAD_EVENT_ADDED = "2026-08-31";
+
+/**
+ * TRAP 4 — EVENTS THAT FIRE ON PAGE LOAD ARE NOT ENGAGEMENT, AND ONE NOW EXISTS.
+ *
+ * The doctrine above warns, in as many words, against "adding a page-load event
+ * (that would re-admit precisely the automated traffic the switch was made to
+ * exclude)". On 2026-08-31 W1 added exactly one: `w1_assigned` fires from a mount
+ * effect on every /guides/ page, in BOTH arms, with no dwell and no interaction —
+ * because it is an experiment's DENOMINATOR and must not depend on the behaviour
+ * being measured. That is correct for the experiment and wrong for this file's
+ * unit, and both things are true at once.
+ *
+ * The size of it, measured the day it shipped: /guides/ had 1,703 pageviews and
+ * 605 event-emitting sessions over 30 days. `w1_assigned` reaches into that
+ * ~1,100-session gap, against a site-wide engaged-visit count of 2,912 — a
+ * 15-20% step change in the headline number, on a date when nothing about
+ * readership changed. That is the 2026-08-10 incident run backwards, and it would
+ * be just as wrong to read as a recovery as the drop was to read as a collapse.
+ *
+ * So visit counts that are not already filtered to a specific event name must
+ * subtract this. Callers append `AND ${NOT_PAGE_LOAD}`; anything counting a
+ * single named event is unaffected and needs no change.
+ *
+ * Add to this list only events that fire without a human doing something. An
+ * impression event does NOT belong here — `use-impression.ts` requires 50%
+ * visibility for a continuous second, which is a weaker bar than a click but a
+ * real one, and the doctrine above already accounts for it.
+ */
+const PAGE_LOAD_EVENTS = ["w1_assigned"];
+
+const NOT_PAGE_LOAD = `event_name NOT IN (${PAGE_LOAD_EVENTS.map((e) => `'${e}'`).join(",")})`;
+
 /**
  * TRAP 3 — WHAT A MISSING session_id MUST NOT DO.
  * The first version of this file counted `COALESCE(NULLIF(session_id,''),
@@ -107,12 +141,22 @@ function windowCaveats(days, now = new Date()) {
       `window spans ${GUIDES_EVENTS_RETIRED}, when /guides/ stopped emitting a read-only event (e401e0f) — guide sessions drop ~90% on that date with no change in guide readership`,
     );
   }
+  // The mirror image of the line above, and just as easy to misread — in the
+  // flattering direction this time, which is the one nobody questions.
+  if (start <= GUIDES_PAGELOAD_EVENT_ADDED) {
+    notes.push(
+      `window spans ${GUIDES_PAGELOAD_EVENT_ADDED}, when /guides/ started emitting a page-load event again (\`w1_assigned\`, W1) — any UNFILTERED visit count steps up ~15-20% on that date with no change in readership. Counts in this report already exclude it; a hand-written query must add \`AND ${NOT_PAGE_LOAD}\``,
+    );
+  }
   return notes.length ? notes : null;
 }
 
 module.exports = {
   SESSION_ID_SINCE,
   GUIDES_EVENTS_RETIRED,
+  GUIDES_PAGELOAD_EVENT_ADDED,
+  PAGE_LOAD_EVENTS,
+  NOT_PAGE_LOAD,
   DISTINCT_VISITS,
   SESSIONLESS_EVENTS,
   windowCaveats,

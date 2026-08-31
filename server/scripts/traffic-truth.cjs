@@ -35,6 +35,7 @@
 
 const path = require("path");
 const Database = require(path.join(__dirname, "..", "node_modules", "better-sqlite3"));
+const { NOT_PAGE_LOAD } = require(path.join(__dirname, "..", "session-denominator"));
 
 const DB_PATH = process.env.DB_PATH || path.join(__dirname, "..", "data.db");
 const db = new Database(DB_PATH, { readonly: true });
@@ -143,12 +144,20 @@ console.log("");
 // Rule 1: the same surfaces judged by interaction instead. session_id has only been
 // populated since 2026-07-26, so this is post-filter only by construction.
 console.log("SURFACE SPLIT — DISTINCT SESSIONS THAT DID SOMETHING (the trustworthy view)");
+// "DID SOMETHING" is the whole claim of this block, and from 2026-08-31 one event
+// stopped qualifying: `w1_assigned` fires from a mount effect on every /guides/
+// page with no dwell and no gesture (W1's A/B denominator). Counting it here would
+// make /guides/ look like it recovered on that date and improve the very
+// pageview:session ratio this script exists to expose — in a script that
+// design-notes-decision.cjs names as the tie-breaker when the two disagree.
+// The window has no upper bound, so this affects every future run, not one report.
 const bySession = q(
   `SELECT COALESCE(landing_path, '(unknown)') lp,
           COUNT(DISTINCT session_id) sessions,
           COUNT(*) events
      FROM events
     WHERE session_id IS NOT NULL
+      AND ${NOT_PAGE_LOAD}
       AND date(created_at) >= @first
     GROUP BY lp ORDER BY sessions DESC LIMIT 12`,
   { first: FIRST_CLEAN_DAY }

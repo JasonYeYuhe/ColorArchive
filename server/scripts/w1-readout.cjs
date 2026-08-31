@@ -89,11 +89,31 @@ const SESSION_SET = `
 
 const denom = db.prepare(`SELECT COUNT(DISTINCT a.session_id) c ${SESSION_SET}`);
 
-/** PRIMARY: the session reached the tool at all. Immune to the landing-word rule. */
+/**
+ * `>= a.created_at` ON EVERY NUMERATOR — this is not tidiness, it decides the verdict.
+ *
+ * `ca_sid` is per-TAB with no inactivity timeout, so one session can span the tool
+ * AND a guide in either order. Without a lower bound, a reader who used
+ * /word-to-color/ first and wandered into a guide afterwards counts as "the guide
+ * routed them to the tool". Measured on the control base the day this shipped:
+ * 5/394 qualified, of which 1 was a pre-guide tool visit — so ~0.25pp of pure
+ * floor, present in BOTH arms.
+ *
+ * A constant floor under both arms is not harmless, because §9.6 thresholds on the
+ * RATIO and a floor compresses it deterministically: a card producing a genuine
+ * 3.4x lift reads as (1.02%*3.4 + 0.25%) / 1.27% = 2.9x, which lands in the
+ * pre-registered "2–3.4x = treat as negative → remove the card" band. The bound
+ * turns "did this session ever touch the tool" into "did it touch the tool AFTER
+ * the guide", which is the only version of the question W1 is asking.
+ */
+const AFTER_ASSIGNMENT = `AND %s.created_at >= a.created_at`;
+
+/** PRIMARY: the session reached the tool AFTER seeing the guide. Immune to the landing-word rule. */
 const reached = db.prepare(`
   SELECT COUNT(DISTINCT a.session_id) c ${SESSION_SET}
      AND EXISTS (SELECT 1 FROM events p
-                  WHERE p.session_id = a.session_id AND p.path LIKE '/word-to-color%')`);
+                  WHERE p.session_id = a.session_id AND p.path LIKE '/word-to-color%'
+                    ${AFTER_ASSIGNMENT.replace("%s", "p")})`);
 
 /** Same session set, intersected with an event (optionally a surface). */
 const numer = db.prepare(`
@@ -101,6 +121,7 @@ const numer = db.prepare(`
      AND EXISTS (SELECT 1 FROM events g
                   WHERE g.session_id = a.session_id
                     AND g.event_name = ?
+                    ${AFTER_ASSIGNMENT.replace("%s", "g")}
                     AND (? = '' OR COALESCE(json_extract(g.props_json,'$.surface'),'word_tool') = ?))`);
 
 /** The card's own CTA click. Treatment-only by construction; a funnel step, not a criterion. */
@@ -109,6 +130,7 @@ const cardClick = db.prepare(`
      AND EXISTS (SELECT 1 FROM events k
                   WHERE k.session_id = a.session_id
                     AND k.event_name = 'guide_tool_click'
+                    ${AFTER_ASSIGNMENT.replace("%s", "k")}
                     AND json_extract(k.props_json,'$.placement') = 'w1_card')`);
 
 /** Day 0 is the first `w1_assigned` ever — the event does not exist before deploy. */
@@ -188,19 +210,37 @@ console.log(
     : "  keep running",
 );
 
-console.log("\nCAVEAT, printed every run because it does not go away:");
-console.log("  The arm is assigned per BROWSER (localStorage) and counted per TAB (sessionStorage),");
-console.log("  so one browser can contribute several perfectly-correlated sessions to one arm. The");
-console.log("  z-test above assumes independence, so its p is OPTIMISTIC. Treat a p just under 0.05");
-console.log("  as 'not established'. The lift ratio is unaffected by clustering; only the p is.");
+console.log("\nCAVEAT — clustering, now MEASURED rather than feared:");
+console.log("  The arm is per BROWSER (localStorage), the count is per TAB (sessionStorage), so one");
+console.log("  browser can contribute several correlated sessions to one arm and the z-test's");
+console.log("  independence assumption is not exactly true. Measured on this site's real data the");
+console.log("  design effect is ~1.05 — a ~2.3% inflation of the standard error, because sessions");
+console.log("  per browser here are very close to 1. That is NOT enough to discard a borderline");
+console.log("  result: at n=589/arm the experiment buys exactly 3.4x at 80% power, so throwing away");
+console.log("  p=0.048 costs far more than the 2.3% it would correct. Read p at face value and");
+console.log("  subtract a little confidence, rather than applying a rule. The lift ratio is");
+console.log("  unaffected by clustering either way; only the p is.");
 
+/**
+ * The `a` side is COLLAPSED TO ONE ROW PER SESSION before the join. Joining
+ * `events a` to `events e` on session_id alone multiplies every one of a session's
+ * events by that session's number of `w1_assigned` rows — and N>1 happens for
+ * exactly one population: browsers that cannot write sessionStorage, whose
+ * once-per-visit guard falls back to a module flag covering a single document
+ * load. Those are also the browsers likeliest to be dropping beacons. So the
+ * un-deduplicated version inflated `events/session` and `_dropped` hardest for the
+ * very sessions this block exists to detect, and if one arm drew more of them it
+ * would manufacture the asymmetry it is supposed to be watching for.
+ */
 const health = db.prepare(`
-  SELECT json_extract(a.props_json,'$.arm') arm,
-         COUNT(*) events, COUNT(DISTINCT e.session_id) sessions,
+  SELECT arm, COUNT(*) events, COUNT(DISTINCT e.session_id) sessions,
          SUM(COALESCE(json_extract(e.props_json,'$._dropped'),0)) dropped
-    FROM events a JOIN events e ON e.session_id = a.session_id
-   WHERE a.event_name='w1_assigned' AND datetime(a.created_at) >= datetime('now', ?)
-     AND COALESCE(a.session_id,'') <> ''
+    FROM (SELECT session_id, MIN(json_extract(props_json,'$.arm')) arm
+            FROM events
+           WHERE event_name='w1_assigned' AND datetime(created_at) >= datetime('now', ?)
+             AND COALESCE(session_id,'') <> ''
+           GROUP BY session_id) a
+    JOIN events e ON e.session_id = a.session_id
    GROUP BY arm`).all(SINCE);
 console.log("\nHEALTH — asymmetric event loss would invalidate the comparison:");
 for (const h of health) {

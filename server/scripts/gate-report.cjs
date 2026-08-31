@@ -31,7 +31,7 @@ require(path.join(SERVER_DIR, "node_modules/dotenv")).config({ path: path.join(S
 const Database = require(path.join(SERVER_DIR, "node_modules/better-sqlite3"));
 const { Resend } = require(path.join(SERVER_DIR, "node_modules/resend"));
 const { computeAiGate } = require(path.join(__dirname, "ai-gate-report.cjs"));
-const { DISTINCT_VISITS, windowCaveats } = require(path.join(SERVER_DIR, "session-denominator"));
+const { DISTINCT_VISITS, NOT_PAGE_LOAD, windowCaveats } = require(path.join(SERVER_DIR, "session-denominator"));
 
 const OWNER_EMAIL = process.env.GATE_REPORT_TO || "yyyyy.yeyuhe@gmail.com";
 const FROM = process.env.FROM_EMAIL || "hello@colorarchive.org";
@@ -59,6 +59,8 @@ function gate(days) {
   // automated — so it counted crawlers as qualified prospects. The paywall figure
   // counted event rows, which double-counts one visitor who reloads: measured on
   // 2026-08-17, word_paywall_restored is 190 rows but 68 visits.
+  // Path-filtered to /preorder%, so the W1 page-load event (which only ever
+  // carries a /guides/ path) cannot reach it. No NOT_PAGE_LOAD needed here.
   const preorderUv = byCh(
     `SELECT COALESCE(NULLIF(channel,''),'unknown') channel, ${DISTINCT_VISITS} count FROM events
      WHERE datetime(created_at) >= datetime('now', ?) AND path LIKE '/preorder%' GROUP BY channel ORDER BY count DESC`);
@@ -66,8 +68,15 @@ function gate(days) {
     `SELECT COALESCE(NULLIF(channel,''),'unknown') channel, ${DISTINCT_VISITS} count FROM events
      WHERE datetime(created_at) >= datetime('now', ?) AND event_name IN ('word_paywall_hit','word_paywall_restored')
      GROUP BY channel ORDER BY count DESC`);
+  // The ONE query in this file with no event filter, which makes it the one that
+  // a new event silently moves. `NOT_PAGE_LOAD` excludes `w1_assigned` (W1's A/B
+  // denominator, added 2026-08-31), which fires from a mount effect on every
+  // /guides/ page with no dwell and no interaction. Including it would step this
+  // headline up 15-20% on 08-31 with no change in readership — the 08-10 incident
+  // running backwards. See TRAP 4 in server/session-denominator.js.
   const engagedVisits = db.prepare(
-    `SELECT ${DISTINCT_VISITS} c FROM events WHERE datetime(created_at) >= datetime('now', ?)`).get(since).c;
+    `SELECT ${DISTINCT_VISITS} c FROM events
+      WHERE datetime(created_at) >= datetime('now', ?) AND ${NOT_PAGE_LOAD}`).get(since).c;
   // THE §5 ANCHOR. Deliberately NOT total engaged visits: that unit changed
   // definition on 2026-08-10 when e401e0f removed the only event a read-only
   // guide page emitted, which cost ~550 sessions a month with no change in

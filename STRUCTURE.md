@@ -614,18 +614,22 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 >   `/pro/` + contextual `AuditorPreorderCta` on `/palette-audit/` and `/wcag-audit/`
 >   (tracked via `preorder_cta_click {from}` for source attribution).
 
+> Counts verified 2026-08-31. They drift every time autopilot adds content — regenerate with:
+> `npx esbuild <entry>.ts --bundle --platform=node --format=cjs --alias:@=$PWD --outfile=/tmp/c.cjs && node /tmp/c.cjs`
+> importing `landingGuides` / `collections` / `colors` and printing `.length` (vitest cannot load these here).
+
 | Content | Count |
 |---------|-------|
 | Colors | 5,446 (5,376 chromatic + 70 neutral grays) |
 | Word-to-color pages | 474 static (`/word-to-color/[word]/`) |
 | Saturation bands | 6 (Faint 10%, Muted 18%, Soft 34%, Clear 54%, Vivid 74%, Pure 92%) |
 | Neutral groups | 3 (Warm Gray, Cool Gray, True Gray) |
-| Collections | 169 |
+| Collections | 261 |
 | Palette packs | 7 (USD $9–$129) |
-| SEO guides | 317 |
-| Newsletter issues | 349 |
+| SEO guides | 333 (364 authored, 31 dropped by the duplicate-slug dedupe in guides.ts) |
+| Newsletter issues | 350 |
 | Color families | 9 |
 | Industry use cases | 10 (saas-tech, healthcare, luxury, food, finance, education, creative, sustainability, beauty, nonprofit) |
 | Tool pages | 33+ (converter, contrast, spectrum, word-to-color, palette-generator, gradient, harmonies, compare, colorblind, tints, mixer, combinations, brand-generator, mood-palette, color-quiz, image-palette, identify, preview, mesh-gradient, wcag-audit, tokens, analyze, name, screen-test ×3, tailwind-colors, css-filter, color-wheel, color-temperature, dark-mode-colors, duotone, paint-mix) |
 | AI endpoints | 5 (brand-palette, mood-palette, name-color, critique, analyze-url) |
-| i18n keys | ~750+ (EN/ZH) |
+| i18n keys | 931 (EN/ZH) |

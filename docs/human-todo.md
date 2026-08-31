@@ -40,9 +40,14 @@
 > ### 🔵 到期动作:2026-10-12(部署后 6 周)
 > 在 Azure 上跑一条命令,不需要判断:
 > ```
-> node /root/ColorArchive/server/scripts/w1-readout.cjs
+> sudo node /root/ColorArchive/server/scripts/w1-readout.cjs
 > ```
 > 它自己会检查两个停止条件、印出两臂转化率、提升倍数、p 值和健康度。
+> **跑之前先核对 md5**(服务器脚本没有自动同步,`/root/ColorArchive` 连 git remote 都没有):
+> ```
+> sudo md5sum /root/ColorArchive/server/scripts/w1-readout.cjs
+> # 应为 43b5db32a30008877d43c352058ae88c —— 不符就从仓库重新 scp
+> ```
 > **≥3.4 倍 → 推广到 `/brands/*`;<2 倍 → 撤掉卡片,315 篇 guides 的战略价值整体重估
 > (不要改文案再跑一轮 —— 这个站已经证明过两次那不成立)。**
 > ⚠️ **p 刚好压线按「未成立」算** —— 分臂按浏览器、计数按标签页,z 检验的 p 偏乐观。
