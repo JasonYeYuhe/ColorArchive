@@ -26,17 +26,43 @@ const ALLOWED_ORIGIN_RE = new RegExp(
   `^https:\\/\\/[\\w-]+\\.${SITE_DOMAIN.replace(/\./g, "\\.")}$`
 );
 
+// The Figma plugin UI is a data: URL iframe, which sends the literal string
+// "null" as its Origin. Auth on these endpoints is bearer-token, not cookie,
+// so reflecting the null origin is safe. A missing Origin (curl, crawlers,
+// server-to-server) is likewise allowed, as it always has been.
+function isAllowedOrigin(origin) {
+  return (
+    !origin ||
+    origin === "null" ||
+    allowedOrigins.has(origin) ||
+    ALLOWED_ORIGIN_RE.test(origin)
+  );
+}
+
+// REFUSE DISALLOWED ORIGINS HERE, WITH A 403 — not inside the cors callback.
+//
+// This used to be `callback(new Error("Not allowed by CORS"))`, which turned
+// every drive-by scanner probe into an unhandled 500 and a Sentry event. In the
+// day after the Azure migration that was 285 of them — /wp-json/batch/v1,
+// /index.php, /graphql and friends — against a couple of genuine errors. Noise
+// at that ratio does not just waste quota, it buries the real signal, which is
+// the same way the four-month X-Forwarded-For outage went unseen. A refused
+// origin is an expected outcome, not an exception, so it no longer raises one.
+//
+// DELIBERATELY NOT `callback(null, false)`, the other obvious fix. That makes
+// the cors library merely omit the headers and call next(), so the request
+// still runs and only the browser's read of the response is blocked. With
+// `credentials: true` that widens what a hostile origin can trigger. Refusing
+// before any route executes keeps the previous security posture exactly.
+app.use((req, res, next) => {
+  if (isAllowedOrigin(req.headers.origin)) return next();
+  return res.status(403).json({ error: "Origin not allowed" });
+});
+
 app.use(
   cors({
     origin(origin, callback) {
-      // The Figma plugin UI is a data: URL iframe, which sends the literal
-      // string "null" as its Origin. Auth on these endpoints is bearer-token,
-      // not cookie, so reflecting the null origin is safe.
-      if (!origin || origin === "null" || allowedOrigins.has(origin) || ALLOWED_ORIGIN_RE.test(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("Not allowed by CORS"));
+      callback(null, isAllowedOrigin(origin));
     },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
