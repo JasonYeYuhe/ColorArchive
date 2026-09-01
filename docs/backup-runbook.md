@@ -11,7 +11,7 @@
 |---|---|---|---|---|
 | 1. local snapshot | `/root/ColorArchive/server/backups/` on the VM | 6h (cron) | 14d | an `rm`, a bad migration, app-level corruption |
 | 2. **offsite pull** | Jason's Mac, `~/Library/do-harvest-offsite/` | 6h (LaunchAgent) | 60d | **the VM dying** |
-| 3. **cloud copy** | Azure Blob `colorarchivestu/sqlite-backups` | 6h, gzipped | 180d | **the VM and the Mac both dying** |
+| 3. **cloud copy** | Azure Blob `colorarchivestu/sqlite-backups` | 6h, gzipped, **keyless from the VM** | 180d | **the VM and the Mac both dying** |
 | 4. VM OS snapshot | Azure incremental disk snapshot | weekly | keep 4 | rebuilding the *machine*, not the data |
 
 Tier 1 is on the **same disk as the live database**, so on its own it is not a
@@ -33,10 +33,8 @@ logs a line and then `exit 0`, so cron saw success every single run. First the
 cached `az` login expired; after the Azure migration `az` was not installed on
 the new box at all. The container's newest blob was from **2026-04-04**.
 
-Tier 3 now runs from the Mac instead — that is where `az` is already
-authenticated, so no credential has to be stored on either machine (the storage
-key is fetched transiently per call and never written to disk). The three
-lessons from the failure are built into it:
+Tier 3 now runs **from the VM, keyless**, via `server/scripts/sync-azure.sh`.
+The three lessons from the failure are built into it:
 
 1. **every failure sets `rc=1` and logs `ERROR`** — never a silent success;
 2. **it verifies by downloading the blob back**, decompressing it, comparing md5
@@ -47,12 +45,51 @@ lessons from the failure are built into it:
    on failure — so a dead credential is noticed in about a day, not at the next
    disaster.
 
-**Known limitation, stated plainly:** tier 3 is only as fresh as the last time
-the Mac was awake. Making it independent needs a system-assigned managed
-identity on `apps-prod-vm` plus a `Storage Blob Data Contributor` role
-assignment scoped to the `sqlite-backups` container, after which the VM can
-upload with IMDS + `curl` and no secret at all. That is a ~5-minute owner task
-and is the single best remaining improvement here.
+### How tier 3 authenticates, and why it cannot be revoked by an expiring token
+
+`apps-prod-vm` has a **system-assigned managed identity**. `sync-azure.sh` asks
+IMDS (`169.254.169.254`) for a storage token at run time and uploads with plain
+`curl`. **There is no key, no SAS, no `az login`, and nothing on disk to rotate
+or leak** — which removes precisely the failure mode that killed the 2026-04
+attempt. `az` is not installed on the VM and is not needed.
+
+### 🔴 The VM cannot delete its own backups, deliberately
+
+The identity holds a **custom** role, `Blob Backup Writer (no delete)`, scoped to
+the `sqlite-backups` container only. It grants `blobs/read` + `blobs/write` and
+`containers/read` (needed for List Blobs), and deliberately **not**
+`blobs/delete`. Verified from the box:
+
+```
+LIST   -> HTTP 200
+WRITE  -> HTTP 201
+READ   -> HTTP 200
+DELETE -> HTTP 403   ← the point
+```
+
+A backup producer that can erase its own backup history is one compromise away
+from having no backups, and a public-facing web server is the most likely thing
+in this system to be compromised. Because `write` still permits overwrite, the
+account also has **blob versioning + 30-day blob and container soft delete**, so
+an overwrite-with-garbage or a delete performed with some other credential is
+still recoverable.
+
+**Retention therefore does not run on the VM.** Expiring blobs past 180 days is
+the Mac's job, using a separate credential.
+
+### What the Mac still does, now that the VM uploads
+
+Not redundant — it holds the two jobs the VM must not have:
+
+- **Monitor.** The staleness alarm (>30h) is the only thing that will tell a
+  human the cloud copy stopped. A host cannot be trusted to report its own
+  death, so the check runs on a different machine with a different credential.
+  This is exactly what was absent while the VM's uploader sat broken for five
+  months reporting success.
+- **Retention.** See above.
+- **Backstop.** If the VM's upload fails, the Mac still uploads. Both derive the
+  blob name from the same snapshot filename, so whichever runs first wins and
+  the other finds it already present. **Do not let the two naming schemes drift.**
 
 ## Production layout (source of truth)
 
@@ -83,9 +120,13 @@ ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes azureuser@1
             >> /root/ColorArchive/server/logs/backup.log 2>&1
 ```
 
-`10 */6 * * * sync-azure.sh` is also present and is **inert** — see above. It is
-left in place because it costs one log line per run and removing cron entries
-during an incident is how cron entries get lost; do not mistake it for tier 3.
+```
+10 */6 * * * /root/ColorArchive/server/scripts/sync-azure.sh \
+             >> /root/ColorArchive/server/logs/azure-sync.log 2>&1
+```
+
+That second entry **is** tier 3 as of 2026-09-01. It runs at `:10` because the
+tier-1 backups are written at `:00`. It was previously inert — see above.
 
 ## Verification
 
@@ -182,11 +223,13 @@ Last full drill: **2026-09-01** — cloud round-trip verified byte-identical
 
 ## Open items
 
-- **Tier 3 depends on the Mac being awake.** Fix: system-assigned managed
-  identity on `apps-prod-vm` + `Storage Blob Data Contributor` scoped to the
-  `sqlite-backups` container, then upload from the VM with IMDS + `curl`. No
-  stored secret, no expiry — and unlike the 2026-04 attempt it cannot die from a
-  credential timing out. ~5 minutes, owner-only (needs Azure RBAC rights).
+- ~~Tier 3 depends on the Mac being awake.~~ **Closed 2026-09-01** — the VM now
+  uploads keyless via managed identity; the Mac is monitor/retention/backstop.
+- **Nothing alerts if the whole Mac stops.** The staleness alarm is the only
+  watcher of tier 3, and it runs on the Mac. If the Mac is off for a fortnight,
+  cloud uploads keep working (they are the VM's job now) but nobody is checking
+  them. A cheap fix would be a weekly check from the VM's existing
+  `gate-report.cjs` email path.
 - **No automated restore drill.** The quarterly manual drill below is a floor.
   Tier 3 does verify a full download → decompress → `integrity_check` on every
   new upload, which is the closest thing to a continuous drill currently running.
