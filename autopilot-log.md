@@ -1,3 +1,55 @@
+## 2026-09-01 — [remote] Follow-up: the Mac is at 99% disk, and the cloud tier had one day of history
+
+Two findings while verifying the keyless upload, both of which mattered more than the
+thing I was verifying.
+
+**🔴 The Mac's disk is 99% full — 14 GB free of 926 GB — and tier 2 half-failed on it.**
+The `00:12Z` scheduled run died with `No space left on device`: rsync left a partial temp
+file, the stride integrity check could not open its database, and both gzips failed.
+Nothing was corrupted (the pull is atomic per file, previous copies survived) and **the new
+error handling is why it was found at all** — the run before this morning's work would have
+reported success. **The backups are not the cause**: 4.5 GB of an 881 GB-used volume. This
+is not a retention knob to tune, it is "the machine hosting tier 2 is nearly full", and it
+needs a human with a delete key.
+
+Added a **free-space precondition** (`MIN_FREE_MB=6000`): below it the run declines in one
+place with an ALERT instead of failing in four, and states explicitly that tier 3 is
+unaffected. It also guards the upload path — gzip writing a truncated `.part` on a full disk
+is exactly how a corrupt backup gets uploaded. Verification would catch it; not attempting
+is better. Tested both directions.
+
+**🔴 The cloud tier held ONE DAY of history, which made the disk problem dangerous.**
+Tier 3 started uploading this morning. Tier 2 held ~220 snapshots back to 2026-07-08 on a
+disk that is nearly full — which is precisely the situation where you would reach for
+"shorten the Mac's retention", and precisely when you must not, because the cloud was the
+only other copy and it had almost nothing in it.
+
+So I **backfilled the cloud with the Mac's entire history** before touching anything else:
+**278 blobs uploaded, 0 failed.** The cloud now holds 222 ColorArchive snapshots spanning
+**2026-07-08 → 2026-09-01**, plus 61 Stride — 0.83 GB, about **$0.01/month** in Cool LRS.
+Spot-checked a backfilled July blob end to end: md5 matches the local source,
+`integrity_check=ok`, 979 `events` rows, 11 `users` — recovered history, not just bytes.
+That makes tier 3 genuinely the deep-history tier, and only now is trimming tier 2 safe —
+which is itself the next easy win for the disk problem.
+
+**Also verified this round:**
+
+- The new `sync-azure.sh` runs correctly under **cron's minimal environment**
+  (`env -i PATH=/usr/bin:/bin`) — the same class of PATH bug the Mac script's own comments
+  warn about, where `az` needed an absolute path under a LaunchAgent.
+- The VM's cron entry is intact and its md5 matches the repo. Its next scheduled run is
+  06:10 UTC; the log still shows the old script's `SKIP` lines up to 00:10 because my runs
+  went to stdout.
+- The Mac now finds the VM's blob already present and skips the upload, while still
+  monitoring and retaining — the intended division of labour, confirmed by running them
+  against each other.
+
+**Still open, and now the most valuable item:** nothing watches tier 3 if the Mac itself
+stops, because the staleness alarm lives there. A weekly check on the VM's existing
+`gate-report.cjs` email path would close it. Deliberately not done in the same session that
+rewrote the uploader — that path sends real subscriber mail on boot and is not worth
+touching casually.
+
 ## 2026-09-01 — [remote] The cloud backup no longer holds a credential at all, and the web server can no longer delete its own backups
 
 Follow-up to this morning's entry, closing the open item it left. Owner said to take it

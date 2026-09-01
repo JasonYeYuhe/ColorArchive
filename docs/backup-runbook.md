@@ -77,6 +77,39 @@ still recoverable.
 **Retention therefore does not run on the VM.** Expiring blobs past 180 days is
 the Mac's job, using a separate credential.
 
+### 🔴 The Mac is at 99% disk, and tier 2 half-failed because of it
+
+Found 2026-09-01 while verifying the above. The `00:12Z` scheduled run died with
+`No space left on device`: rsync left a partial temp file, the stride integrity
+check could not open its database, and both gzips failed. **Nothing was
+corrupted** — the pull is atomic per file and the previous copies survived — and
+the new error handling reported it loudly, which is how it was found at all.
+
+**The backups are not the cause.** The volume is 881 GB used of 926 GB with
+~14 GB free; this store is 4.5 GB of that. So this is not a retention knob to
+tune, it is "the machine hosting tier 2 is nearly full" and it needs attention
+outside this system.
+
+Two things changed in response:
+
+1. **A free-space precondition** (`MIN_FREE_MB=6000`). Below it the run declines
+   in one place with an `ALERT` instead of failing in four, and says explicitly
+   that tier 3 is unaffected. It also protects the upload path: gzip writing a
+   truncated `.part` on a full disk is exactly how a corrupt backup gets
+   uploaded. Verification would catch that — not attempting is better.
+2. **The cloud was backfilled with the Mac's whole history** — 278 blobs uploaded,
+   0 failed; the cloud now holds 222 ColorArchive snapshots spanning **2026-07-08 →
+   2026-09-01** plus 61 Stride, 0.83 GB total (~$0.01/month, Cool LRS). Tier 3 began on
+   2026-09-01 holding one day. Tier 2 held ~220 snapshots back to 2026-07-08 on
+   a disk that is nearly full — which is precisely when you would want to shorten
+   tier 2's retention, and precisely when you must not, because the cloud was
+   then the only other copy and it had nothing. Backfilling first makes tier 3
+   genuinely the deep-history tier; only after that is trimming tier 2 safe.
+
+**Consequence worth acting on:** now that tier 3 holds the history, the Mac's
+60-day retention is no longer load-bearing and can be shortened to reclaim disk.
+Do not shorten it below what the cloud actually contains.
+
 ### What the Mac still does, now that the VM uploads
 
 Not redundant — it holds the two jobs the VM must not have:
@@ -225,11 +258,20 @@ Last full drill: **2026-09-01** — cloud round-trip verified byte-identical
 
 - ~~Tier 3 depends on the Mac being awake.~~ **Closed 2026-09-01** — the VM now
   uploads keyless via managed identity; the Mac is monitor/retention/backstop.
+- 🔴 **The Mac is at 99% disk (14 GB free of 926 GB).** Not caused by the
+  backups (4.5 GB of 881 GB used) and not fixable from inside this system. Tier 2
+  now declines cleanly below 6 GB free instead of half-failing, and tier 3 is
+  unaffected — but tier 2 is one bad week from being degraded. Needs a human to
+  reclaim space on that volume.
+- **Mac retention can now be shortened.** It was 60 days because it was the deep
+  history. Since the backfill, the cloud is. Trimming tier 2 reclaims a few GB —
+  but never below what the cloud actually holds; check before cutting.
 - **Nothing alerts if the whole Mac stops.** The staleness alarm is the only
   watcher of tier 3, and it runs on the Mac. If the Mac is off for a fortnight,
   cloud uploads keep working (they are the VM's job now) but nobody is checking
-  them. A cheap fix would be a weekly check from the VM's existing
-  `gate-report.cjs` email path.
+  them. A weekly check from the VM's existing `gate-report.cjs` email path would
+  close it. Deliberately not done in the same session that rewrote the uploader —
+  that path sends real subscriber mail on boot and is not worth touching casually.
 - **No automated restore drill.** The quarterly manual drill below is a floor.
   Tier 3 does verify a full download → decompress → `integrity_check` on every
   new upload, which is the closest thing to a continuous drill currently running.
