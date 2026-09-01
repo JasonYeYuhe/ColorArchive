@@ -5,14 +5,15 @@
 > droplet (`143.198.85.72`). **That machine was destroyed on 2026-08-30.**
 > Production moved to Azure on 2026-08-29.
 
-## The four tiers, and what each one actually protects against
+## The five tiers, and what each one actually protects against
 
 | tier | where | cadence | retention | survives |
 |---|---|---|---|---|
 | 1. local snapshot | `/root/ColorArchive/server/backups/` on the VM | 6h (cron) | 14d | an `rm`, a bad migration, app-level corruption |
-| 2. **offsite pull** | Jason's Mac, `~/Library/do-harvest-offsite/` | 6h (LaunchAgent) | 60d | **the VM dying** |
-| 3. **cloud copy** | Azure Blob `colorarchivestu/sqlite-backups` | 6h, gzipped, **keyless from the VM** | 180d | **the VM and the Mac both dying** |
+| 2. offsite pull | Jason's Mac, `~/Library/do-harvest-offsite/` — **gzipped** | 6h (LaunchAgent) | **30d** | **the VM dying** |
+| 3. cloud copy | Azure Blob `colorarchivestu/sqlite-backups` — keyless from the VM | 6h | 180d | **the VM and the Mac both dying** |
 | 4. VM OS snapshot | Azure incremental disk snapshot | weekly | keep 4 | rebuilding the *machine*, not the data |
+| 5. **second cloud** | **Google Drive `gdrive:ColorArchive-Backups/`** | 6h (from the Mac) | 365d | 🔴 **the whole Azure account ending** |
 
 Tier 1 is on the **same disk as the live database**, so on its own it is not a
 backup — it is an undo button. Tiers 2–4 are the actual protection.
@@ -77,6 +78,68 @@ still recoverable.
 **Retention therefore does not run on the VM.** Expiring blobs past 180 days is
 the Mac's job, using a separate credential.
 
+### 🔴 Why tier 5 exists: tiers 1, 3 and 4 are all one Azure account
+
+The obvious objection to tier 5 is "we already have a cloud copy". We do — and it
+is in the same subscription as everything else:
+
+- the VM's local backups → **Azure** VM disk
+- the blob copy → **Azure** storage account
+- the weekly OS snapshot → **Azure**
+
+all under `Azure for Students`, subscription credit expiring **2027-03-18**, free
+service window closing **2027-04-04**, conditional on still being a student. One
+account ending — credit expiry, graduation, suspension, a mis-deleted
+subscription — removes three of the four tiers simultaneously.
+
+**This is not hypothetical. It already happened here, one month ago.** The
+DigitalOcean student credit expired 2026-08-31, $65.22 evaporated, and the
+droplet was destroyed. Had the backups lived only on DO, they would have gone
+with it. Tier 5 is a different provider with a different billing relationship,
+which is the only thing that actually diversifies that risk.
+
+`rclone` already had a `gdrive:` remote configured (the xiaohongshu-daily task
+uses it), so this needed no new credential and no OAuth. Drive holds 5 TB with
+4.6 TiB free; the entire compressed archive is under 1 GB, which is why
+retention there is a generous 365 days.
+
+Verification is deliberately `rclone check --download`: it re-fetches and
+compares **content**, not size+modtime. A tier whose whole purpose is
+independence has to be verified independently too.
+
+### The archive is stored gzipped, and rsync needs an exclude list for that
+
+Until 2026-09-01 tier 2 kept plain `.sqlite` files: 222 snapshots × 30 MB =
+4.5 GB, on a volume that was 99 % full. The same content gzips to ~5.4 MB —
+**5.6×**. Compacting the existing history freed **3,774 MB in 100 seconds**
+(283 files, 0 failures, each verified by decompressing and comparing md5 against
+the original before the original was removed).
+
+🔴 **The trap that makes this non-obvious.** `rsync -a REMOTE/ LOCAL/` mirrors.
+If the VM still holds `data-X.sqlite` and locally we now hold only
+`data-X.sqlite.gz`, rsync sees the file as *missing* and re-downloads all 30 MB —
+then it gets re-compressed, and re-downloaded again next run, forever. The
+compression would appear to work while quietly costing a full re-pull every six
+hours. So the pull is given an `--exclude-from` list built from the `.gz` files
+already held. Confirmed in the log: `skipping 223 already held`.
+
+### 🔴 Compressing reset every mtime, and retention reads mtime
+
+Caught immediately after the compaction, before it could do damage. Both
+`find -mtime` (retention) and `ls -t` ("which snapshot is newest") read **mtime**,
+not the filename. Compressing writes a *new* file, so all 283 snapshots — including
+ones from 8 July — acquired an mtime of the compaction minute.
+
+The failure that would have produced: **nothing expires for 30 days, and then the
+entire local archive expires on the same day.** It would have looked completely
+healthy right up to the moment it emptied.
+
+Fixed twice over: the existing files had their mtimes restored from their filename
+stamps (283 corrected), and the compaction step in `pull-offsite.sh` now does
+`touch -r "$f" "$f.gz"` so a re-compaction cannot reintroduce it. Verified after:
+the 8 July file reads `mtime=2026-07-08 11:53`, and the first real retention pass
+correctly expired the July stride snapshots.
+
 ### 🔴 The Mac is at 99% disk, and tier 2 half-failed because of it
 
 Found 2026-09-01 while verifying the above. The `00:12Z` scheduled run died with
@@ -134,7 +197,7 @@ Not redundant — it holds the two jobs the VM must not have:
 | Backup dir | `/root/ColorArchive/server/backups/` |
 | Log | `/root/ColorArchive/server/logs/backup.log` |
 | Retention | **14 days**, rotated every 6 hours |
-| Offsite | Mac pull (60d) + Azure Blob `colorarchivestu/sqlite-backups` (180d) |
+| Offsite | Mac pull, gzipped (30d) + Azure Blob (180d) + Google Drive (365d) |
 
 SSH needs inline flags — the agent socket must be bypassed:
 
@@ -258,14 +321,14 @@ Last full drill: **2026-09-01** — cloud round-trip verified byte-identical
 
 - ~~Tier 3 depends on the Mac being awake.~~ **Closed 2026-09-01** — the VM now
   uploads keyless via managed identity; the Mac is monitor/retention/backstop.
-- 🔴 **The Mac is at 99% disk (14 GB free of 926 GB).** Not caused by the
-  backups (4.5 GB of 881 GB used) and not fixable from inside this system. Tier 2
-  now declines cleanly below 6 GB free instead of half-failing, and tier 3 is
-  unaffected — but tier 2 is one bad week from being degraded. Needs a human to
-  reclaim space on that volume.
-- **Mac retention can now be shortened.** It was 60 days because it was the deep
-  history. Since the backfill, the cloud is. Trimming tier 2 reclaims a few GB —
-  but never below what the cloud actually holds; check before cutting.
+- 🔴 **The Mac is still ~98% disk.** Compressing the archive gave back 3.8 GB
+  (the store is now 841 MB of an 881 GB-used volume), so the backups are no
+  longer a meaningful contributor — but the volume itself is still nearly full
+  for unrelated reasons and needs a human. Tier 2 declines cleanly below 6 GB
+  free instead of half-failing; tiers 3 and 5 are unaffected either way.
+- ~~Mac retention can now be shortened.~~ **Done 2026-09-01** — 60d → 30d, and
+  the archive is stored gzipped. **4.5 GB → 579 MB** (124 ColorArchive + 31 Stride
+  snapshots retained); free space **11.8 GB → 19.4 GB**.
 - **Nothing alerts if the whole Mac stops.** The staleness alarm is the only
   watcher of tier 3, and it runs on the Mac. If the Mac is off for a fortnight,
   cloud uploads keep working (they are the VM's job now) but nobody is checking
@@ -300,6 +363,28 @@ sqlite3 /tmp/restore.sqlite 'SELECT COUNT(*) FROM events;' # the instrument W1 w
 ```
 
 Then follow the in-place restore steps above from step 2.
+
+## Restoring from Google Drive (tier 5)
+
+Use this when Azure is the thing that is gone. Same gzipped artifact as tiers 2
+and 3, so the restore is identical after the download.
+
+```bash
+# what is there
+rclone lsf gdrive:ColorArchive-Backups/colorarchive --format tsp | sort | tail -5
+
+# newest
+rclone copy gdrive:ColorArchive-Backups/colorarchive/data-<stamp>.sqlite.gz /tmp/
+gunzip -c /tmp/data-<stamp>.sqlite.gz > /tmp/restore.sqlite
+sqlite3 /tmp/restore.sqlite 'PRAGMA integrity_check;'      # expect: ok
+sqlite3 /tmp/restore.sqlite 'SELECT COUNT(*) FROM events;'
+```
+
+Then follow the in-place restore steps above from step 2.
+
+⚠️ `rclone lsf --format t` prints **local time**, not UTC — unlike every other
+timestamp in this system. That cost a bug: the staleness alarm computed every
+Drive backup as 9 hours in the future ("-8h old") and would have never fired.
 
 ## Health check (run this, not a guess)
 

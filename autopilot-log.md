@@ -1,3 +1,74 @@
+## 2026-09-01 — [remote] Backups: gzipped, 30-day, and a second cloud on a different provider
+
+Owner asked for three things after questioning why anything is downloaded locally at all
+when a cloud copy exists: shorten the Mac to 30 days, compress it, and add Google Drive.
+All three are done. The question was a good one and the answer is the reason tier 5 now
+exists.
+
+**Why the local copy is not redundant.** Tiers 1, 3 and 4 are all inside ONE Azure
+subscription — the VM's disk, the blob container, and the weekly OS snapshot — under
+`Azure for Students`, credit expiring **2027-03-18**, free-service window closing
+**2027-04-04**, conditional on still being a student. One account ending removes three of
+four tiers at once. **And that exact failure already happened here one month ago:** the
+DigitalOcean student credit expired 2026-08-31, $65.22 evaporated, the droplet was
+destroyed. Had the backups lived only on DO they would have gone with it.
+
+So the local copy's one irreplaceable property is being *outside Azure* — and Google Drive
+is a better expression of that property than a laptop is.
+
+**Compression: 4.5 GB → 841 MB.** 283 files compacted in 100 seconds, **0 failures**, each
+verified by decompressing and comparing md5 against the original *before* the original was
+removed. Free space on the Mac went 11.8 GB → 15.7 GB.
+
+**🔴 The trap that made compression non-obvious.** `rsync -a REMOTE/ LOCAL/` mirrors: with
+`data-X.sqlite` still on the VM and only `data-X.sqlite.gz` held locally, rsync sees the
+file as *missing* and re-downloads all 30 MB — which then gets re-compressed, and
+re-downloaded again next run, forever. Compression would have looked like it worked while
+silently costing a full re-pull every six hours. The pull now carries an `--exclude-from`
+list built from the `.gz` files already held; the log confirms `skipping 223 already held`.
+
+**Also fixed while wiring Drive:** `rclone lsf --format tp` prints **local time**, not UTC,
+unlike every other timestamp in this system. Parsed as UTC it made every Drive backup look
+9 hours in the future — printed as `-8h old`, and the staleness alarm would therefore
+**never have fired**. Caught because the number was absurd on its face.
+
+**Verification is content-based, not metadata-based.** Drive uploads are checked with
+`rclone check --download`, which re-fetches and compares bytes rather than trusting
+size+modtime. A tier whose entire purpose is independence has to be verified independently.
+Spot-checked the oldest file on Drive end to end: `data-2026-07-08-025341.sqlite.gz`,
+md5 matches the local archive, `integrity_check=ok`, 642 `events` rows, 11 `users`.
+
+**The shape now:**
+
+| tier | where | cadence | retention |
+|---|---|---|---|
+| 1 | VM local disk | 6h | 14d |
+| 2 | Mac, **gzipped** | 6h | **30d** |
+| 3 | Azure Blob, keyless from the VM | 6h | 180d |
+| 4 | Azure VM OS snapshot | weekly | keep 4 |
+| 5 | **Google Drive** — different provider | 6h | 365d |
+
+Drive holds 5 TB with 4.6 TiB free and the whole compressed archive is under 1 GB, which is
+why 365 days there costs nothing worth counting. `rclone` already had a `gdrive:` remote
+(the xiaohongshu-daily task uses it), so this needed no new credential and no OAuth.
+
+**🔴 One more trap, caught before it could do damage.** Both retention (`find -mtime`) and
+"which snapshot is newest" (`ls -t`) read **mtime**, not the filename — and compressing
+writes a *new* file, so all 283 snapshots, including ones from 8 July, acquired today's
+mtime. The failure that sets up: **nothing expires for 30 days, then the entire local
+archive expires on the same day**, looking perfectly healthy until the moment it empties.
+Fixed twice: mtimes restored from filename stamps (283 corrected), and the script's
+compaction now does `touch -r` so it cannot come back. The first real retention pass then
+correctly expired the July stride snapshots.
+
+**Final state:** tier 2 **4.5 GB → 579 MB** (124 + 31 snapshots, 30d), free space
+**11.8 GB → 19.4 GB**; tier 3 283 blobs (180d); tier 5 **284 objects / 790 MiB** on Drive
+(365d), hash-checked against local with **0 differences** on both directories.
+
+**Still open:** the Mac volume is still ~98% full for reasons unrelated to backups (the
+store is now 841 MB of 881 GB used) — needs a human. And nothing watches tiers 3/5 if the
+Mac itself stops, since both staleness alarms live there.
+
 ## 2026-09-01 — [remote] Follow-up: the Mac is at 99% disk, and the cloud tier had one day of history
 
 Two findings while verifying the keyless upload, both of which mattered more than the
