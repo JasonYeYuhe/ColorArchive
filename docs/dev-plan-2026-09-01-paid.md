@@ -430,10 +430,13 @@ Pinterest 把 **账号级** analytics 挡在 `user_accounts:read` 后面,**pin �
 | 杠杆 | 状态 |
 |---|---|
 | 1. pin 文案可被搜索 | ✅ **本轮已做** —— 旧标题是 `Teal Silk Bright — #69F2C4`、旧描述是 `Hue 160°, saturation 84%`,都是站内生成的内部标识符,Pinterest 搜索量为 0。而对一个 0 粉丝账号,**搜索是唯一的大流量面** |
-| 2. 认领域名(claim domain) | ⬜ **owner-only,30 分钟**,仓库里没有任何 `p:domain_verify` |
+| 2. 认领域名(claim domain) | ✅ **2026-09-02 已做** —— `colorarchive.org` 已认领(`16e0cd1`)。🔴 Pinterest 的对话框**预填的是 `colorarchive.me`**,也就是本站早就迁走的域名 —— 照着点会「认领成功」却认到一个没人指向的主机名 |
 | 3. 关键词化的 board | ⬜ 78 条全发在一个叫 "ColorArchive Pro" 的 board 上,产品名没有搜索意图 |
 | 4. 发人们真会搜的东西(调色板) | ⬜ 见 §6.9 |
 | 5. 图片比例 | ✅ **本轮已做**(顺带做,不是主力) |
+
+认领当天顺带读到一个新数字:Pinterest 自己的 profile 页显示 **635 monthly views**。
+这和 API 量出的 833 曝光/82 天 同量级,互相印证「这个账号确实几乎没有分发」。
 
 ---
 

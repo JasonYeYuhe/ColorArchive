@@ -1,3 +1,69 @@
+## 2026-09-02 — [remote] Domain claimed, and the backup alarm no longer lives only on the machine it watches
+
+Owner handed over the last two open items with full authority. Both done.
+
+### Pinterest: colorarchive.org is claimed
+
+Ranked **second** by expected effect in the §6 analysis — behind searchable pin text, ahead
+of the aspect ratio everyone assumes is the problem — and never done: no `p:domain_verify`
+existed anywhere in the repo. Claiming attributes every Pin linking here to the account,
+puts the follow button on those Pins, unlocks "Pins from your site" analytics, and removes
+the trust deficit that auto-published API Pins from an *unclaimed* domain specifically
+attract.
+
+🔴 **Pinterest prefilled the claim dialog with `colorarchive.me` — the domain this site
+migrated off.** Accepting the default would have verified a hostname nothing points at any
+more, shown "Connected", and achieved nothing. Corrected to `colorarchive.org` before
+submitting.
+
+Also checked first, because getting it wrong would have been silently useless: the browser
+session is the **same account the API token publishes as** (`pinterest.com/yuheye`, matching
+`board_owner` on the live pins). Verified via the settings page before touching anything.
+
+Confirmed after: the public profile now shows `colorarchive.org` where it showed `.me`, and
+the claim dialog's prefill changed with it. **Did not** click "Install tag" — that is the
+Pinterest ads conversion tracker, a third-party script nobody asked for.
+
+Incidental datum worth recording: the profile reports **635 monthly views**, same order of
+magnitude as the 833 impressions / 82 days measured through the API. Two independent sources
+agreeing that this account is barely distributed.
+
+### backup-health.cjs — the watcher that is not on the Mac
+
+Until now every staleness alarm for the off-box tiers lived in one place: `pull-offsite.sh`
+on the Mac. **That is the same mistake as the failure it was written to catch.** If the Mac
+stops, tier 2 stops, tier 5 (Drive) stops, *and the alarm stops* — while tier 3 keeps
+uploading from the VM, so the newest blob still looks fresh. Nothing anywhere notices that
+two tiers died.
+
+The two machines now watch each other, with different credentials:
+
+| watcher | runs on | alarms when |
+|---|---|---|
+| `pull-offsite.sh` | Mac | the VM's blob uploads go stale |
+| `backup-health.cjs` | VM | **the Mac** goes stale |
+
+The Mac proves liveness by writing `_heartbeat-mac.txt` into the container after each
+successful run, carrying tier-2 counts, tier-5 Drive size and free space. The VM reads it.
+That is the only signal covering tiers 2 and 5, because the VM deliberately holds no Google
+Drive credential — giving it one would collapse the "different provider, separate
+credential" property that is the entire point of tier 5.
+
+Auth is the VM's managed identity via IMDS. Read-only: it never writes or deletes a blob.
+**Emails only when something is wrong** — a daily all-clear gets filtered, and then the one
+that matters is filtered with it.
+
+Every path executed, not assumed:
+
+| test | result |
+|---|---|
+| healthy run | prints all three tiers, sends nothing |
+| tier 1 / tier 3 / Mac all stale | 3 problems, each with the actual next command to run |
+| Resend email path | one real send, id `b0bac067…` |
+| cron's minimal environment (`env -i PATH=/usr/bin:/bin`) | rc=0 |
+
+Installed at `30 8 * * *` — after the 08:00 digest, clear of the 09:00 COTD window.
+
 ## 2026-09-01 — [remote] Backups: gzipped, 30-day, and a second cloud on a different provider
 
 Owner asked for three things after questioning why anything is downloaded locally at all

@@ -329,12 +329,13 @@ Last full drill: **2026-09-01** — cloud round-trip verified byte-identical
 - ~~Mac retention can now be shortened.~~ **Done 2026-09-01** — 60d → 30d, and
   the archive is stored gzipped. **4.5 GB → 579 MB** (124 ColorArchive + 31 Stride
   snapshots retained); free space **11.8 GB → 19.4 GB**.
-- **Nothing alerts if the whole Mac stops.** The staleness alarm is the only
-  watcher of tier 3, and it runs on the Mac. If the Mac is off for a fortnight,
-  cloud uploads keep working (they are the VM's job now) but nobody is checking
-  them. A weekly check from the VM's existing `gate-report.cjs` email path would
-  close it. Deliberately not done in the same session that rewrote the uploader —
-  that path sends real subscriber mail on boot and is not worth touching casually.
+- ~~Nothing alerts if the whole Mac stops.~~ **Closed 2026-09-02** —
+  `server/scripts/backup-health.cjs` runs daily on the VM at `30 8 * * *` and
+  alarms if tier 1 or tier 3 goes stale **or if the Mac stops checking in**. The
+  Mac writes `_heartbeat-mac.txt` into the container after every successful run;
+  the VM reads it. The two machines watch each other with different credentials,
+  because a host cannot be trusted to report its own death. Emails only on
+  problems. See "Mutual monitoring" below.
 - **No automated restore drill.** The quarterly manual drill below is a floor.
   Tier 3 does verify a full download → decompress → `integrity_check` on every
   new upload, which is the closest thing to a continuous drill currently running.
@@ -342,6 +343,32 @@ Last full drill: **2026-09-01** — cloud round-trip verified byte-identical
   (`api.colorarchive.org`), so its presence in these docs is not a leak. The
   Azure **subscription ID and disk resource ID are not public and must not be
   committed** — which is why `pull-offsite.sh` itself is not in this repo.
+
+## Mutual monitoring — who watches what
+
+| watcher | runs on | credential | alarms when |
+|---|---|---|---|
+| `pull-offsite.sh` | Mac (LaunchAgent, 6h) | Azure account key + rclone gdrive | tier 3 or tier 5 uploads go stale (>30h) |
+| `backup-health.cjs` | VM (cron, `30 8 * * *`) | VM managed identity (read-only) | tier 1 stale (>9h), tier 3 stale (>30h), **or the Mac stops checking in (>30h)** |
+
+The Mac cannot report its own death, so the VM does it. The Mac proves liveness
+by writing `_heartbeat-mac.txt` into the container after each successful run —
+it carries tier-2 snapshot counts, tier-5 Drive size and free space, so the
+heartbeat is also a status summary.
+
+**Why the VM cannot simply check Google Drive itself:** it deliberately holds no
+Drive credential. Giving it one would collapse the "different provider, separate
+credential" property that is the entire reason tier 5 exists. The heartbeat is
+the indirection that lets the VM detect a dead tier 5 without being able to reach
+it.
+
+Both alarms are **silent when healthy**, on purpose. A daily all-clear gets
+filtered, and then the one that matters is filtered with it.
+
+```bash
+# run the VM-side check by hand (prints, never mails, with --dry-run)
+ssh ... azureuser@172.207.80.109 'sudo node /root/ColorArchive/server/scripts/backup-health.cjs --dry-run'
+```
 
 ## Restoring from the cloud copy (tier 3)
 
