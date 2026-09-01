@@ -134,6 +134,15 @@ export default function RootLayout({
     <html lang="en" className={`${sans.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="QMvWjTTdo973FLMy5VZMA4lDZcirOQK8LUjLAHFD5eo" />
+        {/* Pinterest domain claim (2026-09-01). Claiming attributes every Pin that
+            links here to the ColorArchive account, adds the follow button to those
+            Pins, and unlocks "Pins from your site" analytics.
+
+            🔴 Pinterest prefilled the claim dialog with `colorarchive.me` — the
+            domain this site MIGRATED OFF. Claiming that would have verified a
+            hostname nothing points at any more and looked like it worked. The
+            claim is on `colorarchive.org`. */}
+        <meta name="p:domain_verify" content="3f6da7bc330099b4b468c76268a0dfba" />
         <link rel="preconnect" href={API_URL} />
         <link rel="dns-prefetch" href={API_URL} />
         {/* Google Ads tag is now lazyOnload, so a DNS hint is enough (no early connection reserved) */}
