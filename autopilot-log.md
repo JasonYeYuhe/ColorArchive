@@ -58,9 +58,115 @@ check, tints & shades. Nothing newly gated, nothing free removed. `CopyButton` g
 `?hex=` reader (window.location, not useSearchParams — the prerender rule). One new event,
 `word_next_step_click`, on click only. W1 §0.1 untouched.
 
-Could not exercise the card in the local pane: Chrome refuses `clipboard.writeText` when the
-document is unfocused, and by design the card appears only after a confirmed write. That is
-the pane, not the code — verified on production in a real browser after deploy.
+**Verified on production (`e72d8ca`, real Chrome):** after the copy, the pill reads "hex copied"
+and the card renders with `/tokens/?hex=D56B20`, `/contrast/?fg=D56B20`, `/tints/?hex=D56B20`.
+The earlier "no card" results were the environment, not the code: Chrome refuses
+`clipboard.writeText` unless the document is focused (`document.hasFocus()` was `false` in the
+tab), and by design the card appears only after a confirmed write. Verified by stubbing the
+write at page level — a test seam, no code change.
+
+🔴 **Corrected the same day (`e72d8ca`):** the first version badged the scale link "Pro". Wrong —
+`/tokens/` renders all 6×11 steps free with a copy button per row; only the bulk multi-format
+export is behind its ProGate. Free value first, paid ask at the bulk take: the right order,
+and a badge that lied would have cost more than it earned. Also fixed in the same commit: the
+home page mounted `<OnboardingTour />` twice (`app/page.tsx` + `color-archive-page.tsx`).
+
+### The product plan, and what Gemini 3.7 Flash caught in it
+
+`docs/dev-plan-2026-09-03-product.md` — §0 constraints, §1 measured facts, §2 diagnosis, §3 three
+batches, §4 not-doing, §5 kill signals. §3–§5 came from a multi-agent pass (4 audits, 2 ideation,
+1 sceptic, 1 synthesis) and were then checked by hand. **Two research conclusions were wrong and
+corrected:** the agents read HEAD *after* `e72d8ca` and concluded the double onboarding tour
+"never existed" — it did (`app/page.tsx:78`) and is fixed; and "30 archive files" is 20 tracked,
+the rest gitignored sync copies. Lesson recorded: when agents audit HEAD mid-session, tell them
+what already changed, or "fixed" reads as "false".
+
+**Gemini 3.7 Flash, round 1 — VERDICT: ISSUES, 12 findings.** Triage against the code and data:
+
+| # | finding | ruling |
+|---|---|---|
+| 4 | card criterion "<3% in 30d" is ~3 clicks at 110 copies/month — Poisson noise | **right** → 60-day window, absolute counts (≤3 kill / ≥12 keep) |
+| 7 | "≥10% Pro clicks after *removing* claims" is incoherent | **right** → guardrails: not below 9/60d, 0 Figma-refunds |
+| 8 | 297 vs 190 wall figures look fabricated | **presentation**: both real (191 hits + 106 restored vs 190 channel-attributed); now defined in-text |
+| 9 | "−3,000 `/ai/usage`/month" unmeasured | **right** → cite page_read 2,943/mo vs pageviews 31,612/30d; count from logs, don't estimate |
+| 10 | A1's `grep href="/downloads/"` could touch guides | **right** → explicit exclusion of `app/guides/**` |
+| 11 | A5 (per-variant LS links) should be first | **right** → execution order A5→A1→A2→A3→A6 |
+| 6 | A1's ≥30/month threshold on near-zero pages | **right, and measured**: 36/11/2/0 sessions per 60d → GSC backlink check first, then ≥5/60d |
+| 3 | FAQ JSON-LD edit risks the #1 page's rich result | **partly** → scoped to one answer's wording, question count/H1 frozen, 14-day GSC rollback guard |
+| 1 | diagnosis assumes token demand that §1 refutes | **half**: the plan never asserts demand; it is built to *test* it. §2 now states Gemini's counter-hypothesis verbatim as the thing Batch A falsifies |
+| 2 | card is intrusive, causes CLS, hurts SEO | **wrong (no code access)**: renders only after a confirmed click, inside the result block; absent at load, absent from SSR |
+| 5/12 | Figma heartbeat pointless — "7 events ever" proves it's dead | **wrong**: the 7 are the *site's* events table; the plugin has no analytics, which is why a 1-hour heartbeat exists. Kept, with its 3-day kill rule |
+
+**Gemini 3.7 Flash, round 2 — VERDICT: OK, 9 notes.** Eight applied: B3's "yearly headline if the
+one-time SKU wins" was logically inverted (a deliverable winning argues *against* subscription);
+a leftover "≥10%" sentence on the A2 line contradicted the guardrail beneath it, and the guardrail
+itself ("not below 9/60d") false-alarms 46% of the time at λ=9 — now "≤4" (≈5%); three "10-03"
+mentions my grep pattern missed; B2's "≥2 orders" on ~49 sessions/60d (4% conversion) replaced by
+"≥1 checkout_clicked"; B1 gains an alternative deliverable so §5's "they want a next step but not
+this ZIP" branch has somewhere to go; C2 unchained from B2; GSC guard 14→30 days; A3's zero-risk
+copy fixes move to day one alongside A5. One kept with reasons in-text (A6 heartbeat). Gemini's
+closing counter-reading — *all three sales ever came from the word wall itself, so the wall is the
+only money-validated value point* — is now quoted verbatim in §2 next to its first one; both point
+the same way: don't weaken the wall and don't bet on deliverables until Batch A's counts exist.
+
+### Handoff prompt for the next session
+
+Verbatim, as given to the owner. Paste into a fresh session:
+
+```text
+继续 ColorArchive 的开发。先读 `docs/dev-plan-2026-09-03-product.md`(全文,含 §0 硬约束),
+它已经过 Gemini 3.7 Flash 评审并据此修订(评审记录在 `docs/autopilot-log.md` 2026-09-03 条目)。
+
+【必须先做】仓库协议:`git fetch origin && git pull --rebase origin main`,
+读 `.claude/session-lock.json`:空 → 用 Bash 写 `lockedBy="remote"` 拿锁;被 autopilot 占 → 停下告诉我。
+做完所有事**单次** commit+push 并释放锁。
+⚠️ 上一轮分类器曾拦下写锁文件;若三种写法都被拦,不持锁继续,并在日志里注明。
+
+【这一轮做什么】按计划书 §3 **Batch A 的执行顺序 A5 → A1 → A2 → A3 → A6**(A4 只读)做,不要跳到 B/C。每做完一项:
+跑对应的判据脚本或查询,把实测数字写进 `docs/autopilot-log.md`,再进下一项。
+
+【🔴 硬约束,违反任一条会毁掉正在跑的东西】
+- W1 A/B 到 ~2026-10-12:**不碰** `app/guides/[slug]`、`guide-word-card.tsx`、`word_generated` 的 props、`src/lib/experiment.ts`;
+  **不加任何「页面加载即发」的事件**。
+- 不做任何成本优化(Vercel 已在 $20 含额内,on-demand=$0)。
+- 不动 `app/colors/[slug]/opengraph-image.tsx`。
+
+【这台机器/这个部署的坑,全部实测过】
+1. `git push ≠ 部署`。`/root/ColorArchive` 无 git remote。改 `server/` 要 `scp` 到 `/tmp` → `sudo install` → **逐个 md5 与仓库比对**。
+   只有改 `index.js`/路由才 `pm2 restart`;避开 **周一 03:00–03:59 UTC** 和 **每天 09:00–09:59 UTC**。
+   `pinterest-admin` 启动会轮换 token,重启前心里有数。
+2. SSH 必须内联:`ssh -o IdentityAgent=none -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes azureuser@172.207.80.109`;
+   `/root` 是 700,glob 用 `sudo bash -c "..."` 包起来。
+3. 本机 `npm test` 全量会挂,单文件正常。改 `.tsx` 至少跑 `dark-mode-classes` / `copy-counts` / `content-links` / `retired-routes` / `price-copy`
+   + `npm run typecheck`。**不要跑 `npx next build`**。
+4. 🔴 **付费墙在 localhost 永远渲染不出来**(CORS 挡 api → `proUser` 恒 `null`);**依赖 `clipboard.writeText` 的 UI 在隐藏的浏览器面板里不会触发**
+   (Chrome 要求文档聚焦)。这两类改动**只能上生产、用 claude-in-chrome 真实浏览器验**。
+5. 给东西贴「Pro」标签前,**先读那页的闸门到底包着什么**:`/pro/` 的对比表本身就与代码不符(计划 §1.4)。
+6. Vercel 金额只在网页上(REST/MCP 都没有 usage 端点)。构建 ≈ $0.24/次,`vercel-ignore.sh` 会跳过纯 docs/server 改动 —— 多个改动尽量合并成一次 push。
+
+【正在跑、到期要读的】
+- **2026-11-02**(10-03 只中期一瞥、不决策):甲(复制 hex 后的「下一步」卡)**60 天**判据 —— `word_next_step_click{target:tokens}`
+  的**绝对数**(≤3 ⇒ 撤卡换 offer;≥12 ⇒ 保留并满足 B1 前提;3–11 不可读、顺延),辅以 ÷ `color_copied{format:hex}`;
+  另看 `/tokens/` 会话数与 ProGate 触达。基线为零。**30 天 <3% 那版判据已被评审否决(≈3 次点击 = 泊松噪声),别用。**
+- **2026-10-12**:W1 —— `sudo node /root/ColorArchive/server/scripts/w1-readout.cjs`(已加按渠道分段;AI 那行先天功效不足,只当方向)。
+- **2026-10-13**:Pinterest —— `sudo node /root/ColorArchive/server/scripts/pin-analytics-readout.cjs`。
+- 付费墙已把 ¥499 放上按钮(`6dee2c1`);30 天后看 `word_paywall_pro_click` 是否高于 9/60d 的基线。
+- `cblackwell392` 试用 2026-09-03T09:10Z 到期,查 `users.subscription_status` 变 active 还是 cancelled。
+
+【上一轮已做,别重做】
+Pinterest 全套(analytics 模块、竖版图、域名认领)、五层备份(Azure 无凭据直传 + Google Drive + 相互监控)、
+付费墙加价、甲(下一步卡 + `/tokens/?hex=`)、首页重复挂载的 OnboardingTour 已修。
+详见 `docs/autopilot-log.md` 2026-09-01 ~ 09-03 各条。
+
+【记忆】`~/.claude/projects/-Users-jason-Documents-ColorArchive/memory/MEMORY.md` 索引里 09-01/09-03 的三条是本轮的全部结论,
+包括**三次「先建后测」被数据打脸**的教训 —— 这轮任何功能,**先查数据再动手**。
+
+【评审后要记住的三条】
+1. 所有判据都是 **60 天绝对数**,不是 30 天比率 —— 这项目在样本量上已翻车三次。任何比率判据先算它对应几个事件。
+2. A2 真话化后**不要求**点击率上升;守卫是「60 天 Pro 点击 ≤4 才算跌」+「0 笔 Figma 退款」。
+3. §2 里有两条与计划对立的读法(「轻度搜索流量没有付费意愿」/「词墙是唯一被金钱验证的价值点」),**它们同样成立**;
+   Batch A 的意义是用最便宜的动作在它们和计划之间做出判决,不是执行计划的结论。
+```
 
 ### The Vercel cost question, answered structurally instead of financially
 
