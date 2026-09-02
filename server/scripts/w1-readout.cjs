@@ -266,6 +266,65 @@ const health = db.prepare(`
            GROUP BY session_id) a
     JOIN events e ON e.session_id = a.session_id
    GROUP BY arm`).all(SINCE_MOD);
+/* ── DESCRIPTIVE: does the card work on AI-referred readers? ────────────────
+ *
+ * NOT A CRITERION. §9.6 is unchanged and this cannot move it. It is here because
+ * of a measurement made 2026-09-03 that gives W1 a second use nobody planned:
+ *
+ *   Over 60 days, AI assistants (ChatGPT / Copilot / Perplexity) sent 268
+ *   sessions — the third-largest channel, 5x Facebook, growing 22 -> 224
+ *   month-over-month. Of those, 7 reached the tool (2.6%) and ZERO produced any
+ *   paid intent. Organic search, by contrast, sent 1,883 and 887 reached the
+ *   tool (47%) — an 18x difference.
+ *
+ *   The reason is visible in the landing paths: 57% of AI sessions land on
+ *   /guides/*, while 45% of organic sessions land on /word-to-color/ itself.
+ *   Organic search brings people looking for the TOOL; AI assistants cite the
+ *   ARTICLES. AI traffic is guide-page traffic that never crosses to the tool.
+ *
+ * Which is precisely the crossing W1 is testing. So the right response to "what
+ * should we do about AI referrals" was NOT to build an llms.txt or rewrite the
+ * guides — it was to notice that the experiment already running IS the
+ * intervention, and to make its read-out answer the question. That costs this
+ * block and nothing else.
+ *
+ * ⚠️ UNDERPOWERED BY CONSTRUCTION. ~77 AI guide sessions a month, split across
+ * two arms, is a handful per arm even by 2026-10-13. Read it as a direction to
+ * investigate, never as a result. If the card lifts AI-referred readers at all,
+ * that is an argument for extending the card to /colors/* where the rest of the
+ * citation traffic lands — not a finding on its own.
+ */
+const AI_CHANNEL =
+  "(a.channel LIKE '%chatgpt%' OR a.channel LIKE '%copilot%' OR a.channel LIKE '%perplexity%' OR a.channel LIKE '%claude%' OR a.channel LIKE '%gemini%')";
+
+const bySegment = (cond) => ({
+  denom: db.prepare(`SELECT COUNT(DISTINCT a.session_id) c ${SESSION_SET} AND ${cond}`),
+  reached: db.prepare(`
+    SELECT COUNT(DISTINCT a.session_id) c ${SESSION_SET} AND ${cond}
+       AND EXISTS (SELECT 1 FROM events p
+                    WHERE p.session_id = a.session_id AND p.path LIKE '/word-to-color%'
+                      ${AFTER_ASSIGNMENT.replace("%s", "p")})`),
+});
+
+const SEGMENTS = [
+  ["AI assistants", AI_CHANNEL],
+  ["organic-search", "a.channel = 'organic-search'"],
+  ["everything else", `NOT ${AI_CHANNEL} AND COALESCE(a.channel,'') <> 'organic-search'`],
+];
+
+console.log("DESCRIPTIVE — reached the tool, split by how the reader arrived:");
+console.log("  (not a criterion; tiny n on the AI row by construction — see the note in-file)");
+for (const [label, cond] of SEGMENTS) {
+  const q = bySegment(cond);
+  const row = ARMS.map((arm) => {
+    const d = q.denom.get(SINCE_MOD, arm).c;
+    const r = q.reached.get(SINCE_MOD, arm).c;
+    return `${arm} ${r}/${d}${d ? ` (${((r / d) * 100).toFixed(1)}%)` : ""}`;
+  }).join("   ");
+  console.log(`  ${label.padEnd(16)} ${row}`);
+}
+console.log("");
+
 console.log("\nHEALTH — asymmetric event loss would invalidate the comparison:");
 for (const h of health) {
   console.log(`  ${String(h.arm).padEnd(8)} ${(h.events / (h.sessions || 1)).toFixed(1)} events/session   _dropped=${h.dropped}`);

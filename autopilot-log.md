@@ -1,3 +1,63 @@
+## 2026-09-03 — [remote] AI referrals are the third-biggest channel and convert 18x worse; the paywall never said the price
+
+Three things asked for. One of them reverses what I told the owner yesterday.
+
+### 🔴 I was wrong about AI referrals, and checking took one query
+
+Yesterday I said AI assistants (22 → 224 sessions month-over-month) were "the growth story
+nobody is working on" and recommended building for them. **Measured, they do not convert.**
+
+| channel | sessions | reached tool | paywall | pro click | checkout |
+|---|---:|---:|---:|---:|---:|
+| **AI assistants** | **268** | **7 (2.6%)** | 2 | **0** | **0** |
+| organic-search | 1,883 | **887 (47%)** | 165 | 9 | **3** |
+| direct | 1,341 | 126 (9.4%) | 23 | 0 | 0 |
+
+18× worse at reaching the tool, and **zero paid intent in 60 days**. All three checkouts
+site-wide came from organic search.
+
+The cause is visible in one more query: **57% of AI sessions land on `/guides/*`**, while
+**45% of organic sessions land on `/word-to-color/` itself**. Organic search brings people
+looking for the TOOL. AI assistants cite the ARTICLES. AI traffic is guide-page traffic that
+never crosses to the tool.
+
+**Which is exactly the crossing W1 is testing.** So the right answer to "what should we do
+about AI referrals" was *not* to write an llms.txt or rewrite the guides — that is both
+premature and forbidden by §0.1. It was to notice the experiment already running IS the
+intervention, and make its read-out answer the question. Added a descriptive channel split
+to `w1-readout.cjs`; it changes no criterion and is underpowered by construction (~77 AI
+guide sessions/month across two arms). Direction only, never a result.
+
+### The paywall never said what Pro costs
+
+60 days: 297 gate impressions produced 9 Pro clicks, 4 email unlocks, 1 login. **~95% did
+nothing and left.**
+
+I checked the obvious competing explanation first and it was wrong: the gate offers a FREE
+email unlock in the same box, so "they took the free door" was the natural theory. Four
+unlocks in 60 days. They are not choosing the free door, they are leaving.
+
+The gate read "Unlock unlimited with Pro" and named no price anywhere — deciding meant
+clicking through to find out. ¥499 / $3.49 is impulse-level, and hiding a cheap price makes
+it read as expensive. Now on the button, **imported** from `proSubscriptionConfig` (the
+price-copy guard exists because "$4.99/month" was hand-typed three times in server/email.js
+against a real $3.49). Verified rendering on production, not just locally — the gate cannot
+arm on localhost at all, because it waits for a session check and CORS blocks
+api.colorarchive.org from there.
+
+Honest: at 9 Pro clicks per 60 days even a doubling is only suggestive (p≈0.08). Worth doing
+because telling someone a price is not a growth tactic.
+
+### The Vercel cost question, answered structurally instead of financially
+
+Could not read the bill — it is web-only (confirmed: no usage/billing endpoint in the REST
+API or the MCP) and 1Password's relay was down, so the sign-in was impossible. Got a better
+answer anyway: a **never-before-requested** `/colors/{a}/vs/{b}/` pair now returns **308 with
+a 15-byte body**. No render, no ISR write. The mechanism behind 8.75M ISR writes/month
+**structurally cannot fire**, regardless of crawlers. Three confirmations: route gone, robots
+still blocking, pageviews 8,583/day → ~2/day. The remaining ~$60/month of that bill is still
+unexamined.
+
 ## 2026-09-02 — [remote] Domain claimed, and the backup alarm no longer lives only on the machine it watches
 
 Owner handed over the last two open items with full authority. Both done.
