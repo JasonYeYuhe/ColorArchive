@@ -679,11 +679,20 @@ export function WordColorGeneratorPage() {
                         So the wall was in the wrong place in the journey. The moment
                         someone TAKES a colour is the moment they are about to use it,
                         and the thing they need next — the full 50–950 scale of that
-                        colour as tokens — is the Pro feature that already lives behind
-                        the ProGate on /tokens/. This routes them there with the hex
-                        prefilled. Nothing on this page is newly gated; nothing free is
-                        removed. The other two links are free tools, so the card reads
+                        colour as tokens — lives on /tokens/. This routes them there with
+                        the hex prefilled. Nothing on this page is newly gated; nothing
+                        free is removed; all three links are free tools, so the card reads
                         as help, not a toll.
+
+                        🔴 CORRECTED 2026-09-03, same day it shipped: the first version
+                        badged the scale link "Pro". That was wrong — /tokens/ renders all
+                        11 steps of all 6 scales free, with a copy button per row. What is
+                        Pro on that page is the bulk export in CSS/Tailwind/SCSS/JSON
+                        (the ProGate at token-generator-page.tsx ~519). So the scale is
+                        the free hook and the export is where the paid ask happens — which
+                        is the better order anyway: value first, gate at the moment of
+                        taking it in bulk. Labelling a free thing "Pro" would have taught
+                        visitors that our badges lie.
 
                         Shown only after a CONFIRMED copy of the hex, and cleared when
                         the colour changes. Fires no event of its own on render; the
@@ -700,9 +709,6 @@ export function WordColorGeneratorPage() {
                             className="rounded-full bg-neutral-950 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200"
                           >
                             Full 50–950 scale
-                            <span className="ml-1.5 rounded-full bg-white/20 px-1.5 py-px text-[10px] font-medium uppercase tracking-wider dark:bg-neutral-950/15">
-                              Pro
-                            </span>
                           </Link>
                           <Link
                             href={`/contrast/?fg=${encodeURIComponent(generated.hex.slice(1))}`}

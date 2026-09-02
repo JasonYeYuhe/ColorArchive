@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { ColorArchivePage } from "@/src/components/color-archive-page";
-import { OnboardingTour } from "@/src/components/onboarding-tour";
 import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { landingGuides } from "@/src/lib/guides";
@@ -75,7 +74,6 @@ export default function HomePage() {
     <>
       <SiteHeader currentPath="/" />
       <StructuredDataScript data={homepageStructuredData} />
-      <OnboardingTour />
       <Suspense fallback={
         <div className="px-4 py-4 sm:px-6 sm:py-6">
           <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6">

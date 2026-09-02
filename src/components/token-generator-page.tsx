@@ -285,8 +285,10 @@ export function TokenGeneratorPage() {
   // Added 2026-09-03 so /word-to-color/ can hand a copied colour straight here.
   // On that page 58% of copies are the bare hex and only 18% of visitors ever
   // reach its free-limit wall; the natural next step for someone who just took
-  // a hex is the full 50–950 scale for it — which is a Pro feature here, behind
-  // the ProGate below. This is the wall moved to where the demand is.
+  // a hex is the full 50–950 scale for it. The scale itself is FREE here (every
+  // row has its own copy button); what the ProGate below gates is the bulk export
+  // of all six scales in CSS/Tailwind/SCSS/JSON. So this page is free value first,
+  // and the paid ask comes at the moment of taking it all — the right order.
   useEffect(() => {
     const raw = new URLSearchParams(window.location.search).get("hex");
     if (!raw) return;

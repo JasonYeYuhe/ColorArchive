@@ -48,6 +48,20 @@ api.colorarchive.org from there.
 Honest: at 9 Pro clicks per 60 days even a doubling is only suggestive (p≈0.08). Worth doing
 because telling someone a price is not a growth tactic.
 
+### 甲 shipped: the offer now lives where demand is (`1ba2e23`)
+
+Owner chose "move the wall to the moment of use". After a CONFIRMED hex copy on
+/word-to-color/, a small card offers the next step for that exact hex: **full 50–950 scale**
+(Pro — routed to `/tokens/?hex=`, behind the ProGate that already exists there), contrast
+check, tints & shades. Nothing newly gated, nothing free removed. `CopyButton` gained
+`onCopied` (fires only after a confirmed clipboard write); `/tokens/` gained a mount-time
+`?hex=` reader (window.location, not useSearchParams — the prerender rule). One new event,
+`word_next_step_click`, on click only. W1 §0.1 untouched.
+
+Could not exercise the card in the local pane: Chrome refuses `clipboard.writeText` when the
+document is unfocused, and by design the card appears only after a confirmed write. That is
+the pane, not the code — verified on production in a real browser after deploy.
+
 ### The Vercel cost question, answered structurally instead of financially
 
 Could not read the bill — it is web-only (confirmed: no usage/billing endpoint in the REST
