@@ -15,6 +15,11 @@ import { WordIntentProbe } from "@/src/components/word-intent-probe";
 import { track } from "@/src/lib/track";
 import { useAuth } from "@/src/components/auth-provider";
 import { isEntitlementResolved } from "@/src/lib/pro-gate-policy";
+// The gate quotes a price, so it takes it from the thing that charges it.
+// price-copy.test.ts exists because prices were retyped by hand in six places
+// and went stale silently ("$4.99/month" ×3 in server/email.js against $3.49).
+// Importing is the only version of this that cannot drift.
+import { proSubscriptionConfig } from "@/src/lib/checkout-config";
 
 const PROMPT_SUGGESTIONS = [
   "ocean memory",
@@ -667,13 +672,31 @@ export function WordColorGeneratorPage() {
                     Keep going with unlimited word&rarr;color, full 5-shade palettes, and
                     production-ready CSS, Tailwind, and Figma token exports.
                   </p>
+                  {/* ─── THE PRICE GOES ON THE BUTTON (2026-09-03) ──────────────
+                      Measured over 60 days: 297 gate impressions (191 first hits +
+                      106 returning re-gates) produced 9 Pro clicks, 4 email
+                      unlocks and 1 login. ~95% did nothing at all.
+
+                      The gate previously said "Unlock unlimited with Pro" and named
+                      no price anywhere, so deciding meant clicking through to /pro/
+                      to find out — a leap the numbers say almost nobody takes. And
+                      the price is the strongest argument here, not the weakest:
+                      ¥499 / $3.49 a month is impulse-level, and hiding a cheap
+                      price makes it read as an expensive one.
+
+                      This is information the visitor needs and did not have. It is
+                      not a persuasion tactic and there is nothing to A/B about
+                      whether to tell someone what a thing costs. */}
                   <Link
                     href="/pro/"
                     onClick={() => track(PAYWALL_EVENT.proClick, {})}
                     className="mt-5 block w-full rounded-full bg-neutral-950 px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-neutral-800"
                   >
-                    Unlock unlimited with Pro
+                    Unlock unlimited &mdash; {proSubscriptionConfig.monthly.price}/month
                   </Link>
+                  <p className="mt-2 text-center text-xs text-neutral-500 dark:text-neutral-400">
+                    about {proSubscriptionConfig.monthly.priceUsd} &middot; cancel anytime
+                  </p>
                   <p className="mt-2.5 text-center text-xs text-neutral-500 dark:text-neutral-400">
                     Already Pro?{" "}
                     <Link
@@ -686,9 +709,16 @@ export function WordColorGeneratorPage() {
                     and this unlocks automatically.
                   </p>
                   <div className="mt-5 border-t border-black/6 pt-4 dark:border-white/10">
-                    <p className="mb-2 text-xs leading-5 text-neutral-500 dark:text-neutral-400">
-                      Or keep generating free &mdash; get one curated color in your inbox each
-                      morning and your palettes unlock right away.
+                    {/* The free door earned 4 unlocks in 60 days against 297 gate
+                        impressions. It was one line of grey micro-copy under a
+                        divider, and "Or keep generating free" reads as a footnote
+                        rather than an offer. Same offer, stated as one. */}
+                    <p className="mb-2 text-sm font-medium text-neutral-700 dark:text-neutral-200">
+                      Not ready to pay? Unlock it free instead.
+                    </p>
+                    <p className="mb-3 text-xs leading-5 text-neutral-500 dark:text-neutral-400">
+                      One curated color in your inbox each morning, and your palettes
+                      unlock right away.
                     </p>
                     <CotdSubscribeForm
                       source="word-to-color"
