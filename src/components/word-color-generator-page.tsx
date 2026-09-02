@@ -87,6 +87,10 @@ const PAYWALL_EVENT = {
   // event as a measure of THIS page must filter on it, defaulting an absent key
   // to "word_tool". server/scripts/gate-report.cjs does exactly that.
   generated: "word_generated",
+  // Click on one of the next-step links offered right after a hex is copied.
+  // Fires on a CLICK — never on load — so it is outside the W1 §0.1 ban on
+  // page-load events. Carries `target` (tokens | contrast | tints).
+  nextStep: "word_next_step_click",
 } as const;
 
 const normalizeWord = (w: string) => w.trim().toLowerCase();
@@ -162,6 +166,10 @@ export function WordColorGeneratorPage() {
   // spent their free lookups. The word the visitor landed on is captured ONCE (the route
   // rewrites ?q= as the user types, so we can't recompute it) and is always free + viewable.
   const [gated, setGated] = useState(false);
+  // The hex the visitor just copied, or null. Set only from CopyButton's
+  // onCopied (a confirmed write), cleared whenever the generated colour changes,
+  // so the card can never describe a colour other than the one on screen.
+  const [copiedHex, setCopiedHex] = useState<string | null>(null);
   // Pro accounts pass the gate, period. This was THE bug that locked out our
   // first real subscriber (2026-07-20): the gate only knew the localStorage
   // email-unlock flag and never consulted the account tier, so a logged-in
@@ -644,7 +652,11 @@ export function WordColorGeneratorPage() {
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                      <CopyButton label="hex" value={generated.hex} />
+                      <CopyButton
+                        label="hex"
+                        value={generated.hex}
+                        onCopied={() => setCopiedHex(generated.hex)}
+                      />
                       <CopyButton label="rgb" value={generated.rgb} />
                       <CopyButton label="hsl" value={generated.hsl} />
                       <CopyButton label="palette" value={paletteExport} />
@@ -657,6 +669,58 @@ export function WordColorGeneratorPage() {
                         variants={generated.variants}
                       />
                     </div>
+
+                    {/* ─── THE OFFER, AT THE MOMENT OF USE (2026-09-03) ────────────
+                        Measured over 60 days on this page: 58% of copies are the bare
+                        hex; the paid exports are 3.6%. 62% of visitors look up 1–2
+                        words and leave; only 18% ever reach the 5-word wall, and by
+                        then they already have what they came for — 95% of them walk.
+
+                        So the wall was in the wrong place in the journey. The moment
+                        someone TAKES a colour is the moment they are about to use it,
+                        and the thing they need next — the full 50–950 scale of that
+                        colour as tokens — is the Pro feature that already lives behind
+                        the ProGate on /tokens/. This routes them there with the hex
+                        prefilled. Nothing on this page is newly gated; nothing free is
+                        removed. The other two links are free tools, so the card reads
+                        as help, not a toll.
+
+                        Shown only after a CONFIRMED copy of the hex, and cleared when
+                        the colour changes. Fires no event of its own on render; the
+                        click event is the only new one. */}
+                    {copiedHex === generated.hex ? (
+                      <div className="mt-4 rounded-2xl border border-black/6 bg-neutral-50 px-4 py-3 dark:border-white/10 dark:bg-white/8">
+                        <div className="text-xs uppercase tracking-[0.16em] text-neutral-400 dark:text-neutral-500">
+                          {`Copied ${generated.hex} — next`}
+                        </div>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          <Link
+                            href={`/tokens/?hex=${encodeURIComponent(generated.hex.slice(1))}`}
+                            onClick={() => track(PAYWALL_EVENT.nextStep, { target: "tokens" })}
+                            className="rounded-full bg-neutral-950 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200"
+                          >
+                            Full 50–950 scale
+                            <span className="ml-1.5 rounded-full bg-white/20 px-1.5 py-px text-[10px] font-medium uppercase tracking-wider dark:bg-neutral-950/15">
+                              Pro
+                            </span>
+                          </Link>
+                          <Link
+                            href={`/contrast/?fg=${encodeURIComponent(generated.hex.slice(1))}`}
+                            onClick={() => track(PAYWALL_EVENT.nextStep, { target: "contrast" })}
+                            className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-200 dark:hover:bg-white dark:hover:text-neutral-950"
+                          >
+                            Check contrast
+                          </Link>
+                          <Link
+                            href={`/tints/?hex=${encodeURIComponent(generated.hex.slice(1))}`}
+                            onClick={() => track(PAYWALL_EVENT.nextStep, { target: "tints" })}
+                            className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-200 dark:hover:bg-white dark:hover:text-neutral-950"
+                          >
+                            Tints &amp; shades
+                          </Link>
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               ) : generated && gated ? (

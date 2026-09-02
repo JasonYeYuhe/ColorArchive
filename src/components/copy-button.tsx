@@ -17,6 +17,15 @@ interface CopyButtonProps {
    * every distinct colour its own event category.
    */
   trackAs?: string;
+  /**
+   * Called only after a CONFIRMED clipboard write — never on a failed one, so a
+   * caller cannot react to a copy the visitor did not get. Receives the same
+   * `format` the analytics event carries. Added 2026-09-03 so the word tool can
+   * offer a next step at the moment a colour is taken away, which is the only
+   * moment measured demand actually exists (58% of copies on that page are the
+   * bare hex; the paid exports are 3.6%).
+   */
+  onCopied?: (format: string) => void;
 }
 
 export function CopyButton({
@@ -26,6 +35,7 @@ export function CopyButton({
   variant = "pill",
   className,
   trackAs,
+  onCopied,
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -57,6 +67,7 @@ export function CopyButton({
     // component is generic and props_json is readable by the admin surface;
     // the funnel needs the count, not the contents.
     track("color_copied", { format, variant });
+    onCopied?.(format);
   };
 
   if (variant === "compact") {

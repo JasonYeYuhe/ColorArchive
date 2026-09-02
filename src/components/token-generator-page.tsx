@@ -277,6 +277,22 @@ export function TokenGeneratorPage() {
   const { t } = useLocale();
   const [inputHex, setInputHex] = useState("#2563EB");
   const [varName, setVarName] = useState("brand");
+
+  // ?hex= is read AFTER mount from window.location — the same pattern as
+  // /word-to-color/ and for the same reason: useSearchParams() opts the nearest
+  // Suspense boundary out of static prerendering, and this page is prerendered.
+  //
+  // Added 2026-09-03 so /word-to-color/ can hand a copied colour straight here.
+  // On that page 58% of copies are the bare hex and only 18% of visitors ever
+  // reach its free-limit wall; the natural next step for someone who just took
+  // a hex is the full 50–950 scale for it — which is a Pro feature here, behind
+  // the ProGate below. This is the wall moved to where the demand is.
+  useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).get("hex");
+    if (!raw) return;
+    const hex = raw.startsWith("#") ? raw : `#${raw}`;
+    if (hexToRgb(hex)) setInputHex(hex.toUpperCase());
+  }, []);
   const [activeFormat, setActiveFormat] = useState<ExportFormat>("css");
   const [activeScale, setActiveScale] = useState<keyof TokenSystem>("primary");
   const [expandedScale, setExpandedScale] = useState<keyof TokenSystem | null>(null);
