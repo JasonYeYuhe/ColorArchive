@@ -1,3 +1,77 @@
+## 2026-09-03 — [remote] The "90% of API traffic" loop: measured, then NOT fixed — the defence already worked
+
+Follow-up to the Batch A entry below, which flagged a request loop as a separate task. I
+investigated it and **decided against building the fix.** The reasoning is the point of this entry.
+
+### What the loop is
+
+Four clients firing `/pageviews`, `/auth/session` and `/ai/usage` in near-lockstep at ~97/min for
+hours. Its fingerprint is a single unusual viewport: **`screen_width = 1274` accounts for 1,224 of
+the homepage's 1,620 pageviews over 8 days (76%)**, essentially all with `path = "/"` and
+`referrer = "https://colorarchive.org/"` — the homepage referring to itself.
+
+Homepage pageviews therefore read ~10x high on loop days: 16-34/day before it, then 152, 161,
+**564**, 226, 243.
+
+### 🔴 Why I did not build a fix — the trusted metric was never touched
+
+| day | homepage `page_read` | homepage pageviews |
+|---|---:|---:|
+| 29 Aug (quiet) | 7 | 17 |
+| **31 Aug (peak)** | **13** | **564** |
+| 2 Sep | 12 | 243 |
+
+`page_read` stayed **flat at 3-13/day, one session per event**, on the day the same client produced
+564 pageviews and 52,990 `/ai/usage` requests. Total events/day is flat too (330-674).
+
+**The gate held under a 97/min flood.** `page_read` requires 4s of dwell AND a real input gesture
+AND is once-per-path-per-tab in sessionStorage — and `PageTracker`'s own comment already says why:
+*"`pageviews` is 22.5% automated and has no caller identifier — the exact reason the denominator
+moved to `events`."* The loop pollutes only the table this project already stopped deciding on.
+
+So a fix would have meant a schema change, a server deploy and a `pm2 restart` (which mails live
+subscribers) to protect a number nobody reads, against something the trusted path already resists.
+Cost impact is **$0** — the API is a fixed-cost VM and Vercel is inside plan. **Building that is the
+"先建后测" reflex that has burned this project three times.** The measurement said don't.
+
+### What I checked before concluding that
+
+- **The app does not loop.** Verified in a real browser on production: one `/pageviews` and one
+  `/auth/session` per homepage load, `readyState: complete`, 32 resources.
+- **No pageview-per-keystroke bug.** Typing 20 characters into the homepage search produced
+  **zero** extra pageviews — `PageTracker` dedupes on `pathname`, which ignores the query string
+  that `router.replace` writes.
+- The loop is therefore one client's behaviour, not a defect the site can reach.
+
+### 🔴 One real defect found on the way — the service worker served the wrong page
+
+`public/sw.js` ended its navigation fallback with `cached || caches.match("/")`. So **any**
+navigation whose network fetch failed, to a page not already cached, got the **homepage HTML served
+under its own URL**: address bar `/pro/`, content the front page, and Next.js then hydrating the
+homepage tree at a route the server renders differently.
+
+Worse than an error in three ways — the visitor is silently shown the wrong page; URL and content
+disagree, so a reload or a share spreads it; and `PageTracker` reports a pageview for the route that
+was *asked* for while something else rendered. It also mattered more than usual right now: a failed
+navigation to `/guides/*` would have rendered the homepage **while W1 is running on those pages**.
+
+Fixed: the `/` fallback now applies only when `/` is what was requested; anything else falls through
+to the browser's own offline page, which tells the truth. `CACHE_NAME` bumped v4 → v5 so existing
+installs actually adopt it (`activate` purges every non-current key). Verified with a decision table
+over all five cases. **Not proven to be the loop's cause** — I could not reproduce the loop — but a
+genuine defect on its own.
+
+### What to do about the number, not the loop
+
+Nothing in code. **Do not quote homepage pageviews** — for the 8 days to 09-03 they are ~76%
+phantom, and real homepage traffic is ~50/day, not ~200. This is the second time in three days a
+readout needed hand-correcting for phantom pageview traffic (09-02 was `/compare/`), which is
+itself the argument for continuing to read `events`, not `pageviews`.
+
+Full gate green: 779 frontend + 70 server tests, typecheck clean.
+
+---
+
 ## 2026-09-03 — [remote] Batch A: the site was selling four things it gives away and one it never had
 
 Executed §3 Batch A in the planned order (A5 → A1 → A2 → A3 → A6; A4 read-only). Before touching

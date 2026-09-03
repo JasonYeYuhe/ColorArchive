@@ -41,15 +41,27 @@
 > - Prefer to skip it? Delete the `if (msg.installId)` block in `figma-plugin/ui.html`; the rest
 >   of the change is inert. Also bump `figma-plugin/package.json` version when you do publish.
 >
-> ### 3. 🔴 A live request loop is generating 90% of API traffic — not fixed here
+> ### 3. ~~A live request loop is generating 90% of API traffic~~ — INVESTIGATED 09-03, no action needed
 >
 > `/ai/usage` ran **84,245 requests in 8 days (28% of all API traffic)**. **90% is four clients**
 > firing `/pageviews`, `/auth/session` and `/ai/usage` in near-exact lockstep
 > (49,409 / 49,404 / 49,401) at a steady **~97/min for hours** — a reload/remount loop, not a
 > crawler. **One was still looping on 09-03** (94 of that day's 229 hits).
 >
-> Out of Batch A's scope and untouched by it. Real-visitor volume excluding those four IPs is
-> ~1,600–2,500/day, which is the honest baseline for the A3 badge change.
+> **Resolved as "do not build" on 2026-09-03 — see the top of `docs/autopilot-log.md`.** The
+> trusted metric was never affected: homepage `page_read` stayed flat at 3-13/day (one session
+> each) on the very day the loop produced 564 pageviews and 52,990 `/ai/usage` hits. The dwell +
+> gesture gate held under a 97/min flood, and `pageviews` is a table this project already stopped
+> deciding on. Cost impact is $0. A fix would have needed a schema change, a deploy and a
+> `pm2 restart` (which mails subscribers) to protect a number nobody reads.
+>
+> **The one thing to carry forward:** do NOT quote homepage pageviews for the 8 days to 09-03 —
+> ~76% are phantom (one client, `screen_width=1274`). Real homepage traffic is ~50/day, not ~200.
+> Second such correction in three days (09-02 was `/compare/`).
+>
+> A genuine service-worker bug WAS found and fixed while investigating: `public/sw.js` served the
+> homepage HTML for any failed navigation to an uncached page, so `/pro/` could render the front
+> page under the `/pro/` URL — including `/guides/*`, while W1 is live on those pages.
 >
 > Reproduce: `sudo bash -c "zcat -f /var/log/nginx/access.log* | grep -a '/ai/usage' | awk '{print \$1}' | sort | uniq -c | sort -rn | head"`
 >

@@ -1,5 +1,10 @@
 // ColorArchive Service Worker — offline caching for static assets
-const CACHE_NAME = "colorarchive-v4";
+// Bump this on every change to THIS FILE's logic — activate() deletes every cache
+// whose key is not the current one, so a bump is what makes existing installs adopt
+// the new behaviour instead of keeping the old cached responses indefinitely.
+// v4 -> v5 (2026-09-03): the navigation fallback no longer serves the homepage for
+// other routes.
+const CACHE_NAME = "colorarchive-v5";
 const STATIC_ASSETS = [
   "/",
   "/all-colors/",
@@ -45,7 +50,33 @@ self.addEventListener("fetch", (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
           return response;
         })
-        .catch(() => caches.match(request).then((cached) => cached || caches.match("/")))
+        // ─── DO NOT SERVE THE HOMEPAGE FOR A PAGE THAT IS NOT THE HOMEPAGE ─────
+        // This used to end `cached || caches.match("/")`, so ANY navigation whose
+        // network fetch failed and which was not already cached got the homepage
+        // HTML served under its own URL: the address bar said /pro/, the content
+        // was the front page, and Next.js then hydrated the homepage tree at a
+        // route the server would have rendered differently.
+        //
+        // That is worse than an error in three ways — the visitor is silently
+        // shown the wrong page, the URL and the content disagree so a reload or a
+        // share propagates the confusion, and PageTracker reports a pageview for
+        // the route that was ASKED for while the homepage is what rendered.
+        //
+        // Now the "/" fallback is used only when "/" is genuinely what was
+        // requested. Anything else falls through to the browser's own offline
+        // page, which at least tells the truth. Found 2026-09-03 while tracing a
+        // client that produced 1,224 phantom homepage pageviews; this is not
+        // proven to be that cause, but it is a real defect on its own.
+        .catch(() =>
+          caches.match(request).then((cached) => {
+            if (cached) return cached;
+            const url = new URL(request.url);
+            if (url.origin === self.location.origin && (url.pathname === "/" || url.pathname === "")) {
+              return caches.match("/");
+            }
+            return Response.error();
+          })
+        )
     );
     return;
   }
