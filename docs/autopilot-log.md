@@ -1,3 +1,105 @@
+## 2026-09-03 — [remote] iOS: read the gate that was three weeks overdue, wrote a v1.4 plan, then killed it
+
+Owner asked for a plan to ship a new iOS version. I wrote one, had it reviewed by **Gemini 3.1 Pro
+(High)** and **Gemini 3.8 Flash (High)** via `agy`, and **both independently returned `reject`.**
+I verified their reasoning against the repo, agreed, and **withdrew my own recommendation.**
+Plan: `docs/ios-dev-plan-2026-09-03-v1.4.md`. Net output: **do not ship v1.4.**
+
+### The gate nobody read
+
+v1.3 shipped 2026-07-22 with a pre-registered 3-week data gate (≈08-12). **It was never read** —
+the log goes straight from web work to web work. Reading it today:
+
+| criterion | threshold | actual |
+|---|---|---|
+| daily downloads | ≥10 | **≈0.14/day** (≈1 first-time download per *week*) |
+| hue completion | ≥30% | 0 starts |
+| share-intent | ≥10 | 0 |
+
+The recurring "1 auto-update / iPad / MX" every single day is **one device updating itself**, not
+new users. iOS revenue is **$0** with **0 Apple purchasers** — all 5 paying users came via web.
+The freeze rule (>100 downloads/day or >$100 IAP) is missed by **~700×** and **∞** respectively.
+
+### 🔴 One criterion truly failed. Two were VOID — and I got that wrong first
+
+My first draft said "all three failed" and concluded *"the instrumentation is fine, there simply
+are no users,"* citing that `INFOPLIST_KEY_PostHogAPIKey` exists in both Debug and Release configs.
+
+**That proves the key ships. It does not prove events flow.** Both reviewers caught it; I verified:
+
+- **The core loop has no instrumentation at all.** 16 capture sites app-wide, and
+  `ColorBrowseView` / `ColorDetailView` / `ColorSearchView` have **zero**. Someone can browse 200
+  colours and copy 10 hex codes and PostHog sees one `$screen`.
+- **Nothing flushes on background.** No `flush`, no `didEnterBackground`, no `scenePhase` anywhere.
+  posthog-ios batches at 20 events / 30s, so browsing then killing the app loses the queue.
+
+So "Installed → Opened → $screen → nothing in 2s" is **exactly the shape a real user who browsed
+and quit would produce**. I withdrew "that person bounced immediately." Only the download number —
+Apple's own, independent of our telemetry — survives.
+
+**This is the same error I spent the morning catching elsewhere**, made by me: this morning I
+*proved* `download_link_click` reached the database rather than assuming it; here I asserted the
+iOS instrument worked from a config grep. Verifying the key ships is not verifying the pipe works.
+
+Also ruled out Flash's crash hypothesis rather than accepting it: ASC `App Crashes` has **no daily
+instance**, and `App Sessions` shows real durations (9–87s). Flash argued `ColorCardView.swift:72`
+does a synchronous `ImageRenderer` on the first grid render — **it doesn't**: that call is inside
+`.contextMenu {}` (opened :38), whose content SwiftUI builds on long-press. A real smell, not a
+launch crash. Reviewer findings are evidence, not verdicts.
+
+### Why the plan died: a category error I had to be talked out of
+
+My draft argued: GSC proves demand for word→color (1,290 clicks/90d, 44% of site search clicks,
+21.2% CTR, position 5.3); iOS **lacks that feature entirely**; its keywords chase unwinnable head
+terms (`rgb,hsl,cmyk,picker`). Therefore port it and re-aim ASO.
+
+Both reviewers, independently:
+
+1. **Google intent ≠ App Store intent.** Someone Googling "colour palette generator from words" is
+   at a desktop in Figma and wants a 10-second web page. That GSC data is evidence the **web page
+   already satisfies them** — not that they want an app. I substituted "demand exists" for "demand
+   will migrate."
+2. **Query shape differs.** GSC wins 4–6-word long-tail; App Store search is 1–2 words.
+3. 🔴 **App Store ranking is driven by download velocity and reviews, not keyword match.** An app
+   with 1 download/week and **0 ratings** cannot rank on an exact match. My draft assumed changed
+   keywords ⇒ impressions, with nothing behind that step.
+4. 🔴 **Nobody ever checked whether "word to color" has any App Store search volume.** 1,290
+   clicks/90d is **14/day worldwide**; the App Store slice could be <1/day. **This is free to check
+   and my draft would have written code first.**
+5. 🔴 **"It's a discovery mechanism, not a feature, so the freeze doesn't apply" is sophistry.**
+   Pro's line: if a hard rule can be bypassed by renaming the thing, the rule doesn't exist.
+   Withdrawn.
+
+My own draft's §1 counter-hypothesis was **stronger than its recommendation, and I recommended
+shipping anyway.** That is sunk-cost rationalisation, and it is worth naming.
+
+### 🔴 The success criterion was a false-positive trap
+
+Draft main criterion: "≥300 App Store search impressions in 6 weeks." Both reviewers ran the
+arithmetic I should have: 300 impressions × 1–3% typical conversion ≈ **6 downloads / 6 weeks ≈ 1
+per week** — **exactly today's baseline.** The criterion would have passed with **zero
+improvement**, then triggered a v1.5 discussion.
+
+**Rule adopted: iOS criteria may only use the freeze rule's own units (downloads, paid
+conversions) — never impressions or completion rates, which are meaningless when the denominator
+is ~0.**
+
+### Decision
+
+**Option A — contract.** No v1.4. App stays listed (costs nothing), iOS leaves the dev schedule,
+freeze stands. Explicitly **not** fixing the instrumentation this round: it needs a release and a
+review cycle, and at ~1 download/week a perfect instrument still measures nothing.
+
+**The one free thing that could reopen it:** check Apple Search Ads **keyword popularity** for
+`word to color` / `color from word` / `palette from text`. No spend, no code. Low popularity closes
+the direction permanently; unexpectedly high reopens it — with a *download-based* criterion.
+
+Logged for any future release (compliance, not optimisation): `PrivacyInfo.xcprivacy` declares only
+CrashData/OtherDiagnosticData while PostHog collects product-interaction data —
+`NSPrivacyCollectedDataTypeProductInteraction` is missing.
+
+---
+
 ## 2026-09-03 — [remote] The trial converted; and the site was showing visitors raw i18n key names
 
 Three follow-ups to Batch A: the A4 readout (now resolvable), an end-to-end check that the new

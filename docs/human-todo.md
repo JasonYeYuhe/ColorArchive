@@ -2,6 +2,36 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🔴 2026-09-03 — iOS: 一个决定 + 一件 5 分钟的免费检查
+>
+> 计划书 `docs/ios-dev-plan-2026-09-03-v1.4.md`。**结论是不发版**,经 Gemini 3.1 Pro 与
+> 3.8 Flash 独立评审(两者都 reject 了我的第一稿),我已撤回原推荐。
+>
+> **背景**:v1.3 的数据门本该 08-12 读,漏了。今天补读 —— 首下载 **≈1 次/周**(冻结线是
+> 100 次/天),iOS 收入 **$0**、Apple 付费用户 **0**(5 个付费用户全部来自 web)。
+>
+> ### 1. 需要你确认:接受「不发 v1.4、iOS 转维护」吗?
+>
+> app 保持上架(不花钱),不开发、不改 ASO。这是三周前就该做的决定。
+>
+> ### 2. 一件免费的检查(5 分钟,能永久关闭这个方向)
+>
+> 登录 **Apple Search Ads** 后台(**不需要投放、不花钱**),查这三组词的 **keyword popularity**:
+> `word to color` · `color from word` · `palette from text`
+>
+> - **热度很低(预期)** → word→color 迁移到 App Store 的假设当场证伪,这个方向**永久关闭**。
+> - **热度意外可观** → 才值得重开讨论,而且判据必须用**下载数**,不能用曝光数。
+>
+> 我在计划书里想推荐「移植 word→color + 重瞄 ASO」,评审指出这是 category error:
+> GSC 证明的是**网页已经满足了这个需求**,不是「这些人想装 app」;而且 App Store 排名靠
+> 下载速度和评价,一个周下载 1 次、0 条评价的 app 换关键词也排不上去。**而且从没人查过
+> App Store 上这组词到底有没有搜索量** —— 就是上面这 5 分钟。
+>
+> ### 3. 合规缺口(不构成发版理由,但一旦发版必须一起改)
+>
+> `ios/ColorArchive/PrivacyInfo.xcprivacy` 只声明了 CrashData / OtherDiagnosticData(Sentry),
+> 但 PostHog 实际在收集产品交互数据,**缺 `NSPrivacyCollectedDataTypeProductInteraction`**。
+
 > ## 🟢 2026-09-03 — The trial converted. Two plan branches are now decided.
 >
 > `cblackwell392` went `on_trial` → **`active`** (order `lsinv_8357021`, ¥500, 10:11 UTC).
