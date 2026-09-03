@@ -10,13 +10,18 @@ npm run build      # Build for Vercel deployment
 npm run typecheck  # Run TypeScript type checking (no emit)
 ```
 
-There IS a test suite — 43 files under `src/lib/__tests__/` and `src/__tests__/`, plus 6 under `server/__tests__/`, run in CI by
-`npm test` (`vitest run && npm run test:server`). What is true is that the FULL run hangs on this
-Mac (an I/O-starvation problem, not a repo problem), which is how "there is no test suite" got
-written here. **A single file runs fine in ~400ms** and that is the habit to have:
+There IS a test suite — 44 files under `src/lib/__tests__/` and `src/__tests__/`, plus 6 under `server/__tests__/`, run in CI by
+`npm test` (`vitest run && npm run test:server`).
+
+**The full run does NOT hang.** Measured 2026-09-03 on Node v26.3.0 / vitest 4.1.0:
+`npx vitest run` = **44 files, 779 tests, 2.2s**; `npm run test:server` = **70 tests, 0.16s**.
+This paragraph previously said the full run hung on this Mac, and before that the file said there
+was no test suite at all — both were wrong, and the second was inherited from the first. If a run
+ever does hang, measure it before writing that down again.
 
 ```bash
-npx vitest run src/lib/__tests__/dark-mode-classes.test.ts
+npx vitest run                                              # everything, ~2s
+npx vitest run src/lib/__tests__/dark-mode-classes.test.ts  # one file, ~200ms
 ```
 
 After touching a `.tsx`, run at least `dark-mode-classes`, `copy-counts`, `content-links` and

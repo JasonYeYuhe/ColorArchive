@@ -187,6 +187,56 @@ describe("counts quoted in page copy", () => {
     expect(total.length).toBeGreaterThan(8);
   });
 
+  it("the homepage stats bar matches the data it summarises", () => {
+    // This bar is invisible to the scan above: it renders as
+    // `{ n: "261", l: t("hero.collections") }`, so the number and the noun are
+    // in different string literals and the claim regex never sees a claim.
+    // It sat on the homepage saying "12 collections" against a real 261, plus
+    // "7 products" for a catalogue deleted in 00d7a04 and "100% static" for a
+    // site that ISR-renders 2,380 colour pages. Passing tests were not evidence
+    // the numbers were right, so this pins them explicitly.
+    const hero = readFileSync("src/components/hero-section.tsx", "utf8");
+    const bar = hero.match(/\{\s*n:[\s\S]*?\}\s*,?\s*\]\.map\(\(s\)/);
+    expect(bar, "could not find the stats bar in hero-section.tsx").toBeTruthy();
+    const stats = [...bar![0].matchAll(/\{\s*n:\s*([^,]+),\s*l:\s*t\("hero\.([a-zA-Z]+)"\),?\s*\}/g)]
+      .map((m) => ({ n: m[1].trim(), key: m[2] }));
+
+    const expected: Record<string, number> = {
+      collections: collections.length,
+      tools: TOOL_COUNT,
+    };
+
+    // WHY THIS ASSERTION EXISTS: without it the test passes VACUOUSLY. If the array
+    // is ever reformatted so the inner regex stops matching, `stats` is empty, the
+    // loop below never runs, and a green test would mean "I could not read the bar"
+    // rather than "the bar is correct" — the exact failure mode a guard must not have.
+    const keysFound = stats.map((s) => s.key);
+    for (const key of Object.keys(expected)) {
+      expect(
+        keysFound,
+        `could not read the "${key}" stat out of hero-section.tsx — the stats bar was probably reformatted, so this guard went blind rather than the number going wrong. Fix the regex above.`,
+      ).toContain(key);
+    }
+
+    for (const { n, key } of stats) {
+      const truth = expected[key];
+      if (truth === undefined) continue; // `colors` is computed from a prop, not a literal
+      const literal = n.match(/^"([\d,]+)"$/);
+      expect(literal, `the "${key}" stat must be a plain string literal, got ${n}`).toBeTruthy();
+      expect(
+        Number(literal![1].replace(/,/g, "")),
+        `homepage stats bar claims "${literal![1]} ${key}" but there are ${truth}. ` +
+          `Update src/components/hero-section.tsx — collections grow on autopilot runs, so this WILL fire again.`,
+      ).toBe(truth);
+    }
+
+    // The two stats that had no data behind them must not come back.
+    expect(bar![0], 'the homepage must not advertise "products" — palette-packs.ts was deleted in 00d7a04')
+      .not.toContain("hero.products");
+    expect(bar![0], 'the homepage must not claim "static" — 2,380 colour pages are ISR-rendered on demand')
+      .not.toContain("hero.static");
+  });
+
   it("the archive size is quoted as ONE figure, not three", () => {
     // The site simultaneously said 5,000+, 5,400+ and 5,446 — 31, 15 and 58
     // times. All three were true (two are floors) and that is the problem: the

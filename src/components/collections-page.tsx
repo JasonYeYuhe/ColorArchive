@@ -306,8 +306,8 @@ export function CollectionsPage({ collections, guidesByCollection }: Collections
                 Take this palette further
               </p>
               <p className="mt-2 text-sm leading-6 text-white/60 dark:text-neutral-500">
-                Pro includes exports in CSS, Tailwind, Figma tokens, SCSS, SwiftUI, Android, Flutter, and more
-                — designed to drop straight into your workflow.
+                Free accounts export three times a day, in CSS, Tailwind, Figma tokens, SCSS, JSON or Style Dictionary.
+                Pro removes the limit.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <Link

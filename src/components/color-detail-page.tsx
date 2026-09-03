@@ -79,6 +79,7 @@ function DownloadSwatchButton({ color }: { color: ColorRecord }) {
     a.download = `${color.id}.svg`;
     a.click();
     URL.revokeObjectURL(url);
+    track("palette_export_click", { file: "color.svg", surface: "color-detail" });
   }
   return (
     <button

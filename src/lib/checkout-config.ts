@@ -124,15 +124,41 @@ export const preorderConfig = {
 
 // ---- Provider implementations ----
 
-/** Lemon Squeezy — single product with 3 variants; customer picks on checkout page */
+/**
+ * Lemon Squeezy — one product with 3 variants.
+ *
+ * `LS_CHECKOUT_URL` is the product-level buy link: it opens the hosted page with a
+ * variant PICKER, so whichever plan button you pressed, the choice is made again on
+ * Lemon Squeezy's side. The button's intent is therefore dropped at the boundary —
+ * `checkout_clicked{plan}` records what was pressed here, and the webhook records what
+ * was actually bought (it string-matches `variant_name`; see app/api/webhook/route.ts),
+ * but nothing carries the selection ACROSS. A buyer who presses "yearly" and then leaves
+ * the picker on its default is indistinguishable from one who meant monthly.
+ *
+ * `LS_PLAN_CHECKOUT_URLS` fixes that by giving each plan its own variant-level buy link.
+ * Values come from env because they are store data, not code (owner: LS dashboard →
+ * the variant → Share → copy link). Each is read as a LITERAL `process.env.X` member
+ * access — Next.js inlines NEXT_PUBLIC_* at build time by static analysis, so a computed
+ * key like `process.env[name]` would silently evaluate to undefined in the browser.
+ *
+ * Unset vars fall back to the shared picker URL, so this is a no-op until the owner
+ * fills them in — never a dead button.
+ */
 const LS_STORE_SLUG = "colorarchive";
 const LS_CHECKOUT_URL = `https://${LS_STORE_SLUG}.lemonsqueezy.com/checkout/buy/771b252b-14d2-45ed-b4d5-b9f39f0883f8`;
+
+const LS_PLAN_CHECKOUT_URLS: Record<ProPlan, string | undefined> = {
+  monthly: process.env.NEXT_PUBLIC_PRO_MONTHLY_CHECKOUT_URL,
+  yearly: process.env.NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL,
+  lifetime: process.env.NEXT_PUBLIC_PRO_LIFETIME_CHECKOUT_URL,
+};
 
 const lemonsqueezyProvider: ProviderConfig = {
   name: "Lemon Squeezy",
   checkoutMode: "redirect",
-  getCheckoutUrl() {
-    return LS_CHECKOUT_URL;
+  getCheckoutUrl(plan) {
+    // Fall back rather than return null: a missing env var must not disable the button.
+    return LS_PLAN_CHECKOUT_URLS[plan] || LS_CHECKOUT_URL;
   },
   getBillingPortalUrl() {
     return `https://${LS_STORE_SLUG}.lemonsqueezy.com/billing`;

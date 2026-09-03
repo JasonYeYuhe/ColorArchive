@@ -99,6 +99,13 @@ test("the page-load filter excludes the mount-time event and nothing else", () =
   assert.match(NOT_PAGE_LOAD, /w1_assigned/);
   assert.doesNotMatch(NOT_PAGE_LOAD, /w1_card_interact|page_read|word_generated/);
   assert.match(NOT_PAGE_LOAD, /^event_name NOT IN \(/);
+
+  // `figma_plugin_open` fires when the Figma plugin is opened, before the designer
+  // does anything — and it is not a website visit at all. This list is the ONLY
+  // thing keeping plugin opens out of every site-wide engaged-visit denominator,
+  // so it is pinned here rather than left to a comment: dropping it would re-run
+  // the 2026-08-10 incident on a different metric.
+  assert.match(NOT_PAGE_LOAD, /figma_plugin_open/);
 });
 
 test("both breakpoints are reported when the window spans both", () => {

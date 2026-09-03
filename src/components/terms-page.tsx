@@ -13,7 +13,7 @@ const sections = [
     content: `ColorArchive is a design productivity platform offering color tools and a curated color reference library. The service includes:
 
 - **Free tools**: Color browsing, palette generation, brand color tools, WCAG audit, contrast checker, gradient builder, and more.
-- **Pro subscription**: Unlock unlimited AI palette generations, exports in all formats, WCAG audit reports, and full token generation.
+- **Pro subscription**: Unlimited AI palette generations, unmetered exports in all formats (free accounts get 3 per day), and WCAG audit report downloads.
 - **API access**: Programmatic access to color data for developers.
 - **iOS app**: A mobile companion app available on the Apple App Store.
 - **Account features**: Favorites sync, preferences, usage stats, and subscription management when signed in.`,

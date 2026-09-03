@@ -599,6 +599,35 @@ window.onmessage = function(event) {
   if (!msg) return;
 
   if (msg.type === 'init') {
+    // ─── Heartbeat: one ping per plugin open, nothing else ──────────────────
+    // This exists to answer a single question the repo cannot otherwise answer:
+    // does anyone actually open this plugin? There has never been any telemetry
+    // here, so "7 Figma-related rows in the events table" is not evidence the
+    // plugin is dead — those rows are website events. A number, either way,
+    // decides whether the seats/plugin-Pro branch of the roadmap stays open.
+    //
+    // Sent: an event name and a random per-install id. Not sent: anything about
+    // the user, their file, their selection, or their account. The endpoint is
+    // our own (already in manifest allowedDomains); no third party is involved,
+    // so the Community data-security answers still describe what this does.
+    //
+    // It lives in the UI thread because the plugin main thread has no fetch
+    // (tsconfig lib ES2017, and @figma/plugin-typings declares none) — a fetch(
+    // in code.ts fails CI at `tsc --noEmit`.
+    //
+    // Fire-and-forget in every direction: no await, no retry, both .catch and
+    // try/catch, so a blocked network or an offline designer can never break
+    // the plugin opening. A dropped ping under-counts, which is the safe way
+    // for this particular number to be wrong.
+    if (msg.installId) {
+      try {
+        fetch(API_BASE + '/events', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ event: 'figma_plugin_open', sessionId: msg.installId })
+        }).catch(function () {});
+      } catch (e) {}
+    }
     if (msg.editorType && msg.editorType !== 'figma') applyFigjamMode();
     if (msg.apiKey && !storedApiKey) {
       // Key arrived from figma.clientStorage (the persistent path).

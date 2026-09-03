@@ -91,7 +91,14 @@ const GUIDES_PAGELOAD_EVENT_ADDED = "2026-08-31";
  * visibility for a continuous second, which is a weaker bar than a click but a
  * real one, and the doctrine above already accounts for it.
  */
-const PAGE_LOAD_EVENTS = ["w1_assigned"];
+// `figma_plugin_open` (2026-09-03) fires when the Figma plugin is opened, before
+// the designer does anything, and carries an install id in session_id. It is not a
+// website visit at all, so leaving it out of this list would let plugin opens count
+// as engaged visits in every site-wide number — the 2026-08-10 `w1_assigned`
+// incident again, on a different metric. W1 itself is unaffected either way: every
+// W1 query is anchored on `w1_assigned` AND a `page_read` in the same session, and a
+// plugin session has neither.
+const PAGE_LOAD_EVENTS = ["w1_assigned", "figma_plugin_open"];
 
 const NOT_PAGE_LOAD = `event_name NOT IN (${PAGE_LOAD_EVENTS.map((e) => `'${e}'`).join(",")})`;
 

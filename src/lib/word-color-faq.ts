@@ -23,7 +23,7 @@ export const wordToColorFaq: WordColorFaqItem[] = [
   {
     question: "Is the word to color generator free?",
     answer:
-      "Yes — you can generate and copy color palettes for free, no sign-up required. Free use covers five word palettes; unlock unlimited generation plus production-ready CSS/Tailwind/Figma exports with Pro, or keep generating free by subscribing to the daily color email.",
+      "Yes — you can generate and copy color palettes for free, no sign-up required. Free use covers five word palettes, and copying hex, RGB, HSL, CSS variables and Tailwind is free with no daily limit. Pro removes the five-word limit; you can also keep generating free by subscribing to the daily color email.",
   },
   {
     question: "Can I use the generated colors commercially?",

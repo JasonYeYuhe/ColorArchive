@@ -10,7 +10,6 @@ import { LocaleProvider } from "@/src/components/locale-provider";
 import { PHLaunchBanner } from "@/src/components/ph-launch-banner";
 import { BackToTop } from "@/src/components/back-to-top";
 import { KeyboardShortcuts } from "@/src/components/keyboard-shortcuts";
-import { CopyUpsellToast } from "@/src/components/copy-upsell-toast";
 import { ErrorBoundary } from "@/src/components/error-boundary";
 import Script from "next/script";
 import { SITE_URL } from "@/src/lib/site-config";
@@ -178,7 +177,6 @@ gtag('config', 'AW-11416473237');`}
               <SiteFooter />
               <PaletteBuilderTray />
               <BackToTop />
-              <CopyUpsellToast />
               <KeyboardShortcuts />
               <PageTracker />
               <PostHogProvider />

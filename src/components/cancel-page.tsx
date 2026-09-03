@@ -64,7 +64,7 @@ export function CancelPage() {
               Unlock the full archive
             </h2>
             <p className="mt-3 text-sm leading-6 text-neutral-600">
-              Unlimited AI generations, exports in every format, WCAG reports, and full token generation.
+              Unlimited AI generations, unmetered exports (free accounts get 3 a day), and WCAG reports.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link

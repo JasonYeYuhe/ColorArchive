@@ -65,23 +65,45 @@
 
 ## After creating — send these back
 
-Please copy-paste each product's variant UUID from LS dashboard in this format:
+> ⚠️ **Superseded 2026-09-03 (A5).** This section used to ask for three variant **UUIDs**
+> and said they went into an `lsVariantIds` map at `checkout-config.ts:79-83`. **There has
+> never been such a map at HEAD** (that line is the tail of `refundPolicy`), and no
+> variant-id code path exists anywhere in the repo. Following the old instructions would
+> send you looking for a symbol that does not exist. What the code actually reads is three
+> **full buy-link URLs**, from env vars. Use the steps below instead.
+
+Copy each plan's **buy link** (a URL, not a UUID) out of Lemon Squeezy:
+
+**LS dashboard → Products → ColorArchive Pro → click the variant → Share → copy link.**
+
+It looks like `https://colorarchive.lemonsqueezy.com/buy/<uuid>` — note `/buy/`, whereas the
+current shared product link is `/checkout/buy/`. Send them back in this format:
 
 ```
-monthly:  <UUID>
-yearly:   <UUID>
-lifetime: <UUID>
+monthly:  https://colorarchive.lemonsqueezy.com/buy/<uuid>
+yearly:   https://colorarchive.lemonsqueezy.com/buy/<uuid>
+lifetime: https://colorarchive.lemonsqueezy.com/buy/<uuid>
 ```
 
-Variant UUID looks like: `59d0c0b3-a368-440b-942c-0c53a8f3d64b` (36 chars with dashes). You find it on the product's page in LS, usually in the URL or in a "Variant ID" field.
+They go into these env vars (Vercel → Project → Settings → Environment Variables, and
+`.env.local` for local dev). They are `NEXT_PUBLIC_*`, so they are baked in at build time —
+**a Vercel redeploy is required for a change to take effect**:
 
-Once you send these, I will:
-1. Update `src/lib/checkout-config.ts:79-83` — `lsVariantIds` map
-2. Update `src/lib/checkout-config.ts:45-50` — lifetime price strings to ¥19,999 / $199.99
-3. Update `src/lib/checkout-config.ts:49` — `regularPrice` (or remove if you drop early bird)
-4. Update `src/components/support-page.tsx:21` — FAQ answer about lifetime price
-5. Commit as a single commit per one-commit-per-push rule, push to trigger one Vercel build
-6. Smoke-test the checkout URLs
+```
+NEXT_PUBLIC_PRO_MONTHLY_CHECKOUT_URL
+NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL
+NEXT_PUBLIC_PRO_LIFETIME_CHECKOUT_URL
+```
+
+Leaving any of them blank is safe: `getCheckoutUrl()` falls back to the shared product URL
+(`checkout-config.ts`), which is exactly today's behaviour — a variant picker on the LS page.
+Filling them in is what stops the pressed plan being discarded at the checkout boundary.
+
+Still outstanding if lifetime pricing is revisited:
+1. `src/lib/checkout-config.ts` → `proSubscriptionConfig.lifetime` price strings
+2. `src/components/support-page.tsx` → FAQ answer about lifetime price
+3. Commit as a single commit per the one-commit-per-push rule, push to trigger one Vercel build
+4. Smoke-test each of the three checkout URLs
 
 ## Webhook check after go-live
 

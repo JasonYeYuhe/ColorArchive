@@ -124,26 +124,27 @@ export function HeroSectionBelowFold({ featuredGuides, recentNotes }: HeroSectio
         </div>
       </section>
 
-      {/* Social proof */}
+      {/* ─── FACTS, NOT TESTIMONIALS (2026-09-03) ───────────────────────────────
+          This block used to carry three quotes attributed to "Brand Designer /
+          Freelance", "Product Lead / SaaS Startup" and "UI Engineer / Design
+          Studio". No such people were ever interviewed — they were written as
+          placeholder marketing copy and never replaced. Invented praise on the
+          homepage is the same failure as a paywall selling a feature that does
+          not exist, and this repo already made the opposite call once, on the
+          Pro page: pro-page.tsx:200 reads "Trust row — honest, verifiable
+          guarantees (no fabricated testimonial)". This is that rule applied here.
+
+          "Product Hunt #1 Color Tool" went with them: docs/directory-submissions.md
+          records the listing only as "✅ Listed", never as a #1 finish.
+
+          What is left is checkable. If real quotes are ever collected, they can
+          come back — with real names attached. */}
       <section className="rounded-[2rem] border border-black/6 bg-white/72 px-6 py-6 shadow-sm backdrop-blur-xl sm:px-10 dark:border-white/10 dark:bg-neutral-900/80">
         <div className="mx-auto max-w-4xl">
-          <div className="grid gap-4 sm:grid-cols-3">
-            {[
-              { quote: "Finally, a color tool that gets naming right. The poetic names make client presentations so much easier.", author: "Brand Designer", org: "Freelance" },
-              { quote: "The AI brand generator saved us hours. We went from brief to tokens in under 5 minutes.", author: "Product Lead", org: "SaaS Startup" },
-              { quote: "5,446 colors with real structure, not random hex codes. This is what Coolors should have been.", author: "UI Engineer", org: "Design Studio" },
-            ].map(({ quote, author, org }) => (
-              <div key={author} className="rounded-xl border border-black/4 bg-white/80 p-4 dark:border-white/8 dark:bg-white/5">
-                <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 italic mb-3">&ldquo;{quote}&rdquo;</p>
-                <p className="text-[11px] font-semibold text-neutral-800 dark:text-neutral-300">{author}</p>
-                <p className="text-[10px] text-neutral-400">{org}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] text-neutral-400">
-            <span>Product Hunt #1 Color Tool</span>
-            <span className="hidden sm:inline">&#183;</span>
+          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-neutral-400">
             <span>5,446 curated colors</span>
+            <span className="hidden sm:inline">&#183;</span>
+            <span>Free, no account needed</span>
             <span className="hidden sm:inline">&#183;</span>
             <span>Figma plugin available</span>
           </div>

@@ -47,14 +47,31 @@ export function ProPage() {
 
   const isPro = session?.auth.tier === "pro";
 
+  /* ─── THIS TABLE IS CHECKED AGAINST THE CODE, NOT AGAINST THE PITCH (2026-09-03) ──
+     Three rows were describing a product we do not ship. Verified against source:
+
+       · row6 said token-generator output was "Preview" for free and "Full" for Pro.
+         FALSE — token-generator-page.tsx renders all 6 scales × 11 steps to everyone,
+         with a copy button on every row. The ProGate there wraps only the bulk export,
+         which is already what row4 counts. Restated as free-for-both.
+       · row7 said image-palette save was Pro-only. FALSE — save-to-project.tsx gates on
+         `status !== "authenticated"`, never on tier; free accounts keep
+         FREE_PROJECT_LIMIT (3) projects. Restated as a count row.
+       · row8 is NEW: the 5-word wall on /word-to-color/ was the ONE thing Pro really
+         removes and the table never mentioned it — so the 9 people per 60 days who click
+         through from that wall arrived at a page that never named what blocked them.
+
+     row3 and row4 were checked too and are CORRECT (ai-rate-limit.js 3/10, pro-gate.tsx
+     FREE_EXPORTS_PER_DAY = 3). Do not "fix" them. */
   const COMPARISON: { featureKey: string; free: boolean | string; pro: boolean | string }[] = [
     { featureKey: "pro.comparison.row1", free: true, pro: true },
     { featureKey: "pro.comparison.row2", free: true, pro: true },
+    { featureKey: "pro.comparison.row8", free: t("pro.comparison.row8free"), pro: t("pro.comparison.row8pro") },
     { featureKey: "pro.comparison.row3", free: t("pro.comparison.row3free"), pro: t("pro.comparison.row3pro") },
     { featureKey: "pro.comparison.row4", free: t("pro.comparison.row4free"), pro: t("pro.comparison.row4pro") },
     { featureKey: "pro.comparison.row5", free: false, pro: true },
-    { featureKey: "pro.comparison.row6", free: t("pro.comparison.row6free"), pro: t("pro.comparison.row6pro") },
-    { featureKey: "pro.comparison.row7", free: false, pro: true },
+    { featureKey: "pro.comparison.row6", free: true, pro: true },
+    { featureKey: "pro.comparison.row7", free: t("pro.comparison.row7free"), pro: t("pro.comparison.row7pro") },
   ];
 
   return (

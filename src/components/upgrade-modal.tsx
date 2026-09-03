@@ -93,7 +93,7 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-indigo-600 mt-0.5">&#10003;</span>
-                Full token generator output
+                Bulk token export, unmetered
               </li>
             </ul>
 

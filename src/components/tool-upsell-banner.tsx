@@ -68,7 +68,7 @@ export function ToolUpsellBanner({ toolName }: ToolUpsellBannerProps) {
               Enjoying {toolName || "our tools"}?
             </p>
             <p className="mt-1 text-xs text-indigo-700/70 dark:text-indigo-300/60">
-              Go Pro for unlimited exports, AI palettes, WCAG reports, and cloud sync across all devices. Includes a 3-day free trial — cancel anytime.
+              Go Pro for unlimited exports, unlimited AI palettes, and WCAG reports. Includes a 3-day free trial — cancel anytime.
             </p>
           </div>
         </div>

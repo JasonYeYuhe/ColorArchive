@@ -1,6 +1,58 @@
 # Human TODO — ColorArchive
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
+
+> ## 🔴 2026-09-03 — Batch A shipped; three things need you
+>
+> ### 1. Three LemonSqueezy buy links (~15 min) — unblocks every per-plan number
+>
+> Today all three Pro buttons open one shared product URL with a variant picker, so the plan the
+> visitor pressed is discarded at the checkout boundary. The code now reads a per-plan URL from env
+> and **falls back to today's behaviour when unset**, so nothing is broken while these are blank.
+>
+> **LS dashboard → Products → ColorArchive Pro → click the variant → Share → copy link.**
+> The link looks like `https://colorarchive.lemonsqueezy.com/buy/<uuid>` — note `/buy/`, not
+> `/checkout/buy/`. Paste into Vercel → Settings → Environment Variables:
+>
+> ```
+> NEXT_PUBLIC_PRO_MONTHLY_CHECKOUT_URL
+> NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL
+> NEXT_PUBLIC_PRO_LIFETIME_CHECKOUT_URL
+> ```
+>
+> These are `NEXT_PUBLIC_*`, so they are baked in at build time — **a redeploy is required.**
+> (`docs/lemonsqueezy-product-setup-2026-04-17.md` used to send you to an `lsVariantIds` map that
+> has never existed in this repo. That doc is now corrected.)
+>
+> ### 2. Figma plugin heartbeat — code is ready, PUBLISHING IS YOUR CALL
+>
+> The plugin now pings once per open with an anonymous install id, so its DAU stops being unknown.
+> No server change, no manifest change. **But do not publish on autopilot:**
+>
+> - **Every code publish triggers a fresh Figma review.** The plan assumed "3 days to a dead/alive
+>   answer" — that is not achievable; the readout is weeks out at best.
+> - **v1.1.0 (Community V3) was submitted ~12 weeks ago and its outcome is still unrecorded**
+>   (the checkbox further down this file is unticked). Publishing V4 on top of an unresolved V3 is
+>   a real risk. Resolve V3 first.
+> - **Re-read the data-security questionnaire before publishing.** This adds persistent
+>   pseudonymous data collection. It is first-party, no SDK, no new domain — but it is new, and
+>   the answers must be re-answered honestly rather than assumed unchanged. It is disclosed in the
+>   site privacy policy under "Figma plugin". See `figma-plugin/README.md` step 5.
+> - Prefer to skip it? Delete the `if (msg.installId)` block in `figma-plugin/ui.html`; the rest
+>   of the change is inert. Also bump `figma-plugin/package.json` version when you do publish.
+>
+> ### 3. 🔴 A live request loop is generating 90% of API traffic — not fixed here
+>
+> `/ai/usage` ran **84,245 requests in 8 days (28% of all API traffic)**. **90% is four clients**
+> firing `/pageviews`, `/auth/session` and `/ai/usage` in near-exact lockstep
+> (49,409 / 49,404 / 49,401) at a steady **~97/min for hours** — a reload/remount loop, not a
+> crawler. **One was still looping on 09-03** (94 of that day's 229 hits).
+>
+> Out of Batch A's scope and untouched by it. Real-visitor volume excluding those four IPs is
+> ~1,600–2,500/day, which is the honest baseline for the A3 badge change.
+>
+> Reproduce: `sudo bash -c "zcat -f /var/log/nginx/access.log* | grep -a '/ai/usage' | awk '{print \$1}' | sort | uniq -c | sort -rn | head"`
+>
 >
 > ## 🔵 2026-08-31 — 下阶段计划已就绪:`docs/dev-plan-2026-08-31-next.md`
 >

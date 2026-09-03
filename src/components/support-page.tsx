@@ -7,7 +7,7 @@ import { proSubscriptionConfig, refundPolicy } from "@/src/lib/checkout-config";
 const faqs = [
   {
     q: "What does Pro include?",
-    a: "Pro unlocks unlimited AI palette generations, exports in all formats (CSS, Tailwind, SCSS, JSON, Figma, SwiftUI, Android, Flutter), WCAG audit reports, and full token generation (50-950 scale).",
+    a: "Pro unlocks unlimited AI palette generations, unmetered exports (free accounts get 3 a day) in CSS, Tailwind, SCSS, JSON, Figma tokens and Style Dictionary, and WCAG audit report downloads. Browsing all 5,446 colors, copying hex/RGB/HSL, and the full 50-950 token scales are free for everyone.",
   },
   {
     q: "Can I cancel my subscription anytime?",

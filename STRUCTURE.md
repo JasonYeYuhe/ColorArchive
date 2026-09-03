@@ -196,7 +196,6 @@ ColorArchive/
 │   │   ├── color-harmonies-page.tsx    # Color harmonies calculator (6 types + SVG color wheel)
 │   │   ├── color-compare-page.tsx      # Two-color comparison tool
 │   │   ├── tints-shades-page.tsx        # Tints & shades generator (11-step scale, CSS/Tailwind/Sass/JSON export)
-│   │   ├── copy-upsell-toast.tsx       # Subtle upsell toast after 5th copy
 │   │   ├── pack-quiz-page.tsx           # Interactive pack recommendation quiz
 │   │   ├── back-to-top.tsx              # Floating back-to-top button
 │   │   ├── colorblind-page.tsx          # Color blindness simulator

@@ -129,11 +129,25 @@ export function HeroSection({
 
       {/* Stats / social proof bar */}
       <section className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 rounded-[1.5rem] border border-black/8 bg-white/70 px-6 py-5 text-center backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/55">
+        {/* ─── EVERY NUMBER HERE IS CHECKED BY copy-counts.test.ts (2026-09-03) ────
+            Three of the four stats this bar used to show were false:
+              · "12 collections" — the real figure is 261. Off by 21x.
+              · "7 products"     — src/lib/palette-packs.ts was deleted in 00d7a04
+                                   ("Drop product packs"); /packs* 301s to /pro/.
+                                   The homepage was advertising a catalogue that
+                                   cannot be bought.
+              · "100% static"    — app/colors/[slug]/page.tsx sets dynamicParams=true;
+                                   2,380 of 5,446 colour pages render on demand.
+            Replaced with three things that are true and verifiable. The counts are
+            written out rather than imported because src/lib/collections.ts is 6,677
+            lines of editorial prose and tools-page.tsx is a whole component — pulling
+            either into the homepage client bundle to render one integer is the wrong
+            trade. The repo's existing convention (app/tools/page.tsx's "44") is the
+            same: hardcode, and let a test fail when it drifts. */}
         {[
-          { n: "5,446", l: t("hero.colors") },
-          { n: "12", l: t("hero.collections") },
-          { n: "7", l: t("hero.products") },
-          { n: "100%", l: t("hero.static") },
+          { n: totalColors.toLocaleString(), l: t("hero.colors") },
+          { n: "261", l: t("hero.collections") },
+          { n: "44", l: t("hero.tools") },
         ].map((s) => (
           <div key={s.l} className="flex items-baseline gap-2">
             <span className="font-display text-2xl font-light text-neutral-900 dark:text-white">{s.n}</span>

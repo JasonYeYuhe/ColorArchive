@@ -13,6 +13,7 @@ import { shouldWatermark, isEntitlementResolved } from "@/src/lib/pro-gate-polic
 import { hexToRgb } from "@/src/lib/color-utils";
 import { colors as allColors } from "@/src/data/colors";
 import { CopyButton } from "@/src/components/copy-button";
+import { track } from "@/src/lib/track";
 import {
   addToPalette,
   addManyToPalette,
@@ -167,7 +168,10 @@ function DownloadProcreateButton({ colors }: { colors: { name: string; hex: stri
   return (
     <button
       type="button"
-      onClick={() => downloadBinary(buildProcreateSwatches(colors), "palette.swatches")}
+      onClick={() => {
+        track("palette_export_click", { file: "palette.swatches", surface: "palette-builder" });
+        downloadBinary(buildProcreateSwatches(colors), "palette.swatches");
+      }}
       className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
     >
       Procreate
@@ -180,7 +184,10 @@ function DownloadAseButton({ colors }: { colors: { name: string; hex: string }[]
   return (
     <button
       type="button"
-      onClick={() => downloadBinary(buildAseBuffer(colors), "palette.ase")}
+      onClick={() => {
+        track("palette_export_click", { file: "palette.ase", surface: "palette-builder" });
+        downloadBinary(buildAseBuffer(colors), "palette.ase");
+      }}
       className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
     >
       Adobe (.ase)
@@ -209,6 +216,7 @@ function DownloadPaletteSvgButton({ colors }: { colors: { id: string; name: stri
     a.download = "palette.svg";
     a.click();
     URL.revokeObjectURL(url);
+    track("palette_export_click", { file: "palette.svg", surface: "palette-builder" });
   }
   if (colors.length === 0) return null;
   return (
@@ -635,11 +643,27 @@ rose-core-soft
         <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
           For larger design-system workflows, use the prebuilt static exports generated from the archive.
         </p>
+        {/* ─── `download_link_click` MEANS EXACTLY ONE THING (2026-09-03) ─────────
+            These five anchors are PREBUILT ARCHIVE files — the whole 5,446-colour
+            set, served free from public/downloads/. They are what the 2026-11-02
+            read-out decides on ("does anyone actually want these files?"), and
+            until today they emitted nothing at all, so the argument about whether
+            the archive is a product was pure belief on both sides.
+
+            Files built from the visitor's OWN palette fire `palette_export_click`
+            instead, deliberately NOT this event. Two reasons they must not share a
+            name: they measure different demand, and they are gated differently —
+            the builders sit inside <ProGate>, so a visitor who has spent the 3
+            free exports that day is shown a locked overlay and fires NOTHING.
+            Mixing them would let three Procreate clicks satisfy a threshold about
+            archive demand, and would under-count in the gated direction at the
+            same time. One event name, one question. */}
         <div className="mt-4 flex flex-wrap gap-2">
           <a
             href="/downloads/colorarchive-figma-tokens.json"
             target="_blank"
             rel="noreferrer"
+            onClick={() => track("download_link_click", { file: "colorarchive-figma-tokens.json", surface: "palette" })}
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
             {t("palette.figmaTokens")}
@@ -648,6 +672,7 @@ rose-core-soft
             href="/downloads/colorarchive-style-dictionary.json"
             target="_blank"
             rel="noreferrer"
+            onClick={() => track("download_link_click", { file: "colorarchive-style-dictionary.json", surface: "palette" })}
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
             {t("palette.styleDictionary")}
@@ -656,6 +681,7 @@ rose-core-soft
             href="/downloads/colorarchive.gpl"
             target="_blank"
             rel="noreferrer"
+            onClick={() => track("download_link_click", { file: "colorarchive.gpl", surface: "palette" })}
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
             {t("palette.gplPalette")}
@@ -664,6 +690,7 @@ rose-core-soft
             href="/downloads/colorarchive-sketchpalette.json"
             target="_blank"
             rel="noreferrer"
+            onClick={() => track("download_link_click", { file: "colorarchive-sketchpalette.json", surface: "palette" })}
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
             {t("palette.sketchPalette")}
@@ -672,6 +699,7 @@ rose-core-soft
             href="/downloads/colorarchive.ase"
             target="_blank"
             rel="noreferrer"
+            onClick={() => track("download_link_click", { file: "colorarchive.ase", surface: "palette" })}
             className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-50"
           >
             {t("palette.aseSwatches")}

@@ -1,3 +1,270 @@
+## 2026-09-03 — [remote] Batch A: the site was selling four things it gives away and one it never had
+
+Executed §3 Batch A in the planned order (A5 → A1 → A2 → A3 → A6; A4 read-only). Before touching
+anything I re-derived every claim in the plan against HEAD. **Nine of them were wrong**, and two of
+those would have produced a broken edit. That check is now the most valuable half hour in this log.
+
+### What the plan got wrong (verified at HEAD, each with the line that proves it)
+
+| plan says | actually |
+|---|---|
+| `token-generator-page.tsx:589` is a "Complete Archive" **download link** to instrument | It is `:591`, and it is `{ href: "/pro/" }` — a nav item in `<WhatsNext>` with no onClick. **Nothing downloadable.** |
+| `grep 'href="/downloads/'` finds more `complete-archive-*` links | **Zero.** All 10 `/downloads/` refs point at `colorarchive-*`. **No UI anywhere links a `complete-archive-*` file** — so A1's event is structurally incapable of measuring them. |
+| `/pro/` row 4 ("3/day exports") is contradicted by code | Row 4 is **true** (`FREE_EXPORTS_PER_DAY = 3`). Rows **6 and 7** are the false ones. Deleting row 4 would have *introduced* an error. |
+| Delete "No credit card" under the buy buttons | It is not under the buttons, and it already reads "No credit card **for the free tier**" — which is true. **No edit made.** |
+| `thanks-page.tsx:79` says "AI-powered (3 free/day)" | It says "AI-powered palette creation". An edit built on the quoted string would not have matched. |
+| The FAQ's "Figma export" is a promise that doesn't exist | Figma token export **does** exist (`buildFigmaTokens`, the plugin, static files). It just doesn't exist **on `/word-to-color/`** — the claim is false *for that page*, which is a narrower fix. |
+| Saving an image palette needs Pro | Needs **login**. `save-to-project.tsx` reads `status`, never `tier`. |
+| `palette-page` has 2 download links | **Five.** And the `.ase`/`.swatches` builders the plan lists as "free" are inside `<ProGate>`. |
+| Guards can't run on this Mac (per memory) | `npx vitest run <file>` = **198ms**; six guard files = **1.0s**. The memory note is stale and is being corrected. |
+
+### 🔴 The unifying defect, which was bigger than the plan's list
+
+`ProGate` is a **client-side localStorage meter** — one shared 3-per-day quota across all 18 gates,
+no server enforcement. And in **12 of those 18**, the gate wraps a *button* while the paid content
+renders as selectable plaintext right beside it. So "Pro" is not withholding tokens; it is
+withholding a click, and anyone who selects the text has the thing for free.
+
+That makes every "Pro unlocks X" string wrong in the same way, and it is why A2 grew past the
+plan's seven items to eleven surfaces. The worst two:
+
+- **`/palette/` hands out the entire 5,446-colour Figma token set for free** (`:640`) — byte-identical
+  (md5) to `complete-archive-figma-tokens.json` — **on the same page that badges a 5-colour Figma
+  export "PRO"**.
+- **`terms-page.tsx:16`** promised "full token generation" in the **Terms of Service**. The 50–950
+  scale is free for everyone. That is the one place a false capability claim is contractual.
+
+### A5 · per-plan checkout links (`checkout-config.ts`)
+
+`getCheckoutUrl()` was declared 0-arity and ignored `plan`, so all three buttons opened one shared
+URL. **But the plan's stated harm was half wrong**: the webhook *does* know what was bought (it
+string-matches `variant_name` and persists `subscription_plan`). What is genuinely unmeasurable is
+the per-plan **click→purchase** funnel, because the LS page lets the buyer re-pick. Stated correctly,
+that is still worth fixing.
+
+Three `NEXT_PUBLIC_PRO_*_CHECKOUT_URL` vars, **falling back to the shared URL when unset** — so this
+is a no-op until the owner fills them in, never a dead button. Env vars hold full URLs, not variant
+UUIDs, matching the one precedent in the repo (`NEXT_PUBLIC_PREORDER_CHECKOUT_URL`).
+
+**Also fixed the doc the owner will actually open**: `lemonsqueezy-product-setup-2026-04-17.md:79`
+sent them to an `lsVariantIds` map at `checkout-config.ts:79-83`. That map **has never existed**;
+line 79 is the tail of `refundPolicy`. The 30-minute task would have started with a symbol hunt.
+
+### A1 · `download_link_click {file, surface}` — baseline confirmed zero
+
+Instrumented the 10 genuinely-free `/downloads/` links (`surface: "palette"` / `"free-resources"`).
+Files built from the visitor's own palette fire a **separate** event, `palette_export_click` — see
+the review section below for why that separation had to be an event name and not just a prop.
+
+**Half of A1's criterion is already answered, and it is negative.** GSC, checked live:
+
+| `/downloads/*`, 90 days | value |
+|---|---:|
+| impressions | **0** |
+| clicks | **0** |
+| external backlinks | **0** (all 45 externally-linked pages enumerated; not one is a download file) |
+
+Site-wide external links are 6,983 — but **6,807 are from `colorarchive.me`, our own dead domain**.
+Real third-party ≈ 176.
+
+So the "no external demand" half of §5's first bullet is **confirmed**. What remains is the 60-day
+click count (read ≈ 11-02). Note the plan conflated two things here: this event can never measure
+the Complete Archive, because nothing links those files. **GSC is the only instrument for them, and
+it has now returned zero.**
+
+### A2 · truth-ification (11 surfaces)
+
+The `/word-to-color/` wall sold "production-ready CSS, Tailwind, and Figma token exports". CSS vars
+and Tailwind are **free copy buttons ~80 lines above it**, and the only occurrence of "figma" in
+that entire file **was the promise itself**. It now claims the one thing Pro really does there:
+unlimited lookups.
+
+`word-color-faq.ts` was rewritten with care — it feeds the visible FAQ **and schema.org JSON-LD on
+~475 pages**, so it was a false claim to Google too. Question count, question text and every other
+answer are unchanged.
+
+`/pro/` comparison: row 6 ("Preview/Full") → **free for both**, which is what the code does; row 7
+("Image palette save", Pro-only) → **"Saved projects 3 / Unlimited"**; and a **new row 8,
+"Word→color lookups 5 / Unlimited"** — the single thing Pro actually removes on the page those 9
+Pro-clickers come from, and the table never mentioned it. Rows 3 and 4 were checked and left alone.
+
+Deleted `copy-upsell-toast.tsx`: it listens for the document `copy` event, and all ~44 copy buttons
+use `navigator.clipboard.writeText()`, which does not fire it. Its pitch was also the free archive.
+
+**No click-rate improvement is expected or wanted here** — removing a false promise should, if
+anything, lower clicks. The guards are: 60-day `word_paywall_pro_click` **≤ 4 sessions** counts as a
+real drop, and **0 refunds** citing a missing Figma export.
+
+### A3 · first-screen noise
+
+Three of the homepage's four stats were false: **"12 collections" against a real 261**, "7 products"
+for a catalogue **deleted in `00d7a04`**, and "100% static" for a site that **ISR-renders 2,380
+colour pages**. Replaced with three true, checkable numbers — and **pinned with a new test**, because
+`copy-counts` could not see them (the number and the noun live in different string literals). I
+verified the pin bites by reintroducing "12" and watching it fail with the exact message.
+
+Deleted three testimonials attributed to people who were never interviewed, and "Product Hunt #1
+Color Tool", which `directory-submissions.md` records only as "✅ Listed". The repo had already made
+this call once — `pro-page.tsx:200` reads *"no fabricated testimonial"*.
+
+The AI quota badge now renders **only on `/colors`**, which is the *inverse* of the plan's list:
+`/brand-generator`, `/mood-palette` and `/analyze` each already render their own in-page badge, so
+the header copy there was a **second concurrent fetch of the same number**; `/colors/<id>` calls
+`/ai/name-color` and has no in-page badge, so there the header is the only readout.
+
+**The baseline the plan asked for, measured before shipping — and it found a live bug.** `/ai/usage`
+ran **84,245 requests in 8 days = 28% of all API traffic**. But **90% is four clients** firing
+`/pageviews`, `/auth/session` and `/ai/usage` in near-exact lockstep (49,409 / 49,404 / 49,401) at a
+steady **~97/min**, sustained for hours — a reload/remount loop, not a crawler. **One is still
+looping today** (94 of today's 229 hits). Excluding them, the honest baseline is:
+
+| day (excl. 4 loop IPs) | `/ai/usage` |
+|---|---:|
+| 29 Aug | 523 |
+| 30 Aug | 1,085 |
+| 31 Aug | 1,790 |
+| 1 Sep | 2,197 |
+| 2 Sep | 2,467 |
+
+~1,600–2,500/day and tracking organic growth. **The loop itself is out of Batch A's scope and is
+flagged for separate work** — it is 90% of the volume and no code change here touches it.
+
+### A6 · Figma plugin heartbeat — shipped in code, publish is the owner's call
+
+Four files, no server deploy, no manifest change: `api.colorarchive.org` is **already** in
+`allowedDomains`, `Origin: null` is **already** allowed with a comment naming the Figma plugin, and
+`POST /events` requires only `event`. An anonymous install id is minted in `clientStorage` and
+posted once per open. `fetch` had to live in `ui.html` — the main thread's typings have no `fetch`
+and it would fail CI.
+
+**One real constraint check.** `figma_plugin_open` fires on open by construction. W1 is safe — every
+W1 query is anchored on `w1_assigned` **and** a `page_read` in the same session, and a plugin session
+has neither. But five other consumers count site-wide engaged visits via `NOT_PAGE_LOAD`, so the
+event is now in `PAGE_LOAD_EVENTS`; without that, plugin opens would inflate site engagement — the
+`w1_assigned` incident again on a different metric. Deployed to the Azure host and **md5-verified**
+(`ad659eb5…`); no `pm2 restart` needed, so no subscriber mail-out.
+
+🔴 **The plan's "1 hour → a certain answer in 3 days" cannot happen, and the owner should know before
+deciding.** The heartbeat only reports after Figma approves a new version, and **every code publish
+triggers a fresh review**. The last one — v1.1.0 / Community V3 — was submitted ~12 weeks ago and
+`human-todo.md:1790` is **still unchecked**, so its outcome is unknown. Publishing V4 on top of an
+unresolved V3 is a real risk. Separately, `dev-plan-2026-06-10-figma-launch.md:114` recorded a
+standing decision *against* in-plugin telemetry, whose escape hatch requires updating the
+data-security answers **first**. So: code is ready and costs nothing sitting there; **publishing is
+owner-gated**, and the readout is weeks out, not 3 days.
+
+### A4 · trial — read-only, NOT yet resolved
+
+`cblackwell392` (id 41) expires **2026-09-03T09:10:44Z**, ~6.5h *after* this session.
+
+| field | value |
+|---|---|
+| tier | `pro` |
+| subscription_status | **`on_trial`** |
+| cancel_at_period_end | **0** (has not cancelled — early positive, not an answer) |
+
+Re-read after 09:10 UTC:
+
+```
+sqlite3 data.db "SELECT subscription_status, subscription_current_period_end FROM users WHERE id=41;"
+```
+
+### 🔴 A criterion the plan cannot read as written
+
+The 甲 read-out divides by hex copies on `/word-to-color/`. The plan assumes **~110/month
+(≈220 per 60 days)**. Measured:
+
+| `color_copied{format:hex}` on `/word-to-color/`, 60d | 80 events / 30 sessions |
+|---|---|
+
+**≈40/month — the plan's denominator is 2.75× too high.** So "≥12 clicks (≈5%)" is really **≈15%** of
+hex copies, a far harder bar than intended. The absolute numbers (≤3 / ≥12) still stand, since the
+plan makes absolute primary — but the ratio gloss is wrong and should not be quoted on 11-02.
+
+Also pinned for that readout: **`word_paywall_pro_click` = 15 events / 9 sessions**. The plan's
+baseline "9" is the **session** count. ≤4 must be read in sessions; against events it is a different
+test. This project has been burned by denominator drift three times.
+
+### Baselines captured for later read-outs
+
+| metric | value | read on |
+|---|---|---|
+| `/word-to-color/` GSC clicks, 28d | **479** (2,260 impressions, CTR 21.2%, pos 5.3) | ≈10-03 — rollback FAQ if **< 431** |
+| `download_link_click` | **0 events** (does not exist yet) | ≈11-02 |
+| `word_next_step_click` | **0 events** (甲 shipped today) | 11-02 |
+| `/downloads/*` GSC | **0 impressions, 0 clicks, 0 backlinks** | done — negative |
+| `/ai/usage` real-visitor | ~1,600–2,500/day | after deploy |
+
+### Guards
+
+`dark-mode-classes`, `copy-counts`, `content-links`, `retired-routes`, `price-copy`, `plan-limits`
+— **35 tests, all green in 1.0s**. `npm run typecheck` clean; `figma-plugin` `tsc --noEmit` clean;
+`session-denominator` server test 9/9. Verified independently that all 16 `pro.comparison.*` keys
+resolve in **both** locales — a missing key renders the raw key name as visible page text.
+
+### Adversarial review of my own diff, before commit — it found real defects
+
+Five independent lenses over the uncommitted diff (constraints / correctness / measurement /
+copy-truth / regression), then a refutation pass per finding. **I verified each against source
+myself before acting** rather than taking the reports on faith. What survived, and what I did:
+
+🔴 **I created a self-contradiction on `/pro/` and did not notice.** Fixing comparison row 6 to say
+the 50–950 scales are free left the feature card **three inches above it** still reading *"Full Token
+Generator — complete colour scale output (50-950) in all formats, **not just previews**"* — the exact
+Preview-vs-Full claim row 6 now denies. Rewritten as "Bulk Token Export", which is the real gate.
+
+🔴 **A2 missed two live surfaces carrying the sentence it deleted everywhere else.**
+`free-resources-page.tsx:106` — **a file this batch had already edited twice** — and
+`cancel-page.tsx:67` (the page a churning subscriber sees) both still said "full token generation".
+
+🔴 **"SwiftUI, Android, Flutter" survived on `thanks-page.tsx:53` and `collections-page.tsx:309`.**
+Those formats exist **only as free static files** in `public/downloads/`; the in-app exporter emits
+css/tailwind/sass/json/figma/style-dict. Attributing them to Pro was wrong twice over.
+
+🔴 **My own rewrite over-claimed.** I wrote "Copy CSS variables and Tailwind **config** free" onto
+5,446 colour pages. That page's Tailwind button emits `bg-[#RRGGBB]` — one utility class, not a
+config. Narrowed to "the Tailwind class". Removing a false promise by writing a smaller one is still
+writing one.
+
+🔴 **My new stats-bar guard could pass vacuously.** If the array were reformatted so the regex
+stopped matching, `stats` came back empty, the loop never ran, and green would have meant *"I could
+not read the bar"* — the one failure mode a guard must not have. Hardened, then verified against
+three mutations: wrong number → fails; non-literal value → fails; reformatting → still parses.
+
+🔴 **A1's event name spanned two different questions.** `download_link_click` covered both prebuilt
+archive files **and** files built from the visitor's own palette — and the latter sit inside
+`<ProGate>`, so a quota-exhausted visitor fires **nothing**. On a 60-day *absolute* threshold that
+conflation is fatal in both directions at once: three Procreate clicks could satisfy a bar about
+archive demand, while gated users silently under-count. Split into `download_link_click` (archive
+files — what 11-02 reads) and `palette_export_click` (user-generated). Also instrumented the colour
+page's SVG swatch, which was **the largest free-export surface on the site (5,446 pages) and emitted
+nothing** — so "0 clicks" can now mean something.
+
+🔴 **The Figma heartbeat contradicted the published privacy policy, and my comment said otherwise.**
+`privacy-page.tsx` promises the analytics id is "a random **per-tab** id … discarded when you close
+the tab". The plugin's install id is **persistent** by design. My code comment asserted this implied
+"no data-security questionnaire change" — **that is not something the code can assert.** Added a
+"Figma plugin" disclosure to the privacy policy, corrected the comment, and put a red-line in
+`figma-plugin/README.md` step 5 requiring the questionnaire to be **re-read and re-answered** before
+publishing, with a one-line instruction for shipping without the ping instead.
+
+Also: pinned `figma_plugin_open` in `session-denominator.test.js` (it was the only thing keeping
+plugin opens out of every site-wide denominator, and nothing tested it), and removed the deleted
+`copy-upsell-toast.tsx` from `STRUCTURE.md`.
+
+**Judgement call I did not take.** The hardcoded `261` will drift, because collections grow on
+autopilot runs. I kept it hardcoded — deriving it means pulling 6,677 lines of editorial prose into
+the homepage client bundle to render one integer — and made the test message say exactly what to
+change and that it *will* fire again. That is a deliberate trade, not an oversight.
+
+### Final gate
+
+`npx vitest run` — **44 files, 779 tests, 1.8s, all green.** `npm run test:server` — **70/70.**
+`npm run typecheck` clean. `figma-plugin` `tsc --noEmit` clean. That is the complete `npm test` CI
+gate, not a subset.
+
+---
+
 ## 2026-09-03 — [remote] AI referrals are the third-biggest channel and convert 18x worse; the paywall never said the price
 
 Three things asked for. One of them reverses what I told the owner yesterday.

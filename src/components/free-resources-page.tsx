@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
 import { EmailCaptureForm } from "@/src/components/email-capture-form";
+import { track } from "@/src/lib/track";
 
 const FREE_TOOLS = [
   { href: "/contrast/", label: "Contrast Checker", desc: "WCAG AA/AAA testing" },
@@ -12,7 +13,7 @@ const FREE_TOOLS = [
   { href: "/colorblind/", label: "Colorblind Simulator", desc: "Test accessibility" },
   { href: "/mixer/", label: "Color Mixer", desc: "Blend and mix colors" },
   { href: "/word-to-color/", label: "Word to Color", desc: "Generate colors from any word" },
-  { href: "/palette-generator/", label: "Palette Generator", desc: "AI-powered (3 free/day)" },
+  { href: "/palette-generator/", label: "Palette Generator", desc: "Complementary, analogous, triadic harmonies" },
 ];
 
 const SAMPLE_DOWNLOADS = [
@@ -37,7 +38,7 @@ export function FreeResourcesPage() {
           Free Color Resources
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base max-w-lg mx-auto">
-          Sample downloads, 20+ design tools, and 5,446 colors to browse. No account needed.
+          Sample downloads, 44 free tools, and 5,446 colors to browse. No account needed.
         </p>
       </section>
 
@@ -51,6 +52,12 @@ export function FreeResourcesPage() {
                 key={dl.href}
                 href={dl.href}
                 download
+                onClick={() =>
+                  track("download_link_click", {
+                    file: dl.href.replace("/downloads/", ""),
+                    surface: "free-resources",
+                  })
+                }
                 className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-100 dark:border-white/10 shadow-sm p-4 flex items-center gap-3 hover:shadow-md transition-shadow"
               >
                 <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-white/10 flex items-center justify-center text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">
@@ -96,7 +103,7 @@ export function FreeResourcesPage() {
             Need unlimited exports?
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-md mx-auto">
-            Pro unlocks unlimited AI generations, exports in every format, WCAG audit reports, and full token generation.
+            Pro unlocks unlimited AI generations, unmetered exports (free accounts get 3 a day), and WCAG audit reports.
           </p>
           <Link
             href="/pro/"

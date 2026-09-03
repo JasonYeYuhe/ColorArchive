@@ -189,6 +189,13 @@ function isActive(item: NavItem, currentPath: string): boolean {
   return currentPath === item.href;
 }
 
+/**
+ * Routes where the header's AI quota badge is the only place a visitor can see
+ * their remaining AI generations. Everywhere else it is either irrelevant (no AI
+ * on the page) or duplicated by an in-page <AiUsageBadge />.
+ */
+const AI_QUOTA_ROUTES = new Set<string>(["/colors"]);
+
 export function SiteHeader({ currentPath }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { analyticsAccess, logout, status, tier, user } = useAuth();
@@ -242,7 +249,26 @@ export function SiteHeader({ currentPath }: SiteHeaderProps) {
           <div className="flex min-w-0 items-center gap-2">
             {tier !== "pro" && (
               <>
-                <AiUsageBadge />
+                {/* ─── THE AI QUOTA BADGE BELONGS ONLY WHERE AI IS (2026-09-03) ──
+                    This rendered on every page for every non-Pro visitor, which
+                    meant the FIRST thing an organic search visitor read on a page
+                    with no AI on it was "AI: 0/3 today" — announcing a limit on
+                    something they had not touched. It also cost one credentialed
+                    cross-origin GET /ai/usage per page view.
+
+                    The allowlist is deliberately just /colors, and that is the
+                    inverse of what it looks like it should be. The other AI
+                    surfaces — /brand-generator, /mood-palette, /analyze — each
+                    already render their OWN <AiUsageBadge /> next to the control
+                    it describes, so the header copy there was a second concurrent
+                    fetch of the same number. /colors/<id> calls /ai/name-color and
+                    has no in-page badge, so the header is the only quota readout
+                    on that surface and must stay.
+
+                    Measured baseline before this change (nginx, Azure host,
+                    excluding four looping clients that generated 90% of the
+                    volume): ~1,600-2,500 real /ai/usage requests a day. */}
+                {AI_QUOTA_ROUTES.has(currentPath) && <AiUsageBadge />}
                 <Link
                   href="/pro/"
                   className="hidden rounded-full bg-neutral-900 px-3.5 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 sm:inline-flex"

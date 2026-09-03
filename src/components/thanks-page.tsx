@@ -24,7 +24,7 @@ export function ThanksPage() {
               Your Pro access is now active.
             </h1>
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 sm:text-lg">
-              You now have unlimited AI palette generations, exports in every format, WCAG audit reports, and full token generation. Start creating.
+              You now have unlimited AI palette generations, unmetered exports in every format, and WCAG audit reports. Start creating.
             </p>
             {/* The one step buyers actually miss (learned from our first real
                 subscriber, who paid and then bounced off a still-locked tool):
@@ -50,7 +50,7 @@ export function ThanksPage() {
                 },
                 {
                   title: "2. Export everything",
-                  body: "Export any palette in CSS, Tailwind, SCSS, JSON, Figma tokens, SwiftUI, Android, Flutter, and more.",
+                  body: "Export any palette as CSS, Tailwind, SCSS, JSON, Figma tokens or Style Dictionary — now without the 3-a-day limit.",
                 },
                 {
                   title: "3. Run WCAG audits",
@@ -72,13 +72,13 @@ export function ThanksPage() {
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
           <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)]">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-              Popular Pro tools
+              Where to start
             </div>
             <div className="mt-4 grid gap-3">
               {[
-                { href: "/palette-generator/", label: "Palette Generator", desc: "AI-powered palette creation" },
+                { href: "/palette-generator/", label: "Palette Generator", desc: "Harmony-based palette creation" },
                 { href: "/brand-generator/", label: "Brand Generator", desc: "Generate complete brand color systems" },
-                { href: "/tokens/", label: "Token Generator", desc: "Full 50-950 scale in every format" },
+                { href: "/tokens/", label: "Token Generator", desc: "Bulk-export all 6 scales, now unmetered" },
                 { href: "/wcag-audit/", label: "WCAG Audit", desc: "Contrast ratio matrix and compliance reports" },
               ].map((tool) => (
                 <Link

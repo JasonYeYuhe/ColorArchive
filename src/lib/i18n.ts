@@ -100,8 +100,10 @@ const translations: Record<string, Record<string, string>> = {
   "hero.colors": { en: "colors", zh: "种颜色" },
   "hero.defaultSort": { en: "Default sort", zh: "默认排序" },
   "hero.collections": { en: "collections", zh: "个合集" },
-  "hero.products": { en: "products", zh: "个产品" },
-  "hero.static": { en: "static", zh: "静态" },
+  "hero.tools": { en: "free tools", zh: "个免费工具" },
+  // hero.products / hero.static removed 2026-09-03 with the stats they labelled:
+  // the product-pack catalogue was deleted in 00d7a04, and the site is not 100%
+  // static (2,380 colour pages are ISR). Keys dropped so nothing can re-render them.
   "hero.new": { en: "New", zh: "全新" },
   "hero.contrastChecker": { en: "Contrast Checker", zh: "对比度检查器" },
   "hero.contrastDesc": {
@@ -1368,8 +1370,8 @@ const translations: Record<string, Record<string, string>> = {
     zh: "将这些颜色转换为设计 Token",
   },
   "colorDetail.buildDesc": {
-    en: "ColorArchive Pro includes CSS variables, Figma tokens, Tailwind config, and Procreate swatches — ready to drop into any project.",
-    zh: "ColorArchive Pro 包含 CSS 变量、Figma Token、Tailwind 配置和 Procreate 色板——可直接用于任何项目。",
+    en: "Copy the CSS variables and the Tailwind class free, right here. ColorArchive Pro lifts the 3-a-day export limit and adds Figma tokens and Procreate swatches.",
+    zh: "CSS 变量和 Tailwind 类名在本页免费复制。ColorArchive Pro 取消每天 3 次的导出上限，并提供 Figma Token 和 Procreate 色板。",
   },
   "colorDetail.browsePacks": {
     en: "Upgrade to Pro",
@@ -2210,8 +2212,8 @@ const translations: Record<string, Record<string, string>> = {
   "pro.feature2.desc": { en: "CSS variables, Tailwind config, SCSS, and JSON — export as many palettes as you need.", zh: "CSS 变量、Tailwind 配置、SCSS 和 JSON——随心导出。" },
   "pro.feature3.title": { en: "WCAG Audit Reports", zh: "WCAG 审计报告" },
   "pro.feature3.desc": { en: "Download full accessibility audit reports for your color systems.", zh: "下载色彩系统的完整无障碍审计报告。" },
-  "pro.feature4.title": { en: "Full Token Generator", zh: "完整令牌生成" },
-  "pro.feature4.desc": { en: "Complete color scale output (50-950) in all formats, not just previews.", zh: "所有格式的完整色阶输出（50-950），不只是预览。" },
+  "pro.feature4.title": { en: "Bulk Token Export", zh: "批量令牌导出" },
+  "pro.feature4.desc": { en: "The 50-950 scales are free to read and copy. Pro exports all six at once as CSS, Tailwind, SCSS or JSON, with no daily limit.", zh: "50-950 色阶可免费查看和复制。Pro 可一次性导出全部六组为 CSS、Tailwind、SCSS 或 JSON，且无每日上限。" },
   "pro.comparison.feature": { en: "Feature", zh: "功能" },
   "pro.comparison.free": { en: "Free", zh: "免费" },
   "pro.comparison.pro": { en: "Pro", zh: "Pro" },
@@ -2224,10 +2226,22 @@ const translations: Record<string, Record<string, string>> = {
   "pro.comparison.row4free": { en: "3 per day", zh: "每天 3 次" },
   "pro.comparison.row4pro": { en: "Unlimited", zh: "无限" },
   "pro.comparison.row5": { en: "WCAG audit download", zh: "WCAG 审计下载" },
-  "pro.comparison.row6": { en: "Token generator output", zh: "令牌生成输出" },
-  "pro.comparison.row6free": { en: "Preview", zh: "预览" },
-  "pro.comparison.row6pro": { en: "Full", zh: "完整" },
-  "pro.comparison.row7": { en: "Image palette save", zh: "图片调色板保存" },
+  // row6 was "Token generator output — Preview / Full". The 50–950 scales are free for
+  // everyone (token-generator-page.tsx renders all 6 × 11 with a per-row copy button);
+  // only the bulk export is metered, and row4 already counts that. Now free-for-both, so
+  // row6free/row6pro are gone — pro-page.tsx passes booleans for this row.
+  "pro.comparison.row6": { en: "Full 50–950 token scales", zh: "完整 50–950 色阶" },
+  // row7 was "Image palette save" with a dash in the Free column. Saving needs a LOGIN,
+  // not Pro (save-to-project.tsx checks `status`, never `tier`); free accounts keep
+  // FREE_PROJECT_LIMIT = 3. Restated as the count it actually is.
+  "pro.comparison.row7": { en: "Saved projects", zh: "已保存项目" },
+  "pro.comparison.row7free": { en: "3 (signed in)", zh: "3 个（已登录）" },
+  "pro.comparison.row7pro": { en: "Unlimited", zh: "无限" },
+  // row8 is the 5-word wall on /word-to-color/ — the single thing Pro removes there, and
+  // the reason people arrive on this page at all. It was missing from the table entirely.
+  "pro.comparison.row8": { en: "Word→color lookups", zh: "词→色查询" },
+  "pro.comparison.row8free": { en: "5", zh: "5 次" },
+  "pro.comparison.row8pro": { en: "Unlimited", zh: "无限" },
   "pro.faqTitle": { en: "Frequently asked questions", zh: "常见问题" },
   "pro.faq.q1": { en: "Can I try before I subscribe?", zh: "订阅前可以试用吗？" },
   "pro.faq.a1": { en: "Yes! You can try Pro free for 3 days — cancel anytime, no charge if you cancel before it ends. Prefer to stay free? Free accounts get 10 AI generations and 3 exports per day, no credit card required.", zh: "可以！你可以免费试用 Pro 3 天，随时取消，到期前取消不收费。想继续用免费版也行：免费账户每天 10 次 AI 生成、3 次导出，无需信用卡。" },

@@ -87,6 +87,16 @@ Use the Figma **desktop** app, console open via **Plugins → Development → Sh
 3. `npm run build`, commit via feature branch + PR (model: PR #6), merge after verification.
 4. Figma desktop → **Plugins → Manage plugins in development → ⋯ → Publish new version** (4-step wizard; listing fields pre-filled; version auto-increments).
 5. **Do NOT touch the data-security questionnaire answers** (current truth: self-hosted backend, no Figma-API-derived data sent, no third-party requests). Changing them re-triggers review. Corollary: no analytics SDKs in the plugin, no new domains in `manifest.json` `networkAccess`.
+   - 🔴 **2026-09-03 — READ BEFORE THE NEXT PUBLISH.** The working tree now contains an
+     anonymous open-heartbeat (`ui.html`, `src/code.ts`): one POST to the already-allowlisted
+     `api.colorarchive.org/events` per plugin open, carrying a randomly-minted install id
+     persisted in `figma.clientStorage`. No SDK, no third party, no new domain, nothing derived
+     from the Figma API — so rules 5's literal clauses still hold. **But it is new persistent
+     pseudonymous data collection, so the questionnaire must be RE-READ and re-answered
+     honestly before publishing, not assumed unchanged.** It is disclosed in the site privacy
+     policy (`privacy-page.tsx`, "Figma plugin"). If you would rather not answer the
+     questionnaire differently, delete the `if (msg.installId)` block in `ui.html` and ship
+     without it — the rest of the change is inert.
 6. Wait for the review email; record the new version in `docs/dev-plan-2026-06-10-figma-launch.md` §6.
 
 ## Files

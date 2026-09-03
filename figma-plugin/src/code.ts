@@ -213,6 +213,49 @@ async function readStoredApiKey(): Promise<string | null> {
   }
 }
 
+// ─── Anonymous install id, for one purpose: is anyone using this? ───────────
+// The plugin has shipped since 2026-06 with ZERO telemetry, so its daily-active
+// count is not "low", it is UNKNOWN — and a whole branch of the roadmap (seats,
+// plugin-side Pro) is waiting on that one number. This mints a random id once
+// per install and sends nothing else.
+//
+// What it deliberately is NOT: no user id, no Figma account data, no file or
+// document contents, no third-party endpoint. It is a random integer pair with
+// no meaning outside our own events table, posted to api.colorarchive.org —
+// which manifest.json already allowlists, so no manifest change is needed.
+//
+// 🔴 It IS, however, new persistent pseudonymous data collection, and an earlier
+// version of this comment claimed that implied "no data-security questionnaire
+// change". That was not something this file can assert. Figma's questionnaire is
+// re-answered by a human at publish time; see figma-plugin/README.md step 5. The
+// site privacy policy discloses this under "Figma plugin". Publishing is a
+// deliberate owner decision, not a consequence of this code existing.
+//
+// `crypto` is not in this thread's typings (tsconfig lib is ES2017 and
+// @figma/plugin-typings declares no crypto), so the id is Math.random-derived.
+// Collision risk across a population this size is irrelevant: a collision merges
+// two installs into one DAU, which biases the number DOWN, and the decision this
+// feeds ("is anyone here?") is only ever harmed by over-counting.
+const INSTALL_ID_STORAGE = 'ca_install_id';
+
+async function readOrMintInstallId(): Promise<string | null> {
+  try {
+    const existing = await figma.clientStorage.getAsync(INSTALL_ID_STORAGE);
+    if (typeof existing === 'string' && existing.length > 0) return existing;
+    const minted =
+      'fp_' +
+      Math.floor(Math.random() * 0xffffffff).toString(36) +
+      Math.floor(Math.random() * 0xffffffff).toString(36);
+    await figma.clientStorage.setAsync(INSTALL_ID_STORAGE, minted);
+    return minted;
+  } catch (e) {
+    // Storage unavailable. Return null rather than a fresh id every open —
+    // a per-open id would inflate DAU, which is the one direction that could
+    // keep a dead plugin alive on the roadmap.
+    return null;
+  }
+}
+
 function hexToRgb(hex: string): { r: number; g: number; b: number } {
   return {
     r: parseInt(hex.slice(1, 3), 16) / 255,
@@ -229,7 +272,10 @@ figma.ui.onmessage = async (msg: PluginMessage) => {
     // opened.
     if (msg.type === 'ui-ready') {
       const apiKey = await readStoredApiKey();
-      figma.ui.postMessage({ type: 'init', editorType: figma.editorType, apiKey });
+      // clientStorage is main-thread-only, so the id has to ride the existing
+      // 'init' message — the UI iframe cannot read it itself.
+      const installId = await readOrMintInstallId();
+      figma.ui.postMessage({ type: 'init', editorType: figma.editorType, apiKey, installId });
       sendSelectionInfo();
       return;
     }

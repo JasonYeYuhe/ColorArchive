@@ -738,9 +738,28 @@ export function WordColorGeneratorPage() {
                   <div className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white">
                     You&rsquo;ve explored {FREE_GENERATIONS} free word palettes
                   </div>
+                  {/* ─── THE WALL NAMES ONLY WHAT PRO ACTUALLY ADDS HERE (2026-09-03) ──
+                      This used to read "…and production-ready CSS, Tailwind, and Figma
+                      token exports." All three were wrong on this page, in two
+                      different ways:
+
+                        · CSS vars and Tailwind are FREE copy buttons ~80 lines above
+                          (search `label="CSS vars"`). Selling someone a thing they
+                          already have, on the same screen, teaches them the wall lies.
+                        · There is no Figma export on /word-to-color/ at all — the only
+                          occurrence of the word "figma" in this file was that sentence.
+
+                      What Pro genuinely changes here is exactly one thing: the
+                      5-distinct-word limit goes away. So that is all the wall claims
+                      now. Note this is NOT expected to raise the click rate — removing
+                      a false promise should if anything lower it. The guard is the
+                      opposite: 60-day `word_paywall_pro_click` must not COLLAPSE
+                      (baseline 9 sessions / 60d; ≤4 counts as a real drop), and zero
+                      refunds citing a missing Figma export. */}
                   <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                    Keep going with unlimited word&rarr;color, full 5-shade palettes, and
-                    production-ready CSS, Tailwind, and Figma token exports.
+                    Keep going with unlimited word&rarr;color lookups. Everything you can
+                    already copy here &mdash; hex, RGB, HSL, CSS variables, Tailwind &mdash;
+                    stays free.
                   </p>
                   {/* ─── THE PRICE GOES ON THE BUTTON (2026-09-03) ──────────────
                       Measured over 60 days: 297 gate impressions (191 first hits +
