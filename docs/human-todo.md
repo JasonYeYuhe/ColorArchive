@@ -2,6 +2,23 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🟢 2026-09-03 — The trial converted. Two plan branches are now decided.
+>
+> `cblackwell392` went `on_trial` → **`active`** (order `lsinv_8357021`, ¥500, 10:11 UTC).
+> **4th external paying customer, and the first confirmed to come through the 3-day trial.**
+>
+> Per §5 of `docs/dev-plan-2026-09-03-product.md`, this decides two things without further debate:
+> - **B3 (subscription-shape changes) is frozen in full** — the "monthly is the wrong shape"
+>   argument just lost its strongest evidence.
+> - **Never delete the 3-day trial.** §4 already advised against it; this settles it.
+>
+> Money now: **3 external active subscribers, MRR ≈ $10.48** (was ≈ $6.70), all-time external
+> revenue ≈ **$13.03** (was ≈ $9.70). Your own `@icloud` account shows `cancelled` — it was never
+> counted in those figures, but flagging it in case that was not deliberate.
+>
+> **Nothing for you to do here.** Recorded so the 11-02 decision meeting starts from the right
+> numbers.
+
 > ## 🔴 2026-09-03 — Batch A shipped; three things need you
 >
 > ### 1. Three LemonSqueezy buy links (~15 min) — unblocks every per-plan number

@@ -2214,6 +2214,32 @@ const translations: Record<string, Record<string, string>> = {
   "pro.feature3.desc": { en: "Download full accessibility audit reports for your color systems.", zh: "下载色彩系统的完整无障碍审计报告。" },
   "pro.feature4.title": { en: "Bulk Token Export", zh: "批量令牌导出" },
   "pro.feature4.desc": { en: "The 50-950 scales are free to read and copy. Pro exports all six at once as CSS, Tailwind, SCSS or JSON, with no daily limit.", zh: "50-950 色阶可免费查看和复制。Pro 可一次性导出全部六组为 CSS、Tailwind、SCSS 或 JSON，且无每日上限。" },
+  // ─── Keys that were CALLED but never DEFINED (added 2026-09-03) ──────────────
+  // `t()` returns the key itself when it is missing (see the lookup at the bottom of
+  // this file), so every one of these was rendering its own raw key name to real
+  // visitors — "palette_generator_title" as an <h1> on /palette-generator/ and
+  // /palette/, "quick_generate" as a section heading, and so on. Eleven in total.
+  //
+  // Each call site had already written the intended English inline as
+  // `t("key") || "Fallback"`. That fallback is dead code and always was: `t()`
+  // returns a truthy string, so `||` never fires. The English below is taken
+  // verbatim from those fallbacks, so the pages now render what their authors
+  // meant. `i18n-keys.test.ts` fails if a key is ever called without being defined
+  // again — that guard is the actual fix; this block is just the backfill.
+  "quick_generate": { en: "Quick Generate", zh: "快速生成" },
+  "press_spacebar": { en: "Press spacebar to generate", zh: "按空格键生成" },
+  "generate": { en: "Generate", zh: "生成" },
+  "tap_generate": { en: "Tap Generate or press spacebar on desktop", zh: "点击「生成」，或在电脑上按空格键" },
+  "export_palette": { en: "Export this palette", zh: "导出此调色板" },
+  "palette_generator_title": { en: "Palette Generator", zh: "调色板生成器" },
+  "palette_generator_subtitle": {
+    en: "Enter a seed color and explore harmonious palettes instantly. Click any swatch to copy its hex code.",
+    zh: "输入一个基准色，即刻探索和谐配色。点击任意色块即可复制其 HEX 值。",
+  },
+  "or_explore_harmonies": { en: "Or explore harmonies from a seed color", zh: "或从基准色探索配色方案" },
+  "allColors.randomColor": { en: "Random Color", zh: "随机颜色" },
+  "search.advancedFilters": { en: "Filters", zh: "筛选" },
+  "tools.searchPlaceholder": { en: "Search tools...", zh: "搜索工具……" },
   "pro.comparison.feature": { en: "Feature", zh: "功能" },
   "pro.comparison.free": { en: "Free", zh: "免费" },
   "pro.comparison.pro": { en: "Pro", zh: "Pro" },

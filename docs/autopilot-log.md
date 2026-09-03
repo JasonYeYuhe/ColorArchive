@@ -1,3 +1,96 @@
+## 2026-09-03 — [remote] The trial converted; and the site was showing visitors raw i18n key names
+
+Three follow-ups to Batch A: the A4 readout (now resolvable), an end-to-end check that the new
+instrumentation actually works, and a user-visible bug found while doing the second one.
+
+### 🔴 A4 · the trial converted — this is a §5 trigger
+
+`cblackwell392` (id 41) went **`on_trial` → `active`** at 10:11 UTC today, renewed to 2026-10-03,
+`cancel_at_period_end = 0`, with a real order row: **`lsinv_8357021`, ¥500 JPY**.
+
+**This is the 4th external paying customer and the first one confirmed to have arrived through the
+3-day trial.** §5 says exactly what that means, so applying it:
+
+- **B3 is frozen in full.** The "subscription shape is wrong" argument just lost its best evidence.
+- **The trial is never to be deleted.** §4 already said don't; this converts that into a hard no.
+
+Updated money, replacing the §1.1 figures:
+
+| | before | now |
+|---|---:|---:|
+| external active subscribers | 2 | **3** |
+| MRR | ≈ $6.70 | **≈ $10.48** |
+| external revenue, all time | ≈ $9.70 | **≈ $13.03** |
+
+(¥499.62 + ¥551.61 + $3.47, at ~150 JPY/USD. Also noted: the owner's own `@icloud` account is now
+`cancelled` — it was never external revenue and is excluded from all three numbers above.)
+
+### The new instrumentation works — verified end to end, then cleaned up
+
+A `download_link_click` fired from a real click on production landed correctly:
+
+```
+{"file":"colorarchive.aco","surface":"free-resources","channel":"direct","landing_path":"/word-to-color/"}
+```
+
+This was worth proving rather than assuming: `bot-detect` answers a **dropped** write with
+`{ok:true}` and HTTP 200, so a silently-filtered event is indistinguishable from a working one from
+the client side. It was not filtered.
+
+**Then I deleted the row** (id 14788). A synthetic click cannot be left in a 60-day criterion whose
+threshold is "0 vs ≥5". Baseline is back to 0 for both new events.
+
+Also verified on production, without triggering anything: the `/word-to-color/` paywall string in
+the deployed bundle is the new one, and `"production-ready CSS, Tailwind, and Figma token exports"`
+appears in **none** of the 15 chunks. Checked the bundle rather than hitting the 5-word wall, so no
+`word_paywall_hit` was manufactured.
+
+### 🔴 A1's exposure is much smaller than the criterion assumes — read 11-02 accordingly
+
+`palette-page.tsx:464` early-returns an empty state when the palette has no colours, and the five
+archive download links live at :663, **below that return**. So on `/palette/` those links are only
+reachable **after** the visitor has already built a palette; a first-time visitor never sees them.
+Confirmed by loading the page: 0 download anchors present. `/free-resources/` is unconditional
+(5 links, confirmed present).
+
+So the real measurable exposure is roughly **11 sessions / 60d unconditionally, plus part of
+`/palette/`'s ~36**. **A zero at 11-02 therefore cannot distinguish "nobody wants these files" from
+"almost nobody was shown them."** §5's first bullet must not be read as if it could. I did not
+"fix" this by surfacing the links more — the plan explicitly forbids manufacturing exposure, and
+changing exposure mid-flight would invalidate the measurement rather than improve it.
+
+### 🔴 Eleven i18n keys were rendering their own names to visitors
+
+Loading `/palette/` showed the literal text **`palette_generator_title`** where an `<h1>` should be.
+A sweep found **11 keys called but never defined**, across 4 components — 7 of them on
+`/palette-generator/`, the page C2 wants to promote as the flagship free generator:
+
+`palette_generator_title` · `palette_generator_subtitle` · `quick_generate` · `press_spacebar` ·
+`generate` · `tap_generate` · `export_palette` · `or_explore_harmonies` ·
+`allColors.randomColor` · `search.advancedFilters` · `tools.searchPlaceholder`
+
+**Not mine** — introduced in `d430e38` / `420b9e6` and shipping ever since. `t()` returns the key
+when it is missing, so this fails silently: no crash, no blank, no build error, just the key name
+on the page.
+
+**Why it survived so long is the interesting part.** Every call site is written
+`{t("some_key") || "Some Text"}` — the authors *did* write a fallback. It is dead code and always
+was, because `t()` returns a truthy string so `||` never fires. Reading the call site makes the bug
+look impossible, which is precisely why only loading the page in a browser found it.
+
+Fixed by defining all 11, taking the English **verbatim from those intended fallbacks** so each page
+now renders what its author meant, plus `zh` for each.
+
+**The actual fix is the guard**: `src/lib/__tests__/i18n-keys.test.ts` — the repo had *no* i18n test
+at all. It asserts every `t("literal")` key exists and that every key has both locales (a key with
+`en` but no `zh` silently serves English to Chinese readers forever). Verified by mutation: deleting
+`palette_generator_title` fails with the two call sites named; removing a `zh` value fails with the
+key named. It also asserts it can see >900 keys and >400 call sites, so it cannot pass vacuously.
+
+Full gate: **45 files, 782 tests** (up from 44/779), 70 server tests, typecheck clean.
+
+---
+
 ## 2026-09-03 — [remote] The "90% of API traffic" loop: measured, then NOT fixed — the defence already worked
 
 Follow-up to the Batch A entry below, which flagged a request loop as a separate task. I
