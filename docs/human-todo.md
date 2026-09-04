@@ -2,35 +2,83 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
-> ## 🔴 2026-09-03 — iOS: 一个决定 + 一件 5 分钟的免费检查
+> ## 🔴 2026-09-04 — iOS:Gate A **没跑成**(ASA 登录被挡),但方向可以关;外加 4 条更正
 >
-> 计划书 `docs/ios-dev-plan-2026-09-03-v1.4.md`。**结论是不发版**,经 Gemini 3.1 Pro 与
-> 3.8 Flash 独立评审(两者都 reject 了我的第一稿),我已撤回原推荐。
+> 计划书 `docs/ios-dev-plan-2026-09-03-v1.4.md`,**新增 §7 是这一节的全部依据**。
+> 结论仍是**不发 v1.4**,但**理由和措辞都改了**,而且 §5 的四条有三条是错的。
 >
-> **背景**:v1.3 的数据门本该 08-12 读,漏了。今天补读 —— 首下载 **≈1 次/周**(冻结线是
-> 100 次/天),iOS 收入 **$0**、Apple 付费用户 **0**(5 个付费用户全部来自 web)。
+> ### 1. 需要你确认(唯一的决定):接受「不发 v1.4、iOS 转维护」吗?
 >
-> ### 1. 需要你确认:接受「不发 v1.4、iOS 转维护」吗?
+> app 保持上架(不花钱),不开发、不改 ASO。**这个决定只由下载数支撑**:首下载 ≈**0.14 次/天**
+> (冻结线 100 次/天)、iOS 收入 **$0**、Apple 付费用户 **0**(5 个付费用户全部来自 web)。
+> 与下面任何关键词证据**无关** —— 关键词无论正负都不能解冻 iOS。
 >
-> app 保持上架(不花钱),不开发、不改 ASO。这是三周前就该做的决定。
+> ### 2. 🔴 Gate A 我没跑成 —— 是「未执行」,不是「已证伪」
 >
-> ### 2. 一件免费的检查(5 分钟,能永久关闭这个方向)
+> ASA 后台重定向到 Apple ID 登录,**1Password 凭据桥四次返回 `transport_error/retryable`**
+> (1Password.app 和它的 Chrome 扩展都在运行、都在活动 profile `Profile 1` 里,桥就是不应答;
+> 我不能直接键入密码)。磁盘上也没有 ASA 凭据 —— `asc-api-key-...p8` 是 App Store **Connect**
+> 的 key,**不是同一个 API 家族**,而 ASA 的 key 必须从 ASA 后台**里面**生成。死循环。
 >
-> 登录 **Apple Search Ads** 后台(**不需要投放、不花钱**),查这三组词的 **keyword popularity**:
-> `word to color` · `color from word` · `palette from text`
+> **要修的话是你这边的事:** 打开 1Password 桌面版并在 Chrome `Profile 1` 的扩展里登录一次,
+> 之后我就能重跑。或者你自己 5 分钟查完把三个数字贴给我。
+> ⚠️ 另外注意:如果你从没开通过 ASA,首次进后台需要**接受 ASA 条款**(可能还要挂张卡,
+> 不投放不扣钱)—— 那是你的决定,我不会替你点。
 >
-> - **热度很低(预期)** → word→color 迁移到 App Store 的假设当场证伪,这个方向**永久关闭**。
-> - **热度意外可观** → 才值得重开讨论,而且判据必须用**下载数**,不能用曝光数。
+> ### 3. 我换了个免费的第一方工具,**但它测不出「需求为零」**
 >
-> 我在计划书里想推荐「移植 word→color + 重瞄 ASO」,评审指出这是 category error:
-> GSC 证明的是**网页已经满足了这个需求**,不是「这些人想装 app」;而且 App Store 排名靠
-> 下载速度和评价,一个周下载 1 次、0 条评价的 app 换关键词也排不上去。**而且从没人查过
-> App Store 上这组词到底有没有搜索量** —— 就是上面这 5 分钟。
+> 用 App Store 搜索自动补全(MZSearchHints):`word to color` / `color from word` /
+> `palette from text` 在 **7 个店面全 0**,对照 `color palette` 全部打满 10;母语形式
+> (CN `文字转配色` / JP `文字から色` / DE `wort farbe`)同样全 0。共测 **128 词 / 7 店面**。
 >
-> ### 3. 合规缺口(不构成发版理由,但一旦发版必须一起改)
+> 🔴 **但对抗复核推翻了我第一版的读法,负对照实测:**
+> `how to remove` → **0**,而 `remove background` → **10**;`extract palette from image` → **0**,
+> 而这功能在美区有 5,149 / 2,754 评分的 app 在卖。**0 只代表「这个字符串不在补全语料里」,
+> 已证实与真实需求可观并存。** 而且语料混了 app 标题:`colorarchive` → 1 条命中的是我们
+> **自己那个每周 1 次下载的 app**。所以这些数字**不带量级含义**。
 >
-> `ios/ColorArchive/PrivacyInfo.xcprivacy` 只声明了 CrashData / OtherDiagnosticData(Sentry),
-> 但 PostHog 实际在收集产品交互数据,**缺 `NSPrivacyCollectedDataTypeProductInteraction`**。
+> **⇒ 可以写的结论:word→colour 的 ASO 方向「按现有证据关闭(2026-09-04)」,
+> 不是「永久关闭」。** 操作上一样(谁都别再动),但别让它变成以后被继承的过强否定 ——
+> 这个仓库已经被这种句式坑过三次(「没有测试套件」→「测试会挂」→ 实测 2.2 秒)。
+>
+> **一条不依赖读 0 的正面发现:** 在 App Store 用户真会输的 1–2 词长度上,颜色需求是
+> **图像驱动**的 —— `color name` → 10 条全是相机/图像(word→colour 的**反方向**),
+> `color generator` → 3 条全是**随机**生成器,`word palette` → 一个叫 WordPalette 的**写作** app。
+>
+> ### 4. 🔴 §5 那四条「一旦发版必须一起改」—— 三条是错的,不要照着做
+>
+> | § | 原话 | 复核结果 |
+> |---|---|---|
+> | 5.1 | PrivacyInfo 缺 ProductInteraction = **合规缺口** | ❌ **证伪。** posthog-ios 3.59.3 **自带** manifest 已声明 ProductInteraction 并 `.copy` 进 bundle;ASC 营养标签 **2026-06-07 就已正确声明**。补进 app manifest 是**观感一致性,不是合规修复** |
+> | 5.2 | 退后台不 flush,事件会丢 | ❌ **证伪。** SDK `PostHogSDK.swift:216-220` 订阅 `didEnterBackgroundNotification` 并 `flush()`,默认开。**上次是只 grep 了 app 树 —— grep 看不见 SDK 行为** |
+> | 5.3 | 16 个 capture 点,三个核心视图 0 个 | ⚠️ 数字对(13 capture + 3 screen)。**但漏了第 4 个文件 `ColorCardView`(拿着 Copy HEX 菜单的那个)也是 0**;且「只看到一个 `$screen`」错了(切 tab 就发)。正确说法:**浏览 200 个颜色、复制 10 个 hex 产生零事件** |
+> | 5.4 | ImageRenderer 在 contextMenu 里,**长按才构建**,不是首屏问题 | 🔴 **我上次这条「更正」本身是错的,原评审是对的** |
+>
+> **关于 5.4(唯一一条现在线上正在生效的真实缺陷):**
+> SwiftUI 的 `contextMenu(menuItems:)` **没有 `@escaping`**(iPhoneOS26.5.sdk 接口第 9401 行;
+> 对比 `sheet` 7145/7147 行和 `contextMenu(forSelectionType:)` 21060 行都有),非逃逸闭包
+> **必须在调用返回前执行**;编译探针也实测跑了。而 `ColorCardView.swift:72` 的调用**直接在
+> ViewBuilder body 里**(是 `if let`,不是 Button 的 action)。所以
+> `ShareHelper.colorCardImage` 以 **1200×800 px ≈ 3.84 MB/张**,在浏览网格**每个可见 cell 首次
+> 渲染时**同步跑在主线程 ⇒ 首屏 15–18 张 ≈ **60–70 MB**。点一次心还会让所有可见 cell 重跑一遍。
+>
+> **我没有改它** —— 你给的规则是「A 不通过就不做 B」,而 iOS 改动只有发版时才有意义。
+> **要不要现在在仓库里修掉、搭下一次发版?一句话我就做**(改 `ColorCardView.swift:72`,
+> 把渲染挪出 builder body 改成惰性求值,约 3 行)。
+>
+> ### 5. 两条方法论,已写进 §7
+>
+> - **判据不许在分支里写「预期结果」。** §3 的两支是「热度极低(**预期结果**)→ 永久关闭」和
+>   「**意外**可观」—— 这是为关闭而写,不是为判定而写。和 §3 自己批评「6 周 ≥300 曝光」是同一条罪。
+> - 🔴 **「更正」需要和「断言」同等的验证。** 5.4 差一点就把一个真实缺陷永久关掉了,
+>   而它出现在一份专门批评「先建后测」的文档里。
+>
+> ### 6. 顺带:分支 A 本来两行算术就能关掉,根本不需要 ASA
+>
+> 用计划自己的 GSC 数字:1,290 点击 / 21.2% CTR ⇒ 6,085 曝光/90 天 = **全球每天 67.6 次
+> Google 搜索**。而解冻线是 **100 次下载/天** —— 是整个概念全球查询量的 **1.5 倍**。
+> 预注册指向 ASA 这件事**本身就选错了仪器**。
+> (「差 700 倍」这个说法也只对分支 A 成立;分支 B「IAP 累计 >$100」只差 10–65 倍。)
 
 > ## 🟢 2026-09-03 — The trial converted. Two plan branches are now decided.
 >
@@ -1378,10 +1426,12 @@ The historical rows are still in `events` if you ever want them purged.
 >       (web-parity verified) + typed AI errors + ASO refresh (subtitle "Palettes, Contrast
 >       & Hex Codes", keywords rebuilt 94B). Auto-released via AFTER_APPROVAL; submission
 >       `9d63d863` COMPLETE. Nothing left to click.
-> - [ ] **~2026-08-12: iOS 3-week data gate** (clock started 07-22) — pull ASC analytics
->       (ONGOING request `dda726fa`) + PostHog hue_game events. Thresholds (pre-registered):
->       daily downloads ≥10 / game completion ≥30% / share-intent ≥10% → invest / maintain / shrink.
->       Ask Claude to run it.
+> - [x] **~2026-08-12: iOS 3-week data gate** — **READ 3 WEEKS LATE on 2026-09-03.** Downloads
+>       criterion **truly failed** (≈0.14/day vs ≥10). The other two are **VOID, not failed** —
+>       the core loop has zero instrumentation, so the instrument could not see them.
+>       (The "and events are lost on background" half of that reasoning was **refuted 09-04**:
+>       posthog-ios flushes on background by default. See `docs/autopilot-log.md` 2026-09-04.)
+>       → shrink. `docs/ios-dev-plan-2026-09-03-v1.4.md`.
 > - [ ] Optional: fresh App Store screenshots featuring the Hue Challenge (skipped in v1.3 for
 >       budget — worth doing if the game shows any traction).
 

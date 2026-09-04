@@ -1,3 +1,124 @@
+## 2026-09-04 — [remote] Gate A did not run. The substitute instrument is broken. Three of the four §5 claims were false — including a "correction" I made yesterday
+
+Owner asked for the 5-minute free precheck that was the *only* pre-registered condition capable of
+reopening iOS: Apple Search Ads keyword popularity. Full record in
+`docs/ios-dev-plan-2026-09-03-v1.4.md` **§7**.
+
+**Net: the action is unchanged — do not ship v1.4, iOS stays frozen — but almost everything about
+why, and three of the four "must-fix-on-any-release" items, were wrong.**
+
+### 🔴 Gate A was NOT run, and the write-up says so
+
+ASA redirects to Apple ID sign-in. The 1Password credential bridge returned
+`transport_error/retryable` **four times** (app and Chrome extension both running, both in the
+active profile `Profile 1`; typing the password myself is prohibited). No ASA credential exists on
+disk — `asc-api-key-DMMFP6XTXX-2026-07-08.p8` is App Store **Connect**, a different API family, and
+an ASA key can only be minted *from inside the ASA console*. That is a closed loop.
+
+So the status line is **"Gate A NOT RUN"**, not "Gate A failed". Neither §3 branch fired, and the
+"close permanently" clause cannot be triggered by anything below. Reporting a substitute's verdict
+under the gate's name would be **exactly this project's most expensive recurring error** — the same
+shape as v1.3's "the PostHog key is in the config" standing in for "the analytics work".
+
+### The substitute instrument, and why it cannot carry the conclusion
+
+Used App Store search autocomplete (MZSearchHints — free, first-party, no login;
+`X-Apple-Store-Front` header is mandatory or every query returns empty). 128 terms, 7 storefronts:
+the three pre-registered terms return **0 everywhere**, controls (`color palette`, `color picker`,
+`hex color`) peg at the response cap of 10 in every locale, and native-language forms
+(CN `文字转配色`, JP `文字から色`, DE `wort farbe`) are 0 against 10 for their own controls.
+
+I first read that as "demand is effectively zero worldwide". **An adversarial pass killed that
+reading with a negative control I should have run myself:**
+
+- **`how to remove` → 0, while `remove background` → 10 and `background remover` → 10.** Background
+  removal is one of the largest photo-tool demand pools on the App Store.
+- `extract palette from image` / `photo to palette` / `image to palette` → **0**, for a function
+  sold by apps with **5,149** and **2,754** US ratings.
+- The corpus is **supply-fed**: `colorarchive` → 1 hit, and it is `colorarchive - color tools` —
+  **our own ~1-download-per-week app**, present purely because of its title.
+- The count is not a magnitude: `delta e` pegs at 10 entirely via `delta emulator` /
+  `delta executor for roblox`. 10 is a hard cap, so 0-vs-10 is not a ratio.
+
+**A 0 means "this string is absent from Apple's completion corpus", which is demonstrably
+compatible with substantial real demand.** Six other attacks on the instrument failed and two
+backfired in its favour (matching is *substring*, not prefix-anchored, so the 0s are broader
+evidence than assumed; the corpus is current to within weeks — it knows `sora 2`, `claude ai 4.6`).
+
+**What survives at full strength** is one finding that reads *returned content* rather than
+absence, so the defect doesn't touch it: at the 1–2 word length App Store users actually type, the
+adjacent colour demand is **image-driven and random-driven, not word-driven**. `color name` → 10,
+all camera/image (`color name from image`, `color name recognizer camera`) — the *inverse* of our
+feature. `color generator` → 3, all *random* generators. `word palette` → the writing app
+WordPalette (1,073 ratings): the phrase is already occupied by another meaning.
+
+**Recorded conclusion: the word→colour ASO direction is "closed on current evidence, 2026-09-04,
+instrument named" — NOT "permanently closed", NOT "premise falsified".** Operationally identical;
+epistemically survivable. This repo has been burned three times by inherited over-strong negatives
+("no test suite" → "the suite hangs" → measured 2.2s).
+
+### 🔴 Three decisions were fused into one sentence, and that had to be split
+
+The freeze releases on downloads >100/day **or** cumulative IAP >$100. Neither is a function of
+keyword data. Fusing them implies to a future reader that promising keyword evidence could unfreeze
+iOS — **a lever that must not exist**. Split into: (1) the ASO thesis, closed by this evidence;
+(2) the iOS freeze, which stands on ≈0.14 downloads/day, $0, 0 Apple purchasers alone; (3) the §5
+repo items, which now travel on their own schedule.
+
+### 🔴 §5 re-verified from source: two false, one right-number-wrong-conclusion, one where my own correction was the error
+
+| § | claim | verdict |
+|---|---|---|
+| 5.1 | missing `ProductInteraction` is a **compliance gap** | **FALSE.** posthog-ios 3.59.3 ships its own `PrivacyInfo.xcprivacy` declaring `ProductInteraction`+`OtherUsageData`, `.copy`'d into the bundle at `Package.swift:34`; Apple aggregates per-bundle. The ASC nutrition label has declared Product Interaction → Analytics **since 2026-06-07**, and `docs/analytics-posthog-2026-06-06.md:89-102` already documented the app-manifest gap as *optional*. Cosmetic consistency, not compliance. v1.3 shipped and passed review in this state |
+| 5.2 | nothing flushes on background, events are lost | **FALSE.** `PostHogSDK.swift:216-220` subscribes to `didEnterBackgroundNotification` and calls `flush()`, gated only by the internal `disableFlushOnBackgroundForTesting` (default false, never touched). Disk FIFO queue, records pop only after successful upload |
+| 5.3 | 16 capture sites, 0 in three core views | **Number right** (13 `capture(` + 3 `screen(`, 0 raw SDK calls outside the wrapper), **but it missed a fourth zero file — `ColorCardView`, the one that owns the Copy HEX/RGB/HSL menu** — and "PostHog sees only one `$screen`" is wrong ($screen fires on every tab switch, `ContentView.swift:49`). Correct form: *browsing 200 colours and copying 10 hex codes produces zero events*. Autocapture genuinely is all off (`captureScreenViews` forced false, `captureElementInteractions`/`sessionReplay` default false), so the coverage gap is real |
+| 5.4 | the `ImageRenderer` is inside `.contextMenu`, built only on long-press → not a first-render problem | 🔴 **My correction was the error. The original reviewer was right** |
+
+**On 5.2 — how I got it wrong yesterday:** I asserted it from a grep of the *app* tree. **A grep of
+the app cannot see SDK behaviour, and the SDK behaviour was the entire answer.** Same class as "no
+test suite" / "vitest hangs": reporting a negative from an incomplete search space as a positive
+defect. §1.2's "the behavioural criteria are void" still stands, but now on **one** support (zero
+core-loop instrumentation) instead of two.
+
+**On 5.4 — a real, currently-shipping defect I nearly closed forever.** SwiftUI's
+`contextMenu(menuItems:)` is **not `@escaping`** (iPhoneOS26.5.sdk interface line 9401; compare
+`sheet` at 7145/7147 and `contextMenu(forSelectionType:)` at 21060, which are). A non-escaping
+closure cannot outlive the call, so it runs during body evaluation — confirmed independently by a
+compiled probe. And `ColorCardView.swift:72` sits **directly in the ViewBuilder body** as an
+`if let`, *not* inside a Button action (which would be escaping). So
+`ShareHelper.colorCardImage` renders **1200×800 px ≈ 3.84 MB** per visible grid cell on first
+render, synchronously on the main thread — **≈60–70 MB for a 15–18 cell first screen**, and
+tapping one heart re-runs it for every visible cell (`FavoritesStore` is `@Observable` and
+`ColorBrowseView` reads `isFavorite` in its own body). Long-press is the one moment it costs
+nothing extra.
+
+**Not fixed this round** — the owner's rule was "no B unless A passes", and an unreleased iOS edit
+buys nothing. Flagged in `human-todo.md` as a one-line yes/no; the fix is ~3 lines.
+
+**Meta-lesson, and the reason 5.4 is the most important line here: a *correction* needs the same
+verification as an *assertion*.** I debunked a real finding with a plausible-sounding claim about
+SwiftUI semantics that I never tested — inside a document whose entire thesis is that this project
+builds before it measures.
+
+### Two more corrections, both to §3's design
+
+- **A criterion may not name its own expected answer inside a branch.** §3 reads "if popularity is
+  very low (**the expected result**) → premise falsified → close permanently", with the only other
+  branch labelled "**unexpectedly** substantial". That is a gate drafted to close, not to decide —
+  the same charge §3 itself levels at the "≥300 impressions in 6 weeks" criterion.
+- **Branch A never needed a keyword tool at all.** Using the plan's own GSC numbers: 1,290 clicks
+  at 21.2% CTR ⇒ 6,085 impressions/90d = **67.6 worldwide Google searches per day**, while the
+  unfreeze line is **100 downloads/day** — 1.5× the concept's entire worldwide query volume. Two
+  lines of arithmetic on data already in hand would have closed it. (The "~700× short" framing also
+  only applies to branch A; branch B, cumulative IAP >$100, is 10–65× at $9.99/2% or $2.99/1%.)
+
+Also logged, but explicitly **not** as "the check we should have run instead": the ASC **App Store
+Discovery and Engagement** report family was never pulled, though the `.p8` on disk makes it free
+and immune to the sign-in failure. It measures *this app's* impressions, which a zero-ranking app
+has near-zero of regardless, so it cannot answer the keyword-demand question Gate A asked.
+
+---
+
 ## 2026-09-03 — [remote] iOS: read the gate that was three weeks overdue, wrote a v1.4 plan, then killed it
 
 Owner asked for a plan to ship a new iOS version. I wrote one, had it reviewed by **Gemini 3.1 Pro
