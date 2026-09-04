@@ -1,3 +1,70 @@
+## 2026-09-05 — [remote] v1.4 submitted to App Store review, WAITING_FOR_REVIEW
+
+Owner: "no Apple Ads; submit and release it via ASC yourself, you have full authority." Done.
+
+| | |
+|---|---|
+| version | **1.4** (`448779cf-34f5-49f0-aa16-58d9cdc906eb`) |
+| build | **7** (`875b3c2a-87d1-4dac-80da-deb9c22130f4`, VALID) |
+| state | **WAITING_FOR_REVIEW**, submitted 2026-09-04T17:35:20Z |
+| release | **AFTER_APPROVAL** — goes live on approval with no second click |
+
+`AFTER_APPROVAL` follows 1.3 (1.2.1 used MANUAL). **That means approval ships it with no human
+gate in between.** Switchable to manual release in ASC any time before approval, and the
+human-todo says so.
+
+### How, and what it reuses
+
+Followed the Nihongo Ride house pattern (`~/Documents/typing_app/scripts/asc_release.py` plus a
+per-release `submit_<version>.py`): config lives in the release script, the same API call order
+every time, and a **read-back from Apple** at the end rather than trusting what we believe we
+sent. Ported into this repo as `ios/scripts/asc_api.sh` (ES256 JWT over the shared team key
+`DMMFP6XTXX`) and `ios/scripts/submit_1_4.py` (`--dry-run` / `--metadata` / `--submit`, with a
+preflight for the star glyph and the 4000-char limits).
+
+Archive and upload used the `ios/ExportOptions-upload.plist` that was already in the repo.
+**iOS App Store submission needs no notarization** — that is the macOS path — so none of this
+touched the data-protection keychain and none of it was exposed to the screen-lock failure mode.
+
+**The archive was verified item by item before upload**, against the build product rather than the
+settings: `CFBundleShortVersionString=1.4`, `CFBundleVersion=7`, all three of
+`PostHogAPIKey`/`PostHogHost`/`SentryDSN` present, the privacy manifest carrying
+`ProductInteraction Linked=True`, and the SDK manifests (PostHog, PHPLCrashReporter, Sentry)
+present for Apple to aggregate.
+
+### One code change added before submitting: ProductInteraction in the privacy manifest
+
+§7.6 called this "cosmetic consistency, not a compliance fix". **That verdict rested on PostHog
+being a no-op** — which §8.1 has now fixed, so this is the first build that genuinely collects.
+The premise changed, so the conclusion did.
+
+🔴 **And it is not a copy of the SDK's entry.** posthog-ios declares
+`ProductInteraction Linked=False`, which is right for the SDK in general and **wrong for this
+app**: ColorArchive calls `identify()` with the user's numeric account id, which Apple treats as
+linked, and the ASC nutrition label has said linked = Yes since 2026-06-07. The app's own entry is
+the strictest and most accurate of the three; the SDK's generic one under-states us.
+
+### The review notes name the change rather than letting review find it
+
+Stated plainly: the custom `INFOPLIST_KEY_*` keys were silently dropped so **neither SDK had ever
+initialised and no data was ever collected**; 1.4 fixes that; hence the new ProductInteraction
+declaration; the nutrition label is unchanged; no ad SDK, no IDFA, no ATT, no broker sharing;
+search sends **length and result count only, never the query**; session replay and autocapture off.
+
+What's New says the two things a user can act on — the grid is faster and lighter, and crash
+reporting was never actually running and now does. No invented social proof (the app has 0
+ratings), and **no description, keyword, subtitle, screenshot or IAP change** — this cycle's
+distribution change is the website, not the store listing.
+
+### Next
+
+Review is usually 24–48h, then it ships itself. **First thing to check once live: whether
+`posthog-ios` shows real events** — this is the first build in which the instrument can work at
+all. Subtract the 2026-09-04 16:31–16:36 UTC simulator events. Same for Sentry: first build that
+can actually report a crash.
+
+---
+
 ## 2026-09-05 — [remote] Building v1.4 found the thing that actually broke iOS analytics: the key never reached the bundle
 
 Owner decided to ship v1.4 — reason: **link to the app from the website to drive traffic.** That

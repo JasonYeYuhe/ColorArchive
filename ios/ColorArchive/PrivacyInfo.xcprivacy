@@ -20,6 +20,38 @@
 				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
 			</array>
 		</dict>
+		<!--
+		  ProductInteraction (PostHog), added for v1.4.
+
+		  Two things make this the app's own declaration rather than a duplicate of the SDK's:
+
+		  1. Until v1.4 the app collected NOTHING. `INFOPLIST_KEY_PostHogAPIKey` was set in
+		     project.pbxproj, but Xcode only injects INFOPLIST_KEY_* for keys it RECOGNISES, so
+		     the custom key never reached the built Info.plist and AnalyticsBootstrap.start()
+		     returned early on every launch. v1.4 fixes that, so this is the first build in which
+		     product-interaction data is genuinely collected.
+
+		  2. 🔴 posthog-ios ships its own manifest declaring ProductInteraction with
+		     Linked = FALSE. That is correct for the SDK in general and WRONG for this app:
+		     ColorArchive calls identify() with the user's numeric account id for signed-in
+		     users, which Apple treats as linked to identity. The ASC App Privacy label has said
+		     "Linked to identity = Yes" since 2026-06-07. This entry is what makes the app's own
+		     manifest agree with the label instead of under-stating it.
+
+		  Tracking stays false: no advertising SDK, no IDFA, no cross-app or data-broker sharing.
+		-->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeProductInteraction</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
+			</array>
+		</dict>
 		<dict>
 			<key>NSPrivacyCollectedDataType</key>
 			<string>NSPrivacyCollectedDataTypeOtherDiagnosticData</string>

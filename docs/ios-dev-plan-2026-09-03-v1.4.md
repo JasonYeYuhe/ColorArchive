@@ -629,3 +629,87 @@ owner 解锁了 1Password 扩展,登录这次一路通到底:
 
 如果 owner 出于别的理由本来就想开 Apple Ads 账号,那另说;
 但那是一个投放决定,不是这个 gate 的一部分。
+
+---
+
+# §10 v1.4 已提审(2026-09-05)· `WAITING_FOR_REVIEW`
+
+owner:「不投 apple ads,你直接帮我提审发布 ASC,你全权负责」。已执行。
+
+## 10.1 结果
+
+| | |
+|---|---|
+| 版本 | **1.4**(id `448779cf-34f5-49f0-aa16-58d9cdc906eb`) |
+| 构建 | **build 7**(id `875b3c2a-87d1-4dac-80da-deb9c22130f4`,`VALID`) |
+| 状态 | **`WAITING_FOR_REVIEW`** |
+| 提交时间 | 2026-09-04T17:35:20Z |
+| 发布方式 | **`AFTER_APPROVAL`** —— **过审后自动上架,不需要你再点一次** |
+
+`AFTER_APPROVAL` 是沿用 1.3 的约定(1.2.1 用的是 `MANUAL`)。
+⚠️ **这意味着过审即上线,中间没有人工闸门。** 如果想改成手动放行,
+在 ASC → App 版本 → 「手动发布此版本」即可,过审前随时能改。
+
+## 10.2 怎么做的(可复用)
+
+参照 Nihongo Ride(`~/Documents/typing_app/scripts/asc_release.py` +
+`submit_<version>.py`)的房规:配置写在发版脚本里、每次同样的 API 调用顺序、
+最后**从 Apple 读回**而不是相信自己发了什么。落到本仓库:
+
+- `ios/scripts/asc_api.sh` —— ES256 JWT + ASC REST(共用 team key `DMMFP6XTXX`,
+  issuer `c5671c11-…`)。key 路径按 `~/.appstoreconnect/private_keys/` →
+  `CLI-Pulse-Secrets/` → iCloud 依次回退。
+- `ios/scripts/submit_1_4.py` —— 三段式 `--dry-run` / `--metadata` / `--submit`,
+  带 preflight(★ 字形、4000 字上限)和读回校验。
+
+归档/上传用仓库里本来就有的 `ios/ExportOptions-upload.plist`
+(`method: app-store-connect`,`destination: upload`,`signingStyle: automatic`):
+
+```bash
+xcodebuild -project ColorArchive.xcodeproj -scheme ColorArchive -configuration Release \
+  -destination 'generic/platform=iOS' -archivePath <path>.xcarchive \
+  -allowProvisioningUpdates -authenticationKeyPath ~/.appstoreconnect/private_keys/AuthKey_DMMFP6XTXX.p8 \
+  -authenticationKeyID DMMFP6XTXX -authenticationKeyIssuerID c5671c11-… archive
+xcodebuild -exportArchive -archivePath <path>.xcarchive \
+  -exportOptionsPlist ios/ExportOptions-upload.plist -exportPath <out> …
+```
+
+**iOS 上架不需要 notarization**(那是 macOS 的事),所以**不受锁屏影响** ——
+全程用 `.p8`,没碰 data-protection keychain。
+
+**归档前逐项验过构建产物**(不是「设置里写了」):
+`CFBundleShortVersionString=1.4`、`CFBundleVersion=7`、
+`PostHogAPIKey`/`PostHogHost`/`SentryDSN` 三个键都在、
+privacy manifest 含 `ProductInteraction Linked=True`,
+且 SDK 各自的 manifest(PostHog / PHPLCrashReporter / Sentry)也都在包里被聚合。
+
+## 10.3 提审前补的一处改动:PrivacyInfo 加 `ProductInteraction`
+
+§7.6 判定它是「观感一致性,不是合规修复」。**那个判断的前提是 PostHog 是空操作** ——
+现在 §8.1 修好了,它**第一次真的开始采集**,前提变了,所以补上。
+
+🔴 **而且这条不是抄 SDK 的:** posthog-ios 自带的 manifest 写的是
+`ProductInteraction Linked=**False**`,那对通用 SDK 成立,**对本 app 不成立** ——
+ColorArchive 对登录用户用账号 id 调 `identify()`,Apple 视为 linked,
+ASC 营养标签自 2026-06-07 起也一直写的是 **linked = Yes**。
+**app 自己这条是三者中最严格、最准确的**,SDK 那条低报了。
+
+## 10.4 审核备注里主动交代了什么
+
+**没有让审核自己从 manifest diff 里发现。** 备注明写:
+以前 `INFOPLIST_KEY_*` 自定义键被静默丢弃 ⇒ 两个 SDK 从未初始化、**从来没采集过任何数据**;
+1.4 修好了 ⇒ 因此新增 `ProductInteraction` 声明;
+营养标签**未变**(6-07 起就是这么写的);
+无广告 SDK / 无 IDFA / 无 ATT / 不与数据经纪商共享;
+搜索**只发长度和命中数,不发查询词**;session replay 与 autocapture 全关。
+
+What's New 写了两条用户能理解的:网格更快更省内存;崩溃上报此前根本没在工作、现在能收到了。
+**没有编任何社会证明**(app 目前 0 条评价),也**没有改** description / 关键词 / 副标题 /
+截图 / IAP —— 这一轮的分发改动在网站,不在商店页。
+
+## 10.5 待办
+
+- 审核结果:通常 24–48 小时。过审后**自动上架**。
+- 上架后第一件事:**看 `posthog-ios` 有没有真实事件** ——
+  这是历史上第一个埋点真能工作的版本,⚠️ 记得扣掉 09-04 16:31–16:36 UTC 那批模拟器事件。
+- Sentry 同理:这也是崩溃上报第一次真的能上报。
