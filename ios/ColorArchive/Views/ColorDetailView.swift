@@ -37,13 +37,7 @@ struct ColorDetailView: View {
                         HStack(spacing: 12) {
                             // Share button
                             #if os(iOS)
-                            if let img = ShareHelper.colorCardImage(for: color) {
-                                ShareLink(item: img, preview: SharePreview(color.name, image: img)) {
-                                    Image(systemName: "square.and.arrow.up")
-                                        .font(.body)
-                                        .foregroundStyle(color.textColor)
-                                }
-                            }
+                            ColorShareButton(color: color)
                             #endif
                             // Favorite button
                             Button {
@@ -332,3 +326,28 @@ struct ColorDetailView: View {
         .buttonStyle(.plain)
     }
 }
+
+#if os(iOS)
+/// The share card render is expensive (600x400 at scale 2 = 1200x800 px, ~3.84 MB) and
+/// `ShareLink` needs its item
+/// up front, so this lives in its OWN view whose only input is `color`.
+///
+/// 🔴 Do NOT inline this back into the `.overlay { }` above. Inlined, it re-rendered the share
+/// card on every body evaluation of `ColorDetailView` — measured: one render on open, and
+/// another one on *every* favourite toggle, because `favoritesStore` is `@Observable` and the
+/// body reads it. `ColorRecord` is `Hashable`, so as its own view SwiftUI diffs the input and
+/// skips the body when only the favourite state changed.
+private struct ColorShareButton: View {
+    let color: ColorRecord
+
+    var body: some View {
+        if let img = ShareHelper.colorCardImage(for: color) {
+            ShareLink(item: img, preview: SharePreview(color.name, image: img)) {
+                Image(systemName: "square.and.arrow.up")
+                    .font(.body)
+                    .foregroundStyle(color.textColor)
+            }
+        }
+    }
+}
+#endif

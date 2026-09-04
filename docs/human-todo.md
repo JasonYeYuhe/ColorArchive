@@ -52,19 +52,34 @@
 > | 5.1 | PrivacyInfo 缺 ProductInteraction = **合规缺口** | ❌ **证伪。** posthog-ios 3.59.3 **自带** manifest 已声明 ProductInteraction 并 `.copy` 进 bundle;ASC 营养标签 **2026-06-07 就已正确声明**。补进 app manifest 是**观感一致性,不是合规修复** |
 > | 5.2 | 退后台不 flush,事件会丢 | ❌ **证伪。** SDK `PostHogSDK.swift:216-220` 订阅 `didEnterBackgroundNotification` 并 `flush()`,默认开。**上次是只 grep 了 app 树 —— grep 看不见 SDK 行为** |
 > | 5.3 | 16 个 capture 点,三个核心视图 0 个 | ⚠️ 数字对(13 capture + 3 screen)。**但漏了第 4 个文件 `ColorCardView`(拿着 Copy HEX 菜单的那个)也是 0**;且「只看到一个 `$screen`」错了(切 tab 就发)。正确说法:**浏览 200 个颜色、复制 10 个 hex 产生零事件** |
-> | 5.4 | ImageRenderer 在 contextMenu 里,**长按才构建**,不是首屏问题 | 🔴 **我上次这条「更正」本身是错的,原评审是对的** |
+> | 5.4 | ImageRenderer 在 contextMenu 里,**长按才构建**,不是首屏问题 | 🔴 **我上次这条「更正」本身是错的,原评审是对的** —— 🟢 **已修并实测,见下** |
 >
-> **关于 5.4(唯一一条现在线上正在生效的真实缺陷):**
+> **关于 5.4 —— 🟢 已修,并且是在跑起来的 app 里数出来的(2026-09-04)**
+>
 > SwiftUI 的 `contextMenu(menuItems:)` **没有 `@escaping`**(iPhoneOS26.5.sdk 接口第 9401 行;
-> 对比 `sheet` 7145/7147 行和 `contextMenu(forSelectionType:)` 21060 行都有),非逃逸闭包
-> **必须在调用返回前执行**;编译探针也实测跑了。而 `ColorCardView.swift:72` 的调用**直接在
-> ViewBuilder body 里**(是 `if let`,不是 Button 的 action)。所以
-> `ShareHelper.colorCardImage` 以 **1200×800 px ≈ 3.84 MB/张**,在浏览网格**每个可见 cell 首次
-> 渲染时**同步跑在主线程 ⇒ 首屏 15–18 张 ≈ **60–70 MB**。点一次心还会让所有可见 cell 重跑一遍。
+> 对比 `sheet` 7145/7147 行有),非逃逸闭包**必须在调用返回前执行**;而
+> `ColorCardView.swift:72` 的调用**直接在 ViewBuilder body 里**(是 `if let`,不是 Button action)。
 >
-> **我没有改它** —— 你给的规则是「A 不通过就不做 B」,而 iOS 改动只有发版时才有意义。
-> **要不要现在在仓库里修掉、搭下一次发版?一句话我就做**(改 `ColorCardView.swift:72`,
-> 把渲染挪出 builder body 改成惰性求值,约 3 行)。
+> 我没有停在推理上 —— 临时给 `ShareHelper.colorCardImage` 加计数 + `NSLog`,
+> 用 `xcrun simctl spawn … log stream` 在 iPhone 17 Pro / iOS 26.5 上数,量完移除:
+>
+> | 场景 | 修前 | 修后 |
+> |---|---:|---:|
+> | 冷启动进浏览网格,**零交互** | **15** | **0** |
+> | 再上滑一屏 | **30** | **0** |
+> | 长按一张卡 | — | **1**(只渲染被按的那张) |
+> | 详情页里连点 3 次收藏 | **4** | **1** |
+>
+> 每次 = 1200×800 px ≈ **3.84 MB**,同步跑主线程 ⇒ 修前首屏白送 **≈57.6 MB**。
+>
+> **改法:** `ColorCardView` 和 `ColorDetailView` 各抽出一个 `private struct` 把 `ShareLink`
+> 包起来(前者靠「呈现时才求 body」,后者靠 `ColorRecord: Hashable` 让 SwiftUI diff 掉)。
+> **没新增文件,所以不碰 pbxproj。** 两处都写了「不要再 inline 回去」的注释和原因。
+>
+> **行为逐项核对没变**:菜单仍是 Copy HEX/RGB/HSL + Add Favorite + Share;点 Share 正常弹系统
+> 面板,**预览缩略图还在**。Debug 与 **Release** 均构建通过。
+>
+> ⚠️ **只进了仓库,没有发版。** 结论仍是 DO NOT SHIP,这个修复搭下一次因别的原因发的版。
 >
 > ### 5. 两条方法论,已写进 §7
 >

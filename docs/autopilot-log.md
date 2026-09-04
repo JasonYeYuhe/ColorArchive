@@ -92,8 +92,36 @@ tapping one heart re-runs it for every visible cell (`FavoritesStore` is `@Obser
 `ColorBrowseView` reads `isFavorite` in its own body). Long-press is the one moment it costs
 nothing extra.
 
-**Not fixed this round** — the owner's rule was "no B unless A passes", and an unreleased iOS edit
-buys nothing. Flagged in `human-todo.md` as a one-line yes/no; the fix is ~3 lines.
+**Fixed after the owner said to carry on — and measured in the running app rather than argued
+from the signature.** Temporary counter + `NSLog` in `ShareHelper.colorCardImage`, read with
+`xcrun simctl spawn <sim> log stream`, on iPhone 17 Pro / iOS 26.5; instrumentation removed after.
+
+| scenario | before | after |
+|---|---:|---:|
+| cold launch into the browse grid, **zero interaction** | **15** | **0** |
+| + one screenful of scrolling | **30** | **0** |
+| long-press one card (menu opens) | — | **1**, and only for the pressed card |
+| open one colour detail view | 1 | 1 |
+| + 3 favourite toggles in the detail view | **4** | **1** |
+
+At ~3.84 MB a render that is **≈57.6 MB handed away on the first screen alone**, plus another
+screenful every scroll. (My first reading said 16 and 31 — the log-stream header line itself
+contains the search string. Corrected to 15 and 30.)
+
+The fix is one extracted `private struct` per site: `ShareCardMenuItem` in `ColorCardView.swift`
+(constructing it is free; its `body` runs when the menu is actually presented) and
+`ColorShareButton` in `ColorDetailView.swift`, whose only input is `color` — `ColorRecord` is
+`Hashable`, so SwiftUI diffs it and skips the body when only favourite state changed. The detail
+view could *not* be fixed by deferral, since that button is always visible; there it is the diff
+that does the work. No new files, so **no pbxproj edit** (the known short-ID trap). Both new
+structs carry a "do not inline this back" comment with the reason, so the next cleanup pass
+doesn't walk into it again.
+
+Behaviour checked item by item against screenshots: the menu is still Copy HEX / RGB / HSL /
+divider / Add Favorite / **Share**; tapping Share opens the system sheet **with the preview
+thumbnail intact**. Debug *and* Release both build clean.
+
+⚠️ **Repo only — nothing shipped.** v1.4 is still DO NOT SHIP; this rides whatever ships next.
 
 **Meta-lesson, and the reason 5.4 is the most important line here: a *correction* needs the same
 verification as an *assertion*.** I debunked a real finding with a plausible-sounding claim about

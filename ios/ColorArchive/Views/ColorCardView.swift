@@ -69,11 +69,7 @@ struct ColorCardView: View {
             }
 
             #if os(iOS)
-            if let image = ShareHelper.colorCardImage(for: color) {
-                ShareLink(item: image, preview: SharePreview(color.name, image: image)) {
-                    Label("Share", systemImage: "square.and.arrow.up")
-                }
-            }
+            ShareCardMenuItem(color: color)
             #endif
         }
     }
@@ -87,3 +83,27 @@ struct ColorCardView: View {
         #endif
     }
 }
+
+#if os(iOS)
+/// The share item is a SEPARATE view so that rendering the share card is deferred to the
+/// moment the context menu is actually presented.
+///
+/// 🔴 Do NOT inline this back into the `.contextMenu { }` builder. `contextMenu(menuItems:)`
+/// takes a NON-`@escaping` closure (SwiftUI interface, iPhoneOS26.5.sdk line 9401 — compare
+/// `sheet` at 7145, which IS `@escaping`), so SwiftUI runs that builder during the parent's
+/// body evaluation, not on long-press. Calling `ShareHelper.colorCardImage` directly in there
+/// rendered a 1200x800 (~3.84 MB) image for EVERY visible grid cell on first paint, on the
+/// main thread: measured 15 renders on cold launch with zero user interaction, and +15 per
+/// screenful of scrolling (0 after this change; 1 on the long-press that actually needs it). Constructing this struct is free; its `body` runs on presentation.
+private struct ShareCardMenuItem: View {
+    let color: ColorRecord
+
+    var body: some View {
+        if let image = ShareHelper.colorCardImage(for: color) {
+            ShareLink(item: image, preview: SharePreview(color.name, image: image)) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+        }
+    }
+}
+#endif

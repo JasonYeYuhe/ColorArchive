@@ -375,6 +375,39 @@ Button 的 action 闭包 —— action 闭包才是逃逸的):
 🔴 **元教训:「更正」需要和「断言」同等的验证。这次差点把一个真实发现永久关掉 ——
 而它出现在一份专门批评「先建后测」的文档里。**
 
+### 🟢 7.6b 已修并在真机模拟器里实测(2026-09-04 当日)
+
+owner 说「继续做」,所以修了。**不是推理,是在跑起来的 app 里数出来的** ——
+临时在 `ShareHelper.colorCardImage` 里加计数 + `NSLog`,用
+`xcrun simctl spawn <sim> log stream` 抓,量完即移除。设备 iPhone 17 Pro / iOS 26.5,Debug 构建。
+
+| 场景 | 修前 | 修后 |
+|---|---:|---:|
+| 冷启动进浏览网格,**零交互** | **15** | **0** |
+| 再上滑一屏 | **30** | **0** |
+| 长按一张卡(菜单弹出) | — | **1**(且只渲染被长按的那一张 `crimson-ink-pure`) |
+| 打开一个颜色详情页 | 1 | 1 |
+| 详情页里连点 3 次收藏 | **4** | **1** |
+
+每次渲染 = 1200×800 px ≈ **3.84 MB**,同步跑在主线程。
+⇒ 修前首屏白送 **≈57.6 MB**、每滑一屏再送一次;详情页每次 body 重算再送一次。
+
+**改法(两处,都没新增文件,所以不碰 pbxproj):**
+- `ColorCardView.swift` —— 把 `ShareLink` 抽成 `private struct ShareCardMenuItem: View`。
+  构造这个 struct 是免费的,它的 `body` 要等**菜单真正呈现**时才求值。
+- `ColorDetailView.swift` —— 抽成 `private struct ColorShareButton: View`,**唯一输入是 `color`**。
+  `ColorRecord: Hashable`,所以只有收藏状态变化时 SwiftUI 会 diff 掉、跳过 body。
+  (这里**不能**靠「延迟到呈现」—— 分享按钮本来就一直可见;起作用的是 diff。)
+- `ShareSheet.swift` —— 给 `colorCardImage` 加了 🔴 注释说明它有多贵。
+  两个新 struct 上都写了「**不要再 inline 回去**」以及原因,免得下一个人「顺手清理」时又踩回来。
+
+**行为逐项确认没变**(截图核对):上下文菜单仍是 Copy HEX / RGB / HSL / 分隔线 / Add Favorite /
+**Share**;点 Share 正常弹出系统分享面板,**预览缩略图仍在**(卡片图 + 色号),
+Save Image / Assign to Contact 等图片动作都在。Debug 与 **Release** 两个 configuration 均构建通过。
+
+⚠️ **这只是进了仓库,没有发版。** v1.4 的结论仍然是 DO NOT SHIP;这个修复搭下一次
+因别的原因发的版。
+
 ## 7.7 §3 判据本身的措辞缺陷(以后不许再犯)
 
 §3 的分支写的是「若热度极低(**预期结果**)→ 前提当场证伪,**永久关闭**」,另一支标为

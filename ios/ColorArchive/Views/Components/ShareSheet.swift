@@ -1,7 +1,11 @@
 import SwiftUI
 
 enum ShareHelper {
-    /// Generate a shareable color card image
+    /// Generate a shareable color card image.
+    ///
+    /// 🔴 EXPENSIVE: 600x400 at scale 2.0 = 1200x800 px ≈ 3.84 MB, rendered synchronously on the
+    /// main thread. Never call this from a view builder that runs eagerly — see the notes on
+    /// `ShareCardMenuItem` (ColorCardView.swift) and `ColorShareButton` (ColorDetailView.swift).
     @MainActor
     static func colorCardImage(for color: ColorRecord, size: CGSize = CGSize(width: 600, height: 400)) -> Image? {
         let view = ShareColorCard(color: color)
