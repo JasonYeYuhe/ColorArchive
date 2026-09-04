@@ -85,6 +85,7 @@ interface SiteHeaderProps {
     | "/duotone"
     | "/paint-mix"
     | "/unsubscribe"
+    | "/ios"
     | "/embed/embed-code";
 }
 

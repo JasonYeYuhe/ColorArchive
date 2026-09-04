@@ -94,6 +94,7 @@ ColorArchive/
 │   ├── color-wheel/               # /color-wheel/ — Interactive harmony wheel (archive-snapped)
 │   ├── color-temperature/         # /color-temperature/ — Kelvin→RGB converter with lighting presets
 │   ├── dark-mode-colors/          # /dark-mode-colors/ — Light→dark palette converter (CSS/Tailwind export)
+│   ├── ios/                      # /ios/ — App Store landing page for the iOS companion app
 │   ├── duotone/                   # /duotone/ — Two-color image effect (local canvas processing)
 │   ├── paint-mix/                 # /paint-mix/ — Paint mixing recipe calculator (subtractive approx)
 │   ├── brand/                     # /brand/ — Brand palette system builder
@@ -225,6 +226,8 @@ ColorArchive/
 │   │   ├── color-wheel-page.tsx         # Interactive harmony wheel
 │   │   ├── color-temperature-page.tsx   # Kelvin→RGB converter
 │   │   ├── dark-mode-colors-page.tsx    # Light→dark palette converter
+│   │   ├── ios-page.tsx                 # /ios/ landing page (features + what stays web-only)
+│   │   ├── app-store-link.tsx           # The single App Store link component; fires app_store_click on click only
 │   │   ├── duotone-page.tsx             # Duotone image effect
 │   │   ├── paint-mix-page.tsx           # Paint mixing recipes
 │   │   ├── token-generator-page.tsx     # Design token generator
@@ -362,6 +365,7 @@ ColorArchive/
 │   │   ├── color-journal.ts              # Daily check-in (localStorage): one entry/day, streak calc, subscribe pattern, calendar grid generator
 │   │   ├── color-brand-matches.ts        # Reverse index: given any hex, find brand-catalog colors within distance threshold (used by every color detail page)
 │   │   ├── export-watermark.ts           # SVG watermark helper (Free/anon get "colorarchive.org" stamp on exports; Pro is clean)
+│   ├── app-store.ts                  # APP_STORE_URL + listing facts; URL verified live 2026-09-05 (200 → /us/app/colorarchive-color-tools/id6761363087)
 │   └── word-color.ts                 # Deterministic word→color hash
 │   │
 │   └── types/

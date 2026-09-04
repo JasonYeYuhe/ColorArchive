@@ -1,3 +1,110 @@
+## 2026-09-05 — [remote] Building v1.4 found the thing that actually broke iOS analytics: the key never reached the bundle
+
+Owner decided to ship v1.4 — reason: **link to the app from the website to drive traffic.** That
+sidesteps the reviewers' objection rather than contradicting it: they argued App Store *search*
+would never discover us, and the owner's channel is our own site, which has real traffic. Scope:
+**minimal** (perf fix + core-loop instrumentation + version bump), no word→color port.
+
+Flagged once and then got on with it: **linking to the app never needed a release** — v1.3 has been
+live since 2026-07-22. Shipping and linking are separable; the owner chose to do both.
+
+### 🔴 PostHog and Sentry had never initialised. Not once.
+
+While adding the core-loop events I checked whether the key actually reaches the bundle:
+
+```
+PlistBuddy -c "Print PostHogAPIKey" <built>/ColorArchive.app/Info.plist
+→ Print: Entry, "PostHogAPIKey", Does Not Exist
+```
+
+**Cause:** `project.pbxproj` sets `INFOPLIST_KEY_PostHogAPIKey` / `_PostHogHost` / `_SentryDSN`, and
+Xcode's `INFOPLIST_KEY_*` mechanism **only injects keys it recognises**. Custom keys are dropped
+silently, with no warning. The build proves itself: every *recognised* one landed
+(`CFBundleDisplayName`, `LSApplicationCategoryType`, `UILaunchScreen`, `UIApplicationSceneManifest`,
+`UISupportedInterfaceOrientations~*`) and the only three missing are the three custom ones.
+
+Confirmed at runtime rather than inferred — a logged lookup in a simulator build printed
+`key_present=false … PostHog NOT started`. So `AnalyticsBootstrap.start()` hit its `else { return }`
+every launch: **all 16 capture calls in the app were no-ops, and SentryBootstrap was dead the same
+way.** This is more fundamental than "the core loop has no events" — even a fully instrumented core
+loop could not have sent anything. It also explains the 3 lifetime `posthog-ios` events (a residue
+of some earlier build where the key did land).
+
+🔴 **Fourth instance of the same failure mode: "it is in the config" standing in for "it works at
+runtime."** v1.3's plan grepped a build setting to prove analytics worked; this is a build setting
+standing in for the built plist. **Rule: verify configuration against the build product or the
+running app, never against the settings.**
+
+Fixed in `ColorArchive/Info.plist` with `$(INFOPLIST_KEY_…)` references, so pbxproj stays the single
+source of truth **and the hand-written short-id pbxproj does not have to be touched.**
+
+### Instrumentation, verified all the way to production PostHog
+
+Four new call sites, names and props matching the web taxonomy (web uses **lowercase** formats):
+`color_copied {format, variant:"card"}` from the grid long-press, `color_copied {format,
+variant:"detail"}` from the detail rows — the *same* variant the web detail page sends —
+`screen("color_detail")`, and `search_performed {query_length, result_count}`.
+
+Then queried project 456902 and found them actually arrived:
+
+```
+color_copied  format=hex variant=card   n=1
+color_copied  format=rgb variant=detail n=1
+search_performed  qlen=5 results=560 ×2 · qlen=4 results=574
+$screen n=3 · Installed 1 · Opened 2 · Backgrounded 1
+```
+
+⚠️ **Those are simulator verification events from 2026-09-04 16:31–16:36 UTC, not real users.**
+Subtract them from any iOS readout.
+
+**A correction I had to make to my own correction.** The search event first used
+`.onSubmit(of: .search)`; PostHog showed nothing and I concluded it never fired. **Wrong** — I had
+used `simctl terminate`, which does *not* trigger `didEnterBackground`, so the events sat in the
+on-disk queue. They arrived later on their own (the two `qlen=5` rows above). `.onSubmit` works. It
+was still replaced with a debounced `.task(id:)`, for a different and real reason: results update
+live as you type, so almost nobody presses Return and the event would have under-counted silently
+and read as "nobody searches". **Second time this session that a correction of mine needed
+correcting** — I fixed the code comment that asserted the false version before committing it.
+
+### Website → app, all four placements
+
+`/ios/` landing page (new route, its own `SoftwareApplication` JSON-LD with
+`operatingSystem: "iOS 17.0 or later"` — deliberately *not* merged into the `/pro/` node, which
+describes the web product and whose prices Google quotes), a footer pill, a quiet text line under
+the homepage hero CTAs (not a fourth button — an app with ~1 download/week has not earned equal
+weight with the site's own funnel), and a block in the `/word-to-color/` result card.
+
+All four go through one `AppStoreLink` component that fires `app_store_click {surface}` **on click
+only, never on render** — W1 runs until ~2026-10-12 and no page-load event may be added.
+
+🔴 **The URL was measured, not constructed from memory:** `https://apps.apple.com/app/id6761363087`
+returns 200 and redirects to `/us/app/colorarchive-color-tools/id6761363087`; the lookup API gives
+`ColorArchive - Color Tools`, Free, Graphics & Design, iOS 17.0, **0 ratings**. The id-only form is
+deliberate — Apple adds the storefront segment and slug per viewer.
+
+**The copy says what the app does not do.** `/ios/` carries a "These stay on the web" block
+(word→color, brand generator, Figma/Tailwind exports) and the `/word-to-color/` CTA says outright
+that the word generator stays on the web. The site's largest search entry point is for a feature the
+app lacks; hiding that buys one-star reviews, not installs. With 0 ratings there is no social proof
+to cite, and none was invented.
+
+Also corrected `privacy-page.tsx:139`, which linked "App Store privacy nutrition labels" at the bare
+domain `https://apps.apple.com`. **href only — the wording is tied to the published App Privacy
+labels and was left untouched.**
+
+### Gate A: still not run, but the cause is now exact
+
+The owner signed in to 1Password and the bridge did work (`request_credentials` → `approved`), but
+every fill returned `tab_unavailable` until a screenshot showed **"Unlock 1Password"** sitting in the
+sign-in field: **the Chrome extension is locked** (signing in to the desktop app is not the same
+thing). Only the owner can enter that master password. Gate A stays **NOT RUN** — and it is now
+record-keeping only: the ship decision is made, and freeze/unfreeze reads downloads, not keywords.
+
+Checks: vitest 45 files / 782 tests, server 70, typecheck clean, Debug **and** Release iOS builds
+succeed, `/ios/` renders in light and dark (console clean apart from the known localhost CORS noise).
+
+---
+
 ## 2026-09-04 — [remote] Gate A did not run. The substitute instrument is broken. Three of the four §5 claims were false — including a "correction" I made yesterday
 
 Owner asked for the 5-minute free precheck that was the *only* pre-registered condition capable of

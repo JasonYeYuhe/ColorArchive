@@ -37,21 +37,21 @@ struct ColorCardView: View {
         .buttonStyle(.plain)
         .contextMenu {
             Button {
-                copyToClipboard(color.hex)
+                copyToClipboard(color.hex, format: "hex")
                 HapticManager.success()
             } label: {
                 Label("Copy HEX", systemImage: "number")
             }
 
             Button {
-                copyToClipboard(color.rgbString)
+                copyToClipboard(color.rgbString, format: "rgb")
                 HapticManager.success()
             } label: {
                 Label("Copy RGB", systemImage: "paintpalette")
             }
 
             Button {
-                copyToClipboard(color.hslString)
+                copyToClipboard(color.hslString, format: "hsl")
                 HapticManager.success()
             } label: {
                 Label("Copy HSL", systemImage: "circle.lefthalf.filled")
@@ -74,13 +74,21 @@ struct ColorCardView: View {
         }
     }
 
-    private func copyToClipboard(_ value: String) {
+    /// `format` is lowercase to match the web taxonomy exactly ("hex"/"rgb"/"hsl" in
+    /// src/components/color-detail-page.tsx), so the two platforms land in one funnel.
+    /// `variant: "card"` separates the browse-grid long-press from the web's "action"
+    /// pill and "detail" row — this surface has no web equivalent.
+    private func copyToClipboard(_ value: String, format: String) {
         #if os(iOS)
         UIPasteboard.general.string = value
         #elseif os(macOS)
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(value, forType: .string)
         #endif
+        AnalyticsBootstrap.capture(
+            "color_copied",
+            ["format": format, "variant": "card", "color_id": color.id]
+        )
     }
 }
 

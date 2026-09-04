@@ -2,6 +2,59 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🔴 2026-09-05 — v1.4 已构建待你提审;顺手发现 iOS 埋点**从来没工作过**
+>
+> 你说「直接发 v1.4 + 网站引流」,都做完了。计划书 `docs/ios-dev-plan-2026-09-03-v1.4.md`
+> **§8** 是这一节的全部依据。
+>
+> ### 1. 🔴 最重要的:PostHog 和 Sentry **一次都没初始化过**
+>
+> `project.pbxproj` 里设了 `INFOPLIST_KEY_PostHogAPIKey` 等三个键,但
+> **Xcode 只注入它「认识」的键,自定义键被静默丢弃**。构建产物自证:所有它认识的
+> (`CFBundleDisplayName`、`UILaunchScreen`…)都在,**缺的恰好就是那三个自定义的**。
+> 运行时打日志确认:`key_present=false → PostHog NOT started`。
+>
+> ⇒ **app 里 16 个埋点调用全是空操作,Sentry 崩溃上报也一样死着。** 这比「核心回路没埋点」
+> 更根本 —— 就算有埋点也发不出去。已修(在 `Info.plist` 里用 `$(…)` 引用 build setting,
+> **不用动那个手写短 ID 的 pbxproj**),Release 产物里三个键都在了。
+>
+> 🔴 **这是同一个错误第四次:「配置里写了」≠「运行时生效」。**
+> 以后验证配置只能读**构建产物或运行时**,不能读设置。
+>
+> ### 2. v1.4 里有什么 — 已构建,**等你提审**
+>
+> `MARKETING_VERSION 1.4` / `CURRENT_PROJECT_VERSION 7`,Debug 与 Release 均构建通过。
+>
+> - 上面那个 key 修复(**这一条本身就值回票价**)
+> - 核心回路埋点:网格长按复制 / 详情页色值行复制 / 详情页 screen / 搜索,
+>   事件名与 web 对齐(`color_copied {format, variant}`,format 小写)
+> - 已修的 ImageRenderer 性能缺陷(见 09-04 那条)
+>
+> **端到端验证过**:在生产 PostHog(456902)里查到事件真的到达了。
+> ⚠️ **2026-09-04 16:31–16:36 UTC 有 ~10 条模拟器验证事件,读 iOS 数据时要扣掉。**
+>
+> **➡️ 你要做的:在 Xcode 里 Archive → 上传 → 提审。** 我没有提审 —— 那是对外发布动作,
+> 而且 §5 的 PrivacyInfo / flush 两条我**没做**(§7.6 已证伪,做了是冗余)。
+>
+> ### 3. 网站引流已上线(四个位置全上)
+>
+> `/ios/` 落地页(新路由)· 全站 footer pill · 首页 hero 下一行文字链 · `/word-to-color/` 结果卡。
+> 全部走同一个 `AppStoreLink` 组件,**只在点击时发 `app_store_click {surface}`,render 不发事件**
+> (W1 到 10-12 前禁止新增页面加载事件)。
+>
+> URL 是**实测**的:`https://apps.apple.com/app/id6761363087` → 200,
+> lookup API 返回 `ColorArchive - Color Tools` / Free / iOS 17.0 / **0 条评价**。
+>
+> 🔴 **文案刻意写了 app 没有什么** —— `/ios/` 有一整块「These stay on the web」列出
+> word→color、brand generator、token 导出。因为**流量最大的入口正是 app 没有的那个功能**,
+> 不讲清楚换来的是一星评价而不是安装。0 评价所以文案里没有任何社会证明,也没编。
+>
+> ### 4. Gate A 还是没跑成 —— 原因确定了:**1Password 扩展是锁着的**
+>
+> 凭据桥通了(你登录生效了),但填充一直失败,截图里看到输入框旁挂着
+> **「Unlock 1Password」** —— **桌面 app 登录 ≠ Chrome 扩展解锁**。主密码只能你自己输。
+> 解锁后告诉我,我 5 分钟跑完。**但它现在只是补记录,不承载任何决策。**
+
 > ## 🔴 2026-09-04 — iOS:Gate A **没跑成**(ASA 登录被挡),但方向可以关;外加 4 条更正
 >
 > 计划书 `docs/ios-dev-plan-2026-09-03-v1.4.md`,**新增 §7 是这一节的全部依据**。

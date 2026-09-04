@@ -437,3 +437,143 @@ $2.99 × 1% → 9.2/天),相对当前 0.14/天 是 **10–65 倍**,不是 700 �
 1,290 点击 / 21.2% CTR ⇒ 6,085 曝光 / 90 天 = **全球每天 67.6 次 Google 搜索**,
 而 100 次下载/天 是**整个概念全球查询量的 1.5 倍**。
 **预注册指向 ASA 这件事本身就选错了仪器 —— 手上已有的两行算术就能结案。**
+
+---
+
+# §8 v1.4 已构建(2026-09-05)· owner 决定发版;并且发现了比埋点缺口更根本的东西
+
+> owner 2026-09-05 决定:**发 v1.4**,理由是「在网站上说我们有这个软件来引流」。
+> 这个理由**绕开了评审的核心反对意见** —— 评审反对的是「靠 App Store 搜索被发现」,
+> 而 owner 的渠道是**自己的网站**,那是一个真实存在、有流量的渠道。范围:**最小版**
+> (性能修复 + 核心回路埋点 + 版本号),不做 word→color 移植。
+
+⚠️ 先记一条 owner 应该知道的事:**网站挂 App 推广根本不需要发版**,v1.3 早在架上。
+发版和引流是两件可拆的事;owner 仍选择两件都做。
+
+## 8.1 🔴 最重要的发现:**PostHog 和 Sentry 从来没有初始化过**
+
+补埋点时顺手验证了一下「key 到底有没有进包」,结果:
+
+```
+/usr/libexec/PlistBuddy -c "Print PostHogAPIKey" <built>/ColorArchive.app/Info.plist
+→ Print: Entry, "PostHogAPIKey", Does Not Exist
+```
+
+**根因:** `project.pbxproj` 里设了 `INFOPLIST_KEY_PostHogAPIKey` / `_PostHogHost` /
+`_SentryDSN`,但 **Xcode 的 `INFOPLIST_KEY_*` 机制只注入它「认识」的键**。自定义键被
+**静默丢弃**,没有任何警告。
+
+自证的对照:构建产物里,所有 Xcode **认识**的 `INFOPLIST_KEY_*` 全都在
+(`CFBundleDisplayName`、`LSApplicationCategoryType`、`UILaunchScreen`、
+`UIApplicationSceneManifest`、`UISupportedInterfaceOrientations~*`);
+**缺的恰好就是那三个自定义键**。
+
+**运行时确认**(不是从配置推断 —— 在模拟器里打日志读的):
+```
+PHPROBE key_present=false key_empty=true sentry=false
+PHPROBE RESULT=PostHog NOT started — analytics is a no-op
+```
+
+⇒ `AnalyticsBootstrap.start()` 一直命中 `else { return }`,
+**app 里那 16 个 capture 调用全部是空操作,SentryBootstrap 同样从未启动。**
+
+这比 §5.3「核心回路没埋点」更根本:**就算核心回路有埋点,也一样发不出去。**
+它也解释了 `posthog-ios` 历史上只有 3 条事件(那 3 条来自更早某个 key 确实进了包的构建)。
+
+🔴 **这是同一个错误模式的第四次:「配置里写了」≠「运行时生效」。**
+v1.3 计划书用 config grep 冒充埋点验证;这次是 build setting 冒充 built plist。
+**规则:验证配置类事项,只能读构建产物或运行时,不能读设置。**
+
+**修法**(在 `ColorArchive/Info.plist` 里显式声明,`$(…)` 引用 build setting,
+所以 pbxproj 仍是唯一真值来源,**且不用动那个手写短 ID 的 pbxproj**):
+```xml
+<key>PostHogAPIKey</key><string>$(INFOPLIST_KEY_PostHogAPIKey)</string>
+<key>PostHogHost</key><string>$(INFOPLIST_KEY_PostHogHost)</string>
+<key>SentryDSN</key><string>$(INFOPLIST_KEY_SentryDSN)</string>
+```
+修后运行时:`PHPROBE key_present=true … RESULT=PostHog STARTED`,
+且 **Release 构建产物**里三个键都在。
+
+## 8.2 埋点:端到端验证到 PostHog,不是「加完就算」
+
+新增 4 处,事件名与 props 对齐 web taxonomy(web 用**小写** format:`hex`/`rgb`/`hsl`):
+
+| 位置 | 事件 |
+|---|---|
+| `ColorCardView`(浏览网格长按菜单的三个复制) | `color_copied {format, variant:"card", color_id}` |
+| `ColorDetailView` 的色值行 | `color_copied {format, variant:"detail", color_id}` —— 与 web 详情页**同一个 variant** |
+| `ColorDetailView` 打开 | `screen("color_detail")`(ContentView 只按 tab 发 `$screen`) |
+| `ColorSearchView` | `search_performed {query_length, result_count}` |
+
+**在生产 PostHog(project 456902)里查到了实际到达的事件**,不是本地日志:
+
+```
+$screen                n=3
+Application Installed  n=1   Application Opened n=2   Application Backgrounded n=1
+color_copied  format=hex variant=card    n=1
+color_copied  format=rgb variant=detail  n=1
+search_performed  qlen=5 results=560 / qlen=5 results=560 / qlen=4 results=574
+```
+
+⚠️ **这些是 2026-09-04 16:31–16:36 UTC 从模拟器发出的验证事件,不是真实用户。**
+读 iOS 数据时要扣掉。
+
+**搜索埋点改过一次,过程值得记:** 第一版用 `.onSubmit(of: .search)`,查 PostHog 没看到,
+我一度判定「没触发」。**那个判定是错的** —— 我用的是 `simctl terminate`,而 terminate
+**不触发** `didEnterBackground`,所以事件还在磁盘队列里没发。后来它们自己到了
+(就是上面那两条 `qlen=5`)。`.onSubmit` **是能工作的**。
+最终仍改成 `.task(id:)` 去抖,理由是另一条:结果随输入实时更新,**几乎没人会按回车**,
+`.onSubmit` 会系统性少计,读起来像「没人搜索」。
+🔴 **注意这是本轮第二次「我的更正本身需要被更正」。**
+
+## 8.3 版本与构建
+
+`MARKETING_VERSION 1.3 → 1.4`,`CURRENT_PROJECT_VERSION 6 → 7`。
+Debug 与 **Release** 均构建通过;Release 产物里
+`PostHogAPIKey` / `PostHogHost` / `SentryDSN` / `CFBundleShortVersionString=1.4` /
+`CFBundleVersion=7` 全部存在。
+
+**§5 四条的处置:**
+- 5.1 PrivacyInfo —— **没动**。§7.6 已证伪「合规缺口」:SDK 自带 manifest 已声明
+  ProductInteraction,ASC 营养标签 2026-06-07 就是对的。
+- 5.2 flush —— **没动**。SDK 默认就 flush(§7.6 证伪)。加一个是冗余代码。
+- 5.3 核心回路埋点 —— **已做**,见 8.2。
+- 5.4 ImageRenderer —— **已做**,见 §7.6b。
+
+## 8.4 网站引流(owner 选了四个位置全上)
+
+| 位置 | 做法 |
+|---|---|
+| `/ios/` 落地页 | 新路由 `app/ios/page.tsx` + `src/components/ios-page.tsx`,独立的 `SoftwareApplication` JSON-LD(`operatingSystem: "iOS 17.0 or later"`,**故意不并进 `/pro/` 那个 node** —— 那个描述的是 Web 产品且 Google 会引用它的价格) |
+| 全站 footer | 一个 pill,`t("nav.iosApp")`(en + zh 都加了) |
+| 首页 | hero CTA 行下面一行安静的文字链,**不是第四个按钮** —— 那三个按钮是站内漏斗,一个每周 1 次下载的 app 还没资格跟它们平权 |
+| `/word-to-color/` | 结果卡片里,调色板下方 |
+
+**所有链接走同一个 `AppStoreLink` 组件,只在 click 时发 `app_store_click {surface}`,
+render 不发任何事件**(W1 到 ~2026-10-12,禁止新增页面加载事件)。
+
+🔴 **URL 是实测的,不是拼的:**
+`https://apps.apple.com/app/id6761363087` → 200,重定向到
+`/us/app/colorarchive-color-tools/id6761363087`;`itunes.apple.com/lookup` 返回
+`ColorArchive - Color Tools` / Free / Graphics & Design / iOS 17.0 / **0 条评价**。
+用 id-only 形式是故意的:storefront 段和 slug 由 Apple 按访客所在区自动补,
+写死 `/us/` 会让别的区多一跳,写死 slug 会在改名后失效。
+
+**文案上刻意写了 app 没有什么。** `/ios/` 有一整块「These stay on the web」列出
+word→color、brand generator、Figma/Tailwind token 导出;`/word-to-color/` 的 CTA
+也直说「The word generator stays here on the web」。
+理由:**流量最大的入口正是 app 没有的那个功能**,不讲清楚换来的是一星评价,不是安装。
+app 目前 **0 条评价**,没有任何社会证明可引用,文案里也没编。
+
+顺手修了 `src/components/privacy-page.tsx:139` 那个指向 `https://apps.apple.com`
+裸域名的占位链接(**只改 href,措辞一个字没动** —— 那句话和已发布的 App Privacy 标签绑定)。
+
+## 8.5 Gate A 仍未跑成 —— 但这次拿到了确切原因
+
+owner 说已登录 1Password,凭据桥确实通了(`request_credentials` → `approved`)。
+但填充始终 `tab_unavailable`,直到截图里看见输入框旁边挂着 **「Unlock 1Password」** ——
+**Chrome 里的 1Password 扩展是锁着的**(桌面 app 登录 ≠ 浏览器扩展解锁)。
+主密码只能 owner 自己输。
+
+**⇒ Gate A 状态不变:未执行。** 但它现在只是补记录,**承载不了任何决策** ——
+发版决定已由 owner 做出,而冻结/解冻只看下载数。

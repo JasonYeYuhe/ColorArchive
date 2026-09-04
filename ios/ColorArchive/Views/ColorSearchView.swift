@@ -92,6 +92,30 @@ struct ColorSearchView: View {
             }
             .navigationTitle("Search")
             .searchable(text: $searchText, prompt: "Name, HEX, or mood...")
+            // Debounced settle, NOT `.onSubmit(of: .search)` and NOT `onChange`.
+            //
+            // `.onSubmit` was the first version and it DOES work (verified end-to-end
+            // against production PostHog on 2026-09-05). It was replaced anyway, because
+            // it only counts searches where the user presses Return — and results here
+            // update live as you type, so most people never do. It would have under-counted
+            // silently and read as "nobody searches". `onChange` is the opposite failure:
+            // one event per keystroke makes every per-session count meaningless.
+            //
+            // `.task(id:)` cancels and restarts whenever `searchText` changes, so only the
+            // value the user actually stopped on survives the sleep and gets counted.
+            //
+            // The raw query is deliberately NOT sent — it is free user text. Length plus
+            // hit count answer "did search work for them" without carrying anything back.
+            .task(id: searchText) {
+                let q = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !q.isEmpty else { return }
+                try? await Task.sleep(nanoseconds: 800_000_000)
+                guard !Task.isCancelled else { return }
+                AnalyticsBootstrap.capture(
+                    "search_performed",
+                    ["query_length": q.count, "result_count": searchResults.count]
+                )
+            }
             .navigationDestination(item: $selectedColor) { color in
                 ColorDetailView(color: color)
             }

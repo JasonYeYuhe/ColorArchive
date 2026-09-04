@@ -78,6 +78,9 @@ export function SiteFooter() {
             <Link href="/updates/" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
               {t("nav.updates")}
             </Link>
+            <Link href="/ios/" className="rounded-full border border-black/8 bg-white px-3 py-1.5 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:hover:bg-white/14">
+              {t("nav.iosApp")}
+            </Link>
           </div>
         </div>
 

@@ -19,5 +19,29 @@
 	     per-build export-compliance prompt in App Store Connect. -->
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<!--
+	  🔴 THESE THREE MUST LIVE HERE, NOT ONLY IN THE BUILD SETTINGS.
+
+	  The project sets INFOPLIST_KEY_PostHogAPIKey / _PostHogHost / _SentryDSN in
+	  project.pbxproj, and that silently did NOTHING: Xcode's INFOPLIST_KEY_* mechanism
+	  only injects keys it RECOGNISES. Every recognised one landed in the built plist
+	  (CFBundleDisplayName, UILaunchScreen, UISupportedInterfaceOrientations…); the three
+	  CUSTOM ones were dropped without a warning.
+
+	  Consequence, confirmed at runtime on 2026-09-05 by logging the lookup in a simulator
+	  build: `Bundle.main.object(forInfoDictionaryKey: "PostHogAPIKey")` returned nil, so
+	  AnalyticsBootstrap.start() hit its `else { return }` and PostHog was NEVER set up —
+	  every capture() call in the app was a no-op, and SentryBootstrap was dead the same way.
+
+	  The $(…) references keep project.pbxproj as the single source of truth for the values.
+	  If you ever move these, re-verify by dumping the BUILT plist, not by reading settings:
+	      /usr/libexec/PlistBuddy -c "Print PostHogAPIKey" <built>/ColorArchive.app/Info.plist
+	-->
+	<key>PostHogAPIKey</key>
+	<string>$(INFOPLIST_KEY_PostHogAPIKey)</string>
+	<key>PostHogHost</key>
+	<string>$(INFOPLIST_KEY_PostHogHost)</string>
+	<key>SentryDSN</key>
+	<string>$(INFOPLIST_KEY_SentryDSN)</string>
 </dict>
 </plist>

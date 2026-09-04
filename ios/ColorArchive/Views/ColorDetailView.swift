@@ -93,7 +93,12 @@ struct ColorDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         #endif
         .background(Color.gray.opacity(0.1))
-        .onAppear { recentColorsStore.add(color.id) }
+        .onAppear {
+            recentColorsStore.add(color.id)
+            // ContentView only emits a $screen per TAB, so pushing a colour detail was
+            // invisible. Same shape as ProPaywallView's screen("pro_paywall").
+            AnalyticsBootstrap.screen("color_detail")
+        }
     }
 
     // MARK: - WCAG Section
@@ -296,6 +301,13 @@ struct ColorDetailView: View {
             NSPasteboard.general.setString(value, forType: .string)
             #endif
             HapticManager.success()
+            // Lowercased to match the web taxonomy ("hex"/"rgb"/"hsl"/"cmyk"), and
+            // `variant: "detail"` is the SAME variant the web detail page sends, so
+            // this row and its web counterpart are one funnel step across platforms.
+            AnalyticsBootstrap.capture(
+                "color_copied",
+                ["format": label.lowercased(), "variant": "detail", "color_id": color.id]
+            )
             copiedField = label
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 if copiedField == label { copiedField = nil }

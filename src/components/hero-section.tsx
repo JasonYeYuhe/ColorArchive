@@ -7,6 +7,7 @@ import { colors } from "@/src/data/colors";
 import { EmailSubscribe } from "@/src/components/email-subscribe";
 import { getColorOfDay, todayDateStr } from "@/src/lib/color-of-day";
 import { useLocale } from "@/src/components/locale-provider";
+import { AppStoreLink } from "@/src/components/app-store-link";
 import type { FeaturedGuide, RecentNote } from "@/src/components/hero-section-below-fold";
 
 // Fixed hue-spanning strip: Tone (L=60) at Clear (S=54), one per hue across the spectrum
@@ -119,6 +120,18 @@ export function HeroSection({
               {t("hero.browseCollections")} &rarr;
             </Link>
           </div>
+
+          {/* iOS app. Deliberately a quiet text line and not a fourth CTA button: the
+              three buttons above are the site's own funnel, and the app has ~1 download a
+              week — it has not earned equal weight with them. `AppStoreLink` fires only on
+              click, never on render. */}
+          <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">
+            <AppStoreLink
+              surface="homepage"
+              label={t("hero.iosApp")}
+              className="underline underline-offset-4 transition hover:text-neutral-900 dark:hover:text-neutral-100"
+            />
+          </p>
 
           {/* Quiet status line — replaces the parameter cards */}
           <p className="mt-8 text-xs uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500">

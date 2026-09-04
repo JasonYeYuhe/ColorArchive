@@ -13,6 +13,7 @@ import { WordColorShareCard } from "@/src/components/word-color-share-card";
 import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 import { WordIntentProbe } from "@/src/components/word-intent-probe";
 import { track } from "@/src/lib/track";
+import { AppStoreLink } from "@/src/components/app-store-link";
 import { useAuth } from "@/src/components/auth-provider";
 import { isEntitlementResolved } from "@/src/lib/pro-gate-policy";
 // The gate quotes a price, so it takes it from the thing that charges it.
@@ -966,7 +967,33 @@ export function WordColorGeneratorPage() {
                 </div>
               </div>
 
-              {/* Contextual hook: you just generated a palette — will it pass WCAG? */}
+              {/* iOS app, in the result card under the generated palette.
+
+                  ⚠️ Accuracy note, because the obvious reading is wrong: this sits inside the
+                  `generated && resultVisible` branch, but that is NOT "only after the user
+                  generated something". `generated` is `useMemo(generateColorFromWord(input))`
+                  and `input` starts at DEFAULT_WORD (:35, :156), so a palette — and therefore
+                  this block — is on screen at first paint. Verified against the served HTML on
+                  2026-09-05: `/word-to-color/` with no `?q=` already contains this markup.
+
+                  That is fine here, and the standing constraint is still met, because it fires
+                  NOTHING on render — W1 is live on the guides until ~2026-10-12 and no
+                  page-load event may be added; the click is the only event. But do not cite
+                  this block as evidence of post-generation intent in any readout.
+
+                  The copy names the limitation on purpose. This is the site's largest search
+                  entry point and the app does NOT have the word-to-color generator, so
+                  sending people to the App Store with the impression that it does would earn
+                  a one-star review, not an install. */}
+              <div className="mt-5 border-t border-black/6 pt-4 text-sm text-neutral-500 dark:border-white/10 dark:text-neutral-400">
+                Want the archive offline?{" "}
+                <AppStoreLink
+                  surface="word_to_color"
+                  label="Get the free iOS app"
+                  className="underline underline-offset-4 transition hover:text-neutral-900 dark:hover:text-neutral-100"
+                />{" "}
+                — it has all 5,446 colors, search and copy. The word generator stays here on the web.
+              </div>
             </div>
           </section>
         ) : null}

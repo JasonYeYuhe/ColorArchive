@@ -67,6 +67,8 @@ const translations: Record<string, Record<string, string>> = {
   "nav.recent": { en: "Recent", zh: "最近浏览" },
   "nav.analytics": { en: "Analytics", zh: "数据分析" },
   "nav.updates": { en: "Updates", zh: "更新动态" },
+  "nav.iosApp": { en: "iOS app", zh: "iOS 应用" },
+  "hero.iosApp": { en: "Also on iPhone and iPad — free on the App Store", zh: "iPhone 和 iPad 也能用 —— App Store 免费下载" },
   "nav.about": { en: "About", zh: "关于" },
   "nav.support": { en: "Support", zh: "支持" },
   "nav.tools.all": { en: "All Tools", zh: "全部工具" },
