@@ -92,13 +92,31 @@ Also corrected `privacy-page.tsx:139`, which linked "App Store privacy nutrition
 domain `https://apps.apple.com`. **href only — the wording is tied to the published App Privacy
 labels and was left untouched.**
 
-### Gate A: still not run, but the cause is now exact
+### 🔴 Gate A, finally attempted end to end: it was never a "5-minute free check"
 
-The owner signed in to 1Password and the bridge did work (`request_credentials` → `approved`), but
-every fill returned `tab_unavailable` until a screenshot showed **"Unlock 1Password"** sitting in the
-sign-in field: **the Chrome extension is locked** (signing in to the desktop app is not the same
-thing). Only the owner can enter that master password. Gate A stays **NOT RUN** — and it is now
-record-keeping only: the ship decision is made, and freeze/unfreeze reads downloads, not keywords.
+The owner unlocked the 1Password extension and the sign-in went straight through — approved grant,
+autofilled credentials, no 2FA, landed on `account.apple.com/account/manage`. Then
+`app.searchads.apple.com` **redirected to `ui.ads.apple.com/signup/landing`**:
+
+> **Welcome to Apple Ads** … Confirm the App Store Connect accounts you'd like to link to your
+> Apple Ads account to get started. ☑ Yuhe Ye · **[Get Started]**
+
+**There is no ASA console to log into — the account has never existed.** That page is an
+account-creation wizard: link the ASC team, accept the Apple Ads Terms of Service, and only then is
+there a keyword tool. **I stopped before Get Started.** Creating an account and accepting terms are
+not mine to do. Whether billing details are also required I did not find out, and am not guessing.
+
+So §3's description of this gate — *"free, no spend needed, just log in to the ASA console"* — is
+**the fourth unverified assertion in that plan.** "Just log in" was false; "5 minutes" was false.
+Same disease as §7.7: **the criterion prescribed a procedure nobody had ever run, then priced it as
+cheap.** A criterion's executability has to be verified once, like everything else.
+
+**Recommendation: do not open an ads account just to close this.** It cannot buy a decision. The
+ship call is made (on website traffic, not App Store search); freeze/unfreeze reads downloads and
+IAP, neither of which is keyword data; and §7.9 already closed branch A with two lines of arithmetic
+on GSC numbers we had all along — 1,290 clicks at 21.2% CTR is 67.6 worldwide searches a day against
+a 100-downloads/day line. The numbers actually worth waiting for are `app_store_click` from the four
+new placements and ASC first-time downloads, and both are already running.
 
 Checks: vitest 45 files / 782 tests, server 70, typecheck clean, Debug **and** Release iOS builds
 succeed, `/ios/` renders in light and dark (console clean apart from the known localhost CORS noise).

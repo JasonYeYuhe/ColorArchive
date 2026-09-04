@@ -577,3 +577,55 @@ owner 说已登录 1Password,凭据桥确实通了(`request_credentials` → `ap
 
 **⇒ Gate A 状态不变:未执行。** 但它现在只是补记录,**承载不了任何决策** ——
 发版决定已由 owner 做出,而冻结/解冻只看下载数。
+
+---
+
+# §9 Gate A 的最终结论(2026-09-05)· **它从来就不是「5 分钟的免费检查」**
+
+owner 解锁了 1Password 扩展,登录这次一路通到底:
+`request_credentials` → `approved` → 1Password 自动填好 → 点「登录」→ 进入
+`account.apple.com/account/manage`(叶宇和 / `yyyyy.yeyuhe@icloud.com`,无需二次验证)。
+
+然后打开 `app.searchads.apple.com/cm/app/`,它**重定向到了**
+`ui.ads.apple.com/signup/landing`:
+
+> **Welcome to Apple Ads** — Reach new customers and promote your business with Apple Ads.
+> **Ads on the App Store** — Confirm the App Store Connect accounts you'd like to link to
+> your Apple Ads account to get started. ☑ Yuhe Ye  · **[Get Started]**
+
+## 9.1 🔴 这个账号从来没有开通过 Apple Ads
+
+**没有「ASA 后台」可以登进去 —— 它需要先被创建。** 页面是一个账号创建向导:
+链接 ASC 团队、接受 Apple Ads 服务条款(页脚 Terms of Service),之后才谈得上关键词工具。
+
+**我停在了 Get Started 之前,没有点。** 创建账号、接受服务条款都不是我可以代做的动作。
+(是否还要求填business/付款信息,我没有继续,因此**不知道**,不在这里瞎猜。)
+
+## 9.2 §3 关于 Gate A 的描述是错的,这是计划书第四条未经核实的断言
+
+§3 原话:「**免费,不需要投放,登录 ASA 后台即可查**」。
+
+- 「登录即可查」**不成立** —— 没有账号可登。
+- 「5 分钟」**不成立** —— 前置是开一个广告账号并接受其条款。
+- 「免费」大概率仍成立(不投放不扣费),但**这一条我没有验证到底**,所以不写成结论。
+
+⇒ 与 §7.7 是同一个毛病:**判据里写了一个从没有人试过的操作步骤**,
+然后把它当成「便宜、随时可做」。**判据的可执行性本身也需要先验证一次。**
+
+## 9.3 现在的处置
+
+**Gate A 状态:未执行,且前置条件是 owner-only。**
+
+但它已经**不重要了**,原因不是回避而是事实:
+
+1. **发版决定已由 owner 做出**(§8),依据是网站引流,不是 App Store 搜索;
+2. **冻结/解冻只看下载数和 IAP 金额**,关键词热度不是那两个解除条件中的任何一个;
+3. §7.9 已经证明,**分支 A 用手上已有的 GSC 数字两行算术就能关掉** ——
+   1,290 点击 / 21.2% CTR = 全球每天 67.6 次 Google 搜索,而解冻线是 100 次下载/天。
+
+**⇒ 建议:不要为了补这个数去开一个广告账号。** 它买不到任何决策。
+真正该等的数是 `app_store_click`(§8.4 四个位置)和 ASC 的首下载数 ——
+那两个才和冻结规则同量纲,而且**下一次读数时它们已经在跑了**。
+
+如果 owner 出于别的理由本来就想开 Apple Ads 账号,那另说;
+但那是一个投放决定,不是这个 gate 的一部分。
