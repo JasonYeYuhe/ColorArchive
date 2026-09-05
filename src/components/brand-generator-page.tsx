@@ -242,7 +242,7 @@ function PaletteResult({
           href="/pro/"
           className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-xs font-medium rounded-lg hover:bg-slate-700 transition-colors dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100"
         >
-          Get Brand Color Starter Kit →
+          See what Pro unlocks →
         </Link>
       </div>
 
@@ -528,7 +528,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
         <WhatsNext items={[
           { href: "/contrast/", label: "Audit Contrast", desc: "Check WCAG compliance for your new palette" },
           { href: "/tokens/", label: "Export Tokens", desc: "Generate a full design system from your primary color" },
-          { href: "/pro/", label: "Brand Starter Kit", desc: "Get the complete brand system with guides and templates" },
+          { href: "/pro/", label: "ColorArchive Pro", desc: "Remove the daily cap on exports and AI palette generations" },
         ]} />
       </div>
 

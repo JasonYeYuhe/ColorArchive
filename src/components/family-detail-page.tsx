@@ -103,7 +103,8 @@ export function FamilyDetailPage({
               7+
             </div>
             <div className="mt-2 text-sm text-neutral-500">
-              CSS, Tailwind, Figma JSON, SCSS, Style Dictionary, Procreate, and more with Pro.
+              CSS, Tailwind, Figma JSON, SCSS, Style Dictionary, Procreate, and more. Free
+              accounts get a few exports a day; Pro removes the daily cap.
             </div>
           </article>
         </section>
@@ -132,7 +133,8 @@ export function FamilyDetailPage({
               <div className="rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
                 <div className="text-sm font-semibold text-neutral-950">3. Upgrade to Pro</div>
                 <div className="mt-2 text-sm leading-6 text-neutral-600">
-                  Pro members get advanced token exports, downloadable assets, and usage guidance to take this family direction into production.
+                  Pro removes the daily export cap on every token format, so a family direction can
+                  go straight into production without rationing.
                 </div>
               </div>
             </div>
@@ -281,7 +283,8 @@ export function FamilyDetailPage({
             <div className="mt-4 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
               <div className="text-sm font-semibold text-neutral-950">Unlock Pro</div>
               <div className="mt-2 text-sm leading-6 text-neutral-600">
-                Pro members get unlimited exports, advanced token formats, and priority access to new collections in the {family.toLowerCase()} family.
+                Pro removes the daily export cap in every token format, including the
+                {" "}{family.toLowerCase()} family.
               </div>
               <div className="mt-3">
                 <Link

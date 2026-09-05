@@ -61,15 +61,28 @@ export function ProPage() {
          removes and the table never mentioned it — so the 9 people per 60 days who click
          through from that wall arrived at a page that never named what blocked them.
 
-     row3 and row4 were checked too and are CORRECT (ai-rate-limit.js 3/10, pro-gate.tsx
-     FREE_EXPORTS_PER_DAY = 3). Do not "fix" them. */
+     row3 was checked too and is CORRECT (ai-rate-limit.js 3/10).
+
+     2026-09-05 (G3-web) — two more, and one of them was created by our own fix:
+       · row5 said WCAG audit download was Free = "—". FALSE, and it had been false the
+         whole time: wcag-audit-page.tsx:249 wraps the button in a plain <ProGate>, so a
+         free visitor gets the same daily quota as any other export. Restated as a count
+         row. The feature3 CARD carried the same implication and was reworded with it —
+         fixing only the table row would have left the claim standing 100px higher up.
+       · row4 said "3 per day". That WAS right, and this comment used to say so; G1
+         (same day) made exports tier-aware at anonymous 3 / signed-in 10, which turned
+         a correct line stale. Now matches row3free's wording.
+     The lesson the second one teaches: a comment asserting "checked, do not fix" ages
+     into a false statement the moment the code it describes changes. Re-derive from
+     pro-gate-policy.ts FREE_EXPORTS_PER_DAY and ai-rate-limit.js TIER_LIMITS, not from
+     this paragraph. */
   const COMPARISON: { featureKey: string; free: boolean | string; pro: boolean | string }[] = [
     { featureKey: "pro.comparison.row1", free: true, pro: true },
     { featureKey: "pro.comparison.row2", free: true, pro: true },
     { featureKey: "pro.comparison.row8", free: t("pro.comparison.row8free"), pro: t("pro.comparison.row8pro") },
     { featureKey: "pro.comparison.row3", free: t("pro.comparison.row3free"), pro: t("pro.comparison.row3pro") },
     { featureKey: "pro.comparison.row4", free: t("pro.comparison.row4free"), pro: t("pro.comparison.row4pro") },
-    { featureKey: "pro.comparison.row5", free: false, pro: true },
+    { featureKey: "pro.comparison.row5", free: t("pro.comparison.row5free"), pro: t("pro.comparison.row5pro") },
     { featureKey: "pro.comparison.row6", free: true, pro: true },
     { featureKey: "pro.comparison.row7", free: t("pro.comparison.row7free"), pro: t("pro.comparison.row7pro") },
   ];

@@ -2213,7 +2213,7 @@ const translations: Record<string, Record<string, string>> = {
   "pro.feature2.title": { en: "Unlimited Exports", zh: "无限导出" },
   "pro.feature2.desc": { en: "CSS variables, Tailwind config, SCSS, and JSON — export as many palettes as you need.", zh: "CSS 变量、Tailwind 配置、SCSS 和 JSON——随心导出。" },
   "pro.feature3.title": { en: "WCAG Audit Reports", zh: "WCAG 审计报告" },
-  "pro.feature3.desc": { en: "Download full accessibility audit reports for your color systems.", zh: "下载色彩系统的完整无障碍审计报告。" },
+  "pro.feature3.desc": { en: "Unmetered accessibility audit report downloads. Free accounts get a few each day.", zh: "无限次下载无障碍审计报告。免费账户每天可下载数次。" },
   "pro.feature4.title": { en: "Bulk Token Export", zh: "批量令牌导出" },
   "pro.feature4.desc": { en: "The 50-950 scales are free to read and copy. Pro exports all six at once as CSS, Tailwind, SCSS or JSON, with no daily limit.", zh: "50-950 色阶可免费查看和复制。Pro 可一次性导出全部六组为 CSS、Tailwind、SCSS 或 JSON，且无每日上限。" },
   // ─── Keys that were CALLED but never DEFINED (added 2026-09-03) ──────────────
@@ -2251,9 +2251,11 @@ const translations: Record<string, Record<string, string>> = {
   "pro.comparison.row3free": { en: "3 (anonymous) / 10 (signed in)", zh: "3 次（未登录）/ 10 次（已登录）" },
   "pro.comparison.row3pro": { en: "Unlimited", zh: "无限" },
   "pro.comparison.row4": { en: "Export palettes", zh: "导出调色板" },
-  "pro.comparison.row4free": { en: "3 per day", zh: "每天 3 次" },
+  "pro.comparison.row4free": { en: "3 (anonymous) / 10 (signed in)", zh: "3 次（未登录）/ 10 次（已登录）" },
   "pro.comparison.row4pro": { en: "Unlimited", zh: "无限" },
   "pro.comparison.row5": { en: "WCAG audit download", zh: "WCAG 审计下载" },
+  "pro.comparison.row5free": { en: "3 (anonymous) / 10 (signed in)", zh: "3 次（未登录）/ 10 次（已登录）" },
+  "pro.comparison.row5pro": { en: "Unlimited", zh: "无限" },
   // row6 was "Token generator output — Preview / Full". The 50–950 scales are free for
   // everyone (token-generator-page.tsx renders all 6 × 11 with a per-row copy button);
   // only the bulk export is metered, and row4 already counts that. Now free-for-both, so

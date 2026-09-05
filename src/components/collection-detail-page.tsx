@@ -208,7 +208,7 @@ export function CollectionDetailPage({
             <div className="mt-4 rounded-[1.2rem] border border-black/6 bg-neutral-50 px-4 py-4">
               <div className="text-sm font-semibold text-neutral-950">Unlock Pro</div>
               <div className="mt-2 text-sm leading-6 text-neutral-600">
-                Pro members get unlimited exports, advanced token formats, and priority access to new collections.
+                Pro removes the daily export cap, in every token format.
               </div>
               <div className="mt-3">
                 <Link
@@ -259,9 +259,9 @@ export function CollectionDetailPage({
                 From collection to Pro
               </h2>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-                This collection proves the taste and color direction. Pro members get advanced token
-                exports, usage guidance, and downloadable assets so the palette can move from reference
-                to implementation.
+                This collection proves the taste and color direction. Pro removes the daily export
+                cap on every token format, so the palette can move from reference to implementation
+                without rationing.
               </p>
             </div>
           </div>

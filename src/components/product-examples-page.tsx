@@ -102,10 +102,11 @@ export function ProductExamplesPage({ collections }: ProductExamplesPageProps) {
 
         <section className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_18px_48px_rgba(15,23,42,0.05)] sm:p-6">
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
-            Visual preview — what Pro members get
+            Visual preview — the collections, free to browse
           </div>
           <p className="mt-2 text-sm leading-6 text-neutral-500">
             Every collection ships as live color tokens you can drop straight into your project.
+            Browsing and copying them is free; Pro removes the daily cap on bulk exports.
           </p>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {collections.slice(0, 3).map((collection) => {
