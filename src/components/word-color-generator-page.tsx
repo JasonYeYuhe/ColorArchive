@@ -65,6 +65,18 @@ const LANDING_WORD_KEY = "colorarchive-word-landing";
 // told apart from an arrival on someone else's link.
 const LAST_WRITTEN_KEY = "colorarchive-word-last-written";
 
+/**
+ * How long the typing must settle before ?q= is rewritten.
+ *
+ * Deliberately SHORTER than the 2000ms paywall/word-commit debounce below: the
+ * URL should be shareable and reload-safe well before a word is charged against
+ * the free quota, so a visitor who types a word and immediately copies the URL
+ * gets the word they see. 500ms is long enough that no ordinary typist emits a
+ * mid-word rewrite (measured: a 9-character word at a realistic cadence used to
+ * emit 9).
+ */
+const URL_SYNC_DEBOUNCE_MS = 500;
+
 // Event names live in one place so a typo can't silently split a funnel. All fan out
 // through track() to both the first-party /events table and PostHog under these names.
 const PAYWALL_EVENT = {
@@ -315,19 +327,68 @@ export function WordColorGeneratorPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Mirror the typed word into ?q= — ONCE THE TYPING SETTLES, not once per keystroke.
+  //
+  // ── WHAT THE PER-KEYSTROKE VERSION ACTUALLY COST (measured 2026-09-05) ───────
+  // Typing a 9-character word on production issued NINE requests to
+  // /word-to-color/?q=<prefix>&_rsc=… — one per keystroke — because a soft
+  // navigation refetches the RSC payload. Those are CDN hits (x-vercel-cache:
+  // HIT, x-nextjs-prerender: 1), so the cost is not compute; the cost is that
+  // each one RE-RENDERS THE ROUTE AND REMOUNTS THIS COMPONENT, which re-fires
+  // every mount effect below. The same 9 keystrokes emitted 25
+  // `word_paywall_restored` and 25 `word_intent_impression` events — an
+  // impression series inflated ~2.5x per keystroke, in a table where
+  // `word_paywall_restored` has only 491 rows in 60 days.
+  //
+  // ── WHAT IT DID NOT COST, CONTRARY TO THE PLAN ──────────────────────────────
+  // docs/dev-plan-2026-09-05-product-quality.md §1.5 says each replace was
+  // counted as a PostHog `$pageview` (hence "≈48 pv/session"). That is FALSE and
+  // was never true: src/lib/posthog.ts sets `capture_pageview: false`, so
+  // posthog-js's history autocapture is disabled, and the only `$pageview` we
+  // emit (posthog-provider.tsx) is deduped on `pathname` — which a ?q= change
+  // does not alter. Measured directly: a full session of typing produced 4
+  // pageviews. So do NOT read a drop in pv/session as this fix working; the
+  // thing to watch is RSC requests and the impression events above.
+  // The 45,768-event session of 2026-08-15 stays UNDIAGNOSED, but a component
+  // that remounts on every keystroke is now a documented candidate.
+  //
+  // ── WHY 500ms AND WHY THE ORDER BELOW IS LOAD-BEARING ───────────────────────
+  // The write to LAST_WRITTEN_KEY and the router.replace must stay atomic and in
+  // that order: the mount effect compares the URL's ?q= against that stored
+  // value to tell "a reload of our own rewrite" from "an arrival on someone
+  // else's share link". Desync it and either a reload re-nominates the current
+  // word as the free landing word (a free-lookup leak) or a genuine share gets
+  // charged. Both live inside the timer, so they still move together.
+  // The `!queryApplied` latch stays the FIRST statement, ahead of the timer, or
+  // the first debounced write fires with DEFAULT_WORD and clobbers a visitor's
+  // ?q= before the mount effect has read it.
+  //
+  // Not coupled, and deliberately unchanged: the paywall's word counter is a
+  // SEPARATE 2000ms debounce keyed on `input` that never reads the URL, and the
+  // share links build their href from `input` state rather than window.location.
   useEffect(() => {
     if (!queryApplied) return;
     const trimmed = input.trim();
     const href = trimmed.length > 0 ? `${pathname}?q=${encodeURIComponent(trimmed)}` : pathname;
-    // Record what we wrote, so the mount effect above can tell a reload of our own
-    // rewrite apart from a genuine arrival on someone else's link.
-    try {
-      sessionStorage.setItem(LAST_WRITTEN_KEY, trimmed);
-    } catch {
-      // Storage disabled — the mount effect falls back to trusting ?q=, which is
-      // the pre-existing behaviour.
-    }
-    router.replace(href, { scroll: false });
+
+    const timer = window.setTimeout(() => {
+      // Skip the write entirely when the URL already says this. Re-writing an
+      // identical ?q= still costs a soft navigation and a remount.
+      const current = new URLSearchParams(window.location.search).get("q") ?? "";
+      if (current === trimmed) return;
+
+      // Record what we wrote, so the mount effect above can tell a reload of our
+      // own rewrite apart from a genuine arrival on someone else's link.
+      try {
+        sessionStorage.setItem(LAST_WRITTEN_KEY, trimmed);
+      } catch {
+        // Storage disabled — the mount effect falls back to trusting ?q=, which
+        // is the pre-existing behaviour.
+      }
+      router.replace(href, { scroll: false });
+    }, URL_SYNC_DEBOUNCE_MS);
+
+    return () => window.clearTimeout(timer);
   }, [input, pathname, router, queryApplied]);
 
   // Pro (or any future paid tier) opens the gate immediately — including a gate
