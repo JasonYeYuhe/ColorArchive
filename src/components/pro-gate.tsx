@@ -3,12 +3,40 @@
 import { useState, useEffect, type ReactNode } from "react";
 import Link from "next/link";
 import { useAuth } from "@/src/components/auth-provider";
-import { decideGate } from "@/src/lib/pro-gate-policy";
+import {
+  decideGate,
+  exportLimitFor,
+  FREE_EXPORTS_PER_DAY,
+} from "@/src/lib/pro-gate-policy";
 import { track } from "@/src/lib/track";
 
 const EXPORT_LIMIT_KEY = "colorarchive_export_count";
 const EXPORT_DATE_KEY = "colorarchive_export_date";
-const FREE_EXPORTS_PER_DAY = 3;
+
+/**
+ * When the quota resets, in the VISITOR's local time.
+ *
+ * getExportCount() keys the day off `new Date().toISOString().slice(0,10)`,
+ * which is the UTC date — so the reset is UTC midnight wherever you are. Shown
+ * localised because "resets at 00:00 UTC" is a puzzle, and in JST (the owner's
+ * timezone, and a large share of traffic) it lands at 09:00, which looks like a
+ * bug unless you say so.
+ *
+ * Only ever rendered in the locked branch, which cannot appear during SSR:
+ * `used` starts at 0 and is read in an effect, so the server always renders the
+ * unlocked branch. No hydration mismatch from the locale call.
+ */
+function resetsAtLabel(): string {
+  const now = new Date();
+  const nextUtcMidnight = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1, 0, 0, 0),
+  );
+  try {
+    return nextUtcMidnight.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  } catch {
+    return "00:00 UTC";
+  }
+}
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -31,65 +59,17 @@ function incrementExportCount() {
   localStorage.setItem(EXPORT_LIMIT_KEY, String(current + 1));
 }
 
-/** Tiny inline counter — render it next to a "Download / Export" header
- *  so the user sees the daily quota BEFORE clicking, not after. Pro
- *  users see nothing. */
-export function ProGateCounter({ className = "" }: { className?: string }) {
-  // NOTE: nothing renders this today (verified 2026-08-18 — the only occurrence
-  // of the name in the repo is this declaration), so `source: "export_counter"`
-  // can never appear in the analytics. Kept because the intent is right, and
-  // routed through the same policy as ProGate so it cannot drift back into
-  // deciding entitlement on its own.
-  const { tier, status, sessionError } = useAuth();
-  const [used, setUsed] = useState(0);
-
-  useEffect(() => {
-    setUsed(getExportCount());
-    // Re-read at the day boundary so the counter resets without a reload.
-    const interval = window.setInterval(() => setUsed(getExportCount()), 60_000);
-    return () => window.clearInterval(interval);
-  }, []);
-
-  const { remaining } = decideGate({
-    tier,
-    resolved: status !== "loading" && !sessionError,
-    used,
-    limit: FREE_EXPORTS_PER_DAY,
-  });
-
-  // null means "no quota applies" — Pro, or entitlement not yet known. Showing
-  // "0/3 today" to a subscriber, or to anyone we simply have not identified
-  // yet, is the same mistake ProGate itself used to make.
-  if (remaining === null) return null;
-
-  const isOut = remaining === 0;
-  const isLow = remaining === 1;
-
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wider rounded-full px-2.5 py-1 ${
-        isOut
-          ? "bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300"
-          : isLow
-            ? "bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400"
-            : "bg-slate-100 dark:bg-white/8 text-slate-500 dark:text-slate-400"
-      } ${className}`}
-    >
-      <span>
-        Free: {used}/{FREE_EXPORTS_PER_DAY} today
-      </span>
-      {(isLow || isOut) && (
-        <Link
-          href="/pro/"
-          onClick={() => track("upgrade_clicked", { source: "export_counter" })}
-          className="font-semibold underline hover:opacity-80"
-        >
-          {isOut ? "Go Pro" : "Last one"}
-        </Link>
-      )}
-    </span>
-  );
-}
+/*
+ * ProGateCounter was here and is deleted (2026-09-05, G1).
+ *
+ * It was an exported component that NOTHING rendered — a repo-wide grep found
+ * only its own declaration — so its analytics value `source: "export_counter"`
+ * was unreachable by construction and its own comment had said so since
+ * 2026-08-18. Its job (show the quota BEFORE clicking) is done twice over now:
+ * the unlocked branch already prints "Free: n/N today", and the locked branch
+ * below prints the count and the reset time. Dead code that describes a feature
+ * reads like a feature; this file has already cost us once that way.
+ */
 
 interface ProGateProps {
   /** The gated action — rendered when user has access */
@@ -116,6 +96,7 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
     setUsed(getExportCount());
   }, []);
 
+  const limit = exportLimitFor(tier);
   const { locked, charge, remaining } = decideGate({
     tier,
     // `sessionError` is the distinction that matters: AuthProvider reports a
@@ -124,7 +105,7 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
     // sign in. See src/lib/pro-gate-policy.ts.
     resolved: status !== "loading" && !sessionError,
     used,
-    limit: FREE_EXPORTS_PER_DAY,
+    limit,
   });
 
   if (!locked) {
@@ -191,7 +172,7 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
               </>
             ) : (
               <>
-                Free: {used}/{FREE_EXPORTS_PER_DAY} today ·{" "}
+                Free: {used}/{limit} today ·{" "}
                 <Link
                   href="/pro/"
                   onClick={() => track("upgrade_clicked", { source: "export_inline" })}
@@ -211,6 +192,19 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
     <div className="relative group">
       <div className="opacity-40 pointer-events-none select-none">{children}</div>
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
+        {/* SAY WHAT WAS BLOCKED AND WHY (2026-09-05, G1).
+            Until today the locked overlay was two buttons and nothing else. The
+            20 call sites each pass a `label` — "Download Procreate", "Full brand
+            system", "Contrast audit" — and every one of those strings was dead:
+            `label` was destructured with a default and never rendered. A visitor
+            saw a greyed-out panel with no statement of what had been withheld,
+            how much they had used, or when it came back. */}
+        <p className="px-3 text-center text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+          {label} locked
+        </p>
+        <p className="px-3 text-center text-[10px] text-slate-500 dark:text-slate-400">
+          {used}/{limit} free exports used today · resets {resetsAtLabel()}
+        </p>
         {tier === "anonymous" ? (
           <>
             <Link
@@ -221,7 +215,7 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
               </svg>
-              Sign in for more
+              Sign in for {FREE_EXPORTS_PER_DAY.free} a day
             </Link>
             <Link
               href="/pro/"

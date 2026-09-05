@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import {
   decideGate,
+  exportLimitFor,
+  FREE_EXPORTS_PER_DAY,
   shouldWatermark,
   isEntitlementResolved,
   type GateTier,
@@ -137,5 +139,57 @@ describe("isEntitlementResolved", () => {
   it("is true only on a clean, settled session", () => {
     expect(isEntitlementResolved({ status: "anonymous", sessionError: false })).toBe(true);
     expect(isEntitlementResolved({ status: "authenticated", sessionError: false })).toBe(true);
+  });
+});
+
+/**
+ * G1 (2026-09-05): the tier→limit map, and the claim it settles.
+ *
+ * A reviewer asserted that "changing the policy number does not take effect at
+ * runtime". It does: `limit` is the only numeric input to both `locked` and
+ * `remaining`. These cases make that checkable by running the suite instead of
+ * by reading the function, which is the whole reason the map moved out of the
+ * component and into this module.
+ */
+describe("free export limits by tier", () => {
+  it("gives a signed-in free account more than an anonymous one", () => {
+    // Before G1 both were 3, while the locked overlay said "Sign in for more".
+    // If these two ever become equal again, that promise is a lie again.
+    expect(exportLimitFor("free")).toBeGreaterThan(exportLimitFor("anonymous"));
+  });
+
+  it("matches the AI quota's numbers (anonymous 3 / free 10)", () => {
+    // server/ai-rate-limit.js TIER_LIMITS. Two different daily quotas with two
+    // different numbers is a rule nobody can hold in their head.
+    expect(exportLimitFor("anonymous")).toBe(3);
+    expect(exportLimitFor("free")).toBe(10);
+  });
+
+  it("the limit genuinely drives locking — the disputed claim, run rather than argued", () => {
+    const used = 5;
+    // Same tier, same usage, different limit → opposite outcomes.
+    expect(decideGate({ tier: "free", resolved: true, used, limit: 3 }).locked).toBe(true);
+    expect(decideGate({ tier: "free", resolved: true, used, limit: 10 }).locked).toBe(false);
+    expect(decideGate({ tier: "free", resolved: true, used, limit: 10 }).remaining).toBe(5);
+  });
+
+  it("a signed-in free user is NOT locked at 4 exports, an anonymous one is", () => {
+    // The concrete behaviour change a visitor experiences after signing in.
+    const used = 4;
+    expect(
+      decideGate({ tier: "anonymous", resolved: true, used, limit: exportLimitFor("anonymous") })
+        .locked,
+    ).toBe(true);
+    expect(
+      decideGate({ tier: "free", resolved: true, used, limit: exportLimitFor("free") }).locked,
+    ).toBe(false);
+  });
+
+  it("still never applies a limit to Pro", () => {
+    // Guard against the map growing a "pro" key and implying a ceiling.
+    const d = decideGate({ tier: "pro", resolved: true, used: 999, limit: 3 });
+    expect(d.locked).toBe(false);
+    expect(d.remaining).toBeNull();
+    expect(Object.keys(FREE_EXPORTS_PER_DAY)).toEqual(["anonymous", "free"]);
   });
 });

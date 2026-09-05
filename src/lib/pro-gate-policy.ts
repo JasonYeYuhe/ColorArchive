@@ -51,6 +51,30 @@ export interface GateDecision {
   remaining: number | null;
 }
 
+/**
+ * Free daily exports by tier — the numbers a caller should pass as `limit`.
+ *
+ * Lives here, not in the component, for one reason: a reviewer claimed on
+ * 2026-09-05 that "changing the policy number does not take effect at runtime".
+ * That is false — `limit` is the sole numeric input to both `locked` and
+ * `remaining` below — but the claim was only refutable by reading code. With the
+ * map in the tested module it is refutable by running the suite.
+ *
+ * anonymous 3 / free 10 mirrors the AI quota, which has enforced exactly those
+ * two numbers server-side since it shipped (server/ai-rate-limit.js TIER_LIMITS).
+ * Before this, both tiers got 3 while the locked overlay said "Sign in for more",
+ * which was simply untrue.
+ *
+ * "pro" is absent on purpose: decideGate returns before any limit is compared
+ * for a subscriber, so giving Pro a number here would imply a ceiling that does
+ * not exist.
+ */
+export const FREE_EXPORTS_PER_DAY = { anonymous: 3, free: 10 } as const;
+
+export function exportLimitFor(tier: GateTier): number {
+  return tier === "free" ? FREE_EXPORTS_PER_DAY.free : FREE_EXPORTS_PER_DAY.anonymous;
+}
+
 export function decideGate({ tier, resolved, used, limit }: GateInput): GateDecision {
   // Unknown entitlement: never lock, never charge. See "THE RULE" above.
   if (!resolved) {
