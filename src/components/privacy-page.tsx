@@ -136,7 +136,7 @@ To exercise your rights, contact us at **privacy@colorarchive.org**.`,
 - **Product analytics (PostHog)**: Which screens and tools you open, and whether you return. No session recording, no advertising identifiers, no PII.
 - **Crash diagnostics (Sentry)**: Stack traces and the screen you were on when something failed.
 
-The iOS app does not collect location data, health data, contacts, photos, or any data from other apps, and we do not use any advertising SDKs or advertising identifiers. All data practices in the iOS app are consistent with our [App Store privacy nutrition labels](https://apps.apple.com/app/id6761363087) (Crash Data and Product Interaction, neither linked to your identity).`,
+The iOS app does not collect location data, health data, contacts, photos, or any data from other apps, and we do not use any advertising SDKs or advertising identifiers. All data practices in the iOS app are consistent with our [App Store privacy nutrition labels](https://apps.apple.com/app/id6761363087): Crash Data is **not** linked to your identity, and Product Interaction **is** linked to your account when you are signed in — by an opaque numeric account id, never your email address. Neither is used to track you across other companies' apps or websites. If you are not signed in, nothing is linked to an identity at all.`,
   },
   {
     title: "12. Children's Privacy",

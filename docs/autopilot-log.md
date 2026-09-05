@@ -60,7 +60,7 @@ distribution change is the website, not the store listing.
 
 Review is usually 24–48h, then it ships itself. **First thing to check once live: whether
 `posthog-ios` shows real events** — this is the first build in which the instrument can work at
-all. Subtract the 2026-09-04 16:31–16:36 UTC simulator events. Same for Sentry: first build that
+all. Subtract all 70 simulator events of 2026-09-04 (16:31:58–17:42:59 UTC). Same for Sentry: first build that
 can actually report a crash.
 
 ---
@@ -121,8 +121,11 @@ search_performed  qlen=5 results=560 ×2 · qlen=4 results=574
 $screen n=3 · Installed 1 · Opened 2 · Backgrounded 1
 ```
 
-⚠️ **Those are simulator verification events from 2026-09-04 16:31–16:36 UTC, not real users.**
-Subtract them from any iOS readout.
+⚠️ **Those are simulator verification events, not real users.** 🔴 **Corrected on re-check — the
+range I first wrote (16:31–16:36) was wrong: it is the whole of 2026-09-04, 70 events,
+16:31:58–17:42:59 UTC.** The historical baseline is the 3 events of 2026-08-05. This does not rest
+on my recollection: `search_performed`, `color_copied` and `screen("color_detail")` exist only in
+the unreleased v1.4, which is still WAITING_FOR_REVIEW, so no user could have produced any of them.
 
 **A correction I had to make to my own correction.** The search event first used
 `.onSubmit(of: .search)`; PostHog showed nothing and I concluded it never fired. **Wrong** — I had
@@ -141,8 +144,13 @@ describes the web product and whose prices Google quotes), a footer pill, a quie
 the homepage hero CTAs (not a fourth button — an app with ~1 download/week has not earned equal
 weight with the site's own funnel), and a block in the `/word-to-color/` result card.
 
-All four go through one `AppStoreLink` component that fires `app_store_click {surface}` **on click
-only, never on render** — W1 runs until ~2026-10-12 and no page-load event may be added.
+🔴 **Corrected on wrap-up: three of the four fire the event, not four.** `/ios/`, the homepage and
+/word-to-color/ go through `AppStoreLink`, which fires `app_store_click {surface}` **on click only,
+never on render** — W1 runs until ~2026-10-12 and no page-load event may be added. **The footer
+entry is an internal `<Link href="/ios/">` and fires nothing**; its contribution is readable only
+as traffic to /ios/, and the permanent absence of a `footer` surface must not be read as "nobody
+clicked the footer". The unused `"footer"`/`"privacy"` members of the surface union have been
+removed so nobody expects them.
 
 🔴 **The URL was measured, not constructed from memory:** `https://apps.apple.com/app/id6761363087`
 returns 200 and redirects to `/us/app/colorarchive-color-tools/id6761363087`; the lookup API gives

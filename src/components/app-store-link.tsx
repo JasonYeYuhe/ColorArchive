@@ -24,7 +24,11 @@ export function AppStoreLink({
   label = "Get the iOS app",
   className,
 }: {
-  surface: "ios_page" | "footer" | "homepage" | "word_to_color" | "privacy";
+  // Only these three exist. The site footer and the /privacy/ page also mention the app,
+  // but both link INTERNALLY (footer -> /ios/) or as plain content (privacy), so neither
+  // fires this event. "footer" and "privacy" were declared here and never used, which would
+  // have made their permanent absence from a readout look like "nobody clicked them".
+  surface: "ios_page" | "homepage" | "word_to_color";
   label?: string;
   className?: string;
 }) {

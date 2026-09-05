@@ -515,8 +515,11 @@ color_copied  format=rgb variant=detail  n=1
 search_performed  qlen=5 results=560 / qlen=5 results=560 / qlen=4 results=574
 ```
 
-⚠️ **这些是 2026-09-04 16:31–16:36 UTC 从模拟器发出的验证事件,不是真实用户。**
-读 iOS 数据时要扣掉。
+⚠️ **这些是从模拟器发出的验证事件,不是真实用户。**
+🔴 **精确范围(事后复核修正,我最初写的 16:31–16:36 是错的):
+2026-09-04 全天 70 条,16:31:58 → 17:42:59 UTC。历史基线是 2026-08-05 的 3 条。**
+判据不靠我的记忆:`search_performed` / `color_copied` / `screen("color_detail")` **只存在于尚未发布的 v1.4**,
+而 v1.4 还在 `WAITING_FOR_REVIEW` —— 没有任何用户拿得到,所以 09-04 当天 70 条全部是本机产生的。
 
 **搜索埋点改过一次,过程值得记:** 第一版用 `.onSubmit(of: .search)`,查 PostHog 没看到,
 我一度判定「没触发」。**那个判定是错的** —— 我用的是 `simctl terminate`,而 terminate
@@ -549,8 +552,15 @@ Debug 与 **Release** 均构建通过;Release 产物里
 | 首页 | hero CTA 行下面一行安静的文字链,**不是第四个按钮** —— 那三个按钮是站内漏斗,一个每周 1 次下载的 app 还没资格跟它们平权 |
 | `/word-to-color/` | 结果卡片里,调色板下方 |
 
-**所有链接走同一个 `AppStoreLink` 组件,只在 click 时发 `app_store_click {surface}`,
-render 不发任何事件**(W1 到 ~2026-10-12,禁止新增页面加载事件)。
+🔴 **更正(收尾复核发现,原文写错了):只有三处会发 `app_store_click`。**
+`/ios/`(`surface="ios_page"`)、首页(`"homepage"`)、`/word-to-color/`(`"word_to_color"`)走
+`AppStoreLink`,**只在 click 时发事件,render 不发**(W1 到 ~2026-10-12,禁止页面加载事件)。
+
+**footer 那条是内部链接 `<Link href="/ios/">`,不发任何事件** —— 它把人送到 `/ios/`,
+所以它的贡献只能从 **`/ios/` 的访问量**里读,读不到 `app_store_click`。
+⚠️ **读 readout 时不要把「没有 footer 这个 surface」当成「没人点 footer」** ——
+它从来就没被埋点。(`surface` 联合类型里原本还留着没用过的 `"footer"`/`"privacy"`,已删掉,
+免得以后有人以为那两个值应该出现。)
 
 🔴 **URL 是实测的,不是拼的:**
 `https://apps.apple.com/app/id6761363087` → 200,重定向到
@@ -710,6 +720,8 @@ What's New 写了两条用户能理解的:网格更快更省内存;崩溃上报�
 ## 10.5 待办
 
 - 审核结果:通常 24–48 小时。过审后**自动上架**。
+- 🔴 **`app_store_click` 目前全时段 0 条,那只是因为它 09-04 16:48 UTC 才上线。**
+  读它之前先确认观测窗口起点,否则「0」不含任何信息。
 - 上架后第一件事:**看 `posthog-ios` 有没有真实事件** ——
-  这是历史上第一个埋点真能工作的版本,⚠️ 记得扣掉 09-04 16:31–16:36 UTC 那批模拟器事件。
+  这是历史上第一个埋点真能工作的版本,⚠️ 扣掉 **2026-09-04 全天 70 条**(16:31:58–17:42:59 UTC)模拟器事件;真实历史基线只有 08-05 的 3 条。
 - Sentry 同理:这也是崩溃上报第一次真的能上报。

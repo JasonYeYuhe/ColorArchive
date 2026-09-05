@@ -44,6 +44,7 @@ Three phases:
   python3 ios/scripts/submit_1_4.py --submit     # attach build 7 + submit for review
 """
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -55,8 +56,21 @@ VERSION = "1.4"
 BUILD_NUM = "7"
 RELEASE_TYPE = "AFTER_APPROVAL"   # what 1.3 used; goes live on approval without a second step
 
-CONTACT = {"contactFirstName": "Yuhe", "contactLastName": "Ye",
-           "contactPhone": "+81 08035267088", "contactEmail": "support@colorarchive.org"}
+# 🔴 NO PERSONAL CONTACT DETAILS IN THIS FILE — the repo is PUBLIC.
+#
+# App Store Connect already holds the review contact from previous versions and keeps it unless
+# it is overwritten, so the normal path sends no contact fields at all and simply inherits it.
+# Override only if it genuinely needs changing, and pass it through the environment:
+#     ASC_CONTACT_FIRST=… ASC_CONTACT_LAST=… ASC_CONTACT_PHONE=… ASC_CONTACT_EMAIL=… \
+#       python3 ios/scripts/submit_1_4.py --metadata
+def contact_from_env():
+    keys = {"contactFirstName": "ASC_CONTACT_FIRST", "contactLastName": "ASC_CONTACT_LAST",
+            "contactPhone": "ASC_CONTACT_PHONE", "contactEmail": "ASC_CONTACT_EMAIL"}
+    got = {k: os.environ[v] for k, v in keys.items() if os.environ.get(v)}
+    if got and len(got) != len(keys):
+        sys.exit("set all four ASC_CONTACT_* variables or none — a partial contact would "
+                 "overwrite the good one on file with a half-empty record")
+    return got
 
 MAX_WHATS_NEW = 4000
 MAX_REVIEW_NOTES = 4000
@@ -208,7 +222,7 @@ def do_metadata():
             fail(f"whatsNew {locale} read-back mismatch")
 
     cur = asc("GET", f"/v1/appStoreVersions/{vid}/appStoreReviewDetail")
-    attrs = dict(CONTACT, notes=REVIEW_NOTES, demoAccountRequired=False)
+    attrs = dict(contact_from_env(), notes=REVIEW_NOTES, demoAccountRequired=False)
     if (cur.get("data") or {}).get("id"):
         rid = cur["data"]["id"]
         r = asc("PATCH", f"/v1/appStoreReviewDetails/{rid}",
