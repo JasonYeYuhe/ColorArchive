@@ -14,6 +14,9 @@ import {
 import { useLocale } from "@/src/components/locale-provider";
 import { track } from "@/src/lib/track";
 import { writeClipboard } from "@/src/lib/clipboard";
+import { colors as archiveColors } from "@/src/data/colors";
+import { findClosestArchiveColor } from "@/src/lib/color-relationships";
+import type { ColorRecord } from "@/src/types/color";
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -188,7 +191,16 @@ function ColorInput({
 /*  StepSwatch                                                         */
 /* ------------------------------------------------------------------ */
 
-function StepSwatch({ step, index }: { step: MixStep; index: number }) {
+function StepSwatch({
+  step,
+  index,
+  match,
+}: {
+  step: MixStep;
+  index: number;
+  /** Nearest archive colour, precomputed by the parent — never searched here. */
+  match: ColorRecord | null;
+}) {
   const fg = contrastColor(step.r, step.g, step.b);
   const label = index === 0 ? "A" : index === MIX_STEPS - 1 ? "B" : `${step.pct}%`;
 
@@ -210,6 +222,16 @@ function StepSwatch({ step, index }: { step: MixStep; index: number }) {
           {step.hex}
         </span>
         <CopyButton value={step.hex} label="Copy" small />
+        {match && (
+          <Link
+            href={`/colors/${match.id}/`}
+            onClick={() => track("tool_action", { tool: "mixer", action: "archive_open" })}
+            title={`In the archive: ${match.name} (${match.hex})`}
+            className="max-w-full truncate text-[10px] font-medium uppercase tracking-widest text-neutral-400 transition hover:text-neutral-800 dark:text-neutral-500 dark:hover:text-neutral-200"
+          >
+            Archive
+          </Link>
+        )}
       </div>
     </div>
   );
@@ -258,6 +280,17 @@ export function MixerPage() {
     if (!bothValid) return [];
     return generateMixSteps(validA!, validB!, MIX_STEPS, mode);
   }, [validA, validB, mode, bothValid]);
+
+  // findClosestArchiveColor scans the whole archive, so it runs once per step
+  // here — inside a memo keyed on the steps array — and never in a swatch render.
+  const stepMatches = useMemo(
+    () =>
+      steps.map((step) => ({
+        step,
+        match: findClosestArchiveColor(archiveColors, step.hex),
+      })),
+    [steps],
+  );
 
   const exportCode = useMemo(() => {
     if (!steps.length) return "";
@@ -388,8 +421,8 @@ export function MixerPage() {
 
             {/* Individual swatches */}
             <div className="grid grid-cols-11 gap-1.5">
-              {steps.map((step, i) => (
-                <StepSwatch key={i} step={step} index={i} />
+              {stepMatches.map(({ step, match }, i) => (
+                <StepSwatch key={i} step={step} index={i} match={match} />
               ))}
             </div>
           </section>

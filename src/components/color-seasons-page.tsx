@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
 import { track } from "@/src/lib/track";
+import { colors as archiveColors } from "@/src/data/colors";
+import { findClosestArchiveColor } from "@/src/lib/color-relationships";
 import {
   colorSeasons,
   MOOD_LABELS,
@@ -16,9 +18,11 @@ import {
 function SeasonCard({
   season,
   locale,
+  archiveMatches,
 }: {
   season: ColorSeason;
   locale: string;
+  archiveMatches: ReadonlyMap<string, string>;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -97,21 +101,38 @@ function SeasonCard({
 
         {/* Color swatches with names */}
         <div className="mb-4 grid grid-cols-3 gap-2 sm:grid-cols-6">
-          {season.colors.map((color) => (
-            <div key={color.hex} className="flex flex-col items-center gap-1.5">
-              <div
-                className="h-10 w-full rounded-lg shadow-sm"
-                style={{ backgroundColor: color.hex }}
-                title={color.name}
-              />
-              <p className="text-center text-[10px] font-medium leading-tight text-neutral-700 dark:text-neutral-300">
-                {color.name}
-              </p>
-              <div className="flex items-center gap-1">
-                <CopyButton value={color.hex} label={color.hex.toUpperCase()} trackAs="seasons-swatch" variant="compact" />
+          {season.colors.map((color) => {
+            const matchId = archiveMatches.get(color.hex.toLowerCase());
+            return (
+              <div key={color.hex} className="flex flex-col items-center gap-1.5">
+                <div
+                  className="h-10 w-full rounded-lg shadow-sm"
+                  style={{ backgroundColor: color.hex }}
+                  title={color.name}
+                />
+                <p className="text-center text-[10px] font-medium leading-tight text-neutral-700 dark:text-neutral-300">
+                  {color.name}
+                </p>
+                <div className="flex items-center gap-1">
+                  <CopyButton value={color.hex} label={color.hex.toUpperCase()} trackAs="seasons-swatch" variant="compact" />
+                </div>
+                {matchId ? (
+                  <Link
+                    href={`/colors/${matchId}/`}
+                    onClick={() =>
+                      track("tool_action", {
+                        tool: "seasonal",
+                        action: "archive_open",
+                      })
+                    }
+                    className="text-center text-[10px] font-medium leading-tight text-neutral-400 underline-offset-2 transition hover:text-neutral-900 hover:underline dark:text-neutral-500 dark:hover:text-neutral-100"
+                  >
+                    In the archive
+                  </Link>
+                ) : null}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Tags */}
@@ -200,6 +221,21 @@ function SeasonCard({
 export function ColorSeasonsPage() {
   const { t, locale } = useLocale();
 
+  // findClosestArchiveColor scans every archive record, so the whole hex →
+  // archive-id mapping is built once here rather than per swatch per render.
+  const archiveMatches = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const season of colorSeasons) {
+      for (const color of season.colors) {
+        const key = color.hex.toLowerCase();
+        if (map.has(key)) continue;
+        const match = findClosestArchiveColor(archiveColors, color.hex);
+        if (match) map.set(key, match.id);
+      }
+    }
+    return map;
+  }, []);
+
   const heading = locale === "zh" ? "四季色彩" : "Color by Season";
   const subheading =
     locale === "zh"
@@ -238,7 +274,12 @@ export function ColorSeasonsPage() {
       {/* Season cards */}
       <div className="grid gap-6 lg:grid-cols-2">
         {colorSeasons.map((season) => (
-          <SeasonCard key={season.id} season={season} locale={locale} />
+          <SeasonCard
+            key={season.id}
+            season={season}
+            locale={locale}
+            archiveMatches={archiveMatches}
+          />
         ))}
       </div>
 
