@@ -2,6 +2,41 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🟢 2026-09-05(晚)— 计划 §3 的 10 个批次**全部做完并在生产上验过**
+>
+> 提交:`39d9913` E1 · `ec714e1` F1 · `bda47d4` F4 · `f04fb67` G1 · `cd165cc` G3-web ·
+> `1e01c05` F2 · `7975c81` E2 · `44e9117` E3 · `ecedbad` E5 · `ca4f255` F3。
+> 全过程与四条被证伪的计划断言写在 `docs/autopilot-log.md` 顶部和计划新增的 **§4.5**。
+>
+> ### 🔴 还是要你做的三件(前两件没变,第一件现在更要紧)
+>
+> 1. **设 3 个 LemonSqueezy env var 并重新部署**(15 分钟)。
+>    🔴 **现在 `/pro/` 上年付和终身是「Temporarily unavailable」的禁用按钮** —— F1 不许它们再静默
+>    回退到带选择器的链接(那正是 id41 按年付被扣月付 ¥500 的原因)。月付不受影响,站史 3 笔成交
+>    走的都是月付那条路,还在正常工作。
+>    **这次不用猜 env 有没有设**:读构建产物就行,设了会被内联成字符串,没设会留下 `process.env.X`:
+>    ```bash
+>    curl -s https://colorarchive.org/pro/ | grep -o '/_next/static/chunks/[^"]*\.js' | sort -u \
+>      | while read c; do curl -s "https://colorarchive.org$c"; done | grep -o 'env\.NEXT_PUBLIC_PRO_[A-Z_]*'
+>    ```
+>    今天跑出来三个全在(=都没设),而 `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` 不在(=设了)—— 那是阳性对照。
+>    设完重新部署,这条命令应该什么都不输出,年付按钮会自己回来(有单测钉住这一点,不需要改代码)。
+> 2. **要不要给 id41 发邮件**说明并主动改成年付。他 **10-03 第一次续费**。客户邮件需你授权。
+> 3. **R1 要不要推翻评审去做**。默认不做,理由在计划 §4。
+>
+> ### 🔴 新增第四件:165 处「Brand Starter Kit」在内容里
+>
+> 网页组件里的假承诺已经全改成真话了(`grep -rin "starter kit|priority access|downloadable assets"`
+> 在 `src/components/` + `app/` 只剩一个**后台管理下拉框**,那是历史真实 SKU 的记录,不是访客文案)。
+> 但同一句话在**内容数据**里还有 165 处:`src/lib/guides.ts` 63、`src/lib/seo-guides-batch2.ts` 32、
+> `src/data/newsletter-issues.json` 70 —— 大多是指向 `/pro/` 的链接药丸「Brand Starter Kit」,而**没有这个产品**。
+> 改它是一次内容迁移(受 `content-links` 守卫管),不是文案修补,所以本轮没动。**要不要改、怎么改,你定。**
+>
+> ### 押后未变
+>
+> `server/email.js:1280` 的 SwiftUI / Android / Flutter 导出器承诺仍在(站内 `grep -rin swiftui src/ app/` = **0 命中**,
+> 确认不存在)。改它必须 `pm2 restart`,restart 会群发邮件 —— **搭下一次本来就要 restart 的部署一起改。**
+
 > ## 🔵 2026-09-05 — 下阶段计划已就绪:`docs/dev-plan-2026-09-05-product-quality.md`(第 2 稿)
 >
 > 经 Gemini 3.1 Pro + 3.8 Flash 双评审后重写:E1 埋点先行、G2 押后、R1/E4 砍掉、判据全部改成

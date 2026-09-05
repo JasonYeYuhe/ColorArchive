@@ -1,3 +1,93 @@
+## 2026-09-05 — [remote] Product-quality plan §3, all ten batches shipped and verified on production
+
+Ran `docs/dev-plan-2026-09-05-product-quality.md` §3 items 1-10 in order, one commit per batch.
+Ten pushes on purpose, not carelessness: E1/F1/F4/G1 can only be verified on the live site (the
+paywall cannot render on localhost at all — CORS 403 → sessionError → decideGate returns
+remaining:null, so neither branch of the gate shows), so each needed its own deploy to check.
+
+**Commits:** `39d9913` E1 · `ec714e1` F1 · `bda47d4` F4 · `f04fb67` G1 · `cd165cc` G3-web ·
+`1e01c05` F2 · `7975c81` E2 · `44e9117` E3 · `ecedbad` E5 · `ca4f255` F3.
+
+### Verified on production, not asserted
+
+| | evidence |
+|---|---|
+| E1 events reach BOTH sinks | fired `tool_action{tool:"all-colors"}` live → present in the `events` table at 08:27:13 AND in PostHog at 08:27:13.434 with correct props. `/brands/` copy → `color_copy_failed{format:"brand-swatch", reason:"denied"}` (a scripted click has no user activation, so the refusal is correct — and it is exactly the case that used to be a silent no-op). All 5 synthetic rows deleted by session id afterwards; 0 remain |
+| F1 | `/pro/` now renders monthly "Subscribe to Pro" (enabled) and yearly + lifetime "Temporarily unavailable" (disabled). The revenue path all 3 sales took is untouched |
+| F4 | clicked Preview → CSS → Tailwind on a collection page: `colorarchive_export_count` went 0 → **0**. Before the fix that was 3 of 3 daily exports spent for looking at three formats. Contrast card renders ungated |
+| G1 | locked gate now reads "Export all 6 scales in CSS, Tailwind, SCSS, and JSON **locked**" / "3/3 free exports used today · resets 9:00 AM" / "Sign in for **10** a day". The `label` prop had never rendered in its life |
+| G3-web | the `/pro/` WCAG row now reads "3 (anonymous) / 10 (signed in) | Unlimited" instead of a bare em-dash |
+| F2 | same probe before and after: 9 keystrokes issued **9** RSC requests (`?q=p`, `?q=pr`, …) before and **1** after. URL sync still correct (`?q=probeword`, LAST_WRITTEN in step) |
+
+### 🔴 Four of the plan's own assertions were false, and two would have produced bad work
+
+Written up in the plan's new §4.5. Short form:
+
+1. **"each replace is counted as a PostHog `$pageview` ⇒ ≈48 pv/session"** — false. `capture_pageview:false`
+   is exactly the flag posthog-js gates history autocapture on, and our own `$pageview` is deduped by
+   `pathname`, which `?q=` does not change. Measured: a whole typing session produced 4 pageviews.
+   F2 is still right, but for a different reason — see below. **The 45,768-event session of 08-15 is
+   still undiagnosed and this fix should not be credited with it.**
+2. **"Vercel does not expose env, so this cannot be verified from here"** — it can, by reading the BUILD
+   PRODUCT. An unset `NEXT_PUBLIC_*` survives in the bundle as `process.env.X`; a set one is replaced by
+   its literal. All three PRO_* survived while `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` did not — a positive
+   control proving the mechanism works and the values are simply missing.
+3. **"pickColorsFromFragments only scores by hue root"** — backwards. It substring-matches the WHOLE name,
+   and names are "Root LightBand ChromaBand", so band words were not ignored but DOMINANT: a hue root
+   matches 112 of 5,446 names, a lightness band word 389, a chroma band word 672.
+4. **"delete the terms `API access` clause, it is a false promise"** — it is TRUE. `/api/colors` returns
+   200 with real data, public, no key. Left in place. (Its three supporting facts were all correct:
+   the rate limiter is mounted nowhere, no endpoint serves colour data behind a key, 0 of 23 users have one.)
+
+### What F2 actually fixed, since the stated reason was wrong
+
+Measured on production: typing a 9-character word issued nine `?q=<prefix>&_rsc=` requests, one per
+keystroke. They are CDN hits (`x-vercel-cache: HIT`), so the cost is not compute — the cost is that each
+one re-renders the route and **remounts the component**, re-firing every mount effect. The same nine
+keystrokes emitted 25 `word_paywall_restored` and 25 `word_intent_impression`, into a series with 491 rows
+in 60 days total. Those two series have been unreadable on that page for as long as the rewrite existed.
+⚠️ The event-count half is NOT cleanly quantified after the fix — my measurement session also contained
+~24 page reloads from debugging and I deleted the rows before separating them by timestamp. The RSC
+half (9 → 1) is clean.
+
+### Three things the plan missed, found by checking rather than trusting
+
+- **G3 missed `collection-detail-page.tsx` entirely** — it duplicates BOTH false phrases and is the only
+  other place either appears.
+- **brand-generator had TWO "Starter Kit" promises**, not one; fixing the named one would have left a button.
+- **"Brand Starter Kit" also appears 165 times in CONTENT data** (guides 63, seo-guides-batch2 32,
+  newsletter-issues 70), mostly as link pills to `/pro/`. Same false promise at 80x the volume, but that is
+  a content migration under the content-links guard, not a copy fix. **Owner decision, in human-todo.**
+
+### The test that could not fail, caught before it shipped
+
+F3's first test file had 33 tests and **all of them passed against a stub that ignored its arguments** and
+returned six hardcoded colours — every assertion was structural ("≥4 colours", "≥3 bands", "≥4 families").
+That is this repo's recurring failure in test form. Added the block that fails on a constant and verified
+it myself by stubbing the function (tsc-clean stub), running the suite, watching the two distinctness tests
+fail, restoring, and confirming md5 `b84345a7` unchanged. One of my own new assertions was wrong and the
+code was right — I demanded 24 distinct palettes and got 21, because the three collisions are
+"Wedding invitation"/婚礼请柬 and friends: the Chinese chip now resolving to its English twin's meaning,
+which is the CJK fix working.
+
+### Also worth knowing
+
+- **`tool_used` is not usage.** It fires on every route change (4,801 in 7 days; `/compare/` 1,336 events
+  across 1,333 sessions ≈ 1.0/session). The name lies. Do not read it as "someone used the tool" on 11-02.
+- **E1 reused `tool_action{tool,action}`** rather than the plan's 15 bespoke names, so the 11-02 readout can
+  rank new and existing tools in one query. Full mapping table in the plan's §4.5.
+- **HogQL without an explicit `timestamp` filter returned stale rows as "newest"** — it briefly looked like
+  the events had not reached PostHog. Always pass a time filter.
+- **`/regions/` was fixed too** though it is not in the plan: a byte-level twin of `/brands/` with the
+  identical untracked-copy defect.
+- `conversion-digest.cjs` now splits `color_copied` by `format` and marks the surfaces that did not exist
+  before today, because wiring up 11 new copy surfaces steps the site-wide count up with no behaviour
+  change. Deployed by scp + `sudo install`, md5 matched, run on the server — **no `pm2 restart`**, it is a
+  cron script and nothing `require`s it.
+
+**Suite:** 48 files / 836 tests, server 70, tsc clean, eslint 86 warnings (87 before — the deleted
+ProGateCounter took one with it).
+
 ## 2026-09-05 — [remote] Next-phase plan written from measured data, double-reviewed, rewritten; handoff prompt ready
 
 Owner: "make the paid and free features better, focus on the site's own exclusive features; review

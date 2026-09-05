@@ -205,6 +205,43 @@
 
 ---
 
+## §4.5 🔴 执行后的更正(2026-09-05 晚,10 个批次全部完成后补写)
+
+**这份计划的 4 条断言在动手时被证伪。** 保留原文不改,更正写在这里 —— 计划本身也要按
+「代码里写了 ≠ 事情成立」的标准检验。
+
+| 计划原文 | 实测 | 证据 |
+|---|---|---|
+| §1.5「PostHog 把每次 replace 记成一个 `$pageview` ⇒ ≈48 pv/会话」 | **假**。`posthog.ts` 设了 `capture_pageview:false`,posthog-js 的 history autocapture 正是由这个开关控制;我们自己唯一的 `$pageview` 按 `pathname` 去重,而 `?q=` 不改 pathname。实测一整个打字会话只产生 4 个 pageview | F2 提交信息 |
+| §1.1「Vercel 项目 API 不暴露 env,**无法从这边核实**」 | **可以核实,只是要读构建产物**。Next 把 `NEXT_PUBLIC_*` 静态内联:设了的变成字符串字面量,没设的以 `process.env.X` 形式留在 bundle 里。三个 PRO_* 都留着,而 `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` 不见了(已被替换成真 URL)—— **这是阳性对照**,证明机制没坏、就是没设 | F1 提交信息 |
+| §3-F3「`pickColorsFromFragments` 只按色相根打分,亮度/彩度片段被忽略」 | **反了**。它按整个名字做子串匹配,而名字是「Root LightBand ChromaBand」,所以波段词不是被忽略而是**压倒性**:色相根命中 112 个名字,亮度波段词 389,彩度波段词 672 | F3 提交信息 |
+| §3-G3「`terms-page.tsx:17` 的 API access 是假承诺,删掉」 | **不是假的,没删**。`https://colorarchive.org/api/colors` 生产上 200,返回真实色彩数据(total 5446),公开、不需要 key。删掉会删掉一句真话。(计划的三条佐证倒都成立:限流器确实没挂载、确实没有任何端点凭 key 供色彩数据、23 个用户里 0 个有 key) | G3-web 提交信息 |
+
+**E1 的事件名与计划不同 —— §5 的判据请按下表读。** 计划提议了 15 个新事件名;实际复用了仓库里
+已经在生产跑的 `tool_action{tool,action}` 形状(css-filter / color-wheel / color-temperature /
+duotone / dark-mode-colors 共 261 事件/60 天),这样 11-02 那份读出可以用**同一条查询**把新旧工具一起排名。
+
+| 计划里的名字 | 实际发出的 |
+|---|---|
+| `archive_filter{kind}` | `tool_action{tool:"all-colors", action:"filter", kind}` |
+| `archive_show_more` | `tool_action{tool:"all-colors", action:"show_more"}` |
+| `archive_copy{format}` | `color_copied{format:"archive-swatch", value_kind}` |
+| `collection_open{slug}` | `tool_action{tool:"collections", action:"open", slug, source}` |
+| `compare_run` | `tool_action{tool:"compare", action:"input"\|"pick"\|"swap", side}` |
+| `name_generate` | `tool_action{tool:"name", action:"generate", source}` |
+| `token_row_copy` / `token_export{format}` | `color_copied{format:"tokens-value", value_kind}` / `tool_action{tool:"tokens", action:"format_switch"}` |
+| `audit_run` / `audit_copy` | `tool_action{tool:"wcag-audit", action:"run", source}` / `color_copied{format:"wcag-csv"}` |
+| `hue_game_started/completed{score}` | `tool_action{tool:"color-quiz", action:"start"\|"complete", family, result_slug}` —— ⚠️ **没有 score**,`computeResult` 根本不返回分数,加它要改返回类型,本轮没做 |
+| `image_extract` / `image_copy` | `tool_action{tool:"image-palette", action:"extract", source}` / `color_copied{format:"image-swatch"}` |
+| `color_copied{variant:"brand"}` | `color_copied{format:"brand-swatch"}` —— **用 `format` 而不是 `variant`**:`variant` 在这个仓库里一直是视觉描述(pill/compact/action/detail),区分「面」的是 `format`(既有 `trackAs="seasons-swatch"`/`"decades-swatch"` 就是这么用的) |
+| `seasonal_copy` / `today_copy` / `identify_result` | `tool_action{tool, action:"archive_open"}` + `color_copied{format:"today-value"\|"identify-value"}`(seasonal 的复制**早就有埋点**,没有重复加) |
+| `pick_go{lang}` / `pick_copy` | `tool_action{tool:"pick-for-me", action:"go", source, lang}` / `color_copied{format:"pick-swatch"}` |
+
+🔴 **读 11-02 数据前必读**:`tool_used` 这个事件**不是使用量**。它在 `posthog-provider.tsx` 的路由变化里发,
+是**页面浏览**(7 天 4,801 条,`/compare/` 1,336 事件 / 1,333 会话 ≈ 1.0)。名字骗人,别当成「有人用了工具」。
+
+---
+
 ## §5 会推翻或改写本计划的信号
 
 - **id41 在 10-03 第一次续费时流失** → F1 的 bug 直接丢了一个客户;§6 那封邮件的决定要在 10-03 前做。
