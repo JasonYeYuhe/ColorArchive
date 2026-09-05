@@ -4,6 +4,8 @@ import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { hexToRgb, rgbToHsl, hslToRgb, rgbToHex } from "@/src/lib/color-utils";
 import { generateColorName } from "@/src/lib/color-naming";
 import { useLocale } from "@/src/components/locale-provider";
+import { track } from "@/src/lib/track";
+import { writeClipboard } from "@/src/lib/clipboard";
 import { ProGate } from "@/src/components/pro-gate";
 import { WhatsNext } from "@/src/components/whats-next";
 
@@ -201,15 +203,24 @@ function buildStyleDictionary(tokens: TokenSystem, varName: string): string {
 /*  Sub-components                                                      */
 /* ------------------------------------------------------------------ */
 
-function CopyButton({ value, label }: { value: string; label?: string }) {
+function CopyButton({ value, label, kind = "row" }: { value: string; label?: string; kind?: "row" | "all" }) {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => { clearTimeout(timerRef.current); }, []);
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(value).catch(() => {});
+  // `format` is the SURFACE (site-wide convention), `variant` the visual shape.
+  // Which of the two call sites fired rides along as its own bounded prop rather
+  // than being interpolated into `format` — a per-row copy and a bulk "Copy All"
+  // are different intents and must stay separable without splitting the series.
+  const handleCopy = useCallback(async () => {
+    const result = await writeClipboard(value);
+    if (!result.ok) {
+      track("color_copy_failed", { format: "tokens-value", variant: "compact", value_kind: kind, reason: result.reason });
+      return;
+    }
     setCopied(true);
     timerRef.current = setTimeout(() => setCopied(false), 1500);
-  }, [value]);
+    track("color_copied", { format: "tokens-value", variant: "compact", value_kind: kind });
+  }, [value, kind]);
   return (
     <button
       type="button"
@@ -459,7 +470,7 @@ export function TokenGeneratorPage() {
                   <button
                     key={key}
                     type="button"
-                    onClick={() => setActiveScale(key)}
+                    onClick={() => { track("tool_action", { tool: "tokens", action: "scale_switch" }); setActiveScale(key); }}
                     aria-pressed={activeScale === key}
                     className={`flex-shrink-0 px-5 py-3 text-xs font-medium uppercase tracking-[0.14em] transition ${
                       activeScale === key
@@ -522,7 +533,7 @@ export function TokenGeneratorPage() {
             <div className="mb-8 rounded-[2rem] border border-black/6 bg-white/74 p-6 backdrop-blur-xl sm:p-8 dark:border-white/8 dark:bg-neutral-900/60">
               <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                 <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-neutral-400">Export Tokens</h2>
-                <CopyButton value={exportCode} label="Copy All" />
+                <CopyButton value={exportCode} label="Copy All" kind="all" />
               </div>
 
               {/* Format tabs */}
@@ -536,7 +547,7 @@ export function TokenGeneratorPage() {
                   <button
                     key={fmt}
                     type="button"
-                    onClick={(e) => { e.stopPropagation(); setActiveFormat(fmt); }}
+                    onClick={(e) => { e.stopPropagation(); track("tool_action", { tool: "tokens", action: "format_switch", format_name: fmt }); setActiveFormat(fmt); }}
                     aria-pressed={activeFormat === fmt}
                     className={`px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] transition ${
                       activeFormat === fmt

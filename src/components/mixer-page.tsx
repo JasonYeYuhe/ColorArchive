@@ -12,6 +12,8 @@ import {
   type MixStep,
 } from "@/src/lib/color-mix";
 import { useLocale } from "@/src/components/locale-provider";
+import { track } from "@/src/lib/track";
+import { writeClipboard } from "@/src/lib/clipboard";
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -67,24 +69,33 @@ function CopyButton({
   label,
   small,
   className,
+  kind = "step",
 }: {
   value: string;
   label: string;
   small?: boolean;
   className?: string;
+  /** Bounded surface descriptor — never a runtime value. */
+  kind?: "step" | "all" | "snippet";
 }) {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => { clearTimeout(timerRef.current); }, []);
   const handleCopy = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      timerRef.current = setTimeout(() => setCopied(false), 1500);
-    } catch {
-      /* clipboard unavailable */
+    const result = await writeClipboard(value);
+    if (!result.ok) {
+      track("color_copy_failed", {
+        format: "mixer-value",
+        variant: "compact",
+        value_kind: kind,
+        reason: result.reason,
+      });
+      return;
     }
-  }, [value]);
+    track("color_copied", { format: "mixer-value", variant: "compact", value_kind: kind });
+    setCopied(true);
+    timerRef.current = setTimeout(() => setCopied(false), 1500);
+  }, [value, kind]);
 
   if (small) {
     return (
@@ -215,6 +226,30 @@ export function MixerPage() {
   const [exportFormat, setExportFormat] = useState<ExportFormat>("css-var");
   const [mixName, setMixName] = useState("blend");
 
+  // Dedupe per endpoint: the colour picker and the hex field share one handler,
+  // and a picker drag / a keystroke both re-enter it. Only a NEW valid colour
+  // counts as a pick. Handler-only — never fires from state or on mount.
+  const lastPickedA = useRef<string | null>(null);
+  const lastPickedB = useRef<string | null>(null);
+
+  const handleChangeA = useCallback((v: string) => {
+    setHexA(v);
+    if (!isValidHex(v)) return;
+    const normalized = normalizeHex(v);
+    if (lastPickedA.current === normalized) return;
+    lastPickedA.current = normalized;
+    track("tool_action", { tool: "mixer", action: "pick" });
+  }, []);
+
+  const handleChangeB = useCallback((v: string) => {
+    setHexB(v);
+    if (!isValidHex(v)) return;
+    const normalized = normalizeHex(v);
+    if (lastPickedB.current === normalized) return;
+    lastPickedB.current = normalized;
+    track("tool_action", { tool: "mixer", action: "pick" });
+  }, []);
+
   const validA = isValidHex(hexA) ? normalizeHex(hexA) : null;
   const validB = isValidHex(hexB) ? normalizeHex(hexB) : null;
   const bothValid = !!validA && !!validB;
@@ -262,11 +297,11 @@ export function MixerPage() {
         <section className="rounded-2xl border border-black/6 bg-white/80 px-6 py-6 shadow-sm backdrop-blur-xl dark:bg-neutral-900/70">
           {/* Color inputs */}
           <div className="flex flex-col gap-5 sm:flex-row">
-            <ColorInput label="Color A" value={hexA} onChange={setHexA} />
+            <ColorInput label="Color A" value={hexA} onChange={handleChangeA} />
             <div className="flex flex-none items-center justify-center text-xl text-neutral-300">
               ⟷
             </div>
-            <ColorInput label="Color B" value={hexB} onChange={setHexB} />
+            <ColorInput label="Color B" value={hexB} onChange={handleChangeB} />
           </div>
 
           {/* Swap button */}
@@ -339,6 +374,7 @@ export function MixerPage() {
               <CopyButton
                 value={steps.map((s) => s.hex).join(", ")}
                 label="Copy All Hex"
+                kind="all"
               />
             </div>
 
@@ -373,6 +409,7 @@ export function MixerPage() {
                 <CopyButton
                   value={toCssColorMix(validA, validB, 50, mode)}
                   label="Copy"
+                  kind="snippet"
                 />
               </div>
             </div>
@@ -432,7 +469,7 @@ export function MixerPage() {
                 <code>{exportCode}</code>
               </pre>
               <div className="absolute right-3 top-3">
-                <CopyButton value={exportCode} label="Copy All" />
+                <CopyButton value={exportCode} label="Copy All" kind="all" />
               </div>
             </div>
           </section>

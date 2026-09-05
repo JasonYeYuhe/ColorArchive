@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
+import { track } from "@/src/lib/track";
 import {
   colorSeasons,
   MOOD_LABELS,
@@ -38,6 +39,11 @@ function SeasonCard({
     const hexes = season.colors
       .map((c) => c.hex.replace("#", "").toLowerCase());
     const url = `/palette/?colors=${hexes.join(",")}`;
+    track("tool_action", {
+      tool: "seasonal",
+      action: "open_in_palette",
+      season: season.id,
+    });
     window.open(url, "_blank");
   };
 

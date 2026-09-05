@@ -6,6 +6,8 @@ import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { useLocale } from "@/src/components/locale-provider";
 import { addRecentColor } from "@/src/lib/recent-colors";
+import { writeClipboard } from "@/src/lib/clipboard";
+import { track } from "@/src/lib/track";
 import type { ColorRecord } from "@/src/types/color";
 
 interface SelectedColorPanelProps {
@@ -15,10 +17,21 @@ interface SelectedColorPanelProps {
 }
 
 interface CopyActionProps {
-  label: string;
+  /**
+   * Kept as a union rather than `string` on purpose: it rides out as the
+   * `value_kind` analytics prop, so it must stay a bounded set of literals.
+   */
+  label: "hex" | "rgb" | "hsl";
   value: string;
 }
 
+/**
+ * LOCAL SHADOW of the shared, already-tracked `CopyButton` — this is one of the
+ * copy points that the site-wide `color_copied` series missed for exactly that
+ * reason. If a new call site is added, or this is ever replaced, the tracking
+ * below must come with it: an untracked copy point does not read as "nobody
+ * copied", it reads as nothing at all.
+ */
 function CopyAction({ label, value }: CopyActionProps) {
   const [copied, setCopied] = useState(false);
   const { t } = useLocale();
@@ -33,12 +46,25 @@ function CopyAction({ label, value }: CopyActionProps) {
   }, [copied]);
 
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
+    const result = await writeClipboard(value);
+
+    if (result.ok) {
       setCopied(true);
-    } catch {
-      setCopied(false);
+      track("color_copied", {
+        format: "archive-swatch",
+        variant: "compact",
+        value_kind: label,
+      });
+      return;
     }
+
+    setCopied(false);
+    track("color_copy_failed", {
+      format: "archive-swatch",
+      variant: "compact",
+      value_kind: label,
+      reason: result.reason,
+    });
   };
 
   return (

@@ -3,7 +3,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ShareLinkButton } from "@/src/components/share-link-button";
+import { writeClipboard } from "@/src/lib/clipboard";
 import { addManyToPalette } from "@/src/lib/palette-builder";
+import { track } from "@/src/lib/track";
 import type { ColorRecord } from "@/src/types/color";
 
 export interface CollectionListItem {
@@ -40,12 +42,18 @@ function CopyButton({ label, value }: { label: string; value: string }) {
   }, [copied]);
 
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
+    const result = await writeClipboard(value);
+    if (result.ok) {
       setCopied(true);
-    } catch {
-      setCopied(false);
+      track("color_copied", { format: "collection-swatch", variant: "compact" });
+      return;
     }
+    setCopied(false);
+    track("color_copy_failed", {
+      format: "collection-swatch",
+      variant: "compact",
+      reason: result.reason,
+    });
   };
 
   return (
@@ -169,7 +177,7 @@ export function CollectionsPage({ collections, guidesByCollection }: Collections
             <div className="mt-3 flex flex-wrap gap-1.5">
               <button
                 type="button"
-                onClick={() => { setActiveTag(null); setSidebarCount(COLLECTIONS_PER_PAGE); }}
+                onClick={() => { track("tool_action", { tool: "collections", action: "filter", kind: "tag" }); setActiveTag(null); setSidebarCount(COLLECTIONS_PER_PAGE); }}
                 className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${!activeTag ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
               >
                 All
@@ -178,7 +186,7 @@ export function CollectionsPage({ collections, guidesByCollection }: Collections
                 <button
                   key={tag}
                   type="button"
-                  onClick={() => { setActiveTag(activeTag === tag ? null : tag); setSidebarCount(COLLECTIONS_PER_PAGE); }}
+                  onClick={() => { track("tool_action", { tool: "collections", action: "filter", kind: "tag" }); setActiveTag(activeTag === tag ? null : tag); setSidebarCount(COLLECTIONS_PER_PAGE); }}
                   className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] transition ${activeTag === tag ? "bg-neutral-950 text-white" : "border border-black/8 bg-white text-neutral-500 hover:bg-neutral-50"}`}
                 >
                   {tag}
@@ -193,7 +201,10 @@ export function CollectionsPage({ collections, guidesByCollection }: Collections
                   <button
                     key={collection.id}
                     type="button"
-                    onClick={() => setActiveCollectionId(collection.id)}
+                    onClick={() => {
+                      track("tool_action", { tool: "collections", action: "preview", slug: collection.id });
+                      setActiveCollectionId(collection.id);
+                    }}
                     className={`w-full rounded-[1.4rem] border px-4 py-4 text-left transition ${
                       isActive
                         ? "border-neutral-950/12 bg-neutral-950 text-white"
@@ -219,7 +230,10 @@ export function CollectionsPage({ collections, guidesByCollection }: Collections
               {filteredCollections.length > sidebarCount && (
                 <button
                   type="button"
-                  onClick={() => setSidebarCount((c) => c + COLLECTIONS_PER_PAGE)}
+                  onClick={() => {
+                    track("tool_action", { tool: "collections", action: "show_more" });
+                    setSidebarCount((c) => c + COLLECTIONS_PER_PAGE);
+                  }}
                   className="w-full rounded-[1.4rem] border border-dashed border-black/12 px-4 py-3 text-center text-sm font-medium text-neutral-500 transition hover:border-neutral-950 hover:text-neutral-950"
                 >
                   Show more ({filteredCollections.length - sidebarCount} remaining)
@@ -259,6 +273,7 @@ export function CollectionsPage({ collections, guidesByCollection }: Collections
                   <AddCollectionToPaletteButton collection={activeCollection} />
                   <Link
                     href={`/collections/${activeCollection.id}`}
+                    onClick={() => track("tool_action", { tool: "collections", action: "open", slug: activeCollection.id, source: "card" })}
                     className="rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-neutral-600 transition hover:bg-neutral-950 hover:text-white"
                   >
                     Open detail
@@ -384,6 +399,7 @@ export function CollectionsPage({ collections, guidesByCollection }: Collections
                 key={collection.id}
                 href={`/collections/${collection.id}/`}
                 prefetch={false}
+                onClick={() => track("tool_action", { tool: "collections", action: "open", slug: collection.id, source: "list" })}
                 className="text-sm leading-6 text-neutral-600 underline-offset-4 transition hover:text-neutral-950 hover:underline"
               >
                 {collection.title}

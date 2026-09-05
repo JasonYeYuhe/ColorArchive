@@ -6,6 +6,8 @@ import type { BrandPalette } from "@/src/lib/brand-palettes";
 import { brandPalettes, BRAND_CATEGORY_LABELS } from "@/src/lib/brand-palettes";
 import { colors as archiveColors } from "@/src/data/colors";
 import { findClosestArchiveColor } from "@/src/lib/color-relationships";
+import { track } from "@/src/lib/track";
+import { writeClipboard } from "@/src/lib/clipboard";
 
 interface Props {
   brand: BrandPalette;
@@ -42,14 +44,18 @@ export function BrandDetailPage({ brand }: Props) {
     [brand],
   );
 
-  const copy = (text: string) => {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        setCopied(text);
-        window.setTimeout(() => setCopied((curr) => (curr === text ? null : curr)), 1200);
-      })
-      .catch(() => {});
+  // `format` is a bounded literal union on purpose: it is an analytics dimension,
+  // and every call site passes a hardcoded surface name (never a hex or a colour
+  // name), so the dimension stays groupable.
+  const copy = async (text: string, format: "brand-swatch" | "brand-css") => {
+    const result = await writeClipboard(text);
+    if (!result.ok) {
+      track("color_copy_failed", { format, variant: "compact", reason: result.reason });
+      return;
+    }
+    track("color_copied", { format, variant: "compact" });
+    setCopied(text);
+    window.setTimeout(() => setCopied((curr) => (curr === text ? null : curr)), 1200);
   };
 
   const cssVars = brand.colors
@@ -99,7 +105,7 @@ export function BrandDetailPage({ brand }: Props) {
               <div className="flex items-center gap-4">
                 <button
                   type="button"
-                  onClick={() => copy(c.hex)}
+                  onClick={() => copy(c.hex, "brand-swatch")}
                   className="h-12 w-12 shrink-0 rounded-xl border border-black/8 dark:border-white/10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-neutral-300"
                   style={{ backgroundColor: c.hex }}
                   aria-label={`Copy ${c.hex}`}
@@ -115,7 +121,7 @@ export function BrandDetailPage({ brand }: Props) {
                   </div>
                   <button
                     type="button"
-                    onClick={() => copy(c.hex)}
+                    onClick={() => copy(c.hex, "brand-swatch")}
                     className="mt-0.5 font-mono text-xs text-slate-500 dark:text-slate-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors"
                   >
                     {c.hex.toUpperCase()}
@@ -132,6 +138,13 @@ export function BrandDetailPage({ brand }: Props) {
                 {c.archive && (
                   <Link
                     href={`/colors/${c.archive.id}/`}
+                    onClick={() =>
+                      track("tool_action", {
+                        tool: "brands",
+                        action: "archive_open",
+                        brand: brand.slug,
+                      })
+                    }
                     className="hidden sm:flex flex-col items-end text-[11px] text-slate-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors group"
                   >
                     <span>Closest in Archive</span>
@@ -150,6 +163,13 @@ export function BrandDetailPage({ brand }: Props) {
               {c.archive && (
                 <Link
                   href={`/colors/${c.archive.id}/`}
+                  onClick={() =>
+                    track("tool_action", {
+                      tool: "brands",
+                      action: "archive_open",
+                      brand: brand.slug,
+                    })
+                  }
                   className="sm:hidden mt-2 inline-flex items-center gap-1.5 text-[11px] text-slate-500 hover:text-neutral-700 transition-colors"
                 >
                   <span
@@ -171,7 +191,7 @@ export function BrandDetailPage({ brand }: Props) {
         <div className="relative rounded-2xl border border-neutral-100 dark:border-neutral-800 bg-neutral-950 dark:bg-black p-4">
           <button
             type="button"
-            onClick={() => copy(cssBlock)}
+            onClick={() => copy(cssBlock, "brand-css")}
             className="absolute top-3 right-3 text-[10px] font-medium text-neutral-400 hover:text-white px-2 py-1 rounded-md border border-white/10 hover:bg-white/5 transition-colors"
           >
             {copied === cssBlock ? "Copied" : "Copy"}

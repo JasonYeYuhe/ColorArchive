@@ -7,6 +7,8 @@ import { findNearestArchiveColor, getNearestColors } from "@/src/lib/color-relat
 import { colors as archiveColors } from "@/src/data/colors";
 import { toggleFavoriteColor, isFavoriteColor, subscribeToFavorites } from "@/src/lib/favorites";
 import { addManyToPalette } from "@/src/lib/palette-builder";
+import { track } from "@/src/lib/track";
+import { writeClipboard } from "@/src/lib/clipboard";
 import type { ColorRecord } from "@/src/types/color";
 
 /* ------------------------------------------------------------------ */
@@ -64,13 +66,18 @@ function ResultPanel({ result, onClear }: { result: IdentifiedColor; onClear: ()
     result.match ? isFavoriteColor(result.match.id) : false
   );
 
-  const handleShareLink = () => {
+  const handleShareLink = async () => {
     const url = `${window.location.origin}/identify/?hex=${result.hex.replace("#", "")}`;
     window.history.replaceState(null, "", `/identify/?hex=${result.hex.replace("#", "")}`);
-    navigator.clipboard.writeText(url).then(() => {
-      setCopied("share");
-      copiedTimerRef.current = setTimeout(() => setCopied(null), 1800);
-    });
+    const res = await writeClipboard(url);
+    if (!res.ok) {
+      // A refused write is not a visitor who never clicked — see src/lib/clipboard.ts.
+      track("color_copy_failed", { format: "identify-share", variant: "action", reason: res.reason });
+      return;
+    }
+    setCopied("share");
+    copiedTimerRef.current = setTimeout(() => setCopied(null), 1800);
+    track("color_copied", { format: "identify-share", variant: "action" });
   };
 
   useEffect(() => {
@@ -81,11 +88,17 @@ function ResultPanel({ result, onClear }: { result: IdentifiedColor; onClear: ()
     });
   }, [result.match]);
 
-  const copy = (text: string, key: string) => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(key);
-      copiedTimerRef.current = setTimeout(() => setCopied(null), 1600);
-    });
+  // `key` is a closed set of literals from the two call sites below — it is safe
+  // to send as `value_kind` and must stay bounded (never a hex or a colour name).
+  const copy = async (text: string, key: "hex" | "rgb") => {
+    const res = await writeClipboard(text);
+    if (!res.ok) {
+      track("color_copy_failed", { format: "identify-value", variant: "compact", value_kind: key, reason: res.reason });
+      return;
+    }
+    setCopied(key);
+    copiedTimerRef.current = setTimeout(() => setCopied(null), 1600);
+    track("color_copied", { format: "identify-value", variant: "compact", value_kind: key });
   };
 
   const handleFavorite = () => {
@@ -153,6 +166,7 @@ function ResultPanel({ result, onClear }: { result: IdentifiedColor; onClear: ()
             <div className="flex items-center gap-2">
               <Link
                 href={`/colors/${result.match.id}/`}
+                onClick={() => track("tool_action", { tool: "identify", action: "archive_open", kind: "match" })}
                 className="flex items-center gap-3 group hover:bg-slate-50 rounded-xl p-2 -mx-2 transition-colors flex-1 min-w-0"
               >
                 <div
@@ -189,7 +203,12 @@ function ResultPanel({ result, onClear }: { result: IdentifiedColor; onClear: ()
             <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-2">Similar colors</p>
             <div className="flex gap-2">
               {result.similar.map((c) => (
-                <Link key={c.id} href={`/colors/${c.id}/`} title={c.name}>
+                <Link
+                  key={c.id}
+                  href={`/colors/${c.id}/`}
+                  title={c.name}
+                  onClick={() => track("tool_action", { tool: "identify", action: "archive_open", kind: "similar" })}
+                >
                   <div
                     className="w-9 h-9 rounded-lg border border-slate-100 hover:scale-110 transition-transform"
                     style={{ backgroundColor: c.hex }}
@@ -254,6 +273,7 @@ function ImageMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) {
     const [r, g, b] = ctx.getImageData(x, y, 1, 1).data;
     setCrosshair({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     onResult(pixelToIdentified(r, g, b));
+    track("tool_action", { tool: "identify", action: "identify", source: "image" });
   }, [onResult]);
 
   return (
@@ -393,6 +413,7 @@ function CameraMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) {
     if (!liveColor) return;
     const { r, g, b } = liveColor;
     onResult(pixelToIdentified(r, g, b));
+    track("tool_action", { tool: "identify", action: "identify", source: "camera" });
   }, [liveColor, onResult]);
 
   if (!active) {
@@ -503,7 +524,10 @@ function EyeDropperMode({ onResult }: { onResult: (r: IdentifiedColor) => void }
       const ed = new EyeDropper();
       const { sRGBHex } = await ed.open();
       const rgb = hexToRgb(sRGBHex);
-      if (rgb) onResult(pixelToIdentified(rgb.r, rgb.g, rgb.b));
+      if (rgb) {
+        onResult(pixelToIdentified(rgb.r, rgb.g, rgb.b));
+        track("tool_action", { tool: "identify", action: "identify", source: "eyedropper" });
+      }
     } catch {
       // User cancelled — not an error
     } finally {
@@ -563,6 +587,11 @@ function EyeDropperMode({ onResult }: { onResult: (r: IdentifiedColor) => void }
 function HexInputMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) {
   const [input, setInput] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
+  // This handler re-identifies on EVERY keystroke, and a 6-digit hex is briefly
+  // valid at 3 characters on the way in — so one intent would otherwise emit
+  // several events. Track the last hex we reported and stay silent when it is
+  // unchanged. The hex itself never leaves this ref; it is not an event prop.
+  const lastTrackedHexRef = useRef<string | null>(null);
 
   const handleChange = (value: string) => {
     setInput(value);
@@ -571,7 +600,13 @@ function HexInputMode({ onResult }: { onResult: (r: IdentifiedColor) => void }) 
       const hex = normalizeHex(trimmed);
       setPreview(hex);
       const rgb = hexToRgb(hex);
-      if (rgb) onResult(pixelToIdentified(rgb.r, rgb.g, rgb.b));
+      if (rgb) {
+        onResult(pixelToIdentified(rgb.r, rgb.g, rgb.b));
+        if (lastTrackedHexRef.current !== hex) {
+          lastTrackedHexRef.current = hex;
+          track("tool_action", { tool: "identify", action: "identify", source: "hex" });
+        }
+      }
     } else {
       setPreview(null);
     }

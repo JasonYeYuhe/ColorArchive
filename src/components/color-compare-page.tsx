@@ -3,6 +3,8 @@
 import { useCallback, useMemo, useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { deltaE2000, deltaE76, hexToLab, interpretDeltaE } from "@/src/lib/color-difference";
+import { track } from "@/src/lib/track";
+import { writeClipboard } from "@/src/lib/clipboard";
 
 /* ------------------------------------------------------------------ */
 /*  Color conversion helpers                                           */
@@ -84,11 +86,21 @@ function CopyButton({ text, label }: { text: string; label: string }) {
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => { clearTimeout(timerRef.current); }, []);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      timerRef.current = setTimeout(() => setCopied(false), 1800);
-    });
+  const handleCopy = useCallback(async () => {
+    const result = await writeClipboard(text);
+
+    if (!result.ok) {
+      // The other half of the metric — a refused write is not a visitor who
+      // never clicked. See src/lib/clipboard.ts. One fixed `format` literal for
+      // every call site on this page: the surface is what we need to group by,
+      // not which of the four buttons it was.
+      track("color_copy_failed", { format: "compare-value", variant: "compact", reason: result.reason });
+      return;
+    }
+
+    setCopied(true);
+    timerRef.current = setTimeout(() => setCopied(false), 1800);
+    track("color_copied", { format: "compare-value", variant: "compact" });
   }, [text]);
 
   return (
@@ -257,26 +269,47 @@ export function ColorComparePage() {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, [colorA, colorB, pathname, router]);
 
+  // Typing "#4A90D9" walks through six invalid prefixes and then commits once,
+  // but re-typing the same value (or editing a trailing digit back and forth)
+  // would commit again on every keystroke that happens to be valid. These hold
+  // the last hex we counted per side so one intent emits one event.
+  const lastTrackedInputA = useRef<string | null>(null);
+  const lastTrackedInputB = useRef<string | null>(null);
+
   const handleInputA = useCallback((v: string) => {
     setInputA(v);
     const s = sanitizeHex(v);
-    if (isValidHex(s)) setColorA(s);
+    if (isValidHex(s)) {
+      setColorA(s);
+      if (lastTrackedInputA.current !== s) {
+        lastTrackedInputA.current = s;
+        track("tool_action", { tool: "compare", action: "input", side: "a" });
+      }
+    }
   }, []);
 
   const handleInputB = useCallback((v: string) => {
     setInputB(v);
     const s = sanitizeHex(v);
-    if (isValidHex(s)) setColorB(s);
+    if (isValidHex(s)) {
+      setColorB(s);
+      if (lastTrackedInputB.current !== s) {
+        lastTrackedInputB.current = s;
+        track("tool_action", { tool: "compare", action: "input", side: "b" });
+      }
+    }
   }, []);
 
   const handlePickerA = useCallback((v: string) => {
     setColorA(v);
     setInputA(v);
+    track("tool_action", { tool: "compare", action: "pick", side: "a" });
   }, []);
 
   const handlePickerB = useCallback((v: string) => {
     setColorB(v);
     setInputB(v);
+    track("tool_action", { tool: "compare", action: "pick", side: "b" });
   }, []);
 
   const handleSwap = useCallback(() => {
@@ -284,6 +317,7 @@ export function ColorComparePage() {
     setColorB(colorA);
     setInputA(colorB);
     setInputB(colorA);
+    track("tool_action", { tool: "compare", action: "swap" });
   }, [colorA, colorB]);
 
   const ratio = useMemo(() => contrastRatio(colorA, colorB), [colorA, colorB]);

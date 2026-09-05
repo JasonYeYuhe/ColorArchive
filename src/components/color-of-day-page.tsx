@@ -6,6 +6,8 @@ import { getColorOfDay, getAnalogousColors, todayDateStr, formatDateStr } from "
 import { ShareOnXButton, ShareLinkButton } from "@/src/components/share-link-button";
 import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 import { LogToJournalButton } from "@/src/components/log-to-journal-button";
+import { track } from "@/src/lib/track";
+import { writeClipboard } from "@/src/lib/clipboard";
 
 export function ColorOfDayPage() {
   const dateStr = useMemo(() => todayDateStr(), []);
@@ -26,6 +28,22 @@ export function ColorOfDayPage() {
 
   const xText = `Today's ColorArchive color is ${color.name} — ${color.hex} ✦ ${formattedDate} #colorarchive #coloroftheday`;
   const shareUrl = "/today/";
+
+  // `valueKind` is a closed union on purpose: it is an analytics dimension, so it
+  // may only ever hold one of the three literals declared in the tile array below.
+  const handleCopyValue = async (valueKind: "hex" | "rgb" | "hsl", value: string) => {
+    const result = await writeClipboard(value);
+    if (result.ok) {
+      track("color_copied", { format: "today-value", variant: "compact", value_kind: valueKind });
+      return;
+    }
+    track("color_copy_failed", {
+      format: "today-value",
+      variant: "compact",
+      value_kind: valueKind,
+      reason: result.reason,
+    });
+  };
 
   return (
     <main className="min-h-screen">
@@ -63,6 +81,7 @@ export function ColorOfDayPage() {
         <div className="flex flex-wrap items-center justify-center gap-2">
           <Link
             href={`/colors/${color.id}/`}
+            onClick={() => track("tool_action", { tool: "today", action: "archive_open" })}
             className={`px-4 py-2 rounded-full text-xs font-semibold border transition-colors ${
               isLight
                 ? "border-black/20 text-black/80 hover:bg-black/8"
@@ -92,7 +111,11 @@ export function ColorOfDayPage() {
               })();
               const cIsLight = cLum > 150;
               return (
-                <Link key={c.id} href={`/colors/${c.id}/`}>
+                <Link
+                  key={c.id}
+                  href={`/colors/${c.id}/`}
+                  onClick={() => track("tool_action", { tool: "today", action: "archive_open" })}
+                >
                   <div
                     className="h-24 rounded-xl shadow-sm hover:scale-105 transition-transform flex flex-col justify-end p-2.5"
                     style={{ backgroundColor: c.hex }}
@@ -117,13 +140,13 @@ export function ColorOfDayPage() {
           <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-3">Color values</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
-              { label: "HEX", value: color.hex.toUpperCase() },
-              { label: "RGB", value: color.rgb },
-              { label: "HSL", value: color.hsl },
-            ].map(({ label, value }) => (
+              { label: "HEX", kind: "hex" as const, value: color.hex.toUpperCase() },
+              { label: "RGB", kind: "rgb" as const, value: color.rgb },
+              { label: "HSL", kind: "hsl" as const, value: color.hsl },
+            ].map(({ label, kind, value }) => (
               <button
                 key={label}
-                onClick={() => navigator.clipboard.writeText(value)}
+                onClick={() => void handleCopyValue(kind, value)}
                 className="text-left p-3 bg-neutral-50 hover:bg-neutral-100 dark:bg-white/5 dark:hover:bg-white/10 rounded-xl transition-colors"
               >
                 <div className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-1">{label}</div>

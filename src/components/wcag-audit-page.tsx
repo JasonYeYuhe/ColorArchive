@@ -6,6 +6,8 @@ import { getPaletteIds } from "@/src/lib/palette-builder";
 import { SITE_DOMAIN } from "@/src/lib/site-config";
 import { ProGate } from "@/src/components/pro-gate";
 import { colors as allColors } from "@/src/data/colors";
+import { track } from "@/src/lib/track";
+import { writeClipboard } from "@/src/lib/clipboard";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -123,15 +125,19 @@ export function WcagAuditPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    track("tool_action", { tool: "wcag-audit", action: "run", source: "form" });
     setSubmitted(input);
   }
 
   async function handleCopyCsv() {
-    try {
-      await navigator.clipboard.writeText(buildCsv(pairs));
+    const result = await writeClipboard(buildCsv(pairs));
+    if (result.ok) {
+      track("color_copied", { format: "wcag-csv", variant: "action" });
       setCsvCopied(true);
       window.setTimeout(() => setCsvCopied(false), 1400);
-    } catch { /* noop */ }
+    } else {
+      track("color_copy_failed", { format: "wcag-csv", variant: "action", reason: result.reason });
+    }
   }
 
   const handleDownloadReport = useCallback(async () => {
@@ -144,8 +150,9 @@ export function WcagAuditPage() {
       link.download = "wcag-contrast-audit.png";
       link.href = dataUrl;
       link.click();
+      track("tool_action", { tool: "wcag-audit", action: "download_report" });
     } catch {
-      /* noop */
+      track("tool_action", { tool: "wcag-audit", action: "download_failed" });
     } finally {
       setReportDownloading(false);
     }
@@ -193,7 +200,11 @@ export function WcagAuditPage() {
             </button>
             <button
               type="button"
-              onClick={() => { setInput(EXAMPLE); setSubmitted(EXAMPLE); }}
+              onClick={() => {
+                track("tool_action", { tool: "wcag-audit", action: "run", source: "example" });
+                setInput(EXAMPLE);
+                setSubmitted(EXAMPLE);
+              }}
               className="rounded-full border border-black/8 bg-white px-4 py-2.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/12"
             >
               Load example
@@ -206,7 +217,11 @@ export function WcagAuditPage() {
                   .map((id: string) => allColors.find((c) => c.id === id)?.hex)
                   .filter((h): h is string => Boolean(h))
                   .join("\n");
-                if (hexes) { setInput(hexes); setSubmitted(hexes); }
+                if (hexes) {
+                  track("tool_action", { tool: "wcag-audit", action: "run", source: "palette" });
+                  setInput(hexes);
+                  setSubmitted(hexes);
+                }
               }}
               className="rounded-full border border-black/8 bg-white px-4 py-2.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-50 dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white/12"
             >

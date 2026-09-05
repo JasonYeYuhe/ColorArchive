@@ -242,6 +242,49 @@ const copyWindowFullyCovered =
     "SELECT datetime(?) <= datetime('now', ?) c",
   ).get(copyFailedFirstSeen, since).c === 1;
 
+/* ---------------- copy surfaces (added 2026-09-05, E1) ---------------------
+ *
+ * WHY THIS EXISTS. `color_copied` is a SITE-WIDE series and the funnel line
+ * above counts it with no path or format filter. Until 2026-09-05 it could only
+ * ever fire from the handful of surfaces that used the shared CopyButton /
+ * CopyActionButton — /word-to-color/, /decades/, /seasonal/, /api-docs/,
+ * /colors/*, /palette/. Nine other surfaces had a hand-rolled clipboard call
+ * that tracked NOTHING: /brands/ (926 visits in 60 days, zero events),
+ * /regions/, /all-colors/, /compare/, /tokens/, /collections/, /identify/,
+ * /today/, /mixer/, /image-palette/, /pick-for-me/, /wcag-audit/.
+ *
+ * E1 wired those up. So the site-wide `color_copied` count STEPS UP on that
+ * date with no change in visitor behaviour — the same mistake shape as the
+ * 2026-08-27 beacon fix warned about two blocks below. Do not read the step as
+ * growth, and do not compare a window that straddles it.
+ *
+ * The split below is what makes the number usable again: `format` is the
+ * surface dimension (the convention set by trackAs="seasons-swatch"), so a
+ * pre-E1 baseline can still be reconstructed by summing only the formats that
+ * existed before. `variant` is a VISUAL descriptor and is deliberately not
+ * used for this.
+ */
+const copyByFormat = db.prepare(
+  `SELECT
+     COALESCE(NULLIF(json_extract(props_json,'$.format'),''),'?') AS format,
+     ${DISTINCT_VISITS} AS visits,
+     COUNT(*) AS rows_n,
+     SUM(CASE WHEN event_name='color_copy_failed' THEN 1 ELSE 0 END) AS failed
+   FROM events
+   WHERE event_name IN ('color_copied','color_copy_failed')
+     AND datetime(created_at) >= datetime('now', ?)
+   GROUP BY format
+   ORDER BY rows_n DESC`,
+).all(since);
+
+// The formats that could fire BEFORE E1. Anything not in this set is a surface
+// that was invisible until 2026-09-05; keep them apart when reading a trend.
+const PRE_E1_COPY_FORMATS = new Set([
+  "hex", "rgb", "hsl", "palette", "swatch", "Copy", "CSS", "CSS vars", "Tailwind",
+  "seasons-swatch", "decades-swatch", "collection-css", "collection-tailwind",
+  "dark-mode-pairs", "brand-system-export",
+]);
+
 /* ---------------- capture funnel (added 2026-07-26) ---------------- */
 
 // Impression → subscribe, per surface. Impressions are viewport-based, so this
@@ -489,6 +532,16 @@ const funnelBlock = [
             ? ""
             : `\n    ⚠ measurement only began ${copyFailedFirstSeen} UTC, inside this window. Visitors on a cached older bundle emit color_copied but cannot emit color_copy_failed, so this rate is biased LOW until the window starts after that timestamp.`
         }`,
+  `copy surfaces (format)   :`,
+  ...(copyByFormat.length === 0
+    ? ["  └ (no copy events in this window)"]
+    : copyByFormat.map(
+        (r) =>
+          `  ${PRE_E1_COPY_FORMATS.has(r.format) ? " " : "*"} ${String(r.format).padEnd(22)} ${String(r.visits).padStart(4)} visits (${r.rows_n} events${r.failed ? `, ${r.failed} failed` : ""})`,
+      )),
+  `    * = surface first instrumented 2026-09-05 (E1). It had NO events before that`,
+  `      date, so its arrival raises the site-wide color_copied count above with no`,
+  `      change in visitor behaviour. Do not read the step as growth.`,
   dropped.lost === 0
     ? `events never delivered   :    0 reported   (means "no browser reported a backlog" — either no refusals or the 2026-08-27 change not yet live in that browser. NOT proof delivery is complete.)`
     : `events never delivered   : ${String(dropped.lost).padStart(4)} events, self-reported by ${dropped.visits} visits in ${dropped.reports} confessions

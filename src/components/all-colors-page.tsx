@@ -13,6 +13,7 @@ import { useLocale } from "@/src/components/locale-provider";
 import { COLOR_FAMILIES, filterColors, sortColors } from "@/src/lib/color-utils";
 import { findNearestArchiveColor } from "@/src/lib/color-relationships";
 import { colors } from "@/src/data/colors";
+import { track } from "@/src/lib/track";
 import type { ColorFamily, ColorRecord, SortOption } from "@/src/types/color";
 
 type AllColorsPageProps = Record<string, never>;
@@ -229,6 +230,11 @@ export function AllColorsPage({}: AllColorsPageProps) {
     }
   }, [colors, router]);
 
+  const selectFamily = useCallback((family: ColorFamily | "All") => {
+    setActiveFamily(family);
+    track("tool_action", { tool: "all-colors", action: "filter", kind: "family" });
+  }, []);
+
   const handleReset = useCallback(() => {
     setSortBy("hue");
     setActiveFamily("All");
@@ -384,7 +390,10 @@ export function AllColorsPage({}: AllColorsPageProps) {
                 </span>
                 <select
                   value={sortBy}
-                  onChange={(event) => setSortBy(event.target.value as SortOption)}
+                  onChange={(event) => {
+                    setSortBy(event.target.value as SortOption);
+                    track("tool_action", { tool: "all-colors", action: "sort" });
+                  }}
                   className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8 dark:border-white/10 dark:bg-white/8 dark:text-white"
                 >
                   {SORT_VALUES.map((value) => (
@@ -441,7 +450,7 @@ export function AllColorsPage({}: AllColorsPageProps) {
             <div className="flex min-w-max gap-2 px-1 sm:min-w-0 sm:flex-wrap sm:px-0">
               <button
                 type="button"
-                onClick={() => setActiveFamily("All")}
+                onClick={() => selectFamily("All")}
                 className={`shrink-0 rounded-full px-3 py-1.5 text-sm transition ${
                   activeFamily === "All"
                     ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
@@ -455,7 +464,7 @@ export function AllColorsPage({}: AllColorsPageProps) {
                 <button
                   key={family}
                   type="button"
-                  onClick={() => setActiveFamily(family)}
+                  onClick={() => selectFamily(family)}
                   className={`shrink-0 rounded-full px-3 py-1.5 text-sm transition ${
                     activeFamily === family
                       ? "bg-neutral-950 text-white dark:bg-white dark:text-neutral-950"
@@ -482,7 +491,10 @@ export function AllColorsPage({}: AllColorsPageProps) {
                 </span>
                 <select
                   value={hueBand}
-                  onChange={(e) => setHueBand(e.target.value as HueBand)}
+                  onChange={(e) => {
+                    setHueBand(e.target.value as HueBand);
+                    track("tool_action", { tool: "all-colors", action: "filter", kind: "hue" });
+                  }}
                   className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8 dark:border-white/10 dark:bg-white/8 dark:text-white"
                 >
                   <option value="all">{t("search.allHues")}</option>
@@ -499,7 +511,10 @@ export function AllColorsPage({}: AllColorsPageProps) {
                 </span>
                 <select
                   value={toneBand}
-                  onChange={(e) => setToneBand(e.target.value as ToneBand)}
+                  onChange={(e) => {
+                    setToneBand(e.target.value as ToneBand);
+                    track("tool_action", { tool: "all-colors", action: "filter", kind: "tone" });
+                  }}
                   className="rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-900/20 focus:ring-4 focus:ring-neutral-900/8 dark:border-white/10 dark:bg-white/8 dark:text-white"
                 >
                   <option value="all">{t("search.allTones")}</option>
@@ -631,7 +646,10 @@ export function AllColorsPage({}: AllColorsPageProps) {
                   </span>
                   <button
                     type="button"
-                    onClick={() => setDisplayLimit((prev) => Math.min(prev + PAGE_SIZE, MAX_DISPLAY))}
+                    onClick={() => {
+                      setDisplayLimit((prev) => Math.min(prev + PAGE_SIZE, MAX_DISPLAY));
+                      track("tool_action", { tool: "all-colors", action: "show_more" });
+                    }}
                     className="rounded-full border border-black/8 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-950 hover:text-white dark:border-white/10 dark:bg-white/8 dark:text-neutral-300 dark:hover:bg-white dark:hover:text-neutral-950"
                   >
                     {t("pagination.showMore")}

@@ -14,6 +14,8 @@ import { addManyToPalette } from "@/src/lib/palette-builder";
 import { useLocale } from "@/src/components/locale-provider";
 import { t } from "@/src/lib/i18n";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
+import { track } from "@/src/lib/track";
+import { writeClipboard } from "@/src/lib/clipboard";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -405,6 +407,9 @@ export function ImagePalettePage() {
     const url = URL.createObjectURL(file);
     setImageUrl(url);
     setImageName(file.name);
+    // Convergence point for both drag-drop and the file picker. `processImage`
+    // itself is NOT instrumented: the colorCount effect re-runs it with no gesture.
+    track("tool_action", { tool: "image-palette", action: "extract", source: "upload" });
     processImage(url);
   }, [processImage]);
 
@@ -420,14 +425,19 @@ export function ImagePalettePage() {
     if (file) handleFile(file);
   }, [handleFile]);
 
-  const handleCopyHex = useCallback((hex: string) => {
-    navigator.clipboard.writeText(hex).then(() => {
-      setCopyStates((prev) => ({ ...prev, [hex]: "copied" }));
-      copyTimerRef.current = setTimeout(() => setCopyStates((prev) => ({ ...prev, [hex]: "idle" })), 1800);
-    });
+  const handleCopyHex = useCallback(async (hex: string) => {
+    const result = await writeClipboard(hex);
+    if (!result.ok) {
+      track("color_copy_failed", { format: "image-swatch", variant: "compact", reason: result.reason });
+      return;
+    }
+    setCopyStates((prev) => ({ ...prev, [hex]: "copied" }));
+    copyTimerRef.current = setTimeout(() => setCopyStates((prev) => ({ ...prev, [hex]: "idle" })), 1800);
+    track("color_copied", { format: "image-swatch", variant: "compact" });
   }, []);
 
   const handleExport = useCallback(() => {
+    track("tool_action", { tool: "image-palette", action: "export", format_name: exportFormat });
     const text = formatForExport(extractedColors, exportFormat);
     navigator.clipboard.writeText(text).then(() => {
       setExportCopied(true);
@@ -441,6 +451,7 @@ export function ImagePalettePage() {
   );
 
   const handleDownloadSvg = useCallback(() => {
+    track("tool_action", { tool: "image-palette", action: "download_svg" });
     const rawSvg = generatePaletteSvg(matchedColors);
     const svg = withSvgWatermark(rawSvg, shouldWatermark({ tier, resolved: isEntitlementResolved({ status, sessionError }) }) ? tier : "pro");
     const blob = new Blob([svg], { type: "image/svg+xml" });
@@ -630,6 +641,7 @@ export function ImagePalettePage() {
                     e.stopPropagation();
                     setImageUrl(sample.url);
                     setImageName(sample.label);
+                    track("tool_action", { tool: "image-palette", action: "extract", source: "sample" });
                     processImage(sample.url);
                   }}
                   className="px-3 py-1.5 text-sm bg-white border border-slate-200 rounded-lg text-slate-600 hover:border-indigo-300 hover:text-indigo-700 transition-colors"

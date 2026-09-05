@@ -6,6 +6,18 @@ import type { ColorRecord } from "@/src/types/color";
 import type { ColorCollection } from "@/src/lib/collections";
 import { colors } from "@/src/data/colors";
 import { useLocale } from "@/src/components/locale-provider";
+import { track } from "@/src/lib/track";
+import { writeClipboard } from "@/src/lib/clipboard";
+
+/**
+ * Analytics only. Two literals — "cjk" | "latin" — never the query text, so the
+ * dimension stays groupable. No `g` flag: `.test` must not carry `lastIndex`.
+ */
+const CJK_RE = /[\u3400-\u9fff\u3040-\u30ff\uac00-\ud7af]/;
+
+function langOf(q: string): "cjk" | "latin" {
+  return CJK_RE.test(q) ? "cjk" : "latin";
+}
 
 /* ------------------------------------------------------------------ */
 /*  Scenario → Palette matching engine                                */
@@ -293,8 +305,17 @@ const TEXT = {
 function CopyableColor({ color }: { color: ColorRecord }) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(color.hex);
+  const handleCopy = useCallback(async () => {
+    const result = await writeClipboard(color.hex);
+    if (!result.ok) {
+      track("color_copy_failed", {
+        format: "pick-swatch",
+        variant: "compact",
+        reason: result.reason,
+      });
+      return;
+    }
+    track("color_copied", { format: "pick-swatch", variant: "compact" });
     setCopied(true);
     setTimeout(() => setCopied(false), 1200);
   }, [color.hex]);
@@ -330,12 +351,25 @@ export function PickForMePage({ collections }: { collections: ColorCollection[] 
   const handleSubmit = useCallback(
     (e?: React.FormEvent) => {
       e?.preventDefault();
-      setQuery(input.trim());
+      const q = input.trim();
+      track("tool_action", {
+        tool: "pick-for-me",
+        action: "go",
+        source: "input",
+        lang: langOf(q),
+      });
+      setQuery(q);
     },
     [input],
   );
 
   const handleQuickPrompt = useCallback((prompt: string) => {
+    track("tool_action", {
+      tool: "pick-for-me",
+      action: "go",
+      source: "chip",
+      lang: langOf(prompt),
+    });
     setInput(prompt);
     setQuery(prompt);
   }, []);

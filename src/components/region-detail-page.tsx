@@ -6,6 +6,8 @@ import type { RegionPalette } from "@/src/lib/region-palettes";
 import { regionPalettes, CONTINENT_LABELS } from "@/src/lib/region-palettes";
 import { colors as archiveColors } from "@/src/data/colors";
 import { findClosestArchiveColor } from "@/src/lib/color-relationships";
+import { track } from "@/src/lib/track";
+import { writeClipboard } from "@/src/lib/clipboard";
 
 interface Props {
   region: RegionPalette;
@@ -31,14 +33,20 @@ export function RegionDetailPage({ region }: Props) {
     [region],
   );
 
-  const copy = (text: string) => {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        setCopied(text);
-        window.setTimeout(() => setCopied((curr) => (curr === text ? null : curr)), 1200);
-      })
-      .catch(() => {});
+  // `format` is the SURFACE (site-wide convention, cf. "collection-css"), and it
+  // is a bounded union so the dimension can never take a runtime value. `copy` is
+  // shared by the swatch/hex buttons and the CSS block, so the surface has to be
+  // passed in rather than inferred from the text being copied.
+  const copy = async (text: string, format: "region-swatch" | "region-css") => {
+    const result = await writeClipboard(text);
+    if (!result.ok) {
+      // A refused write is not a visitor who never clicked — see src/lib/clipboard.ts.
+      track("color_copy_failed", { format, variant: "compact", reason: result.reason });
+      return;
+    }
+    setCopied(text);
+    window.setTimeout(() => setCopied((curr) => (curr === text ? null : curr)), 1200);
+    track("color_copied", { format, variant: "compact" });
   };
 
   const cssVars = region.colors
@@ -88,7 +96,7 @@ export function RegionDetailPage({ region }: Props) {
               <div className="flex items-start gap-4">
                 <button
                   type="button"
-                  onClick={() => copy(c.hex)}
+                  onClick={() => copy(c.hex, "region-swatch")}
                   className="h-12 w-12 shrink-0 rounded-xl border border-black/8 dark:border-white/10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-neutral-300"
                   style={{ backgroundColor: c.hex }}
                   aria-label={`Copy ${c.hex}`}
@@ -101,6 +109,13 @@ export function RegionDetailPage({ region }: Props) {
                     {c.archive && (
                       <Link
                         href={`/colors/${c.archive.id}/`}
+                        onClick={() =>
+                          track("tool_action", {
+                            tool: "regions",
+                            action: "archive_open",
+                            region: region.slug,
+                          })
+                        }
                         className="text-[11px] text-slate-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors flex items-center gap-1"
                       >
                         ≈
@@ -114,7 +129,7 @@ export function RegionDetailPage({ region }: Props) {
                   </div>
                   <button
                     type="button"
-                    onClick={() => copy(c.hex)}
+                    onClick={() => copy(c.hex, "region-swatch")}
                     className="mt-0.5 font-mono text-xs text-slate-500 dark:text-slate-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors"
                   >
                     {c.hex.toUpperCase()}
@@ -155,7 +170,7 @@ export function RegionDetailPage({ region }: Props) {
         <div className="relative rounded-2xl border border-neutral-100 dark:border-neutral-800 bg-neutral-950 dark:bg-black p-4">
           <button
             type="button"
-            onClick={() => copy(cssBlock)}
+            onClick={() => copy(cssBlock, "region-css")}
             className="absolute top-3 right-3 text-[10px] font-medium text-neutral-400 hover:text-white px-2 py-1 rounded-md border border-white/10 hover:bg-white/5 transition-colors"
           >
             {copied === cssBlock ? "Copied" : "Copy"}

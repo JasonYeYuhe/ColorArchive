@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useRef, useState, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { generateColorName, nearestColor } from "@/src/lib/color-naming";
@@ -8,6 +8,7 @@ import { deltaE2000Hex, interpretDeltaE } from "@/src/lib/color-difference";
 import { colors } from "@/src/data/colors";
 import { CopyButton } from "@/src/components/copy-button";
 import { useLocale } from "@/src/components/locale-provider";
+import { track } from "@/src/lib/track";
 
 /* ─── Constants ─────────────────────────────────────────────────────────────── */
 
@@ -73,9 +74,19 @@ export function ColorNamePage() {
     return scored.slice(0, 5);
   }, [hex, nearest]);
 
+  // handleCommit runs on Enter, on the button AND on blur, so one intent can
+  // reach it twice with the same hex (Enter, then the blur that follows).
+  // handlePreset seeds this too, because it writes the preset into `input` —
+  // the next blur would otherwise re-report the preset as a typed commit.
+  const lastTrackedRef = useRef<string | null>(null);
+
   const handleCommit = useCallback(() => {
     if (isValidHex(input)) {
       const normalized = normalizeHex(input);
+      if (lastTrackedRef.current !== normalized) {
+        lastTrackedRef.current = normalized;
+        track("tool_action", { tool: "name", action: "generate", source: "input" });
+      }
       setCommitted(normalized);
       const params = new URLSearchParams(searchParams.toString());
       params.set("hex", normalized);
@@ -84,6 +95,8 @@ export function ColorNamePage() {
   }, [input, pathname, router, searchParams]);
 
   const handlePreset = (presetHex: string) => {
+    lastTrackedRef.current = presetHex;
+    track("tool_action", { tool: "name", action: "generate", source: "preset" });
     setInput(presetHex);
     setCommitted(presetHex);
     const params = new URLSearchParams(searchParams.toString());

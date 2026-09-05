@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { colors as archiveColors } from "@/src/data/colors";
 import type { ColorFamily, ColorRecord } from "@/src/types/color";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
+import { track } from "@/src/lib/track";
 
 /* ------------------------------------------------------------------ */
 /*  Quiz data                                                          */
@@ -323,6 +324,10 @@ export function ColorQuizPage() {
   const [answers, setAnswers] = useState<number[]>([]);
   const [selected, setSelected] = useState<number | null>(null);
   const [result, setResult] = useState<ResultType | null>(null);
+  // Fires "start" from the first real gesture only — question 1 renders on
+  // mount, so there is no start button to hang it on, and a mount effect would
+  // count every shared ?result= link as an attempt.
+  const startedRef = useRef(false);
 
   // Read ?result= param on mount for direct shared result links
   useEffect(() => {
@@ -334,6 +339,10 @@ export function ColorQuizPage() {
   }, []);
 
   const handleSelect = (optionIdx: number) => {
+    if (currentQ === 0 && !startedRef.current) {
+      startedRef.current = true;
+      track("tool_action", { tool: "color-quiz", action: "start" });
+    }
     setSelected(optionIdx);
   };
 
@@ -346,12 +355,20 @@ export function ColorQuizPage() {
       setSelected(null);
     } else {
       const r = computeResult(newAnswers);
+      track("tool_action", {
+        tool: "color-quiz",
+        action: "complete",
+        family: r.family,
+        result_slug: r.slug,
+      });
       setResult(r);
       window.history.replaceState(null, "", `/color-quiz/?result=${r.slug}`);
     }
   };
 
   const handleRetake = () => {
+    track("tool_action", { tool: "color-quiz", action: "retake" });
+    startedRef.current = false;
     setCurrentQ(0);
     setAnswers([]);
     setSelected(null);
