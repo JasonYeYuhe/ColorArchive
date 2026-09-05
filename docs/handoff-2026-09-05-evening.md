@@ -83,10 +83,50 @@ G2(拆 8 个明文闸)押后到 11-02;R1、E4 砍掉;`server/email.js` 押后到
 不动词页墙的任何规则;没碰 `app/guides/[slug]`、`guide-word-card.tsx`、`experiment.ts`、
 `word_generated` 的 props、`ios/`。
 
+## 🔴 收尾时找到的:失控 pageview 的根因(计划里两次记为「未诊断」)
+
+`7323773`。详见 `docs/autopilot-log.md` 顶部。
+
+60 天里 **22 个会话贡献了全站 68% 的 pageview**(217,681 / 319,364),每个会话只有 1 个 pathname:
+
+| path | 会话 | pageview |
+|---|---:|---:|
+| `/all-colors/` | 9 | 142,539 |
+| `/word-to-color/` | 8 | 66,948 |
+| `/`(渲染 `ColorArchivePage`) | 4 | 7,179 |
+| `/duotone/` | 1 | 1,015 |
+
+**三条高量路径全是「effect 依赖文本输入 state 然后 `router.replace()`」的页面** —— 99.5% 的失控量。
+08-15 那个 45,768 就是其中两个之和,事件构成 43,677 `$pageview` + 39,313 `$pageleave` + 189
+`word_paywall_pro_bypass`(**是付费用户的浏览器**),pageview:pageleave ≈ 1:1 = 反复**导航**的特征。
+
+已把剩下 5 个同形状文件全部改成原生 `history.replaceState`(compare / name / color-archive / 
+search-explorer / random-discovery,共 7 处;`router.push` 一处没动)。**生产实测**:`/compare/` 打 7 个字符
+→ URL 正确变成 `?a=22AA55`、ΔE 重算、**0 个 RSC 请求**;`/` 打 6 个字符 → `?q=cobalt`、结果正常、**0 个**。
+
+🔴 **判据(相关不等于因果)**:如果诊断对,`/`、`/all-colors/`、`/word-to-color/` 不该再出现
+>1000 pageview 的会话。今天那两个失控会话都结束在首次部署**之前**(06:19 / 00:29 UTC),一致但只有几小时证据。
+**2026-09-12 复查**;那三条路径上再出现一个,这个诊断就是错的。
+
+🔴 **对所有读数的影响**:本站 PostHog 的 pageview 数至少 60 天来被抬高约 3 倍(会话数几乎不受影响,只有 22 个)。
+**09-05 之前的任何原始 pageview 数字都不能用。**
+
+## 🔴 两个验证时踩到的坑
+
+1. **埋点端点每个来源每天 200 条之后静默丢弃。** `dailyCapGuard` 返回 `{"ok":true}` 200 但不写库。
+   我反复手工验证把自己 IP 的额度耗尽后,两次隔离测量返回 **0 条事件** —— 看起来和「功能坏了」一模一样。
+   已用带浏览器 UA 的唯一事件名 POST 确认(200 但查不到)。**手工验埋点大约只有 200 条的预算。**
+2. **IntersectionObserver 在隐藏标签页里不运行**,而这里所有自动化浏览器上下文都是隐藏标签页
+   (Claude 面板和扩展驱动的 Chrome 标签 `document.visibilityState` 都是 `"hidden"`)。
+   对一个明显可见的 `<h1>` 新建观察器,两边都**从不触发**。⇒ **E2 的滚动连续加载我无法亲自验证**,
+   这是环境不是代码。真实用户能用的证据:`use-impression.ts` 走 IntersectionObserver 产出的
+   `word_intent_seen` 60 天有 **190 条真实事件**。另外「Show more」按钮作为兜底一直保留着。
+
 ## 已知未解决
 
-- **08-15 那个 45,768 事件的会话根因仍未诊断。** F2 **不是**它的解释(计划说的 pageview 机制不存在)。
-  新的候选:每次 `router.replace` 会重挂载组件、重跑所有 mount effect —— 但没证据说明那个会话为何有那么多。
+- ~~08-15 那个 45,768 事件的会话根因仍未诊断~~ —— **已诊断,见上一节**(`7323773`)。
+  注意:F2 的「pageview 机制」更正仍然成立 —— 正常打字一个会话只产生 4 个 pageview;
+  失控是另一个 regime(反复导航 + 组件重挂载),不是每次 replace 都发 pageview。
 - **F2 的「impression 事件风暴」修复没有干净量化**(我的测量会话混进了约 24 次调试重载,
   且我在按时间戳分离之前就把行删了)。RSC 那一半(9→1)是干净的。
 - `matchCollections` 导出了但没有测试覆盖;wedding/婚礼 现在只有 4 个片段(别的都是 5);

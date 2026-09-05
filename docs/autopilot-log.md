@@ -1,3 +1,82 @@
+## 2026-09-05 (later) — [remote] The runaway-pageview root cause, found while verifying the ten batches
+
+Started as post-deploy verification of the §3 run and became the diagnosis the plan recorded twice
+as missing. Commit `7323773`.
+
+### 68% of this site's pageviews come from 22 sessions
+
+PostHog, 60 days, every session with more than 1,000 pageviews:
+
+| path | sessions | pageviews |
+|---|---:|---:|
+| `/all-colors/` | 9 | 142,539 |
+| `/word-to-color/` | 8 | 66,948 |
+| `/` | 4 | 7,179 |
+| `/duotone/` | 1 | 1,015 |
+| **site total, same window** | | **319,364** |
+
+Each runaway has exactly ONE distinct pathname. The 2026-08-15 outlier the plan called undiagnosed
+is two of these summing to 45,768 — matching the plan's figure exactly. Its event mix: 43,677
+`$pageview`, 39,313 `$pageleave`, 18,714 `tool_used`, 189 `word_paywall_pro_bypass`. The last of
+those means it was **a paying customer's browser**, and the near-1:1 pageview/pageleave ratio is the
+signature of repeated NAVIGATION, not repeated rendering.
+
+### The cause, and why `/` gave it away
+
+All three high-volume paths are pages that called `router.replace()` from an effect keyed on
+text-input state. Two were obvious. `/` was not — until I checked what the homepage renders: it is
+`ColorArchivePage`, whose URL-sync effect depends on `deferredQuery`, a search box. That is
+**216,666 of 217,681 runaway pageviews — 99.5%**. Only `/duotone/` (1,015, 0.5%) is unexplained, and
+it writes to no router.
+
+Measured on production: a `router.replace()` with a changed query is a soft navigation that
+refetches the RSC payload — nine requests for a nine-character word, one per keystroke — and
+re-renders the route, remounting client components. PostHog fires `$pageleave` on history
+navigation, and our own `$pageview` dedupe is a `useRef`, which does not survive a remount.
+
+### What changed
+
+The same conversion E2 got, applied to the five remaining files with that pattern: compare, name
+(3 call sites), color-archive (the homepage), search-explorer, random-discovery. Seven
+`router.replace` calls became `window.history.replaceState`; zero `router.push` touched. Each file
+got its own safety test first, because native replaceState does NOT update `useSearchParams()` —
+converted only where searchParams feeds `useState` initialisers and nothing re-reads it.
+`analytics-page.tsx` still has the pattern and was left alone: admin route, negligible traffic.
+
+**Verified on production after deploy.** `/compare/`: typed 7 characters → URL mirrored to
+`?a=22AA55&b=E74C3C`, ΔE recomputed, **0 RSC requests**. `/`: typed 6 characters → `?q=cobalt`,
+results rendered, **0 RSC requests**.
+
+### 🔴 Falsifiable prediction, because a correlation is not a proof
+
+If this is the mechanism, no session on `/`, `/all-colors/` or `/word-to-color/` should exceed
+~1,000 pageviews again. Both of today's runaways (05:59–06:19 and 00:18–00:29 UTC) ended BEFORE the
+first deploy — consistent, but only hours of evidence. **Check on 2026-09-12.** A new runaway on
+those paths falsifies this.
+
+### 🔴 Consequence for every readout
+
+PostHog pageview counts for this site have been roughly 3x inflated for at least 60 days. Session
+counts are barely affected (22 sessions). The 09-05 plan's de-botting already dropped "43 sessions /
+222,794 pv" on volume, which reconciles — but any raw pageview number from before 2026-09-05 is
+unusable.
+
+### Two traps found while verifying, both worth remembering
+
+1. **The analytics endpoint silently discards after 200 events/day per caller.**
+   `dailyCapGuard` returns `{"ok":true}` HTTP 200 and inserts nothing. My repeated manual
+   verification exhausted my own IP's budget, after which two isolated measurements returned ZERO
+   events — which looks exactly like "the feature is broken". Confirmed by POSTing a
+   uniquely-named event with a browser User-Agent and watching it 200-and-vanish. If you are
+   hand-verifying analytics, you get about 200 events before the data stops arriving.
+2. **IntersectionObserver does not run in a hidden tab**, and every automated browser context here
+   is a hidden tab (`document.visibilityState === "hidden"` in both the Claude pane and an
+   extension-driven Chrome tab). A freshly created observer on a clearly-visible `<h1>` never
+   fired in either. So E2's continuous loading could NOT be exercised by me — that is the
+   environment, not the code. Evidence it works for real visitors: `word_intent_seen`, which is
+   produced by `use-impression.ts` → IntersectionObserver, has 190 real events in 60 days. The
+   "Show more" button remains as the fallback regardless.
+
 ## 2026-09-05 — [remote] Product-quality plan §3, all ten batches shipped and verified on production
 
 Ran `docs/dev-plan-2026-09-05-product-quality.md` §3 items 1-10 in order, one commit per batch.

@@ -2,6 +2,24 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🔴 2026-09-12 要复查一件事(失控 pageview 的判据)
+>
+> 收尾时找到了计划里两次记为「未诊断」的根因:**22 个会话贡献全站 68% 的 pageview**,
+> 三条高量路径全是「输入框每次变化就 `router.replace()`」的页面(`/all-colors/`、`/word-to-color/`、
+> 以及渲染 `ColorArchivePage` 的首页)—— 占失控量的 99.5%。已全部改成原生 `history.replaceState`
+> 并在生产实测「打字 0 个 RSC 请求」(`7323773`)。
+>
+> **判据**:如果诊断对,这三条路径不该再出现 >1000 pageview 的会话。**9 月 12 日查一次**;
+> 再出现一个,这个诊断就是错的。查法(PostHog HogQL):
+> ```sql
+> SELECT $session_id, any(properties.$pathname), count() AS pv
+> FROM events WHERE event='$pageview' AND timestamp > toDateTime('2026-09-05 10:00:00')
+> GROUP BY $session_id HAVING pv > 1000 ORDER BY pv DESC
+> ```
+>
+> 🔴 **顺带一个对所有历史数据的影响**:本站 PostHog 的 pageview 至少 60 天来被抬高约 3 倍。
+> **09-05 之前的原始 pageview 数字不能用**(会话数几乎不受影响,只有 22 个会话)。
+
 > ## 🟢 2026-09-05(晚)— 计划 §3 的 10 个批次**全部做完并在生产上验过**
 >
 > 提交:`39d9913` E1 · `ec714e1` F1 · `bda47d4` F4 · `f04fb67` G1 · `cd165cc` G3-web ·
