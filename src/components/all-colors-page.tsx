@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorGrid } from "@/src/components/color-grid";
 import { ColorSpectrum } from "@/src/components/color-spectrum";
@@ -161,6 +161,32 @@ export function AllColorsPage({}: AllColorsPageProps) {
     setDisplayLimit(PAGE_SIZE);
   }, [activeFamily, searchQuery, sortBy, density, hueBand, toneBand, minSaturation, maxSaturation, minLightness, maxLightness]);
 
+  // Continuous loading: a sentinel below the grid raises the same displayLimit the
+  // "Show more" button raises. The button stays as the no-JS / no-observer fallback
+  // and keeps the only show_more event, so that metric still means "a person asked".
+  // Scrolling is not a gesture, so this fires no analytics.
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const canLoadMore = displayLimit < visibleColors.length;
+
+  useEffect(() => {
+    if (!canLoadMore) return;
+    if (typeof IntersectionObserver === "undefined") return;
+    const sentinel = loadMoreRef.current;
+    if (!sentinel) return;
+
+    const limit = Math.min(visibleColors.length, MAX_DISPLAY);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setDisplayLimit((prev) => Math.min(prev + PAGE_SIZE, limit));
+        }
+      },
+      { rootMargin: "600px 0px" },
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [canLoadMore, displayLimit, visibleColors.length, MAX_DISPLAY]);
+
   // Selected color panel
   useEffect(() => {
     if (visibleColors.length === 0) {
@@ -218,8 +244,16 @@ export function AllColorsPage({}: AllColorsPageProps) {
     if (minLightness > 0) params.set("minLight", String(minLightness));
     if (maxLightness < 100) params.set("maxLight", String(maxLightness));
     const qs = params.toString();
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-  }, [activeFamily, density, hueBand, maxLightness, maxSaturation, minLightness, minSaturation, pathname, router, searchQuery, sortBy, toneBand]);
+    // Native replaceState, NOT router.replace: `searchQuery` is bound to a text input,
+    // so this effect runs on every keystroke. router.replace() would issue one RSC
+    // request per keystroke and remount this client component each time (re-firing
+    // every mount effect). history.replaceState updates the address bar with no
+    // navigation, no RSC fetch and no remount. Initial state is still read from
+    // useSearchParams above, which is unaffected.
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", qs ? `${pathname}?${qs}` : pathname);
+    }
+  }, [activeFamily, density, hueBand, maxLightness, maxSaturation, minLightness, minSaturation, pathname, searchQuery, sortBy, toneBand]);
 
   // Random color
   const handleRandomize = useCallback(() => {
@@ -639,7 +673,9 @@ export function AllColorsPage({}: AllColorsPageProps) {
                 ))}
               </div>
 
-              {displayLimit < visibleColors.length && (
+              {canLoadMore && <div ref={loadMoreRef} aria-hidden="true" className="h-px w-full" />}
+
+              {canLoadMore && (
                 <div className="flex items-center justify-center gap-4 py-2">
                   <span className="text-sm text-neutral-400">
                     {t("pagination.showing")} {displayLimit} {t("pagination.of")} {visibleColors.length}
