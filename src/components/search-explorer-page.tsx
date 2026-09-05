@@ -1,7 +1,7 @@
 "use client";
 
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorGrid } from "@/src/components/color-grid";
@@ -134,7 +134,6 @@ function matchesToneBand(color: ColorRecord, toneBand: ToneBand) {
 }
 
 export function SearchExplorerPage() {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { t, locale } = useLocale();
@@ -265,7 +264,16 @@ export function SearchExplorerPage() {
       exactHex,
     });
     const queryString = params.toString();
-    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
+    // Native replaceState, not router.replace(): this effect fires on every
+    // keystroke, and a router.replace() with a changed query string is a soft
+    // navigation — it refetches the RSC payload once per keystroke and remounts
+    // the client subtree (re-firing mount effects). This is a URL mirror of
+    // local filter state, so updating the address bar without navigating is all
+    // it needs. Nothing here re-reads useSearchParams() after mount, which
+    // native replaceState would not refresh.
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", queryString ? `${pathname}?${queryString}` : pathname);
+    }
   }, [
     activeFamily,
     exactHex,
@@ -275,7 +283,6 @@ export function SearchExplorerPage() {
     minLightness,
     minSaturation,
     pathname,
-    router,
     searchQuery,
     sortBy,
     toneBand,

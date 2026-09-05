@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, useTransition } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { ArchiveEmptyState } from "@/src/components/archive-empty-state";
 import { ColorGrid } from "@/src/components/color-grid";
 import { FamilyOverview } from "@/src/components/family-overview";
@@ -54,7 +54,6 @@ function buildArchiveStateParams({
 }
 
 export function ColorArchivePage({ featuredGuides, recentNotes }: ColorArchivePageProps) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { t } = useLocale();
@@ -160,6 +159,15 @@ export function ColorArchivePage({ featuredGuides, recentNotes }: ColorArchivePa
     setUserSelectedExplicitly(true);
   };
 
+  // Mirror archive state into the address bar with native replaceState, not
+  // router.replace(). This effect fires on every keystroke (deferredQuery) and
+  // every selection change; router.replace() with a changed query string is a
+  // soft navigation, so each fire refetched the RSC payload and remounted the
+  // client tree — one request per character typed, plus a remount that re-fired
+  // mount effects. replaceState updates the URL with no navigation, no RSC
+  // fetch and no remount, which is all a shareable URL mirror needs.
+  // Trade-off: useSearchParams() no longer updates after these writes — safe
+  // here because it is only read above to seed useState initialisers on mount.
   useEffect(() => {
     const params = buildArchiveStateParams({
       searchQuery: deferredQuery,
@@ -168,8 +176,10 @@ export function ColorArchivePage({ featuredGuides, recentNotes }: ColorArchivePa
       selectedColorId: userSelectedExplicitly ? selectedColorId : null,
     });
     const queryString = params.toString();
-    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
-  }, [activeFamily, deferredQuery, pathname, router, selectedColorId, sortBy, userSelectedExplicitly]);
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", queryString ? `${pathname}?${queryString}` : pathname);
+    }
+  }, [activeFamily, deferredQuery, pathname, selectedColorId, sortBy, userSelectedExplicitly]);
 
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);

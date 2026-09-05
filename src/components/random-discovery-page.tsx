@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { FavoriteButton } from "@/src/components/favorite-button";
 import { ShareLinkButton } from "@/src/components/share-link-button";
 import { sortColors } from "@/src/lib/color-utils";
@@ -14,7 +14,6 @@ function pickRandomColor(colors: readonly ColorRecord[]) {
 }
 
 export function RandomDiscoveryPage() {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const initialId = searchParams.get("id");
@@ -32,8 +31,17 @@ export function RandomDiscoveryPage() {
       return;
     }
 
-    router.replace(`${pathname}?id=${encodeURIComponent(selectedColor.id)}`, { scroll: false });
-  }, [pathname, router, selectedColor]);
+    // Native replaceState, not router.replace(): the latter is a soft navigation
+    // that refetches the RSC payload and remounts client components on every
+    // selection change, which re-fires mount effects (and re-fires $pageview,
+    // since the dedupe ref does not survive a remount). This URL is a mirror of
+    // local state, so updating the address bar with no navigation is enough.
+    // searchParams is only read for the initial state above, so it not being
+    // notified is fine.
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", `${pathname}?id=${encodeURIComponent(selectedColor.id)}`);
+    }
+  }, [pathname, selectedColor]);
 
   const relatedColors = useMemo(() => {
     if (!selectedColor) {

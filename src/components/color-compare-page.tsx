@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState, useEffect, useRef } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { deltaE2000, deltaE76, hexToLab, interpretDeltaE } from "@/src/lib/color-difference";
 import { track } from "@/src/lib/track";
 import { writeClipboard } from "@/src/lib/clipboard";
@@ -244,7 +244,6 @@ function ColorPanel({
 
 export function ColorComparePage() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const pathname = usePathname();
 
   const paramA = searchParams.get("a");
@@ -261,13 +260,25 @@ export function ColorComparePage() {
   const [inputA, setInputA] = useState(initialA);
   const [inputB, setInputB] = useState(initialB);
 
-  // Update URL when colors change
+  // Update URL when colors change.
+  //
+  // Native history.replaceState, NOT router.replace: both hex fields are text
+  // inputs, so this effect runs on every keystroke that parses. router.replace()
+  // with a changed query string is a soft navigation — it refetches the RSC
+  // payload once per keystroke and remounts the client components on this route,
+  // which re-fires their mount effects (and makes PostHog emit a $pageleave /
+  // $pageview pair each time). replaceState updates the address bar with no
+  // navigation, no RSC fetch and no remount, which is all a shareable URL mirror
+  // needs here. The trade-off: useSearchParams() will not observe these writes —
+  // fine, because it is only read above to seed useState.
   useEffect(() => {
     const params = new URLSearchParams();
     params.set("a", colorA.replace("#", ""));
     params.set("b", colorB.replace("#", ""));
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-  }, [colorA, colorB, pathname, router]);
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", `${pathname}?${params.toString()}`);
+    }
+  }, [colorA, colorB, pathname]);
 
   // Typing "#4A90D9" walks through six invalid prefixes and then commits once,
   // but re-typing the same value (or editing a trailing digit back and forth)

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState, useCallback } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import { generateColorName, nearestColor } from "@/src/lib/color-naming";
 import { deltaE2000Hex, interpretDeltaE } from "@/src/lib/color-difference";
@@ -44,7 +44,6 @@ function normalizeHex(v: string): string {
 /* ─── Main Component ─────────────────────────────────────────────────────────── */
 
 export function ColorNamePage() {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { t } = useLocale();
@@ -88,11 +87,20 @@ export function ColorNamePage() {
         track("tool_action", { tool: "name", action: "generate", source: "input" });
       }
       setCommitted(normalized);
+      // The `?hex=` param is a shareable-URL MIRROR of `committed`, never a
+      // navigation. router.replace() would make it a soft navigation: one RSC
+      // payload refetch per write plus a route re-render that remounts the
+      // client tree (which re-fires mount effects and re-emits $pageview).
+      // history.replaceState() updates the address bar with no fetch and no
+      // remount. Nothing here re-reads useSearchParams() after the write —
+      // line 52 only seeds useState — so the stale hook value is harmless.
       const params = new URLSearchParams(searchParams.toString());
       params.set("hex", normalized);
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+      if (typeof window !== "undefined") {
+        window.history.replaceState(null, "", `${pathname}?${params.toString()}`);
+      }
     }
-  }, [input, pathname, router, searchParams]);
+  }, [input, pathname, searchParams]);
 
   const handlePreset = (presetHex: string) => {
     lastTrackedRef.current = presetHex;
@@ -101,7 +109,10 @@ export function ColorNamePage() {
     setCommitted(presetHex);
     const params = new URLSearchParams(searchParams.toString());
     params.set("hex", presetHex);
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    // URL mirror only — see handleCommit for why this is not router.replace().
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", `${pathname}?${params.toString()}`);
+    }
   };
 
   if (!result) return null;
@@ -134,7 +145,12 @@ export function ColorNamePage() {
                 setCommitted(e.target.value);
                 const params = new URLSearchParams(searchParams.toString());
                 params.set("hex", e.target.value.toUpperCase());
-                router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+                // URL mirror only — see handleCommit. This handler fires
+                // continuously while the native picker is dragged, so a
+                // router.replace() here is one RSC refetch + remount per tick.
+                if (typeof window !== "undefined") {
+                  window.history.replaceState(null, "", `${pathname}?${params.toString()}`);
+                }
               }}
               className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
             />
