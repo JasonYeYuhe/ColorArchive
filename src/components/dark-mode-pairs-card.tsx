@@ -40,7 +40,15 @@ export function DarkModePairsCard({ collection }: { collection: ColorCollection 
         {(["preview", "css", "tailwind"] as Format[]).map((f) => (
           <button
             key={f}
-            onClick={() => setFormat(f)}
+            // Stops the surrounding <ProGate> from counting a format switch as
+            // a free export. Without it, ProGate's EXPORT_TRIGGER selector
+            // matches ANY <button> in the gated subtree, so merely LOOKING at
+            // Preview → CSS → Tailwind spent all 3 of the day's exports without
+            // exporting anything. Same fix in brand-system-panel.tsx.
+            onClick={(e) => {
+              e.stopPropagation();
+              setFormat(f);
+            }}
             className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${
               format === f
                 ? "bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-sm"

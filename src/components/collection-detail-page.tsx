@@ -131,9 +131,15 @@ export function CollectionDetailPage({
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
               WCAG contrast audit
             </div>
-            <ProGate label="Contrast audit">
-              <CollectionContrastCard collection={collection} />
-            </ProGate>
+            {/* Deliberately NOT gated (2026-09-05, F4).
+                CollectionContrastCard renders swatch rows and RatioBadge spans —
+                grep it: no button, no <a>, no role="button", no summary, no
+                [data-export]. ProGate's countIfExport() only charges when the
+                click lands on one of those, so this gate could never be SPENT;
+                it could only blur read-only information for a visitor who had
+                already spent their 3 daily exports somewhere else on the site.
+                A gate that can punish but can never be used is not a paywall. */}
+            <CollectionContrastCard collection={collection} />
           </aside>
         </section>
 

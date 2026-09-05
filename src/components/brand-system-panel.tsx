@@ -148,7 +148,13 @@ export function BrandSystemPanel({ primaryHex }: BrandSystemPanelProps) {
         {(Object.keys(formatLabels) as ExportFormat[]).map((f) => (
           <button
             key={f}
-            onClick={() => setFormat(f)}
+            // See dark-mode-pairs-card.tsx: a format toggle inside a ProGate
+            // matches EXPORT_TRIGGER and burns a daily export on every click.
+            // Five formats here, so one look at each cost more than the quota.
+            onClick={(e) => {
+              e.stopPropagation();
+              setFormat(f);
+            }}
             className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${
               format === f
                 ? "bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-sm"

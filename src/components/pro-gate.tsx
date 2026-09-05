@@ -131,7 +131,17 @@ export function ProGate({ children, label = "Export" }: ProGateProps) {
     // Only charge a daily export when the click/keypress lands on an actual
     // export control inside the wrapped subtree — not on padding, labels, help
     // text, or the upgrade notice below. Previously ANY click in the wrapper
-    // burned a free export (med #6). (Format toggles also stopPropagation.)
+    // burned a free export (med #6).
+    //
+    // THIS SELECTOR IS NOT A WHITELIST OF EXPORTS — it matches any <button> in
+    // the subtree, format toggles included. The parenthetical here used to read
+    // "(Format toggles also stopPropagation.)" as though that were a property of
+    // the system; it was a description of three call sites and false at two
+    // others, so DarkModePairsCard and BrandSystemPanel charged a free export
+    // every time someone switched format to look at it. Fixed at those two on
+    // 2026-09-05 (F4). Any NEW control inside a ProGate that is not an export
+    // must call e.stopPropagation() itself — this component cannot tell them
+    // apart, and nothing tests that it can.
     const EXPORT_TRIGGER =
       'button, a, [role="button"], input[type="submit"], input[type="button"], summary, [data-export]';
     const countIfExport = (target: EventTarget | null) => {
