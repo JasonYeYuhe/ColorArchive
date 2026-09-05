@@ -153,12 +153,83 @@ const LS_PLAN_CHECKOUT_URLS: Record<ProPlan, string | undefined> = {
   lifetime: process.env.NEXT_PUBLIC_PRO_LIFETIME_CHECKOUT_URL,
 };
 
+/**
+ * Which plans may fall back to the shared variant-PICKER link, and which must not.
+ *
+ * ── WHAT THIS COST (2026-08-31) ──────────────────────────────────────────────
+ * The fallback used to be unconditional: `LS_PLAN_CHECKOUT_URLS[plan] || LS_CHECKOUT_URL`,
+ * with the comment "a missing env var must not disable the button". That is right
+ * for monthly and wrong for everything else, because the picker does not carry the
+ * pressed plan across the boundary. Customer id41 pressed "yearly" twice (08-31
+ * 09:07 and 09:09) and was charged ¥500 on the MONTHLY variant — invoice
+ * lsinv_8357021. We under-billed by ~¥3,500 and, worse, the customer believes they
+ * bought a year and will be surprised at the 2026-10-03 renewal.
+ *
+ * ── WHY MONTHLY MAY STILL FALL BACK ──────────────────────────────────────────
+ * Not a guess: all three external subscriptions in the site's history arrived
+ * through this exact fallback and all three are monthly. For monthly the pressed
+ * intent and the picker's outcome agree, so the fallback is harmless. For yearly
+ * and lifetime it silently sells a different product than the button promised —
+ * so those return null, and CheckoutButton renders a disabled control rather than
+ * a working button to the wrong thing.
+ *
+ * ── WHY NOT A QUERY PARAM ────────────────────────────────────────────────────
+ * Lemon Squeezy preselects a variant by PATH (a variant-level /buy/<uuid> link
+ * from the dashboard: variant → Share), not by query string. There is no
+ * `?variant=` to append — searched, zero hits repo-wide, and inventing one would
+ * produce a URL that looks right and silently ignores the parameter.
+ *
+ * ── HOW TO TURN THE OTHER TWO BACK ON ────────────────────────────────────────
+ * Set NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL / NEXT_PUBLIC_PRO_LIFETIME_CHECKOUT_URL
+ * in Vercel and REDEPLOY (NEXT_PUBLIC_* are inlined at build time, so a redeploy
+ * is not optional). Verify from the build product, never from the dashboard:
+ *
+ *   curl -s https://colorarchive.org/pro/ | grep -o '/_next/static/chunks/[^"]*\.js' \
+ *     | sort -u | while read c; do curl -s "https://colorarchive.org$c"; done \
+ *     | grep -o 'env\.NEXT_PUBLIC_PRO_[A-Z_]*'
+ *
+ * An UNSET var survives into the bundle as the literal member expression
+ * `process.env.NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL` (undefined in the browser);
+ * a SET one is replaced by its string. On 2026-09-05 all three printed, while
+ * NEXT_PUBLIC_PREORDER_CHECKOUT_URL did not — that is the positive control
+ * proving the mechanism works and the values are simply missing.
+ */
+const LS_PLANS_MAY_USE_PICKER: Record<ProPlan, boolean> = {
+  monthly: true,
+  yearly: false,
+  lifetime: false,
+};
+
+/**
+ * Build-time warning, printed once per prerender pass. Guarded on `window` so it
+ * goes to the BUILD log and never to a visitor's console. This exists because the
+ * failure it reports is otherwise completely silent: an unset variant link used to
+ * degrade into a working button that sold the wrong plan, and it survived from
+ * 2026-08-31 to 2026-09-05 precisely because nothing ever said so out loud.
+ */
+if (typeof window === "undefined") {
+  const missing = (Object.keys(LS_PLAN_CHECKOUT_URLS) as ProPlan[]).filter(
+    (plan) => !LS_PLAN_CHECKOUT_URLS[plan],
+  );
+  if (missing.length > 0) {
+    console.warn(
+      `[checkout-config] No Lemon Squeezy variant link for: ${missing.join(", ")}. ` +
+        `Plans that may not use the shared picker (` +
+        `${(Object.keys(LS_PLANS_MAY_USE_PICKER) as ProPlan[]).filter((p) => !LS_PLANS_MAY_USE_PICKER[p]).join(", ")}` +
+        `) will render as unavailable. Set NEXT_PUBLIC_PRO_<PLAN>_CHECKOUT_URL in Vercel and REDEPLOY.`,
+    );
+  }
+}
+
 const lemonsqueezyProvider: ProviderConfig = {
   name: "Lemon Squeezy",
   checkoutMode: "redirect",
   getCheckoutUrl(plan) {
-    // Fall back rather than return null: a missing env var must not disable the button.
-    return LS_PLAN_CHECKOUT_URLS[plan] || LS_CHECKOUT_URL;
+    const variantUrl = LS_PLAN_CHECKOUT_URLS[plan];
+    if (variantUrl) return variantUrl;
+    // No variant link. Only fall back where the picker's outcome matches the
+    // button's promise; otherwise sell nothing rather than the wrong thing.
+    return LS_PLANS_MAY_USE_PICKER[plan] ? LS_CHECKOUT_URL : null;
   },
   getBillingPortalUrl() {
     return `https://${LS_STORE_SLUG}.lemonsqueezy.com/billing`;

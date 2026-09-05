@@ -106,6 +106,7 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
               </CheckoutButton>
               <CheckoutButton
                 plan="yearly"
+                unavailableLabel="Unavailable"
                 className="text-center py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500 transition-colors"
               >
                 JP{proSubscriptionConfig.yearly.price} <span className="text-[10px] text-indigo-200">/yr</span> <span className="text-indigo-200 text-xs">Save {proSubscriptionConfig.yearly.savings}</span>

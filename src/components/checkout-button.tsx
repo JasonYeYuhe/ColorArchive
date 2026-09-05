@@ -12,6 +12,14 @@ interface CheckoutButtonProps {
   plan: ProPlan;
   className?: string;
   children: React.ReactNode;
+  /**
+   * What to show when this plan has no usable checkout URL. The default
+   * "Coming soon" is right for a product that does not exist yet; it is WRONG
+   * for one that exists and is merely unlinked (yearly / lifetime while their
+   * NEXT_PUBLIC_PRO_*_CHECKOUT_URL is unset), where the honest statement is
+   * that it cannot be bought right now. See src/lib/checkout-config.ts.
+   */
+  unavailableLabel?: string;
 }
 
 /**
@@ -31,6 +39,7 @@ export function CheckoutButton({
   plan,
   className,
   children,
+  unavailableLabel = "Coming soon",
 }: CheckoutButtonProps) {
   async function handleClick() {
     const mode = getCheckoutMode();
@@ -42,6 +51,13 @@ export function CheckoutButton({
       if (url) {
         window.open(url, "_blank", "noopener,noreferrer");
         track("checkout_redirected", { plan, provider: activeProvider });
+      } else {
+        // Unreachable while the button is disabled, and deliberately loud if a
+        // future change ever re-enables it: a press that opens nothing must be
+        // visible in the funnel, not a silent no-op. It must NEVER fall back to
+        // the shared picker — that is the bug that charged id41 monthly for a
+        // yearly press (see checkout-config.ts).
+        track("checkout_failed", { plan, provider: activeProvider, reason: "no_variant_url" });
       }
     } else if (mode === "server-session") {
       // PayPal: create session server-side, then redirect
@@ -76,7 +92,7 @@ export function CheckoutButton({
       disabled={!isAvailable}
       className={className}
     >
-      {!isAvailable ? "Coming soon" : children}
+      {!isAvailable ? unavailableLabel : children}
     </button>
   );
 }

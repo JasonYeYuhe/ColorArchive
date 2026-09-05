@@ -139,6 +139,7 @@ export function ProPage() {
               <div className="mt-auto">
                 <CheckoutButton
                   plan="yearly"
+                  unavailableLabel="Temporarily unavailable"
                   className="w-full px-6 py-3 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-semibold rounded-xl hover:bg-neutral-700 dark:hover:bg-slate-100 transition-colors"
                 >
                   {t("pro.subscribeToPro")}
@@ -160,6 +161,7 @@ export function ProPage() {
               <div className="mt-auto">
                 <CheckoutButton
                   plan="lifetime"
+                  unavailableLabel="Temporarily unavailable"
                   className="w-full px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-semibold rounded-xl hover:bg-slate-700 dark:hover:bg-slate-100 transition-colors"
                 >
                   Get Lifetime Access
