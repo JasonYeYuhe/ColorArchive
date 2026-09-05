@@ -79,7 +79,7 @@ all 333 guides baked at build time.
 ### Content / Commerce
 
 - `src/lib/collections.ts` — 261 curated palette collections (editorial metadata + color IDs). Count verified 2026-08-31; it grows with autopilot runs, so re-count rather than trusting this line.
-- `src/lib/palette-packs.ts` — 7 product pack definitions (USD $9–$129) + All Access bundle.
+- ~~`src/lib/palette-packs.ts`~~ — **deleted in `00d7a04`** (the 7 packs sold 0 with no traffic; `/packs*` 301s to `/pro/`). Do not recreate.
 - `src/lib/checkout-config.ts` — Stripe Checkout config + Pro subscription pricing (¥499/mo, ¥3,999/yr).
 - `src/lib/auth-client.ts` — Client API for auth, projects, usage stats, referral, API keys.
 - `src/lib/word-color.ts` — Deterministic word→color hash algorithm (string hash → hue/saturation/lightness → 5 color variants).

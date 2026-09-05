@@ -2,6 +2,26 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🔵 2026-09-05 — 下阶段计划已就绪:`docs/dev-plan-2026-09-05-product-quality.md`(第 2 稿)
+>
+> 经 Gemini 3.1 Pro + 3.8 Flash 双评审后重写:E1 埋点先行、G2 押后、R1/E4 砍掉、判据全部改成
+> 「手工生产验证」或「30 天绝对数、不设目标」。逐条核实记录在计划 §7(采纳 11、驳回 3、部分 3)。
+> **给新会话的 prompt 在 `docs/handoff-2026-09-05.md` 末尾,整段复制即可。**
+>
+> ### 三件要你决定的
+>
+> 1. **设 3 个 LemonSqueezy env var 并重新部署**(09-03 A5,15 分钟)—— `NEXT_PUBLIC_PRO_MONTHLY/YEARLY/LIFETIME_CHECKOUT_URL`。
+>    🔴 **id41 08-31 按了两次年付、被扣了月付 ¥500**,就是因为它们没设、代码静默回退到带选择器的链接。
+>    F1 会堵住代码侧,但没有 env var 年付永远买不到。
+> 2. **要不要给 id41 发邮件**说明并主动改成年付(LS 后台可改 variant)。他 **10-03 第一次续费**,流失 = 这个 bug 直接丢客户。客户邮件需你授权。
+> 3. **R1(Pro 查词历史/调色板同步)要不要推翻评审做**。两位评审一致砍掉;我采纳了。理由在计划 §4。
+>
+> ### 一件押后的假承诺(记着,别忘)
+>
+> `server/email.js:1280` 给每个新 Pro 的欢迎邮件写着 **SwiftUI / Android / Flutter 导出器** —— 站内不存在;
+> `:1124` 写「完整 5,446 色 token 集」—— 是免费公开文件。改它必须 `pm2 restart`(7 处启动时 `require`),
+> restart 会群发邮件。**搭下一次本来就要 restart 的部署一起改。**
+
 > ## 🔴 2026-09-05 — v1.4 已构建待你提审;顺手发现 iOS 埋点**从来没工作过**
 >
 > 你说「直接发 v1.4 + 网站引流」,都做完了。计划书 `docs/ios-dev-plan-2026-09-03-v1.4.md`

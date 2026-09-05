@@ -1,3 +1,75 @@
+## 2026-09-05 — [remote] Next-phase plan written from measured data, double-reviewed, rewritten; handoff prompt ready
+
+Owner: "make the paid and free features better, focus on the site's own exclusive features; review
+with Gemini 3.1 Pro and 3.8 Flash; give me a prompt for a fresh session." All three done.
+
+**Plan:** `docs/dev-plan-2026-09-05-product-quality.md` (draft 2). **Reviews:**
+`docs/review-2026-09-05-product-quality.md`. **Handoff + prompt:** `docs/handoff-2026-09-05.md`.
+
+### Data first, and it changed the plan before any reviewer saw it
+
+Four parallel read-only pulls (PostHog HogQL, the production SQLite, GSC via the logged-in UI, and
+HEAD source) — every number in the plan cites its query. Two of the pulls' conclusions were
+**refuted on cross-check before the plan was written**, which is the discipline this week has been
+about: "the paywall stayed up for 40 minutes after user 25 paid" is a **historical bug fixed
+2026-07-22** (`07b379c`; users 33 and 41 got `pro_bypass` immediately), and "12 of 18 gates render
+paid content in plaintext" is **8 of 20** by the strict criterion at HEAD — the difference is
+criterion, not code.
+
+What the data says, in one paragraph: 3 external subscribers, MRR $10.47, **all three converted at
+the word→colour 5th-word wall in 97s–5min, 3/3 trials converted, and all three use word→colour and
+nothing else** — AI, exports, WCAG, bulk tokens, projects have **zero lifetime use by any payer**,
+and payers go silent after the first charge. User 41 pressed **yearly twice and was billed
+monthly** (¥499 vs ¥3,999) because the per-plan checkout env vars from 09-03's A5 were never set.
+The 20 `<ProGate>`s share one 3/day localStorage counter, format toggles burn credits without
+exporting, one gated card has nothing to click, and non-word gates produced 6 clicks and 0
+checkouts in 60 days. Nine exclusive tool pages have **no engagement instrumentation at all**;
+`/brands/` has 926 sessions and 0 `color_copied`; `/all-colors/` has the highest repeat-device share
+on the site (24.2%); `/seasonal/`, `/today/`, `/identify/` get 184 organic sessions/60d **entirely
+from DuckDuckGo/Bing/Ecosia** (GSC shows 0 because it only sees Google).
+
+### The reviews, and what survived verification
+
+Both models returned "partially accept". Of 17 distinct points, **11 adopted, 3 partially, 3 rejected
+with code evidence** (full table in the plan's §7). The unanimous four, all adopted: **instrument
+first** (E1 moves to position 1); **defer removing the 8 plaintext gates** (G2) — the argument that
+PRO badges shape the "this is a toolkit" perception at the moment someone hits the word wall cannot
+be tested at N=3, and the risk sits on 100% of revenue; **cut R1** (Pro history sync) — my draft's
+criterion said "0 of 3 does not constitute rejection", which is pre-excusing failure, the exact
+thing I have criticised in other people's plans; and **`/mixer/` plus the non-Google door pages were
+missing** — both added as E5.
+
+The three rejections, each with the file that proves it: Flash claimed changing the free limit in
+`pro-gate-policy.ts` "does nothing at runtime" because the counter is localStorage — wrong,
+`decideGate({limit})` compares `limit - used` and `pro-gate.tsx:127` passes a constant, so passing
+10 for signed-in accounts is a real runtime change. Pro claimed the `$autocapture`-derived filter
+counts were hallucinated — they are labelled as autocapture in the table header. Pro claimed
+`projects` has 0 rows because the save button did not exist — it exists on four surfaces
+(color-detail, image-palette, mood-palette, url-analyzer) and still has 0 lifetime rows, which
+strengthens the case for cutting E4/R1 rather than weakening it.
+
+One reviewer point corrected a guess of mine that was pointing the wrong way: I wrote that
+`server/email.js` is "read at send time (to be verified)". It is `require()`d at startup in seven
+places, so editing it needs `pm2 restart`, which mails subscribers. G3 split into a zero-risk web
+half (do now) and the email half (ride the next necessary restart). The false promise in the Pro
+welcome email — SwiftUI/Android/Flutter exporters that do not exist — stays live until then and is
+in human-todo.
+
+### Final shape
+
+Ten items, ≈6.5–7 engineering days, in this order: E1 instrumentation → F1 yearly fallback → F4
+gate bugs → G1 explain the lock and make sign-in real → G3-web truthful copy → F2 word-page URL
+rewrite (with a regression checklist and a W1 readout before/after) → E2 `/all-colors/` → E3
+`/brands/`→archive → E5 door pages + mixer → F3 pick-for-me (last, capped). Every criterion is
+either a manual production verification or a 30-day absolute count explicitly labelled "cannot
+succeed or fail" and fed into the 11-02 decision meeting. No ">0 means success", no observation
+windows at N≈0, no expected results written into branches.
+
+Three owner decisions in the plan's §6: set the three LemonSqueezy env vars (A5, 15 min), whether to
+email user 41 about the mis-billing, and whether to overrule the reviewers on R1.
+
+---
+
 ## 2026-09-05 — [remote] v1.4 submitted to App Store review, WAITING_FOR_REVIEW
 
 Owner: "no Apple Ads; submit and release it via ASC yourself, you have full authority." Done.
