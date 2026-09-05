@@ -47,7 +47,10 @@ export function BrandDetailPage({ brand }: Props) {
   // `format` is a bounded literal union on purpose: it is an analytics dimension,
   // and every call site passes a hardcoded surface name (never a hex or a colour
   // name), so the dimension stays groupable.
-  const copy = async (text: string, format: "brand-swatch" | "brand-css") => {
+  const copy = async (
+    text: string,
+    format: "brand-swatch" | "brand-css" | "brand-tailwind",
+  ) => {
     const result = await writeClipboard(text);
     if (!result.ok) {
       track("color_copy_failed", { format, variant: "compact", reason: result.reason });
@@ -62,6 +65,12 @@ export function BrandDetailPage({ brand }: Props) {
     .map((c) => `  --${slugifyName(c.name)}: ${c.hex.toLowerCase()};`)
     .join("\n");
   const cssBlock = `:root {\n${cssVars}\n}`;
+
+  // Same slug derivation as cssVars above, so the two snippets always agree.
+  const tailwindEntries = brand.colors
+    .map((c) => `        "${slugifyName(c.name)}": "${c.hex.toLowerCase()}",`)
+    .join("\n");
+  const tailwindBlock = `module.exports = {\n  theme: {\n    extend: {\n      colors: {\n${tailwindEntries}\n      },\n    },\n  },\n};`;
 
   return (
     <main className="min-h-screen bg-white dark:bg-neutral-950">
@@ -198,6 +207,24 @@ export function BrandDetailPage({ brand }: Props) {
           </button>
           <pre className="font-mono text-xs text-neutral-200 whitespace-pre overflow-x-auto leading-relaxed">
             {cssBlock}
+          </pre>
+        </div>
+      </section>
+
+      <section className="max-w-3xl mx-auto px-4 pb-8">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 mb-3">
+          Copy as Tailwind config
+        </h2>
+        <div className="relative rounded-2xl border border-neutral-100 dark:border-neutral-800 bg-neutral-950 dark:bg-black p-4">
+          <button
+            type="button"
+            onClick={() => copy(tailwindBlock, "brand-tailwind")}
+            className="absolute top-3 right-3 text-[10px] font-medium text-neutral-400 hover:text-white px-2 py-1 rounded-md border border-white/10 hover:bg-white/5 transition-colors"
+          >
+            {copied === tailwindBlock ? "Copied" : "Copy"}
+          </button>
+          <pre className="font-mono text-xs text-neutral-200 whitespace-pre overflow-x-auto leading-relaxed">
+            {tailwindBlock}
           </pre>
         </div>
       </section>
