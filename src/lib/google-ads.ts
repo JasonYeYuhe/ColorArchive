@@ -34,6 +34,34 @@
  * control as the checkout URLs.
  */
 
+/**
+ * 🔴 READ BEFORE SETTING NEXT_PUBLIC_GADS_PURCHASE_LABEL — DOUBLE-COUNT RISK.
+ *
+ * On 2026-09-06, after this file was written, the Ads account (403-639-9366)
+ * was fixed directly in the UI instead. The real fault was never the code: the
+ * account's website data source was still `colorarchive.me` — the domain the
+ * site migrated OFF — so Google reported the tag as "Not installed yet" while
+ * AW-11416473237 sat happily on colorarchive.org. Its only primary Purchase
+ * action was `Page load: colorarchive.me/packs/`, i.e. a deleted route (00d7a04)
+ * on a dead domain, created 3/26/2026, 0 conversions in its life, and
+ * domain-locked so it could not even be repointed.
+ *
+ * What now exists in the account:
+ *   · data source  -> colorarchive.org (tag detected as installed)
+ *   · "Pro purchase — colorarchive.org/thanks", Purchase, PRIMARY, ¥499 JPY,
+ *     matched on URL-starts-with. It fires from the page load, WITHOUT any code.
+ *   · "Visit Packs Page" demoted to Secondary rather than deleted.
+ *
+ * So a purchase is ALREADY counted. If you also set
+ * NEXT_PUBLIC_GADS_PURCHASE_LABEL, /thanks/ will report the conversion twice —
+ * once by URL match and once by this gtag event — and Smart Bidding will believe
+ * each sale is two. Before setting it, either remove the URL-based action or
+ * switch it to a different event.
+ *
+ * `checkout_click` has no such conflict: nothing in the account matches it, so
+ * NEXT_PUBLIC_GADS_CHECKOUT_LABEL is still safe to set on its own.
+ */
+
 /** The account-level tag id, already loaded in app/layout.tsx. */
 const ADS_ID = "AW-11416473237";
 
