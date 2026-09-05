@@ -238,11 +238,18 @@ function PaletteResult({
             defaultName={inputs.industry || inputs.style || "Brand Palette"}
           />
         </div>
+        {/* Corrected 2026-09-06. On 09-05 this said "Get Brand Color Starter Kit"
+            and pointed at /pro/; I changed it to a Pro upsell on the grounds that
+            no such product existed. THAT WAS WRONG — the kit is real and FREE:
+            scripts/generate-downloads.mjs builds brand-starter-kit.zip on every
+            build and it serves 200 at /downloads/. My grep only covered src/ and
+            app/, so it missed a product that lives in scripts/ and public/.
+            The original name was right; only its destination was wrong. */}
         <Link
-          href="/pro/"
+          href="/free-resources/"
           className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-xs font-medium rounded-lg hover:bg-slate-700 transition-colors dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100"
         >
-          See what Pro unlocks →
+          Get the free Brand Color Starter Kit →
         </Link>
       </div>
 
@@ -528,7 +535,7 @@ export function BrandGeneratorPage({ archiveColors, collectionPresets }: { archi
         <WhatsNext items={[
           { href: "/contrast/", label: "Audit Contrast", desc: "Check WCAG compliance for your new palette" },
           { href: "/tokens/", label: "Export Tokens", desc: "Generate a full design system from your primary color" },
-          { href: "/pro/", label: "ColorArchive Pro", desc: "Remove the daily cap on exports and AI palette generations" },
+          { href: "/free-resources/", label: "Brand Color Starter Kit", desc: "Free download — 3 curated palettes as CSS, Tailwind, Figma, SwiftUI and more" },
         ]} />
       </div>
 

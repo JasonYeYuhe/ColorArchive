@@ -7,6 +7,7 @@ import {
   activeProvider,
 } from "@/src/lib/checkout-config";
 import { track } from "@/src/lib/track";
+import { reportAdsConversion } from "@/src/lib/google-ads";
 
 interface CheckoutButtonProps {
   plan: ProPlan;
@@ -45,6 +46,12 @@ export function CheckoutButton({
     const mode = getCheckoutMode();
 
     track("checkout_clicked", { plan, provider: activeProvider, mode });
+    // Secondary/observation-only signal. This account will never see enough
+    // PURCHASES to train Smart Bidding (3 in the site's history), so a
+    // higher-volume upstream step gives the campaign something to learn from.
+    // Mark it secondary in Google Ads — optimising toward a button press rather
+    // than a payment is how an account learns to buy clicks that never convert.
+    reportAdsConversion("checkout_click");
 
     if (mode === "redirect") {
       const url = getCheckoutUrl(plan);

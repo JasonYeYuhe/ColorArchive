@@ -16,7 +16,30 @@ const FREE_TOOLS = [
   { href: "/palette-generator/", label: "Palette Generator", desc: "Complementary, analogous, triadic harmonies" },
 ];
 
+/**
+ * THE TWO FULL PACKS WERE UNREACHABLE UNTIL 2026-09-06.
+ *
+ * scripts/generate-downloads.mjs builds them on every single build, and they
+ * have been served publicly at /downloads/*.zip the whole time — but NOTHING in
+ * the app linked to either one (grep for "downloads/.*\.zip" across src/ and
+ * app/ returned zero hits). That is the actual reason /downloads/* shows 0
+ * impressions and 0 clicks in 90 days of Search Console: not that nobody wants
+ * them, but that there was no route to them from any page.
+ *
+ * They are the strongest free thing this site has — the complete archive is all
+ * 5,446 colours in fifteen formats, no account — so they go first.
+ */
 const SAMPLE_DOWNLOADS = [
+  {
+    label: "Complete Archive — 5,446 colors, 15 formats",
+    format: "ZIP",
+    href: "/downloads/complete-archive.zip",
+  },
+  {
+    label: "Brand Color Starter Kit — 3 curated palettes",
+    format: "ZIP",
+    href: "/downloads/brand-starter-kit.zip",
+  },
   { label: "CSS Variable Tokens", format: "CSS", href: "/downloads/palette-pack-vol-1-preview.css" },
   { label: "JSON Color Data", format: "JSON", href: "/downloads/palette-pack-vol-1-preview.json" },
   { label: "Adobe Photoshop Swatches", format: "ACO", href: "/downloads/colorarchive.aco" },

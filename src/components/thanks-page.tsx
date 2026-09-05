@@ -4,12 +4,23 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { CONTACT_EMAIL } from "@/src/lib/site-config";
 import { track } from "@/src/lib/track";
+import { reportAdsConversion } from "@/src/lib/google-ads";
+import { proSubscriptionConfig } from "@/src/lib/checkout-config";
 
 export function ThanksPage() {
   // Close the checkout funnel: clicked → redirected → success. Fired on the
   // post-purchase landing so conversion rate is measurable end-to-end.
   useEffect(() => {
     track("checkout_success", {});
+    // Google Ads has never been told a purchase happened — the tag only ever
+    // fired a page view, so the campaign has been optimising toward nothing.
+    // Value is the monthly price: every subscription in this site's history is
+    // monthly, and reporting a number the account can believe beats reporting
+    // none. No-ops until NEXT_PUBLIC_GADS_PURCHASE_LABEL is set.
+    reportAdsConversion("purchase", {
+      value: Number(proSubscriptionConfig.monthly.price.replace(/[^0-9.]/g, "")),
+      currency: proSubscriptionConfig.monthly.currency,
+    });
   }, []);
   return (
     <main className="px-4 py-4 sm:px-6 sm:py-6">
