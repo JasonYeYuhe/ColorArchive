@@ -17,6 +17,19 @@ interface EmailCaptureFormProps {
   successMessage?: string;
   placeholder?: string;
   buttonLabel?: string;
+  /**
+   * Join the Design Notes list. Defaults to false, which is why /notes/ spent
+   * months telling readers "Get new issues by email — delivered when they land"
+   * while POSTing no list flag at all: /subscribe defaults `notes` to false, so
+   * everyone who signed up there landed in `subscribers` belonging to NO list
+   * and could never receive an issue. Nobody actually used that form, so no real
+   * person was let down — but the promise was false the whole time, and
+   * notes_subscribed = 0 is exactly why the weekly send had nobody to send to.
+   *
+   * Any surface whose copy promises delivery must pass this. price-copy's
+   * sibling guard in src/lib/__tests__/subscribe-promise.test.ts enforces it.
+   */
+  notes?: boolean;
 }
 
 export function EmailCaptureForm({
@@ -24,6 +37,7 @@ export function EmailCaptureForm({
   successMessage,
   placeholder,
   buttonLabel,
+  notes = false,
 }: EmailCaptureFormProps) {
   const searchParams = useSearchParams();
   const { t } = useLocale();
@@ -49,6 +63,7 @@ export function EmailCaptureForm({
         body: JSON.stringify({
           email,
           source,
+          notes,
           // First-touch attribution (persisted) — accurate even when the user landed via a
           // UTM link, browsed, then subscribed on a different page.
           ...attributionForSubscribe(),
@@ -62,7 +77,7 @@ export function EmailCaptureForm({
       }
 
       setState("success");
-      track("email_subscribed", { source });
+      track("email_subscribed", { source, list: notes ? "notes" : "none" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
       setState("error");

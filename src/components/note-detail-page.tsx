@@ -204,6 +204,7 @@ export function NoteDetailPage({
               <div className="mt-4">
                 <Suspense fallback={null}>
                   <EmailCaptureForm
+                    notes
                     source="notes-latest"
                     placeholder="your@email.com"
                     buttonLabel={t("note.subscribe")}

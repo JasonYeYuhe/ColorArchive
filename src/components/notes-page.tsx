@@ -214,6 +214,7 @@ export function NotesPage({ issues }: { issues: NewsletterIssue[] }) {
           <div className="mt-4 max-w-sm">
             <Suspense fallback={null}>
               <EmailCaptureForm
+                notes
                 source="notes-list"
                 placeholder="your@email.com"
                 buttonLabel="Subscribe"

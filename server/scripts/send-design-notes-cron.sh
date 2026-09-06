@@ -35,10 +35,23 @@ log() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) $*"; }
 
 log "design-notes: start"
 
-# Refs only. Failure here is not fatal — fall through and let the sender find
-# nothing, which is a no-op, rather than leaving a half-staged directory around.
-if ! git -C "$REPO" fetch -q origin main 2>/dev/null; then
-  log "design-notes: WARN git fetch failed — using whatever origin/main was last known"
+# 🔴 THIS USED TO FAIL SILENTLY AND THAT IS WHY NOTHING EVER SHIPPED.
+#
+# The box's checkout had no git remote at all, so `fetch` failed, `git archive
+# origin/main` then found no such ref, and the script logged the reassuring
+# "no docs/design-notes/ in origin/main yet — nothing to stage" and exited 0.
+# The 2026-09-04 log is three lines of that, ending in rc=0. It looked like a
+# quiet week; it was a blind script. Same shape as sync-azure.sh uploading zero
+# bytes for five months and exiting 0 — not working is worse than not existing
+# when it manufactures the belief that it works.
+#
+# A fetch failure is now fatal. Falling through was defensible when the fallback
+# was "whatever origin/main was last known", but there is no last-known ref when
+# the remote is missing, so the fallback silently became "send nothing, forever".
+if ! git -C "$REPO" fetch -q origin main 2>&1; then
+  log "design-notes: FATAL git fetch failed — cannot read approved issues."
+  log "design-notes: check \`git -C $REPO remote -v\` (a missing remote is how this broke before)."
+  exit 2
 fi
 
 rm -rf "$STAGING"
@@ -55,8 +68,18 @@ if git -C "$REPO" archive origin/main docs/design-notes 2>/dev/null \
   # count on the next line; this one must not pre-empt it with a bigger number.
   COUNT=$(find "$STAGING" -maxdepth 1 -name '*.md' | wc -l | tr -d ' ')
   log "design-notes: staged $COUNT markdown file(s) from origin/main"
+  # docs/design-notes/ is committed and contains at least README.md, so zero
+  # files means the extract silently produced nothing — not an empty backlog.
+  if [ "$COUNT" -eq 0 ]; then
+    log "design-notes: FATAL staged 0 files, but docs/design-notes/ is committed. Extract is broken."
+    rm -rf "$STAGING"
+    exit 3
+  fi
 else
-  log "design-notes: no docs/design-notes/ in origin/main yet — nothing to stage"
+  log "design-notes: FATAL could not read docs/design-notes/ from origin/main."
+  log "design-notes: this directory is committed, so this is a broken checkout, not an empty backlog."
+  rm -rf "$STAGING"
+  exit 3
 fi
 
 cd "$SERVER" || { log "design-notes: FATAL cannot cd $SERVER"; exit 1; }
