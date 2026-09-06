@@ -12,6 +12,7 @@
  */
 
 const express = require("express");
+const { hasLifetimeEntitlement } = require("../lifetime");
 const router = express.Router();
 const { renewalExpiry } = require("../entitlement");
 const db = require("../db");
@@ -76,6 +77,27 @@ router.post("/v2", async (req, res) => {
 
     const userId = purchase.user_id;
 
+    // An APPLE subscription ending must not revoke a LEMON SQUEEZY lifetime. The
+    // revoking branches below key only on the users row, with no check that the
+    // entitlement being revoked is the one that expired — so a user who bought
+    // lifetime on the web and later let an App Store subscription lapse would
+    // lose the lifetime. See server/lifetime.js.
+    //
+    // Declared ABOVE the switch on purpose: `switch` shares one block scope, and
+    // jumping straight to `case "EXPIRED"` skips any const declared between the
+    // cases, leaving it in the temporal dead zone — a ReferenceError on every
+    // expiry rather than a downgrade. (This is exactly what the first draft did.)
+    const keepsLifetime = hasLifetimeEntitlement(db, userId);
+    const downgrade = (label) => {
+      if (keepsLifetime) {
+        console.log(
+          `[apple-notifications] ${label}: user ${userId} keeps access — lifetime entitlement held`
+        );
+        return;
+      }
+      db.prepare(`UPDATE users SET tier = 'free', pro_expires_at = NULL WHERE id = ?`).run(userId);
+    };
+
     // 4. Handle each notification type
     switch (notificationType) {
       case "DID_RENEW": {
@@ -105,9 +127,7 @@ router.post("/v2", async (req, res) => {
 
       case "EXPIRED": {
         // Subscription expired — downgrade to free
-        db.prepare(`
-          UPDATE users SET tier = 'free', pro_expires_at = NULL WHERE id = ?
-        `).run(userId);
+        downgrade(notificationType);
 
         db.prepare(`
           UPDATE apple_purchases SET status = 'expired' WHERE original_transaction_id = ?
@@ -125,9 +145,7 @@ router.post("/v2", async (req, res) => {
           );
         } else {
           // Billing retry exhausted — downgrade
-          db.prepare(`
-            UPDATE users SET tier = 'free', pro_expires_at = NULL WHERE id = ?
-          `).run(userId);
+          downgrade(notificationType);
 
           db.prepare(`
             UPDATE apple_purchases SET status = 'billing_retry_failed'
@@ -143,9 +161,7 @@ router.post("/v2", async (req, res) => {
 
       case "REFUND": {
         // Apple issued a refund — immediately downgrade
-        db.prepare(`
-          UPDATE users SET tier = 'free', pro_expires_at = NULL WHERE id = ?
-        `).run(userId);
+        downgrade(notificationType);
 
         db.prepare(`
           UPDATE apple_purchases SET status = 'refunded'
@@ -158,9 +174,7 @@ router.post("/v2", async (req, res) => {
 
       case "REVOKE": {
         // Family sharing revoked or App Store revocation
-        db.prepare(`
-          UPDATE users SET tier = 'free', pro_expires_at = NULL WHERE id = ?
-        `).run(userId);
+        downgrade(notificationType);
 
         db.prepare(`
           UPDATE apple_purchases SET status = 'revoked'

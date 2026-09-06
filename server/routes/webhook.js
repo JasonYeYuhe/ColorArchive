@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 const db = require("../db");
+const { hasLifetimeEntitlement } = require("../lifetime");
 const { findCatalogProduct, getDownloadUrl, getPackUrl } = require("../catalog");
 const { sendOrderConfirmationEmail, sendProSubscriptionEmail, sendPreorderConfirmationEmail } = require("../email");
 
@@ -400,32 +401,61 @@ router.post("/subscription-updated", (req, res) => {
   const decision = resolveSubscriptionUpdate({ status, periodEndIso });
   const isPro = decision.isPro;
 
-  db.prepare(
-    `UPDATE users SET
-      tier = ?,
-      subscription_status = ?,
-      stripe_customer_id = ?,
-      stripe_subscription_id = ?,
-      provider_subscription_id = COALESCE(?, provider_subscription_id),
-      provider_customer_id = COALESCE(?, provider_customer_id),
-      subscription_current_period_end = ?,
-      subscription_cancel_at_period_end = ?,
-      pro_expires_at = ?
-    WHERE id = ?`
-  ).run(
-    isPro ? "pro" : "free",
-    status,
-    customerId || null,
-    subscriptionId,
-    subscriptionId || null,
-    customerId || null,
-    periodEndIso,
-    cancelAtEnd,
-    decision.proExpiresAt,
-    user.id
-  );
+  // Lemon Squeezy fires subscription_updated alongside EVERY cancellation, so this
+  // is a second door onto the same users row as /subscription-cancelled. Guarding
+  // only the cancellation handler would leave the lifetime wipe fully reachable
+  // through here. See server/lifetime.js.
+  const keepsLifetime = hasLifetimeEntitlement(db, user.id);
 
-  console.log(`[webhook] subscription-updated: user=${user.id} status=${status} pro=${isPro}`);
+  if (keepsLifetime) {
+    db.prepare(
+      `UPDATE users SET
+        subscription_status = ?,
+        stripe_customer_id = ?,
+        stripe_subscription_id = ?,
+        provider_subscription_id = COALESCE(?, provider_subscription_id),
+        provider_customer_id = COALESCE(?, provider_customer_id),
+        subscription_current_period_end = ?,
+        subscription_cancel_at_period_end = ?
+      WHERE id = ?`
+    ).run(
+      status,
+      customerId || null,
+      subscriptionId,
+      subscriptionId || null,
+      customerId || null,
+      periodEndIso,
+      cancelAtEnd,
+      user.id
+    );
+  } else {
+    db.prepare(
+      `UPDATE users SET
+        tier = ?,
+        subscription_status = ?,
+        stripe_customer_id = ?,
+        stripe_subscription_id = ?,
+        provider_subscription_id = COALESCE(?, provider_subscription_id),
+        provider_customer_id = COALESCE(?, provider_customer_id),
+        subscription_current_period_end = ?,
+        subscription_cancel_at_period_end = ?,
+        pro_expires_at = ?
+      WHERE id = ?`
+    ).run(
+      isPro ? "pro" : "free",
+      status,
+      customerId || null,
+      subscriptionId,
+      subscriptionId || null,
+      customerId || null,
+      periodEndIso,
+      cancelAtEnd,
+      decision.proExpiresAt,
+      user.id
+    );
+  }
+
+  console.log(`[webhook] subscription-updated: user=${user.id} status=${status} pro=${keepsLifetime ? true : isPro}${keepsLifetime ? " (lifetime held)" : ""}`);
   return res.json({ ok: true });
 });
 
@@ -536,9 +566,16 @@ router.post("/subscription-revoke", (req, res) => {
       // Flag ONLY the specific reversed money row (never the whole history —
       // one refunded invoice must not erase prior kept revenue from reports).
       if (lsId) {
+        // `lifetime_${lsId}` matters and was missing: a lifetime order is stored
+        // with order_id = the synthetic subscription id built in
+        // app/api/webhook/route.ts (`lifetime_<LS order id>`), which matches none
+        // of the invoice-shaped keys. Without it a refunded lifetime is never
+        // flagged, and the lifetime guard below — which counts only NON-refunded
+        // orders — would then protect it forever: ¥19,999 back in the customer's
+        // pocket and Pro retained for good.
         db.prepare(
-          "UPDATE orders SET refunded = 1, refunded_at = datetime('now') WHERE order_id IN (?, ?, ?) OR payment_intent = ?"
-        ).run(`lsinv_${lsId}`, `lsord_${lsId}`, String(lsId), String(lsId));
+          "UPDATE orders SET refunded = 1, refunded_at = datetime('now') WHERE order_id IN (?, ?, ?, ?) OR payment_intent = ?"
+        ).run(`lsinv_${lsId}`, `lsord_${lsId}`, `lifetime_${lsId}`, String(lsId), String(lsId));
       }
 
       // Entitlement: order_refunded can be a PACK/pre-order refund found via the
@@ -551,6 +588,17 @@ router.post("/subscription-revoke", (req, res) => {
           "SELECT pack_id FROM orders WHERE order_id IN (?, ?, ?) OR payment_intent = ?"
         ).get(`lsinv_${lsId}`, `lsord_${lsId}`, String(lsId), String(lsId));
         shouldDowngrade = Boolean(row && typeof row.pack_id === "string" && row.pack_id.startsWith("pro-"));
+      }
+      // A refund or dispute on a SUBSCRIPTION invoice must not revoke a lifetime
+      // purchase that was paid for separately. Refunding the lifetime order
+      // itself does revoke it: the UPDATE above sets refunded = 1 on that row
+      // first, and hasLifetimeEntitlement() only counts non-refunded ones — so
+      // this reads the post-refund state, not the pre-refund state.
+      if (user && shouldDowngrade && hasLifetimeEntitlement(db, user.id)) {
+        console.log(
+          `[webhook] subscription-revoke: user=${user.id} keeps access — lifetime entitlement held (reason=${reason})`
+        );
+        shouldDowngrade = false;
       }
       if (user && shouldDowngrade) {
         db.prepare(
@@ -590,25 +638,47 @@ router.post("/subscription-cancelled", (req, res) => {
 
   const decision = resolveCancellation({ reason, endsAt });
 
-  db.prepare(
-    `UPDATE users SET
-      tier = ?,
-      subscription_status = ?,
-      subscription_cancel_at_period_end = ?,
-      subscription_current_period_end = COALESCE(?, subscription_current_period_end),
-      pro_expires_at = ?
-    WHERE id = ?`
-  ).run(
-    decision.tier,
-    decision.subscriptionStatus,
-    decision.cancelAtPeriodEnd,
-    decision.currentPeriodEnd,
-    decision.proExpiresAt,
-    user.id,
-  );
+  // A lifetime purchase must survive a SUBSCRIPTION ending. Both are keyed to the
+  // same users row via provider_customer_id, so without this the ordinary upgrade
+  // path (buy lifetime, then cancel the monthly you no longer need) revokes the
+  // lifetime when the monthly period runs out. See server/lifetime.js.
+  const keepsLifetime = hasLifetimeEntitlement(db, user.id);
+
+  if (keepsLifetime) {
+    // Record the subscription's own bookkeeping, but never its verdict on access.
+    db.prepare(
+      `UPDATE users SET
+        subscription_status = ?,
+        subscription_cancel_at_period_end = ?,
+        subscription_current_period_end = COALESCE(?, subscription_current_period_end)
+      WHERE id = ?`
+    ).run(
+      decision.subscriptionStatus,
+      decision.cancelAtPeriodEnd,
+      decision.currentPeriodEnd,
+      user.id,
+    );
+  } else {
+    db.prepare(
+      `UPDATE users SET
+        tier = ?,
+        subscription_status = ?,
+        subscription_cancel_at_period_end = ?,
+        subscription_current_period_end = COALESCE(?, subscription_current_period_end),
+        pro_expires_at = ?
+      WHERE id = ?`
+    ).run(
+      decision.tier,
+      decision.subscriptionStatus,
+      decision.cancelAtPeriodEnd,
+      decision.currentPeriodEnd,
+      decision.proExpiresAt,
+      user.id,
+    );
+  }
 
   console.log(
-    `[webhook] subscription-cancelled: user=${user.id} tier=${decision.tier} keepsAccess=${decision.keepsAccess} until=${decision.proExpiresAt || "-"}`
+    `[webhook] subscription-cancelled: user=${user.id} tier=${keepsLifetime ? "pro (lifetime held)" : decision.tier} keepsAccess=${keepsLifetime || decision.keepsAccess} until=${keepsLifetime ? "never" : decision.proExpiresAt || "-"}`
   );
   return res.json({ ok: true, keepsAccess: decision.keepsAccess });
 });
