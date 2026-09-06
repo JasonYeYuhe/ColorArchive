@@ -5,8 +5,13 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
  *
  * Customer id41 pressed "yearly" twice and was billed ¥500 on the MONTHLY
  * variant (invoice lsinv_8357021), because `getCheckoutUrl` fell back to the
- * shared product link — a Lemon Squeezy page with a variant PICKER that does not
- * carry the pressed plan across the boundary.
+ * hardcoded link.
+ *
+ * 🔴 CORRECTED 2026-09-06: that link is NOT "a page with a variant picker". Fetching
+ * it and decoding the checkout payload shows `isMultiVariant: false` and a cart holding
+ * exactly variant 1540585 "ColorArchive Pro — Monthly" at 49900. The uuid in it is the
+ * monthly variant's own slug. So the fallback could only ever sell monthly — it did not
+ * "default" to it. Same fix, blunter cause.
  *
  * WHY THIS FILE USES DYNAMIC IMPORT. checkout-config.ts reads `process.env` at
  * MODULE SCOPE, and vitest does not load .env.local, so a plain top-level import
@@ -16,7 +21,12 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
  * (That trap is the same shape as the bug: a value read once at load time and
  * then assumed to be whatever you set later.)
  */
-const PICKER =
+/**
+ * The hardcoded fallback. Verified 2026-09-06 to resolve to variant 1540585
+ * "ColorArchive Pro — Monthly", ¥499/mo, published. Pinned here so that swapping the
+ * uuid in checkout-config.ts fails a test instead of silently changing what is sold.
+ */
+const MONTHLY_VARIANT_URL =
   "https://colorarchive.lemonsqueezy.com/checkout/buy/771b252b-14d2-45ed-b4d5-b9f39f0883f8";
 
 async function loadWithEnv(env: Record<string, string | undefined>) {
@@ -42,27 +52,27 @@ afterEach(() => {
 });
 
 describe("checkout URL fallback (no variant links configured)", () => {
-  it("monthly may still fall back to the shared picker", async () => {
-    // Deliberate, and evidence-based: every external subscription in this site's
-    // history (3 of 3) arrived through this fallback and every one of them is
-    // monthly, so the picker's outcome matches the button's promise here.
+  it("monthly may still fall back — the fallback IS the monthly variant", async () => {
+    // Deliberate, and evidence-based: the fallback resolves to the monthly variant,
+    // so the button's promise and the charge agree by construction. Every external
+    // subscription in this site's history (3 of 3) arrived through it, all monthly.
     const { getCheckoutUrl } = await loadWithEnv({});
-    expect(getCheckoutUrl("monthly")).toBe(PICKER);
+    expect(getCheckoutUrl("monthly")).toBe(MONTHLY_VARIANT_URL);
   });
 
-  it("yearly returns null rather than the picker", async () => {
+  it("yearly returns null rather than the monthly variant", async () => {
     const { getCheckoutUrl } = await loadWithEnv({});
     expect(getCheckoutUrl("yearly")).toBeNull();
   });
 
-  it("lifetime returns null rather than the picker", async () => {
+  it("lifetime returns null rather than the monthly variant", async () => {
     const { getCheckoutUrl } = await loadWithEnv({});
     expect(getCheckoutUrl("lifetime")).toBeNull();
   });
 });
 
 describe("checkout URL when the owner sets the variant links", () => {
-  it("uses the variant link for every plan, picker for none of them", async () => {
+  it("uses the variant link for every plan, the fallback for none of them", async () => {
     const { getCheckoutUrl } = await loadWithEnv({
       NEXT_PUBLIC_PRO_MONTHLY_CHECKOUT_URL: "https://colorarchive.lemonsqueezy.com/buy/aaa",
       NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL: "https://colorarchive.lemonsqueezy.com/buy/bbb",
