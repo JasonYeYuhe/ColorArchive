@@ -239,6 +239,53 @@ const LS_PLAN_CHECKOUT_URLS: Record<ProPlan, string | undefined> = {
  * the check actually run on 2026-09-06: read the href off the deployed /pro/,
  * fetch it, and assert the cart's variant_id. That one cannot pass while broken.
  */
+/**
+ * 🔴 HARDCODED KILL SWITCH — lifetime cannot be sold until a SERVER fix ships.
+ *
+ * Same reasoning as `preorderConfig.closed` above: this must not be a
+ * NEXT_PUBLIC_ env var, because the whole point is that no deploy-time env state
+ * can resurrect it. NEXT_PUBLIC_PRO_LIFETIME_CHECKOUT_URL has also been removed
+ * from Vercel, but that alone would be one `vercel env add` away from re-opening.
+ *
+ * ── THE BUG (found 2026-09-06, before anyone could buy one) ──────────────────
+ * A lifetime entitlement is stored as `pro_expires_at = NULL`, meaning "no
+ * expiry" (server/routes/webhook.js:195 — `if (plan !== "lifetime")`). Nothing
+ * else marks the row as lifetime.
+ *
+ * `POST /webhooks/subscription-cancelled` (server/routes/webhook.js:579) then
+ * finds the user via findSubscriptionUser(), which falls back to matching
+ * `provider_customer_id` — the SAME Lemon Squeezy customer id that the person's
+ * monthly subscription carries — and runs an UNCONDITIONAL
+ *
+ *     UPDATE users SET tier = ?, ..., pro_expires_at = ? WHERE id = ?
+ *
+ * with resolveCancellation()'s verdict, which on `reason="expired"` is
+ * `{ tier: "free", proExpiresAt: null }` (server/entitlement.js:153-164).
+ * There is no lifetime guard anywhere on that path.
+ *
+ * So the ordinary upgrade path destroys what it just sold: an existing monthly
+ * subscriber buys lifetime for ¥19,999, cancels the monthly they no longer need,
+ * and when that period ends the expiry webhook flips their row to tier='free'.
+ * They paid the largest amount this site charges and lose all access, silently.
+ * That is the same shape as the 2026-07-20 and 2026-08-18 incidents.
+ *
+ * ── WHY NOT JUST FIX IT HERE ─────────────────────────────────────────────────
+ * The fix is server-side (skip the downgrade when the user holds a lifetime
+ * order — `orders` already carries one, written at webhook.js:305), and applying
+ * it needs `pm2 restart`, which re-runs the schedulers and mails real
+ * subscribers. That is an owner-authorised action, not something to slip into a
+ * checkout change. Yearly is unaffected: it is an ordinary subscription with a
+ * bounded expiry, and the cancel path handles it correctly.
+ *
+ * REMOVE THIS ONLY AFTER the server guard is deployed AND verified — and verify
+ * it by replaying a cancellation against a lifetime row, not by reading the diff.
+ */
+const LS_PLANS_BLOCKED_PENDING_SERVER_FIX: Record<ProPlan, boolean> = {
+  monthly: false,
+  yearly: false,
+  lifetime: true,
+};
+
 const LS_PLANS_MAY_USE_MONTHLY_FALLBACK: Record<ProPlan, boolean> = {
   monthly: true,
   yearly: false,
@@ -270,6 +317,8 @@ const lemonsqueezyProvider: ProviderConfig = {
   name: "Lemon Squeezy",
   checkoutMode: "redirect",
   getCheckoutUrl(plan) {
+    // Kill switch first: never reachable by setting an env var.
+    if (LS_PLANS_BLOCKED_PENDING_SERVER_FIX[plan]) return null;
     const variantUrl = LS_PLAN_CHECKOUT_URLS[plan];
     if (variantUrl) return variantUrl;
     // No variant link. The fallback IS the monthly variant, so only monthly may use

@@ -72,15 +72,13 @@ describe("checkout URL fallback (no variant links configured)", () => {
 });
 
 describe("checkout URL when the owner sets the variant links", () => {
-  it("uses the variant link for every plan, the fallback for none of them", async () => {
+  it("uses the variant link for the sellable plans", async () => {
     const { getCheckoutUrl } = await loadWithEnv({
       NEXT_PUBLIC_PRO_MONTHLY_CHECKOUT_URL: "https://colorarchive.lemonsqueezy.com/buy/aaa",
       NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL: "https://colorarchive.lemonsqueezy.com/buy/bbb",
-      NEXT_PUBLIC_PRO_LIFETIME_CHECKOUT_URL: "https://colorarchive.lemonsqueezy.com/buy/ccc",
     });
     expect(getCheckoutUrl("monthly")).toBe("https://colorarchive.lemonsqueezy.com/buy/aaa");
     expect(getCheckoutUrl("yearly")).toBe("https://colorarchive.lemonsqueezy.com/buy/bbb");
-    expect(getCheckoutUrl("lifetime")).toBe("https://colorarchive.lemonsqueezy.com/buy/ccc");
   });
 
   it("re-enables yearly on its own — no code change needed once the env var is set", async () => {
@@ -101,5 +99,38 @@ describe("the plans are still priced even while unsellable", () => {
     const { proSubscriptionConfig } = await loadWithEnv({});
     expect(proSubscriptionConfig.yearly.price).toBe("¥3,999");
     expect(proSubscriptionConfig.lifetime.price).toBe("¥19,999");
+  });
+});
+
+describe("lifetime is blocked in CODE, not merely unconfigured", () => {
+  /**
+   * The distinction this pins is the entire point of the kill switch. Lifetime is
+   * off because /webhooks/subscription-cancelled would later wipe the entitlement
+   * (pro_expires_at = NULL means "lifetime", and the cancel path overwrites it
+   * unconditionally after matching on the shared provider_customer_id). If the
+   * only thing standing between a customer and that outcome were an UNSET env var,
+   * one `vercel env add` re-opens it — which is exactly how it was almost shipped
+   * on 2026-09-06.
+   *
+   * So: set the variable to a perfectly valid link and the answer must STILL be
+   * null. This test fails the moment someone deletes the switch.
+   */
+  it("returns null for lifetime even when a valid variant link IS configured", async () => {
+    const { getCheckoutUrl } = await loadWithEnv({
+      NEXT_PUBLIC_PRO_LIFETIME_CHECKOUT_URL:
+        "https://colorarchive.lemonsqueezy.com/checkout/buy/00e86059-6879-479a-a0af-2c1aa4010a2a",
+    });
+    expect(getCheckoutUrl("lifetime")).toBeNull();
+  });
+
+  it("blocks ONLY lifetime — the switch must not be a blanket off", async () => {
+    const { getCheckoutUrl } = await loadWithEnv({
+      NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL:
+        "https://colorarchive.lemonsqueezy.com/checkout/buy/afa1271a-0b82-4346-bee3-ad37af963410",
+    });
+    expect(getCheckoutUrl("yearly")).toBe(
+      "https://colorarchive.lemonsqueezy.com/checkout/buy/afa1271a-0b82-4346-bee3-ad37af963410",
+    );
+    expect(getCheckoutUrl("monthly")).toBe(MONTHLY_VARIANT_URL);
   });
 });
