@@ -82,6 +82,52 @@ Third week this has been raised.
 `human-todo.md` as owner actions. Note for any post written before those are set: **`/pro/`'s yearly
 and lifetime buttons are currently disabled**, so no copy should drive traffic to them.
 
+### 🟢 Late in the run the network returned — so production was checked after all
+
+Everything above had been verified against the repo. Re-checked against `colorarchive.org`:
+`complete-archive.zip` 200 / 786,092 bytes, 15 formats, **5,446** CSS vars and **5,446** JSON entries;
+`brand-starter-kit.zip` 200 / 18,776 bytes; `/pro/` showing exactly two "Temporarily unavailable"
+buttons. `1c9e79b` is confirmed deployed by grepping all 14 served JS chunks for the new label — the
+served HTML alone could not answer it.
+
+### 🔴 I made the run's own mistake, inside the run about that mistake
+
+The first draft of this roundup said the starter kit holds **twelve** palettes. It holds **three**
+(`quiet-luxury`, `nocturne-tech`, `orchid-bloom`). I read the first screenful of the zip listing, saw
+several `*-brand-guide.md`, and inferred instead of counting — while writing an entry whose entire
+subject is a claim that was wrong because someone searched two directories and generalised. The page's
+own label had said "3 curated palettes" the whole time.
+
+**A truncated listing is not a count.** Corrected in the Facebook draft, in the verification notes, and
+in `human-todo.md`.
+
+### 🔵 Noticed, not concluded: `/free-resources/` serves an HTML shell
+
+None of the page's text — not "Free Color Resources", not "Sample Downloads", not any `downloads/`
+href — appears in the served HTML. That is equally true of copy predating this week, so it is not a
+deploy fault; the body is client-rendered after hydration. It is tempting to join this to the 90 days
+of zero impressions, and I have not, because Google renders JavaScript and this may cost nothing.
+Filed as an owner action to be measured, not asserted.
+
+### 🔴 A concurrent session collided with this one, and the lock did not prevent it
+
+After this run released the lock and pushed `8e38a22`, a second session committed `7ea4284`
+("docs(ads): the Purchase goal reads Misconfigured…") with `git add -A` while this run's *follow-up*
+corrections were still unstaged in the working tree. **Those four doc files were swept into that
+commit**, which is already on `origin/main`. The content is intact and correct; only its attribution is
+wrong — the palette-count fix, the push-status correction and the production verification all live
+under an unrelated Google Ads message.
+
+Not rewritten. `7ea4284` is pushed and shared, and force-pushing a shared branch unattended to fix an
+attribution is a worse trade than the confusion it removes.
+
+**The lesson is about the protocol, not the other session.** `CLAUDE.md` has the lock released
+immediately after the final push, which is correct for a run that ends there — but this run kept
+working afterwards (verification, then corrections). **The window between "released the lock" and
+"actually finished touching files" is unprotected, and `git add -A` in any concurrent session will
+claim whatever is sitting in it.** Either hold the lock until the last edit, or stage nothing until
+committing.
+
 ---
 
 ## 2026-09-05 (later) — [remote] The runaway-pageview root cause, found while verifying the ten batches
