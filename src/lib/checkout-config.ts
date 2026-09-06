@@ -166,9 +166,19 @@ export const preorderConfig = {
  * The fourth row is the reason to be careful here. `app/api/webhook/route.ts:41` warns that
  * LS may report a single-variant order's `variant_name` as "Default", which would fail both
  * `includes("lifetime")` and `includes("pro")` and drop a paid order on the floor. That risk
- * was REFUTED rather than assumed: `orders` rows 26–30 on the production box were written by
- * the `variantName.includes("pro")` branch at route.ts:308, which cannot execute unless LS
- * sent the real variant name. Five orders, 2026-07-22 → 2026-09-03.
+ * was REFUTED rather than assumed FOR THE SUBSCRIPTION PATH: `orders` rows 26–30 on the
+ * production box were written by the `variantName.includes("pro")` branch at route.ts:308,
+ * which cannot execute unless LS sent the real variant name. Five orders,
+ * 2026-07-22 → 2026-09-03.
+ *
+ * 🔴 SCOPE OF THAT REFUTATION — it covers yearly, NOT lifetime. All five rows are monthly
+ * SUBSCRIPTIONS, so they exercise route.ts:308; yearly is the same event on the same path,
+ * so the evidence transfers. Lifetime is a one-time order decided at route.ts:268 by a
+ * different expression those rows never executed, and that expression has a dead fallback:
+ * `x?.includes("lifetime") ?? y` — when first_order_item.variant_name EXISTS but is not
+ * "lifetime", the left side is `false`, and `false ?? y` is `false`, so `y` never runs. It
+ * fires only when the field is absent entirely, which is not the "Default" case it was
+ * written for. Moot while the kill switch below is on; settle it before turning that off.
  */
 const LS_STORE_SLUG = "colorarchive";
 /** The MONTHLY variant's buy link. Not a picker — see the block above. */
@@ -234,10 +244,26 @@ const LS_PLAN_CHECKOUT_URLS: Record<ProPlan, string | undefined> = {
  * `process.env.NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL` (undefined in the browser);
  * a SET one is replaced by its string. On 2026-09-05 all three printed, while
  * NEXT_PUBLIC_PREORDER_CHECKOUT_URL did not — the positive control proving the
- * mechanism works. After this change the three must STOP printing, and the
- * variant uuids must start appearing in the chunks instead. Stronger still, and
- * the check actually run on 2026-09-06: read the href off the deployed /pro/,
- * fetch it, and assert the cart's variant_id. That one cannot pass while broken.
+ * mechanism works.
+ *
+ * 🔴 THAT GREP IS NOT SUFFICIENT ON ITS OWN, and an earlier version of this
+ * comment overstated it. Absence of the literal only proves the var is set to
+ * SOMETHING: it goes green just the same if the monthly uuid were pasted into the
+ * yearly slot (a verbatim id41 repeat), or if yearly and lifetime were swapped.
+ * "All three uuids appear in the bundle" is set membership, not a mapping.
+ *
+ * WHAT WAS ACTUALLY MEASURED, once deploy dpl_3Na2a7soEFTshhscJ6pD2QVjBLxV was
+ * live: on the real https://colorarchive.org/pro/, window.open was stubbed and each
+ * pricing card's button invoked, capturing the URL that button would open — i.e.
+ * the BINDING from card to URL, not the set of strings in the file:
+ *
+ *   MONTHLY  ¥499     -> …/buy/771b252b…  (variant 1540585 Monthly)
+ *   YEARLY   ¥3,999   -> …/buy/afa1271a…  (variant 1540561 Yearly)
+ *   LIFETIME ¥19,999  -> disabled, opens nothing
+ *
+ * and each URL had already been fetched and its cart decoded, so the chain
+ * card -> URL -> variant_id -> price is measured end to end. Re-run THAT, not just
+ * the grep, and re-run it against the deployed site.
  */
 /**
  * 🔴 HARDCODED KILL SWITCH — lifetime cannot be sold until a SERVER fix ships.

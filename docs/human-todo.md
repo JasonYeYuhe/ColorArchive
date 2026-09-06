@@ -2,6 +2,65 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🟢 2026-09-06 结账:年付已开,🔴 买断被**代码**挡住(不是忘了配)
+
+> **你让我设的 3 个 env var:设了 2 个,第 3 个故意没设,原因在下面 —— 这条最重要。**
+
+> ### 做了什么
+> `NEXT_PUBLIC_PRO_MONTHLY / YEARLY_CHECKOUT_URL` 已加到 Vercel Production 并重新部署
+> (`213c666` + `a7abfed`)。**年付按钮现在是活的,而且指向年付**。
+> 值不是抄来的,是从活的商店读出来再逐个验的(`isTestMode: false`):
+>
+> | 卡片 | 按钮 | 打开 | variant | 价格 |
+> |---|---|---|---|---|
+> | MONTHLY ¥499 | 可点 | `…/buy/771b252b…` | 1540585 Monthly | 49900 |
+> | YEARLY ¥3,999 | 可点 | `…/buy/afa1271a…` | 1540561 Yearly | 399900 |
+> | LIFETIME ¥19,999 | **停用** | 什么都不开 | — | — |
+>
+> 验法不是「grep 到 uuid 就算过」(那个 monthly/yearly 对调也能全绿),而是在**生产站**上
+> 把 `window.open` 换掉、逐个按钮点一次、抓它真要打开的 URL,再把每个 URL 抓下来解出购物车里的
+> `variant_id` 和价格。**卡片 → URL → variant → 价格,整条链都是量出来的。**
+
+> ### 🔴 顺带纠正一条写在代码里很久的错话
+> `checkout-config.ts` 一直说那个写死的链接是「产品级链接,会打开一个 variant 选择器」。
+> **没有选择器。** 抓下来看,`isMultiVariant: false`,购物车里就一件:variant 1540585
+> 「ColorArchive Pro — Monthly」。那串 uuid 本身就是**月付 variant 的 slug**。
+> 所以 id41 不是「进了选择器没改」,而是**那个链接只能卖月付**,按什么都一样。结论没变,原因更钝。
+
+> ### 🔴 买断为什么我没开(这条要你决定)
+> 开买断会**毁掉它自己刚卖出去的东西**,还没有人买到,是提前发现的。
+> 买断记的是 `pro_expires_at = NULL`(= 永不过期,`server/routes/webhook.js:195`),**没有别的标记**。
+> 而 `/webhooks/subscription-cancelled`(`webhook.js:579`)用 `findSubscriptionUser()` 找人,
+> 会退到匹配 `provider_customer_id` —— **和这个人月付订阅的是同一个 LS customer id** —— 然后无条件跑
+> `UPDATE users SET tier=?, pro_expires_at=? `,而 `resolveCancellation()` 在 `reason="expired"` 时返回
+> `{ tier:"free", proExpiresAt:null }`(`server/entitlement.js:153-164`)。**那条路上没有任何买断保护。**
+>
+> 也就是说最自然的升级路径会自杀:月付用户花 ¥19,999 买断 → 把不再需要的月付退掉 →
+> 月付周期结束 → expired webhook 把他打回 `tier='free'`。**付了全站最贵的钱,权限没了,而且是静默的。**
+> 和 07-20、08-18 两次事故同一个形状。
+>
+> 所以买断现在是**代码里的硬开关**(`LS_PLANS_BLOCKED_PENDING_SERVER_FIX`),不是「没配 env」——
+> 理由和 `preorderConfig.closed` 一样:env var 只差一条 `vercel env add` 就能重新打开,而今天差点就那样上线了。
+> 测试会在有人删掉这个开关时变红(已实测:删掉那行 → 测试 FAIL,加回来 → PASS)。
+>
+> **解封买断需要先修服务端,而修完要 `pm2 restart`,那会给订阅者群发邮件 ⇒ 需要你授权。** 三件事一起做:
+> 1. `/subscription-cancelled` 和 `/subscription-revoke` 加买断豁免(`orders` 里已有 lifetime 单据,`webhook.js:305` 写的)。
+> 2. 退款路径:买断退款后权限应该收回。`order_id` 存的是 `lifetime_<N>`,退款 webhook 未必匹配得上 —— **上线前先验**。
+> 3. `route.ts:268` 的 `x?.includes("lifetime") ?? y` 是**死回退**(`false ?? y` 还是 `false`),
+>    它只在字段完全不存在时才生效,而不是它想防的 "Default" 情况。
+
+> ### 🔴 另外两件,和这次改动无关但都是真的
+> - **特商法页面有一条是假的。** `commerce-disclosure-page.tsx` 的 **支払時期**写「ご注文時に即時決済されます」
+>   (下单即扣款),但月付和年付**都有 3 天免费试用**(活购物车实测 `has_free_trial: True`、
+>   `trial_interval_count: 3`、`cart.total = 0`)—— **没有人是下单即扣款的**。这是法定披露页,建议改。
+>   (同页 **販売価格**写「税込」而活购物车是 `tax_inclusive: False`,这条我只能算**推断**,
+>   因为 LS 作为 MoR 对日本地址怎么显示我没实测,别照抄。)
+> - 🔴 **我自己造成的一次凭据外泄,建议你轮换。** 这次我派了一个只读侦察 agent,它为了列出
+>   `server/.env.*` 里的变量名跑了 `cut -d= -f1`,但其中四个文件是 JSON,`cut` 在没有分隔符时会**整行打印**
+>   ⇒ **Facebook page/user token、Twitter consumer+access secret、Instagram 长效 token、YouTube API key
+>   被打进了那个 agent 的对话记录。** 这些文件是 untracked + gitignored,**没有进公开仓库**,
+>   但它们已经出现在这次会话的日志里。要不要轮换由你决定;我没有动任何一个。
+
 > ## 🔴 2026-09-12 要复查一件事(失控 pageview 的判据)
 >
 > 收尾时找到了计划里两次记为「未诊断」的根因:**22 个会话贡献全站 68% 的 pageview**,
@@ -84,7 +143,7 @@
 >
 > ### 三件要你决定的
 >
-> 1. **设 3 个 LemonSqueezy env var 并重新部署**(09-03 A5,15 分钟)—— `NEXT_PUBLIC_PRO_MONTHLY/YEARLY/LIFETIME_CHECKOUT_URL`。
+> 1. ✅ **已做(2026-09-06)—— 但只设了 2 个,买断那个是故意不设的,见本文件顶部。** ~~设 3 个 LemonSqueezy env var 并重新部署~~(09-03 A5)—— `NEXT_PUBLIC_PRO_MONTHLY/YEARLY_CHECKOUT_URL` 已设并验证;`LIFETIME` 被代码硬开关挡住,解封前要先修服务端。
 >    🔴 **id41 08-31 按了两次年付、被扣了月付 ¥500**,就是因为它们没设、代码静默回退到带选择器的链接。
 >    F1 会堵住代码侧,但没有 env var 年付永远买不到。
 > 2. **要不要给 id41 发邮件**说明并主动改成年付(LS 后台可改 variant)。他 **10-03 第一次续费**,流失 = 这个 bug 直接丢客户。客户邮件需你授权。
