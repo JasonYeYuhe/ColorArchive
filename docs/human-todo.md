@@ -2,6 +2,37 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🟢 2026-09-06(晚)买断已修好并重新开卖 —— A 和 B 都不用你做了
+
+> owner 决定「买断先留着当一个选项」。所以不是下架,而是**把服务端修好让它能安全地卖**。
+> 提交 `9c40364`(服务端)+ `ebe8596`(重新开卖)。
+
+> **服务端(已部署并验证)**:新建 `server/lifetime.js` 的 `hasLifetimeEntitlement()`,
+> **四扇门全部接上** —— `/subscription-cancelled`、`/subscription-updated`
+> (LS 每次取消都会同时发它,只修第一扇等于没修)、`/subscription-revoke`、
+> 以及 Apple 通知处理器(Apple 订阅到期原本足以抹掉 LS 买断)。
+> 两个「天真版会写错」的地方也修了:**退款后必须还能撤权**(所以判据是「未退款的买断订单」,
+> 不是 `subscription_plan`,否则退了钱还永久保留 Pro);而这又要求**退款标记本身能匹配到买断订单**
+> —— 买断的 `order_id` 是 `lifetime_<id>`,原来那条 UPDATE 一个都匹配不到,顺手补上。
+> 🔴 我自己第一版还写错一处:Apple 那个 helper 声明在 `switch` 的 case 之间,
+> 跳到 `case "EXPIRED"` 会跳过声明 ⇒ **每次到期都 ReferenceError**。已提到 switch 之前,并加了测试钉住。
+
+> **部署与验证**:三个文件 md5 与本地逐字节一致,先在机器上 `node --check` 再重启;
+> `pm2` 10:21:24Z 重启,`api.colorarchive.org/health` 200。
+> 🔴 **顺带推翻一条长期假设:`pm2 restart` 并不会群发邮件。**
+> 实测重启前后四个计数完全没变(cotd 今日 6 / 跟进 1 / design notes 0 / 今日 pin 2),
+> 日志里重启后没有任何发送行。代码本来就有防重启保护:`runCotdEmails` 非 UTC 09 点直接 return
+> (注释原话就是 "to avoid spamming on restarts")、按天幂等;`runFollowUps` 被
+> `PACK_MAILS_ENABLED = false` 关着;ig/cache-warmer 启动不跑;pin 的 45 秒初次检查撞当日配额。
+> ⇒ **以后服务端修复不必再攒着不敢发**,避开 UTC 09 点即可。
+
+> **前台**:`/pro/` 三个按钮实测各自打开正确 variant(月 `771b252b` / 年 `afa1271a` /
+> 买断 `00e86059`,¥19,999、published、非测试模式);三个法务页的「暂不可用」提示已自动被守卫逼着删掉;
+> JSON-LD 的 Lifetime 也自己从 `OutOfStock` 翻回 `InStock`(因为它是从 `getCheckoutUrl` 派生的)。
+
+> **剩下要你做的**:C(Design Notes cron 没有 git remote)、D(MX)、E(9-22 Hayley 零缓冲)、
+> F(id41、会话锁)。买断商店那侧**不用动了** —— 现在卖它是安全的。
+
 > ## 🔴 2026-09-06 全面复查结果 —— 按「该谁做」排好了
 
 > 五路只读审计 + 我自己复核。**代码侧我能做的都做了**(见下面「已修」);剩下的都需要你。
