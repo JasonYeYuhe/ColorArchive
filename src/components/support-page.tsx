@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "Do you offer refunds?",
-    a: `We offer a ${refundPolicy.moneyBackDays}-day money-back guarantee on all Pro purchases — email support within ${refundPolicy.moneyBackDays} days for a full refund. After that, sales are final. Cancelling is different from refunding: you keep Pro until the end of the period you already paid for.`,
+    a: `We offer a ${refundPolicy.moneyBackDays}-day money-back guarantee on all Pro purchases — email support within ${refundPolicy.moneyBackDays} days of your first payment for a full refund. Cancelling during the free trial costs nothing at all. After that, sales are final. Cancelling is different from refunding: you keep Pro until the end of the period you already paid for.`,
   },
   {
     q: "How do I contact support?",

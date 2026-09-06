@@ -2278,7 +2278,7 @@ const translations: Record<string, Record<string, string>> = {
   "pro.faq.q2": { en: "What happens when my subscription ends?", zh: "订阅到期后会怎样？" },
   "pro.faq.a2": { en: "You keep access to all colors and tools. AI generations and exports revert to free tier limits.", zh: "你仍可访问所有颜色和工具，AI 生成和导出恢复为免费版限制。" },
   "pro.faq.q3": { en: "Can I get a refund?", zh: "可以退款吗？" },
-  "pro.faq.a3": { en: "Yes, we offer a 7-day money-back guarantee. Email hello@colorarchive.org.", zh: "可以，我们提供 7 天无理由退款。请发邮件至 hello@colorarchive.org。" },
+  "pro.faq.a3": { en: "Yes — a 7-day money-back guarantee, counted from your first payment (cancel during the free trial and you are never charged). Email support@colorarchive.org.", zh: "可以 —— 7 天无理由退款，从首次扣款起算（在免费试用期内取消则完全不扣款）。请发邮件至 support@colorarchive.org。" },
 
   // Account page
   "account.label": { en: "Account", zh: "账户" },
@@ -2292,7 +2292,7 @@ const translations: Record<string, Record<string, string>> = {
   "account.upgradeToPro": { en: "Upgrade to Pro", zh: "升级至 Pro" },
   "account.fullAccess": { en: "You have full access to all features.", zh: "你已拥有全部功能权限。" },
   "account.upgradeHint": { en: "Upgrade for unlimited AI and exports.", zh: "升级获取无限 AI 生成和导出。" },
-  "account.proThanks": { en: "Thank you for supporting ColorArchive! Contact hello@colorarchive.org for billing questions.", zh: "感谢支持 ColorArchive！如有账单问题请联系 hello@colorarchive.org。" },
+  "account.proThanks": { en: "Thank you for supporting ColorArchive! Contact support@colorarchive.org for billing questions.", zh: "感谢支持 ColorArchive！如有账单问题请联系 support@colorarchive.org。" },
   "account.quickLinks": { en: "Quick Links", zh: "快捷入口" },
   "account.myProjects": { en: "My Projects", zh: "我的项目" },
   "account.favorites": { en: "Favorites", zh: "收藏" },

@@ -120,7 +120,7 @@ export function ProPage() {
               <div className="mb-4">
                 <span className="text-3xl font-bold text-slate-900 dark:text-white">JP{proSubscriptionConfig.monthly.price}</span>
                 <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {proSubscriptionConfig.monthly.period}</span>
-                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.monthly.priceUsd} USD · billed in Japanese yen</p>
+                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.monthly.priceUsd} USD · billed in Japanese yen, excl. tax</p>
               </div>
               <p className="text-xs text-slate-400 mb-1">{t("pro.cancelAnytime")}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-5">3-day free trial</p>
@@ -145,7 +145,7 @@ export function ProPage() {
               <div className="mb-4">
                 <span className="text-3xl font-bold text-slate-900 dark:text-white">JP{proSubscriptionConfig.yearly.price}</span>
                 <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">/ {proSubscriptionConfig.yearly.period}</span>
-                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.yearly.priceUsd} USD · billed in Japanese yen</p>
+                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.yearly.priceUsd} USD · billed in Japanese yen, excl. tax</p>
               </div>
               <p className="text-xs text-slate-400 mb-1">{t("pro.cancelAnytime")}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-5">3-day free trial</p>
@@ -167,7 +167,7 @@ export function ProPage() {
               </p>
               <div className="mb-2">
                 <span className="text-3xl font-bold text-slate-900 dark:text-white">JP{proSubscriptionConfig.lifetime.price}</span>
-                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.lifetime.priceUsd} USD · billed in Japanese yen</p>
+                <p className="text-[11px] text-slate-400 mt-1">≈ {proSubscriptionConfig.lifetime.priceUsd} USD · billed in Japanese yen, excl. tax</p>
               </div>
               <p className="text-xs text-amber-600 dark:text-amber-400 font-medium mb-1">Pay once, keep forever*</p>
               <p className="text-[10px] text-slate-400 mb-5">*Lifetime of the ColorArchive product</p>
@@ -237,6 +237,19 @@ export function ProPage() {
             <span>&#10003; Cancel anytime</span>
             <span>&#10003; No credit card for the free tier</span>
           </div>
+          {/*
+            Tax note added 2026-09-06. Measured against the live Lemon Squeezy
+            checkout: cart.tax_inclusive is false, and a JP billing address returns
+            tax_name "JCT" at tax_rate 10.00 — on the no-trial variant that is
+            subtotal 1999900 -> total 2199890. So ¥499 is NOT what a customer in
+            Japan pays. Saying nothing here also left /commerce-disclosure's
+            "as displayed on each product page" pointing at a number that silently
+            excluded tax, with no tax-inclusive figure on any surface.
+          */}
+          <p className="mt-3 text-center text-[11px] leading-5 text-slate-500 dark:text-slate-400">
+            Prices exclude tax. Customers in Japan are charged 10% consumption tax
+            (JCT) at checkout — the total is shown before you pay.
+          </p>
         </div>
 
         {/* FAQ */}

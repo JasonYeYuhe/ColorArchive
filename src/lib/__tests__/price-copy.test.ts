@@ -162,9 +162,19 @@ describe("refund policy", () => {
    * derive the window from checkout-config, and this fails if either grows a
    * second number.
    */
+  // refund-policy-page.tsx was NOT in this list until 2026-09-06, even though it
+  // is the page that states the guarantee in the most detail and writes the
+  // window as a literal three times. The guard was watching the two pages that
+  // derive the number and ignoring the one that hardcodes it.
   const PAGES = [
     "src/components/support-page.tsx",
     "src/components/commerce-disclosure-page.tsx",
+    "src/components/refund-policy-page.tsx",
+    // /pro/ states the window in its trust row as a literal too.
+    "src/components/pro-page.tsx",
+    // …and the /pro/ FAQ answer lives here, where it was hardcoded as "7-day"
+    // AND "7 天" while pointing refund requests at the wrong mailbox.
+    "src/lib/i18n.ts",
   ];
 
   it("neither page hardcodes a refund window", () => {
@@ -176,7 +186,23 @@ describe("refund policy", () => {
           offenders.push(`${rel}: "${m[0]}" but refundPolicy.moneyBackDays is ${refundPolicy.moneyBackDays}`);
         }
       }
-      for (const m of body.matchAll(/購入日から ([0-9]+) 日/g)) {
+      // Matches the window wherever it is anchored. It used to be pinned to the
+      // literal "購入日から", so changing the anchor to 初回のお支払い (2026-09-06,
+      // to agree with /refund-policy) would have silently switched this half of
+      // the guard off while leaving it green. Deliberately NOT a bare
+      // /([0-9]+) 日/ — that would match the "3 日間の無料トライアル" in 支払時期
+      // and fail on a number this rule has no opinion about.
+      // 简体中文 too. Scoped tightly on purpose: i18n carries both "3 天，随时取消"
+      // (the TRIAL, which this rule has no opinion about) and "7 天无理由退款"
+      // (the refund window). Requiring 退款 within a few characters separates them.
+      // Verified by mutation: changing only the Chinese string turns this red,
+      // which it did NOT before this pattern existed.
+      for (const m of body.matchAll(/([0-9]+) 天(?=[^\n]{0,6}退款)/g)) {
+        if (Number(m[1]) !== refundPolicy.moneyBackDays) {
+          offenders.push(`${rel}: 简体中文 "${m[0]}" but refundPolicy.moneyBackDays is ${refundPolicy.moneyBackDays}`);
+        }
+      }
+      for (const m of body.matchAll(/([0-9]+) 日(?:以内|経過後)/g)) {
         if (Number(m[1]) !== refundPolicy.moneyBackDays) {
           offenders.push(`${rel}: 日本語 "${m[0]}" but refundPolicy.moneyBackDays is ${refundPolicy.moneyBackDays}`);
         }
