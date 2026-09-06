@@ -2,6 +2,44 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🟢 2026-09-06(夜)D 已做完 · C 查清楚了(比原来记的更糟,但也更没影响)
+
+> ### 🟢 D:`support@colorarchive.org` 现在收得到信了
+> `colorarchive.org` 原来**一条 MX 都没有**,所有寄给 support@ 的信直接弹回,
+> 而特商法页/`/support`/`/refund-policy`/`/pro` FAQ 四处都把 7 天退款请求指向它。
+>
+> 🔴 **差点做错的做法**:Namecheap 的免费转发要把 Mail Settings 从 `Custom MX` 切成 `Email Forwarding`。
+> 我先在未保存状态下看了它的待改动 —— 那个模式会**删掉 `send` 的 MX 记录**,而且**没有再加回来的入口**。
+> 那条记录是 Resend/SES 的 custom MAIL FROM,Resend 后台显示 **Verified、正在用**。
+> 换句话说:用免费转发换来收信,代价可能是**把正在工作的发信搞坏**(收据、magic link、每日配色邮件)。
+> **没保存,退回去了。**
+>
+> 🟢 **实际做法**:Resend 本身支持收信。在 Resend 打开 `Enable Receiving`,它要求
+> `MX @ → inbound-smtp.ap-northeast-1.amazonaws.com`(优先级 10)。
+> 这条**可以在 `Custom MX` 模式下手工加**,所以 `send` 的记录一根汗毛没动。
+> 三个 resolver(含权威 NS)都已生效,Resend 的横幅也从「ready to send emails」
+> 变成 **「ready to send and receive emails」**。
+> A 记录、api、DKIM、DMARC、send SPF 全部逐条比对过,没有任何附带改动。
+>
+> ⚠️ **还差最后一段**:信现在会被 Resend 收下(不再弹回),但**没有任何东西把它转到你的 Gmail** ——
+> Resend 收到的信要么在它自己后台看,要么需要一个 `email.received` webhook 转发。
+> 我没擅自建这个 webhook(那是新增一个会静默失效的部件)。**你要的话我来做**,
+> 用现成的 `server/email.js` 发到你 Gmail,不需要我碰任何密钥。
+
+> ### 🔴 C:Design Notes 不是「一处坏」,是**三处同时坏**,所以只修 cron 等于没修
+> 1. **机器上没有 git remote** ⇒ cron 里的 `git archive origin/main docs/design-notes` 永远失败。
+>    09-04 的日志逐字写着:`WARN git fetch failed` → `no docs/design-notes/ in origin/main yet` → `done (rc=0)`。
+> 2. **它失败了还 exit 0**,并且打印一句听起来很正常的「no approved issues」——
+>    **和当年 `sync-azure.sh` 五个月上传 0 字节还 exit 0 是同一个形状**:不工作比不存在更糟,因为它制造「在工作」的错觉。
+> 3. 🔴 **`notes_subscribed = 1` 的人数是 0** —— 就算前两条都修好,**也没有一个人会收到**。
+>    前端**根本没有任何订阅入口**(`grep` 整个 `src/components` 和 `app`,零处引用),
+>    后端 `/subscribe` 倒是支持 `notes: true`。
+>
+> 所以之前记的「审过的 issue 一封没送到」字面属实,但**主因不是 cron**,是这条列表压根没有人。
+> `docs/design-notes/2026-W31.md` 从 **2026-08-01** 起就是 `status: approved`(内容是 Delta E 两种公式,
+> 不带时效性),`design_notes_deliveries` 与 `design_notes_sent` **都是 0 行**。
+> ⇒ 真正要决定的是:**这条 newsletter 还要不要做**。要做就得先有订阅入口;不做就该把 cron 和文案一起删掉。
+
 > ## 🟢 2026-09-06(晚)买断已修好并重新开卖 —— A 和 B 都不用你做了
 
 > owner 决定「买断先留着当一个选项」。所以不是下架,而是**把服务端修好让它能安全地卖**。
