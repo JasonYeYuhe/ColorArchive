@@ -2254,7 +2254,7 @@ const translations: Record<string, Record<string, string>> = {
   "pro.comparison.row4free": { en: "3 (anonymous) / 10 (signed in)", zh: "3 次（未登录）/ 10 次（已登录）" },
   "pro.comparison.row4pro": { en: "Unlimited", zh: "无限" },
   "pro.comparison.row5": { en: "WCAG audit download", zh: "WCAG 审计下载" },
-  "pro.comparison.row5free": { en: "3 (anonymous) / 10 (signed in)", zh: "3 次（未登录）/ 10 次（已登录）" },
+  "pro.comparison.row5free": { en: "Shares the export allowance above", zh: "与上面的导出共用同一额度" },
   "pro.comparison.row5pro": { en: "Unlimited", zh: "无限" },
   // row6 was "Token generator output — Preview / Full". The 50–950 scales are free for
   // everyone (token-generator-page.tsx renders all 6 × 11 with a per-row copy button);
@@ -2274,7 +2274,7 @@ const translations: Record<string, Record<string, string>> = {
   "pro.comparison.row8pro": { en: "Unlimited", zh: "无限" },
   "pro.faqTitle": { en: "Frequently asked questions", zh: "常见问题" },
   "pro.faq.q1": { en: "Can I try before I subscribe?", zh: "订阅前可以试用吗？" },
-  "pro.faq.a1": { en: "Yes! You can try Pro free for 3 days — cancel anytime, no charge if you cancel before it ends. Prefer to stay free? Free accounts get 10 AI generations and 3 exports per day, no credit card required.", zh: "可以！你可以免费试用 Pro 3 天，随时取消，到期前取消不收费。想继续用免费版也行：免费账户每天 10 次 AI 生成、3 次导出，无需信用卡。" },
+  "pro.faq.a1": { en: "Yes! You can try Pro free for 3 days — cancel anytime, no charge if you cancel before it ends. Prefer to stay free? Signed-in free accounts get 10 AI generations and 10 exports a day (3 of each without signing in). Palette exports and WCAG report downloads draw on the same export allowance. No credit card required.", zh: "可以！你可以免费试用 Pro 3 天，随时取消，到期前取消不收费。想继续用免费版也行：登录后每天 10 次 AI 生成、10 次导出（不登录则各 3 次）。导出调色板与 WCAG 报告下载共用同一份导出额度。无需信用卡。" },
   "pro.faq.q2": { en: "What happens when my subscription ends?", zh: "订阅到期后会怎样？" },
   "pro.faq.a2": { en: "You keep access to all colors and tools. AI generations and exports revert to free tier limits.", zh: "你仍可访问所有颜色和工具，AI 生成和导出恢复为免费版限制。" },
   "pro.faq.q3": { en: "Can I get a refund?", zh: "可以退款吗？" },
