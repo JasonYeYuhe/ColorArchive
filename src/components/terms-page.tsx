@@ -1,4 +1,5 @@
 import { SITE_URL } from "@/src/lib/site-config";
+import { isPlanTemporarilyUnavailable } from "@/src/lib/checkout-config";
 
 const LAST_UPDATED = "April 7, 2026";
 
@@ -35,7 +36,7 @@ We reserve the right to suspend or terminate accounts that violate these terms.`
     content: `Pro subscriptions and products on the web are sold through Lemon Squeezy, our Merchant of Record and payment processor. iOS in-app purchases are processed by Apple. All web purchases are subject to Lemon Squeezy's terms of service; iOS purchases are subject to Apple's.
 
 - **Subscriptions**: Pro subscriptions (monthly or yearly) renew automatically. You may cancel at any time through your account's billing portal — go to Account → Manage Subscription. Cancellation takes effect at the end of the current billing period; you retain access until then. No partial refunds are issued for the remaining period.
-- **Lifetime purchase**: The Pro Lifetime option is a one-time purchase that grants permanent Pro access. No recurring charges apply. "Lifetime" refers to the lifetime of the ColorArchive product/service.
+- **Lifetime purchase**: The Pro Lifetime option is a one-time purchase that grants permanent Pro access. No recurring charges apply. "Lifetime" refers to the lifetime of the ColorArchive product/service.${isPlanTemporarilyUnavailable("lifetime") ? " **Currently unavailable** — new Lifetime purchases are switched off while a defect that could revoke the entitlement is fixed." : ""}
 - **Exceptions**: If you experience a technical issue preventing you from accessing Pro features, contact us and we will work to resolve it or issue a refund at our discretion.
 - **Pricing**: We reserve the right to change pricing at any time. Price changes do not affect active subscriptions or completed purchases.
 - **Apple App Store purchases**: If you purchase Pro through the ColorArchive iOS app, the transaction is processed by Apple. App Store purchases are governed by Apple's terms and conditions, including Apple's refund policies. To request a refund for an App Store purchase, please contact Apple Support directly.

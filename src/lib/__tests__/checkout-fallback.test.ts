@@ -1,4 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
+const ROOT = process.cwd();
 
 /**
  * Pins the fix for the 2026-08-31 mis-charge.
@@ -132,5 +136,38 @@ describe("lifetime is blocked in CODE, not merely unconfigured", () => {
       "https://colorarchive.lemonsqueezy.com/checkout/buy/afa1271a-0b82-4346-bee3-ad37af963410",
     );
     expect(getCheckoutUrl("monthly")).toBe(MONTHLY_VARIANT_URL);
+  });
+});
+
+describe("copy never advertises a plan the checkout refuses", () => {
+  /**
+   * Blocking lifetime in code (a7abfed) silenced the /pro/ button but left
+   * /support, /terms and /refund-policy still describing it as a thing you can
+   * buy — a visitor reads "a one-time purchase granting permanent Pro access,
+   * ¥19,999" and then finds the button says Temporarily unavailable.
+   *
+   * This assertion is two-directional ON PURPOSE, so it maintains itself: while
+   * the plan is blocked the pages must say so, and once the server guard ships
+   * and the block is lifted, the test fails until the "currently unavailable"
+   * copy is removed. A one-directional version would quietly leave stale
+   * "unavailable" notices on three legal-ish pages forever.
+   */
+  const PAGES = [
+    "src/components/support-page.tsx",
+    "src/components/terms-page.tsx",
+    "src/components/refund-policy-page.tsx",
+  ];
+
+  it("lifetime's block state and the copy on every page that sells it agree", async () => {
+    const { isPlanTemporarilyUnavailable } = await loadWithEnv({});
+    const blocked = isPlanTemporarilyUnavailable("lifetime");
+    const offenders: string[] = [];
+    for (const rel of PAGES) {
+      const body = readFileSync(join(ROOT, rel), "utf8");
+      const saysSo = /isPlanTemporarilyUnavailable\("lifetime"\)/.test(body);
+      if (blocked && !saysSo) offenders.push(`${rel}: sells Lifetime but never says it is unavailable`);
+      if (!blocked && saysSo) offenders.push(`${rel}: still carries the "unavailable" notice after the block was lifted`);
+    }
+    expect(offenders, offenders.join("\n")).toEqual([]);
   });
 });

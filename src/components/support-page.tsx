@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useLocale } from "@/src/components/locale-provider";
-import { proSubscriptionConfig, refundPolicy } from "@/src/lib/checkout-config";
+import { proSubscriptionConfig, refundPolicy, isPlanTemporarilyUnavailable } from "@/src/lib/checkout-config";
 
 const faqs = [
   {
@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: "What's the Lifetime option?",
-    a: `Pro Lifetime is a one-time purchase that gives you permanent Pro access — no recurring charges. ${proSubscriptionConfig.lifetime.price} JPY (≈ ${proSubscriptionConfig.lifetime.priceUsd} USD), excluding tax — customers in Japan are charged 10% consumption tax at checkout.`,
+    a: `Pro Lifetime is a one-time purchase that gives you permanent Pro access — no recurring charges. ${proSubscriptionConfig.lifetime.price} JPY (≈ ${proSubscriptionConfig.lifetime.priceUsd} USD), excluding tax — customers in Japan are charged 10% consumption tax at checkout.${isPlanTemporarilyUnavailable("lifetime") ? " It is currently unavailable to buy: we switched it off after finding a defect that could revoke a Lifetime entitlement when an earlier subscription ends. Monthly and yearly are unaffected." : ""}`,
   },
   {
     q: "Do you offer refunds?",

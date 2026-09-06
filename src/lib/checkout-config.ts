@@ -339,6 +339,20 @@ if (typeof window === "undefined") {
   }
 }
 
+/**
+ * Is this plan switched off by us, deliberately, right now?
+ *
+ * Deliberately NOT `getCheckoutUrl(plan) === null`: that also returns null when
+ * NEXT_PUBLIC_PAYMENT_PROVIDER is unset, so a preview build with no env would
+ * tell visitors every plan is unavailable. This answers only "did we turn it
+ * off", which is the question the copy pages are asking, and it is the same
+ * constant the button reads — so a page can never claim a plan is for sale while
+ * the checkout refuses it.
+ */
+export function isPlanTemporarilyUnavailable(plan: ProPlan): boolean {
+  return LS_PLANS_BLOCKED_PENDING_SERVER_FIX[plan];
+}
+
 const lemonsqueezyProvider: ProviderConfig = {
   name: "Lemon Squeezy",
   checkoutMode: "redirect",

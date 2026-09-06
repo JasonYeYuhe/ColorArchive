@@ -248,7 +248,9 @@ export function ProPage() {
           */}
           <p className="mt-3 text-center text-[11px] leading-5 text-slate-500 dark:text-slate-400">
             Prices exclude tax. Customers in Japan are charged 10% consumption tax
-            (JCT) at checkout — the total is shown before you pay.
+            (JCT). Both plans start with a free trial, so the checkout shows a zero
+            balance and no tax until the trial ends; the tax-inclusive amount appears
+            on the invoice for your first payment.
           </p>
         </div>
 
