@@ -95,6 +95,49 @@ function stripComments(src: string): string {
 
 const SOURCE_FILES = [...walk(join(ROOT, "src", "components")), ...walk(join(ROOT, "app"))];
 
+describe("a quoted price is always marked tax-exclusive", () => {
+  /**
+   * Lemon Squeezy prices are tax-EXCLUSIVE. Measured 2026-09-06 on the live
+   * checkout: cart.tax_inclusive is false, and a JP billing address adds JCT at
+   * 10.00% — on the no-trial variant, subtotal 1999900 becomes total 2199890. So
+   * a bare "JP¥499 / month" is not what a customer in Japan pays, and until this
+   * run every price surface on the site showed exactly that, while
+   * /commerce-disclosure had gone as far as affirmatively calling the displayed
+   * price 税込.
+   *
+   * Nothing guarded any of it — grep the rest of this file for 税 or "tax" before
+   * this block and you get nothing — so the correction could rot the same silent
+   * way the defect arrived. Any file that renders a price from checkout-config
+   * must also say, somewhere in the same file, that the figure excludes tax.
+   */
+  const TAX_MARKERS = ["excl. tax", "excluding tax", "税抜", "税込", "consumption tax", "JCT"];
+
+  it("every component that renders a config price also states the tax basis", () => {
+    const offenders: string[] = [];
+    for (const file of SOURCE_FILES) {
+      const rel = file.slice(ROOT.length + 1);
+      const raw = readFileSync(file, "utf8");
+      const body = stripComments(raw);
+      // Only the surfaces that actually SHOW a price to a visitor. thanks-page
+      // parses one into an analytics number without displaying it.
+      if (!/proSubscriptionConfig\.(monthly|yearly|lifetime)\.price/.test(body)) continue;
+      if (rel.endsWith("thanks-page.tsx")) continue;
+      if (!TAX_MARKERS.some((m) => body.includes(m))) {
+        offenders.push(`${rel}: renders a price but never says it excludes tax`);
+      }
+    }
+    expect(offenders, offenders.join("\n")).toEqual([]);
+  });
+
+  it("the disclosure states the basis, the rate, and does not claim 税込", () => {
+    const body = readFileSync(join(ROOT, "src/components/commerce-disclosure-page.tsx"), "utf8");
+    expect(body).toContain("税抜");
+    expect(body).toContain("JCT");
+    // The exact false claim this page shipped until 2026-09-06.
+    expect(body).not.toContain("表示された価格（税込）");
+  });
+});
+
 describe("no page states a yen price the site does not charge", () => {
   it("every ¥ amount in app/ and src/components/ is a real price", () => {
     const offenders: string[] = [];

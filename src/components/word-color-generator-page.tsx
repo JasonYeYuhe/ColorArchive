@@ -846,7 +846,7 @@ export function WordColorGeneratorPage() {
                     Unlock unlimited &mdash; {proSubscriptionConfig.monthly.price}/month
                   </Link>
                   <p className="mt-2 text-center text-xs text-neutral-500 dark:text-neutral-400">
-                    about {proSubscriptionConfig.monthly.priceUsd} &middot; cancel anytime
+                    about {proSubscriptionConfig.monthly.priceUsd} &middot; excl. tax &middot; cancel anytime
                   </p>
                   <p className="mt-2.5 text-center text-xs text-neutral-500 dark:text-neutral-400">
                     Already Pro?{" "}

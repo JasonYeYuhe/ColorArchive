@@ -6,7 +6,14 @@ import { SUPPORT_EMAIL } from "@/src/lib/site-config";
 // the refund row from "digital goods are non-refundable" to the 7-day guarantee
 // /support had been advertising all along.
 //
-// 2026-09-06: five rows were saying things the checkout does not do. Every
+// 2026-09-06: EIGHT things changed here, not the five an earlier draft of this
+// comment claimed while listing six — a changelog that miscounts itself is the
+// same failure the rows below had. The six measured rows are listed first, then
+// the two the adversarial review added: the 返品 row's refund window moved from
+// 購入日 to 初回のお支払い (it disagreed with /refund-policy, and with a 3-day
+// trial those are different windows) and gained the Apple IAP carve-out that
+// /refund-policy already had; and the contact address is now interpolated from
+// SUPPORT_EMAIL instead of hardcoded. Every
 // correction below was MEASURED against the live Lemon Squeezy checkout
 // (isTestMode: false) or the source, not reasoned about:
 //
@@ -53,8 +60,8 @@ const rows = [
   {
     label: "販売価格",
     value:
-      "各商品ページに表示された価格（税抜）に準じます。日本国内のお客様には、決済時に消費税（JCT）10% が加算されます。加算後の総額は決済画面でご確認いただけます。",
-    en: "Pricing: As displayed on each product page, exclusive of tax. For customers in Japan, 10% Japanese Consumption Tax (JCT) is added at checkout; the tax-inclusive total is shown on the payment screen.",
+      "各商品ページに表示された価格（税抜）に準じます。日本国内のお客様には、決済時に消費税（JCT）10% が加算されます。無料トライアル期間中は請求額が 0 円のため決済画面に税額は表示されず、税込の総額は初回請求時の請求書に記載されます。",
+    en: "Pricing: As displayed on each product page, exclusive of tax. For customers in Japan, 10% Japanese Consumption Tax (JCT) is added at checkout; during the free trial the payment screen shows a zero balance and no tax, because nothing is charged yet; the tax-inclusive total appears on the invoice for your first payment.",
   },
   {
     label: "商品代金以外の必要料金",
@@ -77,8 +84,8 @@ const rows = [
   {
     label: "商品の引渡し時期",
     value:
-      "お申し込み完了後、直ちにアカウントへ反映されます（無料トライアル期間中を含み、初回のお支払い前からご利用いただけます）。ダウンロード商品は決済完了後すぐにご利用いただけます。",
-    en: "Delivery: Access is activated on your account immediately after signup — including during the free trial, before the first payment. Downloadable items are available immediately after payment completes.",
+      "お申し込み完了後、直ちにアカウントへ反映されます（無料トライアル期間中を含み、初回のお支払い前からご利用いただけます）。",
+    en: "Delivery: Access is activated on your account immediately after signup — including during the free trial, before the first payment.",
   },
   {
     label: "返品・交換・キャンセル",
@@ -143,10 +150,10 @@ export function CommerceDisclosurePage() {
             Specified Commercial Transactions (特定商取引法). For questions,
             contact{" "}
             <a
-              href="mailto:support@colorarchive.org"
+              href={`mailto:${SUPPORT_EMAIL}`}
               className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-950"
             >
-              support@colorarchive.org
+              {SUPPORT_EMAIL}
             </a>
             .
           </p>

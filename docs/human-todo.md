@@ -2,6 +2,32 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🔴 2026-09-06 最要紧的一条:`support@colorarchive.org` 很可能根本收不到信
+
+> 我在核对特商法页时顺手查了 DNS,**`colorarchive.org` 没有任何 MX 记录**。
+> 不是「查不到」,是权威服务器明确返回 NODATA(只回 SOA、没有 ANSWER):
+>
+> ```
+> dig MX colorarchive.org @8.8.8.8   → 只有 SOA,无 MX
+> dig MX colorarchive.org @1.1.1.1   → 同上
+> dig MX colorarchive.me  @8.8.8.8   → 同上(旧域名也没了)
+> dig MX gmail.com        @8.8.8.8   → 正常返回(阳性对照,证明 dig 本身没问题)
+> ```
+>
+> 按 RFC 5321,没有 MX 时发信方回落到 A 记录 —— 那是 `216.150.1.1`(Vercel 边缘),
+> 不跑 SMTP。**所以寄到 `support@colorarchive.org` 的信大概率直接退回。**
+>
+> 为什么这条排在最前面:特商法页是**法定披露**,它把这个地址列为唯一联络方式,
+> 而且现在 `/support`、`/refund-policy`、`/pro/` FAQ **全都**把 7 天退款请求指向它。
+> 一个收不到信的退款通道,等于承诺了一个无法履行的退款。
+> (memory 里记的是「`support@colorarchive.me` → Namecheap 转发 → Gmail」,
+> 那套转发依赖 MX 指向 Namecheap 的邮件服务器 —— 现在两个域名都没有 MX,**转发已经死了**。)
+>
+> **要你做的**:在 Namecheap 给 `colorarchive.org` 加回 MX(邮件转发或 Google Workspace 都行),
+> 然后 🔴 **真的发一封信过去确认收得到** —— 不要只看 DNS 面板说「已配置」。
+> 这正是这个项目最贵的那个重复错误:**配置写了 ≠ 事情成立**。
+> 我没有动 DNS —— 那是对外基础设施,应该由你来改。
+
 > ## 🟡 2026-09-06 特商法页已改,但有三件是我**故意没动**的
 
 > 页面本身已修(见 `commerce-disclosure-page.tsx` 头部注释,每条都附实测证据)。下面三件留给你:

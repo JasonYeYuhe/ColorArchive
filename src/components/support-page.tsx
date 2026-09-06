@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: "What's the Lifetime option?",
-    a: `Pro Lifetime is a one-time purchase that gives you permanent Pro access — no recurring charges. ${proSubscriptionConfig.lifetime.price} JPY (≈ ${proSubscriptionConfig.lifetime.priceUsd} USD).`,
+    a: `Pro Lifetime is a one-time purchase that gives you permanent Pro access — no recurring charges. ${proSubscriptionConfig.lifetime.price} JPY (≈ ${proSubscriptionConfig.lifetime.priceUsd} USD), excluding tax — customers in Japan are charged 10% consumption tax at checkout.`,
   },
   {
     q: "Do you offer refunds?",

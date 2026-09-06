@@ -116,7 +116,8 @@ export function UpgradeModal({ open, onClose, tier, used, limit }: UpgradeModalP
         )}
 
         <p className="text-[10px] text-slate-400 dark:text-slate-400 text-center">
-          Cancel anytime. No credit card required for free tier. Prices in Japanese yen (JPY).
+          Cancel anytime. No credit card required for free tier. Prices in Japanese yen (JPY),
+          excluding tax — customers in Japan are charged 10% consumption tax at checkout.
         </p>
       </div>
     </div>
