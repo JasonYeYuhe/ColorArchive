@@ -2,6 +2,57 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🔴 2026-09-06 全面复查结果 —— 按「该谁做」排好了
+
+> 五路只读审计 + 我自己复核。**代码侧我能做的都做了**(见下面「已修」);剩下的都需要你。
+
+> ### 🔴 A. 买断的闸只关了我们这一侧,商店那侧还开着
+> 昨天的 kill switch 只是让 `/pro/` 的按钮变灰。**Lemon Squeezy 商店本身没动**:
+> `colorarchive.lemonsqueezy.com/` 公开可访问且明码标着 **¥19,999**,
+> 买断链接跟到底是 **HTTP 200 + 真实购物车**(`ColorArchive Pro — Lifetime`,1999900,
+> `status: published`,`testMode: false`)。
+> ⇒ **任何人只要走到商店页,仍然能买到那个会被静默注销的买断。**
+> 而且 🔴 **我今天把那个 variant uuid 写进了代码注释和测试,而这个仓库是 PUBLIC 的**
+> (`isPrivate: false`)—— 商店页本来就公开,所以增量不大,但确实是我提高了可发现性。
+>
+> **建议**:在 LS 后台把 variant **1540570（Lifetime）unpublish / archive**,等服务端修好再放回来。
+> 这是改你的商店(对外、影响能卖什么),所以我没动 —— **你说一声我可以去做**,或者你自己两下点掉。
+
+> ### 🔴 B. 服务端那个「买断会被注销」的洞,不止一扇门
+> 昨天我只找到 `/webhooks/subscription-cancelled`。审计找到**第二扇**,我已复核属实:
+> `/webhooks/subscription-updated`(`server/routes/webhook.js:383`)同样用
+> `provider_customer_id` 匹配到同一个用户,然后**无条件**写 `tier` 和 `pro_expires_at`,
+> 一样没有买断豁免 —— 而 LS 在每次取消时**都会同时发这个事件**。
+> ⇒ **只在 `resolveCancellation` 里加豁免是修不好的。** 至少要覆盖
+> `subscription-cancelled` / `subscription-updated` / `subscription-revoke`,以及 Apple 那条
+> (`apple-notifications.js` 按 user id 撤权,不检查这个权益是不是 Apple 给的)。
+> 改完要 `pm2 restart` ⇒ **会给订阅者群发邮件,需要你授权。**
+
+> ### 🔴 C. 周五的 Design Notes 群发,机制上从来没成功过
+> cron 每周五 10:00 UTC 跑 `send-design-notes-cron.sh`,脚本里是
+> `git -C /root/ColorArchive fetch origin main` + `git archive origin/main …`。
+> 但**那台机器上的 `/root/ColorArchive` 根本没有 git remote**(实测 `git remote -v` 空,
+> `git rev-parse origin/main` → `fatal: Needed a single revision`)。
+> ⇒ **审过的 issue 一封都没到过订阅者手里。** 要么给它加 remote,要么改成读本地工作区。
+
+> ### 🟠 D. 9 月 22 日 10:00 UTC:Hayley 很可能再被锁一次
+> 生产库实测:`users.id=25`,`tier=pro`、`active`,`pro_expires_at = 2026-09-22T10:00:00.000Z`
+> —— **正好等于 LS 的 `renews_at`,没有任何缓冲**。8 月那次她的续费迟到 5 天,
+> 而我们的到期时间没有余量,她就被锁在外面 5 天。**同一个形状,日期在 9-22。**
+> (`subscription-checkout` 那条路会 +3 天缓冲,但 `resolveSubscriptionUpdate` 写的是精确
+> `renews_at`,哪条 webhook 后到就听谁的。)你之前决定 graceDays 保持 0 —— 只是提醒你日期到了。
+
+> ### 🟡 E. 其他(顺序即优先级)
+> - **id41 的决定现在就该做**,不是等 10-03:他 `subscription_plan=monthly`、
+>   `subscription_current_period_end=2026-10-03T09:10:44Z`,按年付点的按钮却在月付上。
+> - **会话锁形同虚设**:`.claude/session-lock.json` 最后一次被写是 12:08:44,之后 8 个提交没有一个碰过它。
+>   而且 CLAUDE.md 的「一次提交」规则让「取锁」的净 diff 为 0 ⇒ **git 里没有任何取锁记录,不可证伪**。
+>   今天真的撞了一次:我的 `git add -A` 把 roundup 会话未暂存的改动收进了 `7ea4284`
+>   (内容我逐条核过、属实,只是署名错了)。CLAUDE.md 与 autopilot SKILL 的锁流程还互相矛盾。
+> - **`users` 里 id 3/4/5 是 `tier=pro` 但 `pro_expires_at` 停在 2026-08-03**(早已过期)。
+>   按代码是「只降不升」所以应该等同免费,但 `tier` 字段本身是脏的,查数时别当成付费用户。
+> - 凭据轮换你说不用管,我没动。
+
 > ## 🔴 2026-09-06 最要紧的一条:`support@colorarchive.org` 很可能根本收不到信
 
 > 我在核对特商法页时顺手查了 DNS,**`colorarchive.org` 没有任何 MX 记录**。
