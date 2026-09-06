@@ -106,36 +106,47 @@ describe("the plans are still priced even while unsellable", () => {
   });
 });
 
-describe("lifetime is blocked in CODE, not merely unconfigured", () => {
+describe("the kill switch outranks configuration, whichever plans it holds", () => {
   /**
-   * The distinction this pins is the entire point of the kill switch. Lifetime is
-   * off because /webhooks/subscription-cancelled would later wipe the entitlement
-   * (pro_expires_at = NULL means "lifetime", and the cancel path overwrites it
-   * unconditionally after matching on the shared provider_customer_id). If the
-   * only thing standing between a customer and that outcome were an UNSET env var,
-   * one `vercel env add` re-opens it — which is exactly how it was almost shipped
-   * on 2026-09-06.
+   * Lifetime was switched off here on 2026-09-06 and back on the same day, once
+   * the server guard shipped (server/lifetime.js). The point of the switch is
+   * that it is CODE, not an env var: an unset variable is one `vercel env add`
+   * away from re-opening a plan that is unsafe to sell, which is how the unsafe
+   * version nearly shipped.
    *
-   * So: set the variable to a perfectly valid link and the answer must STILL be
-   * null. This test fails the moment someone deletes the switch.
+   * So this asserts the mechanism, not today's setting — it keeps working
+   * whichever plans are blocked, and it starts guarding a plan the moment
+   * someone blocks one.
    */
-  it("returns null for lifetime even when a valid variant link IS configured", async () => {
-    const { getCheckoutUrl } = await loadWithEnv({
+  const PLANS = ["monthly", "yearly", "lifetime"] as const;
+
+  it("a blocked plan returns null even when a valid variant link IS configured", async () => {
+    const mod = await loadWithEnv({
+      NEXT_PUBLIC_PRO_MONTHLY_CHECKOUT_URL: "https://colorarchive.lemonsqueezy.com/buy/aaa",
+      NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL: "https://colorarchive.lemonsqueezy.com/buy/bbb",
+      NEXT_PUBLIC_PRO_LIFETIME_CHECKOUT_URL: "https://colorarchive.lemonsqueezy.com/buy/ccc",
+    });
+    const { getCheckoutUrl, isPlanTemporarilyUnavailable } = mod;
+    for (const plan of PLANS) {
+      if (isPlanTemporarilyUnavailable(plan)) {
+        expect(getCheckoutUrl(plan), `${plan} is switched off but still sells`).toBeNull();
+      } else {
+        expect(getCheckoutUrl(plan), `${plan} is on but returns no URL`).not.toBeNull();
+      }
+    }
+  });
+
+  it("lifetime is sellable again and uses its own variant link", async () => {
+    // The server guard that made this safe is server/lifetime.js; if lifetime is
+    // ever switched off again, the branch above takes over and this flips too.
+    const { getCheckoutUrl, isPlanTemporarilyUnavailable } = await loadWithEnv({
       NEXT_PUBLIC_PRO_LIFETIME_CHECKOUT_URL:
         "https://colorarchive.lemonsqueezy.com/checkout/buy/00e86059-6879-479a-a0af-2c1aa4010a2a",
     });
-    expect(getCheckoutUrl("lifetime")).toBeNull();
-  });
-
-  it("blocks ONLY lifetime — the switch must not be a blanket off", async () => {
-    const { getCheckoutUrl } = await loadWithEnv({
-      NEXT_PUBLIC_PRO_YEARLY_CHECKOUT_URL:
-        "https://colorarchive.lemonsqueezy.com/checkout/buy/afa1271a-0b82-4346-bee3-ad37af963410",
-    });
-    expect(getCheckoutUrl("yearly")).toBe(
-      "https://colorarchive.lemonsqueezy.com/checkout/buy/afa1271a-0b82-4346-bee3-ad37af963410",
+    if (isPlanTemporarilyUnavailable("lifetime")) return;
+    expect(getCheckoutUrl("lifetime")).toBe(
+      "https://colorarchive.lemonsqueezy.com/checkout/buy/00e86059-6879-479a-a0af-2c1aa4010a2a",
     );
-    expect(getCheckoutUrl("monthly")).toBe(MONTHLY_VARIANT_URL);
   });
 });
 

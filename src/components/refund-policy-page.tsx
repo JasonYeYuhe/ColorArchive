@@ -1,7 +1,6 @@
 "use client";
 
 import { SITE_URL } from "@/src/lib/site-config";
-import { isPlanTemporarilyUnavailable } from "@/src/lib/checkout-config";
 
 const LAST_UPDATED = "April 7, 2026";
 
@@ -18,7 +17,7 @@ This is consistent with the consumer protection provisions under Japan's Act on 
   },
   {
     title: "2. Pro Lifetime",
-    content: `The Pro Lifetime option is a one-time purchase granting permanent Pro access.\n\n${isPlanTemporarilyUnavailable("lifetime") ? "> **Currently unavailable.** New Lifetime purchases are switched off while we fix a defect that could revoke a Lifetime entitlement when an earlier subscription ends. Monthly and yearly are unaffected." : ""}
+    content: `The Pro Lifetime option is a one-time purchase granting permanent Pro access.
 
 - **7-day guarantee**: If you are not satisfied within 7 days of purchase, contact us for a full refund.
 - **After 7 days**: All lifetime purchases are final. Since Pro features are accessible immediately upon purchase, refunds are not available after the 7-day window.`,

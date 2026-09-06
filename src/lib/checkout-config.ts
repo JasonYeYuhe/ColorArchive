@@ -266,7 +266,7 @@ const LS_PLAN_CHECKOUT_URLS: Record<ProPlan, string | undefined> = {
  * the grep, and re-run it against the deployed site.
  */
 /**
- * 🔴 HARDCODED KILL SWITCH — lifetime cannot be sold until a SERVER fix ships.
+ * KILL SWITCH — currently OFF. Lifetime is sellable again as of 2026-09-06.
  *
  * Same reasoning as `preorderConfig.closed` above: this must not be a
  * NEXT_PUBLIC_ env var, because the whole point is that no deploy-time env state
@@ -303,13 +303,27 @@ const LS_PLAN_CHECKOUT_URLS: Record<ProPlan, string | undefined> = {
  * checkout change. Yearly is unaffected: it is an ordinary subscription with a
  * bounded expiry, and the cancel path handles it correctly.
  *
- * REMOVE THIS ONLY AFTER the server guard is deployed AND verified — and verify
- * it by replaying a cancellation against a lifetime row, not by reading the diff.
+ * ── RESOLVED 2026-09-06 ──────────────────────────────────────────────────────
+ * server/lifetime.js now holds `hasLifetimeEntitlement()`, and all four
+ * revocation paths consult it: /webhooks/subscription-cancelled,
+ * /webhooks/subscription-updated (Lemon Squeezy fires it alongside EVERY
+ * cancellation, so guarding only the first would have left the hole open),
+ * /webhooks/subscription-revoke, and the Apple notification handler. The guard
+ * counts only NON-refunded lifetime orders, so a refund still revokes — which
+ * required also teaching the refund flagger the `lifetime_<id>` order-id shape
+ * it had never matched. Deployed to Azure (md5-verified) and restarted.
+ *
+ * The mechanism stays. If another defect ever makes a plan unsafe, set it true
+ * here rather than unsetting an env var: an env var is one `vercel env add`
+ * away from re-opening, which is how this nearly shipped in the first place.
  */
 const LS_PLANS_BLOCKED_PENDING_SERVER_FIX: Record<ProPlan, boolean> = {
   monthly: false,
   yearly: false,
-  lifetime: true,
+  // Unblocked 2026-09-06, once the server guard shipped and was verified in
+  // production. Keep the mechanism: it is the only thing that can stop a sale
+  // without depending on an env var, and the next defect will want it too.
+  lifetime: false,
 };
 
 const LS_PLANS_MAY_USE_MONTHLY_FALLBACK: Record<ProPlan, boolean> = {
