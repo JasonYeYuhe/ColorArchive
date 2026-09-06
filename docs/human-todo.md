@@ -47,13 +47,33 @@
 > 网页组件里的假承诺已经全改成真话了(`grep -rin "starter kit|priority access|downloadable assets"`
 > 在 `src/components/` + `app/` 只剩一个**后台管理下拉框**,那是历史真实 SKU 的记录,不是访客文案)。
 > 但同一句话在**内容数据**里还有 165 处:`src/lib/guides.ts` 63、`src/lib/seo-guides-batch2.ts` 32、
-> `src/data/newsletter-issues.json` 70 —— 大多是指向 `/pro/` 的链接药丸「Brand Starter Kit」,而**没有这个产品**。
-> 改它是一次内容迁移(受 `content-links` 守卫管),不是文案修补,所以本轮没动。**要不要改、怎么改,你定。**
+> `src/data/newsletter-issues.json` 70 —— 大多是指向 `/pro/` 的链接药丸「Brand Starter Kit」。
 >
-> ### 押后未变
+> 🔴 **2026-09-06 更正:~~而没有这个产品~~ —— 产品是真的,而且是免费的。**
+> `public/downloads/brand-starter-kit.zip`,18,776 字节,12 套配色 + 品牌指南 + 色彩心理学说明 + 每套的
+> SwiftUI/Android/Flutter 导出,无需注册(周报任务 09-06 解压核对)。
+> **所以问题不是「产品不存在」,而是 165 个链接指错了地方** —— 指向 `/pro/`(要付费),
+> 而正确目的地是 `/downloads/brand-starter-kit.zip` 或 `/free-resources/`(免费)。
+> 这把工作从「内容迁移」降级成「改链接目标」,但仍是 165 处、仍受 `content-links` 守卫管,
+> 所以本轮仍没动。**要不要改、怎么改,你定。**
 >
-> `server/email.js:1280` 的 SwiftUI / Android / Flutter 导出器承诺仍在(站内 `grep -rin swiftui src/ app/` = **0 命中**,
-> 确认不存在)。改它必须 `pm2 restart`,restart 会群发邮件 —— **搭下一次本来就要 restart 的部署一起改。**
+> ### ~~押后未变~~ —— 🔴 **2026-09-06 更正:这条断言是错的,半条已撤回**
+>
+> ~~`server/email.js:1280` 的 SwiftUI / Android / Flutter 导出器承诺仍在(站内 `grep -rin swiftui src/ app/` = **0 命中**,
+> 确认不存在)。~~
+>
+> **导出器是真的存在。** 那次 grep 只搜了 `src/` 和 `app/` 两个目录,而产品在 `scripts/` 和 `public/`:
+> `scripts/generate-downloads.mjs` 里的 `generateSwiftUI` / `generateAndroidXml` / `generateFlutterDart`
+> 每次构建都跑,今天实际发布 **15 个 `-swiftui.swift` + 15 个 `-colors.dart` + 15 个 `-colors.xml`**,
+> 外加覆盖全部 5,446 色的 complete-archive 版本(周报任务 09-06 独立复验)。
+> `1c9e79b` 已改代码,但没回来改这里。
+>
+> **教训(和 `1c9e79b` 的提交信息同一条):一个否定性断言的有效范围,只等于产生它的那次搜索的范围。**
+> 「站内不存在」需要搜整棵树,而那次只搜了两个目录。
+>
+> **仍然成立的那半条:** `:1124` 把「完整 5,446 色 token 集」当作 Pro 权益卖,而它是免费公开下载
+> (`/downloads/complete-archive.zip`,782,150 字节,15 种格式,无需注册)。`:1280` 也仍把这些免费导出器
+> 写成 Pro 解锁项。改它必须 `pm2 restart`,restart 会群发邮件 —— **搭下一次本来就要 restart 的部署一起改。**
 
 > ## 🔵 2026-09-05 — 下阶段计划已就绪:`docs/dev-plan-2026-09-05-product-quality.md`(第 2 稿)
 >
@@ -71,9 +91,10 @@
 >
 > ### 一件押后的假承诺(记着,别忘)
 >
-> `server/email.js:1280` 给每个新 Pro 的欢迎邮件写着 **SwiftUI / Android / Flutter 导出器** —— 站内不存在;
-> `:1124` 写「完整 5,446 色 token 集」—— 是免费公开文件。改它必须 `pm2 restart`(7 处启动时 `require`),
-> restart 会群发邮件。**搭下一次本来就要 restart 的部署一起改。**
+> `server/email.js:1280` 给每个新 Pro 的欢迎邮件写着 **SwiftUI / Android / Flutter 导出器** —— 🔴 **09-06 更正:
+> 它们是存在的**(在 `scripts/` 和 `public/`,不在被搜过的 `src/`+`app/`;详见上一条的更正段)。
+> 问题不是「不存在」,而是**把免费东西写成 Pro 解锁项**;`:1124` 的「完整 5,446 色 token 集」同理 —— 是免费公开文件。
+> 改它必须 `pm2 restart`(7 处启动时 `require`),restart 会群发邮件。**搭下一次本来就要 restart 的部署一起改。**
 
 > ## 🔴 2026-09-05 — v1.4 已构建待你提审;顺手发现 iOS 埋点**从来没工作过**
 >

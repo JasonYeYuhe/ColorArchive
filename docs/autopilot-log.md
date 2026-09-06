@@ -1,3 +1,87 @@
+## 2026-09-06 — [autopilot] Weekly roundup: the first week in seven with news, and a negative claim that was wrong twice
+
+Scheduled `weekly-content-roundup`. 30 commits, Aug 30 → Sep 6.
+
+### 🔴 No network to production or GitHub — and that is a finding, not an excuse
+
+`curl https://example.com` → **200**. `curl https://colorarchive.org` → **000**. `curl https://github.com`
+→ **000**. `ssh github.com:22` → refused. A selective block, reproduced with the sandbox disabled.
+
+Two consequences, both recorded in the roundup itself so a reader does not over-trust it:
+
+1. **The lock protocol's first step (`git pull --rebase`) could not run.** The lock was free
+   (`active: null`), acquired locally, and released in the same commit — net diff on the lock file is
+   zero, which is the correct end state either way.
+2. **The commit is not pushed.** It exists only on this Mac. No history was touched, nothing forced.
+3. **Every claim in this roundup was verified against the repo and the build artifacts instead of the
+   live site** — previous roundups verified against production. Where a claim needs production, the
+   roundup says so.
+
+### The week: zero new content, five visible changes
+
+Counts unchanged for the fifth week running — **5,446 / 261 / 333 / 44**, read twice (full `vitest`
+including `copy-counts.test.ts`, and an independent `esbuild`+`node` probe; both agree). But unlike the
+last six roundups, the *existing* product changed in ways a visitor can see, so this is a changelog:
+`/all-colors/` continuous loading, the keystroke-navigation fix across seven pages, `/brands/` Tailwind
+snippet, `/seasonal/` + `/mixer/` archive links, and pick-for-me working in Chinese.
+
+The post's subject is `1c9e79b`: **the free downloads were never linked from anywhere in the app.**
+90 days of Search Console showing 0 impressions and 0 clicks was read for months as "nobody wants
+this"; it was "nobody could find this."
+
+### 🟢 `vitest` works — withdrawing the Aug 30 owner action
+
+Aug 30's roundup filed owner action (a): "`vitest` will not start on this machine," `npx vitest run`
+hanging indefinitely on a single file. **Not reproducible.** Full suite this run: **48 files, 836
+tests, all passing, 1.93s.** Same Node v26.3.0, same vitest 4.1.0. `CLAUDE.md` already carried the
+correction; this closes the roundup-side copy of it. (Small drift for a future run: `CLAUDE.md` says
+44 files / 779 tests; the real figures are now 48 / 836. Not edited — changing project instructions is
+outside a content roundup's remit.)
+
+### 🔴 The same negative claim was wrong twice, and `human-todo.md` still carried it
+
+`cd165cc` (Sep 5) recorded the SwiftUI / Android / Flutter exporters promised in `server/email.js:1280`
+as a **false promise**, citing `grep -rin swiftui src/ app/` = 0 hits. `1c9e79b` (Sep 6) reversed that
+in code and in its own commit message — the generators live in `scripts/generate-downloads.mjs`, the
+output in `public/` — **but did not update `docs/human-todo.md`**, which still asserted 确认不存在 in
+two places, plus a third saying the Brand Starter Kit product does not exist.
+
+Re-verified independently this run before touching anything: **15 `-swiftui.swift`, 15 `-colors.dart`,
+15 `-colors.xml`** shipped, plus complete-archive versions; `brand-starter-kit.zip` is 18,776 bytes and
+real; `complete-archive.zip` is 782,150 bytes and its CSS and JSON each contain exactly **5,446**
+entries, equal to `colors.length`.
+
+All three passages corrected. What survives is a **different and smaller** problem, now stated
+precisely: the products exist and are free, so the fault is that the emails sell them as Pro unlocks
+and 165 in-content pills link them to `/pro/` instead of `/free-resources/`. That reframes the 165-edit
+job from a content migration to a link retarget — still 165 edits under the `content-links` guard,
+still the owner's call.
+
+**The lesson, same as `1c9e79b`'s: a negative claim is only as wide as the search that produced it.**
+"Does not exist anywhere in this tree" needed the tree; two directories were searched.
+
+### Also closed since last week
+
+- Aug 30 owner action (b), Azure report scripts — closed the same day by an attended session.
+- Aug 23/30 owner action (c), duplicate build artifacts — now covered by `.gitignore:62`
+  (`**/* [2-9].*`). 48 duplicates remain on disk (17 MB); git no longer sees them. Disk is at 28%, not
+  the 99% recorded on 09-01.
+
+### Not done, deliberately
+
+**Did not post to Facebook.** The task says "if possible," which is not owner approval; publishing to a
+public Page is irreversible, outward-facing, and this run is unattended. It was also not technically
+possible — no network to any Meta endpoint. The queue is now **21 unpublished roundups**, dated
+2026-04-05 through today, against a file whose first instruction is "Remove entries after posting."
+Third week this has been raised.
+
+**Did not send a customer email.** `id41` was billed ¥500 monthly on a yearly press and renews
+**2026-10-03**; that decision and the three `NEXT_PUBLIC_PRO_*_CHECKOUT_URL` env vars remain on
+`human-todo.md` as owner actions. Note for any post written before those are set: **`/pro/`'s yearly
+and lifetime buttons are currently disabled**, so no copy should drive traffic to them.
+
+---
+
 ## 2026-09-05 (later) — [remote] The runaway-pageview root cause, found while verifying the ten batches
 
 Started as post-deploy verification of the §3 run and became the diagnosis the plan recorded twice

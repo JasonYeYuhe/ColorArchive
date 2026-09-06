@@ -4,6 +4,111 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-09-06
+
+> **First week in seven with something a visitor can actually see.** 30 commits, Aug 30 → Sep 6. Counts are still byte-identical to the last four posts — colors **5,446**, collections **261**, guides **333**, tools **44** (43 on-site + the Figma plugin), **zero new colors, tools, collections or guides** — but this week the *existing* product changed in five visible ways, so for the first time since Jul 26 this is a changelog rather than a spotlight.
+>
+> **How the counts were read this run.** 🟢 **`vitest` works on this machine** and the Aug 30 owner-action (a) — "`vitest` will not start" — is **withdrawn**. Full suite this run: **48 files, 836 tests, all passing, 1.93s**, including `copy-counts.test.ts` (4 tests) which is the prose-vs-data guard. Counts were *also* read independently through an `esbuild`+`node` probe of `src/data/colors`, `src/lib/collections`, `landingGuides` in `src/lib/guides`, and `TOOL_COUNT` in `src/components/tools-page.tsx` — both methods agree. (Minor drift for a future run: `CLAUDE.md` says "44 files … 779 tests". The real figures are 48 / 836. Not corrected here — editing project instructions is outside this task's remit.)
+>
+> 🔴 **THIS RUN HAD NO NETWORK TO EITHER PRODUCTION OR GITHUB, AND THAT CHANGES WHAT IS VERIFIED.** `curl https://example.com` returns 200, but **`colorarchive.org` and `github.com` both return `000`** and `ssh github.com:22` fails — a selective block, not an outage, and it persisted with the sandbox disabled. Consequences, all of them load-bearing:
+> - **No live URL was checked this run.** Every previous roundup verified its claims against the deployed site. This one verified them against the repo, the build script, and the actual zip files on disk. Where a claim needed production, it says so below.
+> - **`git pull` and `git push` both failed.** The lock protocol's first step could not run. The lock was taken and released locally; the commit exists **only on this machine** and must be pushed by hand or by the next run that has a network. Nothing was force-pushed and no history was touched.
+>
+> ---
+>
+> **THE POST'S SUBJECT, AND IT IS THE best thing to happen to this site in weeks:** the free downloads were never linked. `grep -rn "downloads/.*\.zip" src app` returned **zero hits** — nothing in the entire application had ever pointed at either zip, though both have been publicly served and rebuilt on every deploy since April. That, not absence of demand, is why `/downloads/*` shows **0 impressions and 0 clicks in 90 days** of Search Console. Six weeks of these roundups read that zero as "nobody wants this." It was "nobody could find this." Fixed today in `1c9e79b`; both now sit at the top of `/free-resources/`.
+>
+> **Everything the post claims about those files was checked against the artifacts this run, not read off a commit message:**
+> - `public/downloads/complete-archive.zip` — **782,150 bytes**, and it contains exactly the **fifteen** format files named in the post: `.css`, `tailwind-tokens.css`, `.json`, `scss-maps.scss`, `.gpl`, `sketchpalette.json`, `.ase`, `.aco`, `framer-tokens.css`, `figma-tokens.json`, `style-dictionary.json`, `.swift`, `.xml` (Android), `.dart`, `theme.js`.
+> - **The "all 5,446" claim is exact, not rounded.** Unzipped and counted this run: the CSS file declares **5,446** custom properties and the JSON holds **5,446** entries. Both equal `colors.length`.
+> - `public/downloads/brand-starter-kit.zip` — **18,776 bytes**, twelve palettes each with a brand guide, colour-psychology notes, and per-palette SwiftUI / Android / Flutter / theme.js exports.
+> - **No signup, no paywall** — these are static files under `public/`, served by the CDN with no gate in front of them.
+>
+> 🔴 **AND IT REVERSES A STANDING NOTE IN `human-todo.md`, WHICH IS CORRECTED IN THIS COMMIT.** Yesterday's `cd165cc` recorded the SwiftUI / Android / Flutter exporters promised in `server/email.js:1280` as a **false promise**, citing `grep -rin swiftui src/ app/` = 0 hits. **The grep was the error, not the promise.** The generators live in `scripts/generate-downloads.mjs` (`generateSwiftUI`, `generateAndroidXml`, `generateFlutterDart`) and the output lives in `public/` — neither directory was searched. Re-verified independently this run: **15 `-swiftui.swift`, 15 `-colors.dart` and 15 `-colors.xml` files ship today**, plus complete-archive versions of all three. `1c9e79b` fixed the code and its own commit message but left `docs/human-todo.md:55` and `:76` still asserting "确认不存在"; this run corrects both. The half of that note that **still stands** is separate and unchanged: `:1124` sells "the complete 5,446-color token set" as a Pro benefit when it is the free public download above.
+>
+> **The four smaller visible changes, and what is actually true about each:**
+> 1. **`/all-colors/` loads continuously** (`7975c81`). An IntersectionObserver sentinel raises the same limit the "Show more" button raises, 600px ahead of the viewport. The button stays — deliberately, because it carries the only `show_more` event and scrolling is not a gesture.
+> 2. **Typing no longer re-navigates the page** (`1e01c05`, `7975c81`, `7323773`). Measured on production *before* the fix: typing a 9-character word on `/word-to-color/` issued **nine** separate `?q=…&_rsc=` requests, one per keystroke, remounting the component each time. Now one `history.replaceState`, no navigation. Seven pages in total.
+> 3. **`/brands/` has a Tailwind snippet** (`44e9117`) next to the CSS one, using the same name derivation so both snippets always call a colour the same thing. Free and ungated.
+> 4. **`/seasonal/` and `/mixer/` link into the archive** (`ecedbad`) — they had **zero** links into `/colors/` before, confirmed by grep. `/today/` and `/identify/` already had theirs; the plan was wrong to group all four.
+> 5. **Pick-for-me works in Chinese, and stopped returning six shades of one colour** (`ca4f255`). Chinese has no spaces, so the whole phrase became one token and matched nothing — **11 of 12 chips returned an empty palette.** Ranked last on purpose: ~1.6 sessions/day. It is fixed because it was broken, not because it will grow anything.
+>
+> **Deliberately excluded, do not add:**
+> 1. 🔴 **Do NOT write anything that sends people to buy Pro yearly or lifetime. Those buttons are DISABLED on `/pro/` right now** and read "Temporarily unavailable" — `ec714e1` stopped them silently falling back to a variant picker, which is how customer `id41` pressed "yearly" twice on Aug 31 and was charged ¥500 on the **monthly** variant. Monthly still works and all three sales in site history went through it. Until the three `NEXT_PUBLIC_PRO_*_CHECKOUT_URL` env vars are set, any post driving yearly traffic sends people to a dead button.
+> 2. **`/20040303/` is private and personal.** Standing exclusion, repeated every week on purpose so no future run reading only `git log` mistakes it for a launch. `noindex`, unlinked, never in a public post, newsletter, sitemap or social copy.
+> 3. **The paywall-honesty batch** (`f04fb67`, `cd165cc`, `bda47d4`). Real and correct work — the locked gate now says something true, and three `ProGate` bugs that only ever punished free users are gone. The announcement is "we were promising things we did not deliver," which is a confession, not news.
+> 4. **The Google Ads repair** (`1c9e79b`, `65a5e71`). The account's website data source was still `colorarchive.me` — the domain the site migrated off — so Google reported the tag as "Not installed yet" while it had been live on `.org` the whole time. Its only primary Purchase action was a page load on a **deleted route on a dead domain**, zero conversions in its life. Internal.
+> 5. **iOS v1.4.** Submitted Sep 5, `WAITING_FOR_REVIEW`, `AFTER_APPROVAL` release. **Not announced while unapproved** — hold it for the week it actually ships, and it is a genuine post when it does (it is the release where iOS analytics start working at all).
+> 6. **The pageview correction.** 22 sessions produce 68% of this site's recorded pageviews, all from the keystroke bug in item 2. Ours to fix, not to announce.
+>
+> **Resolved since last week — dropping these, do not repeat them:**
+> - ✅ Aug 30 owner action (a), "`vitest` will not start": **wrong.** 836 tests in 1.93s this run.
+> - ✅ Aug 30 owner action (b), the Azure report scripts: **closed the same day** by an attended session with owner approval (`human-todo.md`, 2026-08-30) — redeployed and verified against the real DB.
+> - ✅ Aug 23/30 owner action (c), duplicate build artifacts making `git status` unreadable: **fixed by `.gitignore:62`** (`**/* [2-9].*`). 48 duplicates remain on disk at 17 MB total; git no longer sees them and the Mac is at 28% disk, not 99%.
+>
+> **Owner actions:**
+> (a) 🔴 **This commit is not pushed.** Network to `github.com` was blocked all run. Run `git push origin main` when you next have one — the lock file is already back to null, so nothing is held.
+> (b) 🔴 **Time-sensitive, and already on `human-todo.md`: `id41` renews 2026-10-03.** They pressed yearly, were billed ¥500 monthly, and are roughly ¥3,500 under-billed on a plan they believe they bought. Two decisions, both yours: set the three `NEXT_PUBLIC_PRO_*_CHECKOUT_URL` env vars and redeploy (~15 min, and it re-enables the yearly and lifetime buttons), and whether to email them. **Customer email needs your authorization; this run sent none.**
+> (c) The 165 in-content references to "Brand Starter Kit" are **less wrong than yesterday's note said** — the product is real and free at `/downloads/brand-starter-kit.zip`. What is wrong is the destination: most of those pills link to `/pro/` for a thing that needs no account. That reframes the job from a content migration to a link fix, but it is still 165 edits under the `content-links` guard, and still yours to schedule.
+>
+> **⚠️ Twenty-one roundups, dated 2026-04-05 through today, and not one has been removed** — the file's own first instruction is "Remove entries after posting." Nothing to add to the argument made on Aug 23 and Aug 30, so it is not repeated. **Owner: publish these and delete as you go, or declare the Facebook Page dead and stop this task from drafting them.** This is the first week in seven with real news in it, which makes an unpublished queue more expensive than usual, not less.
+>
+> **Standing conventions:** this file is **manual-post-only — nothing below has been published**, and this run did **not** post to Facebook. The task file says "if possible," which is not the owner's approval; publishing to a public Page is irreversible, outward-facing, and this run is unattended. It was also not *technically* possible this run — there was no network to any Meta endpoint. Keep the X variant **URL-free**: a link raises X API cost from ~$0.015 to ~$0.20 per post, which is what drained the credits in May.
+
+### Facebook
+
+🎨 **We've been giving away all 5,446 colors for months. Nothing on the site linked to it.**
+
+That's not a figure of speech. We searched the entire application for a link to the download and found **zero**. The file has been sitting at a public URL since April, rebuilt on every single deploy, and the only way to reach it was to guess the address.
+
+So Search Console said exactly what you'd expect: 90 days, **0 impressions, 0 clicks.**
+
+We read that number for months as *"nobody wants this."* It was **"nobody could find this."** Those are very different problems, and we were solving the wrong one.
+
+Fixed. Both downloads are now at the top of **/free-resources/** 👇
+
+📦 **The Complete Archive** — every one of the 5,446 colors, in **fifteen formats**:
+
+CSS Variables · Tailwind v4 · SCSS Maps · JSON · Figma Tokens · Style Dictionary · Adobe ASE · Photoshop ACO · GIMP · Sketch · Framer · SwiftUI · Android XML · Flutter Dart · CSS-in-JS
+
+Not a sample. Not "the first 50." The whole archive, in whichever one your project speaks.
+
+🎁 **The Brand Color Starter Kit** — 12 curated palettes, each with a brand guide, color-psychology notes, and its own SwiftUI / Android / Flutter exports.
+
+**No account. No email. No signup wall.** Two clicks, both free.
+
+—
+
+**Also shipped this week:**
+
+🔄 **/all-colors/ now loads as you scroll.** Keep going and it keeps going. The "Show more" button is still there if you prefer it.
+
+⚡ **Typing got dramatically faster.** Every search box on the site used to quietly re-navigate the page on *every single keystroke* — nine keystrokes, nine round trips. Now it's zero. Seven pages, same fix.
+
+🎨 **/brands/ speaks Tailwind.** Copy any brand's palette as a `theme.extend.colors` block, right next to the CSS one.
+
+🔗 **/seasonal/ and /mixer/ now open into the archive.** They'd been sitting next to 5,446 colors with no door between them.
+
+🌏 **Pick-for-me works in Chinese now** — and stopped answering "coffee shop brand" with six nearly identical near-blacks.
+
+Same 5,446 colors. Considerably easier to actually get at.
+
+### Twitter / X
+
+(URL-free — a link raises the API cost per post from ~$0.015 to ~$0.20.)
+
+All 5,446 of our colors, in 15 formats, free since April.
+
+Nothing on the site linked to it.
+
+90 days of Search Console: 0 impressions, 0 clicks. We read it as "nobody wants this."
+
+It was "nobody could find this."
+
+Now linked on our free resources page. No account, no email.
+
+---
+
 ## Weekly Roundup — 2026-08-30
 
 > **No user-facing release this week — 15 commits, Aug 23 to Aug 30, and not one of them adds something a visitor can see.** Counts are byte-identical to the last three posts: colors **5,446**, collections **261**, guides **333**, tools **44** (43 on-site + the Figma plugin). **Zero new colors, tools, collections, or guides.** So this is a spotlight, not a changelog — the sixth in the last eight weeks (Jul 12, Jul 19, Aug 2, Aug 9, Aug 23, and now).
