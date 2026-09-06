@@ -371,6 +371,19 @@ const wordDepth = db.prepare(
 
 // Webhook-miss tripwire. A HARD alarm only for the unambiguous case — completed
 // checkout(s) but literally nothing recorded (no paid order, no new sub/trial).
+//
+// KNOWN FALSE-POSITIVE, and it is not fixable from the event data (2026-09-06).
+// `checkout_success` is emitted by thanks-page.tsx on PAGE LOAD, so any visit to
+// /thanks/ counts as a completed checkout. The obvious fix — only count it when
+// the same session also fired checkout_redirected — was checked against real
+// buyers and does NOT work: Lemon Squeezy checkout opens in a new tab, so the
+// return to /thanks/ starts a fresh session. On 2026-08-31 the genuine buyer
+// fired checkout_clicked/redirected in sessions 9af87e66 and 05a1ebcb and
+// checkout_success in a THIRD session, 27114d62. Requiring a match would have
+// silenced the alarm for the one purchase it was built to protect.
+// So the alarm stays as-is and the message carries the disambiguation instead.
+// Its record is otherwise perfect: 5 checkout_success events ever, and the 3
+// before 2026-09-06 each correspond to a real order.
 // A mere gap (checkout_success > recorded) is soft: it's usually an existing
 // free user upgrading to a trial (their users.created_at predates the window,
 // so they're not in newSubs) or a stray test checkout — worth a glance, not an
@@ -506,6 +519,9 @@ if (refunds.length) {
 }
 if (hardWebhookMiss) {
   lines.push(`⚠️ CHECK: ${distinctCheckoutSuccess} completed checkout(s) this window but ZERO recorded — a payment may not have reached the DB. Check LS webhook delivery + /webhooks logs.`);
+  // Cheapest disambiguation first, because this alarm is scary and the innocent
+  // cause is common enough to have already happened once.
+  lines.push(`   ↳ BEFORE assuming a lost payment: \`checkout_success\` fires on ANY /thanks/ page load, not only after a purchase (thanks-page.tsx). A manual or agent visit to that URL trips this. Check Lemon Squeezy's own order list for the window — if LS has no order, nothing was lost. 2026-09-06 was exactly that: two /thanks/ loads while verifying the Google Ads conversion tag, and 0 LS orders.`);
 } else if (softCheckoutGap) {
   lines.push(`ℹ️ ${distinctCheckoutSuccess} completed checkouts vs ${recordedConversions} recorded conversion(s) — likely an existing user upgrading (trial) or a test checkout; watch if the gap persists.`);
 }
