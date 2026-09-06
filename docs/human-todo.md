@@ -2,6 +2,46 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🟢 2026-09-07 Newsletter 已经是一条能跑通的自动化管线了
+
+> owner:「newsletter 可以做,你全权负责设计,我希望能自动化。」
+
+> ### 🔴 先说一个把整件事看反了的发现
+> `/notes/` 上写着「**Get new issues by email — delivered when they land**」,
+> 但它用的 `EmailCaptureForm` 只 POST `{email, source}`,而 `/subscribe` 的 `notes` 默认 **false**
+> ⇒ **在那里订阅的人不属于任何列表,永远收不到任何东西**。`/notes/<slug>/` 那个表单也一样。
+>
+> 实际损失是 0(实测:`subscribers` 里 `source` 从没出现过 `notes-list` / `notes-latest`),
+> 但这解释了那个看起来像「没人要」的现象:**12 个订阅者里 `notes_subscribed` 全是 0,
+> 不是因为读者说不,是因为表单从来没问过。**已修,并加了双向守卫。
+
+> ### 已经做完的四件
+> 1. **投递通了** —— 机器上 `/root/ColorArchive` 加了 git remote(仓库是公开的,不需要凭据)。
+>    `git archive origin/main docs/design-notes` 现在能取到内容,dry-run 实测能看到 `2026-W31`。
+>    `git archive` 只解到临时目录,**不碰已部署的工作区**。
+> 2. **不再静默失败** —— 取不到内容时打 `FATAL` 并 `exit 2/3`,不再是「exit 0 + 一句听着正常的 no approved issues」。
+>    **实测过**:把 remote 改名 → 立刻 FATAL;改回来 → 正常。
+> 3. **订阅真的会进列表** —— 生产站实测:提交表单 → payload 里 `"notes":true` →
+>    服务端写入 `notes_subscribed=1` → 发送脚本立刻报 `issue "2026-W31" → 1 pending of 1`。
+>    **整条链都量过了**,测试行随后已删除,现在真实订阅者仍是 0。
+> 4. **自动起草** —— 新增定时任务 `design-notes-draft`,每周二 10:41 起草下一期。
+>    🔴 **它永远只写 `status: draft`,绝不自我批准** —— 人工审阅那一关是这条管线的全部安全设计。
+>    它还会幂等跳过已存在的期号、把声明拿去对代码核实、只链接真实存在的路由,
+>    并在通知里告诉你「订阅者是 0」这件事。
+
+> ### 🔴 剩下唯一真正的问题:招募,而且旧办法已经被证伪
+> - guides 页那个订阅位:**292 次曝光 → 0 订阅**(rule of three,真实转化率 <1%),已被撤掉换成工具链接。
+> - `/word-to-color/` 的招募横幅:**3,857 次曝光 → ~0**,同样被撤。
+> - `/notes/`(30 天 218 次浏览):**0 订阅**(而且直到今天它还是坏的)。
+>
+> 但 **COTD 列表是活的** —— 今早 6 个人收到了信。而这 6 个人的来源是
+> **`word-to-color` 4 个 + `cotd` 2 个**,也就是**工具页**,不是内容页。
+> ⇒ 证据很一致:**这个站的邮件订阅在工具页成立,在内容页不成立。**
+>
+> **所以下一步该做的是把 Design Notes 的入口放到工具页,或者直接问已经在 COTD 列表里的人要不要加订周报。**
+> 后者要改 `server/email.js`(需要 `pm2 restart`,现已证实安全),但那是往**别人已经订阅的日更邮件里塞一个新请求**,
+> 我没擅自做 —— **你点个头我就加一行。**
+
 > ## 🟢 2026-09-06(夜)D 已做完 · C 查清楚了(比原来记的更糟,但也更没影响)
 
 > ### 🟢 D:`support@colorarchive.org` 现在收得到信了
