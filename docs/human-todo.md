@@ -50,7 +50,8 @@
 > `src/data/newsletter-issues.json` 70 —— 大多是指向 `/pro/` 的链接药丸「Brand Starter Kit」。
 >
 > 🔴 **2026-09-06 更正:~~而没有这个产品~~ —— 产品是真的,而且是免费的。**
-> `public/downloads/brand-starter-kit.zip`,18,776 字节,12 套配色 + 品牌指南 + 色彩心理学说明 + 每套的
+> `public/downloads/brand-starter-kit.zip`,18,776 字节,**3 套配色**(`quiet-luxury` / `nocturne-tech` /
+> `orchid-bloom`,按 `*-brand-guide.md` 实际点数;页面标签一直写的就是 3)+ 品牌指南 + 色彩心理学说明 + 每套的
 > SwiftUI/Android/Flutter 导出,无需注册(周报任务 09-06 解压核对)。
 > **所以问题不是「产品不存在」,而是 165 个链接指错了地方** —— 指向 `/pro/`(要付费),
 > 而正确目的地是 `/downloads/brand-starter-kit.zip` 或 `/free-resources/`(免费)。

@@ -52,6 +52,25 @@
  *     matched on URL-starts-with. It fires from the page load, WITHOUT any code.
  *   · "Visit Packs Page" demoted to Secondary rather than deleted.
  *
+ * VERIFIED END-TO-END 2026-09-06 — measured, not assumed. Loading /thanks/ in a
+ * real browser issues
+ *   GET www.googleadservices.com/pagead/conversion/11416473237/
+ *       ?…&en=page_view&url=…colorarchive.org%2Fthanks%2F
+ *       &label=XjvJCLDfie8cEJWd5sMq            -> 200
+ * That label is the one Ads minted for this action (it also appears in the
+ * action's own Tag Assistant link), so the ping reaches the right CONVERSION —
+ * not merely the remarketing list, which is a different endpoint. To re-check,
+ * load the page and filter the network log for `pagead/conversion`.
+ *
+ * Until that first ping the action read "Inactive" and the Purchase GOAL read
+ * "Misconfigured" (red). Neither is a defect. A goal whose only primary action
+ * has never received data is reported as misconfigured, and Google's own
+ * troubleshooter says so outright: "this conversion action hasn't received any
+ * data recently". Do NOT answer it by running the "Finish setting up conversion
+ * tracking" wizard — its steps are literally "Create a conversion action" and
+ * "Add site tags", so completing it with goal=Purchase mints a SECOND primary
+ * Purchase action on the same page and every sale is then counted twice.
+ *
  * So a purchase is ALREADY counted. If you also set
  * NEXT_PUBLIC_GADS_PURCHASE_LABEL, /thanks/ will report the conversion twice —
  * once by URL match and once by this gtag event — and Smart Bidding will believe

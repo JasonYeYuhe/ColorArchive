@@ -12,7 +12,9 @@ Two consequences, both recorded in the roundup itself so a reader does not over-
 1. **The lock protocol's first step (`git pull --rebase`) could not run.** The lock was free
    (`active: null`), acquired locally, and released in the same commit — net diff on the lock file is
    zero, which is the correct end state either way.
-2. **The commit is not pushed.** It exists only on this Mac. No history was touched, nothing forced.
+2. ~~**The commit is not pushed.**~~ **The block cleared mid-run and `8e38a22` pushed cleanly** to
+   `origin/main`, in sync, nothing forced. Recorded as written-then-corrected rather than edited away,
+   because "no network" turned out to be a condition with a duration, not a fact about the run.
 3. **Every claim in this roundup was verified against the repo and the build artifacts instead of the
    live site** — previous roundups verified against production. Where a claim needs production, the
    roundup says so.

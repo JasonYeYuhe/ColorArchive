@@ -12,7 +12,7 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 >
 > 🔴 **THIS RUN HAD NO NETWORK TO EITHER PRODUCTION OR GITHUB, AND THAT CHANGES WHAT IS VERIFIED.** `curl https://example.com` returns 200, but **`colorarchive.org` and `github.com` both return `000`** and `ssh github.com:22` fails — a selective block, not an outage, and it persisted with the sandbox disabled. Consequences, all of them load-bearing:
 > - **No live URL was checked this run.** Every previous roundup verified its claims against the deployed site. This one verified them against the repo, the build script, and the actual zip files on disk. Where a claim needed production, it says so below.
-> - **`git pull` and `git push` both failed.** The lock protocol's first step could not run. The lock was taken and released locally; the commit exists **only on this machine** and must be pushed by hand or by the next run that has a network. Nothing was force-pushed and no history was touched.
+> - **`git pull` failed, so the lock protocol's first step never ran.** The lock was free, taken and released locally, net diff zero — the correct end state either way. **The network came back before the push, and the commit is on `origin/main`** (`8e38a22`, in sync, nothing forced). Three sentences in the first version of this entry said it was unpushed; they were true when written and are corrected here rather than quietly deleted.
 >
 > ---
 >
@@ -21,8 +21,14 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 > **Everything the post claims about those files was checked against the artifacts this run, not read off a commit message:**
 > - `public/downloads/complete-archive.zip` — **782,150 bytes**, and it contains exactly the **fifteen** format files named in the post: `.css`, `tailwind-tokens.css`, `.json`, `scss-maps.scss`, `.gpl`, `sketchpalette.json`, `.ase`, `.aco`, `framer-tokens.css`, `figma-tokens.json`, `style-dictionary.json`, `.swift`, `.xml` (Android), `.dart`, `theme.js`.
 > - **The "all 5,446" claim is exact, not rounded.** Unzipped and counted this run: the CSS file declares **5,446** custom properties and the JSON holds **5,446** entries. Both equal `colors.length`.
-> - `public/downloads/brand-starter-kit.zip` — **18,776 bytes**, twelve palettes each with a brand guide, colour-psychology notes, and per-palette SwiftUI / Android / Flutter / theme.js exports.
+> - `public/downloads/brand-starter-kit.zip` — **18,776 bytes**, and 🔴 **three palettes, not twelve.** The first draft of this entry said twelve, inferred from the first screenful of the zip listing without counting. Counted properly (`*-brand-guide.md`): **3** — `quiet-luxury`, `nocturne-tech`, `orchid-bloom` — which is exactly what the page's own label has always said ("Brand Color Starter Kit — 3 curated palettes"). Each carries a brand guide, colour-psychology notes, and its own SwiftUI / Android / Flutter / theme.js exports. **A truncated listing is not a count**, and this is the second inference-instead-of-measurement error in this run's own subject matter.
 > - **No signup, no paywall** — these are static files under `public/`, served by the CDN with no gate in front of them.
+>
+> 🟢 **AND THEN THE NETWORK CAME BACK, SO ALL OF IT WAS RE-CHECKED AGAINST PRODUCTION.** Everything above was verified against the repo; the following was verified against `colorarchive.org` after the block cleared, which is the standard the earlier roundups held themselves to:
+> - `/downloads/complete-archive.zip` → **200, 786,092 bytes** (the deployed build regenerates it, hence the difference from the 782,150 on disk). Downloaded and opened this run: **15 format files** plus a README, and its CSS and JSON each hold exactly **5,446** entries. The post's two hardest numbers are true of the file a visitor actually receives.
+> - `/downloads/brand-starter-kit.zip` → **200, 18,776 bytes**, byte-identical in size to the local copy.
+> - **`1c9e79b` is deployed.** The HTML could not confirm it (see owner action (a2)), so the deployed JS chunks were grepped instead — the same technique `ec714e1` used for env vars. All 14 chunks pulled: `complete-archive.zip`, `brand-starter-kit.zip` and the exact new label `Complete Archive — 5,446 colors, 15 formats` are all present. The links are live.
+> - **`/pro/` really does show two "Temporarily unavailable" buttons** — confirmed on the live page, which is exactly the yearly and lifetime pair. Exclusion 1 below is not a precaution, it is a measurement.
 >
 > 🔴 **AND IT REVERSES A STANDING NOTE IN `human-todo.md`, WHICH IS CORRECTED IN THIS COMMIT.** Yesterday's `cd165cc` recorded the SwiftUI / Android / Flutter exporters promised in `server/email.js:1280` as a **false promise**, citing `grep -rin swiftui src/ app/` = 0 hits. **The grep was the error, not the promise.** The generators live in `scripts/generate-downloads.mjs` (`generateSwiftUI`, `generateAndroidXml`, `generateFlutterDart`) and the output lives in `public/` — neither directory was searched. Re-verified independently this run: **15 `-swiftui.swift`, 15 `-colors.dart` and 15 `-colors.xml` files ship today**, plus complete-archive versions of all three. `1c9e79b` fixed the code and its own commit message but left `docs/human-todo.md:55` and `:76` still asserting "确认不存在"; this run corrects both. The half of that note that **still stands** is separate and unchanged: `:1124` sells "the complete 5,446-color token set" as a Pro benefit when it is the free public download above.
 >
@@ -47,7 +53,9 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 > - ✅ Aug 23/30 owner action (c), duplicate build artifacts making `git status` unreadable: **fixed by `.gitignore:62`** (`**/* [2-9].*`). 48 duplicates remain on disk at 17 MB total; git no longer sees them and the Mac is at 28% disk, not 99%.
 >
 > **Owner actions:**
-> (a) 🔴 **This commit is not pushed.** Network to `github.com` was blocked all run. Run `git push origin main` when you next have one — the lock file is already back to null, so nothing is held.
+> (a) ✅ **Nothing needed — pushed.** The block cleared mid-run; `8e38a22` is on `origin/main` and this correction follows it. Docs-only, so `scripts/vercel-ignore.sh` skips the build (`docs/.*\.md` and `autopilot-log.md` are both in its METADATA set) — the second commit costs no Vercel minutes.
+>
+> (a2) 🔵 **New, worth a look but NOT yet a conclusion: `/free-resources/` returns an HTML shell with none of its own text in it.** Not one of "Free Color Resources", "Sample Downloads" or any `downloads/` href appears in the served HTML — and that is equally true of copy that predates this week, so it is not a deploy problem. The body is client-rendered after hydration. Tempting to connect this to the 90 days of 0 impressions, and I am deliberately **not** doing so: Google renders JavaScript, so this may cost nothing at all. It is a real difference from the rest of the site and it sits on the page we just made the destination for every free download, which is reason enough to measure it deliberately rather than assume either way.
 > (b) 🔴 **Time-sensitive, and already on `human-todo.md`: `id41` renews 2026-10-03.** They pressed yearly, were billed ¥500 monthly, and are roughly ¥3,500 under-billed on a plan they believe they bought. Two decisions, both yours: set the three `NEXT_PUBLIC_PRO_*_CHECKOUT_URL` env vars and redeploy (~15 min, and it re-enables the yearly and lifetime buttons), and whether to email them. **Customer email needs your authorization; this run sent none.**
 > (c) The 165 in-content references to "Brand Starter Kit" are **less wrong than yesterday's note said** — the product is real and free at `/downloads/brand-starter-kit.zip`. What is wrong is the destination: most of those pills link to `/pro/` for a thing that needs no account. That reframes the job from a content migration to a link fix, but it is still 165 edits under the `content-links` guard, and still yours to schedule.
 >
@@ -73,7 +81,7 @@ CSS Variables · Tailwind v4 · SCSS Maps · JSON · Figma Tokens · Style Dicti
 
 Not a sample. Not "the first 50." The whole archive, in whichever one your project speaks.
 
-🎁 **The Brand Color Starter Kit** — 12 curated palettes, each with a brand guide, color-psychology notes, and its own SwiftUI / Android / Flutter exports.
+🎁 **The Brand Color Starter Kit** — 3 curated palettes, each with a brand guide, color-psychology notes, and its own SwiftUI / Android / Flutter exports.
 
 **No account. No email. No signup wall.** Two clicks, both free.
 
