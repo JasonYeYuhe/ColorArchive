@@ -1002,14 +1002,38 @@ export function WordColorGeneratorPage() {
                 <p className="text-lg font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white">
                   Save your word colors
                 </p>
+                {/* Design Notes rides along with COTD here, and ONLY here.
+                    Recruitment for the weekly note has been tried on content
+                    pages and failed every time it was measured: the guides slot
+                    got 292 impressions and 0 signups, the old /word-to-color/
+                    recruitment banner 3,857 and ~0, /notes/ 218 pageviews in 30
+                    days and 0. What HAS worked is this surface — four of the six
+                    people on the daily list came from word-to-color, two from the
+                    COTD form itself, and none from anywhere else.
+
+                    So the ask is bundled rather than added as a second box, and
+                    the daily colour stays the headline because that is the promise
+                    with evidence behind it. The copy states both lists, because
+                    the failure this whole thread started from was a form whose
+                    copy promised something it did not subscribe you to.
+
+                    Deliberately NOT applied to the paywall-unlock form above:
+                    that one trades an email for immediate access, and quietly
+                    enrolling those people in a second list would be a bait.
+                    Unsubscribe is already per-list (server/routes/unsubscribe.js
+                    maps notes and cotd separately), so either can be dropped
+                    without the other. */}
                 <p className="mt-1 mb-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                  Get one curated color in your inbox each morning — and a standing reason to come
-                  back. Free, one email a day.
+                  Get one curated color in your inbox each morning — plus a short weekly note on the
+                  color problems behind these tools. Free, and you can drop either one.
                 </p>
                 <CotdSubscribeForm
                   colorHex={generated.hex}
                   source="word-to-color"
+                  notes
                   heading="Email me a color every morning"
+                  successNote="A color each morning, and the weekly note on Fridays."
+                  footnote="One email a day, one note a week. Unsubscribe from either anytime."
                 />
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
