@@ -157,7 +157,29 @@
 > `git rev-parse origin/main` → `fatal: Needed a single revision`)。
 > ⇒ **审过的 issue 一封都没到过订阅者手里。** 要么给它加 remote,要么改成读本地工作区。
 
-> ### 🟠 D. 9 月 22 日 10:00 UTC:Hayley 很可能再被锁一次
+> ### 🟠 D. 9 月 22 日 10:00 UTC:Hayley 很可能再被锁一次(机制已查清,附一行改法)
+>
+> 🔴 **先更正我之前的说法**:我说过「签约那条路 +3 天缓冲,`resolveSubscriptionUpdate` 写裸值,
+> 谁后到听谁的」—— **那是错的,不是竞态**。真实设计是两段式,而且代码自己写明了:
+> `subscription-payment` 先**慷慨延长**(月付 `now+35 天`、年付 `+370 天`,且只延不缩),
+> 然后 `subscription_updated` 把时钟**精确对齐回 `renews_at`**。两段都是故意的。
+>
+> **但风险是真的,而且现在知道确切原因**:对齐之后 `pro_expires_at` 就**正好等于** `renews_at`,
+> 没有任何余量。LS 准时扣款 → payment 事件到 → 续期,没事;
+> **LS 迟到(8 月迟了 5 天)→ 没有 payment 事件 → 到点即失效 → 她被锁在外面直到扣款真的发生。**
+> 8 月那次就是这样,而「续费自己回来了」是运气不是设计。
+>
+> **一行改法**(`server/entitlement.js:204`,active 分支):
+> `renewalExpiry(periodEndIso, { now, graceDays: 0 })` → `graceDays: GRACE_DAYS`。
+> 那句注释担心「grace 会跟 over-extension 打架」其实不成立 —— 对齐是把 `now+35天` **缩短**到 `renews_at`,
+> 多给 3 天只是少缩一点,不影响任何东西;而且同一个函数的**取消分支本来就用 `paidThrough`(+3 天)**,
+> 改完反而自洽。
+>
+> 🔴 **我没有直接改,因为这是你明确做过的决定**(2026-08-25「graceDays 保持 0」)。
+> 但值得指出:**那个决定做在 08-27 查清 Hayley 迟到 5 天之前** —— 决定早于证据。
+> 你点头我就改,改完要 `pm2 restart`(已证实安全)。距离 9-22 还有 15 天。
+
+> ### 🟠 D-old. 原始记录
 > 生产库实测:`users.id=25`,`tier=pro`、`active`,`pro_expires_at = 2026-09-22T10:00:00.000Z`
 > —— **正好等于 LS 的 `renews_at`,没有任何缓冲**。8 月那次她的续费迟到 5 天,
 > 而我们的到期时间没有余量,她就被锁在外面 5 天。**同一个形状,日期在 9-22。**
