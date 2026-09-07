@@ -196,12 +196,51 @@ function resolveSubscriptionUpdate({ status, periodEndIso, now = Date.now() } = 
     // resolveCancellation() write the SAME instant for the same subscription.
     proExpiresAt = withinPaidPeriod ? paidThrough(periodEndIso) : null;
   } else if (isPro) {
-    // Keep the provider's exact date — subscription-payment deliberately
-    // over-extends and relies on this event to snap the clock back to
-    // renews_at, so grace here would fight that. The only change from the
-    // original behaviour is the null case, which used to write a NULL clock
-    // next to tier='pro' and therefore never expired at all.
-    proExpiresAt = renewalExpiry(periodEndIso, { now, graceDays: 0 });
+    // ── 2026-09-07: this branch used to pass graceDays: 0 ────────────────────
+    //
+    // The reasoning was that subscription-payment over-extends by design and
+    // relies on this event to snap the clock back to renews_at, so grace "would
+    // fight that". The first half is true; the conclusion was not. Snapping
+    // shortens now+35d down to renews_at, and three days only shortens it a
+    // little less — nothing is fought. What graceDays: 0 actually bought was a
+    // pro_expires_at exactly equal to renews_at, i.e. zero margin, on the one
+    // column every read path uses to decide whether a paying customer is still
+    // a paying customer.
+    //
+    // Two ways that locks someone out, both observed rather than imagined:
+    //
+    //   1. renews_at in the FUTURE. Lemon Squeezy charges late — five days late
+    //      in August 2026 — so no payment event arrives to re-extend, the clock
+    //      passes, and the customer loses access until the charge lands. The
+    //      renewal coming back on its own was luck, not design.
+    //   2. renews_at already PAST while the status still says alive. This copies
+    //      the stale date verbatim, so the customer is locked out at the instant
+    //      the webhook lands, while the provider is still retrying the card.
+    //      ACTIVE_STATUSES includes past_due precisely because "cutting someone
+    //      off mid-dunning is the same mistake in miniature" — and then this line
+    //      did it anyway.
+    //
+    // So: grace, plus a floor. While the provider says the subscription is
+    // ALIVE we never write a clock that is already expired; the floor gives
+    // GRACE_DAYS from now instead.
+    //
+    // This is failure-open on the most sensitive logic in the codebase, so it is
+    // bounded on purpose and in three ways: it only applies while the status is
+    // in ACTIVE_STATUSES; it never grants more than GRACE_DAYS beyond the later
+    // of renews_at and now; and it is re-evaluated on every webhook, so the
+    // moment the provider gives up and sends unpaid/expired, isPro goes false
+    // and the entitlement is revoked on that same event. It cannot drift into
+    // "Pro forever" — that is what UNDATED_HORIZON_DAYS and the null-clock rule
+    // above exist to prevent, and both still apply.
+    //
+    // The Apple path already did this: apple-notifications.js calls
+    // renewalExpiry(txn.expiresDate) with the DEFAULT grace. Lemon Squeezy
+    // customers were the only ones without it.
+    const snapped = renewalExpiry(periodEndIso, { now, graceDays: GRACE_DAYS });
+    const floorMs = now + GRACE_DAYS * 86400000;
+    const snappedMs = parseIso(snapped);
+    proExpiresAt =
+      snappedMs !== null && snappedMs >= floorMs ? snapped : new Date(floorMs).toISOString();
   } else {
     proExpiresAt = periodEndIso ?? null;
   }

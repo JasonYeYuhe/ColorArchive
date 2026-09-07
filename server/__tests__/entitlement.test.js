@@ -129,41 +129,73 @@ test("past_due keeps Pro — the card is still being retried", () => {
 });
 
 /**
- * CHARACTERISATION TEST — this pins what the code does TODAY, and today's
- * behaviour is the open question, not a settled guarantee. Do not "fix" the
- * assertion to make a change pass; changing it is the decision itself.
+ * THE 2026-08-22 LOCKOUT, NOW FIXED — and these assertions are the fix.
  *
- * The test above only proves `past_due` is safe when the provider ALSO moved
- * `renews_at` forward. It never covered the other half, and the other half is
- * not hypothetical — it is the live state of this store's only paying customer:
- * subscription 2357096 sits at status `active` with `renews_at` 2026-08-22,
- * days in the past, because Lemon Squeezy never executed the renewal at all.
+ * This block used to be a CHARACTERISATION test that pinned the lockout as
+ * "today's behaviour", with a note saying changing it was the decision itself
+ * and an owner call, not a drive-by fix. The owner made that call on
+ * 2026-09-07 ("全面修复"), so the assertions below now describe the fix.
  *
- * When the status says alive but the date is stale, `graceDays: 0` copies that
- * stale date verbatim into `pro_expires_at`. `effectiveTier` then reads
- * tier='pro' next to an expired clock and returns free — the customer is locked
- * out at the instant the webhook lands, while the provider is still retrying.
- * That is precisely the 2026-08-22 incident, and it is reachable again by any
- * subscription whose provider leaves the date behind.
+ * What was wrong: the renewal branch passed `graceDays: 0`, writing
+ * pro_expires_at exactly equal to renews_at — zero margin on the one column
+ * every read path uses. Two ways that locked out a paying customer:
  *
- * The `graceDays: 0` on the renewal branch is deliberate (see entitlement.js):
- * subscription-payment over-extends by design and relies on this event to snap
- * the clock back to the true renews_at, so grace here would fight that. Adding
- * grace is a real trade-off — failure-open on the site's most sensitive logic —
- * and it is an owner decision recorded in docs/human-todo.md, not a drive-by fix.
+ *   1. renews_at in the FUTURE, provider charges LATE. Lemon Squeezy was five
+ *      days late in August 2026, so no payment event arrived to re-extend and
+ *      the clock simply passed. The renewal returning on its own was luck.
+ *   2. renews_at already PAST while the status still says alive — the state of
+ *      subscription 2357096 at the time. The stale date was copied verbatim, so
+ *      the customer was locked out the instant the webhook landed, while the
+ *      provider was still retrying the card. ACTIVE_STATUSES includes past_due
+ *      precisely to avoid cutting someone off mid-dunning, and this line did it.
+ *
+ * The fix is grace plus a floor: while the provider says ALIVE, never write an
+ * already-expired clock. It is failure-open on sensitive logic, so it is bounded
+ * three ways — only while the status is active, never more than GRACE_DAYS past
+ * the later of renews_at and now, and re-evaluated every webhook so a dead
+ * status revokes on that same event. The tests below pin all three bounds,
+ * because an unbounded version of this fix would be the worse bug.
  */
-test("STALE renews_at + a live status locks the customer out — today's behaviour", () => {
+test("a live status with a STALE renews_at no longer locks the customer out", () => {
   const d = resolveSubscriptionUpdate({ status: "past_due", periodEndIso: inDays(-2), now: NOW });
 
-  assert.equal(d.isPro, true, "the resolver still calls them Pro…");
-  assert.equal(d.proExpiresAt, inDays(-2), "…but writes an already-expired clock beside it");
+  assert.equal(d.isPro, true, "the provider is still retrying, so they are still Pro");
+  assert.equal(
+    d.proExpiresAt,
+    inDays(3),
+    "the clock is floored at now + GRACE_DAYS instead of copying the stale date",
+  );
 
-  // The read path is what the customer actually experiences.
+  // The read path is what the customer actually experiences — this is the
+  // assertion that would have prevented the August incident.
   assert.deepEqual(
     effectiveTier({ tier: d.tier, proExpiresAt: d.proExpiresAt, now: NOW }),
-    { tier: "free", expired: true },
-    "so every read path demotes them — this is the lockout, reproduced",
+    { tier: "pro", expired: false },
+    "so the read path keeps them Pro through the dunning window",
   );
+});
+
+test("BOUND: the floor grants GRACE_DAYS, never an open-ended clock", () => {
+  // However stale the provider's date is, the answer is now + GRACE_DAYS — not
+  // "stale date + grace" (still expired) and not something unbounded.
+  for (const staleDays of [-2, -30, -400]) {
+    const d = resolveSubscriptionUpdate({ status: "active", periodEndIso: inDays(staleDays), now: NOW });
+    assert.equal(d.proExpiresAt, inDays(3), `stale by ${staleDays}d still yields exactly now + 3d`);
+  }
+});
+
+test("BOUND: a dead status revokes on that same event, floor or no floor", () => {
+  // The floor must never keep someone alive once the provider gives up. This is
+  // what stops the fix from drifting into "Pro forever".
+  for (const status of ["unpaid", "expired", "paused"]) {
+    const d = resolveSubscriptionUpdate({ status, periodEndIso: inDays(-1), now: NOW });
+    assert.equal(d.isPro, false, `${status} is not Pro`);
+    assert.deepEqual(
+      effectiveTier({ tier: d.tier, proExpiresAt: d.proExpiresAt, now: NOW }),
+      { tier: "free", expired: false },
+      `${status} revokes immediately`,
+    );
+  }
 });
 
 for (const status of ["paused", "unpaid", "expired", "", undefined]) {
@@ -173,9 +205,21 @@ for (const status of ["paused", "unpaid", "expired", "", undefined]) {
   });
 }
 
-test("non-cancel statuses keep their previous expiry semantics untouched", () => {
+test("an active subscription is never left with zero margin at renews_at", () => {
+  // The other half of the August incident: renews_at is in the future, but the
+  // provider charges late, so nothing re-extends before the clock passes.
   const d = resolveSubscriptionUpdate({ status: "active", periodEndIso: inDays(30), now: NOW });
-  assert.equal(d.proExpiresAt, inDays(30), "grace is only added on the cancellation branch");
+  assert.equal(d.proExpiresAt, inDays(33), "renews_at + GRACE_DAYS, so a late charge cannot lock them out");
+  assert.notEqual(d.proExpiresAt, inDays(30), "exactly renews_at is the bug this replaced");
+});
+
+test("grace does not fight subscription-payment's over-extension", () => {
+  // The original objection to adding grace here. subscription-payment writes
+  // now + 35d for a monthly plan and never shortens; this event snaps back to
+  // renews_at + 3d ≈ now + 33d, which is still a shortening. Nothing is fought.
+  const d = resolveSubscriptionUpdate({ status: "active", periodEndIso: inDays(30), now: NOW });
+  const overExtended = new Date(NOW + 35 * 86400000).toISOString();
+  assert.ok(d.proExpiresAt < overExtended, "the snap still shortens the generous clock");
 });
 
 /* ── the race: both events fire on one cancellation ───────────────────────── */
