@@ -181,36 +181,31 @@ function SubscriptionSection() {
 
   /**
    * "Manage subscription" dispatches by provider:
-   *   stripe       → POST /api/billing-portal (returns Stripe portal URL)
    *   lemonsqueezy → redirect to LS customer portal (customer_id embedded in their magic link)
    *   apple        → show hint (StoreKit subscriptions can only be managed in iOS Settings)
    *   paddle       → redirect to Paddle customer portal (future)
+   *
+   * The `stripe` branch and /api/billing-portal were removed 2026-09-08 — see the
+   * RETIRED entry in src/lib/__tests__/retired-routes.test.ts. Stripe is a dead
+   * provider (LS live since 2026-04-17, 0 rows with payment_provider='stripe'), and
+   * the route could never have worked: it forwarded the browser cookie to
+   * api.colorarchive.org, but the session cookie is host-only (no `Domain=`, see
+   * server/auth.js buildCookie), so the forward carried no session and always 401'd.
+   * The button would spin and silently do nothing.
+   *
+   * Behaviour is unchanged for a provider that resolves to "stripe" (which happens
+   * when payment_provider is NULL): me.js sets providerCustomerId to the SAME
+   * stripe_customer_id it put in stripeCustomerId, so the check below is equivalent.
    */
   const hasManageAction = !!(
-    sub &&
-    (sub.provider === "stripe"
-      ? sub.stripeCustomerId
-      : sub.provider === "lemonsqueezy"
-        ? sub.providerCustomerId
-        : sub.provider === "apple"
-          ? true
-          : sub.providerCustomerId)
+    sub && (sub.provider === "apple" ? true : sub.providerCustomerId)
   );
 
   const openPortal = useCallback(async () => {
     if (!sub) return;
     setPortalLoading(true);
     try {
-      if (sub.provider === "stripe") {
-        const res = await fetch("/api/billing-portal/", {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: "{}",
-        });
-        const data = await res.json();
-        if (data.url) window.location.href = data.url;
-      } else if (sub.provider === "lemonsqueezy") {
+      if (sub.provider === "lemonsqueezy") {
         // LS exposes a self-serve customer portal; the magic-link variant is
         // emailed from LS on signup. Fall back to the generic portal if we
         // don't have a direct link — user will authenticate via email there.

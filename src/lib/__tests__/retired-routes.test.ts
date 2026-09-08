@@ -34,6 +34,18 @@ const RETIRED = [
     path: "src/components/color-vs-page.tsx",
     why: "the component behind that route. Harmless alone, but its presence is how the route gets rebuilt.",
   },
+  {
+    path: "app/api/billing-portal/route.ts",
+    why:
+      "the Stripe billing-portal proxy, retired 2026-09-08. Stripe is dead (LS live " +
+      "since 2026-04-17; verified 2026-09-08 against production: all 5 rows with a " +
+      "subscription are payment_provider='lemonsqueezy', 0 are 'stripe'). It could " +
+      "not have worked even if reached: it forwarded the browser cookie to " +
+      "api.colorarchive.org, but the session cookie is host-only (no Domain= in " +
+      "server/auth.js buildCookie), so the forward carried no session and 401'd, " +
+      "and the caller silently ignored the error. Do not revive it as a template " +
+      "for a real billing route — the cookie forward is the part that is broken.",
+  },
 ];
 
 describe("retired routes stay retired", () => {
@@ -42,6 +54,17 @@ describe("retired routes stay retired", () => {
       expect(existsSync(path), `${path} is back. It was retired because ${why}`).toBe(false);
     });
   }
+
+  // The second half of the billing-portal retirement. Deleting the route while a
+  // client still POSTs to it turns a silent no-op into a 404 no-op — no better.
+  // A guard that only checks the file is a guard for half the defect.
+  it("no client code still calls /api/billing-portal", () => {
+    const account = readFileSync("src/components/account-page.tsx", "utf8");
+    // Match the CALL, not the mention: the retirement is documented in a comment
+    // in that same file, and a guard that fires on its own documentation trains
+    // people to delete the documentation.
+    expect(account).not.toMatch(/fetch\(\s*["'`]\/api\/billing-portal/);
+  });
 
   it("the replacement redirect is still configured", () => {
     // Deleting the route without this redirect turns live search traffic into
