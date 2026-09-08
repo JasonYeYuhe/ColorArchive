@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ShareLinkButton, ShareOnXButton } from "@/src/components/share-link-button";
@@ -9,6 +9,7 @@ import { generateColorFromWord } from "@/src/lib/word-color";
 import { recordLookup } from "@/src/lib/word-lookup-depth";
 import { wordToColorFaq } from "@/src/lib/word-color-faq";
 import { wordToColorSeeds, slugifyWord, titleCaseWord } from "@/src/lib/word-to-color-seeds";
+import { isUnlockValid, newUnlockValue } from "@/src/lib/word-unlock";
 import { WordColorShareCard } from "@/src/components/word-color-share-card";
 import { CotdSubscribeForm } from "@/src/components/cotd-subscribe-form";
 import { WordIntentProbe } from "@/src/components/word-intent-probe";
@@ -59,6 +60,37 @@ const WORD_PAYWALL_ENABLED = true;
 const FREE_GENERATIONS = 5;
 const GEN_WORDS_KEY = "colorarchive-word-gen-words";
 const UNLOCK_KEY = "colorarchive-word-unlocked";
+/**
+ * How long an email unlock lasts (2026-09-08). Was: forever.
+ *
+ * ─── WHY THIS CHANGED ──────────────────────────────────────────────────────
+ *
+ * Subscribing an email removed, permanently, the exact cap Pro charges ¥499/mo
+ * to remove. Six browsers took that door; three people have paid. Two reviews
+ * of the 09-08 plan independently flagged that as the likeliest mistake in the
+ * paid surface — not because the door exists, but because it was permanent and
+ * free while the button beside it was recurring and paid.
+ *
+ * ─── WHAT IT IS NOT ────────────────────────────────────────────────────────
+ *
+ * This is a PRICING-INTEGRITY change, not an enforcement one. The whole wall is
+ * localStorage (see the WTP note above — it is a willingness-to-pay probe, not
+ * DRM), so clearing site data still resets everything, exactly as it always did.
+ * Nothing here makes the gate harder to bypass, and it should not be described
+ * as if it did.
+ *
+ * ─── THE SIX EXISTING BROWSERS KEEP WHAT THEY WERE GIVEN ───────────────────
+ *
+ * The legacy value is the literal string "1" and meant "forever". isUnlocked()
+ * still honours it, so nobody who already unlocked loses access. Note what the
+ * grandfather clause can and cannot be: the flag is per-BROWSER, never bound to
+ * an account or an email, so "the six people" is really "the browsers that hold
+ * the flag". Anyone who cleared storage lost it before this change and is not
+ * recoverable by it. That is the only approximation available, and it is the
+ * conservative one.
+ *
+ * See src/lib/word-unlock.ts for the pure implementation and its tests.
+ */
 // Per-TAB, so a reload cannot re-nominate the gated word as the free one.
 const LANDING_WORD_KEY = "colorarchive-word-landing";
 // The last ?q= this component wrote itself. Lets a reload of our own rewrite be
@@ -85,6 +117,22 @@ const PAYWALL_EVENT = {
   proClick: "word_paywall_pro_click", // clicked the in-gate Pro CTA (paid intent)
   emailUnlock: "word_paywall_email_unlock", // unlocked by subscribing (lead)
   proBypass: "word_paywall_pro_bypass", // gate opened because the account is Pro
+  /**
+   * Exactly ONE per armed gate: what happened to this impression.
+   * outcome ∈ { pro_click, email_unlock, login_click, pro_recognized, left }
+   *
+   * Added 2026-09-08 because the existing events cannot be turned into a rate.
+   * `hit` fires once per BROWSER EVER and `restored` once per re-gated load, so
+   * "9 pro clicks in 60 days" had no denominator that meant the same thing —
+   * and the largest group, the ~95% who did nothing, emitted nothing at all and
+   * was therefore indistinguishable from "not measured".
+   *
+   * `left` is emitted on pagehide and on unmount-while-still-armed, so an
+   * abandoned gate is a recorded outcome rather than an absence. Every other
+   * branch is emitted at the moment of the action, which is also what stops
+   * `left` firing for someone who merely navigated after converting.
+   */
+  outcome: "word_paywall_outcome",
   // One event per NEW word, carrying `counted` (did it spend free quota),
   // `depth` (words this visit, uncapped) and — only when counted — its quota
   // ordinal `count` (1..FREE_GENERATIONS). The ordinal is the missing
@@ -121,7 +169,7 @@ function readCountedWords(): string[] {
 
 function isUnlocked(): boolean {
   try {
-    return localStorage.getItem(UNLOCK_KEY) === "1";
+    return isUnlockValid(localStorage.getItem(UNLOCK_KEY), Date.now());
   } catch {
     return false;
   }
@@ -395,12 +443,40 @@ export function WordColorGeneratorPage() {
   // that was already armed this session. Fires once per mount: `proUser` is
   // derived from context now, so this effect can re-run when the session
   // refreshes and we do not want a duplicate bypass event each time.
+  /**
+   * One bounded outcome per armed gate. The ref is the whole mechanism: the
+   * first caller wins and every later one is a no-op, so a visitor who clicks
+   * Pro and then closes the tab is counted once, as pro_click, not twice.
+   */
+  const outcomeRef = useRef<string | null>(null);
+  const emitOutcome = useCallback((outcome: string) => {
+    if (outcomeRef.current) return;
+    outcomeRef.current = outcome;
+    track(PAYWALL_EVENT.outcome, { outcome });
+  }, []);
+
+  useEffect(() => {
+    if (!gated) return;
+    outcomeRef.current = null;
+    const onHide = () => emitOutcome("left");
+    window.addEventListener("pagehide", onHide);
+    return () => {
+      window.removeEventListener("pagehide", onHide);
+      // Unmount or un-gating. Anything that opens the gate deliberately emits
+      // its own outcome first, so reaching here with the ref still null means
+      // the visitor left the gate unresolved — which is the outcome we could
+      // not see before.
+      emitOutcome("left");
+    };
+  }, [gated, emitOutcome]);
+
   useEffect(() => {
     if (proUser !== true || proBypassLoggedRef.current) return;
     proBypassLoggedRef.current = true;
+    emitOutcome("pro_recognized");
     setGated(false);
     track(PAYWALL_EVENT.proBypass, {});
-  }, [proUser]);
+  }, [proUser, emitOutcome]);
 
   // On mount, arm the gate for a returning visitor who already spent their free lookups
   // (unless they previously unlocked). They still see their landing word (onLandingWord),
@@ -553,8 +629,11 @@ export function WordColorGeneratorPage() {
   }, [input, gated, proUser]);
 
   const handleEmailUnlock = () => {
-    try { localStorage.setItem(UNLOCK_KEY, "1"); } catch {}
+    try {
+      localStorage.setItem(UNLOCK_KEY, newUnlockValue(Date.now()));
+    } catch {}
     track(PAYWALL_EVENT.emailUnlock, {});
+    emitOutcome("email_unlock");
     // Let the subscribe form's "You're in!" confirmation paint before revealing the
     // result, so the unlock reads as a completed action (and the beacon is sent first).
     setTimeout(() => setGated(false), 1400);
@@ -840,7 +919,10 @@ export function WordColorGeneratorPage() {
                       whether to tell someone what a thing costs. */}
                   <Link
                     href="/pro/"
-                    onClick={() => track(PAYWALL_EVENT.proClick, {})}
+                    onClick={() => {
+                      track(PAYWALL_EVENT.proClick, {});
+                      emitOutcome("pro_click");
+                    }}
                     className="mt-5 block w-full rounded-full bg-neutral-950 px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-neutral-800"
                   >
                     Unlock unlimited &mdash; {proSubscriptionConfig.monthly.price}/month
@@ -853,7 +935,10 @@ export function WordColorGeneratorPage() {
                     <Link
                       href="/login/?next=%2Fword-to-color%2F"
                       className="font-medium underline underline-offset-2"
-                      onClick={() => track("word_paywall_login_click", {})}
+                      onClick={() => {
+                        track("word_paywall_login_click", {});
+                        emitOutcome("login_click");
+                      }}
                     >
                       Log in
                     </Link>{" "}
