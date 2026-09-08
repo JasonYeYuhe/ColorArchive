@@ -4,6 +4,7 @@ import { join } from "path";
 import { describe, expect, it } from "vitest";
 
 import { proSubscriptionConfig, preorderConfig, refundPolicy } from "@/src/lib/checkout-config";
+import { FREE_EXPORTS_PER_DAY } from "@/src/lib/pro-gate-policy";
 
 /**
  * Any price the site states must be the price the site charges.
@@ -260,5 +261,105 @@ describe("refund policy", () => {
     const body = readFileSync(join(ROOT, "src/components/commerce-disclosure-page.tsx"), "utf8");
     expect(body).toContain("refundPolicy.moneyBackDays");
     expect(body).not.toContain("Digital goods are non-refundable.");
+  });
+});
+
+/**
+ * The free-tier export allowance, DERIVED — not matched against a literal.
+ *
+ * 2026-09-08: five user-facing strings told visitors that "free accounts get 3
+ * a day". The policy has been { anonymous: 3, free: 10 } since 2026-08-18, so
+ * every one of them understated the signed-in allowance by 7. The largest was
+ * not on a marketing page at all — it was `colorDetail.buildDesc` in i18n.ts,
+ * rendered on all 5,446 /colors/[slug]/ pages in both en and zh.
+ *
+ * The previous guard could not have caught this: price-copy.test.ts asserted
+ * PRICES, and pro-gate-policy.test.ts only asserted that FREE_EXPORTS_PER_DAY
+ * had the keys ["anonymous", "free"] — never that any prose agreed with it.
+ *
+ * Two invariants, because the defect has two shapes:
+ *
+ *   A. DRIFT — copy names a daily allowance that is not a value in the policy.
+ *      Catches: someone edits FREE_EXPORTS_PER_DAY and leaves the prose behind.
+ *
+ *   B. MIS-ATTRIBUTION — a sentence tells a *free account* its allowance and
+ *      names only the anonymous number. This is the exact 2026-09-08 defect.
+ *      terms-page.tsx is the model of a correct sentence and must keep passing:
+ *      "Free accounts get 3 exports per day anonymously, or 10 signed in."
+ *      So a 3 is allowed next to "free accounts" only when the sentence also
+ *      says which audience gets it, or names the signed-in number too.
+ */
+describe("free-tier export allowance copy is derived from FREE_EXPORTS_PER_DAY", () => {
+  const WORD_NUM: Record<string, number> = { three: 3, ten: 10 };
+  const ALLOWED = new Set<number>(Object.values(FREE_EXPORTS_PER_DAY));
+
+  // "3 a day", "10 per day", "three times a day", "3 exports per day"
+  const ALLOWANCE =
+    /\b(\d{1,3}|three|ten)\b[^.\n]{0,24}?\b(?:a day|per day|times a day)\b/gi;
+
+  function copyFiles(): string[] {
+    const out: string[] = [];
+    const dir = join(ROOT, "src", "components");
+    for (const f of readdirSync(dir)) {
+      if (f.endsWith(".tsx") && statSync(join(dir, f)).isFile()) out.push(join(dir, f));
+    }
+    out.push(join(ROOT, "src", "lib", "i18n.ts"));
+    return out;
+  }
+
+  const hits: { file: string; num: number; window: string }[] = [];
+  for (const file of copyFiles()) {
+    const body = readFileSync(file, "utf8");
+    for (const m of body.matchAll(ALLOWANCE)) {
+      const raw = m[1].toLowerCase();
+      const num = WORD_NUM[raw] ?? Number(raw);
+      if (!Number.isFinite(num)) continue;
+      const at = m.index ?? 0;
+      const window = body.slice(Math.max(0, at - 140), at + 160);
+      // Scope: this guard is about the EXPORT allowance. "10 free AI generations
+      // per day" is a different policy (server/ai-rate-limit.js, enforced and
+      // surfaced through its own API response), and prose like "~21 a day" in an
+      // analytics comment is not a policy claim at all.
+      if (!/export/i.test(window)) continue;
+      hits.push({ file: file.slice(ROOT.length + 1), num, window });
+    }
+  }
+
+  it("finds allowance sentences at all (the guard can actually fire)", () => {
+    // Without this, deleting every such sentence would make the suite green by
+    // vacuum — the failure mode this repo calls "a criterion that cannot fail".
+    expect(hits.length).toBeGreaterThan(0);
+  });
+
+  it("A. every stated daily allowance is a number the policy actually grants", () => {
+    for (const h of hits) {
+      expect(
+        ALLOWED.has(h.num),
+        `${h.file} states "${h.num} a day", which is not in FREE_EXPORTS_PER_DAY ` +
+          `(${JSON.stringify(FREE_EXPORTS_PER_DAY)}). Update the copy, or the policy.\n` +
+          `  ...${h.window.replace(/\s+/g, " ").trim()}...`
+      ).toBe(true);
+    }
+  });
+
+  it("B. no sentence tells a free account only the anonymous number", () => {
+    const { anonymous, free } = FREE_EXPORTS_PER_DAY;
+    for (const h of hits) {
+      if (h.num !== anonymous) continue;
+      const w = h.window.toLowerCase();
+      if (!/free accounts?/.test(w)) continue;
+      const qualified =
+        w.includes("anonymous") ||
+        w.includes("without an account") ||
+        w.includes("not signed in") ||
+        w.includes(String(free));
+      expect(
+        qualified,
+        `${h.file} tells "free accounts" they get ${anonymous} a day, but signed-in ` +
+          `free accounts get ${free}. Name the audience or state both numbers ` +
+          `(see terms-page.tsx for the correct shape).\n` +
+          `  ...${h.window.replace(/\s+/g, " ").trim()}...`
+      ).toBe(true);
+    }
   });
 });

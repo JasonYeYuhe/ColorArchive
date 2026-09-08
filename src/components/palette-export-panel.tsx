@@ -128,9 +128,6 @@ export function PaletteExportPanel({ colors, prefix = "palette" }: PaletteExport
             }`}
           >
             {f.label}
-            {f.pro && (
-              <span className="ml-1 text-[8px] font-bold opacity-60">PRO</span>
-            )}
           </button>
         ))}
       </div>

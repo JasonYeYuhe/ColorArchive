@@ -593,7 +593,6 @@ rose-core-soft
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
             Tailwind Config
-            <span className="rounded-full bg-neutral-900 px-1.5 py-0.5 text-[9px] font-bold text-white">PRO</span>
           </div>
           <ProGate label="Tailwind">
             <CopyButton value={tailwindExport} label="Tailwind" />
@@ -609,7 +608,6 @@ rose-core-soft
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
             Figma Design Tokens
-            <span className="rounded-full bg-neutral-900 px-1.5 py-0.5 text-[9px] font-bold text-white">PRO</span>
           </div>
           <ProGate label="Figma">
             <CopyButton value={figmaExport} label="Figma" />
@@ -625,7 +623,6 @@ rose-core-soft
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
             Style Dictionary
-            <span className="rounded-full bg-neutral-900 px-1.5 py-0.5 text-[9px] font-bold text-white">PRO</span>
           </div>
           <ProGate label="Style Dict">
             <CopyButton value={styleDictExport} label="Style Dict" />

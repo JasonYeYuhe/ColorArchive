@@ -61,7 +61,7 @@ export function ThanksPage() {
                 },
                 {
                   title: "2. Export everything",
-                  body: "Export any palette as CSS, Tailwind, SCSS, JSON, Figma tokens or Style Dictionary — now without the 3-a-day limit.",
+                  body: "Export any palette as CSS, Tailwind, SCSS, JSON, Figma tokens or Style Dictionary — now without the daily limit.",
                 },
                 {
                   title: "3. Run WCAG audits",

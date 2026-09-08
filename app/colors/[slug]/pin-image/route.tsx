@@ -26,6 +26,20 @@ import type { ColorRecord } from "@/src/types/color";
  * Pinterest is not distributing this account, and every pin it did not
  * distribute was a 1.90:1 landscape image in a portrait-first feed.
  *
+ * ─── ⚠ THAT 833 NO LONGER REPRODUCES (noted 2026-09-08) ────────────────────
+ *
+ * Re-running the same read-out (server/scripts/pin-analytics-readout.cjs) over
+ * the same pins on 2026-09-07 returned a MATERIALLY LOWER figure. Nothing on our
+ * side changed: Pinterest restated its own history. So 833/3/6 is not a fact
+ * about those pins, it is what Pinterest's API said on 2026-08-31.
+ *
+ * Treat every number in this comment as a reading with a date attached, never as
+ * a measurement that can be re-derived. The DECISION here did not depend on the
+ * magnitude — 0 outbound clicks and 0 sessions are our own numbers, from our own
+ * database, and those are the ones the 2026-10-13 stop/continue call rests on.
+ * Vendor analytics are the one input to this project that has been observed
+ * rewriting itself, so they get cited with a date or not at all.
+ *
  * ─── THIS DELIBERATELY CHANGES TWO THINGS AT ONCE ──────────────────────────
  *
  * Geometry (1.90:1 → 0.67:1) AND content (one flat swatch → a five-colour

@@ -5,6 +5,26 @@
  *   sudo node /root/ColorArchive/server/scripts/pin-analytics-readout.cjs
  *   sudo node .../pin-analytics-readout.cjs --meta all --json /tmp/pin-analytics.json
  *
+ * ─── ⚠ READ THIS BEFORE QUOTING ANY NUMBER THIS SCRIPT PRINTS (2026-09-08) ──
+ *
+ * This script's inputs are NOT STABLE. Every impression/save/click figure written
+ * into the comments below — 833 impressions, 3 saves, 6 clicks, and every
+ * significance calculation derived from them — was what Pinterest's API returned
+ * on 2026-08-31. Re-running this script over the SAME pins on 2026-09-07 returned
+ * a materially lower figure. Nothing changed on our side; Pinterest restated its
+ * own history.
+ *
+ * Consequences, in order of importance:
+ *   1. Do not cite any Pinterest-sourced number without the date it was read.
+ *   2. The p-values in this file (P(X<=3 | 1%) = 0.034 and friends) are computed
+ *      from a denominator that has since changed. They are preserved as a record
+ *      of the 08-31 reading, NOT as standing statistical conclusions. Do not
+ *      re-derive a decision from them without re-reading the data first.
+ *   3. The stop/continue decision does NOT depend on this script. It rests on
+ *      Pinterest-referred sessions in OUR OWN `pageviews`/`events` tables:
+ *      on 2026-10-13, under 5 ⇒ delete the cron. Our database does not restate
+ *      itself, which is exactly why the criterion lives there and not here.
+ *
  * ─── WHAT THIS ANSWERS, AND WHY IT IS THE FORK IN THE ROAD ─────────────────
  *
  * dev-plan-2026-09-01-paid.md §6 established two facts that sit badly together:

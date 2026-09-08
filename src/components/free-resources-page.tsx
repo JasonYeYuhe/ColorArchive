@@ -126,7 +126,7 @@ export function FreeResourcesPage() {
             Need unlimited exports?
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-md mx-auto">
-            Pro unlocks unlimited AI generations, unmetered exports (free accounts get 3 a day), and WCAG audit reports.
+            Pro unlocks unlimited AI generations, unmetered exports (3 a day without an account, 10 signed in), and WCAG audit reports.
           </p>
           <Link
             href="/pro/"

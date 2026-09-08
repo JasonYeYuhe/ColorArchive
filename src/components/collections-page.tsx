@@ -321,7 +321,7 @@ export function CollectionsPage({ collections, guidesByCollection }: Collections
                 Take this palette further
               </p>
               <p className="mt-2 text-sm leading-6 text-white/60 dark:text-neutral-500">
-                Free accounts export three times a day, in CSS, Tailwind, Figma tokens, SCSS, JSON or Style Dictionary.
+                Signed-in accounts export ten times a day, three without an account, in CSS, Tailwind, Figma tokens, SCSS, JSON or Style Dictionary.
                 Pro removes the limit.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">

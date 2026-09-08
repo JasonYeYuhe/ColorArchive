@@ -1372,8 +1372,8 @@ const translations: Record<string, Record<string, string>> = {
     zh: "将这些颜色转换为设计 Token",
   },
   "colorDetail.buildDesc": {
-    en: "Copy the CSS variables and the Tailwind class free, right here. ColorArchive Pro lifts the 3-a-day export limit and adds Figma tokens and Procreate swatches.",
-    zh: "CSS 变量和 Tailwind 类名在本页免费复制。ColorArchive Pro 取消每天 3 次的导出上限，并提供 Figma Token 和 Procreate 色板。",
+    en: "Copy the CSS variables and the Tailwind class free, right here. ColorArchive Pro lifts the daily export limit — 10 a day signed in, 3 without an account.",
+    zh: "CSS 变量和 Tailwind 类名在本页免费复制。ColorArchive Pro 取消每日导出上限——登录后每天 10 次，未登录 3 次。",
   },
   "colorDetail.browsePacks": {
     en: "Upgrade to Pro",

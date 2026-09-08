@@ -79,8 +79,10 @@ interface ProGateProps {
 }
 
 /**
- * Wraps an export/download action. Free users get 3 exports per day;
- * Pro users get unlimited. Shows upgrade prompt when limit reached.
+ * Wraps an export/download action. The daily allowance is tiered — 3 for
+ * anonymous visitors, 10 signed in (FREE_EXPORTS_PER_DAY in
+ * src/lib/pro-gate-policy.ts) — and Pro is unmetered. Shows the upgrade
+ * prompt when the allowance is spent.
  */
 export function ProGate({ children, label = "Export" }: ProGateProps) {
   // Entitlement comes from the ONE shared session in AuthProvider, not from a

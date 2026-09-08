@@ -193,6 +193,8 @@ function pickDeterministic(list, seed) {
  * 1200x630 (1.90:1) because that is what Open Graph and Twitter cards want.
  * Pinterest is a portrait feed and recommends 2:3. Measured from Pinterest's own
  * API, 78 pins published at 1.90:1 earned 833 impressions, 3 saves and 0 outbound
+ * (⚠️ 2026-09-08: the 833/3 half no longer reproduces — Pinterest restated its own
+ * history; see server/scripts/pin-analytics-readout.cjs header. The 0 is ours.)
  * clicks in 82 days — 0.05 impressions per pin in its first WEEK.
  *
  * /colors/{slug}/pin-image/ is a separate 1000x1500 route built for this one

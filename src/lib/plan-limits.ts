@@ -18,8 +18,8 @@ export const FREE_PROJECT_LIMIT = 3;
 
 /**
  * Deliberately NOT re-declared here:
- *   - free daily exports (3) lives in src/components/pro-gate.tsx, which is the
- *     only thing that counts them;
+ *   - daily exports (3 anonymous / 10 signed in) live in FREE_EXPORTS_PER_DAY
+ *     in src/lib/pro-gate-policy.ts; ProGate counts them against that map;
  *   - free daily AI generations (10) is enforced in server/ai-rate-limit.js and
  *     surfaced through its own API response, so the UI never hardcodes it.
  * Add a limit here only when a page needs to SAY the number before the server
