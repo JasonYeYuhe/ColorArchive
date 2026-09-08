@@ -5,6 +5,7 @@ import {
   hslToRgb,
   rgbToHex,
 } from "@/src/lib/color-utils";
+import { rootColorFor } from "@/src/lib/hue-root-colors";
 import type { ColorFamily } from "@/src/types/color";
 
 export interface GeneratedWordColor {
@@ -111,9 +112,19 @@ export function generateColorFromWord(token: string): GeneratedWordColor | null 
   // computed.
   const asciiSlug = normalizedToken.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   const tokenSlug = asciiSlug || `word-${hash.toString(36)}`;
-  const hue = hash % 360;
-  const saturation = 38 + ((hash >>> 3) % 42);
-  const lightness = 32 + ((hash >>> 8) % 42);
+  /**
+   * The archive's own colour names are not hashed — see hue-root-colors.ts.
+   *
+   * Only these three numbers are overridden. Everything downstream (hex, rgb,
+   * hsl, family, and all five variants) is derived from them by the same code
+   * as every other word, so a root behaves like any other word in every respect
+   * except being right. `tokenSlug` above still comes from the hash path, so
+   * exports keep their existing identifiers.
+   */
+  const rootColor = rootColorFor(normalizedToken);
+  const hue = rootColor ? rootColor.hue : hash % 360;
+  const saturation = rootColor ? rootColor.saturation : 38 + ((hash >>> 3) % 42);
+  const lightness = rootColor ? rootColor.lightness : 32 + ((hash >>> 8) % 42);
   const rgbValue = hslToRgb(hue, saturation, lightness);
   const hex = rgbToHex(rgbValue);
   const family = getColorFamily(hue);

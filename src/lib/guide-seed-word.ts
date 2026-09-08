@@ -1,4 +1,4 @@
-import { wordToColorSeeds } from "@/src/lib/word-to-color-seeds";
+import { GUIDE_SEED_POOL } from "@/src/lib/word-to-color-seeds";
 
 /**
  * The word a guide's in-body word→colour card is prefilled with.
@@ -111,5 +111,7 @@ function hashSlug(slug: string): number {
 export function getGuideSeedWord(slug: string, tags: readonly string[]): string {
   const subject = tags.find(isSubjectTag);
   if (subject) return cleanTag(subject);
-  return wordToColorSeeds[hashSlug(slug) % wordToColorSeeds.length];
+  // GUIDE_SEED_POOL, never wordToColorSeeds: this index is a function of the
+  // list length, so it must not move when new /word-to-color/ pages are added.
+  return GUIDE_SEED_POOL[hashSlug(slug) % GUIDE_SEED_POOL.length];
 }

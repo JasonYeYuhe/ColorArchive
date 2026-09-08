@@ -107,9 +107,55 @@ const rawSeeds: string[] = [
   "nova", "sienna", "wren", "marlowe", "ophelia", "celeste", "esme", "juniper name",
 ];
 
+/**
+ * The 27 hue roots that had no page (added 2026-09-08).
+ *
+ * The archive names 48 chromatic hue roots and generates 5,376 colours from
+ * them, but only 21 were seed words — so `/word-to-color/coral/`,
+ * `/word-to-color/teal/`, `/word-to-color/indigo/` and 24 more returned 404,
+ * because `[word]/page.tsx` is `dynamicParams = false` and calls `notFound()`
+ * for anything outside this list. These are the site's own vocabulary and the
+ * literal phrasing of the query it ranks for ("what colour is coral"), and every
+ * subscriber to date arrived from search onto this route.
+ *
+ * Verified before adding: 0 slug collisions against the 474 existing seeds.
+ *
+ * ─── WHY THIS IS A SEPARATE ARRAY AND NOT APPENDED ABOVE ───────────────────
+ *
+ * `getGuideSeedWord()` picks a guide's fallback word with
+ * `wordToColorSeeds[hashSlug(slug) % wordToColorSeeds.length]`. That index is a
+ * function of the LIST LENGTH, so growing the list renumbers it. Measured: of
+ * 333 guides, 55 use the hash fallback, and 54 of those 55 would have changed
+ * the word they point at — 54 silently rewritten internal links, on a route
+ * whose content→tool path is the thing W1 is currently measuring.
+ *
+ * The plan called this item "purely additive, breaks no existing route". The
+ * routes were indeed fine; the guide links were not. Splitting the arrays keeps
+ * GUIDE_SEED_POOL frozen at the 474 the mapping was computed from, while
+ * wordToColorSeeds — which drives generateStaticParams and the sitemap — grows.
+ * The two were never the same concern; they were the same array by accident.
+ * guide-seed-word.test.ts pins the mapping so the next person to append cannot
+ * silently move it.
+ */
+const hueRootSeeds: string[] = [
+  "aqua", "azure", "blush", "canary", "celadon", "cerulean", "chartreuse", "citrine",
+  "cobalt", "coral", "crimson", "cyan", "fuchsia", "indigo", "iris", "leaf",
+  "lime", "magenta", "mauve", "mint", "mulberry", "scarlet", "steel", "tangerine",
+  "teal", "vermillion", "violet",
+];
+
+/**
+ * The frozen pool `getGuideSeedWord()` indexes into. Do NOT append to this —
+ * appending renumbers every guide's fallback word. See the note on
+ * hueRootSeeds above.
+ */
+export const GUIDE_SEED_POOL: string[] = Array.from(
+  new Set(rawSeeds.map((w) => w.trim().toLowerCase()).filter(Boolean)),
+);
+
 /** Deduped, normalized seed list (lowercased — safe for slug round-trip). */
 export const wordToColorSeeds: string[] = Array.from(
-  new Set(rawSeeds.map((w) => w.trim().toLowerCase()).filter(Boolean)),
+  new Set([...rawSeeds, ...hueRootSeeds].map((w) => w.trim().toLowerCase()).filter(Boolean)),
 );
 
 /** Slugify a seed word for the route param (spaces -> hyphens). */
