@@ -704,7 +704,9 @@ export function WordColorGeneratorPage() {
 
             <p className="mt-4 max-w-2xl text-balance text-base leading-7 text-neutral-600 dark:text-neutral-300 sm:text-lg">
               Enter any word or phrase. ColorArchive maps it to a repeatable color signature using
-              a local deterministic hash, with no API and no backend.
+              a local deterministic hash, with no API and no backend. The 48 color names the
+              archive is built from — coral, teal, indigo and the rest — return that family&rsquo;s
+              own defined color instead.
             </p>
 
             <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.8fr)]">
@@ -1024,7 +1026,9 @@ export function WordColorGeneratorPage() {
                 </div>
                 <div className="mt-3 space-y-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                   <p>
-                    The input string is normalized and hashed locally in the browser.
+                    The input string is normalized and hashed locally in the browser — unless it is
+                    one of the archive&rsquo;s own 48 hue names, which is looked up rather than
+                    hashed, because for those words there is a right answer.
                   </p>
                   <p>
                     That hash is mapped into stable hue, saturation, and lightness values.

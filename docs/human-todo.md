@@ -2,6 +2,33 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🟠 2026-09-08 付费面(dev-plan-2026-09-08)—— 代码侧做完了,剩下这五件是你的
+>
+> §7 的 0 / 1 / 1.5 / 2 已上线(见 commits `b5091b1`、`2b19b71`、`c98e6e7`)。
+> 下面是**只有你能做**的,按重要性排:
+>
+> 1. **🔴 给三个订阅者写信(§3 item 5)。** 其中一个是欠着的:他 2026-08-31 按了年付,
+>    被 variant 缺陷按月付扣款,**2026-10-03 续费**。另外两个:最新那位 5 天做了 64 次查询
+>    然后沉默,最早那位已取消。n=3 的时候没有留存流程可做,只有信可以写。
+>    (agent 不能代发客户邮件 —— 需要你授权。)
+>
+> 2. **🟠 0c 的判断权在你,不在计划书。** 计划说「删掉 /pro/ 的 Unlimited saved projects
+>    和 /account 的 API key,因为是假承诺」。**核实下来两个功能都是好的**:
+>    `server/routes/projects.js` 挂在 `/projects`,真的enforce 免费 3 / Pro 无限,也真的收 API key;
+>    `SaveToProjectButton` 在 8 个页面上渲染,`/projects/` 从 /account 链过去。
+>    所以那不是假承诺,是**有功能没人用**——删不删是产品决定,我没动。
+>
+> 3. **🟡 0e — Figma Community listing** 里「Pro: sync your saved palettes」要改。
+>    改 listing 不触发重审,但要用你的 Figma 账号。
+>
+> 4. **🟡 2026-10-13 Pinterest 判读(§3 item 4)。** 判据已经写死在
+>    `server/scripts/pin-analytics-readout.cjs` 头部:**查我们自己 DB 里的 Pinterest 引荐会话,
+>    不到 5 就删掉 cron**。🔴 别再用 Pinterest 自己的分析 —— 它把 833/3/6 的历史改写了,
+>    重跑同一个脚本已经复现不出来。
+>
+> 5. **🟢 一次性 pass(§4 末尾)** 这次按你的决定押后了,理由是它会污染墙的判据
+>    (n≈157/组、只有 ≥9.3% 可读),等墙的读数出来再决定。
+
 > ## 🟢 2026-09-07 Newsletter 已经是一条能跑通的自动化管线了
 
 > owner:「newsletter 可以做,你全权负责设计,我希望能自动化。」

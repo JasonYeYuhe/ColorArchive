@@ -12,6 +12,73 @@ exclusives." The evidence reframes it, and the reframing is the plan.
 
 ---
 
+## §0 EXECUTION RECORD — 2026-09-08, and the four places this plan was wrong
+
+Items 0, 1, 1.5 and 2 shipped (`b5091b1`, `2b19b71`, `c98e6e7`). Every assertion in
+§3 was re-verified against HEAD before anything was edited, because this plan is a
+document and documents are not evidence. Four of its claims did not survive.
+
+**1. 0a undercounted by half, and missed the largest surface.** The plan named three
+stale "3 a day" strings. There were six. The biggest was not on a marketing page at
+all: `colorDetail.buildDesc` renders on all 5,446 `/colors/[slug]/` pages, in en and
+zh. That same string also claimed Pro "adds Figma tokens" while the complete Figma
+token file is an ungated `<a href="/downloads/…">` on `/palette/`. Both fixed.
+`terms-page.tsx:16` was already correct and was deliberately left alone — a
+grep-and-replace would have broken the one page that had it right.
+
+**2. 0c's premise is false. Not done, on purpose.** The plan says to remove
+"Unlimited saved projects" and the `/account` API-key section as false claims. Both
+features work: `server/routes/projects.js` is mounted at `/projects`, enforces
+`FREE_PROJECT_LIMIT = 3` versus unlimited for Pro, and accepts API keys;
+`SaveToProjectButton` renders on 8 pages and `/projects/` is linked from `/account`.
+They are true claims about working features with no users. That is a demand problem,
+and deleting shipped features is an owner's decision, not a hygiene sweep's.
+
+**3. 0d's "all 261 collection pages" does not exist.** `collection-detail-page.tsx`
+contains zero `PRO` literals — verified by grep, exit 1. The real badge sites were
+three on `/palette/` and the format tabs in `palette-export-panel.tsx`. Also:
+`brand-system-panel.tsx` keeps its "Pro" pill, because its whole panel really is
+withheld — 0d would have removed an honest badge.
+
+**4. 🔴 Item 2 was not "purely additive", and its stated justification was false.**
+Two separate problems, both measured:
+
+  *The guide links.* `getGuideSeedWord()` indexes `seeds[hash % seeds.length]`, so
+  appending 27 words renumbers it. Of 333 guides, 55 use that fallback and **54 of
+  the 55 would have silently changed which word they link to** — on the content→tool
+  path W1 is currently measuring. Fixed by freezing `GUIDE_SEED_POOL` at 474 while
+  `wordToColorSeeds` grows; verified 0 of 333 changed.
+
+  *The colours.* §3.2 says the pages are "definitionally correct" because the archive
+  defines these colours. **The route does not use the archive** — it renders
+  `generateColorFromWord()`, a hash, and states the result as fact in its FAQ.
+  Measured across all 48 roots: median hue error **86°**, and **22 of 48 more than
+  90° off**. Scarlet rendered cyan; aqua rendered red; fuchsia rendered green. Nine
+  of the 21 already-published root pages were >90° wrong and had been telling
+  visitors that ember is blue and rose is green.
+
+  So the narrow half of item 3 — curating the 48 roots — is a **precondition of item
+  2**, not something to gate on item 2's SEO read-out. Shipped together
+  (`hue-root-colors.ts`). This is not the mood-word curation the review cut: these
+  are the archive's own vocabulary, and every other word keeps the hash byte-for-byte.
+  Owner decided both this and the tool/page coherence question on 2026-09-08.
+
+**Also corrected, from §5 rather than §3:** the analytics write cap is 200/day per
+**caller IP** (`bot-detect.js` → `getRateLimitKey` → `req.ip`), not "per source" as
+§5.4 says. That is why adding `word_paywall_outcome` is safe. And if the tracking
+table exceeds 50,000 callers in a day, new callers pass **unchecked** — the cap
+silently stops applying, which §5 does not mention.
+
+**What item 1 did not need:** "verify the price is on the wall and comes from
+checkout-config" was already true at HEAD. No change made.
+
+Owner decisions taken on 2026-09-08: free unlock → **24-hour pass, existing browsers
+grandfathered**; one-time pass → **deferred** until the wall reads out, because a
+second offer during the measurement window makes the pre-registered comparison
+uninterpretable.
+
+---
+
 ## §1 The five facts this plan is built on
 
 **1.1 Pro is bought as exactly one thing: removal of the word cap.**

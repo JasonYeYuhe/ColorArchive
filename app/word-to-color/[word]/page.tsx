@@ -5,6 +5,7 @@ import { SiteHeader } from "@/src/components/site-header";
 import { StructuredDataScript } from "@/src/components/structured-data-script";
 import { SITE_URL } from "@/src/lib/site-config";
 import { colors } from "@/src/data/colors";
+import { rootColorFor } from "@/src/lib/hue-root-colors";
 import { generateColorFromWord } from "@/src/lib/word-color";
 import { findClosestArchiveColor } from "@/src/lib/color-relationships";
 import { wordToColorFaq } from "@/src/lib/word-color-faq";
@@ -91,10 +92,17 @@ export default async function WordToColorWordPage({ params }: WordPageProps) {
     wordToColorSeeds[(Math.max(0, startIdx) + i + 1) % wordToColorSeeds.length],
   ).filter((w) => w !== word);
 
+  // The 48 hue roots are looked up in the archive, not hashed (see
+  // src/lib/hue-root-colors.ts). Saying "derived with a deterministic hash" on
+  // /word-to-color/coral/ would be a false claim of exactly the kind the
+  // 2026-09-08 hygiene pass existed to remove — so the sentence follows the code.
+  const isArchiveRoot = rootColorFor(word) !== null;
   const faq = [
     {
       question: `What color is the word "${display}"?`,
-      answer: `The word "${word}" maps to ${generated.hex} — ${familyArticle} ${generated.family.toLowerCase()} tone (${generated.rgb}, ${generated.hsl}). ColorArchive derives it with a deterministic hash that runs in the browser, so "${word}" always produces this exact hex code and the same five-shade palette on any device.`,
+      answer: isArchiveRoot
+        ? `The word "${word}" maps to ${generated.hex} — ${familyArticle} ${generated.family.toLowerCase()} tone (${generated.rgb}, ${generated.hsl}). "${display}" is one of the 48 hue families ColorArchive is built from, so this is the archive's own definition of ${word} rather than a hashed result, and it always returns this exact hex code and the same five-shade palette.`
+        : `The word "${word}" maps to ${generated.hex} — ${familyArticle} ${generated.family.toLowerCase()} tone (${generated.rgb}, ${generated.hsl}). ColorArchive derives it with a deterministic hash that runs in the browser, so "${word}" always produces this exact hex code and the same five-shade palette on any device.`,
     },
     ...wordToColorFaq,
   ];

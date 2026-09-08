@@ -1,3 +1,5 @@
+import { readFileSync } from "fs";
+import { join } from "path";
 import { describe, expect, it } from "vitest";
 
 import { colors } from "@/src/data/colors";
@@ -58,6 +60,34 @@ describe("the hue-root map agrees with the archive it quotes", () => {
     // touched. If the override ever leaks past the 48 roots, these move.
     expect(generateColorFromWord("cat")!.hex).toBe("#932A49");
     expect(generateColorFromWord("爱")!.hex).toBe("#B3C379");
+  });
+
+  it("every surface that explains the mechanism admits the exception", () => {
+    // The 2026-09-08 pass removed false claims about what Pro gives you. Adding
+    // a lookup while three pages still say "we hash your word" would introduce a
+    // false claim of the same class, on the route that produced 100% of revenue.
+    // Checked in the BUILT copy, not in a comment: these are the user-visible
+    // strings. birthday-20040303-page.tsx is excluded — its mention is a source
+    // comment about provenance, and its word is a date, never a hue root.
+    const SURFACES = [
+      "src/lib/word-color-faq.ts",
+      "src/components/word-color-generator-page.tsx",
+      "app/word-to-color/[word]/page.tsx",
+    ];
+    for (const rel of SURFACES) {
+      const body = readFileSync(join(__dirname, "..", "..", "..", rel), "utf8");
+      expect(body, `${rel} does not mention the hash at all — has it moved?`).toMatch(
+        /hash/i
+      );
+      expect(
+        /48 (?:color names|hue (?:names|families))|looked up rather than hashed|archive's own definition|isArchiveRoot/i.test(
+          body
+        ),
+        `${rel} tells the visitor their word is hashed, but the 48 archive hue ` +
+          `roots are looked up. Say so, or the page states something the code ` +
+          `does not do.`
+      ).toBe(true);
+    }
   });
 
   it("variants stay coherent with the overridden base", () => {

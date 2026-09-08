@@ -582,9 +582,15 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 >   the generated palette + exports gate behind a `/pro/` CTA + an email-unlock escape
 >   hatch (`CotdSubscribeForm` gained an `onSuccess` callback; unlock persists in
 >   `localStorage`). Client-side & counts only NEW words, so the initial `?q=`/default
->   word, shared links, crawlers, and the 474 static `[word]` pages are unaffected
+>   word, shared links, crawlers, and the static `[word]` pages are unaffected
 >   (SEO-safe). Toggle via `WORD_PAYWALL_ENABLED` / `FREE_GENERATIONS` constants. Fires
->   `word_paywall_hit` / `word_paywall_pro_click` / `word_paywall_email_unlock`.
+>   `word_paywall_hit` / `word_paywall_pro_click` / `word_paywall_email_unlock`, and
+>   since 2026-09-08 one bounded `word_paywall_outcome` per armed gate
+>   ({pro_click, email_unlock, login_click, pro_recognized, left}) — so the ~95%
+>   who do nothing are a recorded outcome instead of an absence.
+> - **The email unlock is a 24-hour pass since 2026-09-08** (was permanent, which
+>   gave away the exact cap Pro charges to remove). Browsers holding the legacy
+>   `"1"` flag keep it forever — `src/lib/word-unlock.ts`.
 > - **$49 pre-order enablement kit**: `docs/preorder-ls-setup-2026-06-15.md` (LS product
 >   + `NEXT_PUBLIC_PREORDER_CHECKOUT_URL` + verify + how to read the signal). Code side
 >   was already done; only the LS-account step remains for the owner.
@@ -597,6 +603,7 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 > - **Color pages now link out to 3 relevant guides each** (was 0) — internal-link
 >   authority to push page-2 guides up.
 > - **474 static per-word pages** at `/word-to-color/[word]/` (+ dynamic OG), linked
+>   *(501 as of 2026-09-08 — the 48 hue roots were added; 27 of them had been 404ing)*
 >   from a hub on the generator index, targeting the site's #1 query family.
 > - **Guide FAQ + query-optimized titles** for the top ~12 guides (FAQPage JSON-LD).
 > - **Guide slugs deduped** at module load (`guides.ts` tail) — 31 dead duplicate
@@ -627,9 +634,9 @@ Each follow-up uses A/B subject-line variants (deterministic hash on email). Var
 | Content | Count |
 |---------|-------|
 | Colors | 5,446 (5,376 chromatic + 70 neutral grays) |
-| Word-to-color pages | 474 static (`/word-to-color/[word]/`) |
-| Saturation bands | 6 (Faint 10%, Muted 18%, Soft 34%, Clear 54%, Vivid 74%, Pure 92%) |
-| Neutral groups | 3 (Warm Gray, Cool Gray, True Gray) |
+| Word-to-color pages | 501 static (`/word-to-color/[word]/`) — 474 curated seeds + the 48 hue roots (2026-09-08) |
+| Chroma bands | 8 (Faint 10, Muted 18, Dust 26, Soft 34, Clear 54, Vivid 74, Bright 84, Pure 92) — corrected 2026-09-08; the table said 6 and omitted Dust and Bright |
+| Neutral groups | 5 (Warm Gray, Taupe Gray, True Gray, Sage Gray, Cool Gray) — corrected 2026-09-08; the table said 3 and omitted Taupe and Sage. 5 × 14 lightness = the 70 neutrals |
 | Collections | 261 |
 | Palette packs | 7 (USD $9–$129) |
 | SEO guides | 333 (364 authored, 31 dropped by the duplicate-slug dedupe in guides.ts) |

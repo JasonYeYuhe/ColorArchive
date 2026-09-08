@@ -13,7 +13,7 @@ export const wordToColorFaq: WordColorFaqItem[] = [
   {
     question: "How does the word to color generator work?",
     answer:
-      "It normalizes your text and runs a deterministic hash entirely in your browser — no API and no server. That hash maps to stable hue, saturation, and lightness values, producing one base color plus five tonal variants.",
+      "It normalizes your text and runs a deterministic hash entirely in your browser — no API and no server. That hash maps to stable hue, saturation, and lightness values, producing one base color plus five tonal variants. The one exception is the 48 color names the archive itself is built from — coral, teal, indigo and the rest — which return that family's own defined color instead of a hashed one, because for those words there is a right answer.",
   },
   {
     question: "Will the same word always produce the same color?",
