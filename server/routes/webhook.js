@@ -537,21 +537,35 @@ router.post("/subscription-payment", (req, res) => {
       // revenue in /admin, and leaving a phantom that a refund cannot clear
       // because subscription-revoke flags a single key.
       const twinLike = orderKey.startsWith("lsinv_") ? "lsord_%" : "lsinv_%";
+      // COALESCE(twin_consumed,0) = 0 makes the pairing 1:1. Without it the
+      // lookup asks "does an opposite-prefix row exist?" rather than "is THIS
+      // charge already paired?", so a single row absorbs every later charge in
+      // its window — measured: one lsord_ row swallowed three distinct invoices,
+      // leaving one order row for four charges. A lone leg is not exotic: every
+      // renewal is one, so a cancel-and-resubscribe at the same price inside 30
+      // minutes would have dropped a genuine signup charge.
       const twin = db
         .prepare(
-          `SELECT order_id FROM orders
+          `SELECT id, order_id FROM orders
             WHERE LOWER(email) = LOWER(?)
               AND amount = ?
               AND currency = ?
               AND order_id LIKE ?
               AND COALESCE(is_test, 0) = ?
+              AND COALESCE(twin_consumed, 0) = 0
               AND created_at >= datetime('now', '-30 minutes')
+            ORDER BY id
             LIMIT 1`,
         )
         .get(orderEmail, amount, orderCurrency, twinLike, isTest);
       if (twin) {
-        // The twin already wrote the row AND extended the entitlement; doing
-        // either again is the defect.
+        // Consume the pairing, and record the key we are suppressing so a refund
+        // issued against THAT id can still find the surviving row — otherwise
+        // refunding by invoice id flags nothing and the money stays in revenue.
+        db.prepare("UPDATE orders SET twin_consumed = 1, twin_order_id = ? WHERE id = ?").run(
+          orderKey,
+          twin.id,
+        );
         isDuplicateCharge = true;
         return;
       }
@@ -637,8 +651,15 @@ router.post("/subscription-revoke", (req, res) => {
         // orders — would then protect it forever: ¥19,999 back in the customer's
         // pocket and Pro retained for good.
         db.prepare(
-          "UPDATE orders SET refunded = 1, refunded_at = datetime('now') WHERE order_id IN (?, ?, ?, ?) OR payment_intent = ?"
-        ).run(`lsinv_${lsId}`, `lsord_${lsId}`, `lifetime_${lsId}`, String(lsId), String(lsId));
+          "UPDATE orders SET refunded = 1, refunded_at = datetime('now') "
+          // twin_order_id: the key of a charge that was suppressed as a duplicate.
+          // A refund quoting THAT id must still flag the surviving row, or the
+          // money stays inside COALESCE(refunded,0)=0 revenue forever.
+          + "WHERE order_id IN (?, ?, ?, ?) OR payment_intent = ? OR twin_order_id IN (?, ?, ?, ?)"
+        ).run(
+          `lsinv_${lsId}`, `lsord_${lsId}`, `lifetime_${lsId}`, String(lsId), String(lsId),
+          `lsinv_${lsId}`, `lsord_${lsId}`, `lifetime_${lsId}`, String(lsId),
+        );
       }
 
       // Entitlement: order_refunded can be a PACK/pre-order refund found via the

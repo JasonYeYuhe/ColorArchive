@@ -267,6 +267,18 @@ ensureColumn("users", "provider_subscription_id TEXT");
 // dashboards + growth metrics filter synthetic/test-mode activity
 // out of the real numbers. 0 = real, 1 = test.
 ensureColumn("orders", "is_test INTEGER DEFAULT 0");
+// Twin-pairing state for /webhooks/subscription-payment. One charge arrives as
+// both lsord_<order id> and lsinv_<invoice id> with no shared identifier, so the
+// pairing is inferred; these columns make it 1:1 (a matched row is consumed and
+// cannot absorb a second charge) and keep the suppressed key findable so a refund
+// issued against EITHER id still flags the surviving row.
+ensureColumn("orders", "twin_consumed INTEGER DEFAULT 0");
+ensureColumn("orders", "twin_order_id TEXT");
+// Bounds for the share-reward credit grant (routes/me.js). Without them the
+// endpoint mints credits on every call, so one free account can loop it and
+// exhaust the site-wide AI budget for everybody, paying users included.
+ensureColumn("users", "share_awards_total INTEGER DEFAULT 0");
+ensureColumn("users", "share_award_last_day TEXT");
 ensureColumn("users", "is_test INTEGER DEFAULT 0");
 ensureColumn("subscribers", "is_test INTEGER DEFAULT 0");
 

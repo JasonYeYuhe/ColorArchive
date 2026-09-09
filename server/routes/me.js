@@ -132,10 +132,13 @@ router.get("/subscription", (req, res) => {
     tier: user.tier,
     status: outStatus,
     plan: outPlan,
-    // pro_expires_at IS the renewal date for a provider that never fills
-    // subscription_current_period_end. Falling back to it is strictly more
-    // information than the null the client used to render as a missing row.
-    currentPeriodEnd: user.subscription_current_period_end ?? user.pro_expires_at,
+    // Deliberately NOT falling back to pro_expires_at here. They are different
+    // facts: this is the date the card is charged, pro_expires_at is the
+    // entitlement clock and carries a +3 day grace (webhook.js adds it, and the
+    // Apple path does too). Conflating them made the page state a renewal date
+    // three days after the real charge — replacing a missing statement with a
+    // wrong one. Both fields are sent; the client labels them differently.
+    currentPeriodEnd: user.subscription_current_period_end,
     cancelAtPeriodEnd: !!user.subscription_cancel_at_period_end,
     provider,
     providerCustomerId,
@@ -256,11 +259,48 @@ router.get("/referral", (req, res) => {
 });
 
 router.post("/referral/share", (req, res) => {
-  // Award credits for sharing (best-effort, called when share intent fires)
+  // Award credits for sharing (best-effort, called when share intent fires).
+  //
+  // BOUNDED, because this mints spendable AI credits and registration is a free
+  // magic link. Unbounded, a signed-in free account could POST this in a loop and
+  // buy itself unlimited generations — and since AI spend is capped globally by
+  // ai-budget.js, exhausting it returns 503 to EVERY caller, including the
+  // subscribers whose advertised benefit is unlimited generations. One caller
+  // could burn the whole daily budget in a few hours.
+  //
+  // The client fires this on share INTENT, which it cannot verify happened, so
+  // the grant is capped rather than trusted: once per UTC day, and never more
+  // than SHARE_AWARD_LIFETIME_CAP times in total.
   const SHARE_CREDITS = 2;
-  db.prepare("UPDATE users SET credits = credits + ? WHERE id = ?").run(SHARE_CREDITS, req.user.id);
-  const user = db.prepare("SELECT credits FROM users WHERE id = ?").get(req.user.id);
-  return res.json({ ok: true, credits: user.credits });
+  const SHARE_AWARD_LIFETIME_CAP = 10;
+
+  const u = db
+    .prepare("SELECT credits, share_awards_total, share_award_last_day FROM users WHERE id = ?")
+    .get(req.user.id);
+  const today = new Date().toISOString().slice(0, 10);
+  const alreadyToday = u?.share_award_last_day === today;
+  const atCap = (u?.share_awards_total ?? 0) >= SHARE_AWARD_LIFETIME_CAP;
+
+  if (alreadyToday || atCap) {
+    // Still 200: the client fires this as best-effort telemetry on a share intent
+    // and must not surface an error for hitting a cap it cannot see.
+    return res.json({
+      ok: true,
+      credits: u?.credits ?? 0,
+      awarded: 0,
+      reason: alreadyToday ? "already-awarded-today" : "lifetime-cap-reached",
+    });
+  }
+
+  db.prepare(
+    `UPDATE users SET
+       credits = credits + ?,
+       share_awards_total = COALESCE(share_awards_total, 0) + 1,
+       share_award_last_day = ?
+     WHERE id = ?`,
+  ).run(SHARE_CREDITS, today, req.user.id);
+  const after = db.prepare("SELECT credits FROM users WHERE id = ?").get(req.user.id);
+  return res.json({ ok: true, credits: after.credits, awarded: SHARE_CREDITS });
 });
 
 // --- API Key Management ---

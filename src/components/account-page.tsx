@@ -246,10 +246,21 @@ function SubscriptionSection() {
   // had already been locked out — the copy and the entitlement disagreed.
   const accessEnded = sub.tier !== "pro";
 
-  const periodEnd = sub.currentPeriodEnd ?? sub.proExpiresAt;
-  const renewDate = periodEnd
-    ? new Date(typeof periodEnd === "number" ? periodEnd * 1000 : periodEnd).toLocaleDateString()
-    : null;
+  // pro_expires_at === null beside tier 'pro' IS the lifetime marker (see
+  // server/lifetime.js). Without this the page reads a lifetime holder's stale
+  // monthly period-end and tells the ¥19,999 customer their access "expires" on a
+  // date in the past — the single worst thing this card could say.
+  const isLifetime = sub.tier === "pro" && sub.proExpiresAt === null;
+
+  const fmt = (v: string | number) =>
+    new Date(typeof v === "number" ? v * 1000 : v).toLocaleDateString();
+
+  // The date the card is actually charged. Only currentPeriodEnd is that date;
+  // proExpiresAt is the entitlement clock and includes a +3 day grace, so it is
+  // shown under its own label rather than passed off as a renewal date.
+  const billingDate = !isLifetime && sub.currentPeriodEnd ? fmt(sub.currentPeriodEnd) : null;
+  const accessUntil = !isLifetime && !billingDate && sub.proExpiresAt ? fmt(sub.proExpiresAt) : null;
+  const renewDate = billingDate ?? accessUntil;
 
   return (
     <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm p-6">
@@ -258,32 +269,49 @@ function SubscriptionSection() {
         <div className="flex items-center justify-between">
           <span className="text-xs text-slate-500 dark:text-slate-400">Plan</span>
           <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 capitalize">
-            {sub.plan ?? (sub.provider === "apple" ? "App Store" : "—")}
+            {isLifetime ? "Lifetime" : (sub.plan ?? (sub.provider === "apple" ? "App Store" : "—"))}
           </span>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-xs text-slate-500 dark:text-slate-400">Status</span>
           <span className={`text-xs font-semibold capitalize ${
-            // With status null, fall back to the entitlement itself rather than
-            // painting an unknown state orange — `tier` is the value that
-            // actually decides access, and it is never null.
-            (sub.status ?? (sub.tier === "pro" ? "active" : "inactive")) === "active" ||
-            sub.status === "trialing"
+            // Colour follows the ENTITLEMENT, never the raw provider status. The
+            // two disagree in both directions: a cancelled-but-still-paid
+            // subscriber reads "cancelled" while access is live, and a stale
+            // 'active' used to render green directly above "Your Pro access has
+            // ended". `tier` is what actually decides access and is never null.
+            sub.tier === "pro"
               ? "text-emerald-600 dark:text-emerald-400"
               : "text-orange-600 dark:text-orange-400"
           }`}>
-            {sub.status ?? (sub.tier === "pro" ? "active" : "inactive")}
+            {isLifetime ? "active" : (sub.status ?? (sub.tier === "pro" ? "active" : "inactive"))}
           </span>
         </div>
-        {renewDate && (
+        {isLifetime ? (
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-slate-500 dark:text-slate-400">Expires</span>
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Never</span>
+          </div>
+        ) : renewDate ? (
           <div className="flex items-center justify-between">
             <span className="text-xs text-slate-500 dark:text-slate-400">
-              {accessEnded ? "Ended" : sub.cancelAtPeriodEnd ? "Expires" : "Renews"}
+              {accessEnded
+                ? "Ended"
+                : sub.cancelAtPeriodEnd
+                  ? "Expires"
+                  : billingDate
+                    ? "Renews"
+                    : "Access until"}
             </span>
             <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{renewDate}</span>
           </div>
-        )}
-        {accessEnded ? (
+        ) : null}
+        {isLifetime ? (
+          <p className="text-xs text-slate-500 dark:text-slate-400 pt-1">
+            You own Pro outright — there is nothing to renew, and cancelling any
+            subscription you may still have does not affect it.
+          </p>
+        ) : accessEnded ? (
           <p className="text-xs text-slate-500 dark:text-slate-400 pt-1">
             Your Pro access has ended{renewDate ? ` (${renewDate})` : ""} and you&apos;re back on the
             free plan.{" "}

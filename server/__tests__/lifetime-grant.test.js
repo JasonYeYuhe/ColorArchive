@@ -17,82 +17,34 @@
  * A grant path may raise tier, but must never replace that NULL with a date.
  */
 
+// MUST come before ../db: install() swaps better-sqlite3 for node:sqlite in
+// memory and stubs ../email, so requiring db.js builds the real schema against a
+// throwaway database and nothing can send mail.
+require("./support/route-harness").install();
+
 const test = require("node:test");
 const assert = require("node:assert");
-const Module = require("node:module");
-const { DatabaseSync } = require("node:sqlite");
-
-process.env.INTERNAL_WEBHOOK_SECRET = "test-secret-at-least-16-chars";
-
-// --- better-sqlite3 -> node:sqlite, always in memory -------------------------
-class Shim {
-  constructor() {
-    this.db = new DatabaseSync(":memory:");
-  }
-  prepare(sql) {
-    return this.db.prepare(sql);
-  }
-  exec(sql) {
-    return this.db.exec(sql);
-  }
-  pragma(s) {
-    try {
-      this.db.exec(`PRAGMA ${s}`);
-    } catch {
-      /* WAL etc. are meaningless in memory */
-    }
-  }
-  transaction(fn) {
-    return (...args) => {
-      this.db.exec("BEGIN");
-      try {
-        const r = fn(...args);
-        this.db.exec("COMMIT");
-        return r;
-      } catch (e) {
-        this.db.exec("ROLLBACK");
-        throw e;
-      }
-    };
-  }
-}
-
-const emailStub = new Proxy({}, { get: () => async () => ({ ok: true }) });
-const origLoad = Module._load;
-Module._load = function (request, ...rest) {
-  if (request === "better-sqlite3") return Shim;
-  if (request === "../email" || request === "./email") return emailStub;
-  return origLoad.call(this, request, ...rest);
-};
 
 const db = require("../db");
 const { hasLifetimeEntitlement } = require("../lifetime");
 const router = require("../routes/webhook");
+const { callRoute } = require("./support/route-harness");
 
-/** Invoke a route handler directly, bypassing the internal-secret middleware. */
-function post(path, body) {
-  const layer = router.stack.find((l) => l.route && l.route.path === path);
-  assert.ok(layer, `route ${path} not found — renamed?`);
-  let payload = null;
-  let code = 200;
-  const res = {
-    json(b) {
-      payload = b;
-      return res;
-    },
-    status(c) {
-      code = c;
-      return res;
-    },
-  };
-  layer.route.stack[layer.route.stack.length - 1].handle({ body, headers: {} }, res, (e) => {
-    if (e) throw e;
-  });
-  return { code, payload };
-}
+/** Local shim kept for readability: every call here is a POST webhook. */
+const post = (path, body) => callRoute(router, "post", path, { body });
 
 function reset() {
-  for (const t of ["users", "orders"]) db.prepare(`DELETE FROM ${t}`).run();
+  // Children before parents (foreign_keys is ON), and assert it worked — a reset
+  // that silently fails leaks rows between cases and quietly weakens every
+  // assertion downstream.
+  for (const t of ["apple_purchases", "projects", "sessions", "magic_link_tokens", "orders", "users"]) {
+    try {
+      db.prepare(`DELETE FROM ${t}`).run();
+    } catch (e) {
+      if (!/no such table/i.test(String(e && e.message))) throw e;
+    }
+  }
+  assert.equal(db.prepare("SELECT COUNT(*) AS n FROM users").get().n, 0, "reset() did not empty users");
 }
 
 /** A lifetime buyer who ALSO still has the monthly subscription running. */

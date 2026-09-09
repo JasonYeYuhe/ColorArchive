@@ -89,7 +89,7 @@ test("one initial charge arriving as two LS events writes ONE order row", () => 
   ).run();
 
   // order_created for a subscription variant -> lsord_<order id>
-  callRoute(webhook, "/subscription-payment", {
+  callRoute(webhook, "post", "/subscription-payment", {
     body: {
       email: "dup@example.com",
       lsOrderId: "9000001",
@@ -101,7 +101,7 @@ test("one initial charge arriving as two LS events writes ONE order row", () => 
     },
   });
   // subscription_payment_success for the SAME money -> lsinv_<invoice id>
-  const second = callRoute(webhook, "/subscription-payment", {
+  const second = callRoute(webhook, "post", "/subscription-payment", {
     body: {
       email: "dup@example.com",
       invoiceId: "8000001",
@@ -130,10 +130,10 @@ test("a genuinely different charge is still recorded (dedupe must not eat revenu
      VALUES ('two@example.com', 'free', 'monthly', 'cus_two')`,
   ).run();
 
-  callRoute(webhook, "/subscription-payment", {
+  callRoute(webhook, "post", "/subscription-payment", {
     body: { email: "two@example.com", invoiceId: "inv_a", customerId: "cus_two", amountMinor: 49900, currency: "JPY" },
   });
-  callRoute(webhook, "/subscription-payment", {
+  callRoute(webhook, "post", "/subscription-payment", {
     body: { email: "two@example.com", lsOrderId: "ord_b", customerId: "cus_two", amountMinor: 399900, currency: "JPY" },
   });
 
@@ -158,15 +158,21 @@ test("/me/subscription fills plan, status and renewal for an Apple subscriber", 
      VALUES (?, 'me.colorarchive.pro.yearly', 'txn_9', '2026-09-01', 'active')`,
   ).run(id);
 
-  const out = callRoute(me, "/subscription", { user: { id } });
+  const out = callRoute(me, "get", "/subscription", { user: { id } });
   assert.ok(out.body, "/me/subscription returned null for a Pro Apple user");
   assert.equal(out.body.provider, "apple");
   assert.equal(out.body.plan, "yearly", "Plan rendered as an empty cell for Apple subscribers");
   assert.equal(out.body.status, "active", "Status rendered as an empty cell for Apple subscribers");
+  // currentPeriodEnd stays null on purpose: it means "the date the card is
+  // charged", which Apple never gives us. proExpiresAt is the entitlement clock
+  // (with a +3 day grace) and is what the client renders, under its own
+  // "Access until" label. Conflating the two on the server stated a renewal date
+  // three days after the real charge.
+  assert.equal(out.body.currentPeriodEnd, null, "the charge date must not be faked from the entitlement clock");
   assert.equal(
-    out.body.currentPeriodEnd,
+    out.body.proExpiresAt,
     FUTURE,
-    "no renewal row was shown at all, even though the server was holding a usable expiry",
+    "the client needs the entitlement clock to render an access date at all",
   );
 });
 
@@ -181,12 +187,95 @@ test("the admin dashboard counts Pro through effectiveTier, not raw tier", () =>
   db.prepare(`INSERT INTO users (email, tier, pro_expires_at) VALUES ('c@x.com','pro',?)`).run(PAST);
   db.prepare(`INSERT INTO users (email, tier, pro_expires_at) VALUES ('d@x.com','free',NULL)`).run();
 
-  const out = callRoute(admin, "/autopilot-status", {});
+  const out = callRoute(admin, "get", "/autopilot-status", {});
   assert.ok(out.body, "the admin handler returned nothing");
   assert.equal(
     out.body.commerce.pro_users_total,
     2,
     `reported ${out.body.commerce.pro_users_total} Pro users; effectiveTier says 2 (one dated-future, one ` +
       `lifetime NULL). The expired row is stale because its owner never came back.`,
+  );
+});
+
+// ------------------------------------- regressions found by the final audit ---
+
+test("the twin pairing is 1:1 — one order leg cannot absorb several invoices", () => {
+  reset();
+  db.prepare(`INSERT INTO users (email, tier, provider_customer_id) VALUES ('n1@x.com','free','cus_n')`).run();
+  const charge = (key, extra) =>
+    callRoute(webhook, "post", "/subscription-payment", {
+      body: { email: "n1@x.com", customerId: "cus_n", amountMinor: 49900, currency: "JPY", ...extra, ...key },
+    });
+
+  charge({ lsOrderId: "ORD_1" }); // a lone order leg
+  charge({ invoiceId: "INV_1" }); // its real twin -> correctly suppressed
+  charge({ invoiceId: "INV_2" }); // a DIFFERENT charge -> must NOT be suppressed
+  charge({ invoiceId: "INV_3" }); // and neither must this one
+
+  assert.equal(
+    db.prepare("SELECT COUNT(*) AS n FROM orders").get().n,
+    3,
+    "one row absorbed every later charge in its window — the lookup asked 'does a twin exist' " +
+      "rather than 'is this charge already paired', so real revenue was dropped",
+  );
+});
+
+test("a refund quoting the SUPPRESSED key still flags the surviving row", () => {
+  reset();
+  db.prepare(`INSERT INTO users (email, tier, provider_customer_id) VALUES ('r@x.com','free','cus_r')`).run();
+  callRoute(webhook, "post", "/subscription-payment", {
+    body: { email: "r@x.com", lsOrderId: "ORD_R", customerId: "cus_r", amountMinor: 49900, currency: "JPY" },
+  });
+  callRoute(webhook, "post", "/subscription-payment", {
+    body: { email: "r@x.com", invoiceId: "INV_R", customerId: "cus_r", amountMinor: 49900, currency: "JPY" },
+  });
+
+  callRoute(webhook, "post", "/subscription-revoke", {
+    body: { email: "r@x.com", reason: "subscription_payment_refunded", lsId: "INV_R", customerId: "cus_r" },
+  });
+
+  const row = db.prepare("SELECT refunded FROM orders WHERE order_id = 'lsord_ORD_R'").get();
+  assert.equal(
+    row.refunded,
+    1,
+    "the refund quoted the invoice id, which was suppressed as a duplicate — without twin_order_id " +
+      "nothing matches and refunded money stays inside the revenue totals forever",
+  );
+});
+
+test("the share reward is bounded — a loop cannot mint unlimited AI credits", () => {
+  reset();
+  db.prepare(`INSERT INTO users (email, tier, credits) VALUES ('spam@x.com','free',0)`).run();
+  const id = db.prepare("SELECT id FROM users WHERE email = 'spam@x.com'").get().id;
+
+  for (let i = 0; i < 25; i++) callRoute(me, "post", "/referral/share", { user: { id } });
+
+  const credits = db.prepare("SELECT credits FROM users WHERE id = ?").get(id).credits;
+  assert.ok(
+    credits <= 2,
+    `25 calls minted ${credits} credits. Registration is a free magic link and credits buy AI ` +
+      `generations against a GLOBAL daily budget, so an unbounded grant lets one free account 503 ` +
+      `the AI for every user, paying subscribers included.`,
+  );
+});
+
+// ------------------------------------------------ the harness guards itself ---
+
+test("callRoute refuses to run the wrong verb's handler", () => {
+  const { callRoute: cr } = require("./support/route-harness");
+  assert.throws(
+    () => cr(me, "post", "/subscription", { user: { id: 1 } }),
+    /not found/,
+    "matching on path alone silently ran whichever verb was registered first, so a POST test " +
+      "could pass while never reaching the POST branch",
+  );
+});
+
+test("the sqlite shim rejects a statement with too few bound values", () => {
+  assert.throws(
+    () => db.prepare("SELECT * FROM users WHERE email = ? AND tier = ?").get("a@x.com"),
+    /expected 2, got 1/,
+    "node:sqlite binds NULL for a missing parameter where better-sqlite3 throws — a shim more " +
+      "permissive than production lets a broken INSERT ship green",
   );
 });
