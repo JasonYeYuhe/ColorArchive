@@ -150,8 +150,12 @@ function ApiKeySection() {
 type BillingProvider = "stripe" | "lemonsqueezy" | "paddle" | "apple" | "paypal";
 
 interface SubscriptionInfo {
-  plan: string;
-  status: string;
+  /** Nullable in fact, not just in theory: the subscription_* columns are written
+   *  by the Lemon Squeezy webhook path only, so an Apple subscriber can arrive
+   *  with both of these null. The old non-null types were a cast, never a
+   *  validation, so TypeScript happily rendered "Plan" beside an empty cell. */
+  plan: string | null;
+  status: string | null;
   /** Live entitlement, already expiry-corrected server-side by getSessionUser().
    *  This — not `status` — is what decides whether access is actually gone. */
   tier: UserTier;
@@ -161,6 +165,9 @@ interface SubscriptionInfo {
   providerCustomerId: string | null;
   /** Legacy alias — prefer providerCustomerId. Kept for the old Stripe portal path. */
   stripeCustomerId: string | null;
+  /** The live entitlement clock. The server has always sent it; declaring it is
+   *  what lets the renewal row fall back to it instead of rendering nothing. */
+  proExpiresAt: string | null;
 }
 
 const LS_CUSTOMER_PORTAL = "https://colorarchive.lemonsqueezy.com/billing";
@@ -239,8 +246,9 @@ function SubscriptionSection() {
   // had already been locked out — the copy and the entitlement disagreed.
   const accessEnded = sub.tier !== "pro";
 
-  const renewDate = sub.currentPeriodEnd
-    ? new Date(typeof sub.currentPeriodEnd === "number" ? sub.currentPeriodEnd * 1000 : sub.currentPeriodEnd).toLocaleDateString()
+  const periodEnd = sub.currentPeriodEnd ?? sub.proExpiresAt;
+  const renewDate = periodEnd
+    ? new Date(typeof periodEnd === "number" ? periodEnd * 1000 : periodEnd).toLocaleDateString()
     : null;
 
   return (
@@ -249,16 +257,22 @@ function SubscriptionSection() {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <span className="text-xs text-slate-500 dark:text-slate-400">Plan</span>
-          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 capitalize">{sub.plan}</span>
+          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 capitalize">
+            {sub.plan ?? (sub.provider === "apple" ? "App Store" : "—")}
+          </span>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-xs text-slate-500 dark:text-slate-400">Status</span>
           <span className={`text-xs font-semibold capitalize ${
-            sub.status === "active" || sub.status === "trialing"
+            // With status null, fall back to the entitlement itself rather than
+            // painting an unknown state orange — `tier` is the value that
+            // actually decides access, and it is never null.
+            (sub.status ?? (sub.tier === "pro" ? "active" : "inactive")) === "active" ||
+            sub.status === "trialing"
               ? "text-emerald-600 dark:text-emerald-400"
               : "text-orange-600 dark:text-orange-400"
           }`}>
-            {sub.status}
+            {sub.status ?? (sub.tier === "pro" ? "active" : "inactive")}
           </span>
         </div>
         {renewDate && (

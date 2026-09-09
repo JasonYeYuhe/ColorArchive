@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const router = express.Router();
 const db = require("../db");
 const { requireUser, getSessionUser } = require("../auth");
+const { effectiveTier } = require("../entitlement");
 
 const FREE_PROJECT_LIMIT = 3;
 
@@ -21,9 +22,21 @@ function requireUserOrApiKey(req, res, next) {
   if (apiKey) {
     const crypto = require("crypto");
     const hash = crypto.createHash("sha256").update(apiKey).digest("hex");
-    const user = db.prepare("SELECT id, email, created_at, tier FROM users WHERE api_key_hash = ?").get(hash);
+    const user = db
+      .prepare("SELECT id, email, created_at, tier, pro_expires_at FROM users WHERE api_key_hash = ?")
+      .get(hash);
     if (user) {
-      req.user = user;
+      // The API-key path must answer "is this account Pro?" exactly as the session
+      // path does. It used to read users.tier raw, and the self-heal in auth.js
+      // only runs on a SESSION request — so a lapsed subscriber who never opens the
+      // site again keeps tier='pro' in the DB indefinitely (production has rows
+      // sitting like that for 36 days) and their key skipped the free project cap
+      // forever, while the same account was correctly free in the browser.
+      const resolved = effectiveTier({ tier: user.tier, proExpiresAt: user.pro_expires_at });
+      if (resolved.expired) {
+        db.prepare("UPDATE users SET tier = 'free' WHERE id = ?").run(user.id);
+      }
+      req.user = { ...user, tier: resolved.tier };
       return next();
     }
     return res.status(401).json({ error: "Invalid API key" });

@@ -516,19 +516,56 @@ router.post("/subscription-payment", (req, res) => {
   }
 
   const orderKey = invoiceId ? `lsinv_${invoiceId}` : `lsord_${lsOrderId}`;
+  const orderEmail = email || user?.email || "unknown";
+  const orderCurrency = (currency || "JPY").toLowerCase();
   let isReplay = false;
+  let isDuplicateCharge = false;
   try {
     db.transaction(() => {
+      // ONE charge reaches this route TWICE, under two different keys: LS sends
+      // order_created (forwarded as lsord_<order id>) and, 1-2 minutes later,
+      // subscription_payment_success (forwarded as lsinv_<invoice id>). Verified
+      // against the production raw-event log, not assumed: the order payload
+      // carries customer_id only, the invoice carries subscription_id +
+      // customer_id, and NEITHER carries the other's id — so INSERT OR IGNORE on
+      // order_id cannot see they are the same money.
+      //
+      // Nothing but the ¥0 short-circuit above has been stopping the double
+      // count: every order_created in that log has total = 0 because the variant
+      // has a free trial. Remove the trial, or ship the yearly plan that charges
+      // at checkout, and one signup writes two rows for one charge — doubling
+      // revenue in /admin, and leaving a phantom that a refund cannot clear
+      // because subscription-revoke flags a single key.
+      const twinLike = orderKey.startsWith("lsinv_") ? "lsord_%" : "lsinv_%";
+      const twin = db
+        .prepare(
+          `SELECT order_id FROM orders
+            WHERE LOWER(email) = LOWER(?)
+              AND amount = ?
+              AND currency = ?
+              AND order_id LIKE ?
+              AND COALESCE(is_test, 0) = ?
+              AND created_at >= datetime('now', '-30 minutes')
+            LIMIT 1`,
+        )
+        .get(orderEmail, amount, orderCurrency, twinLike, isTest);
+      if (twin) {
+        // The twin already wrote the row AND extended the entitlement; doing
+        // either again is the defect.
+        isDuplicateCharge = true;
+        return;
+      }
+
       const inserted = db.prepare(
         `INSERT OR IGNORE INTO orders (order_id, email, product, amount, amount_minor, currency, pack_id, payment_intent, is_test)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
       ).run(
         orderKey,
-        email || user?.email || "unknown",
+        orderEmail,
         `Pro ${resolvedPlan}`,
         amount,
         typeof amountMinor === "number" ? amountMinor : null,
-        (currency || "JPY").toLowerCase(),
+        orderCurrency,
         `pro-${resolvedPlan}`,
         invoiceId || lsOrderId || null,
         isTest,
@@ -572,8 +609,11 @@ router.post("/subscription-payment", (req, res) => {
     return res.status(500).json({ error: "db" });
   }
 
-  console.log(`[webhook] subscription-payment: ${orderKey} ¥${amount} ${billingReason || ""} user=${user?.id ?? "unmatched"}${isReplay ? " (replay — ignored)" : ""}`);
-  return res.json({ ok: true, replay: isReplay });
+  console.log(
+    `[webhook] subscription-payment: ${orderKey} ¥${amount} ${billingReason || ""} user=${user?.id ?? "unmatched"}` +
+      `${isReplay ? " (replay — ignored)" : ""}${isDuplicateCharge ? " (same charge already recorded under the twin key — ignored)" : ""}`,
+  );
+  return res.json({ ok: true, replay: isReplay, duplicateCharge: isDuplicateCharge });
 });
 
 // POST /webhooks/subscription-revoke

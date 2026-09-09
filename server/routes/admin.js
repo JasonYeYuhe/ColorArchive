@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 const { requireAnalyticsAccess } = require("../auth");
+const { effectiveTier } = require("../entitlement");
 const { findCatalogProduct, getDownloadUrl, getPackUrl } = require("../catalog");
 const { sendOrderConfirmationEmail } = require("../email");
 const pinterestAdmin = require("../pinterest-admin");
@@ -151,14 +152,22 @@ router.get("/autopilot-status", (req, res) => {
 
   // Commerce: pulled from the DB that webhook.js writes to on every LS event.
   // Defaults to real rows only; pass ?includeTest=true to see test-mode too.
-  const proUsersTotal = db
-    .prepare(`SELECT COUNT(*) AS n FROM users WHERE tier = 'pro'${testFilter}`)
-    .get().n;
-  const newProLast7d = db
-    .prepare(
-      `SELECT COUNT(*) AS n FROM users WHERE tier = 'pro' AND created_at >= ?${testFilter}`
-    )
-    .get(sevenDaysAgo).n;
+  // Counted through effectiveTier(), NOT `WHERE tier = 'pro'`. The raw column is
+  // stale by design: auth.js only rewrites it to 'free' when that user makes a
+  // session request, so a lapsed subscriber who never returns sits at tier='pro'
+  // indefinitely. Reading it raw reported 7 Pro users where the entitlement rule
+  // says 4 — the dashboard disagreed with what the product actually grants.
+  //
+  // Filtering in JS rather than SQL keeps ONE definition of "is Pro" (the SQL
+  // would be a second, drifting copy, and pro_expires_at is stored in mixed
+  // formats that do not compare reliably as strings). Fine at this table size;
+  // revisit if users grows by orders of magnitude.
+  const proCandidates = db
+    .prepare(`SELECT created_at, tier, pro_expires_at FROM users WHERE tier = 'pro'${testFilter}`)
+    .all()
+    .filter((u) => effectiveTier({ tier: u.tier, proExpiresAt: u.pro_expires_at }).tier === "pro");
+  const proUsersTotal = proCandidates.length;
+  const newProLast7d = proCandidates.filter((u) => u.created_at >= sevenDaysAgo).length;
   const ordersLast7d = db
     .prepare(`SELECT COUNT(*) AS n FROM orders WHERE created_at >= ?${testFilter}`)
     .get(sevenDaysAgo).n;
@@ -180,13 +189,16 @@ router.get("/autopilot-status", (req, res) => {
   // own next refresh.
   const duplicates = db
     .prepare(
-      `SELECT id, email, subscription_plan, card_fingerprint, duplicate_suspects, created_at
+      `SELECT id, email, subscription_plan, card_fingerprint, duplicate_suspects, created_at, pro_expires_at
        FROM users
        WHERE is_duplicate = 1
          AND tier = 'pro'${testFilter}
        ORDER BY created_at DESC LIMIT 25`
     )
     .all()
+    // Same reason as the Pro counts above: "CURRENTLY on Pro" is effectiveTier's
+    // question, and a stale tier='pro' row would keep a resolved alert on screen.
+    .filter((row) => effectiveTier({ tier: "pro", proExpiresAt: row.pro_expires_at }).tier === "pro")
     .map((row) => {
       let suspectIds = [];
       try { suspectIds = JSON.parse(row.duplicate_suspects || "[]"); } catch { /* ignore */ }

@@ -107,11 +107,35 @@ router.get("/subscription", (req, res) => {
     providerCustomerId = user.provider_customer_id || user.stripe_customer_id || null;
   }
 
+  // An Apple subscriber has none of the subscription_* columns — those are written
+  // by the Lemon Squeezy webhook path only — so /account rendered "Plan" and
+  // "Status" beside empty cells and showed no renewal row at all, while the server
+  // was holding a perfectly good expiry in pro_expires_at that the client never
+  // read. Fill them from what the Apple path DOES record.
+  let outStatus = user.subscription_status;
+  let outPlan = user.subscription_plan;
+  if (provider === "apple") {
+    const purchase = db
+      .prepare(
+        `SELECT product_id, status FROM apple_purchases
+          WHERE original_transaction_id = ? ORDER BY id DESC LIMIT 1`,
+      )
+      .get(user.apple_original_transaction_id ?? "");
+    if (!outStatus && purchase?.status) outStatus = purchase.status;
+    if (!outPlan && purchase?.product_id) {
+      const pid = String(purchase.product_id).toLowerCase();
+      outPlan = pid.includes("year") ? "yearly" : pid.includes("life") ? "lifetime" : "monthly";
+    }
+  }
+
   return res.json({
     tier: user.tier,
-    status: user.subscription_status,
-    plan: user.subscription_plan,
-    currentPeriodEnd: user.subscription_current_period_end,
+    status: outStatus,
+    plan: outPlan,
+    // pro_expires_at IS the renewal date for a provider that never fills
+    // subscription_current_period_end. Falling back to it is strictly more
+    // information than the null the client used to render as a missing row.
+    currentPeriodEnd: user.subscription_current_period_end ?? user.pro_expires_at,
     cancelAtPeriodEnd: !!user.subscription_cancel_at_period_end,
     provider,
     providerCustomerId,
