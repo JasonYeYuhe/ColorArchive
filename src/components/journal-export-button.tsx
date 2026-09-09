@@ -34,10 +34,18 @@ export function JournalExportButton({
   monthLabel,
   countOverride,
 }: Props) {
-  const { tier } = useAuth();
+  const { tier, status, sessionError } = useAuth();
   const exportRef = useRef<HTMLDivElement>(null);
   const [exporting, setExporting] = useState(false);
-  const isPro = tier === "pro";
+  // "unknown is not no" — the same rule ProGate applies (see pro-gate.tsx and
+  // src/lib/pro-gate-policy.ts). AuthProvider reports a FAILED session request as
+  // tier="anonymous", and it starts at "anonymous" before the round-trip
+  // finishes. Reading that as "not a subscriber" burns "Made with
+  // colorarchive.org" into a paying customer's export — silently, with nothing
+  // afterwards to tell them, by which point they may have sent the file to a
+  // client. Every other paid surface already fails open here; this one did not.
+  const resolved = status !== "loading" && !sessionError;
+  const isPro = tier === "pro" || !resolved;
 
   const handleExport = async () => {
     if (!exportRef.current || exporting) return;

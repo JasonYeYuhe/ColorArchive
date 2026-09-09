@@ -279,3 +279,32 @@ test("the sqlite shim rejects a statement with too few bound values", () => {
       "permissive than production lets a broken INSERT ship green",
   );
 });
+
+test("a suppressed duplicate still extends the entitlement clock", () => {
+  reset();
+  db.prepare(
+    `INSERT INTO users (email, tier, subscription_plan, pro_expires_at, provider_customer_id)
+     VALUES ('ext@x.com','free','monthly',NULL,'cus_e')`,
+  ).run();
+  const id = db.prepare("SELECT id FROM users WHERE email = 'ext@x.com'").get().id;
+
+  callRoute(webhook, "post", "/subscription-payment", {
+    body: { email: "ext@x.com", lsOrderId: "ORD_E", customerId: "cus_e", amountMinor: 49900, currency: "JPY" },
+  });
+  const afterFirst = db.prepare("SELECT pro_expires_at FROM users WHERE id = ?").get(id).pro_expires_at;
+  db.prepare("UPDATE users SET pro_expires_at = NULL, tier = 'free' WHERE id = ?").run(id);
+
+  // The twin leg — suppressed as a duplicate order, but the money was real.
+  callRoute(webhook, "post", "/subscription-payment", {
+    body: { email: "ext@x.com", invoiceId: "INV_E", customerId: "cus_e", amountMinor: 49900, currency: "JPY" },
+  });
+
+  const row = db.prepare("SELECT tier, pro_expires_at FROM users WHERE id = ?").get(id);
+  assert.ok(afterFirst, "sanity: the first leg should have set a clock");
+  assert.equal(row.tier, "pro");
+  assert.ok(
+    row.pro_expires_at,
+    "the pairing is INFERRED from email+amount+window, so a wrong match must not leave a customer " +
+      "who was genuinely charged with an unmoved clock — they would expire while still paying",
+  );
+});

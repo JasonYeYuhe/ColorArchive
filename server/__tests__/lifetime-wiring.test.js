@@ -85,3 +85,40 @@ test("a refunded lifetime order is reachable by the refund flagger", () => {
     "the refund flagger does not match lifetime order ids, so a refunded lifetime would keep Pro forever",
   );
 });
+
+/**
+ * GRANT sites. Added 2026-09-09 after an audit observed that this file only ever
+ * looked at the three REVOCATION routes — and the defect that actually shipped
+ * was in a grant branch: a subscription renewal overwrote a lifetime's
+ * pro_expires_at = NULL with a dated clock, and every test here stayed green.
+ *
+ * Executing these is covered for the Lemon Squeezy pair by lifetime-grant.test.js.
+ * The Apple paths need a full JWS-verified notification to execute, so they get
+ * the cheap structural half: the branch must at least mention the guard. That is
+ * weaker than execution and is written down so nobody mistakes it for proof.
+ */
+test("the Apple grant branches consult the lifetime guard", () => {
+  for (const kase of ["DID_RENEW", "SUBSCRIBED"]) {
+    const start = apple.indexOf(`case "${kase}":`);
+    assert.notEqual(start, -1, `${kase} branch not found — renamed?`);
+    const body = apple.slice(start, start + 900);
+    assert.ok(
+      /keepsLifetime\s*\?/.test(body),
+      `${kase} writes pro_expires_at without asking whether the user holds a lifetime purchase. ` +
+        `An Apple renewal would replace a Lemon Squeezy lifetime's NULL with a dated clock, and ` +
+        `the customer expires once they stop the App Store subscription.`,
+    );
+  }
+});
+
+test("the Apple purchase-verification grant consults the lifetime guard", () => {
+  const authSrc = readFileSync(join(ROOT, "routes/auth.js"), "utf8");
+  const start = authSrc.indexOf("lifetime → proExpiresAt stays null");
+  assert.notEqual(start, -1, "the apple-purchase grant comment moved — re-anchor this test");
+  const body = authSrc.slice(start, start + 700);
+  assert.ok(
+    body.includes("hasLifetimeEntitlement"),
+    "/auth/apple-purchase writes pro_expires_at with no lifetime guard, so buying an Apple " +
+      "subscription silently converts an existing lifetime purchase into one that expires.",
+  );
+});

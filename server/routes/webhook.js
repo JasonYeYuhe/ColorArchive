@@ -567,10 +567,9 @@ router.post("/subscription-payment", (req, res) => {
           twin.id,
         );
         isDuplicateCharge = true;
-        return;
       }
 
-      const inserted = db.prepare(
+      const inserted = isDuplicateCharge ? { changes: 0 } : db.prepare(
         `INSERT OR IGNORE INTO orders (order_id, email, product, amount, amount_minor, currency, pack_id, payment_intent, is_test)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
       ).run(
@@ -588,7 +587,14 @@ router.post("/subscription-payment", (req, res) => {
       // INSERT OR IGNORE with changes=0 — record nothing AND touch no
       // entitlement, otherwise a replay could resurrect a cancelled/refunded
       // Pro account whose pro_expires_at was NULLed.
-      isReplay = inserted.changes === 0;
+      // A suppressed twin is not a replay: the money is real, we simply decline
+      // to record it a second time.
+      isReplay = !isDuplicateCharge && inserted.changes === 0;
+      // Deliberately runs for a suppressed duplicate too. The pairing is INFERRED
+      // (the two LS payloads share no identifier), so a wrong match must not be
+      // able to leave a customer who was genuinely charged with an unmoved clock —
+      // they would expire while paying. Extending twice is harmless because the
+      // CASE below never shortens.
       if (user && !isReplay) {
         // Extend the clock generously; the follow-up subscription_updated event
         // snaps it to the exact renews_at. Never SHORTEN an existing expiry.
