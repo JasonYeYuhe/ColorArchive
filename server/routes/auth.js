@@ -18,6 +18,7 @@ const {
 } = require("../auth");
 const { sendMagicLinkEmail } = require("../email");
 const { getRateLimitKey } = require("../client-ip");
+const { hasLifetimeEntitlement } = require("../lifetime");
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.org";
 
 // --- Simple in-memory rate limiter for auth endpoints ---
@@ -455,6 +456,12 @@ router.post("/apple-purchase", async (req, res) => {
         proExpiresAt = d.toISOString();
       }
       // lifetime → proExpiresAt stays null (no expiration)
+
+      // An Apple subscription purchase must not overwrite an existing Lemon
+      // Squeezy lifetime. Same defect as the LS renewal path: NULL is the only
+      // thing that records "forever", so a dated Apple expiry silently converts
+      // a lifetime purchase into a subscription that later expires.
+      if (hasLifetimeEntitlement(db, user.id)) proExpiresAt = null;
 
       db.prepare(`
         UPDATE users SET

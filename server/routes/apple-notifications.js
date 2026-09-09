@@ -105,7 +105,12 @@ router.post("/v2", async (req, res) => {
         // 3-day grace as before but NEVER yields null: writing tier='pro' beside
         // a NULL pro_expires_at means auth.js can never expire this user, which
         // is the failure-open hole the web checkout path was fixed to close.
-        const proExpiresAt = renewalExpiry(txn.expiresDate);
+        // keepsLifetime (hoisted above the switch) is a VERIFIED lifetime purchase,
+        // so writing NULL here is the marker, not the failure-open hole the comment
+        // above warns about: auth.js is meant never to expire a lifetime holder.
+        // Without this, an Apple renewal replaces a Lemon Squeezy lifetime's NULL
+        // with a dated clock and the purchase quietly becomes a subscription.
+        const proExpiresAt = keepsLifetime ? null : renewalExpiry(txn.expiresDate);
 
         db.prepare(`
           UPDATE users SET tier = 'pro', pro_expires_at = ? WHERE id = ?
@@ -216,7 +221,12 @@ router.post("/v2", async (req, res) => {
       case "SUBSCRIBED": {
         // Initial subscription or resubscribe. See DID_RENEW above for why this
         // must not be able to produce null.
-        const proExpiresAt = renewalExpiry(txn.expiresDate);
+        // keepsLifetime (hoisted above the switch) is a VERIFIED lifetime purchase,
+        // so writing NULL here is the marker, not the failure-open hole the comment
+        // above warns about: auth.js is meant never to expire a lifetime holder.
+        // Without this, an Apple renewal replaces a Lemon Squeezy lifetime's NULL
+        // with a dated clock and the purchase quietly becomes a subscription.
+        const proExpiresAt = keepsLifetime ? null : renewalExpiry(txn.expiresDate);
 
         db.prepare(`
           UPDATE users SET tier = 'pro', pro_expires_at = ? WHERE id = ?

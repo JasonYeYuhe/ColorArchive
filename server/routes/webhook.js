@@ -244,6 +244,11 @@ router.post("/subscription-checkout", async (req, res) => {
   }
 
   if (user) {
+    // A lifetime holder who starts (or restarts) a subscription must keep both
+    // halves of the marker: pro_expires_at = NULL, and subscription_plan =
+    // 'lifetime' — the latter because it is the ONLY record of a MANUAL lifetime
+    // grant, which has no order row for hasLifetimeEntitlement() to find.
+    const holdsLifetime = hasLifetimeEntitlement(db, user.id);
     db.prepare(
       `UPDATE users SET
         tier = 'pro',
@@ -260,9 +265,9 @@ router.post("/subscription-checkout", async (req, res) => {
         duplicate_suspects = ?
       WHERE id = ?`
     ).run(
-      plan || "monthly",
+      holdsLifetime ? "lifetime" : plan || "monthly",
       subscriptionStatus,
-      proExpiresAt,
+      holdsLifetime ? null : proExpiresAt,
       subscriptionId || null,
       paymentProvider,
       subscriptionId || null,
@@ -490,12 +495,18 @@ router.post("/subscription-payment", (req, res) => {
   const isTest = testMode ? 1 : 0;
   const amount = typeof amountMinor === "number" ? Math.round(amountMinor / 100) : 0;
   const user = findSubscriptionUser({ subscriptionId, customerId, email });
-  const resolvedPlan =
-    plan ||
-    (user
-      ? db.prepare("SELECT subscription_plan FROM users WHERE id = ?").get(user.id)?.subscription_plan
-      : null) ||
-    "monthly";
+  // NB: the fallback deliberately refuses to inherit "lifetime". A lifetime buyer
+  // who still has a monthly subscription carries subscription_plan='lifetime' on
+  // their user row, and app/api/webhook/route.ts sends no `plan` for
+  // subscription_payment_success — so the old fallback filed their ¥499 renewal as
+  // pack_id='pro-lifetime'. That both misreported revenue and, because
+  // hasLifetimeEntitlement() counts UNREFUNDED pro-lifetime orders, meant refunding
+  // the real ¥19,999 purchase no longer revoked anything: the phantom renewal row
+  // kept the guard true. This route only ever handles subscription invoices.
+  const inheritedPlan = user
+    ? db.prepare("SELECT subscription_plan FROM users WHERE id = ?").get(user.id)?.subscription_plan
+    : null;
+  const resolvedPlan = plan || (inheritedPlan === "lifetime" ? null : inheritedPlan) || "monthly";
 
   // ¥0 initial order = free-trial signup, not money. Never materialize it as an
   // order row (that phantom was exactly what confused the gate metrics).
@@ -532,16 +543,28 @@ router.post("/subscription-payment", (req, res) => {
         // snaps it to the exact renews_at. Never SHORTEN an existing expiry.
         const horizonDays = resolvedPlan === "yearly" ? 370 : 35;
         const candidate = new Date(Date.now() + horizonDays * 86400000).toISOString();
-        db.prepare(
-          `UPDATE users SET
-            tier = 'pro',
-            subscription_status = 'active',
-            pro_expires_at = CASE
-              WHEN pro_expires_at IS NULL OR pro_expires_at < ? THEN ?
-              ELSE pro_expires_at
-            END
-          WHERE id = ?`
-        ).run(candidate, candidate, user.id);
+        // The guard has to run BEFORE the CASE below, not inside it. A lifetime
+        // purchase is stored as pro_expires_at = NULL, and the CASE reads NULL as
+        // "no expiry set yet" — so for a lifetime holder whose monthly subscription
+        // renews once, "forever" silently became now+35d. They then cancel the
+        // monthly (which correctly holds the tier but never restores the NULL) and
+        // 35 days later effectiveTier() expires a ¥19,999 customer.
+        if (hasLifetimeEntitlement(db, user.id)) {
+          db.prepare(
+            `UPDATE users SET tier = 'pro', subscription_status = 'active', pro_expires_at = NULL WHERE id = ?`
+          ).run(user.id);
+        } else {
+          db.prepare(
+            `UPDATE users SET
+              tier = 'pro',
+              subscription_status = 'active',
+              pro_expires_at = CASE
+                WHEN pro_expires_at IS NULL OR pro_expires_at < ? THEN ?
+                ELSE pro_expires_at
+              END
+            WHERE id = ?`
+          ).run(candidate, candidate, user.id);
+        }
       }
     })();
   } catch (err) {

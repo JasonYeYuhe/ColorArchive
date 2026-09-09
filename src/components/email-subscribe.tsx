@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useLocale } from "@/src/components/locale-provider";
 import { API_URL } from "@/src/lib/api-config";
+import { attributionForSubscribe } from "@/src/lib/attribution";
+import { track } from "@/src/lib/track";
 
 type SubscribeState = "idle" | "loading" | "success" | "error";
 
@@ -17,15 +19,37 @@ export function EmailSubscribe() {
 
     setState("loading");
     try {
-      const res = await fetch(
-        `${API_URL}/api/newsletter/subscribe`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: email.trim() }),
-        }
-      );
+      // The server mounts /subscribe — there has never been an
+      // /api/newsletter/subscribe, so every submission from this form 404'd and
+      // showed "something went wrong". The empty list read as "nobody wants the
+      // newsletter"; it was a broken form.
+      //
+      // `notes: true` is load-bearing, not decoration. subscribe.js defaults it
+      // to false and only sets notes_subscribed when the caller passes true,
+      // while the weekly sender selects WHERE notes_subscribed = 1. Posting
+      // without it would return 200 and show the success state while the
+      // subscriber joined no list and never received the weekly issue this
+      // form's own copy promises — the 2026-09-07 defect, and worse than the
+      // 404 because the visitor cannot see it fail.
+      const res = await fetch(`${API_URL}/subscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email.trim(),
+          source: "homepage-digest",
+          notes: true,
+          ...attributionForSubscribe(),
+        }),
+      });
       if (!res.ok) throw new Error("Subscribe failed");
+      let isNew = true;
+      try {
+        const body = await res.json();
+        if (typeof body?.isNewSubscriber === "boolean") isNew = body.isNewSubscriber;
+      } catch {
+        /* non-JSON success — keep the optimistic default */
+      }
+      track("email_subscribed", { source: "homepage-digest", list: "notes", isNew });
       setState("success");
       setEmail("");
     } catch {
