@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "fs";
+import { existsSync, readdirSync, readFileSync } from "fs";
 import { describe, expect, it } from "vitest";
 
 /**
@@ -35,7 +35,7 @@ const RETIRED = [
     why: "the component behind that route. Harmless alone, but its presence is how the route gets rebuilt.",
   },
   {
-    path: "app/api/billing-portal/route.ts",
+    path: "app/api/billing-portal",
     why:
       "the Stripe billing-portal proxy, retired 2026-09-08. Stripe is dead (LS live " +
       "since 2026-04-17; verified 2026-09-08 against production: all 5 rows with a " +
@@ -44,7 +44,11 @@ const RETIRED = [
       "api.colorarchive.org, but the session cookie is host-only (no Domain= in " +
       "server/auth.js buildCookie), so the forward carried no session and 401'd, " +
       "and the caller silently ignored the error. Do not revive it as a template " +
-      "for a real billing route — the cookie forward is the part that is broken.",
+      "for a real billing route — the cookie forward is the part that is broken. "+
+      "PINNED AS THE DIRECTORY, not route.ts: Next resolves route.{js,jsx,ts,tsx} and "+
+      "next.config.ts sets no pageExtensions, so a filename pin is revived by simply "+
+      "recreating the handler as route.tsx — byte-identical to the deleted file, and "+
+      "the audit of 2026-09-08 confirmed it serves while the guard stays green.",
   },
 ];
 
@@ -58,12 +62,33 @@ describe("retired routes stay retired", () => {
   // The second half of the billing-portal retirement. Deleting the route while a
   // client still POSTs to it turns a silent no-op into a 404 no-op — no better.
   // A guard that only checks the file is a guard for half the defect.
-  it("no client code still calls /api/billing-portal", () => {
-    const account = readFileSync("src/components/account-page.tsx", "utf8");
-    // Match the CALL, not the mention: the retirement is documented in a comment
-    // in that same file, and a guard that fires on its own documentation trains
-    // people to delete the documentation.
-    expect(account).not.toMatch(/fetch\(\s*["'`]\/api\/billing-portal/);
+  it("no client code anywhere still calls /api/billing-portal", () => {
+    // Scans the WHOLE client tree, not just account-page.tsx. The first version of
+    // this guard read that one file, and the 2026-09-08 audit demonstrated two
+    // ordinary reintroductions that left it green: moving the call into another
+    // component, and hoisting the path into a const.
+    const files: string[] = [];
+    const walk = (dir: string) => {
+      for (const e of readdirSync(dir, { withFileTypes: true })) {
+        if (e.name === "node_modules" || e.name.startsWith(".")) continue;
+        const full = `${dir}/${e.name}`;
+        if (e.isDirectory()) walk(full);
+        else if (/\.(ts|tsx|js|jsx)$/.test(e.name)) files.push(full);
+      }
+    };
+    walk("src");
+    walk("app");
+
+    // Match the PATH as a string literal, wherever it appears in code — a hoisted
+    // const is the realistic reintroduction. Comments are stripped first so the
+    // retirement's own documentation cannot trip its guard.
+    const offenders = files.filter((f) => {
+      const code = readFileSync(f, "utf8")
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/^\s*\/\/.*$/gm, "");
+      return /["'`]\/api\/billing-portal/.test(code);
+    });
+    expect(offenders, `these files still reference the retired route: ${offenders.join(", ")}`).toEqual([]);
   });
 
   it("the replacement redirect is still configured", () => {
