@@ -308,3 +308,55 @@ test("a suppressed duplicate still extends the entitlement clock", () => {
       "who was genuinely charged with an unmoved clock — they would expire while still paying",
   );
 });
+
+test("the duplicate advisory clears when the COUNTERPART lapses, not just the flagged row", () => {
+  reset();
+  const admin = require("../routes/admin");
+  const live = new Date(Date.now() + 30 * 86400000).toISOString();
+  // The suspect id must be the REAL one: sqlite AUTOINCREMENT keeps its high-water
+  // mark across DELETE, so a hardcoded '[2]' resolves to nobody and the assertion
+  // below passes whether or not the filter works — which is exactly what the first
+  // version of this test did.
+  db.prepare(`INSERT INTO users (email, tier, pro_expires_at) VALUES ('lapsed@x.com','pro',?)`).run(PAST);
+  const lapsedId = db.prepare("SELECT id FROM users WHERE email = 'lapsed@x.com'").get().id;
+  db.prepare(
+    `INSERT INTO users (email, tier, pro_expires_at, is_duplicate, duplicate_suspects, card_fingerprint)
+     VALUES ('flagged@x.com','pro',?,1,?,'visa:3816')`,
+  ).run(live, JSON.stringify([lapsedId]));
+
+  // Sanity: the id really does resolve, so an empty result below means the FILTER
+  // worked and not that the lookup found nothing.
+  assert.ok(db.prepare("SELECT 1 FROM users WHERE id = ?").get(lapsedId), "suspect id must exist");
+
+  const out = callRoute(admin, "get", "/autopilot-status", {});
+  const adv = out.body.commerce.suspected_duplicates;
+  assert.equal(adv.length, 1, "the flagged row is still entitled, so the row itself stays");
+  assert.deepEqual(
+    adv[0].suspects,
+    [],
+    "the counterpart lapsed 36 days ago, but the banner still called it 'another active Pro user'",
+  );
+});
+
+test("a pre-order charge is stored in major units, like every other order row", () => {
+  reset();
+  callRoute(webhook, "post", "/order-completed", {
+    body: {
+      email: "pre@x.com",
+      packId: "preorder-auditor",
+      paymentIntent: "9999",
+      provider: "lemonsqueezy",
+      amountTotal: 499900, // Lemon Squeezy ships minor units: this is ¥4,999
+      currency: "JPY",
+      attributedSource: "preorder",
+    },
+  });
+  const row = db.prepare("SELECT amount FROM orders WHERE email = 'pre@x.com'").get();
+  assert.ok(row, "no order row was written");
+  assert.equal(
+    row.amount,
+    4999,
+    `stored ${row.amount}. Every other order writer divides by 100, so the raw value shows in ` +
+      `/admin as ¥499,900 and is emailed to the buyer as a ¥499,900 receipt, permanently.`,
+  );
+});

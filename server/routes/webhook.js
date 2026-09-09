@@ -55,6 +55,12 @@ router.use(verifyInternal);
 // Called by Next.js webhook route after Stripe checkout.session.completed
 router.post("/order-completed", async (req, res) => {
   const { sessionId, email, packId, amountTotal, currency, paymentIntent, attributedSource } = req.body;
+  // Lemon Squeezy ships `total` in MINOR units (JPY x100), and the forwarder passes
+  // it through untouched. The `amount` column holds MAJOR units everywhere else —
+  // /subscription-payment divides by 100 — so writing the raw value here stored a
+  // ¥4,999 pre-order as 499900: shown in /admin as ¥499,900 and emailed to the
+  // buyer as a ¥499,900 receipt, with nothing to reconcile it afterwards.
+  const amountMajor = typeof amountTotal === "number" ? Math.round(amountTotal / 100) : 0;
 
   if (!email || !packId) {
     return res.status(400).json({ error: "Missing email or packId" });
@@ -115,7 +121,7 @@ router.post("/order-completed", async (req, res) => {
       orderId,
       email,
       productName,
-      amountTotal || 0,
+      amountMajor,
       currency || "jpy",
       packId,
       downloadUrl,
@@ -151,7 +157,7 @@ router.post("/order-completed", async (req, res) => {
       await sendPreorderConfirmationEmail(email, {
         productName,
         orderId,
-        amount: amountTotal,
+        amount: amountMajor,
         currency: currency || "jpy",
         isTest: Boolean(isTest),
       });
@@ -160,7 +166,7 @@ router.post("/order-completed", async (req, res) => {
         productName,
         downloadUrl,
         orderId,
-        amount: amountTotal,
+        amount: amountMajor,
         currency: currency || "jpy",
       });
     }

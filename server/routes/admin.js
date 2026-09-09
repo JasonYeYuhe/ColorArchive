@@ -202,10 +202,22 @@ router.get("/autopilot-status", (req, res) => {
     .map((row) => {
       let suspectIds = [];
       try { suspectIds = JSON.parse(row.duplicate_suspects || "[]"); } catch { /* ignore */ }
+      // Resolve suspects through the SAME entitlement rule as the flagged row.
+      // Filtering only the flagged side made the advisory clear in one direction
+      // and not the other: when the COUNTERPART lapsed, the amber banner stayed
+      // up describing it as "another active Pro user" — which it no longer was.
+      // A suspect id that no longer exists drops out here too, rather than
+      // rendering a banner with no counterpart shown at all.
       const suspects = suspectIds.length
-        ? db.prepare(
-            `SELECT id, email FROM users WHERE id IN (${suspectIds.map(() => "?").join(",")})`,
-          ).all(...suspectIds)
+        ? db
+            .prepare(
+              `SELECT id, email, tier, pro_expires_at FROM users WHERE id IN (${suspectIds
+                .map(() => "?")
+                .join(",")})`,
+            )
+            .all(...suspectIds)
+            .filter((u) => effectiveTier({ tier: u.tier, proExpiresAt: u.pro_expires_at }).tier === "pro")
+            .map((u) => ({ id: u.id, email: u.email }))
         : [];
       return {
         user_id: row.id,

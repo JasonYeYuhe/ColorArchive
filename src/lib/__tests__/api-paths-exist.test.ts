@@ -17,7 +17,27 @@ import { describe, expect, it } from "vitest";
  * looks at literal paths — a computed path is invisible to it.
  */
 
-const SEGMENT = /\$\{API_URL\}\/([a-zA-Z0-9._-]+)/g;
+// Resolve, PER FILE, which identifiers actually hold the ColorArchive API base —
+// either API_URL imported from api-config, or a local constant assigned from
+// NEXT_PUBLIC_API_URL (color-detail-page.tsx already does the latter as AI_URL,
+// which the first version of this guard could not see). Then match fetches on
+// exactly those.
+//
+// Two earlier attempts are recorded because both failed in instructive ways: the
+// literal `${API_URL}` spelling missed the AI_URL form, and "any name ending in
+// URL" swept in every `${SITE_URL}/...` canonical link in page metadata, which are
+// not requests at all. Composed bases (pinterest.ts builds `${API_URL}/pinterest`
+// then fetches `${API_PROXY}/boards`) are deliberately OUT of scope — resolving
+// them needs real evaluation, and a guard that guesses produces false alarms that
+// get it deleted.
+function apiBaseNames(src: string): string[] {
+  const names = new Set<string>();
+  if (/from\s+["']@\/src\/lib\/api-config["']/.test(src) && /\bAPI_URL\b/.test(src)) names.add("API_URL");
+  for (const m of src.matchAll(/const\s+([A-Za-z_$][\w$]*)\s*=\s*process\.env\.NEXT_PUBLIC_API_URL/g)) {
+    names.add(m[1]);
+  }
+  return [...names];
+}
 
 function sourceFiles(): string[] {
   const out: string[] = [];
@@ -51,8 +71,11 @@ describe("client API paths exist on the server", () => {
     const offenders: string[] = [];
     for (const file of sourceFiles()) {
       const src = readFileSync(file, "utf8");
-      for (const m of src.matchAll(SEGMENT)) {
-        if (!mounted.has(m[1])) offenders.push(`${file} -> \${API_URL}/${m[1]}`);
+      for (const base of apiBaseNames(src)) {
+        const rx = new RegExp(`fetch\\(\\s*\`\\$\\{\\s*${base}\\s*\\}\\/([a-zA-Z0-9._-]+)`, "g");
+        for (const m of src.matchAll(rx)) {
+          if (!mounted.has(m[1])) offenders.push(`${file} -> \${${base}}/${m[1]}`);
+        }
       }
     }
     expect(
