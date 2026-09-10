@@ -114,10 +114,13 @@ router.get("/subscription", (req, res) => {
   // read. Fill them from what the Apple path DOES record.
   let outStatus = user.subscription_status;
   let outPlan = user.subscription_plan;
+  let outCancelAtPeriodEnd = !!user.subscription_cancel_at_period_end;
+  let outPeriodEnd = user.subscription_current_period_end;
+
   if (provider === "apple") {
     const purchase = db
       .prepare(
-        `SELECT product_id, status FROM apple_purchases
+        `SELECT product_id, status, expires_date, auto_renew_status FROM apple_purchases
           WHERE original_transaction_id = ? ORDER BY id DESC LIMIT 1`,
       )
       .get(user.apple_original_transaction_id ?? "");
@@ -126,6 +129,26 @@ router.get("/subscription", (req, res) => {
       const pid = String(purchase.product_id).toLowerCase();
       outPlan = pid.includes("year") ? "yearly" : pid.includes("life") ? "lifetime" : "monthly";
     }
+
+    // Turning auto-renew off in the App Store used to be INVISIBLE here. Apple's
+    // DID_CHANGE_RENEWAL_STATUS notification writes apple_purchases.auto_renew_status
+    // and nothing else, while cancelAtPeriodEnd was read only from
+    // users.subscription_cancel_at_period_end — a column no Apple path ever writes.
+    // Measured: /me/subscription returned a byte-identical payload before and after
+    // the real notification handler ran, so a subscriber who had cancelled and one
+    // who had not rendered the same card, and the "you keep Pro until …" paragraph
+    // never fired for Apple. auto_renew_status had exactly one writer and zero
+    // readers in the whole tree.
+    if (purchase && purchase.auto_renew_status !== null && purchase.auto_renew_status !== undefined) {
+      outCancelAtPeriodEnd = Number(purchase.auto_renew_status) === 0;
+    }
+
+    // expires_date is Apple's real end-of-period — the date the card is charged
+    // when auto-renew is on — whereas pro_expires_at carries our +3 day grace.
+    // Also: never let a STALE subscription_current_period_end left behind by an
+    // earlier Lemon Squeezy subscription describe an Apple one. That was the last
+    // surviving route to telling an Apple canceller "Renews".
+    outPeriodEnd = purchase?.expires_date ?? null;
   }
 
   return res.json({
@@ -138,8 +161,8 @@ router.get("/subscription", (req, res) => {
     // Apple path does too). Conflating them made the page state a renewal date
     // three days after the real charge — replacing a missing statement with a
     // wrong one. Both fields are sent; the client labels them differently.
-    currentPeriodEnd: user.subscription_current_period_end,
-    cancelAtPeriodEnd: !!user.subscription_cancel_at_period_end,
+    currentPeriodEnd: outPeriodEnd,
+    cancelAtPeriodEnd: outCancelAtPeriodEnd,
     provider,
     providerCustomerId,
     // Legacy alias for old clients that haven't upgraded yet; do not use in new code

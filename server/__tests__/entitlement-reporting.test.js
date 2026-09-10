@@ -360,3 +360,64 @@ test("a pre-order charge is stored in major units, like every other order row", 
       `/admin as ¥499,900 and is emailed to the buyer as a ¥499,900 receipt, permanently.`,
   );
 });
+
+// ------------------------------------------ Apple auto-renew visibility -------
+
+const APPLE_EXPIRY = "2026-10-01T00:00:00.000Z";
+
+function seedApple({ autoRenew }) {
+  reset();
+  db.prepare(
+    `INSERT INTO users (email, tier, payment_provider, apple_original_transaction_id, pro_expires_at,
+                        subscription_current_period_end)
+     VALUES ('ios@x.com','pro','apple','txn_A',?,NULL)`,
+  ).run("2026-10-04T00:00:00.000Z"); // pro_expires_at = Apple expiry + our 3-day grace
+  const id = db.prepare("SELECT id FROM users WHERE email = 'ios@x.com'").get().id;
+  db.prepare(
+    `INSERT INTO apple_purchases (user_id, product_id, original_transaction_id, transaction_date,
+                                  status, expires_date, auto_renew_status)
+     VALUES (?, 'me.colorarchive.pro.monthly', 'txn_A', '2026-09-01', 'active', ?, ?)`,
+  ).run(id, APPLE_EXPIRY, autoRenew ? 1 : 0);
+  return id;
+}
+
+test("turning auto-renew off in the App Store is visible on the web", () => {
+  const id = seedApple({ autoRenew: false });
+  const out = callRoute(me, "get", "/subscription", { user: { id } });
+  assert.equal(
+    out.body.cancelAtPeriodEnd,
+    true,
+    "the payload was byte-identical whether or not the subscriber had cancelled — Apple's " +
+      "DID_CHANGE_RENEWAL_STATUS writes apple_purchases.auto_renew_status, and nothing read it",
+  );
+});
+
+test("an Apple subscriber who has NOT cancelled is not shown as cancelled", () => {
+  const id = seedApple({ autoRenew: true });
+  const out = callRoute(me, "get", "/subscription", { user: { id } });
+  assert.equal(out.body.cancelAtPeriodEnd, false, "auto-renew is on; nothing has been cancelled");
+});
+
+test("Apple's own expiry is used, not our graced entitlement clock", () => {
+  const id = seedApple({ autoRenew: true });
+  const out = callRoute(me, "get", "/subscription", { user: { id } });
+  assert.equal(
+    out.body.currentPeriodEnd,
+    APPLE_EXPIRY,
+    "pro_expires_at carries a +3 day grace, so using it as the billing date states a charge " +
+      "three days after the card is actually charged",
+  );
+});
+
+test("a stale Lemon Squeezy period end never describes an Apple subscription", () => {
+  const id = seedApple({ autoRenew: false });
+  db.prepare("UPDATE users SET subscription_current_period_end = ? WHERE id = ?")
+    .run("2026-09-30T00:00:00.000Z", id);
+  const out = callRoute(me, "get", "/subscription", { user: { id } });
+  assert.equal(
+    out.body.currentPeriodEnd,
+    APPLE_EXPIRY,
+    "an Apple user carrying a leftover LS period end rendered 'Renews' while auto-renew was off — " +
+      "the last surviving route to the exact string this finding was about",
+  );
+});
