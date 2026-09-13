@@ -4,6 +4,96 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-09-13
+
+> **A billing-repair week with exactly one thing a visitor can see — and it is a good one.** 30 commits, Sep 6 → Sep 13. Counts unchanged for the fifth week running: colors **5,446**, collections **261**, guides **333**, tools **44** — **zero new colors, tools, collections or guides**. The one user-facing change is `/word-to-color/`, and it is the right subject because it is the route every paying customer in site history arrived through.
+>
+> **How this run verified itself.** 🟢 Full suite: **55 files, 876 tests, all passing, 2.16s**. Counts read independently through a `tsx` probe of `src/data/colors`, `src/lib/collections`, `landingGuides` in `src/lib/guides`, and `TOOL_COUNT` in `src/components/tools-page.tsx` — both methods agree. Network to production was available this run and **every claim below was checked against `colorarchive.org`, not against a commit message.** (Minor drift for a future run, same as last week: `CLAUDE.md` still says "44 files … 779 tests". The real figures are now 55 / 876. Not corrected here — editing project instructions is outside this task's remit.)
+>
+> ---
+>
+> **THE POST'S SUBJECT: `/word-to-color/` was telling people that aqua is red.**
+>
+> The page renders `generateColorFromWord()`, a MurmurHash3 of the input string, and its FAQ then states the result as fact — "the word coral maps to #BB21DE, a purple tone". For arbitrary words that is the whole point. For the archive's **own 48 hue-root names** it was simply wrong, and measurably so: **median hue error 86°, 22 of 48 more than 90° off.** The worst were near-complements — scarlet rendered cyan, aqua rendered red, fuchsia rendered green, ember blue, rose green, seafoam red.
+>
+> Two things shipped in `c98e6e7`:
+> - **27 of the 48 roots had no page at all** — coral, teal, indigo, scarlet and 23 more returned **404**, because `[word]/page.tsx` is `dynamicParams = false` and these were never seed words. The seed list goes **474 → 501**.
+> - **The 48 roots are now curated**, mapped to their own `{root}-core-pure` archive record. `generateColorFromWord()` overrides hue, saturation and lightness **for those 48 words only**; hex, rgb, hsl, family and all five variants still derive through the same code path as every other word, and **every non-root word keeps the hash byte-for-byte**.
+>
+> 🟢 **Confirmed live this run, not inferred:**
+> - All seven roots spot-checked — coral, teal, indigo, scarlet, aqua, fuchsia, seafoam — return **200**. They were 404 a week ago.
+> - The rendered colors are the archive's. `/word-to-color/coral/` serves **#EB7A0A**, which is exactly `hsl(30, 92%, 48%)` = `coral-core-pure`; scarlet serves **#EB1D0A** (h=5), aqua **#0AEBEB** (h=180). Recomputed from the curated table and matched against the live HTML.
+> - **The FAQ sentence is fixed on the live page**, which is the part that was actually embarrassing. It now reads: *"coral maps to #EB7A0A, an orange tone (rgb(235, 122, 10), hsl(30, 92%, 48%))."*
+>
+> **21 published pages changed color on purpose.** 21 of the 48 roots were already seed words, so `word-color-seeds.json` moves for exactly those 21 and nothing else — 453 of 474 byte-identical. That fixture exists to stop *silent* recoloring; this is the case it was built to surface, not forbid. 9 of the 21 were more than 90° wrong.
+>
+> **The side effect worth knowing about, because it nearly corrupted a live experiment.** `getGuideSeedWord()` picks a guide's fallback word with `seeds[hashSlug(slug) % seeds.length]` — an index that is a function of list **length**. Appending 27 words renumbers it: of 333 guides, 55 use the fallback and **54 of those 55 would have silently changed which word they link to**, on the content→tool path W1 is currently measuring. The pools are now split — the guide pool stays frozen at 474 while the word-to-color list grows. Verified by diffing all 333 guides: **0 changed.**
+>
+> 🔴 **A near-miss in this run's own draft, recorded so the next run does not repeat it.** The first version of the Facebook copy said *"'cat' is still the same #932A49 it has always been"* — lifted from the commit message, which is true of the **test fixture** and not of the site. `/word-to-color/cat/` returns **404**: the route is `dynamicParams = false`, so only the **501 seed words** have permalinks. Arbitrary words are hashed **client-side on the `/word-to-color/` index**, which returns 200 and whose own copy already states the exception correctly ("hashed locally in the browser — unless it is one of the archive's…"). The claim was cut rather than reworded. **A commit message is not a production check**, and this is the third run in a row to catch an inference standing in for a measurement.
+>
+> ---
+>
+> 🟢 **A STANDING EXCLUSION IS REVERSED: yearly and lifetime are on sale again, with distinct variant links.**
+>
+> Last week's entry said, in bold, *"Do NOT write anything that sends people to buy Pro yearly or lifetime — those buttons are DISABLED and read 'Temporarily unavailable'."* **That is no longer true, and a future run should not copy it forward.** Checked two ways this run:
+> - `/pro/` serves **¥499 / ¥3,999 / ¥19,999** and contains **zero** occurrences of "Temporarily unavailable".
+> - The checkout URLs are not in the HTML, so the deployed JS chunks were grepped — the same technique the Sep 6 run used. All 14 pulled. Three **distinct** variant links are present and correctly labelled: `monthly:` → `771b252b…`, `yearly:` → `afa1271a…`, `lifetime:` → `00e86059…`. All three `NEXT_PUBLIC_PRO_*_CHECKOUT_URL` vars are set in production.
+>
+> **Why this mattered:** yearly and lifetime used to fall back to the monthly link, which is how customer `id41` pressed "yearly" twice on Aug 31 and was charged ¥500 on the **monthly** variant. Three separate links means that specific failure cannot repeat. Note that `monthly` resolves to the same id as the hardcoded product-level fallback — that is why monthly worked all along.
+> 🔵 **Still closed and unchanged:** the ¥9,999 pre-order product (`67cd09e6…`) is `closed: true` in the deployed bundle, as it has been since 2026-07-24.
+>
+> **This does NOT make yearly or lifetime a post subject.** It removes a prohibition; it does not create news. "You can now buy the thing we already advertised" is a confession with a price tag on it.
+>
+> ---
+>
+> **Deliberately excluded, do not add:**
+> 1. **The entire billing and entitlement batch — 24 of this week's 30 commits.** `4dc9465` (a subscription renewal was destroying lifetime purchases), `9c40364`, `5074642` (the journal export burned a watermark into **paying** subscribers' files whenever their session request was slow or failed), `a662a69` (an Apple subscriber cancelling in the App Store was invisible on the web), `578cb73` (pre-order amounts stored 100×), `bc4592d` (the Stripe billing portal was dead code and could not have worked), plus `03ab063`, `1597c08`, `7d397bb`, `b79b900`. This is real, serious, correct work and **none of it is announceable.** Every item is "we were charging you for something that was broken." The correct audience for this list is the three people who paid, in a direct email if any of them was affected — not a Facebook Page.
+> 2. **`b5091b1` / `8a33bb0` / `3ae2112` / `db23cb9` / `a3068e2` — the copy-honesty batch.** Five user-facing strings said free accounts get 3 exports when the policy has been 10 since Aug 18; `/pro/` advertised an export allowance that does not exist; the 特商法 disclosure listed six things the checkout does not do. All now true. Same reason as (1): fixing your own false advertising is not a feature announcement.
+> 3. **`2b19b71` — the free email unlock is now a 24-hour pass instead of permanent.** This is a *takeaway* from the visitor's side, correctly reasoned (subscribing an email was permanently removing the exact cap Pro charges ¥499/mo to remove) and carefully implemented (six grandfathered browsers keep it forever; `JSON.parse("1")` returns `1` rather than throwing, so the obvious implementation would have silently revoked all six). Do not post a tightening as a gift.
+> 4. **`/20040303/` is private and personal.** Standing exclusion, repeated every week on purpose so no future run reading only `git log` mistakes it for a launch. `noindex`, unlinked, never in a public post, newsletter, sitemap or social copy.
+> 5. **iOS v1.4.** Submitted Sep 5, still unannounced. Hold until it actually ships.
+> 6. **Design Notes / the newsletter** (`f6ce214`, `db4978b`, `1f97072`, `b008a15`). Shipped last week, already covered; the recruitment problem is not this week's news.
+>
+> **Owner actions:**
+>
+> (a) 🟢 **Nothing blocking.** Network, tests, production and GitHub were all reachable this run; the Sep 6 run's selective block did not recur.
+>
+> (b) 🔵 **Decide whether the 21 recolored pages need anything said to anyone.** They are live and correct now, but they were publicly wrong for months and some were shared. No action taken — flagging it because it is a judgement call, not a bug.
+>
+> (c) 🔵 **`CLAUDE.md`'s test-count line is two weeks stale** (says 44 files / 779 tests; actual 55 / 876). Harmless, but it is the third consecutive run to notice it, which is the point at which it should either be fixed or deliberately left alone.
+
+### Facebook — ready to post
+
+> **This week at ColorArchive: the word-to-color tool stopped lying about color names.** 🎨
+>
+> Type any word into colorarchive.org/word-to-color and it hashes the letters into a color. That's the whole idea, and for made-up words it works beautifully.
+>
+> For the 48 color names the archive itself is built from, it was just wrong. Badly wrong. **Scarlet came out cyan. Aqua came out red. Fuchsia came out green.** Across all 48, the average miss was 86° around the color wheel — and 22 of them were more than 90° off, which is far enough that you land on the opposite side of the wheel from the color you typed.
+>
+> Two fixes shipped this week:
+>
+> 🟢 **27 of those 48 names had no page at all.** Coral, teal, indigo, scarlet and 23 more returned a 404. They all work now.
+>
+> 🟢 **All 48 now return the archive's actual color.** Type "coral" and you get #EB7A0A — the real coral from the archive, not a hash that happened to land on purple.
+>
+> Every other word still works exactly the way it always has — the hash itself is untouched, byte for byte. Only the 48 names the archive already defines were corrected, because for those there was a right answer all along and we weren't giving it.
+>
+> 👉 colorarchive.org/word-to-color/coral/
+
+### Twitter / X — ready to post
+
+> ColorArchive's word-to-color tool hashes any word into a color.
+>
+> For 48 words it was badly wrong: scarlet came out cyan, aqua came out red, fuchsia came out green. Median miss: 86° around the wheel.
+>
+> Those 48 are the archive's own color names. Now they return the real color — and 27 of them have a page at all for the first time.
+>
+> colorarchive.org/word-to-color/coral/
+
+**Note on step 5 (auto-posting):** not posted. This queue is headed "Facebook (Manual)" by convention, and publishing to a public Page is an outward-facing action taken without the owner present. Copy above is final and needs no editing — paste and post.
+
+---
+
 ## Weekly Roundup — 2026-09-06
 
 > **First week in seven with something a visitor can actually see.** 30 commits, Aug 30 → Sep 6. Counts are still byte-identical to the last four posts — colors **5,446**, collections **261**, guides **333**, tools **44** (43 on-site + the Figma plugin), **zero new colors, tools, collections or guides** — but this week the *existing* product changed in five visible ways, so for the first time since Jul 26 this is a changelog rather than a spotlight.
