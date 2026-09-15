@@ -47,3 +47,17 @@ test("the overdue-renewal warning exists and keeps a quiet day from staying sile
       "not email at all — exactly the day an overdue renewal needs to be mentioned",
   );
 });
+
+test("the Instagram publish check reads the post log and keeps a quiet day from staying silent", () => {
+  assert.ok(src.includes('".post-log.json"'), "the digest no longer reads the scheduler's post log");
+  assert.ok(/\$\{kind\}-\$\{igCheckDate\}/.test(src), "the post-log key format must be `${kind}-YYYY-MM-DD`, as ig-scheduler.js writes it");
+  const send = src.slice(src.indexOf("const hasOpsAlert"), src.indexOf("const shouldSend") + 120);
+  assert.ok(/igProblems\.length/.test(send) && /shouldSend = .*hasOpsAlert/.test(send),
+    "igProblems must count toward the send decision, or a stopped Instagram channel is only mentioned on Mondays");
+});
+
+test("the post-log key format the digest checks is the one ig-scheduler.js actually writes", () => {
+  const sched = readFileSync(join(__dirname, "..", "ig-scheduler.js"), "utf8");
+  assert.ok(sched.includes("`story-${todayStr()}`"), "ig-scheduler.js story key format changed");
+  assert.ok(sched.includes("`post-${todayStr()}`"), "ig-scheduler.js post key format changed");
+});

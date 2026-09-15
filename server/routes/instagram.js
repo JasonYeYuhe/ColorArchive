@@ -23,6 +23,8 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 const { requireAdminBearer } = require("../require-admin-bearer");
+const { constantTimeEqual } = require("../constant-time-eq");
+const { accountSwitchBlocked } = require("../ig-account-guard");
 
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.org";
 
@@ -208,9 +210,25 @@ router.get("/auth/callback", async (req, res) => {
       console.warn("[instagram] Long-lived token exchange failed, using short-lived:", longData);
     }
 
+    // /auth/start and /auth/callback cannot carry the admin bearer (they are a
+    // browser redirect through Instagram), and the state cookie only stops someone
+    // forcing YOUR browser through the flow — not a stranger completing it with their
+    // own account. Whether Meta lets a stranger authorise depends on the app's mode,
+    // which is not visible from here. So: re-authorising the connected account is
+    // always fine, but a different account never silently takes over the brand's
+    // posting. Set INSTAGRAM_ALLOW_ACCOUNT_SWITCH=1 to deliberately change accounts.
+    const incomingUserId = String(tokenData.user_id);
+    if (accountSwitchBlocked(tokenStore.user_id, incomingUserId)) {
+      console.error(
+        `[instagram] Refusing to replace connected account ${tokenStore.user_id} with ${incomingUserId}; ` +
+          `set INSTAGRAM_ALLOW_ACCOUNT_SWITCH=1 to switch deliberately`,
+      );
+      return res.redirect(`${FRONTEND_ORIGIN}/?ig_error=account-mismatch`);
+    }
+
     tokenStore = {
       access_token: finalToken,
-      user_id: String(tokenData.user_id),
+      user_id: incomingUserId,
       expires_at: new Date(Date.now() + expiresIn * 1000).toISOString(),
       token_type: tokenType,
     };
@@ -243,7 +261,7 @@ router.get("/auth/callback", async (req, res) => {
  * Refresh a long-lived token (valid for 60 more days).
  * Should be called by cron/autopilot before expiry.
  */
-router.post("/auth/refresh", async (req, res) => {
+router.post("/auth/refresh", requireAdminBearer, async (req, res) => {
   if (!hasToken()) {
     return res.status(400).json({ error: "No token to refresh" });
   }
@@ -442,9 +460,19 @@ router.get("/webhook", (req, res) => {
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
 
-  if (mode === "subscribe" && token === WEBHOOK_VERIFY_TOKEN) {
+  // 2026-09-16: this was a reflected XSS on the origin that holds the login cookie.
+  // INSTAGRAM_WEBHOOK_VERIFY_TOKEN has never been set, so `token === undefined`
+  // matched a request that simply omitted hub.verify_token, and hub.challenge was
+  // echoed back as text/html. One crafted link opened by a signed-in user ran script
+  // on api.colorarchive.org, where it could read /me and rotate their API key.
+  // Now: refuse outright when unconfigured, compare in constant time, only echo a
+  // challenge that cannot carry markup, and send it as text/plain with nosniff.
+  if (!WEBHOOK_VERIFY_TOKEN) return res.sendStatus(403);
+  const challengeOk = typeof challenge === "string" && /^[A-Za-z0-9._-]{1,128}$/.test(challenge);
+  if (mode === "subscribe" && typeof token === "string" && constantTimeEqual(token, WEBHOOK_VERIFY_TOKEN) && challengeOk) {
     console.log("[instagram] Webhook verified");
-    return res.status(200).send(challenge);
+    res.set("X-Content-Type-Options", "nosniff");
+    return res.status(200).type("text/plain").send(challenge);
   }
   return res.sendStatus(403);
 });
@@ -558,8 +586,13 @@ setInterval(autoRefreshToken, 12 * 60 * 60 * 1000);
 setTimeout(autoRefreshToken, 30 * 1000);
 
 /* ── Manual Trigger Endpoints (for testing) ──── */
+// Behind the admin bearer since 2026-09-16. They were open to anyone: the routes
+// are visible in the public repo, the origin gate lets requests with no Origin
+// through, and a handful of concurrent anonymous POSTs before the scheduler marked
+// the day published would each put a separate post on the brand account — which
+// the Graph API cannot delete.
 
-router.post("/test-story", async (req, res) => {
+router.post("/test-story", requireAdminBearer, async (req, res) => {
   try {
     const { runDailyStory } = require("../ig-scheduler");
     await runDailyStory();
@@ -569,7 +602,7 @@ router.post("/test-story", async (req, res) => {
   }
 });
 
-router.post("/test-post", async (req, res) => {
+router.post("/test-post", requireAdminBearer, async (req, res) => {
   try {
     const { runPeriodicPost } = require("../ig-scheduler");
     await runPeriodicPost();

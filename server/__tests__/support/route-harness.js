@@ -100,7 +100,7 @@ function install() {
 
 /** A res double that records whatever the handler sent. */
 function makeRes() {
-  const out = { code: 200, body: null };
+  const out = { code: 200, body: null, headers: {}, redirect: null };
   const res = {
     json(b) {
       out.body = b;
@@ -114,8 +114,62 @@ function makeRes() {
       out.body = b;
       return res;
     },
+    sendStatus(c) {
+      out.code = c;
+      out.body = String(c);
+      return res;
+    },
+    set(k, v) {
+      out.headers[String(k).toLowerCase()] = v;
+      return res;
+    },
+    type(t) {
+      out.headers["content-type"] = t;
+      return res;
+    },
+    redirect(url) {
+      out.code = 302;
+      out.redirect = url;
+      return res;
+    },
   };
   return { res, out };
+}
+
+/**
+ * Run a route's FULL layer stack — route-level middleware such as
+ * requireAdminBearer, then the handler — stopping at the first layer that answers
+ * without calling next(). callRoute() above invokes only the final handler, which
+ * silently skips auth middleware: a test of "unauthenticated request is refused"
+ * written with it passes whether or not the route is protected.
+ */
+async function callRouteChain(router, method, path, req) {
+  const verb = String(method).toLowerCase();
+  const layer = router.stack.find(
+    (l) => l.route && l.route.path === path && l.route.methods && l.route.methods[verb],
+  );
+  assert.ok(layer, `route ${verb.toUpperCase()} ${path} not found — renamed, or registered under another verb?`);
+  const { res, out } = makeRes();
+  const shaped = {
+    method: verb.toUpperCase(),
+    headers: {},
+    query: {},
+    get(name) {
+      return this.headers[String(name).toLowerCase()];
+    },
+    ...req,
+  };
+  for (const l of layer.route.stack) {
+    if (l.method && l.method !== verb) continue;
+    let advanced = false;
+    const ret = l.handle(shaped, res, (err) => {
+      if (err) throw err;
+      advanced = true;
+    });
+    if (ret && typeof ret.then === "function") await ret;
+    if (!advanced) break;
+  }
+  return out;
 }
 
 /**
@@ -155,4 +209,4 @@ function callMiddleware(router, fnName, req) {
   return { passed, req: shaped, out };
 }
 
-module.exports = { install, callRoute, callMiddleware, makeRes };
+module.exports = { install, callRoute, callRouteChain, callMiddleware, makeRes };

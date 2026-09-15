@@ -489,6 +489,54 @@ const renewalsDue = db.prepare(
     ORDER BY pro_expires_at`
 ).all();
 
+// 📷 INSTAGRAM PUBLISH CHECK — added 2026-09-16.
+//
+// From 2026-08-30 to 09-15 every Instagram image went out with its text as tofu
+// boxes and nothing noticed: sharp rendered, Instagram accepted, every log said
+// success. ig-image-generator.js now REFUSES to render without usable fonts — which
+// turns that failure into Instagram silently posting nothing, unless something reads
+// the result. Nothing did: the refusal is a console.error, and pm2 keeps a week of
+// logs. So the digest checks the one durable record of success, the scheduler's
+// post log. This covers every cause at once — fonts, an expired or revoked token, a
+// Graph API error — because they all end in "no key written for the day".
+//
+// The Story goes out ~01:58 UTC and the Feed post ~03:58 UTC, with hourly retries
+// inside those windows. This cron runs at 08:00 UTC, well after both. If it is run by
+// hand before 05:00 UTC, it checks yesterday instead, so a manual run cannot raise a
+// false alarm about posts that are simply not due yet.
+function readJsonFile(file) {
+  try {
+    return JSON.parse(require("fs").readFileSync(file, "utf8"));
+  } catch {
+    return null;
+  }
+}
+const igCheckDate = new Date(now.getTime() - (now.getUTCHours() < 5 ? 86400000 : 0)).toISOString().slice(0, 10);
+const igPostLog = readJsonFile(path.join(SERVER_DIR, "generated", ".post-log.json"));
+const igProblems = [];
+if (!igPostLog) {
+  igProblems.push("post log generated/.post-log.json is missing or unreadable");
+} else {
+  for (const kind of ["story", "post"]) {
+    if (!igPostLog[`${kind}-${igCheckDate}`]) igProblems.push(`no ${kind === "post" ? "Feed post" : "Story"} published for ${igCheckDate}`);
+  }
+}
+// The token auto-refreshes once it is inside 7 days of expiry (routes/instagram.js
+// autoRefreshToken, every 12h). Still inside 5 days means those refreshes are failing.
+const igToken = readJsonFile(path.join(SERVER_DIR, ".env.instagram"));
+if (igToken && igToken.expires_at && igToken.expires_at !== "never") {
+  const daysLeft = (Date.parse(igToken.expires_at) - now.getTime()) / 86400000;
+  if (Number.isFinite(daysLeft) && daysLeft < 5) {
+    igProblems.push(
+      daysLeft <= 0
+        ? `access token EXPIRED ${igToken.expires_at}`
+        : `access token expires in ${daysLeft.toFixed(1)} days (${igToken.expires_at}) — auto-refresh is not working`,
+    );
+  }
+} else if (!igToken) {
+  igProblems.push("token file .env.instagram is missing or unreadable");
+}
+
 /* ---------------- send decision ---------------- */
 
 const isMonday = now.getUTCDay() === 1;
@@ -504,7 +552,10 @@ const hasMoneyActivity =
   staleRenewals.length > 0 ||
   // Same reasoning: silence on a quiet day is the failure for an overdue renewal.
   overdueRenewals.length > 0;
-const shouldSend = argForce || hasMoneyActivity || isMonday;
+// Not money, but the same property: a day with nothing else to report is exactly the
+// day a stopped Instagram channel would otherwise go unmentioned.
+const hasOpsAlert = igProblems.length > 0;
+const shouldSend = argForce || hasMoneyActivity || hasOpsAlert || isMonday;
 
 /* ---------------- render ---------------- */
 
@@ -534,6 +585,13 @@ if (staleRenewals.length) {
   lines.push("  This person is being denied Pro on every read path (web + API), and auth.js will");
   lines.push("  write tier='free' to their row on their next page load. Check the provider first:");
   lines.push("  a renewal that was never attempted is the provider's problem, not a webhook miss.");
+}
+if (igProblems.length) {
+  lines.push("📷 INSTAGRAM IS NOT PUBLISHING:");
+  for (const p of igProblems) lines.push(`  - ${p}`);
+  lines.push("  Look for the cause in the pm2 error log: 'refusing to render' means the server cannot");
+  lines.push("  draw text (fonts), 'Container creation failed' / 'Publish failed' is the Graph API or");
+  lines.push("  the token. The scheduler retries hourly inside its windows once the cause is fixed.");
 }
 if (overdueRenewals.length) {
   lines.push("⏰ RENEWAL OVERDUE — renewal date passed, provider still says alive, no charge recorded:");
@@ -678,6 +736,7 @@ if (refunds.length) subjectBits.push(`↩︎ ${refunds.length} refund${refunds.l
 if (hardWebhookMiss) subjectBits.push(`⚠️ checkout not recorded`);
 // Unshifted, not pushed: if a paying customer is locked out, that is the first
 // thing the subject line says, ahead of any good news in the same window.
+if (igProblems.length) subjectBits.push(`📷 Instagram not publishing`);
 if (overdueRenewals.length) subjectBits.unshift(`⏰ ${overdueRenewals.length} renewal overdue`);
 if (staleRenewals.length) subjectBits.unshift(`🔴 ${staleRenewals.length} locked out`);
 const subject = subjectBits.length

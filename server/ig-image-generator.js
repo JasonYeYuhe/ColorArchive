@@ -189,7 +189,7 @@ async function svgToPng(svgString, outputFilename) {
   // posts went out unreadable after the 2026-08-29 migration. Throwing here lands
   // in the scheduler's try/catch, which does not mark the day as posted, so the
   // next hourly tick retries once fonts are back. See font-check.js.
-  const fonts = fontsAvailable();
+  const fonts = await fontsAvailable();
   if (!fonts.ok) {
     throw new Error(
       `refusing to render ${outputFilename}: no usable fonts (${fonts.reason}). ` +
