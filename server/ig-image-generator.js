@@ -9,6 +9,7 @@
  */
 
 const sharp = require("sharp");
+const { fontsAvailable } = require("./font-check");
 const fs = require("fs");
 const path = require("path");
 
@@ -183,6 +184,18 @@ function palettePostSvg(paletteColors, title) {
  * ──────────────────────────────────────────── */
 
 async function svgToPng(svgString, outputFilename) {
+  // Fail CLOSED. Without usable fonts sharp still returns a valid PNG — every
+  // glyph a tofu box — and Instagram publishes it. That is exactly how 17 feed
+  // posts went out unreadable after the 2026-08-29 migration. Throwing here lands
+  // in the scheduler's try/catch, which does not mark the day as posted, so the
+  // next hourly tick retries once fonts are back. See font-check.js.
+  const fonts = fontsAvailable();
+  if (!fonts.ok) {
+    throw new Error(
+      `refusing to render ${outputFilename}: no usable fonts (${fonts.reason}). ` +
+        `Install with: apt-get install -y --no-install-recommends fontconfig fonts-dejavu-core`,
+    );
+  }
   const outputPath = path.join(GENERATED_DIR, outputFilename);
   await sharp(Buffer.from(svgString)).png({ quality: 90 }).toFile(outputPath);
   console.log(`[ig-image] Generated: ${outputFilename}`);
