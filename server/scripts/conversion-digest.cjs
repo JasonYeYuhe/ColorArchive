@@ -429,11 +429,50 @@ const staleRenewals = db.prepare(
           substr(pro_expires_at,1,19) AS expired_at,
           CAST((julianday('now') - julianday(pro_expires_at)) * 24 AS INTEGER) AS hours_overdue
      FROM users
-    WHERE ${REAL} AND tier = 'pro' AND payment_provider = 'lemonsqueezy'
+    WHERE ${REAL} AND payment_provider = 'lemonsqueezy'
       AND subscription_status IN ('active','trialing','on_trial','past_due')
       AND pro_expires_at IS NOT NULL
       AND datetime(pro_expires_at) < datetime('now')
     ORDER BY pro_expires_at`
+).all();
+// ── 2026-09-15: `AND tier = 'pro'` was removed from the query above ─────────────
+//
+// It made this tripwire blind to the very case its comment describes. auth.js
+// self-heals an expired row to tier='free' on that user's next page load, and a
+// locked-out subscriber who is actually USING the product loads a page — that is
+// how they discover the paywall. So the harmed customer dropped out of this query
+// the moment they were harmed, and the digest printed "quiet day, not emailing".
+// It only ever saw locked-out customers who had not come back yet. The signal is
+// the pair "provider says alive" + "our clock has run out"; self-heal touches
+// neither column, so the query now keys on exactly that pair.
+
+// ⏰ OVERDUE-RENEWAL EARLY WARNING — added 2026-09-15.
+//
+// The tripwire above fires only once the access clock has ALREADY run out, i.e.
+// once the customer is already locked out. But August's failure was visible three
+// days earlier: Lemon Squeezy never attempted the charge, so the provider status
+// stayed alive and subscription_current_period_end simply never advanced past the
+// renewal date. A successful renewal rewrites that column via subscription_updated
+// within minutes. So "period end passed, status still alive, clock not yet out" is
+// the renewal that has not happened — caught while pro_expires_at's grace still
+// holds, which is the window in which the owner can act before anyone is denied.
+//
+// 12h of slack keeps an ordinary late webhook from paging anyone; this runs once a
+// day at 08:00 UTC, so a renewal due mid-morning is ~22h old by the next run.
+const overdueRenewals = db.prepare(
+  `SELECT email,
+          COALESCE(subscription_status,'unknown') AS status,
+          substr(subscription_current_period_end,1,19) AS due_at,
+          substr(pro_expires_at,1,19) AS locks_at,
+          CAST((julianday('now') - julianday(subscription_current_period_end)) * 24 AS INTEGER) AS hours_late
+     FROM users
+    WHERE ${REAL} AND payment_provider = 'lemonsqueezy'
+      AND subscription_status IN ('active','trialing','on_trial','past_due')
+      AND subscription_current_period_end IS NOT NULL
+      AND datetime(subscription_current_period_end) < datetime('now', '-12 hours')
+      AND pro_expires_at IS NOT NULL
+      AND datetime(pro_expires_at) >= datetime('now')
+    ORDER BY subscription_current_period_end`
 ).all();
 
 const renewalsDue = db.prepare(
@@ -462,7 +501,9 @@ const hasMoneyActivity =
   newSubs.length > 0 ||
   funnel.checkoutSuccess > 0 ||
   refunds.length > 0 ||
-  staleRenewals.length > 0;
+  staleRenewals.length > 0 ||
+  // Same reasoning: silence on a quiet day is the failure for an overdue renewal.
+  overdueRenewals.length > 0;
 const shouldSend = argForce || hasMoneyActivity || isMonday;
 
 /* ---------------- render ---------------- */
@@ -493,6 +534,15 @@ if (staleRenewals.length) {
   lines.push("  This person is being denied Pro on every read path (web + API), and auth.js will");
   lines.push("  write tier='free' to their row on their next page load. Check the provider first:");
   lines.push("  a renewal that was never attempted is the provider's problem, not a webhook miss.");
+}
+if (overdueRenewals.length) {
+  lines.push("⏰ RENEWAL OVERDUE — renewal date passed, provider still says alive, no charge recorded:");
+  for (const r of overdueRenewals) {
+    lines.push(`  ${r.email}  [${r.status}]  was due ${r.due_at}Z (${r.hours_late}h ago)  →  locks out at ${r.locks_at}Z`);
+  }
+  lines.push("  Not locked out YET — the grace on pro_expires_at is still holding. This is what August");
+  lines.push("  looked like the day before a paying customer lost access: Lemon Squeezy had simply not");
+  lines.push("  attempted the charge. Check the subscription's timeline in LS before the lock-out time.");
 }
 if (paidOrders.length) {
   lines.push(`💰 ① PROCESSOR PAYMENTS (real charges taken, owner's included): ${paidOrders.length}`);
@@ -628,6 +678,7 @@ if (refunds.length) subjectBits.push(`↩︎ ${refunds.length} refund${refunds.l
 if (hardWebhookMiss) subjectBits.push(`⚠️ checkout not recorded`);
 // Unshifted, not pushed: if a paying customer is locked out, that is the first
 // thing the subject line says, ahead of any good news in the same window.
+if (overdueRenewals.length) subjectBits.unshift(`⏰ ${overdueRenewals.length} renewal overdue`);
 if (staleRenewals.length) subjectBits.unshift(`🔴 ${staleRenewals.length} locked out`);
 const subject = subjectBits.length
   ? `[ColorArchive] ${subjectBits.join(" · ")}`
