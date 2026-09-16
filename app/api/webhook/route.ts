@@ -170,6 +170,11 @@ export async function POST(req: NextRequest) {
           status: attrs.status,
           renewsAt: attrs.renews_at ?? null,
           endsAt: attrs.ends_at ?? null,
+          // LS emits a stale-renews_at update within a second of each renewal and a
+          // corrected one a minute later; a retry or a dashboard resend can deliver
+          // them out of order, and the stale one used to undo a paid renewal. The
+          // backend drops anything older than the newest it has applied.
+          updatedAt: attrs.updated_at ?? null,
           provider: "lemonsqueezy",
           testMode,
         });
@@ -187,6 +192,7 @@ export async function POST(req: NextRequest) {
           subscriptionId: String(event.data.id),
           customerId: String(attrs.customer_id ?? ""),
           endsAt: attrs.ends_at ?? attrs.renews_at ?? null,
+          updatedAt: attrs.updated_at ?? null,
           provider: "lemonsqueezy",
           testMode,
         });
@@ -200,6 +206,7 @@ export async function POST(req: NextRequest) {
         await notifyBackend("/webhooks/subscription-cancelled", {
           subscriptionId: String(event.data.id),
           customerId: String(attrs.customer_id ?? ""),
+          updatedAt: attrs.updated_at ?? null,
           provider: "lemonsqueezy",
           reason: "expired",
           testMode,
@@ -257,6 +264,7 @@ export async function POST(req: NextRequest) {
           status: eventName === "subscription_paused" ? "paused" : ((attrs.status as string) ?? "active"),
           renewsAt: attrs.renews_at ?? null,
           endsAt: attrs.ends_at ?? null,
+          updatedAt: attrs.updated_at ?? null,
           provider: "lemonsqueezy",
           testMode,
         });

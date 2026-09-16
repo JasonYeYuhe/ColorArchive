@@ -4,6 +4,7 @@ const path = require("path");
 const router = express.Router();
 const db = require("../db");
 const { hasLifetimeEntitlement } = require("../lifetime");
+const { moneyWasReturned } = require("../refund-guard");
 const { findCatalogProduct, getDownloadUrl, getPackUrl } = require("../catalog");
 const { sendOrderConfirmationEmail, sendProSubscriptionEmail, sendPreorderConfirmationEmail } = require("../email");
 
@@ -365,6 +366,7 @@ router.post("/subscription-updated", (req, res) => {
     renewsAt,              // Lemon Squeezy name (ISO string)
     endsAt,                // Lemon Squeezy name (ISO string, null when not cancelling)
     priceId,
+    updatedAt,             // Lemon Squeezy attributes.updated_at — event ordering
   } = req.body;
 
   if (!subscriptionId) {
@@ -416,9 +418,30 @@ router.post("/subscription-updated", (req, res) => {
   // is a second door onto the same users row as /subscription-cancelled. Guarding
   // only the cancellation handler would leave the lifetime wipe fully reachable
   // through here. See server/lifetime.js.
+  if (isStaleProviderEvent(db, user.id, updatedAt)) {
+    console.log(`[webhook] subscription-updated: IGNORED stale event for user=${user.id} (updated_at ${updatedAt} is older than the last one applied)`);
+    return res.json({ ok: true, stale: true });
+  }
+
   const keepsLifetime = hasLifetimeEntitlement(db, user.id);
 
-  if (keepsLifetime) {
+  // Only the CANCELLATION shape consults the refund guard. A live subscription must
+  // still be able to restore access — somebody refunded once and subscribing again is
+  // a paying customer, and their new checkout is what grants it.
+  const cancelledShape = ["cancelled", "canceled"].includes(String(status || "").toLowerCase());
+  const refunded = cancelledShape && moneyWasReturned(db, user.id);
+
+  // While the provider says the subscription is ALIVE, neither clock may move
+  // backwards. This is the second half of the stale-event defence: it also covers a
+  // resend that carries no updated_at at all.
+  const current = db
+    .prepare("SELECT subscription_current_period_end AS cpe, pro_expires_at AS pea FROM users WHERE id = ?")
+    .get(user.id) || {};
+  const alive = isPro && !cancelledShape;
+  const writePeriodEnd = alive ? laterIso(periodEndIso, current.cpe) : periodEndIso;
+  const writeProExpiresAt = alive ? laterIso(decision.proExpiresAt, current.pea) : decision.proExpiresAt;
+
+  if (keepsLifetime || refunded) {
     db.prepare(
       `UPDATE users SET
         subscription_status = ?,
@@ -435,7 +458,7 @@ router.post("/subscription-updated", (req, res) => {
       subscriptionId,
       subscriptionId || null,
       customerId || null,
-      periodEndIso,
+      writePeriodEnd,
       cancelAtEnd,
       user.id
     );
@@ -459,20 +482,64 @@ router.post("/subscription-updated", (req, res) => {
       subscriptionId,
       subscriptionId || null,
       customerId || null,
-      periodEndIso,
+      writePeriodEnd,
       cancelAtEnd,
-      decision.proExpiresAt,
+      writeProExpiresAt,
       user.id
     );
   }
+  rememberProviderEvent(db, user.id, updatedAt);
 
-  console.log(`[webhook] subscription-updated: user=${user.id} status=${status} pro=${keepsLifetime ? true : isPro}${keepsLifetime ? " (lifetime held)" : ""}`);
+  console.log(`[webhook] subscription-updated: user=${user.id} status=${status} pro=${keepsLifetime ? true : refunded ? "unchanged (money already returned)" : isPro}${keepsLifetime ? " (lifetime held)" : ""}`);
   return res.json({ ok: true });
 });
 
 // Shared four-column subscriber lookup — LS ids live in the provider_* columns
 // (and are mirrored into the legacy stripe_* ones by subscription-checkout, but
 // never rely on that mirroring alone).
+/**
+ * Lemon Squeezy emits a subscription_updated carrying a STALE renews_at within a
+ * second of each renewal, then a corrected one about a minute later (observed on
+ * this store's 07-22 and 08-22 renewals). It also retries failed deliveries at 5s,
+ * 25s and 125s, and its dashboard can resend one by hand. So the corrected event can
+ * land BEFORE the stale one, and the stale one then rewrote a paid subscriber's clock
+ * to now+3d — locking them out three days later, with a payment replay unable to fix
+ * it. These two keep the newest provider timestamp we have seen and drop anything
+ * older. No timestamp on the event (legacy Stripe shape) means no opinion.
+ */
+function isStaleProviderEvent(db, userId, updatedAt) {
+  if (!updatedAt) return false;
+  try {
+    const row = db.prepare("SELECT provider_event_at FROM users WHERE id = ?").get(userId);
+    const seen = row && row.provider_event_at ? Date.parse(row.provider_event_at) : NaN;
+    const incoming = Date.parse(updatedAt);
+    return Number.isFinite(seen) && Number.isFinite(incoming) && incoming < seen;
+  } catch {
+    return false;
+  }
+}
+
+function rememberProviderEvent(db, userId, updatedAt) {
+  if (!updatedAt) return;
+  try {
+    db.prepare(
+      `UPDATE users SET provider_event_at = ?
+        WHERE id = ? AND (provider_event_at IS NULL OR provider_event_at < ?)`,
+    ).run(updatedAt, userId, updatedAt);
+  } catch {
+    /* bookkeeping only — never block an entitlement write */
+  }
+}
+
+/** The later of two ISO instants; tolerates null/garbage on either side. */
+function laterIso(a, b) {
+  const A = Date.parse(a || "");
+  const B = Date.parse(b || "");
+  if (!Number.isFinite(A)) return b;
+  if (!Number.isFinite(B)) return a;
+  return A >= B ? a : b;
+}
+
 function findSubscriptionUser({ subscriptionId, customerId, email }) {
   let user = null;
   if (subscriptionId) {
@@ -721,7 +788,7 @@ router.post("/subscription-revoke", (req, res) => {
 // while /support and /account promised in writing that it would not. The
 // decision itself lives in ../entitlement.js so it can be tested.
 router.post("/subscription-cancelled", (req, res) => {
-  const { subscriptionId, customerId, reason, endsAt } = req.body;
+  const { subscriptionId, customerId, reason, endsAt, updatedAt } = req.body;
 
   console.log(`[webhook] Subscription ${reason === "expired" ? "expired" : "cancelled"}: ${subscriptionId} endsAt=${endsAt || "-"}`);
 
@@ -732,6 +799,11 @@ router.post("/subscription-cancelled", (req, res) => {
     return res.json({ ok: true, skipped: true });
   }
 
+  if (isStaleProviderEvent(db, user.id, updatedAt)) {
+    console.log(`[webhook] subscription-cancelled: IGNORED stale event for user=${user.id} (updated_at ${updatedAt})`);
+    return res.json({ ok: true, stale: true });
+  }
+
   const decision = resolveCancellation({ reason, endsAt });
 
   // A lifetime purchase must survive a SUBSCRIPTION ending. Both are keyed to the
@@ -740,7 +812,14 @@ router.post("/subscription-cancelled", (req, res) => {
   // lifetime when the monthly period runs out. See server/lifetime.js.
   const keepsLifetime = hasLifetimeEntitlement(db, user.id);
 
-  if (keepsLifetime) {
+  // A cancellation must not RESTORE access that a refund already took away. LS sends
+  // subscription_cancelled whenever the subscription ends, and resolveCancellation()
+  // rebuilds the entitlement from the subscription's dates alone — so refund-then-
+  // cancel used to hand Pro back through the end of the refunded period (up to a year
+  // on the yearly plan). See server/refund-guard.js.
+  const refunded = moneyWasReturned(db, user.id);
+
+  if (keepsLifetime || refunded) {
     // Record the subscription's own bookkeeping, but never its verdict on access.
     db.prepare(
       `UPDATE users SET
@@ -773,8 +852,9 @@ router.post("/subscription-cancelled", (req, res) => {
     );
   }
 
+  rememberProviderEvent(db, user.id, updatedAt);
   console.log(
-    `[webhook] subscription-cancelled: user=${user.id} tier=${keepsLifetime ? "pro (lifetime held)" : decision.tier} keepsAccess=${keepsLifetime || decision.keepsAccess} until=${keepsLifetime ? "never" : decision.proExpiresAt || "-"}`
+    `[webhook] subscription-cancelled: user=${user.id} tier=${keepsLifetime ? "pro (lifetime held)" : refunded ? "unchanged (money already returned)" : decision.tier} keepsAccess=${keepsLifetime || (!refunded && decision.keepsAccess)} until=${keepsLifetime ? "never" : refunded ? "-" : decision.proExpiresAt || "-"}`
   );
   return res.json({ ok: true, keepsAccess: decision.keepsAccess });
 });

@@ -227,8 +227,12 @@ async function runPeriodicPost() {
       caption = colorCaption(color);
       console.log(`[ig-scheduler] Post: Featured Color — ${color.name}`);
     } else {
-      // Palette Post
-      const collection = collections[day % collections.length];
+      // Palette Post.
+      // Offset from the Story's index by half the catalogue. The Story picks
+      // collections[day % len] and this used to pick the same one, so on any day that
+      // was a palette day for BOTH (day % 5 >= 3 and day % 2 === 1) the account posted
+      // the identical palette twice — about half of all palette days.
+      const collection = collections[(day + Math.floor(collections.length / 2)) % collections.length];
       filename = await generatePalettePost(collection.palette, collection.title);
       caption = paletteCaption(collection.title, collection.palette);
       console.log(`[ig-scheduler] Post: Palette — ${collection.title}`);

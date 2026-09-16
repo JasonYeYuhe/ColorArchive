@@ -90,6 +90,40 @@ async function listBlobs(token, prefix) {
   return out;
 }
 
+/** Fetch a blob's body. Used to read the Mac heartbeat's exit code. */
+async function getBlob(token, name) {
+  const res = await fetch(`${ENDPOINT}/${CONTAINER}/${encodeURIComponent(name)}`, {
+    headers: { Authorization: `Bearer ${token}`, "x-ms-version": API_VERSION },
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (!res.ok) throw new Error(`Get Blob ${res.status}`);
+  return res.text();
+}
+
+/**
+ * Cron failures on this VM reach nobody: cron logs no exit status, there is no MTA,
+ * and nothing reads server/logs/. send-design-notes-cron.sh exits 2/3 on a FATAL so a
+ * failure would be loud — and it was loud into an empty room. This check runs daily
+ * and already emails the owner, so it is the cheapest place to notice.
+ */
+function scanCronLogs() {
+  const FILES = ["design-notes.log", "gate-report.cron.log", "conversion-digest.cron.log", "azure-sync.log"];
+  const BAD = /(FATAL|Resend error|rc=[1-9]|Error:|Traceback|command not found|Permission denied)/;
+  const found = [];
+  for (const file of FILES) {
+    const full = path.join(SERVER_DIR, "logs", file);
+    let tail;
+    try {
+      tail = fs.readFileSync(full, "utf8").split("\n").slice(-60);
+    } catch {
+      continue; // a log that has never been written is not a failure
+    }
+    const hit = tail.filter((l) => BAD.test(l)).slice(-2);
+    for (const l of hit) found.push(`${file}: ${l.trim().slice(0, 200)}`);
+  }
+  return found;
+}
+
 (async () => {
   const problems = [];
   const lines = [];
@@ -133,6 +167,27 @@ async function listBlobs(token, prefix) {
     } else {
       const age = hoursSince(hb.modified);
       lines.push(`tiers 2+5  Mac heartbeat ${fmt(age)} old`);
+      // The Mac writes this heartbeat in a finish() trap — on FAILURE too. So a fresh
+      // heartbeat only proves the Mac ran, not that it copied anything: a low-disk or
+      // rclone-token failure (rc=1) still refreshed it, and this check called tiers
+      // 2+5 healthy. Measured 2026-09-06: heartbeat carried `rc: 1` and the VM logged
+      // "ok ... Mac heartbeat 5.5h old" against it.
+      try {
+        const body = await getBlob(token, hb.name);
+        const rc = /(?:^|\n)\s*rc:\s*(-?\d+)/.exec(body);
+        if (rc && rc[1] !== "0") {
+          problems.push(
+            `TIERS 2+5 (Mac / Google Drive): the Mac checked in ${fmt(age)} ago but its last run FAILED (rc=${rc[1]}).\n` +
+            `    The heartbeat is written even when the run fails, so freshness alone means nothing.\n` +
+            `    Check ~/Library/do-harvest-offsite/last-run-status.txt on the Mac — the usual causes are\n` +
+            `    under 6 GB free disk (pull-offsite.sh refuses to pull) and an expired rclone token.`
+          );
+        } else if (!rc) {
+          lines.push("tiers 2+5  (heartbeat has no rc: line — cannot tell success from failure)");
+        }
+      } catch (e) {
+        lines.push(`tiers 2+5  could not read heartbeat body — ${e.message}`);
+      }
       if (age > MAC_MAX_H) {
         problems.push(
           `TIERS 2+5 (Mac / Google Drive): the Mac has not checked in for ${fmt(age)} (> ${MAC_MAX_H}h).\n` +
@@ -145,6 +200,10 @@ async function listBlobs(token, prefix) {
     }
   } catch (e) {
     problems.push(`TIER 3 / heartbeat: could not query Azure Blob — ${e.message}. If this says IMDS, the VM's managed identity may have been removed.`);
+  }
+
+  for (const hit of scanCronLogs()) {
+    problems.push(`CRON LOG: ${hit}`);
   }
 
   /* ── report ──────────────────────────────────────────────────────── */

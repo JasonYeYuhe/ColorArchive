@@ -1,1 +1,1 @@
-{ "active": null, "lockedBy": null, "lockedAt": null, "message": null }
+{ "active": true, "lockedBy": "remote", "lockedAt": "2026-09-16T07:26:26Z", "message": "fix all remaining audit findings: entitlement, ops alerts, social tasks, nginx, dns" }

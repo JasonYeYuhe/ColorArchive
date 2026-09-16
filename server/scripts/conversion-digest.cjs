@@ -594,10 +594,12 @@ if (igProblems.length) {
   lines.push("  the token. The scheduler retries hourly inside its windows once the cause is fixed.");
 }
 if (overdueRenewals.length) {
-  lines.push("⏰ RENEWAL OVERDUE — renewal date passed, provider still says alive, no charge recorded:");
+  lines.push("⏰ RENEWAL OVERDUE — renewal date passed and the provider has not advanced it:");
   for (const r of overdueRenewals) {
     lines.push(`  ${r.email}  [${r.status}]  was due ${r.due_at}Z (${r.hours_late}h ago)  →  locks out at ${r.locks_at}Z`);
   }
+  lines.push("  This query does NOT read orders, so it cannot tell 'Lemon Squeezy never charged' from");
+  lines.push("  'the charge landed but a stale subscription_updated rewound the dates' — check both.");
   lines.push("  Not locked out YET — the grace on pro_expires_at is still holding. This is what August");
   lines.push("  looked like the day before a paying customer lost access: Lemon Squeezy had simply not");
   lines.push("  attempted the charge. Check the subscription's timeline in LS before the lock-out time.");

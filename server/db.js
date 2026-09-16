@@ -279,6 +279,10 @@ ensureColumn("orders", "twin_order_id TEXT");
 // exhaust the site-wide AI budget for everybody, paying users included.
 ensureColumn("users", "share_awards_total INTEGER DEFAULT 0");
 ensureColumn("users", "share_award_last_day TEXT");
+// Newest provider event timestamp applied to this row (Lemon Squeezy
+// attributes.updated_at). Lets the webhook drop a resent or retried event that is
+// older than one already applied — a stale renews_at used to undo a paid renewal.
+ensureColumn("users", "provider_event_at TEXT");
 ensureColumn("users", "is_test INTEGER DEFAULT 0");
 ensureColumn("subscribers", "is_test INTEGER DEFAULT 0");
 
