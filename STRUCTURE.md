@@ -320,6 +320,11 @@ ColorArchive/
 │   │   │                                 #   charges — a failed session request is not an
 │   │   │                                 #   anonymous customer (2026-07-20 incident shape).
 │   │   ├── auth-client.ts               # Client API: session, projects, usage, referral, types
+│   │   ├── login-handoff.ts              # Pure: who redeems a single-use magic-link token — this
+│   │   │                                 #   browser or the iOS app. Only `app=ios` links are
+│   │   │                                 #   offered to the app, and never redeemed here until the
+│   │   │                                 #   visitor chooses. The old 1.5 s timer lost every race
+│   │   │                                 #   against iOS's "Open in ColorArchive?" prompt (2026-09-16).
 │   │   ├── track.ts                      # Fire-and-forget events → backend /events + PostHog; merges first-touch attribution; a REFUSED sendBeacon (returns false, never throws) retries over keepalive fetch and what still cannot be delivered is counted into `_dropped` on the next successful event
 │   │   ├── clipboard.ts                  # The ONLY clipboard write path. Returns {ok} | {ok:false, reason}
 │   │   │                                 #   instead of throwing, so copy-button.tsx and
@@ -382,6 +387,22 @@ ColorArchive/
 │   ├── db.js                             # SQLite setup (subscribers, orders, sessions, users,
 │   │                                     #   projects, ai_usage, user_preferences)
 │   ├── auth.js                           # Magic link + Google OAuth auth, tier management
+│   ├── login-link.js                     # Tags magic links requested by the iOS app (`app=ios`):
+│   │                                     #   app UA + no Origin. See src/lib/login-handoff.ts.
+│   ├── apple-jws.js                      # Verifies Apple-signed JWS (StoreKit transactions + App
+│   │                                     #   Store Server Notifications): chain byte-pinned to Apple
+│   │                                     #   Root CA G3, every link signature-checked, Apple marker
+│   │                                     #   OIDs, validity at signedDate. Until 2026-09-17 the root
+│   │                                     #   constant was corrupt and NOTHING could verify.
+│   ├── apple-grant.js                    # The one Apple grant, shared by /auth/apple-purchase,
+│   │                                     #   REFUND_REVERSED and scripts/link-apple-purchase.cjs.
+│   │                                     #   Refuses refunded TRANSACTIONS (apple_revoked_transactions,
+│   │                                     #   per transactionId — a pre-refund JWS still verifies),
+│   │                                     #   never shortens a Pro clock, and never lets an App Store
+│   │                                     #   event revoke access paid through Lemon Squeezy
+│   │                                     #   (appleGovernsAccess). App Store lifetime counts in
+│   │                                     #   lifetime.js. All of it became reachable only when JWS
+│   │                                     #   verification started working on 2026-09-17.
 │   ├── catalog.js                        # Pack catalog data. NOTE: packPath points at /packs/*,
 │   │                                     #   which 301s to /pro/ — the storefront was deleted in
 │   │                                     #   00d7a04. Fulfilment (downloadPath) still works.

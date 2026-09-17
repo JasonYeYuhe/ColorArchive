@@ -256,6 +256,12 @@ router.post("/subscription-checkout", async (req, res) => {
     // 'lifetime' — the latter because it is the ONLY record of a MANUAL lifetime
     // grant, which has no order row for hasLifetimeEntitlement() to find.
     const holdsLifetime = hasLifetimeEntitlement(db, user.id);
+    // Keep the plan marker only where it already IS the marker. Deriving it from the
+    // guard wrote 'lifetime' for anyone holding an App Store lifetime too, and that
+    // manual-grant marker then outlived the App Store purchase's refund (2026-09-17).
+    const { subscription_plan: currentPlan } = db
+      .prepare("SELECT subscription_plan FROM users WHERE id = ?")
+      .get(user.id);
     db.prepare(
       `UPDATE users SET
         tier = 'pro',
@@ -272,7 +278,7 @@ router.post("/subscription-checkout", async (req, res) => {
         duplicate_suspects = ?
       WHERE id = ?`
     ).run(
-      holdsLifetime ? "lifetime" : plan || "monthly",
+      holdsLifetime && currentPlan === "lifetime" ? "lifetime" : plan || "monthly",
       subscriptionStatus,
       holdsLifetime ? null : proExpiresAt,
       subscriptionId || null,

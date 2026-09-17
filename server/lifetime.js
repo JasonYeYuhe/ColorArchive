@@ -68,6 +68,24 @@ function hasLifetimeEntitlement(db, userId) {
   }
   if (!row) return false;
 
+  // An App Store lifetime purchase is a lifetime too. Until 2026-09-17 no Apple purchase
+  // could reach an account (verification never succeeded), so this guard only knew
+  // Lemon Squeezy — and an iOS monthly lapsing after an iOS lifetime upgrade, or a Lemon
+  // Squeezy cancellation next to an iOS lifetime, would have revoked it.
+  let appleLifetimes = [];
+  try {
+    appleLifetimes = db
+      .prepare(
+        `SELECT status FROM apple_purchases
+          WHERE user_id = ? AND product_id = 'me.colorarchive.pro.lifetime'`,
+      )
+      .all(userId);
+  } catch {
+    // No apple_purchases table (unit-test schemas): nothing to count.
+  }
+  const appleRefunded = (s) => s === "refunded" || s === "revoked";
+  if (appleLifetimes.some((p) => !appleRefunded(p.status))) return true;
+
   // Orders are keyed by email (routes/webhook.js inserts the checkout email),
   // so a user who bought lifetime under the same address is matched even if the
   // subscription row was later relinked to a different provider id.
@@ -91,6 +109,12 @@ function hasLifetimeEntitlement(db, userId) {
   // A lifetime order exists but every one of them was refunded — the customer
   // has their money back, so the entitlement is genuinely gone.
   if (orders.length > 0) return false;
+  // A refunded App Store lifetime deliberately does NOT end here: the manual-grant
+  // marker below belongs to the owner's own grants, and must survive a customer buying
+  // and refunding an App Store lifetime by mistake. The marker cannot be forged from an
+  // App Store purchase — routes/webhook.js /subscription-checkout keeps 'lifetime' only
+  // on rows that already carry it (it used to derive it from this guard, which turned a
+  // later-refunded App Store lifetime into a permanent manual grant; 2026-09-17).
 
   // No lifetime order at all: honour a manual grant recorded on the user row.
   return row.subscription_plan === "lifetime";

@@ -251,6 +251,42 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_apple_purchases_original_txn ON apple_purchases(original_transaction_id);
 `);
 
+// App Store transactions Apple told us about that no account has claimed. Written by
+// routes/apple-notifications.js when a VERIFIED notification names a transaction with
+// no apple_purchases row; read by scripts/conversion-digest.cjs.
+//
+// Before 2026-09-17 that branch logged one console line and answered 200, which tells
+// Apple to stop retrying — the only record of a paying customer then lived in a pm2
+// log that rotates within a week. On 2026-09-16 an iOS customer paid while logged out
+// of the app; the app's sync got 401, and nothing durable remained anywhere.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS apple_unlinked_transactions (
+    original_transaction_id TEXT PRIMARY KEY,
+    transaction_id          TEXT,
+    product_id              TEXT,
+    environment             TEXT,
+    purchase_date           TEXT,
+    expires_date            TEXT,
+    last_notification_type  TEXT,
+    times_seen              INTEGER NOT NULL DEFAULT 1,
+    first_seen_at           TEXT NOT NULL DEFAULT (datetime('now')),
+    last_seen_at            TEXT NOT NULL DEFAULT (datetime('now')),
+    dismissed_at            TEXT
+  );
+
+  -- Individual App Store transactions Apple has refunded or revoked. Keyed by
+  -- transactionId, not originalTransactionId: a refund covers ONE period of a
+  -- subscription, and a signed transaction captured before its refund still verifies
+  -- afterwards, so this is what a replay is checked against. Written for linked and
+  -- unlinked transactions alike; REFUND_REVERSED deletes the row.
+  CREATE TABLE IF NOT EXISTS apple_revoked_transactions (
+    transaction_id          TEXT PRIMARY KEY,
+    original_transaction_id TEXT NOT NULL,
+    reason                  TEXT NOT NULL,
+    revoked_at              TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`);
+
 // Apple-specific columns on users
 ensureColumn("users", "apple_original_transaction_id TEXT");
 

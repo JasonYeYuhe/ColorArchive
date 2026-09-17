@@ -537,6 +537,35 @@ if (igToken && igToken.expires_at && igToken.expires_at !== "never") {
   igProblems.push("token file .env.instagram is missing or unreadable");
 }
 
+// 🍎 UNLINKED APP STORE PURCHASES — added 2026-09-17.
+//
+// A customer can pay inside the iOS app while logged out of it. StoreKit grants Pro on
+// that device, but /auth/apple-purchase answers 401 and no account learns of it; Apple's
+// server notification is then the only trace, and routes/apple-notifications.js records
+// it in apple_unlinked_transactions. Exactly this happened on 2026-09-16 and went
+// unseen, because until 09-17 every notification also failed signature verification.
+// Production only: App Review and TestFlight purchases arrive as Sandbox.
+let unlinkedApple = [];
+let unlinkedAppleError = null;
+try {
+  unlinkedApple = db.prepare(
+    `SELECT u.original_transaction_id AS txn, u.product_id, substr(u.purchase_date,1,19) AS purchased_at,
+            u.last_notification_type AS type, u.times_seen, u.first_seen_at
+       FROM apple_unlinked_transactions u
+       LEFT JOIN apple_purchases p ON p.original_transaction_id = u.original_transaction_id
+      WHERE p.id IS NULL AND u.dismissed_at IS NULL AND u.environment = 'Production'
+        -- Refunded, revoked or lapsed: the customer has nothing to be linked to.
+        AND u.last_notification_type NOT LIKE 'REFUND%'
+        AND u.last_notification_type NOT LIKE 'REVOKE%'
+        AND u.last_notification_type NOT LIKE 'EXPIRED%'
+        AND u.last_notification_type <> 'DID_FAIL_TO_RENEW'
+      ORDER BY u.first_seen_at`
+  ).all();
+} catch (e) {
+  // A missing table means the server has not restarted onto the schema that creates it.
+  unlinkedAppleError = e.message;
+}
+
 /* ---------------- send decision ---------------- */
 
 const isMonday = now.getUTCDay() === 1;
@@ -554,7 +583,7 @@ const hasMoneyActivity =
   overdueRenewals.length > 0;
 // Not money, but the same property: a day with nothing else to report is exactly the
 // day a stopped Instagram channel would otherwise go unmentioned.
-const hasOpsAlert = igProblems.length > 0;
+const hasOpsAlert = igProblems.length > 0 || unlinkedApple.length > 0 || unlinkedAppleError !== null;
 const shouldSend = argForce || hasMoneyActivity || hasOpsAlert || isMonday;
 
 /* ---------------- render ---------------- */
@@ -592,6 +621,18 @@ if (igProblems.length) {
   lines.push("  Look for the cause in the pm2 error log: 'refusing to render' means the server cannot");
   lines.push("  draw text (fonts), 'Container creation failed' / 'Publish failed' is the Graph API or");
   lines.push("  the token. The scheduler retries hourly inside its windows once the cause is fixed.");
+}
+if (unlinkedApple.length || unlinkedAppleError) {
+  lines.push("🍎 APP STORE PURCHASE NOT LINKED TO ANY ACCOUNT:");
+  if (unlinkedAppleError) lines.push(`  check failed: ${unlinkedAppleError}`);
+  for (const r of unlinkedApple) {
+    lines.push(`  txn ${r.txn}  ${r.product_id}  purchased ${r.purchased_at}Z  last ${r.type} (seen ${r.times_seen}x since ${r.first_seen_at}Z)`);
+  }
+  lines.push("  The customer paid Apple and has Pro inside the iOS app, but no web account knows. It links");
+  lines.push("  itself once they log in INSIDE the app and reopen it (or tap Restore Purchases). To find the");
+  lines.push("  account: nginx POST /auth/apple-purchase 401 at the purchase time, then that IP's /auth/");
+  lines.push("  request-link → magic_link_tokens.user_id. Dismiss: UPDATE apple_unlinked_transactions SET");
+  lines.push("  dismissed_at=datetime('now') WHERE original_transaction_id='…'.");
 }
 if (overdueRenewals.length) {
   lines.push("⏰ RENEWAL OVERDUE — renewal date passed and the provider has not advanced it:");
@@ -739,6 +780,8 @@ if (hardWebhookMiss) subjectBits.push(`⚠️ checkout not recorded`);
 // Unshifted, not pushed: if a paying customer is locked out, that is the first
 // thing the subject line says, ahead of any good news in the same window.
 if (igProblems.length) subjectBits.push(`📷 Instagram not publishing`);
+if (unlinkedApple.length) subjectBits.unshift(`🍎 ${unlinkedApple.length} App Store purchase${unlinkedApple.length > 1 ? "s" : ""} not linked`);
+if (unlinkedAppleError) subjectBits.push(`🍎 unlinked-purchase check failed`);
 if (overdueRenewals.length) subjectBits.unshift(`⏰ ${overdueRenewals.length} renewal overdue`);
 if (staleRenewals.length) subjectBits.unshift(`🔴 ${staleRenewals.length} locked out`);
 const subject = subjectBits.length

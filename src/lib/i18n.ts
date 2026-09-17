@@ -206,6 +206,13 @@ const translations: Record<string, Record<string, string>> = {
     en: "Your favorites, palette, and account history are synced. Redirecting now.",
     zh: "您的收藏、调色板和账户历史已同步。正在跳转。",
   },
+  "login.appHandoffHeading": { en: "Continue in the ColorArchive app", zh: "在 ColorArchive App 中继续" },
+  "login.appHandoffBody": {
+    en: "You requested this link in the iPhone app, so it signs you in there. Opened it on another device? Sign in on this browser instead — the link works only once.",
+    zh: "这个链接是在 iPhone App 里申请的,打开后会登录 App。如果现在用的是别的设备,也可以改为在此浏览器登录——链接只能使用一次。",
+  },
+  "login.openInApp": { en: "Open in the app", zh: "在 App 中打开" },
+  "login.useThisBrowser": { en: "Sign in on this browser instead", zh: "改为在此浏览器登录" },
   "login.finishingGoogle": { en: "Finishing Google sign-in", zh: "正在完成 Google 登录" },
   "login.googleComplete": { en: "Google sign-in complete", zh: "Google 登录完成" },
   "login.connectingGoogle": {

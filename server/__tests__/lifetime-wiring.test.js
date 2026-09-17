@@ -112,10 +112,19 @@ test("the Apple grant branches consult the lifetime guard", () => {
 });
 
 test("the Apple purchase-verification grant consults the lifetime guard", () => {
+  // The grant moved to apple-grant.js on 2026-09-17 so a manual link and the app's
+  // own sync share it; apple-grant.test.js executes it. This keeps the route on it.
   const authSrc = readFileSync(join(ROOT, "routes/auth.js"), "utf8");
-  const start = authSrc.indexOf("lifetime → proExpiresAt stays null");
+  assert.ok(
+    authSrc.includes("grantApplePurchase(db,"),
+    "/auth/apple-purchase no longer goes through grantApplePurchase — a private copy of the grant " +
+      "is how a route loses the lifetime guard",
+  );
+  assert.ok(!/UPDATE users SET\s+tier = 'pro'/.test(authSrc), "auth.js writes tier='pro' itself again");
+  const grantSrc = readFileSync(join(ROOT, "apple-grant.js"), "utf8");
+  const start = grantSrc.indexOf("lifetime → proExpiresAt stays null");
   assert.notEqual(start, -1, "the apple-purchase grant comment moved — re-anchor this test");
-  const body = authSrc.slice(start, start + 700);
+  const body = grantSrc.slice(start, start + 700);
   assert.ok(
     body.includes("hasLifetimeEntitlement"),
     "/auth/apple-purchase writes pro_expires_at with no lifetime guard, so buying an Apple " +

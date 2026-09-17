@@ -18,7 +18,7 @@ const {
 } = require("../auth");
 const { sendMagicLinkEmail } = require("../email");
 const { getRateLimitKey } = require("../client-ip");
-const { hasLifetimeEntitlement } = require("../lifetime");
+const { isIosAppRequest, buildLoginUrl } = require("../login-link");
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://colorarchive.org";
 
 // --- Simple in-memory rate limiter for auth endpoints ---
@@ -87,7 +87,7 @@ setInterval(() => {
   for (const [key, entry] of authAttempts) {
     if (now - entry.firstAttempt > AUTH_WINDOW_MS) authAttempts.delete(key);
   }
-}, 30 * 60 * 1000);
+}, 30 * 60 * 1000).unref(); // unref: the listening socket keeps the server alive; this must not keep a test alive
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
@@ -129,7 +129,7 @@ router.post("/request-link", requestLinkRateLimit, async (req, res) => {
     const { token } = createMagicLinkToken(email);
     const loginOrigin = getLoginOrigin(req);
     const nextPath = normalizeNextPath(next);
-    const loginUrl = `${loginOrigin}/login?token=${encodeURIComponent(token)}&next=${encodeURIComponent(nextPath)}`;
+    const loginUrl = buildLoginUrl({ loginOrigin, token, nextPath, fromIosApp: isIosAppRequest(req.headers) });
     await sendMagicLinkEmail(email, {
       loginUrl,
       expiresInMinutes: Math.round(MAGIC_LINK_TTL_MS / 60000),
@@ -282,11 +282,7 @@ router.get("/google/callback", async (req, res) => {
 const db = require("../db");
 const { verifySignedTransaction, detectTransactionShape } = require("../apple-jws");
 
-const VALID_APPLE_PRODUCTS = [
-  "me.colorarchive.pro.monthly",
-  "me.colorarchive.pro.yearly",
-  "me.colorarchive.pro.lifetime",
-];
+const { VALID_APPLE_PRODUCTS, grantApplePurchase } = require("../apple-grant");
 
 // Accept sandbox receipts in production only for explicitly allow-listed user IDs
 // (TestFlight QA, internal testers). Comma-separated numeric IDs.
@@ -318,7 +314,7 @@ router.post("/apple-purchase", async (req, res) => {
     return res.status(401).json({ error: "Authentication required" });
   }
 
-  let productId, originalTransactionId, transactionDate, environment, expiresDate;
+  let productId, originalTransactionId, transactionId, transactionDate, environment, expiresDate, revocationDate;
   let verified = false;
 
   try {
@@ -333,6 +329,8 @@ router.post("/apple-purchase", async (req, res) => {
       transactionDate = txn.purchaseDate;
       environment = txn.environment;
       expiresDate = txn.expiresDate;
+      revocationDate = txn.revocationDate;
+      transactionId = txn.transactionId;
       verified = true;
     } else if (shape === "json") {
       // Known misuse: iOS sending Transaction.jsonRepresentation instead of
@@ -419,65 +417,25 @@ router.post("/apple-purchase", async (req, res) => {
       });
     }
 
-    // Upsert the purchase record (within a transaction for atomicity)
-    const applyPurchase = db.transaction(() => {
-      db.prepare(`
-        INSERT INTO apple_purchases (user_id, product_id, original_transaction_id, transaction_date, environment, expires_date)
-        VALUES (?, ?, ?, ?, ?, ?)
-        ON CONFLICT(original_transaction_id) DO UPDATE SET
-          status = 'active',
-          product_id = excluded.product_id,
-          expires_date = excluded.expires_date
-      `).run(
-        user.id,
-        productId,
-        txnId,
-        transactionDate || new Date().toISOString(),
-        environment || "Production",
-        expiresDate || null
-      );
-
-      // Calculate pro expiration
-      let proExpiresAt = null;
-      if (expiresDate && verified) {
-        // Use Apple-provided expiration date when available (most accurate)
-        const d = new Date(expiresDate);
-        d.setDate(d.getDate() + 3); // 3-day grace
-        proExpiresAt = d.toISOString();
-      } else if (productId === "me.colorarchive.pro.monthly") {
-        const d = new Date();
-        d.setMonth(d.getMonth() + 1);
-        d.setDate(d.getDate() + 3); // 3-day grace
-        proExpiresAt = d.toISOString();
-      } else if (productId === "me.colorarchive.pro.yearly") {
-        const d = new Date();
-        d.setFullYear(d.getFullYear() + 1);
-        d.setDate(d.getDate() + 3);
-        proExpiresAt = d.toISOString();
-      }
-      // lifetime → proExpiresAt stays null (no expiration)
-
-      // An Apple subscription purchase must not overwrite an existing Lemon
-      // Squeezy lifetime. Same defect as the LS renewal path: NULL is the only
-      // thing that records "forever", so a dated Apple expiry silently converts
-      // a lifetime purchase into a subscription that later expires.
-      if (hasLifetimeEntitlement(db, user.id)) proExpiresAt = null;
-
-      db.prepare(`
-        UPDATE users SET
-          tier = 'pro',
-          pro_expires_at = ?,
-          apple_original_transaction_id = ?,
-          payment_provider = 'apple'
-        WHERE id = ?
-      `).run(proExpiresAt, txnId, user.id);
-
-      return proExpiresAt;
+    const result = grantApplePurchase(db, {
+      userId: user.id,
+      productId,
+      txnId,
+      transactionId,
+      transactionDate,
+      environment,
+      expiresDate,
+      verified,
+      revocationDate,
     });
 
-    const proExpiresAt = applyPurchase();
-
-    return res.json({ ok: true, tier: "pro", proExpiresAt, verified });
+    if (!result.granted) {
+      // 200, not an error: the transaction is genuine and there is simply nothing to
+      // grant (refunded, revoked, lapsed). The app finishes a transaction only on 200;
+      // anything else makes it replay this one on every launch, forever.
+      return res.json({ ok: true, granted: false, reason: result.reason, verified });
+    }
+    return res.json({ ok: true, tier: "pro", proExpiresAt: result.proExpiresAt, verified });
   } catch (err) {
     // Distinguish JWS verification failures from other errors
     const msg = err && err.message ? err.message : "";

@@ -14,11 +14,12 @@ import {
 } from "@/src/lib/auth-client";
 import { useAuth } from "@/src/components/auth-provider";
 import { useLocale } from "@/src/components/locale-provider";
+import { appLoginHref, canOpenIosApp, planMagicLink } from "@/src/lib/login-handoff";
 import { trackAuthSuccess } from "@/src/lib/track";
 import { licenseTiers, supportPolicy } from "@/src/lib/license-tiers";
 
 type FormState = "idle" | "loading" | "success" | "error";
-type VerifyState = "idle" | "loading" | "success" | "error";
+type VerifyState = "idle" | "handoff" | "loading" | "success" | "error";
 type OrdersState = "idle" | "loading" | "success" | "error";
 type AdminState = "idle" | "loading" | "success" | "error";
 
@@ -93,6 +94,14 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [formState, setFormState] = useState<FormState>("idle");
   const [verifyState, setVerifyState] = useState<VerifyState>("idle");
+  // Set when a visitor holding an app-requested link picks this browser instead.
+  const [choseBrowser, setChoseBrowser] = useState(false);
+  // The token this page has started redeeming. Deliberately NOT tied to the effect's
+  // cleanup: setVerifyState("loading") changes one of the effect's own dependencies,
+  // so React cleans it up mid-request, and the `cancelled` flag that cleanup used to
+  // set threw away the successful verify — the visitor was signed in, but the page sat
+  // on "Signing you in" and never redirected. Rendering the page found it (2026-09-17).
+  const redeemingTokenRef = useRef<string | null>(null);
   const [ordersState, setOrdersState] = useState<OrdersState>("idle");
   const [orders, setOrders] = useState<AccountOrder[]>([]);
   const [adminOrders, setAdminOrders] = useState<AdminOrder[]>([]);
@@ -106,6 +115,7 @@ export function LoginPage() {
   const googleTrackedRef = useRef(false);
 
   const token = searchParams.get("token");
+  const requestedFrom = searchParams.get("app");
   const loginError = searchParams.get("error");
   const authState = searchParams.get("auth");
   const nextPath = useMemo(() => sanitizeNextPath(searchParams.get("next")), [searchParams]);
@@ -134,6 +144,16 @@ export function LoginPage() {
 
     const loginToken = token;
 
+    // Before the signed-in check: a visitor already signed in on this browser can
+    // still be trying to sign the APP in, and redirecting them would strand the token.
+    if (planMagicLink(requestedFrom, choseBrowser) === "offer-app") {
+      setVerifyState("handoff");
+      if (canOpenIosApp(navigator.userAgent)) {
+        window.location.href = appLoginHref(loginToken);
+      }
+      return;
+    }
+
     if (user) {
       setVerifyState("success");
       window.setTimeout(() => {
@@ -142,51 +162,26 @@ export function LoginPage() {
       return;
     }
 
-    let cancelled = false;
+    if (redeemingTokenRef.current === loginToken) {
+      return;
+    }
+    redeemingTokenRef.current = loginToken;
 
-    async function handleToken() {
-      // On mobile, try to hand the token to the iOS app first.
-      // If the app handles it, the user leaves this page and the token
-      // gets consumed by the app. If the app is not installed, the
-      // custom-scheme navigation silently fails and we fall through
-      // to web verification after a short delay.
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      if (isMobile) {
-        window.location.href = `colorarchive://login?token=${encodeURIComponent(loginToken)}`;
-        await new Promise((r) => window.setTimeout(r, 1500));
-        // If we're still here, the app didn't handle it — continue with web verify.
-        if (cancelled) return;
-      }
-
-      setVerifyState("loading");
-      setError("");
-
-      try {
-        await verifyMagicLink(loginToken);
-        if (cancelled) {
-          return;
-        }
-
+    setVerifyState("loading");
+    setError("");
+    verifyMagicLink(loginToken).then(
+      () => {
         setVerifyState("success");
         window.setTimeout(() => {
           router.replace(nextPath);
         }, 900);
-      } catch (err) {
-        if (cancelled) {
-          return;
-        }
-
+      },
+      (err: unknown) => {
         setError(err instanceof Error ? err.message : "Could not verify link");
         setVerifyState("error");
-      }
-    }
-
-    void handleToken();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [nextPath, router, status, token, user, verifyMagicLink, verifyState]);
+      },
+    );
+  }, [choseBrowser, nextPath, requestedFrom, router, status, token, user, verifyMagicLink, verifyState]);
 
   useEffect(() => {
     if (!googleSuccess || status !== "authenticated") {
@@ -349,6 +344,41 @@ export function LoginPage() {
       setAdminError(err instanceof Error ? err.message : "Could not resend admin order email");
       setResendState((current) => ({ ...current, [`admin-${orderId}`]: "idle" }));
     }
+  }
+
+  if (token && verifyState === "handoff") {
+    return (
+      <main className="px-4 py-4 sm:px-6 sm:py-6">
+        <section className="mx-auto max-w-3xl rounded-[2rem] border border-black/6 bg-white/80 px-6 py-12 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
+          <div className="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-neutral-500">
+            <span className="inline-block h-2 w-2 rounded-full bg-neutral-900" />
+            {t("login.accountSync")}
+          </div>
+          <h1 className="mt-6 font-display text-4xl font-light tracking-[-0.04em] text-neutral-950 sm:text-5xl">
+            {t("login.appHandoffHeading")}
+          </h1>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600">{t("login.appHandoffBody")}</p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href={appLoginHref(token)}
+              className="rounded-full border border-black/8 bg-neutral-950 px-4 py-3 text-sm font-medium text-white transition hover:bg-neutral-800"
+            >
+              {t("login.openInApp")}
+            </a>
+            <button
+              type="button"
+              onClick={() => {
+                setChoseBrowser(true);
+                setVerifyState("idle");
+              }}
+              className="rounded-full border border-black/8 bg-white px-4 py-3 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+            >
+              {t("login.useThisBrowser")}
+            </button>
+          </div>
+        </section>
+      </main>
+    );
   }
 
   if (token && (verifyState === "loading" || verifyState === "success")) {
