@@ -4,6 +4,79 @@ Post manually to Facebook Page when ready. Remove entries after posting.
 
 ---
 
+## Weekly Roundup — 2026-09-20
+
+> **🔴 NOTHING TO POST THIS WEEK. There is no Facebook or Twitter copy below, and that is the finding, not an omission.** 8 commits, Sep 13 → Sep 20. Counts unchanged for the **sixth** week running: colors **5,446**, collections **261**, guides **333**, tools **44** — **zero new colors, tools, collections or guides**. Unlike the last five weeks, there is also **zero user-facing news**: every one of the 8 commits is a repair to something that was already broken, and the two pieces of new writing are unapproved drafts that have never been sent or published.
+>
+> **How this run verified itself.** 🟢 Full suite green: **56 files, 885 tests, 1.97s** frontend; **205 tests, 10 suites, 0.96s** server. Counts read through a `tsx` probe of `colors` in `src/data/colors`, `collections` in `src/lib/collections`, `landingGuides` in `src/lib/guides` and `TOOL_COUNT` in `src/components/tools-page.tsx`. Network to production was available and every claim below was checked against `colorarchive.org`, not against a commit message.
+>
+> ---
+>
+> **WHY THERE IS NO SUBJECT. The whole week, measured.**
+>
+> `git diff 1cfe66a..HEAD` is **37 files, +3,356 / −183**. Where those lines went:
+> - **`server/` — 29 of 37 files.** Apple JWS verification, entitlement ordering, refund guard, font checks, Instagram route guards, the digest tripwire, login-link tagging. Roughly half of the insertions are **new tests** (`apple-grant` 444 lines, `apple-jws` 295, `instagram-routes` 151, `entitlement-ordering` 148, `x509-forge` 128).
+> - **`app/` — exactly one file, and it is not a page:** `app/api/webhook/route.ts`. No route was added, renamed or removed. `src/lib/collections.ts` was not touched at all; `src/lib/guides.ts` holds **314** slugs at `1cfe66a` and **314** at `HEAD`.
+> - **`src/` — 5 files, all of them the login hand-off** (below) plus 7 lines of i18n keys.
+>
+> So the archive a visitor can browse is **byte-for-byte the same archive as last Sunday**. A "this week at ColorArchive" post would have to be about something else, and everything else is on the exclusion list.
+>
+> ---
+>
+> **THE ONE VISITOR-FACING WEB CHANGE, AND WHY IT IS STILL NOT A POST.**
+>
+> Inside `0a9e8f4`: `/login/` **used to hang on "Signing you in" after every successful web login** — the effect cleanup discarded the result. It also fired the `colorarchive://` app scheme on *every* mobile visit and redeemed the single-use token 1.5 s later, before iOS could finish asking "Open in ColorArchive?", so the browser always won the race and the app got "Invalid or expired login link". Links are now tagged `app=ios` server-side and only those are offered to the app.
+>
+> 🟢 **Confirmed deployed, not inferred.** Pulled all 14 chunks behind `/login/` (1,302,791 bytes) and grepped them: the bundle contains ``function d(e){return `colorarchive://login?token=${encodeURIComponent(e)}`}`` — that is `appLoginHref` from the new `src/lib/login-handoff.ts` — and contains **zero** occurrences of `1500`, the old race timer. The new module shipped.
+>
+> **It is not announceable for the same reason as everything else this week:** "logging in works now" tells people that logging in did not work. That is a thing to fix quietly and a thing to say to an affected customer directly, not a Page post.
+>
+> ---
+>
+> 🔴 **THE NEAR-MISS THIS RUN CAUGHT IN ITSELF: the week's only new prose is a draft nobody has approved.**
+>
+> `32cd5df` adds `docs/design-notes/2026-W38.md` — *"Your contrast checker can't see opacity"*, a genuinely good 600-word piece with arithmetic that checks out. The obvious move was to post its substance. **Three separate facts kill that, and a future run should re-check all three rather than assume:**
+>
+> 1. **It is `status: draft`.** `server/scripts/send-design-notes.cjs` skips anything not `approved`, full stop — that gate exists so nothing reaches a subscriber before a human reads it. Posting the content publicly would walk around the owner's own approval gate from the outside.
+> 2. **It has no URL and never will have one.** Design Notes is an **email newsletter**, not a site section: `docs/*.md` is in the Vercel ignore list. Confirmed live — `/notes/your-contrast-checker-cant-see-opacity/` → **404**, `/notes/2026-w38/` → **404**. (`/notes/` itself returns 200, but that is the *older* notes archive — april-2026-…, august-2026-… — unrelated to the newsletter.)
+> 3. 🟠 **Our own `/contrast/` tool cannot do what the note tells people to do.** The note's central instruction is "composite the translucent colour into a solid hex first, then check that hex". `src/components/contrast-page.tsx` is 667 lines and contains **no alpha, compositing or blending logic at all** — the only `rgba(` occurrences in the file are Tailwind shadow classes. It takes two opaque colours. So the post would have taught a technique and linked to a tool that cannot perform it.
+>
+> **`docs/design-notes/2026-W37.md` is also still `status: draft`.** That is now **two consecutive unsent issues**. The pipeline is working exactly as designed and is simply waiting on a human — see owner action (a).
+>
+> ---
+>
+> **Deliberately excluded, do not add:**
+>
+> 1. **`0a9e8f4` — Apple IAP verification had never once succeeded.** The embedded Apple Root CA G3 was corrupt (61 characters wrong), so every App Store notification and every iOS purchase sync was rejected since launch; the only test fed garbage and asserted it was refused, so it stayed green. A customer bought Pro in the app on Sep 16 and **nothing durable remained**. Fixing it made every Apple grant path live for the first time, and four review passes then found 10 further holes (pre-refund replay, renewal-info accepted as purchase, App Store events revoking Lemon Squeezy access, …). Serious, correct work. **Absolutely not announceable** — it is "we took iOS money and gave nothing back," and its audience is one customer and a direct email, not a Page.
+> 2. **`09cbb8a` — refund-then-cancel restored Pro; a stale event could undo a paid renewal.** Same category as (1).
+> 3. **`28bc1e7` / `3841122` — the Instagram pair.** One closed a **reflected XSS and anonymous publishing** on the IG webhook route; the other found that **every IG post since the Azure migration (Aug 30 → Sep 15) rendered tofu boxes instead of text**, because the VM had no fonts and `sharp` did not error. 🔴 **Publishing a security fix is how you tell people there was a hole**, and the 17 bad posts are still up — that is a deletion decision for the owner, not post material.
+> 4. **`5da0d77` — the lock-out tripwire went blind the moment a subscriber was harmed** (it filtered on `tier='pro'`, so a customer who hit the wall and self-healed to free vanished from the alert). Infrastructure honesty fix; invisible to visitors.
+> 5. **`811feec` — X/Facebook now post from a checked-in script** instead of prose rewritten daily. Internal tooling.
+> 6. **`/20040303/` is private and personal.** Standing exclusion, repeated every week on purpose so no future run reading only `git log` mistakes it for a launch. `noindex`, unlinked, never in a public post, newsletter, sitemap or social copy.
+> 7. **iOS v1.4.** Submitted Sep 5, still unannounced. 🔵 **Not re-verified this run** — a future run should check App Store Connect before either holding it again or announcing it, rather than copying this line forward a third time.
+>
+> **Owner actions:**
+>
+> (a) 🟠 **Two newsletter issues are waiting on you, and only you can release them.** `docs/design-notes/2026-W37.md` and `2026-W38.md` are both `status: draft`. Flip the frontmatter to `status: approved` on whichever you want sent; the cron does the rest and `design_notes_sent` prevents double-sends. **This is also the fastest route out of the situation this entry describes** — the archive has shipped no visitor-visible change in six weeks, and an approved issue is the one piece of genuinely new, genuinely good content sitting ready.
+>
+> (b) 🟠 **Decide whether `/contrast/` should handle alpha.** W38 tells readers to composite before measuring; our checker takes two opaque colours and cannot. That is a real product gap the newsletter is about to point at. Not fixed here — adding a feature is outside a roundup's remit — but it is the strongest content→tool connection currently available and it does not exist yet.
+>
+> (c) 🔵 **The 17 Instagram posts with tofu boxes (Aug 30 → Sep 15) are still live.** Flagged again because it is a judgement call about public-facing work, not a bug.
+>
+> (d) 🟢 **Nothing blocking.** Network, tests, production and GitHub all reachable this run.
+
+### Facebook — nothing to post
+
+> **Intentionally empty.** See the reasoning above. Writing copy this week would mean either announcing our own repaired failures (billing, Apple IAP, an XSS) or presenting something that did not happen this week as if it did. A skipped week costs nothing; a post that invents news costs the Page's credibility.
+
+### Twitter / X — nothing to post
+
+> **Intentionally empty.** Same reasoning.
+
+**Note on step 5 (auto-posting):** not posted, and this week there was also nothing to post. Publishing to a public Page is an outward-facing action taken without the owner present; the standing convention in this file ("Facebook (Manual)") is unchanged.
+
+---
+
 ## Weekly Roundup — 2026-09-13
 
 > **A billing-repair week with exactly one thing a visitor can see — and it is a good one.** 30 commits, Sep 6 → Sep 13. Counts unchanged for the fifth week running: colors **5,446**, collections **261**, guides **333**, tools **44** — **zero new colors, tools, collections or guides**. The one user-facing change is `/word-to-color/`, and it is the right subject because it is the route every paying customer in site history arrived through.

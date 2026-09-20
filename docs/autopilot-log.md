@@ -1,3 +1,60 @@
+## 2026-09-20 — [autopilot] Weekly roundup: the correct output was no post, and proving that took more work than writing one
+
+Scheduled `weekly-content-roundup`. 8 commits, Sep 13 → Sep 20. Lock was free, acquired as
+`autopilot`, released in the same single commit.
+
+### The finding: six weeks with no visitor-visible change, and this week no news at all
+
+Counts identical for the sixth week running — colors **5,446**, collections **261**, guides **333**,
+tools **44** — read through a `tsx` probe rather than trusted from `CLAUDE.md`. The stronger claim is
+the diff: `1cfe66a..HEAD` is **37 files, +3,356 / −183**, of which **29 are under `server/`** and the
+only `app/` file is `app/api/webhook/route.ts` — an API route, not a page. `src/lib/collections.ts`
+untouched; `src/lib/guides.ts` holds 314 slugs at both ends. The browsable archive is byte-for-byte
+last Sunday's.
+
+Every one of the 8 commits repairs something already broken: Apple IAP verification that had **never
+once succeeded** (`0a9e8f4`), refund-then-cancel restoring Pro (`09cbb8a`), a reflected XSS and
+anonymous publishing on the IG webhook (`28bc1e7`), IG posts rendering tofu boxes since the Azure
+migration (`3841122`), a lock-out tripwire that went blind exactly when a subscriber was harmed
+(`5da0d77`). Good work, none of it announceable — each one is "we were charging you for something
+that did not work."
+
+### The near-miss: the week's only new prose is a draft nobody approved
+
+`32cd5df` adds `docs/design-notes/2026-W38.md` — *"Your contrast checker can't see opacity"* — and
+posting its substance was the obvious move. Three facts killed it, each checked rather than assumed:
+
+1. **`status: draft`.** `send-design-notes.cjs` skips anything not `approved`. Posting the content
+   publicly walks around the owner's own approval gate from the outside.
+2. **No URL, and never will have one.** Design Notes is an email newsletter; `docs/*.md` is in the
+   Vercel ignore list. `/notes/your-contrast-checker-cant-see-opacity/` → **404**,
+   `/notes/2026-w38/` → **404**. (`/notes/` returns 200 but is the *older*, unrelated notes archive.)
+3. 🟠 **`/contrast/` cannot do what the note instructs.** The note says composite the translucent
+   colour to a solid hex, then measure. `contrast-page.tsx` (667 lines) has **no alpha, compositing or
+   blending logic**; its only `rgba(` hits are Tailwind shadow classes. The post would have taught a
+   technique and linked to a tool that cannot perform it.
+
+`2026-W37.md` is also still `draft` — two unsent issues now. Both raised in `docs/human-todo.md`.
+
+### Verified deployed, since it was the week's one visitor-facing web change
+
+`/login/` used to hang on "Signing you in" after every successful web login, and fired
+`colorarchive://` on every mobile visit, redeeming the single-use token 1.5 s later — the browser won
+the race and the app got "Invalid or expired login link". Pulled all 14 chunks behind `/login/`
+(1,302,791 bytes): the bundle carries ``function d(e){return `colorarchive://login?token=${...}`}``
+(the new `appLoginHref`) and **zero** occurrences of `1500`, the old race timer. Shipped. Still not a
+post: "logging in works now" tells people it did not.
+
+### Outputs
+
+🟢 Suites green: **56 files / 885 tests / 1.97s** frontend, **205 tests / 10 suites / 0.96s** server.
+🟢 Production reachable; `/`, `/notes/`, `/contrast/`, `/pro/` all 200.
+- `docs/daily-posts-queue.md` — 2026-09-20 entry with the evidence and **no Facebook or Twitter copy**,
+  marked "intentionally empty" so a future run does not read it as an omission to fill.
+- `docs/human-todo.md` — two newsletter drafts awaiting approval; the `/contrast/` alpha gap.
+- **Not posted to Facebook.** Nothing to post, and publishing to a public Page is an outward-facing
+  action taken without the owner present.
+
 ## 2026-09-06 — [autopilot] Weekly roundup: the first week in seven with news, and a negative claim that was wrong twice
 
 Scheduled `weekly-content-roundup`. 30 commits, Aug 30 → Sep 6.

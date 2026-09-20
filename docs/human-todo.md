@@ -2,6 +2,26 @@
 
 > Things the autopilot can't do. Jason handles these when he picks up the project.
 
+> ## 🟠 2026-09-20 两封 newsletter 在等你批,而且站上已经六周没有可见的新东西了
+
+> 来自 weekly-content-roundup 的巡检(`docs/daily-posts-queue.md` 的 2026-09-20 条)。
+
+> 1. **🟠 `docs/design-notes/2026-W37.md` 和 `2026-W38.md` 都还是 `status: draft`。**
+>    `server/scripts/send-design-notes.cjs` 对非 approved 的一律跳过 —— 这个闸是故意的,
+>    只有人能开。想发哪封就把 frontmatter 改成 `status: approved`,cron 会发,
+>    `design_notes_sent` 防重发。**这同时是眼下最快的一条出路**:colors 5,446 /
+>    collections 261 / guides 333 / tools 44 已经连续六周一个数没动,本周 8 个 commit
+>    全是修旧伤,社媒无东西可发;W38 是现成的、内容确实好的新东西。
+
+> 2. **🟠 `/contrast/` 要不要支持 alpha —— 这是产品决定,我没动。**
+>    W38 的核心建议是「先把半透明色合成成不透明 hex,再去测对比度」。
+>    但 `src/components/contrast-page.tsx`(667 行)**完全没有 alpha / 合成 / 混色逻辑**,
+>    文件里出现的 `rgba(` 全是 Tailwind 阴影类名 —— 它只接受两个不透明色。
+>    也就是说这封 newsletter 一旦发出去,会指着一个我们自己工具做不到的操作。
+>    这是目前最强的一条 content→tool 连接,但它还不存在。
+
+> 3. **🔵 8/30–9/15 那 17 条方块字 Instagram 帖仍在线。** 删不删是你的判断,再标一次。
+
 > ## 🟠 2026-09-08 付费面(dev-plan-2026-09-08)—— 代码侧做完了,剩下这五件是你的
 >
 > §7 的 0 / 1 / 1.5 / 2 已上线(见 commits `b5091b1`、`2b19b71`、`c98e6e7`)。
