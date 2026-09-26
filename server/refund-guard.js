@@ -24,7 +24,11 @@ const REVOKE_STATUSES = new Set([
   "dispute_created",
 ]);
 
-const PRO_PACK_PREFIX = "pro-";
+// SUBSCRIPTION money only. A refunded LIFETIME order is revoked by
+// hasLifetimeEntitlement() (it counts only kept lifetime orders); letting it count
+// here made a separately paid subscription look refunded, and renewal-grace then
+// refused to extend that paying customer (2026-09-24 review).
+const SUBSCRIPTION_ORDER = "pack_id LIKE 'pro-%' AND pack_id <> 'pro-lifetime'";
 
 function moneyWasReturned(db, userId) {
   if (userId === null || userId === undefined || userId === "") return false;
@@ -44,19 +48,19 @@ function moneyWasReturned(db, userId) {
       .prepare(
         `SELECT MAX(COALESCE(refunded_at, created_at)) AS at FROM orders
           WHERE LOWER(email) = LOWER(?) AND refunded = 1
-            AND pack_id LIKE ? AND COALESCE(is_test, 0) = 0`,
+            AND ${SUBSCRIPTION_ORDER} AND COALESCE(is_test, 0) = 0`,
       )
-      .get(row.email ?? "", `${PRO_PACK_PREFIX}%`);
+      .get(row.email ?? "");
     if (!refunded || !refunded.at) return false;
 
     const keptSince = db
       .prepare(
         `SELECT COUNT(*) AS n FROM orders
           WHERE LOWER(email) = LOWER(?) AND COALESCE(refunded, 0) = 0
-            AND pack_id LIKE ? AND COALESCE(is_test, 0) = 0
+            AND ${SUBSCRIPTION_ORDER} AND COALESCE(is_test, 0) = 0
             AND created_at > ?`,
       )
-      .get(row.email ?? "", `${PRO_PACK_PREFIX}%`, refunded.at);
+      .get(row.email ?? "", refunded.at);
 
     return (keptSince?.n ?? 0) === 0;
   } catch {

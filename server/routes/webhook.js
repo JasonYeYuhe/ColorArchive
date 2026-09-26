@@ -5,6 +5,8 @@ const router = express.Router();
 const db = require("../db");
 const { hasLifetimeEntitlement } = require("../lifetime");
 const { moneyWasReturned } = require("../refund-guard");
+const { hasOwnLsSubscription, lemonSqueezyClockMs, appStoreClockMs, latestIso } = require("../subscription-clock");
+const { applyRenewalGrace } = require("../renewal-grace");
 const { findCatalogProduct, getDownloadUrl, getPackUrl } = require("../catalog");
 const { sendOrderConfirmationEmail, sendProSubscriptionEmail, sendPreorderConfirmationEmail } = require("../email");
 
@@ -14,7 +16,7 @@ const { sendOrderConfirmationEmail, sendProSubscriptionEmail, sendPreorderConfir
 // treatment (no download link, a dedicated confirmation mail).
 const PREORDER_PACK_ID = "preorder-auditor";
 const { constantTimeEqual } = require("../constant-time-eq");
-const { resolveCancellation, resolveSubscriptionUpdate } = require("../entitlement");
+const { resolveCancellation, resolveSubscriptionUpdate, ACTIVE_STATUSES, renewalExpiry } = require("../entitlement");
 
 const RAW_LOG_FILE = path.join(__dirname, "..", ".ls-event-log.jsonl");
 const RAW_LOG_MAX_ENTRIES = 50;
@@ -208,6 +210,12 @@ router.post("/subscription-checkout", async (req, res) => {
     proExpiresAt = d.toISOString();
   }
   const subscriptionStatus = typeof status === "string" && status.length > 0 ? status : "active";
+  // The provider's next charge date. Until 2026-09-24 this handler never wrote it, so
+  // a new subscription — every trial in particular — sat with the column NULL until
+  // its first subscription_updated, invisible to the digest's overdue tripwire and to
+  // renewal-grace, which both key on it. NULL here means "leave whatever is there".
+  const renewsMs = Date.parse(typeof renewsAt === "string" ? renewsAt : "");
+  const periodEnd = Number.isFinite(renewsMs) ? new Date(renewsMs).toISOString() : null;
   console.log(
     `[webhook] Subscription checkout: ${plan} for ${email} (sub=${subscriptionId}, provider=${paymentProvider}, test=${isTest}, fp=${fingerprint || "none"})`
   );
@@ -250,6 +258,18 @@ router.post("/subscription-checkout", async (req, res) => {
     }
   }
 
+  // A lifetime order_created re-delivered AFTER that order was refunded (an LS retry
+  // of a failed delivery, or a dashboard resend) must not grant it again: that made
+  // the account Pro forever on returned money (round 8, pre-existing).
+  if (plan === "lifetime") {
+    const lifetimeOrderId = subscriptionId || sessionId;
+    const prior = lifetimeOrderId ? db.prepare("SELECT refunded FROM orders WHERE order_id = ?").get(lifetimeOrderId) : null;
+    if (prior && prior.refunded) {
+      console.log(`[webhook] Subscription checkout: lifetime ${lifetimeOrderId} was already refunded — not granted again`);
+      return res.json({ ok: true, alreadyRefunded: true });
+    }
+  }
+
   if (user) {
     // A lifetime holder who starts (or restarts) a subscription must keep both
     // halves of the marker: pro_expires_at = NULL, and subscription_plan =
@@ -259,18 +279,33 @@ router.post("/subscription-checkout", async (req, res) => {
     // Keep the plan marker only where it already IS the marker. Deriving it from the
     // guard wrote 'lifetime' for anyone holding an App Store lifetime too, and that
     // manual-grant marker then outlived the App Store purchase's refund (2026-09-17).
-    const { subscription_plan: currentPlan } = db
-      .prepare("SELECT subscription_plan FROM users WHERE id = ?")
+    const { subscription_plan: currentPlan, payment_provider: currentProvider } = db
+      .prepare("SELECT subscription_plan, payment_provider FROM users WHERE id = ?")
       .get(user.id);
+    // A LIFETIME purchase is not a subscription. On a row that already carries one
+    // (Lemon Squeezy or App Store — payment_provider is set), it must not overwrite
+    // that subscription's status, provider or ids: it used to write status 'active',
+    // provider 'lemonsqueezy' and its synthetic `lifetime_<id>` over them, after which
+    // nothing could tell a live subscription from a cancelled, expired or refunded
+    // one. Five review rounds on 2026-09-24/25 each found another way that let a
+    // refunded lifetime hand access back or take a paid month away; all of them
+    // started here. The lifetime is recorded by its order row and a NULL clock.
+    const lifetimeOnExistingSubscription = plan === "lifetime" && Boolean(currentProvider);
+    // subscription_plan = 'lifetime' is the ONLY record of a MANUAL lifetime grant, so
+    // a new subscription keeps it — but only then. A PURCHASED lifetime is recorded by
+    // its order row; keeping 'lifetime' over a real subscription's plan filed that
+    // subscription's later yearly renewals as monthly with a 35-day horizon (round 8).
+    const manualLifetimeMarker = currentPlan === "lifetime" && !hasPurchasedLifetime(db, user.id);
     db.prepare(
       `UPDATE users SET
         tier = 'pro',
-        subscription_plan = ?,
-        subscription_status = ?,
+        subscription_plan = CASE WHEN ? THEN subscription_plan ELSE ? END,
+        subscription_status = CASE WHEN ? THEN subscription_status ELSE ? END,
         pro_expires_at = ?,
-        stripe_subscription_id = ?,
-        payment_provider = ?,
-        provider_subscription_id = ?,
+        subscription_current_period_end = COALESCE(?, subscription_current_period_end),
+        stripe_subscription_id = CASE WHEN ? THEN stripe_subscription_id ELSE ? END,
+        payment_provider = CASE WHEN ? THEN payment_provider ELSE ? END,
+        provider_subscription_id = CASE WHEN ? THEN provider_subscription_id ELSE ? END,
         provider_customer_id = COALESCE(?, provider_customer_id),
         is_test = ?,
         card_fingerprint = COALESCE(?, card_fingerprint),
@@ -278,11 +313,17 @@ router.post("/subscription-checkout", async (req, res) => {
         duplicate_suspects = ?
       WHERE id = ?`
     ).run(
-      holdsLifetime && currentPlan === "lifetime" ? "lifetime" : plan || "monthly",
+      lifetimeOnExistingSubscription ? 1 : 0,
+      holdsLifetime && manualLifetimeMarker ? "lifetime" : plan || "monthly",
+      lifetimeOnExistingSubscription ? 1 : 0,
       subscriptionStatus,
       holdsLifetime ? null : proExpiresAt,
+      periodEnd,
+      lifetimeOnExistingSubscription ? 1 : 0,
       subscriptionId || null,
+      lifetimeOnExistingSubscription ? 1 : 0,
       paymentProvider,
+      lifetimeOnExistingSubscription ? 1 : 0,
       subscriptionId || null,
       providerCustomerId,
       isTest,
@@ -538,6 +579,34 @@ function rememberProviderEvent(db, userId, updatedAt) {
 }
 
 /** The later of two ISO instants; tolerates null/garbage on either side. */
+/**
+ * The clock this account would hold if the refunded lifetime had never been bought:
+ * the later of what its Lemon Squeezy subscription and its App Store purchases give
+ * on their own (server/subscription-clock.js; every rule there is the owning
+ * handler's). May be in the past (renewal-grace then treats it like any late
+ * renewal); null when nothing on the account gives access.
+ */
+function clockWithoutLifetime(db, userId) {
+  return latestIso(lemonSqueezyClockMs(db, userId), appStoreClockMs(db, userId));
+}
+
+/**
+ * Did an LS lifetime PURCHASE write this row's 'lifetime' plan marker? Only the LS
+ * lifetime checkout writes that marker (an App Store lifetime never does), so the
+ * question is whether a real LS lifetime order exists — refunded or not. Counting an
+ * App Store lifetime here erased an owner's manual grant marker (round 9).
+ */
+function hasPurchasedLifetime(db, userId) {
+  const row = db.prepare("SELECT email FROM users WHERE id = ?").get(userId);
+  if (!row) return false;
+  return Boolean(
+    db
+      .prepare(`SELECT 1 AS yes FROM orders WHERE LOWER(email) = LOWER(?) AND pack_id = 'pro-lifetime' AND COALESCE(is_test, 0) = 0 LIMIT 1`)
+      .get(row.email || ""),
+  );
+}
+
+
 function laterIso(a, b) {
   const A = Date.parse(a || "");
   const B = Date.parse(b || "");
@@ -723,6 +792,16 @@ router.post("/subscription-revoke", (req, res) => {
 
   const user = findSubscriptionUser({ subscriptionId, customerId, email });
   let downgraded = false;
+  // A refund already applied to the lifetime order (LS retry, dashboard resend, a
+  // second partial refund) changes nothing more: re-running it rewound whatever
+  // renewal-grace or the subscription had done since (round 8).
+  const alreadyRefundedLifetime = lsId
+    ? db.prepare("SELECT refunded FROM orders WHERE order_id = ? AND pack_id = 'pro-lifetime'").get(`lifetime_${lsId}`)
+    : null;
+  if (alreadyRefundedLifetime && alreadyRefundedLifetime.refunded) {
+    console.log(`[webhook] subscription-revoke: lifetime_${lsId} was already refunded - nothing to do (reason=${reason})`);
+    return res.json({ ok: true, downgraded: false, alreadyRefunded: true });
+  }
   try {
     db.transaction(() => {
       // Flag ONLY the specific reversed money row (never the whole history —
@@ -753,11 +832,42 @@ router.post("/subscription-revoke", (req, res) => {
       // order; subscription-scoped reasons always downgrade.
       let shouldDowngrade = reason !== "order_refunded";
       if (!shouldDowngrade && lsId) {
+        // `lifetime_${lsId}` here too (2026-09-24 review): the flag UPDATE above knew
+        // the key, this lookup did not, and the lifetime insert writes no
+        // payment_intent — so a refunded lifetime was flagged but never revoked:
+        // ¥19,999 returned and Pro kept for good, the exact outcome the comment
+        // above says the key was added to prevent. Executed in
+        // server/__tests__/lifetime-refund-revoke.test.js.
         const row = db.prepare(
-          "SELECT pack_id FROM orders WHERE order_id IN (?, ?, ?) OR payment_intent = ?"
-        ).get(`lsinv_${lsId}`, `lsord_${lsId}`, String(lsId), String(lsId));
+          "SELECT pack_id FROM orders WHERE order_id IN (?, ?, ?, ?) OR payment_intent = ?"
+        ).get(`lsinv_${lsId}`, `lsord_${lsId}`, `lifetime_${lsId}`, String(lsId), String(lsId));
         shouldDowngrade = Boolean(row && typeof row.pack_id === "string" && row.pack_id.startsWith("pro-"));
       }
+      // Is the refunded order the LIFETIME itself? Then the rule is: the account ends up
+      // exactly as it would be had the lifetime never been bought — checked
+      // differentially in server/__tests__/lifetime-refund-invariant.test.js.
+      const refundedLifetime = Boolean(
+        lsId && db.prepare("SELECT 1 AS yes FROM orders WHERE order_id = ? AND pack_id = 'pro-lifetime'").get(`lifetime_${lsId}`)
+      );
+      if (user && refundedLifetime) {
+        // If it was the row's first purchase, its checkout wrote the row's provider,
+        // status and subscription ids (recognisable by its own `lifetime_<id>`): put back
+        // what the account would hold without it — 'apple' if the App Store ever granted
+        // this account, else nothing. This runs whether or not another lifetime still
+        // holds access: skipping it when an App Store lifetime was also held left the
+        // row claiming a live Lemon Squeezy subscription, so Apple's later REFUND of that
+        // lifetime could not revoke it (2026-09-27, round 8).
+        const own = db
+          .prepare("SELECT provider_subscription_id AS psid, apple_original_transaction_id AS appleTxn FROM users WHERE id = ?")
+          .get(user.id);
+        if (own && own.psid === `lifetime_${lsId}`) {
+          db.prepare(
+            `UPDATE users SET payment_provider = ?, subscription_status = NULL,
+               provider_subscription_id = NULL, stripe_subscription_id = NULL WHERE id = ?`
+          ).run(own.appleTxn ? "apple" : null, user.id);
+        }
+      }
+
       // A refund or dispute on a SUBSCRIPTION invoice must not revoke a lifetime
       // purchase that was paid for separately. Refunding the lifetime order
       // itself does revoke it: the UPDATE above sets refunded = 1 on that row
@@ -767,12 +877,33 @@ router.post("/subscription-revoke", (req, res) => {
         console.log(
           `[webhook] subscription-revoke: user=${user.id} keeps access — lifetime entitlement held (reason=${reason})`
         );
+        // The lifetime protects ACCESS, not the subscription's record: when it is a
+        // SUBSCRIPTION's money that was returned, still note it on the subscription,
+        // exactly as it would be without the lifetime. Never for a refunded lifetime
+        // (another lifetime still held): that money was not the subscription's.
+        const sub = db.prepare("SELECT payment_provider, provider_subscription_id FROM users WHERE id = ?").get(user.id);
+        if (!refundedLifetime && sub && hasOwnLsSubscription(sub)) {
+          db.prepare(`UPDATE users SET subscription_status = ? WHERE id = ?`).run(reason || "refunded", user.id);
+        }
         shouldDowngrade = false;
       }
       if (user && shouldDowngrade) {
-        db.prepare(
-          `UPDATE users SET tier = 'free', subscription_status = ?, pro_expires_at = NULL WHERE id = ?`
-        ).run(reason || "refunded", user.id);
+        if (refundedLifetime) {
+          const clock = clockWithoutLifetime(db, user.id);
+          const live = clock !== null && Date.parse(clock) > Date.now();
+          db.prepare(`UPDATE users SET tier = ?, pro_expires_at = ? WHERE id = ?`).run(live ? "pro" : "free", clock, user.id);
+          // What renewal-grace's next hourly run would do for this account, now: a late
+          // renewal's rebuilt clock may already be past (round 9: up to an hour without
+          // access otherwise).
+          applyRenewalGrace(db, { userId: user.id });
+          console.log(
+            `[webhook] subscription-revoke: user=${user.id} lifetime refunded — ${clock ? `access returns to what the account held without it, until ${clock}` : "no other access on the account"} (reason=${reason})`
+          );
+        } else {
+          db.prepare(
+            `UPDATE users SET tier = 'free', subscription_status = ?, pro_expires_at = NULL WHERE id = ?`
+          ).run(reason || "refunded", user.id);
+        }
         downgraded = true;
       }
     })();

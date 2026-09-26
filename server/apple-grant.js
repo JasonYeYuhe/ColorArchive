@@ -97,10 +97,13 @@ function grantApplePurchase(db, { userId, productId, txnId, transactionId = null
     // Squeezy lifetime. Same defect as the LS renewal path: NULL is the only
     // thing that records "forever", so a dated Apple expiry silently converts
     // a lifetime purchase into a subscription that later expires.
+    // Lapsed is a property of the TRANSACTION, decided before a lifetime blanks the
+    // clock: with a lifetime held, a long-lapsed transaction replayed by the app was
+    // being recorded 'active' and marked as an App Store grant (round 8, 2026-09-27).
+    const lapsed = proExpiresAt !== null && Date.parse(proExpiresAt) <= now;
+
     const lifetime = hasLifetimeEntitlement(db, userId);
     if (lifetime) proExpiresAt = null;
-
-    const lapsed = proExpiresAt !== null && Date.parse(proExpiresAt) <= now;
 
     db.prepare(`
       INSERT INTO apple_purchases (user_id, product_id, original_transaction_id, transaction_date, environment, expires_date, status)
@@ -130,7 +133,10 @@ function grantApplePurchase(db, { userId, productId, txnId, transactionId = null
     // alive or the user holds a lifetime purchase through it — the digest's renewal
     // tripwires and appleGovernsAccess() both key on it.
     const { payment_provider: provider } = db.prepare("SELECT payment_provider FROM users WHERE id = ?").get(userId);
-    const keepProvider = Boolean(provider && provider !== "apple" && (lifetime || !appleGovernsAccess(db, userId)));
+    // Not "or a lifetime is held": the lifetime protects ACCESS through
+    // hasLifetimeEntitlement(); letting it also steer the provider left a dead LS row
+    // un-handed to Apple, which then outlived the lifetime's refund (round 8).
+    const keepProvider = Boolean(provider && provider !== "apple" && !appleGovernsAccess(db, userId));
 
     db.prepare(`
       UPDATE users SET

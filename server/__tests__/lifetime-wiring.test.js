@@ -124,7 +124,7 @@ test("the Apple purchase-verification grant consults the lifetime guard", () => 
   const grantSrc = readFileSync(join(ROOT, "apple-grant.js"), "utf8");
   const start = grantSrc.indexOf("lifetime → proExpiresAt stays null");
   assert.notEqual(start, -1, "the apple-purchase grant comment moved — re-anchor this test");
-  const body = grantSrc.slice(start, start + 700);
+  const body = grantSrc.slice(start, start + 1200);
   assert.ok(
     body.includes("hasLifetimeEntitlement"),
     "/auth/apple-purchase writes pro_expires_at with no lifetime guard, so buying an Apple " +

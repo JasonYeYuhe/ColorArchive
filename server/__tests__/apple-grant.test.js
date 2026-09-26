@@ -183,7 +183,11 @@ test("BACKWARDS CLOCK: replaying an older transaction never shortens a later exp
 test("a live Lemon Squeezy subscriber keeps their provider, and an App Store expiry does not lock them out", async () => {
   reset();
   const lsEnd = iso(Date.now() + 25 * DAY);
-  const id = addUser("both@example.com", { tier: "pro", pro_expires_at: lsEnd, payment_provider: "lemonsqueezy", subscription_status: "active" });
+  // a real LS row: subscription id and renewal date (renewal + 3 days grace = lsEnd)
+  const id = addUser("both@example.com", {
+    tier: "pro", pro_expires_at: lsEnd, payment_provider: "lemonsqueezy", subscription_status: "active",
+    provider_subscription_id: "sub_both", subscription_current_period_end: iso(Date.now() + 22 * DAY),
+  });
   const old = txn({ productId: "me.colorarchive.pro.monthly", expiresDate: iso(Date.now() + 5 * DAY) });
   await sync(id, old);
   assert.equal(user(id).payment_provider, "lemonsqueezy");
@@ -370,7 +374,7 @@ test("a CANCELLED Lemon Squeezy subscription still inside its paid period keeps 
   reset();
   const lsEnd = iso(Date.now() + 197 * DAY);
   const id = addUser("cancelled-ls@example.com", {
-    tier: "pro", pro_expires_at: lsEnd, payment_provider: "lemonsqueezy",
+    tier: "pro", pro_expires_at: lsEnd, payment_provider: "lemonsqueezy", provider_subscription_id: "sub_cx",
     subscription_status: "cancelled", subscription_current_period_end: iso(Date.now() + 194 * DAY),
   });
   const monthly = txn({ productId: "me.colorarchive.pro.monthly", expiresDate: iso(Date.now() + 5 * DAY) });
@@ -441,4 +445,63 @@ test("REFUND_REVERSED after the period has ended records the purchase as expired
   await notify("REFUND_REVERSED", { ...t, expiresDate: iso(Date.now() - 10 * DAY) });
   assert.equal(purchaseRow("2000001").status, "expired");
   assert.equal(user(id).tier, "free");
+});
+
+test("an App Store yearly REFUNDED while a Lemon Squeezy monthly governs access does not keep the refunded year", async () => {
+  // 2026-09-27: downgrade() used to return early whenever another provider governed,
+  // leaving the refunded App Store year on the account's clock (up to ~300 days free).
+  reset();
+  const lsDue = Date.now() + 20 * DAY;
+  const id = addUser("ls-and-yearly@example.com", {
+    tier: "pro", pro_expires_at: iso(lsDue + 3 * DAY), payment_provider: "lemonsqueezy", subscription_status: "active",
+    provider_subscription_id: "sub_ly", subscription_current_period_end: iso(lsDue),
+  });
+  const yearly = txn({ originalTransactionId: "yr-1", transactionId: "yr-1", productId: "me.colorarchive.pro.yearly", expiresDate: iso(Date.now() + 300 * DAY) });
+  await sync(id, yearly);
+  assert.ok(Date.parse(user(id).pro_expires_at) > Date.now() + 290 * DAY, "precondition: the App Store year is on the clock");
+
+  await notify("REFUND", yearly);
+  assert.equal(user(id).tier, "pro", "the LS monthly is still paid");
+  assert.equal(user(id).pro_expires_at, iso(lsDue + 3 * DAY), "the refunded App Store year stayed on the clock");
+  assert.equal(user(id).payment_provider, "lemonsqueezy");
+});
+
+test("an App Store purchase ending during a LATE Lemon Squeezy renewal keeps renewal-grace's extension", async () => {
+  reset();
+  const { applyRenewalGrace, graceUntil } = require("../renewal-grace");
+  const due = iso(Date.now() - 6 * DAY); // LS late to charge, status still active
+  const id = addUser("late-ls-plus-apple@example.com", {
+    tier: "pro", pro_expires_at: iso(Date.now() - DAY), payment_provider: "lemonsqueezy", subscription_status: "active",
+    provider_subscription_id: "sub_late", subscription_current_period_end: due,
+  });
+  db.prepare("INSERT INTO orders (order_id, email, product, amount, currency, pack_id, refunded, is_test, created_at) VALUES ('lsinv_late', 'late-ls-plus-apple@example.com', 'Pro monthly', 499, 'jpy', 'pro-monthly', 0, 0, datetime('now','-36 days'))").run();
+  applyRenewalGrace(db, { now: Date.now(), log: () => {} });
+  assert.equal(user(id).pro_expires_at, graceUntil(due), "precondition: renewal-grace extended the late renewal");
+
+  const monthly = txn({ originalTransactionId: "ap-late", transactionId: "ap-late", productId: "me.colorarchive.pro.monthly", expiresDate: iso(Date.now() - 2 * DAY) });
+  db.prepare("INSERT INTO apple_purchases (user_id, product_id, original_transaction_id, transaction_date, environment, expires_date, status) VALUES (?, ?, 'ap-late', ?, 'Production', ?, 'active')").run(id, monthly.productId, iso(Date.now() - 32 * DAY), monthly.expiresDate);
+  await notify("EXPIRED", monthly);
+  assert.equal(user(id).tier, "pro");
+  assert.equal(user(id).pro_expires_at, graceUntil(due), "the App Store expiry shortened renewal-grace's extension");
+});
+
+
+test("a manual lifetime grant survives: App Store lifetime bought by mistake, then an LS monthly, then Apple refunds the lifetime", async () => {
+  // Round 9 (2026-09-27): the LS checkout counted the App Store lifetime as a PURCHASED
+  // one and overwrote the plan column — the manual grant's only record — so Apple's
+  // later refund ended the grant with the monthly.
+  reset();
+  const { hasLifetimeEntitlement } = require("../lifetime");
+  const id = addUser("manual-ls@example.com", { tier: "pro", subscription_plan: "lifetime" });
+  const mistake = txn({ originalTransactionId: "lm-3", transactionId: "lm-3", productId: "me.colorarchive.pro.lifetime", expiresDate: null });
+  await sync(id, mistake);
+  await callRoute(lsWebhook, "post", "/subscription-checkout", {
+    body: {
+      email: "manual-ls@example.com", plan: "monthly", subscriptionId: "sub_mls", provider: "lemonsqueezy", customerId: "cus_mls",
+      status: "active", renewsAt: iso(Date.now() + 20 * DAY), testMode: false,
+    },
+  });
+  await notify("REFUND", mistake);
+  assert.equal(hasLifetimeEntitlement(db, id), true, "the manual lifetime grant was lost");
+  assert.deepEqual([user(id).tier, user(id).pro_expires_at], ["pro", null]);
 });

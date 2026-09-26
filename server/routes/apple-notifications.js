@@ -14,6 +14,8 @@
 const express = require("express");
 const { hasLifetimeEntitlement } = require("../lifetime");
 const { appleGovernsAccess, grantApplePurchase, laterProClock } = require("../apple-grant");
+const { hasOwnLsSubscription, lemonSqueezyClockMs, appStoreClockMs, latestIso } = require("../subscription-clock");
+const { applyRenewalGrace } = require("../renewal-grace");
 const router = express.Router();
 const { renewalExpiry } = require("../entitlement");
 const db = require("../db");
@@ -137,22 +139,57 @@ router.post("/v2", async (req, res) => {
         );
         return;
       }
-      // Same reasoning for a live subscription paid through another provider.
+      // Same reasoning for a live subscription paid through another provider - but
+      // keep only what IS paid: that subscription's own clock, or another App Store
+      // purchase's. Returning early left this purchase's clock on the account: an
+      // App Store yearly refunded next to an LS monthly kept up to a year of access
+      // (2026-09-27, lifetime-refund-invariant.test.js scenario APL7).
       if (!appleGovernsAccess(db, userId)) {
-        console.log(
-          `[apple-notifications] ${label}: user ${userId} keeps access — another provider's subscription is alive`
-        );
+        // Only when the account's clock IS this purchase's clock is there anything to
+        // take away; otherwise the clock came from the other subscription (its own
+        // dates, renewal-grace, a hand extension) and must be left exactly as it is —
+        // rebuilding it from scratch lost all of those (round 9, 2026-09-27).
+        const cur = db.prepare("SELECT pro_expires_at FROM users WHERE id = ?").get(userId);
+        const mine = db.prepare("SELECT expires_date, product_id FROM apple_purchases WHERE original_transaction_id = ?").get(txnId);
+        const curMs = Date.parse((cur && cur.pro_expires_at) || "");
+        const mineMs = mine && mine.expires_date ? Date.parse(renewalExpiry(mine.expires_date)) : NaN;
+        // An App Store LIFETIME's clock is NULL; once it is refunded no lifetime holds
+        // (hasLifetimeEntitlement was asked above), so a NULL clock is this purchase's.
+        const lifetimeClock = cur && cur.pro_expires_at === null && mine && mine.product_id === "me.colorarchive.pro.lifetime";
+        if (lifetimeClock || (Number.isFinite(curMs) && Number.isFinite(mineMs) && Math.abs(curMs - mineMs) <= 2 * 3600000)) {
+          const until = latestIso(lemonSqueezyClockMs(db, userId), appStoreClockMs(db, userId, { excludeTxn: txnId }));
+          const live = until !== null && Date.parse(until) > Date.now();
+          db.prepare(`UPDATE users SET tier = ?, pro_expires_at = ? WHERE id = ?`).run(live ? "pro" : "free", until, userId);
+          applyRenewalGrace(db, { userId });
+          console.log(
+            `[apple-notifications] ${label}: user ${userId} — this purchase's clock removed; another provider's subscription governs, until ${until}`
+          );
+        } else {
+          console.log(
+            `[apple-notifications] ${label}: user ${userId} keeps access — another provider's subscription governs its clock`
+          );
+        }
         return;
       }
-      // Another App Store subscription of theirs may still be paid (e.g. a refunded
-      // lifetime next to an active yearly): fall back to it rather than to nothing.
-      const other = db.prepare(`
-        SELECT MAX(expires_date) AS until FROM apple_purchases
-         WHERE user_id = ? AND original_transaction_id <> ? AND status = 'active' AND expires_date IS NOT NULL
-      `).get(userId, txnId);
-      if (other && other.until && Date.parse(other.until) > Date.now()) {
-        db.prepare(`UPDATE users SET tier = 'pro', pro_expires_at = ? WHERE id = ?`).run(renewalExpiry(other.until), userId);
-        console.log(`[apple-notifications] ${label}: user ${userId} falls back to another active App Store subscription`);
+      // Fall back to whatever else the account still pays for: another App Store
+      // purchase (with its 3-day grace, which the old raw expires_date comparison
+      // dropped), or its Lemon Squeezy subscription's own clock — a cancelled one still
+      // inside its grace, or one resumed after a pause while payment_provider still
+      // says 'apple' (no LS handler writes it back). Round 9, 2026-09-27.
+      const appMs = appStoreClockMs(db, userId, { excludeTxn: txnId });
+      const until = latestIso(lemonSqueezyClockMs(db, userId), appMs);
+      // No other App Store purchase is paying: the account is back on its own LS
+      // subscription, as if this purchase had never been made — provider column
+      // included, which renewal-grace and appleGovernsAccess() read. Left at 'apple',
+      // a resumed LS subscription's late renewal got no grace (round 9).
+      const own = db.prepare("SELECT payment_provider, provider_subscription_id FROM users WHERE id = ?").get(userId);
+      if (!(appMs > Date.now()) && own && own.payment_provider === "apple" && hasOwnLsSubscription(own)) {
+        db.prepare(`UPDATE users SET payment_provider = 'lemonsqueezy' WHERE id = ?`).run(userId);
+      }
+      if (until !== null && Date.parse(until) > Date.now()) {
+        db.prepare(`UPDATE users SET tier = 'pro', pro_expires_at = ? WHERE id = ?`).run(until, userId);
+        applyRenewalGrace(db, { userId });
+        console.log(`[apple-notifications] ${label}: user ${userId} falls back to what else the account pays for, until ${until}`);
         return;
       }
       db.prepare(`UPDATE users SET tier = 'free', pro_expires_at = NULL WHERE id = ?`).run(userId);

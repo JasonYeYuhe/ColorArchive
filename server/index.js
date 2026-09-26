@@ -283,6 +283,14 @@ app.listen(PORT, BIND_HOST, () => {
     console.error("[WARN] Email scheduler failed to start:", err);
   }
 
+  // Extends a paying subscriber's clock when Lemon Squeezy is late to charge a
+  // renewal (twice now: 2026-08-22 and 09-22). Bounded and idempotent; see the file.
+  try {
+    startScheduler("renewal-grace", "./renewal-grace");
+  } catch (err) {
+    console.error("[WARN] renewal-grace scheduler failed to start:", err);
+  }
+
   try {
     startScheduler("instagram", "./ig-scheduler");
   } catch (err) {

@@ -410,6 +410,22 @@ ColorArchive/
 │   │                                     #   user's tier and clock. LS "cancelled" means "will not
 │   │                                     #   renew", NOT "access ends now"; both webhook paths used
 │   │                                     #   to revoke immediately. Never returns pro + NULL clock.
+│   ├── subscription-clock.js             # The access each paid source gives ON ITS OWN, rebuilt from
+│   │                                     #   the owning handlers' rules (LS: resolveSubscriptionUpdate
+│   │                                     #   at the last provider event, payment horizon, renewal-grace;
+│   │                                     #   App Store: expires+3d). Used when one source goes away:
+│   │                                     #   an LS lifetime refunded (account ends as if never bought —
+│   │                                     #   __tests__/lifetime-refund-invariant.test.js, differential)
+│   │                                     #   and an App Store purchase ending (account ends as if it
+│   │                                     #   was never made — __tests__/appstore-end-invariant.test.js).
+│   ├── renewal-grace.js                  # Hourly: when Lemon Squeezy is late to charge a renewal
+│   │                                     #   (08-22 and 09-22 both), extend a PAYING subscriber's
+│   │                                     #   clock to renewal + 10 days instead of letting auth.js
+│   │                                     #   lock them out at renewal + 3. Only status='active',
+│   │                                     #   only with a kept paid order, never after a refund.
+│   │                                     #   `node server/renewal-grace.js` = dry run. Records what it
+│   │                                     #   wrote in users.renewal_grace_until; the digest attributes
+│   │                                     #   an extension to it only when that column matches the clock.
 │   ├── pricing.js                        # Pro prices for the CommonJS side, mirrored from
 │   │                                     #   src/lib/checkout-config.ts and pinned to it by
 │   │                                     #   price-copy.test.ts. Never type a price into email.js.

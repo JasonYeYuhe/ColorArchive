@@ -48,6 +48,21 @@ test("the overdue-renewal warning exists and keeps a quiet day from staying sile
   );
 });
 
+test("renewals-due lists a trial about to convert, and the overdue section says when grace already stepped in", () => {
+  const sql = querySql("renewalsDue");
+  assert.ok(/'on_trial'/.test(sql), "renewalsDue filters trials out — a 3-day trial converts with no mention in the digest");
+  assert.ok(!/subscription_status\s*=\s*'active'/.test(sql), "renewalsDue is back to status='active' only");
+  const overdue = src.slice(src.indexOf("if (overdueRenewals.length) {"), src.indexOf("if (paidOrders.length) {"));
+  // Match the RENDERED line, not a comment — the first version of this assertion was
+  // satisfied by the comment above the push (2026-09-24 review).
+  assert.match(overdue, /lines\.push\([^\n]*renewal-grace's extension/, "the overdue block does not print renewal-grace's extension");
+  assert.ok(/graced_until\s*===\s*r\.locks_at/.test(overdue), "the note must be gated on renewal_grace_until matching the clock, not inferred from the gap between clocks");
+  assert.ok(/\$\{gracedExpr\} AS graced_until/.test(querySql("overdueRenewals")), "overdueRenewals must select graced_until (through the column guard) for the note to be gated on it");
+  const guard = src.slice(src.indexOf("const hasGraceColumn"), src.indexOf("const overdueRenewals"));
+  assert.ok(/pragma_table_info\('users'\)[^\n]*renewal_grace_until/.test(guard) && /hasGraceColumn \? "substr\(renewal_grace_until,1,19\)" : "NULL"/.test(guard),
+    "the digest opens data.db without running migrations: reading renewal_grace_until unguarded kills the whole digest on a not-yet-restarted server");
+});
+
 test("the Instagram publish check reads the post log and keeps a quiet day from staying silent", () => {
   assert.ok(src.includes('".post-log.json"'), "the digest no longer reads the scheduler's post log");
   assert.ok(/\$\{kind\}-\$\{igCheckDate\}/.test(src), "the post-log key format must be `${kind}-YYYY-MM-DD`, as ig-scheduler.js writes it");

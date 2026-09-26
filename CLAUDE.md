@@ -10,11 +10,13 @@ npm run build      # Build for Vercel deployment
 npm run typecheck  # Run TypeScript type checking (no emit)
 ```
 
-There IS a test suite — 44 files under `src/lib/__tests__/` and `src/__tests__/`, plus 6 under `server/__tests__/`, run in CI by
+There IS a test suite — 56 files under `src/lib/__tests__/` and `src/__tests__/`, plus 23 under `server/__tests__/`, run in CI by
 `npm test` (`vitest run && npm run test:server`).
 
-**The full run does NOT hang.** Measured 2026-09-03 on Node v26.3.0 / vitest 4.1.0:
-`npx vitest run` = **44 files, 779 tests, 2.2s**; `npm run test:server` = **70 tests, 0.16s**.
+**The full run does NOT hang.** Measured 2026-09-27 on Node v26.3.0 / vitest 4.1.0:
+`npx vitest run` = **56 files, 885 tests, ~6s**; `npm run test:server` = **456 tests, ~34s** — almost all of
+that is the two differential entitlement suites (`appstore-end-invariant` ~27s, `lifetime-refund-invariant`),
+which replay each scenario hour by hour. Slow is not hung.
 This paragraph previously said the full run hung on this Mac, and before that the file said there
 was no test suite at all — both were wrong, and the second was inherited from the first. If a run
 ever does hang, measure it before writing that down again.

@@ -143,7 +143,7 @@ test("a normal subscriber's clock is still extended (the fix must not fail close
   assert.ok(days > 30 && days < 40, `expected a ~35 day horizon, got ${days.toFixed(1)}`);
 });
 
-test("starting a subscription does not overwrite an existing lifetime", () => {
+test("starting a subscription does not overwrite an existing (purchased) lifetime", () => {
   reset();
   const id = seedLifetimeBuyer("both@example.com");
   post("/subscription-checkout", {
@@ -159,9 +159,24 @@ test("starting a subscription does not overwrite an existing lifetime", () => {
 
   const row = db.prepare("SELECT subscription_plan, pro_expires_at FROM users WHERE id = ?").get(id);
   assert.equal(row.pro_expires_at, null, "a new subscription dated a lifetime holder's expiry");
-  assert.equal(
-    row.subscription_plan,
-    "lifetime",
-    "subscription_plan was overwritten — that column is the ONLY record of a MANUAL lifetime grant",
-  );
+  assert.equal(hasLifetimeEntitlement(db, id), true, "the purchased lifetime must still be recognised (by its order row)");
+  // A PURCHASED lifetime is recorded by its order row, so the plan column is free to
+  // describe the subscription: keeping 'lifetime' over it filed that subscription's
+  // later yearly renewals as monthly (round 8, 2026-09-27).
+  assert.equal(row.subscription_plan, "monthly");
+});
+
+test("starting a subscription keeps a MANUAL lifetime grant's marker (its only record)", () => {
+  reset();
+  db.prepare(
+    `INSERT INTO users (email, tier, subscription_plan, pro_expires_at) VALUES ('manual@example.com', 'pro', 'lifetime', NULL)`,
+  ).run();
+  const id = db.prepare("SELECT id FROM users WHERE email = 'manual@example.com'").get().id;
+  post("/subscription-checkout", {
+    email: "manual@example.com", plan: "monthly", subscriptionId: "sub_m", provider: "lemonsqueezy", customerId: "cus_m",
+    status: "active", renewsAt: new Date(Date.now() + 30 * 86400000).toISOString(), testMode: false,
+  });
+  const row = db.prepare("SELECT subscription_plan, pro_expires_at FROM users WHERE id = ?").get(id);
+  assert.equal(row.subscription_plan, "lifetime", "subscription_plan was overwritten - that column is the ONLY record of a MANUAL lifetime grant");
+  assert.equal(row.pro_expires_at, null);
 });

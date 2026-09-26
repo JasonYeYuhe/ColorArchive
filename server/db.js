@@ -332,6 +332,11 @@ ensureColumn("subscribers", "is_test INTEGER DEFAULT 0");
 ensureColumn("users", "card_fingerprint TEXT");
 ensureColumn("users", "is_duplicate INTEGER DEFAULT 0");
 ensureColumn("users", "duplicate_suspects TEXT"); // JSON array of user ids
+// Set by server/renewal-grace.js to the clock it wrote, so the digest can say
+// "renewal-grace extended this" only when that is literally what happened —
+// inferring it from the gap between the two clocks misfires for trials (anchored
+// on trial_ends_at vs renews_at) and for hand extensions.
+ensureColumn("users", "renewal_grace_until TEXT");
 
 // Migrate plaintext API keys to hashed storage
 const crypto = require("crypto");

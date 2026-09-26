@@ -459,11 +459,20 @@ const staleRenewals = db.prepare(
 //
 // 12h of slack keeps an ordinary late webhook from paging anyone; this runs once a
 // day at 08:00 UTC, so a renewal due mid-morning is ~22h old by the next run.
+// This script opens data.db directly and never runs server/db.js's migrations, so a
+// column added there exists here only after the API process has restarted onto the
+// new schema. Selecting it unguarded killed the whole digest on such a database
+// (2026-09-24 review) — the tripwires it carries included.
+const hasGraceColumn = Boolean(
+  db.prepare("SELECT 1 AS yes FROM pragma_table_info('users') WHERE name = 'renewal_grace_until'").get(),
+);
+const gracedExpr = hasGraceColumn ? "substr(renewal_grace_until,1,19)" : "NULL";
 const overdueRenewals = db.prepare(
   `SELECT email,
           COALESCE(subscription_status,'unknown') AS status,
           substr(subscription_current_period_end,1,19) AS due_at,
           substr(pro_expires_at,1,19) AS locks_at,
+          ${gracedExpr} AS graced_until,
           CAST((julianday('now') - julianday(subscription_current_period_end)) * 24 AS INTEGER) AS hours_late
      FROM users
     WHERE ${REAL} AND payment_provider = 'lemonsqueezy'
@@ -484,7 +493,9 @@ const renewalsDue = db.prepare(
        -- announced 3 renewals due 2026-08-03 when the only real one is a single
        -- monthly subscriber due 08-22. Announcing phantom revenue as imminent is
        -- worse than announcing none.
-       AND payment_provider='lemonsqueezy' AND subscription_status='active'
+       -- on_trial: a trial's first charge is renewal-shaped, and the 3-day trials
+       -- (2026-09-23) would otherwise convert with no mention here.
+       AND payment_provider='lemonsqueezy' AND subscription_status IN ('active','on_trial')
        AND datetime(pro_expires_at) BETWEEN datetime('now') AND datetime('now','+7 day')
     ORDER BY pro_expires_at`
 ).all();
@@ -638,6 +649,12 @@ if (overdueRenewals.length) {
   lines.push("⏰ RENEWAL OVERDUE — renewal date passed and the provider has not advanced it:");
   for (const r of overdueRenewals) {
     lines.push(`  ${r.email}  [${r.status}]  was due ${r.due_at}Z (${r.hours_late}h ago)  →  locks out at ${r.locks_at}Z`);
+    // Only when renewal-grace itself wrote this clock (it records what it wrote in
+    // renewal_grace_until). Inferring it from the gap between the clocks was wrong
+    // for trials and for hand extensions — 2026-09-24 review.
+    if (r.graced_until && r.graced_until === r.locks_at) {
+      lines.push(`      ↳ that lock-out date is renewal-grace's extension (server/renewal-grace.js, cap: renewal + 10 days) — the provider has still not charged`);
+    }
   }
   lines.push("  This query does NOT read orders, so it cannot tell 'Lemon Squeezy never charged' from");
   lines.push("  'the charge landed but a stale subscription_updated rewound the dates' — check both.");
